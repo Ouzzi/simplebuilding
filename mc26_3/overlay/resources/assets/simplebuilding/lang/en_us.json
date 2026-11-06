@@ -3666,5 +3666,7 @@
   "block.simplebuilding.nihilith_ashwood_planks": "Nihilit Ashwood Planks",
   "item.simplebuilding.nihilith_ashwood_planks": "Nihilit Ashwood Planks",
   "block.simplebuilding.nihilith_duskwood_planks": "Nihilit Duskwood Planks",
-  "item.simplebuilding.nihilith_duskwood_planks": "Nihilit Duskwood Planks"
+  "item.simplebuilding.nihilith_duskwood_planks": "Nihilit Duskwood Planks",
+  "text.autoconfig.simplebuilding.option.enableSimpleBuildingtools": "Enable Simple Building Tools",
+  "text.autoconfig.simplebuilding.option.enableSimpleBuildingtools.@Tooltip": "Turns the bundled Simple Building Tools module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on."
 }

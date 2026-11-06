@@ -37,7 +37,8 @@
         "simplemobs",
         "simpleresonance",
         "simpleenchanting",
-        "simplepads"
+        "simplepads",
+        "simplebuildingtools"
       ],
       "optional": [
         "jei",
@@ -2518,7 +2519,9 @@
         "forge"
       ],
       "requires": [],
-      "optional": ["simplemobs"],
+      "optional": [
+        "simplemobs"
+      ],
       "checks": [
         "modules/simpleenddragonfight/tools/check_data.py"
       ],
@@ -5160,6 +5163,78 @@
       },
       "projects": {
         "fabric": ":modules:simplepads:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required",
+      "configSwitch": true
+    },
+    {
+      "id": "simplebuildingtools",
+      "name": "Simple Building Tools",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Building Tools",
+      "description": "Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant selection tool in 17 colors and the Blueprint with editor, picture import and cartography table copies.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simplebuildingtools/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplebuildingtools",
+        "catalogues": [
+          "modules/simplebuildingtools/fabric/src/main/java/com/simplebuilding/modules/simplebuildingtools/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplebuildingtools"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplebuildingtoolsGameTest",
+            "report": "integration/build/simplebuildingtools-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplebuildingtoolsStandaloneGameTest",
+              "report": "integration/build/standalone/simplebuildingtools-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplebuildingtools.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplebuildingtools/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplebuildingtools",
+        "shared": "modules/simplebuildingtools/shared",
+        "fabric": "modules/simplebuildingtools/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplebuildingtools/generated/resources",
+        "lang": "modules/simplebuildingtools/shared/resources/assets/simplebuildingtools/lang",
+        "wikiManual": "modules/simplebuildingtools/wiki/manual.json",
+        "balanceDir": "balance/simplebuildingtools"
+      },
+      "projects": {
+        "fabric": ":modules:simplebuildingtools:fabric"
       },
       "parent": "simplebuilding",
       "bundle": "required",

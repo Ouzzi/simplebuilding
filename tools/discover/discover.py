@@ -48,10 +48,7 @@ SB_TIPS = [
     # split stage 7: the sledgehammer tip is Simple Hammers' (simplehammers id below)
     ("chisel", ["*_chisel"], "Use on a block: next variant; sneak: back",
      "Auf Block benutzen: nächste Variante; Schleichen: zurück"),
-    ("building_wand", ["*_building_wand"], "Use on a block face: fills an area from your inventory",
-     "Auf Blockseite benutzen: füllt Fläche aus dem Inventar"),
-    ("blueprint", ["blueprint"], "Build it with a building wand in the other hand",
-     "Mit einem Baustab in der anderen Hand bauen"),
+    # b-btools07: the building wand and blueprint tips are Simple Building Tools' (simplebuildingtools id below)
     ("magnet", ["magnet"], "Hold it to pull in items; sneak to pause",
      "Halten zieht Items an; Schleichen pausiert"),
     # OW24-2 G2: the Transposer tip is Simple Gadgets' (simplegadgets id below; 26.2 keeps the class but loses the tip)
@@ -143,6 +140,13 @@ MODS = [
     # b-pads01 (04.11.): the pads and pressure plates moved here from SimpleBuilding; the hidden easter chain stays secret.
     dict(id="simplepads", ns=["simplepads"], cls="PadsDiscover", package="com.simplepads.discover",
          mixin_package="com.simplepads.mixin", own_packages=["com.simplepads."], secret=["simplepads:easter_smithing"]),
+    # b-btools07 (07.11.): wands, octants and blueprints moved here from SimpleBuilding (WF25-9).
+    dict(id="simplebuildingtools", ns=["simplebuildingtools"], cls="BuildingToolsDiscover", package="com.simplebuildingtools.discover",
+         mixin_package="com.simplebuildingtools.mixin", own_packages=["com.simplebuildingtools."],
+         tips=[("building_wand", ["*_building_wand"], "Use on a block face: fills an area from your inventory",
+                "Auf Blockseite benutzen: füllt Fläche aus dem Inventar"),
+               ("blueprint", ["blueprint"], "Build it with a building wand in the other hand",
+                "Mit einem Baustab in der anderen Hand bauen")]),
     dict(id="simpleores", ns=["simpleores"], cls="OresDiscover", package="com.simpleores.discover",
          own_packages=["com.simpleores."]),
     dict(id="simpleblocks", ns=["simpleblocks"], cls="BlocksDiscover", package="com.simpleblocks.discover",

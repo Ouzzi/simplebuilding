@@ -58,7 +58,8 @@
     "simpleenchanting",
     "simpleresonance",
     "simplefoundry",
-    "simplepads"
+    "simplepads",
+    "simplebuildingtools"
   ],
   "devMods": [
     "jei",

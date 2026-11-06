@@ -1,0 +1,2365 @@
+package com.simplebuildingtools.test;
+
+import com.simplebuildingtools.blueprint.BlueprintBuilder;
+import com.simplebuildingtools.blueprint.BlueprintCode;
+import com.simplebuildingtools.blueprint.BlueprintContent;
+import com.simplebuildingtools.blueprint.BlueprintExamples;
+import com.simplebuildingtools.blueprint.BlueprintFormats;
+import com.simplebuildingtools.blueprint.BlueprintJobs;
+import com.simplebuildingtools.blueprint.BlueprintMaterials;
+import com.simplebuildingtools.blueprint.BlueprintModel;
+import com.simplebuildingtools.blueprint.BlueprintPicture;
+import com.simplebuildingtools.blueprint.BlueprintScanner;
+import com.simplebuildingtools.blueprint.BlueprintTiers;
+import com.simplebuildingtools.component.BtComponents;
+import com.simplebuildingtools.items.BtItems;
+import com.simplebuildingtools.items.custom.BlueprintItem;
+import com.simplebuildingtools.networking.BlueprintEditPayload;
+import com.simplebuildingtools.networking.BlueprintRotatePayload;
+import com.simplebuildingtools.networking.ModMessageHandlers;
+import com.simplebuildingtools.util.OctantShape;
+import java.util.List;
+import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.inventory.CartographyTableMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.phys.Vec3;
+
+/**
+ * Die Blaupause (docs/BLUEPRINT.md): Bausprache, Materialliste, Scan am Kartentisch, Bauen mit
+ * dem Baustab, Drehung, Stufengrenze, Editor-Paket und Rezept.
+ *
+ * <p>Der Bau-Ort ist in allen Bautests derselbe: geklickt wird die Oberseite von {@link #CLICKED}
+ * (Obsidian), gebaut wird also ab {@code CLICKED.above()}; das Bauwerk liegt mittig (x) auf dem
+ * Zielblock und waechst in Blickrichtung.
+ */
+public final class BlueprintTests {
+    private static final BlockPos CLICKED = new BlockPos(3, 1, 3);
+    private static final BlockPos TARGET = CLICKED.above();
+    /** Laufzeit von {@link #signPacketsShareOneParseBudgetPerPlayer}: 40 Ticks Wartezeit plus Luft. */
+    public static final int SIGN_BUDGET_MAX_TICKS = 100;
+
+    private BlueprintTests() {
+    }
+
+    // =====================================================================================
+    // BAUSPRACHE
+    // =====================================================================================
+
+    /**
+     * Der Parser liest die Beispiele der Spezifikation (Eckenform des Besitzers, Achsenform,
+     * Eigenschaften, Alias, Wiederholung, Raeumen mit air), meldet Fehler mit Schluessel und Stelle,
+     * und der Serialisierer schreibt ein Modell so, dass es genau so zurueckkommt - mit
+     * zusammengefassten Quadern statt einer Zeile je Block.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bereich, der ein Ende auslaesst (a..b nicht
+     * inklusiv), Eigenschaften, die beim Schreiben verloren gehen oder beim Lesen nicht greifen,
+     * ein Alias, der nicht aufgeloest wird, air, das nicht raeumt, eine Wiederholung mit falscher
+     * Schrittweite, ein Serialisierer, der nicht zusammenfasst.
+     */
+    public static void codeRoundTripsAndParsesTheSpecExamples(GameTestHelper helper) {
+        // Eckenform wie im Wunsch des Besitzers: stone 1,1,1..1,1,5 -> fuenf Steine in z.
+        BlueprintCode.ParseResult owner = BlueprintCode.parse("stone 1,1,1..1,1,5");
+        helper.assertTrue(owner.ok(), "the owner's example did not parse: " + owner.problems());
+        helper.assertTrue(owner.model().size() == 5, "stone 1,1,1..1,1,5 should be five blocks, got " + owner.model().size());
+        for (int z = 1; z <= 5; z++) {
+            helper.assertTrue(owner.model().get(1, 1, z) == Blocks.STONE.defaultBlockState(), "no stone at 1,1," + z);
+        }
+
+        String code = String.join("\n",
+                "# Huette",
+                "$treppe = oak_stairs[facing=east,half=top]",
+                "minecraft:cobblestone 0..4,0,0..4",
+                "oak_planks 0..4,1..2,0..4",
+                "air 1..3,1..2,1..3          # innen hohl",
+                "$treppe 0..4,3,0",
+                "oak_fence 0,4,0*3@2,0,0");
+        BlueprintCode.ParseResult hut = BlueprintCode.parse(code);
+        helper.assertTrue(hut.ok(), "the hut example did not parse: " + hut.problems());
+        BlueprintModel m = hut.model();
+        helper.assertTrue(m.get(2, 0, 2) == Blocks.COBBLESTONE.defaultBlockState(), "floor missing");
+        helper.assertTrue(m.get(2, 1, 2) == null, "air did not clear the inside of the hut");
+        helper.assertTrue(m.get(0, 2, 2) == Blocks.OAK_PLANKS.defaultBlockState(), "wall missing");
+        BlockState stair = Blocks.OAK_STAIRS.defaultBlockState()
+                .setValue(StairBlock.FACING, Direction.EAST).setValue(StairBlock.HALF, Half.TOP);
+        helper.assertTrue(stair.equals(m.get(4, 3, 0)), "the alias did not carry its properties: " + m.get(4, 3, 0));
+        for (int x : new int[]{0, 2, 4}) {
+            helper.assertTrue(m.get(x, 4, 0) != null && m.get(x, 4, 0).is(Blocks.OAK_FENCE), "repetition missing a fence at x=" + x);
+        }
+        helper.assertTrue(m.get(1, 4, 0) == null && m.get(3, 4, 0) == null, "repetition filled the gaps");
+        int expected = 25 + 2 * 25 - 2 * 9 + 5 + 3;
+        helper.assertTrue(m.size() == expected, "hut has " + m.size() + " blocks instead of " + expected);
+
+        // Fehler: unbekannter Block, Koordinate ausserhalb, falsche Eigenschaft - mit Schluessel und Zeile.
+        BlueprintCode.ParseResult bad = BlueprintCode.parse("stne 0,0,0\nstone 0,0,256\noak_stairs[facing=up] 0,0,0\nstone");
+        List<String> keys = bad.problems().stream().map(BlueprintCode.Problem::key).toList();
+        helper.assertTrue(keys.equals(List.of("unknown_block", "coordinate_range", "bad_value", "no_region")),
+                "unexpected problems " + keys);
+        helper.assertTrue(bad.problems().get(1).line() == 1 && bad.problems().get(0).start() == 0 && bad.problems().get(0).end() == 4,
+                "problem positions are off: " + bad.problems());
+        helper.assertTrue(bad.styles()[0] == BlueprintCode.STYLE_ERROR && hut.styles()[0] == BlueprintCode.STYLE_COMMENT,
+                "the highlighter did not mark the error / the comment");
+
+        // Rundreise: serialisieren, neu lesen, gleiches Modell - und zusammengefasst.
+        String written = BlueprintCode.serialize(m);
+        BlueprintCode.ParseResult back = BlueprintCode.parse(written);
+        helper.assertTrue(back.ok(), "serialised code does not parse: " + back.problems() + "\n" + written);
+        helper.assertTrue(back.model().equals(m), "round trip changed the model:\n" + written);
+        helper.assertTrue(written.lines().filter(l -> !l.startsWith("#")).count() <= 10,
+                "the serialiser did not merge runs into boxes:\n" + written);
+        BlueprintModel slab = BlueprintCode.parse("stone 0..4,0,0..4").model();
+        helper.assertTrue(BlueprintCode.countBoxes(slab) == 1, "a 5x1x5 plate should be one box");
+        helper.assertTrue(BlueprintCode.serialize(slab).endsWith("stone 0..4,0,0..4"), "unexpected code: " + BlueprintCode.serialize(slab));
+        helper.succeed();
+    }
+
+    /**
+     * Grenzen: der Code hat eine Hoechstlaenge (sonst passt er nicht mehr in das Item), das Raster
+     * reicht von 0 bis 255, das Ausroll-Budget (4 194 304 Stellen) faengt Riesen-Wiederholungen vor
+     * dem Ausrollen ab, die Baustab-Stufen schaffen je einen Wuerfel (16, 32, 48, 64, 128, 256), und
+     * der Kartentisch nimmt Auswahlen bis 256 je Kante an, 257 nicht.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine fehlende Laengenpruefung, ein Raster, das
+     * nicht bis 255 reicht oder darueber hinaus, eine Wiederholung, die erst ausgerollt und dann
+     * gezaehlt wird, eine vertauschte Stufenzuordnung, eine falsche Scan-Grenze.
+     */
+    public static void sizeLimitsCapTheCodeAndMapWandTiers(GameTestHelper helper) {
+        String tooLong = "stone 0,0,0\n" + "#".repeat(BlueprintCode.MAX_CODE_LENGTH);
+        List<String> keys = BlueprintCode.parse(tooLong).problems().stream().map(BlueprintCode.Problem::key).toList();
+        helper.assertTrue(keys.contains("too_long"), "an over-long code was accepted: " + keys);
+
+        BlueprintCode.ParseResult corner = BlueprintCode.parse("stone 255,255,255 0,0,0");
+        helper.assertTrue(corner.ok() && corner.model().maxEdge() == 256, "the far corner 255,255,255 is not part of the grid: " + corner.problems());
+        List<String> outside = BlueprintCode.parse("stone 0,256,0").problems().stream().map(BlueprintCode.Problem::key).toList();
+        helper.assertTrue(outside.equals(List.of("coordinate_range")), "256 was accepted as a coordinate: " + outside);
+
+        long start = System.nanoTime();
+        BlueprintCode.ParseResult huge = BlueprintCode.parse("stone 0..255,0..255,0..64");
+        helper.assertTrue(huge.problems().stream().anyMatch(p -> p.key().equals("too_many_cells")),
+                "a 256x256x65 block (over the budget) was not refused: " + huge.problems());
+        helper.assertTrue(huge.model().isEmpty(), "the refused region was applied anyway");
+        BlueprintCode.ParseResult repeated = BlueprintCode.parse("stone 0..255,0..255,0..15*5@0,0,16");
+        helper.assertTrue(repeated.problems().stream().anyMatch(p -> p.key().equals("too_many_cells")) && repeated.model().isEmpty(),
+                "a repetition over the budget was not refused before expanding: " + repeated.problems());
+        helper.assertTrue(System.nanoTime() - start < 2_000_000_000L, "refusing the giants took too long - they were expanded first");
+
+        int[][] expected = {
+                {edge(BtItems.COPPER_BUILDING_WAND), 16}, {edge(BtItems.IRON_BUILDING_WAND), 32},
+                {edge(BtItems.GOLD_BUILDING_WAND), 48}, {edge(BtItems.DIAMOND_BUILDING_WAND), 64},
+                {edge(BtItems.NETHERITE_BUILDING_WAND), 128}, {edge(BtItems.ENDERITE_BUILDING_WAND), 256}};
+        for (int[] pair : expected) {
+            helper.assertTrue(pair[0] == pair[1], "wand edge " + pair[0] + " instead of " + pair[1]);
+        }
+        helper.assertTrue(BlueprintTiers.tierIndexFor(16) == 0 && BlueprintTiers.tierIndexFor(17) == 1
+                        && BlueprintTiers.tierIndexFor(128) == 4 && BlueprintTiers.tierIndexFor(129) == 5
+                        && BlueprintTiers.tierIndexFor(256) == 5 && BlueprintTiers.tierIndexFor(257) == -1,
+                "tier lookup is off");
+        BlueprintModel line = BlueprintCode.parse("stone 0..16,0,0").model();
+        helper.assertTrue(line.maxEdge() == 17 && line.sizeX() == 17 && line.sizeY() == 1, "bounding box of a 17 line is wrong");
+
+        // Scan-Grenze: 256 je Kante geht (hoechstens "nicht geladen"), 257 ist zu gross.
+        BlockPos table = helper.absolutePos(new BlockPos(3, 1, 3));
+        Object ok = BlueprintScanner.start(helper.getLevel(), table,
+                octant(helper, new BlockPos(0, 1, 0), new BlockPos(255, 1, 0)), new ItemStack(BtItems.BLUEPRINT));
+        helper.assertTrue(!"too_large".equals(scanError(ok)), "a 256 wide selection was refused as too large");
+        Object big = BlueprintScanner.start(helper.getLevel(), table,
+                octant(helper, new BlockPos(0, 1, 0), new BlockPos(256, 1, 0)), new ItemStack(BtItems.BLUEPRINT));
+        helper.assertTrue("too_large".equals(scanError(big)), "a 257 wide selection was accepted: " + scanError(big));
+        helper.succeed();
+    }
+
+
+    /**
+     * Formen und Variablen (docs/BLUEPRINT.md 1.8) duerfen keinen alten Code anders lesen: die
+     * Beispielvorlagen, das Beispiel der Spezifikation und ein Satz Randfaelle ergeben Stelle fuer
+     * Stelle dasselbe Modell wie vor der Erweiterung (Fingerabdruck ueber Schluessel und Zustand,
+     * aufgenommen mit dem alten Parser), und alte Fehler behalten ihren Schluessel.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Ausdrucksparser, der {@code *} der
+     * Wiederholung als Multiplikation liest, {@code +3} oder {@code 4..0} anders deutet, die Eckenform
+     * mit der Achsenform verwechselt, oder ein Fehler, der jetzt einen anderen Schluessel traegt.
+     */
+    public static void codeExtensionsKeepExistingCodesIdentical(GameTestHelper helper) {
+        java.util.Map<String, String> codes = new java.util.TreeMap<>();
+        for (List<String> names : BlueprintExamples.TEMPLATES.values()) {
+            for (String name : names) {
+                codes.put(name, BlueprintExamples.code(name));
+            }
+        }
+        codes.put("spec_hut", String.join("\n",
+                "# Huette 5x6x5",
+                "$dach = oak_stairs[facing=north]",
+                "cobblestone 0..4,0,0..4",
+                "oak_planks 0..4,1..3,0..4",
+                "air 1..3,1..3,1..3          # innen hohl",
+                "glass_pane 2,2,0            # Fenster",
+                "oak_door 2,1,4 ",
+                "oak_door[half=upper] 2,2,4",
+                "$dach 0..4,4,0",
+                "oak_fence 0,5,0*3@2,0,0"));
+        codes.put("edges", String.join("\n",
+                "stone 4..0,0,0 +3,1,0 007,2,1",
+                "stone 1,1,1..1,1,5 9,9,9..5,5,5",
+                "$a=birch_planks",
+                "$b =spruce_planks",
+                "$c= dark_oak_planks",
+                "$a 20,0,0*4@-2,1,0", "$b 30..31,0,30..31*3@0,2,0",
+                "$c 40,0,40..41,1,41*2@0,0,-3",
+                "oak_stairs[ facing = east , half=top ] 50,0,50",
+                "air 5..7,5..7,5..7"));
+        StringBuilder actual = new StringBuilder();
+        for (java.util.Map.Entry<String, String> e : codes.entrySet()) {
+            BlueprintCode.ParseResult parsed = BlueprintCode.parse(e.getValue());
+            helper.assertTrue(parsed.ok(), e.getKey() + ": " + parsed.problems());
+            actual.append(e.getKey()).append('=').append(parsed.model().size()).append(':').append(fingerprint(parsed.model())).append(';');
+        }
+        String expected = "cherry_house=230:424641387810387822;"
+                + "cherry_pavilion=112:8282384012034576129;"
+                + "desert_house=180:4047871102820476003;"
+                + "desert_temple_ruin=112:-5342107089306117199;"
+                + "desert_well=67:2234502297022560318;"
+                + "edges=143:8131451746016288266;"
+                + "plains_house=228:5395944607289736718;"
+                + "plains_ruined_portal=33:8013040065110859650;"
+                + "plains_well=120:7084206482996880792;"
+                + "savanna_house=200:-4355318341974437924;"
+                + "savanna_market=38:5324400676123251613;"
+                + "snow_house=229:2623574399621251406;"
+                + "snow_igloo=123:4017553982951991050;"
+                + "spec_hut=81:-4050187384321915416;"
+                + "swamp_house=240:-1059655035786438597;"
+                + "swamp_witch_hut=252:-2313849501716298050;"
+                + "taiga_camp=102:-2305705871513379883;"
+                + "taiga_house=284:-3754076171950084130;";
+        helper.assertTrue(actual.toString().equals(expected), "old codes parse differently now:\n" + actual + "\ninstead of\n" + expected);
+
+        String[][] oldErrors = {
+                {"stone 1,2", "bad_region"}, {"stone 1,2,x", "bad_region"}, {"stone 0,0,0*5", "bad_repeat"},
+                {"stone 0,0,0*0@1,0,0", "repeat_range"}, {"stone 0,0,0*999999@0,0,0", "repeat_range"},
+                {"stone 250,0,0*5@2,0,0", "repeat_outside"}, {"stone -1,0,0", "coordinate_range"},
+                {"stone 0,0,0..1,1", "bad_region"}, {"stone 0..1..2,0,0", "bad_region"}, {"$1a = stone", "bad_alias_name"},
+                {"$a =", "alias_without_block"}, {"$a = stone dirt", "alias_extra"}, {"$zz 0,0,0", "unknown_alias"},
+                {"$a = stone\n$b = $a", "alias_of_alias"}, {"stone 0,0,0*2@1,0", "bad_repeat"}};
+        for (String[] c : oldErrors) {
+            List<String> keys = BlueprintCode.parse(c[0]).problems().stream().map(BlueprintCode.Problem::key).toList();
+            helper.assertTrue(keys.equals(List.of(c[1])), c[0].replace('\n', '|') + " -> " + keys + " instead of " + c[1]);
+        }
+        // Einfaerbung alter Regionen: Ziffern und Minus Zahl, der Rest Operator.
+        byte[] styles = BlueprintCode.parse("stone 1..2,3,4*2@-1,0,0").styles();
+        String region = "1..2,3,4*2@-1,0,0";
+        for (int i = 0; i < region.length(); i++) {
+            char ch = region.charAt(i);
+            byte want = Character.isDigit(ch) || ch == '-' ? BlueprintCode.STYLE_NUMBER : BlueprintCode.STYLE_OPERATOR;
+            helper.assertTrue(styles[6 + i] == want, "style of '" + ch + "' at " + i + " changed");
+        }
+        helper.succeed();
+    }
+
+    /** Stabiler Fingerabdruck eines Modells: Schluessel und Kurzform des Zustands in Schluesselreihenfolge. */
+    private static long fingerprint(BlueprintModel model) {
+        long h = model.size();
+        for (int k : model.sortedKeys()) {
+            h = h * 31 + k;
+            h = h * 31 + BlueprintCode.spec(model.blocks().get(k)).hashCode();
+        }
+        return h;
+    }
+
+    /**
+     * Formen der Bausprache (docs/BLUEPRINT.md 1.8): jede Form mit Zahlenform, von Hand gezaehlten
+     * Stellen und Bounding Box; die Boxform fuellt Stelle fuer Stelle dieselbe Figur wie ein Oktant
+     * mit dieser Auswahl ({@link OctantShape}), auch in Eckenform rueckwaerts; Linie, Wiederholung,
+     * air mit Form, Fehler an der richtigen Stelle und die Budgets gegen Riesenformen.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Radius, der eine Stelle zu gross oder zu klein
+     * rechnet, eine Kuppel, die nicht die obere Haelfte der Kugel ist, eine Form, die eigene Geometrie
+     * statt der des Oktanten benutzt, eine Linie, die rueckwaerts anders liegt, eine Riesenform, die vor
+     * dem Budget ausgerollt wird oder ohne Formbudget beliebig viel Pruefarbeit kostet.
+     */
+    public static void codeShapesFillTheOctantFigures(GameTestHelper helper) {
+        // Zahlenform: Radius r heisst Abstand der Mittelpunkte <= r + 1/2, also x^2+y^2+z^2 <= r^2 + r.
+        BlueprintModel ball = parsedOk(helper, "stone sphere(5,5,5,2)");
+        expectBox(helper, "sphere(5,5,5,2)", ball, 81, 3, 3, 3, 7, 7, 7);
+        helper.assertTrue(ball.get(5, 5, 5) != null && ball.get(7, 5, 5) != null && ball.get(7, 6, 5) != null
+                && ball.get(7, 7, 5) == null && ball.get(3, 3, 3) == null, "sphere(5,5,5,2) has the wrong outline");
+        expectBox(helper, "cylinder(4,0,4,2,3)", parsedOk(helper, "stone cylinder(4,0,4,2,3)"), 63, 2, 0, 2, 6, 2, 6);
+        expectBox(helper, "pyramid(4,0,4,2,3)", parsedOk(helper, "stone pyramid(4,0,4,2,3)"), 35, 2, 0, 2, 6, 2, 6);
+        expectBox(helper, "box(1,2,3,4,5,6)", parsedOk(helper, "stone box(1,2,3,4,5,6)"), 120, 1, 2, 3, 4, 6, 8);
+        BlueprintModel dome = parsedOk(helper, "stone dome(5,0,5,2)");
+        expectBox(helper, "dome(5,0,5,2)", dome, 51, 3, 0, 3, 7, 2, 7);
+        // Kuppel = obere Haelfte der Kugel mit demselben Mittelpunkt.
+        BlueprintModel high = parsedOk(helper, "stone sphere(9,9,9,4)");
+        BlueprintModel cap = parsedOk(helper, "stone dome(9,9,9,4)");
+        int upper = 0;
+        for (int k : high.sortedKeys()) {
+            if (BlueprintModel.keyY(k) >= 9) {
+                upper++;
+                helper.assertTrue(cap.blocks().containsKey(k), "dome misses a cell of the upper half sphere");
+            }
+        }
+        helper.assertTrue(cap.size() == upper, "dome has " + cap.size() + " cells, the upper half sphere " + upper);
+
+        // Boxform = Oktant-Figur mit derselben Auswahl, auch in Eckenform rueckwaerts geschrieben.
+        String[][] figures = {{"sphere", "SPHERE"}, {"cylinder", "CYLINDER"}, {"pyramid", "PYRAMID"}, {"box", "CUBOID"}};
+        for (String[] f : figures) {
+            BlueprintModel m = parsedOk(helper, "stone " + f[0] + "(1..9,0..5,2..8)");
+            BlueprintModel corner = parsedOk(helper, "stone " + f[0] + "(9,5,8..1,0,2)");
+            helper.assertTrue(m.equals(corner), f[0] + ": corner form differs from axis form");
+            java.util.function.Predicate<BlockPos> inside = OctantShape.predicate(
+                    com.simplebuildingtools.items.custom.OctantItem.SelectionShape.valueOf(f[1]), Direction.UP,
+                    new net.minecraft.world.phys.AABB(1, 0, 2, 10, 6, 9));
+            int n = 0;
+            for (int x = 0; x <= 10; x++) {
+                for (int y = 0; y <= 6; y++) {
+                    for (int z = 0; z <= 9; z++) {
+                        boolean want = x <= 9 && y <= 5 && z >= 2 && z <= 8 && x >= 1 && inside.test(new BlockPos(x, y, z));
+                        helper.assertTrue(want == (m.get(x, y, z) != null), f[0] + " differs from the octant figure at " + x + "," + y + "," + z);
+                        n += want ? 1 : 0;
+                    }
+                }
+            }
+            helper.assertTrue(n > 0 && n == m.size(), f[0] + ": " + m.size() + " cells, octant " + n);
+        }
+
+        // Linie: gerundet, in beide Richtungen dieselbe.
+        BlueprintModel line = parsedOk(helper, "stone line(0,0,0..4,2,0)");
+        helper.assertTrue(line.size() == 5 && line.get(0, 0, 0) != null && line.get(1, 1, 0) != null && line.get(2, 1, 0) != null
+                && line.get(3, 2, 0) != null && line.get(4, 2, 0) != null, "line(0,0,0..4,2,0) " + line.describe().keySet());
+        helper.assertTrue(line.equals(parsedOk(helper, "stone line(4,2,0..0,0,0)")), "the line differs when written backwards");
+        BlueprintModel diagonal = parsedOk(helper, "stone line(2,2,2..5,5,5)");
+        helper.assertTrue(diagonal.size() == 4 && diagonal.get(3, 3, 3) != null, "3D diagonal " + diagonal.size());
+        helper.assertTrue(parsedOk(helper, "stone line(7,7,7..7,7,7)").size() == 1, "a one-point line is not one cell");
+
+        // Wiederholung und air mit Formen.
+        BlueprintModel copies = parsedOk(helper, "stone sphere(2,2,2,1)*3@5,0,0");
+        helper.assertTrue(copies.size() == 3 * 19 && copies.get(12, 2, 2) != null && copies.get(14, 3, 2) == null,
+                "three repeated balls of radius 1 should be 57 cells, got " + copies.size());
+        BlueprintModel carved = parsedOk(helper, "stone box(0,0,0,5,5,5)\nair sphere(2,2,2,1)");
+        helper.assertTrue(carved.size() == 125 - 19 && carved.get(2, 2, 2) == null && carved.get(0, 0, 0) != null,
+                "air with a shape did not carve the ball: " + carved.size());
+        BlueprintModel mixed = parsedOk(helper, "stone 0,0,0 box(10,0,0,2,1,1) 20..21,0,0");
+        helper.assertTrue(mixed.size() == 5, "shapes and boxes on one line: " + mixed.size());
+
+        // Fehler zeigen auf das Wort, das falsch ist.
+        BlueprintCode.Problem unknown = onlyProblem(helper, "stone cube(1,2,3,4)", "unknown_shape");
+        helper.assertTrue(unknown.start() == 6 && unknown.end() == 10, "unknown_shape should mark 'cube': " + unknown);
+        onlyProblem(helper, "stone hollow_line(0,0,0..1,1,1)", "unknown_shape");
+        onlyProblem(helper, "stone sphere(1,2)", "bad_shape_args");
+        onlyProblem(helper, "stone line(0..4,0,0)", "bad_shape_args");
+        onlyProblem(helper, "stone sphere(5,5,5,2", "bad_region");
+        BlueprintCode.Problem size = onlyProblem(helper, "stone sphere(5,5,5,-1)", "shape_size");
+        helper.assertTrue(size.start() == 19 && size.end() == 21, "shape_size should mark '-1': " + size);
+        onlyProblem(helper, "stone cylinder(5,5,5,1,0)", "shape_size");
+        BlueprintCode.Problem edge = onlyProblem(helper, "stone sphere(0,5,5,1)", "coordinate_range");
+        helper.assertTrue(edge.args().get(0).equals("-1"), "the ball leaving the grid should name -1: " + edge);
+        onlyProblem(helper, "stone sphere(128,128,128,200)", "coordinate_range");
+        onlyProblem(helper, "stone sphere(254,5,5,2)*2@3,0,0", "coordinate_range");
+        onlyProblem(helper, "stone sphere(5,5,5,2)*2@250,0,0", "repeat_outside");
+
+        // Budgets: eine massive Riesenkugel wird vor dem Ausrollen abgelehnt, eine hohle passt, zwei
+        // hohle ueberschreiten das Formbudget (Pruefarbeit), nicht das Stellenbudget.
+        long start = System.nanoTime();
+        BlueprintCode.ParseResult giant = BlueprintCode.parse("stone sphere(127,127,127,127)");
+        helper.assertTrue(giant.problems().stream().map(BlueprintCode.Problem::key).toList().equals(List.of("too_many_cells")) && giant.model().isEmpty(),
+                "a solid ball of radius 127 (about 8.7 million cells) was not refused: " + giant.problems());
+        BlueprintModel shell = parsedOk(helper, "stone hollow_sphere(127,127,127,127)");
+        helper.assertTrue(shell.size() > 100_000 && shell.size() < BlueprintCode.MAX_EXPANDED_CELLS && shell.maxEdge() == 255,
+                "hollow ball of radius 127: " + shell.size() + " cells, edge " + shell.maxEdge());
+        BlueprintCode.ParseResult twice = BlueprintCode.parse("stone hollow_sphere(127,127,127,127)\nglass hollow_sphere(127,127,127,126)");
+        helper.assertTrue(twice.problems().stream().map(BlueprintCode.Problem::key).toList().equals(List.of("shape_volume")),
+                "two giant shapes should exceed the shape budget: " + twice.problems());
+        helper.assertTrue(twice.problems().get(0).line() == 1, "the shape budget error is not on the second line");
+        helper.assertTrue(System.nanoTime() - start < 10_000_000_000L, "giant shapes took too long");
+
+        // Einfaerbung: Formwort als Eigenschaft, Zahlen als Zahl.
+        byte[] styles = BlueprintCode.parse("stone sphere(5,5,5,2)").styles();
+        helper.assertTrue(styles[6] == BlueprintCode.STYLE_PROPERTY && styles[11] == BlueprintCode.STYLE_PROPERTY
+                && styles[12] == BlueprintCode.STYLE_OPERATOR && styles[13] == BlueprintCode.STYLE_NUMBER, "shape highlighting is off");
+        helper.assertTrue(BlueprintCode.shapeWords().containsAll(List.of("box", "sphere", "dome", "cylinder", "pyramid", "line",
+                "hollow_box", "hollow_sphere", "hollow_dome", "hollow_cylinder", "hollow_pyramid")) && !BlueprintCode.shapeWords().contains("hollow_line"),
+                "shape words " + BlueprintCode.shapeWords());
+        helper.succeed();
+    }
+
+    /**
+     * {@code hollow_} laesst nur die Huelle einer Form stehen: Stellen der Figur mit mindestens einem
+     * der sechs Nachbarn ausserhalb (wie "Hohl" am Oktanten). Deckel und Boden gehoeren dazu.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Huelle, die Stellen im Innern behaelt, Randstellen
+     * verliert, Nachbarn diagonal zaehlt oder den Rand der Box nicht als "aussen" nimmt.
+     */
+    public static void codeHollowShapesKeepOnlyTheShell(GameTestHelper helper) {
+        BlueprintModel box = parsedOk(helper, "stone hollow_box(0,0,0,5,5,5)");
+        helper.assertTrue(box.size() == 125 - 27 && box.get(2, 2, 2) == null && box.get(0, 2, 2) != null && box.get(2, 4, 2) != null,
+                "hollow 5x5x5 box should be 98 cells, got " + box.size());
+        helper.assertTrue(box.equals(parsedOk(helper, "stone hollow_box(0..4,0..4,0..4)")), "hollow box: box form differs");
+        // Zylinder r=2: je Schicht 21 Stellen, innen 3x3 -> Boden 21 + Ring 12 + Deckel 21.
+        BlueprintModel tube = parsedOk(helper, "stone hollow_cylinder(4,0,4,2,3)");
+        helper.assertTrue(tube.size() == 54 && tube.get(4, 1, 4) == null && tube.get(4, 0, 4) != null && tube.get(6, 1, 4) != null,
+                "hollow cylinder should be 54 cells, got " + tube.size());
+        // Pyramide: Grundflaeche voll (25), mittlere Schicht ohne Mitte (8), Spitze (1).
+        BlueprintModel pyramid = parsedOk(helper, "stone hollow_pyramid(4,0,4,2,3)");
+        helper.assertTrue(pyramid.size() == 34 && pyramid.get(4, 1, 4) == null, "hollow pyramid should be 34 cells, got " + pyramid.size());
+        // Kugel: gegen die massive Kugel nachgerechnet.
+        BlueprintModel solid = parsedOk(helper, "stone sphere(8,8,8,4)");
+        BlueprintModel hollow = parsedOk(helper, "stone hollow_sphere(8,8,8,4)");
+        helper.assertTrue(hollow.get(8, 8, 8) == null && hollow.get(12, 8, 8) != null && hollow.size() < solid.size(), "hollow sphere keeps its centre");
+        for (int k : solid.sortedKeys()) {
+            int x = BlueprintModel.keyX(k), y = BlueprintModel.keyY(k), z = BlueprintModel.keyZ(k);
+            boolean interior = solid.get(x - 1, y, z) != null && solid.get(x + 1, y, z) != null && solid.get(x, y - 1, z) != null
+                    && solid.get(x, y + 1, z) != null && solid.get(x, y, z - 1) != null && solid.get(x, y, z + 1) != null;
+            helper.assertTrue(interior == (hollow.get(x, y, z) == null), "hollow sphere wrong at " + x + "," + y + "," + z);
+        }
+        for (int k : hollow.sortedKeys()) {
+            helper.assertTrue(solid.blocks().containsKey(k), "hollow sphere has a cell outside the solid one");
+        }
+        // Kuppel: der Boden bleibt ganz (die Unterkante der Box ist aussen), innen hohl.
+        BlueprintModel dome = parsedOk(helper, "stone hollow_dome(8,0,8,3)");
+        BlueprintModel full = parsedOk(helper, "stone dome(8,0,8,3)");
+        long floorFull = java.util.Arrays.stream(full.sortedKeys()).filter(k -> BlueprintModel.keyY(k) == 0).count();
+        long floorHollow = java.util.Arrays.stream(dome.sortedKeys()).filter(k -> BlueprintModel.keyY(k) == 0).count();
+        helper.assertTrue(floorFull > 0 && floorHollow == floorFull && dome.get(8, 1, 8) == null && dome.size() < full.size(),
+                "hollow dome: floor " + floorHollow + "/" + floorFull + ", size " + dome.size() + "/" + full.size());
+        // Eine Form, die zu duenn ist, hat kein Inneres: hohl = massiv.
+        helper.assertTrue(parsedOk(helper, "stone hollow_box(0,0,0,2,9,2)").size() == 36, "a 2 wide hollow box lost cells");
+        helper.succeed();
+    }
+
+    /**
+     * Variablen: {@code $name = Ausdruck} mit ganzen Zahlen, {@code + - * / %}, Klammern und
+     * Vorzeichen, benutzbar in Koordinaten, Bereichen, Wiederholungszahl und Schritt sowie in den
+     * Groessen der Formen; Neudefinition gilt ab der naechsten Zeile. Fehler: unbekannte Variable,
+     * zu grosse Zahl, Division durch null, Alias als Zahl, Variable als Block, kaputte Ausdruecke,
+     * zu tiefe Klammern - jeweils mit der Stelle des Wortes.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> Punkt- vor Strichrechnung falsch, Division, die
+     * zur Null statt nach unten rundet, eine Variable, die in einer Region nicht ersetzt wird, ein
+     * Fehler ohne oder mit falscher Stelle, ein Ausdruck, der ueber die Grenzen hinaus rechnet oder mit
+     * tiefen Klammern den Stapel sprengt.
+     */
+    public static void codeVariablesComputeCoordinatesSizesAndCounts(GameTestHelper helper) {
+        String code = String.join("\n",
+                "$w = 4",
+                "$h = $w * 2 - 1          # 7",
+                "$n = ($h + 1) / 4        # 2",
+                "$m=7 % 3 - -1            # 2",
+                "stone 0..$w,0,0..$w-1    # 5 x 1 x 4",
+                "oak_planks 0,1..$h,0",
+                "glass 10,0,10*$n+1@$m,0,0",
+                "cobblestone sphere(30,10,30,$n)",
+                "dirt ($w*3),0,20",
+                "$w = $w + 1",
+                "gold_block $w,20,20",
+                "$i = -7 / 2              # abgerundet: -4",
+                "iron_block $i+10,30,30",
+                "diamond_block ( 2 + 3 ),40,40",
+                "emerald_block sphere(50, 50, 50, $m - 1)",
+                "$roof = oak_stairs[facing=north]",
+                "$roof 60,0,60");
+        BlueprintCode.ParseResult parsed = BlueprintCode.parse(code);
+        helper.assertTrue(parsed.ok(), "the variable example did not parse: " + parsed.problems());
+        BlueprintModel m = parsed.model();
+        helper.assertTrue(m.get(4, 0, 3) != null && m.get(4, 0, 4) == null && m.get(5, 0, 0) == null, "0..$w,0,0..$w-1 is not 5x1x4");
+        helper.assertTrue(m.get(0, 7, 0) != null && m.get(0, 8, 0) == null, "$h should be 7");
+        helper.assertTrue(m.get(10, 0, 10) != null && m.get(12, 0, 10) != null && m.get(14, 0, 10) != null && m.get(16, 0, 10) == null,
+                "the repetition *$n+1@$m,0,0 should give three copies two apart");
+        helper.assertTrue(m.get(12, 0, 20) != null && m.get(12, 0, 20).is(Blocks.DIRT), "($w*3) should be 12");
+        helper.assertTrue(m.get(5, 20, 20) != null && m.get(5, 20, 20).is(Blocks.GOLD_BLOCK), "the redefined $w should be 5");
+        helper.assertTrue(m.get(6, 30, 30) != null && m.get(6, 30, 30).is(Blocks.IRON_BLOCK), "-7 / 2 should round down to -4");
+        helper.assertTrue(m.get(5, 40, 40) != null, "spaces inside brackets broke the region");
+        helper.assertTrue(m.get(60, 0, 60) != null && m.get(60, 0, 60).is(Blocks.OAK_STAIRS), "aliases stopped working next to variables");
+        int expected = 20 + 7 + 3 + 81 + 1 + 1 + 1 + 1 + 19 + 1;
+        helper.assertTrue(m.size() == expected, "variable example has " + m.size() + " cells instead of " + expected);
+        byte[] styles = parsed.styles();
+        int use = code.indexOf("$w,0");
+        helper.assertTrue(styles[0] == BlueprintCode.STYLE_ALIAS && styles[5] == BlueprintCode.STYLE_NUMBER
+                && styles[use] == BlueprintCode.STYLE_ALIAS && styles[use + 1] == BlueprintCode.STYLE_ALIAS, "variables are not highlighted");
+
+        // Fehler mit Stelle.
+        BlueprintCode.Problem undefined = onlyProblem(helper, "stone $q,0,0", "unknown_variable");
+        helper.assertTrue(undefined.start() == 6 && undefined.end() == 8 && undefined.args().equals(List.of("$q")), "unknown_variable: " + undefined);
+        BlueprintCode.Problem inDef = onlyProblem(helper, "$a = 1 + $zz", "unknown_variable");
+        helper.assertTrue(inDef.start() == 9 && inDef.end() == 12, "unknown_variable in a definition: " + inDef);
+        onlyProblem(helper, "stone sphere(5,5,5,$r)", "unknown_variable");
+        onlyProblem(helper, "stone 0,0,0*$n@1,0,0", "unknown_variable");
+        onlyProblem(helper, "$big = 1000 * 1000", "number_range");
+        onlyProblem(helper, "$x = 1234567", "bad_expression");
+        BlueprintCode.Problem div = onlyProblem(helper, "$z = 5 / 0", "division_by_zero");
+        helper.assertTrue(div.start() == 7, "division_by_zero should mark the operator: " + div);
+        onlyProblem(helper, "$z = 5 % (2 - 2)", "division_by_zero");
+        BlueprintCode.Problem big = onlyProblem(helper, "$r = 300\nstone 0..$r,0,0", "coordinate_range");
+        helper.assertTrue(big.args().get(0).equals("300") && big.line() == 1, "too large coordinate: " + big);
+        onlyProblem(helper, "$n = 300\nstone 0,0,0*$n@1,0,0", "repeat_range");
+        onlyProblem(helper, "$r = 200\nstone sphere(128,128,128,$r)", "coordinate_range");
+        onlyProblem(helper, "$a = stone\nstone $a,0,0", "alias_as_number");
+        onlyProblem(helper, "$r = 3\n$r 0,0,0", "variable_as_block");
+        onlyProblem(helper, "$x = (1 + 2", "bad_expression");
+        onlyProblem(helper, "$x = 1 +", "bad_expression");
+        onlyProblem(helper, "$x = 2 $y", "bad_expression");
+        onlyProblem(helper, "$x = " + "(".repeat(200) + "1" + ")".repeat(200), "bad_expression");
+        onlyProblem(helper, "stone " + "-".repeat(5000) + "1,0,0", "bad_region");
+        onlyProblem(helper, "stone (1+2,0,0", "bad_region");
+        // Ein Name gehoert dem, der ihn zuletzt definiert hat.
+        BlueprintModel renamed = parsedOk(helper, "$a = stone\n$a = 2\nstone $a,0,0\n$a = dirt\n$a 3,0,0");
+        helper.assertTrue(renamed.get(2, 0, 0) != null && renamed.get(3, 0, 0).is(Blocks.DIRT), "redefining a name did not switch alias/variable");
+        helper.succeed();
+    }
+
+    private static BlueprintModel parsedOk(GameTestHelper helper, String code) {
+        BlueprintCode.ParseResult parsed = BlueprintCode.parse(code);
+        helper.assertTrue(parsed.ok(), code.replace('\n', '|') + ": " + parsed.problems());
+        return parsed.model();
+    }
+
+    /** Genau ein Fehler mit diesem Schluessel; liefert ihn fuer Stellenpruefungen. */
+    private static BlueprintCode.Problem onlyProblem(GameTestHelper helper, String code, String key) {
+        List<BlueprintCode.Problem> problems = BlueprintCode.parse(code).problems();
+        String shown = code.length() > 60 ? code.substring(0, 60) + "..." : code;
+        helper.assertTrue(problems.size() == 1 && problems.get(0).key().equals(key),
+                shown.replace('\n', '|') + " -> " + problems + " instead of one " + key);
+        return problems.get(0);
+    }
+
+    private static void expectBox(GameTestHelper helper, String what, BlueprintModel m, int size,
+                                  int x1, int y1, int z1, int x2, int y2, int z2) {
+        helper.assertTrue(m.size() == size, what + " has " + m.size() + " cells instead of " + size);
+        helper.assertTrue(m.minX() == x1 && m.minY() == y1 && m.minZ() == z1 && m.maxX() == x2 && m.maxY() == y2 && m.maxZ() == z2,
+                what + " spans " + m.minX() + "," + m.minY() + "," + m.minZ() + ".." + m.maxX() + "," + m.maxY() + "," + m.maxZ());
+    }
+
+    /** Der Schluessel einer Scan-Ablehnung ("too_large" ...), sonst {@code null}. */
+    private static String scanError(Object started) {
+        if (started instanceof BlueprintScanner.Outcome outcome && outcome.error() != null
+                && outcome.error().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t) {
+            return t.getKey().substring(t.getKey().lastIndexOf('.') + 1);
+        }
+        return null;
+    }
+
+    private static int edge(Item wand) {
+        return BlueprintTiers.edgeFor((com.simplebuildingtools.items.custom.BuildingWandItem) wand);
+    }
+
+    /**
+     * Die Materialliste zaehlt Items, nicht Bloecke: eine doppelte Stufe kostet zwei Stufen, eine
+     * Tuer nur ihre untere Haelfte, die Wandfackel eine Fackel; Wasser gibt es nur im
+     * Kreativmodus. Sortiert nach Menge, groesste zuerst.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Zaehler, der Zustaende statt Items zaehlt,
+     * die fehlende Sonderregel fuer Stufen oder Tueren, eine falsche Sortierung.
+     */
+    public static void materialListCountsItemsSortedByAmount(GameTestHelper helper) {
+        BlueprintModel model = new BlueprintModel();
+        for (int x = 0; x < 10; x++) {
+            model.set(x, 0, 0, Blocks.STONE.defaultBlockState());
+        }
+        BlockState doubleSlab = Blocks.OAK_SLAB.defaultBlockState().setValue(BlockStateProperties.SLAB_TYPE, SlabType.DOUBLE);
+        model.set(0, 1, 0, doubleSlab);
+        model.set(1, 1, 0, doubleSlab);
+        model.set(2, 1, 0, Blocks.OAK_SLAB.defaultBlockState());
+        model.set(4, 1, 0, Blocks.OAK_DOOR.defaultBlockState());
+        model.set(4, 2, 0, Blocks.OAK_DOOR.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER));
+        model.set(6, 1, 0, Blocks.WALL_TORCH.defaultBlockState());
+        model.set(7, 1, 0, Blocks.TORCH.defaultBlockState());
+        model.set(8, 1, 0, Blocks.WATER.defaultBlockState());
+
+        List<BlueprintMaterials.Entry> list = BlueprintMaterials.list(model);
+        String shown = list.stream().map(e -> (e.block() != null ? e.block().toString() : e.item().toString()) + "=" + e.count()).toList().toString();
+        helper.assertTrue(list.size() == 5, "expected stone, slab, torch, door and creative water: " + shown);
+        helper.assertTrue(list.get(0).item() == Items.STONE && list.get(0).count() == 10, "stone first with 10: " + shown);
+        helper.assertTrue(list.get(1).item() == Items.OAK_SLAB && list.get(1).count() == 5, "5 slabs (2 doubles + 1): " + shown);
+        helper.assertTrue(list.get(2).item() == Items.TORCH && list.get(2).count() == 2, "wall torch + torch = 2 torches: " + shown);
+        helper.assertTrue(list.get(3).item() == Items.OAK_DOOR && list.get(3).count() == 1, "one door for both halves: " + shown);
+        helper.assertTrue(list.get(4).item() == Items.AIR && list.get(4).block() == Blocks.WATER && list.get(4).count() == 1,
+                "water should be listed as creative-only: " + shown);
+        helper.assertTrue(BlueprintMaterials.totalItems(model) == 18, "total items " + BlueprintMaterials.totalItems(model));
+        helper.succeed();
+    }
+
+    /**
+     * Mehrfach-Bloecke kosten so viele Items, wie in ihnen stecken: vier Kerzen in einem Block sind
+     * vier Kerzen, drei Seegurken drei, acht Schneeschichten acht Schneeschichten, vier
+     * Schildkroeteneier vier, drei rosa Blueten drei, eine Leuchtflechte an zwei Flaechen zwei
+     * Leuchtflechten, eine doppelte Stufe zwei Stufen. Abgeleitet aus den Blockzustands-Eigenschaften
+     * ({@code candles}, {@code pickles}, {@code layers}, {@code eggs}, {@code flower_amount}), nicht aus
+     * einer Blockliste.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Liste, die Bloecke statt Items zaehlt (jede
+     * Kerzengruppe = 1), eine vergessene Eigenschaft, Mehrflaechen-Bloecke zu einem Stueck.
+     */
+    public static void materialListCountsMultiItemBlocksByTheirState(GameTestHelper helper) {
+        BlueprintModel model = new BlueprintModel();
+        model.set(0, 0, 0, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4));
+        model.set(1, 0, 0, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1));
+        model.set(2, 0, 0, Blocks.SEA_PICKLE.defaultBlockState().setValue(BlockStateProperties.PICKLES, 3));
+        model.set(3, 0, 0, Blocks.SNOW.defaultBlockState().setValue(BlockStateProperties.LAYERS, 8));
+        model.set(4, 0, 0, Blocks.TURTLE_EGG.defaultBlockState().setValue(BlockStateProperties.EGGS, 4));
+        model.set(5, 0, 0, Blocks.PINK_PETALS.defaultBlockState().setValue(BlockStateProperties.FLOWER_AMOUNT, 3));
+        model.set(6, 0, 0, Blocks.GLOW_LICHEN.defaultBlockState()
+                .setValue(MultifaceBlock.getFaceProperty(Direction.NORTH), true)
+                .setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true));
+        model.set(7, 0, 0, Blocks.OAK_SLAB.defaultBlockState().setValue(BlockStateProperties.SLAB_TYPE, SlabType.DOUBLE));
+
+        List<BlueprintMaterials.Entry> list = BlueprintMaterials.list(model);
+        String shown = list.stream().map(e -> e.item() + "=" + e.count()).toList().toString();
+        java.util.Map<Item, Integer> counts = new java.util.HashMap<>();
+        list.forEach(e -> counts.put(e.item(), e.count()));
+        Object[][] expected = {
+                {Items.CANDLE, 5, "four candles plus one candle"},
+                {Items.SEA_PICKLE, 3, "three sea pickles"},
+                {Items.SNOW, 8, "eight snow layers"},
+                {Items.TURTLE_EGG, 4, "four turtle eggs"},
+                {Items.PINK_PETALS, 3, "three pink petals"},
+                {Items.GLOW_LICHEN, 2, "glow lichen on two faces"},
+                {Items.OAK_SLAB, 2, "a double slab"}};
+        for (Object[] row : expected) {
+            Integer got = counts.get((Item) row[0]);
+            helper.assertTrue(got != null && got == (int) row[1],
+                    "the material list should count " + row[2] + " as " + row[1] + " " + row[0] + ", but says " + got + ": " + shown);
+        }
+        helper.assertTrue(list.size() == expected.length, "unexpected entries in the material list: " + shown);
+        helper.assertTrue(BlueprintMaterials.totalItems(model) == 27, "total items " + BlueprintMaterials.totalItems(model) + " instead of 27: " + shown);
+        helper.succeed();
+    }
+
+    /**
+     * Beim Bauen gilt dieselbe Rechnung wie in der Materialliste: drei Kerzen in einem Block
+     * verbrauchen drei Kerzen, zwei Seegurken zwei, fuenf Schneeschichten fuenf - und der Block steht
+     * danach mit genau diesem Zustand. Reicht der Vorrat fuer einen Block nicht ganz (zwei Kerzen fuer
+     * drei), fehlt die Stelle, und von den zwei Kerzen geht keine verloren.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau, der je Block ein Item abbucht (drei Kerzen
+     * fuer eine), einer, der einen Teil des Vorrats verbraucht und die Stelle trotzdem frei laesst.
+     */
+    public static void buildConsumesEveryCandleAndPickleItNeeds(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        // Boden unter den drei Stellen: Schnee und Seegurke brauchen Halt.
+        helper.setBlock(CLICKED.west(), Blocks.STONE);
+        helper.setBlock(CLICKED.east(), Blocks.STONE);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack candles = new ItemStack(Items.CANDLE, 3);
+        ItemStack pickles = new ItemStack(Items.SEA_PICKLE, 2);
+        ItemStack snow = new ItemStack(Items.SNOW, 5);
+        ItemStack blueprint = blueprint("candle[candles=3] 0,0,0\nsea_pickle[pickles=2,waterlogged=false] 1,0,0\nsnow[layers=5] 2,0,0");
+        hold(player, wand, blueprint, candles, pickles, snow);
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        helper.assertTrue(built != null && !built.warned() && built.placed() == 3 && built.missing() == 0,
+                "three candles, two pickles and five snow layers should build all three positions: " + built);
+        BlockState candle = helper.getBlockState(TARGET.west());
+        BlockState pickle = helper.getBlockState(TARGET);
+        BlockState layers = helper.getBlockState(TARGET.east());
+        helper.assertTrue(candle.is(Blocks.CANDLE) && candle.getValue(BlockStateProperties.CANDLES) == 3, "the candle block is " + candle);
+        helper.assertTrue(pickle.is(Blocks.SEA_PICKLE) && pickle.getValue(BlockStateProperties.PICKLES) == 2, "the sea pickle block is " + pickle);
+        helper.assertTrue(layers.is(Blocks.SNOW) && layers.getValue(BlockStateProperties.LAYERS) == 5, "the snow block is " + layers);
+        helper.assertTrue(candles.getCount() == 0 && pickles.getCount() == 0 && snow.getCount() == 0,
+                "building should use every item the blocks hold, left: " + candles.getCount() + " candles, "
+                        + pickles.getCount() + " sea pickles, " + snow.getCount() + " snow layers");
+
+        // Zwei Kerzen reichen nicht fuer drei: die Stelle fehlt, und keine Kerze wird verbraucht.
+        clear(helper);
+        ItemStack two = new ItemStack(Items.CANDLE, 2);
+        ItemStack onlyCandle = blueprint("candle[candles=3] 0,0,0");
+        hold(player, wand, onlyCandle, two);
+        BlueprintBuilder.Result warned = build(helper, player, wand, onlyCandle);
+        helper.assertTrue(warned != null && warned.warned() && warned.missing() == 1,
+                "two candles for a block of three should count as missing: " + warned);
+        BlueprintBuilder.Result confirmed = build(helper, player, wand, onlyCandle);
+        helper.assertTrue(confirmed != null && confirmed.placed() == 0 && confirmed.missing() == 1 && helper.getBlockState(TARGET).isAir(),
+                "a block of three candles was built from two: " + confirmed);
+        helper.assertTrue(two.getCount() == 2, "the missing candle block still used up " + (2 - two.getCount()) + " candles");
+        clear(helper);
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // SCAN AM KARTENTISCH
+    // =====================================================================================
+
+    /**
+     * Oktant oben, leere Blaupause unten: rechts liegt die gefuellte Blaupause, deren Code genau die
+     * Bloecke der Auswahl beschreibt (Luft uebersprungen, Truheninhalt nicht). Nehmen verbraucht
+     * nur die Blaupause. Zu weit entfernter Tisch und signierte Blaupause liefern nichts.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> das Mixin greift nicht (Vanilla lehnt den Oktanten
+     * ab), der Scan verschiebt oder verliert Bloecke oder Zustaende, der Ergebnis-Slot verbraucht
+     * den Oktanten, die Entfernungs- oder Signatur-Pruefung fehlt.
+     */
+    public static void cartographyTableScansTheOctantSelection(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        BlockState stair = Blocks.OAK_STAIRS.defaultBlockState().setValue(StairBlock.FACING, Direction.EAST);
+        helper.setBlock(new BlockPos(2, 2, 2), Blocks.STONE);
+        helper.setBlock(new BlockPos(3, 2, 2), Blocks.STONE);
+        helper.setBlock(new BlockPos(2, 3, 2), stair);
+        helper.setBlock(new BlockPos(3, 3, 2), Blocks.CHEST);
+        if (level.getBlockEntity(helper.absolutePos(new BlockPos(3, 3, 2))) instanceof ChestBlockEntity chest) {
+            chest.setItem(0, new ItemStack(Items.DIAMOND, 5));
+        }
+        BlueprintModel expected = new BlueprintModel();
+        expected.set(0, 0, 0, Blocks.STONE.defaultBlockState());
+        expected.set(1, 0, 0, Blocks.STONE.defaultBlockState());
+        expected.set(0, 1, 0, stair);
+        expected.set(1, 1, 0, Blocks.CHEST.defaultBlockState());
+
+        ItemStack octant = octant(helper, new BlockPos(2, 2, 2), new BlockPos(4, 4, 3));
+        CartographyTableMenu menu = new CartographyTableMenu(7, player.getInventory(),
+                ContainerLevelAccess.create(level, helper.absolutePos(new BlockPos(5, 1, 5))));
+        helper.assertTrue(menu.getSlot(0).mayPlace(octant), "the cartography table refuses the octant");
+        helper.assertTrue(menu.getSlot(1).mayPlace(new ItemStack(BtItems.BLUEPRINT)), "the cartography table refuses the blueprint");
+        menu.getSlot(0).set(octant);
+        menu.getSlot(1).set(new ItemStack(BtItems.BLUEPRINT, 2));
+        ItemStack result = menu.getSlot(2).getItem();
+        helper.assertTrue(result.is(BtItems.BLUEPRINT) && result.getCount() == 1, "no filled blueprint in the result slot: " + result);
+        String code = BlueprintItem.content(result).code();
+        BlueprintCode.ParseResult parsed = BlueprintCode.parse(code);
+        helper.assertTrue(parsed.ok() && parsed.model().equals(expected), "scanned code does not match the selection:\n" + code
+                + "\n" + parsed.model().describe());
+        helper.assertTrue(!code.contains("diamond"), "the chest's contents leaked into the code");
+
+        menu.getSlot(2).onTake(player, result);
+        helper.assertTrue(menu.getSlot(1).getItem().getCount() == 1, "taking the result did not use exactly one blueprint");
+        helper.assertTrue(menu.getSlot(0).getItem().getItem() == BtItems.OCTANT, "taking the result used up the octant");
+
+        // Zu weit weg: Tisch 40 Bloecke neben der Auswahl.
+        CartographyTableMenu far = new CartographyTableMenu(8, player.getInventory(),
+                ContainerLevelAccess.create(level, helper.absolutePos(new BlockPos(45, 1, 3))));
+        far.getSlot(0).set(octant.copy());
+        far.getSlot(1).set(new ItemStack(BtItems.BLUEPRINT));
+        helper.assertTrue(far.getSlot(2).getItem().isEmpty(), "a table 40 blocks away still scanned");
+
+        // Signierte Blaupause wird nicht ueberschrieben.
+        ItemStack signed = new ItemStack(BtItems.BLUEPRINT);
+        signed.set(BtComponents.BLUEPRINT, new BlueprintContent("stone 0,0,0", "Alt", "Someone", true));
+        CartographyTableMenu locked = new CartographyTableMenu(9, player.getInventory(),
+                ContainerLevelAccess.create(level, helper.absolutePos(new BlockPos(5, 1, 5))));
+        locked.getSlot(0).set(octant.copy());
+        locked.getSlot(1).set(signed);
+        helper.assertTrue(locked.getSlot(2).getItem().isEmpty(), "a signed blueprint was overwritten by a scan");
+        clear(helper);
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // BAUEN
+    // =====================================================================================
+
+    /**
+     * Ueberleben: gebaut wird nur, was im Inventar liegt; eine Stelle mit dem richtigen Block und
+     * eine belegte Stelle bleiben unberuehrt, fehlendes Material wird ausgelassen und laesst sich
+     * spaeter nachholen. Jeder gesetzte Block kostet einen Haltbarkeitspunkt.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> Bauen ohne Material, Ueberschreiben belegter
+     * Stellen, doppeltes Setzen einer schon richtigen Stelle, ein Abbruch statt Auslassen, falsche
+     * Verrechnung von Material oder Haltbarkeit.
+     */
+    public static void buildPlacesOnlyAvailableBlocksAndSkipsExistingOnes(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        helper.setBlock(TARGET.west(), Blocks.STONE);   // schon richtig
+        helper.setBlock(TARGET.east(), Blocks.DIRT);    // belegt
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack stone = new ItemStack(Items.STONE, 5);
+        ItemStack blueprint = blueprint("stone 0..2,0,0\nglass 1,1,0");
+        hold(player, wand, blueprint, stone);
+
+        // Glas fehlt: der erste Klick warnt nur (Zwei-Klick-Regel), der zweite baut das Vorhandene.
+        BlueprintBuilder.Result warning = build(helper, player, wand, blueprint);
+        helper.assertTrue(warning != null && warning.warned() && helper.getBlockState(TARGET).isAir(), "the first click did not only warn: " + warning);
+        BlueprintBuilder.Result first = build(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && !first.warned(), "the build was refused");
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "the free stone position was not built");
+        helper.assertTrue(helper.getBlockState(TARGET.east()).is(Blocks.DIRT), "an occupied position was overwritten");
+        helper.assertTrue(helper.getBlockState(TARGET.above()).isAir(), "glass appeared without glass in the inventory");
+        helper.assertTrue(first.placed() == 1 && first.already() == 1 && first.occupied() == 1 && first.missing() == 1,
+                "unexpected tally " + first);
+        helper.assertTrue(stone.getCount() == 4, "stone count " + stone.getCount() + " instead of 4");
+        helper.assertTrue(wand.getDamageValue() == 1, "wand damage " + wand.getDamageValue() + " instead of 1");
+
+        player.getInventory().setItem(2, new ItemStack(Items.GLASS, 3));
+        BlueprintBuilder.Result second = build(helper, player, wand, blueprint);
+        helper.assertTrue(second != null && second.placed() == 1, "coming back did not fill the gap: " + second);
+        helper.assertTrue(helper.getBlockState(TARGET.above()).is(Blocks.GLASS), "the missing glass was not placed on the second click");
+        helper.assertTrue(stone.getCount() == 4, "the second click spent stone on positions that were already right");
+        helper.assertTrue(player.getInventory().getItem(2).getCount() == 2, "glass not consumed");
+        helper.assertTrue(wand.getDamageValue() == 2, "wand damage " + wand.getDamageValue() + " instead of 2");
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Ausrichtung: nach Sueden blickend entsteht das Bauwerk wie geschrieben; Strg+Mausrad (das
+     * Paket) dreht es um Viertel, und auch Blockzustaende drehen mit (Treppe). Nach Osten blickend
+     * zeigt die lokale z-Achse nach Osten. Das Paket wirkt nur mit dem Baustab in der Haupthand.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine vertauschte Drehrichtung, Zustaende, die
+     * nicht mitgedreht werden, ein Paket-Handler, der ohne Baustab dreht oder nicht zyklisch zaehlt.
+     */
+    public static void rotationTurnsTheBuildAndTheScrollPacketStepsIt(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,2\noak_stairs[facing=south] 0,1,2");
+        hold(player, wand, blueprint);
+
+        clear(helper);
+        build(helper, player, wand, blueprint);
+        for (int z = 0; z <= 2; z++) {
+            helper.assertTrue(helper.getBlockState(TARGET.south(z)).is(Blocks.STONE), "facing south: no stone at +z " + z);
+        }
+        helper.assertTrue(stairFacing(helper, TARGET.south(2).above()) == Direction.SOUTH, "facing south: stair not facing south");
+
+        ModMessageHandlers.handleBlueprintRotate(new BlueprintRotatePayload(1), player);
+        helper.assertTrue(BlueprintBuilder.rotationSteps(blueprint) == 1, "the scroll packet did not turn the blueprint");
+        clear(helper);
+        build(helper, player, wand, blueprint);
+        for (int d = 0; d <= 2; d++) {
+            helper.assertTrue(helper.getBlockState(TARGET.west(d)).is(Blocks.STONE), "one quarter: no stone at -x " + d);
+        }
+        helper.assertTrue(stairFacing(helper, TARGET.west(2).above()) == Direction.WEST, "one quarter: stair did not turn to west");
+
+        ModMessageHandlers.handleBlueprintRotate(new BlueprintRotatePayload(-1), player);
+        ModMessageHandlers.handleBlueprintRotate(new BlueprintRotatePayload(-1), player);
+        helper.assertTrue(BlueprintBuilder.rotationSteps(blueprint) == 3, "rotation does not wrap around: " + BlueprintBuilder.rotationSteps(blueprint));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STICK));
+        ModMessageHandlers.handleBlueprintRotate(new BlueprintRotatePayload(1), player);
+        helper.assertTrue(BlueprintBuilder.rotationSteps(blueprint) == 3, "the blueprint turned without a wand in the main hand");
+        player.setItemInHand(InteractionHand.MAIN_HAND, wand);
+        blueprint.remove(BtComponents.BLUEPRINT_ROTATION);
+
+        // Jede Blickrichtung: die lokale z-Achse zeigt dorthin, die Treppe (lokal nach Sueden)
+        // dreht mit - Osten, Westen und Norden, damit keine Zuordnung unbemerkt kippt.
+        float[] yaws = {-90f, 90f, 180f};
+        Direction[] facings = {Direction.EAST, Direction.WEST, Direction.NORTH};
+        for (int i = 0; i < yaws.length; i++) {
+            Direction facing = facings[i];
+            player.setYRot(yaws[i]);
+            helper.assertTrue(player.getDirection() == facing, "mock player does not face " + facing);
+            clear(helper);
+            build(helper, player, wand, blueprint);
+            for (int d = 0; d <= 2; d++) {
+                helper.assertTrue(helper.getBlockState(TARGET.relative(facing, d)).is(Blocks.STONE),
+                        "facing " + facing + ": no stone " + d + " blocks ahead");
+            }
+            helper.assertTrue(stairFacing(helper, TARGET.relative(facing, 2).above()) == facing,
+                    "facing " + facing + ": stair not turned to " + facing);
+        }
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Stufengrenze: ein 17 Bloecke langes Bauwerk ist zu gross fuer den Kupfer-Baustab (16) - der
+     * Klick wird abgelehnt und setzt nichts; der Eisen-Baustab (32) baut es.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine fehlende oder um eins verschobene
+     * Groessenpruefung, eine Pruefung, die erst nach dem Setzen greift.
+     */
+    public static void wandTierRefusesBlueprintsLargerThanItsCube(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        clear(helper);
+        ItemStack blueprint = blueprint("stone 0,0,0 0,16,0");
+        ItemStack copper = new ItemStack(BtItems.COPPER_BUILDING_WAND);
+        hold(player, copper, blueprint);
+        helper.assertTrue(build(helper, player, copper, blueprint) == null, "the copper wand accepted a 17 block blueprint");
+        helper.assertTrue(helper.getBlockState(TARGET).isAir(), "the refused build still placed something");
+
+        ItemStack iron = new ItemStack(BtItems.IRON_BUILDING_WAND);
+        hold(player, iron, blueprint);
+        BlueprintBuilder.Result result = build(helper, player, iron, blueprint);
+        helper.assertTrue(result != null && result.placed() == 2, "the iron wand did not build the 17 block blueprint: " + result);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE) && helper.getBlockState(TARGET.above(16)).is(Blocks.STONE),
+                "the iron wand's build is not where it should be");
+        helper.setBlock(TARGET.above(16), Blocks.AIR);
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Der Scan folgt der Figur des Oktanten, nicht seinem Rahmen: in einem massiven 5x5x5-Steinwuerfel
+     * nimmt eine Kugel-Auswahl genau die Bloecke auf, die {@code OctantShape} (dieselbe Quelle wie die
+     * Vorschau im Client) zur Kugel zaehlt - die Ecken fehlen, die Mitte ist da; ein liegender
+     * Zylinder (Ausrichtung +X) ebenso.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Scan, der die Bounding Box statt der Figur
+     * nimmt, eine Form- oder Ausrichtungs-Abfrage, die von der Vorschau abweicht.
+     */
+    public static void scanFollowsTheOctantShape(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        clear(helper);
+        for (int x = 1; x <= 5; x++) {
+            for (int y = 1; y <= 5; y++) {
+                for (int z = 1; z <= 5; z++) {
+                    helper.setBlock(new BlockPos(x, y, z), Blocks.STONE);
+                }
+            }
+        }
+        BlockPos table = helper.absolutePos(new BlockPos(7, 1, 7));
+        for (String[] shape : new String[][]{{"SPHERE", "1"}, {"CYLINDER", "0"}}) {
+            ItemStack octant = octant(helper, new BlockPos(1, 1, 1), new BlockPos(5, 5, 5));
+            CompoundTag nbt = OctantShape.data(octant);
+            nbt.putString("Shape", shape[0]);
+            nbt.putInt("Orientation", Integer.parseInt(shape[1]));
+            octant.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+            java.util.function.Predicate<BlockPos> inShape = OctantShape.of(octant);
+            BlueprintModel expected = new BlueprintModel();
+            for (int x = 0; x < 5; x++) {
+                for (int y = 0; y < 5; y++) {
+                    for (int z = 0; z < 5; z++) {
+                        if (inShape.test(helper.absolutePos(new BlockPos(x + 1, y + 1, z + 1)))) {
+                            expected.set(x, y, z, Blocks.STONE.defaultBlockState());
+                        }
+                    }
+                }
+            }
+            helper.assertTrue(expected.size() > 0 && expected.size() < 125, shape[0] + ": the shape predicate selects "
+                    + expected.size() + " of 125 blocks - nothing to tell apart from the frame");
+            BlueprintScanner.Outcome outcome = BlueprintScanner.scanAtTable(level, table, octant, new ItemStack(BtItems.BLUEPRINT));
+            helper.assertTrue(outcome.error() == null, shape[0] + ": scan refused: " + outcome.error());
+            BlueprintModel scanned = BlueprintCode.parse(BlueprintItem.content(outcome.result()).code()).model();
+            helper.assertTrue(scanned.equals(expected.normalized()), shape[0] + ": scanned " + scanned.size()
+                    + " blocks, the octant's figure has " + expected.size());
+            if (shape[0].equals("SPHERE")) {
+                helper.assertTrue(scanned.get(0, 0, 0) == null && scanned.get(2, 2, 2) != null,
+                        "sphere: a corner was scanned or the centre is missing");
+            }
+        }
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Grosse Scans laufen ueber mehrere Ticks: mit einem Budget von 20 Stellen je Tick liegt nach dem
+     * Einlegen noch kein Ergebnis im Tisch, der Scan laeuft; die folgenden Ticks (das offene Menue ruft
+     * jeden Tick {@code broadcastChanges}) bringen die fertige Blaupause mit genau der Auswahl.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Scan, der das Tick-Budget ignoriert (alles in
+     * einem Zug), ein Auftrag, der nie weiterlaeuft oder nie fertig wird, ein Ergebnis, das beim
+     * Stueckeln Stellen verliert.
+     */
+    public static void largeScanRunsOverSeveralTicks(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
+        helper.setBlock(new BlockPos(5, 3, 5), Blocks.GLASS);
+        BlueprintModel expected = new BlueprintModel();
+        expected.set(0, 0, 0, Blocks.STONE.defaultBlockState());
+        expected.set(4, 2, 4, Blocks.GLASS.defaultBlockState());
+        expected.set(2, 0, 2, Blocks.OBSIDIAN.defaultBlockState()); // der geklickte Block aus clear()
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        CartographyTableMenu menu = new CartographyTableMenu(11, player.getInventory(),
+                ContainerLevelAccess.create(level, helper.absolutePos(new BlockPos(7, 1, 7))));
+        menu.getSlot(0).set(octant(helper, new BlockPos(1, 1, 1), new BlockPos(5, 3, 5)));
+        menu.getSlot(1).set(new ItemStack(BtItems.BLUEPRINT));
+        helper.assertTrue(menu.getSlot(2).getItem().isEmpty(), "75 positions at 20 per tick finished in the first tick");
+        helper.startSequence()
+                .thenWaitUntil(() -> {
+                    menu.broadcastChanges();
+                    helper.assertTrue(!menu.getSlot(2).getItem().isEmpty(), "the scan has not finished yet");
+                })
+                .thenExecute(() -> {
+                    BlueprintModel scanned = BlueprintCode.parse(BlueprintItem.content(menu.getSlot(2).getItem()).code()).model();
+                    helper.assertTrue(scanned.equals(expected), "the scan in slices lost or moved blocks: " + scanned.describe());
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Grosse Bauten laufen ueber mehrere Ticks: mit 3 Bloecken je Tick setzt der Klick die ersten drei,
+     * die Ticks des Baustabs in der Haupthand den Rest; legt der Spieler die Blaupause weg, bricht
+     * der Auftrag ab und setzt nichts mehr.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau, der das Tick-Budget ignoriert, ein Auftrag,
+     * der nie weiterlaeuft, einer, der ohne Blaupause in der Nebenhand weiterbaut.
+     */
+    public static void largeBuildRunsOverSeveralTicks(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, true);
+        clear(helper);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,4");
+        hold(player, wand, blueprint);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.placed() == 3 && !first.finished() && BlueprintBuilder.building(player),
+                "the first slice is not three blocks with a job left over: " + first);
+        helper.startSequence()
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecute(() -> {
+                    for (int z = 0; z <= 4; z++) {
+                        helper.assertTrue(helper.getBlockState(TARGET.south(z)).is(Blocks.STONE), "block " + z + " was not built by the job");
+                    }
+                    helper.assertTrue(!BlueprintBuilder.building(player), "the finished job is still registered");
+                    clear(helper);
+                    BlueprintBuilder.Result again = click(helper, player, wand, blueprint);
+                    helper.assertTrue(again != null && again.placed() == 3, "the second build did not start with three blocks");
+                    player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    helper.assertTrue(player.getOffhandItem().isEmpty(), "the off hand could not be emptied");
+                })
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecute(() -> {
+                    StringBuilder built = new StringBuilder();
+                    for (int z = 0; z <= 4; z++) {
+                        built.append(helper.getBlockState(TARGET.south(z)).is(Blocks.STONE) ? '#' : '.');
+                    }
+                    // Von der Mitte nach aussen: die ersten drei waren z = 1..3, uebrig sind z = 0 und 4.
+                    helper.assertTrue(helper.getBlockState(TARGET.south(0)).isAir() && helper.getBlockState(TARGET.south(4)).isAir(),
+                            "the job went on without the blueprint in the off hand: " + built + " offhand=" + player.getOffhandItem());
+                    helper.assertTrue(!BlueprintBuilder.building(player), "the cancelled job is still registered");
+                    clear(helper);
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Review F-03: der Parse-Zwischenspeicher haelt nicht mehr als {@link BlueprintCode#CACHE_MAX_WEIGHT}
+     * Stellen, auch wenn die Eintragszahl klein bleibt. <strong>Bricht bei:</strong> einem LRU, der nur Eintraege zaehlt.
+     */
+    public static void parseCacheIsBoundedByWeight(GameTestHelper helper) {
+        String[] blocks = {"stone", "dirt", "sand", "gravel", "clay", "glass", "granite", "diorite", "andesite", "tuff"};
+        String last = null;
+        BlueprintCode.ParseResult lastResult = null;
+        for (String block : blocks) {
+            last = block + " 0..255,0..255,0..17";
+            lastResult = BlueprintCode.parseCached(last);
+            helper.assertTrue(lastResult.ok() && lastResult.model().size() == 256 * 256 * 18, "the probe code did not parse: " + lastResult.problems());
+        }
+        int[] stats = BlueprintCode.cacheStats();
+        helper.assertTrue(stats[1] <= BlueprintCode.CACHE_MAX_WEIGHT, "cache weight " + stats[1] + " exceeds " + BlueprintCode.CACHE_MAX_WEIGHT);
+        helper.assertTrue(stats[0] <= BlueprintCode.CACHE_MAX_ENTRIES, "cache holds " + stats[0] + " entries");
+        helper.assertTrue(BlueprintCode.parseCached(last) == lastResult, "the freshest entry was evicted");
+        helper.succeed();
+    }
+
+    /**
+     * Review F-02: Code mit pixels-Zeilen zahlt vorab aus dem Parse-Budget, auch ohne Signieren.
+     * <strong>Bricht bei:</strong> einem Editor-Paket, das vor jedem Budget voll geparst wird.
+     */
+    public static void pixelCodeEditsPayTheParseBudgetFirst(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        BlueprintContent old = new BlueprintContent("", "", "", false);
+        int before = BlueprintCode.cacheStats()[0];
+        long weightBefore = BlueprintCode.cacheStats()[1];
+        for (int i = 0; i < 6; i++) {
+            String code = "# pixels probe " + i + "\n" + "#".repeat(BlueprintCode.MAX_CODE_LENGTH - 40);
+            com.simplebuildingtools.networking.ModMessageHandlers.editedBlueprint(old,
+                    new com.simplebuildingtools.networking.BlueprintEditPayload(0, code, false, "", java.util.Optional.empty()), player);
+        }
+        int[] after = BlueprintCode.cacheStats();
+        // Budget: zwei volle Codes sofort; vier weitere Pakete duerfen nicht mehr parsen.
+        helper.assertTrue(after[0] - before <= 2 || after[0] == BlueprintCode.CACHE_MAX_ENTRIES,
+                "six pixel packets parsed " + (after[0] - before) + " codes; the budget did not stop them");
+        helper.assertTrue(after[1] >= weightBefore || after[0] <= BlueprintCode.CACHE_MAX_ENTRIES, "cache stats inconsistent");
+        helper.succeed();
+    }
+
+
+    // =====================================================================================
+    // BILD-BAUPLAN (Plan docs/ai/PLAN-B-PICTURE-2026-10-19.md)
+    // =====================================================================================
+
+    /** Farbbloecke ueber die ID: 26.3 fuehrt sie als ColorCollection, 26.2 als Felder. */
+    private static net.minecraft.world.level.block.Block pictureBlock(String id) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(id));
+    }
+
+    private static int pictureRgb(String id) {
+        for (BlueprintPicture.Entry e : BlueprintPicture.PALETTE) {
+            if (e.id().equals(id)) {
+                return 0xFF000000 | e.rgb();
+            }
+        }
+        throw new AssertionError("not in the picture palette: " + id);
+    }
+
+    private static int[] noise(int w, int h, long seed) {
+        java.util.Random random = new java.util.Random(seed);
+        int[] out = new int[w * h];
+        for (int i = 0; i < out.length; i++) {
+            out[i] = 0xFF000000 | random.nextInt(0x1000000);
+        }
+        return out;
+    }
+
+    /**
+     * Bild zu Bau-Code: bekannte Farben ergeben die erwarteten Bloecke (Wand: oberste Bildzeile oben, Boden:
+     * oberste Zeile bei z = 0), fast gleiche Farben den naechsten Block, Durchsichtiges bleibt frei; Dithering ist
+     * deterministisch; die Groessengrenze haelt das Seitenverhaeltnis; 128 x 128 Rauschen mit Floyd-Steinberg passt
+     * in 32000 Zeichen; handgeschriebene {@code pixels}-Zeilen und ihre Fehler. Auf 26.2 gibt es keinen Bild-Bauplan.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine falsche Zeilen-/Achsen-Zuordnung, eine Palette mit falschen
+     * Farben, nicht deterministisches Dithering, ein Bild, das zu langen Code ergibt, oder eine Bildzeile, die
+     * unbekannte Aliase, Raster-Ueberlauf oder kaputte Lauflaengen still annimmt.
+     */
+    public static void pictureCodeHoldsTheExpectedBlocks(GameTestHelper helper) {
+        if (!BlueprintPicture.available()) {
+            helper.succeed();
+            return;
+        }
+        int white = pictureRgb("white_wool"), black = pictureRgb("black_concrete"), red = pictureRgb("red_terracotta");
+        int[] argb = {white, 0xFFE8EAEB, 0x00000000, black, red, red};
+        BlueprintPicture.Result wall = BlueprintPicture.convert(argb, 3, 2, 128, BlueprintPicture.PALETTE,
+                BlueprintPicture.Dither.NONE, BlueprintPicture.Facing.WALL, "test");
+        helper.assertTrue(wall.ok() && wall.blocks() == 5 && wall.colors() == 3, "wall picture: " + wall.error() + " " + wall.blocks());
+        BlueprintCode.ParseResult parsed = BlueprintCode.parse(wall.code());
+        helper.assertTrue(parsed.ok() && parsed.pixels() == 5, "picture code parses: " + parsed.problems() + "\n" + wall.code());
+        BlueprintModel m = parsed.model();
+        helper.assertTrue(m.get(0, 1, 0).is(pictureBlock("white_wool")) && m.get(1, 1, 0).is(pictureBlock("white_wool")) && m.get(2, 1, 0) == null
+                && m.get(0, 0, 0).is(pictureBlock("black_concrete")) && m.get(1, 0, 0).is(pictureBlock("red_terracotta")) && m.get(2, 0, 0).is(pictureBlock("red_terracotta")),
+                "wall blocks: " + m);
+        BlueprintModel floor = BlueprintCode.parse(BlueprintPicture.convert(argb, 3, 2, 128, BlueprintPicture.PALETTE,
+                BlueprintPicture.Dither.NONE, BlueprintPicture.Facing.FLOOR, "test").code()).model();
+        helper.assertTrue(floor.get(0, 0, 0).is(pictureBlock("white_wool")) && floor.get(0, 0, 1).is(pictureBlock("black_concrete")) && floor.sizeY() == 1,
+                "floor blocks: " + floor);
+
+        int[] photo = noise(40, 30, 7);
+        String once = BlueprintPicture.convert(photo, 40, 30, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.FLOYD_STEINBERG,
+                BlueprintPicture.Facing.WALL, "noise").code();
+        String twice = BlueprintPicture.convert(photo, 40, 30, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.FLOYD_STEINBERG,
+                BlueprintPicture.Facing.WALL, "noise").code();
+        helper.assertTrue(!once.isEmpty() && once.equals(twice), "Floyd-Steinberg is deterministic");
+        helper.assertTrue(!once.equals(BlueprintPicture.convert(photo, 40, 30, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "noise").code()), "dithering changes the result");
+
+        BlueprintPicture.Result wide = BlueprintPicture.convert(noise(300, 200, 3), 300, 200, 128, BlueprintPicture.PALETTE,
+                BlueprintPicture.Dither.BAYER, BlueprintPicture.Facing.WALL, "wide");
+        BlueprintModel wideModel = BlueprintCode.parse(wide.code()).model();
+        helper.assertTrue(wide.ok() && wide.width() == 128 && wide.height() == 85 && wideModel.sizeX() == 128 && wideModel.sizeY() == 85,
+                "size limit keeps the aspect ratio: " + wide.width() + "x" + wide.height());
+        BlueprintPicture.Result full = BlueprintPicture.convert(noise(128, 128, 11), 128, 128, 128, BlueprintPicture.PALETTE,
+                BlueprintPicture.Dither.FLOYD_STEINBERG, BlueprintPicture.Facing.WALL, "full");
+        BlueprintCode.ParseResult fullParsed = BlueprintCode.parse(full.code());
+        helper.assertTrue(full.ok() && full.code().length() <= BlueprintCode.MAX_CODE_LENGTH && fullParsed.ok() && fullParsed.pixels() == 128 * 128,
+                "128x128 noise fits the code limit: " + full.code().length() + " " + fullParsed.problems());
+
+        List<BlueprintPicture.Entry> owned = BlueprintPicture.palette(item -> item == pictureBlock("white_wool").asItem() || item == pictureBlock("black_concrete").asItem());
+        BlueprintModel limited = BlueprintCode.parse(BlueprintPicture.convert(argb, 3, 2, 128, owned, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "owned").code()).model();
+        helper.assertTrue(owned.size() == 2 && limited.blocks().values().stream().allMatch(s -> s.is(pictureBlock("white_wool")) || s.is(pictureBlock("black_concrete"))),
+                "inventory palette uses only owned blocks: " + limited);
+        helper.assertTrue("no_blocks".equals(BlueprintPicture.convert(argb, 3, 2, 128, List.of(), BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "none").error()), "empty palette is reported");
+        helper.assertTrue("empty".equals(BlueprintPicture.convert(new int[4], 2, 2, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "clear").error()), "transparent picture is reported");
+
+        BlueprintCode.ParseResult hand = BlueprintCode.parse("$a = stone\n$b = oak_planks\npixels 0,2,1 3a.2b");
+        helper.assertTrue(hand.ok() && hand.pixels() == 5 && hand.model().get(2, 2, 1).is(Blocks.STONE) && hand.model().get(3, 2, 1) == null
+                && hand.model().get(5, 2, 1).is(Blocks.OAK_PLANKS), "hand-written pixels row: " + hand.problems());
+        String[][] errors = {{"$a = stone\npixels 0,0,0 3a2c", "unknown_alias"}, {"$a = stone\npixels 250,0,0 10a", "pixels_outside"},
+                {"$a = stone\npixels 0,0,0 3", "pixels_bad_row"}, {"pixels 0,0,0", "pixels_usage"}, {"$a = stone\npixels 0,x,0 a", "bad_region"}};
+        for (String[] e : errors) {
+            List<BlueprintCode.Problem> problems = BlueprintCode.parse(e[0]).problems();
+            helper.assertTrue(problems.stream().anyMatch(p -> p.key().equals(e[1])), e[0] + " should report " + e[1] + ": " + problems);
+        }
+        helper.succeed();
+    }
+
+
+    /**
+     * Ein Bild-Bauplan baut mit Baustab und Material wie jede Blaupause: jede Bildstelle wird ihr Block, das Material
+     * wird verbraucht.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code pixels}-Zeilen, die das Modell anders fuellen als die
+     * Vorschau, oder ein Bau, der Bildbloecke auslaesst.
+     */
+    public static void pictureBlueprintBuildsItsBlocks(GameTestHelper helper) {
+        if (!BlueprintPicture.available()) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        int w = pictureRgb("white_wool"), b = pictureRgb("black_concrete"), r = pictureRgb("red_terracotta");
+        String code = BlueprintPicture.convert(new int[]{w, w, b, b, r, r}, 3, 2, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "flag").code();
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint(code);
+        ItemStack wool = new ItemStack(pictureBlock("white_wool").asItem(), 2), concrete = new ItemStack(pictureBlock("black_concrete").asItem(), 2), terracotta = new ItemStack(pictureBlock("red_terracotta").asItem(), 2);
+        hold(player, wand, blueprint, wool, concrete, terracotta);
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        helper.assertTrue(built != null && built.placed() == 6 && built.missing() == 0, "picture build: " + built);
+        int[] counts = new int[3];
+        for (int x = 0; x < 8; x++) {
+            for (int y = 1; y < 7; y++) {
+                for (int z = 0; z < 8; z++) {
+                    BlockState s = helper.getBlockState(new BlockPos(x, y, z));
+                    counts[0] += s.is(pictureBlock("white_wool")) ? 1 : 0;
+                    counts[1] += s.is(pictureBlock("black_concrete")) ? 1 : 0;
+                    counts[2] += s.is(pictureBlock("red_terracotta")) ? 1 : 0;
+                }
+            }
+        }
+        helper.assertTrue(counts[0] == 2 && counts[1] == 2 && counts[2] == 2, "built blocks " + java.util.Arrays.toString(counts));
+        helper.assertTrue(wool.isEmpty() && concrete.isEmpty() && terracotta.isEmpty(), "material used");
+        clear(helper);
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // EDITOR-PAKET UND REZEPT
+    // =====================================================================================
+
+    /**
+     * Der Server prueft das Editor-Paket wie beim Buch: Code wird gespeichert, Signieren braucht
+     * fehlerfreien Code und einen Titel, danach ist die Blaupause schreibgeschuetzt; ein Stapel
+     * leerer Blaupausen wird nicht als Ganzes beschrieben.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Handler, der signierte Blaupausen
+     * ueberschreibt, fehlerhaften Code signiert, den Autor nicht setzt oder einen ganzen Stapel
+     * auf einmal beschreibt.
+     */
+    public static void editPacketSavesSignsAndLocksTheBlueprint(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        ItemStack stack = new ItemStack(BtItems.BLUEPRINT);
+        player.getInventory().setItem(0, stack);
+
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0,0,0", false, ""), player);
+        helper.assertTrue(BlueprintItem.content(stack).code().equals("stone 0,0,0") && !BlueprintItem.content(stack).signed(),
+                "the draft was not saved: " + BlueprintItem.content(stack));
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stne 0,0,0", true, "Hut"), player);
+        helper.assertTrue(!BlueprintItem.content(stack).signed() && BlueprintItem.content(stack).code().equals("stone 0,0,0"),
+                "code with errors was signed");
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0..1,0,0", true, "  "), player);
+        helper.assertTrue(!BlueprintItem.content(stack).signed(), "a blank title was accepted");
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0..1,0,0", true, "Hut"), player);
+        BlueprintContent signed = BlueprintItem.content(stack);
+        helper.assertTrue(signed.signed() && signed.title().equals("Hut") && signed.author().equals(player.getName().getString())
+                && signed.code().equals("stone 0..1,0,0"), "signing failed: " + signed);
+        helper.assertTrue(stack.getHoverName().getString().equals("Hut"), "a signed blueprint is not named after its title");
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "dirt 0,0,0", false, ""), player);
+        helper.assertTrue(BlueprintItem.content(stack).equals(signed), "a signed blueprint was edited");
+
+        ItemStack pile = new ItemStack(BtItems.BLUEPRINT, 3);
+        player.getInventory().setItem(1, pile);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(1, "stone 0,0,0", false, ""), player);
+        helper.assertTrue(player.getInventory().getItem(1).getCount() == 1
+                        && BlueprintItem.content(player.getInventory().getItem(1)).code().equals("stone 0,0,0"),
+                "the whole pile was written or the written one left the slot: " + player.getInventory().getItem(1));
+        helper.succeed();
+    }
+
+
+    // =====================================================================================
+    // RUNDE 3: BEISPIELE, SUCHE, KOPIEREN, SIGNIERT BAUEN, AUTOSPEICHERN
+    // =====================================================================================
+
+    /**
+     * Jede Beispielvorlage (Knopf "Beispiel einfuegen") parst fehlerfrei, passt in 16 x 16 x 16 und
+     * hat eine Materialliste; jede Biom-Gruppe beginnt mit ihrem Dorfhaus, die Biome gehen auf die
+     * richtige Gruppe, und die Materialliste des Ebenen-Hauses stimmt Stueck fuer Stueck.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Tippfehler in einer Vorlage, eine Vorlage ueber
+     * 16, eine fehlende Ressource, eine falsche Biom-Zuordnung, ein Zaehlfehler in der Materialliste.
+     */
+    public static void examplesParseFitAndListTheirMaterials(GameTestHelper helper) {
+        int total = 0;
+        for (java.util.Map.Entry<String, List<String>> group : BlueprintExamples.TEMPLATES.entrySet()) {
+            helper.assertTrue(group.getValue().get(0).equals(group.getKey() + "_house"), group.getKey() + " does not start with its village house");
+            helper.assertTrue(group.getValue().size() >= 2, group.getKey() + " has only one template");
+            for (String name : group.getValue()) {
+                String code = BlueprintExamples.code(name);
+                helper.assertTrue(!code.isBlank(), name + ": resource missing");
+                helper.assertTrue(code.contains("#"), name + ": the example carries no comments");
+                BlueprintCode.ParseResult parsed = BlueprintCode.parse(code);
+                helper.assertTrue(parsed.ok(), name + ": " + parsed.problems());
+                helper.assertTrue(!parsed.model().isEmpty() && parsed.model().maxEdge() <= 16,
+                        name + ": " + parsed.model().sizeX() + "x" + parsed.model().sizeY() + "x" + parsed.model().sizeZ());
+                helper.assertTrue(!BlueprintMaterials.list(parsed.model()).isEmpty(), name + ": empty material list");
+                total++;
+            }
+        }
+        helper.assertTrue(total >= 14, "only " + total + " templates");
+        String[][] biomes = {{"plains", "plains"}, {"cherry_grove", "cherry"}, {"mangrove_swamp", "swamp"}, {"swamp", "swamp"},
+                {"snowy_taiga", "snow"}, {"badlands", "desert"}, {"savanna_plateau", "savanna"}, {"old_growth_pine_taiga", "taiga"},
+                {"jungle", "swamp"}, {"the_void", "plains"}, {"nether_wastes", "plains"}};
+        for (String[] b : biomes) {
+            helper.assertTrue(BlueprintExamples.groupFor(b[0]).equals(b[1]), b[0] + " -> " + BlueprintExamples.groupFor(b[0]));
+        }
+        java.util.Set<String> picked = new java.util.HashSet<>();
+        for (int i = 0; i < 3; i++) {
+            int index = i;
+            picked.add(BlueprintExamples.pick("desert", n -> index));
+        }
+        helper.assertTrue(picked.equals(new java.util.HashSet<>(BlueprintExamples.TEMPLATES.get("desert"))), "pick does not reach every desert template: " + picked);
+
+        java.util.Map<Item, Integer> counts = new java.util.HashMap<>();
+        for (BlueprintMaterials.Entry e : BlueprintMaterials.list(BlueprintCode.parse(BlueprintExamples.code("plains_house")).model())) {
+            counts.put(e.item(), e.count());
+        }
+        java.util.Map<Item, Integer> expected = java.util.Map.of(Items.OAK_PLANKS, 110, Items.COBBLESTONE, 49, Items.OAK_STAIRS, 42,
+                Items.OAK_LOG, 12, Items.OAK_SLAB, 7, Items.GLASS_PANE, 4, Items.OAK_DOOR, 1, Items.TORCH, 1, Items.CRAFTING_TABLE, 1);
+        helper.assertTrue(counts.equals(expected), "plains house materials " + counts);
+        helper.succeed();
+    }
+
+    /**
+     * Die Blocksuche des Editors findet ueber den angezeigten Namen (hier der Server-Name und ein
+     * nachgestellter "deutscher") und ueber die Id, der genaue Treffer steht vorn, und eingefuegt
+     * wird die Id ohne {@code minecraft:}.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Suche nur ueber die Id oder nur ueber den
+     * Namen, eine Rangfolge, die den genauen Treffer nach hinten schiebt.
+     */
+    public static void blockSearchFindsByNameAndId(GameTestHelper helper) {
+        java.util.function.Function<net.minecraft.world.level.block.Block, String> english = b -> b.getName().getString();
+        List<net.minecraft.world.level.block.Block> byName = com.simplebuildingtools.blueprint.BlueprintBlockSearch.search("Glass Pane", english, 10);
+        helper.assertTrue(!byName.isEmpty() && byName.get(0) == Blocks.GLASS_PANE, "'Glass Pane' found " + byName);
+        List<net.minecraft.world.level.block.Block> byId = com.simplebuildingtools.blueprint.BlueprintBlockSearch.search("oak_stai", english, 10);
+        helper.assertTrue(!byId.isEmpty() && byId.get(0) == Blocks.OAK_STAIRS, "'oak_stai' found " + byId);
+        List<net.minecraft.world.level.block.Block> full = com.simplebuildingtools.blueprint.BlueprintBlockSearch.search("minecraft:stone", english, 5);
+        helper.assertTrue(!full.isEmpty() && full.get(0) == Blocks.STONE, "'minecraft:stone' found " + full);
+        java.util.function.Function<net.minecraft.world.level.block.Block, String> german = b -> b == Blocks.COBBLESTONE ? "Bruchstein" : b.getName().getString();
+        List<net.minecraft.world.level.block.Block> localized = com.simplebuildingtools.blueprint.BlueprintBlockSearch.search("bruchst", german, 5);
+        helper.assertTrue(localized.contains(Blocks.COBBLESTONE), "the display name in another language was not searched: " + localized);
+        helper.assertTrue(com.simplebuildingtools.blueprint.BlueprintBlockSearch.search("zzqq", english, 5).isEmpty(), "nonsense found something");
+        helper.assertTrue(com.simplebuildingtools.blueprint.BlueprintBlockSearch.codeName(Blocks.OAK_STAIRS).equals("oak_stairs"), "code name keeps minecraft:");
+        helper.succeed();
+    }
+
+    /**
+     * Kopieren am Kartentisch: signierte Blaupause oben, leere unten ergibt eine unsignierte Kopie
+     * mit demselben Code und Titel, ohne Autor; nehmen verbraucht nur die leere, das Original bleibt
+     * signiert liegen. Eine unsignierte oben oder eine beschriebene unten ergibt nichts.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Kopie, die signiert bleibt oder den Autor
+     * behaelt, ein Ergebnis-Slot, der das Original verbraucht, ein Kopierpfad, der auch
+     * unsignierte oder beschriebene Blaupausen annimmt.
+     */
+    public static void cartographyTableCopiesSignedBlueprints(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        ItemStack original = new ItemStack(BtItems.BLUEPRINT);
+        original.set(BtComponents.BLUEPRINT, new BlueprintContent("stone 0..2,0,0", "Turm", "Alice", true));
+        CartographyTableMenu menu = new CartographyTableMenu(21, player.getInventory(),
+                ContainerLevelAccess.create(level, helper.absolutePos(new BlockPos(5, 1, 5))));
+        helper.assertTrue(menu.getSlot(0).mayPlace(original), "the table refuses a signed blueprint on top");
+        menu.getSlot(0).set(original);
+        menu.getSlot(1).set(new ItemStack(BtItems.BLUEPRINT, 3));
+        ItemStack copy = menu.getSlot(2).getItem();
+        BlueprintContent c = BlueprintItem.content(copy);
+        helper.assertTrue(copy.is(BtItems.BLUEPRINT) && copy.getCount() == 1 && !c.signed() && c.author().isEmpty()
+                        && c.title().equals("Turm") && c.code().equals("stone 0..2,0,0"),
+                "not an unsigned copy with code and title: " + c);
+        menu.getSlot(2).onTake(player, copy);
+        helper.assertTrue(menu.getSlot(1).getItem().getCount() == 2, "the copy did not use exactly one blank blueprint");
+        helper.assertTrue(BlueprintItem.content(menu.getSlot(0).getItem()).signed(), "the original was used up or changed");
+
+        ItemStack unsigned = new ItemStack(BtItems.BLUEPRINT);
+        unsigned.set(BtComponents.BLUEPRINT, new BlueprintContent("stone 0,0,0", "", "", false));
+        helper.assertTrue(!menu.getSlot(0).mayPlace(unsigned), "an unsigned blueprint is accepted on top");
+        CartographyTableMenu written = new CartographyTableMenu(22, player.getInventory(),
+                ContainerLevelAccess.create(level, helper.absolutePos(new BlockPos(5, 1, 5))));
+        written.getSlot(0).set(original.copy());
+        written.getSlot(1).set(unsigned.copy());
+        helper.assertTrue(written.getSlot(2).getItem().isEmpty(), "a written blueprint below took a copy");
+        helper.succeed();
+    }
+
+    /**
+     * Gebaut wird nur mit einer signierten Blaupause: eine unsignierte in der Nebenhand setzt nichts
+     * und verbraucht nichts; dieselbe signiert baut.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine fehlende Signatur-Pruefung beim Bauen.
+     */
+    public static void buildNeedsTheSignedBlueprint(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack stone = new ItemStack(Items.STONE, 8);
+        ItemStack draft = new ItemStack(BtItems.BLUEPRINT);
+        draft.set(BtComponents.BLUEPRINT, new BlueprintContent("stone 0,0,0..0,0,2", "", "", false));
+        hold(player, wand, draft, stone);
+        helper.assertTrue(build(helper, player, wand, draft) == null, "an unsigned blueprint was built");
+        helper.assertTrue(helper.getBlockState(TARGET).isAir() && stone.getCount() == 8, "the refused build placed or used something");
+        ItemStack signed = blueprint("stone 0,0,0..0,0,2");
+        hold(player, wand, signed, stone);
+        BlueprintBuilder.Result result = build(helper, player, wand, signed);
+        helper.assertTrue(result != null && result.placed() == 3, "the signed blueprint did not build: " + result);
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Autospeichern, serverseitig: jedes Edit-Paket steht sofort am Item - auch wenn der Spieler
+     * danach die Verbindung verliert; weitere Pakete ueberschreiben der Reihe nach, und ein Stapel
+     * leerer Blaupausen behaelt die beschriebene im Slot, damit die naechste Speicherung sie trifft.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Handler, der erst spaeter speichert, ein
+     * Stapel-Split, der die naechste Autospeicherung eine weitere Blaupause abspalten laesst.
+     */
+    public static void editPacketsSaveImmediatelyAndSurviveTheDisconnect(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        ItemStack pile = new ItemStack(BtItems.BLUEPRINT, 3);
+        player.getInventory().setItem(0, pile);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0,0,0", false, ""), player);
+        ItemStack inSlot = player.getInventory().getItem(0);
+        helper.assertTrue(inSlot.getCount() == 1 && BlueprintItem.content(inSlot).code().equals("stone 0,0,0"),
+                "the written blueprint did not stay in the slot: " + inSlot);
+        int blanks = 0;
+        for (int i = 1; i < player.getInventory().getNonEquipmentItems().size(); i++) {
+            ItemStack s = player.getInventory().getItem(i);
+            if (s.is(BtItems.BLUEPRINT) && BlueprintItem.content(s).isBlank()) {
+                blanks += s.getCount();
+            }
+        }
+        helper.assertTrue(blanks == 2, "the rest of the pile is not in the inventory: " + blanks);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0..1,0,0", false, ""), player);
+        helper.assertTrue(BlueprintItem.content(player.getInventory().getItem(0)).code().equals("stone 0..1,0,0")
+                && player.getInventory().getItem(0).getCount() == 1, "the second autosave did not overwrite the same blueprint");
+        ItemStack kept = player.getInventory().getItem(0);
+        helper.getLevel().getServer().getPlayerList().remove(player);
+        helper.assertTrue(BlueprintItem.content(kept).code().equals("stone 0..1,0,0"), "the saved code is gone after the disconnect");
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // RUNDE 3 G: SICHTBAR WACHSENDER BAU
+    // =====================================================================================
+
+    /**
+     * Der Bau waechst sichtbar: Schicht fuer Schicht von unten nach oben, in jeder Schicht von der
+     * Mitte nach aussen. Mit 3 Stellen je Tick (Test-Tag) steht nach dem Klick die Mitte der unteren
+     * Schicht und zwei Kantenmitten, keine Ecke; nach drei Scheiben die ganze untere Schicht und noch
+     * nichts oben; am Ende alles. Die Bauzeit waechst gedaempft: 1 s fuer kleine Bauten, hoechstens 9 s.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Reihenfolge ohne Mitte-nach-aussen oder ohne
+     * Schichten, ein Bau in einem Zug, eine Bauzeit, die nicht gedaempft oder nicht begrenzt ist.
+     */
+    public static void buildGrowsLayerByLayerFromTheCentre(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, true);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        clear(helper);
+        helper.assertTrue(BlueprintBuilder.ticksFor(20) <= 25 && BlueprintBuilder.ticksFor(BlueprintCode.MAX_EXPANDED_CELLS) == 180,
+                "build time is not 1 s for small and 9 s for the largest builds: " + BlueprintBuilder.ticksFor(20) + " / "
+                        + BlueprintBuilder.ticksFor(BlueprintCode.MAX_EXPANDED_CELLS));
+        helper.assertTrue(BlueprintBuilder.ticksFor(1000) > 20 && BlueprintBuilder.ticksFor(1000) < BlueprintBuilder.ticksFor(100_000),
+                "build time does not grow with the size");
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0..2,0..1,0..2");
+        hold(player, wand, blueprint);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.placed() == 3 && !first.finished(), "the first slice is not three blocks: " + first);
+        // Welt: x -1..1 um TARGET, z 0..2 vor TARGET; Mitte der Schicht = TARGET.south(1)
+        helper.assertTrue(helper.getBlockState(TARGET.south(1)).is(Blocks.STONE), "the centre of the bottom layer did not come first");
+        for (BlockPos corner : new BlockPos[]{TARGET.west(), TARGET.east(), TARGET.south(2).west(), TARGET.south(2).east()}) {
+            helper.assertTrue(helper.getBlockState(corner).isAir(), "a corner came before the edge centres: " + corner);
+        }
+        helper.startSequence()
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    int bottom = 0, top = 0;
+                    for (int x = -1; x <= 1; x++) {
+                        for (int z = 0; z <= 2; z++) {
+                            bottom += helper.getBlockState(TARGET.offset(x, 0, z)).is(Blocks.STONE) ? 1 : 0;
+                            top += helper.getBlockState(TARGET.offset(x, 1, z)).is(Blocks.STONE) ? 1 : 0;
+                        }
+                    }
+                    helper.assertTrue(bottom == 9 && top == 0, "after three slices: bottom " + bottom + ", top " + top);
+                })
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    helper.assertTrue(helper.getBlockState(TARGET.offset(1, 1, 2)).is(Blocks.STONE) && !BlueprintBuilder.building(player),
+                            "the build did not finish");
+                    clear(helper);
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Jeder gesetzte Block kostet den Baustab einen Haltbarkeitspunkt; bricht er, stoppt der Bau
+     * sofort - kein Block ueber die Haltbarkeit hinaus.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau, der mit zerbrochenem Stab weitersetzt.
+     */
+    public static void buildStopsWhenTheWandBreaks(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.COPPER_BUILDING_WAND);
+        wand.setDamageValue(wand.getMaxDamage() - 2);
+        ItemStack stone = new ItemStack(Items.STONE, 20);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,6");
+        hold(player, wand, blueprint, stone);
+        BlueprintBuilder.Result result = click(helper, player, wand, blueprint);
+        int placed = 0;
+        for (int z = 0; z <= 6; z++) {
+            placed += helper.getBlockState(TARGET.south(z)).is(Blocks.STONE) ? 1 : 0;
+        }
+        helper.assertTrue(wand.isEmpty(), "the wand did not break");
+        helper.assertTrue(placed == 2 && result.placed() == 2 && result.wandBroke(), "placed " + placed + " blocks with 2 durability left: " + result);
+        helper.assertTrue(!BlueprintBuilder.building(player), "a job is still registered for the broken wand");
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Wechselt der Spieler waehrend des Baus das Werkzeug in der Haupthand, bricht der Bau ab (wie
+     * beim normalen Baustab) und nimmt ihn auch nicht wieder auf, wenn der Stab zurueckkommt.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Auftrag, der nur tickt, solange der Stab in
+     * der Hand ist, und deshalb liegen bleibt und spaeter weiterbaut.
+     */
+    public static void buildStopsWhenTheWandLeavesTheMainHand(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, true);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,6");
+        hold(player, wand, blueprint);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.placed() == 3 && BlueprintBuilder.building(player), "no job after the first slice: " + first);
+        player.getInventory().setSelectedSlot(1);
+        wand.getItem().inventoryTick(wand, level, player, null);
+        helper.assertTrue(!BlueprintBuilder.building(player), "switching the main hand did not stop the build");
+        player.getInventory().setSelectedSlot(0);
+        helper.startSequence()
+                .thenExecuteAfter(2, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    int placed = 0;
+                    for (int z = 0; z <= 6; z++) {
+                        placed += helper.getBlockState(TARGET.south(z)).is(Blocks.STONE) ? 1 : 0;
+                    }
+                    helper.assertTrue(placed == 3, "the cancelled build went on after the wand came back: " + placed);
+                    clear(helper);
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Zwei-Klick-Regel: fehlt Material, baut der erste Klick nichts (er warnt nur, die roten Stellen
+     * leuchten auf); ein zweiter Klick kurz danach baut alles Vorhandene. Fehlt nichts, baut schon
+     * der erste Klick.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau ohne Warnung trotz Luecken, eine Warnung,
+     * die jeden Klick blockiert, eine Warnung, obwohl nichts fehlt.
+     */
+    public static void missingBlocksNeedTheSecondClick(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack stone = new ItemStack(Items.STONE, 2);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,3");
+        hold(player, wand, blueprint, stone);
+        BlueprintBuilder.Result warned = build(helper, player, wand, blueprint);
+        helper.assertTrue(warned != null && warned.warned() && warned.placed() == 0 && warned.missing() == 2 && stone.getCount() == 2,
+                "the first click with missing blocks did not only warn: " + warned);
+        BlueprintBuilder.Result second = build(helper, player, wand, blueprint);
+        helper.assertTrue(second != null && !second.warned() && second.placed() == 2 && second.missing() == 2,
+                "the confirming click did not build what is there: " + second);
+
+        // Die Bestaetigung gilt nur fuer diesen einen Bau: der naechste Bau mit Luecken warnt wieder.
+        clear(helper);
+        player.getInventory().setItem(1, new ItemStack(Items.STONE, 2));
+        BlueprintBuilder.Result again = build(helper, player, wand, blueprint);
+        helper.assertTrue(again != null && again.warned() && again.placed() == 0, "the next build with gaps did not warn again: " + again);
+
+        clear(helper);
+        player.getInventory().setItem(1, new ItemStack(Items.STONE, 10));
+        BlueprintBuilder.Result complete = build(helper, player, wand, blueprint);
+        helper.assertTrue(complete != null && !complete.warned() && complete.placed() == 4, "nothing missing, but the first click did not build: " + complete);
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Ein laufender Bauauftrag ueberlebt Logout und Neustart: sein Stand (Code-Hash, Ziel, Drehung,
+     * Fortschritt) steht nach jeder Scheibe in {@link BlueprintJobs}, das mit der Welt gespeichert
+     * wird. Nach dem Neustart - der Speicher ist leer, Baustab und Blaupause sind neue Stapel - baut
+     * er weiter, sobald der Spieler Baustab und eine Blaupause mit demselben Code haelt, und zwar ab
+     * der Stelle, an der er stand: kein Block doppelt, kein Material doppelt. Eine andere Blaupause
+     * in der Nebenhand setzt ihn nicht fort und loescht ihn nicht.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Auftrag, der nur im Speicher lebt; ein
+     * gespeicherter Stand, der nicht durch den Codec kommt; ein Fortsetzen von vorn (Material doppelt
+     * gezaehlt) oder mit fremder Blaupause; ein fertiger Auftrag, der gespeichert bleibt.
+     */
+    public static void runningBuildSurvivesLogoutAndResumesWithTheSameBlueprint(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        clear(helper);
+        String code = "stone 0..1,0,0..3";
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack stone = new ItemStack(Items.STONE, 8);
+        ItemStack blueprint = blueprint(code);
+        hold(player, wand, blueprint, stone);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.placed() == 3 && BlueprintBuilder.building(player), "no job after the first slice: " + first);
+
+        BlueprintJobs.Pending saved = BlueprintJobs.get(level, player.getUUID());
+        helper.assertTrue(saved != null && saved.index() == 3 && saved.placed() == 3 && saved.target().equals(helper.absolutePos(TARGET))
+                        && saved.codeHash().equals(BlueprintJobs.hash(code)),
+                "the running job was not saved with its progress: " + saved);
+        Tag file = BlueprintJobs.CODEC.encodeStart(NbtOps.INSTANCE, level.getDataStorage().get(BlueprintJobs.TYPE)).getOrThrow();
+        BlueprintJobs reloaded = BlueprintJobs.CODEC.parse(NbtOps.INSTANCE, file).getOrThrow();
+        helper.assertTrue(reloaded.pending().contains(saved), "the saved job did not come back from its file: " + reloaded.pending());
+
+        // Neustart: alles im Speicher ist weg; der Spieler kommt mit neuen Stapeln zurueck.
+        BlueprintBuilder.forgetRunningJob(player.getUUID());
+        helper.assertTrue(!BlueprintBuilder.building(player), "forgetting the running jobs left one behind");
+        ItemStack wandAgain = wand.copy();
+        ItemStack stoneAgain = stone.copy();
+        ItemStack otherBlueprint = blueprint("glass 0..1,0,0..3");
+        hold(player, wandAgain, otherBlueprint, stoneAgain);
+        wandAgain.getItem().inventoryTick(wandAgain, level, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(!BlueprintBuilder.building(player) && BlueprintJobs.get(level, player.getUUID()) != null,
+                "another blueprint in the off hand resumed or dropped the saved job");
+
+        ItemStack sameCode = blueprint(code);
+        hold(player, wandAgain, sameCode, stoneAgain);
+        wandAgain.getItem().inventoryTick(wandAgain, level, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(BlueprintBuilder.building(player), "holding the wand and a blueprint with the same code did not resume the build");
+        BlueprintBuilder.Result rest = BlueprintBuilder.completeJob(player);
+        int built = 0;
+        for (int z = 0; z <= 3; z++) {
+            built += helper.getBlockState(TARGET.south(z)).is(Blocks.STONE) ? 1 : 0;
+            built += helper.getBlockState(TARGET.south(z).west()).is(Blocks.STONE) ? 1 : 0;
+        }
+        helper.assertTrue(rest != null && rest.finished() && rest.placed() == 8 && built == 8,
+                "the resumed build did not finish the structure: " + rest + ", " + built + " of 8 stones");
+        helper.assertTrue(stoneAgain.getCount() == 0 && wandAgain.getDamageValue() == 8,
+                "resuming spent material or durability twice: " + stoneAgain.getCount() + " stone left, wand damage "
+                        + wandAgain.getDamageValue());
+        helper.assertTrue(BlueprintJobs.get(level, player.getUUID()) == null, "the finished job is still saved");
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Die Fehlstellen-Pruefung vor einem Ueberlebens-Bau hat keine Obergrenze: was beim Klick nicht
+     * mehr drankommt, prueft sie in den folgenden Ticks (hier mit 3 Stellen je Klick und Tick), und
+     * erst danach warnt sie oder baut. Eine fehlende Stelle ganz am Ende der Bau-Reihenfolge wird
+     * also genauso gefunden wie eine am Anfang; fehlt nichts, beginnt der Bau von selbst.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Pruefung, die nach ihrem Budget aufhoert und
+     * "nichts fehlt" meldet (die fruehere 400 000er-Grenze), ein Bau, der vor dem Ende der Pruefung
+     * beginnt, eine fertige Pruefung, die nicht baut.
+     */
+    public static void missingBlocksCheckHasNoCapAndRunsOverSeveralTicks(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        player.addTag(BlueprintBuilder.SMALL_CHECK_TAG);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack stone = new ItemStack(Items.STONE, 8);
+        // Neun Stellen, die fehlende (Glas) liegt eine Schicht hoeher und kommt als letzte dran.
+        ItemStack blueprint = blueprint("stone 0..1,0,0..3\nglass 1,1,3");
+        hold(player, wand, blueprint, stone);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.checking() && !first.warned() && first.placed() == 0 && BlueprintBuilder.checking(player),
+                "the check should go on after the click's budget of 3 positions: " + first);
+        helper.assertTrue(helper.getBlockState(TARGET).isAir() && stone.getCount() == 8, "something was built before the check was done");
+        helper.startSequence()
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    helper.assertTrue(BlueprintBuilder.checking(player) && !BlueprintBuilder.building(player),
+                            "after 6 of 9 positions the check should still run and nothing be built");
+                })
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    helper.assertTrue(!BlueprintBuilder.checking(player) && !BlueprintBuilder.building(player)
+                                    && helper.getBlockState(TARGET).isAir() && stone.getCount() == 8,
+                            "the glass missing at the very end of the order did not stop the build with a warning");
+                    // Die Warnung ist gegeben: der zweite Klick baut, was da ist, ohne neue Pruefung.
+                    BlueprintBuilder.Result confirmed = build(helper, player, wand, blueprint);
+                    helper.assertTrue(confirmed != null && !confirmed.checking() && confirmed.placed() == 8 && confirmed.missing() == 1,
+                            "the confirming click did not build the eight stones: " + confirmed);
+
+                    // Nichts fehlt: nach der Pruefung beginnt der Bau von selbst.
+                    clear(helper);
+                    player.getInventory().setItem(1, new ItemStack(Items.STONE, 8));
+                    player.getInventory().setItem(2, new ItemStack(Items.GLASS, 1));
+                    BlueprintBuilder.Result again = click(helper, player, wand, blueprint);
+                    helper.assertTrue(again != null && again.checking(), "the second build did not start with a check: " + again);
+                })
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    helper.assertTrue(!BlueprintBuilder.checking(player), "the check did not end after all nine positions");
+                    BlueprintBuilder.Result done = BlueprintBuilder.completeJob(player);
+                    helper.assertTrue(helper.getBlockState(TARGET.south(3).above()).is(Blocks.GLASS)
+                                    && helper.getBlockState(TARGET).is(Blocks.STONE),
+                            "with nothing missing the finished check did not build: " + done);
+                    clear(helper);
+                })
+                .thenSucceed();
+    }
+
+    // =====================================================================================
+    // AUDIT 2026-09-26
+    // =====================================================================================
+
+    /**
+     * Ein Ueberlebens-Bau setzt nur, was ein Item hergibt: Ausrichtung und Form bleiben (Treppe nach
+     * Osten, obere Haelfte; Endportalrahmen nach Westen), Wachstum und Fuellstaende fallen auf den
+     * Grundzustand (Nether-Warze {@code age=3} -&gt; 0, Komposter {@code level=8} -&gt; 0, Seelenanker
+     * {@code charges=4} -&gt; 0, Rahmen ohne Auge), ein gefuellter Kessel wird zum leeren Kessel, und Laub
+     * bleibt dauerhaft. Der Kreativmodus baut denselben Code unveraendert (Audit #2).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau, der den Code-Zustand ungefiltert setzt
+     * (endlose Vermehrung: ein Item Warze gibt eine reife Warze, ein Kessel einen Lavakessel), eine
+     * Filterliste, die auch die Ausrichtung verwirft, oder eine, die den Kreativmodus mit trifft.
+     */
+    public static void survivalBuildResetsGrownAndFilledStates(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        String code = "composter[level=8] 0,0,0\n"
+                + "soul_sand 0,0,1\n"
+                + "nether_wart[age=3] 0,1,1\n"
+                + "respawn_anchor[charges=4] 0,0,2\n"
+                + "end_portal_frame[eye=true,facing=west] 0,1,2\n"
+                + "oak_stairs[facing=east,half=top] 0,0,3\n"
+                + "oak_leaves[persistent=false,distance=7] 0,1,3\n"
+                + "water_cauldron[level=3] 0,0,4";
+        ItemStack blueprint = blueprint(code);
+        ItemStack[] supplies = {new ItemStack(Items.COMPOSTER), new ItemStack(Items.SOUL_SAND), new ItemStack(Items.NETHER_WART),
+                new ItemStack(Items.RESPAWN_ANCHOR), new ItemStack(Items.END_PORTAL_FRAME), new ItemStack(Items.OAK_STAIRS),
+                new ItemStack(Items.OAK_LEAVES), new ItemStack(Items.CAULDRON)};
+        hold(player, wand, blueprint, supplies);
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        helper.assertTrue(built != null && !built.warned() && built.placed() == 8 && built.missing() == 0,
+                "the eight blocks should build from one item each: " + built);
+        for (ItemStack supply : supplies) {
+            helper.assertTrue(supply.isEmpty(), "the build did not use its " + supply);
+        }
+        BlockState composter = helper.getBlockState(TARGET);
+        BlockState wart = helper.getBlockState(TARGET.south().above());
+        BlockState anchor = helper.getBlockState(TARGET.south(2));
+        BlockState frame = helper.getBlockState(TARGET.south(2).above());
+        BlockState stairs = helper.getBlockState(TARGET.south(3));
+        BlockState leaves = helper.getBlockState(TARGET.south(3).above());
+        BlockState cauldron = helper.getBlockState(TARGET.south(4));
+        helper.assertTrue(composter.is(Blocks.COMPOSTER) && composter.getValue(BlockStateProperties.LEVEL_COMPOSTER) == 0,
+                "a full composter came out of one composter item: " + composter);
+        helper.assertTrue(wart.is(Blocks.NETHER_WART) && wart.getValue(BlockStateProperties.AGE_3) == 0,
+                "a ripe nether wart came out of one wart: " + wart);
+        helper.assertTrue(anchor.is(Blocks.RESPAWN_ANCHOR) && anchor.getValue(BlockStateProperties.RESPAWN_ANCHOR_CHARGES) == 0,
+                "a charged respawn anchor came out of one anchor: " + anchor);
+        helper.assertTrue(frame.is(Blocks.END_PORTAL_FRAME) && !frame.getValue(BlockStateProperties.EYE)
+                        && frame.getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.WEST,
+                "the end portal frame lost its facing or got a free eye: " + frame);
+        helper.assertTrue(stairs.is(Blocks.OAK_STAIRS) && stairs.getValue(StairBlock.FACING) == Direction.EAST
+                        && stairs.getValue(StairBlock.HALF) == Half.TOP,
+                "the stair lost its orientation: " + stairs);
+        helper.assertTrue(leaves.is(Blocks.OAK_LEAVES) && leaves.getValue(BlockStateProperties.PERSISTENT),
+                "leaves built by hand have to stay (persistent), not decay: " + leaves);
+        helper.assertTrue(cauldron.is(Blocks.CAULDRON), "one cauldron item built a filled cauldron: " + cauldron);
+
+        // Kreativ: derselbe Code genau so, wie er dasteht.
+        clear(helper);
+        player.getAbilities().instabuild = true;
+        BlueprintBuilder.Result creative = build(helper, player, wand, blueprint);
+        helper.assertTrue(creative != null && creative.placed() == 8, "the creative build did not place all eight: " + creative);
+        helper.assertTrue(helper.getBlockState(TARGET).getValue(BlockStateProperties.LEVEL_COMPOSTER) == 8,
+                "creative lost the composter level: " + helper.getBlockState(TARGET));
+        helper.assertTrue(helper.getBlockState(TARGET.south().above()).getValue(BlockStateProperties.AGE_3) == 3,
+                "creative lost the wart's age: " + helper.getBlockState(TARGET.south().above()));
+        helper.assertTrue(helper.getBlockState(TARGET.south(2).above()).getValue(BlockStateProperties.EYE),
+                "creative lost the frame's eye");
+        helper.assertTrue(helper.getBlockState(TARGET.south(4)).is(Blocks.WATER_CAULDRON),
+                "creative did not build the water cauldron: " + helper.getBlockState(TARGET.south(4)));
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Scheitert das Setzen, nachdem das Material abgebucht ist, bekommt der Spieler es zurueck; die
+     * Stelle zaehlt als blockiert (Audit #28).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Planer, der das Material vor dem Setzen nimmt und
+     * bei einem Fehlschlag behaelt.
+     */
+    public static void failedPlacementHandsTheMaterialBack(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        hold(player, wand, ItemStack.EMPTY, new ItemStack(Items.STONE, 5));
+        BlockPos at = helper.absolutePos(TARGET);
+        BlueprintBuilder.ListLayout layout = new BlueprintBuilder.ListLayout(new long[]{at.asLong()},
+                new BlockState[]{Blocks.STONE.defaultBlockState()});
+
+        BlueprintBuilder.Planner failing = new BlueprintBuilder.Planner(helper.getLevel(), player, wand, layout,
+                BlueprintBuilder.realSupply(player, wand), false, false);
+        failing.run(16, 16, (pos, state) -> false);
+        helper.assertTrue(failing.result().blocked() == 1 && failing.result().placed() == 0,
+                "a refused placement should count as blocked: " + failing.result());
+        helper.assertValueEqual(countStone(player), 5, "stone left after a placement that failed");
+
+        // Gegenprobe: gelingt das Setzen, ist genau ein Stein weg.
+        BlueprintBuilder.Planner working = new BlueprintBuilder.Planner(helper.getLevel(), player, wand, layout,
+                BlueprintBuilder.realSupply(player, wand), false, false);
+        working.run(16, 16, (pos, state) -> true);
+        helper.assertValueEqual(countStone(player), 4, "stone left after one successful placement");
+        helper.succeed();
+    }
+
+    private static int countStone(ServerPlayer player) {
+        int n = 0;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack s = player.getInventory().getItem(i);
+            if (s.is(Items.STONE)) {
+                n += s.getCount();
+            }
+        }
+        return n;
+    }
+
+    /**
+     * Signieren parst den ganzen Code; dafuer hat jeder Spieler ein Zeichenbudget (zwei volle Codes
+     * sofort, dann einer je Sekunde). Drei fast volle Codes im selben Tick: die ersten zwei werden
+     * signiert, der dritte abgewiesen - eine Weile spaeter geht auch er (Audit #11).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Signier-Paket, das ohne Grenze geparst wird (ein
+     * Client in Schleife beschaeftigt den Server mit 32 000 Zeichen je Paket), oder ein Budget, das
+     * sich nie wieder auffuellt.
+     */
+    public static void signPacketsShareOneParseBudgetPerPlayer(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        player.getInventory().clearContent();
+        for (int slot = 0; slot < 3; slot++) {
+            player.getInventory().setItem(slot, new ItemStack(BtItems.BLUEPRINT));
+        }
+        String big = "stone 0,0,0\n#" + "x".repeat(BlueprintCode.MAX_CODE_LENGTH - 20);
+        for (int slot = 0; slot < 3; slot++) {
+            ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(slot, big, true, "Gross"), player);
+        }
+        helper.assertTrue(BlueprintItem.content(player.getInventory().getItem(0)).signed()
+                        && BlueprintItem.content(player.getInventory().getItem(1)).signed(),
+                "the first two full-size codes should be signed at once");
+        helper.assertFalse(BlueprintItem.content(player.getInventory().getItem(2)).signed(),
+                "a third full-size code in the same tick was parsed and signed - there is no parse budget");
+        helper.runAfterDelay(40, () -> {
+            ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, big, true, "Gross"), player);
+            helper.assertTrue(BlueprintItem.content(player.getInventory().getItem(2)).signed(),
+                    "two seconds later the budget should allow the third code again");
+            helper.succeed();
+        });
+    }
+
+    // =====================================================================================
+    // NACH-AUDIT 2026-09-27
+    // =====================================================================================
+
+    /**
+     * Nach-Audit 2026-09-27 N2 (Rest von #29): eine Blaupause baut Befehls-, Struktur- und
+     * Verbundbloecke nur fuer Spieler, die sie auch von Hand setzen duerften. Ein Kreativspieler ohne
+     * Op bekommt den Stein daneben, der Befehlsblock bleibt aus (gesperrt gezaehlt).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> die {@code GameMasterBlock}-Pruefung in
+     * {@code Planner#run} entfernen.
+     */
+    public static void blueprintBuildsGameMasterBlocksOnlyForOperators(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("command_block 0,0,0\nstone 0,0,1");
+        hold(player, wand, blueprint);
+        boolean operator = player.canUseGameMasterBlocks();
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        player.getAbilities().instabuild = false;
+
+        helper.assertFalse(operator, "the mock player may use game master blocks, so this test cannot tell anything");
+        helper.assertTrue(helper.getBlockState(TARGET.south()).is(Blocks.STONE), "the control stone was not built: " + built);
+        helper.assertFalse(helper.getBlockState(TARGET).is(Blocks.COMMAND_BLOCK), "a blueprint built a command block for a non-operator");
+        helper.assertTrue(built != null && built.blocked() == 1, "the refused command block was not counted as blocked: " + built);
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Nach-Audit 2026-09-27 N15: ein Ueberlebens-Bau behaelt das Instrument eines Notenblocks aus dem
+     * Code. Frueher fehlte {@code instrument} in der Liste der erhaltenen Eigenschaften, und jeder
+     * Notenblock wurde zur Harfe.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code NOTEBLOCK_INSTRUMENT} aus
+     * {@code BlueprintMaterials#SURVIVAL_KEPT} entfernen.
+     */
+    public static void survivalBuildKeepsTheNoteBlockInstrument(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("note_block[instrument=flute] 0,0,0");
+        hold(player, wand, blueprint, new ItemStack(Items.NOTE_BLOCK));
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        BlockState note = helper.getBlockState(TARGET);
+        helper.assertTrue(built != null && built.placed() == 1, "the note block was not built: " + built);
+        helper.assertTrue(note.is(Blocks.NOTE_BLOCK)
+                        && note.getValue(BlockStateProperties.NOTEBLOCK_INSTRUMENT) == net.minecraft.world.level.block.state.properties.NoteBlockInstrument.FLUTE,
+                "the survival build lost the note block's instrument: " + note);
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Nach-Audit 2026-09-27 N3: jeder Klick lief synchron eine ganze Klick-Pruefung durch - Klick-Spam
+     * vervielfachte die Weltlesungen. Ein weiterer Klick auf denselben Bau startet die laufende Pruefung
+     * nicht neu (ihr Stand bleibt), und alle Klicks eines Spielers in einem Tick teilen sich ein
+     * Klick-Budget: ein zweiter neuer Bau im selben Tick prueft beim Klick nichts mehr, erst im
+     * naechsten Tick. Hier mit 3 Stellen je Klick-Budget und Tick.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code pendingCheck} entfernen (der Stand faellt
+     * zurueck) oder das Klick-Budget je Klick statt je Tick vergeben.
+     */
+    public static void repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        player.addTag(BlueprintBuilder.SMALL_CHECK_TAG);
+        clear(helper);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0..3,0,0..3");
+        hold(player, wand, blueprint, new ItemStack(Items.STONE, 64));
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.checking() && BlueprintBuilder.checkProgress(player) == 3,
+                "the first click should check three positions and go on: " + first + ", " + BlueprintBuilder.checkProgress(player));
+        helper.runAfterDelay(1, () -> {
+            wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+            int afterTick = BlueprintBuilder.checkProgress(player);
+            BlueprintBuilder.Result again = click(helper, player, wand, blueprint);
+            int afterAgain = BlueprintBuilder.checkProgress(player);
+
+            ItemStack other = blueprint("stone 0..3,0,0..2");
+            hold(player, wand, other, new ItemStack(Items.STONE, 64));
+            click(helper, player, wand, other);
+            int otherProgress = BlueprintBuilder.checkProgress(player);
+            ItemStack third = blueprint("stone 0..2,0,0..2");
+            hold(player, wand, third, new ItemStack(Items.STONE, 64));
+            click(helper, player, wand, third);
+            int thirdProgress = BlueprintBuilder.checkProgress(player);
+            BlueprintBuilder.forgetRunningJob(player.getUUID());
+            player.removeTag(BlueprintBuilder.SMALL_CHECK_TAG);
+
+            helper.assertTrue(afterTick == 6, "one tick should add three checked positions: " + afterTick);
+            helper.assertTrue(again != null && again.checking() && afterAgain == 6,
+                    "a second click on the same build restarted its check: " + again + ", progress " + afterAgain);
+            helper.assertTrue(otherProgress == 3, "a new build should get this tick's unused click budget: " + otherProgress);
+            helper.assertTrue(thirdProgress == 0,
+                    "a third build in the same tick checked again - the click budget is not shared per tick: " + thirdProgress);
+            clear(helper);
+            helper.succeed();
+        });
+    }
+
+    // =====================================================================================
+    // KREATIV-BLAUPAUSE UND KREATIV-BAUSTAB (Queue N29)
+    // =====================================================================================
+
+    /** So hoch ueber dem Spieler liegt das ferne Ziel: weit hinter Vanillas Reichweite und ihrem Attribut-Deckel 64.
+     *  Beide Tests brauchen {@code skyAccess(true)}, sonst trifft der Strahl die Barriere-Decke des Testraums. */
+    private static final int FAR_UP = 100;
+
+    /**
+     * Kreativ-Baustab: der Spieler schaut senkrecht nach oben auf einen Glasblock 100 Bloecke ueber ihm. Vanilla
+     * trifft dort nichts und schickt nur "Benutzen"; der Enderit-Stab tut dann nichts, der Kreativ-Stab zielt mit
+     * seinem eigenen Strahl auf das Glas und setzt den Block darunter - im Ueberleben, ohne den Stein im Inventar
+     * zu verbrauchen und ohne Haltbarkeit.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code BuildingWandItem#use} ohne den Fernstrahl
+     * ({@code CreativeReach}), ein Kreativ-Stab mit Haltbarkeit oder Materialverbrauch ({@code freeBuild}), ein
+     * normaler Stab, der ebenfalls fern baut.
+     */
+    public static void creativeWandReachesAFarBlockWithoutCost(GameTestHelper helper) {
+        ServerPlayer player = lookingUp(helper);
+        BlockPos far = new BlockPos(3, FAR_UP, 0);
+        BlockPos below = far.below();
+        helper.setBlock(far, Blocks.GLASS);
+        helper.setBlock(below, Blocks.AIR);
+        ServerLevel level = helper.getLevel();
+
+        ItemStack plain = singleBlockWand(BtItems.ENDERITE_BUILDING_WAND);
+        holdWithStone(player, plain);
+        player.getItemInHand(InteractionHand.MAIN_HAND).getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(!wandActive(plain) && helper.getBlockState(below).isAir(),
+                "an Enderite wand built " + (FAR_UP - 1) + " blocks away; only the creative wand reaches that far");
+
+        ItemStack wand = singleBlockWand(BtItems.CREATIVE_BUILDING_WAND);
+        holdWithStone(player, wand);
+        var result = wand.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(wandActive(wand), "the creative wand did not aim at the glass " + FAR_UP
+                + " blocks above the player (use returned " + result + ")");
+        for (int tick = 0; tick < 200 && wandActive(wand); tick++) {
+            wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+        }
+        helper.assertTrue(helper.getBlockState(below).is(Blocks.STONE),
+                "the creative wand armed itself but placed " + helper.getBlockState(below) + " under the far glass");
+        helper.assertTrue(player.getInventory().getItem(1).is(Items.STONE) && player.getInventory().getItem(1).getCount() == 16,
+                "the creative wand used material in survival: " + player.getInventory().getItem(1));
+        helper.assertTrue(!wand.isDamageableItem() && wand.getDamageValue() == 0, "the creative wand has durability: " + wand);
+        helper.setBlock(below, Blocks.AIR);
+        helper.setBlock(far, Blocks.AIR);
+        helper.succeed();
+    }
+
+    /**
+     * Kreativ-Blaupause: mit ihr in der Nebenhand baut ein gewoehnlicher Enderit-Stab am fernen Ziel (die normale
+     * Blaupause dort nicht). Signiert ist sie endgueltig: das Edit-Paket des Servers aendert sie nicht mehr (weder
+     * Code noch neue Signatur), und die Kopie am Kartentisch ist eine genaue, signierte Kreativ-Blaupause - die
+     * normale gibt weiter eine bearbeitbare Kopie.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code CreativeReach#active} ohne die Nebenhand-Blaupause,
+     * {@code ModMessageHandlers#editedBlueprint} ohne Signatur-Sperre, {@code BlueprintCartography#copyResult},
+     * das eine Kreativ-Blaupause entsperrt.
+     */
+    public static void creativeBlueprintBuildsFarAndStaysLockedOnceSigned(GameTestHelper helper) {
+        ServerPlayer player = lookingUp(helper);
+        BlockPos far = new BlockPos(3, FAR_UP, 0);
+        BlockPos below = far.below();
+        helper.setBlock(far, Blocks.GLASS);
+        helper.setBlock(below, Blocks.AIR);
+        ServerLevel level = helper.getLevel();
+        ItemStack wand = new ItemStack(BtItems.ENDERITE_BUILDING_WAND);
+        holdWithStone(player, wand);
+
+        ItemStack normal = signedBlueprint(BtItems.BLUEPRINT, "stone 0,0,0");
+        player.setItemInHand(InteractionHand.OFF_HAND, normal);
+        wand.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(helper.getBlockState(below).isAir(), "a normal blueprint was built " + (FAR_UP - 1) + " blocks away");
+
+        player.setItemInHand(InteractionHand.OFF_HAND, signedBlueprint(BtItems.CREATIVE_BLUEPRINT, "stone 0,0,0"));
+        var result = wand.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        if (BlueprintBuilder.building(player)) {
+            BlueprintBuilder.completeJob(player);
+        }
+        helper.assertTrue(helper.getBlockState(below).is(Blocks.STONE), "a wand with the creative blueprint did not build at the far glass ("
+                + result + ", found " + helper.getBlockState(below) + ")");
+        helper.setBlock(below, Blocks.AIR);
+        helper.setBlock(far, Blocks.AIR);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+
+        ItemStack draft = new ItemStack(BtItems.CREATIVE_BLUEPRINT);
+        player.getInventory().setItem(2, draft);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "stone 0,0,0", false, ""), player);
+        helper.assertTrue(BlueprintItem.content(draft).code().equals("stone 0,0,0"), "an unsigned creative blueprint did not save its draft");
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "stone 0..1,0,0", true, "Tower"), player);
+        BlueprintContent signed = BlueprintItem.content(draft);
+        helper.assertTrue(signed.signed() && signed.title().equals("Tower"), "the creative blueprint could not be signed: " + signed);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "dirt 0,0,0", false, ""), player);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "dirt 0,0,0", true, "Other"), player);
+        helper.assertTrue(BlueprintItem.content(draft).equals(signed), "the server changed a signed creative blueprint: " + BlueprintItem.content(draft));
+
+        ItemStack copy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(BtItems.BLUEPRINT));
+        helper.assertTrue(BlueprintItem.isCreative(copy) && BlueprintItem.content(copy).equals(signed) && copy.getCount() == 1,
+                "the cartography copy of a signed creative blueprint is not an exact signed copy: " + copy + " " + BlueprintItem.content(copy));
+        ItemStack normalCopy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(normal, new ItemStack(BtItems.BLUEPRINT));
+        helper.assertTrue(!normalCopy.isEmpty() && !BlueprintItem.content(normalCopy).signed() && !BlueprintItem.isCreative(normalCopy),
+                "the normal blueprint no longer copies to an editable one: " + BlueprintItem.content(normalCopy));
+        helper.succeed();
+    }
+
+    /** Ueberlebens-Spieler an (3.5, 2, 0.5), Blick senkrecht nach oben. */
+    private static ServerPlayer lookingUp(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        player.snapTo(player.getX(), player.getY(), player.getZ(), 0.0F, -90.0F);
+        return player;
+    }
+
+    /** Stab in Slot 0 (gewaehlt), 16 Stein in Slot 1, Nebenhand leer. */
+    private static void holdWithStone(ServerPlayer player, ItemStack wand) {
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        player.getInventory().setItem(0, wand);
+        player.getInventory().setItem(1, new ItemStack(Items.STONE, 16));
+    }
+
+    /** Ein Stab mit Radius 0: ein einziger Block vor der geklickten Seite. */
+    private static ItemStack singleBlockWand(Item item) {
+        ItemStack wand = new ItemStack(item);
+        CompoundTag settings = new CompoundTag();
+        settings.putInt("SettingsRadius", 0);
+        wand.set(DataComponents.CUSTOM_DATA, CustomData.of(settings));
+        return wand;
+    }
+
+    private static boolean wandActive(ItemStack wand) {
+        return wand.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBooleanOr("Active", false);
+    }
+
+    private static ItemStack signedBlueprint(Item item, String code) {
+        ItemStack stack = new ItemStack(item);
+        stack.set(BtComponents.BLUEPRINT, new BlueprintContent(code, "Far", "Tester", true));
+        return stack;
+    }
+
+    // =====================================================================================
+    // HILFEN
+    // =====================================================================================
+
+    private static ServerPlayer mockPlayer(GameTestHelper helper, boolean instabuild) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        Vec3 pos = helper.absoluteVec(new Vec3(3.5, 2.0, 0.5));
+        player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+        player.getAbilities().instabuild = instabuild;
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+        return player;
+    }
+
+    /** Leert den Bau-Ort (x/z 0..7, y 1..6) und legt den geklickten Obsidian. */
+    private static void clear(GameTestHelper helper) {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 1; y < 7; y++) {
+                for (int z = 0; z < 8; z++) {
+                    helper.setBlock(new BlockPos(x, y, z), Blocks.AIR);
+                }
+            }
+        }
+        helper.setBlock(CLICKED, Blocks.OBSIDIAN);
+    }
+
+    private static ItemStack blueprint(String code) {
+        ItemStack stack = new ItemStack(BtItems.BLUEPRINT);
+        stack.set(BtComponents.BLUEPRINT, new BlueprintContent(code, "Test", "Tester", true));
+        return stack;
+    }
+
+    private static ItemStack octant(GameTestHelper helper, BlockPos a, BlockPos b) {
+        ItemStack octant = new ItemStack(BtItems.OCTANT);
+        BlockPos pa = helper.absolutePos(a);
+        BlockPos pb = helper.absolutePos(b);
+        CompoundTag nbt = new CompoundTag();
+        nbt.putIntArray("Pos1", new int[]{pa.getX(), pa.getY(), pa.getZ()});
+        nbt.putIntArray("Pos2", new int[]{pb.getX(), pb.getY(), pb.getZ()});
+        octant.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+        return octant;
+    }
+
+    /** Baustab ausgewaehlt in Slot 0, Blaupause in der Nebenhand, Material ab Slot 1. */
+    private static void hold(ServerPlayer player, ItemStack wand, ItemStack blueprint, ItemStack... supplies) {
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        player.getInventory().setItem(0, wand);
+        player.setItemInHand(InteractionHand.OFF_HAND, blueprint);
+        for (int i = 0; i < supplies.length; i++) {
+            player.getInventory().setItem(i + 1, supplies[i]);
+        }
+    }
+
+    /** Ein Klick und, falls ein Auftrag bleibt, dessen sofortiger Abschluss: das Ergebnis des ganzen Baus. */
+    private static BlueprintBuilder.Result build(GameTestHelper helper, ServerPlayer player, ItemStack wand, ItemStack blueprint) {
+        BlueprintBuilder.Result result = click(helper, player, wand, blueprint);
+        if (result != null && !result.warned() && !result.finished()) {
+            BlueprintBuilder.Result rest = BlueprintBuilder.completeJob(player);
+            return rest != null ? rest : result;
+        }
+        return result;
+    }
+
+    /** Nur der Klick: die erste Scheibe, der Rest bleibt als Auftrag stehen. */
+    private static BlueprintBuilder.Result click(GameTestHelper helper, ServerPlayer player, ItemStack wand, ItemStack blueprint) {
+        return BlueprintBuilder.build(helper.getLevel(), player, wand, blueprint, helper.absolutePos(CLICKED), Direction.UP);
+    }
+
+    private static Direction stairFacing(GameTestHelper helper, BlockPos pos) {
+        BlockState state = helper.getBlockState(pos);
+        return state.is(Blocks.OAK_STAIRS) ? state.getValue(StairBlock.FACING) : null;
+    }
+
+    /**
+     * Three blueprint textures by state (owner, 2026-09-28): a freshly crafted blueprint (no
+     * component, or one without code and title) keeps the normal texture, an edited but unsigned
+     * one selects {@code edited}, a signed one {@code signed}. The shipped item model asks
+     * {@code minecraft:has_component} first and then {@code simplebuilding:blueprint_state}, and both
+     * variant models point at textures that exist and differ from the normal one.
+     *
+     * <p><strong>What breaks this test:</strong> a wrong state in {@code BlueprintItem#modelState},
+     * a flat item model without the condition, a missing variant model or texture, or a variant
+     * texture that is a copy of the normal one.
+     */
+    public static void blueprintShowsItsStateInItsTexture(GameTestHelper helper) {
+        ItemStack fresh = new ItemStack(BtItems.BLUEPRINT);
+        ItemStack edited = new ItemStack(BtItems.BLUEPRINT);
+        edited.set(BtComponents.BLUEPRINT, new BlueprintContent("stone 0,0,0", "", "", false));
+        ItemStack signed = new ItemStack(BtItems.BLUEPRINT);
+        signed.set(BtComponents.BLUEPRINT, new BlueprintContent("stone 0,0,0", "Tower", "Alice", true));
+        ItemStack cleared = new ItemStack(BtItems.BLUEPRINT);
+        cleared.set(BtComponents.BLUEPRINT, new BlueprintContent("", "", "", false));
+        helper.assertValueEqual(BlueprintItem.modelState(fresh), BlueprintItem.STATE_EMPTY, "state of a fresh blueprint");
+        helper.assertValueEqual(BlueprintItem.modelState(edited), BlueprintItem.STATE_EDITED, "state of an edited blueprint");
+        helper.assertValueEqual(BlueprintItem.modelState(signed), BlueprintItem.STATE_SIGNED, "state of a signed blueprint");
+        helper.assertValueEqual(BlueprintItem.modelState(cleared), BlueprintItem.STATE_EMPTY, "state of a blueprint cleared again");
+
+        com.google.gson.JsonObject model = com.google.gson.JsonParser.parseString(
+                modelResource(helper, "/assets/simplebuilding/items/blueprint.json")).getAsJsonObject().getAsJsonObject("model");
+        helper.assertValueEqual(model.get("type").getAsString(), "minecraft:condition", "blueprint item model type");
+        helper.assertValueEqual(model.get("property").getAsString(), "minecraft:has_component", "blueprint condition property");
+        helper.assertValueEqual(model.get("component").getAsString(), "simplebuilding:blueprint", "blueprint condition component");
+        helper.assertValueEqual(model.getAsJsonObject("on_false").get("model").getAsString(), "simplebuilding:item/blueprint",
+                "model without the component");
+        com.google.gson.JsonObject select = model.getAsJsonObject("on_true");
+        helper.assertValueEqual(select.get("type").getAsString(), "minecraft:select", "model with the component");
+        helper.assertValueEqual(select.get("property").getAsString(), "simplebuilding:blueprint_state", "select property");
+        helper.assertValueEqual(select.getAsJsonObject("fallback").get("model").getAsString(), "simplebuilding:item/blueprint",
+                "select fallback");
+        java.util.Map<String, String> cases = new java.util.HashMap<>();
+        for (com.google.gson.JsonElement entry : select.getAsJsonArray("cases")) {
+            com.google.gson.JsonObject c = entry.getAsJsonObject();
+            cases.put(c.get("when").getAsString(), c.getAsJsonObject("model").get("model").getAsString());
+        }
+        helper.assertValueEqual(cases, java.util.Map.of(BlueprintItem.STATE_EDITED, "simplebuilding:item/blueprint_edited",
+                BlueprintItem.STATE_SIGNED, "simplebuilding:item/blueprint_signed"), "select cases");
+
+        String normal = modelResource(helper, "/assets/simplebuilding/textures/item/blueprint.png");
+        for (String variant : java.util.List.of("blueprint_edited", "blueprint_signed")) {
+            com.google.gson.JsonObject variantModel = com.google.gson.JsonParser.parseString(
+                    modelResource(helper, "/assets/simplebuilding/models/item/" + variant + ".json")).getAsJsonObject();
+            helper.assertValueEqual(variantModel.getAsJsonObject("textures").get("layer0").getAsString(), "simplebuilding:item/" + variant,
+                    variant + " texture");
+            String texture = modelResource(helper, "/assets/simplebuilding/textures/item/" + variant + ".png");
+            helper.assertFalse(texture.equals(normal), variant + ".png is the normal blueprint texture");
+        }
+        helper.succeed();
+    }
+
+    private static String modelResource(GameTestHelper helper, String path) {
+        try (java.io.InputStream in = BlueprintItem.class.getResourceAsStream(path)) {
+            helper.assertTrue(in != null, "missing resource " + path);
+            return new String(in.readAllBytes(), java.nio.charset.StandardCharsets.ISO_8859_1);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("unreadable resource " + path, e);
+        }
+    }
+
+    // =====================================================================================
+    // TEXT-AUSTAUSCH (Queue N55)
+    // =====================================================================================
+
+    /**
+     * Export und Import der Blaupause als Text: der Bau-Code bleibt buchstabengleich, die Befehlsliste
+     * ({@code setblock}/{@code fill}, relativ) ergibt beim Zurueck-Importieren dasselbe Modell (auch mit
+     * Blockzustaenden und Hohlformen), absolute Koordinaten werden an die kleinste Ecke gelegt, und das
+     * Ergebnis geht unveraendert durch den Server-Handler, ohne dass Items entstehen.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Export, der Bloecke oder Zustaende verliert; ein Import,
+     * der Koordinaten verschiebt oder anders liest; ein Import, der etwas ausser dem Plan erzeugt.
+     */
+    public static void blueprintTextExportImportRoundTrips(GameTestHelper helper) {
+        String code = "stone 0..3,0,0..2\noak_stairs[facing=north,half=top] 0,1,0\nglass hollow_box(5,0,0,8,3,3)";
+        BlueprintCode.ParseResult source = BlueprintCode.parse(code);
+        helper.assertTrue(source.ok() && !source.model().isEmpty(), "test code does not parse: " + source.problems());
+
+        BlueprintFormats.Exported asCode = BlueprintFormats.export(BlueprintFormats.Format.CODE, code);
+        helper.assertTrue(asCode.text().equals(code), "the code export changed the text");
+        BlueprintFormats.Imported backCode = BlueprintFormats.importText(asCode.text(), null);
+        helper.assertTrue(backCode.ok() && backCode.format() == BlueprintFormats.Format.CODE && backCode.model().equals(source.model()),
+                "code round trip failed: " + backCode.issues());
+
+        BlueprintFormats.Exported asCommands = BlueprintFormats.export(BlueprintFormats.Format.COMMANDS, code);
+        helper.assertTrue(!asCommands.tooLarge() && asCommands.text().contains("fill ~") && asCommands.text().contains("setblock ~0 ~1 ~0"),
+                "unexpected command export: " + asCommands.text());
+        BlueprintFormats.Imported backCommands = BlueprintFormats.importText(asCommands.text(), null);
+        helper.assertTrue(backCommands.ok() && backCommands.format() == BlueprintFormats.Format.COMMANDS
+                        && backCommands.model().normalized().equals(source.model().normalized()),
+                "command round trip failed: " + backCommands.issues() + " / " + asCommands.text());
+        // the produced code is valid and stable for a second round
+        BlueprintFormats.Imported again = BlueprintFormats.importText(backCommands.code(), BlueprintFormats.Format.CODE);
+        helper.assertTrue(again.ok() && again.model().equals(backCommands.model()), "imported code does not parse back: " + again.issues());
+
+        // absolute coordinates move to the lowest corner, a leading slash and comments are fine
+        BlueprintFormats.Imported absolute = BlueprintFormats.importText(
+                "# my house\n/fill 100 64 -20 101 64 -20 minecraft:stone\nsetblock 100 65 -20 oak_planks", null);
+        BlueprintModel expected = BlueprintCode.parse("stone 0..1,0,0\noak_planks 0,1,0").model();
+        helper.assertTrue(absolute.ok() && absolute.model().equals(expected), "absolute import failed: " + absolute.issues());
+
+        // importing only makes a plan: nothing but the blueprint ends up in the inventory
+        ServerPlayer player = mockPlayer(helper, false);
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        ItemStack stack = new ItemStack(BtItems.BLUEPRINT);
+        player.getInventory().setItem(0, stack);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, backCommands.code(), false, ""), player);
+        helper.assertTrue(BlueprintItem.content(stack).code().equals(backCommands.code()), "the imported code was not saved");
+        for (int i = 1; i < player.getInventory().getContainerSize(); i++) {
+            helper.assertTrue(player.getInventory().getItem(i).isEmpty(), "importing produced an item in slot " + i);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Ungueltige Importtexte werden abgelehnt und mit Zeile gemeldet: unbekannter Block, unbekannte
+     * Eigenschaft, nicht unterstuetzte Befehle/Modi/Koordinaten, leerer Text, zu langer Text, zu grosse
+     * Spanne, zu viele Befehle. Es gilt alles oder nichts (kein Teilmodell).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Import, der Unbekanntes still ueberspringt, Grenzen
+     * nicht prueft oder bei einem Fehler trotzdem Code liefert.
+     */
+    public static void blueprintTextImportRejectsInvalidInput(GameTestHelper helper) {
+        String[][] bad = {
+                {"setblock 0 0 0 not_a_block", "unknown_block"},
+                {"fill 0 0 0 1 1 1 stone\nsetblock 5 5 5 stone[nonsense=1]", "unknown_property"},
+                {"give @s diamond", "unknown_command"},
+                {"setblock ^ ^ ^1 stone", "local_coordinate"},
+                {"setblock 0 0 0 chest{Items:[]}", "block_data"},
+                {"fill 0 0 0 1 1 1 stone keep", "unsupported_mode"},
+                {"fill 0 0 0 1 1 1 stone replace dirt", "unsupported_filter"},
+                {"setblock 1.5 0 0 stone", "bad_coordinate"},
+                {"fill 0 0 0 300 0 0 stone", "span"},
+                {"   \n", "empty"},
+                {"# only a comment", "no_blocks"},
+        };
+        for (String[] c : bad) {
+            BlueprintFormats.Imported r = BlueprintFormats.importText(c[0], c[1].equals("empty") || c[1].equals("no_blocks") ? null : BlueprintFormats.Format.COMMANDS);
+            helper.assertTrue(!r.ok() && r.code().isEmpty() && r.model().isEmpty(), "accepted invalid import: " + c[0]);
+            helper.assertTrue(r.issues().stream().anyMatch(i -> i.langKey().endsWith("." + c[1])),
+                    "expected " + c[1] + " for '" + c[0] + "' but got " + r.issues());
+        }
+        // the first error carries its line
+        BlueprintFormats.Imported lined = BlueprintFormats.importText("setblock 0 0 0 stone\nsetblock 1 0 0 not_a_block", null);
+        helper.assertTrue(!lined.ok() && lined.issues().get(0).line() == 2, "the error line is wrong: " + lined.issues());
+
+        helper.assertTrue(!BlueprintFormats.importText("x".repeat(BlueprintFormats.MAX_IMPORT_CHARS + 1), null).ok(), "an overlong text was accepted");
+        StringBuilder many = new StringBuilder();
+        for (int i = 0; i <= com.simplebuildingtools.blueprint.BlueprintCommandText.MAX_COMMANDS; i++) {
+            many.append("setblock ").append(i % 200).append(' ').append((i / 200) % 100).append(" 0 stone\n");
+        }
+        helper.assertTrue(!BlueprintFormats.importText(many.toString(), BlueprintFormats.Format.COMMANDS).ok(), "too many commands were accepted");
+        // invalid code goes through the same checks as the editor
+        helper.assertTrue(!BlueprintFormats.importText("stne 0,0,0", BlueprintFormats.Format.CODE).ok(), "invalid code was accepted");
+
+        // the server still refuses an overlong code, whatever the client sends
+        ServerPlayer player = mockPlayer(helper, false);
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        ItemStack stack = new ItemStack(BtItems.BLUEPRINT);
+        player.getInventory().setItem(0, stack);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0,0,0\n".repeat(BlueprintCode.MAX_CODE_LENGTH), false, ""), player);
+        helper.assertTrue(BlueprintItem.content(stack).code().isEmpty(), "the server saved an overlong imported code");
+        helper.succeed();
+    }
+}

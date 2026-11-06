@@ -1,0 +1,905 @@
+package com.simplebuildingtools.test;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
+import com.simplebuildingtools.enchantment.BtEnchantments;
+import com.simplebuildingtools.items.BtItems;
+import com.simplebuildingtools.items.custom.OctantItem;
+import com.simplebuildingtools.items.custom.OctantItem.FillOrder;
+import com.simplebuildingtools.items.custom.OctantItem.SelectionShape;
+import com.simplebuildingtools.networking.ModMessageHandlers;
+import com.simplebuildingtools.networking.OctantConfigurePayload;
+import com.simplebuildingtools.networking.OctantScrollPayload;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.cauldron.CauldronInteractions;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+
+/**
+ * The octant - the mod's measuring tool - end to end, on the parts that no other suite touches.
+ *
+ * <p>Six other suites already own big pieces of the octant, and none of them is repeated here:
+ * {@code ItemBehaviourTests#octantStoresBothCornersAndRespectsTheLock} covers the two corner
+ * clicks and the lock on {@code useOn} <em>and</em> on {@code use},
+ * {@code ConsumptionAndDurabilityTests} covers the one durability point per accepted click,
+ * {@code NetworkHandlerTests} covers the two payload handlers on a well formed main hand octant,
+ * {@code ProtectionAndRangeTests#rangeAddsBlockInteractionReachInTheMainHandOnly} covers which
+ * items may carry Range - the plain octant, all sixteen dyed ones and a negative control - and
+ * {@code ConfigOptionTests} rolls the three chest pools until the octant item falls out of each.
+ * The wandering trader's two octant trades are pinned field by field twice over, in
+ * {@code TradeAndMigrationTests} and {@code TradeOfferTests}.
+ *
+ * <p>What was left over - and is what this class does - is everything around that: the shipped
+ * numbers all seventeen octants share plus the paint each of the sixteen dyed ones reports, the
+ * {@code use()} branch that quietly does nothing because the player is not sneaking, the display
+ * name and the tooltip, the four guards
+ * on the scroll handler, the sixteen dyeing recipes, the water cauldron that washes a coloured one
+ * clean again - all sixteen colours of it - and the one thing about the chest entries that rolling
+ * them cannot show: which of them hand the octant over randomly enchanted.
+ *
+ * <h2>Known defects</h2>
+ * <ul>
+ *   <li><b>{@code Hollow}, {@code LayerMode} and {@code FillOrder} are stored and no server path
+ *       reads them.</b> The octant screen sends them, {@code handleOctantConfigure} writes them
+ *       into the item, and the only code that reads them back is {@code client/gui/OctantScreen},
+ *       which restores its own controls from them ({@code OctantScreen#loadDataFromStack}); since
+ *       2026-09-25 {@code ShapeFill} reads them when a building wand fills the shape
+ *       ({@code WandModeTests}). The octant on its own still builds nothing. {@link #theOctantOnlyMeasuresAndPlacesNothing} is the marker for that, in the same
+ *       spirit as
+ *       the former Cover/Bridge marker (replaced by {@code WandModeTests} on 2026-09-25).</li>
+ * </ul>
+ *
+ * <h2>Not covered</h2>
+ * <ul>
+ *   <li>Everything the colour of a coloured octant is actually <em>for</em>: the selection
+ *       outline, the corner markers and the heads up display are renderer code and need a
+ *       client.</li>
+ *   <li>What {@code Orientation} <em>means</em>. Unlike the three switches above it is read back,
+ *       but only on the client: {@code BlockHighlightRenderer#drawOctantHighlights} turns the
+ *       stored ordinal into a {@link Direction} and rotates the cylinder, ellipse, pyramid and
+ *       triangle preview with it. That is renderer code on both loaders, so the only thing said
+ *       about the tag here is that a corner click does not drop it.</li>
+ *   <li>The overlay message a locked octant sends on a refused click
+ *       ({@code player.sendOverlayMessage}) and the click sounds - both are packets to a real
+ *       client.</li>
+ *   <li>The octant screen itself ({@code OctantScreen}), the mouse mixin that suppresses
+ *       scrolling while the item is locked, and {@code tools.invertOctantSneak}, which is read on
+ *       the client only.</li>
+ *   <li>Whether a generated chest in a real ancient city, nether fortress or pillager outpost ends
+ *       up holding an octant: gametests run in an already generated room, so only the pools the
+ *       mod hands to the loot loader can be inspected, not the rolls a world does. Rolling them
+ *       for the item is {@code ConfigOptionTests}' job.</li>
+ * </ul>
+ */
+public final class OctantTests {
+
+    private OctantTests() {
+    }
+
+    /** Shipped durability of every octant; {@code OctantItem.DURABILITY_OCTANT}. */
+    private static final int OCTANT_DURABILITY = 128;
+
+    /** Item id of the plain octant, as the loot pool codec writes it. */
+    private static final String OCTANT_ID = "simplebuilding:octant";
+
+    /**
+     * {@code SelectionShape}, in order, as {@code <constant>=<translation key>}. The order is not
+     * cosmetic: {@code handleOctantScroll} cycles by ordinal and falls back to the first constant,
+     * and a saved octant stores the constant's {@code name()}, so inserting a shape in the middle
+     * silently re-labels every octant already in a world.
+     */
+    private static final List<String> EXPECTED_SHAPES = List.of(
+            "CUBOID=simplebuilding.shape.cuboid",
+            "CYLINDER=simplebuilding.shape.cylinder",
+            "TRIANGLE=simplebuilding.shape.triangle",
+            "PYRAMID=simplebuilding.shape.pyramid",
+            "SPHERE=simplebuilding.shape.sphere",
+            "RECTANGLE=simplebuilding.shape.rectangle",
+            "ELLIPSE=simplebuilding.shape.ellipse");
+
+    /** The same for {@code FillOrder}, which is stored by name as well. */
+    private static final List<String> EXPECTED_FILL_ORDERS = List.of(
+            "DEFAULT=simplebuilding.order.default",
+            "BOTTOM_UP=simplebuilding.order.bottom_up",
+            "TOP_DOWN=simplebuilding.order.top_down");
+
+    /**
+     * The loot function id the two "dangerous chest" octant entries carry, as
+     * {@code EnchantRandomlyFunction}'s codec writes it.
+     */
+    private static final String ENCHANT_RANDOMLY = "minecraft:enchant_randomly";
+
+    /** The two corners every NBT-only test uses; far outside the test room on purpose. */
+    private static final int[] FIRST_CORNER = {10, 20, 30};
+    private static final int[] SECOND_CORNER = {-40, 50, -60};
+
+    // =====================================================================================
+    // (a) ITEM PROPERTIES
+    // =====================================================================================
+
+
+    // =====================================================================================
+    // (b) THE USE() BRANCH THAT QUIETLY DOES NOTHING
+    // =====================================================================================
+
+    /**
+     * Right clicking the air throws the selection away - but only while sneaking, and only when
+     * the octant is not locked. <b>The sneaking branch of that is not new here.</b>
+     * {@code ItemBehaviourTests#octantStoresBothCornersAndRespectsTheLock} already drives both
+     * sneaking cases - locked, where {@code use} has to answer {@code PASS} and leave both corners
+     * alone, and unlocked, where the selection has to end up empty - and names the lock check in
+     * {@code use} in its own "what breaks this test" list. Steps one and three below repeat that
+     * deliberately, as the setup for and the control around the branch that is genuinely
+     * uncovered: <b>unlocked, but not sneaking</b>. Nothing else in the suite right clicks the air
+     * with an octant while standing upright, and that is the branch a player hits by accident.
+     *
+     * <p>The result value cannot separate the two refusals: the locked branch returns
+     * {@code PASS} explicitly and vanilla's {@code Item#use} returns {@code PASS} for an item with
+     * no consumable, equippable, blocks_attacks or kinetic_weapon component either. So the
+     * assertions are on the stored data, and the last step - the sneak click that <em>is</em>
+     * allowed - is there as the control: without it, an octant whose {@code use} never did
+     * anything at all would pass the first two steps.
+     *
+     * <p>What breaks this test: the {@code user.isShiftKeyDown()} condition disappearing or being
+     * inverted, the reset being moved somewhere that runs before that guard, or - which
+     * {@code ItemBehaviourTests} would catch as well - the {@code Locked} check at the top of
+     * {@code use} disappearing.
+     */
+    public static void airClicksOnlyResetAnUnlockedOctantWhileSneaking(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack octant = new ItemStack(BtItems.OCTANT);
+        player.setItemInHand(InteractionHand.MAIN_HAND, octant);
+
+        // --- locked and sneaking: the reset is refused, lock included ---
+        setSelection(octant, FIRST_CORNER, SECOND_CORNER, true);
+        player.setShiftKeyDown(true);
+        InteractionResult locked = octant.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(locked == InteractionResult.PASS,
+                "a locked octant answered a sneaking air click with " + locked
+                        + " instead of passing the click on");
+        assertSelection(helper, octant, FIRST_CORNER, SECOND_CORNER,
+                "a locked octant threw its selection away on a sneaking air click");
+        helper.assertTrue(customData(octant).getBooleanOr("Locked", false),
+                "the refused air click cleared the lock itself, so the next click would go through");
+
+        // --- unlocked but not sneaking: nothing happens either ---
+        setSelection(octant, FIRST_CORNER, SECOND_CORNER, false);
+        player.setShiftKeyDown(false);
+        octant.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+        assertSelection(helper, octant, FIRST_CORNER, SECOND_CORNER,
+                "a plain right click in the air cleared the selection; only the sneak click may");
+
+        // --- control: unlocked and sneaking really does clear it ---
+        player.setShiftKeyDown(true);
+        octant.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(customData(octant).isEmpty(),
+                "control: an unlocked, sneaking air click did not clear the selection, so the two "
+                        + "refusals above prove nothing");
+
+        player.setShiftKeyDown(false);
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // (c) NAME AND TOOLTIP
+    // =====================================================================================
+
+    /**
+     * The seven shapes, in their shipped order, and the one place the chosen shape becomes visible
+     * without a client: the item's display name.
+     *
+     * <p>The catalogue is pinned as {@code <constant>=<translation key>} pairs because both halves
+     * are load bearing. The constant name is what {@code handleOctantConfigure} writes into the
+     * item and {@code getName} reads back, so a renamed constant orphans every saved octant; the
+     * ordinal is what {@code handleOctantScroll} cycles through; and the translation key is what a
+     * player actually reads. Comparing the whole list in one go also pins the count.
+     *
+     * <p>The names are compared through {@code Component#getString()} on both sides, so it makes
+     * no difference whether the server has a language file for the mod's keys loaded.
+     *
+     * <p>The unreadable {@code Shape} tag at the end is the {@code catch} in {@code getName}: an
+     * octant written by an older version, or by a shape that has since been renamed, has to keep
+     * its plain name instead of throwing out of a display name lookup.
+     *
+     * <p>What breaks this test: a shape added, removed, renamed or reordered, a changed
+     * translation key, the {@code shape != CUBOID} exception going away (which would append
+     * "(Cuboid)" to every default octant), or the try/catch around {@code valueOf} disappearing.
+     */
+    public static void shapeCatalogueIsFixedAndTheChosenShapeShowsInTheName(GameTestHelper helper) {
+        List<String> shapes = new ArrayList<>();
+        for (SelectionShape shape : SelectionShape.values()) {
+            shapes.add(shape.name() + "=" + translationKey(shape.getText()));
+        }
+        helper.assertValueEqual(shapes, EXPECTED_SHAPES, "the SelectionShape catalogue");
+        for (SelectionShape shape : SelectionShape.values()) {
+            helper.assertValueEqual(shape.getTranslationKey(), translationKey(shape.getText()),
+                    "getTranslationKey() and getText() disagree for " + shape.name());
+        }
+
+        List<String> orders = new ArrayList<>();
+        for (FillOrder order : FillOrder.values()) {
+            orders.add(order.name() + "=" + translationKey(order.getText()));
+        }
+        helper.assertValueEqual(orders, EXPECTED_FILL_ORDERS, "the FillOrder catalogue");
+
+        // --- and now the name ---
+        String baseName = new ItemStack(BtItems.OCTANT).getHoverName().getString();
+
+        helper.assertValueEqual(withShape(SelectionShape.CUBOID.name()).getHoverName().getString(),
+                baseName,
+                "an octant set to CUBOID has to keep its plain name; the default shape is not "
+                        + "worth a suffix");
+
+        for (SelectionShape shape : SelectionShape.values()) {
+            if (shape == SelectionShape.CUBOID) {
+                continue;
+            }
+            helper.assertValueEqual(withShape(shape.name()).getHoverName().getString(),
+                    baseName + " (" + shape.getText().getString() + ")",
+                    "the display name of an octant set to " + shape.name());
+        }
+
+        helper.assertValueEqual(withShape("NOT_A_SHAPE").getHoverName().getString(), baseName,
+                "an octant whose Shape tag names a constant that no longer exists lost its name "
+                        + "instead of falling back to the plain one");
+
+        helper.succeed();
+    }
+
+    /**
+     * The tooltip is the only place the stored selection is readable in game, and it is built by
+     * hand in {@code OctantItem#appendHoverText}: the lock first, then the first corner, then -
+     * only if the first one is there - the second.
+     *
+     * <p>The two corner lines are asserted as literal text. Their format is vanilla's
+     * ({@code BlockPos#toShortString()} renders {@code "x, y, z"}), so a vanilla change would turn
+     * this red as well; that is the informative failure, because the string is what a player sees.
+     * The lock line is a translatable component, so it is checked by its key rather than its text -
+     * that survives a server without the mod's language file.
+     *
+     * <p>{@code Item#appendHoverText} is empty in vanilla, so the collected list is exactly the
+     * lines the mod adds and a fresh octant has to produce none at all.
+     *
+     * <p>What breaks this test: a dropped or reordered line, the second corner being printed
+     * without the first one being set, the {@code p1.length == 3} guard going away (a
+     * half-written tag would then throw out of the tooltip), or a fresh octant starting to print
+     * something.
+     */
+    public static void octantTooltipListsTheLockAndBothCorners(GameTestHelper helper) {
+        helper.assertTrue(tooltip(helper, new ItemStack(BtItems.OCTANT)).isEmpty(),
+                "a fresh octant already prints tooltip lines: "
+                        + tooltip(helper, new ItemStack(BtItems.OCTANT)));
+
+        ItemStack firstOnly = new ItemStack(BtItems.OCTANT);
+        setSelection(firstOnly, FIRST_CORNER, null, false);
+        helper.assertValueEqual(tooltip(helper, firstOnly), List.of("10, 20, 30"),
+                "the tooltip of an octant with only the first corner set");
+
+        ItemStack secondOnly = new ItemStack(BtItems.OCTANT);
+        setSelection(secondOnly, null, SECOND_CORNER, false);
+        helper.assertValueEqual(tooltip(helper, secondOnly), List.of(),
+                "an octant with a second corner but no first one printed a line anyway; the whole "
+                        + "corner block hangs off the Pos1 check");
+
+        ItemStack both = new ItemStack(BtItems.OCTANT);
+        setSelection(both, FIRST_CORNER, SECOND_CORNER, false);
+        helper.assertValueEqual(tooltip(helper, both), List.of("10, 20, 30", "-40, 50, -60"),
+                "the tooltip of an octant with both corners set");
+
+        ItemStack locked = new ItemStack(BtItems.OCTANT);
+        setSelection(locked, FIRST_CORNER, SECOND_CORNER, true);
+        List<Component> lines = tooltipComponents(helper, locked);
+        helper.assertValueEqual(lines.size(), 3,
+                "a locked octant with both corners has to print three lines, it printed "
+                        + lines.stream().map(Component::getString).toList());
+        helper.assertValueEqual(translationKey(lines.get(0)), "simplebuilding.gui.locked",
+                "the first tooltip line of a locked octant");
+        helper.assertValueEqual(List.of(lines.get(1).getString(), lines.get(2).getString()),
+                List.of("10, 20, 30", "-40, 50, -60"),
+                "the corner lines of a locked octant");
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // (d) SCROLL HANDLER GUARDS
+    // =====================================================================================
+
+    /**
+     * {@code handleOctantScroll} reads {@code player.getMainHandItem()} and writes the item back
+     * only when it actually changed something, and not at all for a locked octant. Four guards
+     * come out of that, and
+     * {@code NetworkHandlerTests} exercises none of them because it always hands the handler a
+     * well formed octant in the main hand:
+     *
+     * <ol>
+     *   <li>an octant in the <em>off</em> hand is not the one being configured - the screen and
+     *       the mouse mixin are main hand only, so a scroll must not reach it;</li>
+     *   <li>a payload that arrives while the player holds something else must not write octant
+     *       data onto that item;</li>
+     *   <li>a corner nudge on an octant that has no corners yet must leave the item completely
+     *       alone - that is what the {@code changed} flag is for, and without it every stray
+     *       scroll would attach an empty {@code custom_data} component to a fresh octant;</li>
+     *   <li>a <em>locked</em> octant keeps its shape and its corners against all three modifiers.
+     *       The client's mouse mixin never sends the packet for one, but the server must not rely
+     *       on that: until 2026-09 the handler never read {@code Locked}, and a client that sent
+     *       the packet anyway moved the corners of a locked selection.</li>
+     * </ol>
+     *
+     * <p>The last step is the control: the same payload, with the octant in the main hand, has to
+     * land. Without it a handler that had become a no-op would pass the four guards.
+     *
+     * <p>What breaks this test: {@code getMainHandItem()} turning into a search over both hands or
+     * the whole inventory, the {@code instanceof OctantItem} guard going away, or the
+     * {@code changed} flag being dropped so the handler always writes the tag back, or the
+     * {@code Locked} check disappearing from the handler.
+     */
+    public static void octantScrollPacketsOnlyEverTouchTheMainHand(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+
+        // (1) octant in the off hand only
+        ItemStack offHand = new ItemStack(BtItems.OCTANT);
+        setSelection(offHand, FIRST_CORNER, SECOND_CORNER, false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        player.setItemInHand(InteractionHand.OFF_HAND, offHand);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, false, false, true), player);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, true, true, false), player);
+        helper.assertFalse(customData(offHand).contains("Shape"),
+                "an alt scroll changed the shape of an octant that is only in the off hand");
+        assertSelection(helper, offHand, FIRST_CORNER, SECOND_CORNER,
+                "a corner nudge moved an octant that is only in the off hand");
+
+        // (2) something else in the main hand
+        ItemStack pickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, pickaxe);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, false, false, true), player);
+        helper.assertFalse(pickaxe.has(DataComponents.CUSTOM_DATA),
+                "the scroll handler wrote octant data onto a diamond pickaxe");
+
+        // (3) a corner nudge with nothing to nudge
+        ItemStack fresh = new ItemStack(BtItems.OCTANT);
+        player.setItemInHand(InteractionHand.MAIN_HAND, fresh);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(2, true, true, false), player);
+        helper.assertFalse(fresh.has(DataComponents.CUSTOM_DATA),
+                "a corner nudge on an octant without a selection attached an empty custom_data "
+                        + "component to it");
+
+        // (4) a locked octant in the main hand refuses all three modifiers
+        ItemStack locked = new ItemStack(BtItems.OCTANT);
+        setSelection(locked, FIRST_CORNER, SECOND_CORNER, true);
+        player.setItemInHand(InteractionHand.MAIN_HAND, locked);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, false, false, true), player);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, true, false, false), player);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, false, true, false), player);
+        helper.assertFalse(customData(locked).contains("Shape"),
+                "an alt scroll changed the shape of a LOCKED octant; the server has to refuse the "
+                        + "packet itself, not rely on the client's mouse mixin");
+        assertSelection(helper, locked, FIRST_CORNER, SECOND_CORNER,
+                "a corner nudge moved the corners of a LOCKED octant; the server has to refuse the "
+                        + "packet itself, not rely on the client's mouse mixin");
+
+        // (5) control: in the main hand, the very same payload has to land
+        player.setItemInHand(InteractionHand.MAIN_HAND, fresh);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, false, false, true), player);
+        helper.assertValueEqual(customData(fresh).getString("Shape").orElse(""),
+                SelectionShape.values()[1].name(),
+                "control: an alt scroll on the main hand octant did nothing, so the four guards "
+                        + "above prove nothing");
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // (e) WHERE COLOURED OCTANTS COME FROM AND GO
+    // =====================================================================================
+
+
+    /**
+     * The way back: dipping a coloured octant into a water cauldron hands the player a plain one
+     * that keeps the whole selection, counts as a wash in the statistics and costs one water
+     * level. <b>All sixteen colours are dipped</b>, because the interaction is registered inside a
+     * {@code DyeColor} loop ({@code SimplebuildingNeoForge#registerCauldronBehavior} and its Forge
+     * and Fabric twins) - a colour falling out of that loop leaves the feature dead for one paint
+     * job and alive for the other fifteen, which a single sample would never see. Nothing else in
+     * the suite touches a cauldron at all.
+     *
+     * <p>The dips run through {@code BlockState#useItemOn}, i.e. through
+     * {@code AbstractCauldronBlock#useItemOn} and the dispatcher the block was built with - so
+     * they only pass if the loader's entry point really did put the interaction into
+     * {@code CauldronInteractions.WATER} through {@code CauldronInteractionDispatcherAccessor}. A
+     * mixin that stopped applying fails here instead of going quietly dead in game. The fill level
+     * is only worth checking once; the wash statistic is counted across the whole loop, so a
+     * dropped {@code awardStat} turns sixteen into zero.
+     *
+     * <p>The second half is about the plain octant, and it is deliberately <em>not</em> a dip.
+     * Going through the block would prove nothing: the loop registers the sixteen dyed items and
+     * only those, so {@code CauldronInteraction.Dispatcher#get} hands back
+     * {@code CauldronInteraction.DEFAULT} for a plain octant, and vanilla's {@code DEFAULT}
+     * answers {@code TRY_WITH_EMPTY_HAND} whatever the mod does - the
+     * {@code item == BtItems.OCTANT} guard inside the lambda is unreachable from there and could
+     * be deleted without a dip ever noticing. So both halves of that are driven where they can
+     * actually fail: the dispatcher is asked what a plain octant maps to (it has to be
+     * {@code DEFAULT}, i.e. the plain item was never registered as a key), and the interaction
+     * registered for a <em>dyed</em> octant is then invoked directly with a plain one, where the
+     * guard is the only thing between the call and a wash.
+     *
+     * <p>Only the block half of a click is driven, not the item half that
+     * {@code ServerPlayerGameMode} would run afterwards. In game a plain octant dipped into a
+     * cauldron therefore also stores the cauldron as its first corner; that is the corner
+     * selection doing its normal job and belongs to
+     * {@code ItemBehaviourTests#octantStoresBothCornersAndRespectsTheLock}, not here.
+     *
+     * <p>What breaks this test: the interaction not being registered for one of the sixteen
+     * colours, the {@code custom_data} copy going away (the player loses the measured corners),
+     * the {@code item == BtItems.OCTANT} guard going away, the plain octant being registered as a
+     * dispatcher key of its own, the fill level no longer being lowered, or the statistic being
+     * dropped.
+     */
+    public static void waterCauldronWashesTheColourOffAnOctant(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        BlockPos cauldron = new BlockPos(2, 1, 2);
+
+        // --- every colour goes in, each with a locked selection on it ---
+        int washesBefore = washCount(player);
+        boolean levelChecked = false;
+        List<String> problems = new ArrayList<>();
+
+        for (DyeColor color : DyeColor.values()) {
+            String name = "octant_" + color.getName();
+            OctantItem dyed = BtItems.COLORED_OCTANT_ITEMS.get(color);
+            if (dyed == null) {
+                problems.add(name + " is not registered at all, so it was never dipped");
+                continue;
+            }
+
+            fillCauldron(helper, cauldron, 3);
+            ItemStack stack = new ItemStack(dyed);
+            setSelection(stack, FIRST_CORNER, SECOND_CORNER, true);
+            stack.setDamageValue(3);
+            stack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Survey"));
+            player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+
+            InteractionResult washed = useBlockWithHeldItem(helper, player, cauldron);
+            if (washed != InteractionResult.SUCCESS) {
+                // TRY_WITH_EMPTY_HAND is exactly what an item the dispatcher does not know gets.
+                problems.add(name + " answered " + washed + " instead of SUCCESS, so no cauldron "
+                        + "interaction is registered for it");
+                continue;
+            }
+
+            ItemStack afterwards = player.getMainHandItem();
+            if (!afterwards.is(BtItems.OCTANT)) {
+                problems.add(name + " washed into " + afterwards.getItem()
+                        + " instead of the plain octant");
+                continue;
+            }
+            CompoundTag carried = customData(afterwards);
+            if (!Arrays.equals(corner(carried, "Pos1"), FIRST_CORNER)
+                    || !Arrays.equals(corner(carried, "Pos2"), SECOND_CORNER)
+                    || !carried.getBooleanOr("Locked", false)) {
+                problems.add(name + " lost data in the wash; the whole custom_data component is "
+                        + "supposed to carry over untouched, it now holds " + carried);
+            }
+
+            // Verzauberungen und Haltbarkeit fehlten frueher nach dem Waschen (neuer Stack statt transmuteCopy).
+            if (afterwards.getDamageValue() != 3 || !afterwards.has(net.minecraft.core.component.DataComponents.CUSTOM_NAME)) {
+                problems.add(name + " lost its damage or name in the wash: damage " + afterwards.getDamageValue()
+                        + ", name " + afterwards.get(net.minecraft.core.component.DataComponents.CUSTOM_NAME));
+            }
+
+            if (!levelChecked) {
+                levelChecked = true;
+                helper.assertValueEqual(waterLevel(helper, cauldron), 2,
+                        "the water level after washing one " + name);
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "cauldron wash problems: " + problems);
+        helper.assertValueEqual(washCount(player) - washesBefore, DyeColor.values().length,
+                "the number of washes the statistics counted for " + DyeColor.values().length
+                        + " dipped octants");
+
+        // --- the plain octant is not a dispatcher key, and the guard says so as well ---
+        helper.assertTrue(CauldronInteractions.WATER.get(new ItemStack(BtItems.OCTANT))
+                        == CauldronInteraction.DEFAULT,
+                "the plain octant has a water cauldron interaction of its own; the registration "
+                        + "loop is supposed to put the sixteen dyed items in and nothing else");
+
+        CauldronInteraction wash = CauldronInteractions.WATER.get(
+                new ItemStack(BtItems.COLORED_OCTANT_ITEMS.get(DyeColor.RED)));
+        helper.assertTrue(wash != CauldronInteraction.DEFAULT,
+                "the dispatcher has no interaction for a red octant, so the guard below would be "
+                        + "driven through vanilla's DEFAULT and could not fail");
+
+        fillCauldron(helper, cauldron, 3);
+        ItemStack plain = new ItemStack(BtItems.OCTANT);
+        setSelection(plain, FIRST_CORNER, null, false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, plain);
+        int washesBeforePlain = washCount(player);
+
+        BlockPos absolute = helper.absolutePos(cauldron);
+        InteractionResult refused = wash.interact(helper.getLevel().getBlockState(absolute),
+                helper.getLevel(), absolute, player, InteractionHand.MAIN_HAND, plain);
+        helper.assertTrue(refused == InteractionResult.PASS,
+                "the wash interaction claimed a plain octant (" + refused + "); the "
+                        + "item == BtItems.OCTANT guard is the only thing that stops an already "
+                        + "plain octant from being swapped for a fresh one");
+        helper.assertTrue(player.getMainHandItem().is(BtItems.OCTANT),
+                "the refused wash swapped the plain octant for "
+                        + player.getMainHandItem().getItem());
+        assertSelection(helper, player.getMainHandItem(), FIRST_CORNER, null,
+                "the refused wash changed the stored selection");
+        helper.assertValueEqual(waterLevel(helper, cauldron), 3,
+                "the water level after the refused wash; that call is supposed to be a no-op");
+        helper.assertValueEqual(washCount(player) - washesBeforePlain, 0,
+                "the refused wash counted as a wash in the statistics");
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // (f) THE CHEST ENTRIES - THE HALF ROLLING THEM CANNOT SEE
+    // =====================================================================================
+
+
+
+
+    // =====================================================================================
+    // (g) MARKER: THE OCTANT BUILDS NOTHING
+    // =====================================================================================
+
+    /**
+     * The octant measures; it never places or removes a block. That is easy to state and nowhere
+     * written down, and three of the settings the octant screen sends - {@code Hollow},
+     * {@code LayerMode} and {@code FillOrder} - are stored in the item and read back by nothing
+     * but the screen that sent them ({@code OctantScreen#loadDataFromStack}, which restores its
+     * own controls) - and, since 2026-09-25, by {@code ShapeFill} when a building wand in the main
+     * hand fills the shape ({@code WandModeTests}). The octant on its own still builds nothing;
+     * this is the marker for that, in the same spirit as
+     * the former Cover/Bridge marker (replaced by {@code WandModeTests} on 2026-09-25): it is
+     * <em>not</em> a claim that the current state is finished, it is a tripwire that goes off the
+     * moment the octant grows a build step, at which point a real behaviour test has to replace
+     * it.
+     *
+     * <p>{@code Orientation} is asserted alongside them but is <em>not</em> part of that claim: it
+     * is read back, by {@code BlockHighlightRenderer#drawOctantHighlights}, which turns it into a
+     * {@link Direction} and rotates the cylinder, ellipse, pyramid and triangle preview with it.
+     * That is client code on both loaders, so what it does with the value is out of reach here -
+     * see "Not covered" in the class javadoc. All this test says about it is the same thing it
+     * says about the other three: a corner click must not drop it.
+     *
+     * <p>The full sequence a player would use is driven: configure the switches, click both
+     * corners, then the sneaking air click - the one gesture a build trigger would most plausibly
+     * be hung on. Every block in the selected box is compared afterwards, in absolute coordinates
+     * (never through {@code relativePos}, which is not the inverse of {@code absolutePos}).
+     *
+     * <p>The second assertion is the other half of "written by the screen, kept by the item": all
+     * four settings have to survive the corner clicks untouched. {@code useOn} copies the whole
+     * tag, edits one corner and writes it back, so a rewrite that rebuilt the tag from scratch
+     * would silently drop settings the player had made - and the reader would be a screen or a
+     * renderer, neither of which can complain.
+     *
+     * <p>What breaks this test: the octant placing or clearing anything, or a corner click no
+     * longer preserving the rest of the item's data.
+     */
+    public static void theOctantOnlyMeasuresAndPlacesNothing(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack octant = new ItemStack(BtItems.OCTANT);
+        player.setItemInHand(InteractionHand.MAIN_HAND, octant);
+
+        // A hollow 3x2x3 box: air everywhere, one block at each of the two corners to click on.
+        BlockPos firstCorner = new BlockPos(1, 1, 1);
+        BlockPos secondCorner = new BlockPos(3, 2, 3);
+        forEachInBox(firstCorner, secondCorner, pos -> helper.setBlock(pos, Blocks.AIR));
+        helper.setBlock(firstCorner, Blocks.STONE);
+        helper.setBlock(secondCorner, Blocks.STONE);
+
+        // Everything the screen can send, including the three settings nothing reads.
+        ModMessageHandlers.handleOctantConfigure(new OctantConfigurePayload(
+                Optional.empty(), Optional.empty(), SelectionShape.SPHERE.name(),
+                false, 1, true, true, FillOrder.TOP_DOWN.name()), player);
+
+        player.setShiftKeyDown(false);
+        useItemOnBlock(helper, player, firstCorner);
+        player.setShiftKeyDown(true);
+        useItemOnBlock(helper, player, secondCorner);
+
+        CompoundTag afterCorners = customData(octant);
+        helper.assertTrue(afterCorners.contains("Pos1") && afterCorners.contains("Pos2"),
+                "the two corner clicks stored no selection at all, so the box assertions below "
+                        + "would pass for an octant that was never even used: " + afterCorners);
+        helper.assertTrue(afterCorners.getBooleanOr("Hollow", false)
+                        && afterCorners.getBooleanOr("LayerMode", false)
+                        && FillOrder.TOP_DOWN.name().equals(afterCorners.getString("FillOrder").orElse(""))
+                        && afterCorners.getIntOr("Orientation", -1) == 1,
+                "the corner clicks dropped settings the screen had made; the item now holds "
+                        + afterCorners);
+
+        assertNothingBuilt(helper, firstCorner, secondCorner, "after both corner clicks");
+
+        // The sneaking air click: the reset, and the only other gesture the item reacts to.
+        octant.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+        player.setShiftKeyDown(false);
+        helper.assertTrue(customData(octant).isEmpty(),
+                "the sneaking air click did not clear the selection, so the sequence above is not "
+                        + "the one this test thinks it drove");
+
+        assertNothingBuilt(helper, firstCorner, secondCorner, "after the sneaking air click");
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // HELPERS
+    // =====================================================================================
+
+    /**
+     * A creative mock player, handed back to the server no matter how the test ends. None of the
+     * branches here look at the game mode - the octant only checks {@code instabuild} for its
+     * durability, which {@code ConsumptionAndDurabilityTests} owns.
+     */
+    @SuppressWarnings("removal")
+    private static ServerPlayer mockPlayer(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        Vec3 pos = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));
+        player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+        return player;
+    }
+
+    private static CompoundTag customData(ItemStack stack) {
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    }
+
+    /** Writes a selection straight into the item, the way the screen's payload would. */
+    private static void setSelection(ItemStack stack, int[] pos1, int[] pos2, boolean locked) {
+        CompoundTag nbt = new CompoundTag();
+        if (pos1 != null) {
+            nbt.putIntArray("Pos1", pos1.clone());
+        }
+        if (pos2 != null) {
+            nbt.putIntArray("Pos2", pos2.clone());
+        }
+        nbt.putBoolean("Locked", locked);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+    }
+
+    private static int[] corner(CompoundTag nbt, String key) {
+        return nbt.getIntArray(key).orElse(null);
+    }
+
+    /** Both corners at once; {@code null} means "this corner must not be stored at all". */
+    private static void assertSelection(GameTestHelper helper, ItemStack stack,
+                                        int[] pos1, int[] pos2, String message) {
+        CompoundTag nbt = customData(stack);
+        helper.assertTrue(Arrays.equals(corner(nbt, "Pos1"), pos1),
+                message + " - Pos1 is " + Arrays.toString(corner(nbt, "Pos1"))
+                        + ", expected " + Arrays.toString(pos1));
+        helper.assertTrue(Arrays.equals(corner(nbt, "Pos2"), pos2),
+                message + " - Pos2 is " + Arrays.toString(corner(nbt, "Pos2"))
+                        + ", expected " + Arrays.toString(pos2));
+    }
+
+    /** A plain octant carrying nothing but the given {@code Shape} string. */
+    private static ItemStack withShape(String shapeName) {
+        ItemStack stack = new ItemStack(BtItems.OCTANT);
+        CompoundTag nbt = new CompoundTag();
+        nbt.putString("Shape", shapeName);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+        return stack;
+    }
+
+    /** The translation key behind a component, or a readable complaint if it carries none. */
+    private static String translationKey(Component component) {
+        return component.getContents() instanceof TranslatableContents translatable
+                ? translatable.getKey()
+                : "<not a translatable component: " + component.getContents() + ">";
+    }
+
+    /** The tooltip lines the item itself appends, as components. */
+    @SuppressWarnings("deprecation")
+    private static List<Component> tooltipComponents(GameTestHelper helper, ItemStack stack) {
+        List<Component> lines = new ArrayList<>();
+        stack.getItem().appendHoverText(stack, Item.TooltipContext.of(helper.getLevel()),
+                TooltipDisplay.DEFAULT, lines::add, TooltipFlag.NORMAL);
+        return lines;
+    }
+
+    /** The same lines as plain text, which drops the colours a client would render. */
+    private static List<String> tooltip(GameTestHelper helper, ItemStack stack) {
+        return tooltipComponents(helper, stack).stream().map(Component::getString).toList();
+    }
+
+    /** The hit a player produces by aiming at the middle of a block's top face. */
+    private static BlockHitResult topFaceHit(GameTestHelper helper, BlockPos relativePos) {
+        BlockPos pos = helper.absolutePos(relativePos);
+        Vec3 hit = new Vec3(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5);
+        return new BlockHitResult(hit, Direction.UP, pos, false);
+    }
+
+    /**
+     * Right clicks the top face of a block on the <em>item</em> side, which is where the octant's
+     * corner selection lives. This is the second half of what
+     * {@code ServerPlayerGameMode#useItemOn} does; the block gets asked first there, and answers
+     * {@code TRY_WITH_EMPTY_HAND} for anything without an interaction of its own.
+     */
+    private static InteractionResult useItemOnBlock(GameTestHelper helper, ServerPlayer player,
+                                                    BlockPos relativePos) {
+        return player.getMainHandItem().getItem().useOn(
+                new UseOnContext(player, InteractionHand.MAIN_HAND, topFaceHit(helper, relativePos)));
+    }
+
+    /**
+     * Right clicks the top face of a block on the <em>block</em> side. That is the path a cauldron
+     * interaction sits on: {@code AbstractCauldronBlock#useItemOn} asks the dispatcher the block
+     * was built with, which is the map the mod writes into.
+     */
+    private static InteractionResult useBlockWithHeldItem(GameTestHelper helper, ServerPlayer player,
+                                                          BlockPos relativePos) {
+        ServerLevel level = helper.getLevel();
+        return level.getBlockState(helper.absolutePos(relativePos)).useItemOn(
+                player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND,
+                topFaceHit(helper, relativePos));
+    }
+
+    private static void fillCauldron(GameTestHelper helper, BlockPos relativePos, int level) {
+        helper.setBlock(relativePos, Blocks.WATER_CAULDRON.defaultBlockState()
+                .setValue(LayeredCauldronBlock.LEVEL, level));
+    }
+
+    private static int waterLevel(GameTestHelper helper, BlockPos relativePos) {
+        BlockState state = helper.getBlockState(relativePos);
+        helper.assertTrue(state.is(Blocks.WATER_CAULDRON),
+                "the cauldron is " + state + " instead of a water cauldron");
+        return state.getValue(LayeredCauldronBlock.LEVEL);
+    }
+
+    /** How often this player has washed something; the octant awards the vanilla armour wash. */
+    private static int washCount(ServerPlayer player) {
+        return player.getStats().getValue(Stats.CUSTOM.get(Stats.CLEAN_ARMOR));
+    }
+
+    private static void forEachInBox(BlockPos from, BlockPos to, Consumer<BlockPos> action) {
+        for (int x = Math.min(from.getX(), to.getX()); x <= Math.max(from.getX(), to.getX()); x++) {
+            for (int y = Math.min(from.getY(), to.getY()); y <= Math.max(from.getY(), to.getY()); y++) {
+                for (int z = Math.min(from.getZ(), to.getZ()); z <= Math.max(from.getZ(), to.getZ()); z++) {
+                    action.accept(new BlockPos(x, y, z));
+                }
+            }
+        }
+    }
+
+    /**
+     * Every block of the selected box is still what the test put there: stone at the two clicked
+     * corners, air everywhere else. Compared in absolute coordinates, because
+     * {@code GameTestHelper#relativePos} is not the inverse of {@code absolutePos}.
+     */
+    private static void assertNothingBuilt(GameTestHelper helper, BlockPos firstCorner,
+                                           BlockPos secondCorner, String when) {
+        List<String> changed = new ArrayList<>();
+        forEachInBox(firstCorner, secondCorner, pos -> {
+            boolean isCorner = pos.equals(firstCorner) || pos.equals(secondCorner);
+            BlockState state = helper.getLevel().getBlockState(helper.absolutePos(pos));
+            boolean matches = isCorner ? state.is(Blocks.STONE) : state.isAir();
+            if (!matches) {
+                changed.add(helper.absolutePos(pos).toShortString() + " is " + state);
+            }
+        });
+        helper.assertTrue(changed.isEmpty(),
+                "the octant changed blocks inside its own selection " + when
+                        + "; it is a measuring tool and places nothing: " + changed);
+    }
+
+    // --- loot ---------------------------------------------------------------------------
+
+
+
+
+    /** The plain (unweathered) lightning rod; 26.2 keeps the copper variants in a collection. */
+    private static final Item ROD = Items.LIGHTNING_ROD.weathering().unaffected();
+
+    /**
+     * The octant's crafting recipe as the owner set it on 2026-09-29 (run HH): gold nuggets above,
+     * below, left and right of the compass (where the pressure plates and, later, the two lightning
+     * rods were), the gold core bottom left, the lead bottom right and a single lightning rod top
+     * right - resolved through the server's recipe manager the way a crafting table does. The
+     * pressure plate pattern, the two-rod pattern of run Z and a grid with core and nuggets swapped
+     * must not craft an octant.
+     *
+     * <p>What breaks this test: any change to {@code recipe/octant.json} - pattern, key, result or
+     * count - or the recipe failing to load.
+     */
+    public static void theOctantRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        // " NR" / "NCN" / "GNL" with R=lightning rod, L=lead, N=gold nugget, G=gold core, C=compass.
+        CraftingInput grid = documentedGrid(
+                null, Items.GOLD_NUGGET, ROD,
+                Items.GOLD_NUGGET, Items.COMPASS, Items.GOLD_NUGGET,
+                net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "gold_core")), Items.GOLD_NUGGET, Items.LEAD);
+        Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
+                .getRecipeFor(RecipeType.CRAFTING, grid, level);
+        helper.assertTrue(match.isPresent(), "the documented octant pattern does not match any crafting recipe");
+        helper.assertValueEqual(match.get().id().identifier().toString(), "simplebuilding:octant",
+                "recipe matched by the documented octant pattern");
+        ItemStack result = match.get().value().assemble(grid);
+        helper.assertTrue(result.is(BtItems.OCTANT), "the octant recipe produced " + result + " instead of an octant");
+        helper.assertValueEqual(result.getCount(), 1, "octants produced per craft");
+
+        // --- the pressure plate pattern (2026-09-25), the two-rod pattern of run Z and core/nuggets
+        // swapped must not craft an octant ---
+        CraftingInput twoRods = documentedGrid(
+                null, ROD, Items.LEAD,
+                Items.GOLD_NUGGET, Items.COMPASS, ROD,
+                net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "gold_core")), Items.GOLD_NUGGET, null);
+        CraftingInput old = documentedGrid(
+                null, ROD, Items.LEAD,
+                Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.COMPASS, ROD,
+                Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE, null);
+        CraftingInput swapped = documentedGrid(
+                null, net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "gold_core")), ROD,
+                net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "gold_core")), Items.COMPASS, net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "gold_core")),
+                Items.GOLD_NUGGET, net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "gold_core")), Items.LEAD);
+        for (CraftingInput wrong : List.of(old, twoRods, swapped)) {
+            Optional<RecipeHolder<CraftingRecipe>> wrongMatch = level.getServer().getRecipeManager()
+                    .getRecipeFor(RecipeType.CRAFTING, wrong, level);
+            helper.assertTrue(wrongMatch.isEmpty() || !wrongMatch.get().value().assemble(wrong).is(BtItems.OCTANT),
+                    (wrong == old ? "the old pressure plate pattern" : wrong == twoRods ? "the old two lightning rod pattern"
+                            : "the grid with gold core and nuggets swapped")
+                            + " still crafts an octant");
+        }
+        helper.succeed();
+    }
+
+    /** A 3x3 crafting grid, row by row; {@code null} is an empty slot. */
+    private static CraftingInput documentedGrid(Item... items) {
+        List<ItemStack> stacks = new ArrayList<>(items.length);
+        for (Item item : items) {
+            stacks.add(item == null ? ItemStack.EMPTY : new ItemStack(item));
+        }
+        return CraftingInput.of(3, 3, stacks);
+    }
+}

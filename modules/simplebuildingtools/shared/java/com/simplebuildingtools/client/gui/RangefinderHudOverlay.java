@@ -1,0 +1,149 @@
+package com.simplebuildingtools.client.gui;
+
+import com.simplebuildingtools.items.custom.OctantItem;
+import com.simplebuildingtools.util.guiDrawHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * HUD des Oktanten (Entfernungsmesser): Pos 1, Pos 2 und das Ergebnis im gemeinsamen Anzeigekasten
+ * der Mod ({@link HudPanel}) - die Vorlage, nach der sich Messuhr und Resonanzstab richten.
+ */
+public class RangefinderHudOverlay {
+
+    public static void render(GuiGraphicsExtractor context) {
+        Minecraft client = Minecraft.getInstance();
+        if (client.player == null) return;
+        if (!ModHud.visible()) {
+            return; // HUD key / config showModHud
+        }
+        if (client.gui.hud.isHidden()) {
+            // Fabric's element registry hangs the mod's overlays inside vanilla's own layers,
+            // which F1 switches off as a whole; NeoForge's layer event does not, and there the
+            // air jump bar, the speedometer and the rangefinder stayed on a hidden HUD. The
+            // question has to be asked here, once, so both loaders give the same answer.
+            return;
+        }
+        if (client.gui.screen() instanceof OctantScreen) return;
+
+        ItemStack stack = client.player.getMainHandItem();
+        boolean hasOctant = stack.getItem() instanceof OctantItem;
+
+        if (!hasOctant) {
+            stack = client.player.getOffhandItem();
+            if (stack.getItem() instanceof OctantItem) {
+                hasOctant = true;
+            }
+        }
+
+        if (!hasOctant) return;
+
+        guiDrawHelper.ColorTheme theme = guiDrawHelper.getColorTheme(((OctantItem) stack.getItem()).getColor());
+
+        CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag nbt = nbtData.copyTag();
+        List<Component> lines = new ArrayList<>();
+
+        lines.add(HudPanel.title(stack));
+
+        BlockPos pos1 = null;
+        BlockPos pos2 = null;
+
+        if (nbt.contains("Pos1")) {
+            int[] p1 = nbt.getIntArray("Pos1").orElse(new int[0]);
+            if (p1.length == 3) {
+                pos1 = new BlockPos(p1[0], p1[1], p1[2]);
+                lines.add(Component.translatable("hud.simplebuilding.rangefinder.pos1", pos1.getX(), pos1.getY(), pos1.getZ())
+                        .setStyle(Style.EMPTY.withColor(HudPanel.ink(theme.pos1()))));
+            }
+        } else {
+            lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos1").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
+        }
+
+        if (nbt.contains("Pos2")) {
+            int[] p2 = nbt.getIntArray("Pos2").orElse(new int[0]);
+            if (p2.length == 3) {
+                pos2 = new BlockPos(p2[0], p2[1], p2[2]);
+                lines.add(Component.translatable("hud.simplebuilding.rangefinder.pos2", pos2.getX(), pos2.getY(), pos2.getZ())
+                        .setStyle(Style.EMPTY.withColor(HudPanel.ink(theme.pos2()))));
+            }
+        } else if (pos1 != null) {
+            lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos2").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
+        }
+
+        if (pos1 != null && pos2 != null) {
+            int dx = Math.abs(pos1.getX() - pos2.getX()) + 1;
+            int dy = Math.abs(pos1.getY() - pos2.getY()) + 1;
+            int dz = Math.abs(pos1.getZ() - pos2.getZ()) + 1;
+
+            // Resultat nutzt Pos1 Farbe (hell)
+            int resultColor = HudPanel.ink(theme.pos1());
+
+            if (dy == 1 && (dx == 1 || dz == 1)) {
+                lines.add(Component.translatable("hud.simplebuilding.rangefinder.distance", Math.max(dx, dz)).setStyle(Style.EMPTY.withColor(resultColor)));
+            } else if (dy == 1) {
+                lines.add(Component.translatable("hud.simplebuilding.rangefinder.area", dx * dz).setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Component.literal("(" + dx + " x " + dz + ")").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
+            } else {
+                lines.add(Component.translatable("hud.simplebuilding.rangefinder.volume", dx * dy * dz).setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Component.literal("(" + dx + " x " + dy + " x " + dz + ")").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
+            }
+        }
+
+        if (lines.isEmpty()) return;
+
+        Font textRenderer = client.font;
+        int screenHeight = context.guiHeight();
+
+        int actualTextWidth = 0;
+        for (Component line : lines) {
+            int w = textRenderer.width(line);
+            if (w > actualTextWidth) actualTextWidth = w;
+        }
+        String sampleString = "Pos 2: -8888, 888, -8888";
+        int minSafeWidth = textRenderer.width(sampleString);
+        int finalContentWidth = Math.max(actualTextWidth, minSafeWidth);
+
+        int paddingX = HudPanel.PADDING;
+        int paddingY = HudPanel.PADDING;
+        int lineSpacing = HudPanel.LINE_GAP;
+        int titleSpacing = HudPanel.TITLE_GAP;
+
+        int totalTextHeight = (lines.size() * textRenderer.lineHeight) + ((lines.size() - 1) * lineSpacing) + titleSpacing * (lines.size() > 3 ? 2 : 1);
+        int boxWidth = finalContentWidth + (paddingX * 2);
+        int boxHeight = totalTextHeight + (paddingY * 2);
+
+        // Ort und Groesse aus der Client-Config (ModHud); mit Messuhr/Stab-Anzeige stapeln sich die Kaesten (HudPanel).
+        ModHud.begin(context, boxWidth, boxHeight, HudPanel.stackOffset(HudPanel.Slot.OCTANT, client));
+        int x = 0;
+        int y = 0;
+
+        // --- BOX: Vanilla-Tooltip-Hintergrund (Sprites tooltip/background + tooltip/frame) wie der
+        // Tachometer. Die Farbstoff-Farbe des Entfernungsmessers bleibt in den Textzeilen (Pos 1,
+        // Pos 2, Ergebnis); der fruehere nachgebaute Kasten mit gefaerbtem Rahmen ist weg.
+        HudPanel.background(context, x + paddingX, y + paddingY,
+                boxWidth - paddingX * 2, boxHeight - paddingY * 2);
+
+        // --- TEXT ---
+        int textY = y + paddingY;
+
+        for (int i = 0; i < lines.size(); i++) {
+            Component line = lines.get(i);
+            context.text(textRenderer, line, x + paddingX, textY, 0xFFFFFFFF, true);
+            textY += textRenderer.lineHeight + lineSpacing;
+            if (i == 0 || i == 2) textY += titleSpacing;
+        }
+        ModHud.end(context);
+    }
+
+}

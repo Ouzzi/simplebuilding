@@ -132,6 +132,7 @@ public final class ConfigOptions {
             "enableSimpleResonance",
             "enableSimpleEnchanting",
             "enableSimplePads",
+            "enableSimpleBuildingtools",
             // <submods:end restart>
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",

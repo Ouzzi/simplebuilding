@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "simplebuildingtools",
+  "version": "${version}",
+  "name": "Simple Building Tools",
+  "description": "Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant in 17 colors and the Blueprint with editor, picture import and cartography table copies. Simple Ores adds the Enderite wand, SimpleBuilding the backpack supply and the placed octants.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplebuildingtools.BuildingToolsFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplebuildingtools.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplebuildingtools.BuildingToolsFabricClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.4.0"
+  },
+  "icon": "assets/simplebuildingtools/icon.png",
+  "suggests": {
+    "simplebuilding": "*",
+    "simpleores": "*",
+    "simplestorage": "*",
+    "simplehammers": "*",
+    "simpleoctets": "*"
+  },
+  "mixins": [
+    "simplebuildingtools.mixins.json"
+  ]
+}
