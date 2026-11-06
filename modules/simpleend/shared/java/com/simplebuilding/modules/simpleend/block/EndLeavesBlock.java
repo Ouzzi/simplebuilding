@@ -1,6 +1,8 @@
 package com.simplebuilding.modules.simpleend.block;
 
+import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -30,6 +33,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -46,6 +50,9 @@ import net.minecraft.world.phys.Vec3;
  * {@link #WAXED} (owner W24-4, 23.10.): a honeycomb waxes the leaves like copper (Vanilla wax particles and sound) and
  * freezes their density - it no longer follows the neighbours, so a builder keeps a loose or dense look where he wants
  * it; an axe scrapes the wax off (Vanilla wax-off particles and sound, one durability) and the density follows again.
+ * Glue (WD25-2, 06.11., variant A): a slimeball does the same as the honeycomb ({@link #WAXED} = state stored) with the
+ * slime sound, and the stored state survives mining: the block item silk touch or shears drop carries waxed and density
+ * (block state component), so it is placed again exactly like it was. Wax keeps the same promise.
  */
 public class EndLeavesBlock extends TintedParticleLeavesBlock {
     public static final IntegerProperty DROP = IntegerProperty.create("drop", 0, 2);
@@ -101,9 +108,11 @@ public class EndLeavesBlock extends TintedParticleLeavesBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
                                           BlockHitResult hit) {
-        if (stack.is(Items.HONEYCOMB) && !state.getValue(WAXED)) {
+        boolean glue = stack.is(Items.SLIME_BALL);
+        if ((glue || stack.is(Items.HONEYCOMB)) && !state.getValue(WAXED)) {
             // like Vanilla's honeycomb: the event on both sides (the acting client plays it itself, the server for the others)
             level.levelEvent(player, LevelEvent.PARTICLES_WAX_ON, pos, 0);
+            if (glue) level.playSound(player, pos, SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (!level.isClientSide()) {
                 stack.consume(1, player);
                 level.setBlock(pos, state.setValue(WAXED, true), Block.UPDATE_ALL_IMMEDIATE);
@@ -122,6 +131,20 @@ public class EndLeavesBlock extends TintedParticleLeavesBlock {
             return InteractionResult.SUCCESS;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hit);
+    }
+
+    /** Silk touch / shears drop the block with its stored state (waxed or glued leaves keep density and waxed). */
+    @Override
+    protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+        List<ItemStack> drops = super.getDrops(state, params);
+        if (state.getValue(WAXED)) {
+            for (ItemStack drop : drops) {
+                if (drop.is(asItem())) {
+                    drop.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(WAXED, true).with(DENSITY, state.getValue(DENSITY)));
+                }
+            }
+        }
+        return drops;
     }
 
     /** Like Vanilla {@code WebBlock#entityInside}, braking by {@link #stuckSpeed density}. */

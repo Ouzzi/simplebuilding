@@ -610,6 +610,31 @@ public final class EndTests {
             }
             h.succeed();
         });
+        add("end_leaves_glue_silk_keeps_state", h -> {
+            // WD25-2: a slimeball glues like wax (one used up); shears/silk drop the leaves carrying waxed + density.
+            ServerLevel level = h.getLevel();
+            BlockPos abs = h.absolutePos(new BlockPos(20, 3, 20));
+            var player = h.makeMockServerPlayerInLevel();
+            player.setGameMode(GameType.SURVIVAL);
+            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+            for (EndWood w : EndWood.ALL) {
+                level.setBlock(abs, w.leaves.defaultBlockState().setValue(EndLeavesBlock.DENSITY, EndLeavesBlock.LOOSE), 3);
+                ItemStack glue = new ItemStack(Items.SLIME_BALL, 2);
+                player.setItemInHand(InteractionHand.MAIN_HAND, glue);
+                player.gameMode.useItemOn(player, level, glue, InteractionHand.MAIN_HAND, hit);
+                BlockState glued = level.getBlockState(abs);
+                h.assertTrue(glued.getValue(EndLeavesBlock.WAXED) && glue.getCount() == 1, w.name + " glued, one slimeball used");
+                var params = new net.minecraft.world.level.storage.loot.LootParams.Builder(level)
+                        .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN, Vec3.atCenterOf(abs))
+                        .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.TOOL, new ItemStack(Items.SHEARS));
+                var drops = glued.getDrops(params);
+                var props = drops.isEmpty() ? null : drops.get(0).get(net.minecraft.core.component.DataComponents.BLOCK_STATE);
+                h.assertTrue(props != null && Boolean.TRUE.equals(props.get(EndLeavesBlock.WAXED))
+                        && Integer.valueOf(EndLeavesBlock.LOOSE).equals(props.get(EndLeavesBlock.DENSITY)), w.name + " drop keeps state: " + drops);
+                level.setBlock(abs, Blocks.AIR.defaultBlockState(), 3);
+            }
+            h.succeed();
+        });
         add("end_leaves_hoe_tool", h -> {
             // TX22-4: the hoe is the tool; without one the leaves take as long as a cobweb (bare hand: 20 s, like Vanilla).
             ServerLevel level = h.getLevel();
