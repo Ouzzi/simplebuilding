@@ -115,8 +115,12 @@
   "simpleores.guide.page.9": "Eine Wanddekoration aus Silber und Glas.",
   "simpleores.guide.page.10.title": "Enderit",
   "simpleores.guide.page.10": "Die Stufe über Netherit (von SimpleLib hierher umgezogen, IG31-13). Die Enderit-Varianten der anderen Simple-Mods - Truhen, Öfen, Tiegel, Hämmer, Rucksäcke - erscheinen nur, solange Simple Ores installiert ist.",
-  "simpleores.guide.page.11.title": "Weisheitserz und Dimensionsschrott",
-  "simpleores.guide.page.11": "Zwei seltene Funde, die aus SimpleBuilding hierher umgezogen sind (IG31-13): das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
-  "simpleores.guide.page.12.title": "Einstellungen",
-  "simpleores.guide.page.12": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpleores.guide.page.11.title": "Nether-Roségolderz",
+  "simpleores.guide.page.11": "Ein seltener Roségold-Fund, versteckt in den Nethergold-Adern, tief unten in der Hitze.",
+  "simpleores.guide.page.12.title": "Weisheitskristall",
+  "simpleores.guide.page.12": "Das barrengroße Material der Weisheits-Familie, als Splitter im Nether und im End zu finden.",
+  "simpleores.guide.page.13.title": "Weisheitserz und Dimensionsschrott",
+  "simpleores.guide.page.13": "Zwei seltene Funde, die aus SimpleBuilding hierher umgezogen sind (IG31-13): das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
+  "simpleores.guide.page.14.title": "Einstellungen",
+  "simpleores.guide.page.14": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

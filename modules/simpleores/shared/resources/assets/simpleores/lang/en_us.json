@@ -115,8 +115,12 @@
   "simpleores.guide.page.9": "A wall decoration of silver and glass.",
   "simpleores.guide.page.10.title": "Enderite",
   "simpleores.guide.page.10": "The tier above netherite (moved here from SimpleLib, IG31-13). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.",
-  "simpleores.guide.page.11.title": "Sage Ore and Dimensional Scrap",
-  "simpleores.guide.page.11": "Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.",
-  "simpleores.guide.page.12.title": "Settings",
-  "simpleores.guide.page.12": "More settings are in the mod's config screen."
+  "simpleores.guide.page.11.title": "Nether Rose Gold Ore",
+  "simpleores.guide.page.11": "A rare rose gold find hidden in the Nether gold veins, deep down in the heat.",
+  "simpleores.guide.page.12.title": "Sage Crystal",
+  "simpleores.guide.page.12": "The ingot-sized material of the sage family, found as shards in the Nether and the End.",
+  "simpleores.guide.page.13.title": "Sage Ore and Dimensional Scrap",
+  "simpleores.guide.page.13": "Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.",
+  "simpleores.guide.page.14.title": "Settings",
+  "simpleores.guide.page.14": "More settings are in the mod's config screen."
 }

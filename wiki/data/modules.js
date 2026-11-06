@@ -1906,12 +1906,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 40,
-      "blocks": 20,
-      "recipes": 67,
-      "features": 10
+      "items": 42,
+      "blocks": 24,
+      "recipes": 72,
+      "features": 12
     },
-    "dataHash": "bc3c2b09dcf8"
+    "dataHash": "938a60eb8050"
   },
   {
     "id": "simplemachines",

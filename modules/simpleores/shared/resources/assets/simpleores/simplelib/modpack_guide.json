@@ -9,7 +9,7 @@
       "title": "simpleores.guide.chapter",
       "icon": "minecraft:raw_gold",
       "page_key": "simpleores.guide.page",
-      "pages": 12,
+      "pages": 14,
       "advancement": "simpleores:guide/chapter",
       "hint": "minecraft:raw_gold"
     }
