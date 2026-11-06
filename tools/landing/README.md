@@ -11,3 +11,8 @@ aus den Mod-Icons (`modules/*/shared/resources/assets/*/icon_128.png`); Struktur
 
 `wiki.simplemods.de` bleibt das Wiki; Links der Seite: `/setup/` (Installer) und `https://wiki.simplemods.de`.
 Bis dahin zeigt simplemods.de auf das Wiki.
+
+## LAND09 (06.11.): neue Basis + drei Konzepte
+`python3 concepts.py [vorschau-ordner]` schreibt `index.html` (= vorschlag-2.html, nur größere H1/H2 und Abstände)
+und `konzept-1.html` (Modpack-Baukasten), `konzept-2.html` (Reise durchs Spiel), `konzept-3.html` (Schaufenster).
+Daten: modules.json/modtree.py, Lang-Dateien, git-verfolgte Mod-Texturen (nie build/, wiki/, assets/minecraft).
