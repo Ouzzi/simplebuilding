@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpleblocks:block/compact_mud"
+    }
+  }
+}

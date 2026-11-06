@@ -127,6 +127,24 @@ WOOLS = ['white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', '
 # The natural slabs (moved from SimpleBuilding in b-blocksmove; no stonecutting recipe; no octets, owner 17.10.).
 NATURAL_SLABS = [('dirt', 'minecraft:dirt'), ('grass', 'minecraft:grass_block'), ('sand', 'minecraft:sand'), ('gravel', 'minecraft:gravel')]
 
+# --- Compact and Dense blocks (WH26-10, docs/ai/PLAN-A-COMPACT-2026-11-06.md) ---------------------------------------------
+# Java: com.simpleblocks.compact.CompactBlocks (names and order are checked against it). Stage 1 "Compact" = 9 base blocks, stage 2
+# "Dense" = 9 Compact; both reverse (1 -> 9). Textures: Vanilla-derived (tools/textures/compact_2026_11_06.py), never committed.
+# (name, tool tag, English name, German noun, German gender m/f/n)
+COMPACT_BASES = [
+    ('dirt', 'shovel', 'Dirt', 'Erde', 'f'), ('mud', 'shovel', 'Mud', 'Schlamm', 'm'), ('cobblestone', 'pickaxe', 'Cobblestone', 'Bruchstein', 'm'),
+    ('stone', 'pickaxe', 'Stone', 'Stein', 'm'), ('sand', 'shovel', 'Sand', 'Sand', 'm'), ('red_sand', 'shovel', 'Red Sand', 'Roter Sand', 'm'),
+    ('gravel', 'shovel', 'Gravel', 'Kies', 'm'), ('clay', 'shovel', 'Clay', 'Ton', 'm'), ('netherrack', 'pickaxe', 'Netherrack', 'Netherrack', 'n'),
+    ('cobbled_deepslate', 'pickaxe', 'Cobbled Deepslate', 'Bruchtiefenschiefer', 'm'), ('andesite', 'pickaxe', 'Andesite', 'Andesit', 'm'),
+    ('diorite', 'pickaxe', 'Diorite', 'Diorit', 'm'), ('granite', 'pickaxe', 'Granite', 'Granit', 'm'), ('tuff', 'pickaxe', 'Tuff', 'Tuff', 'm'),
+    ('sandstone', 'pickaxe', 'Sandstone', 'Sandstein', 'm'), ('red_sandstone', 'pickaxe', 'Red Sandstone', 'Roter Sandstein', 'm'),
+    ('end_stone', 'pickaxe', 'End Stone', 'Endstein', 'm'), ('blackstone', 'pickaxe', 'Blackstone', 'Schwarzstein', 'm'),
+    ('soul_sand', 'shovel', 'Soul Sand', 'Seelensand', 'm'),
+]
+COMPACT_STAGES = ('compact', 'dense')
+COMPACT = [f'{st}_{b[0]}' for b in COMPACT_BASES for st in COMPACT_STAGES]
+_DE_ADJ = {'compact': {'m': 'Kompakter', 'f': 'Kompakte', 'n': 'Kompaktes'}, 'dense': {'m': 'Dichter', 'f': 'Dichte', 'n': 'Dichtes'}}
+
 
 def sawing_list():
     """(recipe path, ingredient, result id, count, mod condition or None) of every sawing recipe."""
@@ -410,10 +428,11 @@ def tags():
     # the nature slabs with the shovel and as slabs; froglights (Vanilla + these) are the dye recipes' ingredient.
     moved_ice = [f'{NS}:{n}' for n in NATURE_ICE + [c[0] for c in CRACKED_HARD]]
     moved_slabs = [f'{NS}:{n}' for n in NATURE_SLABS]
-    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'] + moved_ice + [f'{NS}:nautilus_shell_block'])
+    compact_tool = {t: [f'{NS}:{st}_{b[0]}' for b in COMPACT_BASES if b[1] == t for st in COMPACT_STAGES] for t in ('pickaxe', 'shovel')}
+    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'] + moved_ice + [f'{NS}:nautilus_shell_block'] + compact_tool['pickaxe'])
     # Suspended/levitating sand and gravel dig like their Vanilla block (AUDM24).
     # SN30 (b-snow32): frost grass and the snowlogged cell dig like the grass block and snow (their other tags are hand-written).
-    tag('data/minecraft/tags/block/mineable/shovel.json', moved_slabs + [f'{NS}:{g[0]}' for g in GRAVITY] + [f'{NS}:frost_grass', f'{NS}:snowlogged', f'{NS}:snow_cap'])
+    tag('data/minecraft/tags/block/mineable/shovel.json', moved_slabs + [f'{NS}:{g[0]}' for g in GRAVITY] + [f'{NS}:frost_grass', f'{NS}:snowlogged', f'{NS}:snow_cap'] + compact_tool['shovel'])
     tag('data/minecraft/tags/block/ice.json', moved_ice)
     tag(f'data/{NS}/tags/item/froglights.json', ['minecraft:ochre_froglight', 'minecraft:verdant_froglight', 'minecraft:pearlescent_froglight']
         + [f'{NS}:{n}' for n in NATURE_OTHER[1:]])
@@ -507,6 +526,14 @@ SAW_LANG = {
 }
 
 
+def compact_names(locale):
+    out = {}
+    for base, _, en, de, gender in COMPACT_BASES:
+        for st in COMPACT_STAGES:
+            out[f'{st}_{base}'] = f'{st.capitalize()} {en}' if locale == 'en_us' else f'{_DE_ADJ[st][gender]} {de}'
+    return out
+
+
 def lang():
     en, de = names()
     out = {}
@@ -523,6 +550,9 @@ def lang():
             data[f'block.{NS}.{name}'] = text
             data[f'item.{NS}.{name}'] = text
         data.update(PALE_TEXT[locale])
+        for name, text in compact_names(locale).items():
+            data[f'block.{NS}.{name}'] = text
+            data[f'item.{NS}.{name}'] = text
         saw = SAW_LANG[locale]
         data[f'block.{NS}.{SAW}'] = data[f'item.{NS}.{SAW}'] = data[f'container.{NS}.{SAW}'] = data[f'jei.{NS}.category.sawing'] = saw['name']
         data[f'jei.{NS}.info.{SAW}'] = saw['info']
@@ -646,9 +676,29 @@ def pale():
         put(f'data/{NS}/advancement/recipes/building_blocks/{recipe}.json', A._recipe_advancement(carved, recipe, f'{NS}:{src}'))
 
 
+def compact():
+    """Compact/Dense blocks: cube models on the derived textures, self-drop loot, 4 recipes per base (9 -> 1 and 1 -> 9, twice), advancements."""
+    for base, *_ in COMPACT_BASES:
+        prev = f'minecraft:{base}'
+        for st in COMPACT_STAGES:
+            name = f'{st}_{base}'
+            put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{name}'}})
+            put(f'assets/{NS}/blockstates/{name}.json', {'variants': {'': {'model': f'{NS}:block/{name}'}}})
+            put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}'}})
+            put(f'data/{NS}/loot_table/blocks/{name}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
+                                                              'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{name}'}], 'rolls': 1}]})
+            recipe(name, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': prev}, 'pattern': ['###'] * 3,
+                          'result': result(name)}, prev)
+            back = f'{prev.split(":")[1]}_from_{name}'
+            recipe(back, {'type': 'minecraft:crafting_shapeless', 'category': 'building', 'ingredients': [f'{NS}:{name}'],
+                          'result': {'count': 9, 'id': prev}}, f'{NS}:{name}')
+            prev = f'{NS}:{name}'
+
+
 def build():
     files.clear()
     cracked_hard()
+    compact()
     pale()
     models_and_states()
     recipes()

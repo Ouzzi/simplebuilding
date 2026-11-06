@@ -10,6 +10,20 @@
     "simpleblocks:levitating_gravel",
     "simpleblocks:frost_grass",
     "simpleblocks:snowlogged",
-    "simpleblocks:snow_cap"
+    "simpleblocks:snow_cap",
+    "simpleblocks:compact_dirt",
+    "simpleblocks:dense_dirt",
+    "simpleblocks:compact_mud",
+    "simpleblocks:dense_mud",
+    "simpleblocks:compact_sand",
+    "simpleblocks:dense_sand",
+    "simpleblocks:compact_red_sand",
+    "simpleblocks:dense_red_sand",
+    "simpleblocks:compact_gravel",
+    "simpleblocks:dense_gravel",
+    "simpleblocks:compact_clay",
+    "simpleblocks:dense_clay",
+    "simpleblocks:compact_soul_sand",
+    "simpleblocks:dense_soul_sand"
   ]
 }

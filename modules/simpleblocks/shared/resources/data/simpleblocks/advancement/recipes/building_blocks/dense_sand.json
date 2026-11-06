@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_compact_sand": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:compact_sand"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:dense_sand"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_compact_sand"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:dense_sand"
+    ]
+  }
+}

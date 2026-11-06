@@ -149,6 +149,7 @@ public final class BlocksRegistry {
         com.simpleblocks.nature.NatureBlocks.registerBlocks();
         com.simpleblocks.snow.SnowBlocks.registerBlocks();
         com.simpleblocks.pale.PaleBlocks.registerBlocks();
+        com.simpleblocks.compact.CompactBlocks.registerBlocks();
         com.simpleblocks.saw.Sawing.registerBlock();
     }
 
@@ -174,6 +175,7 @@ public final class BlocksRegistry {
         com.simpleblocks.nature.NatureBlocks.registerItems();
         com.simpleblocks.snow.SnowBlocks.registerItems();
         com.simpleblocks.pale.PaleBlocks.registerItems();
+        com.simpleblocks.compact.CompactBlocks.registerItems();
         com.simpleblocks.saw.Sawing.registerItem();
         com.simpleblocks.guide.BlocksGuide.register();
         SimpleBlocks.registerStation();
@@ -217,6 +219,7 @@ public final class BlocksRegistry {
         com.simpleblocks.nature.NatureBlocks.ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
         if (com.simpleblocks.snow.SnowBlocks.FROST_GRASS_ITEM != null) out.add(new ItemStack(com.simpleblocks.snow.SnowBlocks.FROST_GRASS_ITEM));
         out.addAll(com.simpleblocks.pale.PaleBlocks.tabStacks()); // DW04B: the pale stages and their waxed copies
+        out.addAll(com.simpleblocks.compact.CompactBlocks.tabStacks()); // WH26-10: Compact and Dense blocks
         out.add(com.simpleblocks.guide.BlocksGuide.stack());
         return out;
     }

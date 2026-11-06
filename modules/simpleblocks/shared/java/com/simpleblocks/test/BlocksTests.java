@@ -274,6 +274,7 @@ public final class BlocksTests {
         NatureTests.register(ALL, MAX_TICKS);
         SnowTests.register(ALL, MAX_TICKS);
         PaleTests.register(ALL, MAX_TICKS); // DW04B pale blocks on SimpleLib's aging chains
+        CompactTests.register(ALL, MAX_TICKS); // WH26-10 Compact and Dense blocks
     }
 
     private BlocksTests() {}

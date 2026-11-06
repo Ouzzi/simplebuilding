@@ -532,6 +532,71 @@
       }
     },
     {
+      "id": "compact_blocks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/compact/CompactBlocks.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/CompactTests.java",
+        "tools/textures/compact_2026_11_06.py"
+      ],
+      "related": [
+        "simpleblocks:compact_dirt",
+        "simpleblocks:dense_dirt",
+        "simpleblocks:compact_mud",
+        "simpleblocks:dense_mud",
+        "simpleblocks:compact_cobblestone",
+        "simpleblocks:dense_cobblestone",
+        "simpleblocks:compact_stone",
+        "simpleblocks:dense_stone",
+        "simpleblocks:compact_sand",
+        "simpleblocks:dense_sand",
+        "simpleblocks:compact_red_sand",
+        "simpleblocks:dense_red_sand",
+        "simpleblocks:compact_gravel",
+        "simpleblocks:dense_gravel",
+        "simpleblocks:compact_clay",
+        "simpleblocks:dense_clay",
+        "simpleblocks:compact_netherrack",
+        "simpleblocks:dense_netherrack",
+        "simpleblocks:compact_cobbled_deepslate",
+        "simpleblocks:dense_cobbled_deepslate",
+        "simpleblocks:compact_andesite",
+        "simpleblocks:dense_andesite",
+        "simpleblocks:compact_diorite",
+        "simpleblocks:dense_diorite",
+        "simpleblocks:compact_granite",
+        "simpleblocks:dense_granite",
+        "simpleblocks:compact_tuff",
+        "simpleblocks:dense_tuff",
+        "simpleblocks:compact_sandstone",
+        "simpleblocks:dense_sandstone",
+        "simpleblocks:compact_red_sandstone",
+        "simpleblocks:dense_red_sandstone",
+        "simpleblocks:compact_end_stone",
+        "simpleblocks:dense_end_stone",
+        "simpleblocks:compact_blackstone",
+        "simpleblocks:dense_blackstone",
+        "simpleblocks:compact_soul_sand",
+        "simpleblocks:dense_soul_sand"
+      ],
+      "en": {
+        "title": "Compact and Dense blocks",
+        "summary": "Stage 1 Compact = 9 blocks, stage 2 Dense = 9 Compact, for 19 common Vanilla building blocks (dirt, mud, cobblestone, stone, sand, red sand, gravel, clay, netherrack, cobbled deepslate, andesite, diorite, granite, tuff, sandstone, red sandstone, end stone, blackstone, soul sand).",
+        "details": [
+          "Every step is reversible at the crafting table: 1 Compact or Dense block gives back 9 of the stage below.",
+          "Same sound, tool and drops rule as the base block, but mining takes about 4x (Compact) and 16x (Dense) as long. Compact sand and gravel do not fall."
+        ]
+      },
+      "de": {
+        "title": "Kompakte und dichte Blöcke",
+        "summary": "Stufe 1 Kompakt = 9 Blöcke, Stufe 2 Dicht = 9 Kompakte, für 19 häufige Vanilla-Baublöcke (Erde, Schlamm, Bruchstein, Stein, Sand, Roter Sand, Kies, Ton, Netherrack, Bruchtiefenschiefer, Andesit, Diorit, Granit, Tuff, Sandstein, Roter Sandstein, Endstein, Schwarzstein, Seelensand).",
+        "details": [
+          "Jeder Schritt ist an der Werkbank umkehrbar: 1 kompakter oder dichter Block ergibt wieder 9 der Stufe darunter.",
+          "Gleicher Klang, gleiches Werkzeug und gleiche Drop-Regel wie der Grundblock, der Abbau dauert aber etwa 4x (kompakt) und 16x (dicht) so lang. Kompakter Sand und Kies fallen nicht."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowConfig.java",
