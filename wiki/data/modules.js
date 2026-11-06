@@ -1028,7 +1028,7 @@ window.WIKI_MODULES = [
       "items": 3,
       "features": 7
     },
-    "dataHash": "da48cd00efee"
+    "dataHash": "53bee741e133"
   },
   {
     "id": "simpleend",
