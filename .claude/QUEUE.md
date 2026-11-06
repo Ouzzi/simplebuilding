@@ -1162,7 +1162,7 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
 - [~] IG31-51 **Endstein-Mauer + rissige Astralit-/Nihilit-/Enderquarz-Ziegel**. (a-end07 läuft)
 - [~] IG31-52 **Nihilit-End-Bretter** für beide Varianten, Rezept Nihilit-Bücherregale. (a-end07 läuft)
 - [~] IG31-53 **Bücher-Designs je Buchsorte** in gemeißelten Regalen (Nihilit-/Blaze-Design, je Slot-Position eigene Textur). (a-end07 läuft)
-- [ ] IG31-54 **Landing Page simplemods.de** (Besitzer 06.11.): cool aussehende Präsentationsseite der Simple Mods (Mods vorstellen, Bilder, Downloads, Link zum Wiki). Erst Entwurf mit Varianten (UI exemplarisch), dann bauen. Bis dahin zeigt simplemods.de auf das Wiki.
+- [~] IG31-54 **Landing Page simplemods.de** (Besitzer 06.11.): cool aussehende Präsentationsseite der Simple Mods (Mods vorstellen, Bilder, Downloads, Link zum Wiki). Erst Entwurf mit Varianten (UI exemplarisch), dann bauen. Bis dahin zeigt simplemods.de auf das Wiki. Stand 06.11.: 3 Entwuerfe A/B/C in tools/landing (Branch a-land07), Vorschau a-land07-preview.html, Antwort LAND07: A|B|C; offen Wahl, Feinschliff, Deploy.
 - [ ] IG31-55 **Domain-Umzug**: wiki.simplemods.de = Wiki (/, /dev/, /zentrale/, /api/ mit Login); simplewiki.de, www.simplemods.de, simplemods-wiki.azarfane.com leiten auf wiki.simplemods.de weiter; Links/Installer/Repo anpassen. Nach ZW06-Switch. Besitzer trägt Tunnel-Hostname wiki.simplemods.de ein.
   - Bestand aller registrierten Commands auflisten, umbenennen.
   - Alte Namen als Alias für eine Übergangszeit. Wiki/Handbuch/Tests anpassen.
