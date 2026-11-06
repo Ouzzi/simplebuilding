@@ -23,7 +23,7 @@ public final class SortClient {
         Minecraft mc = Minecraft.getInstance();
         if (!ContainersConfig.on() || !ContainersClient.config().sortKey || mc.player == null || hovered == null
                 || mc.player.hasInfiniteMaterials() || !ContainerSort.eligible(screen.getMenu())
-                || !KEY.isActiveAndMatches(InputConstants.Type.MOUSE.getOrCreate(event.button()))) return false;
+                || !KEY.matchesMouse(event)) return false;
         toServer.accept(new SortPayload(screen.getMenu().containerId, hovered.index));
         return true;
     }
