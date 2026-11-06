@@ -109,6 +109,7 @@
         "details": [
           "Plain: 8 ingots of the alloy round an apple. Rose Copper apple: 5 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. Rose Gold apple: 6 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. Like the golden apple, plus Resistance, and no Fire Resistance.",
           "Enchanted (glint): 8 blocks of the alloy round an apple. Rose Copper: Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. Rose Gold: Regeneration II 0:35, the same. Like the enchanted golden apple. The tooltip lists every effect.",
+          "Carrots (06.11.): 8 nuggets of the alloy round a carrot, like the Vanilla golden carrot (nuggets, because 8 ingots would make a carrot as dear as an apple). Rose Copper carrot 7 hunger, Rose Gold carrot 8 hunger, both saturation factor 1.2 (golden carrot: 6 hunger); no effects, no enchanted version.",
           "For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Resistance I 1:00 (plain apples have no Fire Resistance). They appear in the Food and Drinks tab behind the enchanted golden apple."
         ]
       },
@@ -118,6 +119,7 @@
         "details": [
           "Normal: 8 Barren der Legierung um einen Apfel. Rosenkupfer-Apfel: 5 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30. Roségold-Apfel: 6 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. Wie der Goldapfel plus Resistenz, ohne Feuerresistenz.",
           "Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenkupfer: Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. Roségold: Regeneration II 0:35, sonst dasselbe. Wie der verzauberte Goldapfel. Der Tooltip listet jeden Effekt.",
+          "Karotten (06.11.): 8 Klumpen der Legierung um eine Karotte, wie die goldene Karotte aus Vanilla (Klumpen, weil 8 Barren die Karotte so teuer wie einen Apfel machen würden). Rosenkupfer-Karotte 7 Hunger, Roségold-Karotte 8 Hunger, beide Sättigungsfaktor 1,2 (goldene Karotte: 6 Hunger); keine Effekte, keine verzauberte Version.",
           "Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel."
         ]
       }
@@ -535,6 +537,39 @@
       }
     },
     {
+      "id": "simpleores:enderite_scrap_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:enderite_scrap_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_scrap_block.json",
+      "ingredients": [
+        "simpleores:enderite_scrap"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:enderite_scrap"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_enderite",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:enderite_scrap_from_blasting_layered_raw_enderite",
       "type": "minecraft:blasting",
       "category": null,
@@ -560,6 +595,34 @@
           {
             "id": "simpleores:raw_enderite",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enderite_scrap_from_enderite_scrap_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_scrap",
+      "result": {
+        "id": "simpleores:enderite_scrap",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_scrap_from_enderite_scrap_block.json",
+      "ingredients": [
+        "simpleores:enderite_scrap_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:enderite_scrap_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:enderite_scrap_block",
+            "count": 1
           }
         ]
       }
@@ -967,6 +1030,67 @@
       }
     },
     {
+      "id": "simpleores:netherite_scrap_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:netherite_scrap_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/netherite_scrap_block.json",
+      "ingredients": [
+        "minecraft:netherite_scrap"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:netherite_scrap"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherite_scrap",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:netherite_scrap_from_netherite_scrap_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_scrap",
+      "result": {
+        "id": "minecraft:netherite_scrap",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/netherite_scrap_from_netherite_scrap_block.json",
+      "ingredients": [
+        "simpleores:netherite_scrap_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:netherite_scrap_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:netherite_scrap_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:raw_lead_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -1236,6 +1360,47 @@
       }
     },
     {
+      "id": "simpleores:rose_bronze_carrot",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_carrot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_carrot.json",
+      "ingredients": [
+        "minecraft:carrot",
+        "simpleores:rose_bronze_nugget"
+      ],
+      "pattern": [
+        "###",
+        "#C#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_nugget"
+        ],
+        "C": [
+          "minecraft:carrot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:carrot",
+            "count": 1
+          },
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 0.889
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_bronze_chestplate",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -1380,6 +1545,39 @@
       }
     },
     {
+      "id": "simpleores:rose_bronze_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:rose_bronze_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_bronze_ingot_from_rose_bronze_block",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -1441,6 +1639,34 @@
       }
     },
     {
+      "id": "simpleores:rose_bronze_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_nugget.json",
+      "ingredients": [
+        "simpleores:rose_bronze_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:rose_bronze_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_bronze_pickaxe",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -1477,6 +1703,47 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_bronze_pressling_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_pressling_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pressling_block.json",
+      "ingredients": [
+        "simpleores:rose_bronze_pressling"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_pressling"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 18
+          },
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          },
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 9
           }
         ]
       }
@@ -1523,6 +1790,34 @@
           },
           {
             "id": "simpleores:silver_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_bronze_pressling_from_rose_bronze_pressling_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "rose_bronze_pressling",
+      "result": {
+        "id": "simpleores:rose_bronze_pressling",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pressling_from_rose_bronze_pressling_block.json",
+      "ingredients": [
+        "simpleores:rose_bronze_pressling_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:rose_bronze_pressling_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_pressling_block",
             "count": 1
           }
         ]
@@ -1758,6 +2053,47 @@
       }
     },
     {
+      "id": "simpleores:rose_gold_carrot",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_carrot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_carrot.json",
+      "ingredients": [
+        "minecraft:carrot",
+        "simpleores:rose_gold_nugget"
+      ],
+      "pattern": [
+        "###",
+        "#C#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_nugget"
+        ],
+        "C": [
+          "minecraft:carrot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:carrot",
+            "count": 1
+          },
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 0.889
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_gold_chestplate",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -1902,6 +2238,39 @@
       }
     },
     {
+      "id": "simpleores:rose_gold_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:rose_gold_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_gold_ingot_from_rose_gold_block",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -1958,6 +2327,34 @@
           {
             "id": "simpleores:rose_gold_ingot",
             "count": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_nugget.json",
+      "ingredients": [
+        "simpleores:rose_gold_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:rose_gold_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 1
           }
         ]
       }
@@ -2051,6 +2448,75 @@
       }
     },
     {
+      "id": "simpleores:rose_gold_pressling_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_pressling_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pressling_block.json",
+      "ingredients": [
+        "simpleores:rose_gold_pressling"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_pressling"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 18
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          },
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_pressling_from_rose_gold_pressling_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "rose_gold_pressling",
+      "result": {
+        "id": "simpleores:rose_gold_pressling",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pressling_from_rose_gold_pressling_block.json",
+      "ingredients": [
+        "simpleores:rose_gold_pressling_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:rose_gold_pressling_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_pressling_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_gold_shovel",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -2128,6 +2594,67 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:sage_orb_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:sage_orb_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/sage_orb_block.json",
+      "ingredients": [
+        "simpleores:sage_orb"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:sage_orb"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:sage_orb",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:sage_orb_from_sage_orb_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "sage_orb",
+      "result": {
+        "id": "simpleores:sage_orb",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/sage_orb_from_sage_orb_block.json",
+      "ingredients": [
+        "simpleores:sage_orb_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:sage_orb_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:sage_orb_block",
+            "count": 1
           }
         ]
       }
@@ -2682,6 +3209,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/enderite_block.json"
     },
     {
+      "id": "simpleores:blocks/enderite_scrap_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:enderite_scrap_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/enderite_scrap_block.json"
+    },
+    {
       "id": "simpleores:blocks/lead_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2751,6 +3296,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nether_dimensional_scrap.json"
     },
     {
+      "id": "simpleores:blocks/netherite_scrap_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:netherite_scrap_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/netherite_scrap_block.json"
+    },
+    {
       "id": "simpleores:blocks/raw_lead_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2805,6 +3368,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_block.json"
     },
     {
+      "id": "simpleores:blocks/rose_bronze_pressling_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_bronze_pressling_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_pressling_block.json"
+    },
+    {
       "id": "simpleores:blocks/rose_gold_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2821,6 +3402,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_block.json"
+    },
+    {
+      "id": "simpleores:blocks/rose_gold_pressling_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_gold_pressling_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_pressling_block.json"
+    },
+    {
+      "id": "simpleores:blocks/sage_orb_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:sage_orb_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/sage_orb_block.json"
     },
     {
       "id": "simpleores:blocks/sage_ore",
@@ -3143,10 +3760,12 @@
       },
       "texture": "assets/textures/simpleores/item/enderite_scrap.png",
       "craftedBy": [
-        "simpleores:enderite_scrap_from_blasting_layered_raw_enderite"
+        "simpleores:enderite_scrap_from_blasting_layered_raw_enderite",
+        "simpleores:enderite_scrap_from_enderite_scrap_block"
       ],
       "usedIn": [
-        "simpleores:enderite_ingot_from_scrap"
+        "simpleores:enderite_ingot_from_scrap",
+        "simpleores:enderite_scrap_block"
       ]
     },
     {
@@ -3428,6 +4047,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:rose_bronze_carrot",
+      "name": {
+        "en_us": "Rose Copper Carrot",
+        "de_de": "Rosenkupfer-Karotte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Copper carrot, a step above the golden carrot (6 hunger): 7 hunger, saturation 16.8, no effects, not enchanted. 8 rose copper nuggets round a carrot, like the Vanilla golden carrot with gold nuggets; a little weaker than the Rose Gold carrot."
+        },
+        "de": {
+          "summary": "Rosenkupfer-Karotte, eine Stufe über der goldenen Karotte (6 Hunger): 7 Hunger, Sättigung 16.8, keine Effekte, nicht verzaubert. 8 Rosenkupferklumpen um eine Karotte, wie die goldene Karotte aus Vanilla mit Goldklumpen; etwas schwächer als die Roségold-Karotte."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_bronze_carrot.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_carrot"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:rose_bronze_chestplate",
       "name": {
         "en_us": "Rose Copper Chestplate",
@@ -3516,6 +4158,7 @@
       "texture": "assets/textures/simpleores/item/rose_bronze_ingot.png",
       "craftedBy": [
         "simpleores:rose_bronze_ingot_from_blasting_rose_bronze_pressling",
+        "simpleores:rose_bronze_ingot_from_nuggets",
         "simpleores:rose_bronze_ingot_from_rose_bronze_block"
       ],
       "usedIn": [
@@ -3527,6 +4170,7 @@
         "simpleores:rose_bronze_helmet",
         "simpleores:rose_bronze_hoe",
         "simpleores:rose_bronze_leggings",
+        "simpleores:rose_bronze_nugget",
         "simpleores:rose_bronze_pickaxe",
         "simpleores:rose_bronze_shovel",
         "simpleores:rose_bronze_sword"
@@ -3554,6 +4198,32 @@
         "simpleores:rose_bronze_leggings"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_bronze_nugget",
+      "name": {
+        "en_us": "Rose Copper Nugget",
+        "de_de": "Rosenkupferklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a Rose Copper ingot, an ingot gives nine. Eight round a carrot make the Rose Copper carrot."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Rosenkupferbarren, ein Barren gibt neun. Acht um eine Karotte ergeben die Rosenkupfer-Karotte."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_bronze_nugget.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_nugget"
+      ],
+      "usedIn": [
+        "simpleores:rose_bronze_carrot",
+        "simpleores:rose_bronze_ingot_from_nuggets"
+      ]
     },
     {
       "id": "simpleores:rose_bronze_pickaxe",
@@ -3597,10 +4267,12 @@
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_pressling.png",
       "craftedBy": [
-        "simpleores:rose_bronze_pressling_c"
+        "simpleores:rose_bronze_pressling_c",
+        "simpleores:rose_bronze_pressling_from_rose_bronze_pressling_block"
       ],
       "usedIn": [
-        "simpleores:rose_bronze_ingot_from_blasting_rose_bronze_pressling"
+        "simpleores:rose_bronze_ingot_from_blasting_rose_bronze_pressling",
+        "simpleores:rose_bronze_pressling_block"
       ]
     },
     {
@@ -3719,6 +4391,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:rose_gold_carrot",
+      "name": {
+        "en_us": "Rose Gold Carrot",
+        "de_de": "Roségold-Karotte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold carrot, a step above the golden carrot (6 hunger): 8 hunger, saturation 19.2, no effects, not enchanted. 8 rose gold nuggets round a carrot, like the Vanilla golden carrot with gold nuggets; better than the Rose Copper carrot."
+        },
+        "de": {
+          "summary": "Roségold-Karotte, eine Stufe über der goldenen Karotte (6 Hunger): 8 Hunger, Sättigung 19.2, keine Effekte, nicht verzaubert. 8 Roségoldklumpen um eine Karotte, wie die goldene Karotte aus Vanilla mit Goldklumpen; besser als die Rosenkupfer-Karotte."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_carrot.png",
+      "craftedBy": [
+        "simpleores:rose_gold_carrot"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:rose_gold_chestplate",
       "name": {
         "en_us": "Rose Gold Chestplate",
@@ -3807,6 +4502,7 @@
       "texture": "assets/textures/simpleores/item/rose_gold_ingot.png",
       "craftedBy": [
         "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling",
+        "simpleores:rose_gold_ingot_from_nuggets",
         "simpleores:rose_gold_ingot_from_rose_gold_block"
       ],
       "usedIn": [
@@ -3819,6 +4515,7 @@
         "simpleores:rose_gold_helmet",
         "simpleores:rose_gold_hoe",
         "simpleores:rose_gold_leggings",
+        "simpleores:rose_gold_nugget",
         "simpleores:rose_gold_pickaxe",
         "simpleores:rose_gold_shovel",
         "simpleores:rose_gold_sword"
@@ -3846,6 +4543,32 @@
         "simpleores:rose_gold_leggings"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_nugget",
+      "name": {
+        "en_us": "Rose Gold Nugget",
+        "de_de": "Roségoldklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a Rose Gold ingot, an ingot gives nine. Eight round a carrot make the Rose Gold carrot."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Roségoldbarren, ein Barren gibt neun. Acht um eine Karotte ergeben die Roségold-Karotte."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_nugget.png",
+      "craftedBy": [
+        "simpleores:rose_gold_nugget"
+      ],
+      "usedIn": [
+        "simpleores:rose_gold_carrot",
+        "simpleores:rose_gold_ingot_from_nuggets"
+      ]
     },
     {
       "id": "simpleores:rose_gold_pickaxe",
@@ -3889,10 +4612,12 @@
       },
       "texture": "assets/textures/simpleores/item/rose_gold_pressling.png",
       "craftedBy": [
-        "simpleores:rose_gold_pressling_a"
+        "simpleores:rose_gold_pressling_a",
+        "simpleores:rose_gold_pressling_from_rose_gold_pressling_block"
       ],
       "usedIn": [
-        "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling"
+        "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling",
+        "simpleores:rose_gold_pressling_block"
       ]
     },
     {
@@ -3959,8 +4684,12 @@
         }
       },
       "texture": "assets/textures/simpleores/item/sage_orb.png",
-      "craftedBy": [],
-      "usedIn": []
+      "craftedBy": [
+        "simpleores:sage_orb_from_sage_orb_block"
+      ],
+      "usedIn": [
+        "simpleores:sage_orb_block"
+      ]
     },
     {
       "id": "simpleores:silver_ingot",
@@ -4186,6 +4915,31 @@
       ]
     },
     {
+      "id": "simpleores:enderite_scrap_block",
+      "name": {
+        "en_us": "Block of Enderite Scrap",
+        "de_de": "Enderitplatten-Block"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine Enderite scrap, craftable both ways. Like ancient debris, fire resistant, needs a diamond pickaxe."
+        },
+        "de": {
+          "summary": "Neun Enderitplatten, in beide Richtungen herstellbar. Wie Antiker Schrott, feuerfest, braucht eine Diamantspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/enderite_scrap_block.png",
+      "craftedBy": [
+        "simpleores:enderite_scrap_block"
+      ],
+      "usedIn": [
+        "simpleores:enderite_scrap_from_enderite_scrap_block"
+      ]
+    },
+    {
       "id": "simpleores:lead_block",
       "name": {
         "en_us": "Block of Lead",
@@ -4277,6 +5031,31 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:netherite_scrap_block",
+      "name": {
+        "en_us": "Block of Netherite Scrap",
+        "de_de": "Netherit-Schrottblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine netherite scrap, craftable both ways. Like ancient debris (hardness 30, blast resistance 1200), fire resistant, needs a diamond pickaxe."
+        },
+        "de": {
+          "summary": "Neun Netherit-Schrott, in beide Richtungen herstellbar. Wie Antiker Schrott (Härte 30, Explosionswiderstand 1200), feuerfest, braucht eine Diamantspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/netherite_scrap_block.png",
+      "craftedBy": [
+        "simpleores:netherite_scrap_block"
+      ],
+      "usedIn": [
+        "simpleores:netherite_scrap_from_netherite_scrap_block"
+      ]
+    },
+    {
       "id": "simpleores:raw_lead_block",
       "name": {
         "en_us": "Block of Raw Lead",
@@ -4353,6 +5132,31 @@
       ]
     },
     {
+      "id": "simpleores:rose_bronze_pressling_block",
+      "name": {
+        "en_us": "Block of Rose Copper Pressling",
+        "de_de": "Rosenkupfer-Presslingblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine Rose Copper pressings, craftable both ways. Storage only: a block does not melt (put single pressings into the blast furnace). Needs an iron pickaxe."
+        },
+        "de": {
+          "summary": "Neun Rosenkupfer-Presslinge, in beide Richtungen herstellbar. Nur zur Lagerung: ein Block schmilzt nicht (einzelne Presslinge kommen in den Hochofen). Braucht eine Eisenspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/rose_bronze_pressling_block.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_pressling_block"
+      ],
+      "usedIn": [
+        "simpleores:rose_bronze_pressling_from_rose_bronze_pressling_block"
+      ]
+    },
+    {
       "id": "simpleores:rose_gold_block",
       "name": {
         "en_us": "Block of Rose Gold",
@@ -4376,6 +5180,56 @@
       "usedIn": [
         "simpleores:enchanted_rose_gold_apple",
         "simpleores:rose_gold_ingot_from_rose_gold_block"
+      ]
+    },
+    {
+      "id": "simpleores:rose_gold_pressling_block",
+      "name": {
+        "en_us": "Block of Rose Gold Pressling",
+        "de_de": "Roségold-Presslingblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine Rose Gold pressings, craftable both ways. Storage only: a block does not melt (put single pressings into the blast furnace). Needs an iron pickaxe."
+        },
+        "de": {
+          "summary": "Neun Roségold-Presslinge, in beide Richtungen herstellbar. Nur zur Lagerung: ein Block schmilzt nicht (einzelne Presslinge kommen in den Hochofen). Braucht eine Eisenspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/rose_gold_pressling_block.png",
+      "craftedBy": [
+        "simpleores:rose_gold_pressling_block"
+      ],
+      "usedIn": [
+        "simpleores:rose_gold_pressling_from_rose_gold_pressling_block"
+      ]
+    },
+    {
+      "id": "simpleores:sage_orb_block",
+      "name": {
+        "en_us": "Block of Sage Orbs",
+        "de_de": "Weisheitskugelblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine sage orbs, craftable both ways: storage for the experience orbs (each orb gives 50 to 100 experience when used). Needs an iron pickaxe."
+        },
+        "de": {
+          "summary": "Neun Weisheitskugeln, in beide Richtungen herstellbar: Lagerung der Erfahrungskugeln (jede gibt beim Benutzen 50 bis 100 Erfahrung). Braucht eine Eisenspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/sage_orb_block.png",
+      "craftedBy": [
+        "simpleores:sage_orb_block"
+      ],
+      "usedIn": [
+        "simpleores:sage_orb_from_sage_orb_block"
       ]
     },
     {
@@ -4512,13 +5366,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 10,
-    "recipes": 67,
-    "lootTables": 20,
+    "recipes": 83,
+    "lootTables": 25,
     "tags": 6,
     "advancements": 1,
     "enchantments": 0,
-    "items": 40,
-    "blocks": 20,
+    "items": 44,
+    "blocks": 25,
     "trades": 0,
     "config": 0,
     "quests": 0,
