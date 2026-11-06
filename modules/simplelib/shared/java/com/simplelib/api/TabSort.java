@@ -56,6 +56,47 @@ public final class TabSort {
         return rank;
     }
 
+    /** Colour words: {@code <colour>_carpet} belongs to {@code <colour>_wool}. */
+    private static final List<String> COLOURS = List.of("white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
+            "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black");
+    /** Compression tiers of storage blocks, in order after the plain block (container sort, WE25-3). */
+    private static final List<String> TIERS = List.of("compressed", "dense", "collapsed");
+
+    /** Sort family of an id path for item lists: {@link #materialKey} without tier words, {@code <colour>_carpet} with its wool. */
+    public static String itemFamily(String path) {
+        String p = path;
+        if (p.endsWith("_carpet") && p.length() > 7) {
+            String base = p.substring(0, p.length() - 7);
+            p = base + (COLOURS.contains(base) ? "_wool" : "_block");
+        }
+        List<String> kept = new ArrayList<>();
+        for (String word : materialKey(p).split("_")) if (!TIERS.contains(word)) kept.add(word);
+        return kept.isEmpty() ? materialKey(p) : String.join("_", kept);
+    }
+
+    /** Compression tier of an id path: 0 plain, 1 compressed, 2 dense, 3 collapsed. */
+    public static int itemTier(String path) {
+        int tier = 0;
+        for (String word : path.split("_")) tier = Math.max(tier, TIERS.indexOf(word) + 1);
+        return tier;
+    }
+
+    /** Shape order of an id path: 0 block, 1 carpet, then stairs, slab, wall ... octet (index + 2). */
+    public static int itemShape(String path) {
+        if (path.endsWith("_carpet") && path.length() > 7) return 1;
+        int shape = shapeIndex(path);
+        return shape < 0 ? 0 : shape + 2;
+    }
+
+    /** Container sort order of two item id paths of one namespace: family, tier, variant, shape, then the path (deterministic). */
+    public static int compareItems(String a, String b) {
+        int c = itemFamily(a).compareTo(itemFamily(b));
+        if (c == 0) c = Integer.compare(itemTier(a), itemTier(b));
+        if (c == 0) c = Integer.compare(variantRank(a), variantRank(b));
+        if (c == 0) c = Integer.compare(itemShape(a), itemShape(b));
+        return c != 0 ? c : a.compareTo(b);
+    }
+
     private static String path(ItemStack stack) {
         return BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
     }

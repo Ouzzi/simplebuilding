@@ -1,6 +1,8 @@
 package com.simplebuilding.modules.simpleinterfaces.sort;
 
 import com.simplebuilding.modules.simpleinterfaces.SimpleInterfaces;
+import com.simplelib.api.CreativeTabPolicy;
+import com.simplelib.api.TabSort;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -17,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Inventory sorting (WE25-3). The client only asks; this runs on the server. Region: the player's main inventory
  * (slots 9..35, no hotbar, no armor) or the whole container of a chest, barrel, ender chest or shulker box. Machines
- * and every other menu are refused. Order: item registry id (Vanilla registers in creative tab order), equal stacks merged.
+ * and every other menu are refused. Order: deterministic id key (Vanilla, then mods in mod tree order; family, tier, variant, shape), equal stacks merged.
  */
 public final class ContainerSort {
     private ContainerSort() {}
@@ -66,11 +68,24 @@ public final class ContainerSort {
         return true;
     }
 
-    /** Pure sort: same size, empties last, equal stacks merged up to the stack limit, ordered by item id. Inputs stay untouched. */
+    /** Namespace group (Vanilla first, then mods in mod tree order), then {@link TabSort#compareItems}. */
+    public static int compareStacks(ItemStack a, ItemStack b) {
+        var ia = BuiltInRegistries.ITEM.getKey(a.getItem());
+        var ib = BuiltInRegistries.ITEM.getKey(b.getItem());
+        int c = Integer.compare(group(ia), group(ib));
+        if (c == 0) c = ia.getNamespace().compareTo(ib.getNamespace());
+        return c != 0 ? c : TabSort.compareItems(ia.getPath(), ib.getPath());
+    }
+
+    private static int group(net.minecraft.resources.Identifier id) {
+        return CreativeTabPolicy.isVanilla(id) ? -1 : CreativeTabPolicy.rank(id.getNamespace());
+    }
+
+    /** Pure sort: same size, empties last, equal stacks merged up to the stack limit, ordered by namespace group, family, variant and shape (TabSort). Inputs stay untouched. */
     public static List<ItemStack> sorted(List<ItemStack> in, int containerLimit) {
         List<ItemStack> all = new ArrayList<>();
         for (ItemStack s : in) if (!s.isEmpty()) all.add(s.copy());
-        all.sort(Comparator.<ItemStack>comparingInt(s -> BuiltInRegistries.ITEM.getId(s.getItem()))
+        all.sort(Comparator.<ItemStack>comparingInt(s -> 0).thenComparing(ContainerSort::compareStacks)
                 .thenComparingInt(s -> s.getComponentsPatch().hashCode()));
         List<ItemStack> merged = new ArrayList<>();
         for (ItemStack s : all) {

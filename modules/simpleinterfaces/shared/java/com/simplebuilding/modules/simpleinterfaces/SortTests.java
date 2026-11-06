@@ -12,6 +12,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.registries.BuiltInRegistries;
+import com.simplelib.api.TabSort;
 import net.minecraft.world.item.Items;
 
 /** Server-side inventory sorting (WE25-3): the pure order, the player's inventory, a chest, refused areas and the payload. */
@@ -24,6 +26,7 @@ public final class SortTests {
         ALL.put("sort_chest", SortTests::chest);
         ALL.put("sort_refused", SortTests::refused);
         ALL.put("sort_payload", SortTests::payload);
+        ALL.put("sort_families", SortTests::families);
     }
 
     private SortTests() {}
@@ -39,9 +42,9 @@ public final class SortTests {
                 new ItemStack(Items.DIAMOND, 3), new ItemStack(Items.STONE, 40), new ItemStack(Items.DIAMOND_SWORD));
         List<ItemStack> out = ContainerSort.sorted(in, 99);
         h.assertTrue(out.size() == 6, "same size");
-        h.assertTrue(out.get(0).is(Items.STONE) && out.get(0).getCount() == 64 && out.get(1).is(Items.STONE) && out.get(1).getCount() == 16, "stone 64 + 16 (id order, merged)");
-        h.assertTrue(out.get(2).is(Items.DIAMOND) && out.get(2).getCount() == 8, "diamonds merged");
-        h.assertTrue(out.get(3).is(Items.DIAMOND_SWORD) && out.get(4).isEmpty() && out.get(5).isEmpty(), "unstackable kept, empties last");
+        h.assertTrue(out.get(0).is(Items.DIAMOND) && out.get(0).getCount() == 8, "diamonds merged (id order)");
+        h.assertTrue(out.get(1).is(Items.DIAMOND_SWORD) && out.get(2).is(Items.STONE) && out.get(2).getCount() == 64
+                && out.get(3).is(Items.STONE) && out.get(3).getCount() == 16 && out.get(4).isEmpty() && out.get(5).isEmpty(), "stone 64 + 16, unstackable kept, empties last");
         h.assertTrue(in.get(0).getCount() == 5 && in.get(2).getCount() == 40, "input untouched");
         h.assertTrue(sameCounts(ContainerSort.sorted(out, 99), out), "sorting twice changes nothing");
         h.succeed();
@@ -66,8 +69,9 @@ public final class SortTests {
         h.assertTrue(!ContainerSort.sort(p, menu.containerId, slotOf(menu, inv, 0)), "hotbar slot is no sort target");
         h.assertTrue(inv.getItem(9).is(Items.DIAMOND), "hotbar click left the main area alone");
         h.assertTrue(ContainerSort.sort(p, menu.containerId, slotOf(menu, inv, 20)), "main slot sorts");
-        h.assertTrue(inv.getItem(9).is(Items.STONE) && inv.getItem(9).getCount() == 64 && inv.getItem(10).is(Items.STONE) && inv.getItem(10).getCount() == 6, "stone first, merged");
-        h.assertTrue(inv.getItem(11).is(Items.DIAMOND) && inv.getItem(11).getCount() == 9 && inv.getItem(12).isEmpty() && inv.getItem(35).isEmpty(), "diamonds merged, rest empty");
+        h.assertTrue(inv.getItem(9).is(Items.DIAMOND) && inv.getItem(9).getCount() == 9, "diamonds first, merged");
+        h.assertTrue(inv.getItem(10).is(Items.STONE) && inv.getItem(10).getCount() == 64 && inv.getItem(11).is(Items.STONE) && inv.getItem(11).getCount() == 6
+                && inv.getItem(12).isEmpty() && inv.getItem(35).isEmpty(), "stone merged, rest empty");
         h.assertTrue(inv.getItem(0).is(Items.TORCH) && inv.getItem(0).getCount() == 3 && inv.getItem(39).is(Items.IRON_HELMET), "hotbar and armor untouched");
         h.succeed();
     }
@@ -106,6 +110,29 @@ public final class SortTests {
         } finally {
             com.simplebuilding.framework.api.SubMods.set(SimpleInterfaces.MOD_ID, true);
         }
+        h.succeed();
+    }
+
+    /** WE25-3 (06.11.): families stay together and the order is deterministic, whatever the input order. */
+    public static void families(GameTestHelper h) {
+        String[] expected = {"white_wool", "white_carpet", "orange_wool", "orange_carpet", "stone", "stone_stairs", "stone_slab", "stone_bricks",
+                "stone_brick_stairs", "stone_brick_slab", "stone_brick_wall", "cracked_stone_bricks", "mossy_stone_bricks", "chiseled_stone_bricks"};
+        List<ItemStack> in = new java.util.ArrayList<>();
+        for (String id : expected) in.add(new ItemStack(BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(id))));
+        java.util.Collections.shuffle(in, new java.util.Random(6));
+        List<ItemStack> a = ContainerSort.sorted(in, 99);
+        java.util.Collections.shuffle(in, new java.util.Random(11));
+        List<ItemStack> b = ContainerSort.sorted(in, 99);
+        h.assertTrue(sameCounts(a, b), "same result for any input order");
+        List<String> names = new java.util.ArrayList<>();
+        for (ItemStack s : a) names.add(BuiltInRegistries.ITEM.getKey(s.getItem()).getPath());
+        int stone = names.indexOf("stone"), stoneEnd = names.indexOf("chiseled_stone_bricks");
+        h.assertTrue(stone >= 0 && stoneEnd - stone == 9, "stone family is contiguous: " + names);
+        h.assertTrue(names.indexOf("stone_stairs") == stone + 1 && names.indexOf("stone_slab") == stone + 2, "block, stairs, slab in order: " + names);
+        h.assertTrue(names.indexOf("white_carpet") == names.indexOf("white_wool") + 1, "carpet follows its wool: " + names);
+        h.assertTrue(names.indexOf("cracked_stone_bricks") > names.indexOf("stone_brick_wall"), "variants after the plain bricks: " + names);
+        h.assertTrue(TabSort.compareItems("compressed_cobblestone", "cobblestone_slab") > 0 && TabSort.compareItems("cobblestone", "cobblestone_octet") < 0, "tier and octet order");
+        h.assertTrue(ContainerSort.compareStacks(new ItemStack(Items.DIAMOND), new ItemStack(Items.STONE)) < 0, "Vanilla compares by id path");
         h.succeed();
     }
 
