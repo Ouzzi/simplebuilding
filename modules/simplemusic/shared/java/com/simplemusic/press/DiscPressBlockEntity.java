@@ -30,10 +30,10 @@ import net.minecraft.world.level.storage.ValueOutput;
  * into the blank slot, out of the bottom only the pressed disc (like the furnace).
  */
 public class DiscPressBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
-    public static final int SHEET = 0, BLANK = 1, OUTPUT = 2;
-    private static final int[] TOP = {SHEET}, SIDES = {BLANK}, BOTTOM = {OUTPUT};
+    public static final int SHEET = 0, BLANK = 1, OUTPUT = 2, DYE = 3;
+    private static final int[] TOP = {SHEET}, SIDES = {BLANK, DYE}, BOTTOM = {OUTPUT};
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
+    private NonNullList<ItemStack> items = NonNullList.withSize(4, ItemStack.EMPTY);
     private int progress;
     private ItemStack checkedSheet = ItemStack.EMPTY;
     private boolean checkedOk;
@@ -87,9 +87,10 @@ public class DiscPressBlockEntity extends BaseContainerBlockEntity implements Wo
         }
         if (++progress < DiscPress.PRESS_TICKS) return;
         progress = 0;
-        ItemStack result = DiscPress.result(items.get(SHEET), items.get(BLANK));
+        ItemStack result = DiscPress.result(items.get(SHEET), items.get(BLANK), items.get(DYE));
         if (result.isEmpty()) return;
         items.get(BLANK).shrink(1);
+        if (!items.get(DYE).isEmpty() && DiscPress.dyeColor(items.get(DYE)) != null) items.get(DYE).shrink(1);
         items.set(OUTPUT, result);
         pressed++;
         level.playSound(null, worldPosition, SoundEvents.PISTON_CONTRACT, SoundSource.BLOCKS, 0.5F, 1.0F);
@@ -122,6 +123,7 @@ public class DiscPressBlockEntity extends BaseContainerBlockEntity implements Wo
         return switch (slot) {
             case SHEET -> stack.getItem() instanceof SheetMusicItem;
             case BLANK -> stack.is(MusicRegistry.BLANK_DISC);
+            case DYE -> DiscPress.dyeColor(stack) != null;
             default -> false;
         };
     }

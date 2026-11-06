@@ -138,6 +138,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void pressDye(GameTestHelper h) {
+        MusicTests.ALL.get("press_dye").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
     public void pressRules(GameTestHelper h) {
         MusicTests.ALL.get("press_rules").accept(h);
     }

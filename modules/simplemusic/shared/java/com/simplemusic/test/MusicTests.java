@@ -977,6 +977,30 @@ public final class MusicTests {
                     "side by side: sheet " + sheet.x + "/" + sheet.y + ", blank " + blank.x + "/" + blank.y + ", out " + out.x + "/" + out.y);
             h.succeed();
         });
+        ALL.put("press_dye", h -> {
+            // WH26-3: a dye in the press' dye slot colours the disc's label (dyed_color) and is used up; without it the disc stays undyed
+            BlockPos pos = new BlockPos(2, 1, 2);
+            h.setBlock(pos, MusicRegistry.DISC_PRESS.defaultBlockState());
+            DiscPressBlockEntity press = h.getBlockEntity(pos, DiscPressBlockEntity.class);
+            h.assertTrue(DiscPress.dyeColor(new ItemStack(Items.DYE.blue())) == net.minecraft.world.item.DyeColor.BLUE && DiscPress.dyeColor(new ItemStack(Items.STICK)) == null,
+                    "dye colour lookup");
+            h.assertTrue(press.canPlaceItem(DiscPressBlockEntity.DYE, new ItemStack(Items.DYE.red())) && !press.canPlaceItem(DiscPressBlockEntity.DYE, new ItemStack(Items.STICK)),
+                    "only dyes fit the dye slot");
+            ItemStack plain = DiscPress.result(sheet(TUNE), new ItemStack(MusicRegistry.BLANK_DISC));
+            h.assertTrue(!plain.has(net.minecraft.core.component.DataComponents.DYED_COLOR), "undyed without dye");
+            press.setItem(DiscPressBlockEntity.SHEET, sheet(TUNE));
+            press.setItem(DiscPressBlockEntity.BLANK, new ItemStack(MusicRegistry.BLANK_DISC, 2));
+            press.setItem(DiscPressBlockEntity.DYE, new ItemStack(Items.DYE.blue(), 1));
+            h.runAfterDelay(DiscPress.PRESS_TICKS + 5, () -> {
+                ItemStack out = press.getItem(DiscPressBlockEntity.OUTPUT);
+                var colour = out.get(net.minecraft.core.component.DataComponents.DYED_COLOR);
+                h.assertTrue(out.is(MusicRegistry.CUSTOM_DISC) && colour != null
+                        && colour.rgb() == (net.minecraft.world.item.DyeColor.BLUE.getTextureDiffuseColor() & 0xFFFFFF), "label dyed blue: " + out);
+                h.assertTrue(press.getItem(DiscPressBlockEntity.DYE).isEmpty() && JukeboxDiscs.isDisc(out), "dye used up, disc still plays");
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("press_dye", 100);
         ALL.put("press_sheet_stays", h -> {
             BlockPos pos = new BlockPos(2, 1, 2);
             h.setBlock(pos, MusicRegistry.DISC_PRESS.defaultBlockState());

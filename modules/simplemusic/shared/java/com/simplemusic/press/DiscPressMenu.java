@@ -2,6 +2,7 @@ package com.simplemusic.press;
 
 import com.simplemusic.registry.MusicRegistry;
 import com.simplemusic.sheet.SheetMusicItem;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,13 +18,16 @@ import net.minecraft.world.item.ItemStack;
  * übereinander"), the progress arrow, the pressed disc on the right. Shift-click sends sheets and blanks to their slots.
  */
 public class DiscPressMenu extends AbstractContainerMenu {
-    public static final int SHEET_X = 38, SHEET_Y = 35, BLANK_X = 56, BLANK_Y = 35, OUTPUT_X = 116, OUTPUT_Y = 35;
+    public static final int SHEET_X = 38, SHEET_Y = 35, BLANK_X = 56, BLANK_Y = 35, OUTPUT_X = 116, OUTPUT_Y = 35, DYE_X = 47, DYE_Y = 56;
+    private static final Identifier SHEET_ICON = Identifier.fromNamespaceAndPath("simplemusic", "container/slot/sheet_music"),
+            BLANK_ICON = Identifier.fromNamespaceAndPath("simplemusic", "container/slot/blank_disc"),
+            DYE_ICON = Identifier.fromNamespaceAndPath("simplemusic", "container/slot/dye");
     private final Container press;
     private final ContainerData data;
 
     public DiscPressMenu(int id, Inventory inventory, Container press, ContainerData data) {
         super(MusicRegistry.DISC_PRESS_MENU, id);
-        checkContainerSize(press, 3);
+        checkContainerSize(press, 4);
         checkContainerDataCount(data, 2);
         this.press = press;
         this.data = data;
@@ -38,11 +42,21 @@ public class DiscPressMenu extends AbstractContainerMenu {
             public int getMaxStackSize() {
                 return 1;
             }
+
+            @Override
+            public Identifier getNoItemIcon() {
+                return SHEET_ICON;
+            }
         });
         addSlot(new Slot(press, DiscPressBlockEntity.BLANK, BLANK_X, BLANK_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.is(MusicRegistry.BLANK_DISC);
+            }
+
+            @Override
+            public Identifier getNoItemIcon() {
+                return BLANK_ICON;
             }
         });
         addSlot(new Slot(press, DiscPressBlockEntity.OUTPUT, OUTPUT_X, OUTPUT_Y) {
@@ -51,13 +65,24 @@ public class DiscPressMenu extends AbstractContainerMenu {
                 return false;
             }
         });
+        addSlot(new Slot(press, DiscPressBlockEntity.DYE, DYE_X, DYE_Y) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return DiscPress.dyeColor(stack) != null;
+            }
+
+            @Override
+            public Identifier getNoItemIcon() {
+                return DYE_ICON;
+            }
+        });
         addStandardInventorySlots(inventory, 8, 84);
         addDataSlots(data);
     }
 
     /** Client side: an empty mirror, filled by the server's slot and data updates. */
     public static DiscPressMenu client(int id, Inventory inventory) {
-        return new DiscPressMenu(id, inventory, new SimpleContainer(3), new SimpleContainerData(2));
+        return new DiscPressMenu(id, inventory, new SimpleContainer(4), new SimpleContainerData(2));
     }
 
     /** Pressing progress 0..1 for the arrow. */
@@ -72,13 +97,15 @@ public class DiscPressMenu extends AbstractContainerMenu {
         if (!slot.hasItem()) return ItemStack.EMPTY;
         ItemStack stack = slot.getItem();
         ItemStack before = stack.copy();
-        if (index < 3) {
-            if (!moveItemStackTo(stack, 3, slots.size(), true)) return ItemStack.EMPTY;
+        if (index < 4) {
+            if (!moveItemStackTo(stack, 4, slots.size(), true)) return ItemStack.EMPTY;
             if (index == DiscPressBlockEntity.OUTPUT) slot.onQuickCraft(stack, before);
         } else if (stack.getItem() instanceof SheetMusicItem) {
             if (!moveItemStackTo(stack, 0, 1, false)) return ItemStack.EMPTY;
         } else if (stack.is(MusicRegistry.BLANK_DISC)) {
             if (!moveItemStackTo(stack, 1, 2, false)) return ItemStack.EMPTY;
+        } else if (DiscPress.dyeColor(stack) != null) {
+            if (!moveItemStackTo(stack, 3, 4, false)) return ItemStack.EMPTY;
         } else {
             return ItemStack.EMPTY;
         }

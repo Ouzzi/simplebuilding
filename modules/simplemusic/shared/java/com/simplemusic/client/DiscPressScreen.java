@@ -14,7 +14,7 @@ import net.minecraft.world.inventory.Slot;
 
 /**
  * Screen of the disc press: the family's container style from SimpleLib (iron box, light inventory box, big result slot,
- * progress arrow; principle 6a). Sheet and blank sit side by side (DP23); with the style switched off Vanilla's furnace
+ * progress arrow; principle 6a). Sheet and blank sit side by side (DP23), the optional dye slot below them (WH26-3; empty slots show grey silhouettes); with the style switched off Vanilla's furnace
  * picture with its two left slots and the flame painted over and Vanilla-grey slots at the new places.
  * Labels: iron #2E3034 on #9A9DA2 (4.7:1), inventory #404040 on #C6C6C6 (6.1:1).
  */
@@ -49,7 +49,7 @@ public class DiscPressScreen extends AbstractContainerScreen<DiscPressMenu> {
             // the furnace's input and fuel slots and its flame (x 55..72, y 16..70) give way to the two slots side by side
             g.fill(left + 54, top + 15, left + 75, top + 72, 0xFFC6C6C6);
             for (Slot slot : menu.slots) {
-                if (slot.index < 2) vanillaSlot(g, left + slot.x, top + slot.y);
+                if (slot.index < 2 || slot.index == 3) vanillaSlot(g, left + slot.x, top + slot.y);
             }
             if (done > 0) g.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESS, 24, 16, 0, 0, left + ARROW_X, top + ARROW_Y - 1, done, 16);
             return;
