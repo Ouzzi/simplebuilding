@@ -63,9 +63,9 @@ LEAD_VARIANT = 'a'      # ramp of lead_<v>; block rivets for 'c'
 ARROW_VARIANT = 'a'
 MIRROR_VARIANT = 'a'
 ROSE_ORE_VARIANT = 'a'    # a = rose flecks on the soft ramp, b = paler flecks, a few gold ones stay (hot ore)
-CRYSTAL_VARIANT = 'a'     # a = ingot shaped crystal + gold block shape, b = gem shaped crystal + amethyst block shape
+CRYSTAL_VARIANT = 'a'     # TEX07B: own drawn forms (a = one hexagonal crystal + splinter + tiled facet block, b = crystal cluster + broken tip + diamond facet block)
 SAGE_ORE_SRC = ROOT / 'modules/simpleores/shared/resources/assets/simpleores/textures/block/sage_ore.png'
-PRESS_VARIANT = 'a'     # BLOCKS07: pressing item and block look (a = straps / bundle, b = diagonal strap / four plates)
+PRESS_VARIANT = 'a'     # TEX07B: three pressed, not yet melted materials (a = fine grains, b = larger patches); both on the seams of old variant b
 APPLE_VARIANT = {'rose_bronze': 'a', 'rose_gold': 'a'}   # IG31-41: a = plain recolour, b = recolour + green leaf at the stem
 LEAF = ('#a3c75a', '#6f9a3c', '#466f2a')
 
@@ -321,11 +321,65 @@ def norm_recolor(im: Image.Image, ramp: str, lo: float = 0.02, hi: float = 0.9) 
     return out
 
 
-def sage_images(j: 'Jar', v: str) -> dict:
-    """Sage crystal family (a-ores07). v = 'a': crystal = the ingot shape, block = the gold block; 'b': crystal = a gem (diamond shape), block = amethyst structure."""
-    crystal = norm_recolor(j.img('item/gold_ingot' if v == 'a' else 'item/diamond'), 'sage')
-    block = norm_recolor(j.img('block/gold_block' if v == 'a' else 'block/amethyst_block'), 'sage')
-    return {'item/sage_crystal.png': crystal, 'item/sage_crystal_shard.png': norm_recolor(j.img('item/amethyst_shard'), 'sage'), 'block/sage_crystal_block.png': block}
+def facets(rows: list[str], ramp: str = 'sage', edge: int = 8) -> Image.Image:
+    """Hand drawn 16 x 16 sprite: digits 0-9 are tones of the ramp, '.' is clear. Every pixel next to clear space gets the dark edge tone."""
+    n = len(rows)
+    out = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for y in range(16):
+        for x in range(16):
+            c = rows[y][x] if y < n and x < len(rows[y]) else '.'
+            if c != '.':
+                out.putpixel((x, y), hexrgb(RAMPS[ramp][int(c)]) + (255,))
+    src = out.copy()
+    for y in range(16):
+        for x in range(16):
+            if src.getpixel((x, y))[3] and any(not (0 <= x + dx < 16 and 0 <= y + dy < 16) or not src.getpixel((x + dx, y + dy))[3]
+                                               for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                out.putpixel((x, y), hexrgb(RAMPS[ramp][edge]) + (255,))
+    return out
+
+
+# Sage crystal (own shapes, TEX07B): lit facet left/top, shade right, dark rim; the greens are those of the sage ore / sage orb.
+CRYSTAL_A = ['................', '.......00.......', '......0112......', '.....011122.....', '.....011223.....', '....0111223.....', '....0112233.....',
+             '....0112233.....', '....0112334.....', '....0112334.....', '....0122344.....', '....0122344.....', '.....12234......', '.....1233.......',
+             '......23........', '................']
+SHARD_A = ['................', '................', '..........00....', '.........0112...', '........01123...', '.......011233...', '......0112334...', '.....01123344...',
+           '....011233444...', '...0112334444...', '..011233444.....', '..01233444......', '...2344.........', '................', '................', '................']
+CRYSTAL_B = ['................', '.......0........', '......011.......', '....0.0112......', '...011.1122.....', '...0112.1122.0..', '...01122.122011.', '..011222.12201122',
+             '..011223.12301223', '..012233.12303233', '..012334.12304334', '..01234..12304344', '...1234.123444344', '....23..2344.44..', '....3...2344.4...', '................']
+SHARD_B = ['................', '................', '................', '................', '.......00.......', '......0112......', '.....011122.....', '....0111223.....',
+           '...01112234.....', '...01122234.....', '...0112334......', '....01234.......', '....0234........', '.....23.........', '................', '................']
+
+
+def facet_block(v: str) -> Image.Image:
+    """Sage crystal block: a, four faceted cells (each lit top-left, dark bottom-right); b, one big diamond with four facets and dark corners.
+    Every pixel gets a quiet +-1 tone from a fixed hash so the tiles do not look printed."""
+    out = Image.new('RGBA', (16, 16), (0, 0, 0, 255))
+    for y in range(16):
+        for x in range(16):
+            if v == 'a':
+                u, w = x % 8, y % 8
+                t = 2 + (1 if u + w > 7 else 0) * 2 + (1 if u + w > 10 else 0) + (-1 if u + w < 5 else 0)
+                if u in (0, 7) or w in (0, 7):
+                    t = 7 if (u == 7 or w == 7) else 6
+            else:
+                dx, dy = x - 7.5, y - 7.5
+                d = abs(dx) + abs(dy)
+                if d > 9.5:
+                    t = 8
+                elif d > 8.3:
+                    t = 7
+                else:
+                    t = (1 if dx < 0 and dy < 0 else 3 if dx >= 0 and dy < 0 else 4 if dx < 0 else 5) + (1 if d > 5 else 0)
+            t += ((x * 7 + y * 13 + x * y) % 5 == 0) - ((x * 11 + y * 5) % 7 == 0)
+            out.putpixel((x, y), hexrgb(RAMPS['sage'][max(0, min(9, t))]) + (255,))
+    return out
+
+
+def sage_images(_j: 'Jar', v: str) -> dict:
+    """Sage crystal family (TEX07B): crystal, shard and block are drawn, not recoloured Vanilla sprites."""
+    crystal, shard = (CRYSTAL_A, SHARD_A) if v == 'a' else (CRYSTAL_B, SHARD_B)
+    return {'item/sage_crystal.png': facets(crystal), 'item/sage_crystal_shard.png': facets(shard), 'block/sage_crystal_block.png': facet_block(v)}
 
 
 def ore_images(j: 'Jar', rose_v: str, crystal_v: str) -> dict:
@@ -352,32 +406,49 @@ def stretched(src: Image.Image, ramp: list[str], shift: float = 0.0) -> Image.Im
     return out
 
 
-def strapped(im: Image.Image, ramp: str, cols=(), rows=(), diag=(), tones=(6, 3)) -> Image.Image:
-    """Straps over a pressing: a dark line with a light line beside it (soft tones of the ramp, no black). cols/rows = (dark, light) positions, diag = x + y values."""
-    out = im.copy()
-    dark, light = hexrgb(RAMPS[ramp][tones[0]]), hexrgb(RAMPS[ramp][tones[1]])
-    def lay(x, y, c):
-        if out.getpixel((x, y))[3]:
-            out.putpixel((x, y), c + (out.getpixel((x, y))[3],))
-    for y in range(out.height):
-        for x in range(out.width):
-            if x in cols[::2] or y in rows[::2] or x + y in diag[::2]:
-                lay(x, y, dark)
-            elif x in cols[1::2] or y in rows[1::2] or x + y in diag[1::2]:
-                lay(x, y, light)
+# Mixes (TEX07B): shares of the three materials in a pressing, the amounts of the recipes (rose gold = 1 gold + 2 copper + 1 silver, rose bronze = 2 gold +
+# 1 rose gold + 1 silver). Colours: the Vanilla gold / copper ingot, the silver ramp, the soft rose gold ramp.
+PRESS_MIX = {'rose_gold': (('gold', 1), ('copper', 2), ('silver', 1)), 'rose_bronze': (('gold', 2), ('rose', 1), ('silver', 1))}
+
+
+def material_ramps(j: 'Jar') -> dict:
+    return {'gold': ramp_from(j.img('item/gold_ingot')), 'copper': ramp_from(j.img('item/copper_ingot')), 'silver': RAMPS['silver'], 'rose': RAMPS['soft']}
+
+
+def pressed(base: Image.Image, j: 'Jar', alloy: str, v: str, seam) -> Image.Image:
+    """The luminance of base (matte) on the ramps of three materials, shares of the recipe: a = single grains, b = 2 x 2 patches (each patch one material).
+    Cells are ranked by a fixed hash, so the shares are exact; seam(x, y) darkens the seam pixels."""
+    ramps, mix = material_ramps(j), PRESS_MIX[alloy]
+    step = 1 if v == 'a' else 2
+    cells = sorted(((x // step, y // step) for y in range(16) for x in range(16) if base.getpixel((x, y))[3]),
+                   key=lambda c: ((c[0] * 73856093) ^ (c[1] * 19349663) ^ (len(alloy) * 83492791)) % 1000003)
+    cells = list(dict.fromkeys(cells))
+    total = sum(n for _, n in mix)
+    owner, k = {}, 0
+    for name, n in mix:
+        for c in cells[round(k * len(cells) / total):round((k + n) * len(cells) / total)]:
+            owner[c] = name
+        k += n
+    out = base.copy()
+    for y in range(16):
+        for x in range(16):
+            p = base.getpixel((x, y))
+            if p[3]:
+                t = 0.5 + ((LUM_HI - lum(p)) / (LUM_HI - LUM_LO) - 0.5) * 0.75 + 0.1
+                r, g, b = ramp_at(ramps[owner[(x // step, y // step)]], t)
+                f = 0.8 if seam(x, y) else 1.0
+                out.putpixel((x, y), (int(r * f), int(g * f), int(b * f), p[3]))
     return out
 
 
-def press_item(j: 'Jar', ramp: str, v: str) -> Image.Image:
-    """The pressing (BLOCKS07): the ingot matte; a = two straps standing across it, b = one strap running diagonally."""
-    base = recolor(j.img('item/gold_ingot'), ramp, shift=0.1, squeeze=0.75)
-    return strapped(base, ramp, cols=(5, 6, 10, 11), tones=(5, 3)) if v == 'a' else strapped(base, ramp, diag=(14, 15), tones=(5, 3))
+def press_item(j: 'Jar', alloy: str, v: str) -> Image.Image:
+    """The pressing: the ingot shape, three materials pressed together (not melted), one diagonal seam as in the old variant b."""
+    return pressed(j.img('item/gold_ingot'), j, alloy, v, lambda x, y: x + y in (14, 15))
 
 
-def press_block(j: 'Jar', ramp: str, v: str) -> Image.Image:
-    """The pressing block: the gold block matte; a = two straps standing across it (a bale), b = four pressed plates (seam cross)."""
-    base = recolor(j.img('block/gold_block'), ramp, shift=0.1, squeeze=0.75)
-    return strapped(base, ramp, cols=(4, 5, 10, 11), tones=(5, 4)) if v == 'a' else strapped(base, ramp, cols=(7, 8), rows=(7, 8), tones=(5, 4))
+def press_block(j: 'Jar', alloy: str, v: str) -> Image.Image:
+    """The pressing block: the gold block raster, three materials, a seam cross of four plates (old variant b)."""
+    return pressed(j.img('block/gold_block'), j, alloy, v, lambda x, y: x in (7, 8) or y in (7, 8))
 
 
 def carrot_image(j: 'Jar', ramp: str) -> Image.Image:
@@ -428,8 +499,8 @@ def derived(jar) -> dict:
     for alloy, ramp in ALLOYS.items():
         out[f'block/{alloy}_block.png'] = recolor(j.img('block/gold_block'), ramp)
         out[f'item/{alloy}_ingot.png'] = recolor(j.img('item/gold_ingot'), ramp)
-        out[f'item/{alloy}_pressling.png'] = press_item(j, ramp, PRESS_VARIANT)
-        out[f'block/{alloy}_pressling_block.png'] = press_block(j, ramp, PRESS_VARIANT)
+        out[f'item/{alloy}_pressling.png'] = press_item(j, alloy, PRESS_VARIANT)
+        out[f'block/{alloy}_pressling_block.png'] = press_block(j, alloy, PRESS_VARIANT)
         out[f'item/{alloy}_nugget.png'] = recolor(j.img('item/gold_nugget'), ramp)
         out[f'item/{alloy}_carrot.png'] = carrot_image(j, ramp)
         for part in ITEM_TOOLS:
