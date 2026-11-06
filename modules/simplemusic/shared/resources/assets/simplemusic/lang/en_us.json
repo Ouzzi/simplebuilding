@@ -226,5 +226,7 @@
   "simplemusic.guide.page.21.title": "Commands",
   "simplemusic.guide.page.21": "/simpleclient simplemusic (list, get, set, reset, help) does the same for config/simplemusic-client.json on your own client.",
   "simplemusic.guide.page.22.title": "Settings",
-  "simplemusic.guide.page.22": "More settings are in the mod's config screen."
+  "simplemusic.guide.page.22": "More settings are in the mod's config screen.",
+  "subtitles.simplemusic.block.disc_press.press": "Disc press pressing",
+  "subtitles.simplemusic.block.disc_press.eject": "Disc press ejects"
 }
