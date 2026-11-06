@@ -12,8 +12,11 @@ import time
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 import sys
 from pathlib import Path
-from urllib.parse import urlparse
+from http.cookies import SimpleCookie
+from html import escape
+from urllib.parse import parse_qs, urlparse
 
+import auth as authlib
 import modselect
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "textures"))
@@ -126,18 +129,133 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as e:
             raise ValueError("invalid json") from e
 
+    # ---- login (a-zw06) ----
+    def session(self) -> dict | None:
+        """Own password session or (when switched on) a Cloudflare Access JWT; never the plain header."""
+        jar = SimpleCookie()
+        try:
+            jar.load(self.headers.get("Cookie", ""))
+        except Exception:
+            pass
+        cookie = jar.get(authlib.COOKIE)
+        a = self.server.auth
+        return a.session(cookie.value if cookie else None) or a.cf_session(self.headers.get("Cf-Access-Jwt-Assertion"))
+
+    def client_ip(self) -> str:
+        # nginx sets X-Client-IP (Cloudflare's CF-Connecting-IP, else the peer); devqueue itself only listens on loopback
+        return clean_label(self.headers.get("X-Client-IP"), 64) or self.client_address[0]
+
+    def send_page(self, status: int, html: str, headers: dict | None = None):
+        body = html.encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Frame-Options", "DENY")
+        self.send_header("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'")
+        for k, v in (headers or {}).items():
+            self.send_header(k, v)
+        self.end_headers()
+        self.wfile.write(body)
+
+    def login_page(self, status: int, nxt: str, msg: str = "", headers: dict | None = None):
+        configured = bool(self.server.auth.conf().get("users"))
+        note = msg or ("" if configured else "Noch kein Konto eingerichtet (set_password.py auf dem Server).")
+        self.send_page(status, LOGIN_HTML.format(next=escape(nxt), msg=escape(note), hidden="" if note else "hidden"), headers)
+
+    def handle_auth_get(self, path: str, query: dict):
+        nxt = authlib.safe_next((query.get("next") or ["/"])[0])
+        if path == "/api/auth/check":
+            s = self.session()
+            if not s:
+                self.send_json(401, {"login": "/api/auth/login"})
+                return
+            body = json.dumps({"user": s["name"], "email": s["email"], "via": s["via"]}).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Auth-User", s["email"])  # nginx: auth_request_set -> identity header for /api/
+            self.end_headers()
+            self.wfile.write(body)
+            return
+        if path == "/api/auth/login":
+            if self.session():
+                self.send_response(303)
+                self.send_header("Location", nxt)
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+            self.login_page(200, nxt)
+            return
+        self.send_json(404, {"error": "not found"})
+
+    def handle_auth_post(self, path: str):
+        origin = self.headers.get("Origin")
+        if origin and origin != "null" and urlparse(origin).netloc != self.headers.get("Host", ""):
+            self.send_json(403, {"error": "cross-origin"})
+            return
+        if path == "/api/auth/logout":
+            self.send_response(303)
+            self.send_header("Location", "/")
+            self.send_header("Set-Cookie", f"{authlib.COOKIE}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax")
+            self.send_header("Content-Length", "0")
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            return
+        if path != "/api/auth/login":
+            self.send_json(404, {"error": "not found"})
+            return
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+        except ValueError:
+            length = -1
+        if length < 0 or length > 4096:
+            self.send_json(413, {"error": "body too large"})
+            return
+        form = parse_qs(self.rfile.read(length).decode("utf-8", "replace")) if length else {}
+        name = clean_label((form.get("user") or [""])[0], 64)
+        password = (form.get("password") or [""])[0][:1024]
+        nxt = authlib.safe_next((form.get("next") or ["/"])[0])
+        a = self.server.auth
+        keys = ("ip:" + self.client_ip(), "user:" + name.lower())
+        wait = a.locked(*keys)
+        if wait:
+            self.login_page(429, nxt, f"Zu viele Fehlversuche. Bitte in {wait // 60 + 1} Minuten erneut versuchen.",
+                            {"Retry-After": str(wait)})
+            return
+        cookie = a.login(name, password) if name and password else None
+        if not cookie:
+            a.fail(*keys)
+            time.sleep(0.3)
+            self.login_page(401, nxt, "Name oder Passwort falsch.")
+            return
+        a.clear(*keys)
+        self.send_response(303)
+        self.send_header("Location", nxt)
+        self.send_header("Set-Cookie", f"{authlib.COOKIE}={cookie}; Path=/; Max-Age={a.days() * 86400}; "
+                                       "HttpOnly; Secure; SameSite=Lax")
+        self.send_header("Content-Length", "0")
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+
     def check_auth(self) -> str | None:
-        email = self.headers.get(HEADER_NAME)
+        s = self.session()
+        # the identity header is set by nginx from the auth_request answer (never passed through from the client)
+        email = s["email"] if s else self.headers.get(HEADER_NAME)
         if not email:
             self.send_json(403, {"error": "forbidden"})
             return None
         return email
 
     def do_GET(self):
-        if self.check_auth() is None:
-            return
         parsed = urlparse(self.path)
         path = parsed.path
+        if path.startswith("/api/auth/"):
+            self.handle_auth_get(path, parse_qs(parsed.query))
+            return
+        if self.check_auth() is None:
+            return
         if path == "/api/queue":
             with self.server.lock:
                 self.send_json(200, self.server.queue)
@@ -147,7 +265,7 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json(200, self.server.runs_list())
             return
         if path == "/api/mods":
-            self.handle_get_mods(self.headers.get(HEADER_NAME))
+            self.handle_get_mods(self.check_auth())
             return
         if path == "/api/textures":
             self.send_json(200, self.server.texture_saves())
@@ -182,6 +300,10 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(data)
 
     def do_POST(self):
+        path = urlparse(self.path).path
+        if path.startswith("/api/auth/"):
+            self.handle_auth_post(path)
+            return
         email = self.check_auth()
         if email is None:
             return
@@ -516,10 +638,31 @@ class Handler(BaseHTTPRequestHandler):
         self.send_json(201, {"id": run_id, "entries": len(entries)})
 
 
+LOGIN_HTML = """<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Anmelden - SimpleMods</title>
+<style>:root{{color-scheme:light dark;--bg:#f6f7f9;--fg:#15181d;--card:#fff;--line:#c9ced6;--acc:#2456c7;--err:#a4161a}}
+@media (prefers-color-scheme:dark){{:root{{--bg:#111418;--fg:#e8eaee;--card:#1b1f25;--line:#3a414c;--acc:#7aa2ff;--err:#ff8a8a}}}}
+body{{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,sans-serif;display:grid;place-items:center;min-height:100vh}}
+form{{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;width:min(340px,calc(100vw - 32px));box-sizing:border-box}}
+h1{{font-size:20px;margin:0 0 16px}}label{{display:block;margin:12px 0 4px;font-size:14px}}
+input{{width:100%;box-sizing:border-box;padding:10px;border:1px solid var(--line);border-radius:6px;background:transparent;color:inherit;font:inherit}}
+button{{margin-top:18px;width:100%;padding:10px;border:0;border-radius:6px;background:var(--acc);color:#fff;font:inherit;font-weight:600;cursor:pointer}}
+@media (prefers-color-scheme:dark){{button{{color:#0b1020}}}}
+.msg{{color:var(--err);font-size:14px;margin:0 0 8px}}a{{color:var(--acc)}}</style></head><body>
+<form method="post" action="/api/auth/login"><h1>SimpleMods - Anmelden</h1>
+<p class="msg" {hidden}>{msg}</p>
+<input type="hidden" name="next" value="{next}">
+<label for="u">Name</label><input id="u" name="user" autocomplete="username" required autofocus>
+<label for="p">Passwort</label><input id="p" name="password" type="password" autocomplete="current-password" required>
+<button type="submit">Anmelden</button>
+<p style="font-size:14px;margin:14px 0 0"><a href="/">Zum öffentlichen Wiki</a></p></form></body></html>"""
+
+
 class DevQueueServer(ThreadingHTTPServer):
-    def __init__(self, server_address, data_dir: Path):
+    def __init__(self, server_address, data_dir: Path, auth_path: Path | None = None):
         super().__init__(server_address, Handler)
         self.data_dir = data_dir
+        self.auth = authlib.Auth(auth_path or data_dir / "auth.json")
         self.queue_path = data_dir / "queue.json"
         self.runs_dir = data_dir / "runs"
         self.runs_dir.mkdir(parents=True, exist_ok=True)
@@ -613,10 +756,11 @@ def main():
     parser.add_argument("--bind", default="127.0.0.1")
     parser.add_argument("--data", default=".")
     parser.add_argument("--repo", default=str(modselect.REPO), help="checkout with modules/modules.json")
+    parser.add_argument("--auth", default=None, help="login file (default <data>/auth.json, see set_password.py)")
     args = parser.parse_args()
 
     data_dir = Path(args.data).resolve()
-    server = DevQueueServer((args.bind, args.port), data_dir)
+    server = DevQueueServer((args.bind, args.port), data_dir, Path(args.auth) if args.auth else None)
     server.repo = Path(args.repo).resolve()
     try:
         server.serve_forever()

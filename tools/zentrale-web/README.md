@@ -14,7 +14,9 @@ Die Knöpfe unter „Laptop-Start“ nutzen das Protokoll `simplemods://` des La
 
 ## Dateien
 - `index.html` – Status-Dashboard mit KI-Queue
-- `devqueue.py` – HTTP-Server für die KI-Queue
+- `devqueue.py` – HTTP-Server für die KI-Queue (mit Login aus `auth.py`)
+- `auth.py` / `set_password.py` – Login (a-zw06) / Passwort setzen
+- `nginx/`, `deploy_zw06.sh`, `smoke_zw06.py` – ein Host mit Login (a-zw06): Vorlagen, Ausrollen, Rauchtest
 - `dev-overlay.js` – Overlay für Wiki (dev), lädt `window.sbDevHook` und sendet Anfragen an die API; ✎/„Bearbeiten“ an Texturen öffnet den Pixeleditor der Wiki (`wiki/assets/pixeleditor*.js`, siehe `wiki/README.md`)
 - `modselect.py` – Mod-Baum (Super-Mod ▸ Sub-Mods aus `modules/modules.json` + geplante Sub-Mods), Regeln, Start-Auswahl
 - `collect_downloads.py` / `publish_downloads.sh` – Jars eines gate-grünen Stands für den Reiter Downloads einsammeln
@@ -67,6 +69,62 @@ Er setzt `picked`, prüft erneut gegen `textures.js` des Basis-Branches, macht d
 Einrichtung Webserver (einmal, als root, nach dem Merge in den ausgelieferten Stand):
 `tools/zentrale-web/setup_texture_save.sh <checkout> <nginx-site> [dienst]` – prüft Platte und Code, setzt
 `client_max_body_size 2m` für `/api/` (Sicherung `.bak-texsave`, `nginx -t`), startet den Dienst neu.
+
+## Ein Host mit Login (a-zw06, Besitzer 06.11.)
+`simplemods-wiki.azarfane.com` trägt alles; Cloudflare-Pfadschutz kommt später, bis dahin ein eigener Login.
+
+| Pfad | Inhalt | Zugriff |
+|---|---|---|
+| `/` | Wiki Production (`/srv/wiki-prod/wiki`) | öffentlich (`/assets/vanilla/` immer 404) |
+| `/dev/` | Wiki-Arbeitsstand (`/srv/wiki-dev/wiki`) + Overlay `/dev/_overlay.js` | Login |
+| `/zentrale/` (`/z`) | diese Seite; `status.json`, `logs/`, `downloads/`, `setup/` aus `/srv/zentrale` | Login |
+| `/api/` | devqueue | Login (außer `/api/auth/*`) |
+| alter Host wiki-dev | 302 auf `/dev/…` | |
+| alter Host zentrale | 302 auf `/zentrale/…` (`/wiki/x` → `/dev/x`); `/setup/`, `/downloads/`, `/status.json` bleiben direkt (Starter/Installer mit cloudflared-Token, Access-App des alten Hosts bleibt) | Cloudflare Access |
+
+Login (`auth.py`, in `devqueue.py`): `GET/POST /api/auth/login` (Formular, `next` nur lokale Pfade),
+`POST /api/auth/logout`, `GET /api/auth/check` (200 + `X-Auth-User` bzw. 401, für nginx `auth_request`).
+Passwort-Hash PBKDF2-SHA256 (600 000 Runden) in `/srv/devqueue/auth.json` (600, Dienstnutzer, nie im Repo);
+Cookie `sb_session` signiert (HMAC, enthält den Hash: neues Passwort beendet alle Sitzungen), HttpOnly, Secure,
+SameSite=Lax, 30 Tage. Sperre nach 5 Fehlversuchen je Adresse (`CF-Connecting-IP`) und je Name für 15 min, dazu
+nginx `limit_req` 10/min auf `/api/auth/`. nginx reicht als Identität nur die Antwort von `/api/auth/check` weiter,
+ein vom Browser gesetzter `Cf-Access-Authenticated-User-Email` kommt nie durch. Wiki-Kopf (`wiki/assets/sitebar.js`):
+„Anmelden“, nach Login Umschalter Production | Dev, „Zentrale“, „Abmelden“; ohne Login-Endpunkt (GitHub Pages,
+alte Hosts) unsichtbar.
+
+Passwort setzen (Besitzer, auf dem Webserver als root; fragt zweimal ohne Echo):
+```
+python3 /srv/wiki-dev/tools/zentrale-web/set_password.py --user <name> --email <Cloudflare-Mail wie bisher>
+```
+Die Mail hält die Mod-Auswahl je Nutzer. `--remove <name>` löscht ein Konto.
+
+Später Cloudflare Access (Schalter, aus): Access-App für `simplemods-wiki` nur mit den Pfaden `/dev/*`,
+`/zentrale/*`, `/api/*` anlegen, dann `set_password.py --cloudflare on --team-domain <team>.cloudflareaccess.com
+--aud <AUD-Tag>`: `/api/auth/check` prüft dann zusätzlich das Access-JWT (`Cf-Access-Jwt-Assertion`, RS256 gegen
+`/cdn-cgi/access/certs`, `aud`, `iss`, `exp`). Passwort-Login bleibt daneben gültig, bis die Konten entfernt sind.
+
+Netz: nginx nimmt nur Verbindungen vom cloudflared-Connector (eigener Container, daher kein Binden an Loopback) und
+von Loopback an (`/etc/nginx/snippets/simplemods-allow.conf`, vom Deploy-Skript aus `--tunnel-ip` geschrieben; die IP
+steht in der Memory, nicht im öffentlichen Repo). Der Connector braucht dafür eine feste Adresse (DHCP-Reservierung).
+
+### Ausrollen (`deploy_zw06.sh`, als root auf dem Webserver, nach Merge in claude-wave1)
+Vorlagen `nginx/*.conf`, das Skript setzt daraus die ganze Site-Datei zusammen; Sicherung beim ersten Lauf
+(`*.bak-zw06`), `nginx -t` vor jedem Reload, bei Fehler alte Datei zurück; jeder Schritt mehrfach ausführbar.
+1. `deploy_zw06.sh check` – Vorprüfung (Code im ausgelieferten Stand, nginx-Module, `auth.json` 600, Platte).
+2. Besitzer setzt das Passwort (`set_password.py`, oben).
+3. `deploy_zw06.sh parallel --tunnel-ip <connector-ip>` – neue Seite auf :8084 neben den alten (:8081–8083 wie
+   bisher, nur noch vom Tunnel), devqueue-Neustart, Rauchtest (`smoke_zw06.py`: anonym + Wegwerf-Konto, das danach
+   wieder gelöscht wird). Aus dem LAN prüfen: `http://<webserver>:8084/` muss 403 geben.
+4. `deploy_zw06.sh switch` – :8081 liefert jetzt die neue Seite (dieselbe Tunnel-Route, **in Cloudflare nichts
+   umstellen**), alte Hosts leiten um; Rauchtest beider Ports und der Umleitungen.
+5. Rückfall jederzeit: `deploy_zw06.sh rollback` (Sicherung zurück, Reload, Sekunden).
+
+Cloudflare: Für den Host `simplemods-wiki` besteht die Route schon (→ :8081), es ist nichts umzustellen. Nur falls
+man ohne `switch` testen will: Route vorübergehend auf :8084 legen. Die Access-Apps der alten Hosts bleiben, bis die
+Laptops auf die neue Adresse umgestellt sind (Starter lädt `/setup/` mit cloudflared-Token).
+
+Tests: `python3 -m unittest discover -s tests` (`test_auth.py`; `test_nginx_zw06.py` startet mit `SB_NGINX=<nginx>`
+die gerenderten Stufen echt gegen devqueue, sonst nur die statischen Prüfungen).
 
 ## Start
 ```bash
