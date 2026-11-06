@@ -488,3 +488,18 @@ die `source`-Felder nennen weiter die echte Datei.
 | `../.github/workflows/wiki.yml` | CI: prüfen, auf `master` nach GitHub Pages veröffentlichen | ja, selten |
 
 Hosting, Hook und CI: [`docs/WIKI-HOSTING.md`](../docs/WIKI-HOSTING.md).
+
+## Texturen: Karten-Detail, Vanilla, Vorschläge (a-wikiux06, 06.11.)
+- Klick auf den Kartenkopf öffnet alle Texturen des Objekts groß mit Rolle; Animationen laufen nach `.mcmeta`
+  (frametime/frames), das Sheet steht daneben. Fehlt eine Bilddatei (Vanilla-abgeleitet, nie im Repo), zeigt die Kachel
+  einen schraffierten Platzhalter.
+- Vanilla: `python3 wiki/vanilla_textures.py` (oder `generate.py --with-vanilla`) schreibt aus dem 26.3-Client-Jar
+  `wiki/assets/vanilla/**` + `wiki/data/vanilla-textures.js` und die Vanilla-abgeleiteten Kopien – alles git-ignoriert.
+  Nur das Dev-Overlay der Zentrale lädt den Index (Kategorie „Vanilla“, ✎ als Vorlage ohne „Speichern ins Repo“).
+  Auf sb-web läuft es in `sb-web-sync` nur für `/srv/wiki-dev` (Python 3.12 + Pillow ≥ 12 für die echten Ableitungen,
+  sonst Platzhalter).
+- Dev-Overlay: „Bearbeiten“ im Detail fragt zuerst die Textur/Seite; der Pixeleditor bekommt bei Animationen
+  `anim` (Wahl „Ganzes Sheet | Frame n“, Pixel außerhalb des Frames bleiben unberührt; Sheet-Format und `.mcmeta`
+  bleiben, `editor_save.py` prüft das). „Änderung vorschlagen“ an Karte, Detail-Textur, Großansicht und Item-Seite
+  (Text + Bilder per Upload/Einfügen) → KI-Queue der Zentrale.
+- Rezepte: eine Ansicht („Alle Rezepte“ mit Filtern); `#/recipes` bzw. `?tab=recipes` zeigt sie ebenfalls.

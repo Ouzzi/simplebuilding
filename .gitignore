@@ -58,6 +58,9 @@ build/run/
 # Vanilla-Texturen, die wiki/generate.py aus dem Minecraft-Client-Jar zieht.
 # Mojang-Assets gehoeren nicht ins Repository; ein Generatorlauf holt sie lokal.
 wiki/assets/textures/minecraft/
+# Dev-only Vanilla category of the Textures page (wiki/vanilla_textures.py, owner 06.11.): never committed.
+wiki/assets/vanilla/
+wiki/data/vanilla-textures.js
 
 # Aus Vanilla-Texturen abgeleitete Texturen (Umfaerbung/Maske aus dem Client-Jar) - nie ins Repository
 # (Besitzer 12.10.2026, AGENTS.md). tools/textures/vanilla_derived.py erzeugt sie beim Bauen

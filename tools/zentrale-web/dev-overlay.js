@@ -3,7 +3,10 @@
  * dev queue (/api/queue), a request button in the texture zoom and a panel on item pages.
  * The wiki calls window.sbDevHook after rendering; a MutationObserver covers renders before this script loaded.
  * "Bearbeiten" (zoom) and the pencil on texture tiles open the pixel editor of the wiki (wiki/assets/pixeleditor*.js,
- * loaded on first use relative to the wiki page; docs/ai/PLAN-B-PIXELEDITOR-2026-10-21.md). */
+ * loaded on first use relative to the wiki page; docs/ai/PLAN-B-PIXELEDITOR-2026-10-21.md).
+ * a-wikiux06 (owner 06.11.): "Änderung vorschlagen" on every card, texture and item (text + pasted/uploaded images,
+ * POST /api/queue kind "suggestion"), "Bearbeiten" in the card detail asks which texture first, and the Vanilla
+ * category: only this overlay loads data/vanilla-textures.js (wiki/vanilla_textures.py, dev checkout only). */
 (function () {
   if (window.sbDevHook) return;
   var sel = new Map();          // key -> {id, label, path}
@@ -26,13 +29,15 @@
     document.body.appendChild(t);
     setTimeout(function () { t.remove(); }, ok ? 2000 : 4000);
   }
-  function send(category, kind, targets, comment) {
+  function send(category, kind, targets, comment, extra) {
     if (!targets.length) { toast('Nichts ausgewählt', false); return Promise.resolve(false); }
+    var body = { category: category, kind: kind, targets: targets, comment: comment || '' };
+    if (extra) Object.keys(extra).forEach(function (k) { body[k] = extra[k]; });
     return fetch('/api/queue', {
       method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ category: category, kind: kind, targets: targets, comment: comment || '' })
+      body: JSON.stringify(body)
     }).then(function (r) {
-      if (!r.ok) return r.json().catch(function () { return {}; }).then(function (j) { toast('Fehler: ' + (j.error || r.status), false); return false; });
+      if (!r.ok) return r.json().catch(function () { return {}; }).then(function (j) { toast('Fehler: ' + (j.error || (r.status === 413 ? 'Bilder zu groß' : r.status)), false); return false; });
       toast(targets.length + ' in die KI-Queue gelegt', true);
       loadQueue();
       return true;
@@ -65,19 +70,166 @@
     return editorLoad;
   }
   function textureById(id) {
-    var all = window.WIKI_TEXTURES && window.WIKI_TEXTURES.textures || [];
-    for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i];
+    var lists = [window.WIKI_TEXTURES && window.WIKI_TEXTURES.textures || [], window.WIKI_VANILLA_TEXTURES && window.WIKI_VANILLA_TEXTURES.textures || []];
+    for (var l = 0; l < lists.length; l++) for (var i = 0; i < lists[l].length; i++) if (lists[l][i].id === id) return lists[l][i];
     return null;
+  }
+  /* Vanilla (dev only, never committed): loaded once when the textures page shows */
+  var vanillaLoad = null;
+  function loadVanilla() {
+    if (vanillaLoad || window.WIKI_VANILLA_TEXTURES) return;
+    vanillaLoad = loadScript('data/vanilla-textures.js').then(function () {
+      if (window.sbWikiTexturesChanged) window.sbWikiTexturesChanged();
+    }).catch(function () { /* not built on this checkout (wiki/vanilla_textures.py) */ });
   }
   /* vanilla-derived textures are built from the client jar, never committed (A8): nothing to edit or save */
   function isDerived(t) { return !!t && /^build\/vanilla-derived\//.test(t.source || ''); }
+  function nameOf(t) { return t.name && typeof t.name === 'object' ? (t.name[window.LANG] || t.name.en || t.id) : (t.name || t.id); }
   function editTexture(t) {
     if (!t || !t.file) { toast('Textur nicht gefunden', false); return; }
     if (isDerived(t)) { toast('Aus Vanilla abgeleitet (A8): tools/textures/vanilla_derived.py anpassen', false); return; }
-    var name = t.name && typeof t.name === 'object' ? (t.name[window.LANG] || t.name.en || t.id) : (t.name || t.id);
+    // Vanilla: a template only - no repository source, so the editor offers export but no "Save to repo"
     loadEditor().then(function () {
-      return window.SBPixelEditor.open({ id: t.id, name: name, png: t.file, layers: t.layers || null, source: t.source || '' });
+      return window.SBPixelEditor.open({ id: t.id, name: (t.vanilla ? 'Vorlage: ' : '') + nameOf(t), png: t.file, layers: t.layers || null,
+        source: t.vanilla ? '' : (t.source || ''), anim: t.anim || null });
     }).catch(function (e) { toast('Editor nicht ladbar: ' + (e && e.message || e), false); });
+  }
+
+  /* ---- "Änderung vorschlagen": text + images (upload/paste) -> /api/queue kind suggestion ---- */
+  var MAX_FILES = 5, MAX_BYTES = 2 * 1024 * 1024, TYPES = { 'image/png': 1, 'image/jpeg': 1, 'image/webp': 1 };
+  function suggestForm(object, targets, category) {
+    var files = [];
+    var f = el('div', 'margin:8px 0;padding:10px;border:1px solid #4a443c;border-left:4px solid #3b5b8c;border-radius:10px;background:#24211e;color:#ece6dc;display:flex;flex-direction:column;gap:8px;font:13px system-ui,sans-serif');
+    f.className = 'dev-suggest';
+    f.appendChild(el('strong', '', 'Änderung vorschlagen: ' + object.label + (targets.length > 1 ? ' (' + targets.length + ' Texturen)' : '')));
+    var ta = el('textarea', INPUT + ';min-height:72px;resize:vertical;width:100%;box-sizing:border-box');
+    ta.className = 'dev-suggest-text';
+    ta.maxLength = 4000;
+    ta.placeholder = 'Was soll anders werden? Bilder hier einfügen (Strg+V) oder unten anhängen.';
+    f.appendChild(ta);
+    var thumbs = el('div', 'display:flex;flex-wrap:wrap;gap:6px');
+    thumbs.className = 'dev-suggest-files';
+    var row = el('div', 'display:flex;flex-wrap:wrap;gap:8px;align-items:center');
+    var pick = el('input', 'max-width:100%;color:#ece6dc');
+    pick.type = 'file'; pick.multiple = true; pick.accept = 'image/png,image/jpeg,image/webp';
+    pick.className = 'dev-suggest-pick';
+    var info = el('span', 'color:#b9b0a3;font-size:12px', 'PNG, JPEG oder WebP, höchstens ' + MAX_FILES + ' Bilder je 2 MB. Die aktuelle Textur geht als Referenz mit.');
+    var go = el('button', PRIMARY, 'Senden');
+    go.className = 'dev-suggest-send';
+    var cancel = el('button', SECOND, 'Abbrechen');
+    function add(list) {
+      Array.prototype.forEach.call(list, function (file) {
+        if (!TYPES[file.type]) { toast('Nur PNG, JPEG oder WebP: ' + (file.name || file.type), false); return; }
+        if (file.size > MAX_BYTES) { toast('Größer als 2 MB: ' + (file.name || ''), false); return; }
+        if (files.length >= MAX_FILES) { toast('Höchstens ' + MAX_FILES + ' Bilder', false); return; }
+        files.push(file);
+      });
+      draw();
+    }
+    function draw() {
+      thumbs.innerHTML = '';
+      files.forEach(function (file, i) {
+        var box = el('span', 'position:relative;display:inline-block');
+        var img = el('img', 'width:64px;height:64px;object-fit:contain;background:#8b8b8b;border-radius:6px;image-rendering:pixelated');
+        img.src = URL.createObjectURL(file); img.alt = file.name || 'Bild';
+        var x = el('button', 'position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:#b3362b;color:#fff;cursor:pointer;font:700 12px system-ui', '✕');
+        x.title = 'Entfernen';
+        x.onclick = function () { files.splice(i, 1); draw(); };
+        box.appendChild(img); box.appendChild(x); thumbs.appendChild(box);
+      });
+    }
+    pick.onchange = function () { add(pick.files); pick.value = ''; };
+    f.addEventListener('paste', function (e) {
+      var items = e.clipboardData && e.clipboardData.files;
+      if (items && items.length) { e.preventDefault(); add(items); }
+    });
+    function b64(file) {
+      return new Promise(function (ok, fail) {
+        var r = new FileReader();
+        r.onload = function () { ok(String(r.result).split(',', 2)[1] || ''); };
+        r.onerror = function () { fail(r.error); };
+        r.readAsDataURL(file);
+      });
+    }
+    go.onclick = function () {
+      if (!ta.value.trim() && !files.length) { toast('Text oder Bild angeben', false); ta.focus(); return; }
+      go.disabled = true;
+      Promise.all(files.map(b64)).then(function (data) {
+        var att = files.map(function (file, i) { return { name: file.name || ('bild-' + (i + 1)), type: file.type, data: data[i] }; });
+        return send(category || 'textures', 'suggestion', targets, ta.value.trim(), { object: object, attachments: att });
+      }).then(function (ok) { go.disabled = false; if (ok) f.remove(); }, function () { go.disabled = false; toast('Bild nicht lesbar', false); });
+    };
+    cancel.onclick = function () { f.remove(); };
+    [pick, go, cancel].forEach(function (c) { row.appendChild(c); });
+    f.appendChild(thumbs); f.appendChild(row); f.appendChild(info);
+    setTimeout(function () { ta.focus(); }, 0);
+    return f;
+  }
+  function targetOf(t) { return { id: t.id, label: nameOf(t) + (t.role ? ' (' + String(t.role).replace(/_/g, ' ') + ')' : ''), path: t.file || '' }; }
+  /* the form goes right under the textures (they stay visible); one form per place */
+  function showSuggest(after, object, targets, category) {
+    var host = after.parentNode;
+    var old = host.querySelector(':scope > .dev-suggest');
+    if (old) old.remove();
+    var form = suggestForm(object, targets, category);
+    after.insertAdjacentElement('afterend', form);
+    return form;
+  }
+
+  /* ---- card detail (wiki devHook 'texture-card') ---- */
+  function cardDev(box, info) {
+    var slot = box.querySelector('.tx-cd-dev');
+    if (!slot || !info) return;
+    slot.innerHTML = '';
+    var members = info.members || [];
+    var bar = el('div', 'display:flex;flex-wrap:wrap;gap:8px;align-items:center');
+    var editable = members.filter(function (t) { return !isDerived(t); });
+    var edit = el('button', SECOND, '✎ Bearbeiten');
+    edit.className = 'dev-card-edit';
+    edit.disabled = !editable.length;
+    edit.title = editable.length ? 'Erst die Textur wählen, dann Pixeleditor' : 'Nur aus Vanilla abgeleitete Texturen (A8)';
+    edit.onclick = function () {
+      if (editable.length === 1) { editTexture(editable[0]); return; }
+      var old = slot.querySelector('.dev-choose');
+      if (old) { old.remove(); return; }
+      var list = el('div', 'display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding:8px;border:1px solid #4a443c;border-radius:10px;background:#24211e');
+      list.className = 'dev-choose';
+      list.appendChild(el('strong', 'width:100%;color:#ece6dc;font:600 13px system-ui', 'Welche Textur bzw. Seite bearbeiten?'));
+      editable.forEach(function (t) {
+        var b = el('button', SECOND + ';display:inline-flex;align-items:center;gap:6px');
+        b.className = 'dev-choose-item';
+        var img = el('img', 'width:24px;height:24px;object-fit:cover;object-position:top;image-rendering:pixelated;background:#8b8b8b');
+        img.src = t.file; img.alt = '';
+        b.appendChild(img);
+        b.appendChild(document.createTextNode((t.role ? String(t.role).replace(/_/g, ' ') : 'Haupt') + (t.anim ? ' ▶' : '')));
+        b.title = t.id;
+        b.onclick = function () { list.remove(); editTexture(t); };
+        list.appendChild(b);
+      });
+      bar.insertAdjacentElement('afterend', list);
+    };
+    var sug = el('button', PRIMARY, 'Änderung vorschlagen');
+    sug.className = 'dev-card-suggest';
+    sug.onclick = function () { showSuggest(bar, { id: info.key, label: info.name }, members.map(targetOf)); };
+    bar.appendChild(edit); bar.appendChild(sug);
+    slot.appendChild(bar);
+    // per texture: suggest just this one, edit just this one
+    box.querySelectorAll('.tx-cd-fig').forEach(function (fig) {
+      var acts = fig.querySelector('.tx-cd-acts');
+      var t = textureById(fig.getAttribute('data-tx-id'));
+      if (!acts || !t || acts.querySelector('.dev-fig-suggest')) return;
+      if (!isDerived(t)) {
+        var e = el('button', SECOND.replace('min-height:38px', 'min-height:30px'), '✎');
+        e.className = 'dev-fig-edit'; e.title = 'Diese Textur im Pixeleditor bearbeiten';
+        e.onclick = function () { editTexture(t); };
+        acts.appendChild(e);
+      }
+      var s2 = el('button', SECOND.replace('min-height:38px', 'min-height:30px'), 'Vorschlagen');
+      s2.className = 'dev-fig-suggest';
+      s2.onclick = function () { showSuggest(bar, { id: info.key, label: info.name }, [targetOf(t)]); };
+      acts.appendChild(s2);
+    });
+    if (info.suggest) sug.click();
   }
 
   /* ---- tiles ---- */
@@ -138,6 +290,17 @@
       t.appendChild(badge);
     } else if (!queued && badge) badge.remove();
   }
+  function cards() {
+    document.querySelectorAll('.tx-card').forEach(function (card) {
+      var head = card.querySelector('.tx-card-h');
+      if (!head || head.querySelector('.dev-card-btn')) return;
+      var key = card.getAttribute('data-tx-card-key');
+      var b = el('button', 'align-self:flex-start;margin-top:4px;border:0;border-radius:6px;padding:4px 10px;min-height:28px;font:600 12px system-ui,sans-serif;cursor:pointer;background:#3b5b8c;color:#fff', 'Änderung vorschlagen');
+      b.className = 'dev-card-btn';
+      b.onclick = function (e) { e.stopPropagation(); if (window.sbTx) window.sbTx.openCard(key, { suggest: true }); };
+      head.appendChild(b);
+    });
+  }
   function tiles() { return Array.prototype.slice.call(document.querySelectorAll('.tx-tile, a.itile, a.row[href*="item="], a.row[href^="#/items/"], a.row[href^="#/blocks/"]')); }
 
   /* ---- bar ---- */
@@ -193,22 +356,23 @@
 
   /* ---- zoom and item page ---- */
   function zoomButton() {
-    var head = document.querySelector('.tx-lb-bar');
+    var head = document.querySelector('.tx-lb:not(.tx-cd) .tx-lb-bar');
     if (!head || head.querySelector('.dev-zoom') || !lastZoom) return;
     var wrap = el('span', 'display:inline-flex;flex-wrap:wrap;gap:6px;margin-left:8px');
     wrap.className = 'dev-zoom';
-    var c = el('input', INPUT.replace('min-height:38px', 'min-height:32px') + ';font-size:13px');
-    c.placeholder = 'Kommentar (optional)';
-    var b = el('button', PRIMARY.replace('min-height:38px', 'min-height:32px'), 'Rework anfragen');
     var t = lastZoom;
+    var b = el('button', PRIMARY.replace('min-height:38px', 'min-height:32px'), 'Änderung vorschlagen');
+    b.className = 'dev-zoom-suggest';
     b.onclick = function () {
-      send('textures', 'texture', [{ id: t.id, label: t.name || t.id, path: t.file || '' }], c.value).then(function (ok) { if (ok) c.value = ''; });
+      var panes = document.querySelector('.tx-lb:not(.tx-cd) .tx-lb-panes');
+      if (panes) showSuggest(panes, { id: t.group || t.id, label: nameOf(t) }, [targetOf(t)]);
     };
     var edit = el('button', SECOND.replace('min-height:38px', 'min-height:32px'), '✎ Bearbeiten');
     edit.className = 'dev-edit';
     edit.title = 'Im Pixeleditor bearbeiten (Ebenen)';
     edit.onclick = function () { editTexture(t); };
-    wrap.appendChild(edit); wrap.appendChild(c); wrap.appendChild(b); head.appendChild(wrap);
+    if (!isDerived(t)) wrap.appendChild(edit);
+    wrap.appendChild(b); head.appendChild(wrap);
   }
   function itemPanel(info) {
     var id = info && info.id ? info.id : itemOf(location.hash || '') || itemOf(location.search || '');
@@ -231,12 +395,23 @@
       };
       p.appendChild(b);
     });
+    var sb = el('button', SECOND, 'Änderung vorschlagen');
+    sb.className = 'dev-item-suggest';
+    sb.onclick = function () {
+      // the item's textures when the texture index is loaded (the current texture goes along as reference)
+      var all = window.WIKI_TEXTURES && window.WIKI_TEXTURES.textures || [];
+      var own = all.filter(function (t) { return t.item === id; }).map(targetOf);
+      showSuggest(p, { id: id, label: label }, own.length ? own : [{ id: id, label: label, path: '' }], own.length ? 'textures' : 'code');
+    };
+    p.appendChild(sb);
     h1.insertAdjacentElement('afterend', p);
   }
 
   var pending = false;
   function scan(info) {
     paint();
+    cards();
+    if (document.getElementById('tx-results')) loadVanilla();
     zoomButton();
     itemPanel(info);
   }
@@ -248,6 +423,7 @@
 
   window.sbDevHook = function (kind, node, info) {
     if (kind === 'texture-zoom') lastZoom = info || null;
+    if (kind === 'texture-card') { cardDev(node, info); return; }
     if (kind === 'item-page') { scan(info); return; }
     later();
   };
@@ -258,7 +434,7 @@
     for (var i = 0; i < records.length; i++) {
       var n = records[i].target;
       if (bar && bar.contains(n)) continue;
-      if (n.nodeType === 1 && n.closest && n.closest('.dev-item, .dev-zoom, .pe-root')) continue;
+      if (n.nodeType === 1 && n.closest && n.closest('.dev-item, .dev-zoom, .pe-root, .dev-suggest, .tx-cd')) continue;
       later();
       return;
     }

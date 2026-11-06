@@ -18,7 +18,11 @@ import layers as ly  # noqa: E402
 SRC = "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/test_tile.png"
 ENTRY = {"id": "simpleblocks:block/test_tile", "source": SRC, "w": 2, "h": 2}
 DERIVED = {"id": "simplebuilding:block/cracked_x", "source": "build/vanilla-derived/resources/assets/simplebuilding/textures/block/cracked_x.png", "w": 2, "h": 2}
-WL = {ENTRY["id"]: ENTRY, DERIVED["id"]: DERIVED}
+ASRC = "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/test_anim.png"
+ANIM = {"id": "simpleblocks:block/test_anim", "source": ASRC, "w": 2, "h": 6,
+        "anim": {"w": 2, "h": 2, "cols": 1, "count": 3, "frametime": 4}, "mcmeta": {"animation": {"frametime": 4}}}
+MCMETA = b'{"animation": {"frametime": 4}}\n'
+WL = {ENTRY["id"]: ENTRY, DERIVED["id"]: DERIVED, ANIM["id"]: ANIM}
 
 
 def layers_doc(color="#ff0000ff", w=2, h=2):
@@ -67,6 +71,19 @@ class Whitelist(unittest.TestCase):
         with self.assertRaisesRegex(es.SaveError, "source"):
             es.check_save(payload(id=DERIVED["id"], source=DERIVED["source"]), WL)
 
+    def test_animated_sheet_keeps_its_frames_and_mcmeta(self):
+        """a-wikiux06: a frame edit is a whole-sheet save of the same size; .mcmeta never comes along."""
+        frames = layers_doc(w=2, h=6)
+        save = es.check_save(payload(id=ANIM["id"], source=ASRC, layers=ly.dumps(frames)), WL)
+        self.assertEqual(json.loads(save["layers"])["height"], 6)
+        with self.assertRaisesRegex(es.SaveError, "size"):  # one frame alone is not a sheet
+            es.check_save(payload(id=ANIM["id"], source=ASRC, layers=ly.dumps(layers_doc(w=2, h=2))), WL)
+        with self.assertRaisesRegex(es.SaveError, "mcmeta"):
+            es.check_save(payload(id=ANIM["id"], source=ASRC, layers=ly.dumps(frames), mcmeta={"animation": {}}), WL)
+        broken = dict(ANIM, anim=dict(ANIM["anim"], count=4))
+        with self.assertRaisesRegex(es.SaveError, "frames"):
+            es.check_save(payload(id=ANIM["id"], source=ASRC, layers=ly.dumps(frames)), {ANIM["id"]: broken})
+
     def test_limits_and_layers(self):
         with self.assertRaisesRegex(es.SaveError, "size"):
             es.check_save(payload(layers=ly.dumps(layers_doc(w=4, h=4))), WL)
@@ -105,8 +122,10 @@ class Apply(unittest.TestCase):
         work.mkdir()
         (work / SRC).parent.mkdir(parents=True)
         (work / SRC).write_bytes(ly.png_write(2, 2, bytes(16)))
+        (work / ASRC).write_bytes(ly.png_write(2, 6, bytes(48)))
+        (work / (ASRC + ".mcmeta")).write_bytes(MCMETA)
         (work / "wiki/data").mkdir(parents=True)
-        (work / es.TEXTURES_JS).write_text("window.WIKI_TEXTURES = " + json.dumps({"textures": [ENTRY, DERIVED]}) + ";\n")
+        (work / es.TEXTURES_JS).write_text("window.WIKI_TEXTURES = " + json.dumps({"textures": [ENTRY, DERIVED, ANIM]}) + ";\n")
         env = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@t", "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@t"}
         os.environ.update(env)
         run("git", "init", "-q", "-b", "claude-wave1", cwd=work)
@@ -133,6 +152,17 @@ class Apply(unittest.TestCase):
         self.assertEqual(run(*g, "rev-parse", "claude-wave1"), run(*g, "rev-parse", f"{branch}^"))
         with self.assertRaisesRegex(es.SaveError, "update-ref"):
             es.apply_save(payload(), "1761234567", self.hub, "claude-wave1")  # never overwrites
+
+    def test_animated_commit_leaves_the_mcmeta_alone(self):
+        branch = es.apply_save(payload(id=ANIM["id"], source=ASRC, layers=ly.dumps(layers_doc(w=2, h=6))), "1761234580",
+                               self.hub, "claude-wave1")
+        g = ["git", "--git-dir", str(self.hub)]
+        files = run(*g, "diff", "--name-only", "claude-wave1", branch).splitlines()
+        self.assertEqual(sorted(files), sorted([ASRC, ASRC[:-4] + ".layers.json"]))
+        meta = subprocess.run(g + ["show", f"{branch}:{ASRC}.mcmeta"], capture_output=True, check=True).stdout
+        self.assertEqual(meta, MCMETA)
+        w, h, _ = ly.png_read(subprocess.run(g + ["show", f"{branch}:{ASRC}"], capture_output=True, check=True).stdout)
+        self.assertEqual((w, h), (2, 6))  # frames stay stacked: height = 3 x frame
 
     def test_rejects_bad_ids_and_untracked_targets(self):
         with self.assertRaisesRegex(es.SaveError, "save id"):
