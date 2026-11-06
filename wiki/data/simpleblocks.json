@@ -18234,7 +18234,18 @@
         "en_us": "Collapsed Andesite",
         "de_de": "Kollabierter Andesit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_andesite.png",
       "craftedBy": [
         "simpleblocks:collapsed_andesite"
@@ -18249,7 +18260,18 @@
         "en_us": "Collapsed Blackstone",
         "de_de": "Kollabierter Schwarzstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_blackstone.png",
       "craftedBy": [
         "simpleblocks:collapsed_blackstone"
@@ -18264,7 +18286,18 @@
         "en_us": "Collapsed Clay",
         "de_de": "Kollabierter Ton"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_clay.png",
       "craftedBy": [
         "simpleblocks:collapsed_clay"
@@ -18279,7 +18312,18 @@
         "en_us": "Collapsed Cobbled Deepslate",
         "de_de": "Kollabierter Bruchtiefenschiefer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_cobbled_deepslate.png",
       "craftedBy": [
         "simpleblocks:collapsed_cobbled_deepslate"
@@ -18294,7 +18338,18 @@
         "en_us": "Collapsed Cobblestone",
         "de_de": "Kollabierter Bruchstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_cobblestone.png",
       "craftedBy": [
         "simpleblocks:collapsed_cobblestone"
@@ -18309,7 +18364,18 @@
         "en_us": "Collapsed Diorite",
         "de_de": "Kollabierter Diorit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_diorite.png",
       "craftedBy": [
         "simpleblocks:collapsed_diorite"
@@ -18324,7 +18390,18 @@
         "en_us": "Collapsed Dirt",
         "de_de": "Kollabierte Erde"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_dirt.png",
       "craftedBy": [
         "simpleblocks:collapsed_dirt"
@@ -18339,7 +18416,18 @@
         "en_us": "Collapsed End Stone",
         "de_de": "Kollabierter Endstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_end_stone.png",
       "craftedBy": [
         "simpleblocks:collapsed_end_stone"
@@ -18354,7 +18442,18 @@
         "en_us": "Collapsed Granite",
         "de_de": "Kollabierter Granit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_granite.png",
       "craftedBy": [
         "simpleblocks:collapsed_granite"
@@ -18369,7 +18468,18 @@
         "en_us": "Collapsed Gravel",
         "de_de": "Kollabierter Kies"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_gravel.png",
       "craftedBy": [
         "simpleblocks:collapsed_gravel"
@@ -18384,7 +18494,18 @@
         "en_us": "Collapsed Mud",
         "de_de": "Kollabierter Schlamm"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_mud.png",
       "craftedBy": [
         "simpleblocks:collapsed_mud"
@@ -18399,7 +18520,18 @@
         "en_us": "Collapsed Netherrack",
         "de_de": "Kollabiertes Netherrack"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_netherrack.png",
       "craftedBy": [
         "simpleblocks:collapsed_netherrack"
@@ -18414,7 +18546,18 @@
         "en_us": "Collapsed Red Sand",
         "de_de": "Kollabierter Roter Sand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_red_sand.png",
       "craftedBy": [
         "simpleblocks:collapsed_red_sand"
@@ -18429,7 +18572,18 @@
         "en_us": "Collapsed Red Sandstone",
         "de_de": "Kollabierter Roter Sandstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_red_sandstone.png",
       "craftedBy": [
         "simpleblocks:collapsed_red_sandstone"
@@ -18444,7 +18598,18 @@
         "en_us": "Collapsed Sand",
         "de_de": "Kollabierter Sand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_sand.png",
       "craftedBy": [
         "simpleblocks:collapsed_sand"
@@ -18459,7 +18624,18 @@
         "en_us": "Collapsed Sandstone",
         "de_de": "Kollabierter Sandstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_sandstone.png",
       "craftedBy": [
         "simpleblocks:collapsed_sandstone"
@@ -18474,7 +18650,18 @@
         "en_us": "Collapsed Soul Sand",
         "de_de": "Kollabierter Seelensand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_soul_sand.png",
       "craftedBy": [
         "simpleblocks:collapsed_soul_sand"
@@ -18489,7 +18676,18 @@
         "en_us": "Collapsed Stone",
         "de_de": "Kollabierter Stein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_stone.png",
       "craftedBy": [
         "simpleblocks:collapsed_stone"
@@ -18504,7 +18702,18 @@
         "en_us": "Collapsed Tuff",
         "de_de": "Kollabierter Tuff"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Collapsed block: 9 dense blocks, 64 times as hard as the base. So heavy that carrying it slows you: one stack gives Slowness I, two stacks II, nine stacks III. A soft red beam behind the item in its slot shows which item causes it."
+        },
+        "de": {
+          "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/collapsed_tuff.png",
       "craftedBy": [
         "simpleblocks:collapsed_tuff"
@@ -18519,7 +18728,18 @@
         "en_us": "Compact Andesite",
         "de_de": "Kompakter Andesit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18529,7 +18749,18 @@
         "en_us": "Compact Blackstone",
         "de_de": "Kompakter Schwarzstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18539,7 +18770,18 @@
         "en_us": "Compact Clay",
         "de_de": "Kompakter Ton"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18549,7 +18791,18 @@
         "en_us": "Compact Cobbled Deepslate",
         "de_de": "Kompakter Bruchtiefenschiefer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18559,7 +18812,18 @@
         "en_us": "Compact Cobblestone",
         "de_de": "Kompakter Bruchstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18569,7 +18833,18 @@
         "en_us": "Compact Diorite",
         "de_de": "Kompakter Diorit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18579,7 +18854,18 @@
         "en_us": "Compact Dirt",
         "de_de": "Kompakte Erde"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18589,7 +18875,18 @@
         "en_us": "Compact End Stone",
         "de_de": "Kompakter Endstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18599,7 +18896,18 @@
         "en_us": "Compact Granite",
         "de_de": "Kompakter Granit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18609,7 +18917,18 @@
         "en_us": "Compact Gravel",
         "de_de": "Kompakter Kies"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18619,7 +18938,18 @@
         "en_us": "Compact Mud",
         "de_de": "Kompakter Schlamm"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18629,7 +18959,18 @@
         "en_us": "Compact Netherrack",
         "de_de": "Kompaktes Netherrack"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18639,7 +18980,18 @@
         "en_us": "Compact Red Sand",
         "de_de": "Kompakter Roter Sand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18649,7 +19001,18 @@
         "en_us": "Compact Red Sandstone",
         "de_de": "Kompakter Roter Sandstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18659,7 +19022,18 @@
         "en_us": "Compact Sand",
         "de_de": "Kompakter Sand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18669,7 +19043,18 @@
         "en_us": "Compact Sandstone",
         "de_de": "Kompakter Sandstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18679,7 +19064,18 @@
         "en_us": "Compact Soul Sand",
         "de_de": "Kompakter Seelensand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18689,7 +19085,18 @@
         "en_us": "Compact Stone",
         "de_de": "Kompakter Stein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18699,7 +19106,18 @@
         "en_us": "Compact Tuff",
         "de_de": "Kompakter Tuff"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Old name of the compressed block; old worlds turn it into the compressed block."
+        },
+        "de": {
+          "summary": "Alter Name des komprimierten Blocks; alte Welten wandeln ihn in den komprimierten Block um."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -18709,7 +19127,18 @@
         "en_us": "Compressed Andesite",
         "de_de": "Komprimierter Andesit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_andesite.png",
       "craftedBy": [
         "simpleblocks:compressed_andesite",
@@ -18726,7 +19155,18 @@
         "en_us": "Compressed Blackstone",
         "de_de": "Komprimierter Schwarzstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_blackstone.png",
       "craftedBy": [
         "simpleblocks:compressed_blackstone",
@@ -18743,7 +19183,18 @@
         "en_us": "Compressed Clay",
         "de_de": "Komprimierter Ton"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_clay.png",
       "craftedBy": [
         "simpleblocks:compressed_clay",
@@ -18760,7 +19211,18 @@
         "en_us": "Compressed Cobbled Deepslate",
         "de_de": "Komprimierter Bruchtiefenschiefer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_cobbled_deepslate.png",
       "craftedBy": [
         "simpleblocks:compressed_cobbled_deepslate",
@@ -18777,7 +19239,18 @@
         "en_us": "Compressed Cobblestone",
         "de_de": "Komprimierter Bruchstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_cobblestone.png",
       "craftedBy": [
         "simpleblocks:compressed_cobblestone",
@@ -18794,7 +19267,18 @@
         "en_us": "Compressed Diorite",
         "de_de": "Komprimierter Diorit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_diorite.png",
       "craftedBy": [
         "simpleblocks:compressed_diorite",
@@ -18811,7 +19295,18 @@
         "en_us": "Compressed Dirt",
         "de_de": "Komprimierte Erde"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_dirt.png",
       "craftedBy": [
         "simpleblocks:compressed_dirt",
@@ -18828,7 +19323,18 @@
         "en_us": "Compressed End Stone",
         "de_de": "Komprimierter Endstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_end_stone.png",
       "craftedBy": [
         "simpleblocks:compressed_end_stone",
@@ -18845,7 +19351,18 @@
         "en_us": "Compressed Granite",
         "de_de": "Komprimierter Granit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_granite.png",
       "craftedBy": [
         "simpleblocks:compressed_granite",
@@ -18862,7 +19379,18 @@
         "en_us": "Compressed Gravel",
         "de_de": "Komprimierter Kies"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_gravel.png",
       "craftedBy": [
         "simpleblocks:compressed_gravel",
@@ -18879,7 +19407,18 @@
         "en_us": "Compressed Mud",
         "de_de": "Komprimierter Schlamm"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_mud.png",
       "craftedBy": [
         "simpleblocks:compressed_mud",
@@ -18896,7 +19435,18 @@
         "en_us": "Compressed Netherrack",
         "de_de": "Komprimiertes Netherrack"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_netherrack.png",
       "craftedBy": [
         "simpleblocks:compressed_netherrack",
@@ -18913,7 +19463,18 @@
         "en_us": "Compressed Red Sand",
         "de_de": "Komprimierter Roter Sand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_red_sand.png",
       "craftedBy": [
         "simpleblocks:compressed_red_sand",
@@ -18930,7 +19491,18 @@
         "en_us": "Compressed Red Sandstone",
         "de_de": "Komprimierter Roter Sandstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_red_sandstone.png",
       "craftedBy": [
         "simpleblocks:compressed_red_sandstone",
@@ -18947,7 +19519,18 @@
         "en_us": "Compressed Sand",
         "de_de": "Komprimierter Sand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_sand.png",
       "craftedBy": [
         "simpleblocks:compressed_sand",
@@ -18964,7 +19547,18 @@
         "en_us": "Compressed Sandstone",
         "de_de": "Komprimierter Sandstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_sandstone.png",
       "craftedBy": [
         "simpleblocks:compressed_sandstone",
@@ -18981,7 +19575,18 @@
         "en_us": "Compressed Soul Sand",
         "de_de": "Komprimierter Seelensand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_soul_sand.png",
       "craftedBy": [
         "simpleblocks:compressed_soul_sand",
@@ -18998,7 +19603,18 @@
         "en_us": "Compressed Stone",
         "de_de": "Komprimierter Stein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_stone.png",
       "craftedBy": [
         "simpleblocks:compressed_stone",
@@ -19015,7 +19631,18 @@
         "en_us": "Compressed Tuff",
         "de_de": "Komprimierter Tuff"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Compressed block: 9 of its base block pressed into one. Craft it back into 9. Four times as hard as the base."
+        },
+        "de": {
+          "summary": "Komprimierter Block: 9 Grundblöcke in einen gepresst. Lässt sich wieder in 9 zerlegen. Viermal so hart wie der Grundblock."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/compressed_tuff.png",
       "craftedBy": [
         "simpleblocks:compressed_tuff",
@@ -19557,7 +20184,18 @@
         "en_us": "Dense Andesite",
         "de_de": "Dichter Andesit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_andesite.png",
       "craftedBy": [
         "simpleblocks:dense_andesite",
@@ -19574,7 +20212,18 @@
         "en_us": "Dense Blackstone",
         "de_de": "Dichter Schwarzstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_blackstone.png",
       "craftedBy": [
         "simpleblocks:dense_blackstone",
@@ -19591,7 +20240,18 @@
         "en_us": "Dense Clay",
         "de_de": "Dichter Ton"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_clay.png",
       "craftedBy": [
         "simpleblocks:dense_clay",
@@ -19608,7 +20268,18 @@
         "en_us": "Dense Cobbled Deepslate",
         "de_de": "Dichter Bruchtiefenschiefer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_cobbled_deepslate.png",
       "craftedBy": [
         "simpleblocks:dense_cobbled_deepslate",
@@ -19625,7 +20296,18 @@
         "en_us": "Dense Cobblestone",
         "de_de": "Dichter Bruchstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_cobblestone.png",
       "craftedBy": [
         "simpleblocks:dense_cobblestone",
@@ -19642,7 +20324,18 @@
         "en_us": "Dense Diorite",
         "de_de": "Dichter Diorit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_diorite.png",
       "craftedBy": [
         "simpleblocks:dense_diorite",
@@ -19659,7 +20352,18 @@
         "en_us": "Dense Dirt",
         "de_de": "Dichte Erde"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_dirt.png",
       "craftedBy": [
         "simpleblocks:dense_dirt",
@@ -19676,7 +20380,18 @@
         "en_us": "Dense End Stone",
         "de_de": "Dichter Endstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_end_stone.png",
       "craftedBy": [
         "simpleblocks:dense_end_stone",
@@ -19693,7 +20408,18 @@
         "en_us": "Dense Granite",
         "de_de": "Dichter Granit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_granite.png",
       "craftedBy": [
         "simpleblocks:dense_granite",
@@ -19710,7 +20436,18 @@
         "en_us": "Dense Gravel",
         "de_de": "Dichter Kies"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_gravel.png",
       "craftedBy": [
         "simpleblocks:dense_gravel",
@@ -19727,7 +20464,18 @@
         "en_us": "Dense Mud",
         "de_de": "Dichter Schlamm"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_mud.png",
       "craftedBy": [
         "simpleblocks:dense_mud",
@@ -19744,7 +20492,18 @@
         "en_us": "Dense Netherrack",
         "de_de": "Dichtes Netherrack"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_netherrack.png",
       "craftedBy": [
         "simpleblocks:dense_netherrack",
@@ -19761,7 +20520,18 @@
         "en_us": "Dense Red Sand",
         "de_de": "Dichter Roter Sand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_red_sand.png",
       "craftedBy": [
         "simpleblocks:dense_red_sand",
@@ -19778,7 +20548,18 @@
         "en_us": "Dense Red Sandstone",
         "de_de": "Dichter Roter Sandstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_red_sandstone.png",
       "craftedBy": [
         "simpleblocks:dense_red_sandstone",
@@ -19795,7 +20576,18 @@
         "en_us": "Dense Sand",
         "de_de": "Dichter Sand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_sand.png",
       "craftedBy": [
         "simpleblocks:dense_sand",
@@ -19812,7 +20604,18 @@
         "en_us": "Dense Sandstone",
         "de_de": "Dichter Sandstein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_sandstone.png",
       "craftedBy": [
         "simpleblocks:dense_sandstone",
@@ -19829,7 +20632,18 @@
         "en_us": "Dense Soul Sand",
         "de_de": "Dichter Seelensand"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_soul_sand.png",
       "craftedBy": [
         "simpleblocks:dense_soul_sand",
@@ -19846,7 +20660,18 @@
         "en_us": "Dense Stone",
         "de_de": "Dichter Stein"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_stone.png",
       "craftedBy": [
         "simpleblocks:dense_stone",
@@ -19863,7 +20688,18 @@
         "en_us": "Dense Tuff",
         "de_de": "Dichter Tuff"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/compact/",
+          "modules/simpleblocks/tools/generate_data.py"
+        ],
+        "en": {
+          "summary": "Dense block: 9 compressed blocks pressed into one, 16 times as hard as the base. Craft it back into 9."
+        },
+        "de": {
+          "summary": "Dichter Block: 9 komprimierte Blöcke in einen gepresst, 16-mal so hart wie der Grundblock. Lässt sich wieder in 9 zerlegen."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/dense_tuff.png",
       "craftedBy": [
         "simpleblocks:dense_tuff",
@@ -22331,84 +23167,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleblocks:collapsed_andesite",
-    "simpleblocks:collapsed_blackstone",
-    "simpleblocks:collapsed_clay",
-    "simpleblocks:collapsed_cobbled_deepslate",
-    "simpleblocks:collapsed_cobblestone",
-    "simpleblocks:collapsed_diorite",
-    "simpleblocks:collapsed_dirt",
-    "simpleblocks:collapsed_end_stone",
-    "simpleblocks:collapsed_granite",
-    "simpleblocks:collapsed_gravel",
-    "simpleblocks:collapsed_mud",
-    "simpleblocks:collapsed_netherrack",
-    "simpleblocks:collapsed_red_sand",
-    "simpleblocks:collapsed_red_sandstone",
-    "simpleblocks:collapsed_sand",
-    "simpleblocks:collapsed_sandstone",
-    "simpleblocks:collapsed_soul_sand",
-    "simpleblocks:collapsed_stone",
-    "simpleblocks:collapsed_tuff",
-    "simpleblocks:compact_andesite",
-    "simpleblocks:compact_blackstone",
-    "simpleblocks:compact_clay",
-    "simpleblocks:compact_cobbled_deepslate",
-    "simpleblocks:compact_cobblestone",
-    "simpleblocks:compact_diorite",
-    "simpleblocks:compact_dirt",
-    "simpleblocks:compact_end_stone",
-    "simpleblocks:compact_granite",
-    "simpleblocks:compact_gravel",
-    "simpleblocks:compact_mud",
-    "simpleblocks:compact_netherrack",
-    "simpleblocks:compact_red_sand",
-    "simpleblocks:compact_red_sandstone",
-    "simpleblocks:compact_sand",
-    "simpleblocks:compact_sandstone",
-    "simpleblocks:compact_soul_sand",
-    "simpleblocks:compact_stone",
-    "simpleblocks:compact_tuff",
-    "simpleblocks:compressed_andesite",
-    "simpleblocks:compressed_blackstone",
-    "simpleblocks:compressed_clay",
-    "simpleblocks:compressed_cobbled_deepslate",
-    "simpleblocks:compressed_cobblestone",
-    "simpleblocks:compressed_diorite",
-    "simpleblocks:compressed_dirt",
-    "simpleblocks:compressed_end_stone",
-    "simpleblocks:compressed_granite",
-    "simpleblocks:compressed_gravel",
-    "simpleblocks:compressed_mud",
-    "simpleblocks:compressed_netherrack",
-    "simpleblocks:compressed_red_sand",
-    "simpleblocks:compressed_red_sandstone",
-    "simpleblocks:compressed_sand",
-    "simpleblocks:compressed_sandstone",
-    "simpleblocks:compressed_soul_sand",
-    "simpleblocks:compressed_stone",
-    "simpleblocks:compressed_tuff",
-    "simpleblocks:dense_andesite",
-    "simpleblocks:dense_blackstone",
-    "simpleblocks:dense_clay",
-    "simpleblocks:dense_cobbled_deepslate",
-    "simpleblocks:dense_cobblestone",
-    "simpleblocks:dense_diorite",
-    "simpleblocks:dense_dirt",
-    "simpleblocks:dense_end_stone",
-    "simpleblocks:dense_granite",
-    "simpleblocks:dense_gravel",
-    "simpleblocks:dense_mud",
-    "simpleblocks:dense_netherrack",
-    "simpleblocks:dense_red_sand",
-    "simpleblocks:dense_red_sandstone",
-    "simpleblocks:dense_sand",
-    "simpleblocks:dense_sandstone",
-    "simpleblocks:dense_soul_sand",
-    "simpleblocks:dense_stone",
-    "simpleblocks:dense_tuff"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 14,
@@ -22423,7 +23182,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 76,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
