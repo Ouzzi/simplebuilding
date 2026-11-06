@@ -287,6 +287,15 @@ public final class DragonFightTests {
             plain.hurtServer(level, level.damageSources().mobAttack(d), 4f);
             float lostPlain = b - plain.getHealth();
             h.assertTrue(lostPlain > 0 && near(lostStrong, lostPlain * 1.3f), "dragon hits 30 % harder (" + lostStrong + " vs " + lostPlain + ")");
+            double capOld = DragonFightConfig.summonAttackCap;
+            DragonFightConfig.summonAttackCap = 1.2;
+            s.setSummons(2);
+            s.scan(level, d, center, two, 40);
+            h.assertTrue(near(DragonFightServer.attackFactor(d), 1.2) && near(d.getMaxHealth(), 780), "damage capped at 1.2, health keeps rising");
+            DragonFightConfig.summonAttackCap = capOld;
+            DragonTinted tint = (DragonTinted) d;
+            tint.simpleenddragonfight$setTinted(true);
+            h.assertTrue(tint.simpleenddragonfight$tinted(), "chorus tint flag is kept");
             FightSession.unscale(d);
             d.discard();
             h.succeed();
@@ -303,15 +312,30 @@ public final class DragonFightTests {
             h.assertTrue(DragonRewards.due(data, List.of(a, b)).size() == 2, "both participants are due from the 4th dragon");
             data.markReward(a);
             h.assertTrue(DragonRewards.due(data, List.of(a, b)).equals(List.of(b)), "once per player");
+            h.assertTrue(DragonRewards.dueJewel(data, List.of(a)).isEmpty(), "no jewel before the 10th dragon");
+            for (int i = 0; i < 6; i++) data.defeat(UUID.randomUUID());
+            h.assertTrue(DragonRewards.dueJewel(data, List.of(a, b)).size() == 2, "jewel due from the 10th dragon");
+            data.markJewel(a);
+            h.assertTrue(DragonRewards.dueJewel(data, List.of(a, b)).equals(List.of(b)), "jewel once per player");
+            int jewelFrom = DragonFightConfig.rewardJewelFromDragon;
+            DragonFightConfig.rewardJewelFromDragon = 0;
+            h.assertTrue(DragonRewards.dueJewel(data, List.of(b)).isEmpty(), "jewel 0 = off");
+            DragonFightConfig.rewardJewelFromDragon = jewelFrom;
+            data = new DragonKills();
+            for (int i = 0; i < 4; i++) data.defeat(UUID.randomUUID());
+            data.markReward(a);
+            data.markJewel(b);
             var round = DragonKills.CODEC.encodeStart(com.mojang.serialization.JavaOps.INSTANCE, data).getOrThrow();
             DragonKills back = DragonKills.CODEC.parse(com.mojang.serialization.JavaOps.INSTANCE, round).getOrThrow();
-            h.assertTrue(back.kills() == 4 && back.hasReward(a) && !back.hasReward(b) && back.defeat(fourth) == 4, "counter, rewarded players and last dragon are saved");
+            h.assertTrue(back.kills() == 4 && back.hasReward(a) && !back.hasReward(b) && back.hasJewel(b) && !back.hasJewel(a), "counter, rewarded players and jewel are saved");
             DragonFightConfig.rewardEnabled = false;
             h.assertTrue(DragonRewards.due(data, List.of(b)).isEmpty(), "switch off: no reward");
             DragonFightConfig.rewardEnabled = true;
             // placement: stand-in item (Simple Mobs may be absent), owner-only, once
             String old = DragonFightConfig.rewardItem;
             DragonFightConfig.rewardItem = "minecraft:diamond";
+            int oldJewel = DragonFightConfig.rewardJewelFromDragon;
+            DragonFightConfig.rewardJewelFromDragon = 0;
             try {
                 ServerLevel level = h.getLevel();
                 BlockPos center = h.absolutePos(new BlockPos(2, 1, 2));
@@ -329,6 +353,7 @@ public final class DragonFightTests {
                 items.forEach(net.minecraft.world.entity.Entity::discard);
             } finally {
                 DragonFightConfig.rewardItem = old;
+                DragonFightConfig.rewardJewelFromDragon = oldJewel;
             }
             h.succeed();
         });

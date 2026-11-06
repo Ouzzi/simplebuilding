@@ -3,7 +3,14 @@ package com.simplebuilding.modules.simpleenddragonfight.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simplebuilding.modules.simpleenddragonfight.DragonFightServer;
+import com.simplebuilding.modules.simpleenddragonfight.DragonTinted;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.world.entity.boss.enderdragon.phases.DragonPhaseInstance;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,7 +22,20 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
  * phases) and, above the 1024 max_health cap, damage scaled down so the dragon lasts its full player-scaled health.
  */
 @Mixin(EnderDragon.class)
-public abstract class EnderDragonMixin {
+public abstract class EnderDragonMixin implements DragonTinted {
+    @Unique private static final EntityDataAccessor<Boolean> SIMPLEENDDRAGONFIGHT_TINTED = SynchedEntityData.defineId(EnderDragon.class, EntityDataSerializers.BOOLEAN);
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void simpleenddragonfight$defineTint(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(SIMPLEENDDRAGONFIGHT_TINTED, false);
+    }
+
+    @Override
+    public boolean simpleenddragonfight$tinted() { return ((EnderDragon) (Object) this).getEntityData().get(SIMPLEENDDRAGONFIGHT_TINTED); }
+
+    @Override
+    public void simpleenddragonfight$setTinted(boolean tinted) { ((EnderDragon) (Object) this).getEntityData().set(SIMPLEENDDRAGONFIGHT_TINTED, tinted); }
+
     @ModifyArg(method = "aiStep", at = @At(value = "INVOKE", target = "moveRelative(FLnet/minecraft/world/phys/Vec3;)V"), index = 0)
     private float simpleenddragonfight$thrust(float speed) {
         return speed * DragonFightServer.speedFactor((EnderDragon) (Object) this);

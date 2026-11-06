@@ -7,6 +7,10 @@
     "DragonAttackMixin",
     "EnderDragonMixin"
   ],
+  "client": [
+    "DragonRenderStateMixin",
+    "DragonRendererMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

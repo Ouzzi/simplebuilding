@@ -143,7 +143,7 @@ public final class FightSession {
         }
         double speed = DragonScaling.speed(DragonFightConfig.speedMultiplier, DragonFightConfig.speedPerPlayer, DragonFightConfig.speedCap, players);
         DragonFightServer.setFactors(dragon.getUUID(), DragonScaling.damageFactor(target),
-                (float) Math.min(Math.max(speed, DragonFightConfig.summonSpeedCap), speed * summon), (float) summon);
+                (float) Math.min(Math.max(speed, DragonFightConfig.summonSpeedCap), speed * summon), (float) Math.min(summon, DragonFightConfig.summonAttackCap));
     }
 
     /** Back to Vanilla (module or switch off): removes the modifier, keeps the health share. */
@@ -160,6 +160,10 @@ public final class FightSession {
     private void startFight(EnderDragon dragon) {
         endFight();
         dragonId = dragon.getUUID();
+        if (dragon instanceof DragonTinted t) {
+            int from = DragonFightConfig.tintFromDragon;
+            t.simpleenddragonfight$setTinted(from > 0 && DragonKills.get(((ServerLevel) dragon.level()).getServer()).kills() + 1 >= from);
+        }
     }
 
     /** A new fight starts clean: waves, half state and queue reset; participants stay (they are still on the island). */
