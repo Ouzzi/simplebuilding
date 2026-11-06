@@ -2103,6 +2103,8 @@ function buildModSelect() {
     other.forEach(function (m) { opt(og, m.id, m.displayName, m.id === selectedMod); });
     modSelect.appendChild(og);
   }
+  /* WD25-24: a rebuild (language switch) keeps "All mods" selected while the all-mods page is open. */
+  if (/^#\/allmods/.test(location.hash)) modSelect.value = '#allmods';
 }
 buildModSelect();
 modSelect.addEventListener('change', function () {
