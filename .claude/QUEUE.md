@@ -116,7 +116,7 @@ Neu eingetragen (standen nur in /root/sb-tools-b/wd25.md bzw. /root/b-antworten-
 - [~] WI26-3 Zwei neue Tooltip-Stufen „Corrupted“ (Glitch) und „Void/Voided“; Vorschau zuerst (Status 01.11.: offen – Vorschau + Bau; Beleg: kein Treffer) [05.11. a-tip05: Enum + Variante A + Vorschau, offen Besitzer-Wahl]
 - [~] WI26-4 End-Schwingen: Legendary-Tooltip-Rang statt Cursed (Status 01.11.: offen – abhängig von WI26-3; Beleg: nicht belegt) [05.11. a-tip05: End Wings LEGENDARY (Variante A), offen Gate]
 - [~] (A, a-fix05, 05.11.) WI26-5 JEI „Mob Drops“: Opfer ohne Spawn-Ei (Abyssal Wither) bekommt Wither-Schädel mit Mob-Name links vom Pfeil, Ergebnis-Slots 18 px statt 26-px-Ausgabehintergrund (modules/simplelib MobDropCategory); offen JEI-Client-Sicht
-- [~] WI26-6 Enderherz ab dem 4. besiegten Drachen (1× pro Spieler, platziert um das Endportal) (Branch a-wi26-6: DragonKills/DragonRewards, Gametest dragon_reward grün fabric+standalone 17/17; offen: Mobs-requires, 4. Drache Chorus/Seelenfarbe, Ender-Juwel ab 10., Client-Sicht)
+- [~] WI26-6 Enderherz ab dem 4. besiegten Drachen (1× pro Spieler, platziert um das Endportal) (Branch a-wi26-6: DragonKills/DragonRewards, Gametest dragon_reward grün fabric+standalone 17/17; 06.11. c9a74915d: 4. Drache chorus-violett (Variante A, Client-Glow, tintFromDragon), Ender-Juwel simplemobs:ender_gem ab 10., summonAttackCap 2.0; fabric+standalone 17/17; offen: Mobs-requires, Client-Sicht Tönung, Vorschau-Wahl A/B)
 
 ## Besitzer 30.10. abends – In-Game-Abnahme 1 (IG31) – Bilder /root/sb-tools-a/owner-img/30-*
 A Leuchtfeuer/Conduits/Tabs
