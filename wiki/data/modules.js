@@ -28,7 +28,8 @@ window.WIKI_MODULES = [
       "simplemobs",
       "simpleresonance",
       "simpleenchanting",
-      "simplepads"
+      "simplepads",
+      "simplechisels"
     ],
     "optional": [
       "jei",
@@ -154,9 +155,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 8,
-      "features": 76
+      "features": 77
     },
-    "dataHash": "ee6a97cbeb69"
+    "dataHash": "7b8da5858dcd"
   },
   {
     "id": "simpleriding",
@@ -308,7 +309,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 79
     },
-    "dataHash": "9d70bc8235c0"
+    "dataHash": "9a2e84030489"
   },
   {
     "id": "simplesounds",
@@ -2103,5 +2104,37 @@ window.WIKI_MODULES = [
       "features": 1
     },
     "dataHash": "a6711562ef9d"
+  },
+  {
+    "id": "simplechisels",
+    "displayName": "Simple Chisels",
+    "description": "Seven chisels (Stone to Enderite) that move blocks one step along their family - stone to chiseled, bricks to cracked, planks to stairs to slabs - and back with sneak, with the enchantment Fast Chiseling, moved from SimpleBuilding (ids migrate). Other mods add their chains through data files.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleores",
+      "jei"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Seven chisels from Stone to Enderite that turn a block into the next one of its family right where it stands - stone into chiseled stone bricks, planks into stairs - and back again when you sneak, and the enchantment Fast Chiseling.",
+      "de": "Sieben Meißel von Stein bis Enderit, die einen Block an Ort und Stelle in den nächsten seiner Familie verwandeln - Stein in gemeißelte Steinziegel, Bretter in Treppen - und beim Schleichen wieder zurück, und die Verzauberung Schnelles Meißeln."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 8,
+      "recipes": 10,
+      "features": 7
+    },
+    "dataHash": "df9d6af83d77"
   }
 ];
