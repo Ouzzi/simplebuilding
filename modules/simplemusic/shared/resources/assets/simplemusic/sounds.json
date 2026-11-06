@@ -52,5 +52,17 @@
         "stream": true
       }
     ]
+  },
+  "block.disc_press.press": {
+    "subtitle": "subtitles.simplemusic.block.disc_press.press",
+    "sounds": [
+      "simplemusic:press/press"
+    ]
+  },
+  "block.disc_press.eject": {
+    "subtitle": "subtitles.simplemusic.block.disc_press.eject",
+    "sounds": [
+      "simplemusic:press/eject"
+    ]
   }
 }

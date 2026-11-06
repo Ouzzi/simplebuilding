@@ -8,7 +8,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
@@ -69,6 +70,10 @@ public class DiscPressBlockEntity extends BaseContainerBlockEntity implements Wo
         return pressed;
     }
 
+    /** Own press sounds (ElevenLabs, A-press07); sent as direct events, so no registry entry; a missing resource just plays nothing. */
+    private static final SoundEvent PRESS_SOUND = SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("simplemusic", "block.disc_press.press"));
+    private static final SoundEvent EJECT_SOUND = SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("simplemusic", "block.disc_press.eject"));
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, DiscPressBlockEntity be) {
         if (level instanceof ServerLevel server) be.tick(server);
     }
@@ -83,7 +88,7 @@ public class DiscPressBlockEntity extends BaseContainerBlockEntity implements Wo
             return;
         }
         if (progress == 0) {
-            level.playSound(null, worldPosition, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.5F, 0.8F);
+            level.playSound(null, worldPosition, PRESS_SOUND, SoundSource.BLOCKS, 0.8F, 1.0F);
         }
         if (++progress < DiscPress.PRESS_TICKS) return;
         progress = 0;
@@ -93,7 +98,7 @@ public class DiscPressBlockEntity extends BaseContainerBlockEntity implements Wo
         if (!items.get(DYE).isEmpty() && DiscPress.dyeColor(items.get(DYE)) != null) items.get(DYE).shrink(1);
         items.set(OUTPUT, result);
         pressed++;
-        level.playSound(null, worldPosition, SoundEvents.PISTON_CONTRACT, SoundSource.BLOCKS, 0.5F, 1.0F);
+        level.playSound(null, worldPosition, EJECT_SOUND, SoundSource.BLOCKS, 0.7F, 1.0F);
         setChanged();
     }
 
