@@ -128,6 +128,26 @@ public final class EndTests {
                     if (r.equals("W_bookshelf") && loaded("simplebuilding")) {
                         // DW04C-3: with SimpleBuilding the End bookshelf is made of Nihilit Books (SimpleBuilding's recipe, same id path).
                         key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", w.id(r)));
+                        // a-end07: that shelf wants 6 Nihilit planks of this wood (4 Nihilit Shards in a plus around its plank = 2) and 3 Nihilit Books,
+                        // not the plain planks. Read by id, no SimpleBuilding class.
+                        var sbItem = (java.util.function.Function<String, net.minecraft.world.item.Item>) path ->
+                                BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", path));
+                        var nihilPlanks = sbItem.apply("nihilith_" + w.id("W_planks"));
+                        var shard = new ItemStack(sbItem.apply("nihilith_shard"));
+                        var shelf = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(key).orElseThrow().value();
+                        var book = new ItemStack(sbItem.apply("nihilith_book"));
+                        java.util.function.Function<net.minecraft.world.item.Item, net.minecraft.world.item.crafting.CraftingInput> grid = planks ->
+                                net.minecraft.world.item.crafting.CraftingInput.of(3, 3, java.util.List.of(new ItemStack(planks), new ItemStack(planks), new ItemStack(planks),
+                                        book.copy(), book.copy(), book.copy(), new ItemStack(planks), new ItemStack(planks), new ItemStack(planks)));
+                        h.assertTrue(shelf.matches(grid.apply(nihilPlanks), h.getLevel()) && shelf.assemble(grid.apply(nihilPlanks)).is(w.bookshelf.asItem()),
+                                w.name + " bookshelf: 6 nihilit planks + 3 nihilit books");
+                        h.assertFalse(shelf.matches(grid.apply(w.planks.asItem()), h.getLevel()), w.name + " bookshelf no longer takes plain planks with SimpleBuilding");
+                        var planksRecipe = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE,
+                                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "nihilith_" + w.id("W_planks")))).orElseThrow().value();
+                        var plus = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, java.util.List.of(ItemStack.EMPTY, shard.copy(), ItemStack.EMPTY,
+                                shard.copy(), new ItemStack(w.planks), shard.copy(), ItemStack.EMPTY, shard.copy(), ItemStack.EMPTY));
+                        h.assertTrue(planksRecipe.matches(plus, h.getLevel()) && planksRecipe.assemble(plus).is(nihilPlanks) && planksRecipe.assemble(plus).getCount() == 2,
+                                w.name + ": 4 nihilit shards around a plank give 2 nihilit planks");
                     }
                     h.assertTrue(recipes.byKey(key).isPresent(), "recipe " + key.identifier());
                 }
