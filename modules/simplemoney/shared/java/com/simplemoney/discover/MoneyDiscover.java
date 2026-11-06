@@ -227,7 +227,6 @@ public final class MoneyDiscover {
             "simplebuilding:suspended_sand",
             "simplebuilding:velocity_gauge",
             "simplecrucibles:copper_bucket",
-            "simplecrucibles:enderite_bucket",
             "simplecrucibles:enderite_crucible",
             "simplefun:brick_snowball",
             "simplemachines:enderite_hopper",
@@ -346,6 +345,7 @@ public final class MoneyDiscover {
             "simplemoney:money_links_simplequalityoflife",
             "simplemoney:money_links_simpleriding",
             "simplemoney:money_links_simplesounds",
+            "simplemoney:money_links_simpletools",
             "simplemoney:money_links_simpletrims",
             "simplemoney:money_links_simpletweaks",
             "simplemoney:money_links_simplevisuals",
@@ -449,6 +449,7 @@ public final class MoneyDiscover {
             "simplepads:waxed_oxidized_copper_pressure_plate",
             "simplepads:waxed_weathered_copper_pressure_plate",
             "simplepads:weathered_copper_pressure_plate",
+            "simpletools:enderite_bucket",
             "simpletrims:emitting_trim_template",
             "simpletrims:glowing_trim_template",
             "simpletrims:pulsating_trim_template");

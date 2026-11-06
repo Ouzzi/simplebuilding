@@ -1629,17 +1629,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplecrucibles:enderite_bucket",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplecrucibles:copper_bucket",
       "tier": 0,
       "hours": 1.0,
@@ -3959,6 +3948,17 @@
       "level": 1,
       "stock": 2,
       "chance": 1
+    },
+    {
+      "item": "simpletools:enderite_bucket",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
     },
     {
       "item": "simpletrims:emitting_trim_template",

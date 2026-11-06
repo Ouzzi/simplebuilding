@@ -222,35 +222,19 @@ public final class ModuleGameTest {
         CrucibleTests.ALL.get("copper_bucket_fully_oxidized_scoops_nothing").accept(h);
     }
 
-    @GameTest(structure = "simplecrucibles:empty")
-    public void ceramicBucketHoldsWaterAndBreaksAfterFourPours(GameTestHelper h) {
-        CrucibleTests.ALL.get("ceramic_bucket_holds_water_and_breaks_after_four_pours").accept(h);
-    }
 
     @GameTest(structure = "simplecrucibles:empty")
     public void modBucketsStayInTheHandWhenPouringAndScooping(GameTestHelper h) {
         CrucibleTests.ALL.get("mod_buckets_stay_in_the_hand_when_pouring_and_scooping").accept(h);
     }
 
-    @GameTest(structure = "simplecrucibles:empty")
-    public void enderiteBucketTakesMilkAndDrinksOneFilling(GameTestHelper h) {
-        CrucibleTests.ALL.get("enderite_bucket_takes_milk_and_drinks_one_filling").accept(h);
-    }
 
-    @GameTest(structure = "simplecrucibles:empty")
-    public void enderiteBucketHoldsTwoBucketsOfOneFluid(GameTestHelper h) {
-        CrucibleTests.ALL.get("enderite_bucket_holds_two_buckets_of_one_fluid").accept(h);
-    }
 
     @GameTest(structure = "simplecrucibles:empty", maxTicks = 100)
     public void enderiteBucketTwoBucketsInCauldronsAndDispensers(GameTestHelper h) {
         CrucibleTests.ALL.get("enderite_bucket_two_buckets_in_cauldrons_and_dispensers").accept(h);
     }
 
-    @GameTest(structure = "simplecrucibles:empty")
-    public void ceramicLavaBucketScoopsPoursAndWears(GameTestHelper h) {
-        CrucibleTests.ALL.get("ceramic_lava_bucket_scoops_pours_and_wears").accept(h);
-    }
 
     @GameTest(structure = "simplecrucibles:empty")
     public void copperBucketOxidizesOnlyInHotbarOrOffhand(GameTestHelper h) {
@@ -267,15 +251,7 @@ public final class ModuleGameTest {
         CrucibleTests.ALL.get("copper_bucket_placed_weathers_and_frame_care").accept(h);
     }
 
-    @GameTest(structure = "simplecrucibles:empty")
-    public void ceramicBucketWithLavaIsBrittleAndBreaksOnPour(GameTestHelper h) {
-        CrucibleTests.ALL.get("ceramic_bucket_with_lava_is_brittle_and_breaks_on_pour").accept(h);
-    }
 
-    @GameTest(structure = "simplecrucibles:empty")
-    public void ceramicBucketWearsThroughStagesAndKeepsItsFilling(GameTestHelper h) {
-        CrucibleTests.ALL.get("ceramic_bucket_wears_through_stages_and_keeps_its_filling").accept(h);
-    }
 
     @GameTest(structure = "simplecrucibles:empty")
     public void ironBucketBreaksOnSoulLavaEnderiteNever(GameTestHelper h) {

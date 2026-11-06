@@ -40,3 +40,16 @@ grep `enderite_bucket|ceramic_bucket|clay_bucket` ohne Treffer in alten Besitzer
 
 ## Rueckfragen (selbst entschieden)
 - Enderit-Seelenlava-Eimer: Tools (nur mit Crucibles), nicht Crucibles, wegen craftRemainder-Reihenfolge.
+
+## Plan-Pruefung vor der Umsetzung (06.11., a-buckets07)
+Vereinfacht / korrigiert:
+- SimpleLib `com.simplelib.bucket`: `ModBucketItem` (= alte CrucibleBucketItem, unveraendert bis auf Feldzugriffe), `EnderiteMilkBucketItem`,
+  `CauldronBuckets`, `BucketDispensing`, Halter `Buckets` (Items, Komponenten, Registrier-Helfer). Simple Tools bettet SimpleLib schon ein.
+- `CauldronBucketMixin` (Vanilla-Kessel) zieht mit nach SimpleLib, sonst fehlt Tools allein das Kessel-Verhalten (im Plan vergessen).
+- Enderit-Seelenlava-Eimer: `Buckets.registerEnderiteSoulLava()` rufen BEIDE Module nach ihren Items; registriert wird beim zweiten Aufruf,
+  wenn Enderit-Eimer und Seelenlava da sind (keine Lazy-Fluid-Konstruktion, Ladereihenfolge egal). Id `simpletools:*`, Brenndauer aus der Crucibles-Config.
+- Komponenten: oxidation/waxed/wax_worn bleiben Crucibles (Kupfer), `ceramic_uses` -> `simpletools:ceramic_uses`; der Halter haelt die Typen.
+- JEI-Infoseiten bleiben in Crucibles (nur vorhandene Items); Tools allein hat keine JEI-Integration (offen, nicht Teil).
+- Tests: reine Enderit/Keramik-Tests -> Tools-Modul (`ToolsBucketTests`, auch standalone); gemischte (Seelenlava, verstaerkter Kessel) bleiben in
+  Crucibles mit `partnerMissing("simpletools")` + neue Combo crucibles+simpletools.
+- Forge/NeoForge-Loader nur mechanisch nachgezogen, nicht kompiliert (NUR 26.3 Fabric).

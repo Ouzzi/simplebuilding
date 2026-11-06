@@ -51,8 +51,11 @@ public final class ToolsDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simpletools:*ceramic_*bucket",
             "simpletools:anvil_repair_cost",
             "simpletools:biome_brush",
+            "simpletools:buckets",
+            "simpletools:ceramic_bucket",
             "simpletools:commands",
             "simpletools:config_anvilRepairKeepsCost",
             "simpletools:config_biomeBrushEnabled",
@@ -78,9 +81,13 @@ public final class ToolsDiscover {
             "simpletools:death_vault",
             "simpletools:death_vault_money",
             "simpletools:durability",
+            "simpletools:enderite_*bucket*",
+            "simpletools:enderite_bucket",
+            "simpletools:enderite_milk_bucket",
             "simpletools:furnace_lava",
             "simpletools:guide_book",
             "simpletools:item_frames",
+            "simpletools:raw_ceramic_bucket",
             "simpletools:soulbound",
             "simpletools:submod",
             "simpletools:thrift");

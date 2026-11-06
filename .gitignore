@@ -634,9 +634,9 @@ wiki/assets/textures/sheets/simplebuilding/simplecrucibles/item/copper_water_buc
 modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/item/copper_lava_bucket_3.png
 wiki/assets/textures/simplecrucibles/item/copper_lava_bucket_3.png
 wiki/assets/textures/sheets/simplebuilding/simplecrucibles/item/copper_lava_bucket_3.png
-modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/item/enderite_bucket.png
-wiki/assets/textures/simplecrucibles/item/enderite_bucket.png
-wiki/assets/textures/sheets/simplebuilding/simplecrucibles/item/enderite_bucket.png
+modules/simpletools/shared/resources/assets/simpletools/textures/item/enderite_bucket.png
+wiki/assets/textures/simpletools/item/enderite_bucket.png
+wiki/assets/textures/sheets/simplebuilding/simpletools/item/enderite_bucket.png
 # Simple Blocks Shapecutter (A4b): the Vanilla stonecutter with a polished metal base is Vanilla-derived (tools/textures/shapecutter_2026_10_21.py).
 modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shapecutter_top.png
 wiki/assets/textures/simpleblocks/block/shapecutter_top.png
