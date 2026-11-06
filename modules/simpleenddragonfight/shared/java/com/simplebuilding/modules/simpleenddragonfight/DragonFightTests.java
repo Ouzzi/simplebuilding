@@ -291,6 +291,47 @@ public final class DragonFightTests {
             d.discard();
             h.succeed();
         });
+        add("dragon_reward", h -> {
+            DragonKills data = new DragonKills();
+            UUID a = UUID.randomUUID(), b = UUID.randomUUID();
+            for (int i = 0; i < 3; i++) data.defeat(UUID.randomUUID());
+            h.assertTrue(data.kills() == 3 && DragonRewards.due(data, List.of(a)).isEmpty(), "no reward before the 4th dragon");
+            UUID fourth = UUID.randomUUID();
+            data.defeat(fourth);
+            data.defeat(fourth);
+            h.assertTrue(data.kills() == 4, "the same dragon counts once");
+            h.assertTrue(DragonRewards.due(data, List.of(a, b)).size() == 2, "both participants are due from the 4th dragon");
+            data.markReward(a);
+            h.assertTrue(DragonRewards.due(data, List.of(a, b)).equals(List.of(b)), "once per player");
+            var round = DragonKills.CODEC.encodeStart(com.mojang.serialization.JavaOps.INSTANCE, data).getOrThrow();
+            DragonKills back = DragonKills.CODEC.parse(com.mojang.serialization.JavaOps.INSTANCE, round).getOrThrow();
+            h.assertTrue(back.kills() == 4 && back.hasReward(a) && !back.hasReward(b) && back.defeat(fourth) == 4, "counter, rewarded players and last dragon are saved");
+            DragonFightConfig.rewardEnabled = false;
+            h.assertTrue(DragonRewards.due(data, List.of(b)).isEmpty(), "switch off: no reward");
+            DragonFightConfig.rewardEnabled = true;
+            // placement: stand-in item (Simple Mobs may be absent), owner-only, once
+            String old = DragonFightConfig.rewardItem;
+            DragonFightConfig.rewardItem = "minecraft:diamond";
+            try {
+                ServerLevel level = h.getLevel();
+                BlockPos center = h.absolutePos(new BlockPos(2, 1, 2));
+                List<Player> two = players(h, 2);
+                DragonKills real = DragonKills.get(level.getServer());
+                int before = real.kills();
+                for (int i = 0; i < DragonFightConfig.rewardFromDragon; i++) DragonRewards.onDefeated(level, UUID.randomUUID(), center, List.of());
+                int placed = DragonRewards.onDefeated(level, UUID.randomUUID(), center, two);
+                h.assertTrue(placed == 2 && real.kills() >= before + 5, "two rewards placed (got " + placed + ")");
+                var items = level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, new net.minecraft.world.phys.AABB(center).inflate(8), e -> e.getItem().is(net.minecraft.world.item.Items.DIAMOND));
+                h.assertTrue(items.size() == 2, "two items around the portal");
+                h.assertTrue(DragonRewards.onDefeated(level, UUID.randomUUID(), center, two) == 0, "second kill gives nothing more to the same players");
+                DragonFightConfig.rewardItem = "nomod:none";
+                h.assertTrue(DragonRewards.item() == null && DragonRewards.onDefeated(level, UUID.randomUUID(), center, List.of(player(h, GameType.SURVIVAL, new BlockPos(3, 1, 3)))) == 0, "unknown item: nothing given");
+                items.forEach(net.minecraft.world.entity.Entity::discard);
+            } finally {
+                DragonFightConfig.rewardItem = old;
+            }
+            h.succeed();
+        });
         add("no_simplebuilding_needed", h -> {
             // Principle 8: the module runs alone; nothing here may depend on SimpleBuilding being loaded.
             h.assertTrue(DragonFightRegistry.on(), "on by default without a super-mod");

@@ -22,7 +22,8 @@ public final class DragonFightConfig {
     /** All keys in file order (lang/wiki checks read this list). */
     public static final List<String> KEYS = List.of("enabled", "raiseBaseHealth", "maxPlayers", "countCreative", "leaveGraceSeconds",
             "islandRadius", "speedMultiplier", "speedPerPlayer", "speedCap", "crystalHealScaling", "mitesEnabled", "waveIntervalSeconds",
-            "miteBase", "miteExtraPerTwoPlayers", "maxAliveMites", "animationEnabled", "animationTicks", "maxQueued", "exposeSpawnEgg", "summonScaling", "summonMaxMultiplier", "summonSpeedCap");
+            "miteBase", "miteExtraPerTwoPlayers", "maxAliveMites", "animationEnabled", "animationTicks", "maxQueued", "exposeSpawnEgg", "summonScaling", "summonMaxMultiplier", "summonSpeedCap",
+            "rewardEnabled", "rewardFromDragon", "rewardItem");
 
     public static boolean enabled = true;
     /** On: 300 health per counted player; off: the Vanilla base (200) per player. */
@@ -51,6 +52,10 @@ public final class DragonFightConfig {
     public static double summonMaxMultiplier = 3.0;
     /** Highest total flight speed with summonings (the player speed cap stays below it). */
     public static double summonSpeedCap = 2.0;
+    /** WI26-6: reward item for every participant from the n-th defeated dragon on, once per player. */
+    public static boolean rewardEnabled = true;
+    public static int rewardFromDragon = 4;
+    public static String rewardItem = "simplemobs:ender_heart";
 
     private DragonFightConfig() {}
 
@@ -103,6 +108,9 @@ public final class DragonFightConfig {
         summonScaling = clamp(number(json, "summonScaling", 0.15), 0.0, 1.0);
         summonMaxMultiplier = clamp(number(json, "summonMaxMultiplier", 3.0), 1.0, 10.0);
         summonSpeedCap = clamp(number(json, "summonSpeedCap", 2.0), 0.5, 3.0);
+        rewardEnabled = bool(json, "rewardEnabled", true);
+        rewardFromDragon = clamp(integer(json, "rewardFromDragon", 4), 1, 1000);
+        rewardItem = text(json, "rewardItem", "simplemobs:ender_heart");
     }
 
     public static JsonObject toJson() {
@@ -129,6 +137,9 @@ public final class DragonFightConfig {
         o.addProperty("summonScaling", summonScaling);
         o.addProperty("summonMaxMultiplier", summonMaxMultiplier);
         o.addProperty("summonSpeedCap", summonSpeedCap);
+        o.addProperty("rewardEnabled", rewardEnabled);
+        o.addProperty("rewardFromDragon", rewardFromDragon);
+        o.addProperty("rewardItem", rewardItem);
         return o;
     }
 
@@ -138,6 +149,10 @@ public final class DragonFightConfig {
 
     private static boolean bool(JsonObject json, String key, boolean fallback) {
         try { return json.has(key) && json.get(key).isJsonPrimitive() ? json.get(key).getAsBoolean() : fallback; } catch (Exception e) { return fallback; }
+    }
+
+    private static String text(JsonObject json, String key, String fallback) {
+        try { return json.has(key) && json.get(key).isJsonPrimitive() && !json.get(key).getAsString().isBlank() ? json.get(key).getAsString().trim() : fallback; } catch (Exception e) { return fallback; }
     }
 
     private static int integer(JsonObject json, String key, int fallback) {
