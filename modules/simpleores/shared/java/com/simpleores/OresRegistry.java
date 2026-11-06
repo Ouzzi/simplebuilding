@@ -106,6 +106,12 @@ public final class OresRegistry {
     /** Sage Ore (owner 2026-10-01): rare like diamond, drops only experience (3-7) and rarely a sage orb (loot table); iron pickaxe. */
     public static final Block SAGE_ORE = block("sage_ore", Blocks.DIAMOND_ORE, s -> new DropExperienceBlock(UniformInt.of(3, 7), s));
     public static final Block DEEPSLATE_SAGE_ORE = block("deepslate_sage_ore", Blocks.DEEPSLATE_DIAMOND_ORE, s -> new DropExperienceBlock(UniformInt.of(3, 7), s));
+    /** 06.11.: Nether gold ore with rose flecks; one per Nether gold vein at most, below the lava ocean ({@link RoseGoldVeinFeature}). Drops a rose gold pressling. */
+    public static final Block NETHER_ROSE_GOLD_ORE = block("nether_rose_gold_ore", Blocks.NETHER_GOLD_ORE, s -> new DropExperienceBlock(UniformInt.of(0, 2), s));
+    /** 06.11.: sage ore of the Nether (netherrack) and the End (end stone); drops sage crystal shards. */
+    public static final Block NETHER_SAGE_ORE = block("nether_sage_ore", Blocks.NETHER_QUARTZ_ORE, s -> new DropExperienceBlock(UniformInt.of(2, 5), s));
+    public static final Block END_SAGE_ORE = block("end_sage_ore", Blocks.DIAMOND_ORE, s -> new DropExperienceBlock(UniformInt.of(2, 5), s));
+    public static final Block SAGE_CRYSTAL_BLOCK = block("sage_crystal_block", Blocks.GOLD_BLOCK, Block::new);
     public static final Block DIMENSIONAL_SCRAP = scrap("dimensional_scrap", Blocks.DEEPSLATE);
     public static final Block NETHER_DIMENSIONAL_SCRAP = scrap("nether_dimensional_scrap", Blocks.ANCIENT_DEBRIS);
     public static final Block END_DIMENSIONAL_SCRAP = scrap("end_dimensional_scrap", Blocks.END_STONE);
@@ -130,6 +136,8 @@ public final class OresRegistry {
             item(path, p -> FIRE_RESISTANT.contains(path) ? p.fireResistant() : p);
         }
         ITEMS.put("enderite_upgrade_template", upgradeTemplate(com.simplelib.api.RarityRules.apply("enderite_upgrade_template", new Item.Properties()).setId(itemKey("enderite_upgrade_template"))));
+        plain("sage_crystal_shard");
+        plain("sage_crystal");
         ITEMS.put("sage_orb", new com.simpleores.item.SageOrbItem(new Item.Properties().stacksTo(16).setId(itemKey("sage_orb"))));
         for (Alloy alloy : Alloy.values()) {
             plain(alloy.id + "_ingot");
@@ -234,11 +242,11 @@ public final class OresRegistry {
     }
 
     public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "deepslate_lead_ore", "raw_lead_block",
-            "sage_ore", "deepslate_sage_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
-    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "rose_bronze_block", "rose_gold_block", "enderite_block"};
+            "sage_ore", "deepslate_sage_ore", "nether_sage_ore", "end_sage_ore", "nether_rose_gold_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
+    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "rose_bronze_block", "rose_gold_block", "sage_crystal_block", "enderite_block"};
     public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "rose_bronze_pressling",
             "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
-            "enderite_ingot", "enderite_upgrade_template", "sage_orb"};
+            "enderite_ingot", "enderite_upgrade_template", "sage_crystal_shard", "sage_crystal", "sage_orb"};
     /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */
     public static final List<String> FROM_SIMPLELIB = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot",
             "enderite_block", "enderite_upgrade_template");

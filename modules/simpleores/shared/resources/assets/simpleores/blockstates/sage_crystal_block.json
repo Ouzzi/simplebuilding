@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpleores:block/sage_crystal_block"
+    }
+  }
+}

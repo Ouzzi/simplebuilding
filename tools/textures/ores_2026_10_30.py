@@ -10,6 +10,9 @@ distribution stay, so the soft transitions of PRINZIPIEN A8b are kept):
     rivets (variant c) or stays plain; variants a/b/c are shown in the preview, LEAD_VARIANT is the one built
   - silver arrow: the Vanilla arrow with its head recoloured silver (item 16 x 16 and entity 32 x 32); silver mirror: silver block frame + glass pane
   - rose gold apples (IG31-41): the Vanilla golden apple on the alloy ramp (variant a), or with a leaf (b); the enchanted apple shares the texture (glint)
+  - a-ores07 (06.11.): Nether Rose Gold Ore = Vanilla Nether gold ore with the gold flecks on the rose gold ramp; Nether/End Sage Ore = netherrack / end
+    stone with the green flecks of the committed sage ore laid over; sage crystal (ingot shape, or a gem), shard (amethyst shard) and block on the
+    sage ramp (green of the sage ore); variants a/b are shown in the preview, ROSE_ORE_VARIANT / CRYSTAL_VARIANT are the ones built
   - hammers (simplehammers, optional): the committed gold sledgehammer recoloured like the tools (iron sledgehammer as mask)
 
 vanilla_derived.py lists the outputs (MODULE_OUTPUTS['simpleores'] / ['simplehammers']) and calls derived(jar) / derived_hammers(jar).
@@ -39,6 +42,7 @@ RAMPS = {
     'silver': ['#ffffff', '#f0f4f8', '#dde4ec', '#c6d0dc', '#aebbca', '#93a1b3', '#778699', '#5b6a7e', '#3f4c5f', '#28313f'],
     'raw': ['#ebe8e3', '#d6d2cc', '#bfbab4', '#a8a39d', '#928d87', '#7b7772', '#65625e', '#4f4c49', '#3a3836', '#262524'],
 }
+RAMPS['sage'] = ['#f2ffc2', '#eeffa8', '#d6f56d', '#baee42', '#99d62c', '#80c41c', '#62a010', '#4a820e', '#336509', '#244806']   # the greens of the sage ore
 RAMPS.update({
     # lead: dull and heavy, clearly darker than silver. a = blue-grey, b = violet-grey, c = graphite
     'lead_a': ['#d4dbe3', '#b7c1cc', '#9aa7b5', '#808e9d', '#677583', '#515e6b', '#3e4954', '#2d363f', '#1f262d', '#14191f'],   # b-small04: original grey-blue ramp back (owner 03.11.); Karo leise + calmer gloss stay
@@ -55,6 +59,9 @@ ALLOYS = {'rose_bronze': 'hard', 'rose_gold': 'soft'}
 LEAD_VARIANT = 'a'      # ramp of lead_<v>; block rivets for 'c'
 ARROW_VARIANT = 'a'
 MIRROR_VARIANT = 'a'
+ROSE_ORE_VARIANT = 'a'    # a = rose flecks on the soft ramp, b = paler flecks, a few gold ones stay (hot ore)
+CRYSTAL_VARIANT = 'a'     # a = ingot shaped crystal + gold block shape, b = gem shaped crystal + amethyst block shape
+SAGE_ORE_SRC = ROOT / 'modules/simpleores/shared/resources/assets/simpleores/textures/block/sage_ore.png'
 APPLE_VARIANT = {'rose_bronze': 'a', 'rose_gold': 'a'}   # IG31-41: a = plain recolour, b = recolour + green leaf at the stem
 LEAF = ('#a3c75a', '#6f9a3c', '#466f2a')
 
@@ -265,6 +272,66 @@ def apple_image(j: 'Jar', ramp: str, v: str) -> Image.Image:
     return out
 
 
+def gold_fleck(_x, _y, p) -> bool:
+    """A fleck of the Vanilla Nether gold ore: yellow-orange on the red netherrack (g well above b; netherrack has g == b)."""
+    return p[3] > 0 and p[1] - p[2] >= 20
+
+
+def rose_ore(j: 'Jar', v: str) -> Image.Image:
+    """Nether Rose Gold Ore: the Vanilla Nether gold ore, the flecks recoloured on the rose gold ramp (b: paler, every third fleck pixel stays gold)."""
+    ore = j.img('block/nether_gold_ore')
+    out = ore.copy()
+    for y in range(ore.height):
+        for x in range(ore.width):
+            p = ore.getpixel((x, y))
+            if gold_fleck(x, y, p) and not (v == 'b' and (x + 2 * y) % 3 == 0):
+                out.putpixel((x, y), tone(p, 'soft', shift=-0.1 if v == 'b' else 0.2))
+    return out
+
+
+def sage_flecks() -> dict:
+    """(x, y) -> colour of the green pixels of the committed sage ore (the grey and grey-green stone is left out)."""
+    ore = Image.open(SAGE_ORE_SRC).convert('RGBA')
+    return {(x, y): ore.getpixel((x, y)) for y in range(16) for x in range(16)
+            if ore.getpixel((x, y))[3] and (ore.getpixel((x, y))[1] - ore.getpixel((x, y))[2] >= 30)}
+
+
+def sage_ore_on(base: Image.Image) -> Image.Image:
+    out = base.copy()
+    for (x, y), colour in sage_flecks().items():
+        out.putpixel((x, y), colour)
+    return out
+
+
+def norm_recolor(im: Image.Image, ramp: str, lo: float = 0.02, hi: float = 0.9) -> Image.Image:
+    """Any sprite onto a ramp: the sprite's own luminance span is spread over [lo, hi] (the Vanilla gold span of tone() does not fit gems)."""
+    lums = [lum(im.getpixel((x, y))) for y in range(im.height) for x in range(im.width) if im.getpixel((x, y))[3]]
+    top, bottom = max(lums), min(lums)
+    out = im.copy()
+    for y in range(im.height):
+        for x in range(im.width):
+            p = im.getpixel((x, y))
+            if p[3]:
+                t = lo + (hi - lo) * (top - lum(p)) / max(1.0, top - bottom)
+                out.putpixel((x, y), ramp_at(RAMPS[ramp], t) + (p[3],))
+    return out
+
+
+def sage_images(j: 'Jar', v: str) -> dict:
+    """Sage crystal family (a-ores07). v = 'a': crystal = the ingot shape, block = the gold block; 'b': crystal = a gem (diamond shape), block = amethyst structure."""
+    crystal = norm_recolor(j.img('item/gold_ingot' if v == 'a' else 'item/diamond'), 'sage')
+    block = norm_recolor(j.img('block/gold_block' if v == 'a' else 'block/amethyst_block'), 'sage')
+    return {'item/sage_crystal.png': crystal, 'item/sage_crystal_shard.png': norm_recolor(j.img('item/amethyst_shard'), 'sage'), 'block/sage_crystal_block.png': block}
+
+
+def ore_images(j: 'Jar', rose_v: str, crystal_v: str) -> dict:
+    out = {'block/nether_rose_gold_ore.png': rose_ore(j, rose_v),
+           'block/nether_sage_ore.png': sage_ore_on(j.img('block/netherrack')),
+           'block/end_sage_ore.png': sage_ore_on(j.img('block/end_stone'))}
+    out.update(sage_images(j, crystal_v))
+    return out
+
+
 def hard_share(im: Image.Image) -> float:
     """Share of neighbouring opaque pixel pairs with a luminance jump of 40 or more (PRINZIPIEN A8b: about 7 %, over 12 % is too hard)."""
     px = im.load()
@@ -309,6 +376,7 @@ def derived(jar) -> dict:
         out[f'item/{alloy}_apple.png'] = apple_image(j, ramp, APPLE_VARIANT[alloy])
     out.update(lead_images(j, LEAD_VARIANT))
     # The silver arrow (arrow_images) moved to Simple Arrows on 03.11.: arrows_derived.py draws it.
+    out.update(ore_images(j, ROSE_ORE_VARIANT, CRYSTAL_VARIANT))
     out['block/silver_sheet.png'] = sheet_image(j)
     out['block/silver_mirror.png'] = mirror_image(j, MIRROR_VARIANT)
     return out

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "sage_crystal",
+  "ingredients": [
+    "simpleores:sage_crystal_block"
+  ],
+  "result": {
+    "id": "simpleores:sage_crystal",
+    "count": 9
+  }
+}

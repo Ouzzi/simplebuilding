@@ -35,6 +35,14 @@ public final class OresFabric implements ModInitializer {
     private static final ResourceKey<PlacedFeature> SCRAP = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("dimensional_scrap_placed"));
     private static final ResourceKey<PlacedFeature> NETHER_SCRAP = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nether_dimensional_scrap_placed"));
     private static final ResourceKey<PlacedFeature> END_SCRAP = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("end_dimensional_scrap_placed"));
+    /** 06.11.: Nether gold veins that may hold one rose gold ore replace the two Vanilla placements; sage ore of the Nether and the End. */
+    private static final ResourceKey<PlacedFeature> ROSE_NETHER = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nether_gold_rose_placed"));
+    private static final ResourceKey<PlacedFeature> ROSE_DELTAS = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nether_gold_deltas_rose_placed"));
+    private static final ResourceKey<PlacedFeature> VANILLA_GOLD_NETHER = ResourceKey.create(Registries.PLACED_FEATURE, net.minecraft.resources.Identifier.withDefaultNamespace("ore_gold_nether"));
+    private static final ResourceKey<PlacedFeature> VANILLA_GOLD_DELTAS = ResourceKey.create(Registries.PLACED_FEATURE, net.minecraft.resources.Identifier.withDefaultNamespace("ore_gold_deltas"));
+    private static final ResourceKey<PlacedFeature> NETHER_SAGE = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nether_sage_ore_placed"));
+    private static final ResourceKey<PlacedFeature> END_SAGE = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("end_sage_ore_placed"));
+    private static final TagKey<Biome> END_SAGE_BIOMES = TagKey.create(Registries.BIOME, SimpleOres.id("has_end_sage_ore"));
     /** IG31-13: SimpleBuilding runs this initializer first (its items point at the Enderite here); the loader's own call then returns. */
     private static boolean initialized;
 
@@ -46,6 +54,7 @@ public final class OresFabric implements ModInitializer {
         // CMD24: /simpleores config for every option.
         com.simplelib.api.config.ConfigCommands.server(SimpleOres.MOD_ID).json(com.simpleores.config.OresConfig::toJson, com.simpleores.config.OresConfig::apply)
                 .file(FabricLoader.getInstance().getConfigDir(), com.simpleores.config.OresConfig.FILE).register();
+        com.simpleores.RoseGoldVeinFeature.register();
         OresRegistry.registerAll();
         com.simplelib.api.ModTabs.register(SimpleOres.MOD_ID, "ores", "itemgroup.simpleores.ores", () -> new ItemStack(OresRegistry.ITEMS.get("silver_ingot")));
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(ctx -> SimpleOres.on()), GenerationStep.Decoration.UNDERGROUND_ORES, SILVER);
@@ -59,6 +68,14 @@ public final class OresFabric implements ModInitializer {
                 .and(ctx -> SimpleOres.on() && com.simpleores.config.OresConfig.dimensionalScrap), GenerationStep.Decoration.UNDERGROUND_ORES, NETHER_SCRAP);
         BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd().or(BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_END))
                 .and(ctx -> SimpleOres.on() && com.simpleores.config.OresConfig.dimensionalScrap), GenerationStep.Decoration.UNDERGROUND_ORES, END_SCRAP);
+        var nether = BiomeSelectors.foundInTheNether().or(BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_NETHER));
+        BiomeModifications.create(SimpleOres.id("rose_gold_veins")).add(net.fabricmc.fabric.api.biome.v1.ModificationPhase.REPLACEMENTS, nether.and(ctx -> SimpleOres.on()), ctx -> {
+            var settings = ctx.getGenerationSettings();
+            if (settings.removeFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, VANILLA_GOLD_NETHER)) settings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, ROSE_NETHER);
+            if (settings.removeFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, VANILLA_GOLD_DELTAS)) settings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, ROSE_DELTAS);
+        });
+        BiomeModifications.addFeature(nether.and(ctx -> SimpleOres.on() && com.simpleores.config.OresConfig.sageOreOtherDimensions), GenerationStep.Decoration.UNDERGROUND_ORES, NETHER_SAGE);
+        BiomeModifications.addFeature(BiomeSelectors.tag(END_SAGE_BIOMES).and(ctx -> SimpleOres.on() && com.simpleores.config.OresConfig.sageOreOtherDimensions), GenerationStep.Decoration.UNDERGROUND_ORES, END_SAGE);
         // Enderite in End city treasure on its own (SimpleBuilding feeds it itself: SimpleLibApi.materialLootByPartner).
         net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) -> com.simpleores.OresLoot.apply(key, table::withPool));
         tab(CreativeModeTabs.NATURAL_BLOCKS, Items.GOLD_ORE, OresRegistry.NATURAL);

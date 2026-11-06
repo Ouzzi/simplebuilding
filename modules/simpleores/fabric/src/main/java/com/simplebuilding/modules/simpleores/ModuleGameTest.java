@@ -132,4 +132,19 @@ public final class ModuleGameTest {
     public void appleRecipes(GameTestHelper h) {
         OresTests.ALL.get("apple_recipes").accept(h);
     }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void roseGoldVeinRule(GameTestHelper h) {
+        OresTests.ALL.get("rose_gold_vein_rule").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void roseGoldOreDropsAndSmelting(GameTestHelper h) {
+        OresTests.ALL.get("rose_gold_ore_drops_and_smelting").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void sageCrystalChain(GameTestHelper h) {
+        OresTests.ALL.get("sage_crystal_chain").accept(h);
+    }
 }

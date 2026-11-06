@@ -10,6 +10,10 @@
     "simpleores:silver_sheet",
     "simpleores:rose_bronze_block",
     "simpleores:rose_gold_block",
+    "simpleores:nether_rose_gold_ore",
+    "simpleores:nether_sage_ore",
+    "simpleores:end_sage_ore",
+    "simpleores:sage_crystal_block",
     "simpleores:sage_ore",
     "simpleores:deepslate_sage_ore"
   ]

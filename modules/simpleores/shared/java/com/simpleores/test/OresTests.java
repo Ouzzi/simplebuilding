@@ -99,8 +99,8 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
-            check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap"))
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance"))
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
                     , "config defaults");
             h.succeed();
@@ -517,6 +517,129 @@ public final class OresTests {
                 }
             }
             check(h, min >= -64 && max <= 48 && min < -50 && max > 36, "veins between Y -64 and 48, measured " + min + " to " + max);
+            h.succeed();
+        });
+        ALL.put("rose_gold_vein_rule", h -> {
+            ServerLevel level = h.getLevel();
+            var features = level.registryAccess().lookupOrThrow(Registries.FEATURE);
+            var placedRegistry = level.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE);
+            check(h, features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("nether_gold_rose"))) instanceof com.simpleores.RoseGoldVeinFeature, "the vein feature is the rose gold vein");
+            com.simpleores.RoseGoldVeinFeature vein = (com.simpleores.RoseGoldVeinFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("nether_gold_rose")));
+            check(h, vein.size() == 10 && vein.targetStates().size() == 2 && vein.targetStates().get(0).state().is(OresRegistry.NETHER_ROSE_GOLD_ORE)
+                    && vein.targetStates().get(1).state().is(Blocks.NETHER_GOLD_ORE), "veins of 10, rose gold ore first, Nether gold ore second");
+            RandomSource random = RandomSource.create(3L);
+            for (var target : vein.targetStates()) check(h, target.target().test(Blocks.NETHERRACK.defaultBlockState(), BlockPos.ZERO, random) && !target.target().test(Blocks.STONE.defaultBlockState(), BlockPos.ZERO, random), "only in netherrack");
+            check(h, perChunk(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nether_gold_rose_placed")))) == 10.0
+                    && perChunk(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nether_gold_deltas_rose_placed")))) == 20.0, "same tries per chunk as Vanilla (10 and 20)");
+            // The rule alone: one per vein, only below Y 31, never at chance 0.
+            check(h, com.simpleores.RoseGoldVeinFeature.mayBeRoseGold(false, 30, 100.0, random) && !com.simpleores.RoseGoldVeinFeature.mayBeRoseGold(false, 31, 100.0, random)
+                    && !com.simpleores.RoseGoldVeinFeature.mayBeRoseGold(true, 0, 100.0, random) && !com.simpleores.RoseGoldVeinFeature.mayBeRoseGold(false, 0, 0.0, random), "rule: y < 31, one per vein, chance 0 = none");
+            // Candidate blocks of one vein, driven through canPlaceOre exactly as OreFeature does: at most one rose gold ore.
+            double chance = OresConfig.roseGoldOreChance;
+            try {
+                check(h, chance == 2.0, "default chance 2 %: " + chance);
+                BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+                var netherrack = Blocks.NETHERRACK.defaultBlockState();
+                OresConfig.roseGoldOreChance = 100.0;
+                for (int v = 0; v < 20; v++) {
+                    com.simpleores.RoseGoldVeinFeature.beginVein();
+                    int rose = 0;
+                    for (int i = 0; i < 40; i++) {
+                        pos.set(i, 20 + (i % 10), 0);
+                        if (vein.canPlaceOre(netherrack, p -> netherrack, random, vein.targetStates().get(0), pos)) rose++;
+                    }
+                    check(h, rose == 1, "a vein holds exactly one rose gold ore at chance 100 %, found " + rose);
+                }
+                com.simpleores.RoseGoldVeinFeature.beginVein();
+                for (int y : new int[] {31, 32, 60, 120}) {
+                    pos.set(0, y, 0);
+                    check(h, !vein.canPlaceOre(netherrack, p -> netherrack, random, vein.targetStates().get(0), pos), "no rose gold ore at Y " + y);
+                }
+                pos.set(0, 30, 0);
+                check(h, vein.canPlaceOre(netherrack, p -> netherrack, random, vein.targetStates().get(0), pos), "rose gold ore possible at Y 30");
+                com.simpleores.RoseGoldVeinFeature.beginVein();
+                check(h, !vein.canPlaceOre(Blocks.STONE.defaultBlockState(), p -> netherrack, random, vein.targetStates().get(0), pos), "only netherrack is replaced");
+                check(h, vein.canPlaceOre(netherrack, p -> netherrack, random, vein.targetStates().get(1), pos), "the Nether gold ore target is untouched by the rule");
+                OresConfig.roseGoldOreChance = 0.0;
+                com.simpleores.RoseGoldVeinFeature.beginVein();
+                for (int i = 0; i < 40; i++) {
+                    pos.set(i, 10, 0);
+                    check(h, !vein.canPlaceOre(netherrack, p -> netherrack, random, vein.targetStates().get(0), pos), "chance 0 never places");
+                }
+                // The default 2 %: about one per 50 candidate blocks over many single-block veins.
+                OresConfig.roseGoldOreChance = 2.0;
+                int hits = 0;
+                for (int i = 0; i < 5000; i++) {
+                    com.simpleores.RoseGoldVeinFeature.beginVein();
+                    pos.set(0, 10, 0);
+                    if (vein.canPlaceOre(netherrack, p -> netherrack, random, vein.targetStates().get(0), pos)) hits++;
+                }
+                check(h, hits > 50 && hits < 160, "2 % of 5000 candidates, measured " + hits);
+            } finally {
+                OresConfig.roseGoldOreChance = chance;
+                com.simpleores.RoseGoldVeinFeature.beginVein();
+            }
+            h.succeed();
+        });
+        ALL.put("rose_gold_ore_drops_and_smelting", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos pos = h.absolutePos(new BlockPos(2, 1, 2));
+            ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
+            level.setBlockAndUpdate(pos, OresRegistry.NETHER_ROSE_GOLD_ORE.defaultBlockState());
+            List<ItemStack> drops = Block.getDrops(level.getBlockState(pos), level, pos, null, null, pick);
+            check(h, !drops.isEmpty() && drops.stream().allMatch(s -> s.is(item("rose_gold_pressling"))), "the ore drops a rose gold pressing: " + drops);
+            check(h, level.getBlockState(pos).requiresCorrectToolForDrops() && !new ItemStack(Items.WOODEN_PICKAXE).isCorrectToolForDrops(level.getBlockState(pos))
+                    && pick.isCorrectToolForDrops(level.getBlockState(pos)) && level.getBlockState(pos).is(BlockTags.GUARDED_BY_PIGLINS), "iron pickaxe, piglins guard it");
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            var recipes = level.getServer().getRecipeManager();
+            SingleRecipeInput in = new SingleRecipeInput(stack("nether_rose_gold_ore"));
+            var smelting = recipes.getRecipeFor(RecipeType.SMELTING, in, level);
+            var blasting = recipes.getRecipeFor(RecipeType.BLASTING, in, level);
+            check(h, smelting.isPresent() && smelting.get().value().assemble(in).is(item("rose_gold_ingot")) && blasting.isPresent() && blasting.get().value().assemble(in).is(item("rose_gold_ingot")),
+                    "ore -> rose gold ingot in furnace and blast furnace");
+            h.succeed();
+        });
+        ALL.put("sage_crystal_chain", h -> {
+            ServerLevel level = h.getLevel();
+            ItemStack shards = craft(h, CraftingInput.of(2, 2, List.of(stack("sage_crystal_shard"), stack("sage_crystal_shard"), stack("sage_crystal_shard"), stack("sage_crystal_shard"))));
+            check(h, shards.is(item("sage_crystal")) && shards.getCount() == 1, "4 shards -> 1 sage crystal: " + shards);
+            check(h, craft(h, CraftingInput.of(2, 2, List.of(stack("sage_crystal_shard"), stack("sage_crystal_shard"), stack("sage_crystal_shard"), ItemStack.EMPTY))).isEmpty(), "3 shards make nothing");
+            ItemStack[] nine = new ItemStack[9];
+            java.util.Arrays.fill(nine, stack("sage_crystal"));
+            check(h, craft(h, of(nine)).is(item("sage_crystal_block")), "9 crystals -> block");
+            ItemStack back = craft(h, CraftingInput.of(1, 1, List.of(stack("sage_crystal_block"))));
+            check(h, back.is(item("sage_crystal")) && back.getCount() == 9, "block -> 9 crystals");
+            check(h, new ItemStack(item("sage_crystal")).is(net.minecraft.tags.TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "ingots/sage_crystal"))), "the crystal is an ingot");
+            BlockPos pos = h.absolutePos(new BlockPos(2, 1, 2));
+            ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
+            for (Block ore : new Block[] {OresRegistry.NETHER_SAGE_ORE, OresRegistry.END_SAGE_ORE}) {
+                level.setBlockAndUpdate(pos, ore.defaultBlockState());
+                check(h, level.getBlockState(pos).is(net.minecraft.tags.TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", "ores/sage"))), ore + " is a sage ore");
+                check(h, level.getBlockState(pos).requiresCorrectToolForDrops() && !new ItemStack(Items.STONE_PICKAXE).isCorrectToolForDrops(level.getBlockState(pos)) && pick.isCorrectToolForDrops(level.getBlockState(pos)), ore + " needs an iron pickaxe");
+                for (int i = 0; i < 12; i++) {
+                    List<ItemStack> drops = Block.getDrops(level.getBlockState(pos), level, pos, null, null, pick);
+                    int n = drops.stream().filter(s -> s.is(item("sage_crystal_shard"))).mapToInt(ItemStack::getCount).sum();
+                    check(h, n >= 1 && n == drops.stream().mapToInt(ItemStack::getCount).sum(), ore + " drops shards (1 to 3 plus Fortune): " + drops);
+                }
+            }
+            level.setBlockAndUpdate(pos, OresRegistry.SAGE_CRYSTAL_BLOCK.defaultBlockState());
+            List<ItemStack> own = Block.getDrops(level.getBlockState(pos), level, pos, null, null, pick);
+            check(h, own.size() == 1 && own.getFirst().is(item("sage_crystal_block")), "the block drops itself");
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            // World generation: moderate numbers, the End ore only in End stone.
+            var features = level.registryAccess().lookupOrThrow(Registries.FEATURE);
+            var placedRegistry = level.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE);
+            OreFeature nether = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("nether_sage_ore")));
+            OreFeature end = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("end_sage_ore")));
+            RandomSource random = RandomSource.create(5L);
+            check(h, nether != null && end != null && nether.size() == 4 && end.size() == 4, "veins of 4");
+            check(h, nether.targetStates().get(0).state().is(OresRegistry.NETHER_SAGE_ORE) && nether.targetStates().get(0).target().test(Blocks.NETHERRACK.defaultBlockState(), BlockPos.ZERO, random)
+                    && !nether.targetStates().get(0).target().test(Blocks.END_STONE.defaultBlockState(), BlockPos.ZERO, random), "nether ore in netherrack");
+            check(h, end.targetStates().get(0).state().is(OresRegistry.END_SAGE_ORE) && end.targetStates().get(0).target().test(Blocks.END_STONE.defaultBlockState(), BlockPos.ZERO, random)
+                    && !end.targetStates().get(0).target().test(Blocks.NETHERRACK.defaultBlockState(), BlockPos.ZERO, random), "end ore only in end stone");
+            double netherPerChunk = perChunk(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nether_sage_ore_placed"))));
+            double endPerChunk = perChunk(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("end_sage_ore_placed"))));
+            check(h, netherPerChunk == 5.0 && endPerChunk == 3.0, "moderate: 5 and 3 veins per chunk, measured " + netherPerChunk + " / " + endPerChunk);
             h.succeed();
         });
         ALL.put("guide_book", com.simpleores.guide.OresGuide::gameTest);

@@ -15,7 +15,7 @@ import vanilla_derived  # noqa: E402
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OresConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords',
-                       'sageOre', 'dimensionalScrap'], config_keys
+                       'sageOre', 'dimensionalScrap', 'sageOreOtherDimensions', 'roseGoldOreChance'], config_keys
 BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
           'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block')
 ALLOYS = ('rose_bronze', 'rose_gold')
