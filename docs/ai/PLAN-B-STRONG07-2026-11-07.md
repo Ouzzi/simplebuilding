@@ -64,3 +64,16 @@ Ein sbt-Lauf: Compile `:mc26_3:fabric`, `:modules:simplelib/simplebeacons/simple
 - IdMoves nur, wenn die alte ID fehlt → alte Registrierung im selben Commit entfernt.
 - Welten ohne Simple Beacons, aber mit alter Vorlage: konnte es vorher nicht geben (Item gehörte Beacons).
 - NeoForge/Forge: geteilter Code/Mixin-JSON gilt mit, wird aber nicht kompiliert/getestet (Regel „nur 26.3 Fabric“).
+
+## Abweichungen / Ergebnis (07.11.)
+
+- Item-Modelle, Rezept und Fortschritt der Splitter-Vorlage erzeugt `modules/simplelib/tools/gen_resources.py` (Gruppe
+  `strong_upgrade`), nicht von Hand in `shared/`.
+- Kreativ-Tab: im SB-Paket ohne Simple Beacons stand die Vorlage in keinem Tab (`data_integrity_…_creative_tab`). SimpleLib
+  bietet Vorlage + Splitter jetzt (nur angefordert) dem Vanilla-Zutaten-Tab an; die Tab-Regeln ziehen sie in den Simple-Lib-Tab.
+  Nur Fabric (NeoForge/Forge-Hook offen, Regel „nur 26.3 Fabric“).
+- Zusätzlich: Questionary-Einträge nach `assets/simplelib/questionary`, Mod-Icon-Motiv Beacons liest die Vorlage aus SimpleLib
+  (`MOTIF_FROM`), Textur-Generatoren (`wither21`, `beacons_a29`) zeigen auf den neuen Pfad, Simple-Mobs-Wiki/Questionary ohne
+  Netherit-Hinweis.
+- Tests: Lauf 1 Compile grün, Module 527/527 (simplelib 55, beacons 38+38, mobs 198+198), data_integrity 47/48 (Tab) → Fix;
+  Lauf 2 data_integrity 48/48, simplelib + beacons (+standalone) 131/131.
