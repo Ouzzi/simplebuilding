@@ -107,7 +107,9 @@
   "itemgroup.simplelib.lib": "Simple Lib",
   "simplelib.tab.slotalert": "Slot-Alarm",
   "text.autoconfig.simplelib.option.slotAlert": "Roter Strahl bei auslösenden Items (dieser Client)",
-  "text.autoconfig.simplelib.option.slotAlert.@Tooltip": "Ein langsamer roter Leuchtturm-Strahl dreht sich\nhinter einem Item im Slot, solange es einen\nEffekt auf dich auslöst (z. B. Kollabierte Blöcke: Langsamkeit).\nStandard: true.",
-  "text.autoconfig.simplelib.option.slotAlertReducedMotion": "Ruhiger Strahl (dieser Client)",
-  "text.autoconfig.simplelib.option.slotAlertReducedMotion.@Tooltip": "Statt des drehenden Strahls glüht der Slot still\nund atmet langsam (keine Bewegung).\nStandard: false."
+  "text.autoconfig.simplelib.option.slotAlert.@Tooltip": "Ein roter Schimmer pulsiert weich hinter einem\nItem im Slot (Inventar und Hotbar), solange es einen\nEffekt auf dich auslöst (z. B. Kollabierte Blöcke: Langsamkeit).\nStandard: true.",
+  "text.autoconfig.simplelib.option.slotAlertReducedMotion": "Ruhiges Glühen (dieser Client)",
+  "text.autoconfig.simplelib.option.slotAlertReducedMotion.@Tooltip": "Wie das Pulsieren, aber ohne Bewegung: der Slot\nglüht still. Gilt auch bei aktivem Leuchtturm-Strahl.\nStandard: false.",
+  "text.autoconfig.simplelib.option.slotAlertBeam": "Leuchtturm-Strahl (dieser Client)",
+  "text.autoconfig.simplelib.option.slotAlertBeam.@Tooltip": "Statt des weichen Pulsierens dreht sich ein roter\nStrahl langsam hinter dem Item, wie ein Leuchtturm.\nStandard: false."
 }

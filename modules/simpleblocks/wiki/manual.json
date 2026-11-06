@@ -604,7 +604,7 @@
         "details": [
           "Every step is reversible at the crafting table: 1 Compressed, Dense or Collapsed block gives back 9 of the stage below.",
           "Same sound, tool and drops rule as the base block, but mining takes about 4x (Compressed), 16x (Dense) and 64x (Collapsed) as long. Compressed sand and gravel do not fall.",
-          "Collapsed blocks are so dense that they slow you down while they are in your inventory: Slowness I, from 2 stacks Slowness II, from 9 stacks Slowness III (a few seconds, refreshed; switch collapsed.enabled in /simpleblocks config). The slot of such an item pulses with a slow red lighthouse beam (Simple Library, client option slotAlert)."
+          "Collapsed blocks are so dense that they slow you down while they are in your inventory: Slowness I, from 2 stacks Slowness II, from 9 stacks Slowness III (a few seconds, refreshed; switch collapsed.enabled in /simpleblocks config). The slot of such an item glows in a soft, slowly pulsing red, in the inventory and the hotbar (Simple Library, client option slotAlert)."
         ]
       },
       "de": {
@@ -613,7 +613,7 @@
         "details": [
           "Jeder Schritt ist an der Werkbank umkehrbar: 1 komprimierter, dichter oder kollabierter Block ergibt wieder 9 der Stufe darunter.",
           "Gleicher Klang, gleiches Werkzeug und gleiche Drop-Regel wie der Grundblock, der Abbau dauert aber etwa 4x (komprimiert), 16x (dicht) und 64x (kollabiert) so lang. Komprimierter Sand und Kies fallen nicht.",
-          "Kollabierte Blöcke sind so dicht, dass sie dich im Inventar verlangsamen: Langsamkeit I, ab 2 Stapeln Langsamkeit II, ab 9 Stapeln Langsamkeit III (wenige Sekunden, wird erneuert; Schalter collapsed.enabled in /simpleblocks config). Der Slot eines solchen Items pulsiert in einem langsamen roten Leuchtturm-Kegel (Simple Library, Client-Option slotAlert)."
+          "Kollabierte Blöcke sind so dicht, dass sie dich im Inventar verlangsamen: Langsamkeit I, ab 2 Stapeln Langsamkeit II, ab 9 Stapeln Langsamkeit III (wenige Sekunden, wird erneuert; Schalter collapsed.enabled in /simpleblocks config). Der Slot eines solchen Items glüht in weichem, langsam pulsierendem Rot, im Inventar und in der Hotbar (Simple Library, Client-Option slotAlert)."
         ]
       }
     },
