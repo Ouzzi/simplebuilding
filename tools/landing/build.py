@@ -9,23 +9,23 @@ os.makedirs(OUT, exist_ok=True)
 # (id, Name, Kurzbeschreibung, Akzentfarbe)
 FEATURED = [
  ('simplebuilding','SimpleBuilding','Das Kernmod: praktisches Bauen, Graben und Werkzeuge, auf dem die Familie aufbaut.','#c8893a'),
- ('simplehammers','Simple Hammers','Sieben Vorschlaghaemmer von Stein bis Enderit. Jeder baut ab wie eine Spitzhacke, nur flaechig.','#7a8ea3'),
+ ('simplehammers','Simple Hammers','Sieben Vorschlaghämmer von Stein bis Enderit. Jeder baut ab wie eine Spitzhacke, nur flächig.','#7a8ea3'),
  ('simplecrucibles','Simple Crucibles','Tiegel kochen ohne Brennstoff alle Slots gleichzeitig, geheizt vom Block darunter.','#d8602f'),
- ('simpleovens','Simple Ovens','Drei verbesserte Stufen fuer Ofen, Raeucherofen und Schmelzofen.','#b5472a'),
- ('simpleores','Simple Ores','Silber, Rosegold und weitere Metalle fuer Werkzeuge, Ruestung und Bloecke.','#c9a227'),
- ('simplemobs','Simple Mobs','Neue Kreaturen und ein selbst beschwoerbarer Boss in der Deep Dark.','#3d8f6a'),
+ ('simpleovens','Simple Ovens','Drei verbesserte Stufen für Ofen, Räucherofen und Schmelzofen.','#b5472a'),
+ ('simpleores','Simple Ores','Silber, Rosegold und weitere Metalle für Werkzeuge, Rüstung und Blöcke.','#c9a227'),
+ ('simplemobs','Simple Mobs','Neue Kreaturen und ein selbst beschwörbarer Boss in der Deep Dark.','#3d8f6a'),
  ('simplestorage','Simple Storage','Kisten und Regale, die viel Platz auf wenig Raum bieten.','#8a6a43'),
- ('simplemoney','Simple Money','Muenzen, Geldboerse und Handel fuer eigene Wirtschaftssysteme.','#d4af37'),
+ ('simplemoney','Simple Money','Münzen, Geldbörse und Handel für eigene Wirtschaftssysteme.','#d4af37'),
  ('simpleblocks','Simple Blocks','Alle Baublocke an einem Ort: Steinmetz-Varianten, Dekoration, Muster.','#6c7a89'),
- ('simplemusic','Simple Music','Schallplatten, Instrumente und Musik fuer die Welt.','#8e5bbd'),
- ('simplemobheads','Simple Mobheads','97 Koepfe: jeder Mob ohne Vanilla-Kopf als Deko und Trophaee.','#c0504d'),
- ('simplechallenges','Simple Challenges','Waehle eine Herausforderung - ohne Wahl aendert das Mod nichts.','#2f7fb5'),
- ('simpleend','Simple End','Zwei End-Hoelzer mit vollem Holzset und neue Dinge fuers Ende.','#7b5ea7'),
- ('simplesandwiches','Simple Sandwiches','Ein Brot, bis zu fuenf Zutaten, optional Butter: eigene Sandwiches bauen.','#d9a441'),
+ ('simplemusic','Simple Music','Schallplatten, Instrumente und Musik für die Welt.','#8e5bbd'),
+ ('simplemobheads','Simple Mobheads','97 Köpfe: jeder Mob ohne Vanilla-Kopf als Deko und Trophäe.','#c0504d'),
+ ('simplechallenges','Simple Challenges','Wähle eine Herausforderung - ohne Wahl ändert das Mod nichts.','#2f7fb5'),
+ ('simpleend','Simple End','Zwei End-Hölzer mit vollem Holzset und neue Dinge fürs Ende.','#7b5ea7'),
+ ('simplesandwiches','Simple Sandwiches','Ein Brot, bis zu fünf Zutaten, optional Butter: eigene Sandwiches bauen.','#d9a441'),
  ('simplemaps','Simple Maps','Endlose Karten je Dimension.','#3b8d99'),
  ('simpleoptimization','Simple Optimization','Mehr Leistung durch Speicher-, Render- und Server-Optimierungen.','#4a9d4a'),
- ('simplequalityoflife','Simple Quality of Life','Viele kleine Komfortverbesserungen fuer den Alltag.','#3a86c8'),
- ('simpleaesthetics','Simple Aesthetics','Optik-Paket: Effekte, Klaenge und Stimmung.','#c25b9a'),
+ ('simplequalityoflife','Simple Quality of Life','Viele kleine Komfortverbesserungen für den Alltag.','#3a86c8'),
+ ('simpleaesthetics','Simple Aesthetics','Optik-Paket: Effekte, Klänge und Stimmung.','#c25b9a'),
 ]
 SHOW = ['simplehammers/item/diamond_sledgehammer.png','simplehammers/item/gold_sledgehammer.png',
         'simpleores/item/enderite_ingot.png','simplecrucibles/item/ceramic_lava_bucket.png',
@@ -50,7 +50,7 @@ HEAD = '<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="v
 LINKS = dict(dl='/setup/', wiki='https://wiki.simplemods.de')
 FEATS = [('Eine Familie, ein Stil','Alle Mods teilen Optik und Bedienung und lassen sich einzeln oder zusammen spielen.'),
          ('Jedes Modul allein spielbar','Nur installieren, was du willst. Fremdes Mod-Zeug erscheint nur, wenn es da ist.'),
-         ('Eingebaute Anleitung','SimpleLib bringt ein Handbuch fuer alle installierten Simple-Mods mit.'),
+         ('Eingebaute Anleitung','SimpleLib bringt ein Handbuch für alle installierten Simple-Mods mit.'),
          ('Server-Konfiguration','Alles per Config und Befehl einstellbar, sinnvolle Standardwerte.')]
 
 def A():
@@ -68,7 +68,7 @@ h2{font-size:28px;margin:48px 0 16px;text-shadow:3px 3px 0 #000}
 .f{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .ic{display:flex;flex-wrap:wrap;gap:6px}.ic img{width:40px;height:40px;border:2px solid #000}
 footer{margin:56px 0 24px;text-align:center;color:#8a7f69;font-size:13px}'''
-    b = '<div class="hero"><div class="w"><h1>SIMPLE MODS</h1><p class="sub">Eine Familie von Minecraft-Mods fuer Bauen, Handwerk, Welt und Komfort. Einzeln spielbar, zusammen stark.</p><a class="btn" href="%s">Installer laden</a><a class="btn s" href="%s">Zum Wiki</a></div></div><div class="w"><h2>Die Mods</h2><div class="g">' % (LINKS['dl'], LINKS['wiki'])
+    b = '<div class="hero"><div class="w"><h1>SIMPLE MODS</h1><p class="sub">Eine Familie von Minecraft-Mods für Bauen, Handwerk, Welt und Komfort. Einzeln spielbar, zusammen stark.</p><a class="btn" href="%s">Installer laden</a><a class="btn s" href="%s">Zum Wiki</a></div></div><div class="w"><h2>Die Mods</h2><div class="g">' % (LINKS['dl'], LINKS['wiki'])
     for i, n, d, c, ic in mods:
         b += f'<div class="c"><img src="{ic}" alt=""><b>{E_(n)}</b><p>{E_(d)}</p></div>'
     b += '</div><h2>Highlights</h2><div class="f">' + ''.join(f'<div class="c"><b>{E_(t)}</b><p>{E_(d)}</p></div>' for t, d in FEATS)
