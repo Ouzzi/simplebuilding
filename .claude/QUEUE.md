@@ -1160,7 +1160,7 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
 - [~] IG31-49 **Sage-Erze Nether/End**, droppen Sage-Crystal-Shards. (a-ores07 läuft)
 - [~] IG31-50 **Roségold- und Rose-Copper-Karotte** (Stufe wie goldene Karotte, Umfärbung). (a-blocks07 läuft)
 - [~] IG31-51 **Endstein-Mauer + rissige Astralit-/Nihilit-/Enderquarz-Ziegel**. (a-end07 läuft)
-- [~] IG31-52 **Nihilit-End-Bretter** für beide Varianten, Rezept Nihilit-Bücherregale. (a-end07 läuft)
+- [~] IG31-52 **Nihilit-End-Bretter** für beide Varianten, Rezept Nihilit-Bücherregale. (a-end07 läuft; a-astral07 06.11.: Bretter animiert, Astralit-Glimmen in den Fugen, Push /root/sb.git a-astral07, Vorschau a-astral07-preview.html ASTRAL07, sbt läuft)
 - [~] IG31-53 **Bücher-Designs je Buchsorte** in gemeißelten Regalen (Nihilit-/Blaze-Design, je Slot-Position eigene Textur). (a-end07 läuft)
 - [ ] IG31-54 **Landing Page simplemods.de** (Besitzer 06.11.): cool aussehende Präsentationsseite der Simple Mods (Mods vorstellen, Bilder, Downloads, Link zum Wiki). Erst Entwurf mit Varianten (UI exemplarisch), dann bauen. Bis dahin zeigt simplemods.de auf das Wiki.
 - [ ] IG31-55 **Domain-Umzug**: wiki.simplemods.de = Wiki (/, /dev/, /zentrale/, /api/ mit Login); simplewiki.de, www.simplemods.de, simplemods-wiki.azarfane.com leiten auf wiki.simplemods.de weiter; Links/Installer/Repo anpassen. Nach ZW06-Switch. Besitzer trägt Tunnel-Hostname wiki.simplemods.de ein.
