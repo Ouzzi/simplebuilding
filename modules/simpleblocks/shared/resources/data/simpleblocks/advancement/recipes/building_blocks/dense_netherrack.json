@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_netherrack": {
+    "has_compressed_netherrack": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_netherrack"
+            "items": "simpleblocks:compressed_netherrack"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_netherrack"
+      "has_compressed_netherrack"
     ]
   ],
   "rewards": {

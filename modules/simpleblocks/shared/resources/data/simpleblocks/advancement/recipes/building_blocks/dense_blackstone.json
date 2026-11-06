@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_blackstone": {
+    "has_compressed_blackstone": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_blackstone"
+            "items": "simpleblocks:compressed_blackstone"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_blackstone"
+      "has_compressed_blackstone"
     ]
   ],
   "rewards": {

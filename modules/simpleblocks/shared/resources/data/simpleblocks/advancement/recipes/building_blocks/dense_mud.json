@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_mud": {
+    "has_compressed_mud": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_mud"
+            "items": "simpleblocks:compressed_mud"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_mud"
+      "has_compressed_mud"
     ]
   ],
   "rewards": {

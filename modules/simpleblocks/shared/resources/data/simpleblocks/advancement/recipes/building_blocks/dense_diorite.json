@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_diorite": {
+    "has_compressed_diorite": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_diorite"
+            "items": "simpleblocks:compressed_diorite"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_diorite"
+      "has_compressed_diorite"
     ]
   ],
   "rewards": {

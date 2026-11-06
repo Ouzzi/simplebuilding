@@ -128,8 +128,8 @@ WOOLS = ['white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', '
 NATURAL_SLABS = [('dirt', 'minecraft:dirt'), ('grass', 'minecraft:grass_block'), ('sand', 'minecraft:sand'), ('gravel', 'minecraft:gravel')]
 
 # --- Compact and Dense blocks (WH26-10, docs/ai/PLAN-A-COMPACT-2026-11-06.md) ---------------------------------------------
-# Java: com.simpleblocks.compact.CompactBlocks (names and order are checked against it). Stage 1 "Compact" = 9 base blocks, stage 2
-# "Dense" = 9 Compact; both reverse (1 -> 9). Textures: Vanilla-derived (tools/textures/compact_2026_11_06.py), never committed.
+# Java: com.simpleblocks.compact.CompactBlocks (names and order are checked against it). Stage 1 "Compressed" = 9 base blocks, stage 2
+# "Dense" = 9 Compressed, stage 3 "Collapsed" = 9 Dense; all reverse (1 -> 9). Textures: Vanilla-derived (tools/textures/compact_2026_11_06.py), never committed.
 # (name, tool tag, English name, German noun, German gender m/f/n)
 COMPACT_BASES = [
     ('dirt', 'shovel', 'Dirt', 'Erde', 'f'), ('mud', 'shovel', 'Mud', 'Schlamm', 'm'), ('cobblestone', 'pickaxe', 'Cobblestone', 'Bruchstein', 'm'),
@@ -141,9 +141,10 @@ COMPACT_BASES = [
     ('end_stone', 'pickaxe', 'End Stone', 'Endstein', 'm'), ('blackstone', 'pickaxe', 'Blackstone', 'Schwarzstein', 'm'),
     ('soul_sand', 'shovel', 'Soul Sand', 'Seelensand', 'm'),
 ]
-COMPACT_STAGES = ('compact', 'dense')
+COMPACT_STAGES = ('compressed', 'dense', 'collapsed')
 COMPACT = [f'{st}_{b[0]}' for b in COMPACT_BASES for st in COMPACT_STAGES]
-_DE_ADJ = {'compact': {'m': 'Kompakter', 'f': 'Kompakte', 'n': 'Kompaktes'}, 'dense': {'m': 'Dichter', 'f': 'Dichte', 'n': 'Dichtes'}}
+_DE_ADJ = {'compressed': {'m': 'Komprimierter', 'f': 'Komprimierte', 'n': 'Komprimiertes'}, 'dense': {'m': 'Dichter', 'f': 'Dichte', 'n': 'Dichtes'},
+           'collapsed': {'m': 'Kollabierter', 'f': 'Kollabierte', 'n': 'Kollabiertes'}}
 
 
 def sawing_list():
@@ -526,6 +527,13 @@ SAW_LANG = {
 }
 
 
+COLLAPSED_TEXT = {
+    'en_us': {'tooltip.simpleblocks.collapsed.1': 'So dense it slows you down in your inventory.',
+              'tooltip.simpleblocks.collapsed.2': '1 stack: Slowness I, 2 stacks: II, 9 stacks: III.'},
+    'de_de': {'tooltip.simpleblocks.collapsed.1': 'So dicht, dass es dich im Inventar verlangsamt.',
+              'tooltip.simpleblocks.collapsed.2': '1 Stapel: Langsamkeit I, 2 Stapel: II, 9 Stapel: III.'}}
+
+
 def compact_names(locale):
     out = {}
     for base, _, en, de, gender in COMPACT_BASES:
@@ -553,6 +561,7 @@ def lang():
         for name, text in compact_names(locale).items():
             data[f'block.{NS}.{name}'] = text
             data[f'item.{NS}.{name}'] = text
+        data.update(COLLAPSED_TEXT[locale])
         saw = SAW_LANG[locale]
         data[f'block.{NS}.{SAW}'] = data[f'item.{NS}.{SAW}'] = data[f'container.{NS}.{SAW}'] = data[f'jei.{NS}.category.sawing'] = saw['name']
         data[f'jei.{NS}.info.{SAW}'] = saw['info']

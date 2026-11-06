@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleblocks:collapsed_red_sand"
+  ],
+  "result": {
+    "count": 9,
+    "id": "simpleblocks:dense_red_sand"
+  }
+}

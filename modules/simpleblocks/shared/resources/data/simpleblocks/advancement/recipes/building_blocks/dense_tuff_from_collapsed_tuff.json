@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_collapsed_tuff": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:collapsed_tuff"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:dense_tuff_from_collapsed_tuff"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_collapsed_tuff"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:dense_tuff_from_collapsed_tuff"
+    ]
+  }
+}

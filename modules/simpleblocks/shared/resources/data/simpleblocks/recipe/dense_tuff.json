@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "simpleblocks:compact_tuff"
+    "#": "simpleblocks:compressed_tuff"
   },
   "pattern": [
     "###",

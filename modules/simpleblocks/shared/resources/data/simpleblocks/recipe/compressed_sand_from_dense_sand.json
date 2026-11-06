@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleblocks:dense_sand"
+  ],
+  "result": {
+    "count": 9,
+    "id": "simpleblocks:compressed_sand"
+  }
+}

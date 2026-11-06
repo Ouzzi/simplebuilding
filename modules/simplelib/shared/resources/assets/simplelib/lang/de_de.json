@@ -104,5 +104,10 @@
   "quests.simplelib.start.welcome.title": "Ein Handbuch gratis",
   "quests.simplelib.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Modpack-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Werkbank herstellen.",
   "commands.simplelib.moved": "%s heißt jetzt %s (der alte Name geht vorerst weiter)",
-  "itemgroup.simplelib.lib": "Simple Lib"
+  "itemgroup.simplelib.lib": "Simple Lib",
+  "simplelib.tab.slotalert": "Slot-Alarm",
+  "text.autoconfig.simplelib.option.slotAlert": "Roter Strahl bei auslösenden Items (dieser Client)",
+  "text.autoconfig.simplelib.option.slotAlert.@Tooltip": "Ein langsamer roter Leuchtturm-Strahl dreht sich\nhinter einem Item im Slot, solange es einen\nEffekt auf dich auslöst (z. B. Kollabierte Blöcke: Langsamkeit).\nStandard: true.",
+  "text.autoconfig.simplelib.option.slotAlertReducedMotion": "Ruhiger Strahl (dieser Client)",
+  "text.autoconfig.simplelib.option.slotAlertReducedMotion.@Tooltip": "Statt des drehenden Strahls glüht der Slot still\nund atmet langsam (keine Bewegung).\nStandard: false."
 }

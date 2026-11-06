@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "simpleblocks:compact_red_sandstone"
+    "#": "simpleblocks:compressed_red_sandstone"
   },
   "pattern": [
     "###",

@@ -102,8 +102,8 @@ for c in g.PALE_CHAINS:
 # WH26-10 Compact/Dense blocks (a-wh26-10): CompactBlocks' bases equal the generator's, names in both languages, derived textures, wiki.
 compact_java = (MODULE / 'shared/java/com/simpleblocks/compact/CompactBlocks.java').read_text(encoding='utf-8')
 assert re.findall(r'new Base\("([a-z_]+)", Blocks\.', compact_java) == [b[0] for b in g.COMPACT_BASES], 'CompactBlocks bases vs generate_data.COMPACT_BASES'
-assert 'List.of("compact", "dense")' in compact_java and g.COMPACT_STAGES == ('compact', 'dense'), 'compact stage names'
-assert len(g.COMPACT) == 38, len(g.COMPACT)
+assert 'List.of("compressed", "dense", "collapsed")' in compact_java and g.COMPACT_STAGES == ('compressed', 'dense', 'collapsed'), 'compact stage names'
+assert len(g.COMPACT) == 57, len(g.COMPACT)
 for locale, data in langs.items():
     for name in g.COMPACT:
         assert data.get(f'block.{NS}.{name}') and data.get(f'item.{NS}.{name}'), (locale, name)
@@ -114,4 +114,4 @@ assert set(compact_tex.SPRITES) == {b[0] for b in g.COMPACT_BASES}, 'compact tex
 for name in g.COMPACT:
     assert not (tex / f'{name}.png').exists(), f'{name}.png must not be committed (Vanilla-derived)'
     assert (RES / f'data/{NS}/recipe/{name}.json').exists() and (RES / f'data/{NS}/loot_table/blocks/{name}.json').exists(), name
-print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + 2 cracked hard ices + 30 pale blocks + 38 compact/dense blocks + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')
+print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + 2 cracked hard ices + 30 pale blocks + 57 compressed/dense/collapsed blocks + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')

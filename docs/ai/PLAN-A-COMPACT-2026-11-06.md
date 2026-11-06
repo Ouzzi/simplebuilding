@@ -26,3 +26,12 @@ Stufe 1 „Compact“ = 9 Blöcke, Stufe 2 „Dense“ = 9 Compact, für die mei
 ## Offen / Rückfrage
 - **Rückfrage Besitzer:** Look A/B/C (Vorschau), Faktor 4×/16× oder 4× für beide Stufen, ob weitere Blöcke (Holz, Glas, Wolle, Prismarin) gewünscht sind.
 - NeoForge/Forge-Läufe nicht (26.3 Fabric Vorgabe).
+
+## Nachtrag 06.11. (Besitzer): Compressed / Dense / Collapsed
+- **Umbenennung:** Compact -> **Compressed** (Anzeige EN/DE „Komprimierter“), IDs `compact_*` -> `compressed_*`, IdMoves für Block und Item (kein Release, Rezepte/Advancements nicht gemoved). Java-Klasse `CompactBlocks` und Testnamen `compact_*` bleiben (intern).
+- **Stufe 3 Collapsed** (19 Basen, 57 Blöcke): Rezepte 9 Dense -> 1 Collapsed und zurück, Loot, Tags, Lang, Tab, Testzentrum über denselben Generator. Härte 64x Basis. Textur: Variante A plus dritte Stufe und dunklere Fläche (`compact_2026_11_06.py`).
+- **Effekt:** `CollapsedEffect` (END_SERVER_TICK, alle 20 Ticks, 60 Ticks Dauer, ambient ohne Partikel): Stacks im ganzen Inventar zählen (ein voller Stack = 1): >=1 Slowness I, >=2 II, >=9 III. Config `collapsed.enabled` (simpleblocks-server.json, Standard an). Tooltip über LORE (2 Zeilen, EN/DE).
+- **Slot-Animation:** SimpleLib `SlotAlert` (Regel-Register + `SlotAlertMixin` auf `AbstractContainerScreen.extractSlot`), rotierender weicher roter Kegel, 2,6 s/Umdrehung, 16x16-Raster. Regel `CollapsedAlert`: nur wenn ein Collapsed-Item im Slot liegt UND der Spieler Slowness mindestens in der Stufe seiner Stacks hat (Effekt wirkt wirklich). Client-Optionen `slotAlert` (an) und `slotAlertReducedMotion` (aus: ruhiges Glühen) in simplelib-client.json + Config-Screen.
+- **Vorschau:** /root/sb-tools-b/previews/a-wh26-10b-preview.html (A Kegel, B Pulsieren; A eingebaut; Antwortcode WH2610B-A|B).
+- **Nicht gebaut / offen:** Hotbar-Slots im Spiel (nur Container-Screens, inkl. Inventar), Forge/NeoForge-Mixin-Liste (nur Fabric), Rezept-/Advancement-IdMoves.
+- **Test:** ein sbt-Lauf: Compile + `module-simpleblocks-fabric-263` Filter `simpleblocks:compact*` (inkl. `compact_collapsed_slowness`) + checkClientMixins.

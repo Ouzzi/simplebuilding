@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_collapsed_red_sand": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:collapsed_red_sand"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:dense_red_sand_from_collapsed_red_sand"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_collapsed_red_sand"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:dense_red_sand_from_collapsed_red_sand"
+    ]
+  }
+}

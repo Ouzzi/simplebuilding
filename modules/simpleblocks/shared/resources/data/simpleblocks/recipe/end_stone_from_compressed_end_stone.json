@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleblocks:compressed_end_stone"
+  ],
+  "result": {
+    "count": 9,
+    "id": "minecraft:end_stone"
+  }
+}

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "simpleblocks:compact_blackstone"
+    "#": "simpleblocks:compressed_blackstone"
   },
   "pattern": [
     "###",

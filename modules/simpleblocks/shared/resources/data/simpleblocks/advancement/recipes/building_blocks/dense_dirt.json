@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_dirt": {
+    "has_compressed_dirt": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_dirt"
+            "items": "simpleblocks:compressed_dirt"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_dirt"
+      "has_compressed_dirt"
     ]
   ],
   "rewards": {

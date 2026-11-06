@@ -22,6 +22,8 @@ public final class BlocksFabric implements ModInitializer {
         com.simplelib.api.config.ConfigCommands.server(SimpleBlocks.MOD_ID).json(com.simpleblocks.snow.SnowConfig::toJson, com.simpleblocks.snow.SnowConfig::apply)
                 .file(FabricLoader.getInstance().getConfigDir(), com.simpleblocks.snow.SnowConfig.FILE).register();
         BlocksRegistry.registerAll();
+        // WH26-10: Collapsed blocks in the inventory slow their carrier (Slowness I-III by stacks, refreshed every second).
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simpleblocks.compact.CollapsedEffect::tick);
         com.simpleblocks.snow.SnowBlocks.registerBlockEntity(new net.minecraft.world.level.block.entity.BlockEntityType<>(
                 com.simpleblocks.snow.SnowloggedBlockEntity::new, java.util.Set.of(com.simpleblocks.snow.SnowBlocks.SNOWLOGGED)));
         // SN30-1: a snow layer used on a fence, flower or grass snowlogs it.

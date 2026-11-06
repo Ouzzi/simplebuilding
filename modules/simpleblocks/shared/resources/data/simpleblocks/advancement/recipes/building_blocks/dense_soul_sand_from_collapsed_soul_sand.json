@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_collapsed_soul_sand": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:collapsed_soul_sand"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:dense_soul_sand_from_collapsed_soul_sand"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_collapsed_soul_sand"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:dense_soul_sand_from_collapsed_soul_sand"
+    ]
+  }
+}

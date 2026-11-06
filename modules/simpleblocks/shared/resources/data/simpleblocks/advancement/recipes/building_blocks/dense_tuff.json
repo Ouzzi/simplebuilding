@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_tuff": {
+    "has_compressed_tuff": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_tuff"
+            "items": "simpleblocks:compressed_tuff"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_tuff"
+      "has_compressed_tuff"
     ]
   ],
   "rewards": {

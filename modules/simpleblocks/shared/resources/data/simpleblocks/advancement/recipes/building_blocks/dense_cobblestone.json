@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_cobblestone": {
+    "has_compressed_cobblestone": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_cobblestone"
+            "items": "simpleblocks:compressed_cobblestone"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_cobblestone"
+      "has_compressed_cobblestone"
     ]
   ],
   "rewards": {

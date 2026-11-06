@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_andesite": {
+    "has_compressed_andesite": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_andesite"
+            "items": "simpleblocks:compressed_andesite"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_andesite"
+      "has_compressed_andesite"
     ]
   ],
   "rewards": {

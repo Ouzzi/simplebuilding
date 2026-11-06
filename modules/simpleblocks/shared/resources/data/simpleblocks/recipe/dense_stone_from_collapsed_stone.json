@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleblocks:collapsed_stone"
+  ],
+  "result": {
+    "count": 9,
+    "id": "simpleblocks:dense_stone"
+  }
+}

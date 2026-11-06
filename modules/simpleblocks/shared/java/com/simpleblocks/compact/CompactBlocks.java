@@ -17,17 +17,19 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * WH26-10 (docs/ai/PLAN-A-COMPACT-2026-11-06.md): Compact (stage 1 = 9 base blocks) and Dense (stage 2 = 9 Compact) versions of
+ * WH26-10 (docs/ai/PLAN-A-COMPACT-2026-11-06.md): Compressed (stage 1 = 9 base blocks), Dense (stage 2 = 9 Compressed) and Collapsed (stage 3 = 9 Dense) versions of
  * common Vanilla building blocks, every step reversible at the crafting table (1 -> 9). Each copies the properties of its base
  * block (sound, tool, map colour), only the hardness is {@link #FACTOR} times that of the stage below: mining takes about 4x
- * (Compact) and 16x (Dense) as long. They are plain blocks: Compact Sand and Gravel do not fall. Vanilla impact (A12): low, nothing
+ * (Compressed), 16x (Dense) and 64x (Collapsed) as long. Collapsed items slow their carrier ({@link CollapsedEffect}). They are plain blocks: Sand and Gravel do not fall. Vanilla impact (A12): low, nothing
  * of Vanilla changes; it is only a way to store and build with large amounts. Textures are Vanilla-derived at build time.
  */
 public final class CompactBlocks {
     /** Hardness factor per stage. */
     public static final float FACTOR = 4f;
     /** Stage prefixes, in order. */
-    public static final List<String> STAGES = List.of("compact", "dense");
+    public static final List<String> STAGES = List.of("compressed", "dense", "collapsed");
+    /** The last stage: slows its carrier down ({@link CollapsedEffect}). */
+    public static final String COLLAPSED_STAGE = "collapsed";
 
     /** Base block path -> (Vanilla base block, hardness, blast resistance); the order is the tab order and matches generate_data.COMPACT_BASES. */
     public record Base(String path, Block block, float hardness, float resistance) {}
@@ -47,6 +49,8 @@ public final class CompactBlocks {
     /** Block path ("compact_dirt", "dense_dirt", ...) -> block, in tab order. */
     public static final Map<String, Block> BLOCKS = new LinkedHashMap<>();
     public static final Map<String, Item> ITEMS = new LinkedHashMap<>();
+    /** The Collapsed blocks (stage 3). */
+    public static final java.util.Set<Block> COLLAPSED = new java.util.HashSet<>();
 
     static {
         for (Base base : BASES) {
@@ -55,7 +59,9 @@ public final class CompactBlocks {
                 hardness *= FACTOR;
                 String name = stage + "_" + base.path();
                 ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(name));
-                BLOCKS.put(name, new Block(BlockBehaviour.Properties.ofFullCopy(base.block()).strength(hardness, base.resistance()).setId(key)));
+                Block block = new Block(BlockBehaviour.Properties.ofFullCopy(base.block()).strength(hardness, base.resistance()).setId(key));
+                BLOCKS.put(name, block);
+                if (stage.equals(COLLAPSED_STAGE)) COLLAPSED.add(block);
             }
         }
     }
@@ -72,7 +78,13 @@ public final class CompactBlocks {
     public static void registerItems() {
         BLOCKS.forEach((name, block) -> {
             ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleBlocks.id(name));
-            ITEMS.put(name, Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, new Item.Properties().setId(key).useBlockDescriptionPrefix())));
+            Item.Properties props = new Item.Properties().setId(key).useBlockDescriptionPrefix();
+            if (COLLAPSED.contains(block)) {
+                props.component(net.minecraft.core.component.DataComponents.LORE, new net.minecraft.world.item.component.ItemLore(List.of(
+                        net.minecraft.network.chat.Component.translatable("tooltip.simpleblocks.collapsed.1").withStyle(net.minecraft.ChatFormatting.GRAY),
+                        net.minecraft.network.chat.Component.translatable("tooltip.simpleblocks.collapsed.2").withStyle(net.minecraft.ChatFormatting.DARK_RED))));
+            }
+            ITEMS.put(name, Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, props)));
         });
     }
 

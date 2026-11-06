@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "simpleblocks:compact_cobbled_deepslate"
+    "#": "simpleblocks:compressed_cobbled_deepslate"
   },
   "pattern": [
     "###",

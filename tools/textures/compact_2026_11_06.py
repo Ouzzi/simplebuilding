@@ -1,10 +1,10 @@
-"""Compact and Dense blocks (WH26-10, a-wh26-10, 06.11.2026): stage 1 "Compact" = 9 blocks, stage 2 "Dense" = 9 Compact.
+"""Compressed, Dense and Collapsed blocks (WH26-10, a-wh26-10, 06.11.2026): stage 1 "Compressed" = 9 blocks, stage 2 "Dense" = 9 Compressed, stage 3 "Collapsed" = 9 Dense.
 Every pixel is Vanilla-derived (the Vanilla sprite of the base block, only tone and raster move), so the textures are built from
 the client jar at build time and never committed (AGENTS.md rule 7; tools/textures/vanilla_derived.py, MODULE_OUTPUTS['simpleblocks']).
 
 Three looks (A is built in, B and C only in the preview; the owner picks, then the others are dropped):
-  A "Frame":   the Vanilla sprite inside a pressed edge: Compact = 1 px darker rim (corners darkest), Dense = rim + a second, lighter
-               inner step. Raster and tones of the block stay recognisable.
+  A "Frame":   the Vanilla sprite inside a pressed edge: Compressed = 1 px darker rim (corners darkest), Dense = rim + a second, lighter
+               inner step, Collapsed (06.11.) = a darker rim, two inner steps and a darkened face. Raster and tones of the block stay recognisable.
   B "Grain":   the sprite shrunk to half (Compact, 2x2 tiles) or a quarter (Dense, 4x4 tiles) by taking every 2nd / 4th pixel, so the
                Vanilla pixels stay but the grain is finer (denser); a slight darkening.
   C "Straps":  a cross of two darker 2 px straps over the sprite (Compact); Dense adds the rim of A.
@@ -33,8 +33,8 @@ SPRITES = {
     'andesite': 'andesite', 'diorite': 'diorite', 'granite': 'granite', 'tuff': 'tuff', 'sandstone': 'sandstone_top',
     'red_sandstone': 'red_sandstone_top', 'end_stone': 'end_stone', 'blackstone': 'blackstone', 'soul_sand': 'soul_sand',
 }
-STAGES = ('compact', 'dense')
-DESC = 'compact_2026_11_06.derived() - Vanilla sprite in a pressed rim, Compact/Dense (WH26-10)'
+STAGES = ('compressed', 'dense', 'collapsed')
+DESC = 'compact_2026_11_06.derived() - Vanilla sprite in a pressed rim, Compressed/Dense/Collapsed (WH26-10)'
 
 
 def outputs() -> dict:
@@ -58,9 +58,12 @@ def _rim(depth: int) -> np.ndarray:
 def look_a(a: np.ndarray, stage: int) -> np.ndarray:
     d = _rim(1)
     f = np.ones((16, 16))
-    f[d == 0] = 0.72 if stage == 1 else 0.60
-    if stage == 2:
-        f[d == 1] = 0.84
+    f[d == 0] = {1: 0.72, 2: 0.60, 3: 0.48}[stage]
+    if stage >= 2:
+        f[d == 1] = 0.84 if stage == 2 else 0.72
+    if stage == 3:  # Collapsed: a third step and the whole face a touch darker (the densest look)
+        f[d == 2] = 0.86
+        f[d >= 3] = 0.9
     corner = np.zeros((16, 16), bool)
     corner[[0, 0, 15, 15], [0, 15, 0, 15]] = True
     f[corner] *= 0.9

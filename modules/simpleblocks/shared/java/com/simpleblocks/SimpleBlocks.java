@@ -45,6 +45,10 @@ public final class SimpleBlocks {
             IdMoves.move(Registries.BLOCK, old(path), id(path));
             IdMoves.move(Registries.ITEM, old(path), id(path));
         }
+        // WH26-10: Compact -> Compressed (06.11., never released; the move costs a few lines).
+        for (var b : com.simpleblocks.compact.CompactBlocks.BASES) {
+            for (var registry : List.of(Registries.BLOCK, Registries.ITEM)) IdMoves.move(registry, id("compact_" + b.path()), id("compressed_" + b.path()));
+        }
         IdMoves.move(Registries.ENTITY_TYPE, old(NatureIds.LEVITATING_ENTITY), id(NatureIds.LEVITATING_ENTITY));
         NatureIds.MOVED_RECIPES.forEach((path, folder) -> {
             IdMoves.move(Registries.RECIPE, old(path), id(path));

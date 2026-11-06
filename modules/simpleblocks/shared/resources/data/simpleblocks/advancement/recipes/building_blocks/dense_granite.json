@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_granite": {
+    "has_compressed_granite": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_granite"
+            "items": "simpleblocks:compressed_granite"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_granite"
+      "has_compressed_granite"
     ]
   ],
   "rewards": {

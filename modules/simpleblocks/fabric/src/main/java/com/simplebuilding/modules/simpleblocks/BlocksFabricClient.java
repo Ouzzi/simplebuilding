@@ -11,6 +11,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 public final class BlocksFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        com.simpleblocks.compact.client.CollapsedAlert.register(); // WH26-10: red slot beam while the Collapsed slowness acts
         MenuScreens.<ShapecutterMenu, ShapecutterScreen>register(Sawing.MENU, ShapecutterScreen::new);
         ClientPlayNetworking.registerGlobalReceiver(Sawing.Payload.TYPE, (payload, context) -> context.client().execute(() -> Sawing.receive(payload.entries())));
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> Sawing.forgetAll());

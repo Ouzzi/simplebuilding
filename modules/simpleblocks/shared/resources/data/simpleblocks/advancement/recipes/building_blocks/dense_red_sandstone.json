@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_red_sandstone": {
+    "has_compressed_red_sandstone": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_red_sandstone"
+            "items": "simpleblocks:compressed_red_sandstone"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_red_sandstone"
+      "has_compressed_red_sandstone"
     ]
   ],
   "rewards": {

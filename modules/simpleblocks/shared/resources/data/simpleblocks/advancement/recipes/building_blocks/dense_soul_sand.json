@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compact_soul_sand": {
+    "has_compressed_soul_sand": {
       "conditions": {
         "items": [
           {
-            "items": "simpleblocks:compact_soul_sand"
+            "items": "simpleblocks:compressed_soul_sand"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compact_soul_sand"
+      "has_compressed_soul_sand"
     ]
   ],
   "rewards": {

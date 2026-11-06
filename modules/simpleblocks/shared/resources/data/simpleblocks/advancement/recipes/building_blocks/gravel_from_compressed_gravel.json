@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_compressed_gravel": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:compressed_gravel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:gravel_from_compressed_gravel"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_compressed_gravel"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:gravel_from_compressed_gravel"
+    ]
+  }
+}

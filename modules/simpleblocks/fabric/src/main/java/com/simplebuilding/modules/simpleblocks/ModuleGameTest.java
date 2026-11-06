@@ -330,4 +330,9 @@ public final class ModuleGameTest {
     public void compactDropsAndTools(GameTestHelper h) {
         BlocksTests.ALL.get("compact_drops_and_tools").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void compactCollapsedSlowness(GameTestHelper h) {
+        BlocksTests.ALL.get("compact_collapsed_slowness").accept(h);
+    }
 }
