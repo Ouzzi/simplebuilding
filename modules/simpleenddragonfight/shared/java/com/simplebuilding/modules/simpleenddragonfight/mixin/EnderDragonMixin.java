@@ -23,18 +23,18 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
  */
 @Mixin(EnderDragon.class)
 public abstract class EnderDragonMixin implements DragonTinted {
-    @Unique private static final EntityDataAccessor<Boolean> SIMPLEENDDRAGONFIGHT_TINTED = SynchedEntityData.defineId(EnderDragon.class, EntityDataSerializers.BOOLEAN);
+    @Unique private static final EntityDataAccessor<Integer> SIMPLEENDDRAGONFIGHT_TINTED = SynchedEntityData.defineId(EnderDragon.class, EntityDataSerializers.INT);
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void simpleenddragonfight$defineTint(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(SIMPLEENDDRAGONFIGHT_TINTED, false);
+        builder.define(SIMPLEENDDRAGONFIGHT_TINTED, 0);
     }
 
     @Override
-    public boolean simpleenddragonfight$tinted() { return ((EnderDragon) (Object) this).getEntityData().get(SIMPLEENDDRAGONFIGHT_TINTED); }
+    public int simpleenddragonfight$tintLevel() { return ((EnderDragon) (Object) this).getEntityData().get(SIMPLEENDDRAGONFIGHT_TINTED); }
 
     @Override
-    public void simpleenddragonfight$setTinted(boolean tinted) { ((EnderDragon) (Object) this).getEntityData().set(SIMPLEENDDRAGONFIGHT_TINTED, tinted); }
+    public void simpleenddragonfight$setTintLevel(int level) { ((EnderDragon) (Object) this).getEntityData().set(SIMPLEENDDRAGONFIGHT_TINTED, level); }
 
     @ModifyArg(method = "aiStep", at = @At(value = "INVOKE", target = "moveRelative(FLnet/minecraft/world/phys/Vec3;)V"), index = 0)
     private float simpleenddragonfight$thrust(float speed) {

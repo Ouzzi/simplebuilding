@@ -125,7 +125,7 @@ public final class Trials {
     }
 
     private static Item blockItem(Block block, ResourceKey<Item> key, Rarity rarity) {
-        return new BlockItem(block, new Item.Properties().rarity(rarity).useBlockDescriptionPrefix().setId(key));
+        return new BlockItem(block, com.simplelib.api.RarityRules.apply(key.identifier().getPath(), new Item.Properties().rarity(rarity)).useBlockDescriptionPrefix().setId(key));
     }
 
     public static ResourceKey<Item> keyKey(TrialKind kind, int stage) {
@@ -137,12 +137,12 @@ public final class Trials {
     }
 
     private static Item key(TrialKind kind, int stage) {
-        return new Item(new Item.Properties().rarity(Rarity.EPIC).stacksTo(16).setId(keyKey(kind, stage)));
+        return new Item(com.simplelib.api.RarityRules.apply(keyKey(kind, stage).identifier().getPath(), new Item.Properties().rarity(Rarity.EPIC)).stacksTo(16).setId(keyKey(kind, stage)));
     }
 
     private static Item potion(TrialKind kind, int stage) {
         Consumable drink = Consumable.builder().animation(ItemUseAnimation.DRINK).sound(SoundEvents.GENERIC_DRINK).hasConsumeParticles(false).build();
-        return new OmenPotionItem(kind, stage, new Item.Properties().rarity(Rarity.EPIC).stacksTo(16).usingConvertsTo(Items.GLASS_BOTTLE)
+        return new OmenPotionItem(kind, stage, com.simplelib.api.RarityRules.apply(potionKey(kind, stage).identifier().getPath(), new Item.Properties().rarity(Rarity.EPIC)).stacksTo(16).usingConvertsTo(Items.GLASS_BOTTLE)
                 .component(DataComponents.CONSUMABLE, drink).setId(potionKey(kind, stage)));
     }
 

@@ -267,4 +267,8 @@ public final class LibServices {
         com.simplelib.api.ToolPlacements.placed(level, player, pos, state);
     }
 
+    /** TIP05 (06.11.): the SimpleRarity rank of an item path, see {@code com.simplelib.api.RarityRules}. */
+    public static net.minecraft.world.item.Item.Properties rarity(String path, net.minecraft.world.item.Item.Properties properties) {
+        return com.simplelib.api.RarityRules.apply(path, properties);
+    }
 }

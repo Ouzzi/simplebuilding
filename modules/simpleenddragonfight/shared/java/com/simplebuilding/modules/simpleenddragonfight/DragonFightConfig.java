@@ -23,7 +23,7 @@ public final class DragonFightConfig {
     public static final List<String> KEYS = List.of("enabled", "raiseBaseHealth", "maxPlayers", "countCreative", "leaveGraceSeconds",
             "islandRadius", "speedMultiplier", "speedPerPlayer", "speedCap", "crystalHealScaling", "mitesEnabled", "waveIntervalSeconds",
             "miteBase", "miteExtraPerTwoPlayers", "maxAliveMites", "animationEnabled", "animationTicks", "maxQueued", "exposeSpawnEgg", "summonScaling", "summonMaxMultiplier", "summonSpeedCap",
-            "rewardEnabled", "rewardFromDragon", "rewardItem", "rewardJewelFromDragon", "rewardJewelItem", "tintFromDragon", "summonAttackCap");
+            "rewardEnabled", "rewardFromDragon", "rewardItem", "rewardJewelFromDragon", "rewardJewelItem", "tintFromDragon", "summonAttackCap", "tintJewelFromDragon");
 
     public static boolean enabled = true;
     /** On: 300 health per counted player; off: the Vanilla base (200) per player. */
@@ -61,6 +61,8 @@ public final class DragonFightConfig {
     public static String rewardJewelItem = "simplemobs:ender_gem";
     /** WI26-6: the n-th fight and later: dragon in chorus colour (client tint); 0 = off. */
     public static int tintFromDragon = 4;
+    /** WI26-6: the n-th fight and later: soul blue and chorus violet together (Ender Gem fight); 0 = off. */
+    public static int tintJewelFromDragon = 10;
     /** Damage the dragon deals never rises above this factor through summonings (health and speed follow summonMaxMultiplier). */
     public static double summonAttackCap = 2.0;
 
@@ -121,6 +123,7 @@ public final class DragonFightConfig {
         rewardJewelFromDragon = clamp(integer(json, "rewardJewelFromDragon", 10), 0, 1000);
         rewardJewelItem = text(json, "rewardJewelItem", "simplemobs:ender_gem");
         tintFromDragon = clamp(integer(json, "tintFromDragon", 4), 0, 1000);
+        tintJewelFromDragon = clamp(integer(json, "tintJewelFromDragon", 10), 0, 1000);
         summonAttackCap = clamp(number(json, "summonAttackCap", 2.0), 1.0, 10.0);
     }
 
@@ -154,6 +157,7 @@ public final class DragonFightConfig {
         o.addProperty("rewardJewelFromDragon", rewardJewelFromDragon);
         o.addProperty("rewardJewelItem", rewardJewelItem);
         o.addProperty("tintFromDragon", tintFromDragon);
+        o.addProperty("tintJewelFromDragon", tintJewelFromDragon);
         o.addProperty("summonAttackCap", summonAttackCap);
         return o;
     }

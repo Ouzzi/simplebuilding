@@ -153,7 +153,7 @@ public final class LibMaterials {
 
     private static void item(String name, Function<Item.Properties, Item> factory) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleLib.id(name));
-        ITEMS.put(name, Registry.register(BuiltInRegistries.ITEM, key, factory.apply(new Item.Properties().setId(key))));
+        ITEMS.put(name, Registry.register(BuiltInRegistries.ITEM, key, factory.apply(com.simplelib.api.RarityRules.apply(name, new Item.Properties()).setId(key))));
     }
 
     private static SmithingTemplateItem upgradeTemplate(String id, Item.Properties properties) {

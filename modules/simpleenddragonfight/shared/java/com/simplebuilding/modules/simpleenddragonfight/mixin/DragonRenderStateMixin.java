@@ -7,11 +7,11 @@ import org.spongepowered.asm.mixin.Mixin;
 /** Client only: carries the "chorus colour" flag from the dragon to the renderer. */
 @Mixin(EnderDragonRenderState.class)
 public abstract class DragonRenderStateMixin implements DragonTinted {
-    private boolean simpleenddragonfight$tint;
+    private int simpleenddragonfight$tint;
 
     @Override
-    public boolean simpleenddragonfight$tinted() { return simpleenddragonfight$tint; }
+    public int simpleenddragonfight$tintLevel() { return simpleenddragonfight$tint; }
 
     @Override
-    public void simpleenddragonfight$setTinted(boolean tinted) { simpleenddragonfight$tint = tinted; }
+    public void simpleenddragonfight$setTintLevel(int level) { simpleenddragonfight$tint = level; }
 }

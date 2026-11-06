@@ -109,4 +109,8 @@ public final class LibServices {
 
     public static void toolPlaced(ServerLevel level, net.minecraft.server.level.ServerPlayer player, BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
     }
+
+    public static net.minecraft.world.item.Item.Properties rarity(String path, net.minecraft.world.item.Item.Properties properties) {
+        return properties;
+    }
 }

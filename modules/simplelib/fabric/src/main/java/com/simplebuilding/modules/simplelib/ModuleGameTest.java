@@ -166,6 +166,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void rarityRules(GameTestHelper h) {
+        LibTests.ALL.get("rarity_rules").accept(h);
+    }
+
+    @GameTest
     public void legendaryAdvancements(GameTestHelper h) {
         LibTests.ALL.get("legendary_advancements").accept(h);
     }

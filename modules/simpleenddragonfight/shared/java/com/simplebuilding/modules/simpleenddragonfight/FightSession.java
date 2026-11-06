@@ -157,12 +157,17 @@ public final class FightSession {
         if (health > 0) dragon.setHealth(DragonScaling.rescale(health, oldMax, dragon.getMaxHealth()));
     }
 
+    /** Tint of the dragon of fight no. {@code fight}: 2 from tintJewelFromDragon (soul blue + chorus violet), 1 from tintFromDragon, else 0; 0 in a config = off. */
+    static int tintLevel(int fight) {
+        int jewel = DragonFightConfig.tintJewelFromDragon, from = DragonFightConfig.tintFromDragon;
+        return jewel > 0 && fight >= jewel ? 2 : from > 0 && fight >= from ? 1 : 0;
+    }
+
     private void startFight(EnderDragon dragon) {
         endFight();
         dragonId = dragon.getUUID();
         if (dragon instanceof DragonTinted t) {
-            int from = DragonFightConfig.tintFromDragon;
-            t.simpleenddragonfight$setTinted(from > 0 && DragonKills.get(((ServerLevel) dragon.level()).getServer()).kills() + 1 >= from);
+            t.simpleenddragonfight$setTintLevel(tintLevel(DragonKills.get(((ServerLevel) dragon.level()).getServer()).kills() + 1));
         }
     }
 

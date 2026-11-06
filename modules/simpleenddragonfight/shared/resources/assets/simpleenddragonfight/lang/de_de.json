@@ -56,6 +56,8 @@
   "config.simpleenddragonfight.rewardItem.tooltip": "Gegenstands-ID der Belohnung. Standard: simplemobs:ender_heart (nichts passiert, solange dieser Gegenstand nicht installiert ist).",
   "config.simpleenddragonfight.tintFromDragon": "Chorus-farbener Drache ab Kampf Nr.",
   "config.simpleenddragonfight.tintFromDragon.tooltip": "Der Drache dieser Kampfnummer und alle späteren leuchten beim Spieler chorus-violett (ab dem 4. Kampf). 0 = aus. Standard: 4.",
+  "config.simpleenddragonfight.tintJewelFromDragon": "Seelenblau-Chorus-Drache ab Kampf Nr.",
+  "config.simpleenddragonfight.tintJewelFromDragon.tooltip": "Der Drache dieser Kampfnummer und alle späteren leuchten seelenblau und chorus-violett zugleich, abwechselnd pulsierend (der Ender-Juwel-Kampf, ab dem 10.). 0 = aus. Standard: 10.",
   "config.simpleenddragonfight.rewardJewelFromDragon": "Juwel ab Drache Nr.",
   "config.simpleenddragonfight.rewardJewelFromDragon.tooltip": "Besiegte Drachen (weltweit), bevor jeder Teilnehmer zusätzlich einmal das Juwel bekommt. 0 = aus. Standard: 10.",
   "config.simpleenddragonfight.rewardJewelItem": "Juwel-Gegenstand",
