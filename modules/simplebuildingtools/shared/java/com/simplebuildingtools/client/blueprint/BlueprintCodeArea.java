@@ -37,7 +37,7 @@ public final class BlueprintCodeArea extends UiCodeArea {
     public BlueprintCodeArea(Font font, int x, int y, int width, int height, float scale, boolean readOnly, String value,
                              Consumer<String> listener, int characterLimit) {
         super(font, x, y, width, height, scale, readOnly, value, listener, characterLimit, STYLE_COLORS,
-                Component.translatable("simplebuilding.blueprint.editor.code"));
+                Component.translatable("simplebuildingtools.blueprint.editor.code"));
     }
 
     public void setHighlight(byte[] styles, List<BlueprintCode.Problem> problems) {

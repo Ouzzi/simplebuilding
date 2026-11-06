@@ -154,13 +154,14 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("gadgets",
                         Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS,
                         com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(),
-                        com.simplebuilding.util.GadgetRefs.rod(), ModItems.OCTANT)));
+                        com.simplebuilding.util.GadgetRefs.rod(), com.simplebuilding.util.BuildingToolRefs.octant())));
 
         // Die 16 gefaerbten Oktanten: eine eigene Kategorie, laeuft ueber zwei Zeilen.
         List<ItemStack> coloredOctants = new java.util.ArrayList<>();
+        // b-btools07: by id - on 26.3 Simple Building Tools' octants (its own tab; SimpleLib's tab rules keep them there).
         for (DyeColor color : DyeColor.values()) {
-            Item coloredItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
-            if (coloredItem != null) {
+            Item coloredItem = com.simplebuilding.util.BuildingToolRefs.octant(color);
+            if (coloredItem != null && coloredItem != Items.AIR) {
                 coloredOctants.add(new ItemStack(coloredItem));
             }
         }
@@ -254,9 +255,10 @@ public final class ModItemGroupsContent {
 
     /** Alle Baustab-Stufen, aufsteigend. */
     private static ItemLike[] buildingWands() {
-        return new ItemLike[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
-                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND,
-                ModItems.CREATIVE_BUILDING_WAND};
+        // b-btools07: by id (26.3: Simple Building Tools').
+        java.util.List<ItemLike> wands = new java.util.ArrayList<>(com.simplebuilding.util.BuildingToolRefs.wands());
+        wands.add(com.simplebuilding.util.BuildingToolRefs.wand("creative"));
+        return wands.toArray(new ItemLike[0]);
     }
 
     private static void buildingBlocks(CreativeModeTab.Output entries) {
@@ -695,7 +697,8 @@ public final class ModItemGroupsContent {
      * einmal stehen, darum wiederholt die Zeile den Enderit-Baustab nicht, sondern teilt sich seine Zeile.
      */
     public static CreativeTabLayout.Row buildingPlanningRow() {
-        return CreativeTabLayout.Row.besides("building_planning", ModItems.BLUEPRINT, ModItems.CREATIVE_BLUEPRINT, Items.CARTOGRAPHY_TABLE);
+        return CreativeTabLayout.Row.besides("building_planning", com.simplebuilding.util.BuildingToolRefs.blueprint(),
+                com.simplebuilding.util.BuildingToolRefs.creativeBlueprint(), Items.CARTOGRAPHY_TABLE);
     }
 
     private static void addEnchantAtMax(List<ItemStack> entries, HolderLookup<Enchantment> registry, ResourceKey<Enchantment> key) {

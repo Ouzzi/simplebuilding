@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "simplebuildingtools:item/creative_building_wand"
+  }
+}

@@ -51,7 +51,7 @@ public class BlueprintPictureScreen extends Screen {
     private @Nullable BlueprintPicture.Result result;
 
     public BlueprintPictureScreen(BlueprintScreen parent) {
-        super(Component.translatable("simplebuilding.blueprint.picture.title"));
+        super(Component.translatable("simplebuildingtools.blueprint.picture.title"));
         this.parent = parent;
     }
 
@@ -97,12 +97,12 @@ public class BlueprintPictureScreen extends Screen {
             inventoryOnly = !inventoryOnly;
             refresh(b, paletteLabel());
         }));
-        addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.picture.reload"), layout.button(0, 3), b -> {
+        addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.picture.reload"), layout.button(0, 3), b -> {
             scan();
             loadedFile = null;
             rebuildWidgets();
         }));
-        apply = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.apply"), layout.button(1, 3), b -> apply()));
+        apply = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.io.apply"), layout.button(1, 3), b -> apply()));
         addRenderableWidget(button(Component.translatable("gui.cancel"), layout.button(2, 3), b -> onClose()));
         convert();
     }
@@ -122,24 +122,24 @@ public class BlueprintPictureScreen extends Screen {
 
     private Component fileLabel() {
         String name = files.isEmpty() ? "-" : files.get(fileIndex).getFileName().toString();
-        return Component.translatable("simplebuilding.blueprint.picture.file", name);
+        return Component.translatable("simplebuildingtools.blueprint.picture.file", name);
     }
 
     private Component sizeLabel() {
-        return Component.translatable("simplebuilding.blueprint.picture.size", side);
+        return Component.translatable("simplebuildingtools.blueprint.picture.size", side);
     }
 
     private Component ditherLabel() {
-        return Component.translatable("simplebuilding.blueprint.picture.dither", Component.translatable(dither.langKey()));
+        return Component.translatable("simplebuildingtools.blueprint.picture.dither", Component.translatable(dither.langKey()));
     }
 
     private Component facingLabel() {
-        return Component.translatable("simplebuilding.blueprint.picture.facing", Component.translatable(facing.langKey()));
+        return Component.translatable("simplebuildingtools.blueprint.picture.facing", Component.translatable(facing.langKey()));
     }
 
     private Component paletteLabel() {
-        return Component.translatable("simplebuilding.blueprint.picture.palette",
-                Component.translatable("simplebuilding.blueprint.picture.palette." + (inventoryOnly ? "inventory" : "all")));
+        return Component.translatable("simplebuildingtools.blueprint.picture.palette",
+                Component.translatable("simplebuildingtools.blueprint.picture.palette." + (inventoryOnly ? "inventory" : "all")));
     }
 
     /** Naechste Groessen-Stufe bis zur Server-Grenze, danach wieder die kleinste. */
@@ -188,7 +188,7 @@ public class BlueprintPictureScreen extends Screen {
             }
         } catch (IOException | RuntimeException e) {
             argb = new int[0];
-            readError = Component.translatable("simplebuilding.blueprint.picture.error.read", file.getFileName().toString());
+            readError = Component.translatable("simplebuildingtools.blueprint.picture.error.read", file.getFileName().toString());
         }
     }
 
@@ -310,13 +310,13 @@ public class BlueprintPictureScreen extends Screen {
 
     private void drawStatus(GuiGraphicsExtractor g) {
         if (!BtTuning.pictureImport()) {
-            line(g, layout.status1, Component.translatable("simplebuilding.blueprint.picture.error.off"), BlueprintScreen.ERROR);
+            line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.picture.error.off"), BlueprintScreen.ERROR);
             return;
         }
         if (files.isEmpty()) {
-            line(g, layout.status1, Component.translatable("simplebuilding.blueprint.picture.no_files", "config/simplebuilding/images"),
+            line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.picture.no_files", "config/simplebuilding/images"),
                     BlueprintScreen.ERROR);
-            line(g, layout.status2, Component.translatable("simplebuilding.blueprint.io.picture_hint"), BlueprintScreen.INK_SOFT);
+            line(g, layout.status2, Component.translatable("simplebuildingtools.blueprint.io.picture_hint"), BlueprintScreen.INK_SOFT);
             return;
         }
         if (readError != null) {
@@ -327,12 +327,12 @@ public class BlueprintPictureScreen extends Screen {
             return;
         }
         if (!result.ok()) {
-            line(g, layout.status1, Component.translatable("simplebuilding.blueprint.picture.error." + result.error()), BlueprintScreen.ERROR);
+            line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.picture.error." + result.error()), BlueprintScreen.ERROR);
             return;
         }
-        line(g, layout.status1, Component.translatable("simplebuilding.blueprint.picture.summary", result.width(), result.height(),
+        line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.picture.summary", result.width(), result.height(),
                 result.blocks(), result.colors()), BlueprintScreen.OK);
-        line(g, layout.status2, Component.translatable("simplebuilding.blueprint.picture.code_length", result.code().length(),
+        line(g, layout.status2, Component.translatable("simplebuildingtools.blueprint.picture.code_length", result.code().length(),
                 BlueprintCode.MAX_CODE_LENGTH), BlueprintScreen.INK_SOFT);
     }
 }

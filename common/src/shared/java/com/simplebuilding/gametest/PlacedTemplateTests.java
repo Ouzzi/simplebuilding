@@ -527,6 +527,7 @@ public final class PlacedTemplateTests {
      * leuchtenden Vorlage).
      */
     public static void theHitboxCoversOnlyThePixelsOfThePlate(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5));
         player.setShiftKeyDown(true);
@@ -612,6 +613,7 @@ public final class PlacedTemplateTests {
      * und fallen beim Abbauen mit allen Komponenten heraus. Ohne Schleichen wird nichts abgelegt.
      */
     public static void blueprintsArePlacedLikeTemplatesAndDropThemselves(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5));
         player.setShiftKeyDown(false);
         helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
@@ -663,6 +665,7 @@ public final class PlacedTemplateTests {
      * die abgelegte Blaupause aus der Ferne, signiert oder an fremden Bloecken beschreibt.
      */
     public static void placedBlueprintOpensWithAnEmptyHandAndSavesAtItsPosition(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
         helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
         player.setShiftKeyDown(true);
@@ -959,6 +962,7 @@ public final class PlacedTemplateTests {
      * und Laden. Eine abgelegte Schmiedevorlage reagiert nicht auf Rechtsklick.
      */
     public static void lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer alice = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5));
         ServerPlayer bob = mockPlayer(helper, new Vec3(4.5, 2.0, 5.5));

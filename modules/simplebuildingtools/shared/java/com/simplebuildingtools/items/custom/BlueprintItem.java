@@ -135,7 +135,7 @@ public class BlueprintItem extends Item {
     /** Kreativ-Blaupause: ein Satz zu Reichweite und Signatur. */
     private void creativeHint(ItemStack stack, Consumer<Component> lines) {
         if (creative) {
-            lines.accept(Component.translatable("simplebuilding.creative_blueprint.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
+            lines.accept(Component.translatable("simplebuildingtools.creative_blueprint.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
         }
     }
 
@@ -147,8 +147,8 @@ public class BlueprintItem extends Item {
             lines.accept(Component.translatable("book.byAuthor", content.author()).withStyle(ChatFormatting.GRAY));
         }
         if (content.isBlank()) {
-            lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.empty").withStyle(ChatFormatting.GRAY));
-            lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.empty.2").withStyle(ChatFormatting.GRAY));
+            lines.accept(Component.translatable("simplebuildingtools.blueprint.tooltip.empty").withStyle(ChatFormatting.GRAY));
+            lines.accept(Component.translatable("simplebuildingtools.blueprint.tooltip.empty.2").withStyle(ChatFormatting.GRAY));
             creativeHint(stack, lines);
             super.appendHoverText(stack, context, display, lines, flag);
             return;
@@ -156,19 +156,19 @@ public class BlueprintItem extends Item {
         BlueprintCode.ParseResult parsed = BlueprintCode.parseCached(content.code());
         BlueprintModel model = parsed.model();
         if (!parsed.ok()) {
-            lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.errors", parsed.problems().size()).withStyle(ChatFormatting.RED));
+            lines.accept(Component.translatable("simplebuildingtools.blueprint.tooltip.errors", parsed.problems().size()).withStyle(ChatFormatting.RED));
         }
         if (!model.isEmpty()) {
-            lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.size",
+            lines.accept(Component.translatable("simplebuildingtools.blueprint.tooltip.size",
                     model.sizeX(), model.sizeY(), model.sizeZ(), model.size()).withStyle(ChatFormatting.GRAY));
             int tier = BlueprintTiers.tierIndexFor(model.maxEdge());
             if (tier >= 0) {
-                lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.needs", BlueprintTiers.wandName(tier))
+                lines.accept(Component.translatable("simplebuildingtools.blueprint.tooltip.needs", BlueprintTiers.wandName(tier))
                         .withStyle(ChatFormatting.DARK_AQUA));
             }
         }
         if (!content.signed()) {
-            lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.unsigned").withStyle(ChatFormatting.DARK_GRAY));
+            lines.accept(Component.translatable("simplebuildingtools.blueprint.tooltip.unsigned").withStyle(ChatFormatting.DARK_GRAY));
         }
         creativeHint(stack, lines);
         super.appendHoverText(stack, context, display, lines, flag);

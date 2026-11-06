@@ -165,7 +165,7 @@ public final class WandUndo {
         }
         if (record.overflow) {
             RECORDS.remove(player.getUUID());
-            player.sendOverlayMessage(Component.translatable("simplebuilding.wand.undo.too_big", LIMIT).withStyle(ChatFormatting.YELLOW));
+            player.sendOverlayMessage(Component.translatable("simplebuildingtools.wand.undo.too_big", LIMIT).withStyle(ChatFormatting.YELLOW));
             return 0;
         }
         if (record.positions.isEmpty()) {
@@ -173,7 +173,7 @@ public final class WandUndo {
         }
         RECORDS.remove(player.getUUID());
         if (!record.dimension.equals(level.dimension())) {
-            player.sendOverlayMessage(Component.translatable("simplebuilding.wand.undo.other_dimension").withStyle(ChatFormatting.YELLOW));
+            player.sendOverlayMessage(Component.translatable("simplebuildingtools.wand.undo.other_dimension").withStyle(ChatFormatting.YELLOW));
             return 0;
         }
         // Erst pruefen, dann raeumen: das Entfernen einer Tuerhaelfte nimmt die andere mit, deren
@@ -211,7 +211,7 @@ public final class WandUndo {
             give(player, entry.getKey(), entry.getValue());
         }
         level.playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6F, 0.8F);
-        player.sendOverlayMessage(Component.translatable("simplebuilding.wand.undo.done", removed, n - removed)
+        player.sendOverlayMessage(Component.translatable("simplebuildingtools.wand.undo.done", removed, n - removed)
                 .withStyle(ChatFormatting.GREEN));
         return removed;
     }

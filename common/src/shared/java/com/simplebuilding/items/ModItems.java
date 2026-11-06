@@ -638,21 +638,22 @@ public class ModItems {
 
     // Wands
 
-    public static final BuildingWandItem COPPER_BUILDING_WAND = registerBuildingWand("copper_building_wand", DURABILITY_COPPER_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_COPPER, ENCHANTABILITY_COPPER);
+    public static final BuildingWandItem COPPER_BUILDING_WAND = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : registerBuildingWand("copper_building_wand", DURABILITY_COPPER_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_COPPER, ENCHANTABILITY_COPPER);
 
-    public static final BuildingWandItem IRON_BUILDING_WAND = registerBuildingWand("iron_building_wand", DURABILITY_IRON_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_IRON, ENCHANTABILITY_IRON);
+    public static final BuildingWandItem IRON_BUILDING_WAND = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : registerBuildingWand("iron_building_wand", DURABILITY_IRON_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_IRON, ENCHANTABILITY_IRON);
 
-    public static final BuildingWandItem GOLD_BUILDING_WAND = registerBuildingWand("gold_building_wand", DURABILITY_GOLD_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_GOLD, ENCHANTABILITY_GOLD);
+    public static final BuildingWandItem GOLD_BUILDING_WAND = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : registerBuildingWand("gold_building_wand", DURABILITY_GOLD_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_GOLD, ENCHANTABILITY_GOLD);
 
-    public static final BuildingWandItem DIAMOND_BUILDING_WAND = registerBuildingWand("diamond_building_wand", DURABILITY_DIAMOND_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_DIAMOND, ENCHANTABILITY_DIAMOND);
+    public static final BuildingWandItem DIAMOND_BUILDING_WAND = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : registerBuildingWand("diamond_building_wand", DURABILITY_DIAMOND_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_DIAMOND, ENCHANTABILITY_DIAMOND);
 
-    public static final BuildingWandItem NETHERITE_BUILDING_WAND = registerBuildingWand("netherite_building_wand", DURABILITY_NETHERITE_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_NETHERITE, ENCHANTABILITY_NETHERITE);
+    public static final BuildingWandItem NETHERITE_BUILDING_WAND = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : registerBuildingWand("netherite_building_wand", DURABILITY_NETHERITE_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_NETHERITE, ENCHANTABILITY_NETHERITE);
 
-    public static final BuildingWandItem ENDERITE_BUILDING_WAND = registerBuildingWand("enderite_building_wand", DURABILITY_ENDERITE_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_ENDERITE, ENCHANTABILITY_ENDERITE);
+    public static final BuildingWandItem ENDERITE_BUILDING_WAND = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : registerBuildingWand("enderite_building_wand", DURABILITY_ENDERITE_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_ENDERITE, ENCHANTABILITY_ENDERITE);
 
     // Kreativ-Baustab (Queue N29): nur im Kreativ-Tab, kein Rezept; Flaeche wie Enderit, unbegrenzte
     // Reichweite, ohne Haltbarkeit und Materialverbrauch (BuildingWandItem#freeBuild).
-    public static final BuildingWandItem CREATIVE_BUILDING_WAND = registerCreativeBuildingWand();
+    // b-btools07: on 26.3 the tools are Simple Building Tools' (McVersion.BTOOLS_IN_SB false, fields null, util/BuildingToolRefs).
+    public static final BuildingWandItem CREATIVE_BUILDING_WAND = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : registerCreativeBuildingWand();
 
     // Sledgehammer: 26.3 Simple Hammers (simplehammers:, split stage 7, util/HammerRefs); 26.2 SimpleBuilding's own.
 
@@ -713,13 +714,13 @@ public class ModItems {
     // OW24-2 stage G2: on 26.3 the Transposer is Simple Gadgets' (McVersion.GADGETS_IN_SB false, field null, util/GadgetRefs).
     public static final Item ROTATOR = !com.simplebuilding.version.McVersion.GADGETS_IN_SB ? null : registerItem("rotator", settings -> new RotatorItem(settings.durability(RotatorItem.MAX_CHARGE).stacksTo(1).enchantable(ENCHANTABILITY_NETHERITE)));
 
-    public static final OctantItem OCTANT = (OctantItem) registerItem("octant", settings -> new OctantItem(settings.durability(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
+    public static final OctantItem OCTANT = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : (OctantItem) registerItem("octant", settings -> new OctantItem(settings.durability(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
 
     // Blaupause (docs/BLUEPRINT.md): leer stapelbar wie Karten, gefuellt einzeln verschieden.
-    public static final com.simplebuilding.items.custom.BlueprintItem BLUEPRINT = (com.simplebuilding.items.custom.BlueprintItem) registerItem("blueprint",
+    public static final com.simplebuilding.items.custom.BlueprintItem BLUEPRINT = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : (com.simplebuilding.items.custom.BlueprintItem) registerItem("blueprint",
             settings -> new com.simplebuilding.items.custom.BlueprintItem(settings.stacksTo(16)));
     // Kreativ-Blaupause (Queue N29): nur im Kreativ-Tab, kein Rezept; unbegrenzte Reichweite, signiert endgueltig.
-    public static final com.simplebuilding.items.custom.BlueprintItem CREATIVE_BLUEPRINT = (com.simplebuilding.items.custom.BlueprintItem) registerItem("creative_blueprint",
+    public static final com.simplebuilding.items.custom.BlueprintItem CREATIVE_BLUEPRINT = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null : (com.simplebuilding.items.custom.BlueprintItem) registerItem("creative_blueprint",
             settings -> new com.simplebuilding.items.custom.BlueprintItem(settings.stacksTo(16).rarity(Rarity.EPIC), true));
 
     // EnumMap, not HashMap: datagen iterates this to build the octants_enchantable tag, and a
@@ -1392,7 +1393,7 @@ public class ModItems {
 
         // Farbige Octanten registrieren
 
-        for (DyeColor color : DyeColor.values()) {
+        for (DyeColor color : com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? DyeColor.values() : new DyeColor[0]) {
 
             String name = "octant_" + color.getName();
 

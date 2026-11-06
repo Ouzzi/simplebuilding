@@ -19,9 +19,9 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
   - **Simple Blocks** `simpleblocks` (required) [fertig]: Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants, and SimpleBuilding's building blocks without a home of their own (suspended and levitating sand/gravel, dirt/grass/sand/gravel slabs, cracked and chiseled ice, the nautilus shell block, three froglight colors; ids migrate). The Shapecutter cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla; required sub-mod of SimpleBuilding.
     - required: SimpleLib
     - optional: SimpleBuilding, jei
-  - **Simple Building Tools** `simplebuildingtools` (required) [neu]: Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant selection tool in 17 colors and the Blueprint with editor, picture import and cartography table copies.
+  - **Simple Building Tools** `simplebuildingtools` (required) [fertig]: Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant in 17 colors and the Blueprint with editor, picture import and cartography table copies. Simple Ores adds the Enderite wand, SimpleBuilding the backpack supply and the placed octants.
     - required: SimpleLib
-    - optional: SimpleBuilding
+    - optional: SimpleBuilding, Simple Ores, Simple Storage, Simple Hammers, Simple Octets
   - **Simple Enchanting** `simpleenchanting` (required) [neu]: The enchanters above Vanilla's table: the Dark Enchanter (SimpleBuilding's Astral Enchanting Table until 03.11.: three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and a Blazing or Nihil Obsidian floor) and the Astral Enchanter (tier 60 on a Nihil Obsidian floor, Blazing works half; Protection V and Feather Falling V). Made in the world with a hammer and 8 nuggets (Netherite; Enderite for the Astral one, needs Simple Ores), breaking gives them back. SimpleBuilding owns the building blocks; alone this module brings its own Blazing and Nihil Obsidian and blazewood planks and bookshelves. Fabric only for now.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Ores, Simple Hammers

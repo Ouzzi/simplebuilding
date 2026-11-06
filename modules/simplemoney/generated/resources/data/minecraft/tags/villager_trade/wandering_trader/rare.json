@@ -126,10 +126,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/blueprint",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/chiseled_astralit_bricks",
       "required": false
     },
@@ -218,10 +214,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_building_wand",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_carrot",
       "required": false
     },
@@ -271,10 +263,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/netherite_apple",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_building_wand",
       "required": false
     },
     {
@@ -403,6 +391,18 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/polished_nihilith_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuildingtools/blueprint",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuildingtools/enderite_building_wand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuildingtools/netherite_building_wand",
       "required": false
     },
     {

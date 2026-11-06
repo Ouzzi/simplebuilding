@@ -1,0 +1,11 @@
+{
+  "values": [
+    "simplebuildingtools:copper_building_wand",
+    "simplebuildingtools:iron_building_wand",
+    "simplebuildingtools:gold_building_wand",
+    "simplebuildingtools:diamond_building_wand",
+    "simplebuildingtools:netherite_building_wand",
+    "simplebuildingtools:enderite_building_wand",
+    "simplebuildingtools:creative_building_wand"
+  ]
+}

@@ -63,7 +63,7 @@ public class BlueprintIoScreen extends Screen {
     }
 
     private BlueprintIoScreen(BlueprintScreen parent, boolean export, String code, boolean canApply) {
-        super(Component.translatable(export ? "simplebuilding.blueprint.io.export_title" : "simplebuilding.blueprint.io.import_title"));
+        super(Component.translatable(export ? "simplebuildingtools.blueprint.io.export_title" : "simplebuildingtools.blueprint.io.import_title"));
         this.parent = parent;
         this.export = export;
         this.code = code;
@@ -102,33 +102,33 @@ public class BlueprintIoScreen extends Screen {
         Rect f = layout.format;
         formatButton = addRenderableWidget(button(formatLabel(), f, b -> cycleFormat()));
         if (export) {
-            primary = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.copy"), layout.button(0, 2), b -> copy()));
+            primary = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.io.copy"), layout.button(0, 2), b -> copy()));
             addRenderableWidget(button(Component.translatable("gui.done"), layout.button(1, 2), b -> onClose()));
             primary.active = !exportText.isEmpty();
         } else {
             // Bild-Bauplan (26.3): vierter Knopf "Bild ..." oeffnet das Bild-Fenster.
             boolean pictures = com.simplebuildingtools.blueprint.BlueprintPicture.available();
             int count = pictures ? 4 : 3;
-            primary = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.paste"), layout.button(0, count), b -> paste()));
+            primary = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.io.paste"), layout.button(0, count), b -> paste()));
             if (pictures) {
-                Button picture = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.picture"), layout.button(1, count),
+                Button picture = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.io.picture"), layout.button(1, count),
                         b -> minecraft.gui.setScreen(new BlueprintPictureScreen(parent))));
                 boolean on = com.simplebuildingtools.config.BtTuning.pictureImport();
                 picture.active = canApply && on;
                 picture.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable(
-                        on ? "simplebuilding.blueprint.io.picture_hint" : "simplebuilding.blueprint.picture.error.off")));
+                        on ? "simplebuildingtools.blueprint.io.picture_hint" : "simplebuildingtools.blueprint.picture.error.off")));
             }
-            apply = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.apply"), layout.button(count - 2, count), b -> apply()));
+            apply = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.io.apply"), layout.button(count - 2, count), b -> apply()));
             addRenderableWidget(button(Component.translatable("gui.cancel"), layout.button(count - 1, count), b -> onClose()));
-            apply.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simplebuilding.blueprint.io.apply_tip")));
+            apply.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simplebuildingtools.blueprint.io.apply_tip")));
             updateApply();
         }
         setInitialFocus(area);
     }
 
     private Component formatLabel() {
-        Component name = format == null ? Component.translatable("simplebuilding.blueprint.io.format.auto") : format.label();
-        return Component.translatable("simplebuilding.blueprint.io.format", name);
+        Component name = format == null ? Component.translatable("simplebuildingtools.blueprint.io.format.auto") : format.label();
+        return Component.translatable("simplebuildingtools.blueprint.io.format", name);
     }
 
     private void cycleFormat() {
@@ -168,7 +168,7 @@ public class BlueprintIoScreen extends Screen {
 
     private void copy() {
         minecraft.keyboardHandler.setClipboard(exportText);
-        primary.setMessage(Component.translatable("simplebuilding.blueprint.io.copied"));
+        primary.setMessage(Component.translatable("simplebuildingtools.blueprint.io.copied"));
         copiedUntil = Util.getMillis() + COPIED_MS;
     }
 
@@ -199,7 +199,7 @@ public class BlueprintIoScreen extends Screen {
         }
         if (copiedUntil != 0 && now > copiedUntil) {
             copiedUntil = 0;
-            primary.setMessage(Component.translatable("simplebuilding.blueprint.io.copy"));
+            primary.setMessage(Component.translatable("simplebuildingtools.blueprint.io.copy"));
         }
     }
 
@@ -238,41 +238,41 @@ public class BlueprintIoScreen extends Screen {
         if (export) {
             BlueprintCode.ParseResult parsed = BlueprintCode.parseCached(code.replace("\r", ""));
             if (exported != null && exported.tooLarge()) {
-                line(g, layout.status1, Component.translatable("simplebuilding.blueprint.io.too_large", BlueprintFormats.MAX_EXPORT_LINES), BlueprintScreen.ERROR);
+                line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.io.too_large", BlueprintFormats.MAX_EXPORT_LINES), BlueprintScreen.ERROR);
             } else if (exportText.isEmpty()) {
-                line(g, layout.status1, Component.translatable("simplebuilding.blueprint.io.export_empty"), BlueprintScreen.INK_SOFT);
+                line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.io.export_empty"), BlueprintScreen.INK_SOFT);
             } else if (!parsed.ok()) {
-                line(g, layout.status1, Component.translatable("simplebuilding.blueprint.io.export_errors"), BlueprintScreen.ERROR);
+                line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.io.export_errors"), BlueprintScreen.ERROR);
             } else {
-                line(g, layout.status1, Component.translatable("simplebuilding.blueprint.io.summary", parsed.model().size(),
+                line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.io.summary", parsed.model().size(),
                         parsed.model().sizeX(), parsed.model().sizeY(), parsed.model().sizeZ()), BlueprintScreen.OK);
             }
             return;
         }
         if (dirty || imported == null) {
-            line(g, layout.status1, Component.translatable("simplebuilding.blueprint.io.checking"), BlueprintScreen.INK_SOFT);
+            line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.io.checking"), BlueprintScreen.INK_SOFT);
             return;
         }
         if (imported.ok()) {
-            line(g, layout.status1, Component.translatable("simplebuilding.blueprint.io.summary", imported.model().size(),
+            line(g, layout.status1, Component.translatable("simplebuildingtools.blueprint.io.summary", imported.model().size(),
                     imported.model().sizeX(), imported.model().sizeY(), imported.model().sizeZ()), BlueprintScreen.OK);
             if (!canApply) {
-                line(g, layout.status2, Component.translatable("simplebuilding.blueprint.io.read_only"), BlueprintScreen.ERROR);
+                line(g, layout.status2, Component.translatable("simplebuildingtools.blueprint.io.read_only"), BlueprintScreen.ERROR);
             } else {
-                line(g, layout.status2, Component.translatable("simplebuilding.blueprint.io.detected", imported.format().label()), BlueprintScreen.INK_SOFT);
+                line(g, layout.status2, Component.translatable("simplebuildingtools.blueprint.io.detected", imported.format().label()), BlueprintScreen.INK_SOFT);
             }
             return;
         }
         List<BlueprintFormats.Issue> issues = imported.issues();
         line(g, layout.status1, issueText(issues.get(0)), BlueprintScreen.ERROR);
         if (issues.size() > 1) {
-            line(g, layout.status2, Component.translatable("simplebuilding.blueprint.io.more", issues.size() - 1), BlueprintScreen.INK_SOFT);
+            line(g, layout.status2, Component.translatable("simplebuildingtools.blueprint.io.more", issues.size() - 1), BlueprintScreen.INK_SOFT);
         }
     }
 
     private static Component issueText(BlueprintFormats.Issue issue) {
         return issue.line() > 0
-                ? Component.translatable("simplebuilding.blueprint.editor.error_line", issue.line(), issue.message())
+                ? Component.translatable("simplebuildingtools.blueprint.editor.error_line", issue.line(), issue.message())
                 : issue.message();
     }
 }

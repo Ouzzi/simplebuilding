@@ -336,6 +336,7 @@ public final class PadOverhaulTests {
      * im Protokoll, und die Sprachdateien kennen die entfernten Meldungen nicht mehr.
      */
     public static void padsAndGadgetsWriteNoTextOnTheScreen(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         List<Component> texts = new ArrayList<>();

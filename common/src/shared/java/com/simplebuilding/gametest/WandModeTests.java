@@ -72,6 +72,7 @@ public final class WandModeTests {
      * ({@code freeRun}), or a preview that disagrees with the build.
      */
     public static void linearWhileSneakingBuildsTheLineAwayFromTheClickedFace(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         BlockPos anchor = new BlockPos(3, 1, 3);
         clearRoom(helper);
@@ -111,6 +112,7 @@ public final class WandModeTests {
      * obstacle, or a bridge preview that disagrees with the build.
      */
     public static void bridgeRunsFromTheBlockUnderfootInTheFacingDirection(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         BlockPos ground = new BlockPos(1, 1, 3);
@@ -159,6 +161,7 @@ public final class WandModeTests {
      * support is not the clicked kind.
      */
     public static void coverOnlyGrowsTheSurfaceOfTheClickedKind(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         for (int x = 1; x <= 5; x++) {
@@ -203,6 +206,7 @@ public final class WandModeTests {
      * {@code copyOrientation}.
      */
     public static void wandSetsStairsAndLogsLikeThePlayerWould(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
@@ -274,6 +278,7 @@ public final class WandModeTests {
 
     /** Real inventory ticks must finish both parts and charge exactly one item. */
     public static void wandMultipartPlacesBedsDoorsAndPlants(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         BlockPos floor = new BlockPos(3, 1, 3);
         for (Item material : new Item[]{redBed().asItem(), Items.OAK_DOOR, Items.SUNFLOWER}) {
@@ -305,6 +310,7 @@ public final class WandModeTests {
 
     /** Refused callbacks must never overwrite obstacles or spend an item. */
     public static void wandMultipartRefusesBlockedOrProtectedSecondCells(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         BlockPos floor = new BlockPos(3, 1, 3);
         for (Item material : new Item[]{redBed().asItem(), Items.OAK_DOOR, Items.SUNFLOWER}) {
             for (boolean protectedCell : new boolean[]{false, true}) {
@@ -349,6 +355,7 @@ public final class WandModeTests {
 
     /** Octant cells are independent; callback-created parts require an explicit blueprint. */
     public static void wandMultipartOctantRefusesWithoutSpending(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         for (Item material : new Item[]{redBed().asItem(), Items.OAK_DOOR, Items.SUNFLOWER}) {
             clearRoom(helper);
@@ -382,6 +389,7 @@ public final class WandModeTests {
      * after an undo.
      */
     public static void undoTakesBackOnlyTheLastActionAndOnlyUnchangedBlocks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         WandUndo.forget(player.getUUID());
@@ -443,6 +451,7 @@ public final class WandModeTests {
      * the undo record does not see.
      */
     public static void octantInTheOffHandFillsItsShapeWithTheWand(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         WandUndo.forget(player.getUUID());
@@ -514,6 +523,7 @@ public final class WandModeTests {
      * the ridge, a missing slab ridge, or a slab looked up from the wrong block.
      */
     public static void roofModeLaysStairsTowardsTheRidgeWithSlabsOnTop(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         BlockPos anchor = new BlockPos(6, 1, 6);
@@ -560,6 +570,7 @@ public final class WandModeTests {
      * a client-only gate), or a bridge running past the obstacle.
      */
     public static void bridgeFromTheUsePacketStartsAtTheEdgeOfTheFloorAhead(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
         clearRoom(helper);
@@ -610,6 +621,7 @@ public final class WandModeTests {
      * or a Linear line that does not run through the vanilla click path.
      */
     public static void aHeldUseKeyDoesNotRestartTheRunningLinearLine(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         BlockPos anchor = new BlockPos(3, 1, 3);
@@ -654,6 +666,7 @@ public final class WandModeTests {
      * that also takes a sneaking click.
      */
     public static void bridgeAlsoStartsWhenTheClickAimsAcrossTheGap(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         BlockPos farBank = new BlockPos(6, 1, 3);
         BlockPos gapFloor = new BlockPos(3, 0, 3);
@@ -709,6 +722,7 @@ public final class WandModeTests {
      * of {@code Plan.forClick}, the plane winning over the line, or a preview that disagrees.
      */
     public static void linearWithoutSneakingAlsoBuildsOnlyTheLine(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         BlockPos anchor = new BlockPos(3, 1, 3);
@@ -747,6 +761,7 @@ public final class WandModeTests {
      * middle, building it in chunks again, a timer between the bridge steps, or the old pace.
      */
     public static void bridgeGrowsFromTheEdgeToTheFarEndInHalfTheTime(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
         clearRoom(helper);
@@ -814,6 +829,7 @@ public final class WandModeTests {
      * roof stair taken from anywhere but the first building block, or a missing or wrong hint.
      */
     public static void roofModeWorksWithTheTestCentreKitEnderiteWand(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         BlockPos anchor = new BlockPos(6, 1, 6);
@@ -867,6 +883,7 @@ public final class WandModeTests {
      * {@code inventoryTick}, or paying for a refused cell.
      */
     public static void wandSkipsEveryCellThePlayerMayNotBuildOn(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         clearRoom(helper);
         BlockPos anchor = new BlockPos(3, 1, 3);
         helper.setBlock(anchor, Blocks.STONE);
@@ -901,6 +918,7 @@ public final class WandModeTests {
      * {@code use} or from {@code useOn}.
      */
     public static void wandNeitherBuildsNorUndoesWithoutBuildRights(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         WandUndo.forget(player.getUUID());
@@ -938,6 +956,7 @@ public final class WandModeTests {
      * <p><strong>What breaks this test:</strong> dropping {@code isPlainSupply} from either method.
      */
     public static void wandSupplyPassesOverStacksWithComponents(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
         ItemStack named = new ItemStack(Items.SHULKER_BOX);
@@ -973,6 +992,7 @@ public final class WandModeTests {
      * {@code WandPlacement#baseState}.
      */
     public static void wandPlacesGameMasterBlocksOnlyForOperators(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         helper.setBlock(new BlockPos(3, 1, 3), Blocks.STONE);
@@ -1005,6 +1025,7 @@ public final class WandModeTests {
      * <p><strong>What breaks this test:</strong> comparing only the block in {@code WandUndo}.
      */
     public static void undoLeavesTheSlabThatWasDoubledSinceStanding(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         WandUndo.forget(player.getUUID());
@@ -1049,6 +1070,7 @@ public final class WandModeTests {
      * generates chunks) for the whole box when the wand is clicked, or no check for unloaded chunks.
      */
     public static void octantFillPlansLazilyAndRefusesUnloadedChunks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
@@ -1099,6 +1121,7 @@ public final class WandModeTests {
      * {@code GameMasterBlock} in {@code ShapeFill.FillLayout#rawState}.
      */
     public static void octantFillLeavesGameMasterBlocksOutForNonOperators(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         BlockPos anchor = new BlockPos(6, 1, 6);
@@ -1136,6 +1159,7 @@ public final class WandModeTests {
      * the simulated cells, or the planner calling the variant without them.
      */
     public static void octantFillCheckCountsCellsOnLayersItHasNotBuiltYet(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         BlockPos anchor = new BlockPos(6, 1, 6);
@@ -1173,6 +1197,7 @@ public final class WandModeTests {
      * one-block margin.
      */
     public static void octantFillNeedsTheChunksAroundItsBoxLoaded(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
         stock(player, wand, new ItemStack(Items.GLASS, 8));
@@ -1209,6 +1234,7 @@ public final class WandModeTests {
      * finished layer-mode figure answered with SUCCESS.
      */
     public static void octantFillHonoursOrderLayersHollowAndTheTickBudget(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         WandUndo.forget(player.getUUID());
@@ -1275,6 +1301,7 @@ public final class WandModeTests {
      * {@code sameFaces} or the {@code mayBuildAt} check from {@code WandUndo#undo}.
      */
     public static void undoKeepsBlockEntityContentsSpreadFacesAndProtectedCells(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         clearRoom(helper);
         WandUndo.forget(player.getUUID());

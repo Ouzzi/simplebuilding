@@ -337,7 +337,7 @@ public final class OctantTests {
         helper.assertValueEqual(lines.size(), 3,
                 "a locked octant with both corners has to print three lines, it printed "
                         + lines.stream().map(Component::getString).toList());
-        helper.assertValueEqual(translationKey(lines.get(0)), "simplebuilding.gui.locked",
+        helper.assertValueEqual(translationKey(lines.get(0)), "simplebuildingtools.gui.locked",
                 "the first tooltip line of a locked octant");
         helper.assertValueEqual(List.of(lines.get(1).getString(), lines.get(2).getString()),
                 List.of("10, 20, 30", "-40, 50, -60"),

@@ -5171,11 +5171,11 @@
     {
       "id": "simplebuildingtools",
       "name": "Simple Building Tools",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Building Tools",
-      "description": "Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant selection tool in 17 colors and the Blueprint with editor, picture import and cartography table copies.",
+      "description": "Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant in 17 colors and the Blueprint with editor, picture import and cartography table copies. Simple Ores adds the Enderite wand, SimpleBuilding the backpack supply and the placed octants.",
       "loaders": [
         "fabric"
       ],
@@ -5183,7 +5183,11 @@
         "simplelib"
       ],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "simpleores",
+        "simplestorage",
+        "simplehammers",
+        "simpleoctets"
       ],
       "checks": [
         "modules/simplebuildingtools/tools/check_data.py"

@@ -1,0 +1,40 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplelib:basic_upgrade_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuildingtools:upgrade_copper_building_wand_to_iron_building_wand"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuildingtools:upgrade_copper_building_wand_to_iron_building_wand"
+    ]
+  }
+}

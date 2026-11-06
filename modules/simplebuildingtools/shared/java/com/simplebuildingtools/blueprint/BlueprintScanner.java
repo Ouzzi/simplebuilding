@@ -37,7 +37,7 @@ public final class BlueprintScanner {
      * (20 Stellen / 3 Bloecke je Tick), damit der Mehr-Tick-Weg an einer kleinen Auswahl pruefbar
      * ist - je Spieler, nicht global, weil Spieltests nebeneinander laufen.
      */
-    public static final String SMALL_BUDGET_TAG = "simplebuilding.blueprint_small_budget";
+    public static final String SMALL_BUDGET_TAG = "simplebuildingtools.blueprint_small_budget";
     public static final int SMALL_BUDGET = 20;
 
     public static int budgetFor(net.minecraft.world.entity.player.Player player) {
@@ -54,7 +54,7 @@ public final class BlueprintScanner {
     /** Ergebnis des Scans: entweder eine gefuellte Blaupause oder ein Grund fuer die Ablehnung. */
     public record Outcome(ItemStack result, Component error) {
         static Outcome fail(String key, Object... args) {
-            return new Outcome(ItemStack.EMPTY, Component.translatable("simplebuilding.blueprint.scan." + key, args));
+            return new Outcome(ItemStack.EMPTY, Component.translatable("simplebuildingtools.blueprint.scan." + key, args));
         }
     }
 

@@ -160,6 +160,7 @@ public final class WorldUpgradeTests {
      * tests below really start from 26.2 data.
      */
     public static void fixturesAreWhatTwentySixTwoWrites(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         Path dir = fixtureDir(helper);
         if (currentDataVersion() != DATA_VERSION_26_2) {
             for (String name : java.util.stream.Stream.concat(ALL_FIXTURES.stream(), java.util.stream.Stream.of(CURRENT_CHUNK)).toList()) {
@@ -468,6 +469,7 @@ public final class WorldUpgradeTests {
     }
 
     public static void modItemsSurviveTheUpgrade(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         List<CompoundTag> blockEntities = upgradedChunkBlockEntities(helper);
         List<ItemStack> oracle = chestOracle(helper, blockEntities.get(0));
         Container chest = (Container) load(helper, CHEST_POS, Blocks.CHEST.defaultBlockState(), blockEntities.get(0));
@@ -586,6 +588,7 @@ public final class WorldUpgradeTests {
 
     /** The mod's saved-data files (blueprint jobs, sledgehammer progress) load unchanged. */
     public static void savedDataSurvivesTheUpgrade(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         CompoundTag jobsFile = upgrade(helper, readFixture(helper, BLUEPRINT_JOBS), BlueprintJobs.TYPE.dataFixType());
         BlueprintJobs jobs = BlueprintJobs.CODEC.parse(ops(helper), jobsFile.get("data")).result().orElse(null);
         helper.assertTrue(jobs != null, "the blueprint jobs file does not decode: " + jobsFile);
@@ -611,6 +614,7 @@ public final class WorldUpgradeTests {
      * (the build goes on, from air or a wrong block), or writing numeric ids again.
      */
     public static void wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingOnWithShiftedIds(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = detachedPlayer(helper);
         ItemStack wand = new ItemStack(ModItems.ENDERITE_BUILDING_WAND);
         CompoundTag data = new CompoundTag();

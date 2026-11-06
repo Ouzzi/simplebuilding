@@ -99,12 +99,12 @@ public class OctantScreen extends Screen {
     private MenuPage currentPage = MenuPage.SELECTION;
 
     private enum OrientationMode {
-        POS_X(0, Direction.EAST, "simplebuilding.axis.pos_x"),
-        POS_Y(1, Direction.UP, "simplebuilding.axis.pos_y"),
-        POS_Z(2, Direction.SOUTH, "simplebuilding.axis.pos_z"),
-        NEG_X(3, Direction.WEST, "simplebuilding.axis.neg_x"),
-        NEG_Y(4, Direction.DOWN, "simplebuilding.axis.neg_y"),
-        NEG_Z(5, Direction.NORTH, "simplebuilding.axis.neg_z");
+        POS_X(0, Direction.EAST, "simplebuildingtools.axis.pos_x"),
+        POS_Y(1, Direction.UP, "simplebuildingtools.axis.pos_y"),
+        POS_Z(2, Direction.SOUTH, "simplebuildingtools.axis.pos_z"),
+        NEG_X(3, Direction.WEST, "simplebuildingtools.axis.neg_x"),
+        NEG_Y(4, Direction.DOWN, "simplebuildingtools.axis.neg_y"),
+        NEG_Z(5, Direction.NORTH, "simplebuildingtools.axis.neg_z");
 
         final int nbtIndex;
         final Direction direction;
@@ -132,7 +132,7 @@ public class OctantScreen extends Screen {
     }
 
     public OctantScreen(ItemStack stack) {
-        super(Component.translatable("simplebuilding.gui.title"));
+        super(Component.translatable("simplebuildingtools.gui.title"));
         this.stack = stack;
         loadDataFromStack();
     }
@@ -263,14 +263,14 @@ public class OctantScreen extends Screen {
         try { int val = Integer.parseInt(field.getValue()) + delta; if (isSize && val < 1) val = 1; field.setValue(String.valueOf(val)); if (isSize) updatePos2FromSize(); else updateLocalAndSend(); } catch (Exception e) { field.setValue("0"); }
     }
 
-    private Component getLockIcon() { return isLocked ? Component.translatable("simplebuilding.gui.locked") : Component.translatable("simplebuilding.gui.unlocked"); }
+    private Component getLockIcon() { return isLocked ? Component.translatable("simplebuildingtools.gui.locked") : Component.translatable("simplebuildingtools.gui.unlocked"); }
     private Component getShapeText() { return currentShape.getText(); }
-    private Component getOrientationText() { return Component.translatable("simplebuilding.gui.orientation", Component.translatable(currentOrientation.labelKey)); }
-    private Component getHollowText() { return Component.translatable("simplebuilding.gui.hollow", isHollow ? "ON" : "OFF"); }
-    private Component getLayerText() { return Component.translatable("simplebuilding.gui.layer", isLayerMode ? "ON" : "OFF"); }
-    private Component getOrderText() { return Component.translatable("simplebuilding.gui.order", currentOrder.getText()); }
-    private Component getFigureText() { return Component.translatable("simplebuilding.gui.figure", Component.translatable(ClientState.showOctantFigure ? "simplebuilding.gui.on" : "simplebuilding.gui.off")); }
-    private Component getPageButtonText() { return currentPage == MenuPage.SELECTION ? Component.translatable("simplebuilding.gui.page.settings") : Component.translatable("simplebuilding.gui.page.selection"); }
+    private Component getOrientationText() { return Component.translatable("simplebuildingtools.gui.orientation", Component.translatable(currentOrientation.labelKey)); }
+    private Component getHollowText() { return Component.translatable("simplebuildingtools.gui.hollow", isHollow ? "ON" : "OFF"); }
+    private Component getLayerText() { return Component.translatable("simplebuildingtools.gui.layer", isLayerMode ? "ON" : "OFF"); }
+    private Component getOrderText() { return Component.translatable("simplebuildingtools.gui.order", currentOrder.getText()); }
+    private Component getFigureText() { return Component.translatable("simplebuildingtools.gui.figure", Component.translatable(ClientState.showOctantFigure ? "simplebuildingtools.gui.on" : "simplebuildingtools.gui.off")); }
+    private Component getPageButtonText() { return currentPage == MenuPage.SELECTION ? Component.translatable("simplebuildingtools.gui.page.settings") : Component.translatable("simplebuildingtools.gui.page.selection"); }
 
     private void cycleShape() { currentShape = OctantItem.SelectionShape.values()[(currentShape.ordinal() + 1) % OctantItem.SelectionShape.values().length]; shapeButton.setMessage(getShapeText()); updateLocalAndSend(); }
     private void cycleOrientation() { currentOrientation = currentOrientation.next(); orientationButton.setMessage(getOrientationText()); updateLocalAndSend(); }
@@ -433,16 +433,16 @@ public class OctantScreen extends Screen {
         }
 
         super.extractRenderState(context, mouseX, mouseY, delta);
-        if (lockButton.isMouseOver(mouseX, mouseY)) context.setTooltipForNextFrame(font, Component.translatable("simplebuilding.gui.lock_tooltip"), mouseX, mouseY);
+        if (lockButton.isMouseOver(mouseX, mouseY)) context.setTooltipForNextFrame(font, Component.translatable("simplebuildingtools.gui.lock_tooltip"), mouseX, mouseY);
     }
 
     private void drawInputLabels(GuiGraphicsExtractor context) {
         int textDy = (WIDGET_HEIGHT - 8) / 2;
         int labelX = panelX + PANEL_PADDING;
         int color = labelColor();
-        context.text(font, Component.translatable("simplebuilding.gui.label.pos1"), labelX, startY + textDy, color, false);
-        context.text(font, Component.translatable("simplebuilding.gui.label.pos2"), labelX, startY + ROW_STEP + textDy, color, false);
-        context.text(font, Component.translatable("simplebuilding.gui.label.size"), labelX, startY + ROW_STEP * 2 + textDy, color, false);
+        context.text(font, Component.translatable("simplebuildingtools.gui.label.pos1"), labelX, startY + textDy, color, false);
+        context.text(font, Component.translatable("simplebuildingtools.gui.label.pos2"), labelX, startY + ROW_STEP + textDy, color, false);
+        context.text(font, Component.translatable("simplebuildingtools.gui.label.size"), labelX, startY + ROW_STEP * 2 + textDy, color, false);
     }
 
     /** Label colour on the panel: the palette's (light on the brass box) or Vanilla's dark grey on the popup. */
@@ -464,20 +464,20 @@ public class OctantScreen extends Screen {
         int dy = Math.abs(p1.getY() - p2.getY()) + 1;
         int dz = Math.abs(p1.getZ() - p2.getZ()) + 1;
 
-        context.text(font, Component.translatable("simplebuilding.gui.summary.pos1", p1.getX(), p1.getY(), p1.getZ()),
+        context.text(font, Component.translatable("simplebuildingtools.gui.summary.pos1", p1.getX(), p1.getY(), p1.getZ()),
                 boxX, boxY, LABEL_COLOR, false);
-        context.text(font, Component.translatable("simplebuilding.gui.summary.pos2", p2.getX(), p2.getY(), p2.getZ()),
+        context.text(font, Component.translatable("simplebuildingtools.gui.summary.pos2", p2.getX(), p2.getY(), p2.getZ()),
                 boxX, boxY + 10, LABEL_COLOR, false);
 
         Component metric;
         Component dims = null;
         if (dy == 1 && (dx == 1 || dz == 1)) {
-            metric = Component.translatable("simplebuilding.gui.summary.distance", Math.max(dx, dz));
+            metric = Component.translatable("simplebuildingtools.gui.summary.distance", Math.max(dx, dz));
         } else if (dy == 1) {
-            metric = Component.translatable("simplebuilding.gui.summary.area", dx * dz);
+            metric = Component.translatable("simplebuildingtools.gui.summary.area", dx * dz);
             dims = Component.literal("(" + dx + " x " + dz + ")");
         } else {
-            metric = Component.translatable("simplebuilding.gui.summary.volume", dx * dy * dz);
+            metric = Component.translatable("simplebuildingtools.gui.summary.volume", dx * dy * dz);
             dims = Component.literal("(" + dx + " x " + dy + " x " + dz + ")");
         }
 
@@ -485,7 +485,7 @@ public class OctantScreen extends Screen {
         if (!cornerAccepted(p1) || !cornerAccepted(p2)) {
             // Der Server verwirft Ecken ausserhalb seiner Reichweite (ModMessageHandlers#octantCornerInRange);
             // frueher sah man hier die neuen Zahlen, und am Item blieb still die alte Ecke (Nach-Audit N16).
-            context.text(font, Component.translatable("simplebuilding.gui.summary.corner_refused",
+            context.text(font, Component.translatable("simplebuildingtools.gui.summary.corner_refused",
                     com.simplebuildingtools.networking.ModMessageHandlers.OCTANT_CORNER_RANGE), boxX, boxY + 30, WARNING_COLOR, false);
         } else if (dims != null) {
             context.text(font, dims, boxX, boxY + 30, SECONDARY_COLOR, false);

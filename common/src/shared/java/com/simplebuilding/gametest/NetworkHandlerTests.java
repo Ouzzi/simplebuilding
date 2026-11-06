@@ -291,6 +291,7 @@ public final class NetworkHandlerTests {
 
     /** The wand settings screen writes radius and axis mode into the wand the player holds. */
     public static void buildingWandConfigureStoresRadiusAndAxis(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
         player.setItemInHand(InteractionHand.MAIN_HAND, wand);
@@ -347,6 +348,7 @@ public final class NetworkHandlerTests {
      * octant at all.
      */
     public static void octantConfigureStoresTheWholeSelectionState(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         // The corners below are absolute and near the origin; the handler only takes corners within
         // OCTANT_CORNER_RANGE of the player (audit 2026-09-26 #9), so the player stands there too.
@@ -460,6 +462,7 @@ public final class NetworkHandlerTests {
      * addressing the wrong corner, and a scroll amount that stops being honoured.
      */
     public static void octantScrollCyclesShapesAndNudgesCornersByFacing(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         // Near the absolute corners the test nudges (10..60): moved corners must stay within
         // OCTANT_CORNER_RANGE of the player (audit 2026-09-26 #9).
@@ -682,6 +685,7 @@ public final class NetworkHandlerTests {
      * taken as it comes (Integer.MAX_VALUE overflows the corner).
      */
     public static void octantPacketsRejectFarCornersUnknownNamesAndHugeScrolls(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         ItemStack octant = new ItemStack(ModItems.OCTANT);
         player.setItemInHand(InteractionHand.MAIN_HAND, octant);

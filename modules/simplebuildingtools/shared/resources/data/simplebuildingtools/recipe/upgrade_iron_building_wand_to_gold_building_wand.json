@@ -1,0 +1,18 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "simplelib:gold_core",
+  "addition_count": 1,
+  "base": "simplebuildingtools:iron_building_wand",
+  "result": {
+    "id": "simplebuildingtools:gold_building_wand"
+  },
+  "template": "simplelib:basic_upgrade_template"
+}

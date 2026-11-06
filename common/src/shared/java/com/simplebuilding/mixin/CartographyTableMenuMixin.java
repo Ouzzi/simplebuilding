@@ -46,7 +46,8 @@ public abstract class CartographyTableMenuMixin extends AbstractContainerMenu {
     @Inject(method = "<init>(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/inventory/ContainerLevelAccess;)V", at = @At("TAIL"))
     private void simplebuilding$wrapSlots(int containerId, Inventory inventory, ContainerLevelAccess access, CallbackInfo ci) {
         this.simplebuilding$player = inventory.player;
-        BlueprintCartography.wrapSlots(this, this.slots, access);
+        // b-btools07: on 26.3 Simple Building Tools wraps the table for its own octants and blueprints.
+        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) BlueprintCartography.wrapSlots(this, this.slots, access);
     }
 
     @Inject(method = "setupResultSlot", at = @At("HEAD"), cancellable = true)

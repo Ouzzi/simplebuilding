@@ -445,6 +445,7 @@ public final class TestCentreTests {
      * neu gebaut - das darf keine Rahmen verdoppeln.
      */
     public static void theWholeCentreBuildsAndMatchesItsPlan(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         BlockPos origin = new BlockPos(20000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 20000);
         TestCentreLayout.Plan plan = TestCentreLayout.plan(level, origin);
@@ -571,6 +572,7 @@ public final class TestCentreTests {
      */
     @SuppressWarnings("removal")
     public static void commandBlocksAreIsolatedAndEveryStationHasItsGiveButton(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         BlockPos origin = new BlockPos(0, 64, 0);
         TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), origin);
         Map<BlockPos, BlockState> blocks = new HashMap<>();

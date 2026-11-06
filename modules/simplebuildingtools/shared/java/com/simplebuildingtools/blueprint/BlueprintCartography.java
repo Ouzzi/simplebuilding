@@ -114,7 +114,7 @@ public final class BlueprintCartography {
             }
             if (!BlueprintScanner.isOctant(map) || !BlueprintScanner.isWritableBlueprint(additional)) {
                 if (player != null && BlueprintScanner.isOctant(map) && additional.getItem() instanceof com.simplebuildingtools.items.custom.BlueprintItem) {
-                    player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.scan.signed").withStyle(ChatFormatting.RED));
+                    player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuildingtools.blueprint.scan.signed").withStyle(ChatFormatting.RED));
                 }
                 result.accept(ItemStack.EMPTY);
                 return;
@@ -160,7 +160,7 @@ public final class BlueprintCartography {
 
         private void progress(Player player) {
             if (player != null && job != null) {
-                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.scan.progress", job.percent())
+                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuildingtools.blueprint.scan.progress", job.percent())
                         .withStyle(ChatFormatting.AQUA));
             }
         }
@@ -174,7 +174,7 @@ public final class BlueprintCartography {
                 return;
             }
             if (player != null) {
-                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.scan.done").withStyle(ChatFormatting.GREEN));
+                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuildingtools.blueprint.scan.done").withStyle(ChatFormatting.GREEN));
             }
             result.accept(outcome.result());
         }

@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 // Hoehere Prioritaet = spaeter angewandt: wickelt auch Slots anderer Mods (Simple Maps) statt von ihnen ersetzt zu werden.
 @Mixin(value = CartographyTableMenu.class, priority = 1100)
-public abstract class CartographyTableMenuMixin extends AbstractContainerMenu {
+public abstract class CartographyTableMenuMixin extends AbstractContainerMenu implements CartographyScanTicker {
     @Shadow @Final private ContainerLevelAccess access;
     @Shadow @Final private ResultContainer resultContainer;
 
@@ -59,14 +59,16 @@ public abstract class CartographyTableMenuMixin extends AbstractContainerMenu {
                 this.simplebuildingtools$player, this::simplebuildingtools$setResult));
     }
 
-    /** Laeuft jeden Server-Tick fuer das offene Menue: fuehrt einen grossen Scan fort. */
+    /**
+     * Laeuft jeden Server-Tick fuer das offene Menue (aus {@code AbstractContainerMenuMixin}, nicht als Override: SimpleBuilding
+     * ueberschreibt broadcastChanges hier schon fuer seine 26.2-Blaupausen): fuehrt einen grossen Scan fort.
+     */
     @Override
-    public void broadcastChanges() {
+    public void simplebuildingtools$tickScan() {
         if (this.simplebuildingtools$scan.running()) {
             this.access.execute((level, pos) -> this.simplebuildingtools$scan.tick(level, this.container.getItem(0),
                     this.container.getItem(1), this.simplebuildingtools$player, this::simplebuildingtools$setResult));
         }
-        super.broadcastChanges();
     }
 
     @Unique

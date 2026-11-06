@@ -720,6 +720,7 @@ public final class BuildingEnchantmentTests {
      * collecting it after the hotbar rather than before it.
      */
     public static void colorPaletteSpreadsTheCarriedBlocksOverTheWandPreview(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
 
         int diameter = ModItems.DIAMOND_BUILDING_WAND.getWandSquareDiameter();
@@ -891,6 +892,7 @@ public final class BuildingEnchantmentTests {
      * the placement loop - have to be there for it to pass.
      */
     public static void colorPaletteKeepsTheWandBuildingWhenOneBlockRunsOut(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
 
         // Two layers, so the two 5x5 read back windows cannot count each other's blocks.
@@ -1017,6 +1019,7 @@ public final class BuildingEnchantmentTests {
      * first ring only.
      */
     public static void linearBuildsOnlyTheLineAndPacesItWithTheLineDelay(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         helper.assertTrue(!player.isShiftKeyDown(), "test setup broken: the mock player sneaks, the case is about not sneaking");
 

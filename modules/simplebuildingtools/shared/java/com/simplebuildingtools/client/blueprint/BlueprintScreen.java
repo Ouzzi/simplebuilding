@@ -175,7 +175,7 @@ public class BlueprintScreen extends Screen {
     private final Component itemName;
 
     private static String itemKey(ItemStack stack) {
-        return BlueprintItem.isCreative(stack) ? "item.simplebuilding.creative_blueprint" : "item.simplebuilding.blueprint";
+        return BlueprintItem.isCreative(stack) ? "item.simplebuildingtools.creative_blueprint" : "item.simplebuildingtools.blueprint";
     }
 
     /** Schriftgroesse im Code-Feld: ganzzahlige Pixel, bei grossem GUI-Massstab kleiner. */
@@ -194,7 +194,7 @@ public class BlueprintScreen extends Screen {
 
     @Override
     protected void init() {
-        int statsW = Math.max(font.width(WIDEST_DIMS), font.width(Component.translatable("simplebuilding.blueprint.editor.blocks_total", WIDEST_BLOCKS)));
+        int statsW = Math.max(font.width(WIDEST_DIMS), font.width(Component.translatable("simplebuildingtools.blueprint.editor.blocks_total", WIDEST_BLOCKS)));
         layout = BlueprintEditorLayout.of(width, height, statsW + 2);
         viewX = layout.view.x();
         viewW = layout.view.w();
@@ -210,8 +210,8 @@ public class BlueprintScreen extends Screen {
         // Hilfe-Buch, Reiter Blocks: das Textfeld ist zugleich Suche und Einfuege-Feld (erstes EditBox-Kind).
         String query = insertBox != null ? insertBox.getValue() : "";
         Rect f = layout.insertField;
-        insertBox = new EditBox(font, f.x(), f.y(), f.w(), f.h(), Component.translatable("simplebuilding.blueprint.editor.insert_search"));
-        insertBox.setHint(Component.translatable("simplebuilding.blueprint.editor.insert_hint"));
+        insertBox = new EditBox(font, f.x(), f.y(), f.w(), f.h(), Component.translatable("simplebuildingtools.blueprint.editor.insert_search"));
+        insertBox.setHint(Component.translatable("simplebuildingtools.blueprint.editor.insert_hint"));
         insertBox.setValue(query);
         insertBox.setResponder(q -> {
             helpResults = BlueprintBlockSearch.search(q, BlueprintScreen::displayName, 400);
@@ -223,26 +223,26 @@ public class BlueprintScreen extends Screen {
         });
         helpResults = BlueprintBlockSearch.search(query, BlueprintScreen::displayName, 400);
         addRenderableWidget(insertBox);
-        insertButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.editor.insert"), layout.insertButton, b -> insertTarget()));
+        insertButton = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.editor.insert"), layout.insertButton, b -> insertTarget()));
 
-        helpButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.help.title"), layout.book, b -> toggleHelp()));
-        helpButton.setTooltip(Tooltip.create(Component.translatable("simplebuilding.blueprint.help.open")));
-        resetViewButton = addRenderableWidget(new IconButton(layout.reset, Component.translatable("simplebuilding.blueprint.editor.view_reset"),
-                Component.translatable("simplebuilding.blueprint.editor.view_reset_tip"), RESET_ICON, controls::reset));
-        exampleButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.editor.example"), layout.example, b -> insertExample()));
-        Component blocksName = Component.translatable("simplebuilding.blueprint.help.blocks_tab");
-        Component guideName = Component.translatable("simplebuilding.blueprint.help.guide_tab");
+        helpButton = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.help.title"), layout.book, b -> toggleHelp()));
+        helpButton.setTooltip(Tooltip.create(Component.translatable("simplebuildingtools.blueprint.help.open")));
+        resetViewButton = addRenderableWidget(new IconButton(layout.reset, Component.translatable("simplebuildingtools.blueprint.editor.view_reset"),
+                Component.translatable("simplebuildingtools.blueprint.editor.view_reset_tip"), RESET_ICON, controls::reset));
+        exampleButton = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.editor.example"), layout.example, b -> insertExample()));
+        Component blocksName = Component.translatable("simplebuildingtools.blueprint.help.blocks_tab");
+        Component guideName = Component.translatable("simplebuildingtools.blueprint.help.guide_tab");
         blocksTab = addRenderableWidget(new IconButton(layout.blocksTab, blocksName, blocksName, null, () -> showTab(true)));
         blocksTab.item = new ItemStack(Items.BRICKS);
         guideTab = addRenderableWidget(new IconButton(layout.guideTab, guideName, guideName, null, () -> showTab(false)));
         guideTab.item = new ItemStack(Items.WRITABLE_BOOK);
-        copyButton = addRenderableWidget(new IconButton(layout.copy, Component.translatable("simplebuilding.blueprint.help.copy"),
+        copyButton = addRenderableWidget(new IconButton(layout.copy, Component.translatable("simplebuildingtools.blueprint.help.copy"),
                 copyTip(), COPY_ICON, this::copyGuide));
 
-        importButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.import"), layout.importButton,
+        importButton = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.io.import"), layout.importButton,
                 b -> openImport()));
-        importButton.setTooltip(Tooltip.create(Component.translatable("simplebuilding.blueprint.io.import_tip")));
-        exportButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.export"), layout.exportButton,
+        importButton.setTooltip(Tooltip.create(Component.translatable("simplebuildingtools.blueprint.io.import_tip")));
+        exportButton = addRenderableWidget(button(Component.translatable("simplebuildingtools.blueprint.io.export"), layout.exportButton,
                 b -> openExport()));
         doneButton = addRenderableWidget(button(Component.translatable("gui.done"), layout.done, b -> onClose()));
         signButton = addRenderableWidget(button(Component.translatable("book.signButton"), layout.sign, b -> {
@@ -252,9 +252,9 @@ public class BlueprintScreen extends Screen {
         }));
         Rect t = layout.titleBox;
         String title = titleBox != null ? titleBox.getValue() : "";
-        titleBox = new EditBox(font, t.x(), t.y(), t.w(), t.h(), Component.translatable("simplebuilding.blueprint.editor.title"));
+        titleBox = new EditBox(font, t.x(), t.y(), t.w(), t.h(), Component.translatable("simplebuildingtools.blueprint.editor.title"));
         titleBox.setMaxLength(BlueprintCode.MAX_TITLE_LENGTH);
-        titleBox.setHint(Component.translatable("simplebuilding.blueprint.editor.title_hint"));
+        titleBox.setHint(Component.translatable("simplebuildingtools.blueprint.editor.title_hint"));
         titleBox.setValue(title);
         titleBox.setResponder(v -> updateButtons());
         addRenderableWidget(titleBox);
@@ -294,7 +294,7 @@ public class BlueprintScreen extends Screen {
         Block target = target();
         insertButton.active = target != null;
         insertButton.setTooltip(target == null ? null : Tooltip.create(
-                Component.translatable("simplebuilding.blueprint.editor.insert_tip", target.getName(), BlueprintBlockSearch.codeName(target))));
+                Component.translatable("simplebuildingtools.blueprint.editor.insert_tip", target.getName(), BlueprintBlockSearch.codeName(target))));
         copyButton.visible = helpOpen && !helpBlocks;
         exampleButton.visible = !readOnly && !helpOpen && code.isBlank();
         resetViewButton.visible = !helpOpen && !parsed.model().isEmpty();
@@ -420,12 +420,12 @@ public class BlueprintScreen extends Screen {
     /** Die ganze Anleitung als Text: Ueberschriften mit "## ", Absaetze durch Leerzeilen getrennt. */
     public static String guideText() {
         StringBuilder out = new StringBuilder();
-        out.append("# ").append(Component.translatable("simplebuilding.blueprint.help.guide.title").getString()).append("\n\n");
+        out.append("# ").append(Component.translatable("simplebuildingtools.blueprint.help.guide.title").getString()).append("\n\n");
         for (String part : GUIDE) {
             if (part.startsWith("h")) {
-                out.append("## ").append(Component.translatable("simplebuilding.blueprint.help.guide.head." + part.substring(1)).getString());
+                out.append("## ").append(Component.translatable("simplebuildingtools.blueprint.help.guide.head." + part.substring(1)).getString());
             } else {
-                out.append(Component.translatable("simplebuilding.blueprint.help.guide." + part).getString());
+                out.append(Component.translatable("simplebuildingtools.blueprint.help.guide." + part).getString());
             }
             out.append("\n\n");
         }
@@ -434,14 +434,14 @@ public class BlueprintScreen extends Screen {
 
     /** Tooltip des Kopier-Symbols: Name, darunter was es tut. */
     private static Component copyTip() {
-        return Component.translatable("simplebuilding.blueprint.help.copy").withStyle(ChatFormatting.BOLD)
-                .append(Component.literal("\n")).append(Component.translatable("simplebuilding.blueprint.help.copy_tip").withStyle(s -> s.withBold(false)));
+        return Component.translatable("simplebuildingtools.blueprint.help.copy").withStyle(ChatFormatting.BOLD)
+                .append(Component.literal("\n")).append(Component.translatable("simplebuildingtools.blueprint.help.copy_tip").withStyle(s -> s.withBold(false)));
     }
 
     private void copyGuide() {
         minecraft.keyboardHandler.setClipboard(guideText());
         copyButton.setBitmap(CHECK_ICON);
-        copyButton.tip(Component.translatable("simplebuilding.blueprint.help.copied"));
+        copyButton.tip(Component.translatable("simplebuildingtools.blueprint.help.copied"));
         copiedUntil = Util.getMillis() + 2000;
     }
 
@@ -547,9 +547,9 @@ public class BlueprintScreen extends Screen {
         fitted(g, title, p.x() + 8, p.y() + 7, p.w() - 16, INK);
         g.fill(p.x() + 8, p.y() + 18, p.right() - 8, p.y() + 19, PAPER_SHADE);
         int labelY = bodyY - font.lineHeight - 1;
-        g.text(font, Component.translatable("simplebuilding.blueprint.editor.materials"), layout.list.x(), labelY, INK_SOFT, false);
-        g.text(font, Component.translatable("simplebuilding.blueprint.editor.code"), layout.code.x(), labelY, INK_SOFT, false);
-        g.text(font, Component.translatable(helpOpen ? "simplebuilding.blueprint.help.title" : "simplebuilding.blueprint.editor.view"),
+        g.text(font, Component.translatable("simplebuildingtools.blueprint.editor.materials"), layout.list.x(), labelY, INK_SOFT, false);
+        g.text(font, Component.translatable("simplebuildingtools.blueprint.editor.code"), layout.code.x(), labelY, INK_SOFT, false);
+        g.text(font, Component.translatable(helpOpen ? "simplebuildingtools.blueprint.help.title" : "simplebuildingtools.blueprint.editor.view"),
                 viewX, labelY, INK_SOFT, false);
     }
 
@@ -558,7 +558,7 @@ public class BlueprintScreen extends Screen {
         Rect l = layout.list;
         g.fill(l.x(), l.y(), l.right(), l.bottom(), PAPER_SHADE);
         if (materials.isEmpty()) {
-            g.textWithWordWrap(font, Component.translatable("simplebuilding.blueprint.editor.no_materials"), l.x() + 3, l.y() + 3, l.w() - 6, INK_SOFT, false);
+            g.textWithWordWrap(font, Component.translatable("simplebuildingtools.blueprint.editor.no_materials"), l.x() + 3, l.y() + 3, l.w() - 6, INK_SOFT, false);
             return;
         }
         int cols = layout.materialColumns();
@@ -588,7 +588,7 @@ public class BlueprintScreen extends Screen {
                     tip.append(Component.literal(" (" + (e.count() / 64) + "×64 + " + (e.count() % 64) + ")").withStyle(ChatFormatting.GRAY));
                 }
                 if (e.block() != null) {
-                    tip.append(Component.translatable("simplebuilding.blueprint.materials.creative_only"));
+                    tip.append(Component.translatable("simplebuildingtools.blueprint.materials.creative_only"));
                 }
                 hovered = tip;
             }
@@ -615,12 +615,12 @@ public class BlueprintScreen extends Screen {
         BlueprintModel model = parsed.model();
         Rect dims = layout.dimsLine;
         if (model.isEmpty()) {
-            fitted(g, Component.translatable("simplebuilding.blueprint.editor.size_empty"), dims.x(), dims.y(), dims.w(), INK_SOFT);
+            fitted(g, Component.translatable("simplebuildingtools.blueprint.editor.size_empty"), dims.x(), dims.y(), dims.w(), INK_SOFT);
             return;
         }
         fitted(g, Component.literal(model.sizeX() + "×" + model.sizeY() + "×" + model.sizeZ()), dims.x(), dims.y(), dims.w(), INK);
         Rect blocks = layout.blocksLine;
-        fitted(g, Component.translatable("simplebuilding.blueprint.editor.blocks_total", model.size()), blocks.x(), blocks.y(), blocks.w(), INK_SOFT);
+        fitted(g, Component.translatable("simplebuildingtools.blueprint.editor.blocks_total", model.size()), blocks.x(), blocks.y(), blocks.w(), INK_SOFT);
 
         int edge = model.maxEdge();
         int tier = BlueprintTiers.tierIndexFor(edge);
@@ -628,7 +628,7 @@ public class BlueprintScreen extends Screen {
         Rect bar = layout.wandBar;
         if (tier < 0) {
             g.item(new ItemStack(Items.BARRIER), icon.x(), icon.y());
-            fitted(g, Component.translatable("simplebuilding.blueprint.editor.too_big", BlueprintCode.GRID), bar.x(), icon.y() + 4, bar.w(), ERROR);
+            fitted(g, Component.translatable("simplebuildingtools.blueprint.editor.too_big", BlueprintCode.GRID), bar.x(), icon.y() + 4, bar.w(), ERROR);
             return;
         }
         g.item(new ItemStack(wandFor(tier)), icon.x(), icon.y());
@@ -638,8 +638,8 @@ public class BlueprintScreen extends Screen {
         g.fill(bar.x() + 1, bar.y() + 1, bar.x() + 1 + filled, bar.bottom() - 1, TIER_COLOURS[tier]);
         if (mouseX >= icon.x() && mouseX < bar.right() && mouseY >= icon.y() && mouseY < icon.bottom()) {
             List<FormattedCharSequence> tip = new ArrayList<>();
-            tip.add(Component.translatable("simplebuilding.blueprint.tooltip.needs", BlueprintTiers.wandName(tier)).getVisualOrderText());
-            tip.add(Component.translatable("simplebuilding.blueprint.editor.usage", edge, BlueprintTiers.EDGES[tier] - edge)
+            tip.add(Component.translatable("simplebuildingtools.blueprint.tooltip.needs", BlueprintTiers.wandName(tier)).getVisualOrderText());
+            tip.add(Component.translatable("simplebuildingtools.blueprint.editor.usage", edge, BlueprintTiers.EDGES[tier] - edge)
                     .withStyle(ChatFormatting.GRAY).getVisualOrderText());
             g.setTooltipForNextFrame(font, tip, mouseX, mouseY);
         }
@@ -661,37 +661,37 @@ public class BlueprintScreen extends Screen {
         String text;
         int colour;
         if (shown != null) {
-            text = Component.translatable("simplebuilding.blueprint.editor.invalid",
-                    Component.translatable("simplebuilding.blueprint.editor.error_line", shown.line() + 1, shown.message())).getString();
+            text = Component.translatable("simplebuildingtools.blueprint.editor.invalid",
+                    Component.translatable("simplebuildingtools.blueprint.editor.error_line", shown.line() + 1, shown.message())).getString();
             colour = ERROR;
         } else if (parsed.model().isEmpty()) {
-            text = Component.translatable("simplebuilding.blueprint.editor.status_empty").getString();
+            text = Component.translatable("simplebuildingtools.blueprint.editor.status_empty").getString();
             colour = INK_SOFT;
         } else {
-            text = Component.translatable("simplebuilding.blueprint.editor.ok").getString();
+            text = Component.translatable("simplebuildingtools.blueprint.editor.ok").getString();
             colour = OK;
         }
         Rect status = layout.status;
         g.text(font, font.plainSubstrByWidth(text, status.w()), status.x(), status.y(), colour, false);
         Rect chars = layout.chars;
-        fitted(g, Component.translatable("simplebuilding.blueprint.editor.chars", code.length(), BlueprintCode.MAX_CODE_LENGTH),
+        fitted(g, Component.translatable("simplebuildingtools.blueprint.editor.chars", code.length(), BlueprintCode.MAX_CODE_LENGTH),
                 chars.x(), chars.y(), chars.w(), code.length() > BlueprintCode.MAX_CODE_LENGTH * 9 / 10 ? ERROR : INK_SOFT);
     }
 
     private void drawView(GuiGraphicsExtractor g) {
         BlueprintModel model = parsed.model();
         if (model.isEmpty()) {
-            g.textWithWordWrap(font, Component.translatable("simplebuilding.blueprint.editor.empty_view"), viewX + 6, bodyY + 6, viewW - 12, 0xFFB0C4DE, false);
+            g.textWithWordWrap(font, Component.translatable("simplebuildingtools.blueprint.editor.empty_view"), viewX + 6, bodyY + 6, viewW - 12, 0xFFB0C4DE, false);
             return;
         }
         BlueprintView.Mesh mesh = BlueprintView.mesh(model);
         BlueprintView.render(g, mesh, viewX + 2, bodyY + 2, viewW - 4, bodyH - 4, controls.rotation(),
                 controls.zoom(), controls.panX(), controls.panY());
         if (mesh.truncated()) {
-            g.text(font, Component.translatable("simplebuilding.blueprint.editor.truncated"), viewX + 4, bodyY + bodyH - 12, 0xFFFFB74D, false);
+            g.text(font, Component.translatable("simplebuildingtools.blueprint.editor.truncated"), viewX + 4, bodyY + bodyH - 12, 0xFFFFB74D, false);
         }
         // Hinweis oben links in Normalgroesse, umbrochen statt verkleinert, nicht unter das Reset-Icon
-        g.textWithWordWrap(font, Component.translatable("simplebuilding.blueprint.editor.view_hint"), viewX + 4, bodyY + 4,
+        g.textWithWordWrap(font, Component.translatable("simplebuildingtools.blueprint.editor.view_hint"), viewX + 4, bodyY + 4,
                 layout.reset.x() - 4 - (viewX + 4), 0x90B0C4DE, false);
     }
 
@@ -715,7 +715,7 @@ public class BlueprintScreen extends Screen {
         Rect r = layout.helpList;
         int row = BlueprintEditorLayout.HELP_ROW;
         if (helpResults.isEmpty()) {
-            g.text(font, Component.translatable("simplebuilding.blueprint.editor.no_hits"), r.x() + 4, r.y() + 4, INK_SOFT, false);
+            g.text(font, Component.translatable("simplebuildingtools.blueprint.editor.no_hits"), r.x() + 4, r.y() + 4, INK_SOFT, false);
             return;
         }
         helpScroll = Math.max(0, Math.min(helpScroll, Math.max(0, helpResults.size() * row - r.h())));
@@ -739,7 +739,7 @@ public class BlueprintScreen extends Screen {
                 g.text(font, id, 0, 0, INK_SOFT, false);
                 g.pose().popMatrix();
                 if (r.contains(mouseX, mouseY) && mouseY >= y && mouseY < y + row) {
-                    hover = Component.translatable(readOnly ? "simplebuilding.blueprint.help.pick_readonly" : "simplebuilding.blueprint.help.pick");
+                    hover = Component.translatable(readOnly ? "simplebuildingtools.blueprint.help.pick_readonly" : "simplebuildingtools.blueprint.help.pick");
                 }
             }
             y += row;
@@ -757,10 +757,10 @@ public class BlueprintScreen extends Screen {
                 if (!lines.isEmpty()) {
                     lines.add(FormattedCharSequence.EMPTY);
                 }
-                lines.addAll(font.split(Component.translatable("simplebuilding.blueprint.help.guide.head." + part.substring(1))
+                lines.addAll(font.split(Component.translatable("simplebuildingtools.blueprint.help.guide.head." + part.substring(1))
                         .withStyle(ChatFormatting.BOLD, ChatFormatting.UNDERLINE), w));
             } else {
-                lines.addAll(font.split(Component.translatable("simplebuilding.blueprint.help.guide." + part), w));
+                lines.addAll(font.split(Component.translatable("simplebuildingtools.blueprint.help.guide." + part), w));
                 lines.add(FormattedCharSequence.EMPTY);
             }
         }

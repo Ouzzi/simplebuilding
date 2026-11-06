@@ -385,6 +385,8 @@ ext.mcVersionResourceRewrites = { SourceSet sourceSet ->
                         .replace('"condition": "minecraft:random_chance"', '"type": "minecraft:random_chance"')
                         // Split stage 7: the sledgehammers and their enchantments are Simple Hammers'.
                         .replaceAll(/"simplebuilding:((?:stone|copper|iron|gold|diamond|netherite|enderite)_sledgehammer|break_through|override|radius)"/, '"simplehammers:$1"')
+                        // b-btools07: the wands, octants, blueprints and the wand enchantments are Simple Building Tools'.
+                        .replaceAll(/"simplebuilding:((?:copper|iron|gold|diamond|netherite|enderite|creative)_building_wand|octant(?:_[a-z_]+)?|(?:creative_)?blueprint|cover|bridge|linear)"/, '"simplebuildingtools:$1"')
             }
         }
     }

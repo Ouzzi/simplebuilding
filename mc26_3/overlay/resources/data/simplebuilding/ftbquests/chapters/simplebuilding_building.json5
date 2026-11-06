@@ -4,7 +4,7 @@
 	"order_index": 4,
 	"filename": "simplebuilding_building",
 	"icon": {
-		"id": "simplebuilding:octant"
+		"id": "simplebuildingtools:octant"
 	},
 	"default_quest_shape": "",
 	"default_hide_dependency_lines": false,
@@ -56,7 +56,7 @@
 					"id": "6A78F238195E3C82",
 					"type": "item",
 					"item": {
-						"id": "simplebuilding:octant",
+						"id": "simplebuildingtools:octant",
 						"count": 1
 					}
 				}
@@ -73,7 +73,7 @@
 				{
 					"id": "7DEE5FD83F4A6342",
 					"type": "advancement",
-					"advancement": "simplebuilding:octant/measure_twice",
+					"advancement": "simplebuildingtools:octant/measure_twice",
 					"criterion": ""
 				}
 			]
@@ -90,7 +90,7 @@
 				{
 					"id": "40B0727003665925",
 					"type": "advancement",
-					"advancement": "simplebuilding:octant/colour_coded",
+					"advancement": "simplebuildingtools:octant/colour_coded",
 					"criterion": ""
 				}
 			]
@@ -107,7 +107,7 @@
 				{
 					"id": "79942B97AE120418",
 					"type": "advancement",
-					"advancement": "simplebuilding:octant/full_spectrum",
+					"advancement": "simplebuildingtools:octant/full_spectrum",
 					"criterion": ""
 				}
 			]
@@ -325,7 +325,7 @@
 					"id": "4E6C39F630D64755",
 					"type": "item",
 					"item": {
-						"id": "simplebuilding:blueprint",
+						"id": "simplebuildingtools:blueprint",
 						"count": 1
 					}
 				}
@@ -342,7 +342,7 @@
 				{
 					"id": "3885166187BCD9B0",
 					"type": "advancement",
-					"advancement": "simplebuilding:blueprint/copy_that",
+					"advancement": "simplebuildingtools:blueprint/copy_that",
 					"criterion": ""
 				}
 			]
@@ -358,7 +358,7 @@
 				{
 					"id": "648D2442E4CBB613",
 					"type": "advancement",
-					"advancement": "simplebuilding:blueprint/carbon_copy",
+					"advancement": "simplebuildingtools:blueprint/carbon_copy",
 					"criterion": ""
 				}
 			]
@@ -374,7 +374,7 @@
 				{
 					"id": "1EC7140597B4282C",
 					"type": "advancement",
-					"advancement": "simplebuilding:blueprint/instant_architect",
+					"advancement": "simplebuildingtools:blueprint/instant_architect",
 					"criterion": ""
 				}
 			]

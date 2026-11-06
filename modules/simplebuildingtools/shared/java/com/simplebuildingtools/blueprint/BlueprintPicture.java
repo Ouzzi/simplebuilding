@@ -107,7 +107,7 @@ public final class BlueprintPicture {
         }
 
         public String langKey() {
-            return "simplebuilding.blueprint.picture.dither." + name().toLowerCase(java.util.Locale.ROOT);
+            return "simplebuildingtools.blueprint.picture.dither." + name().toLowerCase(java.util.Locale.ROOT);
         }
     }
 
@@ -116,7 +116,7 @@ public final class BlueprintPicture {
         WALL, FLOOR;
 
         public String langKey() {
-            return "simplebuilding.blueprint.picture.facing." + name().toLowerCase(java.util.Locale.ROOT);
+            return "simplebuildingtools.blueprint.picture.facing." + name().toLowerCase(java.util.Locale.ROOT);
         }
     }
 
@@ -261,15 +261,15 @@ public final class BlueprintPicture {
             return null;
         }
         if (!com.simplebuildingtools.config.BtTuning.pictureImport()) {
-            return "simplebuilding.blueprint.picture.refused.off";
+            return "simplebuildingtools.blueprint.picture.refused.off";
         }
         if (!hasLevel(player, com.simplebuildingtools.config.BtTuning.picturePermission())) {
-            return "simplebuilding.blueprint.picture.refused.permission";
+            return "simplebuildingtools.blueprint.picture.refused.permission";
         }
         BlueprintModel m = parsed.model();
         int side = com.simplebuildingtools.config.BtTuning.pictureMaxSide();
         if (m.maxEdge() > side) {
-            return "simplebuilding.blueprint.picture.refused.size";
+            return "simplebuildingtools.blueprint.picture.refused.size";
         }
         return null;
     }

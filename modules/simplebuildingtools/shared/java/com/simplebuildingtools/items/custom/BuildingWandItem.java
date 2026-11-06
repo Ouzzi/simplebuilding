@@ -160,7 +160,7 @@ public class BuildingWandItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
                                 java.util.function.Consumer<net.minecraft.network.chat.Component> lines, net.minecraft.world.item.TooltipFlag flag) {
         if (creative) {
-            lines.accept(net.minecraft.network.chat.Component.translatable("simplebuilding.creative_building_wand.tooltip")
+            lines.accept(net.minecraft.network.chat.Component.translatable("simplebuildingtools.creative_building_wand.tooltip")
                     .withStyle(net.minecraft.ChatFormatting.LIGHT_PURPLE));
         }
         super.appendHoverText(stack, context, display, lines, flag);
@@ -647,7 +647,7 @@ public class BuildingWandItem extends Item {
             if (getBlockBoolean(running)) { running.putBoolean("Active", false); setNbt(wandStack, running); }
             com.simplebuildingtools.blueprint.BlueprintBuilder.cancel(player);
             if (WandUndo.undo(player, world) < 0) {
-                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.undo.nothing")
+                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuildingtools.wand.undo.nothing")
                         .withStyle(net.minecraft.ChatFormatting.GRAY));
             }
             return InteractionResult.SUCCESS;
@@ -662,18 +662,18 @@ public class BuildingWandItem extends Item {
         // Jede Absage sagt in der Aktionsleiste, warum: frueher blieb ein Klick auf flachem Boden
         // (die Testzentrale ist ueberall flach) stumm, und die Bruecke wirkte kaputt.
         if (preview == null && !freeBuild(player, wandStack)) {
-            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_material").withStyle(net.minecraft.ChatFormatting.RED));
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuildingtools.wand.bridge.no_material").withStyle(net.minecraft.ChatFormatting.RED));
             return InteractionResult.FAIL;
         }
         CompoundTag nbt = getOrInitNbt(wandStack);
         int bridgeRadius = getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2);
         Plan plan = Plan.forBridge(world, player, bridgeRadius);
         if (plan == null) {
-            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_ground").withStyle(net.minecraft.ChatFormatting.YELLOW));
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuildingtools.wand.bridge.no_ground").withStyle(net.minecraft.ChatFormatting.YELLOW));
             return InteractionResult.FAIL;
         }
         if (plan.steps() == 0) {
-            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_gap", lineLength(bridgeRadius)).withStyle(net.minecraft.ChatFormatting.YELLOW));
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuildingtools.wand.bridge.no_gap", lineLength(bridgeRadius)).withStyle(net.minecraft.ChatFormatting.YELLOW));
             return InteractionResult.FAIL;
         }
 

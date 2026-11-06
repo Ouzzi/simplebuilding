@@ -113,7 +113,7 @@ public final class ShapeFill {
         BlueprintBuilder.Result result = BlueprintBuilder.buildLayout(level, player, wand, octant, plan.layout());
         if (result == null || BlueprintBuilder.nothingToDo(result)) {
             // Auch der Schichtmodus einer fertigen Figur: keine Schicht hat mehr eine freie Stelle.
-            player.sendOverlayMessage(Component.translatable("simplebuilding.wand.shape.nothing").withStyle(ChatFormatting.GRAY));
+            player.sendOverlayMessage(Component.translatable("simplebuildingtools.wand.shape.nothing").withStyle(ChatFormatting.GRAY));
             return InteractionResult.FAIL;
         }
         return InteractionResult.SUCCESS;
@@ -133,7 +133,7 @@ public final class ShapeFill {
      */
     public static Plan plan(Level level, Player player, ItemStack wand, ItemStack octant) {
         if (!(wand.getItem() instanceof BuildingWandItem wandItem) || !hasSelection(octant)) {
-            return Plan.fail(Component.translatable("simplebuilding.wand.shape.no_selection").withStyle(ChatFormatting.RED));
+            return Plan.fail(Component.translatable("simplebuildingtools.wand.shape.no_selection").withStyle(ChatFormatting.RED));
         }
         CompoundTag nbt = OctantShape.data(octant);
         AABB bounds = OctantShape.bounds(nbt);
@@ -143,12 +143,12 @@ public final class ShapeFill {
         int limit = BlueprintTiers.edgeFor(wandItem);
         if (edge > limit) {
             int needed = BlueprintTiers.tierIndexFor(edge);
-            return Plan.fail(Component.translatable("simplebuilding.blueprint.build.too_big", edge, limit,
+            return Plan.fail(Component.translatable("simplebuildingtools.blueprint.build.too_big", edge, limit,
                     BlueprintTiers.wandName(Math.max(0, needed))).withStyle(ChatFormatting.RED));
         }
         long volume = (long) sx * sy * sz;
         if (volume > BlueprintCode.MAX_EXPANDED_CELLS) {
-            return Plan.fail(Component.translatable("simplebuilding.wand.shape.too_many", volume, BlueprintCode.MAX_EXPANDED_CELLS)
+            return Plan.fail(Component.translatable("simplebuildingtools.wand.shape.too_many", volume, BlueprintCode.MAX_EXPANDED_CELLS)
                     .withStyle(ChatFormatting.RED));
         }
         // Nur geladene Chunks: hasChunk laedt nichts nach (anders als getBlockState). Mit einem Block
@@ -157,7 +157,7 @@ public final class ShapeFill {
         for (int cx = (minX - 1) >> 4; cx <= (minX + sx) >> 4; cx++) {
             for (int cz = (minZ - 1) >> 4; cz <= (minZ + sz) >> 4; cz++) {
                 if (!level.hasChunk(cx, cz)) {
-                    return Plan.fail(Component.translatable("simplebuilding.wand.shape.unloaded").withStyle(ChatFormatting.RED));
+                    return Plan.fail(Component.translatable("simplebuildingtools.wand.shape.unloaded").withStyle(ChatFormatting.RED));
                 }
             }
         }
@@ -173,7 +173,7 @@ public final class ShapeFill {
             }
         }
         if (materials.isEmpty()) {
-            return Plan.fail(Component.translatable("simplebuilding.wand.shape.no_material").withStyle(ChatFormatting.RED));
+            return Plan.fail(Component.translatable("simplebuildingtools.wand.shape.no_material").withStyle(ChatFormatting.RED));
         }
 
         OctantItem.SelectionShape shape = OctantShape.shape(nbt);
@@ -467,10 +467,10 @@ public final class ShapeFill {
         if (stair == null) {
             ItemStack first = BuildingWandItem.firstBuildingStack(player, wand);
             Component found = first == null ? Component.literal("-") : first.getHoverName();
-            return Component.translatable("simplebuilding.wand.roof.needs_stairs", found).withStyle(ChatFormatting.YELLOW);
+            return Component.translatable("simplebuildingtools.wand.roof.needs_stairs", found).withStyle(ChatFormatting.YELLOW);
         }
         Block slab = slabFor(stair);
-        return Component.translatable("simplebuilding.wand.roof.active", stair.getName(),
+        return Component.translatable("simplebuildingtools.wand.roof.active", stair.getName(),
                 (slab != null ? slab : stair).getName()).withStyle(ChatFormatting.AQUA);
     }
 

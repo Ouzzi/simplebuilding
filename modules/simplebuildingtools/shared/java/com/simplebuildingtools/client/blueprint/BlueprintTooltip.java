@@ -65,7 +65,7 @@ public final class BlueprintTooltip implements ClientTooltipComponent {
                 w = Math.max(w, 20 + font.width(rowText(materials.get(i))));
             }
         } else {
-            w = Math.max(w, font.width(Component.translatable("simplebuilding.blueprint.tooltip.shift")));
+            w = Math.max(w, font.width(Component.translatable("simplebuildingtools.blueprint.tooltip.shift")));
         }
         return w;
     }
@@ -73,7 +73,7 @@ public final class BlueprintTooltip implements ClientTooltipComponent {
     private static Component rowText(BlueprintMaterials.Entry e) {
         if (e.block() != null) {
             return Component.literal(e.count() + "× ").append(e.block().getName())
-                    .append(Component.translatable("simplebuilding.blueprint.materials.creative_only").withStyle(ChatFormatting.DARK_RED));
+                    .append(Component.translatable("simplebuildingtools.blueprint.materials.creative_only").withStyle(ChatFormatting.DARK_RED));
         }
         return Component.literal(e.count() + "× ").append(new ItemStack(e.item()).getHoverName());
     }
@@ -102,7 +102,7 @@ public final class BlueprintTooltip implements ClientTooltipComponent {
         extractPreview(graphics, model, viewX, y, VIEW);
         int ty = y + VIEW + 4;
         if (!showMaterials()) {
-            graphics.text(font, Component.translatable("simplebuilding.blueprint.tooltip.shift").withStyle(ChatFormatting.GRAY), x, ty, 0xFFFFFFFF);
+            graphics.text(font, Component.translatable("simplebuildingtools.blueprint.tooltip.shift").withStyle(ChatFormatting.GRAY), x, ty, 0xFFFFFFFF);
             return;
         }
         for (int i = 0; i < rows(); i++) {
@@ -113,7 +113,7 @@ public final class BlueprintTooltip implements ClientTooltipComponent {
             graphics.text(font, rowText(e), x + 20, ty + i * ROW + 4, 0xFFFFFFFF);
         }
         if (materials.size() > MAX_ROWS) {
-            graphics.text(font, Component.translatable("simplebuilding.blueprint.materials.more", materials.size() - MAX_ROWS)
+            graphics.text(font, Component.translatable("simplebuildingtools.blueprint.materials.more", materials.size() - MAX_ROWS)
                     .withStyle(ChatFormatting.GRAY), x, ty + rows() * ROW + 1, 0xFFFFFFFF);
         }
     }

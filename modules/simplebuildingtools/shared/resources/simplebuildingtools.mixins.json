@@ -3,6 +3,7 @@
   "package": "com.simplebuildingtools.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "AbstractContainerMenuMixin",
     "CartographyTableMenuMixin",
     "CauldronDispatcherAccessor"
   ],

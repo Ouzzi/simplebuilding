@@ -39,7 +39,7 @@ public final class BlueprintFormats {
         }
 
         public Component label() {
-            return Component.translatable("simplebuilding.blueprint.io.format." + key);
+            return Component.translatable("simplebuildingtools.blueprint.io.format." + key);
         }
     }
 
@@ -50,7 +50,7 @@ public final class BlueprintFormats {
         }
 
         static Issue of(int line, String key, String... args) {
-            return new Issue(line, "simplebuilding.blueprint.import.error." + key, List.of(args));
+            return new Issue(line, "simplebuildingtools.blueprint.import.error." + key, List.of(args));
         }
     }
 
@@ -107,14 +107,14 @@ public final class BlueprintFormats {
     }
 
     private static Issue codeIssue(int line, BlueprintCode.Problem p) {
-        return new Issue(line, "simplebuilding.blueprint.error." + p.key(), p.args());
+        return new Issue(line, "simplebuildingtools.blueprint.error." + p.key(), p.args());
     }
 
     private static Imported fromCommands(String text) {
         BlueprintCommandText.Result commands = BlueprintCommandText.parse(text);
         List<Issue> issues = new ArrayList<>();
         for (BlueprintCommandText.Issue i : commands.issues()) {
-            issues.add(new Issue(i.line(), "simplebuilding.blueprint.import.error." + i.key(), i.args()));
+            issues.add(new Issue(i.line(), "simplebuildingtools.blueprint.import.error." + i.key(), i.args()));
         }
         BlueprintModel empty = new BlueprintModel();
         if (!issues.isEmpty()) {

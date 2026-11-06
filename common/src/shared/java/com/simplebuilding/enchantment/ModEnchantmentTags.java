@@ -8,8 +8,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 
 public final class ModEnchantmentTags {
     public static final TagKey<Enchantment> BUILDER_EXCLUSIVE_SET = tag("exclusive_set/builder_group");
-    public static final TagKey<Enchantment> COVER_EXCLUSIVE_SET = tag("exclusive_set/cover_group");
-    public static final TagKey<Enchantment> WAND_MODIFIER_EXCLUSIVE_SET = tag("exclusive_set/wand_modifier_group");
+    public static final TagKey<Enchantment> COVER_EXCLUSIVE_SET = TagKey.create(net.minecraft.core.registries.Registries.ENCHANTMENT,
+            net.minecraft.resources.Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE, "exclusive_set/cover_group")); // 26.3: Simple Building Tools'
+    public static final TagKey<Enchantment> WAND_MODIFIER_EXCLUSIVE_SET = TagKey.create(net.minecraft.core.registries.Registries.ENCHANTMENT,
+            net.minecraft.resources.Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE, "exclusive_set/wand_modifier_group")); // 26.3: Simple Building Tools'
     public static final TagKey<Enchantment> MINING_EXCLUSIVE_SET = tag("exclusive_set/mining");
 
     private ModEnchantmentTags() {

@@ -32,7 +32,7 @@ public class BuildingWandScreen extends Screen {
     private final int fill;
 
     public BuildingWandScreen(ItemStack stack) {
-        super(Component.translatable("simplebuilding.gui.wand_title"));
+        super(Component.translatable("simplebuildingtools.gui.wand_title"));
         this.stack = stack;
         this.fill = ModScreenLayout.wandFill(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath());
         determineMaxRadius();
@@ -106,13 +106,13 @@ public class BuildingWandScreen extends Screen {
                 .build());
 
         // Close Button
-        addRenderableWidget(Button.builder(Component.translatable("simplebuilding.gui.close"), b -> onClose())
+        addRenderableWidget(Button.builder(Component.translatable("simplebuildingtools.gui.close"), b -> onClose())
                 .bounds(columnCenterX - 50, closeY, 100, 20).build());
     }
 
     private Component getRadiusText() {
         // Zeigt an: "Radius: 1 / 3" (als Beispiel)
-        return Component.translatable("simplebuilding.gui.radius")
+        return Component.translatable("simplebuildingtools.gui.radius")
                 .append(": " + currentRadius + " / " + maxRadiusForTier);
     }
 
@@ -124,7 +124,7 @@ public class BuildingWandScreen extends Screen {
             default -> "Face (Auto)";
         };
         ChatFormatting color = axisMode == 0 ? ChatFormatting.GRAY : ChatFormatting.YELLOW;
-        return Component.translatable("simplebuilding.gui.axis").append(": ").append(Component.literal(modeString).withStyle(color));
+        return Component.translatable("simplebuildingtools.gui.axis").append(": ").append(Component.literal(modeString).withStyle(color));
     }
 
     private void updateLocalAndSend() {
@@ -160,12 +160,12 @@ public class BuildingWandScreen extends Screen {
         context.fill(0, 0, width, height, 0x15000000);
         if (styled && ModScreenStyle.panel(context, fill, panelX, panelY, ModScreenLayout.WAND_W, ModScreenLayout.WAND_H)) {
             // Title like a container's: top left, label colour of the panel, no shadow.
-            context.text(font, Component.translatable("simplebuilding.gui.wand_settings"), panelX + ModScreenLayout.SIDE,
+            context.text(font, Component.translatable("simplebuildingtools.gui.wand_settings"), panelX + ModScreenLayout.SIDE,
                     panelY + ModScreenLayout.WAND_TITLE_Y, ModScreenStyle.label(fill, 0xFF404040), false);
             super.extractRenderState(context, mouseX, mouseY, delta);
             return;
         }
         super.extractRenderState(context, mouseX, mouseY, delta);
-        context.centeredText(font, Component.translatable("simplebuilding.gui.wand_settings"), columnCenterX, startY - 20, 0xFFFFFFFF);
+        context.centeredText(font, Component.translatable("simplebuildingtools.gui.wand_settings"), columnCenterX, startY - 20, 0xFFFFFFFF);
     }
 }

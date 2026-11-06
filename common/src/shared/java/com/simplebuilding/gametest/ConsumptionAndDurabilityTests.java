@@ -222,6 +222,7 @@ public final class ConsumptionAndDurabilityTests {
      * hand; the assertions that could catch a mod-side regression are the survival ones above it.
      */
     public static void octantAndRotatorSpendOnePointOfWearPerAcceptedClick(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = inLevelPlayer(helper, new Vec3(3.5, 2.0, 5.5), false);
         BlockPos corner = new BlockPos(2, 1, 3);
         helper.setBlock(corner, Blocks.STONE);
@@ -323,6 +324,7 @@ public final class ConsumptionAndDurabilityTests {
      * hook is both closer to what is under test and deterministic inside a single test tick.
      */
     public static void buildingWandBillsOneBlockAndOnePointOfWearPerPlacement(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = inLevelPlayer(helper, new Vec3(1.5, 1.0, 1.5), false);
 
         // --- a survival wand with nothing to build from refuses the click and stays pristine ---

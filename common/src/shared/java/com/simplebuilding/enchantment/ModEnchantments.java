@@ -38,9 +38,9 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> RADIUS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "radius")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> OVERRIDE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "override")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> STRIP_MINER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "strip_miner")); // final
-    public static final ResourceKey<Enchantment> COVER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "cover")); // final
-    public static final ResourceKey<Enchantment> BRIDGE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "bridge")); // final
-    public static final ResourceKey<Enchantment> LINEAR = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "linear")); // final
+    public static final ResourceKey<Enchantment> COVER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE, "cover")); // 26.3: Simple Building Tools' (b-btools07)
+    public static final ResourceKey<Enchantment> BRIDGE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE, "bridge")); // 26.3: Simple Building Tools' (b-btools07)
+    public static final ResourceKey<Enchantment> LINEAR = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE, "linear")); // 26.3: Simple Building Tools' (b-btools07)
     public static final ResourceKey<Enchantment> VEIN_MINER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "vein_miner")); // final
     public static final ResourceKey<Enchantment> KINETIC_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "kinetic_protection")); // final
     public static final ResourceKey<Enchantment> DRAWER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE, "drawer")); // 26.3: Simple Storage's (split stage 8c-1)
@@ -215,6 +215,8 @@ public class ModEnchantments {
                 EquipmentSlotGroup.MAINHAND
         )));
 
+        // 13.-15. b-btools07: on 26.3 Cover, Bridge and Linear are Simple Building Tools' (simplebuildingtools:*, ids migrate).
+        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) {
         // 13. COVER (Max Level 1, Treasure, Rare) [BUILDING_WAND]
         register(registerable, COVER, Enchantment.enchantment(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
@@ -255,6 +257,7 @@ public class ModEnchantments {
                 EquipmentSlotGroup.MAINHAND
         ))
         .exclusiveWith(enchantmentsLookup.getOrThrow(ModEnchantmentTags.WAND_MODIFIER_EXCLUSIVE_SET)));
+        }
 
         // 16. DOUBLE_JUMP (Max Level 2, Treasure, Rare) [BOOTS]
         register(registerable, DOUBLE_JUMP, Enchantment.enchantment(Enchantment.definition(

@@ -58,14 +58,15 @@ public class ModDataComponentTypes {
                     .cacheEncoding());
 
     // Blaupause: Bau-Code + Titel/Autor/signiert (docs/BLUEPRINT.md).
-    public static final DataComponentType<com.simplebuilding.blueprint.BlueprintContent> BLUEPRINT =
+    // b-btools07: on 26.3 Simple Building Tools' simplebuildingtools:blueprint / blueprint_rotation (null here; SimpleLib id move).
+    public static final DataComponentType<com.simplebuilding.blueprint.BlueprintContent> BLUEPRINT = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null :
             register("blueprint", builder -> builder
                     .persistent(com.simplebuilding.blueprint.BlueprintContent.CODEC)
                     .networkSynchronized(com.simplebuilding.blueprint.BlueprintContent.STREAM_CODEC)
                     .cacheEncoding());
 
     // Drehung der Blaupause im Baumodus (Viertelumdrehungen im Uhrzeigersinn, 0..3; Strg+Mausrad).
-    public static final DataComponentType<Integer> BLUEPRINT_ROTATION =
+    public static final DataComponentType<Integer> BLUEPRINT_ROTATION = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null :
             register("blueprint_rotation", builder -> builder
                     .persistent(Codec.intRange(0, 3))
                     .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT));

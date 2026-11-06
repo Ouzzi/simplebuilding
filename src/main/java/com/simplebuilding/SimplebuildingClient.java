@@ -142,12 +142,13 @@ public class SimplebuildingClient implements ClientModInitializer {
             InputConstants.KEY_H,
             KEY_CATEGORY_SIMPLEMODS
         ));
-        ClientState.octantFigureToggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+        // b-btools07: on 26.3 the octant figure and settings keys are Simple Building Tools' (key.simplebuildingtools.*, same default K).
+        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) ClientState.octantFigureToggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             "key.simplebuilding.toggle_octant_figure",
             InputConstants.UNKNOWN.getValue(),
             KEY_CATEGORY_SIMPLEMODS
         ));
-        ClientState.settingsKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) ClientState.settingsKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.simplebuilding.simple_settings",
                 InputConstants.KEY_K,
             KEY_CATEGORY_SIMPLEMODS
@@ -171,7 +172,7 @@ public class SimplebuildingClient implements ClientModInitializer {
             // Umschalttasten: ein gemeinsamer Handler fuer alle Loader (Audit 2026-09-26 #38).
             ClientToggleKeys.tick(client);
 
-            while (ClientState.settingsKey.consumeClick()) {
+            while (ClientState.settingsKey != null && ClientState.settingsKey.consumeClick()) {
                 if (client.player != null) {
                     ItemStack stack = client.player.getMainHandItem();
                     if (stack.getItem() instanceof OctantItem) {

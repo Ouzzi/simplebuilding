@@ -565,6 +565,7 @@ public final class TradeAndMigrationTests {
      * (Forge) its SimpleBuilding link trades join the level-4 pool (~50 entries, 2 picks), and 64 rolls missed ~7% of runs.
      */
     public static void masonVillagerCanRollAModTrade(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         Villager villager = helper.spawnWithNoFreeWill(EntityTypes.VILLAGER, new BlockPos(1, 2, 1));
 
         Set<Item> wanted = Set.of(ModItems.COPPER_BUILDING_WAND);
@@ -616,6 +617,7 @@ public final class TradeAndMigrationTests {
      * pool intact on paper while no trader ever draws from it.
      */
     public static void wanderingTraderCanRollAModTrade(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         Set<Item> wanted = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
                 ModItems.DIAMOND_CORE, ModItems.DIAMOND_PEBBLE, ModItems.OCTANT, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         Set<Item> seen = new LinkedHashSet<>();

@@ -1,0 +1,274 @@
+{
+  "module": "simplebuildingtools",
+  "derivation": "Simple Building Tools sells its wands, octants and blueprints for money with the values they had in SimpleBuilding's table (moved 07.11., b-btools07, WF25-9).",
+  "excluded": {
+    "simplebuildingtools:creative_building_wand": "Creative only, not a trade good.",
+    "simplebuildingtools:creative_blueprint": "Creative only, not a trade good."
+  },
+  "prices": [
+    {
+      "item": "simplebuildingtools:blueprint",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuildingtools:copper_building_wand",
+      "tier": 0,
+      "hours": 4.0,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:diamond_building_wand",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 4,
+      "stock": 1,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:enderite_building_wand",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuildingtools:gold_building_wand",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:iron_building_wand",
+      "tier": 1,
+      "hours": 6.7,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 2,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:netherite_building_wand",
+      "tier": 4,
+      "hours": 24.9,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuildingtools:octant",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 8,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_black",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_blue",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_brown",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_cyan",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_gray",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_green",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_light_blue",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_light_gray",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_lime",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_magenta",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_orange",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_pink",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_purple",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_red",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_white",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:octant_yellow",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    }
+  ]
+}

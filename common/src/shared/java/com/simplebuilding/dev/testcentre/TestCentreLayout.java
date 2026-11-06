@@ -649,8 +649,8 @@ public final class TestCentreLayout {
         for (TcOp op : ops) {
             switch (op) {
                 case TcOp.Frame frame -> into.add(frame.stack().getItem());
-                case TcOp.OctantFrame frame -> into.add(ModItems.OCTANT);
-                case TcOp.BlueprintFrame frame -> into.add(ModItems.BLUEPRINT);
+                case TcOp.OctantFrame frame -> into.add(com.simplebuilding.util.BuildingToolRefs.octant());
+                case TcOp.BlueprintFrame frame -> into.add(com.simplebuilding.util.BuildingToolRefs.blueprint());
                 case TcOp.Stand stand -> stand.gear().forEach(stack -> into.add(stack.getItem()));
                 default -> {
                 }
@@ -671,8 +671,8 @@ public final class TestCentreLayout {
                     }
                 }
                 case TcOp.Frame frame -> items.add(frame.stack().getItem());
-                case TcOp.OctantFrame frame -> items.add(ModItems.OCTANT);
-                case TcOp.BlueprintFrame frame -> items.add(ModItems.BLUEPRINT);
+                case TcOp.OctantFrame frame -> items.add(com.simplebuilding.util.BuildingToolRefs.octant());
+                case TcOp.BlueprintFrame frame -> items.add(com.simplebuilding.util.BuildingToolRefs.blueprint());
                 case TcOp.Stand stand -> {
                     stand.gear().forEach(stack -> items.add(stack.getItem()));
                     if (stand.dummy()) {

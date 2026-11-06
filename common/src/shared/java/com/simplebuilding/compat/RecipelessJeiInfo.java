@@ -65,7 +65,7 @@ public final class RecipelessJeiInfo {
         // (InWorldTransformations#sledgehammerUpgrade), daher keine Info-Seite mehr.
         // Pfeile vom Befiederungstisch: seit 04.11. Simple Arrows (dessen JEI-Sondereintrag "simplearrows/fletching").
         // Kreativ-Baustab und Kreativ-Blaupause (Queue N29): nur im Kreativ-Inventar.
-        map.put("creative_tools", List.of(ModItems.CREATIVE_BUILDING_WAND, ModItems.CREATIVE_BLUEPRINT));
+        map.put("creative_tools", List.of(com.simplebuilding.util.BuildingToolRefs.wand("creative"), com.simplebuilding.util.BuildingToolRefs.creativeBlueprint()));
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             // Holzwerk: Schnitzholz entsteht nur in der Welt (Meissel + Toepferscherbe).
             map.put("woodwork_carved", com.simplebuilding.woodwork.WoodBlocks.families().stream()

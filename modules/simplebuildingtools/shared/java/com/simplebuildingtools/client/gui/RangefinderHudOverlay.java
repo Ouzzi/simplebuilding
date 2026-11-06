@@ -63,22 +63,22 @@ public class RangefinderHudOverlay {
             int[] p1 = nbt.getIntArray("Pos1").orElse(new int[0]);
             if (p1.length == 3) {
                 pos1 = new BlockPos(p1[0], p1[1], p1[2]);
-                lines.add(Component.translatable("hud.simplebuilding.rangefinder.pos1", pos1.getX(), pos1.getY(), pos1.getZ())
+                lines.add(Component.translatable("hud.simplebuildingtools.rangefinder.pos1", pos1.getX(), pos1.getY(), pos1.getZ())
                         .setStyle(Style.EMPTY.withColor(HudPanel.ink(theme.pos1()))));
             }
         } else {
-            lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos1").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
+            lines.add(Component.translatable("hud.simplebuildingtools.rangefinder.set_pos1").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
         }
 
         if (nbt.contains("Pos2")) {
             int[] p2 = nbt.getIntArray("Pos2").orElse(new int[0]);
             if (p2.length == 3) {
                 pos2 = new BlockPos(p2[0], p2[1], p2[2]);
-                lines.add(Component.translatable("hud.simplebuilding.rangefinder.pos2", pos2.getX(), pos2.getY(), pos2.getZ())
+                lines.add(Component.translatable("hud.simplebuildingtools.rangefinder.pos2", pos2.getX(), pos2.getY(), pos2.getZ())
                         .setStyle(Style.EMPTY.withColor(HudPanel.ink(theme.pos2()))));
             }
         } else if (pos1 != null) {
-            lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos2").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
+            lines.add(Component.translatable("hud.simplebuildingtools.rangefinder.set_pos2").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
         }
 
         if (pos1 != null && pos2 != null) {
@@ -90,12 +90,12 @@ public class RangefinderHudOverlay {
             int resultColor = HudPanel.ink(theme.pos1());
 
             if (dy == 1 && (dx == 1 || dz == 1)) {
-                lines.add(Component.translatable("hud.simplebuilding.rangefinder.distance", Math.max(dx, dz)).setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Component.translatable("hud.simplebuildingtools.rangefinder.distance", Math.max(dx, dz)).setStyle(Style.EMPTY.withColor(resultColor)));
             } else if (dy == 1) {
-                lines.add(Component.translatable("hud.simplebuilding.rangefinder.area", dx * dz).setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Component.translatable("hud.simplebuildingtools.rangefinder.area", dx * dz).setStyle(Style.EMPTY.withColor(resultColor)));
                 lines.add(Component.literal("(" + dx + " x " + dz + ")").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
             } else {
-                lines.add(Component.translatable("hud.simplebuilding.rangefinder.volume", dx * dy * dz).setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Component.translatable("hud.simplebuildingtools.rangefinder.volume", dx * dy * dz).setStyle(Style.EMPTY.withColor(resultColor)));
                 lines.add(Component.literal("(" + dx + " x " + dy + " x " + dz + ")").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
             }
         }

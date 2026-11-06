@@ -204,7 +204,8 @@ public class Simplebuilding implements ModInitializer {
     private void registerCauldronBehavior() {
         // Gefaerbte Oktanten im Wasserkessel waschen - Interaktion und Liste in OctantCauldronWash,
         // aus derselben Quelle lesen Wiki und JEI.
-        for (Item coloredItem : OctantCauldronWash.washableOctants()) {
+        // b-btools07: on 26.3 Simple Building Tools enters its octants itself.
+        for (Item coloredItem : com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? OctantCauldronWash.washableOctants() : java.util.List.<Item>of()) {
             ((CauldronInteractionDispatcherAccessor) (Object) CauldronInteractions.WATER).simplebuilding$put(coloredItem, OctantCauldronWash.INTERACTION);
         }
         // Gefaerbte gestufte Shulkerkisten waschen wie Vanillas; Werfer stellen sie auf wie Vanillas.

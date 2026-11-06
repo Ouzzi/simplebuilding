@@ -2,15 +2,15 @@
   "replace": false,
   "values": [
     {
-      "id": "simplemoney:links/simplebuilding/iron_building_wand",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/iron_chisel",
       "required": false
     },
     {
       "id": "simplemoney:links/simplebuilding/magnet",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuildingtools/iron_building_wand",
       "required": false
     },
     {

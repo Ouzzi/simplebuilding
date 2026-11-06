@@ -79,10 +79,11 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.NETHERITE_CHISEL))
                 .add(key(ModItems.ENDERITE_CHISEL));
 
+        // b-btools07: by id - on 26.3 Simple Building Tools' octants and wands (SimpleBuilding's shared enchantments still apply).
         var octantBuilder = builder(ModTags.Items.OCTANTS_ENCHANTABLE)
-                .add(key(ModItems.OCTANT));
+                .add(key(com.simplebuilding.util.BuildingToolRefs.octant()));
 
-        for (Item coloredRangefinder : ModItems.COLORED_OCTANT_ITEMS.values()) {
+        for (Item coloredRangefinder : com.simplebuilding.util.BuildingToolRefs.dyedOctants()) {
             octantBuilder.add(key(coloredRangefinder));
         }
 
@@ -317,14 +318,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                             com.simplebuilding.util.HammerRefs.id("sledgehammers")));
         }
 
-        builder(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
-                .add(key(ModItems.COPPER_BUILDING_WAND))
-                .add(key(ModItems.IRON_BUILDING_WAND))
-                .add(key(ModItems.GOLD_BUILDING_WAND))
-                .add(key(ModItems.DIAMOND_BUILDING_WAND))
-                .add(key(ModItems.NETHERITE_BUILDING_WAND))
-                .add(key(ModItems.ENDERITE_BUILDING_WAND))
-                .add(key(ModItems.CREATIVE_BUILDING_WAND));
+        var wandBuilder = builder(ModTags.Items.BUILDING_WAND_ENCHANTABLE);
+        for (Item wand : com.simplebuilding.util.BuildingToolRefs.wands()) wandBuilder.add(key(wand));
+        wandBuilder.add(key(com.simplebuilding.util.BuildingToolRefs.wand("creative")));
 
         builder(ModTags.Items.VEINMINE_ENCHANTABLE)
                 .forceAddTag(ItemTags.PICKAXES)

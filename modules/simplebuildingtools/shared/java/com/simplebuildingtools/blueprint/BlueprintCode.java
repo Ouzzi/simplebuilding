@@ -83,7 +83,7 @@ public final class BlueprintCode {
     /** Ein Fehler im Code: absolute Zeichenpositionen {@code [start, end)} und Zeile (0-basiert). */
     public record Problem(int line, int start, int end, String key, List<String> args) {
         public Component message() {
-            return Component.translatable("simplebuilding.blueprint.error." + key, args.toArray());
+            return Component.translatable("simplebuildingtools.blueprint.error." + key, args.toArray());
         }
     }
 

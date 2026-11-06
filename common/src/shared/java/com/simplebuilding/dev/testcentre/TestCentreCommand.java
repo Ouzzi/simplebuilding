@@ -381,7 +381,7 @@ public final class TestCentreCommand {
             }
         }
         out.addAll(ctx.row("gadgets"));
-        out.add(new ItemStack(ModItems.BLUEPRINT));
+        out.add(new ItemStack(com.simplebuilding.util.BuildingToolRefs.blueprint()));
         out.add(new ItemStack(Items.STONE_BRICKS, 64));
         return out;
     }

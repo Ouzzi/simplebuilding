@@ -1,0 +1,20 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "simplebuilding:ender_quartz",
+    "minecraft:paper",
+    "minecraft:glow_ink_sac"
+  ],
+  "result": {
+    "id": "simplebuildingtools:blueprint"
+  }
+}

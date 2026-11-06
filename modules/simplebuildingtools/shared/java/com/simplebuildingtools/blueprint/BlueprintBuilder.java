@@ -870,20 +870,20 @@ public final class BlueprintBuilder {
         BlueprintContent content = blueprint.getOrDefault(BtComponents.BLUEPRINT, BlueprintContent.EMPTY);
         if (!content.signed()) {
             if (tell) {
-                tell(player, Component.translatable("simplebuilding.blueprint.build.sign_first").withStyle(ChatFormatting.YELLOW));
+                tell(player, Component.translatable("simplebuildingtools.blueprint.build.sign_first").withStyle(ChatFormatting.YELLOW));
             }
             return null;
         }
         BlueprintCode.ParseResult parsed = BlueprintCode.parseCached(content.code());
         if (parsed.model().isEmpty()) {
             if (tell) {
-                tell(player, Component.translatable("simplebuilding.blueprint.build.empty").withStyle(ChatFormatting.RED));
+                tell(player, Component.translatable("simplebuildingtools.blueprint.build.empty").withStyle(ChatFormatting.RED));
             }
             return null;
         }
         if (!parsed.ok()) {
             if (tell) {
-                tell(player, Component.translatable("simplebuilding.blueprint.build.errors", parsed.problems().size()).withStyle(ChatFormatting.RED));
+                tell(player, Component.translatable("simplebuildingtools.blueprint.build.errors", parsed.problems().size()).withStyle(ChatFormatting.RED));
             }
             return null;
         }
@@ -892,7 +892,7 @@ public final class BlueprintBuilder {
         if (size > edge) {
             if (tell) {
                 int needed = BlueprintTiers.tierIndexFor(size);
-                tell(player, Component.translatable("simplebuilding.blueprint.build.too_big", size, edge,
+                tell(player, Component.translatable("simplebuildingtools.blueprint.build.too_big", size, edge,
                         BlueprintTiers.wandName(Math.max(0, needed))).withStyle(ChatFormatting.RED));
             }
             return null;
@@ -930,17 +930,17 @@ public final class BlueprintBuilder {
         WARNED.put(player.getUUID(), level.getGameTime());
         level.playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.NOTE_BLOCK_BASS.value(),
                 SoundSource.PLAYERS, 1.0F, 0.6F);
-        tell(player, Component.translatable("simplebuilding.blueprint.build.missing_warning", missingNow).withStyle(ChatFormatting.GOLD));
+        tell(player, Component.translatable("simplebuildingtools.blueprint.build.missing_warning", missingNow).withStyle(ChatFormatting.GOLD));
         return true;
     }
 
     private static void tellChecking(Player player, Planner check) {
         if (check.layout.boxLayout()) {
-            tell(player, Component.translatable("simplebuilding.wand.shape.checking", percent(check.index(), check.layout.size()))
+            tell(player, Component.translatable("simplebuildingtools.wand.shape.checking", percent(check.index(), check.layout.size()))
                     .withStyle(ChatFormatting.AQUA));
             return;
         }
-        tell(player, Component.translatable("simplebuilding.blueprint.build.checking", check.index(), check.layout.size())
+        tell(player, Component.translatable("simplebuildingtools.blueprint.build.checking", check.index(), check.layout.size())
                 .withStyle(ChatFormatting.AQUA));
     }
 
@@ -1062,8 +1062,8 @@ public final class BlueprintBuilder {
             if (level instanceof ServerLevel serverLevel) {
                 BlueprintJobs.clear(serverLevel, id);
             }
-            tell(player, Component.translatable(job.codeHash == null ? "simplebuilding.wand.shape.stopped"
-                    : "simplebuilding.blueprint.build.stopped", job.planner.result().placed()).withStyle(ChatFormatting.YELLOW));
+            tell(player, Component.translatable(job.codeHash == null ? "simplebuildingtools.wand.shape.stopped"
+                    : "simplebuildingtools.blueprint.build.stopped", job.planner.result().placed()).withStyle(ChatFormatting.YELLOW));
             return;
         }
         if (level.getGameTime() == job.lastTick) {
@@ -1083,8 +1083,8 @@ public final class BlueprintBuilder {
         }
         if (!inMainHand || player.getMainHandItem() != wandStack || player.getOffhandItem() != check.blueprint) {
             CHECKS.remove(player.getUUID());
-            tell(player, Component.translatable(check.content == null ? "simplebuilding.wand.shape.stopped"
-                    : "simplebuilding.blueprint.build.stopped", 0).withStyle(ChatFormatting.YELLOW));
+            tell(player, Component.translatable(check.content == null ? "simplebuildingtools.wand.shape.stopped"
+                    : "simplebuildingtools.blueprint.build.stopped", 0).withStyle(ChatFormatting.YELLOW));
             return;
         }
         if (level.getGameTime() == check.lastTick) {
@@ -1108,7 +1108,7 @@ public final class BlueprintBuilder {
         }
         WARNED.remove(player.getUUID());
         if (check.content == null && nothingToDo(check.planner.result())) {
-            tell(player, Component.translatable("simplebuilding.wand.shape.nothing").withStyle(ChatFormatting.GRAY));
+            tell(player, Component.translatable("simplebuildingtools.wand.shape.nothing").withStyle(ChatFormatting.GRAY));
             return check.planner.result();
         }
         return startJob(level, player, check.wand, check.blueprint, layout, check.target, check.rotation, check.content,
@@ -1131,7 +1131,7 @@ public final class BlueprintBuilder {
             if (HINTED.get(player.getUUID()) != player) {
                 HINTED.put(player.getUUID(), player);
                 HINTED.values().removeIf(Player::isRemoved);
-                tell(player, Component.translatable("simplebuilding.blueprint.build.resume_hint", pending.title(),
+                tell(player, Component.translatable("simplebuildingtools.blueprint.build.resume_hint", pending.title(),
                         pending.target().getX(), pending.target().getY(), pending.target().getZ()).withStyle(ChatFormatting.AQUA));
             }
             return;
@@ -1146,7 +1146,7 @@ public final class BlueprintBuilder {
         Rotation rotation = Rotation.values()[Math.floorMod(pending.rotation(), Rotation.values().length)];
         Layout layout = layout(model, pending.target(), rotation);
         HINTED.remove(player.getUUID());
-        tell(player, Component.translatable("simplebuilding.blueprint.build.resumed", pending.index(), layout.size())
+        tell(player, Component.translatable("simplebuildingtools.blueprint.build.resumed", pending.index(), layout.size())
                 .withStyle(ChatFormatting.AQUA));
         startJob(level, player, wand, blueprint, layout, pending.target(), rotation, content,
                 BuildingWandItem.freeBuild(player, wand), pending.index(), pending.placed());
@@ -1229,16 +1229,16 @@ public final class BlueprintBuilder {
             }
         }
         if (result.finished() && job.codeHash == null && nothingToDo(result)) {
-            tell(player, Component.translatable("simplebuilding.wand.shape.nothing").withStyle(ChatFormatting.GRAY));
+            tell(player, Component.translatable("simplebuildingtools.wand.shape.nothing").withStyle(ChatFormatting.GRAY));
         } else if (result.finished()) {
-            tell(player, Component.translatable("simplebuilding.blueprint.build.done", result.placed(), result.missing())
+            tell(player, Component.translatable("simplebuildingtools.blueprint.build.done", result.placed(), result.missing())
                     .withStyle(result.missing() > 0 ? ChatFormatting.YELLOW : ChatFormatting.GREEN));
         } else if (job.planner.layout.boxLayout()) {
             // Oktant-Fuellung: die Box zaehlt auch Stellen ausserhalb der Figur - Prozent und gesetzte Bloecke.
-            tell(player, Component.translatable("simplebuilding.wand.shape.progress", percent(job.planner.index(), result.total()),
+            tell(player, Component.translatable("simplebuildingtools.wand.shape.progress", percent(job.planner.index(), result.total()),
                     result.placed()).withStyle(ChatFormatting.AQUA));
         } else {
-            tell(player, Component.translatable("simplebuilding.blueprint.build.progress", job.planner.index(), result.total(), result.placed())
+            tell(player, Component.translatable("simplebuildingtools.blueprint.build.progress", job.planner.index(), result.total(), result.placed())
                     .withStyle(ChatFormatting.AQUA));
         }
     }
@@ -1301,7 +1301,7 @@ public final class BlueprintBuilder {
         previewKey = key;
         if (!content.signed()) {
             // Gebaut wird nur eine signierte Blaupause: keine Vorschau, nur der Hinweis.
-            tell(player, Component.translatable("simplebuilding.blueprint.build.sign_first").withStyle(ChatFormatting.YELLOW));
+            tell(player, Component.translatable("simplebuildingtools.blueprint.build.sign_first").withStyle(ChatFormatting.YELLOW));
             previewCache = Preview.EMPTY;
             return previewCache;
         }

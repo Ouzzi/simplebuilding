@@ -31,13 +31,13 @@ public class OctantItem extends Item {
     private final DyeColor color;
 
     public enum SelectionShape {
-        CUBOID("simplebuilding.shape.cuboid"),
-        CYLINDER("simplebuilding.shape.cylinder"),
-        TRIANGLE("simplebuilding.shape.triangle"), // Prism
-        PYRAMID("simplebuilding.shape.pyramid"),
-        SPHERE("simplebuilding.shape.sphere"),
-        RECTANGLE("simplebuilding.shape.rectangle"), // 2D Cuboid
-        ELLIPSE("simplebuilding.shape.ellipse"); // 2D Cylinder
+        CUBOID("simplebuildingtools.shape.cuboid"),
+        CYLINDER("simplebuildingtools.shape.cylinder"),
+        TRIANGLE("simplebuildingtools.shape.triangle"), // Prism
+        PYRAMID("simplebuildingtools.shape.pyramid"),
+        SPHERE("simplebuildingtools.shape.sphere"),
+        RECTANGLE("simplebuildingtools.shape.rectangle"), // 2D Cuboid
+        ELLIPSE("simplebuildingtools.shape.ellipse"); // 2D Cylinder
 
         private final String translationKey;
         SelectionShape(String translationKey) { this.translationKey = translationKey; }
@@ -46,9 +46,9 @@ public class OctantItem extends Item {
     }
 
     public enum FillOrder {
-        DEFAULT("simplebuilding.order.default"),
-        BOTTOM_UP("simplebuilding.order.bottom_up"),
-        TOP_DOWN("simplebuilding.order.top_down");
+        DEFAULT("simplebuildingtools.order.default"),
+        BOTTOM_UP("simplebuildingtools.order.bottom_up"),
+        TOP_DOWN("simplebuildingtools.order.top_down");
 
         private final String translationKey;
         FillOrder(String translationKey) { this.translationKey = translationKey; }
@@ -148,7 +148,7 @@ public class OctantItem extends Item {
         CompoundTag nbt = nbtData.copyTag();
 
         if (nbt.getBooleanOr("Locked", false)) {
-            textConsumer.accept(Component.translatable("simplebuilding.gui.locked").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
+            textConsumer.accept(Component.translatable("simplebuildingtools.gui.locked").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (nbt.contains("Pos1")) {

@@ -195,6 +195,7 @@ public final class OctantTests {
      * {@code primary_items} field or pointing the two fields at different tags.
      */
     public static void allOctantColoursShareDurabilityAndTheirPaint(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ItemStack plain = new ItemStack(ModItems.OCTANT);
         helper.assertValueEqual(plain.getMaxDamage(), OCTANT_DURABILITY,
                 "durability of simplebuilding:octant");
@@ -276,6 +277,7 @@ public final class OctantTests {
      * {@code use} disappearing.
      */
     public static void airClicksOnlyResetAnUnlockedOctantWhileSneaking(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         ItemStack octant = new ItemStack(ModItems.OCTANT);
         player.setItemInHand(InteractionHand.MAIN_HAND, octant);
@@ -336,6 +338,7 @@ public final class OctantTests {
      * "(Cuboid)" to every default octant), or the try/catch around {@code valueOf} disappearing.
      */
     public static void shapeCatalogueIsFixedAndTheChosenShapeShowsInTheName(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         List<String> shapes = new ArrayList<>();
         for (SelectionShape shape : SelectionShape.values()) {
             shapes.add(shape.name() + "=" + translationKey(shape.getText()));
@@ -396,6 +399,7 @@ public final class OctantTests {
      * something.
      */
     public static void octantTooltipListsTheLockAndBothCorners(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         helper.assertTrue(tooltip(helper, new ItemStack(ModItems.OCTANT)).isEmpty(),
                 "a fresh octant already prints tooltip lines: "
                         + tooltip(helper, new ItemStack(ModItems.OCTANT)));
@@ -465,6 +469,7 @@ public final class OctantTests {
      * {@code Locked} check disappearing from the handler.
      */
     public static void octantScrollPacketsOnlyEverTouchTheMainHand(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
 
         // (1) octant in the off hand only
@@ -543,6 +548,7 @@ public final class OctantTests {
      * added, or an ingredient widened to a tag.
      */
     public static void dyeingRecipesProduceEveryColouredOctant(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         RecipeManager recipes = level.getServer().getRecipeManager();
         List<String> problems = new ArrayList<>();
@@ -629,6 +635,7 @@ public final class OctantTests {
      * dropped.
      */
     public static void waterCauldronWashesTheColourOffAnOctant(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         BlockPos cauldron = new BlockPos(2, 1, 2);
 
@@ -904,6 +911,7 @@ public final class OctantTests {
      * longer preserving the rest of the item's data.
      */
     public static void theOctantOnlyMeasuresAndPlacesNothing(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         ItemStack octant = new ItemStack(ModItems.OCTANT);
         player.setItemInHand(InteractionHand.MAIN_HAND, octant);
@@ -1196,6 +1204,7 @@ public final class OctantTests {
      * count - or the recipe failing to load.
      */
     public static void theOctantRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         // " NR" / "NCN" / "GNL" with R=lightning rod, L=lead, N=gold nugget, G=gold core, C=compass.
         CraftingInput grid = documentedGrid(

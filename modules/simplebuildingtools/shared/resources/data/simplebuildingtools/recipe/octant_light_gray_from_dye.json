@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "simplebuildingtools:octant",
+    "minecraft:light_gray_dye"
+  ],
+  "result": {
+    "id": "simplebuildingtools:octant_light_gray"
+  }
+}

@@ -47,6 +47,6 @@ public final class BlueprintTiers {
 
     /** Name der Baustab-Stufe, z. B. "Eisen-Baustab". */
     public static Component wandName(int tierIndex) {
-        return Component.translatable("item.simplebuilding." + NAMES[tierIndex] + "_building_wand");
+        return Component.translatable("item.simplebuildingtools." + NAMES[tierIndex] + "_building_wand");
     }
 }

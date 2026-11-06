@@ -254,7 +254,7 @@ public final class ModMessageHandlers {
             }
         }
         if ((payload.sign() || code.contains(com.simplebuildingtools.blueprint.BlueprintCode.PIXELS)) && !takeSignBudget(player, code.length())) {
-            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.sign.too_fast")
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuildingtools.blueprint.sign.too_fast")
                     .withStyle(net.minecraft.ChatFormatting.YELLOW));
             return null;
         }

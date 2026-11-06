@@ -125,6 +125,8 @@ public final class SimpleBuildingTools {
         com.simplebuildingtools.component.BtComponents.init();
         BtItems.init();
         com.simplebuildingtools.util.OctantHammerArea.register();
+        // A switched-off blueprint loses its recipes too (as in SimpleBuilding until 07.11.; live, /reload brings them back).
+        com.simplelib.api.RecipeFilters.register(MOD_ID, path -> !local.blueprint.enabled && path.contains("blueprint"));
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "tools", "simplebuildingtools.testcentre.station",
                 ITEMS.stream().map(p -> MOD_ID + ":" + p).toList());
     }

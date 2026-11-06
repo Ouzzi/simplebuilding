@@ -41,6 +41,8 @@ public class ModEnchantmentTagProvider extends FabricTagsProvider<Enchantment> {
 
         // 1. Cover darf nicht mit Bridge oder Linear kombiniert werden.
         // Dieses Set wird dem COVER Enchantment zugewiesen.
+        // b-btools07: on 26.3 both sets are Simple Building Tools' (with the three wand enchantments).
+        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) {
         builder(COVER_EXCLUSIVE_SET)
                 .add(ModEnchantments.BRIDGE)
                 .add(ModEnchantments.LINEAR);
@@ -50,6 +52,7 @@ public class ModEnchantmentTagProvider extends FabricTagsProvider<Enchantment> {
         // Da sie sich gegenseitig hier NICHT auflisten, bleiben sie kompatibel.
         builder(WAND_MODIFIER_EXCLUSIVE_SET)
                 .add(ModEnchantments.COVER);
+        }
 
         builder(MINING_EXCLUSIVE_SET)
                 .add(ModEnchantments.STRIP_MINER)

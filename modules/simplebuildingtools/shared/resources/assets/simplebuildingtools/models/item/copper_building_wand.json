@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "simplebuildingtools:item/copper_building_wand"
+  }
+}

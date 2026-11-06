@@ -228,6 +228,7 @@ public final class AdvancementTreeTests {
      * a click makes) marks its corner and earns "Measure Twice".
      */
     public static void markingOneCornerWithTheOctantEarnsMeasureTwice(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerAdvancementManager manager = helper.getLevel().getServer().getAdvancements();
         ServerPlayer player = mockPlayer(helper);
         AdvancementHolder measure = require(helper, manager, "octant/measure_twice");

@@ -1629,6 +1629,7 @@ public final class ConfigOptionTests {
      * blocks away is pulled, and the rotator cost is what one real turn takes off the charge.
      */
     public static void newToolOptionsChangeWhatTheToolsDo(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (McVersion.GADGET_REWORK) assertRunDBounds(helper);
         SimplebuildingConfig config = liveConfig(helper);
         double hunger = config.tools.wandHungerMultiplier;

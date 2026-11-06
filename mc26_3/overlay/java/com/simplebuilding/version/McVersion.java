@@ -117,6 +117,10 @@ public final class McVersion {
     public static final boolean HOPPERS_IN_SB = false;
     /** Namespace of the mod hoppers, their carts and recipes ({@link #HOPPERS_IN_SB}). */
     public static final String HOPPERS_NAMESPACE = "simplemachines";
+    /** Building Wands, Octants and Blueprints (b-btools07, WF25-9, docs/ai/PLAN-B-BTOOLS07-2026-11-07.md). 26.3: the required, bundled sub-mod Simple Building Tools registers them ({@code simplebuildingtools:*}, ids migrate); SimpleBuilding's {@code ModItems} tool fields are null and its code finds the tools through {@code util/BuildingToolRefs}. 26.2 keeps its own. */
+    public static final boolean BTOOLS_IN_SB = false;
+    /** Namespace of the building tools, their recipes and the wand enchantments Cover, Bridge and Linear ({@link #BTOOLS_IN_SB}). */
+    public static final String BTOOLS_NAMESPACE = "simplebuildingtools";
     /** Pads, pressure plates and the Spawn Elytra (b-pads01, DW04C-5, docs/ai/PLAN-B-PADS01-2026-11-04.md). 26.3: the required, bundled sub-mod Simple Pads registers them ({@code simplepads:*}, ids migrate); SimpleBuilding's {@code TweaksBlocks}/{@code TweaksItems}/{@code TweaksComponents} fields point at its objects ({@code util/PadRefs}), its pad block entity types, components, recipe serializers, events, mixins and commands stay off. 26.2 keeps its own. */
     public static final boolean PADS_IN_SB = false;
     /** Namespace of the pads, plates, Spawn Elytra and their recipes ({@link #PADS_IN_SB}). */

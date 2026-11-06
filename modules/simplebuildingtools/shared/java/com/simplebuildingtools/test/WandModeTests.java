@@ -1014,7 +1014,7 @@ public final class WandModeTests {
         helper.assertFalse(helper.getLevel().hasChunk(far.getX() >> 4, far.getZ() >> 4), "setup: the far chunk is already loaded");
         ShapeFill.Plan refused = ShapeFill.plan(helper.getLevel(), player, wand, distant);
         helper.assertTrue(refused.problem() != null
-                        && "simplebuilding.wand.shape.unloaded".equals(hintKey(refused.problem())),
+                        && "simplebuildingtools.wand.shape.unloaded".equals(hintKey(refused.problem())),
                 "a fill in unloaded chunks was not refused: " + (refused.problem() == null ? "planned" : hintKey(refused.problem())));
         helper.assertFalse(helper.getLevel().hasChunk(far.getX() >> 4, far.getZ() >> 4), "planning loaded the far chunk");
 
@@ -1139,7 +1139,7 @@ public final class WandModeTests {
         ShapeFill.Plan plan = ShapeFill.plan(helper.getLevel(), player, wand, edge);
 
         helper.assertTrue(setup, "setup: the far chunk did not load on its own (or its east neighbour came with it)");
-        helper.assertTrue(plan.problem() != null && "simplebuilding.wand.shape.unloaded".equals(hintKey(plan.problem())),
+        helper.assertTrue(plan.problem() != null && "simplebuildingtools.wand.shape.unloaded".equals(hintKey(plan.problem())),
                 "a box at the edge of the unloaded chunk east of it was planned: "
                         + (plan.problem() == null ? "planned" : hintKey(plan.problem())));
         helper.assertFalse(helper.getLevel().hasChunk(cx + 1, cz), "planning loaded the chunk east of the box");

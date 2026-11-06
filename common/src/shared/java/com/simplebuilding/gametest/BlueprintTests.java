@@ -85,6 +85,7 @@ public final class BlueprintTests {
      * Schrittweite, ein Serialisierer, der nicht zusammenfasst.
      */
     public static void codeRoundTripsAndParsesTheSpecExamples(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         // Eckenform wie im Wunsch des Besitzers: stone 1,1,1..1,1,5 -> fuenf Steine in z.
         BlueprintCode.ParseResult owner = BlueprintCode.parse("stone 1,1,1..1,1,5");
         helper.assertTrue(owner.ok(), "the owner's example did not parse: " + owner.problems());
@@ -151,6 +152,7 @@ public final class BlueprintTests {
      * gezaehlt wird, eine vertauschte Stufenzuordnung, eine falsche Scan-Grenze.
      */
     public static void sizeLimitsCapTheCodeAndMapWandTiers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         String tooLong = "stone 0,0,0\n" + "#".repeat(BlueprintCode.MAX_CODE_LENGTH);
         List<String> keys = BlueprintCode.parse(tooLong).problems().stream().map(BlueprintCode.Problem::key).toList();
         helper.assertTrue(keys.contains("too_long"), "an over-long code was accepted: " + keys);
@@ -207,6 +209,7 @@ public final class BlueprintTests {
      * mit der Achsenform verwechselt, oder ein Fehler, der jetzt einen anderen Schluessel traegt.
      */
     public static void codeExtensionsKeepExistingCodesIdentical(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         java.util.Map<String, String> codes = new java.util.TreeMap<>();
         for (List<String> names : BlueprintExamples.TEMPLATES.values()) {
             for (String name : names) {
@@ -304,6 +307,7 @@ public final class BlueprintTests {
      * dem Budget ausgerollt wird oder ohne Formbudget beliebig viel Pruefarbeit kostet.
      */
     public static void codeShapesFillTheOctantFigures(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         // Zahlenform: Radius r heisst Abstand der Mittelpunkte <= r + 1/2, also x^2+y^2+z^2 <= r^2 + r.
         BlueprintModel ball = parsedOk(helper, "stone sphere(5,5,5,2)");
         expectBox(helper, "sphere(5,5,5,2)", ball, 81, 3, 3, 3, 7, 7, 7);
@@ -416,6 +420,7 @@ public final class BlueprintTests {
      * verliert, Nachbarn diagonal zaehlt oder den Rand der Box nicht als "aussen" nimmt.
      */
     public static void codeHollowShapesKeepOnlyTheShell(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         BlueprintModel box = parsedOk(helper, "stone hollow_box(0,0,0,5,5,5)");
         helper.assertTrue(box.size() == 125 - 27 && box.get(2, 2, 2) == null && box.get(0, 2, 2) != null && box.get(2, 4, 2) != null,
                 "hollow 5x5x5 box should be 98 cells, got " + box.size());
@@ -465,6 +470,7 @@ public final class BlueprintTests {
      * tiefen Klammern den Stapel sprengt.
      */
     public static void codeVariablesComputeCoordinatesSizesAndCounts(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         String code = String.join("\n",
                 "$w = 4",
                 "$h = $w * 2 - 1          # 7",
@@ -576,6 +582,7 @@ public final class BlueprintTests {
      * die fehlende Sonderregel fuer Stufen oder Tueren, eine falsche Sortierung.
      */
     public static void materialListCountsItemsSortedByAmount(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         BlueprintModel model = new BlueprintModel();
         for (int x = 0; x < 10; x++) {
             model.set(x, 0, 0, Blocks.STONE.defaultBlockState());
@@ -615,6 +622,7 @@ public final class BlueprintTests {
      * Kerzengruppe = 1), eine vergessene Eigenschaft, Mehrflaechen-Bloecke zu einem Stueck.
      */
     public static void materialListCountsMultiItemBlocksByTheirState(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         BlueprintModel model = new BlueprintModel();
         model.set(0, 0, 0, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4));
         model.set(1, 0, 0, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1));
@@ -659,6 +667,7 @@ public final class BlueprintTests {
      * fuer eine), einer, der einen Teil des Vorrats verbraucht und die Stelle trotzdem frei laesst.
      */
     public static void buildConsumesEveryCandleAndPickleItNeeds(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
         // Boden unter den drei Stellen: Schnee und Seegurke brauchen Halt.
@@ -713,6 +722,7 @@ public final class BlueprintTests {
      * den Oktanten, die Entfernungs- oder Signatur-Pruefung fehlt.
      */
     public static void cartographyTableScansTheOctantSelection(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
@@ -782,6 +792,7 @@ public final class BlueprintTests {
      * Verrechnung von Material oder Haltbarkeit.
      */
     public static void buildPlacesOnlyAvailableBlocksAndSkipsExistingOnes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
         helper.setBlock(TARGET.west(), Blocks.STONE);   // schon richtig
@@ -824,6 +835,7 @@ public final class BlueprintTests {
      * nicht mitgedreht werden, ein Paket-Handler, der ohne Baustab dreht oder nicht zyklisch zaehlt.
      */
     public static void rotationTurnsTheBuildAndTheScrollPacketStepsIt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, true);
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
         ItemStack blueprint = blueprint("stone 0,0,0..0,0,2\noak_stairs[facing=south] 0,1,2");
@@ -883,6 +895,7 @@ public final class BlueprintTests {
      * Groessenpruefung, eine Pruefung, die erst nach dem Setzen greift.
      */
     public static void wandTierRefusesBlueprintsLargerThanItsCube(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, true);
         clear(helper);
         ItemStack blueprint = blueprint("stone 0,0,0 0,16,0");
@@ -912,6 +925,7 @@ public final class BlueprintTests {
      * nimmt, eine Form- oder Ausrichtungs-Abfrage, die von der Vorschau abweicht.
      */
     public static void scanFollowsTheOctantShape(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         clear(helper);
         for (int x = 1; x <= 5; x++) {
@@ -965,6 +979,7 @@ public final class BlueprintTests {
      * Stueckeln Stellen verliert.
      */
     public static void largeScanRunsOverSeveralTicks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
@@ -1001,6 +1016,7 @@ public final class BlueprintTests {
      * der nie weiterlaeuft, einer, der ohne Blaupause in der Nebenhand weiterbaut.
      */
     public static void largeBuildRunsOverSeveralTicks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, true);
         clear(helper);
@@ -1045,6 +1061,7 @@ public final class BlueprintTests {
      * Stellen, auch wenn die Eintragszahl klein bleibt. <strong>Bricht bei:</strong> einem LRU, der nur Eintraege zaehlt.
      */
     public static void parseCacheIsBoundedByWeight(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         String[] blocks = {"stone", "dirt", "sand", "gravel", "clay", "glass", "granite", "diorite", "andesite", "tuff"};
         String last = null;
         BlueprintCode.ParseResult lastResult = null;
@@ -1065,6 +1082,7 @@ public final class BlueprintTests {
      * <strong>Bricht bei:</strong> einem Editor-Paket, das vor jedem Budget voll geparst wird.
      */
     public static void pixelCodeEditsPayTheParseBudgetFirst(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         BlueprintContent old = new BlueprintContent("", "", "", false);
         int before = BlueprintCode.cacheStats()[0];
@@ -1087,6 +1105,7 @@ public final class BlueprintTests {
      * <strong>Bricht bei:</strong> einem Auftrag, der den entfernten Spieler samt Welt festhaelt.
      */
     public static void buildJobsAreDroppedOnDisconnectAndStop(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, true);
         clear(helper);
         player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
@@ -1144,6 +1163,7 @@ public final class BlueprintTests {
      * unbekannte Aliase, Raster-Ueberlauf oder kaputte Lauflaengen still annimmt.
      */
     public static void pictureCodeHoldsTheExpectedBlocks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (!BlueprintPicture.available()) {
             helper.succeed();
             return;
@@ -1214,6 +1234,7 @@ public final class BlueprintTests {
      * nicht prueft, oder einer, der auch normalen Code ablehnt.
      */
     public static void pictureImportFollowsTheServerSwitch(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (!BlueprintPicture.available()) {
             helper.succeed();
             return;
@@ -1263,6 +1284,7 @@ public final class BlueprintTests {
      * Vorschau, oder ein Bau, der Bildbloecke auslaesst.
      */
     public static void pictureBlueprintBuildsItsBlocks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (!BlueprintPicture.available()) {
             helper.succeed();
             return;
@@ -1309,6 +1331,7 @@ public final class BlueprintTests {
      * auf einmal beschreibt.
      */
     public static void editPacketSavesSignsAndLocksTheBlueprint(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         player.getInventory().clearContent();
         player.getInventory().setSelectedSlot(0);
@@ -1347,6 +1370,7 @@ public final class BlueprintTests {
      * <p><strong>Was diesen Test bricht:</strong> ein fehlendes oder falsch belegtes Rezept.
      */
     public static void recipeCraftsOneBlankBlueprint(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         CraftingInput input = CraftingInput.of(2, 2, List.of(
                 new ItemStack(Items.GLOW_INK_SAC), new ItemStack(ModItems.ENDER_QUARTZ),
@@ -1380,6 +1404,7 @@ public final class BlueprintTests {
      * 16, eine fehlende Ressource, eine falsche Biom-Zuordnung, ein Zaehlfehler in der Materialliste.
      */
     public static void examplesParseFitAndListTheirMaterials(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         int total = 0;
         for (java.util.Map.Entry<String, List<String>> group : BlueprintExamples.TEMPLATES.entrySet()) {
             helper.assertTrue(group.getValue().get(0).equals(group.getKey() + "_house"), group.getKey() + " does not start with its village house");
@@ -1429,6 +1454,7 @@ public final class BlueprintTests {
      * Namen, eine Rangfolge, die den genauen Treffer nach hinten schiebt.
      */
     public static void blockSearchFindsByNameAndId(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         java.util.function.Function<net.minecraft.world.level.block.Block, String> english = b -> b.getName().getString();
         List<net.minecraft.world.level.block.Block> byName = com.simplebuilding.blueprint.BlueprintBlockSearch.search("Glass Pane", english, 10);
         helper.assertTrue(!byName.isEmpty() && byName.get(0) == Blocks.GLASS_PANE, "'Glass Pane' found " + byName);
@@ -1454,6 +1480,7 @@ public final class BlueprintTests {
      * unsignierte oder beschriebene Blaupausen annimmt.
      */
     public static void cartographyTableCopiesSignedBlueprints(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, false);
         ItemStack original = new ItemStack(ModItems.BLUEPRINT);
@@ -1490,6 +1517,7 @@ public final class BlueprintTests {
      * <p><strong>Was diesen Test bricht:</strong> eine fehlende Signatur-Pruefung beim Bauen.
      */
     public static void buildNeedsTheSignedBlueprint(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
@@ -1516,6 +1544,7 @@ public final class BlueprintTests {
      * Stapel-Split, der die naechste Autospeicherung eine weitere Blaupause abspalten laesst.
      */
     public static void editPacketsSaveImmediatelyAndSurviveTheDisconnect(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.getInventory().clearContent();
         player.getInventory().setSelectedSlot(0);
@@ -1556,6 +1585,7 @@ public final class BlueprintTests {
      * Schichten, ein Bau in einem Zug, eine Bauzeit, die nicht gedaempft oder nicht begrenzt ist.
      */
     public static void buildGrowsLayerByLayerFromTheCentre(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, true);
         player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
@@ -1606,6 +1636,7 @@ public final class BlueprintTests {
      * <p><strong>Was diesen Test bricht:</strong> ein Bau, der mit zerbrochenem Stab weitersetzt.
      */
     public static void buildStopsWhenTheWandBreaks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
         clear(helper);
@@ -1634,6 +1665,7 @@ public final class BlueprintTests {
      * der Hand ist, und deshalb liegen bleibt und spaeter weiterbaut.
      */
     public static void buildStopsWhenTheWandLeavesTheMainHand(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, true);
         player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
@@ -1669,6 +1701,7 @@ public final class BlueprintTests {
      * die jeden Klick blockiert, eine Warnung, obwohl nichts fehlt.
      */
     public static void missingBlocksNeedTheSecondClick(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
@@ -1709,6 +1742,7 @@ public final class BlueprintTests {
      * gezaehlt) oder mit fremder Blaupause; ein fertiger Auftrag, der gespeichert bleibt.
      */
     public static void runningBuildSurvivesLogoutAndResumesWithTheSameBlueprint(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, false);
         player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
@@ -1771,6 +1805,7 @@ public final class BlueprintTests {
      * beginnt, eine fertige Pruefung, die nicht baut.
      */
     public static void missingBlocksCheckHasNoCapAndRunsOverSeveralTicks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, false);
         player.addTag(BlueprintBuilder.SMALL_CHECK_TAG);
@@ -1836,6 +1871,7 @@ public final class BlueprintTests {
      * Filterliste, die auch die Ausrichtung verwirft, oder eine, die den Kreativmodus mit trifft.
      */
     public static void survivalBuildResetsGrownAndFilledStates(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
@@ -1906,6 +1942,7 @@ public final class BlueprintTests {
      * bei einem Fehlschlag behaelt.
      */
     public static void failedPlacementHandsTheMaterialBack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
@@ -1950,6 +1987,7 @@ public final class BlueprintTests {
      * sich nie wieder auffuellt.
      */
     public static void signPacketsShareOneParseBudgetPerPlayer(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         player.getInventory().clearContent();
         for (int slot = 0; slot < 3; slot++) {
@@ -1985,6 +2023,7 @@ public final class BlueprintTests {
      * {@code Planner#run} entfernen.
      */
     public static void blueprintBuildsGameMasterBlocksOnlyForOperators(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, true);
         clear(helper);
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
@@ -2011,6 +2050,7 @@ public final class BlueprintTests {
      * {@code BlueprintMaterials#SURVIVAL_KEPT} entfernen.
      */
     public static void survivalBuildKeepsTheNoteBlockInstrument(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
@@ -2037,6 +2077,7 @@ public final class BlueprintTests {
      * zurueck) oder das Klick-Budget je Klick statt je Tick vergeben.
      */
     public static void repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, false);
         player.addTag(BlueprintBuilder.SMALL_CHECK_TAG);
@@ -2094,6 +2135,7 @@ public final class BlueprintTests {
      * normaler Stab, der ebenfalls fern baut.
      */
     public static void creativeWandReachesAFarBlockWithoutCost(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = lookingUp(helper);
         BlockPos far = new BlockPos(3, FAR_UP, 0);
         BlockPos below = far.below();
@@ -2136,6 +2178,7 @@ public final class BlueprintTests {
      * das eine Kreativ-Blaupause entsperrt.
      */
     public static void creativeBlueprintBuildsFarAndStaysLockedOnceSigned(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = lookingUp(helper);
         BlockPos far = new BlockPos(3, FAR_UP, 0);
         BlockPos below = far.below();
@@ -2300,6 +2343,7 @@ public final class BlueprintTests {
      * texture that is a copy of the normal one.
      */
     public static void blueprintShowsItsStateInItsTexture(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ItemStack fresh = new ItemStack(ModItems.BLUEPRINT);
         ItemStack edited = new ItemStack(ModItems.BLUEPRINT);
         edited.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent("stone 0,0,0", "", "", false));
@@ -2367,6 +2411,7 @@ public final class BlueprintTests {
      * der Koordinaten verschiebt oder anders liest; ein Import, der etwas ausser dem Plan erzeugt.
      */
     public static void blueprintTextExportImportRoundTrips(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         String code = "stone 0..3,0,0..2\noak_stairs[facing=north,half=top] 0,1,0\nglass hollow_box(5,0,0,8,3,3)";
         BlueprintCode.ParseResult source = BlueprintCode.parse(code);
         helper.assertTrue(source.ok() && !source.model().isEmpty(), "test code does not parse: " + source.problems());
@@ -2417,6 +2462,7 @@ public final class BlueprintTests {
      * nicht prueft oder bei einem Fehler trotzdem Code liefert.
      */
     public static void blueprintTextImportRejectsInvalidInput(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         String[][] bad = {
                 {"setblock 0 0 0 not_a_block", "unknown_block"},
                 {"fill 0 0 0 1 1 1 stone\nsetblock 5 5 5 stone[nonsense=1]", "unknown_property"},

@@ -344,17 +344,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:blueprint",
-      "tier": 4,
-      "hours": 25.0,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:chiseled_astralit_bricks",
       "tier": 4,
       "hours": 25.0,
@@ -432,17 +421,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:copper_building_wand",
-      "tier": 0,
-      "hours": 4.0,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:copper_chisel",
       "tier": 0,
       "hours": 4.0,
@@ -495,17 +473,6 @@
       "merchant": "toolsmith",
       "level": 3,
       "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:diamond_building_wand",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 4,
-      "stock": 1,
       "chance": 1
     },
     {
@@ -718,17 +685,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderite_building_wand",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enderite_carrot",
       "tier": 5,
       "hours": 38.1,
@@ -861,17 +817,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:gold_building_wand",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:gold_chisel",
       "tier": 2,
       "hours": 12.5,
@@ -901,17 +846,6 @@
       "safetyFloor": 8,
       "merchant": "librarian",
       "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:iron_building_wand",
-      "tier": 1,
-      "hours": 6.7,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 2,
       "stock": 2,
       "chance": 1
     },
@@ -964,17 +898,6 @@
       "tier": 4,
       "hours": 24.9,
       "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:netherite_building_wand",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 3,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -1200,193 +1123,6 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:octant",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 8,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_black",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_blue",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_brown",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_cyan",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_gray",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_green",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_light_blue",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_light_gray",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_lime",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_magenta",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_orange",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_pink",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_purple",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_red",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_white",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:octant_yellow",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
     },
     {
       "item": "simplebuilding:polished_astralit",
