@@ -400,6 +400,15 @@ public final class AdvancementTriggerTests {
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         player.getAbilities().instabuild = false;
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) {
+            // 26.3 (OW24-2 G4): the Echo Sounder is Simple Gadgets' - its module tests drive the jump, here its event through
+            // SimpleLib's GadgetActions (through LibServices, 26.2 has no SimpleLib) stands in (what the item fires after a jump and when it shatters).
+            helper.assertTrue(!done(player, broken), "Broken Record was done before the jump");
+            com.simplebuilding.util.LibServices.fireGadgetEvent("echo_shatter", player);
+            helper.assertTrue(done(player, broken), "the shattered echo sounder did not earn Broken Record");
+            helper.succeed();
+            return;
+        }
         ItemStack compass = new ItemStack(TweaksItems.ECHO_COMPASS);
         compass.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(
                 Optional.of(GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(lodestone))), true));

@@ -180,6 +180,13 @@ public final class LibServices {
         // MACH32-MOD stage 2: Simple Machines' breaker pistons tell a repair by event name ("Good as New" stays SimpleBuilding's).
         com.simplelib.api.GadgetActions.listen(com.simplebuilding.advancement.ModTriggers.PISTON_REPAIR, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
                 com.simplebuilding.advancement.ModTriggers.PISTON_REPAIR));
+        // OW24-2 G4: the Echo Sounder (Simple Gadgets) tells its jump and its shattering; advancement and statistic stay SimpleBuilding's.
+        com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.ECHO_TELEPORT, player -> {
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.ECHO_TELEPORT);
+            com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.TELEPORTS);
+        });
+        com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.ECHO_SHATTER, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.ECHO_SHATTER));
         HammerActions.listen(HammerActions.AREA_BLOCK, player -> com.simplebuilding.advancement.ModCounters.add(player,
                 com.simplebuilding.advancement.ModCounters.HAMMER_BLOCKS, 1));
         // Queue 738: Simple Hammers draws the area outline, its cracks and the upgrade swing itself; SimpleBuilding's

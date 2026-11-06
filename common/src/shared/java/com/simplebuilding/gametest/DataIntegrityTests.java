@@ -3411,7 +3411,7 @@ public final class DataIntegrityTests {
         }
         List<Item> tiersWithoutTheWord = List.of(TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(),
                 TweaksBlocks.STELLAR_FLYPAD.asItem(), TweaksBlocks.FINE_ELYTRA_PAD.asItem(),
-                TweaksBlocks.INFUSED_POTION_PAD.asItem(), TweaksItems.ECHO_COMPASS);
+                TweaksBlocks.INFUSED_POTION_PAD.asItem(), com.simplebuilding.util.GadgetRefs.echo());
         for (Item item : tiersWithoutTheWord) {
             found.add(BuiltInRegistries.ITEM.getKey(item).toString());
         }
@@ -3693,7 +3693,7 @@ public final class DataIntegrityTests {
         // Geraete (Besitzer 2026-09-27): Kompassartiges zuerst, dann Magnet, Rotator, Amethystlinse, Oktant -
         // genau neun; die 16 gefaerbten Oktanten laufen ueber zwei Zeilen.
         expected.add(CreativeTabLayout.Row.of("gadgets",
-                Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS,
+                Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.util.GadgetRefs.echo(),
                 com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.rod(),
                 ModItems.OCTANT));
         List<ItemStack> colored = new ArrayList<>();

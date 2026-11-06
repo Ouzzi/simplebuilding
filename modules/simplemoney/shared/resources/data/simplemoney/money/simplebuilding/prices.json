@@ -542,17 +542,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:echo_sounder",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enchanted_enderite_apple",
       "tier": 5,
       "hours": 38.1,

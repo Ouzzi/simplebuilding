@@ -440,6 +440,7 @@ public final class PadOverhaulTests {
      * Nach 121 Ticks ist das Echolot noch gesperrt, nach 480 wieder frei.
      */
     public static void theEchoSounderCooldownIsFourTimesLonger(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         helper.assertValueEqual(EchoCompassItem.COOLDOWN_TICKS, 4 * 120, "cooldown of the echo sounder");
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
@@ -465,6 +466,7 @@ public final class PadOverhaulTests {
      * anderer Leitstein verknuepft neu.
      */
     public static void theEchoSounderDoesNotRelinkTheLodestoneItIsLinkedTo(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         BlockPos first = new BlockPos(6, 1, 6);
         BlockPos second = new BlockPos(2, 1, 6);
         helper.setBlock(first, Blocks.LODESTONE);
@@ -745,6 +747,7 @@ public final class PadOverhaulTests {
      * click rattling along with the held key.
      */
     public static void theEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         ServerLevel level = helper.getLevel();
         List<Component> texts = new ArrayList<>();
         helper.assertValueEqual(EchoCompassItem.ATTEMPT_LOCK_TICKS, 5 * 20, "longest attempt lock of the echo sounder");

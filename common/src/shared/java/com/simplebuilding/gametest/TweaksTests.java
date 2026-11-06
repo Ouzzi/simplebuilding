@@ -193,6 +193,7 @@ public final class TweaksTests {
      * auch oben mittig ("NNN" / "NRN" / "ENN").
      */
     public static void theEchoSounderIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSevenEnderiteNuggets(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         Item n = ModItems.ENDERITE_NUGGET;
         CraftingInput grid = grid(n, n, n, n, Items.RECOVERY_COMPASS, n, ModItems.ENDERITE_CORE, n, n);
         expectCrafting(helper, grid, TweaksItems.ECHO_COMPASS, "simplebuilding:echo_sounder");
@@ -739,6 +740,7 @@ public final class TweaksTests {
      * vom Kompass oder von einer Enderperle. Gelesen werden die Sprachdateien aus dem Mod-Jar.
      */
     public static void theEchoSounderIsRegisteredAndNamedEchoSounder(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         helper.assertValueEqual(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(TweaksItems.ECHO_COMPASS).toString(),
                 "simplebuilding:echo_sounder", "registry id of the echo sounder");
         JsonObject en = langFile(helper, "en_us");
@@ -774,6 +776,7 @@ public final class TweaksTests {
      * kurz (Besitzer 2026-09-29, bewusst benutzen); gesprungen wird nach Ablauf dieser Sperre.
      */
     public static void theEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
@@ -805,6 +808,7 @@ public final class TweaksTests {
      * 26.2 behaelt bis zum Port-Run den alten Verbrauch von etwa einem Viertel.
      */
     public static void theEchoCompassConsumesItsChargeWithUnbreaking(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
@@ -835,6 +839,7 @@ public final class TweaksTests {
 
     /** Volle Stack-Kapazitaet statt Registrierungswert; Kreativ leert und zerstoert das Echolot nicht. */
     public static void theEchoCompassHonorsStackCapacityAndCreativeMode(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         if (!com.simplebuilding.version.McVersion.GADGET_REWORK) {
             helper.succeed();
             return;
@@ -868,6 +873,7 @@ public final class TweaksTests {
      * bewusst benutzen) sperrt der abgebrochene Versuch das Echolot kurz: hier, direkt am Leitstein, gut 1 s.
      */
     public static void theEchoCompassChargesForThreeSecondsAndReleasingEarlyCostsNothing(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
@@ -898,6 +904,7 @@ public final class TweaksTests {
      * auch nicht mit Mending -, und die naechste Ladung dauert doppelt so lange.
      */
     public static void aFullChargeJumpsAndLeavesTheEchoCompassEmpty(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
@@ -931,6 +938,7 @@ public final class TweaksTests {
      * eine Echoscherbe.
      */
     public static void theEchoCompassIsOnlyChargedAgainAfterFifteenHundredRepairPoints(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         player.getAbilities().instabuild = false;
         ItemStack compass = new ItemStack(TweaksItems.ECHO_COMPASS);
@@ -962,6 +970,7 @@ public final class TweaksTests {
      * lange (6 s - nach 3 s passiert noch nichts), der Sprung gelingt, danach ist der Kompass zerstoert.
      */
     public static void aCrackedEchoCompassChargesTwiceAsLongAndShattersAfterTheJump(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
@@ -1499,6 +1508,7 @@ public final class TweaksTests {
      * keine Haltbarkeit, keine Abklingzeit.
      */
     public static void aBlockedEchoCompassJumpCostsNothing(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G4: Simple Gadgets tests the Echo Sounder on 26.3
         ServerLevel nether = helper.getLevel().getServer().getLevel(Level.NETHER);
         helper.assertTrue(nether != null, "the test server has no nether");
         BlockPos lodestone = new BlockPos(0, 100, 0);

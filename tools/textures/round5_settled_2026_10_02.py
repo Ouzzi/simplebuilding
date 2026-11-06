@@ -33,13 +33,21 @@ PULSE_FRAMES = 4
 PULSE_TICKS = 2
 
 
+# OW24-2 G4 (2026-11-06): the Echo Sounder is Simple Gadgets' on 26.3 - its needle and crack textures live in the module.
+T_GADGETS = os.path.join(HERE, '..', '..', 'modules', 'simplegadgets', 'shared', 'resources', 'assets', 'simplegadgets', 'textures', 'item')
+
+
+def target(name):
+    return T_GADGETS if name.startswith('echo_sounder') else T
+
+
 def save(image, name):
-    os.makedirs(T, exist_ok=True)
-    image.save(os.path.join(T, name + '.png'))
+    os.makedirs(target(name), exist_ok=True)
+    image.save(os.path.join(target(name), name + '.png'))
 
 
 def animate(name):
-    with open(os.path.join(T, name + '.png.mcmeta'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(target(name), name + '.png.mcmeta'), 'w', encoding='utf-8') as f:
         json.dump({'animation': {'frametime': PULSE_TICKS}}, f, indent=2)
         f.write('\n')
 

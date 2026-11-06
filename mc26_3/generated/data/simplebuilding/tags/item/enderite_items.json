@@ -1,6 +1,5 @@
 {
   "values": [
-    "simplebuilding:echo_sounder",
     "simplebuilding:enchanted_enderite_apple",
     "simplebuilding:enderite_apple",
     "simplebuilding:enderite_axe",
@@ -30,6 +29,7 @@
     "simplecrucibles:enderite_soul_lava_bucket_full",
     "simplecrucibles:enderite_water_bucket",
     "simplecrucibles:enderite_water_bucket_full",
+    "simplegadgets:echo_sounder",
     "simplehammers:enderite_sledgehammer",
     "simplelib:enderite_core",
     "simplemachines:enderite_hopper",

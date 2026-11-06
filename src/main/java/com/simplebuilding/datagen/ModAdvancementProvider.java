@@ -361,7 +361,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     any(ModItems.ENDERITE_BLOCK_ITEM));
             AdvancementHolder nugget = node("enderite/pocket_change", ingot, ModItems.ENDERITE_NUGGET, AdvancementType.TASK,
                     "enderite_nugget", any(ModItems.ENDERITE_NUGGET));
-            AdvancementHolder echo = feature("enderite/echolocation", nugget, TweaksItems.ECHO_COMPASS, AdvancementType.GOAL, ModTriggers.ECHO_TELEPORT);
+            AdvancementHolder echo = feature("enderite/echolocation", nugget, com.simplebuilding.util.GadgetRefs.echo(), AdvancementType.GOAL, ModTriggers.ECHO_TELEPORT);
             feature("enderite/broken_record", echo, Items.ECHO_SHARD, AdvancementType.TASK, ModTriggers.ECHO_SHATTER);
             AdvancementHolder feast = node("enderite/void_feast", nugget, ModItems.ENDERITE_APPLE, AdvancementType.TASK, "enderite_food",
                     any(ModItems.ENDERITE_APPLE, ModItems.ENDERITE_CARROT));

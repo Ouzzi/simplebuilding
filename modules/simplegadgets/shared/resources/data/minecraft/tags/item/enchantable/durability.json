@@ -3,6 +3,10 @@
     {
       "id": "simplegadgets:rotator",
       "required": false
+    },
+    {
+      "id": "simplegadgets:echo_sounder",
+      "required": false
     }
   ]
 }

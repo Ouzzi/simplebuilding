@@ -1,6 +1,6 @@
 {
   "module": "simplegadgets",
-  "derivation": "The Gauge (OW24-2 stage G1), the Transposer and the Resonance Rod (stage G2) moved here from SimpleBuilding with their rows unchanged: copper, a clock and an amethyst shard with SimpleBuilding's Copper Core, sold by the toolsmith. The Transposer: iron core, iron rods and an ender pearl, sold by the toolsmith. The Resonance Rod: iron core, iron rod, nugget, redstone and an amethyst shard, sold by the toolsmith.",
+  "derivation": "The Gauge (OW24-2 stage G1), the Transposer and the Resonance Rod (stage G2) and the Echo Sounder (stage G4) moved here from SimpleBuilding with their rows unchanged: copper, a clock and an amethyst shard with SimpleBuilding's Copper Core, sold by the toolsmith. The Transposer: iron core, iron rods and an ender pearl, sold by the toolsmith. The Resonance Rod: iron core, iron rod, nugget, redstone and an amethyst shard, sold by the toolsmith. The Echo Sounder: a recovery compass, an enderite core and seven enderite nuggets, sold by the wandering trader (tier 5, one in ten visits).",
   "excluded": {},
   "prices": [
     {
@@ -35,6 +35,17 @@
       "level": 2,
       "stock": 2,
       "chance": 1
+    },
+    {
+      "item": "simplegadgets:echo_sounder",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
     }
   ]
 }

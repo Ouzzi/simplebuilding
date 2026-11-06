@@ -245,4 +245,69 @@ public final class ModuleGameTest {
     public void guideBook(GameTestHelper h) {
         GadgetsTests.ALL.get("guide_book").accept(h);
     }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoTheEchoSounderIsCraftedFromTheRecoveryCompassTheCoreAndSevenNuggets(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_echo_sounder_is_crafted_from_the_recovery_compass_the_core_and_seven_nuggets").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoTheEchoSounderIsRegisteredAndNamed(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_echo_sounder_is_registered_and_named").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoTheEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_echo_sounder_links_to_the_lodestone_and_teleports_without_any_pearl").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoJumpEmptiesTheWholeChargeEvenWithUnbreaking(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_jump_empties_the_whole_charge_even_with_unbreaking").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoTheEchoSounderHonorsStackCapacityAndCreativeMode(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_echo_sounder_honors_stack_capacity_and_creative_mode").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoTheEchoSounderChargesForThreeSecondsAndReleasingEarlyCostsNothing(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_echo_sounder_charges_for_three_seconds_and_releasing_early_costs_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoFullChargeJumpsAndLeavesTheEchoSounderEmpty(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_full_charge_jumps_and_leaves_the_echo_sounder_empty").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoTheEchoSounderIsOnlyChargedAgainAfterAllItsRepairPoints(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_echo_sounder_is_only_charged_again_after_all_its_repair_points").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoCrackedEchoSounderChargesTwiceAsLongAndShattersAfterTheJump(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_cracked_echo_sounder_charges_twice_as_long_and_shatters_after_the_jump").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoBlockedJumpCostsNothing(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_blocked_jump_costs_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoTheCooldownAfterTheJumpIsTwentyFourSeconds(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_cooldown_after_the_jump_is_twenty_four_seconds").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoTheEchoSounderDoesNotRelinkTheLodestoneItIsLinkedTo(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_echo_sounder_does_not_relink_the_lodestone_it_is_linked_to").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void echoTheEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_echo_sounder_locks_for_up_to_five_seconds_after_an_attempt_depending_on_the_distance").accept(h);
+    }
 }

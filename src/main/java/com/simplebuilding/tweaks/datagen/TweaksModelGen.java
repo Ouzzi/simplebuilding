@@ -261,10 +261,12 @@ public final class TweaksModelGen {
         if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) laserLens(generator); // 26.3: Simple Gadgets ships the models
         // Voll repariert: 32 eigene Nadelbilder, zeigt zum verknuepften Leitstein. Nicht voll repariert
         // (Schaden > 0): drei Riss-Stufen nach Anteil des Schadens, die Nadel steht still.
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) { // 26.3: Simple Gadgets ships the Echo Sounder's models (G4)
         generator.itemModelOutput.accept(TweaksItems.ECHO_COMPASS, ItemModelUtils.conditional(new Damaged(),
                 ItemModelUtils.rangeSelect(new Damage(true), echoCompassCrackedModels(generator)),
                 ItemModelUtils.rangeSelect(new CompassAngle(true, CompassAngleState.CompassTarget.LODESTONE), 32.0F,
                         echoCompassModels(generator))));
+        }
     }
 
     /**

@@ -237,8 +237,8 @@ public final class GuideContent {
                 ch("minecraft:ender_pearl", List.of(), List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":rotator", "minecraft:ender_pearl", "minecraft:anvil")),
                 ch("simplebuilding:detector", List.of("simplebuilding:detector"), List.of("minecraft:iron_ore", "minecraft:gold_ore", "minecraft:diamond_ore", "minecraft:ancient_debris")),
                 ch("minecraft:deepslate", List.of(), List.of("minecraft:stone", "minecraft:deepslate", "minecraft:obsidian")),
-                ch("simplebuilding:echo_sounder", List.of("simplebuilding:echo_sounder"), List.of("minecraft:lodestone")),
-                ch("minecraft:echo_shard", List.of(), List.of("simplebuilding:echo_sounder", "minecraft:echo_shard", "minecraft:anvil", "minecraft:enchanted_book")),
+                ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":echo_sounder", List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":echo_sounder"), List.of("minecraft:lodestone")),
+                ch("minecraft:echo_shard", List.of(), List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":echo_sounder", "minecraft:echo_shard", "minecraft:anvil", "minecraft:enchanted_book")),
                 ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":amethyst_lens", List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":amethyst_lens"), List.of("minecraft:ice", "minecraft:campfire", "minecraft:wet_sponge", "minecraft:tnt")), // 26.3: Simple Gadgets' rod, by id
                 ch("minecraft:amethyst_shard", List.of(), List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":amethyst_lens", "minecraft:anvil", "minecraft:amethyst_shard")),
                 ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":velocity_gauge", List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":velocity_gauge"), List.of("minecraft:elytra")), // 26.3: Simple Gadgets' Gauge, by id

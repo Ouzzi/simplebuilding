@@ -46,7 +46,8 @@ public final class TweaksItems {
             // Resonanzstab: Die Haltbarkeit ist die Ladung (nie zerbrechend, Amethyst im Amboss
             // laedt auf, siehe LaserPointerItem). Rezept in ModRecipeProvider.
             p -> new LaserPointerItem(p.durability(LaserPointerItem.MAX_CHARGE)));
-    public static final Item ECHO_COMPASS = register("echo_sounder",
+    // OW24-2 stage G4: on 26.3 the Echo Sounder is Simple Gadgets' (McVersion.GADGETS_IN_SB false, field null, util/GadgetRefs).
+    public static final Item ECHO_COMPASS = !McVersion.GADGETS_IN_SB ? null : register("echo_sounder",
             // 1500 Reparaturpunkte, ein Sprung leert ihn; Echoscherben reparieren am Amboss je ein Viertel.
             p -> new EchoCompassItem(p.stacksTo(1).durability(EchoCompassItem.MAX_DAMAGE).enchantable(15)
                     .repairable(Items.ECHO_SHARD).rarity(Rarity.EPIC).fireResistant()));
@@ -205,7 +206,7 @@ public final class TweaksItems {
         List<Item> all = new ArrayList<>(BLOCK_ITEMS);
         all.add(SPAWN_ELYTRA);
         if (LASER_POINTER != null) all.add(LASER_POINTER);
-        all.add(ECHO_COMPASS);
+        if (ECHO_COMPASS != null) all.add(ECHO_COMPASS);
         all.addAll(HEAD_ITEMS.values()); // 26.3 empty: the heads are Simple Mobheads' items
         return all;
     }

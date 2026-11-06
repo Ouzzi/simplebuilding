@@ -112,7 +112,8 @@ public class ModTags {
                 com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE,
                 com.simplebuilding.version.McVersion.STORAGE_NAMESPACE,
                 com.simplebuilding.version.McVersion.ORES_NAMESPACE,
-                com.simplebuilding.version.McVersion.PISTONS_NAMESPACE));
+                com.simplebuilding.version.McVersion.PISTONS_NAMESPACE,
+                com.simplebuilding.version.McVersion.GADGETS_NAMESPACE));
 
         /**
          * Die Regel fuer {@link #ENDERITE_ITEMS}: jedes Item aus {@link #ENDERITE_NAMESPACES}, dessen Pfad

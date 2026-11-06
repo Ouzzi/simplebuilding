@@ -53,6 +53,7 @@ public final class GadgetsDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simplegadgets:amethyst_lens",
             "simplegadgets:creative_tab_switch",
+            "simplegadgets:echo_sounder",
             "simplegadgets:gadget_hud",
             "simplegadgets:gauge",
             "simplegadgets:guide_book",

@@ -176,6 +176,42 @@
         "summary": "Kapitel \"Simple Gadgets\" im Simple-Modpack-Handbuch (SimpleLib): 13 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Uhr. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
+    "simplegadgets:echo_sounder": {
+      "en": {
+        "summary": "Link the Echo Sounder to a lodestone, then hold use for 3 seconds to jump; releasing early cancels. A jump empties its default 1500 charge; Mending or echo shards recharge it. A jump before full recharge takes 6 seconds and shatters it.",
+        "details": [
+          "Right-click a lodestone to link it; the needle then points there. Clicking the lodestone it is already linked to does nothing (no sound, no effects). If the lodestone is removed the link is lost.",
+          "Jump cooldown: echoJumpCooldownTicks in config/simplegadgets-server.json, default 480 ticks (24 seconds). Linking and unsuccessful attempts lock it for 20–100 ticks by default, depending on distance; the maximum uses echoAttemptLockTicks. Re-clicking the same lodestone does not relink it.",
+          "Charge: the echo sounder has 1500 repair points by default (echoMaxCharge in config/simplegadgets-server.json). One successful jump empties its entire charge, even with Unbreaking. Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
+          "Forcing it: using an echo sounder that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the echo sounder shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
+          "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"ENN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom left.",
+          "The item id is simplegadgets:echo_sounder (until 06.11.2026 simplebuilding:echo_sounder, before 28.09.2026 echo_compass; old worlds migrate). Values come from config/simplegadgets-server.json (taken over from SimpleBuilding's config on the first start): echoEnabled, echoMaxCharge (needs a restart), echoJumpCooldownTicks, echoAttemptLockTicks and echoBlockedDimensions (dimensions it neither leaves nor enters). Without SimpleBuilding the recipe takes amethyst shards for the nuggets and a netherite ingot for the core. The advancements and the Teleports statistic stay SimpleBuilding's.",
+          "Replaces the 'Echo Compass' data pack Simple Tweaks shipped."
+        ]
+      },
+      "de": {
+        "summary": "Echolot am Leitstein verknüpfen, dann Benutzen 3 Sekunden zum Springen halten; frühes Loslassen bricht ab. Ein Sprung leert standardmäßig 1500 Ladung; Reparatur oder Echoscherben laden nach. Vor voller Ladung dauert der Sprung 6 Sekunden und zerbricht es.",
+        "details": [
+          "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Ein Klick auf den schon verknüpften Leitstein tut nichts (kein Klang, keine Effekte). Wird der Leitstein entfernt, ist die Verknüpfung weg.",
+          "Sprung-Abklingzeit: echoJumpCooldownTicks in config/simplegadgets-server.json, Standard 480 Ticks (24 Sekunden). Verknüpfen und Fehlversuche sperren standardmäßig 20–100 Ticks je Entfernung; Maximum über echoAttemptLockTicks. Derselbe Leitstein wird nicht erneut verknüpft.",
+          "Ladung: Das Echolot hat standardmäßig 1500 Reparaturpunkte (echoMaxCharge in config/simplegadgets-server.json). Ein erfolgreicher Sprung leert die gesamte Ladung, auch mit Haltbarkeit (Unbreaking). Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
+          "Erzwingen: Ein nicht voll aufgeladenes Echolot zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt das Echolot endgültig. Haltbarkeit rettet es dabei nicht. Im Kreativmodus leert und zerspringt es nicht.",
+          "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"ENN\"): sieben Enderitklumpen außen herum, der Bergungskompass in der Mitte, der Enderitkern unten links.",
+          "Die Item-ID ist simplegadgets:echo_sounder (bis 06.11.2026 simplebuilding:echo_sounder, vor dem 28.09.2026 echo_compass; alte Welten wandern mit). Werte stehen in config/simplegadgets-server.json (beim ersten Start aus SimpleBuildings Config übernommen): echoEnabled, echoMaxCharge (Neustart nötig), echoJumpCooldownTicks, echoAttemptLockTicks und echoBlockedDimensions (Dimensionen, aus denen es nicht herausspringt und in die es nicht hineinspringt). Ohne SimpleBuilding nimmt das Rezept Amethystscherben statt der Klumpen und einen Netheritbarren statt des Kerns. Die Erfolge und die Statistik Teleports bleiben SimpleBuildings.",
+          "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks."
+        ]
+      },
+      "sources": [
+        "modules/simplegadgets/shared/java/com/simplegadgets/echo/EchoSounderItem.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/EchoFov.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/mixin/client/EchoFovMixin.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/config/GadgetsConfig.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/test/EchoTests.java",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/echo_sounder.json",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/echo_sounder_without_simplebuilding.json",
+        "tools/textures/echo_sounder_textures.py"
+      ]
+    },
     "simplegadgets:velocity_gauge": {
       "en": {
         "summary": "The Gauge shows speed while held in either hand, with an animated item needle and a HUD dial.",

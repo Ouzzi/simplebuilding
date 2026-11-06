@@ -90,7 +90,7 @@
       "id": "simplehammers:diamond_sledgehammer",
       "required": false
     },
-    "simplebuilding:echo_sounder",
+    "simplegadgets:echo_sounder",
     "simplepads:elytra_pad",
     {
       "id": "simpletrims:emitting_trim_template",

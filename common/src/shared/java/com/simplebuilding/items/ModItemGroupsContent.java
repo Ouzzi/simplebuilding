@@ -152,7 +152,7 @@ public final class ModItemGroupsContent {
                 // Echo-Kompass, Geschwindigkeitsmesser, Erzdetektor -, dann Magnet, Rotator, Amethystlinse
                 // und Oktant. Genau neun: die Zeile ist voll, die gefaerbten Oktanten beginnen die naechste.
                 CreativeTabLayout.Row.of("gadgets",
-                        Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS,
+                        Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.util.GadgetRefs.echo(),
                         com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(),
                         com.simplebuilding.util.GadgetRefs.rod(), ModItems.OCTANT)));
 

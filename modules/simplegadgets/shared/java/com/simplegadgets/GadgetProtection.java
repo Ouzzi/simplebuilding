@@ -68,6 +68,20 @@ public final class GadgetProtection {
         return HammerActions.mayChange(level, player, pos);
     }
 
+    /** May the player stand where he is and where the Echo Sounder sends him (framework claims, any action; the server only). */
+    public static boolean mayTeleport(ServerPlayer player, ServerLevel targetLevel, net.minecraft.world.phys.Vec3 target) {
+        return mayStandAt(player, (ServerLevel) player.level(), BlockPos.containing(player.position()))
+                && mayStandAt(player, targetLevel, BlockPos.containing(target));
+    }
+
+    private static boolean mayStandAt(ServerPlayer player, ServerLevel level, BlockPos pos) {
+        var server = level.getServer();
+        if (server == null || !Protection.active(server)) return true;
+        boolean admin = Commands.hasPermission(Commands.LEVEL_OWNERS).test(player.createCommandSourceStack());
+        return Protection.allows(server, new Protection.Target(player.getUUID(), level.dimension().identifier().toString(),
+                pos.getX(), pos.getY(), pos.getZ(), admin), Protection.Action.ANY);
+    }
+
     /**
      * Whether {@code player} may change the clicked block at {@code pos} with {@code stack}: the question a block placement asks
      * (spectator, adventure mode, spawn protection) and the claims above.
