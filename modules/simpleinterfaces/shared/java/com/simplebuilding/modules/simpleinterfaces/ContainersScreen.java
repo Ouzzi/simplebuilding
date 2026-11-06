@@ -20,6 +20,8 @@ public final class ContainersScreen {
         var general = b.getOrCreateCategory(Component.translatable("simpleinterfaces.tab.general"));
         general.addEntry(e.startBooleanToggle(name("enabled"), c.enabled).setDefaultValue(true).setTooltip(tip("enabled"))
                 .setSaveConsumer(v -> c.enabled = v).build());
+        general.addEntry(e.startBooleanToggle(name("sortKey"), c.sortKey).setDefaultValue(true)
+                .setTooltip(tip("sortKey")).setSaveConsumer(v -> c.sortKey = v).build());
         general.addEntry(e.startBooleanToggle(name("showStyleToggle"), c.showStyleToggle).setDefaultValue(false)
                 .setTooltip(tip("showStyleToggle")).setSaveConsumer(v -> c.showStyleToggle = v).build());
         // N49: brightness of the mod inventory / container boxes (SimpleLib, config/simplelib-client.json)

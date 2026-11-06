@@ -21,6 +21,10 @@ public final class InterfacesFabric implements ModInitializer {
                 com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(LinkedCancelPayload.TYPE, LinkedCancelPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(LinkedCancelPayload.TYPE, (payload, c) -> c.server().execute(() -> LinkedContainers.onCancel(c.player())));
+        PayloadTypeRegistry.serverboundPlay().register(com.simplebuilding.modules.simpleinterfaces.network.SortPayload.TYPE,
+                com.simplebuilding.modules.simpleinterfaces.network.SortPayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpleinterfaces.network.SortPayload.TYPE, (payload, c) ->
+                c.server().execute(() -> com.simplebuilding.modules.simpleinterfaces.sort.ContainerSort.sort(c.player(), payload.containerId(), payload.slotIndex())));
         LinkedContainers.openSync = (p, payload) -> {
             if (!ServerPlayNetworking.canSend(p, LinkedOpenPayload.TYPE)) return false;
             ServerPlayNetworking.send(p, payload);
