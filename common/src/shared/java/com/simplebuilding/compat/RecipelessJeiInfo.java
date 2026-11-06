@@ -54,6 +54,10 @@ public final class RecipelessJeiInfo {
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
         }
+        if (ModItems.NIHILITH_ASHWOOD_PLANKS != null && !com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleend")) {
+            // a-end07: the Nihilit End planks are crafted from Simple End's planks; without that mod there is no recipe, only this page.
+            map.put("nihilith_end_planks", List.of(ModItems.NIHILITH_ASHWOOD_PLANKS, ModItems.NIHILITH_DUSKWOOD_PLANKS));
+        }
         // Astral-Verzauberungstisch (N27): seit N30 als Hammer-Umwandlung in der In-World-Kategorie
         // (InWorldTransformations#sledgehammerUpgrade), daher keine Info-Seite mehr.
         // Pfeile vom Befiederungstisch: seit 04.11. Simple Arrows (dessen JEI-Sondereintrag "simplearrows/fletching").
