@@ -21,7 +21,7 @@ langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
-    required = (sorted(used) + [f'item.{NS}.guide_book', f'item.{NS}.strong_upgrade_template', f'item.{NS}.strong_upgrade_shard',
+    required = (sorted(used) + [f'item.{NS}.guide_book',
                                 f'item.{NS}.evil_upgrade_template', f'{NS}.testcentre.station', f'block.{NS}.strong_conduit', f'block.{NS}.mighty_conduit', f'block.{NS}.evil_conduit', f'block.{NS}.mighty_evil_conduit']
                 + [f'block.{NS}.{b}' for b in ('strong_beacon', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon')]
                 + [f'container.{NS}.{b}' for b in ('strong_beacon', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon')]
@@ -44,32 +44,23 @@ assert recipes['evil_conduit_smithing']['base'] == 'minecraft:conduit' and recip
 for r in ('mighty_conduit', 'mighty_evil_conduit'):
     assert recipes[r]['key']['B'] in (f'{NS}:strong_conduit', f'{NS}:evil_conduit'), r
     assert recipes[r + '_without_simplebuilding']['key']['B'] == recipes[r]['key']['B'], r
-dup = recipes['strong_upgrade_template_duplication']
-assert dup['result']['count'] == 2 and dup['type'] == 'minecraft:crafting_shapeless'
-assert sorted(dup['ingredients']) == sorted([f'{NS}:strong_upgrade_template', 'minecraft:crying_obsidian', 'minecraft:diamond', 'simplemobs:nether_heart']), dup['ingredients']
-assert 'fabric:load_conditions' in dup and 'neoforge:conditions' in dup and 'forge:condition' in dup, 'duplication needs Simple Mobs (Nether Heart)'
-assert 'minecraft:obsidian' not in json.dumps(recipes['strong_upgrade_template']), 'crying obsidian in Strong recipes (23.10.)'
-# Owner 21.10.: no template from plain materials - only 9 shards, the Nether Heart (with Simple Mobs) and duplication
+# WF25-10 (07.11.): the Strong Upgrade template/shard and their recipes left this module (SimpleLib, Simple Mobs)
+assert not any(r.startswith('strong_upgrade_template') for r in recipes), 'Strong Upgrade recipes live in SimpleLib / Simple Mobs'
 assert 'strong_upgrade_template_from_basic' not in recipes, 'Basic Upgrade way removed (21.10.)'
-assert all('minecraft:nether_star' not in json.dumps(recipes[r]) for r in recipes if r.startswith('strong_upgrade_template')), 'no Nether Star template recipe'
-heart = recipes['strong_upgrade_template']
-assert heart['key']['N'] == 'simplemobs:nether_heart', heart['key']
-assert 'fabric:load_conditions' in heart and 'neoforge:conditions' in heart and 'forge:condition' in heart, 'Simple Mobs recipe must be conditional'
-shards = recipes['strong_upgrade_template_from_shards']
-assert shards['pattern'] == ['SSS', 'SSS', 'SSS'] and shards['key']['S'] == f'{NS}:strong_upgrade_shard' and shards['result']['count'] == 1
+assert not any(k.startswith(f'item.{NS}.strong_upgrade') for k in langs['en_us']), 'Strong Upgrade texts live in SimpleLib'
 assert json.loads((RES / f'data/{NS}/tags/block/strong_base_blocks.json').read_text(encoding='utf-8'))['values'] == []
 # A29 (BS28b-4/5): Mighty = Strong Beacon + six cores + two Strong Upgrades; Evil = beacon + Evil Upgrade + star
 for name, center in (('mighty_beacon', 'strong_beacon'), ('mighty_evil_beacon', 'evil_beacon')):
     for variant in (name, name + '_without_simplebuilding'):
         r = recipes[variant]
         assert r['type'] == 'minecraft:crafting_shaped' and r['pattern'] == ['cig', 'dBn', 'UeU'], variant
-        assert r['key']['B'] == f'{NS}:{center}' and r['key']['U'] == f'{NS}:strong_upgrade_template', variant
+        assert r['key']['B'] == f'{NS}:{center}' and r['key']['U'] == 'simplelib:strong_upgrade_template', variant
         assert len(set(r['key'][k] for k in 'cigdne')) == 6, variant
         assert r['result']['id'] == f'{NS}:{name}', variant
 assert all(recipes[r]['key'][k].startswith('simplelib:') for r in ('mighty_beacon', 'mighty_evil_beacon') for k in 'cigdne'), 'cores (SimpleLib since IG31-13)'
 evil = recipes['evil_beacon_smithing']
 assert evil['template'] == f'{NS}:evil_upgrade_template' and evil['base'] == 'minecraft:beacon' and evil['addition'] == 'simplemobs:nether_gem'
-assert sorted(recipes['evil_upgrade_template']['ingredients']) == sorted([f'{NS}:strong_upgrade_template', 'minecraft:crying_obsidian', 'simplemobs:nether_heart', 'simplemobs:nether_gem'])
+assert sorted(recipes['evil_upgrade_template']['ingredients']) == sorted(['simplelib:strong_upgrade_template', 'minecraft:crying_obsidian', 'simplemobs:nether_heart', 'simplemobs:nether_gem'])
 assert 'fabric:load_conditions' in recipes['evil_upgrade_template'], 'Evil Upgrade recipe needs Simple Mobs'
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
 mixins = json.loads((RES / f'{NS}.mixins.json').read_text(encoding='utf-8'))
@@ -86,5 +77,5 @@ for f in manual['features']:
         assert (MODULE.parents[1] / src).is_file(), src
 for locale in ('en_us', 'de_de'):
     q = json.loads((RES / f'assets/{NS}/questionary/{locale}.json').read_text(encoding='utf-8'))
-    assert set(q) == {'strong_upgrade_template', 'strong_upgrade_shard', 'strong_beacon', 'strong_conduit', 'evil_upgrade_template', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon', 'mighty_conduit', 'evil_conduit', 'mighty_evil_conduit'}, (locale, set(q))
+    assert set(q) == {'strong_beacon', 'strong_conduit', 'evil_upgrade_template', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon', 'mighty_conduit', 'evil_conduit', 'mighty_evil_conduit'}, (locale, set(q))
 print(f'{NS}: {len(config_keys)} config keys, {len(used)} UI texts, {len(recipes)} recipes, mixins, structure, questionary and wiki valid')

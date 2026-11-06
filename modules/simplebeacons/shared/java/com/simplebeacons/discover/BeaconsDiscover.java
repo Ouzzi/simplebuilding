@@ -67,7 +67,6 @@ public final class BeaconsDiscover {
             "simplebeacons:strong_beacon_screen",
             "simplebeacons:strong_conduit",
             "simplebeacons:strong_upgrade_in_world",
-            "simplebeacons:strong_upgrade_shard",
             "simplebeacons:strong_upgrade_template");
     static final List<Tip> TIPS = List.of();
 

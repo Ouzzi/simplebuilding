@@ -21,7 +21,7 @@
   "category": "misc",
   "key": {
     "B": "simplebeacons:evil_conduit",
-    "U": "simplebeacons:strong_upgrade_template",
+    "U": "simplelib:strong_upgrade_template",
     "c": "simplelib:copper_core",
     "i": "simplelib:iron_core",
     "g": "simplelib:gold_core",

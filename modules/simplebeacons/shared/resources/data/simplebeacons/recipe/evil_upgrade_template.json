@@ -20,7 +20,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "simplebeacons:strong_upgrade_template",
+    "simplelib:strong_upgrade_template",
     "minecraft:crying_obsidian",
     "simplemobs:nether_heart",
     "simplemobs:nether_gem"

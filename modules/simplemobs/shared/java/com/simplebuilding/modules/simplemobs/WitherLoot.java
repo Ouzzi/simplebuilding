@@ -39,6 +39,17 @@ public final class WitherLoot {
      */
     public static void idMoves() {
         IdMoves.move(Registries.ITEM, OLD_HEART, HEART);
+        // WF25-10 (07.11.): the wings always upgrade with SimpleLib's Strong Upgrade; the Netherite ways without Simple Beacons are gone.
+        for (String wings : List.of("wither", "nether", "end", "void")) {
+            String path = wings + "_wings_smithing";
+            IdMoves.move(Registries.RECIPE, Identifier.fromNamespaceAndPath(MobsRegistry.ID, path + "_without_simplebeacons"), Identifier.fromNamespaceAndPath(MobsRegistry.ID, path));
+            IdMoves.move(Registries.ADVANCEMENT, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "recipes/misc/" + path + "_without_simplebeacons"),
+                    Identifier.fromNamespaceAndPath(MobsRegistry.ID, "recipes/misc/" + path));
+        }
+        // The Strong Upgrade (template + shard) is SimpleLib's; Simple Mobs' Nether Heart recipe is a way to the first template,
+        // so the Vanilla Wither drops a shard (not the whole template) while Simple Mobs is on.
+        com.simplelib.api.SimpleLibApi.requestMaterial("strong_upgrade");
+        com.simplelib.api.SimpleLibApi.strongTemplateWay(() -> com.simplebuilding.framework.api.SubMods.enabled(MobsRegistry.ID));
     }
 
     /**

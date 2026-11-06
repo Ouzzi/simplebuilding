@@ -113,7 +113,8 @@ public final class SimpleLibApi {
     /**
      * Requests a shared material group: {@code "cracked_diamond"} (diamond pebble, cracked diamond and its block, the
      * anvil crushing), {@code "netherite_nugget"}, {@code "upgrade_templates"} (basic upgrade), {@code "polished_end_stone"},
-     * {@code "cores"} (the six building cores). {@code "enderite"} belongs to Simple Ores since IG31-13: a request of it
+     * {@code "cores"} (the six building cores), {@code "strong_upgrade"} (Strong Upgrade template and shard, the Vanilla Wither's
+     * drop, WF25-10). {@code "enderite"} belongs to Simple Ores since IG31-13: a request of it
      * changes nothing, the group counts as requested while its owner provides it ({@link #provideMaterial}). The items are always registered; their
      * recipes (condition {@code simplelib:material_requested}) and the anvil crushing only exist once a loaded mod
      * requested the group. Call it in the mod constructor / initializer, before data packs load.
@@ -138,6 +139,15 @@ public final class SimpleLibApi {
     /** Whether a loaded mod provides the group: {@code materialPresent("enderite")} = Simple Ores is there. */
     public static boolean materialPresent(String group) {
         return com.simplelib.registry.LibMaterials.provided(group);
+    }
+
+    /**
+     * WF25-10: a mod with its own way to the first Strong Upgrade template (Simple Mobs: the Nether Heart recipe) announces it in
+     * its constructor / initializer; {@code on} tells whether that way is active (the mod switched on). While one is on, the
+     * Vanilla Wither drops one Strong Upgrade shard, otherwise the whole template (group {@code "strong_upgrade"} requested).
+     */
+    public static void strongTemplateWay(java.util.function.BooleanSupplier on) {
+        com.simplelib.material.StrongUpgradeDrops.way(on);
     }
 
     /** Whether a partner feeds the Enderite loot itself ({@link #materialLootByPartner}); the owner then adds none. */

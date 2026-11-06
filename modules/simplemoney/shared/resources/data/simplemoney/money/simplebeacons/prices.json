@@ -11,9 +11,7 @@
     "simplebeacons:mighty_evil_beacon": "Crafted from an Evil Beacon, the six cores and two Strong Upgrades; a trade would skip all of it.",
     "simplebeacons:mighty_evil_conduit": "Crafted from an Evil Conduit, the six cores and two Strong Upgrades; a trade would skip all of it.",
     "simplebeacons:strong_beacon": "Needs a beacon and a Nether Heart on top of the template; a trade would skip the boss.",
-    "simplebeacons:strong_conduit": "Needs a conduit and a Nether Heart on top of the template; a trade would skip the boss.",
-    "simplebeacons:strong_upgrade_shard": "Vanilla Wither drop only (one per kill); a trade would skip the boss.",
-    "simplebeacons:strong_upgrade_template": "Never crafted from plain materials (owner 21.10.): 9 shards from the Wither, a Nether Heart (Simple Mobs); duplication needs a Nether Heart too."
+    "simplebeacons:strong_conduit": "Needs a conduit and a Nether Heart on top of the template; a trade would skip the boss."
   },
   "prices": []
 }

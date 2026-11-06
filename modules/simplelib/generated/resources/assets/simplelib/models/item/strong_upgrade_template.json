@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "simplebeacons:item/strong_upgrade_template"
+    "layer0": "simplelib:item/strong_upgrade_template"
   }
 }

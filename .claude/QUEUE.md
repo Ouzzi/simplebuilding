@@ -97,7 +97,7 @@ Neu eingetragen (standen nur in /root/sb-tools-b/wd25.md bzw. /root/b-antworten-
 - [~] WF25-7 Vanilla-Notenblock mit gleicher Textur wie Jukebox-/Noten-Verstärker (Status 05.11.: abnahme – NoteBlockFrameSpritesMixin (01c0510dd, 094f4cff5))
 - [~] WF25-8 Pads-Kerne (Cores) im Kreativ-Tab zu Simple Gadgets (Status 01.11.: abnahme – Tab-Zuordnung Gadgets prüfen; Beleg: IG31-13: Kerne -> simplelib (b-ig3113, Merge 3791a1e62))
 - [ ] WF25-9 Neuer Sub-Mod „Simple Building Tools“: Baustäbe, Blaupausen, Oktanten (Status 01.11.: offen – komplett offen; Beleg: kein Modul in modules/)
-- [ ] WF25-10 Strong Upgrades/-Charts nach SimpleLib; Wither-Chart ohne Simple Mobs (Status 01.11.: offen – Umzug nach simplelib; Beleg: StrongUpgrade-Code liegt in simplebeacons)
+- [~] (B, b-strong07, 07.11.) WF25-10 Strong Upgrades/-Charts nach SimpleLib; Wither-Chart ohne Simple Mobs (Plan docs/ai/PLAN-B-STRONG07-2026-11-07.md)
 - [x] WF25-11 Shulker-Helm: Resistenz nur beim Schleichen mit Bodenkontakt (Status 01.11.: offen – komplett offen; Beleg: kein Treffer) (05.11. a-qw05b: Shulkerkopf-Faehigkeit, HeadAbilities.shellHunkered, Test in movedAbilities)
 - [~] WF25-12 Inverser Rüstungsbesatz rendert falsch (Trim-Fläche in Rüstungsfarbe, Rest Trimfarbe) (Status 05.11.: abnahme – Queue IG3114-BESATZ b-music03 [~] (inverser Besatz A))
 - [~] WF25-13 JEI: Schmiede-Rezepte der Mod-Trims sichtbar; Amboss-Icon bei In-World-Upgrades ersetzen (Status 05.11.: abnahme – 23699feaa (JEI-Smithing-Extension Trims), 058d2649b (gemeinsamer JEI-In-World-Tab))

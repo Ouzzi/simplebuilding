@@ -27,7 +27,7 @@
     "n": "simplelib:netherite_core",
     "e": "simplelib:enderite_core",
     "B": "simplebeacons:evil_beacon",
-    "U": "simplebeacons:strong_upgrade_template"
+    "U": "simplelib:strong_upgrade_template"
   },
   "pattern": [
     "cig",

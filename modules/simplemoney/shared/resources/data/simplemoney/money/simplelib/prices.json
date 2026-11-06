@@ -1,7 +1,10 @@
 {
   "module": "simplelib",
   "derivation": "Shared materials and warm food; nothing to sell here (the crucibles moved to Simple Crucibles, split stage 5). IG31-13: the six building cores came from SimpleBuilding with their prices (same rows); the Enderite core only with Simple Ores (\"requires\").",
-  "excluded": {},
+  "excluded": {
+    "simplelib:strong_upgrade_shard": "Vanilla Wither drop only (one per kill, or the whole template without a mod of its own way); a trade would skip the boss.",
+    "simplelib:strong_upgrade_template": "Never crafted from plain materials (owner 21.10.): 9 shards from the Wither, a Nether Heart (Simple Mobs), or the Wither drop without Simple Mobs (WF25-10)."
+  },
   "prices": [
     {
       "item": "simplelib:copper_core",
