@@ -266,7 +266,7 @@ public final class DragonFightTests {
             h.succeed();
         });
         add("curve_and_xp", h -> {
-            double ph = 0, ps = 0, pa = 0; int pm = 0, px = 0; double hs = 0;
+            double ph = 1.0, ps = 1.2, pa = 1.0; int pm = 2, px = 0;
             for (int s = 0; s <= 40; s++) {
                 double f = DragonScaling.summonFactor(0.15, 3.0, s);
                 float sp = DragonScaling.summonSpeed(1.2, f, 2.0);
