@@ -242,6 +242,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .unlockedBy(getHasName(wood[1]), has(wood[1]))
                                 .save(output);
                     }
+                    // a-end07 (Wunsch 8): die Nihilit-Bretter je End-Holzart und die Nihilit-Regale brauchen ein End-Brett aus
+                    // Simple End: ihre Rezepte stehen mit Ladebedingung in mc26_3/overlay (wie simplebuilding:ashwood_bookshelf).
                     // Nachtrag 60 (Besitzer 15.10.): 8 Lohenstaub um 1 normales Buch (ersetzt 3 Papier + 1 Lohenstaub).
                     shaped(RecipeCategory.MISC, ModItems.BLAZE_BOOK)
                             .pattern("BBB").pattern("BKB").pattern("BBB")
@@ -1318,6 +1320,13 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 createEndPaletteRecipes(output, ModBlocks.ASTRALIT_PALETTE, ModItems.ASTRALIT_DUST, false);
                 createEndPaletteRecipes(output, ModBlocks.NIHILITH_PALETTE, ModItems.NIHILITH_SHARD, false);
                 createEndPaletteRecipes(output, ModBlocks.ENDER_QUARTZ_PALETTE, ModItems.ENDER_QUARTZ, true);
+                // a-end07: rissige End-Ziegel im Ofen aus den glatten Ziegeln (wie Vanillas rissige Steinziegel).
+                for (java.util.Map.Entry<Block, Block> cracked : ModBlocks.CRACKED_END_BRICKS.entrySet()) {
+                    net.minecraft.data.recipes.SimpleCookingRecipeBuilder.smelting(net.minecraft.world.item.crafting.Ingredient.of(cracked.getValue()),
+                                    RecipeCategory.BUILDING_BLOCKS, net.minecraft.world.item.crafting.CookingBookCategory.BLOCKS, cracked.getKey(), 0.1F, 200)
+                            .unlockedBy(getHasName(cracked.getValue()), has(cracked.getValue()))
+                            .save(output, net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cracked.getKey()).getPath() + "_from_smelting");
+                }
 
                 // Der beschichtete Endstein (aeltere Grundlage der Ziegel) schneidet weiter in den ganzen
                 // Ziegelbausatz und dazu in den Grundblock; der beschichtete Purpurblock schneidet in den

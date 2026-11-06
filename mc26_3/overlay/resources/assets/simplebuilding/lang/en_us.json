@@ -3655,5 +3655,15 @@
   "simplebuilding.modpack_guide.section": "SimpleBuilding",
   "text.autoconfig.simplebuilding.option.enableSimplePads": "Enable Simple Pads",
   "text.autoconfig.simplebuilding.option.enableSimplePads.@Tooltip": "Turns the bundled Simple Pads module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on.",
-  "commands.simplebuilding.moved": "%s is now %s (the old name still works for now)"
+  "commands.simplebuilding.moved": "%s is now %s (the old name still works for now)",
+  "block.simplebuilding.cracked_astralit_bricks": "Cracked Astralit Bricks",
+  "item.simplebuilding.cracked_astralit_bricks": "Cracked Astralit Bricks",
+  "block.simplebuilding.cracked_nihilith_bricks": "Cracked Nihilit Bricks",
+  "item.simplebuilding.cracked_nihilith_bricks": "Cracked Nihilit Bricks",
+  "block.simplebuilding.cracked_ender_quartz_bricks": "Cracked Ender Quartz Bricks",
+  "item.simplebuilding.cracked_ender_quartz_bricks": "Cracked Ender Quartz Bricks",
+  "block.simplebuilding.nihilith_ashwood_planks": "Nihilit Ashwood Planks",
+  "item.simplebuilding.nihilith_ashwood_planks": "Nihilit Ashwood Planks",
+  "block.simplebuilding.nihilith_duskwood_planks": "Nihilit Duskwood Planks",
+  "item.simplebuilding.nihilith_duskwood_planks": "Nihilit Duskwood Planks"
 }

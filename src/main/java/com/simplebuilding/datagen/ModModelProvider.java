@@ -122,6 +122,8 @@ public class ModModelProvider extends FabricModelProvider {
         for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {
             registerEndPalette(blockStateModelGenerator, palette);
         }
+        // a-end07: rissige End-Ziegel als einfache Wuerfel mit eigener Textur.
+        ModBlocks.CRACKED_END_BRICKS.keySet().forEach(blockStateModelGenerator::createTrivialCube);
         // Alternativbloecke (2026-10-03): einfache Wuerfel mit eigener Textur.
         for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
             alternates.alternates().forEach(blockStateModelGenerator::createTrivialCube);

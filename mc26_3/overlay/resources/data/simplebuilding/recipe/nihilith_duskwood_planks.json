@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleend"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleend"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleend"
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "N": "simplebuilding:nihilith_shard",
+    "P": "simpleend:duskwood_planks"
+  },
+  "pattern": [
+    " N ",
+    "NPN",
+    " N "
+  ],
+  "result": {
+    "count": 2,
+    "id": "simplebuilding:nihilith_duskwood_planks"
+  }
+}

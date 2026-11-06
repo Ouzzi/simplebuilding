@@ -87,6 +87,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             // (gelagerter Lapis/Lohenstaub faellt als Inhalt heraus), Lohen-Regale drei Lohenbuecher wie Vanilla-Regale.
             // ENCH02: the tables' loot is Simple Enchanting's (data/simpleenchanting/loot_table).
             for (Block planks : ModBlocks.BLAZEWOOD_PLANKS) dropSelf(planks);
+            for (Block planks : ModBlocks.NIHILITH_END_PLANKS) dropSelf(planks);
             for (Block shelf : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
                 add(shelf, createSingleItemTableWithSilkTouch(shelf, ModItems.BLAZE_BOOK, LootNumbers.exactly(3)));
             }
@@ -203,6 +204,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.NIHIL_END_STONE);
 
         // End-Paletten (Astralit, Nihilith, Enderquarz); Stufen droppen doppelt, wenn sie als Doppelstufe stehen
+        ModBlocks.CRACKED_END_BRICKS.keySet().forEach(this::dropSelf);
         for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {
             for (Block block : palette.blocks()) {
                 if (palette.slabs().contains(block)) {

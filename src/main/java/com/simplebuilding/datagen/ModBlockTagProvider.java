@@ -113,6 +113,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             // LOHEN17 V2 (owner 2026-10-21): fire on blazing obsidian burns forever, like on netherrack or magma.
             builder(BlockTags.INFINIBURN_OVERWORLD).add(key(ModBlocks.BLAZING_OBSIDIAN));
             for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_PLANKS) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
+            for (net.minecraft.world.level.block.Block block : ModBlocks.NIHILITH_END_PLANKS) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
             for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
                 builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
                 builder(BlockTags.ENCHANTMENT_POWER_PROVIDER).add(key(block));
@@ -215,6 +216,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         // End-Paletten (Astralit, Nihilith, Enderquarz): alle verlangen eine Spitzhacke; Treppen,
         // Stufen und Mauern stehen in den Vanilla-Tags ihrer Form (eine Mauer ausserhalb von
         // minecraft:walls verbindet sich nicht mit ihren Nachbarn).
+        ModBlocks.CRACKED_END_BRICKS.keySet().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
         for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {
             palette.blocks().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
             palette.stairs().forEach(block -> builder(BlockTags.STAIRS).add(key(block)));

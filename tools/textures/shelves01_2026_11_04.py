@@ -105,22 +105,105 @@ BOOK_RAMPS = {
 }
 
 
-def books_overlay(jar, kind):
-    """Only the book pixels of Vanilla's occupied front; every slot on its own ramp, the shading of Vanilla's books kept."""
+# a-end07 (Wunsch 9, 06.11.): own book designs per material. Every slot position has its own body ramp (Vanilla gives every position
+# another colour: teal, green, violet, pink, brown, blue) and an accent for the band/highlight pixels of the book. Blaze Books stay in the
+# ember family (red, orange, gold, magma, amber, rose), Nihilit Books in the shard family (navy, teal, violet, indigo, deep sea, void).
+DESIGN = 'A'
+SLOT_BODY = {
+    'blaze': [[(58, 18, 8), (104, 28, 10), (150, 44, 12), (196, 64, 16)],      # ember red
+              [(70, 26, 8), (122, 50, 12), (176, 84, 18), (220, 120, 28)],     # flame orange
+              [(80, 50, 10), (130, 86, 16), (180, 128, 26), (224, 172, 44)],   # gold
+              [(52, 10, 14), (96, 20, 22), (140, 32, 26), (182, 52, 30)],      # crimson
+              [(60, 32, 12), (104, 60, 18), (150, 92, 26), (196, 128, 38)],    # amber
+              [(66, 14, 30), (112, 26, 44), (158, 42, 56), (200, 64, 70)]],    # magma rose
+    'nihilith': [[(14, 22, 52), (26, 49, 96), (30, 64, 161), (62, 104, 162)],      # navy
+                 [(10, 32, 40), (25, 58, 70), (38, 92, 108), (63, 128, 148)],      # teal
+                 [(20, 12, 42), (42, 28, 88), (66, 48, 138), (100, 80, 176)],      # violet
+                 [(16, 20, 60), (30, 44, 110), (48, 70, 168), (78, 110, 200)],     # indigo
+                 [(8, 22, 30), (18, 48, 62), (30, 76, 96), (52, 110, 130)],        # deep sea
+                 [(26, 14, 44), (52, 30, 84), (82, 52, 124), (120, 86, 164)]],     # void
+}
+SLOT_ACCENT = {
+    'blaze': [[(214, 140, 30), (242, 186, 60), (255, 226, 120)], [(236, 176, 48), (250, 214, 90), (255, 240, 160)],
+              [(200, 70, 24), (232, 110, 32), (255, 170, 60)], [(226, 120, 36), (246, 170, 56), (255, 214, 110)],
+              [(240, 190, 70), (252, 224, 120), (255, 244, 180)], [(232, 130, 40), (250, 180, 70), (255, 224, 130)]],
+    'nihilith': [[(42, 122, 136), (94, 181, 191), (150, 224, 226)], [(94, 181, 191), (150, 224, 226), (206, 246, 244)],
+                 [(62, 150, 166), (110, 200, 208), (170, 232, 232)], [(120, 100, 200), (160, 140, 224), (210, 196, 244)],
+                 [(70, 160, 176), (120, 210, 216), (180, 240, 240)], [(54, 138, 154), (100, 190, 200), (160, 230, 232)]],
+}
+
+
+def _book_pixels(occ, emp, slot):
+    u0, v0, u1, v1 = SLOTS[slot]
+    return [(x, y) for y in range(v0, v1) for x in range(u0, u1) if occ.getpixel((x, y)) != emp.getpixel((x, y))]
+
+
+def _books_design_a(jar, kind):
+    """Vanilla's book silhouettes and shading per slot, recoloured: the brightest fifth of a book's pixels (Vanilla's band) takes the
+    material's accent, the rest the slot's own body ramp - so every position looks different, like Vanilla."""
+    jar = jar_of(jar)
+    emp, occ = jar.img('block/chiseled_bookshelf_empty'), jar.img('block/chiseled_bookshelf_occupied')
+    out = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for i in range(6):
+        px = _book_pixels(occ, emp, i)
+        if not px:
+            continue
+        ls = sorted(lum(occ.getpixel(p)) for p in px)
+        cut = ls[int(len(ls) * 0.78)]
+        body, acc = SLOT_BODY[kind][i], SLOT_ACCENT[kind][i]
+        body_ls = [v for v in ls if v < cut] or ls
+        lo, hi = body_ls[0], body_ls[-1]
+        acc_hi = ls[-1]
+        for p in px:
+            v = lum(occ.getpixel(p))
+            if v >= cut:
+                k = 0 if acc_hi == cut else (v - cut) / (acc_hi - cut)
+                c = acc[min(len(acc) - 1, int(k * len(acc)))]
+            else:
+                k = 0 if hi == lo else (v - lo) / (hi - lo)
+                c = body[min(len(body) - 1, int(k * len(body)))]
+            out.putpixel(p, c + (255,))
+    return out
+
+
+def _books_design_b(jar, kind):
+    """Redrawn shelves: each slot holds two own books (a tall and a shorter one, a gap of cavity between) in two slot ramps, with a
+    band and an emblem pixel (flame / shard) on the taller; the whole slot cavity is covered, so Vanilla's books do not show through."""
     jar = jar_of(jar)
     emp, occ = jar.img('block/chiseled_bookshelf_empty'), jar.img('block/chiseled_bookshelf_occupied')
     out = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
     for i, (u0, v0, u1, v1) in enumerate(SLOTS):
-        r = BOOK_RAMPS[kind][(i * 2 + i // 3) % 3]
-        px = [(x, y) for y in range(v0, v1) for x in range(u0, u1) if occ.getpixel((x, y)) != emp.getpixel((x, y))]
-        if not px:
+        cav = [(x, y) for y in range(v0, v1) for x in range(u0, u1) if lum(emp.getpixel((x, y))) <= 90]
+        if not cav:
             continue
-        ls = [lum(occ.getpixel(p)) for p in px]
-        lo, hi = min(ls), max(ls)
-        for p, value in zip(px, ls):
-            k = 0 if hi == lo else (value - lo) / (hi - lo)
-            out.putpixel(p, r[min(len(r) - 1, int(round(0.5 + k * (len(r) - 2))))])
+        xs, ys = sorted({x for x, _ in cav}), sorted({y for _, y in cav})
+        x0, x1, y0, y1 = xs[0], xs[-1], ys[0], ys[-1]
+        for p in cav:                                   # the cavity as the base (opaque), so the books below are covered
+            out.putpixel(p, emp.getpixel(p))
+        width = x1 - x0 + 1
+        w1 = max(2, (width + 1) // 2 + (i % 2))
+        for n, (bx0, bx1) in enumerate(((x0, x0 + w1 - 1), (x0 + w1 + (1 if width > w1 + 2 else 0), x1))):
+            body, acc = SLOT_BODY[kind][(i + 3 * n) % 6], SLOT_ACCENT[kind][(i + 3 * n) % 6]
+            top = y0 + (1 if n == 0 and i % 3 != 1 else (2 if n else 0))
+            band = top + 2 if n == 0 else y1 - 1
+            for y in range(top, y1 + 1):
+                for x in range(bx0, bx1 + 1):
+                    c = body[1 + (x - bx0) % 2] if bx1 > bx0 else body[1]
+                    if x == bx1 and bx1 > bx0:
+                        c = body[0]                      # shadow side
+                    if y == top:
+                        c = body[3]                      # lit top edge
+                    if y == band and x != bx1:
+                        c = acc[0]                       # the band
+                    out.putpixel((x, y), c + (255,))
+            if n == 0 and top + 3 <= y1 - 2:             # emblem on the taller book
+                out.putpixel(((bx0 + bx1) // 2, (top + y1) // 2), acc[2])
     return out
+
+
+def books_overlay(jar, kind, design=None):
+    """The book pixels of one chiseled-shelf front for a mod book (design A: recoloured Vanilla books per slot; B: redrawn books)."""
+    return (_books_design_b if (design or DESIGN) == 'B' else _books_design_a)(jar, kind)
 
 
 # ---------------------------------------------------------------- Nihilit Book (derived)

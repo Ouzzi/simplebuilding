@@ -285,6 +285,13 @@ public class ModBlocks {
             ? registerBlock("chiseled_warped_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF, s -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(s.sound(SoundType.NETHER_WOOD))) : null;
     public static final List<Block> CHISELED_BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
             ? List.of(CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, CHISELED_WARPED_BLAZEWOOD_BOOKSHELF) : List.of();
+    /** Nihilit-Bretter je End-Holzart (a-end07, Wunsch 8): ein End-Brett (Simple End) mit Nihilitsplittern; die Zutat der Nihilit-Regale. */
+    public static final Block NIHILITH_ASHWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
+            ? registerBlock("nihilith_ashwood_planks", Blocks.OAK_PLANKS, Block::new) : null;
+    public static final Block NIHILITH_DUSKWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
+            ? registerBlock("nihilith_duskwood_planks", Blocks.OAK_PLANKS, Block::new) : null;
+    public static final List<Block> NIHILITH_END_PLANKS = McVersion.ASTRAL_ENCHANTING
+            ? List.of(NIHILITH_ASHWOOD_PLANKS, NIHILITH_DUSKWOOD_PLANKS) : List.of();
     public static final List<Block> BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
             ? List.of(CRIMSON_BLAZEWOOD_PLANKS, WARPED_BLAZEWOOD_PLANKS) : List.of();
     public static final List<Block> BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
@@ -471,6 +478,14 @@ public class ModBlocks {
     public static final Block POLISHED_ENDER_QUARTZ_WALL = registerBlock("polished_ender_quartz_wall", POLISHED_ENDER_QUARTZ, s -> new WallBlock(s.forceSolidOn()));
     public static final Block ENDER_QUARTZ_PILLAR = registerBlock("ender_quartz_pillar", ENDER_QUARTZ_BLOCK, RotatedPillarBlock::new);
     public static final Block CHISELED_ENDER_QUARTZ_BRICKS = registerBlock("chiseled_ender_quartz_bricks", ENDER_QUARTZ_BLOCK, Block::new);
+    // a-end07 (Besitzer 06.11., Wunsch 7): rissige End-Ziegel wie die anderen Cracked-Bloecke (nur der Vollblock, Ofen aus den
+    // Ziegeln, Eigenschaften der Ziegel); die Formen bleiben bei den glatten Ziegeln.
+    public static final Block CRACKED_ASTRALIT_BRICKS = registerBlock("cracked_astralit_bricks", ASTRALIT_BRICKS, Block::new);
+    public static final Block CRACKED_NIHILITH_BRICKS = registerBlock("cracked_nihilith_bricks", NIHILITH_BRICKS, Block::new);
+    public static final Block CRACKED_ENDER_QUARTZ_BRICKS = registerBlock("cracked_ender_quartz_bricks", ENDER_QUARTZ_BRICKS, Block::new);
+    /** Die rissigen End-Ziegel mit dem Ziegel, aus dem sie im Ofen entstehen (Datagen, Tests). */
+    public static final java.util.Map<Block, Block> CRACKED_END_BRICKS = java.util.Map.of(CRACKED_ASTRALIT_BRICKS, ASTRALIT_BRICKS,
+            CRACKED_NIHILITH_BRICKS, NIHILITH_BRICKS, CRACKED_ENDER_QUARTZ_BRICKS, ENDER_QUARTZ_BRICKS);
     // Enderquarz-Schachbrett: wie die uebrigen Quarz-Schachbretter (Saeulenblock, keine Spawns),
     // Eigenschaften vom Enderquarzblock.
     public static final Block ENDER_QUARTZ_CHECKER = registerBlock("ender_quartz_checker", ENDER_QUARTZ_BLOCK,

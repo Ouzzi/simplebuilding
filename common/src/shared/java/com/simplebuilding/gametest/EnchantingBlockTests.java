@@ -60,6 +60,25 @@ public final class EnchantingBlockTests {
                         "nihilit-book recipe of the " + wood + " bookshelf");
                 helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simpleend", wood + "_bookshelf"))).isEmpty(),
                         "Simple End's book recipe of the " + wood + " bookshelf is off with SimpleBuilding");
+                // a-end07 (Wunsch 8): the shelf wants Nihilit planks (4 shards in a plus around an End plank = 2), not the plain End planks.
+                var nihilPlanks = wood.equals("ashwood") ? ModItems.NIHILITH_ASHWOOD_PLANKS : ModItems.NIHILITH_DUSKWOOD_PLANKS;
+                var endPlanks = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleend", wood + "_planks"));
+                var shelfItem = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleend", wood + "_bookshelf"));
+                var plankRecipe = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE,
+                        Identifier.fromNamespaceAndPath("simplebuilding", "nihilith_" + wood + "_planks"))).orElseThrow().value();
+                var plankGrid = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, shard.copy(), ItemStack.EMPTY,
+                        shard.copy(), new ItemStack(endPlanks), shard.copy(), ItemStack.EMPTY, shard.copy(), ItemStack.EMPTY));
+                helper.assertTrue(plankRecipe.matches(plankGrid, helper.getLevel()) && plankRecipe.assemble(plankGrid).is(nihilPlanks)
+                        && plankRecipe.assemble(plankGrid).getCount() == 2, "4 nihilit shards around an End plank craft 2 nihilit " + wood + " planks");
+                var shelfRecipe = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE,
+                        Identifier.fromNamespaceAndPath("simplebuilding", wood + "_bookshelf"))).orElseThrow().value();
+                ItemStack book = new ItemStack(ModItems.NIHILITH_BOOK);
+                java.util.function.Function<net.minecraft.world.item.Item, net.minecraft.world.item.crafting.CraftingInput> grid = planks ->
+                        net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(new ItemStack(planks), new ItemStack(planks), new ItemStack(planks),
+                                book.copy(), book.copy(), book.copy(), new ItemStack(planks), new ItemStack(planks), new ItemStack(planks)));
+                helper.assertTrue(shelfRecipe.matches(grid.apply(nihilPlanks), helper.getLevel()) && shelfRecipe.assemble(grid.apply(nihilPlanks)).is(shelfItem),
+                        "6 nihilit " + wood + " planks + 3 nihilit books craft the " + wood + " bookshelf");
+                helper.assertFalse(shelfRecipe.matches(grid.apply(endPlanks), helper.getLevel()), "plain " + wood + " planks no longer craft the nihilit shelf");
             }
         }
         helper.succeed();
