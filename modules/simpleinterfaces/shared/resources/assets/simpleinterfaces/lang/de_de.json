@@ -163,7 +163,7 @@
   "simpleinterfaces.keys.cell.title": "Taste %s",
   "simpleinterfaces.keys.remove": "Entfernen",
   "simpleinterfaces.keys.remove.tip": "Die Aktion von der Taste lösen",
-  "key.simpleinterfaces.sort": "Inventar oder Behälter sortieren",,
-  "simpleinterfaces.option.sortKey": "Sortiertaste in Inventaren",,
+  "key.simpleinterfaces.sort": "Inventar oder Behälter sortieren",
+  "simpleinterfaces.option.sortKey": "Sortiertaste in Inventaren",
   "simpleinterfaces.option.sortKey.tooltip": "Die Sortiertaste (Standard mittlere Maustaste, in den Steuerungen\nänderbar) sortiert das Inventar (ohne Hotbar und Rüstung) oder die Truhe,\ndas Fass, die Shulkerkiste unter dem Mauszeiger. Der Server sortiert.\nNicht im Kreativmodus und nicht bei Maschinen.\nStandard: an."
 }

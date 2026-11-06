@@ -163,7 +163,7 @@
   "simpleinterfaces.keys.cell.title": "Key %s",
   "simpleinterfaces.keys.remove": "Remove",
   "simpleinterfaces.keys.remove.tip": "Unbind this action from the key",
-  "key.simpleinterfaces.sort": "Sort inventory or container",,
-  "simpleinterfaces.option.sortKey": "Sort key in inventories",,
+  "key.simpleinterfaces.sort": "Sort inventory or container",
+  "simpleinterfaces.option.sortKey": "Sort key in inventories",
   "simpleinterfaces.option.sortKey.tooltip": "The sort key (default middle mouse button, change it in the controls)\nsorts the inventory (without hotbar and armor) or the chest, barrel,\nshulker box under the cursor. The server sorts. Not in creative or machines.\nDefault: on."
 }
