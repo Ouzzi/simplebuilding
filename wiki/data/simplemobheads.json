@@ -10566,7 +10566,7 @@
             "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
           ],
           "secret": [
-            "Its wearer opens shulker boxes even when the lid is blocked."
+            "Its wearer opens shulker boxes even when the lid is blocked. Sneaking on the ground gives Resistance."
           ]
         },
         "de": {
@@ -10577,7 +10577,7 @@
             "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
           ],
           "secret": [
-            "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel."
+            "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel. Schleichen am Boden gibt Resistenz."
           ]
         }
       },
@@ -10607,7 +10607,7 @@
             "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
           ],
           "secret": [
-            "Its wearer opens shulker boxes even when the lid is blocked."
+            "Its wearer opens shulker boxes even when the lid is blocked. Sneaking on the ground gives Resistance."
           ]
         },
         "de": {
@@ -10618,7 +10618,7 @@
             "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
           ],
           "secret": [
-            "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel."
+            "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel. Schleichen am Boden gibt Resistenz."
           ]
         }
       },
