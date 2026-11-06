@@ -16,3 +16,6 @@ Konzept des Besitzers (Wortlaut sinngemäß übersetzt, Original EN im Chat 03.1
   - Steht daneben ein schmelzbarer Block und ist Platz für das Ergebnis, wird er in der Welt geschmolzen. Schmelzzeit wie im Ofen, KEIN Brennstoffverbrauch.
 - **Nutzen:** Kolben-Automatisierung, z. B. Brückenbau: Sand → Glas, Bruchstein → Stein, ohne Brennstoff.
 - **Offen für später:** Vanilla-Nutzen und Eingriffsstärke (A12), Seltenheit, Abbau-Werkzeug, Wechselwirkung mit Feuerresistenz bzw. Netherit, Grenzen gegen Ausnutzen (z. B. Erze → Barren ohne Brennstoff), Name.
+
+## Eigener Kleber (später, Besitzer 06.11.)
+Vorerst wirkt alles Klebeartige über den Vanilla-Schleimball (WD25-2 = A). Später als Verbesserung: ein eigener, craftbarer Kleber (eigenes Item + Rezept), der die Schleimball-Funktion ablöst bzw. erweitert, z. B. auch für Eis (glued-Property).
