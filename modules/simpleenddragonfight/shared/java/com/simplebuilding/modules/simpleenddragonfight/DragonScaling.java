@@ -62,6 +62,29 @@ public final class DragonScaling {
         return Math.max(1.0, Math.min(Math.max(1.0, cap), 1.0 + step * Math.max(0, summons)));
     }
 
+    /** Dragonmites per wave with further summonings: one more per {@code perSummons} summonings (0 = off). */
+    public static int mitesPerWave(int base, int extraPerTwo, int players, int perSummons, int summons) {
+        return mitesPerWave(base, extraPerTwo, players) + (perSummons <= 0 ? 0 : Math.max(0, summons) / perSummons);
+    }
+
+    /** Total flight speed with summonings: the player speed grows with the summon factor, floor at the cap, never above speed * summon. */
+    public static float summonSpeed(double speed, double summon, double cap) {
+        return (float) Math.min(Math.max(speed, cap), speed * summon);
+    }
+
+    /** Vanilla XP of a repeated dragon kill (the first gives 12000). */
+    public static final int VANILLA_XP = 500;
+
+    /**
+     * Extra XP on top of Vanilla for the n-th defeated dragon: none for the 1st (Vanilla 12000) or when {@code perFight}
+     * is 0; from the 2nd on the total is 500 + perFight * (n - 1), at most {@code max}; returns total minus the 500 Vanilla gives.
+     */
+    public static int bonusXp(int kill, int perFight, int max) {
+        if (kill < 2 || perFight <= 0) return 0;
+        long total = Math.min((long) Math.max(max, VANILLA_XP), VANILLA_XP + (long) perFight * (kill - 1));
+        return (int) (total - VANILLA_XP);
+    }
+
     /** Whether the half-health threshold is reached (the session latches it per fight). */
     public static boolean half(float health, float max) {
         return max > 0 && health <= max * 0.5f;
