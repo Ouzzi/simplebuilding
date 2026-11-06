@@ -402,9 +402,9 @@ public final class AdvancementTriggerTests {
         player.getAbilities().instabuild = false;
         if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) {
             // 26.3 (OW24-2 G4): the Echo Sounder is Simple Gadgets' - its module tests drive the jump, here its event through
-            // SimpleLib's GadgetActions stands in (what the item fires after a jump and when it shatters).
+            // SimpleLib's GadgetActions (through LibServices, 26.2 has no SimpleLib) stands in (what the item fires after a jump and when it shatters).
             helper.assertTrue(!done(player, broken), "Broken Record was done before the jump");
-            com.simplelib.api.GadgetActions.fire(com.simplelib.api.GadgetActions.ECHO_SHATTER, player);
+            com.simplebuilding.util.LibServices.fireGadgetEvent("echo_shatter", player);
             helper.assertTrue(done(player, broken), "the shattered echo sounder did not earn Broken Record");
             helper.succeed();
             return;
