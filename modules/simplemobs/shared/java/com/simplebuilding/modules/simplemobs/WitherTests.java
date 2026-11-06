@@ -405,6 +405,10 @@ final class WitherTests {
             vanilla.kill(level);
             h.assertTrue(h.getEntities(EntityTypes.ITEM).stream().noneMatch(i -> i.getItem().is(WitherMobs.HEART) || i.getItem().is(WitherMobs.GEM)), "the Vanilla Wither drops no heart");
             h.assertTrue(count(h.getEntities(EntityTypes.ITEM), Items.NETHER_STAR) == 1, "the Vanilla Wither keeps its Nether Star");
+            // WF25-10: Simple Mobs is a way to the first Strong Upgrade, so SimpleLib's Wither drop is one shard, never the template too
+            h.assertTrue(count(h.getEntities(EntityTypes.ITEM), com.simplelib.api.SimpleLibApi.materialItem("strong_upgrade_shard")) == 1
+                    && count(h.getEntities(EntityTypes.ITEM), com.simplelib.api.SimpleLibApi.materialItem("strong_upgrade_template")) == 0,
+                    "with Simple Mobs: one Strong Upgrade shard, no template");
             vanilla.discard();
             h.assertTrue(around(h, new BlockPos(3, 2, 3), WitherMobs.HEART_BLOCK) == 0, "and places nothing");
             h.getEntities(EntityTypes.ITEM).forEach(e -> e.discard());

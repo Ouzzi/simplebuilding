@@ -2,6 +2,7 @@ package com.simplelib.test;
 
 import com.simplelib.SimpleLib;
 import com.simplelib.api.SimpleLibApi;
+import com.simplelib.api.SimpleRarity;
 import com.simplelib.registry.LibMaterials;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public final class MaterialRequestTests {
             Map.entry("cracked_diamond", "cracked_diamond"), Map.entry("diamond_from_blasting_cracked_diamond", "cracked_diamond"),
             Map.entry("cracked_diamond_block", "cracked_diamond"), Map.entry("cracked_diamond_from_cracked_diamond_block", "cracked_diamond"),
             Map.entry("basic_upgrade_template", "upgrade_templates"),
+            Map.entry("strong_upgrade_template_from_shards", "strong_upgrade"),
             Map.entry("netherite_nugget", "netherite_nugget"), Map.entry("netherite_ingot", "netherite_nugget"),
             Map.entry("polished_end_stone", "polished_end_stone"), Map.entry("polished_end_stone_from_end_stone_stonecutting", "polished_end_stone"),
             Map.entry("polished_end_stone_from_end_stone_bricks_stonecutting", "polished_end_stone"),
@@ -104,6 +106,36 @@ public final class MaterialRequestTests {
             }
         });
         h.assertTrue(problems.isEmpty(), "material recipes: " + problems);
+        h.succeed();
+    }
+
+    /**
+     * WF25-10: the Strong Upgrade (template mythic, shard explosion proof) and the Vanilla Wither's drop - nothing while nobody
+     * requested the group, else exactly one item next to the Nether Star: the shard while a mod offers its own way to the
+     * first template, the template without one (never both).
+     */
+    public static void strongUpgradeWitherDrop(GameTestHelper h) {
+        Item template = SimpleLibApi.materialItem("strong_upgrade_template"), shard = SimpleLibApi.materialItem("strong_upgrade_shard");
+        h.assertTrue(template instanceof net.minecraft.world.item.SmithingTemplateItem
+                && SimpleRarity.of(new ItemStack(template)) == SimpleRarity.MYTHIC, "the template is a mythic smithing template");
+        h.assertTrue(new ItemStack(shard).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT) && SimpleRarity.of(new ItemStack(shard)) == null,
+                "the shard is explosion proof and plain");
+        boolean requested = SimpleLibApi.materialRequested("strong_upgrade");
+        boolean way = com.simplelib.material.StrongUpgradeDrops.wayOn();
+        var wither = h.spawn(net.minecraft.world.entity.EntityTypes.WITHER, 1, 2, 1);
+        wither.setNoAi(true);
+        wither.kill(h.getLevel());
+        int shards = 0, templates = 0;
+        for (ItemEntity drop : h.getLevel().getEntitiesOfClass(ItemEntity.class, h.getBounds().inflate(3))) {
+            if (drop.getItem().is(shard)) shards += drop.getItem().getCount();
+            if (drop.getItem().is(template)) templates += drop.getItem().getCount();
+            drop.discard();
+        }
+        String state = "requested=" + requested + " way=" + way + ": shards " + shards + ", templates " + templates;
+        if (!requested) h.assertTrue(shards == 0 && templates == 0, "nobody asked: no drop, " + state);
+        else h.assertTrue(way ? shards == 1 && templates == 0 : shards == 0 && templates == 1, "one drop, " + state);
+        h.assertTrue(com.simplelib.material.StrongUpgradeDrops.viewerDrops().size() == (requested ? 1 : 0), "recipe viewer entry follows the request");
+        h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.ExperienceOrb.class, h.getBounds().inflate(3)).forEach(e -> e.discard());
         h.succeed();
     }
 

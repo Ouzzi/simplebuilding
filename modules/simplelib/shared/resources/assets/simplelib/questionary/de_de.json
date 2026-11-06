@@ -1,0 +1,25 @@
+{
+  "strong_upgrade_template": {
+    "lore": [
+      "Eine Obsidianplatte um einen gefangenen Stern; sie summt, wenn ein Leuchtfeuer nah ist."
+    ],
+    "use": [
+      "Schmiedetisch: wertet Leuchtfeuer, Aquisatoren (Simple Beacons), Elytren und Schwingen (Simple Mobs) mit Herz oder Juwel auf. Simple Beacons: Nebenhand, 8-mal mit Axt aufs Leuchtfeuer, Netherstern dabei.",
+      "9 Splitter ergeben eine; mit Simple Mobs auch Netherherz-Rezept und Kopie. Ohne Simple Mobs lässt der Wither eine ganze fallen."
+    ],
+    "secret": [
+      "Der aufgewertete Block behält seine gewählten Kräfte, seine Sperre und seinen Namen."
+    ]
+  },
+  "strong_upgrade_shard": {
+    "lore": [
+      "Ein Splitter einer Vorlage, noch warm vom letzten Atem des Withers."
+    ],
+    "use": [
+      "Jeder Vanilla-Wither lässt einen fallen, solange Simple Mobs an ist (ohne: die ganze Vorlage). Neun davon ergeben eine Starke Aufwertungsvorlage."
+    ],
+    "secret": [
+      "Er übersteht Explosionen, wie der Netherstern neben ihm."
+    ]
+  }
+}

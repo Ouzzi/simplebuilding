@@ -64,9 +64,29 @@ public final class BeaconsTests {
     static {
         // CMD24: /simplebeacons config set/get/reset through the server's dispatcher, clamp, map group of effect switches.
         ALL.put("jei_wither_shard", h -> {
-            var drops = com.simplebeacons.BeaconsViewer.drops();
+            // WF25-10: SimpleLib owns the drop and its viewer entry (Simple Beacons requests the group): shard with a way, else the template
+            var drops = com.simplelib.material.StrongUpgradeDrops.viewerDrops();
+            Item expected = com.simplelib.material.StrongUpgradeDrops.wayOn() ? BeaconsRegistry.STRONG_UPGRADE_SHARD : BeaconsRegistry.STRONG_UPGRADE_TEMPLATE;
             h.assertTrue(drops.size() == 1 && drops.get(0).victim() == net.minecraft.world.entity.EntityTypes.WITHER
-                    && drops.get(0).results().stream().anyMatch(s -> s.is(BeaconsRegistry.STRONG_UPGRADE_SHARD)), "Wither shard in the mob drop list");
+                    && drops.get(0).results().stream().anyMatch(s -> s.is(expected)), "Wither Strong Upgrade drop in the mob drop list: " + expected);
+            h.succeed();
+        });
+        ALL.put("strong_upgrade_moved", h -> {
+            // WF25-10: worlds from before 07.11. find the template and the shard under their Simple Beacons ids (SimpleLib IdMoves)
+            for (String path : List.of("strong_upgrade_template", "strong_upgrade_shard")) {
+                Item old = BuiltInRegistries.ITEM.getValue(SimpleBeacons.id(path));
+                Item now = com.simplelib.api.SimpleLibApi.materialItem(path);
+                h.assertTrue(old == now, "simplebeacons:" + path + " -> simplelib:" + path + ": " + old);
+                h.assertTrue(BuiltInRegistries.ITEM.getKey(now).equals(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", path)), "saved under the new id");
+            }
+            h.assertTrue(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE == com.simplelib.api.SimpleLibApi.materialItem("strong_upgrade_template"), "the module field is SimpleLib's item");
+            SimpleBeacons.MOVED_RECIPES.forEach((path, to) -> {
+                var now = net.minecraft.resources.Identifier.fromNamespaceAndPath(to, path);
+                h.assertTrue(now.equals(com.simplelib.api.IdMoves.target(net.minecraft.core.registries.Registries.RECIPE, SimpleBeacons.id(path))), "recipe " + path + " -> " + now);
+                h.assertTrue(net.minecraft.resources.Identifier.fromNamespaceAndPath(to, "recipes/misc/" + path).equals(
+                        com.simplelib.api.IdMoves.advancement(SimpleBeacons.id("recipes/misc/" + path))), "advancement " + path);
+            });
+            h.assertTrue(com.simplelib.api.SimpleLibApi.materialRequested("strong_upgrade"), "Simple Beacons requests the group");
             h.succeed();
         });
 ALL.put("config_command", h -> {
@@ -104,7 +124,7 @@ ALL.put("config_command", h -> {
         });
         ALL.put("registered", h -> {
             h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleBeacons.id("beacons")), "own creative tab beacons is registered");
-            for (String id : List.of("strong_upgrade_template", "evil_upgrade_template", "strong_upgrade_shard", "strong_beacon", "mighty_beacon", "evil_beacon",
+            for (String id : List.of("evil_upgrade_template", "strong_beacon", "mighty_beacon", "evil_beacon",
                     "mighty_evil_beacon", "strong_conduit", "mighty_conduit", "evil_conduit", "mighty_evil_conduit", "guide_book")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleBeacons.id(id)), "item missing: " + id);
             }
@@ -572,7 +592,7 @@ ALL.put("config_command", h -> {
                 h.assertTrue(craft(h, List.of(o, d, o, d, hs, d, o, d, o)).is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE), "Nether Heart in the middle -> template");
             } else {
                 h.assertTrue(server.getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
-                        SimpleBeacons.id("strong_upgrade_template"))).isEmpty(), "[standalone] no Nether Heart recipe without Simple Mobs");
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemobs", "strong_upgrade_template"))).isEmpty(), "[standalone] no Nether Heart recipe without Simple Mobs");
             }
             ItemStack t = new ItemStack(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE);
             // W23-8: duplication only with a Nether Heart (template + crying obsidian + diamond + heart -> 2); the old diamond ring is gone
@@ -585,7 +605,7 @@ ALL.put("config_command", h -> {
                 h.assertTrue(two.is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE) && two.getCount() == 2, "duplication with Nether Heart gives 2");
             } else {
                 h.assertTrue(server.getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
-                        SimpleBeacons.id("strong_upgrade_template_duplication"))).isEmpty(), "[standalone] no duplication without Simple Mobs");
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemobs", "strong_upgrade_template_duplication"))).isEmpty(), "[standalone] no duplication without Simple Mobs");
             }
             // BS28b-4: Mighty Beacon = Strong Beacon in the middle, the six cores around, a Strong Upgrade in each bottom corner
             boolean cores = BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "copper_core"));
@@ -617,13 +637,19 @@ ALL.put("config_command", h -> {
         ALL.put("strong_upgrade_shard", h -> {
             var level = h.getLevel();
             h.getEntities(net.minecraft.world.entity.EntityTypes.ITEM).forEach(e -> e.discard());
-            // the Vanilla Wither always drops exactly one shard (next to its Nether Star)
+            // the Vanilla Wither drops exactly one shard next to its Nether Star while a mod offers its own way to the first
+            // template (Simple Mobs); without one the whole template instead (WF25-10) - never both
             net.minecraft.world.entity.boss.wither.WitherBoss wither = h.spawn(net.minecraft.world.entity.EntityTypes.WITHER, 7, 2, 7);
             wither.setNoAi(true);
             wither.kill(level);
             var items = h.getEntities(net.minecraft.world.entity.EntityTypes.ITEM);
             int shards = items.stream().filter(i -> i.getItem().is(BeaconsRegistry.STRONG_UPGRADE_SHARD)).mapToInt(i -> i.getItem().getCount()).sum();
-            h.assertTrue(shards == 1, "Vanilla Wither: one Strong Upgrade Shard: " + shards);
+            int templates = items.stream().filter(i -> i.getItem().is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE)).mapToInt(i -> i.getItem().getCount()).sum();
+            boolean way = com.simplelib.material.StrongUpgradeDrops.wayOn();
+            boolean mobs = BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemobs", "nether_heart"));
+            h.assertTrue(way == (mobs && com.simplebuilding.framework.api.SubMods.enabled("simplemobs")), "the way follows Simple Mobs: " + way);
+            h.assertTrue(way ? shards == 1 && templates == 0 : shards == 0 && templates == 1,
+                    "Vanilla Wither (way " + way + "): shards " + shards + ", templates " + templates);
             h.assertTrue(items.stream().anyMatch(i -> i.getItem().is(Items.NETHER_STAR)), "and its Nether Star");
             items.forEach(e -> e.discard());
             h.getEntities(net.minecraft.world.entity.EntityTypes.EXPERIENCE_ORB).forEach(e -> e.discard());

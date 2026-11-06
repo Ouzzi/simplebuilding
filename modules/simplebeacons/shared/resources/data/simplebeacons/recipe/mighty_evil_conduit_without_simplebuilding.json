@@ -30,7 +30,7 @@
   "category": "misc",
   "key": {
     "B": "simplebeacons:evil_conduit",
-    "U": "simplebeacons:strong_upgrade_template",
+    "U": "simplelib:strong_upgrade_template",
     "c": "minecraft:copper_block",
     "i": "minecraft:iron_block",
     "g": "minecraft:gold_block",

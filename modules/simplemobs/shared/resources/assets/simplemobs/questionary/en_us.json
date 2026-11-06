@@ -207,7 +207,7 @@
       "It still beats, slowly, long after the Wither has stopped. Embers glow in its cracks."
     ],
     "use": [
-      "Dropped by the Blighted and the Abyssal Wither, exactly one per kill; it is set down under the Wither when it is gone. With Simple Beacons it makes the Strong Upgrade, with Simple Tools the Biome Brush."
+      "Dropped by the Blighted and the Abyssal Wither, exactly one per kill; it is set down under the Wither when it is gone. It makes the Strong Upgrade (SimpleLib), with Simple Tools the Biome Brush."
     ],
     "secret": [
       "Explosions and fire cannot harm it. Put a Netherite Helmet on the middle skull of the Wither figure before the third skull; an Enderite Helmet calls the Abyssal Wither."
@@ -229,7 +229,7 @@
       "Elytra that took in a Wither's heart. The membrane became feathers, black as burnt paper."
     ],
     "use": [
-      "Smithing table: Strong Upgrade + Elytra + Nether Heart (without Simple Beacons: Netherite Upgrade). Glides like an Elytra; a firework rocket pushes it up to twice the Vanilla top speed. 576 durability, repair with phantom membrane, fire-proof."
+      "Smithing table: Strong Upgrade + Elytra + Nether Heart. Glides like an Elytra; a firework rocket pushes it up to twice the Vanilla top speed. 576 durability, repair with phantom membrane, fire-proof."
     ],
     "secret": [
       "It is not faster by itself: only the speed a rocket can reach is higher, and walls hurt just as Vanilla says, at that speed."
@@ -240,7 +240,7 @@
       "The Red Nether Gem woke the embers in every quill."
     ],
     "use": [
-      "Smithing table: Strong Upgrade + Wither Wings + Red Nether Gem (without Simple Beacons: Netherite Upgrade). Rockets reach four times the Vanilla top speed. 768 durability, repair with phantom membrane, fire-proof."
+      "Smithing table: Strong Upgrade + Wither Wings + Red Nether Gem. Rockets reach four times the Vanilla top speed. 768 durability, repair with phantom membrane, fire-proof."
     ],
     "secret": [
       "Four times the speed means far more damage when you hit a wall. Fly high."
