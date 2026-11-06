@@ -247,8 +247,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplegadgets:empty")
-    public void echoTheEchoSounderIsCraftedFromTheRecoveryCompassACoreAndSevenNuggets(GameTestHelper h) {
-        GadgetsTests.ALL.get("echo_the_echo_sounder_is_crafted_from_the_recovery_compass_a_core_and_seven_nuggets").accept(h);
+    public void echoTheEchoSounderIsCraftedFromTheRecoveryCompassTheCoreAndSevenNuggets(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_echo_sounder_is_crafted_from_the_recovery_compass_the_core_and_seven_nuggets").accept(h);
     }
 
     @GameTest(structure = "simplegadgets:empty")
@@ -262,8 +262,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplegadgets:empty")
-    public void echoAJumpEmptiesTheWholeChargeEvenWithUnbreaking(GameTestHelper h) {
-        GadgetsTests.ALL.get("echo_a_jump_empties_the_whole_charge_even_with_unbreaking").accept(h);
+    public void echoJumpEmptiesTheWholeChargeEvenWithUnbreaking(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_jump_empties_the_whole_charge_even_with_unbreaking").accept(h);
     }
 
     @GameTest(structure = "simplegadgets:empty")
@@ -277,8 +277,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplegadgets:empty")
-    public void echoAFullChargeJumpsAndLeavesTheEchoSounderEmpty(GameTestHelper h) {
-        GadgetsTests.ALL.get("echo_a_full_charge_jumps_and_leaves_the_echo_sounder_empty").accept(h);
+    public void echoFullChargeJumpsAndLeavesTheEchoSounderEmpty(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_full_charge_jumps_and_leaves_the_echo_sounder_empty").accept(h);
     }
 
     @GameTest(structure = "simplegadgets:empty")
@@ -287,18 +287,18 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplegadgets:empty")
-    public void echoACrackedEchoSounderChargesTwiceAsLongAndShattersAfterTheJump(GameTestHelper h) {
-        GadgetsTests.ALL.get("echo_a_cracked_echo_sounder_charges_twice_as_long_and_shatters_after_the_jump").accept(h);
+    public void echoCrackedEchoSounderChargesTwiceAsLongAndShattersAfterTheJump(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_cracked_echo_sounder_charges_twice_as_long_and_shatters_after_the_jump").accept(h);
     }
 
     @GameTest(structure = "simplegadgets:empty")
-    public void echoABlockedJumpCostsNothing(GameTestHelper h) {
-        GadgetsTests.ALL.get("echo_a_blocked_jump_costs_nothing").accept(h);
+    public void echoBlockedJumpCostsNothing(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_blocked_jump_costs_nothing").accept(h);
     }
 
     @GameTest(structure = "simplegadgets:empty")
-    public void echoTheCooldownAfterAJumpIsTwentyFourSeconds(GameTestHelper h) {
-        GadgetsTests.ALL.get("echo_the_cooldown_after_a_jump_is_twenty_four_seconds").accept(h);
+    public void echoTheCooldownAfterTheJumpIsTwentyFourSeconds(GameTestHelper h) {
+        GadgetsTests.ALL.get("echo_the_cooldown_after_the_jump_is_twenty_four_seconds").accept(h);
     }
 
     @GameTest(structure = "simplegadgets:empty")
