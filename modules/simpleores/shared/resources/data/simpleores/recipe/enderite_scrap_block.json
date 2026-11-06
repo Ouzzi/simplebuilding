@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "simpleores:enderite_scrap"
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:enderite_scrap_block"
+  }
+}

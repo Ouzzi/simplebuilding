@@ -17,10 +17,11 @@ config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords',
                        'sageOre', 'dimensionalScrap', 'sageOreOtherDimensions', 'roseGoldOreChance'], config_keys
 BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
-          'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block')
+          'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block', 'rose_bronze_pressling_block', 'rose_gold_pressling_block',
+          'netherite_scrap_block', 'enderite_scrap_block', 'sage_orb_block')
 ALLOYS = ('rose_bronze', 'rose_gold')
 GEAR = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots')
-ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'pressling') + GEAR) \
+ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'nugget', 'carrot', 'pressling') + GEAR) \
     + tuple(f'{e}{a}_apple' for a in ALLOYS for e in ('', 'enchanted_'))   # IG31-41: the enchanted apple shares the plain texture
 assert not any(i.startswith('silver_') and i.rsplit('_', 1)[-1] in GEAR for i in ITEMS), 'silver is no tool material (ABN30-10)'
 langs = {}
@@ -47,7 +48,13 @@ for a in ALLOYS:
     assert (RES / f'assets/{NS}/equipment/{a}.json').is_file()
     for layer in ('humanoid', 'humanoid_leggings'):
         assert f'entity/equipment/{layer}/{a}.png' in derived, (a, layer)
-assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 4, len(derived)   # - the 2 enchanted apples (shared texture)
+# Derived textures of blocks/items that the checks above do not list (06.11., a-ores07: Nether rose gold ore, the sage ores of the Nether and the End,
+# the sage crystal family); the Overworld sage ore and the scraps are committed or checked elsewhere (MOVED_BLOCKS).
+ORES07_DERIVED = ('block/nether_rose_gold_ore.png', 'block/nether_sage_ore.png', 'block/end_sage_ore.png', 'block/sage_crystal_block.png',
+                  'item/sage_crystal.png', 'item/sage_crystal_shard.png')
+assert all(d in derived for d in ORES07_DERIVED), ORES07_DERIVED
+# blocks - 1 (lead_plate shares the lead block texture), items - 2 (the enchanted apples share the plain one), + 2 alloys x 2 armor layers
+assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 2 * len(ALLOYS) + len(ORES07_DERIVED), len(derived)
 assert not any('silver_arrow' in d for d in derived), 'the silver arrow moved to Simple Arrows (03.11.)'
 
 # Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
@@ -60,7 +67,7 @@ for a in ALLOYS:
         for p in (RES / f'data/{NS}/recipe').glob('*.json'):
             r = json.loads(p.read_text(encoding='utf-8'))
             assert not (r.get('type') == f'minecraft:{other}' and r.get('ingredient') == f'{NS}:{a}_pressling'), p.name
-pressings = [p for p in (RES / f'data/{NS}/recipe').glob('*_pressling_*.json') if 'blasting' not in p.name]
+pressings = [p for p in (RES / f'data/{NS}/recipe').glob('*_pressling_*.json') if 'blasting' not in p.name and 'pressling_block' not in p.name]
 assert sorted(p.name for p in pressings) == ['rose_bronze_pressling_c.json', 'rose_gold_pressling_a.json'], pressings  # IG31-35: only these two
 for p in pressings:
     r = json.loads(p.read_text(encoding='utf-8'))

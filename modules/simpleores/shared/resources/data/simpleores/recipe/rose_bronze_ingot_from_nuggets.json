@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "simpleores:rose_bronze_nugget"
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:rose_bronze_ingot"
+  }
+}

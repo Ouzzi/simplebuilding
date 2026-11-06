@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "sage_orb",
+  "ingredients": [
+    "simpleores:sage_orb_block"
+  ],
+  "result": {
+    "id": "simpleores:sage_orb",
+    "count": 9
+  }
+}

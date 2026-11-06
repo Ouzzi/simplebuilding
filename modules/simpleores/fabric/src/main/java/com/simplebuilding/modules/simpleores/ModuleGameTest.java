@@ -147,4 +147,14 @@ public final class ModuleGameTest {
     public void sageCrystalChain(GameTestHelper h) {
         OresTests.ALL.get("sage_crystal_chain").accept(h);
     }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void storageBlockRecipes(GameTestHelper h) {
+        OresTests.ALL.get("storage_block_recipes").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void roseCarrots(GameTestHelper h) {
+        OresTests.ALL.get("rose_carrots").accept(h);
+    }
 }

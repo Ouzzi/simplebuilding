@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simpleores:enderite_scrap_block"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "simpleores:blocks/enderite_scrap_block"
+}

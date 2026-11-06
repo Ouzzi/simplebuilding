@@ -13,6 +13,9 @@ distribution stay, so the soft transitions of PRINZIPIEN A8b are kept):
   - a-ores07 (06.11.): Nether Rose Gold Ore = Vanilla Nether gold ore with the gold flecks on the rose gold ramp; Nether/End Sage Ore = netherrack / end
     stone with the green flecks of the committed sage ore laid over; sage crystal (ingot shape, or a gem), shard (amethyst shard) and block on the
     sage ramp (green of the sage ore); variants a/b are shown in the preview, ROSE_ORE_VARIANT / CRYSTAL_VARIANT are the ones built
+  - BLOCKS07 (06.11.): rose nuggets and carrots (Vanilla gold nugget / golden carrot recoloured), pressings and pressing blocks in variants a/b
+    (PRESS_VARIANT; matte ingot or gold block with straps or seams, soft tones: PRINZIPIEN A8b), scrap blocks of netherite and Enderite scrap
+    (ancient debris luminance on a ramp taken from the scrap item) and the sage orb block (emerald block luminance on the orb's greens)
   - hammers (simplehammers, optional): the committed gold sledgehammer recoloured like the tools (iron sledgehammer as mask)
 
 vanilla_derived.py lists the outputs (MODULE_OUTPUTS['simpleores'] / ['simplehammers']) and calls derived(jar) / derived_hammers(jar).
@@ -62,6 +65,7 @@ MIRROR_VARIANT = 'a'
 ROSE_ORE_VARIANT = 'a'    # a = rose flecks on the soft ramp, b = paler flecks, a few gold ones stay (hot ore)
 CRYSTAL_VARIANT = 'a'     # a = ingot shaped crystal + gold block shape, b = gem shaped crystal + amethyst block shape
 SAGE_ORE_SRC = ROOT / 'modules/simpleores/shared/resources/assets/simpleores/textures/block/sage_ore.png'
+PRESS_VARIANT = 'a'     # BLOCKS07: pressing item and block look (a = straps / bundle, b = diagonal strap / four plates)
 APPLE_VARIANT = {'rose_bronze': 'a', 'rose_gold': 'a'}   # IG31-41: a = plain recolour, b = recolour + green leaf at the stem
 LEAF = ('#a3c75a', '#6f9a3c', '#466f2a')
 
@@ -330,6 +334,67 @@ def ore_images(j: 'Jar', rose_v: str, crystal_v: str) -> dict:
            'block/end_sage_ore.png': sage_ore_on(j.img('block/end_stone'))}
     out.update(sage_images(j, crystal_v))
     return out
+def ramp_from(im: Image.Image, n: int = 10) -> list[str]:
+    """A ramp (brightest first) taken from the opaque pixels of a sprite: n even luminance quantiles."""
+    px = sorted((im.getpixel((x, y))[:3] for x in range(im.width) for y in range(im.height) if im.getpixel((x, y))[3] > 200), key=lum, reverse=True)
+    return ['#%02x%02x%02x' % px[round(k * (len(px) - 1) / (n - 1))] for k in range(n)]
+
+
+def stretched(src: Image.Image, ramp: list[str], shift: float = 0.0) -> Image.Image:
+    """The luminance of src (stretched to its own 3 %..97 % range) laid onto the ramp: a block that keeps the raster of src and the tones of an item."""
+    ls = sorted(lum(src.getpixel((x, y))) for y in range(src.height) for x in range(src.width))
+    lo, hi = ls[int(len(ls) * 0.03)], ls[int(len(ls) * 0.97)]
+    out = src.copy()
+    for y in range(src.height):
+        for x in range(src.width):
+            t = 1.0 - (lum(src.getpixel((x, y))) - lo) / max(1.0, hi - lo) + shift
+            out.putpixel((x, y), ramp_at(ramp, t) + (255,))
+    return out
+
+
+def strapped(im: Image.Image, ramp: str, cols=(), rows=(), diag=(), tones=(6, 3)) -> Image.Image:
+    """Straps over a pressing: a dark line with a light line beside it (soft tones of the ramp, no black). cols/rows = (dark, light) positions, diag = x + y values."""
+    out = im.copy()
+    dark, light = hexrgb(RAMPS[ramp][tones[0]]), hexrgb(RAMPS[ramp][tones[1]])
+    def lay(x, y, c):
+        if out.getpixel((x, y))[3]:
+            out.putpixel((x, y), c + (out.getpixel((x, y))[3],))
+    for y in range(out.height):
+        for x in range(out.width):
+            if x in cols[::2] or y in rows[::2] or x + y in diag[::2]:
+                lay(x, y, dark)
+            elif x in cols[1::2] or y in rows[1::2] or x + y in diag[1::2]:
+                lay(x, y, light)
+    return out
+
+
+def press_item(j: 'Jar', ramp: str, v: str) -> Image.Image:
+    """The pressing (BLOCKS07): the ingot matte; a = two straps standing across it, b = one strap running diagonally."""
+    base = recolor(j.img('item/gold_ingot'), ramp, shift=0.1, squeeze=0.75)
+    return strapped(base, ramp, cols=(5, 6, 10, 11), tones=(5, 3)) if v == 'a' else strapped(base, ramp, diag=(14, 15), tones=(5, 3))
+
+
+def press_block(j: 'Jar', ramp: str, v: str) -> Image.Image:
+    """The pressing block: the gold block matte; a = two straps standing across it (a bale), b = four pressed plates (seam cross)."""
+    base = recolor(j.img('block/gold_block'), ramp, shift=0.1, squeeze=0.75)
+    return strapped(base, ramp, cols=(4, 5, 10, 11), tones=(5, 4)) if v == 'a' else strapped(base, ramp, cols=(7, 8), rows=(7, 8), tones=(5, 4))
+
+
+def carrot_image(j: 'Jar', ramp: str) -> Image.Image:
+    """The Vanilla golden carrot, recoloured by luminance (pure recolour, like the apples)."""
+    return recolor(j.img('item/golden_carrot'), ramp)
+
+
+def scrap_blocks(j: 'Jar') -> dict:
+    """Blocks of netherite scrap (ancient debris raster, tones of the Vanilla scrap sprite) and Enderite scrap (the same raster, tones of the
+    committed Enderite scrap sprite), and the sage orb block (the emerald block raster, the greens of the first sage orb frame)."""
+    debris = j.img('block/ancient_debris_side')
+    tex = ROOT / 'modules/simpleores/shared/resources/assets/simpleores/textures/item'
+    ender = Image.open(tex / 'enderite_scrap.png').convert('RGBA')
+    orb = Image.open(tex / 'sage_orb.png').convert('RGBA').crop((0, 0, 16, 16))
+    return {'block/netherite_scrap_block.png': stretched(debris, ramp_from(j.img('item/netherite_scrap'))),
+            'block/enderite_scrap_block.png': stretched(debris, ramp_from(ender)),
+            'block/sage_orb_block.png': stretched(j.img('block/emerald_block'), ramp_from(orb), 0.0)}
 
 
 def hard_share(im: Image.Image) -> float:
@@ -363,7 +428,10 @@ def derived(jar) -> dict:
     for alloy, ramp in ALLOYS.items():
         out[f'block/{alloy}_block.png'] = recolor(j.img('block/gold_block'), ramp)
         out[f'item/{alloy}_ingot.png'] = recolor(j.img('item/gold_ingot'), ramp)
-        out[f'item/{alloy}_pressling.png'] = pressing(j.img('item/gold_ingot'), ramp)
+        out[f'item/{alloy}_pressling.png'] = press_item(j, ramp, PRESS_VARIANT)
+        out[f'block/{alloy}_pressling_block.png'] = press_block(j, ramp, PRESS_VARIANT)
+        out[f'item/{alloy}_nugget.png'] = recolor(j.img('item/gold_nugget'), ramp)
+        out[f'item/{alloy}_carrot.png'] = carrot_image(j, ramp)
         for part in ITEM_TOOLS:
             gold, iron = j.img(f'item/golden_{part}'), j.img(f'item/iron_{part}')
             out[f'item/{alloy}_{part}.png'] = recolor(gold, ramp, differs_from(iron))
@@ -374,6 +442,7 @@ def derived(jar) -> dict:
             out[f'entity/equipment/{layer}/{alloy}.png'] = recolor(src, ramp)
     for alloy, ramp in ALLOYS.items():
         out[f'item/{alloy}_apple.png'] = apple_image(j, ramp, APPLE_VARIANT[alloy])
+    out.update(scrap_blocks(j))
     out.update(lead_images(j, LEAD_VARIANT))
     # The silver arrow (arrow_images) moved to Simple Arrows on 03.11.: arrows_derived.py draws it.
     out.update(ore_images(j, ROSE_ORE_VARIANT, CRYSTAL_VARIANT))

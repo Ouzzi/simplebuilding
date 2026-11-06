@@ -19,6 +19,10 @@ public final class OresFood {
     public static final FoodProperties ROSE_BRONZE_APPLE_FOOD = food(5);
     public static final FoodProperties ROSE_GOLD_APPLE_FOOD = food(6);
 
+    /** BLOCKS07 (06.11.): the carrots sit slightly above the golden carrot (6 hunger, 14.4 saturation); Rose Gold is the better one. No effects, not always edible (like the golden carrot). */
+    public static final FoodProperties ROSE_BRONZE_CARROT_FOOD = new FoodProperties.Builder().nutrition(7).saturationModifier(SATURATION).build();
+    public static final FoodProperties ROSE_GOLD_CARROT_FOOD = new FoodProperties.Builder().nutrition(8).saturationModifier(SATURATION).build();
+
     /** Like the golden apple (Regeneration II 0:05, Absorption I 2:00) plus Resistance I 0:30. No Fire Resistance on the plain apples (B02, 02.11.). */
     public static final Consumable ROSE_BRONZE_APPLE = effects(
             new MobEffectInstance(MobEffects.REGENERATION, 100, 1), new MobEffectInstance(MobEffects.ABSORPTION, 2400, 0),

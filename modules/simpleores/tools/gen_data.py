@@ -41,6 +41,12 @@ BLOCKS = {
     'nether_rose_gold_ore': ('Nether Rose Gold Ore', 'Nether-Roségolderz'),
     'nether_sage_ore': ('Nether Sage Ore', 'Nether-Weisheitserz'), 'end_sage_ore': ('End Sage Ore', 'End-Weisheitserz'),
     'sage_crystal_block': ('Block of Sage Crystal', 'Weisheitskristallblock'),
+    # BLOCKS07 (06.11.): storage blocks of the pressings, the scraps and the sage orb
+    'rose_bronze_pressling_block': ('Block of Rose Copper Pressling', 'Rosenkupfer-Presslingblock'),
+    'rose_gold_pressling_block': ('Block of Rose Gold Pressling', 'Roségold-Presslingblock'),
+    'netherite_scrap_block': ('Block of Netherite Scrap', 'Netherit-Schrottblock'),
+    'enderite_scrap_block': ('Block of Enderite Scrap', 'Enderitplatten-Block'),
+    'sage_orb_block': ('Block of Sage Orbs', 'Weisheitskugelblock'),
 }
 ITEMS = {'sage_crystal_shard': ('Sage Crystal Shard', 'Weisheitskristallsplitter'), 'sage_crystal': ('Sage Crystal', 'Weisheitskristall'),
          'raw_silver': ('Raw Silver', 'Rohsilber'), 'silver_ingot': ('Silver Ingot', 'Silberbarren'),
@@ -48,6 +54,8 @@ ITEMS = {'sage_crystal_shard': ('Sage Crystal Shard', 'Weisheitskristallsplitter
          'raw_lead': ('Raw Lead', 'Rohblei'), 'lead_ingot': ('Lead Ingot', 'Bleibarren'), 'lead_nugget': ('Lead Nugget', 'Bleiklumpen')}
 for a, (en, de) in ALLOYS.items():
     ITEMS[f'{a}_ingot'] = (f'{en} Ingot', f'{de}barren')
+    ITEMS[f'{a}_nugget'] = (f'{en} Nugget', f'{de}klumpen')
+    ITEMS[f'{a}_carrot'] = (f'{en} Carrot', f'{de}-Karotte')
     ITEMS[f'{a}_pressling'] = (f'{en} Pressling', f'{de}-Pressling')
 for a, (en, de) in ALLOYS.items():
     for part, (pen, pde) in PARTS.items():
@@ -82,6 +90,9 @@ TEMPLATE_TEXTS = {
 SCRAPS = ['dimensional_scrap', 'nether_dimensional_scrap', 'end_dimensional_scrap']
 SAGE_ORES = ['sage_ore', 'deepslate_sage_ore']
 ALL_SAGE_ORES = SAGE_ORES + ['nether_sage_ore', 'end_sage_ore']
+
+NEW_BLOCKS = ('rose_bronze_pressling_block', 'rose_gold_pressling_block', 'netherite_scrap_block', 'enderite_scrap_block', 'sage_orb_block')
+DIAMOND_NEW = ('netherite_scrap_block', 'enderite_scrap_block')   # like ancient debris and the Enderite block
 
 # ---------------------------------------------------------------- assets
 for path in BLOCKS:
@@ -155,7 +166,7 @@ ore_drop('deepslate_lead_ore', 'raw_lead', (1, 2))
 ore_drop('nether_rose_gold_ore', 'rose_gold_pressling')   # no raw rose gold exists: the pressing is the stage before the blast furnace
 ore_drop('nether_sage_ore', 'sage_crystal_shard', (1, 3))
 ore_drop('end_sage_ore', 'sage_crystal_shard', (1, 3))
-for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block'):
+for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block') + tuple(NEW_BLOCKS):
     self_drop(path)
 
 # ---------------------------------------------------------------- recipes (+ advancements)
@@ -194,6 +205,29 @@ recipe('rose_gold_ingot_from_smelting_nether_rose_gold_ore', 'misc', {'type': 'm
        'experience': 1.0, 'group': 'rose_gold_ingot_ore', 'ingredient': item('nether_rose_gold_ore'), 'result': result('rose_gold_ingot')}, item('nether_rose_gold_ore'))
 recipe('rose_gold_ingot_from_blasting_nether_rose_gold_ore', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': 100,
        'experience': 1.0, 'group': 'rose_gold_ingot_ore', 'ingredient': item('nether_rose_gold_ore'), 'result': result('rose_gold_ingot')}, item('nether_rose_gold_ore'))
+def storage_of(material, block, name=None):
+    """9 x material (full id) <-> block (path of this mod), both ways. name = the path of the material in the recipe names."""
+    name = name or material.split(':')[-1]
+    recipe(block, 'building_blocks', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': material},
+                                      'pattern': ['###', '###', '###'], 'result': result(block)}, material)
+    recipe(f'{name}_from_{block}', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'group': name,
+                                             'ingredients': [item(block)], 'result': {'id': material, 'count': 9}}, item(block))
+
+
+# BLOCKS07: nine pressings, scraps or orbs <-> block. Pure storage: no recipe melts a block (the blast furnace takes the single pressling).
+for a in ALLOYS:
+    storage_of(item(f'{a}_pressling'), f'{a}_pressling_block')
+storage_of('minecraft:netherite_scrap', 'netherite_scrap_block')
+storage_of(item('enderite_scrap'), 'enderite_scrap_block')
+storage_of(item('sage_orb'), 'sage_orb_block')
+# Rose nuggets: nine <-> ingot, like the gold nuggets; they exist for the carrots (8 nuggets round a carrot, as with the Vanilla golden carrot).
+for a in ALLOYS:
+    recipe(f'{a}_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item(f'{a}_ingot')],
+                                   'result': result(f'{a}_nugget', 9)}, item(f'{a}_ingot'))
+    recipe(f'{a}_ingot_from_nuggets', 'misc', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{a}_nugget')},
+                                               'pattern': ['###', '###', '###'], 'result': result(f'{a}_ingot')}, item(f'{a}_nugget'))
+    recipe(f'{a}_carrot', 'food', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{a}_nugget'), 'C': 'minecraft:carrot'},
+                                   'pattern': ['###', '#C#', '###'], 'result': result(f'{a}_carrot')}, item(f'{a}_nugget'))
 recipe('silver_ingot_from_nuggets', 'misc', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item('silver_nugget')},
                                               'pattern': ['###', '###', '###'], 'result': result('silver_ingot')}, item('silver_nugget'))
 recipe('silver_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item('silver_ingot')],
@@ -304,15 +338,24 @@ tag('c/tags/item/raw_materials/silver.json', ids(['raw_silver']))
 for a in ALLOYS:
     tag(f'c/tags/item/ingots/{a}.json', ids([f'{a}_ingot']))
     tag(f'{NS}/tags/item/repairs_{a}_equipment.json', ids([f'{a}_ingot']))
-tag('c/tags/item/foods/golden.json', ids([p for a in ALLOYS for p in (f'{a}_apple', f'enchanted_{a}_apple')]))
+tag('c/tags/item/foods/golden.json', ids([p for a in ALLOYS for p in (f'{a}_apple', f'enchanted_{a}_apple', f'{a}_carrot')]))
+for a in ALLOYS:
+    tag(f'c/tags/item/nuggets/{a}.json', ids([f'{a}_nugget']))
+    for kind in ('block', 'item'):
+        tag(f'c/tags/{kind}/storage_blocks/{a}_pressling.json', ids([f'{a}_pressling_block']))
+for kind in ('block', 'item'):
+    tag(f'c/tags/{kind}/storage_blocks/netherite_scrap.json', ids(['netherite_scrap_block']))
+    tag(f'c/tags/{kind}/storage_blocks/enderite_scrap.json', ids(['enderite_scrap_block']))
+    tag(f'c/tags/{kind}/storage_blocks/sage_orb.json', ids(['sage_orb_block']))
+tag('c/tags/item/nuggets/rosegold.json', ids([f'{a}_nugget' for a in ALLOYS]))
 tag('c/tags/item/ingots/rosegold.json', ids([f'{a}_ingot' for a in ALLOYS]))
 every = list(BLOCKS)
 tag('minecraft/tags/block/mineable/pickaxe.json', ids(every + list(MOVED_BLOCKS)))
 STONE_TIER = ['lead_ore', 'deepslate_lead_ore', 'raw_lead_block']   # like Vanilla iron and copper ore
-tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b != 'silver_mirror'] + SAGE_ORES))
+tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b != 'silver_mirror' and b not in DIAMOND_NEW] + SAGE_ORES))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
-tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + SCRAPS))
+tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS))
 tag('minecraft/tags/block/beacon_base_blocks.json', ids(['enderite_block']))
 tag('minecraft/tags/block/wither_immune.json', ids(SCRAPS))
 tag('minecraft/tags/block/dragon_immune.json', ids(SCRAPS))
@@ -504,6 +547,20 @@ def note_summaries():
                                    f'Zu finden {where_de}. Braucht eine Eisenspitzhacke. Lässt 1 bis 3 Weisheitskristall-Splitter (Glück hilft, Behutsamkeit behält das Erz) und 2 bis 5 Erfahrung fallen.')
         elif p == 'sage_crystal_block':
             notes['block:sage_crystal_block'] = ('Nine sage crystals; craftable both ways.', 'Neun Weisheitskristalle; in beide Richtungen herstellbar.')
+        elif p.endswith('_pressling_block'):
+            al = p.replace('_pressling_block', '')
+            aen, ade = ALLOYS[al]
+            notes[f'block:{p}'] = (f'Nine {aen} pressings, craftable both ways. Storage only: a block does not melt (put single pressings into the blast furnace). Needs an iron pickaxe.',
+                                   f'Neun {ade}-Presslinge, in beide Richtungen herstellbar. Nur zur Lagerung: ein Block schmilzt nicht (einzelne Presslinge kommen in den Hochofen). Braucht eine Eisenspitzhacke.')
+        elif p == 'netherite_scrap_block':
+            notes[f'block:{p}'] = ('Nine netherite scrap, craftable both ways. Like ancient debris (hardness 30, blast resistance 1200), fire resistant, needs a diamond pickaxe.',
+                                   'Neun Netherit-Schrott, in beide Richtungen herstellbar. Wie Antiker Schrott (Härte 30, Explosionswiderstand 1200), feuerfest, braucht eine Diamantspitzhacke.')
+        elif p == 'enderite_scrap_block':
+            notes[f'block:{p}'] = ('Nine Enderite scrap, craftable both ways. Like ancient debris, fire resistant, needs a diamond pickaxe.',
+                                   'Neun Enderitplatten, in beide Richtungen herstellbar. Wie Antiker Schrott, feuerfest, braucht eine Diamantspitzhacke.')
+        elif p == 'sage_orb_block':
+            notes[f'block:{p}'] = ('Nine sage orbs, craftable both ways: storage for the experience orbs (each orb gives 50 to 100 experience when used). Needs an iron pickaxe.',
+                                   'Neun Weisheitskugeln, in beide Richtungen herstellbar: Lagerung der Erfahrungskugeln (jede gibt beim Benutzen 50 bis 100 Erfahrung). Braucht eine Eisenspitzhacke.')
         elif p.endswith('_ore'):
             drop_en, drop_de = ('2 to 6 silver nuggets', '2 bis 6 Silberklumpen') if p == 'end_silver_ore' else ('raw silver', 'Rohsilber')
             where_en, where_de = ('on the outer End islands', 'auf den äußeren End-Inseln') if p == 'end_silver_ore' else (
@@ -555,6 +612,11 @@ def note_summaries():
                                      f'{de}barren: die {"bessere" if soft else "einfachere"} Roségold-Legierung. Entsteht nur, wenn ein Pressling im Hochofen geschmolzen wird.'))
         notes[f'item:{a}_pressling'] = ((f'{"1 gold, 2 copper and 1 silver ingot" if a == "rose_gold" else "2 gold ingots, 1 Rose Gold ingot and 1 silver ingot"} pressed together (shapeless, 1 per crafting recipe). Only a blast furnace melts it ({BLAST_FURNACE_TICKS // 20} s), always into exactly 1 {en.lower()} ingot.',
                                          f'{"1 Gold-, 2 Kupfer- und 1 Silberbarren" if a == "rose_gold" else "2 Goldbarren, 1 Roségoldbarren und 1 Silberbarren"}, zusammengepresst (formlos, 1 je Rezept). Nur der Hochofen schmilzt ihn ({BLAST_FURNACE_TICKS // 20} s), immer zu genau 1 {de}barren.'))
+        notes[f'item:{a}_nugget'] = (f'Nine make a {en} ingot, an ingot gives nine. Eight round a carrot make the {en} carrot.',
+                                     f'Neun ergeben einen {de}barren, ein Barren gibt neun. Acht um eine Karotte ergeben die {de}-Karotte.')
+        carrot = 8 if soft else 7
+        notes[f'item:{a}_carrot'] = (f'{en} carrot, a step above the golden carrot (6 hunger): {carrot} hunger, saturation {carrot * 2.4:.1f}, no effects, not enchanted. 8 {en.lower()} nuggets round a carrot, like the Vanilla golden carrot with gold nuggets; {"better" if soft else "a little weaker"} than the {"Rose Copper" if soft else "Rose Gold"} carrot.',
+                                     f'{de}-Karotte, eine Stufe über der goldenen Karotte (6 Hunger): {carrot} Hunger, Sättigung {carrot * 2.4:.1f}, keine Effekte, nicht verzaubert. 8 {de}klumpen um eine Karotte, wie die goldene Karotte aus Vanilla mit Goldklumpen; {"besser" if soft else "etwas schwächer"} als die {"Rosenkupfer" if soft else "Roségold"}-Karotte.')
         for part in TOOL_PARTS + ARMOR_PARTS:
             pen, pde = PARTS[part]
             stats_en = 'durability 190 (like copper), speed 8, enchantability 15' if not soft else 'durability 250 (like iron), speed 12 (like gold), enchantability 22'
@@ -631,10 +693,12 @@ FEATURES = [
             ('Rose gold apples', 'A plain and an enchanted apple of each alloy, between the golden apple and the Netherite apple. Always edible, no cooldown.',
              ['Plain: 8 ingots of the alloy round an apple. Rose Copper apple: 5 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. Rose Gold apple: 6 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. Like the golden apple, plus Resistance, and no Fire Resistance.',
               'Enchanted (glint): 8 blocks of the alloy round an apple. Rose Copper: Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. Rose Gold: Regeneration II 0:35, the same. Like the enchanted golden apple. The tooltip lists every effect.',
+              'Carrots (06.11.): 8 nuggets of the alloy round a carrot, like the Vanilla golden carrot (nuggets, because 8 ingots would make a carrot as dear as an apple). Rose Copper carrot 7 hunger, Rose Gold carrot 8 hunger, both saturation factor 1.2 (golden carrot: 6 hunger); no effects, no enchanted version.',
               'For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Resistance I 1:00 (plain apples have no Fire Resistance). They appear in the Food and Drinks tab behind the enchanted golden apple.']),
             ('Roségold-Äpfel', 'Je Legierung ein normaler und ein verzauberter Apfel, zwischen Goldapfel und Netherit-Apfel. Immer essbar, ohne Abklingzeit.',
              ['Normal: 8 Barren der Legierung um einen Apfel. Rosenkupfer-Apfel: 5 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30. Roségold-Apfel: 6 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. Wie der Goldapfel plus Resistenz, ohne Feuerresistenz.',
               'Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenkupfer: Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. Roségold: Regeneration II 0:35, sonst dasselbe. Wie der verzauberte Goldapfel. Der Tooltip listet jeden Effekt.',
+              'Karotten (06.11.): 8 Klumpen der Legierung um eine Karotte, wie die goldene Karotte aus Vanilla (Klumpen, weil 8 Barren die Karotte so teuer wie einen Apfel machen würden). Rosenkupfer-Karotte 7 Hunger, Roségold-Karotte 8 Hunger, beide Sättigungsfaktor 1,2 (goldene Karotte: 6 Hunger); keine Effekte, keine verzauberte Version.',
               'Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel.'])),
     feature('lead', [f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/placed_feature/lead_ore.json', f'{DATAP}/tags/block/soundproofing.json'],
             ('Lead', 'A dull, heavy metal of stone and deepslate. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.',

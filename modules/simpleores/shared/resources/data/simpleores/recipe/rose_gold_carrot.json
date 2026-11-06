@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "simpleores:rose_gold_nugget",
+    "C": "minecraft:carrot"
+  },
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:rose_gold_carrot"
+  }
+}
