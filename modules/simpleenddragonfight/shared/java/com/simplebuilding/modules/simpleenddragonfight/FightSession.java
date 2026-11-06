@@ -51,6 +51,7 @@ public final class FightSession {
     private double target;
     private int lastWaveSize;
     private int summons;
+    private @Nullable UUID defeatedId;
 
     // ---- read access for tests and the wiki-facing messages ----
     public int counted() { return lastSeen.size(); }
@@ -86,7 +87,13 @@ public final class FightSession {
         }
         if (!dragon.getUUID().equals(dragonId)) startFight(dragon);
         if (now % SCAN_TICKS == 0) scan(level, dragon, center, players, now);
-        if (dying(dragon)) return;
+        if (dying(dragon)) {
+            if (!dragon.getUUID().equals(defeatedId)) {
+                defeatedId = dragon.getUUID();
+                DragonRewards.onDefeated(level, defeatedId, center, players.stream().filter(p -> lastSeen.containsKey(p.getUUID())).toList());
+            }
+            return;
+        }
         healFromCrystals(dragon);
         waves(level, dragon, center, now);
         animate(level, dragon);
@@ -171,6 +178,7 @@ public final class FightSession {
         endFight();
         lastSeen.clear();
         summons = 0;
+        defeatedId = null;
     }
 
     private static boolean dying(EnderDragon dragon) {
