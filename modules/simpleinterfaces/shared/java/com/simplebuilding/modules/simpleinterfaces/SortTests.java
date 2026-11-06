@@ -11,7 +11,6 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
 import com.simplelib.api.TabSort;
@@ -116,11 +115,10 @@ public final class SortTests {
 
     /** WE25-3 (06.11.): families stay together and the order is deterministic, whatever the input order. */
     public static void families(GameTestHelper h) {
-        List<Item> expected = List.of(Items.WHITE_WOOL, Items.WHITE_CARPET, Items.ORANGE_WOOL, Items.ORANGE_CARPET,
-                Items.STONE, Items.STONE_STAIRS, Items.STONE_SLAB, Items.STONE_BRICKS, Items.STONE_BRICK_STAIRS, Items.STONE_BRICK_SLAB,
-                Items.STONE_BRICK_WALL, Items.CRACKED_STONE_BRICKS, Items.CHISELED_STONE_BRICKS, Items.MOSSY_STONE_BRICKS);
+        String[] expected = {"white_wool", "white_carpet", "orange_wool", "orange_carpet", "stone", "stone_stairs", "stone_slab", "stone_bricks",
+                "stone_brick_stairs", "stone_brick_slab", "stone_brick_wall", "cracked_stone_bricks", "mossy_stone_bricks", "chiseled_stone_bricks"};
         List<ItemStack> in = new java.util.ArrayList<>();
-        for (Item item : expected) in.add(new ItemStack(item));
+        for (String id : expected) in.add(new ItemStack(BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(id))));
         java.util.Collections.shuffle(in, new java.util.Random(6));
         List<ItemStack> a = ContainerSort.sorted(in, 99);
         java.util.Collections.shuffle(in, new java.util.Random(11));
