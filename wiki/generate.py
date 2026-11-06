@@ -2758,6 +2758,9 @@ def main() -> int:
     parser.add_argument("--ui-shots", type=Path, metavar="DIR",
                         help="copy the PNG screenshots under DIR (e.g. client-test output) to wiki/assets/ui/ "
                              "and index them for the Textures page; local only, ignored by git")
+    parser.add_argument("--with-vanilla", action="store_true",
+                        help="dev wiki only: also write the Vanilla category (wiki/vanilla_textures.py: all client-jar "
+                             "textures + the Vanilla-derived copies, ignored by git, loaded only by the dev overlay)")
     args = parser.parse_args()
     global ARGS
     ARGS = args
@@ -2917,6 +2920,9 @@ def main_with_textures() -> int:
             return 1
         if not args.check:
             print(f"Textures: wiki/{textures.DATA_FILE} written")
+    if args.with_vanilla and not args.check:
+        import vanilla_textures
+        vanilla_textures.main([])
     return code
 
 

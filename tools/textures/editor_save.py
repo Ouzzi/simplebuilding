@@ -115,6 +115,16 @@ def check_save(payload: dict, whitelist: dict[str, dict]) -> dict:
         raise SaveError(f"larger than {MAX_SIDE}x{MAX_SIDE}")
     if (w, h) != (entry.get("w"), entry.get("h")):
         raise SaveError(f"size {w}x{h} differs from the texture ({entry.get('w')}x{entry.get('h')})")
+    # Animated sheet (a-wikiux06): frames stay stacked as in Minecraft (height = n x frame), the .mcmeta is never
+    # part of a save - apply_save writes only the PNG and its layer source, so frametime/frames stay as they are.
+    if "mcmeta" in payload:
+        raise SaveError(".mcmeta is not saved from the editor (it stays unchanged)")
+    anim = entry.get("anim")
+    if isinstance(anim, dict):
+        fw, fh = anim.get("w"), anim.get("h")
+        if not isinstance(fw, int) or not isinstance(fh, int) or fw <= 0 or fh <= 0 or w % fw or h % fh \
+                or (w // fw) * (h // fh) != anim.get("count"):
+            raise SaveError(f"animation sheet {w}x{h} does not hold the {anim.get('count')} frames of {fw}x{fh}")
     rgba = ly.compose(doc)
     png = payload.get("png")
     if png not in (None, ""):

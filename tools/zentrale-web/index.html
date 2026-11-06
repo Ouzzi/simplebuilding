@@ -428,11 +428,20 @@ const devQueue={
   async edit(id,old){if(old===undefined)old=(this.items[id]||{}).comment;const c=prompt('Kommentar',old||'');if(c===null)return;await this.call('PATCH','queue/'+id,{comment:c});devQueueLoad();}
 };
 const qstate=s=>s==='open'?'run':s==='started'?'acc':s==='done'?'ok':'';
+/* "Änderung vorschlagen" (a-wikiux06): reference textures and the attached images, served by devqueue.py */
+function devFiles(it){
+  if(it.kind!=='suggestion')return '';
+  const f=x=>'/api/queue/'+encodeURIComponent(it.id)+'/files/'+encodeURIComponent(x.file);
+  const img=(x,t)=>`<a href="${f(x)}" target="_blank" rel="noopener" title="${esc(t)}"><img src="${f(x)}" alt="${esc(t)}" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated;background:#8b8b8b;border-radius:6px"></a>`;
+  const refs=(it.refs||[]).map(x=>img(x,'Referenz '+x.id)).join(''),att=(it.attachments||[]).map(x=>img(x,x.name||x.file)).join('');
+  return '<div class="small mut" style="margin-top:4px">Vorschlag'+(it.object&&it.object.label?' zu '+esc(it.object.label):'')+'</div>'+
+   ((refs||att)?`<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">${refs}${att?'<span class="small mut" style="align-self:center">Anhänge:</span>'+att:''}</div>`:'');
+}
 function devList(title,arr){
   if(!arr.length)return '<h2>'+title+'</h2><p class="empty">leer</p>';
   return '<h2>'+title+' ('+arr.length+')</h2>'+arr.map(it=>{devQueue.items[it.id]=it;const t=(it.targets||[]).map(x=>esc(x.label||x.id)).join(', '),id=esc(it.id);
    return `<div class="entry"><div class="t">${t||'<span class="mut">–</span>'}</div><div class="meta"><span class="chip ${qstate(it.status)}">${esc(it.status)}</span><span>${esc(it.by)}</span><span>${esc(new Date(it.createdAt).toLocaleString('de-DE',{dateStyle:'short',timeStyle:'short'}))}</span>${it.run?'<span class="mono">'+esc(it.run)+'</span>':''}</div>`+
-    (it.comment?`<div class="c">${esc(it.comment)}</div>`:'')+(it.result?`<div class="c small mut">${esc(it.result)}</div>`:'')+
+    (it.comment?`<div class="c">${esc(it.comment)}</div>`:'')+devFiles(it)+(it.result?`<div class="c small mut">${esc(it.result)}</div>`:'')+
     `<div class="btns" style="margin-top:6px"><button class="ghost sm" data-qedit="${id}">Kommentar</button><button class="danger sm" data-qdel="${id}">Löschen</button></div></div>`;}).join('');
 }
 document.addEventListener('click',e=>{const b=e.target.closest('[data-qedit],[data-qdel]');if(!b)return;if(b.dataset.qedit)devQueue.edit(b.dataset.qedit);else devQueue.del(b.dataset.qdel);});

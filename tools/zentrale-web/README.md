@@ -27,7 +27,13 @@ Die Knöpfe unter „Laptop-Start“ nutzen das Protokoll `simplemods://` des La
 Hinter dem Zugangsschutz der Zentrale:
 
 - `GET /api/queue` – Liste offener/gestarter Einträge
-- `POST /api/queue` – Neuer Eintrag
+- `POST /api/queue` – Neuer Eintrag; `kind: suggestion` („Änderung vorschlagen“, a-wikiux06) zusätzlich mit
+  `object {id,label}` und `attachments [{name,type,data(base64)}]`: ≤ 5 Bilder, je ≤ 2 MB, zusammen ≤ 8 MB, nur
+  PNG/JPEG/WebP (Magic-Bytes müssen zum Typ passen). Der Server vergibt die Dateinamen (`1.png`, …), legt sie unter
+  `<data>/attachments/<id>/` ab und kopiert die aktuelle Textur jedes Ziels (per ID aus `wiki/data/textures.js`, Vanilla
+  aus `wiki/assets/vanilla/`) als `ref-<n>.png` dazu. Body bis 12 MB → nginx `client_max_body_size 12m` für `/api/`
+  (`setup_texture_save.sh` hebt ein altes `2m` an).
+- `GET /api/queue/<id>/files/<name>` – Anhang/Referenz eines Vorschlags (nur Server-Namen, sonst 404)
 - `PATCH /api/queue/<id>` – Kommentar/Status/Ergebnis aktualisieren
 - `DELETE /api/queue/<id>` – Eintrag löschen
 - `POST /api/run` – Lauf starten (textures/code/all)

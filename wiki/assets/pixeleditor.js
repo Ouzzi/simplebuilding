@@ -18,6 +18,7 @@
       pp: 'Pixel perfect', open: 'Open file', exp: 'Export', close: 'Close', zoomIn: 'Zoom in', zoomOut: 'Zoom out', fit: 'Fit to view',
       pencil: 'Pencil', eraser: 'Eraser', fill: 'Fill', picker: 'Eyedropper', line: 'Line', rect: 'Rectangle', select: 'Select', move: 'Move',
       tools: 'Tools', gDraw: 'Draw', gShape: 'Shapes', gSel: 'Selection',
+      frame: 'Frame', wholeSheet: 'Whole sheet', frameN: 'Frame {n} of {c}', frameTip: 'Animation: edit the whole sheet or one frame (the other frames stay untouched; the sheet and its .mcmeta keep their format)',
       size: 'Brush size', filled: 'Filled', global: 'Same colour everywhere',
       hintPencil: 'Shift+click: straight line from the last point · Alt: eyedropper', hintFill: 'Shift: same colour everywhere',
       hintPicker: 'Click picks the colour you see (all layers).', hintSel: 'Drag a rectangle; actions work on the selection or the whole layer.',
@@ -51,6 +52,7 @@
       pp: 'Pixel Perfect', open: 'Datei öffnen', exp: 'Export', close: 'Schließen', zoomIn: 'Vergrößern', zoomOut: 'Verkleinern', fit: 'Einpassen',
       pencil: 'Stift', eraser: 'Radierer', fill: 'Füllen', picker: 'Pipette', line: 'Linie', rect: 'Rechteck', select: 'Auswahl', move: 'Verschieben',
       tools: 'Werkzeuge', gDraw: 'Zeichnen', gShape: 'Formen', gSel: 'Auswahl',
+      frame: 'Frame', wholeSheet: 'Ganzes Sheet', frameN: 'Frame {n} von {c}', frameTip: 'Animation: ganzes Sheet oder ein Frame bearbeiten (die anderen Frames bleiben unberührt; Sheet und .mcmeta behalten ihr Format)',
       size: 'Pinselgröße', filled: 'Gefüllt', global: 'Gleiche Farbe überall',
       hintPencil: 'Umschalt+Klick: gerade Linie vom letzten Punkt · Alt: Pipette', hintFill: 'Umschalt: gleiche Farbe überall',
       hintPicker: 'Klick nimmt die sichtbare Farbe auf (alle Ebenen).', hintSel: 'Rechteck ziehen; Aktionen wirken auf die Auswahl oder die ganze Ebene.',
@@ -174,6 +176,7 @@
     '.pe-name small{font-weight:400;color:var(--pe-muted);margin-left:6px}',
     '.pe-grp{display:flex;gap:2px;align-items:center}',
     '.pe-vsep{width:1px;align-self:stretch;margin:6px 6px;background:var(--pe-line)}',
+    '.pe-frame{height:32px;max-width:11em;border-radius:6px;border:1px solid var(--pe-line);background:var(--pe-bg,#1e1e1e);color:inherit;font:13px system-ui,sans-serif;padding:0 4px}',
     '.pe-zoom{min-width:3.6em;text-align:center;font:600 13px ui-monospace,monospace;color:var(--pe-muted)}',
     /* buttons */
     '.pe-btn{border:1px solid transparent;background:transparent;border-radius:8px;min-height:44px;min-width:44px;padding:0 10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;touch-action:manipulation;white-space:nowrap;-webkit-tap-highlight-color:transparent}',
@@ -377,7 +380,8 @@
       opts: opts, model: null, active: 0, tool: 'pencil', primary: [30, 30, 30, 255], secondary: [255, 255, 255, 255],
       sym: { x: false, y: false }, grid: true, pp: false, filled: false, global: false, size: 1, recent: [], lastPt: null,
       zoom: 16, ox: 0, oy: 0, sel: null, clip: null, history: new C.History(), dirty: false, sheet: null, renaming: -1,
-      pointers: new Map(), stroke: null, gesture: null, hover: null, alt: false, raf: 0, from: ''
+      pointers: new Map(), stroke: null, gesture: null, hover: null, alt: false, raf: 0, from: '',
+      anim: validAnim(opts.anim), frame: -1
     };
     buildUi();
     showEmpty('loading');
@@ -388,8 +392,55 @@
     return load.then(function (r) { if (S) setModel(r.model, r.from); })
       .catch(function (e) { if (S) showEmpty('error', e && e.message || String(e)); });
   }
+  /* animation sheet (a-wikiux06): {w, h, cols, count} of wiki/textures.py; frames stacked as in Minecraft */
+  function validAnim(a) {
+    if (!a || !(a.w > 0) || !(a.h > 0) || !(a.count > 1)) return null;
+    return { w: a.w | 0, h: a.h | 0, cols: Math.max(1, a.cols | 0), count: a.count | 0 };
+  }
+  function frameRect(i) {
+    var a = S.anim;
+    if (!a || i < 0 || i >= a.count) return null;
+    return { x: (i % a.cols) * a.w, y: Math.floor(i / a.cols) * a.h, w: a.w, h: a.h };
+  }
+  /* pixels outside the chosen frame stay as they were before the operation */
+  function keepFrame(px, base) {
+    var r = frameRect(S.frame), m = S.model;
+    if (!r || !base) return;
+    for (var y = 0; y < m.h; y++) {
+      var inY = y >= r.y && y < r.y + r.h;
+      for (var x = 0; x < m.w; x++) {
+        if (inY && x >= r.x && x < r.x + r.w) continue;
+        var i = (y * m.w + x) * 4;
+        px[i] = base[i]; px[i + 1] = base[i + 1]; px[i + 2] = base[i + 2]; px[i + 3] = base[i + 3];
+      }
+    }
+  }
+  function setFrame(i) {
+    S.frame = frameRect(i) ? i : -1;
+    S.sel = null;
+    var r = frameRect(S.frame);
+    if (r) {
+      var st = S.stage.getBoundingClientRect();
+      S.zoom = Math.max(1, Math.min(64, Math.floor(Math.min((st.width - 32) / r.w, (st.height - 32) / r.h)) || 1));
+      S.ox = Math.round(st.width / 2 - (r.x + r.w / 2) * S.zoom); S.oy = Math.round(st.height / 2 - (r.y + r.h / 2) * S.zoom);
+      sync();
+    } else fit();
+    paint();
+  }
+  function frameSelect() {
+    if (!S.anim) return null;
+    var sel = h('select', { class: 'pe-frame', 'aria-label': T('frame'), title: T('frameTip'), 'data-act': 'frame',
+      onchange: function () { setFrame(Number(this.value)); } });
+    sel.appendChild(h('option', { value: '-1', text: T('wholeSheet') }));
+    for (var i = 0; i < S.anim.count; i++) sel.appendChild(h('option', { value: String(i), text: T('frameN', { n: i + 1, c: S.anim.count }) }));
+    return sel;
+  }
   function setModel(model, from) {
     S.model = model; S.from = from || ''; S.active = model.layers.length - 1; S.sel = null; S.lastPt = null;
+    // a sheet whose size does not hold the frames (other file opened): edit it as a whole
+    if (S.anim && (model.w % S.anim.w || model.h % S.anim.h || (model.w / S.anim.w) * (model.h / S.anim.h) !== S.anim.count)) S.anim = null;
+    S.frame = -1;
+    var fs = S.root && S.root.querySelector('.pe-frame'); if (fs) { fs.value = '-1'; fs.hidden = !S.anim; }
     var colors = C.colorsOf(model);
     if (colors.length) S.primary = C.parseColor(colors[0]);
     showEmpty(null); fit(); refreshSide(); sync(); paint();
@@ -409,6 +460,8 @@
         S.zoomLbl = h('output', { class: 'pe-zoom', 'aria-label': 'Zoom' }),
         ibtn('zoomIn', tip('zoomIn'), function () { zoomStep(1); }), ibtn('fit', tip('fit'), function () { fit(); paint(); }),
         ibtn('grid', tip('grid'), toggleGrid, { 'data-toggle': 'grid' })]),
+      S.anim ? h('span', { class: 'pe-vsep' }) : null,
+      S.anim ? h('div', { class: 'pe-grp' }, [frameSelect()]) : null,
       h('span', { class: 'pe-vsep' }),
       h('div', { class: 'pe-grp' }, [ibtn('open', T('open'), askOpen, { cls: 'pe-dk' }), S.fileIn,
         canSave() ? ibtn('save', T('saveTip'), saveToRepo, { cls: 'pe-primary', 'data-act': 'save' }, T('save')) : null,
@@ -664,6 +717,19 @@
       }
     }
     g.strokeStyle = 'rgba(0,0,0,.55)'; g.lineWidth = 1; g.strokeRect(x0 - .5, y0 - .5, cw + 1, ch + 1);
+    if (S.anim) {
+      g.save(); g.strokeStyle = 'rgba(214,120,20,.9)'; g.lineWidth = 2; g.beginPath();
+      for (var fx = S.anim.w; fx < m.w; fx += S.anim.w) { g.moveTo(x0 + fx * z, y0); g.lineTo(x0 + fx * z, y0 + ch); }
+      for (var fy = S.anim.h; fy < m.h; fy += S.anim.h) { g.moveTo(x0, y0 + fy * z); g.lineTo(x0 + cw, y0 + fy * z); }
+      g.stroke();
+      var fr = frameRect(S.frame);
+      if (fr) {
+        g.fillStyle = 'rgba(0,0,0,.45)';
+        g.beginPath(); g.rect(x0, y0, cw, ch); g.rect(x0 + fr.x * z, y0 + fr.y * z, fr.w * z, fr.h * z); g.fill('evenodd');
+        g.strokeStyle = '#d67814'; g.strokeRect(x0 + fr.x * z, y0 + fr.y * z, fr.w * z, fr.h * z);
+      }
+      g.restore();
+    }
     if (S.sym.x || S.sym.y) {
       g.save(); g.setLineDash([6, 4]); g.strokeStyle = '#d0342c'; g.lineWidth = 2; g.beginPath();
       if (S.sym.x) { g.moveTo(x0 + cw / 2, y0 - 8); g.lineTo(x0 + cw / 2, y0 + ch + 8); }
@@ -952,7 +1018,7 @@
     var before = C.cloneModel(S.model), l = ls.splice(a, 1)[0]; ls.splice(b, 0, l); S.active = b; changed(before);
   }
   function mergeLayer() { var b = C.cloneModel(S.model); if (C.mergeDown(S.model, S.active)) { S.active--; changed(b); } }
-  function region() { return S.sel ? C.clipRect(S.sel, S.model.w, S.model.h) : { x: 0, y: 0, w: S.model.w, h: S.model.h }; }
+  function region() { return S.sel ? C.clipRect(S.sel, S.model.w, S.model.h) : frameRect(S.frame) || { x: 0, y: 0, w: S.model.w, h: S.model.h }; }
   function transform(fn) {
     if (!S.model) return;
     var r = region(), b = C.cloneModel(S.model);
@@ -1120,6 +1186,7 @@
     if (tool === 'picker') { pick(p, e && e.button === 2); return; }
     if (tool === 'fill') {
       var pts = C.fill(l.px, m.w, m.h, p[0], p[1], S.stroke.color, S.stroke.global, l.alphaLock);
+      keepFrame(l.px, S.stroke.base);
       S.stroke.changed = pts.length > 0; paint(); return;
     }
     if (tool === 'select') { S.sel = { x: p[0], y: p[1], w: 1, h: 1 }; paint(); return; }
@@ -1154,6 +1221,7 @@
       if (!st.region) return;
       var dx = p[0] - st.start[0], dy = p[1] - st.start[1];
       l.px.set(st.base); C.clearRect(l.px, m.w, st.region); C.pasteBuf(l.px, m.w, m.h, st.buf, st.region.x + dx, st.region.y + dy);
+      keepFrame(l.px, st.base);
       if (st.sel) S.sel = { x: st.sel.x + dx, y: st.sel.y + dy, w: st.sel.w, h: st.sel.h };
       st.changed = dx !== 0 || dy !== 0; st.last = p; return;
     }
@@ -1170,6 +1238,7 @@
     else return;
     l.px.set(st.base);
     C.plot(l.px, m.w, m.h, C.mirror(C.brush(pts, S.size), m.w, m.h, S.sym), st.tool === 'eraser' ? null : st.color, l.alphaLock);
+    keepFrame(l.px, st.base);
     st.changed = true;
     paint();
   }

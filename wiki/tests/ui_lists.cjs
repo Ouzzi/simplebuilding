@@ -44,10 +44,10 @@ const server = http.createServer((req, res) => {
     assert.equal(await filter.inputValue(), '');
     assert.ok(await filter.evaluate(el => el === document.activeElement));
     assert.ok(await visible.count() > 0);
+    // One recipe view (owner 06.11.): the old per-type list opens "All recipes" with its filters.
     await visit('?mod=simplebuilding&tab=recipes');
-    await filter.fill('chisel');
-    await visit('?mod=simplemoney&tab=recipes');
-    assert.equal(await filter.inputValue(), '');
+    assert.equal(await page.locator('#ar-q').count(), 1);
+    assert.equal(await page.locator('#sidebar a[href="#/recipes"]').count(), 0);
     await visit('?mod=simplebuilding&tab=allrecipes');
     await page.locator('#ar-q').fill('chisel');
     // Reload immediately: persistence must not wait for the render debounce.

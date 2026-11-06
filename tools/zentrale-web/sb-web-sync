@@ -16,6 +16,16 @@ ls -d /srv/zentrale/dl-* 2>/dev/null | grep -vx "/srv/zentrale/$cur" | head -n -
 cd /srv/wiki-prod && git fetch -q --depth 50 origin master && git reset -q --hard origin/master
 if [ ! -d /srv/wiki-dev/.git ]; then git clone -q sb-agent:/root/sb.git /srv/wiki-dev -b claude-wave1 || true; fi
 [ -d /srv/wiki-dev/.git ] && cd /srv/wiki-dev && git fetch -q origin claude-wave1 && git reset -q --hard FETCH_HEAD && touch $st/devfetch.ok
+# dev wiki only (owner 06.11.): Vanilla category + Vanilla-derived copies from the 26.3 client jar, never in the repo,
+# never in /srv/wiki-prod (wiki/vanilla_textures.py writes only git-ignored files). Again only when the dev head moved.
+if [ -d /srv/wiki-dev/.git ] && [ -f /srv/wiki-dev/wiki/vanilla_textures.py ]; then
+  jar=$st/minecraft-client-26.3.jar
+  [ -s $jar ] || { ssh -o BatchMode=yes sb-agent "cat ~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar" > $jar.tmp 2>/dev/null && [ -s $jar.tmp ] && mv $jar.tmp $jar; rm -f $jar.tmp; }
+  head=$(git -C /srv/wiki-dev rev-parse HEAD)
+  if [ -s $jar ] && [ "$head" != "$(cat $st/vanilla.head 2>/dev/null)" ]; then
+    (cd /srv/wiki-dev && SB_CLIENT_JAR=$jar timeout 600 $(command -v python3.12 || echo python3) wiki/vanilla_textures.py --jar $jar >> /var/log/sb-wiki-vanilla.log 2>&1) && echo "$head" > $st/vanilla.head
+  fi
+fi
 ssh -o BatchMode=yes sb-agent sb-status > /srv/zentrale/status.json.tmp 2>/dev/null && mv /srv/zentrale/status.json.tmp /srv/zentrale/status.json || true
 # gate logs for the dashboard (refs listed in status.json)
 mkdir -p /srv/zentrale/logs

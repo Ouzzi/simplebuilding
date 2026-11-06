@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 import argparse
+import base64
+import binascii
 import hashlib
 import json
 import os
+import re
+import shutil
 import threading
 import time
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
@@ -20,7 +24,64 @@ MAX_BODY = 256 * 1024
 MAX_COMMENT = 4000
 MAX_TARGETS = 500
 CATEGORIES = {"textures", "code"}
-KINDS = {"texture", "recipe", "note"}
+KINDS = {"texture", "recipe", "note", "suggestion"}
+# "Änderung vorschlagen" (a-wikiux06): images go along as attachments, stored beside the queue, never in the repo
+MAX_QUEUE_BODY = 12 * 1024 * 1024
+MAX_ATTACHMENTS = 5
+MAX_ATTACHMENT = 2 * 1024 * 1024
+MAX_ATTACHMENTS_TOTAL = 8 * 1024 * 1024
+MAX_REF = 2 * 1024 * 1024
+IMAGE_TYPES = {"image/png": "png", "image/jpeg": "jpg", "image/webp": "webp"}
+CONTENT_TYPES = {"png": "image/png", "jpg": "image/jpeg", "webp": "image/webp"}
+QUEUE_ID = re.compile(r"^[0-9]{6,40}$")
+FILE_NAME = re.compile(r"^(?:ref-)?[0-9]{1,2}\.(?:png|jpg|webp)$")
+TEXTURE_ID = re.compile(r"^[a-z0-9_.-]+:[a-z0-9_./-]+$")
+
+
+def image_kind(data: bytes) -> str | None:
+    """File type from the magic bytes (the declared type must match)."""
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return "png"
+    if data[:3] == b"\xff\xd8\xff":
+        return "jpg"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "webp"
+    return None
+
+
+def clean_label(value: object, limit: int = 200) -> str:
+    if not isinstance(value, str):
+        return ""
+    return "".join(c for c in value if ord(c) >= 32 and ord(c) != 127).strip()[:limit]
+
+
+def check_attachments(raw: object) -> list[tuple[str, bytes, str]]:
+    """[(extension, bytes, cleaned original name)] or ValueError; never uses a client path."""
+    if raw is None:
+        return []
+    if not isinstance(raw, list) or len(raw) > MAX_ATTACHMENTS:
+        raise ValueError(f"at most {MAX_ATTACHMENTS} images")
+    out, total = [], 0
+    for item in raw:
+        if not isinstance(item, dict) or item.get("type") not in IMAGE_TYPES or not isinstance(item.get("data"), str):
+            raise ValueError("image must be png, jpeg or webp")
+        if len(item["data"]) > MAX_ATTACHMENT * 4 // 3 + 8:
+            raise ValueError("image larger than 2 MB")
+        try:
+            data = base64.b64decode(item["data"], validate=True)
+        except (binascii.Error, ValueError) as e:
+            raise ValueError("image unreadable") from e
+        ext = IMAGE_TYPES[item["type"]]
+        if not data or len(data) > MAX_ATTACHMENT:
+            raise ValueError("image larger than 2 MB")
+        if image_kind(data) != ext:
+            raise ValueError("image content does not match its type")
+        total += len(data)
+        if total > MAX_ATTACHMENTS_TOTAL:
+            raise ValueError("images larger than 8 MB together")
+        name = re.sub(r"[\\/]+", "_", clean_label(item.get("name"), 120))
+        out.append((ext, data, name))
+    return out
 STATUSES = {"open", "started", "done", "dropped"}
 RUN_STATES = {"new", "picked", "done", "failed"}
 
@@ -95,7 +156,30 @@ class Handler(BaseHTTPRequestHandler):
             save = self.server.texture_save(path[len("/api/textures/"):])
             self.send_json(200 if save else 404, save or {"error": "not found"})
             return
+        parts = path.split("/")
+        if len(parts) == 6 and parts[:3] == ["", "api", "queue"] and parts[4] == "files":
+            self.send_attachment(parts[3], parts[5])
+            return
         self.send_json(404, {"error": "not found"})
+
+    def send_attachment(self, qid: str, name: str):
+        """An image of a suggestion (or its reference texture); names are the server's own (FILE_NAME)."""
+        if not QUEUE_ID.match(qid) or not FILE_NAME.match(name):
+            self.send_json(404, {"error": "not found"})
+            return
+        path = self.server.attachments_dir / qid / name
+        try:
+            data = path.read_bytes()
+        except OSError:
+            self.send_json(404, {"error": "not found"})
+            return
+        self.send_response(200)
+        self.send_header("Content-Type", CONTENT_TYPES[name.rsplit(".", 1)[1]])
+        self.send_header("Content-Length", str(len(data)))
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Cache-Control", "private, max-age=3600")
+        self.end_headers()
+        self.wfile.write(data)
 
     def do_POST(self):
         email = self.check_auth()
@@ -104,7 +188,7 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
         try:
-            payload = self.read_json(editor_save.MAX_BODY if path == "/api/textures" else MAX_BODY)
+            payload = self.read_json(editor_save.MAX_BODY if path == "/api/textures" else MAX_QUEUE_BODY if path == "/api/queue" else MAX_BODY)
         except ValueError as e:
             self.send_json(400 if str(e) != "body too large" else 413, {"error": str(e)})
             return
@@ -244,6 +328,21 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(t, dict) or not all(k in t and isinstance(t[k], str) for k in ("id", "label", "path")):
                 self.send_json(400, {"error": "invalid target"})
                 return
+        if kind != "suggestion" and (payload.get("attachments") or payload.get("object")):
+            self.send_json(400, {"error": "attachments only with a suggestion"})
+            return
+        try:
+            images = check_attachments(payload.get("attachments"))
+        except ValueError as e:
+            self.send_json(400, {"error": str(e)})
+            return
+        obj = payload.get("object")
+        if obj is not None and (not isinstance(obj, dict) or not isinstance(obj.get("id"), str) or len(obj["id"]) > 200):
+            self.send_json(400, {"error": "invalid object"})
+            return
+        if kind == "suggestion" and not comment.strip() and not images:
+            self.send_json(400, {"error": "text or image needed"})
+            return
         now = int(time.time() * 1000)
         entry = {
             "id": str(int(time.time() * 1000000 + threading.get_ident())),
@@ -257,6 +356,24 @@ class Handler(BaseHTTPRequestHandler):
             "status": "open",
             "result": "",
         }
+        if kind == "suggestion":
+            entry["object"] = {"id": clean_label(obj.get("id")), "label": clean_label(obj.get("label"))} if obj else None
+            folder = self.server.attachments_dir / entry["id"]
+            stored, refs = [], []
+            for n, (ext, data, name) in enumerate(images, 1):
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / f"{n}.{ext}").write_bytes(data)
+                stored.append({"file": f"{n}.{ext}", "type": CONTENT_TYPES[ext], "bytes": len(data), "name": name})
+            for n, t in enumerate(targets[:20], 1):  # the current texture as reference, read by id from this checkout
+                ref = self.server.reference_texture(t["id"])
+                if ref is None:
+                    continue
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / f"ref-{n}.png").write_bytes(ref)
+                refs.append({"id": t["id"], "file": f"ref-{n}.png"})
+            entry["attachments"] = stored
+            entry["refs"] = refs
+            entry["files"] = f"attachments/{entry['id']}/"  # under the data folder (runs keep the entry)
         with self.server.lock:
             self.server.queue.append(entry)
             self.server.save_queue()
@@ -351,6 +468,8 @@ class Handler(BaseHTTPRequestHandler):
                 if str(item["id"]) == str(qid):
                     self.server.queue.pop(i)
                     self.server.save_queue()
+                    if QUEUE_ID.match(str(qid)):
+                        shutil.rmtree(self.server.attachments_dir / str(qid), ignore_errors=True)
                     self.send_json(204, None)
                     return
             self.send_json(404, {"error": "not found"})
@@ -408,6 +527,7 @@ class DevQueueServer(ThreadingHTTPServer):
         self.selections_dir = data_dir / "selections"
         self.textures_dir = data_dir / "textures"  # editor saves, apart from runs/ (those go to Claude)
         self.textures_dir.mkdir(parents=True, exist_ok=True)
+        self.attachments_dir = data_dir / "attachments"  # images of suggestions (+ reference textures)
         self.last_save_id = 0
         self.lock = threading.Lock()
         self.queue = []
@@ -431,6 +551,27 @@ class DevQueueServer(ThreadingHTTPServer):
     def selection_path(self, email: str) -> Path:
         """One file per user; the name is a hash so addresses never become paths."""
         return self.selections_dir / (hashlib.sha256(email.strip().lower().encode("utf-8")).hexdigest()[:32] + ".json")
+
+    def reference_texture(self, tid: str) -> bytes | None:
+        """Current PNG of a texture by id: own ones from wiki/data/textures.js, Vanilla from the dev-only folder."""
+        if not isinstance(tid, str) or not TEXTURE_ID.match(tid) or ".." in tid:
+            return None
+        wiki = (Path(self.repo) / "wiki").resolve()
+        try:
+            entry = editor_save.load_whitelist(Path(self.repo)).get(tid)
+        except (OSError, ValueError, editor_save.SaveError):
+            entry = None
+        rel = entry.get("file") if entry else (f"assets/vanilla/{tid.split(':', 1)[1]}.png" if tid.startswith("minecraft:") else None)
+        if not isinstance(rel, str):
+            return None
+        path = (wiki / rel).resolve()
+        if not path.is_relative_to(wiki / "assets") or path.suffix != ".png":
+            return None
+        try:
+            data = path.read_bytes()
+        except OSError:
+            return None
+        return data if len(data) <= MAX_REF and image_kind(data) == "png" else None
 
     def texture_save(self, sid: str) -> dict | None:
         if not editor_save.SAVE_ID.match(sid or ""):

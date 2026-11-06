@@ -11,11 +11,17 @@ grep -q 'path == "/api/textures"' "$CHECKOUT/tools/zentrale-web/devqueue.py" || 
 free=$(df --output=avail -k / | tail -1)
 [ "$free" -gt 102400 ] || { echo "less than 100 MB free on / - clean up first (git tmp_pack_*)"; exit 1; }
 python3 -c "import sys; sys.path.insert(0, '$CHECKOUT/tools/textures'); import editor_save as e; print('whitelist', len(e.load_whitelist(__import__('pathlib').Path('$CHECKOUT'))))"
-# saves are up to 1.5 MB JSON; nginx defaults to 1 MB per request
+# saves are up to 1.5 MB JSON, suggestions with images up to 12 MB (devqueue.MAX_QUEUE_BODY, a-wikiux06);
+# nginx defaults to 1 MB per request. An older 2m from the first setup is raised to 12m.
 if ! grep -q 'client_max_body_size' "$SITE"; then
   cp "$SITE" "$SITE.bak-texsave"
-  sed -i '0,/location \/api\/ {/s//location \/api\/ {\n        client_max_body_size 2m;/' "$SITE"
+  sed -i '0,/location \/api\/ {/s//location \/api\/ {\n        client_max_body_size 12m;/' "$SITE"
   nginx -t || { cp "$SITE.bak-texsave" "$SITE"; echo "nginx -t failed, restored"; exit 1; }
+  systemctl reload nginx
+elif grep -q 'client_max_body_size 2m;' "$SITE"; then
+  cp "$SITE" "$SITE.bak-suggest"
+  sed -i 's/client_max_body_size 2m;/client_max_body_size 12m;/' "$SITE"
+  nginx -t || { cp "$SITE.bak-suggest" "$SITE"; echo "nginx -t failed, restored"; exit 1; }
   systemctl reload nginx
 fi
 systemctl restart "$SERVICE"
