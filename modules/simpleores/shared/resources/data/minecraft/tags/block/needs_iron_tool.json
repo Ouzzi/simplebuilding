@@ -10,6 +10,9 @@
     "simpleores:silver_sheet",
     "simpleores:rose_bronze_block",
     "simpleores:rose_gold_block",
+    "simpleores:rose_bronze_pressling_block",
+    "simpleores:rose_gold_pressling_block",
+    "simpleores:sage_orb_block",
     "simpleores:sage_ore",
     "simpleores:deepslate_sage_ore"
   ]

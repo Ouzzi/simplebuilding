@@ -6,7 +6,14 @@
     "simpleores:rose_bronze_apple": "Crafted from 8 rose copper ingots and an apple (IG31-41); Simple Ores sells no crafted gear.",
     "simpleores:rose_gold_apple": "Crafted from 8 rose gold ingots and an apple (IG31-41); Simple Ores sells no crafted gear.",
     "simpleores:enchanted_rose_bronze_apple": "Crafted from 8 rose copper blocks and an apple (IG31-41).",
-    "simpleores:enchanted_rose_gold_apple": "Crafted from 8 rose gold blocks and an apple (IG31-41)."
+    "simpleores:enchanted_rose_gold_apple": "Crafted from 8 rose gold blocks and an apple (IG31-41).",
+    "simpleores:rose_bronze_carrot": "Crafted from 8 rose copper nuggets and a carrot (BLOCKS07).",
+    "simpleores:rose_gold_carrot": "Crafted from 8 rose gold nuggets and a carrot (BLOCKS07).",
+    "simpleores:netherite_scrap_block": "Storage block, crafted from 9 netherite scrap (BLOCKS07); the scrap itself is not sold here.",
+    "simpleores:enderite_scrap_block": "Storage block, crafted from 9 Enderite scrap (BLOCKS07); the scrap is priced, the block is just nine of it.",
+    "simpleores:sage_orb_block": "Storage block, crafted from 9 sage orbs (BLOCKS07).",
+    "simpleores:rose_bronze_pressling_block": "Storage block, crafted from 9 pressings (BLOCKS07).",
+    "simpleores:rose_gold_pressling_block": "Storage block, crafted from 9 pressings (BLOCKS07)."
   },
   "prices": [
     {

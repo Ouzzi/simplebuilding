@@ -74,6 +74,9 @@ public final class OresRegistry {
     public static final Block SILVER_BLOCK = block("silver_block", Blocks.GOLD_BLOCK, Block::new);
     public static final Block ROSE_BRONZE_BLOCK = block("rose_bronze_block", Blocks.GOLD_BLOCK, Block::new);
     public static final Block ROSE_GOLD_BLOCK = block("rose_gold_block", Blocks.GOLD_BLOCK, Block::new);
+    /** 06.11. (BLOCKS07): storage of nine pressings each, a pure storage block (no melting; the blast furnace takes the single pressling). */
+    public static final Block ROSE_BRONZE_PRESSLING_BLOCK = block("rose_bronze_pressling_block", Blocks.GOLD_BLOCK, Block::new);
+    public static final Block ROSE_GOLD_PRESSLING_BLOCK = block("rose_gold_pressling_block", Blocks.GOLD_BLOCK, Block::new);
 
     /**
      * Lead (concept ORES31 section 3): quiet metal it is not - the heavy sound is the point (walking on it or mining it is loud, a lead wall
@@ -106,12 +109,17 @@ public final class OresRegistry {
     /** Sage Ore (owner 2026-10-01): rare like diamond, drops only experience (3-7) and rarely a sage orb (loot table); iron pickaxe. */
     public static final Block SAGE_ORE = block("sage_ore", Blocks.DIAMOND_ORE, s -> new DropExperienceBlock(UniformInt.of(3, 7), s));
     public static final Block DEEPSLATE_SAGE_ORE = block("deepslate_sage_ore", Blocks.DEEPSLATE_DIAMOND_ORE, s -> new DropExperienceBlock(UniformInt.of(3, 7), s));
+    /** 06.11. (BLOCKS07): nine scrap each; like ancient debris (hardness 30, resistance 1200), fire resistant. */
+    public static final Block NETHERITE_SCRAP_BLOCK = block("netherite_scrap_block", Blocks.ANCIENT_DEBRIS, Block::new);
+    public static final Block ENDERITE_SCRAP_BLOCK = block("enderite_scrap_block", Blocks.ANCIENT_DEBRIS, Block::new);
+    /** Nine sage orbs; like the emerald block. */
+    public static final Block SAGE_ORB_BLOCK = block("sage_orb_block", Blocks.EMERALD_BLOCK, Block::new);
     public static final Block DIMENSIONAL_SCRAP = scrap("dimensional_scrap", Blocks.DEEPSLATE);
     public static final Block NETHER_DIMENSIONAL_SCRAP = scrap("nether_dimensional_scrap", Blocks.ANCIENT_DEBRIS);
     public static final Block END_DIMENSIONAL_SCRAP = scrap("end_dimensional_scrap", Blocks.END_STONE);
     /** Block items that survive fire and lava (Enderite, scrap). */
     private static final java.util.Set<String> FIRE_RESISTANT = java.util.Set.of("enderite_block", "dimensional_scrap", "nether_dimensional_scrap",
-            "end_dimensional_scrap", "enderite_nugget", "enderite_scrap", "enderite_ingot");
+            "end_dimensional_scrap", "enderite_nugget", "enderite_scrap", "enderite_ingot", "netherite_scrap_block", "enderite_scrap_block");
 
     static {
         for (String path : List.copyOf(BLOCKS.keySet())) {
@@ -133,6 +141,7 @@ public final class OresRegistry {
         ITEMS.put("sage_orb", new com.simpleores.item.SageOrbItem(new Item.Properties().stacksTo(16).setId(itemKey("sage_orb"))));
         for (Alloy alloy : Alloy.values()) {
             plain(alloy.id + "_ingot");
+            plain(alloy.id + "_nugget");
             plain(alloy.id + "_pressling");
         }
         for (Alloy alloy : Alloy.values()) {
@@ -146,6 +155,9 @@ public final class OresRegistry {
             item(alloy.id + "_leggings", p -> p.humanoidArmor(alloy.armor, ArmorType.LEGGINGS));
             item(alloy.id + "_boots", p -> p.humanoidArmor(alloy.armor, ArmorType.BOOTS));
         }
+        // BLOCKS07: the carrots, a step above the golden carrot (numbers: OresFood); not enchanted, no effects.
+        item("rose_bronze_carrot", p -> p.food(OresFood.ROSE_BRONZE_CARROT_FOOD));
+        item("rose_gold_carrot", p -> p.food(OresFood.ROSE_GOLD_CARROT_FOOD));
         // IG31-41: the rose gold apples between the golden and the Netherite apple (numbers: OresFood).
         food("rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ROSE_BRONZE_APPLE));
         food("enchanted_rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ENCHANTED_ROSE_BRONZE_APPLE)
@@ -235,9 +247,10 @@ public final class OresRegistry {
 
     public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "deepslate_lead_ore", "raw_lead_block",
             "sage_ore", "deepslate_sage_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
-    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "rose_bronze_block", "rose_gold_block", "enderite_block"};
+    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "rose_bronze_block", "rose_gold_block", "rose_bronze_pressling_block", "rose_gold_pressling_block", "enderite_block",
+            "netherite_scrap_block", "enderite_scrap_block", "sage_orb_block"};
     public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "rose_bronze_pressling",
-            "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
+            "rose_bronze_nugget", "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_nugget", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
             "enderite_ingot", "enderite_upgrade_template", "sage_orb"};
     /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */
     public static final List<String> FROM_SIMPLELIB = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot",
@@ -252,7 +265,8 @@ public final class OresRegistry {
             "rose_bronze_boots", "rose_gold_sword", "rose_gold_helmet", "rose_gold_chestplate", "rose_gold_leggings", "rose_gold_boots"};
 
     /** IG31-41: the four rose gold apples, shown in the Food and Drinks tab behind the enchanted golden apple. */
-    public static final String[] FOOD = {"rose_bronze_apple", "enchanted_rose_bronze_apple", "rose_gold_apple", "enchanted_rose_gold_apple"};
+    public static final String[] FOOD = {"rose_bronze_apple", "enchanted_rose_bronze_apple", "rose_gold_apple", "enchanted_rose_gold_apple",
+            "rose_bronze_carrot", "rose_gold_carrot"};
 
     private OresRegistry() {}
 }

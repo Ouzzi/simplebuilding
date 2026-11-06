@@ -565,7 +565,7 @@ public final class LibTests {
             seen.add(got);
         }
         check(h, seen.size() == com.simplelib.api.SimpleRarity.values().length, "every rank is used at least once: " + seen);
-        for (String plain : java.util.List.of("enderite_nugget", "enderite_scrap", "raw_enderite", "stick", "iron_ingot", "nihil_obsidian"))
+        for (String plain : java.util.List.of("enderite_nugget", "enderite_scrap", "enderite_scrap_block", "raw_enderite", "stick", "iron_ingot", "nihil_obsidian"))
             check(h, com.simplelib.api.RarityRules.forPath(plain) == null, plain + " keeps its Vanilla rarity");
         var cracked = net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(com.simplelib.SimpleLib.id("cracked_diamond"));
         check(h, cracked.isEmpty() || com.simplelib.api.SimpleRarity.of(new ItemStack(cracked.get())) == com.simplelib.api.SimpleRarity.CORRUPTED,

@@ -99,7 +99,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 5 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap"))
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
                     , "config defaults");
@@ -387,6 +387,67 @@ public final class OresTests {
                 }
                 check(h, stack(alloy + "_apple").is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.parse("c:foods/golden"))), "tagged golden food");
             }
+            h.succeed();
+        });
+        ALL.put("storage_block_recipes", h -> {
+            // BLOCKS07: nine of the material <-> block, both ways; no recipe melts a block.
+            Map<String, Item> materials = new LinkedHashMap<>();
+            materials.put("rose_bronze_pressling_block", item("rose_bronze_pressling"));
+            materials.put("rose_gold_pressling_block", item("rose_gold_pressling"));
+            materials.put("netherite_scrap_block", Items.NETHERITE_SCRAP);
+            materials.put("enderite_scrap_block", item("enderite_scrap"));
+            materials.put("sage_orb_block", item("sage_orb"));
+            for (Map.Entry<String, Item> row : materials.entrySet()) {
+                ItemStack nine = new ItemStack(row.getValue());
+                List<ItemStack> slots = new ArrayList<>();
+                for (int i = 0; i < 9; i++) slots.add(nine.copy());
+                ItemStack block = craft(h, CraftingInput.of(3, 3, slots));
+                check(h, block.is(item(row.getKey())) && block.getCount() == 1, "9 -> " + row.getKey() + ": " + block);
+                ItemStack back = craft(h, of(new ItemStack(item(row.getKey()))));
+                check(h, back.is(row.getValue()) && back.getCount() == 9, row.getKey() + " -> 9: " + back);
+                slots.set(8, ItemStack.EMPTY);
+                check(h, craft(h, CraftingInput.of(3, 3, slots)).isEmpty(), row.getKey() + ": 8 are not enough");
+                ServerLevel level = h.getLevel();
+                SingleRecipeInput in = new SingleRecipeInput(new ItemStack(item(row.getKey())));
+                for (RecipeType<? extends AbstractCookingRecipe> type : List.of(RecipeType.SMELTING, RecipeType.BLASTING, RecipeType.SMOKING, RecipeType.CAMPFIRE_COOKING))
+                    check(h, level.getServer().getRecipeManager().getRecipeFor(type, in, level).isEmpty(), row.getKey() + " does not melt");
+            }
+            check(h, item("netherite_scrap_block").components().has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT)
+                    && item("enderite_scrap_block").components().has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), "scrap blocks are fire resistant");
+            check(h, OresRegistry.NETHERITE_SCRAP_BLOCK.defaultBlockState().is(BlockTags.NEEDS_DIAMOND_TOOL) && OresRegistry.SAGE_ORB_BLOCK.defaultBlockState().is(BlockTags.NEEDS_IRON_TOOL), "tool tiers");
+            h.succeed();
+        });
+        ALL.put("rose_carrots", h -> {
+            // BLOCKS07: slightly above the golden carrot (6 hunger, factor 1.2), Rose Gold better than Rose Copper, no effects, 8 nuggets round a carrot.
+            var golden = Items.GOLDEN_CARROT.components().get(net.minecraft.core.component.DataComponents.FOOD);
+            int[] want = {7, 8};
+            String[] alloys = {"rose_bronze", "rose_gold"};
+            for (int i = 0; i < 2; i++) {
+                ItemStack carrot = stack(alloys[i] + "_carrot");
+                var food = carrot.get(net.minecraft.core.component.DataComponents.FOOD);
+                check(h, food != null && food.nutrition() == want[i] && food.nutrition() > golden.nutrition() && food.saturation() > golden.saturation(), alloys[i] + " carrot food: " + food);
+                check(h, !food.canAlwaysEat(), "like the golden carrot, not always edible");
+                var player = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+                player.getFoodData().setFoodLevel(10);
+                carrot.finishUsingItem(h.getLevel(), player);
+                check(h, player.getActiveEffects().isEmpty(), alloys[i] + " carrot gives no effects");
+                check(h, !Boolean.TRUE.equals(carrot.get(net.minecraft.core.component.DataComponents.ENCHANTMENT_GLINT_OVERRIDE)), "not enchanted");
+                List<ItemStack> slots = new ArrayList<>();
+                for (int k = 0; k < 9; k++) slots.add(k == 4 ? new ItemStack(Items.CARROT) : stack(alloys[i] + "_nugget"));
+                ItemStack out = craft(h, CraftingInput.of(3, 3, slots));
+                check(h, out.is(item(alloys[i] + "_carrot")) && out.getCount() == 1, "8 nuggets round a carrot: " + out);
+                slots.set(4, new ItemStack(Items.GOLDEN_CARROT));
+                check(h, craft(h, CraftingInput.of(3, 3, slots)).isEmpty(), "no golden carrot in the middle");
+                ItemStack nuggets = craft(h, of(stack(alloys[i] + "_ingot")));
+                check(h, nuggets.is(item(alloys[i] + "_nugget")) && nuggets.getCount() == 9, "ingot -> 9 nuggets");
+                List<ItemStack> nine = new ArrayList<>();
+                for (int k = 0; k < 9; k++) nine.add(stack(alloys[i] + "_nugget"));
+                check(h, craft(h, CraftingInput.of(3, 3, nine)).is(item(alloys[i] + "_ingot")), "9 nuggets -> ingot");
+                check(h, carrot.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.parse("c:foods/golden"))), "tagged golden food");
+            }
+            var bronze = stack("rose_bronze_carrot").get(net.minecraft.core.component.DataComponents.FOOD);
+            var gold = stack("rose_gold_carrot").get(net.minecraft.core.component.DataComponents.FOOD);
+            check(h, gold.nutrition() > bronze.nutrition() && gold.saturation() > bronze.saturation(), "Rose Gold is the better carrot");
             h.succeed();
         });
         ALL.put("silver_mirror_recipe", h -> {

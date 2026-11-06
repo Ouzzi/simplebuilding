@@ -2,7 +2,9 @@
   "values": [
     "simpleores:rose_bronze_apple",
     "simpleores:enchanted_rose_bronze_apple",
+    "simpleores:rose_bronze_carrot",
     "simpleores:rose_gold_apple",
-    "simpleores:enchanted_rose_gold_apple"
+    "simpleores:enchanted_rose_gold_apple",
+    "simpleores:rose_gold_carrot"
   ]
 }

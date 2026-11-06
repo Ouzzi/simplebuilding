@@ -91,6 +91,7 @@
         "details": [
           "Plain: 8 ingots of the alloy round an apple. Rose Copper apple: 5 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. Rose Gold apple: 6 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. Like the golden apple, plus Resistance, and no Fire Resistance.",
           "Enchanted (glint): 8 blocks of the alloy round an apple. Rose Copper: Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. Rose Gold: Regeneration II 0:35, the same. Like the enchanted golden apple. The tooltip lists every effect.",
+          "Carrots (06.11.): 8 nuggets of the alloy round a carrot, like the Vanilla golden carrot (nuggets, because 8 ingots would make a carrot as dear as an apple). Rose Copper carrot 7 hunger, Rose Gold carrot 8 hunger, both saturation factor 1.2 (golden carrot: 6 hunger); no effects, no enchanted version.",
           "For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Resistance I 1:00 (plain apples have no Fire Resistance). They appear in the Food and Drinks tab behind the enchanted golden apple."
         ]
       },
@@ -100,6 +101,7 @@
         "details": [
           "Normal: 8 Barren der Legierung um einen Apfel. Rosenkupfer-Apfel: 5 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30. Roségold-Apfel: 6 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. Wie der Goldapfel plus Resistenz, ohne Feuerresistenz.",
           "Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenkupfer: Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. Roségold: Regeneration II 0:35, sonst dasselbe. Wie der verzauberte Goldapfel. Der Tooltip listet jeden Effekt.",
+          "Karotten (06.11.): 8 Klumpen der Legierung um eine Karotte, wie die goldene Karotte aus Vanilla (Klumpen, weil 8 Barren die Karotte so teuer wie einen Apfel machen würden). Rosenkupfer-Karotte 7 Hunger, Roségold-Karotte 8 Hunger, beide Sättigungsfaktor 1,2 (goldene Karotte: 6 Hunger); keine Effekte, keine verzauberte Version.",
           "Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel."
         ]
       }
@@ -263,19 +265,6 @@
     }
   ],
   "notes": {
-    "simpleores:guide_book": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
-        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
-      ],
-      "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 12 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
-      },
-      "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 12 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
-      }
-    },
     "simpleores:silver_ore": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -428,6 +417,61 @@
       },
       "de": {
         "summary": "Roségoldblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+      }
+    },
+    "simpleores:rose_bronze_pressling_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine Rose Copper pressings, craftable both ways. Storage only: a block does not melt (put single pressings into the blast furnace). Needs an iron pickaxe."
+      },
+      "de": {
+        "summary": "Neun Rosenkupfer-Presslinge, in beide Richtungen herstellbar. Nur zur Lagerung: ein Block schmilzt nicht (einzelne Presslinge kommen in den Hochofen). Braucht eine Eisenspitzhacke."
+      }
+    },
+    "simpleores:rose_gold_pressling_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine Rose Gold pressings, craftable both ways. Storage only: a block does not melt (put single pressings into the blast furnace). Needs an iron pickaxe."
+      },
+      "de": {
+        "summary": "Neun Roségold-Presslinge, in beide Richtungen herstellbar. Nur zur Lagerung: ein Block schmilzt nicht (einzelne Presslinge kommen in den Hochofen). Braucht eine Eisenspitzhacke."
+      }
+    },
+    "simpleores:netherite_scrap_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine netherite scrap, craftable both ways. Like ancient debris (hardness 30, blast resistance 1200), fire resistant, needs a diamond pickaxe."
+      },
+      "de": {
+        "summary": "Neun Netherit-Schrott, in beide Richtungen herstellbar. Wie Antiker Schrott (Härte 30, Explosionswiderstand 1200), feuerfest, braucht eine Diamantspitzhacke."
+      }
+    },
+    "simpleores:enderite_scrap_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine Enderite scrap, craftable both ways. Like ancient debris, fire resistant, needs a diamond pickaxe."
+      },
+      "de": {
+        "summary": "Neun Enderitplatten, in beide Richtungen herstellbar. Wie Antiker Schrott, feuerfest, braucht eine Diamantspitzhacke."
+      }
+    },
+    "simpleores:sage_orb_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine sage orbs, craftable both ways: storage for the experience orbs (each orb gives 50 to 100 experience when used). Needs an iron pickaxe."
+      },
+      "de": {
+        "summary": "Neun Weisheitskugeln, in beide Richtungen herstellbar: Lagerung der Erfahrungskugeln (jede gibt beim Benutzen 50 bis 100 Erfahrung). Braucht eine Eisenspitzhacke."
       }
     },
     "simpleores:enderite_block": {
@@ -661,6 +705,28 @@
         "summary": "2 Goldbarren, 1 Roségoldbarren und 1 Silberbarren, zusammengepresst (formlos, 1 je Rezept). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Rosenkupferbarren."
       }
     },
+    "simpleores:rose_bronze_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a Rose Copper ingot, an ingot gives nine. Eight round a carrot make the Rose Copper carrot."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Rosenkupferbarren, ein Barren gibt neun. Acht um eine Karotte ergeben die Rosenkupfer-Karotte."
+      }
+    },
+    "simpleores:rose_bronze_carrot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Copper carrot, a step above the golden carrot (6 hunger): 7 hunger, saturation 16.8, no effects, not enchanted. 8 rose copper nuggets round a carrot, like the Vanilla golden carrot with gold nuggets; a little weaker than the Rose Gold carrot."
+      },
+      "de": {
+        "summary": "Rosenkupfer-Karotte, eine Stufe über der goldenen Karotte (6 Hunger): 7 Hunger, Sättigung 16.8, keine Effekte, nicht verzaubert. 8 Rosenkupferklumpen um eine Karotte, wie die goldene Karotte aus Vanilla mit Goldklumpen; etwas schwächer als die Roségold-Karotte."
+      }
+    },
     "simpleores:rose_bronze_sword": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -780,6 +846,28 @@
       },
       "de": {
         "summary": "1 Gold-, 2 Kupfer- und 1 Silberbarren, zusammengepresst (formlos, 1 je Rezept). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Roségoldbarren."
+      }
+    },
+    "simpleores:rose_gold_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a Rose Gold ingot, an ingot gives nine. Eight round a carrot make the Rose Gold carrot."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Roségoldbarren, ein Barren gibt neun. Acht um eine Karotte ergeben die Roségold-Karotte."
+      }
+    },
+    "simpleores:rose_gold_carrot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Gold carrot, a step above the golden carrot (6 hunger): 8 hunger, saturation 19.2, no effects, not enchanted. 8 rose gold nuggets round a carrot, like the Vanilla golden carrot with gold nuggets; better than the Rose Copper carrot."
+      },
+      "de": {
+        "summary": "Roségold-Karotte, eine Stufe über der goldenen Karotte (6 Hunger): 8 Hunger, Sättigung 19.2, keine Effekte, nicht verzaubert. 8 Roségoldklumpen um eine Karotte, wie die goldene Karotte aus Vanilla mit Goldklumpen; besser als die Rosenkupfer-Karotte."
       }
     },
     "simpleores:rose_gold_sword": {
@@ -923,6 +1011,19 @@
       },
       "de": {
         "summary": "Verzauberter Roségold-Apfel (Schimmer): 6 Hunger, immer essbar. Gibt Regeneration II 0:35, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. 8 Roségoldblöcke um einen Apfel."
+      }
+    },
+    "simpleores:guide_book": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
+        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
+        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 12 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 12 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     }
   }

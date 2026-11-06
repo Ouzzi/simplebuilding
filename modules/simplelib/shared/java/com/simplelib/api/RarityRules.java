@@ -22,7 +22,7 @@ public final class RarityRules {
             "nihil_vault", "nihilith_shard", "nihilith_lamp", "nihilith_end_rod", "nihilith_book");
     private static final Set<String> ASTRAL = Set.of("astral_redstone", "astral_redstone_block", "astral_redstone_torch", "astral_piston",
             "astral_rail", "astral_vault", "astralit_dust", "astralit_lamp", "astralit_end_rod");
-    private static final Set<String> ENDERITE_RAW = Set.of("enderite_nugget", "enderite_scrap");
+    private static final Set<String> ENDERITE_RAW = Set.of("enderite_nugget", "enderite_scrap", "enderite_scrap_block");
     private static final Set<String> CORRUPTED = Set.of("cracked_diamond", "cracked_diamond_block");
 
     private RarityRules() {}
