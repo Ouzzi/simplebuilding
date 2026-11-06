@@ -38,7 +38,7 @@ def main():
                  + fig(s['item/sage_crystal.png'], 'sage_crystal') + fig(s['item/sage_crystal_shard.png'], 'sage_crystal_shard')
                  + fig(s['block/sage_crystal_block.png'], 'sage_crystal_block') + '</div>')
     for v in 'ab':
-        body += (f'<h2>Presslinge {v.upper()}</h2><p>{"Drei Materialien als feine Körner" if v == "a" else "Drei Materialien als 2x2-Flecken"}; Anteile wie im Rezept (Roségold 1 Gold : 2 Kupfer : 1 Silber, Rosenkupfer 2 Gold : 1 Roségold : 1 Silber), dunkle Naht</p><div class="row">')
+        body += (f'<h2>Presslinge {v.upper()}</h2><p>{"Drei Materialien als kleine Körner (2x1)" if v == "a" else "Drei Materialien als 2x2-Flecken"}; Anteile wie im Rezept (Roségold 1 Gold : 2 Kupfer : 1 Silber, Rosenkupfer 2 Gold : 1 Roségold : 1 Silber), dunkle Naht</p><div class="row">')
         for alloy, name in (('rose_gold', 'Roségold'), ('rose_bronze', 'Rosenkupfer')):
             body += fig(o.press_item(j, alloy, v), f'{name} Pressling') + fig(o.press_block(j, alloy, v), f'{name} Presslingblock')
         body += '</div>'

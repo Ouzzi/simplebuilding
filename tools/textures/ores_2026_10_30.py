@@ -65,7 +65,7 @@ MIRROR_VARIANT = 'a'
 ROSE_ORE_VARIANT = 'a'    # a = rose flecks on the soft ramp, b = paler flecks, a few gold ones stay (hot ore)
 CRYSTAL_VARIANT = 'a'     # TEX07B: own drawn forms (a = one hexagonal crystal + splinter + tiled facet block, b = crystal cluster + broken tip + diamond facet block)
 SAGE_ORE_SRC = ROOT / 'modules/simpleores/shared/resources/assets/simpleores/textures/block/sage_ore.png'
-PRESS_VARIANT = 'a'     # TEX07B: three pressed, not yet melted materials (a = fine grains, b = larger patches); both on the seams of old variant b
+PRESS_VARIANT = 'a'     # TEX07B: three pressed, not yet melted materials (a = 2 x 1 grains, b = 2 x 2 patches); both on the seams of old variant b
 APPLE_VARIANT = {'rose_bronze': 'a', 'rose_gold': 'a'}   # IG31-41: a = plain recolour, b = recolour + green leaf at the stem
 LEAF = ('#a3c75a', '#6f9a3c', '#466f2a')
 
@@ -340,13 +340,24 @@ def facets(rows: list[str], ramp: str = 'sage', edge: int = 8) -> Image.Image:
 
 
 # Sage crystal (own shapes, TEX07B): lit facet left/top, shade right, dark rim; the greens are those of the sage ore / sage orb.
-CRYSTAL_A = ['................', '.......00.......', '......0112......', '.....011122.....', '.....011223.....', '....0111223.....', '....0112233.....',
-             '....0112233.....', '....0112334.....', '....0112334.....', '....0122344.....', '....0122344.....', '.....12234......', '.....1233.......',
-             '......23........', '................']
+def crystal_rows(parts) -> list[str]:
+    """Pointed prisms, back to front. parts = (centre x, tip row, last row, half width); lit facet left, shade right, bright tip, dark rim."""
+    grid = [['.'] * 16 for _ in range(16)]
+    for cx, top, bottom, hw in parts:
+        for y in range(top, bottom + 1):
+            h = min(hw, 1 + (y - top) * hw // max(1, min(4, bottom - top) ), 1 + (bottom - y) * 2)
+            for x in range(cx - h, cx + h + 1):
+                f = (x - cx) / (h + 0.5)
+                tone = 1 if f < -0.45 else 2 if f < -0.05 else 3 if f < 0.35 else 5
+                tone = max(0, tone - (1 if y - top < 3 else 0))
+                grid[y][x] = '8' if x in (cx - h, cx + h) or y in (top, bottom) else str(tone)
+    return [''.join(r) for r in grid]
+
+
+CRYSTAL_A = crystal_rows([(8, 1, 14, 4)])
 SHARD_A = ['................', '................', '..........00....', '.........0112...', '........01123...', '.......011233...', '......0112334...', '.....01123344...',
            '....011233444...', '...0112334444...', '..011233444.....', '..01233444......', '...2344.........', '................', '................', '................']
-CRYSTAL_B = ['................', '.......0........', '......011.......', '....0.0112......', '...011.1122.....', '...0112.1122.0..', '...01122.122011.', '..011222.12201122',
-             '..011223.12301223', '..012233.12303233', '..012334.12304334', '..01234..12304344', '...1234.123444344', '....23..2344.44..', '....3...2344.4...', '................']
+CRYSTAL_B = crystal_rows([(4, 5, 14, 2), (12, 7, 14, 2), (8, 1, 14, 3)])
 SHARD_B = ['................', '................', '................', '................', '.......00.......', '......0112......', '.....011122.....', '....0111223.....',
            '...01112234.....', '...01122234.....', '...0112334......', '....01234.......', '....0234........', '.....23.........', '................', '................']
 
@@ -416,11 +427,11 @@ def material_ramps(j: 'Jar') -> dict:
 
 
 def pressed(base: Image.Image, j: 'Jar', alloy: str, v: str, seam) -> Image.Image:
-    """The luminance of base (matte) on the ramps of three materials, shares of the recipe: a = single grains, b = 2 x 2 patches (each patch one material).
+    """The luminance of base (matte) on the ramps of three materials, shares of the recipe: a = 2 x 1 grains, b = 2 x 2 patches (each patch one material).
     Cells are ranked by a fixed hash, so the shares are exact; seam(x, y) darkens the seam pixels."""
     ramps, mix = material_ramps(j), PRESS_MIX[alloy]
-    step = 1 if v == 'a' else 2
-    cells = sorted(((x // step, y // step) for y in range(16) for x in range(16) if base.getpixel((x, y))[3]),
+    sx, sy = (2, 1) if v == 'a' else (2, 2)
+    cells = sorted(((x // sx, y // sy) for y in range(16) for x in range(16) if base.getpixel((x, y))[3]),
                    key=lambda c: ((c[0] * 73856093) ^ (c[1] * 19349663) ^ (len(alloy) * 83492791)) % 1000003)
     cells = list(dict.fromkeys(cells))
     total = sum(n for _, n in mix)
@@ -434,8 +445,8 @@ def pressed(base: Image.Image, j: 'Jar', alloy: str, v: str, seam) -> Image.Imag
         for x in range(16):
             p = base.getpixel((x, y))
             if p[3]:
-                t = 0.5 + ((LUM_HI - lum(p)) / (LUM_HI - LUM_LO) - 0.5) * 0.75 + 0.1
-                r, g, b = ramp_at(ramps[owner[(x // step, y // step)]], t)
+                t = 0.5 + ((LUM_HI - lum(p)) / (LUM_HI - LUM_LO) - 0.5) * 0.5 + 0.2
+                r, g, b = ramp_at(ramps[owner[(x // sx, y // sy)]], t)
                 f = 0.8 if seam(x, y) else 1.0
                 out.putpixel((x, y), (int(r * f), int(g * f), int(b * f), p[3]))
     return out
