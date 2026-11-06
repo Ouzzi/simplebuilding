@@ -11,7 +11,7 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplebuilding/modules/simpleenddragonfight'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'DragonFightConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert len(config_keys) == 22, config_keys
+assert len(config_keys) == 29, config_keys
 langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
