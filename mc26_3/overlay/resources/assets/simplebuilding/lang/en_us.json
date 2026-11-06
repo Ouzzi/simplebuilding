@@ -1280,6 +1280,7 @@
   "jei.simplebuilding.info.nihilith_ore": "Generates in end stone on the underside of the End islands, hardly visible; needs a diamond pickaxe. Brush it free like an archaeology find: the full Nihilit Shards only from a freed ore, otherwise a 70% chance; Fortune helps both (Silk Touch: the ore itself).",
   "jei.simplebuilding.info.sage_ore": "Generates in the Overworld as rarely as diamond ore; needs an iron pickaxe. Drops 3 to 7 experience and rarely a Sage Orb (Silk Touch: the ore itself).",
   "jei.simplebuilding.info.sage_orb": "Rare drop of Sage Ore (2 %, up to 5 % with Fortune). Right-click to charge it for 0.3 seconds; it gives 50 to 100 experience.",
+  "jei.simplebuilding.info.nihilith_end_planks": "Needs Simple End: 4 Nihilit Shards in a plus around 1 Ashwood or Duskwood Plank give 2. Without Simple End there is no End wood to craft them from.",
   "jei.simplebuilding.info.dimensional_scrap": "Found in every dimension, rarer than ancient debris. Only an Enderite Pickaxe or Sledgehammer can mine it. No use yet.",
   "jei.simplebuilding.info.astralit_dust": "Mined from Astralit Ore or found in End City chests. Armor trim material and an ingredient of Ender Quartz.",
   "jei.simplebuilding.info.nihilith_shard": "Mined from Nihilit Ore or found in End City chests. Armor trim material and an ingredient of Ender Quartz.",
