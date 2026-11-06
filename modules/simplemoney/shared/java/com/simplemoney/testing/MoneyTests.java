@@ -48,7 +48,7 @@ public final class MoneyTests {
  /** Without the partner the coupling cannot be observed: pass with a log note instead of failing. */
  public static boolean partnerMissing(net.minecraft.gametest.framework.GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
  public static void launchSmoke(GameTestHelper h) {
-  if(isModLoaded("simplebuilding"))h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:iron_chisel")),"SimpleBuilding content visible when loaded");
+  if(isModLoaded("simplebuilding"))h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:detector")),"SimpleBuilding content visible when loaded");
   h.assertValueEqual(MoneyItems.ITEMS.size(),7,"all original items registered");
   for(String name:MoneyItems.IDS) {
    var item=BuiltInRegistries.ITEM.getValue(id(name));h.assertTrue(item!=Items.AIR,"registered "+name);

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "simplechisels",
+  "version": "${version}",
+  "name": "Simple Chisels",
+  "description": "Seven chisels (Stone to Enderite) that move a block one step along its family - and back with sneak - with the enchantment Fast Chiseling; other mods add chains through data files.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplechisels.ChiselsFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplechisels.ChiselsFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplechisels.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.3.0"
+  },
+  "icon": "assets/simplechisels/icon.png",
+  "suggests": {
+    "simplebuilding": "*",
+    "simpleores": "*"
+  }
+}

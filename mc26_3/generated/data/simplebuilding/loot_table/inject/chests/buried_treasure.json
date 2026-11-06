@@ -22,7 +22,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:fast_chiseling": 2
+                "simplechisels:fast_chiseling": 2
               }
             }
           },
@@ -31,12 +31,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:gold_chisel",
+          "name": "simplechisels:gold_chisel",
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:diamond_chisel",
+          "name": "simplechisels:diamond_chisel",
           "weight": 6
         },
         {

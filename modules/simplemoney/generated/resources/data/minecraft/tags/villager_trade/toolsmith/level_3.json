@@ -18,10 +18,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/gold_chisel",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/octant",
       "required": false
     },
@@ -87,6 +83,10 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/octant_yellow",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplechisels/gold_chisel",
       "required": false
     },
     {

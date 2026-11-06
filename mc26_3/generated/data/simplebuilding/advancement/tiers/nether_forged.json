@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "simplebuilding:netherite_chisel",
+              "simplechisels:netherite_chisel",
               "simplehammers:netherite_sledgehammer",
               "simplebuilding:netherite_building_wand"
             ]
@@ -22,7 +22,7 @@
     },
     "frame": "goal",
     "icon": {
-      "id": "simplebuilding:netherite_chisel"
+      "id": "simplechisels:netherite_chisel"
     },
     "title": {
       "translate": "advancements.simplebuilding.tiers.nether_forged.title"

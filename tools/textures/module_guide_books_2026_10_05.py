@@ -60,6 +60,8 @@ BOOKS = {
     "simplearrows": ("simplearrows", ("#2c2414", "#463a20", "#c8b07a", "#a8905a", "#86703e"), "#ecebe0", "Befiederungstisch-Holz, Federweiss"),
     "simpleores": ("simpleores", ("#161c28", "#242e42", "#8a9ab4", "#66789a", "#4a5a78"), "#e69a73", "Silberblau, Roségold-Akzent"),
     "simpledinos": ("simpledinos", ("#1c2a12", "#2e4420", "#8a9a50", "#6a7e3a", "#4c5e2a"), "#e8e0b8", "Urwaldgruen, Fossil-Elfenbein"),
+    # 2026-11-07 (b-chisels07, WE25-7): placeholder colours until the owner picks (Meisselstiel-Holz, Steinmeissel-Grau)
+    "simplechisels": ("simplechisels", ("#2a2016", "#443424", "#b0906a", "#8e704c", "#6c5438"), "#c8ccd4", "Meisselstiel-Holz, Klingengrau"),
     # 2026-10-30 (a-zones31)
     "simpleresonance": ("simpleresonance", ("#140e2a", "#221844", "#8c70d0", "#6c52b0", "#503c8c"), "#f0e8ff", "Resonanz-Violett, Wellenweiss"),
     "simpleblocks": ("simpleblocks", ("#14181c", "#222830", "#6a7482", "#4c5460", "#383f4a"), "#3ac6b4", "Tiefenschiefer, Sculk-Türkis"),

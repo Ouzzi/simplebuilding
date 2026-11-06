@@ -141,7 +141,7 @@ public final class LinkTests {
         if (MoneyTests.partnerMissing(h, "simplebuilding", "linked trade menu with a SimpleBuilding item")) return;
         var player = h.makeMockServerPlayerInLevel(); player.setUUID(UUID.randomUUID());
         var merchant = EntityTypes.VILLAGER.create(h.getLevel(),EntitySpawnReason.COMMAND); merchant.setTradingPlayer(player);
-        var price = MoneyLinks.PRICES.get("simplebuilding:iron_chisel");
+        var price = MoneyLinks.PRICES.get("simplebuilding:detector");
         var item = BuiltInRegistries.ITEM.getValue(Identifier.parse(price.item()));
         var offer = new MerchantOffer(new ItemCost(MoneyItems.ITEMS.get("money_bill"),MoneyLinks.buy(price)),new ItemStack(item),4,0,0);
         var offers = new MerchantOffers(); offers.add(offer); merchant.setOffers(offers);

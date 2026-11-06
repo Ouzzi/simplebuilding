@@ -1,0 +1,23 @@
+{
+  "fabric:load_conditions": [
+    { "condition": "simplebuilding:config", "flag": "enableVillagerTrades" }
+  ],
+  "neoforge:conditions": [
+    { "type": "simplebuilding:config", "flag": "enableVillagerTrades" }
+  ],
+  "forge:condition": { "type": "simplebuilding:config", "flag": "enableVillagerTrades" },
+  "wants": { "id": "minecraft:emerald", "count": 6 },
+  "gives": { "id": "simplechisels:copper_chisel" },
+  "given_item_modifiers": [
+    {
+      "function": "simplebuilding:weighted_enchant",
+      "pool": [
+        { "enchantment": "simplechisels:fast_chiseling", "level": 1, "weight": 50 },
+        { "enchantment": "simplechisels:fast_chiseling", "level": 2, "weight": 30 }
+      ]
+    }
+  ],
+  "max_uses": 2,
+  "xp": 10,
+  "reputation_discount": 0.2
+}

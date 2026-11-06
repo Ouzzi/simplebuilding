@@ -5,13 +5,13 @@
         "items": [
           {
             "items": [
-              "simplebuilding:stone_chisel",
-              "simplebuilding:copper_chisel",
-              "simplebuilding:iron_chisel",
-              "simplebuilding:gold_chisel",
-              "simplebuilding:diamond_chisel",
-              "simplebuilding:netherite_chisel",
-              "simplebuilding:enderite_chisel",
+              "simplechisels:stone_chisel",
+              "simplechisels:copper_chisel",
+              "simplechisels:iron_chisel",
+              "simplechisels:gold_chisel",
+              "simplechisels:diamond_chisel",
+              "simplechisels:netherite_chisel",
+              "simplechisels:enderite_chisel",
               "simplebuilding:copper_building_wand",
               "simplebuilding:iron_building_wand",
               "simplebuilding:gold_building_wand",
@@ -35,7 +35,7 @@
       "translate": "advancements.simplebuilding.building.root.description"
     },
     "icon": {
-      "id": "simplebuilding:gold_chisel"
+      "id": "simplechisels:gold_chisel"
     },
     "show_toast": false,
     "title": {

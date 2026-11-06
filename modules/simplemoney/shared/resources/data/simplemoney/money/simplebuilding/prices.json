@@ -443,28 +443,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:copper_chisel",
-      "tier": 0,
-      "hours": 4.0,
-      "craft": 4,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:copper_spatula",
-      "tier": 0,
-      "hours": 4.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:cracked_diamond",
       "tier": 3,
       "hours": 21.0,
@@ -509,29 +487,7 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:diamond_chisel",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 4,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:diamond_pebble",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:diamond_spatula",
       "tier": 3,
       "hours": 21.0,
       "craft": 0,
@@ -751,17 +707,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderite_chisel",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enderite_helmet",
       "tier": 5,
       "hours": 38.1,
@@ -872,28 +817,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:gold_chisel",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 4,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:gold_spatula",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:guide_book",
       "tier": 0,
       "hours": 0.5,
@@ -911,28 +834,6 @@
       "craft": 3,
       "safetyFloor": 8,
       "merchant": "toolsmith",
-      "level": 2,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:iron_chisel",
-      "tier": 1,
-      "hours": 6.7,
-      "craft": 4,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 2,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:iron_spatula",
-      "tier": 1,
-      "hours": 6.7,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "mason",
       "level": 2,
       "stock": 2,
       "chance": 1
@@ -993,32 +894,10 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:netherite_chisel",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:netherite_nugget",
       "tier": 4,
       "hours": 24.9,
       "craft": 1,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:netherite_spatula",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 0,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -1569,28 +1448,6 @@
       "tier": 0,
       "hours": 0.5,
       "craft": 4,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:stone_chisel",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 4,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:stone_spatula",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 0,
       "safetyFloor": 8,
       "merchant": "mason",
       "level": 1,

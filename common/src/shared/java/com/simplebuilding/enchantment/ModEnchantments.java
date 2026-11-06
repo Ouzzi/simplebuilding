@@ -29,7 +29,7 @@ import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 
 public class ModEnchantments {
     // Keys
-    public static final ResourceKey<Enchantment> FAST_CHISELING = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "fast_chiseling")); // final
+    public static final ResourceKey<Enchantment> FAST_CHISELING = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE, "fast_chiseling")); // 26.3: Simple Chisels' (WE25-7)
     public static final ResourceKey<Enchantment> CONSTRUCTORS_TOUCH = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "constructors_touch")); // final
     public static final ResourceKey<Enchantment> RANGE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "range")); // final
     public static final ResourceKey<Enchantment> DEEP_POCKETS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE, "deep_pockets")); // 26.3: Simple Storage's (split stage 8c-1)

@@ -66,7 +66,7 @@
     "simplepads:chunk_loader",
     "simplebuilding:construction_light",
     "simplebuilding:copper_building_wand",
-    "simplebuilding:copper_chisel",
+    "simplechisels:copper_chisel",
     "simplelib:copper_core",
     "simplepads:copper_pressure_plate",
     {
@@ -83,7 +83,7 @@
     },
     "simplebuilding:detector",
     "simplebuilding:diamond_building_wand",
-    "simplebuilding:diamond_chisel",
+    "simplechisels:diamond_chisel",
     "simplelib:diamond_core",
     "simplepads:diamond_pressure_plate",
     {
@@ -137,7 +137,7 @@
     "simplestorage:enderite_bundle",
     "simplebuilding:enderite_carrot",
     "simplebuilding:enderite_chestplate",
-    "simplebuilding:enderite_chisel",
+    "simplechisels:enderite_chisel",
     "simplepads:enderite_chunk_loader",
     "simplelib:enderite_core",
     "simplepads:enderite_elytra_pad",
@@ -184,7 +184,7 @@
       "required": false
     },
     "simplebuilding:gold_building_wand",
-    "simplebuilding:gold_chisel",
+    "simplechisels:gold_chisel",
     "simplelib:gold_core",
     {
       "id": "simplehammers:gold_sledgehammer",
@@ -192,7 +192,7 @@
     },
     "simplepads:infused_potion_pad",
     "simplebuilding:iron_building_wand",
-    "simplebuilding:iron_chisel",
+    "simplechisels:iron_chisel",
     "simplelib:iron_core",
     {
       "id": "simplehammers:iron_sledgehammer",
@@ -245,7 +245,7 @@
     "simplebuilding:netherite_building_wand",
     "simplestorage:netherite_bundle",
     "simplebuilding:netherite_carrot",
-    "simplebuilding:netherite_chisel",
+    "simplechisels:netherite_chisel",
     "simplepads:netherite_chunk_loader",
     "simplelib:netherite_core",
     "simplepads:netherite_elytra_pad",
@@ -469,7 +469,7 @@
     "simplepads:spawn_teleporter",
     "simplepads:spawn_teleporter_tier_2",
     "simplepads:stellar_flypad",
-    "simplebuilding:stone_chisel",
+    "simplechisels:stone_chisel",
     {
       "id": "simplehammers:stone_sledgehammer",
       "required": false

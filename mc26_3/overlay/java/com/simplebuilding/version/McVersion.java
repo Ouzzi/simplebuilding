@@ -157,6 +157,10 @@ public final class McVersion {
     public static final boolean HAMMERS_IN_SB = false;
     /** Namespace of the sledgehammers, the hammer enchantments and their recipes ({@link #HAMMERS_IN_SB}). */
     public static final String HAMMERS_NAMESPACE = "simplehammers";
+    /** Chisels in SimpleBuilding: WE25-7 (docs/ai/PLAN-B-CHISELS07-2026-11-07.md): on 26.3 the seven chisels, their datapack tables and Fast Chiseling live in the required, bundled sub-mod Simple Chisels ({@code simplechisels:*}, migrated through SimpleLib id moves, the legacy spatulas into the chisel of their tier); SB registers none of them, its chisel fields point at the module's items ({@code util/ChiselRefs}) and it plugs its chisel ways in through SimpleLib {@code ChiselActions}. */
+    public static final boolean CHISELS_IN_SB = false;
+    /** Namespace of the chisels, Fast Chiseling and their recipes ({@link #CHISELS_IN_SB}). */
+    public static final String CHISELS_NAMESPACE = "simplechisels";
     /** Namespace of the storage blocks that left SimpleBuilding: split stage 8a (docs/ai/PLAN-B-S8-STORAGE-2026-10-19.md) moved the crates of every wood and the Storage Crafting Table into the required, bundled sub-mod Simple Storage ({@code simplestorage:*}, migrated through SimpleLib id moves); SB registers neither and reaches them by id ({@code util/StorageRefs}). Both never existed on 26.2. */
     public static final String STORAGE_NAMESPACE = "simplestorage";
     /**

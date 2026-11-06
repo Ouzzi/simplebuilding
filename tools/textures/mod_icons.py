@@ -182,6 +182,24 @@ def challenges_icon():
 
 
 ICONS: dict[str, dict] = {
+    "simplechisels": icon("Platzhalter-Raute", {"o": "#2a2a30", "F": "#e8e8f0", "f": "#ffffff"},
+                         [("Kontur", "o"), ("Fuellung", "Ff")],
+                         "................",
+                         "......oo........",
+                         ".....oFFo.......",
+                         "....oFfFFo......",
+                         "...oFfFFFFo.....",
+                         "..oFfFFFFFFo....",
+                         ".oFFFFFFFFFFo...",
+                         ".oFFFFFFFFFFo...",
+                         "..oFFFFFFFFo....",
+                         "...oFFFFFFo.....",
+                         "....oFFFFo......",
+                         ".....oFFo.......",
+                         "......oo........",
+                         "................",
+                         "................",
+                         "................"),
     "simplepads": icon("Platzhalter-Raute", {"o": "#2a2a30", "F": "#e8e8f0", "f": "#ffffff"},
                          [("Kontur", "o"), ("Fuellung", "Ff")],
                          "................",
@@ -813,6 +831,7 @@ ITEM_MOTIFS = {
     "simplelights": "light_pane", "simplegadgets": "velocity_gauge", "simplemachines": "signal_dampener",
 }
 BG = {
+    "simplechisels": "#8a9098",
     "simplepads": "#8a9098",
     "wiringexample": "#8a9098", "simplemodels": "#34406a", "simplefun": "#8cc4e8", "simplesounds": "#f0d8a0",
     "simplequalityoflife": "#9ed6a6", "simpletweaks": "#d8c08a", "simpledimensions": "#c4a8e6",

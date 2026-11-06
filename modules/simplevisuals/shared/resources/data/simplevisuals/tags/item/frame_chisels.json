@@ -3,6 +3,10 @@
     {
       "id": "#simplebuilding:chisel_tools",
       "required": false
+    },
+    {
+      "id": "#simplechisels:chisels",
+      "required": false
     }
   ]
 }

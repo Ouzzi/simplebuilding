@@ -426,12 +426,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // CHISELS (Stick + Material + Nugget/Shard) - DIAGONAL
                 // =================================================================
+                if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) { // 26.3 (WE25-7): Simple Chisels' files
                 createChiselRecipe(ModItems.STONE_CHISEL, Items.COBBLESTONE, Items.COPPER_NUGGET);
                 createChiselRecipe(ModItems.COPPER_CHISEL, Items.COPPER_INGOT, Items.COPPER_NUGGET);
                 createChiselRecipe(ModItems.IRON_CHISEL, Items.IRON_INGOT, Items.COPPER_NUGGET);
                 createChiselRecipe(ModItems.GOLD_CHISEL, Items.GOLD_INGOT, Items.COPPER_NUGGET);
                 createChiselRecipe(ModItems.DIAMOND_CHISEL, Items.DIAMOND, Items.COPPER_NUGGET);
                 createSmithing(ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, RecipeCategory.TOOLS);
+                }
 
 
                 // =================================================================
@@ -1094,9 +1096,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Mod-Werkzeuge
                 // Meissel (Werkbank: 1 Barren/Diamant -> Aufwerten: 2)
+                if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) { // 26.3 (WE25-7): Simple Chisels' files (with a SimpleBuilding condition)
                 createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, Items.IRON_INGOT, 2);
                 createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL, Items.GOLD_INGOT, 2);
                 createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, Items.DIAMOND, 2);
+                }
 
                 // Vorschlaghammer (Werkbank: 1 Block + 2 Barren = 11 Barren -> Aufwerten: 22)
                 if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) { // 26.3: Simple Hammers' files (with a SimpleBuilding condition)
@@ -1185,6 +1189,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         ModItems.ENDERITE_CORE, ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite")
                 );
                 if (!com.simplebuilding.version.McVersion.HAMMERS_IN_SB) enderiteItems = enderiteItems.subList(0, enderiteItems.size() - 1);
+                // 26.3 (WE25-7): the Enderite chisel recipe is Simple Chisels' (the same index in both lists).
+                if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+                    netheriteItems = netheriteItems.stream().filter(item -> item != ModItems.NETHERITE_CHISEL).toList();
+                    enderiteItems = enderiteItems.stream().filter(item -> item != ModItems.ENDERITE_CHISEL).toList();
+                }
 
                 for (int i = 0; i < netheriteItems.size(); i++) {
                     createSmithingTransform(output,

@@ -9,7 +9,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:fast_chiseling": 1
+                "simplechisels:fast_chiseling": 1
               }
             }
           },

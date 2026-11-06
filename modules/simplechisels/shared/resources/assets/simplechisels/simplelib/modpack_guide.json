@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplechisels.guide.chapter",
+  "icon": "minecraft:copper_nugget",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplechisels:guide",
+      "title": "simplechisels.guide.chapter",
+      "icon": "minecraft:copper_nugget",
+      "page_key": "simplechisels.guide.page",
+      "pages": 13,
+      "advancement": "simplechisels:guide/chapter",
+      "hint": "minecraft:copper_nugget"
+    }
+  ]
+}

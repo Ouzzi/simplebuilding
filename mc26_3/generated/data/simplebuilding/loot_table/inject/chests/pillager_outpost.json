@@ -45,7 +45,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:copper_chisel",
+          "name": "simplechisels:copper_chisel",
           "weight": 4
         },
         {

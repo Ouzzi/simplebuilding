@@ -117,8 +117,8 @@ public final class GuideContent {
 
     static {
         STYLES.put(GuideBooks.Book.GUIDE, new BookStyle(0xE8B84A, List.of(
-                ch("simplebuilding:guide_book", List.of(), List.of("simplebuilding:stone_chisel", "simplebuilding:stone_sledgehammer", "simplebuilding:copper_building_wand", "simplebuilding:octant", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack")),
-                ch("simplebuilding:stone_chisel", List.of("simplebuilding:stone_chisel"), List.of("minecraft:chiseled_stone_bricks")),
+                ch("simplebuilding:guide_book", List.of(), List.of(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":stone_chisel", "simplebuilding:stone_sledgehammer", "simplebuilding:copper_building_wand", "simplebuilding:octant", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack")),
+                ch(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":stone_chisel", List.of(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":stone_chisel"), List.of("minecraft:chiseled_stone_bricks")),
                 ch("simplebuilding:stone_sledgehammer", List.of("simplebuilding:stone_sledgehammer"), List.of("simplebuilding:iron_sledgehammer")),
                 ch("minecraft:stone_stairs", List.of(), List.of("minecraft:stone", "minecraft:stone_stairs", "minecraft:stone_slab", "simplebuilding:stone_sledgehammer")),
                 ch("simplebuilding:diamond_pebble", List.of("simplebuilding:cracked_diamond"), List.of("minecraft:diamond_block", "simplebuilding:diamond_pebble")),
@@ -127,30 +127,30 @@ public final class GuideContent {
                 ch("simplebuilding:copper_building_wand", List.of("simplebuilding:copper_building_wand"), List.of("minecraft:cobblestone")),
                 ch("simplebuilding:octant", List.of("simplebuilding:octant"), List.of()),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", List.of("simplebuilding:leather_sheet", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack"), List.of()),
-                ch("simplebuilding:basic_upgrade_template", List.of("simplebuilding:basic_upgrade_template", "simplebuilding:iron_chisel@upgrade_copper_chisel_to_iron_chisel"), List.of()),
+                ch("simplebuilding:basic_upgrade_template", List.of("simplebuilding:basic_upgrade_template", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":iron_chisel@upgrade_copper_chisel_to_iron_chisel"), List.of()),
                 ch("minecraft:enchanting_table", List.of(), List.of("minecraft:enchanting_table", "minecraft:enchanted_book")),
                 ch("minecraft:ward_armor_trim_smithing_template", List.of(), List.of("minecraft:ward_armor_trim_smithing_template")))));
         STYLES.put(GuideBooks.Book.TOOLS, new BookStyle(0xE08A4F, List.of(
-                ch("simplebuilding:iron_chisel", List.of("simplebuilding:copper_chisel"), List.of("simplebuilding:stone_chisel", "simplebuilding:copper_chisel", "simplebuilding:iron_chisel", "simplebuilding:gold_chisel", "simplebuilding:diamond_chisel", "simplebuilding:netherite_chisel")),
-                ch("simplebuilding:diamond_chisel", List.of(), List.of("simplebuilding:diamond_chisel", "minecraft:enchanted_book")),
+                ch(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":iron_chisel", List.of(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":copper_chisel"), List.of(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":stone_chisel", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":copper_chisel", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":iron_chisel", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":gold_chisel", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":diamond_chisel", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":netherite_chisel")),
+                ch(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":diamond_chisel", List.of(), List.of(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":diamond_chisel", "minecraft:enchanted_book")),
                 ch("simplebuilding:diamond_sledgehammer", List.of("simplebuilding:diamond_sledgehammer"), List.of("simplebuilding:copper_sledgehammer", "simplebuilding:iron_sledgehammer", "simplebuilding:gold_sledgehammer", "simplebuilding:netherite_sledgehammer")),
                 ch("minecraft:enchanted_book", List.of(), List.of("minecraft:enchanted_book", "simplebuilding:diamond_sledgehammer")),
                 ch("simplebuilding:octant", List.of(), List.of("simplebuilding:octant", "simplebuilding:iron_sledgehammer")),
                 ch("simplebuilding:basic_upgrade_template", List.of("simplebuilding:iron_sledgehammer@upgrade_copper_sledgehammer_to_iron_sledgehammer"), List.of("simplebuilding:basic_upgrade_template")),
                 ch("minecraft:iron_pickaxe", List.of(), List.of("minecraft:iron_pickaxe", "minecraft:iron_axe", "minecraft:enchanted_book")),
                 ch("minecraft:golden_pickaxe", List.of(), List.of("minecraft:golden_pickaxe", "minecraft:golden_shovel", "minecraft:golden_axe")),
-                ch("minecraft:spyglass", List.of(), List.of("simplebuilding:diamond_chisel", "minecraft:diamond_pickaxe", "simplebuilding:diamond_sledgehammer", "simplebuilding:octant")),
+                ch("minecraft:spyglass", List.of(), List.of(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":diamond_chisel", "minecraft:diamond_pickaxe", "simplebuilding:diamond_sledgehammer", "simplebuilding:octant")),
                 ch("minecraft:iron_boots", List.of(), List.of("minecraft:iron_boots", "minecraft:elytra", "minecraft:enchanted_book")))));
         STYLES.put(GuideBooks.Book.ENCHANTMENTS, new BookStyle(0xD35FB5, List.of(
-                ch("simplebuilding:diamond_chisel", List.of(), List.of("minecraft:enchanted_book#simplebuilding:fast_chiseling", "simplebuilding:iron_chisel", "simplebuilding:diamond_chisel")),
-                ch("simplebuilding:iron_chisel", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:iron_chisel", "minecraft:mud", "minecraft:mossy_cobblestone")),
+                ch(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":diamond_chisel", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":fast_chiseling", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":iron_chisel", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":diamond_chisel")),
+                ch(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":iron_chisel", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":iron_chisel", "minecraft:mud", "minecraft:mossy_cobblestone")),
                 ch("simplebuilding:iron_sledgehammer", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:iron_sledgehammer", "simplebuilding:diamond_sledgehammer", "minecraft:stone_slab")),
                 ch("simplebuilding:gold_building_wand", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
                 ch("simplebuilding:octant", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:octant", "simplebuilding:octant_blue")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack")),
                 ch("simplebuilding:magnet", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:magnet", "simplebuilding:detector", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":amethyst_lens", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":velocity_gauge")),
                 ch("minecraft:stick", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "minecraft:stick", "minecraft:oak_stairs")),
-                ch("minecraft:spyglass", List.of(), List.of("minecraft:enchanted_book#simplebuilding:range", "simplebuilding:diamond_chisel", "minecraft:diamond_pickaxe", "simplebuilding:diamond_sledgehammer", "simplebuilding:octant")),
+                ch("minecraft:spyglass", List.of(), List.of("minecraft:enchanted_book#simplebuilding:range", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":diamond_chisel", "minecraft:diamond_pickaxe", "simplebuilding:diamond_sledgehammer", "simplebuilding:octant")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":deep_pockets", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":deep_pockets", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_backpack")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_bundle", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":drawer", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver")),
@@ -326,7 +326,7 @@ public final class GuideContent {
             addChapter(GuideBooks.Book.MACHINES, ch("simplebuilding:auto_smither", List.of("simplebuilding:auto_smither"), List.of()));
         }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
-            addChapter(GuideBooks.Book.BUILDING, ch("minecraft:stripped_oak_log", List.of(), List.of("minecraft:stripped_oak_log", "simplebuilding:stone_chisel", "minecraft:angler_pottery_sherd")));
+            addChapter(GuideBooks.Book.BUILDING, ch("minecraft:stripped_oak_log", List.of(), List.of("minecraft:stripped_oak_log", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":stone_chisel", "minecraft:angler_pottery_sherd")));
             addChapter(GuideBooks.Book.BUILDING, ch("simplebuilding:stripped_oak_cauldron", List.of("simplebuilding:stripped_oak_cauldron"), List.of()));
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {

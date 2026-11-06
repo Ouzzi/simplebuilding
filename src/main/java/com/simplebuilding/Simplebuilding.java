@@ -62,6 +62,8 @@ public class Simplebuilding implements ModInitializer {
         initializeFirst("simpleenchanting");
         // b-pads01 (26.3): TweaksBlocks/TweaksItems/TweaksComponents point at Simple Pads' pads, plates and Spawn Elytra.
         initializeFirst("simplepads");
+        // WE25-7 (26.3): ModItems' chisel fields point at Simple Chisels' chisels.
+        initializeFirst("simplechisels");
         ModEnvironment.setModLoadedCheck(modId -> FabricLoader.getInstance().isModLoaded(modId));
         ModEnvironment.setDevelopmentEnvironment(FabricLoader.getInstance().isDevelopmentEnvironment());
         // Renamed/moved ids (26.3: into SimpleLib IdMoves; 26.2: nothing to do), before any world loads.
@@ -127,9 +129,10 @@ public class Simplebuilding implements ModInitializer {
         ModEnchantmentEffects.registerEnchantmentEffects();
         ModRecipes.registerRecipes();
         ModRegistries.registerModStuffs();
-        ServerLifecycleEvents.SERVER_STARTED.register(LegacySpatulaMigration::migrateWorlds);
+        // WE25-7: on 26.3 the old spatula ids move into Simple Chisels' chisels (IdMoves), nothing left to convert.
+        if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) ServerLifecycleEvents.SERVER_STARTED.register(LegacySpatulaMigration::migrateWorlds);
         ServerLifecycleEvents.SERVER_STARTED.register(com.simplebuilding.datafix.SplitBackupMarker::onServerStarted);
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> LegacySpatulaMigration.migratePlayer(handler.player));
+        if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> LegacySpatulaMigration.migratePlayer(handler.player));
         // Testzentrale: eine Welt namens SB-Testzentrale baut sich in der Entwicklungsumgebung beim ersten Betreten selbst.
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> com.simplebuilding.dev.testcentre.TestCentreCommand.onPlayerJoin(
                 handler.player, com.simplebuilding.platform.ModEnvironment.isDevelopmentEnvironment()));

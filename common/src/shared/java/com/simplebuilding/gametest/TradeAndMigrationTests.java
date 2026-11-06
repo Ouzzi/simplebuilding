@@ -779,6 +779,7 @@ public final class TradeAndMigrationTests {
      * spatula; and removing either loader's join listener.
      */
     public static void legacySpatulasInPlayerInventoryBecomeChisels(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
 
@@ -897,6 +898,7 @@ public final class TradeAndMigrationTests {
      * a scan box that no longer reaches above y=0, which is where the third entity stands.
      */
     public static void legacySpatulaItemEntityIsRewrittenInPlace(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         // Two entities on purpose: the damage component only validates on a single item, so
         // "components survive" and "stack size survives" cannot be checked on the same stack.
         ItemEntity damaged = helper.spawnItem(ModItems.DIAMOND_SPATULA, new BlockPos(1, 2, 1));
@@ -983,6 +985,7 @@ public final class TradeAndMigrationTests {
      * <p>What breaks it: going back to a box that ends at the build limit.
      */
     public static void legacySpatulaAboveTheBuildLimitIsRewrittenToo(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos anchor = helper.absolutePos(new BlockPos(1, 2, 1));
         double y = level.getMaxY() + 20.0;

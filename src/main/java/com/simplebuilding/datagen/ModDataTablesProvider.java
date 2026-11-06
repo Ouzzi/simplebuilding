@@ -52,6 +52,20 @@ public class ModDataTablesProvider implements DataProvider {
             for (String tier : ChiselTables.TIERS) {
                 for (String table : ChiselTables.TABLES) {
                     JsonObject file = ChiselTables.defaultFile(tier, table);
+                    if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+                        // WE25-7: on 26.3 Simple Chisels ships the Vanilla chains; SimpleBuilding keeps the chains of its own
+                        // blocks (End stone palettes, hollow logs), read by the module like any other datapack file.
+                        com.google.gson.JsonArray own = new com.google.gson.JsonArray();
+                        for (com.google.gson.JsonElement chain : file.getAsJsonArray("chains")) {
+                            for (com.google.gson.JsonElement block : chain.getAsJsonObject().getAsJsonArray("blocks")) {
+                                if (!block.getAsString().startsWith("minecraft:")) {
+                                    own.add(chain);
+                                    break;
+                                }
+                            }
+                        }
+                        file.add("chains", own);
+                    }
                     if (file.getAsJsonArray("chains").isEmpty()) {
                         continue;
                     }

@@ -60,7 +60,9 @@ public final class ModDataTables {
             @Override
             protected Map<String, Map<Identifier, String>> prepare(ResourceManager manager, ProfilerFiller profiler) {
                 Map<String, Map<Identifier, String>> result = new HashMap<>();
-                result.put(ChiselTables.DIRECTORY, read(manager, ChiselTables.DIRECTORY));
+                // WE25-7: on 26.3 Simple Chisels reads and syncs the chisel files itself.
+                result.put(ChiselTables.DIRECTORY, com.simplebuilding.version.McVersion.CHISELS_IN_SB
+                        ? read(manager, ChiselTables.DIRECTORY) : Map.of());
                 Map<Identifier, String> upgrades = read(manager, SledgehammerUpgradeData.DIRECTORY);
                 String legacy = com.simplebuilding.util.LibServices.LEGACY_UPGRADE_DIRECTORY;
                 if (legacy != null) {
@@ -110,7 +112,9 @@ public final class ModDataTables {
 
     /** Applies raw files (id -> JSON text) to both tables; the server after a load, the client on sync. */
     public static void applyFiles(Map<String, String> chisel, Map<String, String> upgrades) {
-        ChiselTables.apply(parse(chisel));
+        if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+            ChiselTables.apply(parse(chisel));
+        }
         SledgehammerUpgradeData.apply(parse(upgrades));
     }
 

@@ -64,6 +64,16 @@ public final class LibServices {
         com.simplelib.api.GadgetActions.fire(event, player);
     }
 
+    /** WE25-7: the chisels Simple Chisels publishes through SimpleLib's ChiselActions (weakest first; empty without it). */
+    public static java.util.List<ChiselTool> chiselTools() {
+        java.util.List<ChiselTool> out = new java.util.ArrayList<>();
+        for (com.simplelib.api.ChiselActions.Tool tool : com.simplelib.api.ChiselActions.tools()) {
+            out.add(new ChiselTool(tool.item(), tool.forward(), tool.backward(), tool.touchForward(), tool.touchBackward(),
+                    tool.cooldownTicks(), tool.spatula(), tool.damage(), tool.reverseDamage()));
+        }
+        return out;
+    }
+
     /** A gadget's claim probe fires the loader's break event right now (SimpleLib's counter). */
     public static boolean gadgetProbing() {
         return com.simplelib.api.InteractionGuard.probing > 0;
@@ -170,6 +180,16 @@ public final class LibServices {
                 com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE));
         HammerActions.listen(HammerActions.UPGRADE_ENDERITE, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
                 com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE));
+        // WE25-7: Simple Chisels tells what its chisels did (statistic, "Chip off the old block", "Sculptor" stay SimpleBuilding's)
+        // and asks SimpleBuilding's wood carving (pottery sherd in the off hand) before its table.
+        com.simplelib.api.ChiselActions.listen(com.simplelib.api.ChiselActions.CHISEL, player -> {
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.CHISEL);
+            com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.CHISEL_USES);
+            com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.CHISEL_STEPS, 1);
+        });
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            com.simplelib.api.ChiselActions.registerUse(com.simplebuilding.woodwork.PotteryCarving::useOn);
+        }
         // OW24-2 G2: Simple Gadgets tells what its gadgets did; the advancements stay SimpleBuilding's.
         com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.ROTATE, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
                 com.simplebuilding.advancement.ModTriggers.ROTATE));

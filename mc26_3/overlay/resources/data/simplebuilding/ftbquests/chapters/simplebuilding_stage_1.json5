@@ -4,7 +4,7 @@
 	"order_index": 0,
 	"filename": "simplebuilding_stage_1",
 	"icon": {
-		"id": "simplebuilding:stone_chisel"
+		"id": "simplechisels:stone_chisel"
 	},
 	"default_quest_shape": "",
 	"default_hide_dependency_lines": false,
@@ -83,7 +83,7 @@
 					"id": "1EECA115E87FEAD7",
 					"type": "item",
 					"item": {
-						"id": "simplebuilding:stone_chisel",
+						"id": "simplechisels:stone_chisel",
 						"count": 1
 					}
 				}

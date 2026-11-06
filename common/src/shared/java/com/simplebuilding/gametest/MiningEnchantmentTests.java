@@ -685,6 +685,7 @@ public final class MiningEnchantmentTests {
      * chisel's own {@code +0} step cannot be separated from the {@code +500} fallback.
      */
     public static void versatilityPrefersTheHammerAndRanksTheChiselLast(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.0, 3.5), 0.0F, 0.0F);
         player.setShiftKeyDown(true);
 

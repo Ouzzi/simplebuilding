@@ -132,6 +132,7 @@ public final class ConfigOptions {
             "enableSimpleResonance",
             "enableSimpleEnchanting",
             "enableSimplePads",
+            "enableSimpleChisels",
             // <submods:end restart>
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
@@ -160,6 +161,14 @@ public final class ConfigOptions {
             "server.tools.reinforcedUpgradeDamagePerHit",
             "server.tools.netheriteUpgradeDamagePerHit",
             "server.tools.enderiteUpgradeDamagePerHit");
+    /**
+     * WE25-7: the chisel cooldowns live in Simple Chisels on 26.3 ({@code config/simplechisels-server.json},
+     * {@code cooldownTicks.<tier>}, taken over once from here; {@code McVersion.CHISELS_IN_SB}).
+     */
+    public static final Set<String> MOVED_TO_CHISELS = Set.of(
+            "server.tools.stoneChiselCooldownTicks", "server.tools.copperChiselCooldownTicks", "server.tools.ironChiselCooldownTicks",
+            "server.tools.goldChiselCooldownTicks", "server.tools.diamondChiselCooldownTicks", "server.tools.netheriteChiselCooldownTicks",
+            "server.tools.enderiteChiselCooldownTicks");
     public static final Set<String> MOVED_TO_STORAGE = Set.of(
             "tools.invertBundleInteractions",
             "server.features.backpack",
@@ -225,6 +234,7 @@ public final class ConfigOptions {
     public static boolean hidden(String path) {
         return !com.simplebuilding.version.McVersion.OVENS_IN_SB && MOVED_TO_OVENS.contains(path)
                 || !com.simplebuilding.version.McVersion.HAMMERS_IN_SB && MOVED_TO_HAMMERS.contains(path)
+                || !com.simplebuilding.version.McVersion.CHISELS_IN_SB && MOVED_TO_CHISELS.contains(path)
                 || !com.simplebuilding.version.McVersion.STORAGE_IN_SB && MOVED_TO_STORAGE.contains(path)
                 || com.simplebuilding.version.McVersion.MATERIALS_IN_ORES && MOVED_TO_ORES.contains(path)
                 || !com.simplebuilding.version.McVersion.PISTONS_IN_SB && MOVED_TO_MACHINES.contains(path)

@@ -543,30 +543,36 @@ public final class InWorldTransformations {
         Map<Map<Block, Block>, Integer> tableIndex = new IdentityHashMap<>();
         JsonArray tables = new JsonArray();
         JsonArray tools = new JsonArray();
-        for (Item item : modItems(ChiselItem.class)) {
-            ChiselItem chisel = (ChiselItem) item;
-            Map<Block, Block> key = chisel.getForwardMap();
+        // WE25-7: the chisels through LibServices (26.2: SimpleBuilding's own, 26.3: Simple Chisels' via SimpleLib ChiselActions).
+        List<ChiselTool> chisels = new ArrayList<>(LibServices.chiselTools());
+        chisels.sort(Comparator.comparing(tool -> id(tool.item())));
+        int damage = ChiselItem.TRANSFORM_DAMAGE;
+        int reverseDamage = ChiselItem.REVERSE_TRANSFORM_DAMAGE;
+        for (ChiselTool chisel : chisels) {
+            Map<Block, Block> key = chisel.forward();
             Integer index = tableIndex.get(key);
             if (index == null) {
                 index = tables.size();
                 tableIndex.put(key, index);
                 JsonObject table = new JsonObject();
-                table.add("forward", pairs(chisel.getForwardMap()));
-                table.add("backward", pairs(chisel.getBackwardMap()));
-                table.add("touchForward", pairs(chisel.getTouchForwardMap()));
-                table.add("touchBackward", pairs(chisel.getTouchBackwardMap()));
+                table.add("forward", pairs(chisel.forward()));
+                table.add("backward", pairs(chisel.backward()));
+                table.add("touchForward", pairs(chisel.touchForward()));
+                table.add("touchBackward", pairs(chisel.touchBackward()));
                 tables.add(table);
             }
             JsonObject tool = new JsonObject();
-            tool.addProperty("id", id(item));
-            tool.addProperty("spatula", chisel.isDedicatedSpatula());
-            tool.addProperty("cooldownTicks", chisel.getCooldownTicks());
+            tool.addProperty("id", id(chisel.item()));
+            tool.addProperty("spatula", chisel.spatula());
+            tool.addProperty("cooldownTicks", chisel.cooldownTicks());
             tool.addProperty("table", index);
             tools.add(tool);
+            damage = chisel.damage();
+            reverseDamage = chisel.reverseDamage();
         }
         JsonObject o = new JsonObject();
-        o.addProperty("damage", ChiselItem.TRANSFORM_DAMAGE);
-        o.addProperty("reverseDamage", ChiselItem.REVERSE_TRANSFORM_DAMAGE);
+        o.addProperty("damage", damage);
+        o.addProperty("reverseDamage", reverseDamage);
         o.add("tools", tools);
         o.add("tables", tables);
         return o;

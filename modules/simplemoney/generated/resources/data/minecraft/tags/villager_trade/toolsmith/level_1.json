@@ -6,11 +6,11 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/copper_chisel",
+      "id": "simplemoney:links/simplechisels/copper_chisel",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/stone_chisel",
+      "id": "simplemoney:links/simplechisels/stone_chisel",
       "required": false
     },
     {

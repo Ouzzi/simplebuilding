@@ -120,7 +120,7 @@ public final class VersatilityUsageEvent {
 
         // 1. Chisel (Meißel): Niedrigste Priorität (Bonus 0).
         // WICHTIG: Zuerst prüfen, da Chisel oft auch im Pickaxe-Tag ist.
-        if (stack.getItem() instanceof ChiselItem) {
+        if (stack.getItem() instanceof ChiselItem || stack.is(ModTags.Items.CHISEL_TOOLS)) { // 26.3: Simple Chisels' (WE25-7, SB tag)
             score += 0f;
         }
         // 2. Sledgehammer: Höchste Priorität für Stein (Bonus 2000).

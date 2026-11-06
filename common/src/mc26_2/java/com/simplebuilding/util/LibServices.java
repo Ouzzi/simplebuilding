@@ -49,6 +49,19 @@ public final class LibServices {
     public static void fireGadgetEvent(String event, net.minecraft.world.entity.player.Player player) {
     }
 
+    /** WE25-7: 26.2 keeps its own chisels (SimpleBuilding's ChiselItem), the same view as Simple Chisels gives on 26.3. */
+    public static java.util.List<ChiselTool> chiselTools() {
+        java.util.List<ChiselTool> out = new java.util.ArrayList<>();
+        for (Item item : net.minecraft.core.registries.BuiltInRegistries.ITEM) {
+            if (item instanceof com.simplebuilding.items.custom.ChiselItem chisel) {
+                out.add(new ChiselTool(chisel, chisel.getForwardMap(), chisel.getBackwardMap(), chisel.getTouchForwardMap(),
+                        chisel.getTouchBackwardMap(), chisel.getCooldownTicks(), chisel.isDedicatedSpatula(),
+                        com.simplebuilding.items.custom.ChiselItem.TRANSFORM_DAMAGE, com.simplebuilding.items.custom.ChiselItem.REVERSE_TRANSFORM_DAMAGE));
+            }
+        }
+        return out;
+    }
+
     public static boolean gadgetProbing() {
         return false;
     }

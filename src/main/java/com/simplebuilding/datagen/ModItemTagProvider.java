@@ -210,16 +210,17 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(Items.STICK));
 
         // Layout-Platzhalter der Kreativ-Tabs: in JEI, REI und EMI versteckt (Konventions-Tag).
-        builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers")))
-                .add(key(ModItems.CREATIVE_SPACER))
-                // Alte Spachtel (vor der Umbenennung in Meissel): kein Rezept, nur fuer alte Welten -
-                // LegacySpatulaMigration macht sie beim Beitreten zu Meisseln (Besitzer 2026-09-28).
-                .add(key(ModItems.STONE_SPATULA))
-                .add(key(ModItems.COPPER_SPATULA))
-                .add(key(ModItems.IRON_SPATULA))
-                .add(key(ModItems.GOLD_SPATULA))
-                .add(key(ModItems.DIAMOND_SPATULA))
-                .add(key(ModItems.NETHERITE_SPATULA))
+        var hidden = builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers")))
+                .add(key(ModItems.CREATIVE_SPACER));
+        // Alte Spachtel (vor der Umbenennung in Meissel): kein Rezept, nur fuer alte Welten -
+        // LegacySpatulaMigration macht sie beim Beitreten zu Meisseln (Besitzer 2026-09-28). 26.3 (WE25-7): keine mehr.
+        if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+            for (Item spatula : new Item[]{ModItems.STONE_SPATULA, ModItems.COPPER_SPATULA, ModItems.IRON_SPATULA,
+                    ModItems.GOLD_SPATULA, ModItems.DIAMOND_SPATULA, ModItems.NETHERITE_SPATULA}) {
+                hidden.add(key(spatula));
+            }
+        }
+        hidden
                 // Alte, abgeloeste Stufenbloecke (netherite_flypad, enderite_flypad): nur fuer alte Welten.
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.NETHERITE_FLYPAD.asItem()))
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.ENDERITE_FLYPAD.asItem()))

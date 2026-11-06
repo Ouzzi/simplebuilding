@@ -363,16 +363,17 @@ public final class ToolBehaviourTests {
      * chisel), and either tool's {@code isSneaking} branch collapsing into the other one.
      */
     public static void chiselAndSpatulaTransformBlockInBothDirections(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         BlockPos target = new BlockPos(3, 1, 3);
         helper.setBlock(target, Blocks.STONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5), 0.0F, 30.0F);
         player.setShiftKeyDown(false);
 
         // The switch the reversal really hangs on, in both directions.
-        helper.assertTrue(ModItems.STONE_SPATULA.isDedicatedSpatula(),
+        helper.assertTrue(((com.simplebuilding.items.custom.ChiselItem) ModItems.STONE_SPATULA).isDedicatedSpatula(),
                 "the stone spatula is no longer flagged as a dedicated spatula, so it runs the "
                         + "chisel's forward map and the two tools do the same thing");
-        helper.assertFalse(ModItems.STONE_CHISEL.isDedicatedSpatula(),
+        helper.assertFalse(((com.simplebuilding.items.custom.ChiselItem) ModItems.STONE_CHISEL).isDedicatedSpatula(),
                 "the stone chisel is flagged as a dedicated spatula, so it now runs backwards");
 
         InteractionResult forward = useItemOnBlock(helper, player, new ItemStack(ModItems.STONE_CHISEL), target);
@@ -408,6 +409,7 @@ public final class ToolBehaviourTests {
      * diamond tier, so a stone chisel has to leave it alone while a diamond chisel converts it.
      */
     public static void chiselTierGatesTransformations(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         BlockPos stoneTierTarget = new BlockPos(2, 1, 3);
         BlockPos diamondTierTarget = new BlockPos(5, 1, 3);
         helper.setBlock(stoneTierTarget, Blocks.POLISHED_DEEPSLATE);

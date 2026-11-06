@@ -288,18 +288,23 @@ public final class TestCentreSections {
     }
 
     public static List<ChiselChain> chiselChains(TcContext ctx) {
-        List<ChiselItem> chisels = new ArrayList<>();
+        // WE25-7: the chisels of the row with their tables through LibServices (26.3: Simple Chisels' via SimpleLib).
+        Map<Item, com.simplebuilding.util.ChiselTool> tools = new java.util.HashMap<>();
+        for (com.simplebuilding.util.ChiselTool tool : com.simplebuilding.util.LibServices.chiselTools()) {
+            tools.put(tool.item(), tool);
+        }
+        List<com.simplebuilding.util.ChiselTool> chisels = new ArrayList<>();
         for (Item item : ctx.rowItems("chisels")) {
-            if (item instanceof ChiselItem chisel) {
-                chisels.add(chisel);
+            if (tools.containsKey(item)) {
+                chisels.add(tools.get(item));
             }
         }
         if (chisels.isEmpty()) {
             return List.of();
         }
-        ChiselItem topChisel = chisels.getLast();
-        Map<Block, Block> map = new LinkedHashMap<>(topChisel.getForwardMap());
-        map.putAll(topChisel.getTouchForwardMap());
+        com.simplebuilding.util.ChiselTool topChisel = chisels.getLast();
+        Map<Block, Block> map = new LinkedHashMap<>(topChisel.forward());
+        map.putAll(topChisel.touchForward());
         map.entrySet().removeIf(e -> e.getKey() == e.getValue());
         List<Block> keys = new ArrayList<>(map.keySet());
         keys.sort(Comparator.comparing(b -> TcContext.id(b).toString()));
@@ -325,24 +330,24 @@ public final class TestCentreSections {
                 }
                 Item needed = null;
                 boolean touch = false;
-                for (ChiselItem chisel : chisels) {
-                    Block next = chisel.getForwardMap().get(start);
+                for (com.simplebuilding.util.ChiselTool chisel : chisels) {
+                    Block next = chisel.forward().get(start);
                     if (next != null && next != start) {
-                        needed = chisel;
+                        needed = chisel.item();
                         break;
                     }
                 }
                 if (needed == null) {
-                    for (ChiselItem chisel : chisels) {
-                        Block next = chisel.getTouchForwardMap().get(start);
+                    for (com.simplebuilding.util.ChiselTool chisel : chisels) {
+                        Block next = chisel.touchForward().get(start);
                         if (next != null && next != start) {
-                            needed = chisel;
+                            needed = chisel.item();
                             touch = true;
                             break;
                         }
                     }
                 }
-                out.add(new ChiselChain(chain, needed == null ? topChisel : needed, touch, cycle));
+                out.add(new ChiselChain(chain, needed == null ? topChisel.item() : needed, touch, cycle));
             }
         }
         return out;

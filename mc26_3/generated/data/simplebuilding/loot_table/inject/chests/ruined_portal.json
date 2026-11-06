@@ -18,7 +18,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:gold_chisel",
+          "name": "simplechisels:gold_chisel",
           "weight": 3
         },
         {

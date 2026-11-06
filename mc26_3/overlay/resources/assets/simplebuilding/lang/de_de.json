@@ -3666,5 +3666,7 @@
   "block.simplebuilding.nihilith_ashwood_planks": "Nihilit-Aschholzbretter",
   "item.simplebuilding.nihilith_ashwood_planks": "Nihilit-Aschholzbretter",
   "block.simplebuilding.nihilith_duskwood_planks": "Nihilit-Dämmerholzbretter",
-  "item.simplebuilding.nihilith_duskwood_planks": "Nihilit-Dämmerholzbretter"
+  "item.simplebuilding.nihilith_duskwood_planks": "Nihilit-Dämmerholzbretter",
+  "text.autoconfig.simplebuilding.option.enableSimpleChisels": "Simple Chisels aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimpleChisels.@Tooltip": "Schaltet das gebündelte Modul Simple Chisels an oder aus. Aus blendet die Kreativ-Einträge des Moduls aus; vorhandene Gegenstände funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
 }
