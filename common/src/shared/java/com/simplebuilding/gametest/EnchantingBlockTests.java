@@ -72,10 +72,10 @@ public final class EnchantingBlockTests {
                         && plankRecipe.assemble(plankGrid).getCount() == 2, "4 nihilit shards around an End plank craft 2 nihilit " + wood + " planks");
                 var shelfRecipe = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE,
                         Identifier.fromNamespaceAndPath("simplebuilding", wood + "_bookshelf"))).orElseThrow().value();
-                ItemStack book = new ItemStack(ModItems.NIHILITH_BOOK);
+                ItemStack shelfBook = new ItemStack(ModItems.NIHILITH_BOOK);
                 java.util.function.Function<net.minecraft.world.item.Item, net.minecraft.world.item.crafting.CraftingInput> grid = planks ->
                         net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(new ItemStack(planks), new ItemStack(planks), new ItemStack(planks),
-                                book.copy(), book.copy(), book.copy(), new ItemStack(planks), new ItemStack(planks), new ItemStack(planks)));
+                                shelfBook.copy(), shelfBook.copy(), shelfBook.copy(), new ItemStack(planks), new ItemStack(planks), new ItemStack(planks)));
                 helper.assertTrue(shelfRecipe.matches(grid.apply(nihilPlanks), helper.getLevel()) && shelfRecipe.assemble(grid.apply(nihilPlanks)).is(shelfItem),
                         "6 nihilit " + wood + " planks + 3 nihilit books craft the " + wood + " bookshelf");
                 helper.assertFalse(shelfRecipe.matches(grid.apply(endPlanks), helper.getLevel()), "plain " + wood + " planks no longer craft the nihilit shelf");
