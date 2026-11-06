@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 504,
+      "count": 509,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3655,7 +3655,8 @@
         "simplebuilding:astralit_brick_stairs_from_astralit_bricks_stonecutting",
         "simplebuilding:astralit_brick_wall",
         "simplebuilding:astralit_brick_wall_from_astralit_bricks_stonecutting",
-        "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting"
+        "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting",
+        "simplebuilding:cracked_astralit_bricks_from_smelting"
       ],
       "trades": [],
       "icon": "assets/textures/render/astralit_bricks.png",
@@ -7809,6 +7810,111 @@
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:cracked_astralit_bricks",
+      "name": {
+        "en_us": "Cracked Astralit Bricks",
+        "de_de": "Rissige Astralitziegel"
+      },
+      "texture": "assets/textures/block/cracked_astralit_bricks.png",
+      "craftedBy": [
+        "simplebuilding:cracked_astralit_bricks_from_smelting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_astralit_bricks.png",
+      "note": {
+        "en": {
+          "summary": "Cracked Astralit Bricks: the cracked look of the Astralit Bricks, a plain building block.",
+          "details": [
+            "Recipe: smelt 1 Astralit Bricks in a furnace (like Vanilla's cracked stone bricks).",
+            "Mined with a pickaxe, same hardness and light as the smooth bricks; no stairs, slab or wall of its own (those stay with the smooth bricks)."
+          ]
+        },
+        "de": {
+          "summary": "Rissige Astralitziegel: die rissige Variante der Astralitziegel, ein reiner Baublock.",
+          "details": [
+            "Rezept: 1 Astralitziegel im Ofen schmelzen (wie Vanillas rissige Steinziegel).",
+            "Mit der Spitzhacke abbaubar, gleiche Härte und gleiches Licht wie die glatten Ziegel; keine eigene Treppe, Stufe oder Mauer (die bleiben bei den glatten Ziegeln)."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_ender_quartz_bricks",
+      "name": {
+        "en_us": "Cracked Ender Quartz Bricks",
+        "de_de": "Rissige Enderquarzziegel"
+      },
+      "texture": "assets/textures/block/cracked_ender_quartz_bricks.png",
+      "craftedBy": [
+        "simplebuilding:cracked_ender_quartz_bricks_from_smelting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_ender_quartz_bricks.png",
+      "note": {
+        "en": {
+          "summary": "Cracked Ender Quartz Bricks: the cracked look of the Ender Quartz Bricks, a plain building block.",
+          "details": [
+            "Recipe: smelt 1 Ender Quartz Bricks in a furnace (like Vanilla's cracked stone bricks).",
+            "Mined with a pickaxe, same hardness and light as the smooth bricks; no stairs, slab or wall of its own (those stay with the smooth bricks)."
+          ]
+        },
+        "de": {
+          "summary": "Rissige Enderquarzziegel: die rissige Variante der Enderquarzziegel, ein reiner Baublock.",
+          "details": [
+            "Rezept: 1 Enderquarzziegel im Ofen schmelzen (wie Vanillas rissige Steinziegel).",
+            "Mit der Spitzhacke abbaubar, gleiche Härte und gleiches Licht wie die glatten Ziegel; keine eigene Treppe, Stufe oder Mauer (die bleiben bei den glatten Ziegeln)."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_nihilith_bricks",
+      "name": {
+        "en_us": "Cracked Nihilit Bricks",
+        "de_de": "Rissige Nihilitziegel"
+      },
+      "texture": "assets/textures/block/cracked_nihilith_bricks.png",
+      "craftedBy": [
+        "simplebuilding:cracked_nihilith_bricks_from_smelting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_nihilith_bricks.png",
+      "note": {
+        "en": {
+          "summary": "Cracked Nihilit Bricks: the cracked look of the Nihilit Bricks, a plain building block.",
+          "details": [
+            "Recipe: smelt 1 Nihilit Bricks in a furnace (like Vanilla's cracked stone bricks).",
+            "Mined with a pickaxe, same hardness and light as the smooth bricks; no stairs, slab or wall of its own (those stay with the smooth bricks)."
+          ]
+        },
+        "de": {
+          "summary": "Rissige Nihilitziegel: die rissige Variante der Nihilitziegel, ein reiner Baublock.",
+          "details": [
+            "Rezept: 1 Nihilitziegel im Ofen schmelzen (wie Vanillas rissige Steinziegel).",
+            "Mit der Spitzhacke abbaubar, gleiche Härte und gleiches Licht wie die glatten Ziegel; keine eigene Treppe, Stufe oder Mauer (die bleiben bei den glatten Ziegeln)."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:creative_blueprint",
       "name": {
         "en_us": "Creative Blueprint",
@@ -9811,6 +9917,7 @@
       ],
       "usedIn": [
         "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_bricks_stonecutting",
+        "simplebuilding:cracked_ender_quartz_bricks_from_smelting",
         "simplebuilding:ender_quartz_brick_slab",
         "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs",
@@ -18012,6 +18119,44 @@
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:nihilith_ashwood_planks",
+      "name": {
+        "en_us": "Nihilit Ashwood Planks",
+        "de_de": "Nihilit-Aschholzbretter"
+      },
+      "texture": "assets/textures/block/nihilith_ashwood_planks.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_ashwood_planks"
+      ],
+      "usedIn": [
+        "simplebuilding:ashwood_bookshelf"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_ashwood_planks.png",
+      "note": {
+        "en": {
+          "summary": "Nihilit Ashwood Planks (needs Simple End): ashwood planks with Nihilit seams. Material for the ashwood bookshelf when SimpleBuilding is installed.",
+          "details": [
+            "Recipe: 4 Nihilit Shards in a plus around 1 Ashwood Planks give 2.",
+            "The Ashwood Bookshelf then takes 6 of these and 3 Nihilit Books."
+          ]
+        },
+        "de": {
+          "summary": "Nihilit-Aschholzbretter (braucht Simple End): Aschholzbretter mit Nihilit-Fugen. Zutat des Aschholz-Bücherregals, wenn SimpleBuilding installiert ist.",
+          "details": [
+            "Rezept: 4 Nihilitsplitter im Plus um 1 Aschholzbretter ergeben 2.",
+            "Das Aschholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_ashwood_planks.json",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/ashwood_bookshelf.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihilith_block",
       "name": {
         "en_us": "Block of Nihilit",
@@ -18166,6 +18311,7 @@
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_nihilith_bricks_stonecutting",
+        "simplebuilding:cracked_nihilith_bricks_from_smelting",
         "simplebuilding:nihilith_brick_slab",
         "simplebuilding:nihilith_brick_slab_from_nihilith_bricks_stonecutting",
         "simplebuilding:nihilith_brick_stairs",
@@ -18774,6 +18920,44 @@
             "Figuren sind wasserfüllbar; Abbauen, ein fehlender Boden oder ein Kolben droppt alle Figuren. Stapel zu 16."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_duskwood_planks",
+      "name": {
+        "en_us": "Nihilit Duskwood Planks",
+        "de_de": "Nihilit-Dämmerholzbretter"
+      },
+      "texture": "assets/textures/block/nihilith_duskwood_planks.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_duskwood_planks"
+      ],
+      "usedIn": [
+        "simplebuilding:duskwood_bookshelf"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_duskwood_planks.png",
+      "note": {
+        "en": {
+          "summary": "Nihilit Duskwood Planks (needs Simple End): duskwood planks with Nihilit seams. Material for the duskwood bookshelf when SimpleBuilding is installed.",
+          "details": [
+            "Recipe: 4 Nihilit Shards in a plus around 1 Duskwood Planks give 2.",
+            "The Duskwood Bookshelf then takes 6 of these and 3 Nihilit Books."
+          ]
+        },
+        "de": {
+          "summary": "Nihilit-Dämmerholzbretter (braucht Simple End): Dämmerholzbretter mit Nihilit-Fugen. Zutat des Dämmerholz-Bücherregals, wenn SimpleBuilding installiert ist.",
+          "details": [
+            "Rezept: 4 Nihilitsplitter im Plus um 1 Dämmerholzbretter ergeben 2.",
+            "Das Dämmerholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_duskwood_planks.json",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/duskwood_bookshelf.json"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -29051,7 +29235,8 @@
         "simplebuilding:astralit_brick_stairs_from_astralit_bricks_stonecutting",
         "simplebuilding:astralit_brick_wall",
         "simplebuilding:astralit_brick_wall_from_astralit_bricks_stonecutting",
-        "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting"
+        "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting",
+        "simplebuilding:cracked_astralit_bricks_from_smelting"
       ],
       "trades": [],
       "icon": "assets/textures/render/astralit_bricks.png",
@@ -31356,6 +31541,123 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:cracked_astralit_bricks",
+      "name": {
+        "en_us": "Cracked Astralit Bricks",
+        "de_de": "Rissige Astralitziegel"
+      },
+      "texture": "assets/textures/block/cracked_astralit_bricks.png",
+      "craftedBy": [
+        "simplebuilding:cracked_astralit_bricks_from_smelting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_astralit_bricks.png",
+      "lootTable": "simplebuilding:blocks/cracked_astralit_bricks",
+      "drops": [
+        "simplebuilding:cracked_astralit_bricks"
+      ],
+      "note": {
+        "en": {
+          "summary": "Cracked Astralit Bricks: the cracked look of the Astralit Bricks, a plain building block.",
+          "details": [
+            "Recipe: smelt 1 Astralit Bricks in a furnace (like Vanilla's cracked stone bricks).",
+            "Mined with a pickaxe, same hardness and light as the smooth bricks; no stairs, slab or wall of its own (those stay with the smooth bricks)."
+          ]
+        },
+        "de": {
+          "summary": "Rissige Astralitziegel: die rissige Variante der Astralitziegel, ein reiner Baublock.",
+          "details": [
+            "Rezept: 1 Astralitziegel im Ofen schmelzen (wie Vanillas rissige Steinziegel).",
+            "Mit der Spitzhacke abbaubar, gleiche Härte und gleiches Licht wie die glatten Ziegel; keine eigene Treppe, Stufe oder Mauer (die bleiben bei den glatten Ziegeln)."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_ender_quartz_bricks",
+      "name": {
+        "en_us": "Cracked Ender Quartz Bricks",
+        "de_de": "Rissige Enderquarzziegel"
+      },
+      "texture": "assets/textures/block/cracked_ender_quartz_bricks.png",
+      "craftedBy": [
+        "simplebuilding:cracked_ender_quartz_bricks_from_smelting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_ender_quartz_bricks.png",
+      "lootTable": "simplebuilding:blocks/cracked_ender_quartz_bricks",
+      "drops": [
+        "simplebuilding:cracked_ender_quartz_bricks"
+      ],
+      "note": {
+        "en": {
+          "summary": "Cracked Ender Quartz Bricks: the cracked look of the Ender Quartz Bricks, a plain building block.",
+          "details": [
+            "Recipe: smelt 1 Ender Quartz Bricks in a furnace (like Vanilla's cracked stone bricks).",
+            "Mined with a pickaxe, same hardness and light as the smooth bricks; no stairs, slab or wall of its own (those stay with the smooth bricks)."
+          ]
+        },
+        "de": {
+          "summary": "Rissige Enderquarzziegel: die rissige Variante der Enderquarzziegel, ein reiner Baublock.",
+          "details": [
+            "Rezept: 1 Enderquarzziegel im Ofen schmelzen (wie Vanillas rissige Steinziegel).",
+            "Mit der Spitzhacke abbaubar, gleiche Härte und gleiches Licht wie die glatten Ziegel; keine eigene Treppe, Stufe oder Mauer (die bleiben bei den glatten Ziegeln)."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_nihilith_bricks",
+      "name": {
+        "en_us": "Cracked Nihilit Bricks",
+        "de_de": "Rissige Nihilitziegel"
+      },
+      "texture": "assets/textures/block/cracked_nihilith_bricks.png",
+      "craftedBy": [
+        "simplebuilding:cracked_nihilith_bricks_from_smelting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_nihilith_bricks.png",
+      "lootTable": "simplebuilding:blocks/cracked_nihilith_bricks",
+      "drops": [
+        "simplebuilding:cracked_nihilith_bricks"
+      ],
+      "note": {
+        "en": {
+          "summary": "Cracked Nihilit Bricks: the cracked look of the Nihilit Bricks, a plain building block.",
+          "details": [
+            "Recipe: smelt 1 Nihilit Bricks in a furnace (like Vanilla's cracked stone bricks).",
+            "Mined with a pickaxe, same hardness and light as the smooth bricks; no stairs, slab or wall of its own (those stay with the smooth bricks)."
+          ]
+        },
+        "de": {
+          "summary": "Rissige Nihilitziegel: die rissige Variante der Nihilitziegel, ein reiner Baublock.",
+          "details": [
+            "Rezept: 1 Nihilitziegel im Ofen schmelzen (wie Vanillas rissige Steinziegel).",
+            "Mit der Spitzhacke abbaubar, gleiche Härte und gleiches Licht wie die glatten Ziegel; keine eigene Treppe, Stufe oder Mauer (die bleiben bei den glatten Ziegeln)."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:crimson_blazewood_bookshelf",
       "name": {
         "en_us": "Crimson Blazewood Bookshelf",
@@ -31970,6 +32272,7 @@
       ],
       "usedIn": [
         "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_bricks_stonecutting",
+        "simplebuilding:cracked_ender_quartz_bricks_from_smelting",
         "simplebuilding:ender_quartz_brick_slab",
         "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs",
@@ -35351,6 +35654,48 @@
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:nihilith_ashwood_planks",
+      "name": {
+        "en_us": "Nihilit Ashwood Planks",
+        "de_de": "Nihilit-Aschholzbretter"
+      },
+      "texture": "assets/textures/block/nihilith_ashwood_planks.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_ashwood_planks"
+      ],
+      "usedIn": [
+        "simplebuilding:ashwood_bookshelf"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_ashwood_planks.png",
+      "lootTable": "simplebuilding:blocks/nihilith_ashwood_planks",
+      "drops": [
+        "simplebuilding:nihilith_ashwood_planks"
+      ],
+      "note": {
+        "en": {
+          "summary": "Nihilit Ashwood Planks (needs Simple End): ashwood planks with Nihilit seams. Material for the ashwood bookshelf when SimpleBuilding is installed.",
+          "details": [
+            "Recipe: 4 Nihilit Shards in a plus around 1 Ashwood Planks give 2.",
+            "The Ashwood Bookshelf then takes 6 of these and 3 Nihilit Books."
+          ]
+        },
+        "de": {
+          "summary": "Nihilit-Aschholzbretter (braucht Simple End): Aschholzbretter mit Nihilit-Fugen. Zutat des Aschholz-Bücherregals, wenn SimpleBuilding installiert ist.",
+          "details": [
+            "Rezept: 4 Nihilitsplitter im Plus um 1 Aschholzbretter ergeben 2.",
+            "Das Aschholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_ashwood_planks.json",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/ashwood_bookshelf.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihilith_block",
       "name": {
         "en_us": "Block of Nihilit",
@@ -35483,6 +35828,7 @@
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_nihilith_bricks_stonecutting",
+        "simplebuilding:cracked_nihilith_bricks_from_smelting",
         "simplebuilding:nihilith_brick_slab",
         "simplebuilding:nihilith_brick_slab_from_nihilith_bricks_stonecutting",
         "simplebuilding:nihilith_brick_stairs",
@@ -35496,6 +35842,48 @@
       "drops": [
         "simplebuilding:nihilith_bricks"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_duskwood_planks",
+      "name": {
+        "en_us": "Nihilit Duskwood Planks",
+        "de_de": "Nihilit-Dämmerholzbretter"
+      },
+      "texture": "assets/textures/block/nihilith_duskwood_planks.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_duskwood_planks"
+      ],
+      "usedIn": [
+        "simplebuilding:duskwood_bookshelf"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_duskwood_planks.png",
+      "lootTable": "simplebuilding:blocks/nihilith_duskwood_planks",
+      "drops": [
+        "simplebuilding:nihilith_duskwood_planks"
+      ],
+      "note": {
+        "en": {
+          "summary": "Nihilit Duskwood Planks (needs Simple End): duskwood planks with Nihilit seams. Material for the duskwood bookshelf when SimpleBuilding is installed.",
+          "details": [
+            "Recipe: 4 Nihilit Shards in a plus around 1 Duskwood Planks give 2.",
+            "The Duskwood Bookshelf then takes 6 of these and 3 Nihilit Books."
+          ]
+        },
+        "de": {
+          "summary": "Nihilit-Dämmerholzbretter (braucht Simple End): Dämmerholzbretter mit Nihilit-Fugen. Zutat des Dämmerholz-Bücherregals, wenn SimpleBuilding installiert ist.",
+          "details": [
+            "Rezept: 4 Nihilitsplitter im Plus um 1 Dämmerholzbretter ergeben 2.",
+            "Das Dämmerholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_duskwood_planks.json",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/duskwood_bookshelf.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -47183,6 +47571,116 @@
           {
             "id": "minecraft:nether_star",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cracked_astralit_bricks_from_smelting",
+      "type": "minecraft:smelting",
+      "category": "blocks",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cracked_astralit_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cracked_astralit_bricks_from_smelting.json",
+      "ingredients": [
+        "simplebuilding:astralit_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_bricks"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.1,
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cracked_ender_quartz_bricks_from_smelting",
+      "type": "minecraft:smelting",
+      "category": "blocks",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cracked_ender_quartz_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cracked_ender_quartz_bricks_from_smelting.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_quartz_bricks"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.1,
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cracked_nihilith_bricks_from_smelting",
+      "type": "minecraft:smelting",
+      "category": "blocks",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cracked_nihilith_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cracked_nihilith_bricks_from_smelting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_bricks"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.1,
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -84019,6 +84517,60 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/construction_light.json"
     },
     {
+      "id": "simplebuilding:blocks/cracked_astralit_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:cracked_astralit_bricks"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_astralit_bricks.json"
+    },
+    {
+      "id": "simplebuilding:blocks/cracked_ender_quartz_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:cracked_ender_quartz_bricks"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_ender_quartz_bricks.json"
+    },
+    {
+      "id": "simplebuilding:blocks/cracked_nihilith_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:cracked_nihilith_bricks"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_nihilith_bricks.json"
+    },
+    {
       "id": "simplebuilding:blocks/crimson_blazewood_bookshelf",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -85554,6 +86106,24 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_vault.json"
     },
     {
+      "id": "simplebuilding:blocks/nihilith_ashwood_planks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_ashwood_planks"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_ashwood_planks.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -85640,6 +86210,24 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihilith_duskwood_planks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_duskwood_planks"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_duskwood_planks.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_end_rod",
@@ -123506,10 +124094,10 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 498,
-    "blocks": 255,
-    "recipes": 795,
-    "lootTables": 274,
+    "items": 503,
+    "blocks": 260,
+    "recipes": 798,
+    "lootTables": 279,
     "trades": 20,
     "enchantments": 13,
     "tags": 55,
