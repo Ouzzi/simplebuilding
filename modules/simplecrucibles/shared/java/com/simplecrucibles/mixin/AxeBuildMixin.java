@@ -34,9 +34,8 @@ public abstract class AxeBuildMixin {
             cir.setReturnValue(hit ? InteractionResult.SUCCESS : InteractionResult.FAIL);
             return;
         }
-        if (state.getBlock() instanceof com.simplecrucibles.crucible.CrucibleBarrelBlock && !state.getValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACHED)
-                && com.simplecrucibles.crucible.CrucibleBarrelBlock.crucibleSide(context.getLevel(), context.getClickedPos(), state) != null) {
-            boolean hit = com.simplecrucibles.crucible.CrucibleBarrelBlock.attachStrike(context.getLevel(), context.getClickedPos(), player, context.getItemInHand(), 1);
+        if (com.simplecrucibles.crucible.BarrelAttach.canAttach(context.getLevel(), context.getClickedPos(), state)) {
+            boolean hit = com.simplecrucibles.crucible.BarrelAttach.attachStrike(context.getLevel(), context.getClickedPos(), player, context.getItemInHand(), 1);
             cir.setReturnValue(hit ? InteractionResult.SUCCESS : InteractionResult.FAIL);
             return;
         }

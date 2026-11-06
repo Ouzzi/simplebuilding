@@ -156,7 +156,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 76
     },
-    "dataHash": "73d6d926fc2a"
+    "dataHash": "ee6a97cbeb69"
   },
   {
     "id": "simpleriding",
@@ -1377,7 +1377,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplecrucibles",
     "displayName": "Simple Crucibles",
-    "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
+    "description": "Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel; the barrels that dock onto them are Simple Storage's), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1392,6 +1392,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei",
       "jade",
+      "simplestorage",
       "simpleores"
     ],
     "stage": "done",
@@ -1408,11 +1409,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA9klEQVR42qWTIQvCQBiG91NMYlCjUZdsBrEuiXZBhIHCisFwzWRyIIhFm1YNFsU0TFb9HyfvwTvu2B0XFp7tbt/3Pncbt6DRCmUZAlz257tBs1qxovdMVqkpWG6OeeNXdOQ2ieVFzBWvbk3BOsL94dQUoIAQGn9ZpIAIcIwahOi1CtCgB3SRLnEKUjGTSbtuiPQdYSzikVuQ3Xa5RIfCqBf6BTqQAYQggQBzr+DzPBUECHsF8XggD+tFDuYAQe4Ac6cADb4dOL8BDxKCWB13rAYBw8B5kChAiBKGuQOubhVcH29V4HngK9jCBQEfENfPpPcYgjL8AfeqMA6tHhHIAAAAAElFTkSuQmCC",
     "counts": {
       "items": 27,
-      "blocks": 11,
-      "recipes": 5,
+      "blocks": 7,
+      "recipes": 4,
       "features": 8
     },
-    "dataHash": "eccf3d7f324a"
+    "dataHash": "fa77daa53334"
   },
   {
     "id": "simpleoctets",
@@ -1604,7 +1605,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplestorage",
     "displayName": "Simple Storage",
-    "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2).",
+    "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2). WH26-6: the four barrels (copper to Enderite; docking onto the crucibles of Simple Crucibles) moved here from Simple Crucibles.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1620,7 +1621,8 @@ window.WIKI_MODULES = [
       "simpleend",
       "trinkets_updated",
       "curios",
-      "simpleores"
+      "simpleores",
+      "simplecrucibles"
     ],
     "stage": "done",
     "parent": "simplebuilding",
@@ -1636,11 +1638,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABw0lEQVR42qWTV0tDQRCF/RW+2LAhKGpM7BoSu8YWo9gQG4pdYu9YsSESFERRISgidg32XmJ78Enf/SnHzMgNmqxPPpw7e3fmfDu77DpEatT4jxzoc/5uFmoxX84S5Qynxt8A4/0O3j4/OLZEeXC0HUsic/VIiz2ApPVxZBNF27FkpoWEACp6nSzAy0Q+nsfy8DSai8eRHJiHs/EwpLOChB1QgoruB7NwN6DFbX8mbvsycNObjuueNFx1p2IuR4biQCeuFQKo6LJLg4tODc47UnDWnozTtiSctCbiuDkBhkx/BlCkejvAeIovFx41xeNQH8f7NzXE4KBezblJjR8DKP4C0A+ZqEgSmaXxoQXao/Zmc12Ym/0WaIJWmskOgkEngyFLBvONCdPaAExlBMCkT0CXygubawuoCfkDsFerwk61ks+BNDXWx3G1JAz7jXHoUHpyB1XBrmLAdlU0NiujYCwKsdNufSxao78BlQoXMWCjIhLr5RFYKpDbSIGt2hg0W86EAOVyZzFgrSyc2/15kKSF3CBs1Kigj3BHqcxZfJFoghIrxaHc8nKhgh/RvMVMl2dWF2i9hWSUZAVIkopE+us5fwF7/ihD39cG0AAAAABJRU5ErkJggg==",
     "counts": {
       "items": 18,
-      "blocks": 47,
-      "recipes": 183,
-      "features": 15
+      "blocks": 51,
+      "recipes": 184,
+      "features": 16
     },
-    "dataHash": "5b2444036cd2"
+    "dataHash": "d5bf288888c8"
   },
   {
     "id": "simplemusic",

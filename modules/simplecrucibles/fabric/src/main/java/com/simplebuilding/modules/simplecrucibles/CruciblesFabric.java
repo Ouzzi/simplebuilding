@@ -1,7 +1,6 @@
 package com.simplebuilding.modules.simplecrucibles;
 
 import com.simplecrucibles.SimpleCrucibles;
-import com.simplecrucibles.crucible.CrucibleBarrelBlockEntity;
 import com.simplecrucibles.crucible.CrucibleBlockEntity;
 import com.simplecrucibles.registry.CrucibleBlockEntities;
 import com.simplecrucibles.registry.CrucibleBlocks;
@@ -34,9 +33,6 @@ public final class CruciblesFabric implements ModInitializer {
         // Valid for every crucible/barrel block, including partner tiers registered later (load order free).
         CrucibleBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(CrucibleBlocks.crucibles())) {
             @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return CrucibleBlockEntities.isCrucible(state); }
-        });
-        CrucibleBlockEntities.registerBarrel(new BlockEntityType<>(CrucibleBarrelBlockEntity::new, Set.of(CrucibleBlocks.barrels())) {
-            @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return CrucibleBlockEntities.isBarrel(state); }
         });
         CrucibleMenus.register();
         CrucibleRegistry.tab();

@@ -1,7 +1,6 @@
 package com.simplebuilding.modules.simplecrucibles;
 
 import com.simplecrucibles.SimpleCrucibles;
-import com.simplecrucibles.crucible.CrucibleBarrelBlockEntity;
 import com.simplecrucibles.crucible.CrucibleBlockEntity;
 import com.simplecrucibles.registry.CrucibleBlockEntities;
 import com.simplecrucibles.registry.CrucibleBlocks;
@@ -45,9 +44,6 @@ public final class CruciblesNeoForge {
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 CrucibleBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(CrucibleBlocks.crucibles()), false) {
                     @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return CrucibleBlockEntities.isCrucible(state); }
-                });
-                CrucibleBlockEntities.registerBarrel(new BlockEntityType<>(CrucibleBarrelBlockEntity::new, Set.of(CrucibleBlocks.barrels()), false) {
-                    @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return CrucibleBlockEntities.isBarrel(state); }
                 });
             }
             if (key.equals(Registries.MENU)) CrucibleMenus.register();

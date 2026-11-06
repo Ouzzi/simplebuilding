@@ -41,6 +41,7 @@
   },
   "suggests": {
     "simplebuilding": "*",
+    "simplecrucibles": "*",
     "simpleend": "*",
     "trinkets_updated": "*",
     "curios": "*"

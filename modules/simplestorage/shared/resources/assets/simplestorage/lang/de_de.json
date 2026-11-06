@@ -183,6 +183,14 @@
   "gui.simplestorage.controller.broken.fix": "Behälter oder Kabel entfernen oder höheren Controller nehmen.",
   "text.autoconfig.simplestorage.option.interfaceFillsGaps": "Schnittstellen schließen Lücken",
   "text.autoconfig.simplestorage.option.interfaceFillsGaps.@Tooltip": "Eine Schnittstelle an einer Truhe wächst bis\nzu festen Blöcken daneben, keine Lücke bleibt.\nAus: immer Truhenbreite. Standard: an",
+  "block.simplestorage.copper_barrel": "Kupfer-Fass",
+  "block.simplestorage.netherite_barrel": "Netherit-Fass",
+  "block.simplestorage.reinforced_barrel": "Verstärktes Fass",
+  "container.simplestorage.copper_barrel": "Kupfer-Fass",
+  "container.simplestorage.netherite_barrel": "Netherit-Fass",
+  "container.simplestorage.reinforced_barrel": "Verstärktes Fass",
+  "container.simplestorage.enderite_barrel": "Enderit-Fass",
+  "block.simplestorage.enderite_barrel": "Enderit-Fass",
   "item.simplestorage.guide_book": "Simple-Storage-Handbuch",
   "simplestorage.guide.chapter": "Simple Storage",
   "simplestorage.guide.page.1.title": "Simple Storage",
@@ -256,5 +264,7 @@
   "simplestorage.guide.page.35.title": "Truhen-Netzwerk (Prototyp)",
   "simplestorage.guide.page.35": "Kupferkabel verbinden Truhen, jede mit einer Truhen-Schnittstelle an der Seite, mit einer Controller-Truhe. Das Fenster des Controllers listet jede Sorte aller verbundenen Truhen:",
   "simplestorage.guide.page.36.title": "Truhen-Netzwerk (Prototyp)",
-  "simplestorage.guide.page.36": "Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein."
+  "simplestorage.guide.page.36": "Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein.",
+  "simplestorage.guide.page.37.title": "Fässer",
+  "simplestorage.guide.page.37": "Kupfer-, Verstärkte, Netherit- und Enderit-Fässer: größer als das Vanilla-Fass, in der Welt aufwertbar und das andockende Fass der Schmelztiegel von Simple Crucibles."
 }

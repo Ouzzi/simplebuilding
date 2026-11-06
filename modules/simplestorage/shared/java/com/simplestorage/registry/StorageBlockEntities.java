@@ -26,6 +26,9 @@ public final class StorageBlockEntities {
     /** Split stage 8c-2: the placed backpack (was {@code simplebuilding:backpack}). */
     public static BlockEntityType<com.simplestorage.backpack.BackpackBlockEntity> BACKPACK;
 
+    /** WH26-6: the barrels' one type (was {@code simplecrucibles:barrel}, before {@code simplelib:barrel}). */
+    public static BlockEntityType<com.simplestorage.barrel.BarrelBlockEntity> BARREL;
+
     /** ST27-1: the pipes' one block entity type; BS29b-3: the controller chests'. */
     public static BlockEntityType<com.simplestorage.pipe.ItemPipeBlockEntity> PIPE;
     public static BlockEntityType<com.simplestorage.network.ControllerChestBlockEntity> CONTROLLER_CHEST;
@@ -45,6 +48,7 @@ public final class StorageBlockEntities {
         PLACED_BUNDLE = register("placed_bundle", types.create(com.simplestorage.bundle.PlacedBundleBlockEntity::new, Set.of(StorageBlocks.PLACED_BUNDLE)));
         PIPE = register("pipe", types.create(com.simplestorage.pipe.ItemPipeBlockEntity::new, Set.copyOf(StorageBlocks.PIPES.values())));
         CONTROLLER_CHEST = register("controller_chest", types.create(com.simplestorage.network.ControllerChestBlockEntity::new, Set.copyOf(StorageBlocks.CONTROLLERS.values())));
+        BARREL = register("barrel", types.create(com.simplestorage.barrel.BarrelBlockEntity::new, Set.of(StorageBlocks.barrels())));
         BACKPACK = register("backpack", types.create(com.simplestorage.backpack.BackpackBlockEntity::new, Set.copyOf(StorageBlocks.BACKPACKS.values())));
     }
 

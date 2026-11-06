@@ -824,4 +824,44 @@ public final class ModuleGameTest {
     public void networkWindowSearchScrollAndStackTakes(GameTestHelper h) {
         StorageTests.ALL.get("network_window_search_scroll_and_stack_takes").accept(h);
     }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void barrelsRegistered(GameTestHelper h) {
+        StorageTests.ALL.get("barrels_registered").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void barrelsMigrateFromCruciblesLibAndSimplebuilding(GameTestHelper h) {
+        StorageTests.ALL.get("barrels_migrate_from_crucibles_lib_and_simplebuilding").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void barrelRecipe(GameTestHelper h) {
+        StorageTests.ALL.get("barrel_recipe").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void barrelPlacementTiers(GameTestHelper h) {
+        StorageTests.ALL.get("barrel_placement_tiers").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void looseBarrelFacesLikeVanillaAndOpens(GameTestHelper h) {
+        StorageTests.ALL.get("loose_barrel_faces_like_vanilla_and_opens").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void looseBarrelMenuKeepsTheRaisedLimit(GameTestHelper h) {
+        StorageTests.ALL.get("loose_barrel_menu_keeps_the_raised_limit").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void barrelUpgradeKeepsContents(GameTestHelper h) {
+        StorageTests.ALL.get("barrel_upgrade_keeps_contents").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void barrelDockContract(GameTestHelper h) {
+        StorageTests.ALL.get("barrel_dock_contract").accept(h);
+    }
 }

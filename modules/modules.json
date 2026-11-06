@@ -3438,7 +3438,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Crucibles",
-      "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
+      "description": "Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel; the barrels that dock onto them are Simple Storage's), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -3451,6 +3451,7 @@
         "simplebuilding",
         "jei",
         "jade",
+        "simplestorage",
         "simpleores"
       ],
       "checks": [
@@ -3507,6 +3508,18 @@
               "fabric": {
                 "task": ":integration:runSimplecruciblesWithSimplehammersGameTest",
                 "report": "integration/build/combo/simplecrucibles-simplehammers-junit.xml"
+              }
+            }
+          },
+          {
+            "with": [
+              "simplestorage"
+            ],
+            "reason": "Barrels (WH26-6): the docking tests need Simple Storage, whose barrel a crucible attaches; alone the crucibles skip them.",
+            "loaders": {
+              "fabric": {
+                "task": ":integration:runSimplecruciblesWithSimplestorageGameTest",
+                "report": "integration/build/combo/simplecrucibles-simplestorage-junit.xml"
               }
             }
           }
@@ -4004,7 +4017,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Storage",
-      "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2).",
+      "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2). WH26-6: the four barrels (copper to Enderite; docking onto the crucibles of Simple Crucibles) moved here from Simple Crucibles.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -4018,7 +4031,8 @@
         "simpleend",
         "trinkets_updated",
         "curios",
-        "simpleores"
+        "simpleores",
+        "simplecrucibles"
       ],
       "checks": [
         "modules/simplestorage/tools/check_data.py"

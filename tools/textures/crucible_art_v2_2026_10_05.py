@@ -35,7 +35,7 @@ LIB = p.LIB
 SB = p.SB
 # Split stage 5b: soul lava and the buckets are Simple Crucibles' textures (assets/simplecrucibles/textures).
 CRU = p.CRU
-LIB_MODELS = ROOT / 'modules/simplecrucibles/generated/resources/assets/simplecrucibles/models/block'
+LIB_MODELS = ROOT / 'modules/simplestorage/generated/resources/assets/simplestorage/models/block'  # WH26-6: barrel models
 PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/crucible-art-v3-vorschau.png')
 SB_CHESTS = ROOT / 'src/main/resources/assets/simplebuilding/textures/entity/chest'
 
@@ -314,7 +314,7 @@ def reinforced_cauldron_item():
 
 
 def barrel_paths(tier):
-    folder = LIB
+    folder = p.BARREL_LIB  # WH26-6: Simple Storage's
     return {part: folder / f'{tier}_barrel_{part}.png' for part in ('side', 'top', 'top_open', 'bottom', 'flange')}
 
 
@@ -841,11 +841,19 @@ def derived(jar):
     return {}
 
 
+STORAGE_TEXTURES = ROOT / 'modules/simplestorage/shared/resources/assets/simplestorage/textures'
+
+
 def derived_module(jar):
     """Vanilla-derived output of the simplecrucibles module: texture path under assets/simplecrucibles/textures -> image."""
     # build/vanilla-textures (extracted by vanilla_derived.extract_vanilla_textures) must exist before this module is imported
     return {path.relative_to(CRU).as_posix(): img for path, img in resources().items()
-            if is_derived(path) and path.name != 'soul_lava_bucket.png'}
+            if is_derived(path) and path.name != 'soul_lava_bucket.png' and not path.is_relative_to(STORAGE_TEXTURES)}
+
+
+def derived_storage(jar):
+    """WH26-6: the Enderite barrel faces, Vanilla-derived output of the simplestorage module (path under assets/simplestorage/textures)."""
+    return {path.relative_to(STORAGE_TEXTURES).as_posix(): img for path, img in resources().items() if path.is_relative_to(STORAGE_TEXTURES) and is_derived(path)}
 
 
 def main():

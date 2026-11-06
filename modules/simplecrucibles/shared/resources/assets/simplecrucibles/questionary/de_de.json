@@ -43,39 +43,6 @@
       "Lava oder Seelenlava darunter lässt ihn Ofen- und Hochofenrezepte kochen, Seelenlava auch Antiken Schrott."
     ]
   },
-  "copper_barrel": {
-    "lore": [
-      "Ein Fass mit Kupferhülle, jedes Jahr ein wenig grüner."
-    ],
-    "use": [
-      "Die Kupferstufe des Tiegelfasses: Es lässt sich als Zusatzlager an einen Tiegel hängen und dient allein als normales Fass."
-    ],
-    "secret": [
-      "Es ist die erste Stufe der Fassreihe, von Kupfer über Netherit zu Enderit."
-    ]
-  },
-  "reinforced_barrel": {
-    "lore": [
-      "Ein Fass, dem gesagt wurde, es solle mehr halten."
-    ],
-    "use": [
-      "Die verstärkte Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es mehr Lagerplatz."
-    ],
-    "secret": [
-      "Trichter füllen es wie eine Truhe, von oben und von der Seite."
-    ]
-  },
-  "netherite_barrel": {
-    "lore": [
-      "Ein Fass aus dunklem Metall, das nicht brennt."
-    ],
-    "use": [
-      "Die Netherit-Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es noch mehr Lagerplatz."
-    ],
-    "secret": [
-      "Es ist feuerfest wie alle Netherit-Blöcke."
-    ]
-  },
   "reinforced_cauldron": {
     "lore": [
       "Ein Kessel, verstärkt gegen seinen eigenen Inhalt."
@@ -96,17 +63,6 @@
     ],
     "secret": [
       "Der Vorschlaghammer ersetzt hier die Axt des Grundmods: Schlage den Eisentiegel auf einen Eisenblock und setze mit 6 Schlägen ein Fass an."
-    ]
-  },
-  "enderite_barrel": {
-    "lore": [
-      "Ein Fass, dem gesagt wurde, es dürfe mehr behalten, und das es glaubte."
-    ],
-    "use": [
-      "Die Enderit-Stufe des Fasses der Tiegel: Es fasst doppelte Stapel, 128 eines 64er-Gegenstands, im Tiegelmenü und im eigenen Truhenmenü, bei Shift-Klicks und für Trichter."
-    ],
-    "secret": [
-      "Aus so einem Platz bekommst du höchstens einen normalen Stapel. Es ist der letzte Schritt der Linie von Kupfer über Netherit zu Enderit."
     ]
   }
 }

@@ -1,6 +1,6 @@
 {
   "module": "simplecrucibles",
-  "derivation": "Crucibles are built in the world (iron) or upgraded in place; the Enderite crucible and barrel (age-of-game tier 5, rows moved from SimpleBuilding with split stage 5) are the only ones a wandering trader may carry; the copper and Enderite buckets (rows moved from SimpleBuilding with split stage 5b) keep their prices, filled buckets are never traded.",
+  "derivation": "Crucibles are built in the world (iron) or upgraded in place; the Enderite crucible (age-of-game tier 5, rows moved from SimpleBuilding with split stage 5; the Enderite barrel went to Simple Storage with WH26-6) is the only one a wandering trader may carry; the copper and Enderite buckets (rows moved from SimpleBuilding with split stage 5b) keep their prices, filled buckets are never traded.",
   "excluded": {
     "simplecrucibles:crucible_blank": "Exists only half-built in the world; no item.",
     "simplecrucibles:soul_lava_bucket": "Soul lava is a world-generation rarity (0.5 % springs, 10 % fortress wells); no trade.",
@@ -18,17 +18,6 @@
   "prices": [
     {
       "item": "simplecrucibles:enderite_crucible",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplecrucibles:enderite_barrel",
       "tier": 5,
       "hours": 38.1,
       "craft": 0,

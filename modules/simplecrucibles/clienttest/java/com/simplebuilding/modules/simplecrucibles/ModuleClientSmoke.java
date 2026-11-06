@@ -23,9 +23,12 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 var at = p.blockPosition().offset(0, 0, -3);
                 l.setBlockAndUpdate(at, com.simplecrucibles.registry.CrucibleBlocks.NETHERITE_CRUCIBLE.defaultBlockState()
                         .setValue(com.simplecrucibles.crucible.CrucibleBlock.FACING, net.minecraft.core.Direction.EAST));
-                l.setBlockAndUpdate(at.west(), com.simplecrucibles.registry.CrucibleBlocks.NETHERITE_BARREL.defaultBlockState()
-                        .setValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACHED, true)
-                        .setValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.FACING, net.minecraft.core.Direction.EAST));
+                // WH26-6: the barrel is Simple Storage's; without it the crucible stands alone for this shot.
+                var barrel = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simplestorage", "netherite_barrel"));
+                barrel.ifPresent(b -> l.setBlockAndUpdate(at.west(), b.defaultBlockState()
+                        .setValue(com.simplelib.api.BarrelDock.ATTACHED, true)
+                        .setValue(com.simplelib.api.BarrelDock.FACING, net.minecraft.core.Direction.EAST)));
                 p.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, net.minecraft.world.phys.Vec3.atCenterOf(at).add(0, -0.2, 0));
             });
             world.getConnection().waitForClientboundPackets();

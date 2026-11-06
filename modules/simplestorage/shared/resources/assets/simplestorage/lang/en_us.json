@@ -183,6 +183,14 @@
   "gui.simplestorage.controller.broken.fix": "Remove containers or cables, or use a higher controller.",
   "text.autoconfig.simplestorage.option.interfaceFillsGaps": "Interfaces Fill Gaps",
   "text.autoconfig.simplestorage.option.interfaceFillsGaps.@Tooltip": "An interface on a chest grows to solid blocks\nbeside it, so no gap stays open. Off: it\nalways keeps the chest's width. Default: on",
+  "block.simplestorage.copper_barrel": "Copper Barrel",
+  "block.simplestorage.netherite_barrel": "Netherite Barrel",
+  "block.simplestorage.reinforced_barrel": "Reinforced Barrel",
+  "container.simplestorage.copper_barrel": "Copper Barrel",
+  "container.simplestorage.netherite_barrel": "Netherite Barrel",
+  "container.simplestorage.reinforced_barrel": "Reinforced Barrel",
+  "container.simplestorage.enderite_barrel": "Enderite Barrel",
+  "block.simplestorage.enderite_barrel": "Enderite Barrel",
   "item.simplestorage.guide_book": "Simple Storage Guide",
   "simplestorage.guide.chapter": "Simple Storage",
   "simplestorage.guide.page.1.title": "Simple Storage",
@@ -256,5 +264,7 @@
   "simplestorage.guide.page.35.title": "Chest network (prototype)",
   "simplestorage.guide.page.35": "Copper cables connect chests, each with a chest interface on its side, to one controller chest. The controller's window lists every kind of item in all connected chests:",
   "simplestorage.guide.page.36.title": "Chest network (prototype)",
-  "simplestorage.guide.page.36": "take stacks out, click with an item to store it, shift-click in the inventory to store."
+  "simplestorage.guide.page.36": "take stacks out, click with an item to store it, shift-click in the inventory to store.",
+  "simplestorage.guide.page.37.title": "Barrels",
+  "simplestorage.guide.page.37": "Copper, Reinforced, Netherite and Enderite barrels: bigger than Vanilla's, upgraded in place, and the docking barrel of the Simple Crucibles."
 }

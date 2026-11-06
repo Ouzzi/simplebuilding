@@ -20,9 +20,6 @@ public final class CrucibleBlocks {
     public static CrucibleBlock IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE, ENDERITE_CRUCIBLE;
     public static CrucibleBlankBlock CRUCIBLE_BLANK;
     public static com.simplecrucibles.cauldron.ReinforcedCauldronBlock REINFORCED_CAULDRON;
-    public static com.simplecrucibles.crucible.CrucibleBarrelBlock COPPER_BARREL, REINFORCED_BARREL, NETHERITE_BARREL, ENDERITE_BARREL;
-    /** Every barrel block, including partner tiers (Enderite in SimpleBuilding). */
-    public static final List<com.simplecrucibles.crucible.CrucibleBarrelBlock> BARRELS = new ArrayList<>();
     /** Every crucible block, including those partners register through the API (Enderite in SimpleBuilding). */
     public static final List<CrucibleBlock> CRUCIBLES = new ArrayList<>();
 
@@ -38,25 +35,6 @@ public final class CrucibleBlocks {
                 BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()
                         .lightLevel(state -> state.getValue(com.simplecrucibles.cauldron.ReinforcedCauldronBlock.CONTENT).hot() ? 15 : 0)
                         .setId(key("reinforced_cauldron"))));
-        COPPER_BARREL = barrel("copper_barrel", com.simplecrucibles.crucible.BarrelTier.COPPER, MapColor.COLOR_ORANGE, 3.0F);
-        REINFORCED_BARREL = barrel("reinforced_barrel", com.simplecrucibles.crucible.BarrelTier.REINFORCED, MapColor.DIAMOND, 4.0F);
-        NETHERITE_BARREL = barrel("netherite_barrel", com.simplecrucibles.crucible.BarrelTier.NETHERITE, MapColor.COLOR_BLACK, 5.0F);
-        ENDERITE_BARREL = barrel("enderite_barrel", com.simplecrucibles.crucible.BarrelTier.ENDERITE, MapColor.COLOR_PURPLE, 6.0F);
-    }
-
-    private static com.simplecrucibles.crucible.CrucibleBarrelBlock barrel(String name, com.simplecrucibles.crucible.BarrelTier tier, MapColor color, float hardness) {
-        boolean netherite = tier == com.simplecrucibles.crucible.BarrelTier.NETHERITE || tier == com.simplecrucibles.crucible.BarrelTier.ENDERITE;
-        float resistance = tier == com.simplecrucibles.crucible.BarrelTier.ENDERITE ? 1500.0F : netherite ? 1200.0F : 6.0F;
-        var block = Registry.register(BuiltInRegistries.BLOCK, key(name), new com.simplecrucibles.crucible.CrucibleBarrelBlock(
-                BlockBehaviour.Properties.of().mapColor(color).strength(hardness, resistance)
-                        .sound(netherite ? SoundType.NETHERITE_BLOCK : SoundType.COPPER).requiresCorrectToolForDrops()
-                        .setId(key(name)), tier));
-        BARRELS.add(block);
-        return block;
-    }
-
-    public static Block[] barrels() {
-        return BARRELS.toArray(new Block[0]);
     }
 
     /** Properties shared by all crucibles: needs a pickaxe, lit crucibles glow like a furnace. */

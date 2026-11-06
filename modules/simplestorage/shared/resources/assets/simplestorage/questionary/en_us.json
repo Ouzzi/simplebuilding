@@ -265,5 +265,49 @@
     "secret": [
       "It is a crafting material only; the next tier of bundle, the Reinforced one, needs diamond pebbles on top of it."
     ]
+  },
+  "copper_barrel": {
+    "lore": [
+      "A barrel clad in copper, a little greener each year."
+    ],
+    "use": [
+      "The copper tier of the crucible barrel: it attaches to a crucible as extra storage, and works as a normal barrel on its own."
+    ],
+    "secret": [
+      "It is the first step of the barrel line, from copper through netherite to enderite."
+    ]
+  },
+  "reinforced_barrel": {
+    "lore": [
+      "A barrel that has been told to hold more."
+    ],
+    "use": [
+      "The Reinforced tier of the crucible barrel: attach it to a crucible for more storage."
+    ],
+    "secret": [
+      "Hoppers fill it like a chest, from above and the sides."
+    ]
+  },
+  "netherite_barrel": {
+    "lore": [
+      "A barrel of dark metal that does not burn."
+    ],
+    "use": [
+      "The Netherite tier of the crucible barrel: attach it to a crucible for even more storage."
+    ],
+    "secret": [
+      "It is fire resistant, like all Netherite blocks."
+    ]
+  },
+  "enderite_barrel": {
+    "lore": [
+      "A barrel that was told it could keep more, and believed it."
+    ],
+    "use": [
+      "The Enderite tier of the crucible's barrel: it holds double stacks, 128 of a 64-stack item, in the crucible menu and its own chest menu, for shift-clicks and for hoppers."
+    ],
+    "secret": [
+      "Taking from such a slot gives at most one normal stack. It is the last step of the line from copper through Netherite to Enderite."
+    ]
   }
 }

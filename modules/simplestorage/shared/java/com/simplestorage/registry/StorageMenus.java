@@ -27,6 +27,9 @@ public final class StorageMenus {
     /** ST27-1: the pipe's window; BS29b-3: the controller chest's network window (no opening data: everything travels in data slots). */
     public static MenuType<com.simplestorage.pipe.PipeMenu> PIPE;
     public static MenuType<com.simplestorage.network.ControllerMenu> CONTROLLER;
+    /** WH26-6: one barrel menu type per tier (the client learns slot count and stack limit from it). */
+    public static final Map<com.simplestorage.barrel.BarrelTier, MenuType<com.simplestorage.barrel.BarrelMenu>> BARRELS =
+            new java.util.EnumMap<>(com.simplestorage.barrel.BarrelTier.class);
     private static final Map<TieredChestOpenData, MenuType<TieredChestMenu>> TIERED = new LinkedHashMap<>();
 
     public static void register() {
@@ -35,11 +38,19 @@ public final class StorageMenus {
         PIPE = Registry.register(BuiltInRegistries.MENU, SimpleStorage.id("pipe"), new MenuType<>(com.simplestorage.pipe.PipeMenu::new, FeatureFlags.VANILLA_SET));
         CONTROLLER = Registry.register(BuiltInRegistries.MENU, SimpleStorage.id("controller"),
                 new MenuType<>(com.simplestorage.network.ControllerMenu::new, FeatureFlags.VANILLA_SET));
+        for (com.simplestorage.barrel.BarrelTier tier : com.simplestorage.barrel.BarrelTier.values()) {
+            BARRELS.put(tier, Registry.register(BuiltInRegistries.MENU, SimpleStorage.id(tier.id() + "_barrel"),
+                    new MenuType<>((id, inventory) -> com.simplestorage.barrel.BarrelMenu.client(tier, id, inventory), FeatureFlags.VANILLA_SET)));
+        }
         for (ChestTier tier : ChestTier.values()) {
             tiered(tier.textureName() + "_chest", TieredChestOpenData.of(tier, false));
             tiered(tier.textureName() + "_double_chest", TieredChestOpenData.of(tier, true));
             tiered(tier.textureName() + "_shulker_box", TieredChestOpenData.shulker(tier));
         }
+    }
+
+    public static MenuType<com.simplestorage.barrel.BarrelMenu> forBarrel(com.simplestorage.barrel.BarrelTier tier) {
+        return BARRELS.get(tier);
     }
 
     /** Registers the loader's backpack menu type as {@code simplestorage:backpack}. */

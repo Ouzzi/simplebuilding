@@ -55,6 +55,7 @@ public final class StorageRegistry {
         out.addAll(chestStacks());
         out.addAll(pipeStacks());
         out.addAll(networkStacks());
+        out.addAll(barrelStacks());
         out.addAll(shulkerBoxStacks());
         out.addAll(shellStacks());
         out.addAll(chestMinecartStacks());
@@ -80,6 +81,13 @@ public final class StorageRegistry {
             out.add(new ItemStack(item));
         }
         for (Item item : StorageItems.TRAPPED_COPPER_CHESTS) out.add(new ItemStack(item));
+        return out;
+    }
+
+    /** WH26-6: the four barrels in tier order. */
+    public static List<ItemStack> barrelStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        for (Item item : StorageItems.BARRELS.values()) out.add(new ItemStack(item));
         return out;
     }
 

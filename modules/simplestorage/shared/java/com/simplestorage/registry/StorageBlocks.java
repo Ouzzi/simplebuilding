@@ -45,6 +45,9 @@ public final class StorageBlocks {
     public static final Map<com.simplestorage.network.ControllerLevel, Block> CONTROLLERS = new EnumMap<>(com.simplestorage.network.ControllerLevel.class);
     /** Split stage 8c-2: the four placed backpacks in tier order (Basic, Reinforced, Netherite, Enderite). */
     public static final Map<com.simplestorage.backpack.BackpackTier, Block> BACKPACKS = new EnumMap<>(com.simplestorage.backpack.BackpackTier.class);
+    /** WH26-6: the four barrels (moved from Simple Crucibles), in tier order. */
+    public static final Map<com.simplestorage.barrel.BarrelTier, com.simplestorage.barrel.BarrelBlock> BARRELS =
+            new EnumMap<>(com.simplestorage.barrel.BarrelTier.class);
 
     /** {@code simpleEnd}: Simple End is loaded (only then the Ashwood and Duskwood crates exist, as before the move). */
     public static void register(boolean simpleEnd) {
@@ -62,8 +65,31 @@ public final class StorageBlocks {
                         .noLootTable().mapColor(net.minecraft.world.level.material.MapColor.COLOR_BROWN)
                         .pushReaction(net.minecraft.world.level.material.PushReaction.POPPED)));
         registerBackpacks();
+        registerBarrels();
         registerPipes();
         registerNetwork();
+    }
+
+    /** WH26-6: hardness 3/4/5/6 like before in Simple Crucibles; netherite and enderite are fire-proof and blast-proof. */
+    private static void registerBarrels() {
+        for (com.simplestorage.barrel.BarrelTier tier : com.simplestorage.barrel.BarrelTier.values()) {
+            boolean netherite = tier == com.simplestorage.barrel.BarrelTier.NETHERITE || tier == com.simplestorage.barrel.BarrelTier.ENDERITE;
+            float resistance = tier == com.simplestorage.barrel.BarrelTier.ENDERITE ? 1500.0F : netherite ? 1200.0F : 6.0F;
+            MapColor color = switch (tier) {
+                case COPPER -> MapColor.COLOR_ORANGE;
+                case REINFORCED -> MapColor.DIAMOND;
+                case NETHERITE -> MapColor.COLOR_BLACK;
+                case ENDERITE -> MapColor.COLOR_PURPLE;
+            };
+            String name = tier.id() + "_barrel";
+            BARRELS.put(tier, Registry.register(BuiltInRegistries.BLOCK, key(name), new com.simplestorage.barrel.BarrelBlock(
+                    BlockBehaviour.Properties.of().mapColor(color).strength(3.0F + tier.ordinal(), resistance)
+                            .sound(netherite ? SoundType.NETHERITE_BLOCK : SoundType.COPPER).requiresCorrectToolForDrops().setId(key(name)), tier)));
+        }
+    }
+
+    public static Block[] barrels() {
+        return BARRELS.values().toArray(new Block[0]);
     }
 
     /** ST27-1: strength and sound like the chests of the tier; thin shapes need {@code noOcclusion}. */

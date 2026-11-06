@@ -751,13 +751,51 @@
           "Tempo: das Netz wird nur neu gesucht, wenn sich Kabel oder Schnittstellen geändert haben, und die Truhen werden nur gelesen, solange ein Controller-Fenster offen ist."
         ]
       }
+    },
+    {
+      "id": "barrels",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelMenu.java",
+        "modules/simplelib/shared/java/com/simplelib/api/BarrelDock.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/in_world_upgrades/barrels.json"
+      ],
+      "en": {
+        "title": "Barrels",
+        "summary": "Copper, Reinforced, Netherite and Enderite barrels: bigger than Vanilla's, upgraded in place, and the docking barrel of the Simple Crucibles.",
+        "details": [
+          "Copper 27 slots (a Vanilla barrel surrounded by four copper ingots), Reinforced 36, Netherite 45, Enderite 54 with double stacks (128 of a 64-stack item). The barrels were Simple Crucibles' (before that SimpleLib's, the Enderite one SimpleBuilding's); they belong to Simple Storage now and old worlds migrate.",
+          "A loose barrel is placed like Vanilla's barrel, its lid towards the player (all six sides), opens its lid while someone looks in, and takes the chest interface (tag c:barrels). Raised stack limits hold in the menu, for shift-clicks and for hoppers; taking from such a slot gives at most one normal stack.",
+          "Upgrade in place like the chests: with an axe in the main hand and the material in the off hand (ten strikes; with Simple Hammers the sledgehammer): Copper to Reinforced with two cracked diamonds, Reinforced to Netherite with two netherite nuggets, Netherite to Enderite with two Enderite nuggets (Simple Ores). Contents, lid and docking stay.",
+          "With Simple Crucibles, a barrel next to a crucible attaches with six strikes: it then offers as many slots as the crucible has (6/12/18/30; the rest stays stored, hidden, and comes back when detached), opens the crucible screen, and the crucible puts its results there first. Breaking the crucible makes the barrel a normal barrel again."
+        ]
+      },
+      "de": {
+        "title": "Fässer",
+        "summary": "Kupfer-, Verstärkte, Netherit- und Enderit-Fässer: größer als das Vanilla-Fass, in der Welt aufwertbar und das andockende Fass der Schmelztiegel von Simple Crucibles.",
+        "details": [
+          "Kupfer 27 Plätze (ein Vanilla-Fass umringt von vier Kupferbarren), Verstärkt 36, Netherit 45, Enderit 54 mit doppelten Stapeln (128 eines 64er-Items). Die Fässer gehörten Simple Crucibles (davor SimpleLib, das Enderit-Fass SimpleBuilding); sie gehören jetzt zu Simple Storage, alte Welten werden migriert.",
+          "Ein loses Fass wird wie das Vanilla-Fass gesetzt, der Deckel zum Spieler (alle sechs Seiten), öffnet den Deckel, solange jemand hineinschaut, und nimmt die Truhen-Schnittstelle an (Tag c:barrels). Erhöhte Stapelgrenzen gelten im Menü, beim Shift-Klick und für Trichter; Herausnehmen gibt höchstens einen normalen Stapel.",
+          "Aufwerten in der Welt wie bei den Truhen: Axt in der Haupthand und das Material in der Nebenhand (zehn Schläge; mit Simple Hammers der Vorschlaghammer): Kupfer zu Verstärkt mit zwei rissigen Diamanten, Verstärkt zu Netherit mit zwei Netheritklumpen, Netherit zu Enderit mit zwei Enderitklumpen (Simple Ores). Inhalt, Deckel und Andockzustand bleiben.",
+          "Mit Simple Crucibles wird ein Fass neben einem Tiegel mit sechs Schlägen angedockt: es bietet dann so viele Plätze wie der Tiegel (6/12/18/30; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da), öffnet das Tiegel-Fenster, und der Tiegel legt seine Ergebnisse zuerst dort ab. Wird der Tiegel abgebaut, ist das Fass wieder ein normales Fass."
+        ]
+      }
     }
   ],
   "notes": {
     "simplestorage:guide_book": {
-      "sources": ["modules/simplestorage/shared/java/com/simplestorage/guide/StorageGuide.java", "modules/simplestorage/shared/resources/assets/simplestorage/simplelib/modpack_guide.json", "modules/simplestorage/shared/resources/data/simplestorage/advancement/guide/chapter.json"],
-      "en": {"summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 36 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."},
-      "de": {"summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 36 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."}
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/guide/StorageGuide.java",
+        "modules/simplestorage/shared/resources/assets/simplestorage/simplelib/modpack_guide.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 37 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 37 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+      }
     },
     "simplestorage:*_crate": {
       "sources": [
@@ -1202,9 +1240,17 @@
       ]
     },
     "simplestorage:leather_sheet": {
-      "en": {"summary": "Nine Leather in a 3x3 square make one Leather Sheet (no way back). It is the ingredient of the Backpack and its Reinforced step (3 sheets each), of the Reinforced Bundle and Reinforced Quiver (1 sheet), of the Quiver (2 sheets) and of the Paint Box. Old simplebuilding:leather_sheet stacks and its recipe migrate."},
-      "de": {"summary": "Neun Leder im 3x3-Quadrat ergeben ein Ledertuch (kein Rückweg). Es ist Zutat des Rucksacks und seiner verstärkten Stufe (je 3 Tücher), des Verstärkten Bündels und Verstärkten Köchers (1 Tuch), des Köchers (2 Tücher) und des Farbkastens. Alte simplebuilding:leather_sheet-Stapel und das Rezept wandern mit."},
-      "sources": ["modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java", "modules/simplestorage/shared/resources/data/simplestorage/recipe/leather_sheet.json", "modules/simplestorage/shared/resources/data/simplestorage/recipe/quiver.json"]
+      "en": {
+        "summary": "Nine Leather in a 3x3 square make one Leather Sheet (no way back). It is the ingredient of the Backpack and its Reinforced step (3 sheets each), of the Reinforced Bundle and Reinforced Quiver (1 sheet), of the Quiver (2 sheets) and of the Paint Box. Old simplebuilding:leather_sheet stacks and its recipe migrate."
+      },
+      "de": {
+        "summary": "Neun Leder im 3x3-Quadrat ergeben ein Ledertuch (kein Rückweg). Es ist Zutat des Rucksacks und seiner verstärkten Stufe (je 3 Tücher), des Verstärkten Bündels und Verstärkten Köchers (1 Tuch), des Köchers (2 Tücher) und des Farbkastens. Alte simplebuilding:leather_sheet-Stapel und das Rezept wandern mit."
+      },
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/leather_sheet.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/quiver.json"
+      ]
     },
     "simplestorage:quiver": {
       "en": {
@@ -2143,6 +2189,50 @@
       "de": {
         "summary": "Die Zentrale eines Truhen-Netzwerks: eine Truhe, deren Fenster jede Sorte aller verbundenen Truhen listet. Nimmt bis zu 64 Truhenblöcke seiner Stufe oder niedriger; zu viele Truhen machen sie kaputt. Schnittstelle + Truhe + Buch mit Feder + Enderperle."
       }
+    },
+    "simplestorage:copper_barrel": {
+      "en": {
+        "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). With Simple Crucibles, next to a crucible, six axe strikes (sledgehammer with Simple Hammers) attach it: every strike shows cracks, then the barrel docks to the crucible with a flange and a chute, offers only as many slots as the crucible has (6/12/18/30; the rest stays stored, hidden, and comes back when detached) and opens the crucible screen; the crucible puts its results there first, a hopper below the barrel takes them out. Breaking the barrel drops its contents and the plain barrel; breaking the crucible makes it a normal barrel again."
+      },
+      "de": {
+        "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Mit Simple Crucibles, neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, zeigt jeder Schlag Risse, dann dockt das Fass mit Flansch und Rinne am Tiegel an, bietet nur so viele Plätze wie der Tiegel (6/12/18/30; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da) und öffnet das Tiegel-Fenster; der Tiegel legt seine Ergebnisse zuerst dort ab, ein Trichter unter dem Fass nimmt sie heraus. Fass abbauen gibt Inhalt und normales Fass, Tiegel abbauen macht es wieder zum normalen Fass."
+      },
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"
+      ]
+    },
+    "simplestorage:reinforced_barrel": {
+      "en": {
+        "summary": "A copper barrel upgraded in place (axe, 2 diamonds, ten strikes): 36 slots on its own, 9 when attached to a crucible."
+      },
+      "de": {
+        "summary": "Ein in der Welt aufgewertetes Kupfer-Fass (Axt, 2 Diamanten, zehn Schläge): allein 36 Plätze, am Tiegel 9."
+      },
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"
+      ]
+    },
+    "simplestorage:netherite_barrel": {
+      "en": {
+        "summary": "A reinforced barrel upgraded in place (axe, 1 netherite ingot, ten strikes; with SimpleBuilding sledgehammer and 2 netherite nuggets): 45 slots on its own, 9 when attached to a crucible; survives fire and lava as an item."
+      },
+      "de": {
+        "summary": "Ein in der Welt aufgewertetes verstärktes Fass (Axt, 1 Netheritbarren, zehn Schläge; mit SimpleBuilding Vorschlaghammer und 2 Netheritklumpen): allein 45 Plätze, am Tiegel 9; als Gegenstand feuer- und lavafest."
+      },
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"
+      ]
+    },
+    "simplestorage:enderite_barrel": {
+      "en": {
+        "summary": "Barrel with 54 slots and double stacks; docks onto a crucible like the other barrels and offers as many slots as the crucible has (see Crucibles)."
+      },
+      "de": {
+        "summary": "Fass mit 54 Plätzen und doppelten Stapeln; dockt wie die anderen Fässer an einen Tiegel an und bietet so viele Plätze wie der Tiegel (siehe Schmelztiegel)."
+      },
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"
+      ]
     }
   }
 }

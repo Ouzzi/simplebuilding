@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "simplecrucibles:iron_crucible",
+    "simplecrucibles:reinforced_crucible",
+    "simplecrucibles:netherite_crucible",
+    "simplecrucibles:enderite_crucible"
+  ]
+}

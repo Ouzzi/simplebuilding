@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Simple Crucibles (split plan stage 5, docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md): the iron, reinforced, netherite and
- * Enderite crucibles, the copper/reinforced/netherite/Enderite barrels that dock onto them, the reinforced cauldron and
+ * Enderite crucibles, the barrels (Simple Storage's since WH26-6) that dock onto them, the reinforced cauldron and
  * the village field kitchen, moved out of SimpleLib (and, for the Enderite stage, out of SimpleBuilding). Warm food stays
  * in SimpleLib. Loader entry points call {@link #init} once in their constructor / initializer, before any registry
  * event, so the id moves are known in time (Forge aliases).
@@ -25,11 +25,11 @@ public final class SimpleCrucibles {
     public static final String LIB_NAMESPACE = "simplelib";
     public static final String SB_NAMESPACE = "simplebuilding";
 
-    /** Blocks that were SimpleLib's (block and item share the path; the blank has no item). */
+    /** Blocks that were SimpleLib's (block and item share the path; the blank has no item). Barrels: see Simple Storage. */
     public static final List<String> MOVED_FROM_LIB = List.of("iron_crucible", "reinforced_crucible", "netherite_crucible",
-            "copper_barrel", "reinforced_barrel", "netherite_barrel", "reinforced_cauldron");
-    /** The Enderite stage, SimpleBuilding's before this stage. */
-    public static final List<String> MOVED_FROM_SB = List.of("enderite_crucible", "enderite_barrel");
+            "reinforced_cauldron");
+    /** The Enderite stage, SimpleBuilding's before this stage (the barrels went on to Simple Storage, WH26-6). */
+    public static final List<String> MOVED_FROM_SB = List.of("enderite_crucible");
     /**
      * Split stage 5b: the bucket family and soul lava, SimpleBuilding's before (items; the soul lava bucket included).
      * The worn ceramic stages and full Enderite buckets are items too - every id in {@code simplebuilding:} moves.
@@ -111,9 +111,7 @@ public final class SimpleCrucibles {
             IdMoves.move(Registries.ITEM, sb(path), id(path));
         }
         IdMoves.move(Registries.BLOCK_ENTITY_TYPE, lib("crucible"), id("crucible"));
-        IdMoves.move(Registries.BLOCK_ENTITY_TYPE, lib("barrel"), id("barrel"));
-        IdMoves.move(Registries.RECIPE, lib("copper_barrel"), id("copper_barrel"));
-        IdMoves.move(Registries.ADVANCEMENT, lib("recipes/misc/copper_barrel"), id("recipes/misc/copper_barrel"));
+        // WH26-6: the barrels (blocks, items, block entity, recipe) moved on to Simple Storage, which holds every old id.
         // Split stage 5b: soul lava (fluids, block, effect), the buckets, their components and recipes (SimpleBuilding's).
         for (String path : BUCKETS_FROM_SB) IdMoves.move(Registries.ITEM, sb(path), id(path));
         IdMoves.move(Registries.BLOCK, sb("soul_lava"), id("soul_lava"));

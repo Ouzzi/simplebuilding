@@ -92688,10 +92688,6 @@
           "required": true
         },
         {
-          "id": "simplecrucibles:enderite_barrel",
-          "required": true
-        },
-        {
           "id": "simplecrucibles:enderite_bucket",
           "required": true
         },
@@ -92824,6 +92820,10 @@
           "required": true
         },
         {
+          "id": "simplestorage:enderite_barrel",
+          "required": true
+        },
+        {
           "id": "simplestorage:enderite_bundle",
           "required": true
         },
@@ -92948,10 +92948,6 @@
         },
         {
           "id": "simplebuilding:enderite_sword",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_barrel",
           "required": true
         },
         {
@@ -93144,6 +93140,10 @@
         },
         {
           "id": "simplestorage:enderite_backpack",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_barrel",
           "required": true
         },
         {

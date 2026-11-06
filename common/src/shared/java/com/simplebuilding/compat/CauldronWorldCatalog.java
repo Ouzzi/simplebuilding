@@ -97,7 +97,7 @@ public final class CauldronWorldCatalog {
     }
 
     private static void barrelAttach(List<Entry> out, List<Item> hammers) {
-        List<Item> barrels = items("simplecrucibles:copper_barrel", "simplecrucibles:reinforced_barrel", "simplecrucibles:enderite_barrel");
+        List<Item> barrels = items("simplestorage:copper_barrel", "simplestorage:reinforced_barrel", "simplestorage:enderite_barrel");
         List<Item> crucibles = items("simplecrucibles:iron_crucible", "simplecrucibles:reinforced_crucible", "simplecrucibles:netherite_crucible",
                 "simplecrucibles:enderite_crucible");
         int strikes = CrucibleCompat.attachStrikes();
@@ -121,7 +121,7 @@ public final class CauldronWorldCatalog {
      */
     private static void crucibleUpgrades(List<Entry> out) {
         for (String id : List.of("simplecrucibles:iron_crucible", "simplecrucibles:reinforced_crucible", "simplecrucibles:netherite_crucible",
-                "simplecrucibles:copper_barrel", "simplecrucibles:reinforced_barrel", "simplecrucibles:netherite_barrel")) {
+                "simplestorage:copper_barrel", "simplestorage:reinforced_barrel", "simplestorage:netherite_barrel")) {
             Identifier key = Identifier.tryParse(id);
             if (key == null || !BuiltInRegistries.BLOCK.containsKey(key)) {
                 continue;

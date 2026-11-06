@@ -37,6 +37,8 @@ public final class StorageItems {
     /** ST27-1: the four pipes in tier order. BS29b-3: cable, interface, the four controller chests in step order. */
     public static final Map<com.simplestorage.pipe.PipeTier, Item> PIPES = new EnumMap<>(com.simplestorage.pipe.PipeTier.class);
     public static Item COPPER_CABLE, CHEST_INTERFACE;
+    /** WH26-6: the four barrels in tier order (moved from Simple Crucibles). */
+    public static final Map<com.simplestorage.barrel.BarrelTier, Item> BARRELS = new EnumMap<>(com.simplestorage.barrel.BarrelTier.class);
     /** IG31-8: nine leather in one sheet; the ingredient of backpacks, bundles, quivers and the paint box (moved from SimpleBuilding). */
     public static Item LEATHER_SHEET;
     public static final Map<com.simplestorage.network.ControllerLevel, Item> CONTROLLERS = new EnumMap<>(com.simplestorage.network.ControllerLevel.class);
@@ -91,6 +93,13 @@ public final class StorageItems {
             ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, BuiltInRegistries.BLOCK.getKey(block));
             PIPES.put(tier, Registry.register(BuiltInRegistries.ITEM, key, new com.simplestorage.pipe.PipeItem(block, extra.apply(new Item.Properties().setId(key)))));
         }
+        StorageBlocks.BARRELS.forEach((tier, block) -> {
+            ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, BuiltInRegistries.BLOCK.getKey(block));
+            Item.Properties p = new Item.Properties().setId(key).useBlockDescriptionPrefix();
+            if (tier == com.simplestorage.barrel.BarrelTier.NETHERITE) p = p.fireResistant();
+            if (tier == com.simplestorage.barrel.BarrelTier.ENDERITE) p = p.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC);
+            BARRELS.put(tier, Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, p)));
+        });
         COPPER_CABLE = blockItem(StorageBlocks.COPPER_CABLE, 0);
         CHEST_INTERFACE = blockItem(StorageBlocks.CHEST_INTERFACE, 0);
         for (com.simplestorage.network.ControllerLevel step : com.simplestorage.network.ControllerLevel.values()) {

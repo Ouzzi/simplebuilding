@@ -24,38 +24,38 @@
         "title": "Crucibles",
         "summary": "A cooking station without fuel that cooks every slot at once, heated by the block below.",
         "details": [
-          "Iron 6 slots, Reinforced 12 (2x6), Netherite 18, Enderite 30 (5x6). Speed 1x/2x/4x/8x; Netherite and Enderite count experience twice. The Enderite crucible and barrel were SimpleBuilding's; they belong to this mod now and old worlds migrate.",
+          "Iron 6 slots, Reinforced 12 (2x6), Netherite 18, Enderite 30 (5x6). Speed 1x/2x/4x/8x; Netherite and Enderite count experience twice. The Enderite crucible was SimpleBuilding's; it belongs to this mod now and old worlds migrate.",
           "Heat comes from the block directly below, or two blocks below at 10% less speed (air, a hopper or a non-full block in between). Medium: campfire, soul campfire, magma block, flowing lava (0.5x, campfire and smoker recipes). High: lava, lava cauldron, flowing soul lava (0.75x, also furnace and blast furnace recipes). Extreme: soul lava (1x, also ancient debris). Torches, candles and plain fire give no heat. In the Nether every source is one level hotter, at most high.",
           "Before a slot starts, it reserves the place for its result: the slot directly below first, then any other free or matching slot. A reserved slot shows the result faintly; anything else put there stops that slot until it is taken out. Finished results are never cooked again until taken out.",
           "After the heat source is gone the crucible keeps its heat for 2/4/8/16 seconds. Hoppers insert from above and the sides and take finished results from below. The crucible is walk-in like a cauldron: its walls collide only up to 9/16 of a block, so you step into it, and at high heat or more (lava, soul lava) standing in it burns like a magma block - 1 damage per hit, not while sneaking (server option crucibleBurnDamage, default 1, 0-4, 0 = off).",
           "Build an iron crucible in the world: hold an axe, put iron ingots in the off hand and use it on an empty cauldron sixteen times, one ingot per strike (a cauldron with water, lava or powder snow has to be emptied first). The first strike turns the cauldron into the base; strikes 1-8 raise the four side plates (each first half, then whole), 9-12 the two handles (half, then whole), 13-16 the four rim pieces. Every strike is visible as its own stage; breaking the half-built crucible gives back the cauldron and every ingot struck in (a blank started on an iron block in older worlds gives its iron block back and can be finished the same way). With Simple Hammers the sledgehammer builds it instead (the axe way is then off; 2 durability per strike).",
-          "Upgrade in place without SimpleBuilding: axe in the main hand, twelve strikes on the crucible; every third strike takes one unit from the off hand and shows it as a band of the new material on one side, four units in all: Iron to Reinforced with cracked diamonds (or diamonds), Reinforced to Netherite with netherite nuggets (or netherite scrap). A crucible broken midway gives the units back. Contents, progress, experience and an attached barrel stay. With SimpleBuilding, Simple Hammers' sledgehammer replaces the axe (same 12 strikes, 4 cracked diamonds / netherite nuggets from a Diamond Sledgehammer on / Enderite nuggets from a Netherite one); these hammer entries ship with SimpleBuilding, and Simple Hammers without SimpleBuilding switches the axe way off - in that combination crucibles do not go up.",
-          "A barrel standing next to a crucible attaches with 6 strikes of the axe (with Simple Hammers of the sledgehammer, 2 durability per strike); an attached barrel feeds and takes the crucible's slots. A loose barrel is placed like Vanilla's barrel, its lid towards the player (all six sides), opens its lid while someone looks in, and takes Simple Storage's chest interface (tag c:barrels).",
-          "Raised stack limits (an Enderite crucible or barrel holds 128 of a 64-stack item) hold everywhere: in the crucible menu, in a loose barrel's own chest menu, for shift-clicks and for hoppers, which top such slots up to the raised limit (also double chests). Taking from such a slot gives at most one normal stack."
+          "Upgrade in place without SimpleBuilding: axe in the main hand, twelve strikes on the crucible; every third strike takes one unit from the off hand and shows it as a band of the new material on one side, four units in all: Iron to Reinforced with cracked diamonds (or diamonds), Reinforced to Netherite with netherite nuggets (or netherite scrap). A crucible broken midway gives the units back. Contents, progress, experience and an attached barrel (Simple Storage) stay. With SimpleBuilding, Simple Hammers' sledgehammer replaces the axe (same 12 strikes, 4 cracked diamonds / netherite nuggets from a Diamond Sledgehammer on / Enderite nuggets from a Netherite one); these hammer entries ship with SimpleBuilding, and Simple Hammers without SimpleBuilding switches the axe way off - in that combination crucibles do not go up.",
+          "With Simple Storage, a barrel standing next to a crucible attaches with 6 strikes of the axe (with Simple Hammers of the sledgehammer, 2 durability per strike); an attached barrel feeds and takes the crucible's slots and offers as many slots as the crucible has (the rest stays stored, hidden). The barrels themselves are Simple Storage's (see Barrels there); without it the crucibles work on their own.",
+          "Raised stack limits (an Enderite crucible holds (the Enderite barrel too) 128 of a 64-stack item) hold everywhere: in the crucible menu, for shift-clicks and for hoppers, which top such slots up to the raised limit (also double chests). Taking from such a slot gives at most one normal stack."
         ]
       },
       "de": {
         "title": "Schmelztiegel",
         "summary": "Garstation ohne Brennstoff, die alle Plätze zugleich gart, beheizt vom Block darunter.",
         "details": [
-          "Eisen 6 Plätze, Verstärkt 12 (2x6), Netherit 18, Enderit 30 (5x6). Tempo 1×/2×/4×/8×; Netherit und Enderit zählen die Erfahrung doppelt. Enderit-Tiegel und -Fass gehörten SimpleBuilding; sie gehören jetzt zu dieser Mod, alte Welten werden migriert.",
+          "Eisen 6 Plätze, Verstärkt 12 (2x6), Netherit 18, Enderit 30 (5x6). Tempo 1×/2×/4×/8×; Netherit und Enderit zählen die Erfahrung doppelt. Der Enderit-Tiegel gehörte SimpleBuilding; er gehört jetzt zu dieser Mod, alte Welten werden migriert.",
           "Hitze kommt vom Block direkt darunter oder zwei Blöcke darunter mit 10 % weniger Tempo (dazwischen Luft, ein Trichter oder ein nicht voller Block). Mittel: Lagerfeuer, Seelen-Lagerfeuer, Magmablock, fließende Lava (0,5×, Lagerfeuer- und Räucherofen-Rezepte). Hoch: Lava, Lavakessel, fließende Seelen-Lava (0,75×, auch Ofen- und Schmelzofen-Rezepte). Extrem: Seelen-Lava (1×, auch antiker Schrott). Fackeln, Kerzen und normales Feuer geben keine Hitze. Im Nether ist jede Quelle eine Stufe heißer, höchstens hoch.",
           "Bevor ein Platz anfängt, reserviert er den Platz für sein Ergebnis: zuerst den Platz direkt darunter, sonst einen anderen freien oder passenden. Ein reservierter Platz zeigt das Ergebnis blass; legt man etwas anderes hinein, stoppt dieser Platz, bis es wieder herausgenommen wird. Fertige Ergebnisse werden nie erneut gegart, bis man sie entnimmt.",
           "Nach dem Entfernen der Hitzequelle hält der Tiegel die Hitze 2/4/8/16 Sekunden. Trichter füllen von oben und von der Seite ein und nehmen fertige Ergebnisse unten heraus. Der Tiegel ist betretbar wie ein Kessel: seine Wände sind nur bis 9/16 Block fest, man steigt also hinein, und ab hoher Hitze (Lava, Seelen-Lava) brennt das Stehen darin wie ein Magmablock - 1 Schaden je Treffer, nicht beim Schleichen (Server-Option crucibleBurnDamage, Standard 1, 0-4, 0 = aus).",
           "Eisen-Tiegel in der Welt bauen: Axt in der Hand, Eisenbarren in der Nebenhand und sechzehnmal auf einen leeren Kessel anwenden, ein Barren je Schlag (ein Kessel mit Wasser, Lava oder Pulverschnee muss erst geleert werden). Der erste Schlag macht den Kessel zum Boden; Schläge 1-8 setzen die vier Seitenplatten (je erst halb, dann ganz), 9-12 die zwei Griffe (halb, dann ganz), 13-16 die vier Randstücke. Jeder Schlag ist als eigene Stufe sichtbar; wird der halbfertige Tiegel abgebaut, kommen der Kessel und alle verbauten Barren zurück (ein in älteren Welten auf einem Eisenblock begonnener Rohling gibt seinen Eisenblock zurück und lässt sich genauso fertig bauen). Mit Simple Hammers baut ihn stattdessen der Vorschlaghammer (der Axt-Weg ist dann aus; 2 Haltbarkeit je Schlag).",
-          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zwölf Schläge auf den Tiegel; jeder dritte Schlag nimmt eine Einheit aus der Nebenhand und zeigt sie als Band des neuen Materials auf einer Seite, vier Einheiten insgesamt: Eisen zu Verstärkt mit rissigen Diamanten (oder Diamanten), Verstärkt zu Netherit mit Netheritklumpen (oder Netheritschrott). Wird der Tiegel vorher abgebaut, kommen die Einheiten zurück. Inhalt, Fortschritt, Erfahrung und ein angedocktes Fass bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer von Simple Hammers die Axt (ebenfalls 12 Schläge, 4 rissige Diamanten / Netheritklumpen ab einem Diamant-Vorschlaghammer / Enderitklumpen ab einem aus Netherit); diese Hammer-Einträge bringt SimpleBuilding mit, und Simple Hammers ohne SimpleBuilding schaltet den Axt-Weg ab - in dieser Kombination steigen Tiegel nicht auf.",
-          "Ein Fass neben einem Tiegel wird mit 6 Axtschlägen angedockt (mit Simple Hammers mit dem Vorschlaghammer, 2 Haltbarkeit je Schlag); ein angedocktes Fass bedient die Plätze des Tiegels. Ein loses Fass wird wie das Vanilla-Fass gesetzt, der Deckel zum Spieler (alle sechs Seiten), öffnet den Deckel, solange jemand hineinschaut, und nimmt die Truhen-Schnittstelle von Simple Storage an (Tag c:barrels).",
-          "Erhöhte Stapelgrenzen (ein Enderit-Tiegel oder -Fass fasst 128 eines 64er-Items) gelten überall: im Tiegelmenü, im eigenen Truhenmenü eines losen Fasses, beim Shift-Klick und für Trichter, die solche Plätze bis zur erhöhten Grenze füllen (auch Doppeltruhen). Herausnehmen gibt höchstens einen normalen Stapel."
+          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zwölf Schläge auf den Tiegel; jeder dritte Schlag nimmt eine Einheit aus der Nebenhand und zeigt sie als Band des neuen Materials auf einer Seite, vier Einheiten insgesamt: Eisen zu Verstärkt mit rissigen Diamanten (oder Diamanten), Verstärkt zu Netherit mit Netheritklumpen (oder Netheritschrott). Wird der Tiegel vorher abgebaut, kommen die Einheiten zurück. Inhalt, Fortschritt, Erfahrung und ein angedocktes Fass (Simple Storage) bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer von Simple Hammers die Axt (ebenfalls 12 Schläge, 4 rissige Diamanten / Netheritklumpen ab einem Diamant-Vorschlaghammer / Enderitklumpen ab einem aus Netherit); diese Hammer-Einträge bringt SimpleBuilding mit, und Simple Hammers ohne SimpleBuilding schaltet den Axt-Weg ab - in dieser Kombination steigen Tiegel nicht auf.",
+          "Mit Simple Storage wird ein Fass neben einem Tiegel mit 6 Axtschlägen angedockt (mit Simple Hammers mit dem Vorschlaghammer, 2 Haltbarkeit je Schlag); ein angedocktes Fass bedient die Plätze des Tiegels und bietet so viele Plätze wie der Tiegel (der Rest bleibt verwahrt, unsichtbar). Die Fässer selbst gehören Simple Storage (siehe Fässer dort); ohne es arbeiten die Tiegel für sich.",
+          "Erhöhte Stapelgrenzen (ein Enderit-Tiegel fasst (das Enderit-Fass ebenso) 128 eines 64er-Items) gelten überall: im Tiegelmenü, beim Shift-Klick und für Trichter, die solche Plätze bis zur erhöhten Grenze füllen (auch Doppeltruhen). Herausnehmen gibt höchstens einen normalen Stapel."
         ]
       },
       "sources": [
         "modules/simplelib/shared/java/com/simplelib/api/StackLimits.java",
-        "modules/simplecrucibles/shared/java/com/simplecrucibles/crucible/BarrelMenu.java",
         "modules/simplelib/shared/java/com/simplelib/mixin/HopperStackLimitsMixin.java",
         "modules/simplecrucibles/shared/java/com/simplecrucibles/crucible/HammerWays.java",
         "modules/simplecrucibles/shared/java/com/simplecrucibles/mixin/AxeBuildMixin.java",
-        "modules/simplecrucibles/shared/java/com/simplecrucibles/crucible/CrucibleBarrelBlock.java",
-        "mc26_3/generated/data/simplebuilding/in_world_upgrades/reinforced.json"
+        "mc26_3/generated/data/simplebuilding/in_world_upgrades/reinforced.json",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/crucible/BarrelAttach.java",
+        "modules/simplelib/shared/java/com/simplelib/api/BarrelDock.java"
       ]
     },
     {
@@ -253,47 +253,6 @@
       }
     },
     {
-      "id": "simplecrucibles:copper_barrel",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplecrucibles:copper_barrel",
-        "count": 1
-      },
-      "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/recipe/copper_barrel.json",
-      "ingredients": [
-        "minecraft:barrel",
-        "minecraft:copper_ingot"
-      ],
-      "pattern": [
-        " C ",
-        "CBC",
-        " C "
-      ],
-      "key": {
-        "C": [
-          "minecraft:copper_ingot"
-        ],
-        "B": [
-          "minecraft:barrel"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 1.75
-          }
-        ]
-      }
-    },
-    {
       "id": "simplecrucibles:copper_bucket",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -401,24 +360,6 @@
   ],
   "lootTables": [
     {
-      "id": "simplecrucibles:blocks/copper_barrel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplecrucibles:copper_barrel"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/copper_barrel.json"
-    },
-    {
       "id": "simplecrucibles:blocks/crucible_blank",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -453,24 +394,6 @@
         }
       ],
       "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/crucible_blank.json"
-    },
-    {
-      "id": "simplecrucibles:blocks/enderite_barrel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplecrucibles:enderite_barrel"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/enderite_barrel.json"
     },
     {
       "id": "simplecrucibles:blocks/enderite_crucible",
@@ -509,24 +432,6 @@
       "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/iron_crucible.json"
     },
     {
-      "id": "simplecrucibles:blocks/netherite_barrel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplecrucibles:netherite_barrel"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/netherite_barrel.json"
-    },
-    {
       "id": "simplecrucibles:blocks/netherite_crucible",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -543,24 +448,6 @@
         }
       ],
       "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/netherite_crucible.json"
-    },
-    {
-      "id": "simplecrucibles:blocks/reinforced_barrel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplecrucibles:reinforced_barrel"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/reinforced_barrel.json"
     },
     {
       "id": "simplecrucibles:blocks/reinforced_cauldron",
@@ -1287,49 +1174,6 @@
   ],
   "blocks": [
     {
-      "id": "simplecrucibles:copper_barrel",
-      "name": {
-        "en_us": "Copper Barrel",
-        "de_de": "Kupfer-Fass"
-      },
-      "note": {
-        "en": {
-          "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). Next to a crucible, six axe strikes (sledgehammer with Simple Hammers) attach it: every strike shows cracks, then the barrel docks to the crucible with a flange and a chute, offers only as many slots as the crucible has (6/12/18/27; the rest stays stored, hidden, and comes back when detached) and opens the crucible screen; the crucible puts its results there first, a hopper below the barrel takes them out. Breaking the barrel drops its contents and the plain barrel; breaking the crucible makes it a normal barrel again."
-        },
-        "de": {
-          "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, zeigt jeder Schlag Risse, dann dockt das Fass mit Flansch und Rinne am Tiegel an, bietet nur so viele Plätze wie der Tiegel (6/12/18/27; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da) und öffnet das Tiegel-Fenster; der Tiegel legt seine Ergebnisse zuerst dort ab, ein Trichter unter dem Fass nimmt sie heraus. Fass abbauen gibt Inhalt und normales Fass, Tiegel abbauen macht es wieder zum normalen Fass."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A barrel clad in copper, a little greener each year."
-          ],
-          "use": [
-            "The copper tier of the crucible barrel: it attaches to a crucible as extra storage, and works as a normal barrel on its own."
-          ],
-          "secret": [
-            "It is the first step of the barrel line, from copper through netherite to enderite."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Fass mit Kupferhülle, jedes Jahr ein wenig grüner."
-          ],
-          "use": [
-            "Die Kupferstufe des Tiegelfasses: Es lässt sich als Zusatzlager an einen Tiegel hängen und dient allein als normales Fass."
-          ],
-          "secret": [
-            "Es ist die erste Stufe der Fassreihe, von Kupfer über Netherit zu Enderit."
-          ]
-        }
-      },
-      "craftedBy": [
-        "simplecrucibles:copper_barrel"
-      ],
-      "usedIn": []
-    },
-    {
       "id": "simplecrucibles:crucible_blank",
       "name": {
         "en_us": "Crucible Blank",
@@ -1364,47 +1208,6 @@
           ],
           "secret": [
             "Es ist der Block, den man mitten im Bau eines Tiegels in der Welt sieht. Er hat kein eigenes Rezept."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplecrucibles:enderite_barrel",
-      "name": {
-        "en_us": "Enderite Barrel",
-        "de_de": "Enderit-Fass"
-      },
-      "note": {
-        "en": {
-          "summary": "Barrel with 54 slots and double stacks; docks onto a crucible like the other barrels and offers as many slots as the crucible has (see Crucibles)."
-        },
-        "de": {
-          "summary": "Fass mit 54 Plätzen und doppelten Stapeln; dockt wie die anderen Fässer an einen Tiegel an und bietet so viele Plätze wie der Tiegel (siehe Schmelztiegel)."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A barrel that was told it could keep more, and believed it."
-          ],
-          "use": [
-            "The Enderite tier of the crucible's barrel: it holds double stacks, 128 of a 64-stack item, in the crucible menu and its own chest menu, for shift-clicks and for hoppers."
-          ],
-          "secret": [
-            "Taking from such a slot gives at most one normal stack. It is the last step of the line from copper through Netherite to Enderite."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Fass, dem gesagt wurde, es dürfe mehr behalten, und das es glaubte."
-          ],
-          "use": [
-            "Die Enderit-Stufe des Fasses der Tiegel: Es fasst doppelte Stapel, 128 eines 64er-Gegenstands, im Tiegelmenü und im eigenen Truhenmenü, bei Shift-Klicks und für Trichter."
-          ],
-          "secret": [
-            "Aus so einem Platz bekommst du höchstens einen normalen Stapel. Es ist der letzte Schritt der Linie von Kupfer über Netherit zu Enderit."
           ]
         }
       },
@@ -1494,47 +1297,6 @@
       "usedIn": []
     },
     {
-      "id": "simplecrucibles:netherite_barrel",
-      "name": {
-        "en_us": "Netherite Barrel",
-        "de_de": "Netherit-Fass"
-      },
-      "note": {
-        "en": {
-          "summary": "A reinforced barrel upgraded in place (axe, 1 netherite ingot, ten strikes; with SimpleBuilding sledgehammer and 2 netherite nuggets): 45 slots on its own, 9 when attached to a crucible; survives fire and lava as an item."
-        },
-        "de": {
-          "summary": "Ein in der Welt aufgewertetes verstärktes Fass (Axt, 1 Netheritbarren, zehn Schläge; mit SimpleBuilding Vorschlaghammer und 2 Netheritklumpen): allein 45 Plätze, am Tiegel 9; als Gegenstand feuer- und lavafest."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A barrel of dark metal that does not burn."
-          ],
-          "use": [
-            "The Netherite tier of the crucible barrel: attach it to a crucible for even more storage."
-          ],
-          "secret": [
-            "It is fire resistant, like all Netherite blocks."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Fass aus dunklem Metall, das nicht brennt."
-          ],
-          "use": [
-            "Die Netherit-Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es noch mehr Lagerplatz."
-          ],
-          "secret": [
-            "Es ist feuerfest wie alle Netherit-Blöcke."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
       "id": "simplecrucibles:netherite_crucible",
       "name": {
         "en_us": "Netherite Crucible",
@@ -1569,47 +1331,6 @@
           ],
           "secret": [
             "Lava oder Seelenlava darunter lässt ihn Ofen- und Hochofenrezepte kochen, Seelenlava auch Antiken Schrott."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplecrucibles:reinforced_barrel",
-      "name": {
-        "en_us": "Reinforced Barrel",
-        "de_de": "Verstärktes Fass"
-      },
-      "note": {
-        "en": {
-          "summary": "A copper barrel upgraded in place (axe, 2 diamonds, ten strikes): 36 slots on its own, 9 when attached to a crucible."
-        },
-        "de": {
-          "summary": "Ein in der Welt aufgewertetes Kupfer-Fass (Axt, 2 Diamanten, zehn Schläge): allein 36 Plätze, am Tiegel 9."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A barrel that has been told to hold more."
-          ],
-          "use": [
-            "The Reinforced tier of the crucible barrel: attach it to a crucible for more storage."
-          ],
-          "secret": [
-            "Hoppers fill it like a chest, from above and the sides."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Fass, dem gesagt wurde, es solle mehr halten."
-          ],
-          "use": [
-            "Die verstärkte Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es mehr Lagerplatz."
-          ],
-          "secret": [
-            "Trichter füllen es wie eine Truhe, von oben und von der Seite."
           ]
         }
       },
@@ -1731,13 +1452,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 8,
-    "recipes": 5,
-    "lootTables": 11,
+    "recipes": 4,
+    "lootTables": 7,
     "tags": 11,
     "advancements": 1,
     "enchantments": 0,
     "items": 27,
-    "blocks": 11,
+    "blocks": 7,
     "trades": 0,
     "config": 0,
     "quests": 0,

@@ -335,14 +335,14 @@ public class CrucibleMenu extends AbstractContainerMenu {
             this.crucible = crucible;
         }
 
-        private @Nullable CrucibleBarrelBlockEntity barrel() {
+        private @Nullable com.simplelib.api.BarrelDock.Barrel barrel() {
             return crucible.barrel();
         }
 
         @Override public int getContainerSize() { return crucible.tier().slots(); }
 
         /** Whether {@code slot} lies within the barrel's attached slots (always, as both follow the crucible). */
-        private boolean inside(CrucibleBarrelBlockEntity b, int slot) {
+        private boolean inside(com.simplelib.api.BarrelDock.Barrel b, int slot) {
             return slot < b.getContainerSize();
         }
 

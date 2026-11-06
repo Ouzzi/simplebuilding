@@ -23,8 +23,7 @@ import org.jetbrains.annotations.Nullable;
  * hand, the material in the off hand. Crucibles (owner N51): {@value #CRUCIBLE_STRIKES} strikes, every
  * {@value #STRIKES_PER_UNIT}rd strikes one unit in ({@link CrucibleBlock#UPGRADE} shows it as a band), four units:
  * Iron -> Reinforced with cracked diamonds (or diamonds), Reinforced -> Netherite with netherite nuggets (or netherite
- * scrap). Barrels keep ten strikes (owner F9) with the material on the last strike: copper -> reinforced (2 diamonds)
- * -> netherite (1 netherite ingot). Contents, progress and experience stay. SimpleBuilding replaces this with its
+ * scrap). Contents, progress and experience stay. (The barrels' tier upgrades went with the barrels to Simple Storage, WH26-6.) SimpleBuilding replaces this with its
  * sledgehammer way and calls {@link #upgradeInPlace} / {@link #strikeInUnit} itself.
  */
 public final class CrucibleUpgrades {
@@ -46,10 +45,6 @@ public final class CrucibleUpgrades {
             return new Step(CrucibleBlocks.IRON_CRUCIBLE, CrucibleBlocks.REINFORCED_CRUCIBLE, CrucibleTags.CRUCIBLE_UPGRADE_REINFORCED, 1);
         if (state.is(CrucibleBlocks.REINFORCED_CRUCIBLE) && material.is(CrucibleTags.CRUCIBLE_UPGRADE_NETHERITE))
             return new Step(CrucibleBlocks.REINFORCED_CRUCIBLE, CrucibleBlocks.NETHERITE_CRUCIBLE, CrucibleTags.CRUCIBLE_UPGRADE_NETHERITE, 1);
-        if (state.is(CrucibleBlocks.COPPER_BARREL) && material.is(CrucibleTags.UPGRADE_REINFORCED))
-            return new Step(CrucibleBlocks.COPPER_BARREL, CrucibleBlocks.REINFORCED_BARREL, CrucibleTags.UPGRADE_REINFORCED, 2);
-        if (state.is(CrucibleBlocks.REINFORCED_BARREL) && material.is(CrucibleTags.UPGRADE_NETHERITE))
-            return new Step(CrucibleBlocks.REINFORCED_BARREL, CrucibleBlocks.NETHERITE_BARREL, CrucibleTags.UPGRADE_NETHERITE, 1);
         // Owner 56 B: without SimpleBuilding the cauldron becomes reinforced with an axe and 8 diamonds (owner 2026-10-06: doubled from 4).
         if (state.is(net.minecraft.world.level.block.Blocks.CAULDRON) && material.is(CrucibleTags.UPGRADE_REINFORCED))
             return new Step(net.minecraft.world.level.block.Blocks.CAULDRON, CrucibleBlocks.REINFORCED_CAULDRON, CrucibleTags.UPGRADE_REINFORCED, CAULDRON_COST);
@@ -72,7 +67,6 @@ public final class CrucibleUpgrades {
             player.getCooldowns().addCooldown(tool, CrucibleBlankBlock.STRIKE_COOLDOWN);
             return true;
         }
-        else if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity barrel) done = barrel.addUpgradeStrike();
         else if (state.is(net.minecraft.world.level.block.Blocks.CAULDRON)) {
             done = cauldronStrike(server, pos);
             needed = CAULDRON_STRIKES;
@@ -128,11 +122,8 @@ public final class CrucibleUpgrades {
     /** The upgraded block as the preview shows it: the target's default state with the old facing kept. */
     public static BlockState previewState(BlockState from, Block to) {
         BlockState next = to.defaultBlockState();
-        if (from.hasProperty(CrucibleBarrelBlock.FACING) && next.hasProperty(CrucibleBarrelBlock.FACING)) {
-            next = next.setValue(CrucibleBarrelBlock.FACING, from.getValue(CrucibleBarrelBlock.FACING));
-        }
-        if (from.hasProperty(CrucibleBarrelBlock.TOP) && next.hasProperty(CrucibleBarrelBlock.TOP)) {
-            next = next.setValue(CrucibleBarrelBlock.TOP, from.getValue(CrucibleBarrelBlock.TOP));
+        if (from.hasProperty(CrucibleBlock.FACING) && next.hasProperty(CrucibleBlock.FACING)) {
+            next = next.setValue(CrucibleBlock.FACING, from.getValue(CrucibleBlock.FACING));
         }
         return next;
     }
@@ -151,22 +142,6 @@ public final class CrucibleUpgrades {
 
     /** Replaces the crucible by {@code to}, keeping facing, contents, progress and experience (owner 11). */
     public static void upgradeInPlace(ServerLevel level, BlockPos pos, Block to) {
-        if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity barrel) {
-            java.util.List<ItemStack> kept = new java.util.ArrayList<>();
-            for (int i = 0; i < barrel.getContainerSize(); i++) kept.add(barrel.removeItemNoUpdate(i));
-            BlockState from = level.getBlockState(pos);
-            BlockState next = to.defaultBlockState();
-            if (from.hasProperty(CrucibleBarrelBlock.FACING)) {
-                next = next.setValue(CrucibleBarrelBlock.FACING, from.getValue(CrucibleBarrelBlock.FACING))
-                        .setValue(CrucibleBarrelBlock.ATTACHED, from.getValue(CrucibleBarrelBlock.ATTACHED))
-                        .setValue(CrucibleBarrelBlock.TOP, from.getValue(CrucibleBarrelBlock.TOP));
-            }
-            level.setBlock(pos, next, Block.UPDATE_ALL);
-            if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity fresh) {
-                for (int i = 0; i < kept.size() && i < fresh.getContainerSize(); i++) fresh.setItem(i, kept.get(i));
-            }
-            return;
-        }
         if (!(level.getBlockEntity(pos) instanceof CrucibleBlockEntity old)) return;
         CrucibleBlockEntity.Snapshot snapshot = old.snapshot();
         old.clearForUpgrade();

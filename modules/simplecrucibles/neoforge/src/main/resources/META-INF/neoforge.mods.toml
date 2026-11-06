@@ -48,5 +48,12 @@ versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
+[[dependencies.simplecrucibles]]
+modId="simplestorage"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
 [[mixins]]
 config="simplecrucibles.mixins.json"
