@@ -57,9 +57,11 @@ final class WingsTests {
                 h.assertTrue(s.isValidRepairItem(new ItemStack(Items.PHANTOM_MEMBRANE)) && !s.isValidRepairItem(new ItemStack(Items.LEATHER)),
                         "repaired with phantom membrane like the Elytra: " + item);
                 h.assertTrue(s.has(DataComponents.DAMAGE_RESISTANT), "fire-proof like Netherite: " + item);
-                h.assertTrue(com.simplelib.api.SimpleRarity.of(s) == (item == WitherWings.VOID ? com.simplelib.api.SimpleRarity.MYTHIC
-                        : item == WitherWings.END ? com.simplelib.api.SimpleRarity.LEGENDARY : com.simplelib.api.SimpleRarity.CURSED),
-                        "stages 1-2 cursed, End legendary, Void mythic: " + item);
+                h.assertTrue(com.simplelib.api.SimpleRarity.of(s) == (item == WitherWings.VOID ? com.simplelib.api.SimpleRarity.VOID
+                        : item == WitherWings.END ? com.simplelib.api.SimpleRarity.LEGENDARY : com.simplelib.api.SimpleRarity.EVIL),
+                        "stages 1-2 evil, End legendary, Void void (TIP05): " + item);
+                h.assertTrue(com.simplelib.api.RarityRules.forPath(BuiltInRegistries.ITEM.getKey(item).getPath()) == com.simplelib.api.SimpleRarity.of(s),
+                        "item rank equals the rarity rule: " + item);
                 h.assertTrue(BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(MobsRegistry.ID), "registered: " + item);
             }
             h.assertTrue(new ItemStack(Items.ELYTRA).getMaxDamage() == 432, "Vanilla Elytra 432");
@@ -72,6 +74,12 @@ final class WingsTests {
             h.assertTrue(!WitherWings.isWings(new ItemStack(WitherWings.ENDER_HEART)) && !WitherWings.isWings(new ItemStack(WitherWings.ENDER_GEM))
                     && com.simplelib.api.SimpleRarity.of(new ItemStack(WitherWings.ENDER_GEM)) == com.simplelib.api.SimpleRarity.MYTHIC
                     && BuiltInRegistries.ITEM.getKey(WitherWings.ENDER_HEART).getPath().equals("ender_heart"), "Ender Heart / Ender Gem registered");
+            h.assertTrue(com.simplelib.api.SimpleRarity.of(new ItemStack(WitherWings.ENDER_HEART)) == com.simplelib.api.SimpleRarity.LEGENDARY
+                    && com.simplelib.api.SimpleRarity.of(new ItemStack(com.simplebuilding.modules.simplemobs.trials.Trials.EVIL_VAULT_ITEM)) == com.simplelib.api.SimpleRarity.EVIL
+                    && com.simplelib.api.SimpleRarity.of(new ItemStack(com.simplebuilding.modules.simplemobs.trials.Trials.VOID_VAULT_ITEM)) == com.simplelib.api.SimpleRarity.VOID
+                    && com.simplelib.api.SimpleRarity.of(new ItemStack(com.simplebuilding.modules.simplemobs.trials.Trials.EVIL_KEYS[0])) == com.simplelib.api.SimpleRarity.EVIL
+                    && com.simplelib.api.SimpleRarity.of(new ItemStack(com.simplebuilding.modules.simplemobs.trials.Trials.VOID_POTIONS[0])) == com.simplelib.api.SimpleRarity.VOID,
+                    "heart legendary, evil trial things evil, void trial things void (TIP05)");
             h.succeed();
         });
         add.accept("wings_recipes", h -> {

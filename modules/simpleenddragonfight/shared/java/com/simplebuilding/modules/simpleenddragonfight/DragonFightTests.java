@@ -295,7 +295,20 @@ public final class DragonFightTests {
             DragonFightConfig.summonAttackCap = capOld;
             DragonTinted tint = (DragonTinted) d;
             tint.simpleenddragonfight$setTinted(true);
-            h.assertTrue(tint.simpleenddragonfight$tinted(), "chorus tint flag is kept");
+            h.assertTrue(tint.simpleenddragonfight$tinted() && tint.simpleenddragonfight$tintLevel() == 1, "chorus tint flag is kept");
+            tint.simpleenddragonfight$setTintLevel(2);
+            h.assertTrue(tint.simpleenddragonfight$tinted() && tint.simpleenddragonfight$tintLevel() == 2, "jewel tint level is kept");
+            int a = DragonFightConfig.tintFromDragon, b = DragonFightConfig.tintJewelFromDragon;
+            DragonFightConfig.tintFromDragon = 4;
+            DragonFightConfig.tintJewelFromDragon = 10;
+            h.assertTrue(FightSession.tintLevel(3) == 0 && FightSession.tintLevel(4) == 1 && FightSession.tintLevel(9) == 1
+                    && FightSession.tintLevel(10) == 2 && FightSession.tintLevel(25) == 2, "tint levels: none <4, violet 4-9, blue+violet from 10");
+            DragonFightConfig.tintJewelFromDragon = 0;
+            h.assertTrue(FightSession.tintLevel(12) == 1, "jewel tint off: violet stays");
+            DragonFightConfig.tintFromDragon = 0;
+            h.assertTrue(FightSession.tintLevel(12) == 0, "both off: plain");
+            DragonFightConfig.tintFromDragon = a;
+            DragonFightConfig.tintJewelFromDragon = b;
             FightSession.unscale(d);
             d.discard();
             h.succeed();

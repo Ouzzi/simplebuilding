@@ -1363,7 +1363,7 @@ public class ModItems {
 
         return Registry.register(BuiltInRegistries.ITEM, id,
 
-                function.apply(new Item.Properties().setId(key)));
+                function.apply(com.simplebuilding.util.LibServices.rarity(name, new Item.Properties()).setId(key)));
 
     }
 

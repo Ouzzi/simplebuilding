@@ -116,7 +116,7 @@ public final class OresRegistry {
     static {
         for (String path : List.copyOf(BLOCKS.keySet())) {
             ResourceKey<Item> key = itemKey(path);
-            Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(key);
+            Item.Properties properties = com.simplelib.api.RarityRules.apply(path, new Item.Properties()).useBlockDescriptionPrefix().setId(key);
             ITEMS.put(path, new BlockItem(BLOCKS.get(path), FIRE_RESISTANT.contains(path) ? properties.fireResistant() : properties));
         }
         plain("raw_silver");
@@ -129,7 +129,7 @@ public final class OresRegistry {
         for (String path : List.of("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget", "enderite_ingot")) {
             item(path, p -> FIRE_RESISTANT.contains(path) ? p.fireResistant() : p);
         }
-        ITEMS.put("enderite_upgrade_template", upgradeTemplate(new Item.Properties().setId(itemKey("enderite_upgrade_template"))));
+        ITEMS.put("enderite_upgrade_template", upgradeTemplate(com.simplelib.api.RarityRules.apply("enderite_upgrade_template", new Item.Properties()).setId(itemKey("enderite_upgrade_template"))));
         ITEMS.put("sage_orb", new com.simpleores.item.SageOrbItem(new Item.Properties().stacksTo(16).setId(itemKey("sage_orb"))));
         for (Alloy alloy : Alloy.values()) {
             plain(alloy.id + "_ingot");
@@ -191,7 +191,7 @@ public final class OresRegistry {
     }
 
     private static void item(String path, Function<Item.Properties, Item.Properties> properties) {
-        ITEMS.put(path, new Item(properties.apply(new Item.Properties()).setId(itemKey(path))));
+        ITEMS.put(path, new Item(properties.apply(com.simplelib.api.RarityRules.apply(path, new Item.Properties())).setId(itemKey(path))));
     }
 
     private static void food(String path, Function<Item.Properties, Item.Properties> properties) {

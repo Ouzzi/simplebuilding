@@ -53,6 +53,7 @@ public final class LibTests {
         ALL.put("pixel_rle_round_trip", PixelArtTests::rleRoundTrip);
         ALL.put("pixel_size_limit", PixelArtTests::sizeLimit);
         ALL.put("simple_rarity_names", LibTests::simpleRarityNames);
+        ALL.put("rarity_rules", LibTests::rarityRules);
         ALL.put("creative_tab_policy", LibTests::creativeTabPolicy);
         ALL.put("legendary_advancements", LegendaryTests::advancements);
         ALL.put("legendary_enchantments", LegendaryTests::enchantments);
@@ -553,6 +554,25 @@ public final class LibTests {
      * tier style as the child of every Vanilla wrapper (tooltip, chat item), the codec round-trips and the colours read
      * 4.5:1 on the dark tooltip background. Server thread: the mythic name stays one translatable text.
      */
+    private static void rarityRules(GameTestHelper h) {
+        String[][] sample = {{"biome_brush", "CURSED"}, {"ender_gem", "MYTHIC"}, {"astral_piston", "MYTHIC"}, {"evil_vault", "EVIL"}, {"wither_wings", "EVIL"},
+                {"nether_wings", "EVIL"}, {"enderite_ingot", "LEGENDARY"}, {"enderite_pickaxe", "LEGENDARY"}, {"end_wings", "LEGENDARY"}, {"ender_heart", "LEGENDARY"},
+                {"cracked_diamond", "CORRUPTED"}, {"nihil_vault", "VOID"}, {"void_wings", "VOID"}, {"void_potion_2", "VOID"}};
+        java.util.Set<com.simplelib.api.SimpleRarity> seen = java.util.EnumSet.noneOf(com.simplelib.api.SimpleRarity.class);
+        for (String[] s : sample) {
+            var got = com.simplelib.api.RarityRules.forPath(s[0]);
+            check(h, got != null && got.name().equals(s[1]), s[0] + " is " + s[1] + " (got " + got + ")");
+            seen.add(got);
+        }
+        check(h, seen.size() == com.simplelib.api.SimpleRarity.values().length, "every rank is used at least once: " + seen);
+        for (String plain : java.util.List.of("enderite_nugget", "enderite_scrap", "raw_enderite", "stick", "iron_ingot", "nihil_obsidian"))
+            check(h, com.simplelib.api.RarityRules.forPath(plain) == null, plain + " keeps its Vanilla rarity");
+        var cracked = net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(com.simplelib.SimpleLib.id("cracked_diamond"));
+        check(h, cracked.isEmpty() || com.simplelib.api.SimpleRarity.of(new ItemStack(cracked.get())) == com.simplelib.api.SimpleRarity.CORRUPTED,
+                "the cracked diamond item (when registered) carries the rank");
+        h.succeed();
+    }
+
     private static void simpleRarityNames(GameTestHelper h) {
         var cursed = new ItemStack(Items.STICK);
         cursed.set(LibComponents.RARITY, com.simplelib.api.SimpleRarity.CURSED);

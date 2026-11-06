@@ -26,19 +26,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class DragonRendererMixin {
     /** Chorus violet, alpha = strength of the additive glow pass (variant A of the preview). */
     private static final int SIMPLEENDDRAGONFIGHT_TINT = 0x66B070E0;
+    /** Soul blue (level 2 pulses between this and the violet, so both colours are never missing). */
+    private static final int SIMPLEENDDRAGONFIGHT_SOUL = 0x5CC8FF;
     private static final Identifier SIMPLEENDDRAGONFIGHT_TEXTURE = Identifier.withDefaultNamespace("textures/entity/enderdragon/dragon.png");
 
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void simpleenddragonfight$extract(EnderDragon entity, EnderDragonRenderState state, float partialTicks, CallbackInfo ci) {
-        ((DragonTinted) state).simpleenddragonfight$setTinted(((DragonTinted) entity).simpleenddragonfight$tinted());
+        ((DragonTinted) state).simpleenddragonfight$setTintLevel(((DragonTinted) entity).simpleenddragonfight$tintLevel());
     }
 
     /** The eyes pass is the only RenderType-overload submitModel in submit(); the violet glow pass goes right behind it. */
     @WrapOperation(method = "submit", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/SubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/rendertype/RenderType;III)V"))
     private void simpleenddragonfight$glow(SubmitNodeCollector collector, Model model, Object state, PoseStack poseStack, RenderType type, int light, int overlay, int outline, Operation<Void> original) {
         original.call(collector, model, state, poseStack, type, light, overlay, outline);
-        if (state instanceof EnderDragonRenderState s && ((DragonTinted) s).simpleenddragonfight$tinted() && s.deathTime <= 0.0F) {
-            collector.submitModel(model, state, poseStack, RenderTypes.eyes(SIMPLEENDDRAGONFIGHT_TEXTURE), light, OverlayTexture.NO_OVERLAY, SIMPLEENDDRAGONFIGHT_TINT, null, outline);
+        if (state instanceof EnderDragonRenderState s && s.deathTime <= 0.0F) {
+            int level = ((DragonTinted) s).simpleenddragonfight$tintLevel();
+            if (level <= 0) return;
+            RenderType glow = RenderTypes.eyes(SIMPLEENDDRAGONFIGHT_TEXTURE);
+            if (level == 1) {
+                collector.submitModel(model, state, poseStack, glow, light, OverlayTexture.NO_OVERLAY, SIMPLEENDDRAGONFIGHT_TINT, null, outline);
+                return;
+            }
+            // level 2 (Ender Gem fight): violet and soul blue glow in turn, a two-coloured pulse
+            float w = 0.5F + 0.5F * (float) Math.sin(s.ageInTicks * 0.12F);
+            int violet = ((int) (0x66 * (1.0F - w * 0.7F)) << 24) | 0xB070E0;
+            int blue = ((int) (0x66 * (0.3F + w * 0.7F)) << 24) | SIMPLEENDDRAGONFIGHT_SOUL;
+            collector.submitModel(model, state, poseStack, glow, light, OverlayTexture.NO_OVERLAY, violet, null, outline);
+            collector.submitModel(model, state, poseStack, glow, light, OverlayTexture.NO_OVERLAY, blue, null, outline);
         }
     }
 }
