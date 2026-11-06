@@ -156,7 +156,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 76
     },
-    "dataHash": "ee6a97cbeb69"
+    "dataHash": "d495504e10a2"
   },
   {
     "id": "simpleriding",
@@ -1735,16 +1735,16 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "Gadgets you hold and use: the Gauge - a speed dial, an altimeter that warns of fall damage and auto-walk along paths and rails - the Transposer, which turns and swaps blocks in place, and the Resonance Rod, a beam that points, melts, ignites and measures.",
-      "de": "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, der Blöcke an Ort und Stelle dreht und tauscht, und der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst."
+      "en": "Gadgets you hold and use: the Gauge - a speed dial, an altimeter that warns of fall damage and auto-walk along paths and rails - the Transposer, which turns and swaps blocks in place, the Resonance Rod, a beam that points, melts, ignites and measures, and the Echo Sounder, which jumps back to a lodestone.",
+      "de": "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, der Blöcke an Ort und Stelle dreht und tauscht, der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst, und das Echolot, das zu einem Leitstein zurückspringt."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA90lEQVR42mMIMJD9jw1vShFEwbjUMYCIu6v74Bim4e/XeDD+dc0LjGHiMHUnKjxQDbjQnQTX+Pv79v+/vj1BwS83isINAmmeEGaCagBMM7pGDAw1BK8BIDa6RrgY0IBSDSZUA4i2Hck7IEMwDMBmMzaXYDXghJzcfw0lCCbLBSBBGIYZBFKELI6MUQwAcUBeuDNNGB7vIPzv9LP/m/s+o4iB1IAsxDAAJIGccGCae7PO/A+x7MJvACgasRmCTTPM+RjpACQIMhmkCBeGJWesBjw7tBZuCLJB6JkKpAYjKcMEQBikANkgZI0wm2EYbgA2DNMAw7jUAQAPg4NVZ9x2CgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 4,
-      "recipes": 6,
+      "items": 5,
+      "recipes": 8,
       "features": 5
     },
-    "dataHash": "ce9d61dbe486"
+    "dataHash": "a7a0e8756811"
   },
   {
     "id": "simpleearth",

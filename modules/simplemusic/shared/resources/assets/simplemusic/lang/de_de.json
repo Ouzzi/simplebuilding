@@ -181,6 +181,8 @@
   "jei.simplemusic.note.copy_slots": "Ein leeres Blatt unten wird zur Kopie",
   "jei.simplemusic.note.disc_chest": "Kein Rezept: nur in den Truhen von %s (%s zu 100).",
   "jei.simplemusic.note.disc_brushed": "Kein Rezept: nur beim Abpinseln von seltsamem Kies aus %s (Gewicht %s).",
+  "subtitles.simplemusic.block.disc_press.press": "Plattenpresse presst",
+  "subtitles.simplemusic.block.disc_press.eject": "Plattenpresse wirft aus",
   "item.simplemusic.guide_book": "Simple-Music-Handbuch",
   "simplemusic.guide.chapter": "Simple Music",
   "simplemusic.guide.page.1.title": "Simple Music",
@@ -226,7 +228,5 @@
   "simplemusic.guide.page.21.title": "Befehle",
   "simplemusic.guide.page.21": "/simpleclient simplemusic (list, get, set, reset, help) macht dasselbe für config/simplemusic-client.json auf dem eigenen Client.",
   "simplemusic.guide.page.22.title": "Einstellungen",
-  "simplemusic.guide.page.22": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "subtitles.simplemusic.block.disc_press.press": "Plattenpresse presst",
-  "subtitles.simplemusic.block.disc_press.eject": "Plattenpresse wirft aus"
+  "simplemusic.guide.page.22": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

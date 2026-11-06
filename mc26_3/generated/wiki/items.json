@@ -693,12 +693,6 @@
       "id": "simplebuilding:dull_nihilith_shard"
     },
     {
-      "durability": 1500,
-      "enchantability": 15,
-      "id": "simplebuilding:echo_sounder",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:enchanted_enderite_apple"
     },
     {

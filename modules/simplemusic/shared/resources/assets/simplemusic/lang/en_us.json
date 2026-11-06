@@ -181,6 +181,8 @@
   "jei.simplemusic.note.copy_slots": "An empty sheet below becomes the copy",
   "jei.simplemusic.note.disc_chest": "No recipe: found only in the chests of %s (%s in 100).",
   "jei.simplemusic.note.disc_brushed": "No recipe: found only by brushing suspicious gravel of %s (weight %s).",
+  "subtitles.simplemusic.block.disc_press.press": "Disc press pressing",
+  "subtitles.simplemusic.block.disc_press.eject": "Disc press ejects",
   "item.simplemusic.guide_book": "Simple Music Guide",
   "simplemusic.guide.chapter": "Simple Music",
   "simplemusic.guide.page.1.title": "Simple Music",
@@ -226,7 +228,5 @@
   "simplemusic.guide.page.21.title": "Commands",
   "simplemusic.guide.page.21": "/simpleclient simplemusic (list, get, set, reset, help) does the same for config/simplemusic-client.json on your own client.",
   "simplemusic.guide.page.22.title": "Settings",
-  "simplemusic.guide.page.22": "More settings are in the mod's config screen.",
-  "subtitles.simplemusic.block.disc_press.press": "Disc press pressing",
-  "subtitles.simplemusic.block.disc_press.eject": "Disc press ejects"
+  "simplemusic.guide.page.22": "More settings are in the mod's config screen."
 }
