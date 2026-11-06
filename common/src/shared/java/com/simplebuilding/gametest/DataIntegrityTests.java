@@ -5132,10 +5132,19 @@ public final class DataIntegrityTests {
             // Kreativ-Baustab wie die Enderit-Staebe (die Verzauberer sind seit ENCH02 Simple Enchantings)
             "creative_building_wand");
 
+    private static Object rarityRuleFor(String path) {
+        try {
+            return Class.forName("com.simplelib.api.RarityRules").getMethod("forPath", String.class).invoke(null, path);
+        } catch (ReflectiveOperationException | LinkageError e) {
+            return null;
+        }
+    }
+
     /** Die Seltenheit, die das Schema aus docs/RARITAETEN.md einem Mod-Item gibt. */
     static net.minecraft.world.item.Rarity expectedRarity(String path) {
         // Besitzer-Raenge (RarityRules, TIP05): SimpleRarity.apply laesst die Vanilla-Seltenheit als Rueckfall auf EPIC.
-        if (com.simplelib.api.RarityRules.forPath(path) != null) {
+        // Ueber Reflexion: der Kern kompiliert auch ohne SimpleLib im Klassenpfad (Root-/Port-Builds).
+        if (rarityRuleFor(path) != null) {
             return net.minecraft.world.item.Rarity.EPIC;
         }
         net.minecraft.world.item.Rarity exception = RARITY_EXCEPTIONS.get(path);
