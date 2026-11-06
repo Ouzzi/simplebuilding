@@ -21,6 +21,8 @@ import org.jspecify.annotations.Nullable;
  * them, so neither module imports the other. A field stays null while its module is missing.
  */
 public final class Buckets {
+    /** Vanilla lava bucket burn time. */
+    public static final int LAVA_FUEL_TICKS = 20000;
     /** Simple Crucibles: soul lava and its iron bucket, the copper buckets, the copper components. */
     public static @Nullable Fluid SOUL_LAVA;
     public static Item SOUL_LAVA_BUCKET;
@@ -47,8 +49,6 @@ public final class Buckets {
 
     private Buckets() {}
 
-    /** Vanilla lava bucket burn time. */
-    public static final int LAVA_FUEL_TICKS = 20000;
 
     /** Simple Tools: the Enderite and ceramic buckets under {@code namespace}; the soul lava ones via {@link #registerEnderiteSoulLava}. */
     public static void registerEnderiteAndCeramic(String namespace) {
