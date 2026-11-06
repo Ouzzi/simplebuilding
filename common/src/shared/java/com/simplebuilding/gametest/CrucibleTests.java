@@ -641,14 +641,14 @@ public final class CrucibleTests {
 
     // --- helpers of the barrel hitbox tests ---
 
-    /** Every barrel with an attached model: namespace and path; enderite is only registered on 26.3. */
+    /** Every barrel with an attached model: namespace and path (the barrels live in Simple Storage); absent blocks are skipped. */
     private static String[][] barrels() {
-        return new String[][] {{"simplecrucibles", "copper_barrel"}, {"simplecrucibles", "reinforced_barrel"},
-                {"simplecrucibles", "netherite_barrel"}, {"simplecrucibles", "enderite_barrel"}};
+        return new String[][] {{"simplestorage", "copper_barrel"}, {"simplestorage", "reinforced_barrel"},
+                {"simplestorage", "netherite_barrel"}, {"simplestorage", "enderite_barrel"}};
     }
 
     private static Block barrelBlock(String[] barrel) {
-        return "simplelib".equals(barrel[0]) ? lib(barrel[1]) : CrucibleCompat.enderiteBarrel();
+        return BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath(barrel[0], barrel[1])).orElse(null);
     }
 
     /**
