@@ -49,4 +49,9 @@ public final class ModuleGameTest {
     @GameTest public void keyPageKeyNames(GameTestHelper h) { KeyPageTests.keyNames(h); }
     @GameTest public void keyPageIsoLayouts(GameTestHelper h) { KeyPageTests.isoLayouts(h); }
     @GameTest public void keyPageEditor(GameTestHelper h) { KeyPageTests.editor(h); }
+    @GameTest public void sortMerge(GameTestHelper h) { SortTests.merge(h); }
+    @GameTest public void sortInventory(GameTestHelper h) { SortTests.inventory(h); }
+    @GameTest public void sortChest(GameTestHelper h) { SortTests.chest(h); }
+    @GameTest public void sortRefused(GameTestHelper h) { SortTests.refused(h); }
+    @GameTest public void sortPayload(GameTestHelper h) { SortTests.payload(h); }
 }

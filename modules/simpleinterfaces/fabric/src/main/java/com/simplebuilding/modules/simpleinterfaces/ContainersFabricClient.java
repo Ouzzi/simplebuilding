@@ -16,6 +16,10 @@ public final class ContainersFabricClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(StyleToggleClient::tick);
         // IG31-31: real-mouse probe of the key binding page (inert without simpleinterfaces-keys-probe.json in the game folder).
         ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.KeysProbe::tick);
+        KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.SortClient.KEY);
+        com.simplebuilding.modules.simpleinterfaces.client.SortClient.toServer = payload -> {
+            if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);
+        };
         KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.ZoomState.KEY);
         ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.ZoomState::tick);
         // DW04A-2: the Free Look wheel zoom (simplelib) stays out of the way while the spyglass or the zoom key zooms

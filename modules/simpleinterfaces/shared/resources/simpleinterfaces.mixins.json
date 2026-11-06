@@ -11,6 +11,7 @@
   "client": [
     "ContainerLabelsMixin",
     "KeyBindsScreenMixin",
+    "SortClickMixin",
     "StyleToggleMixin",
     "StorageBackgroundMixin",
     "HopperPaddingMixin",
