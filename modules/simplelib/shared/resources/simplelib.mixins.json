@@ -35,6 +35,7 @@
     "client.WarmGlowEntityMixin",
     "client.WarmGlowSlotMixin",
     "client.SlotAlertMixin",
+    "client.HotbarAlertMixin",
     "client.SlotIconTintMixin",
     "client.CodeAreaSelectAccessor",
     "client.ContainerScreenAccessor",

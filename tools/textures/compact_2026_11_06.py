@@ -4,7 +4,8 @@ the client jar at build time and never committed (AGENTS.md rule 7; tools/textur
 
 Three looks (A is built in, B and C only in the preview; the owner picks, then the others are dropped):
   A "Frame":   the Vanilla sprite inside a pressed edge: Compressed = 1 px darker rim (corners darkest), Dense = rim + a second, lighter
-               inner step, Collapsed (06.11.) = a darker rim, two inner steps and a darkened face. Raster and tones of the block stay recognisable.
+               inner step, Collapsed (06.11.) = a darker rim, two inner steps and a darkened face; all stages also carry the dark strap cross of C
+               (2 px, 0.88 / 0.80 / 0.72). Raster and tones of the block stay recognisable.
   B "Grain":   the sprite shrunk to half (Compact, 2x2 tiles) or a quarter (Dense, 4x4 tiles) by taking every 2nd / 4th pixel, so the
                Vanilla pixels stay but the grain is finer (denser); a slight darkening.
   C "Straps":  a cross of two darker 2 px straps over the sprite (Compact); Dense adds the rim of A.
@@ -67,6 +68,10 @@ def look_a(a: np.ndarray, stage: int) -> np.ndarray:
     corner = np.zeros((16, 16), bool)
     corner[[0, 0, 15, 15], [0, 15, 0, 15]] = True
     f[corner] *= 0.9
+    # Owner 06.11. (WH26-10=A + "also the darkening of C"): the strap cross of C darkens more with every stage (soft factors, A8b).
+    strap = {1: 0.88, 2: 0.80, 3: 0.72}[stage]
+    f[[7, 8], :] = np.minimum(f[[7, 8], :], strap)
+    f[:, [7, 8]] = np.minimum(f[:, [7, 8]], strap)
     return _scale(a, f)
 
 

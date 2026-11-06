@@ -10,12 +10,13 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * Generic building block "this item is triggering something right now" (WH26-10, docs/ai/PLAN-A-COMPACT-2026-11-06.md): a soft red
- * lighthouse beam that turns slowly behind the item in its slot, drawn in every container screen (the inventory as well).
+ * glow that breathes behind the item in its slot (optionally a turning lighthouse beam), drawn in every container screen
+ * (the inventory as well) and in the hotbar.
  * A mod registers a rule ({@link #register}); a slot shows the beam while any rule says yes for its stack - the rule should be
  * true only while the effect really acts, so the beam is never decoration. Simple Blocks' Collapsed blocks use it for their Slowness.
  *
  * <p>Client options (config/simplelib-client.json, SimpleLib config screen): {@link #enabled} (default true) and
- * {@link #reducedMotion} (default false: a still, softly breathing glow instead of the turning beam).
+ * {@link #beam} (default false: the soft pulse; true = the turning lighthouse beam) and {@link #reducedMotion} (forces the still glow).
  */
 public final class SlotAlert {
     private static final List<BiPredicate<LocalPlayer, ItemStack>> RULES = new CopyOnWriteArrayList<>();
@@ -23,6 +24,8 @@ public final class SlotAlert {
     public static volatile boolean enabled = true;
     /** No turning: the slot glows still and breathes slowly (client option {@code slotAlertReducedMotion}). */
     public static volatile boolean reducedMotion = false;
+    /** The turning lighthouse beam instead of the soft pulse (client option {@code slotAlertBeam}, default false). */
+    public static volatile boolean beam = false;
 
     /** Turn time of the beam in milliseconds. */
     public static final long TURN_MS = 2600;
@@ -72,10 +75,11 @@ public final class SlotAlert {
 
     /** Draws the beam into the 16x16 slot at ({@code x}, {@code y}); the caller draws the item afterwards. */
     public static void draw(GuiGraphicsExtractor g, int x, int y) {
-        double phase = (System.currentTimeMillis() % (reducedMotion ? 4000 : TURN_MS)) / (double) (reducedMotion ? 4000 : TURN_MS);
+        boolean still = reducedMotion || !beam;
+        double phase = (System.currentTimeMillis() % (still ? 4000 : TURN_MS)) / (double) (still ? 4000 : TURN_MS);
         for (int py = 0; py < 16; py++) {
             for (int px = 0; px < 16; px++) {
-                int a = alpha(px, py, phase, reducedMotion);
+                int a = alpha(px, py, phase, still);
                 if (a > 0) g.fill(x + px, y + py, x + px + 1, y + py + 1, a << 24 | RED);
             }
         }

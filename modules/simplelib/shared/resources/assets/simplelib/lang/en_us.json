@@ -107,7 +107,9 @@
   "itemgroup.simplelib.lib": "Simple Lib",
   "simplelib.tab.slotalert": "Slot Alert",
   "text.autoconfig.simplelib.option.slotAlert": "Red Beam on Triggering Items (this client)",
-  "text.autoconfig.simplelib.option.slotAlert.@Tooltip": "A slow red lighthouse beam turns behind an\nitem in its slot while that item is causing an\neffect on you (e.g. Collapsed blocks: Slowness).\nDefault: true.",
-  "text.autoconfig.simplelib.option.slotAlertReducedMotion": "Calm Beam (this client)",
-  "text.autoconfig.simplelib.option.slotAlertReducedMotion.@Tooltip": "Instead of the turning beam the slot glows still\nand breathes slowly (no motion).\nDefault: false."
+  "text.autoconfig.simplelib.option.slotAlert.@Tooltip": "A slow red glow breathes behind an\nitem in its slot (inventory and hotbar) while that item is causing an\neffect on you (e.g. Collapsed blocks: Slowness).\nDefault: true.",
+  "text.autoconfig.simplelib.option.slotAlertReducedMotion": "Still Glow (this client)",
+  "text.autoconfig.simplelib.option.slotAlertReducedMotion.@Tooltip": "Instead of the turning beam the slot glows still\nand breathes slowly (no motion).\nDefault: false.",
+  "text.autoconfig.simplelib.option.slotAlertBeam": "Lighthouse Beam (this client)",
+  "text.autoconfig.simplelib.option.slotAlertBeam.@Tooltip": "Instead of the soft pulse a red beam turns slowly\nbehind the item, like a lighthouse.\nDefault: false."
 }
