@@ -1153,6 +1153,17 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
   - Das Fadenkreuz ruckelt im Free Look und hat einen Layout-Shift.
   - Fix: Interpolation über den kürzesten Winkel (Yaw wrap ±180°), framebasiert mit partialTick, Fadenkreuz fest.
 - [x] IG31-44 **Alle Befehle beginnen mit dem Namen ihrer Mod**, z. B. `/simplestorage …`, `/simpleresonance …`. (a-cmd05 05.11. grün: Alias-Gametests 6/6, kill* 8/8, check grün; simpletweaks hatte schon Zwillinge; sbtestcentre bleibt als Ausnahme, Rückfrage in docs/ai/BEFEHLE-PRAEFIX-2026-11-05.md)
+- [~] IG31-45 **Nether-Roségold-Erz** (Besitzer 06.11.): 1–3 % (Config, Std. 2 %) eines Nethergold-Erz-Blocks einer Ader wird Roségold-Erz, nur y < 31 (unter Lava-Ozean), max. 1 je Ader. (a-ores07 läuft)
+- [~] IG31-46 **Pressling-Blöcke** (9 ↔ Block) + Pressling-Texturen neu (A8b, Vorschau). (a-blocks07 läuft)
+- [~] IG31-47 **Netherite-Scrap-, Enderite-Scrap-, Sage-Orb-Block**. (a-blocks07 läuft)
+- [~] IG31-48 **Sage Crystal + Sage-Crystal-Block** (Kategorie Barren, nicht Amethyst). (a-ores07 läuft)
+- [~] IG31-49 **Sage-Erze Nether/End**, droppen Sage-Crystal-Shards. (a-ores07 läuft)
+- [~] IG31-50 **Roségold- und Rose-Copper-Karotte** (Stufe wie goldene Karotte, Umfärbung). (a-blocks07 läuft)
+- [~] IG31-51 **Endstein-Mauer + rissige Astralit-/Nihilit-/Enderquarz-Ziegel**. (a-end07 läuft)
+- [~] IG31-52 **Nihilit-End-Bretter** für beide Varianten, Rezept Nihilit-Bücherregale. (a-end07 läuft)
+- [~] IG31-53 **Bücher-Designs je Buchsorte** in gemeißelten Regalen (Nihilit-/Blaze-Design, je Slot-Position eigene Textur). (a-end07 läuft)
+- [ ] IG31-54 **Landing Page simplemods.de** (Besitzer 06.11.): cool aussehende Präsentationsseite der Simple Mods (Mods vorstellen, Bilder, Downloads, Link zum Wiki). Erst Entwurf mit Varianten (UI exemplarisch), dann bauen. Bis dahin zeigt simplemods.de auf das Wiki.
+- [ ] IG31-55 **Domain-Umzug**: wiki.simplemods.de = Wiki (/, /dev/, /zentrale/, /api/ mit Login); simplewiki.de, www.simplemods.de, simplemods-wiki.azarfane.com leiten auf wiki.simplemods.de weiter; Links/Installer/Repo anpassen. Nach ZW06-Switch. Besitzer trägt Tunnel-Hostname wiki.simplemods.de ein.
   - Bestand aller registrierten Commands auflisten, umbenennen.
   - Alte Namen als Alias für eine Übergangszeit. Wiki/Handbuch/Tests anpassen.
 ## Besitzer 04.11. Abnahme-Antworten (DW04A)
