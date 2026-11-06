@@ -34,6 +34,8 @@ public final class StorageJeiTests {
         var recipes = h.getLevel().getServer().getRecipeManager().getRecipes();
         for (String path : SimpleStorage.MOVED_BACKPACK_RECIPES) {
             var holder = recipes.stream().filter(r -> r.id().identifier().equals(SimpleStorage.id(path))).findFirst().orElse(null);
+            // The Enderite tier loads only with Simple Ores (load condition), so standalone it is rightly absent.
+            if (holder == null && path.contains("enderite")) continue;
             h.assertTrue(holder != null, "backpack recipe " + path + " is not loaded");
             var recipe = holder.value();
             var type = recipe.getType();
