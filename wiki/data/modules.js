@@ -1011,7 +1011,9 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [],
-    "optional": [],
+    "optional": [
+      "simplemobs"
+    ],
     "stage": "new",
     "parent": "simpleend",
     "bundle": "optional",
@@ -1028,7 +1030,7 @@ window.WIKI_MODULES = [
       "items": 3,
       "features": 7
     },
-    "dataHash": "53bee741e133"
+    "dataHash": "e53f5739a661"
   },
   {
     "id": "simpleend",
@@ -1366,11 +1368,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 131,
-      "recipes": 385,
-      "features": 13
+      "blocks": 207,
+      "recipes": 499,
+      "features": 14
     },
-    "dataHash": "d64de5c3cd9e"
+    "dataHash": "64eda0a13f8a"
   },
   {
     "id": "simplecrucibles",

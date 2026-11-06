@@ -550,22 +550,109 @@
       }
     },
     {
+      "id": "compact_blocks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/compact/CompactBlocks.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/CompactTests.java",
+        "tools/textures/compact_2026_11_06.py"
+      ],
+      "related": [
+        "simpleblocks:compressed_dirt",
+        "simpleblocks:dense_dirt",
+        "simpleblocks:collapsed_dirt",
+        "simpleblocks:compressed_mud",
+        "simpleblocks:dense_mud",
+        "simpleblocks:collapsed_mud",
+        "simpleblocks:compressed_cobblestone",
+        "simpleblocks:dense_cobblestone",
+        "simpleblocks:collapsed_cobblestone",
+        "simpleblocks:compressed_stone",
+        "simpleblocks:dense_stone",
+        "simpleblocks:collapsed_stone",
+        "simpleblocks:compressed_sand",
+        "simpleblocks:dense_sand",
+        "simpleblocks:collapsed_sand",
+        "simpleblocks:compressed_red_sand",
+        "simpleblocks:dense_red_sand",
+        "simpleblocks:collapsed_red_sand",
+        "simpleblocks:compressed_gravel",
+        "simpleblocks:dense_gravel",
+        "simpleblocks:collapsed_gravel",
+        "simpleblocks:compressed_clay",
+        "simpleblocks:dense_clay",
+        "simpleblocks:collapsed_clay",
+        "simpleblocks:compressed_netherrack",
+        "simpleblocks:dense_netherrack",
+        "simpleblocks:collapsed_netherrack",
+        "simpleblocks:compressed_cobbled_deepslate",
+        "simpleblocks:dense_cobbled_deepslate",
+        "simpleblocks:collapsed_cobbled_deepslate",
+        "simpleblocks:compressed_andesite",
+        "simpleblocks:dense_andesite",
+        "simpleblocks:collapsed_andesite",
+        "simpleblocks:compressed_diorite",
+        "simpleblocks:dense_diorite",
+        "simpleblocks:collapsed_diorite",
+        "simpleblocks:compressed_granite",
+        "simpleblocks:dense_granite",
+        "simpleblocks:collapsed_granite",
+        "simpleblocks:compressed_tuff",
+        "simpleblocks:dense_tuff",
+        "simpleblocks:collapsed_tuff",
+        "simpleblocks:compressed_sandstone",
+        "simpleblocks:dense_sandstone",
+        "simpleblocks:collapsed_sandstone",
+        "simpleblocks:compressed_red_sandstone",
+        "simpleblocks:dense_red_sandstone",
+        "simpleblocks:collapsed_red_sandstone",
+        "simpleblocks:compressed_end_stone",
+        "simpleblocks:dense_end_stone",
+        "simpleblocks:collapsed_end_stone",
+        "simpleblocks:compressed_blackstone",
+        "simpleblocks:dense_blackstone",
+        "simpleblocks:collapsed_blackstone",
+        "simpleblocks:compressed_soul_sand",
+        "simpleblocks:dense_soul_sand",
+        "simpleblocks:collapsed_soul_sand"
+      ],
+      "en": {
+        "title": "Compressed, Dense and Collapsed blocks",
+        "summary": "Stage 1 Compressed = 9 blocks, stage 2 Dense = 9 Compressed, stage 3 Collapsed = 9 Dense, for 19 common Vanilla building blocks (dirt, mud, cobblestone, stone, sand, red sand, gravel, clay, netherrack, cobbled deepslate, andesite, diorite, granite, tuff, sandstone, red sandstone, end stone, blackstone, soul sand).",
+        "details": [
+          "Every step is reversible at the crafting table: 1 Compressed, Dense or Collapsed block gives back 9 of the stage below.",
+          "Same sound, tool and drops rule as the base block, but mining takes about 4x (Compressed), 16x (Dense) and 64x (Collapsed) as long. Compressed sand and gravel do not fall.",
+          "Collapsed blocks are so dense that they slow you down while they are in your inventory: Slowness I, from 2 stacks Slowness II, from 9 stacks Slowness III (a few seconds, refreshed; switch collapsed.enabled in /simpleblocks config). The slot of such an item pulses with a slow red lighthouse beam (Simple Library, client option slotAlert)."
+        ]
+      },
+      "de": {
+        "title": "Komprimierte, dichte und kollabierte Blöcke",
+        "summary": "Stufe 1 Komprimiert = 9 Blöcke, Stufe 2 Dicht = 9 Komprimierte, Stufe 3 Kollabiert = 9 Dichte, für 19 häufige Vanilla-Baublöcke (Erde, Schlamm, Bruchstein, Stein, Sand, Roter Sand, Kies, Ton, Netherrack, Bruchtiefenschiefer, Andesit, Diorit, Granit, Tuff, Sandstein, Roter Sandstein, Endstein, Schwarzstein, Seelensand).",
+        "details": [
+          "Jeder Schritt ist an der Werkbank umkehrbar: 1 komprimierter, dichter oder kollabierter Block ergibt wieder 9 der Stufe darunter.",
+          "Gleicher Klang, gleiches Werkzeug und gleiche Drop-Regel wie der Grundblock, der Abbau dauert aber etwa 4x (komprimiert), 16x (dicht) und 64x (kollabiert) so lang. Komprimierter Sand und Kies fallen nicht.",
+          "Kollabierte Blöcke sind so dicht, dass sie dich im Inventar verlangsamen: Langsamkeit I, ab 2 Stapeln Langsamkeit II, ab 9 Stapeln Langsamkeit III (wenige Sekunden, wird erneuert; Schalter collapsed.enabled in /simpleblocks config). Der Slot eines solchen Items pulsiert in einem langsamen roten Leuchtturm-Kegel (Simple Library, Client-Option slotAlert)."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowConfig.java",
         "modules/simpleblocks/fabric/src/main/java/com/simplebuilding/modules/simpleblocks/BlocksFabric.java",
-        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleConfig.java"
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleConfig.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/compact/CollapsedConfig.java"
       ],
       "en": {
         "title": "Settings",
-        "summary": "config/simpleblocks-server.json (server): snow.snowlogging (default true), snow.frostGrass (default true), snow.freezeOneIn (default 3, 1-100), snow.thawOneIn (default 6, 1-100); pale.enabled (default true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (default 0.0569, 0-1).",
+        "summary": "config/simpleblocks-server.json (server): snow.snowlogging (default true), snow.frostGrass (default true), snow.freezeOneIn (default 3, 1-100), snow.thawOneIn (default 6, 1-100); pale.enabled (default true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (default 0.0569, 0-1); collapsed.enabled (default true: Collapsed blocks slow their carrier).",
         "details": [
           "/simpleblocks config shows and changes every option (list, get, set, reset, help); values are bounded like in the file, saved and active at once. Permission level 2."
         ]
       },
       "de": {
         "title": "Einstellungen",
-        "summary": "config/simpleblocks-server.json (Server): snow.snowlogging (Standard true), snow.frostGrass (Standard true), snow.freezeOneIn (Standard 3, 1-100), snow.thawOneIn (Standard 6, 1-100); pale.enabled (Standard true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (Standard 0,0569, 0-1).",
+        "summary": "config/simpleblocks-server.json (Server): snow.snowlogging (Standard true), snow.frostGrass (Standard true), snow.freezeOneIn (Standard 3, 1-100), snow.thawOneIn (Standard 6, 1-100); pale.enabled (Standard true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (Standard 0,0569, 0-1); collapsed.enabled (Standard true: Kollabierte Blöcke verlangsamen ihren Träger).",
         "details": [
           "/simpleblocks config zeigt und ändert jede Option (list, get, set, reset, help); Werte werden wie in der Datei begrenzt, sofort gespeichert und wirksam. Berechtigung 2."
         ]
@@ -573,6 +660,34 @@
     }
   ],
   "recipes": [
+    {
+      "id": "simpleblocks:andesite_from_compressed_andesite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:andesite",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/andesite_from_compressed_andesite.json",
+      "ingredients": [
+        "simpleblocks:compressed_andesite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_andesite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:compressed_andesite",
+            "count": 1
+          }
+        ]
+      }
+    },
     {
       "id": "simpleblocks:aqua_froglight",
       "type": "minecraft:crafting_shapeless",
@@ -652,6 +767,34 @@
         ],
         "tagExamples": [
           "#simpleblocks:froglights"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blackstone_from_compressed_blackstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:blackstone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blackstone_from_compressed_blackstone.json",
+      "ingredients": [
+        "simpleblocks:compressed_blackstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_blackstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:compressed_blackstone",
+            "count": 1
+          }
         ]
       }
     },
@@ -1232,6 +1375,1912 @@
           {
             "id": "minecraft:ice",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:clay_from_compressed_clay",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:clay",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/clay_from_compressed_clay.json",
+      "ingredients": [
+        "simpleblocks:compressed_clay"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_clay"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:compressed_clay",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cobbled_deepslate_from_compressed_cobbled_deepslate",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cobbled_deepslate",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cobbled_deepslate_from_compressed_cobbled_deepslate.json",
+      "ingredients": [
+        "simpleblocks:compressed_cobbled_deepslate"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_cobbled_deepslate"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:compressed_cobbled_deepslate",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cobblestone_from_compressed_cobblestone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cobblestone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cobblestone_from_compressed_cobblestone.json",
+      "ingredients": [
+        "simpleblocks:compressed_cobblestone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_cobblestone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:compressed_cobblestone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_andesite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_andesite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_andesite.json",
+      "ingredients": [
+        "simpleblocks:dense_andesite"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_andesite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 729
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 364.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_blackstone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_blackstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_blackstone.json",
+      "ingredients": [
+        "simpleblocks:dense_blackstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_blackstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blackstone",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_clay",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_clay",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_clay.json",
+      "ingredients": [
+        "simpleblocks:dense_clay"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_clay"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 2916
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_cobbled_deepslate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_cobbled_deepslate",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_cobbled_deepslate.json",
+      "ingredients": [
+        "simpleblocks:dense_cobbled_deepslate"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_cobbled_deepslate"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_cobblestone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_cobblestone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_cobblestone.json",
+      "ingredients": [
+        "simpleblocks:dense_cobblestone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_cobblestone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_diorite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_diorite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_diorite.json",
+      "ingredients": [
+        "simpleblocks:dense_diorite"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_diorite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 729
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_dirt",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_dirt",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_dirt.json",
+      "ingredients": [
+        "simpleblocks:dense_dirt"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_dirt"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dirt",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_end_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_end_stone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_end_stone.json",
+      "ingredients": [
+        "simpleblocks:dense_end_stone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_granite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_granite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_granite.json",
+      "ingredients": [
+        "simpleblocks:dense_granite"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_granite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 1458
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_gravel",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_gravel",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_gravel.json",
+      "ingredients": [
+        "simpleblocks:dense_gravel"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_gravel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_mud",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_mud",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_mud.json",
+      "ingredients": [
+        "simpleblocks:dense_mud"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_mud"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mud",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_netherrack",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_netherrack",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_netherrack.json",
+      "ingredients": [
+        "simpleblocks:dense_netherrack"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_netherrack"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_red_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_red_sand",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_red_sand.json",
+      "ingredients": [
+        "simpleblocks:dense_red_sand"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_red_sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_red_sandstone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_red_sandstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_red_sandstone.json",
+      "ingredients": [
+        "simpleblocks:dense_red_sandstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_red_sandstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 2916
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_sand",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_sand.json",
+      "ingredients": [
+        "simpleblocks:dense_sand"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_sandstone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_sandstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_sandstone.json",
+      "ingredients": [
+        "simpleblocks:dense_sandstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_sandstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 2916
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_soul_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_soul_sand",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_soul_sand.json",
+      "ingredients": [
+        "simpleblocks:dense_soul_sand"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_soul_sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:soul_sand",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_stone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_stone.json",
+      "ingredients": [
+        "simpleblocks:dense_stone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:collapsed_tuff",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:collapsed_tuff",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/collapsed_tuff.json",
+      "ingredients": [
+        "simpleblocks:dense_tuff"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:dense_tuff"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:tuff",
+            "count": 729
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_andesite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_andesite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_andesite.json",
+      "ingredients": [
+        "minecraft:andesite"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:andesite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 9
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 4.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_andesite_from_dense_andesite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_andesite",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_andesite_from_dense_andesite.json",
+      "ingredients": [
+        "simpleblocks:dense_andesite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_andesite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 81
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 40.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_blackstone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_blackstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_blackstone.json",
+      "ingredients": [
+        "minecraft:blackstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:blackstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blackstone",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_blackstone_from_dense_blackstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_blackstone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_blackstone_from_dense_blackstone.json",
+      "ingredients": [
+        "simpleblocks:dense_blackstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_blackstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:blackstone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_clay",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_clay",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_clay.json",
+      "ingredients": [
+        "minecraft:clay"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:clay"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_clay_from_dense_clay",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_clay",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_clay_from_dense_clay.json",
+      "ingredients": [
+        "simpleblocks:dense_clay"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_clay"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 324
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_cobbled_deepslate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_cobbled_deepslate",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_cobbled_deepslate.json",
+      "ingredients": [
+        "minecraft:cobbled_deepslate"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:cobbled_deepslate"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_cobbled_deepslate_from_dense_cobbled_deepslate",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_cobbled_deepslate",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_cobbled_deepslate_from_dense_cobbled_deepslate.json",
+      "ingredients": [
+        "simpleblocks:dense_cobbled_deepslate"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_cobbled_deepslate"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_cobblestone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_cobblestone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_cobblestone.json",
+      "ingredients": [
+        "minecraft:cobblestone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:cobblestone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_cobblestone_from_dense_cobblestone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_cobblestone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_cobblestone_from_dense_cobblestone.json",
+      "ingredients": [
+        "simpleblocks:dense_cobblestone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_cobblestone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_diorite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_diorite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_diorite.json",
+      "ingredients": [
+        "minecraft:diorite"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:diorite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 9
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_diorite_from_dense_diorite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_diorite",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_diorite_from_dense_diorite.json",
+      "ingredients": [
+        "simpleblocks:dense_diorite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_diorite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 81
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_dirt",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_dirt",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_dirt.json",
+      "ingredients": [
+        "minecraft:dirt"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:dirt"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dirt",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_dirt_from_dense_dirt",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_dirt",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_dirt_from_dense_dirt.json",
+      "ingredients": [
+        "simpleblocks:dense_dirt"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_dirt"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:dirt",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_end_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_end_stone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_end_stone.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_end_stone_from_dense_end_stone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_end_stone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_end_stone_from_dense_end_stone.json",
+      "ingredients": [
+        "simpleblocks:dense_end_stone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_end_stone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_granite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_granite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_granite.json",
+      "ingredients": [
+        "minecraft:granite"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:granite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 18
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_granite_from_dense_granite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_granite",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_granite_from_dense_granite.json",
+      "ingredients": [
+        "simpleblocks:dense_granite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_granite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 162
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_gravel",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_gravel",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_gravel.json",
+      "ingredients": [
+        "minecraft:gravel"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:gravel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_gravel_from_dense_gravel",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_gravel",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_gravel_from_dense_gravel.json",
+      "ingredients": [
+        "simpleblocks:dense_gravel"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_gravel"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_mud",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_mud",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_mud.json",
+      "ingredients": [
+        "minecraft:mud"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:mud"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mud",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_mud_from_dense_mud",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_mud",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_mud_from_dense_mud.json",
+      "ingredients": [
+        "simpleblocks:dense_mud"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_mud"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:mud",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_netherrack",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_netherrack",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_netherrack.json",
+      "ingredients": [
+        "minecraft:netherrack"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:netherrack"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_netherrack_from_dense_netherrack",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_netherrack",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_netherrack_from_dense_netherrack.json",
+      "ingredients": [
+        "simpleblocks:dense_netherrack"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_netherrack"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_red_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_red_sand",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_red_sand.json",
+      "ingredients": [
+        "minecraft:red_sand"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:red_sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_red_sand_from_dense_red_sand",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_red_sand",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_red_sand_from_dense_red_sand.json",
+      "ingredients": [
+        "simpleblocks:dense_red_sand"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_red_sand"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_red_sandstone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_red_sandstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_red_sandstone.json",
+      "ingredients": [
+        "minecraft:red_sandstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:red_sandstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_red_sandstone_from_dense_red_sandstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_red_sandstone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_red_sandstone_from_dense_red_sandstone.json",
+      "ingredients": [
+        "simpleblocks:dense_red_sandstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_red_sandstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 324
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_sand",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_sand.json",
+      "ingredients": [
+        "minecraft:sand"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_sand_from_dense_sand",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_sand",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_sand_from_dense_sand.json",
+      "ingredients": [
+        "simpleblocks:dense_sand"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_sand"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_sandstone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_sandstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_sandstone.json",
+      "ingredients": [
+        "minecraft:sandstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:sandstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_sandstone_from_dense_sandstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_sandstone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_sandstone_from_dense_sandstone.json",
+      "ingredients": [
+        "simpleblocks:dense_sandstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_sandstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 324
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_soul_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_soul_sand",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_soul_sand.json",
+      "ingredients": [
+        "minecraft:soul_sand"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:soul_sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:soul_sand",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_soul_sand_from_dense_soul_sand",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_soul_sand",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_soul_sand_from_dense_soul_sand.json",
+      "ingredients": [
+        "simpleblocks:dense_soul_sand"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_soul_sand"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:soul_sand",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_stone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_stone.json",
+      "ingredients": [
+        "minecraft:stone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_stone_from_dense_stone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_stone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_stone_from_dense_stone.json",
+      "ingredients": [
+        "simpleblocks:dense_stone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_stone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_tuff",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_tuff",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_tuff.json",
+      "ingredients": [
+        "minecraft:tuff"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:tuff"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:tuff",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:compressed_tuff_from_dense_tuff",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:compressed_tuff",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/compressed_tuff_from_dense_tuff.json",
+      "ingredients": [
+        "simpleblocks:dense_tuff"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:dense_tuff"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:tuff",
+            "count": 81
           }
         ]
       }
@@ -1977,6 +4026,1237 @@
       }
     },
     {
+      "id": "simpleblocks:dense_andesite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_andesite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_andesite.json",
+      "ingredients": [
+        "simpleblocks:compressed_andesite"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_andesite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 81
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 40.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_andesite_from_collapsed_andesite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_andesite",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_andesite_from_collapsed_andesite.json",
+      "ingredients": [
+        "simpleblocks:collapsed_andesite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_andesite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_andesite",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_blackstone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_blackstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_blackstone.json",
+      "ingredients": [
+        "simpleblocks:compressed_blackstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_blackstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blackstone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_blackstone_from_collapsed_blackstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_blackstone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_blackstone_from_collapsed_blackstone.json",
+      "ingredients": [
+        "simpleblocks:collapsed_blackstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_blackstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_blackstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_clay",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_clay",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_clay.json",
+      "ingredients": [
+        "simpleblocks:compressed_clay"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_clay"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 324
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_clay_from_collapsed_clay",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_clay",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_clay_from_collapsed_clay.json",
+      "ingredients": [
+        "simpleblocks:collapsed_clay"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_clay"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_clay",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_cobbled_deepslate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_cobbled_deepslate",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_cobbled_deepslate.json",
+      "ingredients": [
+        "simpleblocks:compressed_cobbled_deepslate"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_cobbled_deepslate"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_cobbled_deepslate_from_collapsed_cobbled_deepslate",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_cobbled_deepslate",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_cobbled_deepslate_from_collapsed_cobbled_deepslate.json",
+      "ingredients": [
+        "simpleblocks:collapsed_cobbled_deepslate"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_cobbled_deepslate"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_cobbled_deepslate",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_cobblestone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_cobblestone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_cobblestone.json",
+      "ingredients": [
+        "simpleblocks:compressed_cobblestone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_cobblestone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_cobblestone_from_collapsed_cobblestone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_cobblestone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_cobblestone_from_collapsed_cobblestone.json",
+      "ingredients": [
+        "simpleblocks:collapsed_cobblestone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_cobblestone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_cobblestone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_diorite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_diorite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_diorite.json",
+      "ingredients": [
+        "simpleblocks:compressed_diorite"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_diorite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 81
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_diorite_from_collapsed_diorite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_diorite",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_diorite_from_collapsed_diorite.json",
+      "ingredients": [
+        "simpleblocks:collapsed_diorite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_diorite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_diorite",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_dirt",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_dirt",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_dirt.json",
+      "ingredients": [
+        "simpleblocks:compressed_dirt"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_dirt"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dirt",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_dirt_from_collapsed_dirt",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_dirt",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_dirt_from_collapsed_dirt.json",
+      "ingredients": [
+        "simpleblocks:collapsed_dirt"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_dirt"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_dirt",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_end_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_end_stone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_end_stone.json",
+      "ingredients": [
+        "simpleblocks:compressed_end_stone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_end_stone_from_collapsed_end_stone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_end_stone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_end_stone_from_collapsed_end_stone.json",
+      "ingredients": [
+        "simpleblocks:collapsed_end_stone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_end_stone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_granite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_granite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_granite.json",
+      "ingredients": [
+        "simpleblocks:compressed_granite"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_granite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 162
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_granite_from_collapsed_granite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_granite",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_granite_from_collapsed_granite.json",
+      "ingredients": [
+        "simpleblocks:collapsed_granite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_granite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_granite",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_gravel",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_gravel",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_gravel.json",
+      "ingredients": [
+        "simpleblocks:compressed_gravel"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_gravel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_gravel_from_collapsed_gravel",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_gravel",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_gravel_from_collapsed_gravel.json",
+      "ingredients": [
+        "simpleblocks:collapsed_gravel"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_gravel"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_gravel",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_mud",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_mud",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_mud.json",
+      "ingredients": [
+        "simpleblocks:compressed_mud"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_mud"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mud",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_mud_from_collapsed_mud",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_mud",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_mud_from_collapsed_mud.json",
+      "ingredients": [
+        "simpleblocks:collapsed_mud"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_mud"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_mud",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_netherrack",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_netherrack",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_netherrack.json",
+      "ingredients": [
+        "simpleblocks:compressed_netherrack"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_netherrack"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_netherrack_from_collapsed_netherrack",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_netherrack",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_netherrack_from_collapsed_netherrack.json",
+      "ingredients": [
+        "simpleblocks:collapsed_netherrack"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_netherrack"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_netherrack",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_red_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_red_sand",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_red_sand.json",
+      "ingredients": [
+        "simpleblocks:compressed_red_sand"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_red_sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_red_sand_from_collapsed_red_sand",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_red_sand",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_red_sand_from_collapsed_red_sand.json",
+      "ingredients": [
+        "simpleblocks:collapsed_red_sand"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_red_sand"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_red_sand",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_red_sandstone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_red_sandstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_red_sandstone.json",
+      "ingredients": [
+        "simpleblocks:compressed_red_sandstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_red_sandstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 324
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_red_sandstone_from_collapsed_red_sandstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_red_sandstone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_red_sandstone_from_collapsed_red_sandstone.json",
+      "ingredients": [
+        "simpleblocks:collapsed_red_sandstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_red_sandstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_red_sandstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_sand",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_sand.json",
+      "ingredients": [
+        "simpleblocks:compressed_sand"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_sand_from_collapsed_sand",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_sand",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_sand_from_collapsed_sand.json",
+      "ingredients": [
+        "simpleblocks:collapsed_sand"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_sand"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_sand",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_sandstone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_sandstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_sandstone.json",
+      "ingredients": [
+        "simpleblocks:compressed_sandstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_sandstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 324
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_sandstone_from_collapsed_sandstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_sandstone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_sandstone_from_collapsed_sandstone.json",
+      "ingredients": [
+        "simpleblocks:collapsed_sandstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_sandstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_sandstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_soul_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_soul_sand",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_soul_sand.json",
+      "ingredients": [
+        "simpleblocks:compressed_soul_sand"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_soul_sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:soul_sand",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_soul_sand_from_collapsed_soul_sand",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_soul_sand",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_soul_sand_from_collapsed_soul_sand.json",
+      "ingredients": [
+        "simpleblocks:collapsed_soul_sand"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_soul_sand"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_soul_sand",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_stone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_stone.json",
+      "ingredients": [
+        "simpleblocks:compressed_stone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_stone_from_collapsed_stone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_stone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_stone_from_collapsed_stone.json",
+      "ingredients": [
+        "simpleblocks:collapsed_stone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_stone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_tuff",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_tuff",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_tuff.json",
+      "ingredients": [
+        "simpleblocks:compressed_tuff"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:compressed_tuff"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:tuff",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dense_tuff_from_collapsed_tuff",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dense_tuff",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dense_tuff_from_collapsed_tuff.json",
+      "ingredients": [
+        "simpleblocks:collapsed_tuff"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:collapsed_tuff"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleblocks:collapsed_tuff",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:diorite_from_compressed_diorite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:diorite",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/diorite_from_compressed_diorite.json",
+      "ingredients": [
+        "simpleblocks:compressed_diorite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_diorite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 9
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dirt_from_compressed_dirt",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:dirt",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dirt_from_compressed_dirt.json",
+      "ingredients": [
+        "simpleblocks:compressed_dirt"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_dirt"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:dirt",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:dirt_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -2003,6 +5283,34 @@
           {
             "id": "minecraft:dirt",
             "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:end_stone_from_compressed_end_stone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:end_stone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/end_stone_from_compressed_end_stone.json",
+      "ingredients": [
+        "simpleblocks:compressed_end_stone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_end_stone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 9
           }
         ]
       }
@@ -2232,6 +5540,38 @@
       }
     },
     {
+      "id": "simpleblocks:granite_from_compressed_granite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:granite",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/granite_from_compressed_granite.json",
+      "ingredients": [
+        "simpleblocks:compressed_granite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_granite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 18
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:grass_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -2258,6 +5598,34 @@
           {
             "id": "minecraft:grass_block",
             "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:gravel_from_compressed_gravel",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:gravel",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/gravel_from_compressed_gravel.json",
+      "ingredients": [
+        "simpleblocks:compressed_gravel"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_gravel"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 9
           }
         ]
       }
@@ -4415,6 +7783,34 @@
       }
     },
     {
+      "id": "simpleblocks:mud_from_compressed_mud",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:mud",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mud_from_compressed_mud.json",
+      "ingredients": [
+        "simpleblocks:compressed_mud"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_mud"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:mud",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:nautilus_shell_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -4470,6 +7866,34 @@
           {
             "id": "simpleblocks:nautilus_shell_block",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:netherrack_from_compressed_netherrack",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:netherrack",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/netherrack_from_compressed_netherrack.json",
+      "ingredients": [
+        "simpleblocks:compressed_netherrack"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_netherrack"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 9
           }
         ]
       }
@@ -5263,6 +8687,90 @@
       }
     },
     {
+      "id": "simpleblocks:red_sand_from_compressed_red_sand",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:red_sand",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/red_sand_from_compressed_red_sand.json",
+      "ingredients": [
+        "simpleblocks:compressed_red_sand"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_red_sand"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:red_sandstone_from_compressed_red_sandstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:red_sandstone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/red_sandstone_from_compressed_red_sandstone.json",
+      "ingredients": [
+        "simpleblocks:compressed_red_sandstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_red_sandstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sand_from_compressed_sand",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:sand",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sand_from_compressed_sand.json",
+      "ingredients": [
+        "simpleblocks:compressed_sand"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_sand"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:sand_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -5289,6 +8797,34 @@
           {
             "id": "minecraft:sand",
             "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sandstone_from_compressed_sandstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:sandstone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sandstone_from_compressed_sandstone.json",
+      "ingredients": [
+        "simpleblocks:compressed_sandstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_sandstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 36
           }
         ]
       }
@@ -9738,6 +13274,62 @@
       }
     },
     {
+      "id": "simpleblocks:soul_sand_from_compressed_soul_sand",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:soul_sand",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/soul_sand_from_compressed_soul_sand.json",
+      "ingredients": [
+        "simpleblocks:compressed_soul_sand"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_soul_sand"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:soul_sand",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:stone_from_compressed_stone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:stone",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/stone_from_compressed_stone.json",
+      "ingredients": [
+        "simpleblocks:compressed_stone"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_stone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:stone_wall",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -9957,6 +13549,34 @@
           {
             "id": "minecraft:phantom_membrane",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:tuff_from_compressed_tuff",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:tuff",
+        "count": 9
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/tuff_from_compressed_tuff.json",
+      "ingredients": [
+        "simpleblocks:compressed_tuff"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:compressed_tuff"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:tuff",
+            "count": 9
           }
         ]
       }
@@ -10951,6 +14571,690 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_packed_ice.json"
     },
     {
+      "id": "simpleblocks:blocks/collapsed_andesite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_andesite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_andesite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_blackstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_blackstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_blackstone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_clay",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_clay"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_clay.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_cobbled_deepslate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_cobbled_deepslate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_cobbled_deepslate.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_cobblestone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_cobblestone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_cobblestone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_diorite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_diorite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_diorite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_dirt",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_dirt"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_dirt.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_end_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_end_stone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_end_stone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_granite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_granite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_granite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_gravel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_gravel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_gravel.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_mud",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_mud"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_mud.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_netherrack",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_netherrack"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_netherrack.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_red_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_red_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_red_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_red_sandstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_red_sandstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_red_sandstone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_sandstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_sandstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_sandstone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_soul_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_soul_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_soul_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_stone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_stone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/collapsed_tuff",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:collapsed_tuff"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/collapsed_tuff.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_andesite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_andesite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_andesite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_blackstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_blackstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_blackstone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_clay",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_clay"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_clay.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_cobbled_deepslate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_cobbled_deepslate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_cobbled_deepslate.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_cobblestone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_cobblestone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_cobblestone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_diorite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_diorite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_diorite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_dirt",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_dirt"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_dirt.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_end_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_end_stone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_end_stone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_granite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_granite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_granite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_gravel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_gravel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_gravel.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_mud",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_mud"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_mud.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_netherrack",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_netherrack"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_netherrack.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_red_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_red_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_red_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_red_sandstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_red_sandstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_red_sandstone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_sandstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_sandstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_sandstone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_soul_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_soul_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_soul_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_stone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_stone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/compressed_tuff",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:compressed_tuff"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_tuff.json"
+    },
+    {
       "id": "simpleblocks:blocks/cracked_blue_ice",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -11285,6 +15589,348 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dark_prismarine_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_andesite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_andesite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_andesite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_blackstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_blackstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_blackstone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_clay",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_clay"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_clay.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_cobbled_deepslate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_cobbled_deepslate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_cobbled_deepslate.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_cobblestone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_cobblestone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_cobblestone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_diorite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_diorite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_diorite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_dirt",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_dirt"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_dirt.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_end_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_end_stone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_end_stone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_granite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_granite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_granite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_gravel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_gravel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_gravel.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_mud",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_mud"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_mud.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_netherrack",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_netherrack"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_netherrack.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_red_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_red_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_red_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_red_sandstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_red_sandstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_red_sandstone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_sandstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_sandstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_sandstone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_soul_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_soul_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_soul_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_stone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_stone.json"
+    },
+    {
+      "id": "simpleblocks:blocks/dense_tuff",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dense_tuff"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dense_tuff.json"
     },
     {
       "id": "simpleblocks:blocks/dirt_slab",
@@ -13130,10 +17776,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 22 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 22 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -13581,6 +18227,804 @@
         "simpleblocks:chiseled_packed_ice_from_packed_ice_stonecutting"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleblocks:collapsed_andesite",
+      "name": {
+        "en_us": "Collapsed Andesite",
+        "de_de": "Kollabierter Andesit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_andesite.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_andesite"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_andesite_from_collapsed_andesite"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_blackstone",
+      "name": {
+        "en_us": "Collapsed Blackstone",
+        "de_de": "Kollabierter Schwarzstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_blackstone.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_blackstone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_blackstone_from_collapsed_blackstone"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_clay",
+      "name": {
+        "en_us": "Collapsed Clay",
+        "de_de": "Kollabierter Ton"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_clay.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_clay"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_clay_from_collapsed_clay"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_cobbled_deepslate",
+      "name": {
+        "en_us": "Collapsed Cobbled Deepslate",
+        "de_de": "Kollabierter Bruchtiefenschiefer"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_cobbled_deepslate.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_cobbled_deepslate"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_cobbled_deepslate_from_collapsed_cobbled_deepslate"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_cobblestone",
+      "name": {
+        "en_us": "Collapsed Cobblestone",
+        "de_de": "Kollabierter Bruchstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_cobblestone.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_cobblestone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_cobblestone_from_collapsed_cobblestone"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_diorite",
+      "name": {
+        "en_us": "Collapsed Diorite",
+        "de_de": "Kollabierter Diorit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_diorite.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_diorite"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_diorite_from_collapsed_diorite"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_dirt",
+      "name": {
+        "en_us": "Collapsed Dirt",
+        "de_de": "Kollabierte Erde"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_dirt.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_dirt"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_dirt_from_collapsed_dirt"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_end_stone",
+      "name": {
+        "en_us": "Collapsed End Stone",
+        "de_de": "Kollabierter Endstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_end_stone.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_end_stone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_end_stone_from_collapsed_end_stone"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_granite",
+      "name": {
+        "en_us": "Collapsed Granite",
+        "de_de": "Kollabierter Granit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_granite.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_granite"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_granite_from_collapsed_granite"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_gravel",
+      "name": {
+        "en_us": "Collapsed Gravel",
+        "de_de": "Kollabierter Kies"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_gravel.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_gravel"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_gravel_from_collapsed_gravel"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_mud",
+      "name": {
+        "en_us": "Collapsed Mud",
+        "de_de": "Kollabierter Schlamm"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_mud.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_mud"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_mud_from_collapsed_mud"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_netherrack",
+      "name": {
+        "en_us": "Collapsed Netherrack",
+        "de_de": "Kollabiertes Netherrack"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_netherrack.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_netherrack"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_netherrack_from_collapsed_netherrack"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_red_sand",
+      "name": {
+        "en_us": "Collapsed Red Sand",
+        "de_de": "Kollabierter Roter Sand"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_red_sand.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_red_sand"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_red_sand_from_collapsed_red_sand"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_red_sandstone",
+      "name": {
+        "en_us": "Collapsed Red Sandstone",
+        "de_de": "Kollabierter Roter Sandstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_red_sandstone.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_red_sandstone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_red_sandstone_from_collapsed_red_sandstone"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_sand",
+      "name": {
+        "en_us": "Collapsed Sand",
+        "de_de": "Kollabierter Sand"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_sand.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_sand"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_sand_from_collapsed_sand"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_sandstone",
+      "name": {
+        "en_us": "Collapsed Sandstone",
+        "de_de": "Kollabierter Sandstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_sandstone.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_sandstone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_sandstone_from_collapsed_sandstone"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_soul_sand",
+      "name": {
+        "en_us": "Collapsed Soul Sand",
+        "de_de": "Kollabierter Seelensand"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_soul_sand.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_soul_sand"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_soul_sand_from_collapsed_soul_sand"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_stone",
+      "name": {
+        "en_us": "Collapsed Stone",
+        "de_de": "Kollabierter Stein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_stone.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_stone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_stone_from_collapsed_stone"
+      ]
+    },
+    {
+      "id": "simpleblocks:collapsed_tuff",
+      "name": {
+        "en_us": "Collapsed Tuff",
+        "de_de": "Kollabierter Tuff"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/collapsed_tuff.png",
+      "craftedBy": [
+        "simpleblocks:collapsed_tuff"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_tuff_from_collapsed_tuff"
+      ]
+    },
+    {
+      "id": "simpleblocks:compact_andesite",
+      "name": {
+        "en_us": "Compact Andesite",
+        "de_de": "Kompakter Andesit"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_blackstone",
+      "name": {
+        "en_us": "Compact Blackstone",
+        "de_de": "Kompakter Schwarzstein"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_clay",
+      "name": {
+        "en_us": "Compact Clay",
+        "de_de": "Kompakter Ton"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_cobbled_deepslate",
+      "name": {
+        "en_us": "Compact Cobbled Deepslate",
+        "de_de": "Kompakter Bruchtiefenschiefer"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_cobblestone",
+      "name": {
+        "en_us": "Compact Cobblestone",
+        "de_de": "Kompakter Bruchstein"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_diorite",
+      "name": {
+        "en_us": "Compact Diorite",
+        "de_de": "Kompakter Diorit"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_dirt",
+      "name": {
+        "en_us": "Compact Dirt",
+        "de_de": "Kompakte Erde"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_end_stone",
+      "name": {
+        "en_us": "Compact End Stone",
+        "de_de": "Kompakter Endstein"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_granite",
+      "name": {
+        "en_us": "Compact Granite",
+        "de_de": "Kompakter Granit"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_gravel",
+      "name": {
+        "en_us": "Compact Gravel",
+        "de_de": "Kompakter Kies"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_mud",
+      "name": {
+        "en_us": "Compact Mud",
+        "de_de": "Kompakter Schlamm"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_netherrack",
+      "name": {
+        "en_us": "Compact Netherrack",
+        "de_de": "Kompaktes Netherrack"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_red_sand",
+      "name": {
+        "en_us": "Compact Red Sand",
+        "de_de": "Kompakter Roter Sand"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_red_sandstone",
+      "name": {
+        "en_us": "Compact Red Sandstone",
+        "de_de": "Kompakter Roter Sandstein"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_sand",
+      "name": {
+        "en_us": "Compact Sand",
+        "de_de": "Kompakter Sand"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_sandstone",
+      "name": {
+        "en_us": "Compact Sandstone",
+        "de_de": "Kompakter Sandstein"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_soul_sand",
+      "name": {
+        "en_us": "Compact Soul Sand",
+        "de_de": "Kompakter Seelensand"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_stone",
+      "name": {
+        "en_us": "Compact Stone",
+        "de_de": "Kompakter Stein"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compact_tuff",
+      "name": {
+        "en_us": "Compact Tuff",
+        "de_de": "Kompakter Tuff"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:compressed_andesite",
+      "name": {
+        "en_us": "Compressed Andesite",
+        "de_de": "Komprimierter Andesit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_andesite.png",
+      "craftedBy": [
+        "simpleblocks:compressed_andesite",
+        "simpleblocks:compressed_andesite_from_dense_andesite"
+      ],
+      "usedIn": [
+        "simpleblocks:andesite_from_compressed_andesite",
+        "simpleblocks:dense_andesite"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_blackstone",
+      "name": {
+        "en_us": "Compressed Blackstone",
+        "de_de": "Komprimierter Schwarzstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_blackstone.png",
+      "craftedBy": [
+        "simpleblocks:compressed_blackstone",
+        "simpleblocks:compressed_blackstone_from_dense_blackstone"
+      ],
+      "usedIn": [
+        "simpleblocks:blackstone_from_compressed_blackstone",
+        "simpleblocks:dense_blackstone"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_clay",
+      "name": {
+        "en_us": "Compressed Clay",
+        "de_de": "Komprimierter Ton"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_clay.png",
+      "craftedBy": [
+        "simpleblocks:compressed_clay",
+        "simpleblocks:compressed_clay_from_dense_clay"
+      ],
+      "usedIn": [
+        "simpleblocks:clay_from_compressed_clay",
+        "simpleblocks:dense_clay"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_cobbled_deepslate",
+      "name": {
+        "en_us": "Compressed Cobbled Deepslate",
+        "de_de": "Komprimierter Bruchtiefenschiefer"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_cobbled_deepslate.png",
+      "craftedBy": [
+        "simpleblocks:compressed_cobbled_deepslate",
+        "simpleblocks:compressed_cobbled_deepslate_from_dense_cobbled_deepslate"
+      ],
+      "usedIn": [
+        "simpleblocks:cobbled_deepslate_from_compressed_cobbled_deepslate",
+        "simpleblocks:dense_cobbled_deepslate"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_cobblestone",
+      "name": {
+        "en_us": "Compressed Cobblestone",
+        "de_de": "Komprimierter Bruchstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_cobblestone.png",
+      "craftedBy": [
+        "simpleblocks:compressed_cobblestone",
+        "simpleblocks:compressed_cobblestone_from_dense_cobblestone"
+      ],
+      "usedIn": [
+        "simpleblocks:cobblestone_from_compressed_cobblestone",
+        "simpleblocks:dense_cobblestone"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_diorite",
+      "name": {
+        "en_us": "Compressed Diorite",
+        "de_de": "Komprimierter Diorit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_diorite.png",
+      "craftedBy": [
+        "simpleblocks:compressed_diorite",
+        "simpleblocks:compressed_diorite_from_dense_diorite"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_diorite",
+        "simpleblocks:diorite_from_compressed_diorite"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_dirt",
+      "name": {
+        "en_us": "Compressed Dirt",
+        "de_de": "Komprimierte Erde"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_dirt.png",
+      "craftedBy": [
+        "simpleblocks:compressed_dirt",
+        "simpleblocks:compressed_dirt_from_dense_dirt"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_dirt",
+        "simpleblocks:dirt_from_compressed_dirt"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_end_stone",
+      "name": {
+        "en_us": "Compressed End Stone",
+        "de_de": "Komprimierter Endstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_end_stone.png",
+      "craftedBy": [
+        "simpleblocks:compressed_end_stone",
+        "simpleblocks:compressed_end_stone_from_dense_end_stone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_end_stone",
+        "simpleblocks:end_stone_from_compressed_end_stone"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_granite",
+      "name": {
+        "en_us": "Compressed Granite",
+        "de_de": "Komprimierter Granit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_granite.png",
+      "craftedBy": [
+        "simpleblocks:compressed_granite",
+        "simpleblocks:compressed_granite_from_dense_granite"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_granite",
+        "simpleblocks:granite_from_compressed_granite"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_gravel",
+      "name": {
+        "en_us": "Compressed Gravel",
+        "de_de": "Komprimierter Kies"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_gravel.png",
+      "craftedBy": [
+        "simpleblocks:compressed_gravel",
+        "simpleblocks:compressed_gravel_from_dense_gravel"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_gravel",
+        "simpleblocks:gravel_from_compressed_gravel"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_mud",
+      "name": {
+        "en_us": "Compressed Mud",
+        "de_de": "Komprimierter Schlamm"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_mud.png",
+      "craftedBy": [
+        "simpleblocks:compressed_mud",
+        "simpleblocks:compressed_mud_from_dense_mud"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_mud",
+        "simpleblocks:mud_from_compressed_mud"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_netherrack",
+      "name": {
+        "en_us": "Compressed Netherrack",
+        "de_de": "Komprimiertes Netherrack"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_netherrack.png",
+      "craftedBy": [
+        "simpleblocks:compressed_netherrack",
+        "simpleblocks:compressed_netherrack_from_dense_netherrack"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_netherrack",
+        "simpleblocks:netherrack_from_compressed_netherrack"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_red_sand",
+      "name": {
+        "en_us": "Compressed Red Sand",
+        "de_de": "Komprimierter Roter Sand"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_red_sand.png",
+      "craftedBy": [
+        "simpleblocks:compressed_red_sand",
+        "simpleblocks:compressed_red_sand_from_dense_red_sand"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_red_sand",
+        "simpleblocks:red_sand_from_compressed_red_sand"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_red_sandstone",
+      "name": {
+        "en_us": "Compressed Red Sandstone",
+        "de_de": "Komprimierter Roter Sandstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_red_sandstone.png",
+      "craftedBy": [
+        "simpleblocks:compressed_red_sandstone",
+        "simpleblocks:compressed_red_sandstone_from_dense_red_sandstone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_red_sandstone",
+        "simpleblocks:red_sandstone_from_compressed_red_sandstone"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_sand",
+      "name": {
+        "en_us": "Compressed Sand",
+        "de_de": "Komprimierter Sand"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_sand.png",
+      "craftedBy": [
+        "simpleblocks:compressed_sand",
+        "simpleblocks:compressed_sand_from_dense_sand"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_sand",
+        "simpleblocks:sand_from_compressed_sand"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_sandstone",
+      "name": {
+        "en_us": "Compressed Sandstone",
+        "de_de": "Komprimierter Sandstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_sandstone.png",
+      "craftedBy": [
+        "simpleblocks:compressed_sandstone",
+        "simpleblocks:compressed_sandstone_from_dense_sandstone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_sandstone",
+        "simpleblocks:sandstone_from_compressed_sandstone"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_soul_sand",
+      "name": {
+        "en_us": "Compressed Soul Sand",
+        "de_de": "Komprimierter Seelensand"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_soul_sand.png",
+      "craftedBy": [
+        "simpleblocks:compressed_soul_sand",
+        "simpleblocks:compressed_soul_sand_from_dense_soul_sand"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_soul_sand",
+        "simpleblocks:soul_sand_from_compressed_soul_sand"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_stone",
+      "name": {
+        "en_us": "Compressed Stone",
+        "de_de": "Komprimierter Stein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_stone.png",
+      "craftedBy": [
+        "simpleblocks:compressed_stone",
+        "simpleblocks:compressed_stone_from_dense_stone"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_stone",
+        "simpleblocks:stone_from_compressed_stone"
+      ]
+    },
+    {
+      "id": "simpleblocks:compressed_tuff",
+      "name": {
+        "en_us": "Compressed Tuff",
+        "de_de": "Komprimierter Tuff"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/compressed_tuff.png",
+      "craftedBy": [
+        "simpleblocks:compressed_tuff",
+        "simpleblocks:compressed_tuff_from_dense_tuff"
+      ],
+      "usedIn": [
+        "simpleblocks:dense_tuff",
+        "simpleblocks:tuff_from_compressed_tuff"
+      ]
     },
     {
       "id": "simpleblocks:cracked_blue_ice",
@@ -14106,6 +19550,329 @@
         "simpleblocks:dark_prismarine_wall_from_dark_prismarine_stonecutting"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleblocks:dense_andesite",
+      "name": {
+        "en_us": "Dense Andesite",
+        "de_de": "Dichter Andesit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_andesite.png",
+      "craftedBy": [
+        "simpleblocks:dense_andesite",
+        "simpleblocks:dense_andesite_from_collapsed_andesite"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_andesite",
+        "simpleblocks:compressed_andesite_from_dense_andesite"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_blackstone",
+      "name": {
+        "en_us": "Dense Blackstone",
+        "de_de": "Dichter Schwarzstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_blackstone.png",
+      "craftedBy": [
+        "simpleblocks:dense_blackstone",
+        "simpleblocks:dense_blackstone_from_collapsed_blackstone"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_blackstone",
+        "simpleblocks:compressed_blackstone_from_dense_blackstone"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_clay",
+      "name": {
+        "en_us": "Dense Clay",
+        "de_de": "Dichter Ton"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_clay.png",
+      "craftedBy": [
+        "simpleblocks:dense_clay",
+        "simpleblocks:dense_clay_from_collapsed_clay"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_clay",
+        "simpleblocks:compressed_clay_from_dense_clay"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_cobbled_deepslate",
+      "name": {
+        "en_us": "Dense Cobbled Deepslate",
+        "de_de": "Dichter Bruchtiefenschiefer"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_cobbled_deepslate.png",
+      "craftedBy": [
+        "simpleblocks:dense_cobbled_deepslate",
+        "simpleblocks:dense_cobbled_deepslate_from_collapsed_cobbled_deepslate"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_cobbled_deepslate",
+        "simpleblocks:compressed_cobbled_deepslate_from_dense_cobbled_deepslate"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_cobblestone",
+      "name": {
+        "en_us": "Dense Cobblestone",
+        "de_de": "Dichter Bruchstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_cobblestone.png",
+      "craftedBy": [
+        "simpleblocks:dense_cobblestone",
+        "simpleblocks:dense_cobblestone_from_collapsed_cobblestone"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_cobblestone",
+        "simpleblocks:compressed_cobblestone_from_dense_cobblestone"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_diorite",
+      "name": {
+        "en_us": "Dense Diorite",
+        "de_de": "Dichter Diorit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_diorite.png",
+      "craftedBy": [
+        "simpleblocks:dense_diorite",
+        "simpleblocks:dense_diorite_from_collapsed_diorite"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_diorite",
+        "simpleblocks:compressed_diorite_from_dense_diorite"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_dirt",
+      "name": {
+        "en_us": "Dense Dirt",
+        "de_de": "Dichte Erde"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_dirt.png",
+      "craftedBy": [
+        "simpleblocks:dense_dirt",
+        "simpleblocks:dense_dirt_from_collapsed_dirt"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_dirt",
+        "simpleblocks:compressed_dirt_from_dense_dirt"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_end_stone",
+      "name": {
+        "en_us": "Dense End Stone",
+        "de_de": "Dichter Endstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_end_stone.png",
+      "craftedBy": [
+        "simpleblocks:dense_end_stone",
+        "simpleblocks:dense_end_stone_from_collapsed_end_stone"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_end_stone",
+        "simpleblocks:compressed_end_stone_from_dense_end_stone"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_granite",
+      "name": {
+        "en_us": "Dense Granite",
+        "de_de": "Dichter Granit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_granite.png",
+      "craftedBy": [
+        "simpleblocks:dense_granite",
+        "simpleblocks:dense_granite_from_collapsed_granite"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_granite",
+        "simpleblocks:compressed_granite_from_dense_granite"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_gravel",
+      "name": {
+        "en_us": "Dense Gravel",
+        "de_de": "Dichter Kies"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_gravel.png",
+      "craftedBy": [
+        "simpleblocks:dense_gravel",
+        "simpleblocks:dense_gravel_from_collapsed_gravel"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_gravel",
+        "simpleblocks:compressed_gravel_from_dense_gravel"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_mud",
+      "name": {
+        "en_us": "Dense Mud",
+        "de_de": "Dichter Schlamm"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_mud.png",
+      "craftedBy": [
+        "simpleblocks:dense_mud",
+        "simpleblocks:dense_mud_from_collapsed_mud"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_mud",
+        "simpleblocks:compressed_mud_from_dense_mud"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_netherrack",
+      "name": {
+        "en_us": "Dense Netherrack",
+        "de_de": "Dichtes Netherrack"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_netherrack.png",
+      "craftedBy": [
+        "simpleblocks:dense_netherrack",
+        "simpleblocks:dense_netherrack_from_collapsed_netherrack"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_netherrack",
+        "simpleblocks:compressed_netherrack_from_dense_netherrack"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_red_sand",
+      "name": {
+        "en_us": "Dense Red Sand",
+        "de_de": "Dichter Roter Sand"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_red_sand.png",
+      "craftedBy": [
+        "simpleblocks:dense_red_sand",
+        "simpleblocks:dense_red_sand_from_collapsed_red_sand"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_red_sand",
+        "simpleblocks:compressed_red_sand_from_dense_red_sand"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_red_sandstone",
+      "name": {
+        "en_us": "Dense Red Sandstone",
+        "de_de": "Dichter Roter Sandstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_red_sandstone.png",
+      "craftedBy": [
+        "simpleblocks:dense_red_sandstone",
+        "simpleblocks:dense_red_sandstone_from_collapsed_red_sandstone"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_red_sandstone",
+        "simpleblocks:compressed_red_sandstone_from_dense_red_sandstone"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_sand",
+      "name": {
+        "en_us": "Dense Sand",
+        "de_de": "Dichter Sand"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_sand.png",
+      "craftedBy": [
+        "simpleblocks:dense_sand",
+        "simpleblocks:dense_sand_from_collapsed_sand"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_sand",
+        "simpleblocks:compressed_sand_from_dense_sand"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_sandstone",
+      "name": {
+        "en_us": "Dense Sandstone",
+        "de_de": "Dichter Sandstein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_sandstone.png",
+      "craftedBy": [
+        "simpleblocks:dense_sandstone",
+        "simpleblocks:dense_sandstone_from_collapsed_sandstone"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_sandstone",
+        "simpleblocks:compressed_sandstone_from_dense_sandstone"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_soul_sand",
+      "name": {
+        "en_us": "Dense Soul Sand",
+        "de_de": "Dichter Seelensand"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_soul_sand.png",
+      "craftedBy": [
+        "simpleblocks:dense_soul_sand",
+        "simpleblocks:dense_soul_sand_from_collapsed_soul_sand"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_soul_sand",
+        "simpleblocks:compressed_soul_sand_from_dense_soul_sand"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_stone",
+      "name": {
+        "en_us": "Dense Stone",
+        "de_de": "Dichter Stein"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_stone.png",
+      "craftedBy": [
+        "simpleblocks:dense_stone",
+        "simpleblocks:dense_stone_from_collapsed_stone"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_stone",
+        "simpleblocks:compressed_stone_from_dense_stone"
+      ]
+    },
+    {
+      "id": "simpleblocks:dense_tuff",
+      "name": {
+        "en_us": "Dense Tuff",
+        "de_de": "Dichter Tuff"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/dense_tuff.png",
+      "craftedBy": [
+        "simpleblocks:dense_tuff",
+        "simpleblocks:dense_tuff_from_collapsed_tuff"
+      ],
+      "usedIn": [
+        "simpleblocks:collapsed_tuff",
+        "simpleblocks:compressed_tuff_from_dense_tuff"
+      ]
     },
     {
       "id": "simpleblocks:dirt_slab",
@@ -16564,22 +22331,99 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpleblocks:collapsed_andesite",
+    "simpleblocks:collapsed_blackstone",
+    "simpleblocks:collapsed_clay",
+    "simpleblocks:collapsed_cobbled_deepslate",
+    "simpleblocks:collapsed_cobblestone",
+    "simpleblocks:collapsed_diorite",
+    "simpleblocks:collapsed_dirt",
+    "simpleblocks:collapsed_end_stone",
+    "simpleblocks:collapsed_granite",
+    "simpleblocks:collapsed_gravel",
+    "simpleblocks:collapsed_mud",
+    "simpleblocks:collapsed_netherrack",
+    "simpleblocks:collapsed_red_sand",
+    "simpleblocks:collapsed_red_sandstone",
+    "simpleblocks:collapsed_sand",
+    "simpleblocks:collapsed_sandstone",
+    "simpleblocks:collapsed_soul_sand",
+    "simpleblocks:collapsed_stone",
+    "simpleblocks:collapsed_tuff",
+    "simpleblocks:compact_andesite",
+    "simpleblocks:compact_blackstone",
+    "simpleblocks:compact_clay",
+    "simpleblocks:compact_cobbled_deepslate",
+    "simpleblocks:compact_cobblestone",
+    "simpleblocks:compact_diorite",
+    "simpleblocks:compact_dirt",
+    "simpleblocks:compact_end_stone",
+    "simpleblocks:compact_granite",
+    "simpleblocks:compact_gravel",
+    "simpleblocks:compact_mud",
+    "simpleblocks:compact_netherrack",
+    "simpleblocks:compact_red_sand",
+    "simpleblocks:compact_red_sandstone",
+    "simpleblocks:compact_sand",
+    "simpleblocks:compact_sandstone",
+    "simpleblocks:compact_soul_sand",
+    "simpleblocks:compact_stone",
+    "simpleblocks:compact_tuff",
+    "simpleblocks:compressed_andesite",
+    "simpleblocks:compressed_blackstone",
+    "simpleblocks:compressed_clay",
+    "simpleblocks:compressed_cobbled_deepslate",
+    "simpleblocks:compressed_cobblestone",
+    "simpleblocks:compressed_diorite",
+    "simpleblocks:compressed_dirt",
+    "simpleblocks:compressed_end_stone",
+    "simpleblocks:compressed_granite",
+    "simpleblocks:compressed_gravel",
+    "simpleblocks:compressed_mud",
+    "simpleblocks:compressed_netherrack",
+    "simpleblocks:compressed_red_sand",
+    "simpleblocks:compressed_red_sandstone",
+    "simpleblocks:compressed_sand",
+    "simpleblocks:compressed_sandstone",
+    "simpleblocks:compressed_soul_sand",
+    "simpleblocks:compressed_stone",
+    "simpleblocks:compressed_tuff",
+    "simpleblocks:dense_andesite",
+    "simpleblocks:dense_blackstone",
+    "simpleblocks:dense_clay",
+    "simpleblocks:dense_cobbled_deepslate",
+    "simpleblocks:dense_cobblestone",
+    "simpleblocks:dense_diorite",
+    "simpleblocks:dense_dirt",
+    "simpleblocks:dense_end_stone",
+    "simpleblocks:dense_granite",
+    "simpleblocks:dense_gravel",
+    "simpleblocks:dense_mud",
+    "simpleblocks:dense_netherrack",
+    "simpleblocks:dense_red_sand",
+    "simpleblocks:dense_red_sandstone",
+    "simpleblocks:dense_sand",
+    "simpleblocks:dense_sandstone",
+    "simpleblocks:dense_soul_sand",
+    "simpleblocks:dense_stone",
+    "simpleblocks:dense_tuff"
+  ],
   "incompleteProse": {},
   "counts": {
-    "features": 13,
-    "recipes": 385,
-    "lootTables": 129,
+    "features": 14,
+    "recipes": 499,
+    "lootTables": 186,
     "tags": 4,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 131,
+    "blocks": 207,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 76,
     "inWorld": 0,
     "incompleteProse": 0
   }

@@ -80,6 +80,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
   - **Simple End** `simpleend` (optional) [neu]: End wood (Ashwood, Duskwood) with buds, trees and stick scrub, End grass, the Ash Valley and Dawnlands biomes on the outer End islands; bundles Simple End Dragon Fight.
     - optional: Simple End Dragon Fight
     - **Simple End Dragon Fight** `simpleenddragonfight` (optional) [neu]: Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.
+      - optional: Simple Mobs
   - **Simple Fun** `simplefun` (optional) [fertig]: Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).
     - required: cloth_config
     - optional: modmenu, jei, jade

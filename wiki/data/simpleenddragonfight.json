@@ -152,7 +152,7 @@
           "enabled, raiseBaseHealth (300 instead of 200 per player), maxPlayers (0 = all), countCreative, leaveGraceSeconds 60, islandRadius 160.",
           "speedMultiplier 1.2, speedPerPlayer 0.015, speedCap 1.35, crystalHealScaling.",
           "mitesEnabled, waveIntervalSeconds 30, miteBase 2, miteExtraPerTwoPlayers 1, maxAliveMites 16, animationEnabled, animationTicks 60, maxQueued 16, exposeSpawnEgg.",
-          "summonScaling 0.15, summonMaxMultiplier 3.0, summonSpeedCap 2.0, summonAttackCap 2.0 (further summonings); rewardEnabled, rewardFromDragon 4, rewardItem, rewardJewelFromDragon 10, rewardJewelItem, tintFromDragon 4."
+          "summonScaling 0.15, summonMaxMultiplier 3.0, summonSpeedCap 2.0, summonAttackCap 2.0 (further summonings); xpPerFight 250, xpMax 5000, miteExtraPerSummons 3; rewardEnabled, rewardFromDragon 4, rewardItem, rewardJewelFromDragon 10, rewardJewelItem, tintFromDragon 4, tintJewelFromDragon 10."
         ]
       },
       "de": {
@@ -162,7 +162,7 @@
           "enabled, raiseBaseHealth (300 statt 200 je Spieler), maxPlayers (0 = alle), countCreative, leaveGraceSeconds 60, islandRadius 160.",
           "speedMultiplier 1,2, speedPerPlayer 0,015, speedCap 1,35, crystalHealScaling.",
           "mitesEnabled, waveIntervalSeconds 30, miteBase 2, miteExtraPerTwoPlayers 1, maxAliveMites 16, animationEnabled, animationTicks 60, maxQueued 16, exposeSpawnEgg.",
-          "summonScaling 0,15, summonMaxMultiplier 3,0, summonSpeedCap 2,0, summonAttackCap 2,0 (weitere Beschwörungen); rewardEnabled, rewardFromDragon 4, rewardItem, rewardJewelFromDragon 10, rewardJewelItem, tintFromDragon 4."
+          "summonScaling 0,15, summonMaxMultiplier 3,0, summonSpeedCap 2,0, summonAttackCap 2,0 (weitere Beschwörungen); xpPerFight 250, xpMax 5000, miteExtraPerSummons 3; rewardEnabled, rewardFromDragon 4, rewardItem, rewardJewelFromDragon 10, rewardJewelItem, tintFromDragon 4, tintJewelFromDragon 10."
         ]
       }
     },

@@ -529,9 +529,9 @@ SAW_LANG = {
 
 COLLAPSED_TEXT = {
     'en_us': {'tooltip.simpleblocks.collapsed.1': 'So dense it slows you down in your inventory.',
-              'tooltip.simpleblocks.collapsed.2': '1 stack: Slowness I, 2 stacks: II, 9 stacks: III.'},
+              'tooltip.simpleblocks.collapsed.2': '1 stack: Slowness I, 2: II, 9: III.'},
     'de_de': {'tooltip.simpleblocks.collapsed.1': 'So dicht, dass es dich im Inventar verlangsamt.',
-              'tooltip.simpleblocks.collapsed.2': '1 Stapel: Langsamkeit I, 2 Stapel: II, 9 Stapel: III.'}}
+              'tooltip.simpleblocks.collapsed.2': '1 Stapel: Langsamkeit I, 2: II, 9: III.'}}
 
 
 def compact_names(locale):
