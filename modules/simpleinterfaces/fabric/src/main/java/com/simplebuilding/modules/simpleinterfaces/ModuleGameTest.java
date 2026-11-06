@@ -54,4 +54,5 @@ public final class ModuleGameTest {
     @GameTest public void sortChest(GameTestHelper h) { SortTests.chest(h); }
     @GameTest public void sortRefused(GameTestHelper h) { SortTests.refused(h); }
     @GameTest public void sortPayload(GameTestHelper h) { SortTests.payload(h); }
+    @GameTest public void sortFamilies(GameTestHelper h) { SortTests.families(h); }
 }
