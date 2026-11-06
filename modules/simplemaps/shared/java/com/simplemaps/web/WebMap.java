@@ -175,6 +175,7 @@ public final class WebMap {
     }
 
     public static void stopHttp() {
+        httpRetryTick = 0; // an explicit stop also clears a bind-failure back-off left by an earlier start (flaky web_http_on_off)
         if (http != null) {
             http.close();
             http = null;
