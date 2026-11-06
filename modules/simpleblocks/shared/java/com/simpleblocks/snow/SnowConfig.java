@@ -21,7 +21,7 @@ public final class SnowConfig {
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = java.util.stream.Stream.concat(
             java.util.stream.Stream.of("snow.snowlogging", "snow.snowCaps", "snow.frostGrass", "snow.freezeOneIn", "snow.thawOneIn"),
-            com.simpleblocks.pale.PaleConfig.KEYS.stream()).toList();
+            java.util.stream.Stream.concat(com.simpleblocks.pale.PaleConfig.KEYS.stream(), com.simpleblocks.compact.CollapsedConfig.KEYS.stream())).toList();
 
     public static final int FREEZE_DEFAULT = 3, THAW_DEFAULT = 6, ONE_IN_MIN = 1, ONE_IN_MAX = 100;
 
@@ -65,6 +65,9 @@ public final class SnowConfig {
         // DW04B: the pale group (com.simpleblocks.pale.PaleConfig) lives in the same file.
         JsonElement pale = json.get("pale");
         com.simpleblocks.pale.PaleConfig.apply(pale != null && pale.isJsonObject() ? pale.getAsJsonObject() : new JsonObject());
+        // WH26-10: the collapsed group (com.simpleblocks.compact.CollapsedConfig) lives in the same file.
+        JsonElement collapsed = json.get("collapsed");
+        com.simpleblocks.compact.CollapsedConfig.apply(collapsed != null && collapsed.isJsonObject() ? collapsed.getAsJsonObject() : new JsonObject());
     }
 
     public static JsonObject toJson() {
@@ -77,6 +80,7 @@ public final class SnowConfig {
         JsonObject o = new JsonObject();
         o.add("snow", s);
         o.add("pale", com.simpleblocks.pale.PaleConfig.toJson());
+        o.add("collapsed", com.simpleblocks.compact.CollapsedConfig.toJson());
         return o;
     }
 

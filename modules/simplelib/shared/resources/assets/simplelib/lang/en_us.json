@@ -104,5 +104,10 @@
   "quests.simplelib.start.welcome.title": "A free guide",
   "quests.simplelib.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Modpack guide as a reward. You can also craft it from a book and a crafting table.",
   "commands.simplelib.moved": "%s is now %s (the old name still works for now)",
-  "itemgroup.simplelib.lib": "Simple Lib"
+  "itemgroup.simplelib.lib": "Simple Lib",
+  "simplelib.tab.slotalert": "Slot Alert",
+  "text.autoconfig.simplelib.option.slotAlert": "Red Beam on Triggering Items (this client)",
+  "text.autoconfig.simplelib.option.slotAlert.@Tooltip": "A slow red lighthouse beam turns behind an\nitem in its slot while that item is causing an\neffect on you (e.g. Collapsed blocks: Slowness).\nDefault: true.",
+  "text.autoconfig.simplelib.option.slotAlertReducedMotion": "Calm Beam (this client)",
+  "text.autoconfig.simplelib.option.slotAlertReducedMotion.@Tooltip": "Instead of the turning beam the slot glows still\nand breathes slowly (no motion).\nDefault: false."
 }

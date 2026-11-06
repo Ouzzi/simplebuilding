@@ -53,6 +53,14 @@ public final class LibConfigScreen {
                 .setTooltip(tip("freeLookServerRelease")).setSaveConsumer(v -> lookServer[0] = v).build());
         look.addEntry(e.startBooleanToggle(name("freeLookEnforce"), lookEnforce[0]).setDefaultValue(false)
                 .setTooltip(tip("freeLookEnforce")).setSaveConsumer(v -> lookEnforce[0] = v).build());
+        // WH26-10: the red slot beam (SlotAlert) - switch and reduced motion, client side.
+        boolean[] alert = {com.simplelib.api.client.SlotAlert.enabled};
+        boolean[] alertStill = {com.simplelib.api.client.SlotAlert.reducedMotion};
+        var alerts = b.getOrCreateCategory(Component.translatable("simplelib.tab.slotalert"));
+        alerts.addEntry(e.startBooleanToggle(name("slotAlert"), alert[0]).setDefaultValue(true)
+                .setTooltip(tip("slotAlert")).setSaveConsumer(v -> alert[0] = v).build());
+        alerts.addEntry(e.startBooleanToggle(name("slotAlertReducedMotion"), alertStill[0]).setDefaultValue(false)
+                .setTooltip(tip("slotAlertReducedMotion")).setSaveConsumer(v -> alertStill[0] = v).build());
         var diagnosis = b.getOrCreateCategory(Component.translatable("simplelib.tab.diagnosis"));
         diagnosis.addEntry(e.startBooleanToggle(name("hangWatchdog"), hang[0]).setDefaultValue(true)
                 .setTooltip(tip("hangWatchdog")).setSaveConsumer(v -> hang[0] = v).build());
@@ -73,6 +81,8 @@ public final class LibConfigScreen {
             com.simplelib.api.FreeLookRules.setClient(lookClient[0]);
             com.simplelib.api.FreeLookRules.setCrosshair(lookCrosshair[0]);
             com.simplelib.api.FreeLookRules.setZoom(lookZoom[0]);
+            com.simplelib.api.client.SlotAlert.enabled = alert[0];
+            com.simplelib.api.client.SlotAlert.reducedMotion = alertStill[0];
             com.simplelib.api.client.ui.UiBrightness.save();
         });
         return b.build();

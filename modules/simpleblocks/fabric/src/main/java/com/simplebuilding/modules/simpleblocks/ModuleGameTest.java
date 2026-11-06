@@ -315,4 +315,24 @@ public final class ModuleGameTest {
     public void paleGolemFromPaleHead(GameTestHelper h) {
         BlocksTests.ALL.get("pale_golem_from_pale_head").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void compactRegistered(GameTestHelper h) {
+        BlocksTests.ALL.get("compact_registered").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void compactRecipesReversible(GameTestHelper h) {
+        BlocksTests.ALL.get("compact_recipes_reversible").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void compactDropsAndTools(GameTestHelper h) {
+        BlocksTests.ALL.get("compact_drops_and_tools").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void compactCollapsedSlowness(GameTestHelper h) {
+        BlocksTests.ALL.get("compact_collapsed_slowness").accept(h);
+    }
 }

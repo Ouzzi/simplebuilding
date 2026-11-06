@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_compressed_granite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:compressed_granite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:granite_from_compressed_granite"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_compressed_granite"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:granite_from_compressed_granite"
+    ]
+  }
+}

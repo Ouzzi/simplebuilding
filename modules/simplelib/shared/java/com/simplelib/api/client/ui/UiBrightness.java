@@ -103,6 +103,8 @@ public enum UiBrightness {
         json.addProperty("freeLookRelease", com.simplelib.api.FreeLookRules.client().id());
         json.addProperty("freeLookCrosshair", com.simplelib.api.FreeLookRules.crosshair());
         json.addProperty("freeLookZoom", com.simplelib.api.FreeLookRules.zoom());
+        json.addProperty("slotAlert", com.simplelib.api.client.SlotAlert.enabled);
+        json.addProperty("slotAlertReducedMotion", com.simplelib.api.client.SlotAlert.reducedMotion);
         return json;
     }
 
@@ -113,6 +115,8 @@ public enum UiBrightness {
                 json.has("freeLookRelease") ? json.get("freeLookRelease").getAsString() : null));
         com.simplelib.api.FreeLookRules.setCrosshair(!json.has("freeLookCrosshair") || json.get("freeLookCrosshair").getAsBoolean());
         com.simplelib.api.FreeLookRules.setZoom(!json.has("freeLookZoom") || json.get("freeLookZoom").getAsBoolean());
+        com.simplelib.api.client.SlotAlert.enabled = !json.has("slotAlert") || json.get("slotAlert").getAsBoolean();
+        com.simplelib.api.client.SlotAlert.reducedMotion = json.has("slotAlertReducedMotion") && json.get("slotAlertReducedMotion").getAsBoolean();
     }
 
     /** Writes the current brightness next to the other configs (no-op before {@link #load}). */

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_compressed_dirt": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:compressed_dirt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:dense_dirt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_compressed_dirt"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:dense_dirt"
+    ]
+  }
+}

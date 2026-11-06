@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dense_andesite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:dense_andesite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:compressed_andesite_from_dense_andesite"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dense_andesite"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:compressed_andesite_from_dense_andesite"
+    ]
+  }
+}

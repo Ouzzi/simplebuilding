@@ -532,22 +532,109 @@
       }
     },
     {
+      "id": "compact_blocks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/compact/CompactBlocks.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/CompactTests.java",
+        "tools/textures/compact_2026_11_06.py"
+      ],
+      "related": [
+        "simpleblocks:compressed_dirt",
+        "simpleblocks:dense_dirt",
+        "simpleblocks:collapsed_dirt",
+        "simpleblocks:compressed_mud",
+        "simpleblocks:dense_mud",
+        "simpleblocks:collapsed_mud",
+        "simpleblocks:compressed_cobblestone",
+        "simpleblocks:dense_cobblestone",
+        "simpleblocks:collapsed_cobblestone",
+        "simpleblocks:compressed_stone",
+        "simpleblocks:dense_stone",
+        "simpleblocks:collapsed_stone",
+        "simpleblocks:compressed_sand",
+        "simpleblocks:dense_sand",
+        "simpleblocks:collapsed_sand",
+        "simpleblocks:compressed_red_sand",
+        "simpleblocks:dense_red_sand",
+        "simpleblocks:collapsed_red_sand",
+        "simpleblocks:compressed_gravel",
+        "simpleblocks:dense_gravel",
+        "simpleblocks:collapsed_gravel",
+        "simpleblocks:compressed_clay",
+        "simpleblocks:dense_clay",
+        "simpleblocks:collapsed_clay",
+        "simpleblocks:compressed_netherrack",
+        "simpleblocks:dense_netherrack",
+        "simpleblocks:collapsed_netherrack",
+        "simpleblocks:compressed_cobbled_deepslate",
+        "simpleblocks:dense_cobbled_deepslate",
+        "simpleblocks:collapsed_cobbled_deepslate",
+        "simpleblocks:compressed_andesite",
+        "simpleblocks:dense_andesite",
+        "simpleblocks:collapsed_andesite",
+        "simpleblocks:compressed_diorite",
+        "simpleblocks:dense_diorite",
+        "simpleblocks:collapsed_diorite",
+        "simpleblocks:compressed_granite",
+        "simpleblocks:dense_granite",
+        "simpleblocks:collapsed_granite",
+        "simpleblocks:compressed_tuff",
+        "simpleblocks:dense_tuff",
+        "simpleblocks:collapsed_tuff",
+        "simpleblocks:compressed_sandstone",
+        "simpleblocks:dense_sandstone",
+        "simpleblocks:collapsed_sandstone",
+        "simpleblocks:compressed_red_sandstone",
+        "simpleblocks:dense_red_sandstone",
+        "simpleblocks:collapsed_red_sandstone",
+        "simpleblocks:compressed_end_stone",
+        "simpleblocks:dense_end_stone",
+        "simpleblocks:collapsed_end_stone",
+        "simpleblocks:compressed_blackstone",
+        "simpleblocks:dense_blackstone",
+        "simpleblocks:collapsed_blackstone",
+        "simpleblocks:compressed_soul_sand",
+        "simpleblocks:dense_soul_sand",
+        "simpleblocks:collapsed_soul_sand"
+      ],
+      "en": {
+        "title": "Compressed, Dense and Collapsed blocks",
+        "summary": "Stage 1 Compressed = 9 blocks, stage 2 Dense = 9 Compressed, stage 3 Collapsed = 9 Dense, for 19 common Vanilla building blocks (dirt, mud, cobblestone, stone, sand, red sand, gravel, clay, netherrack, cobbled deepslate, andesite, diorite, granite, tuff, sandstone, red sandstone, end stone, blackstone, soul sand).",
+        "details": [
+          "Every step is reversible at the crafting table: 1 Compressed, Dense or Collapsed block gives back 9 of the stage below.",
+          "Same sound, tool and drops rule as the base block, but mining takes about 4x (Compressed), 16x (Dense) and 64x (Collapsed) as long. Compressed sand and gravel do not fall.",
+          "Collapsed blocks are so dense that they slow you down while they are in your inventory: Slowness I, from 2 stacks Slowness II, from 9 stacks Slowness III (a few seconds, refreshed; switch collapsed.enabled in /simpleblocks config). The slot of such an item pulses with a slow red lighthouse beam (Simple Library, client option slotAlert)."
+        ]
+      },
+      "de": {
+        "title": "Komprimierte, dichte und kollabierte Blöcke",
+        "summary": "Stufe 1 Komprimiert = 9 Blöcke, Stufe 2 Dicht = 9 Komprimierte, Stufe 3 Kollabiert = 9 Dichte, für 19 häufige Vanilla-Baublöcke (Erde, Schlamm, Bruchstein, Stein, Sand, Roter Sand, Kies, Ton, Netherrack, Bruchtiefenschiefer, Andesit, Diorit, Granit, Tuff, Sandstein, Roter Sandstein, Endstein, Schwarzstein, Seelensand).",
+        "details": [
+          "Jeder Schritt ist an der Werkbank umkehrbar: 1 komprimierter, dichter oder kollabierter Block ergibt wieder 9 der Stufe darunter.",
+          "Gleicher Klang, gleiches Werkzeug und gleiche Drop-Regel wie der Grundblock, der Abbau dauert aber etwa 4x (komprimiert), 16x (dicht) und 64x (kollabiert) so lang. Komprimierter Sand und Kies fallen nicht.",
+          "Kollabierte Blöcke sind so dicht, dass sie dich im Inventar verlangsamen: Langsamkeit I, ab 2 Stapeln Langsamkeit II, ab 9 Stapeln Langsamkeit III (wenige Sekunden, wird erneuert; Schalter collapsed.enabled in /simpleblocks config). Der Slot eines solchen Items pulsiert in einem langsamen roten Leuchtturm-Kegel (Simple Library, Client-Option slotAlert)."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowConfig.java",
         "modules/simpleblocks/fabric/src/main/java/com/simplebuilding/modules/simpleblocks/BlocksFabric.java",
-        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleConfig.java"
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleConfig.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/compact/CollapsedConfig.java"
       ],
       "en": {
         "title": "Settings",
-        "summary": "config/simpleblocks-server.json (server): snow.snowlogging (default true), snow.frostGrass (default true), snow.freezeOneIn (default 3, 1-100), snow.thawOneIn (default 6, 1-100); pale.enabled (default true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (default 0.0569, 0-1).",
+        "summary": "config/simpleblocks-server.json (server): snow.snowlogging (default true), snow.frostGrass (default true), snow.freezeOneIn (default 3, 1-100), snow.thawOneIn (default 6, 1-100); pale.enabled (default true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (default 0.0569, 0-1); collapsed.enabled (default true: Collapsed blocks slow their carrier).",
         "details": [
           "/simpleblocks config shows and changes every option (list, get, set, reset, help); values are bounded like in the file, saved and active at once. Permission level 2."
         ]
       },
       "de": {
         "title": "Einstellungen",
-        "summary": "config/simpleblocks-server.json (Server): snow.snowlogging (Standard true), snow.frostGrass (Standard true), snow.freezeOneIn (Standard 3, 1-100), snow.thawOneIn (Standard 6, 1-100); pale.enabled (Standard true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (Standard 0,0569, 0-1).",
+        "summary": "config/simpleblocks-server.json (Server): snow.snowlogging (Standard true), snow.frostGrass (Standard true), snow.freezeOneIn (Standard 3, 1-100), snow.thawOneIn (Standard 6, 1-100); pale.enabled (Standard true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (Standard 0,0569, 0-1); collapsed.enabled (Standard true: Kollabierte Blöcke verlangsamen ihren Träger).",
         "details": [
           "/simpleblocks config zeigt und ändert jede Option (list, get, set, reset, help); Werte werden wie in der Datei begrenzt, sofort gespeichert und wirksam. Berechtigung 2."
         ]
