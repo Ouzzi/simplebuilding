@@ -26,6 +26,10 @@
     "simplestorage:wooden_controller_chest",
     "simplestorage:reinforced_controller_chest",
     "simplestorage:netherite_controller_chest",
-    "simplestorage:enderite_controller_chest"
+    "simplestorage:enderite_controller_chest",
+    "simplestorage:copper_barrel",
+    "simplestorage:reinforced_barrel",
+    "simplestorage:netherite_barrel",
+    "simplestorage:enderite_barrel"
   ]
 }

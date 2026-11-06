@@ -10,16 +10,6 @@
       "tier": "reinforced"
     },
     {
-      "from": "simplecrucibles:copper_barrel",
-      "to": "simplecrucibles:reinforced_barrel",
-      "material": "simplelib:cracked_diamond",
-      "material_count": 2,
-      "duration_factor": 2,
-      "min_tool": "any",
-      "damage_per_hit": 2,
-      "tier": "reinforced"
-    },
-    {
       "from": "simplecrucibles:iron_crucible",
       "to": "simplecrucibles:reinforced_crucible",
       "material": "simplelib:cracked_diamond",
@@ -29,16 +19,6 @@
       "tier": "reinforced"
     },
     {
-      "from": "simplecrucibles:reinforced_barrel",
-      "to": "simplecrucibles:netherite_barrel",
-      "material": "simplelib:netherite_nugget",
-      "material_count": 2,
-      "duration_factor": 2,
-      "min_tool": "diamond",
-      "damage_per_hit": 4,
-      "tier": "netherite"
-    },
-    {
       "from": "simplecrucibles:reinforced_crucible",
       "to": "simplecrucibles:netherite_crucible",
       "material": "simplelib:netherite_nugget",
@@ -46,16 +26,6 @@
       "min_tool": "diamond",
       "damage_per_hit": 4,
       "tier": "netherite"
-    },
-    {
-      "from": "simplecrucibles:netherite_barrel",
-      "to": "simplecrucibles:enderite_barrel",
-      "material": "simpleores:enderite_nugget",
-      "material_count": 2,
-      "duration_factor": 2,
-      "min_tool": "netherite",
-      "damage_per_hit": 10,
-      "tier": "enderite"
     },
     {
       "from": "simplecrucibles:netherite_crucible",

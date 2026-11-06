@@ -30,10 +30,6 @@ public final class CrucibleRegistry {
         out.add(new ItemStack(CrucibleItems.REINFORCED_CRUCIBLE));
         out.add(new ItemStack(CrucibleItems.NETHERITE_CRUCIBLE));
         out.add(new ItemStack(CrucibleItems.ENDERITE_CRUCIBLE));
-        out.add(new ItemStack(CrucibleItems.COPPER_BARREL));
-        out.add(new ItemStack(CrucibleItems.REINFORCED_BARREL));
-        out.add(new ItemStack(CrucibleItems.NETHERITE_BARREL));
-        out.add(new ItemStack(CrucibleItems.ENDERITE_BARREL));
         out.add(new ItemStack(CrucibleItems.REINFORCED_CAULDRON));
         return out;
     }

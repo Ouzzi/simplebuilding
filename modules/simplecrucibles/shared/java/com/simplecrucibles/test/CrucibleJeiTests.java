@@ -27,7 +27,9 @@ public final class CrucibleJeiTests {
                 && build.inputs().get(0).items().contains(Items.CAULDRON)
                 && build.inputs().get(1).count() + build.inputs().get(2).count() == SimpleCruciblesApi.buildStrikes()
                 && build.tools().equals(RecipeViewer.upgradeTools()) && !build.tools().isEmpty(), "crucible build: " + build);
-        h.assertTrue(entries.stream().anyMatch(e -> e.id().equals("simplecrucibles/barrel_attach")), "barrel attach: " + entries);
+        // WH26-6: the barrels are Simple Storage's: the attach entry exists exactly when it is loaded.
+        boolean storage = BuiltInRegistries.BLOCK.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplestorage", "copper_barrel"));
+        h.assertTrue(entries.stream().anyMatch(e -> e.id().equals("simplecrucibles/barrel_attach")) == storage, "barrel attach: " + entries);
         List<InWorldUpgrade> table = RecipeViewer.tableEntries();
         for (InWorldUpgrades.Entry entry : InWorldUpgrades.table().values()) {
             String ns = BuiltInRegistries.BLOCK.getKey(entry.to()).getNamespace();

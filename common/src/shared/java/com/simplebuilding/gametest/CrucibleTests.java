@@ -125,7 +125,7 @@ public final class CrucibleTests {
         boolean sandwiches = item("simplesandwiches:butter_block") != Items.AIR && item("simplesandwiches:cheese_block") != Items.AIR;
         var expected = new java.util.HashSet<>(java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce",
                 "hammer_upgrade/simplecrucibles:iron_crucible", "hammer_upgrade/simplecrucibles:reinforced_crucible", "hammer_upgrade/simplecrucibles:netherite_crucible",
-                "hammer_upgrade/simplecrucibles:copper_barrel", "hammer_upgrade/simplecrucibles:reinforced_barrel", "hammer_upgrade/simplecrucibles:netherite_barrel"));
+                "hammer_upgrade/simplestorage:copper_barrel", "hammer_upgrade/simplestorage:reinforced_barrel", "hammer_upgrade/simplestorage:netherite_barrel"));
         if (sandwiches) expected.addAll(java.util.Set.of("milk_butter", "milk_cheese"));
         helper.assertTrue(entries.keySet().equals(expected), "catalog entries " + entries.keySet());
         // 2026-10-06: the crucible/barrel hammer upgrades are in JEI too (2 material, from the upgrade table).
@@ -144,8 +144,8 @@ public final class CrucibleTests {
         helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(16)) && noteArgs(build, 1).equals(java.util.List.of(12, 4)), "notes name 16 strikes, 12 plate/rim and 4 handle ingots");
 
         var barrel = entries.get("barrel_attach");
-        helper.assertTrue(barrel.inputs().get(0).items().contains(item("simplecrucibles:copper_barrel"))
-                && barrel.inputs().get(0).items().contains(item("simplecrucibles:enderite_barrel")), "barrels");
+        helper.assertTrue(barrel.inputs().get(0).items().contains(item("simplestorage:copper_barrel"))
+                && barrel.inputs().get(0).items().contains(item("simplestorage:enderite_barrel")), "barrels");
         helper.assertTrue(barrel.inputs().get(1).items().contains(item("simplecrucibles:iron_crucible")), "next to a crucible");
         helper.assertTrue(noteArgs(barrel, 0).equals(java.util.List.of(6)) && noteArgs(barrel, 1).equals(java.util.List.of("6/12/18/30")), "notes name 6 strikes, 6/12/18/30 fields (N12c: as many as the crucible; enderite 30 since N37)");
 
@@ -222,7 +222,7 @@ public final class CrucibleTests {
     /** Owner N15: a barrel attached to the Enderite crucible holds the crucible's double stacks. */
     public static void aBarrelAttachedToTheEnderiteCrucibleHoldsItsDoubleStacks(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
-        Block barrel = BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplecrucibles:copper_barrel"));
+        Block barrel = BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplestorage:copper_barrel"));
         BlockPos at = new BlockPos(2, 1, 2), beside = at.east();
         helper.setBlock(at, CrucibleCompat.enderiteCrucible());
         helper.setBlock(beside, barrel);

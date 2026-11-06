@@ -1,6 +1,6 @@
 {
   "module": "simplestorage",
-  "derivation": "Crates and the Storage Crafting Table are crafted cheaply from planks, a crafting table and a chest; like in SimpleBuilding before split stage 8a they are not traded. The tiered chests and shulker boxes moved here from SimpleBuilding with the same rows (split stage 8b); the bundles and quivers followed with their rows (split stage 8c-1), then the backpacks (8c-2).",
+  "derivation": "Crates and the Storage Crafting Table are crafted cheaply from planks, a crafting table and a chest; like in SimpleBuilding before split stage 8a they are not traded. The tiered chests and shulker boxes moved here from SimpleBuilding with the same rows (split stage 8b); the bundles and quivers followed with their rows (split stage 8c-1), then the backpacks (8c-2). The Enderite barrel moved here from Simple Crucibles with its row (WH26-6); the other barrels are crafted or upgraded in the world and not traded.",
   "excluded": {},
   "prices": [
     {
@@ -19,6 +19,17 @@
       "tier": 5,
       "hours": 38.1,
       "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplestorage:enderite_barrel",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,

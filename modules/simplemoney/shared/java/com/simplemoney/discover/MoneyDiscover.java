@@ -227,7 +227,7 @@ public final class MoneyDiscover {
             "simplebuilding:suspended_sand",
             "simplebuilding:velocity_gauge",
             "simplecrucibles:copper_bucket",
-            "simplecrucibles:enderite_barrel",
+            "simplestorage:enderite_barrel",
             "simplecrucibles:enderite_bucket",
             "simplecrucibles:enderite_crucible",
             "simplefun:brick_snowball",

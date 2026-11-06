@@ -25,7 +25,8 @@ import net.minecraft.world.item.Items;
 public final class CruciblesViewer {
     public static final String NOTE = "jei.simplecrucibles.note.";
     private static final List<String> CRUCIBLES = List.of("iron_crucible", "reinforced_crucible", "netherite_crucible", "enderite_crucible");
-    private static final List<String> BARRELS = List.of("copper_barrel", "reinforced_barrel", "netherite_barrel", "enderite_barrel");
+    /** WH26-6: the barrels are Simple Storage's; the attach entry shows only while that mod is loaded. */
+    private static final List<String> BARRELS = List.of("simplestorage:copper_barrel", "simplestorage:reinforced_barrel", "simplestorage:netherite_barrel", "simplestorage:enderite_barrel");
 
     private CruciblesViewer() {
     }
@@ -77,7 +78,7 @@ public final class CruciblesViewer {
     }
 
     private static Item item(String path) {
-        Item item = BuiltInRegistries.ITEM.getOptional(SimpleCrucibles.id(path)).orElse(Items.AIR);
+        Item item = BuiltInRegistries.ITEM.getOptional(path.contains(":") ? net.minecraft.resources.Identifier.parse(path) : SimpleCrucibles.id(path)).orElse(Items.AIR);
         return item == Items.AIR ? null : item;
     }
 }

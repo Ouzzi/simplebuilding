@@ -762,6 +762,18 @@ public final class StorageTests {
 
     private StorageTests() {}
 
+    // WH26-6: the barrels (moved from Simple Crucibles).
+    static {
+        ALL.put("barrels_registered", BarrelTests::registered);
+        ALL.put("barrels_migrate_from_crucibles_lib_and_simplebuilding", BarrelTests::migration);
+        ALL.put("barrel_recipe", BarrelTests::recipe);
+        ALL.put("barrel_placement_tiers", BarrelTests::placement);
+        ALL.put("loose_barrel_faces_like_vanilla_and_opens", BarrelTests::looseBarrelFacesLikeVanillaAndOpens);
+        ALL.put("loose_barrel_menu_keeps_the_raised_limit", BarrelTests::looseBarrelMenu);
+        ALL.put("barrel_upgrade_keeps_contents", BarrelTests::upgradeKeepsContents);
+        ALL.put("barrel_dock_contract", BarrelTests::dockContract);
+    }
+
     // JEI24: recipe viewer data against its sources.
     static {
         ALL.put("jei_shells_and_tiers", StorageJeiTests::shellsAndTiers);

@@ -25,7 +25,6 @@ final class CruciblesForgeClient {
         FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(event ->
                 event.enqueueWork(() -> {
                     CrucibleMenus.CRUCIBLES.values().forEach(type -> MenuScreens.register(type, CrucibleScreen::new));
-                    CrucibleMenus.BARRELS.values().forEach(type -> MenuScreens.register(type, net.minecraft.client.gui.screens.inventory.ContainerScreen::new));
                 }));
     }
 

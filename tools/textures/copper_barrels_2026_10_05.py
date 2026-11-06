@@ -4,7 +4,7 @@ Copper barrel textures for SimpleLib (plan section 8a). From the Vanilla barrel:
 the copper block's ramp (same luminance ranks), the iron hoops stay dark; the reinforced tier adds a
 cracked-diamond hoop band and diamond rivets (shape detail, not only a recolor), plus a copper flange
 texture for the connection to the crucible. Output goes to
-modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/.
+modules/simplestorage/shared/resources/assets/simplestorage/textures/block/.
 """
 import os
 import sys
@@ -12,8 +12,8 @@ from PIL import Image, ImageDraw
 
 V = sys.argv[1] if len(sys.argv) > 1 else 'build/vanilla-textures/'
 PREVIEW = sys.argv[2] if len(sys.argv) > 2 else None
-OUT = os.path.join(os.path.dirname(__file__), '..', '..', 'modules', 'simplecrucibles', 'shared', 'resources',
-                   'assets', 'simplecrucibles', 'textures', 'block')
+OUT = os.path.join(os.path.dirname(__file__), '..', '..', 'modules', 'simplestorage', 'shared', 'resources',
+                   'assets', 'simplestorage', 'textures', 'block')
 DIAMOND = [(26, 120, 132), (44, 182, 190), (94, 228, 214), (186, 250, 240)]
 
 

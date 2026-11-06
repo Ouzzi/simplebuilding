@@ -2,6 +2,7 @@ package com.simplecrucibles.crucible;
 
 import com.simplecrucibles.config.CrucibleConfig;
 import com.simplecrucibles.registry.CrucibleBlockEntities;
+import com.simplelib.api.BarrelDock;
 import com.simplelib.api.SimpleLibApi;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
  * a reserved slot stops that job (red) until it is taken out again (F18), unless it is exactly the
  * result item (owner 17). Finished results are locked (never cooked again) until taken out (F14).
  */
-public class CrucibleBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
+public class CrucibleBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, BarrelDock.Host {
     public static final int IDLE = 0, COOKING = 1, BLOCKED = 2, COLD = 3, RESERVED = 4, RESULT = 5, NO_RECIPE = 6;
     /** Progress is counted in thousandths of a tick so fractional speeds stay exact. */
     private static final int MILLI = 1000;
@@ -285,23 +286,32 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     public static final int BARREL = 1000;
     private @Nullable BlockPos barrelPos;
     private boolean hadBarrel;
-    private final ItemStack[] barrelGhost = new ItemStack[BarrelTier.MAX_CRUCIBLE_SLOTS];
+    private final ItemStack[] barrelGhost = new ItemStack[BarrelDock.MAX_HOST_SLOTS];
 
     /** The barrel attached to the crucible at {@code pos} (facing it, attached), if any. */
     public static @Nullable BlockPos attachedBarrelPos(Level level, BlockPos pos) {
         for (Direction d : Direction.Plane.HORIZONTAL) {
             BlockPos p = pos.relative(d);
             BlockState s = level.getBlockState(p);
-            if (s.getBlock() instanceof CrucibleBarrelBlock && s.getValue(CrucibleBarrelBlock.ATTACHED)
-                    && s.getValue(CrucibleBarrelBlock.FACING) == d.getOpposite()) return p;
+            if (BarrelDock.isAttached(s) && s.getValue(BarrelDock.FACING) == d.getOpposite()) return p;
         }
         return null;
     }
 
-    public @Nullable CrucibleBarrelBlockEntity barrel() {
+    /** The attached barrel (Simple Storage's block entity, seen through SimpleLib's dock contract), or null. */
+    public @Nullable BarrelDock.Barrel barrel() {
         if (level == null || barrelPos == null) return null;
-        return level.getBlockEntity(barrelPos) instanceof CrucibleBarrelBlockEntity b
-                && b.getBlockState().getValue(CrucibleBarrelBlock.ATTACHED) ? b : null;
+        return level.getBlockEntity(barrelPos) instanceof BarrelDock.Barrel b && b.attached() ? b : null;
+    }
+
+    @Override
+    public int dockSlots() {
+        return tier.slots();
+    }
+
+    @Override
+    public int dockStackMultiplier() {
+        return tier.stackMultiplier();
     }
 
     public ItemStack barrelGhost(int slot) {
@@ -311,13 +321,13 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
 
     private ItemStack stackAt(int t) {
         if (t < BARREL) return items.get(t);
-        CrucibleBarrelBlockEntity b = barrel();
+        BarrelDock.Barrel b = barrel();
         return b == null ? ItemStack.EMPTY : b.getItem(t - BARREL);
     }
 
     private int maxAt(int t, ItemStack stack) {
         if (t < BARREL) return getMaxStackSize(stack);
-        CrucibleBarrelBlockEntity b = barrel();
+        BarrelDock.Barrel b = barrel();
         return b == null ? 0 : b.getMaxStackSize(stack);
     }
 
@@ -390,7 +400,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
             ItemStack out = job.result().copy();
             if (SimpleLibApi.warmable(out)) SimpleLibApi.warm(out, level.getGameTime());
             if (t >= BARREL) {
-                CrucibleBarrelBlockEntity b = barrel();
+                BarrelDock.Barrel b = barrel();
                 if (b == null) return;
                 ItemStack there = b.getItem(t - BARREL);
                 if (there.isEmpty()) b.setItem(t - BARREL, out);

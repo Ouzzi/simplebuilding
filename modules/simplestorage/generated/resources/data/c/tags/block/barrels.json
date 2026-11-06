@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "simplestorage:copper_barrel",
+    "simplestorage:reinforced_barrel",
+    "simplestorage:netherite_barrel",
+    "simplestorage:enderite_barrel"
+  ]
+}

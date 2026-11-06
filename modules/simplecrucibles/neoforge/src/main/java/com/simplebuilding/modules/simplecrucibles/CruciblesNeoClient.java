@@ -24,7 +24,6 @@ final class CruciblesNeoClient {
                 (extractor, deltaTracker) -> com.simplecrucibles.client.SoulBurnOverlay.render(extractor)));
         bus.addListener((RegisterMenuScreensEvent event) -> {
             CrucibleMenus.CRUCIBLES.values().forEach(type -> event.register(type, CrucibleScreen::new));
-            CrucibleMenus.BARRELS.values().forEach(type -> event.register(type, net.minecraft.client.gui.screens.inventory.ContainerScreen::new));
         });
     }
 

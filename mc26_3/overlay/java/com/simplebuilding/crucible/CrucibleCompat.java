@@ -81,7 +81,7 @@ public final class CrucibleCompat {
     }
 
     public static @Nullable Block enderiteBarrel() {
-        return BuiltInRegistries.BLOCK.getOptional(id("enderite_barrel")).orElse(null);
+        return BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath("simplestorage", "enderite_barrel")).orElse(null);
     }
 
     public static @Nullable Block reinforcedCauldron() {

@@ -132,11 +132,6 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplecrucibles:empty")
-    public void looseBarrelFacesLikeVanillaAndOpens(GameTestHelper h) {
-        CrucibleTests.ALL.get("loose_barrel_faces_like_vanilla_and_opens").accept(h);
-    }
-
-    @GameTest(structure = "simplecrucibles:empty")
     public void clientMenuShowsTheRaisedStackLimit(GameTestHelper h) {
         CrucibleTests.ALL.get("client_menu_shows_the_raised_stack_limit").accept(h);
     }
@@ -144,11 +139,6 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplecrucibles:empty")
     public void axeClickReachesAxeNotMenu(GameTestHelper h) {
         CrucibleTests.ALL.get("axe_click_reaches_axe_not_menu").accept(h);
-    }
-
-    @GameTest(structure = "simplecrucibles:empty")
-    public void barrelStrikeCountersAreSeparate(GameTestHelper h) {
-        CrucibleTests.ALL.get("barrel_strike_counters_are_separate").accept(h);
     }
 
     @GameTest(structure = "simplecrucibles:empty")
@@ -167,18 +157,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplecrucibles:empty")
-    public void axeUpgradesBarrelToNetherite(GameTestHelper h) {
-        CrucibleTests.ALL.get("axe_upgrades_barrel_to_netherite").accept(h);
-    }
-
-    @GameTest(structure = "simplecrucibles:empty")
     public void crucibleBurnDamageFollowsConfig(GameTestHelper h) {
         CrucibleTests.ALL.get("crucible_burn_damage_follows_config").accept(h);
-    }
-
-    @GameTest(structure = "simplecrucibles:empty")
-    public void looseBarrelMenuKeepsTheRaisedLimit(GameTestHelper h) {
-        CrucibleTests.ALL.get("loose_barrel_menu_keeps_the_raised_limit").accept(h);
     }
 
     @GameTest(structure = "simplecrucibles:empty")

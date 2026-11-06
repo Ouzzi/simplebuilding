@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "simplecrucibles:copper_barrel",
-    "simplecrucibles:reinforced_barrel",
-    "simplecrucibles:netherite_barrel",
-    "simplecrucibles:enderite_barrel"
-  ]
-}

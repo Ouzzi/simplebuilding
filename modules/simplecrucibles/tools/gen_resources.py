@@ -14,10 +14,7 @@ NS = "simplecrucibles"
 LIB = "simplelib"
 CRLF, LF = b"\r\n", b"\n"
 TIERS = ("iron", "reinforced", "netherite")
-BARREL_TIERS = ("copper", "reinforced", "netherite", "enderite")
 FACINGS = {"north": 0, "east": 90, "south": 180, "west": 270}
-# Vanilla's barrel blockstate rotations for its "facing" (here "top", DW03C-4).
-TOPS = {"up": {}, "down": {"x": 180}, "north": {"x": 90}, "east": {"x": 90, "y": 90}, "south": {"x": 90, "y": 180}, "west": {"x": 90, "y": 270}}
 
 def face(tex, uv, cull=None):
     out = {"texture": tex, "uv": uv}
@@ -81,28 +78,6 @@ def inside_uv(element):
         dv = -min(v0, v1) if min(v0, v1) < 0 else 16 - max(v0, v1) if max(v0, v1) > 16 else 0
         f["uv"] = [u0 + du, v0 + dv, u1 + du, v1 + dv]
     return element
-
-
-# Attached barrel (facing north = towards the crucible). Owner 2026-10-06: smaller than the crucible; owner N12: one
-# more pixel smaller on every axis and closer to the crucible - body 13 x 11 x 13 (x 1.5..14.5, y 0..11, z 0..13, the
-# crucible's rim is at 14), whole textures scaled onto the smaller faces. The flange closes the last pixel to the
-# crucible's belly (z -1..0), a chute rests on the crucible's rim and drops onto the barrel's top.
-def full_uv(element):
-    for f in element["faces"].values():
-        f["uv"] = [0, 0, 16, 16]
-        f.pop("cullface", None)
-    return element
-
-
-DOCKED_BODY = full_uv(cuboid((1.5, 0, 0), (14.5, 11, 13), {"down": "#bottom", "up": "#top", "north": "#side", "south": "#side",
-                                                           "west": "#side", "east": "#side"}))
-DOCKED_BODY["faces"]["down"]["cullface"] = "down"
-DOCK = [inside_uv(e) for e in (
-    cuboid((3, 3, -1), (13, 9, 0), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"}),
-    cuboid((6, 14, -4), (10, 15, 1), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange",
-                                      "south": "#flange"}),
-    cuboid((6, 11, 0), (10, 14, 1), {"north": "#flange", "west": "#flange", "east": "#flange", "south": "#flange"}),
-)]
 
 
 def crucible_model(tier):
@@ -240,45 +215,6 @@ def files():
     pools = [base_pool("minecraft:cauldron", "true"), base_pool("minecraft:iron_block", "false"), ingots]
     out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
                                                          "random_sequence": f"{NS}:blocks/crucible_blank"}
-    # Barrels (plan section 8a, owner addition 11): plain barrel cube; attached, a flange on the crucible's belly and a
-    # chute that rests on the crucible's rim (crucible belly at z=-1, neck at z=-2, opening from z=-3 seen from here).
-    for tier in BARREL_TIERS:
-        name = f"{tier}_barrel"
-        tex = {"side": f"{NS}:block/{name}_side", "top": f"{NS}:block/{name}_top", "bottom": f"{NS}:block/{name}_bottom",
-               "flange": f"{NS}:block/{name}_flange", "particle": f"{NS}:block/{name}_side"}
-        body = cuboid((0, 0, 0), (16, 16, 16), {"down": "#bottom", "up": "#top", "north": "#side", "south": "#side", "west": "#side", "east": "#side"})
-        out[f"{a}/models/block/{name}.json"] = {"parent": "minecraft:block/block", "textures": tex, "elements": [body]}
-        out[f"{a}/models/block/{name}_attached.json"] = {"parent": "minecraft:block/block", "textures": tex,
-                                                         "elements": [DOCKED_BODY, *DOCK]}
-        # DW03C-4: open like Vanilla's barrel (the *_top_open texture), loose barrels turned by "top" like Vanilla's "facing".
-        out[f"{a}/models/block/{name}_open.json"] = {"parent": "minecraft:block/block", "textures": dict(tex, top=f"{NS}:block/{name}_top_open"),
-                                                     "elements": [body]}
-        variants = {}
-        for facing, rot in FACINGS.items():
-            for attached in ("false", "true"):
-                for open_ in ("false", "true"):
-                    for top, top_rot in TOPS.items():
-                        if attached == "true":
-                            v = {"model": f"{NS}:block/{name}_attached"}
-                            if rot:
-                                v["y"] = rot
-                        else:
-                            v = {"model": f"{NS}:block/{name}" + ("_open" if open_ == "true" else ""), **top_rot}
-                        variants[f"attached={attached},facing={facing},open={open_},top={top}"] = v
-        out[f"{a}/blockstates/{name}.json"] = {"variants": variants}
-        out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{name}"}}
-        out[f"{d}/loot_table/blocks/{name}.json"] = {
-            "type": "minecraft:block",
-            "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:{name}"}],
-                       "condition": {"type": "minecraft:survives_explosion"}}],
-            "random_sequence": f"{NS}:blocks/{name}",
-        }
-    out[f"{d}/recipe/copper_barrel.json"] = {
-        "type": "minecraft:crafting_shaped", "category": "misc",
-        "key": {"C": "minecraft:copper_ingot", "B": "minecraft:barrel"},
-        "pattern": [" C ", "CBC", " C "],
-        "result": {"id": f"{NS}:copper_barrel", "count": 1},
-    }
     # Reinforced cauldron (owner 30/56): one block, content as state; always full (bucket in, bucket out).
     rc = f"{NS}:block/reinforced_cauldron"
     rc_tex = {"particle": f"{rc}_side", "top": f"{rc}_top", "bottom": f"{rc}_bottom", "side": f"{rc}_side", "inside": f"{rc}_inner"}
@@ -341,13 +277,13 @@ def files():
     # they only get recipes on request (this module requests them, so they exist whenever the module does).
     out[f"{d}/tags/item/crucible_upgrade_reinforced.json"] = {"values": [f"{LIB}:cracked_diamond", "minecraft:diamond"]}
     out[f"{d}/tags/item/crucible_upgrade_netherite.json"] = {"values": [f"{LIB}:netherite_nugget", "minecraft:netherite_scrap"]}
-    pickaxe = [f"{NS}:{t}_crucible" for t in (*TIERS, "enderite")] + [f"{NS}:crucible_blank"] + [f"{NS}:{t}_barrel" for t in BARREL_TIERS] \
+    pickaxe = [f"{NS}:{t}_crucible" for t in (*TIERS, "enderite")] + [f"{NS}:crucible_blank"] \
         + [f"{NS}:reinforced_cauldron"]
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": pickaxe}
     out["data/minecraft/tags/block/needs_stone_tool.json"] = {"values": [p for p in pickaxe if "enderite" not in p]}
-    # DW03C-4: the barrels are barrels for other mods too (Simple Storage's chest interface mounts on c:barrels).
-    out["data/c/tags/block/barrels.json"] = {"replace": False, "values": [f"{NS}:{t}_barrel" for t in BARREL_TIERS]}
-    out["data/minecraft/tags/block/needs_diamond_tool.json"] = {"values": [f"{NS}:enderite_crucible", f"{NS}:enderite_barrel"]}
+    # WH26-6: the barrels (and c:barrels) are Simple Storage's; the crucibles are the blocks a barrel docks onto (BarrelDock.HOSTS).
+    out["data/simplelib/tags/block/barrel_hosts.json"] = {"replace": False, "values": [f"{NS}:{t}_crucible" for t in (*TIERS, "enderite")]}
+    out["data/minecraft/tags/block/needs_diamond_tool.json"] = {"values": [f"{NS}:enderite_crucible"]}
     return out
 
 

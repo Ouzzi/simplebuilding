@@ -58,6 +58,9 @@ public final class SimpleStorage {
         });
         // ST27-1: a pipe keeps its item, filter and output when it climbs a step (in_world_upgrades/pipes.json).
         com.simplelib.api.InWorldUpgrades.registerHandler(block -> block instanceof com.simplestorage.pipe.ItemPipeBlock, com.simplestorage.pipe.Pipes::upgradeInPlace);
+        // WH26-6: a barrel keeps its contents, lid and docking state when it climbs a step (in_world_upgrades/barrels.json).
+        com.simplelib.api.InWorldUpgrades.registerHandler(block -> block instanceof com.simplestorage.barrel.BarrelBlock,
+                com.simplestorage.barrel.BarrelUpgrades::upgradeInPlace);
         // A double chest upgrades as one: the hammer works both halves.
         com.simplelib.api.HammerActions.registerParts(block -> block instanceof com.simplestorage.chest.TieredChestBlock,
                 com.simplestorage.chest.TieredChests::halves);
@@ -67,6 +70,7 @@ public final class SimpleStorage {
         movedVehicles().forEach(path -> items.add(MOD_ID + ":" + path));
         movedBundles().forEach(path -> items.add(MOD_ID + ":" + path));
         movedBackpacks().forEach(path -> items.add(MOD_ID + ":" + path));
+        BARRELS.forEach(path -> items.add(MOD_ID + ":" + path));
         MOVED_SHELLS.forEach(path -> items.add(MOD_ID + ":" + path));
         pipeAndNetworkIds().forEach(path -> items.add(MOD_ID + ":" + path));
         items.add(MOD_ID + ":leather_sheet");
@@ -83,6 +87,13 @@ public final class SimpleStorage {
      */
     public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates");
     public static final List<String> TIERS = List.of("reinforced", "netherite", "enderite");
+    /**
+     * WH26-6: the barrels came from Simple Crucibles (before that SimpleLib; the Enderite barrel SimpleBuilding). Block and item share
+     * the path; the copper barrel's recipe and its unlock advancement moved too, the block entity type {@code barrel}.
+     */
+    public static final List<String> BARRELS = List.of("copper_barrel", "reinforced_barrel", "netherite_barrel", "enderite_barrel");
+    /** Namespaces the barrels lived in before. */
+    public static final List<String> BARREL_OLD_NAMESPACES = List.of("simplecrucibles", "simplelib", "simplebuilding");
     public static final List<String> COPPER_STAGES = List.of("", "exposed_", "weathered_", "oxidized_");
     public static final List<String> DYES = List.of("white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
             "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black");
@@ -272,6 +283,19 @@ public final class SimpleStorage {
         for (String path : MOVED_SHELL_RECIPES) {
             IdMoves.move(Registries.RECIPE, old(path), id(path));
             IdMoves.move(Registries.ADVANCEMENT, old("recipes/decorations/" + path), id("recipes/decorations/" + path));
+        }
+        // WH26-6: barrels (blocks, items, block entity type, the copper barrel's recipe and unlock advancement).
+        for (String ns : BARREL_OLD_NAMESPACES) {
+            for (String path : BARRELS) {
+                if (ns.equals("simplelib") && path.equals("enderite_barrel") || ns.equals("simplebuilding") && !path.equals("enderite_barrel")) continue;
+                Identifier from = Identifier.fromNamespaceAndPath(ns, path);
+                IdMoves.move(Registries.BLOCK, from, id(path));
+                IdMoves.move(Registries.ITEM, from, id(path));
+            }
+            if (ns.equals("simplebuilding")) continue;
+            IdMoves.move(Registries.BLOCK_ENTITY_TYPE, Identifier.fromNamespaceAndPath(ns, "barrel"), id("barrel"));
+            IdMoves.move(Registries.RECIPE, Identifier.fromNamespaceAndPath(ns, "copper_barrel"), id("copper_barrel"));
+            IdMoves.move(Registries.ADVANCEMENT, Identifier.fromNamespaceAndPath(ns, "recipes/misc/copper_barrel"), id("recipes/misc/copper_barrel"));
         }
         IdMoves.move(Registries.BLOCK_ENTITY_TYPE, old("crate"), id("crate"));
         IdMoves.move(Registries.BLOCK_ENTITY_TYPE, old(STORAGE_CRAFTING_TABLE), id(STORAGE_CRAFTING_TABLE));

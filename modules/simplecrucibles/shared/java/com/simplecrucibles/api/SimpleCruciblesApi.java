@@ -115,14 +115,6 @@ public final class SimpleCruciblesApi {
         return block;
     }
 
-    /** As {@link #newCrucible}, for a barrel tier ("copper", "reinforced", "enderite"). */
-    public static Block newBarrel(BlockBehaviour.Properties properties, String tier) {
-        com.simplecrucibles.crucible.CrucibleBarrelBlock block = new com.simplecrucibles.crucible.CrucibleBarrelBlock(properties,
-                com.simplecrucibles.crucible.BarrelTier.valueOf(tier.toUpperCase(java.util.Locale.ROOT)));
-        com.simplecrucibles.registry.CrucibleBlocks.BARRELS.add(block);
-        return block;
-    }
-
     /** Block properties the module uses for crucibles (pickaxe, light while cooking, no occlusion). */
     public static BlockBehaviour.Properties crucibleProperties(net.minecraft.world.level.material.MapColor color, float hardness,
             float resistance, net.minecraft.world.level.block.SoundType sound) {
@@ -133,13 +125,14 @@ public final class SimpleCruciblesApi {
         return block instanceof com.simplecrucibles.crucible.CrucibleBlock;
     }
 
+    /** Whether a block is a dockable barrel (Simple Storage's, SimpleLib's {@code BarrelDock} contract). */
     public static boolean isBarrel(Block block) {
-        return block instanceof com.simplecrucibles.crucible.CrucibleBarrelBlock;
+        return block instanceof com.simplelib.api.BarrelDock.Dockable;
     }
 
-    /** Whether a block is upgraded through {@link #upgradeCrucible} (crucibles, barrels: block entity contents move). */
+    /** Whether a block is upgraded through {@link #upgradeCrucible} (crucibles: block entity contents move; barrels are Simple Storage's). */
     public static boolean upgradesInPlace(Block block) {
-        return isCrucible(block) || isBarrel(block);
+        return isCrucible(block);
     }
 
     /** Slot count of a crucible block (tests, info), or 0. */
@@ -169,10 +162,10 @@ public final class SimpleCruciblesApi {
         return (int) Math.min(Integer.MAX_VALUE, (Math.max(1L, baseTicks) * 1000 + step - 1) / step);
     }
 
-    /** Stack multiplier of a crucible or barrel block (tests, info), or 0. */
+    /** Stack multiplier of a crucible or (Simple Storage's) barrel block (tests, info), or 0. */
     public static int stackMultiplier(Block block) {
         if (block instanceof com.simplecrucibles.crucible.CrucibleBlock crucible) return crucible.tier().stackMultiplier();
-        if (block instanceof com.simplecrucibles.crucible.CrucibleBarrelBlock barrel) return barrel.tier().stackMultiplier();
+        if (block instanceof com.simplelib.api.BarrelDock.Dockable barrel) return barrel.barrelStackMultiplier();
         return 0;
     }
 
@@ -190,20 +183,17 @@ public final class SimpleCruciblesApi {
 
     /** Whether an unattached barrel stands next to a crucible without a barrel. */
     public static boolean canAttach(Level level, BlockPos pos, BlockState state) {
-        return state.getBlock() instanceof com.simplecrucibles.crucible.CrucibleBarrelBlock
-                && !state.getValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACHED)
-                && com.simplecrucibles.crucible.CrucibleBarrelBlock.crucibleSide(level, pos, state) != null;
+        return com.simplecrucibles.crucible.BarrelAttach.canAttach(level, pos, state);
     }
 
     /** One attach strike with a partner tool; true when it counted. */
     public static boolean attachStrike(Level level, BlockPos pos, Player player, ItemStack tool, int toolDamage) {
-        return com.simplecrucibles.crucible.CrucibleBarrelBlock.attachStrike(level, pos, player, tool, toolDamage);
+        return com.simplecrucibles.crucible.BarrelAttach.attachStrike(level, pos, player, tool, toolDamage);
     }
 
     /** Whether a barrel is attached to a crucible (state property). */
     public static boolean isAttached(BlockState state) {
-        return state.getBlock() instanceof com.simplecrucibles.crucible.CrucibleBarrelBlock
-                && state.getValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACHED);
+        return com.simplelib.api.BarrelDock.isAttached(state);
     }
 
     /** Strikes needed to build the iron crucible / attach a barrel (wiki, JEI). */
@@ -212,7 +202,7 @@ public final class SimpleCruciblesApi {
     }
 
     public static int attachStrikes() {
-        return com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACH_STRIKES;
+        return com.simplecrucibles.crucible.BarrelAttach.ATTACH_STRIKES;
     }
 
     /** Of the build strikes, how many place a plate or rim piece (iron ingot); the rest place a handle (JEI, wiki). */

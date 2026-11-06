@@ -65,6 +65,7 @@ final class StorageNeoClient {
         bus.addListener((RegisterMenuScreensEvent event) -> {
             event.register(StorageMenus.STORAGE_CRAFTING_TABLE, StorageCraftingScreen::new);
             for (var type : StorageMenus.tieredTypes()) event.register(type, com.simplestorage.client.TieredChestScreen::new);
+            StorageMenus.BARRELS.values().forEach(type -> event.register(type, net.minecraft.client.gui.screens.inventory.ContainerScreen::new));
             event.register(StorageMenus.BACKPACK, com.simplestorage.client.BackpackScreen::new);
         });
     }

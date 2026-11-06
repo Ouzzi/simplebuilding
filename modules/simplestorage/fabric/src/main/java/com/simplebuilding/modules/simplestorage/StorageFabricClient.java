@@ -32,6 +32,7 @@ public final class StorageFabricClient implements ClientModInitializer {
                 (net.minecraft.world.level.block.entity.BlockEntityType<com.simplestorage.chest.TieredChestBlockEntity>) (net.minecraft.world.level.block.entity.BlockEntityType<?>) StorageBlockEntities.CONTROLLER_CHEST;
         BlockEntityRendererRegistry.register(controllerType, com.simplestorage.client.TieredChestRenderer::new);
         for (var type : StorageMenus.tieredTypes()) MenuScreens.register(type, com.simplestorage.client.TieredChestScreen::new);
+        StorageMenus.BARRELS.values().forEach(type -> MenuScreens.register(type, net.minecraft.client.gui.screens.inventory.ContainerScreen::new));
         // Split stage 8c-1: the bundle packets, the placed bundle (item above it, dyed leather layer), the tooltip, the quiver on the back.
         com.simplestorage.bundle.BundleNet.toServer = payload -> {
             if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);

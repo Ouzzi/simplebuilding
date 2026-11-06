@@ -3,8 +3,6 @@ package com.simplecrucibles.test;
 import com.google.gson.JsonObject;
 import com.simplecrucibles.SimpleCrucibles;
 import com.simplecrucibles.config.CrucibleConfig;
-import com.simplecrucibles.crucible.CrucibleBarrelBlock;
-import com.simplecrucibles.crucible.CrucibleBarrelBlockEntity;
 import com.simplecrucibles.crucible.CrucibleBlankBlock;
 import com.simplecrucibles.crucible.CrucibleBlock;
 import com.simplecrucibles.crucible.CrucibleBlockEntity;
@@ -76,16 +74,12 @@ public final class CrucibleTests {
         ALL.put("village_kitchen_in_pools", CrucibleTests::villageKitchen);
         ALL.put("barrel_attach_and_results_first", CrucibleTests::barrelAttach);
         ALL.put("barrel_attached_later_takes_over_reservations", CrucibleTests::barrelAttachedLater);
-        ALL.put("loose_barrel_faces_like_vanilla_and_opens", CrucibleTests::looseBarrelFacesLikeVanillaAndOpens);
         ALL.put("client_menu_shows_the_raised_stack_limit", CrucibleTests::clientMenuStackLimit);
         ALL.put("axe_click_reaches_axe_not_menu", CrucibleTests::axeClickReachesAxe);
         ALL.put("axe_upgrades_cauldron", CrucibleTests::axeUpgradesCauldron);
-        ALL.put("barrel_strike_counters_are_separate", CrucibleTests::barrelStrikeCountersAreSeparate);
         ALL.put("reinforced_cauldron_holds_buckets", CrucibleTests::reinforcedCauldronBuckets);
         ALL.put("reinforced_cauldron_inherits_vanilla", CrucibleTests::reinforcedCauldronInheritsVanilla);
-        ALL.put("axe_upgrades_barrel_to_netherite", CrucibleTests::axeUpgradesBarrelToNetherite);
         ALL.put("crucible_burn_damage_follows_config", CrucibleTests::crucibleBurnDamageFollowsConfig);
-        ALL.put("loose_barrel_menu_keeps_the_raised_limit", CrucibleTests::looseBarrelMenu);
         ALL.put("reinforced_crucible_loads_old_nine_slots", CrucibleTests::reinforcedCrucibleLoadsOldNineSlots);
         ALL.put("crucible_barrel_beside_inventory_centred", CrucibleTests::barrelBesideInventoryCentred);
         ALL.put("hammer_upgrade_steps_ship_with_the_module", CrucibleTests::hammerUpgradeStepsShipWithTheModule);
@@ -121,6 +115,17 @@ public final class CrucibleTests {
 
     private static void check(GameTestHelper h, boolean ok, String message) {
         h.assertTrue(ok, message);
+    }
+
+    /** WH26-6: the barrels are Simple Storage's; the docking tests run when it is loaded (the crucibles + storage combo target). */
+    private static boolean storageLoaded() {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplestorage", "copper_barrel"));
+    }
+
+    private static net.minecraft.world.level.block.Block copperBarrel() {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplestorage", "copper_barrel"));
     }
 
     // ------------------------------------------------------------ tests
@@ -204,11 +209,13 @@ public final class CrucibleTests {
         }
         check(h, net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(SimpleCrucibles.id("crucible_blank")), "no crucible blank");
         check(h, net.minecraft.core.registries.BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleCrucibles.id("crucible")) == CrucibleBlockEntities.CRUCIBLE, "crucible block entity type");
-        check(h, net.minecraft.core.registries.BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleCrucibles.id("barrel")) == CrucibleBlockEntities.BARREL, "barrel block entity type");
+        // WH26-6: the barrels (blocks, items, block entity) are Simple Storage's; only the tag of the blocks they dock onto is here.
+        check(h, CrucibleBlocks.CRUCIBLES.stream().allMatch(b -> b.defaultBlockState().is(com.simplelib.api.BarrelDock.HOSTS)), "every crucible is a barrel host");
+        check(h, CrucibleBlocks.ENDERITE_CRUCIBLE.defaultBlockState().is(com.simplelib.api.BarrelDock.HOSTS), "the Enderite crucible is in #simplelib:barrel_hosts");
         check(h, CrucibleBlocks.ENDERITE_CRUCIBLE.tier() == CrucibleTier.ENDERITE && CrucibleTier.ENDERITE.slots() == 30
                 && CrucibleTier.ENDERITE.stackMultiplier() == 2, "the Enderite crucible is not the 30-slot double-stack tier");
-        check(h, CrucibleBlocks.CRUCIBLES.contains(CrucibleBlocks.ENDERITE_CRUCIBLE) && CrucibleBlocks.BARRELS.contains(CrucibleBlocks.ENDERITE_BARREL),
-                "the Enderite tiers are not in the block lists");
+        check(h, CrucibleBlocks.CRUCIBLES.contains(CrucibleBlocks.ENDERITE_CRUCIBLE),
+                "the Enderite tier is not in the block list");
         check(h, CrucibleBlocks.ENDERITE_CRUCIBLE.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)
                 && CrucibleBlocks.ENDERITE_CRUCIBLE.defaultBlockState().is(net.minecraft.tags.BlockTags.NEEDS_DIAMOND_TOOL), "Enderite crucible tags (pickaxe, diamond)");
         h.succeed();
@@ -266,19 +273,6 @@ public final class CrucibleTests {
             if (!(be instanceof CrucibleBlockEntity loadedBe) || !loadedBe.getItem(2).is(Items.RAW_COPPER) || loadedBe.getItem(2).getCount() != 5) problems.add("crucible entity " + oldId + " loads as " + be);
             else if (!be.saveWithFullMetadata(h.getLevel().registryAccess()).getStringOr("id", "").equals("simplecrucibles:crucible")) problems.add("crucible entity saved back wrongly");
         }
-        BlockState barrelState = CrucibleBlocks.COPPER_BARREL.defaultBlockState();
-        net.minecraft.nbt.CompoundTag barrelTag = new com.simplecrucibles.crucible.CrucibleBarrelBlockEntity(pos, barrelState).saveWithFullMetadata(h.getLevel().registryAccess());
-        barrelTag.putString("id", "simplelib:barrel");
-        if (!(net.minecraft.world.level.block.entity.BlockEntity.loadStatic(pos, barrelState, barrelTag, h.getLevel().registryAccess()) instanceof com.simplecrucibles.crucible.CrucibleBarrelBlockEntity))
-            problems.add("barrel entity simplelib:barrel does not load");
-        // recipe book and advancement progress
-        var oldRecipe = net.minecraft.resources.Identifier.parse("simplelib:copper_barrel");
-        var newRecipe = net.minecraft.resources.Identifier.parse("simplecrucibles:copper_barrel");
-        if (!newRecipe.equals(com.simplelib.api.IdMoves.target(net.minecraft.core.registries.Registries.RECIPE, oldRecipe))) problems.add("recipe move");
-        var oldAdv = net.minecraft.resources.Identifier.parse("simplelib:recipes/misc/copper_barrel");
-        if (h.getLevel().getServer().getAdvancements().get(oldAdv) != h.getLevel().getServer().getAdvancements().get(net.minecraft.resources.Identifier.parse("simplecrucibles:recipes/misc/copper_barrel")))
-            problems.add("the recipe advancement does not resolve under its old id");
-        if (h.getLevel().getServer().getAdvancements().get(net.minecraft.resources.Identifier.parse("simplecrucibles:recipes/misc/copper_barrel")) == null) problems.add("no recipe advancement for the copper barrel");
         check(h, problems.isEmpty(), "migration: " + problems);
         h.succeed();
     }
@@ -341,10 +335,6 @@ public final class CrucibleTests {
                 check(h, b.minY == 0 && b.maxY == (stage > 12 ? 14 : stage > 1 ? 11 : 8) / 16.0 && b.maxX <= 1 && b.minX >= 0, "blank stage " + stage + " " + d + " is no full cube: " + b);
             }
         }
-        BlockState north = CrucibleBlocks.COPPER_BARREL.defaultBlockState().setValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACHED, true)
-                .setValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.FACING, net.minecraft.core.Direction.NORTH);
-        var nb = north.getShape(level, pos).bounds();
-        check(h, nb.minZ == 0 && nb.maxZ == 13 / 16.0 && nb.maxY == 11 / 16.0, "attached barrel north box: " + nb);
         h.succeed();
     }
 
@@ -773,30 +763,31 @@ public final class CrucibleTests {
     }
 
     private static void barrelAttach(GameTestHelper h) {
+        if (!storageLoaded()) { h.succeed(); return; }
         BlockPos rel = new BlockPos(2, 2, 2);
         CrucibleBlockEntity be = crucible(h, rel, Blocks.LAVA_CAULDRON.defaultBlockState(), CrucibleBlocks.IRON_CRUCIBLE);
         BlockPos barrelRel = rel.east();
-        h.setBlock(barrelRel, CrucibleBlocks.COPPER_BARREL);
+        h.setBlock(barrelRel, copperBarrel());
         BlockPos barrelAbs = h.absolutePos(barrelRel);
-        var barrel = (com.simplecrucibles.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(barrelAbs);
+        var barrel = (com.simplelib.api.BarrelDock.Barrel) h.getLevel().getBlockEntity(barrelAbs);
         check(h, barrel.getContainerSize() == 27, "on its own a copper barrel has 27 slots (owner 58)");
         barrel.setItem(20, new ItemStack(Items.APPLE, 3));
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
         ItemStack axe = new ItemStack(Items.IRON_AXE);
-        check(h, com.simplecrucibles.crucible.CrucibleBarrelBlock.crackStage(1) == 0 && com.simplecrucibles.crucible.CrucibleBarrelBlock.crackStage(5) == 7,
+        check(h, com.simplecrucibles.crucible.BarrelAttach.crackStage(1) == 0 && com.simplecrucibles.crucible.BarrelAttach.crackStage(5) == 7,
                 "cracks grow with the strikes (owner addition 11)");
-        for (int i = 0; i < com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACH_STRIKES; i++) {
-            check(h, com.simplecrucibles.crucible.CrucibleBarrelBlock.attachStrike(h.getLevel(), barrelAbs, player, axe, 1), "attach strike " + (i + 1));
+        for (int i = 0; i < com.simplecrucibles.crucible.BarrelAttach.ATTACH_STRIKES; i++) {
+            check(h, com.simplecrucibles.crucible.BarrelAttach.attachStrike(h.getLevel(), barrelAbs, player, axe, 1), "attach strike " + (i + 1));
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
             // Owner 2026-10-10: every strike visibly grows the target (shared preview); the last one removes it.
             int previews = h.getLevel().getEntities(net.minecraft.world.level.entity.EntityTypeTest.forClass(net.minecraft.world.entity.Display.BlockDisplay.class),
                     new net.minecraft.world.phys.AABB(barrelAbs).inflate(1), d -> d.entityTags().contains(com.simplelib.api.InWorldStrikes.PENDING_TAG)).size();
-            boolean last = i == com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACH_STRIKES - 1;
+            boolean last = i == com.simplecrucibles.crucible.BarrelAttach.ATTACH_STRIKES - 1;
             check(h, previews == (last ? 0 : 1), "growing preview after strike " + (i + 1) + ": " + previews);
         }
         var state = h.getLevel().getBlockState(barrelAbs);
-        check(h, state.getValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACHED)
-                && state.getValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.FACING) == Direction.WEST, "attached, facing the crucible");
+        check(h, state.getValue(com.simplelib.api.BarrelDock.ATTACHED)
+                && state.getValue(com.simplelib.api.BarrelDock.FACING) == Direction.WEST, "attached, facing the crucible");
         // Owner N12c: attached, the barrel offers as many slots as the crucible (iron: 6); the rest stays stored, hidden.
         check(h, h.getLevel().getBlockEntity(barrelAbs) == barrel && barrel.getContainerSize() == 6, "attached to the iron crucible: 6 slots");
         check(h, h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
@@ -814,43 +805,10 @@ public final class CrucibleTests {
                 "the menu reaches no barrel slot beyond 6");
         h.setBlock(rel, Blocks.AIR);
         var after = h.getLevel().getBlockState(barrelAbs);
-        check(h, !after.getValue(com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACHED) && barrel.getContainerSize() == 27,
+        check(h, !after.getValue(com.simplelib.api.BarrelDock.ATTACHED) && barrel.getContainerSize() == 27,
                 "crucible gone: a normal barrel again");
         check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "contents stay in the barrel");
         check(h, barrel.getItem(20).is(Items.APPLE) && barrel.getItem(20).getCount() == 3, "the hidden slot 21 is back with its apples");
-        h.succeed();
-    }
-
-    /**
-     * Owner N15: a loose barrel opens a chest menu whose slots keep the barrel's limit on both sides - the Enderite
-     * mirror takes 128, a shift-click of two full stacks fills one slot, picking up gives a normal stack, and a
-     * copper barrel stays at 64.
-     */
-    private static void looseBarrelMenu(GameTestHelper h) {
-        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
-        ItemStack cobble = new ItemStack(Items.COBBLESTONE);
-        var tier = com.simplecrucibles.crucible.BarrelTier.ENDERITE;
-        var client = com.simplecrucibles.crucible.BarrelMenu.client(tier, 0, player.getInventory());
-        check(h, client.slots.get(0).getMaxStackSize(cobble) == 128 && client.getRowCount() == 6,
-                "enderite barrel on the client: 6 rows of 128, got " + client.getRowCount() + " rows of " + client.slots.get(0).getMaxStackSize(cobble));
-        var barrel = com.simplelib.api.StackLimits.mirror(tier.slots(), tier::stackMultiplier);
-        var menu = new com.simplecrucibles.crucible.BarrelMenu(tier, 0, player.getInventory(), barrel);
-        player.getInventory().setItem(0, new ItemStack(Items.COBBLESTONE, 64));
-        player.getInventory().setItem(1, new ItemStack(Items.COBBLESTONE, 64));
-        int hotbar = tier.slots() + 27;
-        menu.quickMoveStack(player, hotbar);
-        menu.quickMoveStack(player, hotbar + 1);
-        check(h, barrel.getItem(0).getCount() == 128 && barrel.getItem(1).isEmpty(),
-                "shift-click fills one enderite slot to 128, got " + barrel.getItem(0).getCount() + "+" + barrel.getItem(1).getCount());
-        var taken = menu.slots.get(0).tryRemove(128, Integer.MAX_VALUE, player);
-        check(h, taken.isPresent() && taken.get().getCount() == 64 && barrel.getItem(0).getCount() == 64,
-                "picking up takes one normal stack, got " + taken.map(ItemStack::getCount).orElse(0));
-        BlockPos rel = new BlockPos(1, 2, 1);
-        h.setBlock(rel, CrucibleBlocks.COPPER_BARREL);
-        var copper = (com.simplecrucibles.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(h.absolutePos(rel));
-        var copperMenu = new com.simplecrucibles.crucible.BarrelMenu(copper.tier(), 0, player.getInventory(), copper);
-        check(h, copperMenu.slots.get(0).getMaxStackSize(cobble) == 64 && copperMenu.getRowCount() == 3,
-                "copper barrel: 3 rows of 64, got " + copperMenu.getRowCount() + " rows of " + copperMenu.slots.get(0).getMaxStackSize(cobble));
         h.succeed();
     }
 
@@ -867,52 +825,8 @@ public final class CrucibleTests {
         h.succeed();
     }
 
-    /** Owner N16: items already cooking when the barrel is attached send their results to the barrel too. */
-    /**
-     * DW03C-4: a loose barrel turns its lid to all six sides like Vanilla's barrel ({@code top}, default up - old worlds without it
-     * keep standing), opens while a player looks in and closes after, and is a {@code c:barrels} barrel (Simple Storage's interface).
-     */
-    private static void looseBarrelFacesLikeVanillaAndOpens(GameTestHelper h) {
-        java.util.List<String> problems = new java.util.ArrayList<>();
-        BlockState plain = CrucibleBlocks.COPPER_BARREL.defaultBlockState();
-        if (plain.getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.UP) problems.add("default top " + plain);
-        if (!plain.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK,
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "barrels")))) problems.add("not in c:barrels");
-        for (net.minecraft.core.Direction d : net.minecraft.core.Direction.values()) {
-            if (plain.setValue(CrucibleBarrelBlock.TOP, d).getValue(CrucibleBarrelBlock.TOP) != d) problems.add("top " + d);
-        }
-        BlockState turned = plain.setValue(CrucibleBarrelBlock.TOP, net.minecraft.core.Direction.NORTH).rotate(net.minecraft.world.level.block.Rotation.CLOCKWISE_90);
-        if (turned.getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.EAST) problems.add("rotated top " + turned);
-        // an old world's state (facing, attached, open - no top) loads standing
-        // (26.3 palette entries name the block under "id": write a real one and take "top" out of its properties)
-        net.minecraft.nbt.CompoundTag tag = net.minecraft.nbt.NbtUtils.writeBlockState(plain.setValue(CrucibleBarrelBlock.FACING, net.minecraft.core.Direction.EAST)
-                .setValue(CrucibleBarrelBlock.TOP, net.minecraft.core.Direction.NORTH));
-        boolean removed = false;
-        for (String key : tag.keySet()) {
-            if (tag.get(key) instanceof net.minecraft.nbt.CompoundTag properties && properties.contains("top")) {
-                properties.remove("top");
-                removed = true;
-            }
-        }
-        if (!removed) problems.add("no top in the written state " + tag);
-        BlockState old = net.minecraft.nbt.NbtUtils.readBlockState(h.getLevel().holderLookup(net.minecraft.core.registries.Registries.BLOCK), tag);
-        if (old.getBlock() != CrucibleBlocks.COPPER_BARREL || old.getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.UP
-                || old.getValue(CrucibleBarrelBlock.FACING) != net.minecraft.core.Direction.EAST) problems.add("old state " + old);
-        // open while a player looks in, closed after
-        BlockPos rel = new BlockPos(2, 2, 2);
-        h.setBlock(rel, plain.setValue(CrucibleBarrelBlock.TOP, net.minecraft.core.Direction.SOUTH));
-        CrucibleBarrelBlockEntity be = h.getBlockEntity(rel, CrucibleBarrelBlockEntity.class);
-        var player = h.makeMockServerPlayerInLevel();
-        be.startOpen(player);
-        if (!h.getBlockState(rel).getValue(CrucibleBarrelBlock.OPEN)) problems.add("not open while looked into");
-        be.stopOpen(player);
-        if (h.getBlockState(rel).getValue(CrucibleBarrelBlock.OPEN)) problems.add("still open after closing");
-        if (h.getBlockState(rel).getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.SOUTH) problems.add("opening turned the lid");
-        h.assertTrue(problems.isEmpty(), "loose barrel: " + problems);
-        h.succeed();
-    }
-
     private static void barrelAttachedLater(GameTestHelper h) {
+        if (!storageLoaded()) { h.succeed(); return; }
         BlockPos rel = new BlockPos(2, 2, 2);
         CrucibleBlockEntity be = crucible(h, rel, Blocks.LAVA_CAULDRON.defaultBlockState(), CrucibleBlocks.IRON_CRUCIBLE);
         be.setItem(0, new ItemStack(Items.RAW_GOLD, 2));
@@ -920,12 +834,12 @@ public final class CrucibleTests {
         run(h, be, 20);
         check(h, be.target(0) >= 0 && be.target(0) < CrucibleBlockEntity.BARREL, "without a barrel the gold reserves a crucible slot, got " + be.target(0));
         BlockPos barrelAbs = h.absolutePos(rel.east());
-        h.setBlock(rel.east(), CrucibleBlocks.COPPER_BARREL);
-        var barrel = (com.simplecrucibles.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(barrelAbs);
+        h.setBlock(rel.east(), copperBarrel());
+        var barrel = (com.simplelib.api.BarrelDock.Barrel) h.getLevel().getBlockEntity(barrelAbs);
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
         ItemStack axe = new ItemStack(Items.IRON_AXE);
-        for (int i = 0; i < com.simplecrucibles.crucible.CrucibleBarrelBlock.ATTACH_STRIKES; i++) {
-            com.simplecrucibles.crucible.CrucibleBarrelBlock.attachStrike(h.getLevel(), barrelAbs, player, axe, 1);
+        for (int i = 0; i < com.simplecrucibles.crucible.BarrelAttach.ATTACH_STRIKES; i++) {
+            com.simplecrucibles.crucible.BarrelAttach.attachStrike(h.getLevel(), barrelAbs, player, axe, 1);
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
         }
         run(h, be, 1);
@@ -944,7 +858,7 @@ public final class CrucibleTests {
     }
 
     /**
-     * a-small22: the 7 upgrade steps (crucibles, barrels, cauldron) are the module's own file
+     * a-small22: the 4 upgrade steps (crucibles, cauldron; the barrels' three went to Simple Storage, WH26-6) are the module's own file
      * ({@code data/simplecrucibles/in_world_upgrades/crucibles.json}), not SimpleBuilding's - so with Simple Hammers alone a
      * hammer in the smithing stance takes the click on every step (combo target with Simple Hammers, without SimpleBuilding).
      */
@@ -960,10 +874,7 @@ public final class CrucibleTests {
                 {Blocks.CAULDRON, CrucibleBlocks.REINFORCED_CAULDRON, cracked},
                 {CrucibleBlocks.IRON_CRUCIBLE, CrucibleBlocks.REINFORCED_CRUCIBLE, cracked},
                 {CrucibleBlocks.REINFORCED_CRUCIBLE, CrucibleBlocks.NETHERITE_CRUCIBLE, netherite},
-                {CrucibleBlocks.NETHERITE_CRUCIBLE, CrucibleBlocks.ENDERITE_CRUCIBLE, enderite},
-                {CrucibleBlocks.COPPER_BARREL, CrucibleBlocks.REINFORCED_BARREL, cracked},
-                {CrucibleBlocks.REINFORCED_BARREL, CrucibleBlocks.NETHERITE_BARREL, netherite},
-                {CrucibleBlocks.NETHERITE_BARREL, CrucibleBlocks.ENDERITE_BARREL, enderite}};
+                {CrucibleBlocks.NETHERITE_CRUCIBLE, CrucibleBlocks.ENDERITE_CRUCIBLE, enderite}};
         for (Object[] step : steps) {
             var entry = com.simplelib.api.InWorldUpgrades.entryFor((net.minecraft.world.level.block.Block) step[0]);
             if (step[2] == enderite && !ores) {
@@ -1007,18 +918,6 @@ public final class CrucibleTests {
         boolean expected = com.simplelib.api.SimpleLibApi.axeWaysEnabled();
         check(h, com.simplelib.api.SimpleLibApi.toolWants(state, h.getLevel(), abs, player, net.minecraft.world.InteractionHand.MAIN_HAND) == expected,
                 "axe + 2 diamonds reaches the axe exactly when the axe way is on (" + expected + ")");
-        h.succeed();
-    }
-
-    /** Owner 56 B: without SimpleBuilding a cauldron becomes reinforced with an axe and 8 diamonds (doubled 2026-10-06). */
-    /** Attaching and upgrading a barrel with the axe count their strikes apart (they used to share one counter). */
-    private static void barrelStrikeCountersAreSeparate(GameTestHelper h) {
-        BlockPos rel = new BlockPos(2, 2, 2);
-        h.setBlock(rel, CrucibleBlocks.COPPER_BARREL);
-        var barrel = (com.simplecrucibles.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(h.absolutePos(rel));
-        check(h, barrel.addAttachStrike() == 1 && barrel.addAttachStrike() == 2, "attach strikes count up");
-        check(h, barrel.addUpgradeStrike() == 1, "upgrade strikes start at 1, not after the attach strikes");
-        check(h, barrel.addAttachStrike() == 3 && barrel.addUpgradeStrike() == 2, "each counter keeps its own count");
         h.succeed();
     }
 
@@ -1086,26 +985,6 @@ public final class CrucibleTests {
         use.accept(new ItemStack(Items.BUCKET));
         check(h, player.getMainHandItem().is(Items.POWDER_SNOW_BUCKET)
                 && "empty".equals(com.simplecrucibles.api.SimpleCruciblesApi.cauldronContent(level.getBlockState(abs))), "powder snow taken back");
-        h.succeed();
-    }
-
-    /** Owner addition 11: reinforced barrel -> netherite barrel (axe, 1 netherite ingot, ten strikes), 45 slots, contents kept. */
-    private static void axeUpgradesBarrelToNetherite(GameTestHelper h) {
-        BlockPos rel = new BlockPos(1, 2, 1);
-        h.setBlock(rel, CrucibleBlocks.REINFORCED_BARREL);
-        BlockPos abs = h.absolutePos(rel);
-        ((net.minecraft.world.Container) h.getLevel().getBlockEntity(abs)).setItem(30, new ItemStack(Items.COAL, 7));
-        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
-        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.NETHERITE_INGOT));
-        ItemStack axe = new ItemStack(Items.IRON_AXE);
-        for (int i = 0; i < com.simplecrucibles.crucible.CrucibleUpgrades.STRIKES; i++) {
-            check(h, com.simplecrucibles.crucible.CrucibleUpgrades.strike(h.getLevel(), abs, player, axe), "strike " + (i + 1));
-            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
-        }
-        check(h, h.getLevel().getBlockState(abs).is(CrucibleBlocks.NETHERITE_BARREL), "netherite barrel built");
-        var barrel = (com.simplecrucibles.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(abs);
-        check(h, barrel.getContainerSize() == 45 && barrel.getItem(30).is(Items.COAL) && barrel.getItem(30).getCount() == 7, "45 slots, contents kept");
-        check(h, player.getOffhandItem().isEmpty(), "netherite ingot used");
         h.succeed();
     }
 

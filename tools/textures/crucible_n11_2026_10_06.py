@@ -71,7 +71,7 @@ def preview():
     rows.append(('Seiten', [(t, v2.big(v2.barrel_textures(t)['side'], 8)) for t in v2.BARREL_TIERS]))
     chests = [('Verst. Truhe', v2.p.load(v2.SB_CHESTS / 'reinforced.png')), ('Netherit-Truhe', v2.p.load(v2.SB_CHESTS / 'netherite.png'))]
     rows.append(('Vorlage Truhen', [(n, v2.big(img.crop((0, 0, 56, 44)), 4)) for n, img in chests]
-                 + [('alt verst. Seite', v2.big(Image.open(v2.LIB / 'reinforced_barrel_side.png').convert('RGBA'), 8))]))
+                 + [('alt verst. Seite', v2.big(Image.open(v2.p.BARREL_LIB / 'reinforced_barrel_side.png').convert('RGBA'), 8))]))
     dock = []
     for tier, yaw in (('copper', 225), ('netherite', 135), ('enderite', 200)):
         model, tex = docked(tier)

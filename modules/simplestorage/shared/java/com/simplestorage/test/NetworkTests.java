@@ -204,7 +204,7 @@ public final class NetworkTests {
         h.succeed();
     }
 
-    /** DW03C-2/4: on a barrel (Vanilla and, when Simple Crucibles is there, its barrels via c:barrels) the plate is flush, no edges. */
+    /** DW03C-2/4: on a barrel (Vanilla and this module's own copper barrel, WH26-6: via c:barrels) the plate is flush, no edges. */
     public static void interfaceSitsFlushOnBarrels(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
         BlockPos at = new BlockPos(3, 2, 3);
@@ -215,13 +215,15 @@ public final class NetworkTests {
         if (flush.getValue(InterfaceBlock.MOUNT) != InterfaceBlock.Mount.FULL) problems.add("barrel mount " + flush);
         if (b.minX != 0.0 || b.maxX != 1.0 || b.minY != 0.0 || b.maxY != 1.0) problems.add("not flush with the barrel: " + b);
         if (flush.getValue(InterfaceBlock.EDGE_E)) problems.add("edge strip on a flush plate");
-        var modBarrel = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", "copper_barrel");
+        var modBarrel = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplestorage", "copper_barrel");
         if (BuiltInRegistries.BLOCK.containsKey(modBarrel)) {
             Block barrel = BuiltInRegistries.BLOCK.getValue(modBarrel);
             if (!ControllerLevel.mountable(barrel)) problems.add("the copper barrel is not mountable");
             BlockPos mod = new BlockPos(3, 2, 6);
             h.setBlock(mod.north(), barrel);
             if (placedInterface(h, mod, Direction.NORTH).getValue(InterfaceBlock.MOUNT) != InterfaceBlock.Mount.FULL) problems.add("copper barrel mount");
+        } else {
+            problems.add("the copper barrel is not registered");
         }
         h.assertTrue(problems.isEmpty(), "interface on barrels: " + problems);
         h.succeed();

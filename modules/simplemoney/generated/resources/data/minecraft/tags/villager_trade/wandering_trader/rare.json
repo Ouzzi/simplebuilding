@@ -398,10 +398,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplecrucibles/enderite_barrel",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplecrucibles/enderite_bucket",
       "required": false
     },
@@ -903,6 +899,10 @@
     },
     {
       "id": "simplemoney:links/simplestorage/enderite_backpack",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/enderite_barrel",
       "required": false
     },
     {

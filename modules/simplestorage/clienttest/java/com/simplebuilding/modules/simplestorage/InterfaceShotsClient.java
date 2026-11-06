@@ -144,12 +144,12 @@ public final class InterfaceShotsClient implements FabricClientGameTest {
         plate(l, c4.west(), Direction.EAST);
         cable(l, c4.north().above());
         l.blockEvent(c4, Blocks.CHEST, 1, 1);
-        // 5: a Vanilla barrel and a Simple Crucibles copper barrel (lying, open), both with an interface.
+        // 5: a Vanilla barrel and a Simple Storage copper barrel (lying, open), both with an interface.
         BlockPos f = b.offset(21, 0, 0);
         set(l, f, Blocks.BARREL.defaultBlockState());
         plate(l, f.south(), Direction.NORTH);
         BlockPos g = b.offset(23, 0, 0);
-        Identifier copper = Identifier.fromNamespaceAndPath("simplecrucibles", "copper_barrel");
+        Identifier copper = Identifier.fromNamespaceAndPath("simplestorage", "copper_barrel");
         if (BuiltInRegistries.BLOCK.containsKey(copper)) {
             BlockState barrel = with(with(BuiltInRegistries.BLOCK.getValue(copper).defaultBlockState(), "top", "south"), "open", "true");
             set(l, g, barrel);

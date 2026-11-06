@@ -68,7 +68,7 @@ public enum ControllerLevel {
         };
     }
 
-    /** Barrels of other mods (DW03C-4: the Simple Crucibles barrels) join through the common tag, no hard dependency. */
+    /** Barrels of other mods join through the common tag (DW03C-4); this module's own barrels (WH26-6, were Simple Crucibles') are in it. */
     public static final TagKey<Block> BARRELS = TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", "barrels"));
 
     /** Whether an interface may sit on this block (IG31-37): every chest (controllers too), barrel (also tagged c:barrels) and shulker box. */

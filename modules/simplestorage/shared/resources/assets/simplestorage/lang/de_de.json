@@ -256,5 +256,13 @@
   "simplestorage.guide.page.35.title": "Truhen-Netzwerk (Prototyp)",
   "simplestorage.guide.page.35": "Kupferkabel verbinden Truhen, jede mit einer Truhen-Schnittstelle an der Seite, mit einer Controller-Truhe. Das Fenster des Controllers listet jede Sorte aller verbundenen Truhen:",
   "simplestorage.guide.page.36.title": "Truhen-Netzwerk (Prototyp)",
-  "simplestorage.guide.page.36": "Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein."
+  "simplestorage.guide.page.36": "Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein.",
+  "block.simplestorage.copper_barrel": "Kupfer-Fass",
+  "block.simplestorage.netherite_barrel": "Netherit-Fass",
+  "block.simplestorage.reinforced_barrel": "Verstärktes Fass",
+  "container.simplestorage.copper_barrel": "Kupfer-Fass",
+  "container.simplestorage.netherite_barrel": "Netherit-Fass",
+  "container.simplestorage.reinforced_barrel": "Verstärktes Fass",
+  "container.simplestorage.enderite_barrel": "Enderit-Fass",
+  "block.simplestorage.enderite_barrel": "Enderit-Fass"
 }

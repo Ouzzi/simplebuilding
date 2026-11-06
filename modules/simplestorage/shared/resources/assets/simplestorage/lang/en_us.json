@@ -256,5 +256,13 @@
   "simplestorage.guide.page.35.title": "Chest network (prototype)",
   "simplestorage.guide.page.35": "Copper cables connect chests, each with a chest interface on its side, to one controller chest. The controller's window lists every kind of item in all connected chests:",
   "simplestorage.guide.page.36.title": "Chest network (prototype)",
-  "simplestorage.guide.page.36": "take stacks out, click with an item to store it, shift-click in the inventory to store."
+  "simplestorage.guide.page.36": "take stacks out, click with an item to store it, shift-click in the inventory to store.",
+  "block.simplestorage.copper_barrel": "Copper Barrel",
+  "block.simplestorage.netherite_barrel": "Netherite Barrel",
+  "block.simplestorage.reinforced_barrel": "Reinforced Barrel",
+  "container.simplestorage.copper_barrel": "Copper Barrel",
+  "container.simplestorage.netherite_barrel": "Netherite Barrel",
+  "container.simplestorage.reinforced_barrel": "Reinforced Barrel",
+  "container.simplestorage.enderite_barrel": "Enderite Barrel",
+  "block.simplestorage.enderite_barrel": "Enderite Barrel"
 }

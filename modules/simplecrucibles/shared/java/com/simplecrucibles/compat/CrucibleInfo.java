@@ -87,9 +87,8 @@ public final class CrucibleInfo {
         map.put("copper_bucket", List.of(CrucibleFluids.COPPER_BUCKET));
         map.put("enderite_bucket", List.of(CrucibleFluids.ENDERITE_BUCKET));
         map.put("ceramic_bucket", List.of(CrucibleFluids.RAW_CERAMIC_BUCKET, CrucibleFluids.CERAMIC_BUCKET));
-        // The Enderite crucible and barrel have no crafting recipe: they are upgraded in place.
-        map.put("enderite_crucible", List.of(com.simplecrucibles.registry.CrucibleItems.ENDERITE_CRUCIBLE,
-                com.simplecrucibles.registry.CrucibleItems.ENDERITE_BARREL));
+        // The Enderite crucible has no crafting recipe: it is upgraded in place (the Enderite barrel is Simple Storage's).
+        map.put("enderite_crucible", List.of(com.simplecrucibles.registry.CrucibleItems.ENDERITE_CRUCIBLE));
         return map;
     }
 }
