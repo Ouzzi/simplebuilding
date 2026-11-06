@@ -397,6 +397,19 @@
     }
   ],
   "notes": {
+    "simplebuildingtools:guide_book": {
+      "sources": [
+        "modules/simplebuildingtools/shared/java/com/simplebuildingtools/guide/BuildingToolsGuide.java",
+        "modules/simplebuildingtools/shared/resources/assets/simplebuildingtools/simplelib/modpack_guide.json",
+        "modules/simplebuildingtools/shared/resources/data/simplebuildingtools/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Building Tools\" of the Simple Modpack guide (SimpleLib): 19 pages taken from this wiki, shown in your language. Unlocked by picking up: stick. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Building Tools\" im Simple-Modpack-Handbuch (SimpleLib): 19 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Stock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+      }
+    },
     "simplebuildingtools:*_building_wand": {
       "en": {
         "summary": "Right-clicking a block face with a building wand fills a whole square area with blocks taken from your inventory; the tier (copper through enderite) sets how large that area can get.",

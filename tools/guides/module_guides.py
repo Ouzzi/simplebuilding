@@ -646,6 +646,7 @@ NOTE = ("Chapter \"%s\" of the Simple Modpack guide (SimpleLib): %d pages taken 
         "Benutzen dazu.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:feather": ("feather", "Feder"),
+    "minecraft:stick": ("stick", "Stock"),
     "minecraft:stone_pressure_plate": ("stone pressure plate", "Steindruckplatte"),
     "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
     "minecraft:lapis_lazuli": ("lapis lazuli", "Lapislazuli"),

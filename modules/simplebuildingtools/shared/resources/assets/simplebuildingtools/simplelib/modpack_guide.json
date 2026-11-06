@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplebuildingtools.guide.chapter",
+  "icon": "minecraft:stick",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplebuildingtools:guide",
+      "title": "simplebuildingtools.guide.chapter",
+      "icon": "minecraft:stick",
+      "page_key": "simplebuildingtools.guide.page",
+      "pages": 19,
+      "advancement": "simplebuildingtools:guide/chapter",
+      "hint": "minecraft:stick"
+    }
+  ]
+}

@@ -64,5 +64,30 @@ Building Tools, wenn dort genutzt“). Basis hub/claude-wave1 4f2722c8a (Bündel
 - Ladereihenfolge: SB liest Modul-Items nur per Id nach der Registrierung.
 - Client-Sicht (Vorschau, Umriss, Bildschirme) nicht im Gametest → offen (Bündel-Client-Lauf).
 
-## 5. Stand / Abweichungen
-(wird bei der Umsetzung ergänzt)
+## 5. Stand / Abweichungen (07.11.)
+Umgesetzt: Modul `modules/simplebuildingtools` (1.0.0, Pflicht-Sub-Mod, gebündelt, nur Fabric 26.3) mit Kopien der SB-Klassen
+(Paket `com.simplebuildingtools.*`, gleiche Unterpakete), `SimpleBuildingTools` (Init, IdMoves, Config, `fire`), `BtItems`, `BtComponents`,
+`BtEnchantments`, `BtConfig`/`BtTuning` (+ Payload `simplebuildingtools:config`), `BuildPermissions` (framework `Protection` + SimpleLib
+`HammerActions.mayChange` + Fabric-Abbau-Ereignis als Probe), `OctantHighlightRenderer` (Oktant-Teil von SBs BlockHighlightRenderer),
+HUD über SimpleLib `GadgetHud` (Kasten `simplebuildingtools:octant`), Mixins (Kartentisch, Mausrad, Kessel-Accessor, GUI-Accessor),
+Daten (Texturen kopiert, Modelle, Rezepte + Freischaltungen, Verzauberungen, Tags), Lang EN/DE (≈980 Schlüssel, `simplebuilding.*` →
+`simplebuildingtools.*`), Tab, Handbuch (module_guides, Freischalt-Item Stock), Discover (Tipps Baustab/Blaupause von SB übernommen),
+Wiki-Manual (Features building_wand/octant/blueprint aus SB verschoben + submod/config_server/migration), Preise (24 Zeilen aus SBs
+Tabelle), 94 Modul-Tests (84 verschoben + 10 eigene). SB: `McVersion.BTOOLS_IN_SB`, `util/BuildingToolRefs`, Felder null,
+Tabs/Loot/Tooltips/Testzentrale/Datagen/Tags/Advancements per Id, Verzauberungs-Schlüssel und -Tags im Modul-Namensraum,
+Listener `GadgetActions` (wand_build, octant_mark, blueprint_*, wand_block) für SBs Fortschritte/Zähler/Statistik, 26.3-Schlüssel K
+und Oktant-Figur nur im Modul, SB-Tests mit Werkzeugen überspringen auf 26.3 (143 Methoden), DataIntegrityTests angepasst.
+
+Abweichungen (bewusst):
+- **Fortschritte bleiben SB** (`wand/*`, `octant/*`, `blueprint/*`), Auslöser über SimpleLib `GadgetActions` statt eigenem Modul-Auslöser
+  (Muster Simple Gadgets) - keine ADVANCEMENT-IdMoves außer den Rezept-Freischaltungen.
+- **Beute und Handel bleiben SB** (Truhen-Injektionen, Maurer-/Fahrender-Händler-Trades; Ids per Build-Umschreibung/Refs).
+- **Abgelegte Blaupause bearbeiten** (Rechtsklick mit leerer Hand, N23) geht auf 26.3 vorerst nicht (SB-Editor kennt nur 26.2-Blaupausen,
+  Modul-Handler ignoriert `placed`) - offen. Ablegen/Anzeigen/Abbauen geht (SB erkennt Modul-Items per Id; Modul ruft `super.useOn`).
+- **SB-Config-Schlüssel** (`server.features.blueprint`, `server.blueprint.*`, `tools.*Wand*`, `tools.invertOctantSneak`) bleiben sichtbar,
+  wirken auf 26.3 nicht mehr (wie Hämmer bis Stufe 9) - offen. Client-Optionen Deckkraft/H/Inversion steuern das Modul über
+  `ClientState.configure` (SB-Overlay `LibServices`, Muster `HammerVisuals`).
+- 13 SB-Testmethoden ließen sich nicht ohne SB-Klassen verschieben (Beute-/Rezept-Prüfungen, Testzentralen-Kit, Bild-Schalter) und
+  laufen im Modul nicht; dafür `tool_recipes_are_there`, `enderite_wand_needs_simple_ores`.
+- SimpleLib/Simple Octets: neuer Haken `OctetCells.registerPortable/portable` (gemischte Zelle beim Scan) statt SBs Overlay-Klasse.
+- NeoForge/Forge: nicht angepasst (Regel), dort registriert SB weiter seine Tasten; Modul nur Fabric.

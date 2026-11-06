@@ -182,12 +182,28 @@ public final class LibServices {
                 com.simplebuilding.advancement.ModTriggers.PISTON_REPAIR));
         HammerActions.listen(HammerActions.AREA_BLOCK, player -> com.simplebuilding.advancement.ModCounters.add(player,
                 com.simplebuilding.advancement.ModCounters.HAMMER_BLOCKS, 1));
+        // b-btools07: Simple Building Tools tells what its wands, octants and blueprints did (same event names as ModTriggers);
+        // the advancements, the Master Mason counter and the statistic stay SimpleBuilding's.
+        for (String event : java.util.List.of(com.simplebuilding.advancement.ModTriggers.WAND_BUILD, com.simplebuilding.advancement.ModTriggers.OCTANT_MARK,
+                com.simplebuilding.advancement.ModTriggers.BLUEPRINT_SCAN, com.simplebuilding.advancement.ModTriggers.BLUEPRINT_COPY,
+                com.simplebuilding.advancement.ModTriggers.BLUEPRINT_BUILD)) {
+            com.simplelib.api.GadgetActions.listen(event, player -> com.simplebuilding.advancement.ModTriggers.feature(player, event));
+        }
+        com.simplelib.api.GadgetActions.listen("wand_block", player -> {
+            com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.WAND_BLOCKS, 1);
+            com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.WAND_BLOCKS_PLACED);
+        });
         // Queue 738: Simple Hammers draws the area outline, its cracks and the upgrade swing itself; SimpleBuilding's
         // switches keep steering them (highlight key H, buildingHighlightOpacity, enableToolAnimations). Asked on the client only.
         com.simplehammers.client.HammerVisuals.configure(
                 () -> com.simplebuilding.client.ClientState.showHighlights,
                 () -> Simplebuilding.getConfig().tools.buildingHighlightOpacity,
                 () -> Simplebuilding.getConfig().tools.enableToolAnimations);
+        // b-btools07: the same switches steer Simple Building Tools' octant selection (key H, opacity, Constructor's Touch inversion).
+        com.simplebuildingtools.client.ClientState.configure(
+                () -> com.simplebuilding.client.ClientState.showHighlights,
+                () -> Simplebuilding.getConfig().tools.buildingHighlightOpacity,
+                () -> Simplebuilding.getConfig().tools.invertOctantSneak);
     }
 
     /** Applies the upgrade files through SimpleLib and returns SimpleBuilding's view of the effective table. */

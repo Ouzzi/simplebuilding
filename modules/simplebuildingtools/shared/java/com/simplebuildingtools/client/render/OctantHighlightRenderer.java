@@ -56,7 +56,7 @@ public class OctantHighlightRenderer {
         try {
             poseStack.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
 
-            if (!ClientState.showHighlights) {
+            if (!ClientState.showHighlights()) {
                 return;
             }
 
@@ -107,8 +107,8 @@ public class OctantHighlightRenderer {
 
         if (pos1 == null && pos2 == null) return;
 
-        boolean isInverted = ClientState.invertOctantSneak;
-        int opacityPercent = ClientState.highlightOpacity;
+        boolean isInverted = ClientState.invertOctantSneak();
+        int opacityPercent = ClientState.highlightOpacity();
         boolean hasConstructorsTouch = hasEnchantment(stack, Minecraft.getInstance(), BtEnchantments.CONSTRUCTORS_TOUCH);
         boolean showFill = (isInverted ^ hasConstructorsTouch) || fullFigure;
         float baseAlpha = Math.max(0, Math.min(100, opacityPercent)) / 100.0f;

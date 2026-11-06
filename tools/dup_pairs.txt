@@ -16,16 +16,49 @@ common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlock
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java allow: ownsMenu/1
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlockEntity.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintBlockSearch.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBlockSearch.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintBuilder.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBuilder.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCartography.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintCode.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCode.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintCommandText.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCommandText.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintContent.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintContent.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintEditorLayout.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintEditorLayout.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintExamples.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintExamples.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintFormats.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintFormats.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintIoLayout.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintIoLayout.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintJobs.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintJobs.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintMaterials.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintMaterials.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintModel.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintModel.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintPicture.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintPicture.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintScanner.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintScanner.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintTiers.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintTiers.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintViewControls.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintViewControls.java
+common/src/shared/java/com/simplebuilding/blueprint/ShapeFill.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/ShapeFill.java
 common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackKeyHandler.java allow: create/0
+common/src/shared/java/com/simplebuilding/client/ClientState.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/ClientState.java allow: configure/3 highlightOpacity/0 invertOctantSneak/0 showHighlights/0
 common/src/shared/java/com/simplebuilding/client/GaugeAutowalk.java modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeAutowalk.java
+common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintClient.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/blueprint/BlueprintClient.java
+common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintIoScreen.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/blueprint/BlueprintIoScreen.java
+common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintPictureScreen.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/blueprint/BlueprintPictureScreen.java
+common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintScreen.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/blueprint/BlueprintScreen.java
+common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintTooltip.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/blueprint/BlueprintTooltip.java
+common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintView.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/blueprint/BlueprintView.java
 common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackScreen.java allow: palette/2 slotColor/1
+common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/gui/BuildingWandScreen.java
+common/src/shared/java/com/simplebuilding/client/gui/HudPanel.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/gui/HudPanel.java allow: active/2 contrastOver/2 draw/5
+common/src/shared/java/com/simplebuilding/client/gui/ModHud.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/gui/ModHud.java allow: scale/0 toggle/1
+common/src/shared/java/com/simplebuilding/client/gui/ModScreenLayout.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/gui/ModScreenLayout.java allow: Box/4 backpack/1 backpackStrip/1 bottom/0 container/2 holds/4 inner/0 inventory/2 inventoryOrigin/1 right/0 trimReference/3
+common/src/shared/java/com/simplebuilding/client/gui/OctantScreen.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/gui/OctantScreen.java
+common/src/shared/java/com/simplebuilding/client/gui/RangefinderHudOverlay.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/gui/RangefinderHudOverlay.java
 common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java modules/simplestorage/shared/java/com/simplestorage/client/TieredChestScreen.java
 common/src/shared/java/com/simplebuilding/client/gui/recipebook/ThreeSlotRecipeBookComponent.java modules/simplearrows/shared/java/com/simplearrows/client/ThreeSlotRecipeBookComponent.java
 common/src/shared/java/com/simplebuilding/client/gui/tooltip/BackpackTooltip.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackTooltip.java
+common/src/shared/java/com/simplebuilding/client/property/BlueprintStateModelProperty.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/property/BlueprintStateModelProperty.java
 common/src/shared/java/com/simplebuilding/client/property/GaugeNeedleModelProperty.java modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeNeedleModelProperty.java
 common/src/shared/java/com/simplebuilding/client/property/TransformHintModelProperty.java modules/simplegadgets/shared/java/com/simplegadgets/client/TransformHintModelProperty.java
 common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackBlockTint.java
 common/src/shared/java/com/simplebuilding/client/render/BackpackLayer.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackLayer.java
+common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/render/BuildingWandPreviewRenderer.java
 common/src/shared/java/com/simplebuilding/client/render/PlacedBundleRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/PlacedBundleRenderer.java
 common/src/shared/java/com/simplebuilding/client/render/QuiverLayer.java modules/simplestorage/shared/java/com/simplestorage/client/QuiverLayer.java allow: backItem/1
 common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TieredChestRenderer.java
@@ -47,7 +80,11 @@ common/src/shared/java/com/simplebuilding/items/ModItems.java modules/simplefun/
 common/src/shared/java/com/simplebuilding/items/ModItems.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModItems.java allow: createEnchantedEnderiteFoodEffects/0 createEnchantedNetheriteFoodEffects/0 createEnderiteFoodEffects/1 createNetheriteFoodEffects/1 register/0 registerModItems/0 trappedCopperChests/0
 common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackItem.java allow: carriedEntries/1 refillHandFromWornBackpack/3 replaceSlot/3
 common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java
+common/src/shared/java/com/simplebuilding/items/custom/BlueprintItem.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/BlueprintItem.java
+common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/BuildingWandItem.java
+common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/CreativeReach.java
 common/src/shared/java/com/simplebuilding/items/custom/NetheritePistonItem.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheritePistonItem.java
+common/src/shared/java/com/simplebuilding/items/custom/OctantItem.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/OctantItem.java
 common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java
 common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: insertFromWorld/3 visualFill/1
 common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorItem.java allow: publishFacts/0
@@ -55,11 +92,13 @@ common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java modules/
 common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java allow: appendHoverText/5
 common/src/shared/java/com/simplebuilding/items/custom/VelocityGaugeItem.java modules/simplegadgets/shared/java/com/simplegadgets/gauge/VelocityGaugeItem.java
 common/src/shared/java/com/simplebuilding/items/tooltip/BackpackTooltipData.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTooltipData.java
+common/src/shared/java/com/simplebuilding/items/tooltip/BlueprintTooltipData.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/tooltip/BlueprintTooltipData.java
 common/src/shared/java/com/simplebuilding/loot/WeightedEnchantFunction.java modules/simplemoney/shared/java/com/simplemoney/WeightedEnchantFunction.java
 common/src/shared/java/com/simplebuilding/loot/WeightedEnchantFunction.java modules/simpleriding/shared/java/com/simpleriding/WeightedEnchantFunction.java
 common/src/shared/java/com/simplebuilding/mixin/AbstractArrowPickupMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/AbstractArrowPickupMixin.java
 common/src/shared/java/com/simplebuilding/mixin/AbstractFurnaceMenuMixin.java modules/simpleovens/shared/java/com/simpleovens/mixin/AbstractFurnaceMenuMixin.java
 common/src/shared/java/com/simplebuilding/mixin/BowItemMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/BowItemMixin.java
+common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/mixin/CartographyTableMenuMixin.java allow: broadcastChanges/0
 common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java modules/simplemaps/shared/java/com/simplemaps/mixin/CartographyTableMenuMixin.java allow: broadcastChanges/0
 common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java modules/simplemusic/shared/java/com/simplemusic/mixin/CartographyTableMenuMixin.java allow: broadcastChanges/0
 common/src/shared/java/com/simplebuilding/mixin/CarvedStairMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/CarvedStairMixin.java
@@ -74,10 +113,20 @@ common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java modules/s
 common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java modules/simplefun/forge/src/main/java/com/simplebuilding/modules/simplefun/forge/mixin/PlayerEntityMixin.java allow: getInventory/0
 common/src/shared/java/com/simplebuilding/mixin/RecipeMapFilterMixin.java modules/simplelib/shared/java/com/simplelib/mixin/RecipeMapFilterMixin.java
 common/src/shared/java/com/simplebuilding/mixin/ShapelessRecipeMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/ShapelessRecipeMixin.java
+common/src/shared/java/com/simplebuilding/mixin/client/CartographyTableScreenMixin.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/mixin/client/CartographyTableScreenMixin.java
 common/src/shared/java/com/simplebuilding/mixin/client/GhostSlotsInvoker.java modules/simplearrows/shared/java/com/simplearrows/mixin/client/GhostSlotsInvoker.java
+common/src/shared/java/com/simplebuilding/mixin/client/GuiGraphicsExtractorAccessor.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/mixin/client/GuiGraphicsExtractorAccessor.java
 common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java modules/simplefun/shared/java/com/simplefun/mixin/ItemMixin.java
+common/src/shared/java/com/simplebuilding/mixin/client/MouseMixin.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/mixin/client/MouseMixin.java
 common/src/shared/java/com/simplebuilding/mixin/client/MultiPlayerGameModeHammerProgressMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/client/MultiPlayerGameModeHammerProgressMixin.java
+common/src/shared/java/com/simplebuilding/networking/BlueprintEditPayload.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/networking/BlueprintEditPayload.java
+common/src/shared/java/com/simplebuilding/networking/BlueprintRotatePayload.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/networking/BlueprintRotatePayload.java
+common/src/shared/java/com/simplebuilding/networking/BuildingWandConfigurePayload.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/networking/BuildingWandConfigurePayload.java
+common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/networking/ModMessageHandlers.java allow: handleDoubleJump/2 handleGuideUnlock/2 handleMasterBuilderPick/2 handleOpenBackpack/2 handlePlacedBundleScroll/2 handleReinforcedBundleSelection/2 handleSpaceKey/2 handleToggleHopperFilter/2 handleTrimBenefit/2
+common/src/shared/java/com/simplebuilding/networking/OctantConfigurePayload.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/networking/OctantConfigurePayload.java
+common/src/shared/java/com/simplebuilding/networking/OctantScrollPayload.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/networking/OctantScrollPayload.java
 common/src/shared/java/com/simplebuilding/networking/PistonConfigPayload.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonConfigPayload.java allow: sendTo/1
+common/src/shared/java/com/simplebuilding/platform/ClientNetworking.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/platform/ClientNetworking.java
 common/src/shared/java/com/simplebuilding/platform/PistonEventProbe.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonEventProbe.java allow: declare/1 declare/2 pistonRefused/1
 common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackUpgradeRecipe.java
 common/src/shared/java/com/simplebuilding/recipe/EnchantedShapelessRecipe.java modules/simplepads/shared/java/com/simplepads/recipe/EnchantedShapelessRecipe.java
@@ -155,7 +204,9 @@ common/src/shared/java/com/simplebuilding/tweaks/spawn/LaunchSafety.java modules
 common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java modules/simplepads/shared/java/com/simplepads/spawn/SpawnElytra.java
 common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnSetup.java modules/simplepads/shared/java/com/simplepads/spawn/SpawnSetup.java allow: onLevelLoad/1 resolveWorldSpawn/4
 common/src/shared/java/com/simplebuilding/tweaks/xp/StackLimits.java modules/simplelib/shared/java/com/simplelib/api/StackLimits.java allow: cap/1 getMaxStackSize/0 getMaxStackSize/1 limit/2 limit/3 max/2 mirror/2 tryRemove/3
+common/src/shared/java/com/simplebuilding/util/BuildPermissions.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/BuildPermissions.java allow: isProbing/0 mayAct/3 mayAct/4 mayBreak/4 mayChange/3 probeAutomation/4 setPlaceProbe/1
 common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplestorage/shared/java/com/simplestorage/bundle/DyedStorage.java
+common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/EnchantmentHelper.java allow: getDrawerLevel/1 getFastChiselingLevel/1 getMagnetRangeLevel/2 getOverrideLevel/1 hasColorPalette/2 hasConstructorsTouch/2 hasMasterBuilder/2
 common/src/shared/java/com/simplebuilding/util/Feedback.java modules/simplepads/shared/java/com/simplepads/util/Feedback.java
 common/src/shared/java/com/simplebuilding/util/FilterHopper.java modules/simplemachines/shared/java/com/simplemachines/hopper/FilterHopper.java
 common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java allow: of/1
@@ -165,6 +216,10 @@ common/src/shared/java/com/simplebuilding/util/ModSounds.java modules/simplesand
 common/src/shared/java/com/simplebuilding/util/ModTags.java modules/simplefun/shared/java/com/simplefun/registry/ModTags.java allow: isDimensionalScrap/1 isEnderiteIngotTierByRule/1 isEnderiteItemByRule/1 isVoidProtectedByRule/1
 common/src/shared/java/com/simplebuilding/util/ModTags.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModTags.java allow: isDimensionalScrap/1 isEnderiteIngotTierByRule/1 isEnderiteItemByRule/1 isVoidProtectedByRule/1
 common/src/shared/java/com/simplebuilding/util/MusicDiscs.java modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java allow: Disc/2 Disc/5 Song/4 aSide/0 archaeology/0 bSide/0 bootstrap/1 discs/0 hasTrack/1 items/0 length/1 loot/3 register/1 song/0 songKey/1 songNames/0 sound/0 soundId/1 trackFile/1 trackName/1 tracks/0
+common/src/shared/java/com/simplebuilding/util/OctantCauldronWash.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/OctantCauldronWash.java
+common/src/shared/java/com/simplebuilding/util/OctantHammerArea.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/OctantHammerArea.java allow: register/0
+common/src/shared/java/com/simplebuilding/util/OctantShape.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/OctantShape.java
+common/src/shared/java/com/simplebuilding/util/OctantSurface.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/OctantSurface.java
 common/src/shared/java/com/simplebuilding/util/OwnedLightHolder.java modules/simpletrims/shared/java/com/simpletrims/light/OwnedLightHolder.java
 common/src/shared/java/com/simplebuilding/util/PadRefs.java modules/simplepads/shared/java/com/simplepads/util/PadRefs.java allow: block/1 blockEntityType/1 component/1 core/1 enderiteTemplate/0 id/1 item/1 mobHead/1 ores/1 trialChamberHeads/0
 common/src/shared/java/com/simplebuilding/util/PistonBoreEffects.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonBoreEffects.java
@@ -177,6 +232,11 @@ common/src/shared/java/com/simplebuilding/util/PlayerScan.java modules/simplepad
 common/src/shared/java/com/simplebuilding/util/RotatorSwap.java modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorSwap.java
 common/src/shared/java/com/simplebuilding/util/ShulkerShells.java modules/simplestorage/shared/java/com/simplestorage/rare/ShulkerShells.java allow: canUpgrade/3 shellOf/1 targetIndex/2 upgrade/4
 common/src/shared/java/com/simplebuilding/util/StorageDyes.java modules/simplestorage/shared/java/com/simplestorage/bundle/StorageDyes.java
+common/src/shared/java/com/simplebuilding/util/StorageRefs.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/StorageRefs.java allow: backpack/1 backpackBlock/1 backpackKey/1 backpacks/0 block/1 boatWood/0 boatWoods/0 bundles/0 chest/1 chestBlock/1 chestBoat/1 chestBoatStack/2 chestMinecart/1 crate/1 id/1 isQuiver/1 item/1 itemKey/1 placedBundle/0 shulkerBox/1 shulkerBoxBlock/1 shulkerShell/1 trappedChest/1 trappedChestBlock/1 trappedCopperChests/0
 common/src/shared/java/com/simplebuilding/util/TieredChests.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChests.java allow: maxStackSize/3
 common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxes.java
 common/src/shared/java/com/simplebuilding/util/TrimUpgrades.java modules/simpletrims/shared/java/com/simpletrims/TrimUpgrades.java allow: Upgrade/2
+common/src/shared/java/com/simplebuilding/util/WandHunger.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/WandHunger.java
+common/src/shared/java/com/simplebuilding/util/WandPlacement.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/WandPlacement.java
+common/src/shared/java/com/simplebuilding/util/WandUndo.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/WandUndo.java
+common/src/shared/java/com/simplebuilding/util/guiDrawHelper.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/guiDrawHelper.java
