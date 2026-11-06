@@ -456,7 +456,7 @@ public final class ModpackTests {
             if (ovenSteps != 6) problems.add("Simple Ovens' file should load 6 furnace upgrade steps, loaded " + ovenSteps);
         }
         // Split stage 8b: on 26.3 the 31 chest and shulker box steps (out of the Vanilla copper chests and shulker boxes
-        // too) come from Simple Storage's file (data/simplestorage/in_world_upgrades).
+        // too), the 3 barrel steps (a-barrels06, barrels.json) and the pipe steps come from Simple Storage's file (data/simplestorage/in_world_upgrades).
         if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
             int storageSteps = 0;
             for (var it = loaded.values().iterator(); it.hasNext(); ) {
@@ -465,7 +465,7 @@ public final class ModpackTests {
                     storageSteps++;
                 }
             }
-            if (storageSteps != 34) problems.add("Simple Storage's file should load 34 chest, shulker box and pipe upgrade steps, loaded " + storageSteps);
+            if (storageSteps != 37) problems.add("Simple Storage's file should load 37 chest, shulker box, barrel and pipe upgrade steps, loaded " + storageSteps);
         }
         // MACH32-MOD stage 2: on 26.3 the 3 piston steps (Reinforced and Reinforced Sticky -> Netherite -> Enderite) come from
         // Simple Machines' own file (data/simplemachines/in_world_upgrades).
@@ -481,7 +481,7 @@ public final class ModpackTests {
             int expected = 3 + (com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? 0 : 2);
             if (pistonSteps != expected) problems.add("Simple Machines' files should load " + expected + " piston and hopper upgrade steps, loaded " + pistonSteps);
         }
-        // a-small22: on 26.3 the 7 crucible, barrel and cauldron steps come from Simple Crucibles' own file
+        // a-small22: on 26.3 the 4 crucible and cauldron steps come from Simple Crucibles' own file (the 3 barrel steps moved to Simple Storage, a-barrels06)
         // (data/simplecrucibles/in_world_upgrades), so the hammer ways also work without SimpleBuilding.
         if (com.simplebuilding.version.McVersion.CRUCIBLE && !"simplebuilding".equals(com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE)) {
             int crucibleSteps = 0;
@@ -491,7 +491,7 @@ public final class ModpackTests {
                     crucibleSteps++;
                 }
             }
-            if (crucibleSteps != 7) problems.add("Simple Crucibles' file should load 7 crucible, barrel and cauldron upgrade steps, loaded " + crucibleSteps);
+            if (crucibleSteps != 4) problems.add("Simple Crucibles' file should load 4 crucible and cauldron upgrade steps, loaded " + crucibleSteps);
         }
         // ZO9: Simple Mobs is a required sub-mod on 26.3 now and loaded in the test run; its own file
         // (data/simplemobs/in_world_upgrades/trials.json) adds the 2 vault steps (weathered -> evil -> void).
