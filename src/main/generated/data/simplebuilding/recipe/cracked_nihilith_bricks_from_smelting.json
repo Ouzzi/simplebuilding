@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "experience": 0.1,
+  "ingredient": "simplebuilding:nihilith_bricks",
+  "result": {
+    "id": "simplebuilding:cracked_nihilith_bricks"
+  }
+}

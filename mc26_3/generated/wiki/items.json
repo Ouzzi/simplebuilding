@@ -64,6 +64,9 @@
     "simplebuilding:chiseled_warped_blazewood_bookshelf",
     "simplebuilding:construction_light",
     "simplebuilding:copper_fire",
+    "simplebuilding:cracked_astralit_bricks",
+    "simplebuilding:cracked_ender_quartz_bricks",
+    "simplebuilding:cracked_nihilith_bricks",
     "simplebuilding:crimson_blazewood_bookshelf",
     "simplebuilding:crimson_blazewood_planks",
     "simplebuilding:crimson_cauldron",
@@ -147,11 +150,13 @@
     "simplebuilding:nihil_redstone_torch",
     "simplebuilding:nihil_redstone_wall_torch",
     "simplebuilding:nihil_vault",
+    "simplebuilding:nihilith_ashwood_planks",
     "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
     "simplebuilding:nihilith_brick_stairs",
     "simplebuilding:nihilith_brick_wall",
     "simplebuilding:nihilith_bricks",
+    "simplebuilding:nihilith_duskwood_planks",
     "simplebuilding:nihilith_end_rod",
     "simplebuilding:nihilith_lamp",
     "simplebuilding:nihilith_ore",
@@ -585,6 +590,15 @@
       "enchantability": 18,
       "id": "simplebuilding:copper_spatula",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:cracked_astralit_bricks"
+    },
+    {
+      "id": "simplebuilding:cracked_ender_quartz_bricks"
+    },
+    {
+      "id": "simplebuilding:cracked_nihilith_bricks"
     },
     {
       "id": "simplebuilding:creative_blueprint",
@@ -1297,6 +1311,9 @@
       "id": "simplebuilding:nihil_vault"
     },
     {
+      "id": "simplebuilding:nihilith_ashwood_planks"
+    },
+    {
       "id": "simplebuilding:nihilith_block"
     },
     {
@@ -1361,6 +1378,9 @@
     {
       "id": "simplebuilding:nihilith_chess_rook_flat",
       "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_duskwood_planks"
     },
     {
       "id": "simplebuilding:nihilith_end_rod"
