@@ -2772,34 +2772,30 @@
       "id": "money_links_simplecrucibles",
       "en": {
         "title": "Linked Price Table: simplecrucibles",
-        "summary": "4 item prices; loaded-mod condition: simplecrucibles.",
+        "summary": "3 item prices; loaded-mod condition: simplecrucibles.",
         "details": [
           "simplecrucibles:enderite_crucible: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplecrucibles:enderite_barrel: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplecrucibles:enderite_bucket: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplecrucibles:copper_bucket: tier 0, hours 1.0, craft 3; 8 bills; toolsmith 1; stock 2; chance 1."
         ]
       },
       "de": {
         "title": "Verknüpfte Preisliste: simplecrucibles",
-        "summary": "4 Itempreise; Mod-Ladebedingung: simplecrucibles.",
+        "summary": "3 Itempreise; Mod-Ladebedingung: simplecrucibles.",
         "details": [
           "simplecrucibles:enderite_crucible: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplecrucibles:enderite_barrel: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplecrucibles:enderite_bucket: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplecrucibles:copper_bucket: Stufe 0, Stunden 1.0, Rezeptplaetze 3; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1."
         ]
       },
       "sources": [
         "modules/simplemoney/shared/resources/data/simplemoney/money/simplecrucibles/prices.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/enderite_barrel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/enderite_crucible.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/enderite_bucket.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/copper_bucket.json"
       ],
       "related": [
         "simplecrucibles:enderite_crucible",
-        "simplecrucibles:enderite_barrel",
         "simplecrucibles:enderite_bucket",
         "simplecrucibles:copper_bucket"
       ]

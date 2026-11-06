@@ -398,7 +398,7 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:welcome",
             "simplebuilding:yarn_ball",
             "simplecrucibles:crucible",
-            "simplestorage:enderite_barrel",
+            "simplecrucibles:enderite_barrel",
             "simplecrucibles:enderite_crucible",
             "simplecrucibles:iron_crucible",
             "simplecrucibles:reinforced_cauldron",

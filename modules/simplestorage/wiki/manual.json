@@ -791,10 +791,10 @@
         "modules/simplestorage/shared/resources/data/simplestorage/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 36 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 37 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 36 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 37 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplestorage:*_crate": {

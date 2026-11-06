@@ -9,7 +9,7 @@
       "title": "simplestorage.guide.chapter",
       "icon": "minecraft:barrel",
       "page_key": "simplestorage.guide.page",
-      "pages": 36,
+      "pages": 37,
       "advancement": "simplestorage:guide/chapter",
       "hint": "minecraft:barrel"
     }

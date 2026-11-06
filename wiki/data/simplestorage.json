@@ -769,6 +769,36 @@
           "Tempo: das Netz wird nur neu gesucht, wenn sich Kabel oder Schnittstellen geändert haben, und die Truhen werden nur gelesen, solange ein Controller-Fenster offen ist."
         ]
       }
+    },
+    {
+      "id": "barrels",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelMenu.java",
+        "modules/simplelib/shared/java/com/simplelib/api/BarrelDock.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/in_world_upgrades/barrels.json"
+      ],
+      "en": {
+        "title": "Barrels",
+        "summary": "Copper, Reinforced, Netherite and Enderite barrels: bigger than Vanilla's, upgraded in place, and the docking barrel of the Simple Crucibles.",
+        "details": [
+          "Copper 27 slots (a Vanilla barrel surrounded by four copper ingots), Reinforced 36, Netherite 45, Enderite 54 with double stacks (128 of a 64-stack item). The barrels were Simple Crucibles' (before that SimpleLib's, the Enderite one SimpleBuilding's); they belong to Simple Storage now and old worlds migrate.",
+          "A loose barrel is placed like Vanilla's barrel, its lid towards the player (all six sides), opens its lid while someone looks in, and takes the chest interface (tag c:barrels). Raised stack limits hold in the menu, for shift-clicks and for hoppers; taking from such a slot gives at most one normal stack.",
+          "Upgrade in place like the chests: with an axe in the main hand and the material in the off hand (ten strikes; with Simple Hammers the sledgehammer): Copper to Reinforced with two cracked diamonds, Reinforced to Netherite with two netherite nuggets, Netherite to Enderite with two Enderite nuggets (Simple Ores). Contents, lid and docking stay.",
+          "With Simple Crucibles, a barrel next to a crucible attaches with six strikes: it then offers as many slots as the crucible has (6/12/18/30; the rest stays stored, hidden, and comes back when detached), opens the crucible screen, and the crucible puts its results there first. Breaking the crucible makes the barrel a normal barrel again."
+        ]
+      },
+      "de": {
+        "title": "Fässer",
+        "summary": "Kupfer-, Verstärkte, Netherit- und Enderit-Fässer: größer als das Vanilla-Fass, in der Welt aufwertbar und das andockende Fass der Schmelztiegel von Simple Crucibles.",
+        "details": [
+          "Kupfer 27 Plätze (ein Vanilla-Fass umringt von vier Kupferbarren), Verstärkt 36, Netherit 45, Enderit 54 mit doppelten Stapeln (128 eines 64er-Items). Die Fässer gehörten Simple Crucibles (davor SimpleLib, das Enderit-Fass SimpleBuilding); sie gehören jetzt zu Simple Storage, alte Welten werden migriert.",
+          "Ein loses Fass wird wie das Vanilla-Fass gesetzt, der Deckel zum Spieler (alle sechs Seiten), öffnet den Deckel, solange jemand hineinschaut, und nimmt die Truhen-Schnittstelle an (Tag c:barrels). Erhöhte Stapelgrenzen gelten im Menü, beim Shift-Klick und für Trichter; Herausnehmen gibt höchstens einen normalen Stapel.",
+          "Aufwerten in der Welt wie bei den Truhen: Axt in der Haupthand und das Material in der Nebenhand (zehn Schläge; mit Simple Hammers der Vorschlaghammer): Kupfer zu Verstärkt mit zwei rissigen Diamanten, Verstärkt zu Netherit mit zwei Netheritklumpen, Netherit zu Enderit mit zwei Enderitklumpen (Simple Ores). Inhalt, Deckel und Andockzustand bleiben.",
+          "Mit Simple Crucibles wird ein Fass neben einem Tiegel mit sechs Schlägen angedockt: es bietet dann so viele Plätze wie der Tiegel (6/12/18/30; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da), öffnet das Tiegel-Fenster, und der Tiegel legt seine Ergebnisse zuerst dort ab. Wird der Tiegel abgebaut, ist das Fass wieder ein normales Fass."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -1374,6 +1404,47 @@
           {
             "id": "minecraft:sand",
             "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:copper_barrel",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplestorage:copper_barrel",
+        "count": 1
+      },
+      "source": "modules/simplestorage/generated/resources/data/simplestorage/recipe/copper_barrel.json",
+      "ingredients": [
+        "minecraft:barrel",
+        "minecraft:copper_ingot"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " C "
+      ],
+      "key": {
+        "C": [
+          "minecraft:copper_ingot"
+        ],
+        "B": [
+          "minecraft:barrel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.75
           }
         ]
       }
@@ -7464,6 +7535,24 @@
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/chest_interface.json"
     },
     {
+      "id": "simplestorage:blocks/copper_barrel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:copper_barrel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/generated/resources/data/simplestorage/loot_table/blocks/copper_barrel.json"
+    },
+    {
       "id": "simplestorage:blocks/copper_cable",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7550,6 +7639,24 @@
         }
       ],
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/enderite_backpack.json"
+    },
+    {
+      "id": "simplestorage:blocks/enderite_barrel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:enderite_barrel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/generated/resources/data/simplestorage/loot_table/blocks/enderite_barrel.json"
     },
     {
       "id": "simplestorage:blocks/enderite_chest",
@@ -7708,6 +7815,24 @@
         }
       ],
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/netherite_backpack.json"
+    },
+    {
+      "id": "simplestorage:blocks/netherite_barrel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:netherite_barrel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/generated/resources/data/simplestorage/loot_table/blocks/netherite_barrel.json"
     },
     {
       "id": "simplestorage:blocks/netherite_chest",
@@ -7884,6 +8009,24 @@
         }
       ],
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/reinforced_backpack.json"
+    },
+    {
+      "id": "simplestorage:blocks/reinforced_barrel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:reinforced_barrel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/generated/resources/data/simplestorage/loot_table/blocks/reinforced_barrel.json"
     },
     {
       "id": "simplestorage:blocks/reinforced_chest",
@@ -9192,10 +9335,10 @@
           "modules/simplestorage/shared/resources/data/simplestorage/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 36 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 37 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 36 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 37 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplestorage/item/guide_book.png",
@@ -10767,6 +10910,52 @@
       ]
     },
     {
+      "id": "simplestorage:copper_barrel",
+      "name": {
+        "en_us": "Copper Barrel",
+        "de_de": "Kupfer-Fass"
+      },
+      "note": {
+        "en": {
+          "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). With Simple Crucibles, next to a crucible, six axe strikes (sledgehammer with Simple Hammers) attach it: every strike shows cracks, then the barrel docks to the crucible with a flange and a chute, offers only as many slots as the crucible has (6/12/18/30; the rest stays stored, hidden, and comes back when detached) and opens the crucible screen; the crucible puts its results there first, a hopper below the barrel takes them out. Breaking the barrel drops its contents and the plain barrel; breaking the crucible makes it a normal barrel again."
+        },
+        "de": {
+          "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Mit Simple Crucibles, neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, zeigt jeder Schlag Risse, dann dockt das Fass mit Flansch und Rinne am Tiegel an, bietet nur so viele Plätze wie der Tiegel (6/12/18/30; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da) und öffnet das Tiegel-Fenster; der Tiegel legt seine Ergebnisse zuerst dort ab, ein Trichter unter dem Fass nimmt sie heraus. Fass abbauen gibt Inhalt und normales Fass, Tiegel abbauen macht es wieder zum normalen Fass."
+        },
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"
+        ]
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A barrel clad in copper, a little greener each year."
+          ],
+          "use": [
+            "The copper tier of the crucible barrel: it attaches to a crucible as extra storage, and works as a normal barrel on its own."
+          ],
+          "secret": [
+            "It is the first step of the barrel line, from copper through netherite to enderite."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Fass mit Kupferhülle, jedes Jahr ein wenig grüner."
+          ],
+          "use": [
+            "Die Kupferstufe des Tiegelfasses: Es lässt sich als Zusatzlager an einen Tiegel hängen und dient allein als normales Fass."
+          ],
+          "secret": [
+            "Es ist die erste Stufe der Fassreihe, von Kupfer über Netherit zu Enderit."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplestorage:copper_barrel"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplestorage:copper_cable",
       "name": {
         "en_us": "Copper Cable",
@@ -11070,6 +11259,50 @@
       "craftedBy": [
         "simplestorage:enderite_backpack_smithing"
       ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:enderite_barrel",
+      "name": {
+        "en_us": "Enderite Barrel",
+        "de_de": "Enderit-Fass"
+      },
+      "note": {
+        "en": {
+          "summary": "Barrel with 54 slots and double stacks; docks onto a crucible like the other barrels and offers as many slots as the crucible has (see Crucibles)."
+        },
+        "de": {
+          "summary": "Fass mit 54 Plätzen und doppelten Stapeln; dockt wie die anderen Fässer an einen Tiegel an und bietet so viele Plätze wie der Tiegel (siehe Schmelztiegel)."
+        },
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"
+        ]
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A barrel that was told it could keep more, and believed it."
+          ],
+          "use": [
+            "The Enderite tier of the crucible's barrel: it holds double stacks, 128 of a 64-stack item, in the crucible menu and its own chest menu, for shift-clicks and for hoppers."
+          ],
+          "secret": [
+            "Taking from such a slot gives at most one normal stack. It is the last step of the line from copper through Netherite to Enderite."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Fass, dem gesagt wurde, es dürfe mehr behalten, und das es glaubte."
+          ],
+          "use": [
+            "Die Enderit-Stufe des Fasses der Tiegel: Es fasst doppelte Stapel, 128 eines 64er-Gegenstands, im Tiegelmenü und im eigenen Truhenmenü, bei Shift-Klicks und für Trichter."
+          ],
+          "secret": [
+            "Aus so einem Platz bekommst du höchstens einen normalen Stapel. Es ist der letzte Schritt der Linie von Kupfer über Netherit zu Enderit."
+          ]
+        }
+      },
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -11531,6 +11764,50 @@
       "usedIn": [
         "simplestorage:enderite_backpack_smithing"
       ]
+    },
+    {
+      "id": "simplestorage:netherite_barrel",
+      "name": {
+        "en_us": "Netherite Barrel",
+        "de_de": "Netherit-Fass"
+      },
+      "note": {
+        "en": {
+          "summary": "A reinforced barrel upgraded in place (axe, 1 netherite ingot, ten strikes; with SimpleBuilding sledgehammer and 2 netherite nuggets): 45 slots on its own, 9 when attached to a crucible; survives fire and lava as an item."
+        },
+        "de": {
+          "summary": "Ein in der Welt aufgewertetes verstärktes Fass (Axt, 1 Netheritbarren, zehn Schläge; mit SimpleBuilding Vorschlaghammer und 2 Netheritklumpen): allein 45 Plätze, am Tiegel 9; als Gegenstand feuer- und lavafest."
+        },
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"
+        ]
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A barrel of dark metal that does not burn."
+          ],
+          "use": [
+            "The Netherite tier of the crucible barrel: attach it to a crucible for even more storage."
+          ],
+          "secret": [
+            "It is fire resistant, like all Netherite blocks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Fass aus dunklem Metall, das nicht brennt."
+          ],
+          "use": [
+            "Die Netherit-Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es noch mehr Lagerplatz."
+          ],
+          "secret": [
+            "Es ist feuerfest wie alle Netherit-Blöcke."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simplestorage:netherite_chest",
@@ -12080,6 +12357,50 @@
       ]
     },
     {
+      "id": "simplestorage:reinforced_barrel",
+      "name": {
+        "en_us": "Reinforced Barrel",
+        "de_de": "Verstärktes Fass"
+      },
+      "note": {
+        "en": {
+          "summary": "A copper barrel upgraded in place (axe, 2 diamonds, ten strikes): 36 slots on its own, 9 when attached to a crucible."
+        },
+        "de": {
+          "summary": "Ein in der Welt aufgewertetes Kupfer-Fass (Axt, 2 Diamanten, zehn Schläge): allein 36 Plätze, am Tiegel 9."
+        },
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"
+        ]
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A barrel that has been told to hold more."
+          ],
+          "use": [
+            "The Reinforced tier of the crucible barrel: attach it to a crucible for more storage."
+          ],
+          "secret": [
+            "Hoppers fill it like a chest, from above and the sides."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Fass, dem gesagt wurde, es solle mehr halten."
+          ],
+          "use": [
+            "Die verstärkte Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es mehr Lagerplatz."
+          ],
+          "secret": [
+            "Trichter füllen es wie eine Truhe, von oben und von der Seite."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplestorage:reinforced_chest",
       "name": {
         "en_us": "Reinforced Chest",
@@ -12596,14 +12917,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 15,
-    "recipes": 183,
-    "lootTables": 46,
+    "features": 16,
+    "recipes": 184,
+    "lootTables": 50,
     "tags": 8,
     "advancements": 1,
     "enchantments": 3,
     "items": 18,
-    "blocks": 47,
+    "blocks": 51,
     "trades": 0,
     "config": 0,
     "quests": 0,
