@@ -20,7 +20,6 @@ public final class CrucibleMenus {
                     new MenuType<>((id, inventory) -> CrucibleMenu.client(tier, id, inventory), FeatureFlags.VANILLA_SET)));
         }
     }
-    }
 
     public static MenuType<CrucibleMenu> forTier(CrucibleTier tier) {
         return CRUCIBLES.get(tier);
