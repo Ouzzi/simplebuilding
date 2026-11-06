@@ -1933,10 +1933,10 @@ public final class ConfigOptionTests {
                 }
             }
 
-            // --- tweaks.balancing.echoSounderJumpCooldownTicks ---
+            // --- tweaks.balancing.echoSounderJumpCooldownTicks (26.3, OW24-2 G4: Simple Gadgets tests its own echoJumpCooldownTicks) ---
             BlockPos lodestone = new BlockPos(6, 1, 6);
             helper.setBlock(lodestone, net.minecraft.world.level.block.Blocks.LODESTONE);
-            int[] cooldowns = {0, 480};
+            int[] cooldowns = com.simplebuilding.version.McVersion.GADGETS_IN_SB ? new int[]{0, 480} : new int[0];
             for (int cooldown : cooldowns) {
                 tweaks.balancing.echoSounderJumpCooldownTicks = cooldown;
                 ServerPlayer jumper = mockPlayer(helper);

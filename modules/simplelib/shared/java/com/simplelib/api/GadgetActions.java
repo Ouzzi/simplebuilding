@@ -14,7 +14,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The gadget contract (OW24-2 G2, docs/ai/PLAN-B-GADGETS24-2026-10-24.md): Simple Gadgets (Transposer, Resonance Rod) tells
+ * The gadget contract (OW24-2 G2, docs/ai/PLAN-B-GADGETS24-2026-10-24.md): Simple Gadgets (Transposer, Resonance Rod, Echo Sounder) tells
  * partners what its gadgets did and how they look, partners tell it how they decide - nobody imports the gadget mod. Without a
  * partner nothing is registered and the gadgets use their own answers. Content-free: only Vanilla types.
  *
@@ -34,6 +34,10 @@ public final class GadgetActions {
     public static final String LENS_BEAM = "lens_beam";
     /** The Resonance Rod beam primed TNT. */
     public static final String LASER_TNT = "laser_tnt";
+    /** The Echo Sounder carried its user to the linked lodestone (G4). */
+    public static final String ECHO_TELEPORT = "echo_teleport";
+    /** A not fully repaired Echo Sounder shattered after its jump (G4). */
+    public static final String ECHO_SHATTER = "echo_shatter";
 
     /** The partner's full hand-hint answer (client). */
     @FunctionalInterface

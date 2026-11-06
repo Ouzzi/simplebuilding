@@ -1,4 +1,15 @@
 {
+  "echo_sounder": {
+    "lore": [
+      "A compass that listens for the way back."
+    ],
+    "use": [
+      "Link it to a lodestone with a right-click, then hold use for 3 seconds to jump to it. One jump empties its charge; mending or echo shards recharge it. Cooldown after a jump: 24 seconds."
+    ],
+    "secret": [
+      "Using it before it is fully recharged is possible, but it takes twice as long, with cracking and sparks, and then the echo sounder shatters for good. Craft: seven enderite nuggets, a recovery compass and an enderite core."
+    ]
+  },
   "velocity_gauge": {
     "lore": [
       "A clock for how fast the world goes by."

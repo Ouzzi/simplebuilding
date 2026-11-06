@@ -1,5 +1,6 @@
 package com.simplegadgets;
 
+import com.simplegadgets.echo.EchoSounderItem;
 import com.simplegadgets.gauge.VelocityGaugeItem;
 import com.simplegadgets.rod.ResonanceRodItem;
 import com.simplegadgets.rotator.RotatorItem;
@@ -26,6 +27,8 @@ public final class GadgetsRegistry {
     public static Item ROTATOR;
     /** Resonance Rod (Resonanzstab): beam dot, melts, ignites, measures; id {@code amethyst_lens} as in SimpleBuilding. */
     public static Item AMETHYST_LENS;
+    /** Echo Sounder (Echolot): jumps to a linked lodestone; id {@code echo_sounder} as in SimpleBuilding. */
+    public static Item ECHO_SOUNDER;
     public static CreativeModeTab TAB;
 
     /** Enchantability of the netherite tier, as SimpleBuilding gave its gadgets. */
@@ -35,6 +38,8 @@ public final class GadgetsRegistry {
 
     public static void registerItems() {
         GadgetComponents.register();
+        ECHO_SOUNDER = item("echo_sounder", p -> new EchoSounderItem(p.stacksTo(1).durability(EchoSounderItem.MAX_DAMAGE).enchantable(ENCHANTABILITY)
+                .repairable(net.minecraft.world.item.Items.ECHO_SHARD).rarity(net.minecraft.world.item.Rarity.EPIC).fireResistant()));
         VELOCITY_GAUGE = item("velocity_gauge", p -> new VelocityGaugeItem(p.stacksTo(1)));
         ROTATOR = item("rotator", p -> new RotatorItem(p.durability(RotatorItem.MAX_CHARGE).stacksTo(1).enchantable(ENCHANTABILITY)));
         AMETHYST_LENS = item("amethyst_lens", p -> new ResonanceRodItem(p.durability(ResonanceRodItem.MAX_CHARGE)));
@@ -52,7 +57,7 @@ public final class GadgetsRegistry {
 
     /** The gadgets in tab order. */
     public static List<Item> gadgets() {
-        return VELOCITY_GAUGE == null ? List.of() : List.of(VELOCITY_GAUGE, ROTATOR, AMETHYST_LENS);
+        return VELOCITY_GAUGE == null ? List.of() : List.of(ECHO_SOUNDER, VELOCITY_GAUGE, ROTATOR, AMETHYST_LENS);
     }
 
     /** Every gadget, then the guide (empty while the module is switched off). */

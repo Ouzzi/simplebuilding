@@ -14,7 +14,8 @@ import java.util.List;
 /**
  * Server config {@code config/simplegadgets-server.json} (server authority, every number clamped); missing or broken keys use
  * the defaults and the file is rewritten complete. On the first start it takes the values a world had in SimpleBuilding's config
- * ({@code tools.rotator*}, {@code server.charges.*}, {@code server.laser.*}, {@code tweaks.laserPointer.*} in
+ * ({@code tools.rotator*}, {@code server.charges.*}, {@code server.laser.*}, {@code tweaks.laserPointer.*}, the Echo Sounder's {@code server.features.echoSounder}, {@code server.charges.echoSounderMaxCharge},
+ * {@code server.dimensionLocks.echoSounderBlockedDimensions} and {@code tweaks.balancing.echoSounder*} in
  * {@code config/simplebuilding.json}), which stays unchanged (framework {@code ConfigFiles.adoptLegacy}). Values are
  * server-local like Simple Hammers': a client counts with its own file (the rod's colour and size are the client's own anyway);
  * the maximum charges are read when the items register (restart needed, as before).
@@ -27,7 +28,8 @@ public final class GadgetsConfig {
     public static final List<String> KEYS = List.of("rotatorMaxCharge", "rotatorChargePerTurn", "rotatorSwapEnabled",
             "rotatorSwapWindupTicks", "rotatorSwapMaxHardness", "rotatorSwapWhitelist", "rotatorSwapBlacklist",
             "rodEnabled", "rodMaxCharge", "rodRange", "rodChargePerSecond", "rodEffectCost", "rodColor", "rodScale",
-            "rodIgniteFlammables", "rodIgniteTnt", "rodIgniteEntities", "rodScanEntities", "rodScanPlayers", "rodScanIntervalTicks");
+            "rodIgniteFlammables", "rodIgniteTnt", "rodIgniteEntities", "rodScanEntities", "rodScanPlayers", "rodScanIntervalTicks",
+            "echoEnabled", "echoMaxCharge", "echoJumpCooldownTicks", "echoAttemptLockTicks", "echoBlockedDimensions");
 
     public static final int ROTATOR_MIN_CHARGE = 64, ROTATOR_MAX_CHARGE = 4096, ROTATOR_CHARGE_DEFAULT = 1024;
     public static final int ROTATOR_TURN_COST_DEFAULT = 1, ROTATOR_TURN_COST_MAX = 4096;
@@ -43,6 +45,10 @@ public final class GadgetsConfig {
     public static final int ROD_LEGACY_COLOR = 0xFF0000;
     public static final float ROD_SCALE_DEFAULT = 0.25f;
     public static final int ROD_SCAN_MIN = 20, ROD_SCAN_MAX = 100;
+
+    /** Echo Sounder (G4): repair points of an empty one = its charge, the cooldowns after a jump / a failed attempt (ticks). */
+    public static final int ECHO_MIN_CHARGE = 150, ECHO_MAX_CHARGE = 6000, ECHO_CHARGE_DEFAULT = 1500;
+    public static final int ECHO_COOLDOWN_MAX = 12000, ECHO_JUMP_COOLDOWN_DEFAULT = 480, ECHO_ATTEMPT_LOCK_DEFAULT = 100;
 
     public static int rotatorMaxCharge = ROTATOR_CHARGE_DEFAULT;
     public static int rotatorChargePerTurn = ROTATOR_TURN_COST_DEFAULT;
@@ -65,6 +71,13 @@ public final class GadgetsConfig {
     public static boolean rodScanEntities = true;
     public static boolean rodScanPlayers = false;
     public static int rodScanIntervalTicks = ROD_SCAN_MAX;
+
+    public static boolean echoEnabled = true;
+    public static int echoMaxCharge = ECHO_CHARGE_DEFAULT;
+    public static int echoJumpCooldownTicks = ECHO_JUMP_COOLDOWN_DEFAULT;
+    public static int echoAttemptLockTicks = ECHO_ATTEMPT_LOCK_DEFAULT;
+    /** Dimensions the Echo Sounder neither leaves nor enters (ids separated by comma, semicolon or space; "minecraft:" may be left out). */
+    public static String echoBlockedDimensions = "";
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -98,6 +111,9 @@ public final class GadgetsConfig {
         JsonObject server = root.getAsJsonObject("server");
         JsonObject charges = server == null ? null : server.getAsJsonObject("charges");
         JsonObject laser = server == null ? null : server.getAsJsonObject("laser");
+        JsonObject features = server == null ? null : server.getAsJsonObject("features");
+        JsonObject locks = server == null ? null : server.getAsJsonObject("dimensionLocks");
+        JsonObject balancing = root.getAsJsonObject("tweaks") == null ? null : root.getAsJsonObject("tweaks").getAsJsonObject("balancing");
         JsonObject pointer = root.getAsJsonObject("tweaks") == null ? null : root.getAsJsonObject("tweaks").getAsJsonObject("laserPointer");
         JsonObject taken = new JsonObject();
         if (tools != null) {
@@ -117,6 +133,13 @@ public final class GadgetsConfig {
             copy(laser, "scanEntities", taken, "rodScanEntities");
             copy(laser, "scanPlayers", taken, "rodScanPlayers");
             copy(laser, "scanIntervalTicks", taken, "rodScanIntervalTicks");
+        }
+        if (features != null) copy(features, "echoSounder", taken, "echoEnabled");
+        if (charges != null) copy(charges, "echoSounderMaxCharge", taken, "echoMaxCharge");
+        if (locks != null) copy(locks, "echoSounderBlockedDimensions", taken, "echoBlockedDimensions");
+        if (balancing != null) {
+            copy(balancing, "echoSounderJumpCooldownTicks", taken, "echoJumpCooldownTicks");
+            copy(balancing, "echoSounderAttemptLockTicks", taken, "echoAttemptLockTicks");
         }
         if (pointer != null) {
             copy(pointer, "enable", taken, "rodEnabled");
@@ -157,6 +180,24 @@ public final class GadgetsConfig {
         rodScanEntities = bool(json, "rodScanEntities", true);
         rodScanPlayers = bool(json, "rodScanPlayers", false);
         rodScanIntervalTicks = clamp(integer(json, "rodScanIntervalTicks", ROD_SCAN_MAX), ROD_SCAN_MIN, ROD_SCAN_MAX);
+
+        echoEnabled = bool(json, "echoEnabled", true);
+        echoMaxCharge = clamp(integer(json, "echoMaxCharge", ECHO_CHARGE_DEFAULT), ECHO_MIN_CHARGE, ECHO_MAX_CHARGE);
+        echoJumpCooldownTicks = clamp(integer(json, "echoJumpCooldownTicks", ECHO_JUMP_COOLDOWN_DEFAULT), 0, ECHO_COOLDOWN_MAX);
+        echoAttemptLockTicks = clamp(integer(json, "echoAttemptLockTicks", ECHO_ATTEMPT_LOCK_DEFAULT), 0, ECHO_COOLDOWN_MAX);
+        echoBlockedDimensions = string(json, "echoBlockedDimensions");
+    }
+
+    /** Whether {@code list} names {@code dimension} (ids separated by comma, semicolon or space; "minecraft:" may be left out). */
+    public static boolean dimensionListed(String list, net.minecraft.resources.Identifier dimension) {
+        if (list == null || list.isBlank()) return false;
+        for (String entry : list.split("[,;\\s]+")) {
+            String id = entry.trim().toLowerCase(java.util.Locale.ROOT);
+            if (id.isEmpty()) continue;
+            if (!id.contains(":")) id = "minecraft:" + id;
+            if (id.equals(dimension.toString())) return true;
+        }
+        return false;
     }
 
     public static JsonObject toJson() {
@@ -181,6 +222,11 @@ public final class GadgetsConfig {
         o.addProperty("rodScanEntities", rodScanEntities);
         o.addProperty("rodScanPlayers", rodScanPlayers);
         o.addProperty("rodScanIntervalTicks", rodScanIntervalTicks);
+        o.addProperty("echoEnabled", echoEnabled);
+        o.addProperty("echoMaxCharge", echoMaxCharge);
+        o.addProperty("echoJumpCooldownTicks", echoJumpCooldownTicks);
+        o.addProperty("echoAttemptLockTicks", echoAttemptLockTicks);
+        o.addProperty("echoBlockedDimensions", echoBlockedDimensions);
         return o;
     }
 

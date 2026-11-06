@@ -8,7 +8,7 @@ ROOT = MODULE.parents[1]
 NS = 'simplegadgets'
 RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplegadgets'
-GADGETS = ['velocity_gauge', 'rotator', 'amethyst_lens']
+GADGETS = ['echo_sounder', 'velocity_gauge', 'rotator', 'amethyst_lens']
 
 used = set()
 for src in JAVA.rglob('*.java'):
@@ -25,7 +25,7 @@ for locale in ('en_us', 'de_de'):
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 for gadget in GADGETS:
     assert (RES / f'assets/{NS}/items/{gadget}.json').is_file(), gadget
-    assert (RES / f'assets/{NS}/textures/item/{gadget}.png').is_file(), gadget
+    assert (RES / f'assets/{NS}/textures/item/{gadget}{"_16" if gadget == "echo_sounder" else ""}.png').is_file(), gadget  # the Echo Sounder's needle frames are _00.._31
     for variant in ('', '_without_simplebuilding'):
         assert (RES / f'data/{NS}/recipe/{gadget}{variant}.json').is_file(), (gadget, variant)
         assert (RES / f'data/{NS}/advancement/recipes/tools/{gadget}{variant}.json').is_file(), (gadget, variant)
@@ -42,6 +42,13 @@ for part in ('rotator', 'rotator_empty', 'rotator_active', 'amethyst_lens_empty'
     assert (RES / f'assets/{NS}/textures/item/{part}.png').is_file(), part
 for tag in ('minecraft/tags/item/enchantable/durability', 'minecraft/tags/item/enchantable/mining', 'simplelib/tags/item/xp_repair_incompatible'):
     assert 'simplegadgets:rotator' in (RES / f'data/{tag}.json').read_text(encoding='utf-8'), tag
+for frame in range(32):  # the Echo Sounder's needle frames and crack stages
+    assert (RES / f'assets/{NS}/models/item/echo_sounder_{frame:02d}.json').is_file(), frame
+    assert (RES / f'assets/{NS}/textures/item/echo_sounder_{frame:02d}.png').is_file(), frame
+for stage in range(3):
+    assert (RES / f'assets/{NS}/models/item/echo_sounder_cracked_{stage}.json').is_file(), stage
+    assert (RES / f'assets/{NS}/textures/item/echo_sounder_cracked_{stage}.png').is_file(), stage
+assert 'simplegadgets:echo_sounder' in (RES / 'data/minecraft/tags/item/enchantable/durability.json').read_text(encoding='utf-8')
 assert 'minecraft:amethyst_shard' in (RES / f'data/{NS}/tags/item/repairs_resonance_rod.json').read_text(encoding='utf-8')
 assert (RES / f'data/{NS}/structure/empty.nbt').is_file()
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))

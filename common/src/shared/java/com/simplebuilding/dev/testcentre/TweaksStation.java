@@ -93,7 +93,7 @@ public final class TweaksStation {
                 TcText.t("tweaks.echo", "Echo Sounder"), TcText.t("tweaks.echo.1", "link: lodestone"),
                 TcText.t("tweaks.echo.2", "no pearl needed"));
         c.place(echo, 0, floorZ + 1, Blocks.CHEST);
-        c.contents(echo, 0, floorZ + 1, List.of(new ItemStack(TweaksItems.ECHO_COMPASS)));
+        c.contents(echo, 0, floorZ + 1, List.of(new ItemStack(com.simplebuilding.util.GadgetRefs.echo())));
 
         // Trank-Pad mit einer Truhe Wurftraenke daneben (Wasser wischt es leer). Gift zeigt die Besitzer-Regel
         // (nur wer das Pad setzt, bekommt es), starke Regeneration die Deckelung auf die Trankdauer und die

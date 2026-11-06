@@ -1,4 +1,15 @@
 {
+  "echo_sounder": {
+    "lore": [
+      "Ein Kompass, der auf den Weg zurück lauscht."
+    ],
+    "use": [
+      "Verbinde ihn per Rechtsklick mit einem Leitstein, dann halte 3 Sekunden Benutzen, um dorthin zu springen. Ein Sprung leert die Ladung; Reparatur oder Echoscherben laden sie wieder. Abklingzeit nach einem Sprung: 24 Sekunden."
+    ],
+    "secret": [
+      "Ihn vor voller Aufladung zu nutzen ist möglich, dauert aber doppelt so lange, mit Rissen und Funken, und danach zerbricht das Echolot für immer. Herstellung: sieben Enderitklumpen, ein Wiederherstellungskompass und ein Enderitkern."
+    ]
+  },
   "velocity_gauge": {
     "lore": [
       "Eine Uhr dafür, wie schnell die Welt vorbeizieht."

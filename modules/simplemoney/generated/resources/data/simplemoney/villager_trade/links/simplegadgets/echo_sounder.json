@@ -4,7 +4,7 @@
     "count": 63
   },
   "gives": {
-    "id": "simplebuilding:echo_sounder",
+    "id": "simplegadgets:echo_sounder",
     "count": 1
   },
   "max_uses": 1,
@@ -13,7 +13,7 @@
   "fabric:load_conditions": [
     {
       "condition": "simplemoney:config",
-      "flag": "links:simplebuilding"
+      "flag": "links:simplegadgets"
     },
     {
       "condition": "simplemoney:config",
@@ -23,7 +23,7 @@
   "neoforge:conditions": [
     {
       "type": "simplemoney:config",
-      "flag": "links:simplebuilding"
+      "flag": "links:simplegadgets"
     },
     {
       "type": "simplemoney:config",

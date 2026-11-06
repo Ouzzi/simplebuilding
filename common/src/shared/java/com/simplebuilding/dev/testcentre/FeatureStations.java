@@ -64,7 +64,7 @@ public final class FeatureStations {
 
     /** Geraete mit eigener Zustandszeile (Ladung, Risse); die Haltbarkeits-Tafeln lassen sie aus. */
     public static boolean hasOwnStateLine(Item item) {
-        return item == com.simplebuilding.util.GadgetRefs.rod() || item == com.simplebuilding.util.GadgetRefs.rotator() || item == TweaksItems.ECHO_COMPASS;
+        return item == com.simplebuilding.util.GadgetRefs.rod() || item == com.simplebuilding.util.GadgetRefs.rotator() || item == com.simplebuilding.util.GadgetRefs.echo();
     }
 
     public static TcCanvas states(TcContext ctx) {
@@ -145,14 +145,14 @@ public final class FeatureStations {
                 new ItemStack(com.simplebuilding.util.GadgetRefs.rotator()), new ItemStack(Items.ENDER_PEARL))));
         List<ItemStack> echo = new ArrayList<>();
         for (float stage : ECHO_CRACK_STAGES) {
-            echo.add(worn(new ItemStack(TweaksItems.ECHO_COMPASS), stage));
+            echo.add(worn(new ItemStack(com.simplebuilding.util.GadgetRefs.echo()), stage));
         }
-        echo.add(new ItemStack(TweaksItems.ECHO_COMPASS));
+        echo.add(new ItemStack(com.simplebuilding.util.GadgetRefs.echo()));
         echo.add(new ItemStack(Items.ECHO_SHARD));
         gadgets.add(new TcCanvas.Line(TcText.t("states.echo", "Echo Sounder"), echo));
         List<ItemStack> mending = new ArrayList<>();
         ctx.enchantment(Enchantments.MENDING).ifPresent(e -> {
-            mending.add(TcContext.enchanted(worn(new ItemStack(TweaksItems.ECHO_COMPASS), ECHO_CRACK_STAGES[0]), List.of(e)));
+            mending.add(TcContext.enchanted(worn(new ItemStack(com.simplebuilding.util.GadgetRefs.echo()), ECHO_CRACK_STAGES[0]), List.of(e)));
             List<Item> pickaxes = ctx.rowItems("pickaxes");
             if (!pickaxes.isEmpty()) {
                 mending.add(TcContext.enchanted(nearlyBroken(new ItemStack(pickaxes.getLast())), List.of(e)));

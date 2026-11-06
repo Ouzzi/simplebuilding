@@ -11,7 +11,8 @@
     "client.GaugeKeyboardInputMixin",
     "client.RodCrosshairMixin",
     "client.RodSteadyViewMixin",
-    "client.RodHandTiltMixin"
+    "client.RodHandTiltMixin",
+    "client.EchoFovMixin"
   ],
   "server": [],
   "injectors": {

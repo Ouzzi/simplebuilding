@@ -164,3 +164,27 @@ des Moduls; SBs 26.2-Linie verliert ihn. (f) Gemeinsamer Verzauberungs-Mixin: Mo
 
 Belege G2 (sb-test): module-simplegadgets integriert 46/46, standalone 46/46, integration-263 4/4, module-simpletweaks 164/164, module-simplehammers 17/17; fabric-263 gefiltert: renamed_item_ids 1/1, data_integrity 51/51, guide 16/16, config_option 20/20, test_centre 21/21, advancement_trigger 11/11, item_behaviour 7/7, consumption 6/6, hint 8/8, tweaks 112/112, combat 11/11, server_tuning 8/8, modpack 11/11; Datagen 26.3, Money-Links, Guides, Wiki, Discover erzeugt; `./gradlew check` grün (77a14b664).
 Weitere Abweichungen: (h) `LegacyAliases` (simpletweaks) führt `simpletweaks:laser_pointer` jetzt direkt auf `simplegadgets:amethyst_lens`. (i) `DevEnchantedTab` zählt `simplegadgets:*` als Träger der Mod. (j) SB-Shared-Code erreicht SimpleLib nur über `LibServices` (26.2-Stubs), da die 26.2-Linie SimpleLib nicht hat. G3 nicht begonnen (Besitzer: halbes Tempo).
+
+## 8. Stufe G4-Echolot (Branch `a-echo07`, Basis `b-bundle120`, 06.11.2026): Echolot zieht um
+
+Auslöser: Besitzer 06.11. zu WE25-8 „Echolot soll genau wie die anderen Gadgets in Simple Gadgets.“ Der zweite Teil der Frage (die
+Enderit-Nugget-Regel) ist unklar und **nicht gebaut**; das Rezept bleibt wie es ist (7 Enderit-Klumpen, Bergungskompass, Enderit-Kern), Rückfrage
+bleibt in der Queue. Farbpinsel (der Rest von G4) ist nicht Teil dieses Auftrags.
+
+- Muster wie G2 (`McVersion.GADGETS_IN_SB`): SB-Klassen (`EchoCompassItem`, `EchoCompassFov`, Mixin) bleiben für 26.2; auf 26.3 ist
+  `TweaksItems.ECHO_COMPASS` `null`, SB erreicht das Item per Id über `GadgetRefs.echo()`/`isEcho`.
+- Modul: `echo/EchoSounderItem` (Werte aus `GadgetsConfig`, Erfolge über SimpleLib `GadgetActions.ECHO_TELEPORT/ECHO_SHATTER`, Schutz über
+  `GadgetProtection.mayAct/mayTeleport`), `client/EchoFov` + `mixin/client/EchoFovMixin`, Item-Definition + 35 Modelle, 102 Texturdateien
+  (`git mv` aus `mc26_3/overlay`), Rezept `echo_sounder` (mit SB wie bisher; ohne SB `_without_simplebuilding`: Amethystscherben statt Klumpen, Netheritbarren statt
+  Kern), Freischaltung, Tag `enchantable/durability`, Lang/Fragentisch EN+DE, Wiki-Notiz, Preis + Handelslink, Teststation-Eintrag, Tab-Reihe (Echolot zuerst).
+- Config (`config/simplegadgets-server.json`, übernimmt SBs Werte beim ersten Start): `echoEnabled`, `echoMaxCharge` (Neustart), `echoJumpCooldownTicks`,
+  `echoAttemptLockTicks`, `echoBlockedDimensions`. SBs Schlüssel (`server.features.echoSounder`, `server.charges.echoSounderMaxCharge`,
+  `server.dimensionLocks.echoSounderBlockedDimensions`, `tweaks.balancing.echoSounder*`) bleiben stehen und wirken auf 26.3 nicht mehr (Stufe 9: ausblenden).
+- Ids: ITEM/RECIPE `echo_sounder`, ADVANCEMENT `recipes/tools/echo_sounder` per `SimpleGadgets.MOVED_ITEMS` (IdMoves); `simplebuilding:echo_compass` läuft über
+  `LegacyItemIds` auf `simplebuilding:echo_sounder` und von dort weiter. `ModTags.ENDERITE_NAMESPACES` kennt `GADGETS_NAMESPACE` (Tag `enderite_items`).
+- SB: Datagen (Rezept/Modelle nur bei `GADGETS_IN_SB`; Tag/Erfolg per Id), `mc26_3/generated` (Tags, Rezept/Erfolg entfernt, `removed-on-26.3.txt`),
+  Tests mit `GADGETS_IN_SB`-Wächter bzw. `GadgetRefs.echo()`; Erfolg „Broken Record“ prüft auf 26.3 das Ereignis.
+- Tests im Modul: `EchoTests` (13: Rezept, Registrierung/Namen, Verknüpfen+Sprung, Unbreaking, Stapel/Kreativ, Ladezeit/Loslassen, leer nach Sprung,
+  Aufladen per Mending, Riss-Sprung samt Ereignissen, gesperrte Dimension + Schalter, Abklingzeit, kein Neuverknüpfen, Sperre nach Versuch), Migration eines
+  alten Stapels, Registrierung.
+- Nicht gemacht: JEI-Infoseite des Echolots auf 26.3 (wie bei Messuhr/Stab), Client-Läufe, NeoForge/Forge, Wiki-/Ebenen-Neuerzeugung (Bündel-gen).

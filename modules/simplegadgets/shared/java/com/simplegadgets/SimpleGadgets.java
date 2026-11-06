@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Simple Gadgets (OW24-2, docs/ai/PLAN-B-GADGETS24-2026-10-24.md; family plan 2026-10-16): the gadgets you hold and use -
- * measure, turn, pull, locate - moved out of SimpleBuilding stage by stage. Stage G1: the Gauge ({@code velocity_gauge}); stage G2: the Transposer ({@code rotator}) and the Resonance Rod ({@code amethyst_lens}).
+ * measure, turn, pull, locate - moved out of SimpleBuilding stage by stage. Stage G1: the Gauge ({@code velocity_gauge}); stage G2: the Transposer ({@code rotator}) and the Resonance Rod ({@code amethyst_lens}); stage G4: the Echo Sounder ({@code echo_sounder}).
  * The loader entry point calls {@link #init} once before it registers anything, so the id moves out of SimpleBuilding are
  * known in time.
  */
@@ -20,7 +20,7 @@ public final class SimpleGadgets {
     /** The mod the gadgets came from; old worlds hold its ids. */
     public static final String OLD_NAMESPACE = "simplebuilding";
     /** The moved items with their recipe unlock folder ({@code recipes/<folder>/<path>}), in tab order. */
-    public static final List<String> MOVED_ITEMS = List.of("velocity_gauge", "rotator", "amethyst_lens");
+    public static final List<String> MOVED_ITEMS = List.of("echo_sounder", "velocity_gauge", "rotator", "amethyst_lens");
 
     private static boolean movesRegistered;
 

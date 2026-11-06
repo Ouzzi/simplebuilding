@@ -90,6 +90,19 @@ public final class GadgetsTests {
         ALL.put("rod_the_resonance_rod_scans_creatures_but_not_players", RodTests::theResonanceRodScansCreaturesButNotPlayers);
         ALL.put("rod_the_laser_switches_stop_what_the_beam_ignites", RodTests::theLaserSwitchesStopWhatTheBeamIgnites);
         ALL.put("rod_lens_beam_leaves_blocks_the_loader_events_protect", RodTests::lensBeamLeavesBlocksTheLoaderEventsProtect);
+        ALL.put("echo_the_echo_sounder_is_crafted_from_the_recovery_compass_a_core_and_seven_nuggets", EchoTests::theEchoSounderIsCraftedFromTheRecoveryCompassACoreAndSevenNuggets);
+        ALL.put("echo_the_echo_sounder_is_registered_and_named", EchoTests::theEchoSounderIsRegisteredAndNamed);
+        ALL.put("echo_the_echo_sounder_links_to_the_lodestone_and_teleports_without_any_pearl", EchoTests::theEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl);
+        ALL.put("echo_a_jump_empties_the_whole_charge_even_with_unbreaking", EchoTests::aJumpEmptiesTheWholeChargeEvenWithUnbreaking);
+        ALL.put("echo_the_echo_sounder_honors_stack_capacity_and_creative_mode", EchoTests::theEchoSounderHonorsStackCapacityAndCreativeMode);
+        ALL.put("echo_the_echo_sounder_charges_for_three_seconds_and_releasing_early_costs_nothing", EchoTests::theEchoSounderChargesForThreeSecondsAndReleasingEarlyCostsNothing);
+        ALL.put("echo_a_full_charge_jumps_and_leaves_the_echo_sounder_empty", EchoTests::aFullChargeJumpsAndLeavesTheEchoSounderEmpty);
+        ALL.put("echo_the_echo_sounder_is_only_charged_again_after_all_its_repair_points", EchoTests::theEchoSounderIsOnlyChargedAgainAfterAllItsRepairPoints);
+        ALL.put("echo_a_cracked_echo_sounder_charges_twice_as_long_and_shatters_after_the_jump", EchoTests::aCrackedEchoSounderChargesTwiceAsLongAndShattersAfterTheJump);
+        ALL.put("echo_a_blocked_jump_costs_nothing", EchoTests::aBlockedJumpCostsNothing);
+        ALL.put("echo_the_cooldown_after_a_jump_is_twenty_four_seconds", EchoTests::theCooldownAfterAJumpIsTwentyFourSeconds);
+        ALL.put("echo_the_echo_sounder_does_not_relink_the_lodestone_it_is_linked_to", EchoTests::theEchoSounderDoesNotRelinkTheLodestoneItIsLinkedTo);
+        ALL.put("echo_the_echo_sounder_locks_for_up_to_five_seconds_after_an_attempt_depending_on_the_distance", EchoTests::theEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance);
         ALL.put("discover_recipe_unlocks", com.simplegadgets.discover.GadgetsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplegadgets.discover.GadgetsDiscover::behaviourHints);
         ALL.put("guide_book", com.simplegadgets.guide.GadgetsGuide::gameTest);
@@ -127,6 +140,11 @@ public final class GadgetsTests {
                 || !(GadgetsRegistry.AMETHYST_LENS instanceof com.simplelib.api.AnvilRechargeable)
                 || new ItemStack(GadgetsRegistry.AMETHYST_LENS).getMaxDamage() != com.simplegadgets.config.GadgetsConfig.rodMaxCharge) {
             problems.add("rod item " + GadgetsRegistry.AMETHYST_LENS);
+        }
+        if (!(GadgetsRegistry.ECHO_SOUNDER instanceof com.simplegadgets.echo.EchoSounderItem)
+                || !BuiltInRegistries.ITEM.getKey(GadgetsRegistry.ECHO_SOUNDER).equals(SimpleGadgets.id("echo_sounder"))
+                || new ItemStack(GadgetsRegistry.ECHO_SOUNDER).getMaxDamage() != com.simplegadgets.config.GadgetsConfig.echoMaxCharge) {
+            problems.add("echo sounder item " + GadgetsRegistry.ECHO_SOUNDER);
         }
         if (!BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleGadgets.id("lens_measurement"))) problems.add("lens_measurement component");
         if (!BuiltInRegistries.ITEM.containsKey(SimpleGadgets.id("guide_book"))) problems.add("guide book");
@@ -251,6 +269,27 @@ public final class GadgetsTests {
             String saved = ItemStack.CODEC.encodeStart(ops, rod).result().map(Object::toString).orElse("");
             if (!saved.contains("simplegadgets:amethyst_lens") || saved.contains("simplebuilding:")) problems.add("old rod saves " + saved);
         }
+        // The Echo Sounder (G4): an old stack keeps its damage and its lodestone link, and a saved chest slot loads it.
+        CompoundTag echoTag = new CompoundTag();
+        echoTag.putString("id", "simplebuilding:echo_sounder");
+        echoTag.putInt("count", 1);
+        CompoundTag echoComponents = new CompoundTag();
+        echoComponents.putInt("minecraft:damage", 300);
+        CompoundTag tracker = new CompoundTag();
+        CompoundTag trackerTarget = new CompoundTag();
+        trackerTarget.putString("dimension", "minecraft:overworld");
+        trackerTarget.putIntArray("pos", new int[]{10, 64, -20});
+        tracker.put("target", trackerTarget);
+        tracker.putBoolean("tracked", true);
+        echoComponents.put("minecraft:lodestone_tracker", tracker);
+        echoTag.put("components", echoComponents);
+        ItemStack echo = ItemStack.CODEC.parse(ops, echoTag).result().orElse(ItemStack.EMPTY);
+        if (!echo.is(GadgetsRegistry.ECHO_SOUNDER) || echo.getDamageValue() != 300 || com.simplegadgets.echo.EchoSounderItem.target(echo) == null) {
+            problems.add("old Echo Sounder loads as " + echo + " damage " + echo.getDamageValue());
+        } else if (!ItemStack.CODEC.encodeStart(ops, echo).result().map(t -> ((CompoundTag) t).getStringOr("id", "")).orElse("").equals("simplegadgets:echo_sounder")) {
+            problems.add("old Echo Sounder saves with the old id");
+        }
+        // The old Echo Compass id of 2026-09 (simplebuilding:echo_compass) is handled by SimpleBuilding's LegacyItemIds, which chains on to the new id.
         helper.assertTrue(problems.isEmpty(), "migration: " + problems);
         helper.succeed();
     }

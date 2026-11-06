@@ -154,10 +154,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/echo_sounder",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enchanted_enderite_apple",
       "required": false
     },
@@ -435,6 +431,10 @@
     },
     {
       "id": "simplemoney:links/simpleenddragonfight/dragon_chitin",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplegadgets/echo_sounder",
       "required": false
     },
     {

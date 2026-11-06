@@ -835,7 +835,7 @@ public final class TestCentreTests {
         Set<Integer> crackStages = new HashSet<>();
         boolean repaired = false;
         for (ItemStack stack : frames.values()) {
-            if (stack.is(TweaksItems.ECHO_COMPASS)) {
+            if (stack.is(com.simplebuilding.util.GadgetRefs.echo())) {
                 if (stack.isDamaged()) {
                     // Wie das Item-Modell: normierter Schaden, Schwellen 0, 1/3, 2/3.
                     crackStages.add(Math.min(2, (int) (3.0F * stack.getDamageValue() / stack.getMaxDamage())));

@@ -1626,6 +1626,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Echolot/Echo Sounder (Id echo_sounder; Besitzer 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten links,
                 // sieben Enderit-Nuggets aussen herum, oben mittig inzwischen auch ein Nugget
+                // OW24-2 G4: on 26.3 the Echo Sounder and its recipe are Simple Gadgets' (modules/simplegadgets).
+                if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) {
                 shaped(RecipeCategory.TOOLS, TweaksItems.ECHO_COMPASS)
                         .pattern("NNN")
                         .pattern("NRN")
@@ -1635,6 +1637,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('R', Items.RECOVERY_COMPASS)
                         .unlockedBy(getHasName(Items.RECOVERY_COMPASS), has(Items.RECOVERY_COMPASS))
                         .save(output);
+                }
 
                 // Amethystlinse (Id amethyst_lens; Simple Tweaks hatte kein Rezept): Eisen-Baukern in
                 // der Mitte, Amethystsplitter rechts, Redstone rechts oben und unten,

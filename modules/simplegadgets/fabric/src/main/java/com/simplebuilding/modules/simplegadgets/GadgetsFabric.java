@@ -60,7 +60,10 @@ public final class GadgetsFabric implements ModInitializer {
             }
             return com.simplegadgets.rotator.ArmorPoses.use(player, stand, held);
         });
-        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> com.simplegadgets.rotator.RotatorItem.onDisconnect(handler.player));
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+            com.simplegadgets.rotator.RotatorItem.onDisconnect(handler.player);
+            com.simplegadgets.echo.EchoSounderItem.onDisconnect(handler.player);
+        });
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplegadgets.rotator.RotatorItem.clearAll());
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplegadgets.guide.GadgetsGuide.installQuests(FabricLoader.getInstance().getConfigDir());
     }

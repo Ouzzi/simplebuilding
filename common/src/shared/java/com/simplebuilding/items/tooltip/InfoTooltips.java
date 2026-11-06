@@ -195,7 +195,7 @@ public final class InfoTooltips {
         uses.put(ModItems.DIAMOND_CORE, List.of(ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_CORE,
                 TweaksBlocks.ELYTRA_PAD.asItem()));
         uses.put(ModItems.NETHERITE_CORE, List.of(ModItems.ENDERITE_CORE, TweaksBlocks.POTION_PAD.asItem()));
-        uses.put(ModItems.ENDERITE_CORE, List.of(TweaksItems.ECHO_COMPASS, TweaksBlocks.FLYPAD.asItem()));
+        uses.put(ModItems.ENDERITE_CORE, List.of(com.simplebuilding.util.GadgetRefs.echo(), TweaksBlocks.FLYPAD.asItem()));
         return uses;
     }
 
