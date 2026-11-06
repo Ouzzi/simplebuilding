@@ -92,7 +92,7 @@ def slab_elements(img, run_axis, run, depth, front, back, texture="#top", cull=N
             faces = {}
             for face_info in (front, back):
                 name, uv, _ = face_info
-                l, r = frac(face_info, i)[0], frac(face_info, j - 1)[1]
+                l, r = (frac(face_info, i)[0], frac(face_info, j - 1)[1]) if face_info[2] else (frac(face_info, j - 1)[0], frac(face_info, i)[1])
                 f = {"texture": texture, "uv": _part_uv(uv, l, r, (15 - y) / 16, (16 - y) / 16)}
                 if name in cull:
                     f["cullface"] = cull[name]
