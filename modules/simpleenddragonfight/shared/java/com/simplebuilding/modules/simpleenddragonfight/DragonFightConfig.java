@@ -23,7 +23,7 @@ public final class DragonFightConfig {
     public static final List<String> KEYS = List.of("enabled", "raiseBaseHealth", "maxPlayers", "countCreative", "leaveGraceSeconds",
             "islandRadius", "speedMultiplier", "speedPerPlayer", "speedCap", "crystalHealScaling", "mitesEnabled", "waveIntervalSeconds",
             "miteBase", "miteExtraPerTwoPlayers", "maxAliveMites", "animationEnabled", "animationTicks", "maxQueued", "exposeSpawnEgg", "summonScaling", "summonMaxMultiplier", "summonSpeedCap",
-            "rewardEnabled", "rewardFromDragon", "rewardItem", "rewardJewelFromDragon", "rewardJewelItem", "tintFromDragon", "summonAttackCap", "tintJewelFromDragon");
+            "rewardEnabled", "rewardFromDragon", "rewardItem", "rewardJewelFromDragon", "rewardJewelItem", "tintFromDragon", "summonAttackCap", "tintJewelFromDragon", "xpPerFight", "xpMax", "miteExtraPerSummons");
 
     public static boolean enabled = true;
     /** On: 300 health per counted player; off: the Vanilla base (200) per player. */
@@ -65,6 +65,13 @@ public final class DragonFightConfig {
     public static int tintJewelFromDragon = 10;
     /** Damage the dragon deals never rises above this factor through summonings (health and speed follow summonMaxMultiplier). */
     public static double summonAttackCap = 2.0;
+
+    /** Extra XP per further defeated dragon: fight n (n >= 2) drops 500 + xpPerFight * (n - 1) in total; 0 = Vanilla (500). */
+    public static int xpPerFight = 250;
+    /** Highest total XP of one dragon fight from the 2nd on (the 1st keeps the Vanilla 12000). */
+    public static int xpMax = 5000;
+    /** One more Dragonmite per wave for every n further summonings; 0 = off. */
+    public static int miteExtraPerSummons = 3;
 
     private DragonFightConfig() {}
 
@@ -125,6 +132,9 @@ public final class DragonFightConfig {
         tintFromDragon = clamp(integer(json, "tintFromDragon", 4), 0, 1000);
         tintJewelFromDragon = clamp(integer(json, "tintJewelFromDragon", 10), 0, 1000);
         summonAttackCap = clamp(number(json, "summonAttackCap", 2.0), 1.0, 10.0);
+        xpPerFight = clamp(integer(json, "xpPerFight", 250), 0, 5000);
+        xpMax = clamp(integer(json, "xpMax", 5000), 500, 100000);
+        miteExtraPerSummons = clamp(integer(json, "miteExtraPerSummons", 3), 0, 50);
     }
 
     public static JsonObject toJson() {
@@ -159,6 +169,9 @@ public final class DragonFightConfig {
         o.addProperty("tintFromDragon", tintFromDragon);
         o.addProperty("tintJewelFromDragon", tintJewelFromDragon);
         o.addProperty("summonAttackCap", summonAttackCap);
+        o.addProperty("xpPerFight", xpPerFight);
+        o.addProperty("xpMax", xpMax);
+        o.addProperty("miteExtraPerSummons", miteExtraPerSummons);
         return o;
     }
 

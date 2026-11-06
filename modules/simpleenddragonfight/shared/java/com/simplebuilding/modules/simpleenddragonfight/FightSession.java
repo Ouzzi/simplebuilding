@@ -91,6 +91,8 @@ public final class FightSession {
             if (!dragon.getUUID().equals(defeatedId)) {
                 defeatedId = dragon.getUUID();
                 DragonRewards.onDefeated(level, defeatedId, center, players.stream().filter(p -> lastSeen.containsKey(p.getUUID())).toList());
+                int bonus = DragonScaling.bonusXp(DragonKills.get(level.getServer()).kills(), DragonFightConfig.xpPerFight, DragonFightConfig.xpMax);
+                if (bonus > 0) net.minecraft.world.entity.ExperienceOrb.award(level, dragon.position(), bonus);
             }
             return;
         }
@@ -143,7 +145,7 @@ public final class FightSession {
         }
         double speed = DragonScaling.speed(DragonFightConfig.speedMultiplier, DragonFightConfig.speedPerPlayer, DragonFightConfig.speedCap, players);
         DragonFightServer.setFactors(dragon.getUUID(), DragonScaling.damageFactor(target),
-                (float) Math.min(Math.max(speed, DragonFightConfig.summonSpeedCap), speed * summon), (float) Math.min(summon, DragonFightConfig.summonAttackCap));
+                DragonScaling.summonSpeed(speed, summon, DragonFightConfig.summonSpeedCap), (float) Math.min(summon, DragonFightConfig.summonAttackCap));
     }
 
     /** Back to Vanilla (module or switch off): removes the modifier, keeps the health share. */
@@ -223,7 +225,7 @@ public final class FightSession {
         int n = DragonScaling.players(lastSeen.size(), DragonFightConfig.maxPlayers);
         int alive = aliveMites(level, dragon.getUUID(), center);
         int room = DragonScaling.maxAlive(DragonFightConfig.maxAliveMites, n) - alive;
-        int want = Math.min(room, DragonScaling.mitesPerWave(DragonFightConfig.miteBase, DragonFightConfig.miteExtraPerTwoPlayers, n));
+        int want = Math.min(room, DragonScaling.mitesPerWave(DragonFightConfig.miteBase, DragonFightConfig.miteExtraPerTwoPlayers, n, DragonFightConfig.miteExtraPerSummons, summons));
         Player preferred = dragon.getLastHurtByPlayer();
         int spawned = 0;
         for (int i = 0; i < want; i++) {

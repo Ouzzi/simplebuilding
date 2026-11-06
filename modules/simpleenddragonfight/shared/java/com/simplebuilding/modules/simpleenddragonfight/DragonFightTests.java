@@ -265,6 +265,31 @@ public final class DragonFightTests {
                     && near(DragonScaling.summonFactor(0.15, 3.0, 40), 3.0) && near(DragonScaling.summonFactor(0.0, 3.0, 5), 1.0), "+15 % per summoning, capped");
             h.succeed();
         });
+        add("curve_and_xp", h -> {
+            double ph = 0, ps = 0, pa = 0; int pm = 0, px = 0; double hs = 0;
+            for (int s = 0; s <= 40; s++) {
+                double f = DragonScaling.summonFactor(0.15, 3.0, s);
+                float sp = DragonScaling.summonSpeed(1.2, f, 2.0);
+                double at = Math.min(f, 2.0);
+                int m = DragonScaling.mitesPerWave(2, 1, 1, 3, s);
+                h.assertTrue(f >= ph && sp >= ps && at >= pa && m >= pm, "difficulty never drops at summoning " + s);
+                h.assertTrue(f - ph <= 0.151 && sp - ps <= 0.2f, "no jumps at summoning " + s);
+                h.assertTrue(f <= 3.0 + 1e-9 && sp <= 2.0f + 1e-6 && at <= 2.0, "caps hold at summoning " + s);
+                ph = f; ps = sp; pa = at; pm = m;
+            }
+            h.assertTrue(DragonScaling.mitesPerWave(2, 1, 1, 3, 0) == 2 && DragonScaling.mitesPerWave(2, 1, 1, 3, 6) == 4 && DragonScaling.mitesPerWave(2, 1, 1, 0, 6) == 2, "one more mite per 3 summonings, 0 = off");
+            h.assertTrue(DragonScaling.bonusXp(1, 250, 5000) == 0, "fight 1 keeps Vanilla 12000");
+            h.assertTrue(DragonScaling.bonusXp(4, 250, 5000) == 750 && DragonScaling.bonusXp(10, 250, 5000) == 2250, "fight 4 = 1250 total, fight 10 = 2750 total");
+            h.assertTrue(DragonScaling.bonusXp(500, 250, 5000) == 4500 && DragonScaling.bonusXp(19, 250, 5000) == 4500, "total capped at 5000");
+            h.assertTrue(DragonScaling.bonusXp(10, 0, 5000) == 0 && DragonScaling.bonusXp(3, 250, 100) == 0, "0 = Vanilla, cap never below Vanilla");
+            for (int k = 2; k < 60; k++) {
+                int x = DragonScaling.bonusXp(k, 250, 5000);
+                h.assertTrue(x >= px, "xp never drops at fight " + k);
+                px = x;
+            }
+            h.assertTrue(px == 4500, "xp curve rises to the cap");
+            h.succeed();
+        });
         add("summon_scaling", h -> {
             ServerLevel level = h.getLevel();
             EnderDragon d = dragon(h);
