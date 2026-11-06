@@ -1,6 +1,8 @@
 {
   "values": [
     "simpleores:sage_ore",
-    "simpleores:deepslate_sage_ore"
+    "simpleores:deepslate_sage_ore",
+    "simpleores:nether_sage_ore",
+    "simpleores:end_sage_ore"
   ]
 }

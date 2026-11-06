@@ -18,7 +18,7 @@ public final class OresConfig {
     public static final String FILE = "simpleores-server.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords",
-            "sageOre", "dimensionalScrap");
+            "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance");
 
     /** Simple Arrows' option since 03.11. (simplearrows-server.json); an old file keeps it for that one takeover. */
     public static final String LEGACY_ARROW_KEY = "silverArrowUndeadBonus";
@@ -36,6 +36,11 @@ public final class OresConfig {
     public static boolean sageOre = true;
     /** IG31-13: new Dimensional Scrap in all three dimensions (moved from SimpleBuilding). */
     public static boolean dimensionalScrap = true;
+
+    /** 06.11.: Sage Ore also in the Nether and the End (drops sage crystal shards). */
+    public static boolean sageOreOtherDimensions = true;
+    /** 06.11.: percent chance per Nether gold ore block of a vein (below Y 31, at most one per vein) to be Nether Rose Gold Ore instead (0 to 10). */
+    public static double roseGoldOreChance = 2.0;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -66,6 +71,8 @@ public final class OresConfig {
         soundproofRecords = bool(json, "soundproofRecords", false);
         sageOre = bool(json, "sageOre", true);
         dimensionalScrap = bool(json, "dimensionalScrap", true);
+        sageOreOtherDimensions = bool(json, "sageOreOtherDimensions", true);
+        roseGoldOreChance = number(json, "roseGoldOreChance", 2.0, 0.0, 10.0);
     }
 
     private static boolean bool(JsonObject json, String key, boolean fallback) {
@@ -88,6 +95,8 @@ public final class OresConfig {
         o.addProperty("soundproofRecords", soundproofRecords);
         o.addProperty("sageOre", sageOre);
         o.addProperty("dimensionalScrap", dimensionalScrap);
+        o.addProperty("sageOreOtherDimensions", sageOreOtherDimensions);
+        o.addProperty("roseGoldOreChance", roseGoldOreChance);
         return o;
     }
 

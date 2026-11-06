@@ -1,0 +1,21 @@
+{
+  "type": "simpleores:rose_gold_vein",
+  "discard_chance_on_air_exposure": 0.0,
+  "size": 10,
+  "targets": [
+    {
+      "state": "simpleores:nether_rose_gold_ore",
+      "target": {
+        "predicate_type": "minecraft:tag_match",
+        "tag": "minecraft:base_stone_nether"
+      }
+    },
+    {
+      "state": "minecraft:nether_gold_ore",
+      "target": {
+        "predicate_type": "minecraft:tag_match",
+        "tag": "minecraft:base_stone_nether"
+      }
+    }
+  ]
+}

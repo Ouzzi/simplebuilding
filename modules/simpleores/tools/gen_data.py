@@ -37,8 +37,13 @@ BLOCKS = {
     'silver_sheet': ('Silver Sheet', 'Silberblech'),
     'silver_mirror': ('Silver Mirror', 'Silberspiegel'),
     'rose_bronze_block': ('Block of Rose Copper', 'Rosenkupferblock'), 'rose_gold_block': ('Block of Rose Gold', 'Roségoldblock'),
+    # 06.11. (a-ores07): rose gold ore of the Nether, sage ores of the Nether and the End, the sage crystal block
+    'nether_rose_gold_ore': ('Nether Rose Gold Ore', 'Nether-Roségolderz'),
+    'nether_sage_ore': ('Nether Sage Ore', 'Nether-Weisheitserz'), 'end_sage_ore': ('End Sage Ore', 'End-Weisheitserz'),
+    'sage_crystal_block': ('Block of Sage Crystal', 'Weisheitskristallblock'),
 }
-ITEMS = {'raw_silver': ('Raw Silver', 'Rohsilber'), 'silver_ingot': ('Silver Ingot', 'Silberbarren'),
+ITEMS = {'sage_crystal_shard': ('Sage Crystal Shard', 'Weisheitskristallsplitter'), 'sage_crystal': ('Sage Crystal', 'Weisheitskristall'),
+         'raw_silver': ('Raw Silver', 'Rohsilber'), 'silver_ingot': ('Silver Ingot', 'Silberbarren'),
          'silver_nugget': ('Silver Nugget', 'Silberklumpen'),
          'raw_lead': ('Raw Lead', 'Rohblei'), 'lead_ingot': ('Lead Ingot', 'Bleibarren'), 'lead_nugget': ('Lead Nugget', 'Bleiklumpen')}
 for a, (en, de) in ALLOYS.items():
@@ -76,6 +81,7 @@ TEMPLATE_TEXTS = {
 }
 SCRAPS = ['dimensional_scrap', 'nether_dimensional_scrap', 'end_dimensional_scrap']
 SAGE_ORES = ['sage_ore', 'deepslate_sage_ore']
+ALL_SAGE_ORES = SAGE_ORES + ['nether_sage_ore', 'end_sage_ore']
 
 # ---------------------------------------------------------------- assets
 for path in BLOCKS:
@@ -146,7 +152,10 @@ ore_drop('deepslate_silver_ore', 'raw_silver')
 ore_drop('end_silver_ore', 'silver_nugget', (2, 6))
 ore_drop('lead_ore', 'raw_lead', (1, 2))
 ore_drop('deepslate_lead_ore', 'raw_lead', (1, 2))
-for path in ('raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block'):
+ore_drop('nether_rose_gold_ore', 'rose_gold_pressling')   # no raw rose gold exists: the pressing is the stage before the blast furnace
+ore_drop('nether_sage_ore', 'sage_crystal_shard', (1, 3))
+ore_drop('end_sage_ore', 'sage_crystal_shard', (1, 3))
+for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block'):
     self_drop(path)
 
 # ---------------------------------------------------------------- recipes (+ advancements)
@@ -176,6 +185,15 @@ storage('raw_silver', 'raw_silver_block')
 storage('silver_ingot', 'silver_block')
 storage('rose_bronze_ingot', 'rose_bronze_block')
 storage('rose_gold_ingot', 'rose_gold_block')
+storage('sage_crystal', 'sage_crystal_block')
+# 4 shards in a square make a crystal (the amethyst/quartz pattern; the crystal is the ingot-sized unit, 9 make the block)
+recipe('sage_crystal_from_shards', 'misc', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item('sage_crystal_shard')},
+                                           'pattern': ['##', '##'], 'result': result('sage_crystal')}, item('sage_crystal_shard'))
+# the Nether rose gold ore melts straight into an ingot like Nether gold ore (it drops a pressing, which only a blast furnace melts)
+recipe('rose_gold_ingot_from_smelting_nether_rose_gold_ore', 'misc', {'type': 'minecraft:smelting', 'category': 'misc', 'cookingtime': 200,
+       'experience': 1.0, 'group': 'rose_gold_ingot_ore', 'ingredient': item('nether_rose_gold_ore'), 'result': result('rose_gold_ingot')}, item('nether_rose_gold_ore'))
+recipe('rose_gold_ingot_from_blasting_nether_rose_gold_ore', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': 100,
+       'experience': 1.0, 'group': 'rose_gold_ingot_ore', 'ingredient': item('nether_rose_gold_ore'), 'result': result('rose_gold_ingot')}, item('nether_rose_gold_ore'))
 recipe('silver_ingot_from_nuggets', 'misc', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item('silver_nugget')},
                                               'pattern': ['###', '###', '###'], 'result': result('silver_ingot')}, item('silver_nugget'))
 recipe('silver_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item('silver_ingot')],
@@ -302,7 +320,11 @@ tag(f'{NS}/tags/item/breaks_dimensional_scrap.json', [{'id': 'simplebuilding:end
                                                      {'id': 'simplehammers:enderite_sledgehammer', 'required': False}])
 for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/storage_blocks/enderite.json', ids(['enderite_block']))
-    tag(f'c/tags/{kind}/ores/sage.json', ids(SAGE_ORES))
+    tag(f'c/tags/{kind}/ores/sage.json', ids(ALL_SAGE_ORES))
+    tag(f'c/tags/{kind}/ores/rose_gold.json', ids(['nether_rose_gold_ore']))
+    tag(f'c/tags/{kind}/storage_blocks/sage_crystal.json', ids(['sage_crystal_block']))
+tag('c/tags/item/ingots/sage_crystal.json', ids(['sage_crystal']))
+tag('minecraft/tags/block/guarded_by_piglins.json', ids(['nether_rose_gold_ore']))   # mining it angers piglins like gold ore
 tag('c/tags/item/ingots/enderite.json', ids(['enderite_ingot']))
 tag('c/tags/item/nuggets/enderite.json', ids(['enderite_nugget']))
 tag('c/tags/item/raw_materials/enderite.json', ids(['raw_enderite']))
@@ -323,6 +345,7 @@ for part, group in (('sword', 'swords'), ('pickaxe', 'pickaxes'), ('axe', 'axes'
     tag(f'minecraft/tags/item/{group}.json', ids([f'{a}_{part}' for a in ALLOYS]))
 tag('minecraft/tags/item/trimmable_armor.json', ids([f'{a}_{p}' for a in ALLOYS for p in ARMOR_PARTS]))
 tag('minecraft/tags/item/enchantable/durability.json', ids([f'{a}_{p}' for a in ALLOYS for p in TOOL_PARTS + ARMOR_PARTS]))
+tag(f'{NS}/tags/worldgen/biome/has_end_sage_ore.json', ['minecraft:end_highlands', 'minecraft:end_midlands', 'minecraft:end_barrens', 'minecraft:small_end_islands'])
 tag(f'{NS}/tags/worldgen/biome/has_end_silver_ore.json', ['minecraft:end_highlands', 'minecraft:end_midlands', 'minecraft:end_barrens',
                                                           'minecraft:small_end_islands'])
 
@@ -363,6 +386,29 @@ put(DATA / 'neoforge/biome_modifier/lead_ore.json', {'type': 'neoforge:add_featu
 put(DATA / 'neoforge/biome_modifier/end_silver_ore.json', {'type': 'neoforge:add_features', 'biomes': f'#{NS}:has_end_silver_ore',
                                                            'features': item('end_silver_ore'), 'step': 'underground_ores'})
 
+# 06.11.: Nether gold veins as in Vanilla (size 10, 10 and 20 tries per chunk, Y 10 to the top minus 10) whose targets list the rose gold ore first:
+# RoseGoldVeinFeature rolls it (config chance, below Y 31, one per vein). The Fabric loader swaps them for the two Vanilla placements.
+NETHERRACK = {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:base_stone_nether'}
+put(DATA / 'worldgen/feature/nether_gold_rose.json', {
+    'type': item('rose_gold_vein'), 'discard_chance_on_air_exposure': 0.0, 'size': 10,
+    'targets': [{'state': item('nether_rose_gold_ore'), 'target': NETHERRACK}, {'state': 'minecraft:nether_gold_ore', 'target': NETHERRACK}]})
+NETHER_RANGE = {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'above_bottom': 10}, 'max_inclusive': {'below_top': 10}}}
+for name, count in (('nether_gold_rose_placed', 10), ('nether_gold_deltas_rose_placed', 20)):
+    put(DATA / f'worldgen/placed_feature/{name}.json', {'feature': item('nether_gold_rose'),
+        'placement': [{'type': 'minecraft:count', 'count': count}, {'type': 'minecraft:in_square'}, NETHER_RANGE, {'type': 'minecraft:biome'}]})
+# Sage ore of the Nether and the End (moderate: veins of 4; the Overworld has 7 tries of 4 between Y -80 and 80).
+put(DATA / 'worldgen/feature/nether_sage_ore.json', {
+    'type': 'minecraft:ore', 'discard_chance_on_air_exposure': 0.3, 'size': 4, 'targets': [{'state': item('nether_sage_ore'), 'target': NETHERRACK}]})
+put(DATA / 'worldgen/placed_feature/nether_sage_ore_placed.json', {'feature': item('nether_sage_ore'),
+    'placement': [{'type': 'minecraft:count', 'count': 5}, {'type': 'minecraft:in_square'}, NETHER_RANGE, {'type': 'minecraft:biome'}]})
+put(DATA / 'worldgen/feature/end_sage_ore.json', {
+    'type': 'minecraft:ore', 'discard_chance_on_air_exposure': 0.3, 'size': 4,
+    'targets': [{'state': item('end_sage_ore'), 'target': {'predicate_type': 'minecraft:block_match', 'block': 'minecraft:end_stone'}}]})
+put(DATA / 'worldgen/placed_feature/end_sage_ore_placed.json', {'feature': item('end_sage_ore'),
+    'placement': [{'type': 'minecraft:count', 'count': 3}, {'type': 'minecraft:in_square'},
+                  {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': 20}, 'max_inclusive': {'absolute': 90}}},
+                  {'type': 'minecraft:biome'}]})
+
 # Config texts (A11: text.autoconfig.<mod>.option.<field> + .@Tooltip, "Default:"/"Standard:" in the tooltip), one row per option of OresConfig.KEYS.
 CONFIG_CATEGORIES = {'general': ('General', 'Allgemein'), 'lead': ('Lead and soundproofing', 'Blei und Schalldämmung'),
                      'materials': ('Sage Ore and Dimensional Scrap', 'Weisheitserz und Dimensionsschrott')}
@@ -385,6 +431,12 @@ CONFIG_OPTIONS = {
     'sageOre': ('materials', ('Sage Ore', 'Weisheitserz'),
                 ('Off: no new Sage Ore in the Overworld. Takes effect at the next world start in newly generated chunks.\nDefault: true.',
                  'Aus: kein neues Weisheitserz in der Oberwelt. Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true.')),
+    'sageOreOtherDimensions': ('materials', ('Sage Ore in the Nether and the End', 'Weisheitserz in Nether und End'),
+                               ('Off: no new Nether Sage Ore and End Sage Ore (they drop sage crystal shards). Takes effect at the next world start in newly generated chunks.\nDefault: true.',
+                                'Aus: kein neues Nether- und End-Weisheitserz (sie lassen Weisheitskristall-Splitter fallen). Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true.')),
+    'roseGoldOreChance': ('materials', ('Nether Rose Gold Ore chance (%)', 'Nether-Roségolderz-Chance (%)'),
+                          ('Chance in percent for each Nether gold ore block of a vein below Y 31 (the lava ocean) to be Nether Rose Gold Ore instead; a vein holds at most one. 0 = none. Range 0 to 10. Takes effect in newly generated chunks.\nDefault: 2.',
+                           'Chance in Prozent, dass ein Nethergold-Erzblock einer Ader unterhalb von Y 31 (Lava-Ozean) stattdessen Nether-Roségolderz ist; eine Ader hat höchstens eines. 0 = keines. Bereich 0 bis 10. Wirkt in neu erzeugten Chunks.\nStandard: 2.')),
     'dimensionalScrap': ('materials', ('Dimensional Scrap', 'Dimensionsschrott'),
                          ('Off: no new Dimensional Scrap in any dimension. Takes effect at the next world start in newly generated chunks.\nDefault: true.',
                           'Aus: kein neuer Dimensionsschrott in allen Dimensionen. Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true.')),
@@ -442,6 +494,16 @@ def note_summaries():
         elif p == 'silver_mirror':
             notes['block:silver_mirror'] = ('A wall decoration: a silver frame round a glass pane, one pixel thick, in four directions. Crafted from a glass pane and a silver sheet. No mechanic.',
                                             'Eine Wanddekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick, in vier Richtungen. Hergestellt aus einer Glasscheibe und einem Silberblech. Keine Mechanik.')
+        elif p == 'nether_rose_gold_ore':
+            notes['block:nether_rose_gold_ore'] = ('Hides in Nether gold veins: each gold ore block of a vein below Y 31 (the lava ocean) has a 2 % chance (config roseGoldOreChance) to be this ore instead, and a vein holds at most one. Needs an iron pickaxe. Drops a rose gold pressing (Fortune helps, Silk Touch keeps the ore); the ore itself melts into a rose gold ingot. Angers piglins like gold ore.',
+                                                   'Versteckt sich in Nethergold-Adern: jeder Golderzblock einer Ader unterhalb von Y 31 (Lava-Ozean) ist mit 2 % Chance (Config roseGoldOreChance) stattdessen dieses Erz, und eine Ader hat höchstens eines. Braucht eine Eisenspitzhacke. Lässt einen Roségold-Pressling fallen (Glück hilft, Behutsamkeit behält das Erz); das Erz selbst schmilzt zu einem Roségoldbarren. Erzürnt Piglins wie Golderz.')
+        elif p in ('nether_sage_ore', 'end_sage_ore'):
+            where_en, where_de = ('in netherrack, 5 veins of 4 per chunk, Y 10 to the ceiling', 'in Netherrack, 5 Adern zu 4 je Chunk, Y 10 bis zur Decke') if p == 'nether_sage_ore' else (
+                'in End stone on the outer islands, 3 veins of 4 per chunk, Y 20 to 90', 'im Endstein der äußeren Inseln, 3 Adern zu 4 je Chunk, Y 20 bis 90')
+            notes[f'block:{p}'] = (f'Found {where_en}. Needs an iron pickaxe. Drops 1 to 3 sage crystal shards (Fortune helps, Silk Touch keeps the ore) and 2 to 5 experience.',
+                                   f'Zu finden {where_de}. Braucht eine Eisenspitzhacke. Lässt 1 bis 3 Weisheitskristall-Splitter (Glück hilft, Behutsamkeit behält das Erz) und 2 bis 5 Erfahrung fallen.')
+        elif p == 'sage_crystal_block':
+            notes['block:sage_crystal_block'] = ('Nine sage crystals; craftable both ways.', 'Neun Weisheitskristalle; in beide Richtungen herstellbar.')
         elif p.endswith('_ore'):
             drop_en, drop_de = ('2 to 6 silver nuggets', '2 bis 6 Silberklumpen') if p == 'end_silver_ore' else ('raw silver', 'Rohsilber')
             where_en, where_de = ('on the outer End islands', 'auf den äußeren End-Inseln') if p == 'end_silver_ore' else (
@@ -479,6 +541,8 @@ def note_summaries():
                                                'Schmiedevorlage der Aufwertungen von Netherit zu Enderit. In Endstadt-Truhen (30 %); 7 Diamanten und ein Endstein kopieren sie (2).')
     notes['item:sage_orb'] = ('Rare drop of sage ore. Right-click charges it for 0.3 seconds, then it gives 50 to 100 experience and is used up.',
                               'Seltener Drop des Weisheitserzes. Rechtsklick lädt sie 0,3 Sekunden, dann gibt sie 50 bis 100 Erfahrung und ist verbraucht.')
+    notes['item:sage_crystal_shard'] = ('Dropped by the Nether and End sage ore. Four in a square make a sage crystal.', 'Fällt aus dem Nether- und End-Weisheitserz. Vier im Quadrat ergeben einen Weisheitskristall.')
+    notes['item:sage_crystal'] = ('The ingot-sized sage material: four shards in a square make one, nine make a block of sage crystal (and back).', 'Das barrengroße Weisheitsmaterial: vier Splitter im Quadrat ergeben einen, neun einen Weisheitskristallblock (und zurück).')
     notes['item:raw_lead'] = ('Mined from lead ore; smelt it in a furnace or blast furnace for a lead ingot.', 'Aus Bleierz gewonnen; im Ofen oder Hochofen zum Bleibarren schmelzen.')
     notes['item:lead_ingot'] = ('Lead ingot: nine make a block of lead. The leash item keeps its name Lead.', 'Bleibarren: neun ergeben einen Bleiblock. Die Leine behält ihren Namen Leine.')
     notes['item:lead_nugget'] = ('Nine make a lead ingot.', 'Neun ergeben einen Bleibarren.')
@@ -608,6 +672,20 @@ FEATURES = [
              ['Allein: Endstadt-Truhen enthalten Enderitplatten (15 %), die Enderit-Aufwertung (30 %) und rohe Enderitfragmente oder -klumpen; mit SimpleBuilding füllt dieses die Truhen selbst.',
               'Kette: 4 rohe Fragmente -> rohe Enderitplatten (Werkbank), die nur im Hochofen zu Enderitplatten schmelzen; 4 Platten + 4 Diamanten + 1 Netheritbarren -> Enderitbarren; 9 Barren <-> Block, 9 Klumpen <-> Barren.',
               'Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie.'])),
+    feature('nether_rose_gold', [f'{JAVA}/RoseGoldVeinFeature.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/feature/nether_gold_rose.json'],
+            ('Nether Rose Gold Ore', 'A rare rose gold find hidden in the Nether gold veins, deep down in the heat.',
+             ['Worldgen: the Vanilla Nether gold veins (Nether and Basalt Deltas, same numbers) can hold ONE Nether Rose Gold Ore each: every gold ore block of a vein has a chance (config roseGoldOreChance, 2 % by default, 0 to 10) to be rose gold ore instead, but only below Y 31, the level of the lava ocean (deeper means hotter), and never more than one per vein.',
+              'Drop: a rose gold pressling (Fortune helps, Silk Touch keeps the ore), the stage before the blast furnace; there is no raw rose gold. The ore itself also melts into a rose gold ingot (furnace or blast furnace). Iron pickaxe; piglins get angry like at gold ore.']),
+            ('Nether-Roségolderz', 'Ein seltener Roségold-Fund, versteckt in den Nethergold-Adern, tief unten in der Hitze.',
+             ['Weltgenerierung: die Vanilla-Nethergold-Adern (Nether und Basaltdeltas, gleiche Zahlen) können je EIN Nether-Roségolderz enthalten: jeder Golderzblock einer Ader ist mit einer Chance (Config roseGoldOreChance, Standard 2 %, 0 bis 10) stattdessen Roségolderz, aber nur unterhalb von Y 31, der Höhe des Lava-Ozeans (tiefer heißt heißer), und nie mehr als eines je Ader.',
+              'Drop: ein Roségold-Pressling (Glück hilft, Behutsamkeit behält das Erz), die Vorstufe zum Hochofen; rohes Roségold gibt es nicht. Das Erz selbst schmilzt auch zu einem Roségoldbarren (Ofen oder Hochofen). Eisenspitzhacke; Piglins werden wie bei Golderz wütend.'])),
+    feature('sage_crystal', [f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/sage_crystal_from_shards.json', f'{DATAP}/worldgen/placed_feature/nether_sage_ore_placed.json', f'{DATAP}/worldgen/placed_feature/end_sage_ore_placed.json'],
+            ('Sage Crystal', 'The ingot-sized material of the sage family, found as shards in the Nether and the End.',
+             ['Nether Sage Ore (in netherrack, 5 veins of 4 per chunk) and End Sage Ore (in End stone on the outer islands, 3 veins of 4 per chunk) drop 1 to 3 sage crystal shards and 2 to 5 experience (Fortune helps, Silk Touch keeps the ore). The switch sageOreOtherDimensions turns both off.',
+              'Crafting: 4 shards in a square make a sage crystal; 9 crystals make a block of sage crystal and back. The crystal is in the ingots family (tag c:ingots/sage_crystal); it has no use yet.']),
+            ('Weisheitskristall', 'Das barrengroße Material der Weisheits-Familie, als Splitter im Nether und im End zu finden.',
+             ['Nether-Weisheitserz (im Netherrack, 5 Adern zu 4 je Chunk) und End-Weisheitserz (im Endstein der äußeren Inseln, 3 Adern zu 4 je Chunk) lassen 1 bis 3 Weisheitskristall-Splitter und 2 bis 5 Erfahrung fallen (Glück hilft, Behutsamkeit behält das Erz). Der Schalter sageOreOtherDimensions schaltet beide ab.',
+              'Herstellen: 4 Splitter im Quadrat ergeben einen Weisheitskristall; 9 Kristalle ergeben einen Weisheitskristallblock und zurück. Der Kristall gehört zur Barren-Familie (Tag c:ingots/sage_crystal); er hat noch keinen Nutzen.'])),
     feature('sage_and_scrap', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/DimensionalScrapBlock.java', f'{JAVA}/item/SageOrbItem.java',
                                f'{DATAP}/worldgen/placed_feature/sage_ore_placed.json', f'{DATAP}/worldgen/placed_feature/dimensional_scrap_placed.json'],
             ('Sage Ore and Dimensional Scrap', 'Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.',
@@ -622,12 +700,12 @@ FEATURES = [
             ('Server settings', 'config/simpleores-server.json (or /simpleores config), read at start; every value is clamped to its range.',
              ['enabled (true): off stops new silver and lead veins on Fabric and hides the module\'s creative entries; blocks and items that exist keep working.',
               'soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.',
-              'sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding\'s config).',
+              'sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding\'s config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).',
               'With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off.']),
             ('Server-Einstellungen', 'config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.',
              ['enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.',
               'soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.',
-              'sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding).',
+              'sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).',
               'Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus.'])),
 ]
 put(MODULE / 'wiki/manual.json', manual())

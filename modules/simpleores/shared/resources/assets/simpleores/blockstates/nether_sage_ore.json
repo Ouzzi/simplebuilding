@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpleores:block/nether_sage_ore"
+    }
+  }
+}
