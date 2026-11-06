@@ -8,7 +8,7 @@ Own pixels (committed with layer sources, `--write`):
     a cool tint over the grain and a few shard glints (blazewood's way: the wood in the material's colours).
   - a-astral07 (owner 06.11.: "Astralit wood should have the Astralit animation in the wood's grooves, like blazewood"): the
     Nihilit planks are the only wood of these colours, so they become a 16-frame strip (frametime 4, interpolate, blazewood's
-    rhythm): the resting frame stays the accepted texture, only the grooves (seam tones + shard glints) breathe in Astralit rose.
+    rhythm): owner 06.11. (ASTRAL07 A): the resting frame is the REAL ashwood/duskwood plank of Simple End, only its grooves breathe softly in Astralit rose.
     Variant A (built): every connected groove breathes by itself; B (preview only): one diagonal wave runs over all grooves.
 Book designs of the chiseled bookshelves (shelves01_2026_11_04.books_overlay, variants A/B) live in the shelves01 script.
 
@@ -80,15 +80,16 @@ def nihil_planks(wood):
 ASTRAL_ROSE = (237, 184, 223)   # the light tone of astralit_block, the Astralit glow
 FRAMES = 16
 ANIM = {'animation': {'interpolate': True, 'frametime': 4}}
-AMOUNT = 0.4
-NIHIL_BASE = 'Basis: Nihilit-Bretter'
+AMOUNT = 0.3
+NIHIL_BASE = 'Basis: End-Bretter'
 
 
 def nihil_strip(wood, style='A'):
     """16-frame strip of the Nihilit planks: resting frame = nihil_planks(); only the grooves (the two darkest seam tones and the
     shard glints) move: style A every connected groove breathes with its own phase (blazewood), B a diagonal wave."""
-    src = nihil_planks(wood)
-    groove = {tuple(c) + (255,) for c in COOL[:2]} | {TEAL + (255,)}
+    src = Image.open(END_BLOCK / f'{wood}_planks.png').convert('RGBA').crop((0, 0, 16, 16))   # owner: the real End planks
+    tones = sorted({src.getpixel((x, y)) for x in range(16) for y in range(16)}, key=lum)
+    groove = set(tones[:2])      # the grooves = the two darkest tones (board gaps)
     glow = [(x, y) for y in range(16) for x in range(16) if src.getpixel((x, y)) in groove]
     rnd = random.Random(7)
     phase = {}
