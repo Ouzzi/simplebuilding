@@ -206,8 +206,10 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def mixinaudit = requested == 'mixinaudit'
         // 'vis24' / 'vis24all' (Client-Sicht 24.10.): every screen opened and photographed (Vis24ClientTest), alone or after all module smokes.
         def vis = requested in ['vis24', 'vis24all']
-        def entries = (audit || bench || compat || bs25 || mixinaudit || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
-        if (requested && !audit && !bench && !compat && !bs25 && !mixinaudit && !vis && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
+        // 'b09tools' is no module either: b-client09, the Simple Chisels / Simple Building Tools look (B09ToolsClientTest).
+        def b09 = requested == 'b09tools'
+        def entries = (audit || bench || compat || bs25 || mixinaudit || b09 || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
+        if (requested && !audit && !bench && !compat && !bs25 && !mixinaudit && !vis && !b09 && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
             entrypoints:['fabric-client-gametest':audit ? ['com.simplebuilding.integration.clienttest.ModelAuditClientTest']
@@ -215,8 +217,9 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
                 : compat ? ['com.simplebuilding.integration.clienttest.CompatClientTest']
                 : bs25 ? ['com.simplebuilding.integration.clienttest.Bs25DeathClientTest']
                 : mixinaudit ? ['com.simplebuilding.integration.clienttest.MixinAuditClientTest']
+                : b09 ? ['com.simplebuilding.integration.clienttest.B09ToolsClientTest']
                 : entries.collectMany { it.tests.client.entrypoints } + (vis ? ['com.simplebuilding.integration.clienttest.Vis24ClientTest'] : [])],
-            depends:(audit || bs25 || mixinaudit || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
+            depends:(audit || bs25 || mixinaudit || b09 || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
                 def producer = registry.modules.find { it.id == requiredId }
                 [(producer?.modId ?: requiredId):'*']
             }]

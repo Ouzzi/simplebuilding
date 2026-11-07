@@ -482,7 +482,7 @@ public final class ClientBootstrapClientTest {
         assertNoScreen(script, "a plain stone block in the main hand");
         script.shot("bootstrap-a-settings-key-plain-item");
 
-        giveMainHand(script, "simplebuilding:octant");
+        giveMainHand(script, "" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant");
 
         script.act("the octant in hand carries no enchantment", client -> {
             String problem = null;
@@ -521,7 +521,7 @@ public final class ClientBootstrapClientTest {
         // plain octant" would switch the manager off for all sixteen colours and leave every
         // client test green. One colour is enough to catch that; the server side walks all
         // sixteen in allOctantColoursShareDurabilityAndTheirPaint.
-        giveMainHand(script, "simplebuilding:octant_lime");
+        giveMainHand(script, "" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant_lime");
 
         script.act("the coloured octant is an OctantItem with a colour", client -> {
             ItemStack stack = client.player == null ? ItemStack.EMPTY : client.player.getMainHandItem();
@@ -557,7 +557,7 @@ public final class ClientBootstrapClientTest {
      * branch losing its {@code instanceof BuildingWandItem} guard.
      */
     private static void settingsKeyNeedsConstructorsTouchOnAWand(Script script) {
-        giveMainHand(script, "simplebuilding:netherite_building_wand");
+        giveMainHand(script, "" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":netherite_building_wand");
         assertWandInHandWithTouchLevel(script, 0);
 
         script.harness("press the settings key with a plain wand in hand",
@@ -1335,7 +1335,7 @@ public final class ClientBootstrapClientTest {
         selectHotbarSlot(script, OCTANT_SLOT);
         script.command("clear @a", true);
         script.command("item replace entity @a hotbar." + OCTANT_SLOT + " with "
-                + "simplebuilding:octant["
+                + "" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant["
                 + "minecraft:custom_data={"
                 + "Pos1:[I;" + OCTANT_POS_1.getX() + "," + OCTANT_POS_1.getY() + "," + OCTANT_POS_1.getZ() + "],"
                 + "Pos2:[I;" + OCTANT_POS_2.getX() + "," + OCTANT_POS_2.getY() + "," + OCTANT_POS_2.getZ() + "]"

@@ -811,7 +811,7 @@ public final class SmokeClientTest {
     private static void chiselAnswersOnTheClient(Script script, String blockId,
                                                  InteractionResult expected, String why) {
         script.command("setblock " + at(TestScene.TARGET) + " " + blockId);
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:stone_chisel");
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":stone_chisel");
         script.awaitPackets();
         script.idle("let " + blockId + " and the chisel reach the client", 15);
 
@@ -896,7 +896,7 @@ public final class SmokeClientTest {
         assertTheClientCanHearAnything(script);
 
         Later<List<SoundRecorder.Heard>> withChisel =
-                chiselOnceAndListen(script, "simplebuilding:stone_chisel");
+                chiselOnceAndListen(script, "" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":stone_chisel");
 
         script.verify("the stone chisel played its default sound", () -> {
             SoundRecorder.Heard chiselSound = firstOf(withChisel.get(), stonecutter);
@@ -909,25 +909,28 @@ public final class SmokeClientTest {
             assertVolumeAndPitch(chiselSound, "stone chisel");
         });
 
-        Later<List<SoundRecorder.Heard>> withSpatula =
-                chiselOnceAndListen(script, "simplebuilding:stone_spatula");
+        // The legacy spatulas are gone from 26.3 (migrated into the chisels of their tier, Simple Chisels).
+        if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+            Later<List<SoundRecorder.Heard>> withSpatula =
+                    chiselOnceAndListen(script, "simplebuilding:stone_spatula");
 
-        script.verify("the stone spatula replaced the default sound", () -> {
-            SoundRecorder.Heard spatulaSound = firstOf(withSpatula.get(), sandFall);
+            script.verify("the stone spatula replaced the default sound", () -> {
+                SoundRecorder.Heard spatulaSound = firstOf(withSpatula.get(), sandFall);
 
-            if (spatulaSound == null) {
-                throw new AssertionError("The spatula did not use SAND_FALL as its chisel sound: heard "
-                        + withSpatula.get() + ", expected " + sandFall + ".");
-            }
+                if (spatulaSound == null) {
+                    throw new AssertionError("The spatula did not use SAND_FALL as its chisel sound: heard "
+                            + withSpatula.get() + ", expected " + sandFall + ".");
+                }
 
-            if (firstOf(withSpatula.get(), stonecutter) != null) {
-                throw new AssertionError("The spatula played the plain chisel sound " + stonecutter
-                        + " as well as " + sandFall + " (heard " + withSpatula.get() + "), so "
-                        + "setChiselSound is not actually replacing the default.");
-            }
+                if (firstOf(withSpatula.get(), stonecutter) != null) {
+                    throw new AssertionError("The spatula played the plain chisel sound " + stonecutter
+                            + " as well as " + sandFall + " (heard " + withSpatula.get() + "), so "
+                            + "setChiselSound is not actually replacing the default.");
+                }
 
-            assertVolumeAndPitch(spatulaSound, "stone spatula");
-        });
+                assertVolumeAndPitch(spatulaSound, "stone spatula");
+            });
+        }
 
         script.command("setblock " + at(TestScene.TARGET) + " minecraft:stone");
         script.command("clear @a", true);
@@ -1069,7 +1072,7 @@ public final class SmokeClientTest {
         script.command("setblock " + at(TestScene.TARGET) + " minecraft:stone");
         script.command("clear @a", true);
         script.command("item replace entity @a weapon.offhand with minecraft:stone 64");
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:copper_building_wand");
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":copper_building_wand");
         script.awaitPackets();
         script.idle("let the wand and its material reach the client", 15);
         TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);

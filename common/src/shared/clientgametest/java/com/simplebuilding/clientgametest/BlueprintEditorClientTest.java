@@ -38,7 +38,7 @@ public final class BlueprintEditorClientTest {
     public static void inWorld(Script script) {
         String[] expectedCode = {"stone 2"};
         TestScene.build(script, "minecraft:stone", "creative");
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:blueprint");
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":blueprint");
         script.command("tp @a " + PLAYER_SPOT_LOOKING_UP);
         script.awaitPackets();
         script.idle("let the blueprint and the view angles reach the client", 10);
