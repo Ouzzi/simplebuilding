@@ -125,7 +125,7 @@ public final class OctantTests {
     private static final int OCTANT_DURABILITY = 128;
 
     /** Item id of the plain octant, as the loot pool codec writes it. */
-    private static final String OCTANT_ID = "simplebuilding:octant";
+    private static final String OCTANT_ID = "simplebuildingtools:octant";
 
     /**
      * {@code SelectionShape}, in order, as {@code <constant>=<translation key>}. The order is not
@@ -863,7 +863,7 @@ public final class OctantTests {
         Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, level);
         helper.assertTrue(match.isPresent(), "the documented octant pattern does not match any crafting recipe");
-        helper.assertValueEqual(match.get().id().identifier().toString(), "simplebuilding:octant",
+        helper.assertValueEqual(match.get().id().identifier().toString(), "simplebuildingtools:octant",
                 "recipe matched by the documented octant pattern");
         ItemStack result = match.get().value().assemble(grid);
         helper.assertTrue(result.is(BtItems.OCTANT), "the octant recipe produced " + result + " instead of an octant");

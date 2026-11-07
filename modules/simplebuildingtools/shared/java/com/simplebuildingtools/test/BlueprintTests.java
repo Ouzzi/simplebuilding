@@ -2216,32 +2216,32 @@ public final class BlueprintTests {
         helper.assertValueEqual(BlueprintItem.modelState(cleared), BlueprintItem.STATE_EMPTY, "state of a blueprint cleared again");
 
         com.google.gson.JsonObject model = com.google.gson.JsonParser.parseString(
-                modelResource(helper, "/assets/simplebuilding/items/blueprint.json")).getAsJsonObject().getAsJsonObject("model");
+                modelResource(helper, "/assets/simplebuildingtools/items/blueprint.json")).getAsJsonObject().getAsJsonObject("model");
         helper.assertValueEqual(model.get("type").getAsString(), "minecraft:condition", "blueprint item model type");
         helper.assertValueEqual(model.get("property").getAsString(), "minecraft:has_component", "blueprint condition property");
-        helper.assertValueEqual(model.get("component").getAsString(), "simplebuilding:blueprint", "blueprint condition component");
-        helper.assertValueEqual(model.getAsJsonObject("on_false").get("model").getAsString(), "simplebuilding:item/blueprint",
+        helper.assertValueEqual(model.get("component").getAsString(), "simplebuildingtools:blueprint", "blueprint condition component");
+        helper.assertValueEqual(model.getAsJsonObject("on_false").get("model").getAsString(), "simplebuildingtools:item/blueprint",
                 "model without the component");
         com.google.gson.JsonObject select = model.getAsJsonObject("on_true");
         helper.assertValueEqual(select.get("type").getAsString(), "minecraft:select", "model with the component");
-        helper.assertValueEqual(select.get("property").getAsString(), "simplebuilding:blueprint_state", "select property");
-        helper.assertValueEqual(select.getAsJsonObject("fallback").get("model").getAsString(), "simplebuilding:item/blueprint",
+        helper.assertValueEqual(select.get("property").getAsString(), "simplebuildingtools:blueprint_state", "select property");
+        helper.assertValueEqual(select.getAsJsonObject("fallback").get("model").getAsString(), "simplebuildingtools:item/blueprint",
                 "select fallback");
         java.util.Map<String, String> cases = new java.util.HashMap<>();
         for (com.google.gson.JsonElement entry : select.getAsJsonArray("cases")) {
             com.google.gson.JsonObject c = entry.getAsJsonObject();
             cases.put(c.get("when").getAsString(), c.getAsJsonObject("model").get("model").getAsString());
         }
-        helper.assertValueEqual(cases, java.util.Map.of(BlueprintItem.STATE_EDITED, "simplebuilding:item/blueprint_edited",
-                BlueprintItem.STATE_SIGNED, "simplebuilding:item/blueprint_signed"), "select cases");
+        helper.assertValueEqual(cases, java.util.Map.of(BlueprintItem.STATE_EDITED, "simplebuildingtools:item/blueprint_edited",
+                BlueprintItem.STATE_SIGNED, "simplebuildingtools:item/blueprint_signed"), "select cases");
 
-        String normal = modelResource(helper, "/assets/simplebuilding/textures/item/blueprint.png");
+        String normal = modelResource(helper, "/assets/simplebuildingtools/textures/item/blueprint.png");
         for (String variant : java.util.List.of("blueprint_edited", "blueprint_signed")) {
             com.google.gson.JsonObject variantModel = com.google.gson.JsonParser.parseString(
-                    modelResource(helper, "/assets/simplebuilding/models/item/" + variant + ".json")).getAsJsonObject();
-            helper.assertValueEqual(variantModel.getAsJsonObject("textures").get("layer0").getAsString(), "simplebuilding:item/" + variant,
+                    modelResource(helper, "/assets/simplebuildingtools/models/item/" + variant + ".json")).getAsJsonObject();
+            helper.assertValueEqual(variantModel.getAsJsonObject("textures").get("layer0").getAsString(), "simplebuildingtools:item/" + variant,
                     variant + " texture");
-            String texture = modelResource(helper, "/assets/simplebuilding/textures/item/" + variant + ".png");
+            String texture = modelResource(helper, "/assets/simplebuildingtools/textures/item/" + variant + ".png");
             helper.assertFalse(texture.equals(normal), variant + ".png is the normal blueprint texture");
         }
         helper.succeed();

@@ -215,8 +215,8 @@ public class ModEnchantments {
                 EquipmentSlotGroup.MAINHAND
         )));
 
-        // 13.-15. b-btools07: on 26.3 Cover, Bridge and Linear are Simple Building Tools' (simplebuildingtools:*, ids migrate).
-        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) {
+        // 13.-15. b-btools07: on 26.3 Cover, Bridge and Linear are Simple Building Tools' (its own files); the keys carry its namespace,
+        // the bootstrap keeps them only so the other generated data (loot books) can name them (ModRegistryDataGenerator writes SB's only).
         // 13. COVER (Max Level 1, Treasure, Rare) [BUILDING_WAND]
         register(registerable, COVER, Enchantment.enchantment(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
@@ -257,7 +257,6 @@ public class ModEnchantments {
                 EquipmentSlotGroup.MAINHAND
         ))
         .exclusiveWith(enchantmentsLookup.getOrThrow(ModEnchantmentTags.WAND_MODIFIER_EXCLUSIVE_SET)));
-        }
 
         // 16. DOUBLE_JUMP (Max Level 2, Treasure, Rare) [BOOTS]
         register(registerable, DOUBLE_JUMP, Enchantment.enchantment(Enchantment.definition(
