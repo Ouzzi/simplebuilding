@@ -176,10 +176,10 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                         Identifier.fromNamespaceAndPath("simplecrucibles", "iron_crucible"));
                 AdvancementHolder pot = feature("machines/hot_pot", reinforced, crucibleIcon, AdvancementType.TASK, ModTriggers.CRUCIBLE_BUILT);
                 // Stufe 5b: Seelen-Lava und Eimer sind Simple Crucibles' Items (per Id); das Schoepfen meldet das Modul (CrucibleCompat).
-                AdvancementHolder soul = feature("machines/soul_scooper", pot, com.simplebuilding.util.BucketRefs.item("soul_lava_bucket"),
+                feature("machines/soul_scooper", pot, com.simplebuilding.util.BucketRefs.item("soul_lava_bucket"),
                         AdvancementType.GOAL, ModTriggers.SOUL_LAVA_SCOOPED);
-                node("machines/bottomless_bucket", soul, com.simplebuilding.util.BucketRefs.item("enderite_bucket"), AdvancementType.TASK,
-                        "enderite_bucket", any(com.simplebuilding.util.BucketRefs.item("enderite_bucket")));
+                // WH26-7: machines/bottomless_bucket (get an Enderite bucket) ships with Simple Tools, which owns the bucket now
+                // (data/simplebuilding/advancement/machines/bottomless_bucket.json there, loaded only beside SB and Simple Crucibles).
             }
         }
 

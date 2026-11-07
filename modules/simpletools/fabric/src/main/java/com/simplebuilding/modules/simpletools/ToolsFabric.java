@@ -25,6 +25,8 @@ public final class ToolsFabric implements ModInitializer {
                 out.insertAfter(net.minecraft.world.item.Items.LODESTONE, ToolsRegistry.tabStacks(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out ->
                 out.insertAfter(net.minecraft.world.item.Items.BRUSH, ToolsRegistry.brushStacks(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out ->
+                out.insertAfter(net.minecraft.world.item.Items.POWDER_SNOW_BUCKET, com.simplebuilding.modules.simpletools.bucket.ToolsBuckets.tabStacks(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) -> ToolsLoot.apply(key, table::withPool, registries));
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, r, e) -> ToolsCommands.register(d));
         // The probe fires the real BEFORE handlers; area hammers must not take it for a break (HammerActions veto).

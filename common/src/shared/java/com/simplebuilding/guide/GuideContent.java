@@ -90,6 +90,8 @@ public final class GuideContent {
     }
 
     private static final Map<GuideBooks.Book, BookStyle> STYLES = new EnumMap<>(GuideBooks.Book.class);
+    /** WH26-7: the Enderite and ceramic buckets are Simple Tools' (an optional mod beside SimpleBuilding); like the trims, the chapters fall back without it. */
+    private static final boolean TOOLS_BUCKETS = com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletools");
 
     /**
      * Id of the Glowing/Emitting/Pulsating trim template ({@code kind}): SimpleBuilding's own on 26.2; on 26.3 Simple
@@ -289,8 +291,10 @@ public final class GuideContent {
             var chapters = new ArrayList<>(old.chapters());
             chapters.add(ch("simplecrucibles:enderite_crucible", List.of(), List.of("simplecrucibles:enderite_crucible", "simplestorage:enderite_barrel",
                     "simplecrucibles:soul_lava_bucket", "minecraft:cauldron", "minecraft:iron_ingot")));
-            chapters.add(ch("simplecrucibles:enderite_bucket", List.of("simplecrucibles:copper_bucket", "simplecrucibles:enderite_bucket",
-                    "simplecrucibles:raw_ceramic_bucket"), List.of("simplecrucibles:soul_lava_bucket", "simplecrucibles:ceramic_bucket")));
+            // WH26-7: the Enderite and ceramic buckets are Simple Tools' (simpletools:*); without it the copper bucket stands in.
+            chapters.add(TOOLS_BUCKETS ? ch("simpletools:enderite_bucket", List.of("simplecrucibles:copper_bucket", "simpletools:enderite_bucket",
+                    "simpletools:raw_ceramic_bucket"), List.of("simplecrucibles:soul_lava_bucket", "simpletools:ceramic_bucket"))
+                    : ch("simplecrucibles:copper_bucket", List.of("simplecrucibles:copper_bucket"), List.of("simplecrucibles:soul_lava_bucket")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }
         if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
@@ -320,7 +324,8 @@ public final class GuideContent {
         }
         // Nachtrag 38: Handbuch auf Stand (Keramik-Eimer, Auto-Schmied, Holzarbeiten, Eis, Feuer, Sculk-Kiefer).
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            addChapter(GuideBooks.Book.MACHINES, ch("simplecrucibles:ceramic_bucket", List.of(), List.of("simplecrucibles:ceramic_bucket", "simplecrucibles:raw_ceramic_bucket")));
+            addChapter(GuideBooks.Book.MACHINES, TOOLS_BUCKETS ? ch("simpletools:ceramic_bucket", List.of(), List.of("simpletools:ceramic_bucket", "simpletools:raw_ceramic_bucket"))
+                    : ch("minecraft:clay_ball", List.of(), List.of("minecraft:clay_ball"))); // WH26-7: Simple Tools' bucket, Vanilla clay without it
         }
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
             addChapter(GuideBooks.Book.MACHINES, ch("simplebuilding:auto_smither", List.of("simplebuilding:auto_smither"), List.of()));

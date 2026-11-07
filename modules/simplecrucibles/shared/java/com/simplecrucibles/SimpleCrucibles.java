@@ -31,21 +31,15 @@ public final class SimpleCrucibles {
     /** The Enderite stage, SimpleBuilding's before this stage (the barrels went on to Simple Storage, WH26-6). */
     public static final List<String> MOVED_FROM_SB = List.of("enderite_crucible");
     /**
-     * Split stage 5b: the bucket family and soul lava, SimpleBuilding's before (items; the soul lava bucket included).
-     * The worn ceramic stages and full Enderite buckets are items too - every id in {@code simplebuilding:} moves.
+     * Split stage 5b: the copper buckets and the soul lava bucket, SimpleBuilding's before (items). WH26-7: the Enderite and
+     * ceramic buckets moved on to Simple Tools, which holds their old {@code simplebuilding:} and {@code simplecrucibles:} ids.
      */
     public static final List<String> BUCKETS_FROM_SB = List.of("soul_lava_bucket", "copper_bucket", "copper_water_bucket",
-            "copper_lava_bucket", "enderite_bucket", "enderite_water_bucket", "enderite_lava_bucket", "enderite_soul_lava_bucket",
-            "enderite_water_bucket_full", "enderite_lava_bucket_full", "enderite_soul_lava_bucket_full", "enderite_milk_bucket",
-            "enderite_milk_bucket_full", "raw_ceramic_bucket", "ceramic_bucket", "ceramic_water_bucket", "ceramic_lava_bucket",
-            "chipped_ceramic_bucket", "chipped_ceramic_water_bucket", "chipped_ceramic_lava_bucket", "cracked_ceramic_bucket",
-            "cracked_ceramic_water_bucket", "cracked_ceramic_lava_bucket", "brittle_ceramic_bucket", "brittle_ceramic_water_bucket",
-            "brittle_ceramic_lava_bucket");
+            "copper_lava_bucket");
     /** The bucket recipes SimpleBuilding's datagen wrote (recipe ids, each with its recipe advancement under recipes/tools/). */
-    public static final List<String> BUCKET_RECIPES_FROM_SB = List.of("copper_bucket", "enderite_bucket", "raw_ceramic_bucket",
-            "ceramic_bucket_from_smelting_raw_ceramic_bucket");
-    /** Data components of the buckets (SimpleBuilding's before). */
-    public static final List<String> COMPONENTS_FROM_SB = List.of("oxidation", "waxed", "wax_worn", "ceramic_uses");
+    public static final List<String> BUCKET_RECIPES_FROM_SB = List.of("copper_bucket");
+    /** Data components of the copper bucket (SimpleBuilding's before; ceramic_uses is Simple Tools' since WH26-7). */
+    public static final List<String> COMPONENTS_FROM_SB = List.of("oxidation", "waxed", "wax_worn");
     /** SimpleLib materials the Enderite stage and the upgrades are built with (their recipes and sources go on). */
     public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates");
 

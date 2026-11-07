@@ -30,7 +30,8 @@
     "LegendaryAnvilMixin",
     "AgingStateMixin",
     "AgingTickAccessor",
-    "AgingDispenserMixin"
+    "AgingDispenserMixin",
+    "CauldronBucketMixin"
   ],
   "client": [
     "client.WarmGlowEntityMixin",

@@ -124,7 +124,7 @@
   "simplequalityoflife.guide.page.52.title": "Reparieren hält die Ambosskosten",
   "simplequalityoflife.guide.page.52": "Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen.",
   "simplequalityoflife.guide.page.53.title": "Reparieren hält die Ambosskosten",
-  "simplequalityoflife.guide.page.53": "Nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla. Server-Option anvilRepairKeepsCost (Standard true).",
+  "simplequalityoflife.guide.page.53": "Nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla. Server-Option anvilRepairKeepsCost (Standard true). Enderit- und Keramik-Eimer: Enderit fasst zwei, zerbricht nie; Keramik nutzt sich ab.",
   "simplequalityoflife.guide.page.54.title": "Seelengebunden",
   "simplequalityoflife.guide.page.54": "Schatz-Verzauberung, eine Stufe, für alles, was den Fluch des Verschwindens tragen kann (beide schließen sich aus).",
   "simplequalityoflife.guide.page.55.title": "Seelengebunden",

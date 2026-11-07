@@ -3456,7 +3456,8 @@
         "jei",
         "jade",
         "simplestorage",
-        "simpleores"
+        "simpleores",
+        "simpletools"
       ],
       "checks": [
         "modules/simplecrucibles/tools/check_data.py"
@@ -3524,6 +3525,18 @@
               "fabric": {
                 "task": ":integration:runSimplecruciblesWithSimplestorageGameTest",
                 "report": "integration/build/combo/simplecrucibles-simplestorage-junit.xml"
+              }
+            }
+          },
+          {
+            "with": [
+              "simpletools"
+            ],
+            "reason": "Buckets (WH26-7): the Enderite bucket is Simple Tools'; its soul lava and reinforced cauldron tests need both mods, alone the crucibles skip them.",
+            "loaders": {
+              "fabric": {
+                "task": ":integration:runSimplecruciblesWithSimpletoolsGameTest",
+                "report": "integration/build/combo/simplecrucibles-simpletools-junit.xml"
               }
             }
           }

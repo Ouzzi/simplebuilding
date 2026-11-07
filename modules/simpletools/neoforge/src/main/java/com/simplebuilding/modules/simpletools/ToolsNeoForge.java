@@ -22,12 +22,15 @@ public final class ToolsNeoForge {
         bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e) -> {
             var key = e.getRegistryKey();
             if (key.equals(net.minecraft.core.registries.Registries.BLOCK)) ToolsRegistry.registerBlocks();
+            if (key.equals(net.minecraft.core.registries.Registries.DATA_COMPONENT_TYPE)) com.simplebuilding.modules.simpletools.bucket.ToolsBuckets.registerComponents();
             if (key.equals(net.minecraft.core.registries.Registries.ITEM)) ToolsRegistry.registerItems();
             if (key.equals(net.minecraft.core.registries.Registries.MENU)) ToolsRegistry.registerMenus();
         });
         bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e) -> {
             if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS))
                 ToolsRegistry.tabStacks().forEach(st -> e.accept(st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))
+                com.simplebuilding.modules.simpletools.bucket.ToolsBuckets.tabStacks().forEach(st -> e.accept(st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
             if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))
                 ToolsRegistry.brushStacks().forEach(st -> {
                     var brush = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BRUSH);

@@ -22,6 +22,8 @@ SB = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures'
 # Split stage 5b: soul lava, soul burn and the buckets are Simple Crucibles' textures.
 CRU = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures'
 LIB = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block'
+# WH26-7: the Enderite and ceramic buckets (and their textures) are Simple Tools'.
+TOOLS = ROOT / 'modules/simpletools/shared/resources/assets/simpletools/textures'
 # WH26-6: the barrels (and their textures) are Simple Storage's.
 BARREL_LIB = ROOT / 'modules/simplestorage/shared/resources/assets/simplestorage/textures/block'
 PREVIEWS = ROOT / 'build/crucible-previews'

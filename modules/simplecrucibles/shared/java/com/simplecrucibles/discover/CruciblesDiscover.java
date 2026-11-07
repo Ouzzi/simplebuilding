@@ -51,23 +51,17 @@ public final class CruciblesDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
-            "simplecrucibles:*ceramic_*bucket",
             "simplecrucibles:buckets",
-            "simplecrucibles:ceramic_bucket",
             "simplecrucibles:commands",
             "simplecrucibles:copper_*bucket",
             "simplecrucibles:copper_bucket",
             "simplecrucibles:creative_tab_switch",
             "simplecrucibles:crucible",
             "simplecrucibles:crucible_blank",
-            "simplecrucibles:enderite_*bucket*",
-            "simplecrucibles:enderite_bucket",
             "simplecrucibles:enderite_crucible",
-            "simplecrucibles:enderite_milk_bucket",
             "simplecrucibles:guide_book",
             "simplecrucibles:iron_crucible",
             "simplecrucibles:netherite_crucible",
-            "simplecrucibles:raw_ceramic_bucket",
             "simplecrucibles:recipe_book_unlocks",
             "simplecrucibles:reinforced_cauldron",
             "simplecrucibles:reinforced_crucible",
