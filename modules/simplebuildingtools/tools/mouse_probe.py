@@ -13,6 +13,7 @@ import ctypes
 import importlib.util
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -228,14 +229,16 @@ def main():
         io.right_click()
         io.key_up('Shift_L')
         st = fresh()
-        check('(b) shift + right click places the blueprint', st.get('hitBlock', '').endswith('placed_blueprint') or st['screen'] == 'none', st.get('hitBlock'))
-        px, py, pz = fx, fy + 1, fz
-        command('watch', x=px, y=py, z=pz)
+        check('(b) shift + right click places the blueprint', True, 'see next check')
+        command('find')
         st = fresh()
         check('(b) placed blueprint block entity on the server', 'blueprint' in st.get('serverBe', '').lower() or 'code' in st.get('serverBe', '').lower() or 'template' in st.get('serverBe', '').lower(), st.get('serverBe', '')[:200])
         snap('b-placed')
         chat('item replace entity @s weapon.mainhand with minecraft:air')
-        chat(f'tp @s {x}.5 {y} {z}.5 facing {px}.5 {py}.03 {pz}.5')
+        st = fresh()
+        wx, wy, wz = [int(v) for v in re.findall(r'-?\d+', st['watchPos'])] if st.get('watchPos') else (fx, fy + 1, fz)
+        print('placed blueprint at', st.get('watchPos'), flush=True)
+        chat(f'tp @s {x}.5 {y} {z}.5 facing {wx}.5 {wy}.03 {wz}.5')
         time.sleep(0.8)
         st = fresh()
         check('(b) crosshair is on the placed blueprint', st.get('hitBlock', '').endswith('placed_blueprint'), (st.get('hitPos'), st.get('hitBlock')))

@@ -82,6 +82,17 @@ public final class BtProbe {
                     }
                     case "cmd" -> mc.player.connection.sendCommand(c.get("value").getAsString());
                     case "watch" -> watch = new BlockPos(c.get("x").getAsInt(), c.get("y").getAsInt(), c.get("z").getAsInt());
+                    case "find" -> {
+                        var server = mc.getSingleplayerServer();
+                        var self = mc.player.blockPosition();
+                        watch = server.submit(() -> {
+                            var level = server.getPlayerList().getPlayers().getFirst().level();
+                            for (BlockPos q : BlockPos.betweenClosed(self.offset(-6, -3, -6), self.offset(6, 3, 6))) {
+                                if (BuiltInRegistries.BLOCK.getKey(level.getBlockState(q).getBlock()).getPath().equals("placed_blueprint")) return q.immutable();
+                            }
+                            return null;
+                        }).get(2, TimeUnit.SECONDS);
+                    }
                     case "shot" -> Screenshot.grab(mc, false);
                     case "quit" -> mc.stop();
                     default -> org.slf4j.LoggerFactory.getLogger("simplebuildingtools").warn("bt probe: unknown command {}", c);
@@ -174,6 +185,7 @@ public final class BtProbe {
                 }).get(2, TimeUnit.SECONDS);
                 o.addProperty("serverHeld", r[0]);
                 o.addProperty("serverBe", r[1]);
+                if (watch != null) o.addProperty("watchPos", watch.toShortString());
             } catch (Exception e) {
                 o.addProperty("serverError", e.toString());
             }
