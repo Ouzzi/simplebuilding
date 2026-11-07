@@ -790,7 +790,10 @@ public final class GuideBookTests {
         }
         for (var holder : registry.listElements().toList()) {
             var id = holder.key().identifier();
-            if (id.getNamespace().equals(Simplebuilding.MOD_ID) && !covered.contains(id)) problems.add(id + " has no page in the Enchantments guide");
+            // b-qw09: enchantments that moved into Sub-Mods (Hammers, Storage, Building Tools) must be in the guide too; Chisels have their own guide.
+            boolean ours = id.getNamespace().equals(Simplebuilding.MOD_ID) || id.getNamespace().equals(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE)
+                    || id.getNamespace().equals(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE) || id.getNamespace().equals(com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE);
+            if (ours && !covered.contains(id)) problems.add(id + " has no page in the Enchantments guide");
         }
         helper.assertTrue(problems.isEmpty(), problems.size() + " enchantment guide problems: " + problems);
         succeed(helper);

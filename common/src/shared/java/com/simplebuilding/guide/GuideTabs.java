@@ -41,7 +41,7 @@ public final class GuideTabs {
 
         public List<ResourceKey<Recipe<?>>> gateKeys() {
             List<ResourceKey<Recipe<?>>> keys = new ArrayList<>(gates.size());
-            for (Identifier gate : gates) keys.add(ResourceKey.create(Registries.RECIPE, gate));
+            for (Identifier gate : gates) keys.add(ResourceKey.create(Registries.RECIPE, GuideContent.moved(Registries.RECIPE, gate)));
             return keys;
         }
     }

@@ -377,7 +377,7 @@ public final class GuideContent {
                 end = Math.min(end, i);
             }
         }
-        Identifier id = Identifier.tryParse(spec.substring(0, end));
+        Identifier id = moved(net.minecraft.core.registries.Registries.ITEM, Identifier.tryParse(spec.substring(0, end)));
         if (id == null || !BuiltInRegistries.ITEM.containsKey(id)) {
             return Items.AIR;
         }
@@ -387,7 +387,17 @@ public final class GuideContent {
     /** Der Zauber einer Angabe {@code "item#ns:zauber"} (das Verzauberungsbuch zeigt ihn auf Hoechststufe) oder {@code null}. */
     public static Identifier enchantment(String spec) {
         int hash = spec.indexOf('#');
-        return hash < 0 ? null : Identifier.tryParse(spec.substring(hash + 1));
+        return hash < 0 ? null : moved(net.minecraft.core.registries.Registries.ENCHANTMENT, Identifier.tryParse(spec.substring(hash + 1)));
+    }
+
+    /**
+     * b-qw09: the id as it is registered today. Guide texts keep the old {@code simplebuilding:} ids of things that
+     * moved into a Sub-Mod on 26.3 (Hammers, Storage, Ovens, Gadgets, Ores, ...); SimpleLib's IdMoves knows where they went.
+     * Nothing moved on 26.2, so nothing changes there.
+     */
+    public static Identifier moved(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>> registry, Identifier id) {
+        Identifier now = com.simplelib.api.IdMoves.target(registry, id);
+        return now != null ? now : id;
     }
 
     /**
