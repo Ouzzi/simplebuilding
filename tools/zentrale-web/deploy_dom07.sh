@@ -31,9 +31,9 @@ done
 say() { echo "dom07: $*"; }
 die() { echo "dom07: FEHLER: $*" >&2; exit 1; }
 
-landing_file() {  # chosen landing page; index.html once the owner picked (LAND09), else the clean draft B
+landing_file() {  # the owner's chosen landing page (tools/landing/index.html); no silent fallback to an old draft
   local f=${LANDING_SRC:-$SRC/../landing/index.html}
-  if [ ! -f "$f" ]; then f=$SRC/../landing/a-land07-B.html; say "Hinweis: keine landing/index.html (Wahl offen), nehme Entwurf B"; fi
+  [ -f "$f" ] || die "$f fehlt (Landing-Wahl LAND09 noch nicht im ausgelieferten Stand)"
   [ -f "$f" ] || die "keine Landing-Seite gefunden ($f)"
   echo "$f"
 }
