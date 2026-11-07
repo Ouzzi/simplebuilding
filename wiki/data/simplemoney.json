@@ -1743,17 +1743,12 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/chiseled_ender_quartz_bricks.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/chiseled_nihilith_bricks.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/construction_light.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/copper_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/copper_core.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/copper_spatula.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/cracked_diamond.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/cracked_diamond_block.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/detector.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/diamond_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/diamond_core.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/diamond_pebble.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/diamond_spatula.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/echo_sounder.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enchanted_enderite_apple.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enchanted_netherite_apple.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz.json",
@@ -1775,7 +1770,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_carrot.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_chest.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_chestplate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/enderite_core.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_helmet.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_hoe.json",
@@ -1793,13 +1787,9 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_spear.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_sword.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_upgrade_template.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/gold_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/gold_core.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/gold_spatula.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/guide_book.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/iron_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/iron_core.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/iron_spatula.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/lapis_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/layered_raw_enderite.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/leather_sheet.json",
@@ -1811,13 +1801,11 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_bundle.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_carrot.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_chest.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/netherite_core.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/netherite_hopper.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_nugget.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_quiver.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_shulker_box.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_spatula.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_end_stone.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_purpur_block.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_vault.json",
@@ -1857,8 +1845,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/red_nether_brick_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/resin_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/rotator.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/stone_chisel.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/stone_spatula.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/suspended_gravel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/suspended_sand.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/velocity_gauge.json"
@@ -2302,6 +2288,32 @@
         "simplebuildingtools:octant_red",
         "simplebuildingtools:octant_white",
         "simplebuildingtools:octant_yellow"
+      ]
+    },
+    {
+      "id": "money_links_simplechisels",
+      "en": {
+        "title": "Linked Price Table: simplechisels",
+        "summary": "Prices for the Simple Chisels items when Simple Money is installed.",
+        "details": [
+          "Chisels from Simple Chisels are sold by the toolsmith; each tier costs like its material: simplechisels:copper_chisel, simplechisels:diamond_chisel, simplechisels:enderite_chisel, simplechisels:gold_chisel, simplechisels:iron_chisel, simplechisels:netherite_chisel, simplechisels:stone_chisel."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preistabelle: simplechisels",
+        "summary": "Preise für die Gegenstände von Simple Chisels, wenn Simple Money installiert ist.",
+        "details": [
+          "Meißel aus Simple Chisels verkauft der Werkzeugschmied; jede Stufe kostet wie ihr Material: simplechisels:copper_chisel, simplechisels:diamond_chisel, simplechisels:enderite_chisel, simplechisels:gold_chisel, simplechisels:iron_chisel, simplechisels:netherite_chisel, simplechisels:stone_chisel."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/copper_chisel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/diamond_chisel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/enderite_chisel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/gold_chisel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/iron_chisel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/netherite_chisel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/stone_chisel.json"
       ]
     },
     {
@@ -4074,7 +4086,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 77,
+    "features": 78,
     "recipes": 8,
     "lootTables": 0,
     "tags": 0,

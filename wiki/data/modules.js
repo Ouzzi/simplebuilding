@@ -156,9 +156,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 8,
-      "features": 77
+      "features": 78
     },
-    "dataHash": "f01d56d2c3fe"
+    "dataHash": "1cf083a73541"
   },
   {
     "id": "simpleriding",

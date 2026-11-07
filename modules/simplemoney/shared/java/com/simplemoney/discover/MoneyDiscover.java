@@ -336,6 +336,7 @@ public final class MoneyDiscover {
             "simplemoney:money_links",
             "simplemoney:money_links_simplebuilding",
             "simplemoney:money_links_simplebuildingtools",
+            "simplemoney:money_links_simplechisels",
             "simplemoney:money_links_simplecrucibles",
             "simplemoney:money_links_simplefun",
             "simplemoney:money_links_simplehammers",
