@@ -4698,7 +4698,7 @@ public final class DataIntegrityTests {
             String path = key.identifier().getPath();
             if (!(MOD_ID.equals(key.identifier().getNamespace()) || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(key.identifier().getNamespace())
                     || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace())
-                    || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(key.identifier().getNamespace()))
+                    || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(key.identifier().getNamespace())
                     || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(key.identifier().getNamespace()))
                     || enchantments.get(key).isEmpty()) {
                 problems.add(key.identifier() + " is not a mod enchantment of the registry");
