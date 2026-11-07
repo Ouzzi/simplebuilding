@@ -220,7 +220,7 @@ def main():
         chat('clear @s')
         chat('give @s simplebuildingtools:blueprint')
         io.key('1')
-        chat(f'tp @s {x}.5 {y} {z}.5 facing {x}.5 {y}.0 {z + 2}.5')
+        chat(f'tp @s {x}.5 {y} {z}.5 facing {x}.5 {y - 1.62:.2f} {z + 2}.5')  # tp facing aims from the FEET: 1.62 below = eye ray meets the floor top 2.5 ahead
         time.sleep(0.8)
         st = fresh()
         fx, fy, fz = [int(v) for v in st['hitPos'].replace(',', ' ').split()] if st.get('hitPos') else (x, y - 1, z + 2)
@@ -240,7 +240,7 @@ def main():
         st = fresh()
         wx, wy, wz = [int(v) for v in re.findall(r'-?\d+', st['watchPos'])] if st.get('watchPos') else (fx, fy + 1, fz)
         print('placed blueprint at', st.get('watchPos'), flush=True)
-        chat(f'tp @s {x}.5 {y} {z}.5 facing {wx}.5 {wy}.03 {wz}.5')
+        chat(f'tp @s {x}.5 {y} {z}.5 facing {wx}.5 {wy - 1.62:.2f} {wz}.5')
         time.sleep(0.8)
         st = fresh()
         check('(b) crosshair is on the placed blueprint', st.get('hitBlock', '').endswith('placed_blueprint'), (st.get('hitPos'), st.get('hitBlock')))
