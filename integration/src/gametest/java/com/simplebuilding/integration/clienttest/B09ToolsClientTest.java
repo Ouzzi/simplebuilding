@@ -75,7 +75,7 @@ public final class B09ToolsClientTest implements FabricClientGameTest {
         // old ids must be gone (they migrate): a registry hit means a double registration
         for (String old : new String[] {"simplebuilding:iron_chisel", "simplebuilding:octant", "simplebuilding:blueprint",
                 "simplebuilding:netherite_building_wand"}) {
-            boolean present = BuiltInRegistries.ITEM.containsKey(Identifier.tryParse(old));
+            boolean present = BuiltInRegistries.ITEM.keySet().contains(Identifier.tryParse(old));
             System.out.println("[b09] INFO old id " + old + (present ? " STILL REGISTERED" : " absent"));
             if (present) faults.add("old id still registered: " + old);
         }
@@ -181,10 +181,14 @@ public final class B09ToolsClientTest implements FabricClientGameTest {
         context.runOnClient(c -> c.options.setCameraType(CameraType.FIRST_PERSON));
         context.waitTicks(5);
         // settings key K opens the wand screen
+        // the wand screen needs Constructor's Touch (by design)
+        world.getServer().runCommand("enchant @a simplebuilding:constructors_touch");
+        world.getConnection().waitForClientboundPackets();
+        context.waitTicks(5);
         context.getInput().pressKey(InputConstants.KEY_K);
         context.waitTicks(10);
         String screen = context.computeOnClient(c -> c.gui.screen() == null ? "-" : c.gui.screen().getClass().getName());
-        System.out.println("[b09] INFO wand K screen: " + screen);
+        System.out.println("[b09] INFO wand K screen (Constructor's Touch): " + screen);
         if (screen.equals("-")) faults.add("key K with the wand opened no screen");
         shot(context, "wand-settings-screen");
         context.setScreen(() -> null);
