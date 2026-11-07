@@ -48,7 +48,7 @@
           "modifier": {
             "type": "minecraft:enchant_randomly"
           },
-          "name": "simplebuilding:octant",
+          "name": "simplebuildingtools:octant",
           "weight": 2
         },
         {

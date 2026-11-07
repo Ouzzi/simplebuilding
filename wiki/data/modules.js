@@ -82,8 +82,8 @@ window.WIKI_MODULES = [
       "items": 503,
       "blocks": 260,
       "recipes": 798,
-      "config": 231,
-      "features": 47
+      "config": 232,
+      "features": 44
     }
   },
   {
@@ -2109,7 +2109,7 @@ window.WIKI_MODULES = [
     "id": "simplebuildingtools",
     "displayName": "Simple Building Tools",
     "description": "Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant in 17 colors and the Blueprint with editor, picture import and cartography table copies. Simple Ores adds the Enderite wand, SimpleBuilding the backpack supply and the placed octants.",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2124,7 +2124,7 @@ window.WIKI_MODULES = [
       "simplehammers",
       "simpleoctets"
     ],
-    "stage": "done",
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -2137,6 +2137,6 @@ window.WIKI_MODULES = [
       "recipes": 28,
       "features": 6
     },
-    "dataHash": "10481af76d1e"
+    "dataHash": "a306a1e88db1"
   }
 ];

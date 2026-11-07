@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 509,
+      "count": 483,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -5838,47 +5838,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:blueprint",
-      "name": {
-        "en_us": "Blueprint",
-        "de_de": "Blaupause"
-      },
-      "texture": "assets/textures/item/blueprint.png",
-      "craftedBy": [
-        "simplebuilding:blueprint"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A sheet that remembers a house before it exists."
-          ],
-          "use": [
-            "Holds a structure as readable build code: write it in the editor, fill it by scanning an Octant selection at a cartography table, and build it with a building wand held in the other hand."
-          ],
-          "secret": [
-            "Sneak and right-click lays it down flat on the floor, on a wall or under a ceiling, as a placed blueprint. The wand then reads it from there."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Blatt, das sich an ein Haus erinnert, bevor es existiert."
-          ],
-          "use": [
-            "Hält eine Struktur als lesbaren Baucode: im Editor schreiben, mit einer Oktant-Auswahl am Kartentisch füllen und mit einem Baustab in der anderen Hand bauen."
-          ],
-          "secret": [
-            "Schleichen + Rechtsklick legt sie flach auf den Boden, an eine Wand oder unter die Decke, als platzierte Blaupause."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:bridge_redstone",
       "name": {
         "en_us": "Bridge Redstone",
@@ -6953,54 +6912,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:copper_building_wand",
-      "name": {
-        "en_us": "Copper Building Wand",
-        "de_de": "Kupfer-Baustab"
-      },
-      "texture": "assets/textures/item/copper_building_wand.png",
-      "craftedBy": [
-        "simplebuilding:copper_building_wand"
-      ],
-      "usedIn": [
-        "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand"
-      ],
-      "trades": [
-        "simplebuilding:mason/4/emerald_copper_building_wand"
-      ],
-      "properties": {
-        "durability": 1520,
-        "enchantability": 18,
-        "maxStackSize": 1,
-        "wandSquareDiameter": 3
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The first wand: a copper core, two sticks, and a reach of three blocks."
-          ],
-          "use": [
-            "Right-click a block face to fill a square area with blocks from your inventory, up to 3x3. 1520 durability. The tier of the core sets how large the area can get."
-          ],
-          "secret": [
-            "The Mason sells the finished wand at level 4 for 62 emeralds. Copper Cores come from the Wandering Trader for 24 emeralds."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der erste Zauberstab: ein Kupferkern, zwei Stöcke und eine Reichweite von drei Blöcken."
-          ],
-          "use": [
-            "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 3x3. 1520 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
-          ],
-          "secret": [
-            "Der Steinmetz verkauft den fertigen Stab ab Stufe 4 für 62 Smaragde. Kupferkerne gibt es beim Fahrenden Händler für 24 Smaragde."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:copper_chisel",
       "name": {
         "en_us": "Copper Chisel",
@@ -7342,86 +7253,6 @@
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:creative_blueprint",
-      "name": {
-        "en_us": "Creative Blueprint",
-        "de_de": "Kreativ-Blaupause"
-      },
-      "texture": "assets/textures/item/creative_blueprint.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A blueprint that costs nothing and is worth the world."
-          ],
-          "use": [
-            "A Blueprint only in the creative tab, with no recipe. A building wand with it in the off hand builds the structure at any distance."
-          ],
-          "secret": [
-            "Once signed it is final. Use it for creative builds you want to place from afar."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Blaupause, die nichts kostet und die Welt wert ist."
-          ],
-          "use": [
-            "Eine Blaupause nur im Kreativ-Tab, ohne Rezept. Ein Baustab mit ihr in der Nebenhand baut die Struktur in jeder Entfernung."
-          ],
-          "secret": [
-            "Einmal signiert ist sie endgültig. Nutze sie für kreative Bauten, die du aus der Ferne platzieren willst."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:creative_building_wand",
-      "name": {
-        "en_us": "Creative Building Wand",
-        "de_de": "Kreativ-Baustab"
-      },
-      "texture": "assets/textures/item/creative_building_wand.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "enchantability": 18,
-        "maxStackSize": 1,
-        "wandSquareDiameter": 13
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A wand with no limits, handed out by no one in survival."
-          ],
-          "use": [
-            "Creative tab only: fills up to 13x13, with unlimited reach (up to 1024 blocks), no durability and no material use."
-          ],
-          "secret": [
-            "Hold a Creative Blueprint in the off hand and it builds at any distance; a signed blueprint is final."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Stab ohne Grenzen, den im Überleben niemand verteilt."
-          ],
-          "use": [
-            "Nur im Kreativ-Tab: füllt bis zu 13x13, mit unbegrenzter Reichweite (bis 1024 Blöcke), ohne Haltbarkeit und Materialverbrauch."
-          ],
-          "secret": [
-            "Mit einer Kreativ-Blaupause in der Nebenhand baut er in jeder Entfernung; eine signierte Blaupause ist endgültig."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:creative_spacer",
@@ -8051,53 +7882,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:diamond_building_wand",
-      "name": {
-        "en_us": "Diamond Building Wand",
-        "de_de": "Diamant-Baustab"
-      },
-      "texture": "assets/textures/item/diamond_building_wand.png",
-      "craftedBy": [
-        "simplebuilding:diamond_building_wand",
-        "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand"
-      ],
-      "usedIn": [
-        "simplebuilding:netherite_building_wand_smithing"
-      ],
-      "trades": [],
-      "properties": {
-        "durability": 12488,
-        "enchantability": 10,
-        "maxStackSize": 1,
-        "wandSquareDiameter": 9
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: A diamond wand fills a 9x9 face in one move."
-          ],
-          "use": [
-            "Right-click a block face to fill a square area with blocks from your inventory, up to 9x9. 12488 durability. The tier of the core sets how large the area can get."
-          ],
-          "secret": [
-            "A Diamond Building Wand can be found in end cities. Upgrading from gold takes the Basic Upgrade and a diamond core."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Ein Diamantstab füllt eine 9x9-Fläche in einem Zug."
-          ],
-          "use": [
-            "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 9x9. 12488 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
-          ],
-          "secret": [
-            "Ein Diamant-Baustab kann in Endstädten liegen. Aufwerten von Gold braucht die Basis-Aufwertung und einen Diamantkern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:diamond_chisel",
       "name": {
         "en_us": "Diamond Chisel",
@@ -8675,7 +8459,6 @@
         "simplebuilding:ender_quartz"
       ],
       "usedIn": [
-        "simplebuilding:blueprint",
         "simplebuilding:chiseled_ender_quartz_bricks_from_chiseled_quartz_block",
         "simplebuilding:ender_quartz_block",
         "simplebuilding:ender_quartz_block_from_end_stone",
@@ -9816,50 +9599,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:enderite_building_wand",
-      "name": {
-        "en_us": "Enderite Building Wand",
-        "de_de": "Enderit-Baustab"
-      },
-      "texture": "assets/textures/item/enderite_building_wand.png",
-      "craftedBy": [
-        "simplebuilding:enderite_building_wand_smithing"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 20000,
-        "enchantability": 18,
-        "maxStackSize": 1,
-        "wandSquareDiameter": 13
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The widest wand a survival builder can hold: 13x13 in a single click."
-          ],
-          "use": [
-            "Right-click a block face to fill a square area with blocks from your inventory, up to 13x13. 20000 durability. The tier of the core sets how large the area can get."
-          ],
-          "secret": [
-            "Smithing table: Enderite Upgrade, a Netherite Building Wand and an Enderite Ingot. Constructor's Touch unlocks the wand menu; a Blueprint in the other hand builds whole structures."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der breiteste Stab, den ein Überlebensbauer halten kann: 13x13 mit einem Klick."
-          ],
-          "use": [
-            "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 13x13. 20000 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
-          ],
-          "secret": [
-            "Schmiedetisch: Enderit-Aufwertung, ein Netherit-Baustab und ein Enderitbarren. Berührung des Konstrukteurs schaltet das Stab-Menü frei; mit einer Blaupause in der anderen Hand baust du ganze Strukturen."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:enderite_carrot",
       "name": {
         "en_us": "Enderite Carrot",
@@ -10629,53 +10368,6 @@
       "trades": [],
       "icon": "assets/textures/render/frosted_nihilith.png",
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:gold_building_wand",
-      "name": {
-        "en_us": "Gold Building Wand",
-        "de_de": "Gold-Baustab"
-      },
-      "texture": "assets/textures/item/gold_building_wand.png",
-      "craftedBy": [
-        "simplebuilding:gold_building_wand",
-        "simplebuilding:upgrade_iron_building_wand_to_gold_building_wand"
-      ],
-      "usedIn": [
-        "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand"
-      ],
-      "trades": [],
-      "properties": {
-        "durability": 256,
-        "enchantability": 22,
-        "maxStackSize": 1,
-        "wandSquareDiameter": 7
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Gold pays for its 7x7 reach with a short life."
-          ],
-          "use": [
-            "Right-click a block face to fill a square area with blocks from your inventory, up to 7x7. 256 durability. The tier of the core sets how large the area can get."
-          ],
-          "secret": [
-            "Upgrade an iron wand with the Basic Upgrade and a gold core. Gold wands are the shortest-lived of the line."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Gold bezahlt die 7x7-Fläche mit einem kurzen Leben."
-          ],
-          "use": [
-            "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 7x7. 256 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
-          ],
-          "secret": [
-            "Einen Eisenstab wertest du mit der Basis-Aufwertung und einem Goldkern auf. Goldstäbe sind die kurzlebigsten der Reihe."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:gold_chisel",
@@ -12436,53 +12128,6 @@
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:iron_building_wand",
-      "name": {
-        "en_us": "Iron Building Wand",
-        "de_de": "Eisen-Baustab"
-      },
-      "texture": "assets/textures/item/iron_building_wand.png",
-      "craftedBy": [
-        "simplebuilding:iron_building_wand",
-        "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand"
-      ],
-      "usedIn": [
-        "simplebuilding:upgrade_iron_building_wand_to_gold_building_wand"
-      ],
-      "trades": [],
-      "properties": {
-        "durability": 2000,
-        "enchantability": 14,
-        "maxStackSize": 1,
-        "wandSquareDiameter": 5
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Iron stretches the wand to a 5x5 area."
-          ],
-          "use": [
-            "Right-click a block face to fill a square area with blocks from your inventory, up to 5x5. 2000 durability. The tier of the core sets how large the area can get."
-          ],
-          "secret": [
-            "An Iron Building Wand sometimes lies in woodland mansions. Upgrade a copper wand at the smithing table with the Basic Upgrade and an iron core."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Eisen dehnt den Stab auf eine 5x5-Fläche."
-          ],
-          "use": [
-            "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 5x5. 2000 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
-          ],
-          "secret": [
-            "Ein Eisen-Baustab liegt manchmal in Waldanwesen. Einen Kupferstab wertest du am Schmiedetisch mit der Basis-Aufwertung und einem Eisenkern auf."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:iron_chisel",
@@ -15335,52 +14980,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:netherite_building_wand",
-      "name": {
-        "en_us": "Netherite Building Wand",
-        "de_de": "Netherit-Baustab"
-      },
-      "texture": "assets/textures/item/netherite_building_wand.png",
-      "craftedBy": [
-        "simplebuilding:netherite_building_wand_smithing"
-      ],
-      "usedIn": [
-        "simplebuilding:enderite_building_wand_smithing"
-      ],
-      "trades": [],
-      "properties": {
-        "durability": 16248,
-        "enchantability": 15,
-        "maxStackSize": 1,
-        "wandSquareDiameter": 11
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Netherite fills 11x11 and never flinches."
-          ],
-          "use": [
-            "Right-click a block face to fill a square area with blocks from your inventory, up to 11x11. 16248 durability. The tier of the core sets how large the area can get."
-          ],
-          "secret": [
-            "Smithing table: Netherite Upgrade, a Diamond Building Wand and a Netherite Ingot. Fire resistant like all netherite gear."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Netherit füllt 11x11 und zuckt nie."
-          ],
-          "use": [
-            "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 11x11. 16248 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
-          ],
-          "secret": [
-            "Schmiedetisch: Netherit-Aufwertung, ein Diamant-Baustab und ein Netheritbarren. Feuerfest wie alle Netherit-Ausrüstung."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_carrot",
       "name": {
         "en_us": "Netherite Carrot",
@@ -17790,373 +17389,6 @@
           "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
           "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
         ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant",
-      "name": {
-        "en_us": "Octant",
-        "de_de": "Oktant"
-      },
-      "texture": "assets/textures/item/octant.png",
-      "craftedBy": [
-        "simplebuilding:octant"
-      ],
-      "usedIn": [
-        "simplebuilding:octant_black_from_dye",
-        "simplebuilding:octant_blue_from_dye",
-        "simplebuilding:octant_brown_from_dye",
-        "simplebuilding:octant_cyan_from_dye",
-        "simplebuilding:octant_gray_from_dye",
-        "simplebuilding:octant_green_from_dye",
-        "simplebuilding:octant_light_blue_from_dye",
-        "simplebuilding:octant_light_gray_from_dye",
-        "simplebuilding:octant_lime_from_dye",
-        "simplebuilding:octant_magenta_from_dye",
-        "simplebuilding:octant_orange_from_dye",
-        "simplebuilding:octant_pink_from_dye",
-        "simplebuilding:octant_purple_from_dye",
-        "simplebuilding:octant_red_from_dye",
-        "simplebuilding:octant_white_from_dye",
-        "simplebuilding:octant_yellow_from_dye"
-      ],
-      "trades": [
-        "simplebuilding:wandering_trader/emerald_octant",
-        "simplebuilding:wandering_trader/octant_emerald"
-      ],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A measuring eye for those who plan before they build."
-          ],
-          "use": [
-            "Mark two corners: right-click sets Pos 1, sneak and right-click sets Pos 2. The HUD reads distance, area or volume, and the selection can be sketched as a cuboid, cylinder, sphere, pyramid or prism. 128 durability."
-          ],
-          "secret": [
-            "G opens the Octant Manager. The sledgehammer can mine inside its selection. The Wandering Trader sells and buys it, and dye colors it."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Messauge für alle, die planen, bevor sie bauen."
-          ],
-          "use": [
-            "Markiere zwei Ecken: Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2. Das HUD liest Abstand, Fläche oder Volumen ab, und die Auswahl lässt sich als Quader, Zylinder, Kugel, Pyramide oder Prisma skizzieren. 128 Haltbarkeit."
-          ],
-          "secret": [
-            "G öffnet den Oktant-Manager. Der Vorschlaghammer kann innerhalb seiner Auswahl abbauen. Der Fahrende Händler verkauft und kauft ihn, und Farbstoff färbt ihn."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:octant_black",
-      "name": {
-        "en_us": "Black Octant",
-        "de_de": "Schwarzer Oktant"
-      },
-      "texture": "assets/textures/item/octant_black.png",
-      "craftedBy": [
-        "simplebuilding:octant_black_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_blue",
-      "name": {
-        "en_us": "Blue Octant",
-        "de_de": "Blauer Oktant"
-      },
-      "texture": "assets/textures/item/octant_blue.png",
-      "craftedBy": [
-        "simplebuilding:octant_blue_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_brown",
-      "name": {
-        "en_us": "Brown Octant",
-        "de_de": "Brauner Oktant"
-      },
-      "texture": "assets/textures/item/octant_brown.png",
-      "craftedBy": [
-        "simplebuilding:octant_brown_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_cyan",
-      "name": {
-        "en_us": "Cyan Octant",
-        "de_de": "Türkiser Oktant"
-      },
-      "texture": "assets/textures/item/octant_cyan.png",
-      "craftedBy": [
-        "simplebuilding:octant_cyan_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_gray",
-      "name": {
-        "en_us": "Gray Octant",
-        "de_de": "Grauer Oktant"
-      },
-      "texture": "assets/textures/item/octant_gray.png",
-      "craftedBy": [
-        "simplebuilding:octant_gray_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_green",
-      "name": {
-        "en_us": "Green Octant",
-        "de_de": "Grüner Oktant"
-      },
-      "texture": "assets/textures/item/octant_green.png",
-      "craftedBy": [
-        "simplebuilding:octant_green_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_light_blue",
-      "name": {
-        "en_us": "Light Blue Octant",
-        "de_de": "Hellblauer Oktant"
-      },
-      "texture": "assets/textures/item/octant_light_blue.png",
-      "craftedBy": [
-        "simplebuilding:octant_light_blue_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_light_gray",
-      "name": {
-        "en_us": "Light Gray Octant",
-        "de_de": "Hellgrauer Oktant"
-      },
-      "texture": "assets/textures/item/octant_light_gray.png",
-      "craftedBy": [
-        "simplebuilding:octant_light_gray_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_lime",
-      "name": {
-        "en_us": "Lime Octant",
-        "de_de": "Hellgrüner Oktant"
-      },
-      "texture": "assets/textures/item/octant_lime.png",
-      "craftedBy": [
-        "simplebuilding:octant_lime_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_magenta",
-      "name": {
-        "en_us": "Magenta Octant",
-        "de_de": "Magenta Oktant"
-      },
-      "texture": "assets/textures/item/octant_magenta.png",
-      "craftedBy": [
-        "simplebuilding:octant_magenta_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_orange",
-      "name": {
-        "en_us": "Orange Octant",
-        "de_de": "Oranger Oktant"
-      },
-      "texture": "assets/textures/item/octant_orange.png",
-      "craftedBy": [
-        "simplebuilding:octant_orange_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_pink",
-      "name": {
-        "en_us": "Pink Octant",
-        "de_de": "Rosa Oktant"
-      },
-      "texture": "assets/textures/item/octant_pink.png",
-      "craftedBy": [
-        "simplebuilding:octant_pink_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_purple",
-      "name": {
-        "en_us": "Purple Octant",
-        "de_de": "Violetter Oktant"
-      },
-      "texture": "assets/textures/item/octant_purple.png",
-      "craftedBy": [
-        "simplebuilding:octant_purple_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_red",
-      "name": {
-        "en_us": "Red Octant",
-        "de_de": "Roter Oktant"
-      },
-      "texture": "assets/textures/item/octant_red.png",
-      "craftedBy": [
-        "simplebuilding:octant_red_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_white",
-      "name": {
-        "en_us": "White Octant",
-        "de_de": "Weißer Oktant"
-      },
-      "texture": "assets/textures/item/octant_white.png",
-      "craftedBy": [
-        "simplebuilding:octant_white_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:octant_yellow",
-      "name": {
-        "en_us": "Yellow Octant",
-        "de_de": "Gelber Oktant"
-      },
-      "texture": "assets/textures/item/octant_yellow.png",
-      "craftedBy": [
-        "simplebuilding:octant_yellow_from_dye"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 128,
-        "enchantability": 15,
-        "maxStackSize": 1
       },
       "hasCustomBehaviour": false
     },
@@ -42273,110 +41505,6 @@
       }
     },
     {
-      "id": "simplebuilding:blueprint",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:blueprint",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/blueprint.json",
-      "ingredients": [
-        "minecraft:glow_ink_sac",
-        "minecraft:paper",
-        "simplebuilding:ender_quartz"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:ender_quartz"
-        ],
-        [
-          "minecraft:paper"
-        ],
-        [
-          "minecraft:glow_ink_sac"
-        ]
-      ],
-      "variants": [
-        {
-          "lines": [
-            "1.21.11"
-          ],
-          "changes": [
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:ender_quartz"
-                ],
-                [
-                  "minecraft:paper"
-                ],
-                [
-                  "minecraft:glow_ink_sac"
-                ]
-              ],
-              "other": [
-                [
-                  "simplebuilding:ender_quartz"
-                ],
-                [
-                  "minecraft:paper"
-                ],
-                [
-                  "minecraft:ink_sac"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:glow_ink_sac",
-                "minecraft:paper",
-                "simplebuilding:ender_quartz"
-              ],
-              "other": [
-                "minecraft:ink_sac",
-                "minecraft:paper",
-                "simplebuilding:ender_quartz"
-              ]
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/blueprint.json"
-        }
-      ],
-      "lines": [
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:dull_astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:dull_nihilith_shard",
-            "count": 2
-          },
-          {
-            "id": "minecraft:glow_ink_sac",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 1
-          },
-          {
-            "id": "minecraft:quartz",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:brewing/lingering_potion_crafty_shulker_redstone",
       "type": "minecraft:brewing",
       "category": null,
@@ -45210,95 +44338,6 @@
       }
     },
     {
-      "id": "simplebuilding:copper_building_wand",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:copper_building_wand",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/copper_building_wand.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simplelib:copper_core"
-      ],
-      "pattern": [
-        "  C",
-        " S ",
-        "S  "
-      ],
-      "key": {
-        "C": [
-          "simplelib:copper_core"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:stick",
-                "simplelib:copper_core"
-              ],
-              "other": [
-                "minecraft:stick",
-                "simplebuilding:copper_core"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "simplelib:copper_core"
-                ],
-                "S": [
-                  "minecraft:stick"
-                ]
-              },
-              "other": {
-                "C": [
-                  "simplebuilding:copper_core"
-                ],
-                "S": [
-                  "minecraft:stick"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/copper_building_wand.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:copper_chisel",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -46198,95 +45237,6 @@
           {
             "id": "minecraft:sculk_sensor",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:diamond_building_wand",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:diamond_building_wand",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/diamond_building_wand.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simplelib:diamond_core"
-      ],
-      "pattern": [
-        "  C",
-        " S ",
-        "S  "
-      ],
-      "key": {
-        "C": [
-          "simplelib:diamond_core"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:stick",
-                "simplelib:diamond_core"
-              ],
-              "other": [
-                "minecraft:stick",
-                "simplebuilding:diamond_core"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "simplelib:diamond_core"
-                ],
-                "S": [
-                  "minecraft:stick"
-                ]
-              },
-              "other": {
-                "C": [
-                  "simplebuilding:diamond_core"
-                ],
-                "S": [
-                  "minecraft:stick"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/diamond_building_wand.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -49581,118 +48531,6 @@
       }
     },
     {
-      "id": "simplebuilding:enderite_building_wand_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_building_wand",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_building_wand_smithing.json",
-      "ingredients": [
-        "simplebuilding:netherite_building_wand",
-        "simpleores:enderite_ingot",
-        "simpleores:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simpleores:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_building_wand"
-        ],
-        "addition": [
-          "simpleores:enderite_ingot"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_building_wand",
-                "simpleores:enderite_ingot",
-                "simpleores:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_building_wand"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simpleores:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_building_wand"
-                ],
-                "addition": [
-                  "simpleores:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_building_wand_smithing.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "simpleores:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simpleores:enderite_upgrade_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:enderite_carrot",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -51455,95 +50293,6 @@
       }
     },
     {
-      "id": "simplebuilding:gold_building_wand",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gold_building_wand",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/gold_building_wand.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simplelib:gold_core"
-      ],
-      "pattern": [
-        "  C",
-        " S ",
-        "S  "
-      ],
-      "key": {
-        "C": [
-          "simplelib:gold_core"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:stick",
-                "simplelib:gold_core"
-              ],
-              "other": [
-                "minecraft:stick",
-                "simplebuilding:gold_core"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "simplelib:gold_core"
-                ],
-                "S": [
-                  "minecraft:stick"
-                ]
-              },
-              "other": {
-                "C": [
-                  "simplebuilding:gold_core"
-                ],
-                "S": [
-                  "minecraft:stick"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/gold_building_wand.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:gold_chisel",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -53131,95 +51880,6 @@
           {
             "id": "minecraft:ice",
             "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:iron_building_wand",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:iron_building_wand",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/iron_building_wand.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simplelib:iron_core"
-      ],
-      "pattern": [
-        "  C",
-        " S ",
-        "S  "
-      ],
-      "key": {
-        "C": [
-          "simplelib:iron_core"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:stick",
-                "simplelib:iron_core"
-              ],
-              "other": [
-                "minecraft:stick",
-                "simplebuilding:iron_core"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "simplelib:iron_core"
-                ],
-                "S": [
-                  "minecraft:stick"
-                ]
-              },
-              "other": {
-                "C": [
-                  "simplebuilding:iron_core"
-                ],
-                "S": [
-                  "minecraft:stick"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/iron_building_wand.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -55711,63 +54371,6 @@
           {
             "id": "minecraft:apple",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:netherite_building_wand_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_building_wand",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_building_wand_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_ingot",
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:diamond_building_wand"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template"
-        ],
-        "base": [
-          "simplebuilding:diamond_building_wand"
-        ],
-        "addition": [
-          "minecraft:netherite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -59275,1209 +57878,6 @@
           {
             "id": "simplebuilding:obsidian_chip",
             "count": 9
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/octant.json",
-      "ingredients": [
-        "minecraft:compass",
-        "minecraft:gold_nugget",
-        "minecraft:lead",
-        "minecraft:lightning_rod",
-        "simplelib:gold_core"
-      ],
-      "pattern": [
-        " NR",
-        "NCN",
-        "GNL"
-      ],
-      "key": {
-        "C": [
-          "minecraft:compass"
-        ],
-        "G": [
-          "simplelib:gold_core"
-        ],
-        "L": [
-          "minecraft:lead"
-        ],
-        "N": [
-          "minecraft:gold_nugget"
-        ],
-        "R": [
-          "minecraft:lightning_rod"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:compass",
-                "minecraft:gold_nugget",
-                "minecraft:lead",
-                "minecraft:lightning_rod",
-                "simplelib:gold_core"
-              ],
-              "other": [
-                "minecraft:compass",
-                "minecraft:gold_nugget",
-                "minecraft:lead",
-                "minecraft:lightning_rod",
-                "simplebuilding:gold_core"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "minecraft:compass"
-                ],
-                "G": [
-                  "simplelib:gold_core"
-                ],
-                "L": [
-                  "minecraft:lead"
-                ],
-                "N": [
-                  "minecraft:gold_nugget"
-                ],
-                "R": [
-                  "minecraft:lightning_rod"
-                ]
-              },
-              "other": {
-                "C": [
-                  "minecraft:compass"
-                ],
-                "G": [
-                  "simplebuilding:gold_core"
-                ],
-                "L": [
-                  "minecraft:lead"
-                ],
-                "N": [
-                  "minecraft:gold_nugget"
-                ],
-                "R": [
-                  "minecraft:lightning_rod"
-                ]
-              }
-            },
-            {
-              "field": "pattern",
-              "this": [
-                " NR",
-                "NCN",
-                "GNL"
-              ],
-              "other": [
-                " RL",
-                "NCR",
-                "GN "
-              ]
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant.json"
-        },
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:compass",
-                "minecraft:gold_nugget",
-                "minecraft:lead",
-                "minecraft:lightning_rod",
-                "simplelib:gold_core"
-              ],
-              "other": [
-                "minecraft:compass",
-                "minecraft:gold_nugget",
-                "minecraft:lead",
-                "minecraft:lightning_rod",
-                "simplebuilding:gold_core"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "minecraft:compass"
-                ],
-                "G": [
-                  "simplelib:gold_core"
-                ],
-                "L": [
-                  "minecraft:lead"
-                ],
-                "N": [
-                  "minecraft:gold_nugget"
-                ],
-                "R": [
-                  "minecraft:lightning_rod"
-                ]
-              },
-              "other": {
-                "C": [
-                  "minecraft:compass"
-                ],
-                "G": [
-                  "simplebuilding:gold_core"
-                ],
-                "L": [
-                  "minecraft:lead"
-                ],
-                "N": [
-                  "minecraft:gold_nugget"
-                ],
-                "R": [
-                  "minecraft:lightning_rod"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/octant.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_black_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_black",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_black_from_dye.json",
-      "ingredients": [
-        "minecraft:black_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:black_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:ink_sac",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_blue_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_blue",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_blue_from_dye.json",
-      "ingredients": [
-        "minecraft:blue_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:blue_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_brown_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_brown",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_brown_from_dye.json",
-      "ingredients": [
-        "minecraft:brown_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:brown_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:cocoa_beans",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_cyan_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_cyan",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_cyan_from_dye.json",
-      "ingredients": [
-        "minecraft:cyan_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:cyan_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_gray_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_gray",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_gray_from_dye.json",
-      "ingredients": [
-        "minecraft:gray_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:gray_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:ink_sac",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:bone",
-            "count": 0.167
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_green_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_green",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_green_from_dye.json",
-      "ingredients": [
-        "minecraft:green_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:green_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_light_blue_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_light_blue",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_light_blue_from_dye.json",
-      "ingredients": [
-        "minecraft:light_blue_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:light_blue_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:blue_orchid",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_light_gray_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_light_gray",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_light_gray_from_dye.json",
-      "ingredients": [
-        "minecraft:light_gray_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:light_gray_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:azure_bluet",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_lime_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_lime",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_lime_from_dye.json",
-      "ingredients": [
-        "minecraft:lime_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:lime_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:bone",
-            "count": 0.167
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_magenta_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_magenta",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_magenta_from_dye.json",
-      "ingredients": [
-        "minecraft:magenta_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:magenta_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:allium",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_orange_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_orange",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_orange_from_dye.json",
-      "ingredients": [
-        "minecraft:orange_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:orange_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:open_eyeblossom",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_pink_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_pink",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_pink_from_dye.json",
-      "ingredients": [
-        "minecraft:pink_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:pink_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:cactus_flower",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_purple_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_purple",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_purple_from_dye.json",
-      "ingredients": [
-        "minecraft:purple_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:purple_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:beetroot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_red_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_red",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_red_from_dye.json",
-      "ingredients": [
-        "minecraft:red_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:red_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:beetroot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_white_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_white",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_white_from_dye.json",
-      "ingredients": [
-        "minecraft:white_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:white_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:bone",
-            "count": 0.333
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:octant_yellow_from_dye",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:octant_yellow",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/octant_yellow_from_dye.json",
-      "ingredients": [
-        "minecraft:yellow_dye",
-        "simplebuilding:octant"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:octant"
-        ],
-        [
-          "minecraft:yellow_dye"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4.444
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:dandelion",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
           }
         ]
       }
@@ -69548,111 +66948,6 @@
       }
     },
     {
-      "id": "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:iron_building_wand",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_building_wand_to_iron_building_wand.json",
-      "ingredients": [
-        "simplebuilding:copper_building_wand",
-        "simplelib:basic_upgrade_template",
-        "simplelib:iron_core"
-      ],
-      "slots": {
-        "template": [
-          "simplelib:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:copper_building_wand"
-        ],
-        "addition": [
-          "simplelib:iron_core"
-        ]
-      },
-      "addition_count": 1,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:copper_building_wand",
-                "simplelib:basic_upgrade_template",
-                "simplelib:iron_core"
-              ],
-              "other": [
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:copper_building_wand",
-                "simplebuilding:iron_core"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_building_wand"
-                ],
-                "addition": [
-                  "simplelib:iron_core"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:iron_core"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_building_wand_to_iron_building_wand.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 2
-          },
-          {
-            "id": "simplelib:basic_upgrade_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:upgrade_copper_chisel_to_iron_chisel",
       "type": "simplebuilding:count_based_smithing",
       "category": null,
@@ -70153,111 +67448,6 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.125
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:diamond_building_wand",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_gold_building_wand_to_diamond_building_wand.json",
-      "ingredients": [
-        "simplebuilding:gold_building_wand",
-        "simplelib:basic_upgrade_template",
-        "simplelib:diamond_core"
-      ],
-      "slots": {
-        "template": [
-          "simplelib:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:gold_building_wand"
-        ],
-        "addition": [
-          "simplelib:diamond_core"
-        ]
-      },
-      "addition_count": 1,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:gold_building_wand",
-                "simplelib:basic_upgrade_template",
-                "simplelib:diamond_core"
-              ],
-              "other": [
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:diamond_core",
-                "simplebuilding:gold_building_wand"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_building_wand"
-                ],
-                "addition": [
-                  "simplelib:diamond_core"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:diamond_core"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_gold_building_wand_to_diamond_building_wand.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 2
-          },
-          {
-            "id": "simplelib:basic_upgrade_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -70961,111 +68151,6 @@
           {
             "id": "minecraft:iron_ingot",
             "count": 3
-          },
-          {
-            "id": "simplelib:basic_upgrade_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_building_wand_to_gold_building_wand",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gold_building_wand",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_building_wand_to_gold_building_wand.json",
-      "ingredients": [
-        "simplebuilding:iron_building_wand",
-        "simplelib:basic_upgrade_template",
-        "simplelib:gold_core"
-      ],
-      "slots": {
-        "template": [
-          "simplelib:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:iron_building_wand"
-        ],
-        "addition": [
-          "simplelib:gold_core"
-        ]
-      },
-      "addition_count": 1,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:iron_building_wand",
-                "simplelib:basic_upgrade_template",
-                "simplelib:gold_core"
-              ],
-              "other": [
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:gold_core",
-                "simplebuilding:iron_building_wand"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_building_wand"
-                ],
-                "addition": [
-                  "simplelib:gold_core"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:gold_core"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_building_wand_to_gold_building_wand.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 2
           },
           {
             "id": "simplelib:basic_upgrade_template",
@@ -73530,6 +70615,36 @@
       ],
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:blueprint",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blueprint",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/blueprint.json",
+      "ingredients": [
+        "minecraft:glow_ink_sac",
+        "minecraft:paper",
+        "simplebuilding:ender_quartz"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:ender_quartz"
+        ],
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:glow_ink_sac"
+        ]
+      ],
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -77065,6 +74180,37 @@
       ]
     },
     {
+      "id": "simplebuilding:netherite_building_wand_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_building_wand",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_building_wand_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:diamond_building_wand"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:diamond_building_wand"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:netherite_bundle_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -77540,6 +74686,438 @@
         ]
       },
       "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_black_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_black",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_black_from_dye.json",
+      "ingredients": [
+        "minecraft:black_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:black_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_blue_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_blue",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_blue_from_dye.json",
+      "ingredients": [
+        "minecraft:blue_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:blue_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_brown_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_brown",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_brown_from_dye.json",
+      "ingredients": [
+        "minecraft:brown_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:brown_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_cyan_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_cyan",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_cyan_from_dye.json",
+      "ingredients": [
+        "minecraft:cyan_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:cyan_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_gray_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_gray",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_gray_from_dye.json",
+      "ingredients": [
+        "minecraft:gray_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:gray_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_green_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_green",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_green_from_dye.json",
+      "ingredients": [
+        "minecraft:green_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:green_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_light_blue_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_light_blue",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_light_blue_from_dye.json",
+      "ingredients": [
+        "minecraft:light_blue_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:light_blue_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_light_gray_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_light_gray",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_light_gray_from_dye.json",
+      "ingredients": [
+        "minecraft:light_gray_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:light_gray_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_lime_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_lime",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_lime_from_dye.json",
+      "ingredients": [
+        "minecraft:lime_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:lime_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_magenta_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_magenta",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_magenta_from_dye.json",
+      "ingredients": [
+        "minecraft:magenta_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:magenta_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_orange_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_orange",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_orange_from_dye.json",
+      "ingredients": [
+        "minecraft:orange_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:orange_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_pink_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_pink",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_pink_from_dye.json",
+      "ingredients": [
+        "minecraft:pink_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:pink_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_purple_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_purple",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_purple_from_dye.json",
+      "ingredients": [
+        "minecraft:purple_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:purple_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_red_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_red",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_red_from_dye.json",
+      "ingredients": [
+        "minecraft:red_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:red_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_white_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_white",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_white_from_dye.json",
+      "ingredients": [
+        "minecraft:white_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:white_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant_yellow_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant_yellow",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant_yellow_from_dye.json",
+      "ingredients": [
+        "minecraft:yellow_dye",
+        "simplebuilding:octant"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:octant"
+        ],
+        [
+          "minecraft:yellow_dye"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
         "26.2"
       ]
     },
@@ -85939,7 +83517,7 @@
           "items": [
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplebuilding:octant",
+            "simplebuildingtools:octant",
             "simplehammers:diamond_sledgehammer",
             "simplestorage:quiver",
             "simplebuilding:netherite_apple",
@@ -86145,7 +83723,7 @@
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplebuilding:diamond_building_wand",
+            "simplebuildingtools:diamond_building_wand",
             "simplehammers:diamond_sledgehammer",
             "simplebuilding:enderite_apple",
             "simplebuilding:enchanted_enderite_apple"
@@ -86194,7 +83772,7 @@
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplebuilding:octant",
+            "simplebuildingtools:octant",
             "simplelib:netherite_nugget",
             "simplebuilding:netherite_carrot"
           ],
@@ -86228,7 +83806,7 @@
           "items": [
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplebuilding:octant",
+            "simplebuildingtools:octant",
             "simplestorage:quiver",
             "simplebuilding:copper_chisel"
           ],
@@ -86460,7 +84038,7 @@
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplebuilding:iron_building_wand",
+            "simplebuildingtools:iron_building_wand",
             "simplestorage:quiver"
           ],
           "conditions": [],
@@ -87596,92 +85174,6 @@
   ],
   "enchantments": [
     {
-      "id": "simplebuilding:bridge",
-      "name": {
-        "en_us": "Bridge",
-        "de_de": "Brücke"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "maxLevel": 1,
-      "weight": 2,
-      "minCost": {
-        "base": 15,
-        "per_level_above_first": 15
-      },
-      "maxCost": {
-        "base": 55,
-        "per_level_above_first": 15
-      },
-      "anvilCost": 4,
-      "slots": [
-        "mainhand"
-      ],
-      "supportedItems": "#simplebuilding:building_wand_enchantable",
-      "primaryItems": "#simplebuilding:building_wand_enchantable",
-      "exclusiveSet": "#simplebuilding:exclusive_set/wand_modifier_group",
-      "effects": [],
-      "implementedIn": "code",
-      "hasEffect": true,
-      "source": "src/main/generated/data/simplebuilding/enchantment/bridge.json",
-      "note": {
-        "en": {
-          "summary": "Bridge lets the building wand build a bridge: a right-click into the air extends the block under your feet straight ahead.",
-          "details": [
-            "Applicable to the copper, iron, gold, diamond, netherite and enderite building wand (item tag building_wand_enchantable); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 55 (+15).",
-            "Not combinable with Cover (the exclusive set wand_modifier_group contains Cover; Cover's exclusive set contains Bridge). Combinable with Linear - neither lists the other in its exclusive set, and a data integrity test demands that compatibility.",
-            "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge. Looking across the gap works too: a click (not sneaking) on a block beyond the edge that is not higher than the bridge - the far bank, the floor or wall of the gap, or the edge block's face towards the gap - builds the same bridge instead of an area there, and the preview shows it; sneak to build the area there after all. Read in BuildingWandItem (use, Plan.forBridge); bridge.json itself carries no effects entry.",
-            "An enchanted book gets its own book model ('bridge').",
-            "Not available at the enchanting table (minecraft:in_enchanting_table holds only Fast Chiseling from the mod).",
-            "Found as a book in end city treasure (weight 4, since 2026-09-28): Bridge is the wand's End enchantment and has no other chest or trade. The randomly enchanted Diamond Building Wand in end city treasure (weight 6) can carry it too; the mod's creative tab has the book as well.",
-            "Traders: no offer - the wandering trader's 40-emerald book (1 use, option enableWanderingTrades) draws from a pool holding only Radius (weight 20)."
-          ],
-          "caveats": [
-            "The bridge is one block wide and runs only in the four horizontal directions; sneaking turns the air click into undo instead.",
-            "Standing in the air (nothing solid under your feet) the air click does nothing.",
-            "Applying Bridge gives up Cover (exclusive set)."
-          ]
-        },
-        "de": {
-          "summary": "Brücke lässt den Baustab eine Brücke bauen: Ein Rechtsklick in die Luft verlängert den Block unter deinen Füßen geradeaus.",
-          "details": [
-            "Anbringbar auf Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Baustab (Item-Tag building_wand_enchantable); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 55 (+15).",
-            "Nicht kombinierbar mit Abdeckung (Ausschluss-Set wand_modifier_group enthält Abdeckung; das Ausschluss-Set von Abdeckung enthält Brücke). Kombinierbar mit Linear – beide führen einander nicht im Ausschluss-Set, ein Datenintegritäts-Test verlangt diese Verträglichkeit.",
-            "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke. Auch der Blick über die Lücke geht: Ein Klick (ohne Schleichen) auf einen Block hinter der Kante, der nicht höher liegt als die Brücke - das andere Ufer, Grund oder Wand der Lücke oder die zur Lücke zeigende Seite der Kante -, baut dieselbe Brücke statt dort eine Fläche, und die Vorschau zeigt sie; mit Schleichen entsteht dort doch die Fläche. Ausgewertet in BuildingWandItem (use, Plan.forBridge); bridge.json selbst trägt keinen effects-Eintrag.",
-            "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („bridge“).",
-            "Nicht in der Verzauberungstabelle .",
-            "Als Buch im Endsiedlungs-Schatz (Gewicht 4, seit 2026-09-28): Brücke ist die End-Verzauberung des Baustabs und hat keine andere Truhe und keinen Handel. Der zufällig verzauberte Diamant-Baustab im Endsiedlungs-Schatz (Gewicht 6) kann sie ebenfalls tragen; im Kreativ-Reiter der Mod liegt das Buch auch.",
-            "Händler: kein Angebot – das 40-Smaragde-Buch des Fahrenden Händlers (1 Nutzung, Option enableWanderingTrades) zieht aus einem Pool, der nur Radius (Gewicht 20) enthält."
-          ],
-          "caveats": [
-            "Die Brücke ist einen Block breit und läuft nur in die vier waagerechten Richtungen; beim Schleichen wird der Luftklick stattdessen zum Rückgängig.",
-            "In der Luft (nichts Festes unter den Füßen) tut der Luftklick nichts.",
-            "Wer Brücke aufträgt, verzichtet auf Abdeckung (exklusive Gruppe)."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantmentTags.java",
-          "src/main/generated/data/simplebuilding/enchantment/bridge.json",
-          "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/cover_group.json",
-          "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/wand_modifier_group.json",
-          "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json",
-          "src/main/java/com/simplebuilding/datagen/ModEnchantmentTagProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
-          "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_wand_book.json",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "common/src/shared/java/com/simplebuilding/client/property/EnchantmentModelProperty.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:color_palette",
       "name": {
         "en_us": "Color Palette",
@@ -87923,89 +85415,6 @@
           "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
           "common/src/shared/java/com/simplebuilding/tweaks/item/LaserPointerItem.java",
           "common/src/shared/java/com/simplebuilding/client/gui/SpeedometerHudOverlay.java"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:cover",
-      "name": {
-        "en_us": "Cover",
-        "de_de": "Abdeckung"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "maxLevel": 1,
-      "weight": 2,
-      "minCost": {
-        "base": 15,
-        "per_level_above_first": 15
-      },
-      "maxCost": {
-        "base": 55,
-        "per_level_above_first": 15
-      },
-      "anvilCost": 4,
-      "slots": [
-        "mainhand"
-      ],
-      "supportedItems": "#simplebuilding:building_wand_enchantable",
-      "primaryItems": "#simplebuilding:building_wand_enchantable",
-      "exclusiveSet": "#simplebuilding:exclusive_set/cover_group",
-      "effects": [],
-      "implementedIn": "code",
-      "hasEffect": true,
-      "source": "src/main/generated/data/simplebuilding/enchantment/cover.json",
-      "note": {
-        "en": {
-          "summary": "Cover makes the building wand follow a surface: the area only grows in front of blocks of the clicked kind that hang together with the center.",
-          "details": [
-            "Applicable to the copper, iron, gold, diamond, netherite and enderite building wand (item tag building_wand_enchantable); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 55 (+15).",
-            "Combinable with neither Bridge nor Linear: Cover's exclusive set (cover_group) contains both, and their exclusive set (wand_modifier_group) contains Cover. A data integrity test checks the incompatibility with Bridge.",
-            "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the center edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode. Read in BuildingWandItem (Plan.forClick, Plan.coverRegion); cover.json itself carries no effects entry.",
-            "An enchanted book gets its own book model ('cover').",
-            "Not available at the enchanting table; Cover is absent from minecraft:in_enchanting_table. No trade offer in the trade files.",
-            "On MC 26.3, Cover has no shipped Survival acquisition source after option B (2026-10-05): neither chest loot, trading, nor enchanting. Creative mode and commands remain available. MC 26.2 retains the pillager outpost (weight 8) and woodland mansion (weight 5) entries until the separate port."
-          ],
-          "caveats": [
-            "The surface is followed only within the area of the set radius, and only edge to edge (no diagonal steps).",
-            "The axis setting of the menu is ignored while Cover is on the wand; the plane always lies in front of the clicked face.",
-            "Applying Cover gives up Bridge and Linear (exclusive sets)."
-          ]
-        },
-        "de": {
-          "summary": "Abdeckung lässt den Baustab einer Oberfläche folgen: Die Fläche wächst nur vor Blöcken der angeklickten Sorte, die mit der Mitte zusammenhängen.",
-          "details": [
-            "Anbringbar auf Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Baustab (Item-Tag building_wand_enchantable); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 55 (+15).",
-            "Nicht kombinierbar mit Brücke und nicht mit Linear: Das Ausschluss-Set von Abdeckung (cover_group) enthält beide, und deren Ausschluss-Set (wand_modifier_group) enthält Abdeckung. Ein Datenintegritäts-Test prüft die Unverträglichkeit mit Brücke.",
-            "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht. Ausgewertet in BuildingWandItem (Plan.forClick, Plan.coverRegion); cover.json selbst trägt keinen effects-Eintrag.",
-            "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („cover“).",
-            "Nicht am Zaubertisch erhältlich: Abdeckung fehlt in minecraft:in_enchanting_table. Kein Händlerangebot in den Handelsdateien.",
-            "Auf MC 26.3 hat Abdeckung nach Option B (2026-10-05) keine mitgelieferte Survival-Quelle: weder Kistenbeute noch Handel oder Zaubertisch. Kreativmodus und Befehle bleiben möglich. MC 26.2 behält bis zum separaten Port Plünderer-Außenposten (Gewicht 8) und Waldanwesen (Gewicht 5)."
-          ],
-          "caveats": [
-            "Der Oberfläche wird nur innerhalb der Fläche des eingestellten Radius gefolgt, und nur Kante an Kante (keine Diagonalschritte).",
-            "Die Achsen-Einstellung des Menüs wird ignoriert, solange Abdeckung auf dem Stab liegt; die Ebene liegt immer vor der Klickseite.",
-            "Wer Abdeckung aufträgt, verzichtet auf Brücke und Linear (exklusive Gruppen)."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantmentTags.java",
-          "src/main/generated/data/simplebuilding/enchantment/cover.json",
-          "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/cover_group.json",
-          "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/wand_modifier_group.json",
-          "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json",
-          "src/main/java/com/simplebuilding/datagen/ModEnchantmentTagProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
-          "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "common/src/shared/java/com/simplebuilding/client/property/EnchantmentModelProperty.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       }
     },
@@ -88303,101 +85712,6 @@
           "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
           "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:linear",
-      "name": {
-        "en_us": "Linear",
-        "de_de": "Linear"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "maxLevel": 1,
-      "weight": 2,
-      "minCost": {
-        "base": 15,
-        "per_level_above_first": 15
-      },
-      "maxCost": {
-        "base": 55,
-        "per_level_above_first": 15
-      },
-      "anvilCost": 4,
-      "slots": [
-        "mainhand"
-      ],
-      "supportedItems": "#simplebuilding:building_wand_enchantable",
-      "primaryItems": "#simplebuilding:building_wand_enchantable",
-      "exclusiveSet": "#simplebuilding:exclusive_set/wand_modifier_group",
-      "effects": [],
-      "implementedIn": "code",
-      "hasEffect": true,
-      "source": "src/main/generated/data/simplebuilding/enchantment/linear.json",
-      "note": {
-        "en": {
-          "summary": "Linear turns a sneaking click with the building wand into a straight line away from the clicked face; without sneaking it lets the wand step from ring to ring faster.",
-          "details": [
-            "Applicable (anvil/book) only to the copper, iron, gold, diamond, netherite and enderite building wand (item tag building_wand_enchantable); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15 per level) to 55 (+15).",
-            "Linear enchantment: a wand with Linear only ever builds a single line - clicking a block face (sneaking or not) builds a straight line away from that face instead of the area, twice the diameter of the set area long (copper 6 up to enderite 26 at full radius), ending in front of the first occupied block; clicking a top face builds a pillar, clicking a side face a horizontal beam. The line grows in as many steps as the area would have rings, with a 2-tick pause between them. Until 2026-09-29 only a sneaking click built the line and a normal click the whole area. While a build is still running, a further click with the same wand starts nothing new - vanilla repeats a held use key every 4 ticks, and that repeat used to restart the line from the block just placed (a pillar broke off and turned into a beam out of its own side).",
-            "The line is read in BuildingWandItem (Plan.forClick: sneaking + LINEAR), the pace in inventoryTick (DELAY_TICKS = 4, DELAY_TICKS_LINE = 2); the generated definition linear.json carries no effects entry.",
-            "Not combinable with Cover: Linear's exclusive set (wand_modifier_group) contains Cover, and Cover's exclusive set (cover_group) contains Linear.",
-            "Combinable with Bridge - Bridge and Linear do not list each other in their exclusive sets; a data integrity test (expectCompatibility BRIDGE/LINEAR = true) checks exactly this compatibility.",
-            "Not available at the enchanting table: the minecraft:in_enchanting_table tag holds only Fast Chiseling from this mod.",
-            "Found as a book (option enableLootTableChanges): pillager outposts (weight 8 in the mod pool), woodland mansions (weight 5) and fishing treasure (weight 2, one extra roll per treasure catch); also in the mod's creative tab as a book at maximum level.",
-            "Traders: a level 3 librarian sells for 25 emeralds a book from the pool Color Palette (30) / Fast Chiseling (30) / Linear (25), 3 uses; a level 4 librarian for 25 emeralds from the pool Linear (25) / Override (20), 2 uses. Both offers hang on the enableVillagerTrades config option.",
-            "An enchanted book with Linear gets its own book model (case 'linear' in the model property for enchanted books)."
-          ],
-          "controls": [
-            "Sneak + right-click a block face with the building wand (main hand): line away from the face. Without sneaking: the normal area, faster."
-          ],
-          "caveats": [
-            "The line is one block wide and ends at the first occupied block; it is built in as many steps as the area would have rings.",
-            "The translation string 'Places a line of %s blocks.' (tooltip.simplebuilding.building_wand.line_size) exists in both language files, but is used by no code and no other resource."
-          ]
-        },
-        "de": {
-          "summary": "Linear macht aus einem Klick mit dem Baustab beim Schleichen eine gerade Linie von der Klickseite weg; ohne Schleichen lässt es den Stab schneller von Ring zu Ring gehen.",
-          "details": [
-            "Anbringbar (Amboss/Buch) nur auf Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Baustab (Item-Tag building_wand_enchantable); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15 je Stufe) bis 55 (+15).",
-            "Verzauberung Linear: Ein Stab mit Linear baut nur noch eine einzige Linie - ein Klick auf eine Blockseite (mit oder ohne Schleichen) baut statt der Fläche eine gerade Linie von der Klickseite weg, doppelt so lang wie der Durchmesser der eingestellten Fläche (Kupfer 6 bis Enderit 26 bei vollem Radius), sie endet vor dem ersten belegten Block; ein Klick auf eine Oberseite baut eine Säule, auf eine Seitenfläche einen waagerechten Balken. Die Linie wächst in so vielen Schritten, wie die Fläche Ringe hätte, mit 2 Ticks Pause dazwischen. Bis 2026-09-29 baute nur ein Klick mit Schleichen die Linie und ein normaler Klick die ganze Fläche. Solange der Stab noch baut, startet ein weiterer Klick mit ihm nichts Neues - Vanilla wiederholt eine gehaltene Benutzen-Taste alle 4 Ticks, und diese Wiederholung startete die Linie früher neu am gerade gesetzten Block (eine Säule brach ab und wurde zum Balken aus ihrer eigenen Seite).",
-            "Die Linie wird in BuildingWandItem gelesen (Plan.forClick: Schleichen + LINEAR), das Tempo in inventoryTick (DELAY_TICKS = 4, DELAY_TICKS_LINE = 2); die generierte Definition linear.json trägt keinen effects-Eintrag.",
-            "Nicht kombinierbar mit Abdeckung: Das Ausschluss-Set von Linear (wand_modifier_group) enthält Abdeckung, und das Ausschluss-Set von Abdeckung (cover_group) enthält Linear.",
-            "Kombinierbar mit Brücke – Brücke und Linear führen sich gegenseitig nicht im Ausschluss-Set; ein Datenintegritäts-Test (expectCompatibility BRIDGE/LINEAR = true) prüft genau diese Verträglichkeit.",
-            "Nicht in der Verzauberungstabelle erhältlich: Das Tag minecraft:in_enchanting_table enthält aus dieser Mod nur Schnelles Meißeln.",
-            "Fundorte als Buch (Option enableLootTableChanges): Plünderer-Außenposten (Gewicht 8 im Mod-Pool), Waldanwesen (Gewicht 5) und Angel-Schatz (Gewicht 2, ein zusätzlicher Wurf je Schatzfang); außerdem im Kreativ-Reiter der Mod als Buch auf Höchststufe.",
-            "Händler: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch aus dem Pool Farbpalette (30) / Schnelles Meißeln (30) / Linear (25), 3 Nutzungen; Bibliothekar Stufe 4 für 25 Smaragde aus dem Pool Linear (25) / Übersteuerung (20), 2 Nutzungen. Beide Angebote hängen an der Konfigurationsoption enableVillagerTrades.",
-            "Ein verzaubertes Buch mit Linear bekommt ein eigenes Buchmodell (Auswahl „linear“ in der Modell-Eigenschaft für Verzauberungsbücher)."
-          ],
-          "controls": [
-            "Schleichen + Rechtsklick mit dem Baustab (Haupthand) auf eine Blockseite: Linie von der Seite weg. Ohne Schleichen: die normale Fläche, schneller."
-          ],
-          "caveats": [
-            "Die Linie ist einen Block breit und endet am ersten belegten Block; sie entsteht in so vielen Schritten, wie die Fläche Ringe hätte.",
-            "Der Übersetzungstext „Platziert eine Linie von %s Blöcken“ (tooltip.simplebuilding.building_wand.line_size) existiert in beiden Sprachdateien, wird aber von keinem Code und keiner anderen Ressource benutzt."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantmentTags.java",
-          "src/main/generated/data/simplebuilding/enchantment/linear.json",
-          "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/wand_modifier_group.json",
-          "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/cover_group.json",
-          "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json",
-          "src/main/java/com/simplebuilding/datagen/ModEnchantmentTagProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "src/main/resources/data/simplebuilding/villager_trade/librarian/3/emerald_building_book.json",
-          "src/main/resources/data/simplebuilding/villager_trade/librarian/4/emerald_advanced_book.json",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "common/src/shared/java/com/simplebuilding/client/property/EnchantmentModelProperty.java",
-          "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
         ]
       }
     },
@@ -89169,21 +86483,6 @@
       "source": "mc26_3/generated/data/simplebuilding/tags/enchantment/exclusive_set/builder_group.json"
     },
     {
-      "id": "simplebuilding:enchantment/exclusive_set/cover_group",
-      "replace": false,
-      "values": [
-        {
-          "id": "simplebuilding:bridge",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:linear",
-          "required": true
-        }
-      ],
-      "source": "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/cover_group.json"
-    },
-    {
       "id": "simplebuilding:enchantment/exclusive_set/mining",
       "replace": false,
       "values": [
@@ -89208,17 +86507,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/enchantment/exclusive_set/radius_group.json"
-    },
-    {
-      "id": "simplebuilding:enchantment/exclusive_set/wand_modifier_group",
-      "replace": false,
-      "values": [
-        {
-          "id": "simplebuilding:cover",
-          "required": true
-        }
-      ],
-      "source": "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/wand_modifier_group.json"
     },
     {
       "id": "simplebuilding:item/backpacks",
@@ -89248,31 +86536,31 @@
       "replace": false,
       "values": [
         {
-          "id": "simplebuilding:copper_building_wand",
+          "id": "simplebuildingtools:copper_building_wand",
           "required": true
         },
         {
-          "id": "simplebuilding:iron_building_wand",
+          "id": "simplebuildingtools:iron_building_wand",
           "required": true
         },
         {
-          "id": "simplebuilding:gold_building_wand",
+          "id": "simplebuildingtools:gold_building_wand",
           "required": true
         },
         {
-          "id": "simplebuilding:diamond_building_wand",
+          "id": "simplebuildingtools:diamond_building_wand",
           "required": true
         },
         {
-          "id": "simplebuilding:netherite_building_wand",
+          "id": "simplebuildingtools:netherite_building_wand",
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_building_wand",
+          "id": "simplebuildingtools:enderite_building_wand",
           "required": true
         },
         {
-          "id": "simplebuilding:creative_building_wand",
+          "id": "simplebuildingtools:creative_building_wand",
           "required": true
         }
       ],
@@ -91180,10 +88468,6 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_building_wand",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_carrot",
           "required": true
         },
@@ -91447,10 +88731,6 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_building_wand",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_carrot",
           "required": true
         },
@@ -91504,6 +88784,10 @@
         },
         {
           "id": "simplebuilding:enderite_sword",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:enderite_building_wand",
           "required": true
         },
         {
@@ -91853,75 +89137,75 @@
       "replace": false,
       "values": [
         {
-          "id": "simplebuilding:octant",
+          "id": "simplebuildingtools:octant",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_white",
+          "id": "simplebuildingtools:octant_white",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_orange",
+          "id": "simplebuildingtools:octant_orange",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_magenta",
+          "id": "simplebuildingtools:octant_magenta",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_light_blue",
+          "id": "simplebuildingtools:octant_light_blue",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_yellow",
+          "id": "simplebuildingtools:octant_yellow",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_lime",
+          "id": "simplebuildingtools:octant_lime",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_pink",
+          "id": "simplebuildingtools:octant_pink",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_gray",
+          "id": "simplebuildingtools:octant_gray",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_light_gray",
+          "id": "simplebuildingtools:octant_light_gray",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_cyan",
+          "id": "simplebuildingtools:octant_cyan",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_purple",
+          "id": "simplebuildingtools:octant_purple",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_blue",
+          "id": "simplebuildingtools:octant_blue",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_brown",
+          "id": "simplebuildingtools:octant_brown",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_green",
+          "id": "simplebuildingtools:octant_green",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_red",
+          "id": "simplebuildingtools:octant_red",
           "required": true
         },
         {
-          "id": "simplebuilding:octant_black",
+          "id": "simplebuildingtools:octant_black",
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/octants_enchantable.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/octants_enchantable.json"
     },
     {
       "id": "simplebuilding:item/placeable_small",
@@ -98844,24 +96128,7 @@
         "kind": "cauldron_wash",
         "inputs": [
           {
-            "id": [
-              "simplebuilding:octant_white",
-              "simplebuilding:octant_orange",
-              "simplebuilding:octant_magenta",
-              "simplebuilding:octant_light_blue",
-              "simplebuilding:octant_yellow",
-              "simplebuilding:octant_lime",
-              "simplebuilding:octant_pink",
-              "simplebuilding:octant_gray",
-              "simplebuilding:octant_light_gray",
-              "simplebuilding:octant_cyan",
-              "simplebuilding:octant_purple",
-              "simplebuilding:octant_blue",
-              "simplebuilding:octant_brown",
-              "simplebuilding:octant_green",
-              "simplebuilding:octant_red",
-              "simplebuilding:octant_black"
-            ],
+            "id": [],
             "count": 1
           }
         ],
@@ -98869,7 +96136,7 @@
           "minecraft:cauldron"
         ],
         "output": {
-          "id": "simplebuilding:octant",
+          "id": "simplebuildingtools:octant",
           "count": 1
         },
         "stats": {
@@ -116670,7 +113937,7 @@
     {
       "id": "simplebuilding:blueprint/copy_that",
       "parent": "simplebuilding:octant/measure_twice",
-      "icon": "simplebuilding:blueprint",
+      "icon": "simplebuildingtools:blueprint",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -116689,12 +113956,12 @@
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/blueprint/copy_that.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/blueprint/copy_that.json"
     },
     {
       "id": "simplebuilding:blueprint/instant_architect",
       "parent": "simplebuilding:blueprint/copy_that",
-      "icon": "simplebuilding:diamond_building_wand",
+      "icon": "simplebuildingtools:diamond_building_wand",
       "frame": "goal",
       "hidden": false,
       "title": {
@@ -116713,7 +113980,7 @@
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/blueprint/instant_architect.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/blueprint/instant_architect.json"
     },
     {
       "id": "simplebuilding:building/checkmate",
@@ -116804,13 +114071,13 @@
             "simplebuilding:diamond_chisel",
             "simplebuilding:netherite_chisel",
             "simplebuilding:enderite_chisel",
-            "simplebuilding:copper_building_wand",
-            "simplebuilding:iron_building_wand",
-            "simplebuilding:gold_building_wand",
-            "simplebuilding:diamond_building_wand",
-            "simplebuilding:netherite_building_wand",
-            "simplebuilding:enderite_building_wand",
-            "simplebuilding:octant",
+            "simplebuildingtools:copper_building_wand",
+            "simplebuildingtools:iron_building_wand",
+            "simplebuildingtools:gold_building_wand",
+            "simplebuildingtools:diamond_building_wand",
+            "simplebuildingtools:netherite_building_wand",
+            "simplebuildingtools:enderite_building_wand",
+            "simplebuildingtools:octant",
             "simplegadgets:rotator",
             "simplebuilding:construction_light"
           ]
@@ -117355,7 +114622,7 @@
     {
       "id": "simplebuilding:enderite/master_builder",
       "parent": "simplebuilding:enderite/template_of_the_end",
-      "icon": "simplebuilding:enderite_building_wand",
+      "icon": "simplebuildingtools:enderite_building_wand",
       "frame": "goal",
       "hidden": false,
       "title": {
@@ -117372,12 +114639,12 @@
           "trigger": "minecraft:inventory_changed",
           "items": [
             "simplebuilding:enderite_chisel",
-            "simplebuilding:enderite_building_wand"
+            "simplebuildingtools:enderite_building_wand"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/enderite/master_builder.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/enderite/master_builder.json"
     },
     {
       "id": "simplebuilding:enderite/not_today_void",
@@ -118440,7 +115707,7 @@
     {
       "id": "simplebuilding:octant/colour_coded",
       "parent": "simplebuilding:octant/measure_twice",
-      "icon": "simplebuilding:octant_light_blue",
+      "icon": "simplebuildingtools:octant_light_blue",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -118456,32 +115723,32 @@
           "name": "dyed_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_white",
-            "simplebuilding:octant_orange",
-            "simplebuilding:octant_magenta",
-            "simplebuilding:octant_light_blue",
-            "simplebuilding:octant_yellow",
-            "simplebuilding:octant_lime",
-            "simplebuilding:octant_pink",
-            "simplebuilding:octant_gray",
-            "simplebuilding:octant_light_gray",
-            "simplebuilding:octant_cyan",
-            "simplebuilding:octant_purple",
-            "simplebuilding:octant_blue",
-            "simplebuilding:octant_brown",
-            "simplebuilding:octant_green",
-            "simplebuilding:octant_red",
-            "simplebuilding:octant_black"
+            "simplebuildingtools:octant_white",
+            "simplebuildingtools:octant_orange",
+            "simplebuildingtools:octant_magenta",
+            "simplebuildingtools:octant_light_blue",
+            "simplebuildingtools:octant_yellow",
+            "simplebuildingtools:octant_lime",
+            "simplebuildingtools:octant_pink",
+            "simplebuildingtools:octant_gray",
+            "simplebuildingtools:octant_light_gray",
+            "simplebuildingtools:octant_cyan",
+            "simplebuildingtools:octant_purple",
+            "simplebuildingtools:octant_blue",
+            "simplebuildingtools:octant_brown",
+            "simplebuildingtools:octant_green",
+            "simplebuildingtools:octant_red",
+            "simplebuildingtools:octant_black"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/octant/colour_coded.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/octant/colour_coded.json"
     },
     {
       "id": "simplebuilding:octant/full_spectrum",
       "parent": "simplebuilding:octant/colour_coded",
-      "icon": "simplebuilding:octant_magenta",
+      "icon": "simplebuildingtools:octant_magenta",
       "frame": "goal",
       "hidden": false,
       "title": {
@@ -118497,122 +115764,122 @@
           "name": "black_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_black"
+            "simplebuildingtools:octant_black"
           ]
         },
         {
           "name": "blue_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_blue"
+            "simplebuildingtools:octant_blue"
           ]
         },
         {
           "name": "brown_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_brown"
+            "simplebuildingtools:octant_brown"
           ]
         },
         {
           "name": "cyan_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_cyan"
+            "simplebuildingtools:octant_cyan"
           ]
         },
         {
           "name": "gray_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_gray"
+            "simplebuildingtools:octant_gray"
           ]
         },
         {
           "name": "green_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_green"
+            "simplebuildingtools:octant_green"
           ]
         },
         {
           "name": "light_blue_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_light_blue"
+            "simplebuildingtools:octant_light_blue"
           ]
         },
         {
           "name": "light_gray_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_light_gray"
+            "simplebuildingtools:octant_light_gray"
           ]
         },
         {
           "name": "lime_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_lime"
+            "simplebuildingtools:octant_lime"
           ]
         },
         {
           "name": "magenta_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_magenta"
+            "simplebuildingtools:octant_magenta"
           ]
         },
         {
           "name": "orange_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_orange"
+            "simplebuildingtools:octant_orange"
           ]
         },
         {
           "name": "pink_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_pink"
+            "simplebuildingtools:octant_pink"
           ]
         },
         {
           "name": "purple_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_purple"
+            "simplebuildingtools:octant_purple"
           ]
         },
         {
           "name": "red_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_red"
+            "simplebuildingtools:octant_red"
           ]
         },
         {
           "name": "white_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_white"
+            "simplebuildingtools:octant_white"
           ]
         },
         {
           "name": "yellow_octant",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:octant_yellow"
+            "simplebuildingtools:octant_yellow"
           ]
         }
       ],
       "needs": "all",
-      "source": "src/main/generated/data/simplebuilding/advancement/octant/full_spectrum.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/octant/full_spectrum.json"
     },
     {
       "id": "simplebuilding:octant/measure_twice",
       "parent": "simplebuilding:building/root",
-      "icon": "simplebuilding:octant",
+      "icon": "simplebuildingtools:octant",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -118631,7 +115898,7 @@
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/octant/measure_twice.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/octant/measure_twice.json"
     },
     {
       "id": "simplebuilding:pads/heads_up",
@@ -118698,7 +115965,7 @@
     {
       "id": "simplebuilding:root",
       "parent": null,
-      "icon": "simplebuilding:iron_building_wand",
+      "icon": "simplebuildingtools:iron_building_wand",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -118719,7 +115986,7 @@
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/root.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/root.json"
     },
     {
       "id": "simplebuilding:storage/bundle_of_joy",
@@ -119038,7 +116305,7 @@
           "items": [
             "simplebuilding:copper_chisel",
             "simplehammers:copper_sledgehammer",
-            "simplebuilding:copper_building_wand"
+            "simplebuildingtools:copper_building_wand"
           ]
         }
       ],
@@ -119066,7 +116333,7 @@
           "items": [
             "simplebuilding:diamond_chisel",
             "simplehammers:diamond_sledgehammer",
-            "simplebuilding:diamond_building_wand"
+            "simplebuildingtools:diamond_building_wand"
           ]
         }
       ],
@@ -119094,7 +116361,7 @@
           "items": [
             "simplebuilding:gold_chisel",
             "simplehammers:gold_sledgehammer",
-            "simplebuilding:gold_building_wand"
+            "simplebuildingtools:gold_building_wand"
           ]
         }
       ],
@@ -119122,7 +116389,7 @@
           "items": [
             "simplebuilding:iron_chisel",
             "simplehammers:iron_sledgehammer",
-            "simplebuilding:iron_building_wand"
+            "simplebuildingtools:iron_building_wand"
           ]
         }
       ],
@@ -119150,7 +116417,7 @@
           "items": [
             "simplebuilding:netherite_chisel",
             "simplehammers:netherite_sledgehammer",
-            "simplebuilding:netherite_building_wand"
+            "simplebuildingtools:netherite_building_wand"
           ]
         }
       ],
@@ -119376,7 +116643,7 @@
     {
       "id": "simplebuilding:wand/master_mason",
       "parent": "simplebuilding:wand/one_click_wonder",
-      "icon": "simplebuilding:gold_building_wand",
+      "icon": "simplebuildingtools:gold_building_wand",
       "frame": "challenge",
       "hidden": false,
       "title": {
@@ -119394,12 +116661,12 @@
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/wand/master_mason.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/wand/master_mason.json"
     },
     {
       "id": "simplebuilding:wand/one_click_wonder",
       "parent": "simplebuilding:wand/core_values",
-      "icon": "simplebuilding:copper_building_wand",
+      "icon": "simplebuildingtools:copper_building_wand",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -119418,12 +116685,12 @@
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/wand/one_click_wonder.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/wand/one_click_wonder.json"
     },
     {
       "id": "simplebuilding:wand/wand_erful",
       "parent": "simplebuilding:wand/one_click_wonder",
-      "icon": "simplebuilding:netherite_building_wand",
+      "icon": "simplebuildingtools:netherite_building_wand",
       "frame": "goal",
       "hidden": false,
       "title": {
@@ -119439,13 +116706,13 @@
           "name": "netherite_wand",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:netherite_building_wand",
-            "simplebuilding:enderite_building_wand"
+            "simplebuildingtools:netherite_building_wand",
+            "simplebuildingtools:enderite_building_wand"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/wand/wand_erful.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/wand/wand_erful.json"
     }
   ],
   "quests": [
@@ -121796,31 +119063,20 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 503,
+    "items": 477,
     "blocks": 260,
-    "recipes": 798,
+    "recipes": 771,
     "lootTables": 279,
     "trades": 20,
-    "enchantments": 13,
-    "tags": 55,
+    "enchantments": 10,
+    "tags": 53,
     "config": 232,
     "inWorld": 475,
     "advancements": 103,
     "features": 44,
-    "undocumented": 10,
+    "undocumented": 0,
     "incompleteProse": 0
   },
-  "undocumented": [
-    "simplebuilding:blueprint",
-    "simplebuilding:copper_building_wand",
-    "simplebuilding:creative_blueprint",
-    "simplebuilding:creative_building_wand",
-    "simplebuilding:diamond_building_wand",
-    "simplebuilding:enderite_building_wand",
-    "simplebuilding:gold_building_wand",
-    "simplebuilding:iron_building_wand",
-    "simplebuilding:netherite_building_wand",
-    "simplebuilding:octant"
-  ],
+  "undocumented": [],
   "incompleteProse": {}
 }

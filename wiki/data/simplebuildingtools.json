@@ -7,7 +7,7 @@
   "mod": {
     "id": "simplebuildingtools",
     "name": "Simple Building Tools",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "minecraftLines": [
       "26.3"
     ],
@@ -1971,6 +1971,81 @@
         }
       ],
       "source": "modules/simplebuildingtools/shared/resources/data/simplebuildingtools/tags/item/building_wands.json"
+    },
+    {
+      "id": "simplebuildingtools:item/octants",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuildingtools:octant",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_white",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_orange",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_magenta",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_light_blue",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_yellow",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_lime",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_pink",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_gray",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_light_gray",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_cyan",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_purple",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_blue",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_brown",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_green",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_red",
+          "required": true
+        },
+        {
+          "id": "simplebuildingtools:octant_black",
+          "required": true
+        }
+      ],
+      "source": "modules/simplebuildingtools/shared/resources/data/simplebuildingtools/tags/item/octants.json"
     }
   ],
   "advancements": [
@@ -5639,6 +5714,7 @@
           "summary": "Kapitel \"Simple Building Tools\" im Simple-Modpack-Handbuch (SimpleLib): 19 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Stock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
+      "texture": "assets/textures/simplebuildingtools/item/guide_book.png",
       "craftedBy": [],
       "usedIn": []
     },
@@ -12177,7 +12253,7 @@
     "features": 6,
     "recipes": 28,
     "lootTables": 0,
-    "tags": 4,
+    "tags": 5,
     "advancements": 1,
     "enchantments": 3,
     "items": 641,

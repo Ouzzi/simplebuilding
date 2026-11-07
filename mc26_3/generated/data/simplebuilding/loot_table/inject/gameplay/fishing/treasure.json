@@ -48,7 +48,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:linear": 1
+                "simplebuildingtools:linear": 1
               }
             }
           },

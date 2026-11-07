@@ -1149,32 +1149,6 @@ window.WIKI_ENCHANTING = {
    "exclusive": []
   },
   {
-   "id": "simplebuilding:bridge",
-   "module": "simplebuilding",
-   "family": true,
-   "name": {
-    "en": "Bridge",
-    "de": "Brücke"
-   },
-   "desc": null,
-   "maxLevel": 1,
-   "weight": 2,
-   "minCost": {
-    "base": 15,
-    "per_level_above_first": 15
-   },
-   "maxCost": {
-    "base": 55,
-    "per_level_above_first": 15
-   },
-   "table": false,
-   "curse": false,
-   "treasure": false,
-   "exclusive": [
-    "simplebuilding:cover"
-   ]
-  },
-  {
    "id": "simplebuilding:color_palette",
    "module": "simplebuilding",
    "family": true,
@@ -1221,33 +1195,6 @@ window.WIKI_ENCHANTING = {
    "curse": false,
    "treasure": false,
    "exclusive": []
-  },
-  {
-   "id": "simplebuilding:cover",
-   "module": "simplebuilding",
-   "family": true,
-   "name": {
-    "en": "Cover",
-    "de": "Abdeckung"
-   },
-   "desc": null,
-   "maxLevel": 1,
-   "weight": 2,
-   "minCost": {
-    "base": 15,
-    "per_level_above_first": 15
-   },
-   "maxCost": {
-    "base": 55,
-    "per_level_above_first": 15
-   },
-   "table": false,
-   "curse": false,
-   "treasure": false,
-   "exclusive": [
-    "simplebuilding:bridge",
-    "simplebuilding:linear"
-   ]
   },
   {
    "id": "simplebuilding:double_jump",
@@ -1324,32 +1271,6 @@ window.WIKI_ENCHANTING = {
     "minecraft:blast_protection",
     "minecraft:fire_protection",
     "minecraft:projectile_protection"
-   ]
-  },
-  {
-   "id": "simplebuilding:linear",
-   "module": "simplebuilding",
-   "family": true,
-   "name": {
-    "en": "Linear",
-    "de": "Linear"
-   },
-   "desc": null,
-   "maxLevel": 1,
-   "weight": 2,
-   "minCost": {
-    "base": 15,
-    "per_level_above_first": 15
-   },
-   "maxCost": {
-    "base": 55,
-    "per_level_above_first": 15
-   },
-   "table": false,
-   "curse": false,
-   "treasure": false,
-   "exclusive": [
-    "simplebuilding:cover"
    ]
   },
   {
@@ -2143,30 +2064,18 @@ window.WIKI_ENCHANTING = {
    ]
   },
   {
-   "id": "simplebuilding:diamond_building_wand",
+   "id": "simplebuilding:color_brush",
    "name": {
-    "en": "Diamond Building Wand",
-    "de": "Diamant-Baustab"
+    "en": "Color Brush",
+    "de": "Farbpinsel"
    },
    "enchantability": 10,
-   "assumed": false,
-   "icon": "assets/textures/item/diamond_building_wand.png",
-   "table": [
-    "minecraft:unbreaking",
-    "simplequalityoflife:thrift"
-   ],
+   "assumed": true,
+   "icon": "assets/textures/item/color_brush.png",
+   "table": [],
    "family": [
     [
-     "simplebuilding:bridge",
-     "simplebuilding:color_palette",
-     "simplebuilding:constructors_touch",
-     "simplebuilding:linear",
-     "simplebuilding:master_builder",
-     "simplequalityoflife:thrift",
-     "simpletools:soulbound"
-    ],
-    [
-     "simplebuilding:cover"
+     "simplebuilding:color_palette"
     ]
    ]
   },
@@ -2203,11 +2112,19 @@ window.WIKI_ENCHANTING = {
    "enchantability": 10,
    "assumed": true,
    "icon": "assets/textures/simplebuildingtools/item/diamond_building_wand.png",
-   "table": [],
+   "table": [
+    "minecraft:unbreaking",
+    "simplequalityoflife:thrift"
+   ],
    "family": [
     [
+     "simplebuilding:color_palette",
+     "simplebuilding:constructors_touch",
+     "simplebuilding:master_builder",
      "simplebuildingtools:bridge",
-     "simplebuildingtools:linear"
+     "simplebuildingtools:linear",
+     "simplequalityoflife:thrift",
+     "simpletools:soulbound"
     ],
     [
      "simplebuildingtools:cover"
