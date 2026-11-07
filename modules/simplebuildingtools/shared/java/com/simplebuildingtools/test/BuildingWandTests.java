@@ -597,6 +597,7 @@ public final class BuildingWandTests {
      * {@code preview == null && !instabuild} early return in {@code useOn}.
      */
     public static void materialSearchPrefersTheOffHandAndOnlyMasterBuilderReachesTheBackpack(GameTestHelper helper) {
+        if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplebuilding")) { helper.succeed(); return; } // Master Builder/Color Palette are SimpleBuilding's
         ServerPlayer player = mockPlayer(helper, false);
         Set<BlockPos> plane = square(ANCHOR.above(), Direction.Axis.Y, 1);
 
@@ -765,6 +766,7 @@ public final class BuildingWandTests {
      * into the air branch for every wand and leg four would build out of the off hand.
      */
     public static void wandArmedWithoutMaterialSearchesAgainAndPaletteFallsBackToStone(GameTestHelper helper) {
+        if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplebuilding")) { helper.succeed(); return; } // Master Builder/Color Palette are SimpleBuilding's
         ServerPlayer player = mockPlayer(helper, true);
 
         // --- 1. material that turns up after the click is found ---
