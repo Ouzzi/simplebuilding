@@ -159,6 +159,10 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimplePads = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleChisels = true;
     // <submods:end fields>
 
     /**
@@ -199,6 +203,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simpleresonance", c.enableSimpleResonance);
         setSubMod("simpleenchanting", c.enableSimpleEnchanting);
         setSubMod("simplepads", c.enableSimplePads);
+        setSubMod("simplechisels", c.enableSimpleChisels);
         // <submods:end apply>
     }
 

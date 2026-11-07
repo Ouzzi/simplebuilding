@@ -143,6 +143,7 @@ public final class ConsumptionAndDurabilityTests {
      * nothing except this guard protects them from the cooldown.
      */
     public static void chiselChargesDurabilityAndCooldownOnlyOutsideCreative(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = inLevelPlayer(helper, new Vec3(3.5, 2.0, 5.5), false);
 
         BlockPos target = new BlockPos(3, 1, 3);

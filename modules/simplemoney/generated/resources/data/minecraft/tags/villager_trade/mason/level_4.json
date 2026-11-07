@@ -14,10 +14,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/diamond_spatula",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplemachines/reinforced_hopper",
       "required": false
     },

@@ -588,6 +588,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleResonance boolean=true",
             "root.enableSimpleEnchanting boolean=true",
             "root.enableSimplePads boolean=true",
+            "root.enableSimpleChisels boolean=true",
             // <submods:end expected>
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1233,6 +1234,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleResonance", "simpleresonance"},
                 {"enableSimpleEnchanting", "simpleenchanting"},
                 {"enableSimplePads", "simplepads"},
+                {"enableSimpleChisels", "simplechisels"},
                 // <submods:end switches>
         };
         try {
@@ -1486,6 +1488,7 @@ public final class ConfigOptionTests {
         Map<Set<String>, Boolean> moved = new LinkedHashMap<>();
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_OVENS, !McVersion.OVENS_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_HAMMERS, !McVersion.HAMMERS_IN_SB);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_CHISELS, !McVersion.CHISELS_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_STORAGE, !McVersion.STORAGE_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_ORES, McVersion.MATERIALS_IN_ORES);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES, !McVersion.PISTONS_IN_SB);

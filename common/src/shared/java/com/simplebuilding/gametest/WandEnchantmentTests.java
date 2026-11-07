@@ -591,9 +591,10 @@ public final class WandEnchantmentTests {
      * cooldown, and raising Fast Chiseling's level cap without revisiting any of this.
      */
     public static void fastChiselingNeverPushesTheChiselCooldownBelowOneTick(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = mockPlayer(helper);
 
-        ChiselItem chisel = ModItems.NETHERITE_CHISEL;
+        ChiselItem chisel = (ChiselItem) ModItems.NETHERITE_CHISEL;
         helper.assertValueEqual(chisel.getCooldownTicks(), 5,
                 "the netherite chisel's base cooldown was retuned; it is the shortest in the game and "
                         + "the truncation numbers below are derived from it");
@@ -614,7 +615,7 @@ public final class WandEnchantmentTests {
                 "Fast Chiseling's level cap moved. Level 3 below was chosen because no anvil and no "
                         + "enchanting table can produce it; re-read this test before trusting it again.");
 
-        for (ChiselItem tier : List.of(ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL)) {
+        for (ChiselItem tier : List.of((ChiselItem) ModItems.DIAMOND_CHISEL, (ChiselItem) ModItems.NETHERITE_CHISEL)) {
             int measured = measureCooldown(helper, player,
                     enchanted(helper, tier, ModEnchantments.FAST_CHISELING, cap + 1));
             helper.assertValueEqual(measured, 1,

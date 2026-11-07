@@ -127,6 +127,7 @@ public final class BuildingEnchantmentTests {
      * deleting the cooldown check from {@code canChisel} alone.
      */
     public static void constructorsTouchUnlocksTheExtraChiselTablesInBothDirections(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         BlockPos mossy = new BlockPos(2, 1, 2);
@@ -582,10 +583,11 @@ public final class BuildingEnchantmentTests {
      * {@code isCorrectToolForDrops} early return.
      */
     public static void fastChiselingShortensTheCooldownAndSpeedsUpMining(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = mockPlayer(helper);
         BlockPos target = new BlockPos(3, 1, 3);
 
-        ChiselItem chisel = ModItems.STONE_CHISEL;
+        ChiselItem chisel = (ChiselItem) ModItems.STONE_CHISEL;
         int base = chisel.getCooldownTicks();
         helper.assertValueEqual(base, 30,
                 "the stone chisel's base cooldown was retuned; update the expected Fast Chiseling "
@@ -605,13 +607,13 @@ public final class BuildingEnchantmentTests {
                 "Fast Chiseling II did not take 60% off the cooldown");
 
         // --- the whole staircase of tier cooldowns, each one drained the same way ---
-        assertTierCooldown(helper, player, ModItems.STONE_CHISEL, 30, target);
-        assertTierCooldown(helper, player, ModItems.COPPER_CHISEL, 25, target);
-        assertTierCooldown(helper, player, ModItems.IRON_CHISEL, 25, target);
-        assertTierCooldown(helper, player, ModItems.GOLD_CHISEL, 20, target);
-        assertTierCooldown(helper, player, ModItems.DIAMOND_CHISEL, 10, target);
-        assertTierCooldown(helper, player, ModItems.NETHERITE_CHISEL, 5, target);
-        assertTierCooldown(helper, player, ModItems.ENDERITE_CHISEL, 5, target);
+        assertTierCooldown(helper, player, (ChiselItem) ModItems.STONE_CHISEL, 30, target);
+        assertTierCooldown(helper, player, (ChiselItem) ModItems.COPPER_CHISEL, 25, target);
+        assertTierCooldown(helper, player, (ChiselItem) ModItems.IRON_CHISEL, 25, target);
+        assertTierCooldown(helper, player, (ChiselItem) ModItems.GOLD_CHISEL, 20, target);
+        assertTierCooldown(helper, player, (ChiselItem) ModItems.DIAMOND_CHISEL, 10, target);
+        assertTierCooldown(helper, player, (ChiselItem) ModItems.NETHERITE_CHISEL, 5, target);
+        assertTierCooldown(helper, player, (ChiselItem) ModItems.ENDERITE_CHISEL, 5, target);
 
         // --- mining speed: half the material speed, plus +5 and +17 raw for the enchantment ---
         BlockState stone = Blocks.STONE.defaultBlockState();

@@ -747,6 +747,8 @@ def main(argv: list[str]) -> int:
             outputs[base / rel] = text
     mega_base = REPO / "mc26_3/overlay/resources" / QUEST_DIR
     for rel, text in build_files(book, "json5", mega=True).items():
+        # WE25-7: on 26.3 the chisels are Simple Chisels' (SimpleBuilding's quests name its items).
+        text = text.replace('"simplebuilding:stone_chisel"', '"simplechisels:stone_chisel"')
         shared = REPO / "src/main/resources" / QUEST_DIR / rel
         if shared.exists() and shared.read_text(encoding="utf-8") == text:
             continue

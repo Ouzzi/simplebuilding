@@ -1,12 +1,6 @@
 {
   "values": [
     "simplebuilding:creative_spacer",
-    "simplebuilding:stone_spatula",
-    "simplebuilding:copper_spatula",
-    "simplebuilding:iron_spatula",
-    "simplebuilding:gold_spatula",
-    "simplebuilding:diamond_spatula",
-    "simplebuilding:netherite_spatula",
     "simplepads:netherite_flypad",
     "simplepads:enderite_flypad",
     "simplepads:spawn_teleporter_tier_3",

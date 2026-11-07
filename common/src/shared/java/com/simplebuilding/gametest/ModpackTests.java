@@ -420,6 +420,7 @@ public final class ModpackTests {
      * chain the recorder in {@code ChiselItem} misses, or a reader that parses a file differently.
      */
     public static void chiselAndUpgradeTablesComeFromTheDatapackAndMatchTheBuiltInTables(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         helper.assertTrue(ChiselTables.isLoaded(), "no chisel transformation files were loaded");
         helper.assertTrue(SledgehammerUpgradeData.isLoaded(), "no sledgehammer upgrade files were loaded");
         List<String> problems = new ArrayList<>();
@@ -522,7 +523,7 @@ public final class ModpackTests {
                     + loaded.size() + " against " + SledgehammerUpgrades.builtInTable().size());
         }
         // The stone chisel really works off the loaded maps.
-        helper.assertTrue(ModItems.STONE_CHISEL.getForwardMap() == ChiselTables.tier("stone").forward(),
+        helper.assertTrue(((ChiselItem) ModItems.STONE_CHISEL).getForwardMap() == ChiselTables.tier("stone").forward(),
                 "the stone chisel does not read the loaded stone tier");
         helper.assertTrue(problems.isEmpty(), "datapack tables differ from the built-in ones:\n" + String.join("\n", problems));
         helper.succeed();
@@ -535,6 +536,7 @@ public final class ModpackTests {
      * is added and another removed. Afterwards the server's own files are applied again.
      */
     public static void datapackFilesExtendAndRemoveChiselAndUpgradeEntries(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         Map<String, String> chisel = new HashMap<>(ModDataTables.lastChiselFiles());
         chisel.put("apack:extra", "{\"tier\":\"stone\",\"table\":\"chisel\",\"chains\":[{\"blocks\":[\"minecraft:dirt\",\"minecraft:coarse_dirt\"]}],"
                 + "\"remove\":[\"minecraft:stone\"]}");

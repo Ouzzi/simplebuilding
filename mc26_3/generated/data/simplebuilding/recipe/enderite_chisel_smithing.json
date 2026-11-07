@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smithing_transform",
-  "addition": "simpleores:enderite_ingot",
-  "base": "simplebuilding:netherite_chisel",
-  "result": {
-    "id": "simplebuilding:enderite_chisel"
-  },
-  "template": "simpleores:enderite_upgrade_template"
-}

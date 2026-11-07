@@ -169,7 +169,7 @@ public final class TradeOfferTests {
     private static final int MASTER_BOOK_MAX_SECOND = 140;
 
     /** All six items the migration is supposed to have retired. */
-    private static final List<Item> LEGACY_SPATULAS = List.of(
+    private static final List<Item> LEGACY_SPATULAS = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? List.of() : List.of( // WE25-7: none on 26.3
             ModItems.STONE_SPATULA,
             ModItems.COPPER_SPATULA,
             ModItems.IRON_SPATULA,
@@ -510,6 +510,7 @@ public final class TradeOfferTests {
      * test).
      */
     public static void spatulasInContainersSurviveTheWorldScan(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         MinecraftServer server = helper.getLevel().getServer();
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> server.getPlayerList().remove(player));
@@ -569,6 +570,7 @@ public final class TradeOfferTests {
     // item holders a recipe references - which is precisely the question here.
     @SuppressWarnings("deprecation")
     public static void noRecipeReferencesTheLegacySpatulas(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         MinecraftServer server = helper.getLevel().getServer();
         RecipeManager recipeManager = server.getRecipeManager();
         ContextMap displayContext = SlotDisplayContext.fromLevel(helper.getLevel());
@@ -677,6 +679,8 @@ public final class TradeOfferTests {
     private static void collect(ItemEnchantments enchantments, Map<String, Integer> tally) {
         for (Holder<Enchantment> enchantment : enchantments.keySet()) {
             String pair = enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment);
+            // WE25-7: the trade json names Fast Chiseling by its old id; the 26.3 build ships simplechisels:.
+            pair = pair.replaceFirst("^" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":fast_chiseling@", "simplebuilding:fast_chiseling@");
             tally.merge(pair, 1, Integer::sum);
         }
     }

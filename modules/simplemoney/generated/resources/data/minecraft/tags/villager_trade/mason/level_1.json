@@ -30,10 +30,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/copper_spatula",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/lapis_quartz_checker",
       "required": false
     },
@@ -55,10 +51,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/resin_quartz_checker",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/stone_spatula",
       "required": false
     },
     {

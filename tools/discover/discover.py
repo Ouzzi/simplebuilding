@@ -142,6 +142,9 @@ MODS = [
     # b-pads01 (04.11.): the pads and pressure plates moved here from SimpleBuilding; the hidden easter chain stays secret.
     dict(id="simplepads", ns=["simplepads"], cls="PadsDiscover", package="com.simplepads.discover",
          mixin_package="com.simplepads.mixin", own_packages=["com.simplepads."], secret=["simplepads:easter_smithing"]),
+    # b-chisels07 (07.11.): the chisels moved here from SimpleBuilding (WE25-7).
+    dict(id="simplechisels", ns=["simplechisels"], cls="ChiselsDiscover", package="com.simplechisels.discover",
+         own_packages=["com.simplechisels."]),
     dict(id="simpleores", ns=["simpleores"], cls="OresDiscover", package="com.simpleores.discover",
          own_packages=["com.simpleores."]),
     dict(id="simpleblocks", ns=["simpleblocks"], cls="BlocksDiscover", package="com.simpleblocks.discover",

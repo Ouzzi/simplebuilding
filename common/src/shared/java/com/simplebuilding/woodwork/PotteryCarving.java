@@ -58,8 +58,19 @@ public final class PotteryCarving {
      * result - also PASS for a sherd on a stripped log's top, so the sherd never hollows the log by accident.
      */
     public static @Nullable InteractionResult useOn(ChiselItem chisel, UseOnContext context) {
+        if (chisel.isDedicatedSpatula()) {
+            return null;
+        }
+        return useOn(context, chisel.effectiveCooldownTicks(), ChiselItem.TRANSFORM_DAMAGE);
+    }
+
+    /**
+     * The same for any chisel: its cooldown and its durability per step. On 26.3 Simple Chisels asks it through SimpleLib
+     * {@code ChiselActions} before its table (WE25-7, registered in {@code LibServices}).
+     */
+    public static @Nullable InteractionResult useOn(UseOnContext context, int cooldownTicks, int damage) {
         Player player = context.getPlayer();
-        if (player == null || context.getHand() != InteractionHand.MAIN_HAND || chisel.isDedicatedSpatula()) {
+        if (player == null || context.getHand() != InteractionHand.MAIN_HAND) {
             return null;
         }
         SherdMotif motif = SherdMotif.of(player.getOffhandItem());
@@ -96,8 +107,8 @@ public final class PotteryCarving {
                 pos.getX() + 0.5 + face.getStepX() * 0.5, pos.getY() + 0.5,
                 pos.getZ() + 0.5 + face.getStepZ() * 0.5, 10, 0.2, 0.2, 0.2, 0.05);
         if (!player.getAbilities().instabuild) {
-            player.getCooldowns().addCooldown(stack, chisel.effectiveCooldownTicks());
-            stack.hurtAndBreak(ChiselItem.TRANSFORM_DAMAGE, player, EquipmentSlot.MAINHAND);
+            player.getCooldowns().addCooldown(stack, cooldownTicks);
+            stack.hurtAndBreak(damage, player, EquipmentSlot.MAINHAND);
         }
         com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.CHISEL_USES);
         return InteractionResult.SUCCESS_SERVER;

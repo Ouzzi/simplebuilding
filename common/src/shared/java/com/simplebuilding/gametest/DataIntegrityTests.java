@@ -248,7 +248,8 @@ public final class DataIntegrityTests {
      * fails until it is.
      */
     private static final Map<ResourceKey<Enchantment>, TagKey<Item>> SUPPORTED_ITEM_TAGS = Map.ofEntries(
-            Map.entry(ModEnchantments.FAST_CHISELING, ModTags.Items.CHISEL_TOOLS),
+            Map.entry(ModEnchantments.FAST_CHISELING, McVersion.CHISELS_IN_SB ? ModTags.Items.CHISEL_TOOLS // WE25-7: 26.3 Simple Chisels' tag
+                    : net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, com.simplebuilding.util.ChiselRefs.id("chisels"))),
             Map.entry(ModEnchantments.CONSTRUCTORS_TOUCH, ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE),
             Map.entry(ModEnchantments.RANGE, ModTags.Items.RANGE_ENCHANTABLE),
             Map.entry(ModEnchantments.DEEP_POCKETS, net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, com.simplebuilding.util.StorageRefs.id("deep_pockets_enchantable"))), // 26.3: Simple Storage's tag (split stage 8c-1)
@@ -432,6 +433,7 @@ public final class DataIntegrityTests {
 
         // The ids saved worlds match their stacks against, by the literal string.
         for (String path : new TreeSet<>(LEGACY_ITEM_IDS)) {
+            if (!McVersion.CHISELS_IN_SB && path.endsWith("_spatula")) continue; // WE25-7: IdMoves into Simple Chisels' chisels
             Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, path);
             if (!BuiltInRegistries.ITEM.containsKey(id)) {
                 problems.add(id + " is no longer registered; it is a legacy id, so every stack of it "
@@ -726,7 +728,8 @@ public final class DataIntegrityTests {
         List<String> shapes = new ArrayList<>();
         // Split stage 7: the sledgehammer recipes are Simple Hammers' (same shapes).
         for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
-            if (com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(holder.id().identifier().getNamespace())) {
+            if (com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(holder.id().identifier().getNamespace())
+                    || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(holder.id().identifier().getNamespace())) { // WE25-7
                 modRecipes.putIfAbsent(holder.id().identifier(), holder);
             }
         }
@@ -1677,6 +1680,7 @@ public final class DataIntegrityTests {
     private static boolean movedToMachines(Identifier id) {
         if (McVersion.ASTRAL_ENCHANTING && id != null && com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(id.getNamespace())) return true;
         if (!McVersion.PADS_IN_SB && id != null && McVersion.PADS_NAMESPACE.equals(id.getNamespace())) return true; // b-pads01: Simple Pads
+        if (!McVersion.CHISELS_IN_SB && id != null && McVersion.CHISELS_NAMESPACE.equals(id.getNamespace())) return true; // WE25-7: Simple Chisels
         return !McVersion.PISTONS_IN_SB && id != null && McVersion.PISTONS_NAMESPACE.equals(id.getNamespace());
     }
 
@@ -1851,6 +1855,11 @@ public final class DataIntegrityTests {
             // bootstrap only keeps their keys for the other generated data.
             if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB
                     && com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace())) {
+                continue;
+            }
+            // WE25-7: likewise Fast Chiseling is Simple Chisels' own file on 26.3.
+            if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB
+                    && com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(key.identifier().getNamespace())) {
                 continue;
             }
             if (!loaded.containsKey(key)) {
@@ -2448,6 +2457,8 @@ public final class DataIntegrityTests {
     private static Identifier recipeId(String path) {
         // Split stage 8c-1: the bundle and quiver recipes are Simple Storage's on 26.3.
         if (path.matches("(reinforced_|netherite_|enderite_)?(bundle|quiver)(_smithing)?")) return com.simplebuilding.util.StorageRefs.id(path);
+        // WE25-7: the chisel recipes are Simple Chisels' on 26.3.
+        if (path.matches(".*_chisel(_.*)?")) return com.simplebuilding.util.ChiselRefs.id(path);
         return Identifier.fromNamespaceAndPath(path.contains("_sledgehammer") ? com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE : MOD_ID, path);
     }
 
@@ -2455,7 +2466,8 @@ public final class DataIntegrityTests {
         Map<Identifier, RecipeHolder<?>> modRecipes = new HashMap<>();
         for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
             if (MOD_ID.equals(holder.id().identifier().getNamespace())
-                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(holder.id().identifier().getNamespace())) {
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(holder.id().identifier().getNamespace())
+                    || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(holder.id().identifier().getNamespace())) {
                 modRecipes.put(holder.id().identifier(), holder);
             }
         }
@@ -2846,6 +2858,8 @@ public final class DataIntegrityTests {
                     && !com.simplebuilding.util.BucketRefs.buckets().contains(item)
                     // Split stage 7: Simple Hammers' sledgehammers keep their row in SimpleBuilding's tools tab (by id).
                     && !com.simplebuilding.util.HammerRefs.all().contains(item)
+                    // WE25-7: Simple Chisels' chisels keep their row in SimpleBuilding's tools tab (by id).
+                    && !com.simplebuilding.util.ChiselRefs.all().contains(item)
                     // Split stage 8a: Simple Storage's crates and table keep their rows in SimpleBuilding's tabs (by id).
                     && !McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // WB24-6: Simple Lights' panes keep their rows in SimpleBuilding's building tab (by id).
@@ -2911,7 +2925,9 @@ public final class DataIntegrityTests {
                         // split stage 7: the tab keeps the books of Simple Hammers' three enchantments
                         || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(h.key().identifier().getNamespace())
                         // split stage 8c-1: and of Simple Storage's three (Drawer, Deep Pockets, Funnel)
-                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
+                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())
+                        // WE25-7: and of Simple Chisels' Fast Chiseling
+                        || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         Map<ModItemGroupsContent.Tab, Integer> expectedBooks = new LinkedHashMap<>();
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             expectedBooks.put(tab, tab == ModItemGroupsContent.Tab.TOOLS ? modEnchantments : 0);
@@ -3495,6 +3511,10 @@ public final class DataIntegrityTests {
      * recipe again), the info page brought back, or the chisels hidden by mistake.
      */
     public static void legacySpatulasAreHiddenFromRecipeViewers(GameTestHelper helper) {
+        if (!McVersion.CHISELS_IN_SB) { // WE25-7: no spatulas on 26.3 (IdMoves into Simple Chisels' chisels)
+            helper.succeed();
+            return;
+        }
         List<String> problems = new ArrayList<>();
         TagKey<Item> hidden = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers"));
         List<Item> spatulas = List.of(ModItems.STONE_SPATULA, ModItems.COPPER_SPATULA, ModItems.IRON_SPATULA,
@@ -3717,7 +3737,9 @@ public final class DataIntegrityTests {
                         // split stage 7: the tab keeps the books of Simple Hammers' three enchantments
                         || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(h.key().identifier().getNamespace())
                         // split stage 8c-1: and of Simple Storage's three (Drawer, Deep Pockets, Funnel)
-                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
+                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())
+                        // WE25-7: and of Simple Chisels' Fast Chiseling
+                        || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         boolean firstShelf = true;
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new ArrayList<>();
@@ -4659,7 +4681,8 @@ public final class DataIntegrityTests {
         for (ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key : com.simplebuilding.enchantment.VanillaBookTextures.MOD_BOOKS) {
             String path = key.identifier().getPath();
             if (!(MOD_ID.equals(key.identifier().getNamespace()) || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(key.identifier().getNamespace())
-                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace()))
+                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace())
+                    || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(key.identifier().getNamespace()))
                     || enchantments.get(key).isEmpty()) {
                 problems.add(key.identifier() + " is not a mod enchantment of the registry");
             }
@@ -5412,7 +5435,8 @@ public final class DataIntegrityTests {
                 if (de.get(key).getAsString().contains(old)) problems.add("de_de " + key + " still says '" + old + "'");
             }
         }
-        helper.assertTrue((!com.simplebuilding.version.McVersion.HAMMERS_IN_SB || styleByFamily.containsKey("_sledgehammer")) && styleByFamily.containsKey("_chisel"),
+        helper.assertTrue((!com.simplebuilding.version.McVersion.HAMMERS_IN_SB || styleByFamily.containsKey("_sledgehammer"))
+                        && (!McVersion.CHISELS_IN_SB || styleByFamily.containsKey("_chisel")), // WE25-7: 26.3 Simple Chisels'
                 "the family style check saw no sledgehammers or chisels - it checks nothing");
         helper.assertTrue(problems.isEmpty(), problems.size() + " name problems: " + problems);
         helper.succeed();

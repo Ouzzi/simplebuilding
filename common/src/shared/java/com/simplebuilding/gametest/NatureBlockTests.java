@@ -21,6 +21,7 @@ public final class NatureBlockTests {
 
     /** The stone chisel turns ice into Simple Blocks' cracked ice (datapack file cracked_ice_stone_chisel.json), the spatula back. */
     public static void chiselMakesCrackedIce(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         if (!McVersion.NATURE_VARIANTS) {
             helper.succeed();
             return;

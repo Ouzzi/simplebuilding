@@ -36,7 +36,7 @@ public final class SmokeTests {
      * offer them any more. The three bundles are here because they are the items whose contents
      * would be lost with them.
      */
-    private static final List<String> PINNED_IDS = List.of(
+    private static final List<String> PINNED_IDS = pinned(List.of(
             "stone_chisel",
             "octant",
             "reinforced_bundle",
@@ -47,10 +47,10 @@ public final class SmokeTests {
             "iron_spatula",
             "gold_spatula",
             "diamond_spatula",
-            "netherite_spatula");
+            "netherite_spatula"));
 
     /** The same items, in the same order, as the constants the rest of the mod refers to. */
-    private static final List<Item> PINNED_ITEMS = List.of(
+    private static final List<Item> PINNED_ITEMS = pinned(java.util.Arrays.asList(
             ModItems.STONE_CHISEL,
             ModItems.OCTANT,
             com.simplebuilding.util.StorageRefs.item("reinforced_bundle"),
@@ -61,7 +61,15 @@ public final class SmokeTests {
             ModItems.IRON_SPATULA,
             ModItems.GOLD_SPATULA,
             ModItems.DIAMOND_SPATULA,
-            ModItems.NETHERITE_SPATULA);
+            ModItems.NETHERITE_SPATULA));
+
+    /**
+     * WE25-7: on 26.3 the spatulas are gone (their ids move into Simple Chisels' chisels, tested there), so the six spatula
+     * entries leave both lists (index 5 on); 26.2 keeps all eleven.
+     */
+    private static <T> List<T> pinned(List<T> all) {
+        return com.simplebuilding.version.McVersion.CHISELS_IN_SB ? List.copyOf(all) : List.copyOf(all.subList(0, 5));
+    }
 
     /**
      * Items that have to stay reachable in creative. Deliberately not "all of them": the
@@ -105,7 +113,8 @@ public final class SmokeTests {
             String expectedPath = PINNED_IDS.get(i);
             Identifier id = BuiltInRegistries.ITEM.getKey(item);
             // Split stage 8c-1: on 26.3 the bundles are Simple Storage's; the old id must still find them (IdMoves).
-            String namespace = expectedPath.endsWith("_bundle") ? com.simplebuilding.version.McVersion.STORAGE_NAMESPACE : SimpleBuildingGameTests.MOD_ID;
+            String namespace = expectedPath.endsWith("_bundle") ? com.simplebuilding.version.McVersion.STORAGE_NAMESPACE
+                    : expectedPath.endsWith("_chisel") ? com.simplebuilding.version.McVersion.CHISELS_NAMESPACE : SimpleBuildingGameTests.MOD_ID; // WE25-7
             helper.assertTrue(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleBuildingGameTests.MOD_ID, expectedPath)) == item,
                     "the old id " + SimpleBuildingGameTests.MOD_ID + ":" + expectedPath + " no longer finds " + id);
             helper.assertTrue(id != null && namespace.equals(id.getNamespace()),

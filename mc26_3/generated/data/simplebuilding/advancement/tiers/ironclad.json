@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "simplebuilding:iron_chisel",
+              "simplechisels:iron_chisel",
               "simplehammers:iron_sledgehammer",
               "simplebuilding:iron_building_wand"
             ]

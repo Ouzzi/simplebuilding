@@ -281,7 +281,7 @@ public final class GuideBooks {
     public static List<String> gates(Book book) {
         return switch (book) {
             case GUIDE, ADMIN -> List.of();
-            case TOOLS -> List.of("simplebuilding:stone_chisel");
+            case TOOLS -> List.of(com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":stone_chisel");
             case ENCHANTMENTS -> List.of("minecraft:enchanting_table", "minecraft:bookshelf");
             // The pebble recipes have no recipe advancement (nothing puts them into the recipe book), so they cannot gate.
             case BUILDING -> List.of("minecraft:bricks", "minecraft:stone_bricks", "simplebuilding:copper_building_wand");

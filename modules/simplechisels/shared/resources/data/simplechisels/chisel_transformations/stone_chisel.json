@@ -1,0 +1,66 @@
+{
+  "chains": [
+    {
+      "blocks": [
+        "minecraft:smooth_sandstone",
+        "minecraft:cut_sandstone",
+        "minecraft:sandstone",
+        "minecraft:chiseled_sandstone"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:sandstone_stairs",
+        "minecraft:smooth_sandstone_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:sandstone_slab",
+        "minecraft:cut_sandstone_slab",
+        "minecraft:smooth_sandstone_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:smooth_red_sandstone",
+        "minecraft:cut_red_sandstone",
+        "minecraft:red_sandstone",
+        "minecraft:chiseled_red_sandstone"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:red_sandstone_stairs",
+        "minecraft:smooth_red_sandstone_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:red_sandstone_slab",
+        "minecraft:cut_red_sandstone_slab",
+        "minecraft:smooth_red_sandstone_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stone",
+        "minecraft:chiseled_stone_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:smooth_stone_slab",
+        "minecraft:stone_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stone_stairs",
+        "minecraft:cobblestone_stairs"
+      ]
+    }
+  ],
+  "table": "chisel",
+  "tier": "stone"
+}

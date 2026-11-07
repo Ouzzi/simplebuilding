@@ -226,10 +226,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_chisel",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_helmet",
       "required": false
     },
@@ -278,15 +274,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/netherite_chisel",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/netherite_nugget",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_spatula",
       "required": false
     },
     {
@@ -399,6 +387,14 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/polished_nihilith_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplechisels/enderite_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplechisels/netherite_chisel",
       "required": false
     },
     {

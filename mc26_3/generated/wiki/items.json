@@ -576,22 +576,6 @@
       "wandSquareDiameter": 3
     },
     {
-      "cooldownTicks": 25,
-      "dedicatedSpatula": false,
-      "durability": 192,
-      "enchantability": 18,
-      "id": "simplebuilding:copper_chisel",
-      "maxStackSize": 1
-    },
-    {
-      "cooldownTicks": 25,
-      "dedicatedSpatula": true,
-      "durability": 192,
-      "enchantability": 18,
-      "id": "simplebuilding:copper_spatula",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:cracked_astralit_bricks"
     },
     {
@@ -659,26 +643,10 @@
       "wandSquareDiameter": 9
     },
     {
-      "cooldownTicks": 10,
-      "dedicatedSpatula": false,
-      "durability": 392,
-      "enchantability": 10,
-      "id": "simplebuilding:diamond_chisel",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:diamond_pole"
     },
     {
       "id": "simplebuilding:diamond_rod"
-    },
-    {
-      "cooldownTicks": 10,
-      "dedicatedSpatula": true,
-      "durability": 392,
-      "enchantability": 10,
-      "id": "simplebuilding:diamond_spatula",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:dull_astralit_dust"
@@ -823,14 +791,6 @@
       "maxStackSize": 1
     },
     {
-      "cooldownTicks": 5,
-      "dedicatedSpatula": false,
-      "durability": 600,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_chisel",
-      "maxStackSize": 1
-    },
-    {
       "durability": 462,
       "enchantability": 18,
       "id": "simplebuilding:enderite_helmet",
@@ -914,23 +874,7 @@
       "wandSquareDiameter": 7
     },
     {
-      "cooldownTicks": 20,
-      "dedicatedSpatula": false,
-      "durability": 128,
-      "enchantability": 22,
-      "id": "simplebuilding:gold_chisel",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:gold_pole"
-    },
-    {
-      "cooldownTicks": 20,
-      "dedicatedSpatula": true,
-      "durability": 128,
-      "enchantability": 22,
-      "id": "simplebuilding:gold_spatula",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:gray_hammock",
@@ -1027,23 +971,7 @@
       "wandSquareDiameter": 5
     },
     {
-      "cooldownTicks": 25,
-      "dedicatedSpatula": false,
-      "durability": 256,
-      "enchantability": 14,
-      "id": "simplebuilding:iron_chisel",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:iron_pole"
-    },
-    {
-      "cooldownTicks": 25,
-      "dedicatedSpatula": true,
-      "durability": 256,
-      "enchantability": 14,
-      "id": "simplebuilding:iron_spatula",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:jukebox_amplifier"
@@ -1255,27 +1183,11 @@
       "id": "simplebuilding:netherite_carrot"
     },
     {
-      "cooldownTicks": 5,
-      "dedicatedSpatula": false,
-      "durability": 512,
-      "enchantability": 15,
-      "id": "simplebuilding:netherite_chisel",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:netherite_paint_box",
       "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_pole"
-    },
-    {
-      "cooldownTicks": 5,
-      "dedicatedSpatula": true,
-      "durability": 512,
-      "enchantability": 15,
-      "id": "simplebuilding:netherite_spatula",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:nihil_end_stone"
@@ -2046,23 +1958,7 @@
       "id": "simplebuilding:spruce_sheet"
     },
     {
-      "cooldownTicks": 30,
-      "dedicatedSpatula": false,
-      "durability": 192,
-      "enchantability": 15,
-      "id": "simplebuilding:stone_chisel",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:stone_pebble"
-    },
-    {
-      "cooldownTicks": 30,
-      "dedicatedSpatula": true,
-      "durability": 192,
-      "enchantability": 15,
-      "id": "simplebuilding:stone_spatula",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:straw_armor_stand",

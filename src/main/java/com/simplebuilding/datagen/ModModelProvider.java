@@ -785,7 +785,8 @@ public class ModModelProvider extends FabricModelProvider {
             if (item != null) itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         }
 
-        // --- 2. CHISELS ---
+        // --- 2. CHISELS --- (26.3, WE25-7: Simple Chisels' models; no spatulas there)
+        if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
         itemModelGenerator.generateFlatItem(ModItems.STONE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.COPPER_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.IRON_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -793,6 +794,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
+        }
         generateColorBrush(itemModelGenerator);
         for (Item box : new Item[]{ModItems.PAINT_BOX, ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_PAINT_BOX}) {
             itemModelGenerator.generateFlatItem(box, ModelTemplates.FLAT_ITEM);
@@ -801,12 +803,14 @@ public class ModModelProvider extends FabricModelProvider {
         // Die sechs Alt-Spatel (LegacySpatulaMigration) waren bisher modelllos, und jeder Start
         // meldete sie mit "No model loaded". Gehalten wie die Meissel, deren Variante sie sind;
         // die Textur ist textures/item/<stufe>_spatula.png.
+        if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
         itemModelGenerator.generateFlatItem(ModItems.STONE_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.COPPER_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.IRON_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLD_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
+        }
 
         // --- WANDS ---
         itemModelGenerator.generateFlatItem(ModItems.COPPER_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);

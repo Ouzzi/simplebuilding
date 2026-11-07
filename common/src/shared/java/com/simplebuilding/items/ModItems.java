@@ -671,34 +671,36 @@ public class ModItems {
     public static final SledgehammerItem ENDERITE_SLEDGEHAMMER = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? registerSledgehammer("enderite_sledgehammer", DURABILITY_ENDERITE_SLEDGEHAMMER, ENCHANTABILITY_ENDERITE, ModToolMaterials.ENDERITE, SledgehammerItem.ENDERITE_ATTACK_DAMAGE, SledgehammerItem.ENDERITE_ATTACK_SPEED) : null;
 
     // Chisels (Forward)
+    // WE25-7 (b-chisels07): on 26.3 the chisels are Simple Chisels' (McVersion.CHISELS_IN_SB false); the fields point at its items
+    // (the module initialises first), the legacy spatulas are gone there (IdMoves: old spatula -> chisel of the tier).
 
-    public static final ChiselItem STONE_CHISEL = registerChisel("stone_chisel", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE);
+    public static final Item STONE_CHISEL = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? com.simplebuilding.util.ChiselRefs.item("stone") : registerChisel("stone_chisel", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE);
 
-    public static final ChiselItem COPPER_CHISEL = registerChisel("copper_chisel", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER, ToolMaterial.COPPER);
+    public static final Item COPPER_CHISEL = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? com.simplebuilding.util.ChiselRefs.item("copper") : registerChisel("copper_chisel", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER, ToolMaterial.COPPER);
 
-    public static final ChiselItem IRON_CHISEL = registerChisel("iron_chisel", DURABILITY_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON, ToolMaterial.IRON);
+    public static final Item IRON_CHISEL = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? com.simplebuilding.util.ChiselRefs.item("iron") : registerChisel("iron_chisel", DURABILITY_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON, ToolMaterial.IRON);
 
-    public static final ChiselItem GOLD_CHISEL = registerChisel("gold_chisel", DURABILITY_GOLD, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD, ToolMaterial.GOLD);
+    public static final Item GOLD_CHISEL = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? com.simplebuilding.util.ChiselRefs.item("gold") : registerChisel("gold_chisel", DURABILITY_GOLD, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD, ToolMaterial.GOLD);
 
-    public static final ChiselItem DIAMOND_CHISEL = registerChisel("diamond_chisel", DURABILITY_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND);
+    public static final Item DIAMOND_CHISEL = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? com.simplebuilding.util.ChiselRefs.item("diamond") : registerChisel("diamond_chisel", DURABILITY_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND);
 
-    public static final ChiselItem NETHERITE_CHISEL = registerChisel("netherite_chisel", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE);
+    public static final Item NETHERITE_CHISEL = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? com.simplebuilding.util.ChiselRefs.item("netherite") : registerChisel("netherite_chisel", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE);
 
-    public static final ChiselItem ENDERITE_CHISEL = registerChisel("enderite_chisel", DURABILITY_ENDERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_ENDERITE, ModToolMaterials.ENDERITE);
+    public static final Item ENDERITE_CHISEL = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? com.simplebuilding.util.ChiselRefs.item("enderite") : registerChisel("enderite_chisel", DURABILITY_ENDERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_ENDERITE, ModToolMaterials.ENDERITE);
 
     // Spatulas (Backward)
 
-    public static final ChiselItem STONE_SPATULA = registerSpatula("stone_spatula", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE);
+    public static final Item STONE_SPATULA = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? null : registerSpatula("stone_spatula", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE);
 
-    public static final ChiselItem COPPER_SPATULA = registerSpatula("copper_spatula", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER, ToolMaterial.COPPER);
+    public static final Item COPPER_SPATULA = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? null : registerSpatula("copper_spatula", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER, ToolMaterial.COPPER);
 
-    public static final ChiselItem IRON_SPATULA = registerSpatula("iron_spatula", DURABILITY_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON, ToolMaterial.IRON);
+    public static final Item IRON_SPATULA = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? null : registerSpatula("iron_spatula", DURABILITY_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON, ToolMaterial.IRON);
 
-    public static final ChiselItem GOLD_SPATULA = registerSpatula("gold_spatula", DURABILITY_GOLD, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD, ToolMaterial.GOLD);
+    public static final Item GOLD_SPATULA = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? null : registerSpatula("gold_spatula", DURABILITY_GOLD, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD, ToolMaterial.GOLD);
 
-    public static final ChiselItem DIAMOND_SPATULA = registerSpatula("diamond_spatula", DURABILITY_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND);
+    public static final Item DIAMOND_SPATULA = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? null : registerSpatula("diamond_spatula", DURABILITY_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND);
 
-    public static final ChiselItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE);
+    public static final Item NETHERITE_SPATULA = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? null : registerSpatula("netherite_spatula", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE);
 
     // Gadgets
 

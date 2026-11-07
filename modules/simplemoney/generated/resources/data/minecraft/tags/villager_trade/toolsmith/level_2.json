@@ -6,11 +6,11 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/iron_chisel",
+      "id": "simplemoney:links/simplebuilding/magnet",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/magnet",
+      "id": "simplemoney:links/simplechisels/iron_chisel",
       "required": false
     },
     {

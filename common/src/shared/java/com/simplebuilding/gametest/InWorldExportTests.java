@@ -142,6 +142,7 @@ public final class InWorldExportTests {
      * legacy spatula is a chisel.
      */
     public static void chiselTablesFollowTheToolTiers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         JsonObject chisel = InWorldTransformations.chisel();
         JsonArray tables = chisel.getAsJsonArray("tables");
         TreeMap<String, Integer> tableOf = new TreeMap<>();

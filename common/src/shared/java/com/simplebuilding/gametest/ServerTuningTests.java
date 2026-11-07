@@ -386,8 +386,11 @@ public final class ServerTuningTests {
                     "default hopper cooldowns");
             check(problems, ServerTuning.furnaceExtraTicks(1) == 1 && ServerTuning.furnaceExtraTicks(2) == 3 && ServerTuning.furnaceExtraTicks(3) == 7,
                     "default furnace extra ticks");
-            check(problems, ModItems.IRON_CHISEL.effectiveCooldownTicks() == 25 && ModItems.NETHERITE_SPATULA.effectiveCooldownTicks() == 5,
-                    "default chisel cooldowns");
+            // WE25-7: on 26.3 the chisel cooldowns are Simple Chisels' own config (simplechisels-server.json, its tests).
+            if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+                check(problems, chisel(ModItems.IRON_CHISEL).effectiveCooldownTicks() == 25 && chisel(ModItems.NETHERITE_SPATULA).effectiveCooldownTicks() == 5,
+                        "default chisel cooldowns");
+            }
             check(problems, SledgehammerUpgrades.upgradeTicks() == SledgehammerUpgrades.UPGRADE_TICKS, "default upgrade length");
             check(problems, OreDetectorItem.OreClass.COMMON.range(false) == 24 && OreDetectorItem.scanInterval(null) == 20,
                     "default detector range/interval");
@@ -405,8 +408,10 @@ public final class ServerTuningTests {
             s.loot.tradePriceMultiplier = 2.0;
             check(problems, ServerTuning.hopperCooldown(1) == 1, "reinforced hopper at speed 8: " + ServerTuning.hopperCooldown(1));
             check(problems, ServerTuning.furnaceExtraTicks(3) == 1, "enderite furnace at speed 2: " + ServerTuning.furnaceExtraTicks(3));
-            check(problems, ModItems.IRON_CHISEL.effectiveCooldownTicks() == 40 && ModItems.IRON_SPATULA.effectiveCooldownTicks() == 40,
-                    "iron chisel/spatula cooldown: " + ModItems.IRON_CHISEL.effectiveCooldownTicks());
+            if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+                check(problems, chisel(ModItems.IRON_CHISEL).effectiveCooldownTicks() == 40 && chisel(ModItems.IRON_SPATULA).effectiveCooldownTicks() == 40,
+                        "iron chisel/spatula cooldown: " + chisel(ModItems.IRON_CHISEL).effectiveCooldownTicks());
+            }
             // 26.3 (split stage 7): the upgrade length is Simple Hammers' own config (simplehammers-server.json, its tests).
             if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
                 check(problems, SledgehammerUpgrades.upgradeTicks() == 60 && SledgehammerUpgrades.blows() == 3,
@@ -500,5 +505,9 @@ public final class ServerTuningTests {
         helper.assertTrue(!net.minecraft.world.entity.monster.Monster.checkMonsterSpawnRules(net.minecraft.world.entity.EntityTypes.ENDERMAN,
                 level, net.minecraft.world.entity.EntitySpawnReason.NATURAL, spawn, random), "a powered Enderite block stops the Enderman spawn");
         helper.succeed();
+    }
+
+    private static com.simplebuilding.items.custom.ChiselItem chisel(net.minecraft.world.item.Item item) {
+        return (com.simplebuilding.items.custom.ChiselItem) item;
     }
 }

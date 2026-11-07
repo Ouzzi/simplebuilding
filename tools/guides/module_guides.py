@@ -259,6 +259,15 @@ MODULES = [
                 "Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim "
                 "und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, "
                 "Netherit-, Enderit- und Kupfer-Druckplatten.")),
+    dict(module="simplechisels", ns="simplechisels", package="com.simplechisels.guide", cls="ChiselsGuide", kind="item",
+         author="Simple Chisels", recipe="minecraft:copper_nugget",
+         name=("Simple Chisels Guide", "Simple-Chisels-Handbuch"),
+         intro=("Seven chisels from Stone to Enderite that turn a block into the next one of its family right where it "
+                "stands - stone into chiseled stone bricks, planks into stairs - and back again when you sneak, and the "
+                "enchantment Fast Chiseling.",
+                "Sieben Meißel von Stein bis Enderit, die einen Block an Ort und Stelle in den nächsten seiner Familie "
+                "verwandeln - Stein in gemeißelte Steinziegel, Bretter in Treppen - und beim Schleichen wieder zurück, und "
+                "die Verzauberung Schnelles Meißeln.")),
     dict(module="simplelights", ns="simplelights", package="com.simplelights.guide", cls="LightsGuide", kind="item",
          author="Simple Lights", recipe="minecraft:glowstone_dust",
          name=("Simple Lights Guide", "Simple-Lights-Handbuch"),
@@ -636,6 +645,7 @@ NOTE = ("Chapter \"%s\" of the Simple Modpack guide (SimpleLib): %d pages taken 
         "durch Aufheben von: %s. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim "
         "Benutzen dazu.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:copper_nugget": ("copper nugget", "Kupferklumpen"),
     "minecraft:feather": ("feather", "Feder"),
     "minecraft:stone_pressure_plate": ("stone pressure plate", "Steindruckplatte"),
     "minecraft:redstone": ("redstone dust", "Redstone-Staub"),

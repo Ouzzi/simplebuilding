@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "simplebuilding:copper_chisel",
+              "simplechisels:copper_chisel",
               "simplehammers:copper_sledgehammer",
               "simplebuilding:copper_building_wand"
             ]
@@ -21,7 +21,7 @@
       "translate": "advancements.simplebuilding.tiers.copper_crafter.description"
     },
     "icon": {
-      "id": "simplebuilding:copper_chisel"
+      "id": "simplechisels:copper_chisel"
     },
     "title": {
       "translate": "advancements.simplebuilding.tiers.copper_crafter.title"

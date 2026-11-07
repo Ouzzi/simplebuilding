@@ -28,7 +28,8 @@ window.WIKI_MODULES = [
       "simplemobs",
       "simpleresonance",
       "simpleenchanting",
-      "simplepads"
+      "simplepads",
+      "simplechisels"
     ],
     "optional": [
       "jei",
@@ -78,9 +79,9 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 502,
+      "items": 503,
       "blocks": 260,
-      "recipes": 797,
+      "recipes": 798,
       "config": 231,
       "features": 47
     }
@@ -154,9 +155,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 8,
-      "features": 76
+      "features": 77
     },
-    "dataHash": "d495504e10a2"
+    "dataHash": "7b8da5858dcd"
   },
   {
     "id": "simpleriding",
@@ -308,7 +309,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 79
     },
-    "dataHash": "9d70bc8235c0"
+    "dataHash": "9a2e84030489"
   },
   {
     "id": "simplesounds",
@@ -1735,16 +1736,16 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "Gadgets you hold and use: the Gauge - a speed dial, an altimeter that warns of fall damage and auto-walk along paths and rails - the Transposer, which turns and swaps blocks in place, the Resonance Rod, a beam that points, melts, ignites and measures, and the Echo Sounder, which jumps back to a lodestone.",
-      "de": "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, der Blöcke an Ort und Stelle dreht und tauscht, der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst, und das Echolot, das zu einem Leitstein zurückspringt."
+      "en": "Gadgets you hold and use: the Gauge - a speed dial, an altimeter that warns of fall damage and auto-walk along paths and rails - the Transposer, which turns and swaps blocks in place, and the Resonance Rod, a beam that points, melts, ignites and measures.",
+      "de": "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, der Blöcke an Ort und Stelle dreht und tauscht, und der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA90lEQVR42mMIMJD9jw1vShFEwbjUMYCIu6v74Bim4e/XeDD+dc0LjGHiMHUnKjxQDbjQnQTX+Pv79v+/vj1BwS83isINAmmeEGaCagBMM7pGDAw1BK8BIDa6RrgY0IBSDSZUA4i2Hck7IEMwDMBmMzaXYDXghJzcfw0lCCbLBSBBGIYZBFKELI6MUQwAcUBeuDNNGB7vIPzv9LP/m/s+o4iB1IAsxDAAJIGccGCae7PO/A+x7MJvACgasRmCTTPM+RjpACQIMhmkCBeGJWesBjw7tBZuCLJB6JkKpAYjKcMEQBikANkgZI0wm2EYbgA2DNMAw7jUAQAPg4NVZ9x2CgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 5,
-      "recipes": 8,
+      "items": 4,
+      "recipes": 6,
       "features": 5
     },
-    "dataHash": "a7a0e8756811"
+    "dataHash": "ce9d61dbe486"
   },
   {
     "id": "simpleearth",
@@ -2103,5 +2104,37 @@ window.WIKI_MODULES = [
       "features": 1
     },
     "dataHash": "a6711562ef9d"
+  },
+  {
+    "id": "simplechisels",
+    "displayName": "Simple Chisels",
+    "description": "Seven chisels (Stone to Enderite) that move blocks one step along their family - stone to chiseled, bricks to cracked, planks to stairs to slabs - and back with sneak, with the enchantment Fast Chiseling, moved from SimpleBuilding (ids migrate). Other mods add their chains through data files.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleores",
+      "jei"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Seven chisels from Stone to Enderite that turn a block into the next one of its family right where it stands - stone into chiseled stone bricks, planks into stairs - and back again when you sneak, and the enchantment Fast Chiseling.",
+      "de": "Sieben Meißel von Stein bis Enderit, die einen Block an Ort und Stelle in den nächsten seiner Familie verwandeln - Stein in gemeißelte Steinziegel, Bretter in Treppen - und beim Schleichen wieder zurück, und die Verzauberung Schnelles Meißeln."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 8,
+      "recipes": 10,
+      "features": 7
+    },
+    "dataHash": "df9d6af83d77"
   }
 ];

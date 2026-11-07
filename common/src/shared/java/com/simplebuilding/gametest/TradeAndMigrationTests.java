@@ -779,6 +779,7 @@ public final class TradeAndMigrationTests {
      * spatula; and removing either loader's join listener.
      */
     public static void legacySpatulasInPlayerInventoryBecomeChisels(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
 
@@ -897,6 +898,7 @@ public final class TradeAndMigrationTests {
      * a scan box that no longer reaches above y=0, which is where the third entity stands.
      */
     public static void legacySpatulaItemEntityIsRewrittenInPlace(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         // Two entities on purpose: the damage component only validates on a single item, so
         // "components survive" and "stack size survives" cannot be checked on the same stack.
         ItemEntity damaged = helper.spawnItem(ModItems.DIAMOND_SPATULA, new BlockPos(1, 2, 1));
@@ -983,6 +985,7 @@ public final class TradeAndMigrationTests {
      * <p>What breaks it: going back to a box that ends at the build limit.
      */
     public static void legacySpatulaAboveTheBuildLimitIsRewrittenToo(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos anchor = helper.absolutePos(new BlockPos(1, 2, 1));
         double y = level.getMaxY() + 20.0;
@@ -1278,6 +1281,8 @@ public final class TradeAndMigrationTests {
             String drawn = enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment);
             // Split stage 7: the json names the hammer enchantments by their old id; the 26.3 build ships simplehammers:.
             drawn = drawn.replaceFirst("^" + com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":(break_through|override|radius)@", "simplebuilding:$1@");
+            // WE25-7: likewise Fast Chiseling, which the 26.3 build ships as simplechisels:.
+            drawn = drawn.replaceFirst("^" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":fast_chiseling@", "simplebuilding:fast_chiseling@");
             helper.assertTrue(pool.contains(drawn),
                     id + ": the merchant put " + drawn + " on the tool, which is not one of the "
                             + "enchantment/level pairs its json offers (" + pool + ")");
@@ -1313,7 +1318,9 @@ public final class TradeAndMigrationTests {
                 ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(offer.getResult());
                 for (Holder<Enchantment> enchantment : enchantments.keySet()) {
                     drawn.add((enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment)).replaceFirst(
-                            "^" + com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":(break_through|override|radius)@", "simplebuilding:$1@"));
+                            "^" + com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":(break_through|override|radius)@", "simplebuilding:$1@")
+                            // WE25-7: Fast Chiseling, likewise named by its old id in the json.
+                            .replaceFirst("^" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":fast_chiseling@", "simplebuilding:fast_chiseling@"));
                 }
             }
 

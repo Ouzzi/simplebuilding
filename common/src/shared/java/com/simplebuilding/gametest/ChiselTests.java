@@ -150,19 +150,19 @@ public final class ChiselTests {
      * that are easiest to get wrong when a tier is added.
      */
     private static final List<TierRow> TIER_TABLE = List.of(
-            new TierRow(ModItems.STONE_CHISEL, "stone_chisel", 30),
-            new TierRow(ModItems.COPPER_CHISEL, "copper_chisel", 25),
-            new TierRow(ModItems.IRON_CHISEL, "iron_chisel", 25),
-            new TierRow(ModItems.GOLD_CHISEL, "gold_chisel", 20),
-            new TierRow(ModItems.DIAMOND_CHISEL, "diamond_chisel", 10),
-            new TierRow(ModItems.NETHERITE_CHISEL, "netherite_chisel", 5),
-            new TierRow(ModItems.ENDERITE_CHISEL, "enderite_chisel", 5),
-            new TierRow(ModItems.STONE_SPATULA, "stone_spatula", 30),
-            new TierRow(ModItems.COPPER_SPATULA, "copper_spatula", 25),
-            new TierRow(ModItems.IRON_SPATULA, "iron_spatula", 25),
-            new TierRow(ModItems.GOLD_SPATULA, "gold_spatula", 20),
-            new TierRow(ModItems.DIAMOND_SPATULA, "diamond_spatula", 10),
-            new TierRow(ModItems.NETHERITE_SPATULA, "netherite_spatula", 5));
+            new TierRow(c(ModItems.STONE_CHISEL), "stone_chisel", 30),
+            new TierRow(c(ModItems.COPPER_CHISEL), "copper_chisel", 25),
+            new TierRow(c(ModItems.IRON_CHISEL), "iron_chisel", 25),
+            new TierRow(c(ModItems.GOLD_CHISEL), "gold_chisel", 20),
+            new TierRow(c(ModItems.DIAMOND_CHISEL), "diamond_chisel", 10),
+            new TierRow(c(ModItems.NETHERITE_CHISEL), "netherite_chisel", 5),
+            new TierRow(c(ModItems.ENDERITE_CHISEL), "enderite_chisel", 5),
+            new TierRow(c(ModItems.STONE_SPATULA), "stone_spatula", 30),
+            new TierRow(c(ModItems.COPPER_SPATULA), "copper_spatula", 25),
+            new TierRow(c(ModItems.IRON_SPATULA), "iron_spatula", 25),
+            new TierRow(c(ModItems.GOLD_SPATULA), "gold_spatula", 20),
+            new TierRow(c(ModItems.DIAMOND_SPATULA), "diamond_spatula", 10),
+            new TierRow(c(ModItems.NETHERITE_SPATULA), "netherite_spatula", 5));
 
     // =====================================================================================
     // DIRECTION: WHICH OF THE TWO TABLES A CLICK REACHES
@@ -184,14 +184,15 @@ public final class ChiselTests {
      * letting a click fall through to the second map when the first has no entry.
      */
     public static void spatulaRunsForwardWhileSneakingAndChiselRunsBackward(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
 
-        ItemStack chisel = new ItemStack(ModItems.STONE_CHISEL);
-        ItemStack spatula = new ItemStack(ModItems.STONE_SPATULA);
-        helper.assertTrue(ModItems.STONE_SPATULA.isDedicatedSpatula(),
+        ItemStack chisel = new ItemStack(c(ModItems.STONE_CHISEL));
+        ItemStack spatula = new ItemStack(c(ModItems.STONE_SPATULA));
+        helper.assertTrue(((ChiselItem) c(ModItems.STONE_SPATULA)).isDedicatedSpatula(),
                 "stone_spatula is no longer flagged as a dedicated spatula, so it now behaves like a "
                         + "chisel and the whole matrix below means nothing");
-        helper.assertFalse(ModItems.STONE_CHISEL.isDedicatedSpatula(),
+        helper.assertFalse(((ChiselItem) c(ModItems.STONE_CHISEL)).isDedicatedSpatula(),
                 "stone_chisel is flagged as a dedicated spatula");
 
         // --- the four combinations that must act ---
@@ -261,6 +262,7 @@ public final class ChiselTests {
      * that tool for free without breaking a single one of the positive assertions.
      */
     public static void tierTablesAreInheritedUpwardsAndSharedInPairs(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
 
         // --- merged upwards: a stone-tier entry is still there four tiers up ---
@@ -275,58 +277,58 @@ public final class ChiselTests {
 
         // --- and capped from above: one block per chisel out of the next table up and out of no
         //     lower one, so a tool routed into a higher branch of the constructor goes red here ---
-        assertRefuses(helper, player, new ItemStack(ModItems.STONE_CHISEL), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.STONE_CHISEL)), false,
                 Blocks.CHISELED_STONE_BRICKS,
                 "a stone chisel performed the iron tier's chiseled -> stone bricks step");
-        assertRefuses(helper, player, new ItemStack(ModItems.COPPER_CHISEL), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.COPPER_CHISEL)), false,
                 Blocks.SMOOTH_QUARTZ,
                 "a copper chisel performed the gold tier's smooth quartz step, so copper no longer "
                         + "sits on iron's table but on a higher one");
-        assertRefuses(helper, player, new ItemStack(ModItems.IRON_CHISEL), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.IRON_CHISEL)), false,
                 Blocks.SMOOTH_QUARTZ,
                 "an iron chisel performed the gold tier's smooth quartz step");
-        assertRefuses(helper, player, new ItemStack(ModItems.GOLD_CHISEL), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.GOLD_CHISEL)), false,
                 Blocks.NETHERRACK,
                 "a gold chisel performed the netherite tier's netherrack step, so gold no longer "
                         + "sits on diamond's table but on a higher one");
-        assertRefuses(helper, player, new ItemStack(ModItems.DIAMOND_CHISEL), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.DIAMOND_CHISEL)), false,
                 Blocks.NETHERRACK,
                 "a diamond chisel performed the netherite tier's netherrack step");
 
         // --- the same ceiling on the backward tables, which had none: a standing spatula reads
         //     backwardMap, and that field is wired tier by tier just like the forward one ---
-        assertRefuses(helper, player, new ItemStack(ModItems.STONE_SPATULA), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.STONE_SPATULA)), false,
                 Blocks.STONE_BRICKS,
                 "a stone spatula performed the iron tier's stone bricks -> chiseled step");
-        assertRefuses(helper, player, new ItemStack(ModItems.COPPER_SPATULA), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.COPPER_SPATULA)), false,
                 Blocks.QUARTZ_PILLAR,
                 "a copper spatula performed the gold tier's quartz pillar step");
-        assertRefuses(helper, player, new ItemStack(ModItems.IRON_SPATULA), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.IRON_SPATULA)), false,
                 Blocks.QUARTZ_PILLAR,
                 "an iron spatula performed the gold tier's quartz pillar step");
-        assertRefuses(helper, player, new ItemStack(ModItems.GOLD_SPATULA), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.GOLD_SPATULA)), false,
                 Blocks.NETHER_BRICKS,
                 "a gold spatula performed the netherite tier's nether bricks step");
-        assertRefuses(helper, player, new ItemStack(ModItems.DIAMOND_SPATULA), false,
+        assertRefuses(helper, player, new ItemStack(c(ModItems.DIAMOND_SPATULA)), false,
                 Blocks.NETHER_BRICKS,
                 "a diamond spatula performed the netherite tier's nether bricks step");
 
         // --- copper and iron share one table, in both directions ---
-        assertSamePair(helper, player, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL,
+        assertSamePair(helper, player, c(ModItems.COPPER_CHISEL), c(ModItems.IRON_CHISEL),
                 Blocks.CHISELED_STONE_BRICKS, Blocks.STONE_BRICKS, "copper/iron");
-        assertSamePair(helper, player, ModItems.COPPER_SPATULA, ModItems.IRON_SPATULA,
+        assertSamePair(helper, player, c(ModItems.COPPER_SPATULA), c(ModItems.IRON_SPATULA),
                 Blocks.STONE_BRICKS, Blocks.CHISELED_STONE_BRICKS, "copper/iron backwards");
         // --- gold and diamond share one table ---
-        assertSamePair(helper, player, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL,
+        assertSamePair(helper, player, c(ModItems.GOLD_CHISEL), c(ModItems.DIAMOND_CHISEL),
                 Blocks.SMOOTH_QUARTZ, Blocks.QUARTZ_PILLAR, "gold/diamond");
-        assertSamePair(helper, player, ModItems.GOLD_SPATULA, ModItems.DIAMOND_SPATULA,
+        assertSamePair(helper, player, c(ModItems.GOLD_SPATULA), c(ModItems.DIAMOND_SPATULA),
                 Blocks.QUARTZ_PILLAR, Blocks.SMOOTH_QUARTZ, "gold/diamond backwards");
         // --- enderite builds on the netherite table (and adds the End palettes, see
         //     enderiteTierWalksTheEndStonePalettes) ---
-        assertSamePair(helper, player, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL,
+        assertSamePair(helper, player, c(ModItems.NETHERITE_CHISEL), c(ModItems.ENDERITE_CHISEL),
                 Blocks.NETHERRACK, Blocks.NETHER_BRICKS, "netherite/enderite");
         // There is no enderite spatula, so the top backward table is pinned on its own member.
-        assertChisels(helper, player, new ItemStack(ModItems.NETHERITE_SPATULA), false,
+        assertChisels(helper, player, new ItemStack(c(ModItems.NETHERITE_SPATULA)), false,
                 Blocks.NETHER_BRICKS, Blocks.NETHERRACK,
                 "a netherite spatula, the only spatula on the top table");
 
@@ -351,9 +353,10 @@ public final class ChiselTests {
      * with the netherite table.
      */
     public static void enderiteTierWalksTheEndStonePalettes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
-        ItemStack enderite = new ItemStack(ModItems.ENDERITE_CHISEL);
-        ItemStack netherite = new ItemStack(ModItems.NETHERITE_CHISEL);
+        ItemStack enderite = new ItemStack(c(ModItems.ENDERITE_CHISEL));
+        ItemStack netherite = new ItemStack(c(ModItems.NETHERITE_CHISEL));
 
         Block[][] families = {
                 {ModBlocks.POLISHED_ASTRALIT, ModBlocks.ASTRALIT_PILLAR, ModBlocks.ASTRALIT_BRICKS,
@@ -421,8 +424,9 @@ public final class ChiselTests {
      * touched at the stone tier.
      */
     public static void netheriteTierCyclesTheNetherBrickFamily(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
-        ItemStack chisel = new ItemStack(ModItems.NETHERITE_CHISEL);
+        ItemStack chisel = new ItemStack(c(ModItems.NETHERITE_CHISEL));
 
         helper.setBlock(TARGET, Blocks.NETHERRACK);
         Block[] circle = {
@@ -439,7 +443,7 @@ public final class ChiselTests {
         }
 
         // The wrap-around entry registerCyclic writes into the backward map.
-        assertChisels(helper, player, new ItemStack(ModItems.NETHERITE_SPATULA), false,
+        assertChisels(helper, player, new ItemStack(c(ModItems.NETHERITE_SPATULA)), false,
                 Blocks.NETHERRACK, Blocks.CHISELED_NETHER_BRICKS,
                 "a netherite spatula on netherrack");
 
@@ -474,6 +478,7 @@ public final class ChiselTests {
      * own cooldown ladder; scaling the cooldown outside the Fast Chiseling branch.
      */
     public static void cooldownTicksFollowTheTierTable(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = survivalPlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
         ItemCooldowns cooldowns = player.getCooldowns();
 
@@ -547,8 +552,9 @@ public final class ChiselTests {
      * make re-aiming free.
      */
     public static void sharedPropertiesSurviveAndSelfMappingsReorient(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = survivalPlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
-        ItemStack stoneChisel = new ItemStack(ModItems.STONE_CHISEL);
+        ItemStack stoneChisel = new ItemStack(c(ModItems.STONE_CHISEL));
 
         // --- waterlogged in, waterlogged out ---
         helper.setBlock(TARGET, Blocks.STONE_STAIRS.defaultBlockState()
@@ -575,7 +581,7 @@ public final class ChiselTests {
         //     The player is turned west first, so the expected facing is neither the state that
         //     goes in (south) nor NETHER_BRICK_STAIRS' own default (north) - otherwise "it faces
         //     the way the player looks" would be indistinguishable from "nothing was re-aimed". ---
-        ItemStack chisel = new ItemStack(ModItems.NETHERITE_CHISEL);
+        ItemStack chisel = new ItemStack(c(ModItems.NETHERITE_CHISEL));
         turnedTo(helper, player, 90.0F, Direction.WEST);
         helper.setBlock(TARGET, Blocks.NETHER_BRICK_STAIRS.defaultBlockState()
                 .setValue(StairBlock.FACING, Direction.SOUTH)
@@ -659,6 +665,7 @@ public final class ChiselTests {
      * the side itself, no override fires, and the half is genuinely the one y chose.
      */
     public static void intuitiveOrientationDerivesTheEdgeDirection(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
         helper.assertValueEqual(player.getDirection(), Direction.NORTH,
                 "the mock player is not facing north, so the expected stair facings below are wrong");
@@ -816,12 +823,13 @@ public final class ChiselTests {
      * other than the clicking player, whose direction it needs.
      */
     public static void chiselledPillarsAndStairsTakeTheClickOrientation(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
         helper.assertValueEqual(player.getDirection(), Direction.NORTH,
                 "the mock player is not facing north, so the expected stair facing below is wrong");
 
         // --- pillar: the axis comes from the click, the source block has no axis to copy ---
-        ItemStack goldChisel = new ItemStack(ModItems.GOLD_CHISEL);
+        ItemStack goldChisel = new ItemStack(c(ModItems.GOLD_CHISEL));
         helper.setBlock(TARGET, Blocks.SMOOTH_QUARTZ);
         Block upright = chiselAt(helper, player, goldChisel, TARGET, false, "gold chisel, top centre");
         helper.assertValueEqual(upright, Blocks.QUARTZ_PILLAR, "smooth quartz under a gold chisel");
@@ -836,7 +844,7 @@ public final class ChiselTests {
                 Direction.Axis.X, "a pillar chiselled on the west rim of the top face");
 
         // --- stairs: the old facing and half are overwritten, not carried over ---
-        ItemStack stoneChisel = new ItemStack(ModItems.STONE_CHISEL);
+        ItemStack stoneChisel = new ItemStack(c(ModItems.STONE_CHISEL));
         BlockState wrongWayRound = Blocks.STONE_STAIRS.defaultBlockState()
                 .setValue(StairBlock.FACING, Direction.SOUTH)
                 .setValue(StairBlock.HALF, Half.TOP);
@@ -901,8 +909,9 @@ public final class ChiselTests {
      * bill the player for brushing through grass.
      */
     public static void chiselMinesAtHalfMaterialSpeed(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = survivalPlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
-        ChiselItem chisel = ModItems.STONE_CHISEL;
+        ChiselItem chisel = (ChiselItem) c(ModItems.STONE_CHISEL);
         ItemStack stack = new ItemStack(chisel);
 
         // --- effective on all three tool families, and only on those ---
@@ -923,9 +932,9 @@ public final class ChiselTests {
         assertSpeed(helper, chisel, Blocks.STONE, ToolMaterial.STONE.speed() * 0.5F, "stone chisel on stone");
         assertSpeed(helper, chisel, Blocks.OAK_LOG, ToolMaterial.STONE.speed() * 0.5F, "stone chisel on a log");
         assertSpeed(helper, chisel, Blocks.DIRT, ToolMaterial.STONE.speed() * 0.5F, "stone chisel on dirt");
-        assertSpeed(helper, ModItems.DIAMOND_CHISEL, Blocks.STONE, ToolMaterial.DIAMOND.speed() * 0.5F,
+        assertSpeed(helper, c(ModItems.DIAMOND_CHISEL), Blocks.STONE, ToolMaterial.DIAMOND.speed() * 0.5F,
                 "diamond chisel on stone");
-        assertSpeed(helper, ModItems.ENDERITE_CHISEL, Blocks.STONE, ModToolMaterials.ENDERITE.speed() * 0.5F,
+        assertSpeed(helper, c(ModItems.ENDERITE_CHISEL), Blocks.STONE, ModToolMaterials.ENDERITE.speed() * 0.5F,
                 "enderite chisel on stone");
         assertSpeed(helper, chisel, Blocks.GLASS, 1.0F, "stone chisel on glass");
 
@@ -970,8 +979,9 @@ public final class ChiselTests {
      * offset position, or dropping the tooltip line.
      */
     public static void lastTargetIsStoredAndShownInTheTooltip(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
-        ItemStack chisel = new ItemStack(ModItems.STONE_CHISEL);
+        ItemStack chisel = new ItemStack(c(ModItems.STONE_CHISEL));
 
         // --- a fresh chisel has no target and no line ---
         helper.assertTrue(chisel.get(ModDataComponentTypes.COORDINATES) == null,
@@ -1026,29 +1036,30 @@ public final class ChiselTests {
      * upgrade at the wrong template, base or addition; letting a tier be skipped.
      */
     public static void smithingUpgradesCarryWearNameAndEnchantments(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerLevel level = helper.getLevel();
         RecipeManager recipes = level.getServer().getRecipeManager();
 
         // --- the count-based ladder, with a base worth carrying over ---
         assertCountBasedUpgrade(helper, level, recipes, ModItems.BASIC_UPGRADE_TEMPLATE,
-                ModItems.COPPER_CHISEL, Items.IRON_INGOT, ModItems.IRON_CHISEL, "copper -> iron");
+                c(ModItems.COPPER_CHISEL), Items.IRON_INGOT, c(ModItems.IRON_CHISEL), "copper -> iron");
         assertCountBasedUpgrade(helper, level, recipes, ModItems.BASIC_UPGRADE_TEMPLATE,
-                ModItems.IRON_CHISEL, Items.GOLD_INGOT, ModItems.GOLD_CHISEL, "iron -> gold");
+                c(ModItems.IRON_CHISEL), Items.GOLD_INGOT, c(ModItems.GOLD_CHISEL), "iron -> gold");
         assertCountBasedUpgrade(helper, level, recipes, ModItems.BASIC_UPGRADE_TEMPLATE,
-                ModItems.GOLD_CHISEL, Items.DIAMOND, ModItems.DIAMOND_CHISEL, "gold -> diamond");
+                c(ModItems.GOLD_CHISEL), Items.DIAMOND, c(ModItems.DIAMOND_CHISEL), "gold -> diamond");
 
         // --- and vanilla's two transforms on top of it ---
         assertTransform(helper, level, recipes, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
-                ModItems.DIAMOND_CHISEL, Items.NETHERITE_INGOT, ModItems.NETHERITE_CHISEL,
+                c(ModItems.DIAMOND_CHISEL), Items.NETHERITE_INGOT, c(ModItems.NETHERITE_CHISEL),
                 "diamond -> netherite");
         assertTransform(helper, level, recipes, ModItems.ENDERITE_UPGRADE_TEMPLATE,
-                ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_INGOT, ModItems.ENDERITE_CHISEL,
+                c(ModItems.NETHERITE_CHISEL), ModItems.ENDERITE_INGOT, c(ModItems.ENDERITE_CHISEL),
                 "netherite -> enderite");
 
         // --- the wrong template forges nothing, so the ladder cannot be short-circuited ---
         SmithingRecipeInput wrongTemplate = new SmithingRecipeInput(
                 new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                new ItemStack(ModItems.COPPER_CHISEL),
+                new ItemStack(c(ModItems.COPPER_CHISEL)),
                 new ItemStack(Items.IRON_INGOT, 2));
         helper.assertTrue(recipes.getRecipeFor(RecipeType.SMITHING, wrongTemplate, level).isEmpty(),
                 "the copper -> iron upgrade accepted the netherite template");
@@ -1067,6 +1078,7 @@ public final class ChiselTests {
      * round with exactly two ingots must empty the slot.
      */
     public static void smithingTableTakesTheWholeAdditionCount(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         ServerPlayer player = survivalPlayer(helper, new Vec3(1.5, 2.0, 1.5), 0.0F);
         net.minecraft.world.inventory.SmithingMenu menu = new net.minecraft.world.inventory.SmithingMenu(
                 1, player.getInventory(),
@@ -1076,11 +1088,11 @@ public final class ChiselTests {
         int[][] rounds = {{5, 3}, {2, 0}};
         for (int[] round : rounds) {
             menu.getSlot(0).set(new ItemStack(ModItems.BASIC_UPGRADE_TEMPLATE));
-            menu.getSlot(1).set(new ItemStack(ModItems.COPPER_CHISEL));
+            menu.getSlot(1).set(new ItemStack(c(ModItems.COPPER_CHISEL)));
             menu.getSlot(2).set(new ItemStack(Items.IRON_INGOT, round[0]));
 
             net.minecraft.world.inventory.Slot result = menu.getSlot(menu.getResultSlot());
-            helper.assertTrue(result.getItem().is(ModItems.IRON_CHISEL),
+            helper.assertTrue(result.getItem().is(c(ModItems.IRON_CHISEL)),
                     "the smithing table offers " + result.getItem() + " for copper chisel + "
                             + round[0] + " iron instead of an iron chisel");
             helper.assertTrue(result.mayPickup(player), "the upgrade cannot be taken out");
@@ -1737,6 +1749,7 @@ public final class ChiselTests {
      * Selbstabbildung, die den Weg der beiden Schlammziegel-Eintraege geht.
      */
     public static void conversionTablesArePinnedEntryByEntry(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) { helper.succeed(); return; } // WE25-7: Simple Chisels tests its chisels on 26.3
         // Holzwerk (26.3): der Meissel hoehlt jeden entrindeten Stamm aus.
         List<String> stoneOwn = new ArrayList<>(Arrays.asList(STONE_OWN));
         for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
@@ -1866,5 +1879,10 @@ public final class ChiselTests {
 
     private static Holder<Enchantment> enchantment(GameTestHelper helper, ResourceKey<Enchantment> key) {
         return helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
+    }
+
+    /** WE25-7: the SimpleBuilding chisel behind a field (26.2); null on 26.3, where the field is Simple Chisels' item (tests skip). */
+    private static ChiselItem c(net.minecraft.world.item.Item item) {
+        return item instanceof ChiselItem chisel ? chisel : null;
     }
 }
