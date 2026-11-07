@@ -52,7 +52,7 @@ public final class SmokeTests {
     /** The same items, in the same order, as the constants the rest of the mod refers to. */
     private static final List<Item> PINNED_ITEMS = List.of(
             ModItems.STONE_CHISEL,
-            ModItems.OCTANT,
+            com.simplebuilding.util.BuildingToolRefs.octant(),
             com.simplebuilding.util.StorageRefs.item("reinforced_bundle"),
             com.simplebuilding.util.StorageRefs.item("netherite_bundle"),
             com.simplebuilding.util.StorageRefs.item("enderite_bundle"),
@@ -70,7 +70,7 @@ public final class SmokeTests {
      */
     private static final List<Item> TAB_ITEMS = List.of(
             ModItems.STONE_CHISEL,
-            ModItems.OCTANT,
+            com.simplebuilding.util.BuildingToolRefs.octant(),
             com.simplebuilding.util.StorageRefs.item("reinforced_bundle"),
             com.simplebuilding.util.StorageRefs.item("netherite_bundle"),
             com.simplebuilding.util.StorageRefs.item("enderite_bundle"));
@@ -105,7 +105,8 @@ public final class SmokeTests {
             String expectedPath = PINNED_IDS.get(i);
             Identifier id = BuiltInRegistries.ITEM.getKey(item);
             // Split stage 8c-1: on 26.3 the bundles are Simple Storage's; the old id must still find them (IdMoves).
-            String namespace = expectedPath.endsWith("_bundle") ? com.simplebuilding.version.McVersion.STORAGE_NAMESPACE : SimpleBuildingGameTests.MOD_ID;
+            String namespace = expectedPath.endsWith("_bundle") ? com.simplebuilding.version.McVersion.STORAGE_NAMESPACE
+                    : expectedPath.equals("octant") ? com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE : SimpleBuildingGameTests.MOD_ID; // b-btools07
             helper.assertTrue(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleBuildingGameTests.MOD_ID, expectedPath)) == item,
                     "the old id " + SimpleBuildingGameTests.MOD_ID + ":" + expectedPath + " no longer finds " + id);
             helper.assertTrue(id != null && namespace.equals(id.getNamespace()),

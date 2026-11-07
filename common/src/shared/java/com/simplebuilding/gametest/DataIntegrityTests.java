@@ -2389,7 +2389,8 @@ public final class DataIntegrityTests {
             }
         }
 
-        helper.assertValueEqual(priced.size(), 34, "upgrade rungs checked (pickaxe 5, axe 5, sword 5, hoe 5, shovel 5, chisel 3, sledgehammer 3, wand 3)");
+        // b-btools07: on 26.3 the three wand rungs are Simple Building Tools' recipes (its tests).
+        helper.assertValueEqual(priced.size(), com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? 34 : 31, "upgrade rungs checked (pickaxe 5, axe 5, sword 5, hoe 5, shovel 5, chisel 3, sledgehammer 3, wand 3 on 26.2)");
         helper.assertTrue(problems.isEmpty(), "basic upgrade template costs: " + problems);
         helper.succeed();
     }
@@ -2922,7 +2923,9 @@ public final class DataIntegrityTests {
                         // split stage 7: the tab keeps the books of Simple Hammers' three enchantments
                         || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(h.key().identifier().getNamespace())
                         // split stage 8c-1: and of Simple Storage's three (Drawer, Deep Pockets, Funnel)
-                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
+                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())
+                        // b-btools07: and of Simple Building Tools' Cover, Bridge and Linear
+                        || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         Map<ModItemGroupsContent.Tab, Integer> expectedBooks = new LinkedHashMap<>();
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             expectedBooks.put(tab, tab == ModItemGroupsContent.Tab.TOOLS ? modEnchantments : 0);
@@ -3728,7 +3731,9 @@ public final class DataIntegrityTests {
                         // split stage 7: the tab keeps the books of Simple Hammers' three enchantments
                         || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(h.key().identifier().getNamespace())
                         // split stage 8c-1: and of Simple Storage's three (Drawer, Deep Pockets, Funnel)
-                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
+                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())
+                        // b-btools07: and of Simple Building Tools' Cover, Bridge and Linear
+                        || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         boolean firstShelf = true;
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new ArrayList<>();
@@ -4670,7 +4675,8 @@ public final class DataIntegrityTests {
         for (ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key : com.simplebuilding.enchantment.VanillaBookTextures.MOD_BOOKS) {
             String path = key.identifier().getPath();
             if (!(MOD_ID.equals(key.identifier().getNamespace()) || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(key.identifier().getNamespace())
-                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace()))
+                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace())
+                    || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(key.identifier().getNamespace()))
                     || enchantments.get(key).isEmpty()) {
                 problems.add(key.identifier() + " is not a mod enchantment of the registry");
             }

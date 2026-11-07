@@ -70,7 +70,7 @@ public final class BlueprintExamples {
     }
 
     private static String load(String name) {
-        String path = "/data/simplebuilding/blueprint_examples/" + name + ".sbp";
+        String path = "/data/simplebuildingtools/blueprint_examples/" + name + ".sbp";
         try (InputStream in = BlueprintExamples.class.getResourceAsStream(path)) {
             if (in == null) {
                 return "";

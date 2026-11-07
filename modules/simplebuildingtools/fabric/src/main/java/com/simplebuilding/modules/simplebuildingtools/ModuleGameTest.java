@@ -60,7 +60,7 @@ public final class ModuleGameTest {
     }
 
     @GameTest(skyAccess = true)
-    public void creativeWandReachesAFarBlockWithoutCost(GameTestHelper helper) {
+    public void creativeWandReachesFarBlocksWithoutCost(GameTestHelper helper) {
         com.simplebuildingtools.test.BlueprintTests.creativeWandReachesAFarBlockWithoutCost(helper);
     }
 

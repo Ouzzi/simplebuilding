@@ -134,13 +134,13 @@ public final class OctantTests {
      * silently re-labels every octant already in a world.
      */
     private static final List<String> EXPECTED_SHAPES = List.of(
-            "CUBOID=simplebuilding.shape.cuboid",
-            "CYLINDER=simplebuilding.shape.cylinder",
-            "TRIANGLE=simplebuilding.shape.triangle",
-            "PYRAMID=simplebuilding.shape.pyramid",
-            "SPHERE=simplebuilding.shape.sphere",
-            "RECTANGLE=simplebuilding.shape.rectangle",
-            "ELLIPSE=simplebuilding.shape.ellipse");
+            "CUBOID=simplebuildingtools.shape.cuboid",
+            "CYLINDER=simplebuildingtools.shape.cylinder",
+            "TRIANGLE=simplebuildingtools.shape.triangle",
+            "PYRAMID=simplebuildingtools.shape.pyramid",
+            "SPHERE=simplebuildingtools.shape.sphere",
+            "RECTANGLE=simplebuildingtools.shape.rectangle",
+            "ELLIPSE=simplebuildingtools.shape.ellipse");
 
     /** The same for {@code FillOrder}, which is stored by name as well. */
     private static final List<String> EXPECTED_FILL_ORDERS = List.of(

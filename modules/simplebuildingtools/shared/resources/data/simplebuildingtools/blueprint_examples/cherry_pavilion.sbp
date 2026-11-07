@@ -1,0 +1,27 @@
+# Beispiel: Kirschpavillon, 7 x 6 x 7
+# Vier Kirschholz-Saeulen, ein zweistufiges Dach mit umgedrehten Traufen, Blueten ringsum.
+
+$traufe_s = cherry_stairs[facing=south,half=top]
+$traufe_n = cherry_stairs[facing=north,half=top]
+$traufe_w = cherry_stairs[facing=west,half=top]
+$traufe_o = cherry_stairs[facing=east,half=top]
+
+# Plattform aus Steinziegeln, Kirschbretter in der Mitte
+stone_bricks 0..6,0,0..6
+cherry_planks 1..5,0,1..5
+
+# Saeulen an den Ecken der Mitte (Wiederholung ueber x und z)
+cherry_log 1,1..3,1*2@4,0,0 1,1..3,5*2@4,0,0
+
+# Traufen ringsum, darueber das Dach
+$traufe_s 1..5,3,0
+$traufe_n 1..5,3,6
+$traufe_o 0,3,1..5
+$traufe_w 6,3,1..5
+cherry_slab 1..5,4,1..5
+cherry_planks 2..4,4,2..4
+cherry_slab 3,5,3
+
+# Blueten auf der Plattform und eine Laterne unter dem Dach
+pink_petals[flower_amount=4] 0,1,0*2@6,0,0 0,1,6*2@6,0,0
+lantern[hanging=true] 3,3,3

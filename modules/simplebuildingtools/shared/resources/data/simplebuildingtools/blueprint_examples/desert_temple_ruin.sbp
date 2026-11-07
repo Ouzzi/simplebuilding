@@ -1,0 +1,27 @@
+# Beispiel: kleine Tempelruine in der Wueste, 9 x 6 x 9
+# Ein Sockel mit Terrakotta-Muster, vier teils eingestuerzte Saeulen, ein Rest des Daches.
+
+$saeule = cut_sandstone
+$zier = chiseled_sandstone
+
+# Sockel und Bodenmuster (orange Terrakotta mit blauem Stein in der Mitte, wie beim Wuestentempel)
+sandstone 0..8,0,0..8
+orange_terracotta 2..6,0,2..6
+blue_terracotta 4,0,4
+orange_terracotta 3..5,0,4 4,0,3..5
+
+# Treppen vorn und hinten in der Mitte
+sandstone_stairs[facing=north] 4,0,8
+sandstone_stairs[facing=south] 4,0,0
+
+# Saeulen: zwei ganz, zwei eingestuerzt
+$saeule 1,1..4,1 7,1..4,1
+$saeule 1,1..2,7 7,1,7
+$zier 1,5,1 7,5,1
+
+# Rest des Daches zwischen den stehenden Saeulen
+smooth_sandstone_slab 1..7,5,1..2
+
+# Schutt
+sandstone_slab 6,1,6 2,1,6 3,1,7
+sand 5,1,7 6,1,7 6,2,7
