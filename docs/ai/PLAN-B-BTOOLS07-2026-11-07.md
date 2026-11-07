@@ -91,3 +91,15 @@ Abweichungen (bewusst):
   laufen im Modul nicht; dafür `tool_recipes_are_there`, `enderite_wand_needs_simple_ores`.
 - SimpleLib/Simple Octets: neuer Haken `OctetCells.registerPortable/portable` (gemischte Zelle beim Scan) statt SBs Overlay-Klasse.
 - NeoForge/Forge: nicht angepasst (Regel), dort registriert SB weiter seine Tasten; Modul nur Fabric.
+
+## 6. Tests (07.11.)
+- Lokal: javac-Typprüfung Modul + geänderte SB-Dateien (nur Access-Widener-Artefakte), precheck 85 Prüfungen grün bis auf Wiki (Pillow auf
+  sb-agent zu alt; auf sb-test `wiki/generate.py --all --check` grün).
+- sbt Lauf 1: Datagen/Tests scheiterten an der Modulversion (modules.json 1.0.0, Jar 0.1.0 - zurück auf 0.1.0) und am Interface im
+  Mixin-Paket (verschoben) - beides behoben.
+- sbt Lauf 2 (`/root/sb-tools-b/b-btools07-sbt2.log`): Datagen 26.3 grün (Ergebnis gemergt, `mineable/pickaxe.json` nur umsortiert -> Basis
+  behalten), Compile `:mc26_3:fabric:compileJava :mc26_3:fabric:compileGametestJava :modules:simplebuildingtools:fabric:compileJava` grün,
+  check_client_mixins 374/0, wiki --check grün, check_missing_textures grün; Modul 93/94, standalone 91/94; SB `data_integrity*` 42/48,
+  `smoke*` 0/1. Alle roten danach behoben (Schlüssel-Literale im Formen-Test, Blaupausen-Beispiele ins Modul, Adapter-Name, statische
+  Testlisten per Id, Dev-Tab/Buchzählung/Stufen-Zahl/Bootstrap-Tag) - **nicht erneut gelaufen** (Auftrag: höchstens ein zweiter Lauf),
+  prüft der Bündel-bprep.
