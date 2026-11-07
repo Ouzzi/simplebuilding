@@ -31,7 +31,7 @@ public final class HudPanelClientTest {
                 }
             }
         });
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:octant"
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant"
                 + "[minecraft:custom_data={Pos1:[I;0,64,0],Pos2:[I;11,70,7]}]");
         script.command("item replace entity @a weapon.offhand with simplebuilding:velocity_gauge");
         script.awaitPackets();

@@ -565,7 +565,7 @@ public final class HudAndTooltipClientTest {
      */
     private static void assertAnOffhandOctantAlsoShowsTheHud(Script script) {
         script.command("item replace entity @a weapon.mainhand with minecraft:air", true);
-        script.command("item replace entity @a weapon.offhand with simplebuilding:octant["
+        script.command("item replace entity @a weapon.offhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant["
                 + "minecraft:custom_data={"
                 + "Pos1:[I;" + OCTANT_POS_1.getX() + "," + OCTANT_POS_1.getY() + "," + OCTANT_POS_1.getZ() + "],"
                 + "Pos2:[I;" + OCTANT_POS_2.getX() + "," + OCTANT_POS_2.getY() + "," + OCTANT_POS_2.getZ() + "]"
@@ -635,7 +635,7 @@ public final class HudAndTooltipClientTest {
                         + "}]"
                 : "";
 
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:octant" + positions);
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant" + positions);
         script.awaitPackets();
         // Equip animation plus the 40 tick item name popup that a changed main hand item triggers.
         script.idle("let the octant arrive and its equip animation and name popup finish", 60);

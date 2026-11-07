@@ -324,7 +324,7 @@ public final class ModScreensClientTest {
      */
     private static void octantScreenViaSettingsKey(Script script) {
         clearTheHand(script);
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:octant");
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant");
         script.awaitPackets();
         script.idle("let the octant arrive and its equip animation finish", 10);
 
@@ -389,7 +389,7 @@ public final class ModScreensClientTest {
     private static void buildingWandScreenNeedsConstructorsTouch(Script script) {
         clearTheHand(script);
         script.command(
-                "item replace entity @a weapon.mainhand with simplebuilding:netherite_building_wand");
+                "item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":netherite_building_wand");
         script.awaitPackets();
         script.idle("let the wand arrive and its equip animation finish", 10);
 

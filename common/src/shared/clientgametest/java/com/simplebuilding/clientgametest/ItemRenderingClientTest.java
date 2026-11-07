@@ -6,7 +6,6 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.property.EnchantmentModelProperty;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
-import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.util.GlowingTrimUtils;
 import com.simplebuilding.util.TrimBonusCatalog;
 import com.simplebuilding.util.TrimMultiplierLogic;
@@ -714,7 +713,7 @@ public final class ItemRenderingClientTest {
         freezeHudOverlays(script);
 
         setToolAnimationSwitches(script, false, false);
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:netherite_chisel");
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":netherite_chisel");
         script.awaitPackets();
         script.idle("let the chisel arrive and its equip animation finish", HAND_SETTLE_TICKS);
         awaitTheChiselTiltAt(script, 0.0f);
@@ -992,21 +991,7 @@ public final class ItemRenderingClientTest {
             } else {
                 ItemStack held = client.player.getMainHandItem();
 
-                if (!(held.getItem() instanceof ChiselItem chisel)) {
-                    problem = "main hand does not hold a ChiselItem but " + held;
-                } else if (chisel.isDedicatedSpatula()) {
-                    problem = "the held item is a spatula, which reads the reversed conversion tables";
-                } else if (client.player.isShiftKeyDown()) {
-                    problem = "the player is sneaking, which swaps the forward and backward tables";
-                } else {
-                    boolean convertible =
-                            chisel.canChisel(client.level, TestScene.TARGET, held, client.player);
-
-                    if (convertible != expectConvertible) {
-                        problem = "canChisel on " + client.level.getBlockState(TestScene.TARGET)
-                                + " returned " + convertible + " but this step needs " + expectConvertible;
-                    }
-                }
+                problem = chiselProblem(client, held, expectConvertible);
             }
 
             if (problem != null) {
@@ -1014,6 +999,38 @@ public final class ItemRenderingClientTest {
                         + TestScene.describeAim(client));
             }
         });
+    }
+
+    /**
+     * Why the held item does not meet the chisel trigger conditions, or null when it does. Reflective on purpose: on 26.3
+     * the chisel is Simple Chisels' own class, on 26.2 SimpleBuilding's; both have {@code canChisel}, only the old one a
+     * dedicated spatula.
+     */
+    private static String chiselProblem(net.minecraft.client.Minecraft client, ItemStack held, boolean expectConvertible) {
+        java.lang.reflect.Method canChisel;
+        try {
+            canChisel = held.getItem().getClass().getMethod("canChisel", net.minecraft.world.level.Level.class,
+                    net.minecraft.core.BlockPos.class, ItemStack.class, net.minecraft.world.entity.player.Player.class);
+        } catch (NoSuchMethodException e) {
+            return "main hand does not hold a chisel but " + held;
+        }
+        try {
+            try {
+                if ((boolean) held.getItem().getClass().getMethod("isDedicatedSpatula").invoke(held.getItem())) {
+                    return "the held item is a spatula, which reads the reversed conversion tables";
+                }
+            } catch (NoSuchMethodException ignored) {
+                // no spatulas in the module
+            }
+            if (client.player.isShiftKeyDown()) {
+                return "the player is sneaking, which swaps the forward and backward tables";
+            }
+            boolean convertible = (boolean) canChisel.invoke(held.getItem(), client.level, TestScene.TARGET, held, client.player);
+            return convertible != expectConvertible ? "canChisel on " + client.level.getBlockState(TestScene.TARGET)
+                    + " returned " + convertible + " but this step needs " + expectConvertible : null;
+        } catch (ReflectiveOperationException e) {
+            return "canChisel failed: " + e;
+        }
     }
 
     // =====================================================================================

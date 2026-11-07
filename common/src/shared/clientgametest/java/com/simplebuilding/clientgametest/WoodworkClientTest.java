@@ -174,7 +174,7 @@ public final class WoodworkClientTest {
         script.command("setblock 11 0 " + CRATE_Z + " simpleblocks:chiseled_blue_ice", true);
         script.command("setblock 10 1 " + CRATE_Z + " simpleblocks:chiseled_blue_ice", true);
         script.command("setblock 11 1 " + CRATE_Z + " simpleblocks:chiseled_packed_ice", true);
-        script.command("item replace entity @p weapon.mainhand with simplebuilding:creative_building_wand", true);
+        script.command("item replace entity @p weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":creative_building_wand", true);
         script.command("tp @a 10.5 1.2 14.0 0.0 30.0");
         script.awaitPackets();
         script.idle("let the N35 showcase settle", 20);

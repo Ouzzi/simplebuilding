@@ -365,7 +365,7 @@ public final class BlockHighlightClientTest {
      */
     private static Later<Path> octantHighlight(Script script, Later<Path> baseline,
                                                Later<ScreenshotDiff.Diff> noiseFloor) {
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:octant["
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant["
                 + "minecraft:custom_data={"
                 + "Pos1:[I;" + OCTANT_POS_1.getX() + "," + OCTANT_POS_1.getY() + "," + OCTANT_POS_1.getZ() + "],"
                 + "Pos2:[I;" + OCTANT_POS_2.getX() + "," + OCTANT_POS_2.getY() + "," + OCTANT_POS_2.getZ() + "]"
@@ -599,7 +599,7 @@ public final class BlockHighlightClientTest {
 
     /** Puts a shaped octant over a 5x4x3 box in front of the camera and photographs the fill. */
     private static Later<Path> shapeShot(Script script, String shape, int orientation, String name) {
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:octant["
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant["
                 + "minecraft:custom_data={Pos1:[I;8,0,17],Pos2:[I;12,3,19],Shape:\"" + shape
                 + "\",Orientation:" + orientation + "}]");
         script.awaitPackets();

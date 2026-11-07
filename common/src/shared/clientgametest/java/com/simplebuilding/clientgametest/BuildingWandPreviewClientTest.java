@@ -103,7 +103,7 @@ public final class BuildingWandPreviewClientTest {
     private static final double GHOST_CENTRE_SLACK = 12.0;
 
     /** The wand under test; its diameter of 11 is what makes the preview plane fill the view. */
-    private static final String WAND = "simplebuilding:netherite_building_wand";
+    private static final String WAND = "" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":netherite_building_wand";
 
     private BuildingWandPreviewClientTest() {
     }
@@ -428,7 +428,7 @@ public final class BuildingWandPreviewClientTest {
         // meant to catch, the centre moved by 1.5 pixels. A copper wand builds 3x3: three blocks
         // are some 300 pixels at this distance, well inside the frame, and a quarter block of
         // corner shrink is some 25 pixels of centroid.
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:copper_building_wand");
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":copper_building_wand");
         script.awaitPackets();
         script.idle("let the copper wand arrive", 15);
 
