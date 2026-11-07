@@ -814,7 +814,8 @@ public final class MiningEnchantmentTests {
 
         Set<Identifier> modEntries = idSet();
         for (Identifier id : table) {
-            if (Simplebuilding.MOD_ID.equals(id.getNamespace())) {
+            // WE25-7: on 26.3 Fast Chiseling is Simple Chisels' (the module adds it to the tag itself).
+            if (Simplebuilding.MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(id.getNamespace())) {
                 modEntries.add(id);
             }
         }

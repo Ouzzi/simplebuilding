@@ -2858,6 +2858,8 @@ public final class DataIntegrityTests {
                     && !com.simplebuilding.util.BucketRefs.buckets().contains(item)
                     // Split stage 7: Simple Hammers' sledgehammers keep their row in SimpleBuilding's tools tab (by id).
                     && !com.simplebuilding.util.HammerRefs.all().contains(item)
+                    // WE25-7: Simple Chisels' chisels keep their row in SimpleBuilding's tools tab (by id).
+                    && !com.simplebuilding.util.ChiselRefs.all().contains(item)
                     // Split stage 8a: Simple Storage's crates and table keep their rows in SimpleBuilding's tabs (by id).
                     && !McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // WB24-6: Simple Lights' panes keep their rows in SimpleBuilding's building tab (by id).
