@@ -144,9 +144,9 @@ public final class OctantTests {
 
     /** The same for {@code FillOrder}, which is stored by name as well. */
     private static final List<String> EXPECTED_FILL_ORDERS = List.of(
-            "DEFAULT=simplebuilding.order.default",
-            "BOTTOM_UP=simplebuilding.order.bottom_up",
-            "TOP_DOWN=simplebuilding.order.top_down");
+            "DEFAULT=simplebuildingtools.order.default",
+            "BOTTOM_UP=simplebuildingtools.order.bottom_up",
+            "TOP_DOWN=simplebuildingtools.order.top_down");
 
     /**
      * The loot function id the two "dangerous chest" octant entries carry, as
