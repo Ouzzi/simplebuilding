@@ -205,9 +205,38 @@ public final class ModMessageHandlers {
      * sofort am Item. Weist das Signier-Budget ab, sagt es die Aktionsleiste (Nach-Audit 2026-09-27
      * N16; frueher blieb der Klick auf "Signieren" stumm).
      */
+    /**
+     * Zugriff auf eine abgelegte Blaupause (der Block gehoert SimpleBuilding): {@code get} liefert den Stapel nur,
+     * wenn der Spieler ihn dort bearbeiten darf (Reichweite, Rechte), sonst null. Ohne SimpleBuilding bleibt er
+     * leer und abgelegte Blaupausen gibt es nicht (b-bundle131).
+     */
+    public interface PlacedAccess {
+        @org.jetbrains.annotations.Nullable ItemStack get(ServerPlayer player, net.minecraft.core.BlockPos pos);
+
+        void set(ServerPlayer player, net.minecraft.core.BlockPos pos, ItemStack stack);
+    }
+
+    private static @org.jetbrains.annotations.Nullable PlacedAccess placedAccess;
+
+    public static void setPlacedAccess(@org.jetbrains.annotations.Nullable PlacedAccess access) {
+        placedAccess = access;
+    }
+
     public static void handleBlueprintEdit(BlueprintEditPayload payload, ServerPlayer player) {
         if (payload.placed().isPresent()) {
-            return; // the placed blueprint (SimpleBuilding's block) is edited there; not on 26.3 for now (b-btools07, open)
+            PlacedAccess access = placedAccess;
+            net.minecraft.core.BlockPos pos = payload.placed().get();
+            ItemStack stack = access != null ? access.get(player, pos) : null;
+            if (stack == null || !(stack.getItem() instanceof com.simplebuildingtools.items.custom.BlueprintItem)) {
+                return;
+            }
+            com.simplebuildingtools.blueprint.BlueprintContent written = editedBlueprint(com.simplebuildingtools.items.custom.BlueprintItem.content(stack), payload, player);
+            if (written != null) {
+                ItemStack updated = stack.copyWithCount(1);
+                updated.set(com.simplebuildingtools.component.BtComponents.BLUEPRINT, written);
+                access.set(player, pos, updated);
+            }
+            return;
         }
         int slot = payload.slot();
         if (!(net.minecraft.world.entity.player.Inventory.isHotbarSlot(slot) || slot == net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND)) {

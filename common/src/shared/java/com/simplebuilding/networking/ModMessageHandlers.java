@@ -434,12 +434,8 @@ public final class ModMessageHandlers {
      * in Reichweite sein und den Block aendern duerfen.
      */
     private static void handlePlacedBlueprintEdit(BlueprintEditPayload payload, net.minecraft.core.BlockPos pos, ServerPlayer player) {
-        net.minecraft.world.level.Level level = player.level();
-        if (!level.isLoaded(pos) || player.isSpectator()
-                || player.getEyePosition().distanceToSqr(net.minecraft.world.phys.Vec3.atCenterOf(pos)) > PLACED_BLUEPRINT_EDIT_RANGE * PLACED_BLUEPRINT_EDIT_RANGE
-                || !level.getBlockState(pos).is(com.simplebuilding.blocks.ModBlocks.PLACED_BLUEPRINT)
-                || !(level.getBlockEntity(pos) instanceof com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity be)
-                || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)) {
+        com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity be = editablePlacedBlueprint(pos, player);
+        if (be == null) {
             return;
         }
         ItemStack stack = be.getTemplate();
@@ -453,6 +449,24 @@ public final class ModMessageHandlers {
         ItemStack updated = stack.copyWithCount(1);
         updated.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, written);
         be.setTemplate(updated);
+    }
+
+    /**
+     * Die abgelegte Blaupause an {@code pos}, wenn {@code player} sie bearbeiten darf (geladen, kein Zuschauer,
+     * in Reichweite, wirklich eine {@code placed_blueprint}, Aenderungsrecht), sonst null. Auf 26.3 fragt auch
+     * Simple Building Tools hierueber (b-bundle131, {@code LibServices#init}).
+     */
+    public static com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity editablePlacedBlueprint(
+            net.minecraft.core.BlockPos pos, ServerPlayer player) {
+        net.minecraft.world.level.Level level = player.level();
+        if (!level.isLoaded(pos) || player.isSpectator()
+                || player.getEyePosition().distanceToSqr(net.minecraft.world.phys.Vec3.atCenterOf(pos)) > PLACED_BLUEPRINT_EDIT_RANGE * PLACED_BLUEPRINT_EDIT_RANGE
+                || !level.getBlockState(pos).is(com.simplebuilding.blocks.ModBlocks.PLACED_BLUEPRINT)
+                || !(level.getBlockEntity(pos) instanceof com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity be)
+                || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)) {
+            return null;
+        }
+        return be;
     }
 
     /** Der neue Inhalt nach den Regeln des Editors, oder null, wenn der Server die Aenderung abweist. */

@@ -32,6 +32,11 @@ public final class LibServices {
     public static void init() {
     }
 
+    /** Client: the editor for the placed blueprint at {@code pos} (26.2: SimpleBuilding's own). */
+    public static void openPlacedBlueprint(BlockPos pos, ItemStack stack) {
+        com.simplebuilding.items.custom.BlueprintItem.openPlaced(pos, stack);
+    }
+
     /** No SimpleLib on 26.2: the core {@code RecipeMapFilterMixin} filters the recipe table itself. */
     public static boolean recipesFilteredByLib() {
         return false;

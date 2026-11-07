@@ -84,8 +84,27 @@ public final class LibServices {
         return true;
     }
 
+    /** Client: the editor for the placed blueprint at {@code pos} (26.3: Simple Building Tools' blueprint and editor). */
+    public static void openPlacedBlueprint(net.minecraft.core.BlockPos pos, ItemStack stack) {
+        com.simplebuildingtools.items.custom.BlueprintItem.openPlaced(pos, stack);
+    }
+
     public static void init() {
         com.simplelib.api.RecipeFilters.register(Simplebuilding.MOD_ID, com.simplebuilding.recipe.RecipeFilter::removesPath);
+        // b-bundle131: Simple Building Tools edits a blueprint lying on SimpleBuilding's placed_blueprint (right-click, empty hand, N23).
+        com.simplebuildingtools.networking.ModMessageHandlers.setPlacedAccess(new com.simplebuildingtools.networking.ModMessageHandlers.PlacedAccess() {
+            @Override
+            public @Nullable ItemStack get(net.minecraft.server.level.ServerPlayer player, net.minecraft.core.BlockPos pos) {
+                var be = com.simplebuilding.networking.ModMessageHandlers.editablePlacedBlueprint(pos, player);
+                return be != null ? be.getTemplate() : null;
+            }
+
+            @Override
+            public void set(net.minecraft.server.level.ServerPlayer player, net.minecraft.core.BlockPos pos, ItemStack stack) {
+                var be = com.simplebuilding.networking.ModMessageHandlers.editablePlacedBlueprint(pos, player);
+                if (be != null) be.setTemplate(stack);
+            }
+        });
         // Split stage 3d: SimpleBuilding uses every shared material - their recipes and the anvil crushing stay on.
         SharedMaterials.request();
         // b-guide01: opening SimpleLib's Simple Modpack guide catches up SimpleBuilding's bookmarks like its own guide did.

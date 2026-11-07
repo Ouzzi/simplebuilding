@@ -4,7 +4,6 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.BlueprintItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.version.McVersion;
 import net.minecraft.core.BlockPos;
@@ -265,14 +264,14 @@ public final class PlacedTemplates {
      */
     public static InteractionResult usePlacedBlueprint(Level level, BlockPos pos, Player player) {
         ItemStack stored = templateAt(level, pos);
-        // b-btools07: SimpleBuilding's editor knows only its own (26.2) blueprints; on 26.3 the placed blueprint is not edited in place (open).
-        if (player.isSpectator() || !(stored.getItem() instanceof BlueprintItem)
+        // b-bundle131: by id - on 26.3 the blueprint is Simple Building Tools' and its editor opens (LibServices).
+        if (player.isSpectator() || !BuildingToolRefs.isBlueprint(stored)
                 || !opensPlacedBlueprint(player.getMainHandItem(), player.getOffhandItem())
                 || com.simplebuilding.config.ServerTuning.featureDenied(com.simplebuilding.config.ServerTuning.get().features.blueprint, player)) {
             return InteractionResult.PASS;
         }
         if (level.isClientSide()) {
-            BlueprintItem.openPlaced(pos.immutable(), stored.copy());
+            LibServices.openPlacedBlueprint(pos.immutable(), stored.copy());
         }
         return InteractionResult.SUCCESS;
     }

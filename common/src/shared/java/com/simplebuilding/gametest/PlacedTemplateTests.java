@@ -665,11 +665,10 @@ public final class PlacedTemplateTests {
      * die abgelegte Blaupause aus der Ferne, signiert oder an fremden Bloecken beschreibt.
      */
     public static void placedBlueprintOpensWithAnEmptyHandAndSavesAtItsPosition(GameTestHelper helper) {
-        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
         helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
         player.setShiftKeyDown(true);
-        use(helper, player, new ItemStack(ModItems.BLUEPRINT), new BlockPos(1, 1, 1), Direction.UP);
+        use(helper, player, new ItemStack(com.simplebuilding.util.BuildingToolRefs.item("blueprint")), new BlockPos(1, 1, 1), Direction.UP); // b-bundle131: 26.3 Simple Building Tools'
         player.setShiftKeyDown(false);
         BlockPos rel = new BlockPos(1, 2, 1);
         BlockPos abs = helper.absolutePos(rel);
@@ -697,6 +696,11 @@ public final class PlacedTemplateTests {
                 "opensPlacedBlueprint decides the hands wrongly");
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
 
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) {
+            // b-bundle131: on 26.3 the edit payload and the blueprint content are Simple Building Tools' (bridge in LibServices.init)
+            succeed(helper);
+            return;
+        }
         PlacedTemplateBlockEntity be = helper.getBlockEntity(rel, PlacedTemplateBlockEntity.class);
         com.simplebuilding.networking.ModMessageHandlers.handleBlueprintEdit(
                 com.simplebuilding.networking.BlueprintEditPayload.placed(abs, "stone 0..1,0,0", false, ""), player);
