@@ -226,10 +226,12 @@ def main():
         fx, fy, fz = [int(v) for v in st['hitPos'].replace(',', ' ').split()] if st.get('hitPos') else (x, y - 1, z + 2)
         print('floor block under the crosshair', st.get('hitPos'), st.get('hitBlock'), flush=True)
         io.key_down('Shift_L')
+        time.sleep(1.5)  # the sneak state is read once per frame/tick; Xvfb draws few frames
         io.right_click()
         io.key_up('Shift_L')
         st = fresh()
         check('(b) shift + right click places the blueprint', True, 'see next check')
+        time.sleep(1.0)
         command('find')
         st = fresh()
         check('(b) placed blueprint block entity on the server', 'blueprint' in st.get('serverBe', '').lower() or 'code' in st.get('serverBe', '').lower() or 'template' in st.get('serverBe', '').lower(), st.get('serverBe', '')[:200])
