@@ -19,9 +19,9 @@ HOST = "simplemods-wiki.azarfane.com"
 HERE = Path(__file__).resolve().parent
 
 
-def request(port, method, path, headers=None, body=None):
+def request(port, method, path, headers=None, body=None, host=None):
     c = http.client.HTTPConnection("127.0.0.1", port, timeout=10)
-    h = {"Host": HOST}
+    h = {"Host": host or HOST}
     h.update(headers or {})
     c.request(method, path, body=body, headers=h)
     r = c.getresponse()
@@ -116,13 +116,61 @@ def run(port, auth_file=None, legacy=False, legacy_ports=(8082, 8083), set_passw
     return fails
 
 
+WIKI = "wiki.simplemods.de"
+REDIRECT_HOSTS = ("www.simplemods.de", "simplewiki.de", "www.simplewiki.de", "simplemods-wiki.azarfane.com")
+
+
+def run_domains(port):
+    """IG31-55: every host by Host header (stage "domains" of deploy_dom07.sh)."""
+    fails = []
+
+    def expect(label, cond, info=""):
+        if not cond:
+            fails.append(f"{label} {info}".strip())
+
+    st, h, body = request(port, "GET", "/", host=WIKI)
+    expect(f"{WIKI} / public 200", st == 200, st)
+    st, h, _ = request(port, "GET", "/assets/vanilla/block/stone.png", host=WIKI)
+    expect(f"{WIKI} /assets/vanilla/ 404", st == 404, st)
+    for p in ("/dev/", "/zentrale/", "/setup/install.ps1", "/downloads/index.json"):
+        st, h, _ = request(port, "GET", p, host=WIKI)
+        expect(f"{WIKI}{p} without login -> 302 login", st == 302 and "/api/auth/login?next=" in h.get("location", ""),
+               f"{st} {h.get('location')}")
+    st, h, _ = request(port, "GET", "/api/queue", host=WIKI)
+    expect(f"{WIKI} /api/queue 401", st == 401, st)
+    st, h, _ = request(port, "GET", "/api/auth/login?next=/dev/", host=WIKI)
+    expect(f"{WIKI} login page 200", st == 200, st)
+
+    st, h, body = request(port, "GET", "/", host="simplemods.de")
+    expect("simplemods.de / landing 200 html", st == 200 and b"<html" in body.lower(), st)
+    expect("simplemods.de / is not the wiki redirect", "location" not in h)
+    st, h, _ = request(port, "GET", "/setup/x?a=1", host="simplemods.de")
+    expect("simplemods.de /setup/ -> wiki", st == 301 and h.get("location") == f"https://{WIKI}/setup/x?a=1",
+           f"{st} {h.get('location')}")
+
+    for host in REDIRECT_HOSTS:
+        for p in ("/", "/dev/item/x?y=1", "/zentrale/"):
+            st, h, _ = request(port, "GET", p, host=host)
+            expect(f"{host}{p} -> 301 wiki", st == 301 and h.get("location") == f"https://{WIKI}{p}",
+                   f"{st} {h.get('location')}")
+    old = "simplemods-wiki.azarfane.com"
+    cf = {"Cf-Access-Authenticated-User-Email": "smoke@localhost"}
+    for p in ("/setup/install.ps1", "/downloads/index.json"):
+        st, h, _ = request(port, "GET", p, cf, host=old)
+        expect(f"{old}{p} stays direct (200/404, no redirect)", st in (200, 404), st)
+        st, h, _ = request(port, "GET", p, host=old)
+        expect(f"{old}{p} without Access header 403", st == 403, st)
+    return fails
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--port", type=int, default=8084)
     ap.add_argument("--auth-file")
     ap.add_argument("--legacy", action="store_true")
+    ap.add_argument("--domains", action="store_true", help="IG31-55: all domains by Host header")
     a = ap.parse_args()
-    fails = run(a.port, a.auth_file, a.legacy)
+    fails = run_domains(a.port) if a.domains else run(a.port, a.auth_file, a.legacy)
     for f in fails:
         print("FEHLER:", f)
     print("smoke:", "OK" if not fails else f"{len(fails)} Fehler")
