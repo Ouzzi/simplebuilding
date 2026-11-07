@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(CapeLayer.class)
 public abstract class CapeLayerCloakMixin {
     @Inject(method = "submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/client/renderer/entity/state/AvatarRenderState;FF)V",
-            at = @At("HEAD"), cancellable = true, require = 0)
+            at = @At("HEAD"), cancellable = true)
     private void simplemobs$cloakCoversCape(PoseStack poseStack, SubmitNodeCollector collector, int light, AvatarRenderState state,
             float yRot, float xRot, CallbackInfo ci) {
         if (CloakLayer.wears(state)) ci.cancel();
