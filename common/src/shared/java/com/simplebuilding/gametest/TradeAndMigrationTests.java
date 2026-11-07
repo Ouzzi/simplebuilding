@@ -1324,7 +1324,9 @@ public final class TradeAndMigrationTests {
                     drawn.add((enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment)).replaceFirst(
                             "^" + com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":(break_through|override|radius)@", "simplebuilding:$1@")
                             // WE25-7: Fast Chiseling, likewise named by its old id in the json.
-                            .replaceFirst("^" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":fast_chiseling@", "simplebuilding:fast_chiseling@"));
+                            .replaceFirst("^" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":fast_chiseling@", "simplebuilding:fast_chiseling@")
+                            // b-btools07: and the wand enchantments of Simple Building Tools.
+                            .replaceFirst("^" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":(cover|bridge|linear)@", "simplebuilding:$1@"));
                 }
             }
 
