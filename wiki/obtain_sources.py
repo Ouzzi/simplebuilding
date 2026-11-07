@@ -165,6 +165,9 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
     text = re.sub(r'(?:com\.simplebuilding\.util\.)?HammerRefs\.item\("(\w+)"\)', lambda m: f"HammerRefs.{m.group(1).upper()}_SLEDGEHAMMER", text)
     # StorageRefs.item("quiver") -> StorageRefs.QUIVER (split stage 8c-1: bundles and quivers are Simple Storage's on 26.3).
     text = re.sub(r'(?:com\.simplebuilding\.util\.)?StorageRefs\.item\("(\w+)"\)', lambda m: f"StorageRefs.{m.group(1).upper()}", text)
+    # BuildingToolRefs.wand("iron") / .octant() -> fields (WF25-9: the building tools are Simple Building Tools' on 26.3).
+    text = re.sub(r'(?:com\.simplebuilding\.util\.)?BuildingToolRefs\.wand\("(\w+)"\)', lambda m: f"ModItems.{m.group(1).upper()}_BUILDING_WAND", text)
+    text = re.sub(r'(?:com\.simplebuilding\.util\.)?BuildingToolRefs\.octant\(\)', "ModItems.OCTANT", text)
     constants = {name: float(value) for name, value in
                  re.findall(r"static final float (\w+) = ([0-9.]+)f?;", text)}
 
