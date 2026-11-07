@@ -21,7 +21,7 @@ public abstract class AdminLagMixin {
         LagFinder.blockEntity((Level) (Object) this, ticker.getPos(), ticker.getType(), System.nanoTime() - t);
     }
 
-    @Inject(method = "setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)Z", require = 0, at = @At("RETURN"))
+    @Inject(method = "setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)Z", at = @At("RETURN"))
     private void simpletweaks$changed(BlockPos pos, BlockState state, int flags, int limit, CallbackInfoReturnable<Boolean> cir) {
         if (LagFinder.sampling && cir.getReturnValueZ() && !((Level) (Object) this).isClientSide()) LagFinder.changed((Level) (Object) this, pos, state);
     }

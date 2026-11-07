@@ -19,6 +19,7 @@ server), parses the compiled mixin classes and checks them against the game jar 
     @ModifyArg (index >= 0): parameter count, primitive types and the return type (object types are compared
     loosely, a subclass or interface is fine); @Redirect on an @At FIELD (getter (Owner)T / ()T or setter
     (Owner, T)V / (T)V); @ModifyArgs handlers (first parameter Args, returns void)
+  * require = 0 injectors (REV2-C-2): checked like all others, a miss is tagged because Mixin would skip it silently
   * mixin config "plugin" class exists and implements IMixinConfigPlugin
   * not checked (needs the local variable table / runtime): @Local captures, @Desc selectors, regex selectors
 
@@ -383,7 +384,15 @@ def check_mixin(cp: ClassPath, mixin: ClassInfo, problems: list[str]) -> None:
                 if (n, want) not in methods:
                     problems.append(f"{tag}: @Invoker {n}{want} not in {tname}")
             for atype in INJECTORS & m.ann.keys():
+                before = len(problems)
                 check_injector(cp, tag, tname, target, m, atype, m.ann[atype], problems)
+                if m.ann[atype].get("require") == ("int", 0):  # REV2-C-2: Mixin itself would skip these silently
+                    REQUIRE0.append(f"{tag}.{m.name}")
+                    for i in range(before, len(problems)):
+                        problems[i] += "  [require=0: Mixin would skip this injector silently]"
+
+
+REQUIRE0: list[str] = []
 
 
 def at_matches(selected, kind, ref):
@@ -667,6 +676,7 @@ def main() -> int:
                 checked += 1
     for p in problems:
         print("  " + p)
+    print(f"check_client_mixins: {len(REQUIRE0)} require=0 injectors seen (each resolved unless listed above)")
     print(f"check_client_mixins: {checked} mixins checked, {len(problems)} problem(s)")
     return 1 if problems else 0
 

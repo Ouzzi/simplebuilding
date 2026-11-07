@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** Cloak of deception (owner 12.10.): in first person the hands show the imitated shape, not the own skin. */
 @Mixin(FirstPersonHandsAndItemsRenderer.class)
 public abstract class FirstPersonHandDisguiseMixin {
-    @Inject(method = "renderPlayerHand", at = @At("HEAD"), cancellable = true, require = 0)
+    @Inject(method = "renderPlayerHand", at = @At("HEAD"), cancellable = true)
     private void simplemobs$disguisedHand(PoseStack poseStack, SubmitNodeCollector collector, int light, HumanoidArm arm,
             PlayerRenderState state, CallbackInfo ci) {
         if (DisguiseLooks.renderHand(poseStack, collector, light, arm)) ci.cancel();
