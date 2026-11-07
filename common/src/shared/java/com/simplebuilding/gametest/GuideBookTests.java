@@ -432,7 +432,11 @@ public final class GuideBookTests {
         }
         // 26.3 (split stage 7): Break Through, Override and Radius are Simple Hammers' (its own guide explains them).
         // Split stage 8c-1: Drawer, Deep Pockets and Funnel are Simple Storage's on 26.3 (its own guide explains them).
-        helper.assertTrue(mod >= (com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? 19 : com.simplebuilding.version.McVersion.STORAGE_IN_SB ? 16 : 13), "only " + mod + " mod enchantments are registered");
+        // Bundle 131: Fast Chiseling is Simple Chisels', Cover/Bridge/Linear are Simple Building Tools' on 26.3 (their own guides explain them).
+        int expectedMod = (com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? 19 : com.simplebuilding.version.McVersion.STORAGE_IN_SB ? 16 : 13)
+                - (com.simplebuilding.version.McVersion.CHISELS_IN_SB ? 0 : 1)
+                - (com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? 0 : 3);
+        helper.assertTrue(mod >= expectedMod, "only " + mod + " mod enchantments are registered, expected " + expectedMod);
         for (Item item : List.of(com.simplebuilding.util.GadgetRefs.gauge(), ModItems.CONSTRUCTION_LIGHT, ModItems.NETHERITE_APPLE,
                 ModItems.NETHERITE_CARROT, ModItems.ENDERITE_APPLE, ModItems.ENDERITE_CARROT, ModItems.ENDERITE_SPEAR,
                 com.simplebuilding.tweaks.item.TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER,

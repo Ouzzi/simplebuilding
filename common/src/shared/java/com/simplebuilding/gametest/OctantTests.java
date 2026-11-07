@@ -127,7 +127,7 @@ public final class OctantTests {
     private static final int OCTANT_DURABILITY = 128;
 
     /** Item id of the plain octant, as the loot pool codec writes it. */
-    private static final String OCTANT_ID = "simplebuilding:octant";
+    private static final String OCTANT_ID = com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":octant";
 
     /**
      * {@code SelectionShape}, in order, as {@code <constant>=<translation key>}. The order is not

@@ -39,6 +39,8 @@ sourceSets.main.java {
     srcDir root.dir('forge/src/main/java')
     exclude { e -> e.file.toPath().startsWith(root.dir('forge/src/main/java').asFile.toPath()) &&
             new File(projectDir, 'src/main/java/' + e.relativePath.pathString).isFile() }
+    // Simple Building Tools is Fabric-only (bundle 132); LibServices reaches the bridge by name.
+    exclude 'com/simplebuilding/util/BuildingToolsBridge.java'
 }
 // Forge laedt einen Klassenpfad-Mod als EIN Verzeichnis: liegen Klassen und Ressourcen getrennt
 // (build/classes/java/main vs. build/resources/main), findet es die @Mod-Klasse nicht ("has mods

@@ -219,9 +219,14 @@ public final class ModelTests {
     }
     public static void crossMod(GameTestHelper h) {
         if (partnerMissing(h, "simplebuilding", "mod item protection with a SimpleBuilding wand")) return;
-        String base = "simplebuilding:diamond_building_wand";
+        // The wand moved to simplebuildingtools on 26.3 (bundle 131); the old id still resolves through IdMoves,
+        // and the catalogue entry has to name the item's real registry id.
+        var wand = BuiltInRegistries.ITEM.getOptional(Identifier.parse("simplebuildingtools:diamond_building_wand"))
+                .orElseGet(() -> BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:diamond_building_wand")));
+        h.assertTrue(wand != Items.AIR, "No diamond building wand registered");
+        String base = BuiltInRegistries.ITEM.getKey(wand).toString();
         fixture(base, () -> {
-            var input = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(base)));
+            var input = new ItemStack(wand);
             h.assertTrue(Models.assign(input, "@model:renamed:tomato", true).isEmpty(), "Mod items protected by default");
             Models.server.policy().allowModItems = true;
             var out = Models.assign(input, "@model:renamed:tomato", true); h.assertTrue(!out.isEmpty(), "Explicit approved mod item opt-in");

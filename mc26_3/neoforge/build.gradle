@@ -32,6 +32,8 @@ sourceSets {
             srcDir root.dir('common/src/jade/java')
             srcDir root.dir('neoforge/src/main/java')
             srcDir root.dir('mc26_3/overlay/java')
+            // Simple Building Tools is Fabric-only (bundle 132); LibServices reaches the bridge by name.
+            exclude 'com/simplebuilding/util/BuildingToolsBridge.java'
         }
     }
 

@@ -169,9 +169,9 @@ public final class GuideContent {
                 ch("minecraft:diamond_pickaxe", List.of(), List.of("minecraft:enchanted_book#simplebuilding:vein_miner", "minecraft:iron_pickaxe", "minecraft:diamond_ore")),
                 ch("minecraft:iron_axe", List.of(), List.of("minecraft:enchanted_book#simplebuilding:vein_miner", "minecraft:iron_axe", "minecraft:oak_log")),
                 ch("minecraft:golden_pickaxe", List.of(), List.of("minecraft:enchanted_book#simplebuilding:versatility", "minecraft:iron_pickaxe", "minecraft:iron_shovel", "minecraft:iron_axe")),
-                ch("minecraft:rail", List.of(), List.of("minecraft:enchanted_book#simplebuilding:linear", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
-                ch("minecraft:oak_planks", List.of(), List.of("minecraft:enchanted_book#simplebuilding:bridge", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
-                ch("minecraft:moss_carpet", List.of(), List.of("minecraft:enchanted_book#simplebuilding:cover", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
+                ch("minecraft:rail", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":linear", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
+                ch("minecraft:oak_planks", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":bridge", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
+                ch("minecraft:moss_carpet", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":cover", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
                 ch("minecraft:iron_boots", List.of(), List.of("minecraft:enchanted_book#simplebuilding:double_jump", "minecraft:iron_boots", "minecraft:diamond_boots")),
                 ch("minecraft:elytra", List.of(), List.of("minecraft:enchanted_book#simplebuilding:kinetic_protection", "minecraft:iron_chestplate", "minecraft:iron_leggings")))));
         STYLES.put(GuideBooks.Book.BUILDING, new BookStyle(0xD8664C, List.of(
