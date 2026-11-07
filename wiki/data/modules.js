@@ -28,7 +28,8 @@ window.WIKI_MODULES = [
       "simplemobs",
       "simpleresonance",
       "simpleenchanting",
-      "simplepads"
+      "simplepads",
+      "simplebuildingtools"
     ],
     "optional": [
       "jei",
@@ -154,9 +155,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 8,
-      "features": 76
+      "features": 77
     },
-    "dataHash": "ee6a97cbeb69"
+    "dataHash": "f01d56d2c3fe"
   },
   {
     "id": "simpleriding",
@@ -2103,5 +2104,39 @@ window.WIKI_MODULES = [
       "features": 1
     },
     "dataHash": "a6711562ef9d"
+  },
+  {
+    "id": "simplebuildingtools",
+    "displayName": "Simple Building Tools",
+    "description": "Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant in 17 colors and the Blueprint with editor, picture import and cartography table copies. Simple Ores adds the Enderite wand, SimpleBuilding the backpack supply and the placed octants.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleores",
+      "simplestorage",
+      "simplehammers",
+      "simpleoctets"
+    ],
+    "stage": "done",
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Building tools: the Building Wand fills a whole face with the block you click (copper to Enderite, a creative one), the Octant marks two corners and a shape and measures them, and the Blueprint copies a build at the cartography table or from a code and builds it again with a wand.",
+      "de": "Bauwerkzeuge: der Baustab füllt eine ganze Fläche mit dem angeklickten Block (Kupfer bis Enderit, dazu ein Kreativ-Baustab), der Oktant markiert zwei Ecken und eine Form und misst sie aus, und die Blaupause kopiert ein Bauwerk am Kartentisch oder aus einem Code und baut es mit einem Baustab wieder auf."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 641,
+      "recipes": 28,
+      "features": 6
+    },
+    "dataHash": "10481af76d1e"
   }
 ];

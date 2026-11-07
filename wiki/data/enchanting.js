@@ -1475,6 +1475,85 @@ window.WIKI_ENCHANTING = {
    "exclusive": []
   },
   {
+   "id": "simplebuildingtools:bridge",
+   "module": "simplebuildingtools",
+   "family": true,
+   "name": {
+    "en": "Bridge",
+    "de": "Brücke"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 2,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 55,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "simplebuildingtools:cover"
+   ]
+  },
+  {
+   "id": "simplebuildingtools:cover",
+   "module": "simplebuildingtools",
+   "family": true,
+   "name": {
+    "en": "Cover",
+    "de": "Abdeckung"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 2,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 55,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "simplebuildingtools:bridge",
+    "simplebuildingtools:linear"
+   ]
+  },
+  {
+   "id": "simplebuildingtools:linear",
+   "module": "simplebuildingtools",
+   "family": true,
+   "name": {
+    "en": "Linear",
+    "de": "Linear"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 2,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 55,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "simplebuildingtools:cover"
+   ]
+  },
+  {
    "id": "simplefun:no_damage",
    "module": "simplefun",
    "family": true,
@@ -2112,6 +2191,26 @@ window.WIKI_ENCHANTING = {
      "simplebuilding:range",
      "simplequalityoflife:thrift",
      "simpletools:soulbound"
+    ]
+   ]
+  },
+  {
+   "id": "simplebuildingtools:diamond_building_wand",
+   "name": {
+    "en": "Diamond Building Wand",
+    "de": "Diamant-Baustab"
+   },
+   "enchantability": 10,
+   "assumed": true,
+   "icon": "assets/textures/simplebuildingtools/item/diamond_building_wand.png",
+   "table": [],
+   "family": [
+    [
+     "simplebuildingtools:bridge",
+     "simplebuildingtools:linear"
+    ],
+    [
+     "simplebuildingtools:cover"
     ]
    ]
   },
