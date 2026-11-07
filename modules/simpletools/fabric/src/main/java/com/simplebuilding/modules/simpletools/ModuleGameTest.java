@@ -70,4 +70,13 @@ public final class ModuleGameTest {
   h.assertTrue(!com.simplelib.api.HammerActions.areaVetoed(),"veto is off again after the probe");
   h.succeed();
  }
+ // WH26-7: Enderite and ceramic buckets (bucket/BucketTests)
+ @GameTest(maxTicks=100) public void bucketsRegisteredAndMigrated(GameTestHelper h){ToolsTests.ALL.get("buckets_registered_and_migrated").accept(h);}
+ @GameTest(maxTicks=100) public void ceramicBucketHoldsWaterAndBreaksAfterFourPours(GameTestHelper h){ToolsTests.ALL.get("ceramic_bucket_holds_water_and_breaks_after_four_pours").accept(h);}
+ @GameTest(maxTicks=100) public void enderiteBucketTakesMilkAndDrinksOneFilling(GameTestHelper h){ToolsTests.ALL.get("enderite_bucket_takes_milk_and_drinks_one_filling").accept(h);}
+ @GameTest(maxTicks=100) public void enderiteBucketHoldsTwoBucketsOfOneFluid(GameTestHelper h){ToolsTests.ALL.get("enderite_bucket_holds_two_buckets_of_one_fluid").accept(h);}
+ @GameTest(maxTicks=100) public void enderiteBucketTwoBucketsInCauldronsAndDispensers(GameTestHelper h){ToolsTests.ALL.get("enderite_bucket_two_buckets_in_cauldrons_and_dispensers").accept(h);}
+ @GameTest(maxTicks=100) public void ceramicLavaBucketScoopsPoursAndWears(GameTestHelper h){ToolsTests.ALL.get("ceramic_lava_bucket_scoops_pours_and_wears").accept(h);}
+ @GameTest(maxTicks=100) public void ceramicBucketWithLavaIsBrittleAndBreaksOnPour(GameTestHelper h){ToolsTests.ALL.get("ceramic_bucket_with_lava_is_brittle_and_breaks_on_pour").accept(h);}
+ @GameTest(maxTicks=100) public void ceramicBucketWearsThroughStagesAndKeepsItsFilling(GameTestHelper h){ToolsTests.ALL.get("ceramic_bucket_wears_through_stages_and_keeps_its_filling").accept(h);}
 }

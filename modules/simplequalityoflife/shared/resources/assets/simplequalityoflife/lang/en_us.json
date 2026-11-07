@@ -124,7 +124,7 @@
   "simplequalityoflife.guide.page.52.title": "Repairing keeps the anvil cost",
   "simplequalityoflife.guide.page.52": "Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it. Only a change of enchantments raises it like vanilla.",
   "simplequalityoflife.guide.page.53.title": "Repairing keeps the anvil cost",
-  "simplequalityoflife.guide.page.53": "Server option anvilRepairKeepsCost (default true).",
+  "simplequalityoflife.guide.page.53": "Server option anvilRepairKeepsCost (default true). Enderite and ceramic buckets: Enderite holds two, never breaks; ceramic wears out.",
   "simplequalityoflife.guide.page.54.title": "Soulbound",
   "simplequalityoflife.guide.page.54": "Treasure enchantment, one level, for everything that can carry the Curse of Vanishing (the two exclude each other).",
   "simplequalityoflife.guide.page.55.title": "Soulbound",

@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "simpletools:enderite_bucket",
+    "simpletools:enderite_lava_bucket",
+    "simpletools:enderite_lava_bucket_full",
+    "simpletools:enderite_milk_bucket",
+    "simpletools:enderite_milk_bucket_full",
+    {
+      "id": "simpletools:enderite_soul_lava_bucket",
+      "required": false
+    },
+    {
+      "id": "simpletools:enderite_soul_lava_bucket_full",
+      "required": false
+    },
+    "simpletools:enderite_water_bucket",
+    "simpletools:enderite_water_bucket_full"
+  ]
+}

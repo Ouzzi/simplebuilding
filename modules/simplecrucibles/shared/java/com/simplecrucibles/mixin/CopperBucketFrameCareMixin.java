@@ -1,6 +1,6 @@
 package com.simplecrucibles.mixin;
 
-import com.simplecrucibles.fluid.CrucibleBucketItem;
+import com.simplelib.bucket.ModBucketItem;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -24,14 +24,14 @@ public abstract class CopperBucketFrameCareMixin {
     private void simplecrucibles$careForFramedBucket(Player player, InteractionHand hand, Vec3 hitPos, CallbackInfoReturnable<InteractionResult> cir) {
         ItemFrame frame = (ItemFrame) (Object) this;
         ItemStack handStack = player.getItemInHand(hand);
-        if (!CrucibleBucketItem.isCopper(frame.getItem()) || handStack.isEmpty()
+        if (!ModBucketItem.isCopper(frame.getItem()) || handStack.isEmpty()
                 || !(handStack.is(Items.HONEYCOMB) || handStack.is(net.minecraft.tags.ItemTags.AXES))) return;
         // REV2-A-4d: a fixed frame (command-made) keeps its item, and build rights (spawn protection, claims, adventure) apply
         if (fixed || !player.level().mayInteract(player, frame.blockPosition())
                 || !player.mayUseItemAt(frame.blockPosition(), frame.getDirection(), handStack)) return;
         ItemStack shown = frame.getItem().copy();
         EquipmentSlot toolSlot = hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
-        InteractionResult care = CrucibleBucketItem.care(player.level(), player, shown, handStack, toolSlot, frame.blockPosition());
+        InteractionResult care = ModBucketItem.care(player.level(), player, shown, handStack, toolSlot, frame.blockPosition());
         if (care == null) return;
         if (care == InteractionResult.SUCCESS && !player.level().isClientSide()) frame.setItem(shown);
         cir.setReturnValue(care);

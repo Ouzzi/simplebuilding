@@ -106,6 +106,8 @@ public final class SimpleTools {
         com.simplelib.api.IdMoves.move(Registries.ADVANCEMENT, Identifier.fromNamespaceAndPath("simplemobs", "recipes/tools/biome_brush"),
                 Identifier.fromNamespaceAndPath(MOD_ID, "recipes/tools/biome_brush"));
         com.simplelib.api.SimpleLibApi.requestMaterial("netherite_nugget");
+        // WH26-7: the Enderite and ceramic buckets (Simple Crucibles', before that SimpleBuilding's).
+        com.simplebuilding.modules.simpletools.bucket.ToolsBuckets.registerMoves();
     }
 
     public static void load() {

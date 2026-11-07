@@ -587,7 +587,7 @@ def bucket_resources(copper_variant, enderite_variant):
                 img = copper_bucket(p.ramp(p.vanilla('block/' + name)), copper_variant, content)
             out[CRU / f'item/copper_{suffix}_{stage}.png'] = img
     # The filled Enderite buckets (full + half) come from enderite_bucket_fill_2026_10_09.py since N29.
-    out[CRU / 'item/enderite_bucket.png'] = enderite_bucket_strip(enderite_variant)
+    out[p.TOOLS / 'item/enderite_bucket.png'] = enderite_bucket_strip(enderite_variant)  # WH26-7: Simple Tools'
     out[CRU / 'item/soul_lava_bucket.png'] = iron_soul_lava_bucket()
     return out
 
@@ -777,7 +777,7 @@ def preview():
         cells = [(c or 'leer', checker(big(enderite_bucket(variant, c), 10))) for c in (None, 'water', 'lava', 'soul_lava')]
         cells.append(('Eisen Seele', checker(big(iron_soul_lava_bucket(), 10))))
         cells.append(('1x', checker(big(enderite_bucket(variant), 2))))
-        cells.append(('alt', checker(big(p.load(CRU / 'item/enderite_bucket.png'), 10))))
+        cells.append(('alt', checker(big(p.load(p.TOOLS / 'item/enderite_bucket.png'), 10))))
         rows.append((f'Enderit-Eimer {variant}', cells))
     for content in (None, 'soul_lava'):
         strip = enderite_bucket_strip('A', content)
@@ -830,7 +830,7 @@ def is_derived(path):
     simplecrucibles module. The others (iron/reinforced/netherite tiers, copper barrel, reinforced cauldron item) stay
     committed until the build ships derived textures for all of them. item/soul_lava_bucket.png is the same image
     soul_lava_2026_10_09.py builds, so derived_module() leaves it out."""
-    return path in MODULE_DERIVED or (path.parent == CRU / 'item' and 'bucket' in path.name)
+    return path in MODULE_DERIVED or (path.parent in (CRU / 'item', p.TOOLS / 'item') and 'bucket' in path.name)
 
 
 MODULE_DERIVED = {*crucible_paths('enderite').values(), *barrel_paths('enderite').values()}
@@ -848,7 +848,12 @@ def derived_module(jar):
     """Vanilla-derived output of the simplecrucibles module: texture path under assets/simplecrucibles/textures -> image."""
     # build/vanilla-textures (extracted by vanilla_derived.extract_vanilla_textures) must exist before this module is imported
     return {path.relative_to(CRU).as_posix(): img for path, img in resources().items()
-            if is_derived(path) and path.name != 'soul_lava_bucket.png' and not path.is_relative_to(STORAGE_TEXTURES)}
+            if is_derived(path) and path.name != 'soul_lava_bucket.png' and path.is_relative_to(CRU)}
+
+
+def derived_tools(jar):
+    """WH26-7: the empty Enderite bucket, Vanilla-derived output of the simpletools module (path under assets/simpletools/textures)."""
+    return {path.relative_to(p.TOOLS).as_posix(): img for path, img in resources().items() if path.is_relative_to(p.TOOLS) and is_derived(path)}
 
 
 def derived_storage(jar):
