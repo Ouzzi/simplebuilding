@@ -125,7 +125,7 @@ ihr Besitzer online ist. Grenzen stehen in `ServerTuning` (Konstanten) und werde
 **In Sub-Mods umgezogene Schlüssel (26.3, Modulaufteilung Stufe 9):** `server.machines.*FurnaceSpeed` (Simple Ovens),
 `server.tools.sledgehammerUpgradeSeconds`/`*UpgradeDamagePerHit`/`diamondBlockPebbles` (Simple Hammers),
 `tools.invertBundleInteractions`, `server.features.backpack`, `server.loot.betterChestPercent`/`*ShulkerPercent`/
-`endermitesPerRareShulker` (Simple Storage). Das Modul übernimmt den Wert einmal aus `simplebuilding.json` und liest dann
+`endermitesPerRareShulker` (Simple Storage); später dazu (b-cfg10, 07.11.): Meißel-Abklingzeiten (Simple Chisels), Piston/Hopper-Werte (Simple Machines), Pad-/Spawn-Werte (Simple Pads), `server.features.endgameEnchantLevels` (Simple Enchanting), `server.features.blueprint`, `server.blueprint.*`, `tools.buildingWandHungerCost`/`wandHungerMultiplier` (Simple Building Tools; `tools.invertOctantSneak` bleibt) sowie Rotator-/Resonanzstab-/Echolot-Werte (`tools.rotator*`, `server.charges.*`, `server.laser.*`, `server.features.echoSounder`, `tweaks.laserPointer.*`, `tweaks.balancing.echoSounder*`; Simple Gadgets). Das Modul übernimmt den Wert einmal aus `simplebuilding.json` und liest dann
 seine eigene Datei. In SB bleiben die Felder (alte Dateien laden fehlerfrei, Werte bleiben beim Speichern erhalten), aber
 Config-Bildschirm (Fabric/NeoForge/Forge), `/simplebuilding config list` samt Vorschlägen und Wiki-Liste zeigen sie auf 26.3
 nicht mehr (`ConfigOptions.MOVED_TO_*`, `hidden()`); `config get/set/reset` mit vollem Pfad antworten weiter. 26.2 zeigt alle.

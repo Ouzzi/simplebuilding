@@ -74,7 +74,10 @@ def option_sets(path):
     # Split stage 9: options a sub-mod took over, per flag that keeps them SimpleBuilding's (optional).
     for key, flag in (('MOVED_TO_OVENS', 'OVENS_IN_SB'), ('MOVED_TO_HAMMERS', 'HAMMERS_IN_SB'),
                       ('MOVED_TO_STORAGE', 'STORAGE_IN_SB'), ('MOVED_TO_ORES', 'MATERIALS_IN_ORES'),
-                      ('MOVED_TO_MACHINES', 'PISTONS_IN_SB'), ('MOVED_TO_MACHINES_HOPPERS', 'HOPPERS_IN_SB')):
+                      ('MOVED_TO_MACHINES', 'PISTONS_IN_SB'), ('MOVED_TO_MACHINES_HOPPERS', 'HOPPERS_IN_SB'),
+                      ('MOVED_TO_CHISELS', 'CHISELS_IN_SB'), ('MOVED_TO_ENCHANTING', 'ASTRAL_ENCHANTING'),
+                      ('MOVED_TO_PADS', 'PADS_IN_SB'), ('MOVED_TO_BTOOLS', 'BTOOLS_IN_SB'),
+                      ('MOVED_TO_GADGETS', 'GADGETS_IN_SB')):
         match = re.search(r'\b' + key + r'\s*=\s*Set.of\((.*?)\);', text, re.S)
         result.setdefault('MOVED', {})[flag] = set(re.findall(r'"([^"]+)"', match[1])) if match else set()
     return result

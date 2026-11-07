@@ -1497,6 +1497,8 @@ public final class ConfigOptionTests {
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_ENCHANTING, McVersion.ASTRAL_ENCHANTING);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES_HOPPERS, !McVersion.HOPPERS_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_PADS, !McVersion.PADS_IN_SB);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_BTOOLS, !McVersion.BTOOLS_IN_SB);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_GADGETS, !McVersion.GADGETS_IN_SB);
         var visible = com.simplebuilding.config.ConfigOptions.visible();
         int hiddenCount = 0;
         com.google.gson.Gson gson = new com.google.gson.GsonBuilder().setPrettyPrinting().create();

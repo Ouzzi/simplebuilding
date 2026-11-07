@@ -93,7 +93,7 @@ class ConfigMetadataTests(unittest.TestCase):
                              ('server.loot.globalLootMultiplier', [0, 3]),
                              ('server.features.scarecrowRadius', [0, 16]),
                              ('server.trimStrengths.walkingSpeed', [0, 2])]:
-            self.assertEqual(bounds, configs[name]['range'], name)
+            self.assertEqual(bounds, (legacy if name == 'server.tools.ironChiselCooldownTicks' else configs)[name]['range'], name)
         self.assertEqual('client', configs['hudScale']['side'])
         self.assertEqual('server', configs['worldGen.enableLootTableChanges']['side'])
         self.assertEqual('yes', configs['worldGen.enableLootTableChanges']['reload'])
@@ -101,16 +101,20 @@ class ConfigMetadataTests(unittest.TestCase):
         # Split stage 9: options a sub-mod took over are left out on 26.3 only (ConfigOptions.MOVED_TO_*).
         self.assertEqual('recipes', legacy['server.features.backpack']['reload'])
         for name in ('server.features.backpack', 'tools.invertBundleInteractions', 'server.machines.reinforcedFurnaceSpeed',
-                     'server.tools.diamondBlockPebbles', 'server.loot.betterChestPercent'):
+                     'server.tools.diamondBlockPebbles', 'server.loot.betterChestPercent',
+                     'server.tools.stoneChiselCooldownTicks', 'server.features.blueprint', 'tools.wandHungerMultiplier',
+                     'tools.rotatorChargePerTurn', 'server.charges.lensMaxCharge', 'tweaks.laserPointer.chargePerSecond',
+                     'tweaks.pads.enableFlypads', 'server.features.endgameEnchantLevels'):
             self.assertNotIn(name, configs, name)
             self.assertIn(name, legacy, name)
-        self.assertEqual('restart', configs['server.charges.lensMaxCharge']['reload'])
+        self.assertEqual('restart', legacy['server.charges.lensMaxCharge']['reload'])
         for name, maximum in [('tools.wandHungerMultiplier', 10), ('tools.magnetRangeMultiplier', 4),
                               ('tools.rotatorChargePerTurn', 4096), ('worldGen.buildingCoreLootChanceMultiplier', 1000),
                               ('tweaks.laserPointer.chargePerSecond', 2560), ('tweaks.laserPointer.effectCost', 2560)]:
-            self.assertEqual([0, maximum], configs[name]['range'], name)
             self.assertEqual([0, None], legacy[name]['range'], name)
-            self.assertEqual('server', configs[name]['side'], name)
+            self.assertEqual('server', legacy[name]['side'], name)
+            if name in configs:
+                self.assertEqual([0, maximum], configs[name]['range'], name)
 
     def test_comments_and_unresolved_bounds_are_not_evidence(self):
         with tempfile.TemporaryDirectory() as directory:

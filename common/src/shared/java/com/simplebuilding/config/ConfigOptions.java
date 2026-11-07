@@ -231,6 +231,31 @@ public final class ConfigOptions {
             "server.dimensionLocks.chunkLoaderBlockedDimensions", "server.dimensionLocks.flypadBlockedDimensions",
             "server.chunkLoaders.requireOwnerOnline");
 
+    /**
+     * b-cfg10: the building tools live in Simple Building Tools on 26.3 ({@code config/simplebuildingtools-server.json}, taken over
+     * once from here; {@code McVersion.BTOOLS_IN_SB}). {@code tools.invertOctantSneak} stays: SimpleBuilding hands it to the module.
+     */
+    public static final Set<String> MOVED_TO_BTOOLS = Set.of(
+            "server.features.blueprint", "server.blueprint.maxBlocksPerTick", "server.blueprint.pictureImport",
+            "server.blueprint.picturePermission", "server.blueprint.pictureMaxSide",
+            "tools.buildingWandHungerCost", "tools.wandHungerMultiplier");
+
+    /**
+     * b-cfg10: the Gauge, Transposer (rotator), Resonance Rod (laser pointer) and Echo Sounder live in Simple Gadgets on 26.3
+     * ({@code config/simplegadgets-server.json}, taken over once from here; {@code McVersion.GADGETS_IN_SB}). The Attractor and
+     * the ore detector stay SimpleBuilding's.
+     */
+    public static final Set<String> MOVED_TO_GADGETS = Set.of(
+            "tools.rotatorChargePerTurn", "tools.rotatorSwapEnabled", "tools.rotatorSwapWindupTicks",
+            "tools.rotatorSwapMaxHardness", "tools.rotatorSwapWhitelist", "tools.rotatorSwapBlacklist",
+            "server.charges.rotatorMaxCharge", "server.charges.lensMaxCharge", "server.charges.echoSounderMaxCharge",
+            "server.laser.igniteFlammables", "server.laser.igniteTnt", "server.laser.igniteEntities",
+            "server.laser.scanEntities", "server.laser.scanPlayers", "server.laser.scanIntervalTicks",
+            "server.features.echoSounder", "server.dimensionLocks.echoSounderBlockedDimensions",
+            "tweaks.balancing.echoSounderJumpCooldownTicks", "tweaks.balancing.echoSounderAttemptLockTicks",
+            "tweaks.laserPointer.enable", "tweaks.laserPointer.range", "tweaks.laserPointer.chargePerSecond",
+            "tweaks.laserPointer.effectCost", "tweaks.laserPointer.color", "tweaks.laserPointer.scale");
+
     /** True if {@code path} belongs to a sub-mod on this line (see {@link #MOVED_TO_OVENS}). */
     public static boolean hidden(String path) {
         return !com.simplebuilding.version.McVersion.OVENS_IN_SB && MOVED_TO_OVENS.contains(path)
@@ -241,7 +266,9 @@ public final class ConfigOptions {
                 || !com.simplebuilding.version.McVersion.PISTONS_IN_SB && MOVED_TO_MACHINES.contains(path)
                 || com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING && MOVED_TO_ENCHANTING.contains(path)
                 || !com.simplebuilding.version.McVersion.HOPPERS_IN_SB && MOVED_TO_MACHINES_HOPPERS.contains(path)
-                || !com.simplebuilding.version.McVersion.PADS_IN_SB && MOVED_TO_PADS.contains(path);
+                || !com.simplebuilding.version.McVersion.PADS_IN_SB && MOVED_TO_PADS.contains(path)
+                || !com.simplebuilding.version.McVersion.BTOOLS_IN_SB && MOVED_TO_BTOOLS.contains(path)
+                || !com.simplebuilding.version.McVersion.GADGETS_IN_SB && MOVED_TO_GADGETS.contains(path);
     }
 
     private static final List<Option> ALL;
