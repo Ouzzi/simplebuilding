@@ -175,6 +175,20 @@ public final class B09ToolsClientTest implements FabricClientGameTest {
         world.getConnection().waitForClientboundPackets();
         context.waitTicks(15);
         shot(context, "wand-first-person-preview");
+        // variants: copper wand (3x3) with the wall block in the inventory, creative and survival
+        world.getServer().runCommand("item replace entity @a hotbar.1 with minecraft:stone_bricks 64");
+        world.getServer().runCommand("item replace entity @a hotbar.0 with simplebuildingtools:copper_building_wand");
+        world.getConnection().waitForClientboundPackets();
+        context.waitTicks(20);
+        shot(context, "wand-copper-creative-preview");
+        world.getServer().runCommand("gamemode survival @a");
+        world.getConnection().waitForClientboundPackets();
+        context.waitTicks(20);
+        shot(context, "wand-copper-survival-preview");
+        world.getServer().runCommand("gamemode creative @a");
+        world.getServer().runCommand("item replace entity @a hotbar.0 with simplebuildingtools:netherite_building_wand");
+        world.getConnection().waitForClientboundPackets();
+        context.waitTicks(10);
         context.runOnClient(c -> c.options.setCameraType(CameraType.THIRD_PERSON_BACK));
         context.waitTicks(10);
         shot(context, "wand-third-person");
@@ -285,8 +299,11 @@ public final class B09ToolsClientTest implements FabricClientGameTest {
     }
 
     private void shot(ClientGameTestContext context, String name) {
-        context.runOnClient(c -> c.gui.toastManager().clear());
-        context.waitTicks(1);
+        context.runOnClient(c -> {
+            c.gui.toastManager().clear();
+            c.gui.getChat().clearMessages(true);
+        });
+        context.waitTicks(2);
         context.takeScreenshot("b09-" + name);
         shots++;
         System.out.println("[b09] OK b09-" + name);
