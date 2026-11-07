@@ -301,7 +301,7 @@ public final class B09ToolsClientTest implements FabricClientGameTest {
     private void shot(ClientGameTestContext context, String name) {
         context.runOnClient(c -> {
             c.gui.toastManager().clear();
-            c.gui.getChat().clearMessages(true);
+            c.gui.hud.getChat().clearMessages(true);
         });
         context.waitTicks(2);
         context.takeScreenshot("b09-" + name);
