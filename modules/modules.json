@@ -5171,7 +5171,7 @@
     {
       "id": "simplebuildingtools",
       "name": "Simple Building Tools",
-      "version": "1.0.0",
+      "version": "0.1.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Building Tools",

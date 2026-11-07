@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 // Hoehere Prioritaet = spaeter angewandt: wickelt auch Slots anderer Mods (Simple Maps) statt von ihnen ersetzt zu werden.
 @Mixin(value = CartographyTableMenu.class, priority = 1100)
-public abstract class CartographyTableMenuMixin extends AbstractContainerMenu implements CartographyScanTicker {
+public abstract class CartographyTableMenuMixin extends AbstractContainerMenu implements com.simplebuildingtools.blueprint.CartographyScanTicker {
     @Shadow @Final private ContainerLevelAccess access;
     @Shadow @Final private ResultContainer resultContainer;
 
