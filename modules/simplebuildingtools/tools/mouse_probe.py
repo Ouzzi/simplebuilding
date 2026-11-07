@@ -138,6 +138,10 @@ def main():
             time.sleep(wait)
             return fresh()
 
+        def esc():
+            if fresh()['screen'] != 'none':
+                io.key('Escape', 0.8)
+
         def snap(name):
             command('shot')
             time.sleep(1.2)
@@ -199,7 +203,7 @@ def main():
                 st = click_widget(label, 1.0)
                 check(f'(a) {label} button opens its window', not st['screen'].endswith('BlueprintScreen'), st['screen'])
                 snap('a-' + label.lower())
-                io.key('Escape', 0.8)
+                esc()
                 st = fresh()
                 if not st['screen'].endswith('BlueprintScreen'):
                     check(f'(a) Escape from {label} returns to the editor', False, st['screen'])
@@ -209,7 +213,7 @@ def main():
             io.right_click()
             st = fresh()
             check('(a) reopen shows the saved code', st['screen'].endswith('BlueprintScreen') and st.get('code') == code_a, (st.get('code') or '')[-30:])
-            io.key('Escape', 0.8)
+            esc()
 
         # ---------- (b) N23 placed blueprint
         chat('clear @s')
@@ -217,12 +221,15 @@ def main():
         io.key('1')
         chat(f'tp @s {x}.5 {y} {z}.5 facing {x}.5 {y}.0 {z + 2}.5')
         time.sleep(0.8)
+        st = fresh()
+        fx, fy, fz = [int(v) for v in st['hitPos'].replace(',', ' ').split()] if st.get('hitPos') else (x, y - 1, z + 2)
+        print('floor block under the crosshair', st.get('hitPos'), st.get('hitBlock'), flush=True)
         io.key_down('Shift_L')
         io.right_click()
         io.key_up('Shift_L')
         st = fresh()
         check('(b) shift + right click places the blueprint', st.get('hitBlock', '').endswith('placed_blueprint') or st['screen'] == 'none', st.get('hitBlock'))
-        px, py, pz = x, y - 1 + 1, z + 2
+        px, py, pz = fx, fy + 1, fz
         command('watch', x=px, y=py, z=pz)
         st = fresh()
         check('(b) placed blueprint block entity on the server', 'blueprint' in st.get('serverBe', '').lower() or 'code' in st.get('serverBe', '').lower() or 'template' in st.get('serverBe', '').lower(), st.get('serverBe', '')[:200])
@@ -250,7 +257,7 @@ def main():
             st = fresh()
             check('(b) reopen shows the saved change', st['screen'].endswith('BlueprintScreen') and st.get('code') == code_b, (st.get('code') or '')[:40])
             snap('b-reopened')
-            io.key('Escape', 0.8)
+            esc()
 
         # ---------- (c) octant + wand screen with K
         chat('clear @s')
@@ -307,7 +314,7 @@ def main():
                     st2 = fresh()
                     check(f'(c) wand button "{b["label"]}" click keeps the screen', st2['screen'].endswith('BuildingWandScreen'), st2['screen'])
             snap('c-wand-after')
-            io.key('Escape', 0.8)
+            esc()
 
         # ---------- (d) JEI recipes for chisel and building wand
         chat('gamemode survival @s')
@@ -326,10 +333,10 @@ def main():
                 st = fresh()
                 check(f'(d) JEI recipe window for the {label} (key R over the item)', 'jei' in st['screen'].lower() or 'recipe' in st['screen'].lower(), st['screen'])
                 snap(f'd-jei-{label}')
-                io.key('Escape', 0.8)
+                esc()
                 st = fresh()
                 if st['screen'] != 'none':
-                    io.key('Escape', 0.8)
+                    esc()
         command('quit')
     finally:
         if game.poll() is None and not any(r['check'] != 'shot' for r in results):
