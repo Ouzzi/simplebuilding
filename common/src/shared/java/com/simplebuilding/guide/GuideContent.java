@@ -396,8 +396,29 @@ public final class GuideContent {
      * Nothing moved on 26.2, so nothing changes there.
      */
     public static Identifier moved(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>> registry, Identifier id) {
-        Identifier now = com.simplelib.api.IdMoves.target(registry, id);
-        return now != null ? now : id;
+        // Bundle 135: by reflection - the core compiles without SimpleLib on the class path (root/port builds).
+        if (ID_MOVES_TARGET != null && id != null) {
+            try {
+                Object now = ID_MOVES_TARGET.invoke(null, registry, id);
+                if (now instanceof Identifier moved) {
+                    return moved;
+                }
+            } catch (ReflectiveOperationException | LinkageError ignored) {
+                // SimpleLib missing or changed: keep the id as written.
+            }
+        }
+        return id;
+    }
+
+    private static final java.lang.reflect.Method ID_MOVES_TARGET = idMovesTarget();
+
+    private static java.lang.reflect.Method idMovesTarget() {
+        try {
+            return Class.forName("com.simplelib.api.IdMoves").getMethod("target",
+                    net.minecraft.resources.ResourceKey.class, Identifier.class);
+        } catch (ReflectiveOperationException | LinkageError e) {
+            return null;
+        }
     }
 
     /**
