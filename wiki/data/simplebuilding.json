@@ -94353,7 +94353,7 @@
           "required": true
         },
         {
-          "id": "simplebeacons:strong_upgrade_shard",
+          "id": "simplelib:strong_upgrade_shard",
           "required": false
         },
         {
