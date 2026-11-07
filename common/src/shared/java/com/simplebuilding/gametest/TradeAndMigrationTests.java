@@ -1285,6 +1285,8 @@ public final class TradeAndMigrationTests {
             drawn = drawn.replaceFirst("^" + com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":(break_through|override|radius)@", "simplebuilding:$1@");
             // WE25-7: likewise Fast Chiseling, which the 26.3 build ships as simplechisels:.
             drawn = drawn.replaceFirst("^" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":fast_chiseling@", "simplebuilding:fast_chiseling@");
+            // b-btools07: and the wand enchantments, which the 26.3 build ships as simplebuildingtools:.
+            drawn = drawn.replaceFirst("^" + com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE + ":(cover|bridge|linear)@", "simplebuilding:$1@");
             helper.assertTrue(pool.contains(drawn),
                     id + ": the merchant put " + drawn + " on the tool, which is not one of the "
                             + "enchantment/level pairs its json offers (" + pool + ")");

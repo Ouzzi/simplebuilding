@@ -2878,6 +2878,8 @@ public final class DataIntegrityTests {
                     && !com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // b-pads01: Simple Pads' pads, plates and Spawn Elytra are the module's, not SimpleBuilding's.
                     && !(!McVersion.PADS_IN_SB && McVersion.PADS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
+                    // b-btools07: Simple Building Tools' wands, octants and blueprints - SimpleLib's tab rules move them to its own tab.
+                    && !(!McVersion.BTOOLS_IN_SB && McVersion.BTOOLS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
                     // ENCH02: Simple Enchanting's two tables keep their place in the enchanting row (by id).
                     && !com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // b-guide01: SimpleLib's Simple Modpack guide stands in the retired hub's slot of the tools tab.
