@@ -170,6 +170,8 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
 
     hammers_moved = (version_flags or {}).get("HAMMERS_IN_SB") is False
     storage_moved = (version_flags or {}).get("STORAGE_IN_SB") is False
+    chisels_moved = (version_flags or {}).get("CHISELS_IN_SB") is False
+    btools_moved = (version_flags or {}).get("BTOOLS_IN_SB") is False
 
     def item_id(owner: str, const: str) -> str:
         identifier = f"{ns}:{const.lower()}"
@@ -178,6 +180,11 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
             identifier = f"{'simplehammers' if hammers_moved else ns}:{const.lower()}"
         if owner == "StorageRefs":
             identifier = f"{'simplestorage' if storage_moved else ns}:{const.lower()}"
+        # 26.3 WE25-7 / WF25-9: chisels are Simple Chisels', wands/octants/blueprints Simple Building Tools'.
+        if owner == "ModItems" and chisels_moved and const.endswith("_CHISEL"):
+            identifier = f"simplechisels:{const.lower()}"
+        if owner == "ModItems" and btools_moved and (const.endswith("_BUILDING_WAND") or const.startswith("OCTANT") or const.endswith("BLUEPRINT")):
+            identifier = f"simplebuildingtools:{const.lower()}"
         # 26.3 split stage 3d: the shared materials are SimpleLib's (ModItems fields point at them).
         shared = f"simplelib:{const.lower()}"
         if identifier not in item_ids and (version_flags or {}).get("MATERIALS_IN_LIB") and shared in item_ids:
@@ -198,6 +205,10 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
         # 26.3 split stage 8c-1: Drawer, Deep Pockets and Funnel are Simple Storage's enchantments.
         if storage_moved and const in ("DRAWER", "DEEP_POCKETS", "FUNNEL"):
             identifier = f"simplestorage:{const.lower()}"
+        if chisels_moved and const == "FAST_CHISELING":
+            identifier = f"simplechisels:{const.lower()}"
+        if btools_moved and const in ("COVER", "BRIDGE", "LINEAR"):
+            identifier = f"simplebuildingtools:{const.lower()}"
         if identifier not in ench_ids:
             problems.append(f"{path.name}: ModEnchantments.{const} is no enchantment the wiki knows ({identifier})")
         return identifier

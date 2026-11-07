@@ -1733,6 +1733,12 @@ def collect_obtain(roots: dict, line: str, items, blocks, enchantments, check: b
         hammers = REPO / "modules/simplehammers/shared/resources"
         item_ids |= {"simplehammers:" + p.stem for p in (hammers / "assets/simplehammers/items").glob("*.json")}
         ench_ids |= {"simplehammers:" + p.stem for p in (hammers / "data/simplehammers/enchantment").glob("*.json")}
+    for flag, mod in (("CHISELS_IN_SB", "simplechisels"), ("BTOOLS_IN_SB", "simplebuildingtools")):
+        if (version_flags(roots) or {}).get(flag) is False:
+            # WE25-7 / WF25-9: SimpleBuilding's loot hands out the moved chisels, wands and their enchantments.
+            res = REPO / f"modules/{mod}/shared/resources"
+            item_ids |= {f"{mod}:" + p.stem for p in (res / f"assets/{mod}/items").glob("*.json")}
+            ench_ids |= {f"{mod}:" + p.stem for p in (res / f"data/{mod}/enchantment").glob("*.json")}
     if (version_flags(roots) or {}).get("STORAGE_IN_SB") is False:
         # Split stage 8c-1: SimpleBuilding's loot hands out Simple Storage's bundles, quivers and storage books.
         storage = REPO / "modules/simplestorage/shared/resources"
