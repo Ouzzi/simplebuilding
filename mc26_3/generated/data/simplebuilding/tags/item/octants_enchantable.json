@@ -1,0 +1,21 @@
+{
+  "values": [
+    "simplebuildingtools:octant",
+    "simplebuildingtools:octant_white",
+    "simplebuildingtools:octant_orange",
+    "simplebuildingtools:octant_magenta",
+    "simplebuildingtools:octant_light_blue",
+    "simplebuildingtools:octant_yellow",
+    "simplebuildingtools:octant_lime",
+    "simplebuildingtools:octant_pink",
+    "simplebuildingtools:octant_gray",
+    "simplebuildingtools:octant_light_gray",
+    "simplebuildingtools:octant_cyan",
+    "simplebuildingtools:octant_purple",
+    "simplebuildingtools:octant_blue",
+    "simplebuildingtools:octant_brown",
+    "simplebuildingtools:octant_green",
+    "simplebuildingtools:octant_red",
+    "simplebuildingtools:octant_black"
+  ]
+}

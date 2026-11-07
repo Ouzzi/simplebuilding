@@ -26,7 +26,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:linear": 1
+                "simplebuildingtools:linear": 1
               }
             }
           },
@@ -35,7 +35,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:octant",
+          "name": "simplebuildingtools:octant",
           "weight": 2
         },
         {

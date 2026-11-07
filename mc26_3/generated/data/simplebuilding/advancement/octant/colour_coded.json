@@ -1,0 +1,49 @@
+{
+  "parent": "simplebuilding:octant/measure_twice",
+  "criteria": {
+    "dyed_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuildingtools:octant_white",
+              "simplebuildingtools:octant_orange",
+              "simplebuildingtools:octant_magenta",
+              "simplebuildingtools:octant_light_blue",
+              "simplebuildingtools:octant_yellow",
+              "simplebuildingtools:octant_lime",
+              "simplebuildingtools:octant_pink",
+              "simplebuildingtools:octant_gray",
+              "simplebuildingtools:octant_light_gray",
+              "simplebuildingtools:octant_cyan",
+              "simplebuildingtools:octant_purple",
+              "simplebuildingtools:octant_blue",
+              "simplebuildingtools:octant_brown",
+              "simplebuildingtools:octant_green",
+              "simplebuildingtools:octant_red",
+              "simplebuildingtools:octant_black"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.octant.colour_coded.description"
+    },
+    "icon": {
+      "id": "simplebuildingtools:octant_light_blue"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.octant.colour_coded.title"
+    }
+  },
+  "requirements": [
+    [
+      "dyed_octant"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

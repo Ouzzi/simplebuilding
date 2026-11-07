@@ -40,7 +40,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:linear": 1
+                "simplebuildingtools:linear": 1
               }
             }
           },
@@ -87,7 +87,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:iron_building_wand",
+          "name": "simplebuildingtools:iron_building_wand",
           "weight": 4
         },
         {
