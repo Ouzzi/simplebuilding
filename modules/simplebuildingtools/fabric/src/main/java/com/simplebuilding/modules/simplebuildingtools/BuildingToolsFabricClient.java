@@ -34,6 +34,7 @@ public final class BuildingToolsFabricClient implements ClientModInitializer {
         ClientState.octantFigureToggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.simplebuildingtools.toggle_octant_figure",
                 InputConstants.UNKNOWN.getValue(), category));
         ClientTickEvents.END_CLIENT_TICK.register(BtClient::tick);
+        ClientTickEvents.END_CLIENT_TICK.register(com.simplebuildingtools.client.BtProbe::tick);
         HudElementRegistry.attachElementBefore(VanillaHudElements.CHAT, SimpleBuildingTools.id("octant_hud"),
                 (context, tickCounter) -> RangefinderHudOverlay.render(context));
         LevelRenderEvents.COLLECT_SUBMITS.register(context -> {
