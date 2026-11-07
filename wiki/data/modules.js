@@ -2132,7 +2132,7 @@ window.WIKI_MODULES = [
       "en": "Building tools: the Building Wand fills a whole face with the block you click (copper to Enderite, a creative one), the Octant marks two corners and a shape and measures them, and the Blueprint copies a build at the cartography table or from a code and builds it again with a wand.",
       "de": "Bauwerkzeuge: der Baustab füllt eine ganze Fläche mit dem angeklickten Block (Kupfer bis Enderit, dazu ein Kreativ-Baustab), der Oktant markiert zwei Ecken und eine Form und misst sie aus, und die Blaupause kopiert ein Bauwerk am Kartentisch oder aus einem Code und baut es mit einem Baustab wieder auf."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA7klEQVR42mPQ8Q34TwlmABFLb9wliOuN1P+na0nD+XkHTqAa0HTywv99j5+BaWw4Qln2f62RJpgN0uzfNQHTAFz4aoTu/0MTFv4/VV8DZoMsIsqAZhPF/+FKyv+PT130f216/f8lCfX/dxfX/W8yUfifqqFM2IA0TXmw4iNVtf8XxjaADVnr6g42NEJZgjgvRKoIgZ0NsnmDmyuYT3QYeJiK/m9PU/8friwIthUUCyDNRBkA06wuxw3WAAkPeeIMAGlO95WDa8aGcRqAbjNJBhBjM1YDQBqJtRmnAaRoxjAAJADSDMIgCWIx3ABKMAAre3XEtKWoJQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 27,
       "recipes": 28,
@@ -2164,7 +2164,7 @@ window.WIKI_MODULES = [
       "en": "Seven chisels from Stone to Enderite that turn a block into the next one of its family right where it stands - stone into chiseled stone bricks, planks into stairs - and back again when you sneak, and the enchantment Fast Chiseling.",
       "de": "Sieben Meißel von Stein bis Enderit, die einen Block an Ort und Stelle in den nächsten seiner Familie verwandeln - Stein in gemeißelte Steinziegel, Bretter in Treppen - und beim Schleichen wieder zurück, und die Verzauberung Schnelles Meißeln."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAzUlEQVR42mMwt7L9TwlmABHbdu0niJuamlD4XRNmoBowa8Gy/6fOXgTT6BikGQRANIgP0pyckYtpAC7NFy5c+A8DcnJyYIuIMgCk+fDhw2AD3r59i2IIWQaguwSvAdg0g/jLly8n7AJCmgkGIizgQJqRNcI04zXAw1QUjEEa0W1FxhgGwDS2pKj9t9ER+q+tyIdhK04DQBon5WmDNUc4Sf4vCVcEG4BNI04DQJqzAuTBmJBmnAaAbCbGdgwDQAIgQ0AaQRgkSQyGG0AJBgAZ925FQoSCbwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 8,
       "recipes": 10,
