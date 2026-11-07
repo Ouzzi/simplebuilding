@@ -227,7 +227,7 @@ def main():
         check('(b) placed blueprint block entity on the server', 'blueprint' in st.get('serverBe', '').lower() or 'code' in st.get('serverBe', '').lower() or 'template' in st.get('serverBe', '').lower(), st.get('serverBe', '')[:200])
         snap('b-placed')
         chat('item replace entity @s weapon.mainhand with minecraft:air')
-        chat(f'tp @s {x}.5 {y} {z}.5 facing {px}.5 {py}.2 {pz}.5')
+        chat(f'tp @s {x}.5 {y} {z}.5 facing {px}.5 {py}.03 {pz}.5')
         time.sleep(0.8)
         st = fresh()
         check('(b) crosshair is on the placed blueprint', st.get('hitBlock', '').endswith('placed_blueprint'), (st.get('hitPos'), st.get('hitBlock')))
@@ -265,10 +265,10 @@ def main():
             seen = set()
             for rnd in range(2):
                 st = fresh()
-                btns = [w for w in st['widgets'] if w['class'] == 'Button' and w['visible'] and w['active']]
+                btns = [w for w in st['widgets'] if w['class'] in ('Button', 'Plain') and w['visible'] and w['active']]
                 for i in range(len(btns)):
                     st = fresh()
-                    btns = [w for w in st['widgets'] if w['class'] == 'Button' and w['visible'] and w['active']]
+                    btns = [w for w in st['widgets'] if w['class'] in ('Button', 'Plain') and w['visible'] and w['active']]
                     if i >= len(btns):
                         break
                     b = btns[i]
@@ -295,7 +295,7 @@ def main():
         check('(c) K with the wand opens its screen', st['screen'].endswith('BuildingWandScreen'), st['screen'])
         snap('c-wand')
         if st['screen'].endswith('BuildingWandScreen'):
-            for b in [w for w in st['widgets'] if w['class'] == 'Button' and w['visible'] and w['active']]:
+            for b in [w for w in st['widgets'] if w['class'] in ('Button', 'Plain') and w['visible'] and w['active']]:
                 if b['label'] == 'Done':
                     continue
                 st = fresh()
