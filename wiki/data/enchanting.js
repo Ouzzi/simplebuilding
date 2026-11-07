@@ -1221,30 +1221,6 @@ window.WIKI_ENCHANTING = {
    "exclusive": []
   },
   {
-   "id": "simplebuilding:fast_chiseling",
-   "module": "simplebuilding",
-   "family": true,
-   "name": {
-    "en": "Fast Chiseling",
-    "de": "Schnelles Meißeln"
-   },
-   "desc": null,
-   "maxLevel": 2,
-   "weight": 5,
-   "minCost": {
-    "base": 1,
-    "per_level_above_first": 10
-   },
-   "maxCost": {
-    "base": 20,
-    "per_level_above_first": 10
-   },
-   "table": true,
-   "curse": false,
-   "treasure": false,
-   "exclusive": []
-  },
-  {
    "id": "simplebuilding:kinetic_protection",
    "module": "simplebuilding",
    "family": true,
@@ -1473,6 +1449,30 @@ window.WIKI_ENCHANTING = {
    "exclusive": [
     "simplebuildingtools:cover"
    ]
+  },
+  {
+   "id": "simplechisels:fast_chiseling",
+   "module": "simplechisels",
+   "family": true,
+   "name": {
+    "en": "Fast Chiseling",
+    "de": "Schnelles Meißeln"
+   },
+   "desc": null,
+   "maxLevel": 2,
+   "weight": 5,
+   "minCost": {
+    "base": 1,
+    "per_level_above_first": 10
+   },
+   "maxCost": {
+    "base": 20,
+    "per_level_above_first": 10
+   },
+   "table": true,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
   },
   {
    "id": "simplefun:no_damage",
@@ -1838,8 +1838,8 @@ window.WIKI_ENCHANTING = {
   "minecraft:breach",
   "minecraft:lunge",
   "simplequalityoflife:thrift",
-  "simplebuilding:fast_chiseling",
-  "simplebuilding:kinetic_protection"
+  "simplebuilding:kinetic_protection",
+  "simplechisels:fast_chiseling"
  ],
  "items": [
   {
@@ -1889,8 +1889,8 @@ window.WIKI_ENCHANTING = {
     "minecraft:breach",
     "minecraft:lunge",
     "simplequalityoflife:thrift",
-    "simplebuilding:fast_chiseling",
-    "simplebuilding:kinetic_protection"
+    "simplebuilding:kinetic_protection",
+    "simplechisels:fast_chiseling"
    ],
    "family": []
   },
@@ -2080,24 +2080,22 @@ window.WIKI_ENCHANTING = {
    ]
   },
   {
-   "id": "simplebuilding:diamond_chisel",
+   "id": "simplebuilding:detector",
    "name": {
-    "en": "Diamond Chisel",
-    "de": "Diamantmeißel"
+    "en": "Detector",
+    "de": "Detektor"
    },
-   "enchantability": 10,
+   "enchantability": 15,
    "assumed": false,
-   "icon": "assets/textures/item/diamond_chisel.png",
+   "icon": "assets/textures/item/detector.png",
    "table": [
     "minecraft:unbreaking",
-    "simplequalityoflife:thrift",
-    "simplebuilding:fast_chiseling"
+    "simplequalityoflife:thrift"
    ],
    "family": [
     [
      "simplebuilding:constructors_touch",
-     "simplebuilding:fast_chiseling",
-     "simplebuilding:range",
+     "simplehammers:radius",
      "simplequalityoflife:thrift",
      "simpletools:soulbound"
     ]
@@ -2128,6 +2126,30 @@ window.WIKI_ENCHANTING = {
     ],
     [
      "simplebuildingtools:cover"
+    ]
+   ]
+  },
+  {
+   "id": "simplechisels:diamond_chisel",
+   "name": {
+    "en": "Diamond Chisel",
+    "de": "Diamantmeißel"
+   },
+   "enchantability": 10,
+   "assumed": true,
+   "icon": "assets/textures/simplechisels/item/diamond_chisel.png",
+   "table": [
+    "minecraft:unbreaking",
+    "simplequalityoflife:thrift",
+    "simplechisels:fast_chiseling"
+   ],
+   "family": [
+    [
+     "simplebuilding:constructors_touch",
+     "simplebuilding:range",
+     "simplechisels:fast_chiseling",
+     "simplequalityoflife:thrift",
+     "simpletools:soulbound"
     ]
    ]
   },
