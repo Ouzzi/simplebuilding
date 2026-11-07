@@ -679,6 +679,8 @@ public final class TradeOfferTests {
     private static void collect(ItemEnchantments enchantments, Map<String, Integer> tally) {
         for (Holder<Enchantment> enchantment : enchantments.keySet()) {
             String pair = enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment);
+            // WE25-7: the trade json names Fast Chiseling by its old id; the 26.3 build ships simplechisels:.
+            pair = pair.replaceFirst("^" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":fast_chiseling@", "simplebuilding:fast_chiseling@");
             tally.merge(pair, 1, Integer::sum);
         }
     }

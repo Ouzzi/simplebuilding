@@ -1857,6 +1857,11 @@ public final class DataIntegrityTests {
                     && com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace())) {
                 continue;
             }
+            // WE25-7: likewise Fast Chiseling is Simple Chisels' own file on 26.3.
+            if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB
+                    && com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(key.identifier().getNamespace())) {
+                continue;
+            }
             if (!loaded.containsKey(key)) {
                 problems.add(key.identifier() + " is built by the datagen source but no generated "
                         + "file for it reached the server");
@@ -2918,7 +2923,9 @@ public final class DataIntegrityTests {
                         // split stage 7: the tab keeps the books of Simple Hammers' three enchantments
                         || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(h.key().identifier().getNamespace())
                         // split stage 8c-1: and of Simple Storage's three (Drawer, Deep Pockets, Funnel)
-                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
+                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())
+                        // WE25-7: and of Simple Chisels' Fast Chiseling
+                        || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         Map<ModItemGroupsContent.Tab, Integer> expectedBooks = new LinkedHashMap<>();
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             expectedBooks.put(tab, tab == ModItemGroupsContent.Tab.TOOLS ? modEnchantments : 0);
@@ -3728,7 +3735,9 @@ public final class DataIntegrityTests {
                         // split stage 7: the tab keeps the books of Simple Hammers' three enchantments
                         || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(h.key().identifier().getNamespace())
                         // split stage 8c-1: and of Simple Storage's three (Drawer, Deep Pockets, Funnel)
-                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
+                        || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())
+                        // WE25-7: and of Simple Chisels' Fast Chiseling
+                        || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         boolean firstShelf = true;
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new ArrayList<>();
@@ -4670,7 +4679,8 @@ public final class DataIntegrityTests {
         for (ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key : com.simplebuilding.enchantment.VanillaBookTextures.MOD_BOOKS) {
             String path = key.identifier().getPath();
             if (!(MOD_ID.equals(key.identifier().getNamespace()) || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(key.identifier().getNamespace())
-                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace()))
+                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace())
+                    || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(key.identifier().getNamespace()))
                     || enchantments.get(key).isEmpty()) {
                 problems.add(key.identifier() + " is not a mod enchantment of the registry");
             }

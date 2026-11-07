@@ -77,5 +77,16 @@ SimplebuildingConfig, enabled-mods, Lang, creative_tab_order) nur additiv.
 - Hand-gepflegte 26.3-Generate (`mc26_3/generated`, `removed-on-26.3.txt`) weichen von der Datagen ab → Datagen im sbt-Lauf, Diff prüfen.
 - Doppelte Wirkung: SB lädt/synct auf 26.3 keine Meißel-Tabellen mehr (`CHISELS_IN_SB`).
 
-## 5. Stand / Abweichungen
-(wird bei der Umsetzung ergänzt)
+## 5. Stand / Abweichungen (07.11.)
+- **Abweichung Felder:** statt `null` (Hämmer) zeigen die SB-Felder `*_CHISEL` auf 26.3 auf die Modul-Items (Muster Pads, Typ jetzt
+  `Item`); so bleiben Tabs, Datagen, Loot, Advancements und die meisten Tests unverändert. Nur die Spatel-Felder sind auf 26.3 `null`.
+- **Abweichung Tabellen-Standard:** das Modul liest seine eingebauten Ketten aus den eigenen Standarddateien im Jar (`BuiltInChains`),
+  keine zweite Java-Kopie der Ketten.
+- SB-Tests mit Meißel-Verhalten (`ChiselTests`, Constructor's Touch-/Fast-Chiseling-Tests, Spatel-Migration, Datenpaket-Tabellen)
+  überspringen auf 26.3 wie bei Pads; ihr Inhalt läuft als Modultest (10 Tests, davon `with_simplebuilding` nur mit SB).
+- Händler (SB-Bedingungen `simplebuilding:config`, `weighted_enchant`) bleiben SB: 26.3-Overlay-Dateien mit den neuen Ids;
+  `in_enchanting_table` als Overlay ohne Fast Chiseling (das Modul trägt es selbst ein).
+- Handbuch-Textur und Mod-Icon: Platzhalter (Generator-Farben), Besitzer-Wahl offen.
+- Lokal (sb-agent): javac-Typprüfung grün bis auf Umgebungsfehler (Access-Widener/Datagen-API), precheck grün bis auf
+  `wiki/generate.py` (lokales Pillow zu alt) → Wiki im sbt-Lauf auf sb-test.
+- Nicht gemacht: NeoForge/Forge (Regel nur 26.3 Fabric; SB auf NeoForge/Forge 26.3 hätte ohne Modul-Port Luft-Felder), Client-Läufe.

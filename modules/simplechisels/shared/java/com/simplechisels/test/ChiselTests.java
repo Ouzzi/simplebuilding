@@ -181,7 +181,8 @@ public final class ChiselTests {
             h.assertTrue(click(h, player, false).consumesAction(), "the enchanted chisel acts");
             h.assertTrue(player.getCooldowns().isOnCooldown(player.getMainHandItem()), "cooldown running");
             int expected = Math.max(1, (int) (ChiselConfig.cooldownTicks(ChiselTier.STONE) * (1.0f - 2 * 0.3f)));
-            h.assertTrue(expected == 12, "Fast Chiseling II: 40 % of 30 ticks = 12");
+            // 30 * (1 - 0.6f) in float is 11.999..., floored: 11 ticks (the formula SimpleBuilding's chisel always had).
+            h.assertTrue(expected == 11, "Fast Chiseling II: 40 % of 30 ticks, floored = 11, got " + expected);
             float plainSpeed = new ItemStack(ChiselRegistry.chisel(ChiselTier.STONE)).getDestroySpeed(Blocks.STONE.defaultBlockState());
             h.assertTrue(stack.getDestroySpeed(Blocks.STONE.defaultBlockState()) > plainSpeed, "Fast Chiseling mines faster");
             h.succeed();
@@ -259,7 +260,9 @@ public final class ChiselTests {
                 EnchantmentHelper.updateEnchantments(stack, e -> e.set(touch.get(), 1));
                 h.setBlock(SPOT, Blocks.COBBLESTONE);
                 ServerPlayer player = player(h, stack);
-                net.minecraft.stats.Stat<Identifier> uses = net.minecraft.stats.Stats.CUSTOM.get(Identifier.fromNamespaceAndPath("simplebuilding", "chisel_uses"));
+                // The registered instance: StatType#get looks its key up by identity.
+                Identifier usesId = BuiltInRegistries.CUSTOM_STAT.getValue(Identifier.fromNamespaceAndPath("simplebuilding", "chisel_uses"));
+                net.minecraft.stats.Stat<Identifier> uses = net.minecraft.stats.Stats.CUSTOM.get(usesId);
                 int before = player.getStats().getValue(uses);
                 if (!click(h, player, false).consumesAction() || h.getBlockState(SPOT).getBlock() != Blocks.MOSSY_COBBLESTONE) {
                     problems.add("touch: cobblestone -> mossy cobblestone, got " + h.getBlockState(SPOT));

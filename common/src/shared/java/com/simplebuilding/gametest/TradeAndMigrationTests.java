@@ -1281,6 +1281,8 @@ public final class TradeAndMigrationTests {
             String drawn = enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment);
             // Split stage 7: the json names the hammer enchantments by their old id; the 26.3 build ships simplehammers:.
             drawn = drawn.replaceFirst("^" + com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":(break_through|override|radius)@", "simplebuilding:$1@");
+            // WE25-7: likewise Fast Chiseling, which the 26.3 build ships as simplechisels:.
+            drawn = drawn.replaceFirst("^" + com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":fast_chiseling@", "simplebuilding:fast_chiseling@");
             helper.assertTrue(pool.contains(drawn),
                     id + ": the merchant put " + drawn + " on the tool, which is not one of the "
                             + "enchantment/level pairs its json offers (" + pool + ")");
