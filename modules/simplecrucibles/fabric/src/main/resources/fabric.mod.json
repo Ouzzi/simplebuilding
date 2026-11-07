@@ -43,7 +43,8 @@
     "simplelib": ">=0.4.0"
   },
   "recommends": {
-    "simpleores": "*"
+    "simpleores": "*",
+    "simpletools": "*"
   },
   "suggests": {
     "simplebuilding": "*",

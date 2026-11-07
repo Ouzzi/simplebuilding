@@ -1,6 +1,6 @@
 package com.simplecrucibles.mixin;
 
-import com.simplecrucibles.fluid.CrucibleBucketItem;
+import com.simplelib.bucket.ModBucketItem;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,8 +14,8 @@ public abstract class CopperBucketItemEntityMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplecrucibles$weatherDroppedBucket(CallbackInfo ci) {
         ItemEntity self = (ItemEntity) (Object) this;
-        if (self.level().isClientSide() || !CrucibleBucketItem.isCopper(self.getItem())) return;
-        ItemStack weathered = CrucibleBucketItem.weatherPlaced(self.getItem(), self.getRandom());
+        if (self.level().isClientSide() || !ModBucketItem.isCopper(self.getItem())) return;
+        ItemStack weathered = ModBucketItem.weatherPlaced(self.getItem(), self.getRandom());
         if (weathered != null) self.setItem(weathered);
     }
 }

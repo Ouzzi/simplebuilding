@@ -31,7 +31,7 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-ITEM = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/item'  # split stage 5b: the buckets are Simple Crucibles'
+ITEM = ROOT / 'modules/simpletools/shared/resources/assets/simpletools/textures/item'  # WH26-7: the Enderite buckets are Simple Tools'
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from soul_lava_2026_10_09 import SOUL_FOR_LAVA  # noqa: E402
 

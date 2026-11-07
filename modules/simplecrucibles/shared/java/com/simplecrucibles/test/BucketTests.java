@@ -8,12 +8,13 @@ import com.simplecrucibles.compat.CrucibleRecipeCatalog;
 import com.simplecrucibles.config.CrucibleConfig;
 import com.simplecrucibles.effect.CrucibleEffects;
 import com.simplecrucibles.effect.SoulBurnEffect;
-import com.simplecrucibles.fluid.CrucibleBucketItem;
 import com.simplecrucibles.fluid.CrucibleFluids;
-import com.simplecrucibles.fluid.EnderiteMilkBucketItem;
 import com.simplecrucibles.fluid.SoulLava;
 import com.simplecrucibles.registry.CrucibleBlocks;
 import com.simplecrucibles.registry.CrucibleComponents;
+import com.simplelib.bucket.Buckets;
+import com.simplelib.bucket.ModBucketItem;
+import static com.simplelib.test.PartnerChecks.partnerMissing;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -67,17 +68,11 @@ final class BucketTests {
         all.put("soul_burn_bites_twice_as_often_on_cold_ground", BucketTests::soulBurnBitesTwiceAsOftenOnColdGround);
         all.put("copper_bucket_rules", BucketTests::copperBucketRules);
         all.put("copper_bucket_fully_oxidized_scoops_nothing", BucketTests::copperBucketFullyOxidizedScoopsNothing);
-        all.put("ceramic_bucket_holds_water_and_breaks_after_four_pours", BucketTests::ceramicBucketHoldsWaterAndBreaksAfterFourPours);
         all.put("mod_buckets_stay_in_the_hand_when_pouring_and_scooping", BucketTests::modBucketsStayInTheHandWhenPouringAndScooping);
-        all.put("enderite_bucket_takes_milk_and_drinks_one_filling", BucketTests::enderiteBucketTakesMilkAndDrinksOneFilling);
-        all.put("enderite_bucket_holds_two_buckets_of_one_fluid", BucketTests::enderiteBucketHoldsTwoBucketsOfOneFluid);
         all.put("enderite_bucket_two_buckets_in_cauldrons_and_dispensers", BucketTests::enderiteBucketTwoBucketsInCauldronsAndDispensers);
-        all.put("ceramic_lava_bucket_scoops_pours_and_wears", BucketTests::ceramicLavaBucketScoopsPoursAndWears);
         all.put("copper_bucket_oxidizes_only_in_hotbar_or_offhand", BucketTests::copperBucketOxidizesOnlyInHotbarOrOffhand);
         all.put("copper_bucket_waxed_water_weathers_at_half_pace", BucketTests::copperBucketWaxedWaterWeathersAtHalfPace);
         all.put("copper_bucket_placed_weathers_and_frame_care", BucketTests::copperBucketPlacedWeathersAndFrameCare);
-        all.put("ceramic_bucket_with_lava_is_brittle_and_breaks_on_pour", BucketTests::ceramicBucketWithLavaIsBrittleAndBreaksOnPour);
-        all.put("ceramic_bucket_wears_through_stages_and_keeps_its_filling", BucketTests::ceramicBucketWearsThroughStagesAndKeepsItsFilling);
         all.put("iron_bucket_breaks_on_soul_lava_enderite_never", BucketTests::ironBucketBreaksOnSoulLavaEnderiteNever);
         all.put("reinforced_cauldron_holds_soul_lava", BucketTests::reinforcedCauldronHoldsSoulLava);
         all.put("vanilla_cauldron_takes_copper_and_enderite_buckets", BucketTests::vanillaCauldronTakesCopperAndEnderiteBuckets);
@@ -239,18 +234,18 @@ final class BucketTests {
     static void copperBucketRules(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         floor(helper);
-        helper.assertTrue(CrucibleBucketItem.filled(CrucibleBucketItem.Kind.COPPER, CrucibleFluids.SOUL_LAVA) == null, "copper bucket refuses soul lava");
-        CrucibleBucketItem water = (CrucibleBucketItem) CrucibleFluids.COPPER_WATER_BUCKET;
+        helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.COPPER, CrucibleFluids.SOUL_LAVA) == null, "copper bucket refuses soul lava");
+        ModBucketItem water = (ModBucketItem) CrucibleFluids.COPPER_WATER_BUCKET;
         ItemStack after = water.pourAt(level, helper.absolutePos(new BlockPos(2, 1, 2)), new ItemStack(water));
-        helper.assertTrue(after.is(CrucibleFluids.COPPER_BUCKET) && CrucibleBucketItem.oxidation(after) == 0, "pouring no longer oxidizes (N35)");
+        helper.assertTrue(after.is(CrucibleFluids.COPPER_BUCKET) && ModBucketItem.oxidation(after) == 0, "pouring no longer oxidizes (N35)");
         helper.assertTrue(!level.getFluidState(helper.absolutePos(new BlockPos(2, 1, 2))).isSource(), "copper water is never a source");
-        CrucibleBucketItem lava = (CrucibleBucketItem) CrucibleFluids.COPPER_LAVA_BUCKET;
+        ModBucketItem lava = (ModBucketItem) CrucibleFluids.COPPER_LAVA_BUCKET;
         helper.assertTrue(lava.pourAt(level, helper.absolutePos(new BlockPos(5, 1, 5)), new ItemStack(lava)).isEmpty(), "copper bucket breaks on lava");
         after.set(CrucibleComponents.OXIDATION, 1);
-        helper.assertTrue(CrucibleBucketItem.scrape(after) && CrucibleBucketItem.oxidation(after) == 0, "axe scrapes one stage");
+        helper.assertTrue(ModBucketItem.scrape(after) && ModBucketItem.oxidation(after) == 0, "axe scrapes one stage");
         after.set(CrucibleComponents.WAXED, true);
-        CrucibleBucketItem.oxidize(after);
-        helper.assertTrue(CrucibleBucketItem.oxidation(after) == 0, "waxed copper does not oxidize");
+        ModBucketItem.oxidize(after);
+        helper.assertTrue(ModBucketItem.oxidation(after) == 0, "waxed copper does not oxidize");
         helper.succeed();
     }
 
@@ -263,7 +258,7 @@ final class BucketTests {
         floor(helper);
         ItemStack old = new ItemStack(CrucibleFluids.COPPER_BUCKET);
         old.set(CrucibleComponents.OXIDATION, 3);
-        helper.assertFalse(CrucibleBucketItem.canScoop(old), "a fully oxidized copper bucket may scoop");
+        helper.assertFalse(ModBucketItem.canScoop(old), "a fully oxidized copper bucket may scoop");
         BlockPos pos = new BlockPos(2, 1, 2);
         helper.setBlock(pos, Blocks.WATER_CAULDRON.defaultBlockState().setValue(net.minecraft.world.level.block.LayeredCauldronBlock.LEVEL, 3));
         BlockPos abs = helper.absolutePos(pos);
@@ -272,54 +267,15 @@ final class BucketTests {
         level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
         helper.assertBlockPresent(Blocks.WATER_CAULDRON, pos);
         helper.assertTrue(player.getMainHandItem().is(CrucibleFluids.COPPER_BUCKET), "the oxidized bucket took water from the cauldron");
-        helper.assertTrue(CrucibleBucketItem.scrape(old) && CrucibleBucketItem.canScoop(old), "scraped to stage 2 it scoops again");
+        helper.assertTrue(ModBucketItem.scrape(old) && ModBucketItem.canScoop(old), "scraped to stage 2 it scoops again");
         ItemStack full = new ItemStack(CrucibleFluids.COPPER_WATER_BUCKET);
         full.set(CrucibleComponents.OXIDATION, 3);
-        ItemStack after = ((CrucibleBucketItem) CrucibleFluids.COPPER_WATER_BUCKET).pourAt(level, helper.absolutePos(new BlockPos(5, 1, 5)), full);
+        ItemStack after = ((ModBucketItem) CrucibleFluids.COPPER_WATER_BUCKET).pourAt(level, helper.absolutePos(new BlockPos(5, 1, 5)), full);
         helper.assertTrue(after.is(CrucibleFluids.COPPER_BUCKET), "a full stage-3 bucket still pours");
         helper.succeed();
     }
 
-    /**
-     * Ceramic bucket: water (lava has its own test), pours a real source, scooping does not wear it, and the fourth
-     * pour breaks it; 3 clay balls craft the raw bucket, which smelts into the ceramic bucket.
-     */
-    static void ceramicBucketHoldsWaterAndBreaksAfterFourPours(GameTestHelper helper) {
-        ServerLevel level = helper.getLevel();
-        floor(helper);
-        helper.assertTrue(CrucibleBucketItem.filled(CrucibleBucketItem.Kind.CERAMIC, CrucibleFluids.SOUL_LAVA) == null, "ceramic takes soul lava");
-        helper.assertTrue(CrucibleBucketItem.filled(CrucibleBucketItem.Kind.CERAMIC, Fluids.WATER) == CrucibleFluids.CERAMIC_WATER_BUCKET, "ceramic water");
-        helper.assertTrue(CrucibleBucketItem.CERAMIC_USES == 4 && CrucibleBucketItem.CERAMIC_USES_PER_STAGE == 1
-                        && !new ItemStack(CrucibleFluids.CERAMIC_BUCKET).isDamageableItem(),
-                "4 pours, one per stage, no durability bar");
-        CrucibleBucketItem water = (CrucibleBucketItem) CrucibleFluids.CERAMIC_WATER_BUCKET;
-        BlockPos target = helper.absolutePos(new BlockPos(3, 1, 3));
-        ItemStack bucket = new ItemStack(CrucibleFluids.CERAMIC_BUCKET);
-        for (int cycle = 1; cycle <= 4; cycle++) {
-            bucket = CrucibleBucketItem.fill(bucket, CrucibleFluids.CERAMIC_WATER_BUCKET);
-            helper.assertTrue(CrucibleBucketItem.ceramicUses(bucket) == cycle - 1
-                            && bucket.is(CrucibleFluids.CERAMIC_WATER[cycle - 1]),
-                    "scoop " + cycle + " does not wear the bucket: " + bucket);
-            water = (CrucibleBucketItem) bucket.getItem();
-            bucket = water.pourAt(level, target, bucket);
-            if (cycle == 1) helper.assertTrue(level.getFluidState(target).isSource(), "ceramic water makes a source");
-            if (cycle < 4) {
-                helper.assertTrue(bucket.is(CrucibleFluids.CERAMIC_EMPTY[cycle])
-                                && CrucibleBucketItem.ceramicUses(bucket) == cycle,
-                        "after pour " + cycle + ": " + bucket + " pours " + CrucibleBucketItem.ceramicUses(bucket));
-            }
-        }
-        helper.assertTrue(bucket.isEmpty(), "the fourth pour did not break the ceramic bucket");
-        var recipes = level.getServer().getRecipeManager();
-        ItemStack clay = new ItemStack(Items.CLAY_BALL);
-        var grid = net.minecraft.world.item.crafting.CraftingInput.of(3, 2, java.util.List.of(clay, ItemStack.EMPTY, clay, ItemStack.EMPTY, clay, ItemStack.EMPTY));
-        ItemStack raw = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, grid, level).orElseThrow().value().assemble(grid);
-        helper.assertTrue(raw.is(CrucibleFluids.RAW_CERAMIC_BUCKET) && raw.getCount() == 1, "3 clay -> raw ceramic bucket, got " + raw);
-        var input = new net.minecraft.world.item.crafting.SingleRecipeInput(raw);
-        ItemStack fired = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING, input, level).orElseThrow().value().assemble(input);
-        helper.assertTrue(fired.is(CrucibleFluids.CERAMIC_BUCKET) && CrucibleBucketItem.ceramicUses(fired) == 0, "raw bucket smelts into the ceramic bucket");
-        helper.succeed();
-    }
+
 
     /**
      * Owner N15 (bug): pouring or scooping with a mod bucket through the real item use kept nothing in the hand,
@@ -331,137 +287,57 @@ final class BucketTests {
         floor(helper);
         Item[][] kinds = {
                 {CrucibleFluids.COPPER_BUCKET, CrucibleFluids.COPPER_WATER_BUCKET},
-                {CrucibleFluids.ENDERITE_BUCKET, CrucibleFluids.ENDERITE_WATER_BUCKET},
-                {CrucibleFluids.CERAMIC_BUCKET, CrucibleFluids.CERAMIC_WATER_BUCKET}};
+                {Buckets.ENDERITE_BUCKET, Buckets.ENDERITE_WATER_BUCKET},
+                {Buckets.CERAMIC_BUCKET, Buckets.CERAMIC_WATER_BUCKET}};
         int x = 1;
         for (Item[] kind : kinds) {
-            CrucibleBucketItem.Kind expected = ((CrucibleBucketItem) kind[1]).kind();
+            if (kind[1] == null) continue; // WH26-7: Enderite and ceramic only with Simple Tools
+            ModBucketItem.Kind expected = ((ModBucketItem) kind[1]).kind();
             net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
             Vec3 at = helper.absoluteVec(new Vec3(x + 0.5, 2.0, 3.5));
             player.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
             BlockPos water = helper.absolutePos(new BlockPos(x, 1, 3));
             ItemStack full = new ItemStack(kind[1]);
-            int usesBefore = CrucibleBucketItem.ceramicUses(full);
+            int usesBefore = ModBucketItem.ceramicUses(full);
             // Owner N21: a half Enderite bucket pours only on sneak + use (plain use scoops).
-            player.setShiftKeyDown(expected == CrucibleBucketItem.Kind.ENDERITE);
+            player.setShiftKeyDown(expected == ModBucketItem.Kind.ENDERITE);
             ItemStack poured = useBucket(level, player, full);
             player.setShiftKeyDown(false);
             // Copper pours no source (owner 32), the others do.
             helper.assertTrue(level.getFluidState(water).is(net.minecraft.tags.FluidTags.WATER)
-                            && level.getFluidState(water).isSource() == (expected != CrucibleBucketItem.Kind.COPPER),
+                            && level.getFluidState(water).isSource() == (expected != ModBucketItem.Kind.COPPER),
                     expected + ": pouring placed the wrong water; hand " + poured + ", block " + level.getBlockState(water)
                             + ", below " + level.getBlockState(water.below()) + ", eye " + player.getEyePosition() + ", xRot " + player.getXRot());
-            helper.assertTrue(poured.getItem() instanceof CrucibleBucketItem empty && empty.kind() == expected && !poured.is(kind[1]) && !poured.is(CrucibleBucketItem.filled(expected, Fluids.WATER)),
+            helper.assertTrue(poured.getItem() instanceof ModBucketItem empty && empty.kind() == expected && !poured.is(kind[1]) && !poured.is(ModBucketItem.filled(expected, Fluids.WATER)),
                     expected + ": after pouring the hand holds " + poured + " instead of its empty bucket");
-            if (expected == CrucibleBucketItem.Kind.CERAMIC) {
-                helper.assertTrue(CrucibleBucketItem.ceramicUses(poured) == usesBefore + 1, "ceramic: one wear step per pour, uses " + CrucibleBucketItem.ceramicUses(poured));
+            if (expected == ModBucketItem.Kind.CERAMIC) {
+                helper.assertTrue(ModBucketItem.ceramicUses(poured) == usesBefore + 1, "ceramic: one wear step per pour, uses " + ModBucketItem.ceramicUses(poured));
             }
-            if (expected == CrucibleBucketItem.Kind.COPPER) level.setBlock(water, Blocks.WATER.defaultBlockState(), 3);
+            if (expected == ModBucketItem.Kind.COPPER) level.setBlock(water, Blocks.WATER.defaultBlockState(), 3);
             ItemStack scooped = useBucket(level, player, poured);
-            Item expectedFilled = expected == CrucibleBucketItem.Kind.CERAMIC
-                    ? CrucibleFluids.CERAMIC_WATER[1] : CrucibleBucketItem.filled(expected, Fluids.WATER);
-            helper.assertTrue(scooped.getItem() instanceof CrucibleBucketItem filled && filled.kind() == expected && scooped.is(expectedFilled),
+            Item expectedFilled = expected == ModBucketItem.Kind.CERAMIC
+                    ? Buckets.CERAMIC_WATER[1] : ModBucketItem.filled(expected, Fluids.WATER);
+            helper.assertTrue(scooped.getItem() instanceof ModBucketItem filled && filled.kind() == expected && scooped.is(expectedFilled),
                     expected + ": after scooping the hand holds " + scooped + " instead of its water bucket");
             helper.assertTrue(level.getFluidState(water).isEmpty(), expected + ": scooping left the source");
             x += 3;
         }
         net.minecraft.world.entity.player.Player creative = helper.makeMockPlayer(GameType.CREATIVE);
         creative.getAbilities().instabuild = true; // the mock's game type alone does not grant infinite materials everywhere
+        if (Buckets.CERAMIC_WATER_BUCKET == null) {
+            helper.succeed();
+            return;
+        }
         Vec3 at = helper.absoluteVec(new Vec3(1.5, 2.0, 6.5));
         creative.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
-        ItemStack kept = useBucket(level, creative, new ItemStack(CrucibleFluids.CERAMIC_WATER_BUCKET));
-        helper.assertTrue(kept.is(CrucibleFluids.CERAMIC_WATER_BUCKET) && CrucibleBucketItem.ceramicUses(kept) == 0, "creative: the bucket stays as it was, got " + kept);
+        ItemStack kept = useBucket(level, creative, new ItemStack(Buckets.CERAMIC_WATER_BUCKET));
+        helper.assertTrue(kept.is(Buckets.CERAMIC_WATER_BUCKET) && ModBucketItem.ceramicUses(kept) == 0, "creative: the bucket stays as it was, got " + kept);
         helper.succeed();
     }
 
-    /**
-     * Queue N32: milking a cow and a goat with the Enderite bucket gives the half milk bucket, milking again the full
-     * one (no third), a baby gives nothing. Drinking uses one filling and clears all effects; the crafting remainder of
-     * a full one is the half one, of a half one the empty bucket (that is what the milk cauldron reads).
-     */
-    static void enderiteBucketTakesMilkAndDrinksOneFilling(GameTestHelper helper) {
-        ServerLevel level = helper.getLevel();
-        floor(helper);
-        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
-        Vec3 at = helper.absoluteVec(new Vec3(1.5, 2.0, 1.5));
-        player.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
-        net.minecraft.world.entity.animal.cow.Cow cow = helper.spawn(net.minecraft.world.entity.EntityTypes.COW, new BlockPos(2, 1, 2));
-        net.minecraft.world.entity.animal.goat.Goat goat = helper.spawn(net.minecraft.world.entity.EntityTypes.GOAT, new BlockPos(3, 1, 2));
-        net.minecraft.world.entity.animal.cow.Cow calf = helper.spawn(net.minecraft.world.entity.EntityTypes.COW, new BlockPos(4, 1, 2));
-        calf.setBaby(true);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(CrucibleFluids.ENDERITE_BUCKET));
-        player.interactOn(calf, InteractionHand.MAIN_HAND, Vec3.ZERO);
-        helper.assertTrue(player.getMainHandItem().is(CrucibleFluids.ENDERITE_BUCKET), "a calf gives no milk");
-        player.interactOn(cow, InteractionHand.MAIN_HAND, Vec3.ZERO);
-        helper.assertTrue(player.getMainHandItem().is(CrucibleFluids.ENDERITE_MILK_BUCKET), "milking a cow: half milk bucket, got " + player.getMainHandItem());
-        player.interactOn(goat, InteractionHand.MAIN_HAND, Vec3.ZERO);
-        helper.assertTrue(player.getMainHandItem().is(CrucibleFluids.FULL_ENDERITE_MILK_BUCKET), "milking a goat: full milk bucket, got " + player.getMainHandItem());
-        player.interactOn(cow, InteractionHand.MAIN_HAND, Vec3.ZERO);
-        helper.assertTrue(player.getMainHandItem().is(CrucibleFluids.FULL_ENDERITE_MILK_BUCKET), "a full one takes no more");
-        helper.assertTrue(((EnderiteMilkBucketItem) CrucibleFluids.FULL_ENDERITE_MILK_BUCKET).amount() == 2
-                && ((EnderiteMilkBucketItem) CrucibleFluids.ENDERITE_MILK_BUCKET).amount() == 1, "fill amounts 2/2 and 1/2");
-        player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.SPEED, 600));
-        ItemStack drunk = player.getMainHandItem().finishUsingItem(level, player);
-        helper.assertTrue(drunk.is(CrucibleFluids.ENDERITE_MILK_BUCKET) && player.getActiveEffects().isEmpty(),
-                "drinking a full one: half left, effects cleared, got " + drunk);
-        drunk = drunk.finishUsingItem(level, player);
-        helper.assertTrue(drunk.is(CrucibleFluids.ENDERITE_BUCKET), "drinking the half one leaves the empty bucket, got " + drunk);
-        helper.assertTrue(CrucibleFluids.FULL_ENDERITE_MILK_BUCKET.getCraftingRemainder().item().value() == CrucibleFluids.ENDERITE_MILK_BUCKET
-                && CrucibleFluids.ENDERITE_MILK_BUCKET.getCraftingRemainder().item().value() == CrucibleFluids.ENDERITE_BUCKET,
-                "milk bucket crafting remainders (milk cauldron contract)");
-        helper.succeed();
-    }
 
-    /**
-     * Owner N21/N28: the Enderite bucket holds two buckets of one fluid. Use only scoops while there is room (empty to
-     * half to full); a full one pours one bucket on use; sneak + use pours one bucket from a full or half one. A half
-     * one never takes a different fluid and never pours on plain use. Soul lava works the same way.
-     */
-    static void enderiteBucketHoldsTwoBucketsOfOneFluid(GameTestHelper helper) {
-        ServerLevel level = helper.getLevel();
-        floor(helper);
-        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
-        Vec3 at = helper.absoluteVec(new Vec3(1.5, 2.0, 3.5));
-        player.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
-        BlockPos water = helper.absolutePos(new BlockPos(1, 1, 3));
-        level.setBlock(water, Blocks.WATER.defaultBlockState(), 3);
-        ItemStack hand = useBucket(level, player, new ItemStack(CrucibleFluids.ENDERITE_BUCKET));
-        helper.assertTrue(hand.is(CrucibleFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(), "first scoop: half, got " + hand);
-        level.setBlock(water, Blocks.WATER.defaultBlockState(), 3);
-        hand = useBucket(level, player, hand);
-        helper.assertTrue(hand.is(CrucibleFluids.FULL_ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(), "second scoop: full, got " + hand);
-        helper.assertTrue(((CrucibleBucketItem) hand.getItem()).amount() == 2 && ((CrucibleBucketItem) CrucibleFluids.ENDERITE_WATER_BUCKET).amount() == 1,
-                "fill amounts 2/2 and 1/2");
-        hand = useBucket(level, player, hand);
-        helper.assertTrue(hand.is(CrucibleFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).isSource(), "use on a full one pours one bucket, got " + hand);
-        hand = useBucket(level, player, hand);
-        helper.assertTrue(hand.is(CrucibleFluids.FULL_ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(),
-                "use on a half one only scoops (took the source back), got " + hand);
-        player.setShiftKeyDown(true);
-        hand = useBucket(level, player, hand);
-        helper.assertTrue(hand.is(CrucibleFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).isSource(), "sneak + use on a full one pours one bucket, got " + hand);
-        level.setBlock(water, Blocks.AIR.defaultBlockState(), 3);
-        hand = useBucket(level, player, hand);
-        helper.assertTrue(hand.is(CrucibleFluids.ENDERITE_BUCKET) && level.getFluidState(water).isSource(), "sneak + use on a half one pours the last bucket, got " + hand);
-        player.setShiftKeyDown(false);
-        level.setBlock(water, Blocks.AIR.defaultBlockState(), 3);
-        hand = useBucket(level, player, new ItemStack(CrucibleFluids.ENDERITE_WATER_BUCKET));
-        helper.assertTrue(hand.is(CrucibleFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(), "plain use on a half one never pours, got " + hand);
-        level.setBlock(water, Blocks.LAVA.defaultBlockState(), 3);
-        hand = useBucket(level, player, hand);
-        helper.assertTrue(hand.is(CrucibleFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).is(net.minecraft.tags.FluidTags.LAVA),
-                "a half water bucket takes no lava, got " + hand);
-        level.setBlock(water, Blocks.AIR.defaultBlockState(), 3);
-        helper.assertTrue(CrucibleFluids.fullEnderite(CrucibleFluids.ENDERITE_SOUL_LAVA_BUCKET) == CrucibleFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET
-                && CrucibleFluids.fullEnderite(CrucibleFluids.ENDERITE_LAVA_BUCKET) == CrucibleFluids.FULL_ENDERITE_LAVA_BUCKET, "soul lava and lava fill up to two too");
-        CrucibleBucketItem soul = (CrucibleBucketItem) CrucibleFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET;
-        BlockPos soulAt = helper.absolutePos(new BlockPos(5, 1, 5));
-        helper.assertTrue(soul.pourAt(level, soulAt, new ItemStack(soul)).is(CrucibleFluids.ENDERITE_SOUL_LAVA_BUCKET)
-                && level.getFluidState(soulAt).getType() == CrucibleFluids.SOUL_LAVA, "a full soul lava bucket pours one and keeps one");
-        helper.assertTrue(!CrucibleFluids.creativeBuckets().contains(CrucibleFluids.FULL_ENDERITE_WATER_BUCKET)
-                && CrucibleFluids.buckets().containsAll(CrucibleFluids.fullEnderiteBuckets()), "full buckets: registered, not in the creative tab");
-        helper.succeed();
-    }
+
+
 
     /**
      * Owner N21: cauldrons and dispensers follow the two-bucket rule. A full Enderite bucket fills a Vanilla or
@@ -469,76 +345,47 @@ final class BucketTests {
      * full. A dispenser pours one bucket of a full one and keeps the half one; a half one pours and comes back empty.
      */
     static void enderiteBucketTwoBucketsInCauldronsAndDispensers(GameTestHelper helper) {
+        if (partnerMissing(helper, "simpletools", "the Enderite bucket (Simple Tools, WH26-7) on the reinforced cauldron")) return;
         ServerLevel level = helper.getLevel();
         floor(helper);
         BlockPos cauldron = new BlockPos(2, 1, 2);
         helper.setBlock(cauldron, Blocks.CAULDRON);
         BlockPos abs = helper.absolutePos(cauldron);
-        ServerPlayer player = player(helper, new ItemStack(CrucibleFluids.FULL_ENDERITE_WATER_BUCKET), ItemStack.EMPTY);
+        ServerPlayer player = player(helper, new ItemStack(Buckets.FULL_ENDERITE_WATER_BUCKET), ItemStack.EMPTY);
         BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
         level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
-        helper.assertTrue(level.getBlockState(abs).is(Blocks.WATER_CAULDRON) && player.getMainHandItem().is(CrucibleFluids.ENDERITE_WATER_BUCKET),
+        helper.assertTrue(level.getBlockState(abs).is(Blocks.WATER_CAULDRON) && player.getMainHandItem().is(Buckets.ENDERITE_WATER_BUCKET),
                 "full bucket fills the cauldron and stays half: " + player.getMainHandItem());
         level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
-        helper.assertTrue(level.getBlockState(abs).is(Blocks.CAULDRON) && player.getMainHandItem().is(CrucibleFluids.FULL_ENDERITE_WATER_BUCKET),
+        helper.assertTrue(level.getBlockState(abs).is(Blocks.CAULDRON) && player.getMainHandItem().is(Buckets.FULL_ENDERITE_WATER_BUCKET),
                 "half bucket takes the full cauldron back: " + player.getMainHandItem());
         BlockPos reinforced = new BlockPos(4, 1, 2);
         helper.setBlock(reinforced, SimpleCruciblesApi.reinforcedCauldron("empty"));
         BlockPos rAbs = helper.absolutePos(reinforced);
         BlockHitResult rHit = new BlockHitResult(Vec3.atCenterOf(rAbs), Direction.UP, rAbs, false);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(CrucibleFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Buckets.FULL_ENDERITE_SOUL_LAVA_BUCKET));
         level.getBlockState(rAbs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, rHit);
         helper.assertTrue("extreme".equals(SimpleCruciblesApi.cauldronContent(level.getBlockState(rAbs)))
-                && player.getMainHandItem().is(CrucibleFluids.ENDERITE_SOUL_LAVA_BUCKET), "reinforced cauldron: one bucket of soul lava, half stays");
+                && player.getMainHandItem().is(Buckets.ENDERITE_SOUL_LAVA_BUCKET), "reinforced cauldron: one bucket of soul lava, half stays");
         level.getBlockState(rAbs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, rHit);
         helper.assertTrue("empty".equals(SimpleCruciblesApi.cauldronContent(level.getBlockState(rAbs)))
-                && player.getMainHandItem().is(CrucibleFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET), "reinforced cauldron: half takes it back to full");
+                && player.getMainHandItem().is(Buckets.FULL_ENDERITE_SOUL_LAVA_BUCKET), "reinforced cauldron: half takes it back to full");
         BlockPos dispenser = new BlockPos(1, 1, 6);
         helper.setBlock(dispenser, Blocks.DISPENSER.defaultBlockState().setValue(net.minecraft.world.level.block.DispenserBlock.FACING, Direction.EAST));
         BlockPos front = helper.absolutePos(dispenser.east());
         var be = (net.minecraft.world.level.block.entity.DispenserBlockEntity) level.getBlockEntity(helper.absolutePos(dispenser));
-        be.setItem(0, new ItemStack(CrucibleFluids.FULL_ENDERITE_LAVA_BUCKET));
+        be.setItem(0, new ItemStack(Buckets.FULL_ENDERITE_LAVA_BUCKET));
         helper.setBlock(dispenser.above(), Blocks.REDSTONE_BLOCK);
         helper.runAfterDelay(10, () -> {
             helper.assertTrue(level.getFluidState(front).is(net.minecraft.tags.FluidTags.LAVA) && level.getFluidState(front).isSource(), "dispenser poured lava");
-            helper.assertTrue(be.getItem(0).is(CrucibleFluids.ENDERITE_LAVA_BUCKET), "dispenser keeps the half bucket: " + be.getItem(0));
-            CrucibleBucketItem half = (CrucibleBucketItem) CrucibleFluids.ENDERITE_LAVA_BUCKET;
-            helper.assertTrue(half.afterPour(new ItemStack(half)).is(CrucibleFluids.ENDERITE_BUCKET), "a half one pours its last bucket");
+            helper.assertTrue(be.getItem(0).is(Buckets.ENDERITE_LAVA_BUCKET), "dispenser keeps the half bucket: " + be.getItem(0));
+            ModBucketItem half = (ModBucketItem) Buckets.ENDERITE_LAVA_BUCKET;
+            helper.assertTrue(half.afterPour(new ItemStack(half)).is(Buckets.ENDERITE_BUCKET), "a half one pours its last bucket");
             helper.succeed();
         });
     }
 
-    /**
-     * Ceramic lava bucket: the empty ceramic bucket scoops lava without wearing, pours a real lava source and
-     * comes back worn (no break like copper); soul lava and milk stay refused; it is furnace fuel without a
-     * remainder (burns up) and sits in the creative tab and the filled-bucket JEI info.
-     */
-    static void ceramicLavaBucketScoopsPoursAndWears(GameTestHelper helper) {
-        ServerLevel level = helper.getLevel();
-        floor(helper);
-        helper.assertTrue(CrucibleFluids.CERAMIC_LAVA_BUCKET != null
-                && CrucibleBucketItem.filled(CrucibleBucketItem.Kind.CERAMIC, Fluids.LAVA) == CrucibleFluids.CERAMIC_LAVA_BUCKET, "ceramic lava bucket");
-        helper.assertTrue(CrucibleBucketItem.filled(CrucibleBucketItem.Kind.CERAMIC, CrucibleFluids.SOUL_LAVA) == null, "ceramic takes soul lava");
-        CrucibleBucketItem lava = (CrucibleBucketItem) CrucibleFluids.CERAMIC_LAVA_BUCKET;
-        helper.assertTrue(lava.kind() == CrucibleBucketItem.Kind.CERAMIC && lava.breaksOnPour(), "ceramic lava must break on pour (N35)");
-        ItemStack bucket = CrucibleBucketItem.fill(new ItemStack(CrucibleFluids.CERAMIC_BUCKET), CrucibleFluids.CERAMIC_LAVA_BUCKET);
-        helper.assertTrue(bucket.is(CrucibleFluids.CERAMIC_LAVA[CrucibleBucketItem.CERAMIC_STAGES - 1]), "scoop makes it brittle: " + bucket);
-        lava = (CrucibleBucketItem) bucket.getItem();
-        BlockPos target = helper.absolutePos(new BlockPos(3, 1, 3));
-        bucket = lava.pourAt(level, target, bucket);
-        helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.LAVA) && level.getFluidState(target).isSource(),
-                "ceramic lava makes a lava source");
-        helper.assertTrue(bucket.isEmpty(), "the brittle lava bucket must break when poured: " + bucket);
-        ItemStack fuel = new ItemStack(CrucibleFluids.CERAMIC_LAVA_BUCKET);
-        boolean burns = fuel.getComponents().keySet().stream().anyMatch(type ->
-                "minecraft:cooking_fuel".equals(String.valueOf(net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type))));
-        helper.assertTrue(burns, "ceramic lava bucket is no fuel");
-        helper.assertTrue(!fuel.getComponents().keySet().stream().anyMatch(type ->
-                "minecraft:use_remainder".equals(String.valueOf(net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type)))),
-                "ceramic lava bucket leaves a remainder");
-        helper.assertTrue(CrucibleFluids.buckets().contains(CrucibleFluids.CERAMIC_LAVA_BUCKET), "not in the bucket list");
-        helper.succeed();
-    }
+
 
     /** N35: copper buckets oxidize only in the hotbar or off hand, never in the rest of the inventory (simulated ticks). */
     static void copperBucketOxidizesOnlyInHotbarOrOffhand(GameTestHelper helper) {
@@ -548,13 +395,13 @@ final class BucketTests {
         player.getInventory().setItem(3, hotbar);
         player.getInventory().setItem(20, inventory);
         player.setItemInHand(InteractionHand.OFF_HAND, off);
-        helper.assertTrue(CrucibleBucketItem.oxidationInterval(hotbar) == CrucibleBucketItem.OXIDATION_TICKS, "unwaxed pace");
+        helper.assertTrue(ModBucketItem.oxidationInterval(hotbar) == ModBucketItem.OXIDATION_TICKS, "unwaxed pace");
         for (int t = 0; t < 600_000; t++) {
             for (ItemStack stack : new ItemStack[] {hotbar, inventory, off}) stack.getItem().inventoryTick(stack, level, player, null);
         }
-        helper.assertTrue(CrucibleBucketItem.oxidation(hotbar) >= 1, "a hotbar bucket must weather, stage " + CrucibleBucketItem.oxidation(hotbar));
-        helper.assertTrue(CrucibleBucketItem.oxidation(off) >= 1, "an off-hand bucket must weather, stage " + CrucibleBucketItem.oxidation(off));
-        helper.assertTrue(CrucibleBucketItem.oxidation(inventory) == 0, "a bucket in the inventory must not weather");
+        helper.assertTrue(ModBucketItem.oxidation(hotbar) >= 1, "a hotbar bucket must weather, stage " + ModBucketItem.oxidation(hotbar));
+        helper.assertTrue(ModBucketItem.oxidation(off) >= 1, "an off-hand bucket must weather, stage " + ModBucketItem.oxidation(off));
+        helper.assertTrue(ModBucketItem.oxidation(inventory) == 0, "a bucket in the inventory must not weather");
         helper.succeed();
     }
 
@@ -568,27 +415,27 @@ final class BucketTests {
         ItemStack empty = new ItemStack(CrucibleFluids.COPPER_BUCKET);
         empty.set(CrucibleComponents.WAXED, true);
         ItemStack plain = new ItemStack(CrucibleFluids.COPPER_WATER_BUCKET);
-        helper.assertTrue(CrucibleBucketItem.oxidationInterval(empty) == 0, "waxed empty must not react");
-        ItemStack water = CrucibleBucketItem.fill(empty, CrucibleFluids.COPPER_WATER_BUCKET);
-        ItemStack lava = CrucibleBucketItem.fill(empty, CrucibleFluids.COPPER_LAVA_BUCKET);
-        helper.assertTrue(CrucibleBucketItem.waxed(water) && CrucibleBucketItem.waxWorn(water) && CrucibleBucketItem.waxWorn(lava), "filling wears the wax");
-        helper.assertTrue(CrucibleBucketItem.oxidationInterval(water) == 2 * CrucibleBucketItem.oxidationInterval(plain), "worn wax is half pace");
-        ItemStack kept = CrucibleBucketItem.fill(new ItemStack(CrucibleFluids.COPPER_BUCKET), CrucibleFluids.COPPER_WATER_BUCKET);
-        helper.assertTrue(!CrucibleBucketItem.waxWorn(kept), "an unwaxed bucket has no wax to wear");
-        ItemStack emptied = ((CrucibleBucketItem) water.getItem()).afterPour(water);
-        helper.assertTrue(CrucibleBucketItem.waxWorn(emptied), "emptying keeps the worn wax");
+        helper.assertTrue(ModBucketItem.oxidationInterval(empty) == 0, "waxed empty must not react");
+        ItemStack water = ModBucketItem.fill(empty, CrucibleFluids.COPPER_WATER_BUCKET);
+        ItemStack lava = ModBucketItem.fill(empty, CrucibleFluids.COPPER_LAVA_BUCKET);
+        helper.assertTrue(ModBucketItem.waxed(water) && ModBucketItem.waxWorn(water) && ModBucketItem.waxWorn(lava), "filling wears the wax");
+        helper.assertTrue(ModBucketItem.oxidationInterval(water) == 2 * ModBucketItem.oxidationInterval(plain), "worn wax is half pace");
+        ItemStack kept = ModBucketItem.fill(new ItemStack(CrucibleFluids.COPPER_BUCKET), CrucibleFluids.COPPER_WATER_BUCKET);
+        helper.assertTrue(!ModBucketItem.waxWorn(kept), "an unwaxed bucket has no wax to wear");
+        ItemStack emptied = ((ModBucketItem) water.getItem()).afterPour(water);
+        helper.assertTrue(ModBucketItem.waxWorn(emptied), "emptying keeps the worn wax");
         player.getInventory().setItem(0, empty);
         player.getInventory().setItem(1, water);
         for (int t = 0; t < 1_500_000; t++) {
             for (ItemStack stack : new ItemStack[] {empty, water}) stack.getItem().inventoryTick(stack, level, player, null);
         }
-        helper.assertTrue(CrucibleBucketItem.oxidation(empty) == 0, "waxed empty weathered");
-        helper.assertTrue(CrucibleBucketItem.oxidation(water) >= 1 && CrucibleBucketItem.waxed(water), "worn wax must weather slowly and stay waxed");
+        helper.assertTrue(ModBucketItem.oxidation(empty) == 0, "waxed empty weathered");
+        helper.assertTrue(ModBucketItem.oxidation(water) >= 1 && ModBucketItem.waxed(water), "worn wax must weather slowly and stay waxed");
         // honeycomb renews, then it holds still again
         ServerPlayer actor = player(helper, emptied, new ItemStack(Items.HONEYCOMB));
-        helper.assertTrue(CrucibleBucketItem.care(level, actor, emptied, actor.getOffhandItem(), net.minecraft.world.entity.EquipmentSlot.OFFHAND, actor.blockPosition())
-                == InteractionResult.SUCCESS && !CrucibleBucketItem.waxWorn(emptied) && CrucibleBucketItem.oxidationInterval(emptied) == 0, "honeycomb renews the wax");
-        helper.assertTrue(CrucibleBucketItem.care(level, actor, emptied, new ItemStack(Items.HONEYCOMB), net.minecraft.world.entity.EquipmentSlot.OFFHAND, actor.blockPosition())
+        helper.assertTrue(ModBucketItem.care(level, actor, emptied, actor.getOffhandItem(), net.minecraft.world.entity.EquipmentSlot.OFFHAND, actor.blockPosition())
+                == InteractionResult.SUCCESS && !ModBucketItem.waxWorn(emptied) && ModBucketItem.oxidationInterval(emptied) == 0, "honeycomb renews the wax");
+        helper.assertTrue(ModBucketItem.care(level, actor, emptied, new ItemStack(Items.HONEYCOMB), net.minecraft.world.entity.EquipmentSlot.OFFHAND, actor.blockPosition())
                 == InteractionResult.FAIL, "intact wax takes no second honeycomb");
         helper.succeed();
     }
@@ -605,113 +452,59 @@ final class BucketTests {
         waxedStack.set(CrucibleComponents.WAXED, true);
         int stage = 0;
         for (int t = 0; t < 600_000 && stage == 0; t++) {
-            ItemStack w = CrucibleBucketItem.weatherPlaced(drop.getItem(), level.getRandom());
-            if (w != null) { drop.setItem(w); stage = CrucibleBucketItem.oxidation(w); }
+            ItemStack w = ModBucketItem.weatherPlaced(drop.getItem(), level.getRandom());
+            if (w != null) { drop.setItem(w); stage = ModBucketItem.oxidation(w); }
         }
-        helper.assertTrue(stage == 1 && CrucibleBucketItem.oxidation(drop.getItem()) == 1, "a dropped copper bucket must weather");
-        helper.assertTrue(CrucibleBucketItem.weatherPlaced(waxedStack, level.getRandom()) == null, "a waxed placed bucket does not weather");
+        helper.assertTrue(stage == 1 && ModBucketItem.oxidation(drop.getItem()) == 1, "a dropped copper bucket must weather");
+        helper.assertTrue(ModBucketItem.weatherPlaced(waxedStack, level.getRandom()) == null, "a waxed placed bucket does not weather");
         drop.discard();
         ItemStack framed = new ItemStack(CrucibleFluids.COPPER_BUCKET);
         ServerPlayer actor = player(helper, ItemStack.EMPTY, new ItemStack(Items.HONEYCOMB));
-        helper.assertTrue(CrucibleBucketItem.care(level, actor, framed, actor.getOffhandItem(), net.minecraft.world.entity.EquipmentSlot.OFFHAND, actor.blockPosition())
-                == InteractionResult.SUCCESS && CrucibleBucketItem.waxed(framed), "honeycomb waxes the bucket");
-        helper.assertTrue(CrucibleBucketItem.care(level, actor, framed, new ItemStack(Items.IRON_AXE), net.minecraft.world.entity.EquipmentSlot.MAINHAND, actor.blockPosition())
-                == InteractionResult.SUCCESS && !CrucibleBucketItem.waxed(framed), "an axe takes the wax off");
+        helper.assertTrue(ModBucketItem.care(level, actor, framed, actor.getOffhandItem(), net.minecraft.world.entity.EquipmentSlot.OFFHAND, actor.blockPosition())
+                == InteractionResult.SUCCESS && ModBucketItem.waxed(framed), "honeycomb waxes the bucket");
+        helper.assertTrue(ModBucketItem.care(level, actor, framed, new ItemStack(Items.IRON_AXE), net.minecraft.world.entity.EquipmentSlot.MAINHAND, actor.blockPosition())
+                == InteractionResult.SUCCESS && !ModBucketItem.waxed(framed), "an axe takes the wax off");
         helper.succeed();
     }
 
-    /** N35: lava makes the ceramic bucket brittle at once; pouring it places the lava and the bucket is gone. */
-    static void ceramicBucketWithLavaIsBrittleAndBreaksOnPour(GameTestHelper helper) {
-        ServerLevel level = helper.getLevel();
-        floor(helper);
-        ItemStack water = CrucibleBucketItem.fill(new ItemStack(CrucibleFluids.CERAMIC_BUCKET), CrucibleFluids.CERAMIC_WATER_BUCKET);
-        helper.assertTrue(water.is(CrucibleFluids.CERAMIC_WATER[0]), "water keeps the stage");
-        ItemStack lava = CrucibleBucketItem.fill(new ItemStack(CrucibleFluids.CERAMIC_BUCKET), CrucibleFluids.CERAMIC_LAVA_BUCKET);
-        helper.assertTrue(lava.is(CrucibleFluids.CERAMIC_LAVA[CrucibleBucketItem.CERAMIC_STAGES - 1]), "lava makes it brittle: " + lava);
-        BlockPos target = helper.absolutePos(new BlockPos(3, 1, 3));
-        ItemStack left = ((CrucibleBucketItem) lava.getItem()).pourAt(level, target, lava);
-        helper.assertTrue(left.isEmpty() && level.getFluidState(target).is(net.minecraft.tags.FluidTags.LAVA), "brittle bucket must break and leave lava");
-        helper.succeed();
-    }
 
-    /**
-     * Ceramic wear stages: as many stages as the copper bucket's oxidation (0..3), one item per stage and filling,
-     * one pour each; a stage change keeps the filling, scooping does not wear it, and the brittle bucket breaks on its last
-     * pour, the worn stages stay out of the creative tab but in the bucket list (dispensers).
-     */
-    static void ceramicBucketWearsThroughStagesAndKeepsItsFilling(GameTestHelper helper) {
-        ServerLevel level = helper.getLevel();
-        floor(helper);
-        helper.assertTrue(CrucibleBucketItem.CERAMIC_STAGES == 4 && CrucibleBucketItem.CERAMIC_USES_PER_STAGE == 1
-                && CrucibleBucketItem.CERAMIC_STAGES * CrucibleBucketItem.CERAMIC_USES_PER_STAGE == CrucibleBucketItem.CERAMIC_USES,
-                "4 stages of 1 pour (copper: oxidation 0..3)");
-        for (int stage = 0; stage < CrucibleBucketItem.CERAMIC_STAGES; stage++) {
-            for (Item item : new Item[] {CrucibleFluids.CERAMIC_EMPTY[stage], CrucibleFluids.CERAMIC_WATER[stage], CrucibleFluids.CERAMIC_LAVA[stage]}) {
-                helper.assertTrue(item instanceof CrucibleBucketItem bucket && bucket.stage() == stage && CrucibleFluids.buckets().contains(item),
-                        "stage item " + item);
-            }
-        }
-        // Scooping keeps the current stage and counter.
-        ItemStack empty = new ItemStack(CrucibleFluids.CERAMIC_BUCKET);
-        empty.set(CrucibleComponents.CERAMIC_USES, 0);
-        ItemStack water = CrucibleBucketItem.fill(empty, CrucibleFluids.CERAMIC_WATER_BUCKET);
-        helper.assertTrue(water.is(CrucibleFluids.CERAMIC_WATER[0]) && CrucibleBucketItem.ceramicUses(water) == 0, "scoop does not wear: " + water);
-        // Pour advances exactly one stage and keeps the filling counter.
-        ItemStack lava = new ItemStack(CrucibleFluids.CERAMIC_WATER[1]); // N35: lava buckets are brittle one-shots, so water here
-        lava.set(CrucibleComponents.CERAMIC_USES, 1);
-        BlockPos target = helper.absolutePos(new BlockPos(2, 1, 2));
-        ItemStack after = ((CrucibleBucketItem) lava.getItem()).pourAt(level, target, lava);
-        helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.WATER), "chipped water bucket pours water");
-        helper.assertTrue(after.is(CrucibleFluids.CERAMIC_EMPTY[2]) && CrucibleBucketItem.ceramicUses(after) == 2, "pour into stage 2: " + after);
-        // The filling survives a stage change too.
-        ItemStack held = new ItemStack(CrucibleFluids.CERAMIC_WATER[2]);
-        held.set(CrucibleComponents.CERAMIC_USES, 2);
-        ItemStack worn = CrucibleBucketItem.wear(held);
-        helper.assertTrue(worn.is(CrucibleFluids.CERAMIC_WATER[3]) && CrucibleBucketItem.ceramicUses(worn) == 3, "wear keeps water: " + worn);
-        // A fresh worn item without counter starts at its stage.
-        helper.assertTrue(CrucibleBucketItem.ceramicUses(new ItemStack(CrucibleFluids.CERAMIC_EMPTY[3])) == 3, "stage 3 starts at 3 pours");
-        // The brittle bucket breaks on its fourth pour.
-        ItemStack brittle = new ItemStack(CrucibleFluids.CERAMIC_WATER[3]);
-        brittle.set(CrucibleComponents.CERAMIC_USES, 3);
-        helper.assertTrue(((CrucibleBucketItem) brittle.getItem()).pourAt(level, helper.absolutePos(new BlockPos(5, 1, 5)), brittle).isEmpty(),
-                "the brittle bucket survives its last pour");
-        // Worn stages: not in the creative tab rows, but in the JEI info.
-        helper.assertTrue(CrucibleFluids.wornCeramicBuckets().size() == 9, "9 worn items");
-        helper.succeed();
-    }
+
+
 
     /** Iron bucket breaks when pouring soul lava; the Enderite bucket never breaks (owner 34/36). */
     static void ironBucketBreaksOnSoulLavaEnderiteNever(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         floor(helper);
-        CrucibleBucketItem iron = (CrucibleBucketItem) CrucibleFluids.SOUL_LAVA_BUCKET;
+        ModBucketItem iron = (ModBucketItem) CrucibleFluids.SOUL_LAVA_BUCKET;
         helper.assertTrue(iron.pourAt(level, helper.absolutePos(new BlockPos(2, 1, 2)), new ItemStack(iron)).isEmpty(), "iron bucket breaks");
         helper.assertTrue(level.getFluidState(helper.absolutePos(new BlockPos(2, 1, 2))).getType() == CrucibleFluids.SOUL_LAVA, "soul lava placed");
-        CrucibleBucketItem enderite = (CrucibleBucketItem) CrucibleFluids.ENDERITE_SOUL_LAVA_BUCKET;
-        helper.assertTrue(enderite.pourAt(level, helper.absolutePos(new BlockPos(5, 1, 5)), new ItemStack(enderite)).is(CrucibleFluids.ENDERITE_BUCKET),
-                "enderite bucket comes back");
-        helper.assertTrue(CrucibleBucketItem.filled(CrucibleBucketItem.Kind.ENDERITE, CrucibleFluids.SOUL_LAVA) == CrucibleFluids.ENDERITE_SOUL_LAVA_BUCKET,
-                "enderite bucket takes soul lava");
         helper.assertTrue(Items.BUCKET.getDefaultInstance().is(Items.BUCKET)
                 && ((LiquidBlock) CrucibleFluids.SOUL_LAVA_BLOCK).pickupBlock(null, level, helper.absolutePos(new BlockPos(2, 1, 2)),
                         level.getBlockState(helper.absolutePos(new BlockPos(2, 1, 2)))).is(CrucibleFluids.SOUL_LAVA_BUCKET),
                 "the vanilla bucket scoops soul lava into the soul lava bucket");
+        if (partnerMissing(helper, "simpletools", "the Enderite soul lava bucket (Simple Tools, WH26-7)")) return;
+        ModBucketItem enderite = (ModBucketItem) Buckets.ENDERITE_SOUL_LAVA_BUCKET;
+        helper.assertTrue(enderite.pourAt(level, helper.absolutePos(new BlockPos(5, 1, 5)), new ItemStack(enderite)).is(Buckets.ENDERITE_BUCKET),
+                "enderite bucket comes back");
+        helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.ENDERITE, CrucibleFluids.SOUL_LAVA) == Buckets.ENDERITE_SOUL_LAVA_BUCKET,
+                "enderite bucket takes soul lava");
         helper.succeed();
     }
 
     /** The reinforced cauldron takes soul lava from the Enderite bucket and gives it back (owner 30/56). */
     static void reinforcedCauldronHoldsSoulLava(GameTestHelper helper) {
+        if (partnerMissing(helper, "simpletools", "the Enderite soul lava bucket (Simple Tools, WH26-7) on the reinforced cauldron")) return;
         ServerLevel level = helper.getLevel();
         BlockPos pos = new BlockPos(2, 1, 2);
         helper.setBlock(pos, SimpleCruciblesApi.reinforcedCauldron("empty"));
         BlockPos abs = helper.absolutePos(pos);
-        ServerPlayer player = player(helper, new ItemStack(CrucibleFluids.ENDERITE_SOUL_LAVA_BUCKET), ItemStack.EMPTY);
+        ServerPlayer player = player(helper, new ItemStack(Buckets.ENDERITE_SOUL_LAVA_BUCKET), ItemStack.EMPTY);
         BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
         level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
         helper.assertTrue("extreme".equals(SimpleCruciblesApi.cauldronContent(level.getBlockState(abs))), "cauldron holds soul lava");
-        helper.assertTrue(player.getMainHandItem().is(CrucibleFluids.ENDERITE_BUCKET), "enderite bucket comes back empty");
+        helper.assertTrue(player.getMainHandItem().is(Buckets.ENDERITE_BUCKET), "enderite bucket comes back empty");
         level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
-        helper.assertTrue(player.getMainHandItem().is(CrucibleFluids.ENDERITE_SOUL_LAVA_BUCKET), "scooped back");
+        helper.assertTrue(player.getMainHandItem().is(Buckets.ENDERITE_SOUL_LAVA_BUCKET), "scooped back");
         helper.assertTrue("empty".equals(SimpleCruciblesApi.cauldronContent(level.getBlockState(abs))), "cauldron empty again");
         helper.succeed();
     }
@@ -727,10 +520,11 @@ final class BucketTests {
         level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
         helper.assertBlockPresent(Blocks.LAVA_CAULDRON, pos);
         helper.assertTrue(player.getMainHandItem().isEmpty(), "copper bucket broke on lava");
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(CrucibleFluids.ENDERITE_BUCKET));
+        if (partnerMissing(helper, "simpletools", "the Enderite bucket (Simple Tools, WH26-7) on the Vanilla cauldron")) return;
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Buckets.ENDERITE_BUCKET));
         level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
         helper.assertBlockPresent(Blocks.CAULDRON, pos);
-        helper.assertTrue(player.getMainHandItem().is(CrucibleFluids.ENDERITE_LAVA_BUCKET), "enderite bucket took the lava");
+        helper.assertTrue(player.getMainHandItem().is(Buckets.ENDERITE_LAVA_BUCKET), "enderite bucket took the lava");
         helper.succeed();
     }
 
@@ -843,19 +637,19 @@ final class BucketTests {
      */
     static void bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
-        ItemStack worn = stack(CrucibleFluids.CERAMIC_WATER_BUCKET);
+        ItemStack worn = stack(Buckets.CERAMIC_WATER_BUCKET);
         if (!worn.isEmpty()) {
-            worn.set(CrucibleComponents.CERAMIC_USES, 1);
+            worn.set(Buckets.CERAMIC_USES, 1);
         }
-        for (ItemStack stack : List.of(worn, stack(CrucibleFluids.CERAMIC_BUCKET), stack(CrucibleFluids.COPPER_WATER_BUCKET),
-                stack(CrucibleFluids.ENDERITE_WATER_BUCKET), stack(CrucibleFluids.SOUL_LAVA_BUCKET))) {
+        for (ItemStack stack : List.of(worn, stack(Buckets.CERAMIC_BUCKET), stack(CrucibleFluids.COPPER_WATER_BUCKET),
+                stack(Buckets.ENDERITE_WATER_BUCKET), stack(CrucibleFluids.SOUL_LAVA_BUCKET))) {
             if (!stack.isEmpty() && stack.isBarVisible()) {
                 problems.add(stack.getItem() + " draws a durability bar");
             }
         }
-        for (Item item : new Item[]{CrucibleFluids.ENDERITE_BUCKET, CrucibleFluids.ENDERITE_WATER_BUCKET, CrucibleFluids.FULL_ENDERITE_WATER_BUCKET,
-                CrucibleFluids.ENDERITE_LAVA_BUCKET, CrucibleFluids.FULL_ENDERITE_LAVA_BUCKET, CrucibleFluids.ENDERITE_SOUL_LAVA_BUCKET,
-                CrucibleFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET, CrucibleFluids.ENDERITE_MILK_BUCKET, CrucibleFluids.FULL_ENDERITE_MILK_BUCKET}) {
+        for (Item item : new Item[]{Buckets.ENDERITE_BUCKET, Buckets.ENDERITE_WATER_BUCKET, Buckets.FULL_ENDERITE_WATER_BUCKET,
+                Buckets.ENDERITE_LAVA_BUCKET, Buckets.FULL_ENDERITE_LAVA_BUCKET, Buckets.ENDERITE_SOUL_LAVA_BUCKET,
+                Buckets.FULL_ENDERITE_SOUL_LAVA_BUCKET, Buckets.ENDERITE_MILK_BUCKET, Buckets.FULL_ENDERITE_MILK_BUCKET}) {
             if (item == null) {
                 continue;
             }

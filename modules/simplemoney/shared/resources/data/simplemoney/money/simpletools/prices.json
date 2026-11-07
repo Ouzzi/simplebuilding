@@ -1,10 +1,30 @@
 {
   "module": "simpletools",
-  "derivation": "Simple Tools sells nothing: the Death Vault is a crafted block, the Soulbound book comes only from the wandering trader (diamonds) and End City loot (owner 2026-10-12). Money bills count as Death Vault offerings through the optional tag simpletools:death_vault_offerings.",
+  "derivation": "Simple Tools sells only the empty Enderite bucket (WH26-7: row and exclusions moved from Simple Crucibles, the price is unchanged; filled buckets are never traded): the Death Vault is a crafted block, the Soulbound book comes only from the wandering trader (diamonds) and End City loot (owner 2026-10-12). Money bills count as Death Vault offerings through the optional tag simpletools:death_vault_offerings.",
   "excluded": {
     "simpletools:biome_brush": "Crafted from Nether Stars or the Nether Heart boss drop; not for sale.",
     "simpletools:death_vault": "Crafted only (KONZEPT-DEATH-VAULT, owner 2026-10-12); bills are accepted as offerings instead.",
+    "simpletools:enderite_lava_bucket": "Filled bucket; buy the empty one.",
+    "simpletools:enderite_lava_bucket_full": "Filled bucket (two buckets); buy the empty one.",
+    "simpletools:enderite_milk_bucket": "Filled bucket (milked); buy the empty one.",
+    "simpletools:enderite_milk_bucket_full": "Filled bucket (two buckets); buy the empty one.",
+    "simpletools:enderite_soul_lava_bucket": "Filled only by scooping soul lava; no trade.",
+    "simpletools:enderite_soul_lava_bucket_full": "Filled only by scooping soul lava twice; no trade.",
+    "simpletools:enderite_water_bucket": "Filled bucket; buy the empty one.",
+    "simpletools:enderite_water_bucket_full": "Filled bucket (two buckets); buy the empty one.",
     "simpletools:guide_book": "Crafted from a book and an anvil."
   },
-  "prices": []
+  "prices": [
+    {
+      "item": "simpletools:enderite_bucket",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    }
+  ]
 }

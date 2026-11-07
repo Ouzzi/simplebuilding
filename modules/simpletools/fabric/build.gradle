@@ -7,3 +7,5 @@ dependencies { implementation "me.shedaniel.cloth:cloth-config-fabric:${rootProj
 
 // SimpleLib (box style, principle 6a) nested per principle 6a and compiled against; screens use com.simplelib.api.client.ui.
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// WH26-7: the empty Enderite bucket is a Vanilla-derived texture (built, never committed).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

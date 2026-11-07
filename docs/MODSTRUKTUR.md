@@ -50,7 +50,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - optional: SimpleBuilding, Simple Foundry, Simple Crucibles, Simple Ores
     - **Simple Crucibles** `simplecrucibles` (optional) [fertig]: Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel; the barrels that dock onto them are Simple Storage's), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.
       - required: SimpleLib
-      - optional: SimpleBuilding, jei, jade, Simple Storage, Simple Ores
+      - optional: SimpleBuilding, jei, jade, Simple Storage, Simple Ores, Simple Tools
     - **Simple Foundry** `simplefoundry` (optional) [neu]: A multiblock foundry for Simple Ovens: a tank of melting chambers in a brick hull, fuel on the desk, ore thrown in, the melt poured by layer through spouts into casting trays. Gold, copper and iron, one ingot per ingot.
       - optional: Simple Ovens
   - **Simple Pads** `simplepads` (required) [neu]: The pads and pressure plates of the Simple Pads tab: Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers each, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn Elytra (moved out of SimpleBuilding, DW04C-5). Requires Simple Ores (Enderite tiers) and Simple Mobheads (the heads of the first tiers). Fabric only for now.

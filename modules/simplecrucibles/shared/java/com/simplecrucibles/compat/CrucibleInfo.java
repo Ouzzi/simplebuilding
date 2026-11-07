@@ -2,6 +2,7 @@ package com.simplecrucibles.compat;
 
 import com.simplecrucibles.api.SimpleCruciblesApi;
 import com.simplecrucibles.fluid.CrucibleFluids;
+import com.simplelib.bucket.Buckets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -75,20 +76,26 @@ public final class CrucibleInfo {
     public static Map<String, List<ItemLike>> infoPages() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
         // Filled buckets only come from scooping (no recipe); the empty ones get a usage page next to their recipe.
-        map.put("soul_lava_bucket", List.of(CrucibleFluids.SOUL_LAVA_BUCKET, CrucibleFluids.ENDERITE_SOUL_LAVA_BUCKET,
-                CrucibleFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET));
-        map.put("copper_bucket_filled", List.of(CrucibleFluids.COPPER_WATER_BUCKET, CrucibleFluids.COPPER_LAVA_BUCKET));
-        map.put("enderite_bucket_filled", List.of(CrucibleFluids.ENDERITE_WATER_BUCKET, CrucibleFluids.ENDERITE_LAVA_BUCKET,
-                CrucibleFluids.FULL_ENDERITE_WATER_BUCKET, CrucibleFluids.FULL_ENDERITE_LAVA_BUCKET,
-                CrucibleFluids.ENDERITE_MILK_BUCKET, CrucibleFluids.FULL_ENDERITE_MILK_BUCKET));
-        map.put("ceramic_bucket_filled", List.of(CrucibleFluids.CERAMIC_WATER_BUCKET, CrucibleFluids.CERAMIC_LAVA_BUCKET));
+        // WH26-7: the Enderite and ceramic buckets are Simple Tools' (Buckets); their pages show only with it.
+        put(map, "soul_lava_bucket", CrucibleFluids.SOUL_LAVA_BUCKET, Buckets.ENDERITE_SOUL_LAVA_BUCKET, Buckets.FULL_ENDERITE_SOUL_LAVA_BUCKET);
+        put(map, "copper_bucket_filled", CrucibleFluids.COPPER_WATER_BUCKET, CrucibleFluids.COPPER_LAVA_BUCKET);
+        put(map, "enderite_bucket_filled", Buckets.ENDERITE_WATER_BUCKET, Buckets.ENDERITE_LAVA_BUCKET,
+                Buckets.FULL_ENDERITE_WATER_BUCKET, Buckets.FULL_ENDERITE_LAVA_BUCKET,
+                Buckets.ENDERITE_MILK_BUCKET, Buckets.FULL_ENDERITE_MILK_BUCKET);
+        put(map, "ceramic_bucket_filled", Buckets.CERAMIC_WATER_BUCKET, Buckets.CERAMIC_LAVA_BUCKET);
         // N12b: worn stages only come from use.
-        map.put("ceramic_bucket_worn", List.<ItemLike>copyOf(CrucibleFluids.wornCeramicBuckets()));
-        map.put("copper_bucket", List.of(CrucibleFluids.COPPER_BUCKET));
-        map.put("enderite_bucket", List.of(CrucibleFluids.ENDERITE_BUCKET));
-        map.put("ceramic_bucket", List.of(CrucibleFluids.RAW_CERAMIC_BUCKET, CrucibleFluids.CERAMIC_BUCKET));
+        put(map, "ceramic_bucket_worn", Buckets.wornCeramicBuckets().toArray(new ItemLike[0]));
+        put(map, "copper_bucket", CrucibleFluids.COPPER_BUCKET);
+        put(map, "enderite_bucket", Buckets.ENDERITE_BUCKET);
+        put(map, "ceramic_bucket", Buckets.RAW_CERAMIC_BUCKET, Buckets.CERAMIC_BUCKET);
         // The Enderite crucible has no crafting recipe: it is upgraded in place (the Enderite barrel is Simple Storage's).
         map.put("enderite_crucible", List.of(com.simplecrucibles.registry.CrucibleItems.ENDERITE_CRUCIBLE));
         return map;
+    }
+
+    /** A page with the registered ones of {@code items}; left out when none is there (module missing). */
+    private static void put(Map<String, List<ItemLike>> map, String page, ItemLike... items) {
+        List<ItemLike> present = java.util.Arrays.stream(items).filter(java.util.Objects::nonNull).toList();
+        if (!present.isEmpty()) map.put(page, present);
     }
 }

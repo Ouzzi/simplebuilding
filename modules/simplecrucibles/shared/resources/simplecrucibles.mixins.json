@@ -6,7 +6,6 @@
   "mixins": [
     "AxeBuildMixin",
     "TemplatePoolAccessor",
-    "CauldronBucketMixin",
     "CopperBucketFrameCareMixin",
     "CopperBucketItemEntityMixin",
     "CopperBucketWeatheringMixin",

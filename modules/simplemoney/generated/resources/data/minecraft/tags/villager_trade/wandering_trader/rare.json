@@ -406,10 +406,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplecrucibles/enderite_bucket",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simpleend/ash_bud",
       "required": false
     },
@@ -951,6 +947,10 @@
     },
     {
       "id": "simplemoney:links/simplestorage/netherite_shulker_box",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpletools/enderite_bucket",
       "required": false
     }
   ]
