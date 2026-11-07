@@ -1,0 +1,35 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "component": "simplebuildingtools:blueprint",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "simplebuildingtools:item/blueprint"
+    },
+    "on_true": {
+      "type": "minecraft:select",
+      "cases": [
+        {
+          "model": {
+            "type": "minecraft:model",
+            "model": "simplebuildingtools:item/blueprint_edited"
+          },
+          "when": "edited"
+        },
+        {
+          "model": {
+            "type": "minecraft:model",
+            "model": "simplebuildingtools:item/blueprint_signed"
+          },
+          "when": "signed"
+        }
+      ],
+      "fallback": {
+        "type": "minecraft:model",
+        "model": "simplebuildingtools:item/blueprint"
+      },
+      "property": "simplebuildingtools:blueprint_state"
+    },
+    "property": "minecraft:has_component"
+  }
+}

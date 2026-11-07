@@ -96,6 +96,10 @@ MAIN_TREE_PREFIXES = ("item/velocity_gauge", "item/detector", "item/layered_raw_
 MODULE_COPIES = {
     "item/netherite_sledgehammer.png": os.path.join(REPO, "modules", "simplehammers", "shared", "resources", "assets", "simplehammers", "textures"),
     "item/enderite_sledgehammer.png": os.path.join(REPO, "modules", "simplehammers", "shared", "resources", "assets", "simplehammers", "textures"),
+    # b-btools07: the wands and blueprints live in Simple Building Tools on 26.3.
+    **{rel: os.path.join(REPO, "modules", "simplebuildingtools", "shared", "resources", "assets", "simplebuildingtools", "textures")
+       for rel in ("item/netherite_building_wand.png", "item/enderite_building_wand.png", "item/blueprint.png",
+                   "item/blueprint_edited.png", "item/blueprint_signed.png")},
 }
 PREVIEW = os.path.join(HERE, "preview.png")
 GEAR_PREVIEW = os.path.join(HERE, "gear_preview.png")

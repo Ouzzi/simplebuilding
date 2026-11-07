@@ -237,6 +237,7 @@ public final class AdvancementTriggerTests {
      * quiver (an undyed one is not enough), "Full Spectrum" all 16 colored Octants (15 are not).
      */
     public static void radianceDyedStorageAndAllOctantColorsFollowTheInventory(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerAdvancementManager manager = helper.getLevel().getServer().getAdvancements();
         // 26.3: Full Radiance moved to Simple Trims (simpletrims:full_radiance, TrimsTests) with the trim templates (N18).
         boolean trims = com.simplebuilding.version.McVersion.TRIMS_IN_SB;

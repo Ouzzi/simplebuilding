@@ -268,13 +268,21 @@ public final class TestCentreBuilder {
                 }
                 case TcOp.BlueprintFrame frame -> {
                     // Der gescannte Bereich steht schon: alle Bloecke kommen vor den Rahmen.
-                    BlueprintScanner.Outcome outcome = BlueprintScanner.scanAtTable(level, frame.table(),
-                            octant(frame.cornerA(), frame.cornerB()), new ItemStack(ModItems.BLUEPRINT));
+                    // b-btools07: 26.3 scans with Simple Building Tools' own code; SimpleBuilding's scanner knows only its 26.2 items.
+                    BlueprintScanner.Outcome outcome = !com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? null
+                            : BlueprintScanner.scanAtTable(level, frame.table(),
+                            octant(frame.cornerA(), frame.cornerB()), new ItemStack(com.simplebuilding.util.BuildingToolRefs.blueprint()));
+                    if (outcome == null) {
+                        spawnFrame(level, frame.pos(), frame.facing(), new ItemStack(com.simplebuilding.util.BuildingToolRefs.blueprint()));
+                        entities++;
+                        count++;
+                        continue;
+                    }
                     if (outcome.error() != null) {
                         Simplebuilding.LOGGER.warn("Test centre blueprint scan refused: {}", outcome.error().getString());
                     }
                     spawnFrame(level, frame.pos(), frame.facing(),
-                            outcome.error() == null ? outcome.result() : new ItemStack(ModItems.BLUEPRINT));
+                            outcome.error() == null ? outcome.result() : new ItemStack(com.simplebuilding.util.BuildingToolRefs.blueprint()));
                     entities++;
                     count++;
                 }
@@ -348,7 +356,7 @@ public final class TestCentreBuilder {
 
     /** Wie oben, mit Figur; Ausrichtung +Y (so zeigt ein Prisma seine Spitze nach oben: Dachmodus). */
     static ItemStack octant(BlockPos cornerA, BlockPos cornerB, String shape) {
-        ItemStack octant = new ItemStack(ModItems.OCTANT);
+        ItemStack octant = new ItemStack(com.simplebuilding.util.BuildingToolRefs.octant());
         CompoundTag nbt = new CompoundTag();
         nbt.putIntArray("Pos1", new int[]{cornerA.getX(), cornerA.getY(), cornerA.getZ()});
         nbt.putIntArray("Pos2", new int[]{cornerB.getX(), cornerB.getY(), cornerB.getZ()});

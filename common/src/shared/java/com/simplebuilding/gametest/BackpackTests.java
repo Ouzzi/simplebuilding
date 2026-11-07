@@ -808,6 +808,7 @@ public final class BackpackTests {
      * or ignores the enchantment.
      */
     public static void masterBuilderOpensTheBackpackOnlyWhenTheBackpackCarriesIt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         // Split stage 8c-2: SimpleBuilding's Master Builder / Constructor's Touch on the backpack of either line (26.3: Simple
         // Storage's, by id; its entries through util/WornStorage).
         ServerPlayer player = serverPlayer(helper);
@@ -951,6 +952,7 @@ public final class BackpackTests {
      * {@code bundle_enchantable} or {@code extra_inventory_items}, and one tier left out.
      */
     public static void backpacksTakeTheirFourEnchantmentsButNeitherDrawerNorColorPalette(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         List<ResourceKey<Enchantment>> accepted = List.of(ModEnchantments.DEEP_POCKETS, ModEnchantments.FUNNEL,
                 ModEnchantments.MASTER_BUILDER, ModEnchantments.CONSTRUCTORS_TOUCH);

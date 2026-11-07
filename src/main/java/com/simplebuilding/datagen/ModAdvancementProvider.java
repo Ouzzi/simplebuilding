@@ -96,14 +96,14 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         }
 
         void build() {
-            AdvancementHolder root = tab("root", ModItems.IRON_BUILDING_WAND, "gui/advancements/backgrounds/stone",
+            AdvancementHolder root = tab("root", com.simplebuilding.util.BuildingToolRefs.wand("iron"), "gui/advancements/backgrounds/stone",
                     "crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE));
             AdvancementHolder building = tab("building/root", ModItems.GOLD_CHISEL, "block/bricks", "building_tool",
                     any(ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                             ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL,
-                            ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
-                            ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND,
-                            ModItems.OCTANT, com.simplebuilding.util.GadgetRefs.rotator(), ModItems.CONSTRUCTION_LIGHT));
+                            com.simplebuilding.util.BuildingToolRefs.wand("copper"), com.simplebuilding.util.BuildingToolRefs.wand("iron"), com.simplebuilding.util.BuildingToolRefs.wand("gold"),
+                            com.simplebuilding.util.BuildingToolRefs.wand("diamond"), com.simplebuilding.util.BuildingToolRefs.wand("netherite"), com.simplebuilding.util.BuildingToolRefs.wand("enderite"),
+                            com.simplebuilding.util.BuildingToolRefs.octant(), com.simplebuilding.util.GadgetRefs.rotator(), ModItems.CONSTRUCTION_LIGHT));
             AdvancementHolder tweaks = tab("tweaks/root", TweaksBlocks.NETHERITE_LAUNCHPAD, "block/copper_block", "gadget",
                     any(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.DIAMOND_PRESSURE_PLATE, ModItems.MAGNET,
                             ModItems.ORE_DETECTOR, com.simplebuilding.util.GadgetRefs.gauge(), com.simplebuilding.util.GadgetRefs.rod(), ModItems.NETHERITE_APPLE,
@@ -186,21 +186,21 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         /** The tool tiers, one step per material - the mod's version of "Getting an Upgrade". */
         private void tiers(AdvancementHolder root) {
             AdvancementHolder copper = node("tiers/copper_crafter", root, ModItems.COPPER_CHISEL, AdvancementType.TASK, "copper_tool",
-                    any(ModItems.COPPER_CHISEL, com.simplebuilding.util.HammerRefs.item("copper"), ModItems.COPPER_BUILDING_WAND));
+                    any(ModItems.COPPER_CHISEL, com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.BuildingToolRefs.wand("copper")));
             AdvancementHolder template = node("tiers/step_by_step", copper, ModItems.BASIC_UPGRADE_TEMPLATE, AdvancementType.TASK,
                     "basic_upgrade_template", any(ModItems.BASIC_UPGRADE_TEMPLATE));
             AdvancementHolder iron = node("tiers/ironclad", copper, com.simplebuilding.util.HammerRefs.item("iron"), AdvancementType.TASK, "iron_tool",
-                    any(ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("iron"), ModItems.IRON_BUILDING_WAND));
+                    any(ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("iron"), com.simplebuilding.util.BuildingToolRefs.wand("iron")));
             // The mining enchantments: books from chests and traders, used while sneaking.
             feature("mining/all_in_vein", iron, Items.IRON_ORE, AdvancementType.TASK, ModTriggers.VEIN_MINE);
             feature("mining/tunnel_vision", iron, Items.IRON_PICKAXE, AdvancementType.TASK, ModTriggers.STRIP_MINE);
             feature("mining/right_tool_for_the_job", iron, Items.IRON_AXE, AdvancementType.TASK, ModTriggers.VERSATILITY_SWAP);
             node("tiers/golden_touch", template, com.simplebuilding.util.HammerRefs.item("gold"), AdvancementType.TASK, "gold_tool",
-                    any(ModItems.GOLD_CHISEL, com.simplebuilding.util.HammerRefs.item("gold"), ModItems.GOLD_BUILDING_WAND));
+                    any(ModItems.GOLD_CHISEL, com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.BuildingToolRefs.wand("gold")));
             AdvancementHolder diamond = node("tiers/diamond_standard", iron, com.simplebuilding.util.HammerRefs.item("diamond"), AdvancementType.TASK, "diamond_tool",
-                    any(ModItems.DIAMOND_CHISEL, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.DIAMOND_BUILDING_WAND));
+                    any(ModItems.DIAMOND_CHISEL, com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.BuildingToolRefs.wand("diamond")));
             node("tiers/nether_forged", diamond, ModItems.NETHERITE_CHISEL, AdvancementType.GOAL, "netherite_tool",
-                    any(ModItems.NETHERITE_CHISEL, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.NETHERITE_BUILDING_WAND));
+                    any(ModItems.NETHERITE_CHISEL, com.simplebuilding.util.HammerRefs.item("netherite"), com.simplebuilding.util.BuildingToolRefs.wand("netherite")));
         }
 
         private void storage(AdvancementHolder root) {
@@ -248,24 +248,24 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             AdvancementHolder cores = node("wand/core_values", building, ModItems.COPPER_CORE, AdvancementType.TASK, "core",
                     any(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,
                             ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE));
-            AdvancementHolder oneClick = feature("wand/one_click_wonder", cores, ModItems.COPPER_BUILDING_WAND, AdvancementType.TASK, ModTriggers.WAND_BUILD);
-            node("wand/wand_erful", oneClick, ModItems.NETHERITE_BUILDING_WAND, AdvancementType.GOAL, "netherite_wand",
-                    any(ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
-            counter("wand/master_mason", oneClick, ModItems.GOLD_BUILDING_WAND, AdvancementType.CHALLENGE, ModCounters.WAND_BLOCKS, 10_000);
+            AdvancementHolder oneClick = feature("wand/one_click_wonder", cores, com.simplebuilding.util.BuildingToolRefs.wand("copper"), AdvancementType.TASK, ModTriggers.WAND_BUILD);
+            node("wand/wand_erful", oneClick, com.simplebuilding.util.BuildingToolRefs.wand("netherite"), AdvancementType.GOAL, "netherite_wand",
+                    any(com.simplebuilding.util.BuildingToolRefs.wand("netherite"), com.simplebuilding.util.BuildingToolRefs.wand("enderite")));
+            counter("wand/master_mason", oneClick, com.simplebuilding.util.BuildingToolRefs.wand("gold"), AdvancementType.CHALLENGE, ModCounters.WAND_BLOCKS, 10_000);
             feature("gadgets/spin_doctor", building, com.simplebuilding.util.GadgetRefs.rotator(), AdvancementType.TASK, ModTriggers.ROTATE);
 
-            AdvancementHolder measure = feature("octant/measure_twice", building, ModItems.OCTANT, AdvancementType.TASK, ModTriggers.OCTANT_MARK);
-            AdvancementHolder coloured = node("octant/colour_coded", measure, ModItems.COLORED_OCTANT_ITEMS.get(DyeColor.LIGHT_BLUE),
-                    AdvancementType.TASK, "dyed_octant", any(ModItems.COLORED_OCTANT_ITEMS.values().toArray(new ItemLike[0])));
+            AdvancementHolder measure = feature("octant/measure_twice", building, com.simplebuilding.util.BuildingToolRefs.octant(), AdvancementType.TASK, ModTriggers.OCTANT_MARK);
+            AdvancementHolder coloured = node("octant/colour_coded", measure, com.simplebuilding.util.BuildingToolRefs.octant(DyeColor.LIGHT_BLUE),
+                    AdvancementType.TASK, "dyed_octant", any(com.simplebuilding.util.BuildingToolRefs.dyedOctants().toArray(new ItemLike[0])));
             Map<String, Criterion<?>> spectrum = new LinkedHashMap<>();
             for (DyeColor colour : DyeColor.values()) {
-                spectrum.put(colour.getSerializedName() + "_octant", any(ModItems.COLORED_OCTANT_ITEMS.get(colour)));
+                spectrum.put(colour.getSerializedName() + "_octant", any(com.simplebuilding.util.BuildingToolRefs.octant(colour)));
             }
-            node("octant/full_spectrum", coloured, ModItems.COLORED_OCTANT_ITEMS.get(DyeColor.MAGENTA), AdvancementType.GOAL,
+            node("octant/full_spectrum", coloured, com.simplebuilding.util.BuildingToolRefs.octant(DyeColor.MAGENTA), AdvancementType.GOAL,
                     spectrum, AdvancementRequirements.Strategy.AND);
-            AdvancementHolder scan = feature("blueprint/copy_that", measure, ModItems.BLUEPRINT, AdvancementType.TASK, ModTriggers.BLUEPRINT_SCAN);
+            AdvancementHolder scan = feature("blueprint/copy_that", measure, com.simplebuilding.util.BuildingToolRefs.blueprint(), AdvancementType.TASK, ModTriggers.BLUEPRINT_SCAN);
             feature("blueprint/carbon_copy", scan, Items.CARTOGRAPHY_TABLE, AdvancementType.TASK, ModTriggers.BLUEPRINT_COPY);
-            feature("blueprint/instant_architect", scan, ModItems.DIAMOND_BUILDING_WAND, AdvancementType.GOAL, ModTriggers.BLUEPRINT_BUILD);
+            feature("blueprint/instant_architect", scan, com.simplebuilding.util.BuildingToolRefs.wand("diamond"), AdvancementType.GOAL, ModTriggers.BLUEPRINT_BUILD);
         }
 
         private void decoration(AdvancementHolder building) {
@@ -382,8 +382,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             node("enderite/cutting_edge", template, ModItems.ENDERITE_PICKAXE, AdvancementType.GOAL, "enderite_tool",
                     any(ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE,
                             ModItems.ENDERITE_SHOVEL, ModItems.ENDERITE_HOE));
-            node("enderite/master_builder", template, ModItems.ENDERITE_BUILDING_WAND, AdvancementType.GOAL, "enderite_building_tool",
-                    any(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND));
+            node("enderite/master_builder", template, com.simplebuilding.util.BuildingToolRefs.wand("enderite"), AdvancementType.GOAL, "enderite_building_tool",
+                    any(ModItems.ENDERITE_CHISEL, com.simplebuilding.util.BuildingToolRefs.wand("enderite")));
             node("enderite/hammer_of_the_end", template, com.simplebuilding.util.HammerRefs.item("enderite"), AdvancementType.CHALLENGE,
                     "enderite_sledgehammer", any(com.simplebuilding.util.HammerRefs.item("enderite")));
             node("enderite/endless_pockets", template, com.simplebuilding.util.StorageRefs.item("enderite_bundle"), AdvancementType.GOAL, "enderite_storage",

@@ -96,11 +96,14 @@ public final class DevEnchantedTab {
 
     /** SimpleBuilding's own items and, on 26.3, Simple Gadgets' gadgets (they left SimpleBuilding, OW24-2) count as the mod's carriers. */
     private static boolean isFamilyItem(Identifier id) {
-        return Simplebuilding.MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.GADGETS_NAMESPACE.equals(id.getNamespace());
+        // b-btools07: on 26.3 also Simple Building Tools' wands and octants (they left SimpleBuilding, WF25-9).
+        return Simplebuilding.MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.GADGETS_NAMESPACE.equals(id.getNamespace())
+                || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(id.getNamespace());
     }
 
     private static boolean isMod(Holder<Enchantment> enchantment) {
-        return enchantment.unwrapKey().map(k -> Simplebuilding.MOD_ID.equals(k.identifier().getNamespace())).orElse(false);
+        return enchantment.unwrapKey().map(k -> Simplebuilding.MOD_ID.equals(k.identifier().getNamespace())
+                || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(k.identifier().getNamespace())).orElse(false);
     }
 
     /** Die Items des Tabs in Anzeigereihenfolge: erst die Mod-Traeger, dann die Vanilla-Traeger. */

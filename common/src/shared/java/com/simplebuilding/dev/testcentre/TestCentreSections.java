@@ -672,7 +672,7 @@ public final class TestCentreSections {
         c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("templates.blueprint", "Blueprints too")),
                 TcText.t("templates.blueprint.sub", "sneak + use:"), TcText.t("templates.blueprint.sub2", "floor, wall, ceiling"));
         x++;
-        ItemStack blueprint = new ItemStack(ModItems.BLUEPRINT);
+        ItemStack blueprint = new ItemStack(com.simplebuilding.util.BuildingToolRefs.blueprint());
         placedTemplate(c, x, 0, 3, AttachFace.FLOOR, Direction.SOUTH, blueprint);
         c.place(x, 2, wallZ, TcCanvas.WALL);
         placedTemplate(c, x, 2, wallZ - 1, AttachFace.WALL, Direction.NORTH, blueprint);
@@ -1268,9 +1268,9 @@ public final class TestCentreSections {
         TcCanvas c = new TcCanvas();
         int wallZ = 2;
         List<ItemStack> octants = new ArrayList<>();
-        octants.add(new ItemStack(ModItems.OCTANT));
+        octants.add(new ItemStack(com.simplebuilding.util.BuildingToolRefs.octant()));
         for (DyeColor color : DyeColor.values()) {
-            Item colored = ModItems.COLORED_OCTANT_ITEMS.get(color);
+            Item colored = com.simplebuilding.util.BuildingToolRefs.octant(color);
             if (colored != null) {
                 octants.add(new ItemStack(colored));
             }
@@ -1355,7 +1355,7 @@ public final class TestCentreSections {
         c.octantFrame(hx + 6, 1, pz + 4, Direction.UP, houseMin, houseMax);
         c.place(hx + 6, 0, pz + 5, TcCanvas.TRIM);
         c.blueprintFrame(hx + 6, 1, pz + 5, Direction.UP, houseMin, houseMax, new BlockPos(hx + 6, 0, pz + 2));
-        post(c, hx + 7, pz, new ItemStack(ModItems.BLUEPRINT), TcText.bold(TcText.t("planning.blueprint", "Blueprint")),
+        post(c, hx + 7, pz, new ItemStack(com.simplebuilding.util.BuildingToolRefs.blueprint()), TcText.bold(TcText.t("planning.blueprint", "Blueprint")),
                 TcText.t("planning.blueprint.sub", "mark house with octant"), TcText.t("planning.blueprint.sub2", "then cartography table"));
         return c;
     }

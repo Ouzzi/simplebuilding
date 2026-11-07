@@ -346,14 +346,14 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.VERSATILITY, 1),
                     book(ModEnchantments.VERSATILITY, 2),
                     book(ModEnchantments.BRIDGE, 1),
-                    id(ModItems.DIAMOND_BUILDING_WAND),
+                    id(com.simplebuilding.util.BuildingToolRefs.wand("diamond")),
                     id(com.simplebuilding.util.HammerRefs.item("diamond")),
                     id(ModItems.ENDERITE_APPLE),
                     id(ModItems.ENCHANTED_ENDERITE_APPLE))),
             Map.entry(BuiltInLootTables.ANCIENT_CITY, Set.of(
                     book(ModEnchantments.DEEP_POCKETS, 2),
                     book(ModEnchantments.RADIUS, 1),
-                    id(ModItems.OCTANT),
+                    id(com.simplebuilding.util.BuildingToolRefs.octant()),
                     id(com.simplebuilding.util.HammerRefs.item("diamond")),
                     id(com.simplebuilding.util.StorageRefs.item("quiver")),
                     id(ModItems.NETHERITE_APPLE),
@@ -370,14 +370,14 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.FUNNEL, 1),
                     book(ModEnchantments.BREAK_THROUGH, 1),
                     id(ModItems.GOLD_CORE),
-                    id(ModItems.OCTANT),
+                    id(com.simplebuilding.util.BuildingToolRefs.octant()),
                     id(ModItems.NETHERITE_NUGGET),
                     id(ModItems.NETHERITE_CARROT))),
             Map.entry(BuiltInLootTables.PILLAGER_OUTPOST, Set.of(
                     book(ModEnchantments.COLOR_PALETTE, 1),
                     book(ModEnchantments.COVER, 1),
                     book(ModEnchantments.LINEAR, 1),
-                    id(ModItems.OCTANT),
+                    id(com.simplebuilding.util.BuildingToolRefs.octant()),
                     id(com.simplebuilding.util.StorageRefs.item("quiver")),
                     id(ModItems.COPPER_CHISEL))),
             Map.entry(BuiltInLootTables.WOODLAND_MANSION, Set.of(
@@ -387,7 +387,7 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.VEIN_MINER, 4),
                     book(ModEnchantments.VEIN_MINER, 5),
                     book(ModEnchantments.DRAWER, 1),
-                    id(ModItems.IRON_BUILDING_WAND),
+                    id(com.simplebuilding.util.BuildingToolRefs.wand("iron")),
                     id(ModItems.IRON_CORE),
                     id(com.simplebuilding.util.StorageRefs.item("quiver")))),
             Map.entry(BuiltInLootTables.BURIED_TREASURE, Set.of(
@@ -589,6 +589,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleEnchanting boolean=true",
             "root.enableSimplePads boolean=true",
             "root.enableSimpleChisels boolean=true",
+            "root.enableSimpleBuildingtools boolean=true",
             // <submods:end expected>
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1235,6 +1236,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleEnchanting", "simpleenchanting"},
                 {"enableSimplePads", "simplepads"},
                 {"enableSimpleChisels", "simplechisels"},
+                {"enableSimpleBuildingtools", "simplebuildingtools"},
                 // <submods:end switches>
         };
         try {
@@ -1630,6 +1632,7 @@ public final class ConfigOptionTests {
      * blocks away is pulled, and the rotator cost is what one real turn takes off the charge.
      */
     public static void newToolOptionsChangeWhatTheToolsDo(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (McVersion.GADGET_REWORK) assertRunDBounds(helper);
         SimplebuildingConfig config = liveConfig(helper);
         double hunger = config.tools.wandHungerMultiplier;
@@ -1649,7 +1652,7 @@ public final class ConfigOptionTests {
         try {
             // --- tools.wandHungerMultiplier ---
             config.tools.buildingWandHungerCost = true;
-            net.minecraft.world.item.Item wand = ModItems.COPPER_BUILDING_WAND;
+            net.minecraft.world.item.Item wand = com.simplebuilding.util.BuildingToolRefs.wand("copper");
             long paid = com.simplebuilding.util.WandHunger.ALLOWANCE[0] + 1;
             float base = (float) com.simplebuilding.util.WandHunger.PER_BLOCK[0];
             config.tools.wandHungerMultiplier = 1.0;

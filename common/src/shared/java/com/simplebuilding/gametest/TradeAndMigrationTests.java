@@ -185,7 +185,7 @@ public final class TradeAndMigrationTests {
             TradeRow.of("librarian/3/emerald_building_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 3, 15, 0.2F),
             TradeRow.of("librarian/4/emerald_advanced_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 2, 25, 0.2F),
             TradeRow.of("librarian/5/emerald_master_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 1, 100, 0.2F),
-            TradeRow.of("mason/4/emerald_copper_building_wand", Items.EMERALD, 62, ModItems.COPPER_BUILDING_WAND, 1, 1, 20, 0.2F),
+            TradeRow.of("mason/4/emerald_copper_building_wand", Items.EMERALD, 62, com.simplebuilding.util.BuildingToolRefs.wand("copper"), 1, 1, 20, 0.2F),
             TradeRow.of("toolsmith/3/emerald_iron_chisel", Items.EMERALD, 6, ModItems.IRON_CHISEL, 1, 2, 10, 0.2F),
             TradeRow.of("toolsmith/3/emerald_copper_chisel", Items.EMERALD, 6, ModItems.COPPER_CHISEL, 1, 2, 10, 0.2F),
             TradeRow.of("toolsmith/3/emerald_gold_chisel", Items.EMERALD, 6, ModItems.GOLD_CHISEL, 1, 2, 10, 0.2F),
@@ -199,10 +199,10 @@ public final class TradeAndMigrationTests {
             TradeRow.of("wandering_trader/emerald_diamond_pebbles", Items.EMERALD, 5, ModItems.DIAMOND_PEBBLE, 3, 4, 5, 0.05F),
             TradeRow.of("wandering_trader/emerald_gold_core", Items.EMERALD, 48, ModItems.GOLD_CORE, 1, 1, 15, 0.1F),
             TradeRow.of("wandering_trader/emerald_diamond_core", Items.EMERALD, 64, ModItems.DIAMOND_CORE, 1, 1, 20, 0.1F),
-            TradeRow.of("wandering_trader/emerald_octant", Items.EMERALD, 10, ModItems.OCTANT, 1, 1, 15, 0.1F),
+            TradeRow.of("wandering_trader/emerald_octant", Items.EMERALD, 10, com.simplebuilding.util.BuildingToolRefs.octant(), 1, 1, 15, 0.1F),
             TradeRow.of("wandering_trader/emerald_reinforced_bundle", Items.EMERALD, 16, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), 1, 1, 15, 0.1F),
             TradeRow.of("wandering_trader/emerald_wand_book", Items.EMERALD, 40, Items.ENCHANTED_BOOK, 1, 1, 10, 0.2F),
-            TradeRow.of("wandering_trader/octant_emerald", ModItems.OCTANT, 1, Items.EMERALD, 8, 3, 5, 0.1F),
+            TradeRow.of("wandering_trader/octant_emerald", com.simplebuilding.util.BuildingToolRefs.octant(), 1, Items.EMERALD, 8, 3, 5, 0.1F),
             TradeRow.of("wandering_trader/reinforced_bundle_emerald", com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), 1, Items.EMERALD, 12, 1, 10, 0.1F));
 
     /** The ids of all 20 trade files, derived from {@link #TRADE_TABLE} so both cannot drift apart. */
@@ -565,9 +565,10 @@ public final class TradeAndMigrationTests {
      * (Forge) its SimpleBuilding link trades join the level-4 pool (~50 entries, 2 picks), and 64 rolls missed ~7% of runs.
      */
     public static void masonVillagerCanRollAModTrade(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         Villager villager = helper.spawnWithNoFreeWill(EntityTypes.VILLAGER, new BlockPos(1, 2, 1));
 
-        Set<Item> wanted = Set.of(ModItems.COPPER_BUILDING_WAND);
+        Set<Item> wanted = Set.of(com.simplebuilding.util.BuildingToolRefs.wand("copper"));
         Set<Item> seen = new LinkedHashSet<>();
         boolean rolledModTrade = false;
         int emptyRolls = 0;
@@ -616,8 +617,9 @@ public final class TradeAndMigrationTests {
      * pool intact on paper while no trader ever draws from it.
      */
     public static void wanderingTraderCanRollAModTrade(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         Set<Item> wanted = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
-                ModItems.DIAMOND_CORE, ModItems.DIAMOND_PEBBLE, ModItems.OCTANT, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
+                ModItems.DIAMOND_CORE, ModItems.DIAMOND_PEBBLE, com.simplebuilding.util.BuildingToolRefs.octant(), com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         Set<Item> seen = new LinkedHashSet<>();
         boolean rolledModTrade = false;
         int emptyRolls = 0;

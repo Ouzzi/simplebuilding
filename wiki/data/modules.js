@@ -29,7 +29,7 @@ window.WIKI_MODULES = [
       "simpleresonance",
       "simpleenchanting",
       "simplepads",
-      "simplechisels"
+      "simplebuildingtools"
     ],
     "optional": [
       "jei",
@@ -82,8 +82,8 @@ window.WIKI_MODULES = [
       "items": 503,
       "blocks": 260,
       "recipes": 798,
-      "config": 231,
-      "features": 47
+      "config": 232,
+      "features": 44
     }
   },
   {
@@ -157,7 +157,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 77
     },
-    "dataHash": "7b8da5858dcd"
+    "dataHash": "f01d56d2c3fe"
   },
   {
     "id": "simpleriding",
@@ -309,7 +309,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 79
     },
-    "dataHash": "9a2e84030489"
+    "dataHash": "9d70bc8235c0"
   },
   {
     "id": "simplesounds",
@@ -2106,9 +2106,9 @@ window.WIKI_MODULES = [
     "dataHash": "a6711562ef9d"
   },
   {
-    "id": "simplechisels",
-    "displayName": "Simple Chisels",
-    "description": "Seven chisels (Stone to Enderite) that move blocks one step along their family - stone to chiseled, bricks to cracked, planks to stairs to slabs - and back with sneak, with the enchantment Fast Chiseling, moved from SimpleBuilding (ids migrate). Other mods add their chains through data files.",
+    "id": "simplebuildingtools",
+    "displayName": "Simple Building Tools",
+    "description": "Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant in 17 colors and the Blueprint with editor, picture import and cartography table copies. Simple Ores adds the Enderite wand, SimpleBuilding the backpack supply and the placed octants.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -2120,21 +2120,23 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding",
       "simpleores",
-      "jei"
+      "simplestorage",
+      "simplehammers",
+      "simpleoctets"
     ],
     "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "Seven chisels from Stone to Enderite that turn a block into the next one of its family right where it stands - stone into chiseled stone bricks, planks into stairs - and back again when you sneak, and the enchantment Fast Chiseling.",
-      "de": "Sieben Meißel von Stein bis Enderit, die einen Block an Ort und Stelle in den nächsten seiner Familie verwandeln - Stein in gemeißelte Steinziegel, Bretter in Treppen - und beim Schleichen wieder zurück, und die Verzauberung Schnelles Meißeln."
+      "en": "Building tools: the Building Wand fills a whole face with the block you click (copper to Enderite, a creative one), the Octant marks two corners and a shape and measures them, and the Blueprint copies a build at the cartography table or from a code and builds it again with a wand.",
+      "de": "Bauwerkzeuge: der Baustab füllt eine ganze Fläche mit dem angeklickten Block (Kupfer bis Enderit, dazu ein Kreativ-Baustab), der Oktant markiert zwei Ecken und eine Form und misst sie aus, und die Blaupause kopiert ein Bauwerk am Kartentisch oder aus einem Code und baut es mit einem Baustab wieder auf."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 8,
-      "recipes": 10,
-      "features": 7
+      "items": 641,
+      "recipes": 28,
+      "features": 6
     },
-    "dataHash": "df9d6af83d77"
+    "dataHash": "a306a1e88db1"
   }
 ];

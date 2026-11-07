@@ -133,6 +133,7 @@ public final class ConfigOptions {
             "enableSimpleEnchanting",
             "enableSimplePads",
             "enableSimpleChisels",
+            "enableSimpleBuildingtools",
             // <submods:end restart>
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",

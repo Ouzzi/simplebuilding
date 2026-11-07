@@ -356,6 +356,7 @@ public final class ItemBehaviourTests {
      * sneak-use no longer clearing an unlocked selection.
      */
     public static void octantStoresBothCornersAndRespectsTheLock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         ItemStack octant = new ItemStack(ModItems.OCTANT);
         player.setItemInHand(InteractionHand.MAIN_HAND, octant);
@@ -492,6 +493,7 @@ public final class ItemBehaviourTests {
      * reaching into the backpack without Master Builder.
      */
     public static void buildingWandFillsThePlaneItIsPointedAt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         helper.assertFalse(player.getAbilities().instabuild,
                 "setup guard: the mock player still builds for free, so nothing below is paid for "

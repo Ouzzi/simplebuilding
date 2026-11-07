@@ -105,6 +105,7 @@ public class ModTags {
          */
         public static final Set<String> ENDERITE_NAMESPACES = Set.copyOf(java.util.List.of(
                 "simplechisels",
+                "simplebuildingtools",
                 "simplepads",
                 Simplebuilding.MOD_ID,
                 com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE,

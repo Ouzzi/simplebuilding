@@ -1,7 +1,5 @@
 package com.simplebuilding.util;
 
-import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.OctantItem;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.cauldron.CauldronInteraction;
@@ -34,7 +32,7 @@ public final class OctantCauldronWash {
         if (!world.isClientSide()) {
             // transmuteCopy uebernimmt alle geaenderten Komponenten (Ecken, Verzauberungen, Haltbarkeit, Name) -
             // ein neuer Oktant mit nur CUSTOM_DATA verlor beim Waschen Verzauberungen und Schaden.
-            ItemStack newStack = stack.transmuteCopy(ModItems.OCTANT, stack.getCount());
+            ItemStack newStack = stack.transmuteCopy(BuildingToolRefs.octant(), stack.getCount());
             player.setItemInHand(hand, newStack);
             player.awardStat(Stats.CLEAN_ARMOR);
             LayeredCauldronBlock.lowerFillLevel(state, world, pos);
@@ -53,16 +51,17 @@ public final class OctantCauldronWash {
 
     /** A dyed octant (the plain one has nothing to wash off); the wash and the hand hint ask this. */
     public static boolean isWashable(ItemStack stack) {
+        // b-btools07: by id, so the catalogue and the hand hint also know Simple Building Tools' octants on 26.3 (it washes them itself).
         Item item = stack.getItem();
-        return item instanceof OctantItem && item != ModItems.OCTANT;
+        return BuildingToolRefs.isOctant(item) && item != BuildingToolRefs.octant();
     }
 
     /** Die gefaerbten Oktanten in {@link DyeColor}-Reihenfolge - genau die, die gewaschen werden. */
     public static List<Item> washableOctants() {
         List<Item> out = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
-            Item coloredItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
-            if (coloredItem != null) {
+            Item coloredItem = BuildingToolRefs.octant(color);
+            if (coloredItem != null && coloredItem != net.minecraft.world.item.Items.AIR) {
                 out.add(coloredItem);
             }
         }

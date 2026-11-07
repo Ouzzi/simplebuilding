@@ -193,6 +193,7 @@ public final class InWorldExportTests {
      * plain one at a cauldron.
      */
     public static void jeiCatalogCoversEveryInWorldEntry(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         InWorldRecipeCatalog.Catalog catalog = InWorldRecipeCatalog.build();
         helper.assertTrue(catalog.problems().isEmpty(), "JEI catalog problems: " + catalog.problems());
         java.util.Map<String, InWorldRecipeCatalog.Entry> byId = new java.util.HashMap<>();

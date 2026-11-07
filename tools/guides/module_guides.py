@@ -268,6 +268,15 @@ MODULES = [
                 "Sieben Meißel von Stein bis Enderit, die einen Block an Ort und Stelle in den nächsten seiner Familie "
                 "verwandeln - Stein in gemeißelte Steinziegel, Bretter in Treppen - und beim Schleichen wieder zurück, und "
                 "die Verzauberung Schnelles Meißeln.")),
+    dict(module="simplebuildingtools", ns="simplebuildingtools", package="com.simplebuildingtools.guide", cls="BuildingToolsGuide",
+         kind="item", author="Simple Building Tools", recipe="minecraft:stick",
+         name=("Simple Building Tools Guide", "Simple-Building-Tools-Handbuch"),
+         intro=("Building tools: the Building Wand fills a whole face with the block you click (copper to Enderite, a creative one), "
+                "the Octant marks two corners and a shape and measures them, and the Blueprint copies a build at the cartography "
+                "table or from a code and builds it again with a wand.",
+                "Bauwerkzeuge: der Baustab füllt eine ganze Fläche mit dem angeklickten Block (Kupfer bis Enderit, dazu ein "
+                "Kreativ-Baustab), der Oktant markiert zwei Ecken und eine Form und misst sie aus, und die Blaupause kopiert ein "
+                "Bauwerk am Kartentisch oder aus einem Code und baut es mit einem Baustab wieder auf.")),
     dict(module="simplelights", ns="simplelights", package="com.simplelights.guide", cls="LightsGuide", kind="item",
          author="Simple Lights", recipe="minecraft:glowstone_dust",
          name=("Simple Lights Guide", "Simple-Lights-Handbuch"),
@@ -647,6 +656,7 @@ NOTE = ("Chapter \"%s\" of the Simple Modpack guide (SimpleLib): %d pages taken 
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:copper_nugget": ("copper nugget", "Kupferklumpen"),
     "minecraft:feather": ("feather", "Feder"),
+    "minecraft:stick": ("stick", "Stock"),
     "minecraft:stone_pressure_plate": ("stone pressure plate", "Steindruckplatte"),
     "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
     "minecraft:lapis_lazuli": ("lapis lazuli", "Lapislazuli"),

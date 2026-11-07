@@ -1302,6 +1302,7 @@ public final class SledgehammerTests {
 
     /** All four aimed quarters, both halves and each step use actual collision shapes. */
     public static void sledgehammerCornersSubtractOnlyTheAimedQuarter(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) { helper.succeed(); return; }
         var level = helper.getLevel();
         var pos = helper.absolutePos(CENTRE);
@@ -1555,6 +1556,7 @@ public final class SledgehammerTests {
      * {@code CopperPressurePlateBlock#transformWith} changes it - and the real click waxes.
      */
     public static void transformHintCoversCauldronWashAndCopperPlates(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) { helper.succeed(); return; }
         var level = helper.getLevel();
         var pos = helper.absolutePos(CENTRE);
@@ -1654,6 +1656,7 @@ public final class SledgehammerTests {
      * doubled time per block, or blocks of the selection being broken without paying for them.
      */
     public static void sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
         ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         BlockPos from = CENTRE.offset(-1, 0, -1);

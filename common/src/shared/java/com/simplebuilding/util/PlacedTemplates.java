@@ -5,7 +5,6 @@ import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BlueprintItem;
-import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.version.McVersion;
 import net.minecraft.core.BlockPos;
@@ -174,7 +173,7 @@ public final class PlacedTemplates {
 
     /** Blaupausen lassen sich genauso ablegen (Besitzer 2026-09-28), als eigener Block. */
     public static boolean isPlaceableBlueprint(ItemStack stack) {
-        return !stack.isEmpty() && stack.getItem() instanceof BlueprintItem;
+        return BuildingToolRefs.isBlueprint(stack); // b-btools07: by id (26.3: Simple Building Tools' blueprints)
     }
 
     /**
@@ -185,7 +184,7 @@ public final class PlacedTemplates {
      * ein und aus ({@link #toggleOctantOutline}).
      */
     public static boolean isPlaceableOctant(ItemStack stack) {
-        return !stack.isEmpty() && stack.getItem() instanceof OctantItem
+        return BuildingToolRefs.isOctant(stack) // b-btools07: by id (26.3: Simple Building Tools' octants)
                 && stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBooleanOr("Locked", false);
     }
 
@@ -266,6 +265,7 @@ public final class PlacedTemplates {
      */
     public static InteractionResult usePlacedBlueprint(Level level, BlockPos pos, Player player) {
         ItemStack stored = templateAt(level, pos);
+        // b-btools07: SimpleBuilding's editor knows only its own (26.2) blueprints; on 26.3 the placed blueprint is not edited in place (open).
         if (player.isSpectator() || !(stored.getItem() instanceof BlueprintItem)
                 || !opensPlacedBlueprint(player.getMainHandItem(), player.getOffhandItem())
                 || com.simplebuilding.config.ServerTuning.featureDenied(com.simplebuilding.config.ServerTuning.get().features.blueprint, player)) {
@@ -283,7 +283,7 @@ public final class PlacedTemplates {
 
     /** Liegt an {@code pos} ein abgelegter Oktant? */
     public static boolean isPlacedOctant(BlockGetter level, BlockPos pos) {
-        return templateAt(level, pos).getItem() instanceof OctantItem;
+        return BuildingToolRefs.isOctant(templateAt(level, pos));
     }
 
     /**

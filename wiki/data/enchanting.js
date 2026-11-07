@@ -1149,32 +1149,6 @@ window.WIKI_ENCHANTING = {
    "exclusive": []
   },
   {
-   "id": "simplebuilding:bridge",
-   "module": "simplebuilding",
-   "family": true,
-   "name": {
-    "en": "Bridge",
-    "de": "Brücke"
-   },
-   "desc": null,
-   "maxLevel": 1,
-   "weight": 2,
-   "minCost": {
-    "base": 15,
-    "per_level_above_first": 15
-   },
-   "maxCost": {
-    "base": 55,
-    "per_level_above_first": 15
-   },
-   "table": false,
-   "curse": false,
-   "treasure": false,
-   "exclusive": [
-    "simplebuilding:cover"
-   ]
-  },
-  {
    "id": "simplebuilding:color_palette",
    "module": "simplebuilding",
    "family": true,
@@ -1223,33 +1197,6 @@ window.WIKI_ENCHANTING = {
    "exclusive": []
   },
   {
-   "id": "simplebuilding:cover",
-   "module": "simplebuilding",
-   "family": true,
-   "name": {
-    "en": "Cover",
-    "de": "Abdeckung"
-   },
-   "desc": null,
-   "maxLevel": 1,
-   "weight": 2,
-   "minCost": {
-    "base": 15,
-    "per_level_above_first": 15
-   },
-   "maxCost": {
-    "base": 55,
-    "per_level_above_first": 15
-   },
-   "table": false,
-   "curse": false,
-   "treasure": false,
-   "exclusive": [
-    "simplebuilding:bridge",
-    "simplebuilding:linear"
-   ]
-  },
-  {
    "id": "simplebuilding:double_jump",
    "module": "simplebuilding",
    "family": true,
@@ -1269,6 +1216,30 @@ window.WIKI_ENCHANTING = {
     "per_level_above_first": 15
    },
    "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
+  },
+  {
+   "id": "simplebuilding:fast_chiseling",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Fast Chiseling",
+    "de": "Schnelles Meißeln"
+   },
+   "desc": null,
+   "maxLevel": 2,
+   "weight": 5,
+   "minCost": {
+    "base": 1,
+    "per_level_above_first": 10
+   },
+   "maxCost": {
+    "base": 20,
+    "per_level_above_first": 10
+   },
+   "table": true,
    "curse": false,
    "treasure": false,
    "exclusive": []
@@ -1300,32 +1271,6 @@ window.WIKI_ENCHANTING = {
     "minecraft:blast_protection",
     "minecraft:fire_protection",
     "minecraft:projectile_protection"
-   ]
-  },
-  {
-   "id": "simplebuilding:linear",
-   "module": "simplebuilding",
-   "family": true,
-   "name": {
-    "en": "Linear",
-    "de": "Linear"
-   },
-   "desc": null,
-   "maxLevel": 1,
-   "weight": 2,
-   "minCost": {
-    "base": 15,
-    "per_level_above_first": 15
-   },
-   "maxCost": {
-    "base": 55,
-    "per_level_above_first": 15
-   },
-   "table": false,
-   "curse": false,
-   "treasure": false,
-   "exclusive": [
-    "simplebuilding:cover"
    ]
   },
   {
@@ -1451,28 +1396,83 @@ window.WIKI_ENCHANTING = {
    "exclusive": []
   },
   {
-   "id": "simplechisels:fast_chiseling",
-   "module": "simplechisels",
+   "id": "simplebuildingtools:bridge",
+   "module": "simplebuildingtools",
    "family": true,
    "name": {
-    "en": "Fast Chiseling",
-    "de": "Schnelles Meißeln"
+    "en": "Bridge",
+    "de": "Brücke"
    },
    "desc": null,
-   "maxLevel": 2,
-   "weight": 5,
+   "maxLevel": 1,
+   "weight": 2,
    "minCost": {
-    "base": 1,
-    "per_level_above_first": 10
+    "base": 15,
+    "per_level_above_first": 15
    },
    "maxCost": {
-    "base": 20,
-    "per_level_above_first": 10
+    "base": 55,
+    "per_level_above_first": 15
    },
-   "table": true,
+   "table": false,
    "curse": false,
    "treasure": false,
-   "exclusive": []
+   "exclusive": [
+    "simplebuildingtools:cover"
+   ]
+  },
+  {
+   "id": "simplebuildingtools:cover",
+   "module": "simplebuildingtools",
+   "family": true,
+   "name": {
+    "en": "Cover",
+    "de": "Abdeckung"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 2,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 55,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "simplebuildingtools:bridge",
+    "simplebuildingtools:linear"
+   ]
+  },
+  {
+   "id": "simplebuildingtools:linear",
+   "module": "simplebuildingtools",
+   "family": true,
+   "name": {
+    "en": "Linear",
+    "de": "Linear"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 2,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 55,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "simplebuildingtools:cover"
+   ]
   },
   {
    "id": "simplefun:no_damage",
@@ -1838,8 +1838,8 @@ window.WIKI_ENCHANTING = {
   "minecraft:breach",
   "minecraft:lunge",
   "simplequalityoflife:thrift",
-  "simplebuilding:kinetic_protection",
-  "simplechisels:fast_chiseling"
+  "simplebuilding:fast_chiseling",
+  "simplebuilding:kinetic_protection"
  ],
  "items": [
   {
@@ -1889,8 +1889,8 @@ window.WIKI_ENCHANTING = {
     "minecraft:breach",
     "minecraft:lunge",
     "simplequalityoflife:thrift",
-    "simplebuilding:kinetic_protection",
-    "simplechisels:fast_chiseling"
+    "simplebuilding:fast_chiseling",
+    "simplebuilding:kinetic_protection"
    ],
    "family": []
   },
@@ -2064,54 +2064,70 @@ window.WIKI_ENCHANTING = {
    ]
   },
   {
-   "id": "simplebuilding:diamond_building_wand",
+   "id": "simplebuilding:color_brush",
+   "name": {
+    "en": "Color Brush",
+    "de": "Farbpinsel"
+   },
+   "enchantability": 10,
+   "assumed": true,
+   "icon": "assets/textures/item/color_brush.png",
+   "table": [],
+   "family": [
+    [
+     "simplebuilding:color_palette"
+    ]
+   ]
+  },
+  {
+   "id": "simplebuilding:diamond_chisel",
+   "name": {
+    "en": "Diamond Chisel",
+    "de": "Diamantmeißel"
+   },
+   "enchantability": 10,
+   "assumed": false,
+   "icon": "assets/textures/item/diamond_chisel.png",
+   "table": [
+    "minecraft:unbreaking",
+    "simplequalityoflife:thrift",
+    "simplebuilding:fast_chiseling"
+   ],
+   "family": [
+    [
+     "simplebuilding:constructors_touch",
+     "simplebuilding:fast_chiseling",
+     "simplebuilding:range",
+     "simplequalityoflife:thrift",
+     "simpletools:soulbound"
+    ]
+   ]
+  },
+  {
+   "id": "simplebuildingtools:diamond_building_wand",
    "name": {
     "en": "Diamond Building Wand",
     "de": "Diamant-Baustab"
    },
    "enchantability": 10,
-   "assumed": false,
-   "icon": "assets/textures/item/diamond_building_wand.png",
+   "assumed": true,
+   "icon": "assets/textures/simplebuildingtools/item/diamond_building_wand.png",
    "table": [
     "minecraft:unbreaking",
     "simplequalityoflife:thrift"
    ],
    "family": [
     [
-     "simplebuilding:bridge",
      "simplebuilding:color_palette",
      "simplebuilding:constructors_touch",
-     "simplebuilding:linear",
      "simplebuilding:master_builder",
+     "simplebuildingtools:bridge",
+     "simplebuildingtools:linear",
      "simplequalityoflife:thrift",
      "simpletools:soulbound"
     ],
     [
-     "simplebuilding:cover"
-    ]
-   ]
-  },
-  {
-   "id": "simplechisels:diamond_chisel",
-   "name": {
-    "en": "Diamond Chisel",
-    "de": "Diamantmeißel"
-   },
-   "enchantability": 10,
-   "assumed": true,
-   "icon": "assets/textures/simplechisels/item/diamond_chisel.png",
-   "table": [
-    "minecraft:unbreaking",
-    "simplequalityoflife:thrift",
-    "simplechisels:fast_chiseling"
-   ],
-   "family": [
-    [
-     "simplebuilding:constructors_touch",
-     "simplebuilding:range",
-     "simplechisels:fast_chiseling",
-     "simplequalityoflife:thrift",
-     "simpletools:soulbound"
+     "simplebuildingtools:cover"
     ]
    ]
   },

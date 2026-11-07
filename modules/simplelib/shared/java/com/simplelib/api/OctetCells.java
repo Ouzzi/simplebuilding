@@ -53,6 +53,27 @@ public final class OctetCells {
         return cell == null ? null : BASE_OF.get(cell);
     }
 
+    /**
+     * A mixed cell (several materials in a block entity) as a plain state a copy can keep, e.g. a blueprint scan (b-btools07):
+     * the octet mod hands in its rule, without one every state stays as it is.
+     */
+    public interface Portable {
+        net.minecraft.world.level.block.state.BlockState portable(net.minecraft.world.level.BlockGetter level,
+                net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state);
+    }
+
+    private static volatile Portable portable = (level, pos, state) -> state;
+
+    public static void registerPortable(Portable rule) {
+        portable = rule != null ? rule : (level, pos, state) -> state;
+    }
+
+    /** {@code state} at {@code pos} as a plain state (mixed octet cells as their most common material). */
+    public static net.minecraft.world.level.block.state.BlockState portable(net.minecraft.world.level.BlockGetter level,
+            net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        return portable.portable(level, pos, state);
+    }
+
     /** How many materials have octets (tests, info). */
     public static int size() {
         return BY_BASE.size();

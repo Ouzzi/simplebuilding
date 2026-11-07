@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "simplemoney:links/simplebuilding/copper_building_wand",
+      "id": "simplemoney:links/simplebuildingtools/copper_building_wand",
       "required": false
     },
     {

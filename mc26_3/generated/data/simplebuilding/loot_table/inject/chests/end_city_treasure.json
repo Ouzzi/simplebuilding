@@ -201,7 +201,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:bridge": 1
+                "simplebuildingtools:bridge": 1
               }
             }
           },
@@ -213,7 +213,7 @@
           "modifier": {
             "type": "minecraft:enchant_randomly"
           },
-          "name": "simplebuilding:diamond_building_wand",
+          "name": "simplebuildingtools:diamond_building_wand",
           "weight": 6
         },
         {

@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleores"
+      ]
+    }
+  ],
+  "type": "minecraft:smithing_transform",
+  "addition": "simpleores:enderite_ingot",
+  "base": "simplebuildingtools:netherite_building_wand",
+  "result": {
+    "id": "simplebuildingtools:enderite_building_wand"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

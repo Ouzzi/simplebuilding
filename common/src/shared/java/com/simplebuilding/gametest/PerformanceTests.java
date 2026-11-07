@@ -136,6 +136,7 @@ public final class PerformanceTests {
      * - fuer jede Form und Ausrichtung, auch bei ungerader Groesse.
      */
     public static void theCachedOctantSurfaceMatchesThePerFrameScanItReplaced(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         AABB[] sizes = {new AABB(0, 0, 0, 7, 5, 9), new AABB(-3, 60, 10, 9, 72, 22)};
         for (AABB bounds : sizes) {
             for (OctantItem.SelectionShape shape : OctantItem.SelectionShape.values()) {

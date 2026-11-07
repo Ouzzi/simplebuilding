@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "simplebuildingtools:octant",
+    "minecraft:blue_dye"
+  ],
+  "result": {
+    "id": "simplebuildingtools:octant_blue"
+  }
+}

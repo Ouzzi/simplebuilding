@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "minecraft:compass",
+    "G": "simplelib:gold_core",
+    "L": "minecraft:lead",
+    "N": "minecraft:gold_nugget",
+    "R": "minecraft:lightning_rod"
+  },
+  "pattern": [
+    " NR",
+    "NCN",
+    "GNL"
+  ],
+  "result": {
+    "id": "simplebuildingtools:octant"
+  }
+}

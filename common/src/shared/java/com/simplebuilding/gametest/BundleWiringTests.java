@@ -703,6 +703,7 @@ public final class BundleWiringTests {
      * owns those, with loose stacks as the material.
      */
     public static void buildingWandBuildsFromTheBundleAndPaysOnePiecePerBlock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         player.getAbilities().instabuild = false;
@@ -1009,6 +1010,7 @@ public final class BundleWiringTests {
      * enchantments at a different {@code supported_items} tag, or merging the two tags into one.
      */
     public static void containerEnchantmentsAcceptTheBundlesTheyAreMeantFor(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         // Split exactly the way ModEnchantments splits them, so the wand control below can tell the
         // two tags apart instead of only proving that both bundles are in "some" tag.
         List<ResourceKey<Enchantment>> bundleTagEnchantments = List.of(

@@ -38,9 +38,9 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> RADIUS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "radius")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> OVERRIDE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "override")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> STRIP_MINER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "strip_miner")); // final
-    public static final ResourceKey<Enchantment> COVER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "cover")); // final
-    public static final ResourceKey<Enchantment> BRIDGE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "bridge")); // final
-    public static final ResourceKey<Enchantment> LINEAR = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "linear")); // final
+    public static final ResourceKey<Enchantment> COVER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE, "cover")); // 26.3: Simple Building Tools' (b-btools07)
+    public static final ResourceKey<Enchantment> BRIDGE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE, "bridge")); // 26.3: Simple Building Tools' (b-btools07)
+    public static final ResourceKey<Enchantment> LINEAR = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE, "linear")); // 26.3: Simple Building Tools' (b-btools07)
     public static final ResourceKey<Enchantment> VEIN_MINER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "vein_miner")); // final
     public static final ResourceKey<Enchantment> KINETIC_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "kinetic_protection")); // final
     public static final ResourceKey<Enchantment> DRAWER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE, "drawer")); // 26.3: Simple Storage's (split stage 8c-1)
@@ -215,10 +215,16 @@ public class ModEnchantments {
                 EquipmentSlotGroup.MAINHAND
         )));
 
+        // 13.-15. b-btools07: on 26.3 Cover, Bridge and Linear are Simple Building Tools' (its own files); the keys carry its namespace,
+        // the bootstrap keeps them only so the other generated data (loot books) can name them (ModRegistryDataGenerator writes SB's only).
+        // 26.3: Simple Building Tools' item tag simplebuildingtools:building_wands (its files say so; DataIntegrity compares).
+        net.minecraft.tags.TagKey<net.minecraft.world.item.Item> wandTag = com.simplebuilding.version.McVersion.BTOOLS_IN_SB
+                ? ModTags.Items.BUILDING_WAND_ENCHANTABLE
+                : net.minecraft.tags.TagKey.create(Registries.ITEM, com.simplebuilding.util.BuildingToolRefs.id("building_wands"));
         // 13. COVER (Max Level 1, Treasure, Rare) [BUILDING_WAND]
         register(registerable, COVER, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
-                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+                items.getOrThrow(wandTag),
+                items.getOrThrow(wandTag),
                 2, // Weight (Rare)
                 1, // Max Level
                 Enchantment.dynamicCost(15, 15),
@@ -231,8 +237,8 @@ public class ModEnchantments {
 
         // 14. BRIDGE (Max Level 1, Treasure, Rare) [BUILDING_WAND]
         register(registerable, BRIDGE, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
-                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+                items.getOrThrow(wandTag),
+                items.getOrThrow(wandTag),
                 2, // Weight (Rare)
                 1, // Max Level
                 Enchantment.dynamicCost(15, 15),
@@ -245,8 +251,8 @@ public class ModEnchantments {
 
         // 15. LINEAR (Max Level 1, Treasure, Rare) [BUILDING_WAND]
         register(registerable, LINEAR, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
-                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+                items.getOrThrow(wandTag),
+                items.getOrThrow(wandTag),
                 2, // Weight (Rare)
                 1, // Max Level
                 Enchantment.dynamicCost(15, 15),

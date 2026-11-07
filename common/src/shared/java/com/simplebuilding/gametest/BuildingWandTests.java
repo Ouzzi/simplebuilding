@@ -181,6 +181,7 @@ public final class BuildingWandTests {
 
     /** Permissions and occupied cells are read when each ring runs, not cached at the click. */
     public static void plannerRechecksProtectionAndReplacementBetweenRings(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         resetSite(helper, SMALL_SITE);
         ItemStack wand = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0);
@@ -217,6 +218,7 @@ public final class BuildingWandTests {
     /** A side-face permission must receive that face; revoked build rights stop later rings. */
     @SuppressWarnings("removal")
     public static void plannerKeepsTheClickFaceAndRechecksBuildRights(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = new ServerPlayer(helper.getLevel().getServer(), helper.getLevel(),
                 new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "wand-face-test"),
                 net.minecraft.server.level.ClientInformation.createDefault()) {
@@ -248,6 +250,7 @@ public final class BuildingWandTests {
 
     /** Direct item states and block entity components must not become plain blueprint supply. */
     public static void plannerPreservesWaterloggingAndNamedContainers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         resetSite(helper, SMALL_SITE);
         helper.setBlock(ANCHOR.above(), Blocks.WATER);
@@ -339,6 +342,7 @@ public final class BuildingWandTests {
      * or naming a fixed slot in the {@code hurtAndBreak} call instead of the one the wand ticks in.
      */
     public static void offHandClickIsPassedOnAndTheWandStopsOutsideBothHands(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
 
         // --- 1. the off hand click is not the wand's business ---
@@ -463,6 +467,7 @@ public final class BuildingWandTests {
      * the clicked face.
      */
     public static void clickedFaceSetsThePlaneUntilAnAxisModeOverridesIt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
 
         // --- the one face axis no other wand test clicks: X, so the plane stands in Y/Z ---
@@ -522,6 +527,7 @@ public final class BuildingWandTests {
      * negative radius build more than the centre block.
      */
     public static void wandTierCapsTheRadiusSettingAndSizesThePlane(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
 
         List<BuildingWandItem> tiers = List.of(
@@ -634,6 +640,7 @@ public final class BuildingWandTests {
      * {@code preview == null && !instabuild} early return in {@code useOn}.
      */
     public static void materialSearchPrefersTheOffHandAndOnlyMasterBuilderReachesTheBackpack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         Set<BlockPos> plane = square(ANCHOR.above(), Direction.Axis.Y, 1);
 
@@ -734,6 +741,7 @@ public final class BuildingWandTests {
      * ticks in (portal, teleport, respawn) both switch it off on the next tick, placing nothing.
      */
     public static void wandStopsOnBrokenFaceOrOtherDimension(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, true);
         String[] tampered = {"Face", "Dim"};
         for (String key : tampered) {
@@ -802,6 +810,7 @@ public final class BuildingWandTests {
      * into the air branch for every wand and leg four would build out of the off hand.
      */
     public static void wandArmedWithoutMaterialSearchesAgainAndPaletteFallsBackToStone(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, true);
 
         // --- 1. material that turns up after the click is found ---
@@ -903,6 +912,7 @@ public final class BuildingWandTests {
      * {@code extra_inventory_items}.
      */
     public static void wandEnchantmentsOnlyStickToTheWandsInTheirItemTag(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         List<Item> taggedWands = List.of(
                 ModItems.COPPER_BUILDING_WAND,
                 ModItems.IRON_BUILDING_WAND,
@@ -978,6 +988,7 @@ public final class BuildingWandTests {
      * smithing file, a wrong result id, or a recipe file that stops loading at all.
      */
     public static void wandRecipesCraftTheLowerTiersAndForgeTheUpperOnes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerLevel level = helper.getLevel();
         RecipeManager recipes = level.getServer().getRecipeManager();
 
@@ -1058,6 +1069,7 @@ public final class BuildingWandTests {
      * the end city entry.
      */
     public static void ironWandDropsInTheMansionAndTheDiamondWandInTheEndCity(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         helper.assertTrue(Simplebuilding.getConfig().worldGen.enableLootTableChanges,
                 "worldGen.enableLootTableChanges is switched off for this run, so the mod adds no "
                         + "pools at all and nothing below could be found either way");
@@ -1109,6 +1121,7 @@ public final class BuildingWandTests {
      * after all, or a unit slip (points instead of exhaustion, saturation counted into the bar).
      */
     public static void wandHungerRatesFollowTheCalibratedTierTable(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         Item[] wands = {ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
                 ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND};
         helper.assertTrue(WandHunger.PER_BLOCK.length == HUNGER_PER_BLOCK.length,
@@ -1159,6 +1172,7 @@ public final class BuildingWandTests {
      * allowance billed, or the wrong tier's rate.
      */
     public static void survivalWandBuildsCostExhaustionOnlyPastTheAllowance(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, false);
         boolean original = Simplebuilding.getConfig().tools.buildingWandHungerCost;
         helper.runBeforeTestEnd(() -> Simplebuilding.getConfig().tools.buildingWandHungerCost = original);
@@ -1202,6 +1216,7 @@ public final class BuildingWandTests {
      * <p>What breaks it: a hook that ignores the option or the creative flag on either path.
      */
     public static void wandHungerCostSkipsCreativeAndTheSwitchedOffOption(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         boolean original = Simplebuilding.getConfig().tools.buildingWandHungerCost;
         helper.runBeforeTestEnd(() -> Simplebuilding.getConfig().tools.buildingWandHungerCost = original);
         try {

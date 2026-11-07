@@ -457,11 +457,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // BUILDING WANDS (Stick + Core + Material)
                 // =================================================================
+                // b-btools07: 26.3 Simple Building Tools ships the tool recipes itself (data/simplebuildingtools/recipe).
+                if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) {
                 createWandRecipe(ModItems.COPPER_BUILDING_WAND, ModItems.COPPER_CORE, Items.COPPER_INGOT);
                 createWandRecipe(ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, Items.IRON_INGOT);
                 createWandRecipe(ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, Items.GOLD_INGOT);
                 createWandRecipe(ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, Items.DIAMOND);
                 createSmithing(ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, RecipeCategory.TOOLS);
+                }
 
                 // =================================================================
                 // SLEDGEHAMMER
@@ -488,6 +491,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Besitzer 2026-09-29: statt der Waegeplatten Goldnuggets (leichte) und ein Goldkern (schwere).
                 // Besitzer 2026-09-29 (Lauf HH): Goldnuggets auch an Stelle der beiden Blitzableiter, die Leine
                 // nach unten rechts, oben rechts ein einzelner Blitzableiter; der Goldkern bleibt unten links.
+                if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { // b-btools07: 26.3 Simple Building Tools' files
                 shaped(RecipeCategory.TOOLS, ModItems.OCTANT)
                         .pattern(" NR")
                         .pattern("NCN")
@@ -511,6 +515,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .unlockedBy(getHasName(dyeItem), has(dyeItem))
                                 .save(output, getSimpleRecipeName(resultItem) + "_from_dye");
                     }
+                }
                 }
 
                 // =================================================================
@@ -1111,9 +1116,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Baustab: kein Barren-Preis - ein Baustab braucht einen Kern (Late-Game), also kostet das
                 // Aufwerten genau einen Kern der Zielstufe (Entscheidung des Besitzers, 2026-09-25).
+                if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { // b-btools07: 26.3 Simple Building Tools' files (with a SimpleBuilding condition)
                 createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, 1);
                 createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, 1);
                 createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, 1);
+                }
 
 
 
@@ -1178,7 +1185,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         Items.NETHERITE_SWORD, Items.NETHERITE_PICKAXE, Items.NETHERITE_AXE, Items.NETHERITE_SHOVEL, Items.NETHERITE_HOE, Items.NETHERITE_SPEAR,
                         Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE, Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS,
                         Items.NETHERITE_HORSE_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR,
-                        ModItems.NETHERITE_CORE, ModItems.NETHERITE_CHISEL, ModItems.NETHERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("netherite")
+                        ModItems.NETHERITE_CORE, ModItems.NETHERITE_CHISEL, com.simplebuilding.util.BuildingToolRefs.wand("netherite"), com.simplebuilding.util.HammerRefs.item("netherite")
                 );
                 // 26.3 (split stage 7): the Enderite sledgehammer recipe is Simple Hammers' (the last pair of both lists).
                 if (!com.simplebuilding.version.McVersion.HAMMERS_IN_SB) netheriteItems = netheriteItems.subList(0, netheriteItems.size() - 1);
@@ -1186,13 +1193,21 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         ModItems.ENDERITE_SWORD, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ENDERITE_SHOVEL, ModItems.ENDERITE_HOE, ModItems.ENDERITE_SPEAR,
                         ModItems.ENDERITE_HELMET, ModItems.ENDERITE_CHESTPLATE, ModItems.ENDERITE_LEGGINGS, ModItems.ENDERITE_BOOTS,
                         ModItems.ENDERITE_HORSE_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR,
-                        ModItems.ENDERITE_CORE, ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite")
+                        ModItems.ENDERITE_CORE, ModItems.ENDERITE_CHISEL, com.simplebuilding.util.BuildingToolRefs.wand("enderite"), com.simplebuilding.util.HammerRefs.item("enderite")
                 );
                 if (!com.simplebuilding.version.McVersion.HAMMERS_IN_SB) enderiteItems = enderiteItems.subList(0, enderiteItems.size() - 1);
                 // 26.3 (WE25-7): the Enderite chisel recipe is Simple Chisels' (the same index in both lists).
                 if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
                     netheriteItems = netheriteItems.stream().filter(item -> item != ModItems.NETHERITE_CHISEL).toList();
                     enderiteItems = enderiteItems.stream().filter(item -> item != ModItems.ENDERITE_CHISEL).toList();
+                }
+                // b-btools07: the Enderite wand recipe is Simple Building Tools' on 26.3 (same position in both lists).
+                if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB && netheriteItems.indexOf(com.simplebuilding.util.BuildingToolRefs.wand("netherite")) >= 0) {
+                    int wand = netheriteItems.indexOf(com.simplebuilding.util.BuildingToolRefs.wand("netherite"));
+                    netheriteItems = new java.util.ArrayList<>(netheriteItems);
+                    enderiteItems = new java.util.ArrayList<>(enderiteItems);
+                    netheriteItems.remove(wand);
+                    enderiteItems.remove(wand);
                 }
 
                 for (int i = 0; i < netheriteItems.size(); i++) {
@@ -1311,7 +1326,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // --- BLAUPAUSE ---
                 // Formlos 1 Enderquarz + 1 Papier + 1 Leuchttintenbeutel -> 1 leere Blaupause (spaet, aber leicht;
                 // Besitzer 2026-09-29: Leuchttinte statt Tinte).
-                shapeless(RecipeCategory.TOOLS, ModItems.BLUEPRINT)
+                if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) shapeless(RecipeCategory.TOOLS, ModItems.BLUEPRINT) // b-btools07: 26.3 Simple Building Tools' file
                         .requires(ModItems.ENDER_QUARTZ)
                         .requires(Items.PAPER)
                         .requires(Items.GLOW_INK_SAC)

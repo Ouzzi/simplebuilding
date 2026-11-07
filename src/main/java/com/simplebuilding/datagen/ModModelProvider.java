@@ -778,11 +778,14 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
 
         // --- 1. RANGEFINDER (Generated / Flach) ---
+        // b-btools07: on 26.3 octants, blueprints and wands bring their own item models (Simple Building Tools).
+        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) {
         itemModelGenerator.generateFlatItem(ModItems.OCTANT, ModelTemplates.FLAT_ITEM);
         generateBlueprint(itemModelGenerator);
         for (DyeColor color : DyeColor.values()) {
             Item item = ModItems.COLORED_OCTANT_ITEMS.get(color);
             if (item != null) itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
+        }
         }
 
         // --- 2. CHISELS --- (26.3, WE25-7: Simple Chisels' models; no spatulas there)
@@ -813,6 +816,7 @@ public class ModModelProvider extends FabricModelProvider {
         }
 
         // --- WANDS ---
+        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) {
         itemModelGenerator.generateFlatItem(ModItems.COPPER_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.IRON_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLD_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -820,6 +824,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
         itemModelGenerator.generateFlatItem(ModItems.CREATIVE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM); // Queue N29
+        }
 
         // --- SLEDGEHAMMERS --- (26.3: Simple Hammers' own item models, split stage 7)
         if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {

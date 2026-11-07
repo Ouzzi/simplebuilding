@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "com.simplebuildingtools.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "AbstractContainerMenuMixin",
+    "CartographyTableMenuMixin",
+    "CauldronDispatcherAccessor"
+  ],
+  "client": [
+    "client.CartographyTableScreenMixin",
+    "client.GuiGraphicsExtractorAccessor",
+    "client.MouseMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

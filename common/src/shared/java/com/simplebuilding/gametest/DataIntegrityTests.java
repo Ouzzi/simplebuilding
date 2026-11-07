@@ -238,6 +238,10 @@ public final class DataIntegrityTests {
     /** Experience ores (owner 2026-10-01): mostly nothing, rarely a Sage Orb; Silk Touch drops the ore. */
     private static final Set<String> EXPERIENCE_ORES = Set.of("sage_ore", "deepslate_sage_ore");
 
+    /** b-btools07: on 26.3 Cover, Bridge and Linear are Simple Building Tools' and take its wand tag. */
+    private static final net.minecraft.tags.TagKey<Item> WAND_TAG = com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? ModTags.Items.BUILDING_WAND_ENCHANTABLE
+            : net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, com.simplebuilding.util.BuildingToolRefs.id("building_wands"));
+
     /**
      * The item tag each mod enchantment's {@code supported_items} has to point at - the single
      * argument in {@code ModEnchantments} that decides what a player may put it on.
@@ -247,6 +251,7 @@ public final class DataIntegrityTests {
      * A new enchantment has to be added here, and {@link #modEnchantmentsArePresentInTheDatapackRegistry}
      * fails until it is.
      */
+
     private static final Map<ResourceKey<Enchantment>, TagKey<Item>> SUPPORTED_ITEM_TAGS = Map.ofEntries(
             Map.entry(ModEnchantments.FAST_CHISELING, McVersion.CHISELS_IN_SB ? ModTags.Items.CHISEL_TOOLS // WE25-7: 26.3 Simple Chisels' tag
                     : net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, com.simplebuilding.util.ChiselRefs.id("chisels"))),
@@ -260,9 +265,9 @@ public final class DataIntegrityTests {
             Map.entry(ModEnchantments.BREAK_THROUGH, ModTags.Items.HAMMER_ENCHANTMENT_ITEMS),
             Map.entry(ModEnchantments.RADIUS, ModTags.Items.RADIUS_ENCHANTMENT_ITEMS),
             Map.entry(ModEnchantments.OVERRIDE, ModTags.Items.HAMMER_ENCHANTMENT_ITEMS),
-            Map.entry(ModEnchantments.COVER, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
-            Map.entry(ModEnchantments.BRIDGE, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
-            Map.entry(ModEnchantments.LINEAR, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+            Map.entry(ModEnchantments.COVER, WAND_TAG),
+            Map.entry(ModEnchantments.BRIDGE, WAND_TAG),
+            Map.entry(ModEnchantments.LINEAR, WAND_TAG),
             Map.entry(ModEnchantments.VEIN_MINER, ModTags.Items.VEINMINE_ENCHANTABLE),
             Map.entry(ModEnchantments.STRIP_MINER, ItemTags.PICKAXES),
             Map.entry(ModEnchantments.DOUBLE_JUMP, ItemTags.FOOT_ARMOR),
@@ -403,8 +408,8 @@ public final class DataIntegrityTests {
             }
         }
 
-        // The colored octants are registered inside a DyeColor loop, so they are easy to lose.
-        for (DyeColor color : DyeColor.values()) {
+        // The colored octants are registered inside a DyeColor loop, so they are easy to lose (26.3: Simple Building Tools').
+        for (DyeColor color : com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? DyeColor.values() : new DyeColor[0]) {
             Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, "octant_" + color.getName());
             OctantItem expected = ModItems.COLORED_OCTANT_ITEMS.get(color);
             if (expected == null) {
@@ -1508,7 +1513,7 @@ public final class DataIntegrityTests {
                 com.simplebuilding.util.StorageRefs.item("enderite_bundle"),
                 com.simplebuilding.util.StorageRefs.item("enderite_quiver"),
                 com.simplebuilding.util.HammerRefs.item("enderite"),
-                ModItems.ENDERITE_BUILDING_WAND,
+                com.simplebuilding.util.BuildingToolRefs.wand("enderite"),
                 ModItems.ENDERITE_UPGRADE_TEMPLATE,
                 ModItems.ENCHANTED_ENDERITE_APPLE,
                 ModItems.ENDERITE_HORSE_ARMOR,
@@ -2348,9 +2353,11 @@ public final class DataIntegrityTests {
                 ModItems.DIAMOND_CHISEL}, false, 2);
         addLadder(ladder, new Item[]{com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
                 com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond")}, false, 22);
+        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { // b-btools07: 26.3 Simple Building Tools' recipes (its tests)
         ladder.put(new Item[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE}, 1);
         ladder.put(new Item[]{ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE}, 1);
         ladder.put(new Item[]{ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE}, 1);
+        }
 
         Set<Identifier> priced = new HashSet<>();
         for (Map.Entry<Item[], Integer> rung : ladder.entrySet()) {
@@ -2391,7 +2398,8 @@ public final class DataIntegrityTests {
             }
         }
 
-        helper.assertValueEqual(priced.size(), 34, "upgrade rungs checked (pickaxe 5, axe 5, sword 5, hoe 5, shovel 5, chisel 3, sledgehammer 3, wand 3)");
+        // b-btools07: on 26.3 the three wand rungs are Simple Building Tools' recipes (its tests).
+        helper.assertValueEqual(priced.size(), com.simplebuilding.version.McVersion.BTOOLS_IN_SB ? 34 : 31, "upgrade rungs checked (pickaxe 5, axe 5, sword 5, hoe 5, shovel 5, chisel 3, sledgehammer 3, wand 3 on 26.2)");
         helper.assertTrue(problems.isEmpty(), "basic upgrade template costs: " + problems);
         helper.succeed();
     }
@@ -2893,8 +2901,12 @@ public final class DataIntegrityTests {
         }
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
                 ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"),
-                ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, com.simplebuilding.util.GadgetRefs.rotator(), ModItems.BLUEPRINT,
-                ModItems.OCTANT, ModItems.ENDERITE_BUILDING_WAND));
+                ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.BuildingToolRefs.blueprint(),
+                com.simplebuilding.util.BuildingToolRefs.octant(), com.simplebuilding.util.BuildingToolRefs.wand("enderite")));
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { // b-btools07: the tools stand in Simple Building Tools' own tab on 26.3
+            pinned.put(ModItemGroupsContent.Tab.TOOLS, pinned.get(ModItemGroupsContent.Tab.TOOLS).stream()
+                    .filter(i -> !com.simplebuilding.util.BuildingToolRefs.isOctant(i) && !com.simplebuilding.util.BuildingToolRefs.isBlueprint(i) && !com.simplebuilding.util.BuildingToolRefs.isWand(i)).toList());
+        }
         // Waffen und Ruestung (Besitzer 2026-10-02: wie in Vanilla getrennt von den Werkzeugen).
         pinned.put(ModItemGroupsContent.Tab.COMBAT, List.of(
                 ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
@@ -2927,7 +2939,9 @@ public final class DataIntegrityTests {
                         // split stage 8c-1: and of Simple Storage's three (Drawer, Deep Pockets, Funnel)
                         || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())
                         // WE25-7: and of Simple Chisels' Fast Chiseling
-                        || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
+                        || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(h.key().identifier().getNamespace())
+                        // b-btools07: and of Simple Building Tools' Cover, Bridge and Linear
+                        || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         Map<ModItemGroupsContent.Tab, Integer> expectedBooks = new LinkedHashMap<>();
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             expectedBooks.put(tab, tab == ModItemGroupsContent.Tab.TOOLS ? modEnchantments : 0);
@@ -3687,9 +3701,9 @@ public final class DataIntegrityTests {
                 // Baustaebe, Luecke, Bauplanung (Blaupause, Kartografentisch) - die Bauplanung laeuft
                 // nach einer Luecke in der Zeile der Baustaebe weiter (Row#besides).
                 CreativeTabLayout.Row.of("building_wands",
-                        ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
-                        ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND,
-                        ModItems.CREATIVE_BUILDING_WAND),
+                        com.simplebuilding.util.BuildingToolRefs.wand("copper"), com.simplebuilding.util.BuildingToolRefs.wand("iron"), com.simplebuilding.util.BuildingToolRefs.wand("gold"),
+                        com.simplebuilding.util.BuildingToolRefs.wand("diamond"), com.simplebuilding.util.BuildingToolRefs.wand("netherite"), com.simplebuilding.util.BuildingToolRefs.wand("enderite"),
+                        com.simplebuilding.util.BuildingToolRefs.wand("creative")),
                 ModItemGroupsContent.buildingPlanningRow(),
                 CreativeTabLayout.Row.of("sledgehammers",
                         com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
@@ -3715,11 +3729,11 @@ public final class DataIntegrityTests {
         expected.add(CreativeTabLayout.Row.of("gadgets",
                 Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.util.GadgetRefs.echo(),
                 com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.rod(),
-                ModItems.OCTANT));
+                com.simplebuilding.util.BuildingToolRefs.octant()));
         List<ItemStack> colored = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
-            Item coloredItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
-            if (coloredItem != null) {
+            Item coloredItem = com.simplebuilding.util.BuildingToolRefs.octant(color);
+            if (coloredItem != null && coloredItem != Items.AIR) {
                 colored.add(new ItemStack(coloredItem));
             }
         }
@@ -3739,7 +3753,9 @@ public final class DataIntegrityTests {
                         // split stage 8c-1: and of Simple Storage's three (Drawer, Deep Pockets, Funnel)
                         || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(h.key().identifier().getNamespace())
                         // WE25-7: and of Simple Chisels' Fast Chiseling
-                        || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
+                        || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(h.key().identifier().getNamespace())
+                        // b-btools07: and of Simple Building Tools' Cover, Bridge and Linear
+                        || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         boolean firstShelf = true;
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new ArrayList<>();
@@ -3984,10 +4000,10 @@ public final class DataIntegrityTests {
         }, helper.getLevel().registryAccess());
         helper.assertTrue(!byItem.isEmpty(), "the dev tab offered nothing, so none of the checks below could fail");
 
-        List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite"),
+        List<Item> present = List.of(ModItems.ENDERITE_CHISEL, com.simplebuilding.util.BuildingToolRefs.wand("enderite"), com.simplebuilding.util.HammerRefs.item("enderite"),
                 com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), com.simplebuilding.util.StorageRefs.backpack("enderite"), ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
-                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.gauge(),
+                com.simplebuilding.util.BuildingToolRefs.octant(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.gauge(),
                 Items.STICK);
         for (Item item : present) {
             if (!byItem.containsKey(item)) {
@@ -3997,8 +4013,8 @@ public final class DataIntegrityTests {
         List<Item> absent = new ArrayList<>(List.of(
                 ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                 ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL,
-                ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
-                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND,
+                com.simplebuilding.util.BuildingToolRefs.wand("copper"), com.simplebuilding.util.BuildingToolRefs.wand("iron"), com.simplebuilding.util.BuildingToolRefs.wand("gold"),
+                com.simplebuilding.util.BuildingToolRefs.wand("diamond"), com.simplebuilding.util.BuildingToolRefs.wand("netherite"),
                 com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
                 com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"),
                 com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"),
@@ -4007,7 +4023,7 @@ public final class DataIntegrityTests {
                 Items.NETHERITE_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_BOOTS, Items.LEATHER_BOOTS,
                 Items.NETHERITE_SPEAR, Items.SHEARS, ModItems.ENDERITE_INGOT, ModItems.CREATIVE_SPACER, Items.ENCHANTED_BOOK,
                 Items.SHULKER_BOX, com.simplebuilding.util.StorageRefs.shulkerBox("enderite")));
-        absent.addAll(ModItems.COLORED_OCTANT_ITEMS.values());
+        absent.addAll(com.simplebuilding.util.BuildingToolRefs.dyedOctants());
         for (Item item : absent) {
             if (byItem.containsKey(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is in the dev tab, but only the best tier of a family belongs there");
@@ -4069,7 +4085,7 @@ public final class DataIntegrityTests {
                 "simplebuilding:double_jump"));
         anchors.put(ModItems.ENDERITE_PICKAXE, List.of("minecraft:silk_touch", "minecraft:fortune",
                 "simplebuilding:vein_miner", "simplebuilding:strip_miner"));
-        anchors.put(ModItems.ENDERITE_BUILDING_WAND, List.of("simplebuilding:cover", "simplebuilding:bridge"));
+        anchors.put(com.simplebuilding.util.BuildingToolRefs.wand("enderite"), List.of(McVersion.BTOOLS_NAMESPACE + ":cover", McVersion.BTOOLS_NAMESPACE + ":bridge"));
         anchors.forEach((item, names) -> {
             Set<String> offered = offeredPerItem.getOrDefault(item, Set.of());
             for (String name : names) {
@@ -4683,6 +4699,7 @@ public final class DataIntegrityTests {
             if (!(MOD_ID.equals(key.identifier().getNamespace()) || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(key.identifier().getNamespace())
                     || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(key.identifier().getNamespace())
                     || com.simplebuilding.version.McVersion.CHISELS_NAMESPACE.equals(key.identifier().getNamespace()))
+                    || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(key.identifier().getNamespace()))
                     || enchantments.get(key).isEmpty()) {
                 problems.add(key.identifier() + " is not a mod enchantment of the registry");
             }

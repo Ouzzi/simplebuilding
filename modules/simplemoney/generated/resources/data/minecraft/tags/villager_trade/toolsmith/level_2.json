@@ -2,11 +2,11 @@
   "replace": false,
   "values": [
     {
-      "id": "simplemoney:links/simplebuilding/iron_building_wand",
+      "id": "simplemoney:links/simplebuilding/magnet",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/magnet",
+      "id": "simplemoney:links/simplebuildingtools/iron_building_wand",
       "required": false
     },
     {

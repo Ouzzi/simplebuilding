@@ -237,6 +237,7 @@ public final class WandEnchantmentTests {
      * the inventory instead of placing straight out of it.
      */
     public static void masterBuilderOpensTheBackpackAndTheBundlesInsideItToTheWand(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
 
         // --- 1. the off hand still comes first ---
@@ -361,6 +362,7 @@ public final class WandEnchantmentTests {
      * any change that makes the preview and the placement disagree about what goes where.
      */
     public static void masterBuilderMovesThePreviewSourcesTheSameWayItMovesThePlacement(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper);
         ServerLevel level = helper.getLevel();
         BlockPos origin = helper.absolutePos(ANCHOR);
@@ -670,6 +672,7 @@ public final class WandEnchantmentTests {
      * enough to swallow a plain vanilla pickaxe.
      */
     public static void theBuildingEnchantmentsReachEveryToolWhoseCodeReadsThem(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         Enchantment fastChiseling = enchantment(helper, ModEnchantments.FAST_CHISELING).value();
         Enchantment constructorsTouch = enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH).value();
 

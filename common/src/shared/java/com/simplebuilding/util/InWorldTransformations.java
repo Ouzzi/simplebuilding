@@ -316,7 +316,7 @@ public final class InWorldTransformations {
         JsonObject o = new JsonObject();
         o.add("octants", octants);
         o.addProperty("cauldron", id(Items.CAULDRON));
-        o.addProperty("result", id(ModItems.OCTANT));
+        o.addProperty("result", id(com.simplebuilding.util.BuildingToolRefs.octant()));
         o.addProperty("waterLevels", OctantCauldronWash.WATER_LEVELS);
         return o;
     }

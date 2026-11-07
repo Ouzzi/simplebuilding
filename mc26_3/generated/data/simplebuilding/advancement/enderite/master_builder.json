@@ -7,7 +7,7 @@
           {
             "items": [
               "simplechisels:enderite_chisel",
-              "simplebuilding:enderite_building_wand"
+              "simplebuildingtools:enderite_building_wand"
             ]
           }
         ]
@@ -21,7 +21,7 @@
     },
     "frame": "goal",
     "icon": {
-      "id": "simplebuilding:enderite_building_wand"
+      "id": "simplebuildingtools:enderite_building_wand"
     },
     "title": {
       "translate": "advancements.simplebuilding.enderite.master_builder.title"

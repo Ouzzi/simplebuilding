@@ -198,12 +198,13 @@ public class BlockHighlightRenderer {
             java.util.UUID self = client.player.getUUID();
             for (PlacedTemplateBlockEntity be : List.copyOf(PlacedTemplateBlockEntity.CLIENT_LOADED)) {
                 if (be.isRemoved() || be.getLevel() != client.level || !be.showsOutlineTo(self)
-                        || !(be.getTemplate().getItem() instanceof OctantItem octant)) {
+                        || !com.simplebuilding.util.BuildingToolRefs.isOctant(be.getTemplate())) {
                     continue;
                 }
                 shown++;
                 drawOctantHighlights(collector, matrices, be.getTemplate(), true);
-                drawPlacedOctantGlow(collector, matrices, be, getRenderColors(octant.getColor()));
+                // b-btools07: colour by id (26.3: Simple Building Tools' octants lie here as well).
+                drawPlacedOctantGlow(collector, matrices, be, getRenderColors(com.simplebuilding.util.BuildingToolRefs.octantColor(be.getTemplate().getItem())));
             }
         }
         placedOctantsShown = shown;
@@ -264,8 +265,7 @@ public class BlockHighlightRenderer {
         boolean showFill = (isInverted ^ hasConstructorsTouch) || fullFigure;
         float baseAlpha = Math.max(0, Math.min(100, opacityPercent)) / 100.0f;
 
-        OctantItem octant = (OctantItem) stack.getItem();
-        RenderColors colors = getRenderColors(octant.getColor());
+        RenderColors colors = getRenderColors(com.simplebuilding.util.BuildingToolRefs.octantColor(stack.getItem()));
 
         RecordedGeometry lines = new RecordedGeometry(true);
         RecordedGeometry fill = new RecordedGeometry(false);

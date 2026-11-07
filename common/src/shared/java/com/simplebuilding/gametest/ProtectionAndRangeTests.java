@@ -282,6 +282,7 @@ public final class ProtectionAndRangeTests {
      * tools, for the sledgehammer, and for the plain octant plus all sixteen dyed ones.
      */
     public static void rangeAddsBlockInteractionReachInTheMainHandOnly(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         // Setup guard: the loop below goes up to RANGE_MAX_LEVEL and ItemStack#enchant does not
         // clamp, so a shrunken max level has to be visible here rather than in the numbers.
         helper.assertValueEqual(enchantment(helper, ModEnchantments.RANGE).value().getMaxLevel(),

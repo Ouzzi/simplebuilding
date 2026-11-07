@@ -103,6 +103,7 @@ public final class ModpackTests {
      * wand's placement loop, or the {@code ModStats.award} next to it.
      */
     public static void buildingWandSkipsCellsTheLoaderEventsRefuseAndCountsItsBlocks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 5.0, 7.5));
         clearRoom(helper);
         BlockPos anchor = new BlockPos(3, 1, 3);
@@ -157,6 +158,7 @@ public final class ModpackTests {
      * <p>What breaks it: dropping {@code BuildPermissions#mayPlace} from {@code Planner#run}.
      */
     public static void octantFillSkipsCellsTheLoaderEventsRefuse(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { helper.succeed(); return; } // b-btools07: 26.3 in Simple Building Tools' tests
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 5.0, 7.5));
         clearRoom(helper);
         BlockPos anchor = new BlockPos(6, 1, 6);

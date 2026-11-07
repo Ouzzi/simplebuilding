@@ -68,8 +68,8 @@ public final class TestCentreKits {
         for (TcOp op : ops) {
             switch (op) {
                 case TcOp.Frame frame -> shown.add(frame.stack());
-                case TcOp.OctantFrame frame -> shown.add(new ItemStack(ModItems.OCTANT));
-                case TcOp.BlueprintFrame frame -> shown.add(new ItemStack(ModItems.BLUEPRINT));
+                case TcOp.OctantFrame frame -> shown.add(new ItemStack(com.simplebuilding.util.BuildingToolRefs.octant()));
+                case TcOp.BlueprintFrame frame -> shown.add(new ItemStack(com.simplebuilding.util.BuildingToolRefs.blueprint()));
                 case TcOp.Stand stand -> {
                     shown.addAll(stand.gear());
                     if (stand.dummy()) {
@@ -182,7 +182,7 @@ public final class TestCentreKits {
             case "blocks" -> main = top(ctx, "building_wands");
             case "planning" -> {
                 main = top(ctx, "building_wands");
-                off = new ItemStack(ModItems.OCTANT);
+                off = new ItemStack(com.simplebuilding.util.BuildingToolRefs.octant());
             }
             case "ores" -> main = new ItemStack(ModItems.ORE_DETECTOR);
             case "mining" -> main = TestCentreSections.toolWith(ctx, ModEnchantments.VERSATILITY);

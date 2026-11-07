@@ -219,7 +219,7 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.VERSATILITY, 2, enchantments, 3))
                     // Bruecke: die End-Verzauberung des Baustabs (Besitzer 2026-09-28), nur hier
                     .add(enchantedBook(ModEnchantments.BRIDGE, 1, enchantments, 4))
-                    .add(LootItem.lootTableItem(ModItems.DIAMOND_BUILDING_WAND).setWeight(6).apply(EnchantRandomlyFunction.randomEnchantment()))
+                    .add(LootItem.lootTableItem(com.simplebuilding.util.BuildingToolRefs.wand("diamond")).setWeight(6).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(LootItem.lootTableItem(com.simplebuilding.util.HammerRefs.item("diamond")).setWeight(8).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(ModItems.ENDERITE_APPLE, 3))
                     .add(item(ModItems.ENCHANTED_ENDERITE_APPLE, 1))
@@ -233,7 +233,7 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.DEEP_POCKETS, 2, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.RADIUS, 1, enchantments, 4))
                     // Oktant seltener (Besitzer 2026-09-29): Gewicht 5 -> 2, die 3 gehen an Leer (25 -> 28).
-                    .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(2).apply(EnchantRandomlyFunction.randomEnchantment()))
+                    .add(LootItem.lootTableItem(com.simplebuilding.util.BuildingToolRefs.octant()).setWeight(2).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(com.simplebuilding.util.HammerRefs.item("diamond"), 3))
                     .add(LootItem.lootTableItem(com.simplebuilding.util.StorageRefs.item("quiver")).setWeight(3).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(ModItems.NETHERITE_APPLE, 2))
@@ -275,7 +275,7 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 2))
                     .add(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 2))
                     // Oktant seltener (Besitzer 2026-09-29): Gewicht 3 -> 1, die 2 gehen an Leer (14 -> 16).
-                    .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(1).apply(EnchantRandomlyFunction.randomEnchantment()))
+                    .add(LootItem.lootTableItem(com.simplebuilding.util.BuildingToolRefs.octant()).setWeight(1).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(counted(ModItems.NETHERITE_NUGGET, 6, 1, 3))
                     .add(counted(ModItems.NETHERITE_CARROT, 3, 1, 3))
                     .add(EmptyLootItem.emptyItem().setWeight(16)));
@@ -292,7 +292,7 @@ public final class ModLootTableModifications {
                             : enchantedBook(ModEnchantments.COVER, 1, enchantments, 8))
                     .add(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 8))
                     // Oktant seltener (Besitzer 2026-09-29): Gewicht 5 -> 2, die 3 gehen an Leer (20 -> 23).
-                    .add(item(ModItems.OCTANT, 2))
+                    .add(item(com.simplebuilding.util.BuildingToolRefs.octant(), 2))
                     .add(item(com.simplebuilding.util.StorageRefs.item("quiver"), 5))
                     .add(item(ModItems.COPPER_CHISEL, 4))
                     .add(EmptyLootItem.emptyItem().setWeight(23)));
@@ -311,7 +311,7 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 3))
                     // Schublade: Moebel-Anwesen, einzige Truhenquelle (dazu Bibliothekar Stufe 4)
                     .add(enchantedBook(ModEnchantments.DRAWER, 1, enchantments, 3))
-                    .add(item(ModItems.IRON_BUILDING_WAND, 4))
+                    .add(item(com.simplebuilding.util.BuildingToolRefs.wand("iron"), 4))
                     .add(item(com.simplebuilding.util.StorageRefs.item("quiver"), 3))
                     .add(EmptyLootItem.emptyItem().setWeight(30)));
             rareCore(editor, ModItems.IRON_CORE, IRON_CORE_CHANCE);

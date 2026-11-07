@@ -1,0 +1,15 @@
+# Beispiel: Dorfbrunnen der Ebene, 6 x 6 x 6
+# Ein Bruchsteinrand um Wasser, vier Zaunpfosten, darauf ein Dach aus Bruchstein-Stufen.
+
+# Sockel und Rand (air hoehlt die Mitte aus, dann kommt Wasser hinein)
+cobblestone 0..5,0..1,0..5
+air 1..4,1,1..4
+water 1..4,0..1,1..4
+cobblestone 1..4,0,1..4        # Boden unter dem Wasser
+
+# Die vier Pfosten auf den Ecken des Randes: eine Wiederholung in x und eine in z
+oak_fence 0,2..3,0*2@5,0,0 0,2..3,5*2@5,0,0
+
+# Dach: eine Lage Bruchstein-Stufen ueber dem ganzen Brunnen, oben ein Block in der Mitte
+cobblestone_slab 0..5,4,0..5
+cobblestone 2..3,5,2..3

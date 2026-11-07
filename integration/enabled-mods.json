@@ -59,7 +59,8 @@
     "simpleresonance",
     "simplefoundry",
     "simplepads",
-    "simplechisels"
+    "simplechisels",
+    "simplebuildingtools"
   ],
   "devMods": [
     "jei",

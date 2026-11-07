@@ -71,6 +71,8 @@ public final class SimpleOctets {
                 }
             }
         }
+        // Blueprint scans (Simple Building Tools, b-btools07) keep a mixed cell as its most common material.
+        com.simplelib.api.OctetCells.registerPortable(com.simpleoctets.block.OctetCells::portable);
         if (!flammable) {
             flammable = true;
             OctetRegistry.registerFlammability();
