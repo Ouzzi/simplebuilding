@@ -12,7 +12,7 @@ import org.jspecify.annotations.Nullable;
  *   <li>VOID: the Void and Nihil things (void wings, void vault/keys/potions, Nihil redstone, piston, rail, vault, shard, lamp, end rod, book).</li>
  *   <li>EVIL: the Evil trial things and the Wither and Nether wings (Simple Beacons' Evil things set it themselves).</li>
  *   <li>LEGENDARY: End endgame: Enderite ingot, block, template, tools, armor and everything made of it, End Wings, Ender Heart.</li>
- *   <li>MYTHIC: Astral things (the counterpart of Nihil) and the Strong things of Simple Beacons, Ender Gem.</li>
+ *   <li>MYTHIC: Astral things (the counterpart of Nihil) and the Strong things of Simple Beacons, the Strong Upgrade (SimpleLib), Ender Gem.</li>
  *   <li>CORRUPTED: broken things: the cracked diamond and its block.</li>
  *   <li>CURSED: set explicitly where it is meant (Biome Brush, Wither items).</li>
  * </ul>
@@ -30,7 +30,7 @@ public final class RarityRules {
     /** The rank for an item path (no namespace), or null for Vanilla rarity. */
     public static @Nullable SimpleRarity forPath(String path) {
         if (path.equals("biome_brush")) return SimpleRarity.CURSED;
-        if (path.equals("ender_gem")) return SimpleRarity.MYTHIC;
+        if (path.equals("ender_gem") || path.equals("strong_upgrade_template")) return SimpleRarity.MYTHIC;
         if (path.startsWith("evil_") || path.equals("wither_wings") || path.equals("nether_wings")) return SimpleRarity.EVIL;
         if (path.startsWith("void_") || VOID.contains(path)) return SimpleRarity.VOID;
         if (ASTRAL.contains(path)) return SimpleRarity.MYTHIC;

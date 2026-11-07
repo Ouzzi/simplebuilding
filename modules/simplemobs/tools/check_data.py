@@ -165,20 +165,25 @@ import vanilla_derived_sounds as _vd  # stdlib only at import time
 assert _vd.selected('vanilla') == list(_short_ord := [k.removeprefix('entity.hollow_howler.') for k in _snd])
 assert _vd.selected('mix') == [e for e in _short_ord if _map['mix'][e] == 'vanilla'] and _vd.selected('synth') == []
 print(f'simplemobs: Hollow Howler voice {len(_snd)} events, {len(_seen)} takes, mode {_map["mode"]}')
-# EL24-1 Wither/Nether Wings, WB24-2 End/Void Wings: Strong Upgrade with Simple Beacons, Netherite Upgrade without (not-conditions in all
-# loader forms)
+# EL24-1 Wither/Nether Wings, WB24-2 End/Void Wings; WF25-10 (07.11.): always SimpleLib's Strong Upgrade (no load condition), the
+# Netherite ways without Simple Beacons are gone
 for stage, base, add in (('wither_wings', 'minecraft:elytra', 'simplemobs:nether_heart'), ('nether_wings', 'simplemobs:wither_wings', 'simplemobs:nether_gem'),
                          ('end_wings', 'simplemobs:nether_wings', 'simplemobs:ender_heart'), ('void_wings', 'simplemobs:end_wings', 'simplemobs:ender_gem')):
-    for suffix, template, negated in (('_smithing', 'simplebeacons:strong_upgrade_template', False),
-                                      ('_smithing_without_simplebeacons', 'minecraft:netherite_upgrade_smithing_template', True)):
-        r = json.loads((MODULE / f'shared/resources/data/simplemobs/recipe/{stage}{suffix}.json').read_text(encoding='utf-8'))
-        assert (r['type'], r['template'], r['base'], r['addition']) == ('minecraft:smithing_transform', template, base, add), (stage, suffix)
-        assert (r['fabric:load_conditions'][0]['condition'] == 'fabric:not') == negated and (r['neoforge:conditions'][0]['type'] == 'neoforge:not') == negated
-        assert r['result']['id'] == f'simplemobs:{stage}', (stage, suffix)
+    r = json.loads((MODULE / f'shared/resources/data/simplemobs/recipe/{stage}_smithing.json').read_text(encoding='utf-8'))
+    assert (r['type'], r['template'], r['base'], r['addition']) == ('minecraft:smithing_transform', 'simplelib:strong_upgrade_template', base, add), stage
+    assert 'fabric:load_conditions' not in r and 'neoforge:conditions' not in r and r['result']['id'] == f'simplemobs:{stage}', stage
+    assert not (MODULE / f'shared/resources/data/simplemobs/recipe/{stage}_smithing_without_simplebeacons.json').exists(), stage
     assert (MODULE / f'shared/resources/assets/simplemobs/equipment/{stage}.json').is_file()
     assert (MODULE / f'shared/resources/assets/simplemobs/textures/entity/equipment/wings/{stage}.png').is_file()
 # WB24-2 Ender Heart / Ender Gem: only the End bosses (b-boss01, WA24-7) drop them - Void Runner the heart, Brimguard the gem;
 # the wings themselves never drop.
+# WF25-10: the Nether Heart ways to the Strong Upgrade (first template, duplication) moved here from Simple Beacons
+_heart = json.loads((MODULE / 'shared/resources/data/simplemobs/recipe/strong_upgrade_template.json').read_text(encoding='utf-8'))
+assert _heart['key']['N'] == 'simplemobs:nether_heart' and _heart['result']['id'] == 'simplelib:strong_upgrade_template', _heart
+assert 'minecraft:obsidian' not in json.dumps(_heart) and 'minecraft:nether_star' not in json.dumps(_heart), 'crying obsidian, no Nether Star'
+_dup = json.loads((MODULE / 'shared/resources/data/simplemobs/recipe/strong_upgrade_template_duplication.json').read_text(encoding='utf-8'))
+assert _dup['result']['count'] == 2 and sorted(_dup['ingredients']) == sorted(['simplelib:strong_upgrade_template', 'minecraft:crying_obsidian',
+                                                                             'minecraft:diamond', 'simplemobs:nether_heart']), _dup
 _BOSS_LOOT = {'void_runner.json': 'ender_heart', 'brimguard.json': 'ender_gem'}
 for _p in (MODULE / 'shared/resources/data/simplemobs/loot_table').rglob('*.json'):
     _t = _p.read_text(encoding='utf-8')

@@ -1,11 +1,23 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "strong_upgrade"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "strong_upgrade"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_strong_upgrade_shard": {
       "conditions": {
         "items": [
           {
-            "items": "simplebeacons:strong_upgrade_shard"
+            "items": "simplelib:strong_upgrade_shard"
           }
         ]
       },
@@ -13,7 +25,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebeacons:strong_upgrade_template_from_shards"
+        "recipes": "simplelib:strong_upgrade_template_from_shards"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +38,7 @@
   ],
   "rewards": {
     "recipes": [
-      "simplebeacons:strong_upgrade_template_from_shards"
+      "simplelib:strong_upgrade_template_from_shards"
     ]
   }
 }

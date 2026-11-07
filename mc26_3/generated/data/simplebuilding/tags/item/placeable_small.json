@@ -67,7 +67,7 @@
     "simplebuilding:dull_nihilith_shard",
     "simplebuilding:warden_tendril",
     {
-      "id": "simplebeacons:strong_upgrade_shard",
+      "id": "simplelib:strong_upgrade_shard",
       "required": false
     },
     {

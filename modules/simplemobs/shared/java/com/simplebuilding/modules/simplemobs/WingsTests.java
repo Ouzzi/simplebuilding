@@ -16,7 +16,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.phys.Vec3;
 
-/** Wither/Nether/End/Void Wings GameTests (EL24-1, WA24-2, WB24-2, BS25-4 strong rocket, Fabric wrappers in ModuleGameTest). Standalone-safe: the recipe test follows Simple Beacons. */
+/** Wither/Nether/End/Void Wings GameTests (EL24-1, WA24-2, WB24-2, BS25-4 strong rocket, Fabric wrappers in ModuleGameTest). Standalone-safe: the wings always use SimpleLib's Strong Upgrade (WF25-10). */
 final class WingsTests {
     private WingsTests() {}
 
@@ -83,17 +83,14 @@ final class WingsTests {
             h.succeed();
         });
         add.accept("wings_recipes", h -> {
-            boolean beacons = BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebeacons", "strong_upgrade_template"));
-            h.assertTrue(recipe(h, "wither_wings_smithing") == beacons && recipe(h, "nether_wings_smithing") == beacons
-                    && recipe(h, "end_wings_smithing") == beacons && recipe(h, "void_wings_smithing") == beacons,
-                    "Strong Upgrade recipes only with Simple Beacons (loaded: " + beacons + ")");
-            h.assertTrue(recipe(h, "wither_wings_smithing_without_simplebeacons") == !beacons
-                    && recipe(h, "nether_wings_smithing_without_simplebeacons") == !beacons
-                    && recipe(h, "end_wings_smithing_without_simplebeacons") == !beacons
-                    && recipe(h, "void_wings_smithing_without_simplebeacons") == !beacons, "Netherite Upgrade way only without Simple Beacons");
-            String suffix = beacons ? "_smithing" : "_smithing_without_simplebeacons";
-            ItemStack template = beacons ? new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplebeacons", "strong_upgrade_template")))
-                    : new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
+            // WF25-10 (07.11.): always SimpleLib's Strong Upgrade (Simple Mobs requests it), with or without Simple Beacons
+            h.assertTrue(recipe(h, "wither_wings_smithing") && recipe(h, "nether_wings_smithing") && recipe(h, "end_wings_smithing")
+                    && recipe(h, "void_wings_smithing"), "Strong Upgrade recipes always there");
+            String suffix = "_smithing";
+            ItemStack template = new ItemStack(com.simplelib.api.SimpleLibApi.materialItem("strong_upgrade_template"));
+            var netherite = new SmithingRecipeInput(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), new ItemStack(Items.ELYTRA), new ItemStack(WitherMobs.HEART));
+            h.assertTrue(h.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMITHING, netherite, h.getLevel())
+                    .map(r -> !r.value().assemble(netherite).is(WitherWings.WITHER)).orElse(true), "the Netherite Upgrade no longer makes wings");
             ItemStack elytra = new ItemStack(Items.ELYTRA);
             elytra.setDamageValue(17);
             ItemStack wither = smith(h, "wither_wings" + suffix, template, elytra, new ItemStack(WitherMobs.HEART));

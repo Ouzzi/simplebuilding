@@ -169,7 +169,7 @@ public final class PlacedDisplay3dTests {
                 }
             }
             // NA24-9: shards and powders of the modules lie as flat plates (optional entries, only when that module is loaded)
-            for (String small : List.of("simplebuilding:dull_nihilith_shard", "simplebuilding:dull_astralit_dust", "simplebeacons:strong_upgrade_shard",
+            for (String small : List.of("simplebuilding:dull_nihilith_shard", "simplebuilding:dull_astralit_dust", "simplelib:strong_upgrade_shard",
                     "simplemobs:illusion_shard", "simplemobs:soulfire_powder", "simplemobs:nether_gem")) {
                 Item shard = item(small);
                 if (shard != Items.AIR) {

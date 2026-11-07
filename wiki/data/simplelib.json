@@ -73,7 +73,9 @@
         "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
         "modules/simplelib/shared/java/com/simplelib/material/AnvilCrushing.java",
         "modules/simplelib/tools/gen_resources.py",
-        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java",
+        "modules/simplelib/shared/java/com/simplelib/material/StrongUpgradeDrops.java",
+        "modules/simplelib/shared/java/com/simplelib/mixin/WitherStrongUpgradeMixin.java"
       ],
       "en": {
         "title": "Shared materials",
@@ -83,7 +85,8 @@
           "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond.",
           "Netherite nuggets and ingots convert 9:1; the basic upgrade template duplicates like Vanilla templates.",
           "Building cores (copper, iron, gold, diamond, netherite, enderite): not stackable, ingredients of wands, beacons and gadgets; they come from loot and traders of other mods (SimpleBuilding, Simple Money), the Enderite core only with Simple Ores. On their own they do nothing when used; with SimpleBuilding a right click plays their animation and rarely turns a block into ore.",
-          "Enderite (raw fragment to block, its upgrade template) moved to Simple Ores; SimpleLib only keeps a flag (materialPresent(\"enderite\"), condition simplelib:material_requested) so other mods load their Enderite variants only with it. Other mods use the common tags c:nuggets/netherite, c:gems/cracked_diamond and c:storage_blocks/cracked_diamond. Before SimpleBuilding 2 these were SimpleBuilding items; old worlds load them under their new ids."
+          "Enderite (raw fragment to block, its upgrade template) moved to Simple Ores; SimpleLib only keeps a flag (materialPresent(\"enderite\"), condition simplelib:material_requested) so other mods load their Enderite variants only with it. Other mods use the common tags c:nuggets/netherite, c:gems/cracked_diamond and c:storage_blocks/cracked_diamond. Before SimpleBuilding 2 these were SimpleBuilding items; old worlds load them under their new ids.",
+          "Strong Upgrade (template and shard, WF25-10, formerly Simple Beacons): upgrades beacons and conduits (Simple Beacons) and the elytra and wings (Simple Mobs). While a mod requests it, the Vanilla Wither drops one shard next to its Nether Star when a mod offers its own way to the first template (Simple Mobs: Nether Heart recipe), otherwise the whole template - never both. Nine shards craft a template. Old worlds load the Simple Beacons items under their new ids."
         ]
       },
       "de": {
@@ -94,7 +97,8 @@
           "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird.",
           "Netheritklumpen und -barren tauschen 9:1; die Basis-Aufwertungsvorlage lässt sich wie Vanilla-Vorlagen vervielfältigen.",
           "Baukerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit): nicht stapelbar, Zutaten von Baustäben, Leuchtfeuern und Gadgets; sie kommen aus Beute und Händlern anderer Mods (SimpleBuilding, Simple Money), der Enderitkern nur mit Simple Ores. Allein tun sie beim Benutzen nichts; mit SimpleBuilding spielt ein Rechtsklick ihre Animation und macht selten einen Block zu Erz.",
-          "Enderit (Rohfragment bis Block, seine Aufwertungsvorlage) ist zu Simple Ores umgezogen; SimpleLib behält nur einen Schalter (materialPresent(\"enderite\"), Bedingung simplelib:material_requested), damit andere Mods ihre Enderit-Varianten nur damit laden. Andere Mods nutzen die gemeinsamen Tags c:nuggets/netherite, c:gems/cracked_diamond und c:storage_blocks/cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter ihren neuen Ids."
+          "Enderit (Rohfragment bis Block, seine Aufwertungsvorlage) ist zu Simple Ores umgezogen; SimpleLib behält nur einen Schalter (materialPresent(\"enderite\"), Bedingung simplelib:material_requested), damit andere Mods ihre Enderit-Varianten nur damit laden. Andere Mods nutzen die gemeinsamen Tags c:nuggets/netherite, c:gems/cracked_diamond und c:storage_blocks/cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter ihren neuen Ids.",
+          "Starke Aufwertung (Vorlage und Splitter, WF25-10, vorher Simple Beacons): wertet Leuchtfeuer und Aquisatoren (Simple Beacons) sowie Elytren und Schwingen (Simple Mobs) auf. Solange eine Mod sie anfordert, lässt der Vanilla-Wither neben seinem Netherstern einen Splitter fallen, wenn eine Mod einen eigenen Weg zur ersten Vorlage bietet (Simple Mobs: Netherherz-Rezept), sonst die ganze Vorlage - nie beides. Neun Splitter ergeben eine Vorlage. Alte Welten laden die Simple-Beacons-Items unter den neuen IDs."
         ]
       }
     },
@@ -796,6 +800,39 @@
       }
     },
     {
+      "id": "simplelib:strong_upgrade_template_from_shards",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplelib:strong_upgrade_template",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/strong_upgrade_template_from_shards.json",
+      "ingredients": [
+        "simplelib:strong_upgrade_shard"
+      ],
+      "pattern": [
+        "SSS",
+        "SSS",
+        "SSS"
+      ],
+      "key": {
+        "S": [
+          "simplelib:strong_upgrade_shard"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:strong_upgrade_shard",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simplelib:warped_wart_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -1319,6 +1356,96 @@
       "usedIn": [
         "simplelib:netherite_ingot"
       ]
+    },
+    {
+      "id": "simplelib:strong_upgrade_shard",
+      "name": {
+        "en_us": "Strong Upgrade Shard",
+        "de_de": "Splitter der Starken Aufwertung"
+      },
+      "note": {
+        "en": {
+          "summary": "Dropped by the Vanilla Wither while Simple Mobs is on (without it the whole Strong Upgrade), survives explosions. Nine make a Strong Upgrade."
+        },
+        "de": {
+          "summary": "Fällt vom Vanilla-Wither, solange Simple Mobs an ist (ohne: die ganze Starke Aufwertungsvorlage), übersteht Explosionen. Neun ergeben eine Starke Aufwertungsvorlage."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/strong_upgrade_shard.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A splinter of a template, still warm from the Wither's last breath."
+          ],
+          "use": [
+            "Every Vanilla Wither drops one while Simple Mobs is on (without it the whole template). Nine of them make a Strong Upgrade."
+          ],
+          "secret": [
+            "It survives explosions, like the Nether Star beside it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Splitter einer Vorlage, noch warm vom letzten Atem des Withers."
+          ],
+          "use": [
+            "Jeder Vanilla-Wither lässt einen fallen, solange Simple Mobs an ist (ohne: die ganze Vorlage). Neun davon ergeben eine Starke Aufwertungsvorlage."
+          ],
+          "secret": [
+            "Er übersteht Explosionen, wie der Netherstern neben ihm."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simplelib:strong_upgrade_template_from_shards"
+      ]
+    },
+    {
+      "id": "simplelib:strong_upgrade_template",
+      "name": {
+        "en_us": "Strong Upgrade",
+        "de_de": "Starke Aufwertungsvorlage"
+      },
+      "note": {
+        "en": {
+          "summary": "Smithing template for beacons and conduits (Simple Beacons) and the elytra and wings (Simple Mobs). Nine shards make one; with Simple Mobs also a Nether Heart recipe; without Simple Mobs the Vanilla Wither drops it."
+        },
+        "de": {
+          "summary": "Schmiedevorlage für Leuchtfeuer und Aquisatoren (Simple Beacons) sowie Elytren und Schwingen (Simple Mobs). Neun Splitter ergeben eine; mit Simple Mobs auch ein Netherherz-Rezept; ohne Simple Mobs lässt der Vanilla-Wither sie fallen."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/strong_upgrade_template.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A slab of obsidian around a captured star; it hums when a beacon is near."
+          ],
+          "use": [
+            "Smithing table: upgrades beacons and conduits (Simple Beacons), elytra and wings (Simple Mobs) with a heart or gem. Simple Beacons: off hand, hit a beacon 8 times with an axe, nether star carried.",
+            "9 shards make one; with Simple Mobs also a Nether Heart recipe and duplication. Without Simple Mobs the Wither drops a whole one."
+          ],
+          "secret": [
+            "The upgraded block keeps its chosen powers, its lock and its name."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Obsidianplatte um einen gefangenen Stern; sie summt, wenn ein Leuchtfeuer nah ist."
+          ],
+          "use": [
+            "Schmiedetisch: wertet Leuchtfeuer, Aquisatoren (Simple Beacons), Elytren und Schwingen (Simple Mobs) mit Herz oder Juwel auf. Simple Beacons: Nebenhand, 8-mal mit Axt aufs Leuchtfeuer, Netherstern dabei.",
+            "9 Splitter ergeben eine; mit Simple Mobs auch Netherherz-Rezept und Kopie. Ohne Simple Mobs lässt der Wither eine ganze fallen."
+          ],
+          "secret": [
+            "Der aufgewertete Block behält seine gewählten Kräfte, seine Sperre und seinen Namen."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplelib:strong_upgrade_template_from_shards"
+      ],
+      "usedIn": []
     }
   ],
   "blocks": [
@@ -1470,12 +1597,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 8,
-    "recipes": 22,
+    "recipes": 23,
     "lootTables": 6,
     "tags": 5,
     "advancements": 0,
     "enchantments": 0,
-    "items": 11,
+    "items": 13,
     "blocks": 6,
     "trades": 0,
     "config": 0,

@@ -430,7 +430,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             }
         }
         // NA24-9: Splitter und Pulver anderer Module lagen bisher nicht ab; nur optional (Modul-Unabhaengigkeit), flaches Modell.
-        for (String foreign : java.util.List.of("simplebeacons:strong_upgrade_shard", "simplemobs:illusion_shard",
+        for (String foreign : java.util.List.of("simplelib:strong_upgrade_shard", "simplemobs:illusion_shard",
                 "simplemobs:soulfire_powder", "simplemobs:nether_gem",
                 // BS25-5: further Simple Mobs drops lie down as flat plates
                 "simplemobs:ender_gem", "simplemobs:ender_heart", "simplemobs:echo_core", "simplemobs:dread_link")) {

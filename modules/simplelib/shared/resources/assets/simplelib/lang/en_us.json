@@ -111,5 +111,13 @@
   "text.autoconfig.simplelib.option.slotAlertReducedMotion": "Still Glow (this client)",
   "text.autoconfig.simplelib.option.slotAlertReducedMotion.@Tooltip": "Instead of the turning beam the slot glows still\nand breathes slowly (no motion).\nDefault: false.",
   "text.autoconfig.simplelib.option.slotAlertBeam": "Lighthouse Beam (this client)",
-  "text.autoconfig.simplelib.option.slotAlertBeam.@Tooltip": "Instead of the soft pulse a red beam turns slowly\nbehind the item, like a lighthouse.\nDefault: false."
+  "text.autoconfig.simplelib.option.slotAlertBeam.@Tooltip": "Instead of the soft pulse a red beam turns slowly\nbehind the item, like a lighthouse.\nDefault: false.",
+  "item.simplelib.strong_upgrade_template": "Strong Upgrade",
+  "item.simplelib.strong_upgrade_shard": "Strong Upgrade Shard",
+  "item.simplelib.strong_upgrade_template.applies_to": "Beacon, Conduit, Elytra, Wings",
+  "item.simplelib.strong_upgrade_template.ingredients": "Hearts and Gems",
+  "item.simplelib.strong_upgrade_template.base_slot_description": "Add a beacon, a conduit, an elytra or wings",
+  "item.simplelib.strong_upgrade_template.additions_slot_description": "Add a heart or a gem",
+  "jei.simplelib.note.wither_shard": "The Vanilla Wither always drops one Strong Upgrade Shard next to its Nether Star",
+  "jei.simplelib.note.wither_template": "Without a mod of its own way to the Strong Upgrade, the Vanilla Wither drops a whole Strong Upgrade next to its Nether Star"
 }

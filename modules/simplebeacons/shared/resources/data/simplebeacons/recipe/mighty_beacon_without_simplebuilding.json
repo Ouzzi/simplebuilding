@@ -36,7 +36,7 @@
     "n": "minecraft:netherite_block",
     "e": "minecraft:emerald_block",
     "B": "simplebeacons:strong_beacon",
-    "U": "simplebeacons:strong_upgrade_template"
+    "U": "simplelib:strong_upgrade_template"
   },
   "pattern": [
     "cig",

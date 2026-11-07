@@ -46,6 +46,8 @@ MATERIAL_GROUPS = {
     "netherite_nugget": ("netherite_nugget",),
     # IG31-13: Enderite (and its upgrade template) moved to Simple Ores; the building cores came from SimpleBuilding.
     "upgrade_templates": ("basic_upgrade_template",),
+    # WF25-10 (07.11.): the Strong Upgrade template ("chart") and its shard came from Simple Beacons (Beacons, wings of Simple Mobs).
+    "strong_upgrade": ("strong_upgrade_template", "strong_upgrade_shard"),
     "cores": ("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core"),
     # Module family stage 3 (AGENTS rule 16): the shared building block of Blocks, End, Enderite and Octets.
     "polished_end_stone": ("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"),
@@ -87,6 +89,9 @@ def material_recipes():
         ("misc", "basic_upgrade_template", "upgrade_templates",
          shaped({"A": v("diamond"), "B": m("basic_upgrade_template"), "C": v("iron_block")}, ["ABA", "ACA", "AAA"],
                 m("basic_upgrade_template"), 2), [m("basic_upgrade_template")]),
+        # WF25-10: nine shards (the Vanilla Wither drop) make one Strong Upgrade (Simple Beacons' recipe before the move, owner 21.10.).
+        ("misc", "strong_upgrade_template_from_shards", "strong_upgrade",
+         shaped({"S": m("strong_upgrade_shard")}, ["SSS", "SSS", "SSS"], m("strong_upgrade_template"), category="misc"), [m("strong_upgrade_shard")]),
         ("misc", "netherite_nugget", "netherite_nugget", shapeless([v("netherite_ingot")], m("netherite_nugget"), 9),
          [v("netherite_ingot"), m("netherite_nugget")]),
         ("misc", "netherite_ingot", "netherite_nugget", shaped({"N": m("netherite_nugget")}, nine, v("netherite_ingot")),

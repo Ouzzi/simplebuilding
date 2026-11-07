@@ -52,6 +52,8 @@ public final class LibMaterials {
             "cracked_diamond", List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block"),
             "netherite_nugget", List.of("netherite_nugget"),
             "upgrade_templates", List.of("basic_upgrade_template"),
+            // WF25-10 (07.11.): the Strong Upgrade template ("chart") and its shard, formerly Simple Beacons'; used by Beacons and the wings.
+            "strong_upgrade", List.of("strong_upgrade_template", "strong_upgrade_shard"),
             // IG31-13: the building cores (copper to enderite), formerly SimpleBuilding's; used by Beacons, Gadgets, the wands.
             "cores", CORES,
             // Module family stage 3 (rule 16): the building block several family mods share (Blocks, End, Enderite, Octets).
@@ -104,6 +106,10 @@ public final class LibMaterials {
         if (!ITEMS.isEmpty()) return;
         ensureBlocks();
         item("basic_upgrade_template", p -> upgradeTemplate("basic_upgrade_template", p));
+        // WF25-10: mythic tier like before (RarityRules), the shard survives explosions like the Nether Star.
+        item("strong_upgrade_template", LibMaterials::strongTemplate);
+        item("strong_upgrade_shard", p -> new Item(p.rarity(Rarity.UNCOMMON).delayedComponent(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT,
+                registries -> new net.minecraft.world.item.component.DamageResistant(registries.getOrThrow(net.minecraft.tags.DamageTypeTags.IS_EXPLOSION)))));
         item("diamond_pebble", Item::new);
         item("cracked_diamond", Item::new);
         item("cracked_diamond_block", p -> new BlockItem(BLOCKS.get("cracked_diamond_block"), p.useBlockDescriptionPrefix()));
@@ -154,6 +160,17 @@ public final class LibMaterials {
     private static void item(String name, Function<Item.Properties, Item> factory) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleLib.id(name));
         ITEMS.put(name, Registry.register(BuiltInRegistries.ITEM, key, factory.apply(com.simplelib.api.RarityRules.apply(name, new Item.Properties()).setId(key))));
+    }
+
+    /** The Strong Upgrade (WF25-10): empty slot icon lists, texts in the SimpleLib lang (applies to beacons, conduits, wings). */
+    private static SmithingTemplateItem strongTemplate(Item.Properties properties) {
+        String key = "item." + SimpleLib.MOD_ID + ".strong_upgrade_template";
+        return new SmithingTemplateItem(
+                Component.translatable(key + ".applies_to").withStyle(ChatFormatting.BLUE),
+                Component.translatable(key + ".ingredients").withStyle(ChatFormatting.BLUE),
+                Component.translatable(key + ".base_slot_description"),
+                Component.translatable(key + ".additions_slot_description"),
+                List.of(), List.of(), properties);
     }
 
     private static SmithingTemplateItem upgradeTemplate(String id, Item.Properties properties) {

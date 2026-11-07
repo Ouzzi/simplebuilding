@@ -111,5 +111,13 @@
   "text.autoconfig.simplelib.option.slotAlertReducedMotion": "Ruhiges Glühen (dieser Client)",
   "text.autoconfig.simplelib.option.slotAlertReducedMotion.@Tooltip": "Wie das Pulsieren, aber ohne Bewegung: der Slot\nglüht still. Gilt auch bei aktivem Leuchtturm-Strahl.\nStandard: false.",
   "text.autoconfig.simplelib.option.slotAlertBeam": "Leuchtturm-Strahl (dieser Client)",
-  "text.autoconfig.simplelib.option.slotAlertBeam.@Tooltip": "Statt des weichen Pulsierens dreht sich ein roter\nStrahl langsam hinter dem Item, wie ein Leuchtturm.\nStandard: false."
+  "text.autoconfig.simplelib.option.slotAlertBeam.@Tooltip": "Statt des weichen Pulsierens dreht sich ein roter\nStrahl langsam hinter dem Item, wie ein Leuchtturm.\nStandard: false.",
+  "item.simplelib.strong_upgrade_template": "Starke Aufwertungsvorlage",
+  "item.simplelib.strong_upgrade_shard": "Splitter der Starken Aufwertung",
+  "item.simplelib.strong_upgrade_template.applies_to": "Leuchtfeuer, Aquisator, Elytren, Schwingen",
+  "item.simplelib.strong_upgrade_template.ingredients": "Herzen und Juwelen",
+  "item.simplelib.strong_upgrade_template.base_slot_description": "Leuchtfeuer, Aquisator, Elytren oder Schwingen hinzufügen",
+  "item.simplelib.strong_upgrade_template.additions_slot_description": "Herz oder Juwel hinzufügen",
+  "jei.simplelib.note.wither_shard": "Der Vanilla-Wither lässt neben seinem Netherstern immer einen Splitter der Starken Aufwertung fallen",
+  "jei.simplelib.note.wither_template": "Ohne einen Mod mit eigenem Weg zur Starken Aufwertung lässt der Vanilla-Wither neben seinem Netherstern eine ganze Starke Aufwertungsvorlage fallen"
 }
