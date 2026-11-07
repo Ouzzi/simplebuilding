@@ -1,0 +1,25 @@
+{
+  "strong_upgrade_template": {
+    "lore": [
+      "A slab of obsidian around a captured star; it hums when a beacon is near."
+    ],
+    "use": [
+      "Smithing table: upgrades beacons and conduits (Simple Beacons), elytra and wings (Simple Mobs) with a heart or gem. Simple Beacons: off hand, hit a beacon 8 times with an axe, nether star carried.",
+      "9 shards make one; with Simple Mobs also a Nether Heart recipe and duplication. Without Simple Mobs the Wither drops a whole one."
+    ],
+    "secret": [
+      "The upgraded block keeps its chosen powers, its lock and its name."
+    ]
+  },
+  "strong_upgrade_shard": {
+    "lore": [
+      "A splinter of a template, still warm from the Wither's last breath."
+    ],
+    "use": [
+      "Every Vanilla Wither drops one while Simple Mobs is on (without it the whole template). Nine of them make a Strong Upgrade."
+    ],
+    "secret": [
+      "It survives explosions, like the Nether Star beside it."
+    ]
+  }
+}

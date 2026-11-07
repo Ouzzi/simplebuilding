@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simplelib:strong_upgrade_template",
+    "minecraft:crying_obsidian",
+    "minecraft:diamond",
+    "simplemobs:nether_heart"
+  ],
+  "result": {
+    "count": 2,
+    "id": "simplelib:strong_upgrade_template"
+  }
+}

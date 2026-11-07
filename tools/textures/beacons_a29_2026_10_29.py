@@ -16,6 +16,8 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 TEX = ROOT / 'modules/simplebeacons/shared/resources/assets/simplebeacons/textures'
+# WF25-10 (07.11.): the Strong Upgrade template (source of the Evil template tint) moved to SimpleLib
+LIB_TEX = ROOT / 'modules/simplelib/shared/resources/assets/simplelib/textures'
 # name -> (hue degrees, saturation factor, value factor)
 BLOCK_TINTS = {'mighty_beacon': (42, 1.1, 1.05), 'evil_beacon': (355, 1.3, 0.95), 'mighty_evil_beacon': (345, 1.3, 0.62)}
 ITEM_TINTS = {'evil_upgrade_template': (355, 1.3, 0.95)}
@@ -97,8 +99,8 @@ def main(check=False):
         outputs[TEX / f'block/{name}.png'] = ('png', TEX / 'block/strong_beacon.png', spec)
         outputs[TEX / f'block/{name}.layers.json'] = ('layers', TEX / 'block/strong_beacon.layers.json', spec)
     for name, spec in ITEM_TINTS.items():
-        outputs[TEX / f'item/{name}.png'] = ('png', TEX / 'item/strong_upgrade_template.png', spec)
-        outputs[TEX / f'item/{name}.layers.json'] = ('layers', TEX / 'item/strong_upgrade_template.layers.json', spec)
+        outputs[TEX / f'item/{name}.png'] = ('png', LIB_TEX / 'item/strong_upgrade_template.png', spec)
+        outputs[TEX / f'item/{name}.layers.json'] = ('layers', LIB_TEX / 'item/strong_upgrade_template.layers.json', spec)
     for dst, (kind, src, spec) in outputs.items():
         if check:
             assert dst.is_file(), dst

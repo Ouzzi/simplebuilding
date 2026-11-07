@@ -1212,7 +1212,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "SimpleLib",
-      "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials and the building cores, id moves, in-world upgrades and UI building blocks.",
+      "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials (building cores, Strong Upgrade with the Wither drop), id moves, in-world upgrades and UI building blocks.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -2783,7 +2783,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Beacons",
-      "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+      "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.",
       "loaders": [
         "fabric",
         "neoforge",

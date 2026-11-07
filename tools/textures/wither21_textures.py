@@ -25,6 +25,8 @@ import layers  # noqa: E402
 ROOT = Path(__file__).resolve().parents[2]
 MOBS = ROOT / 'modules/simplemobs/shared/resources/assets/simplemobs/textures'
 BEACONS = ROOT / 'modules/simplebeacons/shared/resources/assets/simplebeacons/textures'
+# WF25-10 (07.11.): the Strong Upgrade shard moved to SimpleLib
+LIB = ROOT / 'modules/simplelib/shared/resources/assets/simplelib/textures'
 HEART_MODEL = ROOT / 'modules/simplemobs/shared/resources/assets/simplemobs/models/block/nether_heart.json'
 
 # ---------------------------------------------------------------- Nether Heart (item)
@@ -549,7 +551,7 @@ def variants() -> dict[str, tuple[Path, dict, dict]]:
     return {
         'nether_heart': (MOBS / 'item/nether_heart.png', doc(HEART_SHAPE, HEART_LIGHT_A, HEART_A), doc(HEART_SHAPE, HEART_LIGHT_B, HEART_B)),
         # WI21: built in the small shard from B (SB), alternative the small one from A (SA)
-        'strong_upgrade_shard': (BEACONS / 'item/strong_upgrade_shard.png',
+        'strong_upgrade_shard': (LIB / 'item/strong_upgrade_shard.png',
                                  doc(SHARD_SMALL_SHAPE_B, SHARD_SMALL_LIGHT_B, SHARD_PAL),
                                  doc(SHARD_SMALL_SHAPE_A, SHARD_SMALL_LIGHT_A, SHARD_PAL)),
         'nether_heart_block': (MOBS / 'block/nether_heart.png', doc(hb, HEART_LIGHT_A, HEART_A), doc(hb, HEART_LIGHT_B, HEART_B)),

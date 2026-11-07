@@ -1,13 +1,18 @@
 # Landing Page simplemods.de (IG31-54)
 
-Drei Entwuerfe als eigenstaendige Seiten (Bilder als data-URI): `A.html` (Pixel), `B.html` (clean), `C.html` (verspielt).
-`build.py [ausgabeordner]` erzeugt sie aus den Mod-Icons (`modules/*/shared/resources/assets/*/icon_128.png`) und
-eigenen Item-Texturen aus `wiki/assets/textures`. Keine Vanilla-Texturen.
+`index.html` ist die einzige Landing Page (Entwurf A unverändert, nur die Icon-Galerie unten nach Super-Mod/Sub-Mods gruppiert, Besitzer 06.11.). `python3 build.py [ausgabeordner]` erzeugt sie
+aus den Mod-Icons (`modules/*/shared/resources/assets/*/icon_128.png`); Struktur Super-Mod/Sub-Mods aus `modules/modules.json`
+(`tools/modtree/modtree.py`), die Gruppierung folgt automatisch. Keine Vanilla-Texturen. Entwuerfe A/B/C und ihr Bau-Skript: `archiv/`.
 
 ## Auslieferung (nur Plan, nichts deployt)
-Nach Besitzer-Wahl wird die gewaehlte Datei als `index.html` nach `/srv/landing` kopiert. nginx:
+`index.html` nach `/srv/landing` kopieren. nginx:
 
     server { server_name simplemods.de; root /srv/landing; index index.html; }
 
 `wiki.simplemods.de` bleibt das Wiki; Links der Seite: `/setup/` (Installer) und `https://wiki.simplemods.de`.
 Bis dahin zeigt simplemods.de auf das Wiki.
+
+## LAND09 (06.11.): neue Basis + drei Konzepte
+`python3 concepts.py [vorschau-ordner]` schreibt `index.html` (= vorschlag-2.html, nur größere H1/H2 und Abstände)
+und `konzept-1.html` (Modpack-Baukasten), `konzept-2.html` (Reise durchs Spiel), `konzept-3.html` (Schaufenster).
+Daten: modules.json/modtree.py, Lang-Dateien, git-verfolgte Mod-Texturen (nie build/, wiki/, assets/minecraft).

@@ -25,6 +25,8 @@ public final class SimpleLib {
         com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simplelib.config.LibConfig::toJson, com.simplelib.config.LibConfig::apply)
                 .keys(com.simplelib.config.LibConfig.KEYS).choices("freeLookRelease", "camera", "player").save(com.simplelib.config.LibConfig::save).register();
         com.simplelib.test.IdMovesTests.registerTestMoves();
+        // WF25-10: the Wither's Strong Upgrade drop in the recipe viewer's Mob Drops tab (empty while nobody requested the group).
+        com.simplelib.api.RecipeViewer.mobDrops(MOD_ID, com.simplelib.material.StrongUpgradeDrops::viewerDrops);
     }
 
     private SimpleLib() {}

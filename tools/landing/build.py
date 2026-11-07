@@ -2,6 +2,8 @@
 """Baut die drei Landing-Page-Entwuerfe (A/B/C) als eigenstaendige HTML-Dateien (Bilder als data-URI).
 Nur eigene Mod-Icons/-Texturen aus dem Repo. Aufruf: build.py [ausgabeordner]"""
 import base64, glob, os, sys, html
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'modtree'))
+import modtree
 R = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__)) + '/dist'
 os.makedirs(OUT, exist_ok=True)
@@ -67,12 +69,26 @@ h2{font-size:28px;margin:48px 0 16px;text-shadow:3px 3px 0 #000}
 .c img{width:48px;height:48px;float:left;margin:0 12px 4px 0;background:#000}.c b{display:block;font-size:17px;color:#ffd75e}.c p{margin:4px 0 0;font-size:14px;color:#d7ccb2}
 .f{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .ic{display:flex;flex-wrap:wrap;gap:6px}.ic img{width:40px;height:40px;border:2px solid #000}
+small{display:block;font-size:12px;color:#8a7f69;margin-bottom:4px}.ig{display:flex;flex-wrap:wrap;gap:18px 26px}.ign{max-width:100%}
 footer{margin:56px 0 24px;text-align:center;color:#8a7f69;font-size:13px}'''
     b = '<div class="hero"><div class="w"><h1>SIMPLE MODS</h1><p class="sub">Eine Familie von Minecraft-Mods für Bauen, Handwerk, Welt und Komfort. Einzeln spielbar, zusammen stark.</p><a class="btn" href="%s">Installer laden</a><a class="btn s" href="%s">Zum Wiki</a></div></div><div class="w"><h2>Die Mods</h2><div class="g">' % (LINKS['dl'], LINKS['wiki'])
     for i, n, d, c, ic in mods:
         b += f'<div class="c"><img src="{ic}" alt=""><b>{E_(n)}</b><p>{E_(d)}</p></div>'
     b += '</div><h2>Highlights</h2><div class="f">' + ''.join(f'<div class="c"><b>{E_(t)}</b><p>{E_(d)}</p></div>' for t, d in FEATS)
-    b += f'</div><h2>Alle {len(allicons)} Module</h2><div class="ic">' + ''.join(f'<img src="{u}" title="{m}" alt="{m}">' for m, u in allicons)
+    ic = dict(allicons); tree = modtree.load(); done = set()
+    def grp(m):
+        done.add(m['id']); x = [m['id']]
+        for c in modtree.children(tree, m['id']): x += grp(c)
+        return x
+    b += f'</div><h2>Alle {len(allicons)} Module</h2><div class="ig">'
+    sup, rest = modtree.roots(tree)
+    for r in sup + rest + [tree['simplelib']]:
+        if r['id'] in done: continue
+        ids = [i for i in grp(r) if i in ic]
+        if ids: b += f'<div class="ign"><small>{E_(r["name"])}</small><div class="ic">' + ''.join(f'<img src="{ic[i]}" title="{i}" alt="{i}">' for i in ids) + '</div></div>'
+    for i, u in allicons:
+        if i not in done: b += f'<div class="ign"><small>{i}</small><div class="ic"><img src="{u}" title="{i}" alt="{i}"></div></div>'
+    b += '</div>'
     b += '</div><footer>Simple Mods - wiki.simplemods.de - Minecraft ist eine Marke von Mojang/Microsoft, dieses Projekt ist nicht offiziell.</footer></div>'
     return HEAD + css + '</style></head><body>' + b + '</body></html>'
 
@@ -125,6 +141,5 @@ footer{text-align:center;margin:50px 0 20px;font-size:13px}'''
     b += f'<h2>Die ganze Galerie ({len(allicons)})</h2><div class="ic">' + ''.join(f'<img src="{u}" title="{m}" alt="{m}">' for m, u in allicons) + '</div><footer>wiki.simplemods.de - nicht von Mojang/Microsoft</footer></div>'
     return HEAD + css + '</style></head><body>' + b + '</body></html>'
 
-for k, f in (('A', A), ('B', B), ('C', C)):
-    open(f'{OUT}/{k}.html', 'w').write(f())
-    print(k, os.path.getsize(f'{OUT}/{k}.html') // 1024, 'KB')
+open(f'{OUT}/index.html', 'w', encoding='utf-8').write(A())
+print('index.html', os.path.getsize(f'{OUT}/index.html') // 1024, 'KB')

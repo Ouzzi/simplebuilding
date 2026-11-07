@@ -42,7 +42,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebeacons:strong_upgrade_template"
+            "items": "simplelib:strong_upgrade_template"
           }
         ]
       },

@@ -81,6 +81,11 @@ public final class ModuleGameTest {
         LibTests.ALL.get("material_requests_recipes").accept(h);
     }
 
+    @GameTest
+    public void strongUpgradeWitherDrop(GameTestHelper h) {
+        LibTests.ALL.get("strong_upgrade_wither_drop").accept(h);
+    }
+
     @GameTest(maxTicks = 100)
     public void materialRequestsAnvilCrushing(GameTestHelper h) {
         LibTests.ALL.get("material_requests_anvil_crushing").accept(h);

@@ -73,6 +73,8 @@ public final class LibDiscover {
             "simplelib:polished_end_stone_wall",
             "simplelib:rarity_tiers",
             "simplelib:shared_materials",
+            "simplelib:strong_upgrade_shard",
+            "simplelib:strong_upgrade_template",
             "simplelib:warm_food",
             "simplelib:warped_wart");
     static final List<Tip> TIPS = List.of();

@@ -20,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Wither Wings and Nether Wings (owner 23.10., queue EL24-1, docs/ai/PLAN-A-ELYTRA24-2026-10-23.md): Elytra upgraded at the
- * smithing table with the Strong Upgrade (Simple Beacons; without it the Netherite Upgrade) and the Nether Heart, then once more
+ * smithing table with the Strong Upgrade (SimpleLib, WF25-10) and the Nether Heart, then once more
  * with the Red Nether Gem. They glide like the Elytra; only the top speed a firework rocket pushes towards is raised
  * ({@link MobsConfig#witherWingsSpeedFactor} x2, {@link MobsConfig#netherWingsSpeedFactor} x4) - and only for a strong rocket
  * (BS25-4, owner 25.10./29.10.): a normal rocket (flight duration 1-3) pushes like Vanilla and so pulls the speed back to the

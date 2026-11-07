@@ -22,16 +22,16 @@
       "id": "strong_upgrade_template",
       "sources": [
         "modules/simplebeacons/shared/java/com/simplebeacons/BeaconsRegistry.java",
-        "modules/simplebeacons/shared/java/com/simplebeacons/mixin/WitherShardMixin.java",
-        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template.json",
-        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template_from_shards.json",
-        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template_duplication.json"
+        "modules/simplelib/shared/java/com/simplelib/material/StrongUpgradeDrops.java",
+        "modules/simplelib/generated/resources/data/simplelib/recipe/strong_upgrade_template_from_shards.json",
+        "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_upgrade_template.json",
+        "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_upgrade_template_duplication.json"
       ],
       "en": {
         "title": "Strong Upgrade",
         "summary": "A smithing template you cannot craft from plain materials: it comes from the Wither. It turns a beacon into a Strong Beacon and a conduit into a Strong Conduit.",
         "details": [
-          "The Vanilla Wither always drops one Strong Upgrade Shard (it survives explosions); 9 shards make one template.",
+          "The template and its shard belong to SimpleLib (WF25-10), so other mods use them too. The Vanilla Wither drops one Strong Upgrade Shard (it survives explosions) while Simple Mobs is on - 9 shards make one template; without Simple Mobs it drops the whole template instead.",
           "With Simple Mobs the heavy Withers drop a Nether Heart: Nether Heart in the middle, four diamonds on the edges and four crying obsidian in the corners make a template.",
           "Duplicate it only with a Nether Heart: the template, 1 crying obsidian, 1 diamond and a Nether Heart (shapeless) give 2 templates - cheaper than crafting the first one.",
           "It is used up by both upgrade ways."
@@ -41,7 +41,7 @@
         "title": "Starke Aufwertungsvorlage",
         "summary": "Eine Schmiedevorlage, die sich nicht aus einfachen Materialien herstellen lässt: sie kommt vom Wither. Sie macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer und aus einem Aquisator einen Starken Aquisator.",
         "details": [
-          "Der Vanilla-Wither lässt immer einen Splitter der Starken Aufwertung fallen (übersteht Explosionen); 9 Splitter ergeben eine Vorlage.",
+          "Vorlage und Splitter gehören SimpleLib (WF25-10), damit auch andere Mods sie nutzen. Der Vanilla-Wither lässt einen Splitter der Starken Aufwertung fallen (übersteht Explosionen), solange Simple Mobs an ist - 9 Splitter ergeben eine Vorlage; ohne Simple Mobs lässt er stattdessen die ganze Vorlage fallen.",
           "Mit Simple Mobs lassen die schweren Wither ein Netherherz fallen: Netherherz in der Mitte, vier Diamanten an den Kanten und vier Weinender Obsidian in den Ecken ergeben eine Vorlage.",
           "Vervielfältigen nur mit Netherherz: die Vorlage, 1 Weinender Obsidian, 1 Diamant und ein Netherherz (formlos) ergeben 2 Vorlagen - günstiger als die erste.",
           "Beide Aufwertungswege verbrauchen sie."
@@ -485,16 +485,8 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:crying_obsidian",
-            "count": 5
-          },
-          {
             "id": "minecraft:sand",
             "count": 5
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 4
           },
           {
             "id": "minecraft:obsidian",
@@ -505,11 +497,19 @@
             "count": 2
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 2
+            "id": "minecraft:crying_obsidian",
+            "count": 1
           },
           {
             "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplelib:strong_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -549,23 +549,23 @@
             "count": 8
           },
           {
-            "id": "minecraft:crying_obsidian",
-            "count": 5
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
             "id": "simplemobs:nether_gem",
             "count": 2
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 2
+            "id": "minecraft:crying_obsidian",
+            "count": 1
           },
           {
             "id": "minecraft:heart_of_the_sea",
+            "count": 1
+          },
+          {
+            "id": "simplelib:strong_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -583,13 +583,13 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_upgrade_template.json",
       "ingredients": [
         "minecraft:crying_obsidian",
-        "simplebeacons:strong_upgrade_template",
+        "simplelib:strong_upgrade_template",
         "simplemobs:nether_gem",
         "simplemobs:nether_heart"
       ],
       "ingredientGroups": [
         [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ],
         [
           "minecraft:crying_obsidian"
@@ -606,18 +606,18 @@
         "materials": [
           {
             "id": "minecraft:crying_obsidian",
-            "count": 5
+            "count": 1
           },
           {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 2
+            "id": "simplelib:strong_upgrade_template",
+            "count": 1
           },
           {
             "id": "simplemobs:nether_gem",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -635,13 +635,13 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_beacon.json",
       "ingredients": [
         "simplebeacons:strong_beacon",
-        "simplebeacons:strong_upgrade_template",
         "simplelib:copper_core",
         "simplelib:diamond_core",
         "simplelib:enderite_core",
         "simplelib:gold_core",
         "simplelib:iron_core",
-        "simplelib:netherite_core"
+        "simplelib:netherite_core",
+        "simplelib:strong_upgrade_template"
       ],
       "pattern": [
         "cig",
@@ -671,30 +671,22 @@
           "simplebeacons:strong_beacon"
         ],
         "U": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:crying_obsidian",
-            "count": 12
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 12
-          },
-          {
             "id": "minecraft:sand",
             "count": 5
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 4
+            "id": "minecraft:obsidian",
+            "count": 3
           },
           {
-            "id": "minecraft:obsidian",
+            "id": "simplelib:strong_upgrade_template",
             "count": 3
           },
           {
@@ -723,6 +715,10 @@
           },
           {
             "id": "simplelib:netherite_core",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -746,7 +742,7 @@
         "minecraft:iron_block",
         "minecraft:netherite_block",
         "simplebeacons:strong_beacon",
-        "simplebeacons:strong_upgrade_template"
+        "simplelib:strong_upgrade_template"
       ],
       "pattern": [
         "cig",
@@ -776,22 +772,18 @@
           "simplebeacons:strong_beacon"
         ],
         "U": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 21
-          },
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 12
-          },
-          {
             "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:diamond",
             "count": 9
           },
           {
@@ -815,15 +807,19 @@
             "count": 5
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 4
-          },
-          {
             "id": "minecraft:obsidian",
             "count": 3
           },
           {
+            "id": "simplelib:strong_upgrade_template",
+            "count": 3
+          },
+          {
             "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -841,13 +837,13 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_conduit.json",
       "ingredients": [
         "simplebeacons:strong_conduit",
-        "simplebeacons:strong_upgrade_template",
         "simplelib:copper_core",
         "simplelib:diamond_core",
         "simplelib:enderite_core",
         "simplelib:gold_core",
         "simplelib:iron_core",
-        "simplelib:netherite_core"
+        "simplelib:netherite_core",
+        "simplelib:strong_upgrade_template"
       ],
       "pattern": [
         "cig",
@@ -859,7 +855,7 @@
           "simplebeacons:strong_conduit"
         ],
         "U": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ],
         "c": [
           "simplelib:copper_core"
@@ -884,20 +880,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:crying_obsidian",
-            "count": 12
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 12
-          },
-          {
             "id": "minecraft:nautilus_shell",
             "count": 8
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 4
+            "id": "simplelib:strong_upgrade_template",
+            "count": 3
           },
           {
             "id": "minecraft:heart_of_the_sea",
@@ -925,6 +913,10 @@
           },
           {
             "id": "simplelib:netherite_core",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -948,7 +940,7 @@
         "minecraft:iron_block",
         "minecraft:netherite_block",
         "simplebeacons:strong_conduit",
-        "simplebeacons:strong_upgrade_template"
+        "simplelib:strong_upgrade_template"
       ],
       "pattern": [
         "cig",
@@ -960,7 +952,7 @@
           "simplebeacons:strong_conduit"
         ],
         "U": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ],
         "c": [
           "minecraft:copper_block"
@@ -985,15 +977,11 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 21
-          },
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 12
-          },
-          {
             "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:diamond",
             "count": 9
           },
           {
@@ -1017,11 +1005,15 @@
             "count": 8
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 4
+            "id": "simplelib:strong_upgrade_template",
+            "count": 3
           },
           {
             "id": "minecraft:heart_of_the_sea",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -1039,13 +1031,13 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_beacon.json",
       "ingredients": [
         "simplebeacons:evil_beacon",
-        "simplebeacons:strong_upgrade_template",
         "simplelib:copper_core",
         "simplelib:diamond_core",
         "simplelib:enderite_core",
         "simplelib:gold_core",
         "simplelib:iron_core",
-        "simplelib:netherite_core"
+        "simplelib:netherite_core",
+        "simplelib:strong_upgrade_template"
       ],
       "pattern": [
         "cig",
@@ -1075,35 +1067,31 @@
           "simplebeacons:evil_beacon"
         ],
         "U": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:crying_obsidian",
-            "count": 13
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 12
-          },
-          {
             "id": "minecraft:sand",
             "count": 5
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 4
           },
           {
             "id": "minecraft:obsidian",
             "count": 3
           },
           {
+            "id": "simplelib:strong_upgrade_template",
+            "count": 3
+          },
+          {
             "id": "simplemobs:nether_gem",
             "count": 2
+          },
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 1
           },
           {
             "id": "minecraft:nether_star",
@@ -1131,6 +1119,10 @@
           },
           {
             "id": "simplelib:netherite_core",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -1154,7 +1146,7 @@
         "minecraft:iron_block",
         "minecraft:netherite_block",
         "simplebeacons:evil_beacon",
-        "simplebeacons:strong_upgrade_template"
+        "simplelib:strong_upgrade_template"
       ],
       "pattern": [
         "cig",
@@ -1184,22 +1176,18 @@
           "simplebeacons:evil_beacon"
         ],
         "U": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 21
-          },
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 13
-          },
-          {
             "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:diamond",
             "count": 9
           },
           {
@@ -1223,11 +1211,11 @@
             "count": 5
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 4
+            "id": "minecraft:obsidian",
+            "count": 3
           },
           {
-            "id": "minecraft:obsidian",
+            "id": "simplelib:strong_upgrade_template",
             "count": 3
           },
           {
@@ -1235,7 +1223,15 @@
             "count": 2
           },
           {
+            "id": "minecraft:crying_obsidian",
+            "count": 1
+          },
+          {
             "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -1253,13 +1249,13 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_conduit.json",
       "ingredients": [
         "simplebeacons:evil_conduit",
-        "simplebeacons:strong_upgrade_template",
         "simplelib:copper_core",
         "simplelib:diamond_core",
         "simplelib:enderite_core",
         "simplelib:gold_core",
         "simplelib:iron_core",
-        "simplelib:netherite_core"
+        "simplelib:netherite_core",
+        "simplelib:strong_upgrade_template"
       ],
       "pattern": [
         "cig",
@@ -1271,7 +1267,7 @@
           "simplebeacons:evil_conduit"
         ],
         "U": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ],
         "c": [
           "simplelib:copper_core"
@@ -1296,24 +1292,20 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:crying_obsidian",
-            "count": 13
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 12
-          },
-          {
             "id": "minecraft:nautilus_shell",
             "count": 8
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 4
+            "id": "simplelib:strong_upgrade_template",
+            "count": 3
           },
           {
             "id": "simplemobs:nether_gem",
             "count": 2
+          },
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 1
           },
           {
             "id": "minecraft:heart_of_the_sea",
@@ -1342,6 +1334,10 @@
           {
             "id": "simplelib:netherite_core",
             "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 1
           }
         ]
       }
@@ -1364,7 +1360,7 @@
         "minecraft:iron_block",
         "minecraft:netherite_block",
         "simplebeacons:evil_conduit",
-        "simplebeacons:strong_upgrade_template"
+        "simplelib:strong_upgrade_template"
       ],
       "pattern": [
         "cig",
@@ -1376,7 +1372,7 @@
           "simplebeacons:evil_conduit"
         ],
         "U": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ],
         "c": [
           "minecraft:copper_block"
@@ -1401,15 +1397,11 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 21
-          },
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 13
-          },
-          {
             "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:diamond",
             "count": 9
           },
           {
@@ -1433,15 +1425,23 @@
             "count": 8
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 4
+            "id": "simplelib:strong_upgrade_template",
+            "count": 3
           },
           {
             "id": "simplemobs:nether_gem",
             "count": 2
           },
           {
+            "id": "minecraft:crying_obsidian",
+            "count": 1
+          },
+          {
             "id": "minecraft:heart_of_the_sea",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -1459,12 +1459,12 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_beacon_smithing.json",
       "ingredients": [
         "minecraft:beacon",
-        "simplebeacons:strong_upgrade_template",
+        "simplelib:strong_upgrade_template",
         "simplemobs:nether_heart"
       ],
       "slots": {
         "template": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ],
         "base": [
           "minecraft:beacon"
@@ -1481,23 +1481,19 @@
             "count": 5
           },
           {
-            "id": "minecraft:crying_obsidian",
-            "count": 4
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
             "id": "minecraft:obsidian",
             "count": 3
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 2
+            "id": "minecraft:nether_star",
+            "count": 1
           },
           {
-            "id": "minecraft:nether_star",
+            "id": "simplelib:strong_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -1515,12 +1511,12 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_conduit_smithing.json",
       "ingredients": [
         "minecraft:conduit",
-        "simplebeacons:strong_upgrade_template",
+        "simplelib:strong_upgrade_template",
         "simplemobs:nether_heart"
       ],
       "slots": {
         "template": [
-          "simplebeacons:strong_upgrade_template"
+          "simplelib:strong_upgrade_template"
         ],
         "base": [
           "minecraft:conduit"
@@ -1537,133 +1533,16 @@
             "count": 8
           },
           {
-            "id": "minecraft:crying_obsidian",
-            "count": 4
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 2
-          },
-          {
             "id": "minecraft:heart_of_the_sea",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebeacons:strong_upgrade_template",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebeacons:strong_upgrade_template",
-        "count": 1
-      },
-      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template.json",
-      "ingredients": [
-        "minecraft:crying_obsidian",
-        "minecraft:diamond",
-        "simplemobs:nether_heart"
-      ],
-      "pattern": [
-        "ODO",
-        "DND",
-        "ODO"
-      ],
-      "key": {
-        "D": [
-          "minecraft:diamond"
-        ],
-        "N": [
-          "simplemobs:nether_heart"
-        ],
-        "O": [
-          "minecraft:crying_obsidian"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 4
           },
           {
-            "id": "minecraft:diamond",
-            "count": 4
+            "id": "simplelib:strong_upgrade_template",
+            "count": 1
           },
           {
             "id": "simplemobs:nether_heart",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebeacons:strong_upgrade_template_duplication",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebeacons:strong_upgrade_template",
-        "count": 2
-      },
-      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template_duplication.json",
-      "ingredients": [
-        "minecraft:crying_obsidian",
-        "minecraft:diamond",
-        "simplebeacons:strong_upgrade_template",
-        "simplemobs:nether_heart"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebeacons:strong_upgrade_template"
-        ],
-        [
-          "minecraft:crying_obsidian"
-        ],
-        [
-          "minecraft:diamond"
-        ],
-        [
-          "simplemobs:nether_heart"
-        ]
-      ]
-    },
-    {
-      "id": "simplebeacons:strong_upgrade_template_from_shards",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebeacons:strong_upgrade_template",
-        "count": 1
-      },
-      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template_from_shards.json",
-      "ingredients": [
-        "simplebeacons:strong_upgrade_shard"
-      ],
-      "pattern": [
-        "SSS",
-        "SSS",
-        "SSS"
-      ],
-      "key": {
-        "S": [
-          "simplebeacons:strong_upgrade_shard"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebeacons:strong_upgrade_shard",
-            "count": 9
           }
         ]
       }
@@ -1916,125 +1795,6 @@
       "texture": "assets/textures/simplebeacons/item/guide_book.png",
       "craftedBy": [],
       "usedIn": []
-    },
-    {
-      "id": "simplebeacons:strong_upgrade_shard",
-      "name": {
-        "en_us": "Strong Upgrade Shard",
-        "de_de": "Splitter der Starken Aufwertung"
-      },
-      "note": {
-        "en": {
-          "summary": "Dropped by every Vanilla Wither, survives explosions. Nine make a Strong Upgrade."
-        },
-        "de": {
-          "summary": "Fällt von jedem Vanilla-Wither, übersteht Explosionen. Neun ergeben eine Starke Aufwertungsvorlage."
-        }
-      },
-      "texture": "assets/textures/simplebeacons/item/strong_upgrade_shard.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "A splinter of a template, still warm from the Wither's last breath."
-          ],
-          "use": [
-            "Every Vanilla Wither drops one. Nine of them make a Strong Upgrade."
-          ],
-          "secret": [
-            "It survives explosions, like the Nether Star beside it."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Splitter einer Vorlage, noch warm vom letzten Atem des Withers."
-          ],
-          "use": [
-            "Jeder Vanilla-Wither lässt einen fallen. Neun davon ergeben eine Starke Aufwertungsvorlage."
-          ],
-          "secret": [
-            "Er übersteht Explosionen, wie der Netherstern neben ihm."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": [
-        "simplebeacons:strong_upgrade_template_from_shards"
-      ]
-    },
-    {
-      "id": "simplebeacons:strong_upgrade_template",
-      "name": {
-        "en_us": "Strong Upgrade",
-        "de_de": "Starke Aufwertungsvorlage"
-      },
-      "note": {
-        "en": {
-          "title": "Strong Upgrade",
-          "summary": "A smithing template you cannot craft from plain materials: it comes from the Wither. It turns a beacon into a Strong Beacon and a conduit into a Strong Conduit.",
-          "details": [
-            "The Vanilla Wither always drops one Strong Upgrade Shard (it survives explosions); 9 shards make one template.",
-            "With Simple Mobs the heavy Withers drop a Nether Heart: Nether Heart in the middle, four diamonds on the edges and four crying obsidian in the corners make a template.",
-            "Duplicate it only with a Nether Heart: the template, 1 crying obsidian, 1 diamond and a Nether Heart (shapeless) give 2 templates - cheaper than crafting the first one.",
-            "It is used up by both upgrade ways."
-          ]
-        },
-        "de": {
-          "title": "Starke Aufwertungsvorlage",
-          "summary": "Eine Schmiedevorlage, die sich nicht aus einfachen Materialien herstellen lässt: sie kommt vom Wither. Sie macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer und aus einem Aquisator einen Starken Aquisator.",
-          "details": [
-            "Der Vanilla-Wither lässt immer einen Splitter der Starken Aufwertung fallen (übersteht Explosionen); 9 Splitter ergeben eine Vorlage.",
-            "Mit Simple Mobs lassen die schweren Wither ein Netherherz fallen: Netherherz in der Mitte, vier Diamanten an den Kanten und vier Weinender Obsidian in den Ecken ergeben eine Vorlage.",
-            "Vervielfältigen nur mit Netherherz: die Vorlage, 1 Weinender Obsidian, 1 Diamant und ein Netherherz (formlos) ergeben 2 Vorlagen - günstiger als die erste.",
-            "Beide Aufwertungswege verbrauchen sie."
-          ]
-        }
-      },
-      "texture": "assets/textures/simplebeacons/item/strong_upgrade_template.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "A slab of obsidian around a captured star; it hums when a beacon is near."
-          ],
-          "use": [
-            "Off hand, then hit a beacon or conduit 8 times with an axe (or sledgehammer) while carrying a nether star; or use the smithing table.",
-            "9 shards from the Vanilla Wither make one; with Simple Mobs also a Nether Heart, 4 diamonds and 4 crying obsidian. Only with a Nether Heart: template, crying obsidian, diamond and heart make 2."
-          ],
-          "secret": [
-            "The upgraded block keeps its chosen powers, its lock and its name."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Obsidianplatte um einen gefangenen Stern; sie summt, wenn ein Leuchtfeuer nah ist."
-          ],
-          "use": [
-            "In die Nebenhand, dann 8-mal mit einer Axt (oder dem Vorschlaghammer) auf ein Leuchtfeuer oder einen Aquisator schlagen, mit Netherstern dabei; oder am Schmiedetisch.",
-            "9 Splitter vom Vanilla-Wither ergeben eine; mit Simple Mobs auch Netherherz, 4 Diamanten, 4 Weinender Obsidian. Kopie: Vorlage, Weinender Obsidian, Diamant und Netherherz ergeben 2."
-          ],
-          "secret": [
-            "Der aufgewertete Block behält seine gewählten Kräfte, seine Sperre und seinen Namen."
-          ]
-        }
-      },
-      "craftedBy": [
-        "simplebeacons:strong_upgrade_template",
-        "simplebeacons:strong_upgrade_template_duplication",
-        "simplebeacons:strong_upgrade_template_from_shards"
-      ],
-      "usedIn": [
-        "simplebeacons:evil_upgrade_template",
-        "simplebeacons:mighty_beacon",
-        "simplebeacons:mighty_beacon_without_simplebuilding",
-        "simplebeacons:mighty_conduit",
-        "simplebeacons:mighty_conduit_without_simplebuilding",
-        "simplebeacons:mighty_evil_beacon",
-        "simplebeacons:mighty_evil_beacon_without_simplebuilding",
-        "simplebeacons:mighty_evil_conduit",
-        "simplebeacons:mighty_evil_conduit_without_simplebuilding",
-        "simplebeacons:strong_beacon_smithing",
-        "simplebeacons:strong_conduit_smithing",
-        "simplebeacons:strong_upgrade_template_duplication"
-      ]
     }
   ],
   "blocks": [
@@ -2538,12 +2298,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 16,
-    "recipes": 16,
+    "recipes": 13,
     "lootTables": 8,
     "tags": 1,
     "advancements": 1,
     "enchantments": 0,
-    "items": 4,
+    "items": 2,
     "blocks": 8,
     "trades": 0,
     "config": 0,

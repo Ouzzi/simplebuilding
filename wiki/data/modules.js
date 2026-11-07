@@ -540,7 +540,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplelib",
     "displayName": "SimpleLib",
-    "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials and the building cores, id moves, in-world upgrades and UI building blocks.",
+    "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials (building cores, Strong Upgrade with the Wither drop), id moves, in-world upgrades and UI building blocks.",
     "version": "0.4.0",
     "minecraft": "26.3",
     "loaders": [
@@ -565,12 +565,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3klEQVR42mMIC3D4TwlmABHP7x4hGd84sQDVgLsX1v5/++wKmMaG3VUawBjEBmmeM6EY0wBcmkD444v//5fWvvwvw2UMtginAciaQBpAuC/5DgoGGYJiAC5NXy79x9BcHXgSjEGGgA0AaTq/6TdWm0D4eO1/FI0gtSBsp1gMNgRsQK7rDrAgNptgGmA41GAWGGMYADMEXSNMA8g7MI0wDDYARMAMgBmCrBHkBWRNMI3wMAARyIYgOxGbJhDGmg5ghuDThIyxpgNkDdg04TUAlLrwacBrAEyAVAw3gBIMAI2ehfZwc0OFAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 11,
+      "items": 13,
       "blocks": 6,
-      "recipes": 22,
+      "recipes": 23,
       "features": 8
     },
-    "dataHash": "45db45c91816"
+    "dataHash": "d77edffb5fbd"
   },
   {
     "id": "simpleinterfaces",
@@ -733,10 +733,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 55,
       "blocks": 8,
-      "recipes": 121,
+      "recipes": 119,
       "features": 25
     },
-    "dataHash": "53f27fc25f35"
+    "dataHash": "d321e2ce7317"
   },
   {
     "id": "simpleweather",
@@ -1109,7 +1109,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplebeacons",
     "displayName": "Simple Beacons",
-    "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+    "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1137,12 +1137,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mPQDQ77TwlmABHLHj0HYz5OMaIwSG3BhRuoBoAk4lxa/jvpJoFpEIZpwCYeOG0OpgEgRXpybnDcEiMDxshicsJ6uA0Amb7vzy8MA5ANJmgASBFMw7lFVmCMLIbXAGSbQOxvd2rAGFkMrwEwJ4NsBWn8/+saGIPYMDkQJtkAEJ8oA0BORPYGyBCQZrIDETkaiQpEmAEwDejpwO3EJeJjAd0FsPRB0AUgBYQwhgGgjAESIDYzgdSiGEAJBgB92uqn9eW6TwAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 4,
+      "items": 2,
       "blocks": 8,
-      "recipes": 16,
+      "recipes": 13,
       "features": 16
     },
-    "dataHash": "12ddfa472efa"
+    "dataHash": "ceaca9cf7d53"
   },
   {
     "id": "simpleovens",
@@ -1374,7 +1374,7 @@ window.WIKI_MODULES = [
       "recipes": 499,
       "features": 14
     },
-    "dataHash": "124307272b51"
+    "dataHash": "055b451cf449"
   },
   {
     "id": "simplecrucibles",
