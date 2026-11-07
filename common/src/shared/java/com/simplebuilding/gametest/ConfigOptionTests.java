@@ -588,8 +588,8 @@ public final class ConfigOptionTests {
             "root.enableSimpleResonance boolean=true",
             "root.enableSimpleEnchanting boolean=true",
             "root.enableSimplePads boolean=true",
-            "root.enableSimpleChisels boolean=true",
             "root.enableSimpleBuildingtools boolean=true",
+            "root.enableSimpleChisels boolean=true",
             // <submods:end expected>
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1235,8 +1235,8 @@ public final class ConfigOptionTests {
                 {"enableSimpleResonance", "simpleresonance"},
                 {"enableSimpleEnchanting", "simpleenchanting"},
                 {"enableSimplePads", "simplepads"},
-                {"enableSimpleChisels", "simplechisels"},
                 {"enableSimpleBuildingtools", "simplebuildingtools"},
+                {"enableSimpleChisels", "simplechisels"},
                 // <submods:end switches>
         };
         try {

@@ -13,7 +13,7 @@ import generate as g
 # '*_sledgehammer' lives in Simple Hammers' manual since stage 7 (modules/simplehammers/wiki/manual.json).
 # '*backpack' moved to Simple Storage's manual (split stage 8c-2).
 # b-pads01 (04.11.): the pad families ('*elytra_pad', '*flypad', ...) moved to Simple Pads' manual (modules/simplepads/wiki/manual.json).
-FAMILIES = ['*_chisel', '*_building_wand',  # IG31-13: '*_core' moved to SimpleLib's wiki
+FAMILIES = [  # IG31-13: '*_core' moved to SimpleLib's wiki; b-chisels07/b-btools07: chisels, wands to their modules
             '*_quartz_checker', 'chiseled_*_bricks',
             'enderite_*_armor', 'guide_book*', 'nihil_redstone', 'astral_redstone',
             'bridge_redstone']
@@ -79,6 +79,9 @@ class ItemNoteTests(unittest.TestCase):
         props = {e['id']: e for e in exported['items']}
         for family, fields in [('*_chisel', ('durability', 'cooldownTicks')),
                                ('*_building_wand', ('durability', 'wandSquareDiameter'))]:
+            # b-chisels07/b-btools07 (07.11.): chisels and wands left SimpleBuilding on 26.3 (own modules).
+            if family not in manual['notes']:
+                continue
             for identifier, extra in manual['notes'][family]['items'].items():
                 for field in fields:
                     if field not in props[identifier]:

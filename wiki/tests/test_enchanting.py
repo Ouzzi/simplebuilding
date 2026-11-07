@@ -60,7 +60,7 @@ class CommittedData(unittest.TestCase):
 
     def test_family_table_enchantments_include_foreign_namespace(self):
         table = {e['id'] for e in self.data['enchantments'] if e['family'] and e['table']}
-        self.assertTrue({'simplebuilding:fast_chiseling', 'simplebuilding:kinetic_protection',
+        self.assertTrue({'simplechisels:fast_chiseling', 'simplebuilding:kinetic_protection',
                          'simplequalityoflife:thrift'} <= table, table)
         self.assertTrue(set(self.data['tableOrder']) >= table)
         self.assertNotIn('simpletools:soulbound', table)

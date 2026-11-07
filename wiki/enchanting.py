@@ -79,6 +79,7 @@ class Pack:
         self.enchantments: dict[str, dict] = {}
         self.origin: dict[str, str] = {}
         self.tags: dict[str, dict[str, list[str]]] = {"enchantment": {}, "item": {}}
+        self.own_tags: dict[tuple[str, str, str], list[str]] = {}  # (module, registry, tag) -> values before it
         self.lang = {"en": {}, "de": {}}
 
     def add_tag(self, registry: str, tag: str, data: dict) -> None:
@@ -99,6 +100,13 @@ class Pack:
                     tag_dir = ns_dir / "tags" / registry
                     for path in sorted(tag_dir.rglob("*.json")):
                         tag = f"{ns}:{path.relative_to(tag_dir).with_suffix('').as_posix()}"
+                        # Roots of one module form one jar: a later file at the same path replaces the
+                        # earlier one (mc26_3/overlay over src/main), it does not add to it.
+                        key = (mid, registry, tag)
+                        if key in self.own_tags:
+                            self.tags[registry][tag] = self.own_tags[key]
+                        else:
+                            self.own_tags[key] = list(self.tags[registry].get(tag, []))
                         self.add_tag(registry, tag, json.loads(path.read_text(encoding="utf-8")))
         assets = root / "assets"
         if assets.is_dir():
