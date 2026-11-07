@@ -256,6 +256,19 @@ public final class ConfigOptions {
             "tweaks.laserPointer.enable", "tweaks.laserPointer.range", "tweaks.laserPointer.chargePerSecond",
             "tweaks.laserPointer.effectCost", "tweaks.laserPointer.color", "tweaks.laserPointer.scale");
 
+    /**
+     * b-cfg11: the Light Panes' siblings, the glowing trims, live in Simple Trims on 26.3 ({@code McVersion.TRIMS_IN_SB}); SimpleBuilding's
+     * emission is 0 there ({@code GlowingTrimUtils}), so {@code DynamicLightHandler.enabled()} lights nothing, and Simple Trims
+     * follows its own switch ({@code SimpleTrims.on()}).
+     */
+    public static final Set<String> MOVED_TO_TRIMS = Set.of("server.features.dynamicLight");
+
+    /**
+     * b-cfg11: the levitating and suspended sand/gravel are Simple Blocks' on 26.3 ({@code McVersion.BLOCKS_IN_SB}); the only reader
+     * of the switch, {@code RecipeFilter}, touches the namespace {@code simplebuilding}, whose recipes are gone there.
+     */
+    public static final Set<String> MOVED_TO_BLOCKS = Set.of("server.features.levitatingBlocks");
+
     /** True if {@code path} belongs to a sub-mod on this line (see {@link #MOVED_TO_OVENS}). */
     public static boolean hidden(String path) {
         return !com.simplebuilding.version.McVersion.OVENS_IN_SB && MOVED_TO_OVENS.contains(path)
@@ -268,7 +281,9 @@ public final class ConfigOptions {
                 || !com.simplebuilding.version.McVersion.HOPPERS_IN_SB && MOVED_TO_MACHINES_HOPPERS.contains(path)
                 || !com.simplebuilding.version.McVersion.PADS_IN_SB && MOVED_TO_PADS.contains(path)
                 || !com.simplebuilding.version.McVersion.BTOOLS_IN_SB && MOVED_TO_BTOOLS.contains(path)
-                || !com.simplebuilding.version.McVersion.GADGETS_IN_SB && MOVED_TO_GADGETS.contains(path);
+                || !com.simplebuilding.version.McVersion.GADGETS_IN_SB && MOVED_TO_GADGETS.contains(path)
+                || !com.simplebuilding.version.McVersion.TRIMS_IN_SB && MOVED_TO_TRIMS.contains(path)
+                || !com.simplebuilding.version.McVersion.BLOCKS_IN_SB && MOVED_TO_BLOCKS.contains(path);
     }
 
     private static final List<Option> ALL;

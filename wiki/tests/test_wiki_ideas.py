@@ -104,7 +104,8 @@ class ConfigMetadataTests(unittest.TestCase):
                      'server.tools.diamondBlockPebbles', 'server.loot.betterChestPercent',
                      'server.tools.stoneChiselCooldownTicks', 'server.features.blueprint', 'tools.wandHungerMultiplier',
                      'tools.rotatorChargePerTurn', 'server.charges.lensMaxCharge', 'tweaks.laserPointer.chargePerSecond',
-                     'tweaks.pads.enableFlypads', 'server.features.endgameEnchantLevels'):
+                     'tweaks.pads.enableFlypads', 'server.features.endgameEnchantLevels',
+                     'server.features.dynamicLight', 'server.features.levitatingBlocks'):
             self.assertNotIn(name, configs, name)
             self.assertIn(name, legacy, name)
         self.assertEqual('restart', legacy['server.charges.lensMaxCharge']['reload'])
