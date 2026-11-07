@@ -2134,11 +2134,11 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 641,
+      "items": 27,
       "recipes": 28,
       "features": 6
     },
-    "dataHash": "a306a1e88db1"
+    "dataHash": "cb5efda5b2cc"
   },
   {
     "id": "simplechisels",

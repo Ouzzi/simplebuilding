@@ -95383,14 +95383,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 7.08,
-        "perChest": 0.0732,
+        "chance": 6.61,
+        "perChest": 0.0682,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95411,14 +95411,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 5.36,
-        "perChest": 0.0549,
+        "chance": 5.0,
+        "perChest": 0.0511,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95439,14 +95439,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 8.78,
-        "perChest": 0.0915,
+        "chance": 8.2,
+        "perChest": 0.0852,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95467,14 +95467,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 8.78,
-        "perChest": 0.0915,
+        "chance": 8.2,
+        "perChest": 0.0852,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95495,14 +95495,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 10.45,
-        "perChest": 0.1098,
+        "chance": 9.77,
+        "perChest": 0.1023,
         "count": [
           1,
           1
         ],
         "weight": 6,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95523,14 +95523,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 5.36,
-        "perChest": 0.0549,
+        "chance": 5.0,
+        "perChest": 0.0511,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95551,14 +95551,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 7.08,
-        "perChest": 0.0732,
+        "chance": 6.61,
+        "perChest": 0.0682,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95568,8 +95568,35 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:bridge",
+        "enchantment": "simplebuildingtools:bridge",
         "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuildingtools:diamond_building_wand",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 9.77,
+        "perChest": 0.1023,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 88,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
       },
       {
         "type": "chest",
@@ -95579,14 +95606,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 13.71,
-        "perChest": 0.1463,
+        "chance": 12.83,
+        "perChest": 0.1364,
         "count": [
           1,
           1
         ],
         "weight": 8,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95606,14 +95633,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 5.36,
-        "perChest": 0.0549,
+        "chance": 5.0,
+        "perChest": 0.0511,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95632,14 +95659,14 @@
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 1.81,
-        "perChest": 0.0183,
+        "chance": 1.69,
+        "perChest": 0.017,
         "count": [
           1,
           1
         ],
         "weight": 1,
-        "totalWeight": 82,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95658,14 +95685,14 @@
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 8.66,
-        "perChest": 0.0893,
+        "chance": 8.37,
+        "perChest": 0.0862,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 56,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95686,14 +95713,14 @@
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 6.97,
-        "perChest": 0.0714,
+        "chance": 6.74,
+        "perChest": 0.069,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 56,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95708,20 +95735,47 @@
       },
       {
         "type": "chest",
+        "item": "simplebuildingtools:octant",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 3.41,
+        "perChest": 0.0345,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
         "item": "simplehammers:diamond_sledgehammer",
         "table": "minecraft:chests/ancient_city",
         "label": {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 5.26,
-        "perChest": 0.0536,
+        "chance": 5.08,
+        "perChest": 0.0517,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 56,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95740,14 +95794,14 @@
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 5.26,
-        "perChest": 0.0536,
+        "chance": 5.08,
+        "perChest": 0.0517,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 56,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95767,14 +95821,14 @@
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 3.53,
-        "perChest": 0.0357,
+        "chance": 3.41,
+        "perChest": 0.0345,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 56,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95793,14 +95847,14 @@
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 1.78,
-        "perChest": 0.0179,
+        "chance": 1.71,
+        "perChest": 0.0172,
         "count": [
           1,
           1
         ],
         "weight": 1,
-        "totalWeight": 56,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95819,14 +95873,14 @@
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 6.97,
-        "perChest": 0.1429,
+        "chance": 6.74,
+        "perChest": 0.1379,
         "count": [
           1,
           3
         ],
         "weight": 4,
-        "totalWeight": 56,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -95845,14 +95899,14 @@
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 10.33,
-        "perChest": 0.375,
+        "chance": 9.99,
+        "perChest": 0.3621,
         "count": [
           2,
           5
         ],
         "weight": 6,
-        "totalWeight": 56,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96350,14 +96404,14 @@
           "en": "Nether fortress",
           "de": "Netherfestung"
         },
-        "chance": 14.96,
-        "perChest": 0.1579,
+        "chance": 14.6,
+        "perChest": 0.1538,
         "count": [
           1,
           1
         ],
         "weight": 6,
-        "totalWeight": 38,
+        "totalWeight": 39,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96378,14 +96432,14 @@
           "en": "Nether fortress",
           "de": "Netherfestung"
         },
-        "chance": 7.69,
-        "perChest": 0.0789,
+        "chance": 7.5,
+        "perChest": 0.0769,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 38,
+        "totalWeight": 39,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96406,14 +96460,14 @@
           "en": "Nether fortress",
           "de": "Netherfestung"
         },
-        "chance": 5.17,
-        "perChest": 0.0526,
+        "chance": 5.04,
+        "perChest": 0.0513,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 38,
+        "totalWeight": 39,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96434,14 +96488,14 @@
           "en": "Nether fortress",
           "de": "Netherfestung"
         },
-        "chance": 5.17,
-        "perChest": 0.0526,
+        "chance": 5.04,
+        "perChest": 0.0513,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 38,
+        "totalWeight": 39,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96456,20 +96510,47 @@
       },
       {
         "type": "chest",
+        "item": "simplebuildingtools:octant",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 2.54,
+        "perChest": 0.0256,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
         "item": "simplelib:netherite_nugget",
         "table": "minecraft:chests/nether_bridge",
         "label": {
           "en": "Nether fortress",
           "de": "Netherfestung"
         },
-        "chance": 14.96,
-        "perChest": 0.3158,
+        "chance": 14.6,
+        "perChest": 0.3077,
         "count": [
           1,
           3
         ],
         "weight": 6,
-        "totalWeight": 38,
+        "totalWeight": 39,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96488,14 +96569,14 @@
           "en": "Nether fortress",
           "de": "Netherfestung"
         },
-        "chance": 7.69,
-        "perChest": 0.1579,
+        "chance": 7.5,
+        "perChest": 0.1538,
         "count": [
           1,
           3
         ],
         "weight": 3,
-        "totalWeight": 38,
+        "totalWeight": 39,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96544,14 +96625,14 @@
           "en": "Pillager outpost",
           "de": "Plünderer-Außenposten"
         },
-        "chance": 10.7,
-        "perChest": 0.1111,
+        "chance": 10.33,
+        "perChest": 0.1071,
         "count": [
           1,
           1
         ],
         "weight": 6,
-        "totalWeight": 54,
+        "totalWeight": 56,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96572,14 +96653,14 @@
           "en": "Pillager outpost",
           "de": "Plünderer-Außenposten"
         },
-        "chance": 14.08,
-        "perChest": 0.1481,
+        "chance": 13.61,
+        "perChest": 0.1429,
         "count": [
           1,
           1
         ],
         "weight": 8,
-        "totalWeight": 54,
+        "totalWeight": 56,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96589,8 +96670,34 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:linear",
+        "enchantment": "simplebuildingtools:linear",
         "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuildingtools:octant",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 3.53,
+        "perChest": 0.0357,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
       {
         "type": "chest",
@@ -96600,14 +96707,14 @@
           "en": "Pillager outpost",
           "de": "Plünderer-Außenposten"
         },
-        "chance": 8.97,
-        "perChest": 0.0926,
+        "chance": 8.66,
+        "perChest": 0.0893,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 54,
+        "totalWeight": 56,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96620,20 +96727,20 @@
       },
       {
         "type": "chest",
-        "item": "simplebuilding:copper_chisel",
+        "item": "simplechisels:copper_chisel",
         "table": "minecraft:chests/pillager_outpost",
         "label": {
           "en": "Pillager outpost",
           "de": "Plünderer-Außenposten"
         },
-        "chance": 7.22,
-        "perChest": 0.0741,
+        "chance": 6.97,
+        "perChest": 0.0714,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 54,
+        "totalWeight": 56,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96652,14 +96759,14 @@
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 5.55,
-        "perChest": 0.0566,
+        "chance": 5.17,
+        "perChest": 0.0526,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 53,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96680,14 +96787,14 @@
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 9.14,
-        "perChest": 0.0943,
+        "chance": 8.52,
+        "perChest": 0.0877,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 53,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96697,7 +96804,7 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:linear",
+        "enchantment": "simplebuildingtools:linear",
         "level": 1
       },
       {
@@ -96708,14 +96815,14 @@
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 1.87,
-        "perChest": 0.0189,
+        "chance": 1.74,
+        "perChest": 0.0175,
         "count": [
           1,
           1
         ],
         "weight": 1,
-        "totalWeight": 53,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96736,14 +96843,14 @@
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 5.55,
-        "perChest": 0.0566,
+        "chance": 5.17,
+        "perChest": 0.0526,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 53,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96764,14 +96871,14 @@
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 5.55,
-        "perChest": 0.0566,
+        "chance": 5.17,
+        "perChest": 0.0526,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 53,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96786,20 +96893,46 @@
       },
       {
         "type": "chest",
+        "item": "simplebuildingtools:iron_building_wand",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 6.85,
+        "perChest": 0.0702,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 57,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
         "item": "simplestorage:quiver",
         "table": "minecraft:chests/woodland_mansion",
         "label": {
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 5.55,
-        "perChest": 0.0566,
+        "chance": 5.17,
+        "perChest": 0.0526,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 53,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -96893,12 +97026,12 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:fast_chiseling",
+        "enchantment": "simplechisels:fast_chiseling",
         "level": 2
       },
       {
         "type": "chest",
-        "item": "simplebuilding:gold_chisel",
+        "item": "simplechisels:gold_chisel",
         "table": "minecraft:chests/buried_treasure",
         "label": {
           "en": "Buried treasure",
@@ -96924,7 +97057,7 @@
       },
       {
         "type": "chest",
-        "item": "simplebuilding:diamond_chisel",
+        "item": "simplechisels:diamond_chisel",
         "table": "minecraft:chests/buried_treasure",
         "label": {
           "en": "Buried treasure",
@@ -96999,7 +97132,7 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:fast_chiseling",
+        "enchantment": "simplechisels:fast_chiseling",
         "level": 1
       },
       {
@@ -97245,7 +97378,7 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:fast_chiseling",
+        "enchantment": "simplechisels:fast_chiseling",
         "level": 1
       },
       {
@@ -97353,12 +97486,12 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:fast_chiseling",
+        "enchantment": "simplechisels:fast_chiseling",
         "level": 1
       },
       {
         "type": "chest",
-        "item": "simplebuilding:diamond_chisel",
+        "item": "simplechisels:diamond_chisel",
         "table": "minecraft:chests/igloo_chest",
         "label": {
           "en": "Igloo",
@@ -97407,7 +97540,7 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:fast_chiseling",
+        "enchantment": "simplechisels:fast_chiseling",
         "level": 1
       },
       {
@@ -97664,7 +97797,7 @@
         ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:fast_chiseling",
+        "enchantment": "simplechisels:fast_chiseling",
         "level": 2
       },
       {
@@ -97755,7 +97888,7 @@
         ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:fast_chiseling",
+        "enchantment": "simplechisels:fast_chiseling",
         "level": 2
       },
       {
@@ -98113,7 +98246,7 @@
       },
       {
         "type": "chest",
-        "item": "simplebuilding:gold_chisel",
+        "item": "simplechisels:gold_chisel",
         "table": "minecraft:chests/ruined_portal",
         "label": {
           "en": "Ruined portal",
@@ -98187,7 +98320,7 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:fast_chiseling",
+        "enchantment": "simplechisels:fast_chiseling",
         "level": 1
       },
       {
@@ -98268,7 +98401,7 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:linear",
+        "enchantment": "simplebuildingtools:linear",
         "level": 1
       },
       {
@@ -98372,53 +98505,6 @@
         ]
       },
       {
-        "item": "simplebuilding:copper_chisel",
-        "table": "minecraft:chests/pillager_outpost",
-        "type": "chest",
-        "label": {
-          "en": "Pillager outpost",
-          "de": "Plünderer-Außenposten"
-        },
-        "gated": true,
-        "requires": [],
-        "pmf": [
-          0.927754915409,
-          0.070416095107,
-          0.001828989483
-        ]
-      },
-      {
-        "item": "simplebuilding:diamond_chisel",
-        "table": "minecraft:chests/buried_treasure",
-        "type": "chest",
-        "label": {
-          "en": "Buried treasure",
-          "de": "Vergrabener Schatz"
-        },
-        "gated": true,
-        "requires": [],
-        "pmf": [
-          0.904864283795,
-          0.091910776673,
-          0.003224939532
-        ]
-      },
-      {
-        "item": "simplebuilding:diamond_chisel",
-        "table": "minecraft:chests/igloo_chest",
-        "type": "chest",
-        "label": {
-          "en": "Igloo",
-          "de": "Iglu"
-        },
-        "gated": true,
-        "requires": [],
-        "pmf": [
-          0.85,
-          0.15
-        ]
-      },
-      {
         "item": "simplebuilding:enchanted_enderite_apple",
         "table": "minecraft:chests/end_city_treasure",
         "type": "chest",
@@ -98431,10 +98517,10 @@
           "end"
         ],
         "pmf": [
-          0.981855584655,
-          0.017996601181,
-          0.000147360746,
-          4.53418e-07
+          0.983083310833,
+          0.016788290641,
+          0.000128031673,
+          3.66853e-07
         ]
       },
       {
@@ -98448,9 +98534,9 @@
         "gated": true,
         "requires": [],
         "pmf": [
-          0.98224914966,
-          0.017644557823,
-          0.000106292517
+          0.982857709076,
+          0.017043202537,
+          9.9088387e-05
         ]
       },
       {
@@ -98517,41 +98603,10 @@
           "end"
         ],
         "pmf": [
-          0.946448197937,
-          0.052237797623,
-          0.001301762162,
-          1.2242277e-05
-        ]
-      },
-      {
-        "item": "simplebuilding:gold_chisel",
-        "table": "minecraft:chests/buried_treasure",
-        "type": "chest",
-        "label": {
-          "en": "Buried treasure",
-          "de": "Vergrabener Schatz"
-        },
-        "gated": true,
-        "requires": [],
-        "pmf": [
-          0.845023739138,
-          0.146018095494,
-          0.008958165368
-        ]
-      },
-      {
-        "item": "simplebuilding:gold_chisel",
-        "table": "minecraft:chests/ruined_portal",
-        "type": "chest",
-        "label": {
-          "en": "Ruined portal",
-          "de": "Portalruine"
-        },
-        "gated": true,
-        "requires": [],
-        "pmf": [
-          0.925,
-          0.075
+          0.950015921417,
+          0.048841698558,
+          0.001132474995,
+          9.905029e-06
         ]
       },
       {
@@ -98629,9 +98684,9 @@
         "gated": true,
         "requires": [],
         "pmf": [
-          0.964710884354,
-          0.034863945578,
-          0.000425170068
+          0.965913594927,
+          0.033690051526,
+          0.000396353547
         ]
       },
       {
@@ -98738,13 +98793,13 @@
           "nether"
         ],
         "pmf": [
-          0.923130193906,
-          0.024930747922,
-          0.025161588181,
-          0.02539242844,
-          0.000692520776,
-          0.000461680517,
-          0.000230840259
+          0.925049309665,
+          0.024326101249,
+          0.024545255314,
+          0.02476440938,
+          0.000657462196,
+          0.000438308131,
+          0.000219154065
         ]
       },
       {
@@ -98783,6 +98838,116 @@
         ]
       },
       {
+        "item": "simplebuildingtools:iron_building_wand",
+        "table": "minecraft:chests/woodland_mansion",
+        "type": "chest",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.931466092131,
+          0.066892377142,
+          0.001641530727
+        ]
+      },
+      {
+        "item": "simplebuildingtools:octant",
+        "table": "minecraft:chests/pillager_outpost",
+        "type": "chest",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.964710884354,
+          0.034863945578,
+          0.000425170068
+        ]
+      },
+      {
+        "item": "simplechisels:copper_chisel",
+        "table": "minecraft:chests/pillager_outpost",
+        "type": "chest",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.930272108844,
+          0.068027210884,
+          0.001700680272
+        ]
+      },
+      {
+        "item": "simplechisels:diamond_chisel",
+        "table": "minecraft:chests/buried_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.904864283795,
+          0.091910776673,
+          0.003224939532
+        ]
+      },
+      {
+        "item": "simplechisels:diamond_chisel",
+        "table": "minecraft:chests/igloo_chest",
+        "type": "chest",
+        "label": {
+          "en": "Igloo",
+          "de": "Iglu"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.85,
+          0.15
+        ]
+      },
+      {
+        "item": "simplechisels:gold_chisel",
+        "table": "minecraft:chests/buried_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.845023739138,
+          0.146018095494,
+          0.008958165368
+        ]
+      },
+      {
+        "item": "simplechisels:gold_chisel",
+        "table": "minecraft:chests/ruined_portal",
+        "type": "chest",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.925,
+          0.075
+        ]
+      },
+      {
         "item": "simplehammers:diamond_sledgehammer",
         "table": "minecraft:chests/ancient_city",
         "type": "chest",
@@ -98793,9 +98958,9 @@
         "gated": true,
         "requires": [],
         "pmf": [
-          0.947385204082,
-          0.051658163265,
-          0.000956632653
+          0.949167657551,
+          0.049940546968,
+          0.000891795482
         ]
       },
       {
@@ -98915,17 +99080,17 @@
         "gated": true,
         "requires": [],
         "pmf": [
-          0.896683673469,
+          0.900118906064,
           0.0,
-          0.02487244898,
-          0.02487244898,
-          0.025111607143,
-          0.025350765306,
-          0.00071747449,
-          0.000956632653,
-          0.00071747449,
-          0.000478316327,
-          0.000239158163
+          0.024078478002,
+          0.024078478002,
+          0.024301426873,
+          0.024524375743,
+          0.000668846611,
+          0.000891795482,
+          0.000668846611,
+          0.000445897741,
+          0.00022294887
         ]
       },
       {
@@ -99175,13 +99340,13 @@
         "gated": true,
         "requires": [],
         "pmf": [
-          0.930272108844,
-          0.022675736961,
-          0.022864701436,
-          0.023053665911,
-          0.000566893424,
-          0.000377928949,
-          0.000188964475
+          0.932619896948,
+          0.021931562954,
+          0.022107720086,
+          0.022283877218,
+          0.000528471396,
+          0.000352314264,
+          0.000176157132
         ]
       },
       {
@@ -99245,13 +99410,13 @@
           "nether"
         ],
         "pmf": [
-          0.850415512465,
-          0.047091412742,
-          0.048014773777,
-          0.048938134811,
-          0.002770083102,
-          0.001846722068,
-          0.000923361034
+          0.854043392505,
+          0.046022353715,
+          0.046898969976,
+          0.047775586237,
+          0.002629848784,
+          0.001753232522,
+          0.000876616261
         ]
       },
       {
@@ -99354,9 +99519,9 @@
         "gated": true,
         "requires": [],
         "pmf": [
-          0.910265203475,
-          0.086877000457,
-          0.002857796068
+          0.913371598639,
+          0.083971088435,
+          0.002657312925
         ]
       },
       {
@@ -99370,9 +99535,9 @@
         "gated": true,
         "requires": [],
         "pmf": [
-          0.944464222143,
-          0.054467782129,
-          0.001067995728
+          0.948291782087,
+          0.050784856879,
+          0.000923361034
         ]
       },
       {
