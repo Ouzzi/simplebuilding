@@ -18,13 +18,16 @@ public final class TweaksJeiInfo {
 
     public static Map<String, List<ItemLike>> families() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
-        map.put("elytra_pad", List.of(TweaksBlocks.ELYTRA_PAD, TweaksBlocks.NETHERITE_ELYTRA_PAD, TweaksBlocks.ENDERITE_ELYTRA_PAD));
-        map.put("flypad", List.of(TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD));
-        map.put("spawn_teleporter", List.of(TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2,
-                TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));
-        map.put("chunk_loader", List.of(TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
-        map.put("launchpad", List.of(TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD));
-        map.put("potion_pad", List.of(TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD));
+        // 26.3 (a-fix09b): the pads, plates and Spawn Elytra are Simple Pads', which brings these pages itself (jei.simplepads.info.*).
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            map.put("elytra_pad", List.of(TweaksBlocks.ELYTRA_PAD, TweaksBlocks.NETHERITE_ELYTRA_PAD, TweaksBlocks.ENDERITE_ELYTRA_PAD));
+            map.put("flypad", List.of(TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD));
+            map.put("spawn_teleporter", List.of(TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2,
+                    TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));
+            map.put("chunk_loader", List.of(TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
+            map.put("launchpad", List.of(TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD));
+            map.put("potion_pad", List.of(TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD));
+        }
         // 26.3: the heads are Simple Mobheads' items, which bring their own JEI pages.
         if (!com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS) {
             map.put("blaze_head", List.of(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
@@ -36,16 +39,19 @@ public final class TweaksJeiInfo {
             map.put("shulker_head", List.of(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER)));
             map.put("drowned_head", List.of(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.DROWNED)));
         }
-        map.put("diamond_pressure_plate", List.of(TweaksBlocks.DIAMOND_PRESSURE_PLATE));
-        map.put("netherite_pressure_plate", List.of(TweaksBlocks.NETHERITE_PRESSURE_PLATE));
-        map.put("enderite_pressure_plate", List.of(TweaksBlocks.ENDERITE_PRESSURE_PLATE));
-        map.put("copper_pressure_plate", List.of(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
-                TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
-                TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
-                TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE));
-        map.put("spawn_elytra", List.of(TweaksItems.SPAWN_ELYTRA));
-        if (TweaksItems.LASER_POINTER != null) map.put("amethyst_lens", List.of(TweaksItems.LASER_POINTER)); // 26.3: Simple Gadgets' rod
-        if (TweaksItems.ECHO_COMPASS != null) map.put("echo_sounder", List.of(TweaksItems.ECHO_COMPASS)); // 26.3: Simple Gadgets' Echo Sounder
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            map.put("diamond_pressure_plate", List.of(TweaksBlocks.DIAMOND_PRESSURE_PLATE));
+            map.put("netherite_pressure_plate", List.of(TweaksBlocks.NETHERITE_PRESSURE_PLATE));
+            map.put("enderite_pressure_plate", List.of(TweaksBlocks.ENDERITE_PRESSURE_PLATE));
+            map.put("copper_pressure_plate", List.of(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
+                    TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
+                    TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
+                    TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE));
+            map.put("spawn_elytra", List.of(TweaksItems.SPAWN_ELYTRA));
+        }
+        // 26.3: Simple Gadgets' rod and Echo Sounder, with their own pages (jei.simplegadgets.info.*, a-fix09b).
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB && TweaksItems.LASER_POINTER != null) map.put("amethyst_lens", List.of(TweaksItems.LASER_POINTER));
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB && TweaksItems.ECHO_COMPASS != null) map.put("echo_sounder", List.of(TweaksItems.ECHO_COMPASS));
         return map;
     }
 }

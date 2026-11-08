@@ -113,6 +113,7 @@ public final class SimplePads {
         EasterEggs.registerComponents();
         PadsBlocks.init();
         PadsItems.init();
+        PadsViewer.register();   // a-fix09b: JEI info pages of the pads (were SimpleBuilding's until the split)
         EasterEggs.registerItems();
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id("easter_smithing"), EasterSmithingRecipe.SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id("enchanted_shapeless"), EnchantedShapelessRecipe.SERIALIZER);

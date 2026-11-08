@@ -117,6 +117,8 @@
   "item.simpletools.brittle_ceramic_bucket": "Brittle Ceramic Bucket",
   "item.simpletools.brittle_ceramic_water_bucket": "Brittle Ceramic Water Bucket",
   "item.simpletools.brittle_ceramic_lava_bucket": "Brittle Ceramic Lava Bucket",
+  "jei.simpletools.info.ceramic_bucket": "Shape 3 clay balls like a bucket into a raw ceramic bucket and fire it in a furnace or crucible. The ceramic bucket takes water and lava (no soul lava, no milk), wears one stage per pour and breaks after four pours; scooping does not wear it. Lava makes it brittle at once, so pouring lava breaks it.",
+  "jei.simpletools.info.enderite_bucket": "Takes water, lava, soul lava (with Simple Crucibles) and milk (from cows, goats and mooshrooms), two buckets of one fluid, and never breaks.",
   "item.simpletools.guide_book": "Simple Tools Guide",
   "simpletools.guide.chapter": "Simple Tools",
   "simpletools.guide.page.1.title": "Simple Tools",

@@ -49,29 +49,29 @@ public abstract class ItemFrameChiselMixin implements ChiseledFrame {
         return fixed;
     }
 
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    @Inject(require = 1, method = "defineSynchedData", at = @At("TAIL"))
     private void simplevisuals$defineTilt(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(SIMPLEVISUALS$TILT, (byte) 0);
     }
 
-    @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
+    @Inject(require = 1, method = "interact", at = @At("HEAD"), cancellable = true)
     private void simplevisuals$chisel(Player player, InteractionHand hand, Vec3 location, CallbackInfoReturnable<InteractionResult> cir) {
         InteractionResult result = FrameChisel.interact((ItemFrame) (Object) this, player, hand);
         if (result != null) cir.setReturnValue(result);
     }
 
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    @Inject(require = 1, method = "addAdditionalSaveData", at = @At("TAIL"))
     private void simplevisuals$saveTilt(ValueOutput output, CallbackInfo ci) {
         int step = simplevisuals$tiltStep();
         if (step != 0) output.putInt(SIMPLEVISUALS$KEY, step);
     }
 
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    @Inject(require = 1, method = "readAdditionalSaveData", at = @At("TAIL"))
     private void simplevisuals$loadTilt(ValueInput input, CallbackInfo ci) {
         simplevisuals$setTiltStep(input.getIntOr(SIMPLEVISUALS$KEY, 0));
     }
 
-    @Inject(method = "dropItem(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;Z)V", at = @At("TAIL"))
+    @Inject(require = 1, method = "dropItem(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;Z)V", at = @At("TAIL"))
     private void simplevisuals$flatWhenEmptied(ServerLevel level, Entity causedBy, boolean withFrame, CallbackInfo ci) {
         if (((ItemFrame) (Object) this).getItem().isEmpty()) simplevisuals$setTiltStep(0);
     }

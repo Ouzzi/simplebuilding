@@ -50,6 +50,7 @@
   "item.simplearrows.crafted_arrow.shaft.diamond_rod": "Schaft: Diamantstab",
   "container.simplearrows.fletching.effect.shaft.diamond_rod": "Durchbohrt ein Ziel mehr",
   "jei.simplearrows.note.fletching": "Eine Spitze, ein Schaft, eine Befiederung: ein gefertigter Pfeil",
+  "jei.simplearrows.info.crafted_arrow": "Entsteht am Befiederungstisch: eine Spitze, ein Schaft und eine Befiederung ergeben 4 Pfeile. Die Spitze bestimmt den Schaden, Schaft und Befiederung den Flug. Unendlichkeit spart nur Vanilla-Pfeile.",
   "item.simplearrows.guide_book": "Simple-Arrows-Handbuch",
   "simplearrows.guide.chapter": "Simple Arrows",
   "simplearrows.guide.page.1.title": "Simple Arrows",

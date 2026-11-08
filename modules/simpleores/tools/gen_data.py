@@ -561,6 +561,10 @@ def lang(locale):
     out[f'{NS}.testcentre.station'] = 'Simple Ores'
     out[f'itemgroup.{NS}.ores'] = 'Simple Ores'  # QW11: the one tab of the module (ModTabs, collects its items)
     out['tooltip.simpleores.when_eaten'] = ('When eaten:', 'Beim Verzehr:')[i]
+    # a-fix09b (JEI24): info pages of OresViewer (SimpleBuilding's jei.simplebuilding.info.* before the split)
+    out['jei.{NS}.info.sage_ore'.replace('{NS}', NS)] = ("Generates in the Overworld as rarely as diamond ore; needs an iron pickaxe. Drops 3 to 7 experience and rarely a Sage Orb (Silk Touch: the ore itself).", "Entsteht in der Oberwelt so selten wie Diamanterz; braucht eine Eisenspitzhacke. Droppt 3 bis 7 Erfahrung und selten eine Weisheitskugel (Behutsamkeit: das Erz selbst).")[i]
+    out['jei.{NS}.info.sage_orb'.replace('{NS}', NS)] = ("Rare drop of Sage Ore (2 %, up to 5 % with Fortune). Right-click to charge it for 0.3 seconds; it gives 50 to 100 experience.", "Seltener Drop des Weisheitserzes (2 %, mit Glück bis 5 %). Rechtsklick lädt sie 0,3 Sekunden; sie gibt 50 bis 100 Erfahrung.")[i]
+    out['jei.{NS}.info.dimensional_scrap'.replace('{NS}', NS)] = ("Found in every dimension, rarer than ancient debris. Only an Enderite Pickaxe or Sledgehammer can mine it. No use yet.", "Kommt in jeder Dimension vor, seltener als Antiker Schrott. Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer baut ihn ab. Noch ohne Nutzen.")[i]
     out[f'text.autoconfig.{NS}.title'] = ('Simple Ores', 'Simple Ores')[i]
     for cat, texts in CONFIG_CATEGORIES.items():
         out[f'text.autoconfig.{NS}.category.{cat}'] = texts[i]

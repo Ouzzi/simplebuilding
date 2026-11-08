@@ -4,6 +4,7 @@ package com.simplebuilding.modules.simpletools;
 public final class ToolsModMenu implements com.terraformersmc.modmenu.api.ModMenuApi {
     @Override
     public com.terraformersmc.modmenu.api.ConfigScreenFactory<?> getModConfigScreenFactory() {
+        if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("cloth-config")) return com.terraformersmc.modmenu.api.ModMenuApi.super.getModConfigScreenFactory(); // Q-B1: the screen needs Cloth Config, the mod does not
         return ToolsScreen::create;
     }
 }

@@ -23,6 +23,9 @@
     ],
     "client": [
       "com.simplebuilding.modules.simplepads.PadsFabricClient"
+    ],
+    "jade": [
+      "com.simplepads.compat.jade.PadsJadePlugin"
     ]
   },
   "depends": {
@@ -36,7 +39,8 @@
   },
   "icon": "assets/simplepads/icon.png",
   "suggests": {
-    "simplebuilding": "*"
+    "simplebuilding": "*",
+    "jade": "*"
   },
   "mixins": [
     "simplepads.mixins.json"

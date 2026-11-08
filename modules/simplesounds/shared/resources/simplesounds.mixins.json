@@ -1,11 +1,11 @@
 {
-  "required": true,
+  "required": false,
   "package": "com.simplebuilding.modules.simplesounds.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
     "SoundTickMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   }
 }

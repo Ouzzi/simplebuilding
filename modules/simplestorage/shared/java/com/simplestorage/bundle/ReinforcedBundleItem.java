@@ -345,6 +345,11 @@ public class ReinforcedBundleItem extends BundleItem {
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);
+        // a-fix09b: the one-line hint per bundle/quiver (SimpleBuilding's tooltip.simplebuilding.<id> before split stage 8c-1).
+        String key = "tooltip.simplestorage." + net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(this).getPath();
+        if (net.minecraft.locale.Language.getInstance().has(key)) {
+            textConsumer.accept(Component.translatable(key).withStyle(net.minecraft.ChatFormatting.GRAY));
+        }
     }
 
     @Override

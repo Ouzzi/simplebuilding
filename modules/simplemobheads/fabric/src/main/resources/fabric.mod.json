@@ -34,7 +34,6 @@
     "minecraft": "~26.3",
     "java": ">=25",
     "fabric-api": "*",
-    "cloth-config": "*",
     "simplelib": ">=0.4.0"
   },
   "suggests": {

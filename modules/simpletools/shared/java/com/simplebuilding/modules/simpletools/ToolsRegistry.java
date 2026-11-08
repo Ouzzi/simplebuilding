@@ -48,6 +48,7 @@ public final class ToolsRegistry {
         BIOME_BRUSH = Registry.register(BuiltInRegistries.ITEM, brush, new BiomeBrushItem(com.simplelib.api.SimpleRarity.CURSED.apply(new Item.Properties().durability(BiomeBrushItem.DURABILITY)
                 .repairable(Items.NETHERITE_INGOT).enchantable(15)).fireResistant().setId(brush)));
         com.simplebuilding.modules.simpletools.bucket.ToolsBuckets.registerItems(); // WH26-7: Enderite and ceramic buckets
+        com.simplebuilding.modules.simpletools.bucket.ToolsBuckets.registerViewer();
     }
 
     public static void registerMenus() {

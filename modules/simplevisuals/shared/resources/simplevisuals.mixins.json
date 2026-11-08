@@ -1,5 +1,5 @@
 {
-  "required": true,
+  "required": false,
   "package": "com.simplevisuals.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
@@ -23,6 +23,6 @@
     "ItemFrameRenderStateMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   }
 }

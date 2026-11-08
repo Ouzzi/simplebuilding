@@ -26,6 +26,8 @@ public final class AnimalsFabric implements ModInitializer {
         // CMD24: /simpleanimals config for every option.
         com.simplelib.api.config.ConfigCommands.server(SimpleAnimals.MOD_ID).json(com.simpleanimals.config.AnimalsConfig::toJson, com.simpleanimals.config.AnimalsConfig::apply).file(FabricLoader.getInstance().getConfigDir(), com.simpleanimals.config.AnimalsConfig.FILE).register();
         AnimalsRegistry.registerAll();
+        // JEI24 (a-fix09b): the animals' loot tables in SimpleLib's "Mob Drops" tab, read from this jar (Fabric bundles SimpleLib).
+        com.simplelib.api.RecipeViewer.lootDrops(SimpleAnimals.MOD_ID, SimpleAnimals.class);
         com.simplelib.api.ModTabs.register(SimpleAnimals.MOD_ID, "animals", "itemgroup.simpleanimals.animals", () -> new net.minecraft.world.item.ItemStack(AnimalsRegistry.DEER_EGG));
         FabricDefaultAttributeRegistry.register(AnimalsRegistry.DEER, AnimalsRegistry.deerAttributes());
         FabricDefaultAttributeRegistry.register(AnimalsRegistry.BOAR, AnimalsRegistry.boarAttributes());

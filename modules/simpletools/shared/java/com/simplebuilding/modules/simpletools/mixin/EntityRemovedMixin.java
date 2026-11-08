@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** A recorded death drop leaves the world for good: the ledger decides its fate; unloading with the chunk only remembers its age. */
 @Mixin(Entity.class)
 public abstract class EntityRemovedMixin {
-    @Inject(method = "setRemoved", at = @At("HEAD"))
+    @Inject(require = 1, method = "setRemoved", at = @At("HEAD"))
     private void simpletools$itemRemoved(Entity.RemovalReason reason, CallbackInfo ci) {
         Entity self = (Entity) (Object) this;
         if (self instanceof ItemEntity item && reason.shouldDestroy() && self.getRemovalReason() == null && !self.level().isClientSide()) {

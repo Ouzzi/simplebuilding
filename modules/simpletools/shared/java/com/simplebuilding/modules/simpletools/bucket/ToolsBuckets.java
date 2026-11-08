@@ -34,6 +34,28 @@ public final class ToolsBuckets {
 
     private ToolsBuckets() {}
 
+    /** a-fix09b (JEI24): info pages of the two bucket kinds (SimpleBuilding's jei.simplebuilding.info.* before the moves). */
+    public static void registerViewer() {
+        com.simplelib.api.RecipeViewer.info(SimpleTools.MOD_ID, () -> {
+            java.util.List<com.simplelib.api.RecipeViewer.Info> out = new java.util.ArrayList<>();
+            page(out, "ceramic_bucket", com.simplelib.bucket.Buckets.RAW_CERAMIC_BUCKET, com.simplelib.bucket.Buckets.CERAMIC_BUCKET,
+                    com.simplelib.bucket.Buckets.CERAMIC_WATER_BUCKET, com.simplelib.bucket.Buckets.CERAMIC_LAVA_BUCKET);
+            page(out, "enderite_bucket", com.simplelib.bucket.Buckets.ENDERITE_BUCKET, com.simplelib.bucket.Buckets.ENDERITE_WATER_BUCKET,
+                    com.simplelib.bucket.Buckets.ENDERITE_LAVA_BUCKET, com.simplelib.bucket.Buckets.ENDERITE_SOUL_LAVA_BUCKET,
+                    com.simplelib.bucket.Buckets.ENDERITE_MILK_BUCKET);
+            return out;
+        });
+    }
+
+    private static void page(java.util.List<com.simplelib.api.RecipeViewer.Info> out, String key, net.minecraft.world.item.Item... items) {
+        java.util.List<net.minecraft.world.item.ItemStack> stacks = new java.util.ArrayList<>();
+        for (net.minecraft.world.item.Item item : items) {
+            if (item != null && item != net.minecraft.world.item.Items.AIR) stacks.add(new net.minecraft.world.item.ItemStack(item));
+        }
+        if (!stacks.isEmpty()) out.add(new com.simplelib.api.RecipeViewer.Info(stacks,
+                java.util.List.of(net.minecraft.network.chat.Component.translatable("jei.simpletools.info." + key))));
+    }
+
     public static Identifier id(String path) {
         return Identifier.fromNamespaceAndPath(SimpleTools.MOD_ID, path);
     }

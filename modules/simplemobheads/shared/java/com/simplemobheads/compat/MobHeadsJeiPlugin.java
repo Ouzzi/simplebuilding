@@ -49,7 +49,13 @@ public final class MobHeadsJeiPlugin implements IModPlugin {
                 case "tribute", "giant", "giant_cow" -> "jei.simplemobheads." + head.drop() + "_head_source";
                 default -> "jei.simplemobheads.head_source";
             };
-            registration.addItemStackInfo(stacks, Component.translatable(key, mob));
+            // a-fix09b: the heads SimpleBuilding had its own pages for keep a second line (sound, a hint at the secret).
+            String extra = "jei.simplemobheads.info." + head.item();
+            if (net.minecraft.locale.Language.getInstance().has(extra)) {
+                registration.addItemStackInfo(stacks, Component.translatable(key, mob), Component.translatable(extra));
+            } else {
+                registration.addItemStackInfo(stacks, Component.translatable(key, mob));
+            }
         }
     }
 }

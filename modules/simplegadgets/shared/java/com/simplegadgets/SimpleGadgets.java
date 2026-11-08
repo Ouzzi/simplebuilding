@@ -44,6 +44,7 @@ public final class SimpleGadgets {
                 .file(configDir, com.simplegadgets.config.GadgetsConfig.FILE).register();
         registerIdMoves();
         com.simplegadgets.rotator.RotatorItem.publishFacts();
+        GadgetsViewer.register();   // a-fix09b: JEI info pages (were SimpleBuilding's until the split; Transposer new)
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         List<String> items = new ArrayList<>();
         MOVED_ITEMS.forEach(path -> items.add(MOD_ID + ":" + path));

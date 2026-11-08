@@ -30,6 +30,7 @@
   "jei.simplehammers.note.reshape.how": "Schleichen und halten: trägt das angezielte Achtel ab",
   "item.simplehammers.rose_bronze_sledgehammer": "Rosenkupfer-Vorschlaghammer",
   "item.simplehammers.rose_gold_sledgehammer": "Roségold-Vorschlaghammer",
+  "jei.simplehammers.info.netherite_grade": "Die höheren In-World-Aufwertungen nennen den Hammer, den sie brauchen: Netherit-Schritte nehmen einen Netherit- oder Enderit-Vorschlaghammer, Enderit-Schritte nur den Enderit-Vorschlaghammer; Diamant-Schritte Diamant oder besser. Netherit schlägt alle 20 Ticks zu, Enderit alle 19.",
   "item.simplehammers.guide_book": "Simple-Hammers-Handbuch",
   "simplehammers.guide.chapter": "Simple Hammers",
   "simplehammers.guide.page.1.title": "Simple Hammers",

@@ -610,9 +610,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimplevisualsStandaloneGameTest",
@@ -622,7 +620,8 @@
               "task": ":modules:simplevisuals:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simplevisuals/neoforge/build/standalone-junit.xml"
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -711,9 +710,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimplesoundsStandaloneGameTest",
@@ -723,7 +720,8 @@
               "task": ":modules:simplesounds:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simplesounds/neoforge/build/standalone-junit.xml"
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -1337,9 +1335,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimpleinterfacesStandaloneGameTest",
@@ -1358,7 +1354,8 @@
                 "-PforgeStandalone=true"
               ]
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -1793,9 +1790,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimpleweatherStandaloneGameTest",
@@ -1805,7 +1800,8 @@
               "task": ":modules:simpleweather:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simpleweather/neoforge/build/standalone-junit.xml"
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -1889,9 +1885,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimplemovementStandaloneGameTest",
@@ -1901,7 +1895,8 @@
               "task": ":modules:simplemovement:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simplemovement/neoforge/build/standalone-junit.xml"
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -1990,9 +1985,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimpletoolsStandaloneGameTest",
@@ -2002,7 +1995,8 @@
               "task": ":modules:simpletools:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simpletools/neoforge/build/standalone-junit.xml"
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -2091,9 +2085,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimplefarmingStandaloneGameTest",
@@ -2103,7 +2095,8 @@
               "task": ":modules:simplefarming:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simplefarming/neoforge/build/standalone-junit.xml"
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -2187,9 +2180,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimplemobmannersStandaloneGameTest",
@@ -2199,7 +2190,8 @@
               "task": ":modules:simplemobmanners:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simplemobmanners/neoforge/build/standalone-junit.xml"
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -2283,9 +2275,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimplelootStandaloneGameTest",
@@ -2295,7 +2285,8 @@
               "task": ":modules:simpleloot:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simpleloot/neoforge/build/standalone-junit.xml"
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -3025,9 +3016,7 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [
-            "cloth_config"
-          ],
+          "devMods": [],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimplemobheadsStandaloneGameTest",
@@ -3037,7 +3026,8 @@
               "task": ":modules:simplemobheads:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simplemobheads/neoforge/build/standalone-junit.xml"
             }
-          }
+          },
+          "reason": "Q-B1 (a-fix09b): runs without Cloth Config - the dedicated-server smoke of a client-only config screen dependency."
         },
         "client": {
           "entrypoints": [
@@ -5117,7 +5107,8 @@
         "simplemobheads"
       ],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "jade"
       ],
       "checks": [
         "modules/simplepads/tools/check_data.py"

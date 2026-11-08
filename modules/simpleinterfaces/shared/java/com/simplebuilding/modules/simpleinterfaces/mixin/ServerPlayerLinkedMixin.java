@@ -12,12 +12,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** Linked GUIs: append the marked container before a menu's first sync; tick checks and pending opens. */
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerLinkedMixin {
-    @Inject(method = "initMenu", at = @At("HEAD"))
+    @Inject(require = 1, method = "initMenu", at = @At("HEAD"))
     private void qol$initMenu(AbstractContainerMenu menu, CallbackInfo ci) {
         LinkedContainers.onInitMenu((ServerPlayer) (Object) this, menu);
     }
 
-    @Inject(method = "tick", at = @At("HEAD"))
+    @Inject(require = 1, method = "tick", at = @At("HEAD"))
     private void qol$tick(CallbackInfo ci) {
         ServerPlayer self = (ServerPlayer) (Object) this;
         LinkedContainers.tick(self);

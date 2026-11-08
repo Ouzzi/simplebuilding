@@ -70,7 +70,7 @@ public abstract class ContainerMenuLinkedMixin implements LinkedMenu {
         this.qol$panel = panel;
     }
 
-    @Inject(method = "clicked", at = @At("HEAD"), cancellable = true)
+    @Inject(require = 1, method = "clicked", at = @At("HEAD"), cancellable = true)
     private void qol$clicked(int slotIndex, int button, ContainerInput input, Player player, CallbackInfo ci) {
         AbstractContainerMenu self = (AbstractContainerMenu) (Object) this;
         if (PortableContainers.interceptClick(self, slotIndex, button, input, player) || LinkedContainers.interceptClick(self, slotIndex, input, player)) ci.cancel();

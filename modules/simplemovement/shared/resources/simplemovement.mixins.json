@@ -1,5 +1,5 @@
 {
-  "required": true,
+  "required": false,
   "package": "com.simplebuilding.modules.simplemovement.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
@@ -10,6 +10,6 @@
     "PowderSnowWalkMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   }
 }

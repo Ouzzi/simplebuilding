@@ -50,6 +50,7 @@
   "item.simplearrows.crafted_arrow.shaft.diamond_rod": "Shaft: Diamond Rod",
   "container.simplearrows.fletching.effect.shaft.diamond_rod": "Pierces one more target",
   "jei.simplearrows.note.fletching": "One tip, one shaft, one fletching: a crafted arrow",
+  "jei.simplearrows.info.crafted_arrow": "Made at the Fletching Table: one tip, one shaft and one fletching give 4 arrows. The tip sets the damage, shaft and fletching change the flight. Infinity only saves vanilla arrows.",
   "item.simplearrows.guide_book": "Simple Arrows Guide",
   "simplearrows.guide.chapter": "Simple Arrows",
   "simplearrows.guide.page.1.title": "Simple Arrows",

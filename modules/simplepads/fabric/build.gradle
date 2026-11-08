@@ -6,3 +6,6 @@ dependencies { include project(':framework') }
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 // a-mojang08 (release blocker 1): recoloured Vanilla sprites are built from the client jar, never committed.
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
+// a-fix09b: optional Jade plugin (shared/java/com/simplepads/compat/jade): compiled against, never bundled.
+repositories { maven { url = "https://api.modrinth.com/maven" } }
+dependencies { compileOnly("maven.modrinth:jade:${rootProject.mc263_dev_jade_fabric}") { transitive = false } }

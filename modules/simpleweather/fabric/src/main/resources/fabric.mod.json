@@ -30,8 +30,7 @@
     "simplelib": ">=0.4.0",
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
-    "java": ">=25",
-    "cloth-config": "*"
+    "java": ">=25"
   },
   "mixins": [
     "simpleweather.mixins.json"
