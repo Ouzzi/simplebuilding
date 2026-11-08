@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -31,6 +32,8 @@ import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.trialspawner.TrialSpawner;
 import net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState;
@@ -39,7 +42,7 @@ import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The rest of the trial chain (TR31-R): the cap of active spawners per structure, the loot draw without replacement, the hit effects of Evil / Void
+ * The rest of the trial chain (TR31-R): the cap of active spawners per structure, the loot draw without replacement (and with two categories), the hit effects of Evil / Void
  * mobs, the Void darkness and teleporting archers, and the switches of the Weathered structure. All of it is opt-out by config
  * ({@link MobsConfig#trialSpawnerCap}, {@code trialLootNoRepeat}, {@code evilHitEffects}, {@code voidMobTricks}, {@code weatheredStructures},
  * {@code weatheredDecayPercent}) and touches only Weathered Trials, the Evil / Void Vaults and mobs marked by {@link EvilOmen#buff} (concept A12).
@@ -123,15 +126,51 @@ public final class TrialsExtras {
     }
 
     // --- loot without replacement
-    /** One vault opening: rolls the table again (up to 12 times) until no item appears twice, else keeps the draw with the most different items, each item once. */
+    /** The four kinds of vault loot (concept 9.4): the category rule wants at least two of them per opening. */
+    public enum LootCategory { RESOURCE, HEALING, MAGIC, COSMETIC }
+
+    /** Healing = food or death protection (golden apples, totem); magic = enchanted, ominous bottle, book, experience bottle, wind charge; cosmetic = disc, banner pattern, trim template, sherd; the rest is a resource. */
+    public static LootCategory category(ItemStack stack) {
+        if (stack.has(DataComponents.FOOD) || stack.has(DataComponents.DEATH_PROTECTION)) return LootCategory.HEALING;
+        if (stack.isEnchanted() || !stack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty() || stack.has(DataComponents.OMINOUS_BOTTLE_AMPLIFIER)
+                || stack.is(Items.BOOK) || stack.is(Items.ENCHANTED_BOOK) || stack.is(Items.EXPERIENCE_BOTTLE) || stack.is(Items.WIND_CHARGE)) return LootCategory.MAGIC;
+        String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
+        if (stack.has(DataComponents.JUKEBOX_PLAYABLE) || stack.has(DataComponents.PROVIDES_BANNER_PATTERNS) || path.endsWith("_pottery_sherd")
+                || (path.endsWith("_smithing_template") && !stack.is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))) return LootCategory.COSMETIC;
+        return LootCategory.RESOURCE;
+    }
+
+    /** How many different categories a draw holds. */
+    public static int categories(List<ItemStack> stacks) {
+        return (int) stacks.stream().map(TrialsExtras::category).distinct().count();
+    }
+
+    /**
+     * One vault opening: rolls the table again (up to 12 times) until no item appears twice and - when at least two items come - at least two categories
+     * ({@link #category}) are in it; else keeps the best draw (most different items first, then the category rule), each item once.
+     */
     public static List<ItemStack> drawDistinct(Supplier<List<ItemStack>> roll) {
         List<ItemStack> first = roll.get();
+        int wanted = first.size();
         List<ItemStack> best = distinct(first);
-        for (int i = 0; i < 12 && best.size() < first.size(); i++) {
+        int bestScore = drawScore(best);
+        for (int i = 0; i < 12 && !(best.size() >= wanted && categoriesOk(best)); i++) {
             List<ItemStack> next = distinct(roll.get());
-            if (next.size() > best.size()) best = next;
+            int score = drawScore(next);
+            if (score > bestScore) {
+                best = next;
+                bestScore = score;
+            }
         }
         return best;
+    }
+
+    private static boolean categoriesOk(List<ItemStack> draw) {
+        return draw.size() < 2 || categories(draw) >= 2;
+    }
+
+    private static int drawScore(List<ItemStack> draw) {
+        return draw.size() * 2 + (categoriesOk(draw) ? 1 : 0);
     }
 
     /** Each item type only once (the first stack of it stays). */

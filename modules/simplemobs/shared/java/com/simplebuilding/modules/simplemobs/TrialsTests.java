@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.simplebuilding.modules.simplemobs.trials.EvilBrewing;
 import com.simplebuilding.modules.simplemobs.trials.EvilOmen;
 import com.simplebuilding.modules.simplemobs.trials.EvilRaid;
+import com.simplebuilding.modules.simplemobs.trials.EvilTrialsData;
 import com.simplebuilding.modules.simplemobs.trials.SoulBrewing;
 import com.simplebuilding.modules.simplemobs.trials.TrialKind;
 import com.simplebuilding.modules.simplemobs.trials.TrialVaultBlock;
@@ -19,6 +20,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -373,7 +377,7 @@ public final class TrialsTests {
             java.util.Iterator<java.util.List<ItemStack>> rolls = java.util.List.of(
                     java.util.List.of(new ItemStack(Items.DIAMOND), new ItemStack(Items.DIAMOND), new ItemStack(Items.EMERALD)),
                     java.util.List.of(new ItemStack(Items.DIAMOND), new ItemStack(Items.EMERALD), new ItemStack(Items.DIAMOND)),
-                    java.util.List.of(new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.EMERALD), new ItemStack(Items.DIAMOND))).iterator();
+                    java.util.List.of(new ItemStack(Items.GOLDEN_APPLE), new ItemStack(Items.EMERALD), new ItemStack(Items.DIAMOND))).iterator();
             var drawn = TrialsExtras.drawDistinct(rolls::next);
             check(drawn.size() == 3 && drawn.stream().map(ItemStack::getItem).distinct().count() == 3, "a repeated draw is rolled again until nothing repeats: " + drawn);
             var always = TrialsExtras.drawDistinct(() -> java.util.List.of(new ItemStack(Items.DIAMOND), new ItemStack(Items.DIAMOND)));
@@ -467,7 +471,19 @@ public final class TrialsTests {
                 check(EvilOmen.turn(level, pos, spawner), "config on: it does");
                 check(EvilOmen.kindAt(level, pos) == TrialKind.EVIL && EvilOmen.stageAt(level, pos) == 2, "kind and stage are remembered");
                 check(Trials.spawnerLoot(TrialKind.EVIL, 2).equals(EvilOmen.rewardTable(level, pos)), "the reward is the Evil key table of stage 2");
+                // TR31-R rest: the stage is saved with the level. Write the data like the save does, read it back, and put it in place of the
+                // loaded one with the memory cleared (= server restart).
+                EvilTrialsData live = level.getDataStorage().get(EvilTrialsData.TYPE);
+                check(live != null && live.spawner(pos) != null, "turning a Vanilla spawner writes the saved data");
+                Tag file = EvilTrialsData.CODEC.encodeStart(NbtOps.INSTANCE, live).getOrThrow();
+                EvilTrialsData reloaded = EvilTrialsData.CODEC.parse(NbtOps.INSTANCE, file).getOrThrow();
+                EvilOmen.clearRaids();
+                level.getDataStorage().set(EvilTrialsData.TYPE, reloaded);
+                check(EvilOmen.kindAt(level, pos) == TrialKind.EVIL && EvilOmen.stageAt(level, pos) == 2, "after a restart kind and stage are still known: " + file);
+                check(EvilOmen.kindAt(level, pos.above()) == TrialKind.WEATHERED, "a mark counts only at its own spawner");
+                check(EvilTrialsData.CODEC.parse(NbtOps.INSTANCE, new CompoundTag()).getOrThrow().spawner(pos) == null, "an older world without the file starts empty");
                 EvilOmen.reset(level, pos);
+                check(reloaded.spawner(pos) == null, "reset also forgets the saved mark");
                 check(EvilOmen.kindAt(level, pos) == TrialKind.WEATHERED && EvilOmen.rewardTable(level, pos) == null, "reset: a plain Vanilla spawner again");
             } finally {
                 MobsConfig.evilOnVanillaSpawners = old;
@@ -503,6 +519,77 @@ public final class TrialsTests {
             } finally {
                 MobsConfig.evilRaidExtras = old;
                 EvilOmen.clearRaids();
+            }
+            h.succeed();
+        });
+        add("trials_raid_persist", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            boolean old = MobsConfig.evilRaidExtras;
+            net.minecraft.world.entity.raid.Raid raid = null;
+            try {
+                MobsConfig.evilRaidExtras = true;
+                EvilOmen.clearRaids();
+                EvilOmen.markRaid(player.getUUID(), TrialKind.VOID, 4, level.getGameTime() + 1000);
+                raid = level.getRaids().createOrExtendRaid(player, h.absolutePos(new BlockPos(2, 1, 2)));   // the mixin on Raids calls onRaidCreated
+                check(raid != null, "a real raid starts in the test level");
+                var id = level.getRaids().getId(raid);
+                check(id.isPresent(), "the raid has a Vanilla id");
+                int[] mark = EvilOmen.evilRaid(level, raid);
+                check(mark != null && mark[0] == TrialKind.VOID.ordinal() && mark[1] == 4, "the raid is an Evil Raid (Void IV)");
+                EvilTrialsData live = EvilTrialsData.get(level);
+                check(live.raids().containsKey(id.getAsInt()), "the Evil Raid is saved by its id");
+                // Restart: write + read the data, the memory (cache, running omens) is gone; the raid itself comes back from Vanilla's raids.dat.
+                Tag file = EvilTrialsData.CODEC.encodeStart(NbtOps.INSTANCE, live).getOrThrow();
+                EvilTrialsData reloaded = EvilTrialsData.CODEC.parse(NbtOps.INSTANCE, file).getOrThrow();
+                EvilOmen.clearRaids();
+                level.getDataStorage().set(EvilTrialsData.TYPE, reloaded);
+                int[] again = EvilOmen.evilRaid(level, raid);
+                check(again != null && again[0] == TrialKind.VOID.ordinal() && again[1] == 4, "after a restart the raid is still the Void IV raid that waits for its chest: " + file);
+                int waves = ((EvilRaid) raid).simplemobs$waves();
+                EvilOmen.onRaidCreated(player, raid);
+                check(((EvilRaid) raid).simplemobs$waves() == waves, "joining the reloaded raid adds no second extra wave");
+            } finally {
+                MobsConfig.evilRaidExtras = old;
+                EvilOmen.clearRaids();
+                if (raid != null) {
+                    level.getRaids().getId(raid).ifPresent(i -> EvilTrialsData.get(level).removeRaid(i));
+                    raid.stop();
+                }
+            }
+            h.succeed();
+        });
+        add("trials_loot_categories", h -> {
+            check(TrialsExtras.category(new ItemStack(Items.DIAMOND)) == TrialsExtras.LootCategory.RESOURCE, "diamond: resource");
+            check(TrialsExtras.category(new ItemStack(Items.GOLDEN_APPLE)) == TrialsExtras.LootCategory.HEALING
+                    && TrialsExtras.category(new ItemStack(Items.TOTEM_OF_UNDYING)) == TrialsExtras.LootCategory.HEALING, "golden apple, totem: healing");
+            check(TrialsExtras.category(new ItemStack(Items.ENCHANTED_BOOK)) == TrialsExtras.LootCategory.MAGIC
+                    && TrialsExtras.category(new ItemStack(Items.OMINOUS_BOTTLE)) == TrialsExtras.LootCategory.MAGIC, "book, ominous bottle: magic");
+            check(TrialsExtras.category(new ItemStack(Items.MUSIC_DISC_CREATOR)) == TrialsExtras.LootCategory.COSMETIC
+                    && TrialsExtras.category(new ItemStack(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE)) == TrialsExtras.LootCategory.COSMETIC
+                    && TrialsExtras.category(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)) == TrialsExtras.LootCategory.RESOURCE, "disc, trim template: cosmetic; netherite upgrade: resource");
+            // only resources -> rolled again until a second category comes
+            java.util.Iterator<java.util.List<ItemStack>> rolls = java.util.List.of(
+                    java.util.List.of(new ItemStack(Items.DIAMOND), new ItemStack(Items.EMERALD)),
+                    java.util.List.of(new ItemStack(Items.NETHERITE_SCRAP), new ItemStack(Items.EMERALD)),
+                    java.util.List.of(new ItemStack(Items.DIAMOND), new ItemStack(Items.TOTEM_OF_UNDYING))).iterator();
+            var drawn = TrialsExtras.drawDistinct(rolls::next);
+            check(drawn.size() == 2 && drawn.stream().anyMatch(s -> s.is(Items.TOTEM_OF_UNDYING)), "a one-category draw is rolled again: " + drawn);
+            int[] count = {0};
+            var stuck = TrialsExtras.drawDistinct(() -> { count[0]++; return java.util.List.of(new ItemStack(Items.DIAMOND), new ItemStack(Items.EMERALD)); });
+            check(stuck.size() == 2 && count[0] == 13, "a pool of one category keeps its items after 12 new rolls: " + stuck + ", rolls " + count[0]);
+            var single = TrialsExtras.drawDistinct(() -> { count[0]++; return java.util.List.of(new ItemStack(Items.DIAMOND)); });
+            check(single.size() == 1, "one item needs no second category");
+            var tables = h.getLevel().getServer().reloadableRegistries();
+            for (TrialKind kind : new TrialKind[] {TrialKind.EVIL, TrialKind.VOID}) {
+                for (int n = 1; n <= 5; n++) {
+                    LootTable table = tables.getLootTable(Trials.vaultLoot(kind, n, false));
+                    LootParams params = vaultParams(h, new ItemStack((kind == TrialKind.EVIL ? Trials.EVIL_KEYS : Trials.VOID_KEYS)[n - 1]));
+                    for (int i = 0; i < 40; i++) {
+                        var stacks = TrialsExtras.drawDistinct(() -> table.getRandomItems(params));
+                        check(TrialsExtras.categories(stacks) >= 2, kind.id() + " vault stage " + n + ": at least two categories: " + stacks);
+                    }
+                }
             }
             h.succeed();
         });
