@@ -4,3 +4,5 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 dependencies { include project(':framework') }
 // SimpleLib nested per principle 6a and compiled against (IdMoves, UI parts, /<modid> config).
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// a-mojang08 (release blocker 1): recoloured Vanilla sprites are built from the client jar, never committed.
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

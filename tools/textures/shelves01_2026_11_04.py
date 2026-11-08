@@ -48,7 +48,8 @@ def jar_of(jar):
 
 
 def ramp_of(path: Path):
-    im = Image.open(path).convert('RGBA').crop((0, 0, 16, 16))
+    import recolour08_2026_11_08  # a-mojang08: the planks are recipes now (git-ignored)
+    im = recolour08_2026_11_08.open_own(path).convert('RGBA').crop((0, 0, 16, 16))
     return sorted({im.getpixel((x, y)) for y in range(16) for x in range(16) if im.getpixel((x, y))[3]}, key=lum), im
 
 

@@ -4,7 +4,7 @@
     "side": "simplecrucibles:block/reinforced_crucible_side",
     "top": "simplecrucibles:block/reinforced_crucible_top",
     "bottom": "simplecrucibles:block/reinforced_crucible_bottom",
-    "inner": "simplecrucibles:block/reinforced_crucible_inner",
+    "inner": "minecraft:block/cauldron_inner",
     "handle": "simplecrucibles:block/reinforced_crucible_handle",
     "particle": "simplecrucibles:block/reinforced_crucible_side",
     "band": "minecraft:block/netherite_block"

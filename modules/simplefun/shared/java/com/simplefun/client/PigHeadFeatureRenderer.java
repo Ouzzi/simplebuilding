@@ -23,7 +23,7 @@ public class PigHeadFeatureRenderer<
     extends RenderLayer<S, M> {
 
   private static final Identifier PIG_TEXTURE =
-      Identifier.fromNamespaceAndPath("simplefun", "textures/entity/pig/pig.png");
+      Identifier.withDefaultNamespace("textures/entity/pig/pig_temperate.png");
 
   private final PigHeadModel pigHeadModel;
 

@@ -62,6 +62,8 @@ def top(state):
     return out
 
 
+# a-mojang08 (08.11.): these outputs are recoloured Vanilla sprites; the build draws them from the client jar
+# (recolour08_2026_11_08.json via vanilla_derived.py), the repository paths are git-ignored.
 def build():
     global RAMP
     RAMP = wood_ramp()
@@ -72,7 +74,7 @@ def build():
         'auto_smither_side_triggered': rewood(load('crafter_south_triggered')),
         'auto_smither_top': top(''),
         'auto_smither_top_triggered': top('_triggered'),
-        'auto_smither_bottom': load('crafter_bottom'),
+        # auto_smither_bottom: the models use minecraft:block/crafter_bottom directly (a-mojang08).
     }
 
 

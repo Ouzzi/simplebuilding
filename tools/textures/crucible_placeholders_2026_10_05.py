@@ -28,7 +28,8 @@ PREVIEWS = ROOT / 'build/crucible-previews'
 
 
 def load(path):
-    with Image.open(path) as img:
+    import recolour08_2026_11_08  # a-mojang08: recipe or Vanilla sprite where the copy was removed
+    with recolour08_2026_11_08.open_own(path) as img:
         return img.convert('RGBA')
 
 

@@ -10,6 +10,8 @@ MODULE = Path(__file__).resolve().parents[1]
 ROOT = MODULE.parents[1]
 NS = 'simplestorage'
 RES = MODULE / 'shared/resources'
+# a-mojang08: recoloured Vanilla sprites are built from the client jar (tools/textures/recolour08_2026_11_08.json), never committed.
+DERIVED08 = {e['path'] for e in json.loads((ROOT / 'tools/textures/recolour08_2026_11_08.json').read_text(encoding='utf-8')) if e['ns'] == NS}
 JAVA = MODULE / 'shared/java/com/simplestorage'
 
 woods = re.findall(r'^    ([A-Z_]+)\("([a-z_]+)"', (JAVA / 'crate/CrateWood.java').read_text(encoding='utf-8'), re.M)
@@ -62,7 +64,7 @@ for b in BARRELS:
         assert (GEN / f'assets/{NS}/models/block/{b}{suffix}.json').is_file(), (b, suffix)
     assert (GEN / f'data/{NS}/loot_table/blocks/{b}.json').is_file(), b
     for part in ('side', 'top', 'top_open', 'bottom', 'flange'):
-        if b != 'enderite_barrel':  # the Enderite faces are Vanilla-derived (built, never committed)
+        if b != 'enderite_barrel' and f'block/{b}_{part}.png' not in DERIVED08:  # Vanilla-derived faces are built, never committed
             assert (RES / f'assets/{NS}/textures/block/{b}_{part}.png').is_file(), (b, part)
 assert (GEN / f'data/{NS}/recipe/copper_barrel.json').is_file() and (RES / f'data/{NS}/advancement/recipes/misc/copper_barrel.json').is_file()
 # 8b-2: vehicle items, models (the boat: one per Vanilla wood; the End woods' models are Simple End's), recipes.

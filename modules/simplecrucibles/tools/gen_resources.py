@@ -80,8 +80,14 @@ def inside_uv(element):
     return element
 
 
+# The iron and reinforced crucible insides were byte copies of Vanilla's cauldron_inner: the models use the Vanilla
+# sprite directly (a-mojang08, release blocker 1: no Mojang pixels in the repository).
+VANILLA_INNER = {"iron": "minecraft:block/cauldron_inner", "reinforced": "minecraft:block/cauldron_inner"}
+
+
 def crucible_model(tier):
     tex = {k: f"{NS}:block/{tier}_crucible_{k}" for k in ("side", "top", "bottom", "inner", "handle")}
+    tex["inner"] = VANILLA_INNER.get(tier, tex["inner"])
     tex["particle"] = tex["side"]
     return {"parent": "minecraft:block/block", "textures": tex, "elements": [*FOOT, FLOOR, *WALLS_FLAT, *HANDLES]}
 
@@ -127,6 +133,7 @@ def blank_elements(stage):
 
 def blank_model(stage):
     tex = {k: f"{NS}:block/iron_crucible_{k}" for k in ("side", "top", "bottom", "inner", "handle")}
+    tex["inner"] = VANILLA_INNER["iron"]
     tex["particle"] = "minecraft:block/iron_block"
     return {"parent": "minecraft:block/block", "textures": tex, "elements": blank_elements(stage)}
 

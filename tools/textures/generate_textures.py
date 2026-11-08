@@ -2332,12 +2332,35 @@ def pad_overlay(base, overlay, stars=None):
     return snap(img, "Sterne")
 
 
+# a-mojang08 (08.11., release blocker 1): the Vanilla bases (diamond/gold/iron/netherite block) are read from the
+# 26.3 client jar instead of byte copies in hand/ (no Mojang pixels in the repository).
+VANILLA_PAD_BASE = {"diamond": "diamond_block", "gold": "gold_block", "iron": "iron_block",
+                    "netherite_pressure_plate": "netherite_block", "diamond_pressure_plate": "diamond_block"}
+
+
+def vanilla_block_texture(name):
+    import io
+    import zipfile
+    import vanilla_derived
+    jar = vanilla_derived.find_jar()
+    if jar is None:
+        raise SystemExit("generate_textures: the pad bases need the 26.3 client jar (see vanilla_derived.py)")
+    with zipfile.ZipFile(jar) as z:
+        return Image.open(io.BytesIO(z.read(f"assets/minecraft/textures/block/{name}.png"))).convert("RGB")
+
+
+def pad_base(base):
+    if base in VANILLA_PAD_BASE:
+        return vanilla_block_texture(VANILLA_PAD_BASE[base])
+    return Image.open(os.path.join(HAND, f"pad_base_{base}.png")).convert("RGB")
+
+
 def pad_textures(tex):
     bases = {"enderite": tex["block/enderite_pressure_plate.png"]}
     out = {}
     for name, (base, overlay) in PAD_TEXTURES.items():
         if base not in bases:
-            bases[base] = Image.open(os.path.join(HAND, f"pad_base_{base}.png")).convert("RGB")
+            bases[base] = pad_base(base)
         out[f"block/{name}.png"] = pad_overlay(bases[base], PAD_OVERLAYS[overlay])
     fine = pad_overlay(Image.open(os.path.join(HAND, "fine_elytra_pad.png")), {}, FINE_ELYTRA_STARS)
     fpx = fine.load()
@@ -2513,7 +2536,9 @@ def res_pad(name):
     Ressource."""
     # Diamantplatte: seit 2026-10-02 zeigt das Modell minecraft:block/diamond_block; dasselbe Bild liegt als
     # hand/pad_base_diamond.png. netherite_pressure_plate (= Vanilla-Netheritblock) liegt in hand/pad_res/.
-    hand = os.path.join(HAND, "pad_base_diamond.png") if name == "diamond_pressure_plate"         else os.path.join(HAND, "pad_res", f"{name}.png")
+    if name in VANILLA_PAD_BASE:
+        return vanilla_block_texture(VANILLA_PAD_BASE[name])
+    hand = os.path.join(HAND, "pad_res", f"{name}.png")
     return Image.open(hand if os.path.exists(hand) else os.path.join(TREES[0], "block", f"{name}.png")).convert("RGB")
 
 
@@ -2571,7 +2596,7 @@ def pad_vanilla_style(tex):
             rel = f"block/{name}{suffix}.png"
             if rel in tex:
                 src = tex[rel]
-            elif suffix == "" and os.path.exists(os.path.join(HAND, "pad_res", f"{name}.png")):
+            elif suffix == "" and (name in VANILLA_PAD_BASE or os.path.exists(os.path.join(HAND, "pad_res", f"{name}.png"))):
                 src = res_pad(name)
             elif suffix == "" and os.path.exists(os.path.join(HAND, f"{name}.png")):
                 src = Image.open(os.path.join(HAND, f"{name}.png")).convert("RGB")
