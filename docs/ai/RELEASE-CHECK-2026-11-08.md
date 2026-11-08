@@ -103,7 +103,7 @@ Results across all mods:
 
 | Field | URL | Mods |
 |---|---|---|
-| homepage | https://azarfane.de/ | 57 mods (all except simpleriding, simpleoctets before this fix now also) |
+| homepage | https://azarfane.de/ | 58 mods (all except simpleriding) |
 | sources | https://github.com/Ouzzi/simplebuilding | 56 |
 | issues | https://github.com/Ouzzi/simplebuilding/issues | 56 |
 | sources | https://github.com/Ouzzi/fabric-example-mod | simplebuilding (looks like a left-over from the template; decide with the domain) |
