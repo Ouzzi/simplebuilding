@@ -9,9 +9,14 @@ import net.minecraft.client.Minecraft;
 public final class DeedClient {
     private DeedClient() {}
 
-    /** The map view when the holder may see the land (SP22-8), else the editor, reader view or claim sheet. */
+    /**
+     * The map view when the holder may see the land (SP22-8), else the editor, reader view or claim sheet. The answer
+     * to a trade comes back to the buy tab (WH26-9), which stays open.
+     */
     public static void open(DeedOpenPayload payload) {
-        Minecraft.getInstance().gui.setScreen(payload.map().map() ? new DeedMapScreen(payload) : new DeedScreen(payload));
+        var mc = Minecraft.getInstance();
+        boolean trading = mc.gui.screen() instanceof DeedTradeScreen && payload.map().owns();
+        mc.gui.setScreen(!payload.map().map() ? new DeedScreen(payload) : trading ? new DeedTradeScreen(payload) : new DeedMapScreen(payload));
     }
 
     public static void result(DeedResultPayload payload) {

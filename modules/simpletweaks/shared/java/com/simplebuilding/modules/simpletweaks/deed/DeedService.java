@@ -150,25 +150,36 @@ public final class DeedService {
         var counts = new java.util.TreeMap<String,Integer>();
         claims.view().forEach((k, c) -> { if (c.owner().equals(owner)) counts.merge(k.dimension(), 1, Integer::sum); });
         var tabs = new ArrayList<DeedMap.Tab>();
-        for (String vanilla : com.simplebuilding.modules.simpletweaks.claims.ClaimConfig.LEGACY_DIMENSIONS) tabs.add(new DeedMap.Tab(vanilla, counts.getOrDefault(vanilla, 0)));
-        counts.forEach((d, n) -> { if (!com.simplebuilding.modules.simpletweaks.claims.ClaimConfig.LEGACY_DIMENSIONS.contains(d) && tabs.size() < DeedMap.MAX_TABS) tabs.add(new DeedMap.Tab(d, n)); });
+        for (String d : tabDimensions(player.level().getServer(), claims, counts.keySet())) if (tabs.size() < DeedMap.MAX_TABS) tabs.add(new DeedMap.Tab(d, counts.getOrDefault(d, 0)));
         var standing = new ClaimStore.Key(player.level().dimension().identifier().toString(), player.chunkPosition().pack());
         var at = claims.view().get(standing);
         int here = at != null ? (at.owner().equals(owner) ? DeedMap.HERE_OWN : DeedMap.HERE_NO) : owns && claims.claimKey(player) != null ? DeedMap.HERE_FREE : DeedMap.HERE_NO;
-        int buy = DeedMap.OFF, next = 0, levels = 0;
-        var costs = new ArrayList<DeedMap.Cost>();
+        int buy = DeedMap.OFF, room = 0;
+        var offers = new ArrayList<DeedMap.Offer>();
         if (owns && claims.config.expansionEnabled()) {
-            int budget = claims.budget(owner);
-            var tier = claims.config.expansionTiers().stream().filter(t -> t.chunks() > budget).findFirst().orElse(null);
-            if (tier == null) buy = DeedMap.MAX;
-            else if (tier.chunks() > claims.config.maxClaimsPerPlayer()) buy = DeedMap.LIMIT;
-            else {
-                buy = DeedMap.BUY; next = tier.chunks(); levels = tier.levels();
-                tier.items().stream().limit(DeedMap.MAX_COSTS).forEach(c -> costs.add(new DeedMap.Cost(c.id(), c.count())));
-            }
+            room = claims.tradeRoom(owner);
+            buy = room > 0 ? DeedMap.BUY : DeedMap.LIMIT;
+            claims.config.deedTrades().stream().limit(DeedMap.MAX_OFFERS).forEach(t -> offers.add(new DeedMap.Offer(t.give().id(), t.give().count(), t.credits())));
         }
         boolean maps = com.simplebuilding.modules.simpletweaks.claims.ClaimMaps.present();
-        return new DeedMap(true, owns, owns ? claims.credits(owner) : 0, here, buy, next, levels, costs, maps, tabs, result.length() > 32 ? result.substring(0, 32) : result);
+        return new DeedMap(true, owns, owns ? claims.credits(owner) : 0, here, buy, room, offers, maps, tabs, result.length() > 32 ? result.substring(0, 32) : result);
+    }
+
+    /**
+     * The dimension tabs (WH26-9 "automatically from the modpack"): Overworld, Nether and End first, then every other
+     * dimension of the server the claim config allows and every dimension with land of the owner, by name.
+     */
+    static List<String> tabDimensions(net.minecraft.server.MinecraftServer server, Claims claims, java.util.Set<String> withLand) {
+        var vanilla = com.simplebuilding.modules.simpletweaks.claims.ClaimConfig.LEGACY_DIMENSIONS;
+        var others = new java.util.TreeSet<String>(withLand);
+        for (var level : server.getAllLevels()) {
+            String id = level.dimension().identifier().toString();
+            if (claims.config.allowsDimension(id)) others.add(id);
+        }
+        others.removeAll(vanilla);
+        var out = new ArrayList<String>(vanilla);
+        out.addAll(others);
+        return out;
     }
 
     /**
@@ -219,6 +230,12 @@ public final class DeedService {
         String result;
         switch (payload.action()) {
             case DeedActionPayload.CLAIM_HERE -> {
+                // WH26-9: claiming costs a credit; credits come from the buy tab (no hidden purchase any more).
+                if (claims.credits(player.getUUID()) <= 0) {
+                    cue(player, false);
+                    DeedNet.send(player, snapshot(player, payload.hand(), stack, "claim.no_credit"));
+                    return;
+                }
                 var key = claims.claimKey(player);
                 var r = claims.buyAndClaim(player);
                 ok = r == Claims.Expand.OK;
@@ -240,6 +257,23 @@ public final class DeedService {
         }
         cue(player, ok);
         DeedNet.send(player, snapshot(player, payload.hand(), stack, result));
+    }
+
+    /**
+     * The "Trade" button of the buy tab (WH26-9): only the owner holding their own deed; {@link Claims#trade} checks
+     * the offer, the items and the limit and takes the items only after the budget is saved. Answers with a fresh
+     * snapshot naming the result ({@code trade.ok}, {@code trade.items}, {@code trade.limit}, ...).
+     */
+    public static void handleTrade(com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload payload, ServerPlayer player) {
+        if (throttled(player)) return;
+        var server = player.level().getServer();
+        if (!Claims.enabled(server)) return;
+        ItemStack stack = deedIn(player, payload.hand());
+        DeedData data = stack.isEmpty() ? null : stack.get(DeedData.TYPE);
+        if (data == null || !data.owner().equals(player.getUUID())) return;
+        var r = Claims.get(server).trade(player, payload.offer());
+        cue(player, r == Claims.Trade.OK);
+        DeedNet.send(player, snapshot(player, payload.hand(), stack, "trade." + r.name().toLowerCase(java.util.Locale.ROOT)));
     }
 
     private static boolean plain(String name) {

@@ -53,6 +53,10 @@ public final class TweaksFabric implements ModInitializer {
                 (payload,context)->context.server().execute(()->com.simplebuilding.modules.simpletweaks.deed.DeedService.handleChunks(payload,context.player())));
         net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.deed.net.DeedActionPayload.TYPE,
                 (payload,context)->context.server().execute(()->com.simplebuilding.modules.simpletweaks.deed.DeedService.handleAction(payload,context.player())));
+        // buy tab (WH26-9): items for chunk credits
+        registry.register(com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload.TYPE,com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload.TYPE,
+                (payload,context)->context.server().execute(()->com.simplebuilding.modules.simpletweaks.deed.DeedService.handleTrade(payload,context.player())));
         com.simplebuilding.modules.simpletweaks.deed.net.DeedNet.toClient=(player,payload)->{
             if(!net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.canSend(player,payload.type()))return false;
             net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player,payload);return true;
