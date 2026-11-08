@@ -154,3 +154,9 @@ afterEvaluate {
         }
     }
 }
+
+// Every module jar carries the CC0 licence text (the module's own LICENSE if it has one, else the root one).
+tasks.named('jar') {
+    def lic = project.parent.file('LICENSE').exists() ? project.parent.file('LICENSE') : rootProject.file('LICENSE')
+    from(lic) { rename { "${it}_${project.base.archivesName.get()}" } }
+}
