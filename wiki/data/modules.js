@@ -30,6 +30,7 @@ window.WIKI_MODULES = [
       "simpleenchanting",
       "simplepads",
       "simplebuildingtools",
+      "simpletools",
       "simplechisels"
     ],
     "optional": [
@@ -156,9 +157,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 8,
-      "features": 78
+      "features": 79
     },
-    "dataHash": "1cf083a73541"
+    "dataHash": "3bd40dff7a11"
   },
   {
     "id": "simpleriding",
@@ -835,12 +836,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mMIc/D6TwlmABHPj1wmiEX4heAYxL+xYAeqAXfXHvr/9sp9MI2OQZpOvPgCxj07boD5c4pbMA0gRvODS5P+5+y3AYuTZACy5jk3o4gzAJdm+35t4g0Aad6/Ig1FM1EGgBTkn7z2PyYgDKtmgoEIUgTSfOP3//92xpZwjSAMikK8BoAUeTm5gjFIM7JGGMZpAEhhTlLKf0NtPawa8RqArhmbRpwGkKIZwwBSNWMYABKA+RckQSyGG0AJBgAtb4QCDYMvfgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 2,
+      "items": 24,
       "blocks": 1,
-      "recipes": 3,
-      "features": 32
+      "recipes": 6,
+      "features": 33
     },
-    "dataHash": "98e44ac17635"
+    "dataHash": "f72ab7af6c25"
   },
   {
     "id": "simplefarming",
@@ -1395,7 +1396,8 @@ window.WIKI_MODULES = [
       "jei",
       "jade",
       "simplestorage",
-      "simpleores"
+      "simpleores",
+      "simpletools"
     ],
     "stage": "done",
     "parent": "simpleovens",
@@ -1410,12 +1412,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA9klEQVR42qWTIQvCQBiG91NMYlCjUZdsBrEuiXZBhIHCisFwzWRyIIhFm1YNFsU0TFb9HyfvwTvu2B0XFp7tbt/3Pncbt6DRCmUZAlz257tBs1qxovdMVqkpWG6OeeNXdOQ2ieVFzBWvbk3BOsL94dQUoIAQGn9ZpIAIcIwahOi1CtCgB3SRLnEKUjGTSbtuiPQdYSzikVuQ3Xa5RIfCqBf6BTqQAYQggQBzr+DzPBUECHsF8XggD+tFDuYAQe4Ac6cADb4dOL8BDxKCWB13rAYBw8B5kChAiBKGuQOubhVcH29V4HngK9jCBQEfENfPpPcYgjL8AfeqMA6tHhHIAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 27,
+      "items": 5,
       "blocks": 7,
-      "recipes": 4,
+      "recipes": 1,
       "features": 8
     },
-    "dataHash": "fa77daa53334"
+    "dataHash": "290f848528b5"
   },
   {
     "id": "simpleoctets",

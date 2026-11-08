@@ -70,6 +70,15 @@
     "simplestorage:enderite_quiver",
     "simplestorage:enderite_shulker_box",
     "simplestorage:enderite_shulker_shell",
-    "simplestorage:enderite_trapped_chest"
+    "simplestorage:enderite_trapped_chest",
+    "simpletools:enderite_bucket",
+    "simpletools:enderite_lava_bucket",
+    "simpletools:enderite_lava_bucket_full",
+    "simpletools:enderite_milk_bucket",
+    "simpletools:enderite_milk_bucket_full",
+    "simpletools:enderite_soul_lava_bucket",
+    "simpletools:enderite_soul_lava_bucket_full",
+    "simpletools:enderite_water_bucket",
+    "simpletools:enderite_water_bucket_full"
   ]
 }

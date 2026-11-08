@@ -283,6 +283,39 @@
       }
     },
     {
+      "id": "buckets",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/bucket/ModBucketItem.java",
+        "modules/simplelib/shared/java/com/simplelib/bucket/Buckets.java",
+        "modules/simplelib/shared/java/com/simplelib/bucket/EnderiteMilkBucketItem.java",
+        "modules/simplelib/shared/java/com/simplelib/bucket/CauldronBuckets.java",
+        "modules/simplelib/shared/java/com/simplelib/bucket/BucketDispensing.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/bucket/ToolsBuckets.java"
+      ],
+      "related": [
+        "simpletools:enderite_bucket",
+        "simpletools:ceramic_bucket",
+        "simpletools:raw_ceramic_bucket",
+        "simpletools:enderite_milk_bucket"
+      ],
+      "en": {
+        "title": "Enderite and ceramic buckets",
+        "summary": "Enderite holds two, never breaks; ceramic wears out.",
+        "details": [
+          "WH26-7: were Simple Crucibles' (before that SimpleBuilding's); old worlds keep every bucket, filled ones included.",
+          "The Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets, needs Simple Ores) takes water, lava and milk (from cows, goats and mooshrooms) and, with Simple Crucibles, soul lava; it never breaks and holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (a full one is named \"(Full)\"). The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace) takes water and lava, wears one stage per pour (chipped, cracked, brittle, shown in its texture) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. Both work on the cauldron and in dispensers like the iron bucket."
+        ]
+      },
+      "de": {
+        "title": "Enderit- und Keramik-Eimer",
+        "summary": "Enderit fasst zwei, zerbricht nie; Keramik nutzt sich ab.",
+        "details": [
+          "WH26-7: gehörten Simple Crucibles (davor SimpleBuilding); alte Welten behalten jeden Eimer, auch gefüllte.",
+          "Der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen, braucht Simple Ores) nimmt Wasser, Lava und Milch (von Kühen, Ziegen und Mooshrooms) und mit Simple Crucibles Seelen-Lava; er zerbricht nie und fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (ein voller heißt „(voll)“). Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (angeschlagen, rissig, brüchig, an der Textur sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Beide arbeiten am Kessel und im Werfer wie der Eisen-Eimer."
+        ]
+      }
+    },
+    {
       "id": "commands",
       "sources": [
         "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsCommands.java",
@@ -580,6 +613,36 @@
       }
     },
     {
+      "id": "simpletools:ceramic_bucket_from_smelting_raw_ceramic_bucket",
+      "type": "minecraft:smelting",
+      "category": null,
+      "group": "ceramic_bucket",
+      "result": {
+        "id": "simpletools:ceramic_bucket",
+        "count": 1
+      },
+      "source": "modules/simpletools/shared/resources/data/simpletools/recipe/ceramic_bucket_from_smelting_raw_ceramic_bucket.json",
+      "ingredients": [
+        "simpletools:raw_ceramic_bucket"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpletools:raw_ceramic_bucket"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.3,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simpletools:death_vault",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -640,6 +703,79 @@
         ],
         "tagExamples": [
           "#minecraft:soul_fire_base_blocks"
+        ]
+      }
+    },
+    {
+      "id": "simpletools:enderite_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpletools:enderite_bucket",
+        "count": 1
+      },
+      "source": "modules/simpletools/shared/resources/data/simpletools/recipe/enderite_bucket.json",
+      "ingredients": [
+        "minecraft:bucket",
+        "simpleores:enderite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "B": [
+          "minecraft:bucket"
+        ],
+        "N": [
+          "simpleores:enderite_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:enderite_nugget",
+            "count": 8
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpletools:raw_ceramic_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpletools:raw_ceramic_bucket",
+        "count": 1
+      },
+      "source": "modules/simpletools/shared/resources/data/simpletools/recipe/raw_ceramic_bucket.json",
+      "ingredients": [
+        "minecraft:clay_ball"
+      ],
+      "pattern": [
+        "C C",
+        " C "
+      ],
+      "key": {
+        "C": [
+          "minecraft:clay_ball"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 3
+          }
         ]
       }
     }
@@ -831,6 +967,384 @@
       "usedIn": []
     },
     {
+      "id": "simpletools:brittle_ceramic_bucket",
+      "name": {
+        "en_us": "Brittle Ceramic Bucket",
+        "de_de": "Brüchiger Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/brittle_ceramic_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:brittle_ceramic_lava_bucket",
+      "name": {
+        "en_us": "Brittle Ceramic Lava Bucket",
+        "de_de": "Brüchiger Keramik-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/brittle_ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:brittle_ceramic_water_bucket",
+      "name": {
+        "en_us": "Brittle Ceramic Water Bucket",
+        "de_de": "Brüchiger Keramik-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/brittle_ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:ceramic_bucket",
+      "name": {
+        "en_us": "Ceramic Bucket",
+        "de_de": "Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/ceramic_bucket.png",
+      "craftedBy": [
+        "simpletools:ceramic_bucket_from_smelting_raw_ceramic_bucket"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:ceramic_lava_bucket",
+      "name": {
+        "en_us": "Ceramic Lava Bucket",
+        "de_de": "Keramik-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:ceramic_water_bucket",
+      "name": {
+        "en_us": "Ceramic Water Bucket",
+        "de_de": "Keramik-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:chipped_ceramic_bucket",
+      "name": {
+        "en_us": "Chipped Ceramic Bucket",
+        "de_de": "Angeschlagener Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/chipped_ceramic_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:chipped_ceramic_lava_bucket",
+      "name": {
+        "en_us": "Chipped Ceramic Lava Bucket",
+        "de_de": "Angeschlagener Keramik-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/chipped_ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:chipped_ceramic_water_bucket",
+      "name": {
+        "en_us": "Chipped Ceramic Water Bucket",
+        "de_de": "Angeschlagener Keramik-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/chipped_ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:cracked_ceramic_bucket",
+      "name": {
+        "en_us": "Cracked Ceramic Bucket",
+        "de_de": "Rissiger Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/cracked_ceramic_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:cracked_ceramic_lava_bucket",
+      "name": {
+        "en_us": "Cracked Ceramic Lava Bucket",
+        "de_de": "Rissiger Keramik-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/cracked_ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:cracked_ceramic_water_bucket",
+      "name": {
+        "en_us": "Cracked Ceramic Water Bucket",
+        "de_de": "Rissiger Keramik-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/cracked_ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:enderite_bucket",
+      "name": {
+        "en_us": "Enderite Bucket",
+        "de_de": "Enderit-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/enderite_bucket.png",
+      "craftedBy": [
+        "simpletools:enderite_bucket"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:enderite_lava_bucket",
+      "name": {
+        "en_us": "Enderite Lava Bucket",
+        "de_de": "Enderit-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/enderite_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:enderite_lava_bucket_full",
+      "name": {
+        "en_us": "Enderite Lava Bucket (Full)",
+        "de_de": "Enderit-Lavaeimer (voll)"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:enderite_milk_bucket",
+      "name": {
+        "en_us": "Enderite Milk Bucket",
+        "de_de": "Enderit-Milcheimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/enderite_milk_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:enderite_milk_bucket_full",
+      "name": {
+        "en_us": "Enderite Milk Bucket (Full)",
+        "de_de": "Enderit-Milcheimer (voll)"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:enderite_soul_lava_bucket",
+      "name": {
+        "en_us": "Enderite Soul Lava Bucket",
+        "de_de": "Enderit-Seelen-Lava-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/enderite_soul_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:enderite_soul_lava_bucket_full",
+      "name": {
+        "en_us": "Enderite Soul Lava Bucket (Full)",
+        "de_de": "Enderit-Seelen-Lava-Eimer (voll)"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:enderite_water_bucket",
+      "name": {
+        "en_us": "Enderite Water Bucket",
+        "de_de": "Enderit-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/enderite_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpletools:enderite_water_bucket_full",
+      "name": {
+        "en_us": "Enderite Water Bucket (Full)",
+        "de_de": "Enderit-Wassereimer (voll)"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simpletools:guide_book",
       "name": {
         "en_us": "Simple Tools Guide",
@@ -843,10 +1357,10 @@
           "modules/simpletools/shared/resources/data/simpletools/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Tools\" of the Simple Modpack guide (SimpleLib): 34 pages taken from this wiki, shown in your language. Unlocked by picking up: anvil. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Tools\" of the Simple Modpack guide (SimpleLib): 35 pages taken from this wiki, shown in your language. Unlocked by picking up: anvil. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Tools\" im Simple-Modpack-Handbuch (SimpleLib): 34 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Amboss. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Tools\" im Simple-Modpack-Handbuch (SimpleLib): 35 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Amboss. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpletools/item/guide_book.png",
@@ -876,6 +1390,28 @@
       },
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simpletools:raw_ceramic_bucket",
+      "name": {
+        "en_us": "Raw Ceramic Bucket",
+        "de_de": "Roher Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/raw_ceramic_bucket.png",
+      "craftedBy": [
+        "simpletools:raw_ceramic_bucket"
+      ],
+      "usedIn": [
+        "simpletools:ceramic_bucket_from_smelting_raw_ceramic_bucket"
+      ]
     }
   ],
   "blocks": [
@@ -939,13 +1475,13 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 32,
-    "recipes": 3,
+    "features": 33,
+    "recipes": 6,
     "lootTables": 1,
     "tags": 3,
     "advancements": 1,
     "enchantments": 1,
-    "items": 2,
+    "items": 24,
     "blocks": 1,
     "trades": 0,
     "config": 0,

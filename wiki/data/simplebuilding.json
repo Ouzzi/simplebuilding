@@ -85968,43 +85968,7 @@
           "required": true
         },
         {
-          "id": "simplecrucibles:enderite_bucket",
-          "required": true
-        },
-        {
           "id": "simplecrucibles:enderite_crucible",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_lava_bucket_full",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_milk_bucket",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_milk_bucket_full",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_soul_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_soul_lava_bucket_full",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_water_bucket",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_water_bucket_full",
           "required": true
         },
         {
@@ -86146,6 +86110,42 @@
         {
           "id": "simplestorage:enderite_trapped_chest",
           "required": true
+        },
+        {
+          "id": "simpletools:enderite_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_lava_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_lava_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_milk_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_milk_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_soul_lava_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_soul_lava_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_water_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_water_bucket_full",
+          "required": true
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json"
@@ -86231,43 +86231,7 @@
           "required": true
         },
         {
-          "id": "simplecrucibles:enderite_bucket",
-          "required": true
-        },
-        {
           "id": "simplecrucibles:enderite_crucible",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_lava_bucket_full",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_milk_bucket",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_milk_bucket_full",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_soul_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_soul_lava_bucket_full",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_water_bucket",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_water_bucket_full",
           "required": true
         },
         {
@@ -86472,6 +86436,42 @@
         },
         {
           "id": "simplestorage:enderite_trapped_chest",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_lava_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_lava_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_milk_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_milk_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_soul_lava_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_soul_lava_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_water_bucket",
+          "required": true
+        },
+        {
+          "id": "simpletools:enderite_water_bucket_full",
           "required": true
         }
       ],
@@ -99647,32 +99647,6 @@
       "source": "mc26_3/generated/data/simplebuilding/advancement/hammer/stair_master.json"
     },
     {
-      "id": "simplebuilding:machines/bottomless_bucket",
-      "parent": "simplebuilding:machines/soul_scooper",
-      "icon": "simplecrucibles:enderite_bucket",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Unbreakable Bucket",
-        "de_de": "Unzerbrechlicher Eimer"
-      },
-      "description": {
-        "en_us": "Get an Enderite bucket, which carries soul lava and never breaks",
-        "de_de": "Besorge dir einen Enderit-Eimer, der Seelen-Lava trägt und nie zerbricht"
-      },
-      "criteria": [
-        {
-          "name": "enderite_bucket",
-          "trigger": "minecraft:inventory_changed",
-          "items": [
-            "simplecrucibles:enderite_bucket"
-          ]
-        }
-      ],
-      "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/bottomless_bucket.json"
-    },
-    {
       "id": "simplebuilding:machines/end_of_the_line",
       "parent": "simplebuilding:machines/forged_in_place",
       "icon": "simpleovens:enderite_furnace",
@@ -103313,7 +103287,7 @@
     "tags": 53,
     "config": 158,
     "inWorld": 65,
-    "advancements": 103,
+    "advancements": 102,
     "features": 44,
     "undocumented": 0,
     "incompleteProse": 0
