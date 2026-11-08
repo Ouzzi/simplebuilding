@@ -23,3 +23,8 @@ Kategorienregel "min. 2 Kategorien" beim Tresor-Ziehen; Stufe der Vanilla-Spawne
 `trials_loot_categories` (Kategorien + Neuwurf mit gesteuertem Lieferanten + 60 Ziehungen je Evil-Stufe >= 2 Kategorien), `trials_vanilla_spawner` um Speichern/Laden/Neustart erweitert,
 neu `trials_raid_persist` (echter Raid über `Raids.createOrExtendRaid`, Daten kodieren/parsen, `set`, Cache leeren, Stufe kommt zurück). Ein sbt-Lauf: Compile 26.3 Fabric + simplemobs,
 `module-simplemobs-fabric-263,module-simplemobs-standalone-fabric-263`, `fabric-263 --filter 'simplebuilding:data_integrity*'`.
+
+## Abweichung nach Lauf 1
+Lauf 1 (c5f7391e3): Compile 0, data_integrity 48/48, simplemobs 199/200 je Ziel - rot `trials_loot_categories`: Leere-Tresor Stufe 4 lieferte nach 13 Würfen
+eine 4-Gegenstände-Ziehung nur aus Ressourcen, weil der Bestwurf erst nach Anzahl, dann nach Kategorien gewählt wurde (Tresor-Tabellen haben eine feste
+random_sequence, daher reproduzierbar). Fix: Bewertung Kategorienregel zuerst, dann ohne Wiederholung, dann Anzahl; Abbruch beim ersten Wurf, der beides erfüllt.

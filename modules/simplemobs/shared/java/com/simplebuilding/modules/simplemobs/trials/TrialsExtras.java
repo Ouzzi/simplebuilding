@@ -147,30 +147,23 @@ public final class TrialsExtras {
 
     /**
      * One vault opening: rolls the table again (up to 12 times) until no item appears twice and - when at least two items come - at least two categories
-     * ({@link #category}) are in it; else keeps the best draw (most different items first, then the category rule), each item once.
+     * ({@link #category}) are in it. Without such a draw the best one stays (category rule first, then no repeats, then most items), each item once.
      */
     public static List<ItemStack> drawDistinct(Supplier<List<ItemStack>> roll) {
-        List<ItemStack> first = roll.get();
-        int wanted = first.size();
-        List<ItemStack> best = distinct(first);
-        int bestScore = drawScore(best);
-        for (int i = 0; i < 12 && !(best.size() >= wanted && categoriesOk(best)); i++) {
-            List<ItemStack> next = distinct(roll.get());
-            int score = drawScore(next);
+        List<ItemStack> best = List.of();
+        int bestScore = -1;
+        for (int i = 0; i <= 12; i++) {
+            List<ItemStack> raw = roll.get();
+            List<ItemStack> draw = distinct(raw);
+            boolean clean = draw.size() == raw.size(), ok = draw.size() < 2 || categories(draw) >= 2;
+            int score = (ok ? 2000 : 0) + (clean ? 1000 : 0) + draw.size();
             if (score > bestScore) {
-                best = next;
+                best = draw;
                 bestScore = score;
             }
+            if (clean && ok) break;
         }
         return best;
-    }
-
-    private static boolean categoriesOk(List<ItemStack> draw) {
-        return draw.size() < 2 || categories(draw) >= 2;
-    }
-
-    private static int drawScore(List<ItemStack> draw) {
-        return draw.size() * 2 + (categoriesOk(draw) ? 1 : 0);
     }
 
     /** Each item type only once (the first stack of it stays). */
