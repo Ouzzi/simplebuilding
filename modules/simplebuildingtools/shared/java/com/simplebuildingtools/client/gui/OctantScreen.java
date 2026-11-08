@@ -6,6 +6,8 @@ import com.simplebuildingtools.client.ClientState;
 import com.simplebuildingtools.items.custom.OctantItem;
 import com.simplebuildingtools.networking.OctantConfigurePayload;
 import com.simplebuildingtools.platform.ClientNetworking;
+import com.simplelib.api.client.ui.UiContrast;
+import com.simplelib.api.client.ui.UiPalette;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
@@ -32,9 +34,13 @@ public class OctantScreen extends Screen {
     private static final Identifier PANEL_SPRITE = Identifier.withDefaultNamespace("popup/background");
     /** Vanillas Beschriftungsfarbe auf hellem Grund (Container-Titel, CommonColors.DARK_GRAY). */
     private static final int LABEL_COLOR = 0xFF404040;
-    private static final int SECONDARY_COLOR = 0xFF707070;
+    /** Second-line text and warning follow the field they sit on (UiContrast.ensure, UiBrightness). */
+    private static final int SECONDARY_COLOR = UiContrast.INK_SOFT;
     /** Rot auf hellem Grund: eine Ecke, die der Server verwerfen wird. */
-    private static final int WARNING_COLOR = 0xFFAA0000;
+    private static final int WARNING_COLOR = UiContrast.INK_ERROR;
+    /** OCTUI12=B button faces, each >= 4.5:1 against the white label: on, locked, axis X/Y/Z. */
+    private static final int FACE_ON = OctantScreenColours.FACE_ON, FACE_LOCKED = OctantScreenColours.FACE_LOCKED;
+    private static final int[] FACE_AXIS = OctantScreenColours.FACE_AXIS;
 
     private final ItemStack stack;
 
@@ -43,15 +49,15 @@ public class OctantScreen extends Screen {
     private EditBox wField, hField, dField;
 
     private Button shapeButton;
-    private Button lockButton;
-    private Button orientationButton;
-    private Button figureToggleButton;
+    private StateButton lockButton;
+    private StateButton orientationButton;
+    private StateButton figureToggleButton;
     private Button pageButton;
     private Button doneButton;
 
     // Fill Settings Buttons
-    private Button hollowButton;
-    private Button layerModeButton;
+    private StateButton hollowButton;
+    private StateButton layerModeButton;
     private Button fillOrderButton;
 
     private final List<AbstractWidget> pageOneWidgets = new ArrayList<>();
@@ -188,18 +194,18 @@ public class OctantScreen extends Screen {
             .bounds(contentLeft, yControls, CONTENT_WIDTH - orientationWidth - GAP, WIDGET_HEIGHT).build();
         addPageOneWidget(shapeButton);
 
-        orientationButton = Button.builder(getOrientationText(), b -> cycleOrientation())
-            .bounds(contentLeft + CONTENT_WIDTH - orientationWidth, yControls, orientationWidth, WIDGET_HEIGHT).build();
+        orientationButton = new StateButton(contentLeft + CONTENT_WIDTH - orientationWidth, yControls, orientationWidth, WIDGET_HEIGHT,
+            getOrientationText(), b -> cycleOrientation(), () -> FACE_AXIS[currentOrientation.nbtIndex % 3]);
         addPageOneWidget(orientationButton);
 
         int half = (CONTENT_WIDTH - GAP) / 2;
         int yFill = contentTop;
-        hollowButton = Button.builder(getHollowText(), b -> { isHollow = !isHollow; b.setMessage(getHollowText()); updateLocalAndSend(); })
-            .bounds(contentLeft, yFill, half, WIDGET_HEIGHT).build();
+        hollowButton = new StateButton(contentLeft, yFill, half, WIDGET_HEIGHT,
+            getHollowText(), b -> { isHollow = !isHollow; b.setMessage(getHollowText()); updateLocalAndSend(); }, () -> isHollow ? FACE_ON : 0);
         addPageTwoWidget(hollowButton);
 
-        layerModeButton = Button.builder(getLayerText(), b -> { isLayerMode = !isLayerMode; b.setMessage(getLayerText()); updateLocalAndSend(); })
-            .bounds(contentLeft + CONTENT_WIDTH - half, yFill, half, WIDGET_HEIGHT).build();
+        layerModeButton = new StateButton(contentLeft + CONTENT_WIDTH - half, yFill, half, WIDGET_HEIGHT,
+            getLayerText(), b -> { isLayerMode = !isLayerMode; b.setMessage(getLayerText()); updateLocalAndSend(); }, () -> isLayerMode ? FACE_ON : 0);
         addPageTwoWidget(layerModeButton);
 
         int yOrder = yFill + ROW_STEP;
@@ -208,8 +214,8 @@ public class OctantScreen extends Screen {
         addPageTwoWidget(fillOrderButton);
 
         int yFigure = yOrder + ROW_STEP;
-        figureToggleButton = Button.builder(getFigureText(), b -> toggleFigure())
-            .bounds(contentLeft, yFigure, CONTENT_WIDTH, WIDGET_HEIGHT).build();
+        figureToggleButton = new StateButton(contentLeft, yFigure, CONTENT_WIDTH, WIDGET_HEIGHT,
+            getFigureText(), b -> toggleFigure(), () -> ClientState.showOctantFigure ? FACE_ON : 0);
         addPageTwoWidget(figureToggleButton);
 
         this.hudSummaryY = yControls + ROW_STEP;
@@ -221,8 +227,8 @@ public class OctantScreen extends Screen {
         int pageWidth = (CONTENT_WIDTH - WIDGET_HEIGHT - GAP * 2) / 2;
         int doneWidth = CONTENT_WIDTH - WIDGET_HEIGHT - GAP * 2 - pageWidth;
 
-        lockButton = Button.builder(getLockIcon(), b -> { isLocked = !isLocked; b.setMessage(getLockIcon()); updateLocalAndSend(); })
-            .bounds(contentLeft, yDone, WIDGET_HEIGHT, WIDGET_HEIGHT).build();
+        lockButton = new StateButton(contentLeft, yDone, WIDGET_HEIGHT, WIDGET_HEIGHT,
+            getLockIcon(), b -> { isLocked = !isLocked; b.setMessage(getLockIcon()); updateLocalAndSend(); }, () -> isLocked ? FACE_LOCKED : 0);
         addRenderableWidget(lockButton);
 
         pageButton = Button.builder(getPageButtonText(), b -> togglePage())
@@ -454,9 +460,14 @@ public class OctantScreen extends Screen {
         int boxX = panelX + PANEL_PADDING;
         int boxY = hudSummaryY;
         // N43: die Zusammenfassung liegt im Stil in einem hellen, eingelassenen Feld (dunkle Schrift wie im Inventar).
+        int bg = 0xFFC6C6C6;
         if (ModScreenStyle.field(context, ModScreenLayout.OCTANT_FILL, boxX, boxY - 3, CONTENT_WIDTH - 1, SUMMARY_HEIGHT - 2)) {
             boxX += 4;
+            bg = UiPalette.INVENTORY.fill(); // follows UiBrightness
         }
+        int ink = UiContrast.ensure(LABEL_COLOR, bg);
+        int soft = UiContrast.ensure(SECONDARY_COLOR, bg);
+        int warn = UiContrast.ensure(WARNING_COLOR, bg);
 
         BlockPos p1 = new BlockPos(parse(x1Field), parse(y1Field), parse(z1Field));
         BlockPos p2 = new BlockPos(parse(x2Field), parse(y2Field), parse(z2Field));
@@ -465,9 +476,9 @@ public class OctantScreen extends Screen {
         int dz = Math.abs(p1.getZ() - p2.getZ()) + 1;
 
         context.text(font, Component.translatable("simplebuildingtools.gui.summary.pos1", p1.getX(), p1.getY(), p1.getZ()),
-                boxX, boxY, LABEL_COLOR, false);
+                boxX, boxY, ink, false);
         context.text(font, Component.translatable("simplebuildingtools.gui.summary.pos2", p2.getX(), p2.getY(), p2.getZ()),
-                boxX, boxY + 10, LABEL_COLOR, false);
+                boxX, boxY + 10, ink, false);
 
         Component metric;
         Component dims = null;
@@ -481,14 +492,14 @@ public class OctantScreen extends Screen {
             dims = Component.literal("(" + dx + " x " + dy + " x " + dz + ")");
         }
 
-        context.text(font, metric, boxX, boxY + 20, LABEL_COLOR, false);
+        context.text(font, metric, boxX, boxY + 20, ink, false);
         if (!cornerAccepted(p1) || !cornerAccepted(p2)) {
             // Der Server verwirft Ecken ausserhalb seiner Reichweite (ModMessageHandlers#octantCornerInRange);
             // frueher sah man hier die neuen Zahlen, und am Item blieb still die alte Ecke (Nach-Audit N16).
             context.text(font, Component.translatable("simplebuildingtools.gui.summary.corner_refused",
-                    com.simplebuildingtools.networking.ModMessageHandlers.OCTANT_CORNER_RANGE), boxX, boxY + 30, WARNING_COLOR, false);
+                    com.simplebuildingtools.networking.ModMessageHandlers.OCTANT_CORNER_RANGE), boxX, boxY + 30, warn, false);
         } else if (dims != null) {
-            context.text(font, dims, boxX, boxY + 30, SECONDARY_COLOR, false);
+            context.text(font, dims, boxX, boxY + 30, soft, false);
         }
     }
 

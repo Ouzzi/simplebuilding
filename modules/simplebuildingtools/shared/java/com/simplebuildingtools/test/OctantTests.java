@@ -229,6 +229,22 @@ public final class OctantTests {
     // (c) NAME AND TOOLTIP
     // =====================================================================================
 
+    /** OCTUI12=B: every button face reads with the white label, every ink on the light field (WCAG 4.5:1). */
+    public static void octantScreenColoursReadAtLeastFourPointFive(GameTestHelper helper) {
+        java.util.List<Integer> faces = new ArrayList<>();
+        faces.add(com.simplebuildingtools.client.gui.OctantScreenColours.FACE_ON);
+        faces.add(com.simplebuildingtools.client.gui.OctantScreenColours.FACE_LOCKED);
+        for (int f : com.simplebuildingtools.client.gui.OctantScreenColours.FACE_AXIS) faces.add(f);
+        for (int f : faces) {
+            helper.assertTrue(com.simplelib.api.client.ui.UiContrast.ratio(0xFFFFFFFF, f) >= 4.5, "white on face " + Integer.toHexString(f));
+        }
+        int field = 0xFFC6C6C6;
+        for (int ink : new int[] {0xFF404040, com.simplelib.api.client.ui.UiContrast.INK_SOFT, com.simplelib.api.client.ui.UiContrast.INK_ERROR}) {
+            helper.assertTrue(com.simplelib.api.client.ui.UiContrast.ratio(ink, field) >= 4.5, "ink " + Integer.toHexString(ink) + " on the light field");
+        }
+        helper.succeed();
+    }
+
     /**
      * The seven shapes, in their shipped order, and the one place the chosen shape becomes visible
      * without a client: the item's display name.
