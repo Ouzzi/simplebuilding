@@ -8,6 +8,19 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleanimals", false); }
 
+    /** JEI24 (a-fix09b): every animal loot table has its entry in the recipe viewer's "Mob Drops" tab. */
+    @GameTest public void jeiLootDrops(GameTestHelper h) {
+        // The hedgehog's table has no pools (it drops nothing), so it has no entry on purpose.
+        var problems = com.simplelib.api.RecipeViewer.lootDropProblems(h.getLevel().getServer(), "simpleanimals", "simpleanimals")
+                .stream().filter(p -> !p.startsWith("simpleanimals:hedgehog ")).toList();
+        h.assertTrue(problems.isEmpty(), "loot tables without JEI entry: " + problems);
+        var drops = com.simplelib.api.RecipeViewer.mobDrops("simpleanimals");
+        h.assertTrue(drops.size() >= 5, "deer, boar, crab, zebra and zorse in Mob Drops: " + drops.size());
+        h.assertTrue(drops.stream().anyMatch(d -> d.victim() == com.simpleanimals.AnimalsRegistry.CRAB
+                && d.results().stream().anyMatch(s -> s.is(com.simpleanimals.AnimalsRegistry.RAW_CRAB))), "crab drops raw crab");
+        h.succeed();
+    }
+
     @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {
         AnimalsTests.ALL.get("registered").accept(h);

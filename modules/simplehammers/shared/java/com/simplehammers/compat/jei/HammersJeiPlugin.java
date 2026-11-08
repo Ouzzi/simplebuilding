@@ -34,5 +34,13 @@ public final class HammersJeiPlugin implements IModPlugin {
         registration.addItemStackInfo(hammers, Component.translatable(INFO_PREFIX + "area"),
                 Component.translatable(INFO_PREFIX + "reshape"), Component.translatable(INFO_PREFIX + "crush"),
                 Component.translatable(INFO_PREFIX + "upgrade"));
+        // a-fix09b: the Netherite and Enderite hammers carry the higher in-world grades (SimpleBuilding's JEI showed the Netherite
+        // hammer as the tool of its machine upgrades; standalone this page says it).
+        List<ItemStack> high = new ArrayList<>();
+        for (var tier : List.of(com.simplehammers.HammerTiers.NETHERITE, com.simplehammers.HammerTiers.ENDERITE)) {
+            var item = HammerRegistry.hammer(tier);
+            if (item != null) high.add(new ItemStack(item));
+        }
+        if (!high.isEmpty()) registration.addItemStackInfo(high, Component.translatable(INFO_PREFIX + "netherite_grade"));
     }
 }

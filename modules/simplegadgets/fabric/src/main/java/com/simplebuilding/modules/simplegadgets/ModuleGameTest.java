@@ -6,6 +6,10 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link GadgetsTests}. */
 public final class ModuleGameTest {
+    /** JEI24 (a-fix09b): Resonance Rod, Echo Sounder, Gauge and Transposer pages, texts in EN and DE. */
+    @GameTest(structure = "simplegadgets:empty")
+    public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simplegadgets", 4); }
+
     @GameTest(structure = "simplegadgets:empty")
     public void registered(GameTestHelper h) {
         GadgetsTests.ALL.get("registered").accept(h);

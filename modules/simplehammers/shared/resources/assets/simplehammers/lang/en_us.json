@@ -30,6 +30,7 @@
   "jei.simplehammers.note.reshape.how": "Sneak and hold use: carves the aimed octet off",
   "item.simplehammers.rose_bronze_sledgehammer": "Rose Copper Sledgehammer",
   "item.simplehammers.rose_gold_sledgehammer": "Rose Gold Sledgehammer",
+  "jei.simplehammers.info.netherite_grade": "The higher in-world upgrades name the hammer they need: Netherite steps take a Netherite or Enderite Sledgehammer, Enderite steps only the Enderite one; Diamond steps take Diamond or better. Netherite strikes every 20 ticks, Enderite every 19.",
   "item.simplehammers.guide_book": "Simple Hammers Guide",
   "simplehammers.guide.chapter": "Simple Hammers",
   "simplehammers.guide.page.1.title": "Simple Hammers",

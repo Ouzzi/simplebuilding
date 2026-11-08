@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** Respawn after a death: the Soulbound stacks move from the dead player into the same slots of the new one. */
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerRestoreMixin {
-    @Inject(method = "restoreFrom", at = @At("TAIL"))
+    @Inject(require = 1, method = "restoreFrom", at = @At("TAIL"))
     private void simpletools$restoreSoulbound(ServerPlayer old, boolean restoreAll, CallbackInfo ci) {
         ServerPlayer self = (ServerPlayer) (Object) this;
         boolean vanillaKeeps = self.level().getGameRules().get(GameRules.KEEP_INVENTORY) || old.isSpectator();

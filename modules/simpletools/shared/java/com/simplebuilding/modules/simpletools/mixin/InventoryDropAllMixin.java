@@ -18,12 +18,12 @@ public abstract class InventoryDropAllMixin {
     @Shadow @Final public Player player;
     @Unique private List<Soulbound.Kept> simpletools$kept = List.of();
 
-    @Inject(method = "dropAll", at = @At("HEAD"))
+    @Inject(require = 1, method = "dropAll", at = @At("HEAD"))
     private void simpletools$keepSoulbound(CallbackInfo ci) {
         simpletools$kept = Soulbound.dying(player) ? Soulbound.takeOut((Inventory) (Object) this) : List.of();
     }
 
-    @Inject(method = "dropAll", at = @At("RETURN"))
+    @Inject(require = 1, method = "dropAll", at = @At("RETURN"))
     private void simpletools$putBack(CallbackInfo ci) {
         List<Soulbound.Kept> kept = simpletools$kept;
         simpletools$kept = List.of();

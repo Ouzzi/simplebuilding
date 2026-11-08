@@ -42,7 +42,8 @@ public final class RecipelessJeiInfo {
             map.put("dull_end_ores", List.of(ModBlocks.DULL_ASTRALIT_ORE, ModBlocks.DULL_NIHILITH_ORE));
             map.put("dull_end_drops", List.of(ModItems.DULL_ASTRALIT_DUST, ModItems.DULL_NIHILITH_SHARD));
         }
-        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+        // 26.3 (a-fix09b): Sage Ore, Sage Orb and Dimensional Scrap are Simple Ores' with its own pages (jei.simpleores.info.*).
+        if (com.simplebuilding.version.McVersion.SAGE_ORE && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
             map.put("sage_ore", List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE));
             if (!com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleores")) {
                 // a-blocks07: Simple Ores crafts the orb back out of the Sage Orb Block; then the page is a usage hint (supplementalPages).
@@ -54,7 +55,7 @@ public final class RecipelessJeiInfo {
             map.put("warden_tendril", List.of(ModItems.WARDEN_TENDRIL));
         }
         // Crucible P5: Enderit-Tiegel/-Fass und die gefuellten Eimer zeigt Simple Crucibles' eigenes JEI-Plugin (Stufe 5b).
-        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
         }
         if (ModItems.NIHILITH_ASHWOOD_PLANKS != null && !com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleend")) {
@@ -77,7 +78,8 @@ public final class RecipelessJeiInfo {
     /** Usage hints for craftable items, separate from the recipeless coverage contract. */
     public static Map<String, List<ItemLike>> supplementalPages() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
-        if (com.simplebuilding.version.McVersion.SAGE_ORE && com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleores")) {
+        if (com.simplebuilding.version.McVersion.SAGE_ORE && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES
+                && com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleores")) {
             map.put("sage_orb", List.of(ModItems.SAGE_ORB));
         }
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {

@@ -9,6 +9,10 @@ import net.minecraft.gametest.framework.GameTestHelper;
  * GENERATED in b-pads01 from the SimpleBuilding adapters; names are load bearing.
  */
 public final class ModuleGameTest {
+    /** JEI24 (a-fix09b): the eleven pad, plate and Spawn Elytra pages with the server line, texts in EN and DE. */
+    @GameTest
+    public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simplepads", 11); }
+
     @GameTest
     public void registered(GameTestHelper h) {
         PadsTests.ALL.get("registered").accept(h);

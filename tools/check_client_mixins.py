@@ -19,7 +19,8 @@ server), parses the compiled mixin classes and checks them against the game jar 
     @ModifyArg (index >= 0): parameter count, primitive types and the return type (object types are compared
     loosely, a subclass or interface is fine); @Redirect on an @At FIELD (getter (Owner)T / ()T or setter
     (Owner, T)V / (T)V); @ModifyArgs handlers (first parameter Args, returns void)
-  * require = 0 injectors (REV2-C-2): checked like all others, a miss is tagged because Mixin would skip it silently
+  * require = 0 injectors (REV2-C-2): checked like all others, a miss is tagged because Mixin would skip it silently;
+    a config's "injectors": {"defaultRequire": 0} makes every injector without an own require count as require = 0
   * mixin config "plugin" class exists and implements IMixinConfigPlugin
   * not checked (needs the local variable table / runtime): @Local captures, @Desc selectors, regex selectors
 
@@ -386,13 +387,17 @@ def check_mixin(cp: ClassPath, mixin: ClassInfo, problems: list[str]) -> None:
             for atype in INJECTORS & m.ann.keys():
                 before = len(problems)
                 check_injector(cp, tag, tname, target, m, atype, m.ann[atype], problems)
-                if m.ann[atype].get("require") == ("int", 0):  # REV2-C-2: Mixin itself would skip these silently
+                req = m.ann[atype].get("require")
+                # REV2-C-2: Mixin itself would skip these silently; a-fix09b: also every injector without an own require
+                # in a config with "defaultRequire": 0 (R-AES-2, optional areas of the QoL/Aesthetics mods).
+                if req == ("int", 0) or (req is None and DEFAULT_REQUIRE == 0):
                     REQUIRE0.append(f"{tag}.{m.name}")
                     for i in range(before, len(problems)):
                         problems[i] += "  [require=0: Mixin would skip this injector silently]"
 
 
 REQUIRE0: list[str] = []
+DEFAULT_REQUIRE = 1  # "injectors": {"defaultRequire": n} of the config being checked (main sets it per config)
 
 
 def at_matches(selected, kind, ref):
@@ -661,6 +666,8 @@ def main() -> int:
             problems.append(f"{cfg_name}: config named in fabric.mod.json but missing")
             continue
         pkg = cfg.get("package", "").replace(".", "/")
+        global DEFAULT_REQUIRE
+        DEFAULT_REQUIRE = (cfg.get("injectors") or {}).get("defaultRequire", 1)
         check_plugin(cp, cfg_name, cfg, problems)
         for section in ("mixins", "client", "server"):
             for entry in cfg.get(section, []):

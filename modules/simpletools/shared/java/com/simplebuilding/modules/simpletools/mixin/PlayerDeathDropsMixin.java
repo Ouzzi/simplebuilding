@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(Player.class)
 public abstract class PlayerDeathDropsMixin {
     /** One wrapper instead of HEAD/RETURN injects: a throwing {@code dropEquipment} still ends the collection (no stale static state). */
-    @WrapMethod(method = "dropEquipment")
+    @WrapMethod(require = 1, method = "dropEquipment")
     private void simpletools$wrapDeath(ServerLevel level, Operation<Void> original) {
         Player self = (Player) (Object) this;
         Soulbound.beginDeath(self);

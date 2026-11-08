@@ -1,5 +1,5 @@
 {
-  "required": true,
+  "required": false,
   "package": "com.simplebuilding.modules.simpleinterfaces.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
@@ -52,6 +52,6 @@
     "LeggingsTextureMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   }
 }

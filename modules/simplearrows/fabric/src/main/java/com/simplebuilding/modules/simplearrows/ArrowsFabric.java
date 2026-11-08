@@ -36,6 +36,10 @@ public final class ArrowsFabric implements ModInitializer {
         });
         // JEI24: the Fletching Table's parts (its recipe type only feeds the table's book) as one entry in "Special Ways".
         com.simplelib.api.RecipeViewer.special(SimpleArrows.MOD_ID, com.simplearrows.fletching.Fletchings::recipeViewerEntries);
+        // a-fix09b: the crafted arrow's info page (SimpleBuilding's jei.simplebuilding.info.crafted_arrow before the move).
+        com.simplelib.api.RecipeViewer.info(SimpleArrows.MOD_ID, () -> com.simplearrows.fletching.Fletchings.CRAFTED_ARROW == null ? java.util.List.of()
+                : java.util.List.of(new com.simplelib.api.RecipeViewer.Info(java.util.List.of(new net.minecraft.world.item.ItemStack(com.simplearrows.fletching.Fletchings.CRAFTED_ARROW)),
+                        java.util.List.of(net.minecraft.network.chat.Component.translatable("jei.simplearrows.info.crafted_arrow")))));
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplearrows.guide.ArrowsGuide.installQuests(FabricLoader.getInstance().getConfigDir());
     }
 }

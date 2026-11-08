@@ -1,5 +1,5 @@
 {
-  "required": true,
+  "required": false,
   "package": "com.simplebuilding.modules.simpletools.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
@@ -21,6 +21,6 @@
     "ItemFrameInteractMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   }
 }

@@ -8,6 +8,9 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleores", false); }
 
+    /** JEI24 (a-fix09b): Sage Ore, Sage Orb and Dimensional Scrap pages, texts in EN and DE. */
+    @GameTest public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simpleores", 3); }
+
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {
         OresTests.ALL.get("registered").accept(h);

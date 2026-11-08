@@ -117,6 +117,8 @@
   "item.simpletools.brittle_ceramic_bucket": "Brüchiger Keramik-Eimer",
   "item.simpletools.brittle_ceramic_water_bucket": "Brüchiger Keramik-Wassereimer",
   "item.simpletools.brittle_ceramic_lava_bucket": "Brüchiger Keramik-Lavaeimer",
+  "jei.simpletools.info.ceramic_bucket": "3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, den du im Ofen oder Schmelztiegel brennst. Der Keramik-Eimer nimmt Wasser und Lava (keine Seelen-Lava, keine Milch), nutzt sich pro Ausgießen um eine Stufe ab und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Lava macht ihn sofort spröde, Lava ausgießen zerbricht ihn.",
+  "jei.simpletools.info.enderite_bucket": "Nimmt Wasser, Lava, Seelen-Lava (mit Simple Crucibles) und Milch (von Kühen, Ziegen und Pilzkühen), zwei Eimer derselben Flüssigkeit, und zerbricht nie.",
   "item.simpletools.guide_book": "Simple-Tools-Handbuch",
   "simpletools.guide.chapter": "Simple Tools",
   "simpletools.guide.page.1.title": "Simple Tools",
