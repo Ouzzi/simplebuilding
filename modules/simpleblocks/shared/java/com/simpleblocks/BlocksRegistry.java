@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 80 blocks with their block items (plus the 15 moved from SimpleBuilding in
+ * Everything Simple Blocks registers: 86 blocks with their block items (plus the 15 moved from SimpleBuilding in
  * {@link com.simpleblocks.nature.NatureBlocks}), the Shapecutter ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
@@ -64,7 +64,7 @@ public final class BlocksRegistry {
             "smooth_basalt_stairs", "smooth_basalt_slab", "smooth_basalt_wall", "cut_sandstone_stairs", "cut_sandstone_wall",
             "cut_red_sandstone_stairs", "cut_red_sandstone_wall", "smooth_sandstone_wall", "smooth_red_sandstone_wall",
             // a-palette05 (IG31-42): the missing members of the Vanilla families ...
-            "stone_wall", "smooth_stone_stairs", "polished_granite_wall", "polished_diorite_wall", "polished_andesite_wall",
+            "stone_wall", "smooth_stone_stairs", "smooth_stone_wall", "polished_granite_wall", "polished_diorite_wall", "polished_andesite_wall",
             "quartz_wall", "smooth_quartz_wall", "purpur_wall", "quartz_brick_stairs", "quartz_brick_slab", "quartz_brick_wall",
             "end_stone_stairs", "end_stone_slab", "end_stone_wall", "prismarine_brick_wall", "dark_prismarine_wall",
             // ... and the shapes of the mossy bricks (registered right behind their block, see AGED).
@@ -85,7 +85,7 @@ public final class BlocksRegistry {
         shapes("smooth_sandstone", Blocks.SMOOTH_SANDSTONE, false, false, true);
         shapes("smooth_red_sandstone", Blocks.SMOOTH_RED_SANDSTONE, false, false, true);
         shapes("stone", Blocks.STONE, false, false, true);
-        shapes("smooth_stone", Blocks.SMOOTH_STONE, true, false, false);
+        shapes("smooth_stone", Blocks.SMOOTH_STONE, true, false, true);
         shapes("polished_granite", Blocks.POLISHED_GRANITE, false, false, true);
         shapes("polished_diorite", Blocks.POLISHED_DIORITE, false, false, true);
         shapes("polished_andesite", Blocks.POLISHED_ANDESITE, false, false, true);
@@ -118,6 +118,16 @@ public final class BlocksRegistry {
             // Mossy bricks have stairs, slab and wall (a-palette05, IG31-42), right behind them: mossy_tuff_bricks -> mossy_tuff_brick_stairs.
             if (aged[0].startsWith("mossy_")) shapes(aged[0].replace("_bricks", "_brick").replace("_tiles", "_tile"), block, true, true, true);
         }
+    }
+
+    /** Chiseled cubes (a-pal09): (new path, Vanilla block it is cut from and whose properties it copies). */
+    public static final List<String[]> CHISELED = List.of(
+            new String[]{"chiseled_polished_andesite", "polished_andesite"}, new String[]{"chiseled_polished_diorite", "polished_diorite"},
+            new String[]{"chiseled_polished_granite", "polished_granite"}, new String[]{"chiseled_prismarine", "prismarine"},
+            new String[]{"chiseled_red_nether_bricks", "red_nether_bricks"});
+
+    static {
+        for (String[] chiseled : CHISELED) add(chiseled[0], agedBase(chiseled[1]), Block::new);
     }
 
     /** The block an aged brick copies: Vanilla's, or (with a namespace) one of ours, which is not in the registry yet while this class loads. */
@@ -256,7 +266,7 @@ public final class BlocksRegistry {
                 new Placement(false, Items.SULFUR, List.of("cracked_cinnabar_bricks", "mossy_cinnabar_bricks", "mossy_cinnabar_brick_stairs", "mossy_cinnabar_brick_slab", "mossy_cinnabar_brick_wall")),
                 new Placement(false, Items.SEA_LANTERN, List.of("cracked_sulfur_bricks", "mossy_sulfur_bricks", "mossy_sulfur_brick_stairs", "mossy_sulfur_brick_slab", "mossy_sulfur_brick_wall")),
                 new Placement(false, Items.NETHER_BRICKS, List.of("netherrack_stairs", "netherrack_slab", "netherrack_wall")),
-                new Placement(false, Items.BASALT, List.of("cracked_red_nether_bricks", "blue_nether_bricks", "blue_nether_brick_stairs",
+                new Placement(false, Items.BASALT, List.of("cracked_red_nether_bricks", "chiseled_red_nether_bricks", "blue_nether_bricks", "blue_nether_brick_stairs",
                         "blue_nether_brick_slab", "blue_nether_brick_wall", "cracked_blue_nether_bricks")),
                 new Placement(false, Items.POLISHED_BASALT, List.of("smooth_basalt_stairs", "smooth_basalt_slab", "smooth_basalt_wall")),
                 new Placement(false, Items.PURPUR_BLOCK, List.of("cracked_end_stone_bricks", "mossy_end_stone_bricks", "mossy_end_stone_brick_stairs", "mossy_end_stone_brick_slab", "mossy_end_stone_brick_wall")),
@@ -265,15 +275,16 @@ public final class BlocksRegistry {
                 new Placement(true, Items.SCULK_VEIN, List.of("sculk_deepslate"))));
         // a-palette05 (IG31-42): the missing members of the Vanilla families, each right behind the Vanilla member that precedes it.
         out.add(Placement.after(false, Items.STONE_SLAB, "stone_wall"));
-        out.add(Placement.after(false, Items.POLISHED_GRANITE_SLAB, "polished_granite_wall"));
-        out.add(Placement.after(false, Items.POLISHED_DIORITE_SLAB, "polished_diorite_wall"));
-        out.add(Placement.after(false, Items.POLISHED_ANDESITE_SLAB, "polished_andesite_wall"));
+        out.add(Placement.after(false, Items.SMOOTH_STONE_SLAB, "smooth_stone_wall")); // a-pal09
+        out.add(Placement.after(false, Items.POLISHED_GRANITE_SLAB, "polished_granite_wall", "chiseled_polished_granite"));
+        out.add(Placement.after(false, Items.POLISHED_DIORITE_SLAB, "polished_diorite_wall", "chiseled_polished_diorite"));
+        out.add(Placement.after(false, Items.POLISHED_ANDESITE_SLAB, "polished_andesite_wall", "chiseled_polished_andesite"));
         out.add(Placement.after(false, Items.QUARTZ_SLAB, "quartz_wall"));
         out.add(Placement.after(false, Items.SMOOTH_QUARTZ_SLAB, "smooth_quartz_wall"));
         out.add(Placement.after(false, Items.QUARTZ_BRICKS, "quartz_brick_stairs", "quartz_brick_slab", "quartz_brick_wall"));
         out.add(Placement.after(false, Items.PURPUR_SLAB, "purpur_wall"));
         out.add(Placement.after(false, Items.END_STONE, "end_stone_stairs", "end_stone_slab", "end_stone_wall"));
-        out.add(Placement.after(false, Items.PRISMARINE_WALL, "cracked_prismarine"));
+        out.add(Placement.after(false, Items.PRISMARINE_WALL, "cracked_prismarine", "chiseled_prismarine"));
         out.add(Placement.after(false, Items.PRISMARINE_BRICK_SLAB, "prismarine_brick_wall", "cracked_prismarine_bricks"));
         out.add(Placement.after(false, Items.DARK_PRISMARINE_SLAB, "dark_prismarine_wall", "cracked_dark_prismarine"));
         out.add(Placement.after(false, Items.POLISHED_DEEPSLATE_WALL, "cracked_polished_deepslate"));

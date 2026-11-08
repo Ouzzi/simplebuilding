@@ -40,7 +40,7 @@ for _stem, _block in (('mossy_deepslate_brick', 'mossy_deepslate_bricks'), ('mos
 # ... and the missing members of Vanilla families (textures: the Vanilla block's).
 SHAPES += [
     ('stone', 'minecraft:stone', 'w', _tex('minecraft:block/stone')),
-    ('smooth_stone', 'minecraft:smooth_stone', 's', _tex('minecraft:block/smooth_stone')),
+    ('smooth_stone', 'minecraft:smooth_stone', 'sw', _tex('minecraft:block/smooth_stone')),
     ('polished_granite', 'minecraft:polished_granite', 'w', _tex('minecraft:block/polished_granite')),
     ('polished_diorite', 'minecraft:polished_diorite', 'w', _tex('minecraft:block/polished_diorite')),
     ('polished_andesite', 'minecraft:polished_andesite', 'w', _tex('minecraft:block/polished_andesite')),
@@ -61,6 +61,15 @@ AGED = [('cracked_red_nether_bricks', 'red_nether_bricks'), ('cracked_tuff_brick
         ('cracked_prismarine', 'prismarine'), ('cracked_prismarine_bricks', 'prismarine_bricks'), ('cracked_dark_prismarine', 'dark_prismarine'),
         ('cracked_polished_deepslate', 'polished_deepslate'), ('cracked_blue_nether_bricks', f'{NS}:blue_nether_bricks')]
 
+# a-pal09 (owner 08.11.): chiseled cubes. (block, Vanilla base it is cut from, Vanilla slab: two of them on top of each other craft it,
+# English name, German name). Texture: tools/textures/chiseled_2026_11_08.py (Vanilla sprite, carved pattern, never committed).
+CHISELED = [('chiseled_polished_andesite', 'polished_andesite', 'polished_andesite_slab', 'Chiseled Polished Andesite', 'Gemeißelter Polierter Andesit'),
+            ('chiseled_polished_diorite', 'polished_diorite', 'polished_diorite_slab', 'Chiseled Polished Diorite', 'Gemeißelter Polierter Diorit'),
+            ('chiseled_polished_granite', 'polished_granite', 'polished_granite_slab', 'Chiseled Polished Granite', 'Gemeißelter Polierter Granit'),
+            ('chiseled_prismarine', 'prismarine', 'prismarine_slab', 'Chiseled Prismarine', 'Gemeißelter Prismarin'),
+            ('chiseled_red_nether_bricks', 'red_nether_bricks', 'red_nether_brick_slab', 'Chiseled Red Nether Bricks', 'Gemeißelte Rote Netherziegel')]
+CHISELED_NAMES = {c[0]: (c[3], c[4]) for c in CHISELED}
+
 # name -> dict(kind, family, base item, textures)
 BLOCKS = {}
 OWN_TEX = f'{NS}:block/{HUSHED}'
@@ -75,6 +84,8 @@ for family, base, which, tex in SHAPES:
         if letter in which:
             BLOCKS[f'{family}_{kind}'] = dict(kind=kind, base=base, double=base.replace(':', ':block/'), family=family, **tex)
 for name, _ in AGED:
+    BLOCKS[name] = dict(kind='cube', tex=f'{NS}:block/{name}')
+for name, *_ in CHISELED:
     BLOCKS[name] = dict(kind='cube', tex=f'{NS}:block/{name}')
 
 # Blue nether bricks (N71): own texture, full block + stairs/slab/wall; made from warped wart (SimpleLib) like red nether bricks from nether wart.
@@ -362,6 +373,12 @@ def recipes():
         cut_id = f'{name}_from_{base.split(":")[1]}_stonecutting'
         recipe(cut_id, {'type': 'minecraft:stonecutting', 'ingredient': base, 'result': cut}, base,
                'decorations' if kind == 'wall' else 'building_blocks')
+    # Chiseled (a-pal09): two slabs on top of each other at the crafting table, like Vanilla's chiseled stone bricks; stonecutter: 1 base block -> 1.
+    for name, base, slab, *_ in CHISELED:
+        recipe(name, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': f'minecraft:{slab}'},
+                      'pattern': ['#', '#'], 'result': result(name)}, f'minecraft:{slab}')
+        recipe(f'{name}_from_{base}_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': f'minecraft:{base}', 'result': result(name)},
+               f'minecraft:{base}')
     for name, base in AGED:
         brick = base if ':' in base else f'minecraft:{base}'
         if name.startswith('cracked_'):
@@ -488,6 +505,8 @@ def names():
             en[name], de[name] = 'Sculk Deepslate', 'Sculk-Tiefenschiefer'
         elif name == 'sculk_tiles':
             en[name], de[name] = 'Sculk Tiles', 'Sculk-Fliesen'
+        elif name in CHISELED_NAMES:
+            en[name], de[name] = CHISELED_NAMES[name]
         elif b['kind'] == 'cube':
             base = AGED_BASE[name]
             word_en, word_de = ('Cracked', 'Rissiger' if base in DE_SINGULAR else 'Rissige') if name.startswith('cracked_') else ('Mossy', 'Bemooste')
