@@ -217,9 +217,17 @@ def main():
             esc()
 
         # ---------- (b) N23 placed blueprint
-        chat('clear @s')
-        chat('give @s simplebuildingtools:blueprint')
-        io.key('1')
+        esc()
+        time.sleep(1.0)  # let the editor's close/save reach the server before the hand is replaced
+        held = ''
+        for _ in range(3):  # (b) needs a BLANK blueprint, else the editor hides Example (code.isBlank())
+            chat('clear @s', 1.0)
+            chat('give @s simplebuildingtools:blueprint', 1.0)
+            io.key('1')
+            held = fresh().get('serverHeld', '')
+            if 'blueprint' in held and 'code=' not in held:
+                break
+        check('(b) a blank blueprint is held before placing', 'blueprint' in held and 'code=' not in held, held[:120])
         chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + 0.5} {y - 1.62:.2f} {z + 2.5}')  # tp facing aims from the FEET: 1.62 below = eye ray meets the floor top 2.5 ahead
         time.sleep(0.8)
         st = fresh()
