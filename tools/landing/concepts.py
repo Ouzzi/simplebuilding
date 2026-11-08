@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LAND09 (IG31-54): neue Default-Seite + drei Landing-Konzepte.
+"""LAND10 (IG31-54): vier Seiten (index/paket/reise/discover) mit Navigation.
 
   python3 tools/landing/concepts.py [vorschau-ordner]
 
@@ -29,13 +29,28 @@ SIZES = ('h1{font-size:clamp(52px,13vw,128px);line-height:1;letter-spacing:4px;m
          '.c b{font-size:18px}.c p{font-size:15px;line-height:1.55}'
          '@media(max-width:600px){.hero{padding:60px 0 36px}h2{margin:52px 0 16px}}')
 v2 = (D / 'vorschlag-2.html').read_text(encoding='utf-8')
+NAVCSS = ('.tn{display:flex;flex-wrap:wrap;gap:6px;padding:8px 118px 8px 8px;font-family:"Silkscreen","Courier New",monospace}'
+          '.tn a{color:#cbbf9f;text-decoration:none;font-size:14px;padding:6px 10px;border:3px solid #000;background:#3b3329;'
+          'box-shadow:inset -3px -3px 0 #28221a,inset 3px 3px 0 #54493a}'
+          '.tn a:hover{color:#fff}.tn a[aria-current=page]{background:#55a630;color:#fff}'
+          '@media(max-width:600px){.tn{padding-right:104px}.tn a{font-size:12px;padding:5px 7px}}')
 i = v2.rfind('</style>')
-base = v2[:i] + SIZES + v2[i:]
-(D / 'index.html').write_text(base, encoding='utf-8')
+base = v2[:i] + SIZES + NAVCSS + v2[i:]
+
+NAVITEMS = [('index.html', 'Start', 'Start'), ('paket.html', 'Paket zusammenstellen', 'Build your pack'),
+            ('reise.html', 'Reise', 'Journey'), ('discover.html', 'Discover', 'Discover')]
+
+
+def nav(active):
+    return '<div class="tn">' + ''.join(
+        f'<a href="{h}" data-en="{E(en)}"' + (' aria-current="page"' if h == active else '') + f'>{E(de)}</a>'
+        for h, de, en in NAVITEMS) + '</div>'
+
 
 # Bausteine der Basis fuer die Konzepte
 HEAD = base[:base.find('</head>')]
 LANGBOX = re.search(r'<div class="lg".*?</div>', base).group(0)
+(D / 'index.html').write_text(base.replace(LANGBOX, LANGBOX + nav('index.html'), 1), encoding='utf-8')
 HERO = re.search(r'<div class="hero">.*?</div></div>', base).group(0)
 ICG_I = base.find('<h2 data-en="All ')
 ICG = base[ICG_I:base.find('<footer', ICG_I)]
@@ -157,6 +172,8 @@ TXT = {
  'simplestats': ('Jedes Werkzeug zählt seine eigene Statistik.', 'Every tool keeps its own statistics.'),
  'simpleblocks': ('Fehlende Baublöcke, Formsäge und kompakte Blöcke.', 'Missing building blocks, the shapecutter and compact blocks.'),
  'simplecrucibles': ('Tiegel kochen alle Plätze zugleich, beheizt vom Block darunter.', 'Crucibles cook every slot at once, heated from below.'),
+ 'simplebuildingtools': ('Bauwerkzeuge: Muster kopieren, Flächen füllen und Blöcke sauber ersetzen.', 'Building tools: copy patterns, fill areas and replace blocks cleanly.'),
+ 'simplechisels': ('Meißel in mehreren Materialien, um Blöcke zu formen und zu verzieren.', 'Chisels in several materials to shape and decorate blocks.'),
  'simpleoctets': ('Octets: halbe Würfel aus jedem Holz und Block.', 'Octets: half-block cubes of every wood and block.'),
  'simplehammers': ('Sieben Vorschlaghämmer, die 3x3 abbauen und Blöcke formen.', 'Seven sledgehammers that mine 3x3 and reshape blocks.'),
  'simpleoptimization': ('Super-Mod für Leistung: Render, Speicher, Server.', 'Super mod for performance: render, memory, server.'),
@@ -201,6 +218,7 @@ def t(de, en, tag='span', cls='', attrs=''):
 
 
 def box(de_t, en_t, de, en):
+    return ''  # LAND10: Konzept-Erklaerkasten entfernt
     return (f'<aside class="kz"><b data-en="Concept: {E(en_t)}">Konzept: {E(de_t)}</b>'
             f'<p data-en="{E(en)}">{E(de)}</p></aside>')
 
@@ -215,7 +233,7 @@ KZ_CSS = ('.kz{margin:32px 0 8px;padding:16px 20px;background:#2a2520;border:3px
 def page(fname, css, body, js=''):
     h = HEAD.replace('<title>Simple Mods</title>', '<title>Simple Mods</title>', 1)
     h = h[:h.rfind('</style>')] + KZ_CSS + css + h[h.rfind('</style>'):]
-    out = (h + '</head><body>' + LANGBOX + HERO + '<div class="w">' + body + FOOTER + '</div>'
+    out = (h + '</head><body>' + LANGBOX + nav(fname) + HERO + '<div class="w">' + body + FOOTER + '</div>'
            + (f'<script>{js}</script>' if js else '') + SCRIPT + '</body></html>')
     (D / fname).write_text(out, encoding='utf-8')
     return out
@@ -293,7 +311,7 @@ else if(b.dataset.f){var g=D.groups.filter(function(x){return x.id==b.dataset.f}
 else{var p=b.dataset.p;S.clear();if(p=="all")Object.keys(M).forEach(function(i){S.add(i)});else if(P[p])P[p].forEach(function(i){S.add(i)})}render()});
 var m=/sel=([a-z0-9_,]+)/.exec(location.hash);if(m)m[1].split(",").forEach(function(i){if(M[i])S.add(i)});
 document.addEventListener("smlang",render);render()})();'''
-    return page('konzept-1.html', css, body, js)
+    return page('paket.html', css, body, js)
 
 
 # ---------------------------------------------------------------- K2 Reise
@@ -302,7 +320,7 @@ STAGES = [
       tde='Die erste Nacht: ein Messer und ein Schneidebrett machen aus Brot ein Sandwich, Krabben und Trüffel füllen den Magen, der Keramikeimer ersetzt den teuren Eisen-Eimer.',
       ten='The first night: a knife and a cutting board turn bread into a sandwich, crabs and truffles fill your belly, the ceramic bucket replaces the costly iron one.',
       items=['simplesandwiches:item/knife', 'simplesandwiches:item/cheese_slice', 'simplesandwiches:item/butter_slice', 'simpleanimals:item/cooked_crab',
-             'simpleanimals:item/truffle_soup', 'simplecrucibles:item/ceramic_bucket', 'simplehammers:item/stone_sledgehammer', 'simplelib:item/modpack_guide'],
+             'simpleanimals:item/truffle_soup', 'simpletools:item/ceramic_bucket', 'simplehammers:item/stone_sledgehammer', 'simplelib:item/modpack_guide'],
       mods=['simplesandwiches', 'simpleanimals', 'simplecrucibles', 'simplehammers', 'simplequalityoflife', 'simplerespawn']),
  dict(k='build', de='Bauen', en='Building', c='#c8893a', bg='simpleblocks:block/sculk_tiles',
       tde='Das erste Haus wird zur Burg: fehlende Baublöcke, halbe Würfel als Octets, flache Lichtscheiben und Hämmer, die Treppen und Stufen in der Welt formen.',
@@ -313,7 +331,7 @@ STAGES = [
  dict(k='tech', de='Technik', en='Technology', c='#7a8ea3', bg='simplefoundry:block/foundry_brick',
       tde='Ab jetzt läuft es von allein: Tiegel kochen alle Plätze zugleich, Rohre verbinden Truhen, verstärkte Trichter und Kolben schieben mehr, die Gießerei schmilzt Erz in Formen.',
       ten='From here on it runs itself: crucibles cook every slot at once, pipes link chests, reinforced hoppers and pistons push more, the foundry melts ore into casts.',
-      items=['simplecrucibles:block/iron_crucible_side', 'simpleovens:block/reinforced_furnace_front_on', 'simplemachines:item/reinforced_hopper', 'simplemachines:item/signal_dampener',
+      items=['simplecrucibles:block/iron_crucible_side', 'simpleovens:block/reinforced_furnace_front_on', 'simplemachines:item/guide_book', 'simplemachines:item/signal_dampener',
              'simplestorage:block/pipe', 'simplestorage:block/chest_interface', 'simplefoundry:block/foundry_desk_front', 'simplepads:block/launchpad'],
       mods=['simplecrucibles', 'simpleovens', 'simplemachines', 'simplestorage', 'simplefoundry', 'simplepads', 'simplegadgets']),
  dict(k='nether', de='Nether', en='Nether', c='#b5472a', bg='simpleenchanting:block/crimson_blazewood_planks',
@@ -321,13 +339,13 @@ STAGES = [
       ten='Heat and danger: the Nether hides rose gold ore, the Soulfire Blaze and a Nether Heart. Netherite furnaces, hammers and backpacks are the reward.',
       items=['simplemobs:item/nether_heart', 'simplemobs:item/nether_gem', 'simplemobs:item/soulfire_blaze_spawn_egg', 'simpleenchanting:block/blazing_obsidian',
              'simpleores:block/nether_dimensional_scrap_side', 'simpleovens:block/netherite_furnace_front_on', 'simplehammers:item/netherite_sledgehammer', 'simplestorage:block/netherite_backpack_front'],
-      named=['simpleores:block/nether_rose_gold_ore'],
+      named=['simpleores:block/sage_ore'],
       mods=['simpleores', 'simplemobs', 'simpleenchanting', 'simpleovens', 'simplestorage']),
  dict(k='end', de='End', en='The End', c='#7b5ea7', bg='simplebuilding:block/astral_end_stone',
       tde='Eine neue Welt aus Stein: Astralit und Nihilit liegen im Endstein, Asch- und Dämmerholz wachsen auf End-Gras, Enderit wird zum stärksten Metall.',
       ten='A new world of stone: Astralit and Nihilit lie in the end stone, Ashwood and Duskwood grow on End grass, Enderite becomes the strongest metal.',
       items=['simplebuilding:block/astralit_block', 'simplebuilding:block/nihilith_block', 'simplebuilding:item/astralit_dust', 'simplebuilding:item/nihilith_shard',
-             'simpleend:block/ashwood_log', 'simpleend:block/duskwood_planks', 'simpleend:block/end_grass', 'simpleores:item/enderite_ingot'],
+             'simpleend:block/ashwood_log', 'simpleend:block/end_grass', 'simpleores:item/enderite_ingot'],
       mods=['simpleend', 'simpleores', 'simplebuilding', 'simpleenddragonfight', 'simplemobs']),
  dict(k='endgame', de='Endgame', en='Endgame', c='#d4af37', bg='simpleenchanting:block/nihil_obsidian',
       tde='Ganz oben: der Enderit-Hammer, der Astral-Verzauberer auf Nihil-Obsidian, das Mächtige Leuchtfeuer und Bosse wie der Hollow Howler, der dich in der Deep Dark erwartet.',
@@ -377,7 +395,7 @@ if(!("IntersectionObserver" in window)){S.forEach(function(s){s.classList.add("i
 var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");
 A.forEach(function(a){var on=a.getAttribute("href")=="#"+e.target.id;a.classList.toggle("on",on);if(on&&a.scrollIntoView)a.parentNode.scrollLeft=a.offsetLeft-40})}})},{rootMargin:"-35% 0px -45% 0px"});
 S.forEach(function(s){o.observe(s)})})();'''
-    return page('konzept-2.html', css, body, js)
+    return page('reise.html', css, body, js)
 
 
 # ---------------------------------------------------------------- K3 Schaufenster
@@ -411,7 +429,7 @@ SHOW = [  # (mod, Titel de/en, Satz de/en, Hintergrund, Haupttexturen, wiki)
   ['simplehammers:item/stone_sledgehammer', 'simplehammers:item/diamond_sledgehammer', 'simplehammers:item/enderite_sledgehammer'], 'simplehammers'),
  ('simplecrucibles', 'Tiegel', 'Crucibles', 'Kochen ohne Brennstoff: der Block darunter heizt, alle Plätze garen zugleich.',
   'Cooking without fuel: the block below heats it, every slot cooks at once.', 'simplecrucibles:block/reinforced_cauldron_side',
-  ['simplecrucibles:block/iron_crucible_side', 'simplecrucibles:item/ceramic_lava_bucket', 'simplecrucibles:item/enderite_soul_lava_bucket'], 'simplecrucibles'),
+  ['simplecrucibles:block/iron_crucible_side', 'simpletools:item/ceramic_lava_bucket', 'simpletools:item/enderite_soul_lava_bucket'], 'simplecrucibles'),
  ('simplemobs', 'Bosse', 'Bosses', 'Hollow Howler und Hollow Watcher fordern ganze Gruppen, ihre Herzen und Augen öffnen neue Rezepte.',
   'The Hollow Howler and Hollow Watcher challenge whole groups, their hearts and eyes unlock new recipes.', 'simpleenchanting:block/nihil_obsidian',
   ['simplemobs:item/hollow_howler_spawn_egg', 'simplemobs:item/watcher_eye', 'simplemobs:item/ender_heart'], 'simplemobs'),
@@ -468,38 +486,38 @@ def k3():
     js = '''(function(){var a=document.getElementById("clip"),b=document.getElementById("play");if(!a||!b)return;
 function lab(){var en=document.documentElement.lang=="en";b.textContent=a.paused?(en?"\\u25B6 Play":"\\u25B6 Abspielen"):(en?"\\u25A0 Stop":"\\u25A0 Stopp")}
 b.onclick=function(){if(a.paused){a.currentTime=0;a.play()}else a.pause();lab()};a.onended=a.onpause=lab;document.addEventListener("smlang",lab)})();'''
-    out = page('konzept-3.html', css, body, js)
+    out = page('discover.html', css, body, js)
     # Button-Text wird vom Skript gepflegt, nicht vom Sprach-Schalter
     out = out.replace(' data-en="&#9654; Play">', '>', 1)
-    (D / 'konzept-3.html').write_text(out, encoding='utf-8')
+    (D / 'discover.html').write_text(out, encoding='utf-8')
     return out
 
 
-pages = {'default': base, 'k1': k1(), 'k2': k2(), 'k3': k3()}
+pages = {'default': (D / 'index.html').read_text(encoding='utf-8'), 'k1': k1(), 'k2': k2(), 'k3': k3()}
 print('Zahlen:', C, '| Groessen:', {k: len(v.encode()) for k, v in pages.items()})
 
-# ---------------------------------------------------------------- Vorschau
+# ---------------------------------------------------------------- Vorschau (LAND10)
 if len(sys.argv) > 1:
     P = Path(sys.argv[1]); P.mkdir(parents=True, exist_ok=True)
-    for k, v in pages.items():
-        (P / f'a-land09-{k}.html').write_text(v, encoding='utf-8')
-    tabs = [('default', 'Default (neu)', 'V2 mit größerer Überschrift und klarer Hierarchie'),
-            ('k1', 'K1 Modpack-Baukasten', 'interaktiv: Mods wählen, Abhängigkeiten live, Installationsweg'),
-            ('k2', 'K2 Reise durchs Spiel', 'Scroll-Geschichte: Start, Bauen, Technik, Nether, End, Endgame'),
-            ('k3', 'K3 Schaufenster', 'Hero-Kacheln, Zahlen-Leiste, Zeitleiste „Was ist neu“')]
+    names = {'index.html': pages['default'], 'paket.html': pages['k1'], 'reise.html': pages['k2'], 'discover.html': pages['k3']}
+    for f, v in names.items():
+        for g in names:
+            v = v.replace(f'href="{g}"', f'href="a-land10-{g}"')
+        (P / f'a-land10-{f}').write_text(v, encoding='utf-8')
+    tabs = [('index.html', 'Start (Default, unverändert + Navigation)'), ('paket.html', 'Paket zusammenstellen'),
+            ('reise.html', 'Reise durchs Spiel'), ('discover.html', 'Discover (Schaufenster)')]
     pv = ('<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-          '<title>LAND09 Vorschau</title><style>:root{--bg:#f4f1ea;--fg:#1d1a16;--mu:#6b6355;--bd:#d6cfc0;--ac:#3a7a1f}'
+          '<title>LAND10 Vorschau</title><style>:root{--bg:#f4f1ea;--fg:#1d1a16;--mu:#6b6355;--bd:#d6cfc0;--ac:#3a7a1f}'
           '@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1d1a16;--fg:#f0e6d2;--mu:#a89c84;--bd:#3b3329;--ac:#7cd24f}}'
           ':root[data-theme=dark]{--bg:#1d1a16;--fg:#f0e6d2;--mu:#a89c84;--bd:#3b3329;--ac:#7cd24f}'
           'body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}.w{max-width:1280px;margin:auto;padding:16px}'
           'h1{font-size:22px;margin:0 0 4px}.code{background:var(--bd);padding:8px 12px;font-family:monospace;margin:10px 0 18px;word-break:break-word}'
           'section{margin:0 0 28px}h2{font-size:18px;margin:0}p{margin:2px 0 8px;color:var(--mu)}'
           'iframe{width:100%;height:860px;border:2px solid var(--bd);background:#1d1a16}a{color:var(--ac)}</style></head><body><div class="w">'
-          '<h1>LAND09: neue Default-Seite und drei Konzepte</h1><p>Default = V2 mit größerer Typo-Hierarchie. K1 bis K3 sind echt verschiedene Ideen für Aufbau, Inhalt und Interaktion, alle auf derselben Basis-Optik. Oben rechts in jeder Seite DE/EN umschalten.</p>'
-          '<div class="code">Antwort: LAND09: default|K1|K2|K3 + Anmerkung</div>'
-          + ''.join(f'<section><h2>{n}</h2><p>{d} · <a href="a-land09-{k}.html" target="_blank">einzeln öffnen</a></p>'
-                    f'<iframe src="a-land09-{k}.html" loading="lazy" title="{n}"></iframe></section>' for k, n, d in tabs)
+          '<h1>LAND10: vier Seiten mit Navigation</h1><p>Start = Default (Inhalt unverändert), Paket zusammenstellen = K1, Reise = K2, Discover = K3. Navigationsleiste oben links, DE/EN oben rechts (wird seitenübergreifend gemerkt). Die Seiten sind unten eingebettet und einzeln öffenbar.</p>'
+          '<div class="code">Feinschliff als Anmerkung</div>'
+          + ''.join(f'<section><h2>{n}</h2><p><a href="a-land10-{f}" target="_blank">einzeln öffnen</a></p>'
+                    f'<iframe src="a-land10-{f}" loading="lazy" title="{n}"></iframe></section>' for f, n in tabs)
           + '</div></body></html>')
-    (P / 'a-land09-preview.html').write_text(pv, encoding='utf-8')
-    tot = sum(f.stat().st_size for f in P.glob('a-land09-*'))
-    print('Vorschau', P, 'gesamt', tot, 'Bytes')
+    (P / 'a-land10-preview.html').write_text(pv, encoding='utf-8')
+    print('Vorschau', P, 'gesamt', sum(f.stat().st_size for f in P.glob('a-land10-*')), 'Bytes')

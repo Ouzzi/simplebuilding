@@ -16,3 +16,8 @@ Bis dahin zeigt simplemods.de auf das Wiki.
 `python3 concepts.py [vorschau-ordner]` schreibt `index.html` (= vorschlag-2.html, nur größere H1/H2 und Abstände)
 und `konzept-1.html` (Modpack-Baukasten), `konzept-2.html` (Reise durchs Spiel), `konzept-3.html` (Schaufenster).
 Daten: modules.json/modtree.py, Lang-Dateien, git-verfolgte Mod-Texturen (nie build/, wiki/, assets/minecraft).
+
+## LAND10 (08.11.): vier Seiten
+`python3 concepts.py [vorschau-ordner]` erzeugt `index.html` (Default + Navigationsleiste), `paket.html` (K1), `reise.html` (K2),
+`discover.html` (K3), alle mit Navigation Start | Paket zusammenstellen | Reise | Discover, relative Links, Sprache in localStorage `sm-lang`.
+`konzept-*.html` liegen in `archiv/`. Auslieferung: alle vier HTML-Dateien nach `/srv/landing` (`deploy_dom07.sh` kopiert sie).
