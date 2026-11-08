@@ -44,7 +44,7 @@ import net.minecraft.world.level.Level;
 public final class OresGuide {
     public static final String NAMESPACE = "simpleores";
     public static final String AUTHOR = "Simple Ores";
-    public static final int PAGES = 14;
+    public static final int PAGES = 15;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Simple Modpack guide (SimpleLib) the old book turns into. */
     public static final Identifier MODPACK_GUIDE = Identifier.fromNamespaceAndPath("simplelib", "modpack_guide");

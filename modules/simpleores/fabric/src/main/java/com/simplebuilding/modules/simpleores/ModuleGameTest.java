@@ -157,4 +157,14 @@ public final class ModuleGameTest {
     public void roseCarrots(GameTestHelper h) {
         OresTests.ALL.get("rose_carrots").accept(h);
     }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void metalRecipes(GameTestHelper h) {
+        OresTests.ALL.get("metal_recipes").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void metalWorldgenDrops(GameTestHelper h) {
+        OresTests.ALL.get("metal_worldgen_drops").accept(h);
+    }
 }

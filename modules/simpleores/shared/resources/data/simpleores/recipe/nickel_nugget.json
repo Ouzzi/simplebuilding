@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simpleores:nickel_ingot"
+  ],
+  "result": {
+    "id": "simpleores:nickel_nugget",
+    "count": 9
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:copper_ingot",
+    "minecraft:copper_ingot",
+    "simpleores:zinc_ingot"
+  ],
+  "result": {
+    "id": "simpleores:brass_ingot",
+    "count": 3
+  }
+}

@@ -52,6 +52,16 @@ RAMPS.update({
     'lead_b': ['#dcd9e3', '#c0bccd', '#a5a0b4', '#8a8499', '#716b80', '#5a5568', '#454153', '#332f3d', '#24212c', '#16141c'],
     'lead_c': ['#b9c0bd', '#9ea6a3', '#848c89', '#6b7371', '#555c5a', '#434948', '#333837', '#262a29', '#191c1c', '#0f1111'],
 })
+RAMPS.update({   # RG30-2 (a-rg08): zinc, nickel, tin and the plain alloys; recoloured Vanilla iron (brass: gold) sprites, 10 tones each
+    'zinc': ['#f1f8fb', '#d8e8ee', '#bdd4de', '#a1bccb', '#86a3b5', '#6c8a9d', '#547083', '#3e5666', '#2a3d4a', '#1a2832'],      # cool blue-white, lighter than lead
+    'nickel': ['#f7f4e8', '#e8e3cd', '#d4cdb0', '#bdb593', '#a39b78', '#88805f', '#6c6549', '#524c37', '#393525', '#24211a'],    # warm silvery beige
+    'tin': ['#f3f4ef', '#e1e4dc', '#cdd1c7', '#b7bcb1', '#9ea496', '#858b7c', '#6b7163', '#52574b', '#3a3e34', '#252820'],       # dull green-grey white
+    'brass': ['#fbf0b8', '#efdc86', '#dcc261', '#c4a548', '#a5882f', '#826a22', '#625018', '#453810', '#2d250a', '#1a1505'],     # olive-yellow, paler than gold
+    'stainless_steel': ['#f4f6f6', '#dfe3e4', '#c9cfd1', '#b2babd', '#99a2a6', '#7f898e', '#656f74', '#4c555a', '#343b3f', '#1f2427'],
+    'bronze': ['#f3d3a0', '#e0b074', '#c98e52', '#a96f3b', '#8a5530', '#6e4126', '#53301c', '#3b2214', '#27160d', '#170d07'],
+})
+METAL_NAMES = ('zinc', 'nickel', 'tin')
+MIX_NAMES = ('brass', 'stainless_steel', 'bronze')
 LUM_HI, LUM_LO = 240.0, 50.0   # luminance span of the Vanilla gold sprites
 
 ITEM_TOOLS = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe')
@@ -200,6 +210,25 @@ def lead_images(j: 'Jar', v: str = 'a') -> dict:
         'item/lead_nugget.png': recolor(j.img('item/iron_nugget'), ramp, shift=0.18),
         'block/lead_block.png': lead_block(j, ramp, 'B'),
     }
+
+
+def metal_images(j: 'Jar') -> dict:
+    """RG30-2: ores (iron flecks), raw pieces, ingots, nuggets, blocks of zinc, nickel, tin and the ingots/blocks of brass, stainless steel, bronze."""
+    out = {}
+    ore, deep = j.img('block/iron_ore'), j.img('block/deepslate_iron_ore')
+    for m in METAL_NAMES:
+        out[f'block/{m}_ore.png'] = recolor(ore, m, fleck)
+        out[f'block/deepslate_{m}_ore.png'] = recolor(deep, m, fleck, squeeze=0.8)
+        out[f'block/raw_{m}_block.png'] = recolor(j.img('block/raw_iron_block'), m, squeeze=0.7)
+        out[f'block/{m}_block.png'] = recolor(j.img('block/iron_block'), m)
+        out[f'item/raw_{m}.png'] = recolor(j.img('item/raw_iron'), m, squeeze=0.7)
+        out[f'item/{m}_ingot.png'] = recolor(j.img('item/iron_ingot'), m, squeeze=0.8)
+        out[f'item/{m}_nugget.png'] = recolor(j.img('item/iron_nugget'), m, squeeze=0.8)
+    for a in MIX_NAMES:
+        base = 'gold' if a == 'brass' else 'iron'
+        out[f'block/{a}_block.png'] = recolor(j.img(f'block/{base}_block'), a)
+        out[f'item/{a}_ingot.png'] = recolor(j.img(f'item/{base}_ingot'), a, squeeze=0.8)
+    return out
 
 
 def arrow_images(j: 'Jar', v: str) -> dict:
@@ -526,6 +555,7 @@ def derived(jar) -> dict:
         out[f'item/{alloy}_apple.png'] = apple_image(j, ramp, APPLE_VARIANT[alloy])
     out.update(scrap_blocks(j))
     out.update(lead_images(j, LEAD_VARIANT))
+    out.update(metal_images(j))
     # The silver arrow (arrow_images) moved to Simple Arrows on 03.11.: arrows_derived.py draws it.
     out.update(ore_images(j, ROSE_ORE_VARIANT, CRYSTAL_VARIANT))
     out['block/silver_sheet.png'] = sheet_image(j)

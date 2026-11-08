@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "raw_nickel",
+  "ingredients": [
+    "simpleores:raw_nickel_block"
+  ],
+  "result": {
+    "id": "simpleores:raw_nickel",
+    "count": 9
+  }
+}

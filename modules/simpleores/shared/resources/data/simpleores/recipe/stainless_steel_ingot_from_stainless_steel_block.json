@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "stainless_steel_ingot",
+  "ingredients": [
+    "simpleores:stainless_steel_block"
+  ],
+  "result": {
+    "id": "simpleores:stainless_steel_ingot",
+    "count": 9
+  }
+}
