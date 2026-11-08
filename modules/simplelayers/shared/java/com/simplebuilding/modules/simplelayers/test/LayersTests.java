@@ -66,6 +66,25 @@ public final class LayersTests {
 
     private LayersTests() {}
 
+    /**
+     * The level of {@code key}, or null after checking what the test server can hold: Vanilla's GameTestServer bakes its world
+     * WITHOUT data pack dimensions ({@code noDatapackDimensions} in GameTestServer), so in the standalone run (no Simple Dimensions,
+     * whose pack mixin adds them) the levels do not exist. Then the dimension types and biomes must still be loaded from the
+     * module's data, and the caller ends the test; the integration run (levels present) checks the travel itself.
+     */
+    static ServerLevel levelOrRegistryOnly(GameTestHelper h, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> key) {
+        ServerLevel level = h.getLevel().getServer().getLevel(key);
+        if (level != null) return level;
+        var types = h.getLevel().registryAccess().lookupOrThrow(Registries.DIMENSION_TYPE);
+        var biomes = h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
+        for (String id : List.of("cloud_sea", "backrooms")) {
+            h.assertTrue(types.containsKey(SimpleLayers.id(id)), "dimension type " + id);
+            h.assertTrue(biomes.containsKey(SimpleLayers.id(id)), "biome " + id);
+        }
+        h.succeed();
+        return null;
+    }
+
     static void registered(GameTestHelper h) {
         List<String> missing = new ArrayList<>();
         for (String path : LayersRegistry.ITEM_PATHS) if (!BuiltInRegistries.ITEM.containsKey(SimpleLayers.id(path))) missing.add("item " + path);
@@ -147,9 +166,10 @@ public final class LayersTests {
 
     /** Stage 5: both dimensions exist with the planned heights and generators. */
     static void dimensionsLoad(GameTestHelper h) {
-        MinecraftServer server = h.getLevel().getServer();
-        ServerLevel clouds = server.getLevel(SimpleLayers.CLOUD_SEA), back = server.getLevel(SimpleLayers.BACKROOMS);
-        h.assertTrue(clouds != null && back != null, "both levels loaded");
+        ServerLevel clouds = levelOrRegistryOnly(h, SimpleLayers.CLOUD_SEA);
+        if (clouds == null) return;
+        ServerLevel back = levelOrRegistryOnly(h, SimpleLayers.BACKROOMS);
+        if (back == null) return;
         h.assertTrue(clouds.getMinY() == 0 && clouds.getHeight() == 512, "cloud sea 0..512");
         h.assertTrue(back.getMinY() == 0 && back.getHeight() == 64, "backrooms 0..64");
         h.assertTrue(back.getChunkSource().getGenerator() instanceof BackroomsChunkGenerator, "backrooms generator");
@@ -171,6 +191,7 @@ public final class LayersTests {
     /** Stage 5: an entity goes up into the Cloud Sea (y 16, cloud platform below it) and falls back to the Overworld at y 680. */
     static void cloudTravelBothWays(GameTestHelper h) {
         MinecraftServer server = h.getLevel().getServer();
+        if (levelOrRegistryOnly(h, SimpleLayers.CLOUD_SEA) == null) return;
         ArmorStand stand = h.spawn(EntityTypes.ARMOR_STAND, new Vec3(3.5, 2.0, 3.5));
         Entity up = CloudTransition.toClouds(server, stand);
         h.assertTrue(up != null && up.level().dimension() == SimpleLayers.CLOUD_SEA, "in the cloud sea");
@@ -212,8 +233,8 @@ public final class LayersTests {
 
     /** Stage 5: a generated Backrooms chunk holds exactly the grid (generator + world seed). */
     static void backroomsChunkMatchesGrid(GameTestHelper h) {
-        ServerLevel back = h.getLevel().getServer().getLevel(SimpleLayers.BACKROOMS);
-        h.assertTrue(back != null, "backrooms level");
+        ServerLevel back = levelOrRegistryOnly(h, SimpleLayers.BACKROOMS);
+        if (back == null) return;
         long seed = BackroomsChunkGenerator.seed(back.getChunkSource().randomState());
         int cx = 4000, cz = -4000;
         back.getChunk(cx, cz);
@@ -263,7 +284,9 @@ public final class LayersTests {
         player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(Items.NETHERITE_PICKAXE));
         h.assertTrue(GlitchedBedrockBlock.canMine(player), "netherite allowed");
         float progress = s.getDestroyProgress(player, h.getLevel(), abs);
-        h.assertTrue(progress > 1.0F / 700.0F && progress < 1.0F / 500.0F, "about 600 ticks, progress " + progress);
+        // 600 ticks (30 s) standing; the mock player floats, and Vanilla divides by 5 off the ground (3000 ticks).
+        float standing = player.onGround() ? progress : progress * 5.0F;
+        h.assertTrue(standing > 1.0F / 700.0F && standing < 1.0F / 500.0F, "about 600 ticks, progress " + progress);
         h.getLevel().removeBlock(abs, false);
         LayersRegistry.GLITCHED_BEDROCK.destroy(h.getLevel(), abs, s);
         h.assertTrue(h.getLevel().getBlockState(abs).is(LayersRegistry.RIFT), "rift left behind");
@@ -273,6 +296,7 @@ public final class LayersTests {
 
     /** Stage 5 entrance: whatever enters the Backrooms arrives in a free cell centre at y 2. */
     static void riftLeadsIntoBackrooms(GameTestHelper h) {
+        if (levelOrRegistryOnly(h, SimpleLayers.BACKROOMS) == null) return;
         ArmorStand stand = h.spawn(EntityTypes.ARMOR_STAND, new Vec3(1.5, 2.0, 1.5));
         Entity in = BackroomsTravel.enter(h.getLevel().getServer(), stand);
         h.assertTrue(in != null && in.level().dimension() == SimpleLayers.BACKROOMS, "in the backrooms");
@@ -310,9 +334,9 @@ public final class LayersTests {
         ItemStack water = new ItemStack(LayersRegistry.ALMOND_WATER);
         h.assertTrue(water.has(DataComponents.CONSUMABLE) && water.has(DataComponents.USE_REMAINDER), "drink with a bottle left");
         water.get(DataComponents.CONSUMABLE).onConsume(h.getLevel(), pig, water);
-        h.assertTrue(pig.getHealth() >= 7.9F, "healed to " + pig.getHealth());
         h.assertFalse(pig.hasEffect(net.minecraft.world.effect.MobEffects.NAUSEA), "nausea gone");
-        h.succeed();
+        // Instant Health from a consume effect is applied on the entity's next effect tick.
+        h.succeedWhen(() -> h.assertTrue(pig.getHealth() >= 7.9F, "healed to " + pig.getHealth()));
     }
 
     static void guideBook(GameTestHelper h) {
