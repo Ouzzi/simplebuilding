@@ -197,6 +197,7 @@
         "simpleblocks:mossy_sulfur_brick_wall",
         "simpleblocks:stone_wall",
         "simpleblocks:smooth_stone_stairs",
+        "simpleblocks:smooth_stone_wall",
         "simpleblocks:polished_granite_wall",
         "simpleblocks:polished_diorite_wall",
         "simpleblocks:polished_andesite_wall",
@@ -214,7 +215,7 @@
       ],
       "en": {
         "title": "Missing Stairs, Slabs and Walls",
-        "summary": "Stairs, slabs and walls Vanilla lacks: Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls. Since the palette completion (IG31-42): stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine.",
+        "summary": "Stairs, slabs and walls Vanilla lacks: Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls, Smooth Stone walls. Since the palette completion (IG31-42): stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine.",
         "details": [
           "Crafting table: 6 stairs from 6 blocks, 6 slabs from 3, 6 walls from 6; stonecutter: one block makes one stair or wall, two slabs.",
           "The models use the Vanilla block textures, so they match resource packs. Hardness and sound are those of the full block.",
@@ -223,7 +224,7 @@
       },
       "de": {
         "title": "Fehlende Treppen, Stufen und Mauern",
-        "summary": "Treppen, Stufen und Mauern, die Vanilla fehlen: Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein. Seit der Paletten-Vervollständigung (IG31-42): Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin.",
+        "summary": "Treppen, Stufen und Mauern, die Vanilla fehlen: Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein, Mauern aus Glattem Stein. Seit der Paletten-Vervollständigung (IG31-42): Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin.",
         "details": [
           "Werkbank: 6 Treppen aus 6 Blöcken, 6 Stufen aus 3, 6 Mauern aus 6; Steinmetz: ein Block ergibt eine Treppe oder Mauer, zwei Stufen.",
           "Die Modelle nutzen die Vanilla-Blocktexturen und passen daher zu Ressourcenpaketen. Härte und Klang sind die des Vollblocks.",
@@ -275,6 +276,38 @@
           "Rissig: den Ziegel im Ofen schmelzen, wie Vanillas rissige Steinziegel. Bemoost: der Ziegel und ein Moosblock, formlos.",
           "Nur Vollblöcke, mit den Eigenschaften des Ziegels, den sie altern.",
           "Zinnober- und Schwefelziegel sind Vanilla-Blöcke von Minecraft 26.3."
+        ]
+      }
+    },
+    {
+      "id": "chiseled_blocks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "tools/textures/chiseled_2026_11_08.py",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:chiseled_polished_andesite",
+        "simpleblocks:chiseled_polished_diorite",
+        "simpleblocks:chiseled_polished_granite",
+        "simpleblocks:chiseled_prismarine",
+        "simpleblocks:chiseled_red_nether_bricks"
+      ],
+      "en": {
+        "title": "Chiseled Blocks",
+        "summary": "Chiseled Polished Andesite, Diorite and Granite, Chiseled Prismarine and Chiseled Red Nether Bricks: the carved cousins Vanilla lacks.",
+        "details": [
+          "Crafting table: two slabs of the base block on top of each other, like Vanilla's chiseled stone bricks. Stonecutter: one base block makes one chiseled block.",
+          "Full blocks with the hardness and sound of their base block; they drop themselves."
+        ]
+      },
+      "de": {
+        "title": "Gemeißelte Blöcke",
+        "summary": "Gemeißelter Polierter Andesit, Diorit und Granit, Gemeißelter Prismarin und Gemeißelte Rote Netherziegel: die behauenen Verwandten, die Vanilla fehlen.",
+        "details": [
+          "Werkbank: zwei Stufen des Grundblocks übereinander, wie Vanillas gemeißelte Steinziegel. Steinmetz: ein Grundblock ergibt einen gemeißelten Block.",
+          "Vollblöcke mit Härte und Klang ihres Grundblocks; sie droppen sich selbst."
         ]
       }
     },
@@ -1375,6 +1408,338 @@
           {
             "id": "minecraft:ice",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_polished_andesite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_polished_andesite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_polished_andesite.json",
+      "ingredients": [
+        "minecraft:polished_andesite_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:polished_andesite_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_polished_andesite_from_polished_andesite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_polished_andesite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_polished_andesite_from_polished_andesite_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_andesite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_andesite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_polished_diorite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_polished_diorite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_polished_diorite.json",
+      "ingredients": [
+        "minecraft:polished_diorite_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:polished_diorite_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_polished_diorite_from_polished_diorite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_polished_diorite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_polished_diorite_from_polished_diorite_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_diorite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_diorite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_polished_granite",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_polished_granite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_polished_granite.json",
+      "ingredients": [
+        "minecraft:polished_granite_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:polished_granite_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_polished_granite_from_polished_granite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_polished_granite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_polished_granite_from_polished_granite_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_granite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_granite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_prismarine",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_prismarine",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_prismarine.json",
+      "ingredients": [
+        "minecraft:prismarine_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:prismarine_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_prismarine_from_prismarine_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_prismarine",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_prismarine_from_prismarine_stonecutting.json",
+      "ingredients": [
+        "minecraft:prismarine"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:prismarine"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_red_nether_bricks",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_red_nether_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_red_nether_bricks.json",
+      "ingredients": [
+        "minecraft:red_nether_brick_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:red_nether_brick_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:nether_wart",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_red_nether_bricks_from_red_nether_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_red_nether_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_red_nether_bricks_from_red_nether_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:red_nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_nether_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:nether_wart",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
           }
         ]
       }
@@ -13274,6 +13639,66 @@
       }
     },
     {
+      "id": "simpleblocks:smooth_stone_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:smooth_stone_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/smooth_stone_wall.json",
+      "ingredients": [
+        "minecraft:smooth_stone"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:smooth_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:smooth_stone_wall_from_smooth_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:smooth_stone_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/smooth_stone_wall_from_smooth_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:smooth_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:soul_sand_from_compressed_soul_sand",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -14569,6 +14994,96 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_packed_ice.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_polished_andesite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_polished_andesite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_polished_andesite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_polished_diorite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_polished_diorite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_polished_diorite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_polished_granite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_polished_granite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_polished_granite.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_prismarine",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_prismarine"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_prismarine.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_red_nether_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_red_nether_bricks"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_red_nether_bricks.json"
     },
     {
       "id": "simpleblocks:blocks/collapsed_andesite",
@@ -17276,6 +17791,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/smooth_stone_stairs.json"
     },
     {
+      "id": "simpleblocks:blocks/smooth_stone_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:smooth_stone_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/smooth_stone_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/stone_wall",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -17776,10 +18309,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 25 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 25 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -18225,6 +18758,76 @@
       "texture": "assets/textures/simpleblocks/block/chiseled_packed_ice.png",
       "craftedBy": [
         "simpleblocks:chiseled_packed_ice_from_packed_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_polished_andesite",
+      "name": {
+        "en_us": "Chiseled Polished Andesite",
+        "de_de": "Gemeißelter Polierter Andesit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_polished_andesite.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_polished_andesite",
+        "simpleblocks:chiseled_polished_andesite_from_polished_andesite_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_polished_diorite",
+      "name": {
+        "en_us": "Chiseled Polished Diorite",
+        "de_de": "Gemeißelter Polierter Diorit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_polished_diorite.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_polished_diorite",
+        "simpleblocks:chiseled_polished_diorite_from_polished_diorite_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_polished_granite",
+      "name": {
+        "en_us": "Chiseled Polished Granite",
+        "de_de": "Gemeißelter Polierter Granit"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_polished_granite.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_polished_granite",
+        "simpleblocks:chiseled_polished_granite_from_polished_granite_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_prismarine",
+      "name": {
+        "en_us": "Chiseled Prismarine",
+        "de_de": "Gemeißelter Prismarin"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_prismarine.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_prismarine",
+        "simpleblocks:chiseled_prismarine_from_prismarine_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_red_nether_bricks",
+      "name": {
+        "en_us": "Chiseled Red Nether Bricks",
+        "de_de": "Gemeißelte Rote Netherziegel"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_red_nether_bricks.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_red_nether_bricks",
+        "simpleblocks:chiseled_red_nether_bricks_from_red_nether_bricks_stonecutting"
       ],
       "usedIn": []
     },
@@ -22707,6 +23310,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:smooth_stone_wall",
+      "name": {
+        "en_us": "Smooth Stone Wall",
+        "de_de": "Glatte Steinmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:smooth_stone_wall",
+        "simpleblocks:smooth_stone_wall_from_smooth_stone_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:snow_cap",
       "name": {
         "en_us": "Snow Cap",
@@ -23167,22 +23794,28 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpleblocks:chiseled_polished_andesite",
+    "simpleblocks:chiseled_polished_diorite",
+    "simpleblocks:chiseled_polished_granite",
+    "simpleblocks:chiseled_prismarine",
+    "simpleblocks:chiseled_red_nether_bricks"
+  ],
   "incompleteProse": {},
   "counts": {
-    "features": 14,
-    "recipes": 499,
-    "lootTables": 186,
+    "features": 15,
+    "recipes": 511,
+    "lootTables": 192,
     "tags": 4,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 207,
+    "blocks": 213,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 5,
     "inWorld": 0,
     "incompleteProse": 0
   }
