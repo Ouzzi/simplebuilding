@@ -89,6 +89,9 @@ def main() -> int:
         return 1
     status = mod_icons.main(["--check", "--fresh"])
     if status == 0:
+        import mod_icons_large
+        status = mod_icons_large.main(["--check"])
+    if status == 0:
         print(f"Mod icons OK ({len(mod_icons.modules())} mods).")
     return status
 

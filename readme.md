@@ -88,3 +88,4 @@ Tweaks-Werte (Raketen-Stapel, Boosts, Laser) schickt der Server beim Einloggen a
 - Spieltests: `python tools/testrunner/run.py --targets <ziele> --filter "simplebuilding:<muster>"`
   (Ziele mit `--list`).
 - Lizenz: siehe `LICENSE`.
+- Credits (ElevenLabs-Sounds, Texturen, Bibliotheken): siehe `CREDITS.md`.

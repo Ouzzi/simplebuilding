@@ -2926,6 +2926,12 @@ def main_with_textures() -> int:
             return 1
         if not args.check:
             print(f"Textures: wiki/{textures.DATA_FILE} written")
+    if args.all:
+        # Release listing icons (128/512 px, tools/textures/mod_icons_large.py): refreshed with every generate run.
+        sys.path.insert(0, str(REPO / "tools/textures"))
+        import mod_icons_large
+        if mod_icons_large.main(["--check"] if args.check else []):
+            return 1
     if args.with_vanilla and not args.check:
         import vanilla_textures
         vanilla_textures.main([])
