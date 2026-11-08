@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "nickel_ingot",
+  "ingredients": [
+    "simpleores:nickel_block"
+  ],
+  "result": {
+    "id": "simpleores:nickel_ingot",
+    "count": 9
+  }
+}

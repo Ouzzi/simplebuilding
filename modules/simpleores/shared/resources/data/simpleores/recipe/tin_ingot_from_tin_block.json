@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "tin_ingot",
+  "ingredients": [
+    "simpleores:tin_block"
+  ],
+  "result": {
+    "id": "simpleores:tin_ingot",
+    "count": 9
+  }
+}

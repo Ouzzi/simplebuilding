@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "brass_ingot",
+  "ingredients": [
+    "simpleores:brass_block"
+  ],
+  "result": {
+    "id": "simpleores:brass_ingot",
+    "count": 9
+  }
+}

@@ -64,6 +64,24 @@ for a, (en, de) in ALLOYS.items():
 for a, (en, de) in ALLOYS.items():
     ITEMS[f'{a}_apple'] = (f'{en} Apple', f'{de}-Apfel')
     ITEMS[f'enchanted_{a}_apple'] = (f'Enchanted {en} Apple', f'Verzauberter {de}-Apfel')
+# RG30-2 (a-rg08, 08.11.): zinc, nickel and tin with the three plain alloys of the concept (section 7), building and decoration only, no tool tiers.
+# metal -> (EN, DE, ore noun DE, vein size, veins per chunk, min Y, max Y, hardness tier of the ore)
+METALS = {'zinc': ('Zinc', 'Zink', 8, 4, -32, 48, 'stone'), 'nickel': ('Nickel', 'Nickel', 5, 2, -64, 16, 'iron'), 'tin': ('Tin', 'Zinn', 7, 5, -16, 72, 'stone')}
+# alloy -> (EN, DE, [(ingredient, count)], result count, metal the recipe unlocks on); results equal the ingredient count (nothing is lost)
+MIXES = {'brass': ('Brass', 'Messing', [('minecraft:copper_ingot', 2), ('zinc_ingot', 1)], 3, 'zinc_ingot'),
+         'stainless_steel': ('Stainless Steel', 'Edelstahl', [('minecraft:iron_ingot', 3), ('nickel_ingot', 1)], 4, 'nickel_ingot'),
+         'bronze': ('Bronze', 'Bronze', [('minecraft:copper_ingot', 3), ('tin_ingot', 1)], 4, 'tin_ingot')}
+for m, (en, de, *_r) in METALS.items():
+    BLOCKS[f'{m}_ore'] = (f'{en} Ore', f'{de}erz')
+    BLOCKS[f'deepslate_{m}_ore'] = (f'Deepslate {en} Ore', f'Tiefenschiefer-{de}erz')
+    BLOCKS[f'raw_{m}_block'] = (f'Block of Raw {en}', f'Roh{de.lower()}block')
+    BLOCKS[f'{m}_block'] = (f'Block of {en}', f'{de}block')
+    ITEMS[f'raw_{m}'] = (f'Raw {en}', f'Roh{de.lower()}')
+    ITEMS[f'{m}_ingot'] = (f'{en} Ingot', f'{de}barren')
+    ITEMS[f'{m}_nugget'] = (f'{en} Nugget', f'{de}klumpen')
+for m, (en, de, *_r) in MIXES.items():
+    BLOCKS[f'{m}_block'] = (f'Block of {en}', f'{de}block')
+    ITEMS[f'{m}_ingot'] = (f'{en} Ingot', f'{de}barren')
 TOOL_PARTS = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe')
 ARMOR_PARTS = ('helmet', 'chestplate', 'leggings', 'boots')
 
@@ -163,10 +181,13 @@ ore_drop('deepslate_silver_ore', 'raw_silver')
 ore_drop('end_silver_ore', 'silver_nugget', (2, 6))
 ore_drop('lead_ore', 'raw_lead', (1, 2))
 ore_drop('deepslate_lead_ore', 'raw_lead', (1, 2))
+for m in METALS:
+    ore_drop(f'{m}_ore', f'raw_{m}')
+    ore_drop(f'deepslate_{m}_ore', f'raw_{m}')
 ore_drop('nether_rose_gold_ore', 'rose_gold_pressling')   # no raw rose gold exists: the pressing is the stage before the blast furnace
 ore_drop('nether_sage_ore', 'sage_crystal_shard', (1, 3))
 ore_drop('end_sage_ore', 'sage_crystal_shard', (1, 3))
-for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block') + tuple(NEW_BLOCKS):
+for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block') + tuple(NEW_BLOCKS) + tuple(f'raw_{m}_block' for m in METALS) + tuple(f'{m}_block' for m in list(METALS) + list(MIXES)):
     self_drop(path)
 
 # ---------------------------------------------------------------- recipes (+ advancements)
@@ -287,6 +308,25 @@ for a in ALLOYS:
     recipe(f'enchanted_{a}_apple', 'food', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{a}_block'), 'A': 'minecraft:apple'},
                                             'pattern': ['###', '#A#', '###'], 'result': result(f'enchanted_{a}_apple')}, item(f'{a}_block'))
 
+# RG30-2: the plain set of every new metal (storage both ways, nine nuggets, smelting and blasting of raw and ores) and the three alloys.
+for m in METALS:
+    storage(f'raw_{m}', f'raw_{m}_block')
+    storage(f'{m}_ingot', f'{m}_block')
+    recipe(f'{m}_ingot_from_nuggets', 'misc', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{m}_nugget')},
+                                              'pattern': ['###', '###', '###'], 'result': result(f'{m}_ingot')}, item(f'{m}_nugget'))
+    recipe(f'{m}_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item(f'{m}_ingot')],
+                                   'result': result(f'{m}_nugget', 9)}, item(f'{m}_ingot'))
+    for source in (f'raw_{m}', f'{m}_ore', f'deepslate_{m}_ore'):
+        recipe(f'{m}_ingot_from_smelting_{source}', 'misc', {'type': 'minecraft:smelting', 'category': 'misc', 'cookingtime': 200,
+               'experience': 0.7, 'group': f'{m}_ingot', 'ingredient': item(source), 'result': result(f'{m}_ingot')}, item(source))
+        recipe(f'{m}_ingot_from_blasting_{source}', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': 100,
+               'experience': 0.7, 'group': f'{m}_ingot', 'ingredient': item(source), 'result': result(f'{m}_ingot')}, item(source))
+for a, (_en, _de, parts, count, trigger) in MIXES.items():
+    storage(f'{a}_ingot', f'{a}_block')
+    ingredients = [x if ':' in x else item(x) for x, n in parts for _ in range(n)]
+    recipe(f'{a}_ingot', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': ingredients,
+                                  'result': result(f'{a}_ingot', count)}, item(trigger))
+
 SHAPES = {
     'sword': (['X', 'X', 'S'], 'combat'), 'pickaxe': (['XXX', ' S ', ' S '], 'tools'), 'axe': (['XX', 'XS', ' S'], 'tools'),
     'shovel': (['X', 'S', 'S'], 'tools'), 'hoe': (['XX', ' S', ' S'], 'tools'), 'helmet': (['XXX', 'X X'], 'combat'),
@@ -349,9 +389,22 @@ for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/storage_blocks/sage_orb.json', ids(['sage_orb_block']))
 tag('c/tags/item/nuggets/rosegold.json', ids([f'{a}_nugget' for a in ALLOYS]))
 tag('c/tags/item/ingots/rosegold.json', ids([f'{a}_ingot' for a in ALLOYS]))
+for m in METALS:
+    for kind in ('block', 'item'):
+        tag(f'c/tags/{kind}/ores/{m}.json', ids([f'{m}_ore', f'deepslate_{m}_ore']))
+        tag(f'c/tags/{kind}/storage_blocks/{m}.json', ids([f'{m}_block']))
+        tag(f'c/tags/{kind}/storage_blocks/raw_{m}.json', ids([f'raw_{m}_block']))
+    tag(f'c/tags/item/ingots/{m}.json', ids([f'{m}_ingot']))
+    tag(f'c/tags/item/nuggets/{m}.json', ids([f'{m}_nugget']))
+    tag(f'c/tags/item/raw_materials/{m}.json', ids([f'raw_{m}']))
+for a in MIXES:
+    for kind in ('block', 'item'):
+        tag(f'c/tags/{kind}/storage_blocks/{a}.json', ids([f'{a}_block']))
+    tag(f'c/tags/item/ingots/{a}.json', ids([f'{a}_ingot']))
 every = list(BLOCKS)
 tag('minecraft/tags/block/mineable/pickaxe.json', ids(every + list(MOVED_BLOCKS)))
-STONE_TIER = ['lead_ore', 'deepslate_lead_ore', 'raw_lead_block']   # like Vanilla iron and copper ore
+STONE_TIER = ['lead_ore', 'deepslate_lead_ore', 'raw_lead_block'] + [b for m, v in METALS.items() if v[6] == 'stone'
+                                                                   for b in (f'{m}_ore', f'deepslate_{m}_ore', f'raw_{m}_block')]   # like Vanilla iron and copper ore
 tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b != 'silver_mirror' and b not in DIAMOND_NEW] + SAGE_ORES))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
@@ -414,6 +467,18 @@ put(DATA / 'worldgen/placed_feature/lead_ore.json', {
     'placement': [{'type': 'minecraft:count', 'count': LEAD_VEINS}, {'type': 'minecraft:in_square'},
                   {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': -64}, 'max_inclusive': {'absolute': 48}}},
                   {'type': 'minecraft:biome'}]})
+for m, (_en, _de, size, count, lo, hi, _tier) in METALS.items():
+    put(DATA / f'worldgen/feature/{m}_ore.json', {
+        'type': 'minecraft:ore', 'discard_chance_on_air_exposure': 0.0, 'size': size,
+        'targets': [{'state': item(f'{m}_ore'), 'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:stone_ore_replaceables'}},
+                    {'state': item(f'deepslate_{m}_ore'), 'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:deepslate_ore_replaceables'}}]})
+    put(DATA / f'worldgen/placed_feature/{m}_ore.json', {
+        'feature': item(f'{m}_ore'),
+        'placement': [{'type': 'minecraft:count', 'count': count}, {'type': 'minecraft:in_square'},
+                      {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': lo}, 'max_inclusive': {'absolute': hi}}},
+                      {'type': 'minecraft:biome'}]})
+    put(DATA / f'neoforge/biome_modifier/{m}_ore.json', {'type': 'neoforge:add_features', 'biomes': '#minecraft:is_overworld',
+                                                         'features': item(f'{m}_ore'), 'step': 'underground_ores'})
 put(DATA / 'worldgen/feature/end_silver_ore.json', {
     'type': 'minecraft:ore', 'discard_chance_on_air_exposure': 0.0, 'size': END_VEIN,
     'targets': [{'state': item('end_silver_ore'), 'target': {'predicate_type': 'minecraft:block_match', 'block': 'minecraft:end_stone'}}]})
@@ -457,8 +522,8 @@ CONFIG_CATEGORIES = {'general': ('General', 'Allgemein'), 'lead': ('Lead and sou
                      'materials': ('Sage Ore and Dimensional Scrap', 'Weisheitserz und Dimensionsschrott')}
 CONFIG_OPTIONS = {
     'enabled': ('general', ('Enable Simple Ores', 'Simple Ores aktivieren'),
-                ('Off stops new silver and lead veins and hides the creative entries; existing blocks and items keep working.\nDefault: true.',
-                 'Aus stoppt neue Silber- und Bleiadern und blendet die Kreativ-Einträge aus; vorhandene Blöcke und Gegenstände funktionieren weiter.\nStandard: true.')),
+                ('Off stops new silver, lead, zinc, nickel and tin veins and hides the creative entries; existing blocks and items keep working.\nDefault: true.',
+                 'Aus stoppt neue Silber-, Blei-, Zink-, Nickel- und Zinnadern und blendet die Kreativ-Einträge aus; vorhandene Blöcke und Gegenstände funktionieren weiter.\nStandard: true.')),
     'soundproofing': ('lead', ('Lead muffles sounds', 'Blei dämmt Geräusche'),
                       ('Lead blocks on the way between a sound and the player make it quieter (world sounds only, from volume 0.3).\nDefault: true.',
                        'Bleiblöcke auf dem Weg zwischen einem Geräusch und dem Spieler machen es leiser (nur Welt-Geräusche, ab Lautstärke 0,3).\nStandard: true.')),
@@ -517,6 +582,9 @@ for locale in ('en_us', 'de_de'):
 NOTE_SRC = [f'modules/{NS}/shared/java/com/simpleores/OresRegistry.java']
 
 
+DEWORD = {'copper_ingot': 'Kupfer', 'iron_ingot': 'Eisen', 'zinc_ingot': 'Zink', 'nickel_ingot': 'Nickel', 'tin_ingot': 'Zinn'}
+
+
 def note_summaries():
     notes = {}
     for p, (en, de) in BLOCKS.items():
@@ -526,6 +594,20 @@ def note_summaries():
                                     else 'The deepslate twin of the lead ore. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore).'),
                                    ('Zu finden in Stein und Tiefenschiefer, 6 Adern zu 9 je Chunk, Y -64 bis 48. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz).' if not twin
                                     else 'Der Tiefenschiefer-Zwilling des Bleierzes. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz).'))
+        elif any(p in (f'{m}_ore', f'deepslate_{m}_ore') for m in METALS):
+            m = p.replace('deepslate_', '').replace('_ore', '')
+            men, mde, size, count, lo, hi, tier = METALS[m]
+            hard_en, hard_de = ('a stone pickaxe', 'eine Steinspitzhacke') if tier == 'stone' else ('an iron pickaxe', 'eine Eisenspitzhacke')
+            if p.startswith('deepslate_'):
+                notes[f'block:{p}'] = (f'The deepslate twin of the {men.lower()} ore. Needs {hard_en}. Drops raw {men.lower()} (Fortune helps, Silk Touch keeps the ore).',
+                                       f'Der Tiefenschiefer-Zwilling des {mde}erzes. Braucht {hard_de}. Lässt Roh{mde.lower()} fallen (Glück hilft, Behutsamkeit behält das Erz).')
+            else:
+                notes[f'block:{p}'] = (f'Found in stone and deepslate, {count} veins of {size} per chunk, Y {lo} to {hi}. Needs {hard_en}. Drops raw {men.lower()} (Fortune helps, Silk Touch keeps the ore).',
+                                       f'Zu finden in Stein und Tiefenschiefer, {count} Adern zu {size} je Chunk, Y {lo} bis {hi}. Braucht {hard_de}. Lässt Roh{mde.lower()} fallen (Glück hilft, Behutsamkeit behält das Erz).')
+        elif p.endswith('_block') and p.replace('_block', '') in MIXES:
+            a = p.replace('_block', '')
+            notes[f'block:{p}'] = (f'Nine {MIXES[a][0].lower()} ingots, craftable both ways. Decoration and building metal. Needs an iron pickaxe.',
+                                   f'Neun {MIXES[a][1]}barren, in beide Richtungen herstellbar. Bau- und Dekometall. Braucht eine Eisenspitzhacke.')
         elif p == 'lead_block':
             notes['block:lead_block'] = ('Nine lead ingots. Blast resistance 1000 (a little below obsidian), hardness 25, needs an iron pickaxe. Blocks vibrations like wool (Sculk and Warden do not hear through it) but is loud to walk on or mine, and muffles sounds behind it (see Lead).',
                                          'Neun Bleibarren. Explosionswiderstand 1000 (etwas unter Obsidian), Härte 25, braucht eine Eisenspitzhacke. Hält Vibrationen wie Wolle auf (Sculk und Wächter hören nicht hindurch), ist aber laut beim Betreten und Abbauen und dämmt Geräusche dahinter (siehe Blei).')
@@ -606,6 +688,17 @@ def note_summaries():
     notes['item:raw_silver'] = ('Mined from silver ore; smelt it in a furnace or blast furnace for a silver ingot.', 'Aus Silbererz gewonnen; im Ofen oder Hochofen zum Silberbarren schmelzen.')
     notes['item:silver_ingot'] = ('Silver ingot: a part of rose gold and a base for silver items. Not a tool material.', 'Silberbarren: Bestandteil von Roségold und Grundlage für Silber-Gegenstände. Kein Werkzeugmaterial.')
     notes['item:silver_nugget'] = ('Nine make a silver ingot; the End silver ore drops them.', 'Neun ergeben einen Silberbarren; das End-Silbererz lässt sie fallen.')
+    for m, (men, mde, *_r) in METALS.items():
+        notes[f'item:raw_{m}'] = (f'Mined from {men.lower()} ore; smelt it in a furnace or blast furnace for a {men.lower()} ingot.',
+                                  f'Aus {mde}erz gewonnen; im Ofen oder Hochofen zum {mde}barren schmelzen.')
+        notes[f'item:{m}_ingot'] = ((f'{men} ingot: nine make a block. ' + {'zinc': '2 copper + 1 zinc make 3 brass.', 'nickel': '3 iron + 1 nickel make 4 stainless steel.', 'tin': '3 copper + 1 tin make 4 bronze.'}[m]),
+                                    (f'{mde}barren: neun ergeben einen Block. ' + {'zinc': '2 Kupfer + 1 Zink ergeben 3 Messing.', 'nickel': '3 Eisen + 1 Nickel ergeben 4 Edelstahl.', 'tin': '3 Kupfer + 1 Zinn ergeben 4 Bronze.'}[m]))
+        notes[f'item:{m}_nugget'] = (f'Nine make a {men.lower()} ingot.', f'Neun ergeben einen {mde}barren.')
+    for a, (aen, ade, parts, count, _t) in MIXES.items():
+        notes[f'item:{a}_ingot'] = (f'{aen} ingot: shapeless in the crafting grid, '
+                                    + ' + '.join(f'{n} {x.split(":")[-1].replace("_ingot", "").replace("_", " ")}' for x, n in parts) + f' make {count} (nothing is lost). Nine make a block of {aen.lower()}.',
+                                    f'{ade}barren: formlos in der Werkbank, '
+                                    + ' + '.join(f'{n} {DEWORD[x.split(":")[-1]]}' for x, n in parts) + f' ergeben {count} (nichts geht verloren). Neun ergeben einen {ade}block.')
     for a, (en, de) in ALLOYS.items():
         soft = a == 'rose_gold'
         notes[f'item:{a}_ingot'] = ((f'{en} ingot: the {"better" if soft else "simpler"} rose gold alloy. Made only by smelting a pressling in a blast furnace.',
@@ -711,6 +804,18 @@ FEATURES = [
               'Gegenstände: Rohblei, Bleibarren, Bleiklumpen, Blöcke aus Blei und Rohblei. Ofen und Hochofen schmelzen Rohblei und die Erze. Die Leine behält ihren Namen; der Barren heißt „Bleibarren“.',
               'Bleiblock: Explosionswiderstand 1000 (Obsidian 1200), Härte 25, eine Eisenspitzhacke baut ihn ab. Er steht wie Wolle im Tag occludes_vibration_signals (Sculk-Sensoren und der Wächter hören nicht durch eine Bleiwand), aber NICHT in dampens_vibrations: wer darauf läuft oder ihn abbaut, macht Lärm. Eigener schwerer Klang (Netherit- und Amboss-Töne, tief).',
               'Bleiplatte: 3 Bleibarren in einer Reihe ergeben 6 Platten, 2 Pixel dick, wie ein Teppich, aber auf jeder der sechs Zellseiten platzierbar (liegend oder stehend, sie zeigt zu der Seite, die du anklickst). Härte, Explosionswiderstand und Klang wie der Block; sie dämmt halb so stark wie ein Bleiblock und hält keine Vibrationen auf.'])),
+    feature('zinc_nickel_tin', [f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/placed_feature/zinc_ore.json', f'{DATAP}/worldgen/placed_feature/nickel_ore.json',
+                                f'{DATAP}/worldgen/placed_feature/tin_ore.json', f'{DATAP}/recipe/brass_ingot.json'],
+            ('Zinc, nickel, tin and their alloys', 'Three more metals of the Overworld and their plain alloys brass, stainless steel and bronze. Building and decoration metals: no tools, no armor, no change to Vanilla (RG30-2).',
+             ['Zinc: 4 veins of 8 per chunk, Y -32 to 48, stone pickaxe. Tin: 5 veins of 7, Y -16 to 72, stone pickaxe. Nickel: 2 veins of 5, Y -64 to 16, iron pickaxe (the rarest of the three). Each ore has a deepslate twin and drops 1 raw metal (Fortune helps, Silk Touch keeps the ore).',
+              'Items per metal: raw piece, ingot, nugget, block and raw block; furnace and blast furnace smelt raw pieces and ores; 9 nuggets or ingots craft up and down. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.',
+              'Alloys (shapeless crafting, nothing is lost): 2 copper + 1 zinc = 3 brass; 3 iron + 1 nickel = 4 stainless steel; 3 copper + 1 tin = 4 bronze. Each alloy has an ingot and a block of nine (craftable both ways).',
+              'Use: brass, stainless steel and bronze blocks are decoration and building metals (Vanilla copper oxidises, these do not). Further uses (plates, roofs, lanterns, coins) are listed in docs/ai/PLAN-A-RG08-2026-11-08.md as postponed. Lead and silver are described in their own entries.']),
+            ('Zink, Nickel, Zinn und ihre Legierungen', 'Drei weitere Metalle der Oberwelt und ihre schlichten Legierungen Messing, Edelstahl und Bronze. Bau- und Dekometalle: keine Werkzeuge, keine Rüstung, kein Eingriff in Vanilla (RG30-2).',
+             ['Zink: 4 Adern zu 8 je Chunk, Y -32 bis 48, Steinspitzhacke. Zinn: 5 Adern zu 7, Y -16 bis 72, Steinspitzhacke. Nickel: 2 Adern zu 5, Y -64 bis 16, Eisenspitzhacke (das seltenste der drei). Jedes Erz hat einen Tiefenschiefer-Zwilling und lässt 1 Rohstück fallen (Glück hilft, Behutsamkeit behält das Erz).',
+              'Gegenstände je Metall: Rohstück, Barren, Klumpen, Block und Rohblock; Ofen und Hochofen schmelzen Rohstücke und Erze; 9 Klumpen oder Barren werden auf- und abgewandelt. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.',
+              'Legierungen (formlos in der Werkbank, nichts geht verloren): 2 Kupfer + 1 Zink = 3 Messing; 3 Eisen + 1 Nickel = 4 Edelstahl; 3 Kupfer + 1 Zinn = 4 Bronze. Jede Legierung hat einen Barren und einen Block aus neun (in beide Richtungen herstellbar).',
+              'Nutzen: Messing-, Edelstahl- und Bronzeblöcke sind Deko- und Baumetalle (Vanilla-Kupfer oxidiert, diese nicht). Weitere Nutzen (Platten, Dächer, Laternen, Münzen) stehen als zurückgestellt in docs/ai/PLAN-A-RG08-2026-11-08.md. Blei und Silber stehen in eigenen Einträgen.'])),
     feature('soundproofing', [f'{JAVA}/sound/Soundproofing.java', f'{JAVA}/mixin/SoundproofMixin.java', f'{JAVA}/config/OresConfig.java'],
             ('Soundproofing', 'Lead walls make the world quieter on the other side: a TNT blast behind a few lead blocks is only a dull thud, or not heard at all.',
              ['Every sound the server sends to a player (blocks, mobs, explosions, ...) from volume 0.3 up is checked: the lead blocks on the straight way from the sound to the player\'s ear (at most 24 cells, the cells of the sound and of the ear do not count) multiply the volume by soundproofFactor for each block.',
@@ -762,12 +867,12 @@ FEATURES = [
               'Die Schalter sageOre und dimensionalScrap (Server-Config) stoppen neue Adern; vorhandene Blöcke bleiben.'])),
     feature('config_server', [f'{JAVA}/config/OresConfig.java'],
             ('Server settings', 'config/simpleores-server.json (or /simpleores config), read at start; every value is clamped to its range.',
-             ['enabled (true): off stops new silver and lead veins on Fabric and hides the module\'s creative entries; blocks and items that exist keep working.',
+             ['enabled (true): off stops new silver, lead, zinc, nickel and tin veins on Fabric and hides the module\'s creative entries; blocks and items that exist keep working.',
               'soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.',
               'sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding\'s config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).',
               'With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off.']),
             ('Server-Einstellungen', 'config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.',
-             ['enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.',
+             ['enabled (true): aus stoppt neue Silber-, Blei-, Zink-, Nickel- und Zinnadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.',
               'soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.',
               'sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).',
               'Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus.'])),

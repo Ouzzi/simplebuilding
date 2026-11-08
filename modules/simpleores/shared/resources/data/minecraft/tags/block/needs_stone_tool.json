@@ -2,6 +2,12 @@
   "values": [
     "simpleores:lead_ore",
     "simpleores:deepslate_lead_ore",
-    "simpleores:raw_lead_block"
+    "simpleores:raw_lead_block",
+    "simpleores:zinc_ore",
+    "simpleores:deepslate_zinc_ore",
+    "simpleores:raw_zinc_block",
+    "simpleores:tin_ore",
+    "simpleores:deepslate_tin_ore",
+    "simpleores:raw_tin_block"
   ]
 }

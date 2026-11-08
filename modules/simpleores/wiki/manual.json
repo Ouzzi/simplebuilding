@@ -135,6 +135,36 @@
       }
     },
     {
+      "id": "zinc_nickel_tin",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/zinc_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/nickel_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/tin_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/brass_ingot.json"
+      ],
+      "en": {
+        "title": "Zinc, nickel, tin and their alloys",
+        "summary": "Three more metals of the Overworld and their plain alloys brass, stainless steel and bronze. Building and decoration metals: no tools, no armor, no change to Vanilla (RG30-2).",
+        "details": [
+          "Zinc: 4 veins of 8 per chunk, Y -32 to 48, stone pickaxe. Tin: 5 veins of 7, Y -16 to 72, stone pickaxe. Nickel: 2 veins of 5, Y -64 to 16, iron pickaxe (the rarest of the three). Each ore has a deepslate twin and drops 1 raw metal (Fortune helps, Silk Touch keeps the ore).",
+          "Items per metal: raw piece, ingot, nugget, block and raw block; furnace and blast furnace smelt raw pieces and ores; 9 nuggets or ingots craft up and down. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.",
+          "Alloys (shapeless crafting, nothing is lost): 2 copper + 1 zinc = 3 brass; 3 iron + 1 nickel = 4 stainless steel; 3 copper + 1 tin = 4 bronze. Each alloy has an ingot and a block of nine (craftable both ways).",
+          "Use: brass, stainless steel and bronze blocks are decoration and building metals (Vanilla copper oxidises, these do not). Further uses (plates, roofs, lanterns, coins) are listed in docs/ai/PLAN-A-RG08-2026-11-08.md as postponed. Lead and silver are described in their own entries."
+        ]
+      },
+      "de": {
+        "title": "Zink, Nickel, Zinn und ihre Legierungen",
+        "summary": "Drei weitere Metalle der Oberwelt und ihre schlichten Legierungen Messing, Edelstahl und Bronze. Bau- und Dekometalle: keine Werkzeuge, keine Rüstung, kein Eingriff in Vanilla (RG30-2).",
+        "details": [
+          "Zink: 4 Adern zu 8 je Chunk, Y -32 bis 48, Steinspitzhacke. Zinn: 5 Adern zu 7, Y -16 bis 72, Steinspitzhacke. Nickel: 2 Adern zu 5, Y -64 bis 16, Eisenspitzhacke (das seltenste der drei). Jedes Erz hat einen Tiefenschiefer-Zwilling und lässt 1 Rohstück fallen (Glück hilft, Behutsamkeit behält das Erz).",
+          "Gegenstände je Metall: Rohstück, Barren, Klumpen, Block und Rohblock; Ofen und Hochofen schmelzen Rohstücke und Erze; 9 Klumpen oder Barren werden auf- und abgewandelt. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.",
+          "Legierungen (formlos in der Werkbank, nichts geht verloren): 2 Kupfer + 1 Zink = 3 Messing; 3 Eisen + 1 Nickel = 4 Edelstahl; 3 Kupfer + 1 Zinn = 4 Bronze. Jede Legierung hat einen Barren und einen Block aus neun (in beide Richtungen herstellbar).",
+          "Nutzen: Messing-, Edelstahl- und Bronzeblöcke sind Deko- und Baumetalle (Vanilla-Kupfer oxidiert, diese nicht). Weitere Nutzen (Platten, Dächer, Laternen, Münzen) stehen als zurückgestellt in docs/ai/PLAN-A-RG08-2026-11-08.md. Blei und Silber stehen in eigenen Einträgen."
+        ]
+      }
+    },
+    {
       "id": "soundproofing",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/sound/Soundproofing.java",
@@ -295,7 +325,7 @@
         "title": "Server settings",
         "summary": "config/simpleores-server.json (or /simpleores config), read at start; every value is clamped to its range.",
         "details": [
-          "enabled (true): off stops new silver and lead veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
+          "enabled (true): off stops new silver, lead, zinc, nickel and tin veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
           "soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.",
           "sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding's config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).",
           "With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off."
@@ -305,7 +335,7 @@
         "title": "Server-Einstellungen",
         "summary": "config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.",
         "details": [
-          "enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
+          "enabled (true): aus stoppt neue Silber-, Blei-, Zink-, Nickel- und Zinnadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
           "soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.",
           "sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).",
           "Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus."
@@ -314,19 +344,6 @@
     }
   ],
   "notes": {
-    "simpleores:guide_book": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
-        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
-      ],
-      "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 14 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
-      },
-      "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 14 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
-      }
-    },
     "simpleores:silver_ore": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -580,6 +597,171 @@
         "summary": "Neun Weisheitskugeln, in beide Richtungen herstellbar: Lagerung der Erfahrungskugeln (jede gibt beim Benutzen 50 bis 100 Erfahrung). Braucht eine Eisenspitzhacke."
       }
     },
+    "simpleores:zinc_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Found in stone and deepslate, 4 veins of 8 per chunk, Y -32 to 48. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Zu finden in Stein und Tiefenschiefer, 4 Adern zu 8 je Chunk, Y -32 bis 48. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:deepslate_zinc_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "The deepslate twin of the zinc ore. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Der Tiefenschiefer-Zwilling des Zinkerzes. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:raw_zinc_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Block of Raw Zinc: nine ingots (or raw pieces) in a block, craftable both ways."
+      },
+      "de": {
+        "summary": "Rohzinkblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+      }
+    },
+    "simpleores:zinc_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Block of Zinc: nine ingots (or raw pieces) in a block, craftable both ways."
+      },
+      "de": {
+        "summary": "Zinkblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+      }
+    },
+    "simpleores:nickel_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Found in stone and deepslate, 2 veins of 5 per chunk, Y -64 to 16. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Zu finden in Stein und Tiefenschiefer, 2 Adern zu 5 je Chunk, Y -64 bis 16. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:deepslate_nickel_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "The deepslate twin of the nickel ore. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Der Tiefenschiefer-Zwilling des Nickelerzes. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:raw_nickel_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Block of Raw Nickel: nine ingots (or raw pieces) in a block, craftable both ways."
+      },
+      "de": {
+        "summary": "Rohnickelblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+      }
+    },
+    "simpleores:nickel_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Block of Nickel: nine ingots (or raw pieces) in a block, craftable both ways."
+      },
+      "de": {
+        "summary": "Nickelblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+      }
+    },
+    "simpleores:tin_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Found in stone and deepslate, 5 veins of 7 per chunk, Y -16 to 72. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Zu finden in Stein und Tiefenschiefer, 5 Adern zu 7 je Chunk, Y -16 bis 72. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:deepslate_tin_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "The deepslate twin of the tin ore. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Der Tiefenschiefer-Zwilling des Zinnerzes. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:raw_tin_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Block of Raw Tin: nine ingots (or raw pieces) in a block, craftable both ways."
+      },
+      "de": {
+        "summary": "Rohzinnblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+      }
+    },
+    "simpleores:tin_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Block of Tin: nine ingots (or raw pieces) in a block, craftable both ways."
+      },
+      "de": {
+        "summary": "Zinnblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+      }
+    },
+    "simpleores:brass_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine brass ingots, craftable both ways. Decoration and building metal. Needs an iron pickaxe."
+      },
+      "de": {
+        "summary": "Neun Messingbarren, in beide Richtungen herstellbar. Bau- und Dekometall. Braucht eine Eisenspitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine stainless steel ingots, craftable both ways. Decoration and building metal. Needs an iron pickaxe."
+      },
+      "de": {
+        "summary": "Neun Edelstahlbarren, in beide Richtungen herstellbar. Bau- und Dekometall. Braucht eine Eisenspitzhacke."
+      }
+    },
+    "simpleores:bronze_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine bronze ingots, craftable both ways. Decoration and building metal. Needs an iron pickaxe."
+      },
+      "de": {
+        "summary": "Neun Bronzebarren, in beide Richtungen herstellbar. Bau- und Dekometall. Braucht eine Eisenspitzhacke."
+      }
+    },
     "simpleores:enderite_block": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -809,6 +991,138 @@
       },
       "de": {
         "summary": "Neun ergeben einen Silberbarren; das End-Silbererz lässt sie fallen."
+      }
+    },
+    "simpleores:raw_zinc": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Mined from zinc ore; smelt it in a furnace or blast furnace for a zinc ingot."
+      },
+      "de": {
+        "summary": "Aus Zinkerz gewonnen; im Ofen oder Hochofen zum Zinkbarren schmelzen."
+      }
+    },
+    "simpleores:zinc_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Zinc ingot: nine make a block. 2 copper + 1 zinc make 3 brass."
+      },
+      "de": {
+        "summary": "Zinkbarren: neun ergeben einen Block. 2 Kupfer + 1 Zink ergeben 3 Messing."
+      }
+    },
+    "simpleores:zinc_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a zinc ingot."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Zinkbarren."
+      }
+    },
+    "simpleores:raw_nickel": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Mined from nickel ore; smelt it in a furnace or blast furnace for a nickel ingot."
+      },
+      "de": {
+        "summary": "Aus Nickelerz gewonnen; im Ofen oder Hochofen zum Nickelbarren schmelzen."
+      }
+    },
+    "simpleores:nickel_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nickel ingot: nine make a block. 3 iron + 1 nickel make 4 stainless steel."
+      },
+      "de": {
+        "summary": "Nickelbarren: neun ergeben einen Block. 3 Eisen + 1 Nickel ergeben 4 Edelstahl."
+      }
+    },
+    "simpleores:nickel_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a nickel ingot."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Nickelbarren."
+      }
+    },
+    "simpleores:raw_tin": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Mined from tin ore; smelt it in a furnace or blast furnace for a tin ingot."
+      },
+      "de": {
+        "summary": "Aus Zinnerz gewonnen; im Ofen oder Hochofen zum Zinnbarren schmelzen."
+      }
+    },
+    "simpleores:tin_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Tin ingot: nine make a block. 3 copper + 1 tin make 4 bronze."
+      },
+      "de": {
+        "summary": "Zinnbarren: neun ergeben einen Block. 3 Kupfer + 1 Zinn ergeben 4 Bronze."
+      }
+    },
+    "simpleores:tin_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a tin ingot."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Zinnbarren."
+      }
+    },
+    "simpleores:brass_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Brass ingot: shapeless in the crafting grid, 2 copper + 1 zinc make 3 (nothing is lost). Nine make a block of brass."
+      },
+      "de": {
+        "summary": "Messingbarren: formlos in der Werkbank, 2 Kupfer + 1 Zink ergeben 3 (nichts geht verloren). Neun ergeben einen Messingblock."
+      }
+    },
+    "simpleores:stainless_steel_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Stainless Steel ingot: shapeless in the crafting grid, 3 iron + 1 nickel make 4 (nothing is lost). Nine make a block of stainless steel."
+      },
+      "de": {
+        "summary": "Edelstahlbarren: formlos in der Werkbank, 3 Eisen + 1 Nickel ergeben 4 (nichts geht verloren). Neun ergeben einen Edelstahlblock."
+      }
+    },
+    "simpleores:bronze_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Bronze ingot: shapeless in the crafting grid, 3 copper + 1 tin make 4 (nothing is lost). Nine make a block of bronze."
+      },
+      "de": {
+        "summary": "Bronzebarren: formlos in der Werkbank, 3 Kupfer + 1 Zinn ergeben 4 (nichts geht verloren). Neun ergeben einen Bronzeblock."
       }
     },
     "simpleores:rose_bronze_ingot": {
@@ -1139,6 +1453,19 @@
       },
       "de": {
         "summary": "Verzauberter Roségold-Apfel (Schimmer): 6 Hunger, immer essbar. Gibt Regeneration II 0:35, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. 8 Roségoldblöcke um einen Apfel."
+      }
+    },
+    "simpleores:guide_book": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
+        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
+        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 14 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 14 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     }
   }

@@ -99,7 +99,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 12, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance"))
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
                     , "config defaults");
@@ -578,6 +578,78 @@ public final class OresTests {
                 }
             }
             check(h, min >= -64 && max <= 48 && min < -50 && max > 36, "veins between Y -64 and 48, measured " + min + " to " + max);
+            h.succeed();
+        });
+        ALL.put("metal_recipes", h -> {
+            // RG30-2: zinc, nickel, tin: smelting and blasting of raw and ores, nuggets, storage; the three alloys give as many ingots as go in.
+            ServerLevel level = h.getLevel();
+            var recipes = level.getServer().getRecipeManager();
+            for (String m : OresRegistry.METALS) {
+                for (String source : new String[] {"raw_" + m, m + "_ore", "deepslate_" + m + "_ore"}) {
+                    SingleRecipeInput in = new SingleRecipeInput(stack(source));
+                    var smelting = recipes.getRecipeFor(RecipeType.SMELTING, in, level);
+                    check(h, smelting.isPresent() && smelting.get().value().assemble(in).is(item(m + "_ingot")), source + " -> " + m + " ingot in a furnace");
+                    var blasting = recipes.getRecipeFor(RecipeType.BLASTING, in, level);
+                    check(h, blasting.isPresent() && blasting.get().value().assemble(in).is(item(m + "_ingot")), source + " -> " + m + " ingot in a blast furnace");
+                }
+                check(h, craft(h, CraftingInput.of(1, 1, List.of(stack(m + "_ingot")))).is(item(m + "_nugget")), m + " ingot -> nuggets");
+                check(h, craft(h, CraftingInput.of(1, 1, List.of(stack(m + "_ingot")))).getCount() == 9, m + " ingot gives 9 nuggets");
+                for (String[] pair : new String[][] {{m + "_nugget", m + "_ingot"}, {m + "_ingot", m + "_block"}, {"raw_" + m, "raw_" + m + "_block"}}) {
+                    List<ItemStack> nine = new ArrayList<>();
+                    for (int i = 0; i < 9; i++) nine.add(stack(pair[0]));
+                    check(h, craft(h, CraftingInput.of(3, 3, nine)).is(item(pair[1])), "9 x " + pair[0] + " -> " + pair[1]);
+                }
+                ItemStack back = craft(h, of(stack(m + "_block")));
+                check(h, back.is(item(m + "_ingot")) && back.getCount() == 9, m + " block -> 9 ingots");
+            }
+            Object[][] alloys = {{"brass", 3, "minecraft:copper_ingot", 2, "zinc_ingot", 1}, {"stainless_steel", 4, "minecraft:iron_ingot", 3, "nickel_ingot", 1},
+                    {"bronze", 4, "minecraft:copper_ingot", 3, "tin_ingot", 1}};
+            for (Object[] row : alloys) {
+                String alloy = (String) row[0];
+                List<ItemStack> grid = new ArrayList<>();
+                Item base = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.parse((String) row[2]));
+                for (int i = 0; i < (int) row[3]; i++) grid.add(new ItemStack(base));
+                grid.add(stack((String) row[4]));
+                while (grid.size() < 9) grid.add(ItemStack.EMPTY);
+                ItemStack made = craft(h, CraftingInput.of(3, 3, grid));
+                check(h, made.is(item(alloy + "_ingot")) && made.getCount() == (int) row[1], alloy + " alloy recipe: " + made);
+                List<ItemStack> nine = new ArrayList<>();
+                for (int i = 0; i < 9; i++) nine.add(stack(alloy + "_ingot"));
+                check(h, craft(h, CraftingInput.of(3, 3, nine)).is(item(alloy + "_block")), "9 " + alloy + " ingots -> block");
+                ItemStack back = craft(h, of(stack(alloy + "_block")));
+                check(h, back.is(item(alloy + "_ingot")) && back.getCount() == 9, alloy + " block -> 9 ingots");
+                for (String part : new String[] {"sword", "pickaxe", "helmet"}) check(h, !OresRegistry.ITEMS.containsKey(alloy + "_" + part), alloy + " has no " + part + " (no tool tiers)");
+            }
+            h.succeed();
+        });
+        ALL.put("metal_worldgen_drops", h -> {
+            // RG30-2: veins of the three metals are rarer than lead, nickel is the rarest; ores drop the raw piece; tiers: zinc and tin stone, nickel iron.
+            ServerLevel level = h.getLevel();
+            var features = level.registryAccess().lookupOrThrow(Registries.FEATURE);
+            var placedRegistry = level.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE);
+            int[] size = {8, 5, 7};
+            double[] perChunk = new double[3];
+            for (int i = 0; i < 3; i++) {
+                String m = OresRegistry.METALS[i];
+                OreFeature ore = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id(m + "_ore")));
+                check(h, ore != null && ore.size() == size[i] && ore.targetStates().size() == 2, m + " feature: veins of " + size[i] + ", stone and deepslate");
+                RandomSource random = RandomSource.create(7L);
+                check(h, ore.targetStates().get(0).target().test(Blocks.STONE.defaultBlockState(), BlockPos.ZERO, random)
+                        && ore.targetStates().get(1).target().test(Blocks.DEEPSLATE.defaultBlockState(), BlockPos.ZERO, random)
+                        && ore.targetStates().get(1).state().is(OresRegistry.BLOCKS.get("deepslate_" + m + "_ore")), m + ": stone -> ore, deepslate -> deepslate ore");
+                perChunk[i] = perChunk(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id(m + "_ore"))));
+                check(h, perChunk[i] * ore.size() < 6 * 9, m + " has fewer ore blocks per chunk than lead: " + perChunk[i] * ore.size());
+                BlockPos pos = h.absolutePos(new BlockPos(2, 1, 2));
+                level.setBlockAndUpdate(pos, OresRegistry.BLOCKS.get(m + "_ore").defaultBlockState());
+                List<ItemStack> drops = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.IRON_PICKAXE));
+                check(h, drops.size() == 1 && drops.getFirst().is(item("raw_" + m)), m + " ore gives raw " + m + ": " + drops);
+                boolean stoneTier = !m.equals("nickel");
+                BlockState state = OresRegistry.BLOCKS.get(m + "_ore").defaultBlockState();
+                check(h, new ItemStack(Items.STONE_PICKAXE).isCorrectToolForDrops(state) == stoneTier && new ItemStack(Items.IRON_PICKAXE).isCorrectToolForDrops(state),
+                        m + " ore tier " + (stoneTier ? "stone" : "iron"));
+                level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            }
+            check(h, perChunk[1] * 5 < perChunk[0] * 8 && perChunk[1] * 5 < perChunk[2] * 7, "nickel is the rarest of the three");
             h.succeed();
         });
         ALL.put("rose_gold_vein_rule", h -> {

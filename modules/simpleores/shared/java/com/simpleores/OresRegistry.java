@@ -104,6 +104,19 @@ public final class OresRegistry {
     public static final Block SILVER_MIRROR = block("silver_mirror", Blocks.GLASS,
             s -> new SilverMirrorBlock(s.strength(0.5F).sound(SoundType.METAL)));
 
+    /** RG30-2 (08.11.): zinc, nickel, tin and the plain alloys brass, stainless steel, bronze (building metals, no tools). Properties are copies of iron. */
+    public static final String[] METALS = {"zinc", "nickel", "tin"};
+    public static final String[] MIXES = {"brass", "stainless_steel", "bronze"};
+    static {
+        for (String m : METALS) {
+            block(m + "_ore", Blocks.IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
+            block("deepslate_" + m + "_ore", Blocks.DEEPSLATE_IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
+            block("raw_" + m + "_block", Blocks.RAW_IRON_BLOCK, Block::new);
+            block(m + "_block", Blocks.IRON_BLOCK, Block::new);
+        }
+        for (String a : MIXES) block(a + "_block", Blocks.IRON_BLOCK, Block::new);
+    }
+
     // IG31-13: moved materials. Enderite block like the netherite block (it was built from the same numbers).
     public static final Block ENDERITE_BLOCK = block("enderite_block", Blocks.NETHERITE_BLOCK, Block::new);
     /** Sage Ore (owner 2026-10-01): rare like diamond, drops only experience (3-7) and rarely a sage orb (loot table); iron pickaxe. */
@@ -144,6 +157,12 @@ public final class OresRegistry {
             item(path, p -> FIRE_RESISTANT.contains(path) ? p.fireResistant() : p);
         }
         ITEMS.put("enderite_upgrade_template", upgradeTemplate(com.simplelib.api.RarityRules.apply("enderite_upgrade_template", new Item.Properties()).setId(itemKey("enderite_upgrade_template"))));
+        for (String m : METALS) {
+            plain("raw_" + m);
+            plain(m + "_ingot");
+            plain(m + "_nugget");
+        }
+        for (String a : MIXES) plain(a + "_ingot");
         plain("sage_crystal_shard");
         plain("sage_crystal");
         ITEMS.put("sage_orb", new com.simpleores.item.SageOrbItem(new Item.Properties().stacksTo(16).setId(itemKey("sage_orb"))));
@@ -254,10 +273,12 @@ public final class OresRegistry {
     }
 
     public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "deepslate_lead_ore", "raw_lead_block",
+            "zinc_ore", "deepslate_zinc_ore", "raw_zinc_block", "nickel_ore", "deepslate_nickel_ore", "raw_nickel_block", "tin_ore", "deepslate_tin_ore", "raw_tin_block",
             "sage_ore", "deepslate_sage_ore", "nether_sage_ore", "end_sage_ore", "nether_rose_gold_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
-    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "rose_bronze_block", "rose_gold_block", "rose_bronze_pressling_block", "rose_gold_pressling_block", "sage_crystal_block", "enderite_block",
+    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "zinc_block", "nickel_block", "tin_block", "brass_block", "stainless_steel_block", "bronze_block", "rose_bronze_block", "rose_gold_block", "rose_bronze_pressling_block", "rose_gold_pressling_block", "sage_crystal_block", "enderite_block",
             "netherite_scrap_block", "enderite_scrap_block", "sage_orb_block"};
-    public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "rose_bronze_pressling",
+    public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "raw_zinc", "zinc_nugget", "zinc_ingot", "raw_nickel", "nickel_nugget", "nickel_ingot", "raw_tin", "tin_nugget", "tin_ingot",
+            "brass_ingot", "stainless_steel_ingot", "bronze_ingot", "rose_bronze_pressling",
             "rose_bronze_nugget", "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_nugget", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
             "enderite_ingot", "enderite_upgrade_template", "sage_crystal_shard", "sage_crystal", "sage_orb"};
     /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */

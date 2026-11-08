@@ -19,10 +19,15 @@ assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundpro
 BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
           'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block', 'rose_bronze_pressling_block', 'rose_gold_pressling_block',
           'netherite_scrap_block', 'enderite_scrap_block', 'sage_orb_block')
+# RG30-2: zinc, nickel, tin and the plain alloys brass, stainless steel, bronze (building metals, no gear).
+METALS = ('zinc', 'nickel', 'tin')
+MIXES = ('brass', 'stainless_steel', 'bronze')
+BLOCKS += tuple(b for m in METALS for b in (f'{m}_ore', f'deepslate_{m}_ore', f'raw_{m}_block', f'{m}_block')) + tuple(f'{a}_block' for a in MIXES)
 ALLOYS = ('rose_bronze', 'rose_gold')
 GEAR = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots')
 ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'nugget', 'carrot', 'pressling') + GEAR) \
     + tuple(f'{e}{a}_apple' for a in ALLOYS for e in ('', 'enchanted_'))   # IG31-41: the enchanted apple shares the plain texture
+ITEMS += tuple(i for m in METALS for i in (f'raw_{m}', f'{m}_ingot', f'{m}_nugget')) + tuple(f'{a}_ingot' for a in MIXES)
 assert not any(i.startswith('silver_') and i.rsplit('_', 1)[-1] in GEAR for i in ITEMS), 'silver is no tool material (ABN30-10)'
 langs = {}
 for locale in ('en_us', 'de_de'):
@@ -122,6 +127,16 @@ fabric = (MODULE / 'fabric/src/main/java/com/simplebuilding/modules/simpleores/O
 assert 'foundInOverworld' in fabric and 'has_end_silver_ore' in fabric
 tags = json.loads((RES / f'data/{NS}/tags/worldgen/biome/has_end_silver_ore.json').read_text(encoding='utf-8'))['values']
 assert 'minecraft:the_end' not in tags and 'minecraft:end_highlands' in tags, 'End silver lies on the outer islands only'
+
+# RG30-2 numbers: veins per chunk and sizes of the plan table (docs/ai/PLAN-A-RG08-2026-11-08.md), each below lead's 54 ore blocks.
+for m, count, size in (('zinc', 4, 8), ('nickel', 2, 5), ('tin', 5, 7)):
+    placed_m = json.loads((RES / f'data/{NS}/worldgen/placed_feature/{m}_ore.json').read_text(encoding='utf-8'))
+    assert next(x for x in placed_m['placement'] if x['type'] == 'minecraft:count')['count'] == count, m
+    assert json.loads((RES / f'data/{NS}/worldgen/feature/{m}_ore.json').read_text(encoding='utf-8'))['size'] == size, m
+    assert count * size < 54, m
+    nm = json.loads((RES / f'data/{NS}/neoforge/biome_modifier/{m}_ore.json').read_text(encoding='utf-8'))
+    assert nm['features'] == f'{NS}:{m}_ore' and nm['biomes'] == '#minecraft:is_overworld', m
+assert "OresRegistry.METALS" in fabric, 'Fabric places the new veins'
 
 # Wiki: config keys, sources exist.
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
