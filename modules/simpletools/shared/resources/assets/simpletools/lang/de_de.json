@@ -188,5 +188,17 @@
   "simpletools.guide.page.34.title": "(mit Simple Money) Geldscheine als Opfer",
   "simpletools.guide.page.34": "Ist Simple Money installiert, zählen seine Geldscheine im Opferplatz des Todesgewölbes wie Diamanten (optionaler Tag-Eintrag, ohne die Mod ändert sich nichts).",
   "simpletools.guide.page.35.title": "Einstellungen",
-  "simpletools.guide.page.35": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpletools.guide.page.35": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "block.simpletools.strip_station": "Entrindungs-Station",
+  "simpletools.option.enableStripStation": "Entrindungs-Station",
+  "simpletools.option.enableStripStation.tooltip": "Ein Käfig, der einen ganzen Stapel Blöcke hält;\neine Axt entrindet, schabt oder entwachst den ganzen Stapel mit einem Klick.\nStandard: true.",
+  "simpletools.option.stripStationHopper": "Trichter an der Entrindungs-Station",
+  "simpletools.option.stripStationHopper.tooltip": "Ein Trichter darüber füllt die Station,\nein Trichter darunter nimmt nur bearbeitete Blöcke.\nStandard: true.",
+  "message.simpletools.strip_station.full": "Der Käfig enthält etwas anderes oder ist voll.",
+  "message.simpletools.strip_station.partial": "Die Axt ist fast verschlissen: nur ein Teil des Stapels wurde bearbeitet.",
+  "message.simpletools.strip_station.worn": "Die Axt ist dafür zu abgenutzt.",
+  "message.simpletools.strip_station.blocked": "Nimm zuerst die bearbeiteten Blöcke heraus.",
+  "jei.simpletools.strip_station.1": "Rechtsklick mit einem Blockstapel legt den ganzen Stapel hinein.",
+  "jei.simpletools.strip_station.2": "Rechtsklick mit einer Axt: der ganze Stapel wird entrindet (Stämme, Holz), abgeschabt oder entwachst (Kupfer, zuerst Wachs), 1 Haltbarkeit pro Block. Die Axt bleibt bei 1 Haltbarkeit und bricht nie.",
+  "jei.simpletools.strip_station.3": "Leere Hand nimmt das Ergebnis heraus. Ein Trichter darüber füllt, ein Trichter darunter nimmt nur bearbeitete Blöcke."
 }

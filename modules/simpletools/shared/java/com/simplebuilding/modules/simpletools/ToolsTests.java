@@ -39,6 +39,7 @@ public final class ToolsTests {
   ALL.put("frame_invisible",FrameTests::invisible);ALL.put("frame_empty",FrameTests::empty);ALL.put("frame_reverse",FrameTests::reverse);ALL.put("frame_lock",FrameTests::lock);ALL.put("frame_glow",FrameTests::glow);ALL.put("frame_glass",FrameTests::glass);ALL.put("frame_migrate",FrameTests::migrate);ALL.put("frame_reveal",FrameTests::reveal);ALL.put("frame_config_off",FrameTests::configOff);
   com.simplebuilding.modules.simpletools.brush.BrushTests.addAll(ALL);
   com.simplebuilding.modules.simpletools.bucket.BucketTests.addAll(ALL); // WH26-7: Enderite and ceramic buckets
+  com.simplebuilding.modules.simpletools.strip.StripTests.addAll(ALL); // IG31-59: strip station
   // ALL-END
  }
  private ToolsTests(){}

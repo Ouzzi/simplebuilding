@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpletools:block/strip_station"
+    }
+  }
+}

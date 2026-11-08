@@ -188,5 +188,17 @@
   "simpletools.guide.page.34.title": "(with Simple Money) Money bills as offering",
   "simpletools.guide.page.34": "When Simple Money is installed, its money bills count like diamonds in the Death Vault offering slot (optional tag entry, nothing changes without the mod).",
   "simpletools.guide.page.35.title": "Settings",
-  "simpletools.guide.page.35": "More settings are in the mod's config screen."
+  "simpletools.guide.page.35": "More settings are in the mod's config screen.",
+  "block.simpletools.strip_station": "Strip Station",
+  "simpletools.option.enableStripStation": "Strip Station",
+  "simpletools.option.enableStripStation.tooltip": "A cage that holds a whole stack of blocks;\nan axe strips, scrapes or unwaxes the whole stack in one click.\nDefault: true.",
+  "simpletools.option.stripStationHopper": "Strip Station Hoppers",
+  "simpletools.option.stripStationHopper.tooltip": "A hopper above fills the strip station,\na hopper below takes only the worked blocks.\nDefault: true.",
+  "message.simpletools.strip_station.full": "The cage holds something else or is full.",
+  "message.simpletools.strip_station.partial": "The axe is nearly worn: only part of the stack was worked.",
+  "message.simpletools.strip_station.worn": "The axe is too worn for this.",
+  "message.simpletools.strip_station.blocked": "Take the worked blocks out first.",
+  "jei.simpletools.strip_station.1": "Right-click with a stack of blocks to put the whole stack in.",
+  "jei.simpletools.strip_station.2": "Right-click with an axe: the whole stack is stripped (logs, wood), scraped or unwaxed (copper, wax first), 1 durability per block. The axe is left at 1 durability and never breaks.",
+  "jei.simpletools.strip_station.3": "Empty hand takes the result out. A hopper above fills it, a hopper below takes only the worked blocks."
 }

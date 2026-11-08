@@ -389,6 +389,52 @@
       }
     },
     {
+      "id": "strip_station",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/strip/StripStationBlock.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/strip/StripStationBlockEntity.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/strip/StripWork.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/client/StripStationRenderer.java",
+        "modules/simpletools/shared/resources/data/simpletools/recipe/strip_station.json"
+      ],
+      "en": {
+        "title": "Strip Station",
+        "summary": "Crafted block (4 iron bars and 4 planks around an iron axe). A cage that holds a whole stack of blocks, shown in 3D inside the cage with a small count above it. Right-click with a stack of blocks to put the whole stack in; right-click with an axe to work the whole stack in one click: logs and wood are stripped (Vanilla's list, wood of mods too), copper is scraped one oxidation step per click and waxed copper is unwaxed first, like Vanilla. The axe loses 1 durability per block; if it cannot pay for all of them only part of the stack is worked, the axe is left at 1 durability and never breaks. One click makes one sound and one particle effect. An empty hand takes the worked blocks out (else the input). A hopper above fills the cage, a hopper below takes only the worked blocks (option stripStationHopper, on by default)."
+      },
+      "de": {
+        "title": "Entrindungs-Station",
+        "summary": "Herstellbarer Block (4 Eisenstäbe und 4 Bretter um eine Eisenaxt). Ein Käfig, der einen ganzen Stapel Blöcke hält, im Käfig in 3D gezeigt mit einer kleinen Zahl darüber. Rechtsklick mit einem Blockstapel legt den ganzen Stapel hinein; Rechtsklick mit einer Axt bearbeitet den ganzen Stapel mit einem Klick: Stämme und Holz werden entrindet (Vanilla-Liste, auch Holz aus Mods), Kupfer wird pro Klick um eine Oxidationsstufe abgeschabt und gewachstes Kupfer zuerst entwachst, wie in Vanilla. Die Axt verliert 1 Haltbarkeit pro Block; reicht sie nicht für alle, wird nur ein Teil des Stapels bearbeitet, die Axt bleibt bei 1 Haltbarkeit und bricht nie. Ein Klick macht einen Ton und einen Partikeleffekt. Die leere Hand nimmt die bearbeiteten Blöcke heraus (sonst das Eingelegte). Ein Trichter darüber füllt den Käfig, ein Trichter darunter nimmt nur bearbeitete Blöcke (Option stripStationHopper, standardmäßig an)."
+      }
+    },
+    {
+      "id": "config_enableStripStation",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableStripStation",
+        "summary": "Server setting. Default: true. Switches the strip station on; off: it holds nothing and the axe does nothing to it."
+      },
+      "de": {
+        "title": "enableStripStation",
+        "summary": "Servereinstellung. Standard: true. Schaltet die Entrindungs-Station ein; aus: sie nimmt nichts auf und die Axt tut nichts."
+      }
+    },
+    {
+      "id": "config_stripStationHopper",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "stripStationHopper",
+        "summary": "Server setting. Default: true. A hopper above fills the strip station, a hopper below takes only the worked blocks; off: hoppers leave it alone."
+      },
+      "de": {
+        "title": "stripStationHopper",
+        "summary": "Servereinstellung. Standard: true. Ein Trichter darüber füllt die Entrindungs-Station, ein Trichter darunter nimmt nur bearbeitete Blöcke; aus: Trichter lassen sie in Ruhe."
+      }
+    },
+    {
       "id": "config_enableSoulbound",
       "sources": [
         "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"

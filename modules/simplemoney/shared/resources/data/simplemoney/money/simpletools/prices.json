@@ -12,7 +12,8 @@
     "simpletools:enderite_soul_lava_bucket_full": "Filled only by scooping soul lava twice; no trade.",
     "simpletools:enderite_water_bucket": "Filled bucket; buy the empty one.",
     "simpletools:enderite_water_bucket_full": "Filled bucket (two buckets); buy the empty one.",
-    "simpletools:guide_book": "Crafted from a book and an anvil."
+    "simpletools:guide_book": "Crafted from a book and an anvil.",
+    "simpletools:strip_station": "Crafted only (IG31-59): 4 iron bars, 4 planks and an iron axe; not for sale."
   },
   "prices": [
     {

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": "#minecraft:planks",
+    "I": "minecraft:iron_bars",
+    "A": "minecraft:iron_axe"
+  },
+  "pattern": [
+    "PIP",
+    "IAI",
+    "PIP"
+  ],
+  "result": {
+    "id": "simpletools:strip_station"
+  }
+}
