@@ -71,7 +71,7 @@ Einrichtung Webserver (einmal, als root, nach dem Merge in den ausgelieferten St
 `client_max_body_size 2m` für `/api/` (Sicherung `.bak-texsave`, `nginx -t`), startet den Dienst neu.
 
 ## Ein Host mit Login (a-zw06, Besitzer 06.11.)
-`simplemods-wiki.azarfane.com` trägt alles; Cloudflare-Pfadschutz kommt später, bis dahin ein eigener Login.
+`simplemods-wiki.azarfane.com` trägt alles (ab IG31-55 siehe Abschnitt „Domain-Umzug“: `wiki.simplemods.de`); Cloudflare-Pfadschutz kommt später, bis dahin ein eigener Login.
 
 | Pfad | Inhalt | Zugriff |
 |---|---|---|
@@ -195,3 +195,30 @@ zeigt unter „Handlungsbedarf“ eine Warnung ab 85 % Platte oder wenn der Arbe
 
 Einspielen (auf pve, Besitzer): `pct exec 109 -- cp /srv/wiki-dev/tools/zentrale-web/sb-web-sync /usr/local/bin/sb-web-sync`
 (vorher Backup; das Skript liegt nach dem Merge in claude-wave1 automatisch in `/srv/wiki-dev`).
+
+## Domain-Umzug IG31-55 (vorbereitet, NICHT deployt; Besitzer 06.11.)
+Ziel: `wiki.simplemods.de` = Wiki (`/` öffentlich; `/dev/`, `/zentrale/`, `/api/`, `/setup/`, `/downloads/` mit Login);
+`simplemods.de` = Landing Page (`/srv/landing`, Quelle `tools/landing/index.html`, solange LAND09 offen ist: Entwurf B);
+`www.simplemods.de`, `simplewiki.de`, `www.simplewiki.de`, `simplemods-wiki.azarfane.com` = 301 auf `wiki.simplemods.de` mit
+gleichem Pfad. Ausnahme: `/setup/` und `/downloads/` auf der alten azarfane-Adresse bleiben direkt (nur mit Access-Header,
+wie bisher). Alle Hosts landen in einem nginx (`:8081`, Auswahl per `server_name`); Vorlagen `nginx/domains.conf`,
+`nginx/wiki-extra.conf`. Cookie `sb_session` hat kein Domain-Attribut (host-only): gilt automatisch für wiki.simplemods.de,
+der Origin-Check des Logins vergleicht mit dem durchgereichten Host. Alte Sitzungen von azarfane enden (neu anmelden).
+
+Schritte Besitzer (Freigabe nötig, vorher nichts auf sb-web ändern):
+1. Freigabe geben; DNS/Tunnel in Cloudflare: Public Hostnames `wiki.simplemods.de`, `simplemods.de`, `www.simplemods.de`
+   (und `simplewiki.de`, `www.simplewiki.de`, sobald die Nameserver umgestellt sind) auf den bisherigen Tunnel-Dienst
+   (sb-web `:8081`) setzen; der Host-Header muss der öffentliche Name bleiben (kein httpHostHeader-Override).
+2. Landing-Wahl LAND09 nennen (dann wird die Datei als `tools/landing/index.html` abgelegt).
+3. Alte Cloudflare-Access-App für `/setup/`, `/downloads/` der azarfane-Adresse nicht löschen (Installer nutzen sie).
+
+Schritte A (nach Freigabe, auf sb-web als root, nach `deploy_zw06.sh switch`):
+```
+/srv/wiki-dev/tools/zentrale-web/deploy_dom07.sh check
+/srv/wiki-dev/tools/zentrale-web/deploy_dom07.sh domains   # Sicherung .bak-dom07, Landing kopieren, nginx -t, reload, Smoke je Host
+/srv/wiki-dev/tools/zentrale-web/deploy_dom07.sh rollback  # Rückfall in Sekunden
+```
+Smoke-Test: `python3 smoke_zw06.py --domains --port 8081` prüft jeden Host per Host-Header (Wiki, Login-Pflicht, Landing,
+301-Ziele, Ausnahme azarfane `/setup/`+`/downloads/`). Danach im Browser: Login auf wiki.simplemods.de, `/dev/`, `/zentrale/`.
+Offen für A: Mod-Metadaten (`homepage`/`displayURL`) zeigen auf `https://azarfane.de/`, nicht auf die Wiki-Adresse, und
+bleiben unverändert (eigene Entscheidung des Besitzers).

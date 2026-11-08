@@ -52,7 +52,7 @@ def location(text, head):
 
 class StaticTest(unittest.TestCase):
     def test_every_server_has_allowlist(self):
-        for f in ("prod-old.conf", "wiki-one.conf", "legacy-current.conf", "legacy-redirect.conf"):
+        for f in ("prod-old.conf", "wiki-one.conf", "legacy-current.conf", "legacy-redirect.conf", "domains.conf"):
             bs = blocks((NGX / f).read_text())
             self.assertTrue(bs, f)
             for b in bs:
@@ -80,6 +80,24 @@ class StaticTest(unittest.TestCase):
             self.assertNotIn("return 30", location(zen, head))
         self.assertIn("simplemods-wiki.azarfane.com/zentrale$request_uri", zen)
         self.assertIn("simplemods-wiki.azarfane.com/dev$request_uri", blocks(red)[0])
+
+    def test_domains_template(self):
+        dom = (NGX / "domains.conf").read_text()
+        bs = blocks(dom)
+        self.assertEqual(len(bs), 3)
+        for h in ("simplemods.de", "www.simplemods.de", "simplewiki.de", "www.simplewiki.de",
+                  "simplemods-wiki.azarfane.com"):
+            self.assertEqual(sum(f"server_name {h};" in b or f" {h} " in b or b.count(f" {h};") for b in bs) > 0, True, h)
+        self.assertIn("return 301 https://wiki.simplemods.de$request_uri;", bs[1])
+        old = bs[2]
+        for head in ("location ^~ /setup/ ", "location ^~ /downloads/ "):
+            self.assertNotIn("return 30", location(old, head))
+            self.assertIn("$http_cf_access_authenticated_user_email", location(old, head))
+        self.assertIn("return 301 https://wiki.simplemods.de$request_uri;", location(old, "location / "))
+        extra = (NGX / "wiki-extra.conf").read_text()
+        for head in ("location ^~ /setup/ ", "location ^~ /downloads/ "):
+            self.assertIn("auth_request /_auth;", location(extra, head))
+        self.assertEqual((NGX / "wiki-one.conf").read_text().count("# @EXTRA@"), 1)
 
     def test_no_private_addresses_in_repo(self):
         for f in NGX.glob("*.conf"):
