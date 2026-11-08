@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "end_rift_shard",
+  "ingredients": [
+    "simpleores:end_rift_shard_block"
+  ],
+  "result": {
+    "id": "simpleores:end_rift_shard",
+    "count": 9
+  }
+}

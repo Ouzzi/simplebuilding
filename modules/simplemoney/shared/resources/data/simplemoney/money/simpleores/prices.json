@@ -13,7 +13,19 @@
     "simpleores:enderite_scrap_block": "Storage block, crafted from 9 Enderite scrap (BLOCKS07); the scrap is priced, the block is just nine of it.",
     "simpleores:sage_orb_block": "Storage block, crafted from 9 sage orbs (BLOCKS07).",
     "simpleores:rose_bronze_pressling_block": "Storage block, crafted from 9 pressings (BLOCKS07).",
-    "simpleores:rose_gold_pressling_block": "Storage block, crafted from 9 pressings (BLOCKS07)."
+    "simpleores:rose_gold_pressling_block": "Storage block, crafted from 9 pressings (BLOCKS07).",
+    "simpleores:rift_shard": "Melted from Dimensional Scrap (IG31-58), found only; Simple Ores sells nothing it does not have to.",
+    "simpleores:rift_shard_block": "Storage block, crafted from 9 rift shards (IG31-58).",
+    "simpleores:terranite_ingot": "Crafted from 4 rift shards and 1 Enderite ingot (IG31-58); a prestige material, not for sale.",
+    "simpleores:terranite_block": "Storage block, crafted from 9 Terranite ingots (IG31-58).",
+    "simpleores:nether_rift_shard": "Melted from Dimensional Scrap (IG31-58), found only; Simple Ores sells nothing it does not have to.",
+    "simpleores:nether_rift_shard_block": "Storage block, crafted from 9 rift shards (IG31-58).",
+    "simpleores:infernite_ingot": "Crafted from 4 rift shards and 1 Terranite ingot (IG31-58); a prestige material, not for sale.",
+    "simpleores:infernite_block": "Storage block, crafted from 9 Infernite ingots (IG31-58).",
+    "simpleores:end_rift_shard": "Melted from Dimensional Scrap (IG31-58), found only; Simple Ores sells nothing it does not have to.",
+    "simpleores:end_rift_shard_block": "Storage block, crafted from 9 rift shards (IG31-58).",
+    "simpleores:zenithite_ingot": "Crafted from 4 rift shards and 1 Infernite ingot (IG31-58); a prestige material, not for sale.",
+    "simpleores:zenithite_block": "Storage block, crafted from 9 Zenithite ingots (IG31-58)."
   },
   "prices": [
     {

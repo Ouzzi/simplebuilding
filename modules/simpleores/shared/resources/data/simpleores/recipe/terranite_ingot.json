@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simpleores:rift_shard",
+    "simpleores:rift_shard",
+    "simpleores:rift_shard",
+    "simpleores:rift_shard",
+    "simpleores:enderite_ingot"
+  ],
+  "result": {
+    "id": "simpleores:terranite_ingot"
+  }
+}

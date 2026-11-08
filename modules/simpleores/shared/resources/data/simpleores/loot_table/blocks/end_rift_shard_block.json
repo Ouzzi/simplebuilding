@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simpleores:end_rift_shard_block"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "simpleores:blocks/end_rift_shard_block"
+}

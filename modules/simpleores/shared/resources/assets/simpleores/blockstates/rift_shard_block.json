@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpleores:block/rift_shard_block"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "terranite_ingot",
+  "ingredients": [
+    "simpleores:terranite_block"
+  ],
+  "result": {
+    "id": "simpleores:terranite_ingot",
+    "count": 9
+  }
+}
