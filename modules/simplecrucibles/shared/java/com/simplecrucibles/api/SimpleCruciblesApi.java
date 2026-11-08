@@ -300,7 +300,7 @@ public final class SimpleCruciblesApi {
      */
     public static @Nullable net.minecraft.world.InteractionResult cauldronBucket(ItemStack stack, BlockState vanillaState, Level level, BlockPos pos,
                                                                                 Player player, InteractionHand hand) {
-        return com.simplecrucibles.fluid.CauldronBuckets.interact(stack, vanillaState, level, pos, player, hand);
+        return com.simplelib.bucket.CauldronBuckets.interact(stack, vanillaState, level, pos, player, hand);
     }
 
     /** Touching soul lava: burning, lava damage and soul burn (configured in simplecrucibles-server.json). */

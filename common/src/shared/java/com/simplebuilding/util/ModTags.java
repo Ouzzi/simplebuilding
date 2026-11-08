@@ -115,6 +115,8 @@ public class ModTags {
                 com.simplebuilding.version.McVersion.STORAGE_NAMESPACE,
                 com.simplebuilding.version.McVersion.ORES_NAMESPACE,
                 com.simplebuilding.version.McVersion.PISTONS_NAMESPACE,
+                // WH26-7: the Enderite buckets are Simple Tools' (optional beside SB; it ships its entries of both tags itself).
+                "simpletools",
                 com.simplebuilding.version.McVersion.GADGETS_NAMESPACE));
 
         /**
@@ -196,7 +198,9 @@ public class ModTags {
                     // IG31-13: the Enderite materials are Simple Ores' (ingot, nugget, block).
                     || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
                     // MACH32-MOD stages 2/3: the Enderite Piston, Hopper and hopper cart (Simple Machines).
-                    || com.simplebuilding.version.McVersion.PISTONS_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.PISTONS_NAMESPACE.equals(id.getNamespace())
+                    // WH26-7: the Enderite buckets (Simple Tools, which ships its tag entries itself).
+                    || "simpletools".equals(id.getNamespace()))
                     && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))
                     && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
         }

@@ -9,15 +9,20 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 /**
- * The crucible buckets and soul lava by id (split stage 5b). They belong to the required, bundled sub-mod Simple
- * Crucibles ({@code simplecrucibles:*}) and SimpleBuilding imports none of its classes in shared code (principle 3):
+ * The crucible buckets and soul lava by id (split stage 5b). Copper and soul lava belong to the required, bundled sub-mod
+ * Simple Crucibles ({@code simplecrucibles:*}), the Enderite and ceramic buckets to Simple Tools ({@code simpletools:*},
+ * WH26-7); SimpleBuilding imports none of their classes in shared code (principle 3):
  * tabs, the search tab, the test centre, the guide and the tests find them in the registry. On 26.2
  * ({@link McVersion#CRUCIBLE} false) there are none and every list is empty. Call after registration.
  */
 public final class BucketRefs {
     public static final String NAMESPACE = "simplecrucibles";
+    /** WH26-7: the Enderite and ceramic buckets are Simple Tools'. */
+    public static final String TOOLS_NAMESPACE = "simpletools";
+    /** The buckets that stay Simple Crucibles' (copper, soul lava); every other path is Simple Tools'. */
+    public static final List<String> CRUCIBLES = List.of("copper_bucket", "copper_water_bucket", "copper_lava_bucket", "soul_lava_bucket");
 
-    /** Every bucket item in creative-tab order (the raw ceramic bucket included), as Simple Crucibles lists them. */
+    /** Every bucket item in creative-tab order (the raw ceramic bucket included). */
     public static final List<String> ALL = List.of("copper_bucket", "copper_water_bucket", "copper_lava_bucket", "soul_lava_bucket",
             "enderite_bucket", "enderite_water_bucket", "enderite_lava_bucket", "enderite_soul_lava_bucket", "enderite_milk_bucket",
             "raw_ceramic_bucket", "ceramic_bucket", "ceramic_water_bucket", "ceramic_lava_bucket",
@@ -37,7 +42,7 @@ public final class BucketRefs {
     }
 
     public static Identifier id(String path) {
-        return Identifier.fromNamespaceAndPath(NAMESPACE, path);
+        return Identifier.fromNamespaceAndPath(CRUCIBLES.contains(path) ? NAMESPACE : TOOLS_NAMESPACE, path);
     }
 
     /** A bucket item by path; {@link Items#AIR} when it is not registered (26.2, module missing). */
@@ -45,9 +50,9 @@ public final class BucketRefs {
         return BuiltInRegistries.ITEM.getValue(id(path));
     }
 
-    /** Whether the bucket items are there (26.3 with Simple Crucibles). */
+    /** Whether bucket items are there (26.3 with Simple Crucibles or Simple Tools). */
     public static boolean present() {
-        return McVersion.CRUCIBLE && item("copper_bucket") != Items.AIR;
+        return McVersion.CRUCIBLE && (item("copper_bucket") != Items.AIR || item("enderite_bucket") != Items.AIR);
     }
 
     /** All registered bucket items in creative-tab order; empty without them. */

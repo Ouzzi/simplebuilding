@@ -1,0 +1,46 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleores"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleores"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enderite_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleores:enderite_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpletools:enderite_bucket"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enderite_nugget"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpletools:enderite_bucket"
+    ]
+  }
+}

@@ -9,7 +9,7 @@
       "title": "simpletools.guide.chapter",
       "icon": "minecraft:anvil",
       "page_key": "simpletools.guide.page",
-      "pages": 34,
+      "pages": 35,
       "advancement": "simpletools:guide/chapter",
       "hint": "minecraft:anvil"
     }
