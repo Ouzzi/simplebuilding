@@ -87,7 +87,7 @@ public final class MobsConfig {
     public static boolean voidChain = false;
     /** Trials (TR31-R): at most this many Weathered Trial Spawners of one structure are active at once (0 = no limit). */
     public static int trialSpawnerCap = 3;
-    /** Trials (TR31-R): the Evil / Void Vaults draw every item at most once per opening (Vanilla loot tables draw with replacement). */
+    /** Trials (TR31-R): the Evil / Void Vaults draw every item at most once per opening and at least two loot categories (Vanilla loot tables draw with replacement). */
     public static boolean trialLootNoRepeat = true;
     /** Trials (TR31-R): hits of Evil / Void mobs on players - Wither (stage 2), slowing arrows (stage 3), Darkness (stage 5). */
     public static boolean evilHitEffects = true;

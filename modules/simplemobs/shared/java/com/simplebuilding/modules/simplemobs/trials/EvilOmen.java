@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.WeakHashMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -43,15 +42,13 @@ import org.jspecify.annotations.Nullable;
  * <p>Concept 3.6, as built: life +10 % per stage (Void +60...100 %), the rest are effects; Void adds one effect step. The MOB27-1 effects
  * (Volatile, Deflection, Mirror) come with stage 4 / 5. TR31-R added: the hit effects, Void aura and teleporting archers ({@link TrialsExtras}), the extra
  * wave and the Looter Chest of the Evil Raid ({@link #onRaidCreated}, {@link #placeRaidChest}), and the Evil Omen at Vanilla spawners (config, off): their
- * stage cannot live in a block state, so it is kept in memory ({@link #VANILLA}) and is lost with a server restart.
+ * stage cannot live in a block state, so it is saved with the level ({@link EvilTrialsData}), like the raids that still wait for their chest.
  */
 public final class EvilOmen {
     /** How long raiders near the player count as the Evil Raid (30 minutes). */
     public static final long RAID_TICKS = 36000L;
     private static final Map<UUID, long[]> RAIDS = new HashMap<>();   // player -> {kind ordinal, stage, ends at game time}
-    /** Vanilla Trial Spawners turned evil (config evilOnVanillaSpawners): position -> {kind ordinal, stage}. */
-    private static final Map<GlobalPos, int[]> VANILLA = new HashMap<>();
-    /** Raids that were started under an omen and still wait for their chest. */
+    /** Raids that were started under an omen and still wait for their chest (live cache; saved by raid id in {@link EvilTrialsData}). */
     private static final Map<Raid, RaidInfo> EVIL_RAIDS = new WeakHashMap<>();
 
     private record RaidInfo(ServerLevel level, TrialKind kind, int stage, boolean[] rewarded) {}
@@ -90,7 +87,7 @@ public final class EvilOmen {
         if (now.getBlock() instanceof WeatheredTrialSpawnerBlock) {
             level.setBlock(pos, now.setValue(WeatheredTrialSpawnerBlock.KIND, bestKind).setValue(WeatheredTrialSpawnerBlock.LEVEL, bestStage), 3);
         } else {
-            VANILLA.put(GlobalPos.of(level.dimension(), pos), new int[] {bestKind.ordinal(), bestStage});
+            EvilTrialsData.get(level).putSpawner(pos, bestKind, bestStage);
         }
         best.sendOverlayMessage(Component.translatable("simplemobs.trials.turned." + bestKind.id(), bestStage));
         return true;
@@ -98,7 +95,7 @@ public final class EvilOmen {
 
     /** The spawner stops being ominous: back to a plain Weathered Trial. */
     public static void reset(ServerLevel level, BlockPos pos) {
-        VANILLA.remove(GlobalPos.of(level.dimension(), pos));
+        EvilTrialsData.get(level).removeSpawner(pos);
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof WeatheredTrialSpawnerBlock && WeatheredTrialSpawnerBlock.kind(state) != TrialKind.WEATHERED) {
             level.setBlock(pos, state.setValue(WeatheredTrialSpawnerBlock.KIND, TrialKind.WEATHERED).setValue(WeatheredTrialSpawnerBlock.LEVEL, 0), 3);
@@ -112,19 +109,24 @@ public final class EvilOmen {
         return kind == TrialKind.WEATHERED || stage <= 0 ? null : Trials.spawnerLoot(kind, stage);
     }
 
-    /** The kind of the trial at {@code pos}: from the Weathered Spawner's block state, or from the memory of turned Vanilla spawners. */
+    /** The kind of the trial at {@code pos}: from the Weathered Spawner's block state, or from the saved marks of turned Vanilla spawners. */
     public static TrialKind kindAt(ServerLevel level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof WeatheredTrialSpawnerBlock) return WeatheredTrialSpawnerBlock.kind(state);
-        int[] v = VANILLA.isEmpty() ? null : VANILLA.get(GlobalPos.of(level.dimension(), pos));
-        return v == null ? TrialKind.WEATHERED : TrialKind.values()[v[0]];
+        EvilTrialsData.Mark v = vanillaMark(level, pos, state);
+        return v == null ? TrialKind.WEATHERED : v.kind();
     }
 
     public static int stageAt(ServerLevel level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof WeatheredTrialSpawnerBlock) return WeatheredTrialSpawnerBlock.level(state);
-        int[] v = VANILLA.isEmpty() ? null : VANILLA.get(GlobalPos.of(level.dimension(), pos));
-        return v == null ? 0 : v[1];
+        EvilTrialsData.Mark v = vanillaMark(level, pos, state);
+        return v == null ? 0 : v.stage();
+    }
+
+    /** The saved mark of a turned Vanilla spawner; a mark whose spawner is gone does not count. */
+    private static EvilTrialsData.@Nullable Mark vanillaMark(ServerLevel level, BlockPos pos, BlockState state) {
+        return state.is(Blocks.TRIAL_SPAWNER) ? EvilTrialsData.get(level).spawner(pos) : null;
     }
 
     /** Red (Evil) / violet (Void) particles over a spawner that is an Evil / Void Trial. */
@@ -185,7 +187,7 @@ public final class EvilOmen {
         if (!Trials.evilOn()) return;
         TrialsExtras.aura(server);
         if (server.getTickCount() % 40 != 0) return;
-        rewardRaids();
+        rewardRaids(server);
         for (ServerLevel level : server.getAllLevels()) {
             if (level.getDifficulty() == Difficulty.PEACEFUL) continue;
             for (ServerPlayer p : level.players()) {
@@ -213,20 +215,53 @@ public final class EvilOmen {
     // --- extra wave and Looter Chest (TR31-R)
     /** A raid that a player with a running Evil Raid just started or joined: one more wave, remembered for the chest. */
     public static void onRaidCreated(ServerPlayer player, @Nullable Raid raid) {
-        if (raid == null || !Trials.evilOn() || !MobsConfig.evilRaidExtras || raid.hasFirstWaveSpawned() || EVIL_RAIDS.containsKey(raid)) return;
+        if (raid == null || !Trials.evilOn() || !MobsConfig.evilRaidExtras || raid.hasFirstWaveSpawned()) return;
+        ServerLevel level = player.level();
+        hydrate(level);
+        if (EVIL_RAIDS.containsKey(raid)) return;
         long[] r = RAIDS.get(player.getUUID());
-        if (r == null || r[2] < player.level().getGameTime()) return;
-        EVIL_RAIDS.put(raid, new RaidInfo(player.level(), TrialKind.values()[(int) r[0]], (int) r[1], new boolean[1]));
+        if (r == null || r[2] < level.getGameTime()) return;
+        TrialKind kind = TrialKind.values()[(int) r[0]];
+        EVIL_RAIDS.put(raid, new RaidInfo(level, kind, (int) r[1], new boolean[1]));
+        level.getRaids().getId(raid).ifPresent(id -> EvilTrialsData.get(level).putRaid(id, kind, (int) r[1]));   // a raid outside the level's list (test) stays in memory
         ((EvilRaid) raid).simplemobs$addWave();
     }
 
-    /** Every 2 s: a won Evil Raid leaves its Looter Chest next to the bell. */
-    private static void rewardRaids() {
+    /** After a restart: the saved Evil Raids of {@code level} back into the cache; raids that are gone are forgotten. Once per loaded data. */
+    private static void hydrate(ServerLevel level) {
+        EvilTrialsData data = EvilTrialsData.get(level);
+        if (data.hydrated) return;
+        data.hydrated = true;
+        for (Map.Entry<Integer, EvilTrialsData.Mark> e : new ArrayList<>(data.raids().entrySet())) {
+            Raid raid = level.getRaids().get(e.getKey());
+            if (raid == null) data.removeRaid(e.getKey());
+            else EVIL_RAIDS.putIfAbsent(raid, new RaidInfo(level, e.getValue().kind(), e.getValue().stage(), new boolean[1]));
+        }
+    }
+
+    /** {@code {kind ordinal, stage}} of an Evil Raid that still waits for its chest, {@code null} for any other raid (after a restart: from the saved data). */
+    public static int @Nullable [] evilRaid(ServerLevel level, Raid raid) {
+        hydrate(level);
+        RaidInfo info = EVIL_RAIDS.get(raid);
+        return info == null || info.rewarded()[0] ? null : new int[] {info.kind().ordinal(), info.stage()};
+    }
+
+    /** Every 2 s: a won Evil Raid leaves its Looter Chest next to the bell; finished raids leave the saved data. */
+    private static void rewardRaids(MinecraftServer server) {
+        for (ServerLevel level : server.getAllLevels()) {
+            hydrate(level);
+            EvilTrialsData data = EvilTrialsData.get(level);
+            for (Integer id : new ArrayList<>(data.raids().keySet())) {
+                Raid raid = level.getRaids().get(id);
+                if (raid == null || raid.isStopped() || raid.isLoss()) data.removeRaid(id);
+            }
+        }
         if (EVIL_RAIDS.isEmpty()) return;
         for (Map.Entry<Raid, RaidInfo> e : new ArrayList<>(EVIL_RAIDS.entrySet())) {
             RaidInfo info = e.getValue();
             if (info.rewarded()[0] || !e.getKey().isVictory()) continue;
             info.rewarded()[0] = true;
+            info.level().getRaids().getId(e.getKey()).ifPresent(id -> EvilTrialsData.get(info.level()).removeRaid(id));
             BlockPos chest = placeRaidChest(info.level(), e.getKey().getCenter(), info.kind(), info.stage());
             for (ServerPlayer p : info.level().players()) {
                 if (p.distanceToSqr(chest.getX(), chest.getY(), chest.getZ()) < 96.0 * 96.0) p.sendOverlayMessage(Component.translatable("simplemobs.trials.raid_chest"));
@@ -273,11 +308,10 @@ public final class EvilOmen {
         }
     }
 
-    /** Test hook: forget running Evil Raids. */
+    /** Test hook: forget running Evil Raids (the memory only, as after a server restart; the saved {@link EvilTrialsData} stays). */
     public static void clearRaids() {
         RAIDS.clear();
         EVIL_RAIDS.clear();
-        VANILLA.clear();
     }
 
     /** Test hook: mark a player as being in an Evil Raid of {@code stage}. */

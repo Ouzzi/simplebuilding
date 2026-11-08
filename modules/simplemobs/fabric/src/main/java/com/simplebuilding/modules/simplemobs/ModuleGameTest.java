@@ -194,6 +194,8 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void trialsRaidExtras(GameTestHelper helper) { TrialsTests.ALL.get("trials_raid_extras").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsStructureSwitch(GameTestHelper helper) { TrialsTests.ALL.get("trials_structure_switch").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsLootPages(GameTestHelper helper) { TrialsTests.ALL.get("trials_loot_pages").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsRaidPersist(GameTestHelper helper) { TrialsTests.ALL.get("trials_raid_persist").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsLootCategories(GameTestHelper helper) { TrialsTests.ALL.get("trials_loot_categories").accept(helper); }
     // WP-19 bosses + brood hollow (b-boss01)
     @GameTest(structure = "simplemobs:empty") public void bossRegistered(GameTestHelper helper) { MobsTests.ALL.get("boss_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void bossHatRule(GameTestHelper helper) { MobsTests.ALL.get("boss_hat_rule").accept(helper); }

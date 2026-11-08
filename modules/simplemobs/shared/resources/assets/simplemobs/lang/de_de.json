@@ -161,7 +161,7 @@
   "jei.simplemobs.trials.loot.head": "%s Ziehungen aus diesem Topf je Öffnung. Die Gewichte bestimmen den Anteil jedes Eintrags:",
   "jei.simplemobs.trials.loot.row": "%1$s %2$s: %3$s (Gewicht %4$s)",
   "jei.simplemobs.trials.loot.tail": "Ein Buch ist mit der Stufe verzaubert, die die Tabelle vorgibt.",
-  "jei.simplemobs.trials.loot.tail.distinct": "Jeder Gegenstand kommt höchstens einmal je Öffnung (Config trialLootNoRepeat); eine doppelte Ziehung wird neu gewürfelt.",
+  "jei.simplemobs.trials.loot.tail.distinct": "Jeder Gegenstand kommt höchstens einmal je Öffnung, und mindestens zwei Beute-Arten (Ressource, Heilung, Magie, Kosmetik) kommen zusammen (Config trialLootNoRepeat); sonst wird neu gewürfelt.",
   "jei.simplemobs.trials.weathered.1": "Weathered Trials sind seltene Räume unter der Erde: 9x9 (meist), 13x13 (jede 10.) und ein 19x19-Kreuz (jede 25.).",
   "jei.simplemobs.trials.weathered.2": "Der Verwitterte Prüfungs-Spawner funktioniert wie der aus Vanilla; der Verwitterte Tresor gibt eigene Beute.",
   "jei.simplemobs.trials.weathered.3": "Ein Prüfungsschlüssel vom Spawner öffnet einen normalen Tresor, ein Unheilvoller Prüfungsschlüssel den unheilvollen (auch Vanilla-Tresore).",

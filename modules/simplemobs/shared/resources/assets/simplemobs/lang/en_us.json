@@ -161,7 +161,7 @@
   "jei.simplemobs.trials.loot.head": "%s draws from this pool per opening. Weights decide the share of each entry:",
   "jei.simplemobs.trials.loot.row": "%1$s %2$s: %3$s (weight %4$s)",
   "jei.simplemobs.trials.loot.tail": "A book is enchanted at the level the table sets.",
-  "jei.simplemobs.trials.loot.tail.distinct": "Every item comes at most once per opening (config trialLootNoRepeat); a repeated draw is rolled again.",
+  "jei.simplemobs.trials.loot.tail.distinct": "Every item comes at most once per opening and at least two kinds of loot (resource, healing, magic, cosmetic) come together (config trialLootNoRepeat); otherwise the draw is rolled again.",
   "jei.simplemobs.trials.weathered.1": "Weathered Trials are rare rooms underground: 9x9 (most), 13x13 (1 in 10) and a 19x19 cross (1 in 25).",
   "jei.simplemobs.trials.weathered.2": "The Weathered Trial Spawner works like the Vanilla one; the Weathered Vault gives its own loot.",
   "jei.simplemobs.trials.weathered.3": "A Trial Key from the spawner opens a normal vault, an Ominous Trial Key the ominous one (also Vanilla vaults).",
