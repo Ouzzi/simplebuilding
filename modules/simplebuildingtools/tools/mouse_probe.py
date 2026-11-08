@@ -172,7 +172,7 @@ def main():
 
         def aim_floor(dx, dz):
             # look at the top of the floor block dz blocks ahead (south, +z)
-            chat(f'tp @s {x}.5 {y} {z}.5 facing {x + dx}.5 {y - 1}.5 {z + dz}.5')
+            chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + dx + 0.5} {y - 0.5} {z + dz + 0.5}')
             time.sleep(0.8)
 
         # ---------- (a) blueprint editor from the hand
@@ -217,10 +217,18 @@ def main():
             esc()
 
         # ---------- (b) N23 placed blueprint
-        chat('clear @s')
-        chat('give @s simplebuildingtools:blueprint')
-        io.key('1')
-        chat(f'tp @s {x}.5 {y} {z}.5 facing {x}.5 {y - 1.62:.2f} {z + 2}.5')  # tp facing aims from the FEET: 1.62 below = eye ray meets the floor top 2.5 ahead
+        esc()
+        time.sleep(1.0)  # let the editor's close/save reach the server before the hand is replaced
+        held = ''
+        for _ in range(3):  # (b) needs a BLANK blueprint, else the editor hides Example (code.isBlank())
+            chat('clear @s', 1.0)
+            chat('give @s simplebuildingtools:blueprint', 1.0)
+            io.key('1')
+            held = fresh().get('serverHeld', '')
+            if 'blueprint' in held and 'code=' not in held:
+                break
+        check('(b) a blank blueprint is held before placing', 'blueprint' in held and 'code=' not in held, held[:120])
+        chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + 0.5} {y - 1.62:.2f} {z + 2.5}')  # tp facing aims from the FEET: 1.62 below = eye ray meets the floor top 2.5 ahead
         time.sleep(0.8)
         st = fresh()
         fx, fy, fz = [int(v) for v in st['hitPos'].replace(',', ' ').split()] if st.get('hitPos') else (x, y - 1, z + 2)
@@ -240,7 +248,7 @@ def main():
         st = fresh()
         wx, wy, wz = [int(v) for v in re.findall(r'-?\d+', st['watchPos'])] if st.get('watchPos') else (fx, fy + 1, fz)
         print('placed blueprint at', st.get('watchPos'), flush=True)
-        chat(f'tp @s {x}.5 {y} {z}.5 facing {wx}.5 {wy - 1.62:.2f} {wz}.5')
+        chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {wx + 0.5} {wy - 1.62:.2f} {wz + 0.5}')
         time.sleep(0.8)
         st = fresh()
         check('(b) crosshair is on the placed blueprint', st.get('hitBlock', '').endswith('placed_blueprint'), (st.get('hitPos'), st.get('hitBlock')))
