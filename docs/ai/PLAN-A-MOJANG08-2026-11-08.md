@@ -238,7 +238,9 @@ hollow_watcher_eyes (dünn besetzte Leuchtschichten 0,94–0,98), `simplefoundry
 - `recolour08 --verify`: 151/151 pixelgleich; Pipeline vor/nach: 490/490 bytegleich + 151 neu.
 - `precheck.py --fix` (alle Generatoren) + `precheck.py`: 85/86 grün; rot nur `tools/guides/module_guides.py --check` (simplequalityoflife/simpletools de_de „Öfen“→„Oefen“) – auf der Basis 7d6874efb identisch rot, nicht angefasst.
 - `precheck.py --fast` grün; `check_missing_textures` 0 Fehler; `layers.py check` 0 Probleme; `tools/textures/tests` 57 OK; `wiki/generate.py --all --check` grün.
-- sbt: SBT_RESULT
+- sbt (ein Lauf, /root/sb-tools-a/a-mojang08-test.log, Stand 3a0b4a923): Compile `:mc26_3:fabric` + 8 Module grün; generateVanillaDerived ohne Platzhalter (SB 203, crucibles 24, end 18, lib 1, machines 30, ovens 32, pads 1, storage 51 Texturen aus dem Jar);
+  Modul-Gametests Fabric/Standalone je grün: crucibles 70/70, end 44/44, lib 55 (nur integration), machines 69/69, ovens 23/23, pads 85/85, storage 172/172, fun 31/31; `simplebuilding:data_integrity*` 48/48, `simplebuilding:test_centre*` 21/21.
+- Nicht getestet: Client-Sicht (keine xvfb-Läufe laut Regel), NeoForge/Forge (nur 26.3 Fabric).
 
 ## 5. Offen / Besitzer
 
