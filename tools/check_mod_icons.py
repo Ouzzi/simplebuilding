@@ -4,7 +4,8 @@ docs/ai/PLAN-B-MODICONS-2026-10-21.md).
 
 Fabric `icon` and NeoForge `iconFile` name assets/<modid>/icon.png (16x16, layer source icon.layers.json next to
 it); Forge `logoFile` names assets/<modid>/icon_128.png (8x nearest-neighbour copy) with `logoBlur=false`.
-The files themselves are kept in sync with tools/textures/mod_icons.py (`--check`, run here too).
+The files themselves are kept in sync with tools/textures/mod_icons.py (`--check --fresh`, run here too): an icon
+whose item-texture motif changed since it was written is reported as stale (b-icons11).
 """
 from __future__ import annotations
 
@@ -86,7 +87,7 @@ def main() -> int:
         print("Mod icons:", *found, sep="\n  ")
         print("Fix: draw the icon in tools/textures/mod_icons.py, run it, add the descriptor lines.")
         return 1
-    status = mod_icons.main(["--check"])
+    status = mod_icons.main(["--check", "--fresh"])
     if status == 0:
         print(f"Mod icons OK ({len(mod_icons.modules())} mods).")
     return status

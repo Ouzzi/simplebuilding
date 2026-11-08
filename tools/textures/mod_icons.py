@@ -998,6 +998,7 @@ def sheet(out: Path, scale: int = 8) -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true")
+    ap.add_argument("--fresh", action="store_true", help="with --check: compare with the CURRENT item textures (stale icons fail)")
     ap.add_argument("--import-owner", action="store_true")
     ap.add_argument("--sheet")
     args = ap.parse_args(argv)
@@ -1009,7 +1010,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     bad = []
     for entry in modules():
-        for path, data in outputs(entry, refresh=not args.check).items():
+        for path, data in outputs(entry, refresh=not args.check or args.fresh).items():
             if args.check:
                 if not same_pixels(path, data):
                     bad.append(path.relative_to(ROOT).as_posix())
@@ -1018,7 +1019,7 @@ def main(argv: list[str] | None = None) -> int:
                 path.write_bytes(data)
                 print("wrote", path.relative_to(ROOT).as_posix())
     if bad:
-        print("mod icons out of date (run python tools/textures/mod_icons.py):", *bad, sep="\n  ")
+        print("mod icons out of date (item texture or script changed; run python tools/textures/mod_icons.py):", *bad, sep="\n  ")
         return 1
     return 0
 
