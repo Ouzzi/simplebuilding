@@ -464,6 +464,7 @@ public final class OreGenAndItemFrameTests {
      * starts consuming clicks it did nothing with.
      */
     public static void glassPaneLocksTheFrameAndTheLockSurvivesTheSaveRoundTrip(GameTestHelper helper) {
+        if (com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletools")) return; // Simple Tools owns the frame lock (Vanilla Fixed, axe unlocks): covered by its FrameTests
         ServerPlayer player = creativePlayer(helper);
         ItemFrame frame = frameWithItem(helper, FRAME_POS);
 
@@ -583,6 +584,7 @@ public final class OreGenAndItemFrameTests {
      * durability.
      */
     public static void shearsHideTheFrameAndTheLockTakesPriorityOverThem(GameTestHelper helper) {
+        if (com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletools")) return; // Simple Tools owns the frame lock (Vanilla Fixed, axe unlocks): covered by its FrameTests
         ServerPlayer player = creativePlayer(helper);
         ItemFrame frame = frameWithItem(helper, FRAME_POS);
         helper.assertFalse(frame.isInvisible(), "a freshly spawned item frame is already invisible");
@@ -673,6 +675,7 @@ public final class OreGenAndItemFrameTests {
      * entire point of locking a frame, since a single punch would empty it again.
      */
     public static void survivalPlayersPayForTheLockAndCannotBreakTheLockedFrame(GameTestHelper helper) {
+        if (com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletools")) return; // Simple Tools owns the frame lock (Vanilla Fixed, axe unlocks): covered by its FrameTests
         Player player = survivalPlayer(helper);
         helper.assertFalse(player.isCreative(),
                 "the survival mock player reports creative mode, so this test would silently prove nothing");

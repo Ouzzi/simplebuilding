@@ -548,7 +548,9 @@ public final class WorldUpgradeTests {
         Entity frame = loadEntity(helper, entities.getCompoundOrEmpty(1));
         helper.assertTrue(frame instanceof ItemFrame, "the item frame did not load: " + frame);
         CompoundTag frameResaved = saveEntity(helper, frame);
-        helper.assertTrue(frameResaved.getBooleanOr("SimpleBuildingLocked", false), "the item frame lost its lock");
+        // With Simple Tools loaded it migrates the old tag to Vanilla Fixed and stops writing the tag (FRAMEMERGE)
+        boolean toolsOwnFrames = com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletools");
+        helper.assertTrue(frameResaved.getBooleanOr(toolsOwnFrames ? "Fixed" : "SimpleBuildingLocked", false), "the item frame lost its lock");
         helper.assertValueEqual(frameResaved.read("SimpleBuildingOwnedLight", BlockPos.CODEC).orElse(null), OWNED_LIGHT,
                 "owned light of the item frame");
         helper.assertTrue(!((ItemFrame) frame).getItem().isEmpty(), "the item frame lost its map");
