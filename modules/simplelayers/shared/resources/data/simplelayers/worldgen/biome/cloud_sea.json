@@ -1,0 +1,49 @@
+{
+  "attributes": {
+    "minecraft:audio/ambient_sounds": {
+      "loop": "simplelayers:ambient.cloud_sea.wind"
+    },
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "ambient": [],
+          "axolotls": [],
+          "creature": [],
+          "misc": [],
+          "monster": [],
+          "underground_water_creature": [],
+          "water_ambient": [],
+          "water_creature": []
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:visual/fog_color": "#e6eeff",
+    "minecraft:visual/sky_color": "#8fbaff"
+  },
+  "carvers": [],
+  "downfall": 0.0,
+  "effects": {
+    "water_color": "#3f76e4"
+  },
+  "features": [
+    [],
+    [],
+    [
+      "simplelayers:mist_pit"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "simplelayers:sky_chest"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "temperature": 0.5
+}

@@ -46,6 +46,11 @@ public final class SimpleEarth {
             EarthServerConfig.apply(json);
             com.simplebuilding.modules.simpleearth.terrain.TileService.invalidate(); // biome votes / surface detail change the colours
         }).file(dir, EarthServerConfig.FILE).register();
+        // IG31-56: the orbit takes players over from its activation height on (Simple Layers leaves that height to the orbit).
+        com.simplelib.api.HeightHandover.register((player, dimension) -> on() && EarthServerConfig.enabled
+                && EarthServerConfig.dimensions.contains(dimension.identifier().toString())
+                ? com.simplebuilding.modules.simpleearth.orbit.OrbitTracker.state(player).activationY
+                : com.simplelib.api.HeightHandover.NONE);
     }
 
     /** Server start and /reload: the biome colour tables of all data packs (N7/N8), fresh tile caches. */
