@@ -4,7 +4,9 @@ import com.simplelib.api.client.ui.UiBoxes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.IntSupplier;
 
@@ -24,16 +26,20 @@ final class StateButton extends Button {
     @Override
     protected void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float partialTick) {
         int color = face.getAsInt();
-        if (color == 0 || !this.active) {
-            super.extractContents(g, mouseX, mouseY, partialTick);
-            return;
-        }
-        UiBoxes.raised(g, this.getX(), this.getY(), this.getWidth(), this.getHeight(), color);
-        if (this.isHoveredOrFocused()) {
-            g.outline(this.getX(), this.getY(), this.getWidth(), this.getHeight(), 0xFFFFFFFF);
+        boolean plain = color == 0 || !this.active;
+        if (plain) {
+            String sprite = !this.active ? "widget/button_disabled" : this.isHoveredOrFocused() ? "widget/button_highlighted" : "widget/button";
+            g.blitSprite(RenderPipelines.GUI_TEXTURED, Identifier.withDefaultNamespace(sprite),
+                    this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        } else {
+            UiBoxes.raised(g, this.getX(), this.getY(), this.getWidth(), this.getHeight(), color);
+            if (this.isHoveredOrFocused()) {
+                g.outline(this.getX(), this.getY(), this.getWidth(), this.getHeight(), 0xFFFFFFFF);
+            }
         }
         var font = Minecraft.getInstance().font;
         Component msg = this.getMessage();
-        g.text(font, msg, this.getX() + (this.getWidth() - font.width(msg)) / 2, this.getY() + (this.getHeight() - 8) / 2, 0xFFFFFFFF, false);
+        g.text(font, msg, this.getX() + (this.getWidth() - font.width(msg)) / 2, this.getY() + (this.getHeight() - 8) / 2,
+                this.active ? 0xFFFFFFFF : 0xFFA0A0A0, plain);
     }
 }
