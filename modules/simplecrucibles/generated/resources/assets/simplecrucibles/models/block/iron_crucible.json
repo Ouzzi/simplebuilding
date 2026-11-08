@@ -4,7 +4,7 @@
     "side": "simplecrucibles:block/iron_crucible_side",
     "top": "simplecrucibles:block/iron_crucible_top",
     "bottom": "simplecrucibles:block/iron_crucible_bottom",
-    "inner": "simplecrucibles:block/iron_crucible_inner",
+    "inner": "minecraft:block/cauldron_inner",
     "handle": "simplecrucibles:block/iron_crucible_handle",
     "particle": "simplecrucibles:block/iron_crucible_side"
   },

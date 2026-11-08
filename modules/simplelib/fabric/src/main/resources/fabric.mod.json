@@ -12,7 +12,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Shared content of the Simple mods: crucibles with heat sources and warm food. Bundled by SimpleBuilding and Simple Sandwiches.",
+  "description": "Shared library of the Simple mods: common materials and upgrade templates, id migrations, config commands, UI building blocks, heat sources and warm food. Bundled by the Simple mods that need it.",
   "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {

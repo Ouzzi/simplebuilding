@@ -58,7 +58,8 @@ def lum(c):
 
 def ramp(path, box=None, steps=5):
     """Five shades (dark..light) of an own texture: luminance quantiles of its opaque pixels."""
-    im = Image.open(path).convert("RGBA")
+    import recolour08_2026_11_08  # a-mojang08: some own textures are drawn from the client jar now
+    im = recolour08_2026_11_08.open_own(path).convert("RGBA")
     if box:
         im = im.crop(box)
     px = sorted((c[:3] for c in im.get_flattened_data() if c[3] > 0), key=lum)

@@ -22,7 +22,8 @@ def furnace_shades(jar):
 
 def tier_shades(tier):
     """Five shades of a tier furnace's own side texture (committed in Simple Ovens), same quantiles as furnace_shades (b-small04)."""
-    im = Image.open(Path(__file__).resolve().parents[2] / f"modules/simpleovens/shared/resources/assets/simpleovens/textures/block/{tier}_furnace_side.png").convert("RGBA")
+    import recolour08_2026_11_08  # a-mojang08: the tier sides are recipes now (git-ignored)
+    im = recolour08_2026_11_08.open_own(Path(__file__).resolve().parents[2] / f"modules/simpleovens/shared/resources/assets/simpleovens/textures/block/{tier}_furnace_side.png").convert("RGBA")
     px = sorted((c[:3] for c in im.get_flattened_data() if c[3] > 0), key=vehicles.lum)
     return [px[min(len(px) - 1, int(q * (len(px) - 1)))] for q in (0.05, 0.3, 0.55, 0.75, 0.9)]
 

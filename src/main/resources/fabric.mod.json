@@ -3,9 +3,9 @@
   "id": "simplebuilding",
   "version": "${version}",
   "name": "SimpleBuilding",
-  "description": "This is a simple building mod.",
+  "description": "Building tools, storage, machines and enchantments for Minecraft; the super mod of the Simple family, bundling its required sub-mods.",
   "authors": [
-    "Me!"
+    "Ouzzi"
   ],
   "contact": {
     "homepage": "https://azarfane.de/",

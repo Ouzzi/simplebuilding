@@ -7,6 +7,8 @@ MODULE = Path(__file__).resolve().parents[1]
 ROOT = MODULE.parents[1]
 NS = 'simplemachines'
 RES = MODULE / 'shared/resources'
+# a-mojang08: recoloured Vanilla sprites are built from the client jar (tools/textures/recolour08_2026_11_08.json), never committed.
+DERIVED08 = {e['path'] for e in json.loads((ROOT / 'tools/textures/recolour08_2026_11_08.json').read_text(encoding='utf-8')) if e['ns'] == NS}
 JAVA = MODULE / 'shared/java/com/simplemachines'
 PISTONS = ['reinforced_piston', 'reinforced_sticky_piston', 'netherite_piston', 'enderite_piston']
 HEADS = ['reinforced_piston_head', 'netherite_piston_head', 'enderite_piston_head']
@@ -49,7 +51,7 @@ for state in (RES / f'assets/{NS}/blockstates').glob('*.json'):
 for model in (RES / f'assets/{NS}/models').rglob('*.json'):
     for tex in json.loads(model.read_text(encoding='utf-8')).get('textures', {}).values():
         # the hopper cart sprites are Vanilla-derived: built by tools/textures/vanilla_derived.py, never committed (stage 3)
-        if tex.startswith(f'{NS}:') and not tex.endswith('_hopper_minecart'):
+        if tex.startswith(f'{NS}:') and not tex.endswith('_hopper_minecart') and tex.split(':')[1] + '.png' not in DERIVED08:
             assert (RES / f'assets/{NS}/textures/{tex.split(":")[1]}.png').is_file(), (model.name, tex)
 # 4 stages x lit or not for the Dampener, 3 extensions x 6 facings for the piston parts
 assert len(json.loads((RES / f'assets/{NS}/blockstates/signal_dampener.json').read_text(encoding='utf-8'))['variants']) == 4 * 4 * 2

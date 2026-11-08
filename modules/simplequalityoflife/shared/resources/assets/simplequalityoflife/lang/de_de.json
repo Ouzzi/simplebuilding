@@ -88,7 +88,7 @@
   "simplequalityoflife.guide.page.34.title": "Durch Gras schlagen",
   "simplequalityoflife.guide.page.34": "grassCutMinSharpness, grassThroughMinPercent, grassThroughMaxPercent, grassSweepRadiusPerLevel; sharpnessCutsGrass schaltet alles ab.",
   "simplequalityoflife.guide.page.35.title": "Ofen mit Lava füllen",
-  "simplequalityoflife.guide.page.35": "Beide Hände können einen Lavaeimer in Ofen, Hochofen oder Räucherofen mit leerem Brennstoffplatz oder einem leeren Eimer einsetzen. Verschlossene Oefen und Schleichen sind ausgeschlossen.",
+  "simplequalityoflife.guide.page.35": "Beide Hände können einen Lavaeimer in Ofen, Hochofen oder Räucherofen mit leerem Brennstoffplatz oder einem leeren Eimer einsetzen. Verschlossene Öfen und Schleichen sind ausgeschlossen.",
   "simplequalityoflife.guide.page.36.title": "Ofen mit Lava füllen",
   "simplequalityoflife.guide.page.36": "Überleben verbraucht Lava; ein vorhandener Eimer wird genau einmal zurückgegeben. SimpleBuilding-Ofenunterklassen nutzen die Vanilla-Schnittstelle.",
   "simplequalityoflife.guide.page.37.title": "Bessere Rahmen",
