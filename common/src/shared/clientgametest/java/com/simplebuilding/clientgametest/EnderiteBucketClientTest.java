@@ -21,17 +21,18 @@ public final class EnderiteBucketClientTest {
 
     /** Hotbar slot, item id and the sprite its icon must draw. */
     private static final String[][] SHOWCASE = {
-            {"hotbar.0", "simplecrucibles:enderite_bucket", "simplecrucibles:item/enderite_bucket"},
-            {"hotbar.1", "simplecrucibles:enderite_water_bucket", "simplecrucibles:item/enderite_water_bucket_half"},
-            {"hotbar.2", "simplecrucibles:enderite_water_bucket_full", "simplecrucibles:item/enderite_water_bucket"},
-            {"hotbar.3", "simplecrucibles:enderite_lava_bucket", "simplecrucibles:item/enderite_lava_bucket_half"},
-            {"hotbar.4", "simplecrucibles:enderite_lava_bucket_full", "simplecrucibles:item/enderite_lava_bucket"},
-            {"hotbar.5", "simplecrucibles:enderite_soul_lava_bucket", "simplecrucibles:item/enderite_soul_lava_bucket_half"},
-            {"hotbar.6", "simplecrucibles:enderite_soul_lava_bucket_full", "simplecrucibles:item/enderite_soul_lava_bucket"},
+            {"hotbar.0", "simpletools:enderite_bucket", "simpletools:item/enderite_bucket"},
+            {"hotbar.1", "simpletools:enderite_water_bucket", "simpletools:item/enderite_water_bucket_half"},
+            {"hotbar.2", "simpletools:enderite_water_bucket_full", "simpletools:item/enderite_water_bucket"},
+            {"hotbar.3", "simpletools:enderite_lava_bucket", "simpletools:item/enderite_lava_bucket_half"},
+            {"hotbar.4", "simpletools:enderite_lava_bucket_full", "simpletools:item/enderite_lava_bucket"},
+            {"hotbar.5", "simpletools:enderite_soul_lava_bucket", "simpletools:item/enderite_soul_lava_bucket_half"},
+            {"hotbar.6", "simpletools:enderite_soul_lava_bucket_full", "simpletools:item/enderite_soul_lava_bucket"},
     };
 
     public static void inWorld(Script script) {
-        if (!com.simplebuilding.util.BucketRefs.present()) return;
+        // WH26-7: the Enderite buckets are Simple Tools' (simpletools:*); the soul lava ones need Simple Crucibles too.
+        if (com.simplebuilding.util.BucketRefs.item("enderite_soul_lava_bucket") == net.minecraft.world.item.Items.AIR) return;
         TestScene.build(script, "minecraft:stone", "creative");
         for (String[] piece : SHOWCASE) {
             script.command("item replace entity @a " + piece[0] + " with " + piece[1]);

@@ -29,7 +29,7 @@ public final class CruciblesFabric implements ModInitializer {
         com.simplecrucibles.fluid.CrucibleFluids.registerBlocks();
         CrucibleItems.register();
         com.simplecrucibles.fluid.CrucibleFluids.registerItems();
-        com.simplecrucibles.fluid.BucketDispensing.register();
+        com.simplelib.bucket.BucketDispensing.register(com.simplecrucibles.fluid.CrucibleFluids.buckets());
         // Valid for every crucible/barrel block, including partner tiers registered later (load order free).
         CrucibleBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(CrucibleBlocks.crucibles())) {
             @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return CrucibleBlockEntities.isCrucible(state); }

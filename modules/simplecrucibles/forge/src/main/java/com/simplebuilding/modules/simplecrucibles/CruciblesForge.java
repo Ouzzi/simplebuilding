@@ -38,7 +38,7 @@ public final class CruciblesForge {
             if (key.equals(Registries.ITEM)) {
                 CrucibleItems.register();
                 com.simplecrucibles.fluid.CrucibleFluids.registerItems();
-                com.simplecrucibles.fluid.BucketDispensing.register();
+                com.simplelib.bucket.BucketDispensing.register(com.simplecrucibles.fluid.CrucibleFluids.buckets());
             }
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 CrucibleBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(CrucibleBlocks.crucibles())) {

@@ -37,6 +37,7 @@ MAIN = ROOT / 'src/main/resources/assets/simplebuilding/textures'
 OVERLAY = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures'
 # Split stage 5b: the ceramic and copper buckets are Simple Crucibles' textures.
 CRUCIBLES = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures'
+TOOLS = ROOT / 'modules/simpletools/shared/resources/assets/simpletools/textures'  # WH26-7: ceramic buckets
 WIKI = ROOT / 'wiki/assets/textures'
 PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/texturen-runde7-vorschau.png')
 PREVIEW_CERAMIC = Path('C:/Users/o_o/code/minecraft-mods/previews/keramik-eimer-vorschau.png')
@@ -481,10 +482,10 @@ def outputs():
     img = training_dummy(v['training_dummy'])
     out[OVERLAY / 'item/training_dummy.png'] = img
     out[WIKI / 'item/training_dummy.png'] = img
-    out[CRUCIBLES / 'item/raw_ceramic_bucket.png'] = ceramic_bucket('raw', v['ceramic'])
+    out[TOOLS / 'item/raw_ceramic_bucket.png'] = ceramic_bucket('raw', v['ceramic'])
     for stage, prefix in enumerate(CERAMIC_STAGES):  # N12b: wear stages, every filling
         for content, name in ((None, 'ceramic_bucket'), ('water', 'ceramic_water_bucket'), ('lava', 'ceramic_lava_bucket')):
-            out[CRUCIBLES / f'item/{prefix}{name}.png'] = ceramic_worn(ceramic_bucket('fired', v['ceramic'], content), stage, content)
+            out[TOOLS / f'item/{prefix}{name}.png'] = ceramic_worn(ceramic_bucket('fired', v['ceramic'], content), stage, content)
     for name in cores.CORES:
         out[OVERLAY / f'item/{name}_core.png'] = core_strip(name)
     out[MAIN / 'item/enderite_spear_in_hand.png'] = spear_in_hand_strip()
@@ -586,7 +587,7 @@ def preview_7b():
              ('Speer-Glanz', MAIN / 'item/enderite_spear.png', [0, 3, 5]),
              ('Rucksack', MAIN / 'item/backpack.png', [0]),
              ('Enderit-Rucksack', MAIN / 'item/enderite_backpack.png', [0]),
-             ('Keramik-Eimer', CRUCIBLES / 'item/ceramic_bucket.png', [0]),
+             ('Keramik-Eimer', TOOLS / 'item/ceramic_bucket.png', [0]),
              ('Keramik Wasser', CRUCIBLES / 'item/ceramic_water_bucket.png', [0]),
              ('Keramik Lava', CRUCIBLES / 'item/ceramic_lava_bucket.png', [0])]
     k, cell = 12, 16 * 12 + 40

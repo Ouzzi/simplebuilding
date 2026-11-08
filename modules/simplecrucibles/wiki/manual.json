@@ -115,33 +115,29 @@
     {
       "id": "buckets",
       "sources": [
-        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/CrucibleBucketItem.java",
+        "modules/simplelib/shared/java/com/simplelib/bucket/ModBucketItem.java",
         "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/CrucibleFluids.java",
-        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/EnderiteMilkBucketItem.java",
-        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/CauldronBuckets.java",
-        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/BucketDispensing.java",
-        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/ReinforcedCauldronBuckets.java"
+        "modules/simplelib/shared/java/com/simplelib/bucket/CauldronBuckets.java",
+        "modules/simplelib/shared/java/com/simplelib/bucket/BucketDispensing.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/ReinforcedCauldronBuckets.java",
+        "modules/simplelib/shared/java/com/simplelib/mixin/CauldronBucketMixin.java"
       ],
       "related": [
         "simplecrucibles:copper_bucket",
-        "simplecrucibles:enderite_bucket",
-        "simplecrucibles:ceramic_bucket",
-        "simplecrucibles:raw_ceramic_bucket",
-        "simplecrucibles:soul_lava_bucket",
-        "simplecrucibles:enderite_milk_bucket"
+        "simplecrucibles:soul_lava_bucket"
       ],
       "en": {
-        "title": "Copper, Enderite and ceramic buckets",
-        "summary": "Buckets for the crucible's fluids: the iron bucket breaks on soul lava, the Enderite bucket holds two buckets and never breaks, copper oxidizes, ceramic wears. Split stage 5b: were SimpleBuilding's, old worlds migrate.",
+        "title": "Copper and soul lava buckets",
+        "summary": "Buckets for the crucible's fluids: the iron bucket breaks on soul lava, copper oxidizes. Split stage 5b: were SimpleBuilding's, old worlds migrate. The Enderite and ceramic buckets are Simple Tools' (WH26-7); with both mods the Enderite bucket takes soul lava and works on the reinforced cauldron.",
         "details": [
-          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks; it holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (a full one is named \"(Full)\"). The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) while carried in the hotbar or off hand or placed in the world (dropped, or in an item frame), not when pouring and not in the rest of the inventory or in containers; honeycomb waxes it (off hand while holding it, or on an item frame) and a waxed one does not weather, but filling it wears the wax: it then weathers at half pace until waxed again (an axe scrapes the wax or one stage off), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) takes water and lava, wears one stage per pour (shown as a bar) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. By default, a soul lava bucket burns 10 times as long as a lava bucket."
+          "Buckets: the iron bucket scoops soul lava but breaks when pouring it. The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) while carried in the hotbar or off hand or placed in the world (dropped, or in an item frame), not when pouring and not in the rest of the inventory or in containers; honeycomb waxes it (off hand while holding it, or on an item frame) and a waxed one does not weather, but filling it wears the wax: it then weathers at half pace until waxed again (an axe scrapes the wax or one stage off), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. By default, a soul lava bucket burns 10 times as long as a lava bucket. With Simple Tools its Enderite bucket also takes soul lava (two buckets, never breaks) and its buckets pour into and take from the reinforced cauldron."
         ]
       },
       "de": {
-        "title": "Kupfer-, Enderit- und Keramik-Eimer",
-        "summary": "Eimer für die Flüssigkeiten des Tiegels: der Eisen-Eimer zerbricht an Seelen-Lava, der Enderit-Eimer fasst zwei Eimer und zerbricht nie, Kupfer oxidiert, Keramik nutzt sich ab. Aufteilungsstufe 5b: gehörten SimpleBuilding, alte Welten werden übernommen.",
+        "title": "Kupfer- und Seelen-Lava-Eimer",
+        "summary": "Eimer für die Flüssigkeiten des Tiegels: der Eisen-Eimer zerbricht an Seelen-Lava, Kupfer oxidiert. Aufteilungsstufe 5b: gehörten SimpleBuilding, alte Welten werden übernommen. Enderit- und Keramik-Eimer gehören Simple Tools (WH26-7); mit beiden Mods nimmt der Enderit-Eimer Seelen-Lava und arbeitet am verstärkten Kessel.",
         "details": [
-          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie; er fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (ein voller heißt „(voll)“). Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock), solange er in der Hotbar oder Nebenhand getragen wird oder in der Welt liegt (fallengelassen oder im Rahmen), nicht beim Ausgießen und nicht im übrigen Inventar oder in Behältern; eine Honigwabe wachst ihn (Nebenhand, während man ihn hält, oder am Rahmen), und ein gewachster verwittert nicht, doch Einfüllen greift das Wachs an: er verwittert dann halb so schnell, bis er wieder gewachst wird (eine Axt schabt das Wachs oder eine Stufe ab), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (als Balken sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer."
+          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen. Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock), solange er in der Hotbar oder Nebenhand getragen wird oder in der Welt liegt (fallengelassen oder im Rahmen), nicht beim Ausgießen und nicht im übrigen Inventar oder in Behältern; eine Honigwabe wachst ihn (Nebenhand, während man ihn hält, oder am Rahmen), und ein gewachster verwittert nicht, doch Einfüllen greift das Wachs an: er verwittert dann halb so schnell, bis er wieder gewachst wird (eine Axt schabt das Wachs oder eine Stufe ab), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer. Mit Simple Tools nimmt dessen Enderit-Eimer auch Seelen-Lava (zwei Eimer, zerbricht nie), und seine Eimer gießen in den verstärkten Kessel und schöpfen daraus."
         ]
       }
     },
@@ -275,26 +271,10 @@
     },
     "simplecrucibles:copper_*bucket": {
       "en": {
-        "summary": "Copper bucket: water and lava, never soul lava; oxidizes while carried, wax and axe care for it (see Copper, Enderite and ceramic buckets)."
+        "summary": "Copper bucket: water and lava, never soul lava; oxidizes while carried, wax and axe care for it (see Copper and soul lava buckets)."
       },
       "de": {
-        "summary": "Kupfer-Eimer: Wasser und Lava, nie Seelen-Lava; oxidiert beim Tragen, Wachs und Axt pflegen ihn (siehe Kupfer-, Enderit- und Keramik-Eimer)."
-      }
-    },
-    "simplecrucibles:enderite_*bucket*": {
-      "en": {
-        "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
-      },
-      "de": {
-        "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
-      }
-    },
-    "simplecrucibles:*ceramic_*bucket": {
-      "en": {
-        "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
-      },
-      "de": {
-        "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        "summary": "Kupfer-Eimer: Wasser und Lava, nie Seelen-Lava; oxidiert beim Tragen, Wachs und Axt pflegen ihn (siehe Kupfer- und Seelen-Lava-Eimer)."
       }
     },
     "simplecrucibles:soul_lava": {
