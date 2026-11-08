@@ -1,9 +1,276 @@
 {
-  "features": [],
+  "features": [
+    {
+      "id": "cloud_blocks",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CloudBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CushionBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/MistBlock.java"
+      ],
+      "en": {
+        "title": "Cloud blocks",
+        "summary": "Cloud Block, Cloud Stone and Mist Block break instantly, by hand too. A Cloud Block takes 30 % off fall damage, Cloud Stone 10 % (a damage factor like the Hay Bale, not a shorter fall). Mist has no collision: you walk and fall through it.",
+        "details": [
+          "The Cloud Block lets light through and casts no shadow. Mist looks almost like a cloud, but its rim is slightly see-through and now and then a haze sinks from its underside while there is air below (config clouds.fogHint). Mist drops only with Silk Touch; the other two drop themselves."
+        ]
+      },
+      "de": {
+        "title": "Wolkenblöcke",
+        "summary": "Wolkenblock, Wolkenstein und Nebelblock brechen sofort, auch mit der Hand. Ein Wolkenblock nimmt 30 % Fallschaden weg, Wolkenstein 10 % (ein Schadensfaktor wie beim Heuballen, keine kürzere Fallstrecke). Nebel hat keine Kollision: man läuft und fällt hindurch.",
+        "details": [
+          "Der Wolkenblock lässt Licht durch und wirft keinen Schatten. Nebel sieht fast aus wie Wolke, aber sein Rand ist leicht durchscheinend, und ab und zu sinkt Dunst von seiner Unterseite, wenn darunter Luft ist (Config clouds.fogHint). Nebel droppt nur mit Behutsamkeit, die anderen beiden sich selbst."
+        ]
+      }
+    },
+    {
+      "id": "cloud_sea",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/CloudTransition.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/MistPitFeature.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/SkyChestFeature.java",
+        "modules/simplelayers/shared/resources/data/simplelayers/dimension_type/cloud_sea.json",
+        "modules/simplelayers/shared/resources/data/simplelayers/worldgen/noise_settings/cloud_sea.json",
+        "modules/simplelayers/shared/resources/data/simplelayers/worldgen/material_rule/cloud_sea.json",
+        "modules/simplelib/shared/java/com/simplelib/api/HeightHandover.java"
+      ],
+      "en": {
+        "title": "The Cloud Sea",
+        "summary": "Rise above y 700 in the Overworld (config clouds.entryY, 400-1000) and you enter the Cloud Sea, a sky dimension of floating islands over the same x/z. Fall below its bottom and you come back to the Overworld 20 blocks under the entry height with 3 s of Slow Falling.",
+        "details": [
+          "Islands have a cloud shell and a Cloud Stone core. Mist pits (1x1 to 3x3) hide a hollow with a cloud floor below them, never the open sky (config clouds.bottomlessPits makes them go through). Now and then a chest with Vanilla loot stands on an island.",
+          "Only rising past the height counts, so nobody bounces at the border; riders travel with their mount. Arriving without flying puts a small cloud platform under you. With Simple Earth the clouds never catch you above its orbit height, and rising above y 500 in the Cloud Sea hands you over to the orbit; without it y 500 is a soft ceiling."
+        ]
+      },
+      "de": {
+        "title": "Das Wolkenmeer",
+        "summary": "Steig in der Oberwelt über y 700 (Config clouds.entryY, 400-1000) und du kommst ins Wolkenmeer, eine Himmels-Dimension aus schwebenden Inseln über denselben x/z. Fällst du unten heraus, landest du 20 Blöcke unter der Eintrittshöhe wieder in der Oberwelt, mit 3 s Sanftem Fall.",
+        "details": [
+          "Die Inseln haben eine Wolkenhülle und einen Kern aus Wolkenstein. Nebelgruben (1x1 bis 3x3) verbergen einen Hohlraum mit Wolkenboden, nie den offenen Himmel (Config clouds.bottomlessPits lässt sie durchgehen). Ab und zu steht eine Truhe mit Vanilla-Beute auf einer Insel.",
+          "Nur das Aufsteigen über die Höhe zählt, so pendelt niemand an der Grenze; Reiter reisen mit ihrem Reittier. Wer ohne Flug ankommt, bekommt eine kleine Wolkenplattform unter die Füße. Mit Simple Earth fangen die Wolken dich über der Orbit-Höhe nie ab, und wer im Wolkenmeer über y 500 steigt, wird an den Orbit übergeben; ohne Earth ist y 500 eine weiche Decke."
+        ]
+      }
+    },
+    {
+      "id": "backrooms",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsGrid.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsChunkGenerator.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/GlitchedBedrockBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/RiftBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ExitDoorBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/BackroomBlock.java",
+        "modules/simplelayers/shared/resources/data/simplelayers/dimension_type/backrooms.json",
+        "modules/simplelayers/tools/gen_data.py"
+      ],
+      "en": {
+        "title": "The Backrooms",
+        "summary": "Rarely, Glitched Bedrock sits in the Overworld bedrock floor (one new chunk in 48, config backrooms.entranceRarity). Only a Netherite Pickaxe breaks it (about 30 s); it leaves a Rift, and whatever falls in lands in the Backrooms: endless empty rooms, 8 x 8 blocks and 5 high, with yellow wallpaper, damp carpet and humming neon lights.",
+        "details": [
+          "The rooms never change and need no storage: every wall and door follows from the world seed. Some rooms are dark, some groups of 4 x 4 rooms are open pillar halls. Survival players cannot break the walls, floors and ceilings there (config backrooms.unbreakableWalls). There is no sky, no time and yellow fog; no mob spawns.",
+          "Special rooms (jigsaw structures like the Trial Chambers) hold chests with Almond Water and other finds, a flooded room and dark rooms. Far apart lies an exit room: its Exit Door under the green EXIT sign leads back to the Overworld surface above where you came in. Used with a Backdoor Key it opens 1500-3000 blocks away instead. Option backrooms.voidToBackrooms (off): falling 32 blocks below the Overworld floor lands in the Backrooms."
+        ]
+      },
+      "de": {
+        "title": "Die Backrooms",
+        "summary": "Selten steckt fehlerhaftes Grundgestein im Bedrock-Boden der Oberwelt (einer von 48 neuen Chunks, Config backrooms.entranceRarity). Nur eine Netherit-Spitzhacke baut es ab (etwa 30 s); es hinterlässt einen Riss, und wer hineinfällt, landet in den Backrooms: endlose leere Räume, 8 x 8 Blöcke und 5 hoch, mit gelber Tapete, feuchtem Teppich und summenden Neonröhren.",
+        "details": [
+          "Die Räume ändern sich nie und brauchen keinen Speicher: jede Wand und Tür folgt aus dem Welt-Seed. Manche Räume sind dunkel, manche Gruppen aus 4 x 4 Räumen offene Säulenhallen. Spieler im Überleben können Wände, Böden und Decken dort nicht abbauen (Config backrooms.unbreakableWalls). Kein Himmel, keine Zeit, gelber Nebel; keine Mob-Spawns.",
+          "Sonderräume (Jigsaw-Strukturen wie die Trial Chambers) enthalten Truhen mit Mandelwasser und anderen Funden, einen gefluteten Raum und dunkle Räume. Weit entfernt liegt ein Ausgangsraum: seine Ausgangstür unter dem grünen EXIT-Schild führt zurück an die Oberwelt-Oberfläche über dem Eingang. Mit einem Hintertür-Schlüssel öffnet sie sich stattdessen 1500-3000 Blöcke entfernt. Option backrooms.voidToBackrooms (aus): wer 32 Blöcke unter den Oberwelt-Boden fällt, landet in den Backrooms."
+        ]
+      }
+    },
+    {
+      "id": "listener",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/ListenerAmbience.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/config/LayersConfig.java"
+      ],
+      "en": {
+        "title": "The Listener",
+        "summary": "Option backrooms.listener (off by default): now and then footsteps sound behind you in the Backrooms, come closer and stop. There is no creature and no damage - only the sound."
+      },
+      "de": {
+        "title": "Der Lauschende",
+        "summary": "Option backrooms.listener (standardmäßig aus): ab und zu klingen in den Backrooms Schritte hinter dir, kommen näher und verstummen. Es gibt kein Wesen und keinen Schaden - nur das Geräusch."
+      }
+    }
+  ],
   "notes": {
-    "simplelayers:token": {
-      "en": {"summary": "A plain integration token using the Vanilla paper model, without custom behavior or a creative tab."},
-      "de": {"summary": "Eine einfache Integrationstest-Marke mit Vanilla-Papiermodell, ohne eigenes Verhalten oder Kreativtab."}
+    "simplelayers:guide_book": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/guide/LayersGuide.java",
+        "modules/simplelayers/shared/resources/assets/simplelayers/simplelib/modpack_guide.json",
+        "modules/simplelayers/shared/resources/data/simplelayers/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Layers\" of the Simple Modpack guide (SimpleLib): 9 pages taken from this wiki, shown in your language. Unlocked by picking up: feather. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Layers\" im Simple-Modpack-Handbuch (SimpleLib): 9 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feder. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+      }
+    },
+    "simplelayers:cloud_block": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CloudBlock.java"
+      ],
+      "en": {
+        "summary": "Full block of the Cloud Sea islands; instabreak, lets light through, -30 % fall damage."
+      },
+      "de": {
+        "summary": "Voller Block der Wolkeninseln; bricht sofort, lässt Licht durch, -30 % Fallschaden."
+      }
+    },
+    "simplelayers:cloud_stone": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CushionBlock.java"
+      ],
+      "en": {
+        "summary": "Core of the cloud islands; instabreak, -10 % fall damage."
+      },
+      "de": {
+        "summary": "Kern der Wolkeninseln; bricht sofort, -10 % Fallschaden."
+      }
+    },
+    "simplelayers:mist_block": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/MistBlock.java"
+      ],
+      "en": {
+        "summary": "Looks like a cloud, but has no collision; drops only with Silk Touch."
+      },
+      "de": {
+        "summary": "Sieht aus wie Wolke, hat aber keine Kollision; droppt nur mit Behutsamkeit."
+      }
+    },
+    "simplelayers:damp_carpet": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Floor of the Backrooms; dampens vibrations like wool (Sculk does not hear steps on it)."
+      },
+      "de": {
+        "summary": "Boden der Backrooms; dämpft Vibrationen wie Wolle (Sculk hört Schritte darauf nicht)."
+      }
+    },
+    "simplelayers:wallpaper": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Yellow wallpaper, the plain wall of the Backrooms."
+      },
+      "de": {
+        "summary": "Gelbe Tapete, die schlichte Wand der Backrooms."
+      }
+    },
+    "simplelayers:striped_wallpaper": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Striped wallpaper of some Backrooms walls."
+      },
+      "de": {
+        "summary": "Gestreifte Tapete mancher Backrooms-Wände."
+      }
+    },
+    "simplelayers:dotted_wallpaper": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Dotted wallpaper of some Backrooms walls."
+      },
+      "de": {
+        "summary": "Gepunktete Tapete mancher Backrooms-Wände."
+      }
+    },
+    "simplelayers:ceiling_tile": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Acoustic ceiling tile of the Backrooms."
+      },
+      "de": {
+        "summary": "Akustik-Deckenplatte der Backrooms."
+      }
+    },
+    "simplelayers:stained_ceiling_tile": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Ceiling tile with a water stain."
+      },
+      "de": {
+        "summary": "Deckenplatte mit Wasserfleck."
+      }
+    },
+    "simplelayers:exit_sign": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Green EXIT sign (light 8) above the Exit Door."
+      },
+      "de": {
+        "summary": "Grünes EXIT-Schild (Licht 8) über der Ausgangstür."
+      }
+    },
+    "simplelayers:neon_light": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/NeonLightBlock.java"
+      ],
+      "en": {
+        "summary": "Ceiling light, light 15; on, flickering or broken (light 0). Right-click with an empty hand cycles the mode."
+      },
+      "de": {
+        "summary": "Deckenleuchte, Licht 15; an, flackernd oder kaputt (Licht 0). Rechtsklick mit leerer Hand wechselt den Zustand."
+      }
+    },
+    "simplelayers:glitched_bedrock": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/GlitchedBedrockBlock.java"
+      ],
+      "en": {
+        "summary": "Rare in the Overworld bedrock floor; only a Netherite Pickaxe breaks it, then it leaves a Rift into the Backrooms."
+      },
+      "de": {
+        "summary": "Selten im Bedrock-Boden der Oberwelt; nur eine Netherit-Spitzhacke baut es ab, dann bleibt ein Riss in die Backrooms."
+      }
+    },
+    "simplelayers:almond_water": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Found in the Backrooms; drinking heals 2 hearts and takes away Nausea, the bottle stays."
+      },
+      "de": {
+        "summary": "In den Backrooms zu finden; Trinken heilt 2 Herzen und nimmt Übelkeit, die Flasche bleibt."
+      }
+    },
+    "simplelayers:backdoor_key": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ExitDoorBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java"
+      ],
+      "en": {
+        "summary": "Rare find in the Backrooms; used on the Exit Door it is used up and the door opens 1500-3000 blocks away."
+      },
+      "de": {
+        "summary": "Seltener Fund in den Backrooms; an der Ausgangstür benutzt, wird er verbraucht und die Tür öffnet sich 1500-3000 Blöcke entfernt."
+      }
     }
   }
 }

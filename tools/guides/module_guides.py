@@ -284,6 +284,13 @@ MODULES = [
                 "follows the signal strength and copper panes that toggle like the Copper Bulb.",
                 "Lichtscheiben: flache Lampen an jeder Blockseite - normal, transparent, in sechzehn Farben, eine Redstone-Scheibe, "
                 "deren Farbe der Signalstärke folgt, und Kupfer-Scheiben, die wie die Kupferbirne umschalten.")),
+    dict(module="simplelayers", ns="simplelayers", package="com.simplebuilding.modules.simplelayers.guide", cls="LayersGuide", kind="item",
+         author="Simple Layers", recipe="minecraft:feather",
+         name=("Simple Layers Guide", "Simple-Layers-Handbuch"),
+         intro=("Two new world layers: rise above y 700 of the Overworld into the Cloud Sea, a sky of cloud islands, or break "
+                "Glitched Bedrock with a Netherite Pickaxe and fall into the Backrooms - endless, empty yellow rooms. Find the exit.",
+                "Zwei neue Weltschichten: Steig in der Oberwelt über y 700 ins Wolkenmeer, einen Himmel aus Wolkeninseln, oder "
+                "brich fehlerhaftes Grundgestein mit einer Netherit-Spitzhacke auf und fall in die Backrooms - endlose, leere gelbe Räume. Finde den Ausgang.")),
     dict(module="simplegadgets", ns="simplegadgets", package="com.simplegadgets.guide", cls="GadgetsGuide", kind="item",
          author="Simple Gadgets", recipe="minecraft:clock",
          name=("Simple Gadgets Guide", "Simple-Gadgets-Handbuch"),

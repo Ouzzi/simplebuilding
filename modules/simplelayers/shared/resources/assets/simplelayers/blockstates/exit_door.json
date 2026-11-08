@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "simplelayers:block/exit_door_lower"
+    },
+    "half=upper": {
+      "model": "simplelayers:block/exit_door_upper"
+    }
+  }
+}

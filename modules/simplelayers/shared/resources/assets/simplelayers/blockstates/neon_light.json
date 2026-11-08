@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "mode=on": {
+      "model": "simplelayers:block/neon_light"
+    },
+    "mode=flicker": {
+      "model": "simplelayers:block/neon_light_flicker"
+    },
+    "mode=broken": {
+      "model": "simplelayers:block/neon_light_broken"
+    }
+  }
+}

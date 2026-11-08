@@ -1,0 +1,63 @@
+{
+  "ambient.backrooms.hum": {
+    "sounds": [
+      {
+        "name": "simplelayers:ambient/backrooms_hum",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.simplelayers.ambient.backrooms.hum"
+  },
+  "ambient.backrooms.additions": {
+    "sounds": [
+      {
+        "name": "simplelayers:ambient/backrooms_knock1",
+        "stream": false
+      },
+      {
+        "name": "simplelayers:ambient/backrooms_knock2",
+        "stream": false
+      },
+      {
+        "name": "simplelayers:ambient/backrooms_knock3",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.simplelayers.ambient.backrooms.additions"
+  },
+  "ambient.cloud_sea.wind": {
+    "sounds": [
+      {
+        "name": "simplelayers:ambient/cloud_sea_wind",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.simplelayers.ambient.cloud_sea.wind"
+  },
+  "block.neon_light.buzz": {
+    "sounds": [
+      {
+        "name": "simplelayers:block/neon_buzz1",
+        "stream": false
+      },
+      {
+        "name": "simplelayers:block/neon_buzz2",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.simplelayers.block.neon_light.buzz"
+  },
+  "ambient.backrooms.listener": {
+    "sounds": [
+      {
+        "name": "simplelayers:ambient/listener_steps1",
+        "stream": false
+      },
+      {
+        "name": "simplelayers:ambient/listener_steps2",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.simplelayers.ambient.backrooms.listener"
+  }
+}

@@ -1,8 +1,21 @@
 {
   "module": "simplelayers",
-  "derivation": "Placeholder module with a plain token item; nothing is sold yet.",
+  "derivation": "Everything of Simple Layers is found, not crafted: cloud blocks in the Cloud Sea, the Backrooms blocks, Almond Water and the Backdoor Key in the Backrooms' chests; Glitched Bedrock only in the bedrock floor. Exploration rewards are not traded.",
   "excluded": {
-    "simplelayers:token": "Integration token, not a trade good."
+    "simplelayers:cloud_block": "Found in the Cloud Sea (exploration reward).",
+    "simplelayers:cloud_stone": "Found in the Cloud Sea (exploration reward).",
+    "simplelayers:mist_block": "Found in the Cloud Sea, Silk Touch only.",
+    "simplelayers:damp_carpet": "Backrooms find.",
+    "simplelayers:wallpaper": "Backrooms find.",
+    "simplelayers:striped_wallpaper": "Backrooms find.",
+    "simplelayers:dotted_wallpaper": "Backrooms find.",
+    "simplelayers:ceiling_tile": "Backrooms find.",
+    "simplelayers:stained_ceiling_tile": "Backrooms find.",
+    "simplelayers:neon_light": "Backrooms find.",
+    "simplelayers:exit_sign": "Backrooms find.",
+    "simplelayers:glitched_bedrock": "Dimension entrance, creative only as an item.",
+    "simplelayers:almond_water": "Backrooms find.",
+    "simplelayers:backdoor_key": "Rare Backrooms find (travel shortcut)."
   },
   "prices": []
 }

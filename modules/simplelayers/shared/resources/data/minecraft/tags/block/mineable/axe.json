@@ -1,0 +1,9 @@
+{
+  "values": [
+    "simplelayers:wallpaper",
+    "simplelayers:striped_wallpaper",
+    "simplelayers:dotted_wallpaper",
+    "simplelayers:ceiling_tile",
+    "simplelayers:stained_ceiling_tile"
+  ]
+}
