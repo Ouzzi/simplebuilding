@@ -1,0 +1,8 @@
+{
+  "module": "simplelayers",
+  "derivation": "Placeholder module with a plain token item; nothing is sold yet.",
+  "excluded": {
+    "simplelayers:token": "Integration token, not a trade good."
+  },
+  "prices": []
+}

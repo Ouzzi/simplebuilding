@@ -182,6 +182,24 @@ def challenges_icon():
 
 
 ICONS: dict[str, dict] = {
+    "simplelayers": icon("Platzhalter-Raute", {"o": "#2a2a30", "F": "#e8e8f0", "f": "#ffffff"},
+                         [("Kontur", "o"), ("Fuellung", "Ff")],
+                         "................",
+                         "......oo........",
+                         ".....oFFo.......",
+                         "....oFfFFo......",
+                         "...oFfFFFFo.....",
+                         "..oFfFFFFFFo....",
+                         ".oFFFFFFFFFFo...",
+                         ".oFFFFFFFFFFo...",
+                         "..oFFFFFFFFo....",
+                         "...oFFFFFFo.....",
+                         "....oFFFFo......",
+                         ".....oFFo.......",
+                         "......oo........",
+                         "................",
+                         "................",
+                         "................"),
     "simplepads": icon("Platzhalter-Raute", {"o": "#2a2a30", "F": "#e8e8f0", "f": "#ffffff"},
                          [("Kontur", "o"), ("Fuellung", "Ff")],
                          "................",
@@ -814,6 +832,7 @@ ITEM_MOTIFS = {
     "simplechisels": "iron_chisel", "simplebuildingtools": "copper_building_wand",  # LOOK10 A (placeholder until the owner picks)
 }
 BG = {
+    "simplelayers": "#8a9098",
     "simplechisels": "#8a9098",
     "simplebuildingtools": "#6ec0c8",
     "simplepads": "#8a9098",

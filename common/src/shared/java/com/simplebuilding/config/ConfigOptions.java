@@ -134,6 +134,7 @@ public final class ConfigOptions {
             "enableSimplePads",
             "enableSimpleBuildingtools",
             "enableSimpleChisels",
+            "enableSimpleLayers",
             // <submods:end restart>
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",

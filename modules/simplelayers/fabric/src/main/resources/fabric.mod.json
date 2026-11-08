@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "simplelayers",
+  "version": "${version}",
+  "name": "Simple Layers",
+  "description": "Simple Layers module.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplelayers.LayersFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplelayers.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.3.0"
+  },
+  "icon": "assets/simplelayers/icon.png",
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}
