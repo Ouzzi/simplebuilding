@@ -51,7 +51,7 @@ import net.minecraft.world.phys.Vec3;
 public final class BlocksTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
-    public static final int BLOCK_COUNT = 80;
+    public static final int BLOCK_COUNT = 86;
     private static final Set<String> HUSHED = Set.of("hushed_deepslate_tiles", "hushed_deepslate_tile_stairs",
             "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall");
 
@@ -96,7 +96,7 @@ public final class BlocksTests {
                 h.assertTrue(state.is(BlockTags.DAMPENS_VIBRATIONS) == hushed, name + " dampens vibrations only if hushed");
             }
             h.assertTrue(BlocksRegistry.SCULK_DEEPSLATE instanceof DropExperienceBlock, "sculk deepslate gives experience");
-            for (String[] aged : BlocksRegistry.AGED) {
+            for (String[] aged : java.util.stream.Stream.concat(BlocksRegistry.AGED.stream(), BlocksRegistry.CHISELED.stream()).toList()) {
                 h.assertTrue(BlocksRegistry.BLOCKS.containsKey(aged[0]) && BuiltInRegistries.BLOCK.containsKey(net.minecraft.resources.Identifier.parse(aged[1])), aged[0] + " ages " + aged[1]);
                 h.assertTrue(BlocksRegistry.BASES.get(aged[0]) == BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.parse(aged[1])), aged[0] + " copies " + aged[1]);
             }

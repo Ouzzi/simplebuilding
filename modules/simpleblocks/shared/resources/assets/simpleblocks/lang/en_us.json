@@ -483,5 +483,17 @@
   "simpleblocks.guide.page.23.title": "Compressed, Dense and Collapsed blocks",
   "simpleblocks.guide.page.23": "netherrack, cobbled deepslate, andesite, diorite, granite, tuff, sandstone, red sandstone, end stone, blackstone, soul sand).",
   "simpleblocks.guide.page.24.title": "Settings",
-  "simpleblocks.guide.page.24": "More settings are in the mod's config screen."
+  "simpleblocks.guide.page.24": "More settings are in the mod's config screen.",
+  "block.simpleblocks.smooth_stone_wall": "Smooth Stone Wall",
+  "item.simpleblocks.smooth_stone_wall": "Smooth Stone Wall",
+  "block.simpleblocks.chiseled_polished_andesite": "Chiseled Polished Andesite",
+  "item.simpleblocks.chiseled_polished_andesite": "Chiseled Polished Andesite",
+  "block.simpleblocks.chiseled_polished_diorite": "Chiseled Polished Diorite",
+  "item.simpleblocks.chiseled_polished_diorite": "Chiseled Polished Diorite",
+  "block.simpleblocks.chiseled_polished_granite": "Chiseled Polished Granite",
+  "item.simpleblocks.chiseled_polished_granite": "Chiseled Polished Granite",
+  "block.simpleblocks.chiseled_prismarine": "Chiseled Prismarine",
+  "item.simpleblocks.chiseled_prismarine": "Chiseled Prismarine",
+  "block.simpleblocks.chiseled_red_nether_bricks": "Chiseled Red Nether Bricks",
+  "item.simpleblocks.chiseled_red_nether_bricks": "Chiseled Red Nether Bricks"
 }

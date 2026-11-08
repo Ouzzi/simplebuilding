@@ -483,5 +483,17 @@
   "simpleblocks.guide.page.23.title": "Komprimierte, dichte und kollabierte Blöcke",
   "simpleblocks.guide.page.23": "Bruchtiefenschiefer, Andesit, Diorit, Granit, Tuff, Sandstein, Roter Sandstein, Endstein, Schwarzstein, Seelensand).",
   "simpleblocks.guide.page.24.title": "Einstellungen",
-  "simpleblocks.guide.page.24": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpleblocks.guide.page.24": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "block.simpleblocks.smooth_stone_wall": "Glatte Steinmauer",
+  "item.simpleblocks.smooth_stone_wall": "Glatte Steinmauer",
+  "block.simpleblocks.chiseled_polished_andesite": "Gemeißelter Polierter Andesit",
+  "item.simpleblocks.chiseled_polished_andesite": "Gemeißelter Polierter Andesit",
+  "block.simpleblocks.chiseled_polished_diorite": "Gemeißelter Polierter Diorit",
+  "item.simpleblocks.chiseled_polished_diorite": "Gemeißelter Polierter Diorit",
+  "block.simpleblocks.chiseled_polished_granite": "Gemeißelter Polierter Granit",
+  "item.simpleblocks.chiseled_polished_granite": "Gemeißelter Polierter Granit",
+  "block.simpleblocks.chiseled_prismarine": "Gemeißelter Prismarin",
+  "item.simpleblocks.chiseled_prismarine": "Gemeißelter Prismarin",
+  "block.simpleblocks.chiseled_red_nether_bricks": "Gemeißelte Rote Netherziegel",
+  "item.simpleblocks.chiseled_red_nether_bricks": "Gemeißelte Rote Netherziegel"
 }

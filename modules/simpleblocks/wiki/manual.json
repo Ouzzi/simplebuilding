@@ -179,6 +179,7 @@
         "simpleblocks:mossy_sulfur_brick_wall",
         "simpleblocks:stone_wall",
         "simpleblocks:smooth_stone_stairs",
+        "simpleblocks:smooth_stone_wall",
         "simpleblocks:polished_granite_wall",
         "simpleblocks:polished_diorite_wall",
         "simpleblocks:polished_andesite_wall",
@@ -196,7 +197,7 @@
       ],
       "en": {
         "title": "Missing Stairs, Slabs and Walls",
-        "summary": "Stairs, slabs and walls Vanilla lacks: Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls. Since the palette completion (IG31-42): stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine.",
+        "summary": "Stairs, slabs and walls Vanilla lacks: Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls, Smooth Stone walls. Since the palette completion (IG31-42): stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine.",
         "details": [
           "Crafting table: 6 stairs from 6 blocks, 6 slabs from 3, 6 walls from 6; stonecutter: one block makes one stair or wall, two slabs.",
           "The models use the Vanilla block textures, so they match resource packs. Hardness and sound are those of the full block.",
@@ -205,7 +206,7 @@
       },
       "de": {
         "title": "Fehlende Treppen, Stufen und Mauern",
-        "summary": "Treppen, Stufen und Mauern, die Vanilla fehlen: Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein. Seit der Paletten-Vervollständigung (IG31-42): Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin.",
+        "summary": "Treppen, Stufen und Mauern, die Vanilla fehlen: Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein, Mauern aus Glattem Stein. Seit der Paletten-Vervollständigung (IG31-42): Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin.",
         "details": [
           "Werkbank: 6 Treppen aus 6 Blöcken, 6 Stufen aus 3, 6 Mauern aus 6; Steinmetz: ein Block ergibt eine Treppe oder Mauer, zwei Stufen.",
           "Die Modelle nutzen die Vanilla-Blocktexturen und passen daher zu Ressourcenpaketen. Härte und Klang sind die des Vollblocks.",
@@ -257,6 +258,38 @@
           "Rissig: den Ziegel im Ofen schmelzen, wie Vanillas rissige Steinziegel. Bemoost: der Ziegel und ein Moosblock, formlos.",
           "Nur Vollblöcke, mit den Eigenschaften des Ziegels, den sie altern.",
           "Zinnober- und Schwefelziegel sind Vanilla-Blöcke von Minecraft 26.3."
+        ]
+      }
+    },
+    {
+      "id": "chiseled_blocks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "tools/textures/chiseled_2026_11_08.py",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:chiseled_polished_andesite",
+        "simpleblocks:chiseled_polished_diorite",
+        "simpleblocks:chiseled_polished_granite",
+        "simpleblocks:chiseled_prismarine",
+        "simpleblocks:chiseled_red_nether_bricks"
+      ],
+      "en": {
+        "title": "Chiseled Blocks",
+        "summary": "Chiseled Polished Andesite, Diorite and Granite, Chiseled Prismarine and Chiseled Red Nether Bricks: the carved cousins Vanilla lacks.",
+        "details": [
+          "Crafting table: two slabs of the base block on top of each other, like Vanilla's chiseled stone bricks. Stonecutter: one base block makes one chiseled block.",
+          "Full blocks with the hardness and sound of their base block; they drop themselves."
+        ]
+      },
+      "de": {
+        "title": "Gemeißelte Blöcke",
+        "summary": "Gemeißelter Polierter Andesit, Diorit und Granit, Gemeißelter Prismarin und Gemeißelte Rote Netherziegel: die behauenen Verwandten, die Vanilla fehlen.",
+        "details": [
+          "Werkbank: zwei Stufen des Grundblocks übereinander, wie Vanillas gemeißelte Steinziegel. Steinmetz: ein Grundblock ergibt einen gemeißelten Block.",
+          "Vollblöcke mit Härte und Klang ihres Grundblocks; sie droppen sich selbst."
         ]
       }
     },
