@@ -133,16 +133,17 @@ public final class StripTests {
 
     private static void copperSteps(GameTestHelper h) {
         var cage = cage(h);
-        cage.insert(new ItemStack(Items.WAXED_OXIDIZED_COPPER, 10));
+        cage.insert(new ItemStack(Items.COPPER_BLOCK.waxed().oxidized(), 10));
         ServerPlayer p = player(h, axe(Items.DIAMOND_AXE, 0));
-        Item[] expected = {Items.OXIDIZED_COPPER, Items.WEATHERED_COPPER, Items.EXPOSED_COPPER, Items.COPPER_BLOCK};
+        var copper = Items.COPPER_BLOCK.weathering();
+        Item[] expected = {copper.oxidized(), copper.weathered(), copper.exposed(), copper.unaffected()};
         String[] names = {"wax off first", "then oxidized to weathered", "weathered to exposed", "exposed to plain"};
         for (int i = 0; i < expected.length; i++) {
             click(h, p);
             h.assertTrue(cage.output().is(expected[i]) && cage.output().getCount() == 10 && cage.input().isEmpty(), names[i] + ": " + cage.output());
         }
         click(h, p);
-        h.assertTrue(cage.output().is(Items.COPPER_BLOCK) && p.getMainHandItem().getDamageValue() == 40, "plain copper has no further step, damage " + p.getMainHandItem().getDamageValue());
+        h.assertTrue(cage.output().is(copper.unaffected()) && p.getMainHandItem().getDamageValue() == 40, "plain copper has no further step, damage " + p.getMainHandItem().getDamageValue());
         h.succeed();
     }
 

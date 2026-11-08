@@ -809,7 +809,7 @@ public final class FeatureStations {
             c.contents(9, 2, z, List.of(new ItemStack(Items.OAK_LOG, 64), new ItemStack(Items.BIRCH_LOG, 64)));
             c.place(11, 0, z, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
             c.contents(11, 0, z, List.of(new ItemStack(Items.IRON_AXE), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.OAK_LOG, 64),
-                    new ItemStack(Items.WAXED_OXIDIZED_COPPER, 64), new ItemStack(Items.OXIDIZED_COPPER, 64)));
+                    new ItemStack(Items.COPPER_BLOCK.waxed().oxidized(), 64), new ItemStack(Items.COPPER_BLOCK.weathering().oxidized(), 64)));
             c.wallSign(9, 1, wallZ, TcText.bold(TcText.t("deathvault.strip", "Strip Station")),
                     TcText.t("deathvault.strip.sub", "axe works the stack"), TcText.t("deathvault.strip.sub2", "hopper in/out"));
         }
