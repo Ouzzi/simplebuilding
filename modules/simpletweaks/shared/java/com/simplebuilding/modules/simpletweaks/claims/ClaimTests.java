@@ -97,6 +97,8 @@ public final class ClaimTests {
         TESTS.put("claims_deedui_tiles",DeedUiTests::tiles);
         TESTS.put("claims_deedui_actions",DeedUiTests::actions);
         TESTS.put("claims_deedui_codecs",DeedUiTests::codecs);
+        TESTS.put("claims_deedui_trade",DeedUiTests::trade);
+        TESTS.put("claims_deedui_trade_config",DeedUiTests::tradeConfig);
         TESTS.put("claims_maps_dimensions",MapLayerTests::dimensions);
         TESTS.put("claims_maps_visibility",MapLayerTests::visibility);
         TESTS.put("claims_maps_present",MapLayerTests::present);

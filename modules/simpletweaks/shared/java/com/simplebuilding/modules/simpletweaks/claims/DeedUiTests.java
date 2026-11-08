@@ -121,11 +121,15 @@ public final class DeedUiTests {
             var open = lastOpen(sent);
             var m = open.map();
             yes(h, open.mode() == DeedOpenPayload.EDIT && m.map() && m.owns() && m.credits() == 1 && open.landChunks() == 3, "Owner: map view, 3 chunks, 1 credit");
-            yes(h, m.tabs().size() == 4 && m.tabs().get(0).dimension().equals("minecraft:overworld") && m.tabs().get(1).dimension().equals("minecraft:the_nether")
-                    && m.tabs().get(2).dimension().equals("minecraft:the_end") && m.tabs().get(3).equals(new DeedMap.Tab("simpledimensions:farm", 1))
-                    && m.chunksIn(dim) == 2, "Tabs: Overworld, Nether, End always, the farm because of land there: " + m.tabs());
-            yes(h, m.here() == DeedMap.HERE_OWN && m.buy() == DeedMap.BUY && m.nextChunks() == 6 && m.nextLevels() == 1
-                    && m.nextCosts().equals(List.of(new DeedMap.Cost("minecraft:iron_ingot", 2))), "Standing on own land; next step offered");
+            yes(h, m.tabs().size() >= 4 && m.tabs().get(0).dimension().equals("minecraft:overworld") && m.tabs().get(1).dimension().equals("minecraft:the_nether")
+                    && m.tabs().get(2).dimension().equals("minecraft:the_end") && m.tabs().contains(new DeedMap.Tab("simpledimensions:farm", 1))
+                    && m.chunksIn(dim) == 2, "Tabs: Overworld, Nether, End first, the farm because of land there: " + m.tabs());
+            // WH26-9: every dimension of the server (the modpack's) gets a tab, each once
+            for (var level : server.getAllLevels())
+                yes(h, m.tabs().stream().filter(t -> t.dimension().equals(level.dimension().identifier().toString())).count() == 1, "A tab for " + level.dimension().identifier());
+            yes(h, m.here() == DeedMap.HERE_OWN && m.buy() == DeedMap.BUY && m.room() == 4
+                    && m.offers().size() == ClaimConfig.DEFAULT_TRADES.size() && m.offers().get(0).equals(new DeedMap.Offer("minecraft:iron_ingot", 16, 3)),
+                    "Standing on own land; the trades are offered with the room below the limit (8 - 4): " + m.offers());
             boolean maps = com.simplebuilding.modules.simpletweaks.play.Mods.loaded("simplemaps") && com.simplebuilding.framework.api.SubMods.enabled("simplemaps");
             yes(h, m.mapsPresent() == maps, "mapsPresent follows the loaded Simple Maps (" + maps + ")");
             sent = sending(() -> DeedService.handleChunks(new DeedChunksRequest(0, dim), owner));
@@ -213,9 +217,121 @@ public final class DeedUiTests {
         h.succeed();
     }
 
+    /**
+     * WH26-9 buy tab (owner 08.11.: DEED07-PREIS, DEED07-BACK = no): items for chunk credits. Only the owner holding
+     * their deed; all or nothing (too few items: nothing taken, no credit); never above the server limit; a bad
+     * offer index is refused; there is no way back from credits to items; a credit bought is claimable at once.
+     */
+    public static void trade(GameTestHelper h) {
+        var server = h.getLevel().getServer(); var previous = Claims.get(server);
+        String dim = h.getLevel().dimension().identifier().toString();
+        try {
+            // start 4, limit 12, the owner's default offers (16 iron = 3, 8 gold = 5, 12 emerald = 8, 2 diamond = 10)
+            var root = temp();
+            var c = new Claims(new ClaimConfig(true, 12, 8, 50, 20, false, 0, List.of(ClaimConfig.ALL_DIMENSIONS)).withExpansion(4, TIERS), root, Map.of());
+            Claims.install(server, c);
+            var pos = h.absolutePos(new BlockPos(1, 2, 1)).offset(4096, 0, 4096);
+            h.getLevel().getChunk(pos);
+            var here = ChunkPos.containing(pos);
+            var owner = player(h, pos); UUID me = owner.getUUID();
+            long t0 = server.overworld().getGameTime();
+            yes(h, c.create(key(dim, here.x() + 50, here.z()), me, t0 - 9000) && c.create(key(dim, here.x() + 52, here.z()), me, t0 - 8000)
+                    && c.create(key(dim, here.x() + 54, here.z()), me, t0 - 7000) && c.create(key(dim, here.x() + 56, here.z()), me, t0 - 6000), "Seed: four chunks, all credits used");
+            owner.setItemInHand(InteractionHand.MAIN_HAND, deedOf(me));
+            yes(h, c.credits(me) == 0 && c.budget(me) == 4 && c.tradeRoom(me) == 8, "No credit, room 8 below the limit");
+            // claiming here without a credit buys nothing any more: it asks for a trade
+            owner.getInventory().add(new ItemStack(Items.IRON_INGOT, 40)); owner.giveExperienceLevels(5);
+            var sent = sending(() -> DeedService.handleAction(new DeedActionPayload(0, DeedActionPayload.CLAIM_HERE, dim, 0), owner));
+            yes(h, lastOpen(sent).map().result().equals("claim.no_credit") && c.chunksOf(me) == 4 && c.budget(me) == 4
+                    && owner.getInventory().countItem(Items.IRON_INGOT) == 40 && owner.experienceLevel == 5, "Claim here without a credit: refused, nothing bought or taken");
+            // too few items: nothing happens
+            owner.getInventory().add(new ItemStack(Items.GOLD_INGOT, 7));
+            sent = sending(() -> DeedService.handleTrade(new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(0, 1), owner));
+            yes(h, lastOpen(sent).map().result().equals("trade.items") && c.budget(me) == 4 && owner.getInventory().countItem(Items.GOLD_INGOT) == 7,
+                    "7 of 8 gold: refused, no credit, no gold taken");
+            // a good trade: 16 iron -> 3 credits, exactly 16 taken
+            sent = sending(() -> DeedService.handleTrade(new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(0, 0), owner));
+            var m = lastOpen(sent).map();
+            yes(h, m.result().equals("trade.ok") && c.budget(me) == 7 && c.credits(me) == 3 && m.credits() == 3 && m.room() == 5
+                    && owner.getInventory().countItem(Items.IRON_INGOT) == 24, "16 iron: +3 credits, 16 iron taken, snapshot shows 3 credits and room 5");
+            // the credit is claimable right away (no cooldown from a trade)
+            sent = sending(() -> DeedService.handleAction(new DeedActionPayload(0, DeedActionPayload.CLAIM_HERE, dim, 0), owner));
+            yes(h, lastOpen(sent).map().result().equals("claim.ok") && me.equals(c.view().get(key(dim, here.x(), here.z())).owner()) && c.credits(me) == 2,
+                    "A traded credit claims the chunk at once");
+            // the limit: 12 emerald -> 8 credits would be 15 > 12: refused, nothing taken
+            owner.getInventory().add(new ItemStack(Items.EMERALD, 12));
+            sent = sending(() -> DeedService.handleTrade(new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(0, 2), owner));
+            yes(h, lastOpen(sent).map().result().equals("trade.limit") && c.budget(me) == 7 && owner.getInventory().countItem(Items.EMERALD) == 12,
+                    "Above the server limit: refused, emeralds kept");
+            // bad offers are refused
+            sent = sending(() -> DeedService.handleTrade(new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(0, 99), owner));
+            yes(h, lastOpen(sent).map().result().equals("trade.offer") && c.budget(me) == 7, "Unknown offer index: refused");
+            sent = sending(() -> DeedService.handleTrade(new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(0, -1), owner));
+            yes(h, lastOpen(sent).map().result().equals("trade.offer") && c.budget(me) == 7, "Negative offer index: refused");
+            // only the owner holding the own deed: a copy in someone else's hand trades nothing and gets no answer
+            var thief = player(h, pos);
+            thief.setItemInHand(InteractionHand.MAIN_HAND, deedOf(me));
+            thief.getInventory().add(new ItemStack(Items.IRON_INGOT, 16));
+            sent = sending(() -> DeedService.handleTrade(new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(0, 0), thief));
+            yes(h, sent.isEmpty() && c.budget(me) == 7 && c.budget(thief.getUUID()) == 4 && thief.getInventory().countItem(Items.IRON_INGOT) == 16, "A copied deed trades nothing");
+            var blank = player(h, pos);
+            blank.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ClaimDeedItem.item()));
+            blank.getInventory().add(new ItemStack(Items.IRON_INGOT, 16));
+            sent = sending(() -> DeedService.handleTrade(new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(0, 0), blank));
+            yes(h, sent.isEmpty() && blank.getInventory().countItem(Items.IRON_INGOT) == 16, "An unbound deed trades nothing");
+            sent = sending(() -> DeedService.handleTrade(new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(1, 0), owner));
+            yes(h, sent.isEmpty() && c.budget(me) == 7, "Empty off hand: nothing");
+            // no way back: giving up a chunk returns one credit, never items; credits never go negative
+            int iron = owner.getInventory().countItem(Items.IRON_INGOT);
+            Claims.install(server, c = new Claims(c.config, root, Map.of()));
+            var c2 = c;
+            sent = sending(() -> DeedService.handleAction(new DeedActionPayload(0, DeedActionPayload.UNCLAIM, dim, ChunkPos.pack(here.x(), here.z())), owner));
+            yes(h, lastOpen(sent).map().result().equals("unclaim.ok") && c2.credits(me) == 3 && c2.budget(me) == 7 && owner.getInventory().countItem(Items.IRON_INGOT) == iron,
+                    "Give up: one credit back, no items back");
+            yes(h, c2.credits(me) >= 0, "Credits never negative");
+            // a trade answers to the off hand too, and the config keeps its own offers
+            var custom = new ClaimConfig(true, 12, 8, 50, 20, false, 0, List.of(ClaimConfig.ALL_DIMENSIONS)).withExpansion(4, TIERS)
+                    .withTrades(List.of(new ClaimConfig.Trade(new Cost("minecraft:dirt", 1), 1)));
+            Claims.install(server, c = new Claims(custom, temp(), Map.of()));
+            var c3 = c;
+            var buyer = player(h, pos);
+            yes(h, c3.create(key(dim, here.x() + 70, here.z()), buyer.getUUID(), t0 - 5000), "The buyer holds land (else the deed is a claim sheet)");
+            buyer.setItemInHand(InteractionHand.OFF_HAND, deedOf(buyer.getUUID()));
+            buyer.getInventory().add(new ItemStack(Items.DIRT, 2));
+            sent = sending(() -> DeedService.handleTrade(new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(1, 0), buyer));
+            yes(h, lastOpen(sent).map().result().equals("trade.ok") && c3.budget(buyer.getUUID()) == 5 && buyer.getInventory().countItem(Items.DIRT) == 1
+                    && lastOpen(sent).map().offers().equals(List.of(new DeedMap.Offer("minecraft:dirt", 1, 1))), "Configured offer: 1 dirt = 1 credit, off hand");
+        } finally { Claims.install(server, previous); DeedService.resetThrottle(); }
+        h.succeed();
+    }
+
+    /** Trades in the claim config file: default offers, own offers, broken offers stop the load (never silently off). */
+    public static void tradeConfig(GameTestHelper h) {
+        try {
+            var dir = temp(); var p = dir.resolve("claims.json");
+            var fresh = ClaimConfig.load(p);
+            yes(h, fresh.deedTrades().equals(ClaimConfig.DEFAULT_TRADES) && ClaimConfig.load(p).deedTrades().equals(ClaimConfig.DEFAULT_TRADES),
+                    "A fresh file writes and reads back the owner's offers");
+            var d = ClaimConfig.DEFAULT_TRADES;
+            yes(h, d.size() == 4 && d.get(0).equals(new ClaimConfig.Trade(new Cost("minecraft:iron_ingot", 16), 3)) && d.get(1).equals(new ClaimConfig.Trade(new Cost("minecraft:gold_ingot", 8), 5))
+                    && d.get(2).equals(new ClaimConfig.Trade(new Cost("minecraft:emerald", 12), 8)) && d.get(3).equals(new ClaimConfig.Trade(new Cost("minecraft:diamond", 2), 10)),
+                    "Owner prices 08.11.: 16 iron = 3, 8 gold = 5, 12 emerald = 8, 2 diamond = 10");
+            Files.writeString(p, "{\"configVersion\": 3, \"deedTrades\": [{\"give\": {\"id\": \"minecraft:dirt\", \"count\": 64}, \"credits\": 1}, {\"id\": \"minecraft:stone\", \"count\": 2, \"credits\": 2}]}");
+            yes(h, ClaimConfig.load(p).deedTrades().equals(List.of(new ClaimConfig.Trade(new Cost("minecraft:dirt", 64), 1), new ClaimConfig.Trade(new Cost("minecraft:stone", 2), 2))),
+                    "Own offers, both shapes");
+            Files.writeString(p, "{\"configVersion\": 3, \"deedTrades\": [{\"id\": \"minecraft:dirt\", \"count\": 1, \"credits\": 0}]}");
+            boolean refused = false;
+            try { ClaimConfig.load(p); } catch (IllegalStateException e) { refused = true; }
+            yes(h, refused, "An offer of 0 credits stops the load");
+            Files.writeString(p, "{\"configVersion\": 3}");
+            yes(h, ClaimConfig.load(p).deedTrades().equals(ClaimConfig.DEFAULT_TRADES), "An old file without offers gets the defaults");
+        } catch (java.io.IOException e) { throw new AssertionError(e); }
+        h.succeed();
+    }
+
     /** Bounded codecs of the map packets. */
     public static void codecs(GameTestHelper h) {
-        var map = new DeedMap(true, true, 2, DeedMap.HERE_FREE, DeedMap.BUY, 8, 15, List.of(new DeedMap.Cost("minecraft:diamond", 2)), false,
+        var map = new DeedMap(true, true, 2, DeedMap.HERE_FREE, DeedMap.BUY, 6, List.of(new DeedMap.Offer("minecraft:diamond", 2, 10)), false,
                 List.of(new DeedMap.Tab("minecraft:overworld", 6), new DeedMap.Tab("simpledimensions:farm", 1)), "claim.ok");
         var open = new DeedOpenPayload(DeedOpenPayload.EDIT, 0, UUID.randomUUID(), "Ouzzi", "", 1, ClaimRights.ALL, 6, 8, 8, 1, 2, "minecraft:overworld", "", List.of(), List.of(), map);
         var b = Unpooled.buffer(); DeedOpenPayload.CODEC.encode(b, open);
@@ -235,6 +351,15 @@ public final class DeedUiTests {
         var action = new DeedActionPayload(1, DeedActionPayload.UNCLAIM, "minecraft:the_nether", ChunkPos.pack(-7, 12));
         var ab = Unpooled.buffer(); DeedActionPayload.CODEC.encode(ab, action);
         yes(h, DeedActionPayload.CODEC.decode(ab).equals(action), "Action packet round trip");
+        var trade = new com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload(1, 3);
+        var tb = Unpooled.buffer(); com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload.CODEC.encode(tb, trade);
+        yes(h, com.simplebuilding.modules.simpletweaks.deed.net.DeedTradePayload.CODEC.decode(tb).equals(trade), "Trade packet round trip");
+        var offers = new ArrayList<DeedMap.Offer>();
+        for (int i = 0; i <= DeedMap.MAX_OFFERS; i++) offers.add(new DeedMap.Offer("minecraft:dirt", 1, 1));
+        boolean tooMany = false;
+        try { DeedOpenPayload.CODEC.encode(Unpooled.buffer(), new DeedOpenPayload(DeedOpenPayload.EDIT, 0, UUID.randomUUID(), "Ouzzi", "", 1, 0, 1, 4, 8, 0, 0, "minecraft:overworld", "", List.of(), List.of(),
+                new DeedMap(true, true, 0, DeedMap.HERE_NO, DeedMap.BUY, 1, offers, false, List.of(), ""))); } catch (RuntimeException e) { tooMany = true; }
+        yes(h, tooMany, "At most 8 offers");
         var request = new DeedChunksRequest(0, "minecraft:the_end");
         var rb = Unpooled.buffer(); DeedChunksRequest.CODEC.encode(rb, request);
         yes(h, DeedChunksRequest.CODEC.decode(rb).equals(request), "Chunk request round trip");

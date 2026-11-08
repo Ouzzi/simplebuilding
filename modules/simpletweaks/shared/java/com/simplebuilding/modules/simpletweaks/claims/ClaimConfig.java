@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 /** Server-only, restart-bound configuration. No client can change these values. */
 public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTrustedPlayers,
         int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer, List<String> dimensions, String claimVisibility,
-        int startChunks, boolean expansionEnabled, List<Tier> expansionTiers) {
+        int startChunks, boolean expansionEnabled, List<Tier> expansionTiers, List<Trade> deedTrades) {
     /** One material of an expansion step: item id and count. Existence of the item is checked when the step is bought. */
     public record Cost(String id, int count) {
         public Cost { if (id == null || id.length() > 128 || Identifier.tryParse(id) == null || !id.contains(":") || count < 1 || count > MAX_COST_COUNT) throw new IllegalArgumentException("Invalid expansion cost"); }
@@ -21,6 +21,14 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
             items = List.copyOf(items);
         }
     }
+    /**
+     * A trade of the deed's buy tab (WH26-9, owner 08.11.: DEED07-PREIS): {@code give} items for {@code credits} chunk
+     * credits (raises the paid budget). One-way: credits never turn back into items (DEED07-BACK).
+     */
+    public record Trade(Cost give, int credits) {
+        public Trade { if (give == null || credits < 1 || credits > MAX_CLAIMS) throw new IllegalArgumentException("Invalid deed trade"); }
+    }
+    public static final int MAX_TRADES = 8;
     public static final int MAX_COST_COUNT = 576, MAX_COSTS = 8, MAX_LEVELS = 100, MAX_TIERS = 32, MAX_START = 256;
     /** The settings before the claim table: visibility {@code all}; no expansion (budget = {@code maxClaimsPerPlayer}). */
     public ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTrustedPlayers, int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer, List<String> dimensions) {
@@ -29,19 +37,33 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
     public ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTrustedPlayers, int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer, List<String> dimensions, String claimVisibility) {
         this(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, 4, false, List.of());
     }
+    /** Without own deed trades: the default offers ({@link #DEFAULT_TRADES}). */
+    public ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTrustedPlayers, int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer,
+                       List<String> dimensions, String claimVisibility, int startChunks, boolean expansionEnabled, List<Tier> expansionTiers) {
+        this(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, startChunks, expansionEnabled, expansionTiers, DEFAULT_TRADES);
+    }
+    /** Same settings with other deed trades (tests). */
+    public ClaimConfig withTrades(List<Trade> trades) {
+        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, startChunks, expansionEnabled, expansionTiers, trades);
+    }
     /** Same settings with another claim table visibility (tests). */
     public ClaimConfig withVisibility(String value) {
-        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, value, startChunks, expansionEnabled, expansionTiers);
+        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, value, startChunks, expansionEnabled, expansionTiers, deedTrades);
     }
     /** Same settings with the land expansion (tests). */
     public ClaimConfig withExpansion(int start, List<Tier> tiers) {
-        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, start, true, tiers);
+        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, start, true, tiers, deedTrades);
     }
     /** The default curve of the owner-approved plan: 4 chunks to start, 64 at the end (copper ... nether star). */
     /** Owner 2026-10-21: step n costs n diamonds, levels rise 10, 15, 20, 30, 35, 40, 50, 60. */
     public static final List<Tier> DEFAULT_TIERS = List.of(
             new Tier(6, diamonds(1), 10), new Tier(8, diamonds(2), 15), new Tier(12, diamonds(3), 20), new Tier(16, diamonds(4), 30),
             new Tier(24, diamonds(5), 35), new Tier(32, diamonds(6), 40), new Tier(48, diamonds(7), 50), new Tier(64, diamonds(8), 60));
+
+    /** Owner 08.11. (DEED07-PREIS): 16 iron = 3, 8 gold = 5, 12 emerald = 8, 2 diamond = 10 credits. */
+    public static final List<Trade> DEFAULT_TRADES = List.of(
+            new Trade(new Cost("minecraft:iron_ingot", 16), 3), new Trade(new Cost("minecraft:gold_ingot", 8), 5),
+            new Trade(new Cost("minecraft:emerald", 12), 8), new Trade(new Cost("minecraft:diamond", 2), 10));
 
     private static List<Cost> diamonds(int count) { return List.of(new Cost("minecraft:diamond", count)); }
     /**
@@ -74,7 +96,7 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
             List.of(ALL_DIMENSIONS), "all", 4, true, DEFAULT_TIERS);
     /** The defaults with the main switch off (server administrators' opt-out, disabled-path tests). */
     public static final ClaimConfig OFF = new ClaimConfig(false, DEFAULT.maxClaimsPerPlayer, DEFAULT.maxTrustedPlayers,
-            DEFAULT.globalCap, DEFAULT.cooldownTicks, DEFAULT.opBypass, DEFAULT.spawnBuffer, DEFAULT.dimensions, DEFAULT.claimVisibility, DEFAULT.startChunks, DEFAULT.expansionEnabled, DEFAULT.expansionTiers);
+            DEFAULT.globalCap, DEFAULT.cooldownTicks, DEFAULT.opBypass, DEFAULT.spawnBuffer, DEFAULT.dimensions, DEFAULT.claimVisibility, DEFAULT.startChunks, DEFAULT.expansionEnabled, DEFAULT.expansionTiers, DEFAULT.deedTrades);
     public ClaimConfig {
         maxClaimsPerPlayer = Math.clamp(maxClaimsPerPlayer, 1, MAX_CLAIMS);
         maxTrustedPlayers = Math.clamp(maxTrustedPlayers, 0, MAX_TRUSTED);
@@ -91,6 +113,8 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
         int last = startChunks;
         for (var t : expansionTiers) { if (t.chunks() <= last) throw new IllegalArgumentException("Expansion tiers must rise above the start size"); last = t.chunks(); }
         expansionTiers = List.copyOf(expansionTiers);
+        if (deedTrades == null || deedTrades.size() > MAX_TRADES) throw new IllegalArgumentException("Invalid deed trades");
+        deedTrades = List.copyOf(deedTrades);
     }
     static boolean validDimension(String id) {
         if (id==null || id.length()>128 || Identifier.tryParse(id)==null || !id.contains(":")) return false;
@@ -117,7 +141,8 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
                     integer(json,"spawnBuffer",d.spawnBuffer), json.has("dimensions")
                     ? json.getAsJsonArray("dimensions").asList().stream().map(JsonElement::getAsString).toList() : d.dimensions,
                     json.has("claimVisibility") ? json.get("claimVisibility").getAsString() : d.claimVisibility,
-                    integer(json,"startChunks",d.startChunks), bool(json,"expansionEnabled",d.expansionEnabled), tiers(json,d.expansionTiers));
+                    integer(json,"startChunks",d.startChunks), bool(json,"expansionEnabled",d.expansionEnabled), tiers(json,d.expansionTiers),
+                    trades(json,d.deedTrades));
         } catch (Exception e) {
             // Never turn protection off silently because a server administrator made a typo.
             throw new IllegalStateException("Invalid claim config; original file preserved: " + path, e);
@@ -131,6 +156,20 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
             var items = new ArrayList<Cost>();
             if (t.has("items")) for (var i : t.getAsJsonArray("items")) { var c = i.getAsJsonObject(); items.add(new Cost(c.get("id").getAsString(), integer(c, "count", 1))); }
             out.add(new Tier(integer(t, "chunks", 0), items, integer(t, "levels", 0)));
+        }
+        return out;
+    }
+    /**
+     * {@code "deedTrades": [{"give": {"id": "minecraft:iron_ingot", "count": 16}, "credits": 3}, ...]} (the shape the
+     * file is written in); {@code {"id": ..., "count": ..., "credits": ...}} is read too. Missing: the default offers.
+     */
+    private static List<Trade> trades(JsonObject j, List<Trade> fallback) {
+        if (!j.has("deedTrades")) return fallback;
+        var out = new ArrayList<Trade>();
+        for (var e : j.getAsJsonArray("deedTrades")) {
+            var t = e.getAsJsonObject();
+            var give = t.has("give") ? t.getAsJsonObject("give") : t;
+            out.add(new Trade(new Cost(give.get("id").getAsString(), integer(give, "count", 1)), integer(t, "credits", 0)));
         }
         return out;
     }

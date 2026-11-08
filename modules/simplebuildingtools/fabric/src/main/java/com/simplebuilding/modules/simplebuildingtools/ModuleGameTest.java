@@ -280,6 +280,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void octantScreenColoursReadAtLeastFourPointFive(GameTestHelper helper) {
+        com.simplebuildingtools.test.OctantTests.octantScreenColoursReadAtLeastFourPointFive(helper);
+    }
+
+    @GameTest
     public void shapeCatalogueIsFixedAndTheChosenShapeShowsInTheName(GameTestHelper helper) {
         com.simplebuildingtools.test.OctantTests.shapeCatalogueIsFixedAndTheChosenShapeShowsInTheName(helper);
     }

@@ -386,6 +386,38 @@ public final class Claims {
         if (tier.levels()>0) player.giveExperienceLevels(-tier.levels());
         return Expand.OK;
     }
+    /** Result of a deed trade (WH26-9); {@code OFFER}: no such offer. */
+    public enum Trade { OK, DISABLED, LOCKED, OFFER, LIMIT, NO_DEED, ITEMS, FAILED }
+    /** Credits the player may still trade for before the server's land limit (0 without expansion). */
+    public int tradeRoom(UUID owner) { return ready()&&config.expansionEnabled()?Math.max(0,config.maxClaimsPerPlayer()-budget(owner)):0; }
+    /**
+     * The deed's buy tab (WH26-9, owner 08.11.): offer {@code offer} of {@code deedTrades} turns items from the player's
+     * inventory into chunk credits (the paid budget rises). One-way, never above the server limit, all or nothing; the
+     * budget is saved first and the items are only taken after that save (a failed save costs nothing). No cooldown:
+     * a credit bought is claimed right away; the deed packets are throttled per player.
+     */
+    public Trade trade(ServerPlayer player,int offer) {
+        if (!config.enabled() || !config.expansionEnabled()) return Trade.DISABLED;
+        if (!ready()) return Trade.LOCKED;
+        if (offer<0 || offer>=config.deedTrades().size()) return Trade.OFFER;
+        var t=config.deedTrades().get(offer);
+        UUID owner=player.getUUID();
+        int budget=budget(owner);
+        if (t.credits()>tradeRoom(owner)) return Trade.LIMIT;
+        if (!deedFor(player)) return Trade.NO_DEED;
+        var id=net.minecraft.resources.Identifier.tryParse(t.give().id());
+        if (id==null || !net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(id)) { LOG.warn("Deed trade {} names an unknown item {}; it cannot be traded.",offer,t.give().id()); return Trade.ITEMS; }
+        var item=net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(id);
+        if (count(player,item)<t.give().count()) return Trade.ITEMS;
+        var next=new HashMap<>(store.budgets());next.put(owner,budget+t.credits());
+        if (!commit(store.view(),store.lands(),next)) return Trade.FAILED;
+        int left=t.give().count();var inv=player.getInventory();
+        for (int i=0;i<inv.getContainerSize() && left>0;i++) {
+            var stack=inv.getItem(i);
+            if (stack.is(item)) { int take=Math.min(left,stack.getCount());stack.shrink(take);left-=take; }
+        }
+        return Trade.OK;
+    }
     public boolean hasLand(UUID owner) { return view().values().stream().anyMatch(c->c.owner().equals(owner)); }
     public int chunksOf(UUID owner) { return (int)view().values().stream().filter(c->c.owner().equals(owner)).count(); }
     /** Name of a player for the editor: online first, then the local name cache (never a network lookup); null if unknown. */
