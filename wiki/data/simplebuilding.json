@@ -88464,6 +88464,26 @@
       "tooltipDe": "Schaltet das gebündelte Modul Simple Chisels an oder aus. Aus blendet die Kreativ-Einträge des Moduls aus; vorhandene Gegenstände funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleLayers",
+      "shortName": "enableSimpleLayers",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Layers",
+      "labelDe": "Simple Layers aktivieren",
+      "tooltip": "Turns the bundled Simple Layers module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Layers an oder aus. Aus blendet die Kreativ-Einträge des Moduls aus; vorhandene Gegenstände funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
+    },
+    {
       "range": [
         0.0,
         4.0
@@ -103285,7 +103305,7 @@
     "trades": 20,
     "enchantments": 9,
     "tags": 53,
-    "config": 158,
+    "config": 159,
     "inWorld": 65,
     "advancements": 102,
     "features": 44,

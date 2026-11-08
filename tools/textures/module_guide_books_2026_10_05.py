@@ -46,6 +46,7 @@ BOOKS = {
     # 2026-10-19 (split stage 8a)
     "simplestorage": ("simplestorage", ("#2c1e10", "#46301a", "#b88a52", "#966c3a", "#74522a"), "#e04848", "Kistenholz, Apfelrot"),
     # 2026-10-24 (WB24-6)
+    "simplelayers": ("simplelayers", ("#2a2c34", "#40434e", "#d8dce8", "#b4bac8", "#929aac"), "#e8d34a", "Wolkenweiss, Backrooms-Gelb"),
     "simplelights": ("simplelights", ("#2a2410", "#443a1a", "#e8c870", "#c8a850", "#a08438"), "#fff4c0", "Glowstone-Gelb, Lampenweiss"),
     # 2026-10-24 (OW24-2 G1)
     "simplegadgets": ("simplegadgets", ("#2a1a10", "#46301e", "#c87848", "#a85e34", "#844626"), "#9ad8e0", "Kupfer, Messglas-Blau"),

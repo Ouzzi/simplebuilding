@@ -1,0 +1,811 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplelayers",
+    "name": "Simple Layers",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric"
+    ]
+  },
+  "features": [
+    {
+      "id": "cloud_blocks",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CloudBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CushionBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/MistBlock.java"
+      ],
+      "en": {
+        "title": "Cloud blocks",
+        "summary": "Cloud Block, Cloud Stone and Mist Block break instantly, by hand too. A Cloud Block takes 30 % off fall damage, Cloud Stone 10 % (a damage factor like the Hay Bale, not a shorter fall). Mist has no collision: you walk and fall through it.",
+        "details": [
+          "The Cloud Block lets light through and casts no shadow. Mist looks almost like a cloud, but its rim is slightly see-through and now and then a haze sinks from its underside while there is air below (config clouds.fogHint). Mist drops only with Silk Touch; the other two drop themselves."
+        ]
+      },
+      "de": {
+        "title": "Wolkenblöcke",
+        "summary": "Wolkenblock, Wolkenstein und Nebelblock brechen sofort, auch mit der Hand. Ein Wolkenblock nimmt 30 % Fallschaden weg, Wolkenstein 10 % (ein Schadensfaktor wie beim Heuballen, keine kürzere Fallstrecke). Nebel hat keine Kollision: man läuft und fällt hindurch.",
+        "details": [
+          "Der Wolkenblock lässt Licht durch und wirft keinen Schatten. Nebel sieht fast aus wie Wolke, aber sein Rand ist leicht durchscheinend, und ab und zu sinkt Dunst von seiner Unterseite, wenn darunter Luft ist (Config clouds.fogHint). Nebel droppt nur mit Behutsamkeit, die anderen beiden sich selbst."
+        ]
+      }
+    },
+    {
+      "id": "cloud_sea",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/CloudTransition.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/MistPitFeature.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/SkyChestFeature.java",
+        "modules/simplelayers/shared/resources/data/simplelayers/dimension_type/cloud_sea.json",
+        "modules/simplelayers/shared/resources/data/simplelayers/worldgen/noise_settings/cloud_sea.json",
+        "modules/simplelayers/shared/resources/data/simplelayers/worldgen/material_rule/cloud_sea.json",
+        "modules/simplelib/shared/java/com/simplelib/api/HeightHandover.java"
+      ],
+      "en": {
+        "title": "The Cloud Sea",
+        "summary": "Rise above y 700 in the Overworld (config clouds.entryY, 400-1000) and you enter the Cloud Sea, a sky dimension of floating islands over the same x/z. Fall below its bottom and you come back to the Overworld 20 blocks under the entry height with 3 s of Slow Falling.",
+        "details": [
+          "Islands have a cloud shell and a Cloud Stone core. Mist pits (1x1 to 3x3) hide a hollow with a cloud floor below them, never the open sky (config clouds.bottomlessPits makes them go through). Now and then a chest with Vanilla loot stands on an island.",
+          "Only rising past the height counts, so nobody bounces at the border; riders travel with their mount. Arriving without flying puts a small cloud platform under you. With Simple Earth the clouds never catch you above its orbit height, and rising above y 500 in the Cloud Sea hands you over to the orbit; without it y 500 is a soft ceiling."
+        ]
+      },
+      "de": {
+        "title": "Das Wolkenmeer",
+        "summary": "Steig in der Oberwelt über y 700 (Config clouds.entryY, 400-1000) und du kommst ins Wolkenmeer, eine Himmels-Dimension aus schwebenden Inseln über denselben x/z. Fällst du unten heraus, landest du 20 Blöcke unter der Eintrittshöhe wieder in der Oberwelt, mit 3 s Sanftem Fall.",
+        "details": [
+          "Die Inseln haben eine Wolkenhülle und einen Kern aus Wolkenstein. Nebelgruben (1x1 bis 3x3) verbergen einen Hohlraum mit Wolkenboden, nie den offenen Himmel (Config clouds.bottomlessPits lässt sie durchgehen). Ab und zu steht eine Truhe mit Vanilla-Beute auf einer Insel.",
+          "Nur das Aufsteigen über die Höhe zählt, so pendelt niemand an der Grenze; Reiter reisen mit ihrem Reittier. Wer ohne Flug ankommt, bekommt eine kleine Wolkenplattform unter die Füße. Mit Simple Earth fangen die Wolken dich über der Orbit-Höhe nie ab, und wer im Wolkenmeer über y 500 steigt, wird an den Orbit übergeben; ohne Earth ist y 500 eine weiche Decke."
+        ]
+      }
+    },
+    {
+      "id": "backrooms",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsGrid.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsChunkGenerator.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/GlitchedBedrockBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/RiftBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ExitDoorBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/BackroomBlock.java",
+        "modules/simplelayers/shared/resources/data/simplelayers/dimension_type/backrooms.json",
+        "modules/simplelayers/tools/gen_data.py"
+      ],
+      "en": {
+        "title": "The Backrooms",
+        "summary": "Rarely, Glitched Bedrock sits in the Overworld bedrock floor (one new chunk in 48, config backrooms.entranceRarity). Only a Netherite Pickaxe breaks it (about 30 s); it leaves a Rift, and whatever falls in lands in the Backrooms: endless empty rooms, 8 x 8 blocks and 5 high, with yellow wallpaper, damp carpet and humming neon lights.",
+        "details": [
+          "The rooms never change and need no storage: every wall and door follows from the world seed. Some rooms are dark, some groups of 4 x 4 rooms are open pillar halls. Survival players cannot break the walls, floors and ceilings there (config backrooms.unbreakableWalls). There is no sky, no time and yellow fog; no mob spawns.",
+          "Special rooms (jigsaw structures like the Trial Chambers) hold chests with Almond Water and other finds, a flooded room and dark rooms. Far apart lies an exit room: its Exit Door under the green EXIT sign leads back to the Overworld surface above where you came in. Used with a Backdoor Key it opens 1500-3000 blocks away instead. Option backrooms.voidToBackrooms (off): falling 32 blocks below the Overworld floor lands in the Backrooms."
+        ]
+      },
+      "de": {
+        "title": "Die Backrooms",
+        "summary": "Selten steckt fehlerhaftes Grundgestein im Bedrock-Boden der Oberwelt (einer von 48 neuen Chunks, Config backrooms.entranceRarity). Nur eine Netherit-Spitzhacke baut es ab (etwa 30 s); es hinterlässt einen Riss, und wer hineinfällt, landet in den Backrooms: endlose leere Räume, 8 x 8 Blöcke und 5 hoch, mit gelber Tapete, feuchtem Teppich und summenden Neonröhren.",
+        "details": [
+          "Die Räume ändern sich nie und brauchen keinen Speicher: jede Wand und Tür folgt aus dem Welt-Seed. Manche Räume sind dunkel, manche Gruppen aus 4 x 4 Räumen offene Säulenhallen. Spieler im Überleben können Wände, Böden und Decken dort nicht abbauen (Config backrooms.unbreakableWalls). Kein Himmel, keine Zeit, gelber Nebel; keine Mob-Spawns.",
+          "Sonderräume (Jigsaw-Strukturen wie die Trial Chambers) enthalten Truhen mit Mandelwasser und anderen Funden, einen gefluteten Raum und dunkle Räume. Weit entfernt liegt ein Ausgangsraum: seine Ausgangstür unter dem grünen EXIT-Schild führt zurück an die Oberwelt-Oberfläche über dem Eingang. Mit einem Hintertür-Schlüssel öffnet sie sich stattdessen 1500-3000 Blöcke entfernt. Option backrooms.voidToBackrooms (aus): wer 32 Blöcke unter den Oberwelt-Boden fällt, landet in den Backrooms."
+        ]
+      }
+    },
+    {
+      "id": "listener",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/ListenerAmbience.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/config/LayersConfig.java"
+      ],
+      "en": {
+        "title": "The Listener",
+        "summary": "Option backrooms.listener (off by default): now and then footsteps sound behind you in the Backrooms, come closer and stop. There is no creature and no damage - only the sound."
+      },
+      "de": {
+        "title": "Der Lauschende",
+        "summary": "Option backrooms.listener (standardmäßig aus): ab und zu klingen in den Backrooms Schritte hinter dir, kommen näher und verstummen. Es gibt kein Wesen und keinen Schaden - nur das Geräusch."
+      }
+    }
+  ],
+  "recipes": [],
+  "lootTables": [
+    {
+      "id": "simplelayers:blocks/ceiling_tile",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:ceiling_tile"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/ceiling_tile.json"
+    },
+    {
+      "id": "simplelayers:blocks/cloud_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:cloud_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/cloud_block.json"
+    },
+    {
+      "id": "simplelayers:blocks/cloud_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:cloud_stone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/cloud_stone.json"
+    },
+    {
+      "id": "simplelayers:blocks/damp_carpet",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:damp_carpet"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/damp_carpet.json"
+    },
+    {
+      "id": "simplelayers:blocks/dotted_wallpaper",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:dotted_wallpaper"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/dotted_wallpaper.json"
+    },
+    {
+      "id": "simplelayers:blocks/exit_sign",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:exit_sign"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/exit_sign.json"
+    },
+    {
+      "id": "simplelayers:blocks/mist_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:mist_block"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/mist_block.json"
+    },
+    {
+      "id": "simplelayers:blocks/neon_light",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:neon_light"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/neon_light.json"
+    },
+    {
+      "id": "simplelayers:blocks/stained_ceiling_tile",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:stained_ceiling_tile"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/stained_ceiling_tile.json"
+    },
+    {
+      "id": "simplelayers:blocks/striped_wallpaper",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:striped_wallpaper"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/striped_wallpaper.json"
+    },
+    {
+      "id": "simplelayers:blocks/wallpaper",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelayers:wallpaper"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/blocks/wallpaper.json"
+    },
+    {
+      "id": "simplelayers:chests/backrooms_storage",
+      "kind": "chests",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 3,
+            "min": 1
+          },
+          "items": [
+            "simplelayers:almond_water",
+            "simplelayers:backdoor_key",
+            "minecraft:paper",
+            "minecraft:book",
+            "minecraft:bread",
+            "minecraft:torch",
+            "minecraft:map",
+            "minecraft:music_disc_11",
+            "minecraft:music_disc_13"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2,
+            "min": 0
+          },
+          "items": [
+            "simplelayers:wallpaper",
+            "simplelayers:striped_wallpaper",
+            "simplelayers:dotted_wallpaper",
+            "simplelayers:damp_carpet",
+            "simplelayers:ceiling_tile",
+            "simplelayers:neon_light",
+            "simplelayers:exit_sign"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/chests/backrooms_storage.json"
+    },
+    {
+      "id": "simplelayers:chests/sky_chest",
+      "kind": "chests",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 4,
+            "min": 2
+          },
+          "items": [
+            "minecraft:phantom_membrane",
+            "minecraft:firework_rocket",
+            "minecraft:feather",
+            "minecraft:glass_bottle",
+            "minecraft:music_disc_precipice",
+            "minecraft:music_disc_creator",
+            "simplelayers:cloud_block",
+            "simplelayers:cloud_stone",
+            "minecraft:golden_apple"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/loot_table/chests/sky_chest.json"
+    }
+  ],
+  "tags": [
+    {
+      "id": "simplelayers:worldgen/biome/has_structure/backrooms_room",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplelayers:backrooms",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/tags/worldgen/biome/has_structure/backrooms_room.json"
+    }
+  ],
+  "advancements": [
+    {
+      "id": "simplelayers:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:feather"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/advancement/guide/chapter.json"
+    }
+  ],
+  "enchantments": [],
+  "items": [
+    {
+      "id": "simplelayers:almond_water",
+      "name": {
+        "en_us": "Almond Water",
+        "de_de": "Mandelwasser"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+        ],
+        "en": {
+          "summary": "Found in the Backrooms; drinking heals 2 hearts and takes away Nausea, the bottle stays."
+        },
+        "de": {
+          "summary": "In den Backrooms zu finden; Trinken heilt 2 Herzen und nimmt Übelkeit, die Flasche bleibt."
+        }
+      },
+      "texture": "assets/textures/simplelayers/item/almond_water.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:backdoor_key",
+      "name": {
+        "en_us": "Backdoor Key",
+        "de_de": "Hintertür-Schlüssel"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ExitDoorBlock.java",
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java"
+        ],
+        "en": {
+          "summary": "Rare find in the Backrooms; used on the Exit Door it is used up and the door opens 1500-3000 blocks away."
+        },
+        "de": {
+          "summary": "Seltener Fund in den Backrooms; an der Ausgangstür benutzt, wird er verbraucht und die Tür öffnet sich 1500-3000 Blöcke entfernt."
+        }
+      },
+      "texture": "assets/textures/simplelayers/item/backdoor_key.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:guide_book",
+      "name": {
+        "en_us": "Simple Layers Guide",
+        "de_de": "Simple-Layers-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/guide/LayersGuide.java",
+          "modules/simplelayers/shared/resources/assets/simplelayers/simplelib/modpack_guide.json",
+          "modules/simplelayers/shared/resources/data/simplelayers/advancement/guide/chapter.json"
+        ],
+        "en": {
+          "summary": "Chapter \"Simple Layers\" of the Simple Modpack guide (SimpleLib): 9 pages taken from this wiki, shown in your language. Unlocked by picking up: feather. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        },
+        "de": {
+          "summary": "Kapitel \"Simple Layers\" im Simple-Modpack-Handbuch (SimpleLib): 9 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feder. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        }
+      },
+      "texture": "assets/textures/simplelayers/item/guide_book.png",
+      "craftedBy": [],
+      "usedIn": []
+    }
+  ],
+  "blocks": [
+    {
+      "id": "simplelayers:ceiling_tile",
+      "name": {
+        "en_us": "Ceiling Tile",
+        "de_de": "Deckenplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+        ],
+        "en": {
+          "summary": "Acoustic ceiling tile of the Backrooms."
+        },
+        "de": {
+          "summary": "Akustik-Deckenplatte der Backrooms."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/ceiling_tile.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:cloud_block",
+      "name": {
+        "en_us": "Cloud Block",
+        "de_de": "Wolkenblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CloudBlock.java"
+        ],
+        "en": {
+          "summary": "Full block of the Cloud Sea islands; instabreak, lets light through, -30 % fall damage."
+        },
+        "de": {
+          "summary": "Voller Block der Wolkeninseln; bricht sofort, lässt Licht durch, -30 % Fallschaden."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/cloud_block.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:cloud_stone",
+      "name": {
+        "en_us": "Cloud Stone",
+        "de_de": "Wolkenstein"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CushionBlock.java"
+        ],
+        "en": {
+          "summary": "Core of the cloud islands; instabreak, -10 % fall damage."
+        },
+        "de": {
+          "summary": "Kern der Wolkeninseln; bricht sofort, -10 % Fallschaden."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/cloud_stone.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:damp_carpet",
+      "name": {
+        "en_us": "Damp Carpet",
+        "de_de": "Feuchter Teppich"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+        ],
+        "en": {
+          "summary": "Floor of the Backrooms; dampens vibrations like wool (Sculk does not hear steps on it)."
+        },
+        "de": {
+          "summary": "Boden der Backrooms; dämpft Vibrationen wie Wolle (Sculk hört Schritte darauf nicht)."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/damp_carpet.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:dotted_wallpaper",
+      "name": {
+        "en_us": "Dotted Wallpaper",
+        "de_de": "Gepunktete Tapete"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+        ],
+        "en": {
+          "summary": "Dotted wallpaper of some Backrooms walls."
+        },
+        "de": {
+          "summary": "Gepunktete Tapete mancher Backrooms-Wände."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/dotted_wallpaper.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:exit_door",
+      "name": {
+        "en_us": "Exit Door",
+        "de_de": "Ausgangstür"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:exit_sign",
+      "name": {
+        "en_us": "EXIT Sign",
+        "de_de": "EXIT-Schild"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+        ],
+        "en": {
+          "summary": "Green EXIT sign (light 8) above the Exit Door."
+        },
+        "de": {
+          "summary": "Grünes EXIT-Schild (Licht 8) über der Ausgangstür."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/exit_sign.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:glitched_bedrock",
+      "name": {
+        "en_us": "Glitched Bedrock",
+        "de_de": "Fehlerhaftes Grundgestein"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/GlitchedBedrockBlock.java"
+        ],
+        "en": {
+          "summary": "Rare in the Overworld bedrock floor; only a Netherite Pickaxe breaks it, then it leaves a Rift into the Backrooms."
+        },
+        "de": {
+          "summary": "Selten im Bedrock-Boden der Oberwelt; nur eine Netherit-Spitzhacke baut es ab, dann bleibt ein Riss in die Backrooms."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/glitched_bedrock.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:mist_block",
+      "name": {
+        "en_us": "Mist Block",
+        "de_de": "Nebelblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/MistBlock.java"
+        ],
+        "en": {
+          "summary": "Looks like a cloud, but has no collision; drops only with Silk Touch."
+        },
+        "de": {
+          "summary": "Sieht aus wie Wolke, hat aber keine Kollision; droppt nur mit Behutsamkeit."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/mist_block.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:neon_light",
+      "name": {
+        "en_us": "Neon Light",
+        "de_de": "Neonröhre"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java",
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/NeonLightBlock.java"
+        ],
+        "en": {
+          "summary": "Ceiling light, light 15; on, flickering or broken (light 0). Right-click with an empty hand cycles the mode."
+        },
+        "de": {
+          "summary": "Deckenleuchte, Licht 15; an, flackernd oder kaputt (Licht 0). Rechtsklick mit leerer Hand wechselt den Zustand."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/neon_light.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:rift",
+      "name": {
+        "en_us": "Rift",
+        "de_de": "Riss"
+      },
+      "note": null,
+      "texture": "assets/textures/simplelayers/block/rift.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:stained_ceiling_tile",
+      "name": {
+        "en_us": "Stained Ceiling Tile",
+        "de_de": "Fleckige Deckenplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+        ],
+        "en": {
+          "summary": "Ceiling tile with a water stain."
+        },
+        "de": {
+          "summary": "Deckenplatte mit Wasserfleck."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/stained_ceiling_tile.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:striped_wallpaper",
+      "name": {
+        "en_us": "Striped Wallpaper",
+        "de_de": "Gestreifte Tapete"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+        ],
+        "en": {
+          "summary": "Striped wallpaper of some Backrooms walls."
+        },
+        "de": {
+          "summary": "Gestreifte Tapete mancher Backrooms-Wände."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/striped_wallpaper.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelayers:wallpaper",
+      "name": {
+        "en_us": "Yellow Wallpaper",
+        "de_de": "Gelbe Tapete"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+        ],
+        "en": {
+          "summary": "Yellow wallpaper, the plain wall of the Backrooms."
+        },
+        "de": {
+          "summary": "Gelbe Tapete, die schlichte Wand der Backrooms."
+        }
+      },
+      "texture": "assets/textures/simplelayers/block/wallpaper.png",
+      "craftedBy": [],
+      "usedIn": []
+    }
+  ],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [
+    "simplelayers:exit_door",
+    "simplelayers:rift"
+  ],
+  "incompleteProse": {},
+  "counts": {
+    "features": 4,
+    "recipes": 0,
+    "lootTables": 13,
+    "tags": 1,
+    "advancements": 1,
+    "enchantments": 0,
+    "items": 3,
+    "blocks": 14,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 2,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}
