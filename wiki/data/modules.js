@@ -899,7 +899,7 @@ window.WIKI_MODULES = [
       "en": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
       "de": "Sub-Mod von QoL: Mobs nach Typ oder Namensschild stumm schalten, benannte Babys bleiben klein, Piglins ignorieren Gold-Besatz und -Werkzeuge; allein spielbar."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3ElEQVR42mOIcQr4TwlmABEfTtyFYzUDHTBGFsMm/mzZCVQDXm26AFHw5QUYg9ggMWziIM3LKibgNkBJRQnDAJAYzIAv159hGgCSCFvi9r/lTAIYg9gwZyOLwcSxGmBSYAE3BKYYhmFiIDUYBoAEqtZ8AWOQAhiGaUYWg6kD6UExwKnoGkkYwwCdoA1gCZgN2DTBxEFqMQw4d+nW/zkLVhGFM3IqUA2ABSIxhsA0Y40FkAJ8hoA0EzSAkO04DQClLnyGIGvGSMowAZAkTCEuDLMdxQBkDEu+uDC6egCW7WeIdqcojAAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mOIcQr4TwlmABEfTtwlGT9bdgLVgFebLvz/cv0ZmCaEQZqXVUzANACENxfr/79y7QSYxsYHaQZZhNUAkKLDTf7/D1RZgWlsfJABWF0AkgQpBNFaChJwjdj4OA2AYZhCGIbZDsJLctQwDfAo2vY/Z8JuMB3VtIMgBqlDMaCudcL/hctWE41B6jEMmDp7EdG4uKodMwxAhnRNmEkQgzRjDUSYK9A1gMSRDcdpACgdwBTjwjDNWA0ApS6QBEwhNgzTjGEATIBUDDeAEgwAVWeiZax11pUAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
       "features": 11
@@ -1678,7 +1678,7 @@ window.WIKI_MODULES = [
     "commands": [
       "music"
     ],
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApUlEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBiBjISERFIysGWQRVgNgivX0jLBimDxWF8A0JiSkgTG6ZgUFFRSDUAxA1wwzYEHBGTDG5RoMA5BtKfGZ95+Hhw+MQWx0l9DGAHSM7gXksEExADkQ0V1CVCBSJRphiQSG0RMSshxWA0CpC10RPoxiAEyAVAw3gBIMAP+6D2a7uZI2AAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwElEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBsCwspwGBkbWDLIIwwBkxXZmHhgYWR7DBciaAt3iwBhZM7oYSD3cAJhmdE33Dn36PyPpDBijGwYzBKcBMI0CfEIYhuA0AJchaXYzsMqjGKChrEdSGIDUww0AEcICYmBBGMYWC8jyIPUY0QgShGFkxciaYBhnQgJJgDCyYmRNyBjDAFDqQleED6MYABMgFcMNoAQDABEaFxrtfuqxAAAAAElFTkSuQmCC",
     "counts": {
       "items": 10,
       "blocks": 18,
@@ -1938,7 +1938,7 @@ window.WIKI_MODULES = [
       "en": "The machine parts of the Simple Machines tab: three faster hoppers with an item filter and their hopper carts, four stronger pistons, the Double Piston, which reaches further than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
       "de": "Die Maschinenteile des Tabs Simple Machines: drei schnellere Trichter mit Itemfilter und ihre Trichterloren, vier stärkere Kolben, der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABeklEQVR42q2Su0oDQRSG8ygpLCy0skknCloIYgxizEVjYXBRxM1lzSa7yV5zv5lEwYBaWYiCWIqlryD4DDY+w++eU+wmmEZj8c2cmf8//5xifGszfkyDj5b3Yf/XvESDXsCBcPInOCAcTcCud2HVOmPcSBI+A7MM1XSnl5swKi3eCerlAKvagVlpQ7cdQ7kFzWrgOp11A4Zimj10TzpBZzdAtxsoGlWG6pJZw5UojgSknKYmo1l1t3YDVJ2aa05jHU+nK3hT1idCGnloEkWrjAZUkC9azJ2whHY0gNvk4o+dNJqSfIWS7QXkFMNJLLNAxmdxdSKkkY+aZdX0AvJFExedHC67Mu/Eo3mIr9gCQzV5ZNVwHtMh5UvM2AQEPuKMlNfQEwT3PDg6Zn1reY6hOiuPBGTlIs4bGfRbEnrNLAbtMzwYSXeCey3pvpqSCsjk1PEJdmIekfi+I+xBCQXxOu9nCptBbEd2+Z50z5f4h69My0Yo/CfcgGn4BshxP6OdXA5MAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA70lEQVR42mPwUlH4TwlmABGXZ04iGe+ICkAYsHjJMrIw2ID6hia4wPQZs+DsTd2d/y+5mPzfYar1f9eUSf/Xb9iEgkFq0zOyEAaABJANWNnc+P9FlCvYEJBhyJph6uEGrJrcD1YMwiA2SHJhVQXcAJBhyIbDLEMxAKQQhLEZAGLDNMFwd08ffhd8/fQeBYM04DRgQWcrhguePbyDgmGaYBikD24ASKAryON/lZsd3IYrZ4+hYGTNWA0AaUY2AORvWDSC2AQNQPfjjMJ8uAEgNrr/UcKguKQMBSMbim4rDIPUYbiAVIzTBcRisAGUZmcAIROGNE6TrXwAAAAASUVORK5CYII=",
     "counts": {
       "items": 4,
       "blocks": 14,
