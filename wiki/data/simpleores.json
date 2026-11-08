@@ -153,6 +153,36 @@
       }
     },
     {
+      "id": "zinc_nickel_tin",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/zinc_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/nickel_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/tin_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/brass_ingot.json"
+      ],
+      "en": {
+        "title": "Zinc, nickel, tin and their alloys",
+        "summary": "Three more metals of the Overworld and their plain alloys brass, stainless steel and bronze. Building and decoration metals: no tools, no armor, no change to Vanilla (RG30-2).",
+        "details": [
+          "Zinc: 4 veins of 8 per chunk, Y -32 to 48, stone pickaxe. Tin: 5 veins of 7, Y -16 to 72, stone pickaxe. Nickel: 2 veins of 5, Y -64 to 16, iron pickaxe (the rarest of the three). Each ore has a deepslate twin and drops 1 raw metal (Fortune helps, Silk Touch keeps the ore).",
+          "Items per metal: raw piece, ingot, nugget, block and raw block; furnace and blast furnace smelt raw pieces and ores; 9 nuggets or ingots craft up and down. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.",
+          "Alloys (shapeless crafting, nothing is lost): 2 copper + 1 zinc = 3 brass; 3 iron + 1 nickel = 4 stainless steel; 3 copper + 1 tin = 4 bronze. Each alloy has an ingot and a block of nine (craftable both ways).",
+          "Use: brass, stainless steel and bronze blocks are decoration and building metals (Vanilla copper oxidises, these do not). Further uses (plates, roofs, lanterns, coins) are listed in docs/ai/PLAN-A-RG08-2026-11-08.md as postponed. Lead and silver are described in their own entries."
+        ]
+      },
+      "de": {
+        "title": "Zink, Nickel, Zinn und ihre Legierungen",
+        "summary": "Drei weitere Metalle der Oberwelt und ihre schlichten Legierungen Messing, Edelstahl und Bronze. Bau- und Dekometalle: keine Werkzeuge, keine Rüstung, kein Eingriff in Vanilla (RG30-2).",
+        "details": [
+          "Zink: 4 Adern zu 8 je Chunk, Y -32 bis 48, Steinspitzhacke. Zinn: 5 Adern zu 7, Y -16 bis 72, Steinspitzhacke. Nickel: 2 Adern zu 5, Y -64 bis 16, Eisenspitzhacke (das seltenste der drei). Jedes Erz hat einen Tiefenschiefer-Zwilling und lässt 1 Rohstück fallen (Glück hilft, Behutsamkeit behält das Erz).",
+          "Gegenstände je Metall: Rohstück, Barren, Klumpen, Block und Rohblock; Ofen und Hochofen schmelzen Rohstücke und Erze; 9 Klumpen oder Barren werden auf- und abgewandelt. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.",
+          "Legierungen (formlos in der Werkbank, nichts geht verloren): 2 Kupfer + 1 Zink = 3 Messing; 3 Eisen + 1 Nickel = 4 Edelstahl; 3 Kupfer + 1 Zinn = 4 Bronze. Jede Legierung hat einen Barren und einen Block aus neun (in beide Richtungen herstellbar).",
+          "Nutzen: Messing-, Edelstahl- und Bronzeblöcke sind Deko- und Baumetalle (Vanilla-Kupfer oxidiert, diese nicht). Weitere Nutzen (Platten, Dächer, Laternen, Münzen) stehen als zurückgestellt in docs/ai/PLAN-A-RG08-2026-11-08.md. Blei und Silber stehen in eigenen Einträgen."
+        ]
+      }
+    },
+    {
       "id": "soundproofing",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/sound/Soundproofing.java",
@@ -313,7 +343,7 @@
         "title": "Server settings",
         "summary": "config/simpleores-server.json (or /simpleores config), read at start; every value is clamped to its range.",
         "details": [
-          "enabled (true): off stops new silver and lead veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
+          "enabled (true): off stops new silver, lead, zinc, nickel and tin veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
           "soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.",
           "sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding's config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).",
           "With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off."
@@ -323,7 +353,7 @@
         "title": "Server-Einstellungen",
         "summary": "config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.",
         "details": [
-          "enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
+          "enabled (true): aus stoppt neue Silber-, Blei-, Zink-, Nickel- und Zinnadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
           "soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.",
           "sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).",
           "Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus."
@@ -332,6 +362,209 @@
     }
   ],
   "recipes": [
+    {
+      "id": "simpleores:brass_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_block.json",
+      "ingredients": [
+        "simpleores:brass_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:brass_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_ingot",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_ingot",
+        "count": 3
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_ingot.json",
+      "ingredients": [
+        "minecraft:copper_ingot",
+        "simpleores:zinc_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:copper_ingot"
+        ],
+        [
+          "minecraft:copper_ingot"
+        ],
+        [
+          "simpleores:zinc_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 2
+          },
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_ingot_from_brass_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "brass_ingot",
+      "result": {
+        "id": "simpleores:brass_ingot",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_ingot_from_brass_block.json",
+      "ingredients": [
+        "simpleores:brass_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:brass_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:brass_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_block.json",
+      "ingredients": [
+        "simpleores:bronze_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:bronze_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_ingot",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_ingot",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_ingot.json",
+      "ingredients": [
+        "minecraft:copper_ingot",
+        "simpleores:tin_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:copper_ingot"
+        ],
+        [
+          "minecraft:copper_ingot"
+        ],
+        [
+          "minecraft:copper_ingot"
+        ],
+        [
+          "simpleores:tin_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_ingot_from_bronze_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "bronze_ingot",
+      "result": {
+        "id": "simpleores:bronze_ingot",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_ingot_from_bronze_block.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:bronze_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:bronze_block",
+            "count": 1
+          }
+        ]
+      }
+    },
     {
       "id": "simpleores:enchanted_rose_bronze_apple",
       "type": "minecraft:crafting_shaped",
@@ -1140,6 +1373,308 @@
       }
     },
     {
+      "id": "simpleores:nickel_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_block.json",
+      "ingredients": [
+        "simpleores:nickel_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:nickel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_ingot_from_blasting_deepslate_nickel_ore",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": "nickel_ingot",
+      "result": {
+        "id": "simpleores:nickel_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_blasting_deepslate_nickel_ore.json",
+      "ingredients": [
+        "simpleores:deepslate_nickel_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:deepslate_nickel_ore"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:deepslate_nickel_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_ingot_from_blasting_nickel_ore",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": "nickel_ingot",
+      "result": {
+        "id": "simpleores:nickel_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_blasting_nickel_ore.json",
+      "ingredients": [
+        "simpleores:nickel_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:nickel_ore"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_ingot_from_blasting_raw_nickel",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": "nickel_ingot",
+      "result": {
+        "id": "simpleores:nickel_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_blasting_raw_nickel.json",
+      "ingredients": [
+        "simpleores:raw_nickel"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:raw_nickel"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_nickel",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_ingot_from_nickel_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "nickel_ingot",
+      "result": {
+        "id": "simpleores:nickel_ingot",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_nickel_block.json",
+      "ingredients": [
+        "simpleores:nickel_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:nickel_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:nickel_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:nickel_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:nickel_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_ingot_from_smelting_deepslate_nickel_ore",
+      "type": "minecraft:smelting",
+      "category": "misc",
+      "group": "nickel_ingot",
+      "result": {
+        "id": "simpleores:nickel_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_smelting_deepslate_nickel_ore.json",
+      "ingredients": [
+        "simpleores:deepslate_nickel_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:deepslate_nickel_ore"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:deepslate_nickel_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_ingot_from_smelting_nickel_ore",
+      "type": "minecraft:smelting",
+      "category": "misc",
+      "group": "nickel_ingot",
+      "result": {
+        "id": "simpleores:nickel_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_smelting_nickel_ore.json",
+      "ingredients": [
+        "simpleores:nickel_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:nickel_ore"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_ingot_from_smelting_raw_nickel",
+      "type": "minecraft:smelting",
+      "category": "misc",
+      "group": "nickel_ingot",
+      "result": {
+        "id": "simpleores:nickel_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_smelting_raw_nickel.json",
+      "ingredients": [
+        "simpleores:raw_nickel"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:raw_nickel"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_nickel",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_nugget.json",
+      "ingredients": [
+        "simpleores:nickel_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:nickel_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:raw_lead_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -1201,6 +1736,67 @@
       }
     },
     {
+      "id": "simpleores:raw_nickel_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:raw_nickel_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/raw_nickel_block.json",
+      "ingredients": [
+        "simpleores:raw_nickel"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:raw_nickel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_nickel",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:raw_nickel_from_raw_nickel_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "raw_nickel",
+      "result": {
+        "id": "simpleores:raw_nickel",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/raw_nickel_from_raw_nickel_block.json",
+      "ingredients": [
+        "simpleores:raw_nickel_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:raw_nickel_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:raw_nickel_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:raw_silver_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -1256,6 +1852,128 @@
         "materials": [
           {
             "id": "simpleores:raw_silver_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:raw_tin_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:raw_tin_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/raw_tin_block.json",
+      "ingredients": [
+        "simpleores:raw_tin"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:raw_tin"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_tin",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:raw_tin_from_raw_tin_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "raw_tin",
+      "result": {
+        "id": "simpleores:raw_tin",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/raw_tin_from_raw_tin_block.json",
+      "ingredients": [
+        "simpleores:raw_tin_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:raw_tin_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:raw_tin_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:raw_zinc_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:raw_zinc_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/raw_zinc_block.json",
+      "ingredients": [
+        "simpleores:raw_zinc"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:raw_zinc"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_zinc",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:raw_zinc_from_raw_zinc_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "raw_zinc",
+      "result": {
+        "id": "simpleores:raw_zinc",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/raw_zinc_from_raw_zinc_block.json",
+      "ingredients": [
+        "simpleores:raw_zinc_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:raw_zinc_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:raw_zinc_block",
             "count": 1
           }
         ]
@@ -3289,9 +4007,752 @@
           }
         ]
       }
+    },
+    {
+      "id": "simpleores:stainless_steel_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_block.json",
+      "ingredients": [
+        "simpleores:stainless_steel_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:stainless_steel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_ingot",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_ingot",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_ingot.json",
+      "ingredients": [
+        "minecraft:iron_ingot",
+        "simpleores:nickel_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:iron_ingot"
+        ],
+        [
+          "minecraft:iron_ingot"
+        ],
+        [
+          "minecraft:iron_ingot"
+        ],
+        [
+          "simpleores:nickel_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          },
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_ingot_from_stainless_steel_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "stainless_steel_ingot",
+      "result": {
+        "id": "simpleores:stainless_steel_ingot",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_ingot_from_stainless_steel_block.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:stainless_steel_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_block.json",
+      "ingredients": [
+        "simpleores:tin_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:tin_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_ingot_from_blasting_deepslate_tin_ore",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": "tin_ingot",
+      "result": {
+        "id": "simpleores:tin_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_blasting_deepslate_tin_ore.json",
+      "ingredients": [
+        "simpleores:deepslate_tin_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:deepslate_tin_ore"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:deepslate_tin_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_ingot_from_blasting_raw_tin",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": "tin_ingot",
+      "result": {
+        "id": "simpleores:tin_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_blasting_raw_tin.json",
+      "ingredients": [
+        "simpleores:raw_tin"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:raw_tin"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_tin",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_ingot_from_blasting_tin_ore",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": "tin_ingot",
+      "result": {
+        "id": "simpleores:tin_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_blasting_tin_ore.json",
+      "ingredients": [
+        "simpleores:tin_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:tin_ore"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:tin_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:tin_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_ingot_from_smelting_deepslate_tin_ore",
+      "type": "minecraft:smelting",
+      "category": "misc",
+      "group": "tin_ingot",
+      "result": {
+        "id": "simpleores:tin_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_smelting_deepslate_tin_ore.json",
+      "ingredients": [
+        "simpleores:deepslate_tin_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:deepslate_tin_ore"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:deepslate_tin_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_ingot_from_smelting_raw_tin",
+      "type": "minecraft:smelting",
+      "category": "misc",
+      "group": "tin_ingot",
+      "result": {
+        "id": "simpleores:tin_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_smelting_raw_tin.json",
+      "ingredients": [
+        "simpleores:raw_tin"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:raw_tin"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_tin",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_ingot_from_smelting_tin_ore",
+      "type": "minecraft:smelting",
+      "category": "misc",
+      "group": "tin_ingot",
+      "result": {
+        "id": "simpleores:tin_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_smelting_tin_ore.json",
+      "ingredients": [
+        "simpleores:tin_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:tin_ore"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_ingot_from_tin_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "tin_ingot",
+      "result": {
+        "id": "simpleores:tin_ingot",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_tin_block.json",
+      "ingredients": [
+        "simpleores:tin_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:tin_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:tin_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_nugget.json",
+      "ingredients": [
+        "simpleores:tin_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:tin_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_block.json",
+      "ingredients": [
+        "simpleores:zinc_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zinc_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_ingot_from_blasting_deepslate_zinc_ore",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": "zinc_ingot",
+      "result": {
+        "id": "simpleores:zinc_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_blasting_deepslate_zinc_ore.json",
+      "ingredients": [
+        "simpleores:deepslate_zinc_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:deepslate_zinc_ore"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:deepslate_zinc_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_ingot_from_blasting_raw_zinc",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": "zinc_ingot",
+      "result": {
+        "id": "simpleores:zinc_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_blasting_raw_zinc.json",
+      "ingredients": [
+        "simpleores:raw_zinc"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:raw_zinc"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_zinc",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_ingot_from_blasting_zinc_ore",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": "zinc_ingot",
+      "result": {
+        "id": "simpleores:zinc_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_blasting_zinc_ore.json",
+      "ingredients": [
+        "simpleores:zinc_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:zinc_ore"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:zinc_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zinc_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_ingot_from_smelting_deepslate_zinc_ore",
+      "type": "minecraft:smelting",
+      "category": "misc",
+      "group": "zinc_ingot",
+      "result": {
+        "id": "simpleores:zinc_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_smelting_deepslate_zinc_ore.json",
+      "ingredients": [
+        "simpleores:deepslate_zinc_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:deepslate_zinc_ore"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:deepslate_zinc_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_ingot_from_smelting_raw_zinc",
+      "type": "minecraft:smelting",
+      "category": "misc",
+      "group": "zinc_ingot",
+      "result": {
+        "id": "simpleores:zinc_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_smelting_raw_zinc.json",
+      "ingredients": [
+        "simpleores:raw_zinc"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:raw_zinc"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_zinc",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_ingot_from_smelting_zinc_ore",
+      "type": "minecraft:smelting",
+      "category": "misc",
+      "group": "zinc_ingot",
+      "result": {
+        "id": "simpleores:zinc_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_smelting_zinc_ore.json",
+      "ingredients": [
+        "simpleores:zinc_ore"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:zinc_ore"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.7,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ore",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_ingot_from_zinc_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "zinc_ingot",
+      "result": {
+        "id": "simpleores:zinc_ingot",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_zinc_block.json",
+      "ingredients": [
+        "simpleores:zinc_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:zinc_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:zinc_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_nugget.json",
+      "ingredients": [
+        "simpleores:zinc_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:zinc_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 1
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
+    {
+      "id": "simpleores:blocks/brass_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_block.json"
+    },
+    {
+      "id": "simpleores:blocks/bronze_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_block.json"
+    },
     {
       "id": "simpleores:blocks/deepslate_lead_ore",
       "kind": "blocks",
@@ -3308,6 +4769,23 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_lead_ore.json"
+    },
+    {
+      "id": "simpleores:blocks/deepslate_nickel_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:deepslate_nickel_ore",
+            "simpleores:raw_nickel"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_nickel_ore.json"
     },
     {
       "id": "simpleores:blocks/deepslate_sage_ore",
@@ -3342,6 +4820,40 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_silver_ore.json"
+    },
+    {
+      "id": "simpleores:blocks/deepslate_tin_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:deepslate_tin_ore",
+            "simpleores:raw_tin"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_tin_ore.json"
+    },
+    {
+      "id": "simpleores:blocks/deepslate_zinc_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:deepslate_zinc_ore",
+            "simpleores:raw_zinc"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_zinc_ore.json"
     },
     {
       "id": "simpleores:blocks/dimensional_scrap",
@@ -3567,6 +5079,41 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/netherite_scrap_block.json"
     },
     {
+      "id": "simpleores:blocks/nickel_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_block.json"
+    },
+    {
+      "id": "simpleores:blocks/nickel_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_ore",
+            "simpleores:raw_nickel"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_ore.json"
+    },
+    {
       "id": "simpleores:blocks/raw_lead_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -3585,6 +5132,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/raw_lead_block.json"
     },
     {
+      "id": "simpleores:blocks/raw_nickel_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:raw_nickel_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/raw_nickel_block.json"
+    },
+    {
       "id": "simpleores:blocks/raw_silver_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -3601,6 +5166,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/raw_silver_block.json"
+    },
+    {
+      "id": "simpleores:blocks/raw_tin_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:raw_tin_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/raw_tin_block.json"
+    },
+    {
+      "id": "simpleores:blocks/raw_zinc_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:raw_zinc_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/raw_zinc_block.json"
     },
     {
       "id": "simpleores:blocks/rose_bronze_block",
@@ -3797,6 +5398,94 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_sheet.json"
+    },
+    {
+      "id": "simpleores:blocks/stainless_steel_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_block.json"
+    },
+    {
+      "id": "simpleores:blocks/tin_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_block.json"
+    },
+    {
+      "id": "simpleores:blocks/tin_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_ore",
+            "simpleores:raw_tin"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_ore.json"
+    },
+    {
+      "id": "simpleores:blocks/zinc_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_block.json"
+    },
+    {
+      "id": "simpleores:blocks/zinc_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_ore",
+            "simpleores:raw_zinc"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_ore.json"
     }
   ],
   "tags": [
@@ -3938,6 +5627,58 @@
   ],
   "enchantments": [],
   "items": [
+    {
+      "id": "simpleores:brass_ingot",
+      "name": {
+        "en_us": "Brass Ingot",
+        "de_de": "Messingbarren"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Brass ingot: shapeless in the crafting grid, 2 copper + 1 zinc make 3 (nothing is lost). Nine make a block of brass."
+        },
+        "de": {
+          "summary": "Messingbarren: formlos in der Werkbank, 2 Kupfer + 1 Zink ergeben 3 (nichts geht verloren). Neun ergeben einen Messingblock."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/brass_ingot.png",
+      "craftedBy": [
+        "simpleores:brass_ingot",
+        "simpleores:brass_ingot_from_brass_block"
+      ],
+      "usedIn": [
+        "simpleores:brass_block"
+      ]
+    },
+    {
+      "id": "simpleores:bronze_ingot",
+      "name": {
+        "en_us": "Bronze Ingot",
+        "de_de": "Bronzebarren"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Bronze ingot: shapeless in the crafting grid, 3 copper + 1 tin make 4 (nothing is lost). Nine make a block of bronze."
+        },
+        "de": {
+          "summary": "Bronzebarren: formlos in der Werkbank, 3 Kupfer + 1 Zinn ergeben 4 (nichts geht verloren). Neun ergeben einen Bronzeblock."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/bronze_ingot.png",
+      "craftedBy": [
+        "simpleores:bronze_ingot",
+        "simpleores:bronze_ingot_from_bronze_block"
+      ],
+      "usedIn": [
+        "simpleores:bronze_block"
+      ]
+    },
     {
       "id": "simpleores:enchanted_rose_bronze_apple",
       "name": {
@@ -4100,10 +5841,10 @@
           "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 14 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 15 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 14 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 15 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleores/item/guide_book.png",
@@ -4195,6 +5936,65 @@
       ]
     },
     {
+      "id": "simpleores:nickel_ingot",
+      "name": {
+        "en_us": "Nickel Ingot",
+        "de_de": "Nickelbarren"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nickel ingot: nine make a block. 3 iron + 1 nickel make 4 stainless steel."
+        },
+        "de": {
+          "summary": "Nickelbarren: neun ergeben einen Block. 3 Eisen + 1 Nickel ergeben 4 Edelstahl."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/nickel_ingot.png",
+      "craftedBy": [
+        "simpleores:nickel_ingot_from_blasting_deepslate_nickel_ore",
+        "simpleores:nickel_ingot_from_blasting_nickel_ore",
+        "simpleores:nickel_ingot_from_blasting_raw_nickel",
+        "simpleores:nickel_ingot_from_nickel_block",
+        "simpleores:nickel_ingot_from_nuggets",
+        "simpleores:nickel_ingot_from_smelting_deepslate_nickel_ore",
+        "simpleores:nickel_ingot_from_smelting_nickel_ore",
+        "simpleores:nickel_ingot_from_smelting_raw_nickel"
+      ],
+      "usedIn": [
+        "simpleores:nickel_block",
+        "simpleores:nickel_nugget",
+        "simpleores:stainless_steel_ingot"
+      ]
+    },
+    {
+      "id": "simpleores:nickel_nugget",
+      "name": {
+        "en_us": "Nickel Nugget",
+        "de_de": "Nickelklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a nickel ingot."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Nickelbarren."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/nickel_nugget.png",
+      "craftedBy": [
+        "simpleores:nickel_nugget"
+      ],
+      "usedIn": [
+        "simpleores:nickel_ingot_from_nuggets"
+      ]
+    },
+    {
       "id": "simpleores:raw_enderite",
       "name": {
         "en_us": "Raw Enderite Fragment",
@@ -4245,6 +6045,33 @@
       ]
     },
     {
+      "id": "simpleores:raw_nickel",
+      "name": {
+        "en_us": "Raw Nickel",
+        "de_de": "Rohnickel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Mined from nickel ore; smelt it in a furnace or blast furnace for a nickel ingot."
+        },
+        "de": {
+          "summary": "Aus Nickelerz gewonnen; im Ofen oder Hochofen zum Nickelbarren schmelzen."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/raw_nickel.png",
+      "craftedBy": [
+        "simpleores:raw_nickel_from_raw_nickel_block"
+      ],
+      "usedIn": [
+        "simpleores:nickel_ingot_from_blasting_raw_nickel",
+        "simpleores:nickel_ingot_from_smelting_raw_nickel",
+        "simpleores:raw_nickel_block"
+      ]
+    },
+    {
       "id": "simpleores:raw_silver",
       "name": {
         "en_us": "Raw Silver",
@@ -4269,6 +6096,60 @@
         "simpleores:raw_silver_block",
         "simpleores:silver_ingot_from_blasting_raw_silver",
         "simpleores:silver_ingot_from_smelting_raw_silver"
+      ]
+    },
+    {
+      "id": "simpleores:raw_tin",
+      "name": {
+        "en_us": "Raw Tin",
+        "de_de": "Rohzinn"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Mined from tin ore; smelt it in a furnace or blast furnace for a tin ingot."
+        },
+        "de": {
+          "summary": "Aus Zinnerz gewonnen; im Ofen oder Hochofen zum Zinnbarren schmelzen."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/raw_tin.png",
+      "craftedBy": [
+        "simpleores:raw_tin_from_raw_tin_block"
+      ],
+      "usedIn": [
+        "simpleores:raw_tin_block",
+        "simpleores:tin_ingot_from_blasting_raw_tin",
+        "simpleores:tin_ingot_from_smelting_raw_tin"
+      ]
+    },
+    {
+      "id": "simpleores:raw_zinc",
+      "name": {
+        "en_us": "Raw Zinc",
+        "de_de": "Rohzink"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Mined from zinc ore; smelt it in a furnace or blast furnace for a zinc ingot."
+        },
+        "de": {
+          "summary": "Aus Zinkerz gewonnen; im Ofen oder Hochofen zum Zinkbarren schmelzen."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/raw_zinc.png",
+      "craftedBy": [
+        "simpleores:raw_zinc_from_raw_zinc_block"
+      ],
+      "usedIn": [
+        "simpleores:raw_zinc_block",
+        "simpleores:zinc_ingot_from_blasting_raw_zinc",
+        "simpleores:zinc_ingot_from_smelting_raw_zinc"
       ]
     },
     {
@@ -5098,9 +6979,203 @@
       "usedIn": [
         "simpleores:silver_ingot_from_nuggets"
       ]
+    },
+    {
+      "id": "simpleores:stainless_steel_ingot",
+      "name": {
+        "en_us": "Stainless Steel Ingot",
+        "de_de": "Edelstahlbarren"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Stainless Steel ingot: shapeless in the crafting grid, 3 iron + 1 nickel make 4 (nothing is lost). Nine make a block of stainless steel."
+        },
+        "de": {
+          "summary": "Edelstahlbarren: formlos in der Werkbank, 3 Eisen + 1 Nickel ergeben 4 (nichts geht verloren). Neun ergeben einen Edelstahlblock."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/stainless_steel_ingot.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_ingot",
+        "simpleores:stainless_steel_ingot_from_stainless_steel_block"
+      ],
+      "usedIn": [
+        "simpleores:stainless_steel_block"
+      ]
+    },
+    {
+      "id": "simpleores:tin_ingot",
+      "name": {
+        "en_us": "Tin Ingot",
+        "de_de": "Zinnbarren"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Tin ingot: nine make a block. 3 copper + 1 tin make 4 bronze."
+        },
+        "de": {
+          "summary": "Zinnbarren: neun ergeben einen Block. 3 Kupfer + 1 Zinn ergeben 4 Bronze."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/tin_ingot.png",
+      "craftedBy": [
+        "simpleores:tin_ingot_from_blasting_deepslate_tin_ore",
+        "simpleores:tin_ingot_from_blasting_raw_tin",
+        "simpleores:tin_ingot_from_blasting_tin_ore",
+        "simpleores:tin_ingot_from_nuggets",
+        "simpleores:tin_ingot_from_smelting_deepslate_tin_ore",
+        "simpleores:tin_ingot_from_smelting_raw_tin",
+        "simpleores:tin_ingot_from_smelting_tin_ore",
+        "simpleores:tin_ingot_from_tin_block"
+      ],
+      "usedIn": [
+        "simpleores:bronze_ingot",
+        "simpleores:tin_block",
+        "simpleores:tin_nugget"
+      ]
+    },
+    {
+      "id": "simpleores:tin_nugget",
+      "name": {
+        "en_us": "Tin Nugget",
+        "de_de": "Zinnklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a tin ingot."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Zinnbarren."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/tin_nugget.png",
+      "craftedBy": [
+        "simpleores:tin_nugget"
+      ],
+      "usedIn": [
+        "simpleores:tin_ingot_from_nuggets"
+      ]
+    },
+    {
+      "id": "simpleores:zinc_ingot",
+      "name": {
+        "en_us": "Zinc Ingot",
+        "de_de": "Zinkbarren"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Zinc ingot: nine make a block. 2 copper + 1 zinc make 3 brass."
+        },
+        "de": {
+          "summary": "Zinkbarren: neun ergeben einen Block. 2 Kupfer + 1 Zink ergeben 3 Messing."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/zinc_ingot.png",
+      "craftedBy": [
+        "simpleores:zinc_ingot_from_blasting_deepslate_zinc_ore",
+        "simpleores:zinc_ingot_from_blasting_raw_zinc",
+        "simpleores:zinc_ingot_from_blasting_zinc_ore",
+        "simpleores:zinc_ingot_from_nuggets",
+        "simpleores:zinc_ingot_from_smelting_deepslate_zinc_ore",
+        "simpleores:zinc_ingot_from_smelting_raw_zinc",
+        "simpleores:zinc_ingot_from_smelting_zinc_ore",
+        "simpleores:zinc_ingot_from_zinc_block"
+      ],
+      "usedIn": [
+        "simpleores:brass_ingot",
+        "simpleores:zinc_block",
+        "simpleores:zinc_nugget"
+      ]
+    },
+    {
+      "id": "simpleores:zinc_nugget",
+      "name": {
+        "en_us": "Zinc Nugget",
+        "de_de": "Zinkklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a zinc ingot."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Zinkbarren."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/zinc_nugget.png",
+      "craftedBy": [
+        "simpleores:zinc_nugget"
+      ],
+      "usedIn": [
+        "simpleores:zinc_ingot_from_nuggets"
+      ]
     }
   ],
   "blocks": [
+    {
+      "id": "simpleores:brass_block",
+      "name": {
+        "en_us": "Block of Brass",
+        "de_de": "Messingblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine brass ingots, craftable both ways. Decoration and building metal. Needs an iron pickaxe."
+        },
+        "de": {
+          "summary": "Neun Messingbarren, in beide Richtungen herstellbar. Bau- und Dekometall. Braucht eine Eisenspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/brass_block.png",
+      "craftedBy": [
+        "simpleores:brass_block"
+      ],
+      "usedIn": [
+        "simpleores:brass_ingot_from_brass_block"
+      ]
+    },
+    {
+      "id": "simpleores:bronze_block",
+      "name": {
+        "en_us": "Block of Bronze",
+        "de_de": "Bronzeblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine bronze ingots, craftable both ways. Decoration and building metal. Needs an iron pickaxe."
+        },
+        "de": {
+          "summary": "Neun Bronzebarren, in beide Richtungen herstellbar. Bau- und Dekometall. Braucht eine Eisenspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_block.png",
+      "craftedBy": [
+        "simpleores:bronze_block"
+      ],
+      "usedIn": [
+        "simpleores:bronze_ingot_from_bronze_block"
+      ]
+    },
     {
       "id": "simpleores:deepslate_lead_ore",
       "name": {
@@ -5123,6 +7198,30 @@
       "usedIn": [
         "simpleores:lead_ingot_from_blasting_deepslate_lead_ore",
         "simpleores:lead_ingot_from_smelting_deepslate_lead_ore"
+      ]
+    },
+    {
+      "id": "simpleores:deepslate_nickel_ore",
+      "name": {
+        "en_us": "Deepslate Nickel Ore",
+        "de_de": "Tiefenschiefer-Nickelerz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "The deepslate twin of the nickel ore. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
+        },
+        "de": {
+          "summary": "Der Tiefenschiefer-Zwilling des Nickelerzes. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/deepslate_nickel_ore.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleores:nickel_ingot_from_blasting_deepslate_nickel_ore",
+        "simpleores:nickel_ingot_from_smelting_deepslate_nickel_ore"
       ]
     },
     {
@@ -5168,6 +7267,54 @@
       "usedIn": [
         "simpleores:silver_ingot_from_blasting_deepslate_silver_ore",
         "simpleores:silver_ingot_from_smelting_deepslate_silver_ore"
+      ]
+    },
+    {
+      "id": "simpleores:deepslate_tin_ore",
+      "name": {
+        "en_us": "Deepslate Tin Ore",
+        "de_de": "Tiefenschiefer-Zinnerz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "The deepslate twin of the tin ore. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
+        },
+        "de": {
+          "summary": "Der Tiefenschiefer-Zwilling des Zinnerzes. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/deepslate_tin_ore.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleores:tin_ingot_from_blasting_deepslate_tin_ore",
+        "simpleores:tin_ingot_from_smelting_deepslate_tin_ore"
+      ]
+    },
+    {
+      "id": "simpleores:deepslate_zinc_ore",
+      "name": {
+        "en_us": "Deepslate Zinc Ore",
+        "de_de": "Tiefenschiefer-Zinkerz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "The deepslate twin of the zinc ore. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
+        },
+        "de": {
+          "summary": "Der Tiefenschiefer-Zwilling des Zinkerzes. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/deepslate_zinc_ore.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleores:zinc_ingot_from_blasting_deepslate_zinc_ore",
+        "simpleores:zinc_ingot_from_smelting_deepslate_zinc_ore"
       ]
     },
     {
@@ -5467,6 +7614,55 @@
       ]
     },
     {
+      "id": "simpleores:nickel_block",
+      "name": {
+        "en_us": "Block of Nickel",
+        "de_de": "Nickelblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Block of Nickel: nine ingots (or raw pieces) in a block, craftable both ways."
+        },
+        "de": {
+          "summary": "Nickelblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/nickel_block.png",
+      "craftedBy": [
+        "simpleores:nickel_block"
+      ],
+      "usedIn": [
+        "simpleores:nickel_ingot_from_nickel_block"
+      ]
+    },
+    {
+      "id": "simpleores:nickel_ore",
+      "name": {
+        "en_us": "Nickel Ore",
+        "de_de": "Nickelerz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Found in stone and deepslate, 2 veins of 5 per chunk, Y -64 to 16. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
+        },
+        "de": {
+          "summary": "Zu finden in Stein und Tiefenschiefer, 2 Adern zu 5 je Chunk, Y -64 bis 16. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/nickel_ore.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleores:nickel_ingot_from_blasting_nickel_ore",
+        "simpleores:nickel_ingot_from_smelting_nickel_ore"
+      ]
+    },
+    {
       "id": "simpleores:raw_lead_block",
       "name": {
         "en_us": "Block of Raw Lead",
@@ -5492,6 +7688,31 @@
       ]
     },
     {
+      "id": "simpleores:raw_nickel_block",
+      "name": {
+        "en_us": "Block of Raw Nickel",
+        "de_de": "Rohnickelblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Block of Raw Nickel: nine ingots (or raw pieces) in a block, craftable both ways."
+        },
+        "de": {
+          "summary": "Rohnickelblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/raw_nickel_block.png",
+      "craftedBy": [
+        "simpleores:raw_nickel_block"
+      ],
+      "usedIn": [
+        "simpleores:raw_nickel_from_raw_nickel_block"
+      ]
+    },
+    {
       "id": "simpleores:raw_silver_block",
       "name": {
         "en_us": "Block of Raw Silver",
@@ -5514,6 +7735,56 @@
       ],
       "usedIn": [
         "simpleores:raw_silver_from_raw_silver_block"
+      ]
+    },
+    {
+      "id": "simpleores:raw_tin_block",
+      "name": {
+        "en_us": "Block of Raw Tin",
+        "de_de": "Rohzinnblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Block of Raw Tin: nine ingots (or raw pieces) in a block, craftable both ways."
+        },
+        "de": {
+          "summary": "Rohzinnblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/raw_tin_block.png",
+      "craftedBy": [
+        "simpleores:raw_tin_block"
+      ],
+      "usedIn": [
+        "simpleores:raw_tin_from_raw_tin_block"
+      ]
+    },
+    {
+      "id": "simpleores:raw_zinc_block",
+      "name": {
+        "en_us": "Block of Raw Zinc",
+        "de_de": "Rohzinkblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Block of Raw Zinc: nine ingots (or raw pieces) in a block, craftable both ways."
+        },
+        "de": {
+          "summary": "Rohzinkblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/raw_zinc_block.png",
+      "craftedBy": [
+        "simpleores:raw_zinc_block"
+      ],
+      "usedIn": [
+        "simpleores:raw_zinc_from_raw_zinc_block"
       ]
     },
     {
@@ -5785,6 +8056,129 @@
       "usedIn": [
         "simpleores:silver_mirror"
       ]
+    },
+    {
+      "id": "simpleores:stainless_steel_block",
+      "name": {
+        "en_us": "Block of Stainless Steel",
+        "de_de": "Edelstahlblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine stainless steel ingots, craftable both ways. Decoration and building metal. Needs an iron pickaxe."
+        },
+        "de": {
+          "summary": "Neun Edelstahlbarren, in beide Richtungen herstellbar. Bau- und Dekometall. Braucht eine Eisenspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_block.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_block"
+      ],
+      "usedIn": [
+        "simpleores:stainless_steel_ingot_from_stainless_steel_block"
+      ]
+    },
+    {
+      "id": "simpleores:tin_block",
+      "name": {
+        "en_us": "Block of Tin",
+        "de_de": "Zinnblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Block of Tin: nine ingots (or raw pieces) in a block, craftable both ways."
+        },
+        "de": {
+          "summary": "Zinnblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/tin_block.png",
+      "craftedBy": [
+        "simpleores:tin_block"
+      ],
+      "usedIn": [
+        "simpleores:tin_ingot_from_tin_block"
+      ]
+    },
+    {
+      "id": "simpleores:tin_ore",
+      "name": {
+        "en_us": "Tin Ore",
+        "de_de": "Zinnerz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Found in stone and deepslate, 5 veins of 7 per chunk, Y -16 to 72. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
+        },
+        "de": {
+          "summary": "Zu finden in Stein und Tiefenschiefer, 5 Adern zu 7 je Chunk, Y -16 bis 72. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/tin_ore.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleores:tin_ingot_from_blasting_tin_ore",
+        "simpleores:tin_ingot_from_smelting_tin_ore"
+      ]
+    },
+    {
+      "id": "simpleores:zinc_block",
+      "name": {
+        "en_us": "Block of Zinc",
+        "de_de": "Zinkblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Block of Zinc: nine ingots (or raw pieces) in a block, craftable both ways."
+        },
+        "de": {
+          "summary": "Zinkblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/zinc_block.png",
+      "craftedBy": [
+        "simpleores:zinc_block"
+      ],
+      "usedIn": [
+        "simpleores:zinc_ingot_from_zinc_block"
+      ]
+    },
+    {
+      "id": "simpleores:zinc_ore",
+      "name": {
+        "en_us": "Zinc Ore",
+        "de_de": "Zinkerz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Found in stone and deepslate, 4 veins of 8 per chunk, Y -32 to 48. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
+        },
+        "de": {
+          "summary": "Zu finden in Stein und Tiefenschiefer, 4 Adern zu 8 je Chunk, Y -32 bis 48. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/zinc_ore.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleores:zinc_ingot_from_blasting_zinc_ore",
+        "simpleores:zinc_ingot_from_smelting_zinc_ore"
+      ]
     }
   ],
   "trades": [],
@@ -5801,14 +8195,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 12,
-    "recipes": 88,
-    "lootTables": 29,
+    "features": 13,
+    "recipes": 133,
+    "lootTables": 44,
     "tags": 7,
     "advancements": 1,
     "enchantments": 0,
-    "items": 46,
-    "blocks": 29,
+    "items": 58,
+    "blocks": 44,
     "trades": 0,
     "config": 0,
     "quests": 0,
