@@ -841,7 +841,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 33
     },
-    "dataHash": "f72ab7af6c25"
+    "dataHash": "1836ae6eb477"
   },
   {
     "id": "simplefarming",
