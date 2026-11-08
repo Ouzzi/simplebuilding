@@ -60,8 +60,12 @@ Vanilla-Nutzen: Elytra-Ziel nach dem End, Landepolster-Blöcke, Endgame-Abenteue
   (Konzept-Stufen 3/5) – offen in Memory/Queue.
 - Wände: abbaufest per Abbau-Fortschritt in der Dimension; Explosionen (TNT) können sie zerstören (Explosionsschutz ist je
   Block, nicht je Ort).
-- Wolkenmeer-Generator nutzt die Vanilla-Dichte `floating_islands` mit kleinem Abzug (Inseln etwas dünner); Feintuning nach
-  Spieltest.
+- Wolkenmeer-Generator nutzt die Vanilla-Dichte `floating_islands` **unverändert** (nur Blöcke/Oberflächenregel eigen): ein
+  ungetesteter Abzug könnte Inseln ganz verschwinden lassen; „dünner, größere Lücken“ = Feintuning nach Spieltest.
+- Ankunft im Wolkenmeer: y 16 oder die erste freie Höhe darüber (falls dort eine Insel liegt).
+- Tapeten: 3 Muster als 3 Blöcke; Neonröhre ist ein voller Deckenblock (Röhre auf der Unterseite).
+- Sounds: ElevenLabs (9 Takes, ~450 Credits), Rohdateien `/root/sb-tools-a/layers10snd/` (credits.tsv). `CREDITS.md` liegt erst auf
+  `a-rel09` (nicht in dieser Basis): Eintrag dort nachziehen, sobald beide Zweige zusammenkommen.
 
 ## Verifikation
 Plan-Abgleich je Stufe; `precheck.py --fix`; ein sbt-Lauf `check`, dann die zwei Modul-Targets; Ergebnis im Bericht, auch

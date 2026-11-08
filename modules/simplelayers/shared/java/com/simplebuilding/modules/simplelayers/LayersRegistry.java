@@ -88,12 +88,12 @@ public final class LayersRegistry {
         NEON_LIGHT = block("neon_light", NeonLightBlock::new, props(MapColor.SNOW, SoundType.GLASS).strength(0.3F).lightLevel(NeonLightBlock::light));
         EXIT_SIGN = block("exit_sign", BackroomBlock::new, props(MapColor.COLOR_GREEN, SoundType.GLASS).strength(0.5F).lightLevel(s -> 8));
         EXIT_DOOR = block("exit_door", ExitDoorBlock::new, props(MapColor.COLOR_GRAY, SoundType.IRON).strength(3.0F).noLootTable()
-                .pushReaction(PushReaction.BLOCK));
+                .pushReaction(PushReaction.IMMOVEABLE));
         GLITCHED_BEDROCK = block("glitched_bedrock", GlitchedBedrockBlock::new, props(MapColor.STONE, SoundType.STONE)
-                .strength(GlitchedBedrockBlock.HARDNESS, 3600000.0F).requiresCorrectToolForDrops().noLootTable().pushReaction(PushReaction.BLOCK)
+                .strength(GlitchedBedrockBlock.HARDNESS, 3600000.0F).requiresCorrectToolForDrops().noLootTable().pushReaction(PushReaction.IMMOVEABLE)
                 .isValidSpawn((s, l, pos, type) -> false));
         RIFT = block("rift", RiftBlock::new, props(MapColor.COLOR_BLACK, SoundType.STONE).strength(-1.0F, 3600000.0F).noCollision()
-                .noOcclusion().noLootTable().lightLevel(s -> 4).pushReaction(PushReaction.BLOCK).isValidSpawn((s, l, pos, type) -> false)
+                .noOcclusion().noLootTable().lightLevel(s -> 4).pushReaction(PushReaction.IMMOVEABLE).isValidSpawn((s, l, pos, type) -> false)
                 .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos) -> false));
     }
 

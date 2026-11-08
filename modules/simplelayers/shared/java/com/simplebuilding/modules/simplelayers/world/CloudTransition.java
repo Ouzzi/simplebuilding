@@ -137,7 +137,7 @@ public final class CloudTransition {
         Vec3 v = player.getDeltaMovement();
         if (v.y > 0.0) {
             player.setDeltaMovement(v.x, -0.1, v.z);
-            player.hurtMarked = true;
+            player.needsSync = true;
         }
     }
 

@@ -26,7 +26,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.pig.Pig;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
@@ -118,8 +118,8 @@ public final class LayersTests {
         h.assertTrue(level.getBlockState(h.absolutePos(mist)).getCollisionShape(level, h.absolutePos(mist)).isEmpty(), "mist collision empty");
         h.assertFalse(level.getBlockState(h.absolutePos(mist)).canBeReplaced(), "mist is not replaceable");
         h.assertFalse(level.getBlockState(h.absolutePos(cloud)).getCollisionShape(level, h.absolutePos(cloud)).isEmpty(), "cloud has collision");
-        ArmorStand falling = h.spawn(EntityType.ARMOR_STAND, new Vec3(2.5, 5.2, 2.5));
-        ArmorStand standing = h.spawn(EntityType.ARMOR_STAND, new Vec3(5.5, 5.2, 5.5));
+        ArmorStand falling = h.spawn(EntityTypes.ARMOR_STAND, new Vec3(2.5, 5.2, 2.5));
+        ArmorStand standing = h.spawn(EntityTypes.ARMOR_STAND, new Vec3(5.5, 5.2, 5.5));
         h.succeedWhen(() -> {
             double fallY = falling.getY() - h.absolutePos(BlockPos.ZERO).getY(), standY = standing.getY() - h.absolutePos(BlockPos.ZERO).getY();
             h.assertTrue(fallY < 3.0, "fell through the mist (y " + fallY + ")");
@@ -134,7 +134,7 @@ public final class LayersTests {
         for (int i = 0; i < blocks.length; i++) {
             BlockPos rel = new BlockPos(1 + i * 2, 1, 1);
             h.setBlock(rel, blocks[i]);
-            Pig pig = h.spawnWithNoFreeWill(EntityType.PIG, rel.above());
+            Pig pig = h.spawnWithNoFreeWill(EntityTypes.PIG, rel.above());
             float before = pig.getHealth();
             BlockPos abs = h.absolutePos(rel);
             blocks[i].fallOn(h.getLevel(), h.getLevel().getBlockState(abs), abs, pig, 8.0);
@@ -171,7 +171,7 @@ public final class LayersTests {
     /** Stage 5: an entity goes up into the Cloud Sea (y 16, cloud platform below it) and falls back to the Overworld at y 680. */
     static void cloudTravelBothWays(GameTestHelper h) {
         MinecraftServer server = h.getLevel().getServer();
-        ArmorStand stand = h.spawn(EntityType.ARMOR_STAND, new Vec3(3.5, 2.0, 3.5));
+        ArmorStand stand = h.spawn(EntityTypes.ARMOR_STAND, new Vec3(3.5, 2.0, 3.5));
         Entity up = CloudTransition.toClouds(server, stand);
         h.assertTrue(up != null && up.level().dimension() == SimpleLayers.CLOUD_SEA, "in the cloud sea");
         h.assertTrue(up.getY() >= CloudTransition.ARRIVAL_Y - 0.01 && up.level().getBlockState(up.blockPosition()).getCollisionShape(up.level(), up.blockPosition()).isEmpty(), "free arrival at " + up.getY());
@@ -273,7 +273,7 @@ public final class LayersTests {
 
     /** Stage 5 entrance: whatever enters the Backrooms arrives in a free cell centre at y 2. */
     static void riftLeadsIntoBackrooms(GameTestHelper h) {
-        ArmorStand stand = h.spawn(EntityType.ARMOR_STAND, new Vec3(1.5, 2.0, 1.5));
+        ArmorStand stand = h.spawn(EntityTypes.ARMOR_STAND, new Vec3(1.5, 2.0, 1.5));
         Entity in = BackroomsTravel.enter(h.getLevel().getServer(), stand);
         h.assertTrue(in != null && in.level().dimension() == SimpleLayers.BACKROOMS, "in the backrooms");
         h.assertTrue(Math.abs(in.getY() - BackroomsTravel.ARRIVAL_Y) < 0.01, "arrival y " + in.getY());
@@ -304,7 +304,7 @@ public final class LayersTests {
 
     /** Almond Water heals 2 hearts (Instant Health I) and takes Nausea away; the bottle stays. */
     static void almondWater(GameTestHelper h) {
-        Pig pig = h.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(2, 2, 2));
+        Pig pig = h.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(2, 2, 2));
         pig.setHealth(4.0F);
         pig.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.NAUSEA, 200));
         ItemStack water = new ItemStack(LayersRegistry.ALMOND_WATER);
