@@ -77,7 +77,7 @@ public final class LayersRegistry {
         CLOUD_STONE = block("cloud_stone", p -> new CushionBlock(p, CLOUD_STONE_DAMAGE), props(MapColor.QUARTZ, SoundType.CALCITE).instabreak()
                 .isValidSpawn((s, l, pos, type) -> false));
         MIST_BLOCK = block("mist_block", MistBlock::new, props(MapColor.SNOW, SoundType.WOOL).instabreak().noCollision().noOcclusion()
-                .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos) -> false).isValidSpawn((s, l, pos, type) -> false)
+                .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos, box) -> false).isValidSpawn((s, l, pos, type) -> false)
                 .isRedstoneConductor((s, l, pos) -> false));
         DAMP_CARPET = block("damp_carpet", BackroomBlock::new, props(MapColor.SAND, SoundType.WOOL).strength(0.8F));
         WALLPAPER = block("wallpaper", BackroomBlock::new, props(MapColor.COLOR_YELLOW, SoundType.WOOD).strength(1.0F));
@@ -94,7 +94,7 @@ public final class LayersRegistry {
                 .isValidSpawn((s, l, pos, type) -> false));
         RIFT = block("rift", RiftBlock::new, props(MapColor.COLOR_BLACK, SoundType.STONE).strength(-1.0F, 3600000.0F).noCollision()
                 .noOcclusion().noLootTable().lightLevel(s -> 4).pushReaction(PushReaction.IMMOVEABLE).isValidSpawn((s, l, pos, type) -> false)
-                .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos) -> false));
+                .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos, box) -> false));
     }
 
     public static void registerItems() {
