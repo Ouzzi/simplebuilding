@@ -185,7 +185,7 @@ def main():
         chat(f'setblock {x + 2} {y} {z} minecraft:chest')
         for i, (item, n) in enumerate([('minecraft:dirt', 10), ('minecraft:apple', 5), ('minecraft:dirt', 20), ('minecraft:stone', 3)]):
             chat(f'item replace block {x + 2} {y} {z} container.{i * 5 + 1} with {item} {n}', 0.3)
-        chat(f'tp @s {x}.5 {y} {z}.5 facing {x + 2}.5 {y + 0.5 - 1.62:.2f} {z}.5')
+        chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + 2.5} {y + 0.5 - 1.62:.2f} {z + 0.5}')
         time.sleep(0.8)
         st = fresh()
         check('(d) crosshair on the chest', st.get('hitBlock', '').endswith('chest'), st.get('hitBlock'))
