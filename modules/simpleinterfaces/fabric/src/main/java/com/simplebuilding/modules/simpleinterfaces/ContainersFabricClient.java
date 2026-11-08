@@ -17,6 +17,8 @@ public final class ContainersFabricClient implements ClientModInitializer {
         // IG31-31: real-mouse probe of the key binding page (inert without simpleinterfaces-keys-probe.json in the game folder).
         ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.KeysProbe::tick);
         KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.SortClient.KEY);
+        // WE25-3: real-mouse probe of the sort key (inert without simpleinterfaces-sort-probe.json in the game folder).
+        ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.SortProbe::tick);
         com.simplebuilding.modules.simpleinterfaces.client.SortClient.toServer = payload -> {
             if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);
         };
