@@ -660,7 +660,9 @@ public final class AdminTests {
             var players = new net.minecraft.network.protocol.status.ServerStatus.Players(20, server.getPlayerList().getPlayerCount(),
                     List.of(ghost.nameAndId(), guest.nameAndId()));
             var shown = Vanish.status(server, players);
-            yes(h, shown.online() == players.online() - 1 && shown.sample().equals(List.of(guest.nameAndId())), "Server list leaves vanished players out");
+            // parallel tests (vanish_no_vibrations) may have other vanished players online: count them all
+            long hiddenNow = server.getPlayerList().getPlayers().stream().filter(Vanish::vanished).count();
+            yes(h, shown.online() == Math.max(0, players.online() - hiddenNow) && shown.sample().equals(List.of(guest.nameAndId())), "Server list leaves vanished players out");
             yes(h, Admin.state().vanished.contains(ghost.getUUID()), "State kept for relogs");
         } finally {
             Vanish.set(ghost, false);
