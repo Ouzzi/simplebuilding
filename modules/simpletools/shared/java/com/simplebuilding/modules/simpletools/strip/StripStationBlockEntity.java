@@ -114,7 +114,7 @@ public class StripStationBlockEntity extends BlockEntity implements WorldlyConta
         BlockPos pos = getBlockPos();
         server.playSound(null, pos, step.sound(), SoundSource.BLOCKS, 1.0F, 1.0F);
         if (step.particle() == net.minecraft.core.component.BlockTransformer.TransformParticle.NONE) {
-            server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, worked), pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5, 8, 0.25, 0.2, 0.25, 0.05);
+            server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, worked.getItem()), pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5, 8, 0.25, 0.2, 0.25, 0.05);
         } else {
             step.particle().send(server, null, pos);
         }
