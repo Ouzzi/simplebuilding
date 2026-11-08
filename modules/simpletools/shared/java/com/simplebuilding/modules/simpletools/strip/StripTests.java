@@ -39,8 +39,8 @@ public final class StripTests {
 
     public static void addAll(Map<String, Consumer<GameTestHelper>> all) {
         all.put("strip_station_registered_with_recipe", StripTests::registeredWithRecipe);
-        all.put("strip_station_takes_a_whole_stack_and_gives_it_back", StripTests::takesAndGives);
-        all.put("strip_station_strips_a_whole_stack_for_one_durability_each", StripTests::stripsWholeStack);
+        all.put("strip_station_takes_whole_stack_and_gives_it_back", StripTests::takesAndGives);
+        all.put("strip_station_strips_whole_stack_for_one_durability_each", StripTests::stripsWholeStack);
         all.put("strip_station_copper_unwaxes_then_scrapes_step_by_step", StripTests::copperSteps);
         all.put("strip_station_axe_stays_at_one_durability", StripTests::durabilityLimit);
         all.put("strip_station_hoppers_fill_from_above_and_empty_below", StripTests::hoppers);

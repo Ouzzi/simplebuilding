@@ -40,11 +40,11 @@ public class StripStationBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
-        if (!on(level) || hand != InteractionHand.MAIN_HAND || !(level.getBlockEntity(pos) instanceof StripStationBlockEntity cage)) return InteractionResult.PASS;
+        if (!on(level) || hand != InteractionHand.MAIN_HAND || !(level.getBlockEntity(pos) instanceof StripStationBlockEntity cage)) return InteractionResult.TRY_WITH_EMPTY_HAND;
         boolean axe = StripWork.isAxe(stack);
-        if (!axe && !StripStationBlockEntity.workable(stack)) return InteractionResult.PASS;
-        if (level.isClientSide()) return axe ? (cage.canWork(stack) ? InteractionResult.SUCCESS : InteractionResult.PASS) : InteractionResult.SUCCESS;
-        if (!InteractionGuard.mayChange(player, pos)) return InteractionResult.PASS;
+        if (!axe && !StripStationBlockEntity.workable(stack)) return InteractionResult.TRY_WITH_EMPTY_HAND;
+        if (level.isClientSide()) return axe ? (cage.canWork(stack) ? InteractionResult.SUCCESS : InteractionResult.TRY_WITH_EMPTY_HAND) : InteractionResult.SUCCESS;
+        if (!InteractionGuard.mayChange(player, pos)) return InteractionResult.TRY_WITH_EMPTY_HAND;
         if (axe) return work(cage, (ServerLevel) level, player, hand);
         if (cage.insert(stack) > 0) level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0F, 1.0F);
         else tell(player, "full");
@@ -61,7 +61,7 @@ public class StripStationBlock extends Block implements EntityBlock {
             case WORN -> tell(player, "worn");
             case BLOCKED -> tell(player, "blocked");
             case NOTHING -> {
-                return InteractionResult.PASS;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
             default -> {}
         }
