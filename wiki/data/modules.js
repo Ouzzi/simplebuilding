@@ -60,7 +60,8 @@ window.WIKI_MODULES = [
       "simplemusic",
       "simpleearth",
       "simplechallenges",
-      "simpledinos"
+      "simpledinos",
+      "simplelayers"
     ],
     "stage": "done",
     "overview": {
@@ -84,7 +85,7 @@ window.WIKI_MODULES = [
       "items": 469,
       "blocks": 260,
       "recipes": 760,
-      "config": 158,
+      "config": 159,
       "features": 44
     }
   },
@@ -2174,5 +2175,35 @@ window.WIKI_MODULES = [
       "features": 7
     },
     "dataHash": "df9d6af83d77"
+  },
+  {
+    "id": "simplelayers",
+    "displayName": "Simple Layers",
+    "description": "World layers: the Cloud Sea sky dimension above y 700 and the Backrooms below the bedrock, with cloud blocks, wallpaper, carpet and neon lights.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "Two new world layers: rise above y 700 of the Overworld into the Cloud Sea, a sky of cloud islands, or break Glitched Bedrock with a Netherite Pickaxe and fall into the Backrooms - endless, empty yellow rooms. Find the exit.",
+      "de": "Zwei neue Weltschichten: Steig in der Oberwelt über y 700 ins Wolkenmeer, einen Himmel aus Wolkeninseln, oder brich fehlerhaftes Grundgestein mit einer Netherit-Spitzhacke auf und fall in die Backrooms - endlose, leere gelbe Räume. Finde den Ausgang."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 3,
+      "blocks": 14,
+      "features": 4
+    },
+    "dataHash": "2281db76281c"
   }
 ];

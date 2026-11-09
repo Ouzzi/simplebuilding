@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "simplelayers",
+  "version": "${version}",
+  "name": "Simple Layers",
+  "description": "World layers: the Cloud Sea, a sky dimension above y 700 of the Overworld, and the Backrooms below the bedrock - endless yellow rooms with wallpaper, damp carpet and neon lights.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplelayers.LayersFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplelayers.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.4.0"
+  },
+  "icon": "assets/simplelayers/icon.png",
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}

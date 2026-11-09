@@ -587,7 +587,7 @@ Quelle: `/root/sb-tools-b/earth29.md`. Branch b-earth29, Vorschau /root/sb-tools
 - [x] (B, b-earth29, 26.10.) **E29-5** V13–V24: V13–V16 wie V5 im Orbit (Exponent 2,4/4/8/6, V15 Eckfenster, V16 vierte Fläche), V17–V20 wie V12 im Orbit (V18 Ecke mit Höhe, V19 Fenster, V20 vierte Fläche), V21–V24 V9-Schale rollend (Position/45°/mit Höhe/ganz gefaltet). Belege: JUnit (alle 24 endlich, Abstand), Client-Bilder Mitte/Kante/Ecke je Version.
 - [x] (B, b-earth29, 26.10.) **E29-6** Menü: Favoriten V5 + V13–V24 in einer Reihe (Panel 300 breit), V1–V12 im Aufklapp-Knopf (CycleButton). Beleg: echte Maus (menu_probe.py, XTest) 14/14 bei GUI 2 und 4.
 - [x] (B, b-earth29, 26.10.) **E29-7** Kante 64…1 048 576 (Log-Regler), weitere Bereiche weiter (Höhen, Abtastraster ab 1 Block, Server minEdge 64/maxEdge 16 Mio., minGrid 3).
-- [x] (B, b-earth29, 26.10.) **E29-8** Vorschläge docs/ai/EARTH-ORBIT-IDEEN-2026-10-26.md (Empfehlung: Tempo mit Höhe + Elytra-Schub, Chunk-Tickets oben aus). Offen: Besitzer-Wahl.
+- [x] (B, b-earth29, 26.10.) **E29-8** Vorschläge docs/ai/EARTH-ORBIT-IDEEN-2026-10-26.md (Empfehlung: Tempo mit Höhe + Elytra-Schub, Chunk-Tickets oben aus). Besitzer 08.11.: „Bitte Konzept für die Wolken und Backrooms implementieren“ → wolke=B, backroom=B, ein Mod Simple Layers; Umsetzung a-layers10 läuft.
 
 ## Besitzer 24.10. nachmittags – Antworten Sammelseite, Runde 2 (WC24)
 Abgenommen: WB24-2 Schwingen Stufe 1–4 (Name „Leeren-Schwingen“, x8/1152/MYTHIC), WB24-4 Notenblatt-Editor („noten blatt e3“ = E3-Ansicht so lassen, flaches Neuschreiben ok).

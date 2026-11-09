@@ -590,6 +590,7 @@ public final class ConfigOptionTests {
             "root.enableSimplePads boolean=true",
             "root.enableSimpleBuildingtools boolean=true",
             "root.enableSimpleChisels boolean=true",
+            "root.enableSimpleLayers boolean=true",
             // <submods:end expected>
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1237,6 +1238,7 @@ public final class ConfigOptionTests {
                 {"enableSimplePads", "simplepads"},
                 {"enableSimpleBuildingtools", "simplebuildingtools"},
                 {"enableSimpleChisels", "simplechisels"},
+                {"enableSimpleLayers", "simplelayers"},
                 // <submods:end switches>
         };
         try {

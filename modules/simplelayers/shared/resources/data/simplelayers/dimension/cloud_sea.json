@@ -1,0 +1,11 @@
+{
+  "type": "simplelayers:cloud_sea",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "simplelayers:cloud_sea"
+    },
+    "settings": "simplelayers:cloud_sea"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "simplelayers:backrooms",
+  "generator": {
+    "type": "simplelayers:backrooms",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "simplelayers:backrooms"
+    }
+  }
+}

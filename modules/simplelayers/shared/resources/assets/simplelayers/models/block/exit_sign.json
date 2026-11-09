@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplelayers:block/exit_sign_top",
+    "side": "simplelayers:block/exit_sign"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplelayers:block/exit_door_end",
+    "side": "simplelayers:block/exit_door_lower"
+  }
+}

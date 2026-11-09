@@ -1,0 +1,28 @@
+{
+  "format": "sb-layers",
+  "version": 1,
+  "width": 16,
+  "height": 16,
+  "digits": 2,
+  "palette": ["#e9ecf1aa", "#eaedf2aa", "#eceff4aa", "#f6f8fdaa", "#f7faffaa", "#eef1f6aa", "#edf0f5aa", "#ebeef2aa", "#e9ecf0cd", "#e9ecf1cd", "#eaedf2cd", "#ebeef3cd", "#edf0f5cd", "#f6f9fecd", "#f7f9fecd", "#eef1f6cd", "#eceef3cd", "#eaecf1cd", "#e8ebf0aa", "#e8ebf0cd", "#e8ebf0e4", "#e9ecf1e4", "#eaedf2e4", "#eceff3e4", "#f5f8fce4", "#f5f8fde4", "#eceff4e4", "#ebeef3e4", "#eaedf1e4", "#e7eaefaa", "#e7eaefcd", "#e7eaefe4", "#e8eaefe4", "#f3f6fbe4", "#ebeef2e4", "#e8ebefe4", "#e9ebf0e4", "#f2f5fae4", "#e9ecf0e4", "#e8eaefaa", "#e8eaefcd", "#eaecf1e4", "#ebedf2e4", "#e8ebefaa", "#e8ebefcd", "#e9ebf0cd", "#edf0f5e4", "#edf0f4e4", "#eef1f6e4", "#eef1f5e4", "#edeff4cd", "#eff2f6cd", "#eceff4cd", "#eceff3aa", "#f7f9feaa", "#eff2f7aa", "#eaedf1aa"],
+  "layers": [
+    {"name": "Durchscheinender Rand", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "00000000010203040404050602070100",
+      "000808090a0b0c0d0e0d0f0c100a1100",
+      "121314141516171819191a1a1b1c0812",
+      "1d1e1f201415161b21211b221615131d",
+      "1d1e1f1f23241516252516161526131d",
+      "1d1e1f20142615161616161615261327",
+      "1d2814141529162a222216161c15132b",
+      "1d2c141516161b1b171b1b161615132b",
+      "1d2c261c161b1b1a1a1a1b161615132b",
+      "1d2c2415162a1b1a1a1a1b161615132b",
+      "2b2c142615161b1a1a1a1b2216152d12",
+      "2b2c231414151b1a2e1a1a1b16152d12",
+      "2b281f2014151b2f2e2e1a1b25151312",
+      "2b28202324161a2e30312e172a292d12",
+      "12131313090b320f330f0c340b0a0912",
+      "00000000013506360437050635013800"
+    ]}
+  ]
+}

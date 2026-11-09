@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "simplelayers:block/neon_light",
+    "top": "simplelayers:block/ceiling_tile",
+    "side": "simplelayers:block/neon_light_side"
+  }
+}
