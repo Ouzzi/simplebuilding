@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[66,)"
-license="CC0-1.0"
+license="LicenseRef-SimpleMods-ARR"
 [[mods]]
 modId="simplestorage"
 version="${version}"

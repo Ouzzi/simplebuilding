@@ -89,7 +89,7 @@ footer{margin:56px 0 24px;text-align:center;color:#8a7f69;font-size:13px}'''
     for i, u in allicons:
         if i not in done: b += f'<div class="ign"><small>{i}</small><div class="ic"><img src="{u}" title="{i}" alt="{i}"></div></div>'
     b += '</div>'
-    b += '</div><footer>Simple Mods - wiki.simplemods.de - Minecraft ist eine Marke von Mojang/Microsoft, dieses Projekt ist nicht offiziell.</footer></div>'
+    b += '</div><footer>Simple Mods - wiki.simplemods.de - Minecraft ist eine Marke von Mojang/Microsoft, dieses Projekt ist nicht offiziell. © Ouzzi, alle Rechte vorbehalten (Quelltext einsehbar, siehe LICENSE).</footer></div>'
     return HEAD + css + '</style></head><body>' + b + '</body></html>'
 
 def B():

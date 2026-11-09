@@ -35,7 +35,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "icon": "assets/simpleriding/icon.png",
   "recommends": {
     "simpleores": "*"

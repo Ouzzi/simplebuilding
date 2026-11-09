@@ -255,6 +255,8 @@ dependencies {
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
+// The release jar carries the licence text (LicenseRef-SimpleMods-ARR), like every module jar (gradle/module-fabric.gradle).
+tasks.named('jar') { from(rootProject.file('LICENSE')) { rename { "${it}_${project.base.archivesName.get()}" } } }
 
 // REV24-F-14: the server gametests share the main source set with the mod (the trees are shared with 26.2/NeoForge), but
 // only runGametest needs them, and it loads the class folders, not this jar. The release jar (also the one

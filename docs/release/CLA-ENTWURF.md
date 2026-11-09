@@ -1,3 +1,5 @@
+> **Ersetzt (b-lic15, 09.11.2026):** aktiv ist jetzt `CLA.md` im Repo-Root, Erläuterung in `LIZENZ-ERKLAERUNG.md`. Dieser Entwurf bleibt nur zur Nachverfolgung.
+>
 > **Entwurf, Rechtsprüfung durch Besitzer nötig, keine Rechtsberatung.**
 >
 > **Kurz auf Deutsch:** Wer einen Beitrag (Pull Request) einreicht, behält sein Urheberrecht, räumt dem Autor aber ein unbefristetes, weltweites, unwiderrufliches, unterlizenzierbares Nutzungsrecht ein (auch zum Relizenzieren). Das ist nötig, damit der Autor den Code später unter anderer Lizenz veröffentlichen kann (wie jetzt CC0 zu "All Rights Reserved"), ohne jeden Beitragenden erneut zu fragen. Zustimmung per PR-Kommentar oder Checkbox in der PR-Vorlage.

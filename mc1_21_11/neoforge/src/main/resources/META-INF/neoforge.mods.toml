@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="${loaderVersionRange}"
-license="CC0-1.0"
+license="LicenseRef-SimpleMods-ARR"
 
 [[mixins]]
 config="simplebuilding.mixins.json"

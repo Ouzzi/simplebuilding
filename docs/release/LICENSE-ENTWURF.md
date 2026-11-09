@@ -1,3 +1,5 @@
+> **Ersetzt (b-lic15, 09.11.2026):** aktiv ist jetzt `LICENSE` im Repo-Root, Erläuterung in `LIZENZ-ERKLAERUNG.md`. Dieser Entwurf bleibt nur zur Nachverfolgung.
+>
 > **Entwurf, Rechtsprüfung durch Besitzer nötig, keine Rechtsberatung.**
 > Nicht aktiv: `LICENSE` (CC0-1.0) und `license`-Felder in den Mod-Metadaten bleiben unverändert, bis der Besitzer freigibt.
 >
