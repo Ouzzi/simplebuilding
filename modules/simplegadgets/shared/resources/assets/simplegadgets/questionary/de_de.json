@@ -42,5 +42,27 @@
     "secret": [
       "Je weiter entfernt, desto länger dauert es: etwa 20 s zum Entzünden bei 200 Blöcken. Kreaturen im Wasser oder Regen und feuerfeste bleiben verschont. Herstellung: Eisenklumpen, Amethystsplitter, Redstone, Eisenkern und Eisenstange."
     ]
+  },
+  "detector": {
+    "lore": [
+      "Sonar für den Untergrund: eine Amethystnadel, die zum Erz zeigt."
+    ],
+    "use": [
+      "In der Hand sucht er alle 20 Ticks das nächste Erz in einer Kugel um dich und dreht sich dorthin wie ein Kompass zum Leitstein, mit Klang und leichter Partikelspur. Schleichen + Rechtsklick wechselt den Modus."
+    ],
+    "secret": [
+      "Schleichen + Rechtsklick auf einen Block kalibriert den Eigenmodus auf diese Blockart; dann kannst du den Detektor wie eine Schmiedevorlage ablegen. Seltene Erze geben schwächeres Signal und kürzere Reichweite; Astralit- und Nihilit-Erz signalisieren 5 und reichen 16."
+    ]
+  },
+  "magnet": {
+    "lore": [
+      "Ein kleines Ding mit fester Meinung darüber, wo deine Gegenstände sein sollten."
+    ],
+    "use": [
+      "Zieht lose Gegenstände zu dir, solange er in einer Hand liegt, Radius 4 Blöcke. Schleichen pausiert ihn. Reichweite wächst um 2 Blöcke je Stufe. Er hat keine Haltbarkeit."
+    ],
+    "secret": [
+      "Nur Berührung des Konstrukteurs schaltet den Filter nach Gegenstandsart frei: Schleichklick auf Block oder Gegenstand wählt aus, Schleichklick in die Luft löscht. Ein unverzauberter wird per Schleichklick auf einen Block abgesetzt und zieht im Umkreis von 8 Blöcken."
+    ]
   }
 }

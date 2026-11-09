@@ -178,6 +178,7 @@ public final class OreDetectorTests {
      * match the signal cannot reach hide every reachable one behind it.
      */
     public static void detectorReportsTheNearestTargetInsideItsBudget(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ItemStack iron = detectorInMode(MODE_IRON);
 
         // --- two iron ores on the same line, 2 and 5 blocks out ---
@@ -281,6 +282,7 @@ public final class OreDetectorTests {
      * of ancient debris.
      */
     public static void detectorModesMatchTheirOreTags(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         // A gold ore in the way must not answer for iron, and the deepslate variant must.
         placeDecoyAndTarget(helper, Blocks.GOLD_ORE, Blocks.DEEPSLATE_IRON_ORE);
         assertFinds(helper, detectorInMode(MODE_IRON), rowPos(3),
@@ -351,6 +353,7 @@ public final class OreDetectorTests {
      * charging the blocks at its ends.
      */
     public static void denseBlocksShortenTheBeamMoreThanSoftOnes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         helper.assertValueEqual(lossTable(), "AIR 0.125, SOFT 2.0, STONE 4.0, DENSE 6.0, VERY_DENSE 16.0",
                 "the signal loss of each material step");
 
@@ -415,6 +418,7 @@ public final class OreDetectorTests {
      * expensive.
      */
     public static void constructorsTouchDoublesTheReachThroughSolidRock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         Holder<Enchantment> touch = enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH);
         helper.assertTrue(supports(touch, ModItems.ORE_DETECTOR),
                 "Constructor's Touch no longer lists the ore detector among its supported items, so no "
@@ -458,6 +462,7 @@ public final class OreDetectorTests {
      * detector's item list.
      */
     public static void allOresReachFollowsTheOreRarityAndRadiusStretchesTheRareOnes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         Holder<Enchantment> radius = enchantment(helper, ModEnchantments.RADIUS);
         helper.assertTrue(supports(radius, ModItems.ORE_DETECTOR),
                 "Radius no longer lists the ore detector among its supported items, so the stretched "
@@ -514,6 +519,7 @@ public final class OreDetectorTests {
      * losing its cost or costing like rock.
      */
     public static void openAirReachEndsAtTheRangeOfEachOreClass(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ItemStack plain = detectorInMode(MODE_ALL);
         ItemStack stretched = detectorInMode(MODE_ALL);
         stretched.enchant(enchantment(helper, ModEnchantments.RADIUS), 1);
@@ -554,6 +560,7 @@ public final class OreDetectorTests {
      * stroke, a needle off-centre again, or a glimmer path that leaves the dial.
      */
     public static void selectionGlimmerPathFollowsTheCentredNeedle(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         List<String> problems = new ArrayList<>();
         for (int f = 0; f < 32; f++) {
             int n = com.simplebuilding.client.render.OreDetectorNeedlePath.steps(f);
@@ -621,6 +628,7 @@ public final class OreDetectorTests {
      * target read from the wrong place, or an ore losing its mineral colour.
      */
     public static void calibratedDetectorGlimmersInTheColourOfItsTarget(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         String actual = "diamond " + hex(OreDetectorItem.targetColor(calibratedOn(Blocks.DEEPSLATE_DIAMOND_ORE)))
                 + ", astralit " + hex(OreDetectorItem.targetColor(calibratedOn(ModBlocks.ASTRALIT_ORE)))
                 + ", ancient debris " + hex(OreDetectorItem.targetColor(calibratedOn(Blocks.ANCIENT_DEBRIS)))
@@ -656,6 +664,7 @@ public final class OreDetectorTests {
      * treating the air fallback of {@code readBlockState} as a real target.
      */
     public static void detectorCalibratedInEitherMinecraftLineKeepsItsTarget(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         String oakLog = "minecraft:oak_log";
         for (String[] keys : new String[][]{{"Name", "Properties", "26.2"}, {"id", "properties", "26.3"}}) {
             CompoundTag stored = new CompoundTag();
@@ -844,6 +853,7 @@ public final class OreDetectorTests {
      * as well, or charging more than one point.
      */
     public static void pingsCostDurabilityOnlyWhenTheyFindSomething(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ServerPlayer player = mockPlayer(helper);
         OreDetectorItem item = (OreDetectorItem) ModItems.ORE_DETECTOR;
         ItemStack detector = calibratedOn(Blocks.PEARLESCENT_FROGLIGHT);
@@ -876,6 +886,7 @@ public final class OreDetectorTests {
      * would be stored) or from {@code isTarget} (the old stack would still find the chest).
      */
     public static void blockEntitiesCannotBeCalibratedOrFound(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ServerPlayer player = mockPlayer(helper);
         player.setShiftKeyDown(true);
         for (Block block : new Block[]{Blocks.CHEST, Blocks.SPAWNER, Blocks.SHULKER_BOX, Blocks.BARREL}) {
@@ -921,6 +932,7 @@ public final class OreDetectorTests {
      * <p>What breaks it: removing the cap, or not resetting it on a new tick.
      */
     public static void scansAreCappedPerServerTick(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         long tick = Long.MIN_VALUE + 1000;
         for (int i = 0; i < OreDetectorItem.MAX_SCANS_PER_TICK; i++) {
             helper.assertTrue(OreDetectorItem.takeScanBudget(tick), "scan " + (i + 1) + " of a tick was refused below the cap");
@@ -954,6 +966,7 @@ public final class OreDetectorTests {
      * stop the block underneath from being placed or used.
      */
     public static void sneakClickingCalibratesTheDetectorAndPlainClicksDoNot(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ServerPlayer player = mockPlayer(helper);
         ItemStack detector = new ItemStack(ModItems.ORE_DETECTOR);
         setLogAxis(helper, SAMPLE_LOG, Direction.Axis.Y);
@@ -1019,6 +1032,7 @@ public final class OreDetectorTests {
      * see the "Not covered" note on the class.
      */
     public static void modeSwitchIsFreeInCreativeAndTheToolStaysUnstackable(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ServerPlayer player = mockPlayer(helper);
         ItemStack detector = new ItemStack(ModItems.ORE_DETECTOR);
 
@@ -1083,6 +1097,7 @@ public final class OreDetectorTests {
      * crash every time it is hovered.
      */
     public static void tooltipNamesEveryModeWithItsPowerAndTarget(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         String[] names = {"Iron", "Gold", "Diamond", "Netherite", "All Ores", "Custom"};
         String[] powers = {"18, Range: 24", "13, Range: 20", "9, Range: 16", "5, Range: 16",
                 "18, Range: 24", "18, Range: 24"};
@@ -1299,6 +1314,7 @@ public final class OreDetectorTests {
      * result or count - or the recipe failing to load.
      */
     public static void theOreDetectorRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ServerLevel level = helper.getLevel();
         // " ES" / "ECE" / "GE " with S=calibrated sculk sensor, E=echo shard (four), C=compass, G=Gold Core.
         // 26.3 (owner 2026-10-02): a recovery compass in the middle, like the Echo Sounder.
@@ -1347,6 +1363,7 @@ public final class OreDetectorTests {
      * ping or the detector leaving the hands.
      */
     public static void theNeedlePointsAtTheFoundOreAndGlowsBrighterWhenCloser(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ServerPlayer player = mockPlayer(helper);
         OreDetectorItem item = (OreDetectorItem) ModItems.ORE_DETECTOR;
         ItemStack detector = calibratedOn(Blocks.PEARLESCENT_FROGLIGHT);
@@ -1415,6 +1432,7 @@ public final class OreDetectorTests {
      * or dropping the off hand from {@code isHeldInHands}.
      */
     public static void offHandDetectorIsSlowerQuieterAndFainter(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         helper.assertTrue(OreDetectorItem.scanInterval(EquipmentSlot.OFFHAND) > OreDetectorItem.scanInterval(EquipmentSlot.MAINHAND),
                 "the off hand does not ping more slowly than the main hand");
         helper.assertValueEqual(OreDetectorItem.scanInterval(EquipmentSlot.MAINHAND), 20, "main hand ping interval (ticks)");
@@ -1474,6 +1492,7 @@ public final class OreDetectorTests {
      * not starting at the plate, or the holder check ignoring mobs or the item in hand.
      */
     public static void calibratedDetectorsLieDownAndKeepSearching(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         player.setShiftKeyDown(true);
@@ -1546,6 +1565,7 @@ public final class OreDetectorTests {
      * What breaks this: {@code PlacedDetectors.wear} no longer called from {@code tick}, or paying every tone.
      */
     public static void placedDetectorWearsHalfTheTones(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos platePos = new BlockPos(1, 2, 1);
         helper.setBlock(platePos, ModBlocks.PLACED_SMITHING_TEMPLATE);

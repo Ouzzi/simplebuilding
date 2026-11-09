@@ -150,7 +150,7 @@ public final class GuideContent {
                 ch("simplebuilding:gold_building_wand", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
                 ch("simplebuilding:octant", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:octant", "simplebuilding:octant_blue")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack")),
-                ch("simplebuilding:magnet", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:magnet", "simplebuilding:detector", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":amethyst_lens", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":velocity_gauge")),
+                ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":magnet", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":magnet", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":detector", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":amethyst_lens", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":velocity_gauge")),
                 ch("minecraft:stick", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "minecraft:stick", "minecraft:oak_stairs")),
                 ch("minecraft:spyglass", List.of(), List.of("minecraft:enchanted_book#simplebuilding:range", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":diamond_chisel", "minecraft:diamond_pickaxe", "simplebuilding:diamond_sledgehammer", "simplebuilding:octant")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":deep_pockets", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver")),
@@ -164,7 +164,7 @@ public final class GuideContent {
                 ch("simplebuilding:diamond_building_wand", List.of(), List.of("minecraft:enchanted_book#simplebuilding:color_palette", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", List.of(), List.of("minecraft:enchanted_book#simplebuilding:color_palette", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver")),
                 ch("simplebuilding:diamond_sledgehammer", List.of(), List.of("minecraft:enchanted_book#simplebuilding:radius", "simplebuilding:iron_sledgehammer", "simplebuilding:diamond_sledgehammer")),
-                ch("simplebuilding:detector", List.of(), List.of("minecraft:enchanted_book#simplebuilding:radius", "simplebuilding:detector")),
+                ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":detector", List.of(), List.of("minecraft:enchanted_book#simplebuilding:radius", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":detector")),
                 ch("simplebuilding:iron_sledgehammer", List.of(), List.of("minecraft:enchanted_book#simplebuilding:break_through", "simplebuilding:iron_sledgehammer", "simplebuilding:diamond_sledgehammer")),
                 ch("simplebuilding:netherite_sledgehammer", List.of(), List.of("minecraft:enchanted_book#simplebuilding:override", "simplebuilding:iron_sledgehammer", "simplebuilding:diamond_sledgehammer")),
                 ch("minecraft:iron_pickaxe", List.of(), List.of("minecraft:enchanted_book#simplebuilding:strip_miner", "minecraft:iron_pickaxe", "minecraft:diamond_pickaxe")),
@@ -233,11 +233,11 @@ public final class GuideContent {
                 ch("simplebuilding:blaze_head", List.of(), List.of("simplebuilding:blaze_head", "simplebuilding:enderman_head", "simplebuilding:shulker_head", "simplebuilding:breeze_head", "simplebuilding:silverfish_head")),
                 ch("minecraft:smithing_table", List.of(), List.of("minecraft:smithing_table", "minecraft:netherite_upgrade_smithing_template", "simplebuilding:enderite_upgrade_template")))));
         STYLES.put(GuideBooks.Book.GADGETS, new BookStyle(0xD07AA8, List.of(
-                ch("simplebuilding:magnet", List.of("simplebuilding:magnet"), List.of()),
-                ch("minecraft:hopper", List.of(), List.of("simplebuilding:magnet", "minecraft:hopper", "minecraft:chest")),
+                ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":magnet", List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":magnet"), List.of()),
+                ch("minecraft:hopper", List.of(), List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":magnet", "minecraft:hopper", "minecraft:chest")),
                 ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":rotator", List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":rotator"), List.of("minecraft:oak_log", "minecraft:furnace", "minecraft:piston", "minecraft:hopper")), // 26.3: Simple Gadgets' Transposer, by id
                 ch("minecraft:ender_pearl", List.of(), List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":rotator", "minecraft:ender_pearl", "minecraft:anvil")),
-                ch("simplebuilding:detector", List.of("simplebuilding:detector"), List.of("minecraft:iron_ore", "minecraft:gold_ore", "minecraft:diamond_ore", "minecraft:ancient_debris")),
+                ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":detector", List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":detector"), List.of("minecraft:iron_ore", "minecraft:gold_ore", "minecraft:diamond_ore", "minecraft:ancient_debris")),
                 ch("minecraft:deepslate", List.of(), List.of("minecraft:stone", "minecraft:deepslate", "minecraft:obsidian")),
                 ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":echo_sounder", List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":echo_sounder"), List.of("minecraft:lodestone")),
                 ch("minecraft:echo_shard", List.of(), List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":echo_sounder", "minecraft:echo_shard", "minecraft:anvil", "minecraft:enchanted_book")),
@@ -272,7 +272,7 @@ public final class GuideContent {
                 ch("minecraft:emerald", List.of(), List.of("minecraft:emerald")),
                 ch("minecraft:comparator", List.of(), List.of("minecraft:ward_armor_trim_smithing_template", "minecraft:iron_boots")),
                 ch("minecraft:piston", List.of(), List.of(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":netherite_piston", "simplebuilding:iron_building_wand")),
-                ch("minecraft:barrier", List.of(), List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", "simplebuilding:magnet", "simplebuilding:blueprint")))));
+                ch("minecraft:barrier", List.of(), List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":magnet", "simplebuilding:blueprint")))));
     }
 
     static {

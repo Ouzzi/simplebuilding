@@ -122,7 +122,7 @@ public final class PlaceN24Tests {
         helper.assertFalse(use(helper, player, new ItemStack(ModItems.STONE_PEBBLE), lone, Direction.UP).consumesAction(),
                 "a pebble went onto a lone template");
         // functional items stay single
-        helper.assertFalse(PlacedSmallParts.isPileTemplate(new ItemStack(ModItems.MAGNET)), "the attractor piles");
+        helper.assertFalse(PlacedSmallParts.isPileTemplate(new ItemStack(com.simplebuilding.util.GadgetRefs.magnet())), "the attractor piles");
         helper.succeed();
     }
 

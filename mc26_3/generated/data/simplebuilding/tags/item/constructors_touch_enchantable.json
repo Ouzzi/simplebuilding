@@ -13,8 +13,8 @@
     "#simplebuilding:building_wand_enchantable",
     "simplegadgets:velocity_gauge",
     "simplegadgets:amethyst_lens",
-    "simplebuilding:detector",
-    "simplebuilding:magnet",
+    "simplegadgets:detector",
+    "simplegadgets:magnet",
     "#simplebuilding:octants_enchantable",
     "minecraft:stick"
   ]

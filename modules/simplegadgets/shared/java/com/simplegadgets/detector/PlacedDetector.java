@@ -1,0 +1,199 @@
+package com.simplegadgets.detector;
+
+import com.simplegadgets.config.GadgetsConfig;
+import com.simplelib.api.PlacedGadgets;
+import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.VibrationParticleOption;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.BlockPositionSource;
+import net.minecraft.world.level.gameevent.EntityPositionSource;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Der abgelegte Detector (Besitzer 2026-09-29): ein kalibrierter Detector (Modus "Kalibriert" mit
+ * Zielblock, {@link DetectorItem#isArmed}) legt sich mit Schleichen + Rechtsklick wie eine
+ * Schmiedevorlage ab (ueber den Platten-Partner, SimpleLib {@link PlacedGadgets}; OW24-2 G3: aus SimpleBuildings
+ * {@code util/PlacedDetectors}). Dort arbeitet er weiter - ohne Einblendung, nur mit Klang und
+ * Partikeln:
+ * <ul>
+ *   <li><b>Suche:</b> alle {@link #interval()} Ticks dieselbe Suche wie in der Hand
+ *   ({@link DetectorItem#findTarget}, samt Radius/Constructor's Touch des Stapels), aber von der
+ *   Mitte der Platte aus. Findet er den Zielblock, laeuft eine Sculk-Vibration vom Fundort zum
+ *   Detector, Blockpartikel zeichnen den Strahl, dazu Glocke und Sculk-Klicken wie in der Hand
+ *   (hoeher je naeher). Jeder Ton kostet mit {@link #WEAR_CHANCE} 1 Haltbarkeit ({@link #wear}).</li>
+ *   <li><b>Traeger:</b> haelt ein Spieler oder Mob in {@link #HOLDER_RANGE} Bloecken den Zielblock als
+ *   Item in einer Hand, schlaegt der Detector ebenfalls an - eine
+ *   Vibration fliegt vom Detector zum Traeger, dazu ein hoher Resonanzton.</li>
+ * </ul>
+ *
+ * <p>Sparsam: ein Takt je Platte (versetzt nach Position), und nur, wenn ein Spieler in
+ * {@link #LISTEN_RANGE} Bloecken ist - sonst hoert und sieht es ohnehin niemand. Die Kugelsuche
+ * teilt sich die Tick-Kappe der gehaltenen Detectors ({@link DetectorItem#takeScanBudget}); die
+ * Traegersuche ist eine Entity-Abfrage im Wuerfel von {@link #HOLDER_RANGE}. Der Serverschalter
+ * {@code detectorEnabled} gilt auch abgelegt.
+ */
+public final class PlacedDetector implements PlacedGadgets.Behaviour {
+    /** So weit (Bloecke) bemerkt ein abgelegter Detector einen Traeger des Zielblocks. */
+    public static final double HOLDER_RANGE = 8.0;
+    /** Ohne Spieler in dieser Entfernung (Bloecke) ruht der Detector ganz. */
+    public static final double LISTEN_RANGE = 32.0;
+    /** Abgelegt sucht er halb so oft wie in der Haupthand. */
+    public static final int INTERVAL_FACTOR = 2;
+    /** Abgelegt kostet jeder Ton nur mit dieser Wahrscheinlichkeit 1 Haltbarkeit (BS28b-3; in der Hand immer). */
+    public static final float WEAR_CHANCE = 0.5F;
+
+    public static final PlacedDetector INSTANCE = new PlacedDetector();
+
+    private PlacedDetector() {
+    }
+
+    /** Nur ein kalibrierter Detector legt sich ab ({@link DetectorItem#isArmed}). */
+    @Override
+    public boolean placeable(ItemStack stack) {
+        return DetectorItem.isArmed(stack);
+    }
+
+    @Override
+    public void tick(ServerLevel level, BlockPos pos, PlacedGadgets.Plate plate) {
+        tickPlate(level, pos, plate);
+    }
+
+    /** Ticks zwischen zwei Suchen: doppelter Haupthand-Takt ({@code detectorScanIntervalTicks}). */
+    public static int interval() {
+        return GadgetsConfig.detectorScanIntervalTicks * INTERVAL_FACTOR;
+    }
+
+    /** Was ein Takt gefunden hat (fuer Tests); beides null = nichts. */
+    public record Result(@Nullable BlockPos found, @Nullable LivingEntity holder) {
+        public static final Result NONE = new Result(null, null);
+    }
+
+    /** Ein Server-Tick der abgelegten Platte: ist sie ein scharfer Detector und ist dieser Tick dran, sucht sie. */
+    public static Result tickPlate(ServerLevel level, BlockPos pos, PlacedGadgets.Plate be) {
+        ItemStack stack = be.stack();
+        // Billigste Pruefungen zuerst: Item-Art und Takt; die Komponenten liest erst isArmed.
+        if (!(stack.getItem() instanceof DetectorItem)
+                || Math.floorMod(level.getGameTime() + pos.asLong(), interval()) != 0
+                || !GadgetsConfig.detectorEnabled || !DetectorItem.isArmed(stack)
+                || !level.hasNearbyAlivePlayer(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, LISTEN_RANGE)) {
+            return Result.NONE;
+        }
+        Result result = scan(level, pos, be, true);
+        wear(level, pos, be, result);
+        return result;
+    }
+
+    /**
+     * BS28b-3: jeder Ton eines Taktes (Fund, Traeger) kostet mit {@link #WEAR_CHANCE} 1 Haltbarkeit (in der Hand immer);
+     * Haltbarkeit/Unbreaking greift danach zusaetzlich ({@code hurtAndBreak}), die Wahrscheinlichkeiten multiplizieren
+     * sich. Geht der Detector dabei kaputt, verschwindet die Platte. Liefert die Zahl der abgezogenen Takte-Toene.
+     */
+    public static int wear(ServerLevel level, BlockPos pos, PlacedGadgets.Plate be, Result result) {
+        int tones = (result.found() != null ? 1 : 0) + (result.holder() != null ? 1 : 0);
+        int paid = 0;
+        for (int i = 0; i < tones && !be.stack().isEmpty(); i++) {
+            if (level.getRandom().nextFloat() >= WEAR_CHANCE) {
+                continue;
+            }
+            ItemStack stack = be.stack();
+            int before = stack.getDamageValue();
+            stack.hurtAndBreak(DetectorItem.DURABILITY_PER_HIT, level, null,
+                    item -> level.playSound(null, pos, SoundEvents.ITEM_BREAK.value(), SoundSource.BLOCKS, 0.8F, 0.8F));
+            paid++;
+            if (stack.isEmpty()) {
+                be.setStack(ItemStack.EMPTY);
+                return paid;
+            }
+            if (stack.getDamageValue() != before) {
+                be.changed();
+            }
+        }
+        return paid;
+    }
+
+    /**
+     * Sucht jetzt (ohne Takt- und Spielerpruefung) nach Traegern und dem Zielblock und gibt die
+     * Rueckmeldung. {@code useBudget}: die Kugelsuche zaehlt gegen die Tick-Kappe (Tests: false).
+     */
+    public static Result scan(ServerLevel level, BlockPos pos, PlacedGadgets.Plate be, boolean useBudget) {
+        ItemStack stack = be.stack();
+        if (!(stack.getItem() instanceof DetectorItem detector)) {
+            return Result.NONE;
+        }
+        BlockState target = DetectorItem.calibratedTarget(stack, level.registryAccess());
+        if (target == null) {
+            return Result.NONE;
+        }
+        Vec3 origin = be.surfaceCentre();
+
+        LivingEntity holder = nearestHolder(level, pos, target);
+        if (holder != null) {
+            double distance = holder.getEyePosition().distanceTo(origin);
+            level.sendParticles(new VibrationParticleOption(new EntityPositionSource(holder, holder.getEyeHeight() * 0.7F),
+                    Math.max(4, (int) Math.round(distance * 1.5))), origin.x, origin.y, origin.z, 1, 0.0, 0.0, 0.0, 0.0);
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.8F, 1.6F);
+            level.playSound(null, pos, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, 0.5F, 1.8F);
+        }
+
+        BlockPos found = null;
+        if (!useBudget || DetectorItem.takeScanBudget(level.getGameTime())) {
+            found = detector.findTarget(level, stack, origin);
+        }
+        if (found != null) {
+            BlockState state = level.getBlockState(found);
+            Vec3 end = Vec3.atCenterOf(found);
+            double distance = origin.distanceTo(end);
+            // Die Vibration laeuft vom Fundort zum Detector: so zeigt sie, woher das Signal kommt.
+            level.sendParticles(new VibrationParticleOption(new BlockPositionSource(pos), Math.max(4, (int) Math.round(distance * 1.5))),
+                    end.x, end.y, end.z, 1, 0.0, 0.0, 0.0, 0.0);
+            int count = DetectorItem.beamParticles(distance, null);
+            Vec3 step = end.subtract(origin).scale(1.0 / (count + 1));
+            for (int i = 1; i <= count; i++) {
+                Vec3 p = origin.add(step.scale(i));
+                level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), p.x, p.y, p.z, 1, 0, 0, 0, 0);
+            }
+            level.sendParticles(ParticleTypes.END_ROD, end.x, end.y, end.z, 1, 0.1, 0.1, 0.1, 0.01);
+            float pitch = (float) Math.max(0.6, Math.min(2.0, 1.8 - distance / 32.0));
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.9F, pitch);
+            level.playSound(null, pos, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, 0.6F, 2.0F);
+        }
+        return new Result(found, holder);
+    }
+
+    /** Der naechste Spieler oder Mob in {@link #HOLDER_RANGE}, der den Zielblock in der Hand haelt; sonst null. */
+    public static @Nullable LivingEntity nearestHolder(ServerLevel level, BlockPos pos, BlockState target) {
+        Item item = target.getBlock().asItem();
+        Vec3 centre = Vec3.atCenterOf(pos);
+        double rangeSq = HOLDER_RANGE * HOLDER_RANGE;
+        List<LivingEntity> holders = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(HOLDER_RANGE),
+                entity -> entity.isAlive() && !entity.isSpectator() && entity.distanceToSqr(centre) <= rangeSq
+                        && holds(entity, target, item));
+        LivingEntity best = null;
+        double bestSq = Double.MAX_VALUE;
+        for (LivingEntity entity : holders) {
+            double d = entity.distanceToSqr(centre);
+            if (d < bestSq) {
+                best = entity;
+                bestSq = d;
+            }
+        }
+        return best;
+    }
+
+    /** Haelt {@code entity} den Zielblock als Item in einer der beiden Haende? */
+    public static boolean holds(LivingEntity entity, BlockState target, Item item) {
+        return item != Items.AIR && (entity.getMainHandItem().is(item) || entity.getOffhandItem().is(item));
+    }
+}

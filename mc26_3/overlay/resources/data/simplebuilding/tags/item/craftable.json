@@ -81,7 +81,7 @@
       "id": "simplelib:cracked_diamond_block",
       "required": false
     },
-    "simplebuilding:detector",
+    "simplegadgets:detector",
     "simplebuildingtools:diamond_building_wand",
     "simplechisels:diamond_chisel",
     "simplelib:diamond_core",
@@ -220,7 +220,7 @@
       "required": false
     },
     "simplebuilding:leather_sheet",
-    "simplebuilding:magnet",
+    "simplegadgets:magnet",
     "simplebuilding:nether_brick_chess_bishop",
     "simplebuilding:nether_brick_chess_bishop_flat",
     "simplebuilding:nether_brick_chess_king",

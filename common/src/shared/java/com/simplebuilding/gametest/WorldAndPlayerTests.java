@@ -503,6 +503,7 @@ public final class WorldAndPlayerTests {
      * swallowing ordinary sneak clicks.
      */
     public static void lockedFramesStillAnswerTheMagnetWhileOtherSneakClicksFallThrough(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         if (com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletools")) { helper.succeed(); return; } // Simple Tools owns the frame lock (Vanilla Fixed, axe unlocks): covered by its FrameTests
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.0, 5.5));
         ItemFrame frame = frameWithItem(helper, FRAME_POS);

@@ -158,7 +158,7 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
         }
 
         // NORMALE INTERAKTIONEN
-        if (handStack.is(ModItems.MAGNET)) {
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB && handStack.is(ModItems.MAGNET)) { // 26.3: Simple Gadgets (UseEntityCallback)
             var registry = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
             var enchantmentEntry = registry.get(ModEnchantments.CONSTRUCTORS_TOUCH);
             boolean hasEnchantment = false;

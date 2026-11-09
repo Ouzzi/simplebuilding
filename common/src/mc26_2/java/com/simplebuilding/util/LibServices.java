@@ -54,6 +54,19 @@ public final class LibServices {
     public static void fireGadgetEvent(String event, net.minecraft.world.entity.player.Player player) {
     }
 
+    /** OW24-2 G3: 26.2 keeps Attractor and Detector in SimpleBuilding (McVersion.GADGETS_IN_SB), no gadget plates through SimpleLib. */
+    public static boolean placeableGadget(ItemStack stack) {
+        return false;
+    }
+
+    public static boolean gadgetPlacesOnPlainClick(ItemStack stack, net.minecraft.world.level.Level level) {
+        return false;
+    }
+
+    public static void tickPlacedGadget(net.minecraft.server.level.ServerLevel level, net.minecraft.core.BlockPos pos,
+                                        com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity be) {
+    }
+
     /** WE25-7: 26.2 keeps its own chisels (SimpleBuilding's ChiselItem), the same view as Simple Chisels gives on 26.3. */
     public static java.util.List<ChiselTool> chiselTools() {
         java.util.List<ChiselTool> out = new java.util.ArrayList<>();

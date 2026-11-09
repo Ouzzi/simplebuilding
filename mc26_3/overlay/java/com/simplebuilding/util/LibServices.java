@@ -64,6 +64,53 @@ public final class LibServices {
         com.simplelib.api.GadgetActions.fire(event, player);
     }
 
+    /** OW24-2 G3: whether a Simple Gadgets stack (Attractor, calibrated Detector) lays down as a plate (SimpleLib PlacedGadgets). */
+    public static boolean placeableGadget(ItemStack stack) {
+        return com.simplelib.api.PlacedGadgets.placeable(stack);
+    }
+
+    /** OW24-2 G3: whether that gadget lays down with a plain right click (Attractor with Constructor's Touch). */
+    public static boolean gadgetPlacesOnPlainClick(ItemStack stack, net.minecraft.world.level.Level level) {
+        return com.simplelib.api.PlacedGadgets.placesOnPlainClick(stack, level);
+    }
+
+    /** OW24-2 G3: one tick of a gadget on SimpleBuilding's placed template plate. */
+    public static void tickPlacedGadget(ServerLevel level, BlockPos pos, com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity be) {
+        if (com.simplelib.api.PlacedGadgets.behaviour(be.getTemplate()) == null) return;
+        com.simplelib.api.PlacedGadgets.tick(level, pos, new com.simplelib.api.PlacedGadgets.Plate() {
+            @Override
+            public ItemStack stack() {
+                return be.getTemplate();
+            }
+
+            @Override
+            public void setStack(ItemStack stack) {
+                be.setTemplate(stack);
+                if (stack.isEmpty()) level.destroyBlock(pos, false);
+            }
+
+            @Override
+            public void changed() {
+                be.setChanged();
+            }
+
+            @Override
+            public net.minecraft.world.phys.Vec3 surfaceCentre() {
+                return be.surfaceCentre();
+            }
+
+            @Override
+            public net.minecraft.core.Direction normal() {
+                return be.normal();
+            }
+
+            @Override
+            public boolean mayAutomate(net.minecraft.world.entity.Entity entity) {
+                return com.simplebuilding.api.WorldPermissions.mayAutomateEntity(level, pos, entity);
+            }
+        });
+    }
+
     /** WE25-7: the chisels Simple Chisels publishes through SimpleLib's ChiselActions (weakest first; empty without it). */
     public static java.util.List<ChiselTool> chiselTools() {
         java.util.List<ChiselTool> out = new java.util.ArrayList<>();
@@ -227,6 +274,10 @@ public final class LibServices {
         // MACH32-MOD stage 2: Simple Machines' breaker pistons tell a repair by event name ("Good as New" stays SimpleBuilding's).
         com.simplelib.api.GadgetActions.listen(com.simplebuilding.advancement.ModTriggers.PISTON_REPAIR, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
                 com.simplebuilding.advancement.ModTriggers.PISTON_REPAIR));
+        // OW24-2 G3: SimpleBuilding's placed templates lay Simple Gadgets' Attractor and Detector down; "Ping" stays SimpleBuilding's.
+        com.simplelib.api.PlacedGadgets.setPlacer(PlacedTemplates::tryPlace);
+        com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.ORE_DETECTED, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.ORE_DETECTED));
         // OW24-2 G4: the Echo Sounder (Simple Gadgets) tells its jump and its shattering; advancement and statistic stay SimpleBuilding's.
         com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.ECHO_TELEPORT, player -> {
             com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.ECHO_TELEPORT);

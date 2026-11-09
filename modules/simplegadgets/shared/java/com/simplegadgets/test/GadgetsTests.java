@@ -103,6 +103,21 @@ public final class GadgetsTests {
         ALL.put("echo_the_cooldown_after_the_jump_is_twenty_four_seconds", EchoTests::theCooldownAfterAJumpIsTwentyFourSeconds);
         ALL.put("echo_the_echo_sounder_does_not_relink_the_lodestone_it_is_linked_to", EchoTests::theEchoSounderDoesNotRelinkTheLodestoneItIsLinkedTo);
         ALL.put("echo_the_echo_sounder_locks_for_up_to_five_seconds_after_an_attempt_depending_on_the_distance", EchoTests::theEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance);
+        ALL.put("attractor_held_attractor_pulls_and_sneaking_pauses_it", AttractorTests::heldAttractorPullsAndSneakingPausesIt);
+        ALL.put("attractor_reach_is_four_blocks_and_range_widens_it_up_to_its_cap", AttractorTests::reachIsFourBlocksAndRangeWidensItUpToItsCap);
+        ALL.put("attractor_the_filter_needs_constructors_touch_and_matches_the_full_id", AttractorTests::theFilterNeedsConstructorsTouchAndMatchesTheFullId);
+        ALL.put("attractor_it_leaves_display_reserved_and_foreign_death_drops_alone", AttractorTests::itLeavesDisplayReservedAndForeignDeathDropsAlone);
+        ALL.put("attractor_the_placed_attractor_pulls_to_the_plate_and_lets_go", AttractorTests::thePlacedAttractorPullsToThePlateAndLetsGo);
+        ALL.put("attractor_laying_down_needs_the_plate_partner", AttractorTests::layingDownNeedsAPlatePartner);
+        ALL.put("attractor_the_attractor_recipe_keeps_its_shape", AttractorTests::theAttractorRecipeKeepsItsShape);
+        ALL.put("attractor_the_config_takes_over_simple_buildings_values", AttractorTests::theConfigTakesOverSimpleBuildingsValues);
+        ALL.put("detector_each_mode_finds_its_ores_and_all_ores_the_nearest", DetectorTests::eachModeFindsItsOresAndAllOresTheNearest);
+        ALL.put("detector_rock_damps_the_signal_and_dense_rock_more", DetectorTests::rockDampsTheSignalAndDenseRockMore);
+        ALL.put("detector_sneak_clicking_calibrates_and_block_entities_refuse", DetectorTests::sneakClickingCalibratesAndBlockEntitiesRefuse);
+        ALL.put("detector_pings_cost_durability_only_when_they_find_something", DetectorTests::pingsCostDurabilityOnlyWhenTheyFindSomething);
+        ALL.put("detector_the_placed_detector_searches_from_the_plate", DetectorTests::thePlacedDetectorSearchesFromThePlate);
+        ALL.put("detector_the_detector_recipe_keeps_its_shape", DetectorTests::theDetectorRecipeKeepsItsShape);
+        ALL.put("detector_the_config_scales_reach_and_interval", DetectorTests::theConfigScalesReachAndInterval);
         ALL.put("discover_recipe_unlocks", com.simplegadgets.discover.GadgetsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplegadgets.discover.GadgetsDiscover::behaviourHints);
         ALL.put("guide_book", com.simplegadgets.guide.GadgetsGuide::gameTest);
@@ -140,6 +155,10 @@ public final class GadgetsTests {
                 || !(GadgetsRegistry.AMETHYST_LENS instanceof com.simplelib.api.AnvilRechargeable)
                 || new ItemStack(GadgetsRegistry.AMETHYST_LENS).getMaxDamage() != com.simplegadgets.config.GadgetsConfig.rodMaxCharge) {
             problems.add("rod item " + GadgetsRegistry.AMETHYST_LENS);
+        }
+        if (!(GadgetsRegistry.DETECTOR instanceof com.simplegadgets.detector.DetectorItem) || new ItemStack(GadgetsRegistry.DETECTOR).getMaxDamage() != 1024
+                || !(GadgetsRegistry.MAGNET instanceof com.simplegadgets.attractor.AttractorItem) || new ItemStack(GadgetsRegistry.MAGNET).getMaxStackSize() != 1) {
+            problems.add("detector/attractor items " + GadgetsRegistry.DETECTOR + " " + GadgetsRegistry.MAGNET);
         }
         if (!(GadgetsRegistry.ECHO_SOUNDER instanceof com.simplegadgets.echo.EchoSounderItem)
                 || !BuiltInRegistries.ITEM.getKey(GadgetsRegistry.ECHO_SOUNDER).equals(SimpleGadgets.id("echo_sounder"))
@@ -288,6 +307,35 @@ public final class GadgetsTests {
             problems.add("old Echo Sounder loads as " + echo + " damage " + echo.getDamageValue());
         } else if (!ItemStack.CODEC.encodeStart(ops, echo).result().map(t -> ((CompoundTag) t).getStringOr("id", "")).orElse("").equals("simplegadgets:echo_sounder")) {
             problems.add("old Echo Sounder saves with the old id");
+        }
+        // G3: an old Detector keeps its damage and calibration, an old Attractor its filter (custom data travels unchanged).
+        CompoundTag detectorTag = new CompoundTag();
+        detectorTag.putString("id", "simplebuilding:detector");
+        detectorTag.putInt("count", 1);
+        CompoundTag detectorComponents = new CompoundTag();
+        detectorComponents.putInt("minecraft:damage", 5);
+        CompoundTag detectorData = new CompoundTag();
+        detectorData.putInt("Mode", 5);
+        detectorData.put("CustomBlock", net.minecraft.nbt.NbtUtils.writeBlockState(Blocks.DIAMOND_ORE.defaultBlockState()));
+        detectorComponents.put("minecraft:custom_data", detectorData);
+        detectorTag.put("components", detectorComponents);
+        ItemStack detector = ItemStack.CODEC.parse(ops, detectorTag).result().orElse(ItemStack.EMPTY);
+        if (!detector.is(GadgetsRegistry.DETECTOR) || detector.getDamageValue() != 5 || !com.simplegadgets.detector.DetectorItem.isArmed(detector)) {
+            problems.add("old Detector loads as " + detector + " damage " + detector.getDamageValue());
+        } else if (!ItemStack.CODEC.encodeStart(ops, detector).result().map(t -> ((CompoundTag) t).getStringOr("id", "")).orElse("").equals("simplegadgets:detector")) {
+            problems.add("old Detector saves with the old id");
+        }
+        CompoundTag magnetTag = new CompoundTag();
+        magnetTag.putString("id", "simplebuilding:magnet");
+        magnetTag.putInt("count", 1);
+        CompoundTag magnetComponents = new CompoundTag();
+        CompoundTag magnetData = new CompoundTag();
+        magnetData.putString("MagnetFilter", "minecraft:cobblestone");
+        magnetComponents.put("minecraft:custom_data", magnetData);
+        magnetTag.put("components", magnetComponents);
+        ItemStack magnet = ItemStack.CODEC.parse(ops, magnetTag).result().orElse(ItemStack.EMPTY);
+        if (!magnet.is(GadgetsRegistry.MAGNET) || !"minecraft:cobblestone".equals(com.simplegadgets.attractor.AttractorItem.filterOf(magnet))) {
+            problems.add("old Attractor loads as " + magnet + " filter " + com.simplegadgets.attractor.AttractorItem.filterOf(magnet));
         }
         // The old Echo Compass id of 2026-09 (simplebuilding:echo_compass) is handled by SimpleBuilding's LegacyItemIds, which chains on to the new id.
         helper.assertTrue(problems.isEmpty(), "migration: " + problems);

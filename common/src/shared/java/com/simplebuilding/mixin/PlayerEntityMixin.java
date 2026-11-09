@@ -34,12 +34,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     /** The death loot drops between these two ({@link com.simplebuilding.util.AttractorFilter}). */
     @Inject(method = "dropEquipment", at = @At("HEAD"))
     private void simplebuilding$beginDeathDrops(net.minecraft.server.level.ServerLevel level, CallbackInfo ci) {
-        com.simplebuilding.util.AttractorFilter.beginDeathDrops(this);
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) com.simplebuilding.util.AttractorFilter.beginDeathDrops(this); // 26.3: Simple Gadgets
     }
 
     @Inject(method = "dropEquipment", at = @At("RETURN"))
     private void simplebuilding$endDeathDrops(net.minecraft.server.level.ServerLevel level, CallbackInfo ci) {
-        com.simplebuilding.util.AttractorFilter.endDeathDrops();
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) com.simplebuilding.util.AttractorFilter.endDeathDrops(); // 26.3: Simple Gadgets
     }
 
     // Die Besatz-Faehigkeiten der Spieler (Stase/Astralit, Nihilith, Gleiten, Sprint-Hunger, Erfahrung) wirken auf 26.3 in

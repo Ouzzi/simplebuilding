@@ -730,9 +730,10 @@ public class ModItems {
     // false, field null, SimpleBuilding reaches it through util/GadgetRefs).
     public static final Item VELOCITY_GAUGE = !com.simplebuilding.version.McVersion.GADGETS_IN_SB ? null : registerItem("velocity_gauge", settings -> new com.simplebuilding.items.custom.VelocityGaugeItem(settings.stacksTo(1)));
 
-    public static final Item ORE_DETECTOR = registerItem("detector", settings -> new OreDetectorItem(settings.enchantable(ENCHANTABILITY_NETHERITE).rarity(UNCOMMON)));
+    // OW24-2 G3 (b-gadg14): on 26.3 Detector and Attractor are Simple Gadgets' (McVersion.GADGETS_IN_SB false, fields null, GadgetRefs).
+    public static final Item ORE_DETECTOR = !com.simplebuilding.version.McVersion.GADGETS_IN_SB ? null : registerItem("detector", settings -> new OreDetectorItem(settings.enchantable(ENCHANTABILITY_NETHERITE).rarity(UNCOMMON)));
 
-    public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.stacksTo(1)));
+    public static final Item MAGNET = !com.simplebuilding.version.McVersion.GADGETS_IN_SB ? null : registerItem("magnet", settings -> new MagnetItem(settings.stacksTo(1)));
 
     // OW24-2 stage G2: on 26.3 the Transposer is Simple Gadgets' (McVersion.GADGETS_IN_SB false, field null, util/GadgetRefs).
     public static final Item ROTATOR = !com.simplebuilding.version.McVersion.GADGETS_IN_SB ? null : registerItem("rotator", settings -> new RotatorItem(settings.durability(RotatorItem.MAX_CHARGE).stacksTo(1).enchantable(ENCHANTABILITY_NETHERITE)));

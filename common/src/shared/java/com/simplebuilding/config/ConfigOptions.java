@@ -243,8 +243,8 @@ public final class ConfigOptions {
 
     /**
      * b-cfg10: the Gauge, Transposer (rotator), Resonance Rod (laser pointer) and Echo Sounder live in Simple Gadgets on 26.3
-     * ({@code config/simplegadgets-server.json}, taken over once from here; {@code McVersion.GADGETS_IN_SB}). The Attractor and
-     * the ore detector stay SimpleBuilding's.
+     * ({@code config/simplegadgets-server.json}, taken over once from here; {@code McVersion.GADGETS_IN_SB}); since b-gadg14 the
+     * Attractor and the Detector too.
      */
     public static final Set<String> MOVED_TO_GADGETS = Set.of(
             "tools.rotatorChargePerTurn", "tools.rotatorSwapEnabled", "tools.rotatorSwapWindupTicks",
@@ -255,7 +255,10 @@ public final class ConfigOptions {
             "server.features.echoSounder", "server.dimensionLocks.echoSounderBlockedDimensions",
             "tweaks.balancing.echoSounderJumpCooldownTicks", "tweaks.balancing.echoSounderAttemptLockTicks",
             "tweaks.laserPointer.enable", "tweaks.laserPointer.range", "tweaks.laserPointer.chargePerSecond",
-            "tweaks.laserPointer.effectCost", "tweaks.laserPointer.color", "tweaks.laserPointer.scale");
+            "tweaks.laserPointer.effectCost", "tweaks.laserPointer.color", "tweaks.laserPointer.scale",
+            // b-gadg14 (OW24-2 G3): Attractor and Detector.
+            "server.features.attractor", "tools.magnetRangeMultiplier", "server.tools.attractorMinimumDistance",
+            "server.features.oreDetector", "server.oreDetector.rangeMultiplier", "server.oreDetector.scanIntervalTicks");
 
     /**
      * b-cfg11: the Light Panes' siblings, the glowing trims, live in Simple Trims on 26.3 ({@code McVersion.TRIMS_IN_SB}); SimpleBuilding's

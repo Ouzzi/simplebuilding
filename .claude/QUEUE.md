@@ -1239,3 +1239,5 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
 
 ## b-pal15 (09.11.)
 - [x] (B, b-lic15, 09.11., sbt MM/SYNC/STYLE/PRE/TREE/UNIT/JAR/SMOKE_RC=0, Jars mit LICENSE_*; offen Besitzer: Rechtsprüfung, GitHub-Branch cla-signatures, Plattformfelder) **N15 Lizenz umstellen** (Besitzer 09.11. ~21:00: „All Rights Reserved, source-available“ + CLA): LICENSE/Modul-LICENSE, Lizenzfelder → LicenseRef-SimpleMods-ARR, CLA.md/CONTRIBUTING.md/cla.yml, Texte, Check in multimod.py; Plan docs/ai/PLAN-B-LIC15-2026-11-09.md. Rechtliche Prüfung durch den Besitzer bleibt empfohlen; keine Rechtsberatung.
+## b-gadg14 (09.11.)
+- [x] (B, b-gadg14, 09.11., Plan docs/ai/PLAN-B-GADG14-2026-11-09.md; Beleg 3326c5c73, sbt C/M(154/154)/DI(48/48)/MP(11/11)/PT(27/27)/CO(19/19)/Claims-Attractor(2/2) RC=0; offen Client-Sicht Glimmer, wiki/generate im Bündel) **N12** Attractor (`magnet`) und Detector (`detector`) nach Simple Gadgets (OW24-2 G3): Items, Logik, abgelegte Form über SimpleLib PlacedGadgets, Config-Übernahme, Rezepte mit/ohne SB, IdMoves, Lang, Tab, JEI, Wiki, Guide, Preise, Teststation, SB-Tests mit GADGETS_IN_SB-Wächter.

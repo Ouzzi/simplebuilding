@@ -6,9 +6,9 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link GadgetsTests}. */
 public final class ModuleGameTest {
-    /** JEI24 (a-fix09b): Resonance Rod, Echo Sounder, Gauge and Transposer pages, texts in EN and DE. */
+    /** JEI24 (a-fix09b): Resonance Rod, Echo Sounder, Gauge and Transposer pages, texts in EN and DE; G3: Detector and Attractor. */
     @GameTest(structure = "simplegadgets:empty")
-    public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simplegadgets", 4); }
+    public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simplegadgets", 6); }
 
     @GameTest(structure = "simplegadgets:empty")
     public void registered(GameTestHelper h) {
@@ -313,5 +313,80 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplegadgets:empty")
     public void echoTheEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance(GameTestHelper h) {
         GadgetsTests.ALL.get("echo_the_echo_sounder_locks_for_up_to_five_seconds_after_an_attempt_depending_on_the_distance").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void attractorHeldAttractorPullsAndSneakingPausesIt(GameTestHelper h) {
+        GadgetsTests.ALL.get("attractor_held_attractor_pulls_and_sneaking_pauses_it").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void attractorReachIsFourBlocksAndRangeWidensItUpToItsCap(GameTestHelper h) {
+        GadgetsTests.ALL.get("attractor_reach_is_four_blocks_and_range_widens_it_up_to_its_cap").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void attractorTheFilterNeedsConstructorsTouchAndMatchesTheFullId(GameTestHelper h) {
+        GadgetsTests.ALL.get("attractor_the_filter_needs_constructors_touch_and_matches_the_full_id").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void attractorItLeavesDisplayReservedAndForeignDeathDropsAlone(GameTestHelper h) {
+        GadgetsTests.ALL.get("attractor_it_leaves_display_reserved_and_foreign_death_drops_alone").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void attractorThePlacedAttractorPullsToThePlateAndLetsGo(GameTestHelper h) {
+        GadgetsTests.ALL.get("attractor_the_placed_attractor_pulls_to_the_plate_and_lets_go").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void attractorLayingDownNeedsThePlatePartner(GameTestHelper h) {
+        GadgetsTests.ALL.get("attractor_laying_down_needs_the_plate_partner").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void attractorTheAttractorRecipeKeepsItsShape(GameTestHelper h) {
+        GadgetsTests.ALL.get("attractor_the_attractor_recipe_keeps_its_shape").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void attractorTheConfigTakesOverSimpleBuildingsValues(GameTestHelper h) {
+        GadgetsTests.ALL.get("attractor_the_config_takes_over_simple_buildings_values").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void detectorEachModeFindsItsOresAndAllOresTheNearest(GameTestHelper h) {
+        GadgetsTests.ALL.get("detector_each_mode_finds_its_ores_and_all_ores_the_nearest").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void detectorRockDampsTheSignalAndDenseRockMore(GameTestHelper h) {
+        GadgetsTests.ALL.get("detector_rock_damps_the_signal_and_dense_rock_more").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void detectorSneakClickingCalibratesAndBlockEntitiesRefuse(GameTestHelper h) {
+        GadgetsTests.ALL.get("detector_sneak_clicking_calibrates_and_block_entities_refuse").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void detectorPingsCostDurabilityOnlyWhenTheyFindSomething(GameTestHelper h) {
+        GadgetsTests.ALL.get("detector_pings_cost_durability_only_when_they_find_something").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void detectorThePlacedDetectorSearchesFromThePlate(GameTestHelper h) {
+        GadgetsTests.ALL.get("detector_the_placed_detector_searches_from_the_plate").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void detectorTheDetectorRecipeKeepsItsShape(GameTestHelper h) {
+        GadgetsTests.ALL.get("detector_the_detector_recipe_keeps_its_shape").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void detectorTheConfigScalesReachAndInterval(GameTestHelper h) {
+        GadgetsTests.ALL.get("detector_the_config_scales_reach_and_interval").accept(h);
     }
 }

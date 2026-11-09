@@ -105,8 +105,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                             com.simplebuilding.util.BuildingToolRefs.wand("diamond"), com.simplebuilding.util.BuildingToolRefs.wand("netherite"), com.simplebuilding.util.BuildingToolRefs.wand("enderite"),
                             com.simplebuilding.util.BuildingToolRefs.octant(), com.simplebuilding.util.GadgetRefs.rotator(), ModItems.CONSTRUCTION_LIGHT));
             AdvancementHolder tweaks = tab("tweaks/root", TweaksBlocks.NETHERITE_LAUNCHPAD, "block/copper_block", "gadget",
-                    any(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.DIAMOND_PRESSURE_PLATE, ModItems.MAGNET,
-                            ModItems.ORE_DETECTOR, com.simplebuilding.util.GadgetRefs.gauge(), com.simplebuilding.util.GadgetRefs.rod(), ModItems.NETHERITE_APPLE,
+                    any(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.DIAMOND_PRESSURE_PLATE, com.simplebuilding.util.GadgetRefs.magnet(),
+                            com.simplebuilding.util.GadgetRefs.detector(), com.simplebuilding.util.GadgetRefs.gauge(), com.simplebuilding.util.GadgetRefs.rod(), ModItems.NETHERITE_APPLE,
                             ModItems.NETHERITE_CARROT, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
             AdvancementHolder end = tab("end/root", ModItems.ASTRAL_END_STONE, "gui/advancements/backgrounds/end", "end_stone",
                     any(Items.END_STONE));
@@ -279,13 +279,13 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         }
 
         private void gadgets(AdvancementHolder tweaks) {
-            node("gadgets/attractive_personality", tweaks, ModItems.MAGNET, AdvancementType.TASK, "magnet", any(ModItems.MAGNET));
+            node("gadgets/attractive_personality", tweaks, com.simplebuilding.util.GadgetRefs.magnet(), AdvancementType.TASK, "magnet", any(com.simplebuilding.util.GadgetRefs.magnet()));
             AdvancementHolder focus = feature("gadgets/burning_focus", tweaks, com.simplebuilding.util.GadgetRefs.rod(), AdvancementType.TASK, ModTriggers.LENS_BEAM);
             feature("gadgets/remote_detonation", focus, Items.TNT, AdvancementType.GOAL, ModTriggers.LASER_TNT);
             // Boot and armor enchantments at work.
             feature("tweaks/leap_of_faith", tweaks, Items.FEATHER, AdvancementType.TASK, ModTriggers.AIR_JUMP);
             feature("tweaks/crumple_zone", tweaks, Items.ELYTRA, AdvancementType.TASK, ModTriggers.KINETIC_PROTECTION);
-            feature("gadgets/ping", tweaks, ModItems.ORE_DETECTOR, AdvancementType.TASK, ModTriggers.ORE_DETECTED);
+            feature("gadgets/ping", tweaks, com.simplebuilding.util.GadgetRefs.detector(), AdvancementType.TASK, ModTriggers.ORE_DETECTED);
             node("gadgets/speed_reader", tweaks, com.simplebuilding.util.GadgetRefs.gauge(), AdvancementType.TASK, "velocity_gauge", any(com.simplebuilding.util.GadgetRefs.gauge()));
         }
 

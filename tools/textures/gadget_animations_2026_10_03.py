@@ -35,8 +35,8 @@ import resonance_rod_2026_10_02 as rod  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, '..', '..'))
 # OW24-2 G2 (2026-10-25): on 26.3 the Transposer and the Resonance Rod are Simple Gadgets' - their animated textures live in the module.
 OUT = os.path.join(REPO, 'modules', 'simplegadgets', 'shared', 'resources', 'assets', 'simplegadgets', 'textures', 'item')
-# The Attractor (magnet) is still SimpleBuilding's (stage G3).
-OUT_SB = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding', 'textures', 'item')
+# The Attractor (magnet) is Simple Gadgets' too since stage G3 (b-gadg14).
+OUT_SB = OUT
 
 
 def out_for(name):

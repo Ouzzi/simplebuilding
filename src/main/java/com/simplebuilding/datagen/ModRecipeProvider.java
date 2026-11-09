@@ -564,7 +564,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // Besitzer 2026-09-28: Eisen-Baukern unten links, Eisenbarren unten Mitte und links Mitte,
                 // Redstone oben Mitte, Lapislazuli rechts Mitte (vorher unten rechts); kein Leitstein.
-                shaped(RecipeCategory.TOOLS, ModItems.MAGNET)
+                if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) shaped(RecipeCategory.TOOLS, ModItems.MAGNET) // 26.3: Simple Gadgets ships the recipes (G3)
                         .pattern(" R ")
                         .pattern("I L")
                         .pattern("CI ")
@@ -767,7 +767,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // kalibrierter Sculk-Sensor oben rechts, die beiden uebrigen Ecken frei.
                 // Besitzer 2026-10-02: ein Bergungskompass statt des Kompasses, wie beim Echolot.
                 Item detectorCentre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.RECOVERY_COMPASS : Items.COMPASS;
-                shaped(RecipeCategory.TOOLS, ModItems.ORE_DETECTOR)
+                if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) shaped(RecipeCategory.TOOLS, ModItems.ORE_DETECTOR) // 26.3: Simple Gadgets (G3)
                         .pattern(" ES")
                         .pattern("ECE")
                         .pattern("GE ")

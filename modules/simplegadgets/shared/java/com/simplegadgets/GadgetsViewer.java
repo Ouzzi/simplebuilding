@@ -29,6 +29,8 @@ public final class GadgetsViewer {
         page(out, "echo_sounder", GadgetsRegistry.ECHO_SOUNDER);
         page(out, "velocity_gauge", GadgetsRegistry.VELOCITY_GAUGE);
         page(out, "rotator", GadgetsRegistry.ROTATOR);
+        page(out, "detector", GadgetsRegistry.DETECTOR);   // G3: modes, calibration, laying down
+        page(out, "magnet", GadgetsRegistry.MAGNET);       // G3: filter, what it leaves alone
         return out;
     }
 

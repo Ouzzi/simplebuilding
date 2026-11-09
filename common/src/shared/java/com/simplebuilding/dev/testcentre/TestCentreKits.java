@@ -184,7 +184,7 @@ public final class TestCentreKits {
                 main = top(ctx, "building_wands");
                 off = new ItemStack(com.simplebuilding.util.BuildingToolRefs.octant());
             }
-            case "ores" -> main = new ItemStack(ModItems.ORE_DETECTOR);
+            case "ores" -> main = new ItemStack(com.simplebuilding.util.GadgetRefs.detector());
             case "mining" -> main = TestCentreSections.toolWith(ctx, ModEnchantments.VERSATILITY);
             case "lightroom" -> main = full(new ItemStack(ModBlocks.CONSTRUCTION_LIGHT));
             case "tweaks" -> main = full(new ItemStack(Items.WIND_CHARGE));
