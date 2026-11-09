@@ -1,0 +1,12 @@
+{
+  "id": "simplemodels:stool",
+  "base_item": "minecraft:oak_slab",
+  "match_name": "Stool",
+  "model": "simplemodels:example/stool",
+  "tags": [
+    "furniture",
+    "wood",
+    "example"
+  ],
+  "author": "Simple Models"
+}

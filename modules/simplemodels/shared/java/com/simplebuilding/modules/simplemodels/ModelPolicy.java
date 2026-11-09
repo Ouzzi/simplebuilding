@@ -13,6 +13,8 @@ public final class ModelPolicy {
     public int levelCost = DEFAULT_LEVEL_COST;
     public int maxModels = 64;
     public int maxFileBytes = 16384;
+    /** b-models12 stage 0: the six example models shipped in the module jar (ModelExamples). */
+    public boolean builtinExamples = true;
     public void clamp() {
         levelCost = Math.clamp(levelCost, 1, MAX_LEVEL_COST);
         maxModels = Math.clamp(maxModels, 1, MAX_MODELS);

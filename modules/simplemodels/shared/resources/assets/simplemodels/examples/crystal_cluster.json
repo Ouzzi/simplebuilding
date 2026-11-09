@@ -1,0 +1,12 @@
+{
+  "id": "simplemodels:crystal_cluster",
+  "base_item": "minecraft:amethyst_cluster",
+  "match_name": "Crystal Cluster",
+  "model": "simplemodels:example/crystal_cluster",
+  "tags": [
+    "decor",
+    "light",
+    "example"
+  ],
+  "author": "Simple Models"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "simplemodels:weather_vane",
+  "base_item": "minecraft:lightning_rod",
+  "match_name": "Weather Vane",
+  "model": "simplemodels:example/weather_vane",
+  "tags": [
+    "decor",
+    "copper",
+    "example"
+  ],
+  "author": "Simple Models"
+}
