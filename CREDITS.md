@@ -12,6 +12,7 @@ and `docs/ai/PLAN-A-SOUND24-2026-10-23.md`):
 | Simple Mobs | `modules/simplemobs/shared/resources/assets/simplemobs/sounds/entity/hollow_howler`, `.../sounds/item/trumpet`, `modules/simplemobs/shared/howler-eleven` | Hollow Howler voice takes, trumpet samples |
 | Simple Music | `modules/simplemusic/shared/resources/assets/simplemusic/sounds/records`, `.../sounds/press` | six music discs, press sounds |
 | Simple Lib | `modules/simplelib/shared/resources/assets/simplelib/sounds/legendary1.ogg`, `legendary2.ogg` | legendary choir sounds |
+| Simple Layers | `modules/simplelayers/shared/resources/assets/simplelayers/sounds/ambient` (backrooms_hum, backrooms_knock1-3, cloud_sea_wind, listener_steps1-2), `.../sounds/block` (neon_buzz1-2) | nine layer ambience and block sounds |
 | Simple Building (26.3 overlay) | `mc26_3/overlay/resources/assets/simplebuilding/sounds/records`, `.../sounds/block/astralit_lamp`, `.../sounds/block/nihilith_lamp` | record tracks, lamp sounds |
 
 All other sounds are procedurally synthesized by scripts in `tools/sounds/` (own work, CC0) or are Minecraft events
