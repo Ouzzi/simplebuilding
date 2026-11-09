@@ -168,8 +168,10 @@ public final class CreativeTabPolicy {
         for (ModTabs.Collector collector : ModTabs.collectors()) {
             Set<String> seen = new HashSet<>();
             List<ItemStack> found = new ArrayList<>();
+            // b-fix163: the collecting tab itself counts as a source too, so a second run (tests call apply() again) keeps what the
+            // first run moved there - the Vanilla tabs no longer hold it. After a full build the tab is empty, nothing changes.
             for (CreativeModeTab tab : registry) {
-                if (tab == collector.tab() || tab.getType() != CreativeModeTab.Type.CATEGORY) continue;
+                if (tab.getType() != CreativeModeTab.Type.CATEGORY) continue;
                 for (ItemStack stack : tab.getDisplayItems()) {
                     Identifier item = BuiltInRegistries.ITEM.getKey(stack.getItem());
                     if (item.getNamespace().equals(collector.namespace()) && !collector.excluded().contains(item.getPath()) && seen.add(key(stack))) {

@@ -645,7 +645,7 @@ public final class OresTests {
             int[] nickelRange = heights(level, nickelPlaced);
             // like diamond: trapezoid from 80 below to 80 above the bottom (Y -144..16); rolls below the world bottom (Y -64) are lost, most land at -64
             // (relative to the generation bottom the placement uses: Overworld -64 -> up to Y 16; the flat test generator starts at 0)
-            int bottom = new PlacementContext(level, level.getChunkSource().getGenerator(), Optional.of(nickelPlaced)).getMinY();
+            int bottom = new PlacementContext(level, level.getChunkSource().getGenerator(), Optional.of(nickelPlaced)).getMinGenY();
             check(h, nickelRange[0] < bottom && nickelRange[1] <= bottom + 80 && nickelRange[1] > bottom + 64 && perChunk(level, nickelPlaced) == 10.0,
                     "nickel: 10 veins up to 80 above the bottom (" + bottom + "), measured " + nickelRange[0] + " to " + nickelRange[1]);
             PlacedFeature diamond = placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, Identifier.withDefaultNamespace("ore_diamond")));
