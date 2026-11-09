@@ -13,6 +13,7 @@ import json
 import secrets
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 HOST = "simplemods-wiki.azarfane.com"
@@ -170,7 +171,16 @@ def main():
     ap.add_argument("--legacy", action="store_true")
     ap.add_argument("--domains", action="store_true", help="IG31-55: all domains by Host header")
     a = ap.parse_args()
-    fails = run_domains(a.port) if a.domains else run(a.port, a.auth_file, a.legacy)
+    if a.domains:
+        # nginx "reload" returns before the new workers answer: retry so a request that still hits the old
+        # config (a-dom08: 17 false errors right after the reload, all fine seconds later) does not count.
+        for _ in range(6):
+            fails = run_domains(a.port)
+            if not fails:
+                break
+            time.sleep(2)
+    else:
+        fails = run(a.port, a.auth_file, a.legacy)
     for f in fails:
         print("FEHLER:", f)
     print("smoke:", "OK" if not fails else f"{len(fails)} Fehler")
