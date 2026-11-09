@@ -5,8 +5,8 @@ import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric catalogue (Fabric runs only {@code @GameTest} methods); NeoForge/Forge register ToolsTests.ALL. */
 public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void launch(GameTestHelper h){ToolsTests.launch(h);}
- /** JEI24 (a-fix09b): ceramic and Enderite bucket pages, texts in EN and DE. */
- @GameTest(maxTicks=100) public void jeiInfoPages(GameTestHelper h){com.simplelib.test.ViewerInfoTests.infoPages(h, "simpletools", 2);}
+ /** JEI24 (a-fix09b): ceramic and Enderite bucket pages, b-fix09a: Biome Brush, Death Vault; texts in EN and DE. */
+ @GameTest(maxTicks=100) public void jeiInfoPages(GameTestHelper h){com.simplelib.test.ViewerInfoTests.infoPages(h, "simpletools", 4);}
  @GameTest(maxTicks=100) public void config(GameTestHelper h){ToolsTests.config(h);}
  @GameTest(maxTicks=100) public void qolMigration(GameTestHelper h){ToolsTests.qolMigration(h);}
  @GameTest(maxTicks=100) public void superSwitch(GameTestHelper h){ToolsTests.superSwitch(h);}

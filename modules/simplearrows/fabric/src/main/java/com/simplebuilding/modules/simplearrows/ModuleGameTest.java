@@ -6,6 +6,12 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link ArrowsTests}. */
 public final class ModuleGameTest {
+    /** b-fix09a: info pages of the crafted, Light and Silver Arrow (registered in ArrowsFabric), texts in EN and DE. */
+    @GameTest(structure = "simplearrows:empty")
+    public void jeiInfoPages(GameTestHelper h) {
+        com.simplelib.test.ViewerInfoTests.infoPages(h, "simplearrows", 3);
+    }
+
     @GameTest(structure = "simplearrows:empty")
     public void registered(GameTestHelper h) {
         ArrowsTests.ALL.get("registered").accept(h);

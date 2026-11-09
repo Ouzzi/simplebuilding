@@ -278,7 +278,8 @@ public final class BlockInfo {
                 // SimpleBuilding's own (26.2) or Simple Machines' (26.3) breaker pistons, see PistonWear.
                 int max = com.simplebuilding.util.PistonWear.maxDurability(state.getBlock());
                 if (max > 0) {
-                    lines.add(Line.of("tooltip.simplebuilding.netherite_piston.durability",
+                    // b-fix09a: the key lives with the pistons (tooltip.simplemachines.* on 26.3).
+                    lines.add(Line.of("tooltip." + com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ".netherite_piston.durability",
                             Arg.literal(com.simplebuilding.util.PistonWear.durability(state)), Arg.literal(max)));
                 }
             }

@@ -9,6 +9,12 @@ import net.minecraft.world.level.block.Rotation;
  * with the code from SimpleBuilding (same names and runner parameters as SimpleBuilding's adapters). Names are load bearing.
  */
 public final class ModuleGameTest {
+    /** b-fix09a: the creative tools' info page in the recipe viewer, text in EN and DE. */
+    @GameTest
+    public void jeiInfoPages(GameTestHelper helper) {
+        com.simplelib.test.ViewerInfoTests.infoPages(helper, "simplebuildingtools", 1);
+    }
+
     @GameTest
     public void registered(GameTestHelper helper) {
         com.simplebuildingtools.test.BtTests.ALL.get("registered").accept(helper);

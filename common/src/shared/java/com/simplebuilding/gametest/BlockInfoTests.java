@@ -159,12 +159,12 @@ public final class BlockInfoTests {
         int max = com.simplebuilding.util.PistonWear.maxDurability(ModBlocks.NETHERITE_PISTON);
         helper.assertTrue(max > 10, "the netherite piston has a durability of " + max);
         expect(helper, BlockInfo.stateLines(Topic.PISTON_DURABILITY, fresh),
-                List.of("tooltip.simplebuilding.netherite_piston.durability [" + max + ", " + max + "]"), "new netherite piston");
+                List.of("tooltip." + com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ".netherite_piston.durability [" + max + ", " + max + "]"), "new netherite piston");
         BlockState worn = com.simplebuilding.version.McVersion.PISTONS_IN_SB
                 ? NetheriteBreakerPistonBlock.withDamage(fresh, 10)
                 : machinesWithDamage(fresh, 10);
         expect(helper, BlockInfo.stateLines(Topic.PISTON_DURABILITY, worn),
-                List.of("tooltip.simplebuilding.netherite_piston.durability [" + (max - 10) + ", " + max + "]"), "netherite piston after 10 damage");
+                List.of("tooltip." + com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ".netherite_piston.durability [" + (max - 10) + ", " + max + "]"), "netherite piston after 10 damage");
         expect(helper, BlockInfo.stateLines(Topic.PISTON_DURABILITY, ModBlocks.REINFORCED_PISTON.defaultBlockState()), List.of(), "reinforced piston");
         helper.succeed();
     }

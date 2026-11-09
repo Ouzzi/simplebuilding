@@ -72,5 +72,6 @@
   "simplemachines.guide.page.12.title": "Commands",
   "simplemachines.guide.page.12": "/simplemachines config [list | get | set | reset | help] (operators).",
   "simplemachines.guide.page.13.title": "Settings",
-  "simplemachines.guide.page.13": "More settings are in the mod's config screen."
+  "simplemachines.guide.page.13": "More settings are in the mod's config screen.",
+  "tooltip.simplemachines.netherite_piston.durability": "Durability: %s/%s"
 }

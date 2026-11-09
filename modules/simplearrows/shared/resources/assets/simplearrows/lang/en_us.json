@@ -64,5 +64,7 @@
   "simplearrows.guide.page.5.title": "Commands",
   "simplearrows.guide.page.5": "/simplearrows config [list | get | set | reset | help] (operators).",
   "simplearrows.guide.page.6.title": "Settings",
-  "simplearrows.guide.page.6": "More settings are in the mod's config screen."
+  "simplearrows.guide.page.6": "More settings are in the mod's config screen.",
+  "jei.simplearrows.info.light_arrow": "Stuck in a block, it lights the air in front of it like a torch (light level 15). The light goes with the arrow: when it despawns, is picked up or falls out.",
+  "jei.simplearrows.info.silver_arrow": "Deals %s extra damage to undead (zombies, skeletons, ...). Crafted from a Simple Ores silver nugget, a stick and a feather; without Simple Ores there is no recipe."
 }

@@ -147,5 +147,6 @@
   "simpleovens.guide.page.14.title": "Commands",
   "simpleovens.guide.page.14": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
   "simpleovens.guide.page.15.title": "Settings",
-  "simpleovens.guide.page.15": "More settings are in the mod's config screen."
+  "simpleovens.guide.page.15": "More settings are in the mod's config screen.",
+  "jei.simpleovens.info.furnace_tiers": "Upgraded furnaces, smokers and blast furnaces produce exactly the recipe output. Netherite and Enderite tiers give double experience, except for Cracked Diamonds. There is no ore yield bonus."
 }

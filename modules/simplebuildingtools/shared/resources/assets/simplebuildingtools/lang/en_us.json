@@ -351,5 +351,6 @@
   "simplebuildingtools.guide.page.18.title": "Old worlds",
   "simplebuildingtools.guide.page.18": "wands, octants and blueprints in chests and inventories, the blueprint components, the enchantments Cover, Bridge and Linear and the tool recipes.",
   "simplebuildingtools.guide.page.19.title": "Settings",
-  "simplebuildingtools.guide.page.19": "More settings are in the mod's config screen."
+  "simplebuildingtools.guide.page.19": "More settings are in the mod's config screen.",
+  "jei.simplebuildingtools.info.creative_tools": "Only in the creative inventory. The creative building wand builds without material, durability or hunger and reaches any block in sight. A creative blueprint in the off hand gives any building wand that reach; once signed it can no longer be edited."
 }
