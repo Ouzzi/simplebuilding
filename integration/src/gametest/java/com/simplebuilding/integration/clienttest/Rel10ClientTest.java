@@ -95,7 +95,7 @@ public final class Rel10ClientTest implements FabricClientGameTest {
                 context.setScreen(() -> null);
             });
             guard("cloud-sea", () -> dimension(context, world, "simplelayers:cloud_sea",
-                    new int[][] {{0, 40, 0, 0, 0}, {0, 120, 0, 0, 25}, {0, 260, 0, 0, 40}, {0, 400, 0, 0, 60}}));
+                    new int[][] {{0, 40, 0, 0, 0}, {0, 120, 0, 0, 25}, {0, 120, 0, 0, 70}, {0, 260, 0, 0, 40}}));
             guard("backrooms", () -> dimension(context, world, "simplelayers:backrooms",
                     new int[][] {{4, 2, 4, 0, 0}, {4, 2, 4, 90, 0}, {44, 2, 84, 180, 10}}));
             world.getServer().runCommand(String.format(Locale.ROOT, "execute in minecraft:overworld run tp @a %d.5 %d %d.5",
@@ -153,6 +153,8 @@ public final class Rel10ClientTest implements FabricClientGameTest {
             for (var stack : tab.getDisplayItems()) {
                 total++;
                 String ns = BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace();
+                // like CreativeTabPolicy: the Spawn Eggs tab keeps mod eggs (QW11), a vanilla item with data (book of a mod enchantment) is mod content
+                if (key.getPath().equals("spawn_eggs") || !stack.getComponentsPatch().isEmpty()) continue;
                 boolean modItem = ns.startsWith("simple");
                 if (vanillaTab == modItem) {
                     foreign++;
@@ -209,10 +211,13 @@ public final class Rel10ClientTest implements FabricClientGameTest {
             BlockPos p = wall.offset(i % 7, i / 7, 0);
             world.getServer().runCommand(String.format(Locale.ROOT, "setblock %d %d %d %s", p.getX(), p.getY(), p.getZ(), ids[i]));
         }
-        face(world, base, new Vec3(base.getX() + 0.5, base.getY() + 1.0, wall.getZ() + 0.5));
+        world.getServer().runCommand(String.format(Locale.ROOT, "fill %d %d %d %d %d %d minecraft:smooth_stone",
+                base.getX() - 1, base.getY(), base.getZ() - 2, base.getX() + 1, base.getY(), base.getZ() - 2));
+        face(world, base.offset(0, 1, -2), new Vec3(base.getX() + 0.5, base.getY() + 0.5, wall.getZ() + 0.5));
         world.getServer().runCommand("item replace entity @a weapon.mainhand with minecraft:air");
         world.getConnection().waitForClientboundPackets();
         world.getConnection().waitForChunksRender();
+        hud(context, false);
         context.waitTicks(15);
         shot(context, "scene-" + name);
         // a second look from the side (light, side faces)
@@ -221,8 +226,11 @@ public final class Rel10ClientTest implements FabricClientGameTest {
         world.getConnection().waitForClientboundPackets();
         context.waitTicks(10);
         shot(context, "scene-" + name + "-side");
+        hud(context, true);
         world.getServer().runCommand(String.format(Locale.ROOT, "fill %d %d %d %d %d %d minecraft:air",
                 wall.getX(), wall.getY(), wall.getZ(), wall.getX() + 6, wall.getY() + 2, wall.getZ()));
+        world.getServer().runCommand(String.format(Locale.ROOT, "fill %d %d %d %d %d %d minecraft:air",
+                base.getX() - 1, base.getY(), base.getZ() - 2, base.getX() + 1, base.getY(), base.getZ() - 2));
         face(world, base, Vec3.atCenterOf(base.offset(0, 0, 3)));
     }
 
@@ -248,13 +256,22 @@ public final class Rel10ClientTest implements FabricClientGameTest {
         context.runOnClient(c -> c.player.getInventory().setSelectedSlot(0));
         context.waitTicks(10);
         shot(context, "strip-empty");
+        hud(context, false);
+        shot(context, "strip-empty-nogui");
+        hud(context, true);
         hand(context, world, "minecraft:oak_log 32");
         use(context, at);
         shot(context, "strip-loaded");
+        hud(context, false);
+        shot(context, "strip-loaded-nogui");
+        hud(context, true);
         hand(context, world, "minecraft:iron_axe");
         use(context, at);
         context.waitTicks(10);
         shot(context, "strip-worked");
+        hud(context, false);
+        shot(context, "strip-worked-nogui");
+        hud(context, true);
         String block = world.getServer().computeOnServer(server -> server.overworld().getBlockState(at).toString());
         System.out.println("[rel10] INFO strip station after the axe: " + block);
         hand(context, world, "minecraft:air");
@@ -279,7 +296,9 @@ public final class Rel10ClientTest implements FabricClientGameTest {
                 world.getServer().runCommand(String.format(Locale.ROOT, "setblock %d %d %d minecraft:air", at.getX(), at.getY(), at.getZ()));
                 world.getServer().runCommand(String.format(Locale.ROOT, "setblock %d %d %d %s", at.getX(), at.getY(), at.getZ(), id));
                 hand(context, world, "minecraft:air");
+                hud(context, false);
                 shot(context, "block-" + path(id) + "-world");
+                hud(context, true);
                 use(context, at);
                 String screen = context.computeOnClient(c -> c.gui.screen() == null ? "-" : c.gui.screen().getClass().getName());
                 System.out.println("[rel10] INFO " + id + " screen: " + screen);
@@ -387,12 +406,22 @@ public final class Rel10ClientTest implements FabricClientGameTest {
             String where = context.computeOnClient(c -> c.level.dimension().identifier() + " y=" + (int) c.player.getY());
             System.out.println("[rel10] INFO in " + where);
             if (!where.startsWith(dim)) faults.add("teleport to " + dim + " ended in " + where);
-            shot(context, "dim-" + path(dim) + "-" + i++);
+            shot(context, "dim-" + path(dim) + "-" + i);
+            context.waitTicks(200);
+            shot(context, "dim-" + path(dim) + "-" + i++ + "-later");
         }
         world.getServer().runCommand("gamemode creative @a");
     }
 
     // ---- helpers ----------------------------------------------------------------------------------------------------
+
+    /** F1: the HUD (hand, hotbar, crosshair) shown or hidden, so a block in the world is not covered. */
+    private static void hud(ClientGameTestContext context, boolean shown) {
+        context.runOnClient(c -> {
+            if (c.gui.hud.isHidden() == shown) c.gui.hud.toggle();
+        });
+        context.waitTicks(2);
+    }
 
     private static void close(ClientGameTestContext context) {
         context.runOnClient(c -> {
