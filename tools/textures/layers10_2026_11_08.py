@@ -3,7 +3,8 @@
 
 Vanilla style since b-layers12 (09.11., owner objection LAYERS10, plan docs/ai/PLAN-B-LAYERS12-2026-11-09.md): own pixels
 only (no Mojang sprite is read), a fixed palette of 3-5 tones per material placed in pixel clusters (no smooth gradients),
-bevelled edges lit top/left, items with a dark outline. The hard share (A8b) is printed per texture. Every texture is drawn
+bevelled edges lit top/left, items with a dark outline. b-layers13 (LAYERS13, rounds R4-R6): EXIT sign, rift, glitched
+bedrock, almond water reworked, Backroom status effect icon (18 x 18). The hard share (A8b) is printed per texture. Every texture is drawn
 in named steps (layers.snap) and saved with its layer source (layers.save). Animated textures (flickering neon, glitched
 bedrock, rift) are vertical strips with an .mcmeta.
 
@@ -248,28 +249,39 @@ METAL = [(46, 50, 48), (66, 72, 68), (86, 92, 88), (106, 112, 108)]
 
 
 def exit_sign():
+    """R4 (b-layers13): metal housing with a bevel, dark green panel in two tones, letters 3x5 with a bright core and a
+    darker glow edge, narrow I so the word sits centred with a 1-px margin."""
     t = Tex()
-    green = [(24, 56, 32), (30, 66, 40), (36, 76, 46)]
-    t.step('Grundton', paint(quant(clusters(83, 1), (0.2, 0.8)), green))
+    green = [(22, 50, 30), (28, 60, 36)]
+    t.step('Grundton', paint(quant(clusters(83, (0, 1)), (0.55,)), green))
     a = t.a.copy()
     a[0, :, :3] = a[:, 0, :3] = METAL[3]
+    a[1, 1:15, :3] = a[1:15, 1, :3] = METAL[2]
     a[15, :, :3] = a[:, 15, :3] = METAL[0]
+    a[14, 1:15, :3] = a[1:15, 14, :3] = METAL[1]
     a[0, 15, :3] = a[15, 0, :3] = METAL[1]
     t.step('Rahmen', a)
     b = a.copy()
-    x0 = 1
+    lit = np.zeros((16, 16), bool)
+    x0 = 2
     for ch in 'EXIT':
-        for ry, row in enumerate(FONT[ch]):
+        glyph = FONT[ch] if ch != 'I' else ['#', '#', '#', '#', '#']
+        for ry, row in enumerate(glyph):
             for rx, c in enumerate(row):
                 if c == '#':
-                    b[5 + ry, x0 + rx, :3] = (150, 255, 160)
-        x0 += 4 if ch != 'I' else 3
+                    lit[6 + ry, x0 + rx] = True
+        x0 += len(glyph[0]) + 1
+    b[lit, :3] = (132, 232, 148)
+    edge = lit & ~(np.roll(lit, 1, 0) & np.roll(lit, -1, 0) & np.roll(lit, 1, 1) & np.roll(lit, -1, 1))
+    end = lit & (~np.roll(lit, -1, 0))  # lowest pixel of each stroke: a shade darker (lit from above like Vanilla)
+    b[end, :3] = (96, 196, 116)
     t.step('Schrift', b)
     c = b.copy()
-    lit = (b[..., 1] > 200)
-    below = np.roll(lit, 1, 0) & ~lit
-    c[below, :3] = (58, 124, 74)
-    t.step('Leuchten', c)
+    shade = np.zeros((16, 16), bool)
+    shade[2, 2:14] = True  # R5: the panel lies a pixel deep in the housing (shadow under the top edge), no glow halo
+    shade[2:14, 2] = True
+    c[shade & ~lit, :3] = (16, 38, 22)
+    t.step('Tiefe', c)
     return t
 
 
@@ -339,35 +351,41 @@ def glitched_bedrock(frames=8):
     a[16 * 5 + 6, 9, :3] = (232, 211, 74)   # frame 6: one pixel flickers yellow (A14)
     a[16 * 6 + 6, 9, :3] = (176, 160, 70)
     t.step('Fehler-Pixel', a)
+    b = a.copy()
+    for k, row, shift in ((5, 10, 3), (6, 10, 2), (6, 3, -2)):  # R4: a scan line slips sideways like a broken picture
+        b[16 * k + row, :, :3] = np.roll(a[16 * k + row, :, :3], shift, 0)
+    t.step('Zeilenversatz', b)
     return t, {'animation': {'frametime': 6, 'frames': [{'index': 0, 'time': 60}, 1, 2, 3, 4, 5, 6, 7]}}
 
 
 def rift(frames=4):
+    """R4/R5 (b-layers13): two dark tones only (single pixels), crack core in muted gold (no near-white), one mid tone each side, a broken dark
+    aura, two sparks per frame next to the crack."""
     t = Tex(16, 16 * frames)
-    dark = [(8, 6, 2), (22, 18, 8), (38, 32, 14)]
+    dark = [(10, 8, 4), (24, 20, 10)]
     rgb = np.zeros((16 * frames, 16, 4), np.uint8)
     for k in range(frames):
-        rgb[16 * k:16 * (k + 1)] = paint(quant(clusters(111 + k, 1), (0.35, 0.8)), dark)
+        rgb[16 * k:16 * (k + 1)] = paint(quant(clusters(111 + k, 0), (0.7,)), dark)  # R5: single pixels, no streaks
     t.step('Dunkel', rgb)
     a = t.a.copy()
     path = [7, 7, 8, 8, 7, 6, 6, 7, 8, 9, 9, 8, 7, 7, 6, 7]  # jagged crack, top to bottom (tiles vertically)
-    glow = [(96, 82, 34), (150, 130, 56), (214, 192, 96), (246, 230, 150)]
+    glow = [(70, 58, 26), (128, 108, 48), (196, 170, 84), (228, 204, 116)]
     for k in range(frames):
         for y, x in enumerate(path):
             a[16 * k + y, x, :3] = glow[3 if (y + k) % 4 else 2]
             a[16 * k + y, x - 1, :3] = glow[1]
-            a[16 * k + y, x + 1, :3] = glow[1 if (y + k) % 3 else 0]
+            a[16 * k + y, x + 1, :3] = glow[2 if (y + k) % 3 == 0 else 1]
             for dx in (-2, 2):
-                if (y + k + dx) % 2:
-                    a[16 * k + y, x + dx, :3] = (58, 48, 20)
+                if (y + k + dx) % 3 == 0:
+                    a[16 * k + y, x + dx, :3] = glow[0]
     t.step('Riss', a)
     b = a.copy()
     r = rng(119)
     for k in range(frames):
-        for _ in range(4):
-            y, x = r.integers(0, 16), r.integers(2, 14)
-            if abs(x - path[y]) > 2:
-                b[16 * k + y, x, :3] = glow[1]
+        for _ in range(2):
+            y = int(r.integers(0, 16))
+            side = 3 if r.random() < 0.5 else -3
+            b[16 * k + y, path[y] + side, :3] = glow[1]
     t.step('Funken', b)
     return t, {'animation': {'frametime': 4}}
 
@@ -388,7 +406,7 @@ def neon_flicker(frames=6):
 BOTTLE = {'O': (70, 104, 150), 'G': (150, 186, 220), 'H': (222, 238, 250), 'L': (238, 228, 196), 'M': (214, 198, 150),
           'D': (186, 166, 112), 'W': (252, 250, 240), 'C': (156, 106, 64), 'K': (112, 72, 42)}
 BOTTLE_ROWS = ['................', '......CCCK......', '......KKKK......', '.....OHGGGO.....', '......OHGO......',
-               '......OHGO......', '.....OHLLMO.....', '....OHLLLLMO....', '...OHWLLLLLMO...', '...OHLLLLLLMO...',
+               '......OHGO......', '.....OHLLMO.....', '....OHWLLLMO....', '...OHWLLLLLMO...', '...OHLLLLLLMO...',
                '...OLLLLLLMMO...', '...OLLLLLMMDO...', '...OMLLLMMMDO...', '....OMMMMMDO....', '.....OOOOOO.....',
                '................']
 
@@ -414,6 +432,38 @@ def backdoor_key():
     return t
 
 
+# ---------------------------------------------------------------- status effect (b-layers13)
+def backroom_effect():
+    """Status effect icon, 18 x 18 like Vanilla's (R6): doorways receding into each other - the endless rooms - under a neon
+    strip; dark outline only outside, the inner frames in the wall's own shade tones."""
+    c = {'O': (52, 42, 18), 'W': (252, 250, 232), 'n': (214, 210, 192), 'H': (230, 216, 146), 'L': (206, 188, 114),
+         'M': (160, 142, 76), 'f': (120, 104, 54), 'l': (176, 158, 90), 'm': (146, 130, 70), 'k': (98, 84, 42), 'D': (34, 28, 14)}
+    g = [['.'] * 18 for _ in range(18)]
+
+    def rect(x0, y0, x1, y1, ch):
+        for y in range(y0, y1 + 1):
+            for x in range(x0, x1 + 1):
+                g[y][x] = ch
+    rect(2, 1, 15, 15, 'O')
+    rect(3, 2, 14, 2, 'n')
+    rect(6, 2, 11, 2, 'W')
+    rect(3, 3, 14, 14, 'L')
+    rect(3, 3, 14, 3, 'H')
+    rect(3, 3, 3, 14, 'H')
+    rect(14, 4, 14, 14, 'M')
+    rect(4, 14, 14, 14, 'M')
+    rect(5, 5, 12, 14, 'f')
+    rect(6, 6, 11, 14, 'l')
+    rect(11, 6, 11, 14, 'm')
+    rect(7, 8, 10, 14, 'k')
+    rect(8, 9, 9, 14, 'D')
+    t = Tex(18, 18)
+    rows = [''.join(r) for r in g]
+    t.step('Umriss', grid([''.join(ch if ch == 'O' else '.' for ch in r) for r in rows], c))
+    t.step('Gänge', grid(rows, c))
+    return t
+
+
 def build(variants=None):
     v = variants or {}
     c = v.get('cloud', 'A')
@@ -425,7 +475,7 @@ def build(variants=None):
         'block/stained_ceiling_tile': ceiling(True), 'block/neon_light': neon('on'), 'block/neon_light_broken': neon('broken'),
         'block/neon_light_side': neon_side(), 'block/exit_sign': exit_sign(), 'block/exit_sign_top': exit_sign_top(),
         'block/exit_door_lower': door('lower'), 'block/exit_door_upper': door('upper'), 'block/exit_door_end': door_end(),
-        'item/almond_water': almond_water(), 'item/backdoor_key': backdoor_key(),
+        'item/almond_water': almond_water(), 'item/backdoor_key': backdoor_key(), 'mob_effect/backroom': backroom_effect(),
     }
     meta = {}
     for name, fn in (('block/glitched_bedrock', glitched_bedrock), ('block/rift', rift), ('block/neon_light_flicker', neon_flicker)):

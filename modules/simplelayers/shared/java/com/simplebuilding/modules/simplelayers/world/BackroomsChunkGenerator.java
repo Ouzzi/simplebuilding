@@ -14,7 +14,6 @@ import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -25,7 +24,7 @@ import net.minecraft.world.level.levelgen.densityfunction.SamplerContext;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Chunk generator {@code simplelayers:backrooms}: fills every chunk from {@link BackroomsGrid} (rooms y 0-8, air above). The
+ * Chunk generator {@code simplelayers:backrooms}: fills every chunk from {@link BackroomsGrid} (rooms y 0-8, solid bedrock above up to y 63). The
  * seed is the world seed, read from the {@link RandomState} handed to every call (no own field, so the codec holds only the
  * biome source). Structures (the special rooms) and features run as for any generator.
  */
@@ -55,7 +54,7 @@ public class BackroomsChunkGenerator extends ChunkGenerator {
         Heightmap oceanFloor = chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG);
         Heightmap surface = chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.WORLD_SURFACE_WG);
         int baseX = chunk.getPos().getMinBlockX(), baseZ = chunk.getPos().getMinBlockZ();
-        int top = Math.min(BackroomsGrid.TOP_Y, chunk.getMaxY());
+        int top = Math.min(BackroomsGrid.HULL_TOP_Y, chunk.getMaxY());
         for (int y = Math.max(0, chunk.getMinY()); y <= top; y++) {
             for (int x = 0; x < 16; x++) {
                 for (int z = 0; z < 16; z++) {
@@ -72,7 +71,7 @@ public class BackroomsChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getBaseHeight(int x, int z, Heightmap.Types type, LevelHeightAccessor heightAccessor, RandomState randomState) {
-        return BackroomsGrid.TOP_Y + 1;
+        return BackroomsGrid.HULL_TOP_Y + 1;
     }
 
     @Override
@@ -81,7 +80,7 @@ public class BackroomsChunkGenerator extends ChunkGenerator {
         BlockState[] states = new BlockState[heightAccessor.getHeight()];
         for (int i = 0; i < states.length; i++) {
             int y = heightAccessor.getMinY() + i;
-            states[i] = y >= 0 && y <= BackroomsGrid.TOP_Y ? BackroomsGrid.at(seed, x, y, z) : Blocks.AIR.defaultBlockState();
+            states[i] = BackroomsGrid.at(seed, x, y, z);
         }
         return new NoiseColumn(heightAccessor.getMinY(), states);
     }

@@ -19,7 +19,7 @@ public final class LayersConfig {
     public static final String FILE = "simplelayers-server.json";
     public static final List<String> KEYS = List.of("clouds.enabled", "clouds.entryY", "clouds.bottomlessPits", "clouds.fogHint",
             "backrooms.enabled", "backrooms.entranceRarity", "backrooms.voidToBackrooms", "backrooms.unbreakableWalls",
-            "backrooms.listener");
+            "backrooms.supplies", "backrooms.listener");
     public static final int MIN_ENTRY_Y = 400, MAX_ENTRY_Y = 1000, DEFAULT_ENTRY_Y = 700;
 
     /** Rising above {@link #cloudEntryY} in the Overworld leads into the Cloud Sea. */
@@ -34,8 +34,13 @@ public final class LayersConfig {
     public static int entranceRarity;
     /** Falling far below the Overworld floor lands in the Backrooms instead of the void (default off). */
     public static boolean voidToBackrooms;
-    /** Survival players cannot break the Backrooms' walls, floors and ceilings inside that dimension. */
+    /**
+     * Players in the Backrooms get the Backroom effect: survival players cannot break the walls, floors and ceilings, and no
+     * piston moves them there - only Simple Machines' Netherite Piston breaks them (LAYERS13).
+     */
     public static boolean unbreakableWalls;
+    /** Wooden office furniture and cobwebs in some Backrooms cells: wood and string to survive and craft (LAYERS13). */
+    public static boolean supplies;
     /** "The Listener": rare approaching footsteps behind the player, no damage (default off until the owner accepts it). */
     public static boolean listener;
 
@@ -76,6 +81,7 @@ public final class LayersConfig {
         entranceRarity = integer(back, "entranceRarity", 48, 4, 10000);
         voidToBackrooms = bool(back, "voidToBackrooms", false);
         unbreakableWalls = bool(back, "unbreakableWalls", true);
+        supplies = bool(back, "supplies", true);
         listener = bool(back, "listener", false);
     }
 
@@ -89,6 +95,7 @@ public final class LayersConfig {
         back.addProperty("entranceRarity", entranceRarity);
         back.addProperty("voidToBackrooms", voidToBackrooms);
         back.addProperty("unbreakableWalls", unbreakableWalls);
+        back.addProperty("supplies", supplies);
         back.addProperty("listener", listener);
         o.add("clouds", clouds);
         o.add("backrooms", back);

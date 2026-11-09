@@ -9,7 +9,7 @@
       "title": "simplelayers.guide.chapter",
       "icon": "minecraft:feather",
       "page_key": "simplelayers.guide.page",
-      "pages": 9,
+      "pages": 11,
       "advancement": "simplelayers:guide/chapter",
       "hint": "minecraft:feather"
     }
