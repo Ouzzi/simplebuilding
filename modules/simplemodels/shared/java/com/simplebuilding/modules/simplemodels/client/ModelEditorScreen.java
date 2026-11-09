@@ -40,7 +40,9 @@ import org.joml.Vector3f;
 public final class ModelEditorScreen extends Screen {
     static final UiPalette PALETTE = UiPalette.INVENTORY;
     /** Text on the grey panels: #404040 on #C6C6C6 = 6.1:1; on the lighter list face #D6D6D6 = 7.1:1. */
-    static final int LABEL = 0xFF404040, LIST_FACE = 0xFFD6D6D6, ROW_SELECTED = 0xFF5A5A5A, ROW_SELECTED_TEXT = 0xFFFFFFFF;
+    static final int LABEL = 0xFF404040, LIST_FACE = 0xFFD6D6D6;
+    /** Selected cube row: white text and eye only on the dark row fill #5A5A5A = 6.9:1 (never on LIST_FACE). */
+    static final int ROW_SELECTED = 0xFF5A5A5A, ROW_SELECTED_TEXT = 0xFFFFFFFF; // contrast-ok: drawn on ROW_SELECTED only
     /** Light text on the dark viewport (#F2EEE8 on #1E1F23 = 15:1). */
     static final int VIEW_TEXT = UiPalette.LIGHT_LABEL;
     static final int ROW = 12, HANDLE = 5, GIZMO_PX = 30;

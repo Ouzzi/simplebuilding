@@ -296,126 +296,6 @@
   "enchantments": [],
   "items": [
     {
-      "id": "simplemodels:example/birdhouse",
-      "name": {
-        "en_us": "Example/Birdhouse"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
-          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
-        ],
-        "en": {
-          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
-        },
-        "de": {
-          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemodels:example/crystal_cluster",
-      "name": {
-        "en_us": "Example/Crystal Cluster"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
-          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
-        ],
-        "en": {
-          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
-        },
-        "de": {
-          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemodels:example/mailbox",
-      "name": {
-        "en_us": "Example/Mailbox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
-          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
-        ],
-        "en": {
-          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
-        },
-        "de": {
-          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemodels:example/stool",
-      "name": {
-        "en_us": "Example/Stool"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
-          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
-        ],
-        "en": {
-          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
-        },
-        "de": {
-          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemodels:example/table_lantern",
-      "name": {
-        "en_us": "Example/Table Lantern"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
-          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
-        ],
-        "en": {
-          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
-        },
-        "de": {
-          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemodels:example/weather_vane",
-      "name": {
-        "en_us": "Example/Weather Vane"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
-          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
-        ],
-        "en": {
-          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
-        },
-        "de": {
-          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
       "id": "simplemodels:guide_book",
       "name": {
         "en_us": "Simple Models Guide",
@@ -484,7 +364,7 @@
     "tags": 0,
     "advancements": 1,
     "enchantments": 0,
-    "items": 7,
+    "items": 1,
     "blocks": 0,
     "trades": 0,
     "config": 0,
