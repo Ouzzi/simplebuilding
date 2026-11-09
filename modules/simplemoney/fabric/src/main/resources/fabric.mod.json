@@ -51,8 +51,7 @@
     "simplesandwiches": "*",
     "simplesounds": "*",
     "simpletweaks": "*",
-    "simplevisuals": "*",
-    "wiringexample": "*"
+    "simplevisuals": "*"
   },
   "mixins": [
     "simplemoney.links.mixins.json"

@@ -3040,27 +3040,6 @@
       "related": []
     },
     {
-      "id": "money_links_wiringexample",
-      "en": {
-        "title": "Linked Price Table: wiringexample",
-        "summary": "0 item prices; loaded-mod condition: wiringexample.",
-        "details": [
-          "No distinct survival items to trade. {'wiringexample:token': 'Integration-only token; no survival trade.'}"
-        ]
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: wiringexample",
-        "summary": "0 Itempreise; Mod-Ladebedingung: wiringexample.",
-        "details": [
-          "Keine eigenen Survival-Items für den Handel. {'wiringexample:token': 'Integration-only token; no survival trade.'}"
-        ]
-      },
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/wiringexample/prices.json"
-      ],
-      "related": []
-    },
-    {
       "id": "commands",
       "sources": [
         "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java"

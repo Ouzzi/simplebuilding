@@ -90,6 +90,12 @@ public final class MapsConfig {
         JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), SimpleMaps.LOG::warn);
         if (read != null) json = read;
         apply(json);
+        // A public bind without a token would serve the map to anyone: make a random one once and keep it in the file.
+        if (!WEB_HTTP_BIND_DEFAULT.equals(webHttpBind) && webHttpToken.isEmpty()) {
+            byte[] b = new byte[16];
+            new java.security.SecureRandom().nextBytes(b);
+            webHttpToken = java.util.HexFormat.of().formatHex(b);
+        }
         enabled = hostAllows(dir);
         if (file != null) {
             try {

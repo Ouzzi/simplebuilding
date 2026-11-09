@@ -351,7 +351,6 @@ public final class MoneyDiscover {
             "simplemoney:money_links_simpletrims",
             "simplemoney:money_links_simpletweaks",
             "simplemoney:money_links_simplevisuals",
-            "simplemoney:money_links_wiringexample",
             "simplemoney:raw_bill",
             "simplemoney:refined_blank_note",
             "simplemoney:resin_fiber",
