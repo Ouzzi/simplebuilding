@@ -29,6 +29,13 @@ public final class SimpleLibJeiPlugin implements IModPlugin {
     private static volatile IJeiRuntime runtime;
     private static volatile boolean tableAdded;
     private static boolean listening;
+    /** b-rel13: one tab per machine announced with {@link RecipeViewer#station}, built in {@link #registerCategories}. */
+    private static final java.util.Map<RecipeViewer.Station, IRecipeType<InWorldUpgrade>> STATIONS = new java.util.LinkedHashMap<>();
+
+    private static IRecipeType<InWorldUpgrade> stationType(Item item) {
+        Identifier id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item);
+        return IRecipeType.create(id.getNamespace(), "station/" + id.getPath(), InWorldUpgrade.class);
+    }
 
     @Override
     public Identifier getPluginUid() {
@@ -41,6 +48,14 @@ public final class SimpleLibJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new InWorldUpgradeCategory(gui),
                 new InWorldUpgradeCategory(gui, InWorldUpgradeCategory.SPECIAL, Items.CRAFTER),
                 new MobDropCategory(gui));
+        STATIONS.clear();
+        Set<Identifier> seen = new java.util.HashSet<>();
+        for (RecipeViewer.Station station : RecipeViewer.stations()) {
+            Item item = station.item().get();
+            IRecipeType<InWorldUpgrade> type = stationType(item);
+            STATIONS.put(station, type);
+            if (seen.add(type.getUid())) registration.addRecipeCategories(new InWorldUpgradeCategory(gui, type, item, item.getDefaultInstance().getHoverName()));
+        }
     }
 
     @Override
@@ -53,6 +68,7 @@ public final class SimpleLibJeiPlugin implements IModPlugin {
         }
         registration.addRecipes(InWorldUpgradeCategory.SPECIAL, RecipeViewer.special());
         registration.addRecipes(MobDropCategory.TYPE, RecipeViewer.mobDrops());
+        STATIONS.forEach((station, type) -> registration.addRecipes(type, RecipeViewer.stationEntries(station)));
         for (RecipeViewer.Info page : RecipeViewer.info()) {
             if (!page.items().isEmpty()) registration.addItemStackInfo(page.items(), page.lines().toArray(new net.minecraft.network.chat.Component[0]));
         }
@@ -63,6 +79,7 @@ public final class SimpleLibJeiPlugin implements IModPlugin {
         catalysts(registration, InWorldUpgradeCategory.TYPE, RecipeViewer.inWorld());
         if (InWorldUpgrades.isLoaded()) catalysts(registration, InWorldUpgradeCategory.TYPE, RecipeViewer.tableEntries());
         catalysts(registration, InWorldUpgradeCategory.SPECIAL, RecipeViewer.special());
+        STATIONS.forEach((station, type) -> registration.addCraftingStation(type, station.item().get()));
     }
 
     private static void catalysts(IRecipeCatalystRegistration registration, IRecipeType<InWorldUpgrade> type, List<InWorldUpgrade> entries) {

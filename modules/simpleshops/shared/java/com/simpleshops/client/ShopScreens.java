@@ -95,7 +95,8 @@ public final class ShopScreens {
         @Override
         protected void init() {
             super.init();
-            if (this.menu.isCombined()) {
+            // b-rel13: the developer buyer view is a test aid, only in a development environment (never in a release).
+            if (this.menu.isCombined() && com.simplelib.api.DevVariants.devEnvironment()) {
                 // The free strip between the earnings and the inventory panel.
                 Component text = Component.translatable("simpleshops.screen.dev_buyer");
                 BarButton b = this.addRenderableWidget(new BarButton(this.leftPos + 8, this.topPos + SalesOwnerMenu.C_EARNINGS_Y + 54 + 4, 160, 14, text,

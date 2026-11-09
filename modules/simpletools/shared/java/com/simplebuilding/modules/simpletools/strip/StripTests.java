@@ -46,6 +46,7 @@ public final class StripTests {
         all.put("strip_station_hoppers_fill_from_above_and_empty_below", StripTests::hoppers);
         all.put("strip_station_options_switch_it_off", StripTests::switchedOff);
         all.put("strip_station_works_wood_of_other_mods", StripTests::otherMods);
+        all.put("strip_station_has_its_own_viewer_tab", StripTests::viewerTab);
     }
 
     // ------------------------------------------------------------ helpers
@@ -201,6 +202,15 @@ public final class StripTests {
         });
         h.assertTrue(cage.getSlotsForFace(Direction.UP).length == 1 && cage.getSlotsForFace(Direction.DOWN).length == 1 && cage.getSlotsForFace(Direction.NORTH).length == 0,
                 "default: top fills, bottom empties, sides closed");
+        h.succeed();
+    }
+
+    /** b-rel13: the station's own recipe viewer tab lists the log -&gt; stripped log way with the station as its machine. */
+    private static void viewerTab(GameTestHelper h) {
+        var entries = com.simplelib.api.RecipeViewer.station(com.simplebuilding.modules.simpletools.SimpleTools.MOD_ID);
+        h.assertTrue(entries.stream().anyMatch(e -> e.inputs().get(0).items().contains(Items.OAK_LOG) && e.output().is(Items.STRIPPED_OAK_LOG)
+                && e.tools().contains(ToolsRegistry.STRIP_STATION_ITEM)), "oak log -> stripped oak log in the station tab: " + entries.size());
+        h.assertTrue(com.simplelib.api.RecipeViewer.stations().stream().anyMatch(st -> st.item().get() == ToolsRegistry.STRIP_STATION_ITEM), "station tab");
         h.succeed();
     }
 

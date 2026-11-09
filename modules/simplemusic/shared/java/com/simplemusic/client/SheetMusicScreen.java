@@ -75,6 +75,8 @@ public class SheetMusicScreen extends Screen {
     private UiCodeArea area;
     private EditBox titleBox;
     private Button listen;
+    /** Line of the info/problem text under the code area (above the button bar). */
+    private int infoY;
     private NoteCode.Result parsed;
     private boolean importing;
     /** BS25-13: the import list shows the shipped examples instead of the files. */
@@ -114,6 +116,7 @@ public class SheetMusicScreen extends Screen {
         int margin = 12;
         int top = 30;
         int bottom = height - 54;
+        infoY = bottom + 6;
         float scale = minecraft.getWindow().getGuiScale() >= 4 ? 0.75F : minecraft.getWindow().getGuiScale() >= 3 ? 2F / 3F : 1F;
         gridW = 0;
         if (importing && examples) {
@@ -124,6 +127,27 @@ public class SheetMusicScreen extends Screen {
             initImport(margin, top);
             return;
         }
+        List<Button> buttons = new ArrayList<>();
+        listen = Button.builder(listenLabel(), b -> toggleListen()).width(80).build();
+        if (track == null) buttons.add(listen);
+        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.import"), b -> {
+            importing = true;
+            rebuildWidgets();
+        }).width(80).build());
+        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.example"), b -> {
+            importing = true;
+            examples = true;
+            rebuildWidgets();
+        }).width(80).tooltip(Tooltip.create(Component.translatable("simplemusic.editor.example.hint"))).build());
+        if (track == null) buttons.add(Button.builder(Component.translatable("simplemusic.editor.copy"),
+                b -> minecraft.keyboardHandler.setClipboard(code)).width(80).build());
+        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.sign"), b -> sign()).width(80).build());
+        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.upload"), b -> upload()).width(80).build());
+        buttons.add(Button.builder(Component.translatable("gui.done"), b -> onClose()).width(80).build());
+        // b-rel13: each button as wide as its label (EN/DE never clipped), one or two centred rows; the code area ends above.
+        int barTop = layoutBar(buttons, height - 30);
+        bottom = barTop - 24;
+        infoY = bottom + 6;
         int codeX = margin;
         if (track == null && width >= 360) {
             // E3 B: grid left, code right
@@ -151,33 +175,7 @@ public class SheetMusicScreen extends Screen {
         titleBox.setResponder(v -> title = v);
         titleBox.setHint(Component.translatable("simplemusic.editor.title"));
         addRenderableWidget(titleBox);
-        int y = height - 30;
-        List<Button> buttons = new ArrayList<>();
-        listen = Button.builder(listenLabel(), b -> toggleListen()).width(80).build();
-        if (track == null) buttons.add(listen);
-        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.import"), b -> {
-            importing = true;
-            rebuildWidgets();
-        }).width(80).build());
-        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.example"), b -> {
-            importing = true;
-            examples = true;
-            rebuildWidgets();
-        }).width(80).tooltip(Tooltip.create(Component.translatable("simplemusic.editor.example.hint"))).build());
-        if (track == null) buttons.add(Button.builder(Component.translatable("simplemusic.editor.copy"),
-                b -> minecraft.keyboardHandler.setClipboard(code)).width(80).build());
-        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.sign"), b -> sign()).width(80).build());
-        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.upload"), b -> upload()).width(80).build());
-        buttons.add(Button.builder(Component.translatable("gui.done"), b -> onClose()).width(80).build());
-        int w = Math.min(80, (width - 24) / buttons.size() - 4);
-        int total = buttons.size() * (w + 4) - 4;
-        int x = (width - total) / 2;
-        for (Button b : buttons) {
-            b.setWidth(w);
-            b.setPosition(x, y);
-            x += w + 4;
-            addRenderableWidget(b);
-        }
+        buttons.forEach(this::addRenderableWidget);
         onCode(code);
         setInitialFocus(area);
     }
@@ -349,6 +347,43 @@ public class SheetMusicScreen extends Screen {
         if (listen != null) listen.setMessage(listenLabel());
     }
 
+    /**
+     * b-rel13: lays the bottom bar out - every button as wide as its widest label (the listen button also fits "Stop"),
+     * as many as fit in a centred row, the rest in a row above. Returns the top of the upper row.
+     */
+    private int layoutBar(List<Button> buttons, int lastRowY) {
+        int avail = width - 24;
+        List<List<Button>> rows = new ArrayList<>();
+        List<Button> row = new ArrayList<>();
+        int rowW = 0;
+        for (Button b : buttons) {
+            int label = font.width(b.getMessage());
+            if (b == listen) label = Math.max(font.width(Component.translatable("simplemusic.editor.listen")), font.width(Component.translatable("simplemusic.editor.stop")));
+            int w = Math.min(avail, Math.max(50, label + 12));
+            b.setWidth(w);
+            if (!row.isEmpty() && rowW + 4 + w > avail) {
+                rows.add(row);
+                row = new ArrayList<>();
+                rowW = 0;
+            }
+            rowW += (row.isEmpty() ? 0 : 4) + w;
+            row.add(b);
+        }
+        rows.add(row);
+        int y = lastRowY - (rows.size() - 1) * 24;
+        int top = y;
+        for (List<Button> r : rows) {
+            int total = r.stream().mapToInt(Button::getWidth).sum() + (r.size() - 1) * 4;
+            int x = (width - total) / 2;
+            for (Button b : r) {
+                b.setPosition(x, y);
+                x += b.getWidth() + 4;
+            }
+            y += 24;
+        }
+        return top;
+    }
+
     @Override
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
@@ -364,7 +399,7 @@ public class SheetMusicScreen extends Screen {
                 12, 12, info, false);
         if (importing) return;
         if (gridW > 0) drawGrid(g);
-        int y = height - 48;
+        int y = infoY;
         if (track != null) {
             g.text(font, Component.translatable("simplemusic.editor.track", track.title(), track.seconds() / 60,
                     String.format(java.util.Locale.ROOT, "%02d", track.seconds() % 60), track.uploader()), codeLeft, y, info, false);
