@@ -1,0 +1,5 @@
+# /etc/default/livemap-sync (600, root) – example; real values only on the wiki host, never in the repo
+LIVEMAP_SRC=livemap@GAMEHOST:
+LIVEMAP_DEST=/srv/livemap
+LIVEMAP_SSH_KEY=/root/.ssh/livemap_sync
+LIVEMAP_MAX_PCT=85

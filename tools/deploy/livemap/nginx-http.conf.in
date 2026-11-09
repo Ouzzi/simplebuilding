@@ -1,0 +1,11 @@
+# Simple Livemap on the wiki host (N14b) – http context, installed as /etc/nginx/conf.d/simplemods-livemap.conf.
+# Rendered by tools/deploy/livemap/deploy_livemap.sh (@INFO@); edit the template in the repo, not this file.
+# Visitor address for the per-visitor limit: Cloudflare's CF-Connecting-IP (all traffic comes through the tunnel).
+map $http_cf_connecting_ip $sb_livemap_ip { "" $remote_addr; default $http_cf_connecting_ip; }
+# One viewer loads ~40 tiles at once and polls live.json every 2 s: 10 r/s with burst 80 (see the snippet).
+limit_req_zone $sb_livemap_ip zone=sb_livemap:2m rate=10r/s;
+#@PROXY@ # The game server's built-in livemap web server (config web.bind = its LAN address, firewall: only this host).
+#@PROXY@ upstream simplemods_livemap { server @UPSTREAM@ max_fails=2 fail_timeout=10s; }
+#@PROXY@ # Small, capped cache: the game server sees at most one request per tile per 30 s; tiles and page stay
+#@PROXY@ # available (stale) while the game server sleeps. Key without query string and without token.
+#@PROXY@ proxy_cache_path /var/cache/nginx/simplelivemap levels=1:2 keys_zone=simplelivemap:2m max_size=256m inactive=1d use_temp_path=off;

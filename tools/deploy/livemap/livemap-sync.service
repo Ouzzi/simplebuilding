@@ -1,0 +1,18 @@
+# Simple Livemap variant B (N14b): template, install as /etc/systemd/system/livemap-sync.service
+[Unit]
+Description=Simple Livemap: copy tiles from the game server (static /map/)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/default/livemap-sync
+ExecStart=/usr/local/bin/livemap-sync.sh
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=10min
+ProtectSystem=strict
+ReadWritePaths=/srv/livemap /run/lock
+ProtectHome=read-only
+PrivateTmp=yes
+NoNewPrivileges=yes
