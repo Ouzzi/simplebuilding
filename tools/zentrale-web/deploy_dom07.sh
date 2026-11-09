@@ -89,7 +89,7 @@ d}" "$SRC/nginx/wiki-one.conf"
   say "nginx neu geladen (domains)"
 }
 
-smoke() { python3 "$SRC/smoke_zw06.py" --domains --port "${1:-8081}"; }
+smoke() { sleep 1;  python3 "$SRC/smoke_zw06.py" --domains --port "${1:-8081}"; }
 
 case "$stage" in
   check) preflight;;
