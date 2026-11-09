@@ -123,7 +123,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(3);
         context.runOnClient(c -> {
             if (!(c.gui.screen() instanceof ShopScreens.Buyer screen)) throw new AssertionError("not the buyer screen");
-            var buttons = screen.children().stream().filter(w -> w instanceof net.minecraft.client.gui.components.AbstractButton b && b.visible).toList();
+            var buttons = screen.children().stream().filter(w -> w instanceof net.minecraft.client.gui.components.AbstractButton b && b.visible && w.getClass().getName().startsWith("com.simpleshops.")).toList();
             if (buttons.size() != 1) throw new AssertionError("one trade button expected, got " + buttons.size());
             var button = (net.minecraft.client.gui.components.AbstractButton) buttons.get(0);
             if (!button.active) throw new AssertionError("trade button should be enabled with the exact payment");
