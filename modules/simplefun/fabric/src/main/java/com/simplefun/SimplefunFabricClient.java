@@ -14,6 +14,12 @@ public class SimplefunFabricClient implements ClientModInitializer {
   @Override
   public void onInitializeClient() {
     EntityRendererRegistry.register(ModEntities.BRICK_PROJECTILE, ThrownItemRenderer::new);
+    // FUN11-5/6/8 thrown toys and the FUN11-7 soap bubble (b-fun14).
+    EntityRendererRegistry.register(com.simplefun.registry.ModToys.SKIPPING_STONE_ENTITY, ThrownItemRenderer::new);
+    EntityRendererRegistry.register(com.simplefun.registry.ModToys.WATER_BALLOON_ENTITY, ThrownItemRenderer::new);
+    EntityRendererRegistry.register(com.simplefun.registry.ModToys.PAPER_PLANE_ENTITY, ThrownItemRenderer::new);
+    net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry.getInstance()
+        .register(com.simplefun.registry.ModToys.SOAP_BUBBLE, com.simplefun.client.SoapBubbleParticle.Provider::new);
 
     LivingEntityRenderLayerRegistrationCallback.EVENT.register(
         (entityType, entityRenderer, registrationHelper, context) -> {

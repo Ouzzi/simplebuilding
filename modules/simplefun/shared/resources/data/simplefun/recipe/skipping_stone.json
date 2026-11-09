@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#simplefun:skipping_stone_sources"
+  ],
+  "result": {
+    "id": "simplefun:skipping_stone",
+    "count": 4
+  }
+}

@@ -34,6 +34,9 @@ public final class FunContent {
     var out = new ArrayList<ItemStack>();
     if (com.simplefun.guide.FunGuide.book() != null) out.add(com.simplefun.guide.FunGuide.stack());
     out.add(new ItemStack(ModItems.BRICK_SNOWBALL));
+    // FUN11 toys (b-fun14); only registered ones, so a loader adapter without them shows no ghost items.
+    for (Item toy : ModToys.ITEMS)
+      if (BuiltInRegistries.ITEM.getResourceKey(toy).isPresent()) out.add(new ItemStack(toy));
     return List.copyOf(out);
   }
 

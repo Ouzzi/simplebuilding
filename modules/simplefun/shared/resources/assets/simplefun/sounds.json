@@ -1,0 +1,16 @@
+{
+  "rubber_duck.squeak": {
+    "subtitle": "subtitles.simplefun.rubber_duck.squeak",
+    "sounds": [
+      "simplefun:toys/squeak1",
+      "simplefun:toys/squeak2"
+    ]
+  },
+  "high_five.clap": {
+    "subtitle": "subtitles.simplefun.high_five.clap",
+    "sounds": [
+      "simplefun:toys/clap1",
+      "simplefun:toys/clap2"
+    ]
+  }
+}

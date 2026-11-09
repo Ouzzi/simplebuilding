@@ -17,5 +17,10 @@ public final class FunJeiPlugin implements IModPlugin {
     r.addItemStackInfo(
         java.util.List.of(new ItemStack(com.simplefun.registry.ModItems.BRICK_SNOWBALL)),
         Component.translatable("jei.simplefun.brick_snowball"));
+    // FUN11 toys (b-fun14): one info page per item.
+    com.simplefun.registry.ModToys.BY_PATH.forEach(
+        (path, item) ->
+            r.addItemStackInfo(
+                java.util.List.of(new ItemStack(item)), Component.translatable("jei.simplefun." + path)));
   }
 }

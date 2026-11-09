@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplefun:item/party_popper",
+    "layer1": "simplefun:item/party_popper_confetti"
+  }
+}

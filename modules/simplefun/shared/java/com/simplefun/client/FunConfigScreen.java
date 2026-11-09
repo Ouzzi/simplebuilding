@@ -23,7 +23,9 @@ public final class FunConfigScreen {
           b.getOrCreateCategory(
               Component.translatable(
                   "text.autoconfig.simplefun.category."
-                      + (key.endsWith("Crumbs")
+                      + (SimplefunConfig.TOYS.contains(key)
+                          ? "toys"
+                          : key.endsWith("Crumbs")
                                   || java.util.Set.of(
                                           "flowerSniff",
                                           "appleSparkle",
