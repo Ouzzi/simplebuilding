@@ -177,6 +177,7 @@
   "subtitles.simplemusic.music_disc.sky_forge": "Music: Sky Forge",
   "jei.simplemusic.note.press": "In the disc press, %s s",
   "jei.simplemusic.note.press_sheet": "The sheet stays; the disc carries its music",
+  "jei.simplemusic.note.press_dye": "Optional: a dye colours the disc label",
   "jei.simplemusic.note.copy": "Cartography table: a signed sheet on top",
   "jei.simplemusic.note.copy_slots": "An empty sheet below becomes the copy",
   "jei.simplemusic.note.disc_chest": "No recipe: found only in the chests of %s (%s in 100).",

@@ -34,6 +34,7 @@ public final class InWorldUpgradeCategory implements IRecipeCategory<InWorldUpgr
 
     private final IDrawable icon;
     private final IRecipeType<InWorldUpgrade> type;
+    private final Component title;
 
     public InWorldUpgradeCategory(IGuiHelper gui) {
         this(gui, TYPE, Items.ANVIL);
@@ -41,8 +42,14 @@ public final class InWorldUpgradeCategory implements IRecipeCategory<InWorldUpgr
 
     /** A tab of this layout for {@code type} (title {@code jei.simplelib.category.<path>}). */
     public InWorldUpgradeCategory(IGuiHelper gui, IRecipeType<InWorldUpgrade> type, net.minecraft.world.level.ItemLike icon) {
+        this(gui, type, icon, Component.translatable("jei.simplelib.category." + type.getUid().getPath()));
+    }
+
+    /** A tab of this layout with its own title (b-rel13: a machine's tab, titled with the machine's name). */
+    public InWorldUpgradeCategory(IGuiHelper gui, IRecipeType<InWorldUpgrade> type, net.minecraft.world.level.ItemLike icon, Component title) {
         this.icon = gui.createDrawableItemLike(icon);
         this.type = type;
+        this.title = title;
     }
 
     @Override
@@ -52,7 +59,7 @@ public final class InWorldUpgradeCategory implements IRecipeCategory<InWorldUpgr
 
     @Override
     public Component getTitle() {
-        return Component.translatable("jei.simplelib.category." + type.getUid().getPath());
+        return title;
     }
 
     @Override

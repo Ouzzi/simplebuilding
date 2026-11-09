@@ -101,7 +101,35 @@ SIZES = ('h1{font-size:clamp(52px,13vw,128px);line-height:1;letter-spacing:4px;m
          '.hero{padding:88px 0 56px}.sub{font-size:19px;line-height:1.55;margin:0 auto 32px}'
          '.c b{font-size:18px}.c p{font-size:15px;line-height:1.55}'
          '@media(max-width:600px){.hero{padding:60px 0 36px}h2{margin:52px 0 16px}}')
-v2 = fresh_icons((D / 'vorschlag-2.html').read_text(encoding='utf-8'))
+
+
+def full_icg(h):
+    """b-rel13: die Icon-Galerie "Alle N Module" folgt modules.json (neue Mods wie Simple Layers kommen von selbst dazu).
+    Reihenfolge wie der Entwurf: je Super-Mod (ausser SimpleBuilding) erst sie selbst, dann alle Nachfahren nach modtree,
+    zuletzt "Weitere Mods" (SimpleLib + Mods ohne Super-Mod)."""
+    mods = {k: v for k, v in modtree.load(R).items() if k != 'wiringexample'}
+    sup, rest = modtree.roots(mods)
+
+    def desc(pid):
+        out = []
+        for c in modtree.children(mods, pid):
+            out += [c['id']] + desc(c['id'])
+        return out
+
+    def group(label, ids):
+        imgs = ''.join(f'<img data-ico="{i}" src="" title="{i}" alt="{i}">' for i in ids)
+        return f'<div class="icf">{label}<div class="ic">{imgs}</div></div>'
+
+    groups = [group(f'<span>{E(m["name"])}</span>', ([] if m['id'] == 'simplebuilding' else [m['id']]) + desc(m['id'])) for m in sup]
+    groups.append(group('<span data-en="More mods">Weitere Mods</span>', [modtree.BASE] + [m['id'] for m in rest]))
+    count = sum(g.count('<img ') for g in groups)
+    i = h.find('<h2 data-en="All ')
+    j = h.find('<footer', i)
+    assert i > 0 and j > i, 'Icon-Galerie der Basis nicht gefunden'
+    return h[:i] + f'<h2 data-en="All {count} modules">Alle {count} Module</h2><div class="icg">' + ''.join(groups) + '</div>' + h[j:]
+
+
+v2 = fresh_icons(full_icg((D / 'vorschlag-2.html').read_text(encoding='utf-8')))
 NAVCSS = ('.tn{display:flex;flex-wrap:wrap;gap:6px;padding:8px 118px 8px 8px;font-family:"Silkscreen","Courier New",monospace}'
           '.tn a{color:#cbbf9f;text-decoration:none;font-size:14px;padding:6px 10px;border:3px solid #000;background:#3b3329;'
           'box-shadow:inset -3px -3px 0 #28221a,inset 3px 3px 0 #54493a}'
@@ -242,6 +270,7 @@ TXT = {
  'simpleresonance': ('Spielerwert, Gefahrenzonen und Spawn-Besitzer.', 'Player value, danger zones and spawn owners.'),
  'simplefoundry': ('Gießerei als Multiblock: Schmelzkammern und Gussformen.', 'A multiblock foundry: melting chambers and casts.'),
  'simpleenchanting': ('Dunkler und Astral-Verzauberer über dem Vanilla-Tisch.', 'Dark and Astral Enchanter above the Vanilla table.'),
+ 'simplelayers': ('Welt-Ebenen: Wolkenmeer über y 700 und die Backrooms unter dem Grundgestein.', 'World layers: the Cloud Sea above y 700 and the Backrooms below the bedrock.'),
  'simplepads': ('Startrampen, Elytra-Pads, Druckplatten und Spawn-Teleporter.', 'Launchpads, elytra pads, pressure plates and a spawn teleporter.'),
 }
 for _k, _o in (OVR.get('mods') or {}).items():  # overrides.json: Kurztext je Mod

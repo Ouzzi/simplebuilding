@@ -47,6 +47,8 @@ import org.jetbrains.annotations.Nullable;
  *   {@link InWorldUpgrades#table()} itself ({@link #tableEntries}), minus what the partner shows in its own tab
  *   ({@link #shownByPartner}).</li>
  *   <li>{@link #special} - tab "Special Ways" ({@code simplelib:special}): machines and hand ways without a recipe.</li>
+ *   <li>{@link #station} - a tab of its own per machine (b-rel13: Strip Station, Disc Press), titled and drawn with the
+ *   machine itself, which is also its catalyst ("Uses" of the machine opens it).</li>
  *   <li>{@link #mobDrops} - tab "Mob Drops" ({@code simplelib:mob_drop}); {@link #lootDrops} reads a module's entity loot
  *   tables from its own jar (so a client on a dedicated server sees them too; datapack overrides are not shown).</li>
  * </ul>
@@ -61,6 +63,11 @@ public final class RecipeViewer {
     private static final Map<String, List<Supplier<List<InWorldUpgrade>>>> SPECIAL = new LinkedHashMap<>();
     private static final Map<String, List<Supplier<List<MobDrop>>>> MOB_DROPS = new LinkedHashMap<>();
     private static final Map<String, List<Supplier<List<Info>>>> INFO = new LinkedHashMap<>();
+    private static final Map<String, Station> STATIONS = new LinkedHashMap<>();
+
+    /** A machine with its own recipe viewer tab ({@link #station}); {@code item} is read when the viewer asks (registries are set then). */
+    public record Station(String owner, Supplier<Item> item, Supplier<List<InWorldUpgrade>> entries) {
+    }
 
     /** A JEI info page: the items that carry it and its lines (for items only loot or code gives). */
     public record Info(List<ItemStack> items, List<Component> lines) {
@@ -81,6 +88,43 @@ public final class RecipeViewer {
     /** Machine and hand ways of {@code owner} for the tab "Special Ways". */
     public static synchronized void special(String owner, Supplier<List<InWorldUpgrade>> entries) {
         SPECIAL.computeIfAbsent(owner, k -> new ArrayList<>()).add(entries);
+    }
+
+    /** A tab of its own for the machine {@code station} of {@code owner} (title and icon: the machine, which is its catalyst too). */
+    public static synchronized void station(String owner, Supplier<Item> station, Supplier<List<InWorldUpgrade>> entries) {
+        STATIONS.put(owner + "/" + STATIONS.size(), new Station(owner, station, entries));
+    }
+
+    /** All announced machine tabs whose machine exists (an item that is null or air is left out). */
+    public static synchronized List<Station> stations() {
+        List<Station> out = new ArrayList<>();
+        for (Station s : STATIONS.values()) {
+            try {
+                Item item = s.item().get();
+                if (item != null && item != Items.AIR) out.add(s);
+            } catch (RuntimeException e) {
+                SimpleLib.LOG.warn("Recipe viewer station of {} skipped: {}", s.owner(), e.toString());
+            }
+        }
+        return out;
+    }
+
+    /** The entries of one machine tab (a supplier that throws gives none). */
+    public static List<InWorldUpgrade> stationEntries(Station station) {
+        try {
+            List<InWorldUpgrade> entries = station.entries().get();
+            return entries == null ? List.of() : entries;
+        } catch (RuntimeException e) {
+            SimpleLib.LOG.warn("Recipe viewer station entries of {} skipped: {}", station.owner(), e.toString());
+            return List.of();
+        }
+    }
+
+    /** The entries of every machine tab of {@code owner} (tests). */
+    public static List<InWorldUpgrade> station(String owner) {
+        List<InWorldUpgrade> out = new ArrayList<>();
+        for (Station s : stations()) if (s.owner().equals(owner)) out.addAll(stationEntries(s));
+        return out;
     }
 
     /** Mob drops of {@code owner} for the tab "Mob Drops". */
@@ -154,6 +198,7 @@ public final class RecipeViewer {
         out.addAll(SPECIAL.keySet());
         out.addAll(MOB_DROPS.keySet());
         out.addAll(INFO.keySet());
+        STATIONS.values().forEach(st -> out.add(st.owner()));
         return out;
     }
 

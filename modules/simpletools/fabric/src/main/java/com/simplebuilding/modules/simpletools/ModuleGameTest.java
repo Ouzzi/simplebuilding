@@ -65,6 +65,7 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=200) public void stripStationHoppersFillFromAboveAndEmptyBelow(GameTestHelper h){ToolsTests.ALL.get("strip_station_hoppers_fill_from_above_and_empty_below").accept(h);}
  @GameTest(maxTicks=100) public void stripStationOptionsSwitchItOff(GameTestHelper h){ToolsTests.ALL.get("strip_station_options_switch_it_off").accept(h);}
  @GameTest(maxTicks=100) public void stripStationWorksWoodOfOtherMods(GameTestHelper h){ToolsTests.ALL.get("strip_station_works_wood_of_other_mods").accept(h);}
+ @GameTest(maxTicks=100) public void stripStationHasItsOwnViewerTab(GameTestHelper h){ToolsTests.ALL.get("strip_station_has_its_own_viewer_tab").accept(h);}
  // CAT-END
  private static boolean[] probeSeen;
  /** M-11: the permission probe fires the real BEFORE handlers, but area hammers must see it as a veto situation. */

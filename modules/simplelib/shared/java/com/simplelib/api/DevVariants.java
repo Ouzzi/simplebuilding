@@ -91,6 +91,11 @@ public final class DevVariants {
         devEnvironment = value;
     }
 
+    /** True only in a development environment (set by the loader's client entry; a release is false). b-rel13: dev-only buttons. */
+    public static boolean devEnvironment() {
+        return devEnvironment;
+    }
+
     /** Config {@code devVariants}: explicit true/false wins; absent = on (until release; the owner uses the panel for in-game acceptance). */
     public static boolean enabled() {
         Boolean o = override;

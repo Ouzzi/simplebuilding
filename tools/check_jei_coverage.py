@@ -63,7 +63,7 @@ def main() -> int:
                 continue
             if kind and not kind.startswith(VANILLA_PREFIXES):
                 types[kind] = types.get(kind, 0) + 1
-        viewer = sorted(set(re.findall(r"RecipeViewer\.(inWorld|special|mobDrops|lootDrops|info)\(", java)))
+        viewer = sorted(set(re.findall(r"RecipeViewer\.(inWorld|special|station|mobDrops|lootDrops|info)\(", java)))
         info_class = any(p.name.endswith("JeiInfo.java") for p in module_files(mdir, "*.java"))
         plugin = "IModPlugin" in java
         mob_ok = not loot or "lootDrops" in viewer or "mobDrops" in viewer or info_class
