@@ -11,6 +11,9 @@ import net.minecraft.resources.Identifier;
 import java.nio.file.*;
 import java.util.*;
 import java.util.function.Consumer;
+import com.simplebuilding.modules.simplemodels.editor.EditHistory;
+import com.simplebuilding.modules.simplemodels.editor.EditableModel;
+import com.simplebuilding.modules.simplemodels.editor.ModelJson;
 
 public final class ModelTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
@@ -26,6 +29,8 @@ public final class ModelTests {
         ALL.put("legacy_names", ModelTests::legacyNames); ALL.put("config_and_lang", ModelTests::configAndLang);
         ALL.put("browser_query", ModelTests::browserQuery);
         ALL.put("examples", ModelTests::examples);
+        ALL.put("editable_round_trip", ModelTests::editableRoundTrip); ALL.put("editable_bounds", ModelTests::editableBounds);
+        ALL.put("edit_history", ModelTests::editHistory);
     }
     public static ModelDefinition sample(String base) { return new ModelDefinition("renamed:tomato", base, "Tomato", "renamed:tomato", List.of("food", "red"), "Example"); }
     private static void fixture(String base, Runnable body) {
@@ -223,6 +228,113 @@ public final class ModelTests {
         var off = new ModelPolicy(); off.builtinExamples = false;
         h.assertTrue(ModelExamples.merge(new ModelCatalogue.Snapshot(off, List.of(tomato))).models().equals(List.of(tomato)), "Switch off: no examples");
         h.assertTrue(new Gson().toJson(merged).length() <= ModelCatalogue.MAX_SNAPSHOT_CHARS, "Examples fit the catalogue sync");
+        h.succeed();
+    }
+    /** b-models12 stage 1: vanilla JSON -> EditableModel -> JSON keeps every field (single axis and Euler rotation), examples included. */
+    public static void editableRoundTrip(GameTestHelper h) {
+        String full = """
+            {"parent":"minecraft:block/block","ambientocclusion":false,"gui_light":"front",
+             "textures":{"particle":"#side","side":"minecraft:block/oak_planks"},
+             "elements":[
+              {"name":"a","from":[-16,0,0.5],"to":[32,16,16],"rotation":{"origin":[8,8,8],"axis":"y","angle":22.5,"rescale":true},
+               "shade_direction_override":"up","light_emission":15,
+               "faces":{"east":{"uv":[16,0,0,16],"texture":"#side","rotation":270,"cullface":"west","tintindex":2},"down":{"texture":"#side"}}},
+              {"from":[0,0,0],"to":[1,1,1],"rotation":{"origin":[0,0,0],"x":10,"y":-37.5,"z":90},"faces":{"up":{"texture":"minecraft:block/stone"}}}],
+             "display":{"gui":{"rotation":[30,225,0],"translation":[0,-80,1.5],"scale":[0.625,0.625,0.625],"right_rotation":[0,0,5]},"head":{}}}
+            """;
+        var read = ModelJson.read(full);
+        h.assertTrue(read.ok(), "Full vanilla model reads: " + read.problems());
+        var m = read.model();
+        var a = m.elements().get(0);
+        h.assertTrue(a.name().equals("a") && a.from().equals(new EditableModel.Vec(-16, 0, 0.5f)) && a.lightEmission() == 15 && "up".equals(a.shadeDirection()), "Element fields");
+        h.assertTrue(!a.rotation().isEuler() && a.rotation().axis().equals("y") && a.rotation().angle() == 22.5f && a.rotation().rescale(), "Single-axis rotation");
+        h.assertTrue(a.faces().keySet().stream().toList().equals(List.of("down", "east")), "Faces in vanilla direction order");
+        var east = a.faces().get("east");
+        h.assertTrue(east.uv().equals(new EditableModel.Uv(16, 0, 0, 16)) && east.rotation() == 270 && "west".equals(east.cullface()) && east.tintIndex() == 2, "Face fields (mirrored uv allowed)");
+        h.assertTrue(a.faces().get("down").uv() == null && a.faces().get("down").tintIndex() == -1, "Auto-UV and no tint by default");
+        var b = m.elements().get(1);
+        h.assertTrue(b.name() == null && b.rotation().isEuler() && b.rotation().euler().equals(new EditableModel.Vec(10, -37.5f, 90)), "Euler rotation");
+        h.assertTrue(m.display().get("head").equals(EditableModel.Transform.IDENTITY) && m.display().get("gui").translation().y() == -80, "Display transforms");
+        h.assertTrue(Boolean.FALSE.equals(m.ambientOcclusion()) && "front".equals(m.guiLight()) && m.textures().get("particle").equals("#side"), "Model fields");
+        String written = ModelJson.write(m);
+        h.assertTrue(ModelJson.read(written).model().equals(m), "JSON -> model -> JSON -> model is stable");
+        h.assertTrue(JsonParser.parseString(written).equals(JsonParser.parseString(full)), "Written JSON equals the input (defaults left out, whole numbers without .0)");
+        for (String name : ModelExamples.NAMES) {
+            try {
+                String json = ModelExamples.resource("models/item/example/" + name + ".json");
+                var example = ModelJson.read(json);
+                h.assertTrue(example.ok(), "Example reads: " + name + " " + example.problems());
+                h.assertTrue(JsonParser.parseString(ModelJson.write(example.model())).equals(JsonParser.parseString(json)), "Example round-trips unchanged: " + name);
+            } catch (java.io.IOException e) { throw new AssertionError(e); }
+        }
+        h.assertTrue(ModelJson.read("{}").model().equals(new EditableModel(null, Map.of(), List.of(), Map.of(), null, null)), "Empty model");
+        h.succeed();
+    }
+    /** b-models12 stage 1: vanilla and editor bounds are refused with a JSON path and a translated message, never half-read. */
+    public static void editableBounds(GameTestHelper h) {
+        Map<String, String> en;
+        try (var in = ModelTests.class.getResourceAsStream("/assets/simplemodels/lang/en_us.json")) {
+            en = ModelCatalogue.GSON.fromJson(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8), new com.google.gson.reflect.TypeToken<Map<String, String>>(){}.getType());
+        } catch (java.io.IOException e) { throw new AssertionError(e); }
+        String cube = "{\"from\":[0,0,0],\"to\":[16,16,16],\"faces\":{\"up\":{\"texture\":\"#a\"}}}";
+        Map<String, String> cases = new LinkedHashMap<>();
+        cases.put("{\"elements\":[{\"from\":[-16.5,0,0],\"to\":[1,1,1],\"faces\":{\"up\":{\"texture\":\"#a\"}}}]}", "elements[0].from out_of_range");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,32.5,1],\"faces\":{\"up\":{\"texture\":\"#a\"}}}]}", "elements[0].to out_of_range");
+        cases.put("{\"elements\":[{\"from\":[0,0],\"to\":[1,1,1],\"faces\":{\"up\":{\"texture\":\"#a\"}}}]}", "elements[0].from bad_count");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"faces\":{}}]}", "elements[0].faces no_faces");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"faces\":{\"top\":{\"texture\":\"#a\"}}}]}", "elements[0].faces.top bad_direction");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"light_emission\":16,\"faces\":{\"up\":{\"texture\":\"#a\"}}}]}", "elements[0].light_emission bad_light");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"faces\":{\"up\":{\"texture\":\"#a\",\"uv\":[0,0,17,16]}}}]}", "elements[0].faces.up.uv[2] out_of_range");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"faces\":{\"up\":{\"texture\":\"#a\",\"rotation\":45}}}]}", "elements[0].faces.up.rotation bad_face_rotation");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"faces\":{\"up\":{\"texture\":\"#a\",\"tintindex\":-2}}}]}", "elements[0].faces.up.tintindex bad_tint");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"faces\":{\"up\":{\"texture\":\"../x\"}}}]}", "elements[0].faces.up.texture bad_texture");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"faces\":{\"up\":{}}}]}", "elements[0].faces.up.texture missing");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"rotation\":{\"origin\":[8,8,8],\"axis\":\"w\",\"angle\":5},\"faces\":{\"up\":{\"texture\":\"#a\"}}}]}", "elements[0].rotation.axis bad_axis");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"rotation\":{\"origin\":[8,8,8],\"axis\":\"x\",\"angle\":5,\"y\":3},\"faces\":{\"up\":{\"texture\":\"#a\"}}}]}", "elements[0].rotation rotation_mixed");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"rotation\":{\"origin\":[8,8,8]},\"faces\":{\"up\":{\"texture\":\"#a\"}}}]}", "elements[0].rotation rotation_missing");
+        cases.put("{\"elements\":[{\"from\":[0,0,0],\"to\":[1,1,1],\"shade_direction_override\":\"sideways\",\"faces\":{\"up\":{\"texture\":\"#a\"}}}]}", "elements[0].shade_direction_override bad_direction");
+        cases.put("{\"elements\":[{\"from\":[0,\"x\",0],\"to\":[1,1,1],\"faces\":{\"up\":{\"texture\":\"#a\"}}}]}", "elements[0].from[1] not_number");
+        cases.put("{\"display\":{\"gui\":{\"translation\":[0,81,0]}}}", "display.gui.translation out_of_range");
+        cases.put("{\"display\":{\"gui\":{\"scale\":[4.5,1,1]}}}", "display.gui.scale out_of_range");
+        cases.put("{\"display\":{\"hat\":{}}}", "display.hat bad_display_slot");
+        cases.put("{\"gui_light\":\"top\"}", "gui_light bad_gui_light");
+        cases.put("{\"textures\":{\"bad var\":\"minecraft:block/stone\"}}", "textures.bad var bad_variable");
+        cases.put("{\"parent\":\"Bad Parent\"}", "parent bad_id");
+        cases.put("{\"elements\":[" + String.join(",", java.util.Collections.nCopies(257, cube)) + "]}", "elements too_many_elements");
+        cases.put("{\"elements\":" + "[".repeat(20) + "]".repeat(20) + "}", " too_deep");
+        cases.put("{\"a\":\"" + "x".repeat(ModelJson.MAX_CHARS) + "\"}", " too_long");
+        cases.put("{\"elements\":[", " syntax");
+        cases.put("[]", " not_object");
+        for (var c : cases.entrySet()) {
+            var result = ModelJson.read(c.getKey());
+            h.assertTrue(!result.ok() && result.model() == null, "Refused, nothing half-read: " + c.getValue());
+            var first = result.problems().getFirst();
+            h.assertTrue((first.path() + " " + first.key()).equals(c.getValue()), "Problem " + c.getValue() + " got " + first);
+            for (var p : result.problems()) h.assertTrue(en.containsKey("simplemodels.editor.problem." + p.key()), "Translated problem text: " + p.key());
+        }
+        h.assertTrue(ModelJson.read("{\"elements\":[" + String.join(",", java.util.Collections.nCopies(256, cube)) + "]}").ok(), "256 cubes are fine");
+        h.assertTrue(ModelJson.read("{\"elements\":[{\"from\":[-16,-16,-16],\"to\":[32,32,32],\"faces\":{\"up\":{\"texture\":\"#a\",\"uv\":[0,0,16,16],\"tintindex\":-1,\"rotation\":180}}}],\"display\":{\"gui\":{\"translation\":[80,-80,0],\"scale\":[-4,4,0]}}}").ok(), "Exact vanilla limits are allowed");
+        h.succeed();
+    }
+    /** b-models12 stage 1: undo/redo stack: one push per action, equal states skipped, redo cleared, limit drops the oldest. */
+    public static void editHistory(GameTestHelper h) {
+        var base = EditableModel.EMPTY;
+        var history = new EditHistory<>(base);
+        h.assertTrue(!history.canUndo() && !history.canRedo() && history.undo() == base, "Fresh history has nothing to undo");
+        var one = base.addElement(EditableModel.Element.cube("seat", new EditableModel.Vec(2, 10, 2), new EditableModel.Vec(14, 12, 14), "#seat"));
+        h.assertTrue(history.push(one) && !history.push(base.addElement(one.elements().getFirst())), "Equal state is not a second step");
+        var moved = one.withElement(0, one.elements().getFirst().withBounds(new EditableModel.Vec(2, 11, 2), new EditableModel.Vec(14, 13, 14)));
+        history.push(moved);
+        h.assertTrue(history.undoSteps() == 2 && history.undo().equals(one) && history.undo().equals(base) && history.undo().equals(base), "Undo walks back and stops at the start");
+        h.assertTrue(history.redo().equals(one) && history.redo().equals(moved) && !history.canRedo(), "Redo walks forward again");
+        history.undo();
+        var renamed = one.withElement(0, one.elements().getFirst().withName("sitz"));
+        history.push(renamed);
+        h.assertTrue(!history.canRedo() && history.current().equals(renamed), "A new step clears redo");
+        var small = new EditHistory<>(0, 3);
+        for (int i = 1; i <= 5; i++) small.push(i);
+        h.assertTrue(small.undoSteps() == 3 && small.undo() == 4 && small.undo() == 3 && small.undo() == 2 && !small.canUndo(), "Limit keeps the newest steps");
+        h.assertTrue(EditHistory.DEFAULT_LIMIT == 200 && one.removeElement(0).equals(base) && base.withTexture("seat", "minecraft:block/oak_planks").withTexture("seat", null).equals(base), "Default limit 200, edit helpers are pure");
         h.succeed();
     }
     public static void anvilCostAndTake(GameTestHelper h) {
