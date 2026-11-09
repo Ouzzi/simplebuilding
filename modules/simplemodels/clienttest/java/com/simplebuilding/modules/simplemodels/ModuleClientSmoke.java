@@ -197,6 +197,9 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 client.setScreenAndShow(new com.simplebuilding.modules.simplemodels.client.ModelFileScreen(editor));
             });
             context.waitTicks(3);
+            // "Use as model" reloads the server catalogue from disk: keep the test catalogue (Tomato, wands) to restore it after.
+            var testCatalogue = new Object[1];
+            world.getServer().runOnServer(server -> testCatalogue[0] = field(type("Models"), "server"));
             context.runOnClient(client -> {
                 var file = (com.simplebuilding.modules.simplemodels.client.ModelFileScreen)client.gui.screen();
                 file.setName("Smoke Stool");
@@ -215,6 +218,14 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 if (client.getResourceManager().getResource(Identifier.parse("mymodels:models/item/smoke_stool.json")).isEmpty()) throw new AssertionError("Exported model is loaded");
                 ((com.simplebuilding.modules.simplemodels.client.ModelFileScreen)client.gui.screen()).onClose();
             });
+            world.getServer().runOnServer(server -> {
+                var reloaded = (List<?>)call(field(type("Models"), "server"), "models");
+                if (reloaded.stream().noneMatch(d -> "mymodels:smoke_stool".equals(call(d, "id")))) throw new AssertionError("Export is in the reloaded server catalogue: " + reloaded);
+                set(type("Models"), "server", testCatalogue[0]);
+                @SuppressWarnings("unchecked") var sender = (java.util.function.Consumer<net.minecraft.server.level.ServerPlayer>)field(type("Models"), "send");
+                server.getPlayerList().getPlayers().forEach(sender);
+            });
+            world.getConnection().waitForClientboundPackets();
             context.waitTicks(3);
             context.runOnClient(client -> ((com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen()).setCodeOnly(true));
             context.waitTicks(3); context.takeScreenshot("simplemodels-editor-code");
