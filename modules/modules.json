@@ -1790,7 +1790,9 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [],
+          "devMods": [
+            "cloth_config"
+          ],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimpleweatherStandaloneGameTest",
