@@ -57,8 +57,11 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
     }
     /** T21 server events; the command is on, the automatic schedule ("SAT 20:00 double_xp 60") is off. */
     public record Events(boolean enabled, int permission, boolean scheduleEnabled, List<String> schedule, int defaultMinutes,
-            float xpMultiplier, int extraLootRolls, int bloodMoonWaveSeconds, int bloodMoonMobs) {
+            float xpMultiplier, int extraLootRolls, int bloodMoonWaveSeconds, int bloodMoonMobs,
+            boolean weatherScheduleEnabled, String weatherClock, List<String> weatherSchedule) {
         public Events {
+            weatherClock = "game".equals(weatherClock) ? "game" : "real";
+            weatherSchedule = weatherSchedule == null ? List.of() : weatherSchedule.stream().filter(s -> s != null && WeatherSchedule.parse(s) != null).limit(64).toList();
             permission = level(permission);
             schedule = schedule == null ? List.of() : schedule.stream().filter(s -> s != null && ServerEventsSchedule.parse(s) != null).limit(64).toList();
             defaultMinutes = Math.clamp(defaultMinutes, 1, 1440); xpMultiplier = Math.clamp(xpMultiplier, 1f, 10f);
@@ -136,7 +139,7 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
             new NewPlayerShield(true, 5, true),
             new Welcome(false, "Welcome, {player}!", List.of("Share where you are with /coords.", "Vote for clear weather with /vote weather clear.", "Check your play time with /playtime."), 15, "", ""),
             new LoginReward(false, List.of("minecraft:bread 4"), 1, 7, 7, List.of("minecraft:diamond 1")),
-            new Events(true, 2, false, List.of(), 60, 2f, 1, 30, 2),
+            new Events(true, 2, false, List.of(), 60, 2f, 1, 30, 2, false, "real", List.of()),
             new Leaderboard(true, false, "playtime", 60),
             new Vote(true, 30, 50, 300, true, true, false),
             new Afk(true, 5, true, false, 30),

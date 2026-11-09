@@ -6,7 +6,7 @@
   "simplemobmanners.option.nametagMuteSuffixes": "Nametag Mute Suffixes",
   "simplemobmanners.option.nametagMuteSuffixes.tooltip": "List of name suffixes. Mobs named with one of\nthese will be silenced.\nDefault: [\"_mute\", \"_shhh\"].",
   "simplemobmanners.option.nametagBabySuffixes": "Baby Suffixes",
-  "simplemobmanners.option.nametagBabySuffixes.tooltip": "Babies named with one of these suffixes will\nnever grow up (e.g., _baby). Default:\n[\"_baby\", \"_small\"].",
+  "simplemobmanners.option.nametagBabySuffixes.tooltip": "Only for the 26.2/1.21.11 ports. On 26.3+ Vanilla's golden dandelion keeps babies young and this\noption does nothing. Default: [\"_baby\", \"_small\"].",
   "simplemobmanners.option.piglinsIgnoreGoldTrims": "Piglins Ignore Gold Trims",
   "simplemobmanners.option.piglinsIgnoreGoldTrims.tooltip": "Piglins won't attack if you wear armor with\ngold trims. Default: true. Attacks and\ncontainer interactions can still anger\npiglins.",
   "simplemobmanners.option.piglinsIgnoreGoldTools": "Piglins Ignore Gold Tools",

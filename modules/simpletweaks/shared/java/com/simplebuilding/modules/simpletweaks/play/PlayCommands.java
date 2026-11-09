@@ -14,6 +14,7 @@ public final class PlayCommands {
         com.simplebuilding.modules.simpletweaks.play.seen.Playtime.register(d, c);
         com.simplebuilding.modules.simpletweaks.play.pvp.Pvp.register(d, c);
         com.simplebuilding.modules.simpletweaks.play.events.ServerEvents.register(d, c);
+        com.simplebuilding.modules.simpletweaks.play.events.WeatherPlan.register(d, c);
         com.simplebuilding.modules.simpletweaks.play.top.Leaderboard.register(d, c);
         com.simplebuilding.modules.simpletweaks.play.vote.Votes.register(d, c);
         com.simplebuilding.modules.simpletweaks.play.afk.Afk.register(d, c);

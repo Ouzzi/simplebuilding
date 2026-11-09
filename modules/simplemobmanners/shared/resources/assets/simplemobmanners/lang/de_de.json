@@ -6,7 +6,7 @@
   "simplemobmanners.option.nametagMuteSuffixes": "Namensschild-Stummschaltung",
   "simplemobmanners.option.nametagMuteSuffixes.tooltip": "Mobs mit diesen Namenssuffixen sind stumm.\nStandard: [\"_mute\", \"_shhh\"].",
   "simplemobmanners.option.nametagBabySuffixes": "Baby-Suffixe",
-  "simplemobmanners.option.nametagBabySuffixes.tooltip": "Babys mit diesen Namenssuffixen werden\nniemals erwachsen (z.B. _baby). Standard:\n[\"_baby\", \"_small\"].",
+  "simplemobmanners.option.nametagBabySuffixes.tooltip": "Nur für die Ports 26.2/1.21.11. Ab 26.3 hält der Vanilla-Goldlöwenzahn Babys jung, diese\nOption wirkt dann nicht. Standard: [\"_baby\", \"_small\"].",
   "simplemobmanners.option.piglinsIgnoreGoldTrims": "Piglins ignorieren Gold-Trims",
   "simplemobmanners.option.piglinsIgnoreGoldTrims.tooltip": "Piglins greifen nicht an, wenn du Rüstung mit\nGold-Trims trägst. Standard: true. Angriffe\nund Behälterinteraktionen können Piglins\nweiterhin verärgern.",
   "simplemobmanners.option.piglinsIgnoreGoldTools": "Piglins ignorieren Gold-Werkzeuge",

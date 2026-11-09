@@ -54,6 +54,7 @@ public final class Play {
         for (var p : s.getPlayerList().getPlayers()) Playtime.left(p);
         Pregen.stop(s);
         ServerEvents.shutdown();
+        com.simplebuilding.modules.simpletweaks.play.events.WeatherPlan.shutdown();
         Leaderboard.stop(s);
         NewPlayerShield.reset();
         NetherRoof.forgetAll();
@@ -69,6 +70,7 @@ public final class Play {
         Afk.tick(s);
         Votes.tick(s);
         ServerEvents.tick(s);
+        com.simplebuilding.modules.simpletweaks.play.events.WeatherPlan.tick(s);
         Welcome.tick(s);
         Leaderboard.tick(s);
         NetherRoof.tick(s);

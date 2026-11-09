@@ -4,5 +4,9 @@
   "simpleweather.option.disableWeather": "Wetter deaktivieren (Server)",
   "simpleweather.option.disableWeather.tooltip": "Verhindert Regen und Gewitter und beendet\naktives Wetter. Serverseitig. Standard:\nfalse.",
   "simpleweather.option.clientRainParticleDensity": "Regen-Störung (Client)",
-  "simpleweather.option.clientRainParticleDensity.tooltip": "Reduziert Regen-Partikel und -Geräusche. 100\n= Alle Partikel/Geräusche 0 = Keine\nPartikel/Geräusche (still). Standard: 20.\nErlaubter Bereich: 0–100."
+  "simpleweather.option.clientRainParticleDensity.tooltip": "Reduziert Regen-Partikel und -Geräusche. 100\n= Alle Partikel/Geräusche 0 = Keine\nPartikel/Geräusche (still). Standard: 20.\nErlaubter Bereich: 0–100.",
+  "simpleweather.option.rainFrequencyFactor": "Regenhäufigkeit (x, Server)",
+  "simpleweather.option.rainFrequencyFactor.tooltip": "Wie oft Regen beginnt: die Trockenzeit zwischen\nzwei Regen wird durch diesen Faktor geteilt.\n1 = Vanilla, 2 = doppelt so oft, 0,25 = viermal\nso selten. Die Regendauer bleibt Vanilla.\nStandard: 1. Bereich: 0,25–4.",
+  "simpleweather.option.thunderFrequencyFactor": "Gewitterhäufigkeit (x, Server)",
+  "simpleweather.option.thunderFrequencyFactor.tooltip": "Wie oft Gewitter beginnen, gleiche Skala wie der\nRegenfaktor (eigener Zähler). Standard: 1.\nBereich: 0,25–4."
 }

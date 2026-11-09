@@ -27,6 +27,13 @@ public final class SimpleMobManners {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static Path configDir = Path.of("config");
     public static MobMannersConfig CONFIG = new MobMannersConfig();
+    /**
+     * PORT FLAG (W10, IG31-63). Vanilla 26.3 replaced the "baby name tag" idea by the golden dandelion (age lock, {@code
+     * AgeableMob.canUseGoldenDandelion}), so on 26.3 and newer the name-suffix mechanic is OFF (false) and only the dandelion
+     * works. The ports to 26.2 and 1.21.11 (no dandelion there) set this to {@code true}: the suffix keeps babies young as before.
+     * There is no item to migrate; old configs keep {@code nametagBabySuffixes} and old named animals simply age normally.
+     */
+    public static final boolean BABY_NAMETAG_LEGACY = false;
     /** Runs after a command or the config screen changed the values (loader entries sync them to players). */
     public static Runnable onChange = () -> {};
 

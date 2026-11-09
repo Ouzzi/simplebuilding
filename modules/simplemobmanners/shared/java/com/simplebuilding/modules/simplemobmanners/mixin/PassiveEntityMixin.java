@@ -26,7 +26,7 @@ public abstract class PassiveEntityMixin extends LivingEntity {
 
     @Inject(method = "aiStep", at = @At("HEAD"))
     private void onTickMovement(CallbackInfo ci) {
-        if (!SimpleMobManners.active()) return;
+        if (!SimpleMobManners.BABY_NAMETAG_LEGACY || !SimpleMobManners.active()) return; // 26.3+: golden dandelion instead
         if (this.level().isClientSide()) return;
 
         if (this.tickCount % 100 != 0) return;

@@ -22,4 +22,18 @@ public class ServerWeatherMixin {
         }
         ci.cancel();
     }
+
+    /** Frequency factors: after the Vanilla step the dry-spell countdowns run faster or slower; durations stay Vanilla. */
+    @Inject(method = "advanceWeatherCycle", at = @At("TAIL"))
+    private void simpleweather$factor(CallbackInfo ci) {
+        var config = SimpleWeather.config();
+        if (!SimpleWeather.active() || config.rainFrequencyFactor == 1f && config.thunderFrequencyFactor == 1f) return;
+        ServerLevel world = (ServerLevel) (Object) this;
+        if (!world.canHaveWeather() || !world.getGameRules().get(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER)) return;
+        var weather = world.getWeatherData();
+        if (weather.getClearWeatherTime() > 0) return; // /weather clear <time> is exact
+        long time = world.getGameTime();
+        if (!weather.isRaining()) weather.setRainTime(SimpleWeather.scaled(weather.getRainTime(), SimpleWeather.shift(time, config.rainFrequencyFactor)));
+        if (!weather.isThundering()) weather.setThunderTime(SimpleWeather.scaled(weather.getThunderTime(), SimpleWeather.shift(time, config.thunderFrequencyFactor)));
+    }
 }

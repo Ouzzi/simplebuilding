@@ -18,6 +18,10 @@ public final class WeatherScreen {
         general.addEntry(e.startIntField(name("clientRainParticleDensity"), c.clientRainParticleDensity).setMin(0).setMax(100)
                 .setDefaultValue(WeatherConfig.DEFAULT_RAIN_PARTICLE_DENSITY).setTooltip(tip("clientRainParticleDensity"))
                 .setSaveConsumer(v -> c.clientRainParticleDensity = v).build());
+        general.addEntry(e.startFloatField(name("rainFrequencyFactor"), c.rainFrequencyFactor).setMin(WeatherConfig.MIN_FACTOR).setMax(WeatherConfig.MAX_FACTOR)
+                .setDefaultValue(1f).setTooltip(tip("rainFrequencyFactor")).setSaveConsumer(v -> c.rainFrequencyFactor = v).build());
+        general.addEntry(e.startFloatField(name("thunderFrequencyFactor"), c.thunderFrequencyFactor).setMin(WeatherConfig.MIN_FACTOR).setMax(WeatherConfig.MAX_FACTOR)
+                .setDefaultValue(1f).setTooltip(tip("thunderFrequencyFactor")).setSaveConsumer(v -> c.thunderFrequencyFactor = v).build());
         b.setSavingRunnable(() -> {
             SimpleWeather.CONFIG = c;
             SimpleWeather.save();
