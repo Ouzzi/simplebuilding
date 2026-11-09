@@ -837,11 +837,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mMIc/D6TwlmABHPj1wmiEX4heAYxL+xYAeqAXfXHvr/9sp9MI2OQZpOvPgCxj07boD5c4pbMA0gRvODS5P+5+y3AYuTZACy5jk3o4gzAJdm+35t4g0Aad6/Ig1FM1EGgBTkn7z2PyYgDKtmgoEIUgTSfOP3//92xpZwjSAMikK8BoAUeTm5gjFIM7JGGMZpAEhhTlLKf0NtPawa8RqArhmbRpwGkKIZwwBSNWMYABKA+RckQSyGG0AJBgAtb4QCDYMvfgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 24,
-      "blocks": 1,
-      "recipes": 6,
-      "features": 33
+      "blocks": 2,
+      "recipes": 7,
+      "features": 36
     },
-    "dataHash": "1836ae6eb477"
+    "dataHash": "2588ea3a2c64"
   },
   {
     "id": "simplefarming",
