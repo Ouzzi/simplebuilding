@@ -1719,10 +1719,6 @@ public final class DataIntegrityTests {
         items.addAll(com.simplebuilding.woodwork.WoodBlocks.items());
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
         items.add(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick());
-        // PAL14: Treppe/Stufe/Mauer/Saeule der beschichteten Endstein-/Purpur-Arten, in coatedKind() registriert (ModBlocks.COATED_KINDS).
-        for (ModBlocks.CoatedKind kind : ModBlocks.COATED_KINDS) {
-            for (Block shape : kind.shapes()) items.add(shape.asItem());
-        }
         items.removeIf(i -> movedToMachines(BuiltInRegistries.ITEM.getKey(i))); // b-pads01: Simple Pads' items on 26.3 (fields point at the module)
         return items;
     }
@@ -1769,8 +1765,6 @@ public final class DataIntegrityTests {
         // Light Panes (N57): since WB24-6 Simple Lights' blocks.
         // Holzwerk: je Holzart in einer Schleife registriert (ModBlocks.WOOD_FAMILIES).
         blocks.addAll(com.simplebuilding.woodwork.WoodBlocks.blocks());
-        // PAL14: die Formen der beschichteten Arten, in coatedKind() registriert (ModBlocks.COATED_KINDS).
-        for (ModBlocks.CoatedKind kind : ModBlocks.COATED_KINDS) blocks.addAll(kind.shapes());
         return blocks;
     }
 
@@ -3301,9 +3295,7 @@ public final class DataIntegrityTests {
                 chess.add(new CreativeTabLayout.Row("chess_" + color.id(), first));
                 chess.add(new CreativeTabLayout.Row("chess_" + color.id() + "_flat", second));
             }
-            // Direkt nach den Schachbrettern (PAL14 brachte drei Reihen davor, ein fester Index verrutscht).
-            int afterCheckers = 1 + expected.indexOf(expected.stream().filter(r -> r.name().equals("checkers")).findFirst().orElseThrow());
-            expected.addAll(afterCheckers, chess);
+            expected.addAll(10, chess);
             // Holz- und Material-Achtel: eigener Tab von Simple Octets (Stufe 6).
         }
         if (McVersion.NATURE_VARIANTS) {
