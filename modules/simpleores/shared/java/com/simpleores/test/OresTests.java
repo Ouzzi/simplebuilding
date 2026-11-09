@@ -110,8 +110,9 @@ public final class OresTests {
         ALL.put("silver_is_no_tool_material", h -> {
             // Owner ABN30-10: silver is an ingredient and a building metal, never a tool or armor material.
             for (String path : OresRegistry.ITEMS.keySet()) {
-                boolean silverGear = path.startsWith("silver_") && !path.equals("silver_ingot") && !path.equals("silver_nugget") && !path.equals("silver_block")
-                        && !path.equals("silver_ore") && !path.equals("silver_arrow") && !path.equals("silver_mirror") && !path.equals("silver_sheet");
+                // N9: the building family (silver_tiles, silver_pillar, ...) is no gear; only the tool and armor endings count.
+                boolean silverGear = path.startsWith("silver_") && List.of("sword", "pickaxe", "axe", "shovel", "hoe", "helmet", "chestplate", "leggings", "boots")
+                        .contains(path.substring(path.lastIndexOf('_') + 1));
                 check(h, !silverGear, "silver gear " + path);
             }
             check(h, !stack("silver_ingot").has(net.minecraft.core.component.DataComponents.TOOL)
