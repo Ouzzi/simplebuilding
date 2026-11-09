@@ -22,7 +22,7 @@ STAND 05.11. (a-status05, Wunsch-Status neu geprüft, Zahlen und Liste: docs/ai/
 9. IG31-10 Mob-Köpfe abgeschnitten, IG31-14 Music-Texturen, WF25-12 Inverser Rüstungsbesatz (sichtbare Fehler, in Arbeit).
 10. Restliche Client-Sicht-Abnahmen (VIS24, WP-06).
 
-- [~] (B, b-rel13, 09.11.; Plan docs/ai/PLAN-B-REL13-2026-11-09.md) REL13 Befunde aus A-Release-Abnahme (a-rel10, N6): Shops-Dev-Knopf nur in Dev-Umgebung, Notenblatt-Knopfleiste ohne Überlauf, JEI eigene Tabs Entrindungs-Station/Plattenpresse, Landing-Galerie inkl. Simple Layers (+ Icon-Fehler data-ico), mouse_probe/keys_probe erneut. Rückfragen: Wolkeninsel-Unterseiten, Modul-Handbuch-Sprung.
+- [x] (B, b-rel13 06feea2cc, 09.11.; Tests 432/432; offen: Notenblatt-Bild im Bündel-vis24all, Probes auf leerem sb-test; Plan docs/ai/PLAN-B-REL13-2026-11-09.md) REL13 Befunde aus A-Release-Abnahme (a-rel10, N6): Shops-Dev-Knopf nur in Dev-Umgebung, Notenblatt-Knopfleiste ohne Überlauf, JEI eigene Tabs Entrindungs-Station/Plattenpresse, Landing-Galerie inkl. Simple Layers (+ Icon-Fehler data-ico), mouse_probe/keys_probe erneut. Rückfragen: Wolkeninsel-Unterseiten, Modul-Handbuch-Sprung.
 - [x] (B, b-lib01, 03.11.; Plan docs/ai/PLAN-B-LIB01-2026-11-03.md) PLAN-ZEIT B1 Sub-Mods aus modules/modules.json (Gradle liest depends/include/implementation, tools/submods/sync.py schreibt Config-Schalter/Tests, checkSubMods) + B3 Enderit-Namespaces aus ModTags.Items.ENDERITE_NAMESPACES; precheck grün, sbt: Compile 26.3+26.2, fabric.mod.json gleich, config_option 19/19, data_integrity 48/48, migration_world 2/2, modpack 10/11 (chisel_and_upgrade_tables rot wie schon im Gate b4c5cab84)
 
 ## NACH RELEASE (Besitzer 03.11.)
