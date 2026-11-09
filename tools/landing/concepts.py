@@ -194,6 +194,7 @@ TXT = {
  'simpleresonance': ('Spielerwert, Gefahrenzonen und Spawn-Besitzer.', 'Player value, danger zones and spawn owners.'),
  'simplefoundry': ('Gießerei als Multiblock: Schmelzkammern und Gussformen.', 'A multiblock foundry: melting chambers and casts.'),
  'simpleenchanting': ('Dunkler und Astral-Verzauberer über dem Vanilla-Tisch.', 'Dark and Astral Enchanter above the Vanilla table.'),
+ 'simplelayers': ('Welt-Ebenen: Wolkenmeer über y 700 und die Backrooms unter dem Grundgestein.', 'World layers: the Cloud Sea above y 700 and the Backrooms below the bedrock.'),
  'simplepads': ('Startrampen, Elytra-Pads, Druckplatten und Spawn-Teleporter.', 'Launchpads, elytra pads, pressure plates and a spawn teleporter.'),
 }
 missing = [k for k in MODS if k not in TXT]
