@@ -1077,6 +1077,61 @@
       "de": {
         "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
       }
+    },
+    "chiseled_ice": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/pal14_2026_11_09.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/IceShapes.java"
+      ],
+      "en": {
+        "summary": "Chiseled Ice: the decorative block of the ice family, cut 1:1 from ice in the stonecutter only. As slippery as ice, sounds like glass, drops only with Silk Touch and melts next to bright light like Vanilla ice."
+      },
+      "de": {
+        "summary": "Gemeißeltes Eis: der Zierblock der Eisfamilie, nur im Steinmetz 1:1 aus Eis geschnitten. So rutschig wie Eis, klingt wie Glas, droppt nur mit Behutsamkeit und schmilzt neben hellem Licht wie Vanilla-Eis."
+      }
+    },
+    "polished_*ice": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/pal14_2026_11_09.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/IceShapes.java"
+      ],
+      "en": {
+        "summary": "Polished variant of ice, packed ice or blue ice: 4 of the ice in a square make 4, or 1:1 in the stonecutter. As slippery as its ice, sounds like glass and drops only with Silk Touch; only polished (normal) ice melts next to bright light."
+      },
+      "de": {
+        "summary": "Polierte Variante von Eis, Packeis oder Blauem Eis: 4 des Eises im Quadrat ergeben 4, oder 1:1 im Steinmetz. So rutschig wie sein Eis, klingt wie Glas und droppt nur mit Behutsamkeit; nur Poliertes (normales) Eis schmilzt neben hellem Licht."
+      }
+    },
+    "*ice_bricks": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/pal14_2026_11_09.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/IceShapes.java"
+      ],
+      "en": {
+        "summary": "Ice bricks of ice, packed ice or blue ice: 4 polished ice of the kind in a square make 4, or 1:1 from the ice in the stonecutter. As slippery as its ice, sounds like glass and drops only with Silk Touch; only bricks of normal ice melt next to bright light."
+      },
+      "de": {
+        "summary": "Eisziegel aus Eis, Packeis oder Blauem Eis: 4 polierte Eis der Sorte im Quadrat ergeben 4, oder 1:1 aus dem Eis im Steinmetz. So rutschig wie sein Eis, klingt wie Glas und droppt nur mit Behutsamkeit; nur Ziegel aus normalem Eis schmelzen neben hellem Licht."
+      }
+    },
+    "*sandstone_pillar": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/pal14_2026_11_09.py"
+      ],
+      "en": {
+        "summary": "Sandstone Pillar or Red Sandstone Pillar: two sandstone stacked in the crafting table make two, or 1:1 in the stonecutter. Placed along the axis you look at like logs, with the sandstone top on its ends."
+      },
+      "de": {
+        "summary": "Sandsteinsäule bzw. Rote Sandsteinsäule: zwei Sandstein übereinander in der Werkbank ergeben zwei, oder 1:1 im Steinmetz. Wird wie Stämme entlang der Blickachse gesetzt, die Stirnseiten zeigen die Sandstein-Oberseite."
+      }
     }
   }
 }
