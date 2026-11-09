@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:chorus_grove",
+  "width": 4,
+  "height": 2,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.chorus_grove.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

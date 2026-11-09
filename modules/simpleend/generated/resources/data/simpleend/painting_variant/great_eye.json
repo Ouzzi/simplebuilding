@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:great_eye",
+  "width": 4,
+  "height": 4,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.great_eye.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

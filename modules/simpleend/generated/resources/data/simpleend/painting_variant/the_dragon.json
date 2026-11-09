@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:the_dragon",
+  "width": 4,
+  "height": 4,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.the_dragon.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

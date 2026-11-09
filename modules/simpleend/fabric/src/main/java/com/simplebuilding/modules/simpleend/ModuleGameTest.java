@@ -44,6 +44,9 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void nibblemiteTamedWithDriftFruit(GameTestHelper helper) { EndTests.ALL.get("nibblemite_tamed_with_drift_fruit").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void endGrassOnEndStone(GameTestHelper helper) { EndTests.ALL.get("end_grass_on_end_stone").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void vanillaTabStacks(GameTestHelper helper) { EndTests.ALL.get("vanilla_tab_stacks").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endPaintingVariants(GameTestHelper h) { EndTests.ALL.get("end_painting_variants").accept(h); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endPaintingPlacesAndDrops(GameTestHelper h) { EndTests.ALL.get("end_painting_places_and_drops").accept(h); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endPaintingAnimationTimer(GameTestHelper h) { EndTests.ALL.get("end_painting_animation_timer").accept(h); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simpleend.discover.EndDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simpleend.discover.EndDiscover.behaviourHints(h); }
 

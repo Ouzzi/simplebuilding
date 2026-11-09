@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:stare",
+  "width": 3,
+  "height": 3,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.stare.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

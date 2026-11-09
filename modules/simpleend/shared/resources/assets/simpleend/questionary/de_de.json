@@ -105,5 +105,16 @@
     "secret": [
       "End-Früchte reifen nur im End; wer die echte will, pflanzt seine Knospen dort."
     ]
+  },
+  "end_painting": {
+    "lore": [
+      "Ein gerahmtes Bild vom End: Augen, Chorus, Drachen und die Dunkelheit zwischen den Inseln."
+    ],
+    "use": [
+      "An die Wand hängen wie ein Gemälde; es nimmt ein passendes End-Bild (der größte freie Platz gewinnt). Jedes Bild blinzelt, flackert oder bewegt sich ab und zu von selbst. Herstellung: Gemälde und Endstein."
+    ],
+    "secret": [
+      "Jedes Bild spielt seine kleine Animation zu einem zufälligen Zeitpunkt, etwa alle ein bis zwei Minuten."
+    ]
   }
 }

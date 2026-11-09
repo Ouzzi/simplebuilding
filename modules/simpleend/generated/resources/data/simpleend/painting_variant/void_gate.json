@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:void_gate",
+  "width": 4,
+  "height": 4,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.void_gate.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

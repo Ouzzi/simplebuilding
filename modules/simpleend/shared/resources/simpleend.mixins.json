@@ -11,12 +11,14 @@
     "FireBlockInvoker",
     "ItemEntityMixin",
     "LivingEntityDriftMixin",
+    "PaintingMixin",
     "TheEndBiomeSourceMixin",
     "WoodTypeAccessor"
   ],
   "client": [
     "BlockColorsMixin",
-    "ForestFogMixin"
+    "ForestFogMixin",
+    "PaintingRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

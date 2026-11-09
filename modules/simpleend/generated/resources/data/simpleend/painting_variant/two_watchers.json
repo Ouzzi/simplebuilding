@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:two_watchers",
+  "width": 2,
+  "height": 1,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.two_watchers.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

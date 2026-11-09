@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:wanderers_tower",
+  "width": 3,
+  "height": 4,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.wanderers_tower.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

@@ -104,6 +104,7 @@ public final class EndDiscover {
             "simpleend:duskwood_wood",
             "simpleend:end_bush",
             "simpleend:end_grass",
+            "simpleend:end_painting",
             "simpleend:end_wood",
             "simpleend:guide_book",
             "simpleend:leaves_and_fruit",

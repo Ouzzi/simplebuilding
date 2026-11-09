@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:gatekeeper",
+  "width": 2,
+  "height": 2,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.gatekeeper.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

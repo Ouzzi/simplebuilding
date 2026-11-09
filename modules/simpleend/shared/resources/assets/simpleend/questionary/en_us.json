@@ -105,5 +105,16 @@
     "secret": [
       "End fruit only ripens in the End; plant your buds there if you want the real thing."
     ]
+  },
+  "end_painting": {
+    "lore": [
+      "A framed picture of the End: eyes, chorus, dragons and the dark between the islands."
+    ],
+    "use": [
+      "Place it on a wall like a painting; it picks one of the End pictures that fits (the biggest free spot wins). Every picture now and then blinks, flickers or moves on its own. Craft it from a painting and an end stone."
+    ],
+    "secret": [
+      "Each picture plays its little animation at a random moment, about once every one to two minutes."
+    ]
   }
 }
