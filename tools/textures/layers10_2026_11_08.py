@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 """Simple Layers textures (IG31-56, a-layers10, 08.11.2026; plan docs/ai/PLAN-A-LAYERS10-2026-11-08.md).
 
-Own pixels only (no Mojang sprite is read): Vanilla-near tones and raster, soft value noise, ~7 % hard transitions (A8b, the
-share is printed and shown in the preview). Every texture is drawn in named steps (layers.snap) and saved with its layer
-source (layers.save). Animated textures (flickering neon, glitched bedrock, rift) are vertical strips with an .mcmeta.
+Vanilla style since b-layers12 (09.11., owner objection LAYERS10, plan docs/ai/PLAN-B-LAYERS12-2026-11-09.md): own pixels
+only (no Mojang sprite is read), a fixed palette of 3-5 tones per material placed in pixel clusters (no smooth gradients),
+bevelled edges lit top/left, items with a dark outline. The hard share (A8b) is printed per texture. Every texture is drawn
+in named steps (layers.snap) and saved with its layer source (layers.save). Animated textures (flickering neon, glitched
+bedrock, rift) are vertical strips with an .mcmeta.
 
-Looks built in = A; the preview also shows B for the Cloud Block and the wallpaper (owner picks, code
-LAYERS10: wolke=A|B, tapete=A|B + Anmerkung).
-
-    python3 tools/textures/layers10_2026_11_08.py                 write the textures (A)
-    python3 tools/textures/layers10_2026_11_08.py --preview OUT   owner page (16x, A next to B, hard share)
+    python3 tools/textures/layers10_2026_11_08.py                 write the textures
+    python3 tools/textures/layers10_2026_11_08.py --preview OUT   page with every texture (8x, hard share)
 """
 from __future__ import annotations
 
@@ -32,25 +31,6 @@ OUT = ROOT / 'modules/simplelayers/shared/resources/assets/simplelayers/textures
 
 def rng(seed):
     return np.random.default_rng(seed)
-
-
-def value_noise(seed, cell=4, size=16):
-    """Smooth tileable value noise in [0, 1] (bilinear between a coarse random grid that wraps)."""
-    r = rng(seed)
-    n = size // cell
-    g = r.random((n, n))
-    out = np.zeros((size, size))
-    for y in range(size):
-        for x in range(size):
-            fx, fy = x / cell, y / cell
-            x0, y0 = int(fx) % n, int(fy) % n
-            x1, y1 = (x0 + 1) % n, (y0 + 1) % n
-            tx, ty = fx - int(fx), fy - int(fy)
-            tx, ty = tx * tx * (3 - 2 * tx), ty * ty * (3 - 2 * ty)
-            a = g[y0, x0] * (1 - tx) + g[y0, x1] * tx
-            b = g[y1, x0] * (1 - tx) + g[y1, x1] * tx
-            out[y, x] = a * (1 - ty) + b * ty
-    return out
 
 
 def tone(base, f):
@@ -93,37 +73,66 @@ class Tex:
         return im
 
 
+# ---------------------------------------------------------------- Vanilla-style helpers (b-layers12)
+def wrap_blur(f, r=1):
+    """Tileable box blur (wraps at the edges) – only used to group white noise into pixel clusters, never as output.
+    r = radius or (ry, rx); (0, 1) gives the horizontally stretched clusters of wool, bedrock and snow."""
+    ry, rx = (r, r) if np.isscalar(r) else r
+    out = np.zeros_like(f, dtype=float)
+    for dy in range(-ry, ry + 1):
+        for dx in range(-rx, rx + 1):
+            out += np.roll(np.roll(f, dy, 0), dx, 1)
+    return out / ((2 * ry + 1) * (2 * rx + 1))
+
+
+def clusters(seed, blur=1, shape=(16, 16)):
+    """Rank field in [0, 1): white noise grouped into Vanilla-like pixel clusters; quantiles are exact shares."""
+    f = wrap_blur(rng(seed).random(shape), blur) if blur else rng(seed).random(shape)
+    order = f.ravel().argsort().argsort()
+    return (order / f.size).reshape(shape)
+
+
+def quant(field, shares):
+    """Palette index per pixel: shares = cumulative cut points (e.g. (.1, .4, .85) → 4 tones, 10/30/45/15 %)."""
+    return np.digitize(field, shares)
+
+
+def paint(idx, palette, alpha=255):
+    pal = np.array(palette, float)
+    return rgba(pal[np.clip(idx, 0, len(palette) - 1)], alpha)
+
+
+def grid(rows, colors):
+    a = np.zeros((len(rows), len(rows[0]), 4), np.uint8)
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch in colors:
+                a[y, x] = tuple(colors[ch]) + (255,)
+    return a
+
+
+def tones(a):
+    return len(np.unique(a[:16].reshape(-1, 4), axis=0))
+
+
 # ---------------------------------------------------------------- cloud blocks
+CLOUD = [(206, 214, 230), (224, 230, 242), (238, 242, 250), (250, 252, 255)]
+
+
 def cloud(variant='A', seed=11):
     t = Tex()
-    t.step('Grundton', rgba(tone((242, 245, 250), np.ones((16, 16)))))
-    n = value_noise(seed, 8) * 0.6 + value_noise(seed + 1, 4) * 0.4
-    depth = 0.06 if variant == 'A' else 0.11
-    f = 1.0 - depth * n
-    rgb = tone((242, 245, 250), f)
-    if variant == 'B':  # puffier: blue-grey hollows between the puffs
-        rgb[..., 0] -= 10 * n
-        rgb[..., 1] -= 5 * n
-    t.step('Wolkenballen', rgba(np.clip(rgb, 0, 255)))
-    hi = value_noise(seed + 2, 4) > 0.72
-    rgb2 = rgb.copy()
-    rgb2[hi] = np.minimum(255, rgb2[hi] + 8)
-    t.step('Lichter', rgba(rgb2))
+    t.step('Grundton', paint(np.full((16, 16), 2), CLOUD))
+    idx = quant(clusters(seed, (0, 1)), (0.06, 0.22, 0.88))
+    t.step('Wolkenballen', paint(idx, CLOUD))
     return t
 
 
 def cloud_stone(seed=21):
     t = Tex()
-    base = (214, 219, 228)
-    t.step('Grundton', rgba(tone(base, np.ones((16, 16)))))
-    n = value_noise(seed, 4)
-    f = 0.93 + 0.1 * n
-    t.step('Körnung', rgba(tone(base, f)))
-    r = rng(seed)
-    spots = (value_noise(seed + 3, 8) > 0.66) & (r.random((16, 16)) > 0.4)
-    f2 = f.copy()
-    f2[spots] *= 0.9
-    t.step('Adern', rgba(tone(base, f2)))
+    pal = [(170, 178, 194), (190, 198, 212), (207, 213, 225), (222, 227, 236)]
+    t.step('Grundton', paint(np.full((16, 16), 2), pal))
+    idx = quant(clusters(seed, 0), (0.1, 0.34, 0.9))
+    t.step('Körnung', paint(idx, pal))
     return t
 
 
@@ -132,128 +141,120 @@ def mist(seed=31):
     a = t.a.copy()
     i = np.arange(16)
     d = np.minimum(np.minimum(i, 15 - i)[:, None], np.minimum(i, 15 - i)[None, :])
-    alpha = np.where(d == 0, 170, np.where(d == 1, 205, 228)).astype(float)
+    lvl = quant(clusters(seed + 7, 1), (0.3, 0.75))
+    alpha = np.array([180, 205, 225])[lvl] - np.where(d == 0, 30, np.where(d == 1, 12, 0))
     a[..., 3] = alpha
     t.step('Durchscheinender Rand', a)
     return t
 
 
 # ---------------------------------------------------------------- backrooms
-YELLOW = (214, 202, 138)
+PAPER = [(170, 152, 86), (190, 172, 102), (206, 190, 120), (220, 206, 138)]
 
 
 def wallpaper(kind, variant='A', seed=41):
     t = Tex()
-    t.step('Grundton', rgba(tone(YELLOW, np.ones((16, 16)))))
-    n = value_noise(seed, 4)
-    f = 0.96 + 0.06 * n
-    t.step('Papierstruktur', rgba(tone(YELLOW, f)))
-    f2 = f.copy()
+    t.step('Grundton', paint(np.full((16, 16), 2), PAPER))
+    idx = quant(clusters(seed, (1, 0)), (0.02, 0.14, 0.92))
+    t.step('Papierstruktur', paint(idx, PAPER))
     x = np.arange(16)[None, :].repeat(16, 0)
     y = np.arange(16)[:, None].repeat(16, 1)
+    i2 = idx.copy()
     if kind == 'striped':
-        if variant == 'A':
-            f2[(x % 4) < 2] *= 0.93
-        else:
-            f2[(x % 8) < 3] *= 0.92
-            f2[(x % 8) == 3] *= 0.97
+        band = (x % 8) < 3
+        i2[band] = np.maximum(i2[band] - 1, 1)
+        i2[x % 8 == 3] = 1
+        i2[x % 8 == 7] = 3
     elif kind == 'dotted':
-        if variant == 'A':
-            f2[((x % 4) == 1) & ((y % 4) == 1)] *= 0.88
-            f2[((x % 4) == 3) & ((y % 4) == 3)] *= 0.92
-        else:  # little diamonds
-            dia = (np.abs((x % 8) - 4) + np.abs((y % 8) - 4)) == 2
-            f2[dia] *= 0.9
+        dot = ((x % 8 == 2) & (y % 8 == 2)) | ((x % 8 == 6) & (y % 8 == 6))
+        ring = (((np.abs(x % 8 - 2) + np.abs(y % 8 - 2)) == 1) | ((np.abs(x % 8 - 6) + np.abs(y % 8 - 6)) == 1))
+        i2[ring] = 1
+        i2[dot] = 0
     else:
-        f2[:, 0] *= 0.95  # faint seam of the paper sheets
-        if variant == 'B':
-            f2[(y % 8) == 7] *= 0.96
-    t.step('Muster', rgba(tone(YELLOW, f2)))
-    stain = value_noise(seed + 9, 8) > 0.8
-    f3 = f2.copy()
-    f3[stain] *= 0.96
-    t.step('Vergilbung', rgba(tone(YELLOW, f3)))
+        i2[:, 0] = 1  # seam of the paper sheets
+    t.step('Muster', paint(i2, PAPER))
     return t
 
 
 def carpet(seed=51):
     t = Tex()
-    base = (196, 176, 118)
-    t.step('Grundton', rgba(tone(base, np.ones((16, 16)))))
-    r = rng(seed)
-    f = 0.94 + 0.08 * r.random((16, 16)) * 0.6 + 0.04 * value_noise(seed, 4)
-    t.step('Flor', rgba(tone(base, f)))
-    damp = value_noise(seed + 1, 8)
-    f2 = f * (1.0 - 0.1 * np.clip((damp - 0.55) / 0.45, 0, 1))
-    t.step('Feuchte Flecken', rgba(tone(base, f2)))
+    pal = [(136, 120, 74), (154, 138, 88), (168, 152, 100), (182, 166, 112)]
+    t.step('Grundton', paint(np.full((16, 16), 2), pal))
+    idx = quant(clusters(seed, 0), (0.04, 0.3, 0.8))  # pile: single-pixel tufts (wool raster)
+    t.step('Flor', paint(idx, pal))
+    damp = clusters(seed + 1, 2) > 0.8
+    i2 = idx.copy()
+    i2[damp] = np.where(i2[damp] >= 2, 1, 0)
+    t.step('Feuchte Flecken', paint(i2, pal))
     return t
+
+
+TILE = [(170, 166, 148), (198, 194, 176), (212, 208, 190), (224, 220, 204), (236, 233, 220)]
 
 
 def ceiling(stained=False, seed=61):
     t = Tex()
-    base = (222, 218, 200)
-    t.step('Grundton', rgba(tone(base, np.ones((16, 16)))))
-    f = 0.97 + 0.04 * value_noise(seed, 4)
-    i = np.arange(16)
-    f[0, :] *= 0.9
-    f[:, 0] *= 0.9
-    t.step('Plattenfuge', rgba(tone(base, f)))
+    t.step('Grundton', paint(np.full((16, 16), 3), TILE))
+    idx = quant(clusters(seed, 0), (0.12, 0.9)) + 2
+    idx[0, :] = idx[:, 0] = 4
+    idx[15, :] = idx[:, 15] = 1
+    t.step('Plattenfuge', paint(idx, TILE))
     r = rng(seed)
-    holes = r.random((16, 16)) > 0.86
-    holes[0, :] = holes[:, 0] = False
-    f2 = f.copy()
-    f2[holes] *= 0.9
-    t.step('Akustik-Löcher', rgba(tone(base, f2)))
+    holes = r.random((16, 16)) > 0.88
+    holes[0, :] = holes[:, 0] = holes[15, :] = holes[:, 15] = False
+    i2 = idx.copy()
+    i2[holes] = 1
+    t.step('Akustik-Löcher', paint(i2, TILE))
     if stained:
-        s = value_noise(seed + 5, 8)
-        cx = np.exp(-(((i[None, :] - 9) ** 2 + (i[:, None] - 7) ** 2) / 18.0))
-        w = np.clip(cx * (0.7 + 0.6 * s), 0, 1)
-        rgb = tone(base, f2)
-        stain = np.array((176, 150, 96), float)
-        rgb = rgb * (1 - 0.45 * w[..., None]) + stain * 0.45 * w[..., None]
-        t.step('Wasserfleck', rgba(rgb))
+        i = np.arange(16)
+        jit = clusters(seed + 5, 1) * 2.2
+        d = np.sqrt((i[None, :] - 8.5) ** 2 + ((i[:, None] - 7.5) * 1.15) ** 2) + jit
+        stain = [(172, 150, 104), (190, 174, 132), (204, 192, 160)]
+        rgb = paint(i2, TILE).astype(float)
+        inner = d < 5.4
+        rgb[inner & (i2 >= 2), :3] = np.array(stain[2])
+        rgb[inner & (i2 < 2), :3] = np.array(stain[1])
+        rgb[(d >= 5.4) & (d < 6.4), :3] = np.array(stain[0])
+        t.step('Wasserfleck', rgb)
     return t
 
 
 def neon(mode, seed=71):
     t = ceiling(False, seed)
     a = t.a.copy()
-    tube = (255, 253, 236) if mode == 'on' else (150, 150, 142)
-    glow = (246, 242, 214) if mode == 'on' else (196, 192, 176)
-    x = np.arange(16)[None, :].repeat(16, 0)
-    y = np.arange(16)[:, None].repeat(16, 1)
-    frame = (x >= 2) & (x <= 13) & (y >= 5) & (y <= 10)
-    a[frame, :3] = (188, 186, 176)
-    inner = (x >= 3) & (x <= 12) & (y >= 6) & (y <= 9)
-    a[inner, :3] = glow
-    core = (x >= 3) & (x <= 12) & (y >= 7) & (y <= 8)
-    a[core, :3] = tube
+    if mode == 'on':
+        rows = ['FFFFFFFFFFFF', 'FggggggggggF', 'FgttttttttgF', 'FgttttttttgF', 'FggggggggggF', 'FFFFFFFFFFFF']
+    else:
+        rows = ['FFFFFFFFFFFF', 'FggggggggggF', 'FgttttxtttgF', 'FgtttxttttgF', 'FggggggggggF', 'FFFFFFFFFFFF']
+    col = {'F': (168, 166, 156), 'g': (246, 242, 214) if mode == 'on' else (176, 174, 162),
+           't': (255, 254, 240) if mode == 'on' else (144, 144, 136), 'x': (98, 98, 92)}
+    g = grid(rows, col)
+    a[5:11, 2:14] = g
     t.step('Röhre', a)
-    if mode == 'broken':
-        b = a.copy()
-        b[(y == 7) & (x == 8), :3] = (110, 110, 104)
-        b[(y == 8) & (x == 9), :3] = (120, 120, 112)
-        t.step('Sprung', b)
     return t
 
 
 def neon_side(seed=72):
     t = ceiling(False, seed)
     a = t.a.copy()
-    a[7:9, 1:15, :3] = (196, 194, 184)
+    a[14, 1:15, :3] = (168, 166, 156)
     t.step('Gehäuse', a)
     return t
 
 
 FONT = {'E': ['###', '#..', '##.', '#..', '###'], 'X': ['#.#', '#.#', '.#.', '#.#', '#.#'],
         'I': ['###', '.#.', '.#.', '.#.', '###'], 'T': ['###', '.#.', '.#.', '.#.', '.#.']}
+METAL = [(46, 50, 48), (66, 72, 68), (86, 92, 88), (106, 112, 108)]
 
 
 def exit_sign():
     t = Tex()
-    t.step('Grundton', rgba(tone((34, 74, 44), np.ones((16, 16)))))
+    green = [(24, 56, 32), (30, 66, 40), (36, 76, 46)]
+    t.step('Grundton', paint(quant(clusters(83, 1), (0.2, 0.8)), green))
     a = t.a.copy()
-    a[0, :, :3] = a[15, :, :3] = a[:, 0, :3] = a[:, 15, :3] = (52, 58, 54)
+    a[0, :, :3] = a[:, 0, :3] = METAL[3]
+    a[15, :, :3] = a[:, 15, :3] = METAL[0]
+    a[0, 15, :3] = a[15, 0, :3] = METAL[1]
     t.step('Rahmen', a)
     b = a.copy()
     x0 = 1
@@ -261,56 +262,72 @@ def exit_sign():
         for ry, row in enumerate(FONT[ch]):
             for rx, c in enumerate(row):
                 if c == '#':
-                    b[5 + ry, x0 + rx, :3] = (120, 255, 140)
+                    b[5 + ry, x0 + rx, :3] = (150, 255, 160)
         x0 += 4 if ch != 'I' else 3
     t.step('Schrift', b)
     c = b.copy()
-    glow = (b[..., 1] > 200)
-    near = np.zeros((16, 16), bool)
-    for dy in (-1, 1):
-        near |= np.roll(glow, dy, 0)
-    near &= ~glow
-    near[0, :] = near[15, :] = False
-    c[near, :3] = (60, 132, 76)
+    lit = (b[..., 1] > 200)
+    below = np.roll(lit, 1, 0) & ~lit
+    c[below, :3] = (58, 124, 74)
     t.step('Leuchten', c)
     return t
 
 
 def exit_sign_top():
     t = Tex()
-    t.step('Grundton', rgba(tone((52, 58, 54), 0.96 + 0.06 * value_noise(81, 4))))
+    idx = quant(clusters(81, 0), (0.15, 0.85)) + 1
+    idx[0, :] = idx[:, 0] = 3
+    idx[15, :] = idx[:, 15] = 0
+    t.step('Grundton', paint(idx, METAL))
     return t
+
+
+STEEL = [(84, 90, 98), (106, 112, 120), (124, 130, 138), (140, 146, 154), (164, 170, 178)]
+
+
+def door_base():
+    idx = quant(clusters(91, (1, 0)), (0.12, 0.86)) + 1  # brushed steel: short vertical streaks
+    idx[:, 0] = 0
+    idx[:, 15] = 0
+    idx[:, 1] = 4
+    idx[:, 14] = 1
+    return idx
 
 
 def door(half):
     t = Tex()
-    base = (124, 128, 136)
-    t.step('Grundton', rgba(tone(base, 0.97 + 0.05 * value_noise(91, 4))))
-    a = t.a.copy()
-    a[:, 0, :3] = a[:, 15, :3] = (96, 100, 106)
+    idx = door_base()
+    t.step('Grundton', paint(idx, STEEL))
+    a = paint(idx, STEEL)
     if half == 'upper':
-        a[0, :, :3] = (96, 100, 106)
-        a[3:9, 5:11, :3] = (58, 62, 70)
-        a[4:8, 6:10, :3] = (74, 82, 94)
+        idx[0, :] = 0
+        idx[1, 1:15] = 4
+        a = paint(idx, STEEL)
+        glass = {'O': STEEL[0], 'H': STEEL[4], 'g': (58, 74, 92), 'w': (96, 110, 124), 'h': (132, 152, 170)}
+        rows = ['OOOOOOOO', 'OhgggwgH', 'OghggwgH', 'OwwwwwwH', 'OgggwhgH', 'OgggwghH', 'OHHHHHHH']
+        a[3:10, 4:12] = grid(rows, glass)
     else:
-        a[15, :, :3] = (96, 100, 106)
-        a[2:4, 2:14, :3] = (160, 164, 170)
-        a[3, 2:14, :3] = (104, 108, 114)
+        idx[15, :] = 0
+        a = paint(idx, STEEL)
+        bar = {'B': (196, 200, 206), 'b': (150, 154, 160), 'd': STEEL[0]}
+        a[6:9, 2:14] = grid(['bBBBBBBBBBBb', 'bbbbbbbbbbbb', 'dddddddddddd'], bar)
     t.step('Beschlag', a)
     return t
 
 
 def door_end():
     t = Tex()
-    t.step('Grundton', rgba(tone((110, 114, 120), 0.97 + 0.05 * value_noise(92, 4))))
+    idx = quant(clusters(92, (1, 0)), (0.12, 0.86)) + 1
+    idx[:, 7:9] = 0
+    t.step('Grundton', paint(idx, STEEL))
     return t
 
 
+BEDROCK = [(30, 30, 30), (54, 54, 54), (82, 82, 82), (110, 110, 110), (146, 146, 146)]
+
+
 def bedrock_base(seed):
-    r = rng(seed)
-    base = (88, 88, 88)
-    f = 0.45 + 0.6 * value_noise(seed, 4) + 0.45 * r.random((16, 16))
-    return tone(base, np.clip(f, 0.35, 1.45))
+    return paint(quant(clusters(seed, (0, 1)), (0.14, 0.38, 0.66, 0.88)), BEDROCK)[..., :3].astype(float)
 
 
 def glitched_bedrock(frames=8):
@@ -327,18 +344,31 @@ def glitched_bedrock(frames=8):
 
 def rift(frames=4):
     t = Tex(16, 16 * frames)
-    rgb = np.zeros((16 * frames, 16, 3))
+    dark = [(8, 6, 2), (22, 18, 8), (38, 32, 14)]
+    rgb = np.zeros((16 * frames, 16, 4), np.uint8)
     for k in range(frames):
-        n = value_noise(111 + k, 4)
-        rgb[16 * k:16 * (k + 1)] = tone((40, 34, 14), 0.6 + 0.9 * n)
-    t.step('Dunkel', rgba(rgb))
+        rgb[16 * k:16 * (k + 1)] = paint(quant(clusters(111 + k, 1), (0.35, 0.8)), dark)
+    t.step('Dunkel', rgb)
     a = t.a.copy()
+    path = [7, 7, 8, 8, 7, 6, 6, 7, 8, 9, 9, 8, 7, 7, 6, 7]  # jagged crack, top to bottom (tiles vertically)
+    glow = [(96, 82, 34), (150, 130, 56), (214, 192, 96), (246, 230, 150)]
+    for k in range(frames):
+        for y, x in enumerate(path):
+            a[16 * k + y, x, :3] = glow[3 if (y + k) % 4 else 2]
+            a[16 * k + y, x - 1, :3] = glow[1]
+            a[16 * k + y, x + 1, :3] = glow[1 if (y + k) % 3 else 0]
+            for dx in (-2, 2):
+                if (y + k + dx) % 2:
+                    a[16 * k + y, x + dx, :3] = (58, 48, 20)
+    t.step('Riss', a)
+    b = a.copy()
     r = rng(119)
     for k in range(frames):
-        for _ in range(5):
-            y, x = r.integers(1, 15), r.integers(1, 15)
-            a[16 * k + y, x, :3] = (176, 158, 76)
-    t.step('Rauschen', a)
+        for _ in range(4):
+            y, x = r.integers(0, 16), r.integers(2, 14)
+            if abs(x - path[y]) > 2:
+                b[16 * k + y, x, :3] = glow[1]
+    t.step('Funken', b)
     return t, {'animation': {'frametime': 4}}
 
 
@@ -355,64 +385,32 @@ def neon_flicker(frames=6):
 
 
 # ---------------------------------------------------------------- items
+BOTTLE = {'O': (70, 104, 150), 'G': (150, 186, 220), 'H': (222, 238, 250), 'L': (238, 228, 196), 'M': (214, 198, 150),
+          'D': (186, 166, 112), 'W': (252, 250, 240), 'C': (156, 106, 64), 'K': (112, 72, 42)}
+BOTTLE_ROWS = ['................', '......CCCK......', '......KKKK......', '.....OHGGGO.....', '......OHGO......',
+               '......OHGO......', '.....OHLLMO.....', '....OHLLLLMO....', '...OHWLLLLLMO...', '...OHLLLLLLMO...',
+               '...OLLLLLLMMO...', '...OLLLLLMMDO...', '...OMLLLMMMDO...', '....OMMMMMDO....', '.....OOOOOO.....',
+               '................']
+
+
 def almond_water():
     t = Tex()
-    glass = (210, 228, 236)
-    rows = ['......####......', '......#..#......', '......####......', '.......##.......', '......#..#......',
-            '.....#....#.....', '....#......#....', '...#........#...', '...#........#...', '..#..........#..',
-            '..#..........#..', '..#..........#..', '..#..........#..', '...#........#...', '....########....',
-            '................']
-    a = np.zeros((16, 16, 4), np.uint8)
-    for y, row in enumerate(rows):
-        for x, c in enumerate(row):
-            if c == '#':
-                a[y, x] = glass + (255,)
-    a[0, 6:10] = (140, 104, 70, 255)
-    a[2, 6:10] = (140, 104, 70, 255)
-    t.step('Flasche', a)
-    b = a.copy()
-    liquid = (238, 228, 200)
-    for y in range(8, 14):
-        row = rows[y]
-        idx = [x for x, c in enumerate(row) if c == '#']
-        for x in range(idx[0] + 1, idx[-1]):
-            b[y, x] = liquid + (255,)
-    for y in range(6, 8):
-        row = rows[y]
-        idx = [x for x, c in enumerate(row) if c == '#']
-        for x in range(idx[0] + 1, idx[-1]):
-            b[y, x] = (226, 236, 240, 120)
-    t.step('Mandelwasser', b)
-    c = b.copy()
-    c[9:12, 4] = (252, 248, 236, 255)
-    c[1, 7:9] = (166, 128, 92, 255)
-    t.step('Glanz', c)
+    t.step('Flasche', grid([''.join(c if c in 'OGHCK' else '.' for c in r) for r in BOTTLE_ROWS], BOTTLE))
+    t.step('Mandelwasser', grid(BOTTLE_ROWS, BOTTLE))
     return t
+
+
+KEY = {'O': (74, 50, 18), 'D': (150, 110, 38), 'M': (204, 162, 62), 'L': (238, 204, 108), 'H': (255, 238, 168)}
+KEY_ROWS = ['................', '.OOOO...........', 'OHLLMO..........', 'OL..MO..........', 'OL..DO..........',
+            'OMDDDOO.........', '.OOOOMDO........', '.....OLDO.......', '......OMDO......', '.......OMDO.....',
+            '........OMDO....', '.......OOMDO....', '......OLMOMDO...', '.......OMDOMDO..', '........OO.OMDO.',
+            '............OOO.']
 
 
 def backdoor_key():
     t = Tex()
-    brass, dark = (214, 176, 84), (150, 116, 46)
-    rows = ['................', '................', '...###..........', '..#...#.........', '..#...##########',
-            '..#...#.......#.', '...###........##', '..............#.', '................', '................',
-            '................', '................', '................', '................', '................',
-            '................']
-    a = np.zeros((16, 16, 4), np.uint8)
-    for y, row in enumerate(rows):
-        for x, c in enumerate(row):
-            if c == '#':
-                a[y, x] = brass + (255,)
-    t.step('Schlüssel', a)
-    b = a.copy()
-    b[6, 3:6] = dark + (255,)
-    b[5, 7:15] = (0, 0, 0, 0)
-    b[4, 7:14] = brass + (255,)
-    b[5, 13] = dark + (255,)
-    b[3, 3:6] = (236, 210, 130, 255)
-    t.step('Schatten', b)
-    shifted = np.zeros_like(b)
-    shifted[4:16] = b[0:12]
-    t.step('Lage', shifted)
+    t.step('Schlüssel', grid([''.join(c if c in 'O' else '.' for c in r) for r in KEY_ROWS], KEY))
+    t.step('Schatten', grid(KEY_ROWS, KEY))
     return t
 
 
@@ -457,21 +455,10 @@ def b64(arr, k=8):
 
 def preview(path):
     a, _ = build()
-    b, _ = build({'cloud': 'B', 'wallpaper': 'B'})
     cards = []
     for name, tex in a.items():
         cards.append(f'<figure><img src="data:image/png;base64,{b64(tex.a)}" alt="{name}"><figcaption>{name.split("/")[1]}'
                      f'<small>hart {hard_share(tex.a[:16]):.0%}</small></figcaption></figure>')
-    choices = []
-    for key, label, names in (('wolke', 'Wolkenblock', ['block/cloud_block']),
-                              ('tapete', 'Tapeten', ['block/wallpaper', 'block/striped_wallpaper', 'block/dotted_wallpaper'])):
-        opts = []
-        for var, src in (('A', a), ('B', b)):
-            imgs = ''.join(f'<img src="data:image/png;base64,{b64(src[n].a)}" alt="{n} {var}">' for n in names)
-            hs = max(hard_share(src[n].a[:16]) for n in names)
-            opts.append(f'<button class="opt" data-k="{key}" data-v="{var}"><span class="tag">{var}{" (eingebaut)" if var == "A" else ""}</span>'
-                        f'<span class="imgs">{imgs}</span><small>hart max {hs:.0%}</small></button>')
-        choices.append(f'<section><h2>{label}</h2><div class="opts">{"".join(opts)}</div></section>')
     html = f'''<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Simple Layers Texturen</title><style>
 :root{{--bg:#f6f5f1;--fg:#1d1d1b;--card:#fff;--line:#d9d6cc;--acc:#2f6f4f}}
@@ -487,17 +474,10 @@ figcaption{{font-size:.85rem}} small{{display:block;opacity:.75}}
 .opt.sel{{border-color:var(--acc)}} .imgs{{display:flex;gap:6px;margin:6px 0}} .imgs img{{width:96px;height:96px}} .tag{{font-weight:600}}
 #code{{width:100%;box-sizing:border-box;font:14px monospace;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg)}}
 </style></head><body><main>
-<h1>Simple Layers – Texturen (a-layers10)</h1>
-<p>Eigene Pixel, Vanilla-nah, weiche Übergänge (A8b, Richtwert ~7 % hart). Eingebaut ist jeweils <b>A</b>. Wähle unten und kopiere den Antwortcode.</p>
-{''.join(choices)}
-<h2>Alle Texturen (A, 8-fach)</h2><div class="grid">{''.join(cards)}</div>
-<h2>Antwortcode</h2><input id="code" readonly value="LAYERS10: wolke=A, tapete=A">
-<script>
-const sel={{wolke:'A',tapete:'A'}};
-function upd(){{document.querySelectorAll('.opt').forEach(b=>b.classList.toggle('sel',sel[b.dataset.k]===b.dataset.v));
-document.getElementById('code').value='LAYERS10: wolke='+sel.wolke+', tapete='+sel.tapete;}}
-document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{{sel[b.dataset.k]=b.dataset.v;upd();}});upd();
-</script></main></body></html>'''
+<h1>Simple Layers – Texturen</h1>
+<p>Eigene Pixel im Vanilla-Stil: feste Palette, Pixel-Cluster, keine Verläufe (A8b/A8c).</p>
+<h2>Alle Texturen (8-fach)</h2><div class="grid">{''.join(cards)}</div>
+</main></body></html>'''
     Path(path).write_text(html, encoding='utf-8')
     print('preview', path)
 
