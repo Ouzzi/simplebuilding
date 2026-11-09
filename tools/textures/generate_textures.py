@@ -2182,6 +2182,9 @@ def end_palette_textures():
         tex[f"block/{mat}_pillar.png"] = end_palette_pillar_side(mat)
         tex[f"block/{mat}_pillar_top.png"] = end_palette_pillar_top(mat)
         tex[f"block/chiseled_{mat}_bricks.png"] = end_palette_chiseled(mat)
+    import pal15_2026_11_09 as pal15  # b-pal15 (owner 09.11., N13a): the chiseled End bricks carry a motif (star/chorus/Ender eye)
+    for name in pal15.END:
+        tex[f"block/{name}.png"] = pal15.end_texture(name)
     # Owner pick N41 (2026-10-12): same shape, proposal C2 colours (milky lavender quartz).
     import n41_proposals_2026_10_12 as n41
     tex["item/ender_quartz.png"] = n41.ender_quartz(1, render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False))

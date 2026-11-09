@@ -78,8 +78,12 @@ def vanilla(jar: Path, sprite: str) -> np.ndarray:
     return np.array(im.crop((0, 0, 16, 16)))
 
 
-def derived(jar, look: str = 'A') -> dict:
-    """The build hook: texture path -> RGBA image (variant A unless a preview asks otherwise)."""
+def derived(jar, look: str = 'M') -> dict:
+    """The build hook: texture path -> RGBA image. Since b-pal15 (owner 09.11., N13a) the built look is 'M': frame + one carved
+    motif per family (tools/textures/pal15_2026_11_09.py); the frame looks A/B stay for the PAL09 history."""
+    if look == 'M':
+        import pal15_2026_11_09 as pal15
+        return {k: Image.fromarray(v, 'RGBA') for k, v in pal15.simpleblocks(Path(jar)).items() if k[len('block/'):-4] in SPRITES}
     return {f'block/{name}.png': Image.fromarray(LOOKS[look](vanilla(Path(jar), sprite)), 'RGBA') for name, sprite in SPRITES.items()}
 
 
@@ -136,7 +140,7 @@ def main() -> None:
     ap.add_argument('--out')
     ap.add_argument('--preview')
     ap.add_argument('--jar')
-    ap.add_argument('--look', default='A')
+    ap.add_argument('--look', default='M')
     a = ap.parse_args()
     jar = find_jar(a.jar)
     if a.preview:
