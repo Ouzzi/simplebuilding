@@ -31,6 +31,6 @@ public class CloudBlock extends TransparentBlock {
     /** Clouds and mist merge into one surface (the mist plug of a pit looks like the cloud around it). */
     @Override
     protected boolean skipRendering(BlockState state, BlockState neighbor, Direction direction) {
-        return neighbor.getBlock() instanceof CloudBlock || neighbor.getBlock() instanceof MistBlock || super.skipRendering(state, neighbor, direction);
+        return neighbor.getBlock() instanceof CloudBlock || neighbor.getBlock() instanceof MistBlock || neighbor.getBlock() instanceof CushionBlock || super.skipRendering(state, neighbor, direction);
     }
 }

@@ -23,7 +23,7 @@ public class MistBlock extends TransparentBlock {
 
     @Override
     protected boolean skipRendering(BlockState state, BlockState neighbor, Direction direction) {
-        return neighbor.getBlock() instanceof MistBlock || neighbor.getBlock() instanceof CloudBlock || super.skipRendering(state, neighbor, direction);
+        return neighbor.getBlock() instanceof MistBlock || neighbor.getBlock() instanceof CloudBlock || neighbor.getBlock() instanceof CushionBlock || super.skipRendering(state, neighbor, direction);
     }
 
     @Override

@@ -133,6 +133,7 @@ def dimensions():
         'attributes': {
             'minecraft:audio/background_music': {'default': {'max_delay': 24000, 'min_delay': 12000, 'sound': 'minecraft:music.game'}},
             'minecraft:gameplay/bed_rule': {'can_set_spawn': 'never', 'can_sleep': 'never'},
+            'minecraft:visual/ambient_light_color': '#3a4252',  # CLOUDS14 A: no pitch-black island undersides
             'minecraft:visual/cloud_color': '#ccffffff', 'minecraft:visual/cloud_height': 4.0,
             'minecraft:visual/fog_color': '#dfe9ff', 'minecraft:visual/sky_color': '#8fbaff'},
         'coordinate_scale': 1.0, 'default_clock': 'minecraft:overworld', 'has_ceiling': False, 'has_ender_dragon_fight': False,

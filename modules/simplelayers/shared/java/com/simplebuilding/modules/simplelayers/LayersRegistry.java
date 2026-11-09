@@ -75,7 +75,7 @@ public final class LayersRegistry {
         CLOUD_BLOCK = block("cloud_block", p -> new CloudBlock(p, CLOUD_DAMAGE), props(MapColor.SNOW, SoundType.WOOL).instabreak()
                 .noOcclusion().isValidSpawn((s, l, pos, type) -> false).isRedstoneConductor((s, l, pos) -> false));
         CLOUD_STONE = block("cloud_stone", p -> new CushionBlock(p, CLOUD_STONE_DAMAGE), props(MapColor.QUARTZ, SoundType.CALCITE).instabreak()
-                .isValidSpawn((s, l, pos, type) -> false));
+                .noOcclusion().isValidSpawn((s, l, pos, type) -> false));
         MIST_BLOCK = block("mist_block", MistBlock::new, props(MapColor.SNOW, SoundType.WOOL).instabreak().noCollision().noOcclusion()
                 .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos, box) -> false).isValidSpawn((s, l, pos, type) -> false)
                 .isRedstoneConductor((s, l, pos) -> false));
