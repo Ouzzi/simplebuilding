@@ -4,6 +4,8 @@ import java.nio.file.*;
 public final class DimensionSettings {
  public boolean accessEnabled=true, automaticDestination=true, nonPlayerTravel=false;
  public boolean skyblockEnabled=true, miningEnabled=true, travelEnabled=true;
+ /** W5: the first journey into a Simple Dimensions dimension hands out the guide (once per player). */
+ public boolean giveGuideOnFirstTravel=true;
  public int portalDelayTicks=0, teleportCooldownTicks=60;
  /** Built-in access is a server setting, never a second switch in the definition JSON. */
  public boolean allowsAccess(dev.simpledimension.common.portal.DimensionPortalConfig definition){
@@ -18,7 +20,7 @@ public final class DimensionSettings {
  /** Takes over every value of {@code o} (a live settings object stays the same instance). */
  public void copyFrom(DimensionSettings o){
   accessEnabled=o.accessEnabled;automaticDestination=o.automaticDestination;nonPlayerTravel=o.nonPlayerTravel;
-  skyblockEnabled=o.skyblockEnabled;miningEnabled=o.miningEnabled;travelEnabled=o.travelEnabled;
+  giveGuideOnFirstTravel=o.giveGuideOnFirstTravel;skyblockEnabled=o.skyblockEnabled;miningEnabled=o.miningEnabled;travelEnabled=o.travelEnabled;
   portalDelayTicks=o.portalDelayTicks;teleportCooldownTicks=o.teleportCooldownTicks;
  }
  public void save(Path root){

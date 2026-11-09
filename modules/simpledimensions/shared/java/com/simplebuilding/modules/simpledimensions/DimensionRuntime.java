@@ -241,7 +241,7 @@ public final class DimensionRuntime {
   boolean done=player.teleport(new net.minecraft.world.level.portal.TeleportTransition(target,
    new net.minecraft.world.phys.Vec3(landing.getX()+.5,landing.getY(),landing.getZ()+.5),net.minecraft.world.phys.Vec3.ZERO,
    player.getYRot(),player.getXRot(),net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING))!=null;
-  if(done){player.setDeltaMovement(0,0,0);player.fallDistance=0;signal(target,landing,true);if(returning){returns.remove(player.getUUID());save();}}
+  if(done){player.setDeltaMovement(0,0,0);player.fallDistance=0;signal(target,landing,true);if(returning){returns.remove(player.getUUID());save();}else if(settings.giveGuideOnFirstTravel)com.simplebuilding.modules.simpledimensions.guide.DimensionsGuideAccess.welcome(player);}
   return done;
  }
  public boolean emergencyReturn(ServerPlayer player){

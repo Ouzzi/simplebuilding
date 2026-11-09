@@ -19,6 +19,27 @@
   },
   "features": [
     {
+      "id": "default_dimensions",
+      "sources": [
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/config/DimensionConfigStore.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java"
+      ],
+      "en": {
+        "title": "Default Dimensions",
+        "summary": "Three dimensions exist from the first start, no setup needed: Skyblock (a void with a safe island to build on), Mining (a deep stone resource world) and Travel (a flat plane for fast travel). Their definitions are written to config/simpledimension/dimensions on the first start; existing files and worlds are never overwritten. Each one has a server switch (Enable Skyblock, Enable Mining, Enable Travel) that is on by default; switching one off only stops new journeys, return paths stay open.",
+        "details": [
+          "Three dimensions exist from the first start, no setup needed: Skyblock (a void with a safe island to build on), Mining (a deep stone resource world) and Travel (a flat plane for fast travel). Their definitions are written to config/simpledimension/dimensions on the first start; existing files and worlds are never overwritten. Each one has a server switch (Enable Skyblock, Enable Mining, Enable Travel) that is on by default; switching one off only stops new journeys, return paths stay open."
+        ]
+      },
+      "de": {
+        "title": "Standard-Dimensionen",
+        "summary": "Drei Dimensionen gibt es ab dem ersten Start ohne Einrichtung: Skyblock (Leere mit sicherer Bauinsel), Mining (tiefe Stein-Rohstoffwelt) und Travel (flache Ebene zum schnellen Reisen). Ihre Definitionen werden beim ersten Start nach config/simpledimension/dimensions geschrieben; vorhandene Dateien und Welten werden nie überschrieben. Jede hat einen Server-Schalter (Skyblock/Mining/Travel erlauben), standardmäßig an; Abschalten stoppt nur neue Reisen, Rückwege bleiben offen.",
+        "details": [
+          "Drei Dimensionen gibt es ab dem ersten Start ohne Einrichtung: Skyblock (Leere mit sicherer Bauinsel), Mining (tiefe Stein-Rohstoffwelt) und Travel (flache Ebene zum schnellen Reisen). Ihre Definitionen werden beim ersten Start nach config/simpledimension/dimensions geschrieben; vorhandene Dateien und Welten werden nie überschrieben. Jede hat einen Server-Schalter (Skyblock/Mining/Travel erlauben), standardmäßig an; Abschalten stoppt nur neue Reisen, Rückwege bleiben offen."
+        ]
+      }
+    },
+    {
       "id": "skyblock",
       "sources": [
         "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java",
@@ -270,20 +291,62 @@
       }
     },
     {
+      "id": "guide_access",
+      "sources": [
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/guide/DimensionsGuideAccess.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionRuntime.java"
+      ],
+      "en": {
+        "title": "Getting the Guide",
+        "summary": "This guide is easy to get: craft the Simple Modpack guide from a book and a crafting table, run /simpledimension guide (any player) to receive it with this chapter open, or travel to a dimension for the first time and it is handed to you once. The option Give Guide on First Trip (on by default) turns the gift off. Picking up flint and steel also opens this chapter.",
+        "details": [
+          "This guide is easy to get: craft the Simple Modpack guide from a book and a crafting table, run /simpledimension guide (any player) to receive it with this chapter open, or travel to a dimension for the first time and it is handed to you once. The option Give Guide on First Trip (on by default) turns the gift off. Picking up flint and steel also opens this chapter."
+        ]
+      },
+      "de": {
+        "title": "Das Handbuch erhalten",
+        "summary": "Dieses Handbuch ist leicht zu bekommen: Das Simple-Modpack-Handbuch aus Buch und Werkbank herstellen, /simpledimension guide ausführen (jeder Spieler), um es mit offenem Kapitel zu erhalten, oder zum ersten Mal in eine Dimension reisen, dann bekommst du es einmalig geschenkt. Die Option Handbuch bei erster Reise (standardmäßig an) schaltet das Geschenk ab. Auch das Aufnehmen eines Feuerzeugs öffnet dieses Kapitel.",
+        "details": [
+          "Dieses Handbuch ist leicht zu bekommen: Das Simple-Modpack-Handbuch aus Buch und Werkbank herstellen, /simpledimension guide ausführen (jeder Spieler), um es mit offenem Kapitel zu erhalten, oder zum ersten Mal in eine Dimension reisen, dann bekommst du es einmalig geschenkt. Die Option Handbuch bei erster Reise (standardmäßig an) schaltet das Geschenk ab. Auch das Aufnehmen eines Feuerzeugs öffnet dieses Kapitel."
+        ]
+      }
+    },
+    {
+      "id": "inventory_rights",
+      "sources": [
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionRuntime.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/PortalActivation.java"
+      ],
+      "en": {
+        "title": "Inventory and Rights",
+        "summary": "Your inventory stays with you: only unmounted players travel, items lying around, mobs and mounts stay behind. Anyone may use a portal and the guide command. Changing settings with /simpledimension config needs permission level 2, and server claims decide who may build or ignite a portal.",
+        "details": [
+          "Your inventory stays with you: only unmounted players travel, items lying around, mobs and mounts stay behind. Anyone may use a portal and the guide command. Changing settings with /simpledimension config needs permission level 2, and server claims decide who may build or ignite a portal."
+        ]
+      },
+      "de": {
+        "title": "Inventar und Rechte",
+        "summary": "Dein Inventar bleibt bei dir: Nur nicht reitende Spieler reisen, herumliegende Items, Mobs und Reittiere bleiben zurück. Jeder darf ein Portal und den Handbuch-Befehl nutzen. Einstellungen mit /simpledimension config brauchen Berechtigungsstufe 2, und Server-Claims entscheiden, wer ein Portal bauen oder zünden darf.",
+        "details": [
+          "Dein Inventar bleibt bei dir: Nur nicht reitende Spieler reisen, herumliegende Items, Mobs und Reittiere bleiben zurück. Jeder darf ein Portal und den Handbuch-Befehl nutzen. Einstellungen mit /simpledimension config brauchen Berechtigungsstufe 2, und Server-Claims entscheiden, wer ein Portal bauen oder zünden darf."
+        ]
+      }
+    },
+    {
       "id": "commands",
       "sources": [
         "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionRuntime.java"
       ],
       "en": {
         "title": "Commands",
-        "summary": "/simpledimension config shows and changes every option of config/simpledimension/server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
+        "summary": "/simpledimension guide gives you the Simple Modpack guide with this chapter open (every player). /simpledimension config shows and changes every option of config/simpledimension/server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Config needs permission level 2.",
         "details": [
           "Example: /simpledimension config get <option> shows the value, the default and the type; /simpledimension config reset <option> brings the default back; a wrong type is refused and nothing is saved."
         ]
       },
       "de": {
         "title": "Befehle",
-        "summary": "/simpledimension config zeigt und ändert jede Option von config/simpledimension/server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
+        "summary": "/simpledimension guide gibt dir das Simple-Modpack-Handbuch mit offenem Kapitel (jeder Spieler). /simpledimension config zeigt und ändert jede Option von config/simpledimension/server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Config braucht Berechtigungsstufe 2.",
         "details": [
           "Beispiel: /simpledimension config get <Option> zeigt Wert, Standard und Typ; /simpledimension config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
@@ -317,6 +380,27 @@
       ],
       "needs": "any",
       "source": "modules/simpledimensions/shared/resources/data/simpledimension/advancement/guide/chapter.json"
+    },
+    {
+      "id": "simpledimension:guide/welcome",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Welcome"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "welcomed",
+          "trigger": "minecraft:impossible"
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpledimensions/shared/resources/data/simpledimension/advancement/guide/welcome.json"
     }
   ],
   "enchantments": [],
@@ -334,10 +418,10 @@
           "modules/simpledimensions/shared/resources/data/simpledimension/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Dimensions\" of the Simple Modpack guide (SimpleLib): 28 pages taken from this wiki, shown in your language. Unlocked by picking up: flint and steel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Dimensions\" of the Simple Modpack guide (SimpleLib): 37 pages taken from this wiki, shown in your language. Unlocked by picking up: flint and steel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Dimensions\" im Simple-Modpack-Handbuch (SimpleLib): 28 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerzeug. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Dimensions\" im Simple-Modpack-Handbuch (SimpleLib): 37 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerzeug. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpledimensions/item/guide_book.png",
@@ -469,11 +553,11 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
+    "features": 11,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,
-    "advancements": 1,
+    "advancements": 2,
     "enchantments": 0,
     "items": 1,
     "blocks": 2,
