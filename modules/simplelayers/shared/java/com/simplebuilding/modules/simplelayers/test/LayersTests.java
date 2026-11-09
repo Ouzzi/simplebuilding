@@ -36,6 +36,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
@@ -57,6 +58,8 @@ public final class LayersTests {
         ALL.put("sub_mod_switch", LayersTests::subModSwitch);
         ALL.put("cloud_blocks_instabreak", LayersTests::cloudBlocksInstabreak);
         ALL.put("mist_has_no_collision", LayersTests::mistHasNoCollision);
+        ALL.put("cloud_light_properties", LayersTests::cloudLightProperties);
+        ALL.put("cloud_roof_lets_light_through", LayersTests::cloudRoofLetsLightThrough);
         ALL.put("fall_damage_factors", LayersTests::fallDamageFactors);
         ALL.put("dimensions_load", LayersTests::dimensionsLoad);
         ALL.put("cloud_entry_rule", LayersTests::cloudEntryRule);
@@ -136,6 +139,56 @@ public final class LayersTests {
             h.assertTrue(s.getDestroyProgress(player, h.getLevel(), abs) >= 1.0F, b + " breaks in one tick by hand");
         }
         h.succeed();
+    }
+
+    /**
+     * CLOUDS15 (plan docs/ai/PLAN-B-CLOUDS15-2026-11-09.md): Cloud Block and Mist pass light like Glass (dampening 0), Cloud Stone like
+     * Ice (dampening 1, no longer a solid render); all stay full (Cloud/Stone) and keep the spawn rule (no mob spawns on them).
+     */
+    static void cloudLightProperties(GameTestHelper h) {
+        BlockPos rel = new BlockPos(2, 2, 2), abs = h.absolutePos(rel);
+        ServerLevel level = h.getLevel();
+        int[] expected = {0, 1, 0};
+        Block[] blocks = {LayersRegistry.CLOUD_BLOCK, LayersRegistry.CLOUD_STONE, LayersRegistry.MIST_BLOCK};
+        for (int i = 0; i < blocks.length; i++) {
+            h.setBlock(rel, blocks[i]);
+            BlockState s = level.getBlockState(abs);
+            h.assertTrue(s.getLightDampening() == expected[i], blocks[i] + " light dampening " + s.getLightDampening() + " != " + expected[i]);
+            h.assertFalse(s.isSolidRender(), blocks[i] + " must not be a solid render (would block light)");
+            h.assertFalse(s.isValidSpawn(level, abs, EntityTypes.ZOMBIE), blocks[i] + " spawn rule unchanged (no spawns)");
+            if (blocks[i] != LayersRegistry.MIST_BLOCK) {
+                h.assertTrue(s.isCollisionShapeFullBlock(level, abs), blocks[i] + " still a full, walkable block");
+            }
+        }
+        h.assertTrue(level.getBlockState(abs).propagatesSkylightDown(), "mist lets sky light straight down");
+        h.succeed();
+    }
+
+    /**
+     * CLOUDS15: three closed stone boxes (inside 1 x 2 x 1) with a roof of Stone, Cloud Stone and Cloud Block. Sky light just under the roof:
+     * Stone 0, Cloud Stone above - 2 (roof -1, air -1), Cloud Block = above. Needs open sky over the test (above >= 2); without it only
+     * the stone box is checked.
+     */
+    static void cloudRoofLetsLightThrough(GameTestHelper h) {
+        BlockPos[] origins = {new BlockPos(0, 0, 0), new BlockPos(4, 0, 0), new BlockPos(0, 0, 4)};
+        Block[] roofs = {Blocks.STONE, LayersRegistry.CLOUD_STONE, LayersRegistry.CLOUD_BLOCK};
+        for (int b = 0; b < origins.length; b++) {
+            for (int x = 0; x < 3; x++) for (int y = 0; y < 4; y++) for (int z = 0; z < 3; z++) {
+                BlockPos p = origins[b].offset(x, y, z);
+                boolean inside = x == 1 && z == 1 && (y == 1 || y == 2);
+                h.setBlock(p, inside ? Blocks.AIR : y == 3 ? roofs[b] : Blocks.STONE);
+            }
+        }
+        ServerLevel level = h.getLevel();
+        h.succeedWhen(() -> {
+            int[] in = new int[3];
+            int above = level.getBrightness(LightLayer.SKY, h.absolutePos(origins[1].offset(1, 4, 1)));
+            for (int b = 0; b < 3; b++) in[b] = level.getBrightness(LightLayer.SKY, h.absolutePos(origins[b].offset(1, 2, 1)));
+            h.assertTrue(in[0] == 0, "stone roof: no sky light inside, got " + in[0]);
+            if (above < 2) return;
+            h.assertTrue(in[1] == above - 2, "cloud stone roof: sky light " + in[1] + ", expected " + (above - 2) + " (above " + above + ")");
+            h.assertTrue(in[2] == above, "cloud block roof: sky light " + in[2] + ", expected " + above);
+        });
     }
 
     /** Stage 5: mist has no collision (an armor stand falls through), is not replaceable; the cloud block holds. */

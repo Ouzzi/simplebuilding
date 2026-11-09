@@ -12,6 +12,7 @@
       "can_set_spawn": "never",
       "can_sleep": "never"
     },
+    "minecraft:visual/ambient_light_color": "#3a4252",
     "minecraft:visual/cloud_color": "#ccffffff",
     "minecraft:visual/cloud_height": 4.0,
     "minecraft:visual/fog_color": "#dfe9ff",

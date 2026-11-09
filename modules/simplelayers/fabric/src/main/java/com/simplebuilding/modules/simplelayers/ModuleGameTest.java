@@ -27,6 +27,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplelayers:empty")
+    public void cloudLightProperties(GameTestHelper h) {
+        LayersTests.ALL.get("cloud_light_properties").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty", maxTicks = 100)
+    public void cloudRoofLetsLightThrough(GameTestHelper h) {
+        LayersTests.ALL.get("cloud_roof_lets_light_through").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
     public void fallDamageFactors(GameTestHelper h) {
         LayersTests.ALL.get("fall_damage_factors").accept(h);
     }
