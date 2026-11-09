@@ -314,6 +314,212 @@
       ]
     },
     {
+      "id": "party_popper",
+      "en": {
+        "title": "Party Popper",
+        "summary": "Paper, string and a dye craft two. Use: confetti in the dye's color rises (at most 40 particles) with a pop; used up, 3 s cooldown. No gameplay effect.",
+        "details": [
+          "Paper, string and a dye craft two. Use: confetti in the dye's color rises (at most 40 particles) with a pop; used up, 3 s cooldown. No gameplay effect."
+        ]
+      },
+      "de": {
+        "title": "Konfetti-Knaller",
+        "summary": "Papier, Faden und ein Farbstoff ergeben zwei. Benutzen: Konfetti in der Farbstofffarbe steigt auf (höchstens 40 Teilchen) mit Knall; verbraucht, 3 s Pause. Keine Spielwirkung.",
+        "details": [
+          "Papier, Faden und ein Farbstoff ergeben zwei. Benutzen: Konfetti in der Farbstofffarbe steigt auf (höchstens 40 Teilchen) mit Knall; verbraucht, 3 s Pause. Keine Spielwirkung."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/toys/FunToys.java",
+        "modules/simplefun/shared/java/com/simplefun/item/PartyPopperItem.java"
+      ]
+    },
+    {
+      "id": "dice",
+      "en": {
+        "title": "Dice and Coin",
+        "summary": "Dice (two bone meal + black dye) roll 1-6, sneaking two dice; the lucky coin (copper ingot + gold nugget) shows heads or tails. The server rolls; the result floats above the head and goes to chat within 16 blocks; 1 s cooldown.",
+        "details": [
+          "Dice (two bone meal + black dye) roll 1-6, sneaking two dice; the lucky coin (copper ingot + gold nugget) shows heads or tails. The server rolls; the result floats above the head and goes to chat within 16 blocks; 1 s cooldown."
+        ]
+      },
+      "de": {
+        "title": "Würfel und Münze",
+        "summary": "Würfel (zwei Knochenmehl + schwarzer Farbstoff) zeigen 1-6, schleichend zwei Würfel; die Glücksmünze (Kupferbarren + Goldklumpen) Kopf oder Zahl. Der Server würfelt; das Ergebnis schwebt über dem Kopf und steht im Chat im Umkreis von 16 Blöcken; 1 s Pause.",
+        "details": [
+          "Würfel (zwei Knochenmehl + schwarzer Farbstoff) zeigen 1-6, schleichend zwei Würfel; die Glücksmünze (Kupferbarren + Goldklumpen) Kopf oder Zahl. Der Server würfelt; das Ergebnis schwebt über dem Kopf und steht im Chat im Umkreis von 16 Blöcken; 1 s Pause."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/toys/FunToys.java",
+        "modules/simplefun/shared/java/com/simplefun/item/RollItem.java"
+      ]
+    },
+    {
+      "id": "high_five",
+      "en": {
+        "title": "High Five",
+        "summary": "Sneak with an empty hand and click another player: you raise your hand for 3 s (they see a hint). Their click back claps: sound, sparks at both, the High fives statistic. No damage, no chat spam.",
+        "details": [
+          "Sneak with an empty hand and click another player: you raise your hand for 3 s (they see a hint). Their click back claps: sound, sparks at both, the High fives statistic. No damage, no chat spam."
+        ]
+      },
+      "de": {
+        "title": "Abklatschen",
+        "summary": "Mit leerer Hand schleichend einen Spieler anklicken: die Hand ist 3 s erhoben (er sieht einen Hinweis). Sein Gegenklick klatscht ab: Ton, Funken bei beiden, Statistik Abklatscher. Kein Schaden, kein Chat.",
+        "details": [
+          "Mit leerer Hand schleichend einen Spieler anklicken: die Hand ist 3 s erhoben (er sieht einen Hinweis). Sein Gegenklick klatscht ab: Ton, Funken bei beiden, Statistik Abklatscher. Kein Schaden, kein Chat."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/toys/FunToys.java",
+        "modules/simplefun/shared/java/com/simplefun/mixin/PlayerInteractMixin.java"
+      ]
+    },
+    {
+      "id": "petting",
+      "en": {
+        "title": "Petting",
+        "summary": "The owner sneaks with an empty hand and clicks an own tamed wolf, cat, parrot or horse: hearts and its contented sound, once every 10 s per animal; Pets given statistic. Wolves and cats do not toggle sitting on that click; horses keep their Vanilla sneak click.",
+        "details": [
+          "The owner sneaks with an empty hand and clicks an own tamed wolf, cat, parrot or horse: hearts and its contented sound, once every 10 s per animal; Pets given statistic. Wolves and cats do not toggle sitting on that click; horses keep their Vanilla sneak click."
+        ]
+      },
+      "de": {
+        "title": "Streicheln",
+        "summary": "Der Besitzer klickt schleichend mit leerer Hand ein eigenes gezähmtes Tier (Wolf, Katze, Papagei, Pferd) an: Herzen und sein Wohlfühlton, alle 10 s je Tier; Statistik Streicheleinheiten. Wolf und Katze setzen sich bei diesem Klick nicht; Pferde behalten ihren Vanilla-Schleichklick.",
+        "details": [
+          "Der Besitzer klickt schleichend mit leerer Hand ein eigenes gezähmtes Tier (Wolf, Katze, Papagei, Pferd) an: Herzen und sein Wohlfühlton, alle 10 s je Tier; Statistik Streicheleinheiten. Wolf und Katze setzen sich bei diesem Klick nicht; Pferde behalten ihren Vanilla-Schleichklick."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/toys/FunToys.java",
+        "modules/simplefun/shared/java/com/simplefun/mixin/PlayerInteractMixin.java"
+      ]
+    },
+    {
+      "id": "skipping_stone",
+      "en": {
+        "title": "Skipping Stones",
+        "summary": "One cobblestone, tuff, andesite or cobbled deepslate makes four flat stones. Thrown flat over water a stone skips up to five times with splash, ring and count; too steep or too slow it sinks. No damage, no block change; record in the statistics.",
+        "details": [
+          "One cobblestone, tuff, andesite or cobbled deepslate makes four flat stones. Thrown flat over water a stone skips up to five times with splash, ring and count; too steep or too slow it sinks. No damage, no block change; record in the statistics."
+        ]
+      },
+      "de": {
+        "title": "Steinehüpfen",
+        "summary": "Ein Bruchstein, Tuff, Andesit oder Bruchtiefenschiefer ergibt vier flache Steine. Flach über Wasser geworfen hüpft ein Stein bis zu fünfmal mit Platsch, Ring und Zählung; zu steil oder zu langsam versinkt er. Kein Schaden, keine Blockänderung; Rekord in der Statistik.",
+        "details": [
+          "Ein Bruchstein, Tuff, Andesit oder Bruchtiefenschiefer ergibt vier flache Steine. Flach über Wasser geworfen hüpft ein Stein bis zu fünfmal mit Platsch, Ring und Zählung; zu steil oder zu langsam versinkt er. Kein Schaden, keine Blockänderung; Rekord in der Statistik."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/entity/SkippingStoneEntity.java"
+      ]
+    },
+    {
+      "id": "water_balloon",
+      "en": {
+        "title": "Water Balloon",
+        "summary": "Leather, string and a water bucket make four (the bucket stays). It hits only players and blocks: douses fire, lit candles and campfires within one block, fills a hit cauldron by one level and wets a hit player (fire out). No damage, nothing breaks; in the Nether it turns to steam. 5 s cooldown.",
+        "details": [
+          "Leather, string and a water bucket make four (the bucket stays). It hits only players and blocks: douses fire, lit candles and campfires within one block, fills a hit cauldron by one level and wets a hit player (fire out). No damage, nothing breaks; in the Nether it turns to steam. 5 s cooldown."
+        ]
+      },
+      "de": {
+        "title": "Wasserbombe",
+        "summary": "Leder, Faden und ein Wassereimer ergeben vier (der Eimer bleibt). Sie trifft nur Spieler und Blöcke: löscht Feuer, brennende Kerzen und Lagerfeuer im Umkreis eines Blocks, füllt einen getroffenen Kessel um eine Stufe und macht Spieler nass (Feuer aus). Kein Schaden, nichts geht kaputt; im Nether wird sie zu Dampf. 5 s Pause.",
+        "details": [
+          "Leder, Faden und ein Wassereimer ergeben vier (der Eimer bleibt). Sie trifft nur Spieler und Blöcke: löscht Feuer, brennende Kerzen und Lagerfeuer im Umkreis eines Blocks, füllt einen getroffenen Kessel um eine Stufe und macht Spieler nass (Feuer aus). Kein Schaden, nichts geht kaputt; im Nether wird sie zu Dampf. 5 s Pause."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/entity/WaterBalloonEntity.java"
+      ]
+    },
+    {
+      "id": "bubble_wand",
+      "en": {
+        "title": "Bubble Wand",
+        "summary": "Stick, string and a water bucket (the bucket stays). Hold use: a soap bubble every 0.7 s rises up to 8 blocks and pops at a ceiling. At most 12 bubbles per player; 64 uses. Pure particles: they block and carry nothing.",
+        "details": [
+          "Stick, string and a water bucket (the bucket stays). Hold use: a soap bubble every 0.7 s rises up to 8 blocks and pops at a ceiling. At most 12 bubbles per player; 64 uses. Pure particles: they block and carry nothing."
+        ]
+      },
+      "de": {
+        "title": "Seifenblasen",
+        "summary": "Stock, Faden und ein Wassereimer (der Eimer bleibt). Benutzen halten: alle 0,7 s steigt eine Seifenblase bis zu 8 Blöcke und platzt an der Decke. Höchstens 12 Blasen je Spieler; 64 Nutzungen. Nur Partikel: sie blockieren und tragen nichts.",
+        "details": [
+          "Stock, Faden und ein Wassereimer (der Eimer bleibt). Benutzen halten: alle 0,7 s steigt eine Seifenblase bis zu 8 Blöcke und platzt an der Decke. Höchstens 12 Blasen je Spieler; 64 Nutzungen. Nur Partikel: sie blockieren und tragen nichts."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/toys/FunToys.java",
+        "modules/simplefun/shared/java/com/simplefun/client/SoapBubbleParticle.java"
+      ]
+    },
+    {
+      "id": "paper_plane",
+      "en": {
+        "title": "Paper Plane",
+        "summary": "One paper folds a plane. Thrown it glides, flies through creatures without harm and lands as an item (floating on water); best range at about 20 degrees up, at most 60 s. A book and quill or written book in the other hand folds its first page in (up to 200 characters); sneak + use reads the note.",
+        "details": [
+          "One paper folds a plane. Thrown it glides, flies through creatures without harm and lands as an item (floating on water); best range at about 20 degrees up, at most 60 s. A book and quill or written book in the other hand folds its first page in (up to 200 characters); sneak + use reads the note."
+        ]
+      },
+      "de": {
+        "title": "Papierflieger",
+        "summary": "Ein Papier ergibt einen Flieger. Geworfen segelt er, fliegt ohne Schaden durch Lebewesen und landet als Gegenstand (auf Wasser schwimmend); beste Weite bei etwa 20 Grad nach oben, höchstens 60 s. Ein Buch in der anderen Hand faltet dessen erste Seite hinein (bis 200 Zeichen); Schleichen + Benutzen liest die Notiz.",
+        "details": [
+          "Ein Papier ergibt einen Flieger. Geworfen segelt er, fliegt ohne Schaden durch Lebewesen und landet als Gegenstand (auf Wasser schwimmend); beste Weite bei etwa 20 Grad nach oben, höchstens 60 s. Ein Buch in der anderen Hand faltet dessen erste Seite hinein (bis 200 Zeichen); Schleichen + Benutzen liest die Notiz."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/entity/PaperPlaneEntity.java",
+        "modules/simplefun/shared/java/com/simplefun/toys/FunToys.java"
+      ]
+    },
+    {
+      "id": "rubber_duck",
+      "en": {
+        "title": "Rubber Duck",
+        "summary": "Yellow dye, a slimeball and a gold nugget. Placed on a water surface (like a lily pad) or on solid ground; a click squeaks and makes it hop, touching does nothing. Placed on soul sand it becomes the pirate duck.",
+        "details": [
+          "Yellow dye, a slimeball and a gold nugget. Placed on a water surface (like a lily pad) or on solid ground; a click squeaks and makes it hop, touching does nothing. Placed on soul sand it becomes the pirate duck."
+        ]
+      },
+      "de": {
+        "title": "Quietscheente",
+        "summary": "Gelber Farbstoff, Schleimball und Goldklumpen. Auf eine Wasserfläche (wie eine Seerose) oder festen Boden setzen; ein Klick lässt sie quietschen und hüpfen, Berühren tut nichts. Auf Seelensand wird sie zur Piratenente.",
+        "details": [
+          "Gelber Farbstoff, Schleimball und Goldklumpen. Auf eine Wasserfläche (wie eine Seerose) oder festen Boden setzen; ein Klick lässt sie quietschen und hüpfen, Berühren tut nichts. Auf Seelensand wird sie zur Piratenente."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/block/RubberDuckBlock.java"
+      ]
+    },
+    {
+      "id": "snow_angel",
+      "en": {
+        "title": "Snow Angel",
+        "summary": "Sneak still for 3 s on a snow layer, snow block or powder snow, then jump: a snow angel print of particles stays for 30 s (larger in a snowstorm) with a soft crunch. One angel per player; no block changes; Snow angels statistic.",
+        "details": [
+          "Sneak still for 3 s on a snow layer, snow block or powder snow, then jump: a snow angel print of particles stays for 30 s (larger in a snowstorm) with a soft crunch. One angel per player; no block changes; Snow angels statistic."
+        ]
+      },
+      "de": {
+        "title": "Schneeengel",
+        "summary": "3 s still auf Schneeschicht, Schneeblock oder Pulverschnee schleichen, dann springen: ein Engelsabdruck aus Partikeln bleibt 30 s (im Schneesturm größer) mit weichem Knirschen. Ein Engel je Spieler; keine Blockänderung; Statistik Schneeengel.",
+        "details": [
+          "3 s still auf Schneeschicht, Schneeblock oder Pulverschnee schleichen, dann springen: ein Engelsabdruck aus Partikeln bleibt 30 s (im Schneesturm größer) mit weichem Knirschen. Ein Engel je Spieler; keine Blockänderung; Statistik Schneeengel."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/toys/FunToys.java"
+      ]
+    },
+    {
       "id": "config_enablePiggyEffect",
       "en": {
         "title": "Piggy Transformation",
@@ -734,6 +940,206 @@
       }
     },
     {
+      "id": "config_partyPopper",
+      "en": {
+        "title": "Party popper",
+        "summary": "Use: confetti in the dye's color, at most 40 particles, 3 s cooldown, used up. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Use: confetti in the dye's color, at most 40 particles, 3 s cooldown, used up. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Konfetti-Knaller",
+        "summary": "Benutzen: Konfetti in der Farbstofffarbe, höchstens 40 Teilchen, 3 s Pause, verbraucht. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "Benutzen: Konfetti in der Farbstofffarbe, höchstens 40 Teilchen, 3 s Pause, verbraucht. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
+      "id": "config_diceAndCoin",
+      "en": {
+        "title": "Dice and coin",
+        "summary": "Server rolls 1-6 (sneak: two dice) or heads/ tails; shown above the head and in chat within 16 blocks; 1 s cooldown. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Server rolls 1-6 (sneak: two dice) or heads/ tails; shown above the head and in chat within 16 blocks; 1 s cooldown. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Würfel und Münze",
+        "summary": "Server würfelt 1-6 (Schleichen: zwei Würfel) oder Kopf/Zahl; über dem Kopf und im Chat im Umkreis von 16 Blöcken; 1 s Pause. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "Server würfelt 1-6 (Schleichen: zwei Würfel) oder Kopf/Zahl; über dem Kopf und im Chat im Umkreis von 16 Blöcken; 1 s Pause. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
+      "id": "config_highFive",
+      "en": {
+        "title": "High five",
+        "summary": "Sneak + empty hand on a player raises the hand for 3 s; the click back claps. No damage. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Sneak + empty hand on a player raises the hand for 3 s; the click back claps. No damage. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Abklatschen",
+        "summary": "Schleichen + leere Hand auf einen Spieler hebt die Hand für 3 s; der Gegenklick klatscht ab. Kein Schaden. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "Schleichen + leere Hand auf einen Spieler hebt die Hand für 3 s; der Gegenklick klatscht ab. Kein Schaden. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
+      "id": "config_petting",
+      "en": {
+        "title": "Petting",
+        "summary": "Owner, sneak + empty hand on an own tamed animal: hearts and its sound, every 10 s per animal. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Owner, sneak + empty hand on an own tamed animal: hearts and its sound, every 10 s per animal. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Streicheln",
+        "summary": "Besitzer, Schleichen + leere Hand auf ein eigenes gezähmtes Tier: Herzen und sein Ton, alle 10 s je Tier. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "Besitzer, Schleichen + leere Hand auf ein eigenes gezähmtes Tier: Herzen und sein Ton, alle 10 s je Tier. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
+      "id": "config_skipStones",
+      "en": {
+        "title": "Skipping stones",
+        "summary": "Flat stones hop over water up to 5 times. No damage, no block changes. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Flat stones hop over water up to 5 times. No damage, no block changes. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Steinehüpfen",
+        "summary": "Flache Steine hüpfen bis zu 5-mal über Wasser. Kein Schaden, keine Blockänderung. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "Flache Steine hüpfen bis zu 5-mal über Wasser. Kein Schaden, keine Blockänderung. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
+      "id": "config_waterBalloon",
+      "en": {
+        "title": "Water balloon",
+        "summary": "Douses fire, candles and campfires within one block, fills a cauldron by one level, wets players; never hits mobs; steam in the Nether; 5 s cooldown. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Douses fire, candles and campfires within one block, fills a cauldron by one level, wets players; never hits mobs; steam in the Nether; 5 s cooldown. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Wasserbombe",
+        "summary": "Löscht Feuer, Kerzen und Lagerfeuer im Umkreis eines Blocks, füllt einen Kessel um eine Stufe, macht Spieler nass; trifft nie Mobs; im Nether nur Dampf; 5 s Pause. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "Löscht Feuer, Kerzen und Lagerfeuer im Umkreis eines Blocks, füllt einen Kessel um eine Stufe, macht Spieler nass; trifft nie Mobs; im Nether nur Dampf; 5 s Pause. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
+      "id": "config_bubbleWand",
+      "en": {
+        "title": "Bubble wand",
+        "summary": "Hold use: soap bubbles rise up to 8 blocks; at most 12 per player, 64 uses. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Hold use: soap bubbles rise up to 8 blocks; at most 12 per player, 64 uses. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Seifenblasen",
+        "summary": "Benutzen halten: Seifenblasen steigen bis zu 8 Blöcke; höchstens 12 je Spieler, 64 Nutzungen. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "Benutzen halten: Seifenblasen steigen bis zu 8 Blöcke; höchstens 12 je Spieler, 64 Nutzungen. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
+      "id": "config_paperPlane",
+      "en": {
+        "title": "Paper plane",
+        "summary": "Glides without damage and lands as an item; a book in the other hand folds in a note. 60 s lifetime. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Glides without damage and lands as an item; a book in the other hand folds in a note. 60 s lifetime. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Papierflieger",
+        "summary": "Segelt ohne Schaden und landet als Gegenstand; ein Buch in der anderen Hand faltet eine Notiz hinein. 60 s Lebensdauer. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "Segelt ohne Schaden und landet als Gegenstand; ein Buch in der anderen Hand faltet eine Notiz hinein. 60 s Lebensdauer. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
+      "id": "config_rubberDuck",
+      "en": {
+        "title": "Rubber duck",
+        "summary": "Floats on water, squeaks and hops when clicked; pirate duck on soul sand. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Floats on water, squeaks and hops when clicked; pirate duck on soul sand. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Quietscheente",
+        "summary": "Schwimmt auf Wasser, quietscht und hüpft beim Anklicken; Piratenente auf Seelensand. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "Schwimmt auf Wasser, quietscht und hüpft beim Anklicken; Piratenente auf Seelensand. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
+      "id": "config_snowAngel",
+      "en": {
+        "title": "Snow angel",
+        "summary": "Sneak still on snow for 3 s, then jump: an angel print of particles for 30 s. No blocks change. Default: true. Server-owned; takes effect at once.",
+        "details": [
+          "Sneak still on snow for 3 s, then jump: an angel print of particles for 30 s. No blocks change. Default: true. Server-owned; takes effect at once."
+        ]
+      },
+      "de": {
+        "title": "Schneeengel",
+        "summary": "3 s still auf Schnee schleichen, dann springen: ein Engelsabdruck aus Partikeln für 30 s. Keine Blockänderung. Standard: true. Server bestimmt Werte; wirkt sofort.",
+        "details": [
+          "3 s still auf Schnee schleichen, dann springen: ein Engelsabdruck aus Partikeln für 30 s. Keine Blockänderung. Standard: true. Server bestimmt Werte; wirkt sofort."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+      ]
+    },
+    {
       "id": "configuration",
       "sources": [
         "modules/simplefun/shared/java/com/simplefun/client/FunConfigScreen.java",
@@ -808,10 +1214,10 @@
         "modules/simplefun/shared/resources/data/simplefun/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Fun\" of the Simple Modpack guide (SimpleLib): 21 pages taken from this wiki, shown in your language. Unlocked by picking up: brick. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Fun\" of the Simple Modpack guide (SimpleLib): 39 pages taken from this wiki, shown in your language. Unlocked by picking up: brick. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Fun\" im Simple-Modpack-Handbuch (SimpleLib): 21 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Ziegel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Fun\" im Simple-Modpack-Handbuch (SimpleLib): 39 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Ziegel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplefun:brick_snowball": {
@@ -820,6 +1226,14 @@
       },
       "de": {
         "summary": "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks."
+      }
+    },
+    "simplefun:lucky_coin": {
+      "en": {
+        "summary": "Dice (two bone meal + black dye) roll 1-6, sneaking two dice; the lucky coin (copper ingot + gold nugget) shows heads or tails. The server rolls; the result floats above the head and goes to chat within 16 blocks; 1 s cooldown."
+      },
+      "de": {
+        "summary": "Würfel (zwei Knochenmehl + schwarzer Farbstoff) zeigen 1-6, schleichend zwei Würfel; die Glücksmünze (Kupferbarren + Goldklumpen) Kopf oder Zahl. Der Server würfelt; das Ergebnis schwebt über dem Kopf und steht im Chat im Umkreis von 16 Blöcken; 1 s Pause."
       }
     }
   }

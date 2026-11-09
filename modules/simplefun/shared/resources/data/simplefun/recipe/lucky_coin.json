@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:copper_ingot",
+    "minecraft:gold_nugget"
+  ],
+  "result": {
+    "id": "simplefun:lucky_coin",
+    "count": 1
+  }
+}

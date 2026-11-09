@@ -154,4 +154,59 @@ public final class ModuleGameTest {
   }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplefun.discover.FunDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplefun.discover.FunDiscover.behaviourHints(h); }
+
+  @GameTest
+  public void toyPartyPopper(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_party_popper").accept(h);
+  }
+
+  @GameTest
+  public void toyDiceCoin(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_dice_coin").accept(h);
+  }
+
+  @GameTest
+  public void toyHighFive(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_high_five").accept(h);
+  }
+
+  @GameTest
+  public void toyPetting(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_petting").accept(h);
+  }
+
+  @GameTest
+  public void toySkipStone(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_skip_stone").accept(h);
+  }
+
+  @GameTest
+  public void toyWaterBalloon(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_water_balloon").accept(h);
+  }
+
+  @GameTest
+  public void toyBubbleWand(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_bubble_wand").accept(h);
+  }
+
+  @GameTest
+  public void toyPaperPlane(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_paper_plane").accept(h);
+  }
+
+  @GameTest
+  public void toyRubberDuck(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_rubber_duck").accept(h);
+  }
+
+  @GameTest
+  public void toySnowAngel(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_snow_angel").accept(h);
+  }
+
+  @GameTest
+  public void toySwitches(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_switches").accept(h);
+  }
 }

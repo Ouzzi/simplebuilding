@@ -62,6 +62,8 @@ public final class FunTests {
     ALL.put("projectile_damage_and_glass", FunSecurityTests::projectileDamageAndGlass);
     ALL.put("trade_offer", FunSecurityTests::tradeOffer);
     ALL.put("delight_triggers", FunSecurityTests::delightTriggers);
+    // FUN11-1..10 (b-fun14).
+    FunToyTests.register(ALL);
   }
 
   static {

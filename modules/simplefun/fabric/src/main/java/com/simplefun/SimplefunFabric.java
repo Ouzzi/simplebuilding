@@ -18,12 +18,17 @@ public class SimplefunFabric implements ModInitializer {
         .save(SimplefunCommon::saveConfig).register();
 
     // Fabric registries are open during init.
+    // FUN11-1..10 (b-fun14): the duck block before the items.
+    com.simplefun.registry.ModToys.registerBlocks();
     SimplefunRegistry.registerItems();
+    com.simplefun.registry.ModToys.registerItems();
     com.simplefun.registry.FunContent.items();
     com.simplefun.registry.FunContent.tab();
     FunFabricData.register();
     SimplefunRegistry.registerEntities();
     SimplefunRegistry.registerEffects();
+    com.simplefun.registry.ModToys.registerEntities();
+    com.simplefun.registry.ModToys.registerMisc();
 
     if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests"))
       com.simplefun.guide.FunGuide.installQuests(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());

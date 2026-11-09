@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "party_popper",
+  "ingredients": [
+    "minecraft:paper",
+    "minecraft:string",
+    "minecraft:cyan_dye"
+  ],
+  "result": {
+    "id": "simplefun:party_popper",
+    "count": 2,
+    "components": {
+      "minecraft:dyed_color": 1481884
+    }
+  }
+}

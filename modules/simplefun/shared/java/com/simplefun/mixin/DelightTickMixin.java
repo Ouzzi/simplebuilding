@@ -10,5 +10,7 @@ public class DelightTickMixin {
   @Inject(method = "tick", at = @At("TAIL"))
   private void fun$tick(CallbackInfo c) {
     com.simplefun.FunDelights.tick((ServerPlayer) (Object) this);
+    // FUN11-10 snow angel watch and live angels (b-fun14).
+    com.simplefun.toys.FunToys.tick((ServerPlayer) (Object) this);
   }
 }

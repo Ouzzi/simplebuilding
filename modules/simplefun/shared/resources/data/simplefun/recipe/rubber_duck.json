@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:yellow_dye",
+    "minecraft:slime_ball",
+    "minecraft:gold_nugget"
+  ],
+  "result": {
+    "id": "simplefun:rubber_duck",
+    "count": 1
+  }
+}

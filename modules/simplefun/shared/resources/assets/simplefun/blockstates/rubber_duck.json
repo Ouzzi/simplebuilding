@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=north,pirate=false,squeak=false": {
+      "model": "simplefun:block/rubber_duck"
+    },
+    "facing=north,pirate=false,squeak=true": {
+      "model": "simplefun:block/rubber_duck_hop"
+    },
+    "facing=north,pirate=true,squeak=false": {
+      "model": "simplefun:block/rubber_duck_pirate"
+    },
+    "facing=north,pirate=true,squeak=true": {
+      "model": "simplefun:block/rubber_duck_pirate_hop"
+    },
+    "facing=east,pirate=false,squeak=false": {
+      "model": "simplefun:block/rubber_duck",
+      "y": 90
+    },
+    "facing=east,pirate=false,squeak=true": {
+      "model": "simplefun:block/rubber_duck_hop",
+      "y": 90
+    },
+    "facing=east,pirate=true,squeak=false": {
+      "model": "simplefun:block/rubber_duck_pirate",
+      "y": 90
+    },
+    "facing=east,pirate=true,squeak=true": {
+      "model": "simplefun:block/rubber_duck_pirate_hop",
+      "y": 90
+    },
+    "facing=south,pirate=false,squeak=false": {
+      "model": "simplefun:block/rubber_duck",
+      "y": 180
+    },
+    "facing=south,pirate=false,squeak=true": {
+      "model": "simplefun:block/rubber_duck_hop",
+      "y": 180
+    },
+    "facing=south,pirate=true,squeak=false": {
+      "model": "simplefun:block/rubber_duck_pirate",
+      "y": 180
+    },
+    "facing=south,pirate=true,squeak=true": {
+      "model": "simplefun:block/rubber_duck_pirate_hop",
+      "y": 180
+    },
+    "facing=west,pirate=false,squeak=false": {
+      "model": "simplefun:block/rubber_duck",
+      "y": 270
+    },
+    "facing=west,pirate=false,squeak=true": {
+      "model": "simplefun:block/rubber_duck_hop",
+      "y": 270
+    },
+    "facing=west,pirate=true,squeak=false": {
+      "model": "simplefun:block/rubber_duck_pirate",
+      "y": 270
+    },
+    "facing=west,pirate=true,squeak=true": {
+      "model": "simplefun:block/rubber_duck_pirate_hop",
+      "y": 270
+    }
+  }
+}
