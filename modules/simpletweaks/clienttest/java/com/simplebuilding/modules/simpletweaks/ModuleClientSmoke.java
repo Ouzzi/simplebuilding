@@ -41,7 +41,19 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   // SP22-8: the owner of land gets the map view first; the code editor is behind its "Rights" button (VIS24-10).
   context.waitForScreen(com.simplebuilding.modules.simpletweaks.deed.client.DeedMapScreen.class);
   context.waitTicks(5);context.takeScreenshot("simpletweaks-deed-map");
-  context.clickScreenButton("simpletweaks.deed.rights");
+  // WH26-9 card A: "Rights" is a side tab (AbstractButton, not Button), which clickScreenButton does not press: click it with the mouse.
+  double[] rights=context.computeOnClient(client->{
+   String label=net.minecraft.network.chat.Component.translatable("simpletweaks.deed.rights").getString();
+   for(var w:client.gui.screen().children()){
+    if(w instanceof net.minecraft.client.gui.components.AbstractButton b&&b.getMessage().getString().equals(label)){
+     double scale=(double)client.getWindow().getScreenWidth()/client.getWindow().getGuiScaledWidth();
+     return new double[]{(b.getX()+b.getWidth()/2.0)*scale,(b.getY()+b.getHeight()/2.0)*scale};
+    }
+   }
+   throw new AssertionError("no Rights tab on "+client.gui.screen().getClass().getName());
+  });
+  input.setCursorPos(rights[0],rights[1]);context.waitTicks(2);
+  input.pressMouse(com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT);
   context.waitForScreen(com.simplebuilding.modules.simpletweaks.deed.client.DeedScreen.class);
   context.waitTicks(5);context.takeScreenshot("simpletweaks-deed-editor");
   input.pressKey(com.mojang.blaze3d.platform.InputConstants.KEY_RETURN);input.typeChars("*: U");input.pressKey(com.mojang.blaze3d.platform.InputConstants.KEY_RETURN);input.typeChars("Zed: Q");
