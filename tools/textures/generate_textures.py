@@ -69,6 +69,7 @@ import vanilla_style  # Vanilla-Stil fuer verrauschte Pads (Textur-Audit Q1)
 from texture_round6_2026_10_05 import more_contrast  # Besitzer-Buecher kontrastreicher (Runde 6)
 from gauge_textures import gauge_textures  # Messuhr: Zifferblatt, 17 Nadeln, Ruhebild (nur Hauptbaum)
 import shimmer_2026_10_06 as shimmer  # Runde 7: wandernder Glanz (Enderit-Speer)
+from texrate16_rework_2026_11_09 import finish as a8d_finish  # A8d-Ueberarbeitung (b-texrate16), Ziele in texrate16_targets.json
 from layers import carry, snap, steps_of, write_layers_for  # Ebenen-Quellen: Zeichenschritte als benannte Ebenen
 
 
@@ -4551,13 +4552,14 @@ def main():
         return 0
     tex = build()
     stale = []
-    for rel, img in sorted(tex.items()):
-        data = png_bytes(img)
+    for rel, base_img in sorted(tex.items()):
         # Texturen, die es bisher nur auf der Hauptlinie 26.3 gibt, landen nur im gemeinsamen Baum;
         # der Port-Run fuer 1.21.11 nimmt sie aus MAIN_LINE_ONLY heraus (hauptlinie-26-3-zuerst).
         trees = TREES[:1] if rel in MAIN_TREE_ONLY or rel in MAIN_LINE_ONLY or rel.startswith(MAIN_TREE_PREFIXES) else TREES
         for tree in trees + ([MODULE_COPIES[rel]] if rel in MODULE_COPIES else []):
             path = os.path.join(tree, *rel.split("/"))
+            img = a8d_finish(base_img, path)  # A8d-Ueberarbeitung (texrate15/16) gelisteter Ziele, auch fuer --check
+            data = png_bytes(img)
             if args.check:
                 try:
                     cur = Image.open(path)

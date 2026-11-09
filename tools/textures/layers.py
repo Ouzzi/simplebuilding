@@ -412,6 +412,10 @@ def write_layers_for(img, path, rest: str = "Nachbearbeitung") -> Path | None:
         return None
     if not SCOPE.match(rel):
         return None
+    done = _a8d_finish(img, path)  # b-texrate16: A8d rework of listed targets survives generator re-runs
+    if done is not img:
+        done.save(path)
+        img = done
     final = img.convert("RGBA").tobytes()
     steps = steps_of(img)
     if not steps:
@@ -421,8 +425,20 @@ def write_layers_for(img, path, rest: str = "Nachbearbeitung") -> Path | None:
     return write_beside(path, from_steps(img.width, img.height, steps))
 
 
+def _a8d_finish(img, path):
+    """texrate16_rework_2026_11_09.finish (targets in texrate16_targets.json), img unchanged when not listed."""
+    try:
+        import texrate16_rework_2026_11_09 as a8d
+    except ImportError:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import texrate16_rework_2026_11_09 as a8d
+    return a8d.finish(img, path)
+
+
 def save(img, path, **kwargs) -> None:
-    """img.save(path, **kwargs) plus its layer source (see write_layers_for)."""
+    """img.save(path, **kwargs) plus its layer source (see write_layers_for). Rework targets (texrate16) are finished
+    first, so a generator re-run writes the reworked pixels."""
+    img = _a8d_finish(img, path)
     img.save(path, **kwargs)
     write_layers_for(img, path)
 

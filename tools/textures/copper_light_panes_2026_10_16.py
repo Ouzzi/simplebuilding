@@ -19,6 +19,9 @@ from pathlib import Path
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from texrate16_rework_2026_11_09 import finish as a8d_finish  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import light_panes_2026_10_14 as lp  # noqa: E402
 
 ROOT = lp.ROOT
@@ -122,6 +125,8 @@ def main():
     a = ap.parse_args()
     f = files()
     stale = []
+    # b-texrate16: A8d rework of the listed panes (texrate16_targets.json) - re-runs keep the reworked pixels
+    f = {rel: a8d_finish(d, RES / rel) if isinstance(d, Image.Image) else d for rel, d in f.items()}
     for rel, data in f.items():
         p = RES / rel
         if isinstance(data, Image.Image):

@@ -1,0 +1,4637 @@
+{
+ "note": "b-texrate16 (09.11.): A8d rework targets; method see texrate16_rework_2026_11_09.py, groups and Vanilla models see texrate16_2026_11_09.py GROUPS",
+ "groups": {
+  "Holz-/Lederflaechen (Modell)": "Vanilla barrel/chest/lectern: Holz/Leder/Metall in 2-4-px-Haufen eines Nachbartons, Drift oben/links hell",
+  "Kanten-Motive": "Vanilla glowstone/target/crying_obsidian: Funken/Risse duerfen hart sein, aber Extreme gestuft -> hart <= 20 %",
+  "Esche/Daemmerholz": "Vanilla birch/cherry door+trapdoor, stripped_*_log: Maserung als 2-3-px-Striche laengs der Bretter (keine runden Haufen)",
+  "Vitrinen": "Vanilla glass_pane_top/oak_planks: Glas bleibt wie Vanilla-Glas (nicht bewertet); Rahmen-Schraegstreifen sind Motiv -> Streifenkontrast in 2 Stufen senken (hart <= 20 %), Toene nur laengs der Streifen wechseln",
+  "Froschlichter": "Vanilla ochre/verdant_froglight: 6-8 Toene, Rand in Stufen, Mitte darf ruhig sein (Vanilla-Mitte 132 px) -> weichen Verlauf auf 8 echte Toene der Textur stufen; die helle Mitte bleibt ruhig wie bei Vanilla (Haufen auf Fast-Weiss wirkten in R2 wie graue Flecken)",
+  "Licht-Scheiben": "Vanilla copper_bulb_lit/shroomlight: leuchtende Flaeche aus 6-12 Stufen ohne weichen Verlauf -> Verlauf auf 8 Toene stufen, Flaeche mit feinen 2-4-px-Haufen brechen (Rahmen/Nieten bleiben)",
+  "Lampen": "Vanilla redstone_lamp(_on): Maeander mit harten Kanten ist Motiv (Vanilla hart 18/48 %), aber Felder dort <= 88 px und mit 2-3 Toenen gebrochen -> nur Felder mit feinen Tonstufen brechen, Linien wechseln den Ton",
+  "Pads": "Vanilla respawn_anchor_top/lodestone_top: Glut-/Ringmotiv in 2-3 Stufen, Kante bleibt Motiv (Vanilla end_portal_frame_top hart 43 %) -> Kontrast der Extreme senken bis hart <= 20 %, dann Flaechen brechen",
+  "Flaechen (allgemein)": "passende Vanilla-Baustoffe (Tiefenschiefer, Endstein, polished_*): 2-4-px-Haufen der eigenen Rampe, Drift, Linien-Tonwechsel (texrate15 R3)"
+ },
+ "targets": {
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/astralit_lamp.png": {
+   "group": "Lampen",
+   "method": "lamp",
+   "light": "rot",
+   "why": "groesste Flaeche 112, in Flaechen>=6 66, hart 36.7, Hauptton 43.8",
+   "after": "rot",
+   "after_why": "hart 36.7"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/astralit_lamp_top.png": {
+   "group": "Lampen",
+   "method": "lamp",
+   "light": "rot",
+   "why": "groesste Flaeche 83, hart 32.7, in Flaechen>=6 56.6",
+   "after": "rot",
+   "after_why": "hart 33.3"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/auto_smither_top.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 46.1, hart 17.1",
+   "after": "orange",
+   "after_why": "hart 17.1"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/auto_smither_top_triggered.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 46.1, hart 16.2",
+   "after": "orange",
+   "after_why": "hart 15.6"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/autonomous_crafter_bottom.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 62.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/nihilith.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 36.7",
+   "after": "orange",
+   "after_why": "hart 19.2"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/polished_astralit.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20, in Flaechen>=6 64.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/polished_astralit_accent.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20, in Flaechen>=6 64.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/polished_ender_quartz.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "rot",
+   "why": "in Flaechen>=6 84.4, groesste Flaeche 22",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/polished_ender_quartz_accent.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "rot",
+   "why": "in Flaechen>=6 84.4, groesste Flaeche 22",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/polished_nihilith.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "rot",
+   "why": "in Flaechen>=6 77.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/polished_nihilith_accent.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "rot",
+   "why": "in Flaechen>=6 77.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/purpur.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20, in Flaechen>=6 60.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/purpur_accent.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20, in Flaechen>=6 60.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/quartz.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "orange",
+   "why": "in Flaechen>=6 45.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/quartz_accent.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "orange",
+   "why": "in Flaechen>=6 45.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/crimson_blazewood_planks.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 24, in Flaechen>=6 57.4, Hauptton 45.3, Farben 54 (Verlauf?)",
+   "after": "orange",
+   "after_why": "Farben 54 (Verlauf?)"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihilith_lamp.png": {
+   "group": "Lampen",
+   "method": "lamp",
+   "light": "rot",
+   "why": "groesste Flaeche 112, in Flaechen>=6 86.3, hart 42.5, Hauptton 43.8",
+   "after": "rot",
+   "after_why": "hart 39.2"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihilith_lamp_top.png": {
+   "group": "Lampen",
+   "method": "lamp",
+   "light": "rot",
+   "why": "groesste Flaeche 108, in Flaechen>=6 91, hart 46.5, Hauptton 42.2",
+   "after": "rot",
+   "after_why": "hart 38.8"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/sculk_jaw.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 34, in Flaechen>=6 54.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/warped_blazewood_planks.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 24, in Flaechen>=6 57.4, Hauptton 45.3, Farben 54 (Verlauf?)",
+   "after": "orange",
+   "after_why": "Farben 54 (Verlauf?)"
+  },
+  "modules/simpleanimals/shared/resources/assets/simpleanimals/textures/item/truffle_soup.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 77.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplebeacons/shared/resources/assets/simplebeacons/textures/block/evil_beacon.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 84.4, Hauptton 60.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplebeacons/shared/resources/assets/simplebeacons/textures/block/mighty_beacon.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 84.4, Hauptton 60.9, hart 34.2",
+   "after": "orange",
+   "after_why": "hart 28.3"
+  },
+  "modules/simplebeacons/shared/resources/assets/simplebeacons/textures/block/mighty_evil_beacon.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 84.4, Hauptton 60.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplebeacons/shared/resources/assets/simplebeacons/textures/block/strong_beacon.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 84.4, Hauptton 60.9, hart 32.5",
+   "after": "orange",
+   "after_why": "hart 27.1"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/nautilus_shell_block_top.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 75.8, hart 23.8",
+   "after": "orange",
+   "after_why": "hart 18.5"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/sculk_tiles.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 86, in Flaechen>=6 62.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/enderite_crucible_bottom.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 61, in Flaechen>=6 83.6, Hauptton 50.8, hart 22.1",
+   "after": "orange",
+   "after_why": "hart 22.1"
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/enderite_crucible_handle.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 185, in Flaechen>=6 97.3, Hauptton 72.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/iron_crucible_bottom.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 61, in Flaechen>=6 83.6, Hauptton 50.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/iron_crucible_handle.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 195, in Flaechen>=6 91.4, Hauptton 76.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/iron_crucible_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 100, in Flaechen>=6 92.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/netherite_crucible_bottom.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 61, in Flaechen>=6 83.6, Hauptton 50.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/netherite_crucible_handle.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 190, in Flaechen>=6 99.2, Hauptton 74.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/netherite_crucible_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 100, in Flaechen>=6 75.4, hart 16.7",
+   "after": "orange",
+   "after_why": "hart 16"
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/reinforced_crucible_bottom.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 61, in Flaechen>=6 83.6, Hauptton 50.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/reinforced_crucible_handle.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 190, in Flaechen>=6 99.2, Hauptton 74.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/reinforced_crucible_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 100, in Flaechen>=6 82.4, hart 19.8",
+   "after": "orange",
+   "after_why": "hart 18.3"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/egg_trex.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 75, in Flaechen>=6 66.4, Hauptton 40.6, hart 16.9",
+   "after": "orange",
+   "after_why": "hart 16.9"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/egg_triceratops.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 78.1, groesste Flaeche 41",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/astral_enchanter_bottom.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 50.4",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/crimson_blazewood_planks.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 24, in Flaechen>=6 57.4, Hauptton 45.3, Farben 54 (Verlauf?)",
+   "after": "orange",
+   "after_why": "Farben 54 (Verlauf?)"
+  },
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/dark_enchanter_bottom.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 67.2, groesste Flaeche 48, Hauptton 46.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/warped_blazewood_planks.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 24, in Flaechen>=6 57.4, Hauptton 45.3, Farben 54 (Verlauf?)",
+   "after": "orange",
+   "after_why": "Farben 54 (Verlauf?)"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_door_top.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 85.8, groesste Flaeche 46, Hauptton 44",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_sticks.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 82, hart 20",
+   "after": "orange",
+   "after_why": "hart 18.5"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_trapdoor.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 76.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/burrowed_end_stone_top.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 142, in Flaechen>=6 65.2, Hauptton 60.9, hart 19.2",
+   "after": "orange",
+   "after_why": "hart 17.1"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_door_bottom.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 83.6, hart 24",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 60.2, hart 23.5"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_door_top.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "orange",
+   "why": "groesste Flaeche 46, in Flaechen>=6 57.4",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_trapdoor.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 88.2",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 47.7"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/stripped_ashwood_log.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 73.4, hart 30, groesste Flaeche 31",
+   "after": "orange",
+   "after_why": "hart 27.1"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/stripped_ashwood_log_top.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 67, in Flaechen>=6 42.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/stripped_duskwood_log.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 73, groesste Flaeche 22, hart 17.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/stripped_duskwood_log_top.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 83, in Flaechen>=6 42.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/item/ashwood_hanging_sign.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 90.8, groesste Flaeche 36",
+   "after": "orange",
+   "after_why": "groesste Flaeche 36, in Flaechen>=6 57.7"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/item/ashwood_sign.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 86.9, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "groesste Flaeche 40"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/item/duskwood_hanging_sign.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "orange",
+   "why": "in Flaechen>=6 61.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/item/duskwood_sign.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "orange",
+   "why": "in Flaechen>=6 65.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/item/end_painting.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 98, hart 17.4",
+   "after": "orange",
+   "after_why": "hart 17.2"
+  },
+  "modules/simplefoundry/shared/resources/assets/simplefoundry/textures/block/casting_tray_copper.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 63, in Flaechen>=6 68.4, hart 26.2",
+   "after": "orange",
+   "after_why": "hart 26.7"
+  },
+  "modules/simplefoundry/shared/resources/assets/simplefoundry/textures/block/casting_tray_empty.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 144, in Flaechen>=6 100, Hauptton 56.2, Farben 3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplefoundry/shared/resources/assets/simplefoundry/textures/block/casting_tray_gold.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 63, in Flaechen>=6 68.4, hart 26.2",
+   "after": "orange",
+   "after_why": "hart 27.1"
+  },
+  "modules/simplefoundry/shared/resources/assets/simplefoundry/textures/block/foundry_brick.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 88, hart 19.4",
+   "after": "orange",
+   "after_why": "hart 17.3"
+  },
+  "modules/simplefun/shared/resources/assets/simplefun/textures/block/rubber_duck.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 186, in Flaechen>=6 94.9, Hauptton 72.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplefun/shared/resources/assets/simplefun/textures/block/rubber_duck_pirate.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 151, in Flaechen>=6 96.5, Hauptton 69.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplefun/shared/resources/assets/simplefun/textures/item/dice.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 71.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplefun/shared/resources/assets/simplefun/textures/item/lucky_coin.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 81.7, groesste Flaeche 34",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 45"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/ceiling_tile.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 143, in Flaechen>=6 80.5, Hauptton 56.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/cloud_block.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 161, in Flaechen>=6 65.6, Hauptton 66",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/cloud_stone.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "Hauptton 55.9, groesste Flaeche 36, in Flaechen>=6 51.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/dotted_wallpaper.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 148, Hauptton 66, in Flaechen>=6 62.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_door_end.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 86, in Flaechen>=6 84.4, Hauptton 64.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_door_lower.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 84.4, groesste Flaeche 49, Hauptton 40.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_door_upper.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.3, groesste Flaeche 48",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_sign.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 67.6, groesste Flaeche 29, hart 21.5",
+   "after": "orange",
+   "after_why": "hart 21.9"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_sign_top.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 136, in Flaechen>=6 80.9, Hauptton 53.5",
+   "after": "orange",
+   "after_why": "hart 15.8"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 76, in Flaechen>=6 90.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light_broken.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 76, in Flaechen>=6 89.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light_flicker.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 76, in Flaechen>=6 90.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light_side.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 128, in Flaechen>=6 82.4, Hauptton 54.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/rift.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 77, Hauptton 55.5, in Flaechen>=6 53.5, hart 25.6",
+   "after": "orange",
+   "after_why": "hart 25.4"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/stained_ceiling_tile.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 74, in Flaechen>=6 77.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/striped_wallpaper.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 65, in Flaechen>=6 94.1, Farben 3, Hauptton 50.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/wallpaper.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 190, in Flaechen>=6 84.4, Hauptton 74.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/item/backdoor_key.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "Hauptton 55.3",
+   "after": "orange",
+   "after_why": "Hauptton 51.3"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/black_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 78.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/black_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 144, in Flaechen>=6 100, Hauptton 56.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/black_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 43 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/black_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/blue_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/blue_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/blue_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 95 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/blue_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/brown_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/brown_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/brown_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 85 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/brown_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 16, Farben 51 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.6"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 21.7",
+   "after": "orange",
+   "after_why": "hart 20.6"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/cyan_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/cyan_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/cyan_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 98 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/cyan_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/gray_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/gray_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/gray_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 44.5, Farben 52 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/gray_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 46.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/green_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/green_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/green_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 95 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/green_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_blue_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 40 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_blue_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "orange",
+   "after_why": "hart 15.4"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_blue_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 113 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_blue_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 40 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_gray_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 16.7",
+   "after": "orange",
+   "after_why": "hart 15.4"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_gray_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 15.4",
+   "after": "orange",
+   "after_why": "hart 16.5"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_gray_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 45 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_gray_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 15, Farben 107 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 36 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/lime_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 15.8, Farben 38 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.2"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/lime_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 15.4",
+   "after": "orange",
+   "after_why": "hart 15.6"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/lime_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 104 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/lime_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 38 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/magenta_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 41 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/magenta_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/magenta_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 113 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/magenta_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 34 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/orange_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 41 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/orange_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/orange_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 107 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/orange_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 44 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/pink_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 45 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/pink_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 21.7",
+   "after": "orange",
+   "after_why": "hart 18.1"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/pink_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 108 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/pink_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 39 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/purple_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 34 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/purple_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/purple_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 107 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/purple_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 36 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/red_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/red_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/red_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 105 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/red_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/redstone_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 28, in Flaechen>=6 44.1, Farben 33 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/white_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 34 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/white_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 21.7",
+   "after": "orange",
+   "after_why": "hart 21.7"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/white_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 15, Farben 61 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 16.2"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/white_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/yellow_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 41 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/yellow_copper_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 21.7",
+   "after": "orange",
+   "after_why": "hart 20.8"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/yellow_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, hart 15, Farben 116 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/yellow_light_pane_off.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 43.8, Farben 46 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/black_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "in Flaechen>=6 78.6, groesste Flaeche 47",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/black_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 43 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/blue_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/blue_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 95 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/brown_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/brown_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 85 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9, hart 16.3, Farben 51 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 16.1"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/copper_redstone_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "hart 21.7, Farben 72 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/cyan_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/cyan_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 98 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/gray_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/gray_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 54, in Flaechen>=6 43.7, Farben 52 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/green_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/green_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 95 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/light_blue_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9, Farben 40 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/light_blue_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 113 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/light_gray_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 45 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.3"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, hart 15.3, Farben 107 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.3"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/lime_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9, hart 16.1, Farben 38 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/lime_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 104 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/magenta_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9, Farben 41 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/magenta_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 113 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.3"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/orange_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9, Farben 41 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/orange_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 107 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.3"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/pink_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9, Farben 45 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/pink_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 108 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.3"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/purple_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9, Farben 34 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/purple_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 107 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/red_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/red_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 105 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/redstone_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "Farben 199 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/white_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 34 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/white_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, hart 15.3, Farben 61 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.3"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/yellow_copper_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9, Farben 41 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/yellow_light_pane.png": {
+   "group": "Licht-Scheiben",
+   "method": "quant",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 42.9, hart 15.3, Farben 116 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.3"
+  },
+  "modules/simplemobs/shared/resources/assets/simplemobs/textures/block/nether_heart.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 58, in Flaechen>=6 72.3, Hauptton 58.2, hart 21.7",
+   "after": "orange",
+   "after_why": "hart 17.1"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/black_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/blue_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/brown_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/cyan_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/disc_press_side.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 92.2, groesste Flaeche 34, hart 28.1",
+   "after": "orange",
+   "after_why": "hart 26"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/gray_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/green_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/light_blue_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "orange",
+   "after_why": "groesste Flaeche 36"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/light_gray_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/lime_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/magenta_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "orange",
+   "after_why": "groesste Flaeche 36, in Flaechen>=6 47.1"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/orange_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/pink_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/purple_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/red_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/white_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "orange",
+   "after_why": "groesste Flaeche 34"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/yellow_pocket_jukebox_case.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 66, in Flaechen>=6 85.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/black_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 51.2"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/black_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 48.8"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/black_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 50"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/blue_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 61.6"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/blue_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 64.6"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/blue_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 55.3"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/brown_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 55.5"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/brown_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 56.1"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/brown_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 45.9"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/cyan_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 67.1"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/cyan_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 60.6"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/gray_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 65.9"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/gray_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 61.8"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/green_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 59.8"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/green_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 62.2"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/green_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 59.4"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/light_blue_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 51.8"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/light_blue_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 48.8"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/light_blue_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 49.4"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/light_gray_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 51.2"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/light_gray_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 54.9"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/light_gray_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 45.9"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/lime_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 53.7"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/lime_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 48.8"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/lime_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 49.4"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/magenta_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 61.6"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/magenta_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 59.8"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/magenta_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 54.7"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/orange_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 51.2"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/orange_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 48.2"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/orange_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 47.1"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/pink_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 53.7"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/pink_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/pink_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 48.2"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 67.7"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 51.2"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 56.5"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/purple_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 55.5"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/purple_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 53.7"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/purple_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 50"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/red_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 53.7"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/red_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 56.7"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/red_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 51.2"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/sheet_music.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 78.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/white_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 48.8"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/white_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/white_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 49.4"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/yellow_pocket_jukebox.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 49.4"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/yellow_pocket_jukebox_open_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 54.9"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/yellow_pocket_jukebox_playing.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 76.5",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 49.4"
+  },
+  "modules/simpleoctets/shared/resources/assets/simpleoctets/textures/block/melon_flesh.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 153, in Flaechen>=6 83.2, Hauptton 59.8, hart 15.4",
+   "after": "orange",
+   "after_why": "hart 15.2"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/brass_pillar.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/brass_pillar_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/brass_tiles.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_brass.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 87.9, groesste Flaeche 46",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_lead.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 95.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_nickel.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 88.7, groesste Flaeche 42",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_silver.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 63, in Flaechen>=6 88.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_tin.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 56, in Flaechen>=6 92.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_zinc.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 64, in Flaechen>=6 89.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_brass.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_lead.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_nickel.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_silver.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_tin.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_zinc.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/enderite_block.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/infernite_block.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 29, in Flaechen>=6 44.9, Farben 71 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/lead_pillar.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/lead_pillar_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/lead_tiles.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/nickel_pillar.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/nickel_pillar_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/nickel_tiles.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/silver_pillar.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/silver_pillar_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/silver_tiles.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/terranite_block.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 40.6, Farben 72 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/tin_pillar.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/tin_pillar_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/tin_tiles.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/zenithite_block.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 44.9, Farben 69 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/zinc_pillar.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/zinc_pillar_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/zinc_tiles.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/end_rift_shard.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "Farben 53 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/infernite_ingot.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "Farben 36 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/nether_rift_shard.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "Farben 38 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/raw_enderite.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 47.4",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/rift_shard.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "Farben 51 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/sage_orb.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 50",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/terranite_ingot.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "Farben 49 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/zenithite_ingot.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "Farben 60 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/chunk_loader.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 30.6",
+   "after": "orange",
+   "after_why": "hart 19.6"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/chunk_loader_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 36",
+   "after": "orange",
+   "after_why": "hart 16.2"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 32.3",
+   "after": "orange",
+   "after_why": "hart 19.6"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 38.1, groesste Flaeche 35",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/elytra_pad_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.8, Farben 33 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 17.7, Farben 33 (Verlauf?)"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/elytra_pad_active_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 36, Farben 33 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 16.9, Farben 33 (Verlauf?)"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_chunk_loader_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 39.6",
+   "after": "orange",
+   "after_why": "hart 19.6"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 44.2",
+   "after": "orange",
+   "after_why": "hart 25"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 47.5",
+   "after": "orange",
+   "after_why": "hart 17.7"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_elytra_pad_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 43.1, Farben 41 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 24.8, Farben 41 (Verlauf?)"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_elytra_pad_active_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 46.2, Farben 41 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 21, Farben 41 (Verlauf?)"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_flypad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 32.1, groesste Flaeche 46, in Flaechen>=6 52.7",
+   "after": "orange",
+   "after_why": "hart 22.7"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_launchpad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 41.2",
+   "after": "orange",
+   "after_why": "hart 24"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_launchpad_charge_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 47.7",
+   "after": "orange",
+   "after_why": "hart 23.3"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_launchpad_charge_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 44",
+   "after": "orange",
+   "after_why": "hart 29.8"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_launchpad_charge_3.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 46",
+   "after": "orange",
+   "after_why": "hart 17.5"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_spawn_teleporter.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 41.7",
+   "after": "orange",
+   "after_why": "hart 24.8"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_spawn_teleporter_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 39.6, groesste Flaeche 22",
+   "after": "orange",
+   "after_why": "hart 19.4"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_spawn_teleporter_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 39.6, Farben 40 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 23.5, Farben 40 (Verlauf?)"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_spawn_teleporter_active_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 44.6, Farben 40 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 26.7, Farben 40 (Verlauf?)"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/fine_elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 40.8",
+   "after": "orange",
+   "after_why": "hart 28.5"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/fine_elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 45.4",
+   "after": "orange",
+   "after_why": "hart 26.9"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/fine_elytra_pad_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 43.1, Farben 44 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 26.2, Farben 44 (Verlauf?)"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/fine_elytra_pad_active_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 42.9, Farben 44 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 28.5, Farben 44 (Verlauf?)"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/infused_potion_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 36",
+   "after": "orange",
+   "after_why": "hart 19"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/infused_potion_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 46.5",
+   "after": "orange",
+   "after_why": "hart 27.3"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/infused_potion_pad_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 38.8",
+   "after": "orange",
+   "after_why": "hart 20.4"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/infused_potion_pad_active_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 43.5",
+   "after": "orange",
+   "after_why": "hart 23.5"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/infused_potion_pad_cooling.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 38.1",
+   "after": "orange",
+   "after_why": "hart 21.9"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/infused_potion_pad_cooling_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.3",
+   "after": "orange",
+   "after_why": "hart 18.1"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/infused_potion_pad_cooling_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 35.4",
+   "after": "orange",
+   "after_why": "hart 21"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_chunk_loader.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 41.9",
+   "after": "orange",
+   "after_why": "hart 26.9"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_chunk_loader_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 41.7",
+   "after": "orange",
+   "after_why": "hart 26.5"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 38.3",
+   "after": "orange",
+   "after_why": "hart 24"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 42.9, groesste Flaeche 35",
+   "after": "orange",
+   "after_why": "hart 22.1"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_elytra_pad_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 41.9",
+   "after": "orange",
+   "after_why": "hart 22.5"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_elytra_pad_active_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 42.5",
+   "after": "orange",
+   "after_why": "hart 22.3"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_launchpad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.1",
+   "after": "orange",
+   "after_why": "hart 19.2"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_launchpad_charge_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.1",
+   "after": "orange",
+   "after_why": "hart 16.5"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_launchpad_charge_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.1",
+   "after": "orange",
+   "after_why": "hart 20.4"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/potion_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/potion_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 35.6, groesste Flaeche 20",
+   "after": "orange",
+   "after_why": "hart 19"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/potion_pad_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/potion_pad_cooling.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20, hart 16",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/potion_pad_cooling_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/potion_pad_cooling_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 37.7",
+   "after": "orange",
+   "after_why": "hart 23.5"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 44.6, groesste Flaeche 35",
+   "after": "orange",
+   "after_why": "hart 24.6"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_elytra_pad_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 40",
+   "after": "orange",
+   "after_why": "hart 16.2"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_elytra_pad_active_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 43.3",
+   "after": "orange",
+   "after_why": "hart 20"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_potion_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_potion_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 40.4, groesste Flaeche 27",
+   "after": "orange",
+   "after_why": "hart 19.2"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_potion_pad_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_potion_pad_active_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 31, groesste Flaeche 27",
+   "after": "orange",
+   "after_why": "hart 19.6"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_potion_pad_cooling.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_potion_pad_cooling_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_potion_pad_cooling_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/spawn_teleporter_tier_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.8",
+   "after": "orange",
+   "after_why": "hart 24.2"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/spawn_teleporter_tier_4.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 45.4",
+   "after": "orange",
+   "after_why": "hart 26.2"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/stellar_flypad_ender.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 30.6",
+   "after": "orange",
+   "after_why": "hart 19.4"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/stellar_flypad_ender_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 42.3",
+   "after": "orange",
+   "after_why": "hart 22.5"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/stellar_flypad_ender_active_fade_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 36, Farben 39 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 19.2, Farben 39 (Verlauf?)"
+  },
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/stellar_flypad_ender_active_fade_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 37.7, Farben 39 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 16.5, Farben 39 (Verlauf?)"
+  },
+  "modules/simplequestionary/shared/resources/assets/simplequestionary/textures/block/questionary_table_book.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 78.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplequestionary/shared/resources/assets/simplequestionary/textures/block/questionary_table_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 40, in Flaechen>=6 53.9, hart 23.8, Farben 34 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 23.3, Farben 35 (Verlauf?)"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/acacia_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 56, in Flaechen>=6 60.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/ashwood_cutting_board_side.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 58, in Flaechen>=6 58.2, hart 29.2",
+   "after": "orange",
+   "after_why": "hart 29.2"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/bamboo_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "orange",
+   "why": "groesste Flaeche 41, in Flaechen>=6 64.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/birch_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 50, in Flaechen>=6 63.4",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/butter_block_side.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 153, in Flaechen>=6 83.2, Hauptton 60.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/butter_block_top.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 156, in Flaechen>=6 84.4, Hauptton 61.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/cheese_block_inner.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 170, in Flaechen>=6 69.5, Hauptton 67.6",
+   "after": "orange",
+   "after_why": "groesste Flaeche 23"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/cheese_block_side.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 177, in Flaechen>=6 69.1, Hauptton 69.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/cheese_block_top.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 194, in Flaechen>=6 78.1, Hauptton 75.8",
+   "after": "orange",
+   "after_why": "groesste Flaeche 28"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/cherry_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 66.9, groesste Flaeche 47, Hauptton 40.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/crimson_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 68.5, groesste Flaeche 45",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/dark_oak_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 56, in Flaechen>=6 74.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/duskwood_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 57, in Flaechen>=6 63, Hauptton 40.6, hart 27.1",
+   "after": "orange",
+   "after_why": "hart 26.2"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/duskwood_cutting_board_side.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 57, in Flaechen>=6 52.7, hart 24",
+   "after": "orange",
+   "after_why": "hart 22.3"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/jungle_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 71.3, groesste Flaeche 43",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/mangrove_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 64, in Flaechen>=6 72.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/butter.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 133, in Flaechen>=6 69.1, Hauptton 70.3",
+   "after": "orange",
+   "after_why": "groesste Flaeche 20"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/cheese.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 148, in Flaechen>=6 68.8, Hauptton 69.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/curd_0.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 161, in Flaechen>=6 67.6, Hauptton 68.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/curd_1.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 172, in Flaechen>=6 69.5, Hauptton 69.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/curd_2.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 148, in Flaechen>=6 71.1, Hauptton 64.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/curd_3.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 145, in Flaechen>=6 70.3, Hauptton 62.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/milk_0.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 197, in Flaechen>=6 77, Hauptton 77, Farben 3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/milk_1.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 181, in Flaechen>=6 73, Hauptton 71.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/milk_2.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 156, in Flaechen>=6 70.3, Hauptton 63.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/milk_3.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 142, Hauptton 59, in Flaechen>=6 64.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/milk_cauldron/spoiled.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 191, in Flaechen>=6 74.6, Hauptton 74.6",
+   "after": "orange",
+   "after_why": "Hauptton 44.9, hart 18.5"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/oak_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "in Flaechen>=6 65.4, groesste Flaeche 45, hart 26.8",
+   "after": "orange",
+   "after_why": "hart 23"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/pale_oak_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 56, in Flaechen>=6 74.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/poplar_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "orange",
+   "why": "groesste Flaeche 45, in Flaechen>=6 61, Hauptton 41.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/spruce_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 64, in Flaechen>=6 61",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/warped_cutting_board.png": {
+   "group": "Esche/Daemmerholz",
+   "method": "grain",
+   "light": "rot",
+   "why": "groesste Flaeche 67, in Flaechen>=6 67.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/butter_slice.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 48.8, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 46.9"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_black.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 45.3"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_blue.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 49.6"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_brown.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 47.7"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_cyan.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 50"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_gray.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 49.2"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_green.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 49.2"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_light_blue.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 48.8"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_light_gray.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 48.8"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_lime.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 47.7"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_magenta.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 48.8"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_orange.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 44.6, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 48"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_pink.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 44.6, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 49.6"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_purple.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 48.8"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_red.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 45.8, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 49.6"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_white.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 48.8, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 47.3"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_yellow.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 48.8, groesste Flaeche 39",
+   "after": "orange",
+   "after_why": "Hauptton 48.8"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, hart 47.5, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 45.3"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_black.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 41.4"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_blue.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4, hart 15",
+   "after": "orange",
+   "after_why": "Hauptton 45.7"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_brown.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 44.9"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_cyan.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 44.9"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_gray.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 44.9"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_green.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 45.3"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_light_blue.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 44.9"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_light_gray.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4, hart 15.4",
+   "after": "orange",
+   "after_why": "Hauptton 44.9"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_lime.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 44.9"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_magenta.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 43.4"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_orange.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, hart 42.7, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 44.1"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_pink.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, hart 42.7, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 43.4"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_purple.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4, hart 15",
+   "after": "orange",
+   "after_why": "Hauptton 43"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_red.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, hart 47.1, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 44.1"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_white.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, hart 45.4, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 43.4"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_yellow.png": {
+   "group": "Vitrinen",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 80.5, hart 46.9, groesste Flaeche 31, Hauptton 50.4",
+   "after": "orange",
+   "after_why": "Hauptton 43"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/sales_storage_intake.png": {
+   "group": "Vitrinen",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 24, hart 15.6, Farben 50 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 15.6, Farben 51 (Verlauf?)"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_front.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 160, in Flaechen>=6 80.9, Hauptton 70.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 130, in Flaechen>=6 89.1, Hauptton 51.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/chest_interface.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 85.7, groesste Flaeche 35",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/chest_interface_full.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 63, in Flaechen>=6 88.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/chest_interface_low.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 75.4",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/copper_barrel_flange.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 92, in Flaechen>=6 96.5, Hauptton 54.7, hart 28.7",
+   "after": "orange",
+   "after_why": "hart 28.7"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 70, in Flaechen>=6 69.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_front.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 131, in Flaechen>=6 66, Hauptton 57.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 160, in Flaechen>=6 76.6, Hauptton 69.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 129, in Flaechen>=6 83.6, Hauptton 51.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_front.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 160, in Flaechen>=6 80.5, Hauptton 70.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 130, in Flaechen>=6 88.7, Hauptton 51.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_front.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 160, in Flaechen>=6 80.5, Hauptton 70.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 130, in Flaechen>=6 88.7, Hauptton 51.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/storage_crafting_table_front.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 76, in Flaechen>=6 76.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/storage_crafting_table_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 68.4, groesste Flaeche 32",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/storage_crafting_table_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 69.5, groesste Flaeche 40",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpletools/shared/resources/assets/simpletools/textures/block/death_vault_bottom.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 52, in Flaechen>=6 90.2, Hauptton 51.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpletools/shared/resources/assets/simpletools/textures/block/death_vault_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 87.9, groesste Flaeche 32",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpletools/shared/resources/assets/simpletools/textures/block/death_vault_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 73.8, groesste Flaeche 46",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpletools/shared/resources/assets/simpletools/textures/block/strip_station_frame.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 79, in Flaechen>=6 85.2, Hauptton 42.2",
+   "after": "orange",
+   "after_why": "hart 15.4"
+  },
+  "modules/simpletweaks/shared/resources/assets/simpletweaks/textures/block/claim_table_bottom.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 77, in Flaechen>=6 90.6, Hauptton 61.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpletweaks/shared/resources/assets/simpletweaks/textures/block/claim_table_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 93, in Flaechen>=6 90.6, Hauptton 49.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simpletweaks/shared/resources/assets/simpletweaks/textures/block/claim_table_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 83.2, hart 31.7",
+   "after": "orange",
+   "after_why": "hart 29.6"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/astralit_block.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 37, in Flaechen>=6 57.4, Hauptton 43.4",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/astralit_bricks.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 37, in Flaechen>=6 51.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/astralit_pillar.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 45, in Flaechen>=6 63.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/astralit_pillar_top.png": {
+   "group": "Runde 15 (Simple End)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/backpack_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/backpack_front.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/backpack_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 160, in Flaechen>=6 80.9, Hauptton 70.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/backpack_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 130, in Flaechen>=6 89.1, Hauptton 51.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/chiseled_astralit_bricks.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 100, in Flaechen>=6 95.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/chiseled_ender_quartz_bricks.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 79.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/chiseled_nihilith_bricks.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 72, in Flaechen>=6 83.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/chunk_loader.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 30.6",
+   "after": "orange",
+   "after_why": "hart 19.6"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/chunk_loader_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 36",
+   "after": "orange",
+   "after_why": "hart 16.2"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/construction_light.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 46, hart 16",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/cracked_astralit_bricks.png": {
+   "group": "Kanten-Motive",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 30",
+   "after": "orange",
+   "after_why": "hart 19.4"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 32.3",
+   "after": "orange",
+   "after_why": "hart 19.6"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 38.1, groesste Flaeche 35",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/ender_quartz_block.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "Hauptton 44.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/ender_quartz_bricks.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 21, in Flaechen>=6 51.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/ender_quartz_pillar.png": {
+   "group": "Runde 15 (Simple End)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/ender_quartz_pillar_top.png": {
+   "group": "Runde 15 (Simple End)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 70, in Flaechen>=6 69.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_front.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 131, in Flaechen>=6 66, Hauptton 57.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 160, in Flaechen>=6 76.6, Hauptton 69.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 129, in Flaechen>=6 83.6, Hauptton 51.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_blast_furnace_front.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 20",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_block.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_chunk_loader_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 39.6",
+   "after": "orange",
+   "after_why": "hart 19.6"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 44.2",
+   "after": "orange",
+   "after_why": "hart 25"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 47.5",
+   "after": "orange",
+   "after_why": "hart 17.7"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_flypad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 32.1, groesste Flaeche 46, in Flaechen>=6 52.7",
+   "after": "orange",
+   "after_why": "hart 22.7"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_launchpad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 41.2",
+   "after": "orange",
+   "after_why": "hart 24"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_launchpad_charge_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 47.7",
+   "after": "orange",
+   "after_why": "hart 23.3"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_launchpad_charge_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 44",
+   "after": "orange",
+   "after_why": "hart 29.8"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_launchpad_charge_3.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 46",
+   "after": "orange",
+   "after_why": "hart 17.5"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_pressure_plate.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_shulker_box.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 43",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_spawn_teleporter.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 41.7",
+   "after": "orange",
+   "after_why": "hart 24.8"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_spawn_teleporter_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 39.6, groesste Flaeche 22",
+   "after": "orange",
+   "after_why": "hart 19.4"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/fine_elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 40.8",
+   "after": "orange",
+   "after_why": "hart 28.5"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/fine_elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 45.4",
+   "after": "orange",
+   "after_why": "hart 26.9"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/infused_potion_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 36",
+   "after": "orange",
+   "after_why": "hart 19"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/infused_potion_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 46.5",
+   "after": "orange",
+   "after_why": "hart 27.3"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/infused_potion_pad_cooling.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 38.1",
+   "after": "orange",
+   "after_why": "hart 21.9"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_front.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 160, in Flaechen>=6 80.5, Hauptton 70.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 130, in Flaechen>=6 88.7, Hauptton 51.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_blast_furnace_front.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 20",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_chunk_loader.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 41.9",
+   "after": "orange",
+   "after_why": "hart 26.9"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_chunk_loader_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 41.7",
+   "after": "orange",
+   "after_why": "hart 26.5"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 38.3",
+   "after": "orange",
+   "after_why": "hart 24"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 42.9, groesste Flaeche 35",
+   "after": "orange",
+   "after_why": "hart 22.1"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_furnace_front.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 20",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_launchpad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.1",
+   "after": "orange",
+   "after_why": "hart 19.2"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_launchpad_charge_1.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.1",
+   "after": "orange",
+   "after_why": "hart 16.5"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_launchpad_charge_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.1",
+   "after": "orange",
+   "after_why": "hart 20.4"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_shulker_box.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 43",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/nihilith_block.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "Hauptton 44.9",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/nihilith_bricks.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 24, in Flaechen>=6 48.4",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/nihilith_pillar.png": {
+   "group": "Runde 15 (Simple End)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/nihilith_pillar_top.png": {
+   "group": "Runde 15 (Simple End)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/polished_astralit.png": {
+   "group": "Runde 15 (Simple End)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/polished_astralit_checker.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 55.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/polished_astralit_checker_mirror.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 55.1",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/polished_ender_quartz.png": {
+   "group": "Runde 15 (Simple End)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/polished_ender_quartz_checker.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 63.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/polished_ender_quartz_checker_mirror.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 63.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/polished_nihilith.png": {
+   "group": "Runde 15 (Simple End)",
+   "method": "r15",
+   "light": "rot",
+   "why": "b-texrate15",
+   "after": "siehe Runde 15"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/polished_nihilith_checker.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 56.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/polished_nihilith_checker_mirror.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 56.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/potion_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/potion_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 35.6, groesste Flaeche 20",
+   "after": "orange",
+   "after_why": "hart 19"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/potion_pad_cooling.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 20, hart 16",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/purpur_quartz_checker.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 51.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/purpur_quartz_checker_mirror.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 51.2",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_back.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_front.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 160, in Flaechen>=6 80.5, Hauptton 70.7",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_top.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 130, in Flaechen>=6 88.7, Hauptton 51.6",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_elytra_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 37.7",
+   "after": "orange",
+   "after_why": "hart 23.5"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_elytra_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 44.6, groesste Flaeche 35",
+   "after": "orange",
+   "after_why": "hart 24.6"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_potion_pad.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_potion_pad_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 40.4, groesste Flaeche 27",
+   "after": "orange",
+   "after_why": "hart 19.2"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_potion_pad_cooling.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "orange",
+   "why": "groesste Flaeche 27",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_shulker_box.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 43",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/spawn_teleporter_tier_2.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 33.8",
+   "after": "orange",
+   "after_why": "hart 24.2"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/spawn_teleporter_tier_4.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 45.4",
+   "after": "orange",
+   "after_why": "hart 26.2"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/stellar_flypad_ender.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 30.6",
+   "after": "orange",
+   "after_why": "hart 19.4"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/stellar_flypad_ender_active.png": {
+   "group": "Pads",
+   "method": "pad",
+   "light": "rot",
+   "why": "hart 42.3",
+   "after": "orange",
+   "after_why": "hart 22.5"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/weathered_copper_pressure_plate.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 26",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/weathered_copper_pressure_plate_active.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "groesste Flaeche 24",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/backpack.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 73.8",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/enderite_backpack.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 67.3",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/enderite_bundle.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "Farben 55 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/enderite_quiver.png": {
+   "group": "Weiche Verlaeufe",
+   "method": "quant",
+   "light": "orange",
+   "why": "Farben 36 (Verlauf?)",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/netherite_backpack.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 73.8",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 45.8"
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/raw_enderite.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 47.4",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/reinforced_backpack.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 73.8",
+   "after": "gruen",
+   "after_why": ""
+  }
+ },
+ "not_improved": {
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/astral_redstone_block.png": "Flaechen (allgemein): orange -> orange",
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/blazing_obsidian.png": "Weiche Verlaeufe: orange -> orange",
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/astralit.png": "Kanten-Motive: orange -> orange",
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/crimson_blazewood_bookshelf.png": "Esche/Daemmerholz: orange -> orange",
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/hammock_rope.png": "Flaechen (allgemein): rot -> rot",
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihil_obsidian.png": "Flaechen (allgemein): orange -> orange",
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihil_redstone_block.png": "Flaechen (allgemein): orange -> orange",
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/warped_blazewood_bookshelf.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/fletching_feather.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/fletching_phantom_membrane.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_blaze_rod.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_breeze_rod.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_diamond_rod.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_end_rod.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_stick.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/aqua_froglight_side.png": "Froschlichter: orange -> orange",
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/aqua_froglight_top.png": "Froschlichter: rot -> rot",
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/azure_froglight_side.png": "Froschlichter: rot -> rot",
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/azure_froglight_top.png": "Froschlichter: rot -> rot",
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/blue_nether_bricks.png": "Flaechen (allgemein): orange -> orange",
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/nautilus_shell_block_side.png": "Flaechen (allgemein): orange -> orange",
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/scarlet_froglight_side.png": "Froschlichter: rot -> rot",
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/scarlet_froglight_top.png": "Froschlichter: rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/egg_parasaurolophus.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/egg_utahraptor.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_0.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_1.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_2.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_3.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_4.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_5.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_6.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_7.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_8.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_9.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/crimson_blazewood_bookshelf.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/warped_blazewood_bookshelf.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_bookshelf.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_door_bottom.png": "Esche/Daemmerholz: rot -> rot",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_leaves.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_leaves_crystal.png": "Esche/Daemmerholz: rot -> rot",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_leaves_inner.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_leaves_loose.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_log_top.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_shelf.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_sticks_top.png": "Esche/Daemmerholz: rot -> rot",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_bookshelf.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_leaves.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_leaves_crystal.png": "Esche/Daemmerholz: rot -> rot",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_leaves_inner.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_leaves_loose.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_log.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_log_top.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_sign.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_sticks.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_sticks_top.png": "Esche/Daemmerholz: rot -> rot",
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/end_grass.png": "Weiche Verlaeufe: orange -> orange",
+  "modules/simplefoundry/shared/resources/assets/simplefoundry/textures/block/casting_tray_iron.png": "Holz-/Lederflaechen (Modell): rot -> rot",
+  "modules/simplefun/shared/resources/assets/simplefun/textures/item/party_popper_confetti.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/light_gray_copper_light_pane.png": "Licht-Scheiben: orange -> orange",
+  "modules/simplemobs/shared/resources/assets/simplemobs/textures/block/makeshift_spawner.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/disc_press_top.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/custom_disc_composed_label.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/custom_disc_label.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/cyan_pocket_jukebox_open_back.png": "Holz-/Lederflaechen (Modell): rot -> rot",
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/gray_pocket_jukebox_open_back.png": "Holz-/Lederflaechen (Modell): rot -> rot",
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/deepslate_sage_ore.png": "Flaechen (allgemein): orange -> orange",
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/sage_ore.png": "Flaechen (allgemein): orange -> orange",
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/enderite_nugget.png": "Flaechen (allgemein): orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/enderite_chunk_loader.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/flypad.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/flypad_ender.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/flypad_ender_active.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/flypad_ender_active_fade_1.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/flypad_ender_active_fade_2.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/launchpad.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/launchpad_charge_1.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/launchpad_charge_2.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/netherite_launchpad_charge_3.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/potion_pad_active_fade_2.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_flypad.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/reinforced_flypad_ender_active.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/spawn_teleporter.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/spawn_teleporter_active.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/spawn_teleporter_tier_2_active.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/spawn_teleporter_tier_2_active_fade_1.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/spawn_teleporter_tier_2_active_fade_2.png": "Pads: orange -> orange",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/spawn_teleporter_tier_3.png": "Pads: rot -> rot",
+  "modules/simplepads/shared/resources/assets/simplepads/textures/block/stellar_flypad.png": "Pads: orange -> orange",
+  "modules/simplequestionary/shared/resources/assets/simplequestionary/textures/block/questionary_table_gem.png": "Holz-/Lederflaechen (Modell): rot -> rot",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/ashwood_cutting_board.png": "Esche/Daemmerholz: rot -> rot",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/oak_cutting_board_side.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/pale_oak_cutting_board_side.png": "Esche/Daemmerholz: orange -> orange",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_1_apple.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_1_pie.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_2_apple.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_2_pie.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_3_apple.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_3_pie.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_4_apple.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_4_pie.png": "Flaechen (allgemein): rot -> rot",
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_base.png": "Vitrinen: rot -> rot",
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_base.png": "Vitrinen: rot -> rot",
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/sales_storage_back.png": "Vitrinen: orange -> orange",
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/sales_storage_side.png": "Vitrinen: orange -> orange",
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_barrel_flange.png": "Holz-/Lederflaechen (Modell): rot -> rot",
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_barrel_flange.png": "Holz-/Lederflaechen (Modell): rot -> rot",
+  "modules/simpletools/shared/resources/assets/simpletools/textures/block/strip_station_bars.png": "Holz-/Lederflaechen (Modell): rot -> rot",
+  "src/main/resources/assets/simplebuilding/textures/block/cracked_ender_quartz_bricks.png": "Kanten-Motive: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/cracked_nihilith_bricks.png": "Kanten-Motive: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_chunk_loader.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_furnace_front.png": "Flaechen (allgemein): orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/flypad.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/flypad_ender.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/flypad_ender_active.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/launchpad.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/launchpad_charge_1.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/launchpad_charge_2.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_launchpad_charge_3.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/nihilith_quartz_checker.png": "Flaechen (allgemein): orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/nihilith_quartz_checker_mirror.png": "Flaechen (allgemein): orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_blast_furnace_front.png": "Flaechen (allgemein): orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_flypad.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_flypad_ender_active.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_furnace_front.png": "Flaechen (allgemein): orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/spawn_teleporter.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/spawn_teleporter_active.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/spawn_teleporter_tier_2_active.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/block/spawn_teleporter_tier_3.png": "Pads: rot -> rot",
+  "src/main/resources/assets/simplebuilding/textures/block/stellar_flypad.png": "Pads: orange -> orange",
+  "src/main/resources/assets/simplebuilding/textures/item/enderite_nugget.png": "Flaechen (allgemein): orange -> orange"
+ }
+}
