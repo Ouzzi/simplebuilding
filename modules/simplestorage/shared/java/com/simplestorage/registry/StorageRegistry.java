@@ -26,7 +26,7 @@ public final class StorageRegistry {
     public static void registerTab() {
         TAB = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, SimpleStorage.id("storage"), CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                 .title(Component.translatable("itemgroup.simplestorage.storage"))
-                .icon(() -> new ItemStack(StorageItems.CRATES.get(com.simplestorage.crate.CrateWood.OAK)))
+                .icon(() -> new ItemStack(StorageItems.REINFORCED_BUNDLE)) // WH26-1: the tab icon is a bundle
                 .displayItems((parameters, output) -> {
                     tabStacks().forEach(output::accept);
                     // Split stage 8c-1: the storage enchantments as books at their highest level.
