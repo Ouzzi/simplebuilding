@@ -3,6 +3,10 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpledimension", false); }
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void defaultDimensions(GameTestHelper h){DimensionsGuideTests.defaultDimensions(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void guideRecipe(GameTestHelper h){DimensionsGuideTests.guideRecipe(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void guideContent(GameTestHelper h){DimensionsGuideTests.guideContent(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void guideWelcome(GameTestHelper h){DimensionsGuideTests.guideWelcome(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=100) public void guideBook(GameTestHelper h){com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.gameTest(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsFootprints(GameTestHelper h){PortalProtectionTests.footprints(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsLinkedTravel(GameTestHelper h){PortalProtectionTests.linkedTravel(h);}

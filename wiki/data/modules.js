@@ -498,9 +498,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 2,
-      "features": 8
+      "features": 11
     },
-    "dataHash": "d74a6b8af09f"
+    "dataHash": "1e3f79642edb"
   },
   {
     "id": "simplesandwiches",

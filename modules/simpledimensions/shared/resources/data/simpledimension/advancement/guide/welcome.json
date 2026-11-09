@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "welcomed": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "welcomed"
+    ]
+  ]
+}

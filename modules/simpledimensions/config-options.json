@@ -9,6 +9,14 @@
       "scope": "server"
     },
     {
+      "key": "giveGuideOnFirstTravel",
+      "default": true,
+      "tab": "access",
+      "name": "simpledimension.config.giveGuideOnFirstTravel",
+      "tooltip": "simpledimension.config.giveGuideOnFirstTravel.tooltip",
+      "scope": "server"
+    },
+    {
       "key": "skyblockEnabled",
       "default": true,
       "tab": "dimensions",

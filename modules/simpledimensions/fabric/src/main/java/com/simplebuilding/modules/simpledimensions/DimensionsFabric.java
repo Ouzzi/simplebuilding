@@ -9,6 +9,11 @@ public final class DimensionsFabric implements ModInitializer {
   com.simplelib.api.config.ConfigCommands.server("simpledimension").gson(DimensionSettings.class,
    ()->{try{return DimensionSettings.load(DimensionRuntime.CONFIG_ROOT);}catch(RuntimeException e){return new DimensionSettings();}},
    DimensionRuntime::applySettings,DimensionSettings::new).save(()->{}).register();
+  // W5: /simpledimension guide hands out the Simple Modpack guide with this chapter open (every player; merges with the config command's root).
+  net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d,r,e)->d.register(net.minecraft.commands.Commands.literal("simpledimension").then(net.minecraft.commands.Commands.literal("guide").executes(c->{
+   var p=c.getSource().getPlayerOrException();
+   if(!com.simplebuilding.modules.simpledimensions.guide.DimensionsGuideAccess.give(p)){c.getSource().sendFailure(net.minecraft.network.chat.Component.translatable("simpledimension.guide.command.missing"));return 0;}
+   c.getSource().sendSuccess(()->net.minecraft.network.chat.Component.translatable("simpledimension.guide.command.given"),false);return 1;}))));
   net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(s->DimensionRuntime.get(s).tick());
   net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(DimensionRuntime::stop);
   net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p,l,h,hit)->p instanceof net.minecraft.server.level.ServerPlayer sp?PortalActivation.ignite(sp,h,hit):net.minecraft.world.InteractionResult.PASS);
