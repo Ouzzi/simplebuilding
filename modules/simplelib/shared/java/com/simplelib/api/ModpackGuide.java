@@ -37,6 +37,11 @@ public final class ModpackGuide {
     public static final Identifier ITEM_ID = SimpleLib.id("modpack_guide");
     /** Path of a mod's contribution below {@code assets/<namespace>/}. */
     public static final String CONTRIBUTION = "simplelib/modpack_guide.json";
+    /**
+     * b-guidechap14: a retired single guide writes its chapter id ({@code <ns>:guide}) under this key into the
+     * {@code custom_data} of the guide it turns into; with the client switch {@code guideOpensChapter} that guide opens there.
+     */
+    public static final String CHAPTER_TAG = "simplelib_guide_chapter";
     /** Most advancement ids one query may ask about. */
     public static final int MAX_QUERY = 256;
 
@@ -66,6 +71,23 @@ public final class ModpackGuide {
     public static ItemStack stack() {
         Item item = item();
         return item == null ? ItemStack.EMPTY : new ItemStack(item);
+    }
+
+    /** The chapter a guide came from ({@link #CHAPTER_TAG}), or null (crafted, or turned before b-guidechap14). */
+    public static @Nullable Identifier chapterOf(ItemStack stack) {
+        var data = stack.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
+        if (data == null) return null;
+        String raw = data.copyTag().getStringOr(CHAPTER_TAG, "");
+        return raw.isEmpty() ? null : Identifier.tryParse(raw);
+    }
+
+    /** The section holding {@code chapter}, or null. */
+    public static @Nullable Section sectionOf(List<Section> sections, @Nullable Identifier chapter) {
+        if (chapter == null) return null;
+        for (Section section : sections) {
+            for (Chapter c : section.chapters()) if (c.id().equals(chapter)) return section;
+        }
+        return null;
     }
 
     /** Whether the id is one of the retired single guides ({@code <mod>:guide_book}, SimpleBuilding's {@code guide_book_*}). */

@@ -91,6 +91,38 @@ public final class ModpackGuideTests {
     }
 
     /** The server answers which chapter advancements are done: none before, the awarded one after; unknown ids are never done. */
+    public static void chapterJump(GameTestHelper h) {
+        // b-guidechap14: a guide turned from an old book names its chapter in custom_data; the client finds the section holding it.
+        ItemStack crafted = ModpackGuide.stack();
+        h.assertTrue(ModpackGuide.chapterOf(crafted) == null, "a crafted guide claims a chapter");
+        ItemStack turned = crafted.copy();
+        net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+        tag.putString(ModpackGuide.CHAPTER_TAG, "simplefun:guide");
+        turned.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(tag));
+        Identifier chapter = ModpackGuide.chapterOf(turned);
+        h.assertTrue(Identifier.parse("simplefun:guide").equals(chapter), "chapter not read back: " + chapter);
+        String fun = "{\"section\":\"simplebuilding\",\"name\":\"f\",\"icon\":\"minecraft:brick\",\"chapters\":[{\"id\":\"simplefun:guide\","
+                + "\"title\":\"f\",\"icon\":\"minecraft:brick\",\"page_key\":\"f\",\"pages\":3}]}";
+        String sb = "{\"section\":\"simplebuilding\",\"name\":\"s\",\"icon\":\"minecraft:bricks\",\"order\":0,\"screen\":true,\"chapters\":[]}";
+        String qol = "{\"section\":\"simplequalityoflife\",\"name\":\"q\",\"icon\":\"minecraft:chest\",\"order\":10,"
+                + "\"chapters\":[{\"id\":\"simplequalityoflife:guide\",\"title\":\"q\",\"icon\":\"minecraft:chest\",\"page_key\":\"q\",\"pages\":2}]}";
+        var sections = ModpackGuide.sections(List.of(contribution("simplebuilding", sb), contribution("simplefun", fun),
+                contribution("simplequalityoflife", qol)));
+        var found = ModpackGuide.sectionOf(sections, chapter);
+        h.assertTrue(found != null && found.id().equals("simplebuilding"), "simplefun:guide not found in the SimpleBuilding section: " + found);
+        var other = ModpackGuide.sectionOf(sections, Identifier.parse("simplequalityoflife:guide"));
+        h.assertTrue(other != null && other.id().equals("simplequalityoflife"), "QoL chapter in the wrong section: " + other);
+        h.assertTrue(ModpackGuide.sectionOf(sections, Identifier.parse("simplemissing:guide")) == null
+                && ModpackGuide.sectionOf(sections, null) == null, "an unknown chapter found a section");
+        for (String locale : List.of("en_us", "de_de")) {
+            String lang = resource("/assets/simplelib/lang/" + locale + ".json");
+            h.assertTrue(lang != null && lang.contains("\"text.autoconfig.simplelib.option.guideOpensChapter\"")
+                    && lang.contains(locale.equals("en_us") ? "Default: false." : "Standard: aus.") && lang.contains("\"simplelib.tab.guide\""),
+                    locale + " lacks the guideOpensChapter switch");
+        }
+        h.succeed();
+    }
+
     public static void unlocks(GameTestHelper h) {
         var player = h.makeMockServerPlayerInLevel();
         h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));

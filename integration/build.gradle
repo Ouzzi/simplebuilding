@@ -211,8 +211,10 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def b09 = requested == 'b09tools'
         // 'rel10' is no module either: release acceptance A 09.11., the last features before the release (Rel10ClientTest).
         def rel10 = requested == 'rel10'
-        def entries = (audit || bench || compat || bs25 || mixinaudit || b09 || rel10 || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
-        if (requested && !audit && !bench && !compat && !bs25 && !mixinaudit && !vis && !b09 && !rel10 && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
+        // 'guidechap' is no module either: b-guidechap14, an old mod handbook opens the Simple Modpack guide at its chapter (switch on/off).
+        def guidechap = requested == 'guidechap'
+        def entries = (audit || bench || compat || bs25 || mixinaudit || b09 || rel10 || guidechap || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
+        if (requested && !audit && !bench && !compat && !bs25 && !mixinaudit && !vis && !b09 && !rel10 && !guidechap && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
             entrypoints:['fabric-client-gametest':audit ? ['com.simplebuilding.integration.clienttest.ModelAuditClientTest']
@@ -222,8 +224,9 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
                 : mixinaudit ? ['com.simplebuilding.integration.clienttest.MixinAuditClientTest']
                 : b09 ? ['com.simplebuilding.integration.clienttest.B09ToolsClientTest']
                 : rel10 ? ['com.simplebuilding.integration.clienttest.Rel10ClientTest']
+                : guidechap ? ['com.simplebuilding.integration.clienttest.GuideChapterClientTest']
                 : entries.collectMany { it.tests.client.entrypoints } + (vis ? ['com.simplebuilding.integration.clienttest.Vis24ClientTest'] : [])],
-            depends:(audit || bs25 || mixinaudit || b09 || rel10 || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
+            depends:(audit || bs25 || mixinaudit || b09 || rel10 || guidechap || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
                 def producer = registry.modules.find { it.id == requiredId }
                 [(producer?.modId ?: requiredId):'*']
             }]

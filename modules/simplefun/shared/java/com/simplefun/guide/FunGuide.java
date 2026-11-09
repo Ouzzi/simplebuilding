@@ -12,6 +12,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.WrittenBookItem;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.WrittenBookContent;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -51,6 +53,12 @@ public final class FunGuide {
     /** The chapter's unlock advancement and the Vanilla item it asks for (the old guide's recipe item). */
     public static final Identifier CHAPTER = Identifier.fromNamespaceAndPath(NAMESPACE, "guide/chapter");
     public static final Item RECIPE_ITEM = Items.BRICK;
+    /**
+     * The chapter id in the guide data; the guide this book turns into carries it as {@code custom_data}
+     * {@value #CHAPTER_TAG} (b-guidechap14: with SimpleLib's client switch it opens there).
+     */
+    public static final Identifier CHAPTER_ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide");
+    public static final String CHAPTER_TAG = "simplelib_guide_chapter";
     private static Item book;
 
     private FunGuide() {
@@ -67,7 +75,7 @@ public final class FunGuide {
                     Item guide = BuiltInRegistries.ITEM.getOptional(MODPACK_GUIDE).orElse(null);
                     if (guide == null) return super.use(level, player, hand);
                     if (!level.isClientSide()) {
-                        player.setItemInHand(hand, new ItemStack(guide));
+                        player.setItemInHand(hand, turned(guide));
                         level.playSound(null, player.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0F, 1.0F);
                     }
                     return InteractionResult.SUCCESS;
@@ -75,6 +83,15 @@ public final class FunGuide {
             });
         }
         return book;
+    }
+
+    /** The Simple Modpack guide this book turns into, marked with its chapter ({@link #CHAPTER_TAG}). */
+    static ItemStack turned(Item guide) {
+        ItemStack stack = new ItemStack(guide);
+        CompoundTag tag = new CompoundTag();
+        tag.putString(CHAPTER_TAG, CHAPTER_ID.toString());
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        return stack;
     }
 
     /** The registered book; {@code null} before {@link #register}. */
@@ -147,8 +164,12 @@ public final class FunGuide {
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(book));
         h.assertTrue(player.getMainHandItem().use(h.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the old guide does not react");
         h.assertTrue(player.getMainHandItem().is(guide), "using the old guide did not turn it into the Simple Modpack guide");
+        var marked = player.getMainHandItem().get(DataComponents.CUSTOM_DATA);
+        h.assertTrue(marked != null && CHAPTER_ID.toString().equals(marked.copyTag().getStringOr(CHAPTER_TAG, "")),
+                "the turned guide does not remember its chapter " + CHAPTER_ID);
         String data = resource("/assets/" + NAMESPACE + "/simplelib/modpack_guide.json");
-        h.assertTrue(data != null && data.contains("\"pages\": " + PAGES + ",") && data.contains("\"advancement\": \"" + CHAPTER + "\""),
+        h.assertTrue(data != null && data.contains("\"pages\": " + PAGES + ",") && data.contains("\"advancement\": \"" + CHAPTER + "\"")
+                && data.contains("\"id\": \"" + CHAPTER_ID + "\""),
                 "the chapter data for the Simple Modpack guide is missing or stale");
         var holder = h.getLevel().getServer().getAdvancements().get(CHAPTER);
         h.assertTrue(holder != null, "chapter advancement missing: " + CHAPTER);

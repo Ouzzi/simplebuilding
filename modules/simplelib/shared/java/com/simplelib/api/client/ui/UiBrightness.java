@@ -106,6 +106,7 @@ public enum UiBrightness {
         json.addProperty("slotAlert", com.simplelib.api.client.SlotAlert.enabled);
         json.addProperty("slotAlertReducedMotion", com.simplelib.api.client.SlotAlert.reducedMotion);
         json.addProperty("slotAlertBeam", com.simplelib.api.client.SlotAlert.beam);
+        json.addProperty("guideOpensChapter", com.simplelib.api.client.ModpackGuideScreens.opensChapter);
         return json;
     }
 
@@ -119,6 +120,7 @@ public enum UiBrightness {
         com.simplelib.api.client.SlotAlert.enabled = !json.has("slotAlert") || json.get("slotAlert").getAsBoolean();
         com.simplelib.api.client.SlotAlert.reducedMotion = json.has("slotAlertReducedMotion") && json.get("slotAlertReducedMotion").getAsBoolean();
         com.simplelib.api.client.SlotAlert.beam = json.has("slotAlertBeam") && json.get("slotAlertBeam").getAsBoolean();
+        com.simplelib.api.client.ModpackGuideScreens.opensChapter = json.has("guideOpensChapter") && json.get("guideOpensChapter").getAsBoolean();
     }
 
     /** Writes the current brightness next to the other configs (no-op before {@link #load}). */
