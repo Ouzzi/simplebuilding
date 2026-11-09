@@ -1239,7 +1239,7 @@ public final class SmokeClientTest {
                 throw new AssertionError("Setup failed: the player is creative, and cycleMode charges "
                         + "nothing in creative - the claim could not be tested.");
             }
-            if (!stack.is(ModItems.ORE_DETECTOR) || stack.getDamageValue() != 0) {
+            if (!com.simplebuilding.util.GadgetRefs.isDetector(stack) || stack.getDamageValue() != 0) { // 26.3: Simple Gadgets (G3)
                 throw new AssertionError("Setup failed: the main hand holds " + stack + " with damage "
                         + stack.getDamageValue() + " instead of an undamaged ore detector.");
             }

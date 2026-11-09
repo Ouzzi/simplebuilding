@@ -60,6 +60,11 @@ public final class GadgetsFabric implements ModInitializer {
             }
             return com.simplegadgets.rotator.ArmorPoses.use(player, stand, held);
         });
+        // G3 (was SimpleBuilding's ItemFrameEntityMixin): an Attractor with Constructor's Touch takes the framed item as its filter.
+        net.fabricmc.fabric.api.event.player.UseEntityCallback.EVENT.register((player, level, hand, entity, hit) ->
+                entity instanceof net.minecraft.world.entity.decoration.ItemFrame frame
+                        ? com.simplegadgets.attractor.AttractorItem.filterFromFrame(player, player.getItemInHand(hand), frame.getItem())
+                        : net.minecraft.world.InteractionResult.PASS);
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             com.simplegadgets.rotator.RotatorItem.onDisconnect(handler.player);
             com.simplegadgets.echo.EchoSounderItem.onDisconnect(handler.player);

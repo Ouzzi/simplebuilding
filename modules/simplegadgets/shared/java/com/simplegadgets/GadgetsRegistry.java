@@ -29,6 +29,10 @@ public final class GadgetsRegistry {
     public static Item AMETHYST_LENS;
     /** Echo Sounder (Echolot): jumps to a linked lodestone; id {@code echo_sounder} as in SimpleBuilding. */
     public static Item ECHO_SOUNDER;
+    /** Detector (Detektor, G3): finds ores, calibrated it can be laid down; id {@code detector} as in SimpleBuilding. */
+    public static Item DETECTOR;
+    /** Attractor (G3): pulls loose items, held or laid down; id {@code magnet} as in SimpleBuilding. */
+    public static Item MAGNET;
     public static CreativeModeTab TAB;
 
     /** Enchantability of the netherite tier, as SimpleBuilding gave its gadgets. */
@@ -40,6 +44,11 @@ public final class GadgetsRegistry {
         GadgetComponents.register();
         ECHO_SOUNDER = item("echo_sounder", p -> new EchoSounderItem(p.stacksTo(1).durability(EchoSounderItem.MAX_DAMAGE).enchantable(ENCHANTABILITY)
                 .repairable(net.minecraft.world.item.Items.ECHO_SHARD).rarity(net.minecraft.world.item.Rarity.EPIC).fireResistant()));
+        DETECTOR = item("detector", p -> new com.simplegadgets.detector.DetectorItem(p.enchantable(ENCHANTABILITY).rarity(net.minecraft.world.item.Rarity.UNCOMMON)));
+        MAGNET = item("magnet", p -> new com.simplegadgets.attractor.AttractorItem(p.stacksTo(1)));
+        // G3: laid down as a plate by a partner (SimpleBuilding's placed templates) through SimpleLib.
+        com.simplelib.api.PlacedGadgets.register(DETECTOR, com.simplegadgets.detector.PlacedDetector.INSTANCE);
+        com.simplelib.api.PlacedGadgets.register(MAGNET, com.simplegadgets.attractor.PlacedAttractor.INSTANCE);
         VELOCITY_GAUGE = item("velocity_gauge", p -> new VelocityGaugeItem(p.stacksTo(1)));
         ROTATOR = item("rotator", p -> new RotatorItem(p.durability(RotatorItem.MAX_CHARGE).stacksTo(1).enchantable(ENCHANTABILITY)));
         AMETHYST_LENS = item("amethyst_lens", p -> new ResonanceRodItem(p.durability(ResonanceRodItem.MAX_CHARGE)));
@@ -57,7 +66,7 @@ public final class GadgetsRegistry {
 
     /** The gadgets in tab order. */
     public static List<Item> gadgets() {
-        return VELOCITY_GAUGE == null ? List.of() : List.of(ECHO_SOUNDER, VELOCITY_GAUGE, ROTATOR, AMETHYST_LENS);
+        return VELOCITY_GAUGE == null ? List.of() : List.of(ECHO_SOUNDER, VELOCITY_GAUGE, DETECTOR, MAGNET, ROTATOR, AMETHYST_LENS);
     }
 
     /** Every gadget, then the guide (empty while the module is switched off). */

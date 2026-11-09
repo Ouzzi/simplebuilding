@@ -1,0 +1,36 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "minecraft:recovery_compass",
+    "E": "minecraft:echo_shard",
+    "G": "simplelib:gold_core",
+    "S": "minecraft:calibrated_sculk_sensor"
+  },
+  "pattern": [
+    " ES",
+    "ECE",
+    "GE "
+  ],
+  "result": {
+    "id": "simplegadgets:detector"
+  }
+}

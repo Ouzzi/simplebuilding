@@ -95,7 +95,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         // Reichweite am Amboss: dazu Attractor (Zugradius) und Messuhr (Hoehenmesser), ohne Blockreichweite (RangeReach).
         builder(ModTags.Items.RANGE_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_AND_MINING_TOOLS)
-                .add(key(ModItems.MAGNET))
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.MAGNET))
                 .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.VELOCITY_GAUGE));
 
         if (com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS) {
@@ -145,7 +145,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.ECHO_SOUNDER))
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.OCTANTS_ENCHANTABLE)
-                .add(key(ModItems.ORE_DETECTOR))
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.DETECTOR))
                 .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.ROTATOR))
                 .add(key(ModItems.ENDERITE_SPEAR))
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
@@ -158,7 +158,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         builder(ModTags.Items.RADIUS_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
-                .add(key(ModItems.ORE_DETECTOR));
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.DETECTOR));
 
         builder(ItemTags.MINING_LOOT_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
@@ -204,8 +204,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.VELOCITY_GAUGE))
                 // Amethystlinse: misst mit Beruehrung des Konstrukteurs (LaserPointerItem#measures)
                 .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.AMETHYST_LENS))
-                .add(key(ModItems.ORE_DETECTOR))
-                .add(key(ModItems.MAGNET))
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.DETECTOR))
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.MAGNET))
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 // Keine Shulkerkiste: vorerst nicht verzauberbar (Besitzer 2026-10-02, ShulkerBoxEnchantTests).
                 .add(key(Items.STICK));

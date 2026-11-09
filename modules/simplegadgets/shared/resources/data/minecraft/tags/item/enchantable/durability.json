@@ -7,6 +7,10 @@
     {
       "id": "simplegadgets:echo_sounder",
       "required": false
+    },
+    {
+      "id": "simplegadgets:detector",
+      "required": false
     }
   ]
 }

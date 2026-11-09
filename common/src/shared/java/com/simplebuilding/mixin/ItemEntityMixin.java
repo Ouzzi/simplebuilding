@@ -154,7 +154,8 @@ public abstract class ItemEntityMixin extends Entity implements com.simplebuildi
     /** Besitzer N34: ein Item, das ein abgelegter Attractor schweben liess, faellt wieder, sobald ihn keiner mehr haelt. */
     @Inject(method = "tick", at = @At("HEAD"))
     private void simplebuilding$releaseAttractorHover(CallbackInfo ci) {
-        if (this.isNoGravity() && !this.level().isClientSide()) {
+        // 26.3 (OW24-2 G3): Simple Gadgets' placed Attractor holds and releases its items itself (same entity tag).
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB && this.isNoGravity() && !this.level().isClientSide()) {
             com.simplebuilding.util.PlacedAttractors.releaseIfAbandoned((ItemEntity) (Object) this);
         }
     }

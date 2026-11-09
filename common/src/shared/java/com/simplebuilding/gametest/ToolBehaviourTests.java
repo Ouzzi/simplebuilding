@@ -691,6 +691,7 @@ public final class ToolBehaviourTests {
      * {@code OreGenAndItemFrameTests}.
      */
     public static void magnetPullsNearbyItemsAndIgnoresDistantOnes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         fillLayer(helper, 0, 0, 7, 0, 7, Blocks.STONE);
 
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5), 0.0F, 0.0F);

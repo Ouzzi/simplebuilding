@@ -42,5 +42,27 @@
     "secret": [
       "The longer the distance, the longer it takes: about 20 s to ignite at 200 blocks. Creatures in water or rain and fire-immune ones are spared. Craft: iron nugget, amethyst shard, redstone, iron core and iron rod."
     ]
+  },
+  "detector": {
+    "lore": [
+      "Sonar for the ground: a needle of amethyst that points toward the ore."
+    ],
+    "use": [
+      "Hold it: once every 20 ticks it looks for the nearest ore in a sphere around you and turns toward it like a compass to a lodestone, with a sound and a faint particle trail. Sneak and right-click switches modes."
+    ],
+    "secret": [
+      "Sneak and right-click a block to calibrate Custom mode to that block type, then lay the detector down like a smithing template. Rarer ores give a weaker signal and a shorter range; Astralit and Nihilit ores signal 5 and reach 16."
+    ]
+  },
+  "magnet": {
+    "lore": [
+      "A small thing with a strong opinion about where your items should be."
+    ],
+    "use": [
+      "Pulls loose items toward you while held in either hand, radius 4 blocks. Sneaking pauses it. Range adds 2 blocks per level. Has no durability."
+    ],
+    "secret": [
+      "Only Constructor's Touch enables the item-type filter: sneak-click a block or item to choose it, sneak-click air to clear. An unenchanted one is set down with a sneak-click on a block and pulls within 8 blocks."
+    ]
   }
 }

@@ -260,7 +260,8 @@ public final class HudAndTooltipClientTest {
         }
         if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) hopperFilterButtonAndFilterSlots(script); // 26.3: Simple Machines' screen (MACH32-MOD stage 3)
         inventoryShowsTheResonanceFieldAndItsDetails(script);
-        oreDetectorGlintMarksTheCalibratedSlot(script);
+        // OW24-2 G3: on 26.3 the Detector and its glint are Simple Gadgets' (DetectorGlint; client view open).
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) oreDetectorGlintMarksTheCalibratedSlot(script);
         extraHeadSlotAndInventoryBrightness(script);
 
         // What a finally block used to do. As steps these run only when everything above them

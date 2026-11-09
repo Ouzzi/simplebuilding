@@ -190,6 +190,10 @@ public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
         com.simplebuilding.util.PlacedAttractors.tick(server, pos, be);
         // Abgelegter, kalibrierter Detector: sucht nach seinem Zielblock (eigener Takt, siehe PlacedDetectors).
         com.simplebuilding.util.PlacedDetectors.tick(server, pos, be);
+        // 26.3 (OW24-2 G3): Attractor und Detector sind Simple Gadgets'; das Modul tickt sie ueber SimpleLib PlacedGadgets.
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) {
+            com.simplebuilding.util.LibServices.tickPlacedGadget(server, pos, be);
+        }
         if ((level.getGameTime() + pos.asLong()) % PlacedTemplates.HINT_INTERVAL == 0) {
             PlacedTemplates.tryHint(server, pos, be);
         }

@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:tweaks/root",
+  "criteria": {
+    "ore_detected": {
+      "conditions": {
+        "feature": "ore_detected"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.gadgets.ping.description"
+    },
+    "icon": {
+      "id": "simplegadgets:detector"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.gadgets.ping.title"
+    }
+  },
+  "requirements": [
+    [
+      "ore_detected"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

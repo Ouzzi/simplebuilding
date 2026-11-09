@@ -702,7 +702,7 @@ public final class WandEnchantmentTests {
         List<Item> touchReaders = new ArrayList<>(chisels);
         touchReaders.addAll(sledgehammers);
         touchReaders.addAll(List.of(
-                ModItems.MAGNET, ModItems.ORE_DETECTOR,
+                com.simplebuilding.util.GadgetRefs.magnet(), com.simplebuilding.util.GadgetRefs.detector(), // 26.3: Simple Gadgets (G3), the tag names them by id
                 com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"),
                 Items.STICK));
         for (Item reader : touchReaders) {

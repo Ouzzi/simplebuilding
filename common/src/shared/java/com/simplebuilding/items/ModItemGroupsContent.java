@@ -154,7 +154,7 @@ public final class ModItemGroupsContent {
                 // und Oktant. Genau neun: die Zeile ist voll, die gefaerbten Oktanten beginnen die naechste.
                 CreativeTabLayout.Row.of("gadgets",
                         Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.util.GadgetRefs.echo(),
-                        com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(),
+                        com.simplebuilding.util.GadgetRefs.gauge(), com.simplebuilding.util.GadgetRefs.detector(), com.simplebuilding.util.GadgetRefs.magnet(), com.simplebuilding.util.GadgetRefs.rotator(),
                         com.simplebuilding.util.GadgetRefs.rod(), com.simplebuilding.util.BuildingToolRefs.octant())));
 
         // Die 16 gefaerbten Oktanten: eine eigene Kategorie, laeuft ueber zwei Zeilen.

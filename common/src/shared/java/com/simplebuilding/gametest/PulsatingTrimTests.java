@@ -318,7 +318,7 @@ public final class PulsatingTrimTests {
         }
         names.put(ModItems.BASIC_UPGRADE_TEMPLATE, new String[]{"Basic Upgrade", "Basis-Aufwertung"});
         names.put(ModItems.ENDERITE_UPGRADE_TEMPLATE, new String[]{"Enderite Upgrade", "Enderit-Aufwertung"});
-        names.put(ModItems.MAGNET, new String[]{"Attractor", "Attraktor"});
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) names.put(ModItems.MAGNET, new String[]{"Attractor", "Attraktor"}); // 26.3: Simple Gadgets (G3)
         List<String> problems = new ArrayList<>();
         names.forEach((item, pair) -> {
             String key = item.getDescriptionId();
@@ -331,7 +331,7 @@ public final class PulsatingTrimTests {
                 problems.add(key + " is '" + german + "' in de_de instead of '" + pair[1] + "'");
             }
         });
-        helper.assertTrue(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(ModItems.MAGNET).getPath().equals("magnet"),
+        helper.assertTrue(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(com.simplebuilding.util.GadgetRefs.magnet()).getPath().equals("magnet"),
                 "the attractor's id changed; it must stay simplebuilding:magnet");
         for (String key : en.keySet()) {
             String text = en.get(key).getAsString();

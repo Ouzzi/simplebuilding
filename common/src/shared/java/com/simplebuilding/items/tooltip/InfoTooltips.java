@@ -188,9 +188,9 @@ public final class InfoTooltips {
         Map<Item, List<Item>> uses = new LinkedHashMap<>();
         uses.put(ModItems.COPPER_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("copper"), com.simplebuilding.util.GadgetRefs.gauge(),
                 TweaksBlocks.CHUNK_LOADER.asItem()));
-        uses.put(ModItems.IRON_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("iron"), com.simplebuilding.util.GadgetRefs.rod(), ModItems.MAGNET,
+        uses.put(ModItems.IRON_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("iron"), com.simplebuilding.util.GadgetRefs.rod(), com.simplebuilding.util.GadgetRefs.magnet(),
                 com.simplebuilding.util.GadgetRefs.rotator(), TweaksBlocks.LAUNCHPAD.asItem()));
-        uses.put(ModItems.GOLD_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("gold"), ModItems.ORE_DETECTOR, com.simplebuilding.util.BuildingToolRefs.octant(),
+        uses.put(ModItems.GOLD_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("gold"), com.simplebuilding.util.GadgetRefs.detector(), com.simplebuilding.util.BuildingToolRefs.octant(),
                 TweaksBlocks.SPAWN_TELEPORTER.asItem()));
         uses.put(ModItems.DIAMOND_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("diamond"), ModItems.NETHERITE_CORE,
                 TweaksBlocks.ELYTRA_PAD.asItem()));

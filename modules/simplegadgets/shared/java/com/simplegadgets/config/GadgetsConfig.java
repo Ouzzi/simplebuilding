@@ -16,7 +16,8 @@ import java.util.List;
  * the defaults and the file is rewritten complete. On the first start it takes the values a world had in SimpleBuilding's config
  * ({@code tools.rotator*}, {@code server.charges.*}, {@code server.laser.*}, {@code tweaks.laserPointer.*}, the Echo Sounder's {@code server.features.echoSounder}, {@code server.charges.echoSounderMaxCharge},
  * {@code server.dimensionLocks.echoSounderBlockedDimensions} and {@code tweaks.balancing.echoSounder*} in
- * {@code config/simplebuilding.json}), which stays unchanged (framework {@code ConfigFiles.adoptLegacy}). Values are
+ * {@code config/simplebuilding.json}; G3: {@code server.features.attractor/oreDetector}, {@code tools.magnetRangeMultiplier},
+ * {@code server.tools.attractorMinimumDistance}, {@code server.oreDetector.*}), which stays unchanged (framework {@code ConfigFiles.adoptLegacy}). Values are
  * server-local like Simple Hammers': a client counts with its own file (the rod's colour and size are the client's own anyway);
  * the maximum charges are read when the items register (restart needed, as before).
  */
@@ -29,7 +30,9 @@ public final class GadgetsConfig {
             "rotatorSwapWindupTicks", "rotatorSwapMaxHardness", "rotatorSwapWhitelist", "rotatorSwapBlacklist",
             "rodEnabled", "rodMaxCharge", "rodRange", "rodChargePerSecond", "rodEffectCost", "rodColor", "rodScale",
             "rodIgniteFlammables", "rodIgniteTnt", "rodIgniteEntities", "rodScanEntities", "rodScanPlayers", "rodScanIntervalTicks",
-            "echoEnabled", "echoMaxCharge", "echoJumpCooldownTicks", "echoAttemptLockTicks", "echoBlockedDimensions");
+            "echoEnabled", "echoMaxCharge", "echoJumpCooldownTicks", "echoAttemptLockTicks", "echoBlockedDimensions",
+            "attractorEnabled", "attractorRangeMultiplier", "attractorMinimumDistance",
+            "detectorEnabled", "detectorRangeMultiplier", "detectorScanIntervalTicks");
 
     public static final int ROTATOR_MIN_CHARGE = 64, ROTATOR_MAX_CHARGE = 4096, ROTATOR_CHARGE_DEFAULT = 1024;
     public static final int ROTATOR_TURN_COST_DEFAULT = 1, ROTATOR_TURN_COST_MAX = 4096;
@@ -49,6 +52,12 @@ public final class GadgetsConfig {
     /** Echo Sounder (G4): repair points of an empty one = its charge, the cooldowns after a jump / a failed attempt (ticks). */
     public static final int ECHO_MIN_CHARGE = 150, ECHO_MAX_CHARGE = 6000, ECHO_CHARGE_DEFAULT = 1500;
     public static final int ECHO_COOLDOWN_MAX = 12000, ECHO_JUMP_COOLDOWN_DEFAULT = 480, ECHO_ATTEMPT_LOCK_DEFAULT = 100;
+
+    /** Attractor (G3): factor on the pull range (0 = off, held and placed), dead zone around the target (blocks). */
+    public static final double ATTRACTOR_RANGE_MAX = 4.0, ATTRACTOR_DISTANCE_MIN = 0.5, ATTRACTOR_DISTANCE_MAX = 2.0, ATTRACTOR_DISTANCE_DEFAULT = 1.25;
+    /** Detector (G3): factor on range and search sphere of every ore class, ticks between two pings in the main hand. */
+    public static final double DETECTOR_RANGE_MIN = 0.25, DETECTOR_RANGE_MAX = 1.5;
+    public static final int DETECTOR_SCAN_MIN = 10, DETECTOR_SCAN_MAX = 200, DETECTOR_SCAN_DEFAULT = 20;
 
     public static int rotatorMaxCharge = ROTATOR_CHARGE_DEFAULT;
     public static int rotatorChargePerTurn = ROTATOR_TURN_COST_DEFAULT;
@@ -79,6 +88,13 @@ public final class GadgetsConfig {
     /** Dimensions the Echo Sounder neither leaves nor enters (ids separated by comma, semicolon or space; "minecraft:" may be left out). */
     public static String echoBlockedDimensions = "";
 
+    public static boolean attractorEnabled = true;
+    public static double attractorRangeMultiplier = 1.0;
+    public static double attractorMinimumDistance = ATTRACTOR_DISTANCE_DEFAULT;
+    public static boolean detectorEnabled = true;
+    public static double detectorRangeMultiplier = 1.0;
+    public static int detectorScanIntervalTicks = DETECTOR_SCAN_DEFAULT;
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private GadgetsConfig() {}
@@ -91,6 +107,7 @@ public final class GadgetsConfig {
         }
         JsonObject read = ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), SimpleGadgets.LOG::warn);
         if (read != null) json = read;
+        if (read != null && dir != null) adoptMissing(json, dir.resolve(LEGACY_FILE));
         apply(json);
         if (file != null) {
             try {
@@ -99,6 +116,24 @@ public final class GadgetsConfig {
             } catch (Exception e) {
                 SimpleGadgets.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }
+        }
+    }
+
+    /**
+     * G3: a file written before a gadget moved lacks that gadget's keys; take them once from SimpleBuilding's config (only keys
+     * the file does not have - the next write completes the file, so this happens on the first start after the move only).
+     */
+    public static void adoptMissing(JsonObject json, Path legacy) {
+        if (legacy == null || !Files.isRegularFile(legacy) || KEYS.stream().allMatch(json::has)) return;
+        try {
+            String taken = fromSimpleBuilding(Files.readString(legacy));
+            if (taken == null) return;
+            JsonObject old = JsonParser.parseString(taken).getAsJsonObject();
+            for (String key : old.keySet()) {
+                if (!json.has(key)) json.add(key, old.get(key));
+            }
+        } catch (Exception e) {
+            SimpleGadgets.LOG.warn("Could not take over missing settings from {}: {}", LEGACY_FILE, e.toString());
         }
     }
 
@@ -140,6 +175,19 @@ public final class GadgetsConfig {
         if (balancing != null) {
             copy(balancing, "echoSounderJumpCooldownTicks", taken, "echoJumpCooldownTicks");
             copy(balancing, "echoSounderAttemptLockTicks", taken, "echoAttemptLockTicks");
+        }
+        // G3: Attractor and Detector.
+        if (features != null) {
+            copy(features, "attractor", taken, "attractorEnabled");
+            copy(features, "oreDetector", taken, "detectorEnabled");
+        }
+        if (tools != null) copy(tools, "magnetRangeMultiplier", taken, "attractorRangeMultiplier");
+        JsonObject serverTools = server == null ? null : server.getAsJsonObject("tools");
+        if (serverTools != null) copy(serverTools, "attractorMinimumDistance", taken, "attractorMinimumDistance");
+        JsonObject detector = server == null ? null : server.getAsJsonObject("oreDetector");
+        if (detector != null) {
+            copy(detector, "rangeMultiplier", taken, "detectorRangeMultiplier");
+            copy(detector, "scanIntervalTicks", taken, "detectorScanIntervalTicks");
         }
         if (pointer != null) {
             copy(pointer, "enable", taken, "rodEnabled");
@@ -186,6 +234,13 @@ public final class GadgetsConfig {
         echoJumpCooldownTicks = clamp(integer(json, "echoJumpCooldownTicks", ECHO_JUMP_COOLDOWN_DEFAULT), 0, ECHO_COOLDOWN_MAX);
         echoAttemptLockTicks = clamp(integer(json, "echoAttemptLockTicks", ECHO_ATTEMPT_LOCK_DEFAULT), 0, ECHO_COOLDOWN_MAX);
         echoBlockedDimensions = string(json, "echoBlockedDimensions");
+
+        attractorEnabled = bool(json, "attractorEnabled", true);
+        attractorRangeMultiplier = clamp(real(json, "attractorRangeMultiplier", 1.0), 0, ATTRACTOR_RANGE_MAX);
+        attractorMinimumDistance = clamp(real(json, "attractorMinimumDistance", ATTRACTOR_DISTANCE_DEFAULT), ATTRACTOR_DISTANCE_MIN, ATTRACTOR_DISTANCE_MAX);
+        detectorEnabled = bool(json, "detectorEnabled", true);
+        detectorRangeMultiplier = clamp(real(json, "detectorRangeMultiplier", 1.0), DETECTOR_RANGE_MIN, DETECTOR_RANGE_MAX);
+        detectorScanIntervalTicks = clamp(integer(json, "detectorScanIntervalTicks", DETECTOR_SCAN_DEFAULT), DETECTOR_SCAN_MIN, DETECTOR_SCAN_MAX);
     }
 
     /** Whether {@code list} names {@code dimension} (ids separated by comma, semicolon or space; "minecraft:" may be left out). */
@@ -227,6 +282,12 @@ public final class GadgetsConfig {
         o.addProperty("echoJumpCooldownTicks", echoJumpCooldownTicks);
         o.addProperty("echoAttemptLockTicks", echoAttemptLockTicks);
         o.addProperty("echoBlockedDimensions", echoBlockedDimensions);
+        o.addProperty("attractorEnabled", attractorEnabled);
+        o.addProperty("attractorRangeMultiplier", attractorRangeMultiplier);
+        o.addProperty("attractorMinimumDistance", attractorMinimumDistance);
+        o.addProperty("detectorEnabled", detectorEnabled);
+        o.addProperty("detectorRangeMultiplier", detectorRangeMultiplier);
+        o.addProperty("detectorScanIntervalTicks", detectorScanIntervalTicks);
         return o;
     }
 

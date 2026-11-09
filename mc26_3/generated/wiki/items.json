@@ -647,12 +647,6 @@
       "id": "simplebuilding:dark_oak_sheet"
     },
     {
-      "durability": 1024,
-      "enchantability": 15,
-      "id": "simplebuilding:detector",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:diamond_pole"
     },
     {
@@ -1073,10 +1067,6 @@
     },
     {
       "id": "simplebuilding:magenta_hammock",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:magnet",
       "maxStackSize": 1
     },
     {

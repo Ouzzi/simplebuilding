@@ -97,13 +97,14 @@ class ConfigMetadataTests(unittest.TestCase):
         self.assertEqual('client', configs['hudScale']['side'])
         self.assertEqual('server', configs['worldGen.enableLootTableChanges']['side'])
         self.assertEqual('yes', configs['worldGen.enableLootTableChanges']['reload'])
-        self.assertEqual('recipes', configs['server.features.attractor']['reload'])
+        self.assertEqual('recipes', configs['server.features.endSignals']['reload'])
+        self.assertEqual('recipes', legacy['server.features.attractor']['reload'])  # b-gadg14: Simple Gadgets' on 26.3
         # Split stage 9: options a sub-mod took over are left out on 26.3 only (ConfigOptions.MOVED_TO_*).
         self.assertEqual('recipes', legacy['server.features.backpack']['reload'])
         for name in ('server.features.backpack', 'tools.invertBundleInteractions', 'server.machines.reinforcedFurnaceSpeed',
                      'server.tools.diamondBlockPebbles', 'server.loot.betterChestPercent',
                      'server.tools.stoneChiselCooldownTicks', 'server.features.blueprint', 'tools.wandHungerMultiplier',
-                     'tools.rotatorChargePerTurn', 'server.charges.lensMaxCharge', 'tweaks.laserPointer.chargePerSecond',
+                     'tools.rotatorChargePerTurn', 'server.charges.lensMaxCharge', 'server.features.attractor', 'server.oreDetector.rangeMultiplier', 'tweaks.laserPointer.chargePerSecond',
                      'tweaks.pads.enableFlypads', 'server.features.endgameEnchantLevels',
                      'server.features.dynamicLight', 'server.features.levitatingBlocks'):
             self.assertNotIn(name, configs, name)

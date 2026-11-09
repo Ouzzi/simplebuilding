@@ -50,7 +50,10 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
     // eine andere Signatur). Nur der Callback, keine Zielparameter.
     @Inject(method = "createItemStackToDrop", at = @At("RETURN"))
     private void simplebuilding$markDeathDrop(CallbackInfoReturnable<net.minecraft.world.entity.item.ItemEntity> cir) {
-        com.simplebuilding.util.AttractorFilter.markIfDeathDrop((LivingEntity) (Object) this, cir.getReturnValue());
+        // 26.3 (OW24-2 G3): Simple Gadgets marks the death drops itself (same entity tag).
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) {
+            com.simplebuilding.util.AttractorFilter.markIfDeathDrop((LivingEntity) (Object) this, cir.getReturnValue());
+        }
     }
 
     // Ein tick-Hook fuer Radiance (emittierende Ruestung). Die Besatz-Faehigkeiten (Rib, Amethyst, Attribute) wirken auf 26.3 in

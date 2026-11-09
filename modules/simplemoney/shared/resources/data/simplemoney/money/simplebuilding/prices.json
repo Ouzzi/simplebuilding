@@ -443,17 +443,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:detector",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 7,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 3,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:diamond_pebble",
       "tier": 3,
       "hours": 21.0,
@@ -769,17 +758,6 @@
       "safetyFloor": 8,
       "merchant": "mason",
       "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:magnet",
-      "tier": 1,
-      "hours": 6.7,
-      "craft": 5,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 2,
       "stock": 2,
       "chance": 1
     },

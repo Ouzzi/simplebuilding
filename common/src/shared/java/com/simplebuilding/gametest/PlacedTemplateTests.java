@@ -745,6 +745,7 @@ public final class PlacedTemplateTests {
      * ein schwebendes Item in der toten Zone haelt seine Hoehe (Sweetspot), statt abzusacken.
      */
     public static void severalAttractorsShareOneCentreAndFloatingItemsHover(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the placed Attractor on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 2.0, 7.5));
         player.setShiftKeyDown(true);
         ServerLevel level = helper.getLevel();
@@ -789,6 +790,7 @@ public final class PlacedTemplateTests {
      * Zittern, kein Huepfen, kein zweites Item. Echtes Ticken (Block-Entity-Takt und Item-Physik), keine Handaufrufe.
      */
     public static void anItemBetweenTwoFloorAttractorsComesToRest(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the placed Attractor on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 2.0, 7.5));
         player.setShiftKeyDown(true);
         for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
@@ -801,6 +803,7 @@ public final class PlacedTemplateTests {
 
     /** Besitzer N34: zwei Attractors an Waenden, die sich ansehen, halten ein Item ruhig in der Luft zwischen sich. */
     public static void anItemBetweenTwoFacingAttractorsHoversStill(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the placed Attractor on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 2.0, 7.5));
         player.setShiftKeyDown(true);
         for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
@@ -860,6 +863,7 @@ public final class PlacedTemplateTests {
      * liegen, ein Attractor mit Filter zieht nur sein Item. Abgebaut faellt er mit Filter und Namen heraus.
      */
     public static void placedAttractorsPullLooseItemsTowardThemselves(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the placed Attractor on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 2.0, 7.5));
         player.setShiftKeyDown(true);
         ServerLevel level = helper.getLevel();
