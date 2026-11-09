@@ -89,8 +89,12 @@
     if (!t || !t.file) { toast('Textur nicht gefunden', false); return; }
     if (isDerived(t)) { toast('Aus Vanilla abgeleitet (A8): tools/textures/vanilla_derived.py anpassen', false); return; }
     // Vanilla: a template only - no repository source, so the editor offers export but no "Save to repo"
+    // b-texed16: a saved but not yet taken over version opens instead of the old file (else edits would start over)
+    var ov = !t.vanilla && saved.get(t.id);
+    var pend = ov && ov.url ? ov : null;
     loadEditor().then(function () {
-      return window.SBPixelEditor.open({ id: t.id, name: (t.vanilla ? 'Vorlage: ' : '') + nameOf(t), png: t.file, layers: t.layers || null,
+      return window.SBPixelEditor.open({ id: t.id, name: (t.vanilla ? 'Vorlage: ' : '') + nameOf(t), png: pend ? pend.url : t.file,
+        layers: pend ? pend.layersUrl : (t.layers || null), from: pend ? 'Deine Speicherung ' + pend.sid + ' (wartet auf Übernahme).' : '',
         source: t.vanilla ? '' : (t.source || ''), anim: t.anim || null });
     }).catch(function (e) { toast('Editor nicht ladbar: ' + (e && e.message || e), false); });
   }
@@ -232,6 +236,93 @@
     if (info.suggest) sug.click();
   }
 
+  /* ---- b-texed16: saved textures show at once, with their state (docs/ai/PLAN-B-TEXED16-2026-11-09.md) ----
+   * saved: texture id -> {sid, status, label, url (blob PNG, only while not taken over), layersUrl, bust}.
+   * Data: GET /api/textures (newest first; "adopted" = the save id is in the commit history of the Wiki-Dev checkout,
+   * computed by devqueue.py) and the editor's event "sb-texture-saved" right after a save. */
+  var saved = new Map();
+  var BUST_DAYS = 14;
+  function statusOf(s) {
+    if (s.adopted) return { kind: 'done', label: 'übernommen in ' + (s.adopted.bundle ? 'Bündel ' + String(s.adopted.bundle).replace(/^b-bundle/, '') + ' (' + s.adopted.commit + ')' : s.adopted.commit) };
+    if (s.state === 'failed') return { kind: 'fail', label: 'Übernahme fehlgeschlagen: ' + (s.note || '') };
+    if (s.state === 'ready') return { kind: 'wait', label: 'auf Branch ' + (s.branch || s.note || '') + ' – wartet auf Bündel' };
+    return { kind: 'wait', label: 'gespeichert – wartet auf Übernahme' };
+  }
+  function blobUrl(bytes, type) { return URL.createObjectURL(new Blob([bytes], { type: type })); }
+  function setSaved(id, entry) {
+    var old = saved.get(id);
+    if (old && old.url && old.url !== entry.url) { URL.revokeObjectURL(old.url); if (old.layersUrl) URL.revokeObjectURL(old.layersUrl); }
+    saved.set(id, entry);
+    document.querySelectorAll('.dev-zoom').forEach(function (z) { z.remove(); });   // rebuilt with the new state
+    later();
+  }
+  /* a pending save: compose its layers with the editor core (same result as the PNG the pickup will commit) */
+  function pendingFromRecord(rec, st) {
+    return (window.SBPixelCore ? Promise.resolve() : loadScript('assets/pixeleditor-core.js')).then(function () {
+      var C = window.SBPixelCore, m = C.fromDoc(JSON.parse(rec.layers));
+      return C.pngEncode(m.w, m.h, C.compose(m)).then(function (png) {
+        setSaved(rec.texture, { sid: rec.sid, status: st.kind, label: st.label, url: blobUrl(png, 'image/png'), layersUrl: blobUrl(rec.layers, 'application/json') });
+      });
+    });
+  }
+  function loadSaves() {
+    fetch('/api/textures', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : []; }).then(function (list) {
+      var seen = new Set(), now = Date.now();
+      (Array.isArray(list) ? list : []).forEach(function (s) {
+        if (!s || !s.texture || seen.has(s.texture)) return;   // newest save per texture only
+        seen.add(s.texture);
+        var st = statusOf(s), cur = saved.get(s.texture);
+        if (cur && cur.url && cur.sid === s.sid && st.kind === 'wait') { cur.label = st.label; return; }
+        if (st.kind === 'done') {
+          // taken over: the checkout PNG is the new one; ?v=<sid> makes the browser fetch it instead of the cached old one
+          setSaved(s.texture, { sid: s.sid, status: 'done', label: st.label, bust: now - (s.createdAt || 0) < BUST_DAYS * 864e5 });
+        } else if (st.kind === 'fail') setSaved(s.texture, { sid: s.sid, status: 'fail', label: st.label });
+        else fetch('/api/textures/' + encodeURIComponent(s.sid), { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (rec) { if (rec && typeof rec.layers === 'string') return pendingFromRecord(rec, st); })
+          .catch(function () { /* stays as it is */ });
+      });
+    }).catch(function () {});
+  }
+  window.addEventListener('sb-texture-saved', function (e) {
+    var d = e.detail || {};
+    if (!d.id || !d.png) return;
+    setSaved(d.id, { sid: d.sid || '', status: 'wait', label: 'gespeichert – wartet auf Übernahme', url: blobUrl(d.png, 'image/png'),
+      layersUrl: d.layers ? blobUrl(d.layers, 'application/json') : null });
+    toast('Gespeichert – die Seite zeigt jetzt deine Fassung', true);
+  });
+  /* swap every <img> of a saved texture (tiles, zoom, cards, item pages) and keep the original in data-dev-src */
+  function swapImages() {
+    if (!saved.size) return;
+    var files = {};
+    saved.forEach(function (v, id) {
+      var t = textureById(id);
+      if (!t || !t.file) return;
+      var src = v.url || (v.bust ? t.file + (t.file.indexOf('?') < 0 ? '?' : '&') + 'v=' + v.sid : '');
+      if (src) files[t.file] = src;
+    });
+    document.querySelectorAll('img').forEach(function (img) {
+      var orig = img.getAttribute('data-dev-src') || img.getAttribute('src');
+      var want = files[orig];
+      if (!want || img.getAttribute('src') === want) return;
+      img.setAttribute('data-dev-src', orig);
+      img.setAttribute('src', want);
+    });
+  }
+  function savedBadge(t, id) {
+    var v = saved.get(id), b = t.querySelector(':scope > .dev-saved');
+    if (!v) { if (b) b.remove(); return; }
+    if (!b) {
+      b = el('span', 'position:absolute;bottom:4px;left:4px;z-index:5;max-width:calc(100% - 44px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:700 10px system-ui,sans-serif;padding:2px 6px;border-radius:99px;color:#fff');
+      b.className = 'dev-saved';
+      t.appendChild(b);
+    }
+    // white text: #9a6200 5.1:1, #2f7d3a 5.1:1, #b3362b 6.0:1 (>= 4.5:1)
+    b.style.background = v.status === 'done' ? '#2f7d3a' : v.status === 'fail' ? '#b3362b' : '#9a6200';
+    b.textContent = v.status === 'done' ? 'übernommen' : v.status === 'fail' ? 'Fehler' : 'gespeichert';
+    b.title = v.label;
+    b.setAttribute('aria-label', v.label);
+  }
+
   /* ---- tiles ---- */
   /* item id from a wiki link: query mode (?item=ns:id) or hash mode (#/items/ns:id) */
   function itemOf(href) {
@@ -278,6 +369,7 @@
       pen.addEventListener('click', function (e) { e.stopPropagation(); e.preventDefault(); editTexture(textureById(info.target.id)); });
       t.appendChild(pen);
     }
+    if (info.kind === 'textures') savedBadge(t, info.target.id);
     cb.checked = sel.has(info.key);
     t.style.outline = cb.checked ? '3px solid #3b5b8c' : '';
     t.style.outlineOffset = cb.checked ? '1px' : '';
@@ -372,7 +464,14 @@
     edit.title = 'Im Pixeleditor bearbeiten (Ebenen)';
     edit.onclick = function () { editTexture(t); };
     if (!isDerived(t)) wrap.appendChild(edit);
-    wrap.appendChild(b); head.appendChild(wrap);
+    wrap.appendChild(b);
+    var sv = saved.get(t.id);
+    if (sv) {
+      var line = el('span', 'align-self:center;padding:4px 10px;border-radius:99px;font:600 12px system-ui,sans-serif;color:#fff;background:' + (sv.status === 'done' ? '#2f7d3a' : sv.status === 'fail' ? '#b3362b' : '#9a6200'), sv.label);
+      line.className = 'dev-saved-zoom';
+      wrap.appendChild(line);
+    }
+    head.appendChild(wrap);
   }
   function itemPanel(info) {
     var id = info && info.id ? info.id : itemOf(location.hash || '') || itemOf(location.search || '');
@@ -409,6 +508,7 @@
 
   var pending = false;
   function scan(info) {
+    swapImages();
     paint();
     cards();
     if (document.getElementById('tx-results')) loadVanilla();
@@ -440,4 +540,5 @@
     }
   }).observe(document.body, { childList: true, subtree: true });
   loadQueue();
+  loadSaves();
 })();

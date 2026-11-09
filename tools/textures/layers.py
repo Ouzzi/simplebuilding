@@ -4,6 +4,8 @@ Layer sources of textures (docs/ai/PRINZIPIEN.md A8 b, docs/ai/PLAN-B-PIXELEDITO
 Every texture may carry its layers next to the PNG as <name>.layers.json; the PNG is their composition.
 The wiki pixel editor (wiki/assets/pixeleditor*.js, dev mirror) reads and writes the same format and composes
 with the same integer rules, so a pair exported from the editor passes `check` unchanged.
+Each layer may carry a blend mode ("blend", missing = "normal"; BLENDS below, W3C Compositing formulas, exact
+rounding rules in docs/ai/PLAN-B-TEXED16-2026-11-09.md); shared test vectors: tools/textures/tests/blend_vectors.json.
 
     python tools/textures/layers.py check [files...]      every tracked *.layers.json (or the given ones)
     python tools/textures/layers.py compose X.layers.json [--out X.png]
@@ -21,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import struct
 import subprocess
@@ -162,8 +165,8 @@ def validate(doc: dict) -> list[str]:
         op = layer.get("opacity")
         if not (isinstance(op, int) and not isinstance(op, bool) and 0 <= op <= 100):
             problems.append(f"{tag}: opacity must be an integer 0-100")
-        if layer.get("blend", "normal") != "normal":
-            problems.append(f"{tag}: only blend \"normal\" is supported")
+        if layer.get("blend", "normal") not in BLENDS:
+            problems.append(f"{tag}: unknown blend {layer.get('blend')!r} (one of {', '.join(BLENDS)})")
         rows = layer.get("rows")
         if not isinstance(rows, list) or len(rows) != h:
             problems.append(f"{tag}: needs {h} rows")
@@ -203,14 +206,119 @@ def rnd(x: float) -> int:
     return int(x + 0.5) if x >= 0 else -int(-x + 0.5)
 
 
+# ---------------------------------------------------------------- blend modes (b-texed16)
+# W3C Compositing Level 1 plus add/subtract; docs/ai/PLAN-B-TEXED16-2026-11-09.md. Every expression is written in the
+# same order as in wiki/assets/pixeleditor-core.js, so Python and the editor compute the same doubles (only + - * /,
+# min/max/abs and sqrt, all exactly rounded in IEEE 754) and the same bytes.
+BLENDS = ("normal", "add", "subtract", "multiply", "screen", "overlay", "soft-light", "hard-light",
+          "lighten", "darken", "difference", "hue", "saturation", "color", "luminosity")
+
+
+def _hard_light(cb: float, cs: float) -> float:
+    if cs <= 0.5:
+        return cb * (2 * cs)
+    s = 2 * cs - 1
+    return cb + s - cb * s
+
+
+def _soft_light(cb: float, cs: float) -> float:
+    if cs <= 0.5:
+        return cb - (1 - 2 * cs) * cb * (1 - cb)
+    d = ((16 * cb - 12) * cb + 4) * cb if cb <= 0.25 else math.sqrt(cb)
+    return cb + (2 * cs - 1) * (d - cb)
+
+
+def _sep(mode: str, cb: float, cs: float) -> float:
+    if mode == "add":
+        return min(1, cb + cs)
+    if mode == "subtract":
+        return max(0, cb - cs)
+    if mode == "multiply":
+        return cb * cs
+    if mode == "screen":
+        return cb + cs - cb * cs
+    if mode == "overlay":
+        return _hard_light(cs, cb)
+    if mode == "hard-light":
+        return _hard_light(cb, cs)
+    if mode == "soft-light":
+        return _soft_light(cb, cs)
+    if mode == "lighten":
+        return max(cb, cs)
+    if mode == "darken":
+        return min(cb, cs)
+    if mode == "difference":
+        return abs(cb - cs)
+    return cs
+
+
+def _lum(c) -> float:
+    return 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2]
+
+
+def _clip_color(c: list) -> list:
+    lo, n, x = _lum(c), min(c[0], c[1], c[2]), max(c[0], c[1], c[2])
+    if n < 0:
+        c = [lo + (v - lo) * lo / (lo - n) for v in c]
+    if x > 1:
+        c = [lo + (v - lo) * (1 - lo) / (x - lo) for v in c]
+    return c
+
+
+def _set_lum(c, lo: float) -> list:
+    d = lo - _lum(c)
+    return _clip_color([c[0] + d, c[1] + d, c[2] + d])
+
+
+def _sat(c) -> float:
+    return max(c[0], c[1], c[2]) - min(c[0], c[1], c[2])
+
+
+def _set_sat(c, s: float) -> list:
+    n, x = min(c[0], c[1], c[2]), max(c[0], c[1], c[2])
+    if x > n:
+        return [(c[0] - n) * s / (x - n), (c[1] - n) * s / (x - n), (c[2] - n) * s / (x - n)]
+    return [0, 0, 0]
+
+
+def blend_rgb(mode: str, cb, cs) -> list:
+    """B(Cb, Cs) of one pixel, colours as (r, g, b) in 0..1."""
+    if mode == "hue":
+        return _set_lum(_set_sat(cs, _sat(cb)), _lum(cb))
+    if mode == "saturation":
+        return _set_lum(_set_sat(cb, _sat(cs)), _lum(cb))
+    if mode == "color":
+        return _set_lum(cs, _lum(cb))
+    if mode == "luminosity":
+        return _set_lum(cb, _lum(cs))
+    return [_sep(mode, cb[k], cs[k]) for k in range(3)]
+
+
+def _clamp8(v: int) -> int:
+    return 0 if v < 0 else 255 if v > 255 else v
+
+
+def blend_pixel(out: bytearray, o: int, px, sa: int, mode: str) -> None:
+    """Source pixel px (r, g, b, ...) with alpha sa (layer opacity applied) over out[o:o+4] in blend mode `mode`."""
+    da = out[o + 3]
+    b = blend_rgb(mode, [out[o] / 255, out[o + 1] / 255, out[o + 2] / 255], [px[0] / 255, px[1] / 255, px[2] / 255])
+    rest = da * (255 - sa) / 255
+    oa = sa + rest
+    for k in range(3):
+        m = (px[k] * (255 - da) + b[k] * 255 * da) / 255
+        out[o + k] = _clamp8(rnd((m * sa + out[o + k] * rest) / oa))
+    out[o + 3] = rnd(oa)
+
+
 def compose(doc: dict) -> bytearray:
-    """RGBA bytes of the visible layers, bottom first, source-over (see the plan)."""
+    """RGBA bytes of the visible layers, bottom first, source-over or the layer's blend mode (see the plans)."""
     w, h = doc["width"], doc["height"]
     out = bytearray(w * h * 4)
     for layer in doc["layers"]:
         if not layer["visible"] or layer["opacity"] <= 0:
             continue
         op = layer["opacity"]
+        mode = layer.get("blend", "normal")
         for i, px in enumerate(layer_pixels(doc, layer)):
             if px is None:
                 continue
@@ -218,6 +326,9 @@ def compose(doc: dict) -> bytearray:
             if sa <= 0:
                 continue
             o = i * 4
+            if mode != "normal":
+                blend_pixel(out, o, px, sa, mode)
+                continue
             if sa >= 255:
                 out[o:o + 4] = bytes((px[0], px[1], px[2], 255))
                 continue
