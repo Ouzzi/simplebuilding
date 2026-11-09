@@ -9,7 +9,7 @@
       "title": "simplefun.guide.chapter",
       "icon": "minecraft:brick",
       "page_key": "simplefun.guide.page",
-      "pages": 21,
+      "pages": 39,
       "advancement": "simplefun:guide/chapter",
       "hint": "minecraft:brick"
     }

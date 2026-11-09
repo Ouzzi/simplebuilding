@@ -35,7 +35,32 @@ public class SimplefunConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip public boolean honeyBubbles = true;
     @ConfigEntry.Gui.Tooltip public boolean breadCrumbs = true;
     @ConfigEntry.Gui.Tooltip public boolean berryBlush = true;
+    // FUN11-1..10 (b-fun14): one switch per toy, tab "Toys".
+    @ConfigEntry.Gui.Tooltip public boolean partyPopper = true;
+    @ConfigEntry.Gui.Tooltip public boolean diceAndCoin = true;
+    @ConfigEntry.Gui.Tooltip public boolean highFive = true;
+    @ConfigEntry.Gui.Tooltip public boolean petting = true;
+    @ConfigEntry.Gui.Tooltip public boolean skipStones = true;
+    @ConfigEntry.Gui.Tooltip public boolean waterBalloon = true;
+    @ConfigEntry.Gui.Tooltip public boolean bubbleWand = true;
+    @ConfigEntry.Gui.Tooltip public boolean paperPlane = true;
+    @ConfigEntry.Gui.Tooltip public boolean rubberDuck = true;
+    @ConfigEntry.Gui.Tooltip public boolean snowAngel = true;
   }
+
+  /** The toy switches of FUN11-1..10, in concept order (config tab "Toys"). */
+  public static final java.util.List<String> TOYS =
+      java.util.List.of(
+          "partyPopper",
+          "diceAndCoin",
+          "highFive",
+          "petting",
+          "skipStones",
+          "waterBalloon",
+          "bubbleWand",
+          "paperPlane",
+          "rubberDuck",
+          "snowAngel");
 
   public static final float MAX_YEET_STRENGTH = 3, MAX_DAMAGE = 4, MAX_ITEM_SPEED = 1.5f;
   public static final int THROW_COOLDOWN = 10,
