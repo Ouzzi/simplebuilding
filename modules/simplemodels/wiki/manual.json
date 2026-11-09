@@ -249,8 +249,8 @@
   "notes": {
     "simplemodels:guide_book": {
       "sources": ["modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/guide/ModelsGuide.java", "modules/simplemodels/shared/resources/assets/simplemodels/simplelib/modpack_guide.json", "modules/simplemodels/shared/resources/data/simplemodels/advancement/guide/chapter.json"],
-      "en": {"summary": "Chapter \"Simple Models\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: item frame. Craft the guide from a book and a crafting table; an old single guide turns into it when used."},
-      "de": {"summary": "Kapitel \"Simple Models\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rahmen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."}
+      "en": {"summary": "Chapter \"Simple Models\" of the Simple Modpack guide (SimpleLib): 29 pages taken from this wiki, shown in your language. Unlocked by picking up: item frame. Craft the guide from a book and a crafting table; an old single guide turns into it when used."},
+      "de": {"summary": "Kapitel \"Simple Models\" im Simple-Modpack-Handbuch (SimpleLib): 29 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rahmen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."}
     },
     "*example/*": {
       "sources": [

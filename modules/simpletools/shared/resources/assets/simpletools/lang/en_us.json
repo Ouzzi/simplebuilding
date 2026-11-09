@@ -131,6 +131,8 @@
   "jei.simpletools.strip_station.1": "Right-click with a stack of blocks to put the whole stack in.",
   "jei.simpletools.strip_station.2": "Right-click with an axe: the whole stack is stripped (logs, wood), scraped or unwaxed (copper, wax first), 1 durability per block. The axe is left at 1 durability and never breaks.",
   "jei.simpletools.strip_station.3": "Empty hand takes the result out. A hopper above fills it, a hopper below takes only the worked blocks.",
+  "jei.simpletools.info.biome_brush": "Brush in the main hand, a biome material in the off hand (sand paints desert, for example), right-click a block: the biome around it changes. Each stroke costs one material and one durability point; sneak to paint a single spot. Cave biomes are never painted, claims are respected.",
+  "jei.simpletools.info.death_vault": "Place it and open it: it shows what became of each item dropped at your last death - still lying, picked up by you or another player, burned, despawned or fallen into the void.",
   "item.simpletools.guide_book": "Simple Tools Guide",
   "simpletools.guide.chapter": "Simple Tools",
   "simpletools.guide.page.1.title": "Simple Tools",
@@ -202,7 +204,5 @@
   "simpletools.guide.page.34.title": "Strip Station",
   "simpletools.guide.page.34": "Crafted cage (iron axe, 4 iron bars, 4 planks). A block stack goes in; an axe strips, scrapes or unwaxes the whole stack at once (1 durability per block, the axe stays at 1). Empty hand takes it out; hoppers fill above, empty below.",
   "simpletools.guide.page.35.title": "Settings",
-  "simpletools.guide.page.35": "More settings are in the mod's config screen.",
-  "jei.simpletools.info.biome_brush": "Brush in the main hand, a biome material in the off hand (sand paints desert, for example), right-click a block: the biome around it changes. Each stroke costs one material and one durability point; sneak to paint a single spot. Cave biomes are never painted, claims are respected.",
-  "jei.simpletools.info.death_vault": "Place it and open it: it shows what became of each item dropped at your last death - still lying, picked up by you or another player, burned, despawned or fallen into the void."
+  "simpletools.guide.page.35": "More settings are in the mod's config screen."
 }

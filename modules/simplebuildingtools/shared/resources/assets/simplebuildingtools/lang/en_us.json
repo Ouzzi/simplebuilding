@@ -312,6 +312,7 @@
   "text.autoconfig.simplebuildingtools.option.wands.hungerCost.@Tooltip": "Experimental. Building a lot at once makes\nyou hungry: per click or blueprint build the\nfirst blocks are free (1/16 of the wand's\nlargest cube, at least 256 - normal faces\nnever cost anything); every block past that\nadds food exhaustion, less for stronger wands\n(a Copper Wand filling 16x16x16 takes about a\nquarter of the hunger bar, an Enderite Wand\nbuilding 128x128x128 the whole bar). Creative\nmode is exempt. It never deals damage itself.\nServer-side. Default: on.",
   "text.autoconfig.simplebuildingtools.option.wands.hungerMultiplier": "Building Wand Hunger Multiplier",
   "text.autoconfig.simplebuildingtools.option.wands.hungerMultiplier.@Tooltip": "Server-side. 0 to 10.\nMultiplies the food exhaustion of every block\npast the free allowance (see Building Wand\nHunger Cost). 0.5 = half as hungry, 2 = twice\nas hungry, 0 = building is free. The free\nallowance itself stays. Server-side. Default:\n1.0.",
+  "jei.simplebuildingtools.info.creative_tools": "Only in the creative inventory. The creative building wand builds without material, durability or hunger and reaches any block in sight. A creative blueprint in the off hand gives any building wand that reach; once signed it can no longer be edited.",
   "item.simplebuildingtools.guide_book": "Simple Building Tools Guide",
   "simplebuildingtools.guide.chapter": "Simple Building Tools",
   "simplebuildingtools.guide.page.1.title": "Simple Building Tools",
@@ -351,6 +352,5 @@
   "simplebuildingtools.guide.page.18.title": "Old worlds",
   "simplebuildingtools.guide.page.18": "wands, octants and blueprints in chests and inventories, the blueprint components, the enchantments Cover, Bridge and Linear and the tool recipes.",
   "simplebuildingtools.guide.page.19.title": "Settings",
-  "simplebuildingtools.guide.page.19": "More settings are in the mod's config screen.",
-  "jei.simplebuildingtools.info.creative_tools": "Only in the creative inventory. The creative building wand builds without material, durability or hunger and reaches any block in sight. A creative blueprint in the off hand gives any building wand that reach; once signed it can no longer be edited."
+  "simplebuildingtools.guide.page.19": "More settings are in the mod's config screen."
 }

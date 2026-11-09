@@ -51,6 +51,8 @@
   "container.simplearrows.fletching.effect.shaft.diamond_rod": "Durchbohrt ein Ziel mehr",
   "jei.simplearrows.note.fletching": "Eine Spitze, ein Schaft, eine Befiederung: ein gefertigter Pfeil",
   "jei.simplearrows.info.crafted_arrow": "Entsteht am Befiederungstisch: eine Spitze, ein Schaft und eine Befiederung ergeben 4 Pfeile. Die Spitze bestimmt den Schaden, Schaft und Befiederung den Flug. Unendlichkeit spart nur Vanilla-Pfeile.",
+  "jei.simplearrows.info.light_arrow": "Steckt er in einem Block, leuchtet die Luft davor wie eine Fackel (Lichtstufe 15). Das Licht geht mit dem Pfeil: wenn er verschwindet, aufgehoben wird oder herausfällt.",
+  "jei.simplearrows.info.silver_arrow": "Macht %s Zusatzschaden gegen Untote (Zombies, Skelette, ...). Hergestellt aus einem Silbernugget von Simple Ores, einem Stock und einer Feder; ohne Simple Ores gibt es kein Rezept.",
   "item.simplearrows.guide_book": "Simple-Arrows-Handbuch",
   "simplearrows.guide.chapter": "Simple Arrows",
   "simplearrows.guide.page.1.title": "Simple Arrows",
@@ -64,7 +66,5 @@
   "simplearrows.guide.page.5.title": "Befehle",
   "simplearrows.guide.page.5": "/simplearrows config [list | get | set | reset | help] (Operatoren).",
   "simplearrows.guide.page.6.title": "Einstellungen",
-  "simplearrows.guide.page.6": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "jei.simplearrows.info.light_arrow": "Steckt er in einem Block, leuchtet die Luft davor wie eine Fackel (Lichtstufe 15). Das Licht geht mit dem Pfeil: wenn er verschwindet, aufgehoben wird oder herausfällt.",
-  "jei.simplearrows.info.silver_arrow": "Macht %s Zusatzschaden gegen Untote (Zombies, Skelette, ...). Hergestellt aus einem Silbernugget von Simple Ores, einem Stock und einer Feder; ohne Simple Ores gibt es kein Rezept."
+  "simplearrows.guide.page.6": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

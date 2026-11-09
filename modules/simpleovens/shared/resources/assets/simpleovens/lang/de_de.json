@@ -116,6 +116,7 @@
   "item.simpleovens.oak_furnace_boat": "Eichen-Ofenboot",
   "item.simpleovens.pale_oak_furnace_boat": "Blasseichen-Ofenboot",
   "item.simpleovens.spruce_furnace_boat": "Fichten-Ofenboot",
+  "jei.simpleovens.info.furnace_tiers": "Aufgewertete Öfen, Räucheröfen und Schmelzöfen liefern genau die Rezeptausbeute. Netherit und Enderit geben doppelte Erfahrung, außer für Rissige Diamanten. Es gibt keinen Erz-Ausbeutebonus.",
   "item.simpleovens.guide_book": "Simple-Ovens-Handbuch",
   "simpleovens.guide.chapter": "Simple Ovens",
   "simpleovens.guide.page.1.title": "Simple Ovens",
@@ -147,6 +148,5 @@
   "simpleovens.guide.page.14.title": "Befehle",
   "simpleovens.guide.page.14": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
   "simpleovens.guide.page.15.title": "Einstellungen",
-  "simpleovens.guide.page.15": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "jei.simpleovens.info.furnace_tiers": "Aufgewertete Öfen, Räucheröfen und Schmelzöfen liefern genau die Rezeptausbeute. Netherit und Enderit geben doppelte Erfahrung, außer für Rissige Diamanten. Es gibt keinen Erz-Ausbeutebonus."
+  "simpleovens.guide.page.15": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

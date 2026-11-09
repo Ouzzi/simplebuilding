@@ -45,6 +45,7 @@
   "simplemachines.hopper_filter.none": "Aus",
   "simplemachines.hopper_filter.whitelist": "Exakt gleich",
   "simplemachines.hopper_filter.type": "Gleiche Art",
+  "tooltip.simplemachines.netherite_piston.durability": "Haltbarkeit: %s/%s",
   "item.simplemachines.guide_book": "Simple-Machines-Handbuch",
   "simplemachines.guide.chapter": "Simple Machines",
   "simplemachines.guide.page.1.title": "Simple Machines",
@@ -72,6 +73,5 @@
   "simplemachines.guide.page.12.title": "Befehle",
   "simplemachines.guide.page.12": "/simplemachines config [list | get | set | reset | help] (Operatoren).",
   "simplemachines.guide.page.13.title": "Einstellungen",
-  "simplemachines.guide.page.13": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "tooltip.simplemachines.netherite_piston.durability": "Haltbarkeit: %s/%s"
+  "simplemachines.guide.page.13": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

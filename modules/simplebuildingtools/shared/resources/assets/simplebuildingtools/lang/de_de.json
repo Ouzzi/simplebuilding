@@ -312,6 +312,7 @@
   "text.autoconfig.simplebuildingtools.option.wands.hungerCost.@Tooltip": "Experimentell. Viel auf einmal bauen macht\nhungrig: Pro Klick oder Blaupausen-Bau sind\ndie ersten Blöcke frei (1/16 des größten\nWürfels des Stabs, mindestens 256 - normale\nFlächen kosten nie etwas); jeder weitere\nBlock erzeugt Erschöpfung, bei stärkeren\nStäben weniger (ein Kupfer-Baustab, der\n16x16x16 füllt, kostet etwa ein Viertel der\nHungerleiste, ein Enderit-Baustab mit\n128x128x128 die ganze Leiste). Der\nKreativmodus ist ausgenommen. Verursacht nie\nselbst Schaden. Serverseitig. Standard: an.",
   "text.autoconfig.simplebuildingtools.option.wands.hungerMultiplier": "Hunger-Faktor des Baustabs",
   "text.autoconfig.simplebuildingtools.option.wands.hungerMultiplier.@Tooltip": "Serverseitig. 0 bis 10.\nMultipliziert die Erschöpfung jedes Blocks\nüber dem Freibetrag (siehe Hungerkosten des\nBaustabs). 0,5 = halb so hungrig, 2 = doppelt\nso hungrig, 0 = Bauen kostet nichts. Der\nFreibetrag bleibt. Serverseitig. Standard:\n1,0.",
+  "jei.simplebuildingtools.info.creative_tools": "Nur im Kreativ-Inventar. Der Kreativ-Baustab baut ohne Material, Haltbarkeit und Hunger und erreicht jeden Block in Sicht. Eine Kreativ-Blaupause in der Nebenhand gibt jedem Baustab diese Reichweite; signiert lässt sie sich nicht mehr ändern.",
   "item.simplebuildingtools.guide_book": "Simple-Building-Tools-Handbuch",
   "simplebuildingtools.guide.chapter": "Simple Building Tools",
   "simplebuildingtools.guide.page.1.title": "Simple Building Tools",
@@ -351,6 +352,5 @@
   "simplebuildingtools.guide.page.18.title": "Alte Welten",
   "simplebuildingtools.guide.page.18": "Baustäbe, Oktanten und Blaupausen in Truhen und Inventaren, die Blaupausen-Komponenten, die Verzauberungen Abdeckung, Brücke und Linear und die Werkzeug-Rezepte.",
   "simplebuildingtools.guide.page.19.title": "Einstellungen",
-  "simplebuildingtools.guide.page.19": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "jei.simplebuildingtools.info.creative_tools": "Nur im Kreativ-Inventar. Der Kreativ-Baustab baut ohne Material, Haltbarkeit und Hunger und erreicht jeden Block in Sicht. Eine Kreativ-Blaupause in der Nebenhand gibt jedem Baustab diese Reichweite; signiert lässt sie sich nicht mehr ändern."
+  "simplebuildingtools.guide.page.19": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

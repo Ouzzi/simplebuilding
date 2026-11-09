@@ -131,6 +131,8 @@
   "jei.simpletools.strip_station.1": "Rechtsklick mit einem Blockstapel legt den ganzen Stapel hinein.",
   "jei.simpletools.strip_station.2": "Rechtsklick mit einer Axt: der ganze Stapel wird entrindet (Stämme, Holz), abgeschabt oder entwachst (Kupfer, zuerst Wachs), 1 Haltbarkeit pro Block. Die Axt bleibt bei 1 Haltbarkeit und bricht nie.",
   "jei.simpletools.strip_station.3": "Leere Hand nimmt das Ergebnis heraus. Ein Trichter darüber füllt, ein Trichter darunter nimmt nur bearbeitete Blöcke.",
+  "jei.simpletools.info.biome_brush": "Pinsel in die Haupthand, ein Biom-Material in die Nebenhand (Sand malt zum Beispiel Wüste), Rechtsklick auf einen Block: Das Biom ringsum ändert sich. Jeder Strich kostet ein Material und einen Haltbarkeitspunkt; schleichend nur eine Stelle. Höhlenbiome werden nie übermalt, Claims werden beachtet.",
+  "jei.simpletools.info.death_vault": "Aufstellen und öffnen: Er zeigt, was aus jedem Gegenstand deines letzten Todes wurde - liegt noch, von dir oder anderen aufgehoben, verbrannt, verschwunden oder ins Leere gefallen.",
   "item.simpletools.guide_book": "Simple-Tools-Handbuch",
   "simpletools.guide.chapter": "Simple Tools",
   "simpletools.guide.page.1.title": "Simple Tools",
@@ -202,7 +204,5 @@
   "simpletools.guide.page.34.title": "Entrindungs-Station",
   "simpletools.guide.page.34": "Käfig (Eisenaxt, 4 Stäbe, 4 Bretter). Blockstapel hinein; die Axt entrindet, schabt oder entwachst ihn auf einmal (1 Haltbarkeit je Block, Axt bleibt bei 1). Leere Hand entnimmt; Trichter oben rein, unten raus.",
   "simpletools.guide.page.35.title": "Einstellungen",
-  "simpletools.guide.page.35": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "jei.simpletools.info.biome_brush": "Pinsel in die Haupthand, ein Biom-Material in die Nebenhand (Sand malt zum Beispiel Wüste), Rechtsklick auf einen Block: Das Biom ringsum ändert sich. Jeder Strich kostet ein Material und einen Haltbarkeitspunkt; schleichend nur eine Stelle. Höhlenbiome werden nie übermalt, Claims werden beachtet.",
-  "jei.simpletools.info.death_vault": "Aufstellen und öffnen: Er zeigt, was aus jedem Gegenstand deines letzten Todes wurde - liegt noch, von dir oder anderen aufgehoben, verbrannt, verschwunden oder ins Leere gefallen."
+  "simpletools.guide.page.35": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

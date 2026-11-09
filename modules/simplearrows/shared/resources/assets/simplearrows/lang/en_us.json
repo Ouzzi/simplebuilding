@@ -51,6 +51,8 @@
   "container.simplearrows.fletching.effect.shaft.diamond_rod": "Pierces one more target",
   "jei.simplearrows.note.fletching": "One tip, one shaft, one fletching: a crafted arrow",
   "jei.simplearrows.info.crafted_arrow": "Made at the Fletching Table: one tip, one shaft and one fletching give 4 arrows. The tip sets the damage, shaft and fletching change the flight. Infinity only saves vanilla arrows.",
+  "jei.simplearrows.info.light_arrow": "Stuck in a block, it lights the air in front of it like a torch (light level 15). The light goes with the arrow: when it despawns, is picked up or falls out.",
+  "jei.simplearrows.info.silver_arrow": "Deals %s extra damage to undead (zombies, skeletons, ...). Crafted from a Simple Ores silver nugget, a stick and a feather; without Simple Ores there is no recipe.",
   "item.simplearrows.guide_book": "Simple Arrows Guide",
   "simplearrows.guide.chapter": "Simple Arrows",
   "simplearrows.guide.page.1.title": "Simple Arrows",
@@ -64,7 +66,5 @@
   "simplearrows.guide.page.5.title": "Commands",
   "simplearrows.guide.page.5": "/simplearrows config [list | get | set | reset | help] (operators).",
   "simplearrows.guide.page.6.title": "Settings",
-  "simplearrows.guide.page.6": "More settings are in the mod's config screen.",
-  "jei.simplearrows.info.light_arrow": "Stuck in a block, it lights the air in front of it like a torch (light level 15). The light goes with the arrow: when it despawns, is picked up or falls out.",
-  "jei.simplearrows.info.silver_arrow": "Deals %s extra damage to undead (zombies, skeletons, ...). Crafted from a Simple Ores silver nugget, a stick and a feather; without Simple Ores there is no recipe."
+  "simplearrows.guide.page.6": "More settings are in the mod's config screen."
 }
