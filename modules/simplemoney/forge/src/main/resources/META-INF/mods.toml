@@ -100,12 +100,6 @@ versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.simplemoney]]
-modId="wiringexample"
-mandatory=false
-versionRange="[0,)"
-ordering="NONE"
-side="BOTH"
 
 [[dependencies.simplemoney]]
 modId="simpleores"

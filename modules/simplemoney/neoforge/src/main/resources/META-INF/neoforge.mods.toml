@@ -108,9 +108,3 @@ versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.simplemoney]]
-modId="wiringexample"
-type="optional"
-versionRange="[0,)"
-ordering="NONE"
-side="BOTH"
