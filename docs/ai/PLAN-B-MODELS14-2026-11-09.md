@@ -67,3 +67,22 @@ Antwortcode **`MODELS14: ok | nachbessern=<punkt>`**.
   `@model:mymodels:<name>` bleibt < 50 Zeichen.
 - Display-Reiter (Hand/GUI/Boden) und Beispiele 7–8 bleiben offen (Konzept Stufe 5/6 Rest), nicht in N7 genannt.
 - Mehrspieler: Export wirkt nur lokal (Pack) und im Einzelspieler-Katalog; auf fremden Servern Hinweis, kein Upload.
+
+## Ergebnis / Abweichungen (09.11.)
+- Commits: Plan 6796af682; S1 8c2a8fa74 (Raster-Stufen, EditorShortcuts + Hilfe F1/?, `ModelJson.locate` +
+  Unterstreichung, `writeCompact(model, width)`, Werkzeugleiste Datei/?/Code als Symbole); S2 00ee24945 (Reiter Würfel |
+  Fläche, `UvEdit`, `ModelGeometry.pickFace`, Strg+Klick); S3 0fd1e8d84 (`TextureChoice`, `TexturePickerScreen`);
+  S4 e02c074a9 (`ModelExport`, `ModelFileScreen`); S5 71a476c32 (Client-Smoke, Handbuch-Text); gen bbdff510b (Guides/
+  Wiki/Discover auf sb-test); 7ed35eb16 (Smoke stellt Test-Katalog nach „Als Modell nutzen“ wieder her); da137e8e7
+  (nach Screenshot-Sichtung: Hilfe in eigener GUI-Ebene, „A“ eingedrückt bei Auto-UV, „3D“-Knopf, Datei-Abstände).
+- **Abweichung:** gemeinsame Dateien (EditorTests, ModelTests, Fabric-Adapter, Lang) liegen vollständig im S2-Commit;
+  S1 referenziert `ModelFileScreen` (kommt in S4) – einzelne Zwischen-Commits kompilieren nicht allein, der Kopf schon.
+- **Abweichung:** Texturliste kommt aus dem Resource-Manager (`textures/block/*.png`, gegen den Block-Atlas geprüft),
+  weil `TextureAtlas` auf Fabric keine öffentliche ID-Liste hat (kein neuer Mixin nötig).
+- Zeilenumbruch Skala 2: Strukturzeilen passen jetzt in die Spalte; lange Einzelwerte (Textur-IDs) brechen weiter um.
+- Tests: lokal Logik-Harness (javac + Gson/JOML, 8 Tests grün) + javac des ganzen Moduls gegen 26.3; sbt 1:
+  GUIDES/WIKIGEN/DISCOVER/GENPUSH/COMPILE_RC=0, MODULE_RC=0 (simplemodels fabric + standalone 66/66), CLIENT_RC=1 (Anvil-
+  Schritt nach Katalog-Reload, Testfix 7ed35eb16), WIKICHECK_RC=0, DISCOVERCHECK_RC=0; sbt 2: COMPILE_RC=0, CLIENT_RC=0
+  (18/18 Screenshots). da137e8e7 nur javac-geprüft.
+- Offen: Besitzer MODELS14 (Vorschau /root/sb-tools-b/previews/b-models14-preview.html), MODELS12/13; Echte-Maus-Test
+  UV-Ziehen/Gizmo (menu_probe.py); Display-Reiter, Beispiele 7–8, DSL (Stufe 4), .bbmodel (7), Teilen (8).
