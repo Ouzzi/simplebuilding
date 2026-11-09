@@ -271,6 +271,30 @@
       "de": {
         "summary": "Seltener Fund in den Backrooms; an der Ausgangstür benutzt, wird er verbraucht und die Tür öffnet sich 1500-3000 Blöcke entfernt."
       }
+    },
+    "simplelayers:exit_door": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ExitDoorBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java"
+      ],
+      "en": {
+        "summary": "Only in the Backrooms exit room (no item): using it leads back to the Overworld surface above the entry; with a Backdoor Key 1500-3000 blocks away."
+      },
+      "de": {
+        "summary": "Nur im Ausgangsraum der Backrooms (kein Item): Benutzen führt zurück an die Oberwelt-Oberfläche über dem Eingang; mit Hintertür-Schlüssel 1500-3000 Blöcke entfernt."
+      }
+    },
+    "simplelayers:rift": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/RiftBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/GlitchedBedrockBlock.java"
+      ],
+      "en": {
+        "summary": "What a broken Glitched Bedrock leaves (no item): no collision, unbreakable; whatever enters it lands in the Backrooms."
+      },
+      "de": {
+        "summary": "Bleibt von abgebautem fehlerhaftem Grundgestein (kein Item): ohne Kollision, unzerstörbar; wer hineingerät, landet in den Backrooms."
+      }
     }
   }
 }
