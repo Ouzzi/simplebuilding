@@ -98,7 +98,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - optional: Simple Money, Simple Ores
   - **Simple Money** `simplemoney` (optional) [fertig]: Currency production, weighted villager trades and treasure loot.
     - required: cloth_config
-    - optional: jei, modmenu, SimpleBuilding, Simple Fun, Simple Models, Simple Quality of Life, Simple Riding, Simple Sandwiches, Simple Sounds, Simple Tweaks, Simple Visuals, Wiring Example, Simple Ores
+    - optional: jei, modmenu, SimpleBuilding, Simple Fun, Simple Models, Simple Quality of Life, Simple Riding, Simple Sandwiches, Simple Sounds, Simple Tweaks, Simple Visuals, Simple Ores
   - **Simple Music** `simplemusic` (optional) [neu]: Sheet music with a text note code (editor with test listening, .txt/.nbs import), pressed onto blank discs in the Disc Press, and uploaded mono Ogg discs (quota, OP approval), played in the Vanilla jukebox and the Pocket Jukebox. Needs SimpleLib; SimpleBuilding optional.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Mobheads
