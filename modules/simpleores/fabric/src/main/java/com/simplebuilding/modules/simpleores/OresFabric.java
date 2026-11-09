@@ -27,7 +27,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
  */
 public final class OresFabric implements ModInitializer {
     private static final ResourceKey<PlacedFeature> SILVER = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("silver_ore"));
-    private static final ResourceKey<PlacedFeature> LEAD = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("lead_ore"));
     private static final ResourceKey<PlacedFeature> END_SILVER = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("end_silver_ore"));
     private static final TagKey<Biome> END_BIOMES = TagKey.create(Registries.BIOME, SimpleOres.id("has_end_silver_ore"));
     /** IG31-13: Sage Ore and Dimensional Scrap, moved from SimpleBuilding with their placed features. */
@@ -55,14 +54,20 @@ public final class OresFabric implements ModInitializer {
         com.simplelib.api.config.ConfigCommands.server(SimpleOres.MOD_ID).json(com.simpleores.config.OresConfig::toJson, com.simpleores.config.OresConfig::apply)
                 .file(FabricLoader.getInstance().getConfigDir(), com.simpleores.config.OresConfig.FILE).register();
         com.simpleores.RoseGoldVeinFeature.register();
+        com.simpleores.MiniGeodeFeature.register();
         OresRegistry.registerAll();
         com.simplelib.api.ModTabs.register(SimpleOres.MOD_ID, "ores", "itemgroup.simpleores.ores", () -> new ItemStack(OresRegistry.ITEMS.get("silver_ingot")));
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(ctx -> SimpleOres.on()), GenerationStep.Decoration.UNDERGROUND_ORES, SILVER);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(ctx -> SimpleOres.on()), GenerationStep.Decoration.UNDERGROUND_ORES, LEAD);
-        for (String metal : OresRegistry.METALS) {   // RG30-2: zinc, nickel, tin
-            BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(ctx -> SimpleOres.on()), GenerationStep.Decoration.UNDERGROUND_ORES,
-                    ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id(metal + "_ore")));
-        }
+        // N4 (b-ores13, owner 09.11.): one switch per deposit (lead in stone, zinc geodes, nickel in deepslate, mountain tin, tin placers, End lead and zinc).
+        var overworldOres = BiomeSelectors.foundInOverworld().or(BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_OVERWORLD));
+        ores(overworldOres, () -> com.simpleores.config.OresConfig.leadOre, "lead_ore");
+        ores(overworldOres, () -> com.simpleores.config.OresConfig.zincGeodes, "zinc_geode");
+        ores(overworldOres, () -> com.simpleores.config.OresConfig.nickelOre, "nickel_ore");
+        ores(overworldOres, () -> com.simpleores.config.OresConfig.tinOre, "tin_ore", "tin_ore_granite");
+        ores(BiomeSelectors.tag(TagKey.create(Registries.BIOME, SimpleOres.id("has_mountain_tin"))), () -> com.simpleores.config.OresConfig.tinOre, "tin_ore_mountain");
+        ores(BiomeSelectors.tag(TagKey.create(Registries.BIOME, SimpleOres.id("has_tin_placer"))), () -> com.simpleores.config.OresConfig.tinPlacers, "tin_placer");
+        ores(BiomeSelectors.tag(TagKey.create(Registries.BIOME, SimpleOres.id("has_end_lead_ore"))), () -> com.simpleores.config.OresConfig.endLeadOre, "end_lead_ore");
+        ores(BiomeSelectors.tag(TagKey.create(Registries.BIOME, SimpleOres.id("has_end_zinc_geode"))), () -> com.simpleores.config.OresConfig.endZincGeodes, "end_zinc_geode");
         BiomeModifications.addFeature(BiomeSelectors.tag(END_BIOMES).and(ctx -> SimpleOres.on()), GenerationStep.Decoration.UNDERGROUND_ORES, END_SILVER);
         // Sage Ore and Dimensional Scrap as SimpleBuilding placed them (the flat test world reports its biomes through the tags only).
         var overworld = BiomeSelectors.foundInOverworld().or(BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_OVERWORLD));
@@ -96,6 +101,14 @@ public final class OresFabric implements ModInitializer {
             else book.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         });
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simpleores.guide.OresGuide.installQuests(FabricLoader.getInstance().getConfigDir());
+    }
+
+    /** Placed features of one deposit in the selected biomes while the module and the deposit's switch are on. */
+    private static void ores(java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> biomes, java.util.function.BooleanSupplier on, String... placed) {
+        for (String id : placed) {
+            BiomeModifications.addFeature(biomes.and(ctx -> SimpleOres.on() && on.getAsBoolean()), GenerationStep.Decoration.UNDERGROUND_ORES,
+                    ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id(id)));
+        }
     }
 
     /** Vanilla tab entries behind the matching gold item, at the tab's end when the anchor is missing. */

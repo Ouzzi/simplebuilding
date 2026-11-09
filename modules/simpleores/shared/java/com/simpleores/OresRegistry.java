@@ -117,6 +117,19 @@ public final class OresRegistry {
         for (String a : MIXES) block(a + "_block", Blocks.IRON_BLOCK, Block::new);
     }
 
+    /**
+     * N4 (b-ores13, owner 09.11.): End lead and End zinc in End stone (drop like their Overworld ores), the crust of the closed mini
+     * geodes ({@link MiniGeodeFeature}), and tin-bearing gravel and sand of river and beach beds (shovel, they fall like gravel/sand,
+     * drop tin nuggets).
+     */
+    public static final Block END_LEAD_ORE = block("end_lead_ore", Blocks.END_STONE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
+    public static final Block END_ZINC_ORE = block("end_zinc_ore", Blocks.END_STONE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
+    public static final Block GEODE_CRUST = block("geode_crust", Blocks.SMOOTH_BASALT, Block::new);
+    public static final Block TIN_BEARING_GRAVEL = block("tin_bearing_gravel", Blocks.GRAVEL,
+            s -> new net.minecraft.world.level.block.ColoredFallingBlock(new net.minecraft.util.ColorRGBA(-8356741), s));
+    public static final Block TIN_BEARING_SAND = block("tin_bearing_sand", Blocks.SAND,
+            s -> new net.minecraft.world.level.block.ColoredFallingBlock(new net.minecraft.util.ColorRGBA(14406560), s));
+
     // IG31-13: moved materials. Enderite block like the netherite block (it was built from the same numbers).
     public static final Block ENDERITE_BLOCK = block("enderite_block", Blocks.NETHERITE_BLOCK, Block::new);
     /** Sage Ore (owner 2026-10-01): rare like diamond, drops only experience (3-7) and rarely a sage orb (loot table); iron pickaxe. */
@@ -290,7 +303,8 @@ public final class OresRegistry {
     }
 
     public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "deepslate_lead_ore", "raw_lead_block",
-            "zinc_ore", "deepslate_zinc_ore", "raw_zinc_block", "nickel_ore", "deepslate_nickel_ore", "raw_nickel_block", "tin_ore", "deepslate_tin_ore", "raw_tin_block",
+            "end_lead_ore", "zinc_ore", "deepslate_zinc_ore", "end_zinc_ore", "geode_crust", "raw_zinc_block", "nickel_ore", "deepslate_nickel_ore", "raw_nickel_block",
+            "tin_ore", "deepslate_tin_ore", "tin_bearing_gravel", "tin_bearing_sand", "raw_tin_block",
             "sage_ore", "deepslate_sage_ore", "nether_sage_ore", "end_sage_ore", "nether_rose_gold_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
     public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "zinc_block", "nickel_block", "tin_block", "brass_block", "stainless_steel_block", "bronze_block", "rose_bronze_block", "rose_gold_block", "rose_bronze_pressling_block", "rose_gold_pressling_block", "sage_crystal_block", "enderite_block",
             "netherite_scrap_block", "enderite_scrap_block", "sage_orb_block", "rift_shard_block", "nether_rift_shard_block", "end_rift_shard_block",

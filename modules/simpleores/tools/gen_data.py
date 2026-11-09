@@ -47,7 +47,12 @@ BLOCKS = {
     'netherite_scrap_block': ('Block of Netherite Scrap', 'Netherit-Schrottblock'),
     'enderite_scrap_block': ('Block of Enderite Scrap', 'Enderitplatten-Block'),
     'sage_orb_block': ('Block of Sage Orbs', 'Weisheitskugelblock'),
+    # N4 (b-ores13, 09.11.): End lead and End zinc, the crust of the zinc mini geodes, tin placers of river and beach beds
+    'end_lead_ore': ('End Lead Ore', 'End-Bleierz'), 'end_zinc_ore': ('End Zinc Ore', 'End-Zinkerz'), 'geode_crust': ('Geode Crust', 'Geodenkruste'),
+    'tin_bearing_gravel': ('Tin-Bearing Gravel', 'Zinnseifen-Kies'), 'tin_bearing_sand': ('Tin-Bearing Sand', 'Zinnseifen-Sand'),
 }
+N4_BLOCKS = ('end_lead_ore', 'end_zinc_ore', 'geode_crust', 'tin_bearing_gravel', 'tin_bearing_sand')
+SHOVEL = ('tin_bearing_gravel', 'tin_bearing_sand')
 ITEMS = {'sage_crystal_shard': ('Sage Crystal Shard', 'Weisheitskristallsplitter'), 'sage_crystal': ('Sage Crystal', 'Weisheitskristall'),
          'raw_silver': ('Raw Silver', 'Rohsilber'), 'silver_ingot': ('Silver Ingot', 'Silberbarren'),
          'silver_nugget': ('Silver Nugget', 'Silberklumpen'),
@@ -65,8 +70,8 @@ for a, (en, de) in ALLOYS.items():
     ITEMS[f'{a}_apple'] = (f'{en} Apple', f'{de}-Apfel')
     ITEMS[f'enchanted_{a}_apple'] = (f'Enchanted {en} Apple', f'Verzauberter {de}-Apfel')
 # RG30-2 (a-rg08, 08.11.): zinc, nickel and tin with the three plain alloys of the concept (section 7), building and decoration only, no tool tiers.
-# metal -> (EN, DE, ore noun DE, vein size, veins per chunk, min Y, max Y, hardness tier of the ore)
-METALS = {'zinc': ('Zinc', 'Zink', 8, 4, -32, 48, 'stone'), 'nickel': ('Nickel', 'Nickel', 5, 2, -64, 16, 'iron'), 'tin': ('Tin', 'Zinn', 7, 5, -16, 72, 'stone')}
+# metal -> (EN, DE, hardness tier of the ore); the deposits are in the worldgen section (N4, b-ores13)
+METALS = {'zinc': ('Zinc', 'Zink', 'stone'), 'nickel': ('Nickel', 'Nickel', 'iron'), 'tin': ('Tin', 'Zinn', 'stone')}
 # alloy -> (EN, DE, [(ingredient, count)], result count, metal the recipe unlocks on); results equal the ingredient count (nothing is lost)
 MIXES = {'brass': ('Brass', 'Messing', [('minecraft:copper_ingot', 2), ('zinc_ingot', 1)], 3, 'zinc_ingot'),
          'stainless_steel': ('Stainless Steel', 'Edelstahl', [('minecraft:iron_ingot', 3), ('nickel_ingot', 1)], 4, 'nickel_ingot'),
@@ -192,13 +197,17 @@ ore_drop('deepslate_silver_ore', 'raw_silver')
 ore_drop('end_silver_ore', 'silver_nugget', (2, 6))
 ore_drop('lead_ore', 'raw_lead', (1, 2))
 ore_drop('deepslate_lead_ore', 'raw_lead', (1, 2))
+ore_drop('end_lead_ore', 'raw_lead', (1, 2))
+ore_drop('end_zinc_ore', 'raw_zinc')
+for p in SHOVEL:
+    ore_drop(p, 'tin_nugget', (2, 5))   # N4: tin placers give nuggets (Fortune helps, Silk Touch keeps the block)
 for m in METALS:
     ore_drop(f'{m}_ore', f'raw_{m}')
     ore_drop(f'deepslate_{m}_ore', f'raw_{m}')
 ore_drop('nether_rose_gold_ore', 'rose_gold_pressling')   # no raw rose gold exists: the pressing is the stage before the blast furnace
 ore_drop('nether_sage_ore', 'sage_crystal_shard', (1, 3))
 ore_drop('end_sage_ore', 'sage_crystal_shard', (1, 3))
-for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block') + tuple(NEW_BLOCKS) + tuple(f'raw_{m}_block' for m in METALS) + tuple(f'{m}_block' for m in list(METALS) + list(MIXES)) + tuple(RIFT_BLOCKS):
+for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block', 'geode_crust') + tuple(NEW_BLOCKS) + tuple(f'raw_{m}_block' for m in METALS) + tuple(f'{m}_block' for m in list(METALS) + list(MIXES)) + tuple(RIFT_BLOCKS):
     self_drop(path)
 
 # ---------------------------------------------------------------- recipes (+ advancements)
@@ -277,7 +286,7 @@ recipe('lead_ingot_from_nuggets', 'misc', {'type': 'minecraft:crafting_shaped', 
                                             'pattern': ['###', '###', '###'], 'result': result('lead_ingot')}, item('lead_nugget'))
 recipe('lead_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item('lead_ingot')],
                                 'result': result('lead_nugget', 9)}, item('lead_ingot'))
-for source in ('raw_lead', 'lead_ore', 'deepslate_lead_ore'):
+for source in ('raw_lead', 'lead_ore', 'deepslate_lead_ore', 'end_lead_ore'):
     recipe(f'lead_ingot_from_smelting_{source}', 'misc', {'type': 'minecraft:smelting', 'category': 'misc', 'cookingtime': 200,
            'experience': 0.7, 'group': 'lead_ingot', 'ingredient': item(source), 'result': result('lead_ingot')}, item(source))
     recipe(f'lead_ingot_from_blasting_{source}', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': 100,
@@ -327,7 +336,7 @@ for m in METALS:
                                               'pattern': ['###', '###', '###'], 'result': result(f'{m}_ingot')}, item(f'{m}_nugget'))
     recipe(f'{m}_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item(f'{m}_ingot')],
                                    'result': result(f'{m}_nugget', 9)}, item(f'{m}_ingot'))
-    for source in (f'raw_{m}', f'{m}_ore', f'deepslate_{m}_ore'):
+    for source in (f'raw_{m}', f'{m}_ore', f'deepslate_{m}_ore') + (('end_zinc_ore',) if m == 'zinc' else ()):
         recipe(f'{m}_ingot_from_smelting_{source}', 'misc', {'type': 'minecraft:smelting', 'category': 'misc', 'cookingtime': 200,
                'experience': 0.7, 'group': f'{m}_ingot', 'ingredient': item(source), 'result': result(f'{m}_ingot')}, item(source))
         recipe(f'{m}_ingot_from_blasting_{source}', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': 100,
@@ -385,7 +394,7 @@ for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/storage_blocks/raw_silver.json', ids(['raw_silver_block']))
     for a in ALLOYS:
         tag(f'c/tags/{kind}/storage_blocks/{a}.json', ids([f'{a}_block']))
-LEAD_ORES = ['lead_ore', 'deepslate_lead_ore']
+LEAD_ORES = ['lead_ore', 'deepslate_lead_ore', 'end_lead_ore']
 for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/ores/lead.json', ids(LEAD_ORES))
     tag(f'c/tags/{kind}/storage_blocks/lead.json', ids(['lead_block']))
@@ -412,7 +421,7 @@ tag('c/tags/item/nuggets/rosegold.json', ids([f'{a}_nugget' for a in ALLOYS]))
 tag('c/tags/item/ingots/rosegold.json', ids([f'{a}_ingot' for a in ALLOYS]))
 for m in METALS:
     for kind in ('block', 'item'):
-        tag(f'c/tags/{kind}/ores/{m}.json', ids([f'{m}_ore', f'deepslate_{m}_ore']))
+        tag(f'c/tags/{kind}/ores/{m}.json', ids([f'{m}_ore', f'deepslate_{m}_ore'] + (['end_zinc_ore'] if m == 'zinc' else [])))
         tag(f'c/tags/{kind}/storage_blocks/{m}.json', ids([f'{m}_block']))
         tag(f'c/tags/{kind}/storage_blocks/raw_{m}.json', ids([f'raw_{m}_block']))
     tag(f'c/tags/item/ingots/{m}.json', ids([f'{m}_ingot']))
@@ -423,10 +432,11 @@ for a in MIXES:
         tag(f'c/tags/{kind}/storage_blocks/{a}.json', ids([f'{a}_block']))
     tag(f'c/tags/item/ingots/{a}.json', ids([f'{a}_ingot']))
 every = list(BLOCKS)
-tag('minecraft/tags/block/mineable/pickaxe.json', ids(every + list(MOVED_BLOCKS)))
-STONE_TIER = ['lead_ore', 'deepslate_lead_ore', 'raw_lead_block'] + [b for m, v in METALS.items() if v[6] == 'stone'
+tag('minecraft/tags/block/mineable/pickaxe.json', ids([b for b in every if b not in SHOVEL] + list(MOVED_BLOCKS)))
+tag('minecraft/tags/block/mineable/shovel.json', ids(list(SHOVEL)))
+STONE_TIER = ['lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'end_lead_ore', 'end_zinc_ore'] + [b for m, v in METALS.items() if v[2] == 'stone'
                                                                    for b in (f'{m}_ore', f'deepslate_{m}_ore', f'raw_{m}_block')]   # like Vanilla iron and copper ore
-tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b != 'silver_mirror' and b not in DIAMOND_NEW and b not in RIFT_BLOCKS] + SAGE_ORES))
+tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b not in ('silver_mirror', 'geode_crust') + SHOVEL and b not in DIAMOND_NEW and b not in RIFT_BLOCKS] + SAGE_ORES))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
 tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS + RIFT_BLOCKS))
@@ -475,6 +485,13 @@ for part, group in (('sword', 'swords'), ('pickaxe', 'pickaxes'), ('axe', 'axes'
 tag('minecraft/tags/item/trimmable_armor.json', ids([f'{a}_{p}' for a in ALLOYS for p in ARMOR_PARTS]))
 tag('minecraft/tags/item/enchantable/durability.json', ids([f'{a}_{p}' for a in ALLOYS for p in TOOL_PARTS + ARMOR_PARTS]))
 tag(f'{NS}/tags/worldgen/biome/has_end_sage_ore.json', ['minecraft:end_highlands', 'minecraft:end_midlands', 'minecraft:end_barrens', 'minecraft:small_end_islands'])
+OUTER_END = ['minecraft:end_highlands', 'minecraft:end_midlands', 'minecraft:end_barrens', 'minecraft:small_end_islands']
+tag(f'{NS}/tags/worldgen/biome/has_end_lead_ore.json', OUTER_END)
+tag(f'{NS}/tags/worldgen/biome/has_end_zinc_geode.json', OUTER_END)
+# N4: the mountains of mountain tin (stony, jagged and frozen peaks, snowy slopes, windswept hills) and the beds of the tin placers.
+tag(f'{NS}/tags/worldgen/biome/has_mountain_tin.json', ['minecraft:stony_peaks', 'minecraft:jagged_peaks', 'minecraft:frozen_peaks', 'minecraft:snowy_slopes',
+                                                        'minecraft:windswept_hills', 'minecraft:windswept_gravelly_hills'])
+tag(f'{NS}/tags/worldgen/biome/has_tin_placer.json', ['minecraft:river', 'minecraft:frozen_river', 'minecraft:beach', 'minecraft:snowy_beach'])
 tag(f'{NS}/tags/worldgen/biome/has_end_silver_ore.json', ['minecraft:end_highlands', 'minecraft:end_midlands', 'minecraft:end_barrens',
                                                           'minecraft:small_end_islands'])
 
@@ -490,28 +507,73 @@ put(DATA / 'worldgen/placed_feature/silver_ore.json', {
                   {'type': 'minecraft:in_square'},
                   {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': -48}, 'max_inclusive': {'absolute': 16}}},
                   {'type': 'minecraft:biome'}]})
-LEAD_VEIN, LEAD_VEINS = 9, 6
-put(DATA / 'worldgen/feature/lead_ore.json', {
-    'type': 'minecraft:ore', 'discard_chance_on_air_exposure': 0.0, 'size': LEAD_VEIN,
-    'targets': [{'state': item('lead_ore'), 'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:stone_ore_replaceables'}},
-                {'state': item('deepslate_lead_ore'), 'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:deepslate_ore_replaceables'}}]})
-put(DATA / 'worldgen/placed_feature/lead_ore.json', {
-    'feature': item('lead_ore'),
-    'placement': [{'type': 'minecraft:count', 'count': LEAD_VEINS}, {'type': 'minecraft:in_square'},
-                  {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': -64}, 'max_inclusive': {'absolute': 48}}},
-                  {'type': 'minecraft:biome'}]})
-for m, (_en, _de, size, count, lo, hi, _tier) in METALS.items():
-    put(DATA / f'worldgen/feature/{m}_ore.json', {
-        'type': 'minecraft:ore', 'discard_chance_on_air_exposure': 0.0, 'size': size,
-        'targets': [{'state': item(f'{m}_ore'), 'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:stone_ore_replaceables'}},
-                    {'state': item(f'deepslate_{m}_ore'), 'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:deepslate_ore_replaceables'}}]})
-    put(DATA / f'worldgen/placed_feature/{m}_ore.json', {
-        'feature': item(f'{m}_ore'),
-        'placement': [{'type': 'minecraft:count', 'count': count}, {'type': 'minecraft:in_square'},
-                      {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': lo}, 'max_inclusive': {'absolute': hi}}},
-                      {'type': 'minecraft:biome'}]})
-    put(DATA / f'neoforge/biome_modifier/{m}_ore.json', {'type': 'neoforge:add_features', 'biomes': '#minecraft:is_overworld',
-                                                         'features': item(f'{m}_ore'), 'step': 'underground_ores'})
+# N4 (b-ores13, owner 09.11., docs/ai/PLAN-B-ORES13-2026-11-09.md): the deposits. Lead only in stone and never at air; zinc only in
+# closed mini geodes (simpleores:mini_geode, MiniGeodeFeature); nickel in deepslate like diamond; tin in the mountains (stone, nests
+# in granite, more in the mountain biomes) and rarely as tin-bearing gravel/sand in river and beach beds; End lead and End zinc geodes.
+STONE = {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:stone_ore_replaceables'}
+DEEPSLATE = {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:deepslate_ore_replaceables'}
+GRANITE = {'predicate_type': 'minecraft:block_match', 'block': 'minecraft:granite'}
+END_STONE = {'predicate_type': 'minecraft:block_match', 'block': 'minecraft:end_stone'}
+
+
+def uniform(lo, hi):
+    return {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': lo}, 'max_inclusive': {'absolute': hi}}}
+
+
+def ore_feature(name, size, air, targets):
+    put(DATA / f'worldgen/feature/{name}.json', {'type': 'minecraft:ore', 'discard_chance_on_air_exposure': air, 'size': size,
+                                                 'targets': [{'state': item(state), 'target': rule} for state, rule in targets]})
+
+
+def placed(name, count, height, feature=None, rarity=False):
+    first = {'type': 'minecraft:rarity_filter', 'chance': count} if rarity else {'type': 'minecraft:count', 'count': count}
+    put(DATA / f'worldgen/placed_feature/{name}.json', {'feature': item(feature or name),
+                                                        'placement': [first, {'type': 'minecraft:in_square'}, height, {'type': 'minecraft:biome'}]})
+
+
+def neoforge(name, biomes):
+    put(DATA / f'neoforge/biome_modifier/{name}.json', {'type': 'neoforge:add_features', 'biomes': biomes, 'features': item(name), 'step': 'underground_ores'})
+
+
+# name -> (size, tries per chunk, min Y, max Y, air exposure discard) of the plain ore veins (wiki notes and tests read these)
+DEPOSITS = {'lead_ore': (9, 6, 0, 72, 1.0), 'end_lead_ore': (7, 6, 20, 80, 1.0), 'tin_ore': (7, 4, 20, 80, 0.0),
+            'tin_ore_granite': (10, 10, 20, 80, 0.0), 'tin_ore_mountain': (8, 6, 60, 180, 0.0)}
+NICKEL = (6, 10, 0.5)        # size, tries, air; height like Vanilla diamond (trapezoid above_bottom -80..80: Y -64 most, up to 16)
+GEODES = {'zinc_geode': (2, -56, 40), 'end_zinc_geode': (2, 20, 80)}   # tries per chunk, min Y, max Y
+PLACER_RARITY = 3            # one tin placer disk in every 3rd chunk of the river and beach biomes
+ore_feature('lead_ore', 9, 1.0, [('lead_ore', STONE)])                        # no deepslate lead any more (the block stays)
+ore_feature('end_lead_ore', 7, 1.0, [('end_lead_ore', END_STONE)])
+ore_feature('tin_ore', 7, 0.0, [('tin_ore', STONE), ('tin_ore', GRANITE)])
+ore_feature('tin_ore_granite', 10, 0.0, [('tin_ore', GRANITE)])               # only granite turns: dense nests inside the granite blobs
+ore_feature('tin_ore_mountain', 8, 0.0, [('tin_ore', STONE), ('tin_ore', GRANITE)])
+for name, (_size, count, lo, hi, _air) in DEPOSITS.items():
+    placed(name, count, uniform(lo, hi))
+ore_feature('nickel_ore', NICKEL[0], NICKEL[2], [('deepslate_nickel_ore', DEEPSLATE)])
+placed('nickel_ore', NICKEL[1], {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:trapezoid', 'min_inclusive': {'above_bottom': -80},
+                                                                               'max_inclusive': {'above_bottom': 80}}})
+put(DATA / 'worldgen/feature/zinc_geode.json', {'type': item('mini_geode'), 'shell': item('geode_crust'), 'lining': 'minecraft:calcite',
+                                                'ore': item('zinc_ore'), 'host': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:base_stone_overworld'},
+                                                'ores': {'type': 'minecraft:uniform', 'min_inclusive': 1, 'max_inclusive': 8}})
+put(DATA / 'worldgen/feature/end_zinc_geode.json', {'type': item('mini_geode'), 'shell': 'minecraft:end_stone', 'lining': item('geode_crust'),
+                                                    'ore': item('end_zinc_ore'), 'host': END_STONE,
+                                                    'ores': {'type': 'minecraft:uniform', 'min_inclusive': 1, 'max_inclusive': 8}})
+for name, (count, lo, hi) in GEODES.items():
+    placed(name, count, uniform(lo, hi))
+# Tin placers: Vanilla's disk_sand at the water bed (OCEAN_FLOOR_WG + water above), small (radius 1 to 2); sand turns into tin-bearing sand,
+# gravel, dirt and clay into tin-bearing gravel.
+put(DATA / 'worldgen/feature/tin_placer.json', {
+    'type': 'minecraft:disk', 'half_height': 1, 'radius': {'type': 'minecraft:uniform', 'min_inclusive': 1, 'max_inclusive': 2},
+    'state_provider': {'type': 'minecraft:rule_based', 'fallback': {'id': item('tin_bearing_gravel')},
+                       'rules': [{'if_true': {'type': 'minecraft:matching_blocks', 'blocks': 'minecraft:sand'}, 'then': {'id': item('tin_bearing_sand')}}]},
+    'target': {'type': 'minecraft:matching_blocks', 'blocks': ['minecraft:sand', 'minecraft:gravel', 'minecraft:dirt', 'minecraft:clay']}})
+put(DATA / 'worldgen/placed_feature/tin_placer.json', {'feature': item('tin_placer'), 'placement': [
+    {'type': 'minecraft:rarity_filter', 'chance': PLACER_RARITY}, {'type': 'minecraft:in_square'}, {'type': 'minecraft:heightmap', 'heightmap': 'OCEAN_FLOOR_WG'},
+    {'type': 'minecraft:block_predicate_filter', 'predicate': {'type': 'minecraft:matching_fluids', 'fluids': 'minecraft:water'}}, {'type': 'minecraft:biome'}]})
+for name in ('lead_ore', 'zinc_geode', 'nickel_ore', 'tin_ore', 'tin_ore_granite'):
+    neoforge(name, '#minecraft:is_overworld')
+for name, tag_name in (('tin_ore_mountain', 'has_mountain_tin'), ('tin_placer', 'has_tin_placer'), ('end_lead_ore', 'has_end_lead_ore'),
+                       ('end_zinc_geode', 'has_end_zinc_geode')):
+    neoforge(name, f'#{NS}:{tag_name}')
 put(DATA / 'worldgen/feature/end_silver_ore.json', {
     'type': 'minecraft:ore', 'discard_chance_on_air_exposure': 0.0, 'size': END_VEIN,
     'targets': [{'state': item('end_silver_ore'), 'target': {'predicate_type': 'minecraft:block_match', 'block': 'minecraft:end_stone'}}]})
@@ -522,8 +584,6 @@ put(DATA / 'worldgen/placed_feature/end_silver_ore.json', {
                   {'type': 'minecraft:biome'}]})
 put(DATA / 'neoforge/biome_modifier/silver_ore.json', {'type': 'neoforge:add_features', 'biomes': '#minecraft:is_overworld',
                                                        'features': item('silver_ore'), 'step': 'underground_ores'})
-put(DATA / 'neoforge/biome_modifier/lead_ore.json', {'type': 'neoforge:add_features', 'biomes': '#minecraft:is_overworld',
-                                                     'features': item('lead_ore'), 'step': 'underground_ores'})
 put(DATA / 'neoforge/biome_modifier/end_silver_ore.json', {'type': 'neoforge:add_features', 'biomes': f'#{NS}:has_end_silver_ore',
                                                            'features': item('end_silver_ore'), 'step': 'underground_ores'})
 
@@ -552,7 +612,14 @@ put(DATA / 'worldgen/placed_feature/end_sage_ore_placed.json', {'feature': item(
 
 # Config texts (A11: text.autoconfig.<mod>.option.<field> + .@Tooltip, "Default:"/"Standard:" in the tooltip), one row per option of OresConfig.KEYS.
 CONFIG_CATEGORIES = {'general': ('General', 'Allgemein'), 'lead': ('Lead and soundproofing', 'Blei und Schalldämmung'),
-                     'materials': ('Sage Ore and Dimensional Scrap', 'Weisheitserz und Dimensionsschrott')}
+                     'materials': ('Sage Ore and Dimensional Scrap', 'Weisheitserz und Dimensionsschrott'),
+                     'worldgen': ('Ore deposits', 'Erzvorkommen')}
+NEW_CHUNKS = (' Takes effect at the next world start in newly generated chunks; existing ores stay.', ' Wirkt beim nächsten Weltstart in neu erzeugten Chunks; vorhandene Erze bleiben.')
+
+
+def deposit(label, en, de):
+    return ('worldgen', label, (en + NEW_CHUNKS[0] + '\nDefault: true.', de + NEW_CHUNKS[1] + '\nStandard: true.'))
+
 CONFIG_OPTIONS = {
     'enabled': ('general', ('Enable Simple Ores', 'Simple Ores aktivieren'),
                 ('Off stops new silver, lead, zinc, nickel and tin veins and hides the creative entries; existing blocks and items keep working.\nDefault: true.',
@@ -581,6 +648,37 @@ CONFIG_OPTIONS = {
     'dimensionalScrap': ('materials', ('Dimensional Scrap', 'Dimensionsschrott'),
                          ('Off: no new Dimensional Scrap in any dimension. Takes effect at the next world start in newly generated chunks.\nDefault: true.',
                           'Aus: kein neuer Dimensionsschrott in allen Dimensionen. Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true.')),
+    # N4 (b-ores13, 09.11.): one switch per deposit
+    'leadOre': deposit(('Lead ore', 'Bleierz'), 'Off: no new lead veins (stone only, Y 0 to 72, never touching air).',
+                       'Aus: keine neuen Bleiadern (nur Stein, Y 0 bis 72, nie an Luft).'),
+    'endLeadOre': deposit(('End lead ore', 'End-Bleierz'), 'Off: no new End lead veins in the End stone of the outer islands.',
+                          'Aus: keine neuen End-Bleiadern im Endstein der äußeren Inseln.'),
+    'zincGeodes': deposit(('Zinc geodes', 'Zink-Geoden'), 'Off: no new closed mini geodes with 1 to 8 zinc ores in the Overworld (zinc forms no free veins).',
+                          'Aus: keine neuen geschlossenen Mini-Geoden mit 1 bis 8 Zinkerzen in der Oberwelt (Zink bildet keine freien Adern).'),
+    'endZincGeodes': deposit(('End zinc geodes', 'End-Zink-Geoden'), 'Off: no new mini geodes with 1 to 8 End zinc ores in the End stone of the outer islands.',
+                             'Aus: keine neuen Mini-Geoden mit 1 bis 8 End-Zinkerzen im Endstein der äußeren Inseln.'),
+    'nickelOre': deposit(('Nickel ore', 'Nickelerz'), 'Off: no new nickel veins (deepslate, like diamond ore).',
+                         'Aus: keine neuen Nickeladern (Tiefenschiefer, wie Diamanterz).'),
+    'tinOre': deposit(('Mountain tin', 'Berg-Zinn'), 'Off: no new tin veins in stone and granite (Y 20 to 80) and no extra veins of the mountain biomes.',
+                      'Aus: keine neuen Zinnadern in Stein und Granit (Y 20 bis 80) und keine zusätzlichen Adern der Gebirgsbiome.'),
+    'tinPlacers': deposit(('Tin-bearing gravel and sand', 'Zinnseifen'), 'Off: no new tin-bearing gravel and sand in river and beach beds.',
+                          'Aus: kein neuer Zinnseifen-Kies und -Sand im Fluss- und Strandgrund.'),
+}
+
+# N4 (b-ores13): where each deposit is found, as recipe viewer info pages (OresViewer).
+JEI_N4 = {
+    'lead_ore': ('Overworld: only in stone (not deepslate), 6 veins of 9 per chunk between Y 0 and 72, never touching air. End: End Lead Ore in the End stone of the outer islands, 6 veins of 7, Y 20 to 80, never at air. Stone pickaxe; drops 1 to 2 raw lead. Deepslate Lead Ore no longer generates.',
+                 'Oberwelt: nur im Stein (nicht Tiefenschiefer), 6 Adern zu 9 je Chunk zwischen Y 0 und 72, nie an Luft. End: End-Bleierz im Endstein der äußeren Inseln, 6 Adern zu 7, Y 20 bis 80, nie an Luft. Steinspitzhacke; lässt 1 bis 2 Rohblei fallen. Tiefenschiefer-Bleierz entsteht nicht mehr.'),
+    'zinc_ore': ('Zinc forms no free veins: only closed mini geodes (5 x 5 x 5, crust of Geode Crust, calcite lining) hold 1 to 8 zinc ores, always fully enclosed in stone (Y -56 to 40, 2 tries per chunk). End: geodes in the End stone of the outer islands, End stone shell, Geode Crust lining, 1 to 8 End Zinc Ores (Y 20 to 80). Stone pickaxe; drops raw zinc.',
+                 'Zink bildet keine freien Adern: nur geschlossene Mini-Geoden (5 x 5 x 5, Hülle aus Geodenkruste, Calcit-Futter) enthalten 1 bis 8 Zinkerze, immer ganz im Gestein eingeschlossen (Y -56 bis 40, 2 Versuche je Chunk). End: Geoden im Endstein der äußeren Inseln, Endstein-Hülle, Geodenkruste-Futter, 1 bis 8 End-Zinkerze (Y 20 bis 80). Steinspitzhacke; lässt Rohzink fallen.'),
+    'geode_crust': ('The shell of the zinc mini geodes in the Overworld and their lining in the End. Find this crust while mining and the zinc ores are right behind it. Pickaxe.',
+                    'Die Hülle der Zink-Mini-Geoden in der Oberwelt und ihr Futter im End. Wer beim Graben auf diese Kruste stößt, hat die Zinkerze direkt dahinter. Spitzhacke.'),
+    'nickel_ore': ('Only in deepslate, like diamond ore: 10 veins of 6 per chunk, most at the bottom of the world (Y -64), up to Y 16; half of the blocks touching air are discarded. A little more common than diamond. Iron pickaxe; drops raw nickel. Stone nickel ore no longer generates.',
+                   'Nur im Tiefenschiefer, wie Diamanterz: 10 Adern zu 6 je Chunk, am meisten am Weltboden (Y -64), bis Y 16; die Hälfte der Blöcke an Luft entfällt. Etwas häufiger als Diamant. Eisenspitzhacke; lässt Rohnickel fallen. Stein-Nickelerz entsteht nicht mehr.'),
+    'tin_ore': ('Mountain tin: veins in stone and granite between Y 20 and 80, dense nests inside granite blobs, and extra veins up to Y 180 in the mountains (stony, jagged and frozen peaks, snowy slopes, windswept hills). Stone pickaxe; drops raw tin. Rarely also tin-bearing gravel and sand in river and beach beds.',
+                'Berg-Zinn: Adern in Stein und Granit zwischen Y 20 und 80, dichte Nester in Granit-Blobs und zusätzliche Adern bis Y 180 in den Bergen (Stein-, Zacken- und Frostgipfel, Schneehänge, windgepeitschte Hügel). Steinspitzhacke; lässt Rohzinn fallen. Selten auch Zinnseifen-Kies und -Sand im Fluss- und Strandgrund.'),
+    'tin_bearing_gravel': ('Rare small patches under water in river and beach beds (one in every 3rd chunk of those biomes): sand turns into tin-bearing sand, gravel, dirt and clay into tin-bearing gravel. Dig it with a shovel: 2 to 5 tin nuggets (Fortune helps, Silk Touch keeps the block).',
+                           'Seltene kleine Flecken unter Wasser im Fluss- und Strandgrund (einer in jedem 3. Chunk dieser Biome): Sand wird Zinnseifen-Sand, Kies, Erde und Ton werden Zinnseifen-Kies. Mit der Schaufel abbauen: 2 bis 5 Zinnklumpen (Glück hilft, Behutsamkeit behält den Block).'),
 }
 
 # ---------------------------------------------------------------- lang (guide keys are written by module_guides.py)
@@ -598,6 +696,8 @@ def lang(locale):
     out['jei.{NS}.info.sage_ore'.replace('{NS}', NS)] = ("Generates in the Overworld as rarely as diamond ore; needs an iron pickaxe. Drops 3 to 7 experience and rarely a Sage Orb (Silk Touch: the ore itself).", "Entsteht in der Oberwelt so selten wie Diamanterz; braucht eine Eisenspitzhacke. Droppt 3 bis 7 Erfahrung und selten eine Weisheitskugel (Behutsamkeit: das Erz selbst).")[i]
     out['jei.{NS}.info.sage_orb'.replace('{NS}', NS)] = ("Rare drop of Sage Ore (2 %, up to 5 % with Fortune). Right-click to charge it for 0.3 seconds; it gives 50 to 100 experience.", "Seltener Drop des Weisheitserzes (2 %, mit Glück bis 5 %). Rechtsklick lädt sie 0,3 Sekunden; sie gibt 50 bis 100 Erfahrung.")[i]
     out['jei.{NS}.info.dimensional_scrap'.replace('{NS}', NS)] = ("Found in every dimension, rarer than ancient debris. Only an Enderite Pickaxe or Sledgehammer can mine it. No use yet.", "Kommt in jeder Dimension vor, seltener als Antiker Schrott. Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer baut ihn ab. Noch ohne Nutzen.")[i]
+    for key, texts in JEI_N4.items():
+        out[f'jei.{NS}.info.{key}'] = texts[i]
     out[f'text.autoconfig.{NS}.title'] = ('Simple Ores', 'Simple Ores')[i]
     for cat, texts in CONFIG_CATEGORIES.items():
         out[f'text.autoconfig.{NS}.category.{cat}'] = texts[i]
@@ -625,22 +725,42 @@ DEWORD = {'copper_ingot': 'Kupfer', 'iron_ingot': 'Eisen', 'zinc_ingot': 'Zink',
 def note_summaries():
     notes = {}
     for p, (en, de) in BLOCKS.items():
-        if p in ('lead_ore', 'deepslate_lead_ore'):
-            twin = p == 'deepslate_lead_ore'
-            notes[f'block:{p}'] = (('Found in stone and deepslate, 6 veins of 9 per chunk, Y -64 to 48. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore).' if not twin
-                                    else 'The deepslate twin of the lead ore. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore).'),
-                                   ('Zu finden in Stein und Tiefenschiefer, 6 Adern zu 9 je Chunk, Y -64 bis 48. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz).' if not twin
-                                    else 'Der Tiefenschiefer-Zwilling des Bleierzes. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz).'))
-        elif any(p in (f'{m}_ore', f'deepslate_{m}_ore') for m in METALS):
-            m = p.replace('deepslate_', '').replace('_ore', '')
-            men, mde, size, count, lo, hi, tier = METALS[m]
+        if p in ('lead_ore', 'deepslate_lead_ore', 'end_lead_ore'):
+            # N4 (b-ores13): lead only in stone and never at air; the deepslate twin no longer generates; End lead in End stone.
+            where = {'lead_ore': ('Found only in stone, 6 veins of 9 per chunk, Y 0 to 72, never touching air.', 'Nur im Stein zu finden, 6 Adern zu 9 je Chunk, Y 0 bis 72, nie an Luft.'),
+                     'deepslate_lead_ore': ('The deepslate twin of the lead ore; it no longer generates (lead forms only in stone), old worlds keep theirs.',
+                                            'Der Tiefenschiefer-Zwilling des Bleierzes; er entsteht nicht mehr (Blei bildet sich nur im Stein), alte Welten behalten ihre.'),
+                     'end_lead_ore': ('Found in the End stone of the outer islands, 6 veins of 7 per chunk, Y 20 to 80, never touching air.',
+                                      'Im Endstein der äußeren Inseln zu finden, 6 Adern zu 7 je Chunk, Y 20 bis 80, nie an Luft.')}[p]
+            notes[f'block:{p}'] = (where[0] + ' Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore).',
+                                   where[1] + ' Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz).')
+        elif any(p in (f'{m}_ore', f'deepslate_{m}_ore') for m in METALS) or p == 'end_zinc_ore':
+            m = p.replace('deepslate_', '').replace('end_', '').replace('_ore', '')
+            men, mde, *_r, tier = METALS[m]
             hard_en, hard_de = ('a stone pickaxe', 'eine Steinspitzhacke') if tier == 'stone' else ('an iron pickaxe', 'eine Eisenspitzhacke')
-            if p.startswith('deepslate_'):
-                notes[f'block:{p}'] = (f'The deepslate twin of the {men.lower()} ore. Needs {hard_en}. Drops raw {men.lower()} (Fortune helps, Silk Touch keeps the ore).',
-                                       f'Der Tiefenschiefer-Zwilling des {mde}erzes. Braucht {hard_de}. Lässt Roh{mde.lower()} fallen (Glück hilft, Behutsamkeit behält das Erz).')
-            else:
-                notes[f'block:{p}'] = (f'Found in stone and deepslate, {count} veins of {size} per chunk, Y {lo} to {hi}. Needs {hard_en}. Drops raw {men.lower()} (Fortune helps, Silk Touch keeps the ore).',
-                                       f'Zu finden in Stein und Tiefenschiefer, {count} Adern zu {size} je Chunk, Y {lo} bis {hi}. Braucht {hard_de}. Lässt Roh{mde.lower()} fallen (Glück hilft, Behutsamkeit behält das Erz).')
+            where = {'zinc_ore': ('Found only inside closed mini geodes (1 to 8 per geode, shell of geode crust, calcite lining), never in free veins.',
+                                  'Nur in geschlossenen Mini-Geoden zu finden (1 bis 8 je Geode, Hülle aus Geodenkruste, Calcit-Futter), nie in freien Adern.'),
+                     'deepslate_zinc_ore': ('The deepslate twin of the zinc ore; it no longer generates (zinc forms only in geodes), old worlds keep theirs.',
+                                            'Der Tiefenschiefer-Zwilling des Zinkerzes; er entsteht nicht mehr (Zink bildet sich nur in Geoden), alte Welten behalten ihre.'),
+                     'end_zinc_ore': ('Found only inside the mini geodes in the End stone of the outer islands (1 to 8 per geode, End stone shell, geode crust lining).',
+                                      'Nur in den Mini-Geoden im Endstein der äußeren Inseln zu finden (1 bis 8 je Geode, Endstein-Hülle, Geodenkruste-Futter).'),
+                     'nickel_ore': ('The stone twin of the nickel ore; it no longer generates (nickel forms only in deepslate), old worlds keep theirs.',
+                                    'Der Stein-Zwilling des Nickelerzes; er entsteht nicht mehr (Nickel bildet sich nur im Tiefenschiefer), alte Welten behalten ihre.'),
+                     'deepslate_nickel_ore': ('Found only in deepslate, like diamond ore: 10 veins of 6 per chunk, most at Y -64, up to Y 16.',
+                                              'Nur im Tiefenschiefer zu finden, wie Diamanterz: 10 Adern zu 6 je Chunk, am meisten bei Y -64, bis Y 16.'),
+                     'tin_ore': ('Found in stone and granite between Y 20 and 80 (dense nests inside granite) and up to Y 180 in the mountain biomes.',
+                                 'In Stein und Granit zwischen Y 20 und 80 zu finden (dichte Nester im Granit) und bis Y 180 in den Gebirgsbiomen.'),
+                     'deepslate_tin_ore': ('The deepslate twin of the tin ore; it no longer generates (tin forms only in the mountains), old worlds keep theirs.',
+                                           'Der Tiefenschiefer-Zwilling des Zinnerzes; er entsteht nicht mehr (Zinn bildet sich nur in den Bergen), alte Welten behalten ihre.')}[p]
+            notes[f'block:{p}'] = (f'{where[0]} Needs {hard_en}. Drops raw {men.lower()} (Fortune helps, Silk Touch keeps the ore).',
+                                   f'{where[1]} Braucht {hard_de}. Lässt Roh{mde.lower()} fallen (Glück hilft, Behutsamkeit behält das Erz).')
+        elif p == 'geode_crust':
+            notes['block:geode_crust'] = ('The shell of the zinc mini geodes in the Overworld and their lining in the End. Mined with any pickaxe, drops itself; a building block like smooth basalt.',
+                                          'Die Hülle der Zink-Mini-Geoden in der Oberwelt und ihr Futter im End. Mit jeder Spitzhacke abbaubar, lässt sich selbst fallen; ein Baublock wie Glatter Basalt.')
+        elif p in SHOVEL:
+            base_en, base_de = ('sand', 'Sand') if p.endswith('sand') else ('gravel, dirt or clay', 'Kies, Erde oder Ton')
+            notes[f'block:{p}'] = (f'Rare small patches under water in river and beach beds, where {base_en} turned tin-bearing (one in every 3rd chunk of those biomes). Falls like {"sand" if p.endswith("sand") else "gravel"}. A shovel digs it: 2 to 5 tin nuggets (Fortune helps, Silk Touch keeps the block).',
+                                   f'Seltene kleine Flecken unter Wasser im Fluss- und Strandgrund, wo {base_de} zinnhaltig wurde (einer in jedem 3. Chunk dieser Biome). Fällt wie {"Sand" if p.endswith("sand") else "Kies"}. Mit der Schaufel abbauen: 2 bis 5 Zinnklumpen (Glück hilft, Behutsamkeit behält den Block).')
         elif p.endswith('_block') and p.replace('_block', '') in MIXES:
             a = p.replace('_block', '')
             notes[f'block:{p}'] = (f'Nine {MIXES[a][0].lower()} ingots, craftable both ways. Decoration and building metal. Needs an iron pickaxe.',
@@ -848,26 +968,34 @@ FEATURES = [
               'Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenkupfer: Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. Roségold: Regeneration II 0:35, sonst dasselbe. Wie der verzauberte Goldapfel. Der Tooltip listet jeden Effekt.',
               'Karotten (06.11.): 8 Klumpen der Legierung um eine Karotte, wie die goldene Karotte aus Vanilla (Klumpen, weil 8 Barren die Karotte so teuer wie einen Apfel machen würden). Rosenkupfer-Karotte 7 Hunger, Roségold-Karotte 8 Hunger, beide Sättigungsfaktor 1,2 (goldene Karotte: 6 Hunger); keine Effekte, keine verzauberte Version.',
               'Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel.'])),
-    feature('lead', [f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/placed_feature/lead_ore.json', f'{DATAP}/tags/block/soundproofing.json'],
-            ('Lead', 'A dull, heavy metal of stone and deepslate. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.',
-             ['Overworld: lead ore (and a deepslate twin), 6 veins of 9 per chunk between Y -64 and 48; more common than silver, rarer than copper. Needs a stone pickaxe; drops 1 to 2 raw lead (Fortune helps).',
+    feature('lead', [f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/placed_feature/lead_ore.json', f'{DATAP}/worldgen/feature/end_lead_ore.json', f'{DATAP}/tags/block/soundproofing.json'],
+            ('Lead', 'A dull, heavy metal of the stone layer and the End. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.',
+             ['Overworld: lead ore only in stone (low pressure: the upper and middle stone layers), 6 veins of 9 per chunk between Y 0 and 72, never touching air (Vanilla discard_chance_on_air_exposure 1.0, like buried diamonds): you find it by digging, not in cave walls. More common than silver, rarer than copper. Needs a stone pickaxe; drops 1 to 2 raw lead (Fortune helps). The deepslate twin no longer generates (old worlds keep theirs).',
+              'End: End lead ore in the End stone of the outer islands (highlands, midlands, barrens, small islands), 6 veins of 7 between Y 20 and 80, never at air; drops like the lead ore. Switches leadOre and endLeadOre.',
               'Items: raw lead, lead ingot, lead nugget, blocks of lead and raw lead. Furnace and blast furnace smelt raw lead and the ores. The leash keeps its name; the ingot is "Lead Ingot".',
               'Block of lead: blast resistance 1000 (obsidian 1200), hardness 25, an iron pickaxe mines it. It is in the tag occludes_vibration_signals like wool (Sculk sensors and the Warden do not hear through a lead wall) but NOT in dampens_vibrations: whoever walks on it or mines it makes noise. Its own heavy sound (netherite and anvil sounds, low pitch).',
               'Lead plate: 3 lead ingots in a row make 6 plates, 2 pixels thick, like a carpet but laid on any of the six sides of a cell (flat or upright, it faces the side you click). Same hardness, blast resistance and sound as the block; it muffles half as much as a block of lead and is no vibration blocker.']),
-            ('Blei', 'Ein stumpfes, schweres Metall aus Stein und Tiefenschiefer. Bleiblöcke halten den Sculk taub, trotzen Explosionen und dämmen Schall - sind aber selbst laut.',
-             ['Oberwelt: Bleierz (und ein Tiefenschiefer-Zwilling), 6 Adern zu 9 je Chunk zwischen Y -64 und 48; häufiger als Silber, seltener als Kupfer. Braucht eine Steinspitzhacke; lässt 1 bis 2 Rohblei fallen (Glück hilft).',
+            ('Blei', 'Ein stumpfes, schweres Metall der Steinschicht und des End. Bleiblöcke halten den Sculk taub, trotzen Explosionen und dämmen Schall - sind aber selbst laut.',
+             ['Oberwelt: Bleierz nur im Stein (wenig Druck: obere und mittlere Steinschichten), 6 Adern zu 9 je Chunk zwischen Y 0 und 72, nie an Luft (Vanilla discard_chance_on_air_exposure 1.0, wie vergrabene Diamanten): man findet es beim Graben, nicht in Höhlenwänden. Häufiger als Silber, seltener als Kupfer. Braucht eine Steinspitzhacke; lässt 1 bis 2 Rohblei fallen (Glück hilft). Der Tiefenschiefer-Zwilling entsteht nicht mehr (alte Welten behalten ihn).',
+              'End: End-Bleierz im Endstein der äußeren Inseln (Hochland, Mittelland, Ödland, kleine Inseln), 6 Adern zu 7 zwischen Y 20 und 80, nie an Luft; Drop wie Bleierz. Schalter leadOre und endLeadOre.',
               'Gegenstände: Rohblei, Bleibarren, Bleiklumpen, Blöcke aus Blei und Rohblei. Ofen und Hochofen schmelzen Rohblei und die Erze. Die Leine behält ihren Namen; der Barren heißt „Bleibarren“.',
               'Bleiblock: Explosionswiderstand 1000 (Obsidian 1200), Härte 25, eine Eisenspitzhacke baut ihn ab. Er steht wie Wolle im Tag occludes_vibration_signals (Sculk-Sensoren und der Wächter hören nicht durch eine Bleiwand), aber NICHT in dampens_vibrations: wer darauf läuft oder ihn abbaut, macht Lärm. Eigener schwerer Klang (Netherit- und Amboss-Töne, tief).',
               'Bleiplatte: 3 Bleibarren in einer Reihe ergeben 6 Platten, 2 Pixel dick, wie ein Teppich, aber auf jeder der sechs Zellseiten platzierbar (liegend oder stehend, sie zeigt zu der Seite, die du anklickst). Härte, Explosionswiderstand und Klang wie der Block; sie dämmt halb so stark wie ein Bleiblock und hält keine Vibrationen auf.'])),
-    feature('zinc_nickel_tin', [f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/placed_feature/zinc_ore.json', f'{DATAP}/worldgen/placed_feature/nickel_ore.json',
-                                f'{DATAP}/worldgen/placed_feature/tin_ore.json', f'{DATAP}/recipe/brass_ingot.json'],
+    feature('zinc_nickel_tin', [f'{JAVA}/OresRegistry.java', f'{JAVA}/MiniGeodeFeature.java', f'{DATAP}/worldgen/feature/zinc_geode.json', f'{DATAP}/worldgen/placed_feature/nickel_ore.json',
+                                f'{DATAP}/worldgen/placed_feature/tin_ore.json', f'{DATAP}/worldgen/feature/tin_placer.json', f'{DATAP}/recipe/brass_ingot.json'],
             ('Zinc, nickel, tin and their alloys', 'Three more metals of the Overworld and their plain alloys brass, stainless steel and bronze. Building and decoration metals: no tools, no armor, no change to Vanilla (RG30-2).',
-             ['Zinc: 4 veins of 8 per chunk, Y -32 to 48, stone pickaxe. Tin: 5 veins of 7, Y -16 to 72, stone pickaxe. Nickel: 2 veins of 5, Y -64 to 16, iron pickaxe (the rarest of the three). Each ore has a deepslate twin and drops 1 raw metal (Fortune helps, Silk Touch keeps the ore).',
+             ['Zinc: no free veins. Only closed mini geodes hold it: a 5 x 5 x 5 ball with a shell of geode crust, a calcite lining and 1 to 8 zinc ores in the core, placed only where it is fully enclosed in stone (2 tries per chunk, Y -56 to 40), so it never shows in a cave. End: the same geodes in the End stone of the outer islands (End stone shell, geode crust lining, 1 to 8 End zinc ores, Y 20 to 80). Stone pickaxe.',
+              'Nickel: only in deepslate, like diamond ore (10 veins of 6 per chunk, most at Y -64, up to Y 16, half of the blocks at air discarded) - a little more common than diamond, because nickel is an ingredient (1 nickel makes 4 stainless steel), not a gear tier. Iron pickaxe.',
+              'Tin: mountain tin in stone and granite between Y 20 and 80 (4 veins of 7), dense nests where a vein meets a granite blob (10 tries of 10 that only turn granite), and 6 more veins of 8 up to Y 180 in the mountain biomes (stony, jagged and frozen peaks, snowy slopes, windswept hills). Rarely tin-bearing gravel and sand lie under water in river and beach beds (small patches, one in every 3rd chunk): a shovel gives 2 to 5 tin nuggets. Stone pickaxe for the ore.',
+              'Each ore drops 1 raw metal (Fortune helps, Silk Touch keeps the ore). The deepslate zinc and tin ores and the stone nickel ore no longer generate; old worlds keep them. Switches zincGeodes, endZincGeodes, nickelOre, tinOre, tinPlacers.',
               'Items per metal: raw piece, ingot, nugget, block and raw block; furnace and blast furnace smelt raw pieces and ores; 9 nuggets or ingots craft up and down. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.',
               'Alloys (shapeless crafting, nothing is lost): 2 copper + 1 zinc = 3 brass; 3 iron + 1 nickel = 4 stainless steel; 3 copper + 1 tin = 4 bronze. Each alloy has an ingot and a block of nine (craftable both ways).',
               'Use: brass, stainless steel and bronze blocks are decoration and building metals (Vanilla copper oxidises, these do not). Further uses (plates, roofs, lanterns, coins) are listed in docs/ai/PLAN-A-RG08-2026-11-08.md as postponed. Lead and silver are described in their own entries.']),
             ('Zink, Nickel, Zinn und ihre Legierungen', 'Drei weitere Metalle der Oberwelt und ihre schlichten Legierungen Messing, Edelstahl und Bronze. Bau- und Dekometalle: keine Werkzeuge, keine Rüstung, kein Eingriff in Vanilla (RG30-2).',
-             ['Zink: 4 Adern zu 8 je Chunk, Y -32 bis 48, Steinspitzhacke. Zinn: 5 Adern zu 7, Y -16 bis 72, Steinspitzhacke. Nickel: 2 Adern zu 5, Y -64 bis 16, Eisenspitzhacke (das seltenste der drei). Jedes Erz hat einen Tiefenschiefer-Zwilling und lässt 1 Rohstück fallen (Glück hilft, Behutsamkeit behält das Erz).',
+             ['Zink: keine freien Adern. Nur geschlossene Mini-Geoden enthalten es: eine Kugel von 5 x 5 x 5 mit einer Hülle aus Geodenkruste, Calcit-Futter und 1 bis 8 Zinkerzen im Kern, nur dort gesetzt, wo sie ganz im Gestein eingeschlossen ist (2 Versuche je Chunk, Y -56 bis 40) - sie zeigt sich nie in einer Höhle. End: dieselben Geoden im Endstein der äußeren Inseln (Endstein-Hülle, Geodenkruste-Futter, 1 bis 8 End-Zinkerze, Y 20 bis 80). Steinspitzhacke.',
+              'Nickel: nur im Tiefenschiefer, wie Diamanterz (10 Adern zu 6 je Chunk, am meisten bei Y -64, bis Y 16, die Hälfte der Blöcke an Luft entfällt) - etwas häufiger als Diamant, weil Nickel eine Zutat ist (1 Nickel ergibt 4 Edelstahl), keine Ausrüstungsstufe. Eisenspitzhacke.',
+              'Zinn: Berg-Zinn in Stein und Granit zwischen Y 20 und 80 (4 Adern zu 7), dichte Nester, wo eine Ader einen Granit-Blob trifft (10 Versuche zu 10, die nur Granit umwandeln), und 6 weitere Adern zu 8 bis Y 180 in den Gebirgsbiomen (Stein-, Zacken- und Frostgipfel, Schneehänge, windgepeitschte Hügel). Selten liegen Zinnseifen-Kies und -Sand unter Wasser im Fluss- und Strandgrund (kleine Flecken, einer in jedem 3. Chunk): die Schaufel gibt 2 bis 5 Zinnklumpen. Steinspitzhacke für das Erz.',
+              'Jedes Erz lässt 1 Rohstück fallen (Glück hilft, Behutsamkeit behält das Erz). Tiefenschiefer-Zink und -Zinn und das Stein-Nickelerz entstehen nicht mehr; alte Welten behalten sie. Schalter zincGeodes, endZincGeodes, nickelOre, tinOre, tinPlacers.',
               'Gegenstände je Metall: Rohstück, Barren, Klumpen, Block und Rohblock; Ofen und Hochofen schmelzen Rohstücke und Erze; 9 Klumpen oder Barren werden auf- und abgewandelt. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.',
               'Legierungen (formlos in der Werkbank, nichts geht verloren): 2 Kupfer + 1 Zink = 3 Messing; 3 Eisen + 1 Nickel = 4 Edelstahl; 3 Kupfer + 1 Zinn = 4 Bronze. Jede Legierung hat einen Barren und einen Block aus neun (in beide Richtungen herstellbar).',
               'Nutzen: Messing-, Edelstahl- und Bronzeblöcke sind Deko- und Baumetalle (Vanilla-Kupfer oxidiert, diese nicht). Weitere Nutzen (Platten, Dächer, Laternen, Münzen) stehen als zurückgestellt in docs/ai/PLAN-A-RG08-2026-11-08.md. Blei und Silber stehen in eigenen Einträgen.'])),
@@ -935,11 +1063,13 @@ FEATURES = [
              ['enabled (true): off stops new silver, lead, zinc, nickel and tin veins on Fabric and hides the module\'s creative entries; blocks and items that exist keep working.',
               'soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.',
               'sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding\'s config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).',
+              'Ore deposits (all true, new chunks after the next world start): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (stone, granite and mountain tin), tinPlacers (tin-bearing gravel and sand).',
               'With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off.']),
             ('Server-Einstellungen', 'config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.',
              ['enabled (true): aus stoppt neue Silber-, Blei-, Zink-, Nickel- und Zinnadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.',
               'soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.',
               'sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).',
+              'Erzvorkommen (alle true, neue Chunks nach dem nächsten Weltstart): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (Stein-, Granit- und Berg-Zinn), tinPlacers (Zinnseifen-Kies und -Sand).',
               'Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus.'])),
 ]
 put(MODULE / 'wiki/manual.json', manual())

@@ -111,13 +111,15 @@
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
         "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/lead_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/feature/end_lead_ore.json",
         "modules/simpleores/shared/resources/data/simpleores/tags/block/soundproofing.json"
       ],
       "en": {
         "title": "Lead",
-        "summary": "A dull, heavy metal of stone and deepslate. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.",
+        "summary": "A dull, heavy metal of the stone layer and the End. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.",
         "details": [
-          "Overworld: lead ore (and a deepslate twin), 6 veins of 9 per chunk between Y -64 and 48; more common than silver, rarer than copper. Needs a stone pickaxe; drops 1 to 2 raw lead (Fortune helps).",
+          "Overworld: lead ore only in stone (low pressure: the upper and middle stone layers), 6 veins of 9 per chunk between Y 0 and 72, never touching air (Vanilla discard_chance_on_air_exposure 1.0, like buried diamonds): you find it by digging, not in cave walls. More common than silver, rarer than copper. Needs a stone pickaxe; drops 1 to 2 raw lead (Fortune helps). The deepslate twin no longer generates (old worlds keep theirs).",
+          "End: End lead ore in the End stone of the outer islands (highlands, midlands, barrens, small islands), 6 veins of 7 between Y 20 and 80, never at air; drops like the lead ore. Switches leadOre and endLeadOre.",
           "Items: raw lead, lead ingot, lead nugget, blocks of lead and raw lead. Furnace and blast furnace smelt raw lead and the ores. The leash keeps its name; the ingot is \"Lead Ingot\".",
           "Block of lead: blast resistance 1000 (obsidian 1200), hardness 25, an iron pickaxe mines it. It is in the tag occludes_vibration_signals like wool (Sculk sensors and the Warden do not hear through a lead wall) but NOT in dampens_vibrations: whoever walks on it or mines it makes noise. Its own heavy sound (netherite and anvil sounds, low pitch).",
           "Lead plate: 3 lead ingots in a row make 6 plates, 2 pixels thick, like a carpet but laid on any of the six sides of a cell (flat or upright, it faces the side you click). Same hardness, blast resistance and sound as the block; it muffles half as much as a block of lead and is no vibration blocker."
@@ -125,9 +127,10 @@
       },
       "de": {
         "title": "Blei",
-        "summary": "Ein stumpfes, schweres Metall aus Stein und Tiefenschiefer. Bleiblöcke halten den Sculk taub, trotzen Explosionen und dämmen Schall - sind aber selbst laut.",
+        "summary": "Ein stumpfes, schweres Metall der Steinschicht und des End. Bleiblöcke halten den Sculk taub, trotzen Explosionen und dämmen Schall - sind aber selbst laut.",
         "details": [
-          "Oberwelt: Bleierz (und ein Tiefenschiefer-Zwilling), 6 Adern zu 9 je Chunk zwischen Y -64 und 48; häufiger als Silber, seltener als Kupfer. Braucht eine Steinspitzhacke; lässt 1 bis 2 Rohblei fallen (Glück hilft).",
+          "Oberwelt: Bleierz nur im Stein (wenig Druck: obere und mittlere Steinschichten), 6 Adern zu 9 je Chunk zwischen Y 0 und 72, nie an Luft (Vanilla discard_chance_on_air_exposure 1.0, wie vergrabene Diamanten): man findet es beim Graben, nicht in Höhlenwänden. Häufiger als Silber, seltener als Kupfer. Braucht eine Steinspitzhacke; lässt 1 bis 2 Rohblei fallen (Glück hilft). Der Tiefenschiefer-Zwilling entsteht nicht mehr (alte Welten behalten ihn).",
+          "End: End-Bleierz im Endstein der äußeren Inseln (Hochland, Mittelland, Ödland, kleine Inseln), 6 Adern zu 7 zwischen Y 20 und 80, nie an Luft; Drop wie Bleierz. Schalter leadOre und endLeadOre.",
           "Gegenstände: Rohblei, Bleibarren, Bleiklumpen, Blöcke aus Blei und Rohblei. Ofen und Hochofen schmelzen Rohblei und die Erze. Die Leine behält ihren Namen; der Barren heißt „Bleibarren“.",
           "Bleiblock: Explosionswiderstand 1000 (Obsidian 1200), Härte 25, eine Eisenspitzhacke baut ihn ab. Er steht wie Wolle im Tag occludes_vibration_signals (Sculk-Sensoren und der Wächter hören nicht durch eine Bleiwand), aber NICHT in dampens_vibrations: wer darauf läuft oder ihn abbaut, macht Lärm. Eigener schwerer Klang (Netherit- und Amboss-Töne, tief).",
           "Bleiplatte: 3 Bleibarren in einer Reihe ergeben 6 Platten, 2 Pixel dick, wie ein Teppich, aber auf jeder der sechs Zellseiten platzierbar (liegend oder stehend, sie zeigt zu der Seite, die du anklickst). Härte, Explosionswiderstand und Klang wie der Block; sie dämmt halb so stark wie ein Bleiblock und hält keine Vibrationen auf."
@@ -138,16 +141,21 @@
       "id": "zinc_nickel_tin",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
-        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/zinc_ore.json",
+        "modules/simpleores/shared/java/com/simpleores/MiniGeodeFeature.java",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/feature/zinc_geode.json",
         "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/nickel_ore.json",
         "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/tin_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/feature/tin_placer.json",
         "modules/simpleores/shared/resources/data/simpleores/recipe/brass_ingot.json"
       ],
       "en": {
         "title": "Zinc, nickel, tin and their alloys",
         "summary": "Three more metals of the Overworld and their plain alloys brass, stainless steel and bronze. Building and decoration metals: no tools, no armor, no change to Vanilla (RG30-2).",
         "details": [
-          "Zinc: 4 veins of 8 per chunk, Y -32 to 48, stone pickaxe. Tin: 5 veins of 7, Y -16 to 72, stone pickaxe. Nickel: 2 veins of 5, Y -64 to 16, iron pickaxe (the rarest of the three). Each ore has a deepslate twin and drops 1 raw metal (Fortune helps, Silk Touch keeps the ore).",
+          "Zinc: no free veins. Only closed mini geodes hold it: a 5 x 5 x 5 ball with a shell of geode crust, a calcite lining and 1 to 8 zinc ores in the core, placed only where it is fully enclosed in stone (2 tries per chunk, Y -56 to 40), so it never shows in a cave. End: the same geodes in the End stone of the outer islands (End stone shell, geode crust lining, 1 to 8 End zinc ores, Y 20 to 80). Stone pickaxe.",
+          "Nickel: only in deepslate, like diamond ore (10 veins of 6 per chunk, most at Y -64, up to Y 16, half of the blocks at air discarded) - a little more common than diamond, because nickel is an ingredient (1 nickel makes 4 stainless steel), not a gear tier. Iron pickaxe.",
+          "Tin: mountain tin in stone and granite between Y 20 and 80 (4 veins of 7), dense nests where a vein meets a granite blob (10 tries of 10 that only turn granite), and 6 more veins of 8 up to Y 180 in the mountain biomes (stony, jagged and frozen peaks, snowy slopes, windswept hills). Rarely tin-bearing gravel and sand lie under water in river and beach beds (small patches, one in every 3rd chunk): a shovel gives 2 to 5 tin nuggets. Stone pickaxe for the ore.",
+          "Each ore drops 1 raw metal (Fortune helps, Silk Touch keeps the ore). The deepslate zinc and tin ores and the stone nickel ore no longer generate; old worlds keep them. Switches zincGeodes, endZincGeodes, nickelOre, tinOre, tinPlacers.",
           "Items per metal: raw piece, ingot, nugget, block and raw block; furnace and blast furnace smelt raw pieces and ores; 9 nuggets or ingots craft up and down. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.",
           "Alloys (shapeless crafting, nothing is lost): 2 copper + 1 zinc = 3 brass; 3 iron + 1 nickel = 4 stainless steel; 3 copper + 1 tin = 4 bronze. Each alloy has an ingot and a block of nine (craftable both ways).",
           "Use: brass, stainless steel and bronze blocks are decoration and building metals (Vanilla copper oxidises, these do not). Further uses (plates, roofs, lanterns, coins) are listed in docs/ai/PLAN-A-RG08-2026-11-08.md as postponed. Lead and silver are described in their own entries."
@@ -157,7 +165,10 @@
         "title": "Zink, Nickel, Zinn und ihre Legierungen",
         "summary": "Drei weitere Metalle der Oberwelt und ihre schlichten Legierungen Messing, Edelstahl und Bronze. Bau- und Dekometalle: keine Werkzeuge, keine Rüstung, kein Eingriff in Vanilla (RG30-2).",
         "details": [
-          "Zink: 4 Adern zu 8 je Chunk, Y -32 bis 48, Steinspitzhacke. Zinn: 5 Adern zu 7, Y -16 bis 72, Steinspitzhacke. Nickel: 2 Adern zu 5, Y -64 bis 16, Eisenspitzhacke (das seltenste der drei). Jedes Erz hat einen Tiefenschiefer-Zwilling und lässt 1 Rohstück fallen (Glück hilft, Behutsamkeit behält das Erz).",
+          "Zink: keine freien Adern. Nur geschlossene Mini-Geoden enthalten es: eine Kugel von 5 x 5 x 5 mit einer Hülle aus Geodenkruste, Calcit-Futter und 1 bis 8 Zinkerzen im Kern, nur dort gesetzt, wo sie ganz im Gestein eingeschlossen ist (2 Versuche je Chunk, Y -56 bis 40) - sie zeigt sich nie in einer Höhle. End: dieselben Geoden im Endstein der äußeren Inseln (Endstein-Hülle, Geodenkruste-Futter, 1 bis 8 End-Zinkerze, Y 20 bis 80). Steinspitzhacke.",
+          "Nickel: nur im Tiefenschiefer, wie Diamanterz (10 Adern zu 6 je Chunk, am meisten bei Y -64, bis Y 16, die Hälfte der Blöcke an Luft entfällt) - etwas häufiger als Diamant, weil Nickel eine Zutat ist (1 Nickel ergibt 4 Edelstahl), keine Ausrüstungsstufe. Eisenspitzhacke.",
+          "Zinn: Berg-Zinn in Stein und Granit zwischen Y 20 und 80 (4 Adern zu 7), dichte Nester, wo eine Ader einen Granit-Blob trifft (10 Versuche zu 10, die nur Granit umwandeln), und 6 weitere Adern zu 8 bis Y 180 in den Gebirgsbiomen (Stein-, Zacken- und Frostgipfel, Schneehänge, windgepeitschte Hügel). Selten liegen Zinnseifen-Kies und -Sand unter Wasser im Fluss- und Strandgrund (kleine Flecken, einer in jedem 3. Chunk): die Schaufel gibt 2 bis 5 Zinnklumpen. Steinspitzhacke für das Erz.",
+          "Jedes Erz lässt 1 Rohstück fallen (Glück hilft, Behutsamkeit behält das Erz). Tiefenschiefer-Zink und -Zinn und das Stein-Nickelerz entstehen nicht mehr; alte Welten behalten sie. Schalter zincGeodes, endZincGeodes, nickelOre, tinOre, tinPlacers.",
           "Gegenstände je Metall: Rohstück, Barren, Klumpen, Block und Rohblock; Ofen und Hochofen schmelzen Rohstücke und Erze; 9 Klumpen oder Barren werden auf- und abgewandelt. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.",
           "Legierungen (formlos in der Werkbank, nichts geht verloren): 2 Kupfer + 1 Zink = 3 Messing; 3 Eisen + 1 Nickel = 4 Edelstahl; 3 Kupfer + 1 Zinn = 4 Bronze. Jede Legierung hat einen Barren und einen Block aus neun (in beide Richtungen herstellbar).",
           "Nutzen: Messing-, Edelstahl- und Bronzeblöcke sind Deko- und Baumetalle (Vanilla-Kupfer oxidiert, diese nicht). Weitere Nutzen (Platten, Dächer, Laternen, Münzen) stehen als zurückgestellt in docs/ai/PLAN-A-RG08-2026-11-08.md. Blei und Silber stehen in eigenen Einträgen."
@@ -357,6 +368,7 @@
           "enabled (true): off stops new silver, lead, zinc, nickel and tin veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
           "soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.",
           "sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding's config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).",
+          "Ore deposits (all true, new chunks after the next world start): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (stone, granite and mountain tin), tinPlacers (tin-bearing gravel and sand).",
           "With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off."
         ]
       },
@@ -367,6 +379,7 @@
           "enabled (true): aus stoppt neue Silber-, Blei-, Zink-, Nickel- und Zinnadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
           "soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.",
           "sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).",
+          "Erzvorkommen (alle true, neue Chunks nach dem nächsten Weltstart): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (Stein-, Granit- und Berg-Zinn), tinPlacers (Zinnseifen-Kies und -Sand).",
           "Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -446,10 +459,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Found in stone and deepslate, 6 veins of 9 per chunk, Y -64 to 48. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore)."
+        "summary": "Found only in stone, 6 veins of 9 per chunk, Y 0 to 72, never touching air. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore)."
       },
       "de": {
-        "summary": "Zu finden in Stein und Tiefenschiefer, 6 Adern zu 9 je Chunk, Y -64 bis 48. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        "summary": "Nur im Stein zu finden, 6 Adern zu 9 je Chunk, Y 0 bis 72, nie an Luft. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:deepslate_lead_ore": {
@@ -457,10 +470,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "The deepslate twin of the lead ore. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore)."
+        "summary": "The deepslate twin of the lead ore; it no longer generates (lead forms only in stone), old worlds keep theirs. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore)."
       },
       "de": {
-        "summary": "Der Tiefenschiefer-Zwilling des Bleierzes. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        "summary": "Der Tiefenschiefer-Zwilling des Bleierzes; er entsteht nicht mehr (Blei bildet sich nur im Stein), alte Welten behalten ihre. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:raw_lead_block": {
@@ -639,15 +652,70 @@
         "summary": "Neun Weisheitskugeln, in beide Richtungen herstellbar: Lagerung der Erfahrungskugeln (jede gibt beim Benutzen 50 bis 100 Erfahrung). Braucht eine Eisenspitzhacke."
       }
     },
+    "simpleores:end_lead_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Found in the End stone of the outer islands, 6 veins of 7 per chunk, Y 20 to 80, never touching air. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Im Endstein der äußeren Inseln zu finden, 6 Adern zu 7 je Chunk, Y 20 bis 80, nie an Luft. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:end_zinc_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Found only inside the mini geodes in the End stone of the outer islands (1 to 8 per geode, End stone shell, geode crust lining). Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Nur in den Mini-Geoden im Endstein der äußeren Inseln zu finden (1 bis 8 je Geode, Endstein-Hülle, Geodenkruste-Futter). Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:geode_crust": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "The shell of the zinc mini geodes in the Overworld and their lining in the End. Mined with any pickaxe, drops itself; a building block like smooth basalt."
+      },
+      "de": {
+        "summary": "Die Hülle der Zink-Mini-Geoden in der Oberwelt und ihr Futter im End. Mit jeder Spitzhacke abbaubar, lässt sich selbst fallen; ein Baublock wie Glatter Basalt."
+      }
+    },
+    "simpleores:tin_bearing_gravel": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Rare small patches under water in river and beach beds, where gravel, dirt or clay turned tin-bearing (one in every 3rd chunk of those biomes). Falls like gravel. A shovel digs it: 2 to 5 tin nuggets (Fortune helps, Silk Touch keeps the block)."
+      },
+      "de": {
+        "summary": "Seltene kleine Flecken unter Wasser im Fluss- und Strandgrund, wo Kies, Erde oder Ton zinnhaltig wurde (einer in jedem 3. Chunk dieser Biome). Fällt wie Kies. Mit der Schaufel abbauen: 2 bis 5 Zinnklumpen (Glück hilft, Behutsamkeit behält den Block)."
+      }
+    },
+    "simpleores:tin_bearing_sand": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Rare small patches under water in river and beach beds, where sand turned tin-bearing (one in every 3rd chunk of those biomes). Falls like sand. A shovel digs it: 2 to 5 tin nuggets (Fortune helps, Silk Touch keeps the block)."
+      },
+      "de": {
+        "summary": "Seltene kleine Flecken unter Wasser im Fluss- und Strandgrund, wo Sand zinnhaltig wurde (einer in jedem 3. Chunk dieser Biome). Fällt wie Sand. Mit der Schaufel abbauen: 2 bis 5 Zinnklumpen (Glück hilft, Behutsamkeit behält den Block)."
+      }
+    },
     "simpleores:zinc_ore": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Found in stone and deepslate, 4 veins of 8 per chunk, Y -32 to 48. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
+        "summary": "Found only inside closed mini geodes (1 to 8 per geode, shell of geode crust, calcite lining), never in free veins. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
       },
       "de": {
-        "summary": "Zu finden in Stein und Tiefenschiefer, 4 Adern zu 8 je Chunk, Y -32 bis 48. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        "summary": "Nur in geschlossenen Mini-Geoden zu finden (1 bis 8 je Geode, Hülle aus Geodenkruste, Calcit-Futter), nie in freien Adern. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:deepslate_zinc_ore": {
@@ -655,10 +723,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "The deepslate twin of the zinc ore. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
+        "summary": "The deepslate twin of the zinc ore; it no longer generates (zinc forms only in geodes), old worlds keep theirs. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
       },
       "de": {
-        "summary": "Der Tiefenschiefer-Zwilling des Zinkerzes. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        "summary": "Der Tiefenschiefer-Zwilling des Zinkerzes; er entsteht nicht mehr (Zink bildet sich nur in Geoden), alte Welten behalten ihre. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:raw_zinc_block": {
@@ -688,10 +756,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Found in stone and deepslate, 2 veins of 5 per chunk, Y -64 to 16. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
+        "summary": "The stone twin of the nickel ore; it no longer generates (nickel forms only in deepslate), old worlds keep theirs. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
       },
       "de": {
-        "summary": "Zu finden in Stein und Tiefenschiefer, 2 Adern zu 5 je Chunk, Y -64 bis 16. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        "summary": "Der Stein-Zwilling des Nickelerzes; er entsteht nicht mehr (Nickel bildet sich nur im Tiefenschiefer), alte Welten behalten ihre. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:deepslate_nickel_ore": {
@@ -699,10 +767,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "The deepslate twin of the nickel ore. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
+        "summary": "Found only in deepslate, like diamond ore: 10 veins of 6 per chunk, most at Y -64, up to Y 16. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
       },
       "de": {
-        "summary": "Der Tiefenschiefer-Zwilling des Nickelerzes. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        "summary": "Nur im Tiefenschiefer zu finden, wie Diamanterz: 10 Adern zu 6 je Chunk, am meisten bei Y -64, bis Y 16. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:raw_nickel_block": {
@@ -732,10 +800,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Found in stone and deepslate, 5 veins of 7 per chunk, Y -16 to 72. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
+        "summary": "Found in stone and granite between Y 20 and 80 (dense nests inside granite) and up to Y 180 in the mountain biomes. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
       },
       "de": {
-        "summary": "Zu finden in Stein und Tiefenschiefer, 5 Adern zu 7 je Chunk, Y -16 bis 72. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        "summary": "In Stein und Granit zwischen Y 20 und 80 zu finden (dichte Nester im Granit) und bis Y 180 in den Gebirgsbiomen. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:deepslate_tin_ore": {
@@ -743,10 +811,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "The deepslate twin of the tin ore. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
+        "summary": "The deepslate twin of the tin ore; it no longer generates (tin forms only in the mountains), old worlds keep theirs. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
       },
       "de": {
-        "summary": "Der Tiefenschiefer-Zwilling des Zinnerzes. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
+        "summary": "Der Tiefenschiefer-Zwilling des Zinnerzes; er entsteht nicht mehr (Zinn bildet sich nur in den Bergen), alte Welten behalten ihre. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:raw_tin_block": {

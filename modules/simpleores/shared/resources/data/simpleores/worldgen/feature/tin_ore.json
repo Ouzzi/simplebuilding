@@ -11,10 +11,10 @@
       }
     },
     {
-      "state": "simpleores:deepslate_tin_ore",
+      "state": "simpleores:tin_ore",
       "target": {
-        "predicate_type": "minecraft:tag_match",
-        "tag": "minecraft:deepslate_ore_replaceables"
+        "predicate_type": "minecraft:block_match",
+        "block": "minecraft:granite"
       }
     }
   ]

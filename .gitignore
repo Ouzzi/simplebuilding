@@ -1960,3 +1960,20 @@ wiki/assets/textures/sheets/simplebuilding/simplestorage/item/netherite_bundle_o
 wiki/assets/textures/sheets/simplebuilding/simplestorage/item/reinforced_bundle_open_back.png
 wiki/assets/textures/sheets/simplebuilding/simplestorage/item/reinforced_bundle_open_front.png
 wiki/assets/textures/sheets/simplebuilding/simplestorage/item/reinforced_chest.png
+# N4 (b-ores13, 09.11.): Vanilla-derived Simple Ores textures (tools/textures/ores13_2026_11_09.py), built, never committed.
+modules/simpleores/shared/resources/assets/simpleores/textures/block/end_lead_ore.png
+wiki/assets/textures/simpleores/block/end_lead_ore.png
+wiki/assets/textures/sheets/simplebuilding/simpleores/block/end_lead_ore.png
+wiki/assets/textures/sheets/simpleores/simpleores/block/end_lead_ore.png
+modules/simpleores/shared/resources/assets/simpleores/textures/block/end_zinc_ore.png
+wiki/assets/textures/simpleores/block/end_zinc_ore.png
+wiki/assets/textures/sheets/simplebuilding/simpleores/block/end_zinc_ore.png
+wiki/assets/textures/sheets/simpleores/simpleores/block/end_zinc_ore.png
+modules/simpleores/shared/resources/assets/simpleores/textures/block/tin_bearing_gravel.png
+wiki/assets/textures/simpleores/block/tin_bearing_gravel.png
+wiki/assets/textures/sheets/simplebuilding/simpleores/block/tin_bearing_gravel.png
+wiki/assets/textures/sheets/simpleores/simpleores/block/tin_bearing_gravel.png
+modules/simpleores/shared/resources/assets/simpleores/textures/block/tin_bearing_sand.png
+wiki/assets/textures/simpleores/block/tin_bearing_sand.png
+wiki/assets/textures/sheets/simplebuilding/simpleores/block/tin_bearing_sand.png
+wiki/assets/textures/sheets/simpleores/simpleores/block/tin_bearing_sand.png

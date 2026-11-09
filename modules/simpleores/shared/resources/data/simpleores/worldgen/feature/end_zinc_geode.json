@@ -1,0 +1,15 @@
+{
+  "type": "simpleores:mini_geode",
+  "shell": "minecraft:end_stone",
+  "lining": "simpleores:geode_crust",
+  "ore": "simpleores:end_zinc_ore",
+  "host": {
+    "predicate_type": "minecraft:block_match",
+    "block": "minecraft:end_stone"
+  },
+  "ores": {
+    "type": "minecraft:uniform",
+    "min_inclusive": 1,
+    "max_inclusive": 8
+  }
+}

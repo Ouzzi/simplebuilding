@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
 /**
- * Simple Ores in the recipe viewer (JEI24, a-fix09b): info pages for Sage Ore, the Sage Orb and Dimensional Scrap - only
+ * Simple Ores in the recipe viewer (JEI24, a-fix09b): info pages for Sage Ore, the Sage Orb, Dimensional Scrap and (N4) the deposits of lead, zinc, nickel and tin - only
  * world generation and loot give them (SimpleBuilding's pages before the split, now {@code jei.simpleores.info.*}). Free
  * of JEI classes, shown by SimpleLib's JEI plugin. Registered from {@link SimpleOres#init}.
  */
@@ -27,6 +27,13 @@ public final class OresViewer {
         page(out, "sage_ore", OresRegistry.SAGE_ORE, OresRegistry.DEEPSLATE_SAGE_ORE);
         page(out, "sage_orb", OresRegistry.item("sage_orb"));
         page(out, "dimensional_scrap", OresRegistry.DIMENSIONAL_SCRAP, OresRegistry.NETHER_DIMENSIONAL_SCRAP, OresRegistry.END_DIMENSIONAL_SCRAP);
+        // N4 (b-ores13, 09.11.): where the deposits of lead, zinc, nickel and tin are found.
+        page(out, "lead_ore", OresRegistry.LEAD_ORE, OresRegistry.END_LEAD_ORE);
+        page(out, "zinc_ore", OresRegistry.BLOCKS.get("zinc_ore"), OresRegistry.END_ZINC_ORE);
+        page(out, "geode_crust", OresRegistry.GEODE_CRUST);
+        page(out, "nickel_ore", OresRegistry.BLOCKS.get("deepslate_nickel_ore"));
+        page(out, "tin_ore", OresRegistry.BLOCKS.get("tin_ore"));
+        page(out, "tin_bearing_gravel", OresRegistry.TIN_BEARING_GRAVEL, OresRegistry.TIN_BEARING_SAND);
         return out;
     }
 
