@@ -35,7 +35,7 @@
   "authors": [
     "Oussama Azarfane"
   ],
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "icon": "assets/simplemoney/icon.png",
   "recommends": {
     "simpleores": "*"

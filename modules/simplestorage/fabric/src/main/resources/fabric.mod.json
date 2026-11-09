@@ -13,7 +13,7 @@
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
   "description": "Crates for every wood (open food boxes for nine stacks, hoppers and comparators work), the Storage Crafting Table that keeps its grid, and tiered chests, trapped chests and tier shulker boxes with more slots and bigger stacks, moved from SimpleBuilding (ids migrate); bundles and quivers in three tiers with the storage enchantments Drawer, Deep Pockets and Funnel, bundles set down on a block, and the four backpacks (worn, placed, Deep Pockets and Funnel; ids migrate).",
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {
     "main": [

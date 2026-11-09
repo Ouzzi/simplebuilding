@@ -13,7 +13,7 @@
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
   "description": "Five animals Vanilla does not have: the shy deer, the wild boar that defends its piglets, the hedgehog that hunts silverfish and rolls up in a flash, the rare sideways-walking crab and the zebra, a striped horse whose cross with a horse is the infertile zorse. Works on its own with Vanilla.",
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {
     "main": [

@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[11,)"
-license="CC0-1.0"
+license="LicenseRef-SimpleMods-ARR"
 
 # Test-only mod. It lives in its own source set (src/clientGameTest) and is only added to
 # the :neoforge:runClientGameTest run configuration, so it can never end up in a shipped jar.

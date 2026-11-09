@@ -190,6 +190,31 @@ def validate_bundle(entry, modules, root):
             raise ValueError(f'{parent["id"]}/{loader} does not bundle {mid} ({sub})')
 
 
+LICENSE_ID = 'LicenseRef-SimpleMods-ARR'  # b-lic15: all rights reserved, source-available (LICENSE, CLA.md)
+LICENSE_FIELD = re.compile(r'^\s*"?license"?\s*[:=]\s*"([^"]*)"', re.M)
+
+def validate_licenses(root=ROOT):
+    """Every mod metadata file and module template carries LICENSE_ID, no CC0 is left in metadata, and each module's own
+    LICENSE equals the root one (only the root LICENSE/its explanation may mention the earlier CC0 releases)."""
+    root_license = root / 'LICENSE'
+    if not root_license.is_file() or LICENSE_ID not in root_license.read_text(encoding='utf-8'):
+        raise ValueError(f'LICENSE must name {LICENSE_ID}')
+    # <prefix>/src/<sourceset>/resources/... for the root, loader folders, mc* lines, modules/* and tools/templates/module/*
+    metadata = sorted({p for depth in range(5) for name in ('fabric.mod.json', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml')
+                       for p in root.glob('*/' * depth + 'src/*/resources/' + name)})
+    if len(metadata) < 3:
+        raise ValueError('no mod metadata found for the licence check')
+    for path in metadata:
+        text = path.read_text(encoding='utf-8')
+        if 'CC0' in text:
+            raise ValueError(f'CC0 left in mod metadata: {path.relative_to(root)}')
+        for value in LICENSE_FIELD.findall(text):
+            if value != LICENSE_ID:
+                raise ValueError(f'license must be {LICENSE_ID}: {path.relative_to(root)} has {value!r}')
+    for path in root.glob('modules/*/LICENSE'):
+        if path.read_bytes() != root_license.read_bytes():
+            raise ValueError(f'{path.relative_to(root)} differs from the root LICENSE')
+
 def registries(root=ROOT):
     manifest = read(root / 'modules/modules.json')
     dev_registry = read(root / 'tools/devmods.json')
@@ -291,4 +316,5 @@ def selection(root=ROOT):
 if __name__ == '__main__':
     registries()
     selection()
+    validate_licenses()  # repo-wide only (temp-root fixtures in the tests have no LICENSE)
     print('Multimod registries valid')

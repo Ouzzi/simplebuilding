@@ -1441,6 +1441,7 @@ en: {
   techNoteKey: 'Prose key', techSources: 'Sources', techCategory: 'Category',
   pagerPrev: 'Previous', pagerNext: 'Next',
   footGenerated: 'Generated from the mod’s own data files by {0}.',
+  footLicense: '© Ouzzi · all rights reserved, source-available (LICENSE) · Minecraft is a trademark of Mojang/Microsoft, not official',
   footShortcuts: 'Shortcuts: / or Ctrl+K search · R/U over an item: recipes/uses · right-click: crafting tree',
   notFoundSuggest: 'Did you mean one of these?',
   statDrops: 'Drops',
@@ -1981,6 +1982,7 @@ de: {
   techNoteKey: 'Prosa-Schlüssel', techSources: 'Quellen', techCategory: 'Kategorie',
   pagerPrev: 'Zurück', pagerNext: 'Weiter',
   footGenerated: 'Erzeugt aus den Daten der Mod von {0}.',
+  footLicense: '© Ouzzi · alle Rechte vorbehalten, Quelltext einsehbar (LICENSE) · Minecraft ist eine Marke von Mojang/Microsoft, nicht offiziell',
   footShortcuts: 'Tasten: / oder Strg+K Suche · R/U über einem Item: Rezepte/Verwendung · Rechtsklick: Rezeptbaum',
   notFoundSuggest: 'Meintest du eines davon?',
   statDrops: 'Drops',
@@ -5965,7 +5967,7 @@ function renderMeta() {
   if (tex && !document.querySelector('link[rel="icon"]')) { var l = document.createElement('link'); l.rel = 'icon'; l.href = tex; document.head.appendChild(l); }
 }
 function footerHtml() {
-  return '<footer class="site-foot"><span>' + esc(T('footGenerated', (D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</span><span>' + esc(T('footShortcuts')) + '</span></footer>';
+  return '<footer class="site-foot"><span>' + esc(T('footGenerated', (D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</span><span>' + esc(T('footShortcuts')) + '</span><span>' + esc(T('footLicense')) + '</span></footer>';
 }
 function render(opts) {
   opts = opts || {};

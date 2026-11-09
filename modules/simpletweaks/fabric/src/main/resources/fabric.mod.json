@@ -44,7 +44,7 @@
     "simpletweaks.protect.mixins.json",
     "simpletweaks.protect.client.mixins.json"
   ],
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "suggests": {
     "simpledimension": "*",
     "simplebuilding": "*",

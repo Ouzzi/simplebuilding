@@ -13,7 +13,7 @@
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
   "description": "A multiblock foundry: build a tank of melting chambers in a brick hull, throw in ore and fuel, and pour the melt by layer through spouts into casting trays. Gold, copper and iron, one ingot per ingot. Works on its own with Vanilla; a sub-mod of Simple Ovens.",
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {
     "main": [

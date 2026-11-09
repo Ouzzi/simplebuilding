@@ -57,6 +57,7 @@ setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},60000)}
 function dlSums(P){return P.files.map(function(m){return m.sha256+"  "+m.file}).join("\n")+"\n"}
 function dlReadme(P){var I=DL.idx,r=I.release||{};return ["Simple Mods "+(r.version||"")+" ("+(r.commit||"")+", "+(r.date||"").slice(0,10)+") - Minecraft "+I.minecraft+" "+DL.lo,"",
 "DE: Alle .jar-Dateien in den Ordner mods deines Minecraft-Profils legen.","EN: Put all .jar files into the mods folder of your Minecraft profile.","",
+"Lizenz / License: alle Rechte vorbehalten, Quelltext einsehbar / all rights reserved, source-available (LICENSE_* in jedem Jar / in every jar).","Bitte nicht neu hochladen / please do not re-upload.","",
 "Zusaetzlich noetig / also required:"].concat(P.ext.map(function(x){var e=(I.externalMods||{})[x]||{name:x,url:""};return "  "+e.name+" "+e.url}))
 .concat(["","SHA-256:"]).concat(P.files.map(function(m){return "  "+m.sha256+"  "+m.file})).join("\r\n")+"\r\n"}
 async function dlMakeZip(rerender){var P=DL.plan,t=DT[dlL()],es=[],sub=window.crypto&&crypto.subtle;if(!P||DL.busy)return;DL.busy=true;

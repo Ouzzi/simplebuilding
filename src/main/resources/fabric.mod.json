@@ -11,7 +11,7 @@
     "homepage": "https://azarfane.de/",
     "sources": "https://github.com/Ouzzi/simplebuilding"
   },
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "icon": "assets/simplebuilding/icon.png",
   "environment": "*",
   "entrypoints": {
