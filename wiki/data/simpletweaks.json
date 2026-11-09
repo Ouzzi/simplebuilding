@@ -656,7 +656,8 @@
         "summary": "Operators start events with /simpletweaks event start <double_xp|more_loot|blood_moon> [minutes], stop and status; one event at a time with a boss bar.",
         "details": [
           "Double XP multiplies every experience award (xpMultiplier, default 2). More loot rolls the loot table of mobs killed by players once more. Blood moon spawns extra monsters near survival players at night in the Overworld and ends at daybreak.",
-          "The automatic schedule (scheduleEnabled, lines like SAT 20:00 double_xp 60) is off by default; the command is on."
+          "The automatic schedule (scheduleEnabled, lines like SAT 20:00 double_xp 60) is off by default; the command is on.",
+          "Weather schedule (weatherScheduleEnabled, off by default): lines like SAT 20:00 thunder 30 blood_moon set rain, thunder or clear weather for the given minutes and can start an event with it. weatherClock real = server time (MON-SUN or DAILY), game = in-game time of day (DAILY or D3 = every 3rd day). /simpletweaks weather now <rain|thunder|clear> [minutes] does it at once, /simpletweaks weather schedule lists the lines. Vanilla weather is set directly, Simple Weather is not needed; with its disableWeather on only the event starts."
         ]
       },
       "de": {
@@ -664,7 +665,8 @@
         "summary": "Operatoren starten Events mit /simpletweaks event start <double_xp|more_loot|blood_moon> [Minuten], stop und status; ein Event zur Zeit mit Bossleiste.",
         "details": [
           "Doppelte Erfahrung vervielfacht jede Erfahrung (xpMultiplier, Standard 2). Mehr Beute würfelt die Beutetabelle von Mobs, die Spieler töten, ein weiteres Mal. Der Blutmond lässt nachts in der Oberwelt zusätzliche Monster bei Überlebens-Spielern erscheinen und endet bei Tagesanbruch.",
-          "Der automatische Zeitplan (scheduleEnabled, Zeilen wie SAT 20:00 double_xp 60) ist standardmäßig aus; der Befehl ist an."
+          "Der automatische Zeitplan (scheduleEnabled, Zeilen wie SAT 20:00 double_xp 60) ist standardmäßig aus; der Befehl ist an.",
+          "Wetter-Zeitplan (weatherScheduleEnabled, standardmäßig aus): Zeilen wie SAT 20:00 thunder 30 blood_moon setzen Regen, Gewitter oder klares Wetter für die angegebenen Minuten und starten dazu optional ein Event. weatherClock real = Serverzeit (MON-SUN oder DAILY), game = Ingame-Uhrzeit (DAILY oder D3 = jeden 3. Tag). /simpletweaks weather now <rain|thunder|clear> [Minuten] wirkt sofort, /simpletweaks weather schedule listet die Zeilen. Es wird direkt das Vanilla-Wetter gesetzt, Simple Weather wird nicht gebraucht; bei dessen disableWeather startet nur das Event."
         ]
       },
       "sources": [

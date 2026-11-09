@@ -1501,6 +1501,46 @@
       }
     },
     {
+      "id": "simpleend:end_painting",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleend:end_painting",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/end_painting.json",
+      "ingredients": [
+        "minecraft:end_stone",
+        "minecraft:painting"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:painting"
+        ],
+        [
+          "minecraft:end_stone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleend:stripped_ashwood_wood",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -2815,6 +2855,197 @@
       "source": "modules/simpleend/generated/resources/data/simpleend/tags/item/void_safe.json"
     },
     {
+      "id": "simpleend:painting_variant/end_paintings",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleend:watching",
+          "required": true
+        },
+        {
+          "id": "simpleend:pearl",
+          "required": true
+        },
+        {
+          "id": "simpleend:sprout",
+          "required": true
+        },
+        {
+          "id": "simpleend:lid",
+          "required": true
+        },
+        {
+          "id": "simpleend:spark",
+          "required": true
+        },
+        {
+          "id": "simpleend:hollow",
+          "required": true
+        },
+        {
+          "id": "simpleend:pillar",
+          "required": true
+        },
+        {
+          "id": "simpleend:blink",
+          "required": true
+        },
+        {
+          "id": "simpleend:long_dark",
+          "required": true
+        },
+        {
+          "id": "simpleend:shooting_star",
+          "required": true
+        },
+        {
+          "id": "simpleend:outer_isles",
+          "required": true
+        },
+        {
+          "id": "simpleend:two_watchers",
+          "required": true
+        },
+        {
+          "id": "simpleend:skyline",
+          "required": true
+        },
+        {
+          "id": "simpleend:tall_one",
+          "required": true
+        },
+        {
+          "id": "simpleend:spire",
+          "required": true
+        },
+        {
+          "id": "simpleend:blossom_stem",
+          "required": true
+        },
+        {
+          "id": "simpleend:gatekeeper",
+          "required": true
+        },
+        {
+          "id": "simpleend:void_heart",
+          "required": true
+        },
+        {
+          "id": "simpleend:lantern",
+          "required": true
+        },
+        {
+          "id": "simpleend:guest",
+          "required": true
+        },
+        {
+          "id": "simpleend:drifter",
+          "required": true
+        },
+        {
+          "id": "simpleend:last_light",
+          "required": true
+        },
+        {
+          "id": "simpleend:nightbloom",
+          "required": true
+        },
+        {
+          "id": "simpleend:wingspan",
+          "required": true
+        },
+        {
+          "id": "simpleend:chorus_grove",
+          "required": true
+        },
+        {
+          "id": "simpleend:far_isles",
+          "required": true
+        },
+        {
+          "id": "simpleend:star_shower",
+          "required": true
+        },
+        {
+          "id": "simpleend:procession",
+          "required": true
+        },
+        {
+          "id": "simpleend:the_dragon",
+          "required": true
+        },
+        {
+          "id": "simpleend:great_eye",
+          "required": true
+        },
+        {
+          "id": "simpleend:void_gate",
+          "required": true
+        },
+        {
+          "id": "simpleend:citadel",
+          "required": true
+        },
+        {
+          "id": "simpleend:crystal_heart",
+          "required": true
+        },
+        {
+          "id": "simpleend:moonless_flight",
+          "required": true
+        },
+        {
+          "id": "simpleend:shulker_garden",
+          "required": true
+        },
+        {
+          "id": "simpleend:tall_pillar",
+          "required": true
+        },
+        {
+          "id": "simpleend:wanderers_tower",
+          "required": true
+        },
+        {
+          "id": "simpleend:stare",
+          "required": true
+        },
+        {
+          "id": "simpleend:eddy",
+          "required": true
+        },
+        {
+          "id": "simpleend:meadow",
+          "required": true
+        },
+        {
+          "id": "simpleend:night_sky",
+          "required": true
+        },
+        {
+          "id": "simpleend:hermit",
+          "required": true
+        },
+        {
+          "id": "simpleend:offering",
+          "required": true
+        },
+        {
+          "id": "simpleend:beacon",
+          "required": true
+        },
+        {
+          "id": "simpleend:stranger",
+          "required": true
+        },
+        {
+          "id": "simpleend:floating_home",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/tags/painting_variant/end_paintings.json"
+    },
+    {
       "id": "simpleend:worldgen/biome/watcher_core",
       "replace": false,
       "values": [
@@ -2981,6 +3212,50 @@
       "texture": "assets/textures/simpleend/item/duskwood_chest_boat.png",
       "craftedBy": [
         "simpleend:duskwood_chest_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:end_painting",
+      "name": {
+        "en_us": "End Painting",
+        "de_de": "End-Gemälde"
+      },
+      "note": {
+        "en": {
+          "summary": "End Painting: place it like a Painting to get one of 46 End pictures (same sizes and counts as Vanilla); each picture plays a short animation at random, about once a minute or two."
+        },
+        "de": {
+          "summary": "End-Gemälde: wie ein Gemälde anbringen, es zeigt eines von 46 End-Bildern (gleiche Größen und Anzahl wie Vanilla); jedes Bild spielt zufällig, etwa alle ein bis zwei Minuten, eine kurze Animation."
+        }
+      },
+      "texture": "assets/textures/simpleend/item/end_painting.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A framed picture of the End: eyes, chorus, dragons and the dark between the islands."
+          ],
+          "use": [
+            "Place it on a wall like a painting; it picks one of the End pictures that fits (the biggest free spot wins). Every picture now and then blinks, flickers or moves on its own. Craft it from a painting and an end stone."
+          ],
+          "secret": [
+            "Each picture plays its little animation at a random moment, about once every one to two minutes."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein gerahmtes Bild vom End: Augen, Chorus, Drachen und die Dunkelheit zwischen den Inseln."
+          ],
+          "use": [
+            "An die Wand hängen wie ein Gemälde; es nimmt ein passendes End-Bild (der größte freie Platz gewinnt). Jedes Bild blinzelt, flackert oder bewegt sich ab und zu von selbst. Herstellung: Gemälde und Endstein."
+          ],
+          "secret": [
+            "Jedes Bild spielt seine kleine Animation zu einem zufälligen Zeitpunkt, etwa alle ein bis zwei Minuten."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleend:end_painting"
       ],
       "usedIn": []
     },
@@ -4164,12 +4439,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 9,
-    "recipes": 38,
+    "recipes": 39,
     "lootTables": 48,
-    "tags": 8,
+    "tags": 9,
     "advancements": 1,
     "enchantments": 0,
-    "items": 8,
+    "items": 9,
     "blocks": 51,
     "trades": 0,
     "config": 0,

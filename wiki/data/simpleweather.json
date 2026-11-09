@@ -33,6 +33,20 @@
       }
     },
     {
+      "id": "frequency",
+      "sources": [
+        "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/mixin/ServerWeatherMixin.java"
+      ],
+      "en": {
+        "title": "Rain and thunder frequency",
+        "summary": "rainFrequencyFactor and thunderFrequencyFactor (default 1 = Vanilla, bounded 0.25–4, server) speed up or slow down the countdown between two rains or storms: 2 = the dry spell is half as long, 0.25 = four times as long. Rain and storm length stay Vanilla; /weather clear <time> stays exact. Change with /simpleweather config set rainFrequencyFactor 2."
+      },
+      "de": {
+        "title": "Regen- und Gewitterhäufigkeit",
+        "summary": "rainFrequencyFactor und thunderFrequencyFactor (Standard 1 = Vanilla, Grenze 0,25–4, Server) beschleunigen oder bremsen den Zähler zwischen zwei Regen bzw. Gewittern: 2 = Trockenzeit halb so lang, 0,25 = viermal so lang. Regen- und Gewitterdauer bleiben Vanilla; /weather clear <Zeit> bleibt exakt. Ändern mit /simpleweather config set rainFrequencyFactor 2."
+      }
+    },
+    {
       "id": "rain_density",
       "sources": [
         "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/mixin/client/VisualRainMixin.java",
@@ -104,7 +118,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 4,
+    "features": 5,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,
