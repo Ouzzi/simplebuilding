@@ -17,7 +17,7 @@ registry = set(re.findall(r'add\("([a-z_]+)"', java))
 registry |= {m for m in re.findall(r'"([a-z_]+_(?:stairs|slab|wall))"', java.split('SHAPES = List.of(')[1].split(');')[0])}
 registry |= {m for m in re.findall(r'new String\[\]\{"([a-z_]+)", "[a-z_:]+"\}', java)}
 assert registry == set(g.BLOCKS), (sorted(registry ^ set(g.BLOCKS)))
-assert len(g.BLOCKS) == 86, len(g.BLOCKS)  # 38 + 42 of palette stage 2 (a-palette05) + smooth stone wall + 5 chiseled (a-pal09)
+assert len(g.BLOCKS) == 105, len(g.BLOCKS)  # 38 + 42 of palette stage 2 (a-palette05) + smooth stone wall + 5 chiseled (a-pal09) + 19 PAL14
 
 assert subprocess.run([sys.executable, str(MODULE / 'tools/generate_data.py'), '--check']).returncode == 0
 
@@ -66,7 +66,7 @@ for name in ('blue_nether_bricks', 'sculk_tiles'):
 assert json.loads((tex / 'sculk_tiles.png.mcmeta').read_text(encoding='utf-8'))['animation'], 'sculk tiles are animated'
 sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
 import vanilla_derived  # noqa: E402
-for name in ('sculk_deepslate', 'hushed_deepslate_tiles', 'chiseled_packed_ice', 'chiseled_blue_ice'):
+for name in ('sculk_deepslate', 'hushed_deepslate_tiles', 'chiseled_packed_ice', 'chiseled_blue_ice', 'chiseled_dark_prismarine', *g.ICE_FULL, *[p[0] for p in g.PILLARS]):
     assert f'block/{name}.png' in vanilla_derived.MODULE_OUTPUTS[NS] and not (tex / f'{name}.layers.json').exists(), f'{name} is Vanilla-derived'
 assert {f'block/shapecutter_{n}.png' for n in ('top', 'side', 'bottom', 'saw')} <= set(vanilla_derived.MODULE_OUTPUTS[NS]), 'shapecutter textures are Vanilla-derived'
 # The blade is Vanilla's strip regreyed at build time (variant S1/S2); its animation stays Vanilla's (own .mcmeta, same values).

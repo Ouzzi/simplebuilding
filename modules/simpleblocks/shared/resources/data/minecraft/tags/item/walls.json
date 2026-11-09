@@ -27,6 +27,9 @@
     "simpleblocks:end_stone_wall",
     "simpleblocks:prismarine_brick_wall",
     "simpleblocks:dark_prismarine_wall",
+    "simpleblocks:ice_wall",
+    "simpleblocks:packed_ice_wall",
+    "simpleblocks:blue_ice_wall",
     "simpleblocks:blue_nether_brick_wall"
   ]
 }

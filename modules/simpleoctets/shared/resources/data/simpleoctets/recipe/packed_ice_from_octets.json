@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:packed_ice_octet",
+    "simpleoctets:packed_ice_octet",
+    "simpleoctets:packed_ice_octet",
+    "simpleoctets:packed_ice_octet",
+    "simpleoctets:packed_ice_octet",
+    "simpleoctets:packed_ice_octet",
+    "simpleoctets:packed_ice_octet",
+    "simpleoctets:packed_ice_octet"
+  ],
+  "result": {
+    "id": "minecraft:packed_ice"
+  }
+}

@@ -603,6 +603,39 @@ public class ModBlocks {
             CHISELED_ENDER_QUARTZ_BRICKS, ENDER_QUARTZ_STAIRS, ENDER_QUARTZ_SLAB, ENDER_QUARTZ_WALL);
     public static final List<EndPalette> END_PALETTES = List.of(ASTRALIT_PALETTE, NIHILITH_PALETTE, ENDER_QUARTZ_PALETTE);
 
+    // PAL14 (Besitzer 09.11., docs/ai/PLAN-B-PAL14-2026-11-09.md): Ender-Endstein und Ender-Purpur als dritte beschichtete Art
+    // (Enderquarz-Beschichtung wie Astralitstaub/Nihilithsplitter), dazu Treppe/Stufe/Mauer der drei beschichteten Endsteine
+    // und Saeule/Treppe/Stufe der drei Purpurbloecke wie bei Vanilla-Purpur (Vanilla-Purpur hat keine Mauer). Eigenschaften
+    // vom Endstein bzw. Purpurblock der Art (Astral leuchtet mit 10 wie seine Grundbloecke).
+    public static final Block ENDER_END_STONE = registerBlock("ender_end_stone", NIHIL_END_STONE, s -> new Block(s.mapColor(MapColor.COLOR_PURPLE)));
+    public static final Block ENDER_PURPUR_BLOCK = registerBlock("ender_purpur_block", NIHIL_PURPUR_BLOCK, s -> new Block(s.mapColor(MapColor.COLOR_PURPLE)));
+
+    /** Eine beschichtete Art: Endstein samt Treppe/Stufe/Mauer, Purpurblock samt Saeule/Treppe/Stufe, ihre End-Palette. */
+    public record CoatedKind(String kind, Block stone, Block stoneStairs, Block stoneSlab, Block stoneWall,
+                             Block purpur, Block purpurPillar, Block purpurStairs, Block purpurSlab, EndPalette palette) {
+        /** Die PAL14-Glieder (ohne Endstein/Purpurblock, die schon vorher da waren - ausser bei Ender). */
+        public List<Block> shapes() {
+            return List.of(stoneStairs, stoneSlab, stoneWall, purpurPillar, purpurStairs, purpurSlab);
+        }
+    }
+
+    private static CoatedKind coatedKind(String kind, Block stone, Block purpur, EndPalette palette) {
+        return new CoatedKind(kind, stone,
+                registerBlock(kind + "_end_stone_stairs", stone, s -> new StairBlock(stone.defaultBlockState(), s)),
+                registerBlock(kind + "_end_stone_slab", stone, SlabBlock::new),
+                registerBlock(kind + "_end_stone_wall", stone, s -> new WallBlock(s.forceSolidOn())),
+                purpur,
+                registerBlock(kind + "_purpur_pillar", purpur, RotatedPillarBlock::new),
+                registerBlock(kind + "_purpur_stairs", purpur, s -> new StairBlock(purpur.defaultBlockState(), s)),
+                registerBlock(kind + "_purpur_slab", purpur, SlabBlock::new),
+                palette);
+    }
+
+    public static final CoatedKind ASTRAL_COATED = coatedKind("astral", ASTRAL_END_STONE, ASTRAL_PURPUR_BLOCK, ASTRALIT_PALETTE);
+    public static final CoatedKind NIHIL_COATED = coatedKind("nihil", NIHIL_END_STONE, NIHIL_PURPUR_BLOCK, NIHILITH_PALETTE);
+    public static final CoatedKind ENDER_COATED = coatedKind("ender", ENDER_END_STONE, ENDER_PURPUR_BLOCK, ENDER_QUARTZ_PALETTE);
+    public static final List<CoatedKind> COATED_KINDS = List.of(ASTRAL_COATED, NIHIL_COATED, ENDER_COATED);
+
     /**
      * Drei Alternativbloecke zu einem Grundblock (Besitzer 2026-10-03), in Kettenreihenfolge. Gewinnung:
      * der Enderit-Meissel fuehrt die Kette der Palette weiter (... gemeisselte Ziegel -> Grundblock -> erster ->

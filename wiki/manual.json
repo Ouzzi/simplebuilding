@@ -806,7 +806,27 @@
         "simplebuilding:ender_quartz",
         "simplebuilding:astral_end_stone",
         "simplebuilding:nihil_end_stone",
-        "simplebuilding:polished_end_stone"
+        "simplebuilding:polished_end_stone",
+        "simplebuilding:ender_end_stone",
+        "simplebuilding:ender_purpur_block",
+        "simplebuilding:astral_end_stone_stairs",
+        "simplebuilding:astral_end_stone_slab",
+        "simplebuilding:astral_end_stone_wall",
+        "simplebuilding:astral_purpur_pillar",
+        "simplebuilding:astral_purpur_stairs",
+        "simplebuilding:astral_purpur_slab",
+        "simplebuilding:nihil_end_stone_stairs",
+        "simplebuilding:nihil_end_stone_slab",
+        "simplebuilding:nihil_end_stone_wall",
+        "simplebuilding:nihil_purpur_pillar",
+        "simplebuilding:nihil_purpur_stairs",
+        "simplebuilding:nihil_purpur_slab",
+        "simplebuilding:ender_end_stone_stairs",
+        "simplebuilding:ender_end_stone_slab",
+        "simplebuilding:ender_end_stone_wall",
+        "simplebuilding:ender_purpur_pillar",
+        "simplebuilding:ender_purpur_stairs",
+        "simplebuilding:ender_purpur_slab"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -823,7 +843,8 @@
         "src/main/generated/data/simplebuilding/recipe/ender_quartz_block_from_quartz_block.json",
         "src/main/generated/data/simplebuilding/recipe/ender_quartz.json",
         "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
-        "tools/textures/astralit_nihilit_alternates_2026_10_03.py"
+        "tools/textures/astralit_nihilit_alternates_2026_10_03.py",
+        "tools/textures/pal14_2026_11_09.py"
       ],
       "en": {
         "title": "End Palettes: Astralit, Nihilit and Ender Quartz",
@@ -831,14 +852,15 @@
         "details": [
           "Materials: Astralit Dust, Nihilit Shard and Ender Quartz (1 Astralit Dust + 1 Nihilit Shard + 1 Quartz, shapeless, make 2).",
           "Crafting: 4 of the material in a square make 1 base block (like quartz and amethyst); 4 base blocks make 4 Polished; 4 Polished make 4 Bricks; 2 Polished on top of each other make 2 Pillars; 6 Bricks or Polished in a stair shape make 4 Stairs, 3 in a row 6 Slabs, 6 in two rows 6 Walls; 2 Brick Slabs on top of each other make 1 Chiseled Bricks. Like the Block of Quartz, the Block of Ender Quartz also has its own Ender Quartz Stairs (6 -> 4) and Ender Quartz Slab (3 -> 6), also cut in the stonecutter (1 stairs, 2 slabs).",
-          "Recoloring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab, the Purpur Pillar to the Pillar, and the Purpur Block to Polished Ender Quartz. For Astralit and Nihilit the Purpur Block grid stays the older coating recipe (Astral or Nihil Purpur Block), which the stonecutter turns into the Polished block.",
+          "Recoloring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab and the Purpur Pillar to the Pillar. The Purpur Block grid is the coating recipe of the Astral, Nihil and Ender Purpur Block (Ender since PAL14, before it made Polished Ender Quartz), which the stonecutter turns into the Polished block.",
           "Ender Quartz also from vanilla quartz, the same way: 8 of a quartz block around 1 Ender Quartz make 8 - Block of Quartz to the base block, Quartz Bricks to the Bricks, the Quartz Pillar to the Pillar, Chiseled Quartz Block to the Chiseled Bricks, Smooth Quartz to Polished Ender Quartz, smooth quartz stairs and slab to the Polished Stairs and Slab, and quartz stairs and slab to Ender Quartz Stairs and Slab.",
           "Stonecutter: the base block cuts into every other block of its palette; the Polished block into its stairs, slab and wall, the Bricks and their stairs, slab and wall, the Pillar and the Chiseled Bricks; the Bricks into their stairs, slab, wall and the Chiseled Bricks. Slabs always come two for one. The older coated end stone (Astral and Nihil End Stone: 8 Polished End Stone around 1 dust or shard) still cuts into the brick set and the base block.",
           "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilit and Ender Quartz blocks none.",
           "Pillars can be placed along any axis; a double slab drops two slabs; stairs, slabs and walls are in the vanilla block and item tags of their shape, so the walls connect like any vanilla wall.",
           "Polished, Astral and Nihil End Stone and the Astral and Nihil Purpur Blocks are in the mineable/pickaxe tag as well.",
           "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilit turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colors, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit.",
-          "Alternative blocks: Astralit has Veined, Crystalline and Layered Astralit, Nihilit has Veined, Crystalline and Frosted Nihilit - the same block with a different pattern, copying the base block's properties (Astralit ones glow too), mined with a pickaxe, each dropping itself. The stonecutter cuts each 1:1 from the base block; 4 in a square make 4 of the next one (Veined -> Crystalline -> Layered/Frosted -> base block). The enderite chisel continues the palette chain past the base block (base -> Veined -> Crystalline -> Layered/Frosted), the spatula walks it back. They sit in their own row of the SimpleBlocks tab under the base block's row."
+          "Alternative blocks: Astralit has Veined, Crystalline and Layered Astralit, Nihilit has Veined, Crystalline and Frosted Nihilit - the same block with a different pattern, copying the base block's properties (Astralit ones glow too), mined with a pickaxe, each dropping itself. The stonecutter cuts each 1:1 from the base block; 4 in a square make 4 of the next one (Veined -> Crystalline -> Layered/Frosted -> base block). The enderite chisel continues the palette chain past the base block (base -> Veined -> Crystalline -> Layered/Frosted), the spatula walks it back. They sit in their own row of the SimpleBlocks tab under the base block's row.",
+          "Coated kinds (PAL14): Astral, Nihil and Ender End Stone (8 Polished End Stone around 1 Astralit Dust, Nihilit Shard or Ender Quartz) each have stairs, slab and wall; Astral, Nihil and Ender Purpur Block (8 Purpur Blocks around the same) each have a pillar (2 of its slabs on top of each other), stairs and slab, like Vanilla purpur (no wall). Stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6, stonecutter 1 -> 1 (slab 1 -> 2). They copy their block (Astral ones glow with 10), drop themselves and sit in their own row of the tab; Ender End Stone and Ender Purpur cut into the Ender Quartz palette like the other two."
         ]
       },
       "de": {
@@ -847,14 +869,15 @@
         "details": [
           "Materialien: Astralitstaub, Nihilitsplitter und Enderquarz (1 Astralitstaub + 1 Nihilitsplitter + 1 Quarz, formlos, ergeben 2).",
           "Herstellung: 4 Material im Quadrat ergeben 1 Grundblock (wie bei Quarz und Amethyst); 4 Grundblöcke ergeben 4 polierte; 4 polierte ergeben 4 Ziegel; 2 polierte übereinander ergeben 2 Säulen; 6 Ziegel oder polierte in Treppenform ergeben 4 Treppen, 3 in einer Reihe 6 Stufen, 6 in zwei Reihen 6 Mauern; 2 Ziegelstufen übereinander ergeben 1 gemeißelte Ziegel. Wie der Quarzblock hat auch der Enderquarzblock eine eigene Enderquarztreppe (6 → 4) und Enderquarzstufe (3 → 6), auch im Steinmetz (1 Treppe bzw. 2 Stufen).",
-          "Umfärben wie mit Farbstoff: 8 eines Vanilla-Endstein- oder -Purpurblocks um 1 Material ergeben 8 des passenden Palettenblocks – Endstein zum Grundblock, Endsteinziegel samt Treppe, Stufe und Mauer zu den Ziegeln samt Treppe, Stufe und Mauer, Purpurtreppe und -stufe zur polierten Treppe und Stufe, die Purpursäule zur Säule und der Purpurblock zu poliertem Enderquarz. Bei Astralit und Nihilit bleibt das Purpurblock-Raster das ältere Beschichtungsrezept (Astral- bzw. Nihil-Purpurblock), das der Steinmetz in den polierten Block schneidet.",
+          "Umfärben wie mit Farbstoff: 8 eines Vanilla-Endstein- oder -Purpurblocks um 1 Material ergeben 8 des passenden Palettenblocks – Endstein zum Grundblock, Endsteinziegel samt Treppe, Stufe und Mauer zu den Ziegeln samt Treppe, Stufe und Mauer, Purpurtreppe und -stufe zur polierten Treppe und Stufe und die Purpursäule zur Säule. Das Purpurblock-Raster ist das Beschichtungsrezept des Astral-, Nihil- und Ender-Purpurblocks (Ender seit PAL14, vorher ergab es polierten Enderquarz), den der Steinmetz in den polierten Block schneidet.",
           "Enderquarz auch aus Vanilla-Quarz, genauso: 8 eines Quarzblocks um 1 Enderquarz ergeben 8 – Quarzblock zum Grundblock, Quarzziegel zu den Ziegeln, Quarzsäule zur Säule, gemeißelter Quarzblock zu den gemeißelten Ziegeln, glatter Quarz zu poliertem Enderquarz, glatte Quarztreppe und -stufe zur polierten Treppe und Stufe, Quarztreppe und -stufe zu Enderquarztreppe und -stufe.",
           "Steinmetz: Der Grundblock lässt sich in jeden anderen Block seiner Palette schneiden; der polierte Block in seine Treppe, Stufe und Mauer, die Ziegel samt Treppe, Stufe und Mauer, die Säule und die gemeißelten Ziegel; die Ziegel in ihre Treppe, Stufe, Mauer und die gemeißelten Ziegel. Stufen immer zwei zu eins. Der ältere beschichtete Endstein (Astral- und Nihil-Endstein: 8 polierter Endstein um 1 Staub bzw. Splitter) schneidet weiterhin in den Ziegelbausatz und den Grundblock.",
           "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilit- und Enderquarz-Blöcke gar nicht.",
           "Säulen lassen sich in jeder Achse setzen; eine Doppelstufe lässt zwei Stufen fallen; Treppen, Stufen und Mauern stehen in den Vanilla-Block- und -Item-Tags ihrer Form, die Mauern verbinden sich also wie jede Vanilla-Mauer.",
           "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
           "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz.",
-          "Alternativblöcke: Astralit hat Geäderten, Kristallinen und Geschichteten Astralit, Nihilit hat Geäderten, Kristallinen und Bereiften Nihilit - derselbe Block mit anderem Muster, mit den Eigenschaften des Grundblocks (Astralit leuchtet auch hier), mit der Spitzhacke abbaubar, jeder droppt sich selbst. Der Steinmetz schneidet jeden 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten (Geädert -> Kristallin -> Geschichtet/Bereift -> Grundblock). Der Enderit-Meißel führt die Palettenkette über den Grundblock hinaus weiter (Grundblock -> Geädert -> Kristallin -> Geschichtet/Bereift), der Spachtel zurück. Sie stehen in einer eigenen Zeile des Tabs „SimpleBlocks“ unter der Zeile des Grundblocks."
+          "Alternativblöcke: Astralit hat Geäderten, Kristallinen und Geschichteten Astralit, Nihilit hat Geäderten, Kristallinen und Bereiften Nihilit - derselbe Block mit anderem Muster, mit den Eigenschaften des Grundblocks (Astralit leuchtet auch hier), mit der Spitzhacke abbaubar, jeder droppt sich selbst. Der Steinmetz schneidet jeden 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten (Geädert -> Kristallin -> Geschichtet/Bereift -> Grundblock). Der Enderit-Meißel führt die Palettenkette über den Grundblock hinaus weiter (Grundblock -> Geädert -> Kristallin -> Geschichtet/Bereift), der Spachtel zurück. Sie stehen in einer eigenen Zeile des Tabs „SimpleBlocks“ unter der Zeile des Grundblocks.",
+          "Beschichtete Arten (PAL14): Astral-, Nihil- und Ender-Endstein (8 polierter Endstein um 1 Astralitstaub, Nihilitsplitter bzw. Enderquarz) haben je Treppe, Stufe und Mauer; Astral-, Nihil- und Ender-Purpurblock (8 Purpurblöcke um dasselbe) je Säule (2 ihrer Stufen übereinander), Treppe und Stufe wie Vanilla-Purpur (ohne Mauer). Treppe 6 → 4, Stufe 3 → 6, Mauer 6 → 6, Steinmetz 1 → 1 (Stufe 1 → 2). Sie übernehmen ihren Block (Astral leuchtet mit 10), droppen sich selbst und stehen in einer eigenen Zeile des Tabs; Ender-Endstein und Ender-Purpur schneiden wie die anderen beiden in die Enderquarz-Palette."
         ]
       }
     },

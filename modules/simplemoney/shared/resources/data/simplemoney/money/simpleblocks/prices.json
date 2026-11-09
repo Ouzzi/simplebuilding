@@ -189,7 +189,26 @@
     "simpleblocks:waxed_hay_block": "Vanilla block faded in the Pale Garden (or waxed with a honeycomb); no trade, like Vanilla building blocks.",
     "simpleblocks:waxed_jack_o_lantern": "Vanilla block faded in the Pale Garden (or waxed with a honeycomb); no trade, like Vanilla building blocks.",
     "simpleblocks:waxed_melon": "Vanilla block faded in the Pale Garden (or waxed with a honeycomb); no trade, like Vanilla building blocks.",
-    "simpleblocks:waxed_pumpkin": "Vanilla block faded in the Pale Garden (or waxed with a honeycomb); no trade, like Vanilla building blocks."
+    "simpleblocks:waxed_pumpkin": "Vanilla block faded in the Pale Garden (or waxed with a honeycomb); no trade, like Vanilla building blocks.",
+    "simpleblocks:chiseled_dark_prismarine": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:sandstone_pillar": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:red_sandstone_pillar": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:chiseled_ice": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:polished_ice": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:ice_bricks": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:ice_stairs": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:ice_slab": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:ice_wall": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:polished_packed_ice": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:packed_ice_bricks": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:packed_ice_stairs": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:packed_ice_slab": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:packed_ice_wall": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:polished_blue_ice": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:blue_ice_bricks": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:blue_ice_stairs": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:blue_ice_slab": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:blue_ice_wall": "Crafted from its Vanilla base block; no trade."
   },
   "prices": [
     {

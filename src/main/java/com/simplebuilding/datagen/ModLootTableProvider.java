@@ -202,6 +202,18 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.NIHIL_PURPUR_BLOCK);
         dropSelf(ModBlocks.ASTRAL_END_STONE);
         dropSelf(ModBlocks.NIHIL_END_STONE);
+        // PAL14: Ender-Endstein/-Purpur und die Formen der beschichteten Arten droppen sich selbst (Doppelstufe 2).
+        dropSelf(ModBlocks.ENDER_END_STONE);
+        dropSelf(ModBlocks.ENDER_PURPUR_BLOCK);
+        for (ModBlocks.CoatedKind kind : ModBlocks.COATED_KINDS) {
+            for (Block block : kind.shapes()) {
+                if (block instanceof net.minecraft.world.level.block.SlabBlock) {
+                    add(block, createSlabItemTable(block));
+                } else {
+                    dropSelf(block);
+                }
+            }
+        }
 
         // End-Paletten (Astralit, Nihilith, Enderquarz); Stufen droppen doppelt, wenn sie als Doppelstufe stehen
         ModBlocks.CRACKED_END_BRICKS.keySet().forEach(this::dropSelf);

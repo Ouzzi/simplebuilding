@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:polished_blue_ice",
+  "result": {
+    "id": "simpleblocks:blue_ice_bricks"
+  }
+}

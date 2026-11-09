@@ -4,6 +4,13 @@
     "simpleblocks:chiseled_packed_ice",
     "simpleblocks:chiseled_blue_ice",
     "simpleblocks:cracked_packed_ice",
-    "simpleblocks:cracked_blue_ice"
+    "simpleblocks:cracked_blue_ice",
+    "simpleblocks:chiseled_ice",
+    "simpleblocks:polished_ice",
+    "simpleblocks:ice_bricks",
+    "simpleblocks:polished_packed_ice",
+    "simpleblocks:packed_ice_bricks",
+    "simpleblocks:polished_blue_ice",
+    "simpleblocks:blue_ice_bricks"
   ]
 }

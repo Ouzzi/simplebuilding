@@ -28,6 +28,7 @@ from PIL import Image
 SPRITES = {
     'chiseled_polished_andesite': 'polished_andesite', 'chiseled_polished_diorite': 'polished_diorite',
     'chiseled_polished_granite': 'polished_granite', 'chiseled_prismarine': 'prismarine', 'chiseled_red_nether_bricks': 'red_nether_bricks',
+    'chiseled_dark_prismarine': 'dark_prismarine',  # b-pal14 (owner 09.11.), look A like the others
 }
 DESC = 'chiseled_2026_11_08.derived() - Vanilla sprite with a carved panel / band (a-pal09)'
 

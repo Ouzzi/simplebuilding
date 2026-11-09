@@ -20,13 +20,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.IceBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import com.simpleblocks.nature.IceShapes;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 86 blocks with their block items (plus the 15 moved from SimpleBuilding in
+ * Everything Simple Blocks registers: 105 blocks with their block items (plus the 15 moved from SimpleBuilding in
  * {@link com.simpleblocks.nature.NatureBlocks}), the Shapecutter ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
@@ -74,7 +77,10 @@ public final class BlocksRegistry {
             "mossy_mud_brick_stairs", "mossy_mud_brick_slab", "mossy_mud_brick_wall",
             "mossy_end_stone_brick_stairs", "mossy_end_stone_brick_slab", "mossy_end_stone_brick_wall",
             "mossy_cinnabar_brick_stairs", "mossy_cinnabar_brick_slab", "mossy_cinnabar_brick_wall",
-            "mossy_sulfur_brick_stairs", "mossy_sulfur_brick_slab", "mossy_sulfur_brick_wall");
+            "mossy_sulfur_brick_stairs", "mossy_sulfur_brick_slab", "mossy_sulfur_brick_wall",
+            // PAL14 (owner 09.11.): stairs, slab and wall of the three ices (registered with the ice family below).
+            "ice_stairs", "ice_slab", "ice_wall", "packed_ice_stairs", "packed_ice_slab", "packed_ice_wall",
+            "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall");
 
     static {
         shapes("calcite", Blocks.CALCITE, true, true, true);
@@ -124,11 +130,50 @@ public final class BlocksRegistry {
     public static final List<String[]> CHISELED = List.of(
             new String[]{"chiseled_polished_andesite", "polished_andesite"}, new String[]{"chiseled_polished_diorite", "polished_diorite"},
             new String[]{"chiseled_polished_granite", "polished_granite"}, new String[]{"chiseled_prismarine", "prismarine"},
-            new String[]{"chiseled_red_nether_bricks", "red_nether_bricks"});
+            new String[]{"chiseled_red_nether_bricks", "red_nether_bricks"},
+            new String[]{"chiseled_dark_prismarine", "dark_prismarine"}); // PAL14
 
     static {
         for (String[] chiseled : CHISELED) add(chiseled[0], agedBase(chiseled[1]), Block::new);
     }
+
+    // --- PAL14 (owner 09.11., docs/ai/PLAN-B-PAL14-2026-11-09.md): the missing members of the Vanilla families.
+    /** Sandstone pillars like the quartz pillar: two sandstone on top of each other, ends show the sandstone top. */
+    public static final Block SANDSTONE_PILLAR = add("sandstone_pillar", Blocks.SANDSTONE, RotatedPillarBlock::new);
+    public static final Block RED_SANDSTONE_PILLAR = add("red_sandstone_pillar", Blocks.RED_SANDSTONE, RotatedPillarBlock::new);
+    /**
+     * Ice families: polished ice and ice bricks of each ice, chiseled ice, and stairs/slab/wall of each ice. Everything copies its
+     * ice (slipperiness, sound, hardness, see-through ice). Only the members of normal ice melt like Vanilla ice (full blocks are
+     * {@link IceBlock}s, shapes {@link IceShapes}); packed and blue ice do not melt in Vanilla, so neither do theirs.
+     */
+    public static final Block CHISELED_ICE = add("chiseled_ice", Blocks.ICE, IceBlock::new);
+    public static final Block POLISHED_ICE = add("polished_ice", Blocks.ICE, IceBlock::new);
+    public static final Block ICE_BRICKS = add("ice_bricks", Blocks.ICE, IceBlock::new);
+
+    static {
+        add("ice_stairs", Blocks.ICE, s -> new IceShapes.Stairs(Blocks.ICE.defaultBlockState(), s));
+        add("ice_slab", Blocks.ICE, IceShapes.Slab::new);
+        add("ice_wall", Blocks.ICE, IceShapes.Wall::new);
+    }
+
+    public static final Block POLISHED_PACKED_ICE = add("polished_packed_ice", Blocks.PACKED_ICE, Block::new);
+    public static final Block PACKED_ICE_BRICKS = add("packed_ice_bricks", Blocks.PACKED_ICE, Block::new);
+
+    static {
+        shapes("packed_ice", Blocks.PACKED_ICE, true, true, true);
+    }
+
+    public static final Block POLISHED_BLUE_ICE = add("polished_blue_ice", Blocks.BLUE_ICE, Block::new);
+    public static final Block BLUE_ICE_BRICKS = add("blue_ice_bricks", Blocks.BLUE_ICE, Block::new);
+
+    static {
+        shapes("blue_ice", Blocks.BLUE_ICE, true, true, true);
+    }
+
+    /** The PAL14 ice members (loot: Silk Touch only, like Vanilla ice). */
+    public static final List<String> ICE = List.of("chiseled_ice", "polished_ice", "ice_bricks", "ice_stairs", "ice_slab", "ice_wall",
+            "polished_packed_ice", "packed_ice_bricks", "packed_ice_stairs", "packed_ice_slab", "packed_ice_wall",
+            "polished_blue_ice", "blue_ice_bricks", "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall");
 
     /** The block an aged brick copies: Vanilla's, or (with a namespace) one of ours, which is not in the registry yet while this class loads. */
     public static Block agedBase(String id) {
@@ -286,7 +331,13 @@ public final class BlocksRegistry {
         out.add(Placement.after(false, Items.END_STONE, "end_stone_stairs", "end_stone_slab", "end_stone_wall"));
         out.add(Placement.after(false, Items.PRISMARINE_WALL, "cracked_prismarine", "chiseled_prismarine"));
         out.add(Placement.after(false, Items.PRISMARINE_BRICK_SLAB, "prismarine_brick_wall", "cracked_prismarine_bricks"));
-        out.add(Placement.after(false, Items.DARK_PRISMARINE_SLAB, "dark_prismarine_wall", "cracked_dark_prismarine"));
+        out.add(Placement.after(false, Items.DARK_PRISMARINE_SLAB, "dark_prismarine_wall", "cracked_dark_prismarine", "chiseled_dark_prismarine"));
+        // PAL14: sandstone pillars behind the chiseled sandstone; the ice members in the natural tab behind their ice.
+        out.add(Placement.after(false, Items.CHISELED_SANDSTONE, "sandstone_pillar"));
+        out.add(Placement.after(false, Items.CHISELED_RED_SANDSTONE, "red_sandstone_pillar"));
+        out.add(Placement.after(true, Items.ICE, "chiseled_ice", "polished_ice", "ice_bricks", "ice_stairs", "ice_slab", "ice_wall"));
+        out.add(Placement.after(true, Items.PACKED_ICE, "polished_packed_ice", "packed_ice_bricks", "packed_ice_stairs", "packed_ice_slab", "packed_ice_wall"));
+        out.add(Placement.after(true, Items.BLUE_ICE, "polished_blue_ice", "blue_ice_bricks", "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall"));
         out.add(Placement.after(false, Items.POLISHED_DEEPSLATE_WALL, "cracked_polished_deepslate"));
         // The blocks that moved from SimpleBuilding, behind their base block as SimpleBuilding placed them. With SimpleBuilding
         // loaded its search-tab chains keep placing them (by id, in its order with the octets), so only without it.

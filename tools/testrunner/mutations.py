@@ -1708,7 +1708,7 @@ P11_MUTATIONS: list[Mutation] = [
              'crafts 1xsimplebuilding:astralit_block',
              'eight end stone around one astralit dust make eight astralit blocks', kind="server"),
     Mutation('p11-recolour-takes-over-coating',
-             f'{_GEN}/recipe/polished_ender_quartz_from_purpur_block.json',
+             f'{_GEN}/recipe/ender_purpur_block.json',
              '"M": "simplebuilding:ender_quartz"',
              '"M": "simplebuilding:astralit_dust"',
              _DI + 'end_palettes_are_recoloured_from_end_stone_and_purpur_like_dye',
