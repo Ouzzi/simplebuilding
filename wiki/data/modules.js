@@ -159,7 +159,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 78
     },
-    "dataHash": "d78ffe3da4e4"
+    "dataHash": "e5f7bf34680e"
   },
   {
     "id": "simpleriding",
@@ -268,11 +268,12 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAh0lEQVR42mOw8Iv9TwlmABE7bn0kGfcceYFqwJwzr/+ffvIVTBPCIM2pvcsxDSBWM8ginAZ4yYsQxDhdAJI8WRWFF68IsgKrwzCAWM15Bgq4DQApwIdBmgka0OVggKERJkaUAdg0Eu0CmAJ8mGAsEBOFOA2ASRKDMQwApS6yDYAJkIrhBlCCAZ7ocpZYjVK8AAAAAElFTkSuQmCC",
     "counts": {
-      "items": 2,
-      "recipes": 1,
-      "features": 38
+      "items": 9,
+      "blocks": 1,
+      "recipes": 24,
+      "features": 58
     },
-    "dataHash": "e9c7cd547f8d"
+    "dataHash": "6dfbf56ca2f5"
   },
   {
     "id": "simplevisuals",
@@ -382,8 +383,8 @@ window.WIKI_MODULES = [
       "asOf": "19.10.2026"
     },
     "intro": {
-      "en": "Bundles seven sub-mods with one switch each: weather, interfaces, loot, mob manners, farming, tools and movement.",
-      "de": "Bündelt sieben Sub-Mods mit je einem Schalter: Wetter, Oberflächen, Beute, Mob-Manieren, Landwirtschaft, Werkzeuge und Bewegung."
+      "en": "Bundles seven sub-mods with one switch each: weather, interfaces, loot, mob manners, farming, tools and movement. Each sub-mod has its own chapter in this section.",
+      "de": "Bündelt sieben Sub-Mods mit je einem Schalter: Wetter, Oberflächen, Beute, Mob-Manieren, Landwirtschaft, Werkzeuge und Bewegung. Jede Sub-Mod hat ihr eigenes Kapitel in diesem Abschnitt."
     },
     "purpose": {
       "en": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
@@ -397,7 +398,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 9
     },
-    "dataHash": "89f5958d15c5"
+    "dataHash": "ebf9e622e0aa"
   },
   {
     "id": "simpletweaks",
@@ -560,6 +561,10 @@ window.WIKI_MODULES = [
       "missing": "Basis für alle Mods; offen Kreativtab-Zeilenlayout-Abnahme und Stil-Bausteine, wächst mit jeder Familienstufe.",
       "asOf": "19.10.2026"
     },
+    "intro": {
+      "en": "What every Simple mod shares: this guide, warm food, shared materials, rarity tiers and Free Look.",
+      "de": "Was alle Simple-Mods teilen: dieses Handbuch, warmes Essen, gemeinsame Materialien, Seltenheitsstufen und Freie Sicht."
+    },
     "purpose": {
       "en": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials, id moves, in-world upgrades and UI building blocks.",
       "de": "Gebündelte Bibliothek (Jar-in-Jar): Warm-Essen, gemeinsame Grundstoffe (Enderit, Rissiger Diamant …), IdMoves, In-World-Aufwertungen, UI-Bausteine, legendäre Momente; kein eigenständiger Spielinhalt."
@@ -595,6 +600,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "intro": {
+      "en": "Restyled Vanilla container screens, linked containers and Easy Shulkers and Ender Chests. A sub-mod of Simple Quality of Life, also playable alone.",
+      "de": "Neu gestaltete Vanilla-Behälter, verknüpfte Behälter und einfache Shulker- und Endertruhen. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."
+    },
     "purpose": {
       "en": "Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.",
       "de": "Sub-Mod von QoL: Vanilla-Container-Bildschirme neu gestaltet (Farbe je Block), verknüpfte Container, Easy Shulkers/Endertruhen; allein spielbar."
@@ -659,6 +668,10 @@ window.WIKI_MODULES = [
       "simplemaps"
     ],
     "stage": "new",
+    "intro": {
+      "en": "A live web map of the world as the players really explored it, with map relief, optional player positions and an optional built-in web server.",
+      "de": "Eine Live-Webkarte der Welt, so wie die Spieler sie wirklich erkundet haben, mit Kartenrelief, wahlweise Spielerpositionen und einem wahlweise eingebauten Webserver."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAt0lEQVR42mOQ1FL5TwlmABHti2fCsZ1XAF4MV5cVhWoAusKoAlSMLq/r44jdAJiGjFlOKNitYAcYYzUAWTNMQ8OGMDh7yoKk/1EdFzAMQTEAphmkEYSjOizgmmEGoBuC1QCYxkceVmCMbBCyITgNgOEVVnpgDDIAhEkyAKYJPSCRwwLDAGyGoAcoSQagG4LufBQD0NMButPRNeJNSGSnxBV7toLTN6G8AFYDxKgpESpAKoYbQAkGAICo9pG6n+pKAAAAAElFTkSuQmCC",
     "counts": {
       "features": 4
@@ -760,6 +773,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "intro": {
+      "en": "Weather switch on the server and rain density on the client. A sub-mod of Simple Quality of Life, also playable alone.",
+      "de": "Wetterschalter auf dem Server und Regendichte auf dem Client. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."
+    },
     "purpose": {
       "en": "Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
       "de": "Sub-Mod von QoL: Wetter-Schalter (Server) und Regendichte (Client); allein spielbar."
@@ -791,6 +808,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "intro": {
+      "en": "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow. A sub-mod of Simple Quality of Life, also playable alone.",
+      "de": "Kriechen per Taste, vom Server erlaubtes automatisches Laufen, schnellere Leitern und Eisläufer auf Pulverschnee. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."
+    },
     "purpose": {
       "en": "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone.",
       "de": "Sub-Mod von QoL: Kriechen per Taste, vom Server erlaubtes Auto-Laufen, schnellere Leitern, Frostläufer auf Pulverschnee; allein spielbar."
@@ -865,6 +886,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "intro": {
+      "en": "Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops. A sub-mod of Simple Quality of Life, also playable alone.",
+      "de": "Federfall schützt Ackerland, Schärfe schneidet Gras, eine Hacke erntet reife Pflanzen und setzt sie neu. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."
+    },
     "purpose": {
       "en": "Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone.",
       "de": "Sub-Mod von QoL: Federfall schützt Ackerland, Schärfe mäht Gras, die Hacke erntet und pflanzt reife Feldfrüchte neu; allein spielbar."
@@ -896,6 +921,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "intro": {
+      "en": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools. A sub-mod of Simple Quality of Life, also playable alone.",
+      "de": "Mobs nach Art oder Namensschild stumm schalten, benannte Jungtiere bleiben jung, Piglins übersehen Goldbesatz und -werkzeug. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."
+    },
     "purpose": {
       "en": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
       "de": "Sub-Mod von QoL: Mobs nach Typ oder Namensschild stumm schalten, benannte Babys bleiben klein, Piglins ignorieren Gold-Besatz und -Werkzeuge; allein spielbar."
@@ -928,6 +957,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "intro": {
+      "en": "Vault rewards come back after a cooldown in days instead of once per player. A sub-mod of Simple Quality of Life, also playable alone.",
+      "de": "Tresor-Belohnungen kommen nach einer Wartezeit in Tagen wieder statt nur einmal je Spieler. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."
+    },
     "purpose": {
       "en": "Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.",
       "de": "Sub-Mod von QoL: Tresor-Abklingzeit in Tagen statt einmal je Spieler; allein spielbar."
@@ -956,6 +989,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
+      "de": "Der Fragetisch: lege ein beliebiges Item hinein und lies in einem offenen Buch seine Geschichte, seinen Nutzen und ein Geheimnis."
+    },
     "purpose": {
       "en": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
       "de": "Fragentisch: ein Item hineinlegen und in einem offenen Buch seine Geschichte, seinen Nutzen und ein Geheimnis lesen."
@@ -1521,6 +1558,10 @@ window.WIKI_MODULES = [
       "missing": "Stufe 1 + Teile von Stufe 2 nur auf claude-wave1 und nur Fabric; offen Kompat-Ziel, 2. Messreihe, Benchmark beim Besitzer (Stufe 3), Stufen 4/5.",
       "asOf": "19.10.2026"
     },
+    "intro": {
+      "en": "Bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one switch each. Each has its own chapter here.",
+      "de": "Bündelt Simple Opt Render, Simple Opt Memory und Simple Opt Server mit je einem Schalter. Jede hat hier ihr eigenes Kapitel."
+    },
     "purpose": {
       "en": "Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.",
       "de": "Super-Mod ohne eigene Inhalte (nur Fabric 26.3): bündelt Opt Render, Opt Memory und Opt Server mit je einem Schalter."
@@ -1545,6 +1586,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simpleoptimization",
     "bundle": "required",
+    "intro": {
+      "en": "Client optimizations; each area steps back when a known optimization mod covers it.",
+      "de": "Client-Optimierungen; jeder Bereich tritt zurück, wenn eine bekannte Optimierungsmod ihn abdeckt."
+    },
     "purpose": {
       "en": "Client optimizations (leaf culling, light-map cache, fast IP ping, telemetry off); each area steps back when a known optimization mod covers it.",
       "de": "Client-Optimierungen (Laub-Culling, Lightmap-Cache, schneller IP-Ping, Telemetrie aus); tritt zurück, wenn ein bekannter Optimierungsmod den Bereich abdeckt."
@@ -1569,6 +1614,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simpleoptimization",
     "bundle": "required",
+    "intro": {
+      "en": "Memory optimizations; so far the switch, its config and mod detection.",
+      "de": "Speicher-Optimierungen; bisher der Schalter, seine Einstellungen und die Mod-Erkennung."
+    },
     "purpose": {
       "en": "Memory optimizations (block states, models); stage 1 only holds the switch, config and mod detection.",
       "de": "Speicher-Optimierungen (Blockzustände, Modelle); Stufe 1 enthält nur Schalter, Config und Mod-Erkennung."
@@ -1593,6 +1642,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simpleoptimization",
     "bundle": "required",
+    "intro": {
+      "en": "Server optimizations: the view distance follows the server load within the server.properties bounds.",
+      "de": "Server-Optimierungen: die Sichtweite folgt der Serverlast innerhalb der Grenzen aus server.properties."
+    },
     "purpose": {
       "en": "Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.",
       "de": "Server-Optimierung: Sichtweite folgt der Serverlast (MSPT) in den Grenzen der server.properties; tritt vor ServerCore zurück."
@@ -1739,16 +1792,16 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "Gadgets you hold and use: the Gauge - a speed dial, an altimeter that warns of fall damage and auto-walk along paths and rails - the Transposer, which turns and swaps blocks in place, the Resonance Rod, a beam that points, melts, ignites and measures, and the Echo Sounder, which jumps back to a lodestone.",
-      "de": "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, der Blöcke an Ort und Stelle dreht und tauscht, der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst, und das Echolot, das zu einem Leitstein zurückspringt."
+      "en": "Gadgets you hold and use: the Gauge - a speed dial, an altimeter that warns of fall damage and auto-walk along paths and rails - the Transposer, which turns and swaps blocks in place, the Resonance Rod, a beam that points, melts, ignites and measures, the Echo Sounder, which jumps back to a lodestone, the Detector, which points to ores, and the Attractor, which pulls in loose items.",
+      "de": "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, der Blöcke an Ort und Stelle dreht und tauscht, der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst, das Echolot, das zu einem Leitstein zurückspringt, der Detektor, der zu Erzen zeigt, und der Attraktor, der lose Gegenstände anzieht."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA90lEQVR42mMIMJD9jw1vShFEwbjUMYCIu6v74Bim4e/XeDD+dc0LjGHiMHUnKjxQDbjQnQTX+Pv79v+/vj1BwS83isINAmmeEGaCagBMM7pGDAw1BK8BIDa6RrgY0IBSDSZUA4i2Hck7IEMwDMBmMzaXYDXghJzcfw0lCCbLBSBBGIYZBFKELI6MUQwAcUBeuDNNGB7vIPzv9LP/m/s+o4iB1IAsxDAAJIGccGCae7PO/A+x7MJvACgasRmCTTPM+RjpACQIMhmkCBeGJWesBjw7tBZuCLJB6JkKpAYjKcMEQBikANkgZI0wm2EYbgA2DNMAw7jUAQAPg4NVZ9x2CgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 5,
-      "recipes": 8,
-      "features": 5
+      "items": 7,
+      "recipes": 12,
+      "features": 7
     },
-    "dataHash": "a7a0e8756811"
+    "dataHash": "dd32d1088b4c"
   },
   {
     "id": "simpleearth",
@@ -2030,6 +2083,10 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simpleovens",
     "bundle": "optional",
+    "intro": {
+      "en": "A multiblock foundry: melting chambers in a brick hull, ore thrown in, the melt poured by layer into casting trays.",
+      "de": "Eine Gießerei aus mehreren Blöcken: Schmelzkammern in einer Ziegelhülle, Erz hineinwerfen, die Schmelze schichtweise in Gussformen gießen."
+    },
     "purpose": {
       "en": "Sub-Mod von Simple Ovens: Mehrblock-Gießerei aus Schmelzkammern in einer Ziegelhülle; Erz und Brennstoff am Pult, die Schmelze liegt nach Dichte in Schichten und wird über Gusstüllen in Gussschalen gegossen (Gold, Kupfer, Eisen, 1:1).",
       "de": "Sub-Mod von Simple Ovens: Mehrblock-Gießerei aus Schmelzkammern in einer Ziegelhülle; Erz und Brennstoff am Pult, die Schmelze liegt nach Dichte in Schichten und wird über Gusstüllen in Gussschalen gegossen (Gold, Kupfer, Eisen, 1:1)."

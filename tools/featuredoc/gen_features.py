@@ -41,7 +41,10 @@ def nm(mid):
 
 
 def tr(d, key, lang='de'):
-    """Text mit Rückfall auf EN."""
+    """Text mit Rückfall auf EN; Titel notfalls aus dem Top-Level-Feld `title` (manual.json-Form)."""
+    if key == 'title' and isinstance(d.get('title'), dict):
+        t = d['title']
+        return t.get(lang) or t.get('en') or ''
     return (d.get(lang) or {}).get(key) or (d.get('en') or {}).get(key) or ''
 
 
@@ -72,8 +75,16 @@ EXTRA = {
     'simplevisuals': ['Pro-Effekt-Überschreibung (`particles.overrides`, Abbildung Effekt-Name zu Stufe Aus/Dezent/Normal/Stark/Maximum) gilt vor der globalen Stufe; Fundstelle `modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java`. Config-Bildschirm: `modules/simplevisuals/shared/java/com/simplevisuals/client/VisualsConfigScreen.java`.'],
     'simplesounds': ['Config-Bildschirm und alle sechs Optionen: `modules/simplesounds/shared/java/com/simplebuilding/modules/simplesounds/SoundConfig.java` (globalLevel, followVisuals, volumeCap, soundsPerTick, soundsPerPlayer, cooldownTicks).'],
     'simplequalityoflife': ['Config-Bildschirm: `modules/simplequalityoflife/shared/java/com/simplequalityoflife/client/QolConfigScreen.java`; die Schalter selbst: `SimplequalityoflifeConfig.java` (sieben `enableSimple…`). Die Funktionen der Sub-Mods stehen in deren eigenen Abschnitten (Simple Weather, Interfaces, Loot, Mob Manners, Farming, Tools, Movement).'],
+    'simpleend': ['End-Gemälde (`simpleend:end_painting`): wie ein Gemälde anbringen, 46 End-Bilder (Größen und Anzahl wie Vanilla), jedes Bild hat drei kurze Animationen und spielt etwa alle ein bis zwei Minuten zufällig eine davon. Fundstelle `modules/simpleend/wiki/manual.json` (Eintrag `simpleend:end_painting`).'],
+    'simplelib': ['Textur-Editor (Entwickler-Wiki, nur Entwicklung): Ebenen-Modi, Malen mit Deckung, die Seite aktualisiert sich nach dem Speichern. Fundstelle `tools/textures/editor_save.py`, `docs/ai/PLAN-B-TEXED16-2026-11-09.md`. Kein Spielfeature, nicht in den Wiki-Daten.',
+                  'Lizenz: Alle Mods stehen unter „Simple Mods License – All Rights Reserved, Source-Available“ (SPDX `LicenseRef-SimpleMods-ARR`) mit Beitragsvereinbarung (CLA). Fundstelle `LICENSE`, `docs/ai/PLAN-B-LIC15-2026-11-09.md`.'],
 }
-FULL_DETAIL = {'simplevisuals', 'simplesounds', 'simplequalityoflife'}
+# Module, bei denen alle Detailzeilen (Unterpunkte, Zeitpläne, Modi, Stufen) mitgedruckt werden
+FULL_DETAIL = {'simplevisuals', 'simplesounds', 'simplequalityoflife', 'simpletweaks', 'simplemodels', 'simplegadgets',
+               'simplelayers', 'simplefun', 'simpleores', 'simplechisels', 'simpleend', 'simplelib'}
+# Pflicht-Stichwörter für `--check` (N10c): fehlt eins im erzeugten Dokument, fehlt die Quelle (manual.json) oder EXTRA
+REQUIRED = ['Strip', 'Backrooms', 'Wolkenmeer', 'Schrott', 'Gemälde', 'Wetter-Zeitplan', 'Konfetti', 'Metall', 'Attrakt', 'Detektor',
+            'Editor', 'Kapitel', 'Textur-Editor', 'Lizenz']
 
 
 def default_of(text):
@@ -111,7 +122,7 @@ def build_mod(mid):
                 k = norm(c['key'])
                 if k and (fid in k or (len(k) >= 6 and k in fid)):
                     sw.append(c['key'])
-        rows.append({'id': f['id'], 'title': tr(f, 'title'), 'en': (f.get('en') or {}).get('title', ''),
+        rows.append({'id': f['id'], 'title': tr(f, 'title'), 'en': (f.get('en') or {}).get('title') or (f.get('title') or {}).get('en', '') if isinstance(f.get('title'), dict) else (f.get('en') or {}).get('title', ''),
                      'summary': tr(f, 'summary'), 'details': [x for x in (f.get('de') or f.get('en') or {}).get('details', []) if x and x != tr(f, 'summary')],
                      'sources': f.get('sources', []), 'switch': sw[:4]})
 
@@ -329,6 +340,11 @@ def gen_html():
 
 
 if __name__ == '__main__':
+    if '--check' in sys.argv:
+        md = gen_md().lower()
+        miss = [k for k in REQUIRED if k.lower() not in md]
+        print('fehlend:', miss or 'keine')
+        sys.exit(1 if miss else 0)
     (ROOT / 'docs/FEATURES-ALLE-MODS.md').write_text(gen_md(), encoding='utf-8')
     if '--html' in sys.argv:
         Path(sys.argv[sys.argv.index('--html') + 1]).write_text(gen_html(), encoding='utf-8')
