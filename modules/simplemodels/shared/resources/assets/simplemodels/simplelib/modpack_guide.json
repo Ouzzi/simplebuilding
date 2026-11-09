@@ -9,7 +9,7 @@
       "title": "simplemodels.guide.chapter",
       "icon": "minecraft:item_frame",
       "page_key": "simplemodels.guide.page",
-      "pages": 20,
+      "pages": 24,
       "advancement": "simplemodels:guide/chapter",
       "hint": "minecraft:item_frame"
     }
