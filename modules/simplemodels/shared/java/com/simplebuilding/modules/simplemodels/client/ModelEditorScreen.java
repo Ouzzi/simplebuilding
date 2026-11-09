@@ -209,7 +209,7 @@ public final class ModelEditorScreen extends Screen {
         int right = layout.toolbar().right();
         tool(Component.translatable("simplemodels.editor.back"), null, right - 46, 46, this::onClose);
         tool(Component.translatable("simplemodels.editor.file"), Component.translatable("simplemodels.editor.file.hint"), right - 94, 46, this::openFile);
-        tool(Component.literal(codeOnly ? "▣" : "</>"), Component.translatable(codeOnly ? "simplemodels.editor.classic" : "simplemodels.editor.code_only")
+        tool(Component.literal(codeOnly ? "3D" : "</>"), Component.translatable(codeOnly ? "simplemodels.editor.classic" : "simplemodels.editor.code_only")
                 .append("\n").append(Component.translatable("simplemodels.editor.code_only.hint")), right - 120, 24, () -> setCodeOnly(!codeOnly));
         tool(Component.literal("?"), Component.translatable("simplemodels.editor.help.hint"), right - 142, 20, () -> showHelp = !showHelp);
 
@@ -341,6 +341,8 @@ public final class ModelEditorScreen extends Screen {
             faceDirs[i].visible = e != null;
         }
         for (Button b : faceTools) { b.active = face != null; b.visible = e != null; }
+        // "A" (auto-UV) is pressed in - inactive - while the face already follows the cube size.
+        if (faceTools.size() > 1) faceTools.get(1).active = face != null && face.uv() != null;
         if (faceToggle != null) {
             faceToggle.setMessage(Component.translatable(face != null ? "simplemodels.editor.face.on" : "simplemodels.editor.face.off"));
             faceCull.setMessage(Component.translatable("simplemodels.editor.face.cull", face == null || face.cullface() == null ? "–"
@@ -881,7 +883,7 @@ public final class ModelEditorScreen extends Screen {
             g.fill(corner[0] - 1, corner[1] - 1, corner[0] + 2, corner[1] + 2, sel);
         }
         String values = Component.translatable("simplemodels.editor.uv.values", number(uv.u1()), number(uv.v1()), number(uv.u2()), number(uv.v2()), face.rotation()).getString();
-        g.text(font, font.plainSubstrByWidth(values + (face.uv() == null ? " (A)" : ""), layout.properties().w() - 10), u.x(), u.bottom() + 3, LABEL, false);
+        g.text(font, font.plainSubstrByWidth(values, layout.properties().w() - 10), u.x(), u.bottom() + 3, LABEL, false);
     }
 
     @Override
@@ -928,6 +930,7 @@ public final class ModelEditorScreen extends Screen {
         int w = Math.min(420, width - 2 * ModelEditorLayout.MARGIN), top = layout.toolbar().bottom() + ModelEditorLayout.GAP;
         int h = Math.min(layout.status().y() - top - ModelEditorLayout.GAP, 18 + 15 * 10 + 6);
         int x = (width - w) / 2;
+        g.nextStratum(); // above the viewport texts and lines drawn before
         UiBoxes.box(g, x, top, w, h, PALETTE, false);
         g.text(font, Component.translatable("simplemodels.editor.help.title"), x + 6, top + 6, LABEL, false);
         int colW = (w - 18) / 2, keyW = 0;

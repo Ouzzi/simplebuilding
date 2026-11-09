@@ -74,7 +74,7 @@ public final class ModelFileScreen extends Screen {
         } catch (java.io.IOException e) {
             saved = List.of();
         }
-        int listY = y + 100, rows = Math.max(0, (height - 40 - listY) / 22);
+        int listY = y + 106, rows = Math.max(0, (height - 40 - listY) / 22);
         for (int i = 0; i < Math.min(rows, saved.size()); i++) {
             String n = saved.get(i);
             addRenderableWidget(Button.builder(Component.translatable("simplemodels.editor.file.open", n), b -> open(n))
@@ -188,7 +188,7 @@ public final class ModelFileScreen extends Screen {
         g.text(font, Component.translatable("simplemodels.editor.file.base"), x + 6, y + 26, ModelEditorScreen.LABEL, false);
         g.textWithWordWrap(font, message, x + 6, y + 70, w - 12, error ? FileColours.ERROR_TEXT : ModelEditorScreen.LABEL, false);
         g.text(font, Component.translatable(saved.isEmpty() ? "simplemodels.editor.file.none_saved" : "simplemodels.editor.file.saved_list"),
-                x + 6, y + 88, ModelEditorScreen.LABEL, false);
+                x + 6, y + 94, ModelEditorScreen.LABEL, false);
     }
 
     /** Message colours on the panel grey #C6C6C6: error red #8E1B1B = 5.3:1. */
