@@ -955,6 +955,42 @@
       "de": {
         "summary": "Kollabierter Block: 9 dichte Blöcke, 64-mal so hart wie der Grundblock. So schwer, dass er dich im Inventar verlangsamt: ein Stapel Langsamkeit I, zwei Stapel II, neun Stapel III. Ein weicher roter Strahl hinter dem Item im Slot zeigt, welches Item das auslöst."
       }
+    },
+    "*chiseled_polished_*": {
+      "sources": [
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/chiseled_2026_11_08.py"
+      ],
+      "en": {
+        "summary": "Chiseled variant of its stone family: two slabs stacked in the crafting table or 1:1 in the stonecutter. Decorative, behaves like the Vanilla chiseled blocks."
+      },
+      "de": {
+        "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
+      }
+    },
+    "*chiseled_prismarine": {
+      "sources": [
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/chiseled_2026_11_08.py"
+      ],
+      "en": {
+        "summary": "Chiseled variant of its stone family: two slabs stacked in the crafting table or 1:1 in the stonecutter. Decorative, behaves like the Vanilla chiseled blocks."
+      },
+      "de": {
+        "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
+      }
+    },
+    "*chiseled_red_nether_bricks": {
+      "sources": [
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/chiseled_2026_11_08.py"
+      ],
+      "en": {
+        "summary": "Chiseled variant of its stone family: two slabs stacked in the crafting table or 1:1 in the stonecutter. Decorative, behaves like the Vanilla chiseled blocks."
+      },
+      "de": {
+        "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
+      }
     }
   }
 }
