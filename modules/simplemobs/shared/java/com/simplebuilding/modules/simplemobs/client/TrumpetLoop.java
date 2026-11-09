@@ -100,6 +100,13 @@ public final class TrumpetLoop {
 
         void hardStop() { stop(); }
 
+        /**
+         * b-tromp14 (owner 09.11. "trumpet is silent"): the loop starts at volume 0 and fades in from {@link #tick}. Vanilla's
+         * SoundEngine.play skips a zero-volume instance ("volume was zero", PlayResult.NOT_STARTED) unless it may start silently,
+         * so without this the tone never started at all (same pattern as Vanilla's BeeSoundInstance).
+         */
+        @Override public boolean canStartSilent() { return true; }
+
         @Override
         public void tick() {
             LivingEntity u = voice.user;
