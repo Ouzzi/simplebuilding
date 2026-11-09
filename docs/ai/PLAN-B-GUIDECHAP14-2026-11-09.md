@@ -38,3 +38,11 @@ Lokal: `python3 tools/guides/module_guides.py --check`, `python3 tools/precheck.
 SimpleLib, simplefun, simplequalityoflife, integration gametest), Gametests `module-simplelib-fabric-263`,
 `module-simplefun-standalone-fabric-263`, `module-simplequalityoflife-fabric-263`, Kern `guide_book*`. Client-Lauf
 (Screenshots) macht das Bündel (Regel: keine Client-Läufe im Branch).
+
+## Stand (09.11. abends)
+- Umgesetzt wie geplant. Abweichung: Schalter-Feld liegt in `ModpackGuide` (common) statt `ModpackGuideScreens` – sbt1 rot
+  (simplelib free_look_release_rules / inventory_brightness_tones: `UiBrightness` lud auf dem Server den Client-`Screen`).
+- sbt1 (25019b7ec): C_RC=0, simplelib/simplefun-standalone/simplequalityoflife 92/94 (2 rot, s.o.), Kern guide_book* 16/16 K_RC=0.
+- sbt2 (3efdd3bf5): C_RC=0, simplelib + simplefun-standalone 88/88 T_RC=0.
+- Lokal: module_guides --check, precheck --fast grün; precheck voll nur wiki --check rot (simpleores-Rift-Texturkopien, Basis, nicht dieser Branch).
+- Offen: Client-Lauf `guidechap-client-263` (Bündel), Besitzer-Wahl GUIDE14.
