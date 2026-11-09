@@ -58,3 +58,14 @@ umgesetzt wird die Optik erst in Stufe 2/4 nach Antwort MODELS12. Kontrast: `#40
 - Ein sbt-Lauf: `:mc26_3:fabric:compileJava :modules:simplemodels:fabric:compileJava` + `module-simplemodels-fabric-263`,
   `module-simplemodels-standalone-fabric-263`.
 - Nicht getestet: Client-Sicht der Beispielmodelle (Bündel/Client-Abnahme), UI (gibt es noch nicht).
+
+## Ergebnis / Abweichungen (09.11.)
+- Stufe 0 Commit `54cc62968`, Stufe 1 Commit `a8ef5ed19` (je eigene Gametests: `examples`; `editable_round_trip`,
+  `editable_bounds`, `edit_history`).
+- Problemtexte EN/DE als `simplemodels.editor.problem.<key>` (27 Schlüssel); der Bounds-Test prüft, dass jeder erzeugte
+  Schlüssel übersetzt ist.
+- IDs in Texturen/`parent` wie `ModelDefinition.safeId`: kein `..`, kein `/` am Anfang/Ende.
+- Kontrast korrigiert: Konzept nannte 6,6:1 für `#404040` auf `#C6C6C6`, gerechnet sind es 6,1:1; die Auswahlfarbe
+  `#8B8B8B` mit Weiß (3,4:1) fällt durch → Vorschau nutzt `#5A5A5A` (6,9:1).
+- Lokal vorab (ohne Gradle): Editor-Paket + die drei Stufe-1-Tests mit javac/Gson 2.13 gegen einen Test-Stub gelaufen
+  (grün); `check_missing_textures.py --jar` ohne Fehler in simplemodels; `check_data.py` grün.
