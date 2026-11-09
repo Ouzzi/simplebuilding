@@ -259,8 +259,9 @@ public final class ModelEditorScreen extends Screen {
             codeChangedAt = -1;
             state.applyCode(codeText);
             highlight();
-            refresh();
         }
+        // Buttons and number fields follow every state change, also ones not made through this screen (cheap: nine fields).
+        refresh();
     }
 
     /** JSON colouring: keys, strings, numbers, punctuation. */
@@ -645,7 +646,8 @@ public final class ModelEditorScreen extends Screen {
                 }
             }
         }
-        g.text(font, Component.translatable("simplemodels.editor.view_hint"), v.x() + 4, v.bottom() - 11, VIEW_TEXT, false);
+        String hint = font.plainSubstrByWidth(Component.translatable("simplemodels.editor.view_hint").getString(), v.w() - 8);
+        g.text(font, hint, v.x() + 4, v.bottom() - 11, VIEW_TEXT, false);
         if (dragLabel != null) g.text(font, dragLabel, mx + 10, my - 4, VIEW_TEXT, true);
         Rect s = layout.status();
         Component mode = Component.translatable("simplemodels.editor.mode." + state.mode().key);
