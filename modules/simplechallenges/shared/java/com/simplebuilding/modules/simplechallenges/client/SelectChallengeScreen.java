@@ -9,6 +9,7 @@ import com.simplebuilding.modules.simplechallenges.preset.PresetDraft;
 import com.simplebuilding.modules.simplechallenges.preset.UnlockMode;
 import com.simplebuilding.modules.simplechallenges.unlock.UnlockGrid;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiPalette;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ import net.minecraft.world.item.ItemStack;
  * Colours: panel text #404040 on #C6C6C6 = 5.7:1; list text white on #2B2B2B = 14:1, grey #A0A0A0 on #2B2B2B = 6.1:1.
  */
 public final class SelectChallengeScreen extends Screen {
-    private static final int PAD = 8, LIST_W = 150, ROW = 22, LABEL = 0xFF404040, SECONDARY = 0xFF4A4A4A, WELL = 0xFF2B2B2B;
+    private static final int PAD = 8, LIST_W = 150, ROW = 22, SECONDARY = 0xFF4A4A4A, WELL = 0xFF2B2B2B;
     private final CreateWorldScreen parent;
     private int panelX, panelY, panelW, panelH, listY, listH, detailX, detailW, previewY;
     private PresetList list;
@@ -203,22 +204,27 @@ public final class SelectChallengeScreen extends Screen {
 
     // --- drawing ---
 
+    /** Text colour on the panel box: never less than 4.5:1 against it, also in the dark inventory brightness (UiBrightness). */
+    private static int ink(int color) {
+        return UiContrast.ensure(color, UiPalette.INVENTORY.fill());
+    }
+
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
         UiBoxes.box(g, panelX, panelY, panelW, panelH, UiPalette.INVENTORY);
-        g.text(font, title, panelX + PAD, panelY + 8, LABEL, false);
+        g.text(font, title, panelX + PAD, panelY + 8, UiPalette.INVENTORY.label(), false);
         UiBoxes.insetColored(g, panelX + PAD - 1, listY - 2, LIST_W + 2, listH + 4, UiPalette.INVENTORY, WELL);
         Preset p = selected();
         if (p != null) {
             Component family = Component.translatable("simplechallenges.ui.family." + p.family());
-            g.text(font, family, detailX, panelY + 8, SECONDARY, false);
+            g.text(font, family, detailX, panelY + 8, ink(SECONDARY), false);
             caption = PresetPreview.draw(g, font, p, detailX, previewY, detailW, 74);
-            g.text(font, caption, detailX, previewY + 77, SECONDARY, false);
-            if (!p.runnable()) g.text(font, Component.translatable("simplechallenges.ui.not_runnable"), detailX, previewY + 88, 0xFF8B1A1A, false);
-            else if (!p.warnings().isEmpty()) g.text(font, Component.translatable("simplechallenges.ui.warning", p.warnings().get(0)), detailX, previewY + 88, 0xFF8B1A1A, false);
+            g.text(font, caption, detailX, previewY + 77, ink(SECONDARY), false);
+            if (!p.runnable()) g.text(font, Component.translatable("simplechallenges.ui.not_runnable"), detailX, previewY + 88, ink(0xFF8B1A1A), false);
+            else if (!p.warnings().isEmpty()) g.text(font, Component.translatable("simplechallenges.ui.warning", p.warnings().get(0)), detailX, previewY + 88, ink(0xFF8B1A1A), false);
         }
         if (!PresetRegistry.problems().isEmpty()) {
-            g.text(font, Component.translatable("simplechallenges.ui.problems", PresetRegistry.problems().size()), panelX + PAD, panelY + panelH - PAD - 12, 0xFF8B1A1A, false);
+            g.text(font, Component.translatable("simplechallenges.ui.problems", PresetRegistry.problems().size()), panelX + PAD, panelY + panelH - PAD - 12, ink(0xFF8B1A1A), false);
         }
         super.extractRenderState(g, mouseX, mouseY, delta);
     }

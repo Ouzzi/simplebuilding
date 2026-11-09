@@ -8,14 +8,14 @@
       ],
       "en": {
         "title": "Simple Trims",
-        "summary": "Sub-mod with the Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and the trim upgrades. Playable on its own (axe); bundled by SimpleBuilding (sledgehammer).",
+        "summary": "Sub-mod with the Glowing, Emitting, Pulsating and Inverting armor trim templates, placeable trim templates and the trim upgrades. Playable on its own (axe); bundled by SimpleBuilding (sledgehammer).",
         "details": [
           "Config simpletrims-server.json: enabled (default on). With SimpleBuilding also its switch Enable Simple Trims. Off: no upgrades, no placing, no radiance light, empty tab entries; registrations stay so worlds keep loading."
         ]
       },
       "de": {
         "title": "Simple Trims",
-        "summary": "Sub-Mod mit den Vorlagen Leuchtender, Strahlender und Pulsierender Rüstungsbesatz, ablegbaren Besatzvorlagen und den Besatz-Aufwertungen. Allein spielbar (Axt); von SimpleBuilding gebündelt (Vorschlaghammer).",
+        "summary": "Sub-Mod mit den Vorlagen Leuchtender, Strahlender, Pulsierender und Invertierender Rüstungsbesatz, ablegbaren Besatzvorlagen und den Besatz-Aufwertungen. Allein spielbar (Axt); von SimpleBuilding gebündelt (Vorschlaghammer).",
         "details": [
           "Config simpletrims-server.json: enabled (Standard an). Mit SimpleBuilding zusätzlich dessen Schalter „Simple Trims aktivieren“. Aus: keine Aufwertungen, kein Ablegen, kein Strahlkraft-Licht, keine Tab-Einträge; Registrierungen bleiben, Welten laden weiter."
         ]

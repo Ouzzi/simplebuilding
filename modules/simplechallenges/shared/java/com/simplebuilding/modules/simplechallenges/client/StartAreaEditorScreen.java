@@ -4,6 +4,7 @@ import com.simplebuilding.modules.simplechallenges.preset.StartArea;
 import com.simplebuilding.modules.simplechallenges.preset.UnlockMode;
 import com.simplebuilding.modules.simplechallenges.unlock.UnlockGrid;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.HashSet;
 import java.util.List;
@@ -186,10 +187,15 @@ public final class StartAreaEditorScreen extends Screen {
         return super.mouseScrolled(x, y, scrollX, scrollY);
     }
 
+    /** Text colour on the panel box: never less than 4.5:1 against it, also in the dark inventory brightness (UiBrightness). */
+    private static int ink(int color) {
+        return UiContrast.ensure(color, UiPalette.INVENTORY.fill());
+    }
+
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
         UiBoxes.box(g, panelX, panelY, panelW, panelH, UiPalette.INVENTORY);
-        g.text(font, title, panelX + PAD, panelY + 8, 0xFF404040, false);
+        g.text(font, title, panelX + PAD, panelY + 8, UiPalette.INVENTORY.label(), false);
         int cols = cols(), rows = rows(), vx = viewMinX(), vz = viewMinZ();
         g.fill(mapX - 1, mapY - 1, mapX + cols * px + 1, mapY + rows * px + 1, 0xFF1E1F23);
         for (int i = 0; i < cols; i++) {
@@ -209,11 +215,11 @@ public final class StartAreaEditorScreen extends Screen {
         }
         int sx = panelX + panelW - PAD - SIDE;
         int[] b = StartArea.bounds(cells);
-        g.text(font, Component.translatable("simplechallenges.ui.area.count", cells.size(), UnlockMode.MAX_START_CELLS), sx, mapY, 0xFF404040, false);
-        g.text(font, Component.translatable("simplechallenges.ui.area.size", (b[2] - b[0] + 1) * cellSize, (b[3] - b[1] + 1) * cellSize), sx, mapY + 11, 0xFF404040, false);
-        g.text(font, Component.translatable("simplechallenges.ui.area.cell", cellSize), sx, mapY + 22, 0xFF404040, false);
-        if (tooMany) g.text(font, Component.translatable("simplechallenges.ui.area.too_many"), sx, mapY + 44, 0xFF8B1A1A, false);
-        g.textWithWordWrap(font, Component.translatable("simplechallenges.ui.area.help"), sx, mapY + 112, SIDE, 0xFF4A4A4A, false);
+        g.text(font, Component.translatable("simplechallenges.ui.area.count", cells.size(), UnlockMode.MAX_START_CELLS), sx, mapY, UiPalette.INVENTORY.label(), false);
+        g.text(font, Component.translatable("simplechallenges.ui.area.size", (b[2] - b[0] + 1) * cellSize, (b[3] - b[1] + 1) * cellSize), sx, mapY + 11, UiPalette.INVENTORY.label(), false);
+        g.text(font, Component.translatable("simplechallenges.ui.area.cell", cellSize), sx, mapY + 22, UiPalette.INVENTORY.label(), false);
+        if (tooMany) g.text(font, Component.translatable("simplechallenges.ui.area.too_many"), sx, mapY + 44, ink(0xFF8B1A1A), false);
+        g.textWithWordWrap(font, Component.translatable("simplechallenges.ui.area.help"), sx, mapY + 112, SIDE, ink(0xFF4A4A4A), false);
         super.extractRenderState(g, mouseX, mouseY, delta);
     }
 }
