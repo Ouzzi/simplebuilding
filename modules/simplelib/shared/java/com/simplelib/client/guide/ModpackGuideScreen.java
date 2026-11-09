@@ -15,6 +15,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
@@ -38,6 +39,8 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
 
     private final @Nullable String sectionId;
     private final @Nullable InteractionHand hand;
+    /** Chapter to open at on the first {@link #init} (b-guidechap14), then null. */
+    private @Nullable Identifier startChapter;
     private ModpackGuide.@Nullable Section section;
     private List<ModpackGuide.Section> sections = List.of();
     /** Side bookmarks: -1 = the section's own screen, otherwise a chapter index. */
@@ -62,9 +65,15 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
     }
 
     public ModpackGuideScreen(@Nullable String section, @Nullable InteractionHand hand) {
+        this(section, hand, null);
+    }
+
+    /** b-guidechap14: {@code chapter} = open at the first page of that chapter (once; locked or unknown: the contents). */
+    public ModpackGuideScreen(@Nullable String section, @Nullable InteractionHand hand, @Nullable Identifier chapter) {
         super(Component.translatable("item.simplelib.modpack_guide"));
         this.sectionId = section;
         this.hand = hand;
+        this.startChapter = chapter;
     }
 
     @Override
@@ -76,6 +85,10 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
         if (section == null && sectionId == null && !sections.isEmpty()) section = sections.getFirst();
         ModpackGuideScreens.query(sections);
         layout();
+        if (startChapter != null && section != null) {
+            for (int i = 0; i < section.chapters().size(); i++) if (section.chapters().get(i).id().equals(startChapter)) jump(i);
+            startChapter = null;
+        }
     }
 
     @Override

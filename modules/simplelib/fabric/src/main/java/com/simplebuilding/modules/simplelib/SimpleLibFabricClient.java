@@ -33,7 +33,7 @@ public final class SimpleLibFabricClient implements ClientModInitializer {
         com.simplelib.api.DevVariants.setDevEnvironment(net.fabricmc.loader.api.FabricLoader.getInstance().isDevelopmentEnvironment());
         net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.AFTER_INIT.register((client, screen, w, h) -> com.simplelib.api.client.ui.DevVariantsPanel.decorate(screen, net.fabricmc.fabric.api.client.screen.v1.Screens.getWidgets(screen)));
         // b-guide01: the Simple Modpack guide opens its book; chapter unlocks come from the server; real-mouse test probe.
-        com.simplelib.guide.ModpackGuideItem.setClientOpener((stack, hand) -> com.simplelib.api.client.ModpackGuideScreens.open(null, hand));
+        com.simplelib.guide.ModpackGuideItem.setClientOpener((stack, hand) -> com.simplelib.api.client.ModpackGuideScreens.openHeld(stack, hand));
         com.simplelib.api.client.ModpackGuideScreens.setSender(ids -> {
             if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(com.simplelib.net.ModpackGuideQueryPayload.TYPE)) {
                 net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(new com.simplelib.net.ModpackGuideQueryPayload(ids));

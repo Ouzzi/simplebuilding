@@ -311,6 +311,12 @@ INTEGRATION_TARGETS = (Target(
     mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
     gradle_args=("-PmoduleClientTest=rel10",), audit=True,
 ), Target(
+    # b-guidechap14 (09.11.): an old mod handbook opens the Simple Modpack guide at the start page (switch off) or at its
+    # chapter (guideOpensChapter on), two books, one screenshot each (GuideChapterClientTest). Opt in.
+    id="guidechap-client-263", label="Handbuch-Kapitelsprung (Schalter aus/an) - MC 26.3", loader="fabric", kind="client",
+    mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
+    gradle_args=("-PmoduleClientTest=guidechap",), audit=True,
+), Target(
     # A-MIXCHECK31: all modules in a real client, world entered, then every mixin target force-loaded (MixinEnvironment.audit),
     # so a client mixin whose 26.3 target vanished fails here. Opt in (heavy, boots a real client).
     id="mixinaudit-client-263", label="Mixin-Audit: alle Module im echten Client - MC 26.3", loader="fabric", kind="client",
@@ -864,7 +870,7 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
             error = compat_opt_check(output)
         elif log_faults:
             error = f"{len(log_faults)} Fehlende-Textur/Modell-Meldungen im Client-Log (siehe {log_path.name})"
-        elif "[vis24] screens shot:" in output or "[rel10] screens shot:" in output:
+        elif "[vis24] screens shot:" in output or "[rel10] screens shot:" in output or "[guidechap] faults: 0" in output:
             pass
         elif "[mixinaudit] audit done without error" in output:
             pass  # mixinaudit target: its proof line (no model audit summary)

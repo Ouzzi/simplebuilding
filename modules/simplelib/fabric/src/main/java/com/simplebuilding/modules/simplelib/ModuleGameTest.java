@@ -266,6 +266,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void modpackGuideChapterJump(GameTestHelper h) {
+        LibTests.ALL.get("modpack_guide_chapter_jump").accept(h);
+    }
+
+    @GameTest
     public void modpackGuideCreativeTabs(GameTestHelper h) {
         LibTests.ALL.get("modpack_guide_creative_tabs").accept(h);
     }

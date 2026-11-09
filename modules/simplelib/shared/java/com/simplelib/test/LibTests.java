@@ -74,6 +74,7 @@ public final class LibTests {
         ALL.put("modpack_guide_item", ModpackGuideTests::item);
         ALL.put("modpack_guide_sections", ModpackGuideTests::sections);
         ALL.put("modpack_guide_unlocks", ModpackGuideTests::unlocks);
+        ALL.put("modpack_guide_chapter_jump", ModpackGuideTests::chapterJump);
         ALL.put("modpack_guide_creative_tabs", ModpackGuideTests::creativeTabs);
         ALL.put("orbit_camera", LibTests::orbitCamera);
     }

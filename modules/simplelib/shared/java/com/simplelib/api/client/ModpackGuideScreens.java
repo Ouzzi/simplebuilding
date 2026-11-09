@@ -100,6 +100,21 @@ public final class ModpackGuideScreens {
         openChapters(target == null ? null : target.id(), hand);
     }
 
+    /**
+     * Opens the held guide: with {@link ModpackGuide#opensChapter} and a chapter on the stack at the first page of that chapter (in
+     * SimpleLib's screen of the section holding it), otherwise like {@link #open(String, InteractionHand)}.
+     */
+    public static void openHeld(net.minecraft.world.item.ItemStack stack, @Nullable InteractionHand hand) {
+        Identifier chapter = ModpackGuide.opensChapter ? ModpackGuide.chapterOf(stack) : null;
+        ModpackGuide.Section target = ModpackGuide.sectionOf(reload(), chapter);
+        if (target == null) {
+            open(null, hand);
+            return;
+        }
+        last = target.id();
+        Minecraft.getInstance().gui.setScreen(new ModpackGuideScreen(target.id(), hand, chapter));
+    }
+
     /** Opens SimpleLib's own screen at the data chapters of {@code section}, also for a section with its own screen. */
     public static void openChapters(@Nullable String section, @Nullable InteractionHand hand) {
         if (section != null) last = section;
