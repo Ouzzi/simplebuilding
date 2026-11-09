@@ -112,6 +112,10 @@ Vorlagen `nginx/*.conf`, das Skript setzt daraus die ganze Site-Datei zusammen; 
 (`*.bak-zw06`), `nginx -t` vor jedem Reload, bei Fehler alte Datei zurück; jeder Schritt mehrfach ausführbar.
 1. `deploy_zw06.sh check` – Vorprüfung (Code im ausgelieferten Stand, nginx-Module, `auth.json` 600, Platte).
 2. Besitzer setzt das Passwort (`set_password.py`, oben).
+**Tunnel-Connectoren (Stand 09.11.2026):** Alle `cloudflared`-Connectoren desselben Tunnels müssen in der Allowlist stehen, sonst bekommt ein Teil der Besuche 403:
+`192.168.178.91` (CT 110, pve4), `192.168.178.106` (CT 122, munir), `192.168.178.107` (CT 114, pve5, zweiter Connector seit 09.11.).
+Wer `deploy_zw06.sh` mit `--tunnel-ip` aufruft, muss ALLE drei angeben (`--tunnel-ip 192.168.178.91 --tunnel-ip 192.168.178.106 --tunnel-ip 192.168.178.107`); ohne `--tunnel-ip` bleibt die vorhandene Datei unverändert.
+
 3. `deploy_zw06.sh parallel --tunnel-ip <connector-ip>` – neue Seite auf :8084 neben den alten (:8081–8083 wie
    bisher, nur noch vom Tunnel), devqueue-Neustart, Rauchtest (`smoke_zw06.py`: anonym + Wegwerf-Konto, das danach
    wieder gelöscht wird). Aus dem LAN prüfen: `http://<webserver>:8084/` muss 403 geben.
