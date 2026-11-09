@@ -75,6 +75,23 @@ Eigene Pixel (keine Vanilla-Pixel): Formen als Ton-Raster (0 hell … 9 dunkel) 
 10-Ton-Rampe aus `ores_2026_10_30.RAMPS` (eigene Farbwerte; Blei `lead_a`, Messing `brass` …). Eingecheckt mit `.layers.json` (Ebenen „Grundfläche“, „Kanten“, „Glanz“).
 Je Form ≥ 3 Runden, Bewertung unten und in der Vorschau. 5 Texturen je Metall (cut, tiles, pillar_side, pillar_top, chiseled) = 30.
 
+### Textur-Runden (Bewertung, A8c)
+Werkzeug: `python3.12 tools/textures/metals14_2026_11_09.py --rounds DIR --jar <26.3-client.jar>` (jede Runde je Metall/Form, Härte nach A8b); Kontaktbogen 5×/6× nearest neben
+Vanilla (geschnittenes/gemeißeltes Kupfer, Tiefenschieferfliesen, Quarzsäule, Eisenblock) und neben dem vorhandenen Speicherblock, Wand 3×3 in Spielgröße, Würfel-Ansicht mit Spiel-Licht.
+Vanilla: geschnittenes Kupfer 8 %, gemeißeltes 7 %, Eisenblock 6 %, Tiefenschieferfliesen 5 %, Quarzsäule 0 %.
+- **R1** harte Kanten (Ton 2/7), helle Ecken, Säule 2↔6: 12–50 % hart → zu hart.
+- **R2** Fase nur ein Ton (3/6), Fliesen-Schachbrett: Säule 7–20 %, geschnitten/Fliesen 17/35 % (Fugen zu dunkel).
+- **R3** Fugen 5, Glanzstreifen je Platte versetzt, gemeißelt mit Raute: 1–20 %. Fliesen-Ecken wirken wie Nieten, Raute leuchtet wie ein Edelstein.
+- **R4** Fliesen 8×4 im Versatz (Tiefenschiefer-Rhythmus), gemeißelt = eingravierte Raute, Ton-Spanne je Metall verengt (Nickel/Messing haben größere Rampenschritte): 0–8 %.
+  Aber alle Familien deutlich dunkler als der Speicherblock (Zink/Nickel/Zinn-Block fast weiß) → Familie bricht. (Vorschau-Variante B)
+- **R5** Grundfläche auf die mittlere Helligkeit des Speicherblocks: passt, aber Zink/Nickel/Zinn/Silber werden ein blasses Weiß, Kanten in Spielgröße kaum lesbar.
+- **R6 (gebaut)** Grundfläche 0,4 Stufen unter dem Speicherblock, Spanne 6 Stufen: Familie liest sich mit dem Block, Kanten lesbar, 0–4 % hart, keine Verläufe.
+
+## Abweichungen während der Umsetzung
+- Test `silver_is_no_tool_material` bleibt (Name im Fabric-Adapter); `metals_are_cosmetic` kommt dazu statt ihn umzubenennen (geringerer Eingriff).
+- Octets der geschnittenen Blöcke zurückgestellt (siehe 3., Folgepunkt).
+- Handbuch/Wiki/Discover-Daten werden im Bündel erzeugt (`-gen`), hier nur `manual.json` über gen_data.
+
 ## 6. Dateien
 `modules/simpleores/shared/java/com/simpleores/OresRegistry.java` (Blöcke), `tools/gen_data.py` (Modelle, Blockstates, Loot, Rezepte, Tags, Lang, Wiki), `tools/check_data.py`,
 `test/OresTests.java` + Fabric-Adapter `ModuleGameTest.java` (neue Tests), `tools/textures/metals14_2026_11_09.py` + 30 PNG/.layers.json, `.claude/QUEUE.md`,
