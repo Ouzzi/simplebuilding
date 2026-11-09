@@ -89,6 +89,11 @@ class StaticTest(unittest.TestCase):
                   "simplemods-wiki.azarfane.com"):
             self.assertEqual(sum(f"server_name {h};" in b or f" {h} " in b or b.count(f" {h};") for b in bs) > 0, True, h)
         self.assertIn("return 301 https://wiki.simplemods.de$request_uri;", bs[1])
+        pub = location(bs[0], "location ^~ /downloads/ ")  # W12: public release downloads, only the public/ folder
+        self.assertIn("alias /srv/zentrale/downloads/public/;", pub)
+        self.assertIn("autoindex off;", pub)
+        self.assertNotIn("auth_request", pub)
+        self.assertNotIn("return 30", pub)
         old = bs[2]
         for head in ("location ^~ /setup/ ", "location ^~ /downloads/ "):
             self.assertNotIn("return 30", location(old, head))

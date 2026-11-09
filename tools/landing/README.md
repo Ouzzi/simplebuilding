@@ -21,3 +21,20 @@ Daten: modules.json/modtree.py, Lang-Dateien, git-verfolgte Mod-Texturen (nie bu
 `python3 concepts.py [vorschau-ordner]` erzeugt `index.html` (Default + Navigationsleiste), `paket.html` (K1), `reise.html` (K2),
 `discover.html` (K3), alle mit Navigation Start | Paket zusammenstellen | Reise | Discover, relative Links, Sprache in localStorage `sm-lang`.
 `konzept-*.html` liegen in `archiv/`. Auslieferung: alle vier HTML-Dateien nach `/srv/landing` (`deploy_dom07.sh` kopiert sie).
+
+## W12 / LAND11 (09.11.): Release-Downloads, Texturen automatisch, anpassbar
+- **Paket zusammenstellen** (`paket.html`): Auswahl → Abhängigkeiten automatisch → Modloader → Download. Einzeldateien
+  oder eine im Browser gebaute ZIP (eigene ZIP-Funktion in `paket_dl.js`, kein CDN), jede Datei vorher per SHA-256
+  geprüft, `LIESMICH-README.txt` mit Prüfsummen und Links der Fremd-Mods in der ZIP, Prüfsummen auch als `sha256sums-<loader>.txt`.
+  Was in einem gewählten Jar schon steckt (jar-in-jar, z. B. SimpleLib, Sub-Mods der Super-Mods), wird nicht doppelt geladen.
+  Fremd-Mods (Fabric API, Cloth Config, JEI ...) nur als Modrinth-Link, nie mitverteilt.
+- Daten: `downloads/index.json` relativ zur Seite = `simplemods.de/downloads/` = `<downloads>/public/` (öffentlich, nur lesen),
+  erzeugt von `tools/zentrale-web/public_downloads.py` (von `collect_downloads.py` nach jedem grünen Gate aufgerufen):
+  neuester vollständiger grüner Build, nur veröffentlichte Loader (`PUBLIC_LOADERS`, derzeit nur Fabric 26.3).
+- Texturen: `concepts.py` nimmt bei jedem Lauf Icons und Texturen frisch aus den Mod-Ressourcen (nur git-verfolgte eigene,
+  nie build/, assets/minecraft oder `tools/textures/vanilla_derived.py`); Bilder der Basis tragen `data-ico="<mod>"`.
+  `wiki/generate.py --all` ruft es auf (jeder gen-Schritt eines Bündels), `--check` meldet nur „veraltet“, bricht nie ab.
+- Anpassen: `overrides.json` (Schlüssel mit `_` = Beispiel, ignoriert): `mods.<id>.icon/de/en`, `textures.<spec>` = andere
+  Textur oder `file:bild.png`, `stages.<k>` (Reise), `discover.<mod>` (Kacheln). Danach `python3 tools/landing/concepts.py`.
+- Auslieferung: `deploy_dom07.sh domains` (einmalig, mit nginx) bzw. `deploy_dom07.sh landing`; danach kopiert
+  `sb-web-sync` die Seiten bei jedem Production-Stand selbst nach `/srv/landing`.

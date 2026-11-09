@@ -148,6 +148,13 @@ def run_domains(port):
     st, h, _ = request(port, "GET", "/setup/x?a=1", host="simplemods.de")
     expect("simplemods.de /setup/ -> wiki", st == 301 and h.get("location") == f"https://{WIKI}/setup/x?a=1",
            f"{st} {h.get('location')}")
+    st, h, body = request(port, "GET", "/downloads/index.json", host="simplemods.de")
+    expect("simplemods.de /downloads/index.json public (200/404, no login, no redirect)",
+           st in (200, 404) and "location" not in h, st)
+    if st == 200:
+        expect("simplemods.de public index is the release index", b'"release"' in body and b'"builds"' not in body)
+    st, h, _ = request(port, "GET", "/downloads/files/", host="simplemods.de")
+    expect("simplemods.de /downloads/ no listing", st in (403, 404), st)
 
     for host in REDIRECT_HOSTS:
         for p in ("/", "/dev/item/x?y=1", "/zentrale/"):

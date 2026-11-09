@@ -24,6 +24,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import modselect  # noqa: E402
+import public_downloads  # noqa: E402
 
 SKIP = re.compile(r"-(sources|dev|javadoc|slim|shadow|dev-shadow|plain)\.jar$")
 # SimpleBuilding builds outside modules.json (other Minecraft lines); the 26.3 projects come from modules.json.
@@ -105,7 +106,8 @@ def git_commit(repo, ref):
         return ""
 
 
-def collect(repo, out, ref, verdict, standalone, since=0.0, keep=3, commit=None, now=None):
+def collect(repo, out, ref, verdict, standalone, since=0.0, keep=3, commit=None, now=None,
+            public_loaders=public_downloads.PUBLIC_LOADERS):
     if "GREEN" not in verdict or "RED" in verdict or "NOT" in verdict:
         raise ValueError("gate not green: " + verdict)
     if "alles gruen" not in standalone or "NICHT" in standalone:
@@ -160,6 +162,12 @@ def collect(repo, out, ref, verdict, standalone, since=0.0, keep=3, commit=None,
     out.mkdir(parents=True, exist_ok=True)
     tmp.write_text(json.dumps(index, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     os.replace(tmp, index_path)
+    if public_loaders:  # W12: public release index for simplemods.de/downloads/ (best effort, never fails the collect)
+        try:
+            build["public"] = bool(public_downloads.build(out, repo, tuple(public_loaders)))
+        except Exception as e:  # noqa: BLE001
+            print("collect_downloads: public index skipped: " + str(e), file=sys.stderr)
+            build["public"] = False
     return build
 
 
@@ -172,14 +180,17 @@ def main(argv=None):
     ap.add_argument("--standalone", required=True, help='standalone line, e.g. "alles gruen"')
     ap.add_argument("--since", default="", help="ignore jars older than this ISO time (gate start)")
     ap.add_argument("--keep", type=int, default=3)
+    ap.add_argument("--public-loaders", default=",".join(public_downloads.PUBLIC_LOADERS),
+                    help="loaders of the public release index (public/), empty = none")
     a = ap.parse_args(argv)
     since = dt.datetime.fromisoformat(a.since).timestamp() if a.since else 0.0
     try:
-        b = collect(a.repo, a.out, a.ref, a.verdict, a.standalone, since, max(1, a.keep))
+        b = collect(a.repo, a.out, a.ref, a.verdict, a.standalone, since, max(1, a.keep),
+                    public_loaders=[x for x in a.public_loaders.split(",") if x])
     except ValueError as e:
         print("collect_downloads: " + str(e), file=sys.stderr)
         return 2
-    print(f"collect_downloads: {len(b['files'])} jars for {b['short']} ({a.ref})")
+    print(f"collect_downloads: {len(b['files'])} jars for {b['short']} ({a.ref}), public index: {b.get('public')}")
     return 0
 
 

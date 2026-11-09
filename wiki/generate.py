@@ -2932,6 +2932,16 @@ def main_with_textures() -> int:
         import mod_icons_large
         if mod_icons_large.main(["--check"] if args.check else []):
             return 1
+        # Landing page simplemods.de (W12): icons/textures fresh from the mod resources, tools/landing/overrides.json
+        # applied; best effort (a stale landing page never fails the generate run, --check only reports it).
+        import subprocess
+        try:
+            r = subprocess.run([sys.executable, str(REPO / "tools/landing/concepts.py")] + (["--check"] if args.check else []),
+                               capture_output=True, text=True, timeout=600)
+            print(("Landing: " + (r.stdout.strip().splitlines() or [""])[-1]) if r.returncode == 0
+                  else "WARNING landing not rebuilt: " + (r.stderr.strip().splitlines() or ["?"])[-1])
+        except Exception as e:  # noqa: BLE001
+            print(f"WARNING landing not rebuilt: {e}")
     if args.with_vanilla and not args.check:
         import vanilla_textures
         vanilla_textures.main([])
