@@ -58,6 +58,27 @@
       }
     },
     {
+      "id": "examples",
+      "title": {
+        "en": "Example Models",
+        "de": "Beispielmodelle"
+      },
+      "en": {
+        "summary": "Six example models come built in and need no resource pack: Stool (oak slab), Table Lantern (lantern), Mailbox (barrel), Birdhouse (oak fence), Weather Vane (lightning rod) and Crystal Cluster (amethyst cluster). Assign them at the anvil with @model:simplemodels:stool and so on. They only use vanilla block textures. A definition with the same id in config/simplemodels/catalog replaces the built-in one; the server option Built-in Examples turns them off."
+      },
+      "de": {
+        "summary": "Sechs Beispielmodelle sind eingebaut und brauchen kein Ressourcenpaket: Hocker (Eichenstufe), Tischlaterne (Laterne), Briefkasten (Fass), Vogelhaus (Eichenzaun), Wetterfahne (Blitzableiter) und Kristallgruppe (Amethysthaufen). Zuweisung am Amboss mit @model:simplemodels:stool usw. Sie nutzen nur Vanilla-Blocktexturen. Eine Definition mit gleicher ID in config/simplemodels/catalog ersetzt die eingebaute; die Serveroption Eingebaute Beispiele schaltet sie ab."
+      },
+      "sources": [
+        "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
+        "modules/simplemodels/shared/resources/assets/simplemodels/examples"
+      ],
+      "related": [
+        "import",
+        "config_builtinExamples"
+      ]
+    },
+    {
       "id": "security",
       "title": {
         "en": "Multiplayer Safety",
@@ -188,6 +209,19 @@
       }
     },
     {
+      "id": "config_builtinExamples",
+      "title": {
+        "en": "Built-in Examples",
+        "de": "Eingebaute Beispiele"
+      },
+      "en": {
+        "summary": "Offer the six example models shipped with Simple Models (stool, lantern, mailbox ...). Default: true."
+      },
+      "de": {
+        "summary": "Die sechs mitgelieferten Beispielmodelle anbieten (Hocker, Laterne, Briefkasten ...). Standard: true."
+      }
+    },
+    {
       "id": "forge_263",
       "en": {
         "title": "Experimental Forge 26.3",
@@ -241,6 +275,126 @@
   "enchantments": [],
   "items": [
     {
+      "id": "simplemodels:example/birdhouse",
+      "name": {
+        "en_us": "Example/Birdhouse"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
+          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
+        ],
+        "en": {
+          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
+        },
+        "de": {
+          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemodels:example/crystal_cluster",
+      "name": {
+        "en_us": "Example/Crystal Cluster"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
+          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
+        ],
+        "en": {
+          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
+        },
+        "de": {
+          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemodels:example/mailbox",
+      "name": {
+        "en_us": "Example/Mailbox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
+          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
+        ],
+        "en": {
+          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
+        },
+        "de": {
+          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemodels:example/stool",
+      "name": {
+        "en_us": "Example/Stool"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
+          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
+        ],
+        "en": {
+          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
+        },
+        "de": {
+          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemodels:example/table_lantern",
+      "name": {
+        "en_us": "Example/Table Lantern"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
+          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
+        ],
+        "en": {
+          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
+        },
+        "de": {
+          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemodels:example/weather_vane",
+      "name": {
+        "en_us": "Example/Weather Vane"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
+          "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
+        ],
+        "en": {
+          "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
+        },
+        "de": {
+          "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplemodels:guide_book",
       "name": {
         "en_us": "Simple Models Guide",
@@ -253,10 +407,10 @@
           "modules/simplemodels/shared/resources/data/simplemodels/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Models\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: item frame. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Models\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: item frame. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Models\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rahmen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Models\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rahmen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplemodels/item/guide_book.png",
@@ -303,13 +457,13 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 14,
+    "features": 16,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,
     "advancements": 1,
     "enchantments": 0,
-    "items": 1,
+    "items": 7,
     "blocks": 0,
     "trades": 0,
     "config": 0,

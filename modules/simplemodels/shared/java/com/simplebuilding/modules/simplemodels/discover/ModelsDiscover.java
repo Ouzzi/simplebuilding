@@ -51,6 +51,7 @@ public final class ModelsDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simplemodels:*example/*",
             "simplemodels:anvil",
             "simplemodels:browser",
             "simplemodels:command_reload",

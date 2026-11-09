@@ -3223,10 +3223,10 @@
       },
       "note": {
         "en": {
-          "summary": "End Painting: place it like a Painting to get one of 46 End pictures (same sizes and counts as Vanilla); each picture plays a short animation at random, about once a minute or two."
+          "summary": "End Painting: place it like a Painting to get one of 46 End pictures (same sizes and counts as Vanilla); each picture has three short animations and plays one of them at random, about once a minute or two."
         },
         "de": {
-          "summary": "End-Gemälde: wie ein Gemälde anbringen, es zeigt eines von 46 End-Bildern (gleiche Größen und Anzahl wie Vanilla); jedes Bild spielt zufällig, etwa alle ein bis zwei Minuten, eine kurze Animation."
+          "summary": "End-Gemälde: wie ein Gemälde anbringen, es zeigt eines von 46 End-Bildern (gleiche Größen und Anzahl wie Vanilla); jedes Bild hat drei kurze Animationen und spielt etwa alle ein bis zwei Minuten zufällig eine davon."
         }
       },
       "texture": "assets/textures/simpleend/item/end_painting.png",

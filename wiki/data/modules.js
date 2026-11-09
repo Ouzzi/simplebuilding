@@ -228,10 +228,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mMQldL6TwlmABGNnYuxYq1ZB8AYm5yJQxaqAQHR9f+XrNwDpmEaQWxsfJBmVT0fTAPQFaJjmDzIIhQDCGlEthmEYepRDAApmPfhPxjj0gyThxmCYQAMoxuErBHZFTgNwKeRfgag+5kkA2CKSDIAZgiyIlwGYEQjekLCZQCyPEZKBKUudIUwA9ANxjAAJoCOYRqxyaEYQAkGACSFGALwloT6AAAAAElFTkSuQmCC",
     "counts": {
-      "items": 1,
-      "features": 14
+      "items": 7,
+      "features": 16
     },
-    "dataHash": "70e0f752916c"
+    "dataHash": "0cf9d5387bef"
   },
   {
     "id": "simplefun",
@@ -1074,7 +1074,7 @@ window.WIKI_MODULES = [
       "recipes": 39,
       "features": 9
     },
-    "dataHash": "a96a63cae3cb"
+    "dataHash": "3d423e736588"
   },
   {
     "id": "simplerespawn",
