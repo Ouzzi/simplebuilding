@@ -33,7 +33,8 @@ public final class ModelTests {
         ALL.put("edit_history", ModelTests::editHistory);
         ALL.put("editor_layout", EditorTests::layout); ALL.put("editor_geometry", EditorTests::geometry);
         ALL.put("editor_gizmo", EditorTests::gizmo); ALL.put("editor_state", EditorTests::state);
-        ALL.put("editor_snap_help", EditorTests::snapHelp);
+        ALL.put("editor_snap_help", EditorTests::snapHelp); ALL.put("editor_uv", EditorTests::uv);
+        ALL.put("editor_textures", EditorTests::textures); ALL.put("editor_export", EditorTests::export);
     }
     public static ModelDefinition sample(String base) { return new ModelDefinition("renamed:tomato", base, "Tomato", "renamed:tomato", List.of("food", "red"), "Example"); }
     private static void fixture(String base, Runnable body) {

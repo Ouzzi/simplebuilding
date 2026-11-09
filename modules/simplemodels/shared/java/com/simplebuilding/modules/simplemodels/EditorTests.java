@@ -5,6 +5,9 @@ import com.simplebuilding.modules.simplemodels.editor.EditableModel.Element;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel.Rotation;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel.Vec;
 import com.simplebuilding.modules.simplemodels.editor.EditorShortcuts;
+import com.simplebuilding.modules.simplemodels.editor.UvEdit;
+import com.simplebuilding.modules.simplemodels.editor.TextureChoice;
+import com.simplebuilding.modules.simplemodels.editor.ModelExport;
 import com.simplebuilding.modules.simplemodels.editor.Gizmo;
 import com.simplebuilding.modules.simplemodels.editor.ModelEditorLayout;
 import com.simplebuilding.modules.simplemodels.editor.ModelEditorState;
@@ -223,6 +226,161 @@ public final class EditorTests {
         h.assertTrue(narrow.lines().allMatch(l -> l.length() <= 34 || !l.trim().matches(".*[\\[{].*[\\]}].*")), "Lines fit 34 columns");
         h.assertTrue(narrow.lines().count() > ModelJson.writeCompact(model).lines().count() && ModelJson.writeCompact(model, 1).equals(ModelJson.writeCompact(model, ModelJson.MIN_COMPACT_WIDTH)),
                 "Narrower = more lines, never below the minimum width");
+        h.succeed();
+    }
+
+    /** b-models14 S2: UV rectangle edits, face on/off/cull/tint, face picking, one undo step per face edit or UV drag. */
+    public static void uv(GameTestHelper h) {
+        var c = cube(2, 0, 4, 10, 6, 12);
+        var auto = UvEdit.uv(c, "south");
+        h.assertTrue(near(auto.u1(), 2) && near(auto.v1(), 10) && near(auto.u2(), 10) && near(auto.v2(), 16), "Effective UV = auto-UV without an own UV");
+        var set = UvEdit.setUv(c, "south", new EditableModel.Uv(-3, 4, 20, 8));
+        var u = set.faces().get("south").uv();
+        h.assertTrue(near(u.u1(), 0) && near(u.u2(), 16) && near(u.v1(), 4), "Own UV clamped to 0..16");
+        h.assertTrue(UvEdit.autoUv(set, "south").faces().get("south").uv() == null, "Auto-UV clears the own UV");
+        var r = UvEdit.rotate(UvEdit.rotate(UvEdit.rotate(UvEdit.rotate(c, "up"), "up"), "up"), "up");
+        h.assertTrue(UvEdit.rotate(c, "up").faces().get("up").rotation() == 90 && r.faces().get("up").rotation() == 0, "Rotate 90 steps, wraps after 270");
+        var m = UvEdit.mirrorU(c, "south").faces().get("south").uv();
+        h.assertTrue(near(m.u1(), 10) && near(m.u2(), 2) && near(m.v1(), 10), "Mirror U swaps u1/u2 of the auto-UV");
+        var mv = UvEdit.mirrorV(c, "south").faces().get("south").uv();
+        h.assertTrue(near(mv.v1(), 16) && near(mv.v2(), 10), "Mirror V swaps v1/v2");
+        var off = UvEdit.toggle(c, "down", "#x");
+        h.assertTrue(!off.faces().containsKey("down") && off.faces().size() == 5, "Face off removes it");
+        h.assertTrue(UvEdit.toggle(off, "down", UvEdit.texture(off, "#missing")).faces().get("down").texture().equals("#all"), "Face on uses the cube's texture");
+        var single = new Element("s", c.from(), c.to(), null, null, 0, java.util.Map.of("up", EditableModel.Face.of("#a")));
+        h.assertTrue(UvEdit.toggle(single, "up", "#a").faces().size() == 1, "The last face stays");
+        var cull = c;
+        for (int i = 0; i < 7; i++) cull = UvEdit.cycleCull(cull, "north");
+        h.assertTrue("down".equals(UvEdit.cycleCull(c, "north").faces().get("north").cullface()) && cull.faces().get("north").cullface() == null, "Cull cycles through all directions and back");
+        h.assertTrue(UvEdit.cycleTint(c, "up").faces().get("up").tintIndex() == 0 && UvEdit.cycleTint(UvEdit.cycleTint(c, "up"), "up").faces().get("up").tintIndex() == -1, "Tint 0 / none");
+        h.assertTrue(UvEdit.setTexture(c, "east", "#top").faces().get("east").texture().equals("#top") && UvEdit.cycleCull(off, "down") == off, "Texture per face; edits on an off face do nothing");
+        var start = new EditableModel.Uv(4, 4, 8, 8);
+        var moved = UvEdit.drag(start, UvEdit.Handle.MOVE, 2.4f, 20, 1);
+        h.assertTrue(near(moved.u1(), 6) && near(moved.u2(), 10) && near(moved.v2(), 16) && near(moved.v1(), 12), "Move snaps and stays inside, size kept");
+        var corner = UvEdit.drag(start, UvEdit.Handle.U2V2, 3.3f, -1.2f, 0.5f);
+        h.assertTrue(near(corner.u2(), 11.5f) && near(corner.v2(), 7) && near(corner.u1(), 4), "Corner drag on the grid");
+        h.assertTrue(UvEdit.handleAt(start, 4.4f, 7.8f, 1) == UvEdit.Handle.U1V2 && UvEdit.handleAt(start, 6, 6, 1) == UvEdit.Handle.MOVE
+                && UvEdit.handleAt(start, 12, 12, 1) == null, "Handles: corner, inside, outside");
+        h.assertTrue(near(UvEdit.toUv(40, 10, 60), 8) && near(UvEdit.toPixel(8, 10, 60), 40) && near(UvEdit.toUv(-50, 10, 60), 0), "Panel <-> UV");
+        // Face picking: from the front a ray enters through south, from above through up; rotation counts.
+        var model = EditableModel.EMPTY.addElement(cube(4, 0, 4, 12, 8, 12));
+        var front = ModelGeometry.pickFace(model, new Vector3f(8, 4, 100), new Vector3f(0, 0, -1), Set.of());
+        var top = ModelGeometry.pickFace(model, new Vector3f(8, 100, 8), new Vector3f(0, -1, 0), Set.of());
+        h.assertTrue(front != null && front.element() == 0 && front.face().equals("south") && top.face().equals("up"), "Picked faces: south from the front, up from above");
+        var turned = EditableModel.EMPTY.addElement(cube(4, 0, 4, 12, 8, 12).withRotation(Rotation.single(new Vec(8, 8, 8), "y", 90, false)));
+        h.assertTrue(ModelGeometry.pickFace(turned, new Vector3f(8, 4, 100), new Vector3f(0, 0, -1), Set.of()).face().equals("west")
+                && ModelGeometry.pickFace(model, new Vector3f(30, 4, 100), new Vector3f(0, 0, -1), Set.of()) == null, "Rotated: y +90 shows west to the front; miss = null");
+        // State: face selection, one step per edit, UV drag through the drag mechanism.
+        var st = new ModelEditorState(stool());
+        st.selectFace("up");
+        st.selectFace("sideways");
+        h.assertTrue(st.face().equals("up"), "Only real faces can be selected");
+        st.editElement(e -> UvEdit.rotate(e, st.face()));
+        h.assertTrue(st.canUndo() && st.selectedElement().faces().get("up").rotation() == 90, "Face edit = one undo step");
+        st.beginDrag();
+        st.drag(UvEdit.setUv(st.dragStartElement(), "up", UvEdit.drag(UvEdit.uv(st.dragStartElement(), "up"), UvEdit.Handle.MOVE, -1, 0, 1)));
+        st.endDrag();
+        st.undo();
+        h.assertTrue(st.selectedElement().faces().get("up").uv() == null && st.selectedElement().faces().get("up").rotation() == 90, "UV drag = one undo step");
+        h.assertTrue(ModelJson.read(ModelJson.write(st.committed())).ok(), "Face edits stay valid vanilla JSON");
+        h.succeed();
+    }
+
+    /** b-models14 S3: texture variables, atlas search, assigning only valid ids, free variable names. */
+    public static void textures(GameTestHelper h) {
+        var m = stool();
+        var vars = TextureChoice.variables(m);
+        h.assertTrue(vars.stream().anyMatch(v -> v.name().equals("seat") && "minecraft:block/oak_planks".equals(v.resolved())), "Variables with their texture: " + vars);
+        var chained = m.withTexture("alias", "#seat").withTexture("loop", "#loop");
+        h.assertTrue("minecraft:block/oak_planks".equals(TextureChoice.resolve(chained, "#alias")) && TextureChoice.resolve(chained, "#loop") == null
+                && TextureChoice.resolve(chained, "#nothing") == null, "References followed, loops and gaps unresolved");
+        var ids = java.util.List.of("minecraft:block/oak_planks", "minecraft:block/stripped_oak_log", "minecraft:block/stone", "othermod:block/oak_crate", "minecraft:block/dark_oak_planks");
+        h.assertTrue(TextureChoice.search(ids, "oak planks", 10).equals(java.util.List.of("minecraft:block/oak_planks", "minecraft:block/dark_oak_planks")),
+                "All words must match, shortest first: " + TextureChoice.search(ids, "oak planks", 10));
+        h.assertTrue(TextureChoice.search(ids, "OAK", 2).size() == 2 && TextureChoice.search(ids, "", 100).size() == ids.size()
+                && TextureChoice.search(ids, "  ", 100).size() == ids.size(), "Case-insensitive, limit, empty = all");
+        var assigned = TextureChoice.assign(m, "seat", "minecraft:block/stone");
+        h.assertTrue("minecraft:block/stone".equals(assigned.textures().get("seat")) && assigned.elements().equals(m.elements()), "Assign sets the variable only");
+        h.assertTrue(TextureChoice.assign(m, "seat", "../../evil") == m && TextureChoice.assign(m, "seat", "#leg") == m
+                && TextureChoice.assign(m, "bad name", "minecraft:block/stone") == m && TextureChoice.assign(m, "seat", "Upper:Case") == m,
+                "Invalid ids, references and names are refused");
+        h.assertTrue(TextureChoice.freeVariable(m, "seat").equals("seat_2") && TextureChoice.freeVariable(m, "texture").equals("texture"), "Free variable names");
+        var added = TextureChoice.assign(m, TextureChoice.freeVariable(m, "texture"), "minecraft:block/stone");
+        h.assertTrue(added.textures().size() == m.textures().size() + 1 && ModelJson.read(ModelJson.write(added)).ok(), "New variable stays valid JSON");
+        h.succeed();
+    }
+
+    /** b-models14 S4: names, path safety (no traversal, no symbolic links), pack files, catalogue entry, zip, workspace. */
+    public static void export(GameTestHelper h) {
+        h.assertTrue("my_stool".equals(ModelExport.safeName(" My Stool ")) && "a_b".equals(ModelExport.safeName("a-b"))
+                && ModelExport.safeName("../evil") == null && ModelExport.safeName("a/b") == null && ModelExport.safeName("a.b") == null
+                && ModelExport.safeName("") == null && ModelExport.safeName("x".repeat(21)) == null && ModelExport.safeName("C:x") == null,
+                "Names: lower case letters, digits and _ only, max. 20");
+        try {
+            var root = java.nio.file.Files.createTempDirectory("simplemodels-export-");
+            for (String bad : new String[]{"../x.json", "a/../../x.json", "/etc/x.json", "a\\x.json", "", "C:/x.json"}) {
+                boolean refused = false;
+                try { ModelExport.resolveInside(root, bad); } catch (java.io.IOException e) { refused = true; }
+                h.assertTrue(refused, "Path refused: " + bad);
+            }
+            h.assertTrue(ModelExport.resolveInside(root, "assets/mymodels/items/a.json").startsWith(root.toAbsolutePath().normalize()), "Normal path stays inside");
+            var model = stool();
+            var files = ModelExport.packFiles(model, "stool_copy", 97);
+            h.assertTrue(files.keySet().equals(new java.util.LinkedHashSet<>(java.util.List.of("pack.mcmeta", "assets/mymodels/models/item/stool_copy.json",
+                    "assets/mymodels/items/stool_copy.json"))), "Pack files: " + files.keySet());
+            var pack = root.resolve("pack");
+            var written = ModelExport.writeFiles(pack, files);
+            h.assertTrue(written.size() == 3 && written.stream().allMatch(java.nio.file.Files::isRegularFile), "Pack files written");
+            var meta = com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(pack.resolve("pack.mcmeta"))).getAsJsonObject().getAsJsonObject("pack");
+            h.assertTrue(meta.get("min_format").getAsInt() == 97 && meta.get("max_format").getAsInt() == 97, "pack.mcmeta with the pack format");
+            h.assertTrue(ModelJson.read(java.nio.file.Files.readString(pack.resolve("assets/mymodels/models/item/stool_copy.json"))).model().equals(model), "Model JSON reads back");
+            var item = com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(pack.resolve("assets/mymodels/items/stool_copy.json"))).getAsJsonObject().getAsJsonObject("model");
+            h.assertTrue(item.get("model").getAsString().equals("mymodels:item/stool_copy") && item.get("type").getAsString().equals("minecraft:model"), "Item model definition");
+            ModelExport.writeFiles(pack, files);
+            try (var listing = java.nio.file.Files.walk(pack)) {
+                h.assertTrue(listing.noneMatch(p -> p.getFileName().toString().endsWith(".tmp")), "Overwrite leaves no temporary files");
+            }
+            var def = ModelDefinition.parse(com.google.gson.JsonParser.parseString(ModelExport.catalogueEntry("stool_copy", "minecraft:oak_slab", "Steve")).getAsJsonObject());
+            h.assertTrue(def.id().equals("mymodels:stool_copy") && def.model().equals("mymodels:stool_copy") && def.base_item().equals("minecraft:oak_slab")
+                    && def.match_name().equals("Stool copy"), "Catalogue entry parses like any definition: " + def);
+            h.assertTrue((Models.PREFIX + def.id()).length() <= 50, "Anvil name fits");
+            // Symbolic links: as root and on the way are refused.
+            var outside = java.nio.file.Files.createTempDirectory("simplemodels-outside-");
+            boolean linksWork = true;
+            try { java.nio.file.Files.createSymbolicLink(root.resolve("linked"), outside); } catch (UnsupportedOperationException | java.io.IOException e) { linksWork = false; }
+            if (linksWork) {
+                boolean refusedRoot = false, refusedWay = false;
+                try { ModelExport.writeFiles(root.resolve("linked"), files); } catch (java.io.IOException e) { refusedRoot = true; }
+                var pack2 = root.resolve("pack2");
+                java.nio.file.Files.createDirectories(pack2);
+                java.nio.file.Files.createSymbolicLink(pack2.resolve("assets"), outside);
+                try { ModelExport.writeFiles(pack2, files); } catch (java.io.IOException e) { refusedWay = true; }
+                try (var o = java.nio.file.Files.list(outside)) {
+                    h.assertTrue(refusedRoot && refusedWay && o.findAny().isEmpty(), "Symbolic links refused, nothing written outside");
+                }
+            }
+            // Zip: the same entries.
+            var zip = ModelExport.writeZip(root.resolve("exports"), "stool_copy", files);
+            var entries = new java.util.ArrayList<String>();
+            try (var in = new java.util.zip.ZipInputStream(java.nio.file.Files.newInputStream(zip))) {
+                for (var en = in.getNextEntry(); en != null; en = in.getNextEntry()) entries.add(en.getName());
+            }
+            h.assertTrue(zip.getFileName().toString().equals("stool_copy.zip") && entries.equals(new java.util.ArrayList<>(files.keySet())), "Zip entries: " + entries);
+            // Workspace round trip and listing.
+            var ws = root.resolve("workspace");
+            h.assertTrue(ModelExport.workspaces(ws).isEmpty(), "No workspace folder = empty list");
+            ModelExport.saveWorkspace(ws, "b_model", model);
+            ModelExport.saveWorkspace(ws, "a_model", model.withTexture("seat", "minecraft:block/stone"));
+            java.nio.file.Files.writeString(ws.resolve("Bad Name.json"), "{}");
+            java.nio.file.Files.writeString(ws.resolve("broken.json"), "{\"elements\": 5}");
+            h.assertTrue(ModelExport.workspaces(ws).equals(java.util.List.of("a_model", "b_model", "broken")), "Listing: allowed names, sorted: " + ModelExport.workspaces(ws));
+            h.assertTrue(ModelExport.loadWorkspace(ws, "b_model").model().equals(model) && !ModelExport.loadWorkspace(ws, "broken").ok(), "Load: round trip, broken = problems");
+            boolean refused = false;
+            try { ModelExport.loadWorkspace(ws, "../workspace/b_model"); } catch (java.io.IOException e) { refused = true; }
+            h.assertTrue(refused, "Load refuses unsafe names");
+        } catch (java.io.IOException e) {
+            throw new AssertionError(e);
+        }
         h.succeed();
     }
 

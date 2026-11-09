@@ -80,6 +80,12 @@ public record EditableModel(String parent, Map<String, String> textures, List<El
         public Element withBounds(Vec from, Vec to) { return new Element(name, from, to, rotation, shadeDirection, lightEmission, faces); }
         public Element withRotation(Rotation r) { return new Element(name, from, to, r, shadeDirection, lightEmission, faces); }
         public Element withName(String n) { return new Element(n, from, to, rotation, shadeDirection, lightEmission, faces); }
+        /** This element with face {@code direction} replaced ({@code null} removes it). */
+        public Element withFace(String direction, Face face) {
+            var map = new LinkedHashMap<>(faces);
+            if (face == null) map.remove(direction); else map.put(direction, face);
+            return new Element(name, from, to, rotation, shadeDirection, lightEmission, map);
+        }
     }
 
     /** Display transform; {@code translation} in JSON pixels (vanilla scales by 1/16 and clamps to ±80 px). */

@@ -11,6 +11,7 @@ import com.simplebuilding.modules.simplemodels.editor.ModelEditorLayout.Rect;
 import com.simplebuilding.modules.simplemodels.editor.ModelEditorState;
 import com.simplebuilding.modules.simplemodels.editor.ModelGeometry;
 import com.simplebuilding.modules.simplemodels.editor.ModelJson;
+import com.simplebuilding.modules.simplemodels.editor.UvEdit;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiCodeArea;
 import com.simplelib.api.client.ui.UiOrbitCamera;
@@ -53,7 +54,13 @@ public final class ModelEditorScreen extends Screen {
     static final int[] CODE_COLOURS = {0xFF3B2F20, 0xFF7A3E9D, 0xFF2E6B31, 0xFF9A3F1B, 0xFF6B5B45};
     private static final long CODE_DEBOUNCE_MS = 150;
 
-    private enum Drag { NONE, ORBIT, PAN, GIZMO }
+    private enum Drag { NONE, ORBIT, PAN, GIZMO, UV }
+    /** Properties panel tabs (b-models14): cube numbers or the selected face (UV, texture, cull, tint). */
+    public enum Tab { CUBE, FACE }
+    /** Outline of the selected face in the viewport while the face tab is open. */
+    static final int FACE_OUTLINE = 0xFF6FD3FF;
+    /** Dark backing of the UV square (the texture is drawn on it); only VIEW_TEXT #F2EEE8 goes on it (12.2:1). */
+    static final int UV_BACK = 0xFF2A2B30; // contrast-ok: light VIEW_TEXT only
 
     private final Screen parent;
     private final ModelEditorState state;
@@ -74,6 +81,12 @@ public final class ModelEditorScreen extends Screen {
     private double startX, startY;
     private String dragLabel;
     private int listScroll;
+    private Tab tab = Tab.CUBE;
+    private Button tabCube, tabFace, faceToggle, faceCull, faceTint, faceTexture;
+    private final Button[] faceDirs = new Button[6];
+    private final List<Button> faceTools = new ArrayList<>();
+    private UvEdit.Handle uvHandle;
+    private EditableModel.Uv uvStart;
     /** Shortcut help overlay (F1 / "?"), b-models14. */
     private boolean showHelp;
     /** Characters that fit one line of the code column (compact JSON is laid out for it). */
@@ -89,7 +102,20 @@ public final class ModelEditorScreen extends Screen {
     public UiOrbitCamera camera() { return camera; }
     public boolean codeOnly() { return codeOnly; }
     public ModelEditorLayout layout() { return layout; }
+    /** Name and base item for the file dialog (b-models14), kept while the editor is open. */
+    private String fileName = "my_model", baseItem = "minecraft:stick";
+    public String fileName() { return fileName; }
+    public void fileName(String n) { fileName = n; }
+    public String baseItem() { return baseItem; }
+    public void baseItem(String id) { baseItem = id; }
     public boolean helpShown() { return showHelp; }
+    public Tab tab() { return tab; }
+    /** Switches the properties panel tab (face tab: UV editor). */
+    public void setTab(Tab t) {
+        if (state.dragging()) state.cancelDrag();
+        tab = t;
+        rebuildWidgets();
+    }
     public void showHelp(boolean on) { showHelp = on; }
 
     /** Switches between classic and code only (F4 / toolbar). */
@@ -198,7 +224,21 @@ public final class ModelEditorScreen extends Screen {
         } else {
             codeArea = null;
             Rect p = layout.properties();
+            faceTools.clear();
+            java.util.Arrays.fill(faceDirs, null);
+            faceToggle = faceCull = faceTint = faceTexture = tabCube = tabFace = null;
             if (p.visible()) {
+                int half = (p.w() - 10) / 2;
+                tabCube = addRenderableWidget(Button.builder(Component.translatable("simplemodels.editor.tab.cube"), b -> setTab(Tab.CUBE))
+                        .bounds(p.x() + 4, p.y() + 3, half, 12).build());
+                tabFace = addRenderableWidget(Button.builder(Component.translatable("simplemodels.editor.tab.face"), b -> setTab(Tab.FACE))
+                        .bounds(p.x() + 6 + half, p.y() + 3, half, 12).build());
+                tabFace.setTooltip(Tooltip.create(Component.translatable("simplemodels.editor.tab.face.hint")));
+            }
+            if (p.visible() && tab == Tab.FACE) {
+                java.util.Arrays.fill(fields, null);
+                faceWidgets(p);
+            } else if (p.visible()) {
                 int boxW = (p.w() - 12) / 3;
                 for (int row = 0; row < 3; row++) {
                     for (int axis = 0; axis < 3; axis++) {
@@ -217,6 +257,61 @@ public final class ModelEditorScreen extends Screen {
 
     private static final String[] FIELD_NAMES = {"from", "to", "origin"};
 
+    private Button small(Component label, String tip, int x, int y, int w, int h, Runnable action) {
+        Button b = Button.builder(label, btn -> action.run()).bounds(x, y, w, h).build();
+        if (tip != null) b.setTooltip(Tooltip.create(Component.translatable(tip)));
+        return addRenderableWidget(b);
+    }
+
+    /** The UV square of the face tab: left in the panel under the face buttons, tools column to its right. */
+    Rect uvRect() {
+        Rect p = layout.properties();
+        if (!p.visible() || tab != Tab.FACE || codeOnly) return Rect.NONE;
+        int size = Math.max(32, Math.min(p.w() - 10 - 22, 80));
+        return new Rect(p.x() + 5, p.y() + 34, size, size);
+    }
+
+    /** Face tab widgets: six face buttons, UV tools (rotate, auto, mirror), on/off, cull, tint, texture. */
+    private void faceWidgets(Rect p) {
+        int x = p.x() + 5, w = p.w() - 10, bw = (w - 5) / 6;
+        for (int i = 0; i < 6; i++) {
+            String dir = EditableModel.DIRECTIONS.get(i);
+            faceDirs[i] = small(Component.translatable("simplemodels.editor.face." + dir + ".short"), "simplemodels.editor.face." + dir,
+                    x + i * (bw + 1), p.y() + 17, bw, 14, () -> { state.selectFace(dir); refresh(); });
+        }
+        Rect uv = uvRect();
+        int bx = uv.right() + 3, tw = p.right() - 5 - bx;
+        faceTools.add(small(Component.literal("⟳"), "simplemodels.editor.uv.rotate", bx, uv.y(), tw, 16, () -> editFace(UvEdit::rotate)));
+        faceTools.add(small(Component.literal("A"), "simplemodels.editor.uv.auto", bx, uv.y() + 18, tw, 16, () -> editFace(UvEdit::autoUv)));
+        faceTools.add(small(Component.literal("↔"), "simplemodels.editor.uv.mirror_u", bx, uv.y() + 36, tw, 16, () -> editFace(UvEdit::mirrorU)));
+        faceTools.add(small(Component.literal("↕"), "simplemodels.editor.uv.mirror_v", bx, uv.y() + 54, tw, 16, () -> editFace(UvEdit::mirrorV)));
+        int ty = uv.bottom() + 14, third = (w - 4) / 3;
+        faceToggle = small(Component.empty(), "simplemodels.editor.face.toggle.hint", x, ty, third, 14,
+                () -> { state.editElement(e -> UvEdit.toggle(e, state.face(), UvEdit.texture(e, firstVariable()))); afterChange(); });
+        faceCull = small(Component.empty(), "simplemodels.editor.face.cull.hint", x + third + 2, ty, third, 14, () -> editFace(UvEdit::cycleCull));
+        faceTint = small(Component.empty(), "simplemodels.editor.face.tint.hint", x + 2 * third + 4, ty, w - 2 * third - 4, 14, () -> editFace(UvEdit::cycleTint));
+        faceTexture = small(Component.empty(), "simplemodels.editor.face.texture.hint", x, ty + 16, w, 14, this::openTextures);
+    }
+
+    private void editFace(java.util.function.BiFunction<Element, String, Element> change) {
+        state.editElement(e -> change.apply(e, state.face()));
+        afterChange();
+    }
+
+    /** The first texture variable of the model as {@code #name} (new faces use it), else {@code #missing}. */
+    private String firstVariable() {
+        return state.model().textures().keySet().stream().filter(k -> !k.equals("particle")).findFirst().map(k -> "#" + k).orElse("#missing");
+    }
+
+    private void openTextures() {
+        if (state.dragging()) state.cancelDrag();
+        minecraft.setScreenAndShow(new TexturePickerScreen(this));
+    }
+
+    private static String dash(String s) {
+        return s == null ? "–" : s;
+    }
+
     /** Grid preset on the button: "1 · 22.5°", or "Free" for the last preset. */
     private Component snapLabel() {
         return state.snapStep() == 0 ? Component.translatable("simplemodels.editor.snap.off")
@@ -232,6 +327,23 @@ public final class ModelEditorScreen extends Screen {
             for (int i = 0; i < 3 && i < toolbar.size(); i++) toolbar.get(i).active = state.mode() != Gizmo.Mode.values()[i];
         }
         Element e = state.selectedElement();
+        if (tabCube != null) { tabCube.active = tab != Tab.CUBE; tabFace.active = tab != Tab.FACE; }
+        EditableModel.Face face = e == null ? null : e.faces().get(state.face());
+        for (int i = 0; i < 6; i++) {
+            if (faceDirs[i] == null) continue;
+            faceDirs[i].active = e != null && !EditableModel.DIRECTIONS.get(i).equals(state.face());
+            faceDirs[i].visible = e != null;
+        }
+        for (Button b : faceTools) { b.active = face != null; b.visible = e != null; }
+        if (faceToggle != null) {
+            faceToggle.setMessage(Component.translatable(face != null ? "simplemodels.editor.face.on" : "simplemodels.editor.face.off"));
+            faceCull.setMessage(Component.translatable("simplemodels.editor.face.cull", face == null || face.cullface() == null ? "–"
+                    : Component.translatable("simplemodels.editor.face." + face.cullface() + ".short")));
+            faceTint.setMessage(Component.translatable("simplemodels.editor.face.tint", face == null || face.tintIndex() < 0 ? "–" : Integer.toString(face.tintIndex())));
+            faceTexture.setMessage(Component.translatable("simplemodels.editor.face.texture", face == null ? "–" : face.texture()));
+            for (Button b : List.of(faceToggle, faceCull, faceTint, faceTexture)) b.visible = e != null;
+            faceCull.active = faceTint.active = faceTexture.active = face != null;
+        }
         for (int i = 0; i < fields.length; i++) {
             EditBox box = fields[i];
             if (box == null) continue;
@@ -403,14 +515,43 @@ public final class ModelEditorScreen extends Screen {
             if (at != null) { codeArea.jumpTo(at[0]); setFocused(codeArea); codeArea.setFocused(true); }
             return true;
         }
-        if (drag == Drag.GIZMO && event.button() == InputConstants.MOUSE_BUTTON_RIGHT) {
+        if ((drag == Drag.GIZMO || drag == Drag.UV) && event.button() == InputConstants.MOUSE_BUTTON_RIGHT) {
             state.cancelDrag();
             drag = Drag.NONE;
             refresh();
             return true;
         }
+        Rect uvSquare = uvRect();
+        if (uvSquare.contains(mx, my) && event.button() == InputConstants.MOUSE_BUTTON_LEFT && state.selectedElement() != null) {
+            // UV square: drag a corner or the whole rectangle (one undo step per drag, grid = the snap preset, Alt free).
+            EditableModel.Uv uv = UvEdit.uv(state.selectedElement(), state.face());
+            if (uv != null) {
+                UvEdit.Handle handle = UvEdit.handleAt(uv, UvEdit.toUv(mx, uvSquare.x(), uvSquare.w()), UvEdit.toUv(my, uvSquare.y(), uvSquare.h()),
+                        16f * 4 / uvSquare.w());
+                if (handle != null && state.beginDrag()) {
+                    drag = Drag.UV;
+                    uvHandle = handle;
+                    uvStart = uv;
+                    startX = mx;
+                    startY = my;
+                    dragLabel = null;
+                }
+            }
+            return true;
+        }
         if (view.contains(mx, my) && getChildAt(mx, my).isEmpty()) {
             if (getFocused() != null) { getFocused().setFocused(false); setFocused(null); }
+            if (event.button() == InputConstants.MOUSE_BUTTON_LEFT && !codeOnly && event.hasControlDown()) {
+                // Ctrl + click: pick a face for the UV editor (concept §3).
+                var ray = camera.ray(mx, my, view.x(), view.y(), view.w(), view.h(), ModelGeometry.VIEW_RADIUS);
+                var pick = ModelGeometry.pickFace(state.model(), ray.origin().add(ModelGeometry.CENTRE), ray.direction(), state.hidden());
+                if (pick != null) {
+                    state.select(pick.element());
+                    state.selectFace(pick.face());
+                    if (tab != Tab.FACE) setTab(Tab.FACE); else refresh();
+                }
+                return true;
+            }
             if (event.button() == InputConstants.MOUSE_BUTTON_LEFT) {
                 if (!codeOnly && hitGizmo(mx, my) && state.beginDrag()) {
                     drag = Drag.GIZMO;
@@ -450,13 +591,14 @@ public final class ModelEditorScreen extends Screen {
             case ORBIT -> { camera.drag(dx, dy); return true; }
             case PAN -> { camera.pan(dx, dy); return true; }
             case GIZMO -> { gizmoDrag(event.x(), event.y()); return true; }
+            case UV -> { uvDrag(event.x(), event.y()); return true; }
             default -> { return super.mouseDragged(event, dx, dy); }
         }
     }
 
     @Override
     public boolean mouseReleased(MouseButtonEvent event) {
-        if (drag == Drag.GIZMO) {
+        if (drag == Drag.GIZMO || drag == Drag.UV) {
             state.endDrag();
             afterChange();
         }
@@ -588,6 +730,16 @@ public final class ModelEditorScreen extends Screen {
         state.drag(next);
     }
 
+    private void uvDrag(double mx, double my) {
+        Element start = state.dragStartElement();
+        Rect u = uvRect();
+        if (start == null || !u.visible()) return;
+        float du = (float) ((mx - startX) * 16 / u.w()), dv = (float) ((my - startY) * 16 / u.h());
+        EditableModel.Uv next = UvEdit.drag(uvStart, uvHandle, du, dv, minecraft.hasAltDown() ? 0 : state.snapStep());
+        dragLabel = "UV " + number(next.u1()) + " " + number(next.v1()) + " " + number(next.u2()) + " " + number(next.v2());
+        state.drag(UvEdit.setUv(start, state.face(), next));
+    }
+
     private static String signed(float f) {
         return (f > 0 ? "+" : "") + number(f);
     }
@@ -621,6 +773,14 @@ public final class ModelEditorScreen extends Screen {
         if (e == null || state.hidden().contains(state.selected())) return List.of();
         Rect v = layout.view();
         List<ModelViewport.Line> lines = new ArrayList<>(ModelViewport.box(camera, v, ModelGeometry.corners(e), 1.5f, ModelViewport.SELECTION));
+        if (tab == Tab.FACE && e.faces().containsKey(state.face())) {
+            float[] q = ModelGeometry.quad(state.selected(), e, state.face()).pos();
+            for (int k = 0; k < 4; k++) {
+                int n = (k + 1) % 4;
+                lines.add(ModelViewport.line(camera, v, new Vector3f(q[k * 3], q[k * 3 + 1], q[k * 3 + 2]),
+                        new Vector3f(q[n * 3], q[n * 3 + 1], q[n * 3 + 2]), 2f, FACE_OUTLINE));
+            }
+        }
         Vector2f c = ModelViewport.project(camera, v, ModelGeometry.centre(e));
         for (int axis = 0; axis < 3; axis++) {
             int colour = ModelViewport.AXIS[axis];
@@ -662,9 +822,13 @@ public final class ModelEditorScreen extends Screen {
     private void properties(GuiGraphicsExtractor g, Rect r) {
         UiBoxes.insetColored(g, r.x(), r.y(), r.w(), r.h(), PALETTE, LIST_FACE);
         Element e = state.selectedElement();
-        g.text(font, Component.translatable("simplemodels.editor.properties"), r.x() + 4, r.y() + 3, LABEL, false);
+        if (tabCube == null) g.text(font, Component.translatable("simplemodels.editor.properties"), r.x() + 4, r.y() + 3, LABEL, false);
         if (e == null) {
-            g.textWithWordWrap(font, Component.translatable("simplemodels.editor.nothing_selected"), r.x() + 4, r.y() + 16, r.w() - 8, LABEL, false);
+            g.textWithWordWrap(font, Component.translatable("simplemodels.editor.nothing_selected"), r.x() + 4, r.y() + 18, r.w() - 8, LABEL, false);
+            return;
+        }
+        if (tab == Tab.FACE) {
+            uvSquare(g, e);
             return;
         }
         for (int row = 0; row < 3; row++)
@@ -675,6 +839,43 @@ public final class ModelEditorScreen extends Screen {
                 : rot.axis() + " " + number(rot.angle()) + "°");
         g.textWithWordWrap(font, Component.translatable("simplemodels.editor.rotation", rotation), r.x() + 5, r.y() + 96, r.w() - 10, LABEL, false);
         g.textWithWordWrap(font, Component.translatable("simplemodels.editor.mode." + state.mode().key), r.x() + 5, r.y() + 120, r.w() - 10, LABEL, false);
+    }
+
+    /**
+     * The UV square: the face's texture from the block atlas (0..16 over the square), a quarter grid, the UV rectangle
+     * (yellow, corner handles with a dark rim) and the UV numbers under it.
+     */
+    private void uvSquare(GuiGraphicsExtractor g, Element e) {
+        Rect u = uvRect();
+        if (!u.visible()) return;
+        g.fill(u.x() - 1, u.y() - 1, u.right() + 1, u.bottom() + 1, UiBoxes.RIM);
+        g.fill(u.x(), u.y(), u.right(), u.bottom(), UV_BACK);
+        EditableModel.Face face = e.faces().get(state.face());
+        if (face == null) {
+            g.textWithWordWrap(font, Component.translatable("simplemodels.editor.face.off_hint"), u.x() + 4, u.y() + 4, u.w() - 8, VIEW_TEXT, false);
+            return;
+        }
+        var sprite = ModelViewport.sprite(state.model(), face.texture());
+        if (sprite != null) g.blit(sprite.atlasLocation(), u.x(), u.y(), u.right(), u.bottom(), sprite.getU0(), sprite.getU1(), sprite.getV0(), sprite.getV1());
+        for (int i = 4; i < 16; i += 4) {
+            int px = Math.round(UvEdit.toPixel(i, u.x(), u.w())), py = Math.round(UvEdit.toPixel(i, u.y(), u.h()));
+            g.fill(px, u.y(), px + 1, u.bottom(), ModelViewport.GRID);
+            g.fill(u.x(), py, u.right(), py + 1, ModelViewport.GRID);
+        }
+        EditableModel.Uv uv = UvEdit.uv(e, state.face());
+        int x0 = Math.round(UvEdit.toPixel(Math.min(uv.u1(), uv.u2()), u.x(), u.w())), x1 = Math.round(UvEdit.toPixel(Math.max(uv.u1(), uv.u2()), u.x(), u.w()));
+        int y0 = Math.round(UvEdit.toPixel(Math.min(uv.v1(), uv.v2()), u.y(), u.h())), y1 = Math.round(UvEdit.toPixel(Math.max(uv.v1(), uv.v2()), u.y(), u.h()));
+        int sel = ModelViewport.SELECTION;
+        g.fill(x0, y0, x1, y0 + 1, sel);
+        g.fill(x0, y1 - 1, x1, y1, sel);
+        g.fill(x0, y0, x0 + 1, y1, sel);
+        g.fill(x1 - 1, y0, x1, y1, sel);
+        for (int[] corner : new int[][]{{x0, y0}, {x1, y0}, {x0, y1}, {x1, y1}}) {
+            g.fill(corner[0] - 2, corner[1] - 2, corner[0] + 3, corner[1] + 3, UiBoxes.RIM);
+            g.fill(corner[0] - 1, corner[1] - 1, corner[0] + 2, corner[1] + 2, sel);
+        }
+        String values = Component.translatable("simplemodels.editor.uv.values", number(uv.u1()), number(uv.v1()), number(uv.u2()), number(uv.v2()), face.rotation()).getString();
+        g.text(font, font.plainSubstrByWidth(values + (face.uv() == null ? " (A)" : ""), layout.properties().w() - 10), u.x(), u.bottom() + 3, LABEL, false);
     }
 
     @Override
