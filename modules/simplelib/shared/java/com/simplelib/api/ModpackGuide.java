@@ -81,10 +81,19 @@ public final class ModpackGuide {
 
     /** The chapter a guide came from ({@link #CHAPTER_TAG}), or null (crafted, or turned before b-guidechap14). */
     public static @Nullable Identifier chapterOf(ItemStack stack) {
+        String raw = markOf(stack);
+        return raw == null || raw.indexOf(':') < 0 ? null : Identifier.tryParse(raw);
+    }
+
+    /**
+     * The raw mark ({@link #CHAPTER_TAG}): a chapter id {@code <ns>:guide}, or a section id without a colon (b-guide15:
+     * SimpleBuilding's own book, turned at login, marks {@code simplebuilding}); null when unmarked.
+     */
+    public static @Nullable String markOf(ItemStack stack) {
         var data = stack.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
         if (data == null) return null;
         String raw = data.copyTag().getStringOr(CHAPTER_TAG, "");
-        return raw.isEmpty() ? null : Identifier.tryParse(raw);
+        return raw.isEmpty() ? null : raw;
     }
 
     /** The section holding {@code chapter}, or null. */

@@ -1,0 +1,15 @@
+{
+  "section": "simpleoptimization",
+  "name": "simpleoptimization.guide.chapter",
+  "icon": "minecraft:redstone_torch",
+  "order": 40,
+  "chapters": [
+    {
+      "id": "simpleoptimization:guide",
+      "title": "simpleoptimization.guide.chapter",
+      "icon": "minecraft:redstone_torch",
+      "page_key": "simpleoptimization.guide.page",
+      "pages": 6
+    }
+  ]
+}

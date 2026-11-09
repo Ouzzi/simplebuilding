@@ -82,11 +82,12 @@ MODULES = [
                 "aus Bündeln.")),
     dict(module="simplequalityoflife", ns="simplequalityoflife", package="com.simplequalityoflife.guide",
          cls="QolGuide", kind="item", author="Simple Quality of Life", recipe="minecraft:chest",
-         submods=("simpleweather","simpleloot","simplemobmanners","simplefarming","simpletools","simplemovement","simpleinterfaces"),
-         merge_commands=True, pack=True,
+         pack=True,
          name=("Simple Quality of Life Guide", "Simple-Quality-of-Life-Handbuch"),
-         intro=("Bundles seven sub-mods with one switch each: weather, interfaces, loot, mob manners, farming, tools and movement.",
-                "Bündelt sieben Sub-Mods mit je einem Schalter: Wetter, Oberflächen, Beute, Mob-Manieren, Landwirtschaft, Werkzeuge und Bewegung.")),
+         intro=("Bundles seven sub-mods with one switch each: weather, interfaces, loot, mob manners, farming, tools and movement. "
+                "Each sub-mod has its own chapter in this section.",
+                "Bündelt sieben Sub-Mods mit je einem Schalter: Wetter, Oberflächen, Beute, Mob-Manieren, Landwirtschaft, Werkzeuge und Bewegung. "
+                "Jede Sub-Mod hat ihr eigenes Kapitel in diesem Abschnitt.")),
     dict(module="simplemodels", ns="simplemodels", package="com.simplebuilding.modules.simplemodels.guide",
          cls="ModelsGuide", kind="item", author="Simple Models", recipe="minecraft:item_frame",
          name=("Simple Models Guide", "Simple-Models-Handbuch"),
@@ -362,9 +363,77 @@ SETTINGS = ("Settings", "Einstellungen",
 # SimpleLib's one FTB Quests start chapter (the single guides' chapters are gone); texts in SimpleLib's lang files.
 LIB_QUEST_NS = "simplelib"
 GUIDE_ITEM = "simplelib:modpack_guide"
+# b-guide15: modules without a book of their own still get a chapter (kind "data": contribution + lang only, always open), so
+# every module - also a sub-mod installed alone - has its pages in the Simple Modpack guide. Not: wiringexample (example).
+def _data(module, author, icon, en, de, ns=None):
+    return dict(module=module, ns=ns or module, kind="data", author=author, icon=icon, intro=(en, de))
+
+
+MODULES += [
+    _data("simpleweather", "Simple Weather", "minecraft:water_bucket",
+          "Weather switch on the server and rain density on the client. A sub-mod of Simple Quality of Life, also playable alone.",
+          "Wetterschalter auf dem Server und Regendichte auf dem Client. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."),
+    _data("simpleinterfaces", "Simple Interfaces", "minecraft:chest",
+          "Restyled Vanilla container screens, linked containers and Easy Shulkers and Ender Chests. A sub-mod of Simple Quality "
+          "of Life, also playable alone.",
+          "Neu gestaltete Vanilla-Behälter, verknüpfte Behälter und einfache Shulker- und Endertruhen. Eine Sub-Mod von Simple "
+          "Quality of Life, auch allein spielbar."),
+    _data("simpleloot", "Simple Loot", "minecraft:trial_key",
+          "Vault rewards come back after a cooldown in days instead of once per player. A sub-mod of Simple Quality of Life, "
+          "also playable alone.",
+          "Tresor-Belohnungen kommen nach einer Wartezeit in Tagen wieder statt nur einmal je Spieler. Eine Sub-Mod von Simple "
+          "Quality of Life, auch allein spielbar."),
+    _data("simplemobmanners", "Simple Mob Manners", "minecraft:name_tag",
+          "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools. A sub-mod of Simple "
+          "Quality of Life, also playable alone.",
+          "Mobs nach Art oder Namensschild stumm schalten, benannte Jungtiere bleiben jung, Piglins übersehen Goldbesatz und "
+          "-werkzeug. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."),
+    _data("simplefarming", "Simple Farming", "minecraft:wheat",
+          "Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops. A sub-mod of Simple "
+          "Quality of Life, also playable alone.",
+          "Federfall schützt Ackerland, Schärfe schneidet Gras, eine Hacke erntet reife Pflanzen und setzt sie neu. Eine Sub-Mod "
+          "von Simple Quality of Life, auch allein spielbar."),
+    _data("simplemovement", "Simple Movement", "minecraft:ladder",
+          "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow. A sub-mod of Simple Quality "
+          "of Life, also playable alone.",
+          "Kriechen per Taste, vom Server erlaubtes automatisches Laufen, schnellere Leitern und Eisläufer auf Pulverschnee. Eine "
+          "Sub-Mod von Simple Quality of Life, auch allein spielbar."),
+    _data("simplefoundry", "Simple Foundry", "minecraft:bricks",
+          "A multiblock foundry: melting chambers in a brick hull, ore thrown in, the melt poured by layer into casting trays.",
+          "Eine Gießerei aus mehreren Blöcken: Schmelzkammern in einer Ziegelhülle, Erz hineinwerfen, die Schmelze schichtweise in "
+          "Gussformen gießen."),
+    _data("simplequestionary", "Simple Questionary", "minecraft:lectern",
+          "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
+          "Der Fragetisch: lege ein beliebiges Item hinein und lies in einem offenen Buch seine Geschichte, seinen Nutzen und ein "
+          "Geheimnis."),
+    _data("simplelivemap", "Simple Livemap", "minecraft:filled_map",
+          "A live web map of the world as the players really explored it, with map relief, optional player positions and an "
+          "optional built-in web server.",
+          "Eine Live-Webkarte der Welt, so wie die Spieler sie wirklich erkundet haben, mit Kartenrelief, wahlweise Spielerpositionen "
+          "und einem wahlweise eingebauten Webserver."),
+    _data("simpleoptimization", "Simple Optimization", "minecraft:redstone_torch",
+          "Bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one switch each. Each has its own chapter here.",
+          "Bündelt Simple Opt Render, Simple Opt Memory und Simple Opt Server mit je einem Schalter. Jede hat hier ihr eigenes Kapitel."),
+    _data("simpleoptrender", "Simple Opt Render", "minecraft:spyglass",
+          "Client optimizations; each area steps back when a known optimization mod covers it.",
+          "Client-Optimierungen; jeder Bereich tritt zurück, wenn eine bekannte Optimierungsmod ihn abdeckt."),
+    _data("simpleoptmemory", "Simple Opt Memory", "minecraft:bundle",
+          "Memory optimizations; so far the switch, its config and mod detection.",
+          "Speicher-Optimierungen; bisher der Schalter, seine Einstellungen und die Mod-Erkennung."),
+    _data("simpleoptserver", "Simple Opt Server", "minecraft:clock",
+          "Server optimizations: the view distance follows the server load within the server.properties bounds.",
+          "Server-Optimierungen: die Sichtweite folgt der Serverlast innerhalb der Grenzen aus server.properties."),
+    _data("simplelib", "SimpleLib", "minecraft:book",
+          "What every Simple mod shares: this guide, warm food, shared materials, rarity tiers and Free Look.",
+          "Was alle Simple-Mods teilen: dieses Handbuch, warmes Essen, gemeinsame Materialien, Seltenheitsstufen und Freie Sicht."),
+]
+# Modules that need no chapter: examples and section owners without content of their own (checked in --check).
+NO_CHAPTER = {"wiringexample", "simpleaesthetics", "simplebuilding"}  # SimpleBuilding: own book screen (section owner)
+
 # Super-mods without a guide of their own still own their section (top bookmark): (module, namespace, name, icon).
 SECTION_OWNERS = [("simpleaesthetics", "simpleaesthetics", "Simple Aesthetics", "minecraft:painting")]
-SUPER_ORDER = {"simplequalityoflife": 10, "simpleaesthetics": 20, "simplestats": 30}
+SUPER_ORDER = {"simplequalityoflife": 10, "simpleaesthetics": 20, "simplestats": 30, "simpleoptimization": 40,
+               "simplelivemap": 50, "simplelib": 90}
 # Files of the single guides that no longer exist (deleted when writing, reported by --check).
 RETIRED = ("data/{ns}/recipe/guide_book.json", "data/{ns}/advancement/recipes/misc/guide_book.json",
            "data/{ns}/ftbquests/install.txt", "data/{ns}/ftbquests/chapters/{ns}_start.json5",
@@ -545,7 +614,8 @@ def translate(key: str) -> str:
 def module_paths(cfg: dict) -> dict:
     root = REPO / "modules" / cfg["module"]
     res = root / "shared/resources"
-    return dict(root=root, res=res, java=root / "shared/java" / cfg["package"].replace(".", "/") / f"{cfg['cls']}.java",
+    java = root / "shared/java" / cfg["package"].replace(".", "/") / f"{cfg['cls']}.java" if "package" in cfg else None
+    return dict(root=root, res=res, java=java,
                 lang=res / "assets" / cfg["ns"] / "lang", data=res / "data" / cfg["ns"], assets=res / "assets" / cfg["ns"])
 
 
@@ -564,7 +634,9 @@ def lang_entries(cfg: dict, pages) -> tuple[dict, dict]:
 
 def updated_lang(path: Path, cfg: dict, entries: dict) -> str:
     ns = cfg["ns"]
-    owned = (f"item.{ns}.guide_book", f"{ns}.guide.chapter", f"{ns}.guide.page.", f"quests.{ns}.start.")
+    owned = (f"item.{ns}.guide_book", f"{ns}.guide.chapter", f"{ns}.guide.page.")
+    if ns != LIB_QUEST_NS:  # SimpleLib keeps its one FTB start chapter's texts (b-guide15: SimpleLib has a chapter now)
+        owned += (f"quests.{ns}.start.",)
     data = json.loads(path.read_text(encoding="utf-8"))
     items = {k: v for k, v in data.items() if not (k in owned[:2] or k.startswith(owned[2:]))}
     items.update(entries)
@@ -747,7 +819,8 @@ def outputs() -> dict[Path, str]:
     for cfg in MODULES:
         pages = build_pages(cfg)
         p = module_paths(cfg)
-        out[p["java"]] = java_source(cfg, pages)
+        if p["java"] is not None:
+            out[p["java"]] = java_source(cfg, pages)
         en, de = lang_entries(cfg, pages)
         out[p["lang"] / "en_us.json"] = updated_lang(p["lang"] / "en_us.json", cfg, en)
         out[p["lang"] / "de_de.json"] = updated_lang(p["lang"] / "de_de.json", cfg, de)
@@ -763,6 +836,44 @@ def outputs() -> dict[Path, str]:
 def retired() -> list[Path]:
     """Files of the single guides that must be gone (their recipes and FTB start chapters)."""
     return [module_paths(cfg)["res"] / pattern.format(ns=cfg["ns"]) for cfg in MODULES if cfg["kind"] == "item" for pattern in RETIRED]
+
+
+def coverage() -> list[str]:
+    """b-guide15: every module of modules/modules.json (but NO_CHAPTER) has a guide chapter with at least one page, chapter
+    ids are unique, every chapter's pages exist in both languages and no chapter holds more than MAX_PAGES pages."""
+    problems = []
+    manifest = json.loads((REPO / "modules/modules.json").read_text(encoding="utf-8"))["modules"]
+    by_module = {cfg["module"]: cfg for cfg in MODULES}
+    seen = {}
+    for entry in manifest:
+        module = entry["id"]
+        if module in NO_CHAPTER or entry.get("example"):
+            continue
+        cfg = by_module.get(module)
+        if cfg is None:
+            problems.append(f"{module}: no chapter in the Simple Modpack guide (add it to MODULES)")
+            continue
+        path = module_paths(cfg)["assets"] / "simplelib/modpack_guide.json"
+        if not path.exists():
+            problems.append(f"{module}: {path.relative_to(REPO)} missing")
+            continue
+        chapters = json.loads(path.read_text(encoding="utf-8")).get("chapters", [])
+        if not chapters:
+            problems.append(f"{module}: contribution without a chapter")
+        for chapter in chapters:
+            cid, pages = chapter["id"], chapter["pages"]
+            if cid in seen:
+                problems.append(f"{module}: chapter {cid} also in {seen[cid]}")
+            seen[cid] = module
+            if not 1 <= pages <= MAX_PAGES:
+                problems.append(f"{module}: chapter {cid} has {pages} pages (1..{MAX_PAGES})")
+            for locale in ("en_us", "de_de"):
+                lang_path = module_paths(cfg)["lang"] / f"{locale}.json"
+                lang = json.loads(lang_path.read_text(encoding="utf-8")) if lang_path.exists() else {}
+                missing = [n for n in range(1, pages + 1) if f"{chapter['page_key']}.{n}.title" not in lang]
+                if chapter["title"] not in lang or missing:
+                    problems.append(f"{module}: {locale} lacks {chapter['title']} or pages {missing[:5]}")
+    return problems
 
 
 def main(argv: list[str]) -> int:
@@ -786,6 +897,8 @@ def main(argv: list[str]) -> int:
             else:
                 path.unlink()
                 print("removed", path.relative_to(REPO))
+    if check:
+        stale += ["coverage: " + p for p in coverage()]
     if stale:
         print("Module guides are stale - run: python tools/guides/module_guides.py")
         for s in stale:

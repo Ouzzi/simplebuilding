@@ -1,0 +1,15 @@
+{
+  "section": "simplebuilding",
+  "name": "simplequestionary.guide.chapter",
+  "icon": "minecraft:lectern",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplequestionary:guide",
+      "title": "simplequestionary.guide.chapter",
+      "icon": "minecraft:lectern",
+      "page_key": "simplequestionary.guide.page",
+      "pages": 5
+    }
+  ]
+}

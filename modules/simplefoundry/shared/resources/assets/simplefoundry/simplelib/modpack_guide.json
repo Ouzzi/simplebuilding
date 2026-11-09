@@ -1,0 +1,15 @@
+{
+  "section": "simplebuilding",
+  "name": "simplefoundry.guide.chapter",
+  "icon": "minecraft:bricks",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplefoundry:guide",
+      "title": "simplefoundry.guide.chapter",
+      "icon": "minecraft:bricks",
+      "page_key": "simplefoundry.guide.page",
+      "pages": 3
+    }
+  ]
+}

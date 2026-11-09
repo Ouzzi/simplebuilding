@@ -5,5 +5,18 @@
   "text.autoconfig.simpleoptimization.option.enableSimpleOptMemory": "Simple Opt Memory aktivieren",
   "text.autoconfig.simpleoptimization.option.enableSimpleOptMemory.@Tooltip": "Schaltet den Sub-Mod Simple Opt Memory ein oder aus.\nStandard: true.",
   "text.autoconfig.simpleoptimization.option.enableSimpleOptServer": "Simple Opt Server aktivieren",
-  "text.autoconfig.simpleoptimization.option.enableSimpleOptServer.@Tooltip": "Schaltet den Sub-Mod Simple Opt Server ein oder aus.\nStandard: true."
+  "text.autoconfig.simpleoptimization.option.enableSimpleOptServer.@Tooltip": "Schaltet den Sub-Mod Simple Opt Server ein oder aus.\nStandard: true.",
+  "simpleoptimization.guide.chapter": "Simple Optimization",
+  "simpleoptimization.guide.page.1.title": "Simple Optimization",
+  "simpleoptimization.guide.page.1": "Bündelt Simple Opt Render, Simple Opt Memory und Simple Opt Server mit je einem Schalter. Jede hat hier ihr eigenes Kapitel.",
+  "simpleoptimization.guide.page.2.title": "Super-Mod für Optimierungen",
+  "simpleoptimization.guide.page.2": "Simple Optimization hat keine eigenen Inhalte: Es bündelt Simple Opt Render, Simple Opt Memory und Simple Opt Server.",
+  "simpleoptimization.guide.page.3.title": "Super-Mod für Optimierungen",
+  "simpleoptimization.guide.page.3": "config/simpleoptimization.json hat je einen Schalter (enableSimpleOptRender, enableSimpleOptMemory, enableSimpleOptServer, Standard true);",
+  "simpleoptimization.guide.page.4.title": "Super-Mod für Optimierungen",
+  "simpleoptimization.guide.page.4": "aus macht die Sub-Mod wirkungslos, ihre eigenen Einstellungen bleiben in ihrer Config. Jede Sub-Mod läuft auch allein; ein Server braucht nur Simple Opt Server.",
+  "simpleoptimization.guide.page.5.title": "Befehle",
+  "simpleoptimization.guide.page.5": "/simpleoptimization config zeigt und ändert jede Option von config/simpleoptimization.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Die Datei wird einmal beim Start gelesen:",
+  "simpleoptimization.guide.page.6.title": "Befehle",
+  "simpleoptimization.guide.page.6": "Eine Änderung wird sofort gespeichert, wirkt aber erst nach einem Neustart (jede Antwort sagt das). Berechtigung 2."
 }

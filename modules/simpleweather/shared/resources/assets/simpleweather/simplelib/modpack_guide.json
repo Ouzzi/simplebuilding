@@ -1,0 +1,15 @@
+{
+  "section": "simplequalityoflife",
+  "name": "simpleweather.guide.chapter",
+  "icon": "minecraft:water_bucket",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleweather:guide",
+      "title": "simpleweather.guide.chapter",
+      "icon": "minecraft:water_bucket",
+      "page_key": "simpleweather.guide.page",
+      "pages": 9
+    }
+  ]
+}

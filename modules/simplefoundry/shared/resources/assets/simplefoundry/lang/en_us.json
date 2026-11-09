@@ -36,5 +36,12 @@
   "gui.simplefoundry.arrow": "Next layer down (back to the top)",
   "gui.simplefoundry.fuel": "Fuel tank: %s of %s ticks",
   "gui.simplefoundry.fuel_ways": "Lava bucket (empty one comes back) or coal",
-  "gui.simplefoundry.metal": "%s: %s ingots melted, %s waiting"
+  "gui.simplefoundry.metal": "%s: %s ingots melted, %s waiting",
+  "simplefoundry.guide.chapter": "Simple Foundry",
+  "simplefoundry.guide.page.1.title": "Simple Foundry",
+  "simplefoundry.guide.page.1": "A multiblock foundry: melting chambers in a brick hull, ore thrown in, the melt poured by layer into casting trays.",
+  "simplefoundry.guide.page.2.title": "Foundry (multiblock)",
+  "simplefoundry.guide.page.2": "Build a tank of melting chambers inside a closed hull, light it with fuel on the desk, throw in ore and pour the melt by layer.",
+  "simplefoundry.guide.page.3.title": "Settings",
+  "simplefoundry.guide.page.3": "More settings are in the mod's config screen."
 }

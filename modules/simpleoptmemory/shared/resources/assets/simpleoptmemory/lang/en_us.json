@@ -1,4 +1,25 @@
 {
   "modmenu.nameTranslation.simpleoptmemory": "Simple Opt Memory",
-  "simpleoptmemory.area.state_tables": "Block-state tables"
+  "simpleoptmemory.area.state_tables": "Block-state tables",
+  "simpleoptmemory.guide.chapter": "Simple Opt Memory",
+  "simpleoptmemory.guide.page.1.title": "Simple Opt Memory",
+  "simpleoptmemory.guide.page.1": "Memory optimizations; so far the switch, its config and mod detection.",
+  "simpleoptmemory.guide.page.2.title": "Steps back for known mods",
+  "simpleoptmemory.guide.page.2": "config/simpleoptmemory.json has a mode per area (auto, ours, theirs, off).",
+  "simpleoptmemory.guide.page.3.title": "Steps back for known mods",
+  "simpleoptmemory.guide.page.3": "In auto, FerriteCore wins the block-state tables and our part stays off; ours next to it is refused, since both change the same constructors.",
+  "simpleoptmemory.guide.page.4.title": "Steps back for known mods",
+  "simpleoptmemory.guide.page.4": "Another mod hooking the same classes switches the area off at start (target check, conflictScan). The log also names ModernFix when installed (model loading is a later area).",
+  "simpleoptmemory.guide.page.5.title": "Shared block-state tables",
+  "simpleoptmemory.guide.page.5": "Block states that hold the same property values (for example every stair block facing east) share one value array instead of one each,",
+  "simpleoptmemory.guide.page.6.title": "Shared block-state tables",
+  "simpleoptmemory.guide.page.6": "blocks with the same properties share one key array, and states with the same",
+  "simpleoptmemory.guide.page.7.title": "Shared block-state tables",
+  "simpleoptmemory.guide.page.7": "face-support pattern share one table. Only arrays that are never written are shared, with exact identity of their entries, so the game behaves the same;",
+  "simpleoptmemory.guide.page.8.title": "Shared block-state tables",
+  "simpleoptmemory.guide.page.8": "the log reports how many arrays were shared and the memory saved.",
+  "simpleoptmemory.guide.page.9.title": "Commands",
+  "simpleoptmemory.guide.page.9": "/simpleoptmemory config shows and changes every option of config/simpleoptmemory.json (list [group], get, set, reset, help; Tab completes options and values).",
+  "simpleoptmemory.guide.page.10.title": "Commands",
+  "simpleoptmemory.guide.page.10": "The file is read once while the game starts, so a change is saved at once but takes effect after a restart (each answer says so). Permission level 2. The same file is also reachable as /simpleclient simpleoptmemory."
 }
