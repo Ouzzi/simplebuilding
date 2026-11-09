@@ -99,8 +99,10 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
-            check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance"))
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance",
+                            "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers"))
+                    && OresConfig.leadOre && OresConfig.endLeadOre && OresConfig.zincGeodes && OresConfig.endZincGeodes && OresConfig.nickelOre && OresConfig.tinOre && OresConfig.tinPlacers
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
                     , "config defaults");
             h.succeed();
@@ -543,15 +545,19 @@ public final class OresTests {
             h.succeed();
         });
         ALL.put("lead_worldgen", h -> {
+            // N4 (b-ores13, owner 09.11.): lead only in stone (no deepslate lead), never touching air (Vanilla discard chance 1.0), Y 0 to 72.
             ServerLevel level = h.getLevel();
             var features = level.registryAccess().lookupOrThrow(Registries.FEATURE);
             var placedRegistry = level.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE);
             OreFeature lead = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("lead_ore")));
-            check(h, lead != null && lead.size() == 9 && lead.targetStates().size() == 2, "lead feature: veins of 9, stone and deepslate");
+            check(h, lead != null && lead.size() == 9 && lead.targetStates().size() == 1 && lead.discardChanceOnAirExposure() == 1.0F, "lead feature: veins of 9, stone only, air exposure 1.0");
             RandomSource random = RandomSource.create(7L);
             check(h, lead.targetStates().get(0).target().test(Blocks.STONE.defaultBlockState(), BlockPos.ZERO, random) && lead.targetStates().get(0).state().is(OresRegistry.LEAD_ORE)
-                    && lead.targetStates().get(1).target().test(Blocks.DEEPSLATE.defaultBlockState(), BlockPos.ZERO, random) && lead.targetStates().get(1).state().is(OresRegistry.DEEPSLATE_LEAD_ORE),
-                    "stone -> ore, deepslate -> deepslate ore");
+                    && !lead.targetStates().get(0).target().test(Blocks.DEEPSLATE.defaultBlockState(), BlockPos.ZERO, random), "stone -> lead ore, deepslate stays");
+            // the air rule as OreFeature applies it: a candidate next to air is never placed, one inside stone is
+            BlockPos.MutableBlockPos at = new BlockPos.MutableBlockPos(0, 40, 0);
+            check(h, !lead.canPlaceOre(Blocks.STONE.defaultBlockState(), p -> p.equals(at.above()) ? Blocks.AIR.defaultBlockState() : Blocks.STONE.defaultBlockState(), random, lead.targetStates().get(0), at)
+                    && lead.canPlaceOre(Blocks.STONE.defaultBlockState(), p -> Blocks.STONE.defaultBlockState(), random, lead.targetStates().get(0), at), "never at air, always inside stone");
             PlacedFeature placed = placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("lead_ore")));
             double perChunk = perChunk(level, placed);
             check(h, perChunk == 6.0, "6 veins per chunk, measured " + perChunk);
@@ -560,24 +566,25 @@ public final class OresTests {
             PlacedFeature copper = placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, Identifier.withDefaultNamespace("ore_copper")));
             double copperBlocks = (copper == null ? 16.0 : perChunk(level, copper)) * 10;
             check(h, perChunk * lead.size() < copperBlocks, "fewer lead ore blocks per chunk than copper: " + perChunk * lead.size() + " vs " + copperBlocks);
-            // Height: every vein of 400 chunks lies between Y -64 and 48, and both ends of the range are used.
-            PlacementContext context = new PlacementContext(level, level.getChunkSource().getGenerator(), Optional.of(placed));
-            RandomSource heights = RandomSource.create(5L);
-            int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
-            for (int i = 0; i < 400; i++) {
-                List<BlockPos> current = List.of(BlockPos.ZERO);
-                for (PlacementModifier modifier : placed.placement()) {
-                    if (modifier instanceof BiomeFilter) continue;
-                    List<BlockPos> next = new ArrayList<>();
-                    for (BlockPos p : current) modifier.modify(context, heights, p, next::add);
-                    current = next;
-                }
-                for (BlockPos p : current) {
-                    min = Math.min(min, p.getY());
-                    max = Math.max(max, p.getY());
+            int[] range = heights(level, placed);
+            check(h, range[0] >= 0 && range[1] <= 72 && range[0] < 12 && range[1] > 60, "veins between Y 0 and 72, measured " + range[0] + " to " + range[1]);
+            // End lead: End stone only, never at air, outer islands.
+            OreFeature endLead = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("end_lead_ore")));
+            check(h, endLead != null && endLead.discardChanceOnAirExposure() == 1.0F && endLead.targetStates().size() == 1 && endLead.targetStates().get(0).state().is(OresRegistry.END_LEAD_ORE)
+                    && endLead.targetStates().get(0).target().test(Blocks.END_STONE.defaultBlockState(), BlockPos.ZERO, random)
+                    && !endLead.targetStates().get(0).target().test(Blocks.STONE.defaultBlockState(), BlockPos.ZERO, random), "End lead: End stone only, air exposure 1.0");
+            int[] endRange = heights(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("end_lead_ore"))));
+            check(h, endRange[0] >= 20 && endRange[1] <= 80, "End lead Y 20 to 80, measured " + endRange[0] + " to " + endRange[1]);
+            // No Simple Ores feature generates the retired ores any more (they stay registered for old worlds).
+            for (var ref : features.listElements().toList()) {
+                if (!ref.key().identifier().getNamespace().equals(SimpleOres.MOD_ID) || !(ref.value() instanceof net.minecraft.world.level.levelgen.feature.AbstractOreFeature ore)) continue;
+                for (var target : ore.targetStates()) {
+                    for (String retired : new String[] {"deepslate_lead_ore", "deepslate_zinc_ore", "zinc_ore", "deepslate_tin_ore", "nickel_ore"}) {
+                        check(h, !target.state().is(OresRegistry.BLOCKS.get(retired)), ref.key().identifier() + " still generates " + retired);
+                    }
                 }
             }
-            check(h, min >= -64 && max <= 48 && min < -50 && max > 36, "veins between Y -64 and 48, measured " + min + " to " + max);
+            check(h, features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("zinc_ore"))) == null, "zinc forms no free veins");
             h.succeed();
         });
         ALL.put("metal_recipes", h -> {
@@ -623,22 +630,40 @@ public final class OresTests {
             h.succeed();
         });
         ALL.put("metal_worldgen_drops", h -> {
-            // RG30-2: veins of the three metals are rarer than lead, nickel is the rarest; ores drop the raw piece; tiers: zinc and tin stone, nickel iron.
+            // N4 (b-ores13): nickel only in deepslate like diamond (Y -64 to 16), mountain tin in stone and granite (Y 20 to 80, nests only in
+            // granite, extra veins in the mountain biomes); every ore drops its raw piece; tiers: zinc and tin stone, nickel iron.
             ServerLevel level = h.getLevel();
             var features = level.registryAccess().lookupOrThrow(Registries.FEATURE);
             var placedRegistry = level.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE);
-            int[] size = {8, 5, 7};
-            double[] perChunk = new double[3];
+            RandomSource random = RandomSource.create(7L);
+            OreFeature nickel = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("nickel_ore")));
+            check(h, nickel != null && nickel.size() == 6 && nickel.targetStates().size() == 1 && nickel.discardChanceOnAirExposure() == 0.5F
+                    && nickel.targetStates().get(0).state().is(OresRegistry.BLOCKS.get("deepslate_nickel_ore"))
+                    && nickel.targetStates().get(0).target().test(Blocks.DEEPSLATE.defaultBlockState(), BlockPos.ZERO, random)
+                    && !nickel.targetStates().get(0).target().test(Blocks.STONE.defaultBlockState(), BlockPos.ZERO, random), "nickel: deepslate only, veins of 6, air 0.5 like diamond");
+            PlacedFeature nickelPlaced = placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nickel_ore")));
+            int[] nickelRange = heights(level, nickelPlaced);
+            // like diamond: trapezoid from 80 below to 80 above the bottom (Y -144..16); rolls below the world bottom (Y -64) are lost, most land at -64
+            check(h, nickelRange[0] < -64 && nickelRange[1] <= 16 && nickelRange[1] > 0 && perChunk(level, nickelPlaced) == 10.0, "nickel: 10 veins up to Y 16, measured " + nickelRange[0] + " to " + nickelRange[1]);
+            PlacedFeature diamond = placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, Identifier.withDefaultNamespace("ore_diamond")));
+            if (diamond != null) check(h, perChunk(level, nickelPlaced) * nickel.size() > perChunk(level, diamond) * 4, "a little more common than the small diamond veins");
+            OreFeature tin = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("tin_ore")));
+            OreFeature granite = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("tin_ore_granite")));
+            OreFeature mountain = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("tin_ore_mountain")));
+            check(h, tin != null && granite != null && mountain != null, "three mountain tin features");
+            check(h, tin.targetStates().stream().allMatch(t -> t.state().is(OresRegistry.BLOCKS.get("tin_ore")))
+                    && tin.targetStates().stream().anyMatch(t -> t.target().test(Blocks.GRANITE.defaultBlockState(), BlockPos.ZERO, random))
+                    && tin.targetStates().stream().noneMatch(t -> t.target().test(Blocks.DEEPSLATE.defaultBlockState(), BlockPos.ZERO, random)), "tin: stone and granite, no deepslate");
+            check(h, granite.targetStates().size() == 1 && granite.targetStates().get(0).target().test(Blocks.GRANITE.defaultBlockState(), BlockPos.ZERO, random)
+                    && !granite.targetStates().get(0).target().test(Blocks.STONE.defaultBlockState(), BlockPos.ZERO, random), "granite nests turn only granite");
+            int[] tinRange = heights(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("tin_ore"))));
+            check(h, tinRange[0] >= 20 && tinRange[1] <= 80, "tin Y 20 to 80, measured " + tinRange[0] + " to " + tinRange[1]);
+            var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);
+            var mountains = biomes.getOrThrow(net.minecraft.tags.TagKey.create(Registries.BIOME, SimpleOres.id("has_mountain_tin")));
+            check(h, mountains.stream().anyMatch(b -> b.is(net.minecraft.world.level.biome.Biomes.STONY_PEAKS)) && mountains.stream().noneMatch(b -> b.is(net.minecraft.world.level.biome.Biomes.PLAINS)),
+                    "mountain tin in the stony peaks, not in the plains");
             for (int i = 0; i < 3; i++) {
                 String m = OresRegistry.METALS[i];
-                OreFeature ore = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id(m + "_ore")));
-                check(h, ore != null && ore.size() == size[i] && ore.targetStates().size() == 2, m + " feature: veins of " + size[i] + ", stone and deepslate");
-                RandomSource random = RandomSource.create(7L);
-                check(h, ore.targetStates().get(0).target().test(Blocks.STONE.defaultBlockState(), BlockPos.ZERO, random)
-                        && ore.targetStates().get(1).target().test(Blocks.DEEPSLATE.defaultBlockState(), BlockPos.ZERO, random)
-                        && ore.targetStates().get(1).state().is(OresRegistry.BLOCKS.get("deepslate_" + m + "_ore")), m + ": stone -> ore, deepslate -> deepslate ore");
-                perChunk[i] = perChunk(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id(m + "_ore"))));
-                check(h, perChunk[i] * ore.size() < 6 * 9, m + " has fewer ore blocks per chunk than lead: " + perChunk[i] * ore.size());
                 BlockPos pos = h.absolutePos(new BlockPos(2, 1, 2));
                 level.setBlockAndUpdate(pos, OresRegistry.BLOCKS.get(m + "_ore").defaultBlockState());
                 List<ItemStack> drops = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.IRON_PICKAXE));
@@ -649,7 +674,92 @@ public final class OresTests {
                         m + " ore tier " + (stoneTier ? "stone" : "iron"));
                 level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
             }
-            check(h, perChunk[1] * 5 < perChunk[0] * 8 && perChunk[1] * 5 < perChunk[2] * 7, "nickel is the rarest of the three");
+            h.succeed();
+        });
+        ALL.put("zinc_geodes", h -> {
+            // N4: zinc only in closed mini geodes (Overworld: geode crust, calcite, zinc ore in base stone; End: End stone, geode crust,
+            // End zinc ore in End stone); 1 to 8 ores, every ore enclosed, nothing placed when the host has a hole.
+            ServerLevel level = h.getLevel();
+            var features = level.registryAccess().lookupOrThrow(Registries.FEATURE);
+            for (String[] row : new String[][] {{"zinc_geode", "stone"}, {"end_zinc_geode", "end"}}) {
+                Object f = features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id(row[0])));
+                check(h, f instanceof com.simpleores.MiniGeodeFeature, row[0] + " is a mini geode");
+                com.simpleores.MiniGeodeFeature geode = (com.simpleores.MiniGeodeFeature) f;
+                boolean end = row[1].equals("end");
+                BlockState host = end ? Blocks.END_STONE.defaultBlockState() : Blocks.STONE.defaultBlockState();
+                Block ore = end ? OresRegistry.END_ZINC_ORE : OresRegistry.BLOCKS.get("zinc_ore");
+                check(h, geode.ore().is(ore) && geode.shell().is(end ? Blocks.END_STONE : OresRegistry.GEODE_CRUST)
+                        && geode.lining().is(end ? OresRegistry.GEODE_CRUST : Blocks.CALCITE), row[0] + ": shell, lining, ore");
+                BlockPos center = h.absolutePos(new BlockPos(8, 4, 8));
+                RandomSource random = RandomSource.create(end ? 3L : 2L);
+                int min = Integer.MAX_VALUE, max = 0;
+                for (int round = 0; round < 24; round++) {
+                    fill(level, center, host);
+                    check(h, geode.place(level, level.getChunkSource().getGenerator(), random, center), row[0] + " places in solid host rock");
+                    int ores = 0;
+                    for (BlockPos o : com.simpleores.MiniGeodeFeature.ball(com.simpleores.MiniGeodeFeature.CHECK)) {
+                        BlockPos p = center.offset(o);
+                        if (!level.getBlockState(p).is(ore)) continue;
+                        ores++;
+                        for (Direction d : Direction.values()) check(h, !level.getBlockState(p.relative(d)).isAir(), "ore at air");
+                        check(h, o.distSqr(BlockPos.ZERO) <= com.simpleores.MiniGeodeFeature.CORE, "ore outside the core");
+                    }
+                    for (BlockPos o : com.simpleores.MiniGeodeFeature.ball(com.simpleores.MiniGeodeFeature.SHELL)) {
+                        if (o.distSqr(BlockPos.ZERO) > com.simpleores.MiniGeodeFeature.CORE) check(h, level.getBlockState(center.offset(o)).equals(geode.shell()), "shell complete");
+                    }
+                    min = Math.min(min, ores);
+                    max = Math.max(max, ores);
+                }
+                check(h, min >= 1 && max <= 8 && max > min, row[0] + ": 1 to 8 ores per geode, measured " + min + " to " + max);
+                // a hole (air) anywhere in the check ball: nothing is placed
+                fill(level, center, host);
+                level.setBlock(center.offset(3, 0, 0), Blocks.AIR.defaultBlockState(), 2);
+                check(h, !geode.place(level, level.getChunkSource().getGenerator(), random, center) && level.getBlockState(center).equals(host), row[0] + ": not placed next to air");
+                level.setBlock(center.offset(0, 2, 0), Blocks.WATER.defaultBlockState(), 2);
+                check(h, !geode.enclosed(level::getBlockState, center, random), row[0] + ": not enclosed next to water");
+            }
+            var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);
+            var endTag = biomes.getOrThrow(net.minecraft.tags.TagKey.create(Registries.BIOME, SimpleOres.id("has_end_zinc_geode")));
+            check(h, endTag.stream().anyMatch(b -> b.is(net.minecraft.world.level.biome.Biomes.END_HIGHLANDS)) && endTag.stream().noneMatch(b -> b.is(net.minecraft.world.level.biome.Biomes.THE_END)),
+                    "End geodes on the outer islands only");
+            h.succeed();
+        });
+        ALL.put("tin_placers", h -> {
+            // N4: tin-bearing gravel and sand lie under water in river and beach beds; a shovel digs them for 2 to 5 tin nuggets.
+            ServerLevel level = h.getLevel();
+            var features = level.registryAccess().lookupOrThrow(Registries.FEATURE);
+            check(h, features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("tin_placer"))) instanceof net.minecraft.world.level.levelgen.feature.DiskFeature, "tin placer is a disk");
+            var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);
+            var tag = biomes.getOrThrow(net.minecraft.tags.TagKey.create(Registries.BIOME, SimpleOres.id("has_tin_placer")));
+            check(h, tag.stream().anyMatch(b -> b.is(net.minecraft.world.level.biome.Biomes.RIVER)) && tag.stream().anyMatch(b -> b.is(net.minecraft.world.level.biome.Biomes.BEACH))
+                    && tag.stream().noneMatch(b -> b.is(net.minecraft.world.level.biome.Biomes.PLAINS)), "rivers and beaches");
+            BlockPos pos = h.absolutePos(new BlockPos(2, 1, 2));
+            for (Block placer : new Block[] {OresRegistry.TIN_BEARING_GRAVEL, OresRegistry.TIN_BEARING_SAND}) {
+                BlockState state = placer.defaultBlockState();
+                check(h, state.is(BlockTags.MINEABLE_WITH_SHOVEL) && !state.is(BlockTags.MINEABLE_WITH_PICKAXE)
+                        && new ItemStack(Items.IRON_SHOVEL).getDestroySpeed(state) > 1.0F, placer + " is dug with a shovel");
+                int min = Integer.MAX_VALUE, max = 0;
+                for (int i = 0; i < 40; i++) {
+                    level.setBlockAndUpdate(pos, state);
+                    List<ItemStack> drops = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.IRON_SHOVEL));
+                    check(h, drops.size() == 1 && drops.getFirst().is(item("tin_nugget")), placer + " drops tin nuggets: " + drops);
+                    min = Math.min(min, drops.getFirst().getCount());
+                    max = Math.max(max, drops.getFirst().getCount());
+                }
+                check(h, min >= 2 && max <= 5 && max > min, placer + ": 2 to 5 nuggets, measured " + min + " to " + max);
+                check(h, placer instanceof net.minecraft.world.level.block.FallingBlock, placer + " falls like gravel and sand");
+            }
+            // the End ores drop like their Overworld ores, the crust drops itself
+            level.setBlockAndUpdate(pos, OresRegistry.END_LEAD_ORE.defaultBlockState());
+            List<ItemStack> lead = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.STONE_PICKAXE));
+            check(h, lead.size() == 1 && lead.getFirst().is(item("raw_lead")) && lead.getFirst().getCount() <= 2, "End lead ore -> 1 to 2 raw lead: " + lead);
+            level.setBlockAndUpdate(pos, OresRegistry.END_ZINC_ORE.defaultBlockState());
+            List<ItemStack> zinc = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.STONE_PICKAXE));
+            check(h, zinc.size() == 1 && zinc.getFirst().is(item("raw_zinc")), "End zinc ore -> raw zinc: " + zinc);
+            level.setBlockAndUpdate(pos, OresRegistry.GEODE_CRUST.defaultBlockState());
+            List<ItemStack> crust = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.WOODEN_PICKAXE));
+            check(h, crust.size() == 1 && crust.getFirst().is(item("geode_crust")), "geode crust drops itself: " + crust);
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
             h.succeed();
         });
         ALL.put("rose_gold_vein_rule", h -> {
@@ -882,6 +992,33 @@ public final class OresTests {
         ALL.put("guide_book", com.simpleores.guide.OresGuide::gameTest);
         ALL.put("discover_recipe_unlocks", com.simpleores.discover.OresDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleores.discover.OresDiscover::behaviourHints);
+    }
+
+    /** Lowest and highest Y of the placements of 400 chunks (all modifiers but the biome filter). */
+    private static int[] heights(ServerLevel level, PlacedFeature placed) {
+        if (placed == null) throw new AssertionError("placed feature missing");
+        PlacementContext context = new PlacementContext(level, level.getChunkSource().getGenerator(), Optional.of(placed));
+        RandomSource random = RandomSource.create(5L);
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        for (int i = 0; i < 400; i++) {
+            List<BlockPos> current = List.of(BlockPos.ZERO);
+            for (PlacementModifier modifier : placed.placement()) {
+                if (modifier instanceof BiomeFilter) continue;
+                List<BlockPos> next = new ArrayList<>();
+                for (BlockPos p : current) modifier.modify(context, random, p, next::add);
+                current = next;
+            }
+            for (BlockPos p : current) {
+                min = Math.min(min, p.getY());
+                max = Math.max(max, p.getY());
+            }
+        }
+        return new int[] {min, max};
+    }
+
+    /** The check ball of a mini geode round center filled with host rock. */
+    private static void fill(ServerLevel level, BlockPos center, BlockState host) {
+        for (BlockPos o : com.simpleores.MiniGeodeFeature.ball(com.simpleores.MiniGeodeFeature.CHECK + 3)) level.setBlock(center.offset(o), host, 2);
     }
 
     /** Average veins one chunk rolls: the count placements of a placed feature, sampled 400 times with a fixed seed. */

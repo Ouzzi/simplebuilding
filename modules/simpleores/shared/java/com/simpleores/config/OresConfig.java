@@ -18,7 +18,8 @@ public final class OresConfig {
     public static final String FILE = "simpleores-server.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords",
-            "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance");
+            "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance",
+            "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers");
 
     /** Simple Arrows' option since 03.11. (simplearrows-server.json); an old file keeps it for that one takeover. */
     public static final String LEGACY_ARROW_KEY = "silverArrowUndeadBonus";
@@ -41,6 +42,16 @@ public final class OresConfig {
     public static boolean sageOreOtherDimensions = true;
     /** 06.11.: percent chance per Nether gold ore block of a vein (below Y 31, at most one per vein) to be Nether Rose Gold Ore instead (0 to 10). */
     public static double roseGoldOreChance = 2.0;
+    /** N4 (b-ores13, 09.11.): one switch per deposit; each takes effect at the next world start in newly generated chunks. */
+    public static boolean leadOre = true;
+    public static boolean endLeadOre = true;
+    public static boolean zincGeodes = true;
+    public static boolean endZincGeodes = true;
+    public static boolean nickelOre = true;
+    /** Mountain tin: the stone veins, the nests in granite and the extra veins of the mountain biomes. */
+    public static boolean tinOre = true;
+    /** Tin-bearing gravel and sand in river and beach beds. */
+    public static boolean tinPlacers = true;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -73,6 +84,13 @@ public final class OresConfig {
         dimensionalScrap = bool(json, "dimensionalScrap", true);
         sageOreOtherDimensions = bool(json, "sageOreOtherDimensions", true);
         roseGoldOreChance = number(json, "roseGoldOreChance", 2.0, 0.0, 10.0);
+        leadOre = bool(json, "leadOre", true);
+        endLeadOre = bool(json, "endLeadOre", true);
+        zincGeodes = bool(json, "zincGeodes", true);
+        endZincGeodes = bool(json, "endZincGeodes", true);
+        nickelOre = bool(json, "nickelOre", true);
+        tinOre = bool(json, "tinOre", true);
+        tinPlacers = bool(json, "tinPlacers", true);
     }
 
     private static boolean bool(JsonObject json, String key, boolean fallback) {
@@ -97,6 +115,13 @@ public final class OresConfig {
         o.addProperty("dimensionalScrap", dimensionalScrap);
         o.addProperty("sageOreOtherDimensions", sageOreOtherDimensions);
         o.addProperty("roseGoldOreChance", roseGoldOreChance);
+        o.addProperty("leadOre", leadOre);
+        o.addProperty("endLeadOre", endLeadOre);
+        o.addProperty("zincGeodes", zincGeodes);
+        o.addProperty("endZincGeodes", endZincGeodes);
+        o.addProperty("nickelOre", nickelOre);
+        o.addProperty("tinOre", tinOre);
+        o.addProperty("tinPlacers", tinPlacers);
         return o;
     }
 

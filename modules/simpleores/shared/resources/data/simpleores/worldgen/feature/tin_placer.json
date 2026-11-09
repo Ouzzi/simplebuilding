@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:disk",
+  "half_height": 1,
+  "radius": {
+    "type": "minecraft:uniform",
+    "min_inclusive": 1,
+    "max_inclusive": 2
+  },
+  "state_provider": {
+    "type": "minecraft:rule_based",
+    "fallback": {
+      "id": "simpleores:tin_bearing_gravel"
+    },
+    "rules": [
+      {
+        "if_true": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:sand"
+        },
+        "then": {
+          "id": "simpleores:tin_bearing_sand"
+        }
+      }
+    ]
+  },
+  "target": {
+    "type": "minecraft:matching_blocks",
+    "blocks": [
+      "minecraft:sand",
+      "minecraft:gravel",
+      "minecraft:dirt",
+      "minecraft:clay"
+    ]
+  }
+}

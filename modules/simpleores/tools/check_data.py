@@ -15,7 +15,8 @@ import vanilla_derived  # noqa: E402
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OresConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords',
-                       'sageOre', 'dimensionalScrap', 'sageOreOtherDimensions', 'roseGoldOreChance'], config_keys
+                       'sageOre', 'dimensionalScrap', 'sageOreOtherDimensions', 'roseGoldOreChance',
+                       'leadOre', 'endLeadOre', 'zincGeodes', 'endZincGeodes', 'nickelOre', 'tinOre', 'tinPlacers'], config_keys
 BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
           'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block', 'rose_bronze_pressling_block', 'rose_gold_pressling_block',
           'netherite_scrap_block', 'enderite_scrap_block', 'sage_orb_block')
@@ -59,7 +60,16 @@ ORES07_DERIVED = ('block/nether_rose_gold_ore.png', 'block/nether_sage_ore.png',
                   'item/sage_crystal.png', 'item/sage_crystal_shard.png')
 assert all(d in derived for d in ORES07_DERIVED), ORES07_DERIVED
 # blocks - 1 (lead_plate shares the lead block texture), items - 2 (the enchanted apples share the plain one), + 2 alloys x 2 armor layers
-assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 2 * len(ALLOYS) + len(ORES07_DERIVED), len(derived)
+# N4 (b-ores13): End lead/zinc ore and the tin placers are derived (Vanilla End stone, gravel, sand); the geode crust is own art with layers.
+N4_DERIVED = ('end_lead_ore', 'end_zinc_ore', 'tin_bearing_gravel', 'tin_bearing_sand')
+for b in N4_DERIVED + ('geode_crust',):
+    for rel in (f'assets/{NS}/blockstates/{b}.json', f'assets/{NS}/models/block/{b}.json', f'assets/{NS}/items/{b}.json', f'data/{NS}/loot_table/blocks/{b}.json'):
+        assert (RES / rel).is_file(), rel
+    assert all(langs[l].get(f'block.{NS}.{b}') for l in langs), b
+    assert (f'block/{b}.png' in derived) == (b != 'geode_crust'), b
+    assert (RES / f'assets/{NS}/textures/block/{b}.png').exists() == (b == 'geode_crust'), b
+assert (RES / f'assets/{NS}/textures/block/geode_crust.layers.json').is_file()
+assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 2 * len(ALLOYS) + len(ORES07_DERIVED) + len(N4_DERIVED), len(derived)
 assert not any('silver_arrow' in d for d in derived), 'the silver arrow moved to Simple Arrows (03.11.)'
 
 # Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
@@ -84,13 +94,15 @@ for p in pressings:
 for p in (RES / f'data/{NS}/recipe').glob('*.json'):
     assert any((RES / f'data/{NS}/advancement/recipes').glob(f'*/{p.name}')), f'no recipe unlock for {p.name}'
 
-# Lead: 6 veins of 9 per chunk between Y -64 and 48 (more than silver, fewer ore blocks than Vanilla copper), explosion-proof block that occludes
+# Lead (N4, b-ores13): 6 veins of 9 per chunk between Y 0 and 72, stone only, never at air; explosion-proof block that occludes
 # vibrations (like wool) but does not dampen them, tag of the muffling blocks, the silver arrow is an arrow, the mirror needs no tool to drop.
 lead_placed = json.loads((RES / f'data/{NS}/worldgen/placed_feature/lead_ore.json').read_text(encoding='utf-8'))
 assert next(m for m in lead_placed['placement'] if m['type'] == 'minecraft:count')['count'] == 6
 lead_height = next(m for m in lead_placed['placement'] if m['type'] == 'minecraft:height_range')['height']
-assert lead_height['min_inclusive']['absolute'] == -64 and lead_height['max_inclusive']['absolute'] == 48
-assert json.loads((RES / f'data/{NS}/worldgen/feature/lead_ore.json').read_text(encoding='utf-8'))['size'] == 9
+assert lead_height['min_inclusive']['absolute'] == 0 and lead_height['max_inclusive']['absolute'] == 72
+lead_feature = json.loads((RES / f'data/{NS}/worldgen/feature/lead_ore.json').read_text(encoding='utf-8'))
+assert lead_feature['size'] == 9 and lead_feature['discard_chance_on_air_exposure'] == 1.0
+assert [t['state'] for t in lead_feature['targets']] == [f'{NS}:lead_ore'], 'no deepslate lead in the world generation any more'
 mc = RES / 'data/minecraft/tags'
 assert f'{NS}:lead_block' in json.loads((mc / 'block/occludes_vibration_signals.json').read_text(encoding='utf-8'))['values']
 assert {'id': 'simpleoctets:lead_block_octet', 'required': False} in json.loads((mc / 'block/occludes_vibration_signals.json').read_text(encoding='utf-8'))['values']
@@ -128,15 +140,35 @@ assert 'foundInOverworld' in fabric and 'has_end_silver_ore' in fabric
 tags = json.loads((RES / f'data/{NS}/tags/worldgen/biome/has_end_silver_ore.json').read_text(encoding='utf-8'))['values']
 assert 'minecraft:the_end' not in tags and 'minecraft:end_highlands' in tags, 'End silver lies on the outer islands only'
 
-# RG30-2 numbers: veins per chunk and sizes of the plan table (docs/ai/PLAN-A-RG08-2026-11-08.md), each below lead's 54 ore blocks.
-for m, count, size in (('zinc', 4, 8), ('nickel', 2, 5), ('tin', 5, 7)):
-    placed_m = json.loads((RES / f'data/{NS}/worldgen/placed_feature/{m}_ore.json').read_text(encoding='utf-8'))
-    assert next(x for x in placed_m['placement'] if x['type'] == 'minecraft:count')['count'] == count, m
-    assert json.loads((RES / f'data/{NS}/worldgen/feature/{m}_ore.json').read_text(encoding='utf-8'))['size'] == size, m
-    assert count * size < 54, m
-    nm = json.loads((RES / f'data/{NS}/neoforge/biome_modifier/{m}_ore.json').read_text(encoding='utf-8'))
-    assert nm['features'] == f'{NS}:{m}_ore' and nm['biomes'] == '#minecraft:is_overworld', m
-assert "OresRegistry.METALS" in fabric, 'Fabric places the new veins'
+# N4 (b-ores13): the deposits. No feature generates Deepslate Lead, Deepslate Zinc, Deepslate Tin or stone nickel any more; zinc only in
+# closed mini geodes (1 to 8 ores), End lead never at air, nickel only in deepslate like diamond, tin in stone/granite/mountains + placers.
+wg = RES / f'data/{NS}/worldgen'
+features = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (wg / 'feature').glob('*.json')}
+for name, f in features.items():
+    for t in f.get('targets', []):
+        assert t['state'] not in (f'{NS}:deepslate_lead_ore', f'{NS}:deepslate_zinc_ore', f'{NS}:deepslate_tin_ore', f'{NS}:nickel_ore', f'{NS}:zinc_ore'), (name, t['state'])
+assert 'zinc_ore' not in features and not (wg / 'placed_feature/zinc_ore.json').exists(), 'zinc forms no free veins'
+for geode, ore, shell in (('zinc_geode', 'zinc_ore', f'{NS}:geode_crust'), ('end_zinc_geode', 'end_zinc_ore', 'minecraft:end_stone')):
+    g = features[geode]
+    assert g['type'] == f'{NS}:mini_geode' and g['ore'] == f'{NS}:{ore}' and g['shell'] == shell, geode
+    assert (g['ores']['min_inclusive'], g['ores']['max_inclusive']) == (1, 8), geode
+assert features['end_lead_ore']['discard_chance_on_air_exposure'] == 1.0 and features['end_lead_ore']['targets'][0]['target']['block'] == 'minecraft:end_stone'
+nickel = features['nickel_ore']
+assert [t['state'] for t in nickel['targets']] == [f'{NS}:deepslate_nickel_ore'] and nickel['targets'][0]['target']['tag'] == 'minecraft:deepslate_ore_replaceables'
+nickel_placed = json.loads((wg / 'placed_feature/nickel_ore.json').read_text(encoding='utf-8'))
+assert next(x for x in nickel_placed['placement'] if x['type'] == 'minecraft:height_range')['height']['type'] == 'minecraft:trapezoid', 'nickel like diamond'
+assert [t['target'].get('block') for t in features['tin_ore_granite']['targets']] == ['minecraft:granite'], 'granite nests turn only granite'
+assert features['tin_placer']['type'] == 'minecraft:disk'
+biome_tags = RES / f'data/{NS}/tags/worldgen/biome'
+assert 'minecraft:river' in json.loads((biome_tags / 'has_tin_placer.json').read_text(encoding='utf-8'))['values']
+assert 'minecraft:stony_peaks' in json.loads((biome_tags / 'has_mountain_tin.json').read_text(encoding='utf-8'))['values']
+for name in ('lead_ore', 'zinc_geode', 'nickel_ore', 'tin_ore', 'tin_ore_granite', 'tin_ore_mountain', 'tin_placer', 'end_lead_ore', 'end_zinc_geode'):
+    assert (wg / f'placed_feature/{name}.json').is_file() and f"\"{name}\"" in fabric, name
+    nm = json.loads((RES / f'data/{NS}/neoforge/biome_modifier/{name}.json').read_text(encoding='utf-8'))
+    assert nm['features'] == f'{NS}:{name}', name
+for b in ('tin_bearing_gravel', 'tin_bearing_sand'):
+    assert f'{NS}:{b}' in json.loads((mc / 'block/mineable/shovel.json').read_text(encoding='utf-8'))['values'], b
+    assert f'{NS}:{b}' not in json.loads((mc / 'block/mineable/pickaxe.json').read_text(encoding='utf-8'))['values'], b
 
 # Wiki: config keys, sources exist.
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))

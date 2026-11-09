@@ -1,6 +1,7 @@
 {
   "values": [
     "simpleores:zinc_ore",
-    "simpleores:deepslate_zinc_ore"
+    "simpleores:deepslate_zinc_ore",
+    "simpleores:end_zinc_ore"
   ]
 }

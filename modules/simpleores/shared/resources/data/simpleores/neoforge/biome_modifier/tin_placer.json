@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#simpleores:has_tin_placer",
+  "features": "simpleores:tin_placer",
+  "step": "underground_ores"
+}

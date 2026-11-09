@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#simpleores:has_mountain_tin",
+  "features": "simpleores:tin_ore_mountain",
+  "step": "underground_ores"
+}

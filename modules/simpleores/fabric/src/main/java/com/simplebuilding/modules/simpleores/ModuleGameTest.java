@@ -8,8 +8,8 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleores", false); }
 
-    /** JEI24 (a-fix09b): Sage Ore, Sage Orb and Dimensional Scrap pages, texts in EN and DE. */
-    @GameTest public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simpleores", 3); }
+    /** JEI24 (a-fix09b): Sage Ore, Sage Orb and Dimensional Scrap pages, N4 (b-ores13): six deposit pages; texts in EN and DE. */
+    @GameTest public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simpleores", 9); }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {
@@ -169,6 +169,18 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void metalWorldgenDrops(GameTestHelper h) {
         OresTests.ALL.get("metal_worldgen_drops").accept(h);
+    }
+
+    /** N4 (b-ores13): closed zinc mini geodes in the Overworld and the End, 1 to 8 ores, never at air or water. */
+    @GameTest(structure = "simpleores:arena", maxTicks = 200)
+    public void zincGeodes(GameTestHelper h) {
+        OresTests.ALL.get("zinc_geodes").accept(h);
+    }
+
+    /** N4 (b-ores13): tin-bearing gravel/sand (shovel, 2 to 5 nuggets, rivers and beaches), End ore and crust drops. */
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void tinPlacers(GameTestHelper h) {
+        OresTests.ALL.get("tin_placers").accept(h);
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
