@@ -125,6 +125,8 @@ public final class SimpleBuildingTools {
         com.simplebuildingtools.component.BtComponents.init();
         BtItems.init();
         com.simplebuildingtools.util.OctantHammerArea.register();
+        // b-fix09a: info page of the creative tools in the recipe viewer (was SimpleBuilding's jei.simplebuilding.info.creative_tools).
+        BtViewer.register();
         // A switched-off blueprint loses its recipes too (as in SimpleBuilding until 07.11.; live, /reload brings them back).
         com.simplelib.api.RecipeFilters.register(MOD_ID, path -> !local.blueprint.enabled && path.contains("blueprint"));
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "tools", "simplebuildingtools.testcentre.station",

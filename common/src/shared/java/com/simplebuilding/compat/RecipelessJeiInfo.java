@@ -66,7 +66,8 @@ public final class RecipelessJeiInfo {
         // (InWorldTransformations#sledgehammerUpgrade), daher keine Info-Seite mehr.
         // Pfeile vom Befiederungstisch: seit 04.11. Simple Arrows (dessen JEI-Sondereintrag "simplearrows/fletching").
         // Kreativ-Baustab und Kreativ-Blaupause (Queue N29): nur im Kreativ-Inventar.
-        map.put("creative_tools", List.of(com.simplebuilding.util.BuildingToolRefs.wand("creative"), com.simplebuilding.util.BuildingToolRefs.creativeBlueprint()));
+        // 26.3 (b-fix09a): Simple Building Tools' items with its own page (jei.simplebuildingtools.info.creative_tools).
+        if (com.simplebuilding.version.McVersion.BTOOLS_IN_SB) map.put("creative_tools", List.of(com.simplebuilding.util.BuildingToolRefs.wand("creative"), com.simplebuilding.util.BuildingToolRefs.creativeBlueprint()));
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             // Holzwerk: Schnitzholz entsteht nur in der Welt (Meissel + Toepferscherbe).
             map.put("woodwork_carved", com.simplebuilding.woodwork.WoodBlocks.families().stream()
@@ -93,7 +94,8 @@ public final class RecipelessJeiInfo {
                 map.put("hammer_blazing_obsidian_chips", List.of(ModItems.BLAZING_OBSIDIAN_CHIP, ModItems.BLAZING_OBSIDIAN));
             }
         }
-        map.put("furnace_tiers", List.of(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_furnace"),
+        // 26.3 (b-fix09a): Simple Ovens' blocks with its own page (jei.simpleovens.info.furnace_tiers).
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) map.put("furnace_tiers", List.of(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_furnace"),
                 com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), com.simplebuilding.util.OvenRefs.block("netherite_smoker"), com.simplebuilding.util.OvenRefs.block("enderite_smoker"),
                 com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace")));
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {

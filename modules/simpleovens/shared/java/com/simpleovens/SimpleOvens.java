@@ -64,6 +64,8 @@ public final class SimpleOvens {
         MATERIALS.forEach(SimpleLibApi::requestMaterial);
         // The shipped upgrade file (data/simpleovens/in_world_upgrades) applies before datapack files of other namespaces.
         InWorldUpgrades.registerDefaults(MOD_ID);
+        // b-fix09a: the tier info page in the recipe viewer (was SimpleBuilding's jei.simplebuilding.info.furnace_tiers).
+        OvensViewer.register();
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         java.util.List<String> items = new java.util.ArrayList<>();
         MOVED_BLOCKS.forEach(path -> items.add(MOD_ID + ":" + path));

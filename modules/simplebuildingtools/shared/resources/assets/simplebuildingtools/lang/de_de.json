@@ -351,5 +351,6 @@
   "simplebuildingtools.guide.page.18.title": "Alte Welten",
   "simplebuildingtools.guide.page.18": "Baustäbe, Oktanten und Blaupausen in Truhen und Inventaren, die Blaupausen-Komponenten, die Verzauberungen Abdeckung, Brücke und Linear und die Werkzeug-Rezepte.",
   "simplebuildingtools.guide.page.19.title": "Einstellungen",
-  "simplebuildingtools.guide.page.19": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simplebuildingtools.guide.page.19": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "jei.simplebuildingtools.info.creative_tools": "Nur im Kreativ-Inventar. Der Kreativ-Baustab baut ohne Material, Haltbarkeit und Hunger und erreicht jeden Block in Sicht. Eine Kreativ-Blaupause in der Nebenhand gibt jedem Baustab diese Reichweite; signiert lässt sie sich nicht mehr ändern."
 }

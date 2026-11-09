@@ -6,6 +6,12 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link OvensTests}. */
 public final class ModuleGameTest {
+    /** b-fix09a: the furnace tier info page in the recipe viewer, text in EN and DE. */
+    @GameTest(structure = "simpleovens:empty")
+    public void jeiInfoPages(GameTestHelper h) {
+        com.simplelib.test.ViewerInfoTests.infoPages(h, "simpleovens", 1);
+    }
+
     @GameTest(structure = "simpleovens:empty")
     public void configDefaults(GameTestHelper h) {
         OvensTests.ALL.get("config_defaults").accept(h);

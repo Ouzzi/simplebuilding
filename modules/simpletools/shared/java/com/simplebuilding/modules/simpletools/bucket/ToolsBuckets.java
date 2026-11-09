@@ -34,7 +34,7 @@ public final class ToolsBuckets {
 
     private ToolsBuckets() {}
 
-    /** a-fix09b (JEI24): info pages of the two bucket kinds (SimpleBuilding's jei.simplebuilding.info.* before the moves). */
+    /** a-fix09b (JEI24): info pages of the two bucket kinds (SimpleBuilding's jei.simplebuilding.info.* before the moves); b-fix09a: Biome Brush, Death Vault. */
     public static void registerViewer() {
         com.simplelib.api.RecipeViewer.info(SimpleTools.MOD_ID, () -> {
             java.util.List<com.simplelib.api.RecipeViewer.Info> out = new java.util.ArrayList<>();
@@ -43,6 +43,9 @@ public final class ToolsBuckets {
             page(out, "enderite_bucket", com.simplelib.bucket.Buckets.ENDERITE_BUCKET, com.simplelib.bucket.Buckets.ENDERITE_WATER_BUCKET,
                     com.simplelib.bucket.Buckets.ENDERITE_LAVA_BUCKET, com.simplelib.bucket.Buckets.ENDERITE_SOUL_LAVA_BUCKET,
                     com.simplelib.bucket.Buckets.ENDERITE_MILK_BUCKET);
+            // b-fix09a: the Biome Brush and the Death Vault, whose recipes do not tell what they do.
+            page(out, "biome_brush", com.simplebuilding.modules.simpletools.ToolsRegistry.BIOME_BRUSH);
+            page(out, "death_vault", com.simplebuilding.modules.simpletools.ToolsRegistry.DEATH_VAULT_ITEM);
             return out;
         });
     }

@@ -64,5 +64,7 @@
   "simplearrows.guide.page.5.title": "Befehle",
   "simplearrows.guide.page.5": "/simplearrows config [list | get | set | reset | help] (Operatoren).",
   "simplearrows.guide.page.6.title": "Einstellungen",
-  "simplearrows.guide.page.6": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simplearrows.guide.page.6": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "jei.simplearrows.info.light_arrow": "Steckt er in einem Block, leuchtet die Luft davor wie eine Fackel (Lichtstufe 15). Das Licht geht mit dem Pfeil: wenn er verschwindet, aufgehoben wird oder herausfällt.",
+  "jei.simplearrows.info.silver_arrow": "Macht %s Zusatzschaden gegen Untote (Zombies, Skelette, ...). Hergestellt aus einem Silbernugget von Simple Ores, einem Stock und einer Feder; ohne Simple Ores gibt es kein Rezept."
 }

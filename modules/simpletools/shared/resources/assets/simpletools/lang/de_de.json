@@ -190,5 +190,7 @@
   "simpletools.guide.page.34.title": "(mit Simple Money) Geldscheine als Opfer",
   "simpletools.guide.page.34": "Ist Simple Money installiert, zählen seine Geldscheine im Opferplatz des Todesgewölbes wie Diamanten (optionaler Tag-Eintrag, ohne die Mod ändert sich nichts).",
   "simpletools.guide.page.35.title": "Einstellungen",
-  "simpletools.guide.page.35": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpletools.guide.page.35": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "jei.simpletools.info.biome_brush": "Pinsel in die Haupthand, ein Biom-Material in die Nebenhand (Sand malt zum Beispiel Wüste), Rechtsklick auf einen Block: Das Biom ringsum ändert sich. Jeder Strich kostet ein Material und einen Haltbarkeitspunkt; schleichend nur eine Stelle. Höhlenbiome werden nie übermalt, Claims werden beachtet.",
+  "jei.simpletools.info.death_vault": "Aufstellen und öffnen: Er zeigt, was aus jedem Gegenstand deines letzten Todes wurde - liegt noch, von dir oder anderen aufgehoben, verbrannt, verschwunden oder ins Leere gefallen."
 }
