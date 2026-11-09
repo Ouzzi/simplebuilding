@@ -16,7 +16,7 @@ Die Client-Läufe prüfen trotzdem genau den Release-Stand 3277653e2 (+ die Fixe
 | Standalone (59 Ziele = Dedicated Server je Mod allein) | 2204/2204 Tests grün, aber **Simple Weather startete nicht** → Fix 1, danach `runSimpleweatherStandaloneGameTest` 5/5 grün |
 | `mixinaudit-client-263` | grün, „[mixinaudit] audit done without error“ |
 | `rel10-client-263` (neu, `Rel10ClientTest`) | grün, 135 Bilder, 0 Fehler (zweiter Lauf nach Testverbesserung) |
-| `vis24all-client-263` (alle Modul-Smokes + Vis24) | 1. Lauf: Abbruch im Tweaks-Smoke → Fix 2; 2. Lauf: Zeitgrenze 2400 s unter Last (155 Bilder bis Simple Mobs); 3. Lauf siehe Nachtrag |
+| `vis24all-client-263` (alle Modul-Smokes + Vis24) | Läufe 1–3 brachen ab (Tweaks-Smoke → Fix 2, Zeitgrenze unter Last, Shops-Smoke → Fix 5); **Lauf 4 allein (14:41–15:02) grün, 711 Bilder, Vis24 216 Bilder, 0 Fehler, keine rohen Schlüssel** |
 | Echte Maus: `pipe_probe` (allein, 13:38) | **grün, 30/30 Prüfungen** bei GUI 2 und 3: Kompass + Oben/Unten, jede Seite zykliert Ein/Aus/Aus mit echter Maus, zwei Ausgänge, Tooltips |
 | Echte Maus: `mouse_probe`, `keys_probe` | nur im ersten Versuch parallel zu vis24all gelaufen: Zeitgrenze bzw. „page never opened“ – nicht aussagekräftig, einzeln neu |
 | `rel10-client-263` dritter Lauf (mit Icon-Fix) | grün, 135 Bilder; Storage-Tab zeigt jetzt das Bündel |
@@ -74,6 +74,8 @@ von selbst; danach nur noch ein Client-Lauf je Job-Skript.
 | Simple End, Respawn, Beacons, Ovens, Death Vault, Questionary, Drachenkampf | ok | Bäume/Blätter/Nebelwand, „Downed!“, Leuchtfeuer-Stufen, Netherit-Ofen, Todes-Tresor, Fragetisch (Lupe zeigt Sprite-Namen, gewollt). |
 | Simple Mobheads | ok | 36 Reihen platziert, 17 getragen, Inventar-Einpassung (Slotfit auf Magenta = Testhintergrund). |
 | Simple Shops | ok, Besitzer | Verkaufsblöcke mit Glühen; **Besitzerfenster zeigt immer „Developer: Käuferansicht“** (gewollte Testkauf-Funktion, aber „Developer“ im Release sichtbar) → Besitzer: umbenennen oder hinter Dev-Schalter? |
+| Simple Earth, Challenges, Machines, Foundry, Crucibles, Storage, Blocks/Formsäge, Octets, Wanderers, Stats | ok | Würfel-/Faltansichten V10–V27, Menüs; Challenge-Auswahl; Doppelkolben-Stufen; Gießerei-Pult; Tiegel mit Fass; Storage-DW03c/DW04c; Formsäge alt/Kasten; Testzentralen-Bezirke. |
+| Vis24: Stationen, Configs, Handbücher, Tooltips EN/DE | ok, 2 klein | Alle Stationen EN/DE ohne Überlauf, Configs aller Mods ohne rohe Schlüssel. **Klein 1:** Notenblatt-Knopfleiste läuft über (EN „Add examp“, DE „obehören/inzufüger“) → Knöpfe breiter oder zweizeilig. **Klein 2 (unklar):** jedes Modul-Handbuch öffnet die Mega-Guide-Startseite statt das Kapitel des Moduls (GUIDE01: ein Handbuch mit Kapiteln – gewollt?). |
 | Landing simplemods.de | ok | Start/Paket/Reise/Discover, Desktop und Handy, Sprachumschalter. Reise: Stufen-Reiter laufen auf dem Handy rechts aus dem Bild (scrollbar, unklar ob gewollt). |
 
 ## Release-Checkliste Abschnitt 4 (RELEASE-QOL-OPT-AES.md)
@@ -90,5 +92,7 @@ von selbst; danach nur noch ein Client-Lauf je Job-Skript.
 - Landing `index.html`-Galerie ohne Simple Layers; Live-Seite erst nach Deploy aktuell.
 - JEI: keine eigene Kategorie für die Entrindungs-Station und die Plattenpresse; gemeißelte Blöcke ohne Steinsägen-Rezept.
 - Echte-Maus-Probes Bau-Werkzeuge (`mouse_probe`) und Tasten (`keys_probe`) einzeln neu laufen lassen (Rohr ist grün).
+- Notenblatt-Editor: untere Knopfleiste läuft in EN und DE über.
+- Modul-Handbücher öffnen alle die Mega-Guide-Startseite (Kapitel-Sprung?).
 - Shops: Knopf „Developer: Käuferansicht“ im Release sichtbar (Besitzer-Entscheidung).
 - Hören (Trompete, Platten, Howler) und Gefühl bleiben Besitzer-Abnahme.
