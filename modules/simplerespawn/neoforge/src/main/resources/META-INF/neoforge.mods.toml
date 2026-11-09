@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[11,)"
-license="CC0-1.0"
+license="LicenseRef-SimpleMods-ARR"
 [[mods]]
 modId="simplerespawn"
 version="${version}"

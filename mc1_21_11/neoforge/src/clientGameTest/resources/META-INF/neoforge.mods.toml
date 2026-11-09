@@ -2,7 +2,7 @@ modLoader="javafml"
 # javafml version of the 1.21.11 line: fancymodloader 10.x (see the main mods.toml), so NOT
 # "[11,)" like the 26.2 module.
 loaderVersion="[10,)"
-license="CC0-1.0"
+license="LicenseRef-SimpleMods-ARR"
 
 # Test-only mod. It lives in its own source set (src/clientGameTest) and is only added to
 # the :mc1_21_11:neoforge:runClientGameTest run configuration, so it can never end up in a

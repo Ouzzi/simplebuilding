@@ -56,3 +56,8 @@ Recommended:
 
 For the complete feature and content reference (all systems, items, blocks, enchants, config, commands):
 - See the main repository readme in this project.
+
+## License
+
+All rights reserved, source-available (`LICENSE`, LicenseRef-SimpleMods-ARR). Playing, servers and modpacks that
+download through Modrinth/CurseForge are allowed; re-uploading the jars is not. Releases before the license change stay CC0.

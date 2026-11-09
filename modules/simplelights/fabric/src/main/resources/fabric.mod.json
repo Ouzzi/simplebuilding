@@ -13,7 +13,7 @@
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
   "description": "Light Panes: flat 1 px lamps on any block side - plain, transparent, sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb. Moved from SimpleBuilding (ids migrate).",
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {
     "main": [

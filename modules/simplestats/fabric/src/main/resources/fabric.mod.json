@@ -31,7 +31,7 @@
     "fabric-api": "*"
   },
   "description": "Every tool, weapon and piece of armor keeps its own statistics: blocks mined, kills by mob and variant, damage absorbed, distances, catches and more, with an item-specific statistics screen.",
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "mixins": [
     "simplestats.mixins.json"
   ],

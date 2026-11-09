@@ -87,5 +87,6 @@ Tweaks-Werte (Raketen-Stapel, Boosts, Laser) schickt der Server beim Einloggen a
 - `./gradlew.bat check` baut und prueft alle Linien; `-Pmc264=true` nimmt die Snapshot-Linie dazu.
 - Spieltests: `python tools/testrunner/run.py --targets <ziele> --filter "simplebuilding:<muster>"`
   (Ziele mit `--list`).
-- Lizenz: siehe `LICENSE`.
+- Lizenz: alle Rechte vorbehalten, Quelltext einsehbar (`LICENSE`, SPDX `LicenseRef-SimpleMods-ARR`; Erläuterung
+  `docs/release/LIZENZ-ERKLAERUNG.md`). Versionen vor dem Stichtag bleiben CC0. Beiträge nur mit CLA (`CONTRIBUTING.md`, `CLA.md`).
 - Credits (ElevenLabs-Sounds, Texturen, Bibliotheken): siehe `CREDITS.md`.

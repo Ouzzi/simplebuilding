@@ -13,7 +13,7 @@
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
   "description": "Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel; the barrels that dock onto them are Simple Storage's), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). Upgrades in the world with the axe on its own, with the sledgehammer of Simple Hammers.",
-  "license": "CC0-1.0",
+  "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {
     "main": [
