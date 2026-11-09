@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#43a9b5ff", "#326070ff", "#305768ff", "#2b626eff", "#2e6b76ff", "#388b96ff", "#63b4b9ff", "#7197a0ff", "#7c978aff", "#cbe5d1ff", "#77b8b5ff", "#86ddcbff", "#a7d4c2ff", "#78d9caff", "#d9dbf1ff", "#568997ff", "#90f5e3ff", "#d8edd4ff", "#81a598ff", "#799a94ff", "#dce3f6ff", "#ffffffff", "#deeed8ff", "#72e8dcff", "#94c7b8ff", "#fcfdf4ff", "#e6edf0ff", "#89f1dbff", "#2fc7c6ff", "#96d3c3ff", "#b6fbe3ff", "#418494ff", "#77ecddff", "#437c8cff", "#228893ff", "#dbfceaff", "#9de2cbff", "#68dfdcff", "#3b9eaaff", "#e0fdeeff", "#6fadb1ff", "#0ebabdff", "#49dbdbff", "#15c2c6ff", "#54bac6ff", "#72a0b0ff", "#769daeff", "#6ca3afff", "#69a6b1ff", "#5db0bbff", "#66b7bcff", "#81a7b0ff", "#8ca79aff", "#bed8c4ff", "#cbcde3ff", "#75a8b6ff", "#89eedcff", "#c4d9c0ff", "#87ab9eff", "#87a8a2ff", "#c9d0e3ff", "#d4d4d4ff", "#c8d8c2ff", "#d4d5ccff", "#ccd3d6ff", "#86eed8ff", "#35cdccff", "#a2e7cfff", "#68abbbff", "#6ea7b7ff", "#4fb5c0ff", "#bddeccff", "#54b7c3ff", "#c0ddceff", "#73b1b5ff", "#23cfd2ff", "#24d1d5ff"],
+  "palette": ["#43a9b5ff", "#326070ff", "#305768ff", "#2b626eff", "#2e6b76ff", "#388b96ff", "#63b4b9ff", "#7197a0ff", "#7c978aff", "#cbe5d1ff", "#77b8b5ff", "#86ddcbff", "#a7d4c2ff", "#78d9caff", "#d9dbf1ff", "#568997ff", "#90f5e3ff", "#d8edd4ff", "#81a598ff", "#799a94ff", "#dce3f6ff", "#ffffffff", "#deeed8ff", "#72e8dcff", "#94c7b8ff", "#fcfdf4ff", "#e6edf0ff", "#89f1dbff", "#2fc7c6ff", "#96d3c3ff", "#b6fbe3ff", "#418494ff", "#77ecddff", "#437c8cff", "#228893ff", "#dbfceaff", "#9de2cbff", "#68dfdcff", "#3b9eaaff", "#e0fdeeff", "#6fadb1ff", "#0ebabdff", "#49dbdbff", "#15c2c6ff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00000102020304050006020105000604",
@@ -23,24 +23,6 @@
       "212b0b071a191a241b1e1e1a21030504",
       "0005050d070e2b1c0d0d2b1f21050b22",
       "00220222040202222222020622042222"
-    ]},
-    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
-      "2c2c2d2e2e2f30312c322e2d312c3230",
-      "2c333435....353535..........362e",
-      "332e..3738393a3337343b3b..3c3d36",
-      "313436383e..33333d3336......3c2f",
-      "2c363f403a37304142403f40......2c",
-      "2c..4033434440......404343344546",
-      "2e3547..34403f404333..4138..342e",
-      "45354731....40..3337443138....2e",
-      "2c3543423243433833..41..38....2e",
-      "30..43313043434341......4038..48",
-      "31..43494533434343..434a4338..46",
-      "2c3343434343414b304144404334452e",
-      "2c45334343403a2c3130403f4034..33",
-      "454c..33403f40..41434340452f3130",
-      "2c3131..33364c42....4c444531..46",
-      "2c462e46302e2e4646462e3246304646"
     ]}
   ]
 }

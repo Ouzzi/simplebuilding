@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#2caec3ff", "#0d8aacff", "#0d6679ff", "#117084ff", "#187d8dff", "#1898a7ff", "#1a9aaeff", "#167688ff", "#3ea1bfff", "#217488ff", "#a9e1e5ff", "#5bc1bdff", "#77dcd5ff", "#3de0e5ff", "#1496b6ff", "#1d6a7dff", "#1f9ebaff", "#b3fdf4ff", "#f1fffcff", "#249fbcff", "#1b7a89ff", "#126c7dff", "#8ae5e5ff", "#c2fef2ff", "#affbefff", "#15c2c6ff", "#5fcac4ff", "#85e1e5ff", "#1292b3ff", "#067c9dff", "#18939fff", "#1f788bff", "#1d7c90ff", "#1c8191ff", "#1e7e90ff", "#277a8eff", "#78b0b4ff", "#4eb4b0ff", "#55bab3ff", "#25c8cdff", "#297689ff", "#72bcb3ff", "#a0aeabff", "#207f8eff", "#207a8bff", "#5eb9b9ff", "#7db9adff", "#70bcb0ff", "#4cb7b1ff", "#5cb8bcff", "#0d83a4ff"],
+  "palette": ["#2caec3ff", "#0d8aacff", "#0d6679ff", "#117084ff", "#187d8dff", "#1898a7ff", "#1a9aaeff", "#167688ff", "#3ea1bfff", "#217488ff", "#a9e1e5ff", "#5bc1bdff", "#77dcd5ff", "#3de0e5ff", "#1496b6ff", "#1d6a7dff", "#1f9ebaff", "#b3fdf4ff", "#f1fffcff", "#249fbcff", "#1b7a89ff", "#126c7dff", "#8ae5e5ff", "#c2fef2ff", "#affbefff", "#15c2c6ff", "#5fcac4ff", "#85e1e5ff", "#1292b3ff", "#067c9dff", "#18939fff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00000102020304050000020106000007",
@@ -23,24 +23,6 @@
       "04190d0e18161b1b161818180e071e07",
       "0005050d1019190d0d0d0d100e1e0c04",
       "051e020404021d1e1e1e1d1e1e071e1e"
-    ]},
-    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
-      "......1f1f2021......1f........22",
-      "....232425262424242626272724241f",
-      "..2827..292a......1f....2727241f",
-      "......292a..2b2b2c22..2d2527261f",
-      "..25292e2b..2b2f..2d2f29302525..",
-      "..262e..2e..2f2d2d302e2e2f2b....",
-      "20242e262b29292f2f..262f2d31..32",
-      "..242e..25302f302b......2d31271f",
-      "..262930252f2f29..252f2d2d2d2732",
-      "222629..2b2f29292f3030252d2927..",
-      "..27292f....2e2f2f..2f..2e2927..",
-      "..222f2f2e2e2f..2b2f..2e2e2b..32",
-      "....222e2e2f......2b29292f1f2732",
-      "21..27..2f2d31312d2f2f2f..22..22",
-      "......27......27272727......2621",
-      "....1f21211f32......32....22...."
     ]}
   ]
 }

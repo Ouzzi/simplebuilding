@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#49b0c5ff", "#485591ff", "#413d83ff", "#394b89ff", "#4a669aff", "#4288adff", "#4babc2ff", "#445e95ff", "#5e84acff", "#d3cef0ff", "#67a0b9ff", "#80d3d6ff", "#b7d5deff", "#5bcdd0ff", "#bddae4ff", "#464b8bff", "#4d7ea8ff", "#91f6f3ff", "#e3fff9ff", "#769ab7ff", "#4678a4ff", "#15c2c6ff", "#bbd2f2ff", "#ddd7f4ff", "#7e85b3ff", "#5975a4ff", "#4e5d97ff", "#74eaeaff", "#3e538fff", "#c5dcf6ff", "#86efe8ff", "#208faaff", "#90d3d8ff", "#b0f8f0ff", "#65dce3ff", "#538eb2ff", "#3589acff", "#8af2ebff", "#29789fff", "#237fa2ff", "#41699bff", "#6471adff", "#6b67adff", "#5e70aeff", "#5c78acff", "#4389aeff", "#5c76adff", "#aca7c9ff", "#6ec1c4ff", "#95b3bcff", "#56c8cbff", "#97b4beff", "#686dadff", "#5182acff", "#66cbc8ff", "#9fbbb5ff", "#4f81adff", "#98afcfff", "#aea8c5ff", "#5f7baaff", "#6473adff", "#57cdcdff", "#5d72aeff", "#9ab1cbff", "#63ccc5ff", "#2796b1ff", "#79bcc1ff", "#7dc5bdff", "#54cbd2ff", "#398db0ff", "#64ccc5ff", "#3a89b0ff", "#318db0ff", "#537badff"],
+  "palette": ["#49b0c5ff", "#485591ff", "#413d83ff", "#394b89ff", "#4a669aff", "#4288adff", "#4babc2ff", "#445e95ff", "#5e84acff", "#d3cef0ff", "#67a0b9ff", "#80d3d6ff", "#b7d5deff", "#5bcdd0ff", "#bddae4ff", "#464b8bff", "#4d7ea8ff", "#91f6f3ff", "#e3fff9ff", "#769ab7ff", "#4678a4ff", "#15c2c6ff", "#bbd2f2ff", "#ddd7f4ff", "#7e85b3ff", "#5975a4ff", "#4e5d97ff", "#74eaeaff", "#3e538fff", "#c5dcf6ff", "#86efe8ff", "#208faaff", "#90d3d8ff", "#b0f8f0ff", "#65dce3ff", "#538eb2ff", "#3589acff", "#8af2ebff", "#29789fff", "#237fa2ff", "#41699bff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00000102020304050006020305000007",
@@ -23,24 +23,6 @@
       "14000b011d171d221b1e251d19021007",
       "06050515081600150d0d151404100b26",
       "1f240226260203272424032724282727"
-    ]},
-    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
-      "....292a2a2b2c2d....2a2b2d....2e",
-      "....2a2f..3031313130303232332f34",
-      "2c2a32353637..2c2c2a3838..393a..",
-      "2d3b2f3637..29292a3c2f3d..302f3e",
-      "..2f3a3f292c2940..3f3a3f30....41",
-      "..423f..43..3f3d3d303f4340293841",
-      "2a314330293f3a3f40..30403d442c2b",
-      "2c314335..303f30292c352d3d44..2a",
-      "..303630..40403635..403d3d3d322b",
-      "2c30362d29403636403232..3d363241",
-      "2d3236402c..4340402d402d4336..41",
-      "..2a4040434340..2940..3f43292c2b",
-      "..2c2a43433f..452d293f3a3f2a322e",
-      "38..30293f3a3f443d40463f3b2a352e",
-      "..2d2d....39....3232..382c353047",
-      "41452a47472a2b4845452b4845494848"
     ]}
   ]
 }

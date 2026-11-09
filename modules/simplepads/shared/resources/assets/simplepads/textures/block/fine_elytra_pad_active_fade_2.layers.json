@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#46aab6ff", "#346878ff", "#2f5767ff", "#2c5c6aff", "#326e7bff", "#348a96ff", "#56b0b8ff", "#7097a0ff", "#799385ff", "#c5e2cdff", "#7eb8b0ff", "#89dccbff", "#b3d9c6ff", "#6dd5c8ff", "#d9dcf1ff", "#62909bff", "#b0efd7ff", "#dff2d3ff", "#83afa2ff", "#74989aff", "#dbe0f3ff", "#ffffffff", "#ebf3dcff", "#99e3d3ff", "#8dc0b2ff", "#fafbeaff", "#eff3e8ff", "#adedd3ff", "#49ccc6ff", "#91d7c7ff", "#cef9dbff", "#398795ff", "#a4ebd4ff", "#3c7686ff", "#298994ff", "#e1f9deff", "#b7e6cbff", "#94dfd3ff", "#3694a0ff", "#ecfbe7ff", "#6fa2a8ff", "#0ebabdff", "#56d6d1ff", "#15c2c6ff", "#50b4c0ff", "#699dadff", "#6f97a7ff", "#6a9aa8ff", "#64a0adff", "#55abb7ff", "#59b3bbff", "#7ba2abff", "#86a092ff", "#b6d3beff", "#aed4c1ff", "#c5c8ddff", "#74a2adff", "#9fdec6ff", "#c1d4b5ff", "#7ea2a4ff", "#c4c9dcff", "#cececeff", "#c9d1baff", "#94deceff", "#cfd0bfff", "#cbcfc4ff", "#9edec4ff", "#b0dbbdff", "#5ba9b7ff", "#98dfc8ff", "#67a1b1ff", "#4eaeb9ff", "#bed6bbff", "#aad9beff", "#92ddd1ff", "#51afbbff", "#c4d3bfff", "#74a7adff", "#1dc9ccff", "#1ecbcfff"],
+  "palette": ["#46aab6ff", "#346878ff", "#2f5767ff", "#2c5c6aff", "#326e7bff", "#348a96ff", "#56b0b8ff", "#7097a0ff", "#799385ff", "#c5e2cdff", "#7eb8b0ff", "#89dccbff", "#b3d9c6ff", "#6dd5c8ff", "#d9dcf1ff", "#62909bff", "#b0efd7ff", "#dff2d3ff", "#83afa2ff", "#74989aff", "#dbe0f3ff", "#ffffffff", "#ebf3dcff", "#99e3d3ff", "#8dc0b2ff", "#fafbeaff", "#eff3e8ff", "#adedd3ff", "#49ccc6ff", "#91d7c7ff", "#cef9dbff", "#398795ff", "#a4ebd4ff", "#3c7686ff", "#298994ff", "#e1f9deff", "#b7e6cbff", "#94dfd3ff", "#3694a0ff", "#ecfbe7ff", "#6fa2a8ff", "#0ebabdff", "#56d6d1ff", "#15c2c6ff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00000102020304050006020105000604",
@@ -23,24 +23,6 @@
       "212b0b071a191a241b1e1e1a21030504",
       "0005050d070e2b1c0d0d2b1f21050b22",
       "00220222040202222222020622042222"
-    ]},
-    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
-      "2c2c2d2e2e2f30312c322e2d312c3230",
-      "2c333435....35353536......36372e",
-      "332e..38393a..3338343b3b..3c3d37",
-      "313437393e3633333d33373f....3c2f",
-      "2c374041..383042..414041......2c",
-      "2c..41334344414545..414343344647",
-      "2e3548..344140414333..423949342e",
-      "46354831....41..33384431394a..2e",
-      "2c3543..3243433933..423f393f..2e",
-      "30..43313043434342......4139..4b",
-      "31..434c4633434343..434d4339..47",
-      "2c3343434343424e304244414334462e",
-      "2c4633434341..2c313041404134..33",
-      "464f..334140414942434341462f3130",
-      "2c3131..33374f......4f444631..47",
-      "2c472e47302e2e4747472e3247304747"
     ]}
   ]
 }
