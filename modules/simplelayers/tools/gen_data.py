@@ -79,12 +79,14 @@ def loot():
             e['modifier'] = {'type': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'max': hi, 'min': lo}}
         return e
     # Backrooms storage room (concept: "wenige, gute Funde"): almond water, the rare backdoor key, a few Vanilla finds and the
-    # room's own blocks for decoration (the dimension protects its walls, so this is the way to get them).
+    # room's own blocks for decoration (the dimension protects its walls, so this is the way to get them). LAYERS13: string and
+    # sticks too (wood and string sources, next to the offices and cobwebs of the grid).
     d('loot_table/chests/backrooms_storage.json', {'type': 'minecraft:chest', 'pools': [
         {'rolls': {'type': 'minecraft:uniform', 'max': 3, 'min': 1}, 'entries': [
             item(f'{NS}:almond_water', 30, 1, 3), item(f'{NS}:backdoor_key', 4), item('minecraft:paper', 20, 2, 8),
             item('minecraft:book', 10), item('minecraft:bread', 15, 1, 3), item('minecraft:torch', 12, 2, 6),
-            item('minecraft:map', 6), item('minecraft:music_disc_11', 2), item('minecraft:music_disc_13', 2)]},
+            item('minecraft:map', 6), item('minecraft:music_disc_11', 2), item('minecraft:music_disc_13', 2),
+            item('minecraft:string', 10, 2, 5), item('minecraft:stick', 8, 2, 6)]},
         {'rolls': {'type': 'minecraft:uniform', 'max': 2, 'min': 0}, 'entries': [
             item(f'{NS}:wallpaper', 10, 4, 12), item(f'{NS}:striped_wallpaper', 5, 4, 12), item(f'{NS}:dotted_wallpaper', 5, 4, 12),
             item(f'{NS}:damp_carpet', 10, 4, 12), item(f'{NS}:ceiling_tile', 8, 4, 12), item(f'{NS}:neon_light', 6, 1, 4),

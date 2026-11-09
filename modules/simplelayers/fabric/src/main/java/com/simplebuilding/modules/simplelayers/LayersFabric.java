@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simplelayers;
 
+import com.simplebuilding.modules.simplelayers.world.BackroomEffect;
 import com.simplebuilding.modules.simplelayers.world.BackroomsTravel;
 import com.simplebuilding.modules.simplelayers.world.CloudTransition;
 import com.simplebuilding.modules.simplelayers.world.ListenerAmbience;
@@ -7,10 +8,12 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 /** Fabric entry: registries are open during init, so everything registers directly; travel runs on the server tick. */
@@ -20,6 +23,7 @@ public final class LayersFabric implements ModInitializer {
         SimpleLayers.init(FabricLoader.getInstance().getConfigDir());
         LayersRegistry.registerSounds();
         LayersRegistry.registerBlocks();
+        BackroomEffect.register();
         LayersRegistry.registerItems();
         LayersRegistry.registerTab();
         LayersRegistry.registerWorldgen();
@@ -30,6 +34,11 @@ public final class LayersFabric implements ModInitializer {
             CloudTransition.tick(server);
             BackroomsTravel.tickVoid(server);
             ListenerAmbience.tick(server);
+            BackroomEffect.tick(server);
+        });
+        AttackBlockCallback.EVENT.register((player, level, hand, pos, direction) -> {
+            BackroomEffect.hintOnAttack(player, level, pos);
+            return InteractionResult.PASS;
         });
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             CloudTransition.forget(handler.player.getUUID());

@@ -85,4 +85,24 @@ public final class ModuleGameTest {
     public void guideBook(GameTestHelper h) {
         LayersTests.ALL.get("guide_book").accept(h);
     }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void backroomEffectBlocksMining(GameTestHelper h) {
+        LayersTests.ALL.get("backroom_effect_blocks_mining").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty", maxTicks = 100)
+    public void netheritePistonMovesWall(GameTestHelper h) {
+        LayersTests.ALL.get("netherite_piston_moves_wall").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bedrockHull(GameTestHelper h) {
+        LayersTests.ALL.get("bedrock_hull").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void suppliesGenerated(GameTestHelper h) {
+        LayersTests.ALL.get("supplies_generated").accept(h);
+    }
 }

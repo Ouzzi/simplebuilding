@@ -5,6 +5,7 @@ import com.simplebuilding.modules.simplelayers.SimpleLayers;
 import com.simplebuilding.modules.simplelayers.block.GlitchedBedrockBlock;
 import com.simplebuilding.modules.simplelayers.block.NeonLightBlock;
 import com.simplebuilding.modules.simplelayers.config.LayersConfig;
+import com.simplebuilding.modules.simplelayers.world.BackroomEffect;
 import com.simplebuilding.modules.simplelayers.world.BackroomsChunkGenerator;
 import com.simplebuilding.modules.simplelayers.world.BackroomsEntries;
 import com.simplebuilding.modules.simplelayers.world.BackroomsGrid;
@@ -18,6 +19,7 @@ import java.util.OptionalInt;
 import java.util.UUID;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -25,6 +27,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.pig.Pig;
@@ -35,7 +38,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.LeverBlock;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -62,6 +69,10 @@ public final class LayersTests {
         ALL.put("exit_leads_to_the_surface", LayersTests::exitLeadsToTheSurface);
         ALL.put("almond_water", LayersTests::almondWater);
         ALL.put("guide_book", LayersTests::guideBook);
+        ALL.put("backroom_effect_blocks_mining", LayersTests::backroomEffectBlocksMining);
+        ALL.put("netherite_piston_moves_wall", LayersTests::netheritePistonMovesWall);
+        ALL.put("bedrock_hull", LayersTests::bedrockHull);
+        ALL.put("supplies_generated", LayersTests::suppliesGenerated);
     }
 
     private LayersTests() {}
@@ -241,7 +252,7 @@ public final class LayersTests {
         List<String> wrong = new ArrayList<>();
         for (int x = 0; x < 16; x += 3) {
             for (int z = 0; z < 16; z += 5) {
-                for (int y = 0; y <= BackroomsGrid.TOP_Y; y++) {
+                for (int y = 0; y <= BackroomsGrid.HULL_TOP_Y; y++) {
                     BlockPos p = new BlockPos(cx * 16 + x, y, cz * 16 + z);
                     BlockState want = BackroomsGrid.at(seed, p.getX(), y, p.getZ()), got = back.getBlockState(p);
                     if (got.getBlock() != want.getBlock() && !inSpecialRoom(back, p)) wrong.add(p.toShortString() + " " + got + " != " + want);
@@ -341,6 +352,138 @@ public final class LayersTests {
 
     static void guideBook(GameTestHelper h) {
         h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath(SimpleLayers.MOD_ID, "guide_book")), "guide book");
+        h.succeed();
+    }
+
+    /** LAYERS13: the Backroom effect stops survival mining of every room block; without it (or in creative) they break normally. */
+    static void backroomEffectBlocksMining(GameTestHelper h) {
+        h.assertTrue(BuiltInRegistries.MOB_EFFECT.containsKey(SimpleLayers.id("backroom")) && BackroomEffect.holder() != null, "effect registered");
+        Player player = h.makeMockPlayer(GameType.SURVIVAL), creative = h.makeMockPlayer(GameType.CREATIVE);
+        h.assertFalse(BackroomEffect.due(player), "not handed out outside the Backrooms");
+        BlockPos rel = new BlockPos(2, 2, 2), abs = h.absolutePos(rel);
+        List<Block> walls = List.of(LayersRegistry.WALLPAPER, LayersRegistry.STRIPED_WALLPAPER, LayersRegistry.DAMP_CARPET, LayersRegistry.CEILING_TILE,
+                LayersRegistry.NEON_LIGHT, LayersRegistry.EXIT_SIGN);
+        for (Block b : walls) {
+            h.setBlock(rel, b);
+            h.assertTrue(h.getLevel().getBlockState(abs).getDestroyProgress(player, h.getLevel(), abs) > 0.0F, b + " breaks without the effect");
+        }
+        player.addEffect(new MobEffectInstance(BackroomEffect.holder(), 200));
+        creative.addEffect(new MobEffectInstance(BackroomEffect.holder(), 200));
+        for (Block b : walls) {
+            h.setBlock(rel, b);
+            BlockState s = h.getLevel().getBlockState(abs);
+            h.assertTrue(s.getDestroyProgress(player, h.getLevel(), abs) == 0.0F, b + " holds with the effect");
+            h.assertTrue(s.getDestroyProgress(creative, h.getLevel(), abs) > 0.0F, b + " creative ignores the effect");
+        }
+        h.setBlock(rel, Blocks.BEDROCK);
+        h.assertTrue(h.getLevel().getBlockState(abs).getDestroyProgress(player, h.getLevel(), abs) == 0.0F, "the bedrock hull holds anyway");
+        h.setBlock(rel, Blocks.STRIPPED_OAK_LOG);
+        h.assertTrue(h.getLevel().getBlockState(abs).getDestroyProgress(player, h.getLevel(), abs) > 0.0F, "supplies stay breakable");
+        h.succeed();
+    }
+
+    /**
+     * LAYERS13: in the Backrooms no piston moves a room block (outside they do); Simple Machines' Netherite Piston breaks one anyway.
+     * Without Simple Machines (standalone) only the piston rule is checked.
+     */
+    static void netheritePistonMovesWall(GameTestHelper h) {
+        BlockState paper = LayersRegistry.WALLPAPER.defaultBlockState();
+        h.assertTrue(PistonBaseBlock.isPushable(paper, h.getLevel(), h.absolutePos(new BlockPos(2, 2, 2)), Direction.UP, false, Direction.UP),
+                "outside the Backrooms a piston moves wallpaper");
+        ServerLevel back = h.getLevel().getServer().getLevel(SimpleLayers.BACKROOMS);
+        if (back != null) {
+            BlockPos p = new BlockPos(64004, 3, -64004);
+            h.assertFalse(PistonBaseBlock.isPushable(paper, back, p, Direction.EAST, false, Direction.EAST), "held in the Backrooms");
+            h.assertTrue(PistonBaseBlock.isPushable(Blocks.OAK_PLANKS.defaultBlockState(), back, p, Direction.EAST, false, Direction.EAST),
+                    "other blocks still move in the Backrooms");
+        }
+        Identifier pistonId = Identifier.fromNamespaceAndPath("simplemachines", "netherite_piston");
+        if (!BuiltInRegistries.BLOCK.containsKey(pistonId)) {
+            h.succeed();
+            return;
+        }
+        BlockPos piston = new BlockPos(2, 1, 2), wall = piston.above();
+        h.setBlock(wall.above(), Blocks.AIR);
+        h.setBlock(piston, BuiltInRegistries.BLOCK.getValue(pistonId).defaultBlockState().setValue(DirectionalBlock.FACING, Direction.UP));
+        h.setBlock(wall, LayersRegistry.WALLPAPER);
+        BlockPos lever = piston.east();
+        h.setBlock(lever.below(), Blocks.STONE);
+        h.setBlock(lever, Blocks.LEVER.defaultBlockState().setValue(LeverBlock.FACE, AttachFace.FLOOR).setValue(LeverBlock.POWERED, Boolean.TRUE));
+        h.succeedWhen(() -> h.assertFalse(h.getBlockState(wall).is(LayersRegistry.WALLPAPER), "the Netherite Piston removed the wall"));
+    }
+
+    /** LAYERS13: bedrock at y 0 and from the ceiling y 8 up to the build limit y 63; in a generated chunk too. */
+    static void bedrockHull(GameTestHelper h) {
+        long seed = 99L;
+        java.util.Random random = new java.util.Random(3);
+        for (int i = 0; i < 200; i++) {
+            int x = random.nextInt(40000) - 20000, z = random.nextInt(40000) - 20000;
+            h.assertTrue(BackroomsGrid.at(seed, x, 0, z).is(Blocks.BEDROCK), "floor y 0");
+            for (int y = BackroomsGrid.TOP_Y; y <= BackroomsGrid.HULL_TOP_Y; y++) h.assertTrue(BackroomsGrid.at(seed, x, y, z).is(Blocks.BEDROCK), "hull y " + y);
+            for (int y = 1; y < BackroomsGrid.TOP_Y; y++) h.assertFalse(BackroomsGrid.at(seed, x, y, z).is(Blocks.BEDROCK), "no bedrock inside at y " + y);
+            h.assertTrue(BackroomsGrid.at(seed, x, -1, z).isAir() && BackroomsGrid.at(seed, x, BackroomsGrid.HULL_TOP_Y + 1, z).isAir(), "outside the world");
+        }
+        ServerLevel back = levelOrRegistryOnly(h, SimpleLayers.BACKROOMS);
+        if (back == null) return;
+        h.assertTrue(back.getMaxY() == BackroomsGrid.HULL_TOP_Y, "hull reaches the build limit " + back.getMaxY());
+        int cx = -3000, cz = 2500;
+        back.getChunk(cx, cz);
+        for (int x = 0; x < 16; x += 5) {
+            for (int z = 0; z < 16; z += 5) {
+                for (int y : new int[] {0, 8, 9, 30, 63}) {
+                    BlockPos p = new BlockPos(cx * 16 + x, y, cz * 16 + z);
+                    h.assertTrue(back.getBlockState(p).is(Blocks.BEDROCK) || inSpecialRoom(back, p), "generated hull at " + p.toShortString());
+                }
+            }
+        }
+        h.succeed();
+    }
+
+    /** LAYERS13: offices (3 oak logs, desk, chair) and cobweb cells appear at the planned shares, only in the corners; config off = none. */
+    static void suppliesGenerated(GameTestHelper h) {
+        long seed = 4242L;
+        boolean before = LayersConfig.supplies;
+        try {
+            LayersConfig.supplies = true;
+            int cells = 0, offices = 0, webCells = 0, tables = 0;
+            for (int cx = -30; cx < 30; cx++) {
+                for (int cz = -30; cz < 30; cz++) {
+                    cells++;
+                    BackroomsGrid.Supply supply = BackroomsGrid.supply(seed, cx, cz);
+                    int logs = 0, webs = 0, wood = 0;
+                    for (int lx = 1; lx < BackroomsGrid.CELL; lx++) {
+                        for (int lz = 1; lz < BackroomsGrid.CELL; lz++) {
+                            for (int y = 2; y < BackroomsGrid.CEILING_Y; y++) {
+                                BlockState s = BackroomsGrid.at(seed, cx * BackroomsGrid.CELL + lx, y, cz * BackroomsGrid.CELL + lz);
+                                if (s.isAir()) continue;
+                                h.assertFalse(lx >= 3 && lx <= 5 || lz >= 3 && lz <= 5, "supply outside the corners at " + lx + " " + y + " " + lz);
+                                if (s.is(Blocks.STRIPPED_OAK_LOG)) logs++;
+                                if (s.is(Blocks.COBWEB)) webs++;
+                                if (s.is(Blocks.CRAFTING_TABLE)) tables++;
+                                if (s.is(Blocks.OAK_SLAB) || s.is(Blocks.OAK_STAIRS)) wood++;
+                            }
+                        }
+                    }
+                    if (supply == BackroomsGrid.Supply.OFFICE) {
+                        offices++;
+                        h.assertTrue(logs == 3 && wood == 3 && webs == 0, "office " + cx + " " + cz + ": logs " + logs + ", desk/chair " + wood);
+                    } else if (supply == BackroomsGrid.Supply.WEBS) {
+                        webCells++;
+                        h.assertTrue(webs >= 12 && logs == 0, "cobweb cell " + cx + " " + cz + ": " + webs);
+                    } else {
+                        h.assertTrue(logs + webs + wood == 0, "empty cell " + cx + " " + cz);
+                    }
+                }
+            }
+            double officeShare = offices / (double) cells, webShare = webCells / (double) cells;
+            h.assertTrue(officeShare > 0.03 && officeShare < 0.08, "office share " + officeShare);
+            h.assertTrue(webShare > 0.05 && webShare < 0.14, "cobweb share " + webShare);
+            h.assertTrue(tables > 0, "some crafting tables");
+            LayersConfig.supplies = false;
+            for (int cx = -10; cx < 10; cx++) h.assertTrue(BackroomsGrid.supply(seed, cx, 3) == BackroomsGrid.Supply.NONE, "config off: no supplies");
+        } finally {
+            LayersConfig.supplies = before;
+        }
         h.succeed();
     }
 }
