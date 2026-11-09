@@ -507,6 +507,24 @@ def check_registered(c: 'Checker') -> None:
                     c.warns.append(f'registered item "{name}" ({f.relative_to(ROOT)}): no items/{name}.json in any namespace')
 
 
+def check_silent_sound_starts(c: Checker) -> int:
+    """b-tromp14: a SoundInstance that starts at volume 0 (fade-in) is dropped by Vanilla's SoundEngine.play
+    ("volume was zero") unless it overrides canStartSilent() - the trumpet was silent because of this."""
+    n = 0
+    zero = re.compile(r'\bvolume\s*=\s*0(?:\.0+)?[Ff]?\s*;')
+    for f in sorted((ROOT / 'modules').rglob('*.java')) + sorted((ROOT / 'common/src').rglob('*.java')):
+        if '/build/' in f.as_posix():
+            continue
+        text = f.read_text('utf-8', 'replace')
+        if not re.search(r'extends\s+Abstract(?:Tickable)?SoundInstance', text):
+            continue
+        n += 1
+        if zero.search(text) and 'canStartSilent' not in text:
+            c.err(f'sound instance {f.relative_to(ROOT)}', 'starts at volume 0 but does not override canStartSilent() '
+                                                          '- SoundEngine never plays it')
+    return n
+
+
 def jar_names(path: str) -> set[str]:
     with zipfile.ZipFile(path) as z:
         return set(z.namelist())
@@ -525,6 +543,7 @@ def main() -> int:
     ni = c.check_items()
     nb = c.check_blockstates()
     np_, ne, ns_, nj = c.check_particles(), c.check_equipment(), c.check_sounds(), c.check_java_textures()
+    nsi = check_silent_sound_starts(c)
     c.check_lang()
     if not a.ns:
         check_registered(c)
@@ -535,7 +554,7 @@ def main() -> int:
         for w in sorted(set(c.warns)):
             print('WARN ', w)
     print(f'check_missing_textures: {ni} item definitions, {nb} blockstates, {c.checked_models} own models checked, '
-          f'{np_} particles, {ne} equipment assets, {ns_} sounds, {nj} Java texture paths, {len(errs)} errors, {len(set(c.warns))} warnings')
+          f'{np_} particles, {ne} equipment assets, {ns_} sounds, {nsi} sound instances, {nj} Java texture paths, {len(errs)} errors, {len(set(c.warns))} warnings')
     print('alles gruen' if not errs else 'NICHT gruen')
     return 1 if errs else 0
 

@@ -295,6 +295,37 @@ final class DisguiseTests {
             }
             h.succeed();
         });
+        // b-tromp14 (owner 09.11. "trumpet is silent"): every MobsSounds event is registered, has a sounds.json entry, and each
+        // file of that entry is a mono Ogg Vorbis on the classpath (mono, or the positional trumpet/howler would not attenuate).
+        add.accept("sound_files", h -> {
+            com.google.gson.JsonObject json;
+            try (var in = DisguiseTests.class.getResourceAsStream("/assets/simplemobs/sounds.json")) {
+                h.assertTrue(in != null, "assets/simplemobs/sounds.json on the classpath");
+                json = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+            } catch (java.io.IOException e) { throw new IllegalStateException(e); }
+            int files = 0;
+            for (String name : MobsSounds.names()) {
+                h.assertTrue(BuiltInRegistries.SOUND_EVENT.containsKey(Identifier.fromNamespaceAndPath("simplemobs", name)), "sound event registered: " + name);
+                h.assertTrue(json.has(name) && !json.getAsJsonObject(name).getAsJsonArray("sounds").isEmpty(), "sounds.json entry: " + name);
+                for (var el : json.getAsJsonObject(name).getAsJsonArray("sounds")) {
+                    String file = el.isJsonPrimitive() ? el.getAsString() : el.getAsJsonObject().get("name").getAsString();
+                    Identifier id = Identifier.parse(file.contains(":") ? file : "simplemobs:" + file);
+                    if (el.isJsonObject() && el.getAsJsonObject().has("type") && "event".equals(el.getAsJsonObject().get("type").getAsString())) continue;
+                    String path = "/assets/" + id.getNamespace() + "/sounds/" + id.getPath() + ".ogg";
+                    try (var in = DisguiseTests.class.getResourceAsStream(path)) {
+                        h.assertTrue(in != null, "sound file " + path + " of " + name);
+                        byte[] head = in.readNBytes(64);
+                        String txt = new String(head, java.nio.charset.StandardCharsets.ISO_8859_1);
+                        int v = txt.indexOf("\u0001vorbis");
+                        h.assertTrue(txt.startsWith("OggS") && v >= 0 && head.length > v + 11, "Ogg Vorbis: " + path);
+                        h.assertTrue(head[v + 11] == 1, "mono (positional): " + path + " has " + head[v + 11] + " channels");
+                    } catch (java.io.IOException e) { throw new IllegalStateException(e); }
+                    files++;
+                }
+            }
+            h.assertTrue(json.has("item.trumpet.low") && json.has("item.trumpet.high") && files >= 2, "trumpet samples checked (" + files + " files)");
+            h.succeed();
+        });
         add.accept("cloak_head_slot", h -> {
             var level = h.getLevel();
             floor(h, 0, 8);
