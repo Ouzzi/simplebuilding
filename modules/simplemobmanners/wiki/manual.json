@@ -20,12 +20,12 @@
         "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/mixin/PassiveEntityMixin.java"
       ],
       "en": {
-        "title": "Permanent babies",
-        "summary": "Every 100 ticks, named ageable mobs ending in _baby or _small are set to age -24000. The source also makes named adults young again; this behavior is preserved. Removing the suffix allows aging again."
+        "title": "Permanent babies (golden dandelion)",
+        "summary": "Minecraft 26.3 and newer: off. Vanilla replaced the baby name tag by the golden dandelion (right-click a baby to stop it growing up), so only that works and the _baby/_small suffixes do nothing. Ports for 26.2 and 1.21.11 keep the old suffix mechanic (every 100 ticks a named baby is set back to age -24000)."
       },
       "de": {
-        "title": "Dauerhafte Jungtiere",
-        "summary": "Alle 100 Ticks werden benannte alternde Wesen mit _baby oder _small auf Alter -24000 gesetzt. Die Quelle macht damit auch Erwachsene wieder jung; das bleibt erhalten. Suffix entfernen erlaubt Altern."
+        "title": "Dauerhafte Jungtiere (Goldlöwenzahn)",
+        "summary": "Minecraft 26.3 und neuer: aus. Vanilla hat das Baby-Namensschild durch den Goldlöwenzahn ersetzt (Rechtsklick auf ein Jungtier hält es klein), nur dieser wirkt; die Suffixe _baby/_small tun nichts. Die Ports für 26.2 und 1.21.11 behalten die alte Suffix-Mechanik (alle 100 Ticks wird ein benanntes Jungtier auf Alter -24000 zurückgesetzt)."
       }
     },
     {

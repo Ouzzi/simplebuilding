@@ -16,6 +16,7 @@ public final class WeatherTests {
         ALL.put("config", WeatherTests::config);
         ALL.put("qol_migration", WeatherTests::qolMigration);
         ALL.put("super_switch", WeatherTests::superSwitch);
+        ALL.put("frequency_factor", WeatherTests::frequencyFactor);
     }
 
     private WeatherTests() {}
@@ -106,6 +107,35 @@ public final class WeatherTests {
             var data = h.getLevel().getWeatherData();
             data.setRaining(false); data.setThundering(false);
             h.getLevel().setRainLevel(0); h.getLevel().setThunderLevel(0);
+        });
+        h.succeed();
+    }
+
+    /** The frequency factors scale the dry-spell countdowns; factor 1 is exactly Vanilla; durations (raining) stay untouched. */
+    public static void frequencyFactor(GameTestHelper h) {
+        long fast = 0, slow = 0;
+        for (long t = 1000; t < 2000; t++) { fast += SimpleWeather.shift(t, 4f); slow += SimpleWeather.shift(t, 0.25f); }
+        h.assertTrue(fast == 3000, "factor 4 skips 3 extra ticks per tick: " + fast);
+        h.assertTrue(slow == -750, "factor 0.25 adds 0.75 ticks per tick: " + slow);
+        h.assertTrue(SimpleWeather.shift(777, 1f) == 0 && SimpleWeather.scaled(0, 5) == 0 && SimpleWeather.scaled(3, 99) == 1, "Vanilla at 1, unset stays, never below 1");
+        var c = new WeatherConfig();
+        c.rainFrequencyFactor = 99f; c.thunderFrequencyFactor = 0f; c.normalize();
+        h.assertTrue(c.rainFrequencyFactor == 4f && c.thunderFrequencyFactor == 0.25f, "factors bounded 0.25-4");
+        h.assertTrue(new WeatherConfig().rainFrequencyFactor == 1f, "default is Vanilla");
+        configured(() -> {
+            var data = h.getLevel().getWeatherData();
+            data.setRaining(false); data.setThundering(false); data.setClearWeatherTime(0);
+            long time = h.getLevel().getGameTime();
+            data.setRainTime(100_000); data.setThunderTime(100_000);
+            advance(h);
+            h.assertTrue(data.getRainTime() == 99_999 && data.getThunderTime() == 99_999, "factor 1: one tick per tick, got " + data.getRainTime());
+            SimpleWeather.CONFIG.rainFrequencyFactor = 4f;
+            SimpleWeather.CONFIG.thunderFrequencyFactor = 0.25f;
+            data.setRainTime(100_000); data.setThunderTime(100_000);
+            advance(h);
+            int rain = 100_000 - 1 - SimpleWeather.shift(time, 4f), thunder = 100_000 - 1 - SimpleWeather.shift(time, 0.25f);
+            h.assertTrue(data.getRainTime() == rain && data.getThunderTime() == thunder, "countdowns scaled in the real hook: " + data.getRainTime() + "/" + data.getThunderTime());
+            data.setRainTime(0); data.setThunderTime(0);
         });
         h.succeed();
     }

@@ -10,4 +10,5 @@ public final class ModuleGameTest {
     @GameTest public void config(GameTestHelper h) { WeatherTests.config(h); }
     @GameTest public void qolMigration(GameTestHelper h) { WeatherTests.qolMigration(h); }
     @GameTest(maxTicks = 100) public void superSwitch(GameTestHelper h) { WeatherTests.superSwitch(h); }
+    @GameTest(maxTicks = 100) public void frequencyFactor(GameTestHelper h) { WeatherTests.frequencyFactor(h); }
 }

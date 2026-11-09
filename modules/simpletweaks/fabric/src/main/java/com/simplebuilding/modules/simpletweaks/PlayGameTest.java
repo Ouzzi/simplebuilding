@@ -17,6 +17,7 @@ public final class PlayGameTest {
  @GameTest(maxTicks=100) public void newPlayerShieldConfigOff(GameTestHelper h) { PlayTests.TESTS.get("new_player_shield_config_off").accept(h); }
  @GameTest(maxTicks=100) public void welcomeLinesAndTips(GameTestHelper h) { PlayTests.TESTS.get("welcome_lines_and_tips").accept(h); }
  @GameTest(maxTicks=100) public void loginRewardStreak(GameTestHelper h) { PlayTests.TESTS.get("login_reward_streak").accept(h); }
+ @GameTest(maxTicks=100) public void weatherScheduleSetsWeather(GameTestHelper h) { PlayTests.TESTS.get("weather_schedule_sets_weather").accept(h); }
  @GameTest(maxTicks=100) public void eventsXpLootSchedule(GameTestHelper h) { PlayTests.TESTS.get("events_xp_loot_schedule").accept(h); }
  @GameTest(maxTicks=100) public void leaderboardSortsAndSidebar(GameTestHelper h) { PlayTests.TESTS.get("leaderboard_sorts_and_sidebar").accept(h); }
  @GameTest(maxTicks=100) public void voteMajorityAndOptions(GameTestHelper h) { PlayTests.TESTS.get("vote_majority_and_options").accept(h); }

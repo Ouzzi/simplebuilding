@@ -33,6 +33,22 @@ public final class SimpleWeather {
         return CONFIG;
     }
 
+    /**
+     * Extra countdown ticks of the Vanilla weather timer at game tick {@code time} for a frequency factor: positive skips
+     * ticks (more frequent), negative adds ticks (rarer). Stateless: the sum over any n consecutive ticks is n*(factor-1)
+     * rounded, so factor 1 is exactly Vanilla.
+     */
+    public static int shift(long time, float factor) {
+        if (factor == 1f) return 0;
+        double k = factor - 1.0;
+        return (int) (Math.floor(time * k) - Math.floor((time - 1) * k));
+    }
+
+    /** The Vanilla countdown {@code left} (ticks, 1 = flips next tick) moved by {@code shift}; 0 (not set yet) stays. */
+    public static int scaled(int left, int shift) {
+        return left < 1 || shift == 0 ? left : (int) Math.max(1L, (long) left - shift);
+    }
+
     static Path path() {
         return configDir.resolve(MOD_ID + ".json");
     }

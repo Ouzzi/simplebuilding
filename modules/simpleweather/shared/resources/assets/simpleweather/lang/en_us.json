@@ -4,5 +4,9 @@
   "simpleweather.option.disableWeather": "Disable Weather (Server)",
   "simpleweather.option.disableWeather.tooltip": "Stops rain and thunder from occurring and\nclears active weather. Server-side. Default:\nfalse.",
   "simpleweather.option.clientRainParticleDensity": "Rain Disturbance (Client)",
-  "simpleweather.option.clientRainParticleDensity.tooltip": "Reduces rain particles and sounds. 100 = All\nparticles/sounds 0 = No particles/sounds\n(Silent). Default: 20. Allowed range: 0–100."
+  "simpleweather.option.clientRainParticleDensity.tooltip": "Reduces rain particles and sounds. 100 = All\nparticles/sounds 0 = No particles/sounds\n(Silent). Default: 20. Allowed range: 0–100.",
+  "simpleweather.option.rainFrequencyFactor": "Rain Frequency (x, Server)",
+  "simpleweather.option.rainFrequencyFactor.tooltip": "How often rain starts: the dry spell between two\nrains is divided by this factor. 1 = Vanilla,\n2 = twice as often, 0.25 = four times as rare.\nRain length stays Vanilla. Default: 1. Range:\n0.25–4.",
+  "simpleweather.option.thunderFrequencyFactor": "Thunder Frequency (x, Server)",
+  "simpleweather.option.thunderFrequencyFactor.tooltip": "How often thunderstorms start, same scale as the\nrain factor (own countdown). Default: 1. Range:\n0.25–4."
 }

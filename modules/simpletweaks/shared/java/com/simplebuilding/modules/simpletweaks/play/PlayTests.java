@@ -10,6 +10,7 @@ import com.simplebuilding.modules.simpletweaks.play.crowd.EntityLimit;
 import com.simplebuilding.modules.simpletweaks.play.death.DeathHint;
 import com.simplebuilding.modules.simpletweaks.play.dragon.DragonEgg;
 import com.simplebuilding.modules.simpletweaks.play.events.ServerEvents;
+import com.simplebuilding.modules.simpletweaks.play.events.WeatherPlan;
 import com.simplebuilding.modules.simpletweaks.play.grief.MobGriefing;
 import com.simplebuilding.modules.simpletweaks.play.keep.KeepInventory;
 import com.simplebuilding.modules.simpletweaks.play.phantoms.Phantoms;
@@ -67,6 +68,7 @@ public final class PlayTests {
         TESTS.put("welcome_lines_and_tips", PlayTests::welcome);
         TESTS.put("login_reward_streak", PlayTests::reward);
         TESTS.put("events_xp_loot_schedule", PlayTests::events);
+        TESTS.put("weather_schedule_sets_weather", PlayTests::weatherSchedule);
         TESTS.put("leaderboard_sorts_and_sidebar", PlayTests::leaderboard);
         TESTS.put("vote_majority_and_options", PlayTests::vote);
         TESTS.put("afk_tab_name_and_sleep", PlayTests::afk);
@@ -129,9 +131,10 @@ public final class PlayTests {
         yes(h, coords.pingSeconds() == 60 && coords.cooldownSeconds() == 0, "Coords values are clamped");
         var vote = new PlayConfig.Vote(true, 1, 500, -1, true, true, false);
         yes(h, vote.seconds() == 10 && vote.percent() == 100 && vote.cooldownSeconds() == 0, "Vote values are clamped");
-        var ev = new PlayConfig.Events(true, 9, true, List.of("SAT 20:00 double_xp 60", "XYZ 25:00 foo 0", "daily 7:30 blood_moon 30"), 0, 99f, 0, 1, 99);
+        var ev = new PlayConfig.Events(true, 9, true, List.of("SAT 20:00 double_xp 60", "XYZ 25:00 foo 0", "daily 7:30 blood_moon 30"), 0, 99f, 0, 1, 99, true, "bogus", List.of("SAT 20:00 thunder 30 blood_moon", "DAILY 7:30 foo 5"));
         yes(h, ev.schedule().equals(List.of("SAT 20:00 double_xp 60", "daily 7:30 blood_moon 30")) && ev.permission() == 4 && ev.xpMultiplier() == 10f
                 && ev.extraLootRolls() == 1 && ev.bloodMoonWaveSeconds() == 5 && ev.bloodMoonMobs() == 8, "Event schedule and values validated: " + ev.schedule());
+        yes(h, ev.weatherClock().equals("real") && ev.weatherSchedule().equals(List.of("SAT 20:00 thunder 30 blood_moon")) && !d.events().weatherScheduleEnabled(), "Weather schedule validated, off by default");
         var keep = new PlayConfig.KeepInventory(true, "weird", true, true, true, false, 300);
         yes(h, keep.mode().equals("hotbar_armor") && keep.keepXpPercent() == 100, "Unknown keep mode falls back, percent clamped");
         try {
@@ -449,6 +452,26 @@ public final class PlayTests {
             yes(h, inner[0] == 0, "The extra roll does not roll again");
             yes(h, ServerEvents.stop(server) && ServerEvents.current() == null, "Stopped");
         } finally { ServerEvents.shutdown(); }
+        h.succeed();
+    }
+
+    static void weatherSchedule(GameTestHelper h) {
+        var server = h.getLevel().getServer();
+        var s = WeatherSchedule.parse("SAT 20:00 thunder 30 blood_moon");
+        yes(h, s != null && s.kind().equals("thunder") && s.event().equals("blood_moon") && s.startsAt(LocalDateTime.of(2026, 10, 17, 20, 0)) && !s.startsAt(LocalDateTime.of(2026, 10, 18, 20, 0)), "Real-clock line with event");
+        yes(h, WeatherSchedule.parse("SAT 20:00 snow 30") == null && WeatherSchedule.parse("DAILY 20:00 rain 30 party") == null && WeatherSchedule.parse("D0 20:00 rain 5") == null, "Unknown kind, event or day refused");
+        var game = WeatherSchedule.parse("D2 12:00 rain 10");
+        yes(h, game != null && game.startTick() == 6000 && game.startsAtGame(2 * 24000L + 6005) && !game.startsAtGame(24000L + 6005) && !game.startsAtGame(2 * 24000L + 6020) && !game.startsAt(LocalDateTime.of(2026, 10, 17, 12, 0)), "Game-clock line every 2nd day at 12:00 (tick 6000)");
+        var lines = List.of("DAILY 20:00 rain 30", "D1 06:00 clear 5", "MON 01:00 thunder 5");
+        var real = LocalDateTime.of(2026, 10, 19, 20, 0);
+        yes(h, WeatherPlan.due(lines, "real", real, 0).size() == 1 && WeatherPlan.due(lines, "game", real, 5).size() == 1 && WeatherPlan.due(lines, "game", real, 5).get(0).kind().equals("clear"), "Each clock picks its own lines");
+        try {
+            yes(h, WeatherPlan.apply(server, "thunder", 5, "double_xp") && ServerEvents.is("double_xp"), "Schedule action starts weather and event together");
+            var data = server.getWeatherData();
+            yes(h, data.isRaining() && data.isThundering() && data.getRainTime() == 5 * 1200, "Thunder set for 5 minutes: " + data.getRainTime());
+            WeatherPlan.apply(server, "clear", 1, null);
+            yes(h, !data.isRaining() && !data.isThundering() && data.getClearWeatherTime() == 1200, "Clear weather set");
+        } finally { ServerEvents.shutdown(); server.setWeatherParameters(0, 0, false, false); }
         h.succeed();
     }
 
