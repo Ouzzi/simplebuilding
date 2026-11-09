@@ -32,7 +32,6 @@ common/src/shared/java/com/simplebuilding/blueprint/BlueprintModel.java modules/
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintPicture.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintPicture.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintScanner.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintScanner.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintTiers.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintTiers.java
-common/src/shared/java/com/simplebuilding/blueprint/BlueprintViewControls.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintViewControls.java
 common/src/shared/java/com/simplebuilding/blueprint/ShapeFill.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/ShapeFill.java
 common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackKeyHandler.java allow: create/0
 common/src/shared/java/com/simplebuilding/client/ClientState.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/ClientState.java allow: configure/3 highlightOpacity/0 invertOctantSneak/0 showHighlights/0

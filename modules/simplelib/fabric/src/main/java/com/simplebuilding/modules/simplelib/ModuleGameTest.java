@@ -269,4 +269,9 @@ public final class ModuleGameTest {
     public void modpackGuideCreativeTabs(GameTestHelper h) {
         LibTests.ALL.get("modpack_guide_creative_tabs").accept(h);
     }
+
+    @GameTest
+    public void orbitCamera(GameTestHelper h) {
+        LibTests.ALL.get("orbit_camera").accept(h);
+    }
 }
