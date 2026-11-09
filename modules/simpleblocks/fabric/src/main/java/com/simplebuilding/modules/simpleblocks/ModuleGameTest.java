@@ -12,12 +12,12 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
-    public void pal14Members(GameTestHelper h) {
+    public void paletteMembersPal(GameTestHelper h) {
         BlocksTests.ALL.get("pal14_members").accept(h);
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
-    public void pal14Ice(GameTestHelper h) {
+    public void paletteIcePal(GameTestHelper h) {
         BlocksTests.ALL.get("pal14_ice").accept(h);
     }
 

@@ -619,21 +619,30 @@ public class ModBlocks {
         }
     }
 
-    private static CoatedKind coatedKind(String kind, Block stone, Block purpur, EndPalette palette) {
-        return new CoatedKind(kind, stone,
-                registerBlock(kind + "_end_stone_stairs", stone, s -> new StairBlock(stone.defaultBlockState(), s)),
-                registerBlock(kind + "_end_stone_slab", stone, SlabBlock::new),
-                registerBlock(kind + "_end_stone_wall", stone, s -> new WallBlock(s.forceSolidOn())),
-                purpur,
-                registerBlock(kind + "_purpur_pillar", purpur, RotatedPillarBlock::new),
-                registerBlock(kind + "_purpur_stairs", purpur, s -> new StairBlock(purpur.defaultBlockState(), s)),
-                registerBlock(kind + "_purpur_slab", purpur, SlabBlock::new),
-                palette);
-    }
-
-    public static final CoatedKind ASTRAL_COATED = coatedKind("astral", ASTRAL_END_STONE, ASTRAL_PURPUR_BLOCK, ASTRALIT_PALETTE);
-    public static final CoatedKind NIHIL_COATED = coatedKind("nihil", NIHIL_END_STONE, NIHIL_PURPUR_BLOCK, NIHILITH_PALETTE);
-    public static final CoatedKind ENDER_COATED = coatedKind("ender", ENDER_END_STONE, ENDER_PURPUR_BLOCK, ENDER_QUARTZ_PALETTE);
+    public static final Block ASTRAL_END_STONE_STAIRS = registerBlock("astral_end_stone_stairs", ASTRAL_END_STONE, s -> new StairBlock(ASTRAL_END_STONE.defaultBlockState(), s));
+    public static final Block ASTRAL_END_STONE_SLAB = registerBlock("astral_end_stone_slab", ASTRAL_END_STONE, SlabBlock::new);
+    public static final Block ASTRAL_END_STONE_WALL = registerBlock("astral_end_stone_wall", ASTRAL_END_STONE, s -> new WallBlock(s.forceSolidOn()));
+    public static final Block ASTRAL_PURPUR_PILLAR = registerBlock("astral_purpur_pillar", ASTRAL_PURPUR_BLOCK, RotatedPillarBlock::new);
+    public static final Block ASTRAL_PURPUR_STAIRS = registerBlock("astral_purpur_stairs", ASTRAL_PURPUR_BLOCK, s -> new StairBlock(ASTRAL_PURPUR_BLOCK.defaultBlockState(), s));
+    public static final Block ASTRAL_PURPUR_SLAB = registerBlock("astral_purpur_slab", ASTRAL_PURPUR_BLOCK, SlabBlock::new);
+    public static final CoatedKind ASTRAL_COATED = new CoatedKind("astral", ASTRAL_END_STONE, ASTRAL_END_STONE_STAIRS, ASTRAL_END_STONE_SLAB, ASTRAL_END_STONE_WALL,
+            ASTRAL_PURPUR_BLOCK, ASTRAL_PURPUR_PILLAR, ASTRAL_PURPUR_STAIRS, ASTRAL_PURPUR_SLAB, ASTRALIT_PALETTE);
+    public static final Block NIHIL_END_STONE_STAIRS = registerBlock("nihil_end_stone_stairs", NIHIL_END_STONE, s -> new StairBlock(NIHIL_END_STONE.defaultBlockState(), s));
+    public static final Block NIHIL_END_STONE_SLAB = registerBlock("nihil_end_stone_slab", NIHIL_END_STONE, SlabBlock::new);
+    public static final Block NIHIL_END_STONE_WALL = registerBlock("nihil_end_stone_wall", NIHIL_END_STONE, s -> new WallBlock(s.forceSolidOn()));
+    public static final Block NIHIL_PURPUR_PILLAR = registerBlock("nihil_purpur_pillar", NIHIL_PURPUR_BLOCK, RotatedPillarBlock::new);
+    public static final Block NIHIL_PURPUR_STAIRS = registerBlock("nihil_purpur_stairs", NIHIL_PURPUR_BLOCK, s -> new StairBlock(NIHIL_PURPUR_BLOCK.defaultBlockState(), s));
+    public static final Block NIHIL_PURPUR_SLAB = registerBlock("nihil_purpur_slab", NIHIL_PURPUR_BLOCK, SlabBlock::new);
+    public static final CoatedKind NIHIL_COATED = new CoatedKind("nihil", NIHIL_END_STONE, NIHIL_END_STONE_STAIRS, NIHIL_END_STONE_SLAB, NIHIL_END_STONE_WALL,
+            NIHIL_PURPUR_BLOCK, NIHIL_PURPUR_PILLAR, NIHIL_PURPUR_STAIRS, NIHIL_PURPUR_SLAB, NIHILITH_PALETTE);
+    public static final Block ENDER_END_STONE_STAIRS = registerBlock("ender_end_stone_stairs", ENDER_END_STONE, s -> new StairBlock(ENDER_END_STONE.defaultBlockState(), s));
+    public static final Block ENDER_END_STONE_SLAB = registerBlock("ender_end_stone_slab", ENDER_END_STONE, SlabBlock::new);
+    public static final Block ENDER_END_STONE_WALL = registerBlock("ender_end_stone_wall", ENDER_END_STONE, s -> new WallBlock(s.forceSolidOn()));
+    public static final Block ENDER_PURPUR_PILLAR = registerBlock("ender_purpur_pillar", ENDER_PURPUR_BLOCK, RotatedPillarBlock::new);
+    public static final Block ENDER_PURPUR_STAIRS = registerBlock("ender_purpur_stairs", ENDER_PURPUR_BLOCK, s -> new StairBlock(ENDER_PURPUR_BLOCK.defaultBlockState(), s));
+    public static final Block ENDER_PURPUR_SLAB = registerBlock("ender_purpur_slab", ENDER_PURPUR_BLOCK, SlabBlock::new);
+    public static final CoatedKind ENDER_COATED = new CoatedKind("ender", ENDER_END_STONE, ENDER_END_STONE_STAIRS, ENDER_END_STONE_SLAB, ENDER_END_STONE_WALL,
+            ENDER_PURPUR_BLOCK, ENDER_PURPUR_PILLAR, ENDER_PURPUR_STAIRS, ENDER_PURPUR_SLAB, ENDER_QUARTZ_PALETTE);
     public static final List<CoatedKind> COATED_KINDS = List.of(ASTRAL_COATED, NIHIL_COATED, ENDER_COATED);
 
     /**

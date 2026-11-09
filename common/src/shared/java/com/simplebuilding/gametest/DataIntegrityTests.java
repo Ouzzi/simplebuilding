@@ -3295,7 +3295,10 @@ public final class DataIntegrityTests {
                 chess.add(new CreativeTabLayout.Row("chess_" + color.id(), first));
                 chess.add(new CreativeTabLayout.Row("chess_" + color.id() + "_flat", second));
             }
-            expected.addAll(10, chess);
+            // nach der Zeile "checkers" (PAL14: die Zeilen davor sind nicht mehr fest zehn)
+            int afterCheckers = 1 + java.util.stream.IntStream.range(0, expected.size())
+                    .filter(i -> expected.get(i).name().equals("checkers")).findFirst().orElseThrow();
+            expected.addAll(afterCheckers, chess);
             // Holz- und Material-Achtel: eigener Tab von Simple Octets (Stufe 6).
         }
         if (McVersion.NATURE_VARIANTS) {

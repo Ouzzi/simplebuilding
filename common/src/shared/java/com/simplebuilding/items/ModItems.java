@@ -282,8 +282,24 @@ public class ModItems {
     // PAL14: Ender-Endstein/-Purpur und die Formen der drei beschichteten Arten (ModBlocks.COATED_KINDS), Item-Id = Block-Id.
     public static final Item ENDER_END_STONE = registerItem("ender_end_stone", s -> new BlockItem(ModBlocks.ENDER_END_STONE, s));
     public static final Item ENDER_PURPUR_BLOCK = registerItem("ender_purpur_block", s -> new BlockItem(ModBlocks.ENDER_PURPUR_BLOCK, s));
-    public static final List<Item> COATED_SHAPE_ITEMS = ModBlocks.COATED_KINDS.stream().flatMap(k -> k.shapes().stream())
-            .map(block -> registerItem(BuiltInRegistries.BLOCK.getKey(block).getPath(), s -> new BlockItem(block, s))).toList();
+    public static final Item ASTRAL_END_STONE_STAIRS = registerItem("astral_end_stone_stairs", s -> new BlockItem(ModBlocks.ASTRAL_END_STONE_STAIRS, s));
+    public static final Item ASTRAL_END_STONE_SLAB = registerItem("astral_end_stone_slab", s -> new BlockItem(ModBlocks.ASTRAL_END_STONE_SLAB, s));
+    public static final Item ASTRAL_END_STONE_WALL = registerItem("astral_end_stone_wall", s -> new BlockItem(ModBlocks.ASTRAL_END_STONE_WALL, s));
+    public static final Item ASTRAL_PURPUR_PILLAR = registerItem("astral_purpur_pillar", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_PILLAR, s));
+    public static final Item ASTRAL_PURPUR_STAIRS = registerItem("astral_purpur_stairs", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_STAIRS, s));
+    public static final Item ASTRAL_PURPUR_SLAB = registerItem("astral_purpur_slab", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_SLAB, s));
+    public static final Item NIHIL_END_STONE_STAIRS = registerItem("nihil_end_stone_stairs", s -> new BlockItem(ModBlocks.NIHIL_END_STONE_STAIRS, s));
+    public static final Item NIHIL_END_STONE_SLAB = registerItem("nihil_end_stone_slab", s -> new BlockItem(ModBlocks.NIHIL_END_STONE_SLAB, s));
+    public static final Item NIHIL_END_STONE_WALL = registerItem("nihil_end_stone_wall", s -> new BlockItem(ModBlocks.NIHIL_END_STONE_WALL, s));
+    public static final Item NIHIL_PURPUR_PILLAR = registerItem("nihil_purpur_pillar", s -> new BlockItem(ModBlocks.NIHIL_PURPUR_PILLAR, s));
+    public static final Item NIHIL_PURPUR_STAIRS = registerItem("nihil_purpur_stairs", s -> new BlockItem(ModBlocks.NIHIL_PURPUR_STAIRS, s));
+    public static final Item NIHIL_PURPUR_SLAB = registerItem("nihil_purpur_slab", s -> new BlockItem(ModBlocks.NIHIL_PURPUR_SLAB, s));
+    public static final Item ENDER_END_STONE_STAIRS = registerItem("ender_end_stone_stairs", s -> new BlockItem(ModBlocks.ENDER_END_STONE_STAIRS, s));
+    public static final Item ENDER_END_STONE_SLAB = registerItem("ender_end_stone_slab", s -> new BlockItem(ModBlocks.ENDER_END_STONE_SLAB, s));
+    public static final Item ENDER_END_STONE_WALL = registerItem("ender_end_stone_wall", s -> new BlockItem(ModBlocks.ENDER_END_STONE_WALL, s));
+    public static final Item ENDER_PURPUR_PILLAR = registerItem("ender_purpur_pillar", s -> new BlockItem(ModBlocks.ENDER_PURPUR_PILLAR, s));
+    public static final Item ENDER_PURPUR_STAIRS = registerItem("ender_purpur_stairs", s -> new BlockItem(ModBlocks.ENDER_PURPUR_STAIRS, s));
+    public static final Item ENDER_PURPUR_SLAB = registerItem("ender_purpur_slab", s -> new BlockItem(ModBlocks.ENDER_PURPUR_SLAB, s));
 
 
 
