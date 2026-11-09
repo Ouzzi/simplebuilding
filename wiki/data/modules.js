@@ -140,7 +140,6 @@ window.WIKI_MODULES = [
       "simplesounds",
       "simpletweaks",
       "simplevisuals",
-      "wiringexample",
       "simpleores"
     ],
     "stage": "done",
@@ -158,9 +157,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 8,
-      "features": 79
+      "features": 78
     },
-    "dataHash": "3bd40dff7a11"
+    "dataHash": "d78ffe3da4e4"
   },
   {
     "id": "simpleriding",
@@ -1372,11 +1371,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 213,
+      "blocks": 194,
       "recipes": 511,
       "features": 15
     },
-    "dataHash": "9759ecb5c1d0"
+    "dataHash": "ac63adb910e3"
   },
   {
     "id": "simplecrucibles",
