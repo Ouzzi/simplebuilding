@@ -1,6 +1,10 @@
 {
   "values": [
     "simpleores:lead_block",
+    "simpleores:cut_lead",
+    "simpleores:lead_tiles",
+    "simpleores:lead_pillar",
+    "simpleores:chiseled_lead",
     {
       "id": "simpleoctets:lead_block_octet",
       "required": false

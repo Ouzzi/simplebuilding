@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:zinc_block",
+  "result": {
+    "count": 4,
+    "id": "simpleores:chiseled_zinc"
+  }
+}

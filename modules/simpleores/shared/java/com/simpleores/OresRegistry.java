@@ -118,6 +118,29 @@ public final class OresRegistry {
     }
 
     /**
+     * N9 (b-metals14, owner 09.11.: "silver, lead, zinc, nickel, tin and brass only cosmetic"): the building family of each metal, copies of
+     * its storage block (lead keeps hardness, blast resistance and sound): cut block with stairs and slab (like cut copper), tiles, pillar,
+     * chiseled block. No tools, no armor (test {@code metals_are_cosmetic}).
+     */
+    public static final String[] COSMETIC = {"silver", "lead", "zinc", "nickel", "tin", "brass"};
+    static {
+        for (String m : COSMETIC) {
+            Block base = BLOCKS.get(m + "_block");
+            Block cut = block("cut_" + m, base, Block::new);
+            block("cut_" + m + "_stairs", base, s -> new net.minecraft.world.level.block.StairBlock(cut.defaultBlockState(), s));
+            block("cut_" + m + "_slab", base, net.minecraft.world.level.block.SlabBlock::new);
+            block(m + "_tiles", base, Block::new);
+            block(m + "_pillar", base, net.minecraft.world.level.block.RotatedPillarBlock::new);
+            block("chiseled_" + m, base, Block::new);
+        }
+    }
+
+    /** The block paths of a metal's cosmetic family, in creative order. */
+    public static List<String> family(String metal) {
+        return List.of("cut_" + metal, "cut_" + metal + "_stairs", "cut_" + metal + "_slab", metal + "_tiles", metal + "_pillar", "chiseled_" + metal);
+    }
+
+    /**
      * N4 (b-ores13, owner 09.11.): End lead and End zinc in End stone (drop like their Overworld ores), the crust of the closed mini
      * geodes ({@link MiniGeodeFeature}), and tin-bearing gravel and sand of river and beach beds (shovel, they fall like gravel/sand,
      * drop tin nuggets).
@@ -306,9 +329,19 @@ public final class OresRegistry {
             "end_lead_ore", "zinc_ore", "deepslate_zinc_ore", "end_zinc_ore", "geode_crust", "raw_zinc_block", "nickel_ore", "deepslate_nickel_ore", "raw_nickel_block",
             "tin_ore", "deepslate_tin_ore", "tin_bearing_gravel", "tin_bearing_sand", "raw_tin_block",
             "sage_ore", "deepslate_sage_ore", "nether_sage_ore", "end_sage_ore", "nether_rose_gold_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
-    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "zinc_block", "nickel_block", "tin_block", "brass_block", "stainless_steel_block", "bronze_block", "rose_bronze_block", "rose_gold_block", "rose_bronze_pressling_block", "rose_gold_pressling_block", "sage_crystal_block", "enderite_block",
+    public static final String[] BUILDING = withFamilies(new String[] {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "zinc_block", "nickel_block", "tin_block", "brass_block", "stainless_steel_block", "bronze_block", "rose_bronze_block", "rose_gold_block", "rose_bronze_pressling_block", "rose_gold_pressling_block", "sage_crystal_block", "enderite_block",
             "netherite_scrap_block", "enderite_scrap_block", "sage_orb_block", "rift_shard_block", "nether_rift_shard_block", "end_rift_shard_block",
-            "terranite_block", "infernite_block", "zenithite_block"};
+            "terranite_block", "infernite_block", "zenithite_block"});
+
+    /** N9: every metal's cosmetic family right behind its storage block. */
+    private static String[] withFamilies(String[] paths) {
+        List<String> out = new ArrayList<>();
+        for (String path : paths) {
+            out.add(path);
+            for (String m : COSMETIC) if (path.equals(m + "_block")) out.addAll(family(m));
+        }
+        return out.toArray(String[]::new);
+    }
     public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "raw_zinc", "zinc_nugget", "zinc_ingot", "raw_nickel", "nickel_nugget", "nickel_ingot", "raw_tin", "tin_nugget", "tin_ingot",
             "brass_ingot", "stainless_steel_ingot", "bronze_ingot", "rose_bronze_pressling",
             "rose_bronze_nugget", "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_nugget", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:lead_block",
+  "result": {
+    "count": 8,
+    "id": "simpleores:cut_lead_slab"
+  }
+}

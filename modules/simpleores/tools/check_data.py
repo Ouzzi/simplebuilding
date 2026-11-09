@@ -107,8 +107,34 @@ mc = RES / 'data/minecraft/tags'
 assert f'{NS}:lead_block' in json.loads((mc / 'block/occludes_vibration_signals.json').read_text(encoding='utf-8'))['values']
 assert {'id': 'simpleoctets:lead_block_octet', 'required': False} in json.loads((mc / 'block/occludes_vibration_signals.json').read_text(encoding='utf-8'))['values']
 assert not (mc / 'block/dampens_vibrations.json').exists(), 'lead must NOT dampen vibrations'
-assert json.loads((RES / f'data/{NS}/tags/block/soundproofing.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:lead_block', {'id': 'simpleoctets:lead_block_octet', 'required': False}]
-assert json.loads((RES / f'data/{NS}/tags/block/soundproofing_half.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:lead_plate']
+LEAD_CUBES = [f'{NS}:cut_lead', f'{NS}:lead_tiles', f'{NS}:lead_pillar', f'{NS}:chiseled_lead']   # N9: the cosmetic lead family is lead too
+assert json.loads((RES / f'data/{NS}/tags/block/soundproofing.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:lead_block'] + LEAD_CUBES + [{'id': 'simpleoctets:lead_block_octet', 'required': False}]
+assert json.loads((RES / f'data/{NS}/tags/block/soundproofing_half.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:lead_plate', f'{NS}:cut_lead_stairs', f'{NS}:cut_lead_slab']
+assert all(b in json.loads((mc / 'block/occludes_vibration_signals.json').read_text(encoding='utf-8'))['values'] for b in LEAD_CUBES)
+
+# N9 (b-metals14): the six metals are cosmetic only - no gear item of any of them (or of the plain alloys); each has its building family with
+# blockstate, models, item definition, loot, own texture + layer source (committed, not Vanilla-derived), lang EN/DE and pickaxe tag.
+COSMETIC = ('silver', 'lead', 'zinc', 'nickel', 'tin', 'brass')
+item_files = {p.stem for p in (RES / f'assets/{NS}/items').glob('*.json')}
+for m in COSMETIC + ('stainless_steel', 'bronze'):
+    assert not any(f'{m}_{g}' in item_files for g in GEAR), f'{m} is cosmetic only: no tools, no armor (N9)'
+pickaxe = json.loads((mc / 'block/mineable/pickaxe.json').read_text(encoding='utf-8'))['values']
+for m in COSMETIC:
+    family = [f'cut_{m}', f'cut_{m}_stairs', f'cut_{m}_slab', f'{m}_tiles', f'{m}_pillar', f'chiseled_{m}']
+    for b in family:
+        for rel in (f'assets/{NS}/blockstates/{b}.json', f'assets/{NS}/items/{b}.json', f'data/{NS}/loot_table/blocks/{b}.json'):
+            assert (RES / rel).is_file(), rel
+        assert f'{NS}:{b}' in pickaxe, b
+        for lang in langs.values():
+            assert lang.get(f'block.{NS}.{b}'), b
+    for tex in (f'cut_{m}', f'{m}_tiles', f'{m}_pillar', f'{m}_pillar_top', f'chiseled_{m}'):
+        assert (RES / f'assets/{NS}/textures/block/{tex}.png').is_file() and (RES / f'assets/{NS}/textures/block/{tex}.layers.json').is_file(), tex
+        assert f'block/{tex}.png' not in derived, f'{tex} is own pixel art, not Vanilla-derived'
+    for name in (f'cut_{m}', f'cut_{m}_stairs', f'cut_{m}_slab', f'{m}_tiles', f'{m}_pillar', f'chiseled_{m}', f'cut_{m}_from_{m}_block_stonecutting',
+                 f'chiseled_{m}_from_cut_{m}_stonecutting'):
+        assert (RES / f'data/{NS}/recipe/{name}.json').is_file(), name
+    slab_loot = json.loads((RES / f'data/{NS}/loot_table/blocks/cut_{m}_slab.json').read_text(encoding='utf-8'))
+    assert slab_loot['pools'][0]['entries'][0]['modifier'][0]['count'] == 2, 'a double slab drops two'
 plate = json.loads((RES / f'data/{NS}/recipe/lead_plate.json').read_text(encoding='utf-8'))
 assert plate['pattern'] == ['###'] and plate['result'] == {'id': f'{NS}:lead_plate', 'count': 6}
 assert not (RES / f'data/{NS}/recipe/silver_arrow.json').exists(), 'the silver arrow moved to Simple Arrows (03.11.)'

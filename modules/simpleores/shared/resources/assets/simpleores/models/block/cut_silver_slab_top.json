@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "simpleores:block/cut_silver",
+    "side": "simpleores:block/cut_silver",
+    "top": "simpleores:block/cut_silver"
+  }
+}

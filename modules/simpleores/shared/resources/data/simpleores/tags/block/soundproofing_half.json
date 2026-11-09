@@ -1,5 +1,7 @@
 {
   "values": [
-    "simpleores:lead_plate"
+    "simpleores:lead_plate",
+    "simpleores:cut_lead_stairs",
+    "simpleores:cut_lead_slab"
   ]
 }

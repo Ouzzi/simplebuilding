@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:cut_brass",
+  "result": {
+    "count": 2,
+    "id": "simpleores:cut_brass_slab"
+  }
+}
