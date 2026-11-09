@@ -644,7 +644,10 @@ public final class OresTests {
             PlacedFeature nickelPlaced = placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nickel_ore")));
             int[] nickelRange = heights(level, nickelPlaced);
             // like diamond: trapezoid from 80 below to 80 above the bottom (Y -144..16); rolls below the world bottom (Y -64) are lost, most land at -64
-            check(h, nickelRange[0] < -64 && nickelRange[1] <= 16 && nickelRange[1] > 0 && perChunk(level, nickelPlaced) == 10.0, "nickel: 10 veins up to Y 16, measured " + nickelRange[0] + " to " + nickelRange[1]);
+            // (relative to the world bottom: Overworld -64 -> up to Y 16; the test level has its own bottom)
+            int bottom = level.getMinY();
+            check(h, nickelRange[0] < bottom && nickelRange[1] <= bottom + 80 && nickelRange[1] > bottom + 64 && perChunk(level, nickelPlaced) == 10.0,
+                    "nickel: 10 veins up to 80 above the bottom (" + bottom + "), measured " + nickelRange[0] + " to " + nickelRange[1]);
             PlacedFeature diamond = placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, Identifier.withDefaultNamespace("ore_diamond")));
             if (diamond != null) check(h, perChunk(level, nickelPlaced) * nickel.size() > perChunk(level, diamond) * 4, "a little more common than the small diamond veins");
             OreFeature tin = (OreFeature) features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("tin_ore")));
