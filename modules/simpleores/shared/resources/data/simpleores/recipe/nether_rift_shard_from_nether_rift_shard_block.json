@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "nether_rift_shard",
+  "ingredients": [
+    "simpleores:nether_rift_shard_block"
+  ],
+  "result": {
+    "id": "simpleores:nether_rift_shard",
+    "count": 9
+  }
+}

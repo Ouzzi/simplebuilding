@@ -5,6 +5,12 @@
     "simpleores:enderite_scrap_block",
     "simpleores:dimensional_scrap",
     "simpleores:nether_dimensional_scrap",
-    "simpleores:end_dimensional_scrap"
+    "simpleores:end_dimensional_scrap",
+    "simpleores:rift_shard_block",
+    "simpleores:terranite_block",
+    "simpleores:nether_rift_shard_block",
+    "simpleores:infernite_block",
+    "simpleores:end_rift_shard_block",
+    "simpleores:zenithite_block"
   ]
 }

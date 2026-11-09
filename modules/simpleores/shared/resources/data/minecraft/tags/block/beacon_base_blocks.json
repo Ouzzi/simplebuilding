@@ -1,5 +1,8 @@
 {
   "values": [
-    "simpleores:enderite_block"
+    "simpleores:enderite_block",
+    "simpleores:terranite_block",
+    "simpleores:infernite_block",
+    "simpleores:zenithite_block"
   ]
 }

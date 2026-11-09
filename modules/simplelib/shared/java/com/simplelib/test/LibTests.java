@@ -557,7 +557,7 @@ public final class LibTests {
      */
     private static void rarityRules(GameTestHelper h) {
         String[][] sample = {{"biome_brush", "CURSED"}, {"ender_gem", "MYTHIC"}, {"astral_piston", "MYTHIC"}, {"evil_vault", "EVIL"}, {"wither_wings", "EVIL"},
-                {"nether_wings", "EVIL"}, {"enderite_ingot", "LEGENDARY"}, {"enderite_pickaxe", "LEGENDARY"}, {"end_wings", "LEGENDARY"}, {"ender_heart", "LEGENDARY"},
+                {"nether_wings", "EVIL"}, {"enderite_ingot", "LEGENDARY"}, {"enderite_pickaxe", "LEGENDARY"}, {"end_wings", "LEGENDARY"}, {"ender_heart", "LEGENDARY"}, {"zenithite_block", "LEGENDARY"},
                 {"cracked_diamond", "CORRUPTED"}, {"nihil_vault", "VOID"}, {"void_wings", "VOID"}, {"void_potion_2", "VOID"}};
         java.util.Set<com.simplelib.api.SimpleRarity> seen = java.util.EnumSet.noneOf(com.simplelib.api.SimpleRarity.class);
         for (String[] s : sample) {
@@ -566,7 +566,7 @@ public final class LibTests {
             seen.add(got);
         }
         check(h, seen.size() == com.simplelib.api.SimpleRarity.values().length, "every rank is used at least once: " + seen);
-        for (String plain : java.util.List.of("enderite_nugget", "enderite_scrap", "enderite_scrap_block", "raw_enderite", "stick", "iron_ingot", "nihil_obsidian"))
+        for (String plain : java.util.List.of("enderite_nugget", "enderite_scrap", "enderite_scrap_block", "raw_enderite", "rift_shard", "end_rift_shard_block", "stick", "iron_ingot", "nihil_obsidian"))
             check(h, com.simplelib.api.RarityRules.forPath(plain) == null, plain + " keeps its Vanilla rarity");
         var cracked = net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(com.simplelib.SimpleLib.id("cracked_diamond"));
         check(h, cracked.isEmpty() || com.simplelib.api.SimpleRarity.of(new ItemStack(cracked.get())) == com.simplelib.api.SimpleRarity.CORRUPTED,

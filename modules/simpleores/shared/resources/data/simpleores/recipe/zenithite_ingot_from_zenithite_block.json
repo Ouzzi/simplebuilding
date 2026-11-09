@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "zenithite_ingot",
+  "ingredients": [
+    "simpleores:zenithite_block"
+  ],
+  "result": {
+    "id": "simpleores:zenithite_ingot",
+    "count": 9
+  }
+}

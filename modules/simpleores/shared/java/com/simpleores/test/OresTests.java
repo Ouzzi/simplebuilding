@@ -99,7 +99,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance"))
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
                     , "config defaults");
@@ -773,6 +773,110 @@ public final class OresTests {
             double netherPerChunk = perChunk(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nether_sage_ore_placed"))));
             double endPerChunk = perChunk(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("end_sage_ore_placed"))));
             check(h, netherPerChunk == 5.0 && endPerChunk == 3.0, "moderate: 5 and 3 veins per chunk, measured " + netherPerChunk + " / " + endPerChunk);
+            h.succeed();
+        });
+        // IG31-58 (a-dims10): the rift chain of the Dimensional Scrap.
+        ALL.put("rift_shard_smelting", h -> {
+            ServerLevel level = h.getLevel();
+            var recipes = level.getServer().getRecipeManager();
+            var extreme = net.minecraft.tags.TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("simplecrucibles", "needs_extreme_heat"));
+            int seconds = 40;
+            float xp = 2.0F;
+            for (String d : OresRegistry.DIMENSIONS) {
+                ItemStack scrap = stack(d + "dimensional_scrap");
+                SingleRecipeInput in = new SingleRecipeInput(scrap);
+                var blast = recipes.getRecipeFor(RecipeType.BLASTING, in, level);
+                check(h, blast.isPresent(), d + "scrap: a blast furnace melts it");
+                AbstractCookingRecipe recipe = (AbstractCookingRecipe) blast.get().value();
+                ItemStack out = recipe.assemble(in);
+                // 26.3 stores the furnace time in the recipe and halves it in the blast furnace.
+                int ticks = (int) Math.ceil(recipe.cookingTime() / 2.0F);
+                check(h, ticks == seconds * 20, d + "scrap melts in " + ticks + " ticks, expected " + seconds * 20);
+                check(h, recipe.experience() == xp, d + "scrap gives " + recipe.experience() + " experience, expected " + xp);
+                check(h, out.is(item(d + "rift_shard")) && out.getCount() == 1, d + "scrap gives " + out + ", expected exactly 1 shard");
+                for (RecipeType<? extends AbstractCookingRecipe> type : List.of(RecipeType.SMELTING, RecipeType.SMOKING, RecipeType.CAMPFIRE_COOKING))
+                    check(h, recipes.getRecipeFor(type, in, level).isEmpty(), d + "scrap: " + type + " refuses");
+                check(h, scrap.is(extreme), d + "scrap needs extreme heat in a crucible (tag)");
+                // With Simple Crucibles present: its own heat rule reads the tag (EXTREME instead of HIGH for blasting).
+                try {
+                    Object heat = Class.forName("com.simplecrucibles.crucible.CrucibleJob").getMethod("requiredHeat", ItemStack.class, RecipeType.class)
+                            .invoke(null, scrap, RecipeType.BLASTING);
+                    check(h, "EXTREME".equals(String.valueOf(heat)), d + "scrap: crucible needs " + heat + ", expected EXTREME");
+                } catch (ClassNotFoundException absent) {
+                    // standalone: no crucible, the blast furnace is the way
+                } catch (ReflectiveOperationException e) {
+                    throw new AssertionError("crucible heat rule unreachable: " + e);
+                }
+                seconds += 20;
+                xp += 1.0F;
+            }
+            h.succeed();
+        });
+        ALL.put("rift_chain", h -> {
+            // Scrap -> shard (blast furnace) -> 4 shards + partner ingot -> ingot -> 9 ingots -> block, through all three dimensions.
+            ServerLevel level = h.getLevel();
+            var recipes = level.getServer().getRecipeManager();
+            ItemStack partner = stack("enderite_ingot");
+            for (int i = 0; i < 3; i++) {
+                String d = OresRegistry.DIMENSIONS[i], metal = OresRegistry.RIFT_METALS[i];
+                SingleRecipeInput in = new SingleRecipeInput(stack(d + "dimensional_scrap"));
+                ItemStack shard = recipes.getRecipeFor(RecipeType.BLASTING, in, level).map(r -> r.value().assemble(in)).orElse(ItemStack.EMPTY);
+                check(h, shard.is(item(d + "rift_shard")), d + "scrap melts into its shard: " + shard);
+                ItemStack ingot = craft(h, of(shard.copy(), shard.copy(), shard.copy(), shard.copy(), partner.copy()));
+                check(h, ingot.is(item(metal + "_ingot")) && ingot.getCount() == 1, "4 " + d + "shards + " + partner + " -> " + ingot);
+                check(h, craft(h, of(shard.copy(), shard.copy(), shard.copy(), partner.copy())).isEmpty(), metal + ": 3 shards are not enough");
+                if (i > 0) check(h, craft(h, of(shard.copy(), shard.copy(), shard.copy(), shard.copy(), stack("enderite_ingot"))).isEmpty(),
+                        metal + ": Enderite is not its partner");
+                List<ItemStack> nine = new ArrayList<>();
+                for (int k = 0; k < 9; k++) nine.add(ingot.copy());
+                ItemStack block = craft(h, CraftingInput.of(3, 3, nine));
+                check(h, block.is(item(metal + "_block")), "9 " + metal + " ingots -> " + block);
+                partner = ingot;
+            }
+            h.succeed();
+        });
+        ALL.put("rift_storage_reversible", h -> {
+            ServerLevel level = h.getLevel();
+            for (int i = 0; i < 3; i++) {
+                Map<String, String> rows = Map.of(OresRegistry.DIMENSIONS[i] + "rift_shard_block", OresRegistry.DIMENSIONS[i] + "rift_shard",
+                        OresRegistry.RIFT_METALS[i] + "_block", OresRegistry.RIFT_METALS[i] + "_ingot");
+                for (Map.Entry<String, String> row : rows.entrySet()) {
+                    List<ItemStack> slots = new ArrayList<>();
+                    for (int k = 0; k < 9; k++) slots.add(stack(row.getValue()));
+                    ItemStack block = craft(h, CraftingInput.of(3, 3, slots));
+                    check(h, block.is(item(row.getKey())) && block.getCount() == 1, "9 -> " + row.getKey() + ": " + block);
+                    ItemStack back = craft(h, of(stack(row.getKey())));
+                    check(h, back.is(item(row.getValue())) && back.getCount() == 9, row.getKey() + " -> 9: " + back);
+                    slots.set(8, ItemStack.EMPTY);
+                    check(h, craft(h, CraftingInput.of(3, 3, slots)).isEmpty(), row.getKey() + ": 8 are not enough");
+                    SingleRecipeInput in = new SingleRecipeInput(stack(row.getKey()));
+                    for (RecipeType<? extends AbstractCookingRecipe> type : List.of(RecipeType.SMELTING, RecipeType.BLASTING, RecipeType.SMOKING, RecipeType.CAMPFIRE_COOKING))
+                        check(h, level.getServer().getRecipeManager().getRecipeFor(type, in, level).isEmpty(), row.getKey() + " does not melt");
+                }
+            }
+            h.succeed();
+        });
+        ALL.put("rift_beacon_tags", h -> {
+            for (int i = 0; i < 3; i++) {
+                String d = OresRegistry.DIMENSIONS[i], metal = OresRegistry.RIFT_METALS[i];
+                Block showpiece = OresRegistry.BLOCKS.get(metal + "_block"), shards = OresRegistry.BLOCKS.get(d + "rift_shard_block");
+                check(h, showpiece.defaultBlockState().is(BlockTags.BEACON_BASE_BLOCKS), metal + " block carries a beacon");
+                check(h, !shards.defaultBlockState().is(BlockTags.BEACON_BASE_BLOCKS), d + "shard block is no beacon base");
+                check(h, stack(metal + "_ingot").is(ItemTags.BEACON_PAYMENT_ITEMS), metal + " ingot pays a beacon");
+                check(h, !stack(d + "rift_shard").is(ItemTags.BEACON_PAYMENT_ITEMS), d + "shard does not pay a beacon");
+                for (Block b : List.of(showpiece, shards))
+                    check(h, b.defaultBlockState().is(BlockTags.NEEDS_DIAMOND_TOOL) && b.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE)
+                            && !b.defaultBlockState().is(BlockTags.NEEDS_IRON_TOOL), BuiltInRegistries.BLOCK.getKey(b) + ": diamond pickaxe");
+                for (String p : List.of(d + "rift_shard", d + "rift_shard_block", metal + "_ingot", metal + "_block"))
+                    check(h, item(p).components().has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), p + " is fire resistant");
+                // Rank beside Enderite: ingots and showpiece blocks Legendary, shards plain like Enderite scrap; no gear tier.
+                for (String p : List.of(metal + "_ingot", metal + "_block"))
+                    check(h, com.simplelib.api.SimpleRarity.of(stack(p)) == com.simplelib.api.SimpleRarity.LEGENDARY, p + " is Legendary");
+                for (String p : List.of(d + "rift_shard", d + "rift_shard_block"))
+                    check(h, com.simplelib.api.SimpleRarity.of(stack(p)) == null, p + " keeps its Vanilla rarity");
+                check(h, !stack(metal + "_ingot").has(net.minecraft.core.component.DataComponents.TOOL)
+                        && !stack(metal + "_ingot").is(ItemTags.TRIM_MATERIALS), metal + " ingot is no tool or trim material (yet)");
+            }
             h.succeed();
         });
         ALL.put("guide_book", com.simpleores.guide.OresGuide::gameTest);

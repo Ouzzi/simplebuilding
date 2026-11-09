@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 3200,
+  "experience": 4.0,
+  "ingredient": "simpleores:end_dimensional_scrap",
+  "result": {
+    "id": "simpleores:end_rift_shard"
+  }
+}

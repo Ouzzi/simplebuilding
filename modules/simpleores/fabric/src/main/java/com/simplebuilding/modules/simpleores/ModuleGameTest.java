@@ -170,4 +170,24 @@ public final class ModuleGameTest {
     public void metalWorldgenDrops(GameTestHelper h) {
         OresTests.ALL.get("metal_worldgen_drops").accept(h);
     }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void riftShardSmelting(GameTestHelper h) {
+        OresTests.ALL.get("rift_shard_smelting").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void riftChain(GameTestHelper h) {
+        OresTests.ALL.get("rift_chain").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void riftStorageReversible(GameTestHelper h) {
+        OresTests.ALL.get("rift_storage_reversible").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void riftBeaconTags(GameTestHelper h) {
+        OresTests.ALL.get("rift_beacon_tags").accept(h);
+    }
 }

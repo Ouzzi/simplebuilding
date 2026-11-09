@@ -136,9 +136,23 @@ public final class OresRegistry {
     public static final Block DIMENSIONAL_SCRAP = scrap("dimensional_scrap", Blocks.DEEPSLATE);
     public static final Block NETHER_DIMENSIONAL_SCRAP = scrap("nether_dimensional_scrap", Blocks.ANCIENT_DEBRIS);
     public static final Block END_DIMENSIONAL_SCRAP = scrap("end_dimensional_scrap", Blocks.END_STONE);
+    /**
+     * IG31-58 (a-dims10, docs/ai/PLAN-A-DIMS10-2026-11-08.md): the scrap of each dimension melts (blast furnace, or a crucible at
+     * extreme heat) into rift shards; nine make a block like the netherite scrap block. Four shards and one partner ingot make the
+     * end material of the dimension (Overworld + Enderite = Terranite, Nether + Terranite = Infernite, End + Infernite = Zenithite);
+     * nine ingots make its showpiece block, like the netherite block. Prestige and building materials beside Enderite, no gear tier.
+     */
+    public static final String[] DIMENSIONS = {"", "nether_", "end_"};
+    public static final String[] RIFT_METALS = {"terranite", "infernite", "zenithite"};
+    static {
+        for (String d : DIMENSIONS) block(d + "rift_shard_block", Blocks.ANCIENT_DEBRIS, Block::new);
+        for (String m : RIFT_METALS) block(m + "_block", Blocks.NETHERITE_BLOCK, Block::new);
+    }
     /** Block items that survive fire and lava (Enderite, scrap). */
     private static final java.util.Set<String> FIRE_RESISTANT = java.util.Set.of("enderite_block", "dimensional_scrap", "nether_dimensional_scrap",
-            "end_dimensional_scrap", "enderite_nugget", "enderite_scrap", "enderite_ingot", "netherite_scrap_block", "enderite_scrap_block");
+            "end_dimensional_scrap", "enderite_nugget", "enderite_scrap", "enderite_ingot", "netherite_scrap_block", "enderite_scrap_block",
+            "rift_shard", "nether_rift_shard", "end_rift_shard", "rift_shard_block", "nether_rift_shard_block", "end_rift_shard_block",
+            "terranite_ingot", "infernite_ingot", "zenithite_ingot", "terranite_block", "infernite_block", "zenithite_block");
 
     static {
         for (String path : List.copyOf(BLOCKS.keySet())) {
@@ -156,6 +170,9 @@ public final class OresRegistry {
         for (String path : List.of("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget", "enderite_ingot")) {
             item(path, p -> FIRE_RESISTANT.contains(path) ? p.fireResistant() : p);
         }
+        // IG31-58: the rift shards and the three end materials of the Dimensional Scrap.
+        for (String d : DIMENSIONS) item(d + "rift_shard", Item.Properties::fireResistant);
+        for (String m : RIFT_METALS) item(m + "_ingot", Item.Properties::fireResistant);
         ITEMS.put("enderite_upgrade_template", upgradeTemplate(com.simplelib.api.RarityRules.apply("enderite_upgrade_template", new Item.Properties()).setId(itemKey("enderite_upgrade_template"))));
         for (String m : METALS) {
             plain("raw_" + m);
@@ -276,11 +293,12 @@ public final class OresRegistry {
             "zinc_ore", "deepslate_zinc_ore", "raw_zinc_block", "nickel_ore", "deepslate_nickel_ore", "raw_nickel_block", "tin_ore", "deepslate_tin_ore", "raw_tin_block",
             "sage_ore", "deepslate_sage_ore", "nether_sage_ore", "end_sage_ore", "nether_rose_gold_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
     public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "zinc_block", "nickel_block", "tin_block", "brass_block", "stainless_steel_block", "bronze_block", "rose_bronze_block", "rose_gold_block", "rose_bronze_pressling_block", "rose_gold_pressling_block", "sage_crystal_block", "enderite_block",
-            "netherite_scrap_block", "enderite_scrap_block", "sage_orb_block"};
+            "netherite_scrap_block", "enderite_scrap_block", "sage_orb_block", "rift_shard_block", "nether_rift_shard_block", "end_rift_shard_block",
+            "terranite_block", "infernite_block", "zenithite_block"};
     public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "raw_zinc", "zinc_nugget", "zinc_ingot", "raw_nickel", "nickel_nugget", "nickel_ingot", "raw_tin", "tin_nugget", "tin_ingot",
             "brass_ingot", "stainless_steel_ingot", "bronze_ingot", "rose_bronze_pressling",
             "rose_bronze_nugget", "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_nugget", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
-            "enderite_ingot", "enderite_upgrade_template", "sage_crystal_shard", "sage_crystal", "sage_orb"};
+            "enderite_ingot", "enderite_upgrade_template", "rift_shard", "nether_rift_shard", "end_rift_shard", "terranite_ingot", "infernite_ingot", "zenithite_ingot", "sage_crystal_shard", "sage_crystal", "sage_orb"};
     /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */
     public static final List<String> FROM_SIMPLELIB = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot",
             "enderite_block", "enderite_upgrade_template");

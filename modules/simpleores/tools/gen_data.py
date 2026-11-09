@@ -82,6 +82,17 @@ for m, (en, de, *_r) in METALS.items():
 for m, (en, de, *_r) in MIXES.items():
     BLOCKS[f'{m}_block'] = (f'Block of {en}', f'{de}block')
     ITEMS[f'{m}_ingot'] = (f'{en} Ingot', f'{de}barren')
+# IG31-58 (a-dims10, 08.11., docs/ai/PLAN-A-DIMS10-2026-11-08.md): the processing chain of the Dimensional Scrap, names set A.
+# dimension prefix -> (scrap, EN/DE prefix, rift metal, metal EN/DE, partner ingot, blast furnace seconds, experience)
+RIFTS = {'': ('dimensional_scrap', ('', ''), 'terranite', ('Terranite', 'Terranit'), 'enderite_ingot', 40, 2.0),
+         'nether_': ('nether_dimensional_scrap', ('Nether ', 'Nether-'), 'infernite', ('Infernite', 'Infernit'), 'terranite_ingot', 60, 3.0),
+         'end_': ('end_dimensional_scrap', ('End ', 'End-'), 'zenithite', ('Zenithite', 'Zenithit'), 'infernite_ingot', 80, 4.0)}
+for d, (_s, (pen, pde), metal, (men, mde), *_r) in RIFTS.items():
+    ITEMS[f'{d}rift_shard'] = (f'{pen}Rift Shard', f'{pde}Riss-Splitter' if pde else 'Riss-Splitter')
+    BLOCKS[f'{d}rift_shard_block'] = (f'Block of {pen}Rift Shards', f'{pde}Riss-Splitter-Block' if pde else 'Riss-Splitter-Block')
+    ITEMS[f'{metal}_ingot'] = (f'{men} Ingot', f'{mde}barren')
+    BLOCKS[f'{metal}_block'] = (f'Block of {men}', f'{mde}block')
+RIFT_BLOCKS = [b for d, v in RIFTS.items() for b in (f'{d}rift_shard_block', f'{v[2]}_block')]
 TOOL_PARTS = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe')
 ARMOR_PARTS = ('helmet', 'chestplate', 'leggings', 'boots')
 
@@ -187,7 +198,7 @@ for m in METALS:
 ore_drop('nether_rose_gold_ore', 'rose_gold_pressling')   # no raw rose gold exists: the pressing is the stage before the blast furnace
 ore_drop('nether_sage_ore', 'sage_crystal_shard', (1, 3))
 ore_drop('end_sage_ore', 'sage_crystal_shard', (1, 3))
-for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block') + tuple(NEW_BLOCKS) + tuple(f'raw_{m}_block' for m in METALS) + tuple(f'{m}_block' for m in list(METALS) + list(MIXES)):
+for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block') + tuple(NEW_BLOCKS) + tuple(f'raw_{m}_block' for m in METALS) + tuple(f'{m}_block' for m in list(METALS) + list(MIXES)) + tuple(RIFT_BLOCKS):
     self_drop(path)
 
 # ---------------------------------------------------------------- recipes (+ advancements)
@@ -327,6 +338,16 @@ for a, (_en, _de, parts, count, trigger) in MIXES.items():
     recipe(f'{a}_ingot', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': ingredients,
                                   'result': result(f'{a}_ingot', count)}, item(trigger))
 
+# IG31-58: scrap -> rift shard only in the blast furnace (26.3 halves the stored furnace time: 40/60/80 s there); a crucible needs
+# extreme heat (tag below). 9 shards <-> block, 4 shards + 1 partner ingot -> the end material (shapeless), 9 ingots <-> block.
+for d, (scrap, _p, metal, _m, partner, seconds, xp) in RIFTS.items():
+    recipe(f'{d}rift_shard', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': seconds * 20 * 2,
+           'experience': xp, 'ingredient': item(scrap), 'result': result(f'{d}rift_shard')}, item(scrap))
+    storage(f'{d}rift_shard', f'{d}rift_shard_block')
+    recipe(f'{metal}_ingot', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc',
+           'ingredients': [item(f'{d}rift_shard')] * 4 + [item(partner)], 'result': result(f'{metal}_ingot')}, item(f'{d}rift_shard'))
+    storage(f'{metal}_ingot', f'{metal}_block')
+
 SHAPES = {
     'sword': (['X', 'X', 'S'], 'combat'), 'pickaxe': (['XXX', ' S ', ' S '], 'tools'), 'axe': (['XX', 'XS', ' S'], 'tools'),
     'shovel': (['X', 'S', 'S'], 'tools'), 'hoe': (['XX', ' S', ' S'], 'tools'), 'helmet': (['XXX', 'X X'], 'combat'),
@@ -405,11 +426,23 @@ every = list(BLOCKS)
 tag('minecraft/tags/block/mineable/pickaxe.json', ids(every + list(MOVED_BLOCKS)))
 STONE_TIER = ['lead_ore', 'deepslate_lead_ore', 'raw_lead_block'] + [b for m, v in METALS.items() if v[6] == 'stone'
                                                                    for b in (f'{m}_ore', f'deepslate_{m}_ore', f'raw_{m}_block')]   # like Vanilla iron and copper ore
-tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b != 'silver_mirror' and b not in DIAMOND_NEW] + SAGE_ORES))
+tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b != 'silver_mirror' and b not in DIAMOND_NEW and b not in RIFT_BLOCKS] + SAGE_ORES))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
-tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS))
-tag('minecraft/tags/block/beacon_base_blocks.json', ids(['enderite_block']))
+tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS + RIFT_BLOCKS))
+# IG31-58: the three showpiece blocks carry a beacon like the Enderite block, their ingots pay it (concept A12: small Vanilla hooks).
+RIFT_METALS = [v[2] for v in RIFTS.values()]
+tag('minecraft/tags/block/beacon_base_blocks.json', ids(['enderite_block'] + [f'{m}_block' for m in RIFT_METALS]))
+tag('minecraft/tags/item/beacon_payment_items.json', ids([f'{m}_ingot' for m in RIFT_METALS]))
+# The scrap melts in a crucible only at extreme heat (soul lava), like ancient debris; the file is inert without Simple Crucibles.
+tag('simplecrucibles/tags/item/needs_extreme_heat.json', ids(SCRAPS))
+for m in RIFT_METALS:
+    tag(f'c/tags/item/ingots/{m}.json', ids([f'{m}_ingot']))
+    for kind in ('block', 'item'):
+        tag(f'c/tags/{kind}/storage_blocks/{m}.json', ids([f'{m}_block']))
+for d in RIFTS:
+    for kind in ('block', 'item'):
+        tag(f'c/tags/{kind}/storage_blocks/{d}rift_shard.json', ids([f'{d}rift_shard_block']))
 tag('minecraft/tags/block/wither_immune.json', ids(SCRAPS))
 tag('minecraft/tags/block/dragon_immune.json', ids(SCRAPS))
 tag(f'{NS}/tags/item/breaks_dimensional_scrap.json', [{'id': 'simplebuilding:enderite_pickaxe', 'required': False},
@@ -669,8 +702,8 @@ def note_summaries():
     for p, (where_en, where_de) in (('dimensional_scrap', ('deep in the deepslate of the Overworld', 'tief im Tiefenschiefer der Oberwelt')),
                                     ('nether_dimensional_scrap', ('in the Nether like ancient debris', 'im Nether wie Antiker Schrott')),
                                     ('end_dimensional_scrap', ('inside the End islands', 'im Inneren der End-Inseln'))):
-        notes[f'block:{p}'] = (f'Found {where_en}, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet.',
-                               f'Zu finden {where_de}, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen.')
+        notes[f'block:{p}'] = (f'Found {where_en}, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. Melts into rift shards (blast furnace, or a crucible at extreme heat).',
+                               f'Zu finden {where_de}, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Schmilzt zu Riss-Splittern (Hochofen oder Tiegel mit extremer Hitze).')
     notes['item:raw_enderite'] = ('A fragment of Enderite from End city treasure (or SimpleBuilding\'s synthesis). Four make a raw Enderite scrap.',
                                   'Ein Bruchstück Enderit aus Endstadt-Truhen (oder der Synthese von SimpleBuilding). Vier ergeben rohe Enderitplatten.')
     notes['item:layered_raw_enderite'] = ('Four raw Enderite fragments pressed together. Only a blast furnace melts it into Enderite scrap (2 h in a Vanilla blast furnace).',
@@ -735,6 +768,24 @@ def note_summaries():
                                     f'{de}-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: {hunger} Hunger, immer essbar. Gibt {eff_de}. 8 {de}barren um einen Apfel.')
         notes[f'item:enchanted_{a}_apple'] = (f'Enchanted {en} apple (glint): {hunger} hunger, always edible. Gives {enc_en}. 8 blocks of {en.lower()} round an apple.',
                                               f'Verzauberter {de}-Apfel (Schimmer): {hunger} Hunger, immer essbar. Gibt {enc_de}. 8 {de}blöcke um einen Apfel.')
+    for d, (scrap, (pen, pde), metal, (men, mde), partner, seconds, xp) in RIFTS.items():
+        sen, sde = ITEMS[f'{d}rift_shard']
+        scen, scde = MOVED_BLOCKS[scrap]
+        pi_en, pi_de = (MOVED_ITEMS[partner] if partner in MOVED_ITEMS else ITEMS[partner])
+        notes[f'item:{d}rift_shard'] = (f'Melted out of {scen}: only a blast furnace ({seconds} s, {int(xp)} experience) or a crucible at extreme heat (soul lava). '
+                                        f'Nine make a block. Four and one {pi_en} make a {men} ingot. Fire resistant.',
+                                        f'Aus {scde} geschmolzen: nur im Hochofen ({seconds} s, {int(xp)} Erfahrung) oder im Tiegel mit extremer Hitze (Seelenlava). '
+                                        f'Neun ergeben einen Block. Vier und ein {pi_de} ergeben einen {mde}barren. Feuerfest.')
+        notes[f'block:{d}rift_shard_block'] = (f'Nine {sen}s, craftable both ways. Like ancient debris, fire resistant, needs a diamond pickaxe.',
+                                               f'Neun {sde}, in beide Richtungen herstellbar. Wie Antiker Schrott, feuerfest, braucht eine Diamantspitzhacke.')
+        notes[f'item:{metal}_ingot'] = (f'{men} ingot: 4 {sen}s + 1 {pi_en} (shapeless). '
+                                        + {'terranite': 'Partner of the Nether chain (Infernite). ', 'infernite': 'Partner of the End chain (Zenithite). ', 'zenithite': 'The end of the chain. '}[metal]
+                                        + 'Pays a beacon; nine make a block. A prestige material beside Enderite, no tool or armor tier. Fire resistant.',
+                                        f'{mde}barren: 4 {sde} + 1 {pi_de} (formlos). '
+                                        + {'terranite': 'Partner der Nether-Kette (Infernit). ', 'infernite': 'Partner der End-Kette (Zenithit). ', 'zenithite': 'Das Ende der Kette. '}[metal]
+                                        + 'Bezahlt ein Leuchtfeuer; neun ergeben einen Block. Prestige-Material neben Enderit, keine Werkzeug- oder Rüstungsstufe. Feuerfest.')
+        notes[f'block:{metal}_block'] = (f'Nine {men} ingots, craftable both ways. A showpiece block like the Enderite block: beacon base, needs a diamond pickaxe, fire resistant.',
+                                         f'Neun {mde}barren, in beide Richtungen herstellbar. Ein Prachtblock wie der Enderitblock: Leuchtfeuer-Sockel, braucht eine Diamantspitzhacke, feuerfest.')
     return notes
 
 
@@ -863,12 +914,22 @@ FEATURES = [
                                f'{DATAP}/worldgen/placed_feature/sage_ore_placed.json', f'{DATAP}/worldgen/placed_feature/dimensional_scrap_placed.json'],
             ('Sage Ore and Dimensional Scrap', 'Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.',
              ['Sage ore (and a deepslate twin): as rare as diamond ore, iron pickaxe, drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune). The orb charges 0.3 s and gives 50 to 100 experience.',
-              'Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (SimpleBuilding\'s pickaxe, Simple Hammers\' sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. No recipe yet.',
+              'Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (SimpleBuilding\'s pickaxe, Simple Hammers\' sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. It melts into rift shards (feature Rift alloys).',
               'Switches sageOre and dimensionalScrap (server config) stop new veins; existing blocks stay.']),
             ('Weisheitserz und Dimensionsschrott', 'Zwei seltene Funde, die aus SimpleBuilding hierher umgezogen sind (IG31-13): das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.',
              ['Weisheitserz (und ein Tiefenschiefer-Zwilling): so selten wie Diamanterz, Eisenspitzhacke, lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %). Die Kugel lädt 0,3 s und gibt 50 bis 100 Erfahrung.',
-              'Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (Spitzhacke von SimpleBuilding, Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Noch kein Rezept.',
+              'Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (Spitzhacke von SimpleBuilding, Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Er schmilzt zu Riss-Splittern (Abschnitt Riss-Legierungen).',
               'Die Schalter sageOre und dimensionalScrap (Server-Config) stoppen neue Adern; vorhandene Blöcke bleiben.'])),
+    feature('rift_alloys', [f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rift_shard.json', f'{DATAP}/recipe/terranite_ingot.json',
+                            f'{DATAP}/recipe/infernite_ingot.json', f'{DATAP}/recipe/zenithite_ingot.json', f'{DATAP}/tags/item/needs_extreme_heat.json'.replace(f'data/{NS}/', 'data/simplecrucibles/')],
+            ('Rift alloys', 'The Dimensional Scrap of each dimension melts into rift shards; with a partner ingot they make Terranite, Infernite and Zenithite, a chain through all three dimensions that starts at Enderite (IG31-58).',
+             ['Melting: only a blast furnace (Overworld scrap 40 s, Nether 60 s, End 80 s; 2, 3, 4 experience) - a plain furnace refuses. With Simple Crucibles a crucible melts it too, but only at extreme heat (soul lava, tag simplecrucibles:needs_extreme_heat). One scrap gives one shard, no bonus. The faster blast furnaces of Simple Ovens speed it up by their tier.',
+              'Chain (shapeless): 4 Rift Shards + 1 Enderite ingot -> Terranite ingot; 4 Nether Rift Shards + 1 Terranite ingot -> Infernite ingot; 4 End Rift Shards + 1 Infernite ingot -> Zenithite ingot. 9 shards <-> block of shards (like the netherite scrap block), 9 ingots <-> showpiece block (like the Enderite block).',
+              'Use (small Vanilla hooks, no new gear tier): the three showpiece blocks are beacon base blocks, the three ingots pay a beacon; decoration. Everything is fire resistant and needs a diamond pickaxe; ingots and blocks have the Legendary rank like Enderite.']),
+            ('Riss-Legierungen', 'Der Dimensionsschrott jeder Dimension schmilzt zu Riss-Splittern; mit einem Partnerbarren ergeben sie Terranit, Infernit und Zenithit, eine Kette durch alle drei Dimensionen, die bei Enderit beginnt (IG31-58).',
+             ['Schmelzen: nur im Hochofen (Oberwelt-Schrott 40 s, Nether 60 s, End 80 s; 2, 3, 4 Erfahrung) - ein normaler Ofen lehnt ab. Mit Simple Crucibles schmilzt ihn auch ein Tiegel, aber nur bei extremer Hitze (Seelenlava, Tag simplecrucibles:needs_extreme_heat). Ein Schrott gibt einen Splitter, kein Bonus. Die schnelleren Hochöfen von Simple Ovens beschleunigen über ihre Stufe.',
+              'Kette (formlos): 4 Riss-Splitter + 1 Enderitbarren -> Terranitbarren; 4 Nether-Riss-Splitter + 1 Terranitbarren -> Infernitbarren; 4 End-Riss-Splitter + 1 Infernitbarren -> Zenithitbarren. 9 Splitter <-> Splitter-Block (wie der Netherit-Schrottblock), 9 Barren <-> Prachtblock (wie der Enderitblock).',
+              'Nutzen (kleine Vanilla-Anbindungen, keine neue Ausrüstungsstufe): die drei Prachtblöcke sind Leuchtfeuer-Sockel, die drei Barren bezahlen ein Leuchtfeuer; Dekoration. Alles ist feuerfest und braucht eine Diamantspitzhacke; Barren und Blöcke tragen den Rang Legendär wie Enderit.'])),
     feature('config_server', [f'{JAVA}/config/OresConfig.java'],
             ('Server settings', 'config/simpleores-server.json (or /simpleores config), read at start; every value is clamped to its range.',
              ['enabled (true): off stops new silver, lead, zinc, nickel and tin veins on Fabric and hides the module\'s creative entries; blocks and items that exist keep working.',

@@ -11,7 +11,8 @@ import org.jspecify.annotations.Nullable;
  * <ul>
  *   <li>VOID: the Void and Nihil things (void wings, void vault/keys/potions, Nihil redstone, piston, rail, vault, shard, lamp, end rod, book).</li>
  *   <li>EVIL: the Evil trial things and the Wither and Nether wings (Simple Beacons' Evil things set it themselves).</li>
- *   <li>LEGENDARY: End endgame: Enderite ingot, block, template, tools, armor and everything made of it, End Wings, Ender Heart.</li>
+ *   <li>LEGENDARY: End endgame: Enderite ingot, block, template, tools, armor and everything made of it, End Wings, Ender Heart;
+ *       Terranite, Infernite, Zenithite ingots and blocks (IG31-58).</li>
  *   <li>MYTHIC: Astral things (the counterpart of Nihil) and the Strong things of Simple Beacons, the Strong Upgrade (SimpleLib), Ender Gem.</li>
  *   <li>CORRUPTED: broken things: the cracked diamond and its block.</li>
  *   <li>CURSED: set explicitly where it is meant (Biome Brush, Wither items).</li>
@@ -23,6 +24,9 @@ public final class RarityRules {
     private static final Set<String> ASTRAL = Set.of("astral_redstone", "astral_redstone_block", "astral_redstone_torch", "astral_piston",
             "astral_rail", "astral_vault", "astralit_dust", "astralit_lamp", "astralit_end_rod");
     private static final Set<String> ENDERITE_RAW = Set.of("enderite_nugget", "enderite_scrap", "enderite_scrap_block");
+    /** IG31-58: the end materials of the Dimensional Scrap stand beside Enderite (ingots and their blocks); the rift shards stay plain like Enderite scrap. */
+    private static final Set<String> RIFT_METALS = Set.of("terranite_ingot", "terranite_block", "infernite_ingot", "infernite_block",
+            "zenithite_ingot", "zenithite_block");
     private static final Set<String> CORRUPTED = Set.of("cracked_diamond", "cracked_diamond_block");
 
     private RarityRules() {}
@@ -35,6 +39,7 @@ public final class RarityRules {
         if (path.startsWith("void_") || VOID.contains(path)) return SimpleRarity.VOID;
         if (ASTRAL.contains(path)) return SimpleRarity.MYTHIC;
         if (CORRUPTED.contains(path)) return SimpleRarity.CORRUPTED;
+        if (RIFT_METALS.contains(path)) return SimpleRarity.LEGENDARY;
         if (path.equals("end_wings") || path.equals("ender_heart") || path.contains("enderite_") && !ENDERITE_RAW.contains(path)
                 && !path.startsWith("raw_") && !path.startsWith("layered_") && !path.startsWith("dull_")) return SimpleRarity.LEGENDARY;
         return null;

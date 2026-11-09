@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "infernite_ingot",
+  "ingredients": [
+    "simpleores:infernite_block"
+  ],
+  "result": {
+    "id": "simpleores:infernite_ingot",
+    "count": 9
+  }
+}

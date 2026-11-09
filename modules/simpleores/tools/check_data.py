@@ -175,6 +175,31 @@ for f in ('sage_ore_placed', 'dimensional_scrap_placed', 'nether_dimensional_scr
     assert json.loads((RES / f'data/{NS}/worldgen/placed_feature/{f}.json').read_text(encoding='utf-8'))['feature'].startswith(f'{NS}:'), f
 assert 'SAGE' in fabric and 'END_SCRAP' in fabric and 'OresLoot' in fabric
 assert {f'{NS}:{x}' for x in MOVED_BLOCKS + MOVED_ITEMS} <= set(manual['notes'])
+# IG31-58 (a-dims10): the rift chain. Own textures (tools/textures/dims10_2026_11_08.py) are committed with their layers;
+# scrap melts only in the blast furnace (40/60/80 s = stored 1600/2400/3200), extreme heat in a crucible, 4 shards + 1 partner.
+RIFT = (('', 'dimensional_scrap', 'terranite', 'enderite_ingot', 1600), ('nether_', 'nether_dimensional_scrap', 'infernite', 'terranite_ingot', 2400),
+        ('end_', 'end_dimensional_scrap', 'zenithite', 'infernite_ingot', 3200))
+for d, scrap, metal, partner, ticks in RIFT:
+    for b in (f'{d}rift_shard_block', f'{metal}_block'):
+        for rel in (f'assets/{NS}/blockstates/{b}.json', f'data/{NS}/loot_table/blocks/{b}.json', f'assets/{NS}/textures/block/{b}.png', f'assets/{NS}/textures/block/{b}.layers.json'):
+            assert (RES / rel).is_file(), rel
+        assert all(langs[l].get(f'block.{NS}.{b}') for l in langs), b
+    for i in (f'{d}rift_shard', f'{metal}_ingot'):
+        for rel in (f'assets/{NS}/items/{i}.json', f'assets/{NS}/textures/item/{i}.png', f'assets/{NS}/textures/item/{i}.layers.json'):
+            assert (RES / rel).is_file(), rel
+        assert all(langs[l].get(f'item.{NS}.{i}') for l in langs), i
+    blast = json.loads((RES / f'data/{NS}/recipe/{d}rift_shard.json').read_text(encoding='utf-8'))
+    assert blast['type'] == 'minecraft:blasting' and blast['cookingtime'] == ticks and blast['ingredient'] == f'{NS}:{scrap}', d
+    combo = json.loads((RES / f'data/{NS}/recipe/{metal}_ingot.json').read_text(encoding='utf-8'))
+    assert sorted(combo['ingredients']) == sorted([f'{NS}:{d}rift_shard'] * 4 + [f'{NS}:{partner}']), metal
+    for p in (RES / f'data/{NS}/recipe').glob('*.json'):
+        r = json.loads(p.read_text(encoding='utf-8'))
+        assert not (r.get('type') in ('minecraft:smelting', 'minecraft:smoking', 'minecraft:campfire_cooking') and r.get('ingredient') == f'{NS}:{scrap}'), p.name
+extreme = json.loads((RES / 'data/simplecrucibles/tags/item/needs_extreme_heat.json').read_text(encoding='utf-8'))['values']
+assert extreme == [f'{NS}:{r[1]}' for r in RIFT], extreme
+assert {f'{NS}:{r[2]}_block' for r in RIFT} <= set(json.loads((mc / 'block/beacon_base_blocks.json').read_text(encoding='utf-8'))['values'])
+assert json.loads((mc / 'item/beacon_payment_items.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:{r[2]}_ingot' for r in RIFT]
+assert 'rift_alloys' in {f['id'] for f in manual['features']}
 import subprocess
 subprocess.run([sys.executable, str(MODULE / 'tools/gen_data.py'), '--check'], check=True)
 print('simpleores: bilingual texts, loot, recipes, worldgen numbers, derived textures and wiki data valid')

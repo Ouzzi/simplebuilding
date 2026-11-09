@@ -302,7 +302,7 @@
         "summary": "Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.",
         "details": [
           "Sage ore (and a deepslate twin): as rare as diamond ore, iron pickaxe, drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune). The orb charges 0.3 s and gives 50 to 100 experience.",
-          "Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (SimpleBuilding's pickaxe, Simple Hammers' sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. No recipe yet.",
+          "Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (SimpleBuilding's pickaxe, Simple Hammers' sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. It melts into rift shards (feature Rift alloys).",
           "Switches sageOre and dimensionalScrap (server config) stop new veins; existing blocks stay."
         ]
       },
@@ -311,8 +311,37 @@
         "summary": "Zwei seltene Funde, die aus SimpleBuilding hierher umgezogen sind (IG31-13): das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
         "details": [
           "Weisheitserz (und ein Tiefenschiefer-Zwilling): so selten wie Diamanterz, Eisenspitzhacke, lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %). Die Kugel lädt 0,3 s und gibt 50 bis 100 Erfahrung.",
-          "Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (Spitzhacke von SimpleBuilding, Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Noch kein Rezept.",
+          "Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (Spitzhacke von SimpleBuilding, Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Er schmilzt zu Riss-Splittern (Abschnitt Riss-Legierungen).",
           "Die Schalter sageOre und dimensionalScrap (Server-Config) stoppen neue Adern; vorhandene Blöcke bleiben."
+        ]
+      }
+    },
+    {
+      "id": "rift_alloys",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/rift_shard.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/terranite_ingot.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/infernite_ingot.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/zenithite_ingot.json",
+        "modules/simpleores/shared/resources/data/simplecrucibles/tags/item/needs_extreme_heat.json"
+      ],
+      "en": {
+        "title": "Rift alloys",
+        "summary": "The Dimensional Scrap of each dimension melts into rift shards; with a partner ingot they make Terranite, Infernite and Zenithite, a chain through all three dimensions that starts at Enderite (IG31-58).",
+        "details": [
+          "Melting: only a blast furnace (Overworld scrap 40 s, Nether 60 s, End 80 s; 2, 3, 4 experience) - a plain furnace refuses. With Simple Crucibles a crucible melts it too, but only at extreme heat (soul lava, tag simplecrucibles:needs_extreme_heat). One scrap gives one shard, no bonus. The faster blast furnaces of Simple Ovens speed it up by their tier.",
+          "Chain (shapeless): 4 Rift Shards + 1 Enderite ingot -> Terranite ingot; 4 Nether Rift Shards + 1 Terranite ingot -> Infernite ingot; 4 End Rift Shards + 1 Infernite ingot -> Zenithite ingot. 9 shards <-> block of shards (like the netherite scrap block), 9 ingots <-> showpiece block (like the Enderite block).",
+          "Use (small Vanilla hooks, no new gear tier): the three showpiece blocks are beacon base blocks, the three ingots pay a beacon; decoration. Everything is fire resistant and needs a diamond pickaxe; ingots and blocks have the Legendary rank like Enderite."
+        ]
+      },
+      "de": {
+        "title": "Riss-Legierungen",
+        "summary": "Der Dimensionsschrott jeder Dimension schmilzt zu Riss-Splittern; mit einem Partnerbarren ergeben sie Terranit, Infernit und Zenithit, eine Kette durch alle drei Dimensionen, die bei Enderit beginnt (IG31-58).",
+        "details": [
+          "Schmelzen: nur im Hochofen (Oberwelt-Schrott 40 s, Nether 60 s, End 80 s; 2, 3, 4 Erfahrung) - ein normaler Ofen lehnt ab. Mit Simple Crucibles schmilzt ihn auch ein Tiegel, aber nur bei extremer Hitze (Seelenlava, Tag simplecrucibles:needs_extreme_heat). Ein Schrott gibt einen Splitter, kein Bonus. Die schnelleren Hochöfen von Simple Ovens beschleunigen über ihre Stufe.",
+          "Kette (formlos): 4 Riss-Splitter + 1 Enderitbarren -> Terranitbarren; 4 Nether-Riss-Splitter + 1 Terranitbarren -> Infernitbarren; 4 End-Riss-Splitter + 1 Infernitbarren -> Zenithitbarren. 9 Splitter <-> Splitter-Block (wie der Netherit-Schrottblock), 9 Barren <-> Prachtblock (wie der Enderitblock).",
+          "Nutzen (kleine Vanilla-Anbindungen, keine neue Ausrüstungsstufe): die drei Prachtblöcke sind Leuchtfeuer-Sockel, die drei Barren bezahlen ein Leuchtfeuer; Dekoration. Alles ist feuerfest und braucht eine Diamantspitzhacke; Barren und Blöcke tragen den Rang Legendär wie Enderit."
         ]
       }
     },
@@ -351,10 +380,10 @@
         "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 15 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 15 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleores:silver_ore": {
@@ -775,6 +804,72 @@
         "summary": "Neun Bronzebarren, in beide Richtungen herstellbar. Bau- und Dekometall. Braucht eine Eisenspitzhacke."
       }
     },
+    "simpleores:rift_shard_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine Rift Shards, craftable both ways. Like ancient debris, fire resistant, needs a diamond pickaxe."
+      },
+      "de": {
+        "summary": "Neun Riss-Splitter, in beide Richtungen herstellbar. Wie Antiker Schrott, feuerfest, braucht eine Diamantspitzhacke."
+      }
+    },
+    "simpleores:terranite_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine Terranite ingots, craftable both ways. A showpiece block like the Enderite block: beacon base, needs a diamond pickaxe, fire resistant."
+      },
+      "de": {
+        "summary": "Neun Terranitbarren, in beide Richtungen herstellbar. Ein Prachtblock wie der Enderitblock: Leuchtfeuer-Sockel, braucht eine Diamantspitzhacke, feuerfest."
+      }
+    },
+    "simpleores:nether_rift_shard_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine Nether Rift Shards, craftable both ways. Like ancient debris, fire resistant, needs a diamond pickaxe."
+      },
+      "de": {
+        "summary": "Neun Nether-Riss-Splitter, in beide Richtungen herstellbar. Wie Antiker Schrott, feuerfest, braucht eine Diamantspitzhacke."
+      }
+    },
+    "simpleores:infernite_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine Infernite ingots, craftable both ways. A showpiece block like the Enderite block: beacon base, needs a diamond pickaxe, fire resistant."
+      },
+      "de": {
+        "summary": "Neun Infernitbarren, in beide Richtungen herstellbar. Ein Prachtblock wie der Enderitblock: Leuchtfeuer-Sockel, braucht eine Diamantspitzhacke, feuerfest."
+      }
+    },
+    "simpleores:end_rift_shard_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine End Rift Shards, craftable both ways. Like ancient debris, fire resistant, needs a diamond pickaxe."
+      },
+      "de": {
+        "summary": "Neun End-Riss-Splitter, in beide Richtungen herstellbar. Wie Antiker Schrott, feuerfest, braucht eine Diamantspitzhacke."
+      }
+    },
+    "simpleores:zenithite_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine Zenithite ingots, craftable both ways. A showpiece block like the Enderite block: beacon base, needs a diamond pickaxe, fire resistant."
+      },
+      "de": {
+        "summary": "Neun Zenithitbarren, in beide Richtungen herstellbar. Ein Prachtblock wie der Enderitblock: Leuchtfeuer-Sockel, braucht eine Diamantspitzhacke, feuerfest."
+      }
+    },
     "simpleores:enderite_block": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -813,10 +908,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Found deep in the deepslate of the Overworld, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet."
+        "summary": "Found deep in the deepslate of the Overworld, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. Melts into rift shards (blast furnace, or a crucible at extreme heat)."
       },
       "de": {
-        "summary": "Zu finden tief im Tiefenschiefer der Oberwelt, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen."
+        "summary": "Zu finden tief im Tiefenschiefer der Oberwelt, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Schmilzt zu Riss-Splittern (Hochofen oder Tiegel mit extremer Hitze)."
       }
     },
     "simpleores:nether_dimensional_scrap": {
@@ -824,10 +919,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Found in the Nether like ancient debris, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet."
+        "summary": "Found in the Nether like ancient debris, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. Melts into rift shards (blast furnace, or a crucible at extreme heat)."
       },
       "de": {
-        "summary": "Zu finden im Nether wie Antiker Schrott, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen."
+        "summary": "Zu finden im Nether wie Antiker Schrott, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Schmilzt zu Riss-Splittern (Hochofen oder Tiegel mit extremer Hitze)."
       }
     },
     "simpleores:end_dimensional_scrap": {
@@ -835,10 +930,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Found inside the End islands, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet."
+        "summary": "Found inside the End islands, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. Melts into rift shards (blast furnace, or a crucible at extreme heat)."
       },
       "de": {
-        "summary": "Zu finden im Inneren der End-Inseln, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen."
+        "summary": "Zu finden im Inneren der End-Inseln, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Schmilzt zu Riss-Splittern (Hochofen oder Tiegel mit extremer Hitze)."
       }
     },
     "simpleores:raw_enderite": {
@@ -1466,6 +1561,72 @@
       },
       "de": {
         "summary": "Verzauberter Roségold-Apfel (Schimmer): 6 Hunger, immer essbar. Gibt Regeneration II 0:35, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. 8 Roségoldblöcke um einen Apfel."
+      }
+    },
+    "simpleores:rift_shard": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Melted out of Dimensional Scrap: only a blast furnace (40 s, 2 experience) or a crucible at extreme heat (soul lava). Nine make a block. Four and one Enderite Ingot make a Terranite ingot. Fire resistant."
+      },
+      "de": {
+        "summary": "Aus Dimensionsschrott geschmolzen: nur im Hochofen (40 s, 2 Erfahrung) oder im Tiegel mit extremer Hitze (Seelenlava). Neun ergeben einen Block. Vier und ein Enderitbarren ergeben einen Terranitbarren. Feuerfest."
+      }
+    },
+    "simpleores:terranite_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Terranite ingot: 4 Rift Shards + 1 Enderite Ingot (shapeless). Partner of the Nether chain (Infernite). Pays a beacon; nine make a block. A prestige material beside Enderite, no tool or armor tier. Fire resistant."
+      },
+      "de": {
+        "summary": "Terranitbarren: 4 Riss-Splitter + 1 Enderitbarren (formlos). Partner der Nether-Kette (Infernit). Bezahlt ein Leuchtfeuer; neun ergeben einen Block. Prestige-Material neben Enderit, keine Werkzeug- oder Rüstungsstufe. Feuerfest."
+      }
+    },
+    "simpleores:nether_rift_shard": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Melted out of Nether Dimensional Scrap: only a blast furnace (60 s, 3 experience) or a crucible at extreme heat (soul lava). Nine make a block. Four and one Terranite Ingot make a Infernite ingot. Fire resistant."
+      },
+      "de": {
+        "summary": "Aus Nether-Dimensionsschrott geschmolzen: nur im Hochofen (60 s, 3 Erfahrung) oder im Tiegel mit extremer Hitze (Seelenlava). Neun ergeben einen Block. Vier und ein Terranitbarren ergeben einen Infernitbarren. Feuerfest."
+      }
+    },
+    "simpleores:infernite_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Infernite ingot: 4 Nether Rift Shards + 1 Terranite Ingot (shapeless). Partner of the End chain (Zenithite). Pays a beacon; nine make a block. A prestige material beside Enderite, no tool or armor tier. Fire resistant."
+      },
+      "de": {
+        "summary": "Infernitbarren: 4 Nether-Riss-Splitter + 1 Terranitbarren (formlos). Partner der End-Kette (Zenithit). Bezahlt ein Leuchtfeuer; neun ergeben einen Block. Prestige-Material neben Enderit, keine Werkzeug- oder Rüstungsstufe. Feuerfest."
+      }
+    },
+    "simpleores:end_rift_shard": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Melted out of End Dimensional Scrap: only a blast furnace (80 s, 4 experience) or a crucible at extreme heat (soul lava). Nine make a block. Four and one Infernite Ingot make a Zenithite ingot. Fire resistant."
+      },
+      "de": {
+        "summary": "Aus End-Dimensionsschrott geschmolzen: nur im Hochofen (80 s, 4 Erfahrung) oder im Tiegel mit extremer Hitze (Seelenlava). Neun ergeben einen Block. Vier und ein Infernitbarren ergeben einen Zenithitbarren. Feuerfest."
+      }
+    },
+    "simpleores:zenithite_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Zenithite ingot: 4 End Rift Shards + 1 Infernite Ingot (shapeless). The end of the chain. Pays a beacon; nine make a block. A prestige material beside Enderite, no tool or armor tier. Fire resistant."
+      },
+      "de": {
+        "summary": "Zenithitbarren: 4 End-Riss-Splitter + 1 Infernitbarren (formlos). Das Ende der Kette. Bezahlt ein Leuchtfeuer; neun ergeben einen Block. Prestige-Material neben Enderit, keine Werkzeug- oder Rüstungsstufe. Feuerfest."
       }
     }
   }
