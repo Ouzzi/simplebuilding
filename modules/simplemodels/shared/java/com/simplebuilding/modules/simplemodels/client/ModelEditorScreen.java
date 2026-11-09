@@ -110,6 +110,10 @@ public final class ModelEditorScreen extends Screen {
     public void baseItem(String id) { baseItem = id; }
     public boolean helpShown() { return showHelp; }
     public Tab tab() { return tab; }
+    /** Code only: replaces the code text as if typed (taken over after the debounce); tests and paste. */
+    public void setCode(String text) {
+        if (codeArea != null) codeArea.replaceAll(text);
+    }
     /** Switches the properties panel tab (face tab: UV editor). */
     public void setTab(Tab t) {
         if (state.dragging()) state.cancelDrag();
@@ -262,6 +266,8 @@ public final class ModelEditorScreen extends Screen {
         if (tip != null) b.setTooltip(Tooltip.create(Component.translatable(tip)));
         return addRenderableWidget(b);
     }
+
+    public boolean uvRectVisible() { return uvRect().visible(); }
 
     /** The UV square of the face tab: left in the panel under the face buttons, tools column to its right. */
     Rect uvRect() {

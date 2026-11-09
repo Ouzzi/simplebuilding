@@ -165,8 +165,66 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 if (!state.canUndo()) throw new AssertionError("Gizmo step is undoable");
             });
             context.waitTicks(3); context.takeScreenshot("simplemodels-editor-rotate");
+            // b-models14: face tab (UV square), shortcut help, texture picker, file dialog (save, zip, use as model + reload).
+            context.runOnClient(client -> {
+                var editor = (com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen();
+                editor.state().select(0);
+                editor.state().selectFace("up");
+                editor.setTab(com.simplebuilding.modules.simplemodels.client.ModelEditorScreen.Tab.FACE);
+                if (!editor.uvRectVisible()) throw new AssertionError("Face tab shows the UV square");
+            });
+            context.waitTicks(3); context.takeScreenshot("simplemodels-editor-face");
+            context.runOnClient(client -> ((com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen()).showHelp(true));
+            context.waitTicks(3); context.takeScreenshot("simplemodels-editor-help");
+            context.runOnClient(client -> {
+                var editor = (com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen();
+                editor.showHelp(false);
+                client.setScreenAndShow(new com.simplebuilding.modules.simplemodels.client.TexturePickerScreen(editor));
+            });
+            context.waitTicks(3);
+            context.runOnClient(client -> {
+                var picker = (com.simplebuilding.modules.simplemodels.client.TexturePickerScreen)client.gui.screen();
+                picker.search("planks");
+                if (picker.results().size() < 5 || !picker.results().contains("minecraft:block/oak_planks")) throw new AssertionError("Atlas search finds planks: " + picker.results().size());
+            });
+            context.waitTicks(3); context.takeScreenshot("simplemodels-editor-textures");
+            context.runOnClient(client -> {
+                var picker = (com.simplebuilding.modules.simplemodels.client.TexturePickerScreen)client.gui.screen();
+                picker.choose("minecraft:block/cherry_planks");
+                picker.onClose();
+                var editor = (com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen();
+                if (!"minecraft:block/cherry_planks".equals(editor.state().model().textures().get(picker.variable()))) throw new AssertionError("Picked texture lands in the variable " + picker.variable());
+                client.setScreenAndShow(new com.simplebuilding.modules.simplemodels.client.ModelFileScreen(editor));
+            });
+            context.waitTicks(3);
+            context.runOnClient(client -> {
+                var file = (com.simplebuilding.modules.simplemodels.client.ModelFileScreen)client.gui.screen();
+                file.setName("Smoke Stool");
+                file.save();
+                if (file.error()) throw new AssertionError("Save: " + file.message().getString());
+                file.zip();
+                if (file.error()) throw new AssertionError("Zip: " + file.message().getString());
+                file.use();
+                if (file.error()) throw new AssertionError("Use as model: " + file.message().getString());
+            });
+            context.waitTicks(2);
+            context.waitFor(client -> client.gui.overlay() == null, 1200);
+            context.waitTicks(3); context.takeScreenshot("simplemodels-editor-file");
+            context.runOnClient(client -> {
+                if (!client.getResourcePackRepository().getSelectedIds().contains("file/simplemodels-editor")) throw new AssertionError("Export pack is switched on");
+                if (client.getResourceManager().getResource(Identifier.parse("mymodels:models/item/smoke_stool.json")).isEmpty()) throw new AssertionError("Exported model is loaded");
+                ((com.simplebuilding.modules.simplemodels.client.ModelFileScreen)client.gui.screen()).onClose();
+            });
+            context.waitTicks(3);
             context.runOnClient(client -> ((com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen()).setCodeOnly(true));
             context.waitTicks(3); context.takeScreenshot("simplemodels-editor-code");
+            context.runOnClient(client -> ((com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen())
+                    .setCode("{\n  \"textures\": {\"all\": \"minecraft:block/stone\"},\n  \"elements\": [\n    {\"from\": [0, 0, 0], \"to\": [16, 40, 16], \"faces\": {\"up\": {\"texture\": \"#all\"}}}\n  ]\n}"));
+            context.waitTicks(10); context.takeScreenshot("simplemodels-editor-code-error");
+            context.runOnClient(client -> {
+                var editor = (com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen();
+                if (editor.state().problems().isEmpty()) throw new AssertionError("Broken code lists a problem");
+            });
             context.runOnClient(client -> {
                 var editor = (com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen();
                 if (!editor.codeOnly() || editor.layout().outliner().visible()) throw new AssertionError("Code only hides the list");
