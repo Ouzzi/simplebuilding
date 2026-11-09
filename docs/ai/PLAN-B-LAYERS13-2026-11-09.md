@@ -59,4 +59,25 @@ Branch `b-layers13`, Basis `b-layers12` (34428619f). Nur 26.3 Fabric. Auftrag: /
 5. Test: ein sbt (Compile + module-simplelayers fabric + standalone + data_integrity-Filter + Wiki/Guides erzeugen).
 
 ## Runden-Bewertung
-(siehe unten, wird je Runde ergänzt)
+Je Runde: Kontaktbogen 1×/10× neben Vanilla (verdant_froglight, nether_portal, bedrock, potion, trial_key, Effekt-Icons
+mining_fatigue/bad_omen/weaving), Raumansicht, Härte (A8b) und Tonanzahl. Scratch /root/sb-tools-b/layers13/r3…r6.
+- **R3 (Ausgang):** Flächen 0–3 % hart, Vanilla-nah – bleiben. Ausreißer: EXIT-Schild (Schrift von Rand zu Rand, flacher
+  Rahmen ohne Fase, Glow-Zeile), Riss (fast weiße Linie, verrauschte Funken), Glitch-Grundgestein (Fehler nur 1 Pixel),
+  Flasche ohne Glanz.
+- **R4:** EXIT mit gefastem Gehäuse, schmalem I (Wort mittig), Buchstaben mit dunklerer Unterkante; Halo oben/links wirkt
+  aber wie verkehrter Schatten. Riss gedämpftes Gold, 2 Funken – gut; Hintergrund mit waagrechten Streifen (Holz-Eindruck).
+  Glitch: verrutschte Bildzeilen in 2 Animationsbildern. Flasche 2 Glanzpixel. Effekt-Icon A (Wand mit Tür) liest sich wie
+  Hocker/Tor.
+- **R5:** EXIT ohne Halo, 1 px Tiefe unter dem Rahmen – ruhig wie Redstone-Lampe. Riss-Hintergrund Einzelpixel, 2 Töne.
+  Icon B (Türen ineinander = endlose Räume) in 1× klar besser als A; innerer schwarzer Rahmen zu hart.
+- **R6 (eingebaut):** Icon B mit Umriss nur außen, innere Rahmen in Tapeten-Schattentönen. Härte EXIT 21 % (Redstone-Lampe
+  48 %), Riss 26 %, Glitch 32 % (Grundgestein 47 %), Flasche 21 % (Trank 23 %), Icon 33 % (Vanilla-Icons 0–49 %).
+  Schlüssel, Tür, Neon geprüft und unverändert (lesbar, Vanilla-nah).
+
+## Abweichungen
+- Effekt-Icon liegt im selben Generator (`mob_effect/backroom`, 18×18) statt einem eigenen Skript.
+- Holz/Faden nicht als neue Jigsaw-Räume, sondern im Raster (Entscheidung 4): deterministisch, vom Chunk-Test mitgeprüft
+  und per Config schaltbar; Lagertruhen-Loot zusätzlich mit Faden/Stöcken.
+
+## Ergebnis
+Vorschau /root/sb-tools-b/previews/b-layers13-preview.html, Antwortcode LAYERS13.
