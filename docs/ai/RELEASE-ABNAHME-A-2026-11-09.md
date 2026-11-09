@@ -17,7 +17,9 @@ Die Client-Läufe prüfen trotzdem genau den Release-Stand 3277653e2 (+ die Fixe
 | `mixinaudit-client-263` | grün, „[mixinaudit] audit done without error“ |
 | `rel10-client-263` (neu, `Rel10ClientTest`) | grün, 135 Bilder, 0 Fehler (zweiter Lauf nach Testverbesserung) |
 | `vis24all-client-263` (alle Modul-Smokes + Vis24) | 1. Lauf: Abbruch im Tweaks-Smoke → Fix 2; 2. Lauf: Zeitgrenze 2400 s unter Last (155 Bilder bis Simple Mobs); 3. Lauf siehe Nachtrag |
-| Echte Maus: `pipe_probe`, `mouse_probe`, `keys_probe` | im 1. Versuch nicht aussagekräftig (lief parallel zu vis24all, Fenster/Seite öffnete nicht, Zeitgrenze); Pipe erneut allein, siehe Nachtrag |
+| Echte Maus: `pipe_probe` (allein, 13:38) | **grün, 30/30 Prüfungen** bei GUI 2 und 3: Kompass + Oben/Unten, jede Seite zykliert Ein/Aus/Aus mit echter Maus, zwei Ausgänge, Tooltips |
+| Echte Maus: `mouse_probe`, `keys_probe` | nur im ersten Versuch parallel zu vis24all gelaufen: Zeitgrenze bzw. „page never opened“ – nicht aussagekräftig, einzeln neu |
+| `rel10-client-263` dritter Lauf (mit Icon-Fix) | grün, 135 Bilder; Storage-Tab zeigt jetzt das Bündel |
 | Landing simplemods.de (4 Seiten, Desktop 1280 + Handy 390, chrome-headless) | ok; Simple Layers fehlte → Fix 3 |
 
 **Regelverstoß (eigener):** Job 4 (Maus-Probes) lief durch die zwei Job-Slots von `heavy.sh` gleichzeitig mit dem
@@ -52,12 +54,12 @@ von selbst; danach nur noch ein Client-Lauf je Job-Skript.
 | Simple Layers Blöcke | ok | Wolkenblock, Wolkenstein, Nebel, gestörtes Grundgestein, Riss, EXIT-Schild, Neonlicht, Tapeten, Teppich, Deckenplatten gerendert; Wolkenblock-Tooltip „-30 % Fallschaden“. |
 | Wolkenmeer (Teleport y 40/120/260) | unklar | Inseln und Wolkenschicht sichtbar. Unterseiten/Schattenseiten großer Inseln fast schwarz (RGB 7,7,8), auch nach 200 Ticks: Licht 0 + `ambient_light 0.0`. Besitzer: so gewollt oder etwas Umgebungslicht? |
 | Backrooms (Teleport) | ok | gelbe Tapetenräume, Flure, Deckenplatten mit Licht, Teppich; Jade-Hinweis „Yellow Wallpaper“. |
-| Rohr-Fenster (ROHR33/IG31-5) | ok (Bild), Maus offen | Kompass N/W/O/S + Oben/Unten, Filter- und Stil-Knopf. Echte-Maus-Probe siehe Nachtrag. |
+| Rohr-Fenster (ROHR33/IG31-5) | ok | Kompass N/W/O/S + Oben/Unten, Filter- und Stil-Knopf; `pipe_probe` mit echter X11-Maus 30/30 grün. Klein: der Seiten-Tooltip deckt die Oben/Unten-Spalte zu. |
 | Plattenpresse (WH26-3) | ok | Farbstoff-Platz mit Silhouette sichtbar. JEI „Uses“ der Presse zeigt nur Abbau-Tag. |
 | Trichter / Verstärkter Trichter | ok | Mod-Rahmen, Filter-Knopf beim verstärkten Trichter. |
 | Trompete | ok (Bild) | Hand 1./3. Person, Spielen (Rechtsklick halten). Klang bleibt Besitzer (Hörabnahme). |
 | Kreativ-Tabs (IG31-3, 43 Tabs) | ok | Jeder Mod-Tab abgebildet (Anfang/Ende). Regel geprüft wie `CreativeTabPolicy`: keine Mod-Items in Vanilla-Tabs außer Spawn-Eiern (QW11, gewollt), keine Vanilla-Items in Mod-Tabs außer Büchern mit Mod-Verzauberungen. Reihenfolge nicht geprüft (Test liest die Registry-Reihenfolge). |
-| WH26-1 Tab-Icons | gefixt | Storage war Kiste → Bündel (Fix 4). |
+| WH26-1 Tab-Icons | gefixt | Storage war Kiste → Verstärktes Bündel (Fix 4), im dritten Rel10-Lauf gesehen. |
 | JEI (WF25-5, WI26-5) | ok | Verstärkter Rucksack: 8 Rezepte; Mob Drops für Wither-Skelettschädel. Wolkenblock und Trompete ohne Rezept (keins vorgesehen). |
 | Free Look (QOL34/IG31-43) | ok | `freelook-before/after`, Fadenkreuz versetzt, Zoom und Zoom-Reset (simplelib-Smoke). |
 | Vanilla-Stationen im Mod-Rahmen | ok | Truhe, Doppeltruhe, Fass, Ender-Truhe, Shulker, Trichter, Werfer, Crafter, Esel/Pferd, Amboss, Schleifstein, Steinsäge, Webstuhl, Kartentisch, Schmiedetisch, Händler, Werkbank, Öfen, Braustand, Leuchtfeuer, Zaubertisch. |
@@ -81,5 +83,5 @@ von selbst; danach nur noch ein Client-Lauf je Job-Skript.
 - Wolkenmeer: fast schwarze Inselunterseiten (Licht/Umgebungslicht, Entscheidung Besitzer).
 - Landing `index.html`-Galerie ohne Simple Layers; Live-Seite erst nach Deploy aktuell.
 - JEI: keine eigene Kategorie für die Entrindungs-Station und die Plattenpresse; gemeißelte Blöcke ohne Steinsägen-Rezept.
-- Echte-Maus-Probes (Bau-Werkzeuge, Tasten) unter Last nicht aussagekräftig → einzeln neu laufen lassen.
+- Echte-Maus-Probes Bau-Werkzeuge (`mouse_probe`) und Tasten (`keys_probe`) einzeln neu laufen lassen (Rohr ist grün).
 - Hören (Trompete, Platten, Howler) und Gefühl bleiben Besitzer-Abnahme.
