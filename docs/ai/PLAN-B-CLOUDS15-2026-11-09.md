@@ -60,3 +60,11 @@ Nebel ist damit schon voll lichtdurchlässig (geprüft, keine Änderung; neuer T
 
 `/root/sb-tools-b/previews/b-clouds15-preview.html` (gerechnet, Lichtformel wie CLOUDS14, Schnitt durch eine Insel: vorher/nachher
 Licht unter der Insel). Antwortcode **CLOUDS15=<ok|glas|einwand>** (glas = Dämpfung 0, kein Schatten).
+
+## Ergebnis (sbt df7d1fcbf)
+
+- `C_RC=0` (Compile Kern + simplelayers), `T_RC=0`: module-simplelayers fabric 22/22, standalone 22/22 (inkl. der 2 neuen Tests).
+- `D_RC=1`: `simplebuilding:data_integrity*` 40/48 – alle 8 rot betreffen b-pal14-End-Blöcke (ender/astral/nihil purpur, ender_end_stone:
+  fehlende Item-Definitionen/Loot/Rezepte). Ursache: Basis `b-bundle165` ohne Datagen (liegt auf `b-bundle165-gen`), kein Bezug zu
+  Simple Layers (Kern unverändert). Darum kein zweiter Lauf.
+- Abweichung vom Auftrag: kein Client-Bild, nur gerechnete Vorschau (B09-Regel: Client-Läufe im Bündel).
