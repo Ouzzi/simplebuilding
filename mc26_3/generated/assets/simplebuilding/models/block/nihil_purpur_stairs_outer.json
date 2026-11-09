@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "simplebuilding:block/nihil_purpur_block",
+    "side": "simplebuilding:block/nihil_purpur_block",
+    "top": "simplebuilding:block/nihil_purpur_block"
+  }
+}

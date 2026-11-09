@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "simplebuilding:block/astral_end_stone"
+  }
+}

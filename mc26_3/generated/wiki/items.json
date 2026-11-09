@@ -3,8 +3,14 @@
     "simplebuilding:acacia_cauldron",
     "simplebuilding:acacia_sheet",
     "simplebuilding:astral_end_stone",
+    "simplebuilding:astral_end_stone_slab",
+    "simplebuilding:astral_end_stone_stairs",
+    "simplebuilding:astral_end_stone_wall",
     "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
+    "simplebuilding:astral_purpur_pillar",
+    "simplebuilding:astral_purpur_slab",
+    "simplebuilding:astral_purpur_stairs",
     "simplebuilding:astral_rail",
     "simplebuilding:astral_redstone",
     "simplebuilding:astral_redstone_block",
@@ -79,6 +85,14 @@
     "simplebuilding:diamond_pole",
     "simplebuilding:dull_astralit_ore",
     "simplebuilding:dull_nihilith_ore",
+    "simplebuilding:ender_end_stone",
+    "simplebuilding:ender_end_stone_slab",
+    "simplebuilding:ender_end_stone_stairs",
+    "simplebuilding:ender_end_stone_wall",
+    "simplebuilding:ender_purpur_block",
+    "simplebuilding:ender_purpur_pillar",
+    "simplebuilding:ender_purpur_slab",
+    "simplebuilding:ender_purpur_stairs",
     "simplebuilding:ender_quartz_block",
     "simplebuilding:ender_quartz_brick_slab",
     "simplebuilding:ender_quartz_brick_stairs",
@@ -141,9 +155,15 @@
     "simplebuilding:nether_brick_quartz_checker_stairs",
     "simplebuilding:netherite_pole",
     "simplebuilding:nihil_end_stone",
+    "simplebuilding:nihil_end_stone_slab",
+    "simplebuilding:nihil_end_stone_stairs",
+    "simplebuilding:nihil_end_stone_wall",
     "simplebuilding:nihil_obsidian",
     "simplebuilding:nihil_piston",
     "simplebuilding:nihil_purpur_block",
+    "simplebuilding:nihil_purpur_pillar",
+    "simplebuilding:nihil_purpur_slab",
+    "simplebuilding:nihil_purpur_stairs",
     "simplebuilding:nihil_rail",
     "simplebuilding:nihil_redstone",
     "simplebuilding:nihil_redstone_block",
@@ -273,10 +293,28 @@
       "id": "simplebuilding:astral_end_stone"
     },
     {
+      "id": "simplebuilding:astral_end_stone_slab"
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_stairs"
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_wall"
+    },
+    {
       "id": "simplebuilding:astral_piston"
     },
     {
       "id": "simplebuilding:astral_purpur_block"
+    },
+    {
+      "id": "simplebuilding:astral_purpur_pillar"
+    },
+    {
+      "id": "simplebuilding:astral_purpur_slab"
+    },
+    {
+      "id": "simplebuilding:astral_purpur_stairs"
     },
     {
       "id": "simplebuilding:astral_rail"
@@ -637,6 +675,30 @@
     },
     {
       "id": "simplebuilding:enchanted_netherite_apple"
+    },
+    {
+      "id": "simplebuilding:ender_end_stone"
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_slab"
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_stairs"
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_wall"
+    },
+    {
+      "id": "simplebuilding:ender_purpur_block"
+    },
+    {
+      "id": "simplebuilding:ender_purpur_pillar"
+    },
+    {
+      "id": "simplebuilding:ender_purpur_slab"
+    },
+    {
+      "id": "simplebuilding:ender_purpur_stairs"
     },
     {
       "id": "simplebuilding:ender_quartz"
@@ -1137,6 +1199,15 @@
       "id": "simplebuilding:nihil_end_stone"
     },
     {
+      "id": "simplebuilding:nihil_end_stone_slab"
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_stairs"
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_wall"
+    },
+    {
       "id": "simplebuilding:nihil_obsidian"
     },
     {
@@ -1144,6 +1215,15 @@
     },
     {
       "id": "simplebuilding:nihil_purpur_block"
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_pillar"
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_slab"
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_stairs"
     },
     {
       "id": "simplebuilding:nihil_rail"

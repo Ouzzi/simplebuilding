@@ -661,6 +661,7 @@ data/simplebuilding/advancement/recipes/building_blocks/levitating_sand.json
 data/simplebuilding/advancement/recipes/building_blocks/polished_end_stone.json
 data/simplebuilding/advancement/recipes/building_blocks/polished_end_stone_from_end_stone_bricks_stonecutting.json
 data/simplebuilding/advancement/recipes/building_blocks/polished_end_stone_from_end_stone_stonecutting.json
+data/simplebuilding/advancement/recipes/building_blocks/polished_ender_quartz_from_purpur_block.json
 data/simplebuilding/advancement/recipes/building_blocks/suspended_gravel.json
 data/simplebuilding/advancement/recipes/building_blocks/suspended_sand.json
 data/simplebuilding/advancement/recipes/combat/enderite_building_wand_smithing.json
@@ -1131,6 +1132,7 @@ data/simplebuilding/recipe/pink_reinforced_shulker_box.json
 data/simplebuilding/recipe/polished_end_stone.json
 data/simplebuilding/recipe/polished_end_stone_from_end_stone_bricks_stonecutting.json
 data/simplebuilding/recipe/polished_end_stone_from_end_stone_stonecutting.json
+data/simplebuilding/recipe/polished_ender_quartz_from_purpur_block.json
 data/simplebuilding/recipe/potion_pad_smithing.json
 data/simplebuilding/recipe/pulsating_armor_upgrade_dummy.json
 data/simplebuilding/recipe/pulsating_trim_template.json

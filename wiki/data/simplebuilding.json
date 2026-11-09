@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 469,
+      "count": 489,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -835,7 +835,27 @@
         "simplebuilding:ender_quartz",
         "simplebuilding:astral_end_stone",
         "simplebuilding:nihil_end_stone",
-        "simplebuilding:polished_end_stone"
+        "simplebuilding:polished_end_stone",
+        "simplebuilding:ender_end_stone",
+        "simplebuilding:ender_purpur_block",
+        "simplebuilding:astral_end_stone_stairs",
+        "simplebuilding:astral_end_stone_slab",
+        "simplebuilding:astral_end_stone_wall",
+        "simplebuilding:astral_purpur_pillar",
+        "simplebuilding:astral_purpur_stairs",
+        "simplebuilding:astral_purpur_slab",
+        "simplebuilding:nihil_end_stone_stairs",
+        "simplebuilding:nihil_end_stone_slab",
+        "simplebuilding:nihil_end_stone_wall",
+        "simplebuilding:nihil_purpur_pillar",
+        "simplebuilding:nihil_purpur_stairs",
+        "simplebuilding:nihil_purpur_slab",
+        "simplebuilding:ender_end_stone_stairs",
+        "simplebuilding:ender_end_stone_slab",
+        "simplebuilding:ender_end_stone_wall",
+        "simplebuilding:ender_purpur_pillar",
+        "simplebuilding:ender_purpur_stairs",
+        "simplebuilding:ender_purpur_slab"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -852,7 +872,8 @@
         "src/main/generated/data/simplebuilding/recipe/ender_quartz_block_from_quartz_block.json",
         "src/main/generated/data/simplebuilding/recipe/ender_quartz.json",
         "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
-        "tools/textures/astralit_nihilit_alternates_2026_10_03.py"
+        "tools/textures/astralit_nihilit_alternates_2026_10_03.py",
+        "tools/textures/pal14_2026_11_09.py"
       ],
       "en": {
         "title": "End Palettes: Astralit, Nihilit and Ender Quartz",
@@ -860,14 +881,15 @@
         "details": [
           "Materials: Astralit Dust, Nihilit Shard and Ender Quartz (1 Astralit Dust + 1 Nihilit Shard + 1 Quartz, shapeless, make 2).",
           "Crafting: 4 of the material in a square make 1 base block (like quartz and amethyst); 4 base blocks make 4 Polished; 4 Polished make 4 Bricks; 2 Polished on top of each other make 2 Pillars; 6 Bricks or Polished in a stair shape make 4 Stairs, 3 in a row 6 Slabs, 6 in two rows 6 Walls; 2 Brick Slabs on top of each other make 1 Chiseled Bricks. Like the Block of Quartz, the Block of Ender Quartz also has its own Ender Quartz Stairs (6 -> 4) and Ender Quartz Slab (3 -> 6), also cut in the stonecutter (1 stairs, 2 slabs).",
-          "Recoloring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab, the Purpur Pillar to the Pillar, and the Purpur Block to Polished Ender Quartz. For Astralit and Nihilit the Purpur Block grid stays the older coating recipe (Astral or Nihil Purpur Block), which the stonecutter turns into the Polished block.",
+          "Recoloring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab and the Purpur Pillar to the Pillar. The Purpur Block grid is the coating recipe of the Astral, Nihil and Ender Purpur Block (Ender since PAL14, before it made Polished Ender Quartz), which the stonecutter turns into the Polished block.",
           "Ender Quartz also from vanilla quartz, the same way: 8 of a quartz block around 1 Ender Quartz make 8 - Block of Quartz to the base block, Quartz Bricks to the Bricks, the Quartz Pillar to the Pillar, Chiseled Quartz Block to the Chiseled Bricks, Smooth Quartz to Polished Ender Quartz, smooth quartz stairs and slab to the Polished Stairs and Slab, and quartz stairs and slab to Ender Quartz Stairs and Slab.",
           "Stonecutter: the base block cuts into every other block of its palette; the Polished block into its stairs, slab and wall, the Bricks and their stairs, slab and wall, the Pillar and the Chiseled Bricks; the Bricks into their stairs, slab, wall and the Chiseled Bricks. Slabs always come two for one. The older coated end stone (Astral and Nihil End Stone: 8 Polished End Stone around 1 dust or shard) still cuts into the brick set and the base block.",
           "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilit and Ender Quartz blocks none.",
           "Pillars can be placed along any axis; a double slab drops two slabs; stairs, slabs and walls are in the vanilla block and item tags of their shape, so the walls connect like any vanilla wall.",
           "Polished, Astral and Nihil End Stone and the Astral and Nihil Purpur Blocks are in the mineable/pickaxe tag as well.",
           "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilit turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colors, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit.",
-          "Alternative blocks: Astralit has Veined, Crystalline and Layered Astralit, Nihilit has Veined, Crystalline and Frosted Nihilit - the same block with a different pattern, copying the base block's properties (Astralit ones glow too), mined with a pickaxe, each dropping itself. The stonecutter cuts each 1:1 from the base block; 4 in a square make 4 of the next one (Veined -> Crystalline -> Layered/Frosted -> base block). The enderite chisel continues the palette chain past the base block (base -> Veined -> Crystalline -> Layered/Frosted), the spatula walks it back. They sit in their own row of the SimpleBlocks tab under the base block's row."
+          "Alternative blocks: Astralit has Veined, Crystalline and Layered Astralit, Nihilit has Veined, Crystalline and Frosted Nihilit - the same block with a different pattern, copying the base block's properties (Astralit ones glow too), mined with a pickaxe, each dropping itself. The stonecutter cuts each 1:1 from the base block; 4 in a square make 4 of the next one (Veined -> Crystalline -> Layered/Frosted -> base block). The enderite chisel continues the palette chain past the base block (base -> Veined -> Crystalline -> Layered/Frosted), the spatula walks it back. They sit in their own row of the SimpleBlocks tab under the base block's row.",
+          "Coated kinds (PAL14): Astral, Nihil and Ender End Stone (8 Polished End Stone around 1 Astralit Dust, Nihilit Shard or Ender Quartz) each have stairs, slab and wall; Astral, Nihil and Ender Purpur Block (8 Purpur Blocks around the same) each have a pillar (2 of its slabs on top of each other), stairs and slab, like Vanilla purpur (no wall). Stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6, stonecutter 1 -> 1 (slab 1 -> 2). They copy their block (Astral ones glow with 10), drop themselves and sit in their own row of the tab; Ender End Stone and Ender Purpur cut into the Ender Quartz palette like the other two."
         ]
       },
       "de": {
@@ -876,14 +898,15 @@
         "details": [
           "Materialien: Astralitstaub, Nihilitsplitter und Enderquarz (1 Astralitstaub + 1 Nihilitsplitter + 1 Quarz, formlos, ergeben 2).",
           "Herstellung: 4 Material im Quadrat ergeben 1 Grundblock (wie bei Quarz und Amethyst); 4 Grundblöcke ergeben 4 polierte; 4 polierte ergeben 4 Ziegel; 2 polierte übereinander ergeben 2 Säulen; 6 Ziegel oder polierte in Treppenform ergeben 4 Treppen, 3 in einer Reihe 6 Stufen, 6 in zwei Reihen 6 Mauern; 2 Ziegelstufen übereinander ergeben 1 gemeißelte Ziegel. Wie der Quarzblock hat auch der Enderquarzblock eine eigene Enderquarztreppe (6 → 4) und Enderquarzstufe (3 → 6), auch im Steinmetz (1 Treppe bzw. 2 Stufen).",
-          "Umfärben wie mit Farbstoff: 8 eines Vanilla-Endstein- oder -Purpurblocks um 1 Material ergeben 8 des passenden Palettenblocks – Endstein zum Grundblock, Endsteinziegel samt Treppe, Stufe und Mauer zu den Ziegeln samt Treppe, Stufe und Mauer, Purpurtreppe und -stufe zur polierten Treppe und Stufe, die Purpursäule zur Säule und der Purpurblock zu poliertem Enderquarz. Bei Astralit und Nihilit bleibt das Purpurblock-Raster das ältere Beschichtungsrezept (Astral- bzw. Nihil-Purpurblock), das der Steinmetz in den polierten Block schneidet.",
+          "Umfärben wie mit Farbstoff: 8 eines Vanilla-Endstein- oder -Purpurblocks um 1 Material ergeben 8 des passenden Palettenblocks – Endstein zum Grundblock, Endsteinziegel samt Treppe, Stufe und Mauer zu den Ziegeln samt Treppe, Stufe und Mauer, Purpurtreppe und -stufe zur polierten Treppe und Stufe und die Purpursäule zur Säule. Das Purpurblock-Raster ist das Beschichtungsrezept des Astral-, Nihil- und Ender-Purpurblocks (Ender seit PAL14, vorher ergab es polierten Enderquarz), den der Steinmetz in den polierten Block schneidet.",
           "Enderquarz auch aus Vanilla-Quarz, genauso: 8 eines Quarzblocks um 1 Enderquarz ergeben 8 – Quarzblock zum Grundblock, Quarzziegel zu den Ziegeln, Quarzsäule zur Säule, gemeißelter Quarzblock zu den gemeißelten Ziegeln, glatter Quarz zu poliertem Enderquarz, glatte Quarztreppe und -stufe zur polierten Treppe und Stufe, Quarztreppe und -stufe zu Enderquarztreppe und -stufe.",
           "Steinmetz: Der Grundblock lässt sich in jeden anderen Block seiner Palette schneiden; der polierte Block in seine Treppe, Stufe und Mauer, die Ziegel samt Treppe, Stufe und Mauer, die Säule und die gemeißelten Ziegel; die Ziegel in ihre Treppe, Stufe, Mauer und die gemeißelten Ziegel. Stufen immer zwei zu eins. Der ältere beschichtete Endstein (Astral- und Nihil-Endstein: 8 polierter Endstein um 1 Staub bzw. Splitter) schneidet weiterhin in den Ziegelbausatz und den Grundblock.",
           "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilit- und Enderquarz-Blöcke gar nicht.",
           "Säulen lassen sich in jeder Achse setzen; eine Doppelstufe lässt zwei Stufen fallen; Treppen, Stufen und Mauern stehen in den Vanilla-Block- und -Item-Tags ihrer Form, die Mauern verbinden sich also wie jede Vanilla-Mauer.",
           "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
           "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz.",
-          "Alternativblöcke: Astralit hat Geäderten, Kristallinen und Geschichteten Astralit, Nihilit hat Geäderten, Kristallinen und Bereiften Nihilit - derselbe Block mit anderem Muster, mit den Eigenschaften des Grundblocks (Astralit leuchtet auch hier), mit der Spitzhacke abbaubar, jeder droppt sich selbst. Der Steinmetz schneidet jeden 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten (Geädert -> Kristallin -> Geschichtet/Bereift -> Grundblock). Der Enderit-Meißel führt die Palettenkette über den Grundblock hinaus weiter (Grundblock -> Geädert -> Kristallin -> Geschichtet/Bereift), der Spachtel zurück. Sie stehen in einer eigenen Zeile des Tabs „SimpleBlocks“ unter der Zeile des Grundblocks."
+          "Alternativblöcke: Astralit hat Geäderten, Kristallinen und Geschichteten Astralit, Nihilit hat Geäderten, Kristallinen und Bereiften Nihilit - derselbe Block mit anderem Muster, mit den Eigenschaften des Grundblocks (Astralit leuchtet auch hier), mit der Spitzhacke abbaubar, jeder droppt sich selbst. Der Steinmetz schneidet jeden 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten (Geädert -> Kristallin -> Geschichtet/Bereift -> Grundblock). Der Enderit-Meißel führt die Palettenkette über den Grundblock hinaus weiter (Grundblock -> Geädert -> Kristallin -> Geschichtet/Bereift), der Spachtel zurück. Sie stehen in einer eigenen Zeile des Tabs „SimpleBlocks“ unter der Zeile des Grundblocks.",
+          "Beschichtete Arten (PAL14): Astral-, Nihil- und Ender-Endstein (8 polierter Endstein um 1 Astralitstaub, Nihilitsplitter bzw. Enderquarz) haben je Treppe, Stufe und Mauer; Astral-, Nihil- und Ender-Purpurblock (8 Purpurblöcke um dasselbe) je Säule (2 ihrer Stufen übereinander), Treppe und Stufe wie Vanilla-Purpur (ohne Mauer). Treppe 6 → 4, Stufe 3 → 6, Mauer 6 → 6, Steinmetz 1 → 1 (Stufe 1 → 2). Sie übernehmen ihren Block (Astral leuchtet mit 10), droppen sich selbst und stehen in einer eigenen Zeile des Tabs; Ender-Endstein und Ender-Purpur schneiden wie die anderen beiden in die Enderquarz-Palette."
         ]
       }
     },
@@ -2920,6 +2943,12 @@
         "simplebuilding:astral_end_stone"
       ],
       "usedIn": [
+        "simplebuilding:astral_end_stone_slab",
+        "simplebuilding:astral_end_stone_slab_from_astral_end_stone_stonecutting",
+        "simplebuilding:astral_end_stone_stairs",
+        "simplebuilding:astral_end_stone_stairs_from_astral_end_stone_stonecutting",
+        "simplebuilding:astral_end_stone_wall",
+        "simplebuilding:astral_end_stone_wall_from_astral_end_stone_stonecutting",
         "simplebuilding:astralit_block_from_astral_end_stone_stonecutting",
         "simplebuilding:astralit_brick_slab_from_astral_end_stone_stonecutting",
         "simplebuilding:astralit_brick_stairs_from_astral_end_stone_stonecutting",
@@ -2930,6 +2959,54 @@
       ],
       "trades": [],
       "icon": "assets/textures/render/astral_end_stone.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_slab",
+      "name": {
+        "en_us": "Astral End Stone Slab",
+        "de_de": "Astral-Endsteinstufe"
+      },
+      "texture": "assets/textures/block/astral_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:astral_end_stone_slab",
+        "simplebuilding:astral_end_stone_slab_from_astral_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_end_stone_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_stairs",
+      "name": {
+        "en_us": "Astral End Stone Stairs",
+        "de_de": "Astral-Endsteintreppe"
+      },
+      "texture": "assets/textures/block/astral_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:astral_end_stone_stairs",
+        "simplebuilding:astral_end_stone_stairs_from_astral_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_end_stone_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_wall",
+      "name": {
+        "en_us": "Astral End Stone Wall",
+        "de_de": "Astral-Endsteinmauer"
+      },
+      "texture": "assets/textures/block/astral_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:astral_end_stone_wall",
+        "simplebuilding:astral_end_stone_wall_from_astral_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_end_stone_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -2958,10 +3035,65 @@
         "simplebuilding:astral_purpur_block"
       ],
       "usedIn": [
+        "simplebuilding:astral_purpur_pillar_from_astral_purpur_block_stonecutting",
+        "simplebuilding:astral_purpur_slab",
+        "simplebuilding:astral_purpur_slab_from_astral_purpur_block_stonecutting",
+        "simplebuilding:astral_purpur_stairs",
+        "simplebuilding:astral_purpur_stairs_from_astral_purpur_block_stonecutting",
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/astral_purpur_block.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_purpur_pillar",
+      "name": {
+        "en_us": "Astral Purpur Pillar",
+        "de_de": "Astral-Purpursäule"
+      },
+      "texture": "assets/textures/block/astral_purpur_pillar.png",
+      "craftedBy": [
+        "simplebuilding:astral_purpur_pillar",
+        "simplebuilding:astral_purpur_pillar_from_astral_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_purpur_pillar.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_purpur_slab",
+      "name": {
+        "en_us": "Astral Purpur Slab",
+        "de_de": "Astral-Purpurstufe"
+      },
+      "texture": "assets/textures/block/astral_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:astral_purpur_slab",
+        "simplebuilding:astral_purpur_slab_from_astral_purpur_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:astral_purpur_pillar"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/astral_purpur_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_purpur_stairs",
+      "name": {
+        "en_us": "Astral Purpur Stairs",
+        "de_de": "Astral-Purpurtreppe"
+      },
+      "texture": "assets/textures/block/astral_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:astral_purpur_stairs",
+        "simplebuilding:astral_purpur_stairs_from_astral_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_purpur_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -6676,6 +6808,7 @@
       "craftedBy": [
         "simplebuilding:chiseled_ender_quartz_bricks",
         "simplebuilding:chiseled_ender_quartz_bricks_from_chiseled_quartz_block",
+        "simplebuilding:chiseled_ender_quartz_bricks_from_ender_end_stone_stonecutting",
         "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_block_stonecutting",
         "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:chiseled_ender_quartz_bricks_from_polished_ender_quartz_stonecutting"
@@ -7896,6 +8029,155 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:ender_end_stone",
+      "name": {
+        "en_us": "Ender End Stone",
+        "de_de": "Ender-Endstein"
+      },
+      "texture": "assets/textures/block/ender_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "usedIn": [
+        "simplebuilding:chiseled_ender_quartz_bricks_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_end_stone_slab",
+        "simplebuilding:ender_end_stone_slab_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_end_stone_stairs",
+        "simplebuilding:ender_end_stone_stairs_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_end_stone_wall",
+        "simplebuilding:ender_end_stone_wall_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_block_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_brick_slab_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_brick_stairs_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_brick_wall_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_bricks_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_pillar_from_ender_end_stone_stonecutting"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/ender_end_stone.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_slab",
+      "name": {
+        "en_us": "Ender End Stone Slab",
+        "de_de": "Ender-Endsteinstufe"
+      },
+      "texture": "assets/textures/block/ender_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:ender_end_stone_slab",
+        "simplebuilding:ender_end_stone_slab_from_ender_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_end_stone_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_stairs",
+      "name": {
+        "en_us": "Ender End Stone Stairs",
+        "de_de": "Ender-Endsteintreppe"
+      },
+      "texture": "assets/textures/block/ender_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:ender_end_stone_stairs",
+        "simplebuilding:ender_end_stone_stairs_from_ender_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_end_stone_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_wall",
+      "name": {
+        "en_us": "Ender End Stone Wall",
+        "de_de": "Ender-Endsteinmauer"
+      },
+      "texture": "assets/textures/block/ender_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:ender_end_stone_wall",
+        "simplebuilding:ender_end_stone_wall_from_ender_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_end_stone_wall.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_block",
+      "name": {
+        "en_us": "Ender Purpur Block",
+        "de_de": "Ender-Purpurblock"
+      },
+      "texture": "assets/textures/block/ender_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "usedIn": [
+        "simplebuilding:ender_purpur_pillar_from_ender_purpur_block_stonecutting",
+        "simplebuilding:ender_purpur_slab",
+        "simplebuilding:ender_purpur_slab_from_ender_purpur_block_stonecutting",
+        "simplebuilding:ender_purpur_stairs",
+        "simplebuilding:ender_purpur_stairs_from_ender_purpur_block_stonecutting",
+        "simplebuilding:polished_ender_quartz_from_ender_purpur_block_stonecutting"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_block.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_pillar",
+      "name": {
+        "en_us": "Ender Purpur Pillar",
+        "de_de": "Ender-Purpursäule"
+      },
+      "texture": "assets/textures/block/ender_purpur_pillar.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_pillar",
+        "simplebuilding:ender_purpur_pillar_from_ender_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_pillar.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_slab",
+      "name": {
+        "en_us": "Ender Purpur Slab",
+        "de_de": "Ender-Purpurstufe"
+      },
+      "texture": "assets/textures/block/ender_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_slab",
+        "simplebuilding:ender_purpur_slab_from_ender_purpur_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:ender_purpur_pillar"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_stairs",
+      "name": {
+        "en_us": "Ender Purpur Stairs",
+        "de_de": "Ender-Purpurtreppe"
+      },
+      "texture": "assets/textures/block/ender_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_stairs",
+        "simplebuilding:ender_purpur_stairs_from_ender_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:ender_quartz",
       "name": {
         "en_us": "Ender Quartz",
@@ -7907,6 +8189,8 @@
       ],
       "usedIn": [
         "simplebuilding:chiseled_ender_quartz_bricks_from_chiseled_quartz_block",
+        "simplebuilding:ender_end_stone",
+        "simplebuilding:ender_purpur_block",
         "simplebuilding:ender_quartz_block",
         "simplebuilding:ender_quartz_block_from_end_stone",
         "simplebuilding:ender_quartz_block_from_quartz_block",
@@ -7920,7 +8204,6 @@
         "simplebuilding:ender_quartz_pillar_from_quartz_pillar",
         "simplebuilding:ender_quartz_slab_from_quartz_slab",
         "simplebuilding:ender_quartz_stairs_from_quartz_stairs",
-        "simplebuilding:polished_ender_quartz_from_purpur_block",
         "simplebuilding:polished_ender_quartz_from_smooth_quartz",
         "simplebuilding:polished_ender_quartz_slab_from_purpur_slab",
         "simplebuilding:polished_ender_quartz_slab_from_smooth_quartz_slab",
@@ -7989,6 +8272,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_block",
         "simplebuilding:ender_quartz_block_from_end_stone",
+        "simplebuilding:ender_quartz_block_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_block_from_quartz_block"
       ],
       "usedIn": [
@@ -8024,6 +8308,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_slab",
         "simplebuilding:ender_quartz_brick_slab_from_end_stone_brick_slab",
+        "simplebuilding:ender_quartz_brick_slab_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_slab_from_polished_ender_quartz_stonecutting"
@@ -8045,6 +8330,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_stairs",
         "simplebuilding:ender_quartz_brick_stairs_from_end_stone_brick_stairs",
+        "simplebuilding:ender_quartz_brick_stairs_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs_from_polished_ender_quartz_stonecutting"
@@ -8064,6 +8350,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_wall",
         "simplebuilding:ender_quartz_brick_wall_from_end_stone_brick_wall",
+        "simplebuilding:ender_quartz_brick_wall_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_wall_from_polished_ender_quartz_stonecutting"
@@ -8083,6 +8370,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_bricks",
         "simplebuilding:ender_quartz_bricks_from_end_stone_bricks",
+        "simplebuilding:ender_quartz_bricks_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_quartz_bricks"
@@ -8907,6 +9195,7 @@
       "texture": "assets/textures/block/ender_quartz_pillar.png",
       "craftedBy": [
         "simplebuilding:ender_quartz_pillar",
+        "simplebuilding:ender_quartz_pillar_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_pillar_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_pillar_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_pillar_from_purpur_pillar",
@@ -13866,6 +14155,12 @@
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_nihil_end_stone_stonecutting",
+        "simplebuilding:nihil_end_stone_slab",
+        "simplebuilding:nihil_end_stone_slab_from_nihil_end_stone_stonecutting",
+        "simplebuilding:nihil_end_stone_stairs",
+        "simplebuilding:nihil_end_stone_stairs_from_nihil_end_stone_stonecutting",
+        "simplebuilding:nihil_end_stone_wall",
+        "simplebuilding:nihil_end_stone_wall_from_nihil_end_stone_stonecutting",
         "simplebuilding:nihilith_block_from_nihil_end_stone_stonecutting",
         "simplebuilding:nihilith_brick_slab_from_nihil_end_stone_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_nihil_end_stone_stonecutting",
@@ -13875,6 +14170,54 @@
       ],
       "trades": [],
       "icon": "assets/textures/render/nihil_end_stone.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_slab",
+      "name": {
+        "en_us": "Nihil End Stone Slab",
+        "de_de": "Nihil-Endsteinstufe"
+      },
+      "texture": "assets/textures/block/nihil_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:nihil_end_stone_slab",
+        "simplebuilding:nihil_end_stone_slab_from_nihil_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_end_stone_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_stairs",
+      "name": {
+        "en_us": "Nihil End Stone Stairs",
+        "de_de": "Nihil-Endsteintreppe"
+      },
+      "texture": "assets/textures/block/nihil_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:nihil_end_stone_stairs",
+        "simplebuilding:nihil_end_stone_stairs_from_nihil_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_end_stone_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_wall",
+      "name": {
+        "en_us": "Nihil End Stone Wall",
+        "de_de": "Nihil-Endsteinmauer"
+      },
+      "texture": "assets/textures/block/nihil_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:nihil_end_stone_wall",
+        "simplebuilding:nihil_end_stone_wall_from_nihil_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_end_stone_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -13966,10 +14309,65 @@
         "simplebuilding:nihil_purpur_block"
       ],
       "usedIn": [
+        "simplebuilding:nihil_purpur_pillar_from_nihil_purpur_block_stonecutting",
+        "simplebuilding:nihil_purpur_slab",
+        "simplebuilding:nihil_purpur_slab_from_nihil_purpur_block_stonecutting",
+        "simplebuilding:nihil_purpur_stairs",
+        "simplebuilding:nihil_purpur_stairs_from_nihil_purpur_block_stonecutting",
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/nihil_purpur_block.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_pillar",
+      "name": {
+        "en_us": "Nihil Purpur Pillar",
+        "de_de": "Nihil-Purpursäule"
+      },
+      "texture": "assets/textures/block/nihil_purpur_pillar.png",
+      "craftedBy": [
+        "simplebuilding:nihil_purpur_pillar",
+        "simplebuilding:nihil_purpur_pillar_from_nihil_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_pillar.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_slab",
+      "name": {
+        "en_us": "Nihil Purpur Slab",
+        "de_de": "Nihil-Purpurstufe"
+      },
+      "texture": "assets/textures/block/nihil_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:nihil_purpur_slab",
+        "simplebuilding:nihil_purpur_slab_from_nihil_purpur_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:nihil_purpur_pillar"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_stairs",
+      "name": {
+        "en_us": "Nihil Purpur Stairs",
+        "de_de": "Nihil-Purpurtreppe"
+      },
+      "texture": "assets/textures/block/nihil_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:nihil_purpur_stairs",
+        "simplebuilding:nihil_purpur_stairs_from_nihil_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -17058,8 +17456,8 @@
       "texture": "assets/textures/block/polished_ender_quartz.png",
       "craftedBy": [
         "simplebuilding:polished_ender_quartz",
+        "simplebuilding:polished_ender_quartz_from_ender_purpur_block_stonecutting",
         "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
-        "simplebuilding:polished_ender_quartz_from_purpur_block",
         "simplebuilding:polished_ender_quartz_from_smooth_quartz"
       ],
       "usedIn": [
@@ -24078,6 +24476,12 @@
         "simplebuilding:astral_end_stone"
       ],
       "usedIn": [
+        "simplebuilding:astral_end_stone_slab",
+        "simplebuilding:astral_end_stone_slab_from_astral_end_stone_stonecutting",
+        "simplebuilding:astral_end_stone_stairs",
+        "simplebuilding:astral_end_stone_stairs_from_astral_end_stone_stonecutting",
+        "simplebuilding:astral_end_stone_wall",
+        "simplebuilding:astral_end_stone_wall_from_astral_end_stone_stonecutting",
         "simplebuilding:astralit_block_from_astral_end_stone_stonecutting",
         "simplebuilding:astralit_brick_slab_from_astral_end_stone_stonecutting",
         "simplebuilding:astralit_brick_stairs_from_astral_end_stone_stonecutting",
@@ -24091,6 +24495,66 @@
       "lootTable": "simplebuilding:blocks/astral_end_stone",
       "drops": [
         "simplebuilding:astral_end_stone"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_slab",
+      "name": {
+        "en_us": "Astral End Stone Slab",
+        "de_de": "Astral-Endsteinstufe"
+      },
+      "texture": "assets/textures/block/astral_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:astral_end_stone_slab",
+        "simplebuilding:astral_end_stone_slab_from_astral_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_end_stone_slab.png",
+      "lootTable": "simplebuilding:blocks/astral_end_stone_slab",
+      "drops": [
+        "simplebuilding:astral_end_stone_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_stairs",
+      "name": {
+        "en_us": "Astral End Stone Stairs",
+        "de_de": "Astral-Endsteintreppe"
+      },
+      "texture": "assets/textures/block/astral_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:astral_end_stone_stairs",
+        "simplebuilding:astral_end_stone_stairs_from_astral_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_end_stone_stairs.png",
+      "lootTable": "simplebuilding:blocks/astral_end_stone_stairs",
+      "drops": [
+        "simplebuilding:astral_end_stone_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_wall",
+      "name": {
+        "en_us": "Astral End Stone Wall",
+        "de_de": "Astral-Endsteinmauer"
+      },
+      "texture": "assets/textures/block/astral_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:astral_end_stone_wall",
+        "simplebuilding:astral_end_stone_wall_from_astral_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_end_stone_wall.png",
+      "lootTable": "simplebuilding:blocks/astral_end_stone_wall",
+      "drops": [
+        "simplebuilding:astral_end_stone_wall"
       ],
       "hasCustomBehaviour": false
     },
@@ -24124,6 +24588,11 @@
         "simplebuilding:astral_purpur_block"
       ],
       "usedIn": [
+        "simplebuilding:astral_purpur_pillar_from_astral_purpur_block_stonecutting",
+        "simplebuilding:astral_purpur_slab",
+        "simplebuilding:astral_purpur_slab_from_astral_purpur_block_stonecutting",
+        "simplebuilding:astral_purpur_stairs",
+        "simplebuilding:astral_purpur_stairs_from_astral_purpur_block_stonecutting",
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting"
       ],
       "trades": [],
@@ -24131,6 +24600,68 @@
       "lootTable": "simplebuilding:blocks/astral_purpur_block",
       "drops": [
         "simplebuilding:astral_purpur_block"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_purpur_pillar",
+      "name": {
+        "en_us": "Astral Purpur Pillar",
+        "de_de": "Astral-Purpursäule"
+      },
+      "texture": "assets/textures/block/astral_purpur_pillar.png",
+      "craftedBy": [
+        "simplebuilding:astral_purpur_pillar",
+        "simplebuilding:astral_purpur_pillar_from_astral_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_purpur_pillar.png",
+      "lootTable": "simplebuilding:blocks/astral_purpur_pillar",
+      "drops": [
+        "simplebuilding:astral_purpur_pillar"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_purpur_slab",
+      "name": {
+        "en_us": "Astral Purpur Slab",
+        "de_de": "Astral-Purpurstufe"
+      },
+      "texture": "assets/textures/block/astral_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:astral_purpur_slab",
+        "simplebuilding:astral_purpur_slab_from_astral_purpur_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:astral_purpur_pillar"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/astral_purpur_slab.png",
+      "lootTable": "simplebuilding:blocks/astral_purpur_slab",
+      "drops": [
+        "simplebuilding:astral_purpur_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_purpur_stairs",
+      "name": {
+        "en_us": "Astral Purpur Stairs",
+        "de_de": "Astral-Purpurtreppe"
+      },
+      "texture": "assets/textures/block/astral_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:astral_purpur_stairs",
+        "simplebuilding:astral_purpur_stairs_from_astral_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_purpur_stairs.png",
+      "lootTable": "simplebuilding:blocks/astral_purpur_stairs",
+      "drops": [
+        "simplebuilding:astral_purpur_stairs"
       ],
       "hasCustomBehaviour": false
     },
@@ -26652,6 +27183,7 @@
       "craftedBy": [
         "simplebuilding:chiseled_ender_quartz_bricks",
         "simplebuilding:chiseled_ender_quartz_bricks_from_chiseled_quartz_block",
+        "simplebuilding:chiseled_ender_quartz_bricks_from_ender_end_stone_stonecutting",
         "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_block_stonecutting",
         "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:chiseled_ender_quartz_bricks_from_polished_ender_quartz_stonecutting"
@@ -27483,6 +28015,187 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:ender_end_stone",
+      "name": {
+        "en_us": "Ender End Stone",
+        "de_de": "Ender-Endstein"
+      },
+      "texture": "assets/textures/block/ender_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "usedIn": [
+        "simplebuilding:chiseled_ender_quartz_bricks_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_end_stone_slab",
+        "simplebuilding:ender_end_stone_slab_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_end_stone_stairs",
+        "simplebuilding:ender_end_stone_stairs_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_end_stone_wall",
+        "simplebuilding:ender_end_stone_wall_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_block_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_brick_slab_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_brick_stairs_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_brick_wall_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_bricks_from_ender_end_stone_stonecutting",
+        "simplebuilding:ender_quartz_pillar_from_ender_end_stone_stonecutting"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/ender_end_stone.png",
+      "lootTable": "simplebuilding:blocks/ender_end_stone",
+      "drops": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_slab",
+      "name": {
+        "en_us": "Ender End Stone Slab",
+        "de_de": "Ender-Endsteinstufe"
+      },
+      "texture": "assets/textures/block/ender_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:ender_end_stone_slab",
+        "simplebuilding:ender_end_stone_slab_from_ender_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_end_stone_slab.png",
+      "lootTable": "simplebuilding:blocks/ender_end_stone_slab",
+      "drops": [
+        "simplebuilding:ender_end_stone_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_stairs",
+      "name": {
+        "en_us": "Ender End Stone Stairs",
+        "de_de": "Ender-Endsteintreppe"
+      },
+      "texture": "assets/textures/block/ender_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:ender_end_stone_stairs",
+        "simplebuilding:ender_end_stone_stairs_from_ender_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_end_stone_stairs.png",
+      "lootTable": "simplebuilding:blocks/ender_end_stone_stairs",
+      "drops": [
+        "simplebuilding:ender_end_stone_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_wall",
+      "name": {
+        "en_us": "Ender End Stone Wall",
+        "de_de": "Ender-Endsteinmauer"
+      },
+      "texture": "assets/textures/block/ender_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:ender_end_stone_wall",
+        "simplebuilding:ender_end_stone_wall_from_ender_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_end_stone_wall.png",
+      "lootTable": "simplebuilding:blocks/ender_end_stone_wall",
+      "drops": [
+        "simplebuilding:ender_end_stone_wall"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_block",
+      "name": {
+        "en_us": "Ender Purpur Block",
+        "de_de": "Ender-Purpurblock"
+      },
+      "texture": "assets/textures/block/ender_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "usedIn": [
+        "simplebuilding:ender_purpur_pillar_from_ender_purpur_block_stonecutting",
+        "simplebuilding:ender_purpur_slab",
+        "simplebuilding:ender_purpur_slab_from_ender_purpur_block_stonecutting",
+        "simplebuilding:ender_purpur_stairs",
+        "simplebuilding:ender_purpur_stairs_from_ender_purpur_block_stonecutting",
+        "simplebuilding:polished_ender_quartz_from_ender_purpur_block_stonecutting"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_block.png",
+      "lootTable": "simplebuilding:blocks/ender_purpur_block",
+      "drops": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_pillar",
+      "name": {
+        "en_us": "Ender Purpur Pillar",
+        "de_de": "Ender-Purpursäule"
+      },
+      "texture": "assets/textures/block/ender_purpur_pillar.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_pillar",
+        "simplebuilding:ender_purpur_pillar_from_ender_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_pillar.png",
+      "lootTable": "simplebuilding:blocks/ender_purpur_pillar",
+      "drops": [
+        "simplebuilding:ender_purpur_pillar"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_slab",
+      "name": {
+        "en_us": "Ender Purpur Slab",
+        "de_de": "Ender-Purpurstufe"
+      },
+      "texture": "assets/textures/block/ender_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_slab",
+        "simplebuilding:ender_purpur_slab_from_ender_purpur_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:ender_purpur_pillar"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_slab.png",
+      "lootTable": "simplebuilding:blocks/ender_purpur_slab",
+      "drops": [
+        "simplebuilding:ender_purpur_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_stairs",
+      "name": {
+        "en_us": "Ender Purpur Stairs",
+        "de_de": "Ender-Purpurtreppe"
+      },
+      "texture": "assets/textures/block/ender_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_stairs",
+        "simplebuilding:ender_purpur_stairs_from_ender_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_stairs.png",
+      "lootTable": "simplebuilding:blocks/ender_purpur_stairs",
+      "drops": [
+        "simplebuilding:ender_purpur_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:ender_quartz_block",
       "name": {
         "en_us": "Block of Ender Quartz",
@@ -27492,6 +28205,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_block",
         "simplebuilding:ender_quartz_block_from_end_stone",
+        "simplebuilding:ender_quartz_block_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_block_from_quartz_block"
       ],
       "usedIn": [
@@ -27531,6 +28245,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_slab",
         "simplebuilding:ender_quartz_brick_slab_from_end_stone_brick_slab",
+        "simplebuilding:ender_quartz_brick_slab_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_slab_from_polished_ender_quartz_stonecutting"
@@ -27556,6 +28271,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_stairs",
         "simplebuilding:ender_quartz_brick_stairs_from_end_stone_brick_stairs",
+        "simplebuilding:ender_quartz_brick_stairs_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs_from_polished_ender_quartz_stonecutting"
@@ -27579,6 +28295,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_wall",
         "simplebuilding:ender_quartz_brick_wall_from_end_stone_brick_wall",
+        "simplebuilding:ender_quartz_brick_wall_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_wall_from_polished_ender_quartz_stonecutting"
@@ -27602,6 +28319,7 @@
       "craftedBy": [
         "simplebuilding:ender_quartz_bricks",
         "simplebuilding:ender_quartz_bricks_from_end_stone_bricks",
+        "simplebuilding:ender_quartz_bricks_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_quartz_bricks"
@@ -27774,6 +28492,7 @@
       "texture": "assets/textures/block/ender_quartz_pillar.png",
       "craftedBy": [
         "simplebuilding:ender_quartz_pillar",
+        "simplebuilding:ender_quartz_pillar_from_ender_end_stone_stonecutting",
         "simplebuilding:ender_quartz_pillar_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_pillar_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_pillar_from_purpur_pillar",
@@ -30569,6 +31288,12 @@
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_nihil_end_stone_stonecutting",
+        "simplebuilding:nihil_end_stone_slab",
+        "simplebuilding:nihil_end_stone_slab_from_nihil_end_stone_stonecutting",
+        "simplebuilding:nihil_end_stone_stairs",
+        "simplebuilding:nihil_end_stone_stairs_from_nihil_end_stone_stonecutting",
+        "simplebuilding:nihil_end_stone_wall",
+        "simplebuilding:nihil_end_stone_wall_from_nihil_end_stone_stonecutting",
         "simplebuilding:nihilith_block_from_nihil_end_stone_stonecutting",
         "simplebuilding:nihilith_brick_slab_from_nihil_end_stone_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_nihil_end_stone_stonecutting",
@@ -30581,6 +31306,66 @@
       "lootTable": "simplebuilding:blocks/nihil_end_stone",
       "drops": [
         "simplebuilding:nihil_end_stone"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_slab",
+      "name": {
+        "en_us": "Nihil End Stone Slab",
+        "de_de": "Nihil-Endsteinstufe"
+      },
+      "texture": "assets/textures/block/nihil_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:nihil_end_stone_slab",
+        "simplebuilding:nihil_end_stone_slab_from_nihil_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_end_stone_slab.png",
+      "lootTable": "simplebuilding:blocks/nihil_end_stone_slab",
+      "drops": [
+        "simplebuilding:nihil_end_stone_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_stairs",
+      "name": {
+        "en_us": "Nihil End Stone Stairs",
+        "de_de": "Nihil-Endsteintreppe"
+      },
+      "texture": "assets/textures/block/nihil_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:nihil_end_stone_stairs",
+        "simplebuilding:nihil_end_stone_stairs_from_nihil_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_end_stone_stairs.png",
+      "lootTable": "simplebuilding:blocks/nihil_end_stone_stairs",
+      "drops": [
+        "simplebuilding:nihil_end_stone_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_wall",
+      "name": {
+        "en_us": "Nihil End Stone Wall",
+        "de_de": "Nihil-Endsteinmauer"
+      },
+      "texture": "assets/textures/block/nihil_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:nihil_end_stone_wall",
+        "simplebuilding:nihil_end_stone_wall_from_nihil_end_stone_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_end_stone_wall.png",
+      "lootTable": "simplebuilding:blocks/nihil_end_stone_wall",
+      "drops": [
+        "simplebuilding:nihil_end_stone_wall"
       ],
       "hasCustomBehaviour": false
     },
@@ -30681,6 +31466,11 @@
         "simplebuilding:nihil_purpur_block"
       ],
       "usedIn": [
+        "simplebuilding:nihil_purpur_pillar_from_nihil_purpur_block_stonecutting",
+        "simplebuilding:nihil_purpur_slab",
+        "simplebuilding:nihil_purpur_slab_from_nihil_purpur_block_stonecutting",
+        "simplebuilding:nihil_purpur_stairs",
+        "simplebuilding:nihil_purpur_stairs_from_nihil_purpur_block_stonecutting",
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting"
       ],
       "trades": [],
@@ -30688,6 +31478,68 @@
       "lootTable": "simplebuilding:blocks/nihil_purpur_block",
       "drops": [
         "simplebuilding:nihil_purpur_block"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_pillar",
+      "name": {
+        "en_us": "Nihil Purpur Pillar",
+        "de_de": "Nihil-Purpursäule"
+      },
+      "texture": "assets/textures/block/nihil_purpur_pillar.png",
+      "craftedBy": [
+        "simplebuilding:nihil_purpur_pillar",
+        "simplebuilding:nihil_purpur_pillar_from_nihil_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_pillar.png",
+      "lootTable": "simplebuilding:blocks/nihil_purpur_pillar",
+      "drops": [
+        "simplebuilding:nihil_purpur_pillar"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_slab",
+      "name": {
+        "en_us": "Nihil Purpur Slab",
+        "de_de": "Nihil-Purpurstufe"
+      },
+      "texture": "assets/textures/block/nihil_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:nihil_purpur_slab",
+        "simplebuilding:nihil_purpur_slab_from_nihil_purpur_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:nihil_purpur_pillar"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_slab.png",
+      "lootTable": "simplebuilding:blocks/nihil_purpur_slab",
+      "drops": [
+        "simplebuilding:nihil_purpur_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_stairs",
+      "name": {
+        "en_us": "Nihil Purpur Stairs",
+        "de_de": "Nihil-Purpurtreppe"
+      },
+      "texture": "assets/textures/block/nihil_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:nihil_purpur_stairs",
+        "simplebuilding:nihil_purpur_stairs_from_nihil_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_stairs.png",
+      "lootTable": "simplebuilding:blocks/nihil_purpur_stairs",
+      "drops": [
+        "simplebuilding:nihil_purpur_stairs"
       ],
       "hasCustomBehaviour": false
     },
@@ -32690,8 +33542,8 @@
       "texture": "assets/textures/block/polished_ender_quartz.png",
       "craftedBy": [
         "simplebuilding:polished_ender_quartz",
+        "simplebuilding:polished_ender_quartz_from_ender_purpur_block_stonecutting",
         "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
-        "simplebuilding:polished_ender_quartz_from_purpur_block",
         "simplebuilding:polished_ender_quartz_from_smooth_quartz"
       ],
       "usedIn": [
@@ -35893,6 +36745,228 @@
       }
     },
     {
+      "id": "simplebuilding:astral_end_stone_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_end_stone_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_end_stone_slab.json",
+      "ingredients": [
+        "simplebuilding:astral_end_stone"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astral_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_slab_from_astral_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_end_stone_slab",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_end_stone_slab_from_astral_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astral_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_end_stone_stairs",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_end_stone_stairs.json",
+      "ingredients": [
+        "simplebuilding:astral_end_stone"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astral_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_stairs_from_astral_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_end_stone_stairs",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_end_stone_stairs_from_astral_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astral_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_end_stone_wall",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_end_stone_wall.json",
+      "ingredients": [
+        "simplebuilding:astral_end_stone"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astral_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_end_stone_wall_from_astral_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_end_stone_wall",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_end_stone_wall_from_astral_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astral_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:astral_piston",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -35994,6 +37068,228 @@
           {
             "id": "simplebuilding:dull_astralit_dust",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_purpur_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_purpur_pillar",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_purpur_pillar.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astral_purpur_slab"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_purpur_pillar_from_astral_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_purpur_pillar",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_purpur_pillar_from_astral_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_purpur_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_purpur_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_purpur_slab.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_block"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astral_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_purpur_slab_from_astral_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_purpur_slab",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_purpur_slab_from_astral_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_purpur_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_purpur_stairs",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_purpur_stairs.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_block"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astral_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_purpur_stairs_from_astral_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_purpur_stairs",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_purpur_stairs_from_astral_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -42118,6 +43414,49 @@
       }
     },
     {
+      "id": "simplebuilding:chiseled_ender_quartz_bricks_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:chiseled_ender_quartz_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_ender_quartz_bricks_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -43784,6 +45123,650 @@
       }
     },
     {
+      "id": "simplebuilding:ender_end_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_end_stone",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_end_stone.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz",
+        "simplelib:polished_end_stone"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "simplelib:polished_end_stone"
+        ],
+        "M": [
+          "simplebuilding:ender_quartz"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_end_stone_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_end_stone_slab.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.75
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.75
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_slab_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_end_stone_slab",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_end_stone_slab_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_end_stone_stairs",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_end_stone_stairs.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_stairs_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_end_stone_stairs",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_end_stone_stairs_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_end_stone_wall",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_end_stone_wall.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_end_stone_wall_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_end_stone_wall",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_end_stone_wall_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_purpur_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_block",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_block.json",
+      "ingredients": [
+        "minecraft:purpur_block",
+        "simplebuilding:ender_quartz"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:purpur_block"
+        ],
+        "M": [
+          "simplebuilding:ender_quartz"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_purpur_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_pillar",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_pillar.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_purpur_slab"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_purpur_pillar_from_ender_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_pillar",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_pillar_from_ender_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_purpur_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_slab.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.75
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.75
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_purpur_slab_from_ender_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_slab",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_slab_from_ender_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_purpur_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_stairs",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_stairs.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_purpur_stairs_from_ender_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_stairs",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_stairs_from_ender_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:ender_quartz",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -43932,6 +45915,49 @@
       }
     },
     {
+      "id": "simplebuilding:ender_quartz_block_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_block",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_block_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:ender_quartz_block_from_quartz_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -44075,6 +46101,49 @@
           {
             "id": "minecraft:quartz",
             "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_brick_slab_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_brick_slab",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_brick_slab_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
           }
         ]
       }
@@ -44303,6 +46372,49 @@
       }
     },
     {
+      "id": "simplebuilding:ender_quartz_brick_stairs_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_brick_stairs",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_brick_stairs_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -44525,6 +46637,49 @@
       }
     },
     {
+      "id": "simplebuilding:ender_quartz_brick_wall_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_brick_wall",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_brick_wall_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -44742,6 +46897,49 @@
           {
             "id": "minecraft:quartz",
             "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_bricks_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_bricks_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
           }
         ]
       }
@@ -45661,6 +47859,49 @@
           {
             "id": "minecraft:quartz",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_pillar_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_pillar",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_pillar_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
           }
         ]
       }
@@ -52525,6 +54766,228 @@
       }
     },
     {
+      "id": "simplebuilding:nihil_end_stone_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_end_stone_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_end_stone_slab.json",
+      "ingredients": [
+        "simplebuilding:nihil_end_stone"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihil_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_slab_from_nihil_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_end_stone_slab",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_end_stone_slab_from_nihil_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihil_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_end_stone_stairs",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_end_stone_stairs.json",
+      "ingredients": [
+        "simplebuilding:nihil_end_stone"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihil_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_stairs_from_nihil_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_end_stone_stairs",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_end_stone_stairs_from_nihil_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihil_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_end_stone_wall",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_end_stone_wall.json",
+      "ingredients": [
+        "simplebuilding:nihil_end_stone"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihil_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone_wall_from_nihil_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_end_stone_wall",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_end_stone_wall_from_nihil_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihil_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_end_stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihil_obsidian",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -52674,6 +55137,228 @@
           {
             "id": "simplebuilding:dull_nihilith_shard",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_purpur_pillar",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_purpur_pillar.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihil_purpur_slab"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_pillar_from_nihil_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_purpur_pillar",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_purpur_pillar_from_nihil_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_purpur_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_purpur_slab.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_block"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihil_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_slab_from_nihil_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_purpur_slab",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_purpur_slab_from_nihil_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_purpur_stairs",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_purpur_stairs.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_block"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihil_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_stairs_from_nihil_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_purpur_stairs",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_purpur_stairs_from_nihil_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
           }
         ]
       }
@@ -57909,6 +60594,49 @@
       }
     },
     {
+      "id": "simplebuilding:polished_ender_quartz_from_ender_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_ender_quartz",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_from_ender_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -57945,60 +60673,6 @@
           {
             "id": "minecraft:quartz",
             "count": 2
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:polished_ender_quartz_from_purpur_block",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:polished_ender_quartz",
-        "count": 8
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_from_purpur_block.json",
-      "ingredients": [
-        "minecraft:purpur_block",
-        "simplebuilding:ender_quartz"
-      ],
-      "pattern": [
-        "###",
-        "#M#",
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:purpur_block"
-        ],
-        "M": [
-          "simplebuilding:ender_quartz"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:chorus_fruit",
-            "count": 8
-          },
-          {
-            "id": "simplebuilding:dull_astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:dull_nihilith_shard",
-            "count": 2
-          },
-          {
-            "id": "minecraft:quartz",
-            "count": 0.5
           }
         ]
       }
@@ -72973,6 +75647,38 @@
       ]
     },
     {
+      "id": "simplebuilding:polished_ender_quartz_from_purpur_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_ender_quartz",
+        "count": 8
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_from_purpur_block.json",
+      "ingredients": [
+        "minecraft:purpur_block",
+        "simplebuilding:ender_quartz"
+      ],
+      "pattern": [
+        "###",
+        "#M#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:purpur_block"
+        ],
+        "M": [
+          "simplebuilding:ender_quartz"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:potion_pad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -76423,6 +79129,58 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_end_stone.json"
     },
     {
+      "id": "simplebuilding:blocks/astral_end_stone_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_end_stone_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_end_stone_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astral_end_stone_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_end_stone_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_end_stone_stairs.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astral_end_stone_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_end_stone_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_end_stone_wall.json"
+    },
+    {
       "id": "simplebuilding:blocks/astral_piston",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -76457,6 +79215,58 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astral_purpur_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_purpur_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_pillar.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astral_purpur_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_purpur_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astral_purpur_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_purpur_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/astral_rail",
@@ -77780,6 +80590,146 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/duskwood_sheet.json"
     },
     {
+      "id": "simplebuilding:blocks/ender_end_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_end_stone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_end_stone.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_end_stone_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_end_stone_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_end_stone_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_end_stone_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_end_stone_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_end_stone_stairs.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_end_stone_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_end_stone_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_end_stone_wall.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_purpur_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_purpur_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_purpur_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_purpur_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_purpur_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_purpur_pillar.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_purpur_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_purpur_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_purpur_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_purpur_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_purpur_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_purpur_stairs.json"
+    },
+    {
       "id": "simplebuilding:blocks/ender_quartz_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -78922,6 +81872,58 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone.json"
     },
     {
+      "id": "simplebuilding:blocks/nihil_end_stone_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_end_stone_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_end_stone_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_end_stone_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone_stairs.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_end_stone_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_end_stone_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone_wall.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihil_obsidian",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -78974,6 +81976,58 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_purpur_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_purpur_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_pillar.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_purpur_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_purpur_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_purpur_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_purpur_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_rail",
@@ -85862,6 +88916,86 @@
         },
         {
           "id": "simplelights:copper_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_end_stone",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_purpur_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_end_stone_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_end_stone_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_end_stone_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_purpur_pillar",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_purpur_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_purpur_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_end_stone_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_end_stone_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_end_stone_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_purpur_pillar",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_purpur_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_purpur_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_end_stone_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_end_stone_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_end_stone_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_purpur_pillar",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_purpur_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_purpur_slab",
           "required": true
         }
       ],
@@ -103298,10 +106432,10 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 469,
-    "blocks": 260,
-    "recipes": 760,
-    "lootTables": 279,
+    "items": 489,
+    "blocks": 280,
+    "recipes": 805,
+    "lootTables": 299,
     "trades": 20,
     "enchantments": 9,
     "tags": 53,

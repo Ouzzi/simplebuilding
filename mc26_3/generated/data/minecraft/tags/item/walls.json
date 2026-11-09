@@ -8,6 +8,9 @@
     "simplebuilding:polished_nihilith_wall",
     "simplebuilding:ender_quartz_wall",
     "simplebuilding:ender_quartz_brick_wall",
-    "simplebuilding:polished_ender_quartz_wall"
+    "simplebuilding:polished_ender_quartz_wall",
+    "simplebuilding:astral_end_stone_wall",
+    "simplebuilding:nihil_end_stone_wall",
+    "simplebuilding:ender_end_stone_wall"
   ]
 }

@@ -661,6 +661,198 @@
       }
     },
     {
+      "id": "simpleoctets:astral_end_stone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_end_stone",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astral_end_stone_from_octets.json",
+      "ingredients": [
+        "simpleoctets:astral_end_stone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:astral_end_stone_octet"
+        ],
+        [
+          "simpleoctets:astral_end_stone_octet"
+        ],
+        [
+          "simpleoctets:astral_end_stone_octet"
+        ],
+        [
+          "simpleoctets:astral_end_stone_octet"
+        ],
+        [
+          "simpleoctets:astral_end_stone_octet"
+        ],
+        [
+          "simpleoctets:astral_end_stone_octet"
+        ],
+        [
+          "simpleoctets:astral_end_stone_octet"
+        ],
+        [
+          "simpleoctets:astral_end_stone_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:astral_end_stone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:astral_end_stone_octet_from_astral_end_stone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:astral_end_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astral_end_stone_octet_from_astral_end_stone_sawing.json",
+      "ingredients": [
+        "simplebuilding:astral_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_end_stone"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:astral_end_stone_octet_from_astral_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:astral_end_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astral_end_stone_octet_from_astral_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astral_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:astral_end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:astral_purpur_block_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_purpur_block",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astral_purpur_block_from_octets.json",
+      "ingredients": [
+        "simpleoctets:astral_purpur_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:astral_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:astral_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:astral_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:astral_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:astral_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:astral_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:astral_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:astral_purpur_block_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:astral_purpur_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:astral_purpur_block_octet_from_astral_purpur_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:astral_purpur_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astral_purpur_block_octet_from_astral_purpur_block_sawing.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_purpur_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:astral_purpur_block_octet_from_astral_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:astral_purpur_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astral_purpur_block_octet_from_astral_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_purpur_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:astral_purpur_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:astralit_block_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -1720,6 +1912,102 @@
           {
             "id": "minecraft:blue_concrete",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:blue_ice_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:blue_ice",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_ice_from_octets.json",
+      "ingredients": [
+        "simpleoctets:blue_ice_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:blue_ice_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:blue_ice_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:blue_ice_octet_from_blue_ice_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:blue_ice_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_ice_octet_from_blue_ice_sawing.json",
+      "ingredients": [
+        "minecraft:blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_ice"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:blue_ice_octet_from_blue_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:blue_ice_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_ice_octet_from_blue_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
           }
         ]
       }
@@ -5289,6 +5577,198 @@
       }
     },
     {
+      "id": "simpleoctets:ender_end_stone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_end_stone",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ender_end_stone_from_octets.json",
+      "ingredients": [
+        "simpleoctets:ender_end_stone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:ender_end_stone_octet"
+        ],
+        [
+          "simpleoctets:ender_end_stone_octet"
+        ],
+        [
+          "simpleoctets:ender_end_stone_octet"
+        ],
+        [
+          "simpleoctets:ender_end_stone_octet"
+        ],
+        [
+          "simpleoctets:ender_end_stone_octet"
+        ],
+        [
+          "simpleoctets:ender_end_stone_octet"
+        ],
+        [
+          "simpleoctets:ender_end_stone_octet"
+        ],
+        [
+          "simpleoctets:ender_end_stone_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:ender_end_stone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ender_end_stone_octet_from_ender_end_stone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ender_end_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ender_end_stone_octet_from_ender_end_stone_sawing.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ender_end_stone_octet_from_ender_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ender_end_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ender_end_stone_octet_from_ender_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:ender_end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ender_purpur_block_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_block",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ender_purpur_block_from_octets.json",
+      "ingredients": [
+        "simpleoctets:ender_purpur_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:ender_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:ender_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:ender_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:ender_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:ender_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:ender_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:ender_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:ender_purpur_block_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:ender_purpur_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ender_purpur_block_octet_from_ender_purpur_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ender_purpur_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ender_purpur_block_octet_from_ender_purpur_block_sawing.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ender_purpur_block_octet_from_ender_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ender_purpur_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ender_purpur_block_octet_from_ender_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:ender_purpur_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:ender_quartz_block_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -6533,6 +7013,102 @@
       "slots": {
         "ingredient": [
           "simpleblocks:hushed_deepslate_tiles"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ice_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:ice",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ice_from_octets.json",
+      "ingredients": [
+        "simpleoctets:ice_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:ice_octet"
+        ],
+        [
+          "simpleoctets:ice_octet"
+        ],
+        [
+          "simpleoctets:ice_octet"
+        ],
+        [
+          "simpleoctets:ice_octet"
+        ],
+        [
+          "simpleoctets:ice_octet"
+        ],
+        [
+          "simpleoctets:ice_octet"
+        ],
+        [
+          "simpleoctets:ice_octet"
+        ],
+        [
+          "simpleoctets:ice_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:ice_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ice_octet_from_ice_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ice_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ice_octet_from_ice_sawing.json",
+      "ingredients": [
+        "minecraft:ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:ice"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ice_octet_from_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ice_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ice_octet_from_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
         ]
       }
     },
@@ -9465,6 +10041,198 @@
       }
     },
     {
+      "id": "simpleoctets:nihil_end_stone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_end_stone",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihil_end_stone_from_octets.json",
+      "ingredients": [
+        "simpleoctets:nihil_end_stone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:nihil_end_stone_octet"
+        ],
+        [
+          "simpleoctets:nihil_end_stone_octet"
+        ],
+        [
+          "simpleoctets:nihil_end_stone_octet"
+        ],
+        [
+          "simpleoctets:nihil_end_stone_octet"
+        ],
+        [
+          "simpleoctets:nihil_end_stone_octet"
+        ],
+        [
+          "simpleoctets:nihil_end_stone_octet"
+        ],
+        [
+          "simpleoctets:nihil_end_stone_octet"
+        ],
+        [
+          "simpleoctets:nihil_end_stone_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:nihil_end_stone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:nihil_end_stone_octet_from_nihil_end_stone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:nihil_end_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihil_end_stone_octet_from_nihil_end_stone_sawing.json",
+      "ingredients": [
+        "simplebuilding:nihil_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_end_stone"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:nihil_end_stone_octet_from_nihil_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:nihil_end_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihil_end_stone_octet_from_nihil_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihil_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:nihil_end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:nihil_purpur_block_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_purpur_block",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihil_purpur_block_from_octets.json",
+      "ingredients": [
+        "simpleoctets:nihil_purpur_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:nihil_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:nihil_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:nihil_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:nihil_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:nihil_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:nihil_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:nihil_purpur_block_octet"
+        ],
+        [
+          "simpleoctets:nihil_purpur_block_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:nihil_purpur_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:nihil_purpur_block_octet_from_nihil_purpur_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:nihil_purpur_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihil_purpur_block_octet_from_nihil_purpur_block_sawing.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_purpur_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:nihil_purpur_block_octet_from_nihil_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:nihil_purpur_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihil_purpur_block_octet_from_nihil_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_purpur_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:nihil_purpur_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:nihilith_block_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -10428,6 +11196,102 @@
           {
             "id": "minecraft:oxidized_copper",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:packed_ice_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:packed_ice",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/packed_ice_from_octets.json",
+      "ingredients": [
+        "simpleoctets:packed_ice_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:packed_ice_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:packed_ice_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:packed_ice_octet_from_packed_ice_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:packed_ice_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/packed_ice_octet_from_packed_ice_sawing.json",
+      "ingredients": [
+        "minecraft:packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:packed_ice"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:packed_ice_octet_from_packed_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:packed_ice_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/packed_ice_octet_from_packed_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:packed_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
           }
         ]
       }
@@ -18126,6 +18990,64 @@
       ]
     },
     {
+      "id": "simpleoctets:astral_end_stone_octet",
+      "name": {
+        "en_us": "Astral End Stone Octet Cell",
+        "de_de": "Astral-Endstein-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:astral_end_stone_octet_from_astral_end_stone_sawing",
+        "simpleoctets:astral_end_stone_octet_from_astral_end_stone_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:astral_end_stone_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:astral_purpur_block_octet",
+      "name": {
+        "en_us": "Astral Purpur Block Octet Cell",
+        "de_de": "Astral-Purpurblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:astral_purpur_block_octet_from_astral_purpur_block_sawing",
+        "simpleoctets:astral_purpur_block_octet_from_astral_purpur_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:astral_purpur_block_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:astralit_block_octet",
       "name": {
         "en_us": "Block of Astralit Octet Cell",
@@ -18442,6 +19364,35 @@
       ],
       "usedIn": [
         "simpleoctets:blue_concrete_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:blue_ice_octet",
+      "name": {
+        "en_us": "Blue Ice Octet Cell",
+        "de_de": "Blaueis-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:blue_ice_octet_from_blue_ice_sawing",
+        "simpleoctets:blue_ice_octet_from_blue_ice_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:blue_ice_from_octets"
       ]
     },
     {
@@ -19517,6 +20468,64 @@
       ]
     },
     {
+      "id": "simpleoctets:ender_end_stone_octet",
+      "name": {
+        "en_us": "Ender End Stone Octet Cell",
+        "de_de": "Ender-Endstein-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:ender_end_stone_octet_from_ender_end_stone_sawing",
+        "simpleoctets:ender_end_stone_octet_from_ender_end_stone_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:ender_end_stone_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:ender_purpur_block_octet",
+      "name": {
+        "en_us": "Ender Purpur Block Octet Cell",
+        "de_de": "Ender-Purpurblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:ender_purpur_block_octet_from_ender_purpur_block_sawing",
+        "simpleoctets:ender_purpur_block_octet_from_ender_purpur_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:ender_purpur_block_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:ender_quartz_block_octet",
       "name": {
         "en_us": "Block of Ender Quartz Octet Cell",
@@ -19890,6 +20899,35 @@
       ],
       "usedIn": [
         "simpleoctets:hushed_deepslate_tiles_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:ice_octet",
+      "name": {
+        "en_us": "Ice Octet Cell",
+        "de_de": "Eis-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:ice_octet_from_ice_sawing",
+        "simpleoctets:ice_octet_from_ice_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:ice_from_octets"
       ]
     },
     {
@@ -20880,6 +21918,64 @@
       ]
     },
     {
+      "id": "simpleoctets:nihil_end_stone_octet",
+      "name": {
+        "en_us": "Nihil End Stone Octet Cell",
+        "de_de": "Nihil-Endstein-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:nihil_end_stone_octet_from_nihil_end_stone_sawing",
+        "simpleoctets:nihil_end_stone_octet_from_nihil_end_stone_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:nihil_end_stone_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:nihil_purpur_block_octet",
+      "name": {
+        "en_us": "Nihil Purpur Block Octet Cell",
+        "de_de": "Nihil-Purpurblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:nihil_purpur_block_octet_from_nihil_purpur_block_sawing",
+        "simpleoctets:nihil_purpur_block_octet_from_nihil_purpur_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:nihil_purpur_block_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:nihilith_block_octet",
       "name": {
         "en_us": "Block of Nihilit Octet Cell",
@@ -21167,6 +22263,35 @@
       ],
       "usedIn": [
         "simpleoctets:oxidized_cut_copper_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:packed_ice_octet",
+      "name": {
+        "en_us": "Packed Ice Octet Cell",
+        "de_de": "Packeis-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:packed_ice_octet_from_packed_ice_sawing",
+        "simpleoctets:packed_ice_octet_from_packed_ice_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:packed_ice_from_octets"
       ]
     },
     {
@@ -23418,13 +24543,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 546,
+    "recipes": 573,
     "lootTables": 0,
     "tags": 0,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 187,
+    "blocks": 196,
     "trades": 0,
     "config": 0,
     "quests": 0,

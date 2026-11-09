@@ -1,5 +1,11 @@
 {
   "values": [
+    "simplebuilding:astral_end_stone_stairs",
+    "simplebuilding:astral_purpur_stairs",
+    "simplebuilding:nihil_end_stone_stairs",
+    "simplebuilding:nihil_purpur_stairs",
+    "simplebuilding:ender_end_stone_stairs",
+    "simplebuilding:ender_purpur_stairs",
     "simplebuilding:astralit_stairs",
     "simplebuilding:astralit_brick_stairs",
     "simplebuilding:polished_astralit_stairs",

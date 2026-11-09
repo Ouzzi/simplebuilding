@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/astral_purpur_pillar_top",
+    "side": "simplebuilding:block/astral_purpur_pillar"
+  }
+}

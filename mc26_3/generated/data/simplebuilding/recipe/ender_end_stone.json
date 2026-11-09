@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "simplelib:polished_end_stone",
+    "M": "simplebuilding:ender_quartz"
+  },
+  "pattern": [
+    "BBB",
+    "BMB",
+    "BBB"
+  ],
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:ender_end_stone"
+  }
+}
