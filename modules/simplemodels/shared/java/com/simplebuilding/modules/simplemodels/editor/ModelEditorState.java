@@ -37,6 +37,8 @@ public final class ModelEditorState {
     public Gizmo.Mode mode() { return mode; }
     public void mode(Gizmo.Mode m) { mode = m; }
     public float snapStep() { return Gizmo.SNAP_STEPS[snapIndex]; }
+    /** Rotate step of the current grid preset (0 = free). */
+    public float angleStep() { return Gizmo.ANGLE_STEPS[snapIndex]; }
     public void cycleSnap() { snapIndex = (snapIndex + 1) % Gizmo.SNAP_STEPS.length; }
     public boolean canUndo() { return history.canUndo(); }
     public boolean canRedo() { return history.canRedo(); }
@@ -154,6 +156,11 @@ public final class ModelEditorState {
     /** The code text of the current model (vanilla JSON, compact). */
     public String code() {
         return ModelJson.writeCompact(history.current());
+    }
+
+    /** The code text for a code column of {@code width} characters (no wrapped lines at GUI scale 2). */
+    public String code(int width) {
+        return ModelJson.writeCompact(history.current(), width);
     }
 
     private void apply(EditableModel next) {

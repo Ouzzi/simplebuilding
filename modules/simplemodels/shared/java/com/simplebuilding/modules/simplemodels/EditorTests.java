@@ -4,6 +4,7 @@ import com.simplebuilding.modules.simplemodels.editor.EditableModel;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel.Element;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel.Rotation;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel.Vec;
+import com.simplebuilding.modules.simplemodels.editor.EditorShortcuts;
 import com.simplebuilding.modules.simplemodels.editor.Gizmo;
 import com.simplebuilding.modules.simplemodels.editor.ModelEditorLayout;
 import com.simplebuilding.modules.simplemodels.editor.ModelEditorState;
@@ -170,6 +171,58 @@ public final class EditorTests {
                 h.assertTrue(compact.lines().count() < ModelJson.write(m).lines().count() / 2, "Compact code is shorter: " + name);
             } catch (java.io.IOException e) { throw new AssertionError(e); }
         }
+        h.succeed();
+    }
+
+    private static java.util.Map<String, String> lang(String locale) {
+        try (var in = EditorTests.class.getResourceAsStream("/assets/simplemodels/lang/" + locale + ".json")) {
+            return ModelCatalogue.GSON.fromJson(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8),
+                    new com.google.gson.reflect.TypeToken<java.util.Map<String, String>>(){}.getType());
+        } catch (java.io.IOException e) { throw new AssertionError(e); }
+    }
+
+    /** b-models14 S1: grid presets, shortcut help texts, problem location in the code, compact JSON for narrow columns. */
+    public static void snapHelp(GameTestHelper h) {
+        h.assertTrue(Gizmo.SNAP_STEPS.length == Gizmo.ANGLE_STEPS.length && Gizmo.SNAP_STEPS[0] == 1f && Gizmo.ANGLE_STEPS[0] == 22.5f
+                && Gizmo.SNAP_STEPS[Gizmo.SNAP_STEPS.length - 1] == 0f && Gizmo.ANGLE_STEPS[Gizmo.ANGLE_STEPS.length - 1] == 0f,
+                "Grid presets pair move and rotate steps, default 1 px / 22.5°, last = free");
+        var s = new ModelEditorState(stool());
+        for (int i = 0; i < Gizmo.SNAP_STEPS.length; i++) s.cycleSnap();
+        h.assertTrue(s.snapStep() == 1f && s.angleStep() == 22.5f, "Cycling wraps to the default");
+        s.cycleSnap(); s.cycleSnap(); s.cycleSnap();
+        h.assertTrue(s.snapStep() == 0f && s.angleStep() == 0f && near(Gizmo.move(s.selectedElement(), 0, 0.3f, s.snapStep()).from().x(), 2.3f), "Free preset moves freely");
+        var en = lang("en_us");
+        var de = lang("de_de");
+        for (String key : EditorShortcuts.langKeys()) h.assertTrue(en.containsKey(key) && de.containsKey(key), "Help text EN/DE: " + key);
+        var ids = new java.util.HashSet<String>();
+        for (var sc : EditorShortcuts.ALL) h.assertTrue(ids.add(sc.id()) && EditorShortcuts.GROUPS.contains(sc.group()), "Unique entry in a known group: " + sc.id());
+        h.assertTrue(EditorShortcuts.keys(EditorShortcuts.ALL.stream().filter(x -> x.id().equals("duplicate")).findFirst().orElseThrow(), de::get).equals("Strg + D"),
+                "Modifier names are translated");
+        // Problem location: value span for a path, opening brace for a missing field, Gson line/column for syntax.
+        String text = "{\n  \"elements\": [\n    {\"from\": [0, 0, 0], \"to\": [1, 40, 1], \"faces\": {\"up\": {\"texture\": \"#a\"}}}\n  ]\n}";
+        var bad = ModelJson.read(text);
+        h.assertTrue(!bad.ok() && bad.problems().getFirst().path().equals("elements[0].to"), "Out of range problem on elements[0].to");
+        int[] at = ModelJson.locate(text, bad.problems().getFirst());
+        h.assertTrue(at != null && text.substring(at[0], at[1]).equals("[1, 40, 1]"), "Located the value of elements[0].to: " + (at == null ? null : text.substring(at[0], at[1])));
+        int[] uv = ModelJson.locate(text, new ModelJson.Problem("elements[0].faces.up.texture", "bad_texture", java.util.List.of()));
+        h.assertTrue(uv != null && text.substring(uv[0], uv[1]).equals("\"#a\""), "Nested object keys");
+        int[] idx = ModelJson.locate(text, new ModelJson.Problem("elements[0].to[1]", "not_number", java.util.List.of()));
+        h.assertTrue(idx != null && text.substring(idx[0], idx[1]).equals("40"), "Array index");
+        int[] missing = ModelJson.locate(text, new ModelJson.Problem("elements[0].rotation", "missing", java.util.List.of()));
+        h.assertTrue(missing != null && text.charAt(missing[0]) == '{' && missing[0] > text.indexOf('['), "Missing field marks its object");
+        String broken = "{\n  \"elements\": [\n    {\"from\" [0, 0, 0]}\n  ]\n}";
+        var syntax = ModelJson.read(broken);
+        int[] sx = ModelJson.locate(broken, syntax.problems().getFirst());
+        h.assertTrue(!syntax.ok() && syntax.problems().getFirst().key().equals("syntax") && sx != null && broken.lastIndexOf('\n', sx[0]) == broken.indexOf("    {"  ) - 1,
+                "Syntax error marked on line 3: " + syntax.problems().getFirst() + " -> " + (sx == null ? null : sx[0]));
+        h.assertTrue(ModelJson.locate("{}", new ModelJson.Problem("a.b[3]", "missing", java.util.List.of())) != null, "Locate never throws");
+        // Narrow code columns: no line longer than the width unless a single value is longer.
+        var model = stool();
+        String narrow = ModelJson.writeCompact(model, 34);
+        h.assertTrue(ModelJson.read(narrow).model().equals(model), "Narrow compact JSON reads back");
+        h.assertTrue(narrow.lines().allMatch(l -> l.length() <= 34 || !l.trim().matches(".*[\\[{].*[\\]}].*")), "Lines fit 34 columns");
+        h.assertTrue(narrow.lines().count() > ModelJson.writeCompact(model).lines().count() && ModelJson.writeCompact(model, 1).equals(ModelJson.writeCompact(model, ModelJson.MIN_COMPACT_WIDTH)),
+                "Narrower = more lines, never below the minimum width");
         h.succeed();
     }
 

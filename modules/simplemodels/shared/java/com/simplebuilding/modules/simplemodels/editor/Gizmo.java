@@ -16,10 +16,15 @@ public final class Gizmo {
         Mode(String key) { this.key = key; }
     }
 
-    /** Grid steps (block pixels) the snap button cycles through; the first is the default. */
-    public static final float[] SNAP_STEPS = {1f, 0.5f, 0.25f};
-    /** Rotation snap: 22.5 degrees as in old vanilla; Shift = 1 degree, Ctrl = free. */
-    public static final float ANGLE_STEP = 22.5f, FINE_ANGLE_STEP = 1f;
+    /**
+     * Grid presets the snap button cycles through (b-models14): move/scale/UV step in block pixels paired with the rotate
+     * step in degrees, index for index. The first is the default (1 px / 22.5 degrees as old vanilla); the last is "off"
+     * (0 = free). One button keeps the toolbar on one line at GUI scale 3.
+     */
+    public static final float[] SNAP_STEPS = {1f, 0.5f, 0.25f, 0f};
+    public static final float[] ANGLE_STEPS = {22.5f, 15f, 5f, 0f};
+    /** Default rotate step; Shift while rotating = 1 degree, Alt = free. */
+    public static final float ANGLE_STEP = ANGLE_STEPS[0], FINE_ANGLE_STEP = 1f;
 
     /**
      * Model units along an axis for a mouse way {@code dx, dy} (GUI pixels): the way projected onto the axis' screen

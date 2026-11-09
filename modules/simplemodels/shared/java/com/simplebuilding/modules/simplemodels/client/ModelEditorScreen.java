@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.modules.simplemodels.ModelExamples;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel.Element;
+import com.simplebuilding.modules.simplemodels.editor.EditorShortcuts;
 import com.simplebuilding.modules.simplemodels.editor.Gizmo;
 import com.simplebuilding.modules.simplemodels.editor.ModelEditorLayout;
 import com.simplebuilding.modules.simplemodels.editor.ModelEditorLayout.Rect;
@@ -45,6 +46,8 @@ public final class ModelEditorScreen extends Screen {
     static final int ROW_SELECTED = 0xFF5A5A5A, ROW_SELECTED_TEXT = 0xFFFFFFFF; // contrast-ok: drawn on ROW_SELECTED only
     /** Light text on the dark viewport (#F2EEE8 on #1E1F23 = 15:1). */
     static final int VIEW_TEXT = UiPalette.LIGHT_LABEL;
+    /** Key combinations in the help: #1F3F7A on the panel grey #C6C6C6 = 6.0:1. */
+    static final int HELP_KEY_TEXT = 0xFF1F3F7A;
     static final int ROW = 12, HANDLE = 5, GIZMO_PX = 30;
     /** Code view colours on UiCodeArea's paper (#F3EBD2): plain, key, string, number, punctuation - each >= 4.5:1. */
     static final int[] CODE_COLOURS = {0xFF3B2F20, 0xFF7A3E9D, 0xFF2E6B31, 0xFF9A3F1B, 0xFF6B5B45};
@@ -71,6 +74,10 @@ public final class ModelEditorScreen extends Screen {
     private double startX, startY;
     private String dragLabel;
     private int listScroll;
+    /** Shortcut help overlay (F1 / "?"), b-models14. */
+    private boolean showHelp;
+    /** Characters that fit one line of the code column (compact JSON is laid out for it). */
+    private int codeColumns = ModelJson.COMPACT_WIDTH;
 
     public ModelEditorScreen(Screen parent, EditableModel model) {
         super(Component.translatable("simplemodels.editor.title"));
@@ -82,6 +89,8 @@ public final class ModelEditorScreen extends Screen {
     public UiOrbitCamera camera() { return camera; }
     public boolean codeOnly() { return codeOnly; }
     public ModelEditorLayout layout() { return layout; }
+    public boolean helpShown() { return showHelp; }
+    public void showHelp(boolean on) { showHelp = on; }
 
     /** Switches between classic and code only (F4 / toolbar). */
     public void setCodeOnly(boolean on) {
@@ -166,16 +175,22 @@ public final class ModelEditorScreen extends Screen {
             tool(Component.literal("⧉"), Component.translatable("simplemodels.editor.duplicate"), x + 22, 20, () -> { state.duplicate(); afterChange(); });
             tool(Component.literal("✕"), Component.translatable("simplemodels.editor.delete"), x + 44, 20, () -> { state.delete(); afterChange(); });
         }
+        // Right end (b-models14): help, code only, file dialog, back - icon buttons keep one line at GUI scale 3.
         int right = layout.toolbar().right();
-        tool(Component.translatable("simplemodels.editor.back"), null, right - 50, 50, this::onClose);
-        tool(Component.translatable(codeOnly ? "simplemodels.editor.classic" : "simplemodels.editor.code_only"),
-                Component.translatable("simplemodels.editor.code_only.hint"), right - 54 - 84, 84, () -> setCodeOnly(!codeOnly));
+        tool(Component.translatable("simplemodels.editor.back"), null, right - 46, 46, this::onClose);
+        tool(Component.translatable("simplemodels.editor.file"), Component.translatable("simplemodels.editor.file.hint"), right - 94, 46, this::openFile);
+        tool(Component.literal(codeOnly ? "▣" : "</>"), Component.translatable(codeOnly ? "simplemodels.editor.classic" : "simplemodels.editor.code_only")
+                .append("\n").append(Component.translatable("simplemodels.editor.code_only.hint")), right - 120, 24, () -> setCodeOnly(!codeOnly));
+        tool(Component.literal("?"), Component.translatable("simplemodels.editor.help.hint"), right - 142, 20, () -> showHelp = !showHelp);
 
         if (codeOnly) {
             Rect c = layout.code();
-            if (codeText == null) codeText = state.code();
             int guiScale = (int) Math.round(minecraft.getWindow().getGuiScale());
             float scale = guiScale >= 3 ? (guiScale - 1f) / guiScale : 1f;
+            // Same text width as UiCodeArea (gutter, padding, scroll bar), counted in "0" widths: compact JSON fits it.
+            int textPx = (int) ((c.w() - Math.ceil(font.width("000") * scale) - 5 - 6 - 5) / scale);
+            codeColumns = Math.max(ModelJson.MIN_COMPACT_WIDTH, textPx / Math.max(1, font.width("0")));
+            if (codeText == null) codeText = state.code(codeColumns);
             codeArea = new UiCodeArea(font, c.x(), c.y(), c.w(), c.h(), scale, false, codeText, this::onCode, ModelJson.MAX_CHARS,
                     CODE_COLOURS, Component.translatable("simplemodels.editor.code"));
             highlight();
@@ -202,8 +217,10 @@ public final class ModelEditorScreen extends Screen {
 
     private static final String[] FIELD_NAMES = {"from", "to", "origin"};
 
+    /** Grid preset on the button: "1 · 22.5°", or "Free" for the last preset. */
     private Component snapLabel() {
-        return Component.translatable("simplemodels.editor.snap", number(state.snapStep()));
+        return state.snapStep() == 0 ? Component.translatable("simplemodels.editor.snap.off")
+                : Component.translatable("simplemodels.editor.snap", number(state.snapStep()), number(state.angleStep()));
     }
 
     /** Button states and number fields follow the state (fields only while not being typed in). */
@@ -236,7 +253,7 @@ public final class ModelEditorScreen extends Screen {
 
     private void afterChange() {
         if (codeOnly && codeArea != null) {
-            String code = state.code();
+            String code = state.code(codeColumns);
             if (!code.equals(codeArea.getValue())) {
                 codeText = code;
                 codeArea.replaceAll(code);
@@ -292,7 +309,18 @@ public final class ModelEditorScreen extends Screen {
                 i++;
             }
         }
-        codeArea.setProblems(styles, List.of());
+        // b-models14: the first problem is underlined where it sits (path -> value span, syntax -> Gson line/column).
+        List<UiCodeArea.Range> ranges = new ArrayList<>();
+        for (var problem : state.problems()) {
+            int[] at = ModelJson.locate(s, problem);
+            if (at != null) ranges.add(new UiCodeArea.Range(at[0], at[1]));
+        }
+        codeArea.setProblems(styles, ranges);
+    }
+
+    private void openFile() {
+        if (state.dragging()) state.cancelDrag();
+        minecraft.setScreenAndShow(new ModelFileScreen(this));
     }
 
     // ------------------------------------------------------------ input
@@ -303,6 +331,14 @@ public final class ModelEditorScreen extends Screen {
 
     @Override
     public boolean keyPressed(KeyEvent event) {
+        if (event.isEscape() && showHelp) {
+            showHelp = false;
+            return true;
+        }
+        if (event.key() == InputConstants.KEY_F1) {
+            showHelp = !showHelp;
+            return true;
+        }
         if (event.isEscape() && state.dragging()) {
             state.cancelDrag();
             drag = Drag.NONE;
@@ -324,6 +360,7 @@ public final class ModelEditorScreen extends Screen {
         int key = event.shortcutKey();
         if (ctrl && (key == 'z' && !event.hasShiftDown())) { state.undo(); afterChange(); return true; }
         if (ctrl && (key == 'y' || key == 'z')) { state.redo(); afterChange(); return true; }
+        if (ctrl && key == 's') { openFile(); return true; }
         if (!codeOnly) {
             if (ctrl && key == 'd') { state.duplicate(); afterChange(); return true; }
             if (!ctrl && key == 'g') { state.mode(Gizmo.Mode.MOVE); refresh(); return true; }
@@ -357,6 +394,15 @@ public final class ModelEditorScreen extends Screen {
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
         double mx = event.x(), my = event.y();
         Rect view = layout.view();
+        if (showHelp && !layout.toolbar().contains(mx, my)) {
+            showHelp = false; // any click outside the toolbar closes the help
+            return true;
+        }
+        if (codeOnly && codeArea != null && layout.problems().contains(mx, my) && !state.problems().isEmpty()) {
+            int[] at = ModelJson.locate(codeArea.getValue(), state.problems().getFirst());
+            if (at != null) { codeArea.jumpTo(at[0]); setFocused(codeArea); codeArea.setFocused(true); }
+            return true;
+        }
         if (drag == Drag.GIZMO && event.button() == InputConstants.MOUSE_BUTTON_RIGHT) {
             state.cancelDrag();
             drag = Drag.NONE;
@@ -534,7 +580,7 @@ public final class ModelEditorScreen extends Screen {
             default -> {
                 Vector2f c = ModelViewport.project(camera, v, ModelGeometry.centre(start));
                 float degrees = Gizmo.screenAngle(c.x, c.y, startX, startY, mx, my, camera.depth(unit(gizmoAxis)) > 0);
-                degrees = Gizmo.snap(degrees, free ? 0 : minecraft.hasShiftDown() ? Gizmo.FINE_ANGLE_STEP : Gizmo.ANGLE_STEP);
+                degrees = Gizmo.snap(degrees, free ? 0 : minecraft.hasShiftDown() ? Gizmo.FINE_ANGLE_STEP : state.angleStep());
                 next = degrees == 0 ? start : Gizmo.rotate(start, gizmoAxis, degrees);
                 dragLabel = signed(degrees) + "°";
             }
@@ -653,7 +699,8 @@ public final class ModelEditorScreen extends Screen {
         if (dragLabel != null) g.text(font, dragLabel, mx + 10, my - 4, VIEW_TEXT, true);
         Rect s = layout.status();
         Component mode = Component.translatable("simplemodels.editor.mode." + state.mode().key);
-        g.text(font, Component.translatable("simplemodels.editor.status", state.model().elements().size(), number(state.snapStep()), mode),
+        Object grid = state.snapStep() == 0 ? Component.translatable("simplemodels.editor.snap.off") : number(state.snapStep());
+        g.text(font, Component.translatable("simplemodels.editor.status", state.model().elements().size(), grid, mode),
                 s.x() + 2, s.y() + 2, LABEL, false);
         if (codeOnly) {
             Rect p = layout.problems();
@@ -662,6 +709,37 @@ public final class ModelEditorScreen extends Screen {
                     : Component.translatable("simplemodels.editor.code_problem", problems.getFirst().path().isEmpty() ? "JSON" : problems.getFirst().path(),
                     Component.translatable("simplemodels.editor.problem." + problems.getFirst().key(), problems.getFirst().args().toArray()));
             g.textWithWordWrap(font, line, p.x() + 2, p.y() + 2, p.w() - 4, problems.isEmpty() ? LABEL : 0xFF8E1B1B, false);
+        }
+        if (showHelp) help(g);
+    }
+
+    /**
+     * Shortcut help (b-models14): one Vanilla-grey panel over the body, groups from {@link EditorShortcuts} in two
+     * columns (view + file left, edit right); key combination dark, text in the label colour.
+     */
+    private void help(GuiGraphicsExtractor g) {
+        int w = Math.min(420, width - 2 * ModelEditorLayout.MARGIN), top = layout.toolbar().bottom() + ModelEditorLayout.GAP;
+        int h = Math.min(layout.status().y() - top - ModelEditorLayout.GAP, 18 + 15 * 10 + 6);
+        int x = (width - w) / 2;
+        UiBoxes.box(g, x, top, w, h, PALETTE, false);
+        g.text(font, Component.translatable("simplemodels.editor.help.title"), x + 6, top + 6, LABEL, false);
+        int colW = (w - 18) / 2, keyW = 0;
+        java.util.function.Function<String, String> tr = k -> Component.translatable(k).getString();
+        for (var sc : EditorShortcuts.ALL) keyW = Math.max(keyW, font.width(EditorShortcuts.keys(sc, tr)));
+        keyW = Math.min(keyW, colW / 2);
+        int[] y = {top + 20, top + 20};
+        for (String group : EditorShortcuts.GROUPS) {
+            int col = group.equals("edit") ? 1 : 0, cx = x + 6 + col * (colW + 6);
+            if (y[col] + 10 > top + h) continue;
+            g.text(font, Component.translatable("simplemodels.editor.help.group." + group).withStyle(net.minecraft.ChatFormatting.UNDERLINE), cx, y[col], LABEL, false);
+            y[col] += 11;
+            for (var sc : EditorShortcuts.ALL) {
+                if (!sc.group().equals(group) || y[col] + 9 > top + h) continue;
+                g.text(font, font.plainSubstrByWidth(EditorShortcuts.keys(sc, tr), keyW), cx, y[col], HELP_KEY_TEXT, false);
+                g.text(font, font.plainSubstrByWidth(Component.translatable(sc.textKey()).getString(), colW - keyW - 6), cx + keyW + 6, y[col], LABEL, false);
+                y[col] += 10;
+            }
+            y[col] += 3;
         }
     }
 }
