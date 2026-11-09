@@ -1029,7 +1029,7 @@ public final class FeatureStations {
         chest.add(new ItemStack(Items.BONE_MEAL, 64));
         chest.add(new ItemStack(Items.IRON_AXE));
         chest.add(new ItemStack(Items.SHEARS));
-        for (String id : new String[] {"nibblemite_spawn_egg", "burrowed_end_stone"}) {
+        for (String id : new String[] {"nibblemite_spawn_egg", "burrowed_end_stone", "end_painting"}) {
             Item it = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", id));
             if (it != Items.AIR) chest.add(new ItemStack(it, 16));
         }

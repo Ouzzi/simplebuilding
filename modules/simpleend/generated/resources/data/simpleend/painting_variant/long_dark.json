@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:long_dark",
+  "width": 2,
+  "height": 1,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.long_dark.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

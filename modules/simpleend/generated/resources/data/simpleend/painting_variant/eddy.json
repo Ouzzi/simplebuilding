@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:eddy",
+  "width": 3,
+  "height": 3,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.eddy.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

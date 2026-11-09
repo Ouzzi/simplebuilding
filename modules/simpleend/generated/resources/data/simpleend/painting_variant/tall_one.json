@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:tall_one",
+  "width": 1,
+  "height": 2,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.tall_one.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

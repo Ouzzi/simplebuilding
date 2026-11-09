@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:beacon",
+  "width": 3,
+  "height": 3,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.beacon.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

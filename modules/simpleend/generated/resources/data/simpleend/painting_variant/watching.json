@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:watching",
+  "width": 1,
+  "height": 1,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.watching.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

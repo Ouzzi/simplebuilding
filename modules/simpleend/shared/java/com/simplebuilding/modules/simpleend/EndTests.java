@@ -990,6 +990,76 @@ public final class EndTests {
         ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simpleend.discover.EndDiscover::behaviourHints);
     }
 
+    // W11 End paintings.
+    private static void endPaintingVariants(GameTestHelper h) {
+        var reg = h.getLevel().registryAccess().lookupOrThrow(Registries.PAINTING_VARIANT);
+        Map<String, Integer> sizes = new java.util.TreeMap<>();
+        reg.getTagOrEmpty(EndPaintings.TAG).forEach(v -> {
+            h.assertTrue(EndPaintings.isEnd(v), "an End variant: " + v);
+            sizes.merge(v.value().width() + "x" + v.value().height(), 1, Integer::sum);
+        });
+        // the Vanilla counts per size of the placeable variants (26.3)
+        Map<String, Integer> vanilla = Map.of("1x1", 8, "2x1", 5, "1x2", 3, "2x2", 7, "4x2", 5, "4x4", 5, "4x3", 2, "3x4", 2, "3x3", 9);
+        h.assertTrue(sizes.equals(vanilla), "same sizes and counts as Vanilla, got " + sizes);
+        reg.getTagOrEmpty(net.minecraft.tags.PaintingVariantTags.PLACEABLE).forEach(v -> h.assertTrue(!EndPaintings.isEnd(v), "End variants are not in the Vanilla painting's pool"));
+        h.assertTrue(new ItemStack(EndRegistry.END_PAINTING).getCount() == 1, "item registered");
+        h.succeed();
+    }
+
+    private static void endPaintingPlacesAndDrops(GameTestHelper h) {
+        for (int x = 3; x <= 12; x++) for (int y = 1; y <= 6; y++) h.setBlock(new BlockPos(x, y, 8), Blocks.STONE);
+        var player = h.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(EndRegistry.END_PAINTING, 2));
+        BlockPos wall = h.absolutePos(new BlockPos(7, 3, 8));
+        var res = EndRegistry.END_PAINTING.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(wall), Direction.NORTH, wall, false)));
+        h.assertTrue(res.consumesAction(), "placing works, got " + res);
+        h.assertTrue(player.getMainHandItem().getCount() == 1, "one End Painting used");
+        var around = new net.minecraft.world.phys.AABB(wall).inflate(8);
+        var paintings = h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.decoration.painting.Painting.class, around);
+        h.assertTrue(paintings.size() == 1, "one painting placed, got " + paintings.size());
+        var painting = paintings.get(0);
+        h.assertTrue(EndPaintings.isEnd(painting.getVariant()), "an End picture");
+        h.assertTrue(painting.getVariant().value().area() == 16, "the biggest picture that fits: 4x4, got " + painting.getVariant().value().area());
+        h.assertTrue(painting.getPickResult().is(EndRegistry.END_PAINTING), "pick result is the End Painting");
+        painting.dropItem(h.getLevel(), player);
+        var drops = h.getLevel().getEntitiesOfClass(ItemEntity.class, around);
+        h.assertTrue(drops.size() == 1 && drops.get(0).getItem().is(EndRegistry.END_PAINTING), "it drops the End Painting, got " + drops);
+        drops.forEach(ItemEntity::discard);
+        painting.discard();
+        // small wall: only a small picture fits
+        for (int x = 3; x <= 12; x++) for (int y = 1; y <= 6; y++) h.setBlock(new BlockPos(x, y, 8), Blocks.AIR);
+        h.setBlock(new BlockPos(7, 3, 8), Blocks.STONE);
+        EndRegistry.END_PAINTING.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(wall), Direction.NORTH, wall, false)));
+        var small = h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.decoration.painting.Painting.class, around);
+        h.assertTrue(small.size() == 1 && small.get(0).getVariant().value().area() == 1, "a single block of wall holds a 1x1 picture");
+        small.forEach(net.minecraft.world.entity.Entity::discard);
+        h.succeed();
+    }
+
+    private static void endPaintingAnimationTimer(GameTestHelper h) {
+        var painting = new net.minecraft.world.entity.decoration.painting.Painting(h.getLevel(), h.absolutePos(new BlockPos(7, 3, 7)), Direction.NORTH,
+                h.getLevel().registryAccess().lookupOrThrow(Registries.PAINTING_VARIANT).getTagOrEmpty(EndPaintings.TAG).iterator().next());
+        var timers = new java.util.WeakHashMap<net.minecraft.world.entity.decoration.painting.Painting, long[]>();
+        java.util.function.IntUnaryOperator shortest = n -> 0;
+        h.assertTrue(com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, 0, shortest) == 0, "idle at first");
+        h.assertTrue(com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, EndPaintings.GAP_MIN_TICKS - 1, shortest) == 0, "idle until 60 s");
+        for (int k = 0; k < EndPaintings.ANIM_SEQUENCE.length; k++) {
+            int f = com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, EndPaintings.GAP_MIN_TICKS + (long) k * EndPaintings.ANIM_STEP_TICKS, shortest);
+            h.assertTrue(f == EndPaintings.ANIM_SEQUENCE[k], "frame " + k + " is " + EndPaintings.ANIM_SEQUENCE[k] + ", got " + f);
+        }
+        long end = EndPaintings.GAP_MIN_TICKS + (long) EndPaintings.ANIM_SEQUENCE.length * EndPaintings.ANIM_STEP_TICKS;
+        h.assertTrue(com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, end, n -> n - 1) == 0, "idle after the animation");
+        long next = timers.get(painting)[0];
+        h.assertTrue(next - end >= EndPaintings.GAP_MIN_TICKS && next - end <= EndPaintings.GAP_MIN_TICKS + EndPaintings.GAP_SPAN_TICKS, "next gap 60..120 s, got " + (next - end));
+        h.succeed();
+    }
+
+    static {
+        ALL.put("end_painting_variants", EndTests::endPaintingVariants);
+        ALL.put("end_painting_places_and_drops", EndTests::endPaintingPlacesAndDrops);
+        ALL.put("end_painting_animation_timer", EndTests::endPaintingAnimationTimer);
+    }
+
     // JEI24: recipe viewer data against its sources.
     static {
         ALL.put("jei_mob_drop_pages", EndJeiTests::mobDropPages);

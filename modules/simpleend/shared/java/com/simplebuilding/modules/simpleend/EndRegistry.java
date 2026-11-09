@@ -47,6 +47,7 @@ public final class EndRegistry {
     public static Block END_GRASS, END_BUSH, BURROWED_END_STONE;
     public static net.minecraft.world.entity.EntityType<com.simplebuilding.modules.simpleend.entity.Nibblemite> NIBBLEMITE;
     public static Item NIBBLEMITE_EGG, BURROWED_END_STONE_ITEM;
+    public static Item END_PAINTING;
     public static Item END_GRASS_ITEM, END_BUSH_ITEM, DRIFT_FRUIT, SPOILED_DRIFT_FRUIT;
     public static final ResourceKey<net.minecraft.world.effect.MobEffect> DRIFTING_KEY = ResourceKey.create(Registries.MOB_EFFECT, SimpleEnd.id("drifting"));
     public static net.minecraft.world.effect.MobEffect DRIFTING;
@@ -105,6 +106,7 @@ public final class EndRegistry {
                         new MobEffectInstance(MobEffects.SLOW_FALLING, DriftFruitItem.SLOW_FALL_TICKS, 0))).build())
                 .compostable(ContextIntProviders.COMPOSTABLE_MEDIUM));
         spoiledFruit();
+        END_PAINTING = item("end_painting", EndPaintingItem::new, new Item.Properties());
     }
 
     /** Spoiled Drift Fruit, the fruit of End trees outside the End: 1 hunger point, then a short drift (code). */
@@ -159,6 +161,7 @@ public final class EndRegistry {
         out.add(new ItemStack(DRIFT_FRUIT));
         out.add(new ItemStack(SPOILED_DRIFT_FRUIT));
         out.add(new ItemStack(BURROWED_END_STONE_ITEM));
+        out.add(new ItemStack(END_PAINTING));
         out.add(new ItemStack(NIBBLEMITE_EGG));
         if (com.simplebuilding.modules.simpleend.guide.EndGuide.book() != null) out.add(com.simplebuilding.modules.simpleend.guide.EndGuide.stack());
         return out;

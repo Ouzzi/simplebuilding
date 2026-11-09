@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:tall_pillar",
+  "width": 3,
+  "height": 4,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.tall_pillar.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

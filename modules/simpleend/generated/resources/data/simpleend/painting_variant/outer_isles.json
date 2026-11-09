@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:outer_isles",
+  "width": 2,
+  "height": 1,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.outer_isles.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

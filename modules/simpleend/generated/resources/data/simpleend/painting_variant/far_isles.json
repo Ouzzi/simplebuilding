@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:far_isles",
+  "width": 4,
+  "height": 2,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.far_isles.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

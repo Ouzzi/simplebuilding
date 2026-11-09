@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:crystal_heart",
+  "width": 4,
+  "height": 4,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.crystal_heart.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

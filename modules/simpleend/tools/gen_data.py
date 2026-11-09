@@ -469,6 +469,11 @@ def lang():
                     ('item.simpleend.nibblemite_spawn_egg', 'Nibblemite Spawn Egg', 'Knabbermilben-Spawn-Ei'),
                     ('block.simpleend.burrowed_end_stone', 'Burrowed End Stone', 'Durchwühlter Endstein')):
         en[k], de[k] = e, d
+    import gen_paintings  # W11 End paintings: variants, item, recipe, lang (textures: gen_paintings.py itself)
+    pen, pde = gen_paintings.lang()
+    en.update(pen)
+    de.update(pde)
+    gen_paintings.data(OUT / f'assets/{NS}', OUT / f'data/{NS}')
     for key, (e, d, et, dt) in CONFIG.items():
         en[f'config.{NS}.{key}'], de[f'config.{NS}.{key}'] = e, d
         en[f'config.{NS}.{key}.tooltip'], de[f'config.{NS}.{key}.tooltip'] = et, dt

@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:star_shower",
+  "width": 4,
+  "height": 2,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.star_shower.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

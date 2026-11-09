@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:floating_home",
+  "width": 3,
+  "height": 3,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.floating_home.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:blossom_stem",
+  "width": 1,
+  "height": 2,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.blossom_stem.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

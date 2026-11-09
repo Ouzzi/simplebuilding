@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:night_sky",
+  "width": 3,
+  "height": 3,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.night_sky.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}

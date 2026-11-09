@@ -1,0 +1,13 @@
+{
+  "asset_id": "simpleend:drifter",
+  "width": 2,
+  "height": 2,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.simpleend.drifter.title"
+  },
+  "author": {
+    "color": "gray",
+    "translate": "painting.simpleend.author"
+  }
+}
