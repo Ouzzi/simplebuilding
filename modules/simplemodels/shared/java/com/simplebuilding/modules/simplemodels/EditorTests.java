@@ -4,7 +4,9 @@ import com.simplebuilding.modules.simplemodels.editor.EditableModel;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel.Element;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel.Rotation;
 import com.simplebuilding.modules.simplemodels.editor.EditableModel.Vec;
+import com.simplebuilding.modules.simplemodels.editor.Gizmo;
 import com.simplebuilding.modules.simplemodels.editor.ModelEditorLayout;
+import com.simplebuilding.modules.simplemodels.editor.ModelEditorState;
 import com.simplebuilding.modules.simplemodels.editor.ModelGeometry;
 import com.simplebuilding.modules.simplemodels.editor.ModelJson;
 import java.util.Set;
@@ -84,6 +86,90 @@ public final class EditorTests {
         var bar = EditableModel.EMPTY.addElement(cube(0, 7, 7, 16, 9, 9).withRotation(Rotation.single(new Vec(8, 8, 8), "y", 90, false)));
         h.assertTrue(ModelGeometry.pick(bar, new Vector3f(8, 8, 100), back, Set.of()) == 0 && ModelGeometry.pick(bar, new Vector3f(2, 8, 100), back, Set.of()) == -1,
                 "Picking follows the element rotation");
+        h.succeed();
+    }
+
+    /** Projection onto the axis, snap, clamp, move with pivot, resize per side and symmetric, rotation forms. */
+    public static void gizmo(GameTestHelper h) {
+        h.assertTrue(near(Gizmo.along(10, 0, 25, 7), 2.5f) && Gizmo.along(0, 0, 5, 5) == 0f, "Mouse way projected onto the axis");
+        h.assertTrue(near(Gizmo.snap(2.4f, 1), 2) && near(Gizmo.snap(2.4f, 0.5f), 2.5f) && near(Gizmo.snap(2.4f, 0), 2.4f), "Snap steps");
+        h.assertTrue(near(Gizmo.normalise(190), -170) && near(Gizmo.normalise(-180), 180) && near(Gizmo.normalise(720), 0), "Angles into (-180, 180]");
+        h.assertTrue(near(Gizmo.screenAngle(0, 0, 10, 0, 0, -10, true), 90) && near(Gizmo.screenAngle(0, 0, 10, 0, 0, -10, false), -90),
+                "Counter-clockwise on screen is positive for an axis towards the viewer");
+        var c = cube(4, 4, 4, 12, 12, 12);
+        var moved = Gizmo.move(c, 0, 2.4f, 1);
+        h.assertTrue(near(moved.from().x(), 6) && near(moved.to().x(), 14) && near(moved.from().y(), 4), "Move snaps to the grid");
+        var far = Gizmo.move(c, 1, 100, 1);
+        h.assertTrue(near(far.to().y(), ModelJson.MAX_EXTENT) && near(far.to().y() - far.from().y(), 8), "Move stops at the vanilla limit, size kept");
+        var pivoted = Gizmo.move(c.withRotation(Rotation.single(new Vec(8, 8, 8), "y", 45, false)), 2, -3, 1);
+        h.assertTrue(near(pivoted.rotation().origin().z(), 5), "Pivot moves with the cube");
+        h.assertTrue(near(Gizmo.scale(c, 0, 3, 1, true, false).to().x(), 15) && near(Gizmo.scale(c, 0, 3, 1, true, false).from().x(), 4), "Resize the + side");
+        h.assertTrue(near(Gizmo.scale(c, 0, 3, 1, false, false).from().x(), 1) && near(Gizmo.scale(c, 0, 3, 1, false, false).to().x(), 12), "Resize the - side");
+        var both = Gizmo.scale(c, 2, 3, 1, true, true);
+        h.assertTrue(near(both.from().z(), 1) && near(both.to().z(), 15), "Ctrl resizes both sides");
+        var flat = Gizmo.scale(c, 1, -20, 1, true, false);
+        h.assertTrue(near(flat.to().y(), flat.from().y()), "Size never below zero");
+        var r1 = Gizmo.rotate(c, 1, 22.5f);
+        h.assertTrue(!r1.rotation().isEuler() && r1.rotation().axis().equals("y") && near(r1.rotation().angle(), 22.5f)
+                && r1.rotation().origin().equals(new Vec(8, 8, 8)), "First turn: single axis about the centre");
+        var r2 = Gizmo.rotate(r1, 1, 22.5f);
+        h.assertTrue(!r2.rotation().isEuler() && near(r2.rotation().angle(), 45), "Same axis adds up");
+        var r3 = Gizmo.rotate(r2, 0, 10);
+        h.assertTrue(r3.rotation().isEuler() && near(r3.rotation().euler().x(), 10) && near(r3.rotation().euler().y(), 45) && near(r3.rotation().euler().z(), 0),
+                "Another axis switches to vanilla Euler x/y/z");
+        h.assertTrue(ModelJson.read(ModelJson.write(EditableModel.EMPTY.addElement(r3))).ok(), "Gizmo results stay valid vanilla JSON");
+        h.succeed();
+    }
+
+    /** Drag = one undo step, cancel = none, commands, hidden cubes follow inserts, number fields, code view. */
+    public static void state(GameTestHelper h) {
+        var start = stool();
+        var s = new ModelEditorState(start);
+        h.assertTrue(s.selected() == 0 && !s.canUndo(), "First cube selected, nothing to undo");
+        h.assertTrue(s.beginDrag(), "Drag starts on the selection");
+        s.drag(Gizmo.move(s.dragStartElement(), 1, 1, 1));
+        s.drag(Gizmo.move(s.dragStartElement(), 1, 2, 1));
+        h.assertTrue(near(s.model().elements().getFirst().from().y(), 12) && s.committed().equals(start), "Live preview, nothing committed yet");
+        s.endDrag();
+        h.assertTrue(s.canUndo() && near(s.committed().elements().getFirst().from().y(), 12), "One undo step per drag");
+        s.undo();
+        h.assertTrue(s.model().equals(start) && s.canRedo(), "Undo returns to the start");
+        s.redo();
+        s.beginDrag();
+        s.drag(Gizmo.move(s.dragStartElement(), 0, 3, 1));
+        s.cancelDrag();
+        h.assertTrue(near(s.model().elements().getFirst().from().x(), 2) && !s.dragging(), "Esc cancels the drag");
+        var before = s.committed();
+        s.beginDrag();
+        s.endDrag();
+        h.assertTrue(s.committed() == before, "A drag without change adds no step");
+        int n = s.model().elements().size();
+        s.addCube();
+        h.assertTrue(s.model().elements().size() == n + 1 && s.selected() == n && s.selectedElement().name().equals("cube")
+                && s.selectedElement().faces().get("up").texture().equals("#seat"), "New cube on the first texture, selected");
+        s.addCube();
+        h.assertTrue(s.selectedElement().name().equals("cube_2"), "Free names");
+        s.select(1);
+        s.toggleHidden(3);
+        s.duplicate();
+        h.assertTrue(s.selected() == 2 && s.model().elements().get(2).name().equals("leg_nw_2") && s.hidden().equals(Set.of(4)),
+                "Duplicate after the original, hidden indices follow");
+        s.delete();
+        h.assertTrue(s.selected() == 1 && s.hidden().equals(Set.of(3)) && s.model().elements().size() == n + 2, "Delete selects the cube before");
+        s.setValue("to", 0, 99);
+        h.assertTrue(near(s.selectedElement().to().x(), ModelJson.MAX_EXTENT), "Number fields clamp to the vanilla range");
+        var valid = s.committed();
+        h.assertTrue(!s.applyCode("{\"elements\": [") && !s.problems().isEmpty() && s.model().equals(valid), "Broken code keeps the last valid model");
+        var edited = valid.withElement(0, valid.elements().getFirst().withName("sitz"));
+        h.assertTrue(s.applyCode(ModelJson.writeCompact(edited)) && s.problems().isEmpty() && s.model().equals(edited), "Valid code becomes the model");
+        for (String name : ModelExamples.NAMES) {
+            try {
+                var m = ModelJson.read(ModelExamples.resource("models/item/example/" + name + ".json")).model();
+                String compact = ModelJson.writeCompact(m);
+                h.assertTrue(ModelJson.read(compact).model().equals(m), "Compact code reads back: " + name);
+                h.assertTrue(compact.lines().count() < ModelJson.write(m).lines().count() / 2, "Compact code is shorter: " + name);
+            } catch (java.io.IOException e) { throw new AssertionError(e); }
+        }
         h.succeed();
     }
 

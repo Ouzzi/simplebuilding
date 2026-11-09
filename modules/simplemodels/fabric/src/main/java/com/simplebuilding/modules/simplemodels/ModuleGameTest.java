@@ -27,6 +27,8 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void editHistory(GameTestHelper h) { ModelTests.editHistory(h); }
  @GameTest(maxTicks=100) public void editorLayout(GameTestHelper h) { EditorTests.layout(h); }
  @GameTest(maxTicks=100) public void editorGeometry(GameTestHelper h) { EditorTests.geometry(h); }
+ @GameTest(maxTicks=100) public void editorGizmo(GameTestHelper h) { EditorTests.gizmo(h); }
+ @GameTest(maxTicks=100) public void editorState(GameTestHelper h) { EditorTests.state(h); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simplemodels.discover.ModelsDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simplemodels.discover.ModelsDiscover.behaviourHints(h); }
 }

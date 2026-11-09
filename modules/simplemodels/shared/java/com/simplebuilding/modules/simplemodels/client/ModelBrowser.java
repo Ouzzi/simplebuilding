@@ -102,6 +102,10 @@ public final class ModelBrowser extends Screen {
         button("models", x + 6, y + 20, 94, () -> { tab = "models"; rebuildWidgets(); }).active = !tab.equals("models");
         button("policy", x + 102, y + 20, 94, () -> { tab = "policy"; rebuildWidgets(); }).active = !tab.equals("policy");
         button("help", x + 198, y + 20, 94, () -> { tab = "help"; rebuildWidgets(); }).active = !tab.equals("help");
+        // Model editor (IG31-60 stage 2, b-models13): opens the selected model, otherwise the built-in stool.
+        if (panelWidth >= 340) button("editor", x + 294, y + 20, Math.min(94, panelWidth - 300), () -> minecraft.setScreenAndShow(
+                new ModelEditorScreen(this, ModelEditorScreen.load(selected == null ? null : selected.model()))))
+                .setTooltip(Tooltip.create(Component.translatable("simplemodels.browser.editor.hint")));
         button("back", x + panelWidth - 76, y + panelHeight - BOTTOM, 70, this::onClose);
         if (tab.equals("help")) {
             button("folder", x + 6, y + panelHeight - BOTTOM, 124, () -> {

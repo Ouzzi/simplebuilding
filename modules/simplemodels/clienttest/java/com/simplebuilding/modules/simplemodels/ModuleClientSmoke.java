@@ -147,6 +147,32 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(3); context.takeScreenshot("simplemodels-settings");
             context.runOnClient(client -> click(client.gui.screen(), "Import Help"));
             context.waitTicks(3); context.takeScreenshot("simplemodels-help");
+            // IG31-60 stages 2 + 3 (b-models13): the editor opens from the browser on the built-in stool, classic layout
+            // with the move gizmo, then the rotate gizmo after a drag step, then "code only" (code | live preview).
+            context.runOnClient(client -> click(client.gui.screen(), "Editor"));
+            context.waitTicks(3);
+            context.runOnClient(client -> {
+                if (!(client.gui.screen() instanceof com.simplebuilding.modules.simplemodels.client.ModelEditorScreen editor)) throw new AssertionError("Editor opens from the browser");
+                if (editor.state().model().elements().size() != 7) throw new AssertionError("Stool loads from the resources: " + editor.state().model().elements().size());
+                if (!editor.layout().outliner().visible() || !editor.layout().view().visible()) throw new AssertionError("Classic layout shows list and view");
+            });
+            context.waitTicks(3); context.takeScreenshot("simplemodels-editor");
+            context.runOnClient(client -> {
+                var editor = (com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen();
+                var state = editor.state();
+                state.mode(com.simplebuilding.modules.simplemodels.editor.Gizmo.Mode.ROTATE);
+                state.beginDrag(); state.drag(com.simplebuilding.modules.simplemodels.editor.Gizmo.rotate(state.dragStartElement(), 1, 22.5f)); state.endDrag();
+                if (!state.canUndo()) throw new AssertionError("Gizmo step is undoable");
+            });
+            context.waitTicks(3); context.takeScreenshot("simplemodels-editor-rotate");
+            context.runOnClient(client -> ((com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen()).setCodeOnly(true));
+            context.waitTicks(3); context.takeScreenshot("simplemodels-editor-code");
+            context.runOnClient(client -> {
+                var editor = (com.simplebuilding.modules.simplemodels.client.ModelEditorScreen)client.gui.screen();
+                if (!editor.codeOnly() || editor.layout().outliner().visible()) throw new AssertionError("Code only hides the list");
+                editor.onClose();
+                if (!(client.gui.screen() instanceof ModelBrowser)) throw new AssertionError("Back returns to the browser");
+            });
             context.runOnClient(client -> client.setScreenAndShow(null));
             // SM21 e: the creative inventory has the bookmark too.
             var mode = new net.minecraft.world.level.GameType[1];
