@@ -56,6 +56,9 @@ Neue Pixelkunst im Stil des Besitzers, immer mit 16-fach-Vorschau alt neben neu;
 ### A8b Weiche Übergänge – Richtwert „~7 % hart“ (Besitzer 29.10.)
 Texturen nach dem Vorbild der abgenommenen Endholz-Bretter A (a-tex29): Vanilla-Raster und Tonverteilung, etwa 7 % harte Übergänge (Anteil benachbarter Pixel mit großem Helligkeitssprung), nicht ~25–30 % wie die alten, kantigen Texturen. Generatoren messen den Anteil und weisen ihn in Vorschauen aus; Kandidaten über ~12 % gelten als zu hart.
 
+### A8c Texturen in mehreren Runden (Besitzer 09.11.)
+Keine Textur wird nach dem ersten Entwurf vorgelegt. Ablauf je Textur: **erstellen → bewerten → im Spiel/Render testen → neu erstellen**, mindestens 2–3 Runden. Bewertet wird gegen Vanilla-Stil (A8 a, Vergleich mit passenden Vanilla-Texturen), klare Pixel ohne Blur und ohne weiche Verläufe/weichgezeichnete Skalierung, Härte ~7 % (A8b) und Lesbarkeit in Spielgröße. Getestet wird in Originalgröße und hochskaliert (nearest-neighbour) im Block-/Item-Kontext, besser im Client-Screenshot. Die Bewertung jeder Runde steht im Plan und in der Vorschau (Runden-Verlauf); erst danach wird vorgelegt.
+
 ### A9 Server-Autorität und Belege
 Alle Stellschrauben serverseitig mit Obergrenzen, die Vanilla nicht gefährden (3.8). Wiki-Aussagen müssen im Code beweisbar sein (3.6); Handbücher/Wiki nach Änderungen neu erzeugen.
 

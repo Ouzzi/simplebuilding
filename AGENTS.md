@@ -32,6 +32,8 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
    veraltet. Nach Änderungen: `python wiki/generate.py` und `python wiki/generate.py --check`.
 7. **Neue Pixelkunst im Stil des Besitzers**, immer mit Vorschau (16-fach, alt neben neu). Nie an den Rand malen, keine dunklen
    Eckfüllungen in Konturen, alte Besitzer-Texturen respektieren, keine weichgezeichneten Skalierungen.
+   **Mehrere Runden vor dem Vorlegen** (PRINZIPIEN A8c): erstellen → bewerten (Vanilla-Stil, klare Pixel, kein Blur,
+   Härte ~7 % nach A8b) → im Spiel/Render testen → neu erstellen; Bewertung je Runde in Plan und Vorschau.
    Generatoren: `python tools/textures/generate_textures.py` und `--check`.
    **Jede eigene Textur hat ihre Ebenen-Quelle `<name>.layers.json` daneben** (PRINZIPIEN A8 b, Format
    `docs/ai/PLAN-B-PIXELEDITOR-2026-10-21.md`): Generatoren schreiben sie mit (`layers.snap(img, "Schritt")` je
