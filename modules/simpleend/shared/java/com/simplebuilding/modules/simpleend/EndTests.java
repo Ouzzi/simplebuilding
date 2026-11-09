@@ -1051,13 +1051,68 @@ public final class EndTests {
         h.assertTrue(com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, end, n -> n - 1) == 0, "idle after the animation");
         long next = timers.get(painting)[0];
         h.assertTrue(next - end >= EndPaintings.GAP_MIN_TICKS && next - end <= EndPaintings.GAP_MIN_TICKS + EndPaintings.GAP_SPAN_TICKS, "next gap 60..120 s, got " + (next - end));
+        // b-paint12: each start picks one of the three animations at random; the last one uses the frame textures 9..12
+        h.assertTrue(timers.get(painting)[1] == EndPaintings.ANIM_COUNT - 1, "the random pick chose the last animation, got " + timers.get(painting)[1]);
+        for (int k = 0; k < EndPaintings.ANIM_SEQUENCE.length; k++) {
+            int f = com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, next + (long) k * EndPaintings.ANIM_STEP_TICKS, shortest);
+            int want = (EndPaintings.ANIM_COUNT - 1) * EndPaintings.ANIM_FRAMES + EndPaintings.ANIM_SEQUENCE[k];
+            h.assertTrue(f == want, "animation 3 step " + k + " shows texture " + want + ", got " + f);
+        }
+        java.util.Set<Long> picked = new java.util.TreeSet<>();
+        for (int a = 0; a < EndPaintings.ANIM_COUNT; a++) {
+            final int pick = a;
+            var t2 = new java.util.WeakHashMap<net.minecraft.world.entity.decoration.painting.Painting, long[]>();
+            com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(t2, painting, 0, n -> n == EndPaintings.ANIM_COUNT ? pick : 0);
+            picked.add(t2.get(painting)[1]);
+        }
+        h.assertTrue(picked.size() == EndPaintings.ANIM_COUNT, "every animation can be picked, got " + picked);
         h.succeed();
+    }
+    /** b-paint12: every End picture has its idle texture and 3 x 4 frame textures of the same size, and every animation starts from the idle picture. */
+    private static void endPaintingFrames(GameTestHelper h) {
+        var reg = h.getLevel().registryAccess().lookupOrThrow(Registries.PAINTING_VARIANT);
+        int[] count = {0};
+        reg.getTagOrEmpty(EndPaintings.TAG).forEach(v -> {
+            var id = v.value().assetId();
+            java.awt.image.BufferedImage idle = paintingTexture(h, id.getPath());
+            h.assertTrue(idle.getWidth() == v.value().width() * 16 && idle.getHeight() == v.value().height() * 16, id + ": 16 px per block, got " + idle.getWidth() + "x" + idle.getHeight());
+            int[] base = idle.getRGB(0, 0, idle.getWidth(), idle.getHeight(), null, 0, idle.getWidth());
+            for (int a = 0; a < EndPaintings.ANIM_COUNT; a++) {
+                boolean moves = false;
+                for (int f = 1; f <= EndPaintings.ANIM_FRAMES; f++) {
+                    int n = EndPaintings.frameTexture(a, f);
+                    java.awt.image.BufferedImage img = paintingTexture(h, id.getPath() + "_" + n);
+                    h.assertTrue(img.getWidth() == idle.getWidth() && img.getHeight() == idle.getHeight(), id + "_" + n + ": same size as the idle picture");
+                    int[] px = img.getRGB(0, 0, img.getWidth(), img.getHeight(), null, 0, img.getWidth());
+                    int diff = 0;
+                    for (int i = 0; i < px.length; i++) if (px[i] != base[i]) diff++;
+                    if (f == 1) h.assertTrue(diff * 4 <= px.length, id + " animation " + (a + 1) + ": frame 1 starts from the idle picture (" + diff + " of " + px.length + " pixels differ)");
+                    moves |= diff > 0;
+                }
+                h.assertTrue(moves, id + " animation " + (a + 1) + " shows a change");
+            }
+            count[0]++;
+        });
+        h.assertTrue(count[0] == 46, "46 End pictures checked, got " + count[0]);
+        h.succeed();
+    }
+    private static java.awt.image.BufferedImage paintingTexture(GameTestHelper h, String name) {
+        String path = "assets/" + SimpleEnd.ID + "/textures/painting/" + name + ".png";
+        try (var in = EndPaintings.class.getClassLoader().getResourceAsStream(path)) {
+            h.assertTrue(in != null, "texture present: " + path);
+            java.awt.image.BufferedImage img = javax.imageio.ImageIO.read(in);
+            h.assertTrue(img != null, "texture readable: " + path);
+            return img;
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException(path, e);
+        }
     }
 
     static {
         ALL.put("end_painting_variants", EndTests::endPaintingVariants);
         ALL.put("end_painting_places_and_drops", EndTests::endPaintingPlacesAndDrops);
         ALL.put("end_painting_animation_timer", EndTests::endPaintingAnimationTimer);
+        ALL.put("end_painting_frames", EndTests::endPaintingFrames);
     }
 
     // JEI24: recipe viewer data against its sources.
