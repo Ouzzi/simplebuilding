@@ -301,6 +301,14 @@ def rooms():
         FILES[RES / f'data/{NS}/structure/backrooms/{name}.nbt'] = room.save()
 
 
+def same(path, data):
+    """Equal content; NBT is compared decoded (gzip bytes differ between zlib versions, e.g. python3 vs python3.12)."""
+    old = path.read_bytes()
+    if path.suffix == '.nbt':
+        return nbtmini.loads(old) == nbtmini.loads(data)
+    return old == data
+
+
 def main():
     models()
     loot()
@@ -312,11 +320,11 @@ def main():
     bad = []
     for path, data in sorted(FILES.items()):
         if check:
-            if not path.exists() or path.read_bytes() != data:
+            if not path.exists() or not same(path, data):
                 bad.append(path.relative_to(ROOT).as_posix())
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
-            if not path.exists() or path.read_bytes() != data:
+            if not path.exists() or not same(path, data):
                 path.write_bytes(data)
     if bad:
         print('simplelayers data stale (run modules/simplelayers/tools/gen_data.py):', *bad[:10], sep='\n  ')
