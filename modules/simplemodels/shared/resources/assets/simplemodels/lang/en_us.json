@@ -117,5 +117,11 @@
   "simplemodels.guide.page.23.title": "/simplemodels reload",
   "simplemodels.guide.page.23": "Malformed policy disables assignment; bad definitions are skipped with server logs.",
   "simplemodels.guide.page.24.title": "Settings",
-  "simplemodels.guide.page.24": "More settings are in the mod's config screen."
+  "simplemodels.guide.page.24": "More settings are in the mod's config screen.",
+  "item.simplemodels.example.stool": "Example Model: Stool",
+  "item.simplemodels.example.table_lantern": "Example Model: Table Lantern",
+  "item.simplemodels.example.mailbox": "Example Model: Mailbox",
+  "item.simplemodels.example.birdhouse": "Example Model: Birdhouse",
+  "item.simplemodels.example.weather_vane": "Example Model: Weather Vane",
+  "item.simplemodels.example.crystal_cluster": "Example Model: Crystal Cluster"
 }

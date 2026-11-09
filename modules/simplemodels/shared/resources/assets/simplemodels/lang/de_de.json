@@ -117,5 +117,11 @@
   "simplemodels.guide.page.23.title": "/simplemodels reload",
   "simplemodels.guide.page.23": "Fehlerhafte Regeln sperren die Zuweisung; fehlerhafte Definitionen werden mit Serverlog übersprungen.",
   "simplemodels.guide.page.24.title": "Einstellungen",
-  "simplemodels.guide.page.24": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simplemodels.guide.page.24": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "item.simplemodels.example.stool": "Beispielmodell: Hocker",
+  "item.simplemodels.example.table_lantern": "Beispielmodell: Tischlaterne",
+  "item.simplemodels.example.mailbox": "Beispielmodell: Briefkasten",
+  "item.simplemodels.example.birdhouse": "Beispielmodell: Vogelhaus",
+  "item.simplemodels.example.weather_vane": "Beispielmodell: Wetterfahne",
+  "item.simplemodels.example.crystal_cluster": "Beispielmodell: Kristallgruppe"
 }
