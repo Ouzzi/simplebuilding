@@ -14,7 +14,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The gadget contract (OW24-2 G2, docs/ai/PLAN-B-GADGETS24-2026-10-24.md): Simple Gadgets (Transposer, Resonance Rod, Echo Sounder) tells
+ * The gadget contract (OW24-2 G2, docs/ai/PLAN-B-GADGETS24-2026-10-24.md): Simple Gadgets (Transposer, Resonance Rod, Echo Sounder, Detector) tells
  * partners what its gadgets did and how they look, partners tell it how they decide - nobody imports the gadget mod. Without a
  * partner nothing is registered and the gadgets use their own answers. Content-free: only Vanilla types.
  *
@@ -38,6 +38,8 @@ public final class GadgetActions {
     public static final String ECHO_TELEPORT = "echo_teleport";
     /** A not fully repaired Echo Sounder shattered after its jump (G4). */
     public static final String ECHO_SHATTER = "echo_shatter";
+    /** The Detector found its ore (G3; SimpleBuilding's advancement "Ping"). */
+    public static final String ORE_DETECTED = "ore_detected";
 
     /** The partner's full hand-hint answer (client). */
     @FunctionalInterface

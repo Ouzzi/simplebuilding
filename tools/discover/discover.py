@@ -49,16 +49,14 @@ SB_TIPS = [
     ("chisel", ["*_chisel"], "Use on a block: next variant; sneak: back",
      "Auf Block benutzen: nächste Variante; Schleichen: zurück"),
     # b-btools07: the building wand and blueprint tips are Simple Building Tools' (simplebuildingtools id below)
-    ("magnet", ["magnet"], "Hold it to pull in items; sneak to pause",
-     "Halten zieht Items an; Schleichen pausiert"),
+    # b-gadg14 (OW24-2 G3): the Attractor tip is Simple Gadgets' (simplegadgets id below)
     # OW24-2 G2: the Transposer tip is Simple Gadgets' (simplegadgets id below; 26.2 keeps the class but loses the tip)
     # split stage 8c-2: the backpack tip is Simple Storage's (simplestorage id below)
     ("autonomous_crafter", ["autonomous_crafter"], "Crafts by itself onto a hopper below; redstone stops it",
      "Craftet selbst in einen Trichter darunter; Redstone stoppt"),
     ("auto_smither", ["auto_smither"], "Smiths once per redstone pulse",
      "Schmiedet einmal pro Redstone-Impuls"),
-    ("detector", ["detector"], "Hold it: the needle points to the nearest ore",
-     "Halten: die Nadel zeigt zum nächsten Erz"),
+    # b-gadg14 (OW24-2 G3): the Detector tip is Simple Gadgets' (simplegadgets id below)
     # OW24-2 G4: the Echo Sounder tip is Simple Gadgets' (simplegadgets id below)
     ("silent_dandelion", ["silent_dandelion"], "Use on a mob to switch its sounds off or on",
      "An einem Mob benutzen: Geräusche aus oder an"),
@@ -183,7 +181,11 @@ MODS = [
          tips=[("rotator", ["rotator"], "Use on a block to turn it in place",
                 "Auf Block benutzen: dreht ihn an Ort und Stelle"),
                ("echo_sounder", ["echo_sounder"], "Link to a lodestone, then hold use for 3 s",
-                "Am Leitstein verknüpfen, dann 3 s Benutzen halten")]),
+                "Am Leitstein verknüpfen, dann 3 s Benutzen halten"),
+               ("magnet", ["magnet"], "Hold it to pull in items; sneak to pause",
+                "Halten zieht Items an; Schleichen pausiert"),
+               ("detector", ["detector"], "Hold it: the needle points to the nearest ore",
+                "Halten: die Nadel zeigt zum nächsten Erz")]),
     dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
          package="com.simplebuilding.modules.simpledimensions.discover",
          own_packages=["com.simplebuilding.modules.simpledimensions.", "dev.simpledimension."]),

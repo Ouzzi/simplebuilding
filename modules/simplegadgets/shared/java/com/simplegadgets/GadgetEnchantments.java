@@ -12,12 +12,15 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * SimpleBuilding's enchantments the gadgets read, by id (principle 3): Range (Gauge: deeper altimeter) and Constructor's
- * Touch (Gauge: top/average speed, auto-walk follows paths). SimpleBuilding's item tags {@code range_enchantable} and
+ * Touch (Gauge: top/average speed, auto-walk follows paths; Attractor: filter; Detector: less damping), and Simple Hammers' Radius
+ * (Detector). SimpleBuilding's item tags {@code range_enchantable} and
  * {@code constructors_touch_enchantable} name the gadgets; without SimpleBuilding no item has them and every level is 0.
  */
 public final class GadgetEnchantments {
     public static final ResourceKey<Enchantment> RANGE = key("simplebuilding", "range");
     public static final ResourceKey<Enchantment> CONSTRUCTORS_TOUCH = key("simplebuilding", "constructors_touch");
+    /** Simple Hammers' Radius (G3: the Detector reaches further; without Simple Hammers level 0). */
+    public static final ResourceKey<Enchantment> RADIUS = key("simplehammers", "radius");
 
     private GadgetEnchantments() {}
 

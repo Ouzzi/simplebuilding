@@ -659,7 +659,7 @@ public final class TestCentreSections {
         for (Item upgraded : upgradedTrimTemplates()) {
             kinds.add(new ItemStack(upgraded));
         }
-        kinds.add(new ItemStack(ModItems.MAGNET));
+        kinds.add(new ItemStack(com.simplebuilding.util.GadgetRefs.magnet()));
         for (ItemStack kind : kinds) {
             placedTemplate(c, x, 0, 3, AttachFace.FLOOR, Direction.SOUTH, kind);
             c.place(x, 2, wallZ, TcCanvas.WALL);
@@ -1236,7 +1236,7 @@ public final class TestCentreSections {
             }
             // Linke Kante jeder Gruppe: Wirtsgestein mit Detektor und Anleitung.
             c.place(gx + 1, 0, 0, group.getKey());
-            c.frame(gx + 1, 1, 0, Direction.UP, new ItemStack(ModItems.ORE_DETECTOR));
+            c.frame(gx + 1, 1, 0, Direction.UP, new ItemStack(com.simplebuilding.util.GadgetRefs.detector()));
             if (first) {
                 c.sign(gx + 1, 2, 0, Direction.NORTH, TcText.bold(TcText.t("section.ores", "Ore Detector")),
                         TcText.t("section.ores.sub", "stand here, use"), TcText.t("section.ores.sub2", "ore at distance d"));
@@ -1251,7 +1251,7 @@ public final class TestCentreSections {
         c.fill(px, 0, 1, px + 6, 2, 7, Blocks.STONE.defaultBlockState());
         c.place(px + 3, 1, 5, Blocks.DIAMOND_ORE);
         c.place(px + 5, 0, 3, Blocks.DEEPSLATE_DIAMOND_ORE);
-        ItemStack armed = OreDetectorItem.calibrate(new ItemStack(ModItems.ORE_DETECTOR), Blocks.DIAMOND_ORE.defaultBlockState());
+        ItemStack armed = com.simplebuilding.util.GadgetRefs.calibratedDetector(Blocks.DIAMOND_ORE.defaultBlockState());
         placedTemplate(c, px + 1, 3, 2, AttachFace.FLOOR, Direction.SOUTH, armed);
         c.place(px, 0, 0, Blocks.STONE);
         c.frame(px, 1, 0, Direction.UP, new ItemStack(Items.DIAMOND_ORE));

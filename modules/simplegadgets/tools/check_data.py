@@ -8,7 +8,7 @@ ROOT = MODULE.parents[1]
 NS = 'simplegadgets'
 RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplegadgets'
-GADGETS = ['echo_sounder', 'velocity_gauge', 'rotator', 'amethyst_lens']
+GADGETS = ['echo_sounder', 'velocity_gauge', 'detector', 'magnet', 'rotator', 'amethyst_lens']
 
 used = set()
 for src in JAVA.rglob('*.java'):
@@ -49,6 +49,11 @@ for stage in range(3):
     assert (RES / f'assets/{NS}/models/item/echo_sounder_cracked_{stage}.json').is_file(), stage
     assert (RES / f'assets/{NS}/textures/item/echo_sounder_cracked_{stage}.png').is_file(), stage
 assert 'simplegadgets:echo_sounder' in (RES / 'data/minecraft/tags/item/enchantable/durability.json').read_text(encoding='utf-8')
+for frame in range(32):  # G3: the Detector's needle frames (dial + tinted needle)
+    assert (RES / f'assets/{NS}/models/item/detector_{frame:02d}.json').is_file(), frame
+    assert (RES / f'assets/{NS}/textures/item/detector_needle_{frame:02d}.png').is_file(), frame
+assert (RES / f'assets/{NS}/textures/item/detector_dial.png').is_file()
+assert 'simplegadgets:detector' in (RES / 'data/minecraft/tags/item/enchantable/durability.json').read_text(encoding='utf-8')
 assert 'minecraft:amethyst_shard' in (RES / f'data/{NS}/tags/item/repairs_resonance_rod.json').read_text(encoding='utf-8')
 assert (RES / f'data/{NS}/structure/empty.nbt').is_file()
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))

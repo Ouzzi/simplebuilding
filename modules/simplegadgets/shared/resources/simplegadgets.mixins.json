@@ -5,14 +5,19 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "FireIgniteOddsInvoker",
-    "ArmorStandDropMixin"
+    "ArmorStandDropMixin",
+    "ItemEntityAccessor",
+    "ItemEntityHoverMixin",
+    "PlayerDeathDropsMixin",
+    "DeathDropMarkMixin"
   ],
   "client": [
     "client.GaugeKeyboardInputMixin",
     "client.RodCrosshairMixin",
     "client.RodSteadyViewMixin",
     "client.RodHandTiltMixin",
-    "client.EchoFovMixin"
+    "client.EchoFovMixin",
+    "client.DetectorGlintMixin"
   ],
   "server": [],
   "injectors": {

@@ -70,7 +70,9 @@ public final class PlacedTemplates {
      * Vorlagen, die sich ablegen lassen: jede {@link SmithingTemplateItem} (Netherit-Aufwertung, alle
      * Besatzvorlagen, die Besatz-Aufwertungen der Mod, Vorlagen anderer Mods), die beiden
      * Aufwertungsvorlagen der Mod, die schlichte Items sind, der Attractor ({@link PlacedAttractors}:
-     * abgelegt zieht er lose Items an) und der kalibrierte Detector ({@link PlacedDetectors}).
+     * abgelegt zieht er lose Items an) und der kalibrierte Detector ({@link PlacedDetectors}). Auf 26.3 (OW24-2 G3) sind
+     * Attractor und Detector Simple Gadgets'; welche ihrer Stapel sich ablegen, sagt das Modul ueber SimpleLib PlacedGadgets
+     * ({@link LibServices#placeableGadget}).
      */
     public static boolean isPlaceableTemplate(ItemStack stack) {
         Item item = stack.getItem();
@@ -81,7 +83,8 @@ public final class PlacedTemplates {
                 || item == ModItems.ENDERITE_UPGRADE_TEMPLATE || item == ModItems.BASIC_UPGRADE_TEMPLATE
                 || item == ModItems.MAGNET
                 // Kalibrierter Detector (PlacedDetectors: abgelegt sucht er weiter nach seinem Zielblock).
-                || com.simplebuilding.items.custom.OreDetectorItem.isArmed(stack));
+                || com.simplebuilding.items.custom.OreDetectorItem.isArmed(stack)
+                || !McVersion.GADGETS_IN_SB && LibServices.placeableGadget(stack));
     }
 
     /**
@@ -201,7 +204,8 @@ public final class PlacedTemplates {
      * sich mit einfachem Rechtsklick ab (Besitzer 2026-09-29).
      */
     public static boolean isPlaceGesture(Player player, ItemStack stack, Level level) {
-        if (PlacedAttractors.isAttractor(stack) && com.simplebuilding.items.custom.MagnetItem.canFilter(stack, level)) {
+        if (PlacedAttractors.isAttractor(stack) && com.simplebuilding.items.custom.MagnetItem.canFilter(stack, level)
+                || !McVersion.GADGETS_IN_SB && LibServices.gadgetPlacesOnPlainClick(stack, level)) {
             return !player.isSecondaryUseActive();
         }
         return player.isSecondaryUseActive();

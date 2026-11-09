@@ -38,7 +38,8 @@ T_GADGETS = os.path.join(HERE, '..', '..', 'modules', 'simplegadgets', 'shared',
 
 
 def target(name):
-    return T_GADGETS if name.startswith('echo_sounder') else T
+    # b-gadg14 (G3): the Detector and the Attractor moved to the module as well.
+    return T_GADGETS if name.startswith(('echo_sounder', 'detector', 'magnet')) else T
 
 
 def save(image, name):

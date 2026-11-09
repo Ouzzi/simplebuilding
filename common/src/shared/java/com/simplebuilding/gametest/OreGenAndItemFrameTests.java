@@ -760,6 +760,7 @@ public final class OreGenAndItemFrameTests {
      * {@code MagnetFilter} key drift apart.
      */
     public static void constructorsTouchMagnetTakesItsFilterFromTheFramedItem(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         ServerPlayer player = creativePlayer(helper);
         ItemFrame frame = frameWithItem(helper, FRAME_POS);
 

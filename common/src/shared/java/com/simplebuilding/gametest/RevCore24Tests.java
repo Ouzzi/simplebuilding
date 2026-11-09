@@ -109,6 +109,7 @@ public final class RevCore24Tests {
      */
     @SuppressWarnings("removal")
     public static void heldAttractorMarksMovingItemsForSyncAndLeavesRestingOnesAlone(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         Vec3 spot = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));

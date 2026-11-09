@@ -2,10 +2,6 @@
   "replace": false,
   "values": [
     {
-      "id": "simplemoney:links/simplebuilding/magnet",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuildingtools/iron_building_wand",
       "required": false
     },
@@ -19,6 +15,10 @@
     },
     {
       "id": "simplemoney:links/simplegadgets/amethyst_lens",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplegadgets/magnet",
       "required": false
     },
     {

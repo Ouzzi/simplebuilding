@@ -2902,7 +2902,7 @@ public final class DataIntegrityTests {
                     java.util.stream.Stream.of(ModItems.LEVITATING_SAND)).toList());
         }
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
-                ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"),
+                com.simplebuilding.util.GadgetRefs.detector(), ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"),
                 ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.BuildingToolRefs.blueprint(),
                 com.simplebuilding.util.BuildingToolRefs.octant(), com.simplebuilding.util.BuildingToolRefs.wand("enderite")));
         if (!com.simplebuilding.version.McVersion.BTOOLS_IN_SB) { // b-btools07: the tools stand in Simple Building Tools' own tab on 26.3
@@ -3730,7 +3730,7 @@ public final class DataIntegrityTests {
         // genau neun; die 16 gefaerbten Oktanten laufen ueber zwei Zeilen.
         expected.add(CreativeTabLayout.Row.of("gadgets",
                 Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.util.GadgetRefs.echo(),
-                com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.rod(),
+                com.simplebuilding.util.GadgetRefs.gauge(), com.simplebuilding.util.GadgetRefs.detector(), com.simplebuilding.util.GadgetRefs.magnet(), com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.rod(),
                 com.simplebuilding.util.BuildingToolRefs.octant()));
         List<ItemStack> colored = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
@@ -4005,7 +4005,7 @@ public final class DataIntegrityTests {
         List<Item> present = List.of(ModItems.ENDERITE_CHISEL, com.simplebuilding.util.BuildingToolRefs.wand("enderite"), com.simplebuilding.util.HammerRefs.item("enderite"),
                 com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), com.simplebuilding.util.StorageRefs.backpack("enderite"), ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
-                com.simplebuilding.util.BuildingToolRefs.octant(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.gauge(),
+                com.simplebuilding.util.BuildingToolRefs.octant(), com.simplebuilding.util.GadgetRefs.detector(), com.simplebuilding.util.GadgetRefs.magnet(), com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.gauge(),
                 Items.STICK);
         for (Item item : present) {
             if (!byItem.containsKey(item)) {
@@ -4355,7 +4355,7 @@ public final class DataIntegrityTests {
         }
         if (McVersion.GADGET_REWORK) {
             for (String texture : List.of("amethyst_lens", "amethyst_lens_active", "rotator", "rotator_active", "magnet")) {
-                String owner = texture.equals("magnet") ? MOD_ID : gadgets;
+                String owner = texture.equals("magnet") && McVersion.GADGETS_IN_SB ? MOD_ID : gadgets; // 26.3: the Attractor is Simple Gadgets' (G3)
                 int[] size = pngSize("assets/" + owner + "/textures/item/" + texture + ".png");
                 helper.assertTrue(size[0] == 16 && size[1] % 16 == 0 && size[1] > 16, texture + ".png is no animation strip: " + size[0] + "x" + size[1]);
                 JsonObject meta = shippedJson("assets/" + owner + "/textures/item/" + texture + ".png.mcmeta", json -> true);

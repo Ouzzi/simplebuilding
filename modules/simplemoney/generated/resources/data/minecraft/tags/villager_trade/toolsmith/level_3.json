@@ -10,10 +10,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/detector",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuildingtools/gold_building_wand",
       "required": false
     },
@@ -87,6 +83,10 @@
     },
     {
       "id": "simplemoney:links/simplechisels/gold_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplegadgets/detector",
       "required": false
     },
     {

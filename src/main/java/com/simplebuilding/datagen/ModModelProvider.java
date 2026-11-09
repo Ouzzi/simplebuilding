@@ -878,8 +878,10 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- CORES & MISC ---
         if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) generateGauge(itemModelGenerator); // 26.3: Simple Gadgets ships the models
-        generateOreDetector(itemModelGenerator);
-        itemModelGenerator.generateFlatItem(ModItems.MAGNET, ModelTemplates.FLAT_ITEM);
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) { // 26.3: Simple Gadgets ships the models (G3)
+            generateOreDetector(itemModelGenerator);
+            itemModelGenerator.generateFlatItem(ModItems.MAGNET, ModelTemplates.FLAT_ITEM);
+        }
         if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) generateRotator(itemModelGenerator); // 26.3: Simple Gadgets ships the models
 
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) { // 26.3: the cores are SimpleLib's (IG31-13)

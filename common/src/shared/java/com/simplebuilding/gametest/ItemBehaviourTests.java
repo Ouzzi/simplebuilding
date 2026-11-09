@@ -285,6 +285,7 @@ public final class ItemBehaviourTests {
      * aimed at.
      */
     public static void oreDetectorCyclesModesAndLearnsACustomBlock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Detector on 26.3
         ServerPlayer player = mockPlayer(helper);
         ItemStack detector = new ItemStack(ModItems.ORE_DETECTOR);
         player.setItemInHand(InteractionHand.MAIN_HAND, detector);

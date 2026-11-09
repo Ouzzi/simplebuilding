@@ -126,6 +126,11 @@ final class ToolClaimTests {
             yes(h,actor.position().equals(before)==(actor==other),"Actual pad ticker checks source claim before teleporting");
         }
     });h.succeed();}
+    /** The Attractor's filter: Simple Gadgets' on 26.3 (b-gadg14, OW24-2 G3), SimpleBuilding's on 26.2. */
+    private static Class<?> attractorFilter() throws ClassNotFoundException {
+        try {return Class.forName("com.simplegadgets.attractor.AttractorFilter");}
+        catch(ClassNotFoundException e){return Class.forName("com.simplebuilding.util.AttractorFilter");}
+    }
     /** The held attractor (magnet) must not pull items off land the holder may not touch (13.10.: claims on by default). */
     static void heldAttractor(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims tools heldAttractor"))return;with(h,c->{
         var l=h.getLevel();var inside=boundary(h);var owner=player(h,inside.west(4));var stranger=player(h,inside.west(4));
@@ -133,7 +138,7 @@ final class ToolClaimTests {
         var claimed=new ItemEntity(l,inside.getX()+4.5,inside.getY()+1,inside.getZ()+.5,new ItemStack(Items.APPLE));
         var wild=new ItemEntity(l,inside.getX()-4.5,inside.getY()+1,inside.getZ()+.5,new ItemStack(Items.APPLE));
         try {
-            var may=Class.forName("com.simplebuilding.util.AttractorFilter").getMethod("mayAttract",ItemEntity.class,net.minecraft.world.entity.player.Player.class);
+            var may=attractorFilter().getMethod("mayAttract",ItemEntity.class,net.minecraft.world.entity.player.Player.class);
             yes(h,!(boolean)may.invoke(null,claimed,stranger),"Stranger's attractor leaves items on foreign land");
             yes(h,(boolean)may.invoke(null,wild,stranger),"Stranger's attractor still pulls wilderness items");
             yes(h,(boolean)may.invoke(null,claimed,owner),"Owner's attractor pulls items on own land");

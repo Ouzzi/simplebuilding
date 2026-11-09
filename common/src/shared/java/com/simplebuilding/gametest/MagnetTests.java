@@ -204,6 +204,7 @@ public final class MagnetTests {
      * branch leaves every case in here green.
      */
     public static void magnetOnlyRunsForPlayersHoldingItAndStopsWhileSneaking(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         ItemEntity target = helper.spawnItem(Items.DIAMOND, NEAR_SPOT);
@@ -299,6 +300,7 @@ public final class MagnetTests {
      * Minecraft update stops ticking equipment stacks, which is the half this test exists to watch.
      */
     public static void magnetInTheOffHandDragsLooseItemsIntoTheInventory(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         fillFloor(helper, Blocks.STONE);
 
         ServerPlayer player = mockPlayer(helper);
@@ -370,6 +372,7 @@ public final class MagnetTests {
      * {@code setPickUpDelay(0)}.
      */
     public static void magnetPullFollowsTheAccelerationAndBrakingCurve(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         ItemStack magnet = new ItemStack(ModItems.MAGNET);
@@ -514,6 +517,7 @@ public final class MagnetTests {
      * moving, and Range no longer being allowed on the Attractor at an anvil.
      */
     public static void magnetReachIsFourBlocksAndRangeWidensItUpToItsCap(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
 
@@ -602,6 +606,7 @@ public final class MagnetTests {
      * it, since its sneak click is taken by the filter.
      */
     public static void theFilterNeedsConstructorsTouchAndIsSetLikeTheDetector(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         ItemEntity diamond = helper.spawnItem(Items.DIAMOND, NEAR_SPOT);
@@ -728,6 +733,7 @@ public final class MagnetTests {
      * {@code isEmpty} half only turns the sixth, characterizing round red.
      */
     public static void magnetFilterMatchesTheFullRegistryIdAndNothingElse(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         ItemStack magnet = new ItemStack(ModItems.MAGNET);
@@ -790,6 +796,7 @@ public final class MagnetTests {
      * the only place a player can see what their magnet is set to.
      */
     public static void sneakRightClickClearsTheFilterAndTheTooltipFollows(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         ItemStack magnet = new ItemStack(ModItems.MAGNET);
@@ -880,6 +887,7 @@ public final class MagnetTests {
      * load at all.
      */
     public static void theMagnetRecipeStillCraftsFromItsDocumentedPattern(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G3: Simple Gadgets tests the Attractor on 26.3
         ServerLevel level = helper.getLevel();
 
         // " R " / "I L" / "CI " with R=redstone, I=iron ingot, C=iron core, L=lapis lazuli (owner's recipe

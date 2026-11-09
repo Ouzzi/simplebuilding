@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:tweaks/root",
+  "criteria": {
+    "magnet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplegadgets:magnet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.gadgets.attractive_personality.description"
+    },
+    "icon": {
+      "id": "simplegadgets:magnet"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.gadgets.attractive_personality.title"
+    }
+  },
+  "requirements": [
+    [
+      "magnet"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

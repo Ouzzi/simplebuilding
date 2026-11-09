@@ -31,7 +31,8 @@ sys.argv = [sys.argv[0], V]
 import proposals_v3_2026_10_02 as v3  # noqa: E402
 import proposals_v5_2026_10_02 as v5  # noqa: E402
 
-T = os.path.join(HERE, '..', '..', 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding', 'textures', 'item')
+# b-gadg14 (OW24-2 G3): the Detector is Simple Gadgets' on 26.3 - its textures live in the module.
+T = os.path.join(HERE, '..', '..', 'modules', 'simplegadgets', 'shared', 'resources', 'assets', 'simplegadgets', 'textures', 'item')
 JAVA = os.path.join(HERE, '..', '..', 'common', 'src', 'shared', 'java', 'com', 'simplebuilding', 'client', 'render',
                     'OreDetectorNeedlePath.java')
 # OreDetectorGlint: 150 ms per step, head + two fading tail pixels, four steps pause

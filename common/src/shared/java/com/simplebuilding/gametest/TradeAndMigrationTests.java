@@ -1432,7 +1432,7 @@ public final class TradeAndMigrationTests {
         renamed.put("velocity-gauge", com.simplebuilding.util.GadgetRefs.gauge()); // 26.3: chains on to simplegadgets:velocity_gauge
         renamed.put("echo_compass", com.simplebuilding.util.GadgetRefs.echo()); // 26.3: chains on to simplegadgets:echo_sounder
         renamed.put("laser_pointer", com.simplebuilding.util.GadgetRefs.rod());
-        renamed.put("ore_detector", ModItems.ORE_DETECTOR);
+        renamed.put("ore_detector", com.simplebuilding.util.GadgetRefs.detector()); // 26.3: chains on to simplegadgets:detector
         {
             // Owner 2026-10-11: the vanilla guide shelf is gone; old vanilla books become the general guide.
             renamed.put("guide_book_vanilla_start", ModItems.GUIDE_BOOK);
