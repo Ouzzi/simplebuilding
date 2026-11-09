@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -463,6 +464,17 @@ def split_point(words: list[str]) -> int:
     return half
 
 
+def dedupe_sentences(text: str) -> str:
+    """Drop a long sentence that already appeared earlier (merged command texts repeat the same config note)."""
+    seen, out = set(), []
+    for sentence in re.split(r"(?<=\.)\s+", text):
+        if len(sentence) >= 40 and sentence in seen:
+            continue
+        seen.add(sentence)
+        out.append(sentence)
+    return " ".join(out)
+
+
 def build_pages(cfg: dict) -> list[tuple[tuple[str, str], tuple[str, str]]]:
     """[((title_en, body_en), (title_de, body_de)), ...]"""
     manual = json.loads((REPO / "modules" / cfg["module"] / "wiki/manual.json").read_text(encoding="utf-8"))
@@ -475,7 +487,7 @@ def build_pages(cfg: dict) -> list[tuple[tuple[str, str], tuple[str, str]]]:
         cmds = [f for f in features if f["id"] == "commands"]
         if len(cmds) > 1:
             first = cmds[0]
-            merged = {"id": "commands", **{k: {"title": first[k]["title"], "summary": " ".join(c[k]["summary"] for c in cmds)} for k in ("en", "de")}}
+            merged = {"id": "commands", **{k: {"title": first[k]["title"], "summary": dedupe_sentences(" ".join(c[k]["summary"] for c in cmds))} for k in ("en", "de")}}
             features = [merged if f is first else f for f in features if f is first or f["id"] != "commands"]
     entries = [((cfg["author"], cfg["intro"][0]), (cfg["author"], cfg["intro"][1]))]
     has_config = False
