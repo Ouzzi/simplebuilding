@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#9d94acff", "#5c4584ff", "#543b81ff", "#66508eff", "#6a568cff", "#82749bff", "#8676a4ff", "#d4c6e9ff", "#a69cbbff", "#d1cfcfff", "#c1c1c1ff", "#c2aee4ff", "#e6e6e6ff", "#9587aeff", "#79659cff", "#f2d3fcff", "#dcdcdcff", "#d6d6d6ff", "#b9b9b9ff", "#ecececff", "#f2f2f2ff", "#8c829fff"],
+  "palette": ["#9d94acff", "#5c4584ff", "#543b81ff", "#66508eff", "#6a568cff", "#82749bff", "#8676a4ff", "#d4c6e9ff", "#a69cbbff", "#d1cfcfff", "#c1c1c1ff", "#c2aee4ff", "#e6e6e6ff", "#9587aeff", "#79659cff", "#f2d3fcff", "#dcdcdcff", "#d6d6d6ff", "#b9b9b9ff", "#ecececff", "#f2f2f2ff", "#8c829fff", "#a59cb4ff", "#9f88c7ff", "#9e85cbff", "#a08ac8ff", "#a08cc2ff", "#a294bbff", "#a393c1ff", "#d0ceceff", "#d3d3d3ff", "#a597beff", "#a38fc6ff", "#e3c4edff", "#d1d1d1ff", "#d0d0d0ff", "#d4d4d4ff", "#d5d5d5ff", "#a298b5ff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00000102020304050000020105000004",
@@ -23,6 +23,24 @@
       "0e090903070f0713130c0c070e020604",
       "000d0d0a060b0a0a0a0a0a060e060a05",
       "001502050502011515150115150e1515"
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "1616171818191a1b161618171b16161a",
+      "161c18....1d1d1d1d............18",
+      "1a18..1c1e1e1f2020181c1c....2120",
+      "1b1c..22221f19191819..23......17",
+      "16..21..192019241d..21........16",
+      "16....1c1e1c..1e1e....1e1e191c16",
+      "18..22..19..21..221f..2323232017",
+      "1a1d251c..1d..1d19201c1f1e1e..18",
+      "16..1e....1e1e1e1c..1e1e1e1e..17",
+      "1a..221f1922222222......2323..26",
+      "1b1d2525201f2524241f241f1e1e..16",
+      "16181e1e1e1e1e..191e1c..1e192017",
+      "2620182222..1f..1f19..21..18..1a",
+      "201d1d19..21..24241e1e..20181c1a",
+      "161f1f..1c............1c201c..1b",
+      "1626181b1b1817262626172626202626"
     ]}
   ]
 }
