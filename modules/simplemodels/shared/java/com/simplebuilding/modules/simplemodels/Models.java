@@ -15,7 +15,7 @@ public final class Models {
     public static Consumer<ServerPlayer> send = player -> {};
     public static Path root = Path.of("config", "simplemodels");
     public static void reload() {
-        try { server = ModelCatalogue.load(root); }
+        try { server = ModelExamples.merge(ModelCatalogue.load(root)); }
         catch (Exception e) { var policy = new ModelPolicy(); policy.enabled = false; server = new ModelCatalogue.Snapshot(policy, List.of());
             org.slf4j.LoggerFactory.getLogger("simplemodels").error("Model catalogue disabled: {}", e.getMessage()); }
     }

@@ -1,0 +1,12 @@
+{
+  "id": "simplemodels:table_lantern",
+  "base_item": "minecraft:lantern",
+  "match_name": "Table Lantern",
+  "model": "simplemodels:example/table_lantern",
+  "tags": [
+    "light",
+    "decor",
+    "example"
+  ],
+  "author": "Simple Models"
+}

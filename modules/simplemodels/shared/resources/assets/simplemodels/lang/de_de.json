@@ -28,6 +28,8 @@
   "text.autoconfig.simplemodels.option.maxModels.@Tooltip": "Freigegebene Definitionen, begrenzt auf 1–64\nund 24.000 serialisierte Zeichen.\nStandard: 64.",
   "text.autoconfig.simplemodels.option.maxFileBytes": "Definitionsgröße",
   "text.autoconfig.simplemodels.option.maxFileBytes.@Tooltip": "JSON-Definitionsbytes, begrenzt auf\n256–16384. Ungültige, zu tief verschachtelte\noder übergroße Dateien werden verworfen.\nStandard: 16384.",
+  "text.autoconfig.simplemodels.option.builtinExamples": "Eingebaute Beispiele",
+  "text.autoconfig.simplemodels.option.builtinExamples.@Tooltip": "Die sechs mitgelieferten Beispielmodelle\nanbieten (Hocker, Laterne, Briefkasten ...).\nStandard: true.",
   "simplemodels.browser.folder": "Importordner öffnen",
   "simplemodels.browser.reload": "Katalog laden",
   "simplemodels.browser.filter": "Item",

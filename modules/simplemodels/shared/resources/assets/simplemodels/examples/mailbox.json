@@ -1,0 +1,12 @@
+{
+  "id": "simplemodels:mailbox",
+  "base_item": "minecraft:barrel",
+  "match_name": "Mailbox",
+  "model": "simplemodels:example/mailbox",
+  "tags": [
+    "decor",
+    "wood",
+    "example"
+  ],
+  "author": "Simple Models"
+}

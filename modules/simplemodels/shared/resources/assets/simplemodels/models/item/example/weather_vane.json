@@ -1,0 +1,271 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "minecraft:block/cut_copper",
+    "rod": "minecraft:block/cut_copper",
+    "vane": "minecraft:block/exposed_copper"
+  },
+  "elements": [
+    {
+      "name": "base",
+      "from": [
+        6,
+        0,
+        6
+      ],
+      "to": [
+        10,
+        1,
+        10
+      ],
+      "faces": {
+        "down": {
+          "texture": "#rod"
+        },
+        "up": {
+          "texture": "#rod"
+        },
+        "north": {
+          "texture": "#rod"
+        },
+        "south": {
+          "texture": "#rod"
+        },
+        "west": {
+          "texture": "#rod"
+        },
+        "east": {
+          "texture": "#rod"
+        }
+      }
+    },
+    {
+      "name": "pole",
+      "from": [
+        7.5,
+        1,
+        7.5
+      ],
+      "to": [
+        8.5,
+        14,
+        8.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#rod"
+        },
+        "up": {
+          "texture": "#rod"
+        },
+        "north": {
+          "texture": "#rod"
+        },
+        "south": {
+          "texture": "#rod"
+        },
+        "west": {
+          "texture": "#rod"
+        },
+        "east": {
+          "texture": "#rod"
+        }
+      }
+    },
+    {
+      "name": "arm_x",
+      "from": [
+        5,
+        10,
+        7.75
+      ],
+      "to": [
+        11,
+        10.5,
+        8.25
+      ],
+      "faces": {
+        "down": {
+          "texture": "#rod"
+        },
+        "up": {
+          "texture": "#rod"
+        },
+        "north": {
+          "texture": "#rod"
+        },
+        "south": {
+          "texture": "#rod"
+        },
+        "west": {
+          "texture": "#rod"
+        },
+        "east": {
+          "texture": "#rod"
+        }
+      }
+    },
+    {
+      "name": "arm_z",
+      "from": [
+        7.75,
+        10,
+        5
+      ],
+      "to": [
+        8.25,
+        10.5,
+        11
+      ],
+      "faces": {
+        "down": {
+          "texture": "#rod"
+        },
+        "up": {
+          "texture": "#rod"
+        },
+        "north": {
+          "texture": "#rod"
+        },
+        "south": {
+          "texture": "#rod"
+        },
+        "west": {
+          "texture": "#rod"
+        },
+        "east": {
+          "texture": "#rod"
+        }
+      }
+    },
+    {
+      "name": "shaft",
+      "from": [
+        3,
+        14,
+        7.75
+      ],
+      "to": [
+        13,
+        14.5,
+        8.25
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          14,
+          8
+        ],
+        "x": 0,
+        "y": 30,
+        "z": 10
+      },
+      "faces": {
+        "down": {
+          "texture": "#vane"
+        },
+        "up": {
+          "texture": "#vane"
+        },
+        "north": {
+          "texture": "#vane"
+        },
+        "south": {
+          "texture": "#vane"
+        },
+        "west": {
+          "texture": "#vane"
+        },
+        "east": {
+          "texture": "#vane"
+        }
+      }
+    },
+    {
+      "name": "tail",
+      "from": [
+        2,
+        13,
+        7.9
+      ],
+      "to": [
+        5,
+        16,
+        8.1
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          14,
+          8
+        ],
+        "x": 0,
+        "y": 30,
+        "z": 10
+      },
+      "faces": {
+        "down": {
+          "texture": "#vane"
+        },
+        "up": {
+          "texture": "#vane"
+        },
+        "north": {
+          "texture": "#vane"
+        },
+        "south": {
+          "texture": "#vane"
+        },
+        "west": {
+          "texture": "#vane"
+        },
+        "east": {
+          "texture": "#vane"
+        }
+      }
+    },
+    {
+      "name": "head",
+      "from": [
+        12,
+        13.5,
+        7.75
+      ],
+      "to": [
+        14,
+        15,
+        8.25
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          14,
+          8
+        ],
+        "x": 0,
+        "y": 30,
+        "z": 10
+      },
+      "faces": {
+        "down": {
+          "texture": "#vane"
+        },
+        "up": {
+          "texture": "#vane"
+        },
+        "north": {
+          "texture": "#vane"
+        },
+        "south": {
+          "texture": "#vane"
+        },
+        "west": {
+          "texture": "#vane"
+        },
+        "east": {
+          "texture": "#vane"
+        }
+      }
+    }
+  ]
+}

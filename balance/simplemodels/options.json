@@ -9,6 +9,7 @@
     {"path":"legacyNameMatching","default":false,"tab":"policy","nameKey":"text.autoconfig.simplemodels.option.legacyNameMatching","tooltipKey":"text.autoconfig.simplemodels.option.legacyNameMatching.@Tooltip","maximum":null},
     {"path":"levelCost","default":1,"minimum":1,"maximum":10,"tab":"policy","nameKey":"text.autoconfig.simplemodels.option.levelCost","tooltipKey":"text.autoconfig.simplemodels.option.levelCost.@Tooltip"},
     {"path":"maxModels","default":64,"minimum":1,"maximum":64,"tab":"policy","nameKey":"text.autoconfig.simplemodels.option.maxModels","tooltipKey":"text.autoconfig.simplemodels.option.maxModels.@Tooltip"},
-    {"path":"maxFileBytes","default":16384,"minimum":256,"maximum":16384,"tab":"policy","nameKey":"text.autoconfig.simplemodels.option.maxFileBytes","tooltipKey":"text.autoconfig.simplemodels.option.maxFileBytes.@Tooltip"}
+    {"path":"maxFileBytes","default":16384,"minimum":256,"maximum":16384,"tab":"policy","nameKey":"text.autoconfig.simplemodels.option.maxFileBytes","tooltipKey":"text.autoconfig.simplemodels.option.maxFileBytes.@Tooltip"},
+    {"path":"builtinExamples","default":true,"tab":"policy","nameKey":"text.autoconfig.simplemodels.option.builtinExamples","tooltipKey":"text.autoconfig.simplemodels.option.builtinExamples.@Tooltip","maximum":null}
   ]
 }

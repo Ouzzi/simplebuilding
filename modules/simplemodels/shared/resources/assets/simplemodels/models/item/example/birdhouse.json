@@ -1,0 +1,228 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "minecraft:block/oak_planks",
+    "pole": "minecraft:block/oak_log",
+    "wall": "minecraft:block/oak_planks",
+    "roof": "minecraft:block/spruce_planks",
+    "hole": "minecraft:block/black_concrete"
+  },
+  "elements": [
+    {
+      "name": "pole",
+      "from": [
+        7,
+        0,
+        7
+      ],
+      "to": [
+        9,
+        6,
+        9
+      ],
+      "faces": {
+        "down": {
+          "texture": "#pole"
+        },
+        "up": {
+          "texture": "#pole"
+        },
+        "north": {
+          "texture": "#pole"
+        },
+        "south": {
+          "texture": "#pole"
+        },
+        "west": {
+          "texture": "#pole"
+        },
+        "east": {
+          "texture": "#pole"
+        }
+      }
+    },
+    {
+      "name": "house",
+      "from": [
+        4,
+        6,
+        4
+      ],
+      "to": [
+        12,
+        13,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#wall"
+        },
+        "up": {
+          "texture": "#wall"
+        },
+        "north": {
+          "texture": "#wall"
+        },
+        "south": {
+          "texture": "#wall"
+        },
+        "west": {
+          "texture": "#wall"
+        },
+        "east": {
+          "texture": "#wall"
+        }
+      }
+    },
+    {
+      "name": "hole",
+      "from": [
+        7,
+        9,
+        12
+      ],
+      "to": [
+        9,
+        11,
+        12.25
+      ],
+      "faces": {
+        "down": {
+          "texture": "#hole"
+        },
+        "up": {
+          "texture": "#hole"
+        },
+        "north": {
+          "texture": "#hole"
+        },
+        "south": {
+          "texture": "#hole"
+        },
+        "west": {
+          "texture": "#hole"
+        },
+        "east": {
+          "texture": "#hole"
+        }
+      }
+    },
+    {
+      "name": "perch",
+      "from": [
+        7.5,
+        7.5,
+        12
+      ],
+      "to": [
+        8.5,
+        8.5,
+        14
+      ],
+      "faces": {
+        "down": {
+          "texture": "#pole"
+        },
+        "up": {
+          "texture": "#pole"
+        },
+        "north": {
+          "texture": "#pole"
+        },
+        "south": {
+          "texture": "#pole"
+        },
+        "west": {
+          "texture": "#pole"
+        },
+        "east": {
+          "texture": "#pole"
+        }
+      }
+    },
+    {
+      "name": "roof_left",
+      "from": [
+        2,
+        16,
+        3
+      ],
+      "to": [
+        8,
+        17,
+        13
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          17,
+          8
+        ],
+        "axis": "z",
+        "angle": 45
+      },
+      "faces": {
+        "down": {
+          "texture": "#roof"
+        },
+        "up": {
+          "texture": "#roof"
+        },
+        "north": {
+          "texture": "#roof"
+        },
+        "south": {
+          "texture": "#roof"
+        },
+        "west": {
+          "texture": "#roof"
+        },
+        "east": {
+          "texture": "#roof"
+        }
+      }
+    },
+    {
+      "name": "roof_right",
+      "from": [
+        8,
+        16,
+        3
+      ],
+      "to": [
+        14,
+        17,
+        13
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          17,
+          8
+        ],
+        "axis": "z",
+        "angle": -45
+      },
+      "faces": {
+        "down": {
+          "texture": "#roof"
+        },
+        "up": {
+          "texture": "#roof"
+        },
+        "north": {
+          "texture": "#roof"
+        },
+        "south": {
+          "texture": "#roof"
+        },
+        "west": {
+          "texture": "#roof"
+        },
+        "east": {
+          "texture": "#roof"
+        }
+      }
+    }
+  ]
+}

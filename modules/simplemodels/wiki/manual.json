@@ -40,6 +40,27 @@
       }
     },
     {
+      "id": "examples",
+      "title": {
+        "en": "Example Models",
+        "de": "Beispielmodelle"
+      },
+      "en": {
+        "summary": "Six example models come built in and need no resource pack: Stool (oak slab), Table Lantern (lantern), Mailbox (barrel), Birdhouse (oak fence), Weather Vane (lightning rod) and Crystal Cluster (amethyst cluster). Assign them at the anvil with @model:simplemodels:stool and so on. They only use vanilla block textures. A definition with the same id in config/simplemodels/catalog replaces the built-in one; the server option Built-in Examples turns them off."
+      },
+      "de": {
+        "summary": "Sechs Beispielmodelle sind eingebaut und brauchen kein Ressourcenpaket: Hocker (Eichenstufe), Tischlaterne (Laterne), Briefkasten (Fass), Vogelhaus (Eichenzaun), Wetterfahne (Blitzableiter) und Kristallgruppe (Amethysthaufen). Zuweisung am Amboss mit @model:simplemodels:stool usw. Sie nutzen nur Vanilla-Blocktexturen. Eine Definition mit gleicher ID in config/simplemodels/catalog ersetzt die eingebaute; die Serveroption Eingebaute Beispiele schaltet sie ab."
+      },
+      "sources": [
+        "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java",
+        "modules/simplemodels/shared/resources/assets/simplemodels/examples"
+      ],
+      "related": [
+        "import",
+        "config_builtinExamples"
+      ]
+    },
+    {
       "id": "security",
       "title": {
         "en": "Multiplayer Safety",
@@ -167,6 +188,19 @@
       },
       "de": {
         "summary": "JSON-Definitionsbytes, begrenzt auf 256–16384. Ungültige, zu tief verschachtelte oder übergroße Dateien werden verworfen. Standard: 16384."
+      }
+    },
+    {
+      "id": "config_builtinExamples",
+      "title": {
+        "en": "Built-in Examples",
+        "de": "Eingebaute Beispiele"
+      },
+      "en": {
+        "summary": "Offer the six example models shipped with Simple Models (stool, lantern, mailbox ...). Default: true."
+      },
+      "de": {
+        "summary": "Die sechs mitgelieferten Beispielmodelle anbieten (Hocker, Laterne, Briefkasten ...). Standard: true."
       }
     },
     {

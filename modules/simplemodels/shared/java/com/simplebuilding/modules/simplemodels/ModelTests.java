@@ -25,6 +25,7 @@ public final class ModelTests {
         ALL.put("normal_rename", ModelTests::normalRename); ALL.put("cross_mod", ModelTests::crossMod);
         ALL.put("legacy_names", ModelTests::legacyNames); ALL.put("config_and_lang", ModelTests::configAndLang);
         ALL.put("browser_query", ModelTests::browserQuery);
+        ALL.put("examples", ModelTests::examples);
     }
     public static ModelDefinition sample(String base) { return new ModelDefinition("renamed:tomato", base, "Tomato", "renamed:tomato", List.of("food", "red"), "Example"); }
     private static void fixture(String base, Runnable body) {
@@ -183,6 +184,45 @@ public final class ModelTests {
         h.assertTrue(ModelQuery.pages(0, 3) == 1 && ModelQuery.pages(3, 3) == 1 && ModelQuery.pages(7, 3) == 3, "Page count");
         h.assertTrue(ModelQuery.scroll(0, -1, 3) == 1 && ModelQuery.scroll(1, 1, 3) == 0, "Wheel down = next, up = previous");
         h.assertTrue(ModelQuery.scroll(0, 1, 3) == 0 && ModelQuery.scroll(2, -2.5, 3) == 2 && ModelQuery.scroll(1, 0, 3) == 1, "Wheel clamps at the ends");
+        h.succeed();
+    }
+    /** b-models12 stage 0: six built-in example models load, render data ships in the jar, each one assigns at the anvil. */
+    public static void examples(GameTestHelper h) {
+        var examples = ModelExamples.all();
+        h.assertTrue(examples.size() == 6 && examples.stream().map(ModelDefinition::id).distinct().count() == 6, "Six distinct built-in examples");
+        for (var d : examples) {
+            String name = Identifier.parse(d.id()).getPath();
+            h.assertTrue(d.base_item().startsWith("minecraft:") && d.model().equals("simplemodels:example/" + name), "Vanilla base item and own model id: " + name);
+            try {
+                var item = JsonParser.parseString(ModelExamples.resource("items/example/" + name + ".json")).getAsJsonObject();
+                h.assertTrue(item.getAsJsonObject("model").get("model").getAsString().equals("simplemodels:item/example/" + name), "Item definition points at the model: " + name);
+                var model = JsonParser.parseString(ModelExamples.resource("models/item/example/" + name + ".json")).getAsJsonObject();
+                for (var texture : model.getAsJsonObject("textures").entrySet())
+                    h.assertTrue(texture.getValue().getAsString().startsWith("minecraft:block/"), "Only vanilla texture references (A8): " + name);
+                for (var element : model.getAsJsonArray("elements"))
+                    for (String key : List.of("from", "to")) for (var v : element.getAsJsonObject().getAsJsonArray(key))
+                        h.assertTrue(v.getAsFloat() >= -16 && v.getAsFloat() <= 32, "Vanilla element bounds: " + name);
+            } catch (java.io.IOException e) { throw new AssertionError(e); }
+            var policy = new ModelPolicy(); policy.operatorsOnly = false;
+            var original = Models.server;
+            try {
+                Models.server = ModelExamples.merge(new ModelCatalogue.Snapshot(policy, List.of()));
+                var base = BuiltInRegistries.ITEM.getValue(Identifier.parse(d.base_item()));
+                var out = Models.assign(new ItemStack(base), Models.PREFIX + d.id(), false);
+                h.assertTrue(Identifier.parse(d.model()).equals(out.get(DataComponents.ITEM_MODEL)), "Anvil assigns example " + name);
+            } finally { Models.server = original; }
+        }
+        var policy = new ModelPolicy();
+        var tomato = sample("minecraft:apple");
+        var merged = ModelExamples.merge(new ModelCatalogue.Snapshot(policy, List.of(tomato)));
+        h.assertTrue(merged.models().size() == 7 && merged.models().getFirst().equals(tomato), "Folder entries first, examples appended");
+        var own = new ModelDefinition("simplemodels:stool", "minecraft:oak_slab", "My Stool", "renamed:stool", List.of(), "Me");
+        h.assertTrue(ModelExamples.merge(new ModelCatalogue.Snapshot(policy, List.of(own))).models().stream().filter(d -> d.id().equals("simplemodels:stool")).toList().equals(List.of(own)), "Folder entry with the same id wins");
+        policy.maxModels = 3;
+        h.assertTrue(ModelExamples.merge(new ModelCatalogue.Snapshot(policy, List.of(tomato))).models().size() == 3, "Catalog limit still caps");
+        var off = new ModelPolicy(); off.builtinExamples = false;
+        h.assertTrue(ModelExamples.merge(new ModelCatalogue.Snapshot(off, List.of(tomato))).models().equals(List.of(tomato)), "Switch off: no examples");
+        h.assertTrue(new Gson().toJson(merged).length() <= ModelCatalogue.MAX_SNAPSHOT_CHARS, "Examples fit the catalogue sync");
         h.succeed();
     }
     public static void anvilCostAndTake(GameTestHelper h) {

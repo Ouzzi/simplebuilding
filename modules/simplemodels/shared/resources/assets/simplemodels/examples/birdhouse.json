@@ -1,0 +1,13 @@
+{
+  "id": "simplemodels:birdhouse",
+  "base_item": "minecraft:oak_fence",
+  "match_name": "Birdhouse",
+  "model": "simplemodels:example/birdhouse",
+  "tags": [
+    "decor",
+    "wood",
+    "animal",
+    "example"
+  ],
+  "author": "Simple Models"
+}

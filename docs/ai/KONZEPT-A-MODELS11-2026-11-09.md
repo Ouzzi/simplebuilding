@@ -258,6 +258,9 @@ Ergebnis: **keine fremde Bibliothek nötig.** JOML (schon da) + SimpleLib (`UiCo
 
 ## 12. Offen beim Besitzer
 
-- `MODELS11: layout=A|B|C + Anmerkung` (Vorschau).
+- ~~`MODELS11: layout=A|B|C + Anmerkung` (Vorschau).~~ **Entschieden 09.11.: Layout A (Blockbench-klassisch)
+  plus Umschaltknopf „nur Code“** – blendet Würfel-Liste/Eigenschaften/UV aus und zeigt Code-Editor (`UiCodeArea`) und
+  Live-Vorschau nebeneinander (wie Bauplan, Variante C als zweiter Modus). Umsetzung Stufe 0+1: `b-models12`
+  (`docs/ai/PLAN-B-MODELS12-2026-11-09.md`), Optik des Code-Modus: Vorschau `b-models12-preview.html`, Antwort `MODELS12`.
 - Beispiele: welche 6 von 8 (Standard: 1–6).
 - Stufe 8 (Multiplayer-Teilen) überhaupt gewünscht?

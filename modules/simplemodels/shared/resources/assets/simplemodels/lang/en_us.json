@@ -28,6 +28,8 @@
   "text.autoconfig.simplemodels.option.maxModels.@Tooltip": "Approved definitions, capped at 1–64 and\n24,000 serialized characters. Default: 64.",
   "text.autoconfig.simplemodels.option.maxFileBytes": "Definition Size",
   "text.autoconfig.simplemodels.option.maxFileBytes.@Tooltip": "JSON definition bytes, capped at 256–16384.\nInvalid, nested, or oversized files are\nrejected. Default: 16384.",
+  "text.autoconfig.simplemodels.option.builtinExamples": "Built-in Examples",
+  "text.autoconfig.simplemodels.option.builtinExamples.@Tooltip": "Offer the six example models shipped with\nSimple Models (stool, lantern, mailbox ...).\nDefault: true.",
   "simplemodels.browser.folder": "Open Import Folder",
   "simplemodels.browser.reload": "Reload Catalog",
   "simplemodels.browser.filter": "Item",

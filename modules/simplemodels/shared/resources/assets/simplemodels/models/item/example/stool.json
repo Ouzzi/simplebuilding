@@ -1,0 +1,241 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "minecraft:block/oak_planks",
+    "seat": "minecraft:block/oak_planks",
+    "leg": "minecraft:block/stripped_oak_log"
+  },
+  "elements": [
+    {
+      "name": "seat",
+      "from": [
+        2,
+        10,
+        2
+      ],
+      "to": [
+        14,
+        12,
+        14
+      ],
+      "faces": {
+        "down": {
+          "texture": "#seat"
+        },
+        "up": {
+          "texture": "#seat"
+        },
+        "north": {
+          "texture": "#seat"
+        },
+        "south": {
+          "texture": "#seat"
+        },
+        "west": {
+          "texture": "#seat"
+        },
+        "east": {
+          "texture": "#seat"
+        }
+      }
+    },
+    {
+      "name": "leg_nw",
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        5,
+        10,
+        5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#leg"
+        },
+        "up": {
+          "texture": "#leg"
+        },
+        "north": {
+          "texture": "#leg"
+        },
+        "south": {
+          "texture": "#leg"
+        },
+        "west": {
+          "texture": "#leg"
+        },
+        "east": {
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "name": "leg_ne",
+      "from": [
+        11,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        10,
+        5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#leg"
+        },
+        "up": {
+          "texture": "#leg"
+        },
+        "north": {
+          "texture": "#leg"
+        },
+        "south": {
+          "texture": "#leg"
+        },
+        "west": {
+          "texture": "#leg"
+        },
+        "east": {
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "name": "leg_sw",
+      "from": [
+        3,
+        0,
+        11
+      ],
+      "to": [
+        5,
+        10,
+        13
+      ],
+      "faces": {
+        "down": {
+          "texture": "#leg"
+        },
+        "up": {
+          "texture": "#leg"
+        },
+        "north": {
+          "texture": "#leg"
+        },
+        "south": {
+          "texture": "#leg"
+        },
+        "west": {
+          "texture": "#leg"
+        },
+        "east": {
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "name": "leg_se",
+      "from": [
+        11,
+        0,
+        11
+      ],
+      "to": [
+        13,
+        10,
+        13
+      ],
+      "faces": {
+        "down": {
+          "texture": "#leg"
+        },
+        "up": {
+          "texture": "#leg"
+        },
+        "north": {
+          "texture": "#leg"
+        },
+        "south": {
+          "texture": "#leg"
+        },
+        "west": {
+          "texture": "#leg"
+        },
+        "east": {
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "name": "rung_n",
+      "from": [
+        5,
+        4,
+        3.5
+      ],
+      "to": [
+        11,
+        5,
+        4.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#leg"
+        },
+        "up": {
+          "texture": "#leg"
+        },
+        "north": {
+          "texture": "#leg"
+        },
+        "south": {
+          "texture": "#leg"
+        },
+        "west": {
+          "texture": "#leg"
+        },
+        "east": {
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "name": "rung_s",
+      "from": [
+        5,
+        4,
+        11.5
+      ],
+      "to": [
+        11,
+        5,
+        12.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#leg"
+        },
+        "up": {
+          "texture": "#leg"
+        },
+        "north": {
+          "texture": "#leg"
+        },
+        "south": {
+          "texture": "#leg"
+        },
+        "west": {
+          "texture": "#leg"
+        },
+        "east": {
+          "texture": "#leg"
+        }
+      }
+    }
+  ]
+}
