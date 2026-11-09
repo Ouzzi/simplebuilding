@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:cut_zinc",
+  "result": {
+    "count": 1,
+    "id": "simpleores:zinc_tiles"
+  }
+}

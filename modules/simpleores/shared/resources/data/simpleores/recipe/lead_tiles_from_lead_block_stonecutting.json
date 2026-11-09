@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:lead_block",
+  "result": {
+    "count": 4,
+    "id": "simpleores:lead_tiles"
+  }
+}

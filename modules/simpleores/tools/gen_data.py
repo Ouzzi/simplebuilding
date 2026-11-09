@@ -87,6 +87,20 @@ for m, (en, de, *_r) in METALS.items():
 for m, (en, de, *_r) in MIXES.items():
     BLOCKS[f'{m}_block'] = (f'Block of {en}', f'{de}block')
     ITEMS[f'{m}_ingot'] = (f'{en} Ingot', f'{de}barren')
+# N9 (b-metals14, owner 09.11., docs/ai/PLAN-B-METALS14-2026-11-09.md): the six metals are cosmetic only (no tools, no armor); each gets a
+# building family behind its storage block (OresRegistry.COSMETIC), own textures (tools/textures/metals14_2026_11_09.py, committed with layers).
+COSMETIC = {'silver': ('Silver', 'Silber'), 'lead': ('Lead', 'Blei'), 'zinc': ('Zinc', 'Zink'), 'nickel': ('Nickel', 'Nickel'), 'tin': ('Tin', 'Zinn'),
+            'brass': ('Brass', 'Messing')}
+FAMILY = {}   # block path -> (kind, metal)
+for m, (en, de) in COSMETIC.items():
+    for path, kind, names in ((f'cut_{m}', 'cube', (f'Cut {en}', f'Geschnittener {de}block')),
+                              (f'cut_{m}_stairs', 'stairs', (f'Cut {en} Stairs', f'Geschnittene {de}treppe')),
+                              (f'cut_{m}_slab', 'slab', (f'Cut {en} Slab', f'Geschnittene {de}stufe')),
+                              (f'{m}_tiles', 'cube', (f'{en} Tiles', f'{de}fliesen')),
+                              (f'{m}_pillar', 'pillar', (f'{en} Pillar', f'{de}säule')),
+                              (f'chiseled_{m}', 'cube', (f'Chiseled {en}', f'Gemeißelter {de}block'))):
+        BLOCKS[path] = names
+        FAMILY[path] = (kind, m)
 # IG31-58 (a-dims10, 08.11., docs/ai/PLAN-A-DIMS10-2026-11-08.md): the processing chain of the Dimensional Scrap, names set A.
 # dimension prefix -> (scrap, EN/DE prefix, rift metal, metal EN/DE, partner ingot, blast furnace seconds, experience)
 RIFTS = {'': ('dimensional_scrap', ('', ''), 'terranite', ('Terranite', 'Terranit'), 'enderite_ingot', 40, 2.0),
@@ -130,7 +144,7 @@ DIAMOND_NEW = ('netherite_scrap_block', 'enderite_scrap_block')   # like ancient
 
 # ---------------------------------------------------------------- assets
 for path in BLOCKS:
-    if path in ('silver_mirror', 'lead_plate', 'silver_sheet'):
+    if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY:
         continue
     put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
     put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
@@ -166,6 +180,56 @@ put(ASSETS / 'models/block/silver_sheet.json', {
                             'north': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'north'}, 'south': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'south'},
                             'west': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'west'}, 'east': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'east'}}}]})
 put(ASSETS / 'items/silver_sheet.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/silver_sheet'}})
+
+
+def stairs_state(name):
+    """Vanilla stairs blockstate (40 variants) for block/<name>, _inner, _outer."""
+    variants = {}
+    for facing, y0 in {'east': 0, 'south': 90, 'west': 180, 'north': 270}.items():
+        for half in ('bottom', 'top'):
+            for shape in ('straight', 'inner_left', 'inner_right', 'outer_left', 'outer_right'):
+                model = name + {'straight': '', 'inner_left': '_inner', 'inner_right': '_inner', 'outer_left': '_outer', 'outer_right': '_outer'}[shape]
+                y = y0 - (90 if shape.endswith('left') else 0)
+                x = 0
+                if half == 'top':
+                    x = 180
+                    y += 90 if shape != 'straight' else 0
+                y %= 360
+                entry = {'model': f'{NS}:block/{model}'}
+                if x or y:
+                    entry['uvlock'] = True
+                if x:
+                    entry['x'] = x
+                if y:
+                    entry['y'] = y
+                variants[f'facing={facing},half={half},shape={shape}'] = entry
+    return {'variants': dict(sorted(variants.items()))}
+
+
+# N9: the cosmetic families (cube, stairs/slab of the cut block, pillar like the quartz pillar).
+for path, (kind, m) in FAMILY.items():
+    tex = f'{NS}:block/{path}'
+    cut = f'{NS}:block/cut_{m}'
+    if kind == 'cube':
+        put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': tex}})
+        put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
+    elif kind == 'stairs':
+        for suffix, parent in (('', 'stairs'), ('_inner', 'inner_stairs'), ('_outer', 'outer_stairs')):
+            put(ASSETS / f'models/block/{path}{suffix}.json', {'parent': f'minecraft:block/{parent}', 'textures': {'bottom': cut, 'side': cut, 'top': cut}})
+        put(ASSETS / f'blockstates/{path}.json', stairs_state(path))
+    elif kind == 'slab':
+        for suffix, parent in (('', 'slab'), ('_top', 'slab_top')):
+            put(ASSETS / f'models/block/{path}{suffix}.json', {'parent': f'minecraft:block/{parent}', 'textures': {'bottom': cut, 'side': cut, 'top': cut}})
+        put(ASSETS / f'blockstates/{path}.json', {'variants': {'type=bottom': {'model': f'{NS}:block/{path}'}, 'type=double': {'model': cut},
+                                                               'type=top': {'model': f'{NS}:block/{path}_top'}}})
+    else:
+        textures = {'end': f'{tex}_top', 'side': tex}
+        put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_column', 'textures': textures})
+        put(ASSETS / f'models/block/{path}_horizontal.json', {'parent': 'minecraft:block/cube_column_horizontal', 'textures': textures})
+        put(ASSETS / f'blockstates/{path}.json', {'variants': {'axis=x': {'model': f'{NS}:block/{path}_horizontal', 'x': 90, 'y': 90},
+                                                               'axis=y': {'model': f'{NS}:block/{path}'},
+                                                               'axis=z': {'model': f'{NS}:block/{path}_horizontal', 'x': 90}}})
+    put(ASSETS / f'items/{path}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{path}'}})
 for path in ITEMS:
     handheld = path.rsplit('_', 1)[-1] in TOOL_PARTS
     put(ASSETS / f'models/item/{path}.json', {'parent': 'minecraft:item/handheld' if handheld else 'minecraft:item/generated',
@@ -209,6 +273,15 @@ ore_drop('nether_sage_ore', 'sage_crystal_shard', (1, 3))
 ore_drop('end_sage_ore', 'sage_crystal_shard', (1, 3))
 for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block', 'geode_crust') + tuple(NEW_BLOCKS) + tuple(f'raw_{m}_block' for m in METALS) + tuple(f'{m}_block' for m in list(METALS) + list(MIXES)) + tuple(RIFT_BLOCKS):
     self_drop(path)
+
+for path, (kind, _m) in FAMILY.items():
+    if kind != 'slab':
+        self_drop(path)
+        continue
+    # like the Vanilla slabs: two from a double slab
+    block_loot(path, [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{path}', 'modifier': [
+        {'type': 'minecraft:set_count', 'condition': {'type': 'minecraft:match_block', 'blocks': f'{NS}:{path}', 'state': {'type': 'double'}}, 'count': 2},
+        {'type': 'minecraft:explosion_decay'}]}]}])
 
 # ---------------------------------------------------------------- recipes (+ advancements)
 RECIPES = {}   # name -> (folder, recipe dict, trigger item)
@@ -357,6 +430,32 @@ for d, (scrap, _p, metal, _m, partner, seconds, xp) in RIFTS.items():
            'ingredients': [item(f'{d}rift_shard')] * 4 + [item(partner)], 'result': result(f'{metal}_ingot')}, item(f'{d}rift_shard'))
     storage(f'{metal}_ingot', f'{metal}_block')
 
+# N9: the cosmetic families, Vanilla cut copper / quartz pillar numbers (workbench and stonecutter).
+def shaped(name, pattern, key, out, count, trigger):
+    recipe(name, 'building_blocks', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': item(key)}, 'pattern': pattern,
+                                     'result': result(out, count)}, item(trigger))
+
+
+def cutting(source, out, count):
+    recipe(f'{out}_from_{source}_stonecutting', 'building_blocks', {'type': 'minecraft:stonecutting', 'ingredient': item(source),
+                                                                     'result': {'count': count, 'id': item(out)}}, item(source))
+
+
+STONECUTTING = {}   # (source, out) -> count, for tests and wiki
+for m in COSMETIC:
+    block_, cut = f'{m}_block', f'cut_{m}'
+    shaped(cut, ['##', '##'], block_, cut, 4, block_)
+    shaped(f'{cut}_stairs', ['#  ', '## ', '###'], cut, f'{cut}_stairs', 4, cut)
+    shaped(f'{cut}_slab', ['###'], cut, f'{cut}_slab', 6, cut)
+    shaped(f'{m}_tiles', ['##', '##'], cut, f'{m}_tiles', 4, cut)
+    shaped(f'{m}_pillar', ['#', '#'], block_, f'{m}_pillar', 2, block_)
+    shaped(f'chiseled_{m}', ['#', '#'], f'{cut}_slab', f'chiseled_{m}', 1, f'{cut}_slab')
+    for source, out, count in ((block_, cut, 4), (block_, f'{cut}_stairs', 4), (block_, f'{cut}_slab', 8), (block_, f'{m}_tiles', 4),
+                               (block_, f'{m}_pillar', 1), (block_, f'chiseled_{m}', 4), (cut, f'{cut}_stairs', 1), (cut, f'{cut}_slab', 2),
+                               (cut, f'{m}_tiles', 1), (cut, f'chiseled_{m}', 1)):
+        cutting(source, out, count)
+        STONECUTTING[(source, out)] = count
+
 SHAPES = {
     'sword': (['X', 'X', 'S'], 'combat'), 'pickaxe': (['XXX', ' S ', ' S '], 'tools'), 'axe': (['XX', 'XS', ' S'], 'tools'),
     'shovel': (['X', 'S', 'S'], 'tools'), 'hoe': (['XX', ' S', ' S'], 'tools'), 'helmet': (['XXX', 'X X'], 'combat'),
@@ -474,11 +573,17 @@ for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/storage_blocks.json', ['#c:storage_blocks/enderite'])
 tag('minecraft/tags/block/needs_stone_tool.json', ids(STONE_TIER))
 # Lead keeps the Sculk and the Warden from hearing through it like wool, but is NOT in dampens_vibrations: steps and mining on it stay loud.
-tag('minecraft/tags/block/occludes_vibration_signals.json', ids(['lead_block']) + [{'id': 'simpleoctets:lead_block_octet', 'required': False}])
 # Whole blocks of lead count 1; the lead octets of Simple Octets (optional, only with that mod) count a whole block too, however little they fill
 # (owner ORES31-BEXTRA, like the wool logic: the cell is what counts). The plate counts half.
-tag(f'{NS}/tags/block/soundproofing.json', ids(['lead_block']) + [{'id': 'simpleoctets:lead_block_octet', 'required': False}])
-tag(f'{NS}/tags/block/soundproofing_half.json', ids(['lead_plate']))
+# N9: the cosmetic lead family is lead too: its full cubes count like the block (and stop vibrations like it), stairs and slab half.
+LEAD_CUBES = [p for p, (k, m) in FAMILY.items() if m == 'lead' and k in ('cube', 'pillar')]
+LEAD_PARTS = [p for p, (k, m) in FAMILY.items() if m == 'lead' and k in ('stairs', 'slab')]
+tag('minecraft/tags/block/occludes_vibration_signals.json', ids(['lead_block'] + LEAD_CUBES) + [{'id': 'simpleoctets:lead_block_octet', 'required': False}])
+tag(f'{NS}/tags/block/soundproofing.json', ids(['lead_block'] + LEAD_CUBES) + [{'id': 'simpleoctets:lead_block_octet', 'required': False}])
+tag(f'{NS}/tags/block/soundproofing_half.json', ids(['lead_plate'] + LEAD_PARTS))
+for kind in ('block', 'item'):
+    tag(f'minecraft/tags/{kind}/stairs.json', ids([p for p, (k, _m) in FAMILY.items() if k == 'stairs']))
+    tag(f'minecraft/tags/{kind}/slabs.json', ids([p for p, (k, _m) in FAMILY.items() if k == 'slab']))
 for part, group in (('sword', 'swords'), ('pickaxe', 'pickaxes'), ('axe', 'axes'), ('shovel', 'shovels'), ('hoe', 'hoes'),
                     ('helmet', 'head_armor'), ('chestplate', 'chest_armor'), ('leggings', 'leg_armor'), ('boots', 'foot_armor')):
     tag(f'minecraft/tags/item/{group}.json', ids([f'{a}_{part}' for a in ALLOYS]))
@@ -999,6 +1104,18 @@ FEATURES = [
               'Gegenstände je Metall: Rohstück, Barren, Klumpen, Block und Rohblock; Ofen und Hochofen schmelzen Rohstücke und Erze; 9 Klumpen oder Barren werden auf- und abgewandelt. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.',
               'Legierungen (formlos in der Werkbank, nichts geht verloren): 2 Kupfer + 1 Zink = 3 Messing; 3 Eisen + 1 Nickel = 4 Edelstahl; 3 Kupfer + 1 Zinn = 4 Bronze. Jede Legierung hat einen Barren und einen Block aus neun (in beide Richtungen herstellbar).',
               'Nutzen: Messing-, Edelstahl- und Bronzeblöcke sind Deko- und Baumetalle (Vanilla-Kupfer oxidiert, diese nicht). Weitere Nutzen (Platten, Dächer, Laternen, Münzen) stehen als zurückgestellt in docs/ai/PLAN-A-RG08-2026-11-08.md. Blei und Silber stehen in eigenen Einträgen.'])),
+    feature('metal_blocks', [f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/cut_silver.json', f'{DATAP}/recipe/cut_silver_from_silver_block_stonecutting.json',
+                             f'{DATAP}/tags/block/soundproofing.json'],
+            ('Metal building blocks', 'Silver, lead, zinc, nickel, tin and brass are building metals only - no tools, no armor (owner 09.11.). Each has a family of building blocks behind its storage block.',
+             ['Per metal: Cut <metal> (with stairs and slab), <metal> Tiles, <metal> Pillar (placed along an axis like the quartz pillar) and Chiseled <metal>. They break and resist like the storage block (lead: hardness 25, blast resistance 1000, its heavy sound) and drop themselves; a double slab drops two.',
+              'Workbench like cut copper: 4 blocks in a square make 4 cut blocks; 6 cut blocks make 4 stairs, 3 make 6 slabs; 4 cut blocks in a square make 4 tiles; 2 slabs on top of each other make the chiseled block; 2 blocks on top of each other make 2 pillars.',
+              'Stonecutter: one storage block gives 4 cut blocks, 4 stairs, 8 slabs, 4 tiles, 1 pillar or 4 chiseled blocks; one cut block gives 1 stairs, 2 slabs, 1 tile block or 1 chiseled block.',
+              'Lead stays lead: the cut lead block, lead tiles, lead pillar and chiseled lead muffle sound like the block of lead (tag simpleores:soundproofing) and stop vibrations; cut lead stairs and slabs count half (simpleores:soundproofing_half).']),
+            ('Metall-Baublöcke', 'Silber, Blei, Zink, Nickel, Zinn und Messing sind nur Baumetalle - keine Werkzeuge, keine Rüstung (Besitzer 09.11.). Jedes hat hinter seinem Speicherblock eine Familie von Baublöcken.',
+             ['Je Metall: geschnittener <Metall>block (mit Treppe und Stufe), <Metall>fliesen, <Metall>säule (entlang einer Achse platziert wie die Quarzsäule) und gemeißelter <Metall>block. Sie brechen und widerstehen wie der Speicherblock (Blei: Härte 25, Explosionswiderstand 1000, sein schwerer Klang) und lassen sich selbst fallen; eine doppelte Stufe gibt zwei.',
+              'Werkbank wie geschnittenes Kupfer: 4 Blöcke im Quadrat ergeben 4 geschnittene Blöcke; 6 geschnittene ergeben 4 Treppen, 3 ergeben 6 Stufen; 4 geschnittene im Quadrat ergeben 4 Fliesen; 2 Stufen übereinander ergeben den gemeißelten Block; 2 Blöcke übereinander ergeben 2 Säulen.',
+              'Steinsäge: ein Speicherblock gibt 4 geschnittene Blöcke, 4 Treppen, 8 Stufen, 4 Fliesen, 1 Säule oder 4 gemeißelte Blöcke; ein geschnittener Block gibt 1 Treppe, 2 Stufen, 1 Fliesenblock oder 1 gemeißelten Block.',
+              'Blei bleibt Blei: geschnittener Bleiblock, Bleifliesen, Bleisäule und gemeißelter Bleiblock dämmen Schall wie der Bleiblock (Tag simpleores:soundproofing) und halten Vibrationen auf; geschnittene Bleitreppe und -stufe zählen halb (simpleores:soundproofing_half).'])),
     feature('soundproofing', [f'{JAVA}/sound/Soundproofing.java', f'{JAVA}/mixin/SoundproofMixin.java', f'{JAVA}/config/OresConfig.java'],
             ('Soundproofing', 'Lead walls make the world quieter on the other side: a TNT blast behind a few lead blocks is only a dull thud, or not heard at all.',
              ['Every sound the server sends to a player (blocks, mobs, explosions, ...) from volume 0.3 up is checked: the lead blocks on the straight way from the sound to the player\'s ear (at most 24 cells, the cells of the sound and of the ear do not count) multiply the volume by soundproofFactor for each block.',

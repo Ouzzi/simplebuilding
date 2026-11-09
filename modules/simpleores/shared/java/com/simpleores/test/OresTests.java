@@ -99,7 +99,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance",
                             "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers"))
                     && OresConfig.leadOre && OresConfig.endLeadOre && OresConfig.zincGeodes && OresConfig.endZincGeodes && OresConfig.nickelOre && OresConfig.tinOre && OresConfig.tinPlacers
@@ -627,6 +627,87 @@ public final class OresTests {
                 check(h, back.is(item(alloy + "_ingot")) && back.getCount() == 9, alloy + " block -> 9 ingots");
                 for (String part : new String[] {"sword", "pickaxe", "helmet"}) check(h, !OresRegistry.ITEMS.containsKey(alloy + "_" + part), alloy + " has no " + part + " (no tool tiers)");
             }
+            h.succeed();
+        });
+        ALL.put("metals_are_cosmetic", h -> {
+            // N9 (b-metals14, owner 09.11.): silver, lead, zinc, nickel, tin and brass (and the plain alloys) are building metals only: no item of any
+            // mod is a tool, weapon or armor piece of them, and no item of this mod made of them carries a tool or equipment component.
+            String[] metals = {"silver", "lead", "zinc", "nickel", "tin", "brass", "stainless_steel", "bronze"};
+            String[] gear = {"sword", "pickaxe", "axe", "shovel", "hoe", "helmet", "chestplate", "leggings", "boots", "spear", "mace", "sledgehammer", "hammer", "horse_armor"};
+            for (var id : BuiltInRegistries.ITEM.keySet()) {
+                for (String m : metals) {
+                    for (String g : gear) check(h, !id.getPath().equals(m + "_" + g), "gear of a cosmetic metal: " + id);
+                }
+            }
+            for (var entry : OresRegistry.ITEMS.entrySet()) {
+                boolean metal = false;
+                for (String m : metals) metal |= entry.getKey().contains(m) && !entry.getKey().contains("rose_");
+                if (!metal) continue;
+                ItemStack s = new ItemStack(entry.getValue());
+                check(h, !s.has(net.minecraft.core.component.DataComponents.TOOL) && !s.has(net.minecraft.core.component.DataComponents.EQUIPPABLE), entry.getKey() + " is plain");
+            }
+            h.succeed();
+        });
+        ALL.put("metal_blocks", h -> {
+            // N9: each metal's building family: registered, behind the storage block in the creative list, behaves like the storage block,
+            // workbench and stonecutter recipes like cut copper / quartz pillar, drops itself (a double slab two); lead stays lead (soundproofing).
+            ServerLevel level = h.getLevel();
+            List<String> building = List.of(OresRegistry.BUILDING);
+            BlockPos pos = h.absolutePos(new BlockPos(2, 1, 2));
+            for (String m : OresRegistry.COSMETIC) {
+                Block base = OresRegistry.BLOCKS.get(m + "_block");
+                List<String> family = OresRegistry.family(m);
+                check(h, building.indexOf(family.getFirst()) == building.indexOf(m + "_block") + 1, m + " family right behind the block in the creative list");
+                for (String path : family) {
+                    Block b = OresRegistry.BLOCKS.get(path);
+                    check(h, b != null && BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(path)) && BuiltInRegistries.ITEM.containsKey(SimpleOres.id(path)), "registered " + path);
+                    check(h, building.contains(path), path + " in the creative list");
+                    check(h, b.defaultDestroyTime() == base.defaultDestroyTime() && b.getExplosionResistance() == base.getExplosionResistance(), path + " as hard as the block");
+                    check(h, b.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE), path + " mineable with a pickaxe");
+                    level.setBlockAndUpdate(pos, b.defaultBlockState());
+                    List<ItemStack> drops = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.DIAMOND_PICKAXE));
+                    check(h, drops.size() == 1 && drops.getFirst().is(item(path)) && drops.getFirst().getCount() == 1, path + " drops itself: " + drops);
+                }
+                check(h, OresRegistry.BLOCKS.get("cut_" + m + "_stairs") instanceof net.minecraft.world.level.block.StairBlock
+                        && OresRegistry.BLOCKS.get("cut_" + m + "_slab") instanceof net.minecraft.world.level.block.SlabBlock
+                        && OresRegistry.BLOCKS.get(m + "_pillar") instanceof net.minecraft.world.level.block.RotatedPillarBlock, m + ": stairs, slab, pillar classes");
+                Block slab = OresRegistry.BLOCKS.get("cut_" + m + "_slab");
+                level.setBlockAndUpdate(pos, slab.defaultBlockState().setValue(net.minecraft.world.level.block.SlabBlock.TYPE, net.minecraft.world.level.block.state.properties.SlabType.DOUBLE));
+                List<ItemStack> two = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.DIAMOND_PICKAXE));
+                check(h, two.size() == 1 && two.getFirst().getCount() == 2, "double " + m + " slab drops two: " + two);
+                level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                // workbench
+                ItemStack blk = stack(m + "_block"), cut = stack("cut_" + m), half = stack("cut_" + m + "_slab"), e = ItemStack.EMPTY;
+                Object[][] crafts = {{of(blk, blk, e, blk, blk), "cut_" + m, 4}, {of(cut, e, e, cut, cut, e, cut, cut, cut), "cut_" + m + "_stairs", 4},
+                        {of(cut, cut, cut), "cut_" + m + "_slab", 6}, {of(cut, cut, e, cut, cut), m + "_tiles", 4}, {of(blk, e, e, blk), m + "_pillar", 2},
+                        {of(half, e, e, half), "chiseled_" + m, 1}};
+                for (Object[] row : crafts) {
+                    ItemStack made = craft(h, (CraftingInput) row[0]);
+                    check(h, made.is(item((String) row[1])) && made.getCount() == (int) row[2], "workbench " + row[1] + ": " + made);
+                }
+                // stonecutter: source -> {result, count}
+                Object[][] cuts = {{m + "_block", "cut_" + m, 4}, {m + "_block", "cut_" + m + "_stairs", 4}, {m + "_block", "cut_" + m + "_slab", 8},
+                        {m + "_block", m + "_tiles", 4}, {m + "_block", m + "_pillar", 1}, {m + "_block", "chiseled_" + m, 4}, {"cut_" + m, "cut_" + m + "_stairs", 1},
+                        {"cut_" + m, "cut_" + m + "_slab", 2}, {"cut_" + m, m + "_tiles", 1}, {"cut_" + m, "chiseled_" + m, 1}};
+                for (Object[] row : cuts) {
+                    SingleRecipeInput in = new SingleRecipeInput(stack((String) row[0]));
+                    boolean found = false;
+                    for (var holder : level.getServer().getRecipeManager().getRecipes()) {
+                        if (!(holder.value() instanceof net.minecraft.world.item.crafting.StonecutterRecipe r) || !r.matches(in, level)) continue;
+                        ItemStack out = r.assemble(in);
+                        found |= out.is(item((String) row[1])) && out.getCount() == (int) row[2];
+                    }
+                    check(h, found, "stonecutter " + row[0] + " -> " + row[2] + " " + row[1]);
+                }
+            }
+            var full = net.minecraft.tags.TagKey.create(Registries.BLOCK, SimpleOres.id("soundproofing"));
+            var halfTag = net.minecraft.tags.TagKey.create(Registries.BLOCK, SimpleOres.id("soundproofing_half"));
+            for (String path : new String[] {"cut_lead", "lead_tiles", "lead_pillar", "chiseled_lead"}) {
+                BlockState state = OresRegistry.BLOCKS.get(path).defaultBlockState();
+                check(h, state.is(full) && state.is(BlockTags.OCCLUDES_VIBRATION_SIGNALS), path + " muffles like the block of lead");
+            }
+            check(h, OresRegistry.BLOCKS.get("cut_lead_slab").defaultBlockState().is(halfTag) && OresRegistry.BLOCKS.get("cut_lead_stairs").defaultBlockState().is(halfTag), "lead stairs and slab count half");
+            check(h, !OresRegistry.BLOCKS.get("cut_zinc").defaultBlockState().is(full), "only lead muffles");
             h.succeed();
         });
         ALL.put("metal_worldgen_drops", h -> {

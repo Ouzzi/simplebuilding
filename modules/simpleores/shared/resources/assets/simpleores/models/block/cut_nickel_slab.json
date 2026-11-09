@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "simpleores:block/cut_nickel",
+    "side": "simpleores:block/cut_nickel",
+    "top": "simpleores:block/cut_nickel"
+  }
+}

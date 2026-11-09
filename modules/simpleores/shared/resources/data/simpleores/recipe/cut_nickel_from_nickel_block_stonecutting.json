@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:nickel_block",
+  "result": {
+    "count": 4,
+    "id": "simpleores:cut_nickel"
+  }
+}

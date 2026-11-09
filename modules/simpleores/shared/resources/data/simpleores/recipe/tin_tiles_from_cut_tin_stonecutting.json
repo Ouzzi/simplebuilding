@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:cut_tin",
+  "result": {
+    "count": 1,
+    "id": "simpleores:tin_tiles"
+  }
+}

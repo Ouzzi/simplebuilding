@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "simpleores:block/tin_pillar_top",
+    "side": "simpleores:block/tin_pillar"
+  }
+}

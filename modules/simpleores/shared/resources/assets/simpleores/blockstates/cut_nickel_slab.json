@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleores:block/cut_nickel_slab"
+    },
+    "type=double": {
+      "model": "simpleores:block/cut_nickel"
+    },
+    "type=top": {
+      "model": "simpleores:block/cut_nickel_slab_top"
+    }
+  }
+}

@@ -167,6 +167,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void metalsAreCosmetic(GameTestHelper h) {
+        OresTests.ALL.get("metals_are_cosmetic").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void metalBlocks(GameTestHelper h) {
+        OresTests.ALL.get("metal_blocks").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void metalWorldgenDrops(GameTestHelper h) {
         OresTests.ALL.get("metal_worldgen_drops").accept(h);
     }

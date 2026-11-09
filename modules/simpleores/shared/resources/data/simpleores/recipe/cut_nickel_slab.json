@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "simpleores:cut_nickel"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:cut_nickel_slab",
+    "count": 6
+  }
+}

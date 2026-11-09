@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleores:block/cut_silver_slab"
+    },
+    "type=double": {
+      "model": "simpleores:block/cut_silver"
+    },
+    "type=top": {
+      "model": "simpleores:block/cut_silver_slab_top"
+    }
+  }
+}

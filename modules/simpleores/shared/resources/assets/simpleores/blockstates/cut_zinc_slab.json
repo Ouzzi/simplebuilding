@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleores:block/cut_zinc_slab"
+    },
+    "type=double": {
+      "model": "simpleores:block/cut_zinc"
+    },
+    "type=top": {
+      "model": "simpleores:block/cut_zinc_slab_top"
+    }
+  }
+}

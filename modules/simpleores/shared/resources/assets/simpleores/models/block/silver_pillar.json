@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simpleores:block/silver_pillar_top",
+    "side": "simpleores:block/silver_pillar"
+  }
+}

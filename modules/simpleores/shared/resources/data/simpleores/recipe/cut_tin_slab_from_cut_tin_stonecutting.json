@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:cut_tin",
+  "result": {
+    "count": 2,
+    "id": "simpleores:cut_tin_slab"
+  }
+}

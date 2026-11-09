@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "simpleores:cut_lead"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:cut_lead_slab",
+    "count": 6
+  }
+}
