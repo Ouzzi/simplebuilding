@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#7a4655ff", "#ffb5ddff", "#ff94b5ff", "#f38baaff", "#f28aa9ff", "#f898b5ff", "#f798b4ff", "#f48cabff", "#f089a8ff", "#ee92adff", "#f194b0ff", "#ef89a7ff", "#f496b2ff", "#f78dadff", "#f295b0ff", "#ed92adff", "#f98eaeff", "#ee88a6ff", "#f395b1ff", "#ee88a7ff", "#f093afff", "#ed91adff", "#f596b2ff", "#f68cacff", "#f88eaeff", "#f68dacff", "#f58cacff", "#f294b0ff", "#ed88a6ff", "#ef93aeff", "#f194afff", "#f18aa8ff", "#f88eadff", "#ee92aeff", "#f48babff", "#f193afff", "#f58cabff", "#f797b4ff", "#f596b3ff", "#f898b4ff", "#f18aa9ff", "#ef89a8ff", "#f998b5ff", "#f697b3ff", "#f28ba9ff"],
+  "palette": ["#7a4655ff", "#ffb5ddff", "#ff94b5ff", "#f38baaff", "#f28aa9ff", "#f898b5ff", "#f798b4ff", "#f48cabff", "#f089a8ff", "#ee92adff", "#f194b0ff", "#ef89a7ff", "#f496b2ff", "#f78dadff", "#f295b0ff", "#ed92adff", "#f98eaeff", "#ee88a6ff", "#f395b1ff", "#ee88a7ff", "#f093afff", "#ed91adff", "#f596b2ff", "#f68cacff", "#f88eaeff", "#f68dacff", "#f58cacff", "#f294b0ff", "#ed88a6ff", "#ef93aeff", "#f194afff", "#f18aa8ff", "#f88eadff", "#ee92aeff", "#f48babff", "#f193afff", "#f58cabff", "#f797b4ff", "#f596b3ff", "#f898b4ff", "#f18aa9ff", "#ef89a8ff", "#f998b5ff", "#f697b3ff", "#f28ba9ff", "#70404eff", "#eba7cbff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00000000000000000000000000000000",
@@ -23,6 +23,24 @@
       "0001141208242b122c08120a13200200",
       "00020202020202020202020202020200",
       "00000000000000000000000000000000"
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "2d2d..2d......2d......2d......2d",
+      "..2e2e..2e2e..2e2e..2e........2d",
+      "2d..240b2626240b230e....2626....",
+      "2d2e0b24..23240b0e260b242326242d",
+      "....23262424232624240e23240b242d",
+      "2d..230e....23230b0b230e2424....",
+      "2d..24242323240b0e..2424232624..",
+      "..2e2424262324..23260b0b262324..",
+      "2d..0e..24..2626240b260e0b0b....",
+      "....2623240b230e240b2323..0b..2d",
+      "....0b240e0e2424262324242323..2d",
+      "2d2e242426..2424262624..0e26..2d",
+      "..2e23260b24262624240e2324......",
+      "....230e0b..260e240b0e0e0b24....",
+      "....2424............242424......",
+      "2d2d2d........2d2d....2d2d2d...."
     ]}
   ]
 }

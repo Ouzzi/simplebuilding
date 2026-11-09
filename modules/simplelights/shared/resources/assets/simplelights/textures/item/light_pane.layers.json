@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#6e603fff", "#d5ba7aff", "#b69f68ff", "#b8a069ff", "#ccb275ff", "#c8af73ff", "#bfa76fff", "#bba46eff", "#d1b87bff", "#c7af74ff", "#bfa76eff", "#b7a069ff", "#cbb175ff", "#85744cff", "#c4ab71ff", "#ccb377ff", "#c5ad75ff", "#d0b77bff", "#cab177ff", "#bba46dff", "#b9a26bff", "#c6ad72ff", "#cbb174ff", "#cdb477ff", "#bda66eff", "#baa36eff", "#ccb479ff", "#d1b87dff", "#c5ae76ff", "#c3ac74ff", "#cfb67aff", "#b69f69ff", "#bca46cff", "#c4ac72ff", "#c1aa72ff", "#bfa872ff", "#ceb57bff", "#d9bf82ff", "#c1aa74ff", "#bea772ff", "#cab278ff", "#c8b076ff", "#b9a26cff", "#bca56fff", "#ccb37aff", "#cbb37aff", "#c6af78ff", "#d1b97fff", "#d0b77dff", "#c8b077ff", "#d2b87bff", "#cdb377ff", "#bfa870ff", "#bea871ff", "#cdb47aff", "#e3c98aff", "#dac185ff", "#dbc184ff", "#c4ad76ff", "#d4ba7dff", "#cfb67bff", "#c0a973ff", "#dac184ff", "#d8be81ff", "#bda670ff", "#c4ac73ff", "#cab176ff", "#c7af76ff", "#bea771ff", "#d3ba7fff", "#dac084ff", "#c5ae77ff", "#d4bb7eff", "#d5bb7eff", "#c2aa72ff", "#bca46dff", "#bca46eff", "#c9b076ff", "#d3b97cff", "#c3ac75ff", "#c0a974ff", "#cfb67cff", "#d3ba7eff", "#bfa871ff", "#c0a971ff", "#cbb276ff", "#b9a26aff", "#b7a06aff", "#d0b67aff", "#d1b87cff", "#bea770ff", "#cbb275ff", "#c7ae72ff", "#c4ab70ff", "#b6a06aff", "#bda56eff", "#c8af74ff", "#baa26bff", "#cab174ff", "#c5ac71ff", "#bda56dff", "#b7a16aff", "#c9b176ff", "#baa46eff", "#bca56eff", "#c7ae73ff", "#bba36bff"],
+  "palette": ["#6e603fff", "#d5ba7aff", "#b69f68ff", "#b8a069ff", "#ccb275ff", "#c8af73ff", "#bfa76fff", "#bba46eff", "#d1b87bff", "#c7af74ff", "#bfa76eff", "#b7a069ff", "#cbb175ff", "#85744cff", "#c4ab71ff", "#ccb377ff", "#c5ad75ff", "#d0b77bff", "#cab177ff", "#bba46dff", "#b9a26bff", "#c6ad72ff", "#cbb174ff", "#cdb477ff", "#bda66eff", "#baa36eff", "#ccb479ff", "#d1b87dff", "#c5ae76ff", "#c3ac74ff", "#cfb67aff", "#b69f69ff", "#bca46cff", "#c4ac72ff", "#c1aa72ff", "#bfa872ff", "#ceb57bff", "#d9bf82ff", "#c1aa74ff", "#bea772ff", "#cab278ff", "#c8b076ff", "#b9a26cff", "#bca56fff", "#ccb37aff", "#cbb37aff", "#c6af78ff", "#d1b97fff", "#d0b77dff", "#c8b077ff", "#d2b87bff", "#cdb377ff", "#bfa870ff", "#bea871ff", "#cdb47aff", "#e3c98aff", "#dac185ff", "#dbc184ff", "#c4ad76ff", "#d4ba7dff", "#cfb67bff", "#c0a973ff", "#dac184ff", "#d8be81ff", "#bda670ff", "#c4ac73ff", "#cab176ff", "#c7af76ff", "#bea771ff", "#d3ba7fff", "#dac084ff", "#c5ae77ff", "#d4bb7eff", "#d5bb7eff", "#c2aa72ff", "#bca46dff", "#bca46eff", "#c9b076ff", "#d3b97cff", "#c3ac75ff", "#c0a974ff", "#cfb67cff", "#d3ba7eff", "#bfa871ff", "#c0a971ff", "#cbb276ff", "#b9a26aff", "#b7a06aff", "#d0b67aff", "#d1b87cff", "#bea770ff", "#cbb275ff", "#c7ae72ff", "#c4ab70ff", "#b6a06aff", "#bda56eff", "#c8af74ff", "#baa26bff", "#cab174ff", "#c5ac71ff", "#bda56dff", "#b7a16aff", "#c9b176ff", "#baa46eff", "#bca56eff", "#c7ae73ff", "#bba36bff", "#65583aff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "..0000000000000000000000000000..",
@@ -23,6 +23,24 @@
       "000162636465096667686915026a0100",
       "00010101010101010101010101010100",
       "..0000000000000000000000000000.."
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "......6b......6b6b....6b6b......",
+      "......393939....3939....3939....",
+      "6b396a6a4d4d226a1e4d226a4d4d..6b",
+      "6b396a..224d6a4d1e4d6a6a..4d..6b",
+      "..394d1e6a6a1e1e4d22..4d6a6a....",
+      "....224d..221e3922224d4d6a6a..6b",
+      "6b..6a6a1e1e1e4d1e1e4d..1e1e....",
+      "....22221e1e390139..224d011e4d..",
+      "..391e1e2222..013939391e6a224d..",
+      "6b394d..4d2201394d2201012222..6b",
+      "6b..6a6a..0122221e0122224d4d....",
+      "....6a6a4d1e22221e..226a4d4d....",
+      "....22..6a6a1e..22..4d1e..6a4d..",
+      "6b..4d226a6a4d4d6a6a4d4d6a..4d6b",
+      "......4d4d..................4d..",
+      "....6b......6b6b..6b6b..6b6b...."
     ]}
   ]
 }
