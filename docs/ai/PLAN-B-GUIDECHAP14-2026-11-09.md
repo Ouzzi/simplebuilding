@@ -26,7 +26,7 @@ Auftrag N7 (Sitzung B, Welle B09), Befund A-Release-Abnahme (`docs/ai/RELEASE-AB
 ## Dateien
 - `tools/guides/ModuleGuide.java.in` (+ generierte `*Guide.java` aller Module via `module_guides.py`): Tag bei Umwandlung,
   Gametest prüft den Tag.
-- SimpleLib: `api/ModpackGuide.java` (`CHAPTER_TAG`, `chapterOf`, `sectionOf`), `api/client/ModpackGuideScreens.java`
+- SimpleLib: `api/ModpackGuide.java` (`CHAPTER_TAG`, `chapterOf`, `sectionOf`, Schalter `opensChapter` – hier statt in den Client-Klassen, weil die Client-Datei auch auf dem Server gelesen wird; sbt1 rot: `Screen` auf dem Server geladen), `api/client/ModpackGuideScreens.java`
   (Schalter, `open(ItemStack, hand)`), `client/guide/ModpackGuideScreen.java` (Startkapitel), `SimpleLibFabricClient`,
   `UiBrightness` (Datei), `LibConfigScreen`, Lang EN/DE, `test/ModpackGuideTests.java` + `ModuleGameTest` (neuer Test
   `modpack_guide_chapter_jump`).

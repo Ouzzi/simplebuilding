@@ -17,7 +17,7 @@ import net.minecraft.world.InteractionHand;
  * SimpleLib only by reflection (like Vis24). Log lines {@code [guidechap] OK|FAULT}; run with {@code -PmoduleClientTest=guidechap}.
  */
 public final class GuideChapterClientTest implements FabricClientGameTest {
-    private static final String SCREENS = "com.simplelib.api.client.ModpackGuideScreens";
+    private static final String GUIDE = "com.simplelib.api.ModpackGuide";
     private final List<String> faults = new ArrayList<>();
 
     @Override
@@ -81,7 +81,7 @@ public final class GuideChapterClientTest implements FabricClientGameTest {
 
     private static void setSwitch(boolean on) {
         try {
-            Class.forName(SCREENS).getField("opensChapter").setBoolean(null, on);
+            Class.forName(GUIDE).getField("opensChapter").setBoolean(null, on);
         } catch (ReflectiveOperationException e) {
             throw new AssertionError("SimpleLib switch guideOpensChapter missing", e);
         }

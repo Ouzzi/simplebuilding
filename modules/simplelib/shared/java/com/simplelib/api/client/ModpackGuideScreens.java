@@ -41,12 +41,6 @@ public final class ModpackGuideScreens {
     private static volatile Consumer<List<Identifier>> sender = ids -> {
     };
 
-    /**
-     * b-guidechap14 client switch {@code guideOpensChapter}: a guide that came from a retired single guide opens at that
-     * mod's chapter ({@link ModpackGuide#chapterOf}). Default off = the start page as before (owner chooses, GUIDE14).
-     */
-    public static volatile boolean opensChapter = false;
-
     private ModpackGuideScreens() {}
 
     public static void register(String section, Factory factory) {
@@ -107,11 +101,11 @@ public final class ModpackGuideScreens {
     }
 
     /**
-     * Opens the held guide: with {@link #opensChapter} and a chapter on the stack at the first page of that chapter (in
+     * Opens the held guide: with {@link ModpackGuide#opensChapter} and a chapter on the stack at the first page of that chapter (in
      * SimpleLib's screen of the section holding it), otherwise like {@link #open(String, InteractionHand)}.
      */
     public static void openHeld(net.minecraft.world.item.ItemStack stack, @Nullable InteractionHand hand) {
-        Identifier chapter = opensChapter ? ModpackGuide.chapterOf(stack) : null;
+        Identifier chapter = ModpackGuide.opensChapter ? ModpackGuide.chapterOf(stack) : null;
         ModpackGuide.Section target = ModpackGuide.sectionOf(reload(), chapter);
         if (target == null) {
             open(null, hand);

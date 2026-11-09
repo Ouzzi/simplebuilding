@@ -42,6 +42,12 @@ public final class ModpackGuide {
      * {@code custom_data} of the guide it turns into; with the client switch {@code guideOpensChapter} that guide opens there.
      */
     public static final String CHAPTER_TAG = "simplelib_guide_chapter";
+    /**
+     * b-guidechap14 client switch {@code guideOpensChapter} (SimpleLib client file): a guide that came from a retired single
+     * guide opens at that mod's chapter ({@link #chapterOf}). Default off = the start page as before (owner chooses, GUIDE14).
+     * Kept here, not in the client classes, because the client file is also read on a dedicated server.
+     */
+    public static volatile boolean opensChapter = false;
     /** Most advancement ids one query may ask about. */
     public static final int MAX_QUERY = 256;
 

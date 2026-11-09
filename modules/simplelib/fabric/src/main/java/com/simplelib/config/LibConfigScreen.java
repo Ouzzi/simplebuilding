@@ -65,7 +65,7 @@ public final class LibConfigScreen {
         alerts.addEntry(e.startBooleanToggle(name("slotAlertBeam"), alertBeam[0]).setDefaultValue(false)
                 .setTooltip(tip("slotAlertBeam")).setSaveConsumer(v -> alertBeam[0] = v).build());
         // b-guidechap14: the Simple Modpack guide opens at the chapter of the retired single guide it came from (client side).
-        boolean[] guideChapter = {com.simplelib.api.client.ModpackGuideScreens.opensChapter};
+        boolean[] guideChapter = {com.simplelib.api.ModpackGuide.opensChapter};
         var guide = b.getOrCreateCategory(Component.translatable("simplelib.tab.guide"));
         guide.addEntry(e.startBooleanToggle(name("guideOpensChapter"), guideChapter[0]).setDefaultValue(false)
                 .setTooltip(tip("guideOpensChapter")).setSaveConsumer(v -> guideChapter[0] = v).build());
@@ -92,7 +92,7 @@ public final class LibConfigScreen {
             com.simplelib.api.client.SlotAlert.enabled = alert[0];
             com.simplelib.api.client.SlotAlert.reducedMotion = alertStill[0];
             com.simplelib.api.client.SlotAlert.beam = alertBeam[0];
-            com.simplelib.api.client.ModpackGuideScreens.opensChapter = guideChapter[0];
+            com.simplelib.api.ModpackGuide.opensChapter = guideChapter[0];
             com.simplelib.api.client.ui.UiBrightness.save();
         });
         return b.build();
