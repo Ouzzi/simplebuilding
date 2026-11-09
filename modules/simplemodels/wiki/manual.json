@@ -238,6 +238,17 @@
       "de": {
         "summary": "Kapitel \"Simple Models\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rahmen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
+    },
+    "*example/*": {
+      "sources": [
+        "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/ModelExamples.java", "modules/simplemodels/shared/resources/assets/simplemodels/examples/"
+      ],
+      "en": {
+        "summary": "Example model from the model catalogue (birdhouse, mailbox, stool, lantern, crystal cluster, weather vane): assign it to an item at the anvil, or open it in the model editor as a starting point."
+      },
+      "de": {
+        "summary": "Beispielmodell aus dem Modellkatalog (Vogelhaus, Briefkasten, Hocker, Laterne, Kristallgruppe, Wetterfahne): am Amboss einem Gegenstand zuweisen oder im Modell-Editor als Vorlage öffnen."
+      }
     }
   }
 }
