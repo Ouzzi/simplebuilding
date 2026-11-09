@@ -222,3 +222,11 @@ Smoke-Test: `python3 smoke_zw06.py --domains --port 8081` prüft jeden Host per 
 301-Ziele, Ausnahme azarfane `/setup/`+`/downloads/`). Danach im Browser: Login auf wiki.simplemods.de, `/dev/`, `/zentrale/`.
 Offen für A: Mod-Metadaten (`homepage`/`displayURL`) zeigen auf `https://azarfane.de/`, nicht auf die Wiki-Adresse, und
 bleiben unverändert (eigene Entscheidung des Besitzers).
+
+## Öffentliche Release-Downloads (W12, simplemods.de/downloads/)
+`collect_downloads.py` ruft nach jeder Sammlung `public_downloads.py` auf: `<downloads>/public/index.json` +
+`public/files/<loader>/<mc>/<jar>` (Hardlinks) aus dem neuesten **vollständigen** grünen Build (SimpleLib je Loader
+vorhanden), nur `--public-loaders` (Standard `fabric`, Minecraft 26.3). Je Jar: Version, SHA-256, Größe, `requires`
+(modules.json + Jar-Metadaten), `contains` (jar-in-jar), `external`/`externalOptional` (Modrinth-Links, nie mitverteilt).
+nginx (`nginx/domains.conf`, Host simplemods.de): `/downloads/` → `/srv/zentrale/downloads/public/`, ohne Login, ohne Listing.
+Alles andere unter `/downloads/` bleibt hinter dem Login auf wiki.simplemods.de. Von Hand: `python3 public_downloads.py --out <downloads>`.

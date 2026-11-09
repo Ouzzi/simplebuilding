@@ -43,6 +43,15 @@ if idx=$(ssh -o BatchMode=yes sb-agent "sb-dist index" 2>/dev/null) && [ -n "$id
     ls -d $Z/dl-* | head -n -2 | xargs -r rm -rf
   else rm -rf $n; fi
 fi
+# landing page simplemods.de (W12): the four pages of the production checkout (master = last green gate) into /srv/landing,
+# only once deploy_dom07.sh "domains" created it and only when a page changed; the public downloads
+# (simplemods.de/downloads/ = $Z/downloads/public/) come with the jar folder swap above
+LS=/srv/wiki-prod/tools/landing
+if [ -d /srv/landing ] && [ -f $LS/paket.html ]; then
+  for f in index.html paket.html reise.html discover.html; do
+    [ -f $LS/$f ] && ! cmp -s $LS/$f /srv/landing/$f && cp $LS/$f /srv/landing/$f.new && chmod a+r /srv/landing/$f.new && mv /srv/landing/$f.new /srv/landing/$f
+  done
+fi
 # new-PC setup (tools/zentrale-web/starter): installer + starter from the working tree, git bundle of claude-wave1
 # on top of the public master (rebuilt only when the branch moves); fallback copies until the files are in claude-wave1
 ZS=/srv/wiki-dev/tools/zentrale-web

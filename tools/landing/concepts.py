@@ -21,6 +21,79 @@ sys.path.insert(0, str(R / 'tools/modtree'))
 import modtree  # noqa: E402
 
 E = html.escape
+CHECK = '--check' in sys.argv  # wiki/generate.py --check: nur vergleichen, nichts schreiben
+ARGS = [a for a in sys.argv[1:] if a != '--check']
+OUT = {}  # Dateiname -> Inhalt; am Ende geschrieben (oder bei --check verglichen)
+
+# ---------------------------------------------------------------- Texturen (W12: bei jedem Lauf frisch aus dem Repo)
+TRACKED = set(subprocess.run(['git', '-C', str(R), 'ls-files', '*.png'], capture_output=True, text=True).stdout.split())
+ROOTS = ['modules/*/shared/resources/assets/{ns}/textures', 'mc26_3/overlay/resources/assets/{ns}/textures',
+         'src/main/resources/assets/{ns}/textures']
+# Anpassbar: tools/landing/overrides.json (Besitzer setzt je Kachel Bild/Text, siehe README)
+OVR = json.loads((D / 'overrides.json').read_text(encoding='utf-8')) if (D / 'overrides.json').exists() else {}
+TEXMAP = {k: v for k, v in (OVR.get('textures') or {}).items() if not k.startswith('_')}
+
+
+def _derived():
+    """Vanilla-abgeleitete Texturen (tools/textures/vanilla_derived.py) sind nie oeffentlich: 'assets/ns/textures/rel'."""
+    try:
+        sys.path.insert(0, str(R / 'tools/textures'))
+        import vanilla_derived as vd
+        out = {f'assets/simplebuilding/textures/{k}' for k in vd.OUTPUTS}
+        for ns, m in vd.MODULE_OUTPUTS.items():
+            out |= {f'assets/{ns}/textures/{k}' for k in m}
+        return out
+    except Exception:
+        return set()
+
+
+DERIVED = _derived()
+
+
+def _uri(im):
+    b = io.BytesIO(); im.save(b, 'PNG', optimize=True)
+    return 'data:image/png;base64,' + base64.b64encode(b.getvalue()).decode()
+
+
+def _own_png(relp):
+    return (relp in TRACKED and '/build/' not in relp and '/assets/minecraft/' not in relp
+            and ('assets/' + relp.split('/assets/', 1)[-1]) not in DERIVED)
+
+
+def tex(spec):
+    """'ns:block/name' -> data-URI (nur git-verfolgte eigene Mod-Texturen, Animationsstreifen -> erstes Bild).
+    overrides.json "textures" kann eine Textur durch eine andere ('ns:pfad') oder eine Datei ('file:bild.png',
+    relativ zu tools/landing/) ersetzen."""
+    spec = TEXMAP.get(spec, spec)
+    if spec.startswith('file:'):
+        return _uri(Image.open(D / spec[5:]))
+    ns, rel = spec.split(':')
+    assert ns != 'minecraft'
+    for r in ROOTS:
+        for p in glob.glob(str(R / r.format(ns=ns) / f'{rel}.png')):
+            relp = os.path.relpath(p, R)
+            if _own_png(relp):
+                im = Image.open(p)
+                if im.height > im.width:
+                    im = im.crop((0, 0, im.width, im.width))
+                return _uri(im)
+    raise SystemExit(f'Textur fehlt: {spec}')
+
+
+ICONS = {}
+for p in glob.glob(f'{R}/modules/*/shared/resources/assets/*/icon_128.png') + [f'{R}/src/main/resources/assets/simplebuilding/icon_128.png']:
+    mid = p.split('/modules/')[1].split('/')[0] if '/modules/' in p else 'simplebuilding'
+    if mid != 'wiringexample' and _own_png(os.path.relpath(p, R)):
+        ICONS[mid] = 'data:image/png;base64,' + base64.b64encode(open(p, 'rb').read()).decode()
+for mid, o in (OVR.get('mods') or {}).items():
+    if not mid.startswith('_') and o.get('icon'):
+        ICONS[mid] = tex(o['icon'])
+
+
+def fresh_icons(h):
+    """Jedes <img data-ico="id"> der Basis bekommt das aktuelle Icon (oder das aus overrides.json)."""
+    return re.sub(r'<img data-ico="([a-z0-9_]+)" src="[^"]*"',
+                  lambda m: f'<img data-ico="{m.group(1)}" src="{ICONS.get(m.group(1), "")}"', h)
 
 # ---------------------------------------------------------------- Teil 1: neue Basis
 SIZES = ('h1{font-size:clamp(52px,13vw,128px);line-height:1;letter-spacing:4px;margin:0 0 22px}'
@@ -28,7 +101,7 @@ SIZES = ('h1{font-size:clamp(52px,13vw,128px);line-height:1;letter-spacing:4px;m
          '.hero{padding:88px 0 56px}.sub{font-size:19px;line-height:1.55;margin:0 auto 32px}'
          '.c b{font-size:18px}.c p{font-size:15px;line-height:1.55}'
          '@media(max-width:600px){.hero{padding:60px 0 36px}h2{margin:52px 0 16px}}')
-v2 = (D / 'vorschlag-2.html').read_text(encoding='utf-8')
+v2 = fresh_icons((D / 'vorschlag-2.html').read_text(encoding='utf-8'))
 NAVCSS = ('.tn{display:flex;flex-wrap:wrap;gap:6px;padding:8px 118px 8px 8px;font-family:"Silkscreen","Courier New",monospace}'
           '.tn a{color:#cbbf9f;text-decoration:none;font-size:14px;padding:6px 10px;border:3px solid #000;background:#3b3329;'
           'box-shadow:inset -3px -3px 0 #28221a,inset 3px 3px 0 #54493a}'
@@ -50,25 +123,16 @@ def nav(active):
 # Bausteine der Basis fuer die Konzepte
 HEAD = base[:base.find('</head>')]
 LANGBOX = re.search(r'<div class="lg".*?</div>', base).group(0)
-(D / 'index.html').write_text(base.replace(LANGBOX, LANGBOX + nav('index.html'), 1), encoding='utf-8')
+OUT['index.html'] = base.replace(LANGBOX, LANGBOX + nav('index.html'), 1)
 HERO = re.search(r'<div class="hero">.*?</div></div>', base).group(0)
 ICG_I = base.find('<h2 data-en="All ')
 ICG = base[ICG_I:base.find('<footer', ICG_I)]
 FOOTER = re.search(r'<footer.*?</footer>', base).group(0)
 SCRIPT = re.search(r'<script>.*?</script>', base, re.S).group(0).replace(
     'if(save)try', 'document.dispatchEvent(new CustomEvent("smlang",{detail:x}));if(save)try', 1)
-ICONS = {t: u for u, t in re.findall(r'<img src="(data:image/png;base64,[^"]+)" title="([a-z0-9_]+)"', base)}
-for p in glob.glob(f'{R}/modules/*/shared/resources/assets/*/icon_128.png') + [f'{R}/src/main/resources/assets/simplebuilding/icon_128.png']:
-    mid = p.split('/modules/')[1].split('/')[0] if '/modules/' in p else 'simplebuilding'
-    if mid not in ICONS and mid != 'wiringexample':
-        ICONS[mid] = 'data:image/png;base64,' + base64.b64encode(open(p, 'rb').read()).decode()
-
 # ---------------------------------------------------------------- Daten
 MODS = {k: v for k, v in modtree.load(R).items() if k != 'wiringexample'}
 SUP, REST = modtree.roots(MODS)
-TRACKED = set(subprocess.run(['git', '-C', str(R), 'ls-files', '*.png'], capture_output=True, text=True).stdout.split())
-ROOTS = ['modules/*/shared/resources/assets/{ns}/textures', 'mc26_3/overlay/resources/assets/{ns}/textures',
-         'src/main/resources/assets/{ns}/textures']
 LANG = {'de': {}, 'en': {}}
 for l, f in (('de', 'de_de'), ('en', 'en_us')):
     for p in [R / 'src/main/resources/assets/simplebuilding/lang' / f'{f}.json',
@@ -76,22 +140,6 @@ for l, f in (('de', 'de_de'), ('en', 'en_us')):
              sorted(Path(R).glob(f'modules/*/shared/resources/assets/*/lang/{f}.json')):
         if p.exists():
             LANG[l].update(json.loads(p.read_text(encoding='utf-8')))
-
-
-def tex(spec):
-    """'ns:block/name' -> data-URI (nur git-verfolgte Mod-Texturen, Animationsstreifen -> erstes Bild)."""
-    ns, rel = spec.split(':')
-    assert ns != 'minecraft'
-    for r in ROOTS:
-        for p in glob.glob(str(R / r.format(ns=ns) / f'{rel}.png')):
-            relp = os.path.relpath(p, R)
-            if relp in TRACKED and '/build/' not in relp:
-                im = Image.open(p)
-                if im.height > im.width:
-                    im = im.crop((0, 0, im.width, im.width))
-                b = io.BytesIO(); im.save(b, 'PNG', optimize=True)
-                return 'data:image/png;base64,' + base64.b64encode(b.getvalue()).decode()
-    raise SystemExit(f'Textur fehlt: {spec}')
 
 
 def name(spec, l):
@@ -196,6 +244,9 @@ TXT = {
  'simpleenchanting': ('Dunkler und Astral-Verzauberer über dem Vanilla-Tisch.', 'Dark and Astral Enchanter above the Vanilla table.'),
  'simplepads': ('Startrampen, Elytra-Pads, Druckplatten und Spawn-Teleporter.', 'Launchpads, elytra pads, pressure plates and a spawn teleporter.'),
 }
+for _k, _o in (OVR.get('mods') or {}).items():  # overrides.json: Kurztext je Mod
+    if not _k.startswith('_') and _k in TXT:
+        TXT[_k] = (_o.get('de', TXT[_k][0]), _o.get('en', TXT[_k][1]))
 missing = [k for k in MODS if k not in TXT]
 assert not missing, missing
 EXT = {'cloth_config': 'Cloth Config', 'cloth-config': 'Cloth Config'}
@@ -235,7 +286,7 @@ def page(fname, css, body, js=''):
     h = h[:h.rfind('</style>')] + KZ_CSS + css + h[h.rfind('</style>'):]
     out = (h + '</head><body>' + LANGBOX + nav(fname) + HERO + '<div class="w">' + body + FOOTER + '</div>'
            + (f'<script>{js}</script>' if js else '') + SCRIPT + '</body></html>')
-    (D / fname).write_text(out, encoding='utf-8')
+    OUT[fname] = out
     return out
 
 
@@ -266,6 +317,12 @@ def k1():
 .sum li{margin:2px 0}.why{color:#8a7f69}.sug{font:inherit;font-size:12px;background:none;border:1px solid #8a7f69;color:#cbbf9f;cursor:pointer;margin:2px 2px 0 0;padding:1px 6px}
 .ins{background:#3b3329;border:3px solid #000;padding:16px;margin-top:20px}.ins ol{padding-left:22px}.ins code{background:#1d1a16;padding:1px 4px}
 .cp{margin-top:8px}.bar{display:none}
+.rel{color:#cbbf9f;font-size:14px}.los{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 12px}.los span{color:#cbbf9f;font-size:14px}
+.lob{font:inherit;font-size:14px;color:#f0e6d2;cursor:pointer;background:#26211c;border:2px solid #000;padding:5px 10px}.lob[aria-pressed=true]{background:#55a630;color:#fff}
+.lob:disabled{cursor:not-allowed;color:#a89c84}.lob small{font-size:11px}.st2{padding-left:22px;font-size:15px}.st2 a,.dnote a{color:#ffd75e}.dnote{color:#cbbf9f;font-size:13px;margin:8px 0 0}
+.btn:disabled{opacity:.55;cursor:wait}.dmsg{min-height:1.4em;color:#ffd75e;font-size:14px;margin:4px 0}
+.fl{list-style:none;margin:0;padding:0;font-size:13px}.fl li{display:grid;grid-template-columns:minmax(0,1fr) 72px 60px;gap:2px 10px;align-items:baseline;padding:6px 0;border-top:1px solid #54493a}
+.fl .fn{overflow-wrap:anywhere}.fl .fz{color:#cbbf9f;text-align:right}.fl a{color:#ffd75e}.fl .sh{grid-column:1/-1;font-size:11px;color:#a89c84;overflow-wrap:anywhere;background:none;padding:0}
 @media(max-width:820px){.bk{grid-template-columns:1fr}.sum{position:static;max-height:none}.bar{display:block;position:sticky;bottom:0;background:#55a630;color:#fff;border:3px solid #000;padding:8px 12px;text-align:center;font-weight:bold;z-index:5}}'''
     body = (box('Modpack-Baukasten', 'Modpack builder',
                 'Du stellst dir dein eigenes Paket zusammen: Mods oder ganze Familien anklicken, die Seite ergänzt sofort alles, was sie brauchen, und zeigt die Gesamtzahl. Wer sieht, dass „nur Hämmer“ wirklich nur zwei Mods bedeutet, traut sich zu installieren.',
@@ -277,12 +334,12 @@ def k1():
                     ('adv', 'Abenteuer', 'Adventure'), ('comfort', 'Komfort + Leistung', 'Comfort + performance'),
                     ('none', 'Leeren', 'Clear')]) + '</div>'
             + '<div class="bk"><div id="fams"></div><aside class="sum" id="sum" aria-live="polite"></aside></div>'
-            + '<div class="ins" id="ins"></div><div class="bar" id="bar"></div>'
+            + '<div class="ins" id="ins"></div><div class="ins" id="dl"></div><div class="bar" id="bar"></div>'
             + ICG)
     js = 'var D=' + J + ''';
 (function(){var M=D.mods,S=new Set(),L=function(){return document.documentElement.lang=="en"?"en":"de"};
-var T={de:{req:"Pflicht-Teile",opt:"Optional",more:"Einzelne Mods",fam:"ganze Familie",n:"Mods",picked:"Gewählt",auto:"Automatisch dazu",ext:"Fremd-Mods",fit:"Passt gut dazu",for:"für",empty:"Noch nichts gewählt. Klick auf einen Mod oder eine Familie.",how:"So installierst du genau diese Auswahl",s1:"Fabric Loader für Minecraft 26.3 und die Fabric API installieren.",s2:"Den Installer auf /setup/ öffnen und genau diese Mods anhaken:",s3:"Fremd-Mods holt der Installer mit:",s4:"Profil „Fabric 26.3“ im Launcher starten.",cp:"Liste kopieren",ok:"Kopiert",share:"Link zu dieser Auswahl",none:"keine"},
-en:{req:"Required parts",opt:"Optional",more:"Single mods",fam:"whole family",n:"mods",picked:"Picked",auto:"Added automatically",ext:"Other mods",fit:"Goes well with",for:"for",empty:"Nothing picked yet. Click a mod or a family.",how:"How to install exactly this selection",s1:"Install Fabric Loader for Minecraft 26.3 and the Fabric API.",s2:"Open the installer at /setup/ and tick exactly these mods:",s3:"The installer also fetches these other mods:",s4:"Start the “Fabric 26.3” profile in the launcher.",cp:"Copy list",ok:"Copied",share:"Link to this selection",none:"none"}};
+var T={de:{req:"Pflicht-Teile",opt:"Optional",more:"Einzelne Mods",fam:"ganze Familie",n:"Mods",picked:"Gewählt",auto:"Automatisch dazu",ext:"Fremd-Mods",fit:"Passt gut dazu",for:"für",empty:"Noch nichts gewählt. Klick auf einen Mod oder eine Familie.",how:"So installierst du genau diese Auswahl",s1:"Fabric Loader für Minecraft 26.3 installieren.",s2:"Unten bei „Herunterladen“ die ZIP laden und die .jar-Dateien in den Ordner mods legen. Enthalten:",s3:"Fremd-Mods zusätzlich selbst laden (Links unten):",s4:"Profil „Fabric 26.3“ im Launcher starten.",cp:"Liste kopieren",ok:"Kopiert",share:"Link zu dieser Auswahl",none:"keine"},
+en:{req:"Required parts",opt:"Optional",more:"Single mods",fam:"whole family",n:"mods",picked:"Picked",auto:"Added automatically",ext:"Other mods",fit:"Goes well with",for:"for",empty:"Nothing picked yet. Click a mod or a family.",how:"How to install exactly this selection",s1:"Install Fabric Loader for Minecraft 26.3.",s2:"Download the ZIP below under “Download” and put the .jar files into the mods folder. Included:",s3:"Get these other mods yourself (links below):",s4:"Start the “Fabric 26.3” profile in the launcher.",cp:"Copy list",ok:"Copied",share:"Link to this selection",none:"none"}};
 var P={build:["simpleblocks","simpleoctets","simplehammers","simplelights","simpleend"],adv:["simplemobs","simpleanimals","simpledinos","simpleend","simplemobheads","simpleenddragonfight"],comfort:["simplequalityoflife","simpleoptimization"]};
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function closure(){var W={},st=[];S.forEach(function(i){W[i]=null;st.push(i)});while(st.length){var i=st.pop();M[i].r.forEach(function(r){if(!(r in W)){W[r]=i;st.push(r)}})}return W}
@@ -302,15 +359,17 @@ s+='<h3>'+t.ext+'</h3><ul>'+(Object.keys(ext).length?Object.keys(ext).map(functi
 var f=Object.keys(fit).slice(0,12);if(f.length)s+='<h3>'+t.fit+'</h3>'+f.map(function(i){return '<button type="button" class="sug" data-m="'+i+'">+ '+esc(M[i].n)+'</button>'}).join("")}
 document.getElementById("sum").innerHTML=s;document.getElementById("bar").textContent=ids.length+" "+t.n;
 var names=ids.map(function(i){return M[i].n}).sort();
-document.getElementById("ins").innerHTML='<h2 style="margin-top:0">'+t.how+'</h2><ol><li>'+t.s1+'</li><li>'+t.s2+'<br><code>'+(names.length?esc(names.join(", ")):"-")+'</code></li><li>'+t.s3+' '+(Object.keys(ext).join(", ")||t.none)+'</li><li>'+t.s4+'</li></ol><button type="button" class="btn s cp" id="cp">'+t.cp+'</button> <a class="btn s" href="#sel='+Array.from(S).join(",")+'">'+t.share+'</a> <a class="btn" href="/setup/">/setup/</a>';
+document.getElementById("ins").innerHTML='<h2 style="margin-top:0">'+t.how+'</h2><ol><li>'+t.s1+'</li><li>'+t.s2+'<br><code>'+(names.length?esc(names.join(", ")):"-")+'</code></li><li>'+t.s3+' '+(Object.keys(ext).join(", ")||t.none)+'</li><li>'+t.s4+'</li></ol><button type="button" class="btn s cp" id="cp">'+t.cp+'</button> <a class="btn s" href="#sel='+Array.from(S).join(",")+'">'+t.share+'</a>';
 document.getElementById("cp").onclick=function(){var b=this;try{navigator.clipboard.writeText(names.join("\\n")).then(function(){b.textContent=t.ok})}catch(e){}};
+dlRender(W,M);
 try{history.replaceState(null,"",S.size?"#sel="+Array.from(S).join(","):location.pathname+location.search)}catch(e){}}
 document.addEventListener("click",function(e){var b=e.target.closest("[data-m],[data-f],[data-p]");if(!b)return;
 if(b.dataset.m){var i=b.dataset.m;S.has(i)?S.delete(i):S.add(i)}
 else if(b.dataset.f){var g=D.groups.filter(function(x){return x.id==b.dataset.f})[0],all=g.ids.every(function(i){return S.has(i)});g.ids.forEach(function(i){all?S.delete(i):S.add(i)})}
 else{var p=b.dataset.p;S.clear();if(p=="all")Object.keys(M).forEach(function(i){S.add(i)});else if(P[p])P[p].forEach(function(i){S.add(i)})}render()});
 var m=/sel=([a-z0-9_,]+)/.exec(location.hash);if(m)m[1].split(",").forEach(function(i){if(M[i])S.add(i)});
-document.addEventListener("smlang",render);render()})();'''
+document.addEventListener("smlang",render);dlInit(render);render()})();'''
+    js = (D / 'paket_dl.js').read_text(encoding='utf-8') + js
     return page('paket.html', css, body, js)
 
 
@@ -354,6 +413,10 @@ STAGES = [
              'simplemobs:item/hollow_howler_spawn_egg', 'simplemobs:item/watcher_eye', 'simplepads:block/enderite_spawn_teleporter', 'simplestorage:block/enderite_backpack_front'],
       mods=['simplehammers', 'simpleenchanting', 'simplebeacons', 'simplemobs', 'simplepads', 'simplemobheads']),
 ]
+
+
+for _s in STAGES:  # overrides.json "stages": {"<k>": {"de"/"en" (Titel), "tde"/"ten" (Text), "bg", "items", "mods"}}
+    _s.update({k: v for k, v in ((OVR.get('stages') or {}).get(_s['k']) or {}).items() if not k.startswith('_')})
 
 
 def k2():
@@ -445,6 +508,12 @@ NEWS = [  # aus git log (Datum, de, en)
 ]
 
 
+_SHOWKEYS = ('mod', 'tde', 'ten', 'pde', 'pen', 'bg', 'items', 'wiki')
+for _i, _row in enumerate(SHOW):  # overrides.json "discover": {"<mod>": {"tde"/"ten" (Titel), "pde"/"pen" (Satz), "bg", "items"}}
+    _o = (OVR.get('discover') or {}).get(_row[0]) or {}
+    SHOW[_i] = tuple(_o.get(k, v) for k, v in zip(_SHOWKEYS, _row))
+
+
 def k3():
     clip = audio()
     css = '''.nb{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:28px 0 0}
@@ -489,16 +558,25 @@ b.onclick=function(){if(a.paused){a.currentTime=0;a.play()}else a.pause();lab()}
     out = page('discover.html', css, body, js)
     # Button-Text wird vom Skript gepflegt, nicht vom Sprach-Schalter
     out = out.replace(' data-en="&#9654; Play">', '>', 1)
-    (D / 'discover.html').write_text(out, encoding='utf-8')
+    OUT['discover.html'] = out
     return out
 
 
-pages = {'default': (D / 'index.html').read_text(encoding='utf-8'), 'k1': k1(), 'k2': k2(), 'k3': k3()}
+pages = {'default': OUT['index.html'], 'k1': k1(), 'k2': k2(), 'k3': k3()}
+stale = [f for f, v in OUT.items() if not (D / f).exists() or (D / f).read_text(encoding='utf-8') != v]
+if CHECK:
+    if stale:  # Hinweis, kein Abbruch: die Landing ist kein Gate-Inhalt, der gen-Schritt jedes Buendels schreibt sie neu
+        print('landing: veraltet (python3 tools/landing/concepts.py):', ', '.join(stale))
+    else:
+        print('landing: aktuell')
+    sys.exit(0)
+for f in stale:
+    (D / f).write_text(OUT[f], encoding='utf-8')
 print('Zahlen:', C, '| Groessen:', {k: len(v.encode()) for k, v in pages.items()})
 
 # ---------------------------------------------------------------- Vorschau (LAND10)
-if len(sys.argv) > 1:
-    P = Path(sys.argv[1]); P.mkdir(parents=True, exist_ok=True)
+if ARGS:
+    P = Path(ARGS[0]); P.mkdir(parents=True, exist_ok=True)
     names = {'index.html': pages['default'], 'paket.html': pages['k1'], 'reise.html': pages['k2'], 'discover.html': pages['k3']}
     for f, v in names.items():
         for g in names:

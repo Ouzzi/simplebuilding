@@ -5,6 +5,8 @@
 #   deploy_dom07.sh check       preflight only, changes nothing
 #   deploy_dom07.sh domains     render all hosts, nginx -t, reload, copy landing, smoke per Host header
 #   deploy_dom07.sh smoke       smoke test only
+#   deploy_dom07.sh landing     only copy the four landing pages to /srv/landing (no nginx change; sb-web-sync does
+#                               this by itself after every production push once /srv/landing exists, W12)
 #   deploy_dom07.sh rollback    site file back to the state before the first "domains" run (.bak-dom07), seconds
 #
 # Hosts: wiki.simplemods.de = wiki (/, /dev/, /zentrale/, /api/, /setup/, /downloads/); simplemods.de = landing page;
@@ -96,6 +98,7 @@ case "$stage" in
   domains) preflight; backup_once; install_landing; render; smoke 8081
            say "fertig. Als Nächstes (Besitzer): Tunnel-Hostnames in Cloudflare eintragen, siehe README (IG31-55). Rückfall: rollback";;
   smoke) smoke 8081;;
+  landing) [ "$(id -u)" = 0 ] || die "als root starten"; install_landing;;
   rollback)
     [ -e "$SITE$BAK" ] || die "keine Sicherung $SITE$BAK"
     cp -a "$SITE$BAK" "$SITE"
