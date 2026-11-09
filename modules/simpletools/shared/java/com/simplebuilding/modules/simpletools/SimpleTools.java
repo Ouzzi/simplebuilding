@@ -111,6 +111,7 @@ public final class SimpleTools {
     }
 
     public static void load() {
+        com.simplebuilding.modules.simpletools.strip.StripViewer.register(); // IG31-59: info page in the recipe viewer
         CONFIG = read(configDir);
         // CMD24: /<modid> config for every option; save() normalises, writes and syncs the clients.
         com.simplelib.api.config.ConfigCommands.server(MOD_ID).gson(ToolsConfig.class, () -> CONFIG, c -> { c.normalize(); CONFIG = c; },

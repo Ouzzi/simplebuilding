@@ -166,6 +166,7 @@ public final class EndRegistry {
 
     /** After all registrations: stripping, flammability (like Vanilla overworld wood), boat dispensing. */
     public static void common() {
+        com.simplelib.api.AxeStrips.register(EndRegistry::stripped);
         FireBlock fire = (FireBlock) Blocks.FIRE;
         FireBlockInvoker f = (FireBlockInvoker) fire;
         for (EndWood w : EndWood.ALL) {

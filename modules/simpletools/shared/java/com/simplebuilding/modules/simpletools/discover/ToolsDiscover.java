@@ -73,11 +73,13 @@ public final class ToolsDiscover {
             "simpletools:config_enableItemFrameLock",
             "simpletools:config_enableItemFrameReverseRotate",
             "simpletools:config_enableSoulbound",
+            "simpletools:config_enableStripStation",
             "simpletools:config_fullDurabilityBonusMultiplier",
             "simpletools:config_fullDurabilityThreshold",
             "simpletools:config_soulboundAnvilCost",
             "simpletools:config_soulboundEndCityChance",
             "simpletools:config_soulboundTraderChance",
+            "simpletools:config_stripStationHopper",
             "simpletools:death_vault",
             "simpletools:death_vault_money",
             "simpletools:durability",
@@ -89,6 +91,7 @@ public final class ToolsDiscover {
             "simpletools:item_frames",
             "simpletools:raw_ceramic_bucket",
             "simpletools:soulbound",
+            "simpletools:strip_station",
             "simpletools:submod",
             "simpletools:thrift");
     static final List<Tip> TIPS = List.of();

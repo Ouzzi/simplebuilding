@@ -1,6 +1,8 @@
 package com.simplebuilding.modules.simpletools;
 
 import com.simplebuilding.modules.simpletools.brush.BiomeBrushItem;
+import com.simplebuilding.modules.simpletools.strip.StripStationBlock;
+import com.simplebuilding.modules.simpletools.strip.StripStationBlockEntity;
 import com.simplebuilding.modules.simpletools.vault.DeathVaultBlock;
 import com.simplebuilding.modules.simpletools.vault.DeathVaultMenu;
 import java.util.List;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -31,6 +34,11 @@ public final class ToolsRegistry {
     /** Biome Brush (moved from Simple Mobs on 21.10., old id {@code simplemobs:biome_brush} via IdMoves). */
     public static Item BIOME_BRUSH;
     public static MenuType<DeathVaultMenu> DEATH_VAULT_MENU;
+    public static final Identifier STRIP_STATION_ID = Identifier.fromNamespaceAndPath(SimpleTools.MOD_ID, "strip_station");
+    /** IG31-59: the strip station cage (axe work on a whole stack). The block entity type is built per loader and handed to {@link #registerStripStationEntity}. */
+    public static StripStationBlock STRIP_STATION;
+    public static Item STRIP_STATION_ITEM;
+    public static BlockEntityType<StripStationBlockEntity> STRIP_STATION_BE;
 
     private ToolsRegistry() {}
 
@@ -39,11 +47,20 @@ public final class ToolsRegistry {
         DEATH_VAULT = Registry.register(BuiltInRegistries.BLOCK, key, new DeathVaultBlock(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
                 .strength(25.0F, 1200.0F).sound(SoundType.DEEPSLATE_BRICKS).lightLevel(state -> 7).setId(key)));
+        ResourceKey<Block> cage = ResourceKey.create(Registries.BLOCK, STRIP_STATION_ID);
+        STRIP_STATION = Registry.register(BuiltInRegistries.BLOCK, cage, new StripStationBlock(BlockBehaviour.Properties.of()
+                .mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).noOcclusion().setId(cage)));
+    }
+
+    public static void registerStripStationEntity(BlockEntityType<StripStationBlockEntity> type) {
+        STRIP_STATION_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, STRIP_STATION_ID, type);
     }
 
     public static void registerItems() {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, DEATH_VAULT_ID);
         DEATH_VAULT_ITEM = Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(DEATH_VAULT, new Item.Properties().setId(key).useBlockDescriptionPrefix()));
+        ResourceKey<Item> cageItem = ResourceKey.create(Registries.ITEM, STRIP_STATION_ID);
+        STRIP_STATION_ITEM = Registry.register(BuiltInRegistries.ITEM, cageItem, new BlockItem(STRIP_STATION, new Item.Properties().setId(cageItem).useBlockDescriptionPrefix()));
         ResourceKey<Item> brush = ResourceKey.create(Registries.ITEM, BIOME_BRUSH_ID);
         BIOME_BRUSH = Registry.register(BuiltInRegistries.ITEM, brush, new BiomeBrushItem(com.simplelib.api.SimpleRarity.CURSED.apply(new Item.Properties().durability(BiomeBrushItem.DURABILITY)
                 .repairable(Items.NETHERITE_INGOT).enchantable(15)).fireResistant().setId(brush)));
@@ -62,6 +79,6 @@ public final class ToolsRegistry {
 
     /** Creative tab entries (functional blocks). */
     public static List<ItemStack> tabStacks() {
-        return DEATH_VAULT_ITEM == null ? List.of() : List.of(new ItemStack(DEATH_VAULT_ITEM));
+        return DEATH_VAULT_ITEM == null ? List.of() : List.of(new ItemStack(DEATH_VAULT_ITEM), new ItemStack(STRIP_STATION_ITEM));
     }
 }

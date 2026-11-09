@@ -31,5 +31,16 @@
     "secret": [
       "Biomes stay in their dimension, and claimed land or caves cannot be painted. Unbreaking and Mending work on it."
     ]
+  },
+  "strip_station": {
+    "lore": [
+      "A cage for the lazy: whole stacks of logs go in, bare wood comes out."
+    ],
+    "use": [
+      "Right-click with a stack to put it in, with an axe to work the whole stack at once, with an empty hand to take it out. Hoppers feed it from above and empty it below."
+    ],
+    "secret": [
+      "The axe pays one durability per block but is never broken by the cage: it stays at 1."
+    ]
   }
 }

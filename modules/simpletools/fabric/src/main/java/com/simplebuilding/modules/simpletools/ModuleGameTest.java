@@ -56,6 +56,15 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void biomeBrushRecipes(GameTestHelper h){ToolsTests.ALL.get("biome_brush_recipes").accept(h);}
  @GameTest(maxTicks=100) public void biomeBrushMoved(GameTestHelper h){ToolsTests.ALL.get("biome_brush_moved").accept(h);}
  @GameTest(maxTicks=100) public void biomeBrushRarity(GameTestHelper h){ToolsTests.ALL.get("biome_brush_rarity").accept(h);}
+  // IG31-59: strip station (strip/StripTests)
+ @GameTest(maxTicks=100) public void stripStationRegisteredWithRecipe(GameTestHelper h){ToolsTests.ALL.get("strip_station_registered_with_recipe").accept(h);}
+ @GameTest(maxTicks=100) public void stripStationTakesWholeStackAndGivesItBack(GameTestHelper h){ToolsTests.ALL.get("strip_station_takes_whole_stack_and_gives_it_back").accept(h);}
+ @GameTest(maxTicks=100) public void stripStationStripsWholeStackForOneDurabilityEach(GameTestHelper h){ToolsTests.ALL.get("strip_station_strips_whole_stack_for_one_durability_each").accept(h);}
+ @GameTest(maxTicks=100) public void stripStationCopperUnwaxesThenScrapesStepByStep(GameTestHelper h){ToolsTests.ALL.get("strip_station_copper_unwaxes_then_scrapes_step_by_step").accept(h);}
+ @GameTest(maxTicks=100) public void stripStationAxeStaysAtOneDurability(GameTestHelper h){ToolsTests.ALL.get("strip_station_axe_stays_at_one_durability").accept(h);}
+ @GameTest(maxTicks=200) public void stripStationHoppersFillFromAboveAndEmptyBelow(GameTestHelper h){ToolsTests.ALL.get("strip_station_hoppers_fill_from_above_and_empty_below").accept(h);}
+ @GameTest(maxTicks=100) public void stripStationOptionsSwitchItOff(GameTestHelper h){ToolsTests.ALL.get("strip_station_options_switch_it_off").accept(h);}
+ @GameTest(maxTicks=100) public void stripStationWorksWoodOfOtherMods(GameTestHelper h){ToolsTests.ALL.get("strip_station_works_wood_of_other_mods").accept(h);}
  // CAT-END
  private static boolean[] probeSeen;
  /** M-11: the permission probe fires the real BEFORE handlers, but area hammers must see it as a veto situation. */

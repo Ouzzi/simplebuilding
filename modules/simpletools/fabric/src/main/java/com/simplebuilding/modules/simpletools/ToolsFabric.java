@@ -19,6 +19,7 @@ public final class ToolsFabric implements ModInitializer {
         if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simpletools.guide.ToolsGuide.installQuests(SimpleTools.configDir);
         ToolsRegistry.registerBlocks();
         ToolsRegistry.registerItems();
+        ToolsRegistry.registerStripStationEntity(net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder.create(com.simplebuilding.modules.simpletools.strip.StripStationBlockEntity::new, ToolsRegistry.STRIP_STATION).build());
         com.simplelib.api.ModTabs.register(SimpleTools.MOD_ID, "tools", "itemgroup.simpletools.tools", () -> new net.minecraft.world.item.ItemStack(ToolsRegistry.DEATH_VAULT_ITEM));
         ToolsRegistry.registerMenus();
         net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS).register(out ->

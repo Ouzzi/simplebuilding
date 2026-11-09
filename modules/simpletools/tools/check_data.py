@@ -19,8 +19,8 @@ for option in fields:
 # WH26-7: the Enderite and ceramic buckets (22 items, ids in bucket/ToolsBuckets.java) moved here from Simple Crucibles.
 buckets = re.findall(r'"([a-z_]+)"', (JAVA / 'bucket/ToolsBuckets.java').read_text(encoding='utf-8').split('IDS = List.of(')[1].split(');')[0])
 assert len(buckets) == 22 and all(f'item.{MID}.{b}' in en for b in buckets), 'every bucket has a name'
-assert sorted(k for k in en if k.startswith(('item.', 'block.')) and k[len(f'item.{MID}.'):] not in buckets) == ['block.simpletools.death_vault', 'item.simpletools.biome_brush',
-    'item.simpletools.biome_brush.tooltip', 'item.simpletools.guide_book'], 'only the Death Vault block, the Biome Brush, the guide book and the buckets'
+assert sorted(k for k in en if k.startswith(('item.', 'block.')) and k[len(f'item.{MID}.'):] not in buckets) == ['block.simpletools.death_vault', 'block.simpletools.strip_station', 'item.simpletools.biome_brush',
+    'item.simpletools.biome_brush.tooltip', 'item.simpletools.guide_book'], 'only the Death Vault and strip station blocks, the Biome Brush, the guide book and the buckets'
 assert all(chr(195) not in v and chr(194) not in v for v in de.values()), 'German text has mojibake'
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 for feature in manual['features']:

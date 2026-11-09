@@ -31,5 +31,16 @@
     "secret": [
       "Biome bleiben in ihrer Dimension, geschütztes Land und Höhlen lassen sich nicht übermalen. Haltbarkeit und Reparatur wirken auf ihn."
     ]
+  },
+  "strip_station": {
+    "lore": [
+      "Ein Käfig für Faule: Stapelweise Stämme hinein, blankes Holz heraus."
+    ],
+    "use": [
+      "Rechtsklick mit einem Stapel legt ihn hinein, mit einer Axt wird der ganze Stapel auf einmal bearbeitet, mit leerer Hand nimmst du ihn heraus. Trichter füllen von oben und leeren unten."
+    ],
+    "secret": [
+      "Die Axt zahlt eine Haltbarkeit pro Block, geht im Käfig aber nie kaputt: sie bleibt bei 1."
+    ]
   }
 }

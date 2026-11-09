@@ -799,7 +799,21 @@ public final class FeatureStations {
                 TcText.t("deathvault.anvil.sub", "book on anvil"), TcText.t("deathvault.anvil.sub2", "always 35 levels"));
         c.wallSign(6, 1, wallZ, TcText.bold(TcText.t("deathvault.grind", "Grindstone")),
                 TcText.t("deathvault.grind.sub", "removes Soulbound"));
-        c.backWall(0, 7, wallZ, 4);
+        // IG31-59: Entrindungs-Station (Simple Tools): Truhe -> Trichter -> Kaefig; daneben Axt, Stamm- und Kupferstapel.
+        var cage = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletools", "strip_station"));
+        if (cage.isPresent()) {
+            c.place(9, 0, z, cage.get());
+            c.place(9, 1, z, Blocks.HOPPER);
+            c.place(9, 2, z, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+            c.contents(9, 2, z, List.of(new ItemStack(Items.OAK_LOG, 64), new ItemStack(Items.BIRCH_LOG, 64)));
+            c.place(11, 0, z, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+            c.contents(11, 0, z, List.of(new ItemStack(Items.IRON_AXE), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.OAK_LOG, 64),
+                    new ItemStack(Items.COPPER_BLOCK.waxed().oxidized(), 64), new ItemStack(Items.COPPER_BLOCK.weathering().oxidized(), 64)));
+            c.wallSign(9, 1, wallZ, TcText.bold(TcText.t("deathvault.strip", "Strip Station")),
+                    TcText.t("deathvault.strip.sub", "axe works the stack"), TcText.t("deathvault.strip.sub2", "hopper in/out"));
+        }
+        c.backWall(0, cage.isPresent() ? 13 : 7, wallZ, 4);
         return c;
     }
 

@@ -41,6 +41,10 @@ public final class ToolsConfig {
     public int deathVaultMaxPerOffering = 3;
     /** Future redeem option: deaths kept per player, 1-100 (the oldest are forgotten); without it only the last death is kept. */
     public int deathVaultMaxDeaths = 20;
+    /** Strip station (IG31-59): a cage in which an axe works a whole stack of blocks at once. */
+    public boolean enableStripStation = true;
+    /** Strip station: a hopper above fills it, a hopper below takes only the worked blocks. */
+    public boolean stripStationHopper = true;
     /** Biome Brush on/off (moved from Simple Mobs on 21.10.). */
     public boolean biomeBrushEnabled = true;
     /** Biome Brush only for operators. */

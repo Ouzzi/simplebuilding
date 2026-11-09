@@ -265,7 +265,7 @@
       },
       "de": {
         "title": "Sparsamkeit",
-        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen. Die ID bleibt simplequalityoflife:thrift, damit verzauberte Gegenstände aus älteren Welten sie behalten; sie wirkt auch bei abgeschalteter Sub-Mod."
+        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen. Die ID bleibt simplequalityoflife:thrift (ältere Welten behalten sie) und wirkt auch bei abgeschalteter Sub-Mod."
       }
     },
     {
@@ -404,6 +404,52 @@
       "de": {
         "title": "(mit Simple Money) Geldscheine als Opfer",
         "summary": "Ist Simple Money installiert, zählen seine Geldscheine im Opferplatz des Todesgewölbes wie Diamanten (optionaler Tag-Eintrag, ohne die Mod ändert sich nichts)."
+      }
+    },
+    {
+      "id": "strip_station",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/strip/StripStationBlock.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/strip/StripStationBlockEntity.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/strip/StripWork.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/client/StripStationRenderer.java",
+        "modules/simpletools/shared/resources/data/simpletools/recipe/strip_station.json"
+      ],
+      "en": {
+        "title": "Strip Station",
+        "summary": "Crafted cage (iron axe, 4 iron bars, 4 planks). A block stack goes in; an axe strips, scrapes or unwaxes the whole stack at once (1 durability per block, the axe stays at 1). Empty hand takes it out; hoppers fill above, empty below."
+      },
+      "de": {
+        "title": "Entrindungs-Station",
+        "summary": "Käfig (Eisenaxt, 4 Stäbe, 4 Bretter). Blockstapel hinein; die Axt entrindet, schabt oder entwachst ihn auf einmal (1 Haltbarkeit je Block, Axt bleibt bei 1). Leere Hand entnimmt; Trichter oben rein, unten raus."
+      }
+    },
+    {
+      "id": "config_enableStripStation",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableStripStation",
+        "summary": "Server setting. Default: true. Switches the strip station on; off: it holds nothing and the axe does nothing to it."
+      },
+      "de": {
+        "title": "enableStripStation",
+        "summary": "Servereinstellung. Standard: true. Schaltet die Entrindungs-Station ein; aus: sie nimmt nichts auf und die Axt tut nichts."
+      }
+    },
+    {
+      "id": "config_stripStationHopper",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "stripStationHopper",
+        "summary": "Server setting. Default: true. A hopper above fills the strip station, a hopper below takes only the worked blocks; off: hoppers leave it alone."
+      },
+      "de": {
+        "title": "stripStationHopper",
+        "summary": "Servereinstellung. Standard: true. Ein Trichter darüber füllt die Entrindungs-Station, ein Trichter darunter nimmt nur bearbeitete Blöcke; aus: Trichter lassen sie in Ruhe."
       }
     },
     {
@@ -778,6 +824,54 @@
           }
         ]
       }
+    },
+    {
+      "id": "simpletools:strip_station",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpletools:strip_station",
+        "count": 1
+      },
+      "source": "modules/simpletools/shared/resources/data/simpletools/recipe/strip_station.json",
+      "ingredients": [
+        "#minecraft:planks",
+        "minecraft:iron_axe",
+        "minecraft:iron_bars"
+      ],
+      "pattern": [
+        "PIP",
+        "IAI",
+        "PIP"
+      ],
+      "key": {
+        "P": [
+          "#minecraft:planks"
+        ],
+        "I": [
+          "minecraft:iron_bars"
+        ],
+        "A": [
+          "minecraft:iron_axe"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.25
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:planks"
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -798,6 +892,24 @@
         }
       ],
       "source": "modules/simpletools/shared/resources/data/simpletools/loot_table/blocks/death_vault.json"
+    },
+    {
+      "id": "simpletools:blocks/strip_station",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpletools:strip_station"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpletools/shared/resources/data/simpletools/loot_table/blocks/strip_station.json"
     }
   ],
   "tags": [
@@ -1459,6 +1571,51 @@
         "simpletools:death_vault"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpletools:strip_station",
+      "name": {
+        "en_us": "Strip Station",
+        "de_de": "Entrindungs-Station"
+      },
+      "note": {
+        "en": {
+          "title": "Strip Station",
+          "summary": "Crafted cage (iron axe, 4 iron bars, 4 planks). A block stack goes in; an axe strips, scrapes or unwaxes the whole stack at once (1 durability per block, the axe stays at 1). Empty hand takes it out; hoppers fill above, empty below."
+        },
+        "de": {
+          "title": "Entrindungs-Station",
+          "summary": "Käfig (Eisenaxt, 4 Stäbe, 4 Bretter). Blockstapel hinein; die Axt entrindet, schabt oder entwachst ihn auf einmal (1 Haltbarkeit je Block, Axt bleibt bei 1). Leere Hand entnimmt; Trichter oben rein, unten raus."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A cage for the lazy: whole stacks of logs go in, bare wood comes out."
+          ],
+          "use": [
+            "Right-click with a stack to put it in, with an axe to work the whole stack at once, with an empty hand to take it out. Hoppers feed it from above and empty it below."
+          ],
+          "secret": [
+            "The axe pays one durability per block but is never broken by the cage: it stays at 1."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Käfig für Faule: Stapelweise Stämme hinein, blankes Holz heraus."
+          ],
+          "use": [
+            "Rechtsklick mit einem Stapel legt ihn hinein, mit einer Axt wird der ganze Stapel auf einmal bearbeitet, mit leerer Hand nimmst du ihn heraus. Trichter füllen von oben und leeren unten."
+          ],
+          "secret": [
+            "Die Axt zahlt eine Haltbarkeit pro Block, geht im Käfig aber nie kaputt: sie bleibt bei 1."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpletools:strip_station"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -1475,14 +1632,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 33,
-    "recipes": 6,
-    "lootTables": 1,
+    "features": 36,
+    "recipes": 7,
+    "lootTables": 2,
     "tags": 3,
     "advancements": 1,
     "enchantments": 1,
     "items": 24,
-    "blocks": 1,
+    "blocks": 2,
     "trades": 0,
     "config": 0,
     "quests": 0,

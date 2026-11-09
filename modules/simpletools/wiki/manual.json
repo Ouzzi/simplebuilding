@@ -247,7 +247,7 @@
       },
       "de": {
         "title": "Sparsamkeit",
-        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen. Die ID bleibt simplequalityoflife:thrift, damit verzauberte Gegenstände aus älteren Welten sie behalten; sie wirkt auch bei abgeschalteter Sub-Mod."
+        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen. Die ID bleibt simplequalityoflife:thrift (ältere Welten behalten sie) und wirkt auch bei abgeschalteter Sub-Mod."
       }
     },
     {
@@ -386,6 +386,52 @@
       "de": {
         "title": "(mit Simple Money) Geldscheine als Opfer",
         "summary": "Ist Simple Money installiert, zählen seine Geldscheine im Opferplatz des Todesgewölbes wie Diamanten (optionaler Tag-Eintrag, ohne die Mod ändert sich nichts)."
+      }
+    },
+    {
+      "id": "strip_station",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/strip/StripStationBlock.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/strip/StripStationBlockEntity.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/strip/StripWork.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/client/StripStationRenderer.java",
+        "modules/simpletools/shared/resources/data/simpletools/recipe/strip_station.json"
+      ],
+      "en": {
+        "title": "Strip Station",
+        "summary": "Crafted cage (iron axe, 4 iron bars, 4 planks). A block stack goes in; an axe strips, scrapes or unwaxes the whole stack at once (1 durability per block, the axe stays at 1). Empty hand takes it out; hoppers fill above, empty below."
+      },
+      "de": {
+        "title": "Entrindungs-Station",
+        "summary": "Käfig (Eisenaxt, 4 Stäbe, 4 Bretter). Blockstapel hinein; die Axt entrindet, schabt oder entwachst ihn auf einmal (1 Haltbarkeit je Block, Axt bleibt bei 1). Leere Hand entnimmt; Trichter oben rein, unten raus."
+      }
+    },
+    {
+      "id": "config_enableStripStation",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableStripStation",
+        "summary": "Server setting. Default: true. Switches the strip station on; off: it holds nothing and the axe does nothing to it."
+      },
+      "de": {
+        "title": "enableStripStation",
+        "summary": "Servereinstellung. Standard: true. Schaltet die Entrindungs-Station ein; aus: sie nimmt nichts auf und die Axt tut nichts."
+      }
+    },
+    {
+      "id": "config_stripStationHopper",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "stripStationHopper",
+        "summary": "Server setting. Default: true. A hopper above fills the strip station, a hopper below takes only the worked blocks; off: hoppers leave it alone."
+      },
+      "de": {
+        "title": "stripStationHopper",
+        "summary": "Servereinstellung. Standard: true. Ein Trichter darüber füllt die Entrindungs-Station, ein Trichter darunter nimmt nur bearbeitete Blöcke; aus: Trichter lassen sie in Ruhe."
       }
     },
     {
