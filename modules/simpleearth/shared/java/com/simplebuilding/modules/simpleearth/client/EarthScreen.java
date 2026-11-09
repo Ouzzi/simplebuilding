@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.modules.simpleearth.config.EarthClientConfig;
 import com.simplebuilding.modules.simpleearth.config.EarthSettings;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.List;
@@ -252,14 +253,19 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         // the world stays visible (no blur), one keeps flying while the menu is open
     }
 
+    /** Text colour on the panel box: never less than 4.5:1 against it, also in the dark inventory brightness (UiBrightness). */
+    private static int ink(int color) {
+        return UiContrast.ensure(color, UiPalette.INVENTORY.fill());
+    }
+
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
         UiBoxes.box(g, panelX, panelY, W, panelH, UiPalette.INVENTORY);
-        g.text(font, title, panelX + PAD, panelY + 8, LABEL, false);
+        g.text(font, title, panelX + PAD, panelY + 8, UiPalette.INVENTORY.label(), false);
         int v = EarthClientConfig.version;
         Component name = Component.translatable("simpleearth.version." + v + ".name");
-        g.text(font, name, panelX + W - PAD - font.width(name), panelY + 8, SECONDARY_TEXT, false);
-        g.textWithWordWrap(font, Component.translatable("simpleearth.version." + v + ".desc"), panelX + PAD, descY, W - 2 * PAD, SECONDARY_TEXT, false);
+        g.text(font, name, panelX + W - PAD - font.width(name), panelY + 8, ink(SECONDARY_TEXT), false);
+        g.textWithWordWrap(font, Component.translatable("simpleearth.version." + v + ".desc"), panelX + PAD, descY, W - 2 * PAD, ink(SECONDARY_TEXT), false);
         UiBoxes.insetColored(g, panelX + PAD - 1, listTop - 2, W - 2 * PAD + 2, listBottom - listTop + 4, UiPalette.INVENTORY, LIST_BG);
         super.extractRenderState(g, mouseX, mouseY, delta);
     }

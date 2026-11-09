@@ -379,7 +379,7 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
                 }
             }
             String number = String.valueOf(index + 1);
-            g.text(font, number, x + CONTENT_W / 2 - font.width(number) / 2, by + 163, INK_FAINT, false);
+            g.text(font, number, x + CONTENT_W / 2 - font.width(number) / 2, by + 163, INK_SOFT, false);
         }
         if (spread > 0) {
             boolean hover = ModpackGuideBar.in(mouseX, mouseY, prevRect());

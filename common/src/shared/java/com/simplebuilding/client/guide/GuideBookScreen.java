@@ -704,7 +704,7 @@ public class GuideBookScreen extends Screen {
                 placed.element().draw(this, g, x, by + CONTENT_Y + placed.y(), mouseX, mouseY);
             }
             String number = String.valueOf(index + 1);
-            g.text(font, number, x + CONTENT_W / 2 - font.width(number) / 2, by + 163, INK_FAINT, false);
+            g.text(font, number, x + CONTENT_W / 2 - font.width(number) / 2, by + 163, INK_SOFT, false);
         }
 
         if (spread > 0) {
