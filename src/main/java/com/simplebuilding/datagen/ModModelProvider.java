@@ -112,10 +112,12 @@ public class ModModelProvider extends FabricModelProvider {
             }
         }
 
-        blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRAL_PURPUR_BLOCK);
-        blockStateModelGenerator.createTrivialCube(ModBlocks.NIHIL_PURPUR_BLOCK);
-        blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRAL_END_STONE);
-        blockStateModelGenerator.createTrivialCube(ModBlocks.NIHIL_END_STONE);
+        // Beschichtete Endsteine und Purpurbloecke (PAL14: samt Treppe/Stufe/Mauer bzw. Saeule/Treppe/Stufe, ModBlocks.COATED_KINDS).
+        for (ModBlocks.CoatedKind kind : ModBlocks.COATED_KINDS) {
+            blockStateModelGenerator.family(kind.stone()).stairs(kind.stoneStairs()).slab(kind.stoneSlab()).wall(kind.stoneWall());
+            blockStateModelGenerator.family(kind.purpur()).stairs(kind.purpurStairs()).slab(kind.purpurSlab());
+            blockStateModelGenerator.createAxisAlignedPillarBlock(kind.purpurPillar(), TexturedModel.COLUMN_ALT);
+        }
 
         // Astralit-/Nihilith-Bausatz: Ziegelfamilie (Treppe, Stufe, Mauer samt Inventarmodell),
         // Saeule mit eigener Stirnseite (_top) und gemeisselte Ziegel als einfacher Wuerfel.

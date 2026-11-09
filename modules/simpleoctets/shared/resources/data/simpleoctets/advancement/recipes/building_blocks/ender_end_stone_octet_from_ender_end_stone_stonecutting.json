@@ -1,0 +1,78 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    },
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simpleblocks"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simpleblocks"
+      }
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:and",
+    "values": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "simplebuilding"
+      },
+      {
+        "type": "forge:not",
+        "value": {
+          "type": "forge:mod_loaded",
+          "modid": "simpleblocks"
+        }
+      }
+    ]
+  },
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ender_end_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:ender_end_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleoctets:ender_end_stone_octet_from_ender_end_stone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ender_end_stone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleoctets:ender_end_stone_octet_from_ender_end_stone_stonecutting"
+    ]
+  }
+}

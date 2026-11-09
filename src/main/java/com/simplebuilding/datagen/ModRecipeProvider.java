@@ -1279,6 +1279,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 createCoatingRecipe(output, ModBlocks.NIHIL_PURPUR_BLOCK, Items.PURPUR_BLOCK, ModItems.NIHILITH_SHARD);
                 createCoatingRecipe(output, ModBlocks.ASTRAL_END_STONE, ModBlocks.POLISHED_END_STONE, ModItems.ASTRALIT_DUST);
                 createCoatingRecipe(output, ModBlocks.NIHIL_END_STONE, ModBlocks.POLISHED_END_STONE, ModItems.NIHILITH_SHARD);
+                // PAL14: die dritte Art mit Enderquarz
+                createCoatingRecipe(output, ModBlocks.ENDER_PURPUR_BLOCK, Items.PURPUR_BLOCK, ModItems.ENDER_QUARTZ);
+                createCoatingRecipe(output, ModBlocks.ENDER_END_STONE, ModBlocks.POLISHED_END_STONE, ModItems.ENDER_QUARTZ);
 
                 // --- ENDERQUARZ ---
                 // Formlos 1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz -> 2 Enderquarz.
@@ -1358,6 +1361,30 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // und Nihilith schon als Beschichtungsrezept (-> Astral-/Nihil-Purpurblock) belegt ist.
                 createCoatedStoneCuts(ModBlocks.ASTRAL_END_STONE, ModBlocks.ASTRAL_PURPUR_BLOCK, ModBlocks.ASTRALIT_PALETTE);
                 createCoatedStoneCuts(ModBlocks.NIHIL_END_STONE, ModBlocks.NIHIL_PURPUR_BLOCK, ModBlocks.NIHILITH_PALETTE);
+                createCoatedStoneCuts(ModBlocks.ENDER_END_STONE, ModBlocks.ENDER_PURPUR_BLOCK, ModBlocks.ENDER_QUARTZ_PALETTE);
+                // PAL14: Treppe/Stufe/Mauer der beschichteten Endsteine, Saeule/Treppe/Stufe der beschichteten Purpurbloecke
+                // wie Vanilla (Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6, Saeule aus 2 Purpurstufen; Steinmetz 1 -> 1, Stufe 1 -> 2).
+                for (ModBlocks.CoatedKind kind : ModBlocks.COATED_KINDS) {
+                    Block stone = kind.stone();
+                    Block purpur = kind.purpur();
+                    stairBuilder(kind.stoneStairs(), Ingredient.of(stone)).unlockedBy(getHasName(stone), has(stone)).save(output);
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, kind.stoneSlab(), Ingredient.of(stone)).unlockedBy(getHasName(stone), has(stone)).save(output);
+                    wallBuilder(RecipeCategory.DECORATIONS, kind.stoneWall(), Ingredient.of(stone)).unlockedBy(getHasName(stone), has(stone)).save(output);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, kind.stoneStairs(), stone);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, kind.stoneSlab(), stone, 2);
+                    stonecutterResultFromBase(RecipeCategory.DECORATIONS, kind.stoneWall(), stone);
+                    stairBuilder(kind.purpurStairs(), Ingredient.of(purpur)).unlockedBy(getHasName(purpur), has(purpur)).save(output);
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, kind.purpurSlab(), Ingredient.of(purpur)).unlockedBy(getHasName(purpur), has(purpur)).save(output);
+                    shaped(RecipeCategory.BUILDING_BLOCKS, kind.purpurPillar())
+                            .pattern("#")
+                            .pattern("#")
+                            .define('#', kind.purpurSlab())
+                            .unlockedBy(getHasName(purpur), has(purpur))
+                            .save(output);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, kind.purpurPillar(), purpur);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, kind.purpurStairs(), purpur);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, kind.purpurSlab(), purpur, 2);
+                }
 
                 // Alternativbloecke (2026-10-03): der Steinmetz schneidet jeden 1:1 aus dem Grundblock, und
                 // 4 im Quadrat ergeben 4 des naechsten der Kette (erster -> zweiter -> dritter -> Grundblock).
@@ -1470,9 +1497,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 createRecolourRecipe(exporter, p.brickStairs(), Items.END_STONE_BRICK_STAIRS, material);
                 createRecolourRecipe(exporter, p.brickSlab(), Items.END_STONE_BRICK_SLAB, material);
                 createRecolourRecipe(exporter, p.brickWall(), Items.END_STONE_BRICK_WALL, material);
-                if (recolourPurpurBlock) {
-                    createRecolourRecipe(exporter, p.polished(), Items.PURPUR_BLOCK, material);
-                }
+                // Den Purpurblock selbst faerbt keine Palette mehr um: der Ring aus Purpur um das Material ist die
+                // Beschichtung zum Astral-/Nihil-/Ender-Purpurblock (PAL14), der in den polierten Block schneidet.
                 createRecolourRecipe(exporter, p.polishedStairs(), Items.PURPUR_STAIRS, material);
                 createRecolourRecipe(exporter, p.polishedSlab(), Items.PURPUR_SLAB, material);
                 createRecolourRecipe(exporter, p.pillar(), Items.PURPUR_PILLAR, material);

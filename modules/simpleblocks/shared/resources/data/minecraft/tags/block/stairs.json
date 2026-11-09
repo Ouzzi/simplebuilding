@@ -16,6 +16,9 @@
     "simpleblocks:smooth_stone_stairs",
     "simpleblocks:quartz_brick_stairs",
     "simpleblocks:end_stone_stairs",
+    "simpleblocks:ice_stairs",
+    "simpleblocks:packed_ice_stairs",
+    "simpleblocks:blue_ice_stairs",
     "simpleblocks:blue_nether_brick_stairs"
   ]
 }

@@ -1861,6 +1861,72 @@
   "de": "Polierter Nihilit"
  },
  {
+  "ns": "simplebuilding",
+  "base": "astral_end_stone",
+  "key": "astral_end_stone",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/astral_end_stone"
+  },
+  "en": "Astral End Stone",
+  "de": "Astral-Endstein"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "nihil_end_stone",
+  "key": "nihil_end_stone",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/nihil_end_stone"
+  },
+  "en": "Nihil End Stone",
+  "de": "Nihil-Endstein"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "ender_end_stone",
+  "key": "ender_end_stone",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/ender_end_stone"
+  },
+  "en": "Ender End Stone",
+  "de": "Ender-Endstein"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "astral_purpur_block",
+  "key": "astral_purpur_block",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/astral_purpur_block"
+  },
+  "en": "Astral Purpur Block",
+  "de": "Astral-Purpurblock"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "nihil_purpur_block",
+  "key": "nihil_purpur_block",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/nihil_purpur_block"
+  },
+  "en": "Nihil Purpur Block",
+  "de": "Nihil-Purpurblock"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "ender_purpur_block",
+  "key": "ender_purpur_block",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/ender_purpur_block"
+  },
+  "en": "Ender Purpur Block",
+  "de": "Ender-Purpurblock"
+ },
+ {
   "ns": "simpleblocks",
   "base": "blue_nether_bricks",
   "key": "blue_nether_bricks",
@@ -1938,5 +2004,38 @@
   },
   "en": "Sulfur",
   "de": "Schwefel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "ice",
+  "key": "ice",
+  "group": "other",
+  "tex": {
+   "all": "minecraft:block/ice"
+  },
+  "en": "Ice",
+  "de": "Eis"
+ },
+ {
+  "ns": "minecraft",
+  "base": "packed_ice",
+  "key": "packed_ice",
+  "group": "other",
+  "tex": {
+   "all": "minecraft:block/packed_ice"
+  },
+  "en": "Packed Ice",
+  "de": "Packeis"
+ },
+ {
+  "ns": "minecraft",
+  "base": "blue_ice",
+  "key": "blue_ice",
+  "group": "other",
+  "tex": {
+   "all": "minecraft:block/blue_ice"
+  },
+  "en": "Blue Ice",
+  "de": "Blaueis"
  }
 ]

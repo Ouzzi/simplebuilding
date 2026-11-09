@@ -173,6 +173,30 @@
       "required": false
     },
     {
+      "id": "simpleoctets:astral_end_stone_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:nihil_end_stone_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:ender_end_stone_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:astral_purpur_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:nihil_purpur_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:ender_purpur_block_octet",
+      "required": false
+    },
+    {
       "id": "simpleoctets:blue_nether_bricks_octet",
       "required": false
     },
@@ -184,6 +208,9 @@
     "simpleoctets:cinnabar_octet",
     "simpleoctets:polished_cinnabar_octet",
     "simpleoctets:polished_sulfur_octet",
-    "simpleoctets:sulfur_octet"
+    "simpleoctets:sulfur_octet",
+    "simpleoctets:ice_octet",
+    "simpleoctets:packed_ice_octet",
+    "simpleoctets:blue_ice_octet"
   ]
 }

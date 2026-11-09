@@ -179,13 +179,22 @@ public final class OctetMaterials {
             new Material("simplebuilding", "polished_astralit", "polished_astralit_block", "mod"),
             new Material("simplebuilding", "polished_ender_quartz", "polished_ender_quartz_block", "mod"),
             new Material("simplebuilding", "polished_nihilith", "polished_nihilith_block", "mod"),
+            new Material("simplebuilding", "astral_end_stone", "astral_end_stone", "mod"),
+            new Material("simplebuilding", "nihil_end_stone", "nihil_end_stone", "mod"),
+            new Material("simplebuilding", "ender_end_stone", "ender_end_stone", "mod"),
+            new Material("simplebuilding", "astral_purpur_block", "astral_purpur_block", "mod"),
+            new Material("simplebuilding", "nihil_purpur_block", "nihil_purpur_block", "mod"),
+            new Material("simplebuilding", "ender_purpur_block", "ender_purpur_block", "mod"),
             new Material("simpleblocks", "blue_nether_bricks", "blue_nether_bricks", "mod"),
             new Material("simpleblocks", "hushed_deepslate_tiles", "hushed_deepslate_tiles", "mod"),
             new Material("minecraft", "bone_block", "bone_block", "other"),
             new Material("minecraft", "cinnabar", "cinnabar", "other"),
             new Material("minecraft", "polished_cinnabar", "polished_cinnabar", "other"),
             new Material("minecraft", "polished_sulfur", "polished_sulfur", "other"),
-            new Material("minecraft", "sulfur", "sulfur", "other"));
+            new Material("minecraft", "sulfur", "sulfur", "other"),
+            new Material("minecraft", "ice", "ice", "other"),
+            new Material("minecraft", "packed_ice", "packed_ice", "other"),
+            new Material("minecraft", "blue_ice", "blue_ice", "other"));
 
     private OctetMaterials() {
     }

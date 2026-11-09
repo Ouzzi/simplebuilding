@@ -67,8 +67,24 @@ CHISELED = [('chiseled_polished_andesite', 'polished_andesite', 'polished_andesi
             ('chiseled_polished_diorite', 'polished_diorite', 'polished_diorite_slab', 'Chiseled Polished Diorite', 'Gemeißelter Polierter Diorit'),
             ('chiseled_polished_granite', 'polished_granite', 'polished_granite_slab', 'Chiseled Polished Granite', 'Gemeißelter Polierter Granit'),
             ('chiseled_prismarine', 'prismarine', 'prismarine_slab', 'Chiseled Prismarine', 'Gemeißelter Prismarin'),
-            ('chiseled_red_nether_bricks', 'red_nether_bricks', 'red_nether_brick_slab', 'Chiseled Red Nether Bricks', 'Gemeißelte Rote Netherziegel')]
+            ('chiseled_red_nether_bricks', 'red_nether_bricks', 'red_nether_brick_slab', 'Chiseled Red Nether Bricks', 'Gemeißelte Rote Netherziegel'),
+            # PAL14 (owner 09.11.): the red gap under the dark prismarine bricks.
+            ('chiseled_dark_prismarine', 'dark_prismarine', 'dark_prismarine_slab', 'Chiseled Dark Prismarine', 'Gemeißelter Dunkler Prismarin')]
 CHISELED_NAMES = {c[0]: (c[3], c[4]) for c in CHISELED}
+
+# PAL14 (owner 09.11., docs/ai/PLAN-B-PAL14-2026-11-09.md): sandstone pillars (block, Vanilla sandstone, end texture, EN, DE). Side texture:
+# tools/textures/pal14_2026_11_09.py (Vanilla-derived, never committed); the ends show the Vanilla sandstone top (no copy).
+PILLARS = [('sandstone_pillar', 'sandstone', 'minecraft:block/sandstone_top', 'Sandstone Pillar', 'Sandsteinsäule'),
+           ('red_sandstone_pillar', 'red_sandstone', 'minecraft:block/red_sandstone_top', 'Red Sandstone Pillar', 'Rote Sandsteinsäule')]
+# PAL14 ice families: (Vanilla ice, EN, DE). Members: polished_<ice>, <ice>_bricks (+ chiseled_ice; the chiseled packed/blue ice
+# exist since B23), <ice>_stairs/_slab/_wall. Textures of the full blocks: pal14_2026_11_09.py (Vanilla-derived, alpha kept).
+ICES = [('ice', 'Ice', 'Eis'), ('packed_ice', 'Packed Ice', 'Packeis'), ('blue_ice', 'Blue Ice', 'Blaueis')]
+ICE_FULL = ['chiseled_ice'] + [n for k, *_ in ICES for n in (f'polished_{k}', f'{k}_bricks')]
+ICE_NAMES = {'chiseled_ice': ('Chiseled Ice', 'Gemeißeltes Eis')}
+for _k, _en, _de in ICES:
+    ICE_NAMES[f'polished_{_k}'] = (f'Polished {_en}', f'Poliertes {_de}')
+    ICE_NAMES[f'{_k}_bricks'] = (f'{_en} Bricks', f'{_de}ziegel')
+    SHAPES.append((_k, f'minecraft:{_k}', 'sSw', _tex(f'minecraft:block/{_k}')))
 
 # name -> dict(kind, family, base item, textures)
 BLOCKS = {}
@@ -87,6 +103,13 @@ for name, _ in AGED:
     BLOCKS[name] = dict(kind='cube', tex=f'{NS}:block/{name}')
 for name, *_ in CHISELED:
     BLOCKS[name] = dict(kind='cube', tex=f'{NS}:block/{name}')
+for name, _, end, *_ in PILLARS:
+    BLOCKS[name] = dict(kind='pillar', side=f'{NS}:block/{name}', end=end)
+for name in ICE_FULL:
+    BLOCKS[name] = dict(kind='cube', tex=f'{NS}:block/{name}')
+# Every ice member: Silk Touch loot like Vanilla ice (stairs/slab/wall included, see ICE_SHAPES).
+ICE_SHAPES = [f'{k}_{kind}' for k, *_ in ICES for kind in ('stairs', 'slab', 'wall')]
+ICE_ALL = ICE_FULL + ICE_SHAPES
 
 # Blue nether bricks (N71): own texture, full block + stairs/slab/wall; made from warped wart (SimpleLib) like red nether bricks from nether wart.
 BLUE = 'blue_nether_bricks'
@@ -242,7 +265,13 @@ def wall_state(name):
 def models_and_states():
     for name, b in BLOCKS.items():
         kind = b['kind']
-        if kind == 'cube':
+        if kind == 'pillar':
+            put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/cube_column', 'textures': {'end': b['end'], 'side': b['side']}})
+            put(f'assets/{NS}/blockstates/{name}.json', {'variants': {
+                'axis=x': {'model': f'{NS}:block/{name}', 'x': 90, 'y': 90}, 'axis=y': {'model': f'{NS}:block/{name}'},
+                'axis=z': {'model': f'{NS}:block/{name}', 'x': 90}}})
+            put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}'}})
+        elif kind == 'cube':
             put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': b['tex']}})
             put(f'assets/{NS}/blockstates/{name}.json', {'variants': {'': {'model': f'{NS}:block/{name}'}}})
             put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}'}})
@@ -355,7 +384,7 @@ def recipes():
            'minecraft:warped_wart_block', conditions=no_lib)
     for name, b in BLOCKS.items():
         kind = b['kind']
-        if kind == 'cube':
+        if kind in ('cube', 'pillar'):
             continue
         base = b['base']
         if kind == 'stairs':
@@ -379,6 +408,25 @@ def recipes():
                       'pattern': ['#', '#'], 'result': result(name)}, f'minecraft:{slab}')
         recipe(f'{name}_from_{base}_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': f'minecraft:{base}', 'result': result(name)},
                f'minecraft:{base}')
+    # PAL14 sandstone pillars: two sandstone on top of each other -> 2 (like the quartz pillar); stonecutter 1 -> 1.
+    for name, base, *_ in PILLARS:
+        recipe(name, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': f'minecraft:{base}'},
+                      'pattern': ['#', '#'], 'result': result(name, 2)}, f'minecraft:{base}')
+        recipe(f'{name}_from_{base}_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': f'minecraft:{base}', 'result': result(name)},
+               f'minecraft:{base}')
+    # PAL14 ice: 4 ice -> 4 polished, 4 polished -> 4 bricks (like deepslate); stonecutter: the ice -> polished/bricks (chiseled
+    # ice only there, like the chiseled packed/blue ice), polished -> bricks.
+    for k, *_ in ICES:
+        ice, polished, bricks = f'minecraft:{k}', f'{NS}:polished_{k}', f'{NS}:{k}_bricks'
+        recipe(f'polished_{k}', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': ice},
+                                 'pattern': ['##', '##'], 'result': result(f'polished_{k}', 4)}, ice)
+        recipe(f'{k}_bricks', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': polished},
+                               'pattern': ['##', '##'], 'result': result(f'{k}_bricks', 4)}, polished)
+        for out, src in ((f'polished_{k}', ice), (f'{k}_bricks', ice), (f'{k}_bricks', polished)):
+            rid = f'{out}_from_{src.split(":")[1]}_stonecutting'
+            recipe(rid, {'type': 'minecraft:stonecutting', 'ingredient': src, 'result': result(out)}, src)
+    recipe('chiseled_ice_from_ice_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': 'minecraft:ice', 'result': result('chiseled_ice')},
+           'minecraft:ice')
     for name, base in AGED:
         brick = base if ':' in base else f'minecraft:{base}'
         if name.startswith('cracked_'):
@@ -415,6 +463,14 @@ def loot():
                 {'type': 'minecraft:item', 'condition': 'minecraft:tool/can_silk_touch', 'name': item},
                 {'type': 'minecraft:item', 'modifier': [{'type': 'minecraft:explosion_decay'}], 'name': 'minecraft:cobbled_deepslate'}]}],
                 'rolls': 1}]}
+        elif name in ICE_ALL:
+            # PAL14: like Vanilla ice only with Silk Touch (a double slab gives 2).
+            entry = {'type': 'minecraft:item', 'name': item}
+            if b['kind'] == 'slab':
+                entry = {'type': 'minecraft:item', 'modifier': [
+                    {'type': 'minecraft:set_count', 'condition': {'type': 'minecraft:match_block', 'blocks': item, 'state': {'type': 'double'}}, 'count': 2}],
+                    'name': item}
+            data = {'type': 'minecraft:block', 'pools': [{'condition': 'minecraft:tool/can_silk_touch', 'entries': [entry], 'rolls': 1}]}
         elif b['kind'] == 'slab':
             data = {'type': 'minecraft:block', 'pools': [{'entries': [{'type': 'minecraft:item', 'modifier': [
                 {'type': 'minecraft:set_count', 'condition': {'type': 'minecraft:match_block', 'blocks': item, 'state': {'type': 'double'}}, 'count': 2},
@@ -451,7 +507,7 @@ def tags():
     # Suspended/levitating sand and gravel dig like their Vanilla block (AUDM24).
     # SN30 (b-snow32): frost grass and the snowlogged cell dig like the grass block and snow (their other tags are hand-written).
     tag('data/minecraft/tags/block/mineable/shovel.json', moved_slabs + [f'{NS}:{g[0]}' for g in GRAVITY] + [f'{NS}:frost_grass', f'{NS}:snowlogged', f'{NS}:snow_cap'] + compact_tool['shovel'])
-    tag('data/minecraft/tags/block/ice.json', moved_ice)
+    tag('data/minecraft/tags/block/ice.json', moved_ice + [f'{NS}:{n}' for n in ICE_FULL])
     tag(f'data/{NS}/tags/item/froglights.json', ['minecraft:ochre_froglight', 'minecraft:verdant_froglight', 'minecraft:pearlescent_froglight']
         + [f'{NS}:{n}' for n in NATURE_OTHER[1:]])
     tag('data/minecraft/tags/block/occludes_vibration_signals.json', [f'{NS}:{n}' for n in HUSHED_BLOCKS])
@@ -471,7 +527,7 @@ EN_FAMILY = {'calcite': 'Calcite', 'netherrack': 'Netherrack', 'smooth_basalt': 
              'mossy_sulfur_brick': 'Mossy Sulfur Brick', 'stone': 'Stone', 'smooth_stone': 'Smooth Stone', 'polished_granite': 'Polished Granite',
              'polished_diorite': 'Polished Diorite', 'polished_andesite': 'Polished Andesite', 'quartz': 'Quartz', 'smooth_quartz': 'Smooth Quartz',
              'purpur': 'Purpur', 'quartz_brick': 'Quartz Brick', 'end_stone': 'End Stone', 'prismarine_brick': 'Prismarine Brick',
-             'dark_prismarine': 'Dark Prismarine'}
+             'dark_prismarine': 'Dark Prismarine', **{k: e for k, e, _ in ICES}}
 DE_FAMILY = {'calcite': 'Kalzit', 'netherrack': 'Netherrack-', 'smooth_basalt': 'Glatte Basalt', 'cut_sandstone': 'Geschnittene Sandstein',
              'cut_red_sandstone': 'Geschnittene Rote Sandstein', 'smooth_sandstone': 'Glatte Sandstein', 'smooth_red_sandstone': 'Glatte Rote Sandstein',
              HUSHED: 'Gedämpfte Tiefenschieferfliesen', BLUE: 'Blaue Netherziegel',
@@ -480,7 +536,8 @@ DE_FAMILY = {'calcite': 'Kalzit', 'netherrack': 'Netherrack-', 'smooth_basalt': 
              'mossy_cinnabar_brick': 'Bemooste Zinnoberziegel', 'mossy_sulfur_brick': 'Bemooste Schwefelziegel', 'stone': 'Stein',
              'smooth_stone': 'Glatte Stein', 'polished_granite': 'Polierte Granit', 'polished_diorite': 'Polierte Diorit',
              'polished_andesite': 'Polierte Andesit', 'quartz': 'Quarz', 'smooth_quartz': 'Glatte Quarz', 'purpur': 'Purpur',
-             'quartz_brick': 'Quarzziegel', 'end_stone': 'Endstein', 'prismarine_brick': 'Prismarinziegel', 'dark_prismarine': 'Dunkle Prismarin'}
+             'quartz_brick': 'Quarzziegel', 'end_stone': 'Endstein', 'prismarine_brick': 'Prismarinziegel', 'dark_prismarine': 'Dunkle Prismarin',
+             **{k: d for k, _, d in ICES}}
 DE_KIND = {'stairs': 'treppe', 'slab': 'stufe', 'wall': 'mauer'}
 EN_KIND = {'stairs': 'Stairs', 'slab': 'Slab', 'wall': 'Wall'}
 EN_BRICK = {'red_nether_bricks': 'Red Nether Bricks', 'tuff_bricks': 'Tuff Bricks', 'mud_bricks': 'Mud Bricks', 'end_stone_bricks': 'End Stone Bricks',
@@ -507,6 +564,10 @@ def names():
             en[name], de[name] = 'Sculk Tiles', 'Sculk-Fliesen'
         elif name in CHISELED_NAMES:
             en[name], de[name] = CHISELED_NAMES[name]
+        elif name in ICE_NAMES:
+            en[name], de[name] = ICE_NAMES[name]
+        elif b['kind'] == 'pillar':
+            en[name], de[name] = next((p[3], p[4]) for p in PILLARS if p[0] == name)
         elif b['kind'] == 'cube':
             base = AGED_BASE[name]
             word_en, word_de = ('Cracked', 'Rissiger' if base in DE_SINGULAR else 'Rissige') if name.startswith('cracked_') else ('Mossy', 'Bemooste')

@@ -378,6 +378,86 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/ender_end_stone",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_purpur_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_end_stone_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_end_stone_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_end_stone_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_purpur_pillar",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_purpur_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_purpur_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihil_end_stone_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihil_end_stone_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihil_end_stone_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihil_purpur_pillar",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihil_purpur_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihil_purpur_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_end_stone_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_end_stone_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_end_stone_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_purpur_pillar",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_purpur_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_purpur_slab",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuildingtools/blueprint",
       "required": false
     },

@@ -2117,14 +2117,55 @@ public final class DataIntegrityTests {
         // The coated end stone opened the astralit and nihilith brick sets before the palettes had a
         // base block; its cuts stay, and it cuts into the base block too. The coated purpur block
         // cuts into the polished block.
-        for (Block[] coated : new Block[][]{
-                {ModBlocks.ASTRAL_END_STONE, ModBlocks.ASTRAL_PURPUR_BLOCK},
-                {ModBlocks.NIHIL_END_STONE, ModBlocks.NIHIL_PURPUR_BLOCK}}) {
-            ModBlocks.EndPalette p = coated[0] == ModBlocks.ASTRAL_END_STONE ? ModBlocks.ASTRALIT_PALETTE : ModBlocks.NIHILITH_PALETTE;
+        // PAL14: Ender End Stone / Ender Purpur do the same for ender quartz; every coated stone also cuts into its own stairs,
+        // slab (2) and wall, every coated purpur into its pillar, stairs and slab (2), like Vanilla purpur.
+        for (ModBlocks.CoatedKind kind : ModBlocks.COATED_KINDS) {
+            ModBlocks.EndPalette p = kind.palette();
             for (Block cut : List.of(p.block(), p.bricks(), p.brickStairs(), p.brickSlab(), p.brickWall(), p.pillar(), p.chiseled())) {
-                expectCut(expectedCuts, coated[0], cut, p);
+                expectCut(expectedCuts, kind.stone(), cut, p);
             }
-            expectCut(expectedCuts, coated[1], p.polished(), p);
+            expectCut(expectedCuts, kind.purpur(), p.polished(), p);
+            expectedCuts.add(path(kind.stone()) + " -> 1 " + path(kind.stoneStairs()));
+            expectedCuts.add(path(kind.stone()) + " -> 2 " + path(kind.stoneSlab()));
+            expectedCuts.add(path(kind.stone()) + " -> 1 " + path(kind.stoneWall()));
+            expectedCuts.add(path(kind.purpur()) + " -> 1 " + path(kind.purpurPillar()));
+            expectedCuts.add(path(kind.purpur()) + " -> 1 " + path(kind.purpurStairs()));
+            expectedCuts.add(path(kind.purpur()) + " -> 2 " + path(kind.purpurSlab()));
+            // Vanilla shapes: stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6; the purpur pillar from two purpur slabs.
+            Item stone = kind.stone().asItem();
+            Item purpur = kind.purpur().asItem();
+            assertShapedRecipe(helper, modRecipes, path(kind.stoneStairs()), kind.stoneStairs().asItem(), 4,
+                    new String[]{"#  ", "## ", "###"}, Map.of('#', stone), problems);
+            assertShapedRecipe(helper, modRecipes, path(kind.stoneSlab()), kind.stoneSlab().asItem(), 6, new String[]{"###"},
+                    Map.of('#', stone), problems);
+            assertShapedRecipe(helper, modRecipes, path(kind.stoneWall()), kind.stoneWall().asItem(), 6,
+                    new String[]{"###", "###"}, Map.of('#', stone), problems);
+            assertShapedRecipe(helper, modRecipes, path(kind.purpurStairs()), kind.purpurStairs().asItem(), 4,
+                    new String[]{"#  ", "## ", "###"}, Map.of('#', purpur), problems);
+            assertShapedRecipe(helper, modRecipes, path(kind.purpurSlab()), kind.purpurSlab().asItem(), 6, new String[]{"###"},
+                    Map.of('#', purpur), problems);
+            assertShapedRecipe(helper, modRecipes, path(kind.purpurPillar()), kind.purpurPillar().asItem(), 1,
+                    new String[]{"#", "#"}, Map.of('#', kind.purpurSlab().asItem()), problems);
+            for (Block shape : kind.shapes()) {
+                boolean slab = shape instanceof SlabBlock;
+                BlockState state = slab ? shape.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE) : shape.defaultBlockState();
+                describeMining(helper, level, at, pickaxe, state, mined);
+                expectMining(shape, shape.defaultBlockState().getLightEmission(), slab ? 2 : 1, minedExpected);
+            }
+            if (kind.stone().defaultBlockState().getLightEmission() != kind.stoneStairs().defaultBlockState().getLightEmission()
+                    || kind.purpur().defaultBlockState().getLightEmission() != kind.purpurPillar().defaultBlockState().getLightEmission()) {
+                problems.add(kind.kind() + ": shapes do not glow like their block");
+            }
+            String shapeTags = (kind.stoneStairs().defaultBlockState().is(BlockTags.STAIRS) ? "s" : "-")
+                    + (kind.stoneSlab().defaultBlockState().is(BlockTags.SLABS) ? "s" : "-")
+                    + (kind.stoneWall().defaultBlockState().is(BlockTags.WALLS) ? "w" : "-")
+                    + (kind.purpurStairs().defaultBlockState().is(BlockTags.STAIRS) ? "s" : "-")
+                    + (kind.purpurSlab().defaultBlockState().is(BlockTags.SLABS) ? "s" : "-")
+                    + (kind.purpurStairs().asItem().builtInRegistryHolder().is(stairsItems) ? "i" : "-")
+                    + (kind.stoneWall().asItem().builtInRegistryHolder().is(wallItems) ? "i" : "-");
+            if (!shapeTags.equals("sswssii")) {
+                problems.add(kind.kind() + ": vanilla shape tags " + shapeTags);
+            }
         }
 
         // Polished end stone: vanilla owns "2x2 end stone -> 4 end stone bricks", so the mod recipe
@@ -2142,7 +2183,7 @@ public final class DataIntegrityTests {
         }
 
         for (Block older : List.of(ModBlocks.POLISHED_END_STONE, ModBlocks.ASTRAL_END_STONE, ModBlocks.NIHIL_END_STONE,
-                ModBlocks.ASTRAL_PURPUR_BLOCK, ModBlocks.NIHIL_PURPUR_BLOCK)) {
+                ModBlocks.ASTRAL_PURPUR_BLOCK, ModBlocks.NIHIL_PURPUR_BLOCK, ModBlocks.ENDER_END_STONE, ModBlocks.ENDER_PURPUR_BLOCK)) {
             describeMining(helper, level, at, pickaxe, older.defaultBlockState(), mined);
             expectMining(older, older.defaultBlockState().getLightEmission(), 1, minedExpected);
         }
@@ -2161,7 +2202,8 @@ public final class DataIntegrityTests {
         for (String cut : cuts) {
             // Schachbretter samt Achteln, Figuren, Treppen und Stufen (Schach) prueft ChessTests.
             boolean chess = cut.contains("checker") || cut.contains("octet") || cut.contains("_chess_");
-            if ((cut.contains("astral") || cut.contains("nihil") || cut.contains("ender_quartz")) && !chess && !expectedCuts.contains(cut)) {
+            if ((cut.contains("astral") || cut.contains("nihil") || cut.contains("ender_quartz") || cut.contains("ender_end_stone")
+                    || cut.contains("ender_purpur")) && !chess && !expectedCuts.contains(cut)) {
                 strayCuts.add(cut);
             }
         }
@@ -2205,10 +2247,9 @@ public final class DataIntegrityTests {
      * slab and wall, purpur stairs and slab the polished stairs and slab, the purpur pillar the
      * pillar.
      *
-     * <p>The purpur block itself is recoloured into polished ender quartz only. For astralit and
-     * nihilith the same eight purpur blocks around the dust or shard have been the coating recipe
-     * of the astral and nihil purpur block for a long time; a second recipe on the same grid would
-     * make one of the two unreachable, so the test pins that the coating recipe still wins there.
+     * <p>The purpur block itself is not recoloured: eight purpur blocks around the dust, shard or (since PAL14)
+     * ender quartz are the coating recipe of the astral, nihil and ender purpur block; a second recipe on the
+     * same grid would make one of the two unreachable, so the test pins that the coating recipe wins there.
      * (The coated purpur block then cuts into the polished block, see
      * {@link #endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla}.)
      *
@@ -2232,9 +2273,6 @@ public final class DataIntegrityTests {
             pairs.put(Items.END_STONE_BRICK_STAIRS, p.brickStairs());
             pairs.put(Items.END_STONE_BRICK_SLAB, p.brickSlab());
             pairs.put(Items.END_STONE_BRICK_WALL, p.brickWall());
-            if (p == ModBlocks.ENDER_QUARTZ_PALETTE) {
-                pairs.put(Items.PURPUR_BLOCK, p.polished());
-            }
             pairs.put(Items.PURPUR_STAIRS, p.polishedStairs());
             pairs.put(Items.PURPUR_SLAB, p.polishedSlab());
             pairs.put(Items.PURPUR_PILLAR, p.pillar());
@@ -2249,8 +2287,14 @@ public final class DataIntegrityTests {
                 Map.of('#', Items.PURPUR_BLOCK, 'M', ModItems.ASTRALIT_DUST), problems);
         assertShapedRecipe(helper, modRecipes, "nihil_purpur_block", ModItems.NIHIL_PURPUR_BLOCK, 8, ring,
                 Map.of('#', Items.PURPUR_BLOCK, 'M', ModItems.NIHILITH_SHARD), problems);
+        // PAL14: the ring of purpur around ender quartz is the Ender Purpur coating now (no longer polished ender quartz,
+        // which the Ender Purpur cuts into), and polished end stone around ender quartz coats the Ender End Stone.
+        assertShapedRecipe(helper, modRecipes, "ender_purpur_block", ModItems.ENDER_PURPUR_BLOCK, 8, ring,
+                Map.of('#', Items.PURPUR_BLOCK, 'M', ModItems.ENDER_QUARTZ), problems);
+        assertShapedRecipe(helper, modRecipes, "ender_end_stone", ModItems.ENDER_END_STONE, 8, ring,
+                Map.of('#', ModItems.POLISHED_END_STONE, 'M', ModItems.ENDER_QUARTZ), problems);
 
-        helper.assertValueEqual(recipes, 25, "recolour recipes checked (8 + 8 + 9)");
+        helper.assertValueEqual(recipes, 24, "recolour recipes checked (8 + 8 + 8)");
         helper.assertTrue(problems.isEmpty(), "end palette recolouring: " + problems);
         helper.succeed();
     }
@@ -3180,7 +3224,7 @@ public final class DataIntegrityTests {
         ItemLike gap = CreativeTabLayout.GAP;
         List<CreativeTabLayout.Row> expected = new java.util.ArrayList<>(List.of(
                 CreativeTabLayout.Row.of("end_stones",
-                        ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE, ModItems.NIHIL_END_STONE),
+                        ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE, ModItems.NIHIL_END_STONE, ModItems.ENDER_END_STONE),
                 CreativeTabLayout.Row.of("astralit",
                         ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_STAIRS, ModItems.ASTRALIT_SLAB, ModItems.ASTRALIT_WALL,
                         ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
@@ -3191,6 +3235,9 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("polished_astralit",
                         ModItems.POLISHED_ASTRALIT, ModItems.POLISHED_ASTRALIT_STAIRS, ModItems.POLISHED_ASTRALIT_SLAB,
                         ModItems.POLISHED_ASTRALIT_WALL),
+                CreativeTabLayout.Row.of("astral_coated", // PAL14: Endstein- und Purpur-Formen der Art
+                        ModBlocks.ASTRAL_COATED.stoneStairs(), ModBlocks.ASTRAL_COATED.stoneSlab(), ModBlocks.ASTRAL_COATED.stoneWall(),
+                        ModBlocks.ASTRAL_COATED.purpurPillar(), ModBlocks.ASTRAL_COATED.purpurStairs(), ModBlocks.ASTRAL_COATED.purpurSlab()),
                 CreativeTabLayout.Row.of("nihilith",
                         ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_STAIRS, ModItems.NIHILITH_SLAB, ModItems.NIHILITH_WALL,
                         ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
@@ -3201,13 +3248,20 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("polished_nihilith",
                         ModItems.POLISHED_NIHILITH, ModItems.POLISHED_NIHILITH_STAIRS, ModItems.POLISHED_NIHILITH_SLAB,
                         ModItems.POLISHED_NIHILITH_WALL),
+                CreativeTabLayout.Row.of("nihil_coated", // PAL14: Endstein- und Purpur-Formen der Art
+                        ModBlocks.NIHIL_COATED.stoneStairs(), ModBlocks.NIHIL_COATED.stoneSlab(), ModBlocks.NIHIL_COATED.stoneWall(),
+                        ModBlocks.NIHIL_COATED.purpurPillar(), ModBlocks.NIHIL_COATED.purpurStairs(), ModBlocks.NIHIL_COATED.purpurSlab()),
                 CreativeTabLayout.Row.of("ender_quartz",
                         ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB, ModItems.ENDER_QUARTZ_WALL,
                         ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB,
-                        ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.ENDER_QUARTZ_PILLAR, ModItems.CHISELED_ENDER_QUARTZ_BRICKS, ModItems.CRACKED_ENDER_QUARTZ_BRICKS),
+                        ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.ENDER_QUARTZ_PILLAR, ModItems.CHISELED_ENDER_QUARTZ_BRICKS, ModItems.CRACKED_ENDER_QUARTZ_BRICKS,
+                        ModItems.ENDER_PURPUR_BLOCK),
                 CreativeTabLayout.Row.of("polished_ender_quartz",
                         ModItems.POLISHED_ENDER_QUARTZ, ModItems.POLISHED_ENDER_QUARTZ_STAIRS, ModItems.POLISHED_ENDER_QUARTZ_SLAB,
                         ModItems.POLISHED_ENDER_QUARTZ_WALL),
+                CreativeTabLayout.Row.of("ender_coated", // PAL14: Endstein- und Purpur-Formen der Art
+                        ModBlocks.ENDER_COATED.stoneStairs(), ModBlocks.ENDER_COATED.stoneSlab(), ModBlocks.ENDER_COATED.stoneWall(),
+                        ModBlocks.ENDER_COATED.purpurPillar(), ModBlocks.ENDER_COATED.purpurStairs(), ModBlocks.ENDER_COATED.purpurSlab()),
                 CreativeTabLayout.Row.of("checkers",
                         ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
                         ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,

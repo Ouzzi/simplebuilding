@@ -279,6 +279,11 @@ public class ModItems {
     public static final Item ASTRAL_END_STONE = registerItem("astral_end_stone", s -> new BlockItem(ModBlocks.ASTRAL_END_STONE, s));
 
     public static final Item NIHIL_END_STONE = registerItem("nihil_end_stone", s -> new BlockItem(ModBlocks.NIHIL_END_STONE, s));
+    // PAL14: Ender-Endstein/-Purpur und die Formen der drei beschichteten Arten (ModBlocks.COATED_KINDS), Item-Id = Block-Id.
+    public static final Item ENDER_END_STONE = registerItem("ender_end_stone", s -> new BlockItem(ModBlocks.ENDER_END_STONE, s));
+    public static final Item ENDER_PURPUR_BLOCK = registerItem("ender_purpur_block", s -> new BlockItem(ModBlocks.ENDER_PURPUR_BLOCK, s));
+    public static final List<Item> COATED_SHAPE_ITEMS = ModBlocks.COATED_KINDS.stream().flatMap(k -> k.shapes().stream())
+            .map(block -> registerItem(BuiltInRegistries.BLOCK.getKey(block).getPath(), s -> new BlockItem(block, s))).toList();
 
 
 

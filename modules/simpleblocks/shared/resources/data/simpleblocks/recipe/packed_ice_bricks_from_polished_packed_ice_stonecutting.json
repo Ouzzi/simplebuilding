@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:polished_packed_ice",
+  "result": {
+    "id": "simpleblocks:packed_ice_bricks"
+  }
+}

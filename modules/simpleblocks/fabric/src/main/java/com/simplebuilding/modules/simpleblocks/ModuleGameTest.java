@@ -12,6 +12,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void pal14Members(GameTestHelper h) {
+        BlocksTests.ALL.get("pal14_members").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void pal14Ice(GameTestHelper h) {
+        BlocksTests.ALL.get("pal14_ice").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void tagsAndShapes(GameTestHelper h) {
         BlocksTests.ALL.get("tags_and_shapes").accept(h);
     }

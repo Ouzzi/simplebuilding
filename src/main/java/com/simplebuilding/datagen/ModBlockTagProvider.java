@@ -212,6 +212,14 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(key(ModBlocks.NIHIL_END_STONE))
                 .add(key(ModBlocks.ASTRAL_PURPUR_BLOCK))
                 .add(key(ModBlocks.NIHIL_PURPUR_BLOCK));
+        // PAL14: Ender-Endstein/-Purpur und die Formen der drei beschichteten Arten (Spitzhacke, Vanilla-Form-Tags).
+        for (ModBlocks.CoatedKind kind : ModBlocks.COATED_KINDS) {
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(kind.stone())).add(key(kind.purpur()));
+            kind.shapes().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
+            builder(BlockTags.STAIRS).add(key(kind.stoneStairs())).add(key(kind.purpurStairs()));
+            builder(BlockTags.SLABS).add(key(kind.stoneSlab())).add(key(kind.purpurSlab()));
+            builder(BlockTags.WALLS).add(key(kind.stoneWall()));
+        }
 
         // End-Paletten (Astralit, Nihilith, Enderquarz): alle verlangen eine Spitzhacke; Treppen,
         // Stufen und Mauern stehen in den Vanilla-Tags ihrer Form (eine Mauer ausserhalb von

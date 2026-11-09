@@ -274,11 +274,12 @@
         "simpleblocks:chiseled_polished_diorite",
         "simpleblocks:chiseled_polished_granite",
         "simpleblocks:chiseled_prismarine",
-        "simpleblocks:chiseled_red_nether_bricks"
+        "simpleblocks:chiseled_red_nether_bricks",
+        "simpleblocks:chiseled_dark_prismarine"
       ],
       "en": {
         "title": "Chiseled Blocks",
-        "summary": "Chiseled Polished Andesite, Diorite and Granite, Chiseled Prismarine and Chiseled Red Nether Bricks: the carved cousins Vanilla lacks.",
+        "summary": "Chiseled Polished Andesite, Diorite and Granite, Chiseled Prismarine, Chiseled Dark Prismarine and Chiseled Red Nether Bricks: the carved cousins Vanilla lacks.",
         "details": [
           "Crafting table: two slabs of the base block on top of each other, like Vanilla's chiseled stone bricks. Stonecutter: one base block makes one chiseled block.",
           "Full blocks with the hardness and sound of their base block; they drop themselves."
@@ -286,10 +287,83 @@
       },
       "de": {
         "title": "Gemeißelte Blöcke",
-        "summary": "Gemeißelter Polierter Andesit, Diorit und Granit, Gemeißelter Prismarin und Gemeißelte Rote Netherziegel: die behauenen Verwandten, die Vanilla fehlen.",
+        "summary": "Gemeißelter Polierter Andesit, Diorit und Granit, Gemeißelter Prismarin, Gemeißelter Dunkler Prismarin und Gemeißelte Rote Netherziegel: die behauenen Verwandten, die Vanilla fehlen.",
         "details": [
           "Werkbank: zwei Stufen des Grundblocks übereinander, wie Vanillas gemeißelte Steinziegel. Steinmetz: ein Grundblock ergibt einen gemeißelten Block.",
           "Vollblöcke mit Härte und Klang ihres Grundblocks; sie droppen sich selbst."
+        ]
+      }
+    },
+    {
+      "id": "sandstone_pillars",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/pal14_2026_11_09.py"
+      ],
+      "related": [
+        "simpleblocks:sandstone_pillar",
+        "simpleblocks:red_sandstone_pillar"
+      ],
+      "en": {
+        "title": "Sandstone Pillars",
+        "summary": "Sandstone Pillar and Red Sandstone Pillar: the pillar Vanilla gives quartz and purpur, now for both sandstones.",
+        "details": [
+          "Crafting table: two sandstone (or red sandstone) on top of each other make two pillars, like the quartz pillar. Stonecutter: one sandstone makes one pillar.",
+          "Placed along the axis you look at, like logs; the ends show the sandstone top. Hardness and sound of sandstone."
+        ]
+      },
+      "de": {
+        "title": "Sandsteinsäulen",
+        "summary": "Sandsteinsäule und Rote Sandsteinsäule: die Säule, die Vanilla Quarz und Purpur gibt, jetzt für beide Sandsteine.",
+        "details": [
+          "Werkbank: zwei Sandstein (bzw. Roter Sandstein) übereinander ergeben zwei Säulen, wie die Quarzsäule. Steinmetz: ein Sandstein ergibt eine Säule.",
+          "Wird entlang der Blickachse gesetzt wie Stämme; die Stirnseiten zeigen die Sandstein-Oberseite. Härte und Klang von Sandstein."
+        ]
+      }
+    },
+    {
+      "id": "ice_family",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/pal14_2026_11_09.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/IceShapes.java"
+      ],
+      "related": [
+        "simpleblocks:chiseled_ice",
+        "simpleblocks:polished_ice",
+        "simpleblocks:ice_bricks",
+        "simpleblocks:ice_stairs",
+        "simpleblocks:ice_slab",
+        "simpleblocks:ice_wall",
+        "simpleblocks:polished_packed_ice",
+        "simpleblocks:packed_ice_bricks",
+        "simpleblocks:packed_ice_stairs",
+        "simpleblocks:packed_ice_slab",
+        "simpleblocks:packed_ice_wall",
+        "simpleblocks:polished_blue_ice",
+        "simpleblocks:blue_ice_bricks",
+        "simpleblocks:blue_ice_stairs",
+        "simpleblocks:blue_ice_slab",
+        "simpleblocks:blue_ice_wall"
+      ],
+      "en": {
+        "title": "Ice Building Blocks",
+        "summary": "Polished ice and ice bricks of ice, packed ice and blue ice, chiseled ice, and stairs, slabs and walls of all three ices.",
+        "details": [
+          "Crafting table: 4 ice make 4 polished ice, 4 polished ice make 4 ice bricks (the same for packed and blue ice); stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6. Stonecutter: the ice cuts into every member of its family (chiseled ice only there).",
+          "Every member is as slippery as its ice (blue ice slides furthest), sounds like glass and drops only with Silk Touch, like Vanilla ice.",
+          "Only the members of normal ice melt next to bright light (block light above 11), like Vanilla ice: full blocks become water and leave water when broken without Silk Touch; stairs, slabs and walls melt into water too but leave none when broken. Packed and blue ice members never melt, like their Vanilla blocks. Normal ice members stay see-through."
+        ]
+      },
+      "de": {
+        "title": "Eis-Bausteine",
+        "summary": "Poliertes Eis und Eisziegel aus Eis, Packeis und Blaueis, gemeißeltes Eis sowie Treppen, Stufen und Mauern aus allen drei Eisarten.",
+        "details": [
+          "Werkbank: 4 Eis ergeben 4 Poliertes Eis, 4 Poliertes Eis ergeben 4 Eisziegel (ebenso bei Pack- und Blaueis); Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6. Steinmetz: das Eis schneidet in jedes Glied seiner Familie (gemeißeltes Eis nur dort).",
+          "Jedes Glied ist so rutschig wie sein Eis (Blaueis gleitet am weitesten), klingt wie Glas und droppt nur mit Behutsamkeit, wie Vanilla-Eis.",
+          "Nur die Glieder aus normalem Eis schmelzen bei hellem Licht (Blocklicht über 11) wie Vanilla-Eis: Vollblöcke werden zu Wasser und hinterlassen ohne Behutsamkeit abgebaut Wasser; Treppen, Stufen und Mauern schmelzen ebenfalls zu Wasser, hinterlassen beim Abbauen aber keins. Pack- und Blaueis-Glieder schmelzen nie, wie ihre Vanilla-Blöcke. Glieder aus normalem Eis bleiben durchsichtig."
         ]
       }
     },
@@ -981,6 +1055,18 @@
       }
     },
     "*chiseled_red_nether_bricks": {
+      "sources": [
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/chiseled_2026_11_08.py"
+      ],
+      "en": {
+        "summary": "Chiseled variant of its stone family: two slabs stacked in the crafting table or 1:1 in the stonecutter. Decorative, behaves like the Vanilla chiseled blocks."
+      },
+      "de": {
+        "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
+      }
+    },
+    "*chiseled_dark_prismarine": {
       "sources": [
         "modules/simpleblocks/tools/generate_data.py",
         "tools/textures/chiseled_2026_11_08.py"

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ice_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleoctets:ice_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleoctets:ice_from_octets"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ice_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleoctets:ice_from_octets"
+    ]
+  }
+}

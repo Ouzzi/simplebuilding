@@ -51,7 +51,7 @@ import net.minecraft.world.phys.Vec3;
 public final class BlocksTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
-    public static final int BLOCK_COUNT = 86;
+    public static final int BLOCK_COUNT = 105;
     private static final Set<String> HUSHED = Set.of("hushed_deepslate_tiles", "hushed_deepslate_tile_stairs",
             "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall");
 
@@ -166,9 +166,13 @@ public final class BlocksTests {
                 }
             }
             ItemStack pickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
+            // PAL14: the ice members drop only with Silk Touch, like Vanilla ice.
+            ItemStack silk = new ItemStack(Items.DIAMOND_PICKAXE);
+            silk.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
             for (String name : BlocksRegistry.NAMES) {
                 Block block = BlocksRegistry.BLOCKS.get(name);
                 h.assertTrue(obtainable.contains(block.asItem()), name + " has a recipe");
+                boolean ice = BlocksRegistry.ICE.contains(name);
                 if (block == BlocksRegistry.SCULK_DEEPSLATE) continue;
                 BlockState state = block.defaultBlockState();
                 int expected = 1;
@@ -177,10 +181,13 @@ public final class BlocksTests {
                     expected = 2;
                 }
                 int count = 0;
-                for (ItemStack drop : Block.getDrops(state, level, pos, null, null, pickaxe)) {
+                for (ItemStack drop : Block.getDrops(state, level, pos, null, null, ice ? silk : pickaxe)) {
                     if (drop.is(block.asItem())) count += drop.getCount();
                 }
                 h.assertTrue(count == expected, name + " drops itself x" + expected + ", got " + count);
+                if (ice) {
+                    h.assertTrue(Block.getDrops(state, level, pos, null, null, pickaxe).isEmpty(), name + " drops nothing without Silk Touch");
+                }
             }
             h.succeed();
         });
@@ -263,7 +270,87 @@ public final class BlocksTests {
         h.succeed();
     }
 
+    /**
+     * PAL14 (owner 09.11.): the missing palette members - sandstone pillars (pillar class, 2 sandstone -> 2), chiseled dark
+     * prismarine (2 slabs -> 1), the ice families (4 ice -> 4 polished, 4 polished -> 4 bricks, stonecutter cuts) - registered with
+     * their items and in the Vanilla tabs behind their family.
+     */
+    private static void pal14Members(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        h.assertTrue(BlocksRegistry.SANDSTONE_PILLAR instanceof net.minecraft.world.level.block.RotatedPillarBlock
+                && BlocksRegistry.RED_SANDSTONE_PILLAR instanceof net.minecraft.world.level.block.RotatedPillarBlock, "sandstone pillars are pillars");
+        h.assertTrue(BlocksRegistry.BASES.get("sandstone_pillar") == Blocks.SANDSTONE && BlocksRegistry.BASES.get("red_sandstone_pillar") == Blocks.RED_SANDSTONE
+                && BlocksRegistry.BASES.get("chiseled_dark_prismarine") == Blocks.DARK_PRISMARINE, "properties copied from the Vanilla family");
+        expectCraft(h, level, 1, 2, List.of(new ItemStack(Items.SANDSTONE), new ItemStack(Items.SANDSTONE)), BlocksRegistry.SANDSTONE_PILLAR, 2);
+        expectCraft(h, level, 1, 2, List.of(new ItemStack(Items.RED_SANDSTONE), new ItemStack(Items.RED_SANDSTONE)), BlocksRegistry.RED_SANDSTONE_PILLAR, 2);
+        expectCraft(h, level, 1, 2, List.of(new ItemStack(Items.DARK_PRISMARINE_SLAB), new ItemStack(Items.DARK_PRISMARINE_SLAB)),
+                BlocksRegistry.BLOCKS.get("chiseled_dark_prismarine"), 1);
+        for (Block ice : List.of(Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE)) {
+            String kind = BuiltInRegistries.BLOCK.getKey(ice).getPath();
+            Block polished = BlocksRegistry.BLOCKS.get("polished_" + kind);
+            Block bricks = BlocksRegistry.BLOCKS.get(kind + "_bricks");
+            expectCraft(h, level, 2, 2, java.util.Collections.nCopies(4, new ItemStack(ice)), polished, 4);
+            expectCraft(h, level, 2, 2, java.util.Collections.nCopies(4, new ItemStack(polished)), bricks, 4);
+            Set<Item> cuts = new HashSet<>();
+            var one = new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(ice));
+            for (var holder : level.getServer().getRecipeManager().getRecipes()) {
+                if (holder.value() instanceof net.minecraft.world.item.crafting.StonecutterRecipe r && r.matches(one, level)) cuts.add(r.assemble(one).getItem());
+            }
+            for (String member : List.of("polished_" + kind, kind + "_bricks", kind + "_stairs", kind + "_slab", kind + "_wall")) {
+                h.assertTrue(cuts.contains(BlocksRegistry.ITEMS.get(member)), "stonecutter: " + kind + " -> " + member + " (" + cuts + ")");
+            }
+            if (ice == Blocks.ICE) h.assertTrue(cuts.contains(BlocksRegistry.CHISELED_ICE.asItem()), "stonecutter: ice -> chiseled ice");
+        }
+        List<String> placed = BlocksRegistry.placements().stream().flatMap(p -> p.names().stream()).toList();
+        for (String name : List.of("sandstone_pillar", "red_sandstone_pillar", "chiseled_dark_prismarine", "chiseled_ice", "blue_ice_wall")) {
+            h.assertTrue(placed.contains(name), name + " has a place in a Vanilla tab");
+        }
+        h.succeed();
+    }
+
+    /**
+     * PAL14 ice: every member is as slippery as its ice and sounds like it; only the members of normal ice melt (full blocks are
+     * Vanilla ice blocks, the shapes tick randomly and melt to water), the packed and blue ice members never tick.
+     */
+    private static void pal14Ice(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        for (String name : BlocksRegistry.ICE) {
+            Block block = BlocksRegistry.BLOCKS.get(name);
+            Block base = BlocksRegistry.BASES.get(name);
+            h.assertTrue(base == Blocks.ICE || base == Blocks.PACKED_ICE || base == Blocks.BLUE_ICE, name + " copies an ice");
+            h.assertTrue(block.getFriction() == base.getFriction(), name + " slippery like " + base + ": " + block.getFriction());
+            h.assertTrue(block.defaultBlockState().getSoundType() == base.defaultBlockState().getSoundType(), name + " sounds like its ice");
+            boolean melts = base == Blocks.ICE;
+            h.assertTrue(block.defaultBlockState().isRandomlyTicking() == melts, name + (melts ? " melts (random ticks)" : " never melts"));
+            if (melts && !(block instanceof StairBlock || block instanceof SlabBlock || block instanceof WallBlock)) {
+                h.assertTrue(block instanceof net.minecraft.world.level.block.IceBlock, name + " is a Vanilla ice block");
+            }
+        }
+        h.assertTrue(BlocksRegistry.BLOCKS.get("blue_ice_slab").getFriction() > BlocksRegistry.BLOCKS.get("ice_slab").getFriction(), "blue ice slides furthest");
+        // In the dark a random tick keeps the ice stairs; melting turns them into water (the overworld does not evaporate water).
+        BlockPos rel = new BlockPos(2, 1, 2);
+        h.setBlock(rel, BlocksRegistry.BLOCKS.get("ice_stairs"));
+        BlockPos pos = h.absolutePos(rel);
+        h.assertTrue(level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK, pos) <= 11 - h.getBlockState(rel).getLightDampening(),
+                "test spot is dark enough");
+        h.getBlockState(rel).randomTick(level, pos, level.getRandom());
+        h.assertTrue(h.getBlockState(rel).is(BlocksRegistry.BLOCKS.get("ice_stairs")), "dark: the ice stairs stay");
+        com.simpleblocks.nature.IceShapes.melt(level, pos);
+        h.assertTrue(h.getBlockState(rel).is(Blocks.WATER), "melted ice stairs become water: " + h.getBlockState(rel));
+        h.setBlock(rel, Blocks.AIR);
+        h.succeed();
+    }
+
+    private static void expectCraft(GameTestHelper h, ServerLevel level, int w, int hgt, List<ItemStack> grid, Block result, int count) {
+        var input = net.minecraft.world.item.crafting.CraftingInput.of(w, hgt, grid);
+        ItemStack made = level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, level)
+                .map(r -> r.value().assemble(input)).orElse(ItemStack.EMPTY);
+        h.assertTrue(made.is(result.asItem()) && made.getCount() == count, grid + " -> " + count + " " + result + ", got " + made);
+    }
+
     static {
+        ALL.put("pal14_members", BlocksTests::pal14Members);
+        ALL.put("pal14_ice", BlocksTests::pal14Ice);
         ALL.put("blue_nether_bricks_recipes", BlocksTests::blueNetherBricksRecipes);
         ALL.put("sculk_tiles", BlocksTests::sculkTiles);
         ALL.put("discover_recipe_unlocks", com.simpleblocks.discover.BlocksDiscover::recipeUnlocks);
