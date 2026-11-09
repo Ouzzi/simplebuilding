@@ -208,7 +208,8 @@ def module_set(jar, p: dict) -> dict:
     for name, sprite in (('sandstone_pillar', 'cut_sandstone'), ('red_sandstone_pillar', 'cut_red_sandstone')):
         out[f'block/{name}.png'] = pillar_side(vanilla(jar, sprite), p)
     ice = vanilla(jar, 'ice')
-    out['block/chiseled_ice.png'] = chiseled(ice, p)
+    import pal15_2026_11_09 as pal15   # b-pal15 (N13a): snowflake motif instead of the packed-ice crystal
+    out['block/chiseled_ice.png'] = pal15.carve_vanilla(ice, 'snowflake', 'ice')
     for k in ICES:
         a = vanilla(jar, k)
         out[f'block/polished_{k}.png'] = polished(a, p)
