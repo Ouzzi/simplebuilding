@@ -40,8 +40,10 @@ von selbst; danach nur noch ein Client-Lauf je Job-Skript.
    Live-Seite wird erst mit dem nächsten Deploy aktuell. `index.html` (Galerie aus `vorschlag-2.html`) enthält Simple Layers
    weiterhin nicht (statischer Entwurf, Generator `build.py` erzeugt nur Entwürfe) → offen, klein.
 4. **WH26-1 Tab-Icon Simple Storage** war die Eichen-Kiste, Wunsch war „Bündel“ → `simplestorage:reinforced_bundle`.
-5. Changelog-Entwurf `docs/release/CHANGELOG-simplelayers.md` (fehlte, Mod ist neuer als die Entwürfe).
-6. Neuer Test `Rel10ClientTest` + Ziel `rel10-client-263` (Muster Vis24/B09): Kreativ-Tabs, Szenen, Entrindungs-Station,
+5. **vis24all brach im Shops-Smoke ab** (zweimal): Besitzer- und Käuferfenster zählten alle `AbstractButton`; im Sammellauf
+   hängt Simple Interfaces seinen Stil-Knopf an jedes Containerfenster. Smoke zählt jetzt nur Shops-eigene Knöpfe.
+6. Changelog-Entwurf `docs/release/CHANGELOG-simplelayers.md` (fehlte, Mod ist neuer als die Entwürfe).
+7. Neuer Test `Rel10ClientTest` + Ziel `rel10-client-263` (Muster Vis24/B09): Kreativ-Tabs, Szenen, Entrindungs-Station,
    Rohr/Presse/Trichter, Trompete, Tooltips, JEI R/U, Titel-/Pausen-Knöpfe, Teleport Wolkenmeer/Backrooms.
 
 ## Bewertung je Feature (Screenshots selbst angesehen)
@@ -68,6 +70,10 @@ von selbst; danach nur noch ein Client-Lauf je Job-Skript.
 | Claim-Urkunde | ok | Beanspruchen, Karte A, Editor, Fehler, gültig, Abklingzeit, „kein Land mehr“. Klein: Code-Kopf (`# Claim rights …`) bleibt im deutschen Client englisch (Code-Buchstaben B D U C R A M sind englisch). |
 | Configs (Money, Models, Fun, Visuals, Sounds, QoL, Dimensions) | ok | EN/DE, keine rohen Schlüssel. |
 | Dev-Einträge | ok | Titel: nur Vanilla + „Mods“; Pause: nur Vanilla + „Mods“; Inventar: Stil-Knopf, Models-Tab und **„Dev“** (DevVariants, `DEFAULT_ON = true`, Besitzer schaltet vor dem Upload). Klein: bei 854×480 überdeckt die JEI-Leiste den Dev-/Stil-Knopf teilweise. |
+| Simple Mobs (Deceiver, Howler, Shellker, Verkleidung, Umhang, Furcht, Wither) | ok | Testzentrale-Stände, Bossleisten. Bei Furcht/Wither steht der eigene Spieler (3. Person) vor dem Mob (Smoke-Kamera, kein Mod-Fehler). |
+| Simple End, Respawn, Beacons, Ovens, Death Vault, Questionary, Drachenkampf | ok | Bäume/Blätter/Nebelwand, „Downed!“, Leuchtfeuer-Stufen, Netherit-Ofen, Todes-Tresor, Fragetisch (Lupe zeigt Sprite-Namen, gewollt). |
+| Simple Mobheads | ok | 36 Reihen platziert, 17 getragen, Inventar-Einpassung (Slotfit auf Magenta = Testhintergrund). |
+| Simple Shops | ok, Besitzer | Verkaufsblöcke mit Glühen; **Besitzerfenster zeigt immer „Developer: Käuferansicht“** (gewollte Testkauf-Funktion, aber „Developer“ im Release sichtbar) → Besitzer: umbenennen oder hinter Dev-Schalter? |
 | Landing simplemods.de | ok | Start/Paket/Reise/Discover, Desktop und Handy, Sprachumschalter. Reise: Stufen-Reiter laufen auf dem Handy rechts aus dem Bild (scrollbar, unklar ob gewollt). |
 
 ## Release-Checkliste Abschnitt 4 (RELEASE-QOL-OPT-AES.md)
@@ -84,4 +90,5 @@ von selbst; danach nur noch ein Client-Lauf je Job-Skript.
 - Landing `index.html`-Galerie ohne Simple Layers; Live-Seite erst nach Deploy aktuell.
 - JEI: keine eigene Kategorie für die Entrindungs-Station und die Plattenpresse; gemeißelte Blöcke ohne Steinsägen-Rezept.
 - Echte-Maus-Probes Bau-Werkzeuge (`mouse_probe`) und Tasten (`keys_probe`) einzeln neu laufen lassen (Rohr ist grün).
+- Shops: Knopf „Developer: Käuferansicht“ im Release sichtbar (Besitzer-Entscheidung).
 - Hören (Trompete, Platten, Howler) und Gefühl bleiben Besitzer-Abnahme.
