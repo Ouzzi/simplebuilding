@@ -34,9 +34,10 @@ public final class FunContent {
     var out = new ArrayList<ItemStack>();
     if (com.simplefun.guide.FunGuide.book() != null) out.add(com.simplefun.guide.FunGuide.stack());
     out.add(new ItemStack(ModItems.BRICK_SNOWBALL));
-    // FUN11 toys (b-fun14); only registered ones, so a loader adapter without them shows no ghost items.
-    for (Item toy : ModToys.ITEMS)
-      if (BuiltInRegistries.ITEM.getResourceKey(toy).isPresent()) out.add(new ItemStack(toy));
+    // FUN11 toys (b-fun14); only where the loader adapter registered them (26.3 Fabric so far): checked by id first,
+    // so ModToys (which creates its block and items) is never loaded after the registries froze.
+    if (BuiltInRegistries.ITEM.containsKey(id("party_popper")))
+      for (Item toy : ModToys.ITEMS) out.add(new ItemStack(toy));
     return List.copyOf(out);
   }
 
