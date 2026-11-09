@@ -8,21 +8,26 @@ import net.minecraft.world.entity.decoration.painting.Painting;
 import net.minecraft.world.entity.decoration.painting.PaintingVariant;
 
 /**
- * Client only, no network: every End painting plays its animation (frame textures {@code <id>_1..4}) once at a random
- * moment, 60 to 120 s after the last one (or after it first came into view); between the animations it shows its idle picture.
+ * Client only, no network: every End painting plays one of its {@link EndPaintings#ANIM_COUNT} animations (chosen at
+ * random each time; all start from the idle picture) at a random moment, 60 to 120 s after the last one (or after it
+ * first came into view); between the animations it shows its idle picture.
  */
 public final class EndPaintingAnim {
-    private static final Map<Painting, long[]> START = new WeakHashMap<>(); // painting -> {tick the next animation starts}
+    private static final Map<Painting, long[]> START = new WeakHashMap<>(); // painting -> {tick the next animation starts, its animation}
 
     private EndPaintingAnim() {}
 
-    /** The 1-based animation frame to show at {@code now}, or 0 for the idle picture; advances the timer. */
+    /**
+     * The frame texture number to show at {@code now} ({@code <id>_<n>}, see {@link EndPaintings#frameTexture}), or 0
+     * for the idle picture; advances the timer and picks the next animation at random.
+     */
     public static int frame(Map<Painting, long[]> timers, Painting painting, long now, java.util.function.IntUnaryOperator random) {
-        long[] next = timers.computeIfAbsent(painting, p -> new long[] {now + gap(random)});
+        long[] next = timers.computeIfAbsent(painting, p -> new long[] {now + gap(random), random.applyAsInt(EndPaintings.ANIM_COUNT)});
         if (now < next[0]) return 0;
         long step = (now - next[0]) / EndPaintings.ANIM_STEP_TICKS;
-        if (step < EndPaintings.ANIM_SEQUENCE.length) return EndPaintings.ANIM_SEQUENCE[(int) step];
+        if (step < EndPaintings.ANIM_SEQUENCE.length) return EndPaintings.frameTexture((int) next[1], EndPaintings.ANIM_SEQUENCE[(int) step]);
         next[0] = now + gap(random);
+        next[1] = random.applyAsInt(EndPaintings.ANIM_COUNT);
         return 0;
     }
 
