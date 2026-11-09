@@ -386,6 +386,19 @@
     }
   ],
   "notes": {
+    "simpleores:guide_book": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
+        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
+        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+      }
+    },
     "simpleores:silver_ore": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -1682,19 +1695,6 @@
       },
       "de": {
         "summary": "Zenithitbarren: 4 End-Riss-Splitter + 1 Infernitbarren (formlos). Das Ende der Kette. Bezahlt ein Leuchtfeuer; neun ergeben einen Block. Prestige-Material neben Enderit, keine Werkzeug- oder Rüstungsstufe. Feuerfest."
-      }
-    },
-    "simpleores:guide_book": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
-        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
-      ],
-      "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
-      },
-      "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     }
   }
