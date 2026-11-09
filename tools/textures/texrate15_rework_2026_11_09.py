@@ -7,7 +7,8 @@ The existing PNG stays the base (form, palette, motif); the rework breaks one-co
       tone above the brightest, no new hard edge (A8b)
   R3  R2 + groups along the area's long axis (pillar stripes vertical), long 1-px lines change tone every 2-3 px,
       stops as soon as the texture is calm like Vanilla (largest area <= 9 px, <= 30 % in areas >= 6 px)
-Every round starts from the original (R0).
+Every round starts from the original (R0). b-texrate16: the targets below are anchored in the generators via
+texrate16_rework_2026_11_09 (method r15); running --apply after a generator is no longer needed.
 `--apply` writes R3 into the textures listed in TARGETS and keeps their .layers.json: the old layers stay, a new top
 layer "A8d Flaechen-Brecher" holds the changed pixels. `--rounds DIR` writes every round (1x) for the preview.
 Deterministic (seed per texture name). Note: generate_textures.py (End palettes) and metals14_2026_11_09.py (metal
