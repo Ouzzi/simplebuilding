@@ -164,9 +164,20 @@ public final class EndRegistry {
         return out;
     }
 
+    /** Simple Tools' strip station learns End wood through SimpleLib; reflective because the NeoForge/Forge builds have no SimpleLib. */
+    private static void registerAxeStrips() {
+        try {
+            Class.forName("com.simplelib.api.AxeStrips")
+                    .getMethod("register", java.util.function.UnaryOperator.class)
+                    .invoke(null, (java.util.function.UnaryOperator<net.minecraft.world.level.block.state.BlockState>) EndRegistry::stripped);
+        } catch (ReflectiveOperationException | LinkageError ignored) {
+            // SimpleLib missing: the strip station is not there either
+        }
+    }
+
     /** After all registrations: stripping, flammability (like Vanilla overworld wood), boat dispensing. */
     public static void common() {
-        com.simplelib.api.AxeStrips.register(EndRegistry::stripped);
+        registerAxeStrips();
         FireBlock fire = (FireBlock) Blocks.FIRE;
         FireBlockInvoker f = (FireBlockInvoker) fire;
         for (EndWood w : EndWood.ALL) {
