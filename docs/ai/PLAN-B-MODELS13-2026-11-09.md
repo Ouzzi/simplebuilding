@@ -77,3 +77,25 @@ breit)**. Nur 26.3 Fabric, kein Gate. Vorschau `/root/sb-tools-b/previews/b-mode
 - JSON statt DSL im Nur-Code-Modus, bis Stufe 4 die DSL bringt (Konzept-Reihenfolge 2 → 4 → 3 hier zusammengezogen auf
   2+3 laut Auftrag; DSL bleibt Stufe 4).
 - Texturen nur aus dem Block-Atlas (Item-Atlas-Verweise zeigen Missing-Sprite im Editor, Spiel-Bild bleibt korrekt).
+
+## Ergebnis / Abweichungen (09.11.)
+- Commits: Stufe 2 Grundlagen `7890bdf70` (UiOrbitCamera in SimpleLib + Bauplan umgestellt, ModelGeometry,
+  ModelEditorLayout, ModelViewport, Accessor-Mixin, Tests `orbit_camera`, `editor_layout`, `editor_geometry`);
+  Stufe 2 Screen + Stufe 3 `f6ce20c2a` (ModelEditorScreen, Gizmo, ModelEditorState, `ModelJson.writeCompact`,
+  Editor-Knopf im Browser, Lang EN/DE, Handbuch-Eintrag `editor`, Tests `editor_gizmo`, `editor_state`, Client-Smoke
+  mit 3 Editor-Screenshots); `ac48ec3fe` Discover-Liste; Fix nach Screenshot-Sichtung (Knöpfe/Felder je Tick
+  nachführen, Viewport-Hinweis kürzen).
+- **Abweichung:** Der Screen liegt im zweiten Commit (er braucht Gizmo/State), Stufe 2 und 3 sind deshalb nicht
+  sauber nach Konzept-Stufen getrennt. Strg hebt den Snap **nicht** auf (Konflikt mit „Strg = symmetrisch“ beim
+  Skalieren), stattdessen **Alt = frei**. Linksziehen auf leerer Fläche dreht ebenfalls (wie Bauplan).
+- **Abweichung:** Fehler im JSON werden noch nicht im Code unterstrichen (Pfad statt Zeile/Spalte; kommt mit der DSL in
+  Stufe 4), die Fehlerzeile unter dem Code nennt Pfad + übersetzten Text.
+- Lokal vorab: Editor-Logik + Tests per javac/JOML/Gson gegen einen Stub (5/5 grün), Client-Klassen per javac gegen das
+  26.3-Jar kompiliert; Vorschau-Bilder aus denselben Klassen gerechnet (Java-Dump → SVG/PNG).
+- sbt 1: COMPILE_RC=0 (Kern + simplemodels/simplelib/simplebuildingtools); Modul-Lauf brach am falschen Ziel
+  `module-simplelib-standalone-fabric-263` ab (gibt es nicht); Client ohne Display (SDL) rot – Umgebung.
+- sbt 2: COMPILE_RC=0, MODULE_RC=0 (simplemodels fabric 29/29 + standalone 29/29, simplelib 56/56, simplebuildingtools
+  95/95), CLIENT_RC=0 (simplemodels client smoke 13/13 Screenshots, mit `xvfb-run`), DISCOVER_RC=0.
+- Der letzte Fix-Commit (Tick-Refresh, Hinweis-Kürzung) ist nur per javac geprüft (kein dritter sbt-Lauf laut Regel).
+- Offen: Echte-Maus-Klicktest (menu_probe.py), Besitzer-Antworten MODELS13 und MODELS12, DSL (Stufe 4), Code-Feld bricht
+  lange JSON-Zeilen bei GUI-Skala 2 um (schmale Spalte).
