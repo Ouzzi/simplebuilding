@@ -18767,7 +18767,18 @@
         "en_us": "Chiseled Polished Andesite",
         "de_de": "Gemeißelter Polierter Andesit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/tools/generate_data.py",
+          "tools/textures/chiseled_2026_11_08.py"
+        ],
+        "en": {
+          "summary": "Chiseled variant of its stone family: two slabs stacked in the crafting table or 1:1 in the stonecutter. Decorative, behaves like the Vanilla chiseled blocks."
+        },
+        "de": {
+          "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_polished_andesite.png",
       "craftedBy": [
         "simpleblocks:chiseled_polished_andesite",
@@ -18781,7 +18792,18 @@
         "en_us": "Chiseled Polished Diorite",
         "de_de": "Gemeißelter Polierter Diorit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/tools/generate_data.py",
+          "tools/textures/chiseled_2026_11_08.py"
+        ],
+        "en": {
+          "summary": "Chiseled variant of its stone family: two slabs stacked in the crafting table or 1:1 in the stonecutter. Decorative, behaves like the Vanilla chiseled blocks."
+        },
+        "de": {
+          "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_polished_diorite.png",
       "craftedBy": [
         "simpleblocks:chiseled_polished_diorite",
@@ -18795,7 +18817,18 @@
         "en_us": "Chiseled Polished Granite",
         "de_de": "Gemeißelter Polierter Granit"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/tools/generate_data.py",
+          "tools/textures/chiseled_2026_11_08.py"
+        ],
+        "en": {
+          "summary": "Chiseled variant of its stone family: two slabs stacked in the crafting table or 1:1 in the stonecutter. Decorative, behaves like the Vanilla chiseled blocks."
+        },
+        "de": {
+          "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_polished_granite.png",
       "craftedBy": [
         "simpleblocks:chiseled_polished_granite",
@@ -18809,7 +18842,18 @@
         "en_us": "Chiseled Prismarine",
         "de_de": "Gemeißelter Prismarin"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/tools/generate_data.py",
+          "tools/textures/chiseled_2026_11_08.py"
+        ],
+        "en": {
+          "summary": "Chiseled variant of its stone family: two slabs stacked in the crafting table or 1:1 in the stonecutter. Decorative, behaves like the Vanilla chiseled blocks."
+        },
+        "de": {
+          "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_prismarine.png",
       "craftedBy": [
         "simpleblocks:chiseled_prismarine",
@@ -18823,7 +18867,18 @@
         "en_us": "Chiseled Red Nether Bricks",
         "de_de": "Gemeißelte Rote Netherziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/tools/generate_data.py",
+          "tools/textures/chiseled_2026_11_08.py"
+        ],
+        "en": {
+          "summary": "Chiseled variant of its stone family: two slabs stacked in the crafting table or 1:1 in the stonecutter. Decorative, behaves like the Vanilla chiseled blocks."
+        },
+        "de": {
+          "summary": "Gemeißelte Variante ihrer Steinfamilie: zwei Stufen übereinander in der Werkbank oder 1:1 im Steinmetz. Dekorativ, verhält sich wie die Vanilla-Meißelblöcke."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_red_nether_bricks.png",
       "craftedBy": [
         "simpleblocks:chiseled_red_nether_bricks",
@@ -23794,13 +23849,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleblocks:chiseled_polished_andesite",
-    "simpleblocks:chiseled_polished_diorite",
-    "simpleblocks:chiseled_polished_granite",
-    "simpleblocks:chiseled_prismarine",
-    "simpleblocks:chiseled_red_nether_bricks"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 15,
@@ -23815,7 +23864,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 5,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
