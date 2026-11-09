@@ -2201,8 +2201,8 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 3,
       "blocks": 14,
-      "features": 4
+      "features": 5
     },
-    "dataHash": "2281db76281c"
+    "dataHash": "9974ce31db1b"
   }
 ];

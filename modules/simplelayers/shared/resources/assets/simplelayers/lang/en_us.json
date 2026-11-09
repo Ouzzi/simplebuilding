@@ -73,6 +73,10 @@
   "simplelayers.guide.page.7": "Rarely, Glitched Bedrock sits in the Overworld bedrock floor (one new chunk in 48, config backrooms.entranceRarity). Only a Netherite Pickaxe breaks it (about 30 s);",
   "simplelayers.guide.page.8.title": "The Backrooms",
   "simplelayers.guide.page.8": "it leaves a Rift, and whatever falls in lands in the Backrooms: endless empty rooms, 8 x 8 blocks and 5 high, with yellow wallpaper, damp carpet and humming neon lights.",
-  "simplelayers.guide.page.9.title": "The Listener",
-  "simplelayers.guide.page.9": "Option backrooms.listener (off by default): now and then footsteps sound behind you in the Backrooms, come closer and stop. There is no creature and no damage - only the sound."
+  "simplelayers.guide.page.9.title": "Walls, hull and supplies",
+  "simplelayers.guide.page.9": "In the Backrooms you carry the Backroom effect (config backrooms.unbreakableWalls): in survival you cannot break the wallpaper, carpet, ceiling tiles and lights, and no piston moves them there.",
+  "simplelayers.guide.page.10.title": "Walls, hull and supplies",
+  "simplelayers.guide.page.10": "Only the Netherite Piston (Simple Machines) breaks a wall in front of it.",
+  "simplelayers.guide.page.11.title": "The Listener",
+  "simplelayers.guide.page.11": "Option backrooms.listener (off by default): now and then footsteps sound behind you in the Backrooms, come closer and stop. There is no creature and no damage - only the sound."
 }

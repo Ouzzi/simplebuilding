@@ -73,6 +73,10 @@
   "simplelayers.guide.page.7": "Selten steckt fehlerhaftes Grundgestein im Bedrock-Boden der Oberwelt (einer von 48 neuen Chunks, Config backrooms.entranceRarity). Nur eine Netherit-Spitzhacke baut es ab (etwa 30 s);",
   "simplelayers.guide.page.8.title": "Die Backrooms",
   "simplelayers.guide.page.8": "es hinterlässt einen Riss, und wer hineinfällt, landet in den Backrooms: endlose leere Räume, 8 x 8 Blöcke und 5 hoch, mit gelber Tapete, feuchtem Teppich und summenden Neonröhren.",
-  "simplelayers.guide.page.9.title": "Der Lauschende",
-  "simplelayers.guide.page.9": "Option backrooms.listener (standardmäßig aus): ab und zu klingen in den Backrooms Schritte hinter dir, kommen näher und verstummen. Es gibt kein Wesen und keinen Schaden - nur das Geräusch."
+  "simplelayers.guide.page.9.title": "Wände, Hülle und Vorräte",
+  "simplelayers.guide.page.9": "In den Backrooms trägst du den Backroom-Effekt (Config backrooms.unbreakableWalls):",
+  "simplelayers.guide.page.10.title": "Wände, Hülle und Vorräte",
+  "simplelayers.guide.page.10": "im Überleben kannst du Tapete, Teppich, Deckenplatten und Leuchten nicht abbauen, und kein Kolben bewegt sie dort. Nur der Netheritkolben (Simple Machines) bricht eine Wand vor sich.",
+  "simplelayers.guide.page.11.title": "Der Lauschende",
+  "simplelayers.guide.page.11": "Option backrooms.listener (standardmäßig aus): ab und zu klingen in den Backrooms Schritte hinter dir, kommen näher und verstummen. Es gibt kein Wesen und keinen Schaden - nur das Geräusch."
 }

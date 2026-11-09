@@ -84,7 +84,7 @@
         "title": "The Backrooms",
         "summary": "Rarely, Glitched Bedrock sits in the Overworld bedrock floor (one new chunk in 48, config backrooms.entranceRarity). Only a Netherite Pickaxe breaks it (about 30 s); it leaves a Rift, and whatever falls in lands in the Backrooms: endless empty rooms, 8 x 8 blocks and 5 high, with yellow wallpaper, damp carpet and humming neon lights.",
         "details": [
-          "The rooms never change and need no storage: every wall and door follows from the world seed. Some rooms are dark, some groups of 4 x 4 rooms are open pillar halls. Survival players cannot break the walls, floors and ceilings there (config backrooms.unbreakableWalls). There is no sky, no time and yellow fog; no mob spawns.",
+          "The rooms never change and need no storage: every wall and door follows from the world seed. Some rooms are dark, some groups of 4 x 4 rooms are open pillar halls. There is no sky, no time and yellow fog; no mob spawns.",
           "Special rooms (jigsaw structures like the Trial Chambers) hold chests with Almond Water and other finds, a flooded room and dark rooms. Far apart lies an exit room: its Exit Door under the green EXIT sign leads back to the Overworld surface above where you came in. Used with a Backdoor Key it opens 1500-3000 blocks away instead. Option backrooms.voidToBackrooms (off): falling 32 blocks below the Overworld floor lands in the Backrooms."
         ]
       },
@@ -92,8 +92,34 @@
         "title": "Die Backrooms",
         "summary": "Selten steckt fehlerhaftes Grundgestein im Bedrock-Boden der Oberwelt (einer von 48 neuen Chunks, Config backrooms.entranceRarity). Nur eine Netherit-Spitzhacke baut es ab (etwa 30 s); es hinterlässt einen Riss, und wer hineinfällt, landet in den Backrooms: endlose leere Räume, 8 x 8 Blöcke und 5 hoch, mit gelber Tapete, feuchtem Teppich und summenden Neonröhren.",
         "details": [
-          "Die Räume ändern sich nie und brauchen keinen Speicher: jede Wand und Tür folgt aus dem Welt-Seed. Manche Räume sind dunkel, manche Gruppen aus 4 x 4 Räumen offene Säulenhallen. Spieler im Überleben können Wände, Böden und Decken dort nicht abbauen (Config backrooms.unbreakableWalls). Kein Himmel, keine Zeit, gelber Nebel; keine Mob-Spawns.",
+          "Die Räume ändern sich nie und brauchen keinen Speicher: jede Wand und Tür folgt aus dem Welt-Seed. Manche Räume sind dunkel, manche Gruppen aus 4 x 4 Räumen offene Säulenhallen. Kein Himmel, keine Zeit, gelber Nebel; keine Mob-Spawns.",
           "Sonderräume (Jigsaw-Strukturen wie die Trial Chambers) enthalten Truhen mit Mandelwasser und anderen Funden, einen gefluteten Raum und dunkle Räume. Weit entfernt liegt ein Ausgangsraum: seine Ausgangstür unter dem grünen EXIT-Schild führt zurück an die Oberwelt-Oberfläche über dem Eingang. Mit einem Hintertür-Schlüssel öffnet sie sich stattdessen 1500-3000 Blöcke entfernt. Option backrooms.voidToBackrooms (aus): wer 32 Blöcke unter den Oberwelt-Boden fällt, landet in den Backrooms."
+        ]
+      }
+    },
+    {
+      "id": "backroom_effect",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomEffect.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/BackroomBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/mixin/PistonBaseBlockMixin.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsGrid.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/config/LayersConfig.java"
+      ],
+      "en": {
+        "title": "Walls, hull and supplies",
+        "summary": "In the Backrooms you carry the Backroom effect (config backrooms.unbreakableWalls): in survival you cannot break the wallpaper, carpet, ceiling tiles and lights, and no piston moves them there. Only the Netherite Piston (Simple Machines) breaks a wall in front of it.",
+        "details": [
+          "Bedrock closes the rooms: the floor at y 0 and everything from the ceiling y 8 up to the top of the dimension.",
+          "Some rooms are offices with an oak desk, a chair and a pile of stripped oak logs (sometimes a crafting table); others, and every dark room, have cobwebs in the corners. Wood and string let you survive and craft (config backrooms.supplies). Storage chests can hold string and sticks."
+        ]
+      },
+      "de": {
+        "title": "Wände, Hülle und Vorräte",
+        "summary": "In den Backrooms trägst du den Backroom-Effekt (Config backrooms.unbreakableWalls): im Überleben kannst du Tapete, Teppich, Deckenplatten und Leuchten nicht abbauen, und kein Kolben bewegt sie dort. Nur der Netheritkolben (Simple Machines) bricht eine Wand vor sich.",
+        "details": [
+          "Grundgestein schließt die Räume ein: der Boden auf y 0 und alles von der Decke y 8 bis zur Obergrenze der Dimension.",
+          "Manche Räume sind Büros mit Eichen-Schreibtisch, Stuhl und einem Stapel entrindeter Eichenstämme (manchmal einer Werkbank); andere und jeder dunkle Raum haben Spinnweben in den Ecken. Holz und Faden reichen zum Überleben und Craften (Config backrooms.supplies). Lagertruhen können Faden und Stöcke enthalten."
         ]
       }
     },
@@ -331,7 +357,9 @@
             "minecraft:torch",
             "minecraft:map",
             "minecraft:music_disc_11",
-            "minecraft:music_disc_13"
+            "minecraft:music_disc_13",
+            "minecraft:string",
+            "minecraft:stick"
           ],
           "conditions": [],
           "functions": []
@@ -484,10 +512,10 @@
           "modules/simplelayers/shared/resources/data/simplelayers/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Layers\" of the Simple Modpack guide (SimpleLib): 9 pages taken from this wiki, shown in your language. Unlocked by picking up: feather. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Layers\" of the Simple Modpack guide (SimpleLib): 11 pages taken from this wiki, shown in your language. Unlocked by picking up: feather. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Layers\" im Simple-Modpack-Handbuch (SimpleLib): 9 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feder. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Layers\" im Simple-Modpack-Handbuch (SimpleLib): 11 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feder. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplelayers/item/guide_book.png",
@@ -811,7 +839,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 4,
+    "features": 5,
     "recipes": 0,
     "lootTables": 13,
     "tags": 1,
