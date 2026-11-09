@@ -55,3 +55,18 @@ PNG/.layers.json, Python-Werkzeuge, Doku). Commits je Mod-Paket. Push nur /root/
 - Ampel nur Zahlen: Regel an RIFT14-Entscheidung kalibriert (R6 orange, R9 gruen) und gegen Vanilla gemessen;
   Blick-Befund je Familie im Dokument.
 - Unruhe statt Flaeche (Kruemel): nur Haufen 2-4 px, keine Einzelpixel-Streuung (RIFT14-R7-Lehre).
+
+## Ergebnis und Abweichungen
+- c) A8d in PRINZIPIEN.md + AGENTS.md; texrate.py (Selbsttest gruen). Kalibrierung: RIFT14-R6 orange, R9 gruen; Vanilla
+  61 Baustoffe 29 gruen / 29 orange / 3 rot, 20 Items 18 gruen.
+- d) 1986 Texturen bewertet (docs/ai/TEXTUR-BEWERTUNG-2026-11-09.md, Vorschau b-texrate15-preview.html).
+- Ueberarbeitet R3: Simple Ores 24 (rot -> gruen), Simple End 10 (rot -> 8 gruen, 2 orange Hauptton 44-45 %).
+  Runden-Bewertung: R1 Flaechen weg, aber neue Weiss-Toene/falscher Farbton; R2 farbtonsicher, aber gleichmaessig
+  gekoernt; R3 Haufen entlang der Form + Linien-Tonwechsel + Stopp bei Vanilla-Ruhe -> gewaehlt (Details in der Vorschau).
+- Abweichung 1: crystalline/veined/frosted/layered NICHT ueberarbeitet - beim Ist-Stand als pixelweise Vanilla-Umfaerbung
+  erkannt (astralit_nihilit_alternates_2026_10_03.py), Altbestand vor der 12.10.-Regel; als offen notiert.
+- Abweichung 2: orange nicht ueberarbeitet - die orangen der Prio 1-3 sind abgenommene Altbestaende (nur eindeutig Rot
+  darf geaendert werden).
+- Abweichung 3: Masken/UV-Atlanten/Animationsteile (carved/*, placed_*, *_dyed, *_overlay, Redstone-Linien, Nadeln) als
+  "grau" nicht bewertet.
+- Tests: texrate.py --selftest ok, layers.py check 0 Probleme (3136 Quellen), check_missing_textures gruen. Kein sbt.
