@@ -22,6 +22,8 @@ public final class ModelEditorState {
     private int snapIndex;
     private EditableModel dragStart, live;
     private List<ModelJson.Problem> problems = List.of();
+    /** Face of the selected cube the face tab (UV, texture) edits; b-models14. */
+    private String face = "north";
 
     public ModelEditorState(EditableModel model) {
         history = new EditHistory<>(model);
@@ -37,6 +39,8 @@ public final class ModelEditorState {
     public Gizmo.Mode mode() { return mode; }
     public void mode(Gizmo.Mode m) { mode = m; }
     public float snapStep() { return Gizmo.SNAP_STEPS[snapIndex]; }
+    /** Rotate step of the current grid preset (0 = free). */
+    public float angleStep() { return Gizmo.ANGLE_STEPS[snapIndex]; }
     public void cycleSnap() { snapIndex = (snapIndex + 1) % Gizmo.SNAP_STEPS.length; }
     public boolean canUndo() { return history.canUndo(); }
     public boolean canRedo() { return history.canRedo(); }
@@ -46,6 +50,23 @@ public final class ModelEditorState {
 
     public void select(int index) {
         selected = index >= 0 && index < model().elements().size() ? index : -1;
+    }
+
+    public String face() { return face; }
+    public void selectFace(String direction) {
+        if (EditableModel.DIRECTIONS.contains(direction)) face = direction;
+    }
+
+    /** One undo step: the selected cube replaced by {@code change} applied to it (face tab buttons). */
+    public void editElement(java.util.function.UnaryOperator<Element> change) {
+        Element e = selectedElement();
+        if (e != null) apply(history.current().withElement(selected, change.apply(e)));
+    }
+
+    /** One undo step: the whole model replaced (texture picker). */
+    public void editModel(EditableModel next) {
+        apply(next);
+        afterJump();
     }
 
     public void toggleHidden(int index) {
@@ -154,6 +175,11 @@ public final class ModelEditorState {
     /** The code text of the current model (vanilla JSON, compact). */
     public String code() {
         return ModelJson.writeCompact(history.current());
+    }
+
+    /** The code text for a code column of {@code width} characters (no wrapped lines at GUI scale 2). */
+    public String code(int width) {
+        return ModelJson.writeCompact(history.current(), width);
     }
 
     private void apply(EditableModel next) {

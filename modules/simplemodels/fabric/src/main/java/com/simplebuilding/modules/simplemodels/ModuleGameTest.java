@@ -29,6 +29,10 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void editorGeometry(GameTestHelper h) { EditorTests.geometry(h); }
  @GameTest(maxTicks=100) public void editorGizmo(GameTestHelper h) { EditorTests.gizmo(h); }
  @GameTest(maxTicks=100) public void editorState(GameTestHelper h) { EditorTests.state(h); }
+ @GameTest(maxTicks=100) public void editorSnapHelp(GameTestHelper h) { EditorTests.snapHelp(h); }
+ @GameTest(maxTicks=100) public void editorUv(GameTestHelper h) { EditorTests.uv(h); }
+ @GameTest(maxTicks=100) public void editorTextures(GameTestHelper h) { EditorTests.textures(h); }
+ @GameTest(maxTicks=100) public void editorExport(GameTestHelper h) { EditorTests.export(h); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simplemodels.discover.ModelsDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simplemodels.discover.ModelsDiscover.behaviourHints(h); }
 }

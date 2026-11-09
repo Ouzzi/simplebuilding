@@ -298,6 +298,121 @@ public final class ModelJson {
         return ID.matcher(value).matches() && !value.contains("..") && !path.startsWith("/") && !path.endsWith("/");
     }
 
+    // ---------------------------------------------------------------- problem location
+
+    private static final Pattern LINE_COLUMN = Pattern.compile("line (\\d+) column (\\d+)");
+
+    /**
+     * Where a problem sits in {@code text} (b-models14, for the code view's underline): {@code [start, end)} of the
+     * value at the problem's JSON path ({@code elements[2].faces.up.uv[1]}); a missing field marks the opening brace of
+     * its object; a syntax error marks the character at Gson's line/column. {@code null} when nothing can be found.
+     */
+    public static int[] locate(String text, Problem problem) {
+        if (text == null || problem == null) return null;
+        if (problem.key().equals("syntax")) {
+            var m = LINE_COLUMN.matcher(problem.args().isEmpty() ? "" : String.valueOf(problem.args().getFirst()));
+            if (!m.find()) return null;
+            int line = Integer.parseInt(m.group(1)), column = Integer.parseInt(m.group(2)), offset = 0;
+            for (int l = 1; l < line; l++) {
+                int newline = text.indexOf('\n', offset);
+                if (newline < 0) return null;
+                offset = newline + 1;
+            }
+            int at = Math.min(text.length(), offset + Math.max(0, column - 2));
+            int end = Math.min(text.length(), at + 1);
+            return end > at ? new int[]{at, end} : at > 0 ? new int[]{at - 1, at} : null;
+        }
+        var segments = new ArrayList<Object>();
+        if (!problem.path().isEmpty()) {
+            for (String part : problem.path().split("\\.")) {
+                int bracket = part.indexOf('[');
+                if (bracket != 0) segments.add(bracket < 0 ? part : part.substring(0, bracket));
+                for (var m = Pattern.compile("\\[(\\d+)]").matcher(part); m.find(); ) segments.add(Integer.parseInt(m.group(1)));
+            }
+        }
+        try {
+            var locator = new Locator(text);
+            locator.space();
+            return locator.find(segments, 0);
+        } catch (RuntimeException e) {
+            return null;
+        }
+    }
+
+    /** A forgiving scanner over JSON text that follows a path and returns the span of the value it ends on. */
+    private static final class Locator {
+        final String s;
+        int i;
+        Locator(String s) { this.s = s; }
+
+        int[] find(List<Object> path, int depth) {
+            int start = i;
+            if (depth == path.size() || i >= s.length()) { skipValue(); return new int[]{start, Math.max(i, Math.min(s.length(), start + 1))}; }
+            Object seg = path.get(depth);
+            char c = s.charAt(i);
+            if (seg instanceof String key && c == '{') {
+                i++;
+                while (true) {
+                    space();
+                    if (i >= s.length() || s.charAt(i) == '}') return new int[]{start, start + 1};
+                    String name = string();
+                    space();
+                    if (i < s.length() && s.charAt(i) == ':') i++;
+                    space();
+                    if (key.equals(name)) return find(path, depth + 1);
+                    skipValue();
+                    space();
+                    if (i < s.length() && s.charAt(i) == ',') i++; else return new int[]{start, start + 1};
+                }
+            }
+            if (seg instanceof Integer index && c == '[') {
+                i++;
+                for (int n = 0; ; n++) {
+                    space();
+                    if (i >= s.length() || s.charAt(i) == ']') return new int[]{start, start + 1};
+                    if (n == index) return find(path, depth + 1);
+                    skipValue();
+                    space();
+                    if (i < s.length() && s.charAt(i) == ',') i++; else return new int[]{start, start + 1};
+                }
+            }
+            skipValue(); // the path expects another shape here: mark this value
+            return new int[]{start, Math.max(i, start + 1)};
+        }
+
+        void space() { while (i < s.length() && Character.isWhitespace(s.charAt(i))) i++; }
+
+        String string() {
+            if (i >= s.length() || s.charAt(i) != '"') { int a = i; skipValue(); return s.substring(a, i); }
+            var out = new StringBuilder();
+            i++;
+            while (i < s.length() && s.charAt(i) != '"') {
+                if (s.charAt(i) == '\\' && i + 1 < s.length()) i++;
+                out.append(s.charAt(i++));
+            }
+            i = Math.min(s.length(), i + 1);
+            return out.toString();
+        }
+
+        void skipValue() {
+            if (i >= s.length()) return;
+            char c = s.charAt(i);
+            if (c == '"') { string(); return; }
+            if (c == '{' || c == '[') {
+                int depth = 0;
+                while (i < s.length()) {
+                    char d = s.charAt(i);
+                    if (d == '"') { string(); continue; }
+                    if (d == '{' || d == '[') depth++;
+                    else if (d == '}' || d == ']') { depth--; if (depth == 0) { i++; return; } }
+                    i++;
+                }
+                return;
+            }
+            while (i < s.length() && ",}]\n".indexOf(s.charAt(i)) < 0 && !Character.isWhitespace(s.charAt(i))) i++;
+        }
+    }
+
     // ---------------------------------------------------------------- write
 
     /** Vanilla model JSON; defaults are left out (no rotation, light 0, tint -1, face rotation 0, auto-UV). */
@@ -341,12 +456,20 @@ public final class ModelJson {
      * with two-space indentation. Reads back to the same model as {@link #write}.
      */
     public static String writeCompact(EditableModel model) {
+        return writeCompact(model, COMPACT_WIDTH);
+    }
+
+    /**
+     * {@link #writeCompact(EditableModel)} for a code column of {@code width} characters (b-models14): narrower columns
+     * open objects earlier so lines do not wrap at GUI scale 2. Never below {@link #MIN_COMPACT_WIDTH}.
+     */
+    public static String writeCompact(EditableModel model, int width) {
         var out = new StringBuilder();
-        compact(toJson(model), 0, out);
+        compact(toJson(model), 0, 0, Math.max(MIN_COMPACT_WIDTH, width), out);
         return out.toString();
     }
 
-    public static final int COMPACT_WIDTH = 64;
+    public static final int COMPACT_WIDTH = 64, MIN_COMPACT_WIDTH = 24;
     private static final com.google.gson.Gson PLAIN = new GsonBuilder().disableHtmlEscaping().create();
 
     private static String inline(JsonElement e) {
@@ -363,9 +486,10 @@ public final class ModelJson {
         return PLAIN.toJson(e);
     }
 
-    private static void compact(JsonElement e, int indent, StringBuilder out) {
+    /** {@code prefix}: characters before the value on its line ({@code "key": }), so whole lines fit {@code width}. */
+    private static void compact(JsonElement e, int indent, int prefix, int width, StringBuilder out) {
         String one = inline(e);
-        if (indent * 2 + one.length() <= COMPACT_WIDTH || !(e.isJsonObject() || e.isJsonArray())) { out.append(one); return; }
+        if (indent * 2 + prefix + one.length() + 1 <= width || !(e.isJsonObject() || e.isJsonArray())) { out.append(one); return; }
         String pad = "  ".repeat(indent + 1);
         boolean object = e.isJsonObject();
         out.append(object ? "{\n" : "[\n");
@@ -373,8 +497,11 @@ public final class ModelJson {
         int size = object ? entries.size() : e.getAsJsonArray().size();
         for (int i = 0; i < size; i++) {
             out.append(pad);
-            if (object) { out.append(PLAIN.toJson(entries.get(i).getKey())).append(": "); compact(entries.get(i).getValue(), indent + 1, out); }
-            else compact(e.getAsJsonArray().get(i), indent + 1, out);
+            if (object) {
+                String key = PLAIN.toJson(entries.get(i).getKey()) + ": ";
+                out.append(key);
+                compact(entries.get(i).getValue(), indent + 1, key.length(), width, out);
+            } else compact(e.getAsJsonArray().get(i), indent + 1, 0, width, out);
             out.append(i + 1 < size ? ",\n" : "\n");
         }
         out.append("  ".repeat(indent)).append(object ? '}' : ']');

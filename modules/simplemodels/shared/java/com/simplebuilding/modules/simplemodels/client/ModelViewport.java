@@ -57,6 +57,14 @@ public final class ModelViewport {
         return Identifier.tryParse(value);
     }
 
+    /** The block-atlas sprite a face texture resolves to (missing sprite for unknown ids), or null without an atlas. */
+    public static TextureAtlasSprite sprite(EditableModel model, String texture) {
+        AbstractTexture t = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS);
+        if (!(t instanceof TextureAtlas atlas)) return null;
+        Identifier id = resolve(model, texture);
+        return id == null ? atlas.missingSprite() : atlas.getSprite(id);
+    }
+
     /** Draws background, grid, model, block outline and the extra lines (selection, gizmo) into {@code r}. */
     public static void render(GuiGraphicsExtractor g, Rect r, UiOrbitCamera camera, EditableModel model, Set<Integer> hidden, List<Line> overlay) {
         g.fill(r.x(), r.y(), r.right(), r.bottom(), BACKGROUND);

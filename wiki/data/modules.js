@@ -231,7 +231,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 17
     },
-    "dataHash": "de603d224cbd"
+    "dataHash": "bc3d5f9374c2"
   },
   {
     "id": "simplefun",

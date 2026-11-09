@@ -152,6 +152,46 @@ public final class ModelGeometry {
         return near <= far + 1e-5f && far >= 0 ? Math.max(near, 0) : Float.POSITIVE_INFINITY;
     }
 
+    /** A picked cube and the face the ray enters it through (b-models14, Ctrl+click picks a face for the UV editor). */
+    public record FacePick(int element, String face) {}
+
+    /** Like {@link #pick}, plus the face hit; {@code null} when nothing is hit. */
+    public static FacePick pickFace(EditableModel model, Vector3f origin, Vector3f direction, java.util.Set<Integer> hidden) {
+        int index = pick(model, origin, direction, hidden);
+        return index < 0 ? null : new FacePick(index, hitFace(model.elements().get(index), origin, direction));
+    }
+
+    /** Face names of the box sides per axis: {min, max}. */
+    private static final String[][] SIDES = {{"west", "east"}, {"down", "up"}, {"north", "south"}};
+
+    /**
+     * The face the ray enters the element through (in the element's own space, so rotations count), or {@code null}.
+     * Same slab test as {@link #hit}: the axis whose entry parameter is largest names the face, its near side min or max.
+     */
+    public static String hitFace(Element e, Vector3f origin, Vector3f direction) {
+        Vector3f o = new Vector3f(origin), d = new Vector3f(direction);
+        if (e.rotation() != null) {
+            Matrix3f inverse = matrix(e.rotation()).invert();
+            Vec c = e.rotation().origin();
+            inverse.transform(o.sub(c.x(), c.y(), c.z())).add(c.x(), c.y(), c.z());
+            inverse.transform(d);
+        }
+        float near = Float.NEGATIVE_INFINITY, far = Float.POSITIVE_INFINITY;
+        String face = null;
+        for (int a = 0; a < 3; a++) {
+            float lo = Math.min(e.from().get(a), e.to().get(a)), hi = Math.max(e.from().get(a), e.to().get(a));
+            float oa = o.get(a), da = d.get(a);
+            if (Math.abs(da) < 1e-7f) {
+                if (oa < lo - 1e-4f || oa > hi + 1e-4f) return null;
+                continue;
+            }
+            float t1 = (lo - oa) / da, t2 = (hi - oa) / da;
+            if (Math.min(t1, t2) > near) { near = Math.min(t1, t2); face = SIDES[a][t1 < t2 ? 0 : 1]; }
+            far = Math.min(far, Math.max(t1, t2));
+        }
+        return near <= far + 1e-5f && far >= 0 ? face : null;
+    }
+
     private static float rad(float degrees) {
         return (float) Math.toRadians(degrees);
     }
