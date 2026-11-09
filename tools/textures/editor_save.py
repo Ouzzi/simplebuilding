@@ -195,6 +195,50 @@ def apply_save(payload: dict, sid: str, git_dir: Path, base: str) -> str:
     return branch
 
 
+# ---------------------------------------------------------------- taken over? (b-texed16, read only)
+
+BUNDLE = re.compile(r"b-bundle(\d+)|\bbundle[ -](\d+)", re.I)
+
+
+def _git_out(repo: Path, *args: str) -> str | None:
+    try:
+        done = subprocess.run(["git", "-C", str(repo), *args], capture_output=True, timeout=20, stdin=subprocess.DEVNULL)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return done.stdout.decode("utf-8", "replace") if done.returncode == 0 else None
+
+
+def adopted_in(repo: Path, sids: list[str], since_ms: int | None = None, rev: str = "HEAD",
+               bundles: bool = True) -> dict[str, dict]:
+    """Save id -> {commit, subject, bundle} for every save whose id appears in a commit message of `rev` (the oldest such
+    commit; bundle = the first merge after it on the way to rev that names "bundle NNN"/"b-bundleNNN", else "").
+    Convention: every take-over writes the save id into its commit (apply_save "Save-ID: ...", by hand "Save-IDs ...").
+    One git log for all ids; nothing is written."""
+    sids = [s for s in dict.fromkeys(sids) if SAVE_ID.match(str(s))][:200]
+    if not sids:
+        return {}
+    args = ["log", "-F", "--format=%h%x1f%s%x1f%b%x1e"] + [f"--grep={s}" for s in sids]
+    if since_ms:
+        args.append(f"--since=@{max(0, since_ms // 1000 - 7 * 86400)}")
+    out = _git_out(repo, *args, rev, "--")
+    if out is None:
+        return {}
+    found: dict[str, dict] = {}
+    for rec in reversed([r for r in out.split("\x1e") if r.strip()]):   # oldest first: the first commit wins
+        commit, subject, body = (rec.strip("\n").split("\x1f") + ["", ""])[:3]
+        for sid in sids:
+            if sid not in found and (sid in subject or sid in body):
+                found[sid] = {"commit": commit, "subject": subject[:200], "bundle": ""}
+    for info in found.values() if bundles else ():
+        merges = _git_out(repo, "log", "--merges", "--ancestry-path", "--format=%s", f"{info['commit']}..{rev}", "--") or ""
+        for subject in reversed(merges.splitlines()):
+            m = BUNDLE.search(subject)
+            if m:
+                info["bundle"] = "b-bundle" + (m.group(1) or m.group(2))
+                break
+    return found
+
+
 # ---------------------------------------------------------------- pickup (cron on the agent host)
 
 def api(cmd: list[str], method: str, path: str, body: dict | None = None):
@@ -227,14 +271,103 @@ def pickup(cmd: list[str], git_dir: Path, base: str, log=print) -> int:
     return done
 
 
+# ---------------------------------------------------------------- pull (b-texed16): read-only pickup
+
+def remote_run(cmd: list[str], *remote: str) -> bytes:
+    """Run a read-only command on the web host (cmd = e.g. ["ssh", "-o", "BatchMode=yes", "sb-web"])."""
+    line = " ".join(shlex.quote(a) for a in remote)
+    full = cmd + [line] if cmd and cmd[0] == "ssh" else cmd + list(remote)
+    done = subprocess.run(full, capture_output=True, timeout=60, stdin=subprocess.DEVNULL)
+    if done.returncode:
+        raise SaveError(f"remote {remote[0]}: {done.stderr.decode('utf-8', 'replace').strip()[:200]}")
+    return done.stdout
+
+
+def pull(cmd: list[str], remote_dir: str, git_dir: Path, base: str, report: Path | None = None,
+         state_path: Path | None = None, dry_run: bool = False, log=print) -> list[str]:
+    """Read new editor saves from the dev queue directory on the web host (ls + cat, never written) and commit each
+    on its own branch tex-<name>-<save id> in the hub (apply_save). Idempotent: skips ids that already have a tex-*
+    branch, ids already named in a commit of any hub branch (taken over by hand), failed saves and ids that failed here before
+    (state file). Returns the new branches; each one gets a line in `report`."""
+    state = {}
+    if state_path and state_path.is_file():
+        try:
+            state = json.loads(state_path.read_text(encoding="utf-8"))
+        except ValueError:
+            state = {}
+    failed = state.setdefault("failed", {})
+    names = remote_run(cmd, "ls", "-1", remote_dir).decode("utf-8", "replace").split()
+    sids = sorted(n[:-5] for n in names if n.endswith(".json") and SAVE_ID.match(n[:-5]))
+    have = git(git_dir, "for-each-ref", "--format=%(refname:short)", "refs/heads/tex-*").split()
+    branched = {b.rsplit("-", 1)[-1] for b in have}
+    todo = [s for s in sids if s not in branched and s not in failed]
+    if todo:
+        done_in_base = adopted_in(git_dir, todo, None, rev="--branches", bundles=False)  # any hub branch, e.g. by hand
+        todo = [s for s in todo if s not in done_in_base]
+    recs: dict[str, dict] = {}
+    for sid in todo:
+        try:
+            rec = json.loads(remote_run(cmd, "cat", f"{remote_dir.rstrip('/')}/{sid}.json").decode("utf-8"))
+        except (SaveError, ValueError) as e:
+            log(f"{sid}: unreadable ({e})")
+            continue
+        if isinstance(rec, dict) and rec.get("state") != "failed":
+            recs[sid] = rec
+    # several saves of one texture: only the newest becomes a branch (the older ones are contained in it)
+    newest: dict[str, str] = {}
+    for sid in sorted(recs, key=int):
+        newest[str(recs[sid].get("texture"))] = sid
+    made = []
+    for sid in sorted(recs, key=int):
+        rec = recs[sid]
+        if newest[str(rec.get("texture"))] != sid:
+            log(f"{sid}: superseded by {newest[str(rec.get('texture'))]}")
+            if not dry_run:
+                failed[sid] = f"superseded by {newest[str(rec.get('texture'))]}"
+            continue
+        payload = {"id": rec.get("texture"), "source": rec.get("source"), "layers": rec.get("layers"), "comment": rec.get("comment")}
+        if dry_run:
+            log(f"{sid}: would commit {rec.get('texture')}")
+            continue
+        try:
+            branch = apply_save(payload, sid, git_dir, base)
+        except (SaveError, ValueError, OSError, subprocess.SubprocessError) as e:
+            failed[sid] = str(e)[:300]
+            log(f"{sid}: failed {e}")
+            continue
+        commit = git(git_dir, "rev-parse", "--short", branch)
+        made.append(branch)
+        log(f"{sid}: {branch} {commit}")
+        if report:
+            with open(report, "a", encoding="utf-8") as f:
+                f.write(f"- {branch} {commit} (Basis {base}) – Editor-Speicherung {rec.get('texture')} (Save-ID {sid}"
+                        f"{', von ' + str(rec.get('by')) if rec.get('by') else ''}) – automatisch abgeholt "
+                        f"(editor_save.py pull), PNG = Komposition der Ebenen, layers check grün\n")
+    if state_path and not dry_run:
+        state_path.parent.mkdir(parents=True, exist_ok=True)
+        state_path.write_text(json.dumps(state, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    return made
+
+
 def main(argv: list[str]) -> int:
     p = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    p.add_argument("command", choices=("pickup", "apply"))
+    p.add_argument("command", choices=("pickup", "apply", "pull"))
     p.add_argument("file", nargs="?", help="apply: save JSON {id, source, layers, comment, sid}")
     p.add_argument("--git-dir", required=True, help="hub repository (bare) the tex-* branches are created in")
     p.add_argument("--base", default="claude-wave1")
     p.add_argument("--api", help='pickup: command prefix for devq-api, e.g. "ssh -o BatchMode=yes <web host>"')
+    p.add_argument("--remote", help='pull: read-only command prefix to the web host, e.g. "ssh -o BatchMode=yes <web host>"')
+    p.add_argument("--dir", default="/srv/devqueue/textures", help="pull: save directory on the web host")
+    p.add_argument("--report", help="pull: append one line per new branch (e.g. /root/b-fertig.md)")
+    p.add_argument("--state", default=str(Path.home() / ".cache" / "sb-texpull.json"), help="pull: ids that failed before")
+    p.add_argument("--dry-run", action="store_true")
     a = p.parse_args(argv)
+    if a.command == "pull":
+        if not a.remote:
+            p.error("pull needs --remote")
+        pull(shlex.split(a.remote), a.dir, Path(a.git_dir), a.base, Path(a.report) if a.report else None,
+             Path(a.state) if a.state else None, a.dry_run)
+        return 0
     if a.command == "pickup":
         if not a.api:
             p.error("pickup needs --api")

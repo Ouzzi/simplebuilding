@@ -7,6 +7,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const C = require(path.resolve(__dirname, '../assets/pixeleditor-core.js'));
+const rnd2 = x => Math.floor(x + 0.5);
 const hex = a => Buffer.from(a).toString('hex');
 
 async function selfTests() {
@@ -83,6 +84,46 @@ async function selfTests() {
   }
   assert.equal(C.crc32(Buffer.from('IEND')), 0xAE426082);
   assert.deepEqual(C.validate({ format: 'x' }).length, 1);
+  // b-texed16: blend modes = tools/textures/layers.py on the shared vectors (same JSON, every byte)
+  const vectors = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../tools/textures/tests/blend_vectors.json'), 'utf8'));
+  assert.deepEqual(new Set(vectors.map(v => v.mode)), new Set(C.BLENDS));
+  for (const v of vectors) {
+    const bm = C.blank(1, 1, 'b');
+    bm.layers[0].px.set(v.back[3] ? v.back : [0, 0, 0, 0]);
+    const top = C.newLayer(1, 1, 's'); top.px.set(v.src); top.opacity = v.opacity; top.blend = v.mode;
+    bm.layers.push(top);
+    assert.deepEqual(Array.from(C.compose(bm)), v.out, JSON.stringify(v));
+  }
+  // blend survives toDoc/fromDoc, missing blend = normal, unknown blend rejected
+  const bd = C.blank(1, 1, 'x'); bd.layers[0].blend = 'soft-light'; C.plot(bd.layers[0].px, 1, 1, [[0, 0]], [9, 9, 9, 255]);
+  const bdoc = C.toDoc(bd);
+  assert.equal(bdoc.layers[0].blend, 'soft-light');
+  assert.equal(C.fromDoc(bdoc).layers[0].blend, 'soft-light');
+  delete bdoc.layers[0].blend; assert.equal(C.fromDoc(bdoc).layers[0].blend, 'normal');
+  bdoc.layers[0].blend = 'dodge'; assert.ok(C.validate(bdoc).length);
+  assert.equal(C.cloneModel(bd).layers[0].blend, 'soft-light');
+  // painting with opacity mixes over the layer pixel (source-over), not replace
+  const pa = new Uint8ClampedArray([255, 0, 0, 255, 0, 0, 0, 0]);
+  C.plot(pa, 2, 1, [[0, 0], [1, 0], [0, 0]], [0, 0, 255, 128]);
+  assert.deepEqual(Array.from(pa), [127, 0, 128, 255, 0, 0, 255, 128], 'over red: mixed; empty: colour with its alpha; once per pixel');
+  const pb = new Uint8ClampedArray([255, 255, 255, 128]);
+  C.plot(pb, 1, 1, [[0, 0]], [0, 0, 0, 128]);   // rest = 128*127/255 = 63.75, oa = 191.75
+  assert.deepEqual(Array.from(pb), [rnd2(255 * 63.75 / 191.75), rnd2(255 * 63.75 / 191.75), rnd2(255 * 63.75 / 191.75), 192]);
+  const pl = new Uint8ClampedArray([255, 0, 0, 100, 0, 0, 0, 0]);
+  C.plot(pl, 2, 1, [[0, 0], [1, 0]], [0, 0, 255, 128], true);   // alpha lock: colour mixes, alpha stays, empty stays empty
+  assert.deepEqual(Array.from(pl), [127, 0, 128, 100, 0, 0, 0, 0]);
+  const pz = new Uint8ClampedArray([255, 0, 0, 255]);
+  C.plot(pz, 1, 1, [[0, 0]], [0, 0, 255, 255]); assert.deepEqual(Array.from(pz), [0, 0, 255, 255], 'opaque colour replaces');
+  C.plot(pz, 1, 1, [[0, 0]], [0, 0, 0, 0]); assert.deepEqual(Array.from(pz), [0, 0, 0, 0], 'transparent colour clears');
+  // eraser reduces alpha by its strength; full strength clears
+  const pe = new Uint8ClampedArray([10, 20, 30, 200, 10, 20, 30, 1]);
+  C.erase(pe, 2, 1, [[0, 0], [1, 0], [0, 0]], 128);
+  assert.deepEqual(Array.from(pe), [10, 20, 30, 100, 0, 0, 0, 0]);   // 200*127/255 = 99.6 -> 100, 1*127/255 -> 0 = empty
+  C.erase(pe, 2, 1, [[0, 0]], 255); assert.deepEqual(Array.from(pe), [0, 0, 0, 0, 0, 0, 0, 0]);
+  // fill with a translucent colour mixes too
+  const pf = new Uint8ClampedArray([255, 0, 0, 255, 255, 0, 0, 255]);
+  C.fill(pf, 2, 1, 0, 0, [0, 0, 255, 128], false, false);
+  assert.deepEqual(Array.from(pf), [127, 0, 128, 255, 127, 0, 128, 255]);
   console.log('pixeleditor core: ok');
 }
 

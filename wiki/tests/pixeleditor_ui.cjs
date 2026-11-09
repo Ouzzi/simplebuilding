@@ -155,6 +155,42 @@ async function desktop(browser, base) {
   await page.locator('.pe-layer').nth(0).locator('[data-k^="eye"]').click();
   await page.locator('[data-k="opacity"]').fill('50');
   assert.equal(await state(page, 's => s.model.layers[s.active].opacity'), 50);
+  // b-texed16: blend mode select (stored per layer, undo-able), Shift+O / Shift+P cycle, short label in the row
+  await page.locator('[data-k="blend"]').selectOption('multiply');
+  assert.equal(await state(page, 's => s.model.layers[s.active].blend'), 'multiply');
+  assert.equal(await page.locator('.pe-layer[aria-selected="true"] .pe-bl').count(), 1, 'row shows the mode');
+  await page.keyboard.press('Control+z');
+  assert.equal(await state(page, 's => s.model.layers[s.active].blend'), 'normal', 'undo blend');
+  await page.locator('.pe-canvas').hover();
+  await page.keyboard.press('Shift+O');
+  assert.equal(await state(page, 's => s.model.layers[s.active].blend'), 'add');
+  await page.keyboard.press('Shift+P'); await page.keyboard.press('Shift+P');
+  assert.equal(await state(page, 's => s.model.layers[s.active].blend'), 'luminosity');
+  assert.ok(await page.locator('[data-k="blend"]').evaluate(CONTRAST) >= 4.5, 'blend select contrast');
+  await page.locator('[data-k="blend"]').selectOption('normal');
+  // painting with 50 % colour opacity mixes with the layer pixel instead of replacing it
+  const mixed = await state(page, `s => {
+    const l = s.model.layers[s.active], o = 0;
+    l.px.set([255, 0, 0, 255], o);
+    SBPixelCore.plot(l.px, s.model.w, s.model.h, [[0, 0]], [0, 0, 255, 128], false);
+    return Array.from(l.px.slice(0, 4));
+  }`);
+  assert.deepEqual(mixed, [127, 0, 128, 255]);
+  // the same with the real mouse: pencil with 50 % colour, then eraser with 50 % strength
+  {
+    const bx = await page.locator('.pe-canvas').boundingBox(), z = await state(page, 's => s.zoom'), ox2 = await state(page, 's => s.ox'), oy2 = await state(page, 's => s.oy');
+    const at2 = (x, y) => [bx.x + ox2 + (x + 0.5) * z, bx.y + oy2 + (y + 0.5) * z];
+    const lp = () => state(page, 's => { const l = s.model.layers[s.active]; return Array.from(l.px.slice((5 * s.model.w + 5) * 4, (5 * s.model.w + 5) * 4 + 4)); }');
+    await state(page, 's => { const l = s.model.layers[s.active]; l.px.set([255, 0, 0, 255], (5 * s.model.w + 5) * 4); s.primary = [0, 0, 255, 128]; }');
+    await page.keyboard.press('b');
+    await page.mouse.click(...at2(5, 5));
+    assert.deepEqual(await lp(), [127, 0, 128, 255], 'pencil mixes');
+    await page.keyboard.press('e');
+    await page.mouse.click(...at2(5, 5));
+    assert.deepEqual(await lp(), [127, 0, 128, 127], 'eraser takes away half the alpha');
+    await state(page, 's => { s.primary = [30, 30, 30, 255]; }');
+    await page.keyboard.press('b');
+  }
   await page.locator('.pe-layer[aria-selected="true"]').focus();
   await page.keyboard.press('F2');
   await page.locator('.pe-layer input').fill('Neu benannt');

@@ -43,7 +43,8 @@ Hinter dem Zugangsschutz der Zentrale:
 - `GET /api/mods` – Mod-Baum, eigene Auswahl (`off`), aufgelöster Zustand (Sperren/Gründe) und Start-Daten
 - `PUT /api/mods/selection` – `{"off": [ids]}` speichern (je Nutzer, `<data>/selections/<hash>.json`)
 - `POST /api/textures` – Pixeleditor „Speichern ins Repo“ `{id, source, layers, png, comment}` (Regeln unten)
-- `GET /api/textures` / `GET /api/textures/<sid>` – Speicherungen (Liste ohne Ebenen) / eine mit Ebenen
+- `GET /api/textures` / `GET /api/textures/<sid>` – Speicherungen (Liste ohne Ebenen) / eine mit Ebenen; b-texed16: Feld
+  `adopted {commit, subject, bundle}`, wenn die Save-ID in einem Commit dieses Checkouts steht (nur Lesen, je HEAD gecacht)
 - `PATCH /api/textures/<sid>` – Abholer meldet `{state: picked|ready|failed, note, branch}`
 
 ## Textur speichern (TX22-5)
@@ -65,6 +66,15 @@ python3 tools/textures/editor_save.py pickup --git-dir <hub.git> --api "ssh -o B
 Er setzt `picked`, prüft erneut gegen `textures.js` des Basis-Branches, macht den Ebenen-Check
 (`layers.check_file`: PNG = Komposition), legt den Branch an (überschreibt nie) und meldet `ready` + Branch bzw.
 `failed` + Grund. Der Editor zeigt den Stand unter dem Knopf.
+
+Nur-Lese-Abholer (b-texed16, **nicht eingeschaltet**, Plan `docs/ai/PLAN-B-TEXED16-2026-11-09.md` mit Cron-Zeile):
+```
+python3 tools/textures/editor_save.py pull --git-dir /root/sb.git --remote "ssh -o BatchMode=yes <webserver>" \
+    [--dir /srv/devqueue/textures] [--base claude-wave1] [--report /root/b-fertig.md] [--dry-run]
+```
+liest per `ls`/`cat` (kein PATCH), je Textur nur die neueste Speicherung, überspringt vorhandene `tex-*-<sid>`-Branches
+und Save-IDs, die schon in einem Commit eines Hub-Branches stehen; Fehler/überholte IDs merkt er sich in `--state`.
+Konvention für Übernahmen von Hand: Save-ID(s) in die Commit-Nachricht schreiben (daran erkennt die Wiki-Dev „übernommen“).
 
 Einrichtung Webserver (einmal, als root, nach dem Merge in den ausgelieferten Stand):
 `tools/zentrale-web/setup_texture_save.sh <checkout> <nginx-site> [dienst]` – prüft Platte und Code, setzt

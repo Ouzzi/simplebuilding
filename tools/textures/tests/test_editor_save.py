@@ -190,6 +190,62 @@ class Apply(unittest.TestCase):
         self.assertIn("unknown", d["1761234571"]["note"])
         self.assertEqual(es.pickup([sys.executable, str(fake)], self.hub, "claude-wave1", log=lambda *_: None), 0)
 
+    # ---------------------------------------------------------------- b-texed16: read-only pull + adopted_in
+    def _remote(self, records):
+        """A web host stand-in: a directory with <sid>.json read by `ls`/`cat` through a fake command prefix."""
+        d = Path(self.tmp.name) / "srv"
+        d.mkdir(exist_ok=True)
+        for sid, rec in records.items():
+            (d / f"{sid}.json").write_text(json.dumps(rec))
+        fake = Path(self.tmp.name) / "fake_remote.py"
+        fake.write_text("import subprocess,sys\nsys.exit(subprocess.run(sys.argv[1:]).returncode)\n")
+        return [sys.executable, str(fake)], str(d)
+
+    def test_pull_is_read_only_idempotent_and_newest_wins(self):
+        rec = lambda sid, color, state="new": dict(sid=sid, texture=ENTRY["id"], source=ENTRY["source"], state=state,
+                                                   layers=ly.dumps(layers_doc(color)), comment="", by="owner@x")
+        cmd, d = self._remote({"1761234580": rec("1761234580", "#00ff00ff"), "1761234581": rec("1761234581", "#0000ffff"),
+                               "1761234582": dict(rec("1761234582", "#ffffffff"), texture="simpleblocks:block/nope"),
+                               "1761234583": dict(rec("1761234583", "#ffffffff", "failed"), texture="other:x")})
+        before = {p.name: p.read_text() for p in Path(d).iterdir()}
+        report, state = Path(self.tmp.name) / "fertig.md", Path(self.tmp.name) / "state.json"
+        made = es.pull(cmd, d, self.hub, "claude-wave1", report, state, log=lambda *_: None)
+        self.assertEqual(made, ["tex-test_tile-1761234581"])          # older save of the same texture superseded
+        self.assertEqual({p.name: p.read_text() for p in Path(d).iterdir()}, before, "nothing written on the web host")
+        line = report.read_text()
+        self.assertIn("tex-test_tile-1761234581", line)
+        self.assertIn("Save-ID 1761234581", line)
+        self.assertEqual(run("git", "--git-dir", str(self.hub), "cat-file", "-t", f"tex-test_tile-1761234581:{SRC}"), "blob")
+        st = json.loads(state.read_text())["failed"]
+        self.assertIn("1761234582", st)                                  # unknown texture: remembered, not retried
+        self.assertIn("superseded", st["1761234580"])
+        # second run: nothing new, no new line
+        self.assertEqual(es.pull(cmd, d, self.hub, "claude-wave1", report, state, log=lambda *_: None), [])
+        self.assertEqual(report.read_text(), line)
+
+    def test_pull_skips_saves_taken_over_by_hand(self):
+        cmd, d = self._remote({"1761234590": dict(sid="1761234590", texture=ENTRY["id"], source=ENTRY["source"], state="new",
+                                                  layers=ly.dumps(layers_doc()), comment="")})
+        work = Path(self.tmp.name) / "work"
+        run("git", "commit", "-q", "--allow-empty", "-m", "tex: by hand\n\nSave-IDs 1761234590", cwd=work)
+        run("git", "push", "-q", str(self.hub), "claude-wave1:b-hand", cwd=work)
+        self.assertEqual(es.pull(cmd, d, self.hub, "claude-wave1", None, None, log=lambda *_: None), [])
+
+    def test_adopted_in_finds_commit_and_bundle(self):
+        work = Path(self.tmp.name) / "work"
+        run("git", "checkout", "-q", "-b", "tex-x", cwd=work)
+        run("git", "commit", "-q", "--allow-empty", "-m", "tex(x): Editor\n\nSave-ID: 1761234600", cwd=work)
+        tex = run("git", "rev-parse", "--short=9", "HEAD", cwd=work)
+        run("git", "checkout", "-q", "claude-wave1", cwd=work)
+        run("git", "commit", "-q", "--allow-empty", "-m", "other", cwd=work)
+        run("git", "merge", "-q", "--no-ff", "-m", "Merge tex-x into bundle 170", "tex-x", cwd=work)
+        got = es.adopted_in(work, ["1761234600", "1761234601", "../x"])
+        self.assertEqual(set(got), {"1761234600"})
+        self.assertTrue(tex.startswith(got["1761234600"]["commit"]) or got["1761234600"]["commit"].startswith(tex[:7]))
+        self.assertEqual(got["1761234600"]["bundle"], "b-bundle170")
+        self.assertEqual(es.adopted_in(work, []), {})
+        self.assertEqual(es.adopted_in(Path(self.tmp.name) / "missing", ["1761234600"]), {})
+
 
 if __name__ == "__main__":
     unittest.main()

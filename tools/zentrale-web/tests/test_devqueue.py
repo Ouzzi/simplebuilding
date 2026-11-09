@@ -207,5 +207,31 @@ class DevQueueTest(unittest.TestCase):
         self.assertEqual((status, done['state'], done['branch']), (200, 'ready', 'tex-x-' + sid))
         self.assertEqual(self.req('GET', '/api/runs')[1], [], 'saves are no Claude runs')
 
+    def test_texture_state_adopted_from_checkout_history(self):
+        """b-texed16: a save whose id is in a commit of the checkout reports adopted {commit, bundle}; files stay as they are."""
+        import subprocess
+        repo = self.data / 'checkout'
+        repo.mkdir()
+        env = dict(os.environ, GIT_AUTHOR_NAME='t', GIT_AUTHOR_EMAIL='t@t', GIT_COMMITTER_NAME='t', GIT_COMMITTER_EMAIL='t@t')
+        git = lambda *a: subprocess.run(['git', '-C', str(repo), *a], check=True, capture_output=True, env=env)
+        git('init', '-q', '-b', 'main')
+        git('commit', '-q', '--allow-empty', '-m', 'base')
+        git('checkout', '-q', '-b', 'tex')
+        git('commit', '-q', '--allow-empty', '-m', 'tex(a): Editor\n\nSave-ID: 1794000000001')
+        git('checkout', '-q', 'main')
+        git('merge', '-q', '--no-ff', '-m', 'Merge tex into b-bundle170', 'tex')
+        self.server.repo = repo
+        for sid in ('1794000000001', '1794000000002'):
+            (self.server.textures_dir / f'{sid}.json').write_text(json.dumps(
+                {'sid': sid, 'texture': 'x:a', 'source': 's', 'layers': '{}', 'state': 'new', 'createdAt': int(sid)}))
+        before = (self.server.textures_dir / '1794000000001.json').read_text()
+        status, listed = self.req('GET', '/api/textures')
+        by = {s['sid']: s for s in listed}
+        self.assertEqual(by['1794000000001']['adopted']['bundle'], 'b-bundle170')
+        self.assertNotIn('adopted', by['1794000000002'])
+        status, one = self.req('GET', '/api/textures/1794000000001')
+        self.assertEqual((status, one['adopted']['subject']), (200, 'tex(a): Editor'))
+        self.assertEqual((self.server.textures_dir / '1794000000001.json').read_text(), before)
+
 if __name__ == '__main__':
     unittest.main()
