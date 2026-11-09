@@ -31,6 +31,8 @@ public final class ModelTests {
         ALL.put("examples", ModelTests::examples);
         ALL.put("editable_round_trip", ModelTests::editableRoundTrip); ALL.put("editable_bounds", ModelTests::editableBounds);
         ALL.put("edit_history", ModelTests::editHistory);
+        ALL.put("editor_layout", EditorTests::layout); ALL.put("editor_geometry", EditorTests::geometry);
+        ALL.put("editor_gizmo", EditorTests::gizmo); ALL.put("editor_state", EditorTests::state);
     }
     public static ModelDefinition sample(String base) { return new ModelDefinition("renamed:tomato", base, "Tomato", "renamed:tomato", List.of("food", "red"), "Example"); }
     private static void fixture(String base, Runnable body) {

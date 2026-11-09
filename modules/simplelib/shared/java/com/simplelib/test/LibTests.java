@@ -75,6 +75,7 @@ public final class LibTests {
         ALL.put("modpack_guide_sections", ModpackGuideTests::sections);
         ALL.put("modpack_guide_unlocks", ModpackGuideTests::unlocks);
         ALL.put("modpack_guide_creative_tabs", ModpackGuideTests::creativeTabs);
+        ALL.put("orbit_camera", LibTests::orbitCamera);
     }
 
     // ------------------------------------------------------------ helpers
@@ -652,6 +653,43 @@ public final class LibTests {
             }
         }
         check(h, worst >= com.simplelib.api.client.ui.UiContrast.MIN, "contrast of every letter pixel: worst " + worst);
+        h.succeed();
+    }
+
+    /**
+     * b-models13: the orbit camera moved from the blueprint editor to SimpleLib ({@code UiOrbitCamera}). Turntable drag,
+     * tilt limit, zoom limits, pan limit, fixed views, reset, and projection/ray agreeing with each other.
+     */
+    public static void orbitCamera(GameTestHelper h) {
+        var cam = new com.simplelib.api.client.ui.UiOrbitCamera();
+        check(h, cam.isDefault(), "starts in the default view");
+        cam.drag(100, 0);
+        check(h, Math.abs(cam.pitch() - com.simplelib.api.client.ui.UiOrbitCamera.DEFAULT_PITCH) < 1e-6f, "horizontal drag keeps the tilt");
+        cam.drag(0, 10_000);
+        check(h, cam.pitch() == com.simplelib.api.client.ui.UiOrbitCamera.PITCH_LIMIT, "tilt is clamped");
+        for (int i = 0; i < 100; i++) cam.zoom(1);
+        check(h, Math.abs(cam.zoom() - com.simplelib.api.client.ui.UiOrbitCamera.ZOOM_MAX) < 1e-4, "zoom capped");
+        cam.pan(1000, -1000);
+        check(h, cam.panX() == com.simplelib.api.client.ui.UiOrbitCamera.PAN_LIMIT && cam.panY() == -com.simplelib.api.client.ui.UiOrbitCamera.PAN_LIMIT, "pan capped");
+        cam.reset();
+        check(h, cam.isDefault(), "reset restores the default view");
+        // Front view: model x to the right, model y up on screen, +z towards the viewer.
+        cam.view(com.simplelib.api.client.ui.UiOrbitCamera.View.FRONT);
+        var right = cam.screenAxis(new org.joml.Vector3f(1, 0, 0), 100, 100, 10);
+        var up = cam.screenAxis(new org.joml.Vector3f(0, 1, 0), 100, 100, 10);
+        check(h, right.x > 4.9f && Math.abs(right.y) < 1e-4f, "front view: x runs to the right " + right);
+        check(h, up.y < -4.9f && Math.abs(up.x) < 1e-4f, "front view: y runs up " + up);
+        check(h, cam.depth(new org.joml.Vector3f(0, 0, 1)) > 0, "front view: +z is nearer");
+        // Any view: the ray under a projected point passes through that point.
+        cam.reset();
+        cam.drag(37, -21);
+        var p = new org.joml.Vector3f(3, -2, 5);
+        var screen = cam.project(p, 10, 20, 200, 120, 8);
+        var ray = cam.ray(screen.x, screen.y, 10, 20, 200, 120, 8);
+        var toPoint = new org.joml.Vector3f(p).sub(ray.origin());
+        float along = toPoint.dot(ray.direction());
+        float miss = toPoint.sub(new org.joml.Vector3f(ray.direction()).mul(along)).length();
+        check(h, along > 0 && miss < 1e-3f, "ray through the projected point (miss " + miss + ")");
         h.succeed();
     }
 }

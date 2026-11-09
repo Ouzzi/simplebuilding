@@ -265,9 +265,9 @@ public final class BlueprintView {
     // ZEICHNEN
     // =====================================================================================
 
-    /** Standard-Blick: leicht von oben, von vorn rechts auf die Suedseite (Logik: BlueprintViewControls). */
+    /** Standard-Blick: leicht von oben, von vorn rechts auf die Suedseite (Logik: SimpleLib UiOrbitCamera). */
     public static Quaternionf defaultRotation() {
-        return com.simplebuildingtools.blueprint.BlueprintViewControls.defaultRotation();
+        return com.simplelib.api.client.ui.UiOrbitCamera.defaultRotation();
     }
 
     /**

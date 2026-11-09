@@ -335,6 +335,51 @@ public final class ModelJson {
         return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create().toJson(toJson(model));
     }
 
+    /**
+     * The same JSON for the editor's code view (b-models13): an object or array goes on one line when that line stays
+     * within {@link #COMPACT_WIDTH} characters ({@code "from": [2, 10, 2]}, one face per line), otherwise it opens
+     * with two-space indentation. Reads back to the same model as {@link #write}.
+     */
+    public static String writeCompact(EditableModel model) {
+        var out = new StringBuilder();
+        compact(toJson(model), 0, out);
+        return out.toString();
+    }
+
+    public static final int COMPACT_WIDTH = 64;
+    private static final com.google.gson.Gson PLAIN = new GsonBuilder().disableHtmlEscaping().create();
+
+    private static String inline(JsonElement e) {
+        if (e.isJsonObject()) {
+            var parts = new ArrayList<String>();
+            e.getAsJsonObject().entrySet().forEach(en -> parts.add(PLAIN.toJson(en.getKey()) + ": " + inline(en.getValue())));
+            return "{" + String.join(", ", parts) + "}";
+        }
+        if (e.isJsonArray()) {
+            var parts = new ArrayList<String>();
+            e.getAsJsonArray().forEach(v -> parts.add(inline(v)));
+            return "[" + String.join(", ", parts) + "]";
+        }
+        return PLAIN.toJson(e);
+    }
+
+    private static void compact(JsonElement e, int indent, StringBuilder out) {
+        String one = inline(e);
+        if (indent * 2 + one.length() <= COMPACT_WIDTH || !(e.isJsonObject() || e.isJsonArray())) { out.append(one); return; }
+        String pad = "  ".repeat(indent + 1);
+        boolean object = e.isJsonObject();
+        out.append(object ? "{\n" : "[\n");
+        var entries = object ? new ArrayList<>(e.getAsJsonObject().entrySet()) : null;
+        int size = object ? entries.size() : e.getAsJsonArray().size();
+        for (int i = 0; i < size; i++) {
+            out.append(pad);
+            if (object) { out.append(PLAIN.toJson(entries.get(i).getKey())).append(": "); compact(entries.get(i).getValue(), indent + 1, out); }
+            else compact(e.getAsJsonArray().get(i), indent + 1, out);
+            out.append(i + 1 < size ? ",\n" : "\n");
+        }
+        out.append("  ".repeat(indent)).append(object ? '}' : ']');
+    }
+
     private static JsonObject element(Element e) {
         var o = new JsonObject();
         if (e.name() != null) o.addProperty("name", e.name());

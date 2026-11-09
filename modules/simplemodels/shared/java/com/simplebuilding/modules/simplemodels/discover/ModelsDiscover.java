@@ -64,6 +64,7 @@ public final class ModelsDiscover {
             "simplemodels:config_maxFileBytes",
             "simplemodels:config_maxModels",
             "simplemodels:config_operatorsOnly",
+            "simplemodels:editor",
             "simplemodels:examples",
             "simplemodels:forge_263",
             "simplemodels:guide_book",

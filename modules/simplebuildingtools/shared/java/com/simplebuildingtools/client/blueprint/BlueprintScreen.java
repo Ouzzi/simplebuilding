@@ -10,7 +10,7 @@ import com.simplebuildingtools.blueprint.BlueprintExamples;
 import com.simplebuildingtools.blueprint.BlueprintMaterials;
 import com.simplebuildingtools.blueprint.BlueprintModel;
 import com.simplebuildingtools.blueprint.BlueprintTiers;
-import com.simplebuildingtools.blueprint.BlueprintViewControls;
+import com.simplelib.api.client.ui.UiOrbitCamera;
 import com.simplebuildingtools.client.gui.ModScreenStyle;
 import com.simplebuildingtools.items.BtItems;
 import com.simplebuildingtools.items.custom.BlueprintItem;
@@ -143,7 +143,7 @@ public class BlueprintScreen extends Screen {
     // Von BlueprintViewClientTest per Reflexion gelesen: Namen nicht aendern.
     private int viewX, viewW, bodyY, bodyH;
     private double listScroll;
-    private final BlueprintViewControls controls = new BlueprintViewControls();
+    private final UiOrbitCamera controls = new UiOrbitCamera();
     private boolean draggingView;
     /** Ob der laufende Ziehvorgang Verschieben (Strg beim Tastendruck) oder Drehen ist. */
     private boolean draggingPan;
