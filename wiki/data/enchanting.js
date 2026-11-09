@@ -2080,28 +2080,6 @@ window.WIKI_ENCHANTING = {
    ]
   },
   {
-   "id": "simplebuilding:detector",
-   "name": {
-    "en": "Detector",
-    "de": "Detektor"
-   },
-   "enchantability": 15,
-   "assumed": false,
-   "icon": "assets/textures/item/detector.png",
-   "table": [
-    "minecraft:unbreaking",
-    "simplequalityoflife:thrift"
-   ],
-   "family": [
-    [
-     "simplebuilding:constructors_touch",
-     "simplehammers:radius",
-     "simplequalityoflife:thrift",
-     "simpletools:soulbound"
-    ]
-   ]
-  },
-  {
    "id": "simplebuildingtools:diamond_building_wand",
    "name": {
     "en": "Diamond Building Wand",
