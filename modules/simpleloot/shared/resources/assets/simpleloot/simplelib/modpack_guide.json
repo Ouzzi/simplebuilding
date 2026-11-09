@@ -1,0 +1,15 @@
+{
+  "section": "simplequalityoflife",
+  "name": "simpleloot.guide.chapter",
+  "icon": "minecraft:trial_key",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleloot:guide",
+      "title": "simpleloot.guide.chapter",
+      "icon": "minecraft:trial_key",
+      "page_key": "simpleloot.guide.page",
+      "pages": 9
+    }
+  ]
+}

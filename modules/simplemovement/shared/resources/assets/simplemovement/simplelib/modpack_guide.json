@@ -1,0 +1,15 @@
+{
+  "section": "simplequalityoflife",
+  "name": "simplemovement.guide.chapter",
+  "icon": "minecraft:ladder",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplemovement:guide",
+      "title": "simplemovement.guide.chapter",
+      "icon": "minecraft:ladder",
+      "page_key": "simplemovement.guide.page",
+      "pages": 21
+    }
+  ]
+}

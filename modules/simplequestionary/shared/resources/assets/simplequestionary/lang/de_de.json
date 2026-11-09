@@ -24,5 +24,16 @@
   "screen.simplequestionary.origin.mine.hint": ": ein Block aus der Welt.",
   "screen.simplequestionary.origin.find": "Finden",
   "screen.simplequestionary.origin.find.hint": ": in Truhen, bei Mobs oder im Handel.",
-  "itemgroup.simplequestionary.questionary": "Simple Questionary"
+  "itemgroup.simplequestionary.questionary": "Simple Questionary",
+  "simplequestionary.guide.chapter": "Simple Questionary",
+  "simplequestionary.guide.page.1.title": "Simple Questionary",
+  "simplequestionary.guide.page.1": "Der Fragetisch: lege ein beliebiges Item hinein und lies in einem offenen Buch seine Geschichte, seinen Nutzen und ein Geheimnis.",
+  "simplequestionary.guide.page.2.title": "Fragentisch",
+  "simplequestionary.guide.page.2": "Leg links einen Gegenstand ins Feld: das aufgeschlagene Buch rechts erzählt seine Überlieferung, seinen Nutzen und ein Geheimnis.",
+  "simplequestionary.guide.page.3.title": "Fragentisch-Texte",
+  "simplequestionary.guide.page.3": "Jede Mod beschreibt ihre eigenen Gegenstände in assets/<Namensraum>/questionary/<Sprache>.json; Ressourcenpakete können Einträge ergänzen oder ersetzen.",
+  "simplequestionary.guide.page.4.title": "Befehle",
+  "simplequestionary.guide.page.4": "/simplequestionary config zeigt und ändert jede Option von config/simplequestionary.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
+  "simplequestionary.guide.page.5.title": "Befehle",
+  "simplequestionary.guide.page.5": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
 }

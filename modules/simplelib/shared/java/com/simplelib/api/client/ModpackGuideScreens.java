@@ -36,6 +36,8 @@ public final class ModpackGuideScreens {
     private static volatile Set<Identifier> done = Set.of();
     private static volatile int version;
     private static volatile @Nullable String last;
+    /** b-guide15: the chapter the reader last closed the book on (this session), for guides without a mark. */
+    private static volatile @Nullable Identifier lastChapter;
     private static volatile @Nullable Set<Identifier> override;
     private static volatile @Nullable List<ModpackGuide.Section> cache;
     private static volatile Consumer<List<Identifier>> sender = ids -> {
@@ -102,17 +104,39 @@ public final class ModpackGuideScreens {
 
     /**
      * Opens the held guide: with {@link ModpackGuide#opensChapter} and a chapter on the stack at the first page of that chapter (in
-     * SimpleLib's screen of the section holding it), otherwise like {@link #open(String, InteractionHand)}.
+     * SimpleLib's screen of the section holding it; unmarked: the chapter last read), otherwise like {@link #open(String, InteractionHand)}.
      */
     public static void openHeld(net.minecraft.world.item.ItemStack stack, @Nullable InteractionHand hand) {
-        Identifier chapter = ModpackGuide.opensChapter ? ModpackGuide.chapterOf(stack) : null;
-        ModpackGuide.Section target = ModpackGuide.sectionOf(reload(), chapter);
+        if (!ModpackGuide.opensChapter) {
+            open(null, hand);
+            return;
+        }
+        // b-guide15: a section mark (SimpleBuilding's own book) opens that section; a guide without any mark (crafted, or
+        // turned before b-guidechap14) opens the chapter last read in this session.
+        String mark = ModpackGuide.markOf(stack);
+        List<ModpackGuide.Section> sections = reload();
+        if (mark != null && section(sections, mark) != null) {
+            open(mark, hand);
+            return;
+        }
+        Identifier chapter = mark != null ? ModpackGuide.chapterOf(stack) : lastChapter;
+        ModpackGuide.Section target = ModpackGuide.sectionOf(sections, chapter);
         if (target == null) {
             open(null, hand);
             return;
         }
         last = target.id();
         Minecraft.getInstance().gui.setScreen(new ModpackGuideScreen(target.id(), hand, chapter));
+    }
+
+    /** SimpleLib's screen reports the chapter it was closed on (null: the contents). */
+    public static void remember(@Nullable Identifier chapter) {
+        if (chapter != null) lastChapter = chapter;
+    }
+
+    /** Test probe only: forget the last read chapter. */
+    public static void forgetLastChapter() {
+        lastChapter = null;
     }
 
     /** Opens SimpleLib's own screen at the data chapters of {@code section}, also for a section with its own screen. */

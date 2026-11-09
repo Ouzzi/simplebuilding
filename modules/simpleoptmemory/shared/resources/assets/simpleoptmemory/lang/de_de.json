@@ -1,4 +1,25 @@
 {
   "modmenu.nameTranslation.simpleoptmemory": "Simple Opt Memory",
-  "simpleoptmemory.area.state_tables": "Blockzustands-Tabellen"
+  "simpleoptmemory.area.state_tables": "Blockzustands-Tabellen",
+  "simpleoptmemory.guide.chapter": "Simple Opt Memory",
+  "simpleoptmemory.guide.page.1.title": "Simple Opt Memory",
+  "simpleoptmemory.guide.page.1": "Speicher-Optimierungen; bisher der Schalter, seine Einstellungen und die Mod-Erkennung.",
+  "simpleoptmemory.guide.page.2.title": "Weicht bekannten Mods",
+  "simpleoptmemory.guide.page.2": "config/simpleoptmemory.json hat je Bereich einen Modus (auto, ours, theirs, off). Bei auto gewinnt FerriteCore die Blockzustands-Tabellen und unser Teil bleibt aus;",
+  "simpleoptmemory.guide.page.3.title": "Weicht bekannten Mods",
+  "simpleoptmemory.guide.page.3": "ours daneben wird abgelehnt, weil beide dieselben Konstruktoren ändern. Ändert ein anderer Mod dieselben Klassen, schaltet sich der Bereich beim Start ab (Zielprüfung, conflictScan).",
+  "simpleoptmemory.guide.page.4.title": "Weicht bekannten Mods",
+  "simpleoptmemory.guide.page.4": "Das Log nennt auch ModernFix, wenn installiert (Modell-Laden ist ein späterer Bereich).",
+  "simpleoptmemory.guide.page.5.title": "Geteilte Blockzustands-Tabellen",
+  "simpleoptmemory.guide.page.5": "Blockzustände mit denselben Eigenschaftswerten (zum Beispiel jede nach Osten zeigende Treppe) teilen sich ein Werte-Array statt je eines, Blöcke mit denselben Eigenschaften ein",
+  "simpleoptmemory.guide.page.6.title": "Geteilte Blockzustands-Tabellen",
+  "simpleoptmemory.guide.page.6": "Schlüssel-Array, und Zustände mit demselben Muster tragfähiger Seiten eine Tabelle.",
+  "simpleoptmemory.guide.page.7.title": "Geteilte Blockzustands-Tabellen",
+  "simpleoptmemory.guide.page.7": "Geteilt werden nur Arrays, die nie beschrieben werden, mit genau denselben Einträgen, das Spiel verhält sich also gleich;",
+  "simpleoptmemory.guide.page.8.title": "Geteilte Blockzustands-Tabellen",
+  "simpleoptmemory.guide.page.8": "das Log meldet, wie viele Arrays geteilt wurden und wie viel Speicher frei wurde.",
+  "simpleoptmemory.guide.page.9.title": "Befehle",
+  "simpleoptmemory.guide.page.9": "/simpleoptmemory config zeigt und ändert jede Option von config/simpleoptmemory.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Die Datei wird einmal beim Start gelesen:",
+  "simpleoptmemory.guide.page.10.title": "Befehle",
+  "simpleoptmemory.guide.page.10": "Eine Änderung wird sofort gespeichert, wirkt aber erst nach einem Neustart (jede Antwort sagt das). Berechtigung 2. Dieselbe Datei erreichst du auch mit /simpleclient simpleoptmemory."
 }

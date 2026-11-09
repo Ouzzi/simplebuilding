@@ -24,5 +24,16 @@
   "screen.simplequestionary.origin.mine.hint": ": a block found in the world.",
   "screen.simplequestionary.origin.find": "Find",
   "screen.simplequestionary.origin.find.hint": ": in chests, from mobs or by trading.",
-  "itemgroup.simplequestionary.questionary": "Simple Questionary"
+  "itemgroup.simplequestionary.questionary": "Simple Questionary",
+  "simplequestionary.guide.chapter": "Simple Questionary",
+  "simplequestionary.guide.page.1.title": "Simple Questionary",
+  "simplequestionary.guide.page.1": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
+  "simplequestionary.guide.page.2.title": "Questionary Table",
+  "simplequestionary.guide.page.2": "Put an item into the slot on the left: the open book on the right tells its lore, its use and a secret.",
+  "simplequestionary.guide.page.3.title": "Questionary texts",
+  "simplequestionary.guide.page.3": "Every mod describes its own items in assets/<namespace>/questionary/<language>.json; resource packs can add or replace entries.",
+  "simplequestionary.guide.page.4.title": "Commands",
+  "simplequestionary.guide.page.4": "/simplequestionary config shows and changes every option of config/simplequestionary.json (list [group], get, set, reset, help; Tab completes options and values).",
+  "simplequestionary.guide.page.5.title": "Commands",
+  "simplequestionary.guide.page.5": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
 }

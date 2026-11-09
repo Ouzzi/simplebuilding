@@ -154,10 +154,23 @@ public final class GuideUnlocks {
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
             ItemStack stack = inventory.getItem(slot);
             migrate(player, stack);
-            if (guide != null && stack.getItem() instanceof GuideBookItem) inventory.setItem(slot, new ItemStack(guide, stack.getCount()));
+            if (guide != null && stack.getItem() instanceof GuideBookItem) inventory.setItem(slot, turned(guide, stack.getCount()));
         }
         SENT.remove(player);
         refresh(player, false);
+    }
+
+    /**
+     * The Simple Modpack guide a carried SimpleBuilding guide turns into, marked with SimpleBuilding's section (b-guide15:
+     * SimpleLib's {@code simplelib_guide_chapter}; with its client switch the guide then opens SimpleBuilding's book). Vanilla
+     * classes only, no SimpleLib reference.
+     */
+    public static ItemStack turned(net.minecraft.world.item.Item guide, int count) {
+        ItemStack out = new ItemStack(guide, count);
+        net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+        tag.putString("simplelib_guide_chapter", "simplebuilding");
+        out.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(tag));
+        return out;
     }
 
     /** A guide was used: migrate it and catch up (an /op since login opens Server Admin here). */
