@@ -59,6 +59,16 @@ Texturen nach dem Vorbild der abgenommenen Endholz-Bretter A (a-tex29): Vanilla-
 ### A8c Texturen in mehreren Runden (Besitzer 09.11.)
 Keine Textur wird nach dem ersten Entwurf vorgelegt. Ablauf je Textur: **erstellen → bewerten → im Spiel/Render testen → neu erstellen**, mindestens 2–3 Runden. Bewertet wird gegen Vanilla-Stil (A8 a, Vergleich mit passenden Vanilla-Texturen), klare Pixel ohne Blur und ohne weiche Verläufe/weichgezeichnete Skalierung, Härte ~7 % (A8b) und Lesbarkeit in Spielgröße. Getestet wird in Originalgröße und hochskaliert (nearest-neighbour) im Block-/Item-Kontext, besser im Client-Screenshot. Die Bewertung jeder Runde steht im Plan und in der Vorschau (Runden-Verlauf); erst danach wird vorgelegt.
 
+### A8d Vanilla-Analyse je Textur – keine flachen Stellen (Besitzer 09.11., Methode aus RIFT14)
+Vor und in jeder Runde (A8c) wird die Textur gegen 2–4 **passende Vanilla-Vorbilder** (gleiches Material/gleiche Form, aus dem Client-Jar, nur in der Vorschau) gemessen und angesehen:
+1. **Flache Stellen finden:** größte einfarbige Fläche (4-verbunden, exakt gleiche Farbe, auf 16×16 normiert) und Anteil der Pixel in Flächen ≥ 6 px. Vanilla-Baustoffe liegen meist bei 6–20 px und 2–40 %; markierte Flächen (≥ 10 px rot, 6–9 px orange umrandet) zeigen, wo gebrochen werden muss.
+2. **Kanten-Highlights oben/links, Innenschatten unten/rechts** – aber ein Rahmen ist nie eine durchgehende Linie in einem Ton: der Kantenton wechselt in Abschnitten von 2–3 px (Purpur, Endsteinziegel).
+3. **Pixelgruppen statt Einzelpixel:** Flächen werden mit 2–4-px-Haufen eines Nachbartons der eigenen Rampe gebrochen (Tiefenschiefer, Endstein); keine Einzelpixel-Streuung (wirkt krümelig), kein Rauschen, kein Blur.
+4. **Tonwechsel und Drift:** jedes Teilstück ist oben/links eine Stufe heller als unten/rechts; lange Linien (Fugen, Adern) wechseln alle 1–3 px den Ton, 1–2 Glanzpixel an der Innenecke (Amethyst, Vergoldeter Schwarzstein).
+5. **Härte bleibt bei A8b** (~7 %, Tonschritte ≤ 40 Helligkeit); Hauptton höchstens ~40 % der Fläche.
+
+Messwerte sind **Richtwerte**, entschieden wird mit dem Blick (bewusst glatte Materialien wie Vanilla-Stein, Eisenblock, Purpur sind auch orange). Werkzeug: `python3 tools/textures/texrate.py <png…>` (Ampel rot/orange/grün mit Grund), `--vanilla` (dieselbe Messung für die Vanilla-Texturen aus dem Jar, zur Laufzeit, nichts eingecheckt), `--selftest`. Ampel-Regel und Kalibrierung: docs/ai/TEXTUR-BEWERTUNG-2026-11-09.md. Neue Texturen sollen grün sein; orange nur mit Begründung im Plan.
+
 ### A9 Server-Autorität und Belege
 Alle Stellschrauben serverseitig mit Obergrenzen, die Vanilla nicht gefährden (3.8). Wiki-Aussagen müssen im Code beweisbar sein (3.6); Handbücher/Wiki nach Änderungen neu erzeugen.
 
