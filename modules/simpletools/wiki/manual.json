@@ -247,7 +247,7 @@
       },
       "de": {
         "title": "Sparsamkeit",
-        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen. Die ID bleibt simplequalityoflife:thrift, damit verzauberte Gegenstände aus älteren Welten sie behalten; sie wirkt auch bei abgeschalteter Sub-Mod."
+        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen. Die ID bleibt simplequalityoflife:thrift (ältere Welten behalten sie) und wirkt auch bei abgeschalteter Sub-Mod."
       }
     },
     {
@@ -399,11 +399,11 @@
       ],
       "en": {
         "title": "Strip Station",
-        "summary": "Crafted block (4 iron bars and 4 planks around an iron axe). A cage that holds a whole stack of blocks, shown in 3D inside the cage with a small count above it. Right-click with a stack of blocks to put the whole stack in; right-click with an axe to work the whole stack in one click: logs and wood are stripped (Vanilla's list, wood of mods too), copper is scraped one oxidation step per click and waxed copper is unwaxed first, like Vanilla. The axe loses 1 durability per block; if it cannot pay for all of them only part of the stack is worked, the axe is left at 1 durability and never breaks. One click makes one sound and one particle effect. An empty hand takes the worked blocks out (else the input). A hopper above fills the cage, a hopper below takes only the worked blocks (option stripStationHopper, on by default)."
+        "summary": "Crafted cage (iron axe, 4 iron bars, 4 planks). A block stack goes in; an axe strips, scrapes or unwaxes the whole stack at once (1 durability per block, the axe stays at 1). Empty hand takes it out; hoppers fill above, empty below."
       },
       "de": {
         "title": "Entrindungs-Station",
-        "summary": "Herstellbarer Block (4 Eisenstäbe und 4 Bretter um eine Eisenaxt). Ein Käfig, der einen ganzen Stapel Blöcke hält, im Käfig in 3D gezeigt mit einer kleinen Zahl darüber. Rechtsklick mit einem Blockstapel legt den ganzen Stapel hinein; Rechtsklick mit einer Axt bearbeitet den ganzen Stapel mit einem Klick: Stämme und Holz werden entrindet (Vanilla-Liste, auch Holz aus Mods), Kupfer wird pro Klick um eine Oxidationsstufe abgeschabt und gewachstes Kupfer zuerst entwachst, wie in Vanilla. Die Axt verliert 1 Haltbarkeit pro Block; reicht sie nicht für alle, wird nur ein Teil des Stapels bearbeitet, die Axt bleibt bei 1 Haltbarkeit und bricht nie. Ein Klick macht einen Ton und einen Partikeleffekt. Die leere Hand nimmt die bearbeiteten Blöcke heraus (sonst das Eingelegte). Ein Trichter darüber füllt den Käfig, ein Trichter darunter nimmt nur bearbeitete Blöcke (Option stripStationHopper, standardmäßig an)."
+        "summary": "Käfig (Eisenaxt, 4 Stäbe, 4 Bretter). Blockstapel hinein; die Axt entrindet, schabt oder entwachst ihn auf einmal (1 Haltbarkeit je Block, Axt bleibt bei 1). Leere Hand entnimmt; Trichter oben rein, unten raus."
       }
     },
     {
