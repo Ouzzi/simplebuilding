@@ -72,6 +72,10 @@ public final class FunToyTests {
         .orElse(ItemStack.EMPTY);
   }
 
+  private static net.minecraft.world.item.Item dye(String color) {
+    return BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(color + "_dye"));
+  }
+
   private static void registered(GameTestHelper h, String path, net.minecraft.world.item.Item item) {
     h.assertTrue(BuiltInRegistries.ITEM.getValue(FunContent.id(path)) == item, "item registered: " + path);
   }
@@ -83,7 +87,7 @@ public final class FunToyTests {
   // FUN11-1
   static void partyPopper(GameTestHelper h) {
     registered(h, "party_popper", ModToys.PARTY_POPPER);
-    ItemStack crafted = craft(h, Items.PAPER, Items.STRING, Items.RED_DYE);
+    ItemStack crafted = craft(h, Items.PAPER, Items.STRING, dye("red"));
     h.assertTrue(crafted.is(ModToys.PARTY_POPPER) && crafted.getCount() == 2, "paper + string + red dye make two poppers");
     DyedItemColor color = crafted.get(DataComponents.DYED_COLOR);
     h.assertTrue(color != null && color.rgb() == 0xB02E26, "the popper keeps the dye's color: " + color);
@@ -100,7 +104,7 @@ public final class FunToyTests {
   static void diceCoin(GameTestHelper h) {
     registered(h, "dice", ModToys.DICE);
     registered(h, "lucky_coin", ModToys.LUCKY_COIN);
-    h.assertTrue(craft(h, Items.BONE_MEAL, Items.BONE_MEAL, Items.BLACK_DYE).is(ModToys.DICE), "dice recipe");
+    h.assertTrue(craft(h, Items.BONE_MEAL, Items.BONE_MEAL, dye("black")).is(ModToys.DICE), "dice recipe");
     h.assertTrue(craft(h, Items.COPPER_INGOT, Items.GOLD_NUGGET).is(ModToys.LUCKY_COIN), "coin recipe");
     var random = h.getLevel().getRandom();
     Set<Integer> faces = new HashSet<>(), sides = new HashSet<>();
@@ -274,7 +278,7 @@ public final class FunToyTests {
   // FUN11-9
   static void rubberDuck(GameTestHelper h) {
     registered(h, "rubber_duck", ModToys.RUBBER_DUCK);
-    h.assertTrue(craft(h, Items.YELLOW_DYE, Items.SLIME_BALL, Items.GOLD_NUGGET).is(ModToys.RUBBER_DUCK), "duck recipe");
+    h.assertTrue(craft(h, dye("yellow"), Items.SLIME_BALL, Items.GOLD_NUGGET).is(ModToys.RUBBER_DUCK), "duck recipe");
     var level = h.getLevel();
     var duck = ModToys.RUBBER_DUCK_BLOCK.defaultBlockState();
     h.setBlock(new BlockPos(2, 1, 2), Blocks.WATER);

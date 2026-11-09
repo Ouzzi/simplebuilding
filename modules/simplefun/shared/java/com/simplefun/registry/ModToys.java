@@ -59,7 +59,7 @@ public final class ModToys {
               .instabreak()
               .sound(SoundType.WOOL)
               .noOcclusion()
-              .pushReaction(PushReaction.DESTROY));
+              .pushReaction(PushReaction.POPPED));
 
   /** Path → item, in tab order (after the brick snowball). */
   public static final java.util.Map<String, Item> BY_PATH = new java.util.LinkedHashMap<>();
