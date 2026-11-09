@@ -36,5 +36,12 @@
   "gui.simplefoundry.arrow": "Nächste Schicht nach unten (zurück nach oben)",
   "gui.simplefoundry.fuel": "Brennstofftank: %s von %s Ticks",
   "gui.simplefoundry.fuel_ways": "Lava-Eimer (leerer kommt zurück) oder Kohle",
-  "gui.simplefoundry.metal": "%s: %s Barren geschmolzen, %s warten"
+  "gui.simplefoundry.metal": "%s: %s Barren geschmolzen, %s warten",
+  "simplefoundry.guide.chapter": "Simple Foundry",
+  "simplefoundry.guide.page.1.title": "Simple Foundry",
+  "simplefoundry.guide.page.1": "Eine Gießerei aus mehreren Blöcken: Schmelzkammern in einer Ziegelhülle, Erz hineinwerfen, die Schmelze schichtweise in Gussformen gießen.",
+  "simplefoundry.guide.page.2.title": "Gießerei (Mehrblock)",
+  "simplefoundry.guide.page.2": "Baue einen Tank aus Schmelzkammern in einer geschlossenen Hülle, feuere am Pult an, wirf Erz ein und gieße die Schmelze nach Schicht.",
+  "simplefoundry.guide.page.3.title": "Einstellungen",
+  "simplefoundry.guide.page.3": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

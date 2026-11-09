@@ -5,5 +5,18 @@
   "text.autoconfig.simpleoptimization.option.enableSimpleOptMemory": "Enable Simple Opt Memory",
   "text.autoconfig.simpleoptimization.option.enableSimpleOptMemory.@Tooltip": "Turns the Simple Opt Memory sub-mod on or off.\nDefault: true.",
   "text.autoconfig.simpleoptimization.option.enableSimpleOptServer": "Enable Simple Opt Server",
-  "text.autoconfig.simpleoptimization.option.enableSimpleOptServer.@Tooltip": "Turns the Simple Opt Server sub-mod on or off.\nDefault: true."
+  "text.autoconfig.simpleoptimization.option.enableSimpleOptServer.@Tooltip": "Turns the Simple Opt Server sub-mod on or off.\nDefault: true.",
+  "simpleoptimization.guide.chapter": "Simple Optimization",
+  "simpleoptimization.guide.page.1.title": "Simple Optimization",
+  "simpleoptimization.guide.page.1": "Bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one switch each. Each has its own chapter here.",
+  "simpleoptimization.guide.page.2.title": "Super-mod for optimizations",
+  "simpleoptimization.guide.page.2": "Simple Optimization has no content of its own: it bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server.",
+  "simpleoptimization.guide.page.3.title": "Super-mod for optimizations",
+  "simpleoptimization.guide.page.3": "config/simpleoptimization.json holds one switch each (enableSimpleOptRender, enableSimpleOptMemory, enableSimpleOptServer, default true);",
+  "simpleoptimization.guide.page.4.title": "Super-mod for optimizations",
+  "simpleoptimization.guide.page.4": "off makes that sub-mod inert, its own settings stay in its own config. Every sub-mod also runs alone; a server only needs Simple Opt Server.",
+  "simpleoptimization.guide.page.5.title": "Commands",
+  "simpleoptimization.guide.page.5": "/simpleoptimization config shows and changes every option of config/simpleoptimization.json (list [group], get, set, reset, help; Tab completes options and values).",
+  "simpleoptimization.guide.page.6.title": "Commands",
+  "simpleoptimization.guide.page.6": "The file is read once while the game starts, so a change is saved at once but takes effect after a restart (each answer says so). Permission level 2."
 }

@@ -39,8 +39,13 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
 
     private final @Nullable String sectionId;
     private final @Nullable InteractionHand hand;
-    /** Chapter to open at on the first {@link #init} (b-guidechap14), then null. */
+    /**
+     * Chapter to open at (b-guidechap14), then null. b-guide15: kept until the chapter is open - the server's unlock answer
+     * comes after the first {@link #init} - or the reader turned a page, or {@link #START_WAIT} ticks passed (locked: contents).
+     */
     private @Nullable Identifier startChapter;
+    private int startWait;
+    static final int START_WAIT = 60;
     private ModpackGuide.@Nullable Section section;
     private List<ModpackGuide.Section> sections = List.of();
     /** Side bookmarks: -1 = the section's own screen, otherwise a chapter index. */
@@ -85,10 +90,27 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
         if (section == null && sectionId == null && !sections.isEmpty()) section = sections.getFirst();
         ModpackGuideScreens.query(sections);
         layout();
-        if (startChapter != null && section != null) {
-            for (int i = 0; i < section.chapters().size(); i++) if (section.chapters().get(i).id().equals(startChapter)) jump(i);
+        tryStart();
+    }
+
+    /** Jumps to {@link #startChapter} once it is open; drops it when it is not in this section. */
+    private void tryStart() {
+        if (startChapter == null) return;
+        int index = -1;
+        if (section != null) for (int i = 0; i < section.chapters().size(); i++) if (section.chapters().get(i).id().equals(startChapter)) index = i;
+        if (index < 0) {
+            startChapter = null;
+        } else if (chapterStart[index] >= 0) {
+            jump(index);
             startChapter = null;
         }
+    }
+
+    @Override
+    public void removed() {
+        ModpackGuideScreens.remember(spread < contentsPages || currentChapter() < 0 || section == null ? null
+                : section.chapters().get(currentChapter()).id());
+        super.removed();
     }
 
     @Override
@@ -110,6 +132,11 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
             int keep = spread;
             layout();
             spread = clamp(keep);
+        }
+        if (startChapter != null) {
+            tryStart();
+            // still locked after the server had time to answer: stay on the contents
+            if (startChapter != null && ++startWait > START_WAIT) startChapter = null;
         }
     }
 
@@ -256,6 +283,7 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
 
     @Override
     public boolean keyPressed(KeyEvent event) {
+        startChapter = null;
         int key = event.key();
         if (key == InputConstants.KEY_LEFT || key == InputConstants.KEY_A || key == InputConstants.KEY_PAGEUP) {
             spread = clamp(spread - 2);
@@ -278,12 +306,14 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        startChapter = null;
         if (scrollY != 0) spread = clamp(spread + (scrollY > 0 ? -2 : 2));
         return true;
     }
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        startChapter = null;
         double mx = event.x(), my = event.y();
         lastClick = new double[]{mx, my};
         lastHit = "miss";

@@ -1,0 +1,15 @@
+{
+  "section": "simplequalityoflife",
+  "name": "simplefarming.guide.chapter",
+  "icon": "minecraft:wheat",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplefarming:guide",
+      "title": "simplefarming.guide.chapter",
+      "icon": "minecraft:wheat",
+      "page_key": "simplefarming.guide.page",
+      "pages": 14
+    }
+  ]
+}

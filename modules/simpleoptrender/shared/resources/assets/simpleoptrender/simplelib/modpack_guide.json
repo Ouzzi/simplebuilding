@@ -1,0 +1,15 @@
+{
+  "section": "simpleoptimization",
+  "name": "simpleoptrender.guide.chapter",
+  "icon": "minecraft:spyglass",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleoptrender:guide",
+      "title": "simpleoptrender.guide.chapter",
+      "icon": "minecraft:spyglass",
+      "page_key": "simpleoptrender.guide.page",
+      "pages": 20
+    }
+  ]
+}

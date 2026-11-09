@@ -1,0 +1,15 @@
+{
+  "section": "simpleoptimization",
+  "name": "simpleoptserver.guide.chapter",
+  "icon": "minecraft:clock",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleoptserver:guide",
+      "title": "simpleoptserver.guide.chapter",
+      "icon": "minecraft:clock",
+      "page_key": "simpleoptserver.guide.page",
+      "pages": 11
+    }
+  ]
+}

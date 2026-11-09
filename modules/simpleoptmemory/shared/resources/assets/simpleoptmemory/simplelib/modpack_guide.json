@@ -1,0 +1,15 @@
+{
+  "section": "simpleoptimization",
+  "name": "simpleoptmemory.guide.chapter",
+  "icon": "minecraft:bundle",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleoptmemory:guide",
+      "title": "simpleoptmemory.guide.chapter",
+      "icon": "minecraft:bundle",
+      "page_key": "simpleoptmemory.guide.page",
+      "pages": 10
+    }
+  ]
+}

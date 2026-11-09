@@ -1,0 +1,15 @@
+{
+  "section": "simplelivemap",
+  "name": "simplelivemap.guide.chapter",
+  "icon": "minecraft:filled_map",
+  "order": 50,
+  "chapters": [
+    {
+      "id": "simplelivemap:guide",
+      "title": "simplelivemap.guide.chapter",
+      "icon": "minecraft:filled_map",
+      "page_key": "simplelivemap.guide.page",
+      "pages": 14
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "section": "simplelib",
+  "name": "simplelib.guide.chapter",
+  "icon": "minecraft:book",
+  "order": 90,
+  "chapters": [
+    {
+      "id": "simplelib:guide",
+      "title": "simplelib.guide.chapter",
+      "icon": "minecraft:book",
+      "page_key": "simplelib.guide.page",
+      "pages": 19
+    }
+  ]
+}

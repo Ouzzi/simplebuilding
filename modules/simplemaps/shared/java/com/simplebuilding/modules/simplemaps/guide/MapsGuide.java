@@ -41,7 +41,8 @@ import net.minecraft.world.level.Level;
  * Simple Modpack guide, handed in as data ({@code assets/simplemaps/simplelib/modpack_guide.json}); the chapter opens with the
  * advancement {@link #CHAPTER} (holding {@link #RECIPE_ITEM}). The old single guide {@link #ID} stays registered so worlds
  * keep it: it leaves the creative tabs (SimpleLib's tab rules), has no recipe any more, and turns into the Simple Modpack
- * guide when used. Without SimpleLib it still opens as the Vanilla book it was. No SimpleLib class is used here.
+ * guide when used (marked with its chapter, which then opens - b-guidechap14, b-guide15). Without SimpleLib it still opens as
+ * the Vanilla book it was. No SimpleLib class is used here.
  */
 public final class MapsGuide {
     public static final String NAMESPACE = "simplemaps";
@@ -76,6 +77,7 @@ public final class MapsGuide {
                     if (guide == null) return super.use(level, player, hand);
                     if (!level.isClientSide()) {
                         player.setItemInHand(hand, turned(guide));
+                        unlock(player);
                         level.playSound(null, player.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0F, 1.0F);
                     }
                     return InteractionResult.SUCCESS;
@@ -92,6 +94,15 @@ public final class MapsGuide {
         tag.putString(CHAPTER_TAG, CHAPTER_ID.toString());
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
         return stack;
+    }
+
+    /** b-guide15: whoever used the old book owned it, so its chapter ({@link #CHAPTER}) opens at once. */
+    static void unlock(Player player) {
+        if (!(player instanceof net.minecraft.server.level.ServerPlayer serverPlayer)) return;
+        var server = serverPlayer.level().getServer();
+        var holder = server == null ? null : server.getAdvancements().get(CHAPTER);
+        if (holder == null) return;
+        for (String criterion : holder.value().criteria().keySet()) serverPlayer.getAdvancements().award(holder, criterion);
     }
 
     /** The registered book; {@code null} before {@link #register}. */
@@ -173,6 +184,7 @@ public final class MapsGuide {
                 "the chapter data for the Simple Modpack guide is missing or stale");
         var holder = h.getLevel().getServer().getAdvancements().get(CHAPTER);
         h.assertTrue(holder != null, "chapter advancement missing: " + CHAPTER);
+        h.assertTrue(player.getAdvancements().getOrStartProgress(holder).isDone(), "turning the old guide did not open its chapter");
         for (String criterion : holder.value().criteria().keySet()) player.getAdvancements().revoke(holder, criterion);
         h.assertTrue(!player.getAdvancements().getOrStartProgress(holder).isDone(), "the chapter is open before its item");
         ItemStack key = new ItemStack(RECIPE_ITEM);

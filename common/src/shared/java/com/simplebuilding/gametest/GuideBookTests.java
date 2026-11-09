@@ -63,6 +63,18 @@ public final class GuideBookTests {
             GuideBooks.onPlayerJoin(player);
             helper.assertValueEqual(player.getInventory().countItem(ModItems.GUIDE_BOOK), 0, "guides must be crafted");
             helper.assertTrue(!GuideBooks.giftEnabled(), "legacy config must not enable guide gifts");
+            // b-guide15: a carried SimpleBuilding guide turns into the Simple Modpack guide marked with SimpleBuilding's section.
+            var modpack = GuideBooks.modpackGuide();
+            if (modpack != null) {
+                player.getInventory().setItem(3, new ItemStack(ModItems.GUIDE_BOOK));
+                GuideBooks.onPlayerJoin(player);
+                ItemStack turned = player.getInventory().getItem(3);
+                var mark = turned.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
+                helper.assertTrue(turned.is(modpack) && mark != null
+                        && "simplebuilding".equals(mark.copyTag().getStringOr("simplelib_guide_chapter", "")),
+                        "the carried guide did not turn into a marked Simple Modpack guide: " + turned);
+                player.getInventory().clearContent();
+            }
             succeed(helper); return;
         }
         helper.assertTrue(new SimplebuildingConfig().giveGuideBookOnFirstJoin, "the guide gift is not on by default");

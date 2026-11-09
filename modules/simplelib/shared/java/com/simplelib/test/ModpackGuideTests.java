@@ -101,6 +101,13 @@ public final class ModpackGuideTests {
         turned.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(tag));
         Identifier chapter = ModpackGuide.chapterOf(turned);
         h.assertTrue(Identifier.parse("simplefun:guide").equals(chapter), "chapter not read back: " + chapter);
+        // b-guide15: SimpleBuilding's turned book carries its section id (no colon): a mark, but no chapter
+        ItemStack sbBook = crafted.copy();
+        net.minecraft.nbt.CompoundTag sbTag = new net.minecraft.nbt.CompoundTag();
+        sbTag.putString(ModpackGuide.CHAPTER_TAG, "simplebuilding");
+        sbBook.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(sbTag));
+        h.assertTrue("simplebuilding".equals(ModpackGuide.markOf(sbBook)) && ModpackGuide.chapterOf(sbBook) == null
+                && ModpackGuide.markOf(crafted) == null, "section mark misread");
         String fun = "{\"section\":\"simplebuilding\",\"name\":\"f\",\"icon\":\"minecraft:brick\",\"chapters\":[{\"id\":\"simplefun:guide\","
                 + "\"title\":\"f\",\"icon\":\"minecraft:brick\",\"page_key\":\"f\",\"pages\":3}]}";
         String sb = "{\"section\":\"simplebuilding\",\"name\":\"s\",\"icon\":\"minecraft:bricks\",\"order\":0,\"screen\":true,\"chapters\":[]}";

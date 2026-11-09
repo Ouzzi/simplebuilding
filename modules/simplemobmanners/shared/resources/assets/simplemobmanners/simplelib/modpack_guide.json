@@ -1,0 +1,15 @@
+{
+  "section": "simplequalityoflife",
+  "name": "simplemobmanners.guide.chapter",
+  "icon": "minecraft:name_tag",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplemobmanners:guide",
+      "title": "simplemobmanners.guide.chapter",
+      "icon": "minecraft:name_tag",
+      "page_key": "simplemobmanners.guide.page",
+      "pages": 13
+    }
+  ]
+}

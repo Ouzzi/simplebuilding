@@ -9,7 +9,7 @@
       "title": "simplequalityoflife.guide.chapter",
       "icon": "minecraft:chest",
       "page_key": "simplequalityoflife.guide.page",
-      "pages": 100,
+      "pages": 5,
       "advancement": "simplequalityoflife:guide/chapter",
       "hint": "minecraft:chest"
     }
