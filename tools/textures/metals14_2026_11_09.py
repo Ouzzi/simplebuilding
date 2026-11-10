@@ -244,10 +244,10 @@ def main() -> None:
             print(f'vanilla {v}: hard {hard_share(im) * 100:.1f} %')
         return
     TEX.mkdir(parents=True, exist_ok=True)
-    import pal16_2026_11_10 as pal16   # b-pal16 (owner PAL15 10.11.): symmetric motif per metal (nickel: the rhombus again)
+    import pal20_2026_11_10 as pal20   # b-pal20 (owner PAL16 10.11.): zinc/silver new, the other metals keep their PAL16 motif
     for metal in METALS:
         for form in FORMS:
-            layers.save(pal16.metal_texture(metal) if form == 'chiseled' else paint(metal, form), TEX / f'{file_name(metal, form)}.png')
+            layers.save(pal20.metal_texture(metal) if form == 'chiseled' else paint(metal, form), TEX / f'{file_name(metal, form)}.png')
     print(f'metals14: {len(METALS) * len(FORMS)} textures + layers written')
 
 

@@ -37,7 +37,8 @@ OWNER = ('bridge_redstone', 'extra_head', 'yarn_ball', 'diamond_pebble', 'astral
 VANILLA_GLASS = ('display_case_glass', 'transparent_')
 # b-fix169tex (bundle 169): not reworked - textures of module generators that do not call finish() (their check_data would
 # report the reworked PNG as stale: Simple Dinos eggs, the octet melon flesh, the questionary table) and the chiseled motifs
-# of b-pal16 (owner answer PAL15, symmetric motifs; PAL16 won the merge conflict, so the A8d layer is not on them).
+# of b-pal16 (owner answer PAL15, symmetric motifs; PAL16 won the merge conflict, so the A8d layer is not on them); since b-pal20
+# (owner PAL16) the End bricks are the pre-PAL15 pixels unchanged - owner wish, never rework them here.
 GENERATOR_OWN = ('egg_trex', 'egg_triceratops', 'melon_flesh', 'questionary_table_book', 'questionary_table_side',
                  'chiseled_brass', 'chiseled_lead', 'chiseled_nickel', 'chiseled_silver', 'chiseled_tin', 'chiseled_zinc',
                  'chiseled_astralit_bricks', 'chiseled_ender_quartz_bricks', 'chiseled_nihilith_bricks')
