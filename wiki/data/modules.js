@@ -61,7 +61,8 @@ window.WIKI_MODULES = [
       "simpleearth",
       "simplechallenges",
       "simpledinos",
-      "simplelayers"
+      "simplelayers",
+      "simplevault"
     ],
     "stage": "done",
     "overview": {
@@ -2261,5 +2262,39 @@ window.WIKI_MODULES = [
       "features": 10
     },
     "dataHash": "14ee9724e09b"
+  },
+  {
+    "id": "simplevault",
+    "displayName": "Simple Vault",
+    "description": "The Bedrock Vault (Grundgewoelbe): a rare gap in the Overworld bedrock leads into quiet halls enclosed by bedrock; three riddles and an ascent altar are the only way out.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "The Bedrock Vault: far below, a rare gap in the Overworld bedrock leads into quiet halls enclosed by bedrock. The gate closes behind you - three riddles give three seal parts, and the Ascent Altar carries you back up.",
+      "de": "Das Grundgewölbe: tief unten führt eine seltene Lücke im Grundgestein der Oberwelt in stille Hallen, rundum von Grundgestein umschlossen. Das Tor schließt sich hinter dir - drei Rätsel geben drei Siegelteile, und der Aufstiegsaltar trägt dich wieder hinauf."
+    },
+    "purpose": {
+      "en": "Das Grundgewölbe: eine seltene Lücke im Grundgestein der Oberwelt führt in stille Hallen unter dem Grundgestein, rundum von Grundgestein umschlossen; drei Rätsel und der Aufstiegsaltar sind der einzige Weg hinaus.",
+      "de": "Das Grundgewölbe: eine seltene Lücke im Grundgestein der Oberwelt führt in stille Hallen unter dem Grundgestein, rundum von Grundgestein umschlossen; drei Rätsel und der Aufstiegsaltar sind der einzige Weg hinaus."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVR42mMwt7L9TwlmABHbdu1HwTJySlgxspquCTNQDZi1YNn/U2cvghUuXr0VKwbJgdSBNCdn5GIaANNcUtOGYTtIzDswEswGWYRhALpmLVm3/1H2fWAahNENQTEAm2YQPrLiC5yNzRCCBsAwzCUkGYDsfIpdAPMKyQagu4JsF5BlAHoM0C8QCWGQZqwGkIPhBlCCAbv75A6OjFCvAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 4,
+      "blocks": 10,
+      "features": 3
+    },
+    "dataHash": "0135012e110f"
   }
 ];

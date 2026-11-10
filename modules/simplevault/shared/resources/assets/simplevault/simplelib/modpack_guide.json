@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplevault.guide.chapter",
+  "icon": "minecraft:echo_shard",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplevault:guide",
+      "title": "simplevault.guide.chapter",
+      "icon": "minecraft:echo_shard",
+      "page_key": "simplevault.guide.page",
+      "pages": 9,
+      "advancement": "simplevault:guide/chapter",
+      "hint": "minecraft:echo_shard"
+    }
+  ]
+}
