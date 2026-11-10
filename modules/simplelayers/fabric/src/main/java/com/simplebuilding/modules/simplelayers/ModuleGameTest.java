@@ -121,7 +121,7 @@ public final class ModuleGameTest {
         LayersTests.ALL.get("levels_registered").accept(h);
     }
 
-    @GameTest(structure = "simplelayers:empty")
+    @GameTest(structure = "simplelayers:empty", maxTicks = 100)
     public void levelTransitions(GameTestHelper h) {
         LayersTests.ALL.get("level_transitions").accept(h);
     }

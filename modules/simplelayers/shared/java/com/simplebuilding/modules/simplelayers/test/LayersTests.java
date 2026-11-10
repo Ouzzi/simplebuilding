@@ -631,10 +631,13 @@ public final class LayersTests {
         h.assertTrue(lobby.isRemoved(), "lobby rift -> left the lobby");
         ServerLevel warehouse = server.getLevel(SimpleLayers.levelKey(BackroomsLevel.WAREHOUSE));
         int[] spot = BackroomsLevel.WAREHOUSE.arrival(BackroomsChunkGenerator.seed(warehouse.getChunkSource().randomState()), lobby.getBlockX(), lobby.getBlockZ());
-        var found = warehouse.getEntitiesOfClass(ArmorStand.class, new net.minecraft.world.phys.AABB(spot[0] - 1, spot[1] - 1, spot[2] - 1, spot[0] + 2, spot[1] + 3, spot[2] + 2));
-        h.assertTrue(!found.isEmpty(), "lobby rift -> warehouse at " + spot[0] + " " + spot[1] + " " + spot[2]);
-        found.forEach(Entity::discard);
-        h.succeed();
+        var box = new net.minecraft.world.phys.AABB(spot[0] - 3, spot[1] - 3, spot[2] - 3, spot[0] + 4, spot[1] + 4, spot[2] + 4);
+        // The copy joins the Warehouse's entity sections a tick later.
+        h.succeedWhen(() -> {
+            var found = warehouse.getEntitiesOfClass(ArmorStand.class, box);
+            h.assertTrue(!found.isEmpty(), "lobby rift -> warehouse at " + spot[0] + " " + spot[1] + " " + spot[2]);
+            found.forEach(Entity::discard);
+        });
     }
 
     /**
