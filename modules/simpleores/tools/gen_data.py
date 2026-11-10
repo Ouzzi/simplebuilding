@@ -87,6 +87,16 @@ for m, (en, de, *_r) in METALS.items():
 for m, (en, de, *_r) in MIXES.items():
     BLOCKS[f'{m}_block'] = (f'Block of {en}', f'{de}block')
     ITEMS[f'{m}_ingot'] = (f'{en} Ingot', f'{de}barren')
+# N23 (b-ores23, 10.11.): the retired twins are gone from the mod (their ids move to the remaining variant, SimpleOres#registerIdMoves).
+RETIRED = ('deepslate_lead_ore', 'deepslate_zinc_ore', 'deepslate_tin_ore', 'nickel_ore')
+for _r in RETIRED:
+    BLOCKS.pop(_r, None)
+
+
+def ores_of(m):
+    return [n for n in (f'{m}_ore', f'deepslate_{m}_ore') if n not in RETIRED]
+
+
 # N9 (b-metals14, owner 09.11., docs/ai/PLAN-B-METALS14-2026-11-09.md): the six metals are cosmetic only (no tools, no armor); each gets a
 # building family behind its storage block (OresRegistry.COSMETIC), own textures (tools/textures/metals14_2026_11_09.py, committed with layers).
 COSMETIC = {'silver': ('Silver', 'Silber'), 'lead': ('Lead', 'Blei'), 'zinc': ('Zinc', 'Zink'), 'nickel': ('Nickel', 'Nickel'), 'tin': ('Tin', 'Zinn'),
@@ -260,14 +270,13 @@ ore_drop('silver_ore', 'raw_silver')
 ore_drop('deepslate_silver_ore', 'raw_silver')
 ore_drop('end_silver_ore', 'silver_nugget', (2, 6))
 ore_drop('lead_ore', 'raw_lead', (1, 2))
-ore_drop('deepslate_lead_ore', 'raw_lead', (1, 2))
 ore_drop('end_lead_ore', 'raw_lead', (1, 2))
 ore_drop('end_zinc_ore', 'raw_zinc')
 for p in SHOVEL:
     ore_drop(p, 'tin_nugget', (2, 5))   # N4: tin placers give nuggets (Fortune helps, Silk Touch keeps the block)
 for m in METALS:
-    ore_drop(f'{m}_ore', f'raw_{m}')
-    ore_drop(f'deepslate_{m}_ore', f'raw_{m}')
+    for o in ores_of(m):
+        ore_drop(o, f'raw_{m}')
 ore_drop('nether_rose_gold_ore', 'rose_gold_pressling')   # no raw rose gold exists: the pressing is the stage before the blast furnace
 ore_drop('nether_sage_ore', 'sage_crystal_shard', (1, 3))
 ore_drop('end_sage_ore', 'sage_crystal_shard', (1, 3))
@@ -359,7 +368,7 @@ recipe('lead_ingot_from_nuggets', 'misc', {'type': 'minecraft:crafting_shaped', 
                                             'pattern': ['###', '###', '###'], 'result': result('lead_ingot')}, item('lead_nugget'))
 recipe('lead_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item('lead_ingot')],
                                 'result': result('lead_nugget', 9)}, item('lead_ingot'))
-for source in ('raw_lead', 'lead_ore', 'deepslate_lead_ore', 'end_lead_ore'):
+for source in ('raw_lead', 'lead_ore', 'end_lead_ore'):
     recipe(f'lead_ingot_from_smelting_{source}', 'misc', {'type': 'minecraft:smelting', 'category': 'misc', 'cookingtime': 200,
            'experience': 0.7, 'group': 'lead_ingot', 'ingredient': item(source), 'result': result('lead_ingot')}, item(source))
     recipe(f'lead_ingot_from_blasting_{source}', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': 100,
@@ -409,7 +418,7 @@ for m in METALS:
                                               'pattern': ['###', '###', '###'], 'result': result(f'{m}_ingot')}, item(f'{m}_nugget'))
     recipe(f'{m}_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item(f'{m}_ingot')],
                                    'result': result(f'{m}_nugget', 9)}, item(f'{m}_ingot'))
-    for source in (f'raw_{m}', f'{m}_ore', f'deepslate_{m}_ore') + (('end_zinc_ore',) if m == 'zinc' else ()):
+    for source in (f'raw_{m}', *ores_of(m)) + (('end_zinc_ore',) if m == 'zinc' else ()):
         recipe(f'{m}_ingot_from_smelting_{source}', 'misc', {'type': 'minecraft:smelting', 'category': 'misc', 'cookingtime': 200,
                'experience': 0.7, 'group': f'{m}_ingot', 'ingredient': item(source), 'result': result(f'{m}_ingot')}, item(source))
         recipe(f'{m}_ingot_from_blasting_{source}', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': 100,
@@ -493,7 +502,7 @@ for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/storage_blocks/raw_silver.json', ids(['raw_silver_block']))
     for a in ALLOYS:
         tag(f'c/tags/{kind}/storage_blocks/{a}.json', ids([f'{a}_block']))
-LEAD_ORES = ['lead_ore', 'deepslate_lead_ore', 'end_lead_ore']
+LEAD_ORES = ['lead_ore', 'end_lead_ore']
 for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/ores/lead.json', ids(LEAD_ORES))
     tag(f'c/tags/{kind}/storage_blocks/lead.json', ids(['lead_block']))
@@ -520,7 +529,7 @@ tag('c/tags/item/nuggets/rosegold.json', ids([f'{a}_nugget' for a in ALLOYS]))
 tag('c/tags/item/ingots/rosegold.json', ids([f'{a}_ingot' for a in ALLOYS]))
 for m in METALS:
     for kind in ('block', 'item'):
-        tag(f'c/tags/{kind}/ores/{m}.json', ids([f'{m}_ore', f'deepslate_{m}_ore'] + (['end_zinc_ore'] if m == 'zinc' else [])))
+        tag(f'c/tags/{kind}/ores/{m}.json', ids(ores_of(m) + (['end_zinc_ore'] if m == 'zinc' else [])))
         tag(f'c/tags/{kind}/storage_blocks/{m}.json', ids([f'{m}_block']))
         tag(f'c/tags/{kind}/storage_blocks/raw_{m}.json', ids([f'raw_{m}_block']))
     tag(f'c/tags/item/ingots/{m}.json', ids([f'{m}_ingot']))
@@ -533,8 +542,8 @@ for a in MIXES:
 every = list(BLOCKS)
 tag('minecraft/tags/block/mineable/pickaxe.json', ids([b for b in every if b not in SHOVEL] + list(MOVED_BLOCKS)))
 tag('minecraft/tags/block/mineable/shovel.json', ids(list(SHOVEL)))
-STONE_TIER = ['lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'end_lead_ore', 'end_zinc_ore'] + [b for m, v in METALS.items() if v[2] == 'stone'
-                                                                   for b in (f'{m}_ore', f'deepslate_{m}_ore', f'raw_{m}_block')]   # like Vanilla iron and copper ore
+STONE_TIER = ['lead_ore', 'raw_lead_block', 'end_lead_ore', 'end_zinc_ore'] + [b for m, v in METALS.items() if v[2] == 'stone'
+                                                                   for b in (*ores_of(m), f'raw_{m}_block')]   # like Vanilla iron and copper ore
 tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b not in ('silver_mirror', 'geode_crust') + SHOVEL and b not in DIAMOND_NEW and b not in RIFT_BLOCKS] + SAGE_ORES))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
@@ -830,11 +839,9 @@ DEWORD = {'copper_ingot': 'Kupfer', 'iron_ingot': 'Eisen', 'zinc_ingot': 'Zink',
 def note_summaries():
     notes = {}
     for p, (en, de) in BLOCKS.items():
-        if p in ('lead_ore', 'deepslate_lead_ore', 'end_lead_ore'):
+        if p in ('lead_ore', 'end_lead_ore'):
             # N4 (b-ores13): lead only in stone and never at air; the deepslate twin no longer generates; End lead in End stone.
             where = {'lead_ore': ('Found only in stone, 6 veins of 9 per chunk, Y 0 to 72, never touching air.', 'Nur im Stein zu finden, 6 Adern zu 9 je Chunk, Y 0 bis 72, nie an Luft.'),
-                     'deepslate_lead_ore': ('The deepslate twin of the lead ore; it no longer generates (lead forms only in stone), old worlds keep theirs.',
-                                            'Der Tiefenschiefer-Zwilling des Bleierzes; er entsteht nicht mehr (Blei bildet sich nur im Stein), alte Welten behalten ihre.'),
                      'end_lead_ore': ('Found in the End stone of the outer islands, 6 veins of 7 per chunk, Y 20 to 80, never touching air.',
                                       'Im Endstein der äußeren Inseln zu finden, 6 Adern zu 7 je Chunk, Y 20 bis 80, nie an Luft.')}[p]
             notes[f'block:{p}'] = (where[0] + ' Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore).',
@@ -845,18 +852,12 @@ def note_summaries():
             hard_en, hard_de = ('a stone pickaxe', 'eine Steinspitzhacke') if tier == 'stone' else ('an iron pickaxe', 'eine Eisenspitzhacke')
             where = {'zinc_ore': ('Found only inside closed mini geodes (1 to 8 per geode, shell of geode crust, calcite lining), never in free veins.',
                                   'Nur in geschlossenen Mini-Geoden zu finden (1 bis 8 je Geode, Hülle aus Geodenkruste, Calcit-Futter), nie in freien Adern.'),
-                     'deepslate_zinc_ore': ('The deepslate twin of the zinc ore; it no longer generates (zinc forms only in geodes), old worlds keep theirs.',
-                                            'Der Tiefenschiefer-Zwilling des Zinkerzes; er entsteht nicht mehr (Zink bildet sich nur in Geoden), alte Welten behalten ihre.'),
                      'end_zinc_ore': ('Found only inside the mini geodes in the End stone of the outer islands (1 to 8 per geode, End stone shell, geode crust lining).',
                                       'Nur in den Mini-Geoden im Endstein der äußeren Inseln zu finden (1 bis 8 je Geode, Endstein-Hülle, Geodenkruste-Futter).'),
-                     'nickel_ore': ('The stone twin of the nickel ore; it no longer generates (nickel forms only in deepslate), old worlds keep theirs.',
-                                    'Der Stein-Zwilling des Nickelerzes; er entsteht nicht mehr (Nickel bildet sich nur im Tiefenschiefer), alte Welten behalten ihre.'),
                      'deepslate_nickel_ore': ('Found only in deepslate, like diamond ore: 10 veins of 6 per chunk, most at Y -64, up to Y 16.',
                                               'Nur im Tiefenschiefer zu finden, wie Diamanterz: 10 Adern zu 6 je Chunk, am meisten bei Y -64, bis Y 16.'),
                      'tin_ore': ('Found in stone and granite between Y 20 and 80 (dense nests inside granite) and up to Y 180 in the mountain biomes.',
-                                 'In Stein und Granit zwischen Y 20 und 80 zu finden (dichte Nester im Granit) und bis Y 180 in den Gebirgsbiomen.'),
-                     'deepslate_tin_ore': ('The deepslate twin of the tin ore; it no longer generates (tin forms only in the mountains), old worlds keep theirs.',
-                                           'Der Tiefenschiefer-Zwilling des Zinnerzes; er entsteht nicht mehr (Zinn bildet sich nur in den Bergen), alte Welten behalten ihre.')}[p]
+                                 'In Stein und Granit zwischen Y 20 und 80 zu finden (dichte Nester im Granit) und bis Y 180 in den Gebirgsbiomen.')}[p]
             notes[f'block:{p}'] = (f'{where[0]} Needs {hard_en}. Drops raw {men.lower()} (Fortune helps, Silk Touch keeps the ore).',
                                    f'{where[1]} Braucht {hard_de}. Lässt Roh{mde.lower()} fallen (Glück hilft, Behutsamkeit behält das Erz).')
         elif p == 'geode_crust':

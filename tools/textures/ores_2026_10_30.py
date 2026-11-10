@@ -203,7 +203,6 @@ def lead_images(j: 'Jar', v: str = 'a') -> dict:
     ore, deep = j.img('block/iron_ore'), j.img('block/deepslate_iron_ore')
     return {
         'block/lead_ore.png': recolor(ore, ramp, fleck),
-        'block/deepslate_lead_ore.png': recolor(deep, ramp, fleck),
         'block/raw_lead_block.png': lead_shapes.raw_block(RAMPS[ramp]),
         'item/raw_lead.png': lead_shapes.raw_item(RAMPS[ramp]),
         'item/lead_ingot.png': recolor(j.img('item/iron_ingot'), ramp, shift=0.18),
@@ -217,8 +216,10 @@ def metal_images(j: 'Jar') -> dict:
     out = {}
     ore, deep = j.img('block/iron_ore'), j.img('block/deepslate_iron_ore')
     for m in METAL_NAMES:
-        out[f'block/{m}_ore.png'] = recolor(ore, m, fleck)
-        out[f'block/deepslate_{m}_ore.png'] = recolor(deep, m, fleck, squeeze=0.8)
+        if m != 'nickel':   # N23: nickel keeps only the deepslate ore, zinc and tin only the stone ore
+            out[f'block/{m}_ore.png'] = recolor(ore, m, fleck)
+        if m == 'nickel':
+            out[f'block/deepslate_{m}_ore.png'] = recolor(deep, m, fleck, squeeze=0.8)
         out[f'block/raw_{m}_block.png'] = recolor(j.img('block/raw_iron_block'), m, squeeze=0.7)
         out[f'block/{m}_block.png'] = recolor(j.img('block/iron_block'), m)
         out[f'item/raw_{m}.png'] = recolor(j.img('item/raw_iron'), m, squeeze=0.7)

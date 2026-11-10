@@ -17,13 +17,14 @@ config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords',
                        'sageOre', 'dimensionalScrap', 'sageOreOtherDimensions', 'roseGoldOreChance',
                        'leadOre', 'endLeadOre', 'zincGeodes', 'endZincGeodes', 'nickelOre', 'tinOre', 'tinPlacers'], config_keys
-BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
+BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
           'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block', 'rose_bronze_pressling_block', 'rose_gold_pressling_block',
           'netherite_scrap_block', 'enderite_scrap_block', 'sage_orb_block')
 # RG30-2: zinc, nickel, tin and the plain alloys brass, stainless steel, bronze (building metals, no gear).
 METALS = ('zinc', 'nickel', 'tin')
 MIXES = ('brass', 'stainless_steel', 'bronze')
-BLOCKS += tuple(b for m in METALS for b in (f'{m}_ore', f'deepslate_{m}_ore', f'raw_{m}_block', f'{m}_block')) + tuple(f'{a}_block' for a in MIXES)
+RETIRED = ('deepslate_lead_ore', 'deepslate_zinc_ore', 'deepslate_tin_ore', 'nickel_ore')   # N23: gone, ids move to the remaining variant
+BLOCKS += tuple(b for m in METALS for b in (f'{m}_ore', f'deepslate_{m}_ore', f'raw_{m}_block', f'{m}_block') if b not in RETIRED) + tuple(f'{a}_block' for a in MIXES)
 ALLOYS = ('rose_bronze', 'rose_gold')
 GEAR = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots')
 ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'nugget', 'carrot', 'pressling') + GEAR) \
@@ -172,7 +173,7 @@ wg = RES / f'data/{NS}/worldgen'
 features = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (wg / 'feature').glob('*.json')}
 for name, f in features.items():
     for t in f.get('targets', []):
-        assert t['state'] not in (f'{NS}:deepslate_lead_ore', f'{NS}:deepslate_zinc_ore', f'{NS}:deepslate_tin_ore', f'{NS}:nickel_ore', f'{NS}:zinc_ore'), (name, t['state'])
+        assert t['state'] not in (f'{NS}:deepslate_lead_ore', f'{NS}:deepslate_zinc_ore', f'{NS}:deepslate_tin_ore', f'{NS}:nickel_ore'), (name, t['state'])
 assert 'zinc_ore' not in features and not (wg / 'placed_feature/zinc_ore.json').exists(), 'zinc forms no free veins'
 for geode, ore, shell in (('zinc_geode', 'zinc_ore', f'{NS}:geode_crust'), ('end_zinc_geode', 'end_zinc_ore', 'minecraft:end_stone')):
     g = features[geode]

@@ -3372,36 +3372,6 @@
       }
     },
     {
-      "id": "simpleores:lead_ingot_from_blasting_deepslate_lead_ore",
-      "type": "minecraft:blasting",
-      "category": "misc",
-      "group": "lead_ingot",
-      "result": {
-        "id": "simpleores:lead_ingot",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_ingot_from_blasting_deepslate_lead_ore.json",
-      "ingredients": [
-        "simpleores:deepslate_lead_ore"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleores:deepslate_lead_ore"
-        ]
-      },
-      "cookingtime": 100,
-      "experience": 0.7,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:deepslate_lead_ore",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleores:lead_ingot_from_blasting_end_lead_ore",
       "type": "minecraft:blasting",
       "category": "misc",
@@ -3548,36 +3518,6 @@
           {
             "id": "simpleores:lead_nugget",
             "count": 9
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:lead_ingot_from_smelting_deepslate_lead_ore",
-      "type": "minecraft:smelting",
-      "category": "misc",
-      "group": "lead_ingot",
-      "result": {
-        "id": "simpleores:lead_ingot",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_ingot_from_smelting_deepslate_lead_ore.json",
-      "ingredients": [
-        "simpleores:deepslate_lead_ore"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleores:deepslate_lead_ore"
-        ]
-      },
-      "cookingtime": 200,
-      "experience": 0.7,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:deepslate_lead_ore",
-            "count": 1
           }
         ]
       }
@@ -4095,36 +4035,6 @@
       }
     },
     {
-      "id": "simpleores:nickel_ingot_from_blasting_nickel_ore",
-      "type": "minecraft:blasting",
-      "category": "misc",
-      "group": "nickel_ingot",
-      "result": {
-        "id": "simpleores:nickel_ingot",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_blasting_nickel_ore.json",
-      "ingredients": [
-        "simpleores:nickel_ore"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleores:nickel_ore"
-        ]
-      },
-      "cookingtime": 100,
-      "experience": 0.7,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:nickel_ore",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleores:nickel_ingot_from_blasting_raw_nickel",
       "type": "minecraft:blasting",
       "category": "misc",
@@ -4240,36 +4150,6 @@
         "materials": [
           {
             "id": "simpleores:deepslate_nickel_ore",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:nickel_ingot_from_smelting_nickel_ore",
-      "type": "minecraft:smelting",
-      "category": "misc",
-      "group": "nickel_ingot",
-      "result": {
-        "id": "simpleores:nickel_ingot",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_ingot_from_smelting_nickel_ore.json",
-      "ingredients": [
-        "simpleores:nickel_ore"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleores:nickel_ore"
-        ]
-      },
-      "cookingtime": 200,
-      "experience": 0.7,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:nickel_ore",
             "count": 1
           }
         ]
@@ -7297,36 +7177,6 @@
       }
     },
     {
-      "id": "simpleores:tin_ingot_from_blasting_deepslate_tin_ore",
-      "type": "minecraft:blasting",
-      "category": "misc",
-      "group": "tin_ingot",
-      "result": {
-        "id": "simpleores:tin_ingot",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_blasting_deepslate_tin_ore.json",
-      "ingredients": [
-        "simpleores:deepslate_tin_ore"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleores:deepslate_tin_ore"
-        ]
-      },
-      "cookingtime": 100,
-      "experience": 0.7,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:deepslate_tin_ore",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleores:tin_ingot_from_blasting_raw_tin",
       "type": "minecraft:blasting",
       "category": "misc",
@@ -7415,36 +7265,6 @@
           {
             "id": "simpleores:tin_nugget",
             "count": 9
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:tin_ingot_from_smelting_deepslate_tin_ore",
-      "type": "minecraft:smelting",
-      "category": "misc",
-      "group": "tin_ingot",
-      "result": {
-        "id": "simpleores:tin_ingot",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_ingot_from_smelting_deepslate_tin_ore.json",
-      "ingredients": [
-        "simpleores:deepslate_tin_ore"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleores:deepslate_tin_ore"
-        ]
-      },
-      "cookingtime": 200,
-      "experience": 0.7,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:deepslate_tin_ore",
-            "count": 1
           }
         ]
       }
@@ -7853,36 +7673,6 @@
       }
     },
     {
-      "id": "simpleores:zinc_ingot_from_blasting_deepslate_zinc_ore",
-      "type": "minecraft:blasting",
-      "category": "misc",
-      "group": "zinc_ingot",
-      "result": {
-        "id": "simpleores:zinc_ingot",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_blasting_deepslate_zinc_ore.json",
-      "ingredients": [
-        "simpleores:deepslate_zinc_ore"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleores:deepslate_zinc_ore"
-        ]
-      },
-      "cookingtime": 100,
-      "experience": 0.7,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:deepslate_zinc_ore",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleores:zinc_ingot_from_blasting_end_zinc_ore",
       "type": "minecraft:blasting",
       "category": "misc",
@@ -8001,36 +7791,6 @@
           {
             "id": "simpleores:zinc_nugget",
             "count": 9
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:zinc_ingot_from_smelting_deepslate_zinc_ore",
-      "type": "minecraft:smelting",
-      "category": "misc",
-      "group": "zinc_ingot",
-      "result": {
-        "id": "simpleores:zinc_ingot",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_ingot_from_smelting_deepslate_zinc_ore.json",
-      "ingredients": [
-        "simpleores:deepslate_zinc_ore"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleores:deepslate_zinc_ore"
-        ]
-      },
-      "cookingtime": 200,
-      "experience": 0.7,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:deepslate_zinc_ore",
-            "count": 1
           }
         ]
       }
@@ -8824,23 +8584,6 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_zinc_stairs.json"
     },
     {
-      "id": "simpleores:blocks/deepslate_lead_ore",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simpleores:deepslate_lead_ore",
-            "simpleores:raw_lead"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_lead_ore.json"
-    },
-    {
       "id": "simpleores:blocks/deepslate_nickel_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -8890,40 +8633,6 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_silver_ore.json"
-    },
-    {
-      "id": "simpleores:blocks/deepslate_tin_ore",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simpleores:deepslate_tin_ore",
-            "simpleores:raw_tin"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_tin_ore.json"
-    },
-    {
-      "id": "simpleores:blocks/deepslate_zinc_ore",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simpleores:deepslate_zinc_ore",
-            "simpleores:raw_zinc"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_zinc_ore.json"
     },
     {
       "id": "simpleores:blocks/dimensional_scrap",
@@ -9307,23 +9016,6 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_block.json"
-    },
-    {
-      "id": "simpleores:blocks/nickel_ore",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simpleores:nickel_ore",
-            "simpleores:raw_nickel"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_ore.json"
     },
     {
       "id": "simpleores:blocks/nickel_pillar",
@@ -10518,13 +10210,11 @@
       },
       "texture": "assets/textures/simpleores/item/lead_ingot.png",
       "craftedBy": [
-        "simpleores:lead_ingot_from_blasting_deepslate_lead_ore",
         "simpleores:lead_ingot_from_blasting_end_lead_ore",
         "simpleores:lead_ingot_from_blasting_lead_ore",
         "simpleores:lead_ingot_from_blasting_raw_lead",
         "simpleores:lead_ingot_from_lead_block",
         "simpleores:lead_ingot_from_nuggets",
-        "simpleores:lead_ingot_from_smelting_deepslate_lead_ore",
         "simpleores:lead_ingot_from_smelting_end_lead_ore",
         "simpleores:lead_ingot_from_smelting_lead_ore",
         "simpleores:lead_ingot_from_smelting_raw_lead"
@@ -10607,12 +10297,10 @@
       "texture": "assets/textures/simpleores/item/nickel_ingot.png",
       "craftedBy": [
         "simpleores:nickel_ingot_from_blasting_deepslate_nickel_ore",
-        "simpleores:nickel_ingot_from_blasting_nickel_ore",
         "simpleores:nickel_ingot_from_blasting_raw_nickel",
         "simpleores:nickel_ingot_from_nickel_block",
         "simpleores:nickel_ingot_from_nuggets",
         "simpleores:nickel_ingot_from_smelting_deepslate_nickel_ore",
-        "simpleores:nickel_ingot_from_smelting_nickel_ore",
         "simpleores:nickel_ingot_from_smelting_raw_nickel"
       ],
       "usedIn": [
@@ -11731,11 +11419,9 @@
       },
       "texture": "assets/textures/simpleores/item/tin_ingot.png",
       "craftedBy": [
-        "simpleores:tin_ingot_from_blasting_deepslate_tin_ore",
         "simpleores:tin_ingot_from_blasting_raw_tin",
         "simpleores:tin_ingot_from_blasting_tin_ore",
         "simpleores:tin_ingot_from_nuggets",
-        "simpleores:tin_ingot_from_smelting_deepslate_tin_ore",
         "simpleores:tin_ingot_from_smelting_raw_tin",
         "simpleores:tin_ingot_from_smelting_tin_ore",
         "simpleores:tin_ingot_from_tin_block"
@@ -11816,12 +11502,10 @@
       },
       "texture": "assets/textures/simpleores/item/zinc_ingot.png",
       "craftedBy": [
-        "simpleores:zinc_ingot_from_blasting_deepslate_zinc_ore",
         "simpleores:zinc_ingot_from_blasting_end_zinc_ore",
         "simpleores:zinc_ingot_from_blasting_raw_zinc",
         "simpleores:zinc_ingot_from_blasting_zinc_ore",
         "simpleores:zinc_ingot_from_nuggets",
-        "simpleores:zinc_ingot_from_smelting_deepslate_zinc_ore",
         "simpleores:zinc_ingot_from_smelting_end_zinc_ore",
         "simpleores:zinc_ingot_from_smelting_raw_zinc",
         "simpleores:zinc_ingot_from_smelting_zinc_ore",
@@ -12610,30 +12294,6 @@
       "usedIn": []
     },
     {
-      "id": "simpleores:deepslate_lead_ore",
-      "name": {
-        "en_us": "Deepslate Lead Ore",
-        "de_de": "Tiefenschiefer-Bleierz"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "The deepslate twin of the lead ore; it no longer generates (lead forms only in stone), old worlds keep theirs. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore)."
-        },
-        "de": {
-          "summary": "Der Tiefenschiefer-Zwilling des Bleierzes; er entsteht nicht mehr (Blei bildet sich nur im Stein), alte Welten behalten ihre. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
-        }
-      },
-      "texture": "assets/textures/simpleores/block/deepslate_lead_ore.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simpleores:lead_ingot_from_blasting_deepslate_lead_ore",
-        "simpleores:lead_ingot_from_smelting_deepslate_lead_ore"
-      ]
-    },
-    {
       "id": "simpleores:deepslate_nickel_ore",
       "name": {
         "en_us": "Deepslate Nickel Ore",
@@ -12700,54 +12360,6 @@
       "usedIn": [
         "simpleores:silver_ingot_from_blasting_deepslate_silver_ore",
         "simpleores:silver_ingot_from_smelting_deepslate_silver_ore"
-      ]
-    },
-    {
-      "id": "simpleores:deepslate_tin_ore",
-      "name": {
-        "en_us": "Deepslate Tin Ore",
-        "de_de": "Tiefenschiefer-Zinnerz"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "The deepslate twin of the tin ore; it no longer generates (tin forms only in the mountains), old worlds keep theirs. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
-        },
-        "de": {
-          "summary": "Der Tiefenschiefer-Zwilling des Zinnerzes; er entsteht nicht mehr (Zinn bildet sich nur in den Bergen), alte Welten behalten ihre. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
-        }
-      },
-      "texture": "assets/textures/simpleores/block/deepslate_tin_ore.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simpleores:tin_ingot_from_blasting_deepslate_tin_ore",
-        "simpleores:tin_ingot_from_smelting_deepslate_tin_ore"
-      ]
-    },
-    {
-      "id": "simpleores:deepslate_zinc_ore",
-      "name": {
-        "en_us": "Deepslate Zinc Ore",
-        "de_de": "Tiefenschiefer-Zinkerz"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "The deepslate twin of the zinc ore; it no longer generates (zinc forms only in geodes), old worlds keep theirs. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
-        },
-        "de": {
-          "summary": "Der Tiefenschiefer-Zwilling des Zinkerzes; er entsteht nicht mehr (Zink bildet sich nur in Geoden), alte Welten behalten ihre. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
-        }
-      },
-      "texture": "assets/textures/simpleores/block/deepslate_zinc_ore.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simpleores:zinc_ingot_from_blasting_deepslate_zinc_ore",
-        "simpleores:zinc_ingot_from_smelting_deepslate_zinc_ore"
       ]
     },
     {
@@ -13284,30 +12896,6 @@
         "simpleores:nickel_pillar",
         "simpleores:nickel_pillar_from_nickel_block_stonecutting",
         "simpleores:nickel_tiles_from_nickel_block_stonecutting"
-      ]
-    },
-    {
-      "id": "simpleores:nickel_ore",
-      "name": {
-        "en_us": "Nickel Ore",
-        "de_de": "Nickelerz"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "The stone twin of the nickel ore; it no longer generates (nickel forms only in deepslate), old worlds keep theirs. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
-        },
-        "de": {
-          "summary": "Der Stein-Zwilling des Nickelerzes; er entsteht nicht mehr (Nickel bildet sich nur im Tiefenschiefer), alte Welten behalten ihre. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
-        }
-      },
-      "texture": "assets/textures/simpleores/block/nickel_ore.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simpleores:nickel_ingot_from_blasting_nickel_ore",
-        "simpleores:nickel_ingot_from_smelting_nickel_ore"
       ]
     },
     {
@@ -14181,13 +13769,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 15,
-    "recipes": 251,
-    "lootTables": 91,
+    "recipes": 243,
+    "lootTables": 87,
     "tags": 11,
     "advancements": 1,
     "enchantments": 0,
     "items": 64,
-    "blocks": 91,
+    "blocks": 87,
     "trades": 0,
     "config": 0,
     "quests": 0,
