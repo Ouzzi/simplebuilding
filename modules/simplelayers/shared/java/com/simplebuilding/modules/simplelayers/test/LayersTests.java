@@ -1132,6 +1132,16 @@ public final class LayersTests {
         List<Item> tab = LayersRegistry.tabStacks().stream().map(ItemStack::getItem).toList();
         h.assertTrue(tab.contains(LayersRegistry.CHALK) && tab.contains(LayersRegistry.CHALK_BOX), "chalk in the tab");
         h.assertFalse(BuiltInRegistries.ITEM.containsKey(SimpleLayers.id("chalk_mark")), "no item for the mark");
+        // round 11: loot ties only while the other mod's item exists; chalk in mineshaft chests always
+        List<Object> pools = new ArrayList<>();
+        com.simplebuilding.modules.simplelayers.world.BackroomsLoot.apply(net.minecraft.resources.ResourceKey.create(Registries.LOOT_TABLE,
+                Identifier.parse(com.simplebuilding.modules.simplelayers.world.BackroomsLoot.MINESHAFT)), pools::add);
+        h.assertTrue(pools.size() == 1, "chalk pool in mineshaft chests");
+        pools.clear();
+        com.simplebuilding.modules.simplelayers.world.BackroomsLoot.apply(net.minecraft.resources.ResourceKey.create(Registries.LOOT_TABLE,
+                Identifier.parse(com.simplebuilding.modules.simplelayers.world.BackroomsLoot.PIPES)), pools::add);
+        boolean gadgets = BuiltInRegistries.ITEM.containsKey(com.simplebuilding.modules.simplelayers.world.BackroomsLoot.ECHO_SOUNDER);
+        h.assertTrue(pools.size() == (gadgets ? 1 : 0), "echo sounder only with Simple Gadgets: " + pools.size() + ", gadgets " + gadgets);
         h.succeed();
     }
 }

@@ -31,7 +31,7 @@ public final class LayersFabric implements ModInitializer {
         // The Backrooms entrance in the Overworld bedrock floor (the feature itself rolls the rarity and checks the switches).
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Decoration.UNDERGROUND_DECORATION,
                 ResourceKey.create(Registries.PLACED_FEATURE, SimpleLayers.id("glitched_bedrock")));
-        // BACK18: the fenced-off entrance shaft (rarity and switches checked by the feature).
+        // BACK18/BACK20: the abandoned house over the old entrance shaft (rarity and switches checked by the feature).
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Decoration.SURFACE_STRUCTURES,
                 ResourceKey.create(Registries.PLACED_FEATURE, SimpleLayers.id("entrance_shaft")));
         ServerTickEvents.END_SERVER_TICK.register(server -> {
@@ -50,6 +50,9 @@ public final class LayersFabric implements ModInitializer {
             ListenerAmbience.forget(handler.player.getUUID());
             BackroomsAmbience.forget(handler.player.getUUID());
         });
+        // BACK20: loot ties to Gadgets/Lights (only while their items exist) and chalk in mineshaft chests
+        net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) ->
+                com.simplebuilding.modules.simplelayers.world.BackroomsLoot.apply(key, table::withPool));
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) {
             com.simplebuilding.modules.simplelayers.guide.LayersGuide.installQuests(FabricLoader.getInstance().getConfigDir());
         }

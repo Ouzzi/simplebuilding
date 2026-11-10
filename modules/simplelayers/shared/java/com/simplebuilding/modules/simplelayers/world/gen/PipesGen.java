@@ -52,10 +52,12 @@ public final class PipesGen {
     /** Dead ends sometimes keep a supply chest (cache feature, at {@link #CACHE} on the storey's floor + 1). */
     public static boolean hasCache(long seed, int storey, int nx, int nz) {
         return LobbyGen.supplies && node(seed, storey, nx, nz) == Node.PLAIN && links(seed, storey, nx, nz) == 1
-                && unit(seed, nx, nz, salt(storey) + 4) < 0.3;
+                && unit(seed, nx, nz, salt(storey) + 4) < CACHE_CHANCE;
     }
 
     public static final int[] CACHE = {2, 2, 4};
+    /** BACK20 round 12: the maze has fewer, longer dead ends than BACK18's grid, so each keeps a chest more often (30 % -> 50 %). */
+    public static final double CACHE_CHANCE = 0.5;
 
     /** BACK20: a quarter of the plain dead ends carry a red chalk cross on the floor - someone was here and turned back. */
     public static boolean crossed(long seed, int storey, int nx, int nz) {

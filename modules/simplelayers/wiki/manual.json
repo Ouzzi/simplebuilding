@@ -175,7 +175,8 @@
         "summary": "Chalk marks your way - in the Backrooms, in caves, in any mine. Use it on a wall, floor or ceiling: click off-centre for an arrow pointing that way, in the middle for a cross, sneak for a circle. White, red, blue and yellow; 64 marks per stick. Crafting: calcite + bone meal = 4 chalk; add a dye (red, blue, yellow) for 4 coloured ones.",
         "details": [
           "Marks have no collision, break at once, drop nothing and give way to any block placed there. A glow ink sac makes a mark glow (light 4), an ink sac puts it out - as on a sign.",
-          "The Chalk Box (2 paper over 3 wooden slabs) holds chalk of all four colours, up to 256 strokes each: click chalk onto it in the inventory. Used on a block it draws with the selected colour; sneak + use in the air picks the next colour. A glow ink sac adds 16 glowing strokes. The bar shows the selected colour, the tooltip all of them."
+          "The Chalk Box (2 paper over 3 wooden slabs) holds chalk of all four colours, up to 256 strokes each: click chalk onto it in the inventory. Used on a block it draws with the selected colour; sneak + use in the air picks the next colour. A glow ink sac adds 16 glowing strokes. The bar shows the selected colour, the tooltip all of them.",
+          "Chalk is found too: in the Warehouse and Lobby storage chests, yellow chalk in the Pipes, red and white chalk in the abandoned house - and sometimes in abandoned mineshaft chests."
         ]
       },
       "de": {
@@ -183,7 +184,8 @@
         "summary": "Kreide markiert deinen Weg – in den Backrooms, in Höhlen, in jeder Mine. Benutze sie auf Wand, Boden oder Decke: neben die Mitte geklickt ein Pfeil in diese Richtung, in die Mitte ein Kreuz, beim Schleichen ein Kreis. Weiß, Rot, Blau und Gelb; 64 Zeichen je Stück. Herstellung: Kalzit + Knochenmehl = 4 Kreide; mit Farbstoff (Rot, Blau, Gelb) 4 farbige.",
         "details": [
           "Zeichen haben keine Kollision, brechen sofort, droppen nichts und weichen jedem Block, der dort gesetzt wird. Ein Leuchttintenbeutel lässt ein Zeichen leuchten (Licht 4), ein Tintenbeutel löscht es – wie bei einem Schild.",
-          "Die Kreidebox (2 Papier über 3 Holzstufen) hält Kreide aller vier Farben, bis 256 Striche je Farbe: Kreide im Inventar daraufklicken. Auf einem Block zeichnet sie mit der gewählten Farbe; Schleichen + Benutzen in die Luft wählt die nächste. Ein Leuchttintenbeutel gibt 16 leuchtende Striche. Der Balken zeigt die gewählte Farbe, der Tooltip alle."
+          "Die Kreidebox (2 Papier über 3 Holzstufen) hält Kreide aller vier Farben, bis 256 Striche je Farbe: Kreide im Inventar daraufklicken. Auf einem Block zeichnet sie mit der gewählten Farbe; Schleichen + Benutzen in die Luft wählt die nächste. Ein Leuchttintenbeutel gibt 16 leuchtende Striche. Der Balken zeigt die gewählte Farbe, der Tooltip alle.",
+          "Kreide findet man auch: in den Vorratstruhen von Lagerhalle und Lobby, gelbe Kreide in den Rohrgängen, rote und weiße im verlassenen Haus – und manchmal in Truhen verlassener Minen."
         ]
       }
     },
@@ -194,15 +196,22 @@
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/LevelDoorBlock.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/LobbyGen.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsCacheFeature.java",
-        "modules/simplelayers/tools/gen_data.py"
+        "modules/simplelayers/tools/gen_data.py",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsLoot.java"
       ],
       "en": {
         "title": "Harder ways out",
-        "summary": "In the Pipes every region has a sealed hatch with three valve levers beside it. It opens only when the levers stand right; each try tells you in the action bar how many valves are right, so a little thinking solves it. Behind it lies the Exit Level: bright white corridors, an exit every few rooms, and next to each Exit Door a chest with the reward - always a Backdoor Key, plus diamonds, emeralds, ender pearls or a golden apple. The Poolrooms have exit rooms too, with a smaller reward."
+        "summary": "In the Pipes every region has a sealed hatch with three valve levers beside it. It opens only when the levers stand right; each try tells you in the action bar how many valves are right, so a little thinking solves it. Behind it lies the Exit Level: bright white corridors, an exit every few rooms, and next to each Exit Door a chest with the reward - always a Backdoor Key, plus diamonds, emeralds, ender pearls or a golden apple. The Poolrooms have exit rooms too, with a smaller reward.",
+        "details": [
+          "With Simple Gadgets installed the Pipes' chests sometimes hold an Echo Sounder; with Simple Lights the Warehouse racks hold white light panes. Without those mods nothing changes. Every mezzanine of the Warehouse keeps a chest up on its deck, and half of the Pipes' dead ends keep one."
+        ]
       },
       "de": {
         "title": "Schwerere Wege hinaus",
-        "summary": "In den Rohrgängen hat jede Region eine versiegelte Luke mit drei Ventilhebeln daneben. Sie öffnet nur, wenn die Hebel richtig stehen; jeder Versuch sagt in der Aktionsleiste, wie viele Ventile stimmen, also löst ein wenig Nachdenken das Rätsel. Dahinter liegt die Ausgangs-Ebene: helle weiße Gänge, alle paar Räume ein Ausgang und neben jeder Ausgangstür eine Truhe mit der Belohnung – immer ein Hintertür-Schlüssel, dazu Diamanten, Smaragde, Enderperlen oder ein goldener Apfel. Auch die Poolrooms haben Ausgangsräume, mit kleinerer Belohnung."
+        "summary": "In den Rohrgängen hat jede Region eine versiegelte Luke mit drei Ventilhebeln daneben. Sie öffnet nur, wenn die Hebel richtig stehen; jeder Versuch sagt in der Aktionsleiste, wie viele Ventile stimmen, also löst ein wenig Nachdenken das Rätsel. Dahinter liegt die Ausgangs-Ebene: helle weiße Gänge, alle paar Räume ein Ausgang und neben jeder Ausgangstür eine Truhe mit der Belohnung – immer ein Hintertür-Schlüssel, dazu Diamanten, Smaragde, Enderperlen oder ein goldener Apfel. Auch die Poolrooms haben Ausgangsräume, mit kleinerer Belohnung.",
+        "details": [
+          "Mit Simple Gadgets liegt in den Truhen der Rohrgänge manchmal ein Echolot, mit Simple Lights in den Regalen der Lagerhalle weiße Scheiben (Lichtscheiben). Ohne diese Mods ändert sich nichts. Jedes Zwischengeschoss der Lagerhalle hat oben eine Truhe, und die Hälfte der Sackgassen der Rohrgänge auch."
+        ]
       }
     },
     {
