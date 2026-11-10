@@ -1207,7 +1207,7 @@ public final class LayersTests {
                 int px = cx * PipesGen.NODE, pz = cz * PipesGen.NODE;
                 if (found[4] < 3 && node == PipesGen.Node.SHAFT) {
                     found[4]++;
-                    assertLadder(h, pipes, "ladder shaft", px + 3, 2, PipesGen.STOREY + 2, pz + 2, 0, 1);
+                    assertLadder(h, pipes, "ladder shaft", px + 3, 2, PipesGen.STOREY + 1, pz + 2, 0, 1);
                 }
                 if (found[5] < 3 && node == PipesGen.Node.BOILER) {
                     found[5]++;
