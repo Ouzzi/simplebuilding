@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "open=true": {
+      "model": "simplelayers:block/vault_gate"
+    },
+    "open=false": {
+      "model": "simplelayers:block/vault_gate_closed"
+    }
+  }
+}

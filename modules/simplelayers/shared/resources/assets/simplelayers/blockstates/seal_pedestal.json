@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "part=light,ready=false": {
+      "model": "simplelayers:block/seal_pedestal"
+    },
+    "part=light,ready=true": {
+      "model": "simplelayers:block/seal_pedestal_light"
+    },
+    "part=sound,ready=false": {
+      "model": "simplelayers:block/seal_pedestal"
+    },
+    "part=sound,ready=true": {
+      "model": "simplelayers:block/seal_pedestal_sound"
+    },
+    "part=path,ready=false": {
+      "model": "simplelayers:block/seal_pedestal"
+    },
+    "part=path,ready=true": {
+      "model": "simplelayers:block/seal_pedestal_path"
+    }
+  }
+}

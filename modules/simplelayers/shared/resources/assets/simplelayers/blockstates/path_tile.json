@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simplelayers:block/path_tile"
+    },
+    "lit=true": {
+      "model": "simplelayers:block/path_tile_lit"
+    }
+  }
+}

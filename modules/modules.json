@@ -5342,7 +5342,8 @@
         "simplebuilding"
       ],
       "checks": [
-        "modules/simplelayers/tools/check_data.py"
+        "modules/simplelayers/tools/check_data.py",
+        "modules/simplelayers/tools/check_vault_data.py"
       ],
       "tests": {
         "namespace": "simplelayers",

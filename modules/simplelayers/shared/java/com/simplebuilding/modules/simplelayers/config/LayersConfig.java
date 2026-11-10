@@ -19,7 +19,8 @@ public final class LayersConfig {
     public static final String FILE = "simplelayers-server.json";
     public static final List<String> KEYS = List.of("clouds.enabled", "clouds.entryY", "clouds.bottomlessPits", "clouds.fogHint",
             "backrooms.enabled", "backrooms.entranceRarity", "backrooms.voidToBackrooms", "backrooms.unbreakableWalls",
-            "backrooms.supplies", "backrooms.listener", "backrooms.shaftRarity", "backrooms.ambientVolume");
+            "backrooms.supplies", "backrooms.listener", "backrooms.shaftRarity", "backrooms.ambientVolume",
+            "vault.enabled", "vault.gapRarity", "vault.closeSeconds", "vault.ambientVolume");
     public static final int MIN_ENTRY_Y = 400, MAX_ENTRY_Y = 1000, DEFAULT_ENTRY_Y = 700;
 
     /** Rising above {@link #cloudEntryY} in the Overworld leads into the Cloud Sea. */
@@ -90,6 +91,7 @@ public final class LayersConfig {
         shaftRarity = integer(back, "shaftRarity", 200, 0, 100000);
         ambientVolume = integer(back, "ambientVolume", 50, 0, 100);
         com.simplebuilding.modules.simplelayers.world.gen.LobbyGen.supplies = supplies;
+        com.simplebuilding.modules.simplelayers.vault.VaultConfig.apply(group(json, "vault")); // UNDER21
     }
 
     public static JsonObject toJson() {
@@ -108,6 +110,7 @@ public final class LayersConfig {
         back.addProperty("ambientVolume", ambientVolume);
         o.add("clouds", clouds);
         o.add("backrooms", back);
+        o.add("vault", com.simplebuilding.modules.simplelayers.vault.VaultConfig.toJson()); // UNDER21
         return o;
     }
 

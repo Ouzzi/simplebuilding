@@ -65,6 +65,7 @@ public final class LayersTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
 
     static {
+        com.simplebuilding.modules.simplelayers.vault.VaultTests.register(ALL); // UNDER21: Bedrock Vault (module_game_test_vault_*)
         ALL.put("registered", LayersTests::registered);
         ALL.put("sub_mod_switch", LayersTests::subModSwitch);
         ALL.put("cloud_blocks_instabreak", LayersTests::cloudBlocksInstabreak);

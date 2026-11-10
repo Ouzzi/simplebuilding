@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "tone=0": {
+      "model": "simplelayers:block/chime_crystal_0"
+    },
+    "tone=1": {
+      "model": "simplelayers:block/chime_crystal_1"
+    },
+    "tone=2": {
+      "model": "simplelayers:block/chime_crystal_2"
+    },
+    "tone=3": {
+      "model": "simplelayers:block/chime_crystal_3"
+    }
+  }
+}

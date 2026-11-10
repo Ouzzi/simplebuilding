@@ -154,6 +154,7 @@ public final class LayersRegistry {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleLayers.on()) return out;
         ITEMS.forEach(item -> out.add(new ItemStack(item)));
+        out.addAll(com.simplebuilding.modules.simplelayers.vault.VaultRegistry.tabStacks()); // UNDER21: the seal parts
         out.add(com.simplebuilding.modules.simplelayers.guide.LayersGuide.stack());
         return out;
     }
