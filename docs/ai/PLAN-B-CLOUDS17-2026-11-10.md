@@ -57,3 +57,23 @@ Nur Wolken-Blöcke/-Texturen/-Tests in Simple Layers; keine Backrooms-Dateien (b
   `--targets fabric-263 --filter 'simplebuilding:data_integrity*'`; `layers.py check` lokal.
 - Vorschau `/root/sb-tools-b/previews/b-clouds17-preview.html` (gerechnet: Texturen 1x/8x über Himmel/Stein, Insel-Schnitt vorher/nachher
   neben Vanilla Eis/Glas), Antwortcode **CLOUDS17=<A|B|einwand>**. Kein Client-Bild (B09: Client-Läufe im Bündel).
+
+## Texturrunden (A8c, gerechnet: 1x/8x über Himmel und Grau neben Vanilla Eis/Glas/Buntglas)
+
+1. Lücken = dunkelste Mulden-Pixel: verstreute Striche/„3“-Formen, krümelig (A8d Pkt. 3) → verworfen. Stein-Alpha 190–225 kaum sichtbar.
+2. Drei runde Lücken-Haufen (5/6/3 px) mit Schattenrand (oben/links dunkel, unten/rechts Mittelton); Stein-Alpha 185–220 → liest sich
+   als Glas-Lücke bzw. Eis. Kleiner Haufen noch L-förmig.
+3. Kleiner Haufen 2×2 → gewählt. texrate: Wolkenblock größte Fläche 161 → 73 px; beide Texturen bleiben nach Ampel rot wie vorher
+   (bewusst glatte, abgenommene Farben – nur Alpha + 23 Randpixel geändert).
+
+## Abweichungen
+
+- Wiki-Kopien (`wiki/assets/textures/.../cloud_*.png|.layers.json`) gleich mitkopiert (waren 1:1-Kopien), Bündel-gen erzeugt sie ohnehin.
+- Generator `modules/simplelayers/tools/gen_clouds17_alpha.py` statt Handbearbeitung (Variante B per `--out DIR`, aus dem Stand vor
+  5872c834f; nach dem In-place-Lauf fehlen die Lücken-Farben in der Quelle).
+
+## Ergebnis (sbt 5872c834f)
+
+- `C_RC=0`, `L_RC=0` (layers check), `T_RC=0`: module-simplelayers fabric + standalone 48/48 (je 24, inkl. cloud_face_culling,
+  cloud_texture_layers), `D_RC=0`: `simplebuilding:data_integrity*` 48/48.
+- Nicht getestet: Client-Sicht (Rendertyp im Bild, Sortierung/FPS über großer Insel) – im Bündel-Client-Lauf (Teleport Wolkenmeer).
