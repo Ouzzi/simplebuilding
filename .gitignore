@@ -450,6 +450,7 @@ wiki/assets/textures/render/reinforced_hopper_minecart.png
 # jedem Lauf neu und wuerden jeden Commit mit Rauschen fuellen.
 testing/runs/
 testing/data/
+testing/server-solo/
 
 # Balancing-Zentrale (tools/devserver): balance/balance.json und balance/versions/ gehoeren ins
 # Repo, die Sperrdatei und abgebrochene Schreibvorgaenge nicht.
