@@ -4,7 +4,7 @@ package com.simplebuilding.modules.simplelayers.world.gen;
  * What a Backrooms generator puts at a position (BACK18): a name per block state, no Minecraft type, so the generators run without
  * the game (round images, path checks). {@code BackroomsBlocks} maps every piece to its block state in one place.
  */
-public enum Piece {
+public enum Piece implements com.simplebuilding.modules.simplelayers.backrooms.api.BandPiece {
     AIR, BEDROCK, RIFT,
     // Level 0 (Lobby) and the exit level
     CARPET, WALLPAPER, STRIPED_WALLPAPER, DOTTED_WALLPAPER, CEILING_TILE, STAINED_CEILING_TILE,
@@ -33,6 +33,7 @@ public enum Piece {
     }
 
     /** Whether a player can stand in it (no collision worth mentioning): air, water, rift, cobweb, lever, ladder. */
+    @Override
     public boolean passable() {
         return switch (this) {
             case AIR, WATER, RIFT, COBWEB, LEVER_N, LEVER_E, LEVER_W, LADDER_E, LADDER_S, LADDER_N, LADDER_W, CHAIN, RUG, CHALK_E, CHALK_W, CHALK_N, CHALK_S, CHALK_X -> true;
