@@ -1406,7 +1406,17 @@
         "en_us": "Chalk Mark",
         "de_de": "Kreidezeichen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkMarkBlock.java"
+        ],
+        "en": {
+          "summary": "The mark chalk leaves on a surface: an arrow, a cross or a circle. No collision, breaks at once, drops nothing and gives way to any block placed there; a glow ink sac makes it glow."
+        },
+        "de": {
+          "summary": "Das Zeichen, das Kreide auf einer Fläche hinterlässt: Pfeil, Kreuz oder Kreis. Keine Kollision, bricht sofort, droppt nichts und weicht jedem dort gesetzten Block; ein Leuchttintenbeutel lässt es leuchten."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1723,9 +1733,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplelayers:chalk_mark"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 12,
@@ -1740,7 +1748,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
