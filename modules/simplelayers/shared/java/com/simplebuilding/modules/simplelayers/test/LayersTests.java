@@ -97,6 +97,7 @@ public final class LayersTests {
         ALL.put("sealed_hatch_puzzle", LayersTests::sealedHatchPuzzle);
         ALL.put("ambience_sounds", LayersTests::ambienceSounds);
         ALL.put("level_blocks_protected", LayersTests::levelBlocksProtected);
+        ALL.put("stairwells_walkable", LayersTests::stairwellsWalkable);
     }
 
     private LayersTests() {}
@@ -863,4 +864,94 @@ public final class LayersTests {
         h.setBlock(rel, LayersRegistry.LEVEL_DOOR);
         h.assertTrue(h.getLevel().getBlockState(abs).getDestroyProgress(player, h.getLevel(), abs) == 0.0F, "the maintenance door holds with the effect");
         h.succeed();
-    }}
+    }
+
+    /**
+     * STAIRS22 (live bug: loose stair blocks, head against the ceiling tiles): in Lobby stairwells of several seeds every step has
+     * at least 2 (in fact {@link LobbyGen#STAIR_HEADROOM}) passable blocks above it and a base under it, and a simulated player
+     * (0.6 x 1.8 box, step height 0.6, the real collision shapes of the generated blocks) walks from the ground floor landing up to
+     * the upper floor without hitting anything. Level 2: every ladder shaft is free from the ground storey up to the upper storey.
+     */
+    static void stairwellsWalkable(GameTestHelper h) {
+        LobbyGen.Style s = LobbyGen.LOBBY;
+        int checked = 0;
+        for (long seed : new long[] {1L, 99L, 12345L, -7L, 424242L}) {
+            java.util.Random random = new java.util.Random(seed);
+            int found = 0;
+            for (int i = 0; i < 20000 && found < 3; i++) {
+                int cx = random.nextInt(4000) - 2000, cz = random.nextInt(4000) - 2000;
+                if (!LobbyGen.stairwell(s, seed, cx, cz)) continue;
+                found++;
+                int ox = cx * LobbyGen.CELL, oz = cz * LobbyGen.CELL;
+                for (int[] step : LobbyGen.STAIR_STEPS) {
+                    int x = ox + step[0], y = step[1], z = oz + step[2];
+                    h.assertFalse(LobbyGen.at(s, seed, x, y, z).passable(), "step at " + x + " " + y + " " + z);
+                    h.assertFalse(LobbyGen.at(s, seed, x, y - 1, z).passable(), "nothing loose: a base under the step at " + x + " " + y + " " + z);
+                    for (int k = 1; k <= LobbyGen.STAIR_HEADROOM; k++) {
+                        h.assertTrue(LobbyGen.at(s, seed, x, y + k, z).passable(), "headroom " + k + " above the step at " + x + " " + y + " " + z);
+                    }
+                }
+                String fail = walkStair(seed, ox, oz);
+                h.assertTrue(fail == null, "seed " + seed + " stairwell " + cx + " " + cz + ": " + fail);
+                checked++;
+            }
+            h.assertTrue(found > 0, "no stairwell found for seed " + seed);
+            int shafts = 0;
+            for (int i = 0; i < 20000 && shafts < 3; i++) {
+                int nx = random.nextInt(4000) - 2000, nz = random.nextInt(4000) - 2000;
+                if (PipesGen.node(seed, 0, nx, nz) != PipesGen.Node.SHAFT) continue;
+                shafts++;
+                int x = nx * PipesGen.NODE + 3, z = nz * PipesGen.NODE + 2;
+                for (int y = 2; y <= PipesGen.STOREY + 4; y++) h.assertTrue(PipesGen.at(seed, x, y, z).passable(), "ladder shaft free at " + x + " " + y + " " + z);
+                h.assertFalse(PipesGen.at(seed, x, PipesGen.STOREY + 1, z + 1).passable(), "upper storey floor beside the ladder top");
+                h.assertTrue(PipesGen.at(seed, x, PipesGen.STOREY + 2, z + 1).passable() && PipesGen.at(seed, x, PipesGen.STOREY + 3, z + 1).passable(),
+                        "2 free blocks where the ladder lets off");
+            }
+        }
+        h.assertTrue(checked >= 10, "stairwells checked " + checked);
+        h.succeed();
+    }
+
+    /** Walks the stairwell of the cell at (ox, oz): null when the player arrives at the upper floor, else where he gets stuck. */
+    static String walkStair(long seed, int ox, int oz) {
+        List<net.minecraft.world.phys.AABB> boxes = new ArrayList<>();
+        for (int x = ox; x <= ox + LobbyGen.CELL; x++) {
+            for (int z = oz; z <= oz + LobbyGen.CELL; z++) {
+                for (int y = 0; y <= LobbyGen.TOP_Y + LobbyGen.UPPER; y++) {
+                    BlockState st = com.simplebuilding.modules.simplelayers.world.BackroomsBlocks.state(LobbyGen.at(LobbyGen.LOBBY, seed, x, y, z));
+                    for (net.minecraft.world.phys.AABB b : st.getCollisionShape(net.minecraft.world.level.EmptyBlockGetter.INSTANCE, BlockPos.ZERO).toAabbs()) {
+                        boxes.add(b.move(x, y, z));
+                    }
+                }
+            }
+        }
+        double px = ox + 1.5, pz = oz + 2.5, feet = stairSupport(boxes, px, pz, LobbyGen.FLOOR_Y + 1);
+        if (Math.abs(feet - (LobbyGen.FLOOR_Y + 1)) > 1.0E-4) return "landing not on the floor: " + feet;
+        double[][] path = {{ox + 7.5, oz + 2.5}, {ox + 7.5, oz + 5.5}};
+        for (double[] target : path) {
+            while (Math.abs(px - target[0]) > 1.0E-6 || Math.abs(pz - target[1]) > 1.0E-6) {
+                double nx = px + Math.max(-0.05, Math.min(0.05, target[0] - px)), nz = pz + Math.max(-0.05, Math.min(0.05, target[1] - pz));
+                double nf = stairSupport(boxes, nx, nz, feet);
+                net.minecraft.world.phys.AABB body = new net.minecraft.world.phys.AABB(nx - 0.3, nf, nz - 0.3, nx + 0.3, nf + 1.8, nz + 0.3).deflate(1.0E-5);
+                for (net.minecraft.world.phys.AABB b : boxes) {
+                    if (b.intersects(body)) return String.format("stuck at %.2f %.2f %.2f against %s", nx, nf, nz, b);
+                }
+                px = nx;
+                pz = nz;
+                feet = nf;
+            }
+        }
+        return Math.abs(feet - (LobbyGen.TOP_Y + 2)) < 1.0E-4 ? null : "ends at feet " + feet + " instead of the upper floor";
+    }
+
+    /** The highest top under the player's footprint he can stand on from feet height {@code feet} (step height 0.6, falling ok). */
+    static double stairSupport(List<net.minecraft.world.phys.AABB> boxes, double x, double z, double feet) {
+        double best = Double.NEGATIVE_INFINITY;
+        for (net.minecraft.world.phys.AABB b : boxes) {
+            if (b.minX < x + 0.3 - 1.0E-6 && b.maxX > x - 0.3 + 1.0E-6 && b.minZ < z + 0.3 - 1.0E-6 && b.maxZ > z - 0.3 + 1.0E-6 && b.maxY <= feet + 0.6 + 1.0E-6) {
+                best = Math.max(best, b.maxY);
+            }
+        }
+        return best;
+    }
+}

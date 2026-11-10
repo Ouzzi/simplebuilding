@@ -98,6 +98,7 @@ public final class BackroomsBlocks {
         m.put(Piece.CRAFTING_TABLE, Blocks.CRAFTING_TABLE.defaultBlockState());
         m.put(Piece.STEP_E, stairs(Blocks.BIRCH_STAIRS, Direction.EAST, Half.BOTTOM));
         m.put(Piece.STEP_S, stairs(Blocks.BIRCH_STAIRS, Direction.SOUTH, Half.BOTTOM));
+        m.put(Piece.STAIR_BASE, Blocks.BIRCH_PLANKS.defaultBlockState());
         m.put(Piece.END_FLOOR, Blocks.BIRCH_PLANKS.defaultBlockState());
         m.put(Piece.END_WALL, concrete(DyeColor.WHITE));
         m.put(Piece.END_CEILING, Blocks.SMOOTH_QUARTZ.defaultBlockState());

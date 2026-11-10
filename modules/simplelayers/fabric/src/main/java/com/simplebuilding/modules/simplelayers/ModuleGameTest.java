@@ -165,4 +165,9 @@ public final class ModuleGameTest {
     public void levelBlocksProtected(GameTestHelper h) {
         LayersTests.ALL.get("level_blocks_protected").accept(h);
     }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void stairwellsWalkable(GameTestHelper h) {
+        LayersTests.ALL.get("stairwells_walkable").accept(h);
+    }
 }
