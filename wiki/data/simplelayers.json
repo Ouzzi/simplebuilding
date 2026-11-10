@@ -1385,7 +1385,18 @@
         "en_us": "Backrooms Door",
         "de_de": "Backrooms-Tür"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/BackroomsDoorBlock.java",
+          "modules/simplelib/shared/java/com/simplelib/api/portal/PortalDoorBlock.java"
+        ],
+        "en": {
+          "summary": "Only generated, unbreakable: a door between two Backrooms levels (or the house cellar and the Lobby). Its symbol names the level it leads to. Open it and step into the doorway to stand in front of the other door; it needs its frame (solid block left, right and above) and an open link."
+        },
+        "de": {
+          "summary": "Nur generiert, unzerstörbar: eine Tür zwischen zwei Backrooms-Ebenen (oder Hauskeller und Lobby). Ihr Symbol nennt die Ebene, in die sie führt. Öffnen und in den Türrahmen treten – man steht vor der anderen Tür; sie braucht ihren Rahmen (fester Block links, rechts und oben) und eine offene Verbindung."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1460,7 +1471,17 @@
         "en_us": "Chalk Mark",
         "de_de": "Kreidezeichen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkMarkBlock.java"
+        ],
+        "en": {
+          "summary": "The mark chalk leaves on a surface: an arrow, a cross or a circle. No collision, breaks at once, drops nothing and gives way to any block placed there; a glow ink sac makes it glow."
+        },
+        "de": {
+          "summary": "Das Zeichen, das Kreide auf einer Fläche hinterlässt: Pfeil, Kreuz oder Kreis. Keine Kollision, bricht sofort, droppt nichts und weicht jedem dort gesetzten Block; ein Leuchttintenbeutel lässt es leuchten."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1641,7 +1662,17 @@
         "en_us": "Maintenance Box",
         "de_de": "Wartungskasten"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/MaintenanceBoxBlock.java"
+        ],
+        "en": {
+          "summary": "Only generated, unbreakable: sits in the frame of a door that can be dormant or broken. Used once, it activates or repairs that door; afterwards it stays empty."
+        },
+        "de": {
+          "summary": "Nur generiert, unzerstörbar: sitzt im Rahmen einer Tür, die ruhen oder brechen kann. Einmal benutzt, aktiviert oder repariert sie diese Tür; danach bleibt er leer."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1787,11 +1818,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplelayers:backrooms_door",
-    "simplelayers:chalk_mark",
-    "simplelayers:maintenance_box"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 12,
@@ -1806,7 +1833,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 3,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
