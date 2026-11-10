@@ -103,6 +103,30 @@
       "id": "simpleoctets:lead_block_octet",
       "required": false
     },
+    {
+      "id": "simpleoctets:cut_silver_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:cut_lead_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:cut_zinc_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:cut_nickel_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:cut_tin_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:cut_brass_octet",
+      "required": false
+    },
     "simpleoctets:white_concrete_octet",
     "simpleoctets:light_gray_concrete_octet",
     "simpleoctets:gray_concrete_octet",

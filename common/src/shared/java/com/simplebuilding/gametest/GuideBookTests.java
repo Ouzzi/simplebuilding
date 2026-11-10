@@ -1110,7 +1110,8 @@ public final class GuideBookTests {
         }
         // 26.3 (N18): the trims guide names the bundled Simple Trims' templates; their names live in its own lang file.
         // Split 3d: the shared materials and upgrade templates moved to SimpleLib and carry its lang file.
-        for (String mod : List.of("simpletrims", "simplelib")) {
+        // Gate 168 (b-fix168): the gadgets guide's ore page names the Detector (moved to Simple Gadgets, N12) via %3$s.
+        for (String mod : List.of("simpletrims", "simplelib", "simplegadgets")) {
             try (InputStream in = GuideBookTests.class.getClassLoader().getResourceAsStream("assets/" + mod + "/lang/" + locale + ".json")) {
                 if (in != null) {
                     JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject().entrySet()

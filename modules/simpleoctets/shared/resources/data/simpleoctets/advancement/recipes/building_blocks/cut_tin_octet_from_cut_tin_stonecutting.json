@@ -1,0 +1,78 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleores"
+      ]
+    },
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simpleblocks"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleores"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simpleblocks"
+      }
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:and",
+    "values": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "simpleores"
+      },
+      {
+        "type": "forge:not",
+        "value": {
+          "type": "forge:mod_loaded",
+          "modid": "simpleblocks"
+        }
+      }
+    ]
+  },
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cut_tin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleores:cut_tin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleoctets:cut_tin_octet_from_cut_tin_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cut_tin"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleoctets:cut_tin_octet_from_cut_tin_stonecutting"
+    ]
+  }
+}

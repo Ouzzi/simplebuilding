@@ -859,6 +859,72 @@
   "de": "Bleiblock"
  },
  {
+  "ns": "simpleores",
+  "base": "cut_silver",
+  "key": "cut_silver",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_silver"
+  },
+  "en": "Cut Silver",
+  "de": "Geschnittener Silberblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "cut_lead",
+  "key": "cut_lead",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_lead"
+  },
+  "en": "Cut Lead",
+  "de": "Geschnittener Bleiblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "cut_zinc",
+  "key": "cut_zinc",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_zinc"
+  },
+  "en": "Cut Zinc",
+  "de": "Geschnittener Zinkblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "cut_nickel",
+  "key": "cut_nickel",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_nickel"
+  },
+  "en": "Cut Nickel",
+  "de": "Geschnittener Nickelblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "cut_tin",
+  "key": "cut_tin",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_tin"
+  },
+  "en": "Cut Tin",
+  "de": "Geschnittener Zinnblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "cut_brass",
+  "key": "cut_brass",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_brass"
+  },
+  "en": "Cut Brass",
+  "de": "Geschnittener Messingblock"
+ },
+ {
   "ns": "minecraft",
   "base": "acacia_log",
   "key": "acacia_log",
