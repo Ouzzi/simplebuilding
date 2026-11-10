@@ -279,4 +279,19 @@ public final class ModuleGameTest {
     public void orbitCamera(GameTestHelper h) {
         LibTests.ALL.get("orbit_camera").accept(h);
     }
+
+    @GameTest
+    public void portalRuleStates(GameTestHelper h) {
+        LibTests.ALL.get("portal_rule_states").accept(h);
+    }
+
+    @GameTest
+    public void portalTurns(GameTestHelper h) {
+        LibTests.ALL.get("portal_turns").accept(h);
+    }
+
+    @GameTest
+    public void portalPulseFades(GameTestHelper h) {
+        LibTests.ALL.get("portal_pulse_fades").accept(h);
+    }
 }

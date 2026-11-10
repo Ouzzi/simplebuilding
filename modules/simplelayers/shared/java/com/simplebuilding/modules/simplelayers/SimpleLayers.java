@@ -1,7 +1,6 @@
 package com.simplebuilding.modules.simplelayers;
 
 import com.simplebuilding.modules.simplelayers.config.LayersConfig;
-import com.simplebuilding.modules.simplelayers.world.gen.BackroomsLevel;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +21,11 @@ public final class SimpleLayers {
     public static final Logger LOG = LoggerFactory.getLogger("Simple Layers");
     /** The sky dimension (concept §1.2 variant B). */
     public static final ResourceKey<Level> CLOUD_SEA = ResourceKey.create(Registries.DIMENSION, id("cloud_sea"));
-    /** The Backrooms dimension (concept §2.2 variant B). */
-    public static final ResourceKey<Level> BACKROOMS = ResourceKey.create(Registries.DIMENSION, id("backrooms"));
-    /** BACK18: every Backrooms level is its own dimension (Level 0 = {@link #BACKROOMS}), in {@link BackroomsLevel} order. */
-    private static final java.util.Map<BackroomsLevel, ResourceKey<Level>> LEVEL_KEYS = new java.util.EnumMap<>(BackroomsLevel.class);
-
-    static {
-        for (BackroomsLevel l : BackroomsLevel.values()) LEVEL_KEYS.put(l, l == BackroomsLevel.LOBBY ? BACKROOMS : ResourceKey.create(Registries.DIMENSION, id(l.dimension)));
-    }
+    /**
+     * BACK22: the stacked Backrooms - ONE dimension with ten levels of 96 blocks, a full bedrock section between them (concept
+     * docs/ai/KONZEPT-B-BACK22-KERN-2026-11-10.md). The five BACK18 dimensions are gone (no release yet, owner 6).
+     */
+    public static final ResourceKey<Level> STACK = ResourceKey.create(Registries.DIMENSION, id("backrooms_stack"));
 
     private SimpleLayers() {}
 
@@ -50,22 +46,14 @@ public final class SimpleLayers {
         return on() && LayersConfig.backroomsEnabled;
     }
 
-    public static ResourceKey<Level> levelKey(BackroomsLevel level) {
-        return LEVEL_KEYS.get(level);
+    /** The level (1..10) a player is on, or 0 outside the stack (or inside its bedrock). */
+    public static int bandOf(Level level, double y) {
+        return inBackrooms(level) ? com.simplebuilding.modules.simplelayers.backrooms.stack.BandStack.bandAt((int) Math.floor(y)) : 0;
     }
 
-    /** The Backrooms level of a dimension, or null outside the Backrooms. */
-    public static BackroomsLevel levelOf(ResourceKey<Level> dimension) {
-        return SimpleLayers.MOD_ID.equals(dimension.identifier().getNamespace()) ? BackroomsLevel.byDimension(dimension.identifier().getPath()) : null;
-    }
-
-    public static BackroomsLevel levelOf(Level level) {
-        return levelOf(level.dimension());
-    }
-
-    /** Whether the level is one of the Backrooms levels (BACK18: protection, effect, sounds hold in all of them). */
+    /** Whether the level is the stacked Backrooms (protection, effect, sounds). */
     public static boolean inBackrooms(Level level) {
-        return levelOf(level) != null;
+        return level.dimension() == STACK;
     }
 
     /** Config, config command and test centre station; before the registrations. */

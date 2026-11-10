@@ -2,7 +2,9 @@ package com.simplebuilding.modules.simplelayers.world;
 
 import com.simplebuilding.modules.simplelayers.SimpleLayers;
 import com.simplebuilding.modules.simplelayers.config.LayersConfig;
-import com.simplebuilding.modules.simplelayers.world.gen.BackroomsLevel;
+import com.simplebuilding.modules.simplelayers.backrooms.stack.BackroomsStackGenerator;
+import com.simplebuilding.modules.simplelayers.backrooms.stack.BandStack;
+import com.simplebuilding.modules.simplelayers.backrooms.stack.Bands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -19,49 +21,51 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Ways into, between and out of the Backrooms (concept §2.1, BACK18 levels): the rift of a broken Glitched Bedrock or at the bottom
- * of the entrance shaft (any entity, into Level 0), rifts inside the Backrooms (walls: one level deeper; floor holes: the
- * Poolrooms), Maintenance Doors, optionally the void below the Overworld ({@code backrooms.voidToBackrooms}), and the Exit Door
- * back to the Overworld surface above the entry (with a Backdoor Key: 1500-3000 blocks away). Arrival is always the level's free
- * arrival spot above the same x/z ({@link BackroomsLevel#arrival}); players see the level's name in the action bar (A14).
+ * Ways into and out of the stacked Backrooms besides the portal doors (BACK22 core K6): the old rift contact and the void option
+ * lead to the Lobby (level 1) above the same x/z, a stray Maintenance Door one level deeper, the Exit Door back to the Overworld
+ * surface above the entry (with a Backdoor Key: 1500-3000 blocks away). Arrival is the level's free spot ({@code BandLayout.arrival})
+ * in a loaded chunk (FIX172); players see the level's name in the action bar (A14).
  */
 public final class BackroomsTravel {
-    public static final double ARRIVAL_Y = BackroomsGrid.FLOOR_Y + 1;
     public static final int COOLDOWN = 100, FAR_MIN = 1500, FAR_MAX = 3000;
 
     private BackroomsTravel() {}
 
-    /** Rift contact at {@code pos}: everything but riders goes in, once per cooldown; returns the entity in the new level (or null). */
+    /** Rift contact: everything but riders goes into the Lobby (the rift is no longer generated, fg11 a), once per cooldown. */
     public static @Nullable Entity enterFromRift(ServerLevel level, Entity entity, BlockPos pos) {
         if (!SimpleLayers.backroomsOn() || entity.isPassenger() || entity.isOnPortalCooldown() || !entity.canUsePortal(false)) return null;
-        BackroomsLevel here = SimpleLayers.levelOf(level);
-        BackroomsLevel target = here == null ? BackroomsLevel.LOBBY : here.riftTarget(pos.getY());
-        return target == null ? null : travel(level.getServer(), entity, target);
+        int here = SimpleLayers.bandOf(level, pos.getY());
+        return travel(level.getServer(), entity, here == 0 ? 1 : Math.min(BandStack.BANDS, here + 1));
     }
 
-    /** Sends {@code entity} into Level 0 below its x/z; returns the entity in the new level (or null). */
+    /** Sends {@code entity} into the Lobby below its x/z; returns the entity in the new level (or null). */
     public static @Nullable Entity enter(MinecraftServer server, Entity entity) {
-        return travel(server, entity, BackroomsLevel.LOBBY);
+        return travel(server, entity, 1);
     }
 
-    /** Sends {@code entity} to the arrival spot of {@code target} above its x/z (null when that level is not loaded). */
-    public static @Nullable Entity travel(MinecraftServer server, Entity entity, BackroomsLevel target) {
-        ServerLevel to = server.getLevel(SimpleLayers.levelKey(target));
+    /** The free arrival spot of level {@code band} above (x, z) in world coordinates. */
+    public static BlockPos arrival(long seed, int band, int x, int z) {
+        int[] spot = Bands.get(band).layout().arrival(seed, x, z);
+        return new BlockPos(spot[0], BandStack.worldY(band, spot[1]), spot[2]);
+    }
+
+    /** Sends {@code entity} to the arrival spot of level {@code band} above its x/z (null when the stack is not loaded). */
+    public static @Nullable Entity travel(MinecraftServer server, Entity entity, int band) {
+        ServerLevel to = server.getLevel(SimpleLayers.STACK);
         if (to == null) return null;
         if (entity instanceof ServerPlayer player && !SimpleLayers.inBackrooms(player.level())) {
             BackroomsEntries.get(server).put(player.getUUID(), player.blockPosition());
         }
-        int[] spot = target.arrival(BackroomsChunkGenerator.seed(to.getChunkSource().randomState()), entity.getBlockX(), entity.getBlockZ());
-        Vec3 pos = new Vec3(spot[0] + 0.5, spot[1], spot[2] + 0.5);
-        // Load/generate the arrival chunk first (like surface() for the exit): the copy joins a loaded entity section at once instead of
-        // waiting in a hidden one until the portal ticket's chunk is generated (FIX172).
-        to.getChunk(spot[0] >> 4, spot[2] >> 4);
+        BlockPos spot = arrival(BackroomsStackGenerator.seed(to.getChunkSource().randomState()), band, entity.getBlockX(), entity.getBlockZ());
+        Vec3 pos = Vec3.atBottomCenterOf(spot);
+        // Load/generate the arrival chunk first: the copy joins a loaded entity section at once (FIX172).
+        to.getChunk(spot.getX() >> 4, spot.getZ() >> 4);
         Entity moved = entity.teleport(new TeleportTransition(to, pos, Vec3.ZERO, entity.getYRot(), entity.getXRot(), TeleportTransition.PLACE_PORTAL_TICKET));
         if (moved != null) {
             moved.setPortalCooldown(COOLDOWN);
             moved.resetFallDistance();
             to.playSound(null, moved.blockPosition(), SoundEvents.AMBIENT_CAVE.value(), SoundSource.AMBIENT, 0.5F, 0.6F);
-            if (moved instanceof ServerPlayer player) player.sendOverlayMessage(Component.translatable("message.simplelayers.level." + target.id));
+            if (moved instanceof ServerPlayer player) player.sendOverlayMessage(Component.translatable("message.simplelayers.level." + Bands.get(band).id()));
         }
         return moved;
     }

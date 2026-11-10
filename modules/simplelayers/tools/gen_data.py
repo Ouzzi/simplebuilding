@@ -29,17 +29,23 @@ BLOCK_ITEMS = ['cloud_block', 'cloud_stone', 'mist_block', 'damp_carpet', 'wallp
                'ceiling_tile', 'stained_ceiling_tile', 'neon_light', 'exit_sign', 'glitched_bedrock']
 FLAT_ITEMS = ['almond_water', 'backdoor_key']
 FLAT_BLOCK_ITEMS = ['caution_sign', 'caution_tape']  # BACK18: thin blocks shown as their texture in the inventory
-# BACK18: the Backrooms levels besides the Lobby (dimension path, generator level, fog, fog start, fog end, ambient light, particle)
-LEVELS = [('backrooms_warehouse', 'warehouse', '#6e7377', 8.0, 56.0, 0.12, 'minecraft:white_ash', 0.004),
-          ('backrooms_pipes', 'pipes', '#4a3424', 4.0, 32.0, 0.05, 'minecraft:white_ash', 0.008),
-          ('backrooms_pools', 'pools', '#d6eef2', 10.0, 64.0, 0.25, None, 0),
-          ('backrooms_end', 'end', '#e8e8e4', 8.0, 48.0, 0.30, None, 0)]
+# BACK22 core: the ten levels of the stacked Backrooms in stack order (R9): theme id, fog colour, particle, probability
+# (concept docs/ai/KONZEPT-B-BACK22-EBENEN-2026-11-10.md §1; fog distance stays on the dimension type until the levels set their own)
+BANDS = [('lobby', '#c9b458', 'minecraft:white_ash', 0.006), ('pools', '#bfe4e8', None, 0), ('archive', '#5a4630', 'minecraft:white_ash', 0.004),
+         ('warehouse', '#555a62', 'minecraft:white_ash', 0.004), ('pipes', '#7a4a32', 'minecraft:white_ash', 0.008),
+         ('electro', '#3a5a8c', None, 0), ('hotel', '#4a2a30', None, 0), ('lightless', '#050507', None, 0), ('suburb', '#14183a', None, 0),
+         ('wheatfield', '#d98a3e', None, 0)]
+STACK = {'min_y': -816, 'height': 1136}
 # BACK18: Vanilla blocks the levels are built of - held like Backrooms blocks inside the Backrooms (supplies stay out: planks,
 # spruce slabs, cobwebs, logs, crafting table, chests)
 STRUCTURE = ['smooth_stone', 'polished_andesite', 'light_gray_concrete', 'gray_concrete', 'yellow_concrete', 'black_concrete', 'iron_bars',
              'tuff_bricks', 'tuff', 'polished_tuff', 'waxed_lightning_rod', 'waxed_exposed_cut_copper', 'waxed_exposed_copper_bulb',
              'waxed_exposed_copper_grate', 'ladder', 'lever', 'quartz_bricks', 'smooth_quartz', 'prismarine_bricks', 'sea_lantern',
              'smooth_quartz_stairs', 'quartz_pillar', 'white_concrete', 'birch_planks', 'birch_stairs']
+# BACK22: the Vanilla blocks of the six stub levels (core §6) are held too
+STRUCTURE_BACK22 = ['spruce_planks', 'stripped_spruce_wood', 'ochre_froglight', 'light_gray_concrete', 'red_wool', 'red_terracotta',
+                    'dark_oak_planks', 'blackstone', 'stone', 'bricks', 'deepslate_tiles', 'pearlescent_froglight', 'hay_block', 'dirt',
+                    'shroomlight', 'tuff_bricks']
 
 
 def put_json(rel, obj):
@@ -105,6 +111,34 @@ def models():
         a(f'models/item/{i}.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/{i}'}})
 
 
+def doors():
+    """BACK22 core: the stack's portal door (Vanilla iron door models as stub skin; a veil plane in the open doorway while the link is
+    active - the S1 'Schleier' placeholder) and the maintenance box (Vanilla copper grate, emptied = exposed)."""
+    base = {'east': 0, 'south': 90, 'west': 180, 'north': 270}
+    parts = []
+    for facing, r in base.items():
+        for half, part in (('lower', 'bottom'), ('upper', 'top')):
+            for hinge in ('left', 'right'):
+                for is_open in ('false', 'true'):
+                    y = r if is_open == 'false' else (r + 90 if hinge == 'left' else r + 270) % 360
+                    model = {'model': f'minecraft:block/iron_door_{part}_{hinge}' + ('_open' if is_open == 'true' else '')}
+                    if y:
+                        model['y'] = y
+                    parts.append({'when': {'facing': facing, 'half': half, 'hinge': hinge, 'open': is_open}, 'apply': model})
+    parts.append({'when': {'open': 'true', 'portal': 'active', 'facing': 'east|west'}, 'apply': {'model': f'{NS}:block/backrooms_door_veil', 'y': 90}})
+    parts.append({'when': {'open': 'true', 'portal': 'active', 'facing': 'north|south'}, 'apply': {'model': f'{NS}:block/backrooms_door_veil'}})
+    a('blockstates/backrooms_door.json', {'multipart': parts})
+    veil = 'minecraft:block/light_gray_stained_glass'
+    a('models/block/backrooms_door_veil.json', {'parent': 'minecraft:block/block', 'render_type': 'minecraft:translucent', 'ambientocclusion': False,
+                                                'textures': {'veil': veil, 'particle': veil},
+                                                'elements': [{'from': [0, 0, 7.5], 'to': [16, 16, 8.5], 'shade': False,
+                                                              'faces': {'north': {'texture': '#veil'}, 'south': {'texture': '#veil'}}}]})
+    a('blockstates/maintenance_box.json', {'variants': {'used=false': {'model': f'{NS}:block/maintenance_box'},
+                                                        'used=true': {'model': f'{NS}:block/maintenance_box_used'}}})
+    a('models/block/maintenance_box.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': 'minecraft:block/copper_grate'}})
+    a('models/block/maintenance_box_used.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': 'minecraft:block/exposed_copper_grate'}})
+
+
 def loot():
     for b in SELF_DROP:
         d(f'loot_table/blocks/{b}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
@@ -165,13 +199,12 @@ def loot():
 def tags():
     put_json('data/minecraft/tags/block/mineable/pickaxe.json', {'values': [f'{NS}:glitched_bedrock', f'{NS}:cloud_stone', f'{NS}:exit_sign', f'{NS}:exit_door',
                                                                        f'{NS}:level_door', f'{NS}:caution_sign']})
-    d('tags/block/backrooms_structure.json', {'values': [f'minecraft:{b}' for b in STRUCTURE + STRUCTURE_BACK20]})
+    d('tags/block/backrooms_structure.json', {'values': [f'minecraft:{b}' for b in STRUCTURE + STRUCTURE_BACK20 + [b for b in STRUCTURE_BACK22 if b not in STRUCTURE]]})
     put_json('data/minecraft/tags/block/mineable/axe.json', {'values': [f'{NS}:wallpaper', f'{NS}:striped_wallpaper', f'{NS}:dotted_wallpaper',
                                                   f'{NS}:ceiling_tile', f'{NS}:stained_ceiling_tile']})
     put_json('data/minecraft/tags/block/dampens_vibrations.json', {'values': [f'{NS}:damp_carpet']})
     for t in ('wither_immune', 'dragon_immune', 'features_cannot_replace'):
         put_json(f'data/minecraft/tags/block/{t}.json', {'values': [f'{NS}:glitched_bedrock', f'{NS}:rift']})
-    d('tags/worldgen/biome/has_structure/backrooms_room.json', {'values': [f'{NS}:backrooms']})
 
 
 def sounds():
@@ -263,125 +296,32 @@ def dimensions():
         steps = [[] for _ in range(11)]
         steps[9] = features
         d(f'worldgen/biome/{name}.json', {'attributes': dict(sorted(attributes.items())), 'carvers': [], 'downfall': 0.0,
-                                          'effects': {'water_color': '#8a8a5a' if name == 'backrooms' else '#3f76e4'}, 'features': steps,
+                                          'effects': {'water_color': '#8a8a5a' if name == 'backrooms_lobby' else '#3f76e4'}, 'features': steps,
                                           'has_precipitation': False, 'temperature': 0.5})
-    backrooms_type('backrooms', '#a99b5e', 6.0, 48.0, 0.15)
-    d('dimension/backrooms.json', {'type': f'{NS}:backrooms', 'generator': {
-        'type': f'{NS}:backrooms', 'biome_source': {'type': 'minecraft:fixed', 'biome': f'{NS}:backrooms'}}})
-    backrooms_biome('backrooms', '#a99b5e', 'minecraft:white_ash', 0.006, [])
-    for name, level, fog, start, end, ambient, particle, probability in LEVELS:
-        backrooms_type(name, fog, start, end, ambient)
-        d(f'dimension/{name}.json', {'type': f'{NS}:{name}', 'generator': {
-            'type': f'{NS}:backrooms', 'biome_source': {'type': 'minecraft:fixed', 'biome': f'{NS}:{name}'}, 'level': level}})
-        backrooms_biome(name, fog, particle, probability, [f'{NS}:backrooms_cache'])
+    # BACK22 core: ONE dimension, ten levels (biome by height, simplelayers:band_stack), bedrock between them
+    d('dimension_type/backrooms_stack.json', {
+        'ambient_light': 0.12,
+        'attributes': {
+            'minecraft:gameplay/bed_rule': {'can_set_spawn': 'never', 'can_sleep': 'never'},
+            'minecraft:gameplay/respawn_anchor_works': False,
+            'minecraft:visual/ambient_light_color': '#3a3420', 'minecraft:visual/fog_color': '#a99b5e',
+            'minecraft:visual/fog_start_distance': 8.0, 'minecraft:visual/fog_end_distance': 48.0,
+            'minecraft:visual/sky_color': '#000000', 'minecraft:visual/sky_light_factor': 0.0},
+        'coordinate_scale': 1.0, 'has_ceiling': True, 'has_ender_dragon_fight': False, 'has_fixed_time': True,
+        'has_skylight': False, 'height': STACK['height'], 'infiniburn': '#minecraft:infiniburn_overworld', 'logical_height': STACK['height'],
+        'min_y': STACK['min_y'], 'monster_spawn_block_light_limit': 0, 'monster_spawn_light_level': 0, 'skybox': 'none'})
+    d('dimension/backrooms_stack.json', {'type': f'{NS}:backrooms_stack', 'generator': {
+        'type': f'{NS}:backrooms_stack', 'biome_source': {'type': f'{NS}:band_stack', 'bands': [f'{NS}:backrooms_{b[0]}' for b in BANDS]}}})
+    for band, fog, particle, probability in BANDS:
+        backrooms_biome(f'backrooms_{band}', fog, particle, probability, [f'{NS}:backrooms_cache'])
+    for script in sorted((HERE / 'backrooms').glob('gen_*.py')):  # level-owned data scripts (core §6), each with generate(d, a)
+        namespace = {}
+        exec(compile(script.read_text(encoding='utf-8'), str(script), 'exec'), namespace)
+        namespace['generate'](d, a)
     d('worldgen/feature/entrance_shaft.json', {'type': f'{NS}:entrance_shaft'})
     d('worldgen/placed_feature/entrance_shaft.json', {'feature': f'{NS}:entrance_shaft', 'placement': [{'type': 'minecraft:biome'}]})
     d('worldgen/feature/backrooms_cache.json', {'type': f'{NS}:backrooms_cache'})
     d('worldgen/placed_feature/backrooms_cache.json', {'feature': f'{NS}:backrooms_cache', 'placement': [{'type': 'minecraft:biome'}]})
-    spawn = {}
-    for name, pool, spacing, separation, salt in (('backrooms_room', 'rooms', 7, 3, 61803391), ('backrooms_exit', 'exit', 40, 20, 41421357)):
-        d(f'worldgen/structure/{name}.json', {
-            'type': 'minecraft:jigsaw', 'biomes': f'#{NS}:has_structure/backrooms_room', 'max_distance_from_center': 32, 'size': 1,
-            'spawn_overrides': spawn, 'start_height': {'absolute': 2}, 'start_pool': f'{NS}:backrooms/{pool}',
-            'step': 'surface_structures', 'terrain_adaptation': 'none', 'use_expansion_hack': False})
-        d(f'worldgen/structure_set/{name}.json', {'placement': {'type': 'minecraft:random_spread', 'salt': salt, 'separation': separation,
-                                                               'spacing': spacing}, 'structures': [{'structure': f'{NS}:{name}', 'weight': 1}]})
-
-    def el(loc, w):
-        return {'element': {'element_type': 'minecraft:single_pool_element', 'location': f'{NS}:backrooms/{loc}',
-                            'processors': 'minecraft:empty', 'projection': 'rigid'}, 'weight': w}
-    d('worldgen/template_pool/backrooms/rooms.json', {'elements': [el('storage_room', 4), el('water_room', 2), el('dark_room', 2)],
-                                                      'fallback': 'minecraft:empty'})
-    d('worldgen/template_pool/backrooms/exit.json', {'elements': [el('exit_room', 1)], 'fallback': 'minecraft:empty'})
-
-
-# ---------------------------------------------------------------- special rooms (17 x 7 x 17, grid lines at 0, 8, 16)
-S, H = 17, 7
-PAPER, CARPET, TILE, NEON = f'{NS}:wallpaper', f'{NS}:damp_carpet', f'{NS}:ceiling_tile', f'{NS}:neon_light'
-
-
-class Room:
-    def __init__(self):
-        self.b = {}
-
-    def put(self, x, y, z, name, nbt=None, **props):
-        self.b[(x, y, z)] = (name, {k: str(v) for k, v in props.items()}, nbt)
-
-    def shell(self, lights='on', threshold=False):
-        """Floor, ceiling (2 lights per cell), outer walls with the grid's doors (offsets 3-5 per cell, 4 high)."""
-        for x in range(S):
-            for z in range(S):
-                self.put(x, 0, z, CARPET)
-                light = (x % 8 in (3, 4)) and z % 8 == 4 and 0 < x < 16 and 0 < z < 16
-                if light:
-                    self.put(x, 6, z, NEON, mode=lights)
-                else:
-                    self.put(x, 6, z, TILE)
-                for y in range(1, 6):
-                    edge = x in (0, 16) or z in (0, 16)
-                    if not edge:
-                        self.put(x, y, z, 'minecraft:air')
-                        continue
-                    along = z if x in (0, 16) else x
-                    door = along % 8 in (3, 4, 5) and y <= 4 and not (x in (0, 16) and z in (0, 16))
-                    if door and not (threshold and y == 1):
-                        self.put(x, y, z, 'minecraft:air')
-                    else:
-                        self.put(x, y, z, PAPER)
-        for y in range(1, 6):
-            self.put(8, y, 8, PAPER)  # the centre post of the big room
-
-    def chest(self, x, z, facing):
-        self.put(x, 1, z, 'minecraft:chest', {'id': 'minecraft:chest', 'LootTable': f'{NS}:chests/backrooms_storage'},
-                 facing=facing, type='single', waterlogged='false')
-
-    def save(self):
-        pal, idx, blocks = [], {}, []
-        for (x, y, z), (name, props, nbt) in sorted(self.b.items()):
-            key = (name, tuple(sorted(props.items())))
-            if key not in idx:
-                idx[key] = len(pal)
-                e = {'id': name}
-                if props:
-                    e['properties'] = dict(props)
-                pal.append(e)
-            blk = {'pos': ('list', 3, [('i', x), ('i', y), ('i', z)]), 'state': ('i', idx[key])}
-            if nbt:
-                blk['nbt'] = nbt
-            blocks.append(blk)
-        return nbtmini.dumps({'DataVersion': ('i', DATA_VERSION), 'size': ('list', 3, [('i', S), ('i', H), ('i', S)]),
-                              'palette': ('list', 10, pal), 'blocks': ('list', 10, blocks), 'entities': ('list', 10, [])})
-
-
-def rooms():
-    out = {}
-    r = Room()
-    r.shell()
-    for x, z, f in ((2, 2, 'south'), (14, 2, 'south'), (2, 14, 'north'), (14, 14, 'north')):
-        r.chest(x, z, f)
-    r.put(9, 1, 8, 'minecraft:barrel', facing='up', open='false')
-    out['storage_room'] = r
-    r = Room()
-    r.shell(threshold=True)  # a 1-block sill in every door keeps the water in
-    for x in range(1, 16):
-        for z in range(1, 16):
-            if (x, z) != (8, 8):
-                r.put(x, 1, z, 'minecraft:water', level='0')
-    out['water_room'] = r
-    r = Room()
-    r.shell(lights='broken')
-    out['dark_room'] = r
-    r = Room()
-    r.shell()
-    for x in range(5, 12):  # a free-standing wall across the middle with the door and the EXIT sign above it
-        for y in range(1, 6):
-            r.put(x, y, 8, PAPER)
-    r.put(8, 1, 8, f'{NS}:exit_door', half='lower')
-    r.put(8, 2, 8, f'{NS}:exit_door', half='upper')
-    r.put(8, 3, 8, f'{NS}:exit_sign')
-    out['exit_room'] = r
-    for name, room in out.items():
-        FILES[RES / f'data/{NS}/structure/backrooms/{name}.nbt'] = room.save()
 
 
 # ---------------------------------------------------------------- BACK20 (plan docs/ai/PLAN-B-BACK20-2026-11-10.md)
@@ -465,7 +405,7 @@ def main():
     tags()
     sounds()
     dimensions()
-    rooms()
+    doors()
     back20()
     check = '--check' in sys.argv
     bad = []

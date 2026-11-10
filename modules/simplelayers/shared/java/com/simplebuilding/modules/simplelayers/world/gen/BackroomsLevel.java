@@ -1,36 +1,21 @@
 package com.simplebuilding.modules.simplelayers.world.gen;
 
 /**
- * The Backrooms levels (BACK18, plan docs/ai/PLAN-B-BACK18-2026-11-10.md), each its own dimension of the same chunk generator
- * ({@code simplelayers:backrooms} with field {@code level}). Ways between them keep x/z: noclip rifts in walls and maintenance
- * doors lead one level deeper (Lobby → Warehouse → Pipes; the Pipes' sealed hatch → the exit level), holes in the floor drop into
- * the Poolrooms. Exit Doors in the Lobby, the Poolrooms and the exit level lead back to the Overworld.
+ * The BACK18/20 level generators (plan docs/ai/PLAN-B-BACK18-2026-11-10.md), 64 high. Since BACK22 they are no dimensions any more
+ * but the start content of four levels of the stack ({@code backrooms.gen.LegacyBand}); END is kept for its sound set and tests.
  */
 public enum BackroomsLevel {
-    LOBBY("lobby", "backrooms"),
-    WAREHOUSE("warehouse", "backrooms_warehouse"),
-    PIPES("pipes", "backrooms_pipes"),
-    POOLS("pools", "backrooms_pools"),
-    END("end", "backrooms_end");
+    LOBBY("lobby"),
+    WAREHOUSE("warehouse"),
+    PIPES("pipes"),
+    POOLS("pools"),
+    END("end");
 
-    /** Codec value of the generator field {@code level}. */
+    /** Id (loot table {@code chests/backrooms_<id>}). */
     public final String id;
-    /** Path of the dimension id in namespace {@code simplelayers}. */
-    public final String dimension;
 
-    BackroomsLevel(String id, String dimension) {
+    BackroomsLevel(String id) {
         this.id = id;
-        this.dimension = dimension;
-    }
-
-    public static BackroomsLevel byId(String id) {
-        for (BackroomsLevel l : values()) if (l.id.equals(id)) return l;
-        return LOBBY;
-    }
-
-    public static BackroomsLevel byDimension(String path) {
-        for (BackroomsLevel l : values()) if (l.dimension.equals(path)) return l;
-        return null;
     }
 
     public Piece at(long seed, int x, int y, int z) {
@@ -99,21 +84,5 @@ public enum BackroomsLevel {
 
     private static void add(java.util.List<int[]> out, int x0, int z0, int size, int x, int y, int z) {
         if (x >= x0 && x < x0 + size && z >= z0 && z < z0 + size) out.add(new int[] {x, y, z});
-    }
-
-    /** The level a maintenance door or a wall rift leads to (null: none deeper). */
-    public BackroomsLevel deeper() {
-        return switch (this) {
-            case LOBBY -> WAREHOUSE;
-            case WAREHOUSE -> PIPES;
-            case PIPES -> END;
-            default -> null;
-        };
-    }
-
-    /** Where a rift at height y leads: a hole in the floor (y 1) of the Warehouse or the Pipes drops into the Poolrooms. */
-    public BackroomsLevel riftTarget(int y) {
-        if (y <= 1 && (this == WAREHOUSE || this == PIPES)) return POOLS;
-        return deeper();
     }
 }

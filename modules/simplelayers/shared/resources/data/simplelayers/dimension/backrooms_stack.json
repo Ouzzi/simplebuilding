@@ -1,0 +1,21 @@
+{
+  "type": "simplelayers:backrooms_stack",
+  "generator": {
+    "type": "simplelayers:backrooms_stack",
+    "biome_source": {
+      "type": "simplelayers:band_stack",
+      "bands": [
+        "simplelayers:backrooms_lobby",
+        "simplelayers:backrooms_pools",
+        "simplelayers:backrooms_archive",
+        "simplelayers:backrooms_warehouse",
+        "simplelayers:backrooms_pipes",
+        "simplelayers:backrooms_electro",
+        "simplelayers:backrooms_hotel",
+        "simplelayers:backrooms_lightless",
+        "simplelayers:backrooms_suburb",
+        "simplelayers:backrooms_wheatfield"
+      ]
+    }
+  }
+}

@@ -19,7 +19,17 @@
       "com.simplebuilding.modules.simplelayers.LayersFabric"
     ],
     "fabric-gametest": [
-      "com.simplebuilding.modules.simplelayers.ModuleGameTest"
+      "com.simplebuilding.modules.simplelayers.ModuleGameTest",
+      "com.simplebuilding.modules.simplelayers.level.LobbyGameTest",
+      "com.simplebuilding.modules.simplelayers.level.PoolsGameTest",
+      "com.simplebuilding.modules.simplelayers.level.ArchiveGameTest",
+      "com.simplebuilding.modules.simplelayers.level.WarehouseGameTest",
+      "com.simplebuilding.modules.simplelayers.level.PipesGameTest",
+      "com.simplebuilding.modules.simplelayers.level.ElectroGameTest",
+      "com.simplebuilding.modules.simplelayers.level.HotelGameTest",
+      "com.simplebuilding.modules.simplelayers.level.LightlessGameTest",
+      "com.simplebuilding.modules.simplelayers.level.SuburbGameTest",
+      "com.simplebuilding.modules.simplelayers.level.WheatfieldGameTest"
     ]
   },
   "mixins": [

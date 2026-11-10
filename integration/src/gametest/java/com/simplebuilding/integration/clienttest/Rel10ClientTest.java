@@ -96,8 +96,8 @@ public final class Rel10ClientTest implements FabricClientGameTest {
             });
             guard("cloud-sea", () -> dimension(context, world, "simplelayers:cloud_sea",
                     new int[][] {{0, 40, 0, 0, 0}, {0, 120, 0, 0, 25}, {0, 120, 0, 0, 70}, {0, 260, 0, 0, 40}}));
-            guard("backrooms", () -> dimension(context, world, "simplelayers:backrooms",
-                    new int[][] {{4, 2, 4, 0, 0}, {4, 2, 4, 90, 0}, {44, 2, 84, 180, 10}}));
+            guard("backrooms", () -> dimension(context, world, "simplelayers:backrooms_stack", // BACK22: Lobby = level 1, y 208 + 2
+                    new int[][] {{4, 210, 4, 0, 0}, {4, 210, 4, 90, 0}, {44, 210, 84, 180, 10}}));
             world.getServer().runCommand(String.format(Locale.ROOT, "execute in minecraft:overworld run tp @a %d.5 %d %d.5",
                     base.getX(), base.getY(), base.getZ()));
             world.getConnection().waitForClientboundPackets();

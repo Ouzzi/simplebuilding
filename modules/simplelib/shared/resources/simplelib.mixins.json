@@ -31,7 +31,8 @@
     "AgingStateMixin",
     "AgingTickAccessor",
     "AgingDispenserMixin",
-    "CauldronBucketMixin"
+    "CauldronBucketMixin",
+    "TrackingFilterMixin"
   ],
   "client": [
     "client.WarmGlowEntityMixin",

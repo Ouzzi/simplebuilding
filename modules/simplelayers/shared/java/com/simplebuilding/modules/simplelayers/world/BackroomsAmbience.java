@@ -62,6 +62,21 @@ public final class BackroomsAmbience {
         return level == BackroomsLevel.END ? 800 + random.nextInt(1200) : 400 + random.nextInt(800);
     }
 
+    /**
+     * BACK22: the sound set of stack level {@code band} - the four start levels keep theirs, the stub levels use the quiet set until
+     * their branch brings its own ({@code backrooms.<theme>.*} events); null outside the stack.
+     */
+    public static BackroomsLevel setOf(int band) {
+        if (band == 0) return null;
+        return switch (com.simplebuilding.modules.simplelayers.backrooms.stack.Bands.get(band).id()) {
+            case "lobby" -> BackroomsLevel.LOBBY;
+            case "pools" -> BackroomsLevel.POOLS;
+            case "warehouse" -> BackroomsLevel.WAREHOUSE;
+            case "pipes" -> BackroomsLevel.PIPES;
+            default -> BackroomsLevel.END;
+        };
+    }
+
     /** Effective volume of a cue: base x config percent; 0 with the config at 0. */
     public static float volume(Cue cue) {
         return cue.volume() * LayersConfig.ambientVolume / 100.0F;
@@ -70,7 +85,7 @@ public final class BackroomsAmbience {
     public static void tick(MinecraftServer server) {
         if (!SimpleLayers.backroomsOn() || LayersConfig.ambientVolume <= 0) return;
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            BackroomsLevel level = SimpleLayers.levelOf(player.level());
+            BackroomsLevel level = setOf(SimpleLayers.bandOf(player.level(), player.getY()));
             if (level == null) {
                 NEXT.remove(player.getUUID());
                 continue;
