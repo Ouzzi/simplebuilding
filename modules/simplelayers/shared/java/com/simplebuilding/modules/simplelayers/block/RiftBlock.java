@@ -12,7 +12,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Rift: what a broken Glitched Bedrock leaves behind (plan deviation, reason: lasts across restarts and works for every entity -
+ * Rift: what a broken Glitched Bedrock leaves behind (and, BACK18, the portal floor of the entrance shaft and the noclip spots and
+ * floor holes inside the Backrooms - where it leads: {@link BackroomsTravel#enterFromRift}) (plan deviation, reason: lasts across restarts and works for every entity -
  * the concept's "fall into the void below"). No collision, unbreakable, faint light; whatever enters it lands in the Backrooms.
  */
 public class RiftBlock extends Block {
@@ -22,7 +23,7 @@ public class RiftBlock extends Block {
 
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effects, boolean isPrecise) {
-        if (level instanceof ServerLevel server) BackroomsTravel.enterFromRift(server, entity);
+        if (level instanceof ServerLevel server) BackroomsTravel.enterFromRift(server, entity, pos);
     }
 
     @Override

@@ -1,0 +1,8 @@
+{
+  "feature": "simplelayers:entrance_shaft",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

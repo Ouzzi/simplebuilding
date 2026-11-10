@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplelayers;
 
 import com.simplebuilding.modules.simplelayers.config.LayersConfig;
+import com.simplebuilding.modules.simplelayers.world.gen.BackroomsLevel;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,12 @@ public final class SimpleLayers {
     public static final ResourceKey<Level> CLOUD_SEA = ResourceKey.create(Registries.DIMENSION, id("cloud_sea"));
     /** The Backrooms dimension (concept §2.2 variant B). */
     public static final ResourceKey<Level> BACKROOMS = ResourceKey.create(Registries.DIMENSION, id("backrooms"));
+    /** BACK18: every Backrooms level is its own dimension (Level 0 = {@link #BACKROOMS}), in {@link BackroomsLevel} order. */
+    private static final java.util.Map<BackroomsLevel, ResourceKey<Level>> LEVEL_KEYS = new java.util.EnumMap<>(BackroomsLevel.class);
+
+    static {
+        for (BackroomsLevel l : BackroomsLevel.values()) LEVEL_KEYS.put(l, l == BackroomsLevel.LOBBY ? BACKROOMS : ResourceKey.create(Registries.DIMENSION, id(l.dimension)));
+    }
 
     private SimpleLayers() {}
 
@@ -41,6 +48,24 @@ public final class SimpleLayers {
 
     public static boolean backroomsOn() {
         return on() && LayersConfig.backroomsEnabled;
+    }
+
+    public static ResourceKey<Level> levelKey(BackroomsLevel level) {
+        return LEVEL_KEYS.get(level);
+    }
+
+    /** The Backrooms level of a dimension, or null outside the Backrooms. */
+    public static BackroomsLevel levelOf(ResourceKey<Level> dimension) {
+        return SimpleLayers.MOD_ID.equals(dimension.identifier().getNamespace()) ? BackroomsLevel.byDimension(dimension.identifier().getPath()) : null;
+    }
+
+    public static BackroomsLevel levelOf(Level level) {
+        return levelOf(level.dimension());
+    }
+
+    /** Whether the level is one of the Backrooms levels (BACK18: protection, effect, sounds hold in all of them). */
+    public static boolean inBackrooms(Level level) {
+        return levelOf(level) != null;
     }
 
     /** Config, config command and test centre station; before the registrations. */

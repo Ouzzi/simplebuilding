@@ -125,4 +125,44 @@ public final class ModuleGameTest {
     public void suppliesGenerated(GameTestHelper h) {
         LayersTests.ALL.get("supplies_generated").accept(h);
     }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void levelsRegistered(GameTestHelper h) {
+        LayersTests.ALL.get("levels_registered").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty", maxTicks = 100)
+    public void levelTransitions(GameTestHelper h) {
+        LayersTests.ALL.get("level_transitions").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void easiestExitReachable(GameTestHelper h) {
+        LayersTests.ALL.get("easiest_exit_reachable").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void levelsHaveFreeArrival(GameTestHelper h) {
+        LayersTests.ALL.get("levels_have_free_arrival").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void entranceShaftGenerated(GameTestHelper h) {
+        LayersTests.ALL.get("entrance_shaft_generated").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void sealedHatchPuzzle(GameTestHelper h) {
+        LayersTests.ALL.get("sealed_hatch_puzzle").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void ambienceSounds(GameTestHelper h) {
+        LayersTests.ALL.get("ambience_sounds").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void levelBlocksProtected(GameTestHelper h) {
+        LayersTests.ALL.get("level_blocks_protected").accept(h);
+    }
 }

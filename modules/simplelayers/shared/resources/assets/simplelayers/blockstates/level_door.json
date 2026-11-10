@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "half=lower,sealed=false": {
+      "model": "simplelayers:block/level_door_lower"
+    },
+    "half=lower,sealed=true": {
+      "model": "simplelayers:block/level_door_lower"
+    },
+    "half=upper,sealed=false": {
+      "model": "simplelayers:block/level_door_upper"
+    },
+    "half=upper,sealed=true": {
+      "model": "simplelayers:block/level_door_upper"
+    }
+  }
+}

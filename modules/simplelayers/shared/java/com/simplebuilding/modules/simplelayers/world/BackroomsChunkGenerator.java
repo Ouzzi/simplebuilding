@@ -1,7 +1,9 @@
 package com.simplebuilding.modules.simplelayers.world;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.simplebuilding.modules.simplelayers.world.gen.BackroomsLevel;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -24,16 +26,31 @@ import net.minecraft.world.level.levelgen.densityfunction.SamplerContext;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Chunk generator {@code simplelayers:backrooms}: fills every chunk from {@link BackroomsGrid} (rooms y 0-8, solid bedrock above up to y 63). The
- * seed is the world seed, read from the {@link RandomState} handed to every call (no own field, so the codec holds only the
- * biome source). Structures (the special rooms) and features run as for any generator.
+ * Chunk generator {@code simplelayers:backrooms}: fills every chunk from the pure generator of its {@link BackroomsLevel} (field
+ * {@code level}, BACK18; missing = {@code lobby}, so the LAYERS10 dimension file stays valid), solid bedrock up to y 63. The
+ * seed is the world seed, read from the {@link RandomState} handed to every call. Structures (the Lobby's special rooms) and
+ * features (supply chests) run as for any generator.
  */
 public class BackroomsChunkGenerator extends ChunkGenerator {
     public static final MapCodec<BackroomsChunkGenerator> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-            BiomeSource.CODEC.fieldOf("biome_source").forGetter(g -> g.biomeSource)).apply(i, i.stable(BackroomsChunkGenerator::new)));
+            BiomeSource.CODEC.fieldOf("biome_source").forGetter(g -> g.biomeSource),
+            Codec.STRING.optionalFieldOf("level", BackroomsLevel.LOBBY.id).forGetter(g -> g.level.id))
+            .apply(i, (source, level) -> new BackroomsChunkGenerator(source, BackroomsLevel.byId(level))));
 
-    public BackroomsChunkGenerator(BiomeSource biomeSource) {
+    private final BackroomsLevel level;
+
+    public BackroomsChunkGenerator(BiomeSource biomeSource, BackroomsLevel level) {
         super(biomeSource);
+        this.level = level;
+    }
+
+    public BackroomsLevel level() {
+        return level;
+    }
+
+    /** The block of this level at (x, y, z). */
+    public static BlockState block(BackroomsLevel level, long seed, int x, int y, int z) {
+        return BackroomsBlocks.state(level.at(seed, x, y, z));
     }
 
     /** The grid seed of a world (stable per world seed; the random state carries it). */
@@ -58,7 +75,7 @@ public class BackroomsChunkGenerator extends ChunkGenerator {
         for (int y = Math.max(0, chunk.getMinY()); y <= top; y++) {
             for (int x = 0; x < 16; x++) {
                 for (int z = 0; z < 16; z++) {
-                    BlockState state = BackroomsGrid.at(seed, baseX + x, y, baseZ + z);
+                    BlockState state = block(level, seed, baseX + x, y, baseZ + z);
                     if (state.isAir()) continue;
                     chunk.setBlockState(pos.set(x, y, z), state);
                     oceanFloor.update(x, y, z, state);
@@ -80,14 +97,14 @@ public class BackroomsChunkGenerator extends ChunkGenerator {
         BlockState[] states = new BlockState[heightAccessor.getHeight()];
         for (int i = 0; i < states.length; i++) {
             int y = heightAccessor.getMinY() + i;
-            states[i] = BackroomsGrid.at(seed, x, y, z);
+            states[i] = block(level, seed, x, y, z);
         }
         return new NoiseColumn(heightAccessor.getMinY(), states);
     }
 
     @Override
     public void addDebugScreenInfo(List<String> result, RandomState randomState, BlockPos feetPos, SamplerContext samplerContext) {
-        result.add("Backrooms cell " + Math.floorDiv(feetPos.getX(), BackroomsGrid.CELL) + " " + Math.floorDiv(feetPos.getZ(), BackroomsGrid.CELL));
+        result.add("Backrooms " + level.id + " cell " + Math.floorDiv(feetPos.getX(), BackroomsGrid.CELL) + " " + Math.floorDiv(feetPos.getZ(), BackroomsGrid.CELL));
     }
 
     @Override

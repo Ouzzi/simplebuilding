@@ -4,7 +4,8 @@
 Vanilla style since b-layers12 (09.11., owner objection LAYERS10, plan docs/ai/PLAN-B-LAYERS12-2026-11-09.md): own pixels
 only (no Mojang sprite is read), a fixed palette of 3-5 tones per material placed in pixel clusters (no smooth gradients),
 bevelled edges lit top/left, items with a dark outline. b-layers13 (LAYERS13, rounds R4-R6): EXIT sign, rift, glitched
-bedrock, almond water reworked, Backroom status effect icon (18 x 18). The hard share (A8b) is printed per texture. Every texture is drawn
+bedrock, almond water reworked, Backroom status effect icon (18 x 18). b-back18 (BACK18, rounds R1-R3): caution tape, caution
+sign, maintenance door. The hard share (A8b) is printed per texture. Every texture is drawn
 in named steps (layers.snap) and saved with its layer source (layers.save). Animated textures (flickering neon, glitched
 bedrock, rift) are vertical strips with an .mcmeta.
 
@@ -335,6 +336,129 @@ def door_end():
     return t
 
 
+# ---------------------------------------------------------------- BACK18 (b-back18, 10.11.): entrance shaft + maintenance door
+# Hazard yellow and black in the Vanilla manner: 3 tones each in clusters (yellow_concrete is 241/175/21 with ±2, black_concrete
+# 8/10/15), a darker lower edge (lit from above), no gradients. ROUND picks the draft of the A8c rounds (3 = built in).
+ROUND = 3
+HAZ_Y = [(206, 150, 22), (230, 170, 30), (244, 186, 44)]
+HAZ_K = [(24, 24, 28), (36, 36, 40), (48, 48, 54)]
+
+
+def hazard_field(seed, period=8, width=4, slope=1):
+    """Diagonal stripes, tileable: True = black. period 8 with width 4 tiles in 16 (two stripes per block)."""
+    yy, xx = np.mgrid[0:16, 0:16]
+    return ((xx + slope * yy) % period) < width
+
+
+def hazard_paint(mask, seed):
+    yel = paint(quant(clusters(seed, (0, 1)), (0.18, 0.8)), HAZ_Y)
+    blk = paint(quant(clusters(seed + 1, (0, 1)), (0.2, 0.85)), HAZ_K)
+    return np.where(mask[..., None], blk, yel)
+
+
+def caution_tape():
+    """Barrier tape: diagonal yellow/black stripes. R1: 2 px stripes (busy at 1x); R2: 4 px stripes, period 8; R3: plus a
+    1-px darker hem top and bottom of the band rows 5-7 the model shows, so the tape reads as a band, not a block."""
+    t = Tex()
+    period, width = (4, 2) if ROUND == 1 else (8, 4)
+    m = hazard_field(141, period, width)
+    a = hazard_paint(m, 141)
+    t.step('Streifen', a)
+    if ROUND >= 3:
+        b = a.copy()
+        for row in (5, 8):  # the model shows rows 5-8 (band 4 px, element y 8-12)
+            b[row, :, :3] = np.where(m[row][:, None], np.array(HAZ_K[0]), np.array(HAZ_Y[0]))
+        t.step('Saum', b)
+    return t
+
+
+def caution_sign():
+    """Warning sign: a metal plate with a yellow face and a black warning triangle with "!" (ISO 7010 W001 in 16 px).
+    R1: filled black triangle with a yellow "!", no rim - best read at 1x. R2: steel rim with bevel (like the EXIT sign) and an
+    outlined triangle - the "!" drowns in the narrow top. R3 (built in): R2's rim and depth with R1's filled triangle, the "!"
+    2 px wide, a darker yellow hem under the triangle (lit from above)."""
+    t = Tex()
+    face = paint(quant(clusters(151, (0, 1)), (0.2, 0.82)), HAZ_Y)
+    t.step('Grundton', face)
+    a = face.copy()
+    if ROUND >= 2:
+        a[0, :, :3] = a[:, 0, :3] = METAL[3]
+        a[1, 1:15, :3] = a[1:15, 1, :3] = METAL[2]
+        a[15, :, :3] = a[:, 15, :3] = METAL[0]
+        a[14, 1:15, :3] = a[1:15, 14, :3] = METAL[1]
+        a[0, 15, :3] = a[15, 0, :3] = METAL[1]
+        t.step('Rahmen', a)
+    b = a.copy()
+    k = np.array(HAZ_K[1])
+    tri = np.zeros((16, 16), bool)
+    top, base = (2, 13) if ROUND == 1 else (3, 12)
+    for i, y in enumerate(range(top, base + 1)):
+        half = (i * 11) // (2 * (base - top))
+        tri[y, 7 - half:9 + half] = True
+    if ROUND == 2:
+        inner = np.zeros((16, 16), bool)
+        for y in range(top + 2, base):
+            xs = np.where(tri[y])[0]
+            if len(xs) > 4:
+                inner[y, xs[0] + 2:xs[-1] - 1] = True
+        b[tri, :3] = k
+        b[inner, :3] = HAZ_Y[1]
+        for y, x in ((6, 7), (7, 7), (8, 7), (10, 7)):
+            b[y, x, :3] = k
+    else:
+        b[tri, :3] = k
+        bang = [(5, 7), (5, 8), (6, 7), (6, 8), (7, 7), (7, 8), (8, 7), (8, 8), (10, 7), (10, 8)]
+        for y, x in bang:
+            b[y, x, :3] = HAZ_Y[2]
+        if ROUND >= 3:
+            hem = np.roll(tri, 1, 0) & ~tri & (np.arange(16)[:, None] <= base + 1)
+            b[hem, :3] = HAZ_Y[0]
+    t.step('Zeichen', b)
+    if ROUND >= 3:
+        c = b.copy()
+        for y, x in [(2, i) for i in range(2, 14)] + [(i, 2) for i in range(2, 14)]:
+            if not tri[y, x]:
+                c[y, x, :3] = HAZ_Y[0]
+        t.step('Tiefe', c)
+    return t
+
+
+def level_door(half):
+    """Maintenance door (BACK18): the steel of the Exit Door, but a hazard band instead of the push bar (lower) and a small
+    wired window with an amber lamp above it (upper) - one look says "staff only, dangerous". R1: band 4 px; R2: band 3 px with
+    darker hems, window 4x3; R3: amber lamp 2x1 over the window, rivets on the band ends."""
+    t = Tex()
+    idx = door_base()
+    t.step('Grundton', paint(idx, STEEL))
+    if half == 'upper':
+        idx[0, :] = 0
+        idx[1, 1:15] = 4
+        a = paint(idx, STEEL)
+        glass = {'O': STEEL[0], 'H': STEEL[4], 'g': (58, 74, 92), 'w': (96, 110, 124), 'h': (132, 152, 170), 'x': (76, 86, 98)}
+        if ROUND == 1:
+            a[5:10, 5:11] = grid(['OOOOOO', 'OghgwH', 'OxgxgH', 'OgwghH', 'OHHHHH'], glass)
+        else:
+            a[6:11, 5:11] = grid(['OOOOOO', 'OhgxgH', 'OxxxxH', 'OgxghH', 'OHHHHH'], glass)
+        if ROUND >= 3:
+            amber = {'L': (250, 176, 60), 'l': (200, 120, 30), 'O': STEEL[0]}
+            a[3:5, 6:10] = grid(['OLLO', 'OllO'], amber)
+    else:
+        idx[15, :] = 0
+        a = paint(idx, STEEL)
+        top, h = (6, 4) if ROUND == 1 else (7, 3)
+        m = hazard_field(161, 6, 3)
+        band = hazard_paint(m, 161)
+        a[top:top + h, 1:15] = band[top:top + h, 1:15]
+        if ROUND >= 2:
+            a[top - 1, 1:15, :3] = STEEL[4]
+            a[top + h, 1:15, :3] = STEEL[0]
+        if ROUND >= 3:
+            for y in (top, top + h - 1):
+                a[y, 2, :3] = a[y, 13, :3] = STEEL[1]
+    t.step('Beschlag', a)
+    return t
+
+
 BEDROCK = [(30, 30, 30), (54, 54, 54), (82, 82, 82), (110, 110, 110), (146, 146, 146)]
 
 
@@ -475,6 +599,8 @@ def build(variants=None):
         'block/stained_ceiling_tile': ceiling(True), 'block/neon_light': neon('on'), 'block/neon_light_broken': neon('broken'),
         'block/neon_light_side': neon_side(), 'block/exit_sign': exit_sign(), 'block/exit_sign_top': exit_sign_top(),
         'block/exit_door_lower': door('lower'), 'block/exit_door_upper': door('upper'), 'block/exit_door_end': door_end(),
+        'block/caution_tape': caution_tape(), 'block/caution_sign': caution_sign(),
+        'block/level_door_lower': level_door('lower'), 'block/level_door_upper': level_door('upper'),
         'item/almond_water': almond_water(), 'item/backdoor_key': backdoor_key(), 'mob_effect/backroom': backroom_effect(),
     }
     meta = {}

@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simplelayers:block/caution_tape"
+    },
+    "axis=z": {
+      "model": "simplelayers:block/caution_tape",
+      "y": 90
+    }
+  }
+}

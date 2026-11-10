@@ -17,6 +17,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * The "Backroom" status effect (owner 09.11., LAYERS12 objection; plan docs/ai/PLAN-B-LAYERS13-2026-11-09.md): every player in
@@ -43,12 +44,13 @@ public final class BackroomEffect extends MobEffect {
 
     /** Whether the server hands the effect to this player now: in the Backrooms, not spectating, the protection switched on. */
     public static boolean due(Player player) {
-        return LayersConfig.unbreakableWalls && SimpleLayers.on() && !player.isSpectator() && player.level().dimension() == SimpleLayers.BACKROOMS;
+        return LayersConfig.unbreakableWalls && SimpleLayers.on() && !player.isSpectator() && SimpleLayers.inBackrooms(player.level());
     }
 
     /** A14: hitting a held wall says why it does not give way (action bar, server side only). */
     public static void hintOnAttack(Player player, Level level, BlockPos pos) {
-        if (!level.isClientSide() && level.getBlockState(pos).getBlock() instanceof BackroomBlock && BackroomBlock.protectedFor(player)) {
+        BlockState state = level.getBlockState(pos);
+        if (!level.isClientSide() && (state.getBlock() instanceof BackroomBlock || BackroomBlock.heldFor(state, player)) && BackroomBlock.protectedFor(player)) {
             player.sendOverlayMessage(Component.translatable("message.simplelayers.backroom_walls"));
         }
     }

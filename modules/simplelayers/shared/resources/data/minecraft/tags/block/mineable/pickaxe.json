@@ -3,6 +3,8 @@
     "simplelayers:glitched_bedrock",
     "simplelayers:cloud_stone",
     "simplelayers:exit_sign",
-    "simplelayers:exit_door"
+    "simplelayers:exit_door",
+    "simplelayers:level_door",
+    "simplelayers:caution_sign"
   ]
 }

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
@@ -26,9 +25,8 @@ public final class ListenerAmbience {
 
     public static void tick(MinecraftServer server) {
         if (!SimpleLayers.backroomsOn() || !LayersConfig.listener) return;
-        ServerLevel level = server.getLevel(SimpleLayers.BACKROOMS);
-        if (level == null) return;
-        for (ServerPlayer player : level.players()) {
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            if (!SimpleLayers.inBackrooms(player.level()) || player.isSpectator()) continue;
             int[] s = STATE.computeIfAbsent(player.getUUID(), id -> new int[] {nextDelay(player), -1, 0});
             if (s[1] < 0) {
                 if (--s[0] <= 0) {

@@ -4,6 +4,7 @@
   "package": "com.simplebuilding.modules.simplelayers.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "BlockStateBaseMixin",
     "PistonBaseBlockMixin"
   ],
   "injectors": {

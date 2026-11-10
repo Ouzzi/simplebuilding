@@ -1,14 +1,5 @@
 {
   "attributes": {
-    "minecraft:audio/ambient_sounds": {
-      "loop": "simplelayers:ambient.backrooms.hum",
-      "additions": [
-        {
-          "sound": "simplelayers:ambient.backrooms.additions",
-          "tick_chance": 0.0025
-        }
-      ]
-    },
     "minecraft:gameplay/natural_mob_spawns": {
       "argument": {
         "spawn_costs": {},

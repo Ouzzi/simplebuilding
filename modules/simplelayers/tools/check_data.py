@@ -8,7 +8,7 @@ from pathlib import Path
 MODULE = Path(__file__).resolve().parents[1]
 RES = MODULE / 'shared/resources'
 ITEMS = ['cloud_block', 'cloud_stone', 'mist_block', 'damp_carpet', 'wallpaper', 'striped_wallpaper', 'dotted_wallpaper', 'ceiling_tile',
-         'stained_ceiling_tile', 'neon_light', 'exit_sign', 'glitched_bedrock', 'almond_water', 'backdoor_key']
+         'stained_ceiling_tile', 'neon_light', 'exit_sign', 'caution_sign', 'caution_tape', 'glitched_bedrock', 'almond_water', 'backdoor_key']
 problems = []
 r = subprocess.run([sys.executable, str(MODULE / 'tools/gen_data.py'), '--check'], capture_output=True, text=True)
 if r.returncode:

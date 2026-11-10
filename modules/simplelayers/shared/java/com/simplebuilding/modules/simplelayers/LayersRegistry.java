@@ -1,6 +1,9 @@
 package com.simplebuilding.modules.simplelayers;
 
 import com.simplebuilding.modules.simplelayers.block.BackroomBlock;
+import com.simplebuilding.modules.simplelayers.block.CautionSignBlock;
+import com.simplebuilding.modules.simplelayers.block.CautionTapeBlock;
+import com.simplebuilding.modules.simplelayers.block.LevelDoorBlock;
 import com.simplebuilding.modules.simplelayers.block.CloudBlock;
 import com.simplebuilding.modules.simplelayers.block.CushionBlock;
 import com.simplebuilding.modules.simplelayers.block.ExitDoorBlock;
@@ -9,7 +12,9 @@ import com.simplebuilding.modules.simplelayers.block.MistBlock;
 import com.simplebuilding.modules.simplelayers.block.NeonLightBlock;
 import com.simplebuilding.modules.simplelayers.block.RiftBlock;
 import com.simplebuilding.modules.simplelayers.block.TooltipBlockItem;
+import com.simplebuilding.modules.simplelayers.world.BackroomsCacheFeature;
 import com.simplebuilding.modules.simplelayers.world.BackroomsChunkGenerator;
+import com.simplebuilding.modules.simplelayers.world.EntranceShaftFeature;
 import com.simplebuilding.modules.simplelayers.world.GlitchedBedrockFeature;
 import com.simplebuilding.modules.simplelayers.world.MistPitFeature;
 import com.simplebuilding.modules.simplelayers.world.SkyChestFeature;
@@ -21,6 +26,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -49,7 +55,7 @@ public final class LayersRegistry {
     /** Item ids in tab order (the test centre station and the coverage tests read this). */
     public static final List<String> ITEM_PATHS = List.of("cloud_block", "cloud_stone", "mist_block", "damp_carpet", "wallpaper",
             "striped_wallpaper", "dotted_wallpaper", "ceiling_tile", "stained_ceiling_tile", "neon_light", "exit_sign",
-            "glitched_bedrock", "almond_water", "backdoor_key");
+            "caution_sign", "caution_tape", "glitched_bedrock", "almond_water", "backdoor_key");
     /** Fall damage factors (concept §1.1: Cloud Block -30 %, Cloud Stone -10 %). */
     public static final float CLOUD_DAMAGE = 0.7F, CLOUD_STONE_DAMAGE = 0.9F;
 
@@ -57,6 +63,10 @@ public final class LayersRegistry {
     public static Block CLOUD_BLOCK, CLOUD_STONE, MIST_BLOCK;
     public static Block DAMP_CARPET, WALLPAPER, STRIPED_WALLPAPER, DOTTED_WALLPAPER, CEILING_TILE, STAINED_CEILING_TILE;
     public static Block NEON_LIGHT, EXIT_SIGN, EXIT_DOOR, GLITCHED_BEDROCK, RIFT;
+    /** BACK18: the Maintenance Door between levels (no item) and the entrance shaft's warning sign and barrier tape. */
+    public static Block LEVEL_DOOR, CAUTION_SIGN, CAUTION_TAPE;
+    /** BACK18: Vanilla blocks the deeper levels are built of; held like Backrooms blocks inside the Backrooms. */
+    public static final TagKey<Block> BACKROOMS_STRUCTURE = TagKey.create(Registries.BLOCK, SimpleLayers.id("backrooms_structure"));
     public static Item ALMOND_WATER, BACKDOOR_KEY;
     public static List<Item> ITEMS = List.of();
     public static CreativeModeTab TAB;
@@ -92,6 +102,10 @@ public final class LayersRegistry {
         GLITCHED_BEDROCK = block("glitched_bedrock", GlitchedBedrockBlock::new, props(MapColor.STONE, SoundType.STONE)
                 .strength(GlitchedBedrockBlock.HARDNESS, 3600000.0F).requiresCorrectToolForDrops().noLootTable().pushReaction(PushReaction.IMMOVEABLE)
                 .isValidSpawn((s, l, pos, type) -> false));
+        LEVEL_DOOR = block("level_door", LevelDoorBlock::new, props(MapColor.COLOR_GRAY, SoundType.IRON).strength(3.0F).noLootTable()
+                .pushReaction(PushReaction.IMMOVEABLE));
+        CAUTION_SIGN = block("caution_sign", CautionSignBlock::new, props(MapColor.COLOR_YELLOW, SoundType.METAL).strength(1.0F).noOcclusion());
+        CAUTION_TAPE = block("caution_tape", CautionTapeBlock::new, props(MapColor.COLOR_YELLOW, SoundType.WOOL).strength(0.2F).noOcclusion());
         RIFT = block("rift", RiftBlock::new, props(MapColor.COLOR_BLACK, SoundType.STONE).strength(-1.0F, 3600000.0F).noCollision()
                 .noOcclusion().noLootTable().lightLevel(s -> 4).pushReaction(PushReaction.IMMOVEABLE).isValidSpawn((s, l, pos, type) -> false)
                 .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos, box) -> false));
@@ -100,7 +114,8 @@ public final class LayersRegistry {
     public static void registerItems() {
         List<Item> out = new ArrayList<>();
         for (Block b : List.of(CLOUD_BLOCK, CLOUD_STONE, MIST_BLOCK)) out.add(blockItem(b, true));
-        for (Block b : List.of(DAMP_CARPET, WALLPAPER, STRIPED_WALLPAPER, DOTTED_WALLPAPER, CEILING_TILE, STAINED_CEILING_TILE, NEON_LIGHT, EXIT_SIGN)) {
+        for (Block b : List.of(DAMP_CARPET, WALLPAPER, STRIPED_WALLPAPER, DOTTED_WALLPAPER, CEILING_TILE, STAINED_CEILING_TILE, NEON_LIGHT, EXIT_SIGN,
+                CAUTION_SIGN, CAUTION_TAPE)) {
             out.add(blockItem(b, false));
         }
         out.add(blockItem(GLITCHED_BEDROCK, true));
@@ -124,12 +139,14 @@ public final class LayersRegistry {
                 .build());
     }
 
-    /** World generation types (before the data packs load): the Backrooms chunk generator and the three features. */
+    /** World generation types (before the data packs load): the Backrooms chunk generator and the five features. */
     public static void registerWorldgen() {
         Registry.register(BuiltInRegistries.CHUNK_GENERATOR, SimpleLayers.id("backrooms"), BackroomsChunkGenerator.CODEC);
         Registry.register(BuiltInRegistries.FEATURE_TYPE, SimpleLayers.id("mist_pit"), MistPitFeature.CODEC);
         Registry.register(BuiltInRegistries.FEATURE_TYPE, SimpleLayers.id("sky_chest"), SkyChestFeature.CODEC);
         Registry.register(BuiltInRegistries.FEATURE_TYPE, SimpleLayers.id("glitched_bedrock"), GlitchedBedrockFeature.CODEC);
+        Registry.register(BuiltInRegistries.FEATURE_TYPE, SimpleLayers.id("entrance_shaft"), EntranceShaftFeature.CODEC);
+        Registry.register(BuiltInRegistries.FEATURE_TYPE, SimpleLayers.id("backrooms_cache"), BackroomsCacheFeature.CODEC);
     }
 
     /** Every item in tab order, then the guide (empty while the module is switched off). */

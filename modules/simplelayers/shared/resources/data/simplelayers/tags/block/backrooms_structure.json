@@ -1,0 +1,29 @@
+{
+  "values": [
+    "minecraft:smooth_stone",
+    "minecraft:polished_andesite",
+    "minecraft:light_gray_concrete",
+    "minecraft:gray_concrete",
+    "minecraft:yellow_concrete",
+    "minecraft:black_concrete",
+    "minecraft:iron_bars",
+    "minecraft:tuff_bricks",
+    "minecraft:tuff",
+    "minecraft:polished_tuff",
+    "minecraft:waxed_lightning_rod",
+    "minecraft:waxed_exposed_cut_copper",
+    "minecraft:waxed_exposed_copper_bulb",
+    "minecraft:waxed_exposed_copper_grate",
+    "minecraft:ladder",
+    "minecraft:lever",
+    "minecraft:quartz_bricks",
+    "minecraft:smooth_quartz",
+    "minecraft:prismarine_bricks",
+    "minecraft:sea_lantern",
+    "minecraft:smooth_quartz_stairs",
+    "minecraft:quartz_pillar",
+    "minecraft:white_concrete",
+    "minecraft:birch_planks",
+    "minecraft:birch_stairs"
+  ]
+}

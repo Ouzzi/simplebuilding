@@ -19,7 +19,7 @@ public final class LayersConfig {
     public static final String FILE = "simplelayers-server.json";
     public static final List<String> KEYS = List.of("clouds.enabled", "clouds.entryY", "clouds.bottomlessPits", "clouds.fogHint",
             "backrooms.enabled", "backrooms.entranceRarity", "backrooms.voidToBackrooms", "backrooms.unbreakableWalls",
-            "backrooms.supplies", "backrooms.listener");
+            "backrooms.supplies", "backrooms.listener", "backrooms.shaftRarity", "backrooms.ambientVolume");
     public static final int MIN_ENTRY_Y = 400, MAX_ENTRY_Y = 1000, DEFAULT_ENTRY_Y = 700;
 
     /** Rising above {@link #cloudEntryY} in the Overworld leads into the Cloud Sea. */
@@ -43,6 +43,10 @@ public final class LayersConfig {
     public static boolean supplies;
     /** "The Listener": rare approaching footsteps behind the player, no damage (default off until the owner accepts it). */
     public static boolean listener;
+    /** BACK18: one Overworld chunk in this many gets the fenced-off entrance shaft (0 = none; only on flat, dry ground). */
+    public static int shaftRarity;
+    /** BACK18: volume of the quiet random sounds inside the Backrooms in percent (0 = silent; the Ambient slider applies too). */
+    public static int ambientVolume;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -83,6 +87,9 @@ public final class LayersConfig {
         unbreakableWalls = bool(back, "unbreakableWalls", true);
         supplies = bool(back, "supplies", true);
         listener = bool(back, "listener", false);
+        shaftRarity = integer(back, "shaftRarity", 200, 0, 100000);
+        ambientVolume = integer(back, "ambientVolume", 50, 0, 100);
+        com.simplebuilding.modules.simplelayers.world.gen.LobbyGen.supplies = supplies;
     }
 
     public static JsonObject toJson() {
@@ -97,6 +104,8 @@ public final class LayersConfig {
         back.addProperty("unbreakableWalls", unbreakableWalls);
         back.addProperty("supplies", supplies);
         back.addProperty("listener", listener);
+        back.addProperty("shaftRarity", shaftRarity);
+        back.addProperty("ambientVolume", ambientVolume);
         o.add("clouds", clouds);
         o.add("backrooms", back);
         return o;
