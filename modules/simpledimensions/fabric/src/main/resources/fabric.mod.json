@@ -39,7 +39,6 @@
     "simpledimension.mixins.json"
   ],
   "suggests": {
-    "cloth-config": "*",
     "simplebuilding": "*",
     "modmenu": "*",
     "flan": "*",

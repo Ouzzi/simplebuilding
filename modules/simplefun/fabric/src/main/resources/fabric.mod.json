@@ -44,7 +44,6 @@
     "simplefun.fabric.mixins.json"
   ],
   "suggests": {
-    "cloth-config": "*",
     "modmenu": "*",
     "jei": "*",
     "jade": "*"

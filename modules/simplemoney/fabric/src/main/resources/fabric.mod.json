@@ -40,7 +40,6 @@
     "simpleores": "*"
   },
   "suggests": {
-    "cloth-config": "*",
     "jei": "*",
     "modmenu": "*",
     "simplebuilding": "*",

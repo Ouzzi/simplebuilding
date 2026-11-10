@@ -40,7 +40,6 @@
     "fabric-api": "*"
   },
   "suggests": {
-    "cloth-config": "*",
     "simplebuilding": "*",
     "modmenu": "*"
   }
