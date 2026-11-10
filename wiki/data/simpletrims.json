@@ -898,7 +898,27 @@
     }
   ],
   "trades": [],
-  "config": [],
+  "config": [
+    {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simpletrims/shared/java/com/simpletrims/config/TrimsConfig.java",
+      "name": "enabled",
+      "shortName": "enabled",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Trims",
+      "categoryDe": "Simple Trims",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Trims",
+      "labelDe": "Simple Trims aktivieren",
+      "tooltip": "Switches Simple Trims on or off (restart required). Off: no trim upgrades, no placing, no radiance light; registrations stay so worlds keep loading.",
+      "tooltipDe": "Schaltet Simple Trims ein oder aus (Neustart nötig). Aus: keine Besatz-Aufwertungen, kein Ablegen, kein Strahlkraft-Licht; Registrierungen bleiben, Welten laden weiter."
+    }
+  ],
   "quests": [],
   "recipesOtherLines": [],
   "inWorld": {
@@ -920,7 +940,7 @@
     "items": 5,
     "blocks": 1,
     "trades": 0,
-    "config": 0,
+    "config": 1,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

@@ -931,12 +931,410 @@
     }
   ],
   "trades": [],
-  "config": [],
+  "config": [
+    {
+      "range": [
+        5,
+        60
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "burnSeconds",
+      "shortName": "burnSeconds",
+      "type": "int",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Burn seconds",
+      "labelDe": "Burn seconds",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": [
+        1,
+        7
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "flowNether",
+      "shortName": "flowNether",
+      "type": "int",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Flow nether",
+      "labelDe": "Flow nether",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": [
+        1,
+        4
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "flowOverworld",
+      "shortName": "flowOverworld",
+      "type": "int",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Flow overworld",
+      "labelDe": "Flow overworld",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": [
+        0.0,
+        0.5
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "fortressChance",
+      "shortName": "fortressChance",
+      "type": "double",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Fortress chance",
+      "labelDe": "Fortress chance",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": [
+        1,
+        20
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "fuelMultiplier",
+      "shortName": "fuelMultiplier",
+      "type": "int",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Fuel multiplier",
+      "labelDe": "Fuel multiplier",
+      "tooltip": "Soul lava (split stage 5b, was SimpleBuilding's server.soulLava): flow, burning, soul burn, world generation, bucket fuel. */\n    public static final class SoulLavaConfig {\n        public int flowOverworld = 2;\n        public int flowNether = 5;\n        public int tickDelayOverworld = 45;\n        public int tickDelayNether = 20;\n        public int burnSeconds = 30;\n        public int soulBurnSeconds = 120;\n        public int soulBurnIntervalTicks = 60;\n        public double soulBurnChance = 0.5;\n        /** Registration-time value: restart and matching client/server files required.",
+      "tooltipDe": "Soul lava (split stage 5b, was SimpleBuilding's server.soulLava): flow, burning, soul burn, world generation, bucket fuel. */\n    public static final class SoulLavaConfig {\n        public int flowOverworld = 2;\n        public int flowNether = 5;\n        public int tickDelayOverworld = 45;\n        public int tickDelayNether = 20;\n        public int burnSeconds = 30;\n        public int soulBurnSeconds = 120;\n        public int soulBurnIntervalTicks = 60;\n        public double soulBurnChance = 0.5;\n        /** Registration-time value: restart and matching client/server files required."
+    },
+    {
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "soulBurnChance",
+      "shortName": "soulBurnChance",
+      "type": "double",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Soul burn chance",
+      "labelDe": "Soul burn chance",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": [
+        20,
+        200
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "soulBurnIntervalTicks",
+      "shortName": "soulBurnIntervalTicks",
+      "type": "int",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Soul burn interval ticks",
+      "labelDe": "Soul burn interval ticks",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": [
+        5,
+        300
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "soulBurnSeconds",
+      "shortName": "soulBurnSeconds",
+      "type": "int",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Soul burn seconds",
+      "labelDe": "Soul burn seconds",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": [
+        0.0,
+        0.05
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "springChance",
+      "shortName": "springChance",
+      "type": "double",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Spring chance",
+      "labelDe": "Spring chance",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": [
+        10,
+        200
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "tickDelayNether",
+      "shortName": "tickDelayNether",
+      "type": "int",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Tick delay nether",
+      "labelDe": "Tick delay nether",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": [
+        20,
+        200
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
+      "name": "tickDelayOverworld",
+      "shortName": "tickDelayOverworld",
+      "type": "int",
+      "default": null,
+      "note": null,
+      "category": "Simple Crucibles",
+      "categoryDe": "Simple Crucibles",
+      "group": null,
+      "groupDe": null,
+      "label": "Tick delay overworld",
+      "labelDe": "Tick delay overworld",
+      "tooltip": null,
+      "tooltipDe": null
+    }
+  ],
   "quests": [],
   "recipesOtherLines": [],
   "inWorld": {
-    "entries": [],
-    "kinds": []
+    "kinds": [
+      {
+        "id": "sledgehammer_upgrade",
+        "note": {
+          "sources": [
+            "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
+            "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerProgress.java",
+            "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+            "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
+            "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
+            "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java"
+          ],
+          "en": {
+            "title": "Machine upgrade with the sledgehammer",
+            "summary": "Hold a sledgehammer in the main hand and a Netherite or Enderite Nugget in the off hand, then keep right-click held on a placed machine: after the last blow it becomes the next tier. Time, number of blows, durability and the weakest hammer that works are listed with every step.",
+            "details": [
+              "Reinforced to Netherite takes a Netherite Nugget, Netherite to Enderite an Enderite Nugget; each step names the weakest sledgehammer that can do it, every stronger one works too.",
+              "Upgradeable are the hopper, the furnace, the smoker, the blast furnace and both reinforced pistons (the sticky one also becomes the Netherite Piston).",
+              "The hammer strikes once per blow interval; the last blow performs the upgrade. Every blow costs the listed durability.",
+              "Exactly one nugget is consumed, on the last blow. In creative mode neither the nugget nor durability is used.",
+              "The block keeps its properties (facing, lit, enabled) and its block entity: a hopper keeps its items, filter and mode, a furnace keeps cooking.",
+              "The attempt stops without using the nugget when right-click is released, the aim leaves the block, you move out of reach, the block changes, the nugget leaves the off hand or the hammer breaks; blows already struck stay paid.",
+              "Blows already struck stay on the block (saved with the world, shown as cracks) until it is broken or replaced; hammering it again continues with the missing blows only.",
+              "A piston that is extended or powered is not upgraded. An unsuitable nugget or hammer gives a quiet failure sound; no action-bar text.",
+              "Chests climb the same way, one step lower first: any copper chest (every oxidation stage, waxed or not) becomes a Reinforced Chest with a Cracked Diamond and any sledgehammer, then Netherite and Enderite Chest with the nuggets. A chest keeps its items, name and lock; a double chest is upgraded as a whole and uses one piece of material per half (two in all).",
+              "Shulker boxes climb the same way (any vanilla shulker box -> Reinforced -> Netherite -> Enderite Shulker Box) but take twice the blows and 2 pieces of material per step; contents and color stay."
+            ]
+          },
+          "de": {
+            "title": "Maschinen-Aufwertung mit dem Vorschlaghammer",
+            "summary": "Vorschlaghammer in die Haupthand, Netherit- oder Enderitklumpen in die Nebenhand und Rechtsklick auf einer platzierten Maschine gedrückt halten: Nach dem letzten Schlag ist sie eine Stufe höher. Dauer, Schlagzahl, Haltbarkeit und der schwächste passende Hammer stehen bei jeder Stufe.",
+            "details": [
+              "Verstärkt zu Netherit braucht einen Netheritklumpen, Netherit zu Enderit einen Enderitklumpen; jede Stufe nennt den schwächsten Vorschlaghammer, der sie schafft, jeder stärkere geht auch.",
+              "Aufwertbar sind Trichter, Ofen, Räucherofen, Schmelzofen und beide verstärkten Kolben (auch der klebrige wird zum Netheritkolben).",
+              "Der Hammer schlägt einmal je Schlagabstand zu; der letzte Schlag wertet auf. Jeder Schlag kostet die angegebene Haltbarkeit.",
+              "Verbraucht wird genau ein Klumpen, beim letzten Schlag. Im Kreativmodus kostet es weder Klumpen noch Haltbarkeit.",
+              "Der Block behält seine Eigenschaften (Blickrichtung, brennend, aktiviert) und seine Block-Entity: Ein Trichter behält Inhalt, Filter und Modus, ein Ofen schmilzt weiter.",
+              "Abgebrochen wird ohne Klumpenverbrauch, wenn der Rechtsklick losgelassen wird, der Blick den Block verlässt, man außer Reichweite geht, der Block sich ändert, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht; schon geschlagene Schläge bleiben bezahlt.",
+              "Schon geschlagene Schläge bleiben am Block (mit der Welt gespeichert, als Risse sichtbar), bis er abgebaut oder ersetzt wird; erneutes Hämmern setzt mit den fehlenden Schlägen fort.",
+              "Ein ausgefahrener oder mit Strom versorgter Kolben wird nicht aufgewertet. Ein ungeeigneter Klumpen oder Hammer gibt einen leisen Fehlklang; kein Aktionsleisten-Text.",
+              "Truhen steigen genauso auf, mit einer Stufe davor: jede Kupfertruhe (jede Oxidationsstufe, gewachst oder nicht) wird mit einem Rissigen Diamanten und einem beliebigen Vorschlaghammer zur Verstärkten Truhe, dann mit den Klumpen zur Netherit- und Enderittruhe. Eine Truhe behält Inhalt, Namen und Schloss; eine Doppeltruhe wird als Ganzes aufgewertet und verbraucht ein Stück Material je Hälfte (zusammen zwei).",
+              "Shulkerkisten steigen genauso auf (jede Vanilla-Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste), brauchen aber doppelt so viele Schläge und 2 Stück Material je Stufe; Inhalt und Farbe bleiben."
+            ]
+          }
+        }
+      }
+    ],
+    "entries": [
+      {
+        "id": "sledgehammer_upgrade/minecraft:cauldron",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "minecraft:cauldron",
+            "count": 1
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 8
+          }
+        ],
+        "tools": [
+          "#simplelib:upgrade_tools"
+        ],
+        "toolOrBetter": false,
+        "output": {
+          "id": "simplecrucibles:reinforced_cauldron",
+          "count": 1
+        },
+        "stats": {
+          "damagePerHit": 2
+        },
+        "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/in_world_upgrades/crucibles.json",
+        "minTool": "any"
+      },
+      {
+        "id": "sledgehammer_upgrade/simplecrucibles:iron_crucible",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplecrucibles:iron_crucible",
+            "count": 1
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 4
+          }
+        ],
+        "tools": [
+          "#simplelib:upgrade_tools"
+        ],
+        "toolOrBetter": false,
+        "output": {
+          "id": "simplecrucibles:reinforced_crucible",
+          "count": 1
+        },
+        "stats": {
+          "damagePerHit": 2
+        },
+        "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/in_world_upgrades/crucibles.json",
+        "minTool": "any"
+      },
+      {
+        "id": "sledgehammer_upgrade/simplecrucibles:reinforced_crucible",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplecrucibles:reinforced_crucible",
+            "count": 1
+          },
+          {
+            "id": "simplelib:netherite_nugget",
+            "count": 4
+          }
+        ],
+        "tools": [
+          "simplehammers:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplecrucibles:netherite_crucible",
+          "count": 1
+        },
+        "stats": {
+          "damagePerHit": 4
+        },
+        "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/in_world_upgrades/crucibles.json"
+      },
+      {
+        "id": "sledgehammer_upgrade/simplecrucibles:netherite_crucible",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplecrucibles:netherite_crucible",
+            "count": 1
+          },
+          {
+            "id": "simpleores:enderite_nugget",
+            "count": 4
+          }
+        ],
+        "tools": [
+          "simplehammers:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplecrucibles:enderite_crucible",
+          "count": 1
+        },
+        "stats": {
+          "damagePerHit": 10
+        },
+        "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/in_world_upgrades/crucibles.json"
+      }
+    ]
   },
   "obtain": {
     "sources": []
@@ -953,11 +1351,11 @@
     "items": 5,
     "blocks": 7,
     "trades": 0,
-    "config": 0,
+    "config": 11,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
-    "inWorld": 0,
+    "inWorld": 4,
     "incompleteProse": 0
   }
 }

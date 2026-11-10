@@ -824,6 +824,104 @@ body.tx-lb-open { overflow: hidden; }
   .pb-links { margin-left: 0; }
   .st-acts { margin-left: 0; width: 100%; }
 }
+/* N24: Seitenleiste mit einklappbaren Gruppen, Erste Schritte, Sub-Mods, Handbuch, Fragentisch.
+   Buchseiten: Pergament mit Tinte 11:1 (wie ModpackGuideScreen INK), weiche Tinte >= 4,5:1; nur vorhandene Variablen sonst. */
+.sb-sec > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-radius: var(--radius-sm); padding: .3rem .6rem; margin: 0 0 .2rem; min-height: 28px; }
+.sb-sec > summary::-webkit-details-marker { display: none; }
+.sb-sec > summary:hover { background: var(--bg); }
+.sb-sec > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.sb-chev { width: .5rem; height: .5rem; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(-45deg); transition: transform .15s ease; margin-right: .2rem; }
+.sb-sec[open] > summary .sb-chev { transform: rotate(45deg); }
+.sb-dev > summary { color: var(--end); }
+.gs-ways { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .75rem; margin: 1rem 0 1.6rem; }
+.sm-super { margin: 0 0 1rem; }
+.sm-fold { border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); }
+.sm-fold > summary { list-style: none; display: flex; align-items: center; gap: .5rem; padding: .35rem .6rem .35rem .4rem; cursor: pointer; }
+.sm-fold > summary::-webkit-details-marker { display: none; }
+.sm-fold > summary::before { content: ''; flex: none; width: .45rem; height: .45rem; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(-45deg); transition: transform .15s ease; margin: 0 .25rem 0 .3rem; }
+.sm-fold[open] > summary::before { transform: rotate(45deg); }
+.sm-tree .sm-fold { border: 0; background: none; }
+.sm-top > summary { background: var(--panel-2); border-radius: var(--radius) var(--radius) 0 0; }
+.sm-head { font-weight: 700; }
+.sm-n { margin-left: auto; flex: none; color: var(--muted); font-size: .8rem; }
+.sm-tree { list-style: none; margin: 0; padding: .25rem .5rem .5rem 1.4rem; border-left: 2px solid var(--border); margin-left: 1.05rem; }
+.sm-mod { display: flex; align-items: flex-start; gap: .6rem; padding: .35rem .4rem; border-radius: var(--radius-sm); color: var(--text); flex: 1 1 auto; min-width: 0; }
+.sm-mod:hover { background: var(--bg); text-decoration: none; }
+.sm-ico { width: 24px; height: 24px; flex: none; image-rendering: pixelated; margin-top: .1rem; }
+.sm-main { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .5rem; min-width: 0; }
+.sm-name { font-weight: 650; color: var(--accent); }
+.sm-counts { font-size: .78rem; color: var(--muted); }
+.sm-purpose { flex-basis: 100%; font-size: .86rem; color: var(--muted); }
+/* Handbuch */
+.gb-tabs { display: flex; flex-wrap: wrap; gap: .35rem; margin: .8rem 0 0; position: relative; z-index: 1; }
+.gb-tab { display: inline-flex; align-items: center; gap: .35rem; padding: .4rem .7rem .55rem; border: 1px solid #6b4a2b; border-bottom: 0; border-radius: 8px 8px 0 0; background: #e7d3a6; color: #3b2a1c; font: inherit; font-size: .86rem; cursor: pointer; min-height: 36px; }
+.gb-tab[aria-selected="true"] { background: #f6ead0; font-weight: 700; transform: translateY(1px); }
+.gb-tab:focus-visible, .gb-link:focus-visible, .gb-book:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+/* Das Buch bleibt auch im dunklen Schema ein Pergament: innen gelten die hellen Farben (Rezepte, Slots, Text). */
+.gb-book { color-scheme: light; --bg: #f2efe6; --bg-2: #e9e5d8; --panel: #ffffff; --panel-2: #f7f5ef; --text: #1c1e21; --muted: #5f656c; --border: #d9d3c3; --border-strong: #bdb5a1; --accent: #336b20; --accent-strong: #285716; --accent-soft: #e2efd9; --accent-text: #ffffff; --code-bg: #ebe7dc; --slot-bg: #c6c6c6; --slot-hi: #ffffff; --slot-lo: #555555; --slot-text: #373737; }
+.gb-book { background: #6b4a2b; border-radius: 6px 12px 12px 6px; padding: 10px; box-shadow: var(--shadow-lg); max-width: 1080px; }
+.gb-spread { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 520px; }
+.gb-single .gb-spread { grid-template-columns: 1fr; min-height: 420px; }
+.gb-page { position: relative; background: #f6ead0; color: #3b2a1c; padding: 1.3rem 1.4rem 2.6rem; font-size: .95rem; line-height: 1.5; overflow-wrap: anywhere; display: flex; flex-direction: column; }
+.gb-spread > .gb-page:first-child:not(:last-child) { border-right: 1px solid #c9b48a; box-shadow: inset -12px 0 18px -14px rgba(59,42,28,.45); }
+.gb-spread > .gb-page + .gb-page { box-shadow: inset 12px 0 18px -14px rgba(59,42,28,.45); }
+.gb-blank { background: #f1e3c4; }
+.gb-page p { margin: 0 0 .6rem; }
+.gb-page ul { margin: 0 0 .6rem; padding-left: 1.2rem; }
+.gb-h { display: flex; align-items: center; gap: .5rem; font-size: 1.25rem; margin: 0 0 .2rem; color: #3b2a1c; }
+.gb-h3 { display: flex; align-items: center; gap: .45rem; font-size: 1.05rem; margin: .1rem 0 .6rem; color: #3b2a1c; text-transform: none; letter-spacing: 0; }
+.gb-jump { min-height: 36px; max-width: 16rem; border: 1px solid #c9b48a; border-radius: var(--radius-sm); background: #f6ead0; color: #3b2a1c; font: inherit; font-size: .88rem; padding: 0 .4rem; }
+.gb-sub, .gb-kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: #6e5840; margin: 0 0 .7rem; display: flex; align-items: center; gap: .35rem; }
+.gb-icon { width: 20px; height: 20px; image-rendering: pixelated; flex: none; }
+.gb-toc { list-style: none; margin: .2rem 0 0; padding: 0; }
+.gb-toc li { margin: 0; }
+.gb-link { display: flex; align-items: center; gap: .5rem; width: 100%; text-align: left; background: none; border: 0; padding: .3rem .35rem; border-radius: 4px; color: #2f5d1c; font: inherit; cursor: pointer; min-height: 32px; }
+.gb-link:hover { background: rgba(107,74,43,.12); text-decoration: underline; }
+.gb-toc-small .gb-link { min-height: 28px; padding: .15rem .35rem; }
+.gb-lockmark { display: inline-flex; color: #7a3b16; }
+.gb-op, .gb-lock { font-size: .8rem; color: #7a3b16; }
+.gb-foot { position: absolute; left: 1.4rem; right: 1.4rem; bottom: .55rem; display: flex; justify-content: space-between; align-items: center; font-size: .8rem; color: #6e5840; }
+.gb-foot .gb-back { width: auto; min-height: 28px; padding: .1rem .3rem; }
+.gb-items { display: flex; flex-wrap: wrap; gap: 4px; margin: .4rem 0 .6rem; }
+.gb-recipes { display: grid; gap: .6rem; }
+.gb-recipe { background: rgba(255,255,255,.45); border: 1px solid #c9b48a; border-radius: 6px; padding: .4rem .5rem; }
+.gb-recipe-name { font-size: .8rem; font-weight: 650; margin-bottom: .25rem; }
+.gb-page .slot-text { color: var(--slot-text); }
+.gb-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .55rem 0 .1rem; color: #f6ead0; }
+.gb-nav .btn { min-width: 48px; min-height: 40px; font-size: 1.15rem; }
+.gb-nav .btn[disabled] { opacity: .45; cursor: default; }
+.gb-pos { font-size: .9rem; font-variant-numeric: tabular-nums; }
+.gb-keys { margin: .4rem 0 0; }
+/* Fragentisch */
+.qn-filters select { min-height: 36px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); padding: 0 .5rem; font: inherit; }
+.qn-open { margin: 1rem 0 1.2rem; }
+.qn-head { display: flex; align-items: center; gap: .8rem; margin-bottom: .6rem; }
+.qn-head h2 { margin: 0; border: 0; padding: 0; }
+.qn-close { margin-left: auto; }
+.qn-spread { grid-template-columns: repeat(3, 1fr); min-height: 240px; }
+.qn-page { padding-bottom: 1.3rem; }
+.qn-grid { list-style: none; padding: 0; margin: .6rem 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .4rem; }
+.qn-item { display: grid; grid-template-columns: 32px 1fr; grid-template-rows: auto auto; column-gap: .55rem; align-items: center; padding: .35rem .5rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); min-height: 48px; }
+.qn-item:hover { border-color: var(--border-strong); text-decoration: none; background: var(--panel-2); }
+.qn-item.active { border-color: var(--accent); background: var(--accent-soft); }
+.qn-ico { grid-row: 1 / 3; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; }
+.qn-ico img { width: 32px; height: 32px; image-rendering: pixelated; }
+.qn-fam { font-size: 1.1rem; color: var(--muted); }
+.qn-name { font-weight: 600; overflow-wrap: anywhere; }
+.qn-ns { font-size: .76rem; color: var(--muted); }
+.qn-variants { margin: 0 0 .8rem; padding-left: 1.4rem; }
+@media (max-width: 760px) {
+  .gb-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; padding-bottom: 1px; }
+  .gb-tab { flex: none; }
+  .gb-nav { flex-wrap: wrap; gap: .5rem .8rem; }
+  .gb-jump { order: 3; flex-basis: 100%; max-width: none; }
+  .gb-single .gb-nav { position: sticky; bottom: 0; z-index: 2; background: #6b4a2b; margin: 0 -10px -10px; padding: .5rem 10px; border-radius: 0 0 12px 6px; }
+  .gb-page { padding: 1rem 1rem 2.6rem; }
+  .gb-foot { left: 1rem; right: 1rem; }
+  .qn-spread { grid-template-columns: 1fr; }
+  .qn-spread > .gb-page { border-right: 0 !important; box-shadow: none !important; border-bottom: 1px solid #c9b48a; }
+  .qn-head { flex-wrap: wrap; }
+}
 </style>
 </head>
 <body>
@@ -2112,12 +2210,12 @@ buildModSelect();
 modSelect.addEventListener('change', function () {
   if (modSelect.value === '#allmods') { var u = new URL(location.href); u.searchParams.set('mod', selectedMod); u.hash = '#/allmods'; location.assign(u.href); return; }
   var url = new URL(location.href); url.searchParams.set('mod', modSelect.value);
-  ['item', 'block', 'page', 'tab', 'recipe', 'feature', 'q', 'loot', 'trade', 'ench', 'tag', 'config', 'inworld', 'make', 'use', 'tree', 'cat'].forEach(function (key) { url.searchParams.delete(key); });
+  ['item', 'block', 'page', 'tab', 'recipe', 'feature', 'q', 'loot', 'trade', 'ench', 'tag', 'config', 'inworld', 'make', 'use', 'tree', 'cat', 'book', 'questionary'].forEach(function (key) { url.searchParams.delete(key); });
   url.hash = '#/'; location.assign(url.href);
 });
 function crossModHref(mid, section, id) {
   var url = new URL(location.href); url.searchParams.set('mod', mid);
-  ['item', 'block', 'page', 'tab', 'recipe', 'feature', 'q', 'loot', 'trade', 'ench', 'tag', 'config', 'inworld', 'make', 'use', 'tree', 'cat'].forEach(function (key) { url.searchParams.delete(key); });
+  ['item', 'block', 'page', 'tab', 'recipe', 'feature', 'q', 'loot', 'trade', 'ench', 'tag', 'config', 'inworld', 'make', 'use', 'tree', 'cat', 'book', 'questionary'].forEach(function (key) { url.searchParams.delete(key); });
   url.hash = '#/' + section + (id ? '/' + id : ''); return url.href;
 }
 function modMeta(id) { return MODULES.find(function (e) { return e.id === id; }) || null; }
@@ -2259,7 +2357,7 @@ function nameOf(e) { if (!e) return ''; var n = e.name; if (isObj(n)) { return n
 /* Name in der jeweils anderen Sprache - fuer die Zusatzzeile. */
 function nameAlt(e) { return nameIn(e, otherLang()); }
 function entryFor(id) { return IX.items.get(id) || IX.blocks.get(id) || IX.ench.get(id) || null; }
-function displayName(id) { if (!id) return '?'; if (id.charAt(0) === '#') return id; var e = entryFor(id); return (e && nameOf(e)) || prettyFromId(id); }
+function displayName(id) { if (!id) return '?'; if (id.charAt(0) === '#') return id; var e = entryFor(id) || globalEntry(id); return (e && nameOf(e)) || extraName(id) || prettyFromId(id); }
 function isVanilla(id) { return nsOf(id) === 'minecraft'; }
 function hrefFor(id, hint) {
   if (!id) return null;
@@ -2342,6 +2440,9 @@ function textureOf(id) {
   var i = IX.items.get(id), b = IX.blocks.get(id);
   var own = (i && (i.icon || i.texture)) || (b && (b.icon || b.texture)) || null;
   if (own) return own;
+  /* N24: Items anderer Mods (Handbuch, Fragentisch, fremde Zutaten) mit ihrem eigenen Bild */
+  var other = !isVanilla(id) && globalEntry(id);
+  if (other && (other.icon || other.texture)) return other.icon || other.texture;
   return isVanilla(id) ? vanillaTexture(id) : null;
 }
 function shortTag(ref) { var p = pathOf(ref); return p; }
@@ -3021,7 +3122,9 @@ function highlightIds() {
 var WAY_ICONS = {
   build: '<path d="M14 4l6 6-3 3-6-6zM11 7l-7 7v6h6l7-7"/>',
   craft: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/>',
-  mods: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>'
+  mods: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>',
+  book: '<path d="M4 5a2 2 0 0 1 2-2h5v17H6a2 2 0 0 0-2 2zM20 5a2 2 0 0 0-2-2h-5v17h5a2 2 0 0 1 2 2z"/>',
+  quest: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/>'
 };
 function wayHtml(href, icon, label, sub) {
   return '<a class="way" href="' + esc(href) + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + WAY_ICONS[icon] + '</svg><span><b>' + esc(label) + '</b><small>' + esc(sub) + '</small></span></a>';
@@ -3646,7 +3749,7 @@ function rcInner(en, g) {
   var r = en.r, e = en.e;
   var h = '<div class="rc-head"><a class="rc-name" href="#/make/' + esc(encodeURIComponent(en.res)) + '" data-id="' + esc(en.res) + '">' + esc(displayName(en.res)) + (en.cnt > 1 ? ' <span class="muted">×' + en.cnt + '</span>' : '') + '</a>' +
     /* Vanilla-Karten kennen bei gesetztem Linienfilter nur die geladene Linie - kein "nur X" behaupten. */
-    badge(stationLabel(en.st)) + (en.src === 'mod' ? badge(T('arSrcMod'), 'mod') : badge(T('arSrcVanilla'))) + (en.src === 'vanilla' && RV.line !== 'all' ? '' : lineBadge(en.lines)) + (g ? badge(T('arVariants', g.members.length)) : '') + '</div>';
+    badge(stationLabel(en.st)) + (en.src === 'mod' ? badge((MOD.name || T('arSrcMod')), 'mod') : badge(T('arSrcVanilla'))) + (en.src === 'vanilla' && RV.line !== 'all' ? '' : lineBadge(en.lines)) + (g ? badge(T('arVariants', g.members.length)) : '') + '</div>';
   h += r ? '<div class="recipe-body">' + recipeBodyHtml(r) + '</div>' : iwCardBody(e);
   var foot = [];
   if (r && en.src === 'mod' && IX.recipes.has(r.id)) foot.push('<a href="#/recipes/' + esc(r.id) + '">' + esc(T('arRecipePage')) + '</a>');
@@ -3673,7 +3776,7 @@ function chipRow(label, key, options) {
   }).join('') + '</div>';
 }
 function srcLineChips() {
-  return chipRow(T('arSource'), 'src', [{ v: 'all', label: T('arAll') }, { v: 'mod', label: T('arSrcMod') }, { v: 'vanilla', label: T('arSrcVanilla') }]) +
+  return chipRow(T('arSource'), 'src', [{ v: 'all', label: T('arAll') }, { v: 'mod', label: (MOD.name || T('arSrcMod')) }, { v: 'vanilla', label: T('arSrcVanilla') }]) +
     chipRow(T('arLine'), 'line', [{ v: 'all', label: T('arLineBoth') }].concat(mcLines().slice().reverse().map(function (l) { return { v: l, label: l }; })));
 }
 function pageAllRecipes() {
@@ -3980,7 +4083,8 @@ function pageConfig(highlightName) {
   var rows = arr(D.config).filter(isObj);
   var hl = IX.config.has(highlightName) ? IX.config.get(highlightName).name : highlightName;
   var h = '<h1>' + esc(T('navConfig')) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>';
-  h += '<p class="muted tiny">' + T('configIntro') + '</p>';
+  /* N24: Module bekommen ihren eigenen Hinweis (Optionen aus ihren Konfig-Klassen und Sprachdateien, Befehl /<ns> config). */
+  h += '<p class="muted tiny">' + (MODID === 'simplebuilding' ? T('configIntro') : T('configIntroModule', '<code>/' + esc(MODID) + ' config list|get|set|reset &lt;option&gt;</code>')) + '</p>';
   if (!rows.length) return h + '<p class="hint">' + esc(T('noOptions')) + '</p>';
   var de = LANG === 'de';
   var lastCategory = null;
@@ -5267,9 +5371,9 @@ function pageStructure() {
    andere Seiten) werden beim Laden auf die neue Form umgeleitet.
    Wo der Browser pushState nicht erlaubt (manche file://-Kontexte), bleibt
    es beim Hash-Router - dann gilt HASHMODE. */
-var ROUTE_PARAM = { items: 'item', blocks: 'block', recipes: 'recipe', loot: 'loot', trades: 'trade', enchantments: 'ench', tags: 'tag', features: 'feature', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
-var PARAM_ROUTE = { item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', feature: 'features', guide: 'features', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
-var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'enchanting', 'tags', 'config', 'advancements', 'features', 'search', 'textures', 'commands', 'browse', 'structure'];
+var ROUTE_PARAM = { guidebook: 'book', questionary: 'questionary', items: 'item', blocks: 'block', recipes: 'recipe', loot: 'loot', trades: 'trade', enchantments: 'ench', tags: 'tag', features: 'feature', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
+var PARAM_ROUTE = { book: 'guidebook', questionary: 'questionary', item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', feature: 'features', guide: 'features', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
+var TAB_SECTIONS = ['start', 'submods', 'guidebook', 'questionary', 'overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'enchanting', 'tags', 'config', 'advancements', 'features', 'search', 'textures', 'commands', 'browse', 'structure'];
 var HASHMODE = false;
 function hashToRoute(h) {
   h = String(h || '');
@@ -5328,6 +5432,8 @@ function currentRoute() {
   var r = HASHMODE || (location.hash || '').indexOf('#/') === 0 ? hashToRoute(location.hash) : paramsToRoute(new URLSearchParams(location.search));
   /* Eine Rezeptansicht (Besitzer 06.11.): die alte Liste je Typ zeigt "Alle Rezepte" mit Filtern; Rezept-Seiten bleiben. */
   if (r.section === 'recipes' && !r.id) r.section = 'allrecipes';
+  /* N24: die Anleitungen-Uebersicht ist jetzt "Erste Schritte" (alte Adressen ?tab=features und #/features fuehren hin). */
+  if (r.section === 'features' && !r.id) r.section = 'start';
   return r;
 }
 /* Alter Name, von vielen Seitenfunktionen benutzt. */
@@ -5407,47 +5513,538 @@ window.addEventListener('hashchange', function () {
 /* ------------------------------------------------------------------ */
 /* Seitenleiste                                                       */
 /* ------------------------------------------------------------------ */
-/* label kommt aus STR, damit der Sprachwechsel die Leiste mitnimmt. */
-var NAV_REF = [
-  { key: 'items', labelKey: 'navItems', glyph: '◆', count: function () { return arr(D.items).length + arr(D.blocks).filter(function (b) { return isObj(b) && !IX.items.has(b.id); }).length; } },
-  { key: 'blocks', labelKey: 'navBlocks', glyph: '■', count: function () { return arr(D.blocks).length; } },
-  { key: 'allrecipes', labelKey: 'navAllRecipes', glyph: '⊞', count: function () { return arr(D.recipes).length; } },
-  { key: 'inworld', labelKey: 'navInWorld', glyph: '⚒', count: function () { return IW.entries.length; } },
-  { key: 'enchantments', labelKey: 'navEnchantments', glyph: '✦', count: function () { return arr(D.enchantments).length; } },
-  { key: 'enchanting', labelKey: 'navEnchanting', glyph: '✧', count: null },
-  { key: 'trades', labelKey: 'navTrades', glyph: '⇄', count: function () { return arr(D.trades).length; } },
-  { key: 'loot', labelKey: 'navLoot', glyph: '❖', count: function () { return arr(D.lootTables).length; } },
-  { key: 'tags', labelKey: 'navTags', glyph: '#', count: function () { return arr(D.tags).length; } }
+/* ------------------------------------------------------------------ */
+/* N24 (docs/ai/PLAN-B-WIKI24-2026-11-10.md): Getting Started, Submods,  */
+/* Guidebook (das Handbuch wie im Spiel) und Questionary (Fragentisch). */
+/* Daten: data/guidebook.js und data/questionary.js aus wiki/books.py,  */
+/* erst beim ersten Besuch nachgeladen (wie data/textures.js).          */
+/* ------------------------------------------------------------------ */
+Object.assign(STR.en, {
+  configIntroModule: 'Read from the module\'s config classes (type, default, bounds) and the labels of its config screen. Operators change them in game with {0}; the file lives in the config folder.',
+  navStart: 'Getting started', navSubmods: 'Submods', navGuidebook: 'Guidebook', navQuestionary: 'Questionary',
+  navBlocksItems: 'Blocks & items', navRecipesAll: 'Recipes', navLootables: 'Lootables', sbDev: 'Dev', sbToggle: 'Show or hide {0}',
+  gsIntro: 'New to the Simple mods? Three ways in, then the guides of the chosen mods below.',
+  gsBook: 'Read the guidebook', gsBookSub: 'The Simple Modpack guide from the game, page by page.',
+  gsQuest: 'Ask the questionary', gsQuestSub: 'Lore, use and a secret for every item.',
+  gsMods: 'See your mods', gsModsSub: 'Which sub-mods your modpack contains.',
+  gsGuides: 'Guides',
+  smIntro: 'The mods of your modpack selection, each super-mod with its sub-mods. Click a mod for its own pages.',
+  smStandalone: 'Standalone mods', smSuper: 'Super-mod', smSubs: '{0} sub-mods', smNone: 'No mod selected.',
+  gbIntro: 'The Simple Modpack guide as the game shows it: the top bookmarks are the sections, the contents page lists the chapters. Generated from the mods\' guide files with every release.',
+  gbLoading: 'Loading the guidebook …', gbMissing: 'The guidebook data (data/guidebook.js) is missing - run wiki/generate.py --all.',
+  gbContents: 'Contents', gbPrev: 'Previous page', gbNext: 'Next page', gbPage: 'Page {0} of {1}', gbBackContents: '« Contents',
+  gbLocked: 'Opens after: {0}', gbLockedPick: 'pick up {0}', gbOperator: 'Operators only', gbItems: 'In this chapter', gbRecipes: 'Recipes',
+  gbSections: 'Sections', gbKeys: 'Arrow keys or swipe to turn pages, Home for the contents.', gbEmpty: 'None of the chosen mods has a guide chapter.',
+  gbTopics: 'Topics', gbChapter: 'Chapter',
+  qnIntro: 'Simple Questionary: put an item on the questionary table and the open book tells its lore, its use and a secret. Every text the mods ship, generated with every release.',
+  qnLoading: 'Loading the questionary …', qnMissing: 'The questionary data (data/questionary.js) is missing - run wiki/generate.py --all.',
+  qnSearch: 'Search items and texts …', qnAllMods: 'All mods', qnVanilla: 'Minecraft (Vanilla)',
+  qnItems: 'Items', qnFamilies: 'Families', qnFallback: 'Fallback', qnCount: '{0} entries', qnMore: 'Show {0} more',
+  qnLore: 'Lore', qnUse: 'Use', qnSecret: 'Secret', qnPick: 'Pick an item to open its page.', qnFamilyItems: 'Applies to',
+  qnFallbackIntro: 'Items without an own text get one of eight variants per page, chosen by a stable hash of the item id.',
+  qnVariant: 'Variant {0}', qnClose: 'Close', qnNone: 'Nothing matches.', qnClass_block: 'Blocks', qnClass_tool: 'Tools', qnClass_armor: 'Armor', qnClass_food: 'Food', qnClass_misc: 'Everything else'
+});
+Object.assign(STR.de, {
+  configIntroModule: 'Aus den Konfig-Klassen des Moduls (Typ, Standard, Grenzen) und den Beschriftungen seines Einstellungsbildschirms. Operatoren ändern sie im Spiel mit {0}; die Datei liegt im config-Ordner.',
+  navStart: 'Erste Schritte', navSubmods: 'Sub-Mods', navGuidebook: 'Handbuch', navQuestionary: 'Fragentisch',
+  navBlocksItems: 'Blöcke & Items', navRecipesAll: 'Rezepte', navLootables: 'Beute', sbDev: 'Dev', sbToggle: '{0} ein- oder ausblenden',
+  gsIntro: 'Neu bei den Simple-Mods? Drei Einstiege, darunter die Anleitungen der gewählten Mods.',
+  gsBook: 'Handbuch lesen', gsBookSub: 'Das Simple-Modpack-Handbuch aus dem Spiel, Seite für Seite.',
+  gsQuest: 'Fragentisch befragen', gsQuestSub: 'Geschichte, Nutzen und ein Geheimnis zu jedem Item.',
+  gsMods: 'Deine Mods ansehen', gsModsSub: 'Welche Sub-Mods dein Modpack enthält.',
+  gsGuides: 'Anleitungen',
+  smIntro: 'Die Mods deiner Modpack-Auswahl, jeder Super-Mod mit seinen Sub-Mods. Ein Klick öffnet die Seiten des Mods.',
+  smStandalone: 'Eigenständige Mods', smSuper: 'Super-Mod', smSubs: '{0} Sub-Mods', smNone: 'Kein Mod gewählt.',
+  gbIntro: 'Das Simple-Modpack-Handbuch, wie es das Spiel zeigt: oben die Abschnitte als Lesezeichen, die Inhaltsseite nennt die Kapitel. Bei jedem Release aus den Handbuch-Dateien der Mods erzeugt.',
+  gbLoading: 'Handbuch wird geladen …', gbMissing: 'Die Handbuch-Daten (data/guidebook.js) fehlen – wiki/generate.py --all ausführen.',
+  gbContents: 'Inhalt', gbPrev: 'Vorige Seite', gbNext: 'Nächste Seite', gbPage: 'Seite {0} von {1}', gbBackContents: '« Inhalt',
+  gbLocked: 'Öffnet sich nach: {0}', gbLockedPick: '{0} aufheben', gbOperator: 'Nur für Operatoren', gbItems: 'In diesem Kapitel', gbRecipes: 'Rezepte',
+  gbSections: 'Abschnitte', gbKeys: 'Pfeiltasten oder Wischen blättern, Pos1 springt zum Inhalt.', gbEmpty: 'Keiner der gewählten Mods hat ein Handbuch-Kapitel.',
+  gbTopics: 'Themen', gbChapter: 'Kapitel',
+  qnIntro: 'Simple Questionary: Lege ein Item auf den Fragentisch, und das aufgeschlagene Buch erzählt seine Geschichte, seinen Nutzen und ein Geheimnis. Alle Texte der Mods, bei jedem Release erzeugt.',
+  qnLoading: 'Fragentisch wird geladen …', qnMissing: 'Die Fragentisch-Daten (data/questionary.js) fehlen – wiki/generate.py --all ausführen.',
+  qnSearch: 'Items und Texte durchsuchen …', qnAllMods: 'Alle Mods', qnVanilla: 'Minecraft (Vanilla)',
+  qnItems: 'Items', qnFamilies: 'Familien', qnFallback: 'Ersatztexte', qnCount: '{0} Einträge', qnMore: '{0} weitere zeigen',
+  qnLore: 'Geschichte', qnUse: 'Nutzen', qnSecret: 'Geheimnis', qnPick: 'Wähle ein Item, um seine Seite aufzuschlagen.', qnFamilyItems: 'Gilt für',
+  qnFallbackIntro: 'Items ohne eigenen Text bekommen je Seite eine von acht Varianten, fest gewählt über einen Hash der Item-Id.',
+  qnVariant: 'Variante {0}', qnClose: 'Schließen', qnNone: 'Nichts gefunden.', qnClass_block: 'Blöcke', qnClass_tool: 'Werkzeuge', qnClass_armor: 'Rüstung', qnClass_food: 'Essen', qnClass_misc: 'Alles andere'
+});
+
+/* Dev-Bereich: /dev/ auf dem Wiki-Host (hinter dem Login), das Dev-Overlay der Zentrale oder ?dev=1 im Test-Harness. */
+var DEV_QUERY = (function () {
+  var asked = /[?&]dev=1(&|$)/.test(location.search);
+  try { if (asked) window.sessionStorage.setItem('simple-wiki-dev', '1'); return asked || window.sessionStorage.getItem('simple-wiki-dev') === '1'; } catch (err) { return asked; }
+})();
+function isDevSite() {
+  return /^\/dev(\/|$)/.test(location.pathname) || !!window.sbDevHook || DEV_QUERY;
+}
+
+/* Items und Bloecke aller geladenen Mods: Bild und Name auch fuer fremde Ids (Handbuch, Fragentisch, Rezepte). */
+var GX = null, EXTRA_NAMES = {};
+function globalEntry(id) {
+  if (!GX) {
+    GX = new Map();
+    Object.keys(MODULE_DATA).forEach(function (m) {
+      var d = MODULE_DATA[m];
+      if (!d) return;
+      arr(d.items).concat(arr(d.blocks)).forEach(function (e) { if (isObj(e) && e.id && !GX.has(e.id)) GX.set(e.id, e); });
+    });
+  }
+  return GX.get(id) || null;
+}
+function extraName(id) { var n = EXTRA_NAMES && EXTRA_NAMES[id]; return n ? (n[LANG] || n.en || n.de || '') : ''; }
+function bothText(x) { return isObj(x) ? (x[LANG] || x.en || x.de || '') : (x == null ? '' : String(x)); }
+function scriptOnce(src, done) {
+  var s = document.createElement('script'); s.src = src;
+  s.onload = function () { done(true); }; s.onerror = function () { done(false); };
+  document.head.appendChild(s);
+}
+
+/* ---------- Getting Started ---------- */
+function pageStart() {
+  var nGuides = arr(D.features).filter(isObj).length;
+  var h = '<h1>' + esc(T('navStart')) + '</h1><p>' + esc(T('gsIntro')) + '</p><div class="gs-ways">' +
+    wayHtml('#/guidebook', 'book', T('gsBook'), T('gsBookSub')) + wayHtml('#/questionary', 'quest', T('gsQuest'), T('gsQuestSub')) +
+    wayHtml('#/submods', 'mods', T('gsMods'), T('gsModsSub')) + '</div>';
+  var guides = pageGuides().replace(/^[\s\S]*?<\/h1>/, '').replace(/<p class="muted">[\s\S]*?<\/p>/, '');
+  if (nGuides) h += '<h2>' + esc(T('gsGuides')) + ' <span class="muted tiny" style="font-weight:400">' + nGuides + '</span></h2><p class="muted">' + esc(T('guidesIntro')) + '</p>' + guides;
+  return h;
+}
+
+/* ---------- Submods: die gewaehlten Mods als Baum ---------- */
+function smIcon(m) { return m.icon ? '<img src="' + esc(m.icon) + '" alt="" width="24" height="24" class="sm-ico">' : '<span class="sm-ico"></span>'; }
+function smRow(m) {
+  var tag = m.bundle ? '<span class="pb-tag pb-' + (m.bundle === 'required' ? 'req' : 'opt') + '">' + esc(T(m.bundle === 'required' ? 'pbReqTag' : 'pbOptTag')) + '</span>' : '';
+  return '<a class="sm-mod" href="' + esc(crossModHref(m.id, '', '')) + '">' + smIcon(m) + '<span class="sm-main"><span class="sm-name">' + esc(m.displayName) + '</span>' + tag +
+    (amCounts(m) ? '<span class="sm-counts">' + esc(amCounts(m)) + '</span>' : '') + '<span class="sm-purpose">' + esc(modPurpose(m) || m.description || '') + '</span></span></a>';
+}
+function smKids(id) {
+  return packKids(id).filter(function (c) { return inPack(c.id); }).sort(function (a, b) { return (b.bundle === 'required') - (a.bundle === 'required') || a.displayName.localeCompare(b.displayName); });
+}
+function smNode(m) {
+  var kids = smKids(m.id);
+  if (!kids.length) return '<li>' + smRow(m) + '</li>';
+  return '<li><details class="sm-fold" open><summary>' + smRow(m) + '<span class="sm-n">' + esc(T('smSubs', kids.length)) + '</span></summary><ul class="sm-tree">' + kids.map(smNode).join('') + '</ul></details></li>';
+}
+function pageSubmods() {
+  var h = '<h1>' + esc(T('navSubmods')) + ' <span class="muted tiny" style="font-weight:400">' + PACK.ids.length + '</span></h1><p>' + esc(T('smIntro')) + '</p>';
+  var roots = PACK_MODS.filter(function (m) { return (!m.parent || !PACK_BY[m.parent] || !inPack(m.parent)) && inPack(m.id); });
+  if (!roots.length) return h + '<p class="hint">' + esc(T('smNone')) + '</p>';
+  var supers = roots.filter(function (m) { return packKids(m.id).some(function (c) { return inPack(c.id); }); });
+  var alone = roots.filter(function (m) { return supers.indexOf(m) < 0; });
+  supers.sort(function (a, b) { return packKids(b.id).length - packKids(a.id).length || a.displayName.localeCompare(b.displayName); });
+  h += supers.map(function (m) {
+    return '<section class="sm-super"><details class="sm-fold sm-top" open><summary>' + smRow(m) + '<span class="sm-n">' + esc(T('smSuper')) + '</span></summary><ul class="sm-tree">' +
+      smKids(m.id).map(smNode).join('') + '</ul></details></section>';
+  }).join('');
+  if (alone.length) {
+    alone.sort(function (a, b) { return a.displayName.localeCompare(b.displayName); });
+    h += '<section class="sm-super"><details class="sm-fold sm-top" open><summary><span class="sm-head">' + esc(T('smStandalone')) + '</span><span class="sm-n">' + alone.length + '</span></summary><ul class="sm-tree">' + alone.map(smNode).join('') + '</ul></details></section>';
+  }
+  return h;
+}
+
+/* ---------- Guidebook ---------- */
+var GB = { loading: false, section: null, page: 0, built: null, key: '' };
+function gbData() { return window.WIKI_GUIDEBOOK || null; }
+function gbLoad() {
+  if (gbData() || GB.loading) return;
+  GB.loading = true;
+  scriptOnce('data/guidebook.js', function (ok) {
+    GB.loading = false;
+    if (!ok) window.WIKI_GUIDEBOOK = { missing: true, contributions: [] };
+    Object.assign(EXTRA_NAMES, (window.WIKI_GUIDEBOOK && window.WIKI_GUIDEBOOK.names) || {});
+    if (currentRoute().section === 'guidebook') render({ keepScroll: true });
+  });
+}
+/* Abschnitte wie ModpackGuide.sections: ein Beitrag gehoert zu seinem Super-Mod, wenn der im Modpack ist (eigene Datei),
+   sonst bildet er einen eigenen Abschnitt. Erst der Besitzer, dann nach order und Namensraum; Abschnitte nach order, id. */
+function gbSections() {
+  var data = gbData();
+  if (!data || data.missing) return [];
+  var contribs = arr(data.contributions).filter(function (c) { return inPack(c.module) || !PACK_BY[c.module] && c.module !== 'wiringexample'; });
+  var byNs = {};
+  contribs.forEach(function (c) { if (!byNs[c.namespace]) byNs[c.namespace] = c; });
+  var groups = {}, order = [];
+  contribs.forEach(function (c) {
+    var key = byNs[c.section] ? c.section : c.namespace;
+    if (!groups[key]) { groups[key] = []; order.push(key); }
+    groups[key].push(c);
+  });
+  var out = [];
+  order.forEach(function (key) {
+    var owner = byNs[key], members = groups[key];
+    members.sort(function (a, b) { return (a !== owner) - (b !== owner) || a.order - b.order || a.namespace.localeCompare(b.namespace); });
+    var chapters = [];
+    members.forEach(function (c) { arr(c.chapters).forEach(function (ch) { chapters.push(Object.assign({ module: c.module }, ch)); }); });
+    var own = owner.screen && key === 'simplebuilding' && data.simplebuilding ? data.simplebuilding : null;
+    if (chapters.length || own) out.push({ id: key, name: owner.name, icon: owner.icon, order: owner.order, chapters: chapters, own: own });
+  });
+  out.sort(function (a, b) { return a.order - b.order || a.id.localeCompare(b.id); });
+  return out;
+}
+var GB_PER_CONTENTS = 12;
+/* Seitenfolge eines Abschnitts: Inhalt, dann jedes Kapitel ab einer neuen Doppelseite (linke Seite). */
+function gbPages(sec) {
+  var entries = [], pages = [];
+  if (sec.own) arr(sec.own.topics).forEach(function (t, ti) { entries.push({ kind: 'topic', t: t, ti: ti }); });
+  sec.chapters.forEach(function (c, ci) { entries.push({ kind: 'chapter', c: c, ci: ci }); });
+  var nContents = Math.max(1, Math.ceil(entries.length / GB_PER_CONTENTS));
+  for (var i = 0; i < nContents; i++) pages.push({ kind: 'contents', first: i === 0, list: entries.slice(i * GB_PER_CONTENTS, (i + 1) * GB_PER_CONTENTS) });
+  function newSpread() { if (pages.length % 2) pages.push({ kind: 'blank' }); }
+  entries.forEach(function (en) {
+    newSpread();
+    en.start = pages.length;
+    if (en.kind === 'topic') {
+      pages.push({ kind: 'topic', t: en.t });
+      arr(en.t.chapters).forEach(function (c, n) { pages.push({ kind: 'sbch', t: en.t, c: c, n: n + 1 }); });
+    } else {
+      arr(en.c.pages).forEach(function (p, n) { pages.push({ kind: 'page', c: en.c, p: p, n: n }); });
+      if (!arr(en.c.pages).length) pages.push({ kind: 'page', c: en.c, p: { title: en.c.title, text: '' }, n: 0 });
+    }
+  });
+  if (pages.length % 2) pages.push({ kind: 'blank' });
+  return { pages: pages, entries: entries };
+}
+/* Ids, die das Handbuch noch unter dem alten Namensraum nennt (Umzug in Sub-Mods): dasselbe Item eines anderen Mods. */
+var GB_ALIAS = {};
+function gbResolve(id) {
+  if (!id || id.charAt(0) === '#' || isVanilla(id) || globalEntry(id) || IX.items.has(id) || IX.blocks.has(id)) return id;
+  if (GB_ALIAS[id] !== undefined) return GB_ALIAS[id] || id;
+  globalEntry(id);
+  var p = ':' + pathOf(id), hit = null;
+  GX.forEach(function (e, k) { if (!hit && k.slice(-p.length) === p) hit = k; });
+  GB_ALIAS[id] = hit || '';
+  return hit || id;
+}
+function gbIcon(id, size) {
+  if (!id) return '';
+  id = gbResolve(id);
+  var tex = textureOf(id);
+  return tex && !MISSING_TEX[tex] ? '<img class="gb-icon" src="' + esc(tex) + '" alt="" width="' + (size || 20) + '" height="' + (size || 20) + '" loading="lazy">' : '';
+}
+/* Absaetze und "- "-Aufzaehlungen wie im Buchbildschirm. */
+function gbText(text) {
+  var out = [], list = [];
+  function flush() { if (list.length) { out.push('<ul>' + list.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>'); list = []; } }
+  String(text || '').split('\n').forEach(function (line) {
+    var l = line.trim();
+    if (!l) { flush(); return; }
+    if (l.indexOf('- ') === 0) { list.push(l.slice(2)); return; }
+    flush(); out.push('<p>' + esc(l) + '</p>');
+  });
+  flush();
+  return out.join('');
+}
+function gbLockNote(c) {
+  if (!c.advancement) return '';
+  var what = c.hint ? T('gbLockedPick', displayName(c.hint)) : c.advancement;
+  return '<p class="gb-lock">' + esc(T('gbLocked', what)) + '</p>';
+}
+function gbRecipeHtml(id) {
+  /* "ns:pfad" = Rezept-Id, sonst das Ergebnis-Item: das erste Rezept aller Mods, das es herstellt. */
+  var found = null, alias = gbResolve(id);
+  Object.keys(MODULE_DATA).some(function (m) {
+    var d = MODULE_DATA[m];
+    found = d && arr(d.recipes).find(function (r) { return isObj(r) && r.id === id; }) || null;
+    return !!found;
+  });
+  if (!found) Object.keys(MODULE_DATA).some(function (m) {
+    var d = MODULE_DATA[m];
+    found = d && arr(d.recipes).find(function (r) { var res = isObj(r) && normStack(r.result); return res && (res.id === id || res.id === alias); }) || null;
+    return !!found;
+  });
+  if (!found) return '';
+  var res = normStack(found.result);
+  return '<div class="gb-recipe"><div class="gb-recipe-name">' + esc(res ? displayName(res.id) : found.id) + '</div><div class="recipe-body">' + recipeBodyHtml(found) + '</div></div>';
+}
+function gbPageHtml(pg, built, sec, index) {
+  var h = '';
+  if (!pg) return '<div class="gb-page gb-empty" aria-hidden="true"></div>';
+  if (pg.kind === 'blank') return '<div class="gb-page gb-blank" aria-hidden="true"></div>';
+  if (pg.kind === 'contents') {
+    if (pg.first) h += '<h2 class="gb-h">' + gbIcon(sec.icon, 24) + esc(bothText(sec.name)) + '</h2><div class="gb-sub">' + esc(T('gbContents')) + '</div>';
+    h += '<ol class="gb-toc">' + pg.list.map(function (en) {
+      var title = en.kind === 'topic' ? bothText(en.t.title) : bothText(en.c.title);
+      var icon = en.kind === 'topic' ? (arr(en.t.chapters).map(function (c) { return c.icon; }).find(function (i) { return i && textureOf(i); }) || null) : en.c.icon;
+      var lockText = en.kind === 'chapter' && en.c.advancement ? T('gbLocked', en.c.hint ? T('gbLockedPick', displayName(en.c.hint)) : en.c.advancement) : '';
+      var lock = lockText ? ' <span class="gb-lockmark" role="img" aria-label="' + esc(lockText) + '" title="' + esc(lockText) + '"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="3" y="7" width="10" height="8" rx="1.5" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>' : '';
+      var op = en.kind === 'topic' && en.t.operatorOnly ? ' <span class="gb-op">' + esc(T('gbOperator')) + '</span>' : '';
+      return '<li><button type="button" class="gb-link" data-gb-go="' + en.start + '">' + gbIcon(icon) + '<span>' + esc(title) + '</span>' + lock + op + '</button></li>';
+    }).join('') + '</ol>';
+  } else if (pg.kind === 'topic') {
+    h += '<h2 class="gb-h">' + esc(bothText(pg.t.title)) + '</h2>' + (pg.t.operatorOnly ? '<p class="gb-lock">' + esc(T('gbOperator')) + '</p>' : '') + gbText(bothText(pg.t.intro));
+    h += '<ol class="gb-toc gb-toc-small">' + arr(pg.t.chapters).map(function (c, n) { return '<li><button type="button" class="gb-link" data-gb-go="' + (index + 1 + n) + '">' + gbIcon(c.icon) + '<span>' + esc(bothText(c.title)) + '</span></button></li>'; }).join('') + '</ol>';
+  } else if (pg.kind === 'sbch') {
+    h += '<div class="gb-kicker">' + esc(bothText(pg.t.title)) + '</div><h3 class="gb-h3">' + gbIcon(pg.c.icon, 24) + esc(bothText(pg.c.title)) + '</h3>' + gbText(bothText(pg.c.text));
+    var items = arr(pg.c.items).map(gbResolve).filter(function (x, i, a) { return a.indexOf(x) === i; });
+    if (items.length) h += '<div class="gb-items" aria-label="' + esc(T('gbItems')) + '">' + items.map(function (id) { return slotHtml(id, 1); }).join('') + '</div>';
+    var rec = arr(pg.c.recipes).map(gbRecipeHtml).filter(Boolean);
+    if (rec.length) h += '<div class="gb-recipes">' + rec.join('') + '</div>';
+  } else if (pg.kind === 'page') {
+    h += '<div class="gb-kicker">' + (pg.n === 0 ? gbIcon(pg.c.icon, 20) : '') + esc(bothText(pg.c.title)) + '</div>' + (pg.n === 0 ? gbLockNote(pg.c) : '');
+    var title = bothText(pg.p.title);
+    if (title) h += '<h3 class="gb-h3">' + esc(title) + '</h3>';
+    h += gbText(bothText(pg.p.text));
+  }
+  return '<div class="gb-page">' + h + '<div class="gb-foot">' + (pg.kind !== 'contents' ? '<button type="button" class="gb-link gb-back" data-gb-go="0">' + esc(T('gbBackContents')) + '</button>' : '<span></span>') + '<span class="gb-num">' + (index + 1) + '</span></div></div>';
+}
+function gbJumpHtml(built, page) {
+  var cur = 0;
+  built.entries.forEach(function (en, i) { if (en.start <= page) cur = i + 1; });
+  return '<select class="gb-jump" data-gb-jump aria-label="' + esc(T('gbChapter')) + '"><option value="0"' + (cur === 0 ? ' selected' : '') + '>' + esc(T('gbContents')) + '</option>' +
+    built.entries.map(function (en, i) { return '<option value="' + en.start + '"' + (cur === i + 1 ? ' selected' : '') + '>' + esc(en.kind === 'topic' ? bothText(en.t.title) : bothText(en.c.title)) + '</option>'; }).join('') + '</select>';
+}
+function gbNarrow() { return window.matchMedia && window.matchMedia('(max-width: 760px)').matches; }
+function pageGuidebook(id) {
+  var h = '<h1>' + esc(T('navGuidebook')) + '</h1><p class="muted">' + esc(T('gbIntro')) + '</p>';
+  var data = gbData();
+  if (!data) { gbLoad(); return h + '<p class="hint" role="status">' + esc(T('gbLoading')) + '</p>'; }
+  if (data.missing) return h + '<p class="hint">' + esc(T('gbMissing')) + '</p>';
+  Object.assign(EXTRA_NAMES, data.names || {});
+  var secs = gbSections();
+  if (!secs.length) return h + '<p class="hint">' + esc(T('gbEmpty')) + '</p>';
+  /* Adresse ?book=<abschnitt>/<seite> */
+  if (id) { var m = /^([a-z0-9_-]+)(?:\/(\d+))?$/.exec(id); if (m) { GB.section = m[1]; GB.page = m[2] ? Math.max(0, +m[2] - 1) : 0; } }
+  var sec = secs.find(function (s) { return s.id === GB.section; }) || secs[0];
+  if (sec.id !== GB.section) { GB.section = sec.id; GB.page = 0; }
+  var built = gbPages(sec);
+  GB.built = built;
+  var total = built.pages.length, narrow = gbNarrow();
+  GB.page = Math.max(0, Math.min(total - 1, GB.page));
+  if (!narrow) GB.page -= GB.page % 2;
+  var left = GB.page, right = narrow ? -1 : GB.page + 1;
+  h += '<div class="gb-tabs" role="tablist" aria-label="' + esc(T('gbSections')) + '">' + secs.map(function (s) {
+    return '<button type="button" role="tab" class="gb-tab" data-gb-sec="' + esc(s.id) + '" aria-selected="' + (s.id === sec.id) + '" title="' + esc(bothText(s.name)) + '">' + gbIcon(s.icon, 20) + '<span>' + esc(bothText(s.name)) + '</span></button>';
+  }).join('') + '</div>';
+  h += '<div class="gb-book' + (narrow ? ' gb-single' : '') + '" tabindex="0" aria-roledescription="book" aria-label="' + esc(bothText(sec.name)) + '">' +
+    '<div class="gb-spread">' + gbPageHtml(built.pages[left], built, sec, left) + (right >= 0 ? gbPageHtml(built.pages[right], built, sec, right) : '') + '</div>' +
+    '<div class="gb-nav"><button type="button" class="btn gb-turn" data-gb-turn="-1" aria-label="' + esc(T('gbPrev')) + '"' + (left <= 0 ? ' disabled' : '') + '>←</button>' +
+    '<span class="gb-pos" aria-live="polite">' + esc(T('gbPage', left + 1, total)) + '</span>' + gbJumpHtml(built, left) +
+    '<button type="button" class="btn gb-turn" data-gb-turn="1" aria-label="' + esc(T('gbNext')) + '"' + ((narrow ? left + 1 : left + 2) >= total ? ' disabled' : '') + '>→</button></div></div>' +
+    '<p class="muted tiny gb-keys">' + esc(T('gbKeys')) + '</p>';
+  return h;
+}
+function gbGo(page, opts) {
+  GB.page = Math.max(0, page);
+  go({ section: 'guidebook', id: GB.section + (GB.page ? '/' + (GB.page + 1) : ''), tab: '' }, { replace: true, keepScroll: true });
+  if (!opts || !opts.noFocus) { var b = $main.querySelector('.gb-book'); if (b) b.focus({ preventScroll: true }); }
+}
+function gbTurn(dir) {
+  if (!GB.built) return;
+  var step = gbNarrow() ? 1 : 2, next = GB.page + dir * step;
+  if (next < 0 || next >= GB.built.pages.length) return;
+  gbGo(next);
+}
+$main.addEventListener('click', function (ev) {
+  var b = ev.target.closest && ev.target.closest('[data-gb-go],[data-gb-turn],[data-gb-sec]');
+  if (!b || currentRoute().section !== 'guidebook') return;
+  ev.preventDefault();
+  if (b.hasAttribute('data-gb-sec')) { GB.section = b.getAttribute('data-gb-sec'); GB.page = 0; gbGo(0, { noFocus: true }); }
+  else if (b.hasAttribute('data-gb-turn')) gbTurn(+b.getAttribute('data-gb-turn'));
+  else gbGo(+b.getAttribute('data-gb-go'));
+});
+document.addEventListener('keydown', function (ev) {
+  if (currentRoute().section !== 'guidebook' || ev.altKey || ev.ctrlKey || ev.metaKey) return;
+  var t = ev.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.tagName === 'TEXTAREA')) return;
+  if (ev.key === 'ArrowRight' || ev.key === 'PageDown') { ev.preventDefault(); gbTurn(1); }
+  else if (ev.key === 'ArrowLeft' || ev.key === 'PageUp') { ev.preventDefault(); gbTurn(-1); }
+  else if (ev.key === 'Home') { ev.preventDefault(); gbGo(0); }
+});
+(function () {
+  var x0 = null, y0 = null;
+  $main.addEventListener('touchstart', function (ev) { if (!ev.target.closest || !ev.target.closest('.gb-book')) return; x0 = ev.touches[0].clientX; y0 = ev.touches[0].clientY; }, { passive: true });
+  $main.addEventListener('touchend', function (ev) {
+    if (x0 == null) return;
+    var dx = ev.changedTouches[0].clientX - x0, dy = ev.changedTouches[0].clientY - y0;
+    x0 = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) gbTurn(dx < 0 ? 1 : -1);
+  }, { passive: true });
+  var narrowWas = null;
+  window.addEventListener('resize', function () {
+    var n = gbNarrow();
+    if (narrowWas !== null && n !== narrowWas && currentRoute().section === 'guidebook') render({ keepScroll: true });
+    narrowWas = n;
+  });
+})();
+
+/* ---------- Questionary ---------- */
+var QN = { loading: false, q: '', mod: '', view: 'items', limit: 120, sel: '' };
+function qnData() { return window.WIKI_QUESTIONARY || null; }
+function qnLoad() {
+  if (qnData() || QN.loading) return;
+  QN.loading = true;
+  scriptOnce('data/questionary.js', function (ok) {
+    QN.loading = false;
+    if (!ok) window.WIKI_QUESTIONARY = { missing: true, namespaces: {} };
+    Object.assign(EXTRA_NAMES, (window.WIKI_QUESTIONARY && window.WIKI_QUESTIONARY.names) || {});
+    if (currentRoute().section === 'questionary') render({ keepScroll: true });
+  });
+}
+function qnNamespaces() {
+  var data = qnData() || { namespaces: {} };
+  return Object.keys(data.namespaces).filter(function (ns) {
+    var m = data.namespaces[ns].module;
+    return ns === 'minecraft' || inPack(m) || (!PACK_BY[m] && m !== 'wiringexample');
+  });
+}
+function qnModLabel(ns) {
+  if (ns === 'minecraft') return T('qnVanilla');
+  var data = qnData(), m = data && data.namespaces[ns] && modMeta(data.namespaces[ns].module);
+  return m ? m.displayName : prettyFromId(ns);
+}
+function qnFill(text, id, ns) {
+  return String(text || '').replace(/\{name\}/g, displayName(id)).replace(/\{mod\}/g, qnModLabel(ns)).replace(/\{item:([a-z0-9_.-]+:[a-z0-9_./-]+)\}/g, function (m, ref) { return displayName(ref); });
+}
+function qnPagesOf(entry) { var p = entry[LANG] || entry.en || entry.de || {}; return p; }
+function qnList() {
+  var data = qnData(), out = [], q = norm(QN.q);
+  qnNamespaces().forEach(function (ns) {
+    if (QN.mod && QN.mod !== ns) return;
+    var n = data.namespaces[ns];
+    /* Wie am Tisch: nur Texte zu Items, die es gibt (Vanilla oder in den Wiki-Daten eines Mods). */
+    if (QN.view === 'items') Object.keys(n.entries).forEach(function (p) { var id = ns + ':' + p; if (ns === 'minecraft' || globalEntry(id)) out.push({ id: id, ns: ns, e: n.entries[p] }); });
+    else if (QN.view === 'families') arr(n.families).forEach(function (f) { out.push({ id: ns + ':family/' + f.id, ns: ns, fam: f, e: f }); });
+  });
+  if (q) out = out.filter(function (x) {
+    var pages = qnPagesOf(x.e);
+    return norm(x.fam ? prettyFromId(x.fam.id) : displayName(x.id)).indexOf(q) >= 0 || norm(x.id).indexOf(q) >= 0 ||
+      ['lore', 'use', 'secret'].some(function (k) { return arr(pages[k]).some(function (t) { return norm(t).indexOf(q) >= 0; }); });
+  });
+  out.sort(function (a, b) { return (a.fam ? prettyFromId(a.fam.id) : displayName(a.id)).localeCompare(b.fam ? prettyFromId(b.fam.id) : displayName(b.id), LANG); });
+  return out;
+}
+function qnBook(x) {
+  var pages = qnPagesOf(x.e), name = x.fam ? prettyFromId(x.fam.id) : displayName(x.id);
+  function page(key, label) {
+    var paras = arr(pages[key]);
+    return '<div class="gb-page qn-page"><div class="gb-kicker">' + esc(label) + '</div>' + (paras.length ? paras.map(function (t) { return '<p>' + esc(qnFill(t, x.id, x.ns)) + '</p>'; }).join('') : '<p class="muted">–</p>') + '</div>';
+  }
+  var head = '<div class="qn-head">' + (x.fam ? '' : slotHtml(x.id, 1)) + '<div><h2>' + esc(name) + '</h2><div class="muted tiny"><code>' + esc(x.fam ? 'family:' + x.fam.id : x.id) + '</code> · ' + esc(qnModLabel(x.ns)) + '</div>' +
+    (x.fam ? '<div class="tiny">' + esc(T('qnFamilyItems')) + ': ' + arr(x.fam.items).map(function (r) { return '<code>' + esc(r) + '</code>'; }).join(' ') + '</div>' : '') + '</div>' +
+    '<button type="button" class="btn qn-close" data-qn-close>' + esc(T('qnClose')) + '</button></div>';
+  return '<section class="qn-open" id="qn-open" aria-label="' + esc(name) + '">' + head + '<div class="gb-book qn-book"><div class="gb-spread qn-spread">' + page('lore', T('qnLore')) + page('use', T('qnUse')) + page('secret', T('qnSecret')) + '</div></div></section>';
+}
+function qnFallbackHtml() {
+  var fb = (qnData() || {}).fallback || {};
+  return '<p class="muted">' + esc(T('qnFallbackIntro')) + '</p>' + Object.keys(fb).map(function (cls) {
+    var pages = fb[cls][LANG] || fb[cls].en || {};
+    var body = ['lore', 'use', 'secret'].map(function (k) {
+      return '<h3>' + esc(T(k === 'lore' ? 'qnLore' : k === 'use' ? 'qnUse' : 'qnSecret')) + '</h3><ol class="qn-variants">' + arr(pages[k]).map(function (t) { return '<li>' + esc(String(t).replace(/\{name\}/g, '…').replace(/\{mod\}/g, '…')) + '</li>'; }).join('') + '</ol>';
+    }).join('');
+    return section(tId('qnClass_', cls, prettyFromId(cls)), body, { fold: 'qn.fb.' + cls, defaultClosed: true });
+  }).join('');
+}
+function pageQuestionary(id) {
+  var h = '<h1>' + esc(T('navQuestionary')) + '</h1><p class="muted">' + esc(T('qnIntro')) + '</p>';
+  var data = qnData();
+  if (!data) { qnLoad(); return h + '<p class="hint" role="status">' + esc(T('qnLoading')) + '</p>'; }
+  if (data.missing) return h + '<p class="hint">' + esc(T('qnMissing')) + '</p>';
+  Object.assign(EXTRA_NAMES, data.names || {});
+  if (id && id !== QN.sel) { QN.sel = id; if (id.indexOf(':family/') > 0) QN.view = 'families'; else QN.view = 'items'; }
+  var nss = qnNamespaces();
+  if (QN.mod && nss.indexOf(QN.mod) < 0) QN.mod = '';
+  h += '<div class="ar-filters qn-filters">' +
+    '<div class="ar-frow" role="group" aria-label="' + esc(T('qnItems')) + '">' + [['items', 'qnItems'], ['families', 'qnFamilies'], ['fallback', 'qnFallback']].map(function (v) {
+      return '<button type="button" class="chip" data-qn-view="' + v[0] + '" aria-pressed="' + (QN.view === v[0]) + '">' + esc(T(v[1])) + '</button>';
+    }).join('') + '</div>' +
+    (QN.view !== 'fallback' ? '<div class="ar-frow"><input type="search" id="qn-q" value="' + esc(QN.q) + '" placeholder="' + esc(T('qnSearch')) + '" aria-label="' + esc(T('qnSearch')) + '">' +
+      '<select id="qn-mod" aria-label="Mod"><option value="">' + esc(T('qnAllMods')) + '</option>' + nss.map(function (ns) { return '<option value="' + esc(ns) + '"' + (QN.mod === ns ? ' selected' : '') + '>' + esc(qnModLabel(ns)) + '</option>'; }).join('') + '</select></div>' : '') + '</div>';
+  if (QN.view === 'fallback') return h + qnFallbackHtml();
+  var list = qnList(), sel = QN.sel && list.find(function (x) { return x.id === QN.sel; });
+  if (!sel && QN.sel) { var all = (function () { var keep = { q: QN.q, mod: QN.mod }; QN.q = ''; QN.mod = ''; var l = qnList(); QN.q = keep.q; QN.mod = keep.mod; return l; })(); sel = all.find(function (x) { return x.id === QN.sel; }); }
+  h += sel ? qnBook(sel) : '<p class="hint qn-pick">' + esc(T('qnPick')) + '</p>';
+  h += '<div class="qn-status muted tiny" aria-live="polite">' + esc(T('qnCount', list.length)) + '</div>';
+  if (!list.length) return h + '<p class="hint">' + esc(T('qnNone')) + '</p>';
+  var dup = {};
+  list.forEach(function (x) { if (!x.fam) { var l = displayName(x.id); dup[l] = (dup[l] || 0) + 1; } });
+  h += '<ul class="qn-grid">' + list.slice(0, QN.limit).map(function (x) {
+    var label = x.fam ? prettyFromId(x.fam.id) : displayName(x.id);
+    var sub = qnModLabel(x.ns) + (!x.fam && dup[label] > 1 ? ' · ' + pathOf(x.id) : '');
+    var icon = x.fam ? '<span class="qn-fam" aria-hidden="true">≡</span>' : (iconHtml(x.id) || '<span class="qn-fam" aria-hidden="true">?</span>');
+    return '<li><a class="qn-item' + (x.id === QN.sel ? ' active' : '') + '" href="#/questionary/' + esc(encodeURIComponent(x.id)) + '"' + (x.id === QN.sel ? ' aria-current="true"' : '') + '><span class="qn-ico">' + icon + '</span><span class="qn-name">' + esc(label) + '</span><span class="qn-ns">' + esc(sub) + '</span></a></li>';
+  }).join('') + '</ul>';
+  if (list.length > QN.limit) h += '<button type="button" class="chip ar-more" data-qn-more>' + esc(T('qnMore', Math.min(240, list.length - QN.limit))) + '</button>';
+  return h;
+}
+$main.addEventListener('click', function (ev) {
+  var b = ev.target.closest && ev.target.closest('[data-qn-view],[data-qn-more],[data-qn-close]');
+  if (!b || currentRoute().section !== 'questionary') return;
+  ev.preventDefault();
+  if (b.hasAttribute('data-qn-view')) { QN.view = b.getAttribute('data-qn-view'); QN.limit = 120; render({ keepScroll: true }); }
+  else if (b.hasAttribute('data-qn-more')) { QN.limit += 240; render({ keepScroll: true }); }
+  else { QN.sel = ''; go({ section: 'questionary', id: '', tab: '' }, { keepScroll: true }); }
+});
+$main.addEventListener('input', function (ev) {
+  if (ev.target.id !== 'qn-q') return;
+  QN.q = ev.target.value; QN.limit = 120;
+  clearTimeout(QN.timer);
+  QN.timer = setTimeout(function () {
+    var pos = ev.target.selectionStart;
+    render({ keepScroll: true });
+    var i = document.getElementById('qn-q'); if (i) { i.focus(); try { i.setSelectionRange(pos, pos); } catch (e) {} }
+  }, 180);
+});
+$main.addEventListener('change', function (ev) {
+  if (ev.target.hasAttribute && ev.target.hasAttribute('data-gb-jump')) { gbGo(+ev.target.value, { noFocus: true }); var j = $main.querySelector('[data-gb-jump]'); if (j) j.focus(); return; }
+  if (ev.target.id === 'qn-mod') { QN.mod = ev.target.value; QN.limit = 120; render({ keepScroll: true }); }
+});
+
+/* N24: Gruppen BROWSE / REFERENCE / PROGRESS & SETTINGS (einklappbar, Zustand im Browser), DEV nur im Dev-Wiki.
+   Oben bleiben Uebersicht, Alle Mods, Browser und Mod-Struktur. Gleich fuer jedes Mod-Wiki; leere Eintraege fallen weg. */
+function navInWorldCount() { return IW.entries.length; }
+var NAV_GROUPS = [
+  { key: 'browse', labelKey: 'sbCategories', items: [
+    { key: 'start', labelKey: 'navStart', glyph: '✎', count: function () { return arr(D.features).length || null; }, always: true },
+    { key: 'submods', labelKey: 'navSubmods', glyph: '⊢', count: function () { return PACK.ids.length; }, always: true },
+    { key: 'guidebook', labelKey: 'navGuidebook', glyph: '❡', count: null, always: true },
+    { key: 'questionary', labelKey: 'navQuestionary', glyph: '?', count: null, always: true }
+  ] },
+  { key: 'reference', labelKey: 'sbReference', items: [
+    { key: 'items', labelKey: 'navBlocksItems', glyph: '◆', count: function () { return arr(D.items).length + arr(D.blocks).filter(function (b) { return isObj(b) && !IX.items.has(b.id); }).length; } },
+    { key: 'allrecipes', labelKey: 'navRecipesAll', glyph: '⊞', count: function () { return arr(D.recipes).length + navInWorldCount(); } },
+    { key: 'enchantments', labelKey: 'navEnchantments', glyph: '✦', count: function () { return arr(D.enchantments).length; } },
+    { key: 'trades', labelKey: 'navTrades', glyph: '⇄', count: function () { return arr(D.trades).length; } },
+    { key: 'loot', labelKey: 'navLootables', glyph: '❖', count: function () { return arr(D.lootTables).length; } }
+  ] },
+  { key: 'progress', labelKey: 'sbProgress', items: [
+    { key: 'advancements', labelKey: 'navAdvancements', glyph: '★', count: function () { return arr(D.advancements).length; } },
+    { key: 'config', labelKey: 'navConfig', glyph: '⚙', count: function () { return arr(D.config).length; } },
+    { key: 'commands', labelKey: 'navCommands', glyph: '/', count: function () { return allCommandCount() || null; }, always: true },
+    { key: 'textures', labelKey: 'navTextures', glyph: '▦', count: function () { return window.WIKI_TEXTURES ? arr(window.WIKI_TEXTURES.textures).length : null; }, always: true },
+    { key: 'tags', labelKey: 'navTags', glyph: '#', count: function () { return arr(D.tags).length; } }
+  ] },
+  { key: 'dev', labelKey: 'sbDev', dev: true, items: [
+    { key: 'enchanting', labelKey: 'navEnchanting', glyph: '✧', count: null, always: true }
+  ] }
 ];
-var NAV_PROG = [
-  { key: 'features', labelKey: 'navGuides', glyph: '✎', count: function () { return arr(D.features).length; } },
-  { key: 'advancements', labelKey: 'navAdvancements', glyph: '★', count: function () { return arr(D.advancements).length; } },
-  { key: 'config', labelKey: 'navConfig', glyph: '⚙', count: function () { return arr(D.config).length; } },
-  { key: 'commands', labelKey: 'navCommands', glyph: '/', count: function () { return allCommandCount() || null; } },
-  { key: 'textures', labelKey: 'navTextures', glyph: '▦', count: function () { return window.WIKI_TEXTURES ? arr(window.WIKI_TEXTURES.textures).length : null; } }
-];
+/* Welcher Leisten-Eintrag zu einer Seite gehoert (Weiterleitungen alter Adressen eingeschlossen). */
+var NAV_ACTIVE = { blocks: 'items', recipes: 'allrecipes', inworld: 'allrecipes', make: 'allrecipes', use: 'allrecipes', features: 'start' };
+var SB_STORE = 'simple-wiki-sidebar';
+var SB_OPEN = (function () { try { var v = JSON.parse(window.localStorage.getItem(SB_STORE) || '{}'); return isObj(v) ? v : {}; } catch (err) { return {}; } })();
 function renderSidebar(active) {
   if (!D) { $side.innerHTML = ''; return; }
-  if (MODID !== 'simplebuilding') {
-    var links = [['', T('navOverview')], ['allmods', T('navAllMods')], ['browse', T('navBrowse')], ['structure', T('navStructure')], ['features', T('navGuides')]];
-    NAV_REF.concat(NAV_PROG).forEach(function (entry) {
-      var field = entry.key === 'loot' ? 'lootTables' : entry.key === 'allrecipes' ? 'recipes' : entry.key;
-      var count = field === 'inworld' ? IW.entries.length : arr(D[field]).length;
-      if (entry.key === 'textures' || entry.key === 'enchanting' || entry.key === 'commands') links.push([entry.key, T(entry.labelKey)]);
-      else if (entry.key !== 'features' && count) links.push([entry.key, T(entry.labelKey) + ' · ' + count]);
-    });
-    $side.innerHTML = links.map(function (entry) { return '<a href="#/' + entry[0] + '"' + ((active === entry[0] || (!entry[0] && active === 'overview')) ? ' aria-current="page" class="active"' : '') + '>' + esc(entry[1]) + '</a>'; }).join('');
-    return;
-  }
+  active = NAV_ACTIVE[active] || active;
+  if (/^cat:/.test(active || '')) active = 'items';
   function link(href, key, label, ico, c) {
     return '<a href="' + esc(href) + '"' + (key === active ? ' class="active" aria-current="page"' : '') + '><span class="sb-ico">' + ico + '</span><span>' + esc(label) + '</span>' + (c != null ? '<span class="n">' + esc(c) + '</span>' : '') + '</a>';
   }
-  function plain(n) { return link('#/' + n.key, n.key, T(n.labelKey), '<span class="glyph" aria-hidden="true">' + n.glyph + '</span>', n.count ? n.count() : null); }
-  var ce = catEntries();
-  var h = '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), '<span class="glyph" aria-hidden="true">⌂</span>', null) + link('#/allmods', 'allmods', T('navAllMods'), '<span class="glyph" aria-hidden="true">★</span>', null) + link('#/browse', 'browse', T('navBrowse'), '<span class="glyph" aria-hidden="true">▤</span>', null) + link('#/structure', 'structure', T('navStructure'), '<span class="glyph" aria-hidden="true">⊢</span>', null) + '</div>';
-  h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbCategories')) + '</div>' + catsShown().map(function (c) { return link('#/cat/' + c.key, 'cat:' + c.key, catLabel(c.key), iconHtml(catIcon(c)) || '', ce[c.key].length); }).join('') + '</div>';
-  h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbReference')) + '</div>' + NAV_REF.map(plain).join('') + '</div>';
-  h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbProgress')) + '</div>' + NAV_PROG.map(plain).join('') + '</div>';
+  function glyph(g) { return '<span class="glyph" aria-hidden="true">' + g + '</span>'; }
+  var h = '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), glyph('⌂'), null) + link('#/allmods', 'allmods', T('navAllMods'), glyph('★'), null) + link('#/browse', 'browse', T('navBrowse'), glyph('▤'), null) + link('#/structure', 'structure', T('navStructure'), glyph('⊢'), null) + '</div>';
+  var dev = isDevSite();
+  NAV_GROUPS.forEach(function (g) {
+    if (g.dev && !dev) return;
+    var links = g.items.map(function (n) {
+      var c = typeof n.count === 'function' ? n.count() : null;
+      if (!n.always && !c && n.key !== active) return '';
+      return link('#/' + n.key, n.key, T(n.labelKey), glyph(n.glyph), c || null);
+    }).filter(Boolean);
+    if (!links.length) return;
+    var hasActive = g.items.some(function (n) { return n.key === active; });
+    var open = hasActive || SB_OPEN[g.key] !== false;
+    h += '<details class="sb-group sb-sec' + (g.dev ? ' sb-dev' : '') + '" data-sb="' + g.key + '"' + (open ? ' open' : '') + '><summary class="sb-title" title="' + esc(T('sbToggle', T(g.labelKey))) + '"><span>' + esc(T(g.labelKey)) + '</span><span class="sb-chev" aria-hidden="true"></span></summary>' + links.join('') + '</details>';
+  });
   h += '<div class="sb-note">' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
   $side.innerHTML = h;
   var act = $side.querySelector('a.active');
@@ -5456,6 +6053,14 @@ function renderSidebar(active) {
     if (ar.top < sr.top || ar.bottom > sr.bottom) act.scrollIntoView({ block: 'nearest' });
   }
 }
+$side.addEventListener('toggle', function (ev) {
+  var d = ev.target;
+  if (!d || !d.getAttribute || !d.getAttribute('data-sb')) return;
+  SB_OPEN[d.getAttribute('data-sb')] = d.open;
+  try { window.localStorage.setItem(SB_STORE, JSON.stringify(SB_OPEN)); } catch (err) { /* nur diese Sitzung */ }
+}, true);
+/* Das Dev-Overlay laedt nach der Seite: die DEV-Gruppe erscheint, sobald es da ist. */
+window.addEventListener('load', function () { if (isDevSite() && !$side.querySelector('.sb-dev')) render({ keepScroll: true }); });
 function openNav() { document.body.classList.add('nav-open'); $menu.setAttribute('aria-expanded', 'true'); }
 function closeNav() { document.body.classList.remove('nav-open'); $menu.setAttribute('aria-expanded', 'false'); }
 $menu.addEventListener('click', function () { if (document.body.classList.contains('nav-open')) closeNav(); else openNav(); });
@@ -5961,7 +6566,7 @@ function renderMeta() {
   buildModSelect();
   /* Modul-Symbol aus modules.js (sonst blieb die Kachel bei Sub-Mods leer) */
   var modEntry = MODULES.find(function (e) { return e.id === MODID; });
-  var tex = MODID === 'simplebuilding' ? textureOf('simplebuilding:iron_chisel') : (modEntry && modEntry.icon) || null;
+  var tex = (MODID === 'simplebuilding' ? textureOf('simplebuilding:iron_chisel') || textureOf('simplechisels:iron_chisel') : null) || (modEntry && modEntry.icon) || null;
   document.getElementById('brand-icon').innerHTML = tex ? '<img src="' + esc(tex) + '" alt="">' : '';
   document.querySelector('.brand-text').innerHTML = esc(MOD.name || 'SimpleBuilding') + ' <small>Wiki</small>';
   if (tex && !document.querySelector('link[rel="icon"]')) { var l = document.createElement('link'); l.rel = 'icon'; l.href = tex; document.head.appendChild(l); }
@@ -5981,6 +6586,10 @@ function render(opts) {
   try {
     switch (r.section) {
       case 'overview': case '': html = pageOverview(); title = ''; active = 'overview'; break;
+      case 'start': html = pageStart(); title = T('navStart'); break;
+      case 'submods': html = pageSubmods(); title = T('navSubmods'); break;
+      case 'guidebook': html = pageGuidebook(r.id); title = T('navGuidebook'); break;
+      case 'questionary': html = pageQuestionary(r.id); title = T('navQuestionary'); break;
       case 'cat': html = pageCategory(r.id); title = catDef(r.id) ? catLabel(r.id) : T('titleNotFound'); active = 'cat:' + r.id; break;
       case 'features': html = r.id ? pageFeature(r.id) : pageGuides(); title = r.id ? (featureTitle(IX.features.get(r.id)) || T('wordFeature')) : T('navGuides'); active = 'features'; break;
       case 'items': html = r.id ? entryPage(r.id, 'items') : pageItems(); title = r.id ? displayName(r.id) : T('navItems'); if (r.id && IX.items.has(r.id)) active = 'cat:' + catsOf(r.id)[0]; break;
@@ -6098,6 +6707,10 @@ $main.addEventListener('error', function (ev) {
   if (img.getAttribute('src')) MISSING_TEX[img.getAttribute('src')] = true;
   var hl = img.closest('.home-hl .itile');
   if (hl) { hl.remove(); return; }
+  /* N24: Symbole im Handbuch fallen weg, im Fragentisch steht ein Platzhalter. */
+  if (img.classList.contains('gb-icon')) { img.remove(); return; }
+  var qi = img.closest('.qn-ico');
+  if (qi) { qi.innerHTML = '<span class="qn-fam" aria-hidden="true">?</span>'; return; }
   var name = img.getAttribute('data-name') || img.getAttribute('alt') || '?';
   var parent = img.parentNode;
   if (parent && parent.classList && parent.classList.contains('hero-tex')) { parent.innerHTML = T('texNotFound'); return; }
