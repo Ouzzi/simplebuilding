@@ -135,7 +135,14 @@ umgestellt); SimpleLib-Portal kennt keine Backrooms-Klasse; Mixin `Entity.broadc
 NeoForge kennt die Methode, Regel 11 unberührt – Simple Layers hat keinen NeoForge/Forge-Build); nur Spieler gehen durch Türen (A12: keine
 Logistik), keine Gegner (fg8 a). Ergebnis ohne Änderung. Bewertung MU 5, A12 4,5.
 
-**Endstand:** MB 4,5 · PF 4 · RR 4 (S1) · MU 5 · A12 4,5 · PAR 4.
+**R7 – API-Freeze und Andocken (Auftrag B-Hauptsitzung nach Abnahme BACK22c).** Prüfen: Ebenen konnten Blöcke/Items/Tests nur über Kern-Dateien
+(`LayersRegistry`, `LayersTests`, `ModuleGameTest`, `fabric.mod.json`, `modules.json`) anmelden → Konflikte bei 10 parallelen Branches. Verbessert:
+`Band.register(BandRegistrar)`, `Band.tests(…)`, je Ebene ein vorab eingetragener Fabric-Adapter `level/<Id>GameTest` (Katalog in `modules.json`,
+Entrypoint in `fabric.mod.json`) mit Test `<id>_registered` (Ebene im Stapel, Biom, Hülle, freie Ankunft). sbt 3 (b688a6800): COMPILE/DATA/GUIDES/
+WIKIGEN/DISCOVER/WIKICHECK_RC=0, Module 154/154 grün. sbt 4: 114/114 grün, aber Katalog kannte die Adapter noch nicht und drei Blöcke ohne Wiki-Notiz
+→ ergänzt (sbt 5). Bewertung PAR 4 → 4,5.
+
+**Endstand:** MB 4,5 · PF 4 · RR 4 (S1) · MU 5 · A12 4,5 · PAR 4,5. **API-Freeze: Commit „API freeze“ (3532fa0de) + Katalog-Nachtrag.**
 
 ## 7. Andocken für Ebenen-Agenten (API-Freeze 10.11., Branch-Basis `b-back22-kern`)
 
