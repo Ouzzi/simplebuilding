@@ -51,6 +51,8 @@ public enum VaultPiece {
     CANDLES("minecraft:white_candle[candles=3]", true),
     COBWEB("minecraft:cobweb", true),
     PLINTH("minecraft:chiseled_tuff", false),
+    /** Ceiling above the path riddle's lichen: held in the vault, so the hint cannot be mined away. */
+    LICHEN_BACK("minecraft:polished_blackstone", false),
     // the riddles (Simple Layers blocks, unbreakable)
     GATE_OPEN("simplelayers:vault_gate[open=true]", true, 6),
     GATE_CLOSED("simplelayers:vault_gate[open=false]", false),

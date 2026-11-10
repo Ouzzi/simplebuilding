@@ -67,7 +67,7 @@ def world():
     d('worldgen/placed_feature/vault_gap.json', {'feature': f'{NS}:vault_gap', 'placement': [{'type': 'minecraft:in_square'}, {'type': 'minecraft:biome'}]})
     d('worldgen/placed_feature/vault_cache.json', {'feature': f'{NS}:vault_cache', 'placement': [{'type': 'minecraft:biome'}]})
     d('tags/block/vault_held.json', {'values': ['minecraft:bedrock', 'minecraft:amethyst_block', 'minecraft:prismarine_bricks', 'minecraft:waxed_copper_block',
-                                                'minecraft:quartz_block', 'minecraft:ochre_froglight', 'minecraft:pearlescent_froglight', 'minecraft:verdant_froglight']})
+                                                'minecraft:quartz_block', 'minecraft:polished_blackstone', 'minecraft:ochre_froglight', 'minecraft:pearlescent_froglight', 'minecraft:verdant_froglight']})
 
 
 def entry(name, weight, lo=1, hi=1):

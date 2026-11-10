@@ -620,7 +620,10 @@ public final class VaultLayout {
                     int x = pathOrigin[0] + pathRow[0] * (2 * row + i) + pathCol[0] * (2 * col + j);
                     int z = pathOrigin[2] + pathRow[1] * (2 * row + i) + pathCol[1] * (2 * col + j);
                     put(x, r.y0 - 1, z, VaultPiece.PATH_TILE);
-                    if (on) put(x, r.y1, z, VaultPiece.LICHEN);
+                    if (on) {
+                        put(x, r.y1, z, VaultPiece.LICHEN);
+                        put(x, r.y1 + 1, z, VaultPiece.LICHEN_BACK);
+                    }
                 }
             }
         }

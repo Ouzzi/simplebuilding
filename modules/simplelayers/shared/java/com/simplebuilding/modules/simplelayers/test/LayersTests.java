@@ -146,7 +146,8 @@ public final class LayersTests {
         } finally {
             com.simplebuilding.framework.api.SubMods.set(SimpleLayers.MOD_ID, true);
         }
-        h.assertTrue(SimpleLayers.on() && LayersRegistry.tabStacks().size() == LayersRegistry.ITEMS.size() + 1, "back on: items + guide");
+        h.assertTrue(SimpleLayers.on() && LayersRegistry.tabStacks().size() == LayersRegistry.ITEMS.size() + 1
+                + com.simplebuilding.modules.simplelayers.vault.VaultRegistry.ITEMS.size(), "back on: items + seal parts + guide");
         h.succeed();
     }
 
