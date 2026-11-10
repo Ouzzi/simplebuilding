@@ -93,3 +93,9 @@ Messing Rauten|Rautenknoten, Rautenlöcher|Rautengitter; Bronze Rundbögen|Gussr
 ## Rückfragen (Besitzer)
 - R1: Platten auch für Zink/Nickel/Zinn/Messing/Bronze/Edelstahl anlegen? (Empfehlung: nur bei Bedarf; Klasse kann es schon)
 - R2: Grünspan/Oxidation für Messing/Bronze-Gitter und -Rost (Wachs wie Kupfer)? (Empfehlung: nein, wie METALS14 R4)
+
+## 8. Ergebnis (Plan-Abgleich + Tests)
+Alle Punkte 1–5 umgesetzt wie in §2 (Abweichungen §7). sbt1 (27ac0cd0a): Guides/Wiki/Discover erzeugt (-gen gemergt), Compile rot – `Blocks.COPPER_GRATE` ist in 26.3 eine
+`WeatheringCopperCollection` → `asList().getFirst()`. sbt2 (154d3c623): COMPILE_RC=0, DATA_RC=0, module-simpleores fabric+standalone 94/94, data_integrity 48/48,
+module-simplemoney 25/25, WIKICHECK_RC=0. Lokal: gen_data --check, check_data simpleores/simplemoney, check_tooltip_text, check_missing_textures (0 Fehler),
+module_guides --check, layers check, metals25 --check, precheck --fast grün. Nicht getestet: Client-Sicht (Modelle, Lagen-Render, Klänge im Spiel), NeoForge/Forge.
