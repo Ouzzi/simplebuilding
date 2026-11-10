@@ -2002,3 +2002,30 @@ wiki/assets/textures/render/nihil_purpur_slab.png
 wiki/assets/textures/render/ender_purpur_pillar.png
 wiki/assets/textures/render/ender_purpur_stairs.png
 wiki/assets/textures/render/ender_purpur_slab.png
+
+# b-texrate17 (10.11.): Astralit/Nihilith alternative blocks of 03.10. = Vanilla patterns recoloured (built by
+# tools/textures/vanilla_derived.py via astralit_nihilit_alternates_2026_10_03.derived); Git history keeps the old files.
+src/main/resources/assets/simplebuilding/textures/block/veined_astralit.png
+src/main/resources/assets/simplebuilding/textures/block/crystalline_astralit.png
+src/main/resources/assets/simplebuilding/textures/block/layered_astralit.png
+src/main/resources/assets/simplebuilding/textures/block/veined_nihilith.png
+src/main/resources/assets/simplebuilding/textures/block/crystalline_nihilith.png
+src/main/resources/assets/simplebuilding/textures/block/frosted_nihilith.png
+wiki/assets/textures/block/veined_astralit.png
+wiki/assets/textures/block/crystalline_astralit.png
+wiki/assets/textures/block/layered_astralit.png
+wiki/assets/textures/block/veined_nihilith.png
+wiki/assets/textures/block/crystalline_nihilith.png
+wiki/assets/textures/block/frosted_nihilith.png
+wiki/assets/textures/render/veined_astralit.png
+wiki/assets/textures/render/crystalline_astralit.png
+wiki/assets/textures/render/layered_astralit.png
+wiki/assets/textures/render/veined_nihilith.png
+wiki/assets/textures/render/crystalline_nihilith.png
+wiki/assets/textures/render/frosted_nihilith.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/veined_astralit.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/crystalline_astralit.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/layered_astralit.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/veined_nihilith.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/crystalline_nihilith.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/frosted_nihilith.png

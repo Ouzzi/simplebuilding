@@ -1,6 +1,4 @@
-# Simple Octets 0.9.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Octets 0.9.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,17 @@ First release of **Simple Octets** for Minecraft 26.3 on Fabric.
 
 Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs, and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them.
 
-## Highlights (from the commit history)
+## Added
 
-- Palette stage 2 A-D - 42 Simple Blocks members (mossy shapes, cracked prismarine/polished deepslate/blue nether, Vanilla-family walls/stairs/slabs) + 9 octets
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- Remove first pickup tips (), mirror chance by level, narrow pipe neck, gadget messages as sound/particles, dead Fabric tab hooks
-- Lead plate, lead octets with full soundproofing weight
-- Texts for Simple Hammers, Simple Octets and Simple Music (ST-41 follow-up)
-- Eight octets merge into the full block, sneaking breaks a corner off (); head right-click into the extra head slot
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Feat: misc 21.10. (enderite repair tag, creative tab names, modules 0.9.0, claim land costs)
+- **Octets: half-block cubes of every material** - An octet is a cube of 0.5 x 0.5 x 0.5 blocks.
+- **Shapecutter and back** - The Shapecutter of Simple Blocks cuts 8 octets from the full block of their material (wood octets from the planks); with Simple Blocks the Vanilla stonecutter has no octet recipes.
+- **Mixed cells** - Octets of different materials share one cell: the cell becomes the mixed octet cell, which keeps the material of each octet in its block entity, and turns back into a pure cell as soon as one material is left.
+- **Melon octets** - Sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten).
+- **Octets of other mods' blocks** - Octets of another mod's blocks exist only while that mod is loaded, with their recipes; without it neither the cells nor the recipes are there.
+
+## Changed
+
+- Content that used to live in SimpleBuilding now lives in this mod. Old worlds convert automatically and every old id keeps an alias; back up your world before updating.
 
 ## Requirements
 

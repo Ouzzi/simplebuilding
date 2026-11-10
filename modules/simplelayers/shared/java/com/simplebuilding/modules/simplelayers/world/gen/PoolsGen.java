@@ -101,6 +101,8 @@ public final class PoolsGen {
             if (lz <= 3 && y == BALCONY_Y) return Piece.TILE_FLOOR;
             if (lz == 3 && y == BALCONY_Y + 1 && lx <= 8) return Piece.TILE;
             if (lx == 9 && lz >= 4 && lz <= 7 && y == WALK_Y + 1 + (7 - lz)) return Piece.STAIR_N;
+            // STAIRS22 rule: one connected flight on a solid base (no loose steps), 3 free blocks above every step
+            if (lx == 9 && lz >= 4 && lz <= 7 && y > WALK_Y && y < WALK_Y + 1 + (7 - lz)) return Piece.TILE;
         }
         if (room == Room.TERRACE && !walk && y < WALK_Y) {
             // steps down into the water: shallow in the west, two deep in the east

@@ -1,6 +1,4 @@
-# Simple Ovens 0.9.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Ovens 0.9.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,16 @@ First release of **Simple Ovens** for Minecraft 26.3 on Fabric.
 
 Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). Upgrades in the world with the axe on its own, with the sledgehammer of Simple Hammers.
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- Lead colour back, pipe window padding, A groove + 5x5 neck, A conduit items, furnace boats for every furnace tier
-- Furnace boats (): boat/raft per Vanilla wood with a furnace, fuel push, derived item overlay, tests
-- Enderite variants only with Simple Ores, simpleores recommended
-- Player potions, ZO9 Mobs/Resonance required sub-mods, Crucibles sub-mod of Ovens (plan B-)
-- Remove first pickup tips (), mirror chance by level, narrow pipe neck, gadget messages as sound/particles, dead Fabric tab hooks
-- New sub-mod simplefoundry of Simple Ovens - multiblock foundry stage 1
-- ..3 evil rarity, nether heart/gem recipes, mighty/evil conduits, creative tab policy
+- **Faster Furnaces: Reinforced, Netherite and Enderite** - Three upgraded tiers of the furnace, the smoker and the blast furnace.
+- **In-World Upgrade** - A placed Reinforced machine becomes the Netherite one with a Netherite Nugget in the off hand, a Netherite machine the Enderite one with an Enderite Nugget.
+- **Furnace Minecarts** - Reinforced, Netherite and Enderite furnace minecarts: one fuel item burns 2, 4 or 8 times as long as in Vanilla's furnace cart (the speed of the furnace of the tier), and the cart runs at 5/8, 3/4 or all of a plain minecart's top speed.
+- **Furnace Boats** - A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes.
+
+## Changed
+
+- Content that used to live in SimpleBuilding now lives in this mod. Old worlds convert automatically and every old id keeps an alias; back up your world before updating.
 
 ## Requirements
 

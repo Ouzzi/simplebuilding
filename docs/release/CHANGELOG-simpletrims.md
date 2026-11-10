@@ -1,6 +1,4 @@
-# Simple Trims 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Trims 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,12 @@ First release of **Simple Trims** for Minecraft 26.3 on Fabric.
 
 Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades. Works on its own with the axe; SimpleBuilding adds the sledgehammer.
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- Vanilla-Form discs, softer sheet lines/jukebox, Duskwood log softer + signs B with lilac chains, inverted trim stage logic (1 px outline, armor-shaded fill)
-- ..3 evil rarity, nether heart/gem recipes, mighty/evil conduits, creative tab policy
-- /<modid> config for every config option
-- Feat: inverse trim rim as subtraction, 16 tinted display cases (variant C), pictureMap default on
-- Inverse trim in 3 stages (HARD, RIM, SOFT), stage up per smithing round
-- Simplelib PlayerState leave/stop hook, NetherRoof/TrimLight/Fear/Haunt state dropped through it
-- Inverting trim upgrade, shared JEI in-world upgrade tab in SimpleLib
+- **Simple Trims** - Sub-mod with the Glowing, Emitting, Pulsating and Inverting armor trim templates, placeable trim templates and the trim upgrades.
+- **Trim upgrades at the smithing table** - Template + armor + material: Glowing (Glow Ink Sac, once), Radiance (Glowstone Dust, up to level 5), Pulsating (Echo Shard, once), Inverting (Ink Sac, three times: flat, rimmed, soft rim).
+- **Placed trim templates** - Sneak + use with any armor trim template lays it flat on the floor, against a wall or under a ceiling.
+- **Forging templates: axe or sledgehammer** - A placed Vanilla armor trim template becomes the Glowing one (Glow Ink Sac in the off hand) or the Emitting one (Glowstone Dust): 5 right clicks with the tool, then 2 of the off-hand material, 4 diamonds and 2 glowstone (Glowing) or 2 blaze powder (Emitting) from the inventory.
 
 ## Requirements
 

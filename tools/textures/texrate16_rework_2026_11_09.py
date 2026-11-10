@@ -60,14 +60,29 @@ ROUNDS = {
     'quant_soft': {1: [('quant', dict(n=12))], 2: [('quant', dict(n=10)), ('soft', dict(target=12))],
                    3: [('quant', dict(n=10)), ('soft', dict(target=12)), ('areas', dict(goal=(9, 30), top=38))]},
 }
+# b-texrate17 (10.11., Runde 17): single-recipe families for the gentler choices (texrate17_2026_11_10.py picks per texture
+# the gentlest recipe with the best traffic light that keeps the contrast span and the strongest saturation). softN = soft
+# to hard <= N %; kKsN = soft with the knee at K luminance (only the extremes beyond K step in); suffix a = then areas.
+R17 = {'soft24': [('soft', dict(target=24))], 'soft20': [('soft', dict(target=20))], 'soft16': [('soft', dict(target=16))],
+       'soft20a': [('soft', dict(target=20)), ('areas', dict(goal=(9, 30)))], 'quant10': [('quant', dict(n=10))],
+       'quant8f': [('quant', dict(n=8)), ('areas', dict(goal=(12, 40), step=14))], 'areas30': [('areas', dict(goal=(9, 30)))]}
+for _k in (40, 60):
+    for _t in (16, 20, 25):
+        R17[f'k{_k}s{_t}'] = [('soft', dict(target=_t, knee=_k))]
+        R17[f'k{_k}s{_t}a'] = [('soft', dict(target=_t, knee=_k)), ('areas', dict(goal=(9, 30)))]
+for _m, _steps in R17.items():
+    ROUNDS[_m] = {1: _steps, 2: _steps, 3: _steps}
+TARGETS_FILES = (TARGETS_FILE, HERE / 'texrate17_targets.json')
 
 
 def load_targets() -> dict:
-    """{repo path: method family}; the JSON also keeps the group name and the reason per path (for the document)."""
-    if not TARGETS_FILE.exists():
-        return {}
-    doc = json.loads(TARGETS_FILE.read_text(encoding='utf-8'))
-    return {p: v['method'] for p, v in doc['targets'].items()}
+    """{repo path: method family} of every round's target file (Runde 16 + Runde 17); the JSONs also keep the group name
+    and the reason per path (for the document)."""
+    out = {}
+    for f in TARGETS_FILES:
+        if f.exists():
+            out.update({p: v['method'] for p, v in json.loads(f.read_text(encoding='utf-8'))['targets'].items()})
+    return out
 
 
 _TARGETS: dict | None = None

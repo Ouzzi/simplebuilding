@@ -110,6 +110,7 @@ public final class LayersTests {
         ALL.put("chalk_marks", LayersTests::chalkMarks);
         ALL.put("chalk_box", LayersTests::chalkBox);
         ALL.put("chalk_recipes", LayersTests::chalkRecipes);
+        ALL.put("stairwells_walkable", LayersTests::stairwellsWalkable);
     }
 
     private LayersTests() {}
@@ -1143,5 +1144,155 @@ public final class LayersTests {
         boolean gadgets = BuiltInRegistries.ITEM.containsKey(com.simplebuilding.modules.simplelayers.world.BackroomsLoot.ECHO_SOUNDER);
         h.assertTrue(pools.size() == (gadgets ? 1 : 0), "echo sounder only with Simple Gadgets: " + pools.size() + ", gadgets " + gadgets);
         h.succeed();
+    }
+
+    // ---------------------------------------------------------------- STAIRS22 (plan docs/ai/PLAN-B-STAIRS22-2026-11-10.md, merged in b-back20s)
+
+    /** A generator seen as absolute block positions (for the stair checks). */
+    interface At {
+        Piece at(int x, int y, int z);
+    }
+
+    /**
+     * STAIRS22 (live bug: loose stair blocks, head against the ceiling tiles), extended to every stair of the BACK20 levels: per seed
+     * and level every step stands on a base and has {@link LobbyGen#STAIR_HEADROOM} passable blocks above it, and a simulated player
+     * (0.6 x 1.8 box, step height 0.6, the real collision shapes of the generated blocks) walks every flight up without jumping and
+     * without hitting anything, exit included. Level 0: Lobby stairwells and dais steps; Level 1: loading dock steps, mezzanine
+     * ladders; Level 2: ladder shafts and boiler ladders; Poolrooms: gallery stairs to the balcony.
+     */
+    static void stairwellsWalkable(GameTestHelper h) {
+        LobbyGen.Style s = LobbyGen.LOBBY;
+        int[] count = new int[7];
+        for (long seed : new long[] {1L, 99L, 12345L, -7L, 424242L}) {
+            java.util.Random random = new java.util.Random(seed);
+            At lobby = (x, y, z) -> LobbyGen.at(s, seed, x, y, z), pools = (x, y, z) -> PoolsGen.at(seed, x, y, z),
+                    warehouse = (x, y, z) -> WarehouseGen.at(seed, x, y, z), pipes = (x, y, z) -> PipesGen.at(seed, x, y, z);
+            int[] found = new int[7];
+            for (int i = 0; i < 40000 && java.util.Arrays.stream(found).anyMatch(f -> f < 3); i++) {
+                int cx = random.nextInt(4000) - 2000, cz = random.nextInt(4000) - 2000;
+                // Level 0: stairwells (the L-shaped flight to the upper floor)
+                if (found[0] < 3 && LobbyGen.stairwell(s, seed, cx, cz)) {
+                    found[0]++;
+                    int ox = cx * LobbyGen.CELL, oz = cz * LobbyGen.CELL;
+                    for (int[] step : LobbyGen.STAIR_STEPS) assertStep(h, lobby, "lobby stairwell", ox + step[0], step[1], oz + step[2]);
+                    String fail = walk(lobby, ox, oz, ox + LobbyGen.CELL, oz + LobbyGen.CELL, LobbyGen.TOP_Y + LobbyGen.UPPER, ox + 1.5, oz + 2.5,
+                            LobbyGen.FLOOR_Y + 1, new double[][] {{ox + 7.5, oz + 2.5}, {ox + 7.5, oz + 5.5}}, LobbyGen.TOP_Y + 2);
+                    h.assertTrue(fail == null, "seed " + seed + " stairwell " + cx + " " + cz + ": " + fail);
+                }
+                // Level 0: daises (one slab step up, BACK20)
+                if (found[1] < 3 && LobbyGen.shape(s, seed, cx, cz) == LobbyGen.Shape.DAIS) {
+                    found[1]++;
+                    int ox = cx * LobbyGen.CELL, oz = cz * LobbyGen.CELL;
+                    for (int lx = 2; lx <= 6; lx++) assertStep(h, lobby, "dais edge", ox + lx, 2, oz + 2);
+                    String fail = walk(lobby, ox, oz, ox + LobbyGen.CELL, oz + LobbyGen.CELL, LobbyGen.CEILING_Y, ox + 1.5, oz + 4.5,
+                            LobbyGen.FLOOR_Y + 1, new double[][] {{ox + 4.5, oz + 4.5}}, 3);
+                    h.assertTrue(fail == null, "seed " + seed + " dais " + cx + " " + cz + ": " + fail);
+                }
+                // Level 1: loading docks (one block up, edged by slabs as a step) and mezzanine ladders (BACK20)
+                WarehouseGen.Bay bay = WarehouseGen.bay(seed, cx, cz);
+                int bx = cx * WarehouseGen.BAY, bz = cz * WarehouseGen.BAY;
+                if (found[2] < 3 && bay == WarehouseGen.Bay.DOCK) {
+                    found[2]++;
+                    for (int lx = 2; lx <= 10; lx++) assertStep(h, warehouse, "dock edge", bx + lx, WarehouseGen.DOCK_Y, bz + 5);
+                    String fail = walk(warehouse, bx, bz, bx + WarehouseGen.BAY, bz + WarehouseGen.BAY, WarehouseGen.CEILING_Y, bx + 6.5, bz + 7.5,
+                            WarehouseGen.FLOOR_Y + 1, new double[][] {{bx + 6.5, bz + 3.5}}, WarehouseGen.DOCK_Y + 1);
+                    h.assertTrue(fail == null, "seed " + seed + " dock " + cx + " " + cz + ": " + fail);
+                }
+                if (found[3] < 3 && bay == WarehouseGen.Bay.MEZZANINE) {
+                    found[3]++;
+                    assertLadder(h, warehouse, "mezzanine ladder", bx + 6, WarehouseGen.FLOOR_Y + 1, WarehouseGen.DECK_Y, bz + 6, 0, 1);
+                }
+                // Level 2: ladder shafts and boiler ladders
+                PipesGen.Node node = PipesGen.node(seed, 0, cx, cz);
+                int px = cx * PipesGen.NODE, pz = cz * PipesGen.NODE;
+                if (found[4] < 3 && node == PipesGen.Node.SHAFT) {
+                    found[4]++;
+                    assertLadder(h, pipes, "ladder shaft", px + 3, 2, PipesGen.STOREY + 2, pz + 2, 0, 1);
+                }
+                if (found[5] < 3 && node == PipesGen.Node.BOILER) {
+                    found[5]++;
+                    assertLadder(h, pipes, "boiler ladder", px + 3, 2, PipesGen.STOREY + 1, pz + 4, 1, 0);
+                }
+                // Poolrooms: gallery stairs up to the balcony (BACK20)
+                if (found[6] < 3 && PoolsGen.room(seed, cx, cz) == PoolsGen.Room.GALLERY) {
+                    found[6]++;
+                    int qx = cx * PoolsGen.ROOM, qz = cz * PoolsGen.ROOM;
+                    for (int lz = 4; lz <= 7; lz++) assertStep(h, pools, "gallery stair", qx + 9, PoolsGen.WALK_Y + 1 + (7 - lz), qz + lz);
+                    String fail = walk(pools, qx, qz, qx + PoolsGen.ROOM, qz + PoolsGen.ROOM, PoolsGen.ceiling(seed, cx, cz), qx + 9.5, qz + 8.5,
+                            PoolsGen.WALK_Y + 1, new double[][] {{qx + 9.5, qz + 2.5}}, PoolsGen.BALCONY_Y + 1);
+                    h.assertTrue(fail == null, "seed " + seed + " gallery " + cx + " " + cz + ": " + fail);
+                }
+            }
+            for (int k = 0; k < found.length; k++) {
+                h.assertTrue(found[k] > 0, "seed " + seed + ": no stair of kind " + k + " found");
+                count[k] += found[k];
+            }
+        }
+        h.assertTrue(java.util.Arrays.stream(count).allMatch(c -> c >= 10), "stairs checked " + java.util.Arrays.toString(count));
+        h.succeed();
+    }
+
+    /** One step at (x, y, z): solid, a base under it (nothing loose), {@link LobbyGen#STAIR_HEADROOM} passable blocks above it. */
+    static void assertStep(GameTestHelper h, At at, String what, int x, int y, int z) {
+        h.assertFalse(at.at(x, y, z).passable(), what + ": step at " + x + " " + y + " " + z);
+        h.assertFalse(at.at(x, y - 1, z).passable(), what + ": a base under the step at " + x + " " + y + " " + z);
+        for (int k = 1; k <= LobbyGen.STAIR_HEADROOM; k++) {
+            h.assertTrue(at.at(x, y + k, z).passable(), what + ": headroom " + k + " above the step at " + x + " " + y + " " + z);
+        }
+    }
+
+    /**
+     * A ladder column at (x, z) from feet {@code bottom} to the floor {@code top} it leads to: free all the way and 2 free blocks
+     * above the top, and where it lets off (dx, dz) a floor at {@code top} with 2 free blocks above.
+     */
+    static void assertLadder(GameTestHelper h, At at, String what, int x, int bottom, int top, int z, int dx, int dz) {
+        for (int y = bottom; y <= top + 2; y++) h.assertTrue(at.at(x, y, z).passable(), what + " free at " + x + " " + y + " " + z);
+        h.assertFalse(at.at(x + dx, top, z + dz).passable(), what + ": a floor beside the ladder top at " + x + " " + top + " " + z);
+        h.assertTrue(at.at(x + dx, top + 1, z + dz).passable() && at.at(x + dx, top + 2, z + dz).passable(), what + ": 2 free blocks where the ladder lets off at " + x + " " + top + " " + z);
+    }
+
+    /**
+     * Walks a simulated player through the blocks of the box (x0..x1, 0..y1, z0..z1) from (startX, startZ) with the feet on
+     * {@code startFeet} along the path; null when he ends with the feet on {@code endFeet}, else where he got stuck.
+     */
+    static String walk(At at, int x0, int z0, int x1, int z1, int y1, double startX, double startZ, double startFeet, double[][] path, double endFeet) {
+        List<net.minecraft.world.phys.AABB> boxes = new ArrayList<>();
+        for (int x = x0; x <= x1; x++) {
+            for (int z = z0; z <= z1; z++) {
+                for (int y = 0; y <= y1; y++) {
+                    BlockState st = BackroomsBlocks.state(at.at(x, y, z));
+                    for (net.minecraft.world.phys.AABB b : st.getCollisionShape(net.minecraft.world.level.EmptyBlockGetter.INSTANCE, BlockPos.ZERO).toAabbs()) {
+                        boxes.add(b.move(x, y, z));
+                    }
+                }
+            }
+        }
+        double px = startX, pz = startZ, feet = stairSupport(boxes, px, pz, startFeet);
+        if (Math.abs(feet - startFeet) > 1.0E-4) return "start not on the floor: " + feet;
+        for (double[] target : path) {
+            while (Math.abs(px - target[0]) > 1.0E-6 || Math.abs(pz - target[1]) > 1.0E-6) {
+                double nx = px + Math.max(-0.05, Math.min(0.05, target[0] - px)), nz = pz + Math.max(-0.05, Math.min(0.05, target[1] - pz));
+                double nf = stairSupport(boxes, nx, nz, feet);
+                net.minecraft.world.phys.AABB body = new net.minecraft.world.phys.AABB(nx - 0.3, nf, nz - 0.3, nx + 0.3, nf + 1.8, nz + 0.3).deflate(1.0E-5);
+                for (net.minecraft.world.phys.AABB b : boxes) {
+                    if (b.intersects(body)) return String.format(java.util.Locale.ROOT, "stuck at %.2f %.2f %.2f against %s", nx, nf, nz, b);
+                }
+                px = nx;
+                pz = nz;
+                feet = nf;
+            }
+        }
+        return Math.abs(feet - endFeet) < 1.0E-4 ? null : "ends at feet " + feet + " instead of " + endFeet;
+    }
+
+    /** The highest top under the player's footprint he can stand on from feet height {@code feet} (step height 0.6, falling ok). */
+    static double stairSupport(List<net.minecraft.world.phys.AABB> boxes, double x, double z, double feet) {
+        double best = Double.NEGATIVE_INFINITY;
+        for (net.minecraft.world.phys.AABB b : boxes) {
+            if (b.minX < x + 0.3 - 1.0E-6 && b.maxX > x - 0.3 + 1.0E-6 && b.minZ < z + 0.3 - 1.0E-6 && b.maxZ > z - 0.3 + 1.0E-6 && b.maxY <= feet + 0.6 + 1.0E-6) {
+                best = Math.max(best, b.maxY);
+            }
+        }
+        return best;
     }
 }

@@ -1,6 +1,4 @@
-# Simple Weather 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Weather 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,11 +6,11 @@ First release of **Simple Weather** for Minecraft 26.3 on Fabric.
 
 Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.
 
-## Highlights (from the commit history)
+## Added
 
-- /<modid> config for the remaining modules, simplelib bundled
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Simple Weather sub-mod split out of Simple QoL
+- **Disable weather** - disableWeather (default false, server) clears rain and thunder and skips weather progression.
+- **Rain and thunder frequency** - rainFrequencyFactor and thunderFrequencyFactor (default 1 = Vanilla, bounded 0.25–4, server) speed up or slow down the countdown between two rains or storms: 2 = the dry spell is half as long, 0.25 = four times as long.
+- **Rain density** - clientRainParticleDensity is a local visual preference, default 20, bounded 0–100: thins rain in the air, ground particles and rain sounds; it never changes server weather.
 
 ## Requirements
 

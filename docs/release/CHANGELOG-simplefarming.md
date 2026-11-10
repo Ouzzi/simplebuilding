@@ -1,6 +1,4 @@
-# Simple Farming 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Farming 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,14 +6,11 @@ First release of **Simple Farming** for Minecraft 26.3 on Fabric.
 
 Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone.
 
-## Highlights (from the commit history)
+## Added
 
-- Cut through grass by Sharpness chance, spyglass edge overlay + zoom, clearer slot highlight, leggings fix
-- /<modid> config for the remaining modules, simplelib bundled
-- /<modid> config for every config option
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Feat: Warped Wart (simplelib), warped base potion for the mod potions, blue nether bricks (simpleblocks)
-- Simple Farming sub-mod split out of Simple QoL (stage 6)
+- **Feather Falling farmland protection** - Feather Falling boots prevent trampling.
+- **Hoe harvest and replant** - Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa.
+- **Cut through grass** - With Sharpness I or higher a sword or axe swings through grass and flowers: the chance to hit the mob behind them is 10 % at Sharpness I and rises linearly to 90 % at V (the outline of the plant disappears for a swing that passes).
 
 ## Requirements
 

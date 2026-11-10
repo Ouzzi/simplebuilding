@@ -1,6 +1,4 @@
-# Simple Music 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Music 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,21 @@ First release of **Simple Music** for Minecraft 26.3 on Fabric.
 
 Sheet music as a text note code (editor with test listening, .txt/.nbs import), pressed onto blank discs in the Disc Press, and uploaded mono Ogg discs with quota and OP approval, played in the Vanilla jukebox and the Pocket Jukebox.
 
-## Highlights (from the commit history)
+## Added
 
-- Commands start with their mod id, old names stay as aliases
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- Vanilla-Form discs, softer sheet lines/jukebox, Duskwood log softer + signs B with lilac chains, inverted trim stage logic (1 px outline, armor-shaded fill)
-- Remove first pickup tips (), mirror chance by level, narrow pipe neck, gadget messages as sound/particles, dead Fabric tab hooks
-- ..3 evil rarity, nether heart/gem recipes, mighty/evil conduits, creative tab policy
-- Feat: chisel on every framed item (), example button in sheet music editor (), stackable cheese/butter layers
-- Info pages (structure discs), fletching table entry, money JEI entrypoint, copper chest by id
-- Recipe viewer entries per module, also standalone
+- **Sheet Music** - Shapeless from paper, an ink sac and a feather.
+- **Note code** - Text lines: "tempo 4" (ticks per step, 1-20), "$h = harp" or "$k = sound minecraft:entity.cat.ambient" (aliases), "$h: c4 e4 g4 - . [c4 e4]" (tracks).
+- **Editor** - Coloured code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib).
+- **Import** - Put .txt note code or Note Block Studio .nbs files into config/simplemusic/sheets/ and pick one in the editor; the import only creates text.
+- **Copying at the cartography table** - Like a blueprint: a signed sheet on top, an empty sheet below gives a copy; only the empty sheet is used up.
+- **Blank Disc** - Four coal or charcoal and four blackstone around an amethyst shard.
+- **Disc Press** - A piston over two iron ingots over three smooth stone.
+- **File check** - The server checks every upload itself without decoding: Ogg Vorbis only, one stream, intact pages (checksums), mono only, 22.05-48 kHz, at most 4 MiB and 5 minutes (server settings).
+- **Custom Disc** - A pressed disc carries either an uploaded track (hash, title, length, uploader - never audio; amethyst label) or a composition (paper label).
+- **Music Discs** - Six music discs by Simple Music, each found only in one kind of structure, like Vanilla's Pigstep or Otherside.
+- **Pocket Jukebox** - A bundle for up to 20 discs (Vanilla discs and track discs).
+- **Placed Pocket Jukebox** - Sneak + right click with the pocket jukebox on a block puts it down, front to you.
+- **Moderation** - Everyone may upload up to 5 tracks; others hear a track only after an operator approves it, until then only the uploader.
 
 ## Requirements
 

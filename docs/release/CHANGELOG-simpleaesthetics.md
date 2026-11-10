@@ -1,6 +1,4 @@
-# Simple Aesthetics 0.9.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Aesthetics 0.9.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,13 +6,9 @@ First release of **Simple Aesthetics** for Minecraft 26.3 on Fabric.
 
 Super-mod: bundles Simple Visuals, Simple Sounds and Simple Models, with one on/off switch each.
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- /<modid> config for the remaining modules, simplelib bundled
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Feat: misc 21.10. (enderite repair tag, creative tab names, modules 0.9.0, claim land costs)
-- Stage 1c - new super-mod Simple Aesthetics bundles Visuals, Sounds and Models
+- **Super-mod for looks and sounds** - Simple Aesthetics has no content of its own: it bundles Simple Visuals, Simple Sounds and Simple Models. config/simpleaesthetics.json holds one switch each (enableSimpleVisuals, enableSimpleSounds, enableSimpleModels, default true); off makes that sub-mod inert, its own settings stay in its own config.
 
 ## Requirements
 

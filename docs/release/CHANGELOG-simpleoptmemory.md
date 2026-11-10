@@ -1,6 +1,4 @@
-# Simple Opt Memory 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Opt Memory 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,12 +6,9 @@ First release of **Simple Opt Memory** for Minecraft 26.3 on Fabric.
 
 Memory optimizations of Simple Optimization: block states share their read-only property and face tables (steps back for FerriteCore); model baking later.
 
-## Highlights (from the commit history)
+## Added
 
-- /<modid> config for the remaining modules, simplelib bundled
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Stage 4 - O3 more culling, O9 detail switches, O4 shared state tables, S5b activation range (off), target check
-- Simple Optimization super-mod, sub-mods render/memory/server, compat engine (framework 0.1.12), O1/O7/M1/M2/S5a
+- **Shared block-state tables** - Block states that hold the same property values (for example every stair block facing east) share one value array instead of one each, blocks with the same properties share one key array, and states with the same face-support pattern share one table.
 
 ## Requirements
 

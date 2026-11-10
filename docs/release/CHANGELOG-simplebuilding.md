@@ -1,23 +1,29 @@
-# SimpleBuilding 2.0.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# SimpleBuilding 2.0.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
-First release of **SimpleBuilding** for Minecraft 26.3 on Fabric.
+Version 2.0.0 is the module split for Minecraft 26.3 on Fabric. Back up your world before you update.
 
 Building tools, storage, machines and enchantments for Minecraft; the super mod of the Simple family, bundling its required sub-mods.
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Building Tools as its own required sub-mod - building wands, octants and blueprints move out of the SimpleBuilding core
-- Simple Chisels as its own required sub-mod - the seven chisels, their datapack tables and Fast Chiseling move out of the SimpleBuilding core
-- Strong Upgrade (template + shard) moves to SimpleLib
-- G4 Simple Gadgets - the Echo Sounder moves to the sub-mod (Fabric, part 1)
-- Cracked Astralit/Nihilit/Ender Quartz bricks, Nihilit End planks (Ashwood/Duskwood), book designs for chiseled shelves (WU 06.11. 7-9)
-- Stairs, slab, wall for Astralit/Nihilit blocks and ender quartz wall
-- Blossom Gold -> Rose Gold (IdMoves), Rose Copper display name, new pressing recipes, tool/armor values (copper/iron durability, faster)
-- Palette stage 2 A-D - 42 Simple Blocks members (mossy shapes, cracked prismarine/polished deepslate/blue nether, Vanilla-family walls/stairs/slabs) + 9 octets
+- New required sub-mods Simple Building Tools (building wands, octants, blueprints) and Simple Chisels (the seven chisels and Fast Chiseling) take over those tools from the core mod.
+- Simple Blocks gains 42 new building blocks (mossy shapes, cracked prismarine, cracked polished deepslate, cracked blue nether bricks, and stairs, slabs and walls in the style of the Vanilla families), plus 9 new octet blocks.
+- Cracked Astralit, Nihilit and Ender Quartz bricks, Nihilit End planks (Ashwood and Duskwood), and stairs, slabs and walls for Astralit and Nihilit blocks and the ender quartz wall.
+- New book designs for chiseled bookshelves.
+- The Echo Sounder now lives in Simple Gadgets, and the Strong Upgrade (template and shard) moved to SimpleLib.
+- A new Simple Modpack guide (in SimpleLib) gives every Simple mod one shared handbook with a chapter per mod.
+- New pressing recipes for Rose Gold.
+
+## Changed
+
+- SimpleBuilding is now a super mod: building tools, chisels, ovens, crucibles, octets, building blocks, hammers, storage, mob heads, pads, gadgets and more live in their own required sub-mods that also run on their own. Existing worlds convert automatically and every old id keeps an alias. Back up your world before updating.
+- Each sub-mod has its own config file and takes over your old SimpleBuilding values on the first start.
+- Blossom Gold is now Rose Gold; copper and iron tool and armor values were adjusted.
+- The single Vanilla crosshair moves to the aim point and the grey extra crosshair is gone.
+- Commands start with their mod id; the old names keep working as aliases.
+- The mod license changed from CC0 to All Rights Reserved with source-available code and a contributor license agreement (CLA). Earlier versions stay CC0.
 
 ## Requirements
 

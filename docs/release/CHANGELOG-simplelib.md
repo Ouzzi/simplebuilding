@@ -1,6 +1,4 @@
-# SimpleLib 0.4.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# SimpleLib 0.4.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,21 @@ First release of **SimpleLib** for Minecraft 26.3 on Fabric.
 
 Shared library of the Simple mods: common materials and upgrade templates, id migrations, config commands, UI building blocks, heat sources and warm food. Bundled by the Simple mods that need it.
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Chisels as its own required sub-mod - the seven chisels, their datapack tables and Fast Chiseling move out of the SimpleBuilding core
-- Strong Upgrade (template + shard) moves to SimpleLib
-- G4 Simple Gadgets - the Echo Sounder moves to the sub-mod (Fabric, part 1)
-- Pressling blocks, netherite/enderite scrap blocks, sage orb block, rose carrots and nuggets
-- Compressed rename, Collapsed stage with Slowness I-III and SimpleLib SlotAlert
-- Single vanilla crosshair moved to aim point, grey extra crosshair removed
-- Commands start with their mod id, old names stay as aliases
-- Simple Pads as its own required sub-mod - pads, pressure plates and the Spawn Elytra move out of the SimpleBuilding core
+- **Simple Modpack guide** - One guide for every Simple mod, there with any of them installed: craft it from a book and a crafting table (shapeless), or get it from the first FTB Quests quest.
+- **Warm food** - Cooked food comes out of a crucible warm and is eaten 15% faster while warm.
+- **Shared materials** - Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the basic upgrade template, polished end stone (shared building block of the family) and the six building cores.
+- **Cursed and Mythic rarity** - Two tiers above Epic for every Simple mod: Cursed (radiant red name with a black shadow; in the tooltip the letters burn, orange and gold flames rise into them and run through the name) and Mythic (an opal of aquamarine, azure and lavender moving through the letters with a pearl gloss, a white sheen sweeping across in the tooltip, enchantment glint).
+- **Legendary moments** - The hardest advancements and the hardest enchantments play a deep choir and a particle show at the player.
+- **Hang watchdog** - When the server tick stands still, Simple Lib writes a list of all threads to the logs folder, so a frozen game can be diagnosed.
+- **Free Look** - While Free Look is on, the mouse turns only the camera, not the player; walking and all other input stay normal.
+
+## Changed
+
+- Shared materials, upgrade templates and in-world upgrades moved here from SimpleBuilding; old worlds load them under their new ids.
+- Enderite now belongs to Simple Ores.
+- The mod license changed from CC0 to All Rights Reserved with source-available code and a contributor license agreement (CLA). Earlier versions stay CC0.
 
 ## Requirements
 

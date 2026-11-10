@@ -1,6 +1,4 @@
-# Simple Wanderers 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Wanderers 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,13 @@ First release of **Simple Wanderers** for Minecraft 26.3 on Fabric.
 
 One Village Wanderer per village: a Wandering Trader in an ochre travel cloak with a leashed horse. Offers common-to-uncommon goods, a fresh stock every 3 days, a restock every 1.5 days, and a range that follows the village biome. Works on its own with Vanilla.
 
-## Highlights (from the commit history)
+## Added
 
-- One clean creative tab per mod, family order
-- Spawn eggs in the Vanilla 26.3 scheme, calmer boss textures
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- /<modid> config for the remaining modules, simplelib bundled
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- ST-40 guide books + FTB start quests for maps/tools/enddragonfight, ST-41 questionary texts
-- Client smoke with wanderer and horse, visit throttle, Simple Money price table, MODS-UND-FEATURES entry
-- Simple Wanderers module skeleton - Village Wanderer, horse, spawner, rotation, trade split, texture, guide, loaders
+- **Village Wanderer** - One travel-cloaked trader per village: a Wandering Trader in an ochre cloak and a hat with a wide brim.
+- **Wanderer's horse** - A normal horse in an ochre leather armor hangs on the wanderer's leash.
+- **New stock and restock** - A fresh set of offers every 3 days and a restock every 1.5 days.
+- **Goods: wanderer and traveling trader** - The goods of the Wandering Trader are split.
+- **Biome assortment** - The wanderer's village type (the Vanilla villager type of the bell's biome) adds two offers from its own pool: desert (cactus, sand), savanna (acacia, dry grass), plains (flowers, seeds), taiga (spruce, podzol), snow (spruce, fern, packed ice), jungle (jungle wood, vines) and swamp (lily pad, orchids, mushrooms).
 
 ## Requirements
 

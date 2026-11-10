@@ -11,7 +11,8 @@ import static com.simplebuilding.modules.simplelayers.world.gen.GenHash.unit;
  *     Every cell forces a door towards its exit ({@link GenHash#toward}), so the way out is at most 2 * (region - 3) cells long;
  *     in the exit's row and column an EXIT sign hangs under the ceiling on the side of the door that leads on.</li>
  * <li>Nesting (Lobby only): an upper floor (carpet y 9, ceiling y 15, darker, more dead ends) above the bedrock slab y 8,
- *     reached by stairwell cells (an L-shaped stair with a parapet around the opening above).</li>
+ *     reached by stairwell cells (an L-shaped flight on a solid base, 3 free blocks above every step, a parapet around the
+ *     opening above; STAIRS22).</li>
  * <li>Ways deeper (Lobby only): noclip spots (a rift in a wall, y 2-3) and maintenance doors on the upper floor lead to Level 1.</li>
  * </ul>
  * Bedrock: y 0, y 8 (between the floors) and y 16-63 (Lobby; the exit level is one floor: y 8-63).
@@ -205,13 +206,28 @@ public final class LobbyGen {
         return offset >= 3 && offset <= 5;
     }
 
-    /** Stairwell blocks at cell-local (lx, y, lz) (absolute y), or null when the stairwell leaves the position alone. */
+    /**
+     * The stairwell's steps as {cell-local x, step y, cell-local z} from the ground floor up (STAIRS22): a straight run east along
+     * lz 2 (lx 2-7, y 2-7, lx 1 stays free as the landing in line), then two steps south (lz 3 and 4) up to the upper floor
+     * (carpet y 9, standing height y 10). Every step rises one block = two half steps, so the run is walked without jumping.
+     */
+    public static final int[][] STAIR_STEPS = {{2, 2, 2}, {3, 3, 2}, {4, 4, 2}, {5, 5, 2}, {6, 6, 2}, {7, 7, 2}, {7, 8, 3}, {7, 9, 4}};
+    /** Free blocks above every step: 2 for the head plus 1 for the diagonal (a player on the next half step still overlaps it). */
+    public static final int STAIR_HEADROOM = 3;
+
+    /**
+     * Stairwell blocks at cell-local (lx, y, lz) (absolute y), or null when the stairwell leaves the position alone. STAIRS22: the
+     * east run stands on a solid birch base down to the floor (one connected flight instead of loose stair blocks), and the
+     * {@link #STAIR_HEADROOM} blocks above every step are cut free through ceiling tiles, bedrock slab and upper carpet.
+     */
     static Piece stairPiece(Style s, int lx, int y, int lz) {
-        if (lz == 2 && lx >= 1 && lx <= 7) {
-            if (y == lx + 1) return Piece.STEP_E;
-            if (y >= 7 && y <= 9 && lx >= 4) return Piece.AIR;
+        for (int[] step : STAIR_STEPS) {
+            if (step[0] != lx || step[2] != lz) continue;
+            if (y == step[1]) return step[2] == 2 ? Piece.STEP_E : Piece.STEP_S;
+            if (step[2] == 2 && y >= FLOOR_Y + 1 && y < step[1]) return Piece.STAIR_BASE;
+            if (y > step[1] && y <= step[1] + STAIR_HEADROOM) return Piece.AIR;
         }
-        if (lx == 7 && lz == 3 && y == 9) return Piece.STEP_S;
+        if (lz == 2 && lx >= 4 && y >= 7 && y <= 9) return Piece.AIR;
         if (y == 10 && (lz == 1 && lx >= 4 || lz == 3 && lx >= 4 && lx <= 6 || lz == 2 && lx == 3)) return s.dotted;
         return null;
     }
@@ -220,7 +236,7 @@ public final class LobbyGen {
     public static Piece at(Style s, long seed, int x, int y, int z) {
         if (y < 0 || y > HULL_TOP_Y) return Piece.AIR;
         int cx = Math.floorDiv(x, CELL), cz = Math.floorDiv(z, CELL), lx = Math.floorMod(x, CELL), lz = Math.floorMod(z, CELL);
-        if (s.upperFloor && y >= 2 && y <= 10 && lx > 0 && lz > 0 && stairwell(s, seed, cx, cz)) {
+        if (s.upperFloor && y >= 2 && y <= 12 && lx > 0 && lz > 0 && stairwell(s, seed, cx, cz)) {
             Piece p = stairPiece(s, lx, y, lz);
             if (p != null) return p;
         }

@@ -1,6 +1,4 @@
-# Simple Chisels 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Chisels 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,10 +6,11 @@ First release of **Simple Chisels** for Minecraft 26.3 on Fabric.
 
 Seven chisels (Stone to Enderite) that move a block one step along its family - and back with sneak - with the enchantment Fast Chiseling; other mods add chains through data files.
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Chisels / Building Tools mod icons (variant A item motif on tile), replaces placeholder rhombus
-- Simple Chisels as its own required sub-mod - the seven chisels, their datapack tables and Fast Chiseling move out of the SimpleBuilding core
+- **Chisels: the next block of the family** - Seven chisels from Stone to Enderite.
+- **Fast Chiseling** - The chisel enchantment (levels I and II, also at the enchanting table): the cooldown after a step drops to 70 % (I) or 40 % (II), never below one tick, and the chisel mines faster (like Efficiency II or IV).
+- **Chisel tables as data** - Every chain is a datapack file data/<namespace>/chisel_transformations/<name>.json with a tier (stone, iron, diamond, netherite, enderite), a table (chisel, or touch for Constructor's Touch), chains of block ids (optionally cyclic) and an optional remove list.
 
 ## Requirements
 

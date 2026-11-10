@@ -1,6 +1,4 @@
-# Simple Opt Render 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Opt Render 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,13 +6,14 @@ First release of **Simple Opt Render** for Minecraft 26.3 on Fabric.
 
 Client optimizations of Simple Optimization: leaf culling, light-map cache, more culling (sign text, item frames, beacon beams), fast IP ping, telemetry off, optional detail switches (particles, texture animations, air fog). Each area steps back when a known optimization mod covers it.
 
-## Highlights (from the commit history)
+## Added
 
-- /<modid> config for the remaining modules, simplelib bundled
-- A mixin that does not apply switches its area off instead of crashing
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Stage 4 - O3 more culling, O9 detail switches, O4 shared state tables, S5b activation range (off), target check
-- Simple Optimization super-mod, sub-mods render/memory/server, compat engine (framework 0.1.12), O1/O7/M1/M2/S5a
+- **Leaf culling** - Leaves no longer draw the faces they share with other leaves, so forests build smaller chunk meshes while the outside keeps the fancy cutout look.
+- **Light map cache** - The light map is only uploaded again when one of its inputs (sky and block light, gamma, effects, boss darkening, colors) moved by at least half a color step since the last upload; smaller changes cannot change a pixel, so the picture stays identical.
+- **Fast IP ping** - A server address typed as a plain IP (IPv4, or IPv6 in brackets) is used as it is: no reverse DNS lookup and no SRV query, so the server list fills faster.
+- **Telemetry off** - The client never starts a telemetry session: every telemetry event goes to the Vanilla disabled sender, nothing is sent.
+- **More culling** - Three more things are left out when they cannot be seen, each with its own switch (all on): signText drops the text side facing away from you once you stand more than half a block behind the board; itemFrames skips frames (with item or map) seen from behind their solid wall, frames with the Glowing effect stay; beaconBeams skips beacon beams outside the view.
+- **Detail switches** - Switches without needing Sodium, all true (Vanilla) by default: particles false adds no particles, textureAnimations false keeps animated textures (water, lava, fire, portals) on their current frame, fog false lifts the air and render-distance fog.
 
 ## Requirements
 

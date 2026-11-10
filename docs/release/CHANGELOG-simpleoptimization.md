@@ -1,6 +1,4 @@
-# Simple Optimization 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Optimization 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,11 +6,9 @@ First release of **Simple Optimization** for Minecraft 26.3 on Fabric.
 
 Super-mod: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server, with one on/off switch each.
 
-## Highlights (from the commit history)
+## Added
 
-- /<modid> config for the remaining modules, simplelib bundled
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Simple Optimization super-mod, sub-mods render/memory/server, compat engine (framework 0.1.12), O1/O7/M1/M2/S5a
+- **Super-mod for optimizations** - Simple Optimization has no content of its own: it bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server. config/simpleoptimization.json holds one switch each (enableSimpleOptRender, enableSimpleOptMemory, enableSimpleOptServer, default true); off makes that sub-mod inert, its own settings stay in its own config.
 
 ## Requirements
 

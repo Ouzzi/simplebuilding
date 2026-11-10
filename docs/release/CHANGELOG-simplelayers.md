@@ -1,6 +1,4 @@
-# Simple Layers 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Drafted by hand (a-rel10, 09.11.): the mod is newer than the auto-drafted set. Needs owner editing before upload. Nothing here is published._
+# Simple Layers 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -10,7 +8,7 @@ Two new world layers: the **Cloud Sea** above the Overworld sky (floating island
 **Backrooms** below the bedrock (an endless grid of yellowed wallpaper rooms, damp carpet, buzzing neon lights, exit doors and rifts).
 Cloud blocks break instantly and soften falls. Works on its own with Vanilla and SimpleLib.
 
-## Highlights
+## Added
 
 - Cloud Sea dimension: enter by climbing above the configured height, slow fall when handed back to the Overworld
 - Backrooms dimension: fall through the void below the Overworld floor, find the exit door or a rift to leave

@@ -1,6 +1,4 @@
-# Simple Loot 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Loot 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,12 +6,9 @@ First release of **Simple Loot** for Minecraft 26.3 on Fabric.
 
 Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.
 
-## Highlights (from the commit history)
+## Added
 
-- /<modid> config for the remaining modules, simplelib bundled
-- /<modid> config for every config option
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Simple Loot sub-mod split out of Simple QoL (stage 4)
+- **Vault cooldown** - A player may loot a vault again after vaultCooldownDays, default 100 Minecraft days, bounded 1–36500.
 
 ## Requirements
 

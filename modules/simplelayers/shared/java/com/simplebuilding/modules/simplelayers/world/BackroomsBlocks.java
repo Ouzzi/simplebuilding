@@ -140,6 +140,7 @@ public final class BackroomsBlocks {
         m.put(Piece.RUG, Blocks.CARPET.pick(DyeColor.RED).defaultBlockState());
         m.put(Piece.POT, Blocks.POTTED_DEAD_BUSH.defaultBlockState());
         m.put(Piece.BOOKSHELF, Blocks.BOOKSHELF.defaultBlockState());
+        m.put(Piece.STAIR_BASE, Blocks.BIRCH_PLANKS.defaultBlockState());
         m.put(Piece.END_FLOOR, Blocks.BIRCH_PLANKS.defaultBlockState());
         m.put(Piece.END_WALL, concrete(DyeColor.WHITE));
         m.put(Piece.END_CEILING, Blocks.SMOOTH_QUARTZ.defaultBlockState());

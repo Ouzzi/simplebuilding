@@ -1,6 +1,4 @@
-# Simple Maps 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Maps 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,16 @@ First release of **Simple Maps** for Minecraft 26.3 on Fabric.
 
 Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar, framed views and cartography table upgrades.
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- Enderite variants only with Simple Ores, simpleores recommended
-- ..3 evil rarity, nether heart/gem recipes, mighty/evil conduits, creative tab policy
-- Key binding page (list + keyboard 60/75/100, conflicts), blueprint and picture map on UiBoxes (WP-25/)
-- /<modid> config for every config option
-- Feat: inverse trim rim as subtraction, 16 tinted display cases (variant C), pictureMap default on
-- Picture maps (AUD-6 stage 3): PNG to Vanilla map wall, /simplemaps picture, server checks
-- Mega wayfinder map with dimension buttons, anvil unlocks and enderite recipes
+- **Wayfinder maps** - Endless maps, one per dimension: the plain map for the Overworld and other dimensions, a Nether map and an End map.
+- **Mega wayfinder map** - One map for every dimension: buttons in the map screen's title bar switch between the Overworld (grass block), the Nether (netherrack), the End (end stone) and further dimensions; the map remembers the last one.
+- **Map screen** - Use the map to open it: drag to move, mouse wheel or +/− to zoom (1, 4, 8, 16 and 64 blocks per pixel).
+- **Claims layer** - With Simple Tweaks installed, the layers button of the map screen offers a Claims layer: claimed land as colored strips on explored terrain, your own land framed.
+- **Waypoints** - Up to eight waypoints belong to the map itself; they show in the locator bar while the map is in the main or off hand.
+- **Cartography table** - Copy, extend and combine wayfinder maps at the cartography table; each can be switched off on the server.
+- **Maps in item frames** - A framed wayfinder map keeps its view until you save a new one: right-click opens the map, the frame's area is outlined, and saving asks once more.
+- **Web map export** - Server admins can export the explored world as a static web map: picture tiles, markers.json and a small viewer page.
 
 ## Requirements
 

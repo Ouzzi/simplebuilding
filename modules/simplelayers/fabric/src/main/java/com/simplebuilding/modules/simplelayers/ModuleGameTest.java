@@ -190,4 +190,9 @@ public final class ModuleGameTest {
     public void chalkRecipes(GameTestHelper h) {
         LayersTests.ALL.get("chalk_recipes").accept(h);
     }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void stairwellsWalkable(GameTestHelper h) {
+        LayersTests.ALL.get("stairwells_walkable").accept(h);
+    }
 }

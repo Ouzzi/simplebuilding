@@ -1,6 +1,4 @@
-# Simple Crucibles 0.9.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Crucibles 0.9.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,17 @@ First release of **Simple Crucibles** for Minecraft 26.3 on Fabric.
 
 Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel; the barrels that dock onto them are Simple Storage's), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). Upgrades in the world with the axe on its own, with the sledgehammer of Simple Hammers.
 
-## Highlights (from the commit history)
+## Added
 
-- Interface fits chests and barrels, pipes without stubs, mod barrels like Vanilla
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- Enderite variants only with Simple Ores, simpleores recommended
-- Remove first pickup tips (), mirror chance by level, narrow pipe neck, gadget messages as sound/particles, dead Fabric tab hooks
-- ..3 evil rarity, nether heart/gem recipes, mighty/evil conduits, creative tab policy
-- Village kitchen one block lower, 10 % magma; dev mods DH/Voxy/Sodium
-- Recipe viewer entries per module, also standalone
-- /<modid> config for every config option
+- **Crucibles** - A cooking station without fuel that cooks every slot at once, heated by the block below.
+- **Village field kitchens** - Villages of all five types can have a small field kitchen: an iron crucible on an unlit campfire with cooked food, a barrel of raw meat and a seat.
+- **Reinforced cauldron** - A cauldron for water, lava, powder snow and soul lava; lava in it heats a crucible like a lava source.
+- **Soul lava** - A rare Nether fluid and the only extreme heat source: it flows short and slow, is never replaced, and gives Seelenbrand (soul burn).
+- **Copper and soul lava buckets** - Buckets for the crucible's fluids: the iron bucket breaks on soul lava, copper oxidizes.
+
+## Changed
+
+- Content that used to live in SimpleBuilding now lives in this mod. Old worlds convert automatically and every old id keeps an alias; back up your world before updating.
 
 ## Requirements
 
