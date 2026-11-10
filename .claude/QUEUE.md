@@ -1259,3 +1259,6 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
 ## b-lic15 (09.11.)
 ## b-back18 (10.11.)
 - [x] (B, b-back18, 10.11., Beleg f488a5766, sbt COMPILE_RC=0, MODULE_RC=0 (simplelayers fabric+standalone 60/60), DI_RC=0 (48/48), TAB_RC=0, GUIDES/WIKIGEN/DISCOVER/WIKICHECK_RC=0, DATA_RC=0) **N18 BACK18** Backrooms-Ausbau: Level 0 (Ausgang ≤ 18 Räume mit EXIT-Wegschildern, Obergeschoss, Treppenhäuser, Noclip-Risse), Level 1 Lagerhalle, Level 2 Rohrgänge (Leiterschächte, Ventil-Rätsel-Luke), Poolrooms, Ausgangs-Ebene (Belohnung), Wartungsschacht-Eingang mit Warnschild/Absperrband, leise Ambient-Geräusche (Config ambientVolume), 4 Runden + Texturen R1–R3. Plan docs/ai/PLAN-B-BACK18-2026-11-10.md, Vorschau previews/b-back18-preview.html (BACK18). Teil 2 nur Konzept docs/ai/KONZEPT-B-UNDER18-2026-11-10.md, Vorschau previews/b-under18-preview.html (UNDER18). Offen: Besitzer-Antworten BACK18/UNDER18, Client-Sicht, Bündel/Gate durch A.
+
+## b-under21 (10.11.)
+- [~] (B, b-under21, 10.11.) **N21 UNDER21 Grundgewölbe bauen** (Besitzer-Abnahme UNDER18 = B, 10.11. ~09:20): eigene Dimension unter dem Grundgestein, rundum Bedrock hinter Verkleidung, Schichtbiom, liminal/ruhig, Rätsel Siegelteile/Hebelmuster/Klangfolge/Pfad/Aufstiegsaltar, Eingang über seltene Bedrock-Lücke, Tor schließt nach 30 s. Plan docs/ai/PLAN-B-UNDER21-2026-11-10.md.
