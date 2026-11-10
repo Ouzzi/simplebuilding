@@ -360,6 +360,37 @@ public final class LayersTests {
     }
 
 
+    /**
+     * Stage 5 + BACK18: the grid is deterministic, closed by bedrock, carpet below, every arrival free, and about 70 % of the lines
+     * have doors (40 % random + the escape tree's forced door per cell).
+     */
+    static void backroomsGrid(GameTestHelper h) {
+        long seed = 12345L;
+        LobbyGen.Style s = LobbyGen.LOBBY;
+        java.util.Random random = new java.util.Random(7);
+        int doors = 0, edges = 0;
+        for (int i = 0; i < 400; i++) {
+            int x = random.nextInt(20000) - 10000, z = random.nextInt(20000) - 10000;
+            h.assertTrue(BackroomsGrid.at(seed, x, 0, z).is(Blocks.BEDROCK), "bedrock floor");
+            h.assertTrue(BackroomsGrid.at(seed, x, 1, z).is(LayersRegistry.DAMP_CARPET), "carpet floor");
+            h.assertTrue(BackroomsGrid.at(seed, x, 4, z) == BackroomsGrid.at(seed, x, 4, z), "deterministic");
+            int[] a = LobbyGen.arrival(s, seed, x, z);
+            for (int y = a[1]; y <= a[1] + 1; y++) h.assertTrue(LobbyGen.at(s, seed, a[0], y, a[2]).passable(), "arrival free at y " + y + " " + a[0] + " " + a[2]);
+            for (int cell = 0; cell < 2; cell++) {
+                LobbyGen.Edge e = cell == 0 ? LobbyGen.west(s, seed, 0, Math.floorDiv(x, 8), Math.floorDiv(z, 8)) : LobbyGen.north(s, seed, 0, Math.floorDiv(x, 8), Math.floorDiv(z, 8));
+                if (e != LobbyGen.Edge.OPEN) {
+                    edges++;
+                    if (e == LobbyGen.Edge.DOOR) doors++;
+                }
+            }
+        }
+        double share = doors / (double) edges;
+        h.assertTrue(share > 0.6 && share < 0.8, "door share " + share);
+        BlockState light = BackroomsGrid.at(seed, 3, BackroomsGrid.CEILING_Y, 4);
+        h.assertTrue(light.is(LayersRegistry.NEON_LIGHT) && NeonLightBlock.light(light) >= 0, "neon light in the ceiling");
+        h.succeed();
+    }
+
     /** Stage 5 entrance: only the Netherite Pickaxe makes progress (about 30 s), breaking leaves a rift. */
     static void glitchedBedrockNeedsNetherite(GameTestHelper h) {
         BlockPos rel = new BlockPos(2, 2, 2), abs = h.absolutePos(rel);

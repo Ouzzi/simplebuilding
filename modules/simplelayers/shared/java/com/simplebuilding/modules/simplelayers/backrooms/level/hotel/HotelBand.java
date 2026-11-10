@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Blocks;
  */
 public final class HotelBand extends StubBand {
     public HotelBand() {
-        super("hotel", DoorRule.BREAK_ON_TRANSIT, 0x4A2A30, true, () -> Blocks.RED_WOOL.defaultBlockState(), () -> Blocks.RED_TERRACOTTA.defaultBlockState(),
+        super("hotel", DoorRule.BREAK_ON_TRANSIT, 0x4A2A30, true, () -> Blocks.WOOL.pick(net.minecraft.world.item.DyeColor.RED).defaultBlockState(), () -> Blocks.DYED_TERRACOTTA.pick(net.minecraft.world.item.DyeColor.RED).defaultBlockState(),
                 () -> Blocks.DARK_OAK_PLANKS.defaultBlockState(), () -> Blocks.OCHRE_FROGLIGHT.defaultBlockState());
     }
 }

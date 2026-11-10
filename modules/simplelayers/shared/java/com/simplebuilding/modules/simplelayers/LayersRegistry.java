@@ -115,9 +115,9 @@ public final class LayersRegistry {
                 .instabreak().noCollision().noOcclusion().replaceable().noLootTable().pushReaction(PushReaction.POPPED)
                 .lightLevel(com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock::light).isValidSpawn((s, l, pos, type) -> false));
         BACKROOMS_DOOR = block("backrooms_door", com.simplebuilding.modules.simplelayers.block.BackroomsDoorBlock::new, props(MapColor.METAL, SoundType.IRON)
-                .strength(-1.0F, 3600000.0F).noLootTable().noOcclusion().pushReaction(PushReaction.BLOCK));
+                .strength(-1.0F, 3600000.0F).noLootTable().noOcclusion().pushReaction(PushReaction.IMMOVEABLE));
         MAINTENANCE_BOX = block("maintenance_box", com.simplebuilding.modules.simplelayers.block.MaintenanceBoxBlock::new, props(MapColor.METAL, SoundType.IRON)
-                .strength(-1.0F, 3600000.0F).noLootTable().pushReaction(PushReaction.BLOCK));
+                .strength(-1.0F, 3600000.0F).noLootTable().pushReaction(PushReaction.IMMOVEABLE));
         RIFT = block("rift", RiftBlock::new, props(MapColor.COLOR_BLACK, SoundType.STONE).strength(-1.0F, 3600000.0F).noCollision()
                 .noOcclusion().noLootTable().lightLevel(s -> 4).pushReaction(PushReaction.IMMOVEABLE).isValidSpawn((s, l, pos, type) -> false)
                 .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos, box) -> false));

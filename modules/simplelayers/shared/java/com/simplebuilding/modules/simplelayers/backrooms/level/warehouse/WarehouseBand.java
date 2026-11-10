@@ -10,6 +10,6 @@ import com.simplebuilding.modules.simplelayers.world.gen.BackroomsLevel;
  */
 public final class WarehouseBand extends LegacyBand {
     public WarehouseBand() {
-        super("warehouse", BackroomsLevel.WAREHOUSE, DoorRule.BREAK_ON_TRANSIT, 0x555A62, () -> net.minecraft.world.level.block.Blocks.GRAY_CONCRETE.defaultBlockState(), true);
+        super("warehouse", BackroomsLevel.WAREHOUSE, DoorRule.BREAK_ON_TRANSIT, 0x555A62, () -> net.minecraft.world.level.block.Blocks.CONCRETE.pick(net.minecraft.world.item.DyeColor.GRAY).defaultBlockState(), true);
     }
 }

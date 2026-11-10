@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Blocks;
  */
 public final class ElectroBand extends StubBand {
     public ElectroBand() {
-        super("electro", DoorRule.BREAK_ON_TRANSIT, 0x3A5A8C, true, () -> Blocks.GRAY_CONCRETE.defaultBlockState(), () -> Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState(),
-                () -> Blocks.GRAY_CONCRETE.defaultBlockState(), () -> Blocks.SEA_LANTERN.defaultBlockState());
+        super("electro", DoorRule.BREAK_ON_TRANSIT, 0x3A5A8C, true, () -> Blocks.CONCRETE.pick(net.minecraft.world.item.DyeColor.GRAY).defaultBlockState(), () -> Blocks.CONCRETE.pick(net.minecraft.world.item.DyeColor.LIGHT_GRAY).defaultBlockState(),
+                () -> Blocks.CONCRETE.pick(net.minecraft.world.item.DyeColor.GRAY).defaultBlockState(), () -> Blocks.SEA_LANTERN.defaultBlockState());
     }
 }

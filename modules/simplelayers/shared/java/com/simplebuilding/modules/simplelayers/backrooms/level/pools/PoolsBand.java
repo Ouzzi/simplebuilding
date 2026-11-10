@@ -10,6 +10,6 @@ import com.simplebuilding.modules.simplelayers.world.gen.BackroomsLevel;
  */
 public final class PoolsBand extends LegacyBand {
     public PoolsBand() {
-        super("pools", BackroomsLevel.POOLS, DoorRule.ACTIVATE_ONCE, 0xBFE4E8, () -> net.minecraft.world.level.block.Blocks.WHITE_CONCRETE.defaultBlockState(), true);
+        super("pools", BackroomsLevel.POOLS, DoorRule.ACTIVATE_ONCE, 0xBFE4E8, () -> net.minecraft.world.level.block.Blocks.CONCRETE.pick(net.minecraft.world.item.DyeColor.WHITE).defaultBlockState(), true);
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Blocks;
  */
 public final class LightlessBand extends StubBand {
     public LightlessBand() {
-        super("lightless", DoorRule.BREAK_ON_TRANSIT, 0x050507, true, () -> Blocks.BLACK_CONCRETE.defaultBlockState(), () -> Blocks.BLACKSTONE.defaultBlockState(),
-                () -> Blocks.BLACK_CONCRETE.defaultBlockState(), () -> Blocks.BLACK_CONCRETE.defaultBlockState());
+        super("lightless", DoorRule.BREAK_ON_TRANSIT, 0x050507, true, () -> Blocks.CONCRETE.pick(net.minecraft.world.item.DyeColor.BLACK).defaultBlockState(), () -> Blocks.BLACKSTONE.defaultBlockState(),
+                () -> Blocks.CONCRETE.pick(net.minecraft.world.item.DyeColor.BLACK).defaultBlockState(), () -> Blocks.CONCRETE.pick(net.minecraft.world.item.DyeColor.BLACK).defaultBlockState());
     }
 }
