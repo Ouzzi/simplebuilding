@@ -73,5 +73,9 @@
   "simplemachines.guide.page.12.title": "Commands",
   "simplemachines.guide.page.12": "/simplemachines config [list | get | set | reset | help] (operators).",
   "simplemachines.guide.page.13.title": "Settings",
-  "simplemachines.guide.page.13": "More settings are in the mod's config screen."
+  "simplemachines.guide.page.13": "More settings are in the mod's config screen.",
+  "jade.simplemachines.hopper.mode": "Filter: %s",
+  "jade.simplemachines.hopper.items": "Filtered: %s",
+  "jade.simplemachines.hopper.nothing": "No filter items set: accepts nothing",
+  "config.jade.plugin_simplemachines.hopper_filter": "Hopper filter"
 }

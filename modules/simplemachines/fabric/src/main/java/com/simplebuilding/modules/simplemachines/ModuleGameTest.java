@@ -355,4 +355,9 @@ public final class ModuleGameTest {
     public void hopperTooltipsNameSpeedAndFilter(GameTestHelper h) {
         com.simplemachines.test.HopperModuleTests.hopperTooltipsNameSpeedAndFilter(h);
     }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void jadeHopperFilterData(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.jadeHopperFilterData(h);
+    }
 }

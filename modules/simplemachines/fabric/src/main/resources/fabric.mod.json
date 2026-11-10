@@ -27,6 +27,9 @@
     ],
     "client": [
       "com.simplebuilding.modules.simplemachines.MachinesFabricClient"
+    ],
+    "jade": [
+      "com.simplemachines.compat.jade.MachinesJadePlugin"
     ]
   },
   "depends": {
@@ -40,6 +43,7 @@
     "simpleores": "*"
   },
   "suggests": {
-    "simplebuilding": "*"
+    "simplebuilding": "*",
+    "jade": "*"
   }
 }

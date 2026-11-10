@@ -299,4 +299,42 @@ public final class HopperModuleTests {
         helper.assertTrue(problems.isEmpty(), "hopper tooltips: " + problems);
         helper.succeed();
     }
+
+    /**
+     * b-jadehop26: Jade's server data of a tier hopper (HopperInfo, read by Simple Machines' optional Jade plugin) carries mode
+     * and filter items; off shows only the mode, a filter without items says it accepts nothing, other blocks get no data.
+     */
+    public static void jadeHopperFilterData(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos, Hoppers.block(HopperTier.REINFORCED));
+        TierHopperBlockEntity hopper = helper.getBlockEntity(pos, TierHopperBlockEntity.class);
+        CompoundTag off = new CompoundTag();
+        com.simplemachines.compat.HopperInfo.serverData(hopper, off);
+        List<net.minecraft.network.chat.Component> lines = com.simplemachines.compat.HopperInfo.lines(off);
+        helper.assertTrue(lines.size() == 1 && key(lines.get(0)).equals("jade.simplemachines.hopper.mode"), "off: " + lines);
+        hopper.toggleFilterMode();
+        CompoundTag empty = new CompoundTag();
+        com.simplemachines.compat.HopperInfo.serverData(hopper, empty);
+        lines = com.simplemachines.compat.HopperInfo.lines(empty);
+        helper.assertTrue(lines.size() == 2 && key(lines.get(1)).equals("jade.simplemachines.hopper.nothing"), "no items: " + lines);
+        hopper.setItem(0, new ItemStack(Items.EMERALD, 3));
+        hopper.setItem(2, new ItemStack(Items.IRON_INGOT));
+        CompoundTag full = new CompoundTag();
+        com.simplemachines.compat.HopperInfo.serverData(hopper, full);
+        lines = com.simplemachines.compat.HopperInfo.lines(full);
+        helper.assertTrue(full.getIntOr(com.simplemachines.compat.HopperInfo.MODE, -1) == HopperFilterMode.WHITELIST.ordinal(), "mode in data: " + full);
+        helper.assertTrue(lines.size() == 2 && key(lines.get(1)).equals("jade.simplemachines.hopper.items"), "items line: " + lines);
+        String text = lines.get(1).getString();
+        helper.assertTrue(full.getStringOr(com.simplemachines.compat.HopperInfo.ITEMS, "").equals(
+                Items.EMERALD.getDescriptionId() + "\n" + Items.IRON_INGOT.getDescriptionId()), "items in data: " + full + " / " + text);
+        helper.setBlock(pos.east(), Blocks.CHEST);
+        CompoundTag chest = new CompoundTag();
+        com.simplemachines.compat.HopperInfo.serverData(helper.getLevel().getBlockEntity(helper.absolutePos(pos.east())), chest);
+        helper.assertTrue(chest.isEmpty() && com.simplemachines.compat.HopperInfo.lines(chest).isEmpty(), "a chest got hopper data: " + chest);
+        helper.succeed();
+    }
+
+    private static String key(net.minecraft.network.chat.Component line) {
+        return line.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : line.getString();
+    }
 }
