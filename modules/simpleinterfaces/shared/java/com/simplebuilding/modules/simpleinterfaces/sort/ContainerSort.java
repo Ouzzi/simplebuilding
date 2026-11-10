@@ -48,6 +48,17 @@ public final class ContainerSort {
         return menu instanceof InventoryMenu ? List.of() : out;
     }
 
+    /**
+     * Creative (b-sort26): which inventory-menu slot a sort click in the creative screen points at, or -1. Only the
+     * Survival Inventory tab sorts, and there only the main rows (inventory menu 9..35; the tab's slot wrappers carry the
+     * inventory menu index as container slot). Item tabs, hotbar, armour, crafting grid and every opened container keep
+     * Vanilla's creative middle click (clone a full stack).
+     */
+    public static int creativeInventoryIndex(boolean inventoryTab, boolean playerInventory, int wrappedIndex) {
+        return inventoryTab && playerInventory && wrappedIndex >= InventoryMenu.INV_SLOT_START && wrappedIndex < InventoryMenu.INV_SLOT_END
+                ? wrappedIndex : -1;
+    }
+
     /** Server entry: sorts the region under {@code slotIndex} of the player's open menu. */
     public static boolean sort(ServerPlayer player, int containerId, int slotIndex) {
         AbstractContainerMenu menu = player.containerMenu;
