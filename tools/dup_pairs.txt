@@ -98,6 +98,7 @@ common/src/shared/java/com/simplebuilding/loot/WeightedEnchantFunction.java modu
 common/src/shared/java/com/simplebuilding/loot/WeightedEnchantFunction.java modules/simpleriding/shared/java/com/simpleriding/WeightedEnchantFunction.java
 common/src/shared/java/com/simplebuilding/mixin/AbstractArrowPickupMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/AbstractArrowPickupMixin.java
 common/src/shared/java/com/simplebuilding/mixin/AbstractFurnaceMenuMixin.java modules/simpleovens/shared/java/com/simpleovens/mixin/AbstractFurnaceMenuMixin.java
+common/src/shared/java/com/simplebuilding/mixin/BlockStateBaseMixin.java modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/mixin/BlockStateBaseMixin.java
 common/src/shared/java/com/simplebuilding/mixin/BowItemMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/BowItemMixin.java
 common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/mixin/CartographyTableMenuMixin.java allow: broadcastChanges/0
 common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java modules/simplemaps/shared/java/com/simplemaps/mixin/CartographyTableMenuMixin.java allow: broadcastChanges/0
