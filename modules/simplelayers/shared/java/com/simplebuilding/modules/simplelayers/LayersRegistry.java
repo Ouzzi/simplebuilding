@@ -13,7 +13,6 @@ import com.simplebuilding.modules.simplelayers.block.NeonLightBlock;
 import com.simplebuilding.modules.simplelayers.block.RiftBlock;
 import com.simplebuilding.modules.simplelayers.block.TooltipBlockItem;
 import com.simplebuilding.modules.simplelayers.world.BackroomsCacheFeature;
-import com.simplebuilding.modules.simplelayers.world.BackroomsChunkGenerator;
 import com.simplebuilding.modules.simplelayers.world.EntranceShaftFeature;
 import com.simplebuilding.modules.simplelayers.world.GlitchedBedrockFeature;
 import com.simplebuilding.modules.simplelayers.world.MistPitFeature;
@@ -66,6 +65,8 @@ public final class LayersRegistry {
     public static Block NEON_LIGHT, EXIT_SIGN, EXIT_DOOR, GLITCHED_BEDROCK, RIFT;
     /** BACK18: the Maintenance Door between levels (no item) and the entrance shaft's warning sign and barrier tape. */
     public static Block LEVEL_DOOR, CAUTION_SIGN, CAUTION_TAPE;
+    /** BACK22 core: the portal door of the stack (no item, symbol = target level) and the maintenance box in its frame. */
+    public static Block BACKROOMS_DOOR, MAINTENANCE_BOX;
     /** BACK18: Vanilla blocks the deeper levels are built of; held like Backrooms blocks inside the Backrooms. */
     public static final TagKey<Block> BACKROOMS_STRUCTURE = TagKey.create(Registries.BLOCK, SimpleLayers.id("backrooms_structure"));
     public static Item ALMOND_WATER, BACKDOOR_KEY;
@@ -113,6 +114,10 @@ public final class LayersRegistry {
         CHALK_MARK = block("chalk_mark", com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock::new, props(MapColor.NONE, SoundType.CALCITE)
                 .instabreak().noCollision().noOcclusion().replaceable().noLootTable().pushReaction(PushReaction.POPPED)
                 .lightLevel(com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock::light).isValidSpawn((s, l, pos, type) -> false));
+        BACKROOMS_DOOR = block("backrooms_door", com.simplebuilding.modules.simplelayers.block.BackroomsDoorBlock::new, props(MapColor.METAL, SoundType.IRON)
+                .strength(-1.0F, 3600000.0F).noLootTable().noOcclusion().pushReaction(PushReaction.BLOCK));
+        MAINTENANCE_BOX = block("maintenance_box", com.simplebuilding.modules.simplelayers.block.MaintenanceBoxBlock::new, props(MapColor.METAL, SoundType.IRON)
+                .strength(-1.0F, 3600000.0F).noLootTable().pushReaction(PushReaction.BLOCK));
         RIFT = block("rift", RiftBlock::new, props(MapColor.COLOR_BLACK, SoundType.STONE).strength(-1.0F, 3600000.0F).noCollision()
                 .noOcclusion().noLootTable().lightLevel(s -> 4).pushReaction(PushReaction.IMMOVEABLE).isValidSpawn((s, l, pos, type) -> false)
                 .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos, box) -> false));
@@ -152,9 +157,12 @@ public final class LayersRegistry {
                 .build());
     }
 
-    /** World generation types (before the data packs load): the Backrooms chunk generator and the five features. */
+    /** World generation types (before the data packs load): the stacked Backrooms generator and biome source (BACK22) and the features. */
     public static void registerWorldgen() {
-        Registry.register(BuiltInRegistries.CHUNK_GENERATOR, SimpleLayers.id("backrooms"), BackroomsChunkGenerator.CODEC);
+        Registry.register(BuiltInRegistries.CHUNK_GENERATOR, SimpleLayers.id("backrooms_stack"),
+                com.simplebuilding.modules.simplelayers.backrooms.stack.BackroomsStackGenerator.CODEC);
+        Registry.register(BuiltInRegistries.BIOME_SOURCE, SimpleLayers.id("band_stack"),
+                com.simplebuilding.modules.simplelayers.backrooms.stack.BandBiomeSource.CODEC);
         Registry.register(BuiltInRegistries.FEATURE_TYPE, SimpleLayers.id("mist_pit"), MistPitFeature.CODEC);
         Registry.register(BuiltInRegistries.FEATURE_TYPE, SimpleLayers.id("sky_chest"), SkyChestFeature.CODEC);
         Registry.register(BuiltInRegistries.FEATURE_TYPE, SimpleLayers.id("glitched_bedrock"), GlitchedBedrockFeature.CODEC);

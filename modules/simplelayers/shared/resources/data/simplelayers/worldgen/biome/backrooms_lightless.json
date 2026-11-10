@@ -16,24 +16,13 @@
       },
       "modifier": "overlay"
     },
-    "minecraft:visual/ambient_particles": {
-      "argument": [
-        {
-          "particle": {
-            "type": "minecraft:white_ash"
-          },
-          "probability": 0.006
-        }
-      ],
-      "modifier": "append"
-    },
-    "minecraft:visual/fog_color": "#a99b5e",
+    "minecraft:visual/fog_color": "#050507",
     "minecraft:visual/sky_color": "#000000"
   },
   "carvers": [],
   "downfall": 0.0,
   "effects": {
-    "water_color": "#8a8a5a"
+    "water_color": "#3f76e4"
   },
   "features": [
     [],
@@ -45,7 +34,9 @@
     [],
     [],
     [],
-    [],
+    [
+      "simplelayers:backrooms_cache"
+    ],
     []
   ],
   "has_precipitation": false,

@@ -3,19 +3,18 @@ package com.simplebuilding.modules.simplelayers.world.gen;
 /**
  * The Backrooms entrance in the Overworld since BACK20 (plan docs/ai/PLAN-B-BACK20-2026-11-10.md): an abandoned cottage in
  * Vanilla style (cobblestone footing, plank walls, log corners, glass panes, a door, a gable roof of stairs) with a cellar under it
- * (trapdoor and ladder, stone bricks, barrels, cobwebs, a lantern). The cellar's west wall is concreted shut: a grey concrete plug
- * in a yellow-and-black frame, caution tape across it, caution signs at both sides and a warning light above - clearly dangerous.
- * Behind the plug the old maintenance shaft of BACK18 survives underground (a collar of hazard stripes, a ladder down to a floor of
- * rifts on glitched bedrock = the portal into Level 0); the shaft is the reason the cellar was sealed.
+ * (trapdoor and ladder, stone bricks, barrels, cobwebs, a lantern). BACK22 (core K6): the cellar's west wall holds the cellar
+ * double door into the Lobby (a portal door pair, placed by the feature) in a yellow-and-black frame with a warning light above,
+ * caution tape and signs beside it - clearly dangerous. The old shaft with its rift floor is gone (fg11 a); behind the door is wall.
  *
  * <p>Relative to the house centre on the ground ({@code dy 0} = the floor, built into the ground's top block). {@link #piece}
  * returns null where the terrain stays. The wood pieces ({@code H_*}, roof) take the biome's wood in the feature.
  */
 public final class HouseTemplate {
-    /** Footprint: x -9 (shaft) .. 5 (roof), z -4 .. 4; the house walls at |x| = 4, |z| = 3. */
-    public static final int MIN_X = -9, MAX_X = 5, HALF_Z = 4, DEPTH = 14, HEIGHT = 7, PORTAL_DY = -13, CELLAR_FLOOR = -4;
-    /** The plug and the shaft centre (x), the shaft's floor of rifts. */
-    public static final int PLUG_X = -4, SHAFT_X = -7;
+    /** Footprint: x -5 (wall behind the cellar door) .. 5 (roof), z -4 .. 4; the house walls at |x| = 4, |z| = 3. */
+    public static final int MIN_X = -5, MAX_X = 5, HALF_Z = 4, DEPTH = 4, HEIGHT = 7, CELLAR_FLOOR = -4;
+    /** The cellar door wall (x); the door's left leaf (walking west into it: south leaf) at z 1, the right one at z 0, lower half at dy -3. */
+    public static final int PLUG_X = -4, DOOR_DY = -3, DOOR_LEFT_Z = 1;
 
     private HouseTemplate() {}
 
@@ -71,14 +70,14 @@ public final class HouseTemplate {
         if (ax > 4 || az > 3 || dy < CELLAR_FLOOR) return null;
         if (dy == CELLAR_FLOOR) return Piece.STONE_BRICKS;
         if (dx == PLUG_X && az <= 2) {
-            // the sealed passage: plug 3 wide x 2 high, the frame of hazard stripes, the warning light on top
-            if (az <= 1 && dy <= -2) return Piece.PAD;
+            // the cellar double door (BACK22): two leaves (placed by the feature), the frame of hazard stripes, the warning light on top
+            if ((dz == 0 || dz == DOOR_LEFT_Z) && dy <= -2) return Piece.AIR;
             if (dy == -1 && dz == 0) return Piece.WARNING_LAMP;
             return ((dz + dy) & 1) == 0 ? Piece.MARKING : Piece.HAZARD_BLACK;
         }
         if (ax == 4 || az == 3) return ((dx * 7 + dy * 3 + dz * 5) & 7) == 0 ? Piece.CRACKED_STONE_BRICKS : ((dx + dz * 3 + dy) & 7) == 1 ? Piece.MOSSY_STONE_BRICKS : Piece.STONE_BRICKS;
         if (dx == 3 && dz == 2) return Piece.LADDER_W;
-        if (dx == -3 && dy == -2 && az <= 1) return Piece.TAPE_Z;
+        if (dx == -3 && dy == -2 && dz == -1) return Piece.TAPE_Z;
         if (dx == -3 && dy == -2 && az == 2) return Piece.SIGN_E;
         if (dy == -3 && dz == -2 && (dx == 1 || dx == 2)) return dx == 1 ? Piece.BARREL_LOOT : Piece.COUNTER;
         if (dy == -1 && dx == 0 && dz == 0) return Piece.LANTERN;
@@ -86,24 +85,9 @@ public final class HouseTemplate {
         return Piece.AIR;
     }
 
-    /** Behind the plug: a short passage (x -5), the shaft (x -8 .. -6) down to the rift floor. */
+    /** Behind the cellar door: solid wall (the door leads through portals, not through a passage). */
     static Piece shaft(int dx, int dy, int dz) {
-        int az = Math.abs(dz);
-        if (dy >= 0) return null;
-        if (dx == -5) {
-            if (az <= 1 && dy >= -3 && dy <= -2) return Piece.AIR;
-            if (az <= 2 && dy >= CELLAR_FLOOR && dy <= -1) return dy == CELLAR_FLOOR && az <= 1 ? (((dz) & 1) == 0 ? Piece.MARKING : Piece.HAZARD_BLACK) : Piece.STONE_BRICKS;
-            return null;
-        }
-        int sx = dx - SHAFT_X, ring = Math.max(Math.abs(sx), az);
-        if (ring > 2 || dy < -DEPTH || dy > -1) return null;
-        if (ring == 2) {
-            return ((dx * 7 + dy * 3 + dz * 5) & 7) == 0 ? Piece.CRACKED_STONE_BRICKS : Piece.STONE_BRICKS;
-        }
-        if (dy == -DEPTH) return Piece.GLITCHED_BEDROCK;
-        if (dy == PORTAL_DY) return Piece.RIFT;
-        if (dy == -1) return Piece.STONE_BRICKS;
-        if (sx == 0 && dz == -1 && dy <= -2) return Piece.LADDER_S;
-        return Piece.AIR;
+        if (dx != -5 || dy >= 0 || dy < CELLAR_FLOOR || Math.abs(dz) > 2) return null;
+        return Piece.STONE_BRICKS;
     }
 }

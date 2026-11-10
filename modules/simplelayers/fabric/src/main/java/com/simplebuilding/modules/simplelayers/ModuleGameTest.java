@@ -71,15 +71,7 @@ public final class ModuleGameTest {
         LayersTests.ALL.get("backrooms_grid").accept(h);
     }
 
-    @GameTest(structure = "simplelayers:empty")
-    public void backroomsChunkMatchesGrid(GameTestHelper h) {
-        LayersTests.ALL.get("backrooms_chunk_matches_grid").accept(h);
-    }
 
-    @GameTest(structure = "simplelayers:empty")
-    public void specialRoomsRegistered(GameTestHelper h) {
-        LayersTests.ALL.get("special_rooms_registered").accept(h);
-    }
 
     @GameTest(structure = "simplelayers:empty")
     public void glitchedBedrockNeedsNetherite(GameTestHelper h) {
@@ -126,15 +118,7 @@ public final class ModuleGameTest {
         LayersTests.ALL.get("supplies_generated").accept(h);
     }
 
-    @GameTest(structure = "simplelayers:empty")
-    public void levelsRegistered(GameTestHelper h) {
-        LayersTests.ALL.get("levels_registered").accept(h);
-    }
 
-    @GameTest(structure = "simplelayers:empty", maxTicks = 100)
-    public void levelTransitions(GameTestHelper h) {
-        LayersTests.ALL.get("level_transitions").accept(h);
-    }
 
     @GameTest(structure = "simplelayers:empty")
     public void easiestExitReachable(GameTestHelper h) {
@@ -194,5 +178,70 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplelayers:empty")
     public void stairwellsWalkable(GameTestHelper h) {
         LayersTests.ALL.get("stairwells_walkable").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bandsLayout(GameTestHelper h) {
+        LayersTests.ALL.get("bands_layout").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bandsHull(GameTestHelper h) {
+        LayersTests.ALL.get("bands_hull").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bandsSeparatorsBedrock(GameTestHelper h) {
+        LayersTests.ALL.get("bands_separators_bedrock").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bandsGenBudget(GameTestHelper h) {
+        LayersTests.ALL.get("bands_gen_budget").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bandsTrackingFilter(GameTestHelper h) {
+        LayersTests.ALL.get("bands_tracking_filter").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bandsStairsRule(GameTestHelper h) {
+        LayersTests.ALL.get("bands_stairs_rule").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bandsPuzzlePointer(GameTestHelper h) {
+        LayersTests.ALL.get("bands_puzzle_pointer").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bandsDoorsPaired(GameTestHelper h) {
+        LayersTests.ALL.get("bands_doors_paired").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void bandsDoorsFramed(GameTestHelper h) {
+        LayersTests.ALL.get("bands_doors_framed").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void portalRulesPerLevel(GameTestHelper h) {
+        LayersTests.ALL.get("portal_rules_per_level").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty", maxTicks = 200)
+    public void portalTransitLoaded(GameTestHelper h) {
+        LayersTests.ALL.get("portal_transit_loaded").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty", maxTicks = 200)
+    public void cellarDoorRoundtrip(GameTestHelper h) {
+        LayersTests.ALL.get("cellar_door_roundtrip").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void migrationRescue(GameTestHelper h) {
+        LayersTests.ALL.get("migration_rescue").accept(h);
     }
 }

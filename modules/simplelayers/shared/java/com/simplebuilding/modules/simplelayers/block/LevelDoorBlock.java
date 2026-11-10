@@ -2,7 +2,6 @@ package com.simplebuilding.modules.simplelayers.block;
 
 import com.simplebuilding.modules.simplelayers.SimpleLayers;
 import com.simplebuilding.modules.simplelayers.world.BackroomsTravel;
-import com.simplebuilding.modules.simplelayers.world.gen.BackroomsLevel;
 import com.simplebuilding.modules.simplelayers.world.gen.PipesGen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -76,9 +75,9 @@ public class LevelDoorBlock extends BackroomBlock {
             }
             level.playSound(null, lower, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.6F, 0.7F);
         }
-        BackroomsLevel here = SimpleLayers.levelOf(level);
-        BackroomsLevel target = here == null ? BackroomsLevel.LOBBY : here.deeper();
-        if (target != null) BackroomsTravel.travel(server.getServer(), sp, target);
+        // BACK22: no longer generated (the levels are joined by portal doors); a placed one leads one level deeper.
+        int here = SimpleLayers.bandOf(level, lower.getY());
+        if (here < com.simplebuilding.modules.simplelayers.backrooms.stack.BandStack.BANDS) BackroomsTravel.travel(server.getServer(), sp, here + 1);
         return InteractionResult.SUCCESS;
     }
 }

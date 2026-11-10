@@ -17,7 +17,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 /**
- * Supply and reward chests of the deeper Backrooms levels (BACK18): at the spots {@link BackroomsLevel#caches} names for this
+ * Supply and reward chests of the Backrooms levels (BACK18, BACK22: every level of the stack, {@code BandLayout.containers}) for this
  * chunk, a chest with the level's loot table ({@code simplelayers:chests/backrooms_<level>}). Runs in every level's biome; does
  * nothing outside a Backrooms generator.
  */
@@ -35,16 +35,24 @@ public record BackroomsCacheFeature() implements Feature {
 
     @Override
     public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos origin) {
-        if (!(generator instanceof BackroomsChunkGenerator backrooms)) return false;
-        long seed = BackroomsChunkGenerator.seed(level.getLevel().getChunkSource().randomState());
-        int x0 = Math.floorDiv(origin.getX(), 16) * 16, z0 = Math.floorDiv(origin.getZ(), 16) * 16;
+        if (!(generator instanceof com.simplebuilding.modules.simplelayers.backrooms.stack.BackroomsStackGenerator)) return false;
+        long seed = com.simplebuilding.modules.simplelayers.backrooms.stack.BackroomsStackGenerator.seed(level.getLevel().getChunkSource().randomState());
+        int cx = Math.floorDiv(origin.getX(), 16), cz = Math.floorDiv(origin.getZ(), 16);
         boolean any = false;
-        for (int[] spot : backrooms.level().caches(seed, x0, z0, 16)) {
-            BlockPos at = new BlockPos(spot[0], spot[1], spot[2]);
-            if (!level.getBlockState(at).isAir() || level.getBlockState(at.below()).isAir()) continue;
-            level.setBlock(at, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random)), 2);
-            RandomizableContainer.setBlockEntityLootTable(level, random, at, loot(backrooms.level()));
-            any = true;
+        // BACK22: one feature for all levels of the stack (each level's containers with its own loot table)
+        for (int band = 1; band <= com.simplebuilding.modules.simplelayers.backrooms.stack.BandStack.BANDS; band++) {
+            var b = com.simplebuilding.modules.simplelayers.backrooms.stack.Bands.get(band);
+            ResourceKey<LootTable> table = b.loot();
+            if (table == null) continue;
+            java.util.List<int[]> spots = new java.util.ArrayList<>();
+            b.layout().containers(seed, cx, cz, spots);
+            for (int[] spot : spots) {
+                BlockPos at = new BlockPos(spot[0], com.simplebuilding.modules.simplelayers.backrooms.stack.BandStack.worldY(band, spot[1]), spot[2]);
+                if (!level.getBlockState(at).isAir() || level.getBlockState(at.below()).isAir()) continue;
+                level.setBlock(at, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random)), 2);
+                RandomizableContainer.setBlockEntityLootTable(level, random, at, table);
+                any = true;
+            }
         }
         return any;
     }

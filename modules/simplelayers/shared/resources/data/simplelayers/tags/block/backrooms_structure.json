@@ -27,6 +27,20 @@
     "minecraft:birch_stairs",
     "minecraft:birch_slab",
     "minecraft:smooth_stone_slab",
-    "minecraft:bookshelf"
+    "minecraft:bookshelf",
+    "minecraft:spruce_planks",
+    "minecraft:stripped_spruce_wood",
+    "minecraft:ochre_froglight",
+    "minecraft:red_wool",
+    "minecraft:red_terracotta",
+    "minecraft:dark_oak_planks",
+    "minecraft:blackstone",
+    "minecraft:stone",
+    "minecraft:bricks",
+    "minecraft:deepslate_tiles",
+    "minecraft:pearlescent_froglight",
+    "minecraft:hay_block",
+    "minecraft:dirt",
+    "minecraft:shroomlight"
   ]
 }

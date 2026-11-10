@@ -12,7 +12,8 @@ import com.simplebuilding.modules.simplelayers.block.LevelDoorBlock;
 import com.simplebuilding.modules.simplelayers.block.NeonLightBlock;
 import com.simplebuilding.modules.simplelayers.config.LayersConfig;
 import com.simplebuilding.modules.simplelayers.world.BackroomEffect;
-import com.simplebuilding.modules.simplelayers.world.BackroomsChunkGenerator;
+import com.simplebuilding.modules.simplelayers.backrooms.stack.BackroomsStackGenerator;
+import com.simplebuilding.modules.simplelayers.backrooms.stack.BandStack;
 import com.simplebuilding.modules.simplelayers.world.BackroomsEntries;
 import com.simplebuilding.modules.simplelayers.world.BackroomsGrid;
 import com.simplebuilding.modules.simplelayers.world.BackroomsTravel;
@@ -86,8 +87,6 @@ public final class LayersTests {
         ALL.put("cloud_entry_rule", LayersTests::cloudEntryRule);
         ALL.put("cloud_travel_both_ways", LayersTests::cloudTravelBothWays);
         ALL.put("backrooms_grid", LayersTests::backroomsGrid);
-        ALL.put("backrooms_chunk_matches_grid", LayersTests::backroomsChunkMatchesGrid);
-        ALL.put("special_rooms_registered", LayersTests::specialRoomsRegistered);
         ALL.put("glitched_bedrock_needs_netherite", LayersTests::glitchedBedrockNeedsNetherite);
         ALL.put("rift_leads_into_backrooms", LayersTests::riftLeadsIntoBackrooms);
         ALL.put("exit_leads_to_the_surface", LayersTests::exitLeadsToTheSurface);
@@ -97,8 +96,6 @@ public final class LayersTests {
         ALL.put("netherite_piston_moves_wall", LayersTests::netheritePistonMovesWall);
         ALL.put("bedrock_hull", LayersTests::bedrockHull);
         ALL.put("supplies_generated", LayersTests::suppliesGenerated);
-        ALL.put("levels_registered", LayersTests::levelsRegistered);
-        ALL.put("level_transitions", LayersTests::levelTransitions);
         ALL.put("easiest_exit_reachable", LayersTests::easiestExitReachable);
         ALL.put("levels_have_free_arrival", LayersTests::levelsHaveFreeArrival);
         ALL.put("entrance_shaft_generated", LayersTests::entranceShaftGenerated);
@@ -111,6 +108,7 @@ public final class LayersTests {
         ALL.put("chalk_box", LayersTests::chalkBox);
         ALL.put("chalk_recipes", LayersTests::chalkRecipes);
         ALL.put("stairwells_walkable", LayersTests::stairwellsWalkable);
+        BandsTests.register();
     }
 
     private LayersTests() {}
@@ -126,9 +124,10 @@ public final class LayersTests {
         if (level != null) return level;
         var types = h.getLevel().registryAccess().lookupOrThrow(Registries.DIMENSION_TYPE);
         var biomes = h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
-        for (String id : List.of("cloud_sea", "backrooms", "backrooms_warehouse", "backrooms_pipes", "backrooms_pools", "backrooms_end")) {
-            h.assertTrue(types.containsKey(SimpleLayers.id(id)), "dimension type " + id);
-            h.assertTrue(biomes.containsKey(SimpleLayers.id(id)), "biome " + id);
+        for (String id : List.of("cloud_sea", "backrooms_stack")) h.assertTrue(types.containsKey(SimpleLayers.id(id)), "dimension type " + id);
+        h.assertTrue(biomes.containsKey(SimpleLayers.id("cloud_sea")), "biome cloud_sea");
+        for (var band : com.simplebuilding.modules.simplelayers.backrooms.stack.Bands.ORDER) {
+            h.assertTrue(biomes.containsKey(SimpleLayers.id("backrooms_" + band.id())), "biome backrooms_" + band.id());
         }
         h.succeed();
         return null;
@@ -322,11 +321,11 @@ public final class LayersTests {
     static void dimensionsLoad(GameTestHelper h) {
         ServerLevel clouds = levelOrRegistryOnly(h, SimpleLayers.CLOUD_SEA);
         if (clouds == null) return;
-        ServerLevel back = levelOrRegistryOnly(h, SimpleLayers.BACKROOMS);
+        ServerLevel back = levelOrRegistryOnly(h, SimpleLayers.STACK);
         if (back == null) return;
         h.assertTrue(clouds.getMinY() == 0 && clouds.getHeight() == 512, "cloud sea 0..512");
-        h.assertTrue(back.getMinY() == 0 && back.getHeight() == 64, "backrooms 0..64");
-        h.assertTrue(back.getChunkSource().getGenerator() instanceof BackroomsChunkGenerator, "backrooms generator");
+        h.assertTrue(back.getMinY() == BandStack.MIN_Y && back.getHeight() == BandStack.HEIGHT, "backrooms stack -816..319");
+        h.assertTrue(back.getChunkSource().getGenerator() instanceof BackroomsStackGenerator, "backrooms stack generator");
         h.assertTrue(clouds.dimensionType().hasSkyLight() && !back.dimensionType().hasSkyLight() && back.dimensionType().hasCeiling(), "sky / ceiling");
         h.succeed();
     }
@@ -360,77 +359,6 @@ public final class LayersTests {
         h.succeed();
     }
 
-    /**
-     * Stage 5 + BACK18: the grid is deterministic, closed by bedrock, carpet below, every arrival free, and about 70 % of the lines
-     * have doors (40 % random + the escape tree's forced door per cell).
-     */
-    static void backroomsGrid(GameTestHelper h) {
-        long seed = 12345L;
-        LobbyGen.Style s = LobbyGen.LOBBY;
-        java.util.Random random = new java.util.Random(7);
-        int doors = 0, edges = 0;
-        for (int i = 0; i < 400; i++) {
-            int x = random.nextInt(20000) - 10000, z = random.nextInt(20000) - 10000;
-            h.assertTrue(BackroomsGrid.at(seed, x, 0, z).is(Blocks.BEDROCK), "bedrock floor");
-            h.assertTrue(BackroomsGrid.at(seed, x, 1, z).is(LayersRegistry.DAMP_CARPET), "carpet floor");
-            h.assertTrue(BackroomsGrid.at(seed, x, 4, z) == BackroomsGrid.at(seed, x, 4, z), "deterministic");
-            int[] a = LobbyGen.arrival(s, seed, x, z);
-            for (int y = a[1]; y <= a[1] + 1; y++) h.assertTrue(LobbyGen.at(s, seed, a[0], y, a[2]).passable(), "arrival free at y " + y + " " + a[0] + " " + a[2]);
-            for (int cell = 0; cell < 2; cell++) {
-                LobbyGen.Edge e = cell == 0 ? LobbyGen.west(s, seed, 0, Math.floorDiv(x, 8), Math.floorDiv(z, 8)) : LobbyGen.north(s, seed, 0, Math.floorDiv(x, 8), Math.floorDiv(z, 8));
-                if (e != LobbyGen.Edge.OPEN) {
-                    edges++;
-                    if (e == LobbyGen.Edge.DOOR) doors++;
-                }
-            }
-        }
-        double share = doors / (double) edges;
-        h.assertTrue(share > 0.6 && share < 0.8, "door share " + share);
-        BlockState light = BackroomsGrid.at(seed, 3, BackroomsGrid.CEILING_Y, 4);
-        h.assertTrue(light.is(LayersRegistry.NEON_LIGHT) && NeonLightBlock.light(light) >= 0, "neon light in the ceiling");
-        h.succeed();
-    }
-    /** Stage 5: a generated Backrooms chunk holds exactly the grid (generator + world seed). */
-    static void backroomsChunkMatchesGrid(GameTestHelper h) {
-        ServerLevel back = levelOrRegistryOnly(h, SimpleLayers.BACKROOMS);
-        if (back == null) return;
-        long seed = BackroomsChunkGenerator.seed(back.getChunkSource().randomState());
-        int cx = 4000, cz = -4000;
-        back.getChunk(cx, cz);
-        List<String> wrong = new ArrayList<>();
-        for (int x = 0; x < 16; x += 3) {
-            for (int z = 0; z < 16; z += 5) {
-                for (int y = 0; y <= BackroomsGrid.HULL_TOP_Y; y++) {
-                    BlockPos p = new BlockPos(cx * 16 + x, y, cz * 16 + z);
-                    BlockState want = BackroomsGrid.at(seed, p.getX(), y, p.getZ()), got = back.getBlockState(p);
-                    if (got.getBlock() != want.getBlock() && !inSpecialRoom(back, p)) wrong.add(p.toShortString() + " " + got + " != " + want);
-                }
-            }
-        }
-        h.assertTrue(wrong.isEmpty(), "chunk differs: " + wrong.subList(0, Math.min(4, wrong.size())));
-        h.succeed();
-    }
-
-    private static boolean inSpecialRoom(ServerLevel level, BlockPos pos) {
-        return level.structureManager().getStructureWithPieceAt(pos, s -> true).isValid();
-    }
-
-    /** Stage 5: the special rooms (jigsaw) and their templates are there and fit the grid (17 x 7 x 17). */
-    static void specialRoomsRegistered(GameTestHelper h) {
-        var registries = h.getLevel().registryAccess();
-        var structures = registries.lookupOrThrow(Registries.STRUCTURE);
-        var pools = registries.lookupOrThrow(Registries.TEMPLATE_POOL);
-        for (String s : List.of("backrooms_room", "backrooms_exit")) h.assertTrue(structures.containsKey(SimpleLayers.id(s)), "structure " + s);
-        for (String p : List.of("backrooms/rooms", "backrooms/exit")) h.assertTrue(pools.containsKey(SimpleLayers.id(p)), "pool " + p);
-        var templates = h.getLevel().getStructureTemplateManager();
-        for (String t : List.of("exit_room", "storage_room", "water_room", "dark_room")) {
-            var template = templates.get(SimpleLayers.id("backrooms/" + t));
-            h.assertTrue(template.isPresent(), "template " + t);
-            var size = template.get().getSize();
-            h.assertTrue(size.getX() == 17 && size.getY() == 7 && size.getZ() == 17, t + " size " + size);
-        }
-        h.succeed();
-    }
 
     /** Stage 5 entrance: only the Netherite Pickaxe makes progress (about 30 s), breaking leaves a rift. */
     static void glitchedBedrockNeedsNetherite(GameTestHelper h) {
@@ -453,19 +381,21 @@ public final class LayersTests {
         h.succeed();
     }
 
-    /** Stage 5 entrance: whatever enters the Backrooms arrives in a free cell centre at y 2. */
+    /** Stage 5 entrance, BACK22: whatever enters the Backrooms arrives on the Lobby's free spot (level 1) above its x/z, chunk loaded. */
     static void riftLeadsIntoBackrooms(GameTestHelper h) {
-        if (levelOrRegistryOnly(h, SimpleLayers.BACKROOMS) == null) return;
+        ServerLevel stack = levelOrRegistryOnly(h, SimpleLayers.STACK);
+        if (stack == null) return;
         ArmorStand stand = h.spawn(EntityTypes.ARMOR_STAND, new Vec3(1.5, 2.0, 1.5));
+        BlockPos want = BackroomsTravel.arrival(BackroomsStackGenerator.seed(stack.getChunkSource().randomState()), 1, stand.getBlockX(), stand.getBlockZ());
         Entity in = BackroomsTravel.enter(h.getLevel().getServer(), stand);
-        h.assertTrue(in != null && in.level().dimension() == SimpleLayers.BACKROOMS, "in the backrooms");
-        h.assertTrue(Math.abs(in.getY() - BackroomsTravel.ARRIVAL_Y) < 0.01, "arrival y " + in.getY());
-        h.assertTrue(Math.floorMod(in.getBlockX(), BackroomsGrid.CELL) == 4 && Math.floorMod(in.getBlockZ(), BackroomsGrid.CELL) == 4, "cell centre");
-        h.assertTrue(in.level().getBlockState(in.blockPosition()).isAir() || in.level().getBlockState(in.blockPosition()).getCollisionShape(in.level(), in.blockPosition()).isEmpty(), "free spot");
+        h.assertTrue(in != null && in.level().dimension() == SimpleLayers.STACK, "in the backrooms");
+        h.assertTrue(in.blockPosition().equals(want) && BandStack.bandAt(in.getBlockY()) == 1, "lobby arrival " + want.toShortString() + " but " + in.blockPosition().toShortString());
+        h.assertTrue(in.level().getBlockState(in.blockPosition()).getCollisionShape(in.level(), in.blockPosition()).isEmpty(), "free spot");
         h.assertTrue(in.isOnPortalCooldown(), "cooldown against bouncing");
         in.discard();
         h.succeed();
     }
+
 
     /** Stage 5 exit: the entry is remembered per player, the way out stands on the Overworld ground above it. */
     static void exitLeadsToTheSurface(GameTestHelper h) {
@@ -538,9 +468,9 @@ public final class LayersTests {
         BlockState paper = LayersRegistry.WALLPAPER.defaultBlockState();
         h.assertTrue(PistonBaseBlock.isPushable(paper, h.getLevel(), h.absolutePos(new BlockPos(2, 2, 2)), Direction.UP, false, Direction.UP),
                 "outside the Backrooms a piston moves wallpaper");
-        ServerLevel back = h.getLevel().getServer().getLevel(SimpleLayers.BACKROOMS);
+        ServerLevel back = h.getLevel().getServer().getLevel(SimpleLayers.STACK);
         if (back != null) {
-            BlockPos p = new BlockPos(64004, 3, -64004);
+            BlockPos p = new BlockPos(64004, BandStack.worldY(1, 3), -64004);
             h.assertFalse(PistonBaseBlock.isPushable(paper, back, p, Direction.EAST, false, Direction.EAST), "held in the Backrooms");
             h.assertTrue(PistonBaseBlock.isPushable(Blocks.OAK_PLANKS.defaultBlockState(), back, p, Direction.EAST, false, Direction.EAST),
                     "other blocks still move in the Backrooms");
@@ -577,21 +507,6 @@ public final class LayersTests {
             h.assertTrue(BackroomsGrid.at(seed, x, -1, z).isAir() && BackroomsGrid.at(seed, x, BackroomsGrid.HULL_TOP_Y + 1, z).isAir(), "outside the world");
             for (BackroomsLevel level : BackroomsLevel.values()) {
                 h.assertTrue(level.at(seed, x, 0, z) == Piece.BEDROCK && level.at(seed, x, 63, z) == Piece.BEDROCK, level + " hull at y 0 and 63");
-            }
-        }
-        ServerLevel back = levelOrRegistryOnly(h, SimpleLayers.BACKROOMS);
-        if (back == null) return;
-        h.assertTrue(back.getMaxY() == BackroomsGrid.HULL_TOP_Y, "hull reaches the build limit " + back.getMaxY());
-        int cx = -3000, cz = 2500;
-        back.getChunk(cx, cz);
-        for (int x = 0; x < 16; x += 5) {
-            for (int z = 0; z < 16; z += 5) {
-                for (int y : new int[] {0, 8, 16, 30, 63}) {
-                    BlockPos p = new BlockPos(cx * 16 + x, y, cz * 16 + z);
-                    boolean stair = y == 8 && LobbyGen.opensSlab(LobbyGen.LOBBY, BackroomsChunkGenerator.seed(back.getChunkSource().randomState()),
-                            Math.floorDiv(p.getX(), 8), Math.floorDiv(p.getZ(), 8));
-                    h.assertTrue(back.getBlockState(p).is(Blocks.BEDROCK) || stair || inSpecialRoom(back, p), "generated hull at " + p.toShortString());
-                }
             }
         }
         h.succeed();
@@ -663,65 +578,7 @@ public final class LayersTests {
 
     // ---------------------------------------------------------------- BACK18 (plan docs/ai/PLAN-B-BACK18-2026-11-10.md)
 
-    /** BACK18: the four new levels have dimension types and biomes; loaded, each runs the Backrooms generator with its level. */
-    static void levelsRegistered(GameTestHelper h) {
-        var types = h.getLevel().registryAccess().lookupOrThrow(Registries.DIMENSION_TYPE);
-        var biomes = h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
-        for (BackroomsLevel level : BackroomsLevel.values()) {
-            h.assertTrue(types.containsKey(SimpleLayers.id(level.dimension)) && biomes.containsKey(SimpleLayers.id(level.dimension)), "type and biome " + level);
-            h.assertTrue(SimpleLayers.levelOf(SimpleLayers.levelKey(level)) == level, "key round trip " + level);
-        }
-        h.assertTrue(SimpleLayers.levelOf(net.minecraft.world.level.Level.OVERWORLD) == null, "the Overworld is no Backrooms level");
-        for (BackroomsLevel level : BackroomsLevel.values()) {
-            ServerLevel l = levelOrRegistryOnly(h, SimpleLayers.levelKey(level));
-            if (l == null) return;
-            h.assertTrue(l.getChunkSource().getGenerator() instanceof BackroomsChunkGenerator g && g.level() == level, "generator of " + level);
-            h.assertTrue(l.getMinY() == 0 && l.getHeight() == 64 && l.dimensionType().hasCeiling(), "64 high with a ceiling: " + level);
-        }
-        h.succeed();
-    }
 
-    /** BACK18: where rifts and doors lead; loaded, an entity travels through every level and arrives on free ground. */
-    static void levelTransitions(GameTestHelper h) {
-        h.assertTrue(BackroomsLevel.LOBBY.riftTarget(2) == BackroomsLevel.WAREHOUSE, "lobby wall rift -> warehouse");
-        h.assertTrue(BackroomsLevel.WAREHOUSE.riftTarget(2) == BackroomsLevel.PIPES, "warehouse wall rift -> pipes");
-        h.assertTrue(BackroomsLevel.WAREHOUSE.riftTarget(1) == BackroomsLevel.POOLS && BackroomsLevel.PIPES.riftTarget(1) == BackroomsLevel.POOLS, "holes -> poolrooms");
-        h.assertTrue(BackroomsLevel.PIPES.deeper() == BackroomsLevel.END && BackroomsLevel.POOLS.deeper() == null && BackroomsLevel.END.deeper() == null, "deeper chain");
-        MinecraftServer server = h.getLevel().getServer();
-        for (BackroomsLevel level : BackroomsLevel.values()) if (levelOrRegistryOnly(h, SimpleLayers.levelKey(level)) == null) return;
-        ArmorStand stand = h.spawn(EntityTypes.ARMOR_STAND, new Vec3(1.5, 2.0, 1.5));
-        Entity e = stand;
-        for (BackroomsLevel level : List.of(BackroomsLevel.LOBBY, BackroomsLevel.WAREHOUSE, BackroomsLevel.PIPES, BackroomsLevel.POOLS, BackroomsLevel.END)) {
-            e.setPortalCooldown(0);
-            Entity moved = BackroomsTravel.travel(server, e, level);
-            h.assertTrue(moved != null && SimpleLayers.levelOf(moved.level()) == level, "arrived in " + level);
-            BlockPos at = moved.blockPosition();
-            h.assertTrue(moved.level().getBlockState(at).getCollisionShape(moved.level(), at).isEmpty()
-                    && moved.level().getBlockState(at.above()).getCollisionShape(moved.level(), at.above()).isEmpty(), "free arrival in " + level + " at " + at.toShortString());
-            e = moved;
-        }
-        // A wall rift of the Lobby leads to the Warehouse.
-        e.setPortalCooldown(0);
-        Entity lobby = BackroomsTravel.travel(server, e, BackroomsLevel.LOBBY);
-        lobby.setPortalCooldown(0);
-        ServerLevel lobbyLevel = (ServerLevel) lobby.level();
-        ServerLevel warehouse = server.getLevel(SimpleLayers.levelKey(BackroomsLevel.WAREHOUSE));
-        int[] spot = BackroomsLevel.WAREHOUSE.arrival(BackroomsChunkGenerator.seed(warehouse.getChunkSource().randomState()), lobby.getBlockX(), lobby.getBlockZ());
-        Entity copy = BackroomsTravel.enterFromRift(lobbyLevel, lobby, lobby.blockPosition());
-        // A cross-dimension teleport removes the old instance; the returned copy stands at the Warehouse's arrival spot (FIX172: checked
-        // directly instead of searching a small box a tick later - the arrival chunk is loaded by travel(), position-independent).
-        h.assertTrue(lobby.isRemoved(), "lobby rift -> left the lobby");
-        h.assertTrue(copy != null && copy.level() == warehouse && !copy.isRemoved(), "lobby rift -> warehouse");
-        h.assertTrue(copy.blockPosition().getX() == spot[0] && copy.blockPosition().getZ() == spot[2] && Math.abs(copy.getY() - spot[1]) < 0.01,
-                "lobby rift -> warehouse arrival " + spot[0] + " " + spot[1] + " " + spot[2] + " but at " + copy.blockPosition().toShortString());
-        java.util.UUID id = copy.getUUID();
-        String at = copy.blockPosition().toShortString();
-        h.succeedWhen(() -> {
-            Entity tracked = warehouse.getEntity(id);
-            h.assertTrue(tracked != null, "copy tracked in the warehouse at " + at);
-            tracked.discard();
-        });
-    }
 
     /**
      * BACK18: the quick way out - from anywhere in Level 0 an exit cell lies at most 10 cells away (escape tree, BACK20: regions of 8), the exit cell holds
@@ -780,24 +637,25 @@ public final class LayersTests {
     }
 
     /**
-     * BACK18 shaft, BACK20 house: the abandoned house stands (door, panes, roof), a trapdoor and ladder lead into the cellar, the
-     * cellar's west wall is a grey concrete plug framed in hazard stripes with tape, two caution signs facing into the cellar and a
-     * warning light; behind it the shaft's floor of 9 rifts (the portal) on glitched bedrock; barrels carry the house loot; the wood
-     * follows the biome.
+     * BACK20 house, BACK22 cellar door: the abandoned house stands (door, panes, roof), a trapdoor and ladder lead into the cellar, the
+     * cellar's west wall holds the framed cellar double door (two Backrooms doors, symbol 1, mirrored hinges, active) in hazard
+     * stripes with tape, two caution signs facing into the cellar and a warning light; no shaft, no rifts any more (fg11 a); barrels
+     * carry the house loot; the wood follows the biome.
      */
     static void entranceShaftGenerated(GameTestHelper h) {
         ServerLevel level = h.getLevel();
         BlockPos o = h.absolutePos(BlockPos.ZERO);
         BlockPos ground = new BlockPos(o.getX() + 1600, Math.max(o.getY() + 20, level.getMinY() + HouseTemplate.DEPTH + 4), o.getZ() + 8);
         for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) level.getChunk((ground.getX() >> 4) + dx, (ground.getZ() >> 4) + dz);
-        EntranceShaftFeature.build(level, ground, BackroomsBlocks.Wood.OAK, level.getRandom());
-        int rifts = 0, signs = 0, tape = 0, lamps = 0, ladders = 0, plug = 0, barrels = 0, doors = 0, panes = 0, roof = 0, trapdoors = 0;
+        BlockPos anchor = EntranceShaftFeature.build(level, ground, BackroomsBlocks.Wood.OAK, level.getRandom());
+        int rifts = 0, portalDoors = 0, signs = 0, tape = 0, lamps = 0, ladders = 0, plug = 0, barrels = 0, doors = 0, panes = 0, roof = 0, trapdoors = 0;
         for (int dy = -HouseTemplate.DEPTH; dy <= HouseTemplate.HEIGHT; dy++) {
             for (int dx = HouseTemplate.MIN_X; dx <= HouseTemplate.MAX_X; dx++) {
                 for (int dz = -HouseTemplate.HALF_Z; dz <= HouseTemplate.HALF_Z; dz++) {
                     BlockPos at = ground.offset(dx, dy, dz);
                     BlockState st = level.getBlockState(at);
-                    if (st.is(LayersRegistry.RIFT)) rifts++;
+                    if (st.is(LayersRegistry.RIFT) || st.is(LayersRegistry.GLITCHED_BEDROCK)) rifts++;
+                    if (st.is(LayersRegistry.BACKROOMS_DOOR)) portalDoors++;
                     if (st.is(LayersRegistry.CAUTION_SIGN)) {
                         signs++;
                         h.assertTrue(st.getValue(CautionSignBlock.FACING) == Direction.EAST, "sign faces into the cellar at " + dx + " " + dz);
@@ -815,13 +673,14 @@ public final class LayersTests {
                 }
             }
         }
-        h.assertTrue(rifts == 9 && level.getBlockState(ground.offset(HouseTemplate.SHAFT_X, HouseTemplate.PORTAL_DY, 0)).is(LayersRegistry.RIFT)
-                && level.getBlockState(ground.offset(HouseTemplate.SHAFT_X, -HouseTemplate.DEPTH, 0)).is(LayersRegistry.GLITCHED_BEDROCK), "rift floor " + rifts);
-        h.assertTrue(plug == 6 && signs == 2 && tape == 3 && lamps == 1, "sealed wall: plug " + plug + ", signs " + signs + ", tape " + tape + ", lamp " + lamps);
-        h.assertTrue(ladders >= 13 && trapdoors == 1 && barrels == 2, "ladders " + ladders + ", trapdoor " + trapdoors + ", loot barrels " + barrels);
+        h.assertTrue(rifts == 0 && plug == 0, "no rift floor, no plug: " + rifts + " " + plug);
+        h.assertTrue(portalDoors == 4 && signs == 2 && tape == 1 && lamps == 1, "cellar door: " + portalDoors + ", signs " + signs + ", tape " + tape + ", lamp " + lamps);
+        h.assertTrue(ladders >= 3 && trapdoors == 1 && barrels == 2, "ladders " + ladders + ", trapdoor " + trapdoors + ", loot barrels " + barrels);
         h.assertTrue(doors == 2 && panes == 5 && roof >= 60, "house: door " + doors + ", panes " + panes + ", roof " + roof);
-        // the passage behind the plug is open into the shaft; the cellar is 3 high
-        h.assertTrue(level.getBlockState(ground.offset(-5, -2, 0)).isAir() && level.getBlockState(ground.offset(HouseTemplate.SHAFT_X, -6, 0)).isAir(), "passage and shaft open");
+        com.simplelib.api.portal.PortalShape shape = com.simplelib.api.portal.PortalShape.of(level, anchor);
+        h.assertTrue(shape != null && shape.width() == 2 && shape.anchor().equals(anchor) && shape.facing() == Direction.WEST, "double door " + shape);
+        h.assertTrue(com.simplelib.api.portal.FrameRule.framed(level, shape), "cellar door framed");
+        h.assertTrue(level.getBlockState(anchor).getValue(com.simplebuilding.modules.simplelayers.block.BackroomsDoorBlock.SYMBOL) == 1, "symbol 1 = Lobby");
         h.assertTrue(level.getBlockState(ground.offset(0, -2, 0)).isAir() && level.getBlockState(ground.offset(0, HouseTemplate.CELLAR_FLOOR, 0)).is(Blocks.STONE_BRICKS), "cellar");
         // wood per biome
         var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);

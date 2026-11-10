@@ -2,7 +2,6 @@ package com.simplebuilding.modules.simplelayers.world;
 
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.modules.simplelayers.SimpleLayers;
-import com.simplebuilding.modules.simplelayers.config.LayersConfig;
 import com.simplebuilding.modules.simplelayers.world.gen.HouseTemplate;
 import com.simplebuilding.modules.simplelayers.world.gen.Piece;
 import net.minecraft.core.BlockPos;
@@ -20,12 +19,11 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 /**
- * The Backrooms entrance in the Overworld (BACK18 shaft, BACK20 house, plan docs/ai/PLAN-B-BACK20-2026-11-10.md): one new chunk in
- * {@code backrooms.shaftRarity} (0 = never) gets the abandoned house of {@link HouseTemplate} in its middle, only on nearly flat,
- * dry ground. Its cellar is concreted shut; behind the plug the old maintenance shaft leads down to the rift floor, the portal into
- * Level 0. The wood follows the biome (spruce when cold, acacia when hot and dry, else oak); the barrels hold
- * {@code simplelayers:chests/backrooms_house}. The Glitched Bedrock stays as the hidden second way in. (Feature id and config key
- * keep their BACK18 names so worlds and config files stay valid.)
+ * The Backrooms entrance in the Overworld (BACK20 house, BACK22 core K6): the chunks {@code Entrances.houseChunk} picks (pure, rarity
+ * {@code backrooms.shaftRarity}, 0 = never) get the abandoned house of {@link HouseTemplate} in their middle, only on nearly flat,
+ * dry ground. Its cellar holds the cellar double door (portal doors, rule two-way) into the Lobby's entrance door in the same chunk
+ * column; the house registers its door in SimpleLib's {@code PortalLinks} (its height is only known here). The wood follows the biome;
+ * the barrels hold {@code simplelayers:chests/backrooms_house}. (Feature id and config key keep their BACK18 names.)
  */
 public record EntranceShaftFeature() implements Feature {
     public static final MapCodec<EntranceShaftFeature> CODEC = MapCodec.unit(EntranceShaftFeature::new);
@@ -40,8 +38,9 @@ public record EntranceShaftFeature() implements Feature {
 
     @Override
     public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos origin) {
-        if (!SimpleLayers.backroomsOn() || LayersConfig.shaftRarity <= 0 || random.nextInt(LayersConfig.shaftRarity) != 0) return false;
-        int cx = Math.floorDiv(origin.getX(), 16) * 16 + 8, cz = Math.floorDiv(origin.getZ(), 16) * 16 + 8;
+        int chunkX = Math.floorDiv(origin.getX(), 16), chunkZ = Math.floorDiv(origin.getZ(), 16);
+        if (!SimpleLayers.backroomsOn() || !com.simplebuilding.modules.simplelayers.backrooms.door.Entrances.houseChunk(level.getSeed(), chunkX, chunkZ)) return false;
+        int cx = chunkX * 16 + 8, cz = chunkZ * 16 + 8;
         int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
         for (int dx = -4; dx <= 4; dx++) {
             for (int dz = -3; dz <= 3; dz++) {
@@ -54,7 +53,13 @@ public record EntranceShaftFeature() implements Feature {
         BlockPos ground = new BlockPos(cx, level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, cx, cz) - 1, cz);
         BlockState top = level.getBlockState(ground);
         if (!top.getFluidState().isEmpty() || top.isAir() || ground.getY() - HouseTemplate.DEPTH <= level.getMinY() + 1) return false;
-        build(level, ground, wood(level.getBiome(ground).value()), random);
+        BlockPos anchor = build(level, ground, wood(level.getBiome(ground).value()), random);
+        var server = level.getServer();
+        if (server != null) {
+            long link = com.simplebuilding.modules.simplelayers.backrooms.door.Entrances.link(chunkX, chunkZ);
+            var end = new com.simplelib.api.portal.PortalLinks.End(net.minecraft.world.level.Level.OVERWORLD, anchor, net.minecraft.core.Direction.WEST, 2);
+            server.execute(() -> com.simplelib.api.portal.PortalLinks.put(server, link, end)); // saved data only on the server thread
+        }
         return true;
     }
 
@@ -64,8 +69,8 @@ public record EntranceShaftFeature() implements Feature {
         return t < 0.3F ? BackroomsBlocks.Wood.SPRUCE : t > 1.5F ? BackroomsBlocks.Wood.ACACIA : BackroomsBlocks.Wood.OAK;
     }
 
-    /** Builds the house with its floor (dy 0) at {@code ground}; the gametest calls this directly. */
-    public static void build(LevelAccessor level, BlockPos ground, BackroomsBlocks.Wood wood, RandomSource random) {
+    /** Builds the house with its floor (dy 0) at {@code ground}; returns the cellar door's anchor (left leaf, lower half). */
+    public static BlockPos build(LevelAccessor level, BlockPos ground, BackroomsBlocks.Wood wood, RandomSource random) {
         int broken = HouseTemplate.brokenWindow(ground.getX(), ground.getZ());
         BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
         for (int dy = -HouseTemplate.DEPTH; dy <= HouseTemplate.HEIGHT; dy++) {
@@ -79,5 +84,17 @@ public record EntranceShaftFeature() implements Feature {
                 }
             }
         }
+        // the cellar double door (walking west into it; symbol 1 = the Lobby)
+        BlockPos anchor = ground.offset(HouseTemplate.PLUG_X, HouseTemplate.DOOR_DY, HouseTemplate.DOOR_LEFT_Z);
+        for (int i = 0; i < 2; i++) {
+            BlockPos leaf = anchor.relative(net.minecraft.core.Direction.NORTH, i);
+            BlockState door = com.simplebuilding.modules.simplelayers.backrooms.door.DoorStamp.door(net.minecraft.core.Direction.WEST,
+                    i == 0 ? net.minecraft.world.level.block.state.properties.DoorHingeSide.LEFT : net.minecraft.world.level.block.state.properties.DoorHingeSide.RIGHT,
+                    1, com.simplelib.api.portal.PortalRule.TWO_WAY).setValue(com.simplebuilding.modules.simplelayers.block.BackroomsDoorBlock.SYMBOL, 1);
+            level.setBlock(leaf, door, 2);
+            level.setBlock(leaf.above(), door.setValue(net.minecraft.world.level.block.DoorBlock.HALF,
+                    net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER), 2);
+        }
+        return anchor;
     }
 }

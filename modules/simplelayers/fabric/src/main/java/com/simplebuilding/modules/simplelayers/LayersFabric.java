@@ -28,9 +28,7 @@ public final class LayersFabric implements ModInitializer {
         LayersRegistry.registerItems();
         LayersRegistry.registerTab();
         LayersRegistry.registerWorldgen();
-        // The Backrooms entrance in the Overworld bedrock floor (the feature itself rolls the rarity and checks the switches).
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Decoration.UNDERGROUND_DECORATION,
-                ResourceKey.create(Registries.PLACED_FEATURE, SimpleLayers.id("glitched_bedrock")));
+        // BACK22 (fg11 a): no Glitched Bedrock in the Overworld floor any more - the house's cellar door is the way in.
         // BACK18/BACK20: the abandoned house over the old entrance shaft (rarity and switches checked by the feature).
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Decoration.SURFACE_STRUCTURES,
                 ResourceKey.create(Registries.PLACED_FEATURE, SimpleLayers.id("entrance_shaft")));
@@ -45,6 +43,12 @@ public final class LayersFabric implements ModInitializer {
             BackroomEffect.hintOnAttack(player, level, pos);
             return InteractionResult.PASS;
         });
+        // BACK22 core: entities of other stack levels stay hidden; players stranded by the removed BACK18 dimensions are rescued.
+        com.simplelib.api.TrackingFilters.register(com.simplebuilding.modules.simplelayers.world.BackroomsRescue::sameLevel);
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
+                server.execute(() -> com.simplebuilding.modules.simplelayers.world.BackroomsRescue.onJoin(handler.getPlayer())));
+        net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) ->
+                com.simplebuilding.modules.simplelayers.world.BackroomsRescue.afterRespawn(newPlayer));
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             CloudTransition.forget(handler.player.getUUID());
             ListenerAmbience.forget(handler.player.getUUID());

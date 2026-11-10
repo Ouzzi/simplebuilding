@@ -16,7 +16,7 @@
       },
       "modifier": "overlay"
     },
-    "minecraft:visual/fog_color": "#e8e8e4",
+    "minecraft:visual/fog_color": "#3a5a8c",
     "minecraft:visual/sky_color": "#000000"
   },
   "carvers": [],
