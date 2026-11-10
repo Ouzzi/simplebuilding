@@ -1764,7 +1764,7 @@ window.WIKI_MODULES = [
       "en": "Light Panes: flat lamps on any block side - plain, transparent, in sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb.",
       "de": "Lichtscheiben: flache Lampen an jeder Blockseite - normal, transparent, in sechzehn Farben, eine Redstone-Scheibe, deren Farbe der Signalstärke folgt, und Kupfer-Scheiben, die wie die Kupferbirne umschalten."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABzUlEQVR42qWTSVIiYRCFvVCfwQu46AsY4VJRS6ooCmXQ6A7deAlnwBYoQS2gmERBRgdEIxSXfZDn+5PQTbHCRUbUP+T3v3yZNTP/+xe0hdmpQuXOqI9XNzxVqNxvgLO3iML+Evq5INp2ALXEGkrHGgaFCFq2ybWGPM/VWS8bnAzYMefQONPRvwhJcjMdxFM+gm5WrVdRPFyWO3dpwwvoZU3cX4ZQiWtwjzT0Lzf4egzNjIXblIlHJyxgZ28J5eMVL6CRMkRq/Z+BWtLAw1UE77W/XJuoJgx0c+ton1tUsSJKPAAlsXyyJpL7F1TEuLPXMShucS/G5JDAn+nJPZV4ALWkH9WkzjLCkvC/sysxqu/go76NRtoSyIsbE4gHoDYfnQiuTwMiWyWNGF+gt+of8aQS97PcgBfQzVpiVMu2WLOOobuF0fU2TQzJ6y+lTbwybpRHbLEHUFYesHUdGjUsRul8kGqU+1HCNlmizvW4xb2c5QUUD30cFJ8cPjlhSVDdGBSioqya8IvRPQ5aKzNhDhpnfhkSh5DKiSaQcaIu7rft8ZyoO+6kNnY5SM2UzuRV5A98MhMd+uKyrDKBrUxAJlBNbOloAmDqn+mnv/MnD8+4wCHaIPwAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA80lEQVR42oWToQ7CQBBE+0P8AIYfQCAxJBgUCYIQRDV8CQ6FQoCqRKFQfAxkLnmbueNaxKY319nZ2e22WcxGn81ykmI1H8cZ7HclVm6jw+vWpnh3h4jyroaV20hRF/fTOsXjsk/RnbcJP69thnkvAeVmAsfdNBFFgIwABcTJBGRDApAh6uzVS6FogRlQWU8SJAzGugtECwJlZSrWnCiqDpzApJk6LnSHYAiIQCJCpQAcuUQs+4w+cRFIduxOe2eATW/Jse9BNgMX8Fa8tXKRfoaoJSm/hlcWhpPNQAK+rl5pCMcmMiC39y/CAb/z0K/cd1buF6iutuDDsXsbAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
       "blocks": 37,
