@@ -37,10 +37,10 @@ public final class MovementScreen {
     }
 
     private static Component name(String key) {
-        return Component.translatable("simplemovement.option." + key);
+        return Component.translatable("text.autoconfig.simplemovement.option." + key);
     }
 
     private static Component tip(String key) {
-        return Component.translatable("simplemovement.option." + key + ".tooltip");
+        return Component.translatable("text.autoconfig.simplemovement.option." + key + ".@Tooltip");
     }
 }

@@ -19,7 +19,7 @@ for locale in ('en_us', 'de_de'):
     for key in [f'entity.{NS}.dragonmite', f'message.{NS}.joins'] + [f'item.{NS}.{i}' for i in ITEMS]:
         assert key in data, (locale, key)
     for k in config_keys:
-        assert data.get(f'config.{NS}.{k}') and data.get(f'config.{NS}.{k}.tooltip'), (locale, k)
+        assert data.get(f'text.autoconfig.{NS}.option.{k}') and data.get(f'text.autoconfig.{NS}.option.{k}.@Tooltip'), (locale, k)
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 for item in ITEMS:

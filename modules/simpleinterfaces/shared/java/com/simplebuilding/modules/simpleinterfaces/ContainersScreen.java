@@ -28,7 +28,7 @@ public final class ContainersScreen {
         com.simplelib.api.client.ui.UiBrightness[] brightness = {com.simplelib.api.client.ui.UiBrightness.current()};
         general.addEntry(e.startEnumSelector(name("inventoryBrightness"), com.simplelib.api.client.ui.UiBrightness.class, brightness[0])
                 .setDefaultValue(com.simplelib.api.client.ui.UiBrightness.LIGHT)
-                .setEnumNameProvider(v -> Component.translatable("simpleinterfaces.option.inventoryBrightness."
+                .setEnumNameProvider(v -> Component.translatable("text.autoconfig.simpleinterfaces.option.inventoryBrightness."
                         + ((com.simplelib.api.client.ui.UiBrightness) v).id()))
                 .setTooltip(tip("inventoryBrightness")).setSaveConsumer(v -> brightness[0] = v).build());
         for (ScreenStyle style : ContainerStyles.all()) {
@@ -90,10 +90,10 @@ public final class ContainersScreen {
     }
 
     private static Component name(String key) {
-        return Component.translatable("simpleinterfaces.option." + key);
+        return Component.translatable("text.autoconfig.simpleinterfaces.option." + key);
     }
 
     private static Component tip(String key) {
-        return Component.translatable("simpleinterfaces.option." + key + ".tooltip");
+        return Component.translatable("text.autoconfig.simpleinterfaces.option." + key + ".@Tooltip");
     }
 }

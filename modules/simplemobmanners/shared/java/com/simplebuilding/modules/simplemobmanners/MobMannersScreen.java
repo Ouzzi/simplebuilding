@@ -32,10 +32,10 @@ public final class MobMannersScreen {
     }
 
     private static Component name(String key) {
-        return Component.translatable("simplemobmanners.option." + key);
+        return Component.translatable("text.autoconfig.simplemobmanners.option." + key);
     }
 
     private static Component tip(String key) {
-        return Component.translatable("simplemobmanners.option." + key + ".tooltip");
+        return Component.translatable("text.autoconfig.simplemobmanners.option." + key + ".@Tooltip");
     }
 }

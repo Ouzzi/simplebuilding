@@ -67,10 +67,10 @@ public final class ToolsScreen {
     }
 
     private static Component name(String key) {
-        return Component.translatable("simpletools.option." + key);
+        return Component.translatable("text.autoconfig.simpletools.option." + key);
     }
 
     private static Component tip(String key) {
-        return Component.translatable("simpletools.option." + key + ".tooltip");
+        return Component.translatable("text.autoconfig.simpletools.option." + key + ".@Tooltip");
     }
 }

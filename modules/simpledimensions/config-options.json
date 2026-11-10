@@ -4,248 +4,248 @@
       "key": "accessEnabled",
       "default": true,
       "tab": "access",
-      "name": "simpledimension.config.accessEnabled",
-      "tooltip": "simpledimension.config.accessEnabled.tooltip",
+      "name": "text.autoconfig.simpledimension.option.accessEnabled",
+      "tooltip": "text.autoconfig.simpledimension.option.accessEnabled.@Tooltip",
       "scope": "server"
     },
     {
       "key": "giveGuideOnFirstTravel",
       "default": true,
       "tab": "access",
-      "name": "simpledimension.config.giveGuideOnFirstTravel",
-      "tooltip": "simpledimension.config.giveGuideOnFirstTravel.tooltip",
+      "name": "text.autoconfig.simpledimension.option.giveGuideOnFirstTravel",
+      "tooltip": "text.autoconfig.simpledimension.option.giveGuideOnFirstTravel.@Tooltip",
       "scope": "server"
     },
     {
       "key": "skyblockEnabled",
       "default": true,
       "tab": "dimensions",
-      "name": "simpledimension.config.skyblockEnabled",
-      "tooltip": "simpledimension.config.skyblockEnabled.tooltip",
+      "name": "text.autoconfig.simpledimension.option.skyblockEnabled",
+      "tooltip": "text.autoconfig.simpledimension.option.skyblockEnabled.@Tooltip",
       "scope": "server"
     },
     {
       "key": "miningEnabled",
       "default": true,
       "tab": "dimensions",
-      "name": "simpledimension.config.miningEnabled",
-      "tooltip": "simpledimension.config.miningEnabled.tooltip",
+      "name": "text.autoconfig.simpledimension.option.miningEnabled",
+      "tooltip": "text.autoconfig.simpledimension.option.miningEnabled.@Tooltip",
       "scope": "server"
     },
     {
       "key": "travelEnabled",
       "default": true,
       "tab": "dimensions",
-      "name": "simpledimension.config.travelEnabled",
-      "tooltip": "simpledimension.config.travelEnabled.tooltip",
+      "name": "text.autoconfig.simpledimension.option.travelEnabled",
+      "tooltip": "text.autoconfig.simpledimension.option.travelEnabled.@Tooltip",
       "scope": "server"
     },
     {
       "key": "automaticDestination",
       "default": true,
       "tab": "safety",
-      "name": "simpledimension.config.automaticDestination",
-      "tooltip": "simpledimension.config.automaticDestination.tooltip",
+      "name": "text.autoconfig.simpledimension.option.automaticDestination",
+      "tooltip": "text.autoconfig.simpledimension.option.automaticDestination.@Tooltip",
       "scope": "server"
     },
     {
       "key": "portalDelayTicks",
       "default": 0,
       "tab": "access",
-      "name": "simpledimension.config.portalDelayTicks",
-      "tooltip": "simpledimension.config.portalDelayTicks.tooltip",
+      "name": "text.autoconfig.simpledimension.option.portalDelayTicks",
+      "tooltip": "text.autoconfig.simpledimension.option.portalDelayTicks.@Tooltip",
       "scope": "server"
     },
     {
       "key": "teleportCooldownTicks",
       "default": 60,
       "tab": "safety",
-      "name": "simpledimension.config.teleportCooldownTicks",
-      "tooltip": "simpledimension.config.teleportCooldownTicks.tooltip",
+      "name": "text.autoconfig.simpledimension.option.teleportCooldownTicks",
+      "tooltip": "text.autoconfig.simpledimension.option.teleportCooldownTicks.@Tooltip",
       "scope": "server"
     },
     {
       "key": "nonPlayerTravel",
       "default": false,
       "tab": "safety",
-      "name": "simpledimension.config.nonPlayerTravel",
-      "tooltip": "simpledimension.config.nonPlayerTravel.tooltip",
+      "name": "text.autoconfig.simpledimension.option.nonPlayerTravel",
+      "tooltip": "text.autoconfig.simpledimension.option.nonPlayerTravel.@Tooltip",
       "scope": "server"
     },
     {
       "key": "id",
       "default": "skyblock",
       "tab": "advanced",
-      "name": "simpledimension.config.id",
-      "tooltip": "simpledimension.config.id.tooltip",
+      "name": "text.autoconfig.simpledimension.option.id",
+      "tooltip": "text.autoconfig.simpledimension.option.id.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "sourceDimensionId",
       "default": "minecraft:overworld",
       "tab": "advanced",
-      "name": "simpledimension.config.sourceDimensionId",
-      "tooltip": "simpledimension.config.sourceDimensionId.tooltip",
+      "name": "text.autoconfig.simpledimension.option.sourceDimensionId",
+      "tooltip": "text.autoconfig.simpledimension.option.sourceDimensionId.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "targetDimensionId",
       "default": "simpledimension:skyblock",
       "tab": "advanced",
-      "name": "simpledimension.config.targetDimensionId",
-      "tooltip": "simpledimension.config.targetDimensionId.tooltip",
+      "name": "text.autoconfig.simpledimension.option.targetDimensionId",
+      "tooltip": "text.autoconfig.simpledimension.option.targetDimensionId.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "targetDisplayName",
       "default": "Skyblock",
       "tab": "advanced",
-      "name": "simpledimension.config.targetDisplayName",
-      "tooltip": "simpledimension.config.targetDisplayName.tooltip",
+      "name": "text.autoconfig.simpledimension.option.targetDisplayName",
+      "tooltip": "text.autoconfig.simpledimension.option.targetDisplayName.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "enabled",
       "default": true,
       "tab": "advanced",
-      "name": "simpledimension.config.enabled",
-      "tooltip": "simpledimension.config.enabled.tooltip",
+      "name": "text.autoconfig.simpledimension.option.enabled",
+      "tooltip": "text.autoconfig.simpledimension.option.enabled.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "requireSeparateLight",
       "default": true,
       "tab": "advanced",
-      "name": "simpledimension.config.requireSeparateLight",
-      "tooltip": "simpledimension.config.requireSeparateLight.tooltip",
+      "name": "text.autoconfig.simpledimension.option.requireSeparateLight",
+      "tooltip": "text.autoconfig.simpledimension.option.requireSeparateLight.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "portalColorHex",
       "default": "#66D9FF",
       "tab": "advanced",
-      "name": "simpledimension.config.portalColorHex",
-      "tooltip": "simpledimension.config.portalColorHex.tooltip",
+      "name": "text.autoconfig.simpledimension.option.portalColorHex",
+      "tooltip": "text.autoconfig.simpledimension.option.portalColorHex.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "portalRecipes",
       "default": "six glowstone arches",
       "tab": "advanced",
-      "name": "simpledimension.config.portalRecipes",
-      "tooltip": "simpledimension.config.portalRecipes.tooltip",
+      "name": "text.autoconfig.simpledimension.option.portalRecipes",
+      "tooltip": "text.autoconfig.simpledimension.option.portalRecipes.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "frameBlock",
       "default": "minecraft:crying_obsidian",
       "tab": "advanced",
-      "name": "simpledimension.config.frameBlock",
-      "tooltip": "simpledimension.config.frameBlock.tooltip",
+      "name": "text.autoconfig.simpledimension.option.frameBlock",
+      "tooltip": "text.autoconfig.simpledimension.option.frameBlock.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "minPortalWidth",
       "default": 2,
       "tab": "advanced",
-      "name": "simpledimension.config.minPortalWidth",
-      "tooltip": "simpledimension.config.minPortalWidth.tooltip",
+      "name": "text.autoconfig.simpledimension.option.minPortalWidth",
+      "tooltip": "text.autoconfig.simpledimension.option.minPortalWidth.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "maxPortalWidth",
       "default": 21,
       "tab": "advanced",
-      "name": "simpledimension.config.maxPortalWidth",
-      "tooltip": "simpledimension.config.maxPortalWidth.tooltip",
+      "name": "text.autoconfig.simpledimension.option.maxPortalWidth",
+      "tooltip": "text.autoconfig.simpledimension.option.maxPortalWidth.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "minPortalHeight",
       "default": 3,
       "tab": "advanced",
-      "name": "simpledimension.config.minPortalHeight",
-      "tooltip": "simpledimension.config.minPortalHeight.tooltip",
+      "name": "text.autoconfig.simpledimension.option.minPortalHeight",
+      "tooltip": "text.autoconfig.simpledimension.option.minPortalHeight.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "maxPortalHeight",
       "default": 21,
       "tab": "advanced",
-      "name": "simpledimension.config.maxPortalHeight",
-      "tooltip": "simpledimension.config.maxPortalHeight.tooltip",
+      "name": "text.autoconfig.simpledimension.option.maxPortalHeight",
+      "tooltip": "text.autoconfig.simpledimension.option.maxPortalHeight.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "travelCoordinateScale",
       "default": 1.0,
       "tab": "advanced",
-      "name": "simpledimension.config.travelCoordinateScale",
-      "tooltip": "simpledimension.config.travelCoordinateScale.tooltip",
+      "name": "text.autoconfig.simpledimension.option.travelCoordinateScale",
+      "tooltip": "text.autoconfig.simpledimension.option.travelCoordinateScale.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "allowIgniteFromSource",
       "default": true,
       "tab": "advanced",
-      "name": "simpledimension.config.allowIgniteFromSource",
-      "tooltip": "simpledimension.config.allowIgniteFromSource.tooltip",
+      "name": "text.autoconfig.simpledimension.option.allowIgniteFromSource",
+      "tooltip": "text.autoconfig.simpledimension.option.allowIgniteFromSource.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "allowIgniteFromTarget",
       "default": false,
       "tab": "advanced",
-      "name": "simpledimension.config.allowIgniteFromTarget",
-      "tooltip": "simpledimension.config.allowIgniteFromTarget.tooltip",
+      "name": "text.autoconfig.simpledimension.option.allowIgniteFromTarget",
+      "tooltip": "text.autoconfig.simpledimension.option.allowIgniteFromTarget.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "openFromDimensions",
       "default": [],
       "tab": "advanced",
-      "name": "simpledimension.config.openFromDimensions",
-      "tooltip": "simpledimension.config.openFromDimensions.tooltip",
+      "name": "text.autoconfig.simpledimension.option.openFromDimensions",
+      "tooltip": "text.autoconfig.simpledimension.option.openFromDimensions.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "generateReturnPortalOnArrival",
       "default": true,
       "tab": "advanced",
-      "name": "simpledimension.config.generateReturnPortalOnArrival",
-      "tooltip": "simpledimension.config.generateReturnPortalOnArrival.tooltip",
+      "name": "text.autoconfig.simpledimension.option.generateReturnPortalOnArrival",
+      "tooltip": "text.autoconfig.simpledimension.option.generateReturnPortalOnArrival.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "createDestinationPlatform",
       "default": true,
       "tab": "advanced",
-      "name": "simpledimension.config.createDestinationPlatform",
-      "tooltip": "simpledimension.config.createDestinationPlatform.tooltip",
+      "name": "text.autoconfig.simpledimension.option.createDestinationPlatform",
+      "tooltip": "text.autoconfig.simpledimension.option.createDestinationPlatform.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.preset",
       "default": "skyblock_void",
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.preset",
-      "tooltip": "simpledimension.config.worldGeneration.preset.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.preset",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.preset.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.generatorType",
       "default": "flat",
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.generatorType",
-      "tooltip": "simpledimension.config.worldGeneration.generatorType.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.generatorType",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.generatorType.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.baseBiome",
       "default": "minecraft:the_void",
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.baseBiome",
-      "tooltip": "simpledimension.config.worldGeneration.baseBiome.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.baseBiome",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.baseBiome.@Tooltip",
       "scope": "server-json"
     },
     {
@@ -254,144 +254,144 @@
         "minecraft:plains"
       ],
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.biomeSelection",
-      "tooltip": "simpledimension.config.worldGeneration.biomeSelection.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.biomeSelection",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.biomeSelection.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.minY",
       "default": -64,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.minY",
-      "tooltip": "simpledimension.config.worldGeneration.minY.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.minY",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.minY.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.height",
       "default": 384,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.height",
-      "tooltip": "simpledimension.config.worldGeneration.height.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.height",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.height.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.logicalHeight",
       "default": 384,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.logicalHeight",
-      "tooltip": "simpledimension.config.worldGeneration.logicalHeight.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.logicalHeight",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.logicalHeight.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.hasSkylight",
       "default": true,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.hasSkylight",
-      "tooltip": "simpledimension.config.worldGeneration.hasSkylight.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.hasSkylight",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.hasSkylight.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.hasCeiling",
       "default": false,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.hasCeiling",
-      "tooltip": "simpledimension.config.worldGeneration.hasCeiling.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.hasCeiling",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.hasCeiling.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.ultraWarm",
       "default": false,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.ultraWarm",
-      "tooltip": "simpledimension.config.worldGeneration.ultraWarm.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.ultraWarm",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.ultraWarm.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.natural",
       "default": true,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.natural",
-      "tooltip": "simpledimension.config.worldGeneration.natural.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.natural",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.natural.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.coordinateScale",
       "default": 1.0,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.coordinateScale",
-      "tooltip": "simpledimension.config.worldGeneration.coordinateScale.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.coordinateScale",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.coordinateScale.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.generateOres",
       "default": false,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.generateOres",
-      "tooltip": "simpledimension.config.worldGeneration.generateOres.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.generateOres",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.generateOres.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.orePreset",
       "default": "minecraft:overworld",
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.orePreset",
-      "tooltip": "simpledimension.config.worldGeneration.orePreset.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.orePreset",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.orePreset.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.flatLayers",
       "default": [],
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.flatLayers",
-      "tooltip": "simpledimension.config.worldGeneration.flatLayers.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.flatLayers",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.flatLayers.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "portalRecipes.rows",
       "default": "shape rows",
       "tab": "advanced",
-      "name": "simpledimension.config.portalRecipes.rows",
-      "tooltip": "simpledimension.config.portalRecipes.rows.tooltip",
+      "name": "text.autoconfig.simpledimension.option.portalRecipes.rows",
+      "tooltip": "text.autoconfig.simpledimension.option.portalRecipes.rows.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "portalRecipes.legend",
       "default": "symbol to block ID",
       "tab": "advanced",
-      "name": "simpledimension.config.portalRecipes.legend",
-      "tooltip": "simpledimension.config.portalRecipes.legend.tooltip",
+      "name": "text.autoconfig.simpledimension.option.portalRecipes.legend",
+      "tooltip": "text.autoconfig.simpledimension.option.portalRecipes.legend.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "portalRecipes.interior",
       "default": ".",
       "tab": "advanced",
-      "name": "simpledimension.config.portalRecipes.interior",
-      "tooltip": "simpledimension.config.portalRecipes.interior.tooltip",
+      "name": "text.autoconfig.simpledimension.option.portalRecipes.interior",
+      "tooltip": "text.autoconfig.simpledimension.option.portalRecipes.interior.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "portalRecipes.ignore",
       "default": " ",
       "tab": "advanced",
-      "name": "simpledimension.config.portalRecipes.ignore",
-      "tooltip": "simpledimension.config.portalRecipes.ignore.tooltip",
+      "name": "text.autoconfig.simpledimension.option.portalRecipes.ignore",
+      "tooltip": "text.autoconfig.simpledimension.option.portalRecipes.ignore.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.flatLayers.block",
       "default": "minecraft:stone",
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.flatLayers.block",
-      "tooltip": "simpledimension.config.worldGeneration.flatLayers.block.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.flatLayers.block",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.flatLayers.block.@Tooltip",
       "scope": "server-json"
     },
     {
       "key": "worldGeneration.flatLayers.height",
       "default": 1,
       "tab": "advanced",
-      "name": "simpledimension.config.worldGeneration.flatLayers.height",
-      "tooltip": "simpledimension.config.worldGeneration.flatLayers.height.tooltip",
+      "name": "text.autoconfig.simpledimension.option.worldGeneration.flatLayers.height",
+      "tooltip": "text.autoconfig.simpledimension.option.worldGeneration.flatLayers.height.@Tooltip",
       "scope": "server-json"
     }
   ]

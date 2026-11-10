@@ -161,9 +161,9 @@ public final class DimensionTests {
    // Lang is a client resource: inspect the shipped module resource, not server pack aliases.
    try(var input=DimensionTests.class.getResourceAsStream("/assets/simpledimension/lang/"+locale+".json")){
     yes(h,input!=null,"Locale shipped");var data=com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(input,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
-    yes(h,data.has("simpledimension.config.dimensions"),"Dedicated dimensions tab translated");
+    yes(h,data.has("text.autoconfig.simpledimension.option.dimensions"),"Dedicated dimensions tab translated");
     for(String key:List.of("accessEnabled","skyblockEnabled","miningEnabled","travelEnabled","automaticDestination","portalDelayTicks","teleportCooldownTicks","nonPlayerTravel")){
-     yes(h,data.has("simpledimension.config."+key),"Option name "+key);String tip=data.get("simpledimension.config."+key+".tooltip").getAsString();yes(h,tip.contains(locale.equals("en_us")?"Default:":"Standard:"),"Default in tooltip "+key);
+     yes(h,data.has("text.autoconfig.simpledimension.option."+key),"Option name "+key);String tip=data.get("text.autoconfig.simpledimension.option."+key+".@Tooltip").getAsString();yes(h,tip.contains(locale.equals("en_us")?"Default:":"Standard:"),"Default in tooltip "+key);
      if(List.of("skyblockEnabled","miningEnabled","travelEnabled").contains(key))yes(h,tip.contains(locale.equals("en_us")?"Default: On.":"Standard: Ein."),"Correct enabled default "+key);
     }
    }
