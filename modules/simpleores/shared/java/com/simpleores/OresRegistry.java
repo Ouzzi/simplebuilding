@@ -142,7 +142,7 @@ public final class OresRegistry {
     static {
         for (String m : BARS) {
             block(m + "_bars", Blocks.IRON_BARS, s -> new com.simpleores.block.MetalBarsBlock(s.sound(OresSounds.of(m))));
-            block(m + "_grate", Blocks.COPPER_GRATE, s -> new com.simpleores.block.MetalGrateBlock(s.sound(OresSounds.of(m))));
+            block(m + "_grate", Blocks.COPPER_GRATE.asList().getFirst(), s -> new com.simpleores.block.MetalGrateBlock(s.sound(OresSounds.of(m))));
         }
     }
 
