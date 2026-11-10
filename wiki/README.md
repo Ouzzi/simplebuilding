@@ -26,6 +26,10 @@ funktioniert (`history.pushState`/`popstate`):
 | Item / Block | `?item=simplebuilding:enderite_chisel` (reine Blöcke wie Pads landen auf `?block=`), mit `&tab=recipes\|uses\|drops\|trades\|inworld\|related\|technical` springt die Seite zum Abschnitt |
 | Kategorie | `?cat=tools\|building\|storage\|machines\|gadgets\|end\|trims\|materials\|misc` |
 | Listen | `?tab=items\|blocks\|recipes\|allrecipes\|inworld\|loot\|trades\|enchantments\|tags\|config\|advancements\|features\|textures` |
+| Erste Schritte | `?tab=start` (Einstiege + Anleitungen; alte Adresse `?tab=features` führt hierher) |
+| Sub-Mods | `?tab=submods`: die Mods der Modpack-Auswahl als aufgeklappter Baum Super-Mod → Sub-Mods, Klick öffnet das Mod-Wiki |
+| Handbuch | `?tab=guidebook`, Seite `?book=<abschnitt>/<seite>`: das Simple-Modpack-Handbuch wie im Spiel (Abschnitte = Super-Mods, Inhalt, Doppelseiten, ←/→, Wischen, Kapitel-Sprung); Daten `data/guidebook.js` aus `wiki/books.py` |
+| Fragentisch | `?tab=questionary`, Eintrag `?questionary=<ns:id>`: Geschichte/Nutzen/Geheimnis jedes Items, Familien, Ersatztexte; Daten `data/questionary.js` aus `wiki/books.py` |
 | Verzauberungs-Ansicht | `?tab=enchanting`: Zaubertisch und Tooltips wie im Spiel für alle Module (Daten `data/enchanting.js` aus `wiki/enchanting.py`, Oberfläche `assets/enchanting.js`; Vanilla-Texte aus Client-Jar und Loom-Asset-Index, keine Vanilla-Pixel). Tests `wiki/tests/test_enchanting.py`, Browser `wiki/tests/enchanting_ui.cjs` |
 | Einzelseiten | `?recipe=`, `?loot=`, `?trade=`, `?ench=`, `?tag=`, `?feature=`, `?config=`, `?inworld=`, `?make=`, `?use=`, `?tree=` |
 | Suche | `?q=hammer` |
@@ -34,6 +38,19 @@ funktioniert (`history.pushState`/`popstate`):
 Alte Hash-Links (`#/items/<id>`) werden beim Laden auf die neue Form umgeleitet. Intern
 bauen die Seiten weiter Hash-Routen; ein `MutationObserver` schreibt sie beim Einfügen
 um. Wo ein Browser `pushState` unter `file://` verweigert, bleibt die Seite beim Hash-Router.
+
+**Seitenleiste** (N24, `docs/ai/PLAN-B-WIKI24-2026-11-10.md`): oben Übersicht, Alle Mods, Browser, Mod-Struktur;
+darunter einklappbare Gruppen (Zustand in `localStorage` `simple-wiki-sidebar`): BROWSE (Erste Schritte, Sub-Mods,
+Handbuch, Fragentisch), REFERENCE (Blöcke & Items, Rezepte mit Typ-Filter inkl. „In der Welt“, Verzauberungen, Handel,
+Beute), PROGRESS & SETTINGS (Fortschritte, Konfiguration, Befehle, Texturen, Tags) und DEV mit der Verzauberungs-Ansicht –
+nur unter `/dev/`, mit dem Dev-Overlay oder `?dev=1` (Test-Harness). `?tab=blocks`, `?tab=recipes`, `?tab=inworld`,
+`?tab=enchanting` bleiben aufrufbar. Test: `wiki/tests/wiki24_ui.cjs` (Desktop/Handy, hell/dunkel, EN/DE, Kontrast;
+`WIKI_BASE=https://…/dev/` prüft eine laufende Instanz).
+
+**Modul-Daten** (N24, `wiki/module_extras.py`): Handel (`villager_trade`), Konfiguration (Pfade aus
+`text.autoconfig.<ns>.option.*`/`config.<ns>.*`, Typ/Standard/Grenzen aus den bei `ConfigCommands` angemeldeten Klassen:
+`toJson`/`apply` oder Gson-Felder, Beschreibung aus dem Javadoc), Umwandlungen in der Welt aus `in_world_upgrades` und
+`chisel_transformations` (auch für SimpleBuilding 26.3) und Befehle per Code-Scan zusätzlich zur Inventur.
 
 Die **Kategorien** stehen nicht in den Daten: `CAT_RULES` in `index.html` leitet sie aus
 der Id ab (erste passende Regel, „End & Enderit“ kommt zusätzlich dazu; was keine Regel

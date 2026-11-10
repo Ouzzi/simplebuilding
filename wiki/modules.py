@@ -288,6 +288,22 @@ def extract(entry, g, check=False):
         data[key] = []
     data.update(inWorld={'entries': [], 'kinds': []}, obtain={'sources': []},
                 undocumented=sorted(set(undocumented)), incompleteProse=incomplete)
+    # N24 (docs/ai/PLAN-B-WIKI24-2026-11-10.md): trades, options and in-world transformations straight from the module.
+    import module_extras
+    trades = {}
+    for resource in [generated, *resources]:
+        for trade in g.collect_trades(dict(resource_data=str(resource / 'data' / ns), namespace=ns)):
+            parts = trade['id'].split(':', 1)[1].split('/')
+            if parts[0] == 'links':
+                # Simple Money's link offers: the wandering trader sells another mod's item for bills (trade_set links)
+                trade.update(profession='wandering_trader', link=parts[1] if len(parts) > 2 else None)
+            trades[trade['id']] = trade
+    data['trades'] = sorted(trades.values(), key=lambda t: (t['profession'], t['level'] or 0, t['id']))
+    data['config'] = module_extras.module_config(repo, entry, lang)
+    entries, kinds = module_extras.data_in_world(repo, [r / 'data' / ns for r in [generated, *resources]])
+    if entries:
+        prose = module_extras.in_world_prose(g)
+        data['inWorld'] = {'kinds': [{'id': k, 'note': prose.get(k)} for k in kinds], 'entries': entries}
     # Optional loader-neutral datagen export for features that cannot be parsed
     # safely from arbitrary Java implementations (e.g. trades/config/registries).
     export_path = generated / 'wiki/data.json'
@@ -391,8 +407,13 @@ def sync(g, entries, selected, check=False, strict=False):
         inv = inventory.get(e['id'], {})
         if inv.get('purpose_en') or inv.get('purpose_de'):
             e['purpose'] = {'en': inv.get('purpose_en') or inv.get('purpose_de'), 'de': inv.get('purpose_de') or inv.get('purpose_en')}
-        if inv.get('commands'):
-            e['commands'] = sorted(inv['commands'])
+        # N24: plus the root commands the module registers in code (the inventory is a dated snapshot).
+        commands = set(inv.get('commands') or [])
+        if e['id'] != 'simplebuilding':
+            import module_extras
+            commands |= set(module_extras.scanned_commands(g.REPO, meta[e['id']]))
+        if commands:
+            e['commands'] = sorted(commands)
         # 16x16 mod icon (tools/textures/mod_icons.py) for the "All mods" page, inline so no copy is needed.
         root = meta[e['id']]['paths']['root']
         mod_id = meta[e['id']].get('modId', e['id'])

@@ -1000,7 +1000,8 @@ def collect_trades(roots: dict) -> list[dict]:
             level = int(parts[1])
 
         enchant_pool = []
-        for modifier in data.get("given_item_modifiers", []) or []:
+        # Plural is Vanilla's field name; Simple Money writes the singular (both read by its trade codec).
+        for modifier in (data.get("given_item_modifiers") or data.get("given_item_modifier") or []):
             for option in modifier.get("pool", []) or []:
                 enchant_pool.append({
                     "enchantment": option.get("enchantment"),
@@ -1018,7 +1019,7 @@ def collect_trades(roots: dict) -> list[dict]:
         flags = [c.get("flag") for c in conditions if c.get("flag")]
 
         trades.append({
-            "id": f"{NS}:{path.relative_to(root).with_suffix('').as_posix()}",
+            "id": f"{roots.get('namespace', NS)}:{path.relative_to(root).with_suffix('').as_posix()}",
             "profession": profession,
             "level": level,
             "wants": stack_summary(data.get("wants")),
@@ -2562,6 +2563,18 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
                 entry["note"] = note
 
     in_world, in_world_problems = collect_in_world(roots, manual, {e["id"] for e in items})
+    if line == "26.3":
+        # N24: on 26.3 the chisel chains and machine upgrades are data files (Simple Chisels' / SimpleLib's readers),
+        # no longer in the datagen export - read them where the export has none.
+        import module_extras
+        have = {e["kind"] for e in in_world["entries"]}
+        extra, _ = module_extras.data_in_world(REPO, [REPO / roots["generated_data"],
+                                                      REPO / "mc26_3/overlay/resources/data" / NS,
+                                                      REPO / roots["resource_data"]])
+        for entry in extra:
+            if entry["kind"] not in have:
+                entry["source"] = SOURCE_MAP.get(REPO / entry["source"], entry["source"])
+                in_world["entries"].append(entry)
     obtain, obtain_problems = collect_obtain(roots, line, items, blocks, enchantments, check)
     in_world_problems = in_world_problems + obtain_problems + item_note_problems(
         notes, {entry["id"] for entry in items + blocks})
@@ -2926,6 +2939,15 @@ def main_with_textures() -> int:
             return 1
         if not args.check:
             print(f"Textures: wiki/{textures.DATA_FILE} written")
+        # N24: the Guidebook and Questionary pages (wiki/books.py), from every mod's guide and questionary files.
+        import books
+        problems = books.sync(sys.modules[__name__], check=args.check)
+        for problem in problems:
+            print("PROBLEM:", problem)
+        if problems:
+            return 1
+        if not args.check:
+            print(f"Books: wiki/{books.GUIDE_TARGET}, wiki/{books.QUESTIONARY_TARGET} written")
     if args.all:
         # Release listing icons (128/512 px, tools/textures/mod_icons_large.py): refreshed with every generate run.
         sys.path.insert(0, str(REPO / "tools/textures"))

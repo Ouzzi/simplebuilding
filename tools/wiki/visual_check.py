@@ -58,6 +58,11 @@ FIXED_PAGES = [
     ("textures", "?mod=simplebuilding&tab=textures"),
     ("search", "?mod=simplebuilding&q=hammer"),
     ("item", "?mod=simplebuilding&item=simplebuilding:enderite_chisel"),
+    # N24: new pages (Getting started, Submods, Guidebook with a chapter spread, Questionary with an open entry)
+    ("gettingstarted", "?mod=simplebuilding&tab=start"),
+    ("submods", "?mod=simplebuilding&tab=submods"),
+    ("guidebook", "?mod=simplebuilding&book=simplebuilding/15"),
+    ("questionary", "?mod=simplebuilding&questionary=minecraft:diamond"),
 ]
 
 READY_JS = """() => { const m = document.getElementById('main');
