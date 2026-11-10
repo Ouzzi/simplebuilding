@@ -154,7 +154,9 @@ public class ChalkBoxItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack box, TooltipContext context, TooltipDisplay display, Consumer<Component> out, TooltipFlag flag) {
-        out.accept(Component.translatable("item.simplelayers.chalk_box.tooltip").withStyle(ChatFormatting.GRAY));
+        for (String suffix : new String[] {"", ".2", ".3", ".4"}) {
+            out.accept(Component.translatable("item.simplelayers.chalk_box.tooltip" + suffix).withStyle(ChatFormatting.GRAY));
+        }
         ChalkMarkBlock.Color sel = selected(box);
         for (ChalkMarkBlock.Color c : ChalkMarkBlock.Color.values()) {
             int n = strokes(box, c);

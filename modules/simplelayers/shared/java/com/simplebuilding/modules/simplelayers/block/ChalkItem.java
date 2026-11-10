@@ -36,6 +36,8 @@ public class ChalkItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> out, TooltipFlag flag) {
-        out.accept(Component.translatable("item.simplelayers.chalk.tooltip").withStyle(ChatFormatting.GRAY));
+        for (String suffix : new String[] {"", ".2", ".3", ".4"}) {
+            out.accept(Component.translatable("item.simplelayers.chalk.tooltip" + suffix).withStyle(ChatFormatting.GRAY));
+        }
     }
 }
