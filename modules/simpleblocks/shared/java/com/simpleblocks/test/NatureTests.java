@@ -82,6 +82,8 @@ public final class NatureTests {
         maxTicks.put("cracked_hard_ice_cracks_in_graded_steps", CRACKED_HARD_ICE_MAX_TICKS);
         all.put("cracked_ice_allows_placement_on_all_sides_and_blends_with_ice", NatureTests::crackedIceAllowsPlacementOnAllSidesAndBlendsWithIce);
         all.put("cracked_ice_drops_itself_with_silk_touch", NatureTests::crackedIceDropsItselfWithSilkTouch);
+        all.put("cracked_ice_glue_freezes_state", NatureTests::crackedIceGlueFreezesState);
+        all.put("cracked_ice_glue_silk_keeps_state", NatureTests::crackedIceGlueSilkKeepsState);
         all.put("moved_blocks_registered", NatureTests::movedBlocksRegistered);
         all.put("moved_ids_from_simplebuilding", NatureTests::movedIdsFromSimplebuilding);
         all.put("gravity_recipes_with_and_without_simplebuilding", NatureTests::gravityRecipesWithAndWithoutSimplebuilding);
@@ -428,6 +430,67 @@ public final class NatureTests {
             helper.assertTrue(cracked.skipRendering(cracked.setValue(CrackedIceBlock.AGE, 3), direction), "cracked ice towards cracked ice");
         }
         helper.assertTrue(!plain.skipRendering(Blocks.GLASS.defaultBlockState(), Direction.UP), "control: ice still draws its face towards glass");
+        helper.succeed();
+    }
+
+    private static final List<Block> CRACKED_ICES = List.of(NatureBlocks.CRACKED_ICE, NatureBlocks.CRACKED_PACKED_ICE, NatureBlocks.CRACKED_BLUE_ICE);
+
+    /** WD25-2/4: slimeball (or honeycomb) freezes the crack stage: nobody on it cracks it further; an axe scrapes it off; without glue it still cracks. */
+    public static void crackedIceGlueFreezesState(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        BlockPos pos = new BlockPos(2, 2, 2);
+        BlockPos abs = helper.absolutePos(pos);
+        var hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        for (Block block : CRACKED_ICES) {
+            String name = path(block.asItem());
+            helper.setBlock(pos, block);
+            level.setBlock(abs, block.defaultBlockState().setValue(CrackedIceBlock.AGE, 2), 3);
+            ItemStack glue = new ItemStack(Items.SLIME_BALL, 2);
+            player.setItemInHand(InteractionHand.MAIN_HAND, glue);
+            player.gameMode.useItemOn(player, level, glue, InteractionHand.MAIN_HAND, hit);
+            BlockState glued = level.getBlockState(abs);
+            helper.assertTrue(glued.getValue(CrackedIceBlock.WAXED) && glued.getValue(CrackedIceBlock.AGE) == 2 && glue.getCount() == 1,
+                    name + " glued at stage 2, one slimeball used: " + glued);
+            player.snapTo(abs.getX() + 0.5, abs.getY() + 1.0, abs.getZ() + 0.5, 0, 0);
+            block.stepOn(level, abs, glued, player);
+            helper.assertTrue(!level.getBlockTicks().hasScheduledTick(abs, block), name + " glued: standing on it schedules no crack");
+            ItemStack axe = new ItemStack(Items.IRON_AXE);
+            player.setItemInHand(InteractionHand.MAIN_HAND, axe);
+            player.gameMode.useItemOn(player, level, axe, InteractionHand.MAIN_HAND, hit);
+            BlockState bare = level.getBlockState(abs);
+            helper.assertTrue(!bare.getValue(CrackedIceBlock.WAXED) && bare.getValue(CrackedIceBlock.AGE) == 2 && axe.getDamageValue() == 1,
+                    name + " axe scrapes the glue off, stage kept: " + bare);
+            block.stepOn(level, abs, bare, player);
+            helper.assertTrue(level.getBlockTicks().hasScheduledTick(abs, block), name + " without glue it still cracks under a living thing");
+        }
+        helper.succeed();
+    }
+
+    /** WD25-2: silk touch drops the glued/cracked block carrying its state; placing it brings the state back; plain blocks do not get a component. */
+    public static void crackedIceGlueSilkKeepsState(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ItemStack silk = new ItemStack(Items.IRON_PICKAXE);
+        silk.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        BlockPos pos = new BlockPos(2, 2, 2);
+        helper.setBlock(pos.below(), Blocks.STONE);
+        for (Block block : CRACKED_ICES) {
+            String name = path(block.asItem());
+            BlockState glued = block.defaultBlockState().setValue(CrackedIceBlock.AGE, 2).setValue(CrackedIceBlock.WAXED, true);
+            List<ItemStack> drops = Block.getDrops(glued, level, helper.absolutePos(pos), null, null, silk);
+            helper.assertTrue(drops.size() == 1 && drops.get(0).get(net.minecraft.core.component.DataComponents.BLOCK_STATE) != null, name + " silk drop carries the state: " + drops);
+            helper.assertTrue(Block.getDrops(glued, level, helper.absolutePos(pos), null, null, new ItemStack(Items.IRON_PICKAXE)).isEmpty(), name + " glued, no silk: no drop (as before)");
+            List<ItemStack> plain = Block.getDrops(block.defaultBlockState(), level, helper.absolutePos(pos), null, null, silk);
+            helper.assertTrue(plain.size() == 1 && plain.get(0).get(net.minecraft.core.component.DataComponents.BLOCK_STATE) == null, name + " fresh block drops a plain item");
+            helper.setBlock(pos, Blocks.AIR);
+            placeAt(helper, player, drops.get(0).copy(), pos.below());
+            BlockState placed = helper.getBlockState(pos);
+            helper.assertTrue(placed.is(block) && placed.getValue(CrackedIceBlock.WAXED) && placed.getValue(CrackedIceBlock.AGE) == 2, name + " placed again with its state: " + placed);
+            helper.setBlock(pos, Blocks.AIR);
+        }
         helper.succeed();
     }
 

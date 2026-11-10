@@ -34,7 +34,7 @@ Status `[R]` = nach Release (Zeilen unverändert, nur Haken). Keine neuen Agente
 - Phase 3: BS29-2 / WP-29 (Simple Skilltree); WP-30 (Web-Karte Stufe 4 3D); Foundry-Ausbau SA3–SA10, FOUNDRY32 (Schichten/Tank), FOUNDRY32-UI, FOUNDRY03 / ABN04-FOUNDRY03 (Spezialglas, b-foundry04 nicht starten).
 - Phase 4: Ideenliste docs/ai/IDEEN-PHASE4.md (First-Pickup-Tipps, Geteilter Klumpen, Fladen C).
 - [R] WD25-13a Questbuch (Besitzer 25.10.: nicht verwerfen, nach Release; Herkunft VW-2, docs/SIMPLETWEAKS-UEBERNAHME.md:81). Erst Konzept + Vorschau, kein Bau vor Release.
-- [R] WD25-13b Wachs-Variante / Kleber: Kleber-Item als Zustandsspeicher. Teilweise gebaut: End-Blätter-Kleber (WD25-2); offen Eis-Kleber (mit WD25-4). Restumfang „Wachs-Variante“ nach Release.
+- [R] WD25-13b Wachs-Variante / Kleber: Kleber-Item als Zustandsspeicher. Gebaut: End-Blätter-Kleber (WD25-2) + Eis-Kleber (WD25-2/4, b-iceglue26, 10.11., Schleimball/Honigwabe, Silk behält Zustand; Abnahme offen). Restumfang „Wachs-Variante“ nach Release.
 - [R] WD25-13c Chat-Rechner (Besitzer 25.10.: nicht verwerfen, nach Release; Herkunft VW-2). Erst Konzept, kein Bau vor Release.
 
 ## So wird die Queue abgearbeitet (Besitzer/Sitzung 22.–23.10.)

@@ -1,6 +1,13 @@
 package com.simpleblocks.nature;
 
+import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -24,7 +31,7 @@ public class CrackedHardIceBlock extends Block {
     public CrackedHardIceBlock(Properties settings, int ticksPerCrack) {
         super(settings);
         this.ticksPerCrack = ticksPerCrack;
-        registerDefaultState(stateDefinition.any().setValue(CrackedIceBlock.AGE, 0));
+        registerDefaultState(stateDefinition.any().setValue(CrackedIceBlock.AGE, 0).setValue(CrackedIceBlock.WAXED, false));
     }
 
     public int ticksPerCrack() {
@@ -38,12 +45,24 @@ public class CrackedHardIceBlock extends Block {
     }
 
     @Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
+                                          BlockHitResult hit) {
+        InteractionResult r = CrackedIceBlock.glue(stack, state, level, pos, player, hand);
+        return r != null ? r : super.useItemOn(stack, state, level, pos, player, hand, hit);
+    }
+
+    @Override
+    protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+        return CrackedIceBlock.withState(state, super.getDrops(state, params));
+    }
+
+    @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         CrackedIceBlock.crack(state, level, pos, this, ticksPerCrack);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(CrackedIceBlock.AGE);
+        builder.add(CrackedIceBlock.AGE, CrackedIceBlock.WAXED);
     }
 }
