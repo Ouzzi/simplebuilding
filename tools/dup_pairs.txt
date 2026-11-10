@@ -212,7 +212,7 @@ common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplest
 common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/EnchantmentHelper.java allow: getDrawerLevel/1 getFastChiselingLevel/1 getMagnetRangeLevel/2 getOverrideLevel/1 hasColorPalette/2 hasConstructorsTouch/2 hasMasterBuilder/2
 common/src/shared/java/com/simplebuilding/util/Feedback.java modules/simplepads/shared/java/com/simplepads/util/Feedback.java
 common/src/shared/java/com/simplebuilding/util/FilterHopper.java modules/simplemachines/shared/java/com/simplemachines/hopper/FilterHopper.java
-common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java allow: of/1
+common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java
 common/src/shared/java/com/simplebuilding/util/ItemFilter.java modules/simplemachines/shared/java/com/simplemachines/hopper/ItemFilter.java
 common/src/shared/java/com/simplebuilding/util/LongCookContainerData.java modules/simpleovens/shared/java/com/simpleovens/LongCookContainerData.java
 common/src/shared/java/com/simplebuilding/util/ModSounds.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModSounds.java allow: register/0 registerSounds/0

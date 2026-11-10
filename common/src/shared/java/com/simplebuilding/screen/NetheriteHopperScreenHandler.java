@@ -92,10 +92,6 @@ public class NetheriteHopperScreenHandler extends ModHopperScreenHandler {
     }
 
     public HopperFilterMode getSyncedFilterMode() {
-        int ordinal = this.propertyDelegate.get(0);
-        if (ordinal >= 0 && ordinal < HopperFilterMode.values().length) {
-            return HopperFilterMode.values()[ordinal];
-        }
-        return HopperFilterMode.NONE;
+        return HopperFilterMode.of(this.propertyDelegate.get(0));
     }
 }

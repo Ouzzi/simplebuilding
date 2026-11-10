@@ -325,8 +325,7 @@ public class AutonomousCrafterBlockEntity extends BaseContainerBlockEntity imple
                 if (slot >= 0 && slot < SIZE) this.disabled[slot] = true;
             }
         });
-        int mode = input.getIntOr("FilterMode", 0);
-        this.filterMode = mode >= 0 && mode < HopperFilterMode.values().length ? HopperFilterMode.values()[mode] : HopperFilterMode.NONE;
+        this.filterMode = HopperFilterMode.of(input.getIntOr("FilterMode", 0));
         this.cooldown = input.getIntOr("cooldown", 0);
         this.craftingTicksRemaining = input.getIntOr("crafting_ticks_remaining", 0);
     }

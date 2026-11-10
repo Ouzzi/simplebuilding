@@ -31,4 +31,9 @@ public enum HopperFilterMode {
     public HopperFilterMode next() {
         return values()[(this.ordinal() + 1) % values().length];
     }
+
+    /** Mode for a saved/synced ordinal; an unknown one falls back to NONE. */
+    public static HopperFilterMode of(int ordinal) {
+        return ordinal >= 0 && ordinal < values().length ? values()[ordinal] : NONE;
+    }
 }

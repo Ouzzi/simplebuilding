@@ -167,10 +167,7 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
         // Filter Mode lesen. Der Ordinal kommt aus der Regionsdatei bzw. vom Server und kann
         // alles sein; ein unbekannter Modus fällt auf NONE zurück, statt beim Chunkladen die
         // ganze Blockentität (Inhalt, Filter, Modus) mitzunehmen.
-        int savedFilterMode = view.getIntOr("FilterMode", 0);
-        this.currentFilterMode = savedFilterMode >= 0 && savedFilterMode < HopperFilterMode.values().length
-                ? HopperFilterMode.values()[savedFilterMode]
-                : HopperFilterMode.NONE;
+        this.currentFilterMode = HopperFilterMode.of(view.getIntOr("FilterMode", 0));
 
         this.transferCooldown = view.getIntOr("TransferCooldown", -1);
     }

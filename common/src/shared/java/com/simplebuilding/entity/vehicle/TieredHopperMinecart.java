@@ -228,7 +228,6 @@ public class TieredHopperMinecart extends AbstractMinecartContainer implements H
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.enabled = input.getBooleanOr("Enabled", true);
-        int mode = input.getIntOr("FilterMode", 0);
-        this.filterMode = mode >= 0 && mode < HopperFilterMode.values().length ? HopperFilterMode.values()[mode] : HopperFilterMode.NONE;
+        this.filterMode = HopperFilterMode.of(input.getIntOr("FilterMode", 0));
     }
 }
