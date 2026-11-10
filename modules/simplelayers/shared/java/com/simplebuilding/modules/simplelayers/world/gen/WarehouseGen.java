@@ -14,27 +14,37 @@ public final class WarehouseGen {
 
     public enum Edge { OPEN, GATE, WALL }
 
-    public enum Bay { RACKS, PALLETS, EMPTY, DRAIN, LIFT }
+    public enum Bay { RACKS, PALLETS, EMPTY, DRAIN, LIFT, MEZZANINE, DOCK }
+
+    /** BACK20: the mezzanine's deck (top slabs at y 5, walk on y 6) and the loading dock's top (y 2, walk on y 3). */
+    public static final int DECK_Y = 5, DOCK_Y = 2;
 
     private WarehouseGen() {}
 
+    /** BACK20: bays form region mazes ({@link Maze}, 8 x 8 bays, a quarter of the other lines open): medium hard, the lift at the root. */
+    public static final int REGION = 8, SALT = 600;
+    public static final double LOOPS = 0.25;
+
     public static Edge west(long seed, int bx, int bz) {
-        return edge(unit(seed, bx, bz, 61));
+        return edge(Maze.west(seed, bx, bz, REGION, SALT, LOOPS), unit(seed, bx, bz, 61));
     }
 
     public static Edge north(long seed, int bx, int bz) {
-        return edge(unit(seed, bx, bz, 62));
+        return edge(Maze.north(seed, bx, bz, REGION, SALT, LOOPS), unit(seed, bx, bz, 62));
     }
 
-    static Edge edge(double u) {
-        return u < 0.5 ? Edge.OPEN : u < 0.88 ? Edge.GATE : Edge.WALL;
+    static Edge edge(boolean passable, double u) {
+        return !passable ? Edge.WALL : u < 0.45 ? Edge.OPEN : Edge.GATE;
     }
 
     public static Bay bay(long seed, int bx, int bz) {
+        if (Maze.root(seed, bx, bz, REGION, SALT)) return Bay.LIFT;
         double u = unit(seed, bx, bz, 63);
         if (u < 0.03) return Bay.DRAIN;
-        if (u < 0.06) return Bay.LIFT;
-        if (u < 0.56) return Bay.RACKS;
+        if (u < 0.06) return Bay.EMPTY;
+        if (u < 0.14) return Bay.MEZZANINE;
+        if (u < 0.20) return Bay.DOCK;
+        if (u < 0.60) return Bay.RACKS;
         return u < 0.80 ? Bay.PALLETS : Bay.EMPTY;
     }
 
@@ -42,13 +52,21 @@ public final class WarehouseGen {
         return unit(seed, bx, bz, 64) < 0.08;
     }
 
-    /** Racks bay with a supply chest (placed by the cache feature at {@link #cache}). */
+    /** Racks bay with a supply chest (placed by the cache feature at {@link #cache}); every mezzanine keeps one up on its deck. */
     public static boolean hasCache(long seed, int bx, int bz) {
-        return LobbyGen.supplies && bay(seed, bx, bz) == Bay.RACKS && unit(seed, bx, bz, 65) < 0.35;
+        Bay bay = bay(seed, bx, bz);
+        return LobbyGen.supplies && (bay == Bay.RACKS && unit(seed, bx, bz, 65) < 0.35 || bay == Bay.MEZZANINE);
     }
 
     /** Bay-local position of the cache chest (west end of the middle aisle). */
     public static final int[] CACHE = {2, FLOOR_Y + 1, 6};
+    /** BACK20: the mezzanine's chest, up on the deck at the back wall. */
+    public static final int[] DECK_CACHE = {9, DECK_Y + 1, 10};
+
+    /** Bay-local cache position of a bay that has one. */
+    public static int[] cache(long seed, int bx, int bz) {
+        return bay(seed, bx, bz) == Bay.MEZZANINE ? DECK_CACHE : CACHE;
+    }
 
     static Piece crate(long seed, int x, int y, int z) {
         return unit(seed, x, z, 70 + y) < 0.5 ? Piece.CRATE_OAK : Piece.CRATE_SPRUCE;
@@ -111,6 +129,24 @@ public final class WarehouseGen {
                 if (y == 2 + height && LobbyGen.supplies && unit(seed, x, z, 83) < 0.2) return Piece.COBWEB;
                 return Piece.AIR;
             }
+            case MEZZANINE -> {
+                // A deck over the back half of the bay (lz 7-11), a railing of bars at its edge, three posts under it and a
+                // ladder up the middle post; crates on the deck and under it.
+                if (lz >= 7 && y == DECK_Y) return lx == 6 && lz == 7 ? Piece.PILLAR : Piece.DECK;
+                if (lz == 7 && y < DECK_Y && (lx == 3 || lx == 6 || lx == 9)) return Piece.PILLAR;
+                if (lz == 6 && lx == 6 && y < DECK_Y + 1) return Piece.LADDER_N;
+                if (lz == 7 && y == DECK_Y + 1) return lx == 6 ? Piece.AIR : Piece.RACK_POST;
+                if (lz == 11 && lx <= 4 && (y == DECK_Y + 1 || y == DECK_Y + 2 && lx <= 2)) return crate(seed, x, y, z);
+                if (lz >= 10 && lx >= 8 && y == FLOOR_Y + 1 && unit(seed, x, z, 84) < 0.6) return crate(seed, x, y, z);
+                return Piece.AIR;
+            }
+            case DOCK -> {
+                // A loading dock over the front of the bay (lz 1-5): one block up, edged by slabs as a step all round, a few
+                // crates waiting on it.
+                if (lz <= 5 && y == DOCK_Y) return lx == 1 || lx == 11 || lz == 1 || lz == 5 ? Piece.STONE_SLAB : Piece.CONCRETE_FLOOR;
+                if (lz >= 2 && lz <= 3 && lx >= 3 && lx <= 4 && y > DOCK_Y && y <= DOCK_Y + 1 + (int) (unit(seed, x, z, 85) * 2)) return crate(seed, x, y, z);
+                return Piece.AIR;
+            }
             case LIFT -> {
                 // A freight lift: a wall across the bay with a maintenance door, framed in yellow and black.
                 if (lz == 3 && lx >= 4 && lx <= 8 && y <= 6) {
@@ -127,8 +163,9 @@ public final class WarehouseGen {
         }
     }
 
-    /** Arrival: the bay centre at y 2 (always the free middle aisle). */
+    /** Arrival: the bay centre at y 2 (always the free middle aisle; in front of a mezzanine's ladder). */
     public static int[] arrival(long seed, int x, int z) {
-        return new int[] {Math.floorDiv(x, BAY) * BAY + 6, FLOOR_Y + 1, Math.floorDiv(z, BAY) * BAY + 6};
+        int bx = Math.floorDiv(x, BAY), bz = Math.floorDiv(z, BAY);
+        return new int[] {bx * BAY + 6, FLOOR_Y + 1, bz * BAY + (bay(seed, bx, bz) == Bay.MEZZANINE ? 4 : 6)};
     }
 }

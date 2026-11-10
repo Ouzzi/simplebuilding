@@ -98,6 +98,17 @@ public final class BackroomsBlocks {
         m.put(Piece.CRAFTING_TABLE, Blocks.CRAFTING_TABLE.defaultBlockState());
         m.put(Piece.STEP_E, stairs(Blocks.BIRCH_STAIRS, Direction.EAST, Half.BOTTOM));
         m.put(Piece.STEP_S, stairs(Blocks.BIRCH_STAIRS, Direction.SOUTH, Half.BOTTOM));
+        m.put(Piece.SLAB, Blocks.BIRCH_SLAB.defaultBlockState());
+        m.put(Piece.DECK, Blocks.SMOOTH_STONE_SLAB.defaultBlockState().setValue(BlockStateProperties.SLAB_TYPE, SlabType.TOP));
+        m.put(Piece.STONE_SLAB, Blocks.SMOOTH_STONE_SLAB.defaultBlockState());
+        m.put(Piece.LADDER_N, facing(Blocks.LADDER, Direction.NORTH));
+        m.put(Piece.SINK, Blocks.WATER_CAULDRON.defaultBlockState().setValue(BlockStateProperties.LEVEL_CAULDRON, 3));
+        m.put(Piece.COUNTER, Blocks.BARREL.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP));
+        m.put(Piece.SMOKER_N, facing(Blocks.SMOKER, Direction.NORTH));
+        m.put(Piece.SMOKER_S, facing(Blocks.SMOKER, Direction.SOUTH));
+        m.put(Piece.RUG, Blocks.CARPET.pick(DyeColor.RED).defaultBlockState());
+        m.put(Piece.POT, Blocks.POTTED_DEAD_BUSH.defaultBlockState());
+        m.put(Piece.BOOKSHELF, Blocks.BOOKSHELF.defaultBlockState());
         m.put(Piece.END_FLOOR, Blocks.BIRCH_PLANKS.defaultBlockState());
         m.put(Piece.END_WALL, concrete(DyeColor.WHITE));
         m.put(Piece.END_CEILING, Blocks.SMOOTH_QUARTZ.defaultBlockState());

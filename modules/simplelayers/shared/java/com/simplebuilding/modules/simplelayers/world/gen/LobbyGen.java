@@ -18,11 +18,21 @@ import static com.simplebuilding.modules.simplelayers.world.gen.GenHash.unit;
  */
 public final class LobbyGen {
     public static final int CELL = 8, FLOOR_Y = 1, CEILING_Y = 7, TOP_Y = 8, UPPER = 8, HALL = 4, HULL_TOP_Y = 63;
-    public static final double OFFICE_CHANCE = 0.05, WEB_CHANCE = 0.04, STAIR_CHANCE = 0.03, RIFT_CHANCE = 0.015, MAINT_CHANCE = 0.03;
+    public static final double OFFICE_CHANCE = 0.05, WEB_CHANCE = 0.04, STAIR_CHANCE = 0.03, RIFT_CHANCE = 0.04, MAINT_CHANCE = 0.03;
 
     public enum Edge { WALL, DOOR, OPEN }
 
-    public enum Supply { NONE, OFFICE, WEBS }
+    public enum Supply { NONE, OFFICE, WEBS, BREAK_ROOM, LOUNGE }
+
+    /**
+     * BACK20 height of a ground floor cell (Lobby only): the normal room (5 high), a dropped ceiling (3 high), a carpeted dais in the
+     * middle (one step up, edged by slabs) or an atrium (a light well through the slab into the upper floor, a gallery with a parapet
+     * up there).
+     */
+    public enum Shape { NORMAL, LOW, DAIS, ATRIUM }
+
+    public static final double ROOM_CHANCE = 0.025;
+    public static final double LOW_CHANCE = 0.09, DAIS_CHANCE = 0.04, ATRIUM_CHANCE = 0.035;
 
     /**
      * Look and numbers of a grid level. {@code salt} separates levels that share the world seed; {@code region} 0 = no exits.
@@ -32,7 +42,7 @@ public final class LobbyGen {
     }
 
     public static final Style LOBBY = new Style(Piece.CARPET, Piece.WALLPAPER, Piece.STRIPED_WALLPAPER, Piece.DOTTED_WALLPAPER,
-            Piece.CEILING_TILE, Piece.STAINED_CEILING_TILE, 0.4, 0.10, 0.05, 12, 0, true, true, false);
+            Piece.CEILING_TILE, Piece.STAINED_CEILING_TILE, 0.4, 0.10, 0.05, 8, 0, true, true, false);
     /** The exit level: white, bright, quiet, an exit within a few rooms (region 5: at most 4 cells). */
     public static final Style END = new Style(Piece.END_FLOOR, Piece.END_WALL, Piece.END_WALL, Piece.END_WALL,
             Piece.END_CEILING, Piece.END_CEILING, 0.45, 0.18, 0.0, 5, 200, false, false, true);
@@ -99,12 +109,33 @@ public final class LobbyGen {
         return unit(seed, cellX, cellZ, 3 + salt(s, layer)) < chance;
     }
 
+    /** BACK20: the height of a ground floor cell (always NORMAL off the Lobby, in exit, signed, stair and hall cells). */
+    public static Shape shape(Style s, long seed, int cellX, int cellZ) {
+        if (!s.extras || exitCell(s, seed, cellX, cellZ) || signed(s, seed, cellX, cellZ) || stairwell(s, seed, cellX, cellZ)
+                || hall(s, seed, 0, cellX, cellZ) || hall(s, seed, 1, cellX, cellZ)) return Shape.NORMAL;
+        double u = unit(seed, cellX, cellZ, 14 + s.salt);
+        if (u < LOW_CHANCE) return Shape.LOW;
+        if (u < LOW_CHANCE + DAIS_CHANCE) return Shape.DAIS;
+        return u < LOW_CHANCE + DAIS_CHANCE + ATRIUM_CHANCE ? Shape.ATRIUM : Shape.NORMAL;
+    }
+
+    /** Whether the bedrock slab y 8 of the cell is open (stairwell or atrium). */
+    public static boolean opensSlab(Style s, long seed, int cellX, int cellZ) {
+        return stairwell(s, seed, cellX, cellZ) || s.upperFloor && shape(s, seed, cellX, cellZ) == Shape.ATRIUM;
+    }
+
     /** What a cell holds besides air: nothing, an office or cobwebs (nothing at all with supplies off). */
     public static Supply supply(Style s, long seed, int layer, int cellX, int cellZ) {
-        if (!supplies || !s.extras || exitCell(s, seed, cellX, cellZ) && layer == 0 || stairwell(s, seed, cellX, cellZ)) return Supply.NONE;
+        if (!supplies || !s.extras || exitCell(s, seed, cellX, cellZ) && layer == 0 || stairwell(s, seed, cellX, cellZ)
+                || shape(s, seed, cellX, cellZ) != Shape.NORMAL) return Supply.NONE;
         double u = unit(seed, cellX, cellZ, 7 + salt(s, layer));
         double office = layer == 0 ? OFFICE_CHANCE : 0.03, webs = layer == 0 ? WEB_CHANCE : 0.08;
         if (u < office) return Supply.OFFICE;
+        // BACK20: a break room (sink, counter with a smoker, a table) and a lounge (sofa, rug, a dead plant) - household things
+        // that are the Backrooms' resources (furnace, iron, wood)
+        double v = unit(seed, cellX, cellZ, 17 + salt(s, layer));
+        if (layer == 0 && v < ROOM_CHANCE) return Supply.BREAK_ROOM;
+        if (v < 2 * ROOM_CHANCE) return Supply.LOUNGE;
         return u < office + webs || dark(s, seed, layer, cellX, cellZ) ? Supply.WEBS : Supply.NONE;
     }
 
@@ -133,6 +164,20 @@ public final class LobbyGen {
             return web ? Piece.COBWEB : null;
         }
         int desk = (int) (unit(seed, cx, cz, 8 + sl) * 4);
+        if (supply == Supply.BREAK_ROOM) {
+            if (corner == desk && lz == wz && ly == 2) return lx == wx ? Piece.SINK : lx == ix ? Piece.COUNTER : null;
+            if (corner == desk && lz == wz && ly == 3 && lx == ix) return north ? Piece.SMOKER_S : Piece.SMOKER_N;
+            if (corner == (desk ^ 3) && ly == 2 && lx == wx && lz == wz) return Piece.DESK;
+            if (corner == (desk ^ 3) && ly == 2 && lx == ix && lz == wz) return north ? Piece.CHAIR_S : Piece.CHAIR_N;
+            return null;
+        }
+        if (supply == Supply.LOUNGE) {
+            if (corner == desk && lz == wz && ly == 2 && (lx == wx || lx == ix)) return north ? Piece.CHAIR_N : Piece.CHAIR_S;
+            if (corner == desk && ly == 2 && (lx == wx || lx == ix) && lz == (north ? wz + 1 : wz - 1)) return Piece.RUG;
+            if (corner == (desk ^ 3) && ly == 2 && lx == wx && lz == wz) return Piece.COUNTER;
+            if (corner == (desk ^ 1) && ly == 2 && lx == wx && lz == wz) return Piece.POT;
+            return null;
+        }
         if (corner == desk) {
             if (ly == 2 && lz == wz) return Piece.DESK;
             if (ly == 2 && lx == ix && lz != wz) return north ? Piece.CHAIR_S : Piece.CHAIR_N;
@@ -144,7 +189,13 @@ public final class LobbyGen {
         return null;
     }
 
+    /** BACK20: wings of the upper floor (6 x 6 cells, one in five) are an archive - walls of bookshelves. */
+    public static boolean archive(Style s, long seed, int layer, int cellX, int cellZ) {
+        return layer == 1 && s.upperFloor && unit(seed, Math.floorDiv(cellX, 6), Math.floorDiv(cellZ, 6), 18 + s.salt) < 0.2;
+    }
+
     static Piece paper(Style s, long seed, int layer, int cellX, int cellZ) {
+        if (archive(s, seed, layer, cellX, cellZ)) return Piece.BOOKSHELF;
         double u = unit(seed, cellX, cellZ, 5 + salt(s, layer));
         if (layer == 1) u = u * 0.8 + 0.2; // the upper floor: more striped and dotted paper (older, other wing)
         return u < 0.7 ? s.paper : u < 0.86 ? s.striped : s.dotted;
@@ -173,6 +224,10 @@ public final class LobbyGen {
             Piece p = stairPiece(s, lx, y, lz);
             if (p != null) return p;
         }
+        if (s.upperFloor && y >= CEILING_Y && y <= TOP_Y + 2 && lx > 0 && lz > 0 && shape(s, seed, cx, cz) == Shape.ATRIUM) {
+            Piece p = atriumPiece(s, lx, y, lz);
+            if (p != null) return p;
+        }
         int layer;
         if (y == 0 || y == TOP_Y) return Piece.BEDROCK;
         if (y < TOP_Y) layer = 0;
@@ -181,9 +236,36 @@ public final class LobbyGen {
         return room(s, seed, layer, cx, cz, lx, y - layer * UPPER, lz);
     }
 
+    /**
+     * Atrium blocks from the ground floor ceiling (y 7) to the upper parapet (y 10), or null: the 3 x 3 well is open, four lights
+     * hang around it under the ground floor ceiling, a wallpaper parapet one block high rings it on the gallery above.
+     */
+    static Piece atriumPiece(Style s, int lx, int y, int lz) {
+        int ring = Math.max(Math.abs(lx - 4), Math.abs(lz - 4));
+        if (ring <= 1 && y <= TOP_Y + 1) return Piece.AIR;
+        if (y == CEILING_Y && ring == 2 && (lx == 2 || lx == 6) && (lz == 2 || lz == 6)) return Piece.NEON_ON;
+        if (y == TOP_Y && ring == 2) return s.paper; // the well is lined, no bedrock shows
+        if (y == TOP_Y + 2 && ring == 2) return s.dotted;
+        return null;
+    }
+
+    /** Whether a door in the line between the two cells is cut down to 3 high (a dropped ceiling on either side). */
+    static boolean lowDoor(Style s, long seed, int layer, int ax, int az, int bx, int bz) {
+        return layer == 0 && s.extras && (shape(s, seed, ax, az) == Shape.LOW || shape(s, seed, bx, bz) == Shape.LOW);
+    }
+
     /** One floor; ly = 1 carpet, 2-6 room, 7 ceiling. */
     static Piece room(Style s, long seed, int layer, int cx, int cz, int lx, int ly, int lz) {
         if (ly == FLOOR_Y) return s.carpet;
+        Shape shape = layer == 0 ? shape(s, seed, cx, cz) : Shape.NORMAL;
+        if (shape == Shape.LOW && lx > 0 && lz > 0 && ly >= 5) {
+            // dropped ceiling: rooms 3 high, the light one block lower
+            if (ly == 5 && (lx == 3 || lx == 4) && lz == 4) {
+                double u = unit(seed, cx, cz, 4 + salt(s, layer));
+                return u < 0.1 ? Piece.NEON_BROKEN : u < 0.3 ? Piece.NEON_FLICKER : Piece.NEON_ON;
+            }
+            return ly == 5 && unit(seed, cx * CELL + lx, cz * CELL + lz, 15) < 0.08 ? s.stained : s.ceiling;
+        }
         if (ly == CEILING_Y) {
             if ((lx == 3 || lx == 4) && lz == 4) {
                 double u = unit(seed, cx, cz, 4 + salt(s, layer));
@@ -207,7 +289,11 @@ public final class LobbyGen {
         } else {
             return inside(s, seed, layer, cx, cz, lx, ly, lz);
         }
-        if (edge == Edge.OPEN || edge == Edge.DOOR && inDoor(along) && ly <= 5) return Piece.AIR;
+        if (edge == Edge.OPEN) return Piece.AIR;
+        if (edge == Edge.DOOR && inDoor(along) && ly <= 5) {
+            boolean low = lx == 0 ? lowDoor(s, seed, layer, cx, cz, cx - 1, cz) : lowDoor(s, seed, layer, cx, cz, cx, cz - 1);
+            if (ly <= 4 || !low) return Piece.AIR;
+        }
         if (along == 4 && ly <= 3) {
             if (layer == 0 && riftIn(s, seed, edge, cx, cz, side)) return Piece.RIFT;
             if (layer == 1 && maintIn(s, seed, edge, cx, cz, side)) return ly == 2 ? Piece.LEVEL_DOOR_LOWER : Piece.LEVEL_DOOR_UPPER;
@@ -231,6 +317,16 @@ public final class LobbyGen {
             if (dir == GenHash.EAST && lx == 7 && lz == 4 || dir == GenHash.WEST && lx == 1 && lz == 4
                     || dir == GenHash.SOUTH && lx == 4 && lz == 7 || dir == GenHash.NORTH && lx == 4 && lz == 1) return Piece.EXIT_SIGN;
         }
+        if (layer == 0 && ly <= 3) {
+            Shape shape = shape(s, seed, cx, cz);
+            if (shape == Shape.DAIS) {
+                // a carpeted dais one step up, edged by slabs; now and then a lone chair stands on it
+                int ring = Math.max(Math.abs(lx - 4), Math.abs(lz - 4));
+                if (ly == 2 && ring <= 1) return s.carpet;
+                if (ly == 2 && ring == 2) return Piece.SLAB;
+                if (ly == 3 && lx == 4 && lz == 3 && unit(seed, cx, cz, 16) < 0.5) return Piece.CHAIR_S;
+            }
+        }
         Piece supply = supplyPiece(s, seed, layer, cx, cz, lx, ly, lz);
         return supply != null ? supply : Piece.AIR;
     }
@@ -238,6 +334,7 @@ public final class LobbyGen {
     /** Where travellers arrive in the cell holding (x, z): its centre at y 2, 2 blocks south of the exit wall in an exit cell. */
     public static int[] arrival(Style s, long seed, int x, int z) {
         int cx = Math.floorDiv(x, CELL), cz = Math.floorDiv(z, CELL);
-        return new int[] {cx * CELL + 4, FLOOR_Y + 1, cz * CELL + (exitCell(s, seed, cx, cz) ? 6 : 4)};
+        int y = shape(s, seed, cx, cz) == Shape.DAIS ? FLOOR_Y + 2 : FLOOR_Y + 1;
+        return new int[] {cx * CELL + 4, y, cz * CELL + (exitCell(s, seed, cx, cz) ? 6 : 4)};
     }
 }

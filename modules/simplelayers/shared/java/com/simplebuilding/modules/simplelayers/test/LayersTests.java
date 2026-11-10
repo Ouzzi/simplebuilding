@@ -553,7 +553,7 @@ public final class LayersTests {
         java.util.Random random = new java.util.Random(3);
         for (int i = 0; i < 200; i++) {
             int x = random.nextInt(40000) - 20000, z = random.nextInt(40000) - 20000;
-            boolean stair = LobbyGen.stairwell(s, seed, Math.floorDiv(x, 8), Math.floorDiv(z, 8));
+            boolean stair = LobbyGen.opensSlab(s, seed, Math.floorDiv(x, 8), Math.floorDiv(z, 8));
             h.assertTrue(BackroomsGrid.at(seed, x, 0, z).is(Blocks.BEDROCK), "floor y 0");
             h.assertTrue(stair || BackroomsGrid.at(seed, x, BackroomsGrid.TOP_Y, z).is(Blocks.BEDROCK), "slab y 8");
             for (int y = BackroomsGrid.HULL_FROM_Y; y <= BackroomsGrid.HULL_TOP_Y; y++) h.assertTrue(BackroomsGrid.at(seed, x, y, z).is(Blocks.BEDROCK), "hull y " + y);
@@ -574,7 +574,7 @@ public final class LayersTests {
             for (int z = 0; z < 16; z += 5) {
                 for (int y : new int[] {0, 8, 16, 30, 63}) {
                     BlockPos p = new BlockPos(cx * 16 + x, y, cz * 16 + z);
-                    boolean stair = y == 8 && LobbyGen.stairwell(LobbyGen.LOBBY, BackroomsChunkGenerator.seed(back.getChunkSource().randomState()),
+                    boolean stair = y == 8 && LobbyGen.opensSlab(LobbyGen.LOBBY, BackroomsChunkGenerator.seed(back.getChunkSource().randomState()),
                             Math.floorDiv(p.getX(), 8), Math.floorDiv(p.getZ(), 8));
                     h.assertTrue(back.getBlockState(p).is(Blocks.BEDROCK) || stair || inSpecialRoom(back, p), "generated hull at " + p.toShortString());
                 }
@@ -593,18 +593,20 @@ public final class LayersTests {
         boolean before = LobbyGen.supplies;
         try {
             LobbyGen.supplies = true;
-            int cells = 0, offices = 0, webCells = 0, tables = 0;
+            int cells = 0, offices = 0, webCells = 0, tables = 0, rooms = 0;
             for (int cx = -30; cx < 30; cx++) {
                 for (int cz = -30; cz < 30; cz++) {
                     cells++;
                     LobbyGen.Supply supply = LobbyGen.supply(st, seed, 0, cx, cz);
                     if (supply == LobbyGen.Supply.OFFICE) offices++;
                     if (supply == LobbyGen.Supply.WEBS) webCells++;
-                    if (LobbyGen.exitCell(st, seed, cx, cz) || LobbyGen.signed(st, seed, cx, cz) || LobbyGen.stairwell(st, seed, cx, cz)) {
+                    if (LobbyGen.exitCell(st, seed, cx, cz) || LobbyGen.signed(st, seed, cx, cz) || LobbyGen.stairwell(st, seed, cx, cz)
+                            || LobbyGen.shape(st, seed, cx, cz) != LobbyGen.Shape.NORMAL) {
                         h.assertTrue(supply == LobbyGen.Supply.NONE || LobbyGen.signed(st, seed, cx, cz), "no supplies in exit/stair cell " + cx + " " + cz);
                         continue;
                     }
-                    int logs = 0, webs = 0, wood = 0;
+                    if (supply == LobbyGen.Supply.BREAK_ROOM || supply == LobbyGen.Supply.LOUNGE) rooms++;
+                    int logs = 0, webs = 0, wood = 0, house = 0;
                     for (int lx = 1; lx < BackroomsGrid.CELL; lx++) {
                         for (int lz = 1; lz < BackroomsGrid.CELL; lz++) {
                             for (int y = 2; y < BackroomsGrid.CEILING_Y; y++) {
@@ -615,15 +617,20 @@ public final class LayersTests {
                                 if (s.is(Blocks.COBWEB)) webs++;
                                 if (s.is(Blocks.CRAFTING_TABLE)) tables++;
                                 if (s.is(Blocks.OAK_SLAB) || s.is(Blocks.OAK_STAIRS)) wood++;
+                                if (s.is(Blocks.SMOKER) || s.is(Blocks.WATER_CAULDRON) || s.is(Blocks.BARREL) || s.is(Blocks.CARPET.pick(net.minecraft.world.item.DyeColor.RED)) || s.is(Blocks.POTTED_DEAD_BUSH)) house++;
                             }
                         }
                     }
                     if (supply == LobbyGen.Supply.OFFICE) {
                         h.assertTrue(logs == 3 && wood == 3 && webs == 0, "office " + cx + " " + cz + ": logs " + logs + ", desk/chair " + wood);
+                    } else if (supply == LobbyGen.Supply.BREAK_ROOM) {
+                        h.assertTrue(house == 3 && wood == 2 && logs + webs == 0, "break room " + cx + " " + cz + ": sink, counter, smoker, " + house);
+                    } else if (supply == LobbyGen.Supply.LOUNGE) {
+                        h.assertTrue(house == 4 && wood == 2 && logs + webs == 0, "lounge " + cx + " " + cz + ": sofa " + wood + ", rug/pot/counter " + house);
                     } else if (supply == LobbyGen.Supply.WEBS) {
                         h.assertTrue(webs >= 12 && logs == 0, "cobweb cell " + cx + " " + cz + ": " + webs);
                     } else {
-                        h.assertTrue(logs + webs + wood == 0, "empty cell " + cx + " " + cz);
+                        h.assertTrue(logs + webs + wood + house == 0, "empty cell " + cx + " " + cz);
                     }
                 }
             }
@@ -631,6 +638,7 @@ public final class LayersTests {
             h.assertTrue(officeShare > 0.03 && officeShare < 0.08, "office share " + officeShare);
             h.assertTrue(webShare > 0.04 && webShare < 0.14, "cobweb share " + webShare);
             h.assertTrue(tables > 0, "some crafting tables");
+            h.assertTrue(rooms > 40, "break rooms and lounges " + rooms);
             LobbyGen.supplies = false;
             for (int cx = -10; cx < 10; cx++) h.assertTrue(LobbyGen.supply(st, seed, 0, cx, 3) == LobbyGen.Supply.NONE, "config off: no supplies");
         } finally {
@@ -698,7 +706,7 @@ public final class LayersTests {
     }
 
     /**
-     * BACK18: the quick way out - from anywhere in Level 0 an exit cell lies at most 18 cells away (escape tree), the exit cell holds
+     * BACK18: the quick way out - from anywhere in Level 0 an exit cell lies at most 10 cells away (escape tree, BACK20: regions of 8), the exit cell holds
      * the Exit Door under an EXIT sign, the cells of its row and column show the way with a sign; the other levels' goals too.
      */
     static void easiestExitReachable(GameTestHelper h) {
@@ -708,10 +716,10 @@ public final class LayersTests {
         int worst = 0;
         for (int i = 0; i < 300; i++) {
             int x = random.nextInt(200000) - 100000, z = random.nextInt(200000) - 100000;
-            int d = EscapeCheck.lobbyToExit(seed, x, z, 18);
-            h.assertTrue(d >= 0 && d <= 18, "exit within 18 cells from " + x + " " + z + ": " + d);
+            int d = EscapeCheck.lobbyToExit(seed, x, z, 10);
+            h.assertTrue(d >= 0 && d <= 10, "exit within 10 cells from " + x + " " + z + ": " + d);
             worst = Math.max(worst, d);
-            int end = EscapeCheck.endToExit(seed, x, z, 4), pools = EscapeCheck.poolsToExit(seed, x, z, 10), pipes = EscapeCheck.pipesToHatch(seed, x, z, 10);
+            int end = EscapeCheck.endToExit(seed, x, z, 4), pools = EscapeCheck.poolsToExit(seed, x, z, 2 * 64), pipes = EscapeCheck.pipesToHatch(seed, x, z, 2 * 144);
             h.assertTrue(end >= 0 && pools >= 0 && pipes >= 0, "exit level " + end + ", poolrooms " + pools + ", pipes hatch " + pipes);
         }
         int found = 0;

@@ -10,17 +10,19 @@ import static com.simplebuilding.modules.simplelayers.world.gen.GenHash.unit;
  */
 public final class PoolsGen {
     public static final int ROOM = 10, REGION = 8, WALK_Y = 3, HULL_TOP_Y = 63, SALT = 500;
+    /** BACK20: region maze with many loops - calm and open, yet confusing. */
+    public static final double LOOPS = 0.4;
 
     public enum Room { POOL, DEEP, FLOODED, COLUMNS, DRY, EXIT }
 
     private PoolsGen() {}
 
     public static boolean west(long seed, int rx, int rz) {
-        return GenHash.forcedWest(seed, rx, rz, REGION, SALT + 21) || unit(seed, rx, rz, SALT + 1) < 0.5;
+        return Maze.west(seed, rx, rz, REGION, SALT + 21, LOOPS);
     }
 
     public static boolean north(long seed, int rx, int rz) {
-        return GenHash.forcedNorth(seed, rx, rz, REGION, SALT + 21) || unit(seed, rx, rz, SALT + 2) < 0.5;
+        return Maze.north(seed, rx, rz, REGION, SALT + 21, LOOPS);
     }
 
     /** Some open lines have no wall at all (only the corner columns stay): rooms merge into pillared halls. */

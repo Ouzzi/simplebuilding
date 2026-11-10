@@ -4,14 +4,16 @@ import static com.simplebuilding.modules.simplelayers.world.gen.GenHash.unit;
 
 /**
  * Level 2, the pipe corridors (dimension {@code simplelayers:backrooms_pipes}, BACK18): narrow, warm, dim. Two storeys (floor
- * y 1 / ceiling y 6 and floor y 8 / ceiling y 13, bedrock between and above) of 3-wide corridors on a 6-block node grid; about
- * half the links are open plus an escape tree per region, so there are many dead ends but every node reaches its region's
- * root. Copper pipes run under the ceiling, copper bulbs light some junctions. Ladder shafts join the storeys; holes in the floor
+ * y 1 / ceiling y 6 and floor y 8 / ceiling y 13, bedrock between and above) of 3-wide corridors on a 6-block node grid.
+ * BACK20: the links form a region maze ({@link Maze}, 12 x 12 nodes, few loops) - the deepest grid level is a labyrinth where
+ * one gets lost, yet every node still reaches its region's root. Copper pipes run under the ceiling, copper bulbs light some junctions. Ladder shafts join the storeys; holes in the floor
  * drop to the Poolrooms; the root of every ground-storey region holds the sealed maintenance hatch to the exit level, opened by
  * three valve levers in the right positions ({@link #pattern}).
  */
 public final class PipesGen {
-    public static final int NODE = 6, REGION = 8, STOREY = 7, HULL_TOP_Y = 63, SALT = 300;
+    public static final int NODE = 6, REGION = 12, STOREY = 7, HULL_TOP_Y = 63, SALT = 300;
+    /** BACK20: share of extra open links beside the region maze (low: the deepest grid level is a real labyrinth). */
+    public static final double LOOPS = 0.06;
 
     public enum Node { PLAIN, SHAFT, HOLE, HATCH }
 
@@ -22,15 +24,15 @@ public final class PipesGen {
     }
 
     public static boolean west(long seed, int storey, int nx, int nz) {
-        return GenHash.forcedWest(seed, nx, nz, REGION, salt(storey) + 21) || unit(seed, nx, nz, salt(storey) + 1) < 0.22;
+        return Maze.west(seed, nx, nz, REGION, salt(storey) + 21, LOOPS);
     }
 
     public static boolean north(long seed, int storey, int nx, int nz) {
-        return GenHash.forcedNorth(seed, nx, nz, REGION, salt(storey) + 21) || unit(seed, nx, nz, salt(storey) + 2) < 0.22;
+        return Maze.north(seed, nx, nz, REGION, salt(storey) + 21, LOOPS);
     }
 
     public static Node node(long seed, int storey, int nx, int nz) {
-        if (GenHash.root(seed, nx, nz, REGION, salt(storey) + 21)) return storey == 0 ? Node.HATCH : Node.PLAIN;
+        if (Maze.root(seed, nx, nz, REGION, salt(storey) + 21)) return storey == 0 ? Node.HATCH : Node.PLAIN;
         if (storey == 1) return Node.PLAIN;
         double u = unit(seed, nx, nz, SALT + 3);
         if (u < 0.07) return Node.SHAFT;
