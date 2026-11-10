@@ -5347,7 +5347,17 @@
       "tests": {
         "namespace": "simplelayers",
         "catalogues": [
-          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/ModuleGameTest.java"
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/ModuleGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/LobbyGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/PoolsGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/ArchiveGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/WarehouseGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/PipesGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/ElectroGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/HotelGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/LightlessGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/SuburbGameTest.java",
+          "modules/simplelayers/fabric/src/main/java/com/simplebuilding/modules/simplelayers/level/WheatfieldGameTest.java"
         ],
         "requires": [
           "simplelayers"
