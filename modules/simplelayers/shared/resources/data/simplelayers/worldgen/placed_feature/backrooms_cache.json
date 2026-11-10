@@ -1,0 +1,8 @@
+{
+  "feature": "simplelayers:backrooms_cache",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

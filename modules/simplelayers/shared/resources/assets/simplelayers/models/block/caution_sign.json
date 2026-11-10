@@ -1,0 +1,77 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "sign": "simplelayers:block/caution_sign",
+    "particle": "simplelayers:block/caution_sign"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        1,
+        15
+      ],
+      "to": [
+        15,
+        15,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#sign",
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ]
+        },
+        "south": {
+          "texture": "#sign",
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ]
+        },
+        "east": {
+          "texture": "#sign",
+          "uv": [
+            0,
+            1,
+            1,
+            15
+          ]
+        },
+        "west": {
+          "texture": "#sign",
+          "uv": [
+            0,
+            1,
+            1,
+            15
+          ]
+        },
+        "up": {
+          "texture": "#sign",
+          "uv": [
+            1,
+            0,
+            15,
+            1
+          ]
+        },
+        "down": {
+          "texture": "#sign",
+          "uv": [
+            1,
+            15,
+            15,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

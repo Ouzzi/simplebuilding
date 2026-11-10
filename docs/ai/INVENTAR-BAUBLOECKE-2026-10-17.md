@@ -61,6 +61,12 @@ Neue Baublöcke in SimpleBuilding selbst (Besitzer ABN29-3, Konzept D3 „SB“,
 Suchtab hinter der Vanilla-Eichentür. Die anderen Holzarten sind vorbereitet (Texturen-Generator), nicht registriert. Spätere Verschiebung
 nach `simpleblocks` bliebe möglich (IdMoves), solange kein Besitzer-Wunsch dagegen steht. Plan: `docs/ai/PLAN-A-WP17-2026-10-29.md`.
 
+## Stand 10.11. (b-back18, N18 BACK18)
+Neue Dekoblöcke in Simple Layers (Themenmodul: Eingangsschacht der Backrooms, fachlicher Ort ist das Modul): `simplelayers:caution_sign`
+(Warnschild, Platte an der Blockseite, `facing`) und `simplelayers:caution_tape` (Absperrband in Hüfthöhe, `axis`), beide mit Item im Tab
+Simple Layers, droppen sich selbst; kein Vollblock, keine Treppe/Stufe, daher kein Octet. `simplelayers:level_door` (Wartungstür) ist nur
+generiert (kein Item). Plan: `docs/ai/PLAN-B-BACK18-2026-11-10.md`.
+
 ## Zahlen
 - Tab „SimpleBlocks“ hat heute 12 Zeilengruppen (Basis) + Schach + Octets + Natur + Lichtscheiben + Schwefel + Holzwerk.
 - **Verschieben nach `simpleblocks`: 15 Items sicher** (4 Schwerkraft, 4 Naturstufen, 4 Eis/Schale, 3 Froschlichter) **plus 40 nach Entscheidung E-B1**

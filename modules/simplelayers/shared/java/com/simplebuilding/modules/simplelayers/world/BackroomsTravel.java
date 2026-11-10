@@ -2,7 +2,9 @@ package com.simplebuilding.modules.simplelayers.world;
 
 import com.simplebuilding.modules.simplelayers.SimpleLayers;
 import com.simplebuilding.modules.simplelayers.config.LayersConfig;
+import com.simplebuilding.modules.simplelayers.world.gen.BackroomsLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,9 +19,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Ways into and out of the Backrooms (concept §2.1): the rift of a broken Glitched Bedrock (any entity), optionally the void
- * below the Overworld ({@code backrooms.voidToBackrooms}), and the Exit Door back to the Overworld surface above the entry
- * (with a Backdoor Key: 1500-3000 blocks away). Arrival is always the centre of a grid cell at y 2 (never inside a wall).
+ * Ways into, between and out of the Backrooms (concept §2.1, BACK18 levels): the rift of a broken Glitched Bedrock or at the bottom
+ * of the entrance shaft (any entity, into Level 0), rifts inside the Backrooms (walls: one level deeper; floor holes: the
+ * Poolrooms), Maintenance Doors, optionally the void below the Overworld ({@code backrooms.voidToBackrooms}), and the Exit Door
+ * back to the Overworld surface above the entry (with a Backdoor Key: 1500-3000 blocks away). Arrival is always the level's free
+ * arrival spot above the same x/z ({@link BackroomsLevel#arrival}); players see the level's name in the action bar (A14).
  */
 public final class BackroomsTravel {
     public static final double ARRIVAL_Y = BackroomsGrid.FLOOR_Y + 1;
@@ -27,24 +31,34 @@ public final class BackroomsTravel {
 
     private BackroomsTravel() {}
 
-    /** Rift contact: everything but riders goes in, once per cooldown. */
-    public static void enterFromRift(ServerLevel level, Entity entity) {
-        if (!SimpleLayers.backroomsOn() || level.dimension() == SimpleLayers.BACKROOMS || entity.isPassenger() || entity.isOnPortalCooldown()
-                || !entity.canUsePortal(false)) return;
-        enter(level.getServer(), entity);
+    /** Rift contact at {@code pos}: everything but riders goes in, once per cooldown. */
+    public static void enterFromRift(ServerLevel level, Entity entity, BlockPos pos) {
+        if (!SimpleLayers.backroomsOn() || entity.isPassenger() || entity.isOnPortalCooldown() || !entity.canUsePortal(false)) return;
+        BackroomsLevel here = SimpleLayers.levelOf(level);
+        BackroomsLevel target = here == null ? BackroomsLevel.LOBBY : here.riftTarget(pos.getY());
+        if (target != null) travel(level.getServer(), entity, target);
     }
 
-    /** Sends {@code entity} into the Backrooms below its x/z; returns the entity in the new level (or null). */
+    /** Sends {@code entity} into Level 0 below its x/z; returns the entity in the new level (or null). */
     public static @Nullable Entity enter(MinecraftServer server, Entity entity) {
-        ServerLevel target = server.getLevel(SimpleLayers.BACKROOMS);
-        if (target == null) return null;
-        if (entity instanceof ServerPlayer player) BackroomsEntries.get(server).put(player.getUUID(), player.blockPosition());
-        Vec3 pos = new Vec3(BackroomsGrid.cellCentre(entity.getBlockX()) + 0.5, ARRIVAL_Y, BackroomsGrid.cellCentre(entity.getBlockZ()) + 0.5);
-        Entity moved = entity.teleport(new TeleportTransition(target, pos, Vec3.ZERO, entity.getYRot(), entity.getXRot(), TeleportTransition.PLACE_PORTAL_TICKET));
+        return travel(server, entity, BackroomsLevel.LOBBY);
+    }
+
+    /** Sends {@code entity} to the arrival spot of {@code target} above its x/z (null when that level is not loaded). */
+    public static @Nullable Entity travel(MinecraftServer server, Entity entity, BackroomsLevel target) {
+        ServerLevel to = server.getLevel(SimpleLayers.levelKey(target));
+        if (to == null) return null;
+        if (entity instanceof ServerPlayer player && !SimpleLayers.inBackrooms(player.level())) {
+            BackroomsEntries.get(server).put(player.getUUID(), player.blockPosition());
+        }
+        int[] spot = target.arrival(BackroomsChunkGenerator.seed(to.getChunkSource().randomState()), entity.getBlockX(), entity.getBlockZ());
+        Vec3 pos = new Vec3(spot[0] + 0.5, spot[1], spot[2] + 0.5);
+        Entity moved = entity.teleport(new TeleportTransition(to, pos, Vec3.ZERO, entity.getYRot(), entity.getXRot(), TeleportTransition.PLACE_PORTAL_TICKET));
         if (moved != null) {
             moved.setPortalCooldown(COOLDOWN);
             moved.resetFallDistance();
-            target.playSound(null, moved.blockPosition(), SoundEvents.AMBIENT_CAVE.value(), SoundSource.AMBIENT, 0.6F, 0.6F);
+            to.playSound(null, moved.blockPosition(), SoundEvents.AMBIENT_CAVE.value(), SoundSource.AMBIENT, 0.5F, 0.6F);
+            if (moved instanceof ServerPlayer player) player.sendOverlayMessage(Component.translatable("message.simplelayers.level." + target.id));
         }
         return moved;
     }
@@ -90,6 +104,6 @@ public final class BackroomsTravel {
     }
 
     public static boolean inBackrooms(Level level) {
-        return level.dimension() == SimpleLayers.BACKROOMS;
+        return SimpleLayers.inBackrooms(level);
     }
 }

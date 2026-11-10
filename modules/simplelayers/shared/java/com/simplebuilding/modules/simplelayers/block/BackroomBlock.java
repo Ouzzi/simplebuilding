@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simplelayers.block;
 
+import com.simplebuilding.modules.simplelayers.LayersRegistry;
 import com.simplebuilding.modules.simplelayers.SimpleLayers;
 import com.simplebuilding.modules.simplelayers.config.LayersConfig;
 import com.simplebuilding.modules.simplelayers.world.BackroomEffect;
@@ -15,7 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
  * decoration block. A survival player with the Backroom effect ({@link BackroomEffect}, handed out inside the Backrooms while
  * {@code backrooms.unbreakableWalls} is on) cannot break it - otherwise one would dig straight through the maze; inside the
  * Backrooms no piston moves it either ({@code PistonBaseBlockMixin}). The exception is Simple Machines' Netherite Piston, which
- * breaks the block in front of it (plan docs/ai/PLAN-B-LAYERS13-2026-11-09.md).
+ * breaks the block in front of it (plan docs/ai/PLAN-B-LAYERS13-2026-11-09.md). BACK18: the same holds in every Backrooms level and
+ * for the Vanilla blocks the deeper levels are built of (tag {@code simplelayers:backrooms_structure}, {@code BlockStateBaseMixin}).
  */
 public class BackroomBlock extends Block {
     public BackroomBlock(Properties properties) {
@@ -27,9 +29,20 @@ public class BackroomBlock extends Block {
         return !player.isCreative() && BackroomEffect.holder() != null && player.hasEffect(BackroomEffect.holder());
     }
 
-    /** Whether pistons must leave this block where it is: a Backrooms block inside the Backrooms with the protection on. */
+    /** Part of the rooms: a Backrooms block, or a block of the levels' Vanilla palette (tag {@code backrooms_structure}). */
+    public static boolean structural(BlockState state) {
+        return state.getBlock() instanceof BackroomBlock || state.is(LayersRegistry.BACKROOMS_STRUCTURE);
+    }
+
+    /** BACK18: a Vanilla palette block that {@code player} cannot mine here (inside the Backrooms, with the effect). */
+    public static boolean heldFor(BlockState state, Player player) {
+        return !(state.getBlock() instanceof BackroomBlock) && state.is(LayersRegistry.BACKROOMS_STRUCTURE) && protectedFor(player)
+                && SimpleLayers.inBackrooms(player.level());
+    }
+
+    /** Whether pistons must leave this block where it is: part of the rooms, inside the Backrooms, protection on. */
     public static boolean heldInPlace(BlockState state, Level level) {
-        return state.getBlock() instanceof BackroomBlock && LayersConfig.unbreakableWalls && level.dimension() == SimpleLayers.BACKROOMS;
+        return LayersConfig.unbreakableWalls && SimpleLayers.inBackrooms(level) && structural(state);
     }
 
     @Override

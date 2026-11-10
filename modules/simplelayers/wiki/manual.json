@@ -54,7 +54,7 @@
     {
       "id": "backrooms",
       "sources": [
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsGrid.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/LobbyGen.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsChunkGenerator.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/GlitchedBedrockBlock.java",
@@ -66,19 +66,117 @@
       ],
       "en": {
         "title": "The Backrooms",
-        "summary": "Rarely, Glitched Bedrock sits in the Overworld bedrock floor (one new chunk in 48, config backrooms.entranceRarity). Only a Netherite Pickaxe breaks it (about 30 s); it leaves a Rift, and whatever falls in lands in the Backrooms: endless empty rooms, 8 x 8 blocks and 5 high, with yellow wallpaper, damp carpet and humming neon lights.",
+        "summary": "Two ways lead into the Backrooms: rarely a fenced-off maintenance shaft stands in the Overworld (see \"Entrance shaft\"), and rarely Glitched Bedrock sits in the bedrock floor (one new chunk in 48, config backrooms.entranceRarity; only a Netherite Pickaxe breaks it, about 30 s, and it leaves a Rift). Whatever falls into a Rift lands in Level 0: endless empty rooms, 8 x 8 blocks and 5 high, with yellow wallpaper, damp carpet and humming neon lights.",
         "details": [
-          "The rooms never change and need no storage: every wall and door follows from the world seed. Some rooms are dark, some groups of 4 x 4 rooms are open pillar halls. There is no sky, no time and yellow fog; no mob spawns.",
-          "Special rooms (jigsaw structures like the Trial Chambers) hold chests with Almond Water and other finds, a flooded room and dark rooms. Far apart lies an exit room: its Exit Door under the green EXIT sign leads back to the Overworld surface above where you came in. Used with a Backdoor Key it opens 1500-3000 blocks away instead. Option backrooms.voidToBackrooms (off): falling 32 blocks below the Overworld floor lands in the Backrooms."
+          "The rooms never change and need no storage: every wall and door follows from the world seed. Some rooms are dark, some groups of 4 x 4 rooms are open pillar halls. There is no sky, no time and yellow fog. Above the bedrock slab lies an upper floor (older paper, darker, more dead ends), reached by stairwells.",
+          "Special rooms (jigsaw structures like the Trial Chambers) hold chests with Almond Water and other finds, a flooded room and dark rooms."
         ]
       },
       "de": {
         "title": "Die Backrooms",
-        "summary": "Selten steckt fehlerhaftes Grundgestein im Bedrock-Boden der Oberwelt (einer von 48 neuen Chunks, Config backrooms.entranceRarity). Nur eine Netherit-Spitzhacke baut es ab (etwa 30 s); es hinterlässt einen Riss, und wer hineinfällt, landet in den Backrooms: endlose leere Räume, 8 x 8 Blöcke und 5 hoch, mit gelber Tapete, feuchtem Teppich und summenden Neonröhren.",
+        "summary": "Zwei Wege führen in die Backrooms: selten steht in der Oberwelt ein abgesperrter Wartungsschacht (siehe „Wartungsschacht“), und selten sitzt fehlerhaftes Grundgestein im Bedrock-Boden (einer von 48 neuen Chunks, Config backrooms.entranceRarity; nur eine Netherit-Spitzhacke baut es ab, etwa 30 s, dann bleibt ein Riss). Wer in einen Riss fällt, landet in Level 0: endlose leere Räume, 8 x 8 Blöcke und 5 hoch, mit gelber Tapete, feuchtem Teppich und summenden Neonröhren.",
         "details": [
-          "Die Räume ändern sich nie und brauchen keinen Speicher: jede Wand und Tür folgt aus dem Welt-Seed. Manche Räume sind dunkel, manche Gruppen aus 4 x 4 Räumen offene Säulenhallen. Kein Himmel, keine Zeit, gelber Nebel; keine Mob-Spawns.",
-          "Sonderräume (Jigsaw-Strukturen wie die Trial Chambers) enthalten Truhen mit Mandelwasser und anderen Funden, einen gefluteten Raum und dunkle Räume. Weit entfernt liegt ein Ausgangsraum: seine Ausgangstür unter dem grünen EXIT-Schild führt zurück an die Oberwelt-Oberfläche über dem Eingang. Mit einem Hintertür-Schlüssel öffnet sie sich stattdessen 1500-3000 Blöcke entfernt. Option backrooms.voidToBackrooms (aus): wer 32 Blöcke unter den Oberwelt-Boden fällt, landet in den Backrooms."
+          "Die Räume ändern sich nie und brauchen keinen Speicher: jede Wand und Tür folgt aus dem Welt-Seed. Manche Räume sind dunkel, manche Gruppen aus 4 x 4 Räumen sind offene Säulenhallen. Es gibt keinen Himmel, keine Zeit und gelben Nebel. Über der Grundgesteinsdecke liegt ein Obergeschoss (ältere Tapete, dunkler, mehr Sackgassen), erreichbar über Treppenhäuser.",
+          "Sonderräume (Jigsaw-Strukturen wie die Prüfungskammern) enthalten Truhen mit Mandelwasser und anderen Funden, einen gefluteten Raum und dunkle Räume."
         ]
+      }
+    },
+    {
+      "id": "backrooms_escape",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/LobbyGen.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/GenHash.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/EscapeCheck.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ExitDoorBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java"
+      ],
+      "en": {
+        "title": "The quick way out",
+        "summary": "Level 0 always has an exit near you: every block of 12 x 12 rooms has one exit room, a free-standing wall with the Exit Door under a green EXIT sign, and from every room a way of at most 18 rooms leads to it. In the row and the column of the exit an EXIT sign hangs under the ceiling beside the door that leads on - follow the signs. The Exit Door brings you back to the Overworld above the place you came in (with a Backdoor Key 1500-3000 blocks away)."
+      },
+      "de": {
+        "title": "Der schnelle Weg hinaus",
+        "summary": "Level 0 hat immer einen Ausgang in der Nähe: jeder Block aus 12 x 12 Räumen hat einen Ausgangsraum, eine freistehende Wand mit der Ausgangstür unter einem grünen EXIT-Schild, und von jedem Raum führt ein Weg über höchstens 18 Räume dorthin. In der Reihe und der Spalte des Ausgangs hängt ein EXIT-Schild unter der Decke neben der Tür, die weiterführt – folge den Schildern. Die Ausgangstür bringt dich zurück in die Oberwelt über der Stelle, an der du hineinkamst (mit Hintertür-Schlüssel 1500-3000 Blöcke entfernt)."
+      }
+    },
+    {
+      "id": "backrooms_levels",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/BackroomsLevel.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/WarehouseGen.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/PipesGen.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/PoolsGen.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/LevelDoorBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/RiftBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsCacheFeature.java",
+        "modules/simplelayers/tools/gen_data.py"
+      ],
+      "en": {
+        "title": "Deeper levels",
+        "summary": "Rifts in walls (noclip spots) and Maintenance Doors lead one level deeper; the action bar names the level. Level 1, the Warehouse: a concrete hall 8 high with pillars, racks of crates (wood) and cobwebs (string), supply chests. Level 2, the Pipes: narrow warm corridors under copper ducts, two storeys joined by ladder shafts, many dead ends, chests in some of them. Holes in the floor of both drop into the Poolrooms: calm tiled rooms with shallow and deep pools.",
+        "details": [
+          "Ways: Level 0 rifts in walls and the Maintenance Doors of its upper floor lead to the Warehouse; the Warehouse freight lifts (a door framed in yellow and black) and its wall rifts lead to the Pipes; floor holes in the Warehouse (drains) and the Pipes lead to the Poolrooms.",
+          "Every level keeps your x/z and has its own fog and light. The Backroom effect, the bedrock hull and the piston rule hold in every level; the Vanilla blocks the levels are built of cannot be mined there either (supplies can)."
+        ]
+      },
+      "de": {
+        "title": "Tiefere Ebenen",
+        "summary": "Risse in Wänden (Noclip-Stellen) und Wartungstüren führen eine Ebene tiefer; die Aktionsleiste nennt die Ebene. Level 1, die Lagerhalle: eine 8 Blöcke hohe Betonhalle mit Säulen, Regalen voller Kisten (Holz) und Spinnweben (Faden), Vorratstruhen. Level 2, die Rohrgänge: enge, warme Gänge unter Kupferrohren, zwei Etagen mit Leiterschächten, viele Sackgassen, in manchen Truhen. Löcher im Boden beider Ebenen führen in die Poolrooms: ruhige gekachelte Räume mit flachen und tiefen Becken.",
+        "details": [
+          "Wege: Risse in Wänden von Level 0 und die Wartungstüren seines Obergeschosses führen in die Lagerhalle; die Lastenaufzüge der Lagerhalle (eine Tür im gelb-schwarzen Rahmen) und ihre Wandrisse führen in die Rohrgänge; Bodenlöcher in der Lagerhalle (Abflüsse) und den Rohrgängen führen in die Poolrooms.",
+          "Jede Ebene behält dein x/z und hat eigenen Nebel und eigenes Licht. Backroom-Effekt, Grundgestein-Hülle und Kolben-Regel gelten in jeder Ebene; auch die Vanilla-Blöcke, aus denen die Ebenen gebaut sind, lassen sich dort nicht abbauen (Vorräte schon)."
+        ]
+      }
+    },
+    {
+      "id": "backrooms_rewards",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/PipesGen.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/LevelDoorBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/LobbyGen.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsCacheFeature.java",
+        "modules/simplelayers/tools/gen_data.py"
+      ],
+      "en": {
+        "title": "Harder ways out",
+        "summary": "In the Pipes every region has a sealed hatch with three valve levers beside it. It opens only when the levers stand right; each try tells you in the action bar how many valves are right, so a little thinking solves it. Behind it lies the Exit Level: bright white corridors, an exit every few rooms, and next to each Exit Door a chest with the reward - always a Backdoor Key, plus diamonds, emeralds, ender pearls or a golden apple. The Poolrooms have exit rooms too, with a smaller reward."
+      },
+      "de": {
+        "title": "Schwerere Wege hinaus",
+        "summary": "In den Rohrgängen hat jede Region eine versiegelte Luke mit drei Ventilhebeln daneben. Sie öffnet nur, wenn die Hebel richtig stehen; jeder Versuch sagt in der Aktionsleiste, wie viele Ventile stimmen, also löst ein wenig Nachdenken das Rätsel. Dahinter liegt die Ausgangs-Ebene: helle weiße Gänge, alle paar Räume ein Ausgang und neben jeder Ausgangstür eine Truhe mit der Belohnung – immer ein Hintertür-Schlüssel, dazu Diamanten, Smaragde, Enderperlen oder ein goldener Apfel. Auch die Poolrooms haben Ausgangsräume, mit kleinerer Belohnung."
+      }
+    },
+    {
+      "id": "entrance_shaft",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/EntranceShaftFeature.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/ShaftTemplate.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CautionSignBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CautionTapeBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/config/LayersConfig.java"
+      ],
+      "en": {
+        "title": "Entrance shaft",
+        "summary": "Rarely (one new Overworld chunk in 200, config backrooms.shaftRarity, 0 = none; only on flat, dry ground) a fenced-off maintenance shaft stands in the open: a concrete pad, a barrier of posts and yellow-and-black Caution Tape, Caution Signs facing out and orange warning lights on the corners, a hoist frame with a chain over a 3 x 3 shaft. A ladder leads 12 blocks down to a floor of rifts - the way into Level 0. The tape stops walking, not jumping."
+      },
+      "de": {
+        "title": "Wartungsschacht",
+        "summary": "Selten (einer von 200 neuen Oberwelt-Chunks, Config backrooms.shaftRarity, 0 = keiner; nur auf flachem, trockenem Boden) steht ein abgesperrter Wartungsschacht im Freien: eine Betonplatte, eine Absperrung aus Pfosten und gelb-schwarzem Absperrband, Warnschilder nach außen und orange Warnleuchten an den Ecken, ein Hebegerüst mit Kette über einem 3 x 3 großen Schacht. Eine Leiter führt 12 Blöcke hinab zu einem Boden aus Rissen – der Weg in Level 0. Das Band hält Laufende auf, Springende nicht."
+      }
+    },
+    {
+      "id": "backrooms_ambience",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsAmbience.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/config/LayersConfig.java"
+      ],
+      "en": {
+        "title": "Sounds",
+        "summary": "The Backrooms have no constant hum. Every 20-60 seconds (in the Exit Level less often) one quiet sound plays somewhere near you: a buzzing tube, a far door, a drip, steam in the pipes, lapping water in the Poolrooms. Only you hear it. Config backrooms.ambientVolume (0-100 %, 0 = silent); the Ambient slider of the sound options applies too."
+      },
+      "de": {
+        "title": "Geräusche",
+        "summary": "Die Backrooms haben keinen Dauerton. Alle 20-60 Sekunden (in der Ausgangs-Ebene seltener) spielt ein leises Geräusch irgendwo in deiner Nähe: eine summende Röhre, eine ferne Tür, ein Tropfen, Dampf in den Rohren, plätscherndes Wasser in den Poolrooms. Nur du hörst es. Config backrooms.ambientVolume (0-100 %, 0 = still); der Umgebungs-Regler der Toneinstellungen wirkt zusätzlich."
       }
     },
     {
@@ -94,7 +192,7 @@
         "title": "Walls, hull and supplies",
         "summary": "In the Backrooms you carry the Backroom effect (config backrooms.unbreakableWalls): in survival you cannot break the wallpaper, carpet, ceiling tiles and lights, and no piston moves them there. Only the Netherite Piston (Simple Machines) breaks a wall in front of it.",
         "details": [
-          "Bedrock closes the rooms: the floor at y 0 and everything from the ceiling y 8 up to the top of the dimension.",
+          "Bedrock closes the rooms: in Level 0 the floor at y 0, the slab y 8 between the two floors and everything from y 16 up to the top of the dimension; every deeper level is closed the same way.",
           "Some rooms are offices with an oak desk, a chair and a pile of stripped oak logs (sometimes a crafting table); others, and every dark room, have cobwebs in the corners. Wood and string let you survive and craft (config backrooms.supplies). Storage chests can hold string and sticks."
         ]
       },
@@ -102,7 +200,7 @@
         "title": "Wände, Hülle und Vorräte",
         "summary": "In den Backrooms trägst du den Backroom-Effekt (Config backrooms.unbreakableWalls): im Überleben kannst du Tapete, Teppich, Deckenplatten und Leuchten nicht abbauen, und kein Kolben bewegt sie dort. Nur der Netheritkolben (Simple Machines) bricht eine Wand vor sich.",
         "details": [
-          "Grundgestein schließt die Räume ein: der Boden auf y 0 und alles von der Decke y 8 bis zur Obergrenze der Dimension.",
+          "Grundgestein schließt die Räume ab: in Level 0 der Boden auf y 0, die Decke y 8 zwischen den beiden Geschossen und alles ab y 16 bis zur Obergrenze der Dimension; jede tiefere Ebene ist genauso abgeschlossen.",
           "Manche Räume sind Büros mit Eichen-Schreibtisch, Stuhl und einem Stapel entrindeter Eichenstämme (manchmal einer Werkbank); andere und jeder dunkle Raum haben Spinnweben in den Ecken. Holz und Faden reichen zum Überleben und Craften (Config backrooms.supplies). Lagertruhen können Faden und Stöcke enthalten."
         ]
       }
@@ -304,22 +402,59 @@
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java"
       ],
       "en": {
-        "summary": "Only in the Backrooms exit room (no item): using it leads back to the Overworld surface above the entry; with a Backdoor Key 1500-3000 blocks away."
+        "summary": "Only generated (no item): in exit rooms of Level 0, the Poolrooms and the Exit Level. Using it leads back to the Overworld surface above the entry; with a Backdoor Key 1500-3000 blocks away."
       },
       "de": {
-        "summary": "Nur im Ausgangsraum der Backrooms (kein Item): Benutzen führt zurück an die Oberwelt-Oberfläche über dem Eingang; mit Hintertür-Schlüssel 1500-3000 Blöcke entfernt."
+        "summary": "Nur generiert (kein Item): in Ausgangsräumen von Level 0, den Poolrooms und der Ausgangs-Ebene. Benutzen führt zurück an die Oberwelt-Oberfläche über dem Eingang; mit Hintertür-Schlüssel 1500-3000 Blöcke entfernt."
       }
     },
     "simplelayers:rift": {
       "sources": [
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/RiftBlock.java",
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/GlitchedBedrockBlock.java"
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/GlitchedBedrockBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java"
       ],
       "en": {
-        "summary": "What a broken Glitched Bedrock leaves (no item): no collision, unbreakable; whatever enters it lands in the Backrooms."
+        "summary": "No item: what a broken Glitched Bedrock leaves, the floor of the entrance shaft, and noclip spots and holes inside the Backrooms. No collision, unbreakable; whatever enters it lands in the Backrooms (inside: one level deeper, holes in the floor: the Poolrooms)."
       },
       "de": {
-        "summary": "Bleibt von abgebautem fehlerhaftem Grundgestein (kein Item): ohne Kollision, unzerstörbar; wer hineingerät, landet in den Backrooms."
+        "summary": "Kein Item: bleibt von abgebautem fehlerhaftem Grundgestein, bildet den Boden des Wartungsschachts und die Noclip-Stellen und Löcher in den Backrooms. Ohne Kollision, unzerstörbar; wer hineingerät, landet in den Backrooms (drinnen: eine Ebene tiefer, Bodenlöcher: die Poolrooms)."
+      }
+    },
+    "simplelayers:caution_sign": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CautionSignBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Yellow warning plate with a black triangle; hangs on the face of the block behind it. Marks the entrance shaft; also a decoration block."
+      },
+      "de": {
+        "summary": "Gelbes Warnschild mit schwarzem Dreieck; hängt an der Seite des Blocks dahinter. Markiert den Wartungsschacht; auch ein Dekoblock."
+      }
+    },
+    "simplelayers:caution_tape": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CautionTapeBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Yellow-and-black barrier tape at waist height, placed across your view; stops walking, not jumping. Decoration block."
+      },
+      "de": {
+        "summary": "Gelb-schwarzes Absperrband in Hüfthöhe, quer zur Blickrichtung gesetzt; hält Laufende auf, Springende nicht. Dekoblock."
+      }
+    },
+    "simplelayers:level_door": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/LevelDoorBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java"
+      ],
+      "en": {
+        "summary": "Only generated (no item): a steel door with a hazard band that leads one Backrooms level deeper. Sealed in the Pipes: three valve levers must stand right."
+      },
+      "de": {
+        "summary": "Nur generiert (kein Item): eine Stahltür mit Warnstreifen, die eine Backrooms-Ebene tiefer führt. In den Rohrgängen versiegelt: drei Ventilhebel müssen richtig stehen."
       }
     }
   }
