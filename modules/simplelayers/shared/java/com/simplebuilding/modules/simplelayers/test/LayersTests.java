@@ -625,19 +625,16 @@ public final class LayersTests {
         e.setPortalCooldown(0);
         Entity lobby = BackroomsTravel.travel(server, e, BackroomsLevel.LOBBY);
         lobby.setPortalCooldown(0);
-        BackroomsTravel.enterFromRift((ServerLevel) lobby.level(), lobby, lobby.blockPosition());
-        Entity after = findStand(server, stand.getUUID());
-        h.assertTrue(after != null && SimpleLayers.levelOf(after.level()) == BackroomsLevel.WAREHOUSE, "lobby rift -> warehouse");
-        after.discard();
+        ServerLevel lobbyLevel = (ServerLevel) lobby.level();
+        BackroomsTravel.enterFromRift(lobbyLevel, lobby, lobby.blockPosition());
+        // A cross-dimension teleport removes the old instance; the copy stands in the Warehouse.
+        h.assertTrue(lobby.isRemoved(), "lobby rift -> left the lobby");
+        ServerLevel warehouse = server.getLevel(SimpleLayers.levelKey(BackroomsLevel.WAREHOUSE));
+        int[] spot = BackroomsLevel.WAREHOUSE.arrival(BackroomsChunkGenerator.seed(warehouse.getChunkSource().randomState()), lobby.getBlockX(), lobby.getBlockZ());
+        var found = warehouse.getEntitiesOfClass(ArmorStand.class, new net.minecraft.world.phys.AABB(spot[0] - 1, spot[1] - 1, spot[2] - 1, spot[0] + 2, spot[1] + 3, spot[2] + 2));
+        h.assertTrue(!found.isEmpty(), "lobby rift -> warehouse at " + spot[0] + " " + spot[1] + " " + spot[2]);
+        found.forEach(Entity::discard);
         h.succeed();
-    }
-
-    private static Entity findStand(MinecraftServer server, UUID id) {
-        for (ServerLevel l : server.getAllLevels()) {
-            Entity e = l.getEntity(id);
-            if (e != null) return e;
-        }
-        return null;
     }
 
     /**
