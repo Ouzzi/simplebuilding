@@ -59,7 +59,7 @@ common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java m
 common/src/shared/java/com/simplebuilding/client/render/BackpackLayer.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackLayer.java
 common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/render/BuildingWandPreviewRenderer.java
 common/src/shared/java/com/simplebuilding/client/render/PlacedBundleRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/PlacedBundleRenderer.java
-common/src/shared/java/com/simplebuilding/client/render/QuiverLayer.java modules/simplestorage/shared/java/com/simplestorage/client/QuiverLayer.java allow: backItem/1
+common/src/shared/java/com/simplebuilding/client/render/QuiverLayer.java modules/simplestorage/shared/java/com/simplestorage/client/QuiverLayer.java
 common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TieredChestRenderer.java
 common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TieredShulkerBoxRenderer.java
 common/src/shared/java/com/simplebuilding/client/render/TrappedCopperChestRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TrappedCopperChestRenderer.java

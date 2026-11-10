@@ -63,7 +63,7 @@ public class QuiverLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
             return;
         }
         ItemStackRenderState item = new ItemStackRenderState();
-        Minecraft.getInstance().getItemModelResolver().updateForLiving(item, BackpackLayer.backItem(wearer),
+        Minecraft.getInstance().getItemModelResolver().updateForLiving(item, backItem(wearer),
                 ItemDisplayContext.NONE, wearer);
         if (item.isEmpty()) {
             return;
@@ -87,7 +87,7 @@ public class QuiverLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
     /** Der sichtbar getragene Koecher der Entity hinter {@code state}, sonst ein leerer Stapel. */
     public static ItemStack wornQuiver(AvatarRenderState state) {
         LivingEntity wearer = wearer(state);
-        return wearer == null ? ItemStack.EMPTY : BackpackLayer.backItem(wearer);
+        return wearer == null ? ItemStack.EMPTY : backItem(wearer);
     }
 
     /**
@@ -101,7 +101,12 @@ public class QuiverLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
         }
         ClientLevel level = Minecraft.getInstance().level;
         Entity entity = level == null ? null : level.getEntity(state.id);
-        return entity instanceof LivingEntity living && BackpackLayer.backItem(living).getItem() instanceof QuiverItem
+        return entity instanceof LivingEntity living && backItem(living).getItem() instanceof QuiverItem
                 ? living : null;
+    }
+
+    /** What the back shows - at most one thing ({@link BackpackLayer#backItem}); same helper as the Simple Storage copy. */
+    public static ItemStack backItem(LivingEntity living) {
+        return BackpackLayer.backItem(living);
     }
 }
