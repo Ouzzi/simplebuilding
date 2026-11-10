@@ -218,7 +218,7 @@ public final class LayersTests {
         int[] stone = alphaCounts(h, "cloud_stone"), cloud = alphaCounts(h, "cloud_block");
         h.assertTrue(stone[0] == 0 && stone[2] == 0 && stone[1] > 0, "cloud stone: only part-transparent pixels (ice, translucent), got clear "
                 + stone[0] + " / part " + stone[1] + " / opaque " + stone[2]);
-        h.assertTrue(cloud[1] == 0 && cloud[0] > 0 && cloud[2] > cloud[0], "cloud block: opaque with clear gaps (glass, cutout), got clear "
+        h.assertTrue(cloud[0] == 0 && cloud[2] == 0 && cloud[1] > 0, "cloud block: only part-transparent pixels (milk glass, translucent), got clear "
                 + cloud[0] + " / part " + cloud[1] + " / opaque " + cloud[2]);
         h.succeed();
     }
