@@ -17,6 +17,6 @@ public final class QolConfigScreen {
    try{cat.addEntry(e.startBooleanToggle(name,f.getBoolean(c)).setDefaultValue(f.getBoolean(defaults)).setTooltip(tip).setSaveConsumer(x->{try{f.setBoolean(c,x);}catch(IllegalAccessException ex){throw new IllegalStateException(ex);}}).build());}
    catch(IllegalAccessException ex){throw new IllegalStateException(ex);}
   }
-  b.setSavingRunnable(()->{c.normalize();me.shedaniel.autoconfig.AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class).setConfig(c);me.shedaniel.autoconfig.AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class).save();Simplequalityoflife.subMods(c);});return b.build();
+  b.setSavingRunnable(()->Simplequalityoflife.saveLocal(c));return b.build();
  }
 }
