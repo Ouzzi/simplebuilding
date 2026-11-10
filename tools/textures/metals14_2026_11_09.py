@@ -244,10 +244,10 @@ def main() -> None:
             print(f'vanilla {v}: hard {hard_share(im) * 100:.1f} %')
         return
     TEX.mkdir(parents=True, exist_ok=True)
-    import pal15_2026_11_09 as pal15   # b-pal15 (owner 09.11., N13a): the chiseled block carries the metal's motif, not the rhombus
+    import pal16_2026_11_10 as pal16   # b-pal16 (owner PAL15 10.11.): symmetric motif per metal (nickel: the rhombus again)
     for metal in METALS:
         for form in FORMS:
-            layers.save(pal15.metal_texture(metal) if form == 'chiseled' else paint(metal, form), TEX / f'{file_name(metal, form)}.png')
+            layers.save(pal16.metal_texture(metal) if form == 'chiseled' else paint(metal, form), TEX / f'{file_name(metal, form)}.png')
     print(f'metals14: {len(METALS) * len(FORMS)} textures + layers written')
 
 
