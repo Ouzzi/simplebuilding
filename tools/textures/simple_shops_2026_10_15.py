@@ -155,6 +155,19 @@ def case_base(trim):
 
 
 def case_frame(trim):
+    """b-texrate20 (N20b): the frame is drawn by texrate20_2026_11_10.case_frame (variant A); the old look below stays as
+    history (case_frame_v1)."""
+    sys.path.insert(0, HERE)
+    import texrate20_2026_11_10 as t20
+    import layers as L
+    t = t20.case_frame(trim)
+    img = Image.frombytes('RGBA', (16, 16), t.rgba())
+    for name, px in t.steps:
+        L.snap(img, name, px)
+    return img
+
+
+def case_frame_v1(trim):
     img = new()
     px = img.load()
     for y in range(16):
@@ -206,13 +219,18 @@ def main():
     import texrate16_rework_2026_11_09 as rw  # A8d rework of the texrate16/17 targets (b-texrate17: frame + base)
     for name, img in outputs().items():
         path = os.path.join(ASSETS, name)
-        img = rw.finish(img, path).convert('RGBA')
+        img = rw.finish(img, path)
+        src = img
+        img = img.convert('RGBA')
         if check:
             if not os.path.exists(path) or Image.open(path).convert('RGBA').tobytes() != img.tobytes():
                 stale.append(path)
             continue
         os.makedirs(os.path.dirname(path), exist_ok=True)
         img.save(path)
+        if 'frame' in name:  # b-texrate20: the new frames carry their layers (A8 b)
+            import layers as L
+            L.write_layers_for(src, path)
     if check:
         if stale:
             raise SystemExit('stale: ' + ', '.join(stale))

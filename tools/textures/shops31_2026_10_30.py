@@ -309,12 +309,24 @@ def hard_share(im):
 
 
 def build_all():
-    return {n: feather(f()) for n, f in TEXTURES.items()}
+    """b-texrate20 (N20b): sales_storage_intake is a new drawing (texrate20_2026_11_10, design A) - its layers replace the
+    shops31 ones here, so --install/--check keep it."""
+    out = {n: feather(f()) for n, f in TEXTURES.items()}
+    import texrate20_2026_11_10 as t20
+    for n in out:
+        t = t20.override(os.path.join(S.TEX, n + '.png'))
+        if t is not None:
+            out[n] = ('t20', t)
+    return out
+
+
+def doc_of(lays):
+    return L.from_steps(16, 16, lays[1].steps) if isinstance(lays, tuple) else S.doc_of(lays)
 
 
 def install():
     for name, lays in build_all().items():
-        doc = S.doc_of(lays)
+        doc = doc_of(lays)
         path = os.path.join(S.TEX, name + '.png')
         with open(path, 'wb') as f:
             f.write(L.png_write(16, 16, bytes(L.compose(doc))))
@@ -327,7 +339,7 @@ def check():
     for name, lays in build_all().items():
         path = os.path.join(S.TEX, name + '.png')
         have = bytes(L.png_read(open(path, 'rb').read())[2]) if os.path.exists(path) else b''
-        if have != bytes(L.compose(S.doc_of(lays))):
+        if have != bytes(L.compose(doc_of(lays))):
             print('veraltet:', name)
             bad += 1
     if not bad:
@@ -337,7 +349,7 @@ def check():
 
 def report():
     for name, lays in build_all().items():
-        print(f'{name:24s} hard steps {hard_share(S.pil_of(lays)) * 100:4.1f} %')
+        print(f'{name:24s} hard steps {hard_share(S.pil_of(lays) if not isinstance(lays, tuple) else __import__('PIL.Image').Image.frombytes('RGBA', (16, 16), lays[1].rgba())) * 100:4.1f} %')
 
 
 if __name__ == '__main__':

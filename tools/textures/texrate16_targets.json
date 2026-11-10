@@ -1,5 +1,5 @@
 {
- "note": "b-texrate16 (09.11.): A8d rework targets; method see texrate16_rework_2026_11_09.py, groups and Vanilla models see texrate16_2026_11_09.py GROUPS | Pads entfernt (Besitzer 09.11.: Pads = Besitzer-Zeichnungen, unverändert lassen).",
+ "note": "b-texrate16 (09.11.): A8d rework targets; method see texrate16_rework_2026_11_09.py, groups and Vanilla models see texrate16_2026_11_09.py GROUPS | Pads entfernt (Besitzer 09.11.: Pads = Besitzer-Zeichnungen, unverändert lassen). | b-texrate20 (10.11.): 49 TEXRATE16-Einwaende raus (47 + die zwei Grund-Vitrinenrahmen), neu gezeichnet in texrate20_2026_11_10.py (DESIGNS).",
  "groups": {
   "Holz-/Lederflaechen (Modell)": "Vanilla barrel/chest/lectern: Holz/Leder/Metall in 2-4-px-Haufen eines Nachbartons, Drift oben/links hell",
   "Kanten-Motive": "Vanilla glowstone/target/crying_obsidian: Funken/Risse duerfen hart sein, aber Extreme gestuft -> hart <= 20 %",
@@ -107,14 +107,6 @@
    "after": "gruen",
    "after_why": ""
   },
-  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/purpur.png": {
-   "group": "Kanten-Motive",
-   "method": "pad",
-   "light": "orange",
-   "why": "groesste Flaeche 20, in Flaechen>=6 60.2",
-   "after": "gruen",
-   "after_why": ""
-  },
   "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/purpur_accent.png": {
    "group": "Kanten-Motive",
    "method": "pad",
@@ -124,14 +116,6 @@
    "after_why": ""
   },
   "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/quartz.png": {
-   "group": "Kanten-Motive",
-   "method": "pad",
-   "light": "orange",
-   "why": "in Flaechen>=6 45.3",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/quartz_accent.png": {
    "group": "Kanten-Motive",
    "method": "pad",
    "light": "orange",
@@ -178,14 +162,6 @@
    "why": "groesste Flaeche 24, in Flaechen>=6 57.4, Hauptton 45.3, Farben 54 (Verlauf?)",
    "after": "orange",
    "after_why": "Farben 54 (Verlauf?)"
-  },
-  "modules/simpleanimals/shared/resources/assets/simpleanimals/textures/item/truffle_soup.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "in Flaechen>=6 77.1",
-   "after": "gruen",
-   "after_why": ""
   },
   "modules/simplebeacons/shared/resources/assets/simplebeacons/textures/block/evil_beacon.png": {
    "group": "Flaechen (allgemein)",
@@ -1283,14 +1259,6 @@
    "after": "orange",
    "after_why": "hart 16.1"
   },
-  "modules/simplelights/shared/resources/assets/simplelights/textures/item/copper_redstone_light_pane.png": {
-   "group": "Licht-Scheiben",
-   "method": "quant",
-   "light": "orange",
-   "why": "hart 21.7, Farben 72 (Verlauf?)",
-   "after": "gruen",
-   "after_why": ""
-  },
   "modules/simplelights/shared/resources/assets/simplelights/textures/item/cyan_copper_light_pane.png": {
    "group": "Licht-Scheiben",
    "method": "quant",
@@ -1464,14 +1432,6 @@
    "method": "quant",
    "light": "rot",
    "why": "groesste Flaeche 52, in Flaechen>=6 42.9, Farben 105 (Verlauf?)",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelights/shared/resources/assets/simplelights/textures/item/redstone_light_pane.png": {
-   "group": "Licht-Scheiben",
-   "method": "quant",
-   "light": "orange",
-   "why": "Farben 199 (Verlauf?)",
    "after": "gruen",
    "after_why": ""
   },
@@ -2130,14 +2090,6 @@
    "after": "gruen",
    "after_why": ""
   },
-  "modules/simpleores/shared/resources/assets/simpleores/textures/block/infernite_block.png": {
-   "group": "Weiche Verlaeufe",
-   "method": "quant",
-   "light": "orange",
-   "why": "groesste Flaeche 29, in Flaechen>=6 44.9, Farben 71 (Verlauf?)",
-   "after": "gruen",
-   "after_why": ""
-  },
   "modules/simpleores/shared/resources/assets/simpleores/textures/block/lead_pillar.png": {
    "group": "Runde 15 (Simple Ores)",
    "method": "r15",
@@ -2201,14 +2153,6 @@
    "why": "b-texrate15",
    "after": "siehe Runde 15"
   },
-  "modules/simpleores/shared/resources/assets/simpleores/textures/block/terranite_block.png": {
-   "group": "Weiche Verlaeufe",
-   "method": "quant",
-   "light": "orange",
-   "why": "groesste Flaeche 27, in Flaechen>=6 40.6, Farben 72 (Verlauf?)",
-   "after": "gruen",
-   "after_why": ""
-  },
   "modules/simpleores/shared/resources/assets/simpleores/textures/block/tin_pillar.png": {
    "group": "Runde 15 (Simple Ores)",
    "method": "r15",
@@ -2229,14 +2173,6 @@
    "light": "rot",
    "why": "b-texrate15",
    "after": "siehe Runde 15"
-  },
-  "modules/simpleores/shared/resources/assets/simpleores/textures/block/zenithite_block.png": {
-   "group": "Weiche Verlaeufe",
-   "method": "quant",
-   "light": "orange",
-   "why": "groesste Flaeche 27, in Flaechen>=6 44.9, Farben 69 (Verlauf?)",
-   "after": "gruen",
-   "after_why": ""
   },
   "modules/simpleores/shared/resources/assets/simpleores/textures/block/zinc_pillar.png": {
    "group": "Runde 15 (Simple Ores)",
@@ -2587,286 +2523,6 @@
    "after": "gruen",
    "after_why": ""
   },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 48.8, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 46.9"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_black.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 45.3"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_blue.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 49.6"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_brown.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 47.7"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_cyan.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 50"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_gray.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 49.2"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_green.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 49.2"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_light_blue.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 48.8"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_light_gray.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 48.8"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_lime.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 47.7"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_magenta.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 48.8"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_orange.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 44.6, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 48"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_pink.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 44.6, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 49.6"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_purple.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 48.8"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_red.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 45.8, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 49.6"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_white.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 48.8, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 47.3"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_frame_yellow.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.7, Hauptton 57.4, hart 48.8, groesste Flaeche 39",
-   "after": "orange",
-   "after_why": "Hauptton 48.8"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, hart 47.5, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 45.3"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_black.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 41.4"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_blue.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4, hart 15",
-   "after": "orange",
-   "after_why": "Hauptton 45.7"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_brown.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 44.9"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_cyan.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 44.9"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_gray.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 44.9"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_green.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 45.3"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_light_blue.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 44.9"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_light_gray.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4, hart 15.4",
-   "after": "orange",
-   "after_why": "Hauptton 44.9"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_lime.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 44.9"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_magenta.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 43.4"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_orange.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, hart 42.7, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 44.1"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_pink.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, hart 42.7, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 43.4"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_purple.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, groesste Flaeche 31, Hauptton 50.4, hart 15",
-   "after": "orange",
-   "after_why": "Hauptton 43"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_red.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, hart 47.1, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 44.1"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_white.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, hart 45.4, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 43.4"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_frame_yellow.png": {
-   "group": "Vitrinen",
-   "method": "stripe",
-   "light": "rot",
-   "why": "in Flaechen>=6 80.5, hart 46.9, groesste Flaeche 31, Hauptton 50.4",
-   "after": "orange",
-   "after_why": "Hauptton 43"
-  },
-  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/sales_storage_intake.png": {
-   "group": "Vitrinen",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 24, hart 15.6, Farben 50 (Verlauf?)",
-   "after": "orange",
-   "after_why": "hart 15.6, Farben 51 (Verlauf?)"
-  },
   "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_back.png": {
    "group": "Holz-/Lederflaechen (Modell)",
    "method": "areas",
@@ -3083,30 +2739,6 @@
    "after": "orange",
    "after_why": "hart 15.4"
   },
-  "modules/simpletweaks/shared/resources/assets/simpletweaks/textures/block/claim_table_bottom.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 77, in Flaechen>=6 90.6, Hauptton 61.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simpletweaks/shared/resources/assets/simpletweaks/textures/block/claim_table_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 93, in Flaechen>=6 90.6, Hauptton 49.2",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simpletweaks/shared/resources/assets/simpletweaks/textures/block/claim_table_top.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 60, in Flaechen>=6 83.2, hart 31.7",
-   "after": "orange",
-   "after_why": "hart 29.6"
-  },
   "src/main/resources/assets/simplebuilding/textures/block/astralit_block.png": {
    "group": "Flaechen (allgemein)",
    "method": "areas",
@@ -3177,14 +2809,6 @@
    "why": "groesste Flaeche 46, hart 16",
    "after": "gruen",
    "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/cracked_astralit_bricks.png": {
-   "group": "Kanten-Motive",
-   "method": "pad",
-   "light": "rot",
-   "why": "hart 30",
-   "after": "orange",
-   "after_why": "hart 19.4"
   },
   "src/main/resources/assets/simplebuilding/textures/block/ender_quartz_block.png": {
    "group": "Flaechen (allgemein)",
@@ -3520,22 +3144,6 @@
    "method": "areas",
    "light": "orange",
    "why": "in Flaechen>=6 67.3",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/item/enderite_bundle.png": {
-   "group": "Weiche Verlaeufe",
-   "method": "quant",
-   "light": "orange",
-   "why": "Farben 55 (Verlauf?)",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/item/enderite_quiver.png": {
-   "group": "Weiche Verlaeufe",
-   "method": "quant",
-   "light": "orange",
-   "why": "Farben 36 (Verlauf?)",
    "after": "gruen",
    "after_why": ""
   },

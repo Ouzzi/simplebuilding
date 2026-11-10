@@ -265,7 +265,12 @@ def rework(img, name, method, rnd=3):
 
 
 def finish(img, path):
-    """Generator hook: the reworked image when path is a target, else img unchanged. Records the layer step."""
+    """Generator hook: the reworked image when path is a target, else img unchanged. Records the layer step.
+    b-texrate20: a TEXRATE20 target (new drawing, texrate20_2026_11_10.DESIGNS) returns its design A instead."""
+    import texrate20_2026_11_10 as t20
+    new = t20.override_img(img, path)
+    if new is not img or t20.override(path) is not None:
+        return new
     method = method_for(path)
     if not method:
         return img
