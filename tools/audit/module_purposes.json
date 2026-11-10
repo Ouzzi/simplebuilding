@@ -48,5 +48,6 @@
   "simpleoptmemory": {"name_de": "Simple Opt Memory", "purpose_de": "Speicher-Optimierungen (Blockzustände, Modelle); Stufe 1 enthält nur Schalter, Config und Mod-Erkennung."},
   "simpleoptserver": {"name_de": "Simple Opt Server", "purpose_de": "Server-Optimierung: Sichtweite folgt der Serverlast (MSPT) in den Grenzen der server.properties; tritt vor ServerCore zurück."},
   "simplestorage": {"name_de": "Simple Storage", "purpose_de": "Pflicht-Sub-Mod von SB: Kisten aller Hölzer, Lager-Werkbank, gestufte/Fallen-Truhen, Shulkerkisten-Stufen, Truhenloren/-boote, Bündel, Köcher, Rucksäcke und die Lager-Verzauberungen (IDs migrieren)."},
-  "simplemusic": {"name_de": "Simple Music", "purpose_de": "Notenblätter mit Text-Notencode (Editor, .txt/.nbs-Import), gepresst auf Rohlinge in der Plattenpresse, hochgeladene Ogg-Platten (Kontingent, OP-Freigabe), Taschen-Jukebox; braucht SimpleLib."}
+  "simplemusic": {"name_de": "Simple Music", "purpose_de": "Notenblätter mit Text-Notencode (Editor, .txt/.nbs-Import), gepresst auf Rohlinge in der Plattenpresse, hochgeladene Ogg-Platten (Kontingent, OP-Freigabe), Taschen-Jukebox; braucht SimpleLib."},
+  "simplevault": {"name_de": "Grundgewölbe", "purpose_de": "Das Grundgewölbe: eine seltene Lücke im Grundgestein der Oberwelt führt in stille Hallen unter dem Grundgestein, rundum von Grundgestein umschlossen; drei Rätsel und der Aufstiegsaltar sind der einzige Weg hinaus."}
 }

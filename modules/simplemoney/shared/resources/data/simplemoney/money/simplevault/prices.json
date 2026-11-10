@@ -1,0 +1,11 @@
+{
+  "module": "simplevault",
+  "derivation": "Simple Vault has only riddle items: the seal parts are bound to their vault and handed out again and again, so they are no trade good.",
+  "excluded": {
+    "simplevault:seal_fragment_light": "Riddle item bound to one vault, handed out again whenever needed - not a trade good.",
+    "simplevault:seal_fragment_sound": "Riddle item bound to one vault, handed out again whenever needed - not a trade good.",
+    "simplevault:seal_fragment_path": "Riddle item bound to one vault, handed out again whenever needed - not a trade good.",
+    "simplevault:guide_book": "Guide book, not a trade good."
+  },
+  "prices": []
+}

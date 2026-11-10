@@ -3712,5 +3712,7 @@
   "text.autoconfig.simplebuilding.option.enableSimpleBuildingtools": "Enable Simple Building Tools",
   "text.autoconfig.simplebuilding.option.enableSimpleBuildingtools.@Tooltip": "Turns the bundled Simple Building Tools module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.option.enableSimpleLayers": "Enable Simple Layers",
-  "text.autoconfig.simplebuilding.option.enableSimpleLayers.@Tooltip": "Turns the bundled Simple Layers module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on."
+  "text.autoconfig.simplebuilding.option.enableSimpleLayers.@Tooltip": "Turns the bundled Simple Layers module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on.",
+  "text.autoconfig.simplebuilding.option.enableSimpleVault": "Enable Simple Vault",
+  "text.autoconfig.simplebuilding.option.enableSimpleVault.@Tooltip": "Turns the bundled Simple Vault module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on."
 }

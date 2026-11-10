@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "simplevault",
+  "version": "${version}",
+  "name": "Simple Vault",
+  "description": "The Bedrock Vault (Grundgewölbe): a rare gap in the Overworld bedrock leads into quiet halls below it, enclosed by bedrock; three riddles and the Ascent Altar are the only way out.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "LicenseRef-SimpleMods-ARR",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplevault.VaultFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplevault.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.4.0"
+  },
+  "icon": "assets/simplevault/icon.png",
+  "suggests": {
+    "simplebuilding": "*"
+  },
+  "mixins": [
+    "simplevault.mixins.json"
+  ]
+}

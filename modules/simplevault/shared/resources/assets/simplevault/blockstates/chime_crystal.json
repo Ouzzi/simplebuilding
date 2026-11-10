@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "tone=0": {
+      "model": "simplevault:block/chime_crystal_0"
+    },
+    "tone=1": {
+      "model": "simplevault:block/chime_crystal_1"
+    },
+    "tone=2": {
+      "model": "simplevault:block/chime_crystal_2"
+    },
+    "tone=3": {
+      "model": "simplevault:block/chime_crystal_3"
+    }
+  }
+}

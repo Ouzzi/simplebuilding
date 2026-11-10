@@ -182,6 +182,25 @@ def challenges_icon():
 
 
 ICONS: dict[str, dict] = {
+    # UNDER21: a stone vault arch around the open violet Vault Gate with its rising motes (Grundgewölbe)
+    "simplevault": icon("Gewölbetor", {"o": "#1c1e22", "S": "#a3abb5", "s": "#747c86", "d": "#4b5159", "G": "#2a1d46", "g": "#5a3f8e", "m": "#c4a8f4"},
+                        [("Kontur", "o"), ("Gewölbe", "Ssd"), ("Tor", "Ggm")],
+                        "................",
+                        ".....oooooo.....",
+                        "....oSSSSSSo....",
+                        "...oSsoooosdo...",
+                        "..oSsoGgGGosdo..",
+                        ".oSsoGGmGGGosdo.",
+                        ".oSsoGGGGgGosdo.",
+                        ".oSsoGgGGGGosdo.",
+                        ".oSsoGGGGmGosdo.",
+                        ".oSsoGGgGGGosdo.",
+                        ".oSsoGGGGGGosdo.",
+                        ".oSsoGmGGGGosdo.",
+                        ".oSsoGgGGGGosdo.",
+                        ".oSsssssssssddo.",
+                        ".oooooooooooooo.",
+                        "................"),
     "simplelayers": icon("Platzhalter-Raute", {"o": "#2a2a30", "F": "#e8e8f0", "f": "#ffffff"},
                          [("Kontur", "o"), ("Fuellung", "Ff")],
                          "................",
@@ -832,6 +851,7 @@ ITEM_MOTIFS = {
     "simplechisels": "iron_chisel", "simplebuildingtools": "copper_building_wand",  # LOOK10 A (placeholder until the owner picks)
 }
 BG = {
+    "simplevault": "#8a9098",
     "simplelayers": "#8a9098",
     "simplechisels": "#8a9098",
     "simplebuildingtools": "#6ec0c8",

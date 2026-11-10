@@ -1,0 +1,10 @@
+{
+  "type": "simplevault:bedrock_vault",
+  "generator": {
+    "type": "simplevault:bedrock_vault",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "simplevault:bedrock_vault"
+    }
+  }
+}

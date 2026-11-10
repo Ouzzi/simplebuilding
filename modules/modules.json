@@ -70,7 +70,8 @@
         "simpleearth",
         "simplechallenges",
         "simpledinos",
-        "simplelayers"
+        "simplelayers",
+        "simplevault"
       ],
       "paths": {
         "root": ".",
@@ -5401,6 +5402,78 @@
       },
       "projects": {
         "fabric": ":modules:simplelayers:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional",
+      "configSwitch": true
+    },
+    {
+      "id": "simplevault",
+      "name": "Simple Vault",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Vault",
+      "description": "The Bedrock Vault (Grundgewoelbe): a rare gap in the Overworld bedrock leads into quiet halls enclosed by bedrock; three riddles and an ascent altar are the only way out.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simplevault/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplevault",
+        "catalogues": [
+          "modules/simplevault/fabric/src/main/java/com/simplebuilding/modules/simplevault/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplevault"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplevaultGameTest",
+            "report": "integration/build/simplevault-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplevaultStandaloneGameTest",
+              "report": "integration/build/standalone/simplevault-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplevault.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplevault/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplevault",
+        "shared": "modules/simplevault/shared",
+        "fabric": "modules/simplevault/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplevault/generated/resources",
+        "lang": "modules/simplevault/shared/resources/assets/simplevault/lang",
+        "wikiManual": "modules/simplevault/wiki/manual.json",
+        "balanceDir": "balance/simplevault"
+      },
+      "projects": {
+        "fabric": ":modules:simplevault:fabric"
       },
       "parent": "simplebuilding",
       "bundle": "optional",
