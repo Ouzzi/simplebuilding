@@ -229,7 +229,7 @@ public final class PlacedBundles {
     /**
      * Schleichen + Rechtsklick mit {@code held} (Haupthand) auf das abgestellte Buendel: so viel wie
      * hineinpasst kommt hinein und wird oben gezeigt. Die Buendel der Mod rechnen wie beim Einsammeln
-     * ({@link ReinforcedBundleItem#tryInsertStackFromWorld}: Stufe, Deep Pockets, Drawer), Vanillas
+     * ({@link ReinforcedBundleItem#insertFromWorld}: Stufe, Deep Pockets, Drawer), Vanillas
      * Buendel wie Vanilla ({@code BundleContents.Mutable#tryInsert}). Liefert die Zahl der
      * hineingelegten Items; {@code held} schrumpft um genau so viele.
      */
@@ -239,10 +239,9 @@ public final class PlacedBundles {
         }
         ItemStack bundle = be.getBundle().copy();
         int before = held.getCount();
-        boolean modBundle = bundle.getItem() instanceof ReinforcedBundleItem;
         if (bundle.getItem() instanceof ReinforcedBundleItem reinforced) {
-            // Spielt selbst Vanillas Einlege-Ton am Spieler.
-            reinforced.tryInsertStackFromWorld(bundle, held, player);
+            // Still: der Einlege-Ton kommt unten fuer alle vom Block (PJ23-2, Player#playSound auf dem Server laesst den Spieler aus).
+            reinforced.insertFromWorld(bundle, held, player);
         } else {
             BundleContents contents = bundle.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
             BundleContents.Mutable mutable = McVersion.bundleMutable(contents);
@@ -254,9 +253,7 @@ public final class PlacedBundles {
         if (inserted > 0) {
             be.setBundle(bundle);
             be.setShownIndex(0);
-            if (!modBundle) {
-                level.playSound(null, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
-            }
+            level.playSound(null, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
         } else {
             level.playSound(null, pos, SoundEvents.BUNDLE_INSERT_FAIL, SoundSource.BLOCKS, 0.8F, 1.0F);
         }

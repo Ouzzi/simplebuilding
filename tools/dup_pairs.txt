@@ -87,7 +87,7 @@ common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java module
 common/src/shared/java/com/simplebuilding/items/custom/NetheritePistonItem.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheritePistonItem.java
 common/src/shared/java/com/simplebuilding/items/custom/OctantItem.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/OctantItem.java
 common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java
-common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: insertFromWorld/3 visualFill/1
+common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: visualFill/1
 common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorItem.java allow: publishFacts/0
 common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java modules/simpleores/shared/java/com/simpleores/item/SageOrbItem.java
 common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java allow: appendHoverText/5
