@@ -14,6 +14,7 @@ public final class OresForge {
     public OresForge(FMLJavaModLoadingContext context) {
         SimpleOres.init(FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
+            event.register(Registries.SOUND_EVENT, r -> com.simpleores.OresSounds.events(r::register));
             event.register(Registries.BLOCK, r -> OresRegistry.blocks(r::register));
             event.register(Registries.ITEM, r -> OresRegistry.items(r::register));
         });

@@ -1,0 +1,81 @@
+{
+  "textures": {
+    "plate": "simpleores:block/lead_block",
+    "particle": "simpleores:block/lead_block"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        8,
+        16
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#plate",
+          "cullface": "down"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#plate"
+        },
+        "north": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#plate",
+          "cullface": "north"
+        },
+        "south": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#plate",
+          "cullface": "south"
+        },
+        "west": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#plate",
+          "cullface": "west"
+        },
+        "east": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#plate",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

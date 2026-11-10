@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "nickel_grate",
+  "key": {
+    "M": "simpleores:nickel_block"
+  },
+  "pattern": [
+    " M ",
+    "M M",
+    " M "
+  ],
+  "result": {
+    "id": "simpleores:nickel_grate",
+    "count": 4
+  }
+}

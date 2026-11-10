@@ -9,7 +9,86 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simpleores:silver_sheet"
+          "name": "simpleores:silver_sheet",
+          "modifier": [
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:silver_sheet",
+                "state": {
+                  "layers": "2"
+                }
+              },
+              "count": 2
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:silver_sheet",
+                "state": {
+                  "layers": "3"
+                }
+              },
+              "count": 3
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:silver_sheet",
+                "state": {
+                  "layers": "4"
+                }
+              },
+              "count": 4
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:silver_sheet",
+                "state": {
+                  "layers": "5"
+                }
+              },
+              "count": 5
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:silver_sheet",
+                "state": {
+                  "layers": "6"
+                }
+              },
+              "count": 6
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:silver_sheet",
+                "state": {
+                  "layers": "7"
+                }
+              },
+              "count": 7
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:silver_sheet",
+                "state": {
+                  "layers": "8"
+                }
+              },
+              "count": 8
+            }
+          ]
         }
       ]
     }

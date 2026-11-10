@@ -9,7 +9,86 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simpleores:lead_plate"
+          "name": "simpleores:lead_plate",
+          "modifier": [
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:lead_plate",
+                "state": {
+                  "layers": "2"
+                }
+              },
+              "count": 2
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:lead_plate",
+                "state": {
+                  "layers": "3"
+                }
+              },
+              "count": 3
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:lead_plate",
+                "state": {
+                  "layers": "4"
+                }
+              },
+              "count": 4
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:lead_plate",
+                "state": {
+                  "layers": "5"
+                }
+              },
+              "count": 5
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:lead_plate",
+                "state": {
+                  "layers": "6"
+                }
+              },
+              "count": 6
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:lead_plate",
+                "state": {
+                  "layers": "7"
+                }
+              },
+              "count": 7
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simpleores:lead_plate",
+                "state": {
+                  "layers": "8"
+                }
+              },
+              "count": 8
+            }
+          ]
         }
       ]
     }

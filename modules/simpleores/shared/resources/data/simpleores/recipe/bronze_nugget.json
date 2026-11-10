@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simpleores:bronze_ingot"
+  ],
+  "result": {
+    "id": "simpleores:bronze_nugget",
+    "count": 9
+  }
+}

@@ -99,7 +99,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 - 4 /* N23: four retired ore blocks */ && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36 - 4, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 - 4 /* N23: four retired ore blocks */ + 16 /* N25: bars and grates */ && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36 - 4 + 16 + 3 /* N25: their items, three nuggets */, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance",
                             "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers"))
                     && OresConfig.leadOre && OresConfig.endLeadOre && OresConfig.zincGeodes && OresConfig.endZincGeodes && OresConfig.nickelOre && OresConfig.tinOre && OresConfig.tinPlacers
@@ -543,6 +543,194 @@ public final class OresTests {
         ALL.put("lead_plate_recipe", h -> {
             var input = CraftingInput.of(3, 1, List.of(stack("lead_ingot"), stack("lead_ingot"), stack("lead_ingot")));
             check(h, craft(h, input).is(item("lead_plate")) && craft(h, input).getCount() == 6, "3 lead ingots in a row -> 6 lead plates");
+            h.succeed();
+        });
+        ALL.put("mix_nuggets", h -> {
+            // N25 (b-metals25, owner 10.11.): brass, bronze and stainless steel have nuggets, 9 <-> 1 like Vanilla, tagged c:nuggets/<metal>.
+            for (String a : OresRegistry.MIXES) {
+                check(h, OresRegistry.ITEMS.containsKey(a + "_nugget") && BuiltInRegistries.ITEM.containsKey(SimpleOres.id(a + "_nugget")), a + " nugget registered");
+                ItemStack nuggets = craft(h, of(stack(a + "_ingot")));
+                check(h, nuggets.is(item(a + "_nugget")) && nuggets.getCount() == 9, a + ": ingot -> 9 nuggets, was " + nuggets);
+                List<ItemStack> nine = new ArrayList<>();
+                for (int k = 0; k < 9; k++) nine.add(stack(a + "_nugget"));
+                ItemStack ingot = craft(h, CraftingInput.of(3, 3, nine));
+                check(h, ingot.is(item(a + "_ingot")) && ingot.getCount() == 1, a + ": 9 nuggets -> ingot, was " + ingot);
+                check(h, stack(a + "_nugget").is(net.minecraft.tags.TagKey.create(Registries.ITEM, Identifier.parse("c:nuggets/" + a))), a + " nugget in c:nuggets/" + a);
+                check(h, List.of(OresRegistry.INGREDIENTS).contains(a + "_nugget"), a + " nugget in the creative list");
+            }
+            h.succeed();
+        });
+        ALL.put("plate_layers", h -> {
+            // N25: lead plates and silver sheets stack 1..8 like snow layers (use on the free side), shape and drops follow the layers,
+            // old plates (no layers value) load as one layer; a lead plate muffles from 0.5 (1 layer) to 1 (8 layers).
+            ServerLevel level = h.getLevel();
+            net.minecraft.server.level.ServerPlayer player = h.makeMockServerPlayerInLevel();
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            BlockPos far = h.absolutePos(new BlockPos(1, 1, 1));
+            player.setPos(far.getX() + 0.5, far.getY(), far.getZ() + 0.5);
+            int column = 0;
+            for (String path : new String[] {"lead_plate", "silver_sheet"}) {
+                LeadPlateBlock block = (LeadPlateBlock) OresRegistry.BLOCKS.get(path);
+                double px = block.layerThickness;
+                check(h, px == (path.equals("lead_plate") ? 2.0 : 1.0), path + " layer thickness " + px);
+                BlockPos at = h.absolutePos(new BlockPos(6 + 3 * column++, 2, 6));
+                level.setBlockAndUpdate(at.below(), Blocks.STONE.defaultBlockState());
+                for (int y = 0; y < 3; y++) level.setBlockAndUpdate(at.above(y), Blocks.AIR.defaultBlockState());
+                ItemStack hand = new ItemStack(item(path), 16);
+                player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, hand);
+                hand.useOn(new net.minecraft.world.item.context.UseOnContext(player, net.minecraft.world.InteractionHand.MAIN_HAND,
+                        new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(at.below()).add(0, 0.5, 0), Direction.UP, at.below(), false)));
+                BlockState s = level.getBlockState(at);
+                check(h, s.is(block) && s.getValue(LeadPlateBlock.FACING) == Direction.UP && s.getValue(LeadPlateBlock.LAYERS) == 1, path + ": first plate lies on the floor, " + s);
+                for (int n = 2; n <= LeadPlateBlock.MAX_LAYERS; n++) {
+                    double top = at.getY() + px * (n - 1) / 16.0;
+                    hand.useOn(new net.minecraft.world.item.context.UseOnContext(player, net.minecraft.world.InteractionHand.MAIN_HAND,
+                            new net.minecraft.world.phys.BlockHitResult(new Vec3(at.getX() + 0.5, top, at.getZ() + 0.5), Direction.UP, at, false)));
+                    s = level.getBlockState(at);
+                    check(h, s.is(block) && s.getValue(LeadPlateBlock.LAYERS) == n, path + ": using a plate on its top makes " + n + " layers, was " + s);
+                    var shape = s.getShape(level, at);
+                    check(h, Math.abs(shape.max(Direction.Axis.Y) - shape.min(Direction.Axis.Y) - Math.min(1.0, px * n / 16.0)) < 1.0E-9 && shape.min(Direction.Axis.Y) == 0.0,
+                            path + ": " + n + " layers are " + px * n + " px high");
+                    check(h, !s.getCollisionShape(level, at).isEmpty() && s.getCollisionShape(level, at).max(Direction.Axis.Y) == shape.max(Direction.Axis.Y), path + ": collision follows the layers");
+                    List<ItemStack> drops = Block.getDrops(s, level, at, null, null, new ItemStack(Items.DIAMOND_PICKAXE));
+                    check(h, drops.size() == 1 && drops.getFirst().is(item(path)) && drops.getFirst().getCount() == n, path + ": " + n + " layers drop " + n + ", was " + drops);
+                }
+                check(h, hand.getCount() == 16 - LeadPlateBlock.MAX_LAYERS, path + ": one plate used per layer, left " + hand.getCount());
+                // a ninth plate does not fit: it goes into the cell above as a new plate
+                double top = at.getY() + Math.min(1.0, px * LeadPlateBlock.MAX_LAYERS / 16.0);
+                hand.useOn(new net.minecraft.world.item.context.UseOnContext(player, net.minecraft.world.InteractionHand.MAIN_HAND,
+                        new net.minecraft.world.phys.BlockHitResult(new Vec3(at.getX() + 0.5, top, at.getZ() + 0.5), Direction.UP, at, false)));
+                check(h, level.getBlockState(at).getValue(LeadPlateBlock.LAYERS) == LeadPlateBlock.MAX_LAYERS && level.getBlockState(at.above()).is(block)
+                        && level.getBlockState(at.above()).getValue(LeadPlateBlock.LAYERS) == 1, path + ": eight is the most, the ninth starts a new plate above");
+                // only the free side stacks: a plate placed against a wall next to a floor plate does not thicken the floor plate
+                BlockPos side = at.east();
+                level.setBlockAndUpdate(side, Blocks.STONE.defaultBlockState());
+                level.setBlockAndUpdate(at, block.defaultBlockState());
+                hand.useOn(new net.minecraft.world.item.context.UseOnContext(player, net.minecraft.world.InteractionHand.MAIN_HAND,
+                        new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(side).add(-0.5, 0, 0), Direction.WEST, side, false)));
+                check(h, level.getBlockState(at).getValue(LeadPlateBlock.LAYERS) == 1 && level.getBlockState(at).getValue(LeadPlateBlock.FACING) == Direction.UP,
+                        path + ": a click on the side of the next block does not stack the floor plate, " + level.getBlockState(at));
+                // every facing grows away from its side
+                for (Direction d : Direction.values()) {
+                    var shape = block.defaultBlockState().setValue(LeadPlateBlock.FACING, d).setValue(LeadPlateBlock.LAYERS, 4).getShape(level, at);
+                    check(h, Math.abs(shape.max(d.getAxis()) - shape.min(d.getAxis()) - px * 4 / 16.0) < 1.0E-9, path + " " + d + ": 4 layers thick");
+                }
+                // old worlds: a palette entry without layers loads as one layer with its facing
+                var tag = net.minecraft.nbt.NbtUtils.writeBlockState(block.defaultBlockState().setValue(LeadPlateBlock.FACING, Direction.NORTH));
+                tag.getCompoundOrEmpty("Properties").remove("layers");
+                BlockState old = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
+                check(h, old != null && old.is(block) && old.getValue(LeadPlateBlock.LAYERS) == 1 && old.getValue(LeadPlateBlock.FACING) == Direction.NORTH,
+                        path + ": an old plate without layers loads as one layer facing north, was " + old + " from " + tag);
+            }
+            BlockState lead = OresRegistry.LEAD_PLATE.defaultBlockState();
+            check(h, Soundproofing.weight(lead) == 0.5F && Soundproofing.weight(lead.setValue(LeadPlateBlock.LAYERS, 8)) == 1.0F
+                    && Soundproofing.weight(lead.setValue(LeadPlateBlock.LAYERS, 4)) > 0.5F && Soundproofing.weight(lead.setValue(LeadPlateBlock.LAYERS, 4)) < 1.0F,
+                    "lead plate muffles 0.5 at one layer, 1 at eight");
+            check(h, Soundproofing.weight(OresRegistry.SILVER_SHEET.defaultBlockState().setValue(LeadPlateBlock.LAYERS, 8)) == 0.0F, "silver does not muffle");
+            h.succeed();
+        });
+        ALL.put("mirror_faces", h -> {
+            // N25: the silver mirror lies on the floor and hangs from the ceiling too (face like the button); old mirrors stay wall mirrors.
+            ServerLevel level = h.getLevel();
+            BlockState mirror = OresRegistry.SILVER_MIRROR.defaultBlockState();
+            var face = SilverMirrorBlock.FACE;
+            check(h, mirror.getValue(face) == net.minecraft.world.level.block.state.properties.AttachFace.WALL, "default is the wall mirror");
+            BlockPos at = h.absolutePos(new BlockPos(9, 2, 9));
+            level.setBlockAndUpdate(at.below(), Blocks.STONE.defaultBlockState());
+            level.setBlockAndUpdate(at, Blocks.AIR.defaultBlockState());
+            level.setBlockAndUpdate(at.above(), Blocks.AIR.defaultBlockState());
+            BlockState floor = mirror.setValue(face, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR).setValue(SilverMirrorBlock.FACING, Direction.EAST);
+            BlockState ceiling = mirror.setValue(face, net.minecraft.world.level.block.state.properties.AttachFace.CEILING);
+            check(h, floor.canSurvive(level, at), "a floor mirror lies on stone");
+            check(h, !ceiling.canSurvive(level, at), "no ceiling: a ceiling mirror cannot hang");
+            var fs = floor.getShape(level, at);
+            check(h, fs.min(Direction.Axis.Y) == 0.0 && Math.abs(fs.max(Direction.Axis.Y) - 1.0 / 16.0) < 1.0E-9 && fs.min(Direction.Axis.X) == 0.0 && fs.max(Direction.Axis.X) == 1.0,
+                    "floor mirror: one pixel on the floor, whole cell wide");
+            var cs = ceiling.getShape(level, at);
+            check(h, cs.max(Direction.Axis.Y) == 1.0 && Math.abs(cs.min(Direction.Axis.Y) - 15.0 / 16.0) < 1.0E-9, "ceiling mirror: one pixel under the ceiling");
+            // placed with the item on the floor's top face
+            net.minecraft.server.level.ServerPlayer player = h.makeMockServerPlayerInLevel();
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            BlockPos far = h.absolutePos(new BlockPos(1, 1, 1));
+            player.setPos(far.getX() + 0.5, far.getY(), far.getZ() + 0.5);
+            player.setXRot(90.0F);   // looking down: the floor comes first like for a button
+            ItemStack hand = new ItemStack(item("silver_mirror"), 4);
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, hand);
+            hand.useOn(new net.minecraft.world.item.context.UseOnContext(player, net.minecraft.world.InteractionHand.MAIN_HAND,
+                    new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(at.below()).add(0, 0.5, 0), Direction.UP, at.below(), false)));
+            BlockState placed = level.getBlockState(at);
+            check(h, placed.is(OresRegistry.SILVER_MIRROR) && placed.getValue(face) == net.minecraft.world.level.block.state.properties.AttachFace.FLOOR, "placed on the floor: " + placed);
+            level.setBlockAndUpdate(at.below(), Blocks.AIR.defaultBlockState());
+            check(h, level.getBlockState(at).isAir(), "the floor mirror falls when its floor goes");
+            // ceiling
+            level.setBlockAndUpdate(at.above(), Blocks.STONE.defaultBlockState());
+            check(h, ceiling.canSurvive(level, at), "a ceiling mirror hangs under stone");
+            // old worlds: a palette entry without face loads as a wall mirror
+            var tag = net.minecraft.nbt.NbtUtils.writeBlockState(mirror.setValue(SilverMirrorBlock.FACING, Direction.WEST));
+            tag.getCompoundOrEmpty("Properties").remove("face");
+            BlockState old = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
+            check(h, old != null && old.is(OresRegistry.SILVER_MIRROR) && old.getValue(face) == net.minecraft.world.level.block.state.properties.AttachFace.WALL
+                    && old.getValue(SilverMirrorBlock.FACING) == Direction.WEST, "an old mirror loads on its wall: " + old);
+            h.succeed();
+        });
+        ALL.put("bars_and_grates", h -> {
+            // N25: bars (like iron bars) and grates (like the copper grate) of the eight building metals: registered, recipes like Vanilla
+            // (6 ingots -> 16 bars, 4 blocks in a diamond -> 4 grates, stonecutter block -> 4), tags, drops, creative list, the metal's sound.
+            ServerLevel level = h.getLevel();
+            List<String> building = List.of(OresRegistry.BUILDING);
+            BlockPos pos = h.absolutePos(new BlockPos(4, 1, 12));
+            check(h, OresRegistry.BARS.length == 8, "eight metals");
+            for (String m : OresRegistry.BARS) {
+                Block bars = OresRegistry.BLOCKS.get(m + "_bars"), grate = OresRegistry.BLOCKS.get(m + "_grate");
+                check(h, bars instanceof net.minecraft.world.level.block.IronBarsBlock && grate instanceof net.minecraft.world.level.block.WaterloggedTransparentBlock, m + ": bars and grate classes");
+                for (String path : new String[] {m + "_bars", m + "_grate"}) {
+                    check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(path)) && BuiltInRegistries.ITEM.containsKey(SimpleOres.id(path)), "registered " + path);
+                    check(h, building.contains(path), path + " in the creative list");
+                    Block b = OresRegistry.BLOCKS.get(path);
+                    check(h, b.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE) && !b.defaultBlockState().is(BlockTags.NEEDS_IRON_TOOL), path + ": pickaxe, no iron tier");
+                    check(h, b.defaultBlockState().getSoundType() == com.simpleores.OresSounds.of(m), path + " sounds like " + m);
+                    level.setBlockAndUpdate(pos, b.defaultBlockState());
+                    List<ItemStack> drops = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.DIAMOND_PICKAXE));
+                    check(h, drops.size() == 1 && drops.getFirst().is(item(path)) && drops.getFirst().getCount() == 1, path + " drops itself: " + drops);
+                    level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                }
+                check(h, bars.defaultBlockState().is(BlockTags.BARS) && stack(m + "_bars").is(net.minecraft.tags.TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("bars"))), m + " bars in the Vanilla bars tags");
+                check(h, grate.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL) && !bars.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL), m + ": grate stone tier like copper, bars any pickaxe");
+                check(h, building.indexOf(m + "_grate") == building.indexOf(m + "_bars") + 1, m + ": grate right behind the bars");
+                ItemStack ingot = stack(m + "_ingot"), blk = stack(m + "_block"), e = ItemStack.EMPTY;
+                ItemStack made = craft(h, CraftingInput.of(3, 2, List.of(ingot, ingot, ingot, ingot, ingot, ingot)));
+                check(h, made.is(item(m + "_bars")) && made.getCount() == 16, m + ": 6 ingots -> 16 bars, was " + made);
+                made = craft(h, of(e, blk, e, blk, e, blk, e, blk, e));
+                check(h, made.is(item(m + "_grate")) && made.getCount() == 4, m + ": 4 blocks in a diamond -> 4 grates, was " + made);
+                SingleRecipeInput in = new SingleRecipeInput(blk);
+                boolean found = false;
+                for (var holder : level.getServer().getRecipeManager().getRecipes()) {
+                    if (!(holder.value() instanceof net.minecraft.world.item.crafting.StonecutterRecipe r) || !r.matches(in, level)) continue;
+                    ItemStack out = r.assemble(in);
+                    found |= out.is(item(m + "_grate")) && out.getCount() == 4;
+                }
+                check(h, found, m + ": stonecutter block -> 4 grates");
+            }
+            h.succeed();
+        });
+        ALL.put("metal_sounds", h -> {
+            // N25 (owner 10.11.: own sounds per metal): one sound type per building metal with its own registered events; every block of a metal uses it.
+            com.simpleores.OresSounds.EVENTS.forEach((path, event) -> check(h, BuiltInRegistries.SOUND_EVENT.containsKey(SimpleOres.id(path))
+                    && BuiltInRegistries.SOUND_EVENT.getValue(SimpleOres.id(path)) == event, "sound event registered: " + path));
+            check(h, com.simpleores.OresSounds.EVENTS.size() == 8 * 5, "8 metals x 5 events");
+            for (String m : com.simpleores.OresSounds.SOUNDS.keySet()) {
+                var type = com.simpleores.OresSounds.of(m);
+                check(h, type.getBreakSound().location().equals(SimpleOres.id("block." + m + ".break")) && type.getStepSound().location().equals(SimpleOres.id("block." + m + ".step"))
+                        && type.getPlaceSound().location().equals(SimpleOres.id("block." + m + ".place")) && type.getHitSound().location().equals(SimpleOres.id("block." + m + ".hit"))
+                        && type.getFallSound().location().equals(SimpleOres.id("block." + m + ".fall")), m + ": own events");
+                check(h, type.getVolume() <= 1.2F, m + ": not loud");
+                check(h, OresRegistry.BLOCKS.get(m + "_block").defaultBlockState().getSoundType() == type, m + " block sounds like " + m);
+                if (List.of(OresRegistry.COSMETIC).contains(m))
+                    for (String path : OresRegistry.family(m)) check(h, OresRegistry.BLOCKS.get(path).defaultBlockState().getSoundType() == type, path + " sounds like " + m);
+            }
+            check(h, OresRegistry.LEAD_SOUND == com.simpleores.OresSounds.of("lead") && OresRegistry.LEAD_PLATE.defaultBlockState().getSoundType() == OresRegistry.LEAD_SOUND, "lead plate sounds like lead");
+            check(h, OresRegistry.SILVER_SHEET.defaultBlockState().getSoundType() == com.simpleores.OresSounds.of("silver")
+                    && OresRegistry.SILVER_MIRROR.defaultBlockState().getSoundType() == com.simpleores.OresSounds.of("silver"), "silver sheet and mirror sound like silver");
             h.succeed();
         });
         ALL.put("lead_worldgen", h -> {

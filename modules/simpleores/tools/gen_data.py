@@ -87,6 +87,7 @@ for m, (en, de, *_r) in METALS.items():
 for m, (en, de, *_r) in MIXES.items():
     BLOCKS[f'{m}_block'] = (f'Block of {en}', f'{de}block')
     ITEMS[f'{m}_ingot'] = (f'{en} Ingot', f'{de}barren')
+    ITEMS[f'{m}_nugget'] = (f'{en} Nugget', f'{de}klumpen')   # N25 (b-metals25, owner 10.11.)
 # N23 (b-ores23, 10.11.): the retired twins are gone from the mod (their ids move to the remaining variant, SimpleOres#registerIdMoves).
 RETIRED = ('deepslate_lead_ore', 'deepslate_zinc_ore', 'deepslate_tin_ore', 'nickel_ore')
 for _r in RETIRED:
@@ -111,6 +112,15 @@ for m, (en, de) in COSMETIC.items():
                               (f'chiseled_{m}', 'cube', (f'Chiseled {en}', f'Gemeißelter {de}block'))):
         BLOCKS[path] = names
         FAMILY[path] = (kind, m)
+# N25 (b-metals25, owner 10.11., docs/ai/PLAN-B-METALS25-2026-11-10.md): bars (like iron bars) and a grate (like the copper grate, no ageing)
+# of every building metal, each with its own pattern (tools/textures/metals25_2026_11_10.py); OresRegistry.BARS.
+BAR_METALS = {'silver': ('Silver', 'Silber'), 'lead': ('Lead', 'Blei'), 'zinc': ('Zinc', 'Zink'), 'nickel': ('Nickel', 'Nickel'), 'tin': ('Tin', 'Zinn'),
+              'brass': ('Brass', 'Messing'), 'bronze': ('Bronze', 'Bronze'), 'stainless_steel': ('Stainless Steel', 'Edelstahl')}
+BARS = [f'{m}_bars' for m in BAR_METALS]
+GRATES = [f'{m}_grate' for m in BAR_METALS]
+for m, (en, de) in BAR_METALS.items():
+    BLOCKS[f'{m}_bars'] = (f'{en} Bars', f'{de}gitter')
+    BLOCKS[f'{m}_grate'] = (f'{en} Grate', f'{de}rost')
 # IG31-58 (a-dims10, 08.11., docs/ai/PLAN-A-DIMS10-2026-11-08.md): the processing chain of the Dimensional Scrap, names set A.
 # dimension prefix -> (scrap, EN/DE prefix, rift metal, metal EN/DE, partner ingot, blast furnace seconds, experience)
 RIFTS = {'': ('dimensional_scrap', ('', ''), 'terranite', ('Terranite', 'Terranit'), 'enderite_ingot', 40, 2.0),
@@ -154,14 +164,17 @@ DIAMOND_NEW = ('netherite_scrap_block', 'enderite_scrap_block')   # like ancient
 
 # ---------------------------------------------------------------- assets
 for path in BLOCKS:
-    if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY:
+    if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY or path in BARS:
         continue
     put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
     put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
     put(ASSETS / f'items/{path}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{path}'}})
 # Silver mirror: a one pixel plate at the south side of the cell (facing north), the texture carries frame and glass; the item is a flat sprite.
-put(ASSETS / 'blockstates/silver_mirror.json', {'variants': {f'facing={d}': {'model': f'{NS}:block/silver_mirror', 'y': y}
-                                                             for d, y in (('north', 0), ('east', 90), ('south', 180), ('west', 270))}})
+# N25: on the floor and the ceiling too, like the button (face=floor|wall|ceiling); the wall model turned down (x 270) or up (x 90).
+MIRROR_Y = (('north', 0), ('east', 90), ('south', 180), ('west', 270))
+put(ASSETS / 'blockstates/silver_mirror.json', {'variants': {
+    f'face={face},facing={d}': {'model': f'{NS}:block/silver_mirror', **({'x': x} if x else {}), **({'y': y} if y else {})}
+    for face, x in (('ceiling', 90), ('floor', 270), ('wall', 0)) for d, y in MIRROR_Y}})
 put(ASSETS / 'models/block/silver_mirror.json', {
     'textures': {'mirror': f'{NS}:block/silver_mirror', 'particle': f'{NS}:block/silver_mirror'},
     'elements': [{'from': [0, 0, 15], 'to': [16, 16, 16],
@@ -173,23 +186,51 @@ put(ASSETS / 'models/item/silver_mirror.json', {'parent': 'minecraft:item/genera
 put(ASSETS / 'items/silver_mirror.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/silver_mirror'}})
 # Lead plate (owner ORES31-BEXTRA): a 2 pixel plate with the lead block texture (no texture of its own), facing = the side it was placed on.
 PLATE_ROT = {'up': (0, 0), 'down': (180, 0), 'north': (90, 0), 'east': (90, 90), 'south': (90, 180), 'west': (90, 270)}
-put(ASSETS / 'blockstates/lead_plate.json', {'variants': {f'facing={d}': {'model': f'{NS}:block/lead_plate', 'x': x, 'y': y} for d, (x, y) in PLATE_ROT.items()}})
-put(ASSETS / 'models/block/lead_plate.json', {
-    'textures': {'plate': f'{NS}:block/lead_block', 'particle': f'{NS}:block/lead_block'},
-    'elements': [{'from': [0, 0, 0], 'to': [16, 2, 16],
-                  'faces': {'down': {'uv': [0, 0, 16, 16], 'texture': '#plate', 'cullface': 'down'}, 'up': {'uv': [0, 0, 16, 16], 'texture': '#plate'},
-                            'north': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'north'}, 'south': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'south'},
-                            'west': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'west'}, 'east': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'east'}}}]})
-put(ASSETS / 'items/lead_plate.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/lead_plate'}})
 # Silver sheet (05.11.): the same placing as the lead plate, one pixel thick, own texture (derived from the silver ingot).
-put(ASSETS / 'blockstates/silver_sheet.json', {'variants': {f'facing={d}': {'model': f'{NS}:block/silver_sheet', 'x': x, 'y': y} for d, (x, y) in PLATE_ROT.items()}})
-put(ASSETS / 'models/block/silver_sheet.json', {
-    'textures': {'sheet': f'{NS}:block/silver_sheet', 'particle': f'{NS}:block/silver_sheet'},
-    'elements': [{'from': [0, 0, 0], 'to': [16, 1, 16],
-                  'faces': {'down': {'uv': [0, 0, 16, 16], 'texture': '#sheet', 'cullface': 'down'}, 'up': {'uv': [0, 0, 16, 16], 'texture': '#sheet'},
-                            'north': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'north'}, 'south': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'south'},
-                            'west': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'west'}, 'east': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'east'}}}]})
-put(ASSETS / 'items/silver_sheet.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/silver_sheet'}})
+# N25 (owner 10.11.): both stack in layers 1..8 like snow (LeadPlateBlock.LAYERS): lead 2 px a layer (8 = a whole block), silver 1 px.
+# Model <plate> is one layer, <plate>_<n> n layers; the item keeps the one-layer model.
+PLATES = {'lead_plate': ('lead_block', 2), 'silver_sheet': ('silver_sheet', 1)}   # block -> (texture, pixels per layer)
+
+
+def plate_model(name, tex, h):
+    full = h >= 16
+    side = {'uv': [0, 16 - h, 16, 16], 'texture': '#plate'}
+    put(ASSETS / f'models/block/{name}.json', {
+        'textures': {'plate': f'{NS}:block/{tex}', 'particle': f'{NS}:block/{tex}'},
+        'elements': [{'from': [0, 0, 0], 'to': [16, h, 16],
+                      'faces': {'down': {'uv': [0, 0, 16, 16], 'texture': '#plate', 'cullface': 'down'},
+                                'up': {'uv': [0, 0, 16, 16], 'texture': '#plate', **({'cullface': 'up'} if full else {})},
+                                **{d: {**side, 'cullface': d} for d in ('north', 'south', 'west', 'east')}}}]})
+
+
+for plate, (tex, px) in PLATES.items():
+    for n in range(1, 9):
+        plate_model(plate if n == 1 else f'{plate}_{n}', tex, px * n)
+    put(ASSETS / f'blockstates/{plate}.json', {'variants': {
+        f'facing={d},layers={n}': {'model': f'{NS}:block/{plate if n == 1 else f"{plate}_{n}"}', **({'x': x} if x else {}), **({'y': y} if y else {})}
+        for d, (x, y) in PLATE_ROT.items() for n in range(1, 9)}})
+    put(ASSETS / f'items/{plate}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{plate}'}})
+
+# N25: bars like the Vanilla iron bars (same templates, multipart), grates like the copper grate (cube, see-through).
+for m in BAR_METALS:
+    bars, tex = f'{m}_bars', f'{NS}:block/{m}_bars'
+    for part in ('post_ends', 'post', 'cap', 'cap_alt', 'side', 'side_alt'):
+        put(ASSETS / f'models/block/{bars}_{part}.json', {'parent': f'minecraft:block/template_bars_{part}', 'textures': {'bars': tex, 'edge': tex}})
+    model = lambda part: f'{NS}:block/{bars}_{part}'
+    none = {'east': 'false', 'north': 'false', 'south': 'false', 'west': 'false'}
+    put(ASSETS / f'blockstates/{bars}.json', {'multipart': [
+        {'apply': {'model': model('post_ends')}},
+        {'apply': {'model': model('post')}, 'when': none},
+        {'apply': {'model': model('cap')}, 'when': {**none, 'north': 'true'}},
+        {'apply': {'model': model('cap'), 'y': 90}, 'when': {**none, 'east': 'true'}},
+        {'apply': {'model': model('cap_alt')}, 'when': {**none, 'south': 'true'}},
+        {'apply': {'model': model('cap_alt'), 'y': 90}, 'when': {**none, 'west': 'true'}},
+        {'apply': {'model': model('side')}, 'when': {'north': 'true'}},
+        {'apply': {'model': model('side'), 'y': 90}, 'when': {'east': 'true'}},
+        {'apply': {'model': model('side_alt')}, 'when': {'south': 'true'}},
+        {'apply': {'model': model('side_alt'), 'y': 90}, 'when': {'west': 'true'}}]})
+    put(ASSETS / f'models/item/{bars}.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': tex}})
+    put(ASSETS / f'items/{bars}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{bars}'}})
 
 
 def stairs_state(name):
@@ -248,6 +289,40 @@ for path in ITEMS:
 for a in ALLOYS:
     put(ASSETS / f'equipment/{a}.json', {'layers': {'humanoid': [{'texture': f'{NS}:{a}'}], 'humanoid_leggings': [{'texture': f'{NS}:{a}'}]}})
 
+# ---------------------------------------------------------------- sounds (N25, owner 10.11.: own sounds per metal, quiet)
+# metal -> {kind: (Vanilla sound folder, file stem, takes, pitch, volume)}; the events are OresSounds' simpleores:block.<metal>.<kind>.
+# Only Vanilla file NAMES are referenced (no Mojang audio in the repository); tin adds its own ElevenLabs "tin cry" takes (CREDITS.md).
+SOUND_SOURCES = {
+    'silver': {'break': ('block/lantern/break', 6, 1.35, 0.8), 'step': ('block/iron/step', 4, 1.4, 0.7), 'place': ('block/lantern/place', 6, 1.3, 0.8)},
+    'lead': {'break': ('block/heavy_core/break', 4, 0.75, 0.9), 'step': ('block/heavy_core/step', 4, 0.8, 0.8), 'place': ('block/heavy_core/break', 4, 0.7, 0.9)},
+    'zinc': {'break': ('block/copper/break', 4, 1.05, 0.8), 'step': ('block/copper/step', 6, 1.05, 0.7), 'place': ('block/copper/break', 4, 1.1, 0.8)},
+    'nickel': {'break': ('block/iron/break', 8, 1.15, 0.8), 'step': ('block/iron/step', 4, 1.15, 0.7), 'place': ('block/iron/break', 8, 1.2, 0.8)},
+    'tin': {'break': ('block/copper_grate/break', 4, 1.25, 0.8), 'step': ('block/copper_grate/step', 6, 1.2, 0.6), 'place': ('block/copper_grate/break', 4, 1.3, 0.8)},
+    'brass': {'break': ('block/copper_bulb/break', 4, 1.1, 0.8), 'step': ('block/copper_bulb/step', 6, 1.1, 0.7), 'place': ('block/copper_bulb/place', 4, 1.1, 0.8)},
+    'bronze': {'break': ('block/vault/break', 4, 0.9, 0.8), 'step': ('block/vault/step', 8, 0.95, 0.7), 'place': ('block/vault/place', 4, 0.9, 0.8)},
+    'stainless_steel': {'break': ('block/netherite/break', 4, 1.25, 0.8), 'step': ('block/netherite/step', 6, 1.3, 0.7), 'place': ('block/netherite/break', 4, 1.3, 0.8)},
+}
+TIN_CRY = [f'{NS}:block/tin/cry1', f'{NS}:block/tin/cry2']   # tools/sounds/eleven_tin_cry.py
+
+
+def takes(stem, n, pitch, volume):
+    return [{'name': f'minecraft:{stem}{i}', 'pitch': pitch, 'volume': volume} for i in range(1, n + 1)]
+
+
+SOUNDS = {}
+for metal, src in SOUND_SOURCES.items():
+    step = takes(*src['step'])
+    hit = takes(src['step'][0], src['step'][1], src['step'][2], round(src['step'][3] * 0.8, 2))   # hits: the step takes, a little quieter
+    events = {'break': takes(*src['break']), 'step': step, 'place': takes(*src['place']), 'hit': hit, 'fall': step}
+    if metal == 'tin':   # the tin cry: about every third break or place crackles
+        for kind in ('break', 'place'):
+            events[kind] = events[kind] + [{'name': c, 'volume': 0.7} for c in TIN_CRY]
+    for kind, sounds in events.items():
+        SOUNDS[f'block.{metal}.{kind}'] = {'sounds': sounds, 'subtitle': f'subtitles.{NS}.block.metal.{kind}'}
+put(ASSETS / 'sounds.json', SOUNDS)
+SUBTITLES = {'break': ('Metal block broken', 'Metallblock abgebaut'), 'step': ('Footsteps', 'Schritte'), 'place': ('Metal block placed', 'Metallblock platziert'),
+             'hit': ('Metal block hit', 'Metallblock getroffen'), 'fall': ('Something falls on metal', 'Etwas fällt auf Metall')}
+
 # ---------------------------------------------------------------- loot tables
 def block_loot(path, pools):
     put(DATA / f'loot_table/blocks/{path}.json', {'type': 'minecraft:block', 'pools': pools, 'random_sequence': f'{NS}:blocks/{path}'})
@@ -280,7 +355,15 @@ for m in METALS:
 ore_drop('nether_rose_gold_ore', 'rose_gold_pressling')   # no raw rose gold exists: the pressing is the stage before the blast furnace
 ore_drop('nether_sage_ore', 'sage_crystal_shard', (1, 3))
 ore_drop('end_sage_ore', 'sage_crystal_shard', (1, 3))
-for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block', 'geode_crust') + tuple(NEW_BLOCKS) + tuple(f'raw_{m}_block' for m in METALS) + tuple(f'{m}_block' for m in list(METALS) + list(MIXES)) + tuple(RIFT_BLOCKS):
+for path in ('sage_crystal_block', 'raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block', 'geode_crust') + tuple(NEW_BLOCKS) + tuple(f'raw_{m}_block' for m in METALS) + tuple(f'{m}_block' for m in list(METALS) + list(MIXES)) + tuple(RIFT_BLOCKS):
+    self_drop(path)
+
+# N25: a stacked plate drops one plate per layer (like snow layers drop their snowballs); bars and grates drop themselves.
+for plate in PLATES:
+    block_loot(plate, [{'rolls': 1, 'condition': {'type': 'minecraft:survives_explosion'}, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{plate}', 'modifier': [
+        {'type': 'minecraft:set_count', 'condition': {'type': 'minecraft:match_block', 'blocks': f'{NS}:{plate}', 'state': {'layers': str(n)}}, 'count': n}
+        for n in range(2, 9)]}]}])
+for path in BARS + GRATES:
     self_drop(path)
 
 for path, (kind, _m) in FAMILY.items():
@@ -428,6 +511,19 @@ for a, (_en, _de, parts, count, trigger) in MIXES.items():
     ingredients = [x if ':' in x else item(x) for x, n in parts for _ in range(n)]
     recipe(f'{a}_ingot', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': ingredients,
                                   'result': result(f'{a}_ingot', count)}, item(trigger))
+    # N25: the alloys' nuggets, 9 <-> 1 like the Vanilla iron nugget
+    recipe(f'{a}_ingot_from_nuggets', 'misc', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{a}_nugget')},
+                                              'pattern': ['###', '###', '###'], 'result': result(f'{a}_ingot')}, item(f'{a}_nugget'))
+    recipe(f'{a}_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item(f'{a}_ingot')],
+                                   'result': result(f'{a}_nugget', 9)}, item(f'{a}_ingot'))
+# N25: bars like the Vanilla copper/iron bars (6 ingots -> 16), the grate like the copper grate (4 blocks in a diamond -> 4, stonecutter 1 -> 4).
+for m in BAR_METALS:
+    recipe(f'{m}_bars', 'misc', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{m}_ingot')}, 'pattern': ['###', '###'],
+                                 'result': result(f'{m}_bars', 16)}, item(f'{m}_ingot'))
+    recipe(f'{m}_grate', 'building_blocks', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'group': f'{m}_grate', 'key': {'M': item(f'{m}_block')},
+                                             'pattern': [' M ', 'M M', ' M '], 'result': result(f'{m}_grate', 4)}, item(f'{m}_block'))
+    recipe(f'{m}_grate_from_{m}_block_stonecutting', 'building_blocks', {'type': 'minecraft:stonecutting', 'ingredient': item(f'{m}_block'),
+                                                                         'result': {'count': 4, 'id': item(f'{m}_grate')}}, item(f'{m}_block'))
 
 # IG31-58: scrap -> rift shard only in the blast furnace (26.3 halves the stored furnace time: 40/60/80 s there); a crucible needs
 # extreme heat (tag below). 9 shards <-> block, 4 shards + 1 partner ingot -> the end material (shapeless), 9 ingots <-> block.
@@ -539,12 +635,17 @@ for a in MIXES:
     for kind in ('block', 'item'):
         tag(f'c/tags/{kind}/storage_blocks/{a}.json', ids([f'{a}_block']))
     tag(f'c/tags/item/ingots/{a}.json', ids([f'{a}_ingot']))
+    tag(f'c/tags/item/nuggets/{a}.json', ids([f'{a}_nugget']))
+# N25: bars join the Vanilla bars tag (zombie villager curing, motion blocking); grates need a stone pickaxe like the copper grate, bars any pickaxe.
+for kind in ('block', 'item'):
+    tag(f'minecraft/tags/{kind}/bars.json', ids(BARS))
 every = list(BLOCKS)
 tag('minecraft/tags/block/mineable/pickaxe.json', ids([b for b in every if b not in SHOVEL] + list(MOVED_BLOCKS)))
 tag('minecraft/tags/block/mineable/shovel.json', ids(list(SHOVEL)))
 STONE_TIER = ['lead_ore', 'raw_lead_block', 'end_lead_ore', 'end_zinc_ore'] + [b for m, v in METALS.items() if v[2] == 'stone'
                                                                    for b in (*ores_of(m), f'raw_{m}_block')]   # like Vanilla iron and copper ore
-tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b not in ('silver_mirror', 'geode_crust') + SHOVEL and b not in DIAMOND_NEW and b not in RIFT_BLOCKS] + SAGE_ORES))
+tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b not in ('silver_mirror', 'geode_crust') + SHOVEL and b not in DIAMOND_NEW and b not in RIFT_BLOCKS
+                                                       and b not in BARS and b not in GRATES] + SAGE_ORES))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
 tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS + RIFT_BLOCKS))
@@ -580,7 +681,7 @@ tag('c/tags/item/nuggets.json', ['#c:nuggets/enderite'])
 tag('c/tags/item/raw_materials.json', ['#c:raw_materials/enderite'])
 for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/storage_blocks.json', ['#c:storage_blocks/enderite'])
-tag('minecraft/tags/block/needs_stone_tool.json', ids(STONE_TIER))
+tag('minecraft/tags/block/needs_stone_tool.json', ids(STONE_TIER + GRATES))
 # Lead keeps the Sculk and the Warden from hearing through it like wool, but is NOT in dampens_vibrations: steps and mining on it stay loud.
 # Whole blocks of lead count 1; the lead octets of Simple Octets (optional, only with that mod) count a whole block too, however little they fill
 # (owner ORES31-BEXTRA, like the wool logic: the cell is what counts). The plate counts half.
@@ -804,6 +905,7 @@ def lang(locale):
     out.update({f'item.{NS}.{p}': n[i] for p, n in MOVED_ITEMS.items()})
     out.update({f'item.{NS}.enderite_upgrade_template.{k}': t[i] for k, t in TEMPLATE_TEXTS.items()})
     out[f'{NS}.testcentre.station'] = 'Simple Ores'
+    out.update({f'subtitles.{NS}.block.metal.{k}': t[i] for k, t in SUBTITLES.items()})
     out[f'itemgroup.{NS}.ores'] = 'Simple Ores'  # QW11: the one tab of the module (ModTabs, collects its items)
     out['tooltip.simpleores.when_eaten'] = ('When eaten:', 'Beim Verzehr:')[i]
     # a-fix09b (JEI24): info pages of OresViewer (SimpleBuilding's jei.simplebuilding.info.* before the split)
@@ -877,11 +979,29 @@ def note_summaries():
         elif p == 'raw_lead_block':
             notes['block:raw_lead_block'] = ('Nine raw lead; craftable both ways. Needs a stone pickaxe.', 'Neun Rohblei; in beide Richtungen herstellbar. Braucht eine Steinspitzhacke.')
         elif p == 'silver_sheet':
-            notes['block:silver_sheet'] = ('A one pixel thin silver sheet that covers a whole side of its cell; it is laid on the side you click (floor, wall, ceiling) like the lead plate. Three silver ingots in a row make 12. Needs an iron pickaxe.',
-                                           'Ein ein Pixel dünnes Silberblech, das eine ganze Seite seiner Zelle bedeckt; es wird wie die Bleiplatte an die angeklickte Seite gelegt (Boden, Wand, Decke). Drei Silberbarren in einer Reihe ergeben 12. Braucht eine Eisenspitzhacke.')
+            notes['block:silver_sheet'] = ('A one pixel thin silver sheet that covers a whole side of its cell; it is laid on the side you click (floor, wall, ceiling) like the lead plate. Using another sheet on its free side stacks it: 1 to 8 layers, one pixel each; breaking it gives back one sheet per layer. Three silver ingots in a row make 12. Needs an iron pickaxe.',
+                                           'Ein ein Pixel dünnes Silberblech, das eine ganze Seite seiner Zelle bedeckt; es wird wie die Bleiplatte an die angeklickte Seite gelegt (Boden, Wand, Decke). Ein weiteres Blech auf die freie Seite gesetzt stapelt es: 1 bis 8 Lagen zu je einem Pixel; abgebaut gibt es ein Blech je Lage zurück. Drei Silberbarren in einer Reihe ergeben 12. Braucht eine Eisenspitzhacke.')
+        elif p == 'lead_plate':
+            notes['block:lead_plate'] = ('A 2 pixel lead plate that lies on the side you click (floor, wall, ceiling), like a carpet that also stands upright. Using another plate on its free side stacks it like snow: 1 to 8 layers, 8 make a whole block; breaking it gives back one plate per layer. Muffles sound like half a block of lead at one layer, up to a whole block at eight. Three lead ingots in a row make 6. Needs an iron pickaxe.',
+                                         'Eine 2 Pixel dicke Bleiplatte, die an der angeklickten Seite liegt (Boden, Wand, Decke), wie ein Teppich, der auch aufrecht steht. Eine weitere Platte auf die freie Seite gesetzt stapelt sie wie Schnee: 1 bis 8 Lagen, 8 ergeben einen ganzen Block; abgebaut gibt sie eine Platte je Lage zurück. Dämmt Schall mit einer Lage wie ein halber Bleiblock, mit acht wie ein ganzer. Drei Bleibarren in einer Reihe ergeben 6. Braucht eine Eisenspitzhacke.')
         elif p == 'silver_mirror':
-            notes['block:silver_mirror'] = ('A wall decoration: a silver frame round a glass pane, one pixel thick, in four directions. Crafted from a glass pane and a silver sheet. No mechanic.',
-                                            'Eine Wanddekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick, in vier Richtungen. Hergestellt aus einer Glasscheibe und einem Silberblech. Keine Mechanik.')
+            notes['block:silver_mirror'] = ('A decoration: a silver frame round a glass pane, one pixel thick. Hangs on a wall or lies on the floor or the ceiling, like a button, and falls off when its support goes. Crafted from a glass pane and a silver sheet. No mechanic.',
+                                            'Eine Dekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick. Hängt an einer Wand oder liegt wie ein Knopf auf dem Boden oder an der Decke und fällt ab, wenn der Halt verschwindet. Hergestellt aus einer Glasscheibe und einem Silberblech. Keine Mechanik.')
+        elif p in BARS:
+            m = p[:-len('_bars')]
+            en, de = BAR_METALS[m]
+            notes[f'block:{p}'] = (f'Bars like iron bars with their own {en.lower()} pattern: they join each other, panes and walls, and let light and view through. Six {en.lower()} ingots in two rows make 16. Any pickaxe.',
+                                   f'Gitter wie Eisengitter mit eigenem {de}muster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs {de}barren in zwei Reihen ergeben 16. Jede Spitzhacke.')
+        elif p in GRATES:
+            m = p[:-len('_grate')]
+            en, de = BAR_METALS[m]
+            notes[f'block:{p}'] = (f'A see-through grate like the copper grate with its own {en.lower()} pattern; it can hold water. Four blocks of {en.lower()} in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe.',
+                                   f'Ein durchsichtiger Rost wie der Kupferrost mit eigenem {de}muster; er kann Wasser halten. Vier {de}blöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke.')
+        elif p in FAMILY:
+            kind, m = FAMILY[p]
+            en, de = COSMETIC[m]
+            notes[f'block:{p}'] = (f'Building block of the {en.lower()} family (like the cut copper family): crafted from the block of {en.lower()} or cut in the stonecutter. Decoration only.',
+                                   f'Baublock der {de}-Familie (wie die Familie des geschnittenen Kupfers): aus dem {de}block hergestellt oder in der Steinsäge geschnitten. Nur Dekoration.')
         elif p == 'nether_rose_gold_ore':
             notes['block:nether_rose_gold_ore'] = ('Hides in Nether gold veins: each gold ore block of a vein below Y 31 (the lava ocean) has a 2 % chance (config roseGoldOreChance) to be this ore instead, and a vein holds at most one. Needs an iron pickaxe. Drops a rose gold pressing (Fortune helps, Silk Touch keeps the ore); the ore itself melts into a rose gold ingot. Angers piglins like gold ore.',
                                                    'Versteckt sich in Nethergold-Adern: jeder Golderzblock einer Ader unterhalb von Y 31 (Lava-Ozean) ist mit 2 % Chance (Config roseGoldOreChance) stattdessen dieses Erz, und eine Ader hat höchstens eines. Braucht eine Eisenspitzhacke. Lässt einen Roségold-Pressling fallen (Glück hilft, Behutsamkeit behält das Erz); das Erz selbst schmilzt zu einem Roségoldbarren. Erzürnt Piglins wie Golderz.')
@@ -958,6 +1078,7 @@ def note_summaries():
                                     (f'{mde}barren: neun ergeben einen Block. ' + {'zinc': '2 Kupfer + 1 Zink ergeben 3 Messing.', 'nickel': '3 Eisen + 1 Nickel ergeben 4 Edelstahl.', 'tin': '3 Kupfer + 1 Zinn ergeben 4 Bronze.'}[m]))
         notes[f'item:{m}_nugget'] = (f'Nine make a {men.lower()} ingot.', f'Neun ergeben einen {mde}barren.')
     for a, (aen, ade, parts, count, _t) in MIXES.items():
+        notes[f'item:{a}_nugget'] = (f'Nine make a {aen.lower()} ingot, an ingot gives nine.', f'Neun ergeben einen {ade}barren, ein Barren gibt neun.')
         notes[f'item:{a}_ingot'] = (f'{aen} ingot: shapeless in the crafting grid, '
                                     + ' + '.join(f'{n} {x.split(":")[-1].replace("_ingot", "").replace("_", " ")}' for x, n in parts) + f' make {count} (nothing is lost). Nine make a block of {aen.lower()}.',
                                     f'{ade}barren: formlos in der Werkbank, '
@@ -1129,10 +1250,36 @@ FEATURES = [
               'Schallplatten und Musikgeräte werden nur mit soundproofRecords gedämpft. Sprach-Chat-Mods und alles, was der Client selbst abspielt, bleiben unberührt. Gedämmt wird von den Blöcken im Tag simpleores:soundproofing (Standard: der Bleiblock). Ausschalten mit soundproofing = false.',
               'Gewichte: ein Bleiblock zählt 1, eine Bleiplatte 0,5 (Tag simpleores:soundproofing_half), zwei Platten hintereinander entsprechen also einem Block. Blei-Octets aus Simple Octets (nur mit dieser Mod) stehen im ersten Tag und zählen einen ganzen Block, egal wie wenig sie von der Zelle füllen; sie halten auch Vibrationen wie Wolle auf.'])),
     feature('silver_mirror', [f'{JAVA}/block/SilverMirrorBlock.java', f'{DATAP}/recipe/silver_mirror.json'],
-            ('Silver mirror', 'A wall decoration of silver and glass.',
-             ['Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration.']),
-            ('Silberspiegel', 'Eine Wanddekoration aus Silber und Glas.',
-             ['Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel hängt in den vier Richtungen an einer Wand, ein Pixel dick, und fällt ab, wenn die Wand verschwindet. Er hat keine Funktion: reine Dekoration.'])),
+            ('Silver mirror', 'A decoration of silver and glass for walls, floors and ceilings.',
+             ['Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror is placed like a button: on a wall in the four directions, or lying on the floor or the ceiling (turned the way you look), one pixel thick, and falls off when its support goes. Mirrors placed before 10.11. stay on their wall. It has no function: pure decoration.']),
+            ('Silberspiegel', 'Eine Dekoration aus Silber und Glas für Wände, Böden und Decken.',
+             ['Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel wird wie ein Knopf gesetzt: an eine Wand in den vier Richtungen oder liegend auf den Boden oder an die Decke (in Blickrichtung gedreht), ein Pixel dick, und fällt ab, wenn der Halt verschwindet. Vor dem 10.11. gesetzte Spiegel bleiben an ihrer Wand. Er hat keine Funktion: reine Dekoration.'])),
+    feature('stacked_plates', [f'{JAVA}/block/LeadPlateBlock.java', f'{JAVA}/block/SilverSheetBlock.java', f'{DATAP}/loot_table/blocks/lead_plate.json'],
+            ('Stacking plates', 'Lead plates and silver sheets stack like snow layers: up to 8 layers in one cell.',
+             ['Use a plate on the free side of a plate of the same kind (floor, wall or ceiling) to add a layer, 1 to 8. A lead layer is 2 pixels (8 make a whole block), a silver layer 1 pixel (8 make half a block) - three ingots give 6 plates or 12 sheets, the same metal per pixel.',
+              'Shape, collision and the outline follow the layers; breaking gives back one plate per layer. A lead plate muffles sound like half a block of lead at one layer and like a whole block at eight.',
+              'Plates placed before 10.11. are one layer. Plates do not turn into slabs or blocks: 8 lead plates are 4 ingots, a block of lead 9.']),
+            ('Platten stapeln', 'Bleiplatten und Silberbleche stapeln sich wie Schneeschichten: bis zu 8 Lagen in einer Zelle.',
+             ['Eine Platte auf die freie Seite einer Platte derselben Art (Boden, Wand oder Decke) gesetzt ergibt eine Lage mehr, 1 bis 8. Eine Bleilage ist 2 Pixel dick (8 ergeben einen ganzen Block), eine Silberlage 1 Pixel (8 ergeben einen halben Block) - drei Barren ergeben 6 Platten oder 12 Bleche, gleich viel Metall je Pixel.',
+              'Form, Kollision und Umriss folgen den Lagen; abgebaut gibt es eine Platte je Lage zurück. Eine Bleiplatte dämmt mit einer Lage wie ein halber Bleiblock und mit acht wie ein ganzer.',
+              'Vor dem 10.11. gesetzte Platten haben eine Lage. Platten werden nicht zu Stufen oder Blöcken: 8 Bleiplatten sind 4 Barren, ein Bleiblock 9.'])),
+    feature('bars_and_grates', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/MetalBarsBlock.java', f'{JAVA}/block/MetalGrateBlock.java', f'{DATAP}/recipe/silver_bars.json',
+                                f'{DATAP}/recipe/silver_grate.json', f'{DATAP}/recipe/silver_grate_from_silver_block_stonecutting.json'],
+            ('Metal bars and grates', 'Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has bars like iron bars and a grate like the copper grate, each with its own pattern.',
+             ['Bars: six ingots in two rows make 16; they join each other, panes and walls like iron bars and count as Vanilla bars. Any pickaxe.',
+              'Grate: four blocks of the metal in a diamond make 4, the stonecutter makes 4 from one block, like the copper grate. See-through, holds water, needs a stone pickaxe. They do not age and need no wax (only copper oxidises).',
+              'Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different.']),
+            ('Metallgitter und -roste', 'Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat ein Gitter wie das Eisengitter und einen Rost wie der Kupferrost, jedes mit eigenem Muster.',
+             ['Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.',
+              'Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).',
+              'Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus.'])),
+    feature('metal_sounds', [f'{JAVA}/OresSounds.java', f'modules/{NS}/shared/resources/assets/{NS}/sounds.json'],
+            ('Metal sounds', 'Every building metal sounds like itself when placed, mined, hit or walked on - quietly.',
+             ['Lead dull and soft (and a little louder: whoever walks on lead is heard), silver bright and ringing, zinc and nickel plain, tin with its crackling "tin cry", brass and bronze warm, stainless steel hard. Every block of a metal (storage block, building family, plate, bars, grate) uses its sound.',
+              'Made from Vanilla sounds at other pitches; the tin cry was generated with ElevenLabs (CREDITS.md).']),
+            ('Metall-Klänge', 'Jedes Baumetall klingt beim Setzen, Abbauen, Schlagen und Betreten nach sich selbst - leise.',
+             ['Blei dumpf und weich (und etwas lauter: wer über Blei geht, wird gehört), Silber hell und klingend, Zink und Nickel schlicht, Zinn mit seinem knisternden „Zinngeschrei“, Messing und Bronze warm, Edelstahl hart. Jeder Block eines Metalls (Speicherblock, Baufamilie, Platte, Gitter, Rost) nutzt seinen Klang.',
+              'Aus Vanilla-Klängen in anderer Tonhöhe; das Zinngeschrei wurde mit ElevenLabs erzeugt (CREDITS.md).'])),
     feature('enderite', [f'{JAVA}/OresRegistry.java', f'{JAVA}/OresLoot.java', f'{DATAP}/recipe/enderite_ingot_from_scrap.json'],
             ('Enderite', 'The tier above netherite (moved here from SimpleLib, IG31-13). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.',
              ['On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.',

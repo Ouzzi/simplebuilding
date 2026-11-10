@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bronze_grate",
+  "key": {
+    "M": "simpleores:bronze_block"
+  },
+  "pattern": [
+    " M ",
+    "M M",
+    " M "
+  ],
+  "result": {
+    "id": "simpleores:bronze_grate",
+    "count": 4
+  }
+}

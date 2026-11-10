@@ -1,32 +1,210 @@
 {
   "variants": {
-    "facing=up": {
-      "model": "simpleores:block/silver_sheet",
-      "x": 0,
-      "y": 0
+    "facing=up,layers=1": {
+      "model": "simpleores:block/silver_sheet"
     },
-    "facing=down": {
-      "model": "simpleores:block/silver_sheet",
-      "x": 180,
-      "y": 0
+    "facing=up,layers=2": {
+      "model": "simpleores:block/silver_sheet_2"
     },
-    "facing=north": {
-      "model": "simpleores:block/silver_sheet",
-      "x": 90,
-      "y": 0
+    "facing=up,layers=3": {
+      "model": "simpleores:block/silver_sheet_3"
     },
-    "facing=east": {
+    "facing=up,layers=4": {
+      "model": "simpleores:block/silver_sheet_4"
+    },
+    "facing=up,layers=5": {
+      "model": "simpleores:block/silver_sheet_5"
+    },
+    "facing=up,layers=6": {
+      "model": "simpleores:block/silver_sheet_6"
+    },
+    "facing=up,layers=7": {
+      "model": "simpleores:block/silver_sheet_7"
+    },
+    "facing=up,layers=8": {
+      "model": "simpleores:block/silver_sheet_8"
+    },
+    "facing=down,layers=1": {
+      "model": "simpleores:block/silver_sheet",
+      "x": 180
+    },
+    "facing=down,layers=2": {
+      "model": "simpleores:block/silver_sheet_2",
+      "x": 180
+    },
+    "facing=down,layers=3": {
+      "model": "simpleores:block/silver_sheet_3",
+      "x": 180
+    },
+    "facing=down,layers=4": {
+      "model": "simpleores:block/silver_sheet_4",
+      "x": 180
+    },
+    "facing=down,layers=5": {
+      "model": "simpleores:block/silver_sheet_5",
+      "x": 180
+    },
+    "facing=down,layers=6": {
+      "model": "simpleores:block/silver_sheet_6",
+      "x": 180
+    },
+    "facing=down,layers=7": {
+      "model": "simpleores:block/silver_sheet_7",
+      "x": 180
+    },
+    "facing=down,layers=8": {
+      "model": "simpleores:block/silver_sheet_8",
+      "x": 180
+    },
+    "facing=north,layers=1": {
+      "model": "simpleores:block/silver_sheet",
+      "x": 90
+    },
+    "facing=north,layers=2": {
+      "model": "simpleores:block/silver_sheet_2",
+      "x": 90
+    },
+    "facing=north,layers=3": {
+      "model": "simpleores:block/silver_sheet_3",
+      "x": 90
+    },
+    "facing=north,layers=4": {
+      "model": "simpleores:block/silver_sheet_4",
+      "x": 90
+    },
+    "facing=north,layers=5": {
+      "model": "simpleores:block/silver_sheet_5",
+      "x": 90
+    },
+    "facing=north,layers=6": {
+      "model": "simpleores:block/silver_sheet_6",
+      "x": 90
+    },
+    "facing=north,layers=7": {
+      "model": "simpleores:block/silver_sheet_7",
+      "x": 90
+    },
+    "facing=north,layers=8": {
+      "model": "simpleores:block/silver_sheet_8",
+      "x": 90
+    },
+    "facing=east,layers=1": {
       "model": "simpleores:block/silver_sheet",
       "x": 90,
       "y": 90
     },
-    "facing=south": {
+    "facing=east,layers=2": {
+      "model": "simpleores:block/silver_sheet_2",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,layers=3": {
+      "model": "simpleores:block/silver_sheet_3",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,layers=4": {
+      "model": "simpleores:block/silver_sheet_4",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,layers=5": {
+      "model": "simpleores:block/silver_sheet_5",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,layers=6": {
+      "model": "simpleores:block/silver_sheet_6",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,layers=7": {
+      "model": "simpleores:block/silver_sheet_7",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,layers=8": {
+      "model": "simpleores:block/silver_sheet_8",
+      "x": 90,
+      "y": 90
+    },
+    "facing=south,layers=1": {
       "model": "simpleores:block/silver_sheet",
       "x": 90,
       "y": 180
     },
-    "facing=west": {
+    "facing=south,layers=2": {
+      "model": "simpleores:block/silver_sheet_2",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,layers=3": {
+      "model": "simpleores:block/silver_sheet_3",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,layers=4": {
+      "model": "simpleores:block/silver_sheet_4",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,layers=5": {
+      "model": "simpleores:block/silver_sheet_5",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,layers=6": {
+      "model": "simpleores:block/silver_sheet_6",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,layers=7": {
+      "model": "simpleores:block/silver_sheet_7",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,layers=8": {
+      "model": "simpleores:block/silver_sheet_8",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west,layers=1": {
       "model": "simpleores:block/silver_sheet",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,layers=2": {
+      "model": "simpleores:block/silver_sheet_2",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,layers=3": {
+      "model": "simpleores:block/silver_sheet_3",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,layers=4": {
+      "model": "simpleores:block/silver_sheet_4",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,layers=5": {
+      "model": "simpleores:block/silver_sheet_5",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,layers=6": {
+      "model": "simpleores:block/silver_sheet_6",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,layers=7": {
+      "model": "simpleores:block/silver_sheet_7",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,layers=8": {
+      "model": "simpleores:block/silver_sheet_8",
       "x": 90,
       "y": 270
     }

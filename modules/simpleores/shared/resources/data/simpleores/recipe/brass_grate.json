@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "brass_grate",
+  "key": {
+    "M": "simpleores:brass_block"
+  },
+  "pattern": [
+    " M ",
+    "M M",
+    " M "
+  ],
+  "result": {
+    "id": "simpleores:brass_grate",
+    "count": 4
+  }
+}

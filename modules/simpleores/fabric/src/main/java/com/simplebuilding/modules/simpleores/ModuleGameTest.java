@@ -212,4 +212,30 @@ public final class ModuleGameTest {
     public void riftBeaconTags(GameTestHelper h) {
         OresTests.ALL.get("rift_beacon_tags").accept(h);
     }
+
+    /** N25 (b-metals25): nuggets of the plain alloys, stacked plates, mirror faces, bars and grates, metal sounds. */
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void mixNuggets(GameTestHelper h) {
+        OresTests.ALL.get("mix_nuggets").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void plateLayers(GameTestHelper h) {
+        OresTests.ALL.get("plate_layers").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void mirrorFaces(GameTestHelper h) {
+        OresTests.ALL.get("mirror_faces").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void barsAndGrates(GameTestHelper h) {
+        OresTests.ALL.get("bars_and_grates").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void metalSounds(GameTestHelper h) {
+        OresTests.ALL.get("metal_sounds").accept(h);
+    }
 }

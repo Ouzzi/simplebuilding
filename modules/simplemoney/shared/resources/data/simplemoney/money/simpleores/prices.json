@@ -25,7 +25,26 @@
     "simpleores:end_rift_shard": "Melted from Dimensional Scrap (IG31-58), found only; Simple Ores sells nothing it does not have to.",
     "simpleores:end_rift_shard_block": "Storage block, crafted from 9 rift shards (IG31-58).",
     "simpleores:zenithite_ingot": "Crafted from 4 rift shards and 1 Infernite ingot (IG31-58); a prestige material, not for sale.",
-    "simpleores:zenithite_block": "Storage block, crafted from 9 Zenithite ingots (IG31-58)."
+    "simpleores:zenithite_block": "Storage block, crafted from 9 Zenithite ingots (IG31-58).",
+    "simpleores:brass_nugget": "Crafted from a brass ingot (N25); Simple Ores sells no metals.",
+    "simpleores:stainless_steel_nugget": "Crafted from a stainless steel ingot (N25); Simple Ores sells no metals.",
+    "simpleores:bronze_nugget": "Crafted from a bronze ingot (N25); Simple Ores sells no metals.",
+    "simpleores:silver_bars": "Crafted from 6 silver ingots (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:silver_grate": "Crafted from silver blocks (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:lead_bars": "Crafted from 6 lead ingots (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:lead_grate": "Crafted from lead blocks (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:zinc_bars": "Crafted from 6 zinc ingots (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:zinc_grate": "Crafted from zinc blocks (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:nickel_bars": "Crafted from 6 nickel ingots (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:nickel_grate": "Crafted from nickel blocks (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:tin_bars": "Crafted from 6 tin ingots (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:tin_grate": "Crafted from tin blocks (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:brass_bars": "Crafted from 6 brass ingots (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:brass_grate": "Crafted from brass blocks (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:bronze_bars": "Crafted from 6 bronze ingots (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:bronze_grate": "Crafted from bronze blocks (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:stainless_steel_bars": "Crafted from 6 stainless steel ingots (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:stainless_steel_grate": "Crafted from stainless steel blocks (N25); a building block, Simple Ores sells nothing for money."
   },
   "prices": [
     {

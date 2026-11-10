@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_bars_cap",
+  "textures": {
+    "bars": "simpleores:block/zinc_bars",
+    "edge": "simpleores:block/zinc_bars"
+  }
+}

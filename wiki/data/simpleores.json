@@ -258,16 +258,94 @@
       ],
       "en": {
         "title": "Silver mirror",
-        "summary": "A wall decoration of silver and glass.",
+        "summary": "A decoration of silver and glass for walls, floors and ceilings.",
         "details": [
-          "Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration."
+          "Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror is placed like a button: on a wall in the four directions, or lying on the floor or the ceiling (turned the way you look), one pixel thick, and falls off when its support goes. Mirrors placed before 10.11. stay on their wall. It has no function: pure decoration."
         ]
       },
       "de": {
         "title": "Silberspiegel",
-        "summary": "Eine Wanddekoration aus Silber und Glas.",
+        "summary": "Eine Dekoration aus Silber und Glas für Wände, Böden und Decken.",
         "details": [
-          "Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel hängt in den vier Richtungen an einer Wand, ein Pixel dick, und fällt ab, wenn die Wand verschwindet. Er hat keine Funktion: reine Dekoration."
+          "Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel wird wie ein Knopf gesetzt: an eine Wand in den vier Richtungen oder liegend auf den Boden oder an die Decke (in Blickrichtung gedreht), ein Pixel dick, und fällt ab, wenn der Halt verschwindet. Vor dem 10.11. gesetzte Spiegel bleiben an ihrer Wand. Er hat keine Funktion: reine Dekoration."
+        ]
+      }
+    },
+    {
+      "id": "stacked_plates",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/LeadPlateBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/block/SilverSheetBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_plate.json"
+      ],
+      "en": {
+        "title": "Stacking plates",
+        "summary": "Lead plates and silver sheets stack like snow layers: up to 8 layers in one cell.",
+        "details": [
+          "Use a plate on the free side of a plate of the same kind (floor, wall or ceiling) to add a layer, 1 to 8. A lead layer is 2 pixels (8 make a whole block), a silver layer 1 pixel (8 make half a block) - three ingots give 6 plates or 12 sheets, the same metal per pixel.",
+          "Shape, collision and the outline follow the layers; breaking gives back one plate per layer. A lead plate muffles sound like half a block of lead at one layer and like a whole block at eight.",
+          "Plates placed before 10.11. are one layer. Plates do not turn into slabs or blocks: 8 lead plates are 4 ingots, a block of lead 9."
+        ]
+      },
+      "de": {
+        "title": "Platten stapeln",
+        "summary": "Bleiplatten und Silberbleche stapeln sich wie Schneeschichten: bis zu 8 Lagen in einer Zelle.",
+        "details": [
+          "Eine Platte auf die freie Seite einer Platte derselben Art (Boden, Wand oder Decke) gesetzt ergibt eine Lage mehr, 1 bis 8. Eine Bleilage ist 2 Pixel dick (8 ergeben einen ganzen Block), eine Silberlage 1 Pixel (8 ergeben einen halben Block) - drei Barren ergeben 6 Platten oder 12 Bleche, gleich viel Metall je Pixel.",
+          "Form, Kollision und Umriss folgen den Lagen; abgebaut gibt es eine Platte je Lage zurück. Eine Bleiplatte dämmt mit einer Lage wie ein halber Bleiblock und mit acht wie ein ganzer.",
+          "Vor dem 10.11. gesetzte Platten haben eine Lage. Platten werden nicht zu Stufen oder Blöcken: 8 Bleiplatten sind 4 Barren, ein Bleiblock 9."
+        ]
+      }
+    },
+    {
+      "id": "bars_and_grates",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalBarsBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalGrateBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_bars.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate_from_silver_block_stonecutting.json"
+      ],
+      "en": {
+        "title": "Metal bars and grates",
+        "summary": "Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has bars like iron bars and a grate like the copper grate, each with its own pattern.",
+        "details": [
+          "Bars: six ingots in two rows make 16; they join each other, panes and walls like iron bars and count as Vanilla bars. Any pickaxe.",
+          "Grate: four blocks of the metal in a diamond make 4, the stonecutter makes 4 from one block, like the copper grate. See-through, holds water, needs a stone pickaxe. They do not age and need no wax (only copper oxidises).",
+          "Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different."
+        ]
+      },
+      "de": {
+        "title": "Metallgitter und -roste",
+        "summary": "Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat ein Gitter wie das Eisengitter und einen Rost wie der Kupferrost, jedes mit eigenem Muster.",
+        "details": [
+          "Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.",
+          "Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).",
+          "Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus."
+        ]
+      }
+    },
+    {
+      "id": "metal_sounds",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresSounds.java",
+        "modules/simpleores/shared/resources/assets/simpleores/sounds.json"
+      ],
+      "en": {
+        "title": "Metal sounds",
+        "summary": "Every building metal sounds like itself when placed, mined, hit or walked on - quietly.",
+        "details": [
+          "Lead dull and soft (and a little louder: whoever walks on lead is heard), silver bright and ringing, zinc and nickel plain, tin with its crackling \"tin cry\", brass and bronze warm, stainless steel hard. Every block of a metal (storage block, building family, plate, bars, grate) uses its sound.",
+          "Made from Vanilla sounds at other pitches; the tin cry was generated with ElevenLabs (CREDITS.md)."
+        ]
+      },
+      "de": {
+        "title": "Metall-Klänge",
+        "summary": "Jedes Baumetall klingt beim Setzen, Abbauen, Schlagen und Betreten nach sich selbst - leise.",
+        "details": [
+          "Blei dumpf und weich (und etwas lauter: wer über Blei geht, wird gehört), Silber hell und klingend, Zink und Nickel schlicht, Zinn mit seinem knisternden „Zinngeschrei“, Messing und Bronze warm, Edelstahl hart. Jeder Block eines Metalls (Speicherblock, Baufamilie, Platte, Gitter, Rost) nutzt seinen Klang.",
+          "Aus Vanilla-Klängen in anderer Tonhöhe; das Zinngeschrei wurde mit ElevenLabs erzeugt (CREDITS.md)."
         ]
       }
     },
@@ -434,6 +512,38 @@
   ],
   "recipes": [
     {
+      "id": "simpleores:brass_bars",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_bars",
+        "count": 16
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_bars.json",
+      "ingredients": [
+        "simpleores:brass_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:brass_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:brass_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -458,6 +568,67 @@
       },
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_grate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "brass_grate",
+      "result": {
+        "id": "simpleores:brass_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_grate.json",
+      "ingredients": [
+        "simpleores:brass_block"
+      ],
+      "pattern": [
+        " M ",
+        "M M",
+        " M "
+      ],
+      "key": {
+        "M": [
+          "simpleores:brass_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_grate_from_brass_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_grate_from_brass_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:brass_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:brass_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
         "materials": [
           {
             "id": "simpleores:brass_ingot",
@@ -527,7 +698,68 @@
         "yield": 9,
         "materials": [
           {
-            "id": "simpleores:brass_block",
+            "id": "simpleores:brass_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:brass_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:brass_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:brass_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_nugget.json",
+      "ingredients": [
+        "simpleores:brass_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:brass_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
             "count": 1
           }
         ]
@@ -682,6 +914,38 @@
       }
     },
     {
+      "id": "simpleores:bronze_bars",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_bars",
+        "count": 16
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_bars.json",
+      "ingredients": [
+        "simpleores:bronze_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:bronze_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:bronze_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -706,6 +970,67 @@
       },
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_grate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "bronze_grate",
+      "result": {
+        "id": "simpleores:bronze_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_grate.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "pattern": [
+        " M ",
+        "M M",
+        " M "
+      ],
+      "key": {
+        "M": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_grate_from_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_grate_from_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
         "materials": [
           {
             "id": "simpleores:bronze_ingot",
@@ -778,7 +1103,68 @@
         "yield": 9,
         "materials": [
           {
-            "id": "simpleores:bronze_block",
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:bronze_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:bronze_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_nugget.json",
+      "ingredients": [
+        "simpleores:bronze_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:bronze_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
             "count": 1
           }
         ]
@@ -3339,6 +3725,38 @@
       }
     },
     {
+      "id": "simpleores:lead_bars",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_bars",
+        "count": 16
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_bars.json",
+      "ingredients": [
+        "simpleores:lead_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:lead_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:lead_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -3363,6 +3781,67 @@
       },
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:lead_grate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "lead_grate",
+      "result": {
+        "id": "simpleores:lead_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_grate.json",
+      "ingredients": [
+        "simpleores:lead_block"
+      ],
+      "pattern": [
+        " M ",
+        "M M",
+        " M "
+      ],
+      "key": {
+        "M": [
+          "simpleores:lead_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:lead_grate_from_lead_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_grate_from_lead_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:lead_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:lead_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
         "materials": [
           {
             "id": "simpleores:lead_ingot",
@@ -3972,6 +4451,38 @@
       }
     },
     {
+      "id": "simpleores:nickel_bars",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_bars",
+        "count": 16
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_bars.json",
+      "ingredients": [
+        "simpleores:nickel_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:nickel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:nickel_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -3996,6 +4507,67 @@
       },
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_grate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "nickel_grate",
+      "result": {
+        "id": "simpleores:nickel_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_grate.json",
+      "ingredients": [
+        "simpleores:nickel_block"
+      ],
+      "pattern": [
+        " M ",
+        "M M",
+        " M "
+      ],
+      "key": {
+        "M": [
+          "simpleores:nickel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_grate_from_nickel_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_grate_from_nickel_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:nickel_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:nickel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
         "materials": [
           {
             "id": "simpleores:nickel_ingot",
@@ -6358,6 +6930,38 @@
       }
     },
     {
+      "id": "simpleores:silver_bars",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_bars",
+        "count": 16
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_bars.json",
+      "ingredients": [
+        "simpleores:silver_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:silver_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:silver_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -6382,6 +6986,67 @@
       },
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:silver_grate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "silver_grate",
+      "result": {
+        "id": "simpleores:silver_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate.json",
+      "ingredients": [
+        "simpleores:silver_block"
+      ],
+      "pattern": [
+        " M ",
+        "M M",
+        " M "
+      ],
+      "key": {
+        "M": [
+          "simpleores:silver_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:silver_grate_from_silver_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate_from_silver_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:silver_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:silver_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
         "materials": [
           {
             "id": "simpleores:silver_ingot",
@@ -6935,6 +7600,38 @@
       }
     },
     {
+      "id": "simpleores:stainless_steel_bars",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_bars",
+        "count": 16
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_bars.json",
+      "ingredients": [
+        "simpleores:stainless_steel_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:stainless_steel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:stainless_steel_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -6959,6 +7656,67 @@
       },
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_grate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "stainless_steel_grate",
+      "result": {
+        "id": "simpleores:stainless_steel_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_grate.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "pattern": [
+        " M ",
+        "M M",
+        " M "
+      ],
+      "key": {
+        "M": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_grate_from_stainless_steel_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_grate_from_stainless_steel_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
         "materials": [
           {
             "id": "simpleores:stainless_steel_ingot",
@@ -7010,6 +7768,39 @@
       }
     },
     {
+      "id": "simpleores:stainless_steel_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:stainless_steel_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:stainless_steel_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:stainless_steel_ingot_from_stainless_steel_block",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -7031,7 +7822,35 @@
         "yield": 9,
         "materials": [
           {
-            "id": "simpleores:stainless_steel_block",
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_nugget.json",
+      "ingredients": [
+        "simpleores:stainless_steel_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:stainless_steel_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
             "count": 1
           }
         ]
@@ -7144,6 +7963,38 @@
       }
     },
     {
+      "id": "simpleores:tin_bars",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_bars",
+        "count": 16
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_bars.json",
+      "ingredients": [
+        "simpleores:tin_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:tin_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:tin_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -7168,6 +8019,67 @@
       },
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_grate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "tin_grate",
+      "result": {
+        "id": "simpleores:tin_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_grate.json",
+      "ingredients": [
+        "simpleores:tin_block"
+      ],
+      "pattern": [
+        " M ",
+        "M M",
+        " M "
+      ],
+      "key": {
+        "M": [
+          "simpleores:tin_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_grate_from_tin_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_grate_from_tin_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:tin_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:tin_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
         "materials": [
           {
             "id": "simpleores:tin_ingot",
@@ -7640,6 +8552,38 @@
       }
     },
     {
+      "id": "simpleores:zinc_bars",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_bars",
+        "count": 16
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_bars.json",
+      "ingredients": [
+        "simpleores:zinc_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zinc_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:zinc_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -7664,6 +8608,67 @@
       },
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_grate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "zinc_grate",
+      "result": {
+        "id": "simpleores:zinc_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_grate.json",
+      "ingredients": [
+        "simpleores:zinc_block"
+      ],
+      "pattern": [
+        " M ",
+        "M M",
+        " M "
+      ],
+      "key": {
+        "M": [
+          "simpleores:zinc_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_grate_from_zinc_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_grate",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_grate_from_zinc_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:zinc_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:zinc_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
         "materials": [
           {
             "id": "simpleores:zinc_ingot",
@@ -8092,6 +9097,24 @@
   ],
   "lootTables": [
     {
+      "id": "simpleores:blocks/brass_bars",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_bars"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_bars.json"
+    },
+    {
       "id": "simpleores:blocks/brass_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -8108,6 +9131,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_block.json"
+    },
+    {
+      "id": "simpleores:blocks/brass_grate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_grate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_grate.json"
     },
     {
       "id": "simpleores:blocks/brass_pillar",
@@ -8146,6 +9187,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_tiles.json"
     },
     {
+      "id": "simpleores:blocks/bronze_bars",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_bars"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_bars.json"
+    },
+    {
       "id": "simpleores:blocks/bronze_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -8162,6 +9221,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_block.json"
+    },
+    {
+      "id": "simpleores:blocks/bronze_grate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_grate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_grate.json"
     },
     {
       "id": "simpleores:blocks/chiseled_brass",
@@ -8825,6 +9902,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/infernite_block.json"
     },
     {
+      "id": "simpleores:blocks/lead_bars",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_bars"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_bars.json"
+    },
+    {
       "id": "simpleores:blocks/lead_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -8841,6 +9936,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_block.json"
+    },
+    {
+      "id": "simpleores:blocks/lead_grate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_grate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_grate.json"
     },
     {
       "id": "simpleores:blocks/lead_ore",
@@ -9000,6 +10113,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/netherite_scrap_block.json"
     },
     {
+      "id": "simpleores:blocks/nickel_bars",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_bars"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_bars.json"
+    },
+    {
       "id": "simpleores:blocks/nickel_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -9016,6 +10147,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_block.json"
+    },
+    {
+      "id": "simpleores:blocks/nickel_grate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_grate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_grate.json"
     },
     {
       "id": "simpleores:blocks/nickel_pillar",
@@ -9287,6 +10436,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/sage_ore.json"
     },
     {
+      "id": "simpleores:blocks/silver_bars",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_bars"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_bars.json"
+    },
+    {
       "id": "simpleores:blocks/silver_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -9303,6 +10470,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_block.json"
+    },
+    {
+      "id": "simpleores:blocks/silver_grate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_grate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_grate.json"
     },
     {
       "id": "simpleores:blocks/silver_mirror",
@@ -9394,6 +10579,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_tiles.json"
     },
     {
+      "id": "simpleores:blocks/stainless_steel_bars",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_bars"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_bars.json"
+    },
+    {
       "id": "simpleores:blocks/stainless_steel_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -9412,6 +10615,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_block.json"
     },
     {
+      "id": "simpleores:blocks/stainless_steel_grate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_grate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_grate.json"
+    },
+    {
       "id": "simpleores:blocks/terranite_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -9428,6 +10649,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/terranite_block.json"
+    },
+    {
+      "id": "simpleores:blocks/tin_bars",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_bars"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_bars.json"
     },
     {
       "id": "simpleores:blocks/tin_bearing_gravel",
@@ -9480,6 +10719,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_block.json"
+    },
+    {
+      "id": "simpleores:blocks/tin_grate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_grate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_grate.json"
     },
     {
       "id": "simpleores:blocks/tin_ore",
@@ -9553,6 +10810,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zenithite_block.json"
     },
     {
+      "id": "simpleores:blocks/zinc_bars",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_bars"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_bars.json"
+    },
+    {
       "id": "simpleores:blocks/zinc_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -9569,6 +10844,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_block.json"
+    },
+    {
+      "id": "simpleores:blocks/zinc_grate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_grate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_grate.json"
     },
     {
       "id": "simpleores:blocks/zinc_ore",
@@ -9907,10 +11200,38 @@
       "texture": "assets/textures/simpleores/item/brass_ingot.png",
       "craftedBy": [
         "simpleores:brass_ingot",
-        "simpleores:brass_ingot_from_brass_block"
+        "simpleores:brass_ingot_from_brass_block",
+        "simpleores:brass_ingot_from_nuggets"
       ],
       "usedIn": [
-        "simpleores:brass_block"
+        "simpleores:brass_bars",
+        "simpleores:brass_block",
+        "simpleores:brass_nugget"
+      ]
+    },
+    {
+      "id": "simpleores:brass_nugget",
+      "name": {
+        "en_us": "Brass Nugget",
+        "de_de": "Messingklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a brass ingot, an ingot gives nine."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Messingbarren, ein Barren gibt neun."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/brass_nugget.png",
+      "craftedBy": [
+        "simpleores:brass_nugget"
+      ],
+      "usedIn": [
+        "simpleores:brass_ingot_from_nuggets"
       ]
     },
     {
@@ -9933,10 +11254,38 @@
       "texture": "assets/textures/simpleores/item/bronze_ingot.png",
       "craftedBy": [
         "simpleores:bronze_ingot",
-        "simpleores:bronze_ingot_from_bronze_block"
+        "simpleores:bronze_ingot_from_bronze_block",
+        "simpleores:bronze_ingot_from_nuggets"
       ],
       "usedIn": [
-        "simpleores:bronze_block"
+        "simpleores:bronze_bars",
+        "simpleores:bronze_block",
+        "simpleores:bronze_nugget"
+      ]
+    },
+    {
+      "id": "simpleores:bronze_nugget",
+      "name": {
+        "en_us": "Bronze Nugget",
+        "de_de": "Bronzeklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a bronze ingot, an ingot gives nine."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Bronzebarren, ein Barren gibt neun."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/bronze_nugget.png",
+      "craftedBy": [
+        "simpleores:bronze_nugget"
+      ],
+      "usedIn": [
+        "simpleores:bronze_ingot_from_nuggets"
       ]
     },
     {
@@ -10129,10 +11478,10 @@
           "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 17 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 17 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleores/item/guide_book.png",
@@ -10220,6 +11569,7 @@
         "simpleores:lead_ingot_from_smelting_raw_lead"
       ],
       "usedIn": [
+        "simpleores:lead_bars",
         "simpleores:lead_block",
         "simpleores:lead_nugget",
         "simpleores:lead_plate"
@@ -10304,6 +11654,7 @@
         "simpleores:nickel_ingot_from_smelting_raw_nickel"
       ],
       "usedIn": [
+        "simpleores:nickel_bars",
         "simpleores:nickel_block",
         "simpleores:nickel_nugget",
         "simpleores:stainless_steel_ingot"
@@ -11317,6 +12668,7 @@
       "usedIn": [
         "simpleores:rose_bronze_pressling_c",
         "simpleores:rose_gold_pressling_a",
+        "simpleores:silver_bars",
         "simpleores:silver_block",
         "simpleores:silver_nugget",
         "simpleores:silver_sheet"
@@ -11367,10 +12719,38 @@
       "texture": "assets/textures/simpleores/item/stainless_steel_ingot.png",
       "craftedBy": [
         "simpleores:stainless_steel_ingot",
+        "simpleores:stainless_steel_ingot_from_nuggets",
         "simpleores:stainless_steel_ingot_from_stainless_steel_block"
       ],
       "usedIn": [
-        "simpleores:stainless_steel_block"
+        "simpleores:stainless_steel_bars",
+        "simpleores:stainless_steel_block",
+        "simpleores:stainless_steel_nugget"
+      ]
+    },
+    {
+      "id": "simpleores:stainless_steel_nugget",
+      "name": {
+        "en_us": "Stainless Steel Nugget",
+        "de_de": "Edelstahlklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a stainless steel ingot, an ingot gives nine."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Edelstahlbarren, ein Barren gibt neun."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/stainless_steel_nugget.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_nugget"
+      ],
+      "usedIn": [
+        "simpleores:stainless_steel_ingot_from_nuggets"
       ]
     },
     {
@@ -11428,6 +12808,7 @@
       ],
       "usedIn": [
         "simpleores:bronze_ingot",
+        "simpleores:tin_bars",
         "simpleores:tin_block",
         "simpleores:tin_nugget"
       ]
@@ -11513,6 +12894,7 @@
       ],
       "usedIn": [
         "simpleores:brass_ingot",
+        "simpleores:zinc_bars",
         "simpleores:zinc_block",
         "simpleores:zinc_nugget"
       ]
@@ -11545,6 +12927,29 @@
   ],
   "blocks": [
     {
+      "id": "simpleores:brass_bars",
+      "name": {
+        "en_us": "Brass Bars",
+        "de_de": "Messinggitter"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Bars like iron bars with their own brass pattern: they join each other, panes and walls, and let light and view through. Six brass ingots in two rows make 16. Any pickaxe."
+        },
+        "de": {
+          "summary": "Gitter wie Eisengitter mit eigenem Messingmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Messingbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/brass_bars.png",
+      "craftedBy": [
+        "simpleores:brass_bars"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:brass_block",
       "name": {
         "en_us": "Block of Brass",
@@ -11566,6 +12971,8 @@
         "simpleores:brass_block"
       ],
       "usedIn": [
+        "simpleores:brass_grate",
+        "simpleores:brass_grate_from_brass_block_stonecutting",
         "simpleores:brass_ingot_from_brass_block",
         "simpleores:brass_pillar",
         "simpleores:brass_pillar_from_brass_block_stonecutting",
@@ -11578,6 +12985,30 @@
       ]
     },
     {
+      "id": "simpleores:brass_grate",
+      "name": {
+        "en_us": "Brass Grate",
+        "de_de": "Messingrost"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A see-through grate like the copper grate with its own brass pattern; it can hold water. Four blocks of brass in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Messingmuster; er kann Wasser halten. Vier Messingblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/brass_grate.png",
+      "craftedBy": [
+        "simpleores:brass_grate",
+        "simpleores:brass_grate_from_brass_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:brass_pillar",
       "name": {
         "en_us": "Brass Pillar",
@@ -11588,10 +13019,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Brass Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Messingsäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/brass_pillar.png",
@@ -11612,10 +13043,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Brass Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Messingfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/brass_tiles.png",
@@ -11623,6 +13054,29 @@
         "simpleores:brass_tiles",
         "simpleores:brass_tiles_from_brass_block_stonecutting",
         "simpleores:brass_tiles_from_cut_brass_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:bronze_bars",
+      "name": {
+        "en_us": "Bronze Bars",
+        "de_de": "Bronzegitter"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Bars like iron bars with their own bronze pattern: they join each other, panes and walls, and let light and view through. Six bronze ingots in two rows make 16. Any pickaxe."
+        },
+        "de": {
+          "summary": "Gitter wie Eisengitter mit eigenem Bronzemuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Bronzebarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_bars.png",
+      "craftedBy": [
+        "simpleores:bronze_bars"
       ],
       "usedIn": []
     },
@@ -11648,8 +13102,34 @@
         "simpleores:bronze_block"
       ],
       "usedIn": [
+        "simpleores:bronze_grate",
+        "simpleores:bronze_grate_from_bronze_block_stonecutting",
         "simpleores:bronze_ingot_from_bronze_block"
       ]
+    },
+    {
+      "id": "simpleores:bronze_grate",
+      "name": {
+        "en_us": "Bronze Grate",
+        "de_de": "Bronzerost"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A see-through grate like the copper grate with its own bronze pattern; it can hold water. Four blocks of bronze in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Bronzemuster; er kann Wasser halten. Vier Bronzeblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_grate.png",
+      "craftedBy": [
+        "simpleores:bronze_grate",
+        "simpleores:bronze_grate_from_bronze_block_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:chiseled_brass",
@@ -11662,10 +13142,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Chiseled Brass: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Gemeißelter Messingblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/chiseled_brass.png",
@@ -11687,10 +13167,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Chiseled Lead: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Gemeißelter Bleiblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/chiseled_lead.png",
@@ -11712,10 +13192,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Chiseled Nickel: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Gemeißelter Nickelblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/chiseled_nickel.png",
@@ -11737,10 +13217,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Chiseled Silver: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Gemeißelter Silberblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/chiseled_silver.png",
@@ -11762,10 +13242,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Chiseled Tin: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Gemeißelter Zinnblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/chiseled_tin.png",
@@ -11787,10 +13267,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Chiseled Zinc: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Gemeißelter Zinkblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/chiseled_zinc.png",
@@ -11812,10 +13292,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Brass: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittener Messingblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/cut_brass.png",
@@ -11844,10 +13324,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Brass Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Messingstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -11870,10 +13350,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Brass Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Messingtreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -11894,10 +13374,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Lead: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittener Bleiblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/cut_lead.png",
@@ -11926,10 +13406,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Lead Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Bleistufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -11952,10 +13432,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Lead Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Bleitreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -11976,10 +13456,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Nickel: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittener Nickelblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/cut_nickel.png",
@@ -12008,10 +13488,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Nickel Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Nickelstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -12034,10 +13514,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Nickel Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Nickeltreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -12058,10 +13538,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Silver: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittener Silberblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/cut_silver.png",
@@ -12090,10 +13570,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Silver Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Silberstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -12116,10 +13596,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Silver Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Silbertreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -12140,10 +13620,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Tin: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittener Zinnblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/cut_tin.png",
@@ -12172,10 +13652,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Tin Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Zinnstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -12198,10 +13678,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Tin Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Zinntreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -12222,10 +13702,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Zinc: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittener Zinkblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/cut_zinc.png",
@@ -12254,10 +13734,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Zinc Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Zinkstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -12280,10 +13760,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Cut Zinc Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Geschnittene Zinktreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "craftedBy": [
@@ -12621,6 +14101,29 @@
       ]
     },
     {
+      "id": "simpleores:lead_bars",
+      "name": {
+        "en_us": "Lead Bars",
+        "de_de": "Bleigitter"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Bars like iron bars with their own lead pattern: they join each other, panes and walls, and let light and view through. Six lead ingots in two rows make 16. Any pickaxe."
+        },
+        "de": {
+          "summary": "Gitter wie Eisengitter mit eigenem Bleimuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Bleibarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/lead_bars.png",
+      "craftedBy": [
+        "simpleores:lead_bars"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:lead_block",
       "name": {
         "en_us": "Block of Lead",
@@ -12647,11 +14150,37 @@
         "simpleores:cut_lead_from_lead_block_stonecutting",
         "simpleores:cut_lead_slab_from_lead_block_stonecutting",
         "simpleores:cut_lead_stairs_from_lead_block_stonecutting",
+        "simpleores:lead_grate",
+        "simpleores:lead_grate_from_lead_block_stonecutting",
         "simpleores:lead_ingot_from_lead_block",
         "simpleores:lead_pillar",
         "simpleores:lead_pillar_from_lead_block_stonecutting",
         "simpleores:lead_tiles_from_lead_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:lead_grate",
+      "name": {
+        "en_us": "Lead Grate",
+        "de_de": "Bleirost"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A see-through grate like the copper grate with its own lead pattern; it can hold water. Four blocks of lead in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Bleimuster; er kann Wasser halten. Vier Bleiblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/lead_grate.png",
+      "craftedBy": [
+        "simpleores:lead_grate",
+        "simpleores:lead_grate_from_lead_block_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:lead_ore",
@@ -12688,10 +14217,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Lead Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Bleisäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/lead_pillar.png",
@@ -12712,10 +14241,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Lead Plate: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "A 2 pixel lead plate that lies on the side you click (floor, wall, ceiling), like a carpet that also stands upright. Using another plate on its free side stacks it like snow: 1 to 8 layers, 8 make a whole block; breaking it gives back one plate per layer. Muffles sound like half a block of lead at one layer, up to a whole block at eight. Three lead ingots in a row make 6. Needs an iron pickaxe."
         },
         "de": {
-          "summary": "Bleiplatte: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Eine 2 Pixel dicke Bleiplatte, die an der angeklickten Seite liegt (Boden, Wand, Decke), wie ein Teppich, der auch aufrecht steht. Eine weitere Platte auf die freie Seite gesetzt stapelt sie wie Schnee: 1 bis 8 Lagen, 8 ergeben einen ganzen Block; abgebaut gibt sie eine Platte je Lage zurück. Dämmt Schall mit einer Lage wie ein halber Bleiblock, mit acht wie ein ganzer. Drei Bleibarren in einer Reihe ergeben 6. Braucht eine Eisenspitzhacke."
         }
       },
       "craftedBy": [
@@ -12734,10 +14263,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Lead Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Bleifliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/lead_tiles.png",
@@ -12866,6 +14395,29 @@
       ]
     },
     {
+      "id": "simpleores:nickel_bars",
+      "name": {
+        "en_us": "Nickel Bars",
+        "de_de": "Nickelgitter"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Bars like iron bars with their own nickel pattern: they join each other, panes and walls, and let light and view through. Six nickel ingots in two rows make 16. Any pickaxe."
+        },
+        "de": {
+          "summary": "Gitter wie Eisengitter mit eigenem Nickelmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Nickelbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/nickel_bars.png",
+      "craftedBy": [
+        "simpleores:nickel_bars"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:nickel_block",
       "name": {
         "en_us": "Block of Nickel",
@@ -12892,11 +14444,37 @@
         "simpleores:cut_nickel_from_nickel_block_stonecutting",
         "simpleores:cut_nickel_slab_from_nickel_block_stonecutting",
         "simpleores:cut_nickel_stairs_from_nickel_block_stonecutting",
+        "simpleores:nickel_grate",
+        "simpleores:nickel_grate_from_nickel_block_stonecutting",
         "simpleores:nickel_ingot_from_nickel_block",
         "simpleores:nickel_pillar",
         "simpleores:nickel_pillar_from_nickel_block_stonecutting",
         "simpleores:nickel_tiles_from_nickel_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:nickel_grate",
+      "name": {
+        "en_us": "Nickel Grate",
+        "de_de": "Nickelrost"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A see-through grate like the copper grate with its own nickel pattern; it can hold water. Four blocks of nickel in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Nickelmuster; er kann Wasser halten. Vier Nickelblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/nickel_grate.png",
+      "craftedBy": [
+        "simpleores:nickel_grate",
+        "simpleores:nickel_grate_from_nickel_block_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:nickel_pillar",
@@ -12909,10 +14487,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Nickel Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Nickelsäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/nickel_pillar.png",
@@ -12933,10 +14511,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Nickel Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Nickelfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/nickel_tiles.png",
@@ -13271,6 +14849,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:silver_bars",
+      "name": {
+        "en_us": "Silver Bars",
+        "de_de": "Silbergitter"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Bars like iron bars with their own silver pattern: they join each other, panes and walls, and let light and view through. Six silver ingots in two rows make 16. Any pickaxe."
+        },
+        "de": {
+          "summary": "Gitter wie Eisengitter mit eigenem Silbermuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Silberbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/silver_bars.png",
+      "craftedBy": [
+        "simpleores:silver_bars"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:silver_block",
       "name": {
         "en_us": "Block of Silver",
@@ -13297,11 +14898,37 @@
         "simpleores:cut_silver_from_silver_block_stonecutting",
         "simpleores:cut_silver_slab_from_silver_block_stonecutting",
         "simpleores:cut_silver_stairs_from_silver_block_stonecutting",
+        "simpleores:silver_grate",
+        "simpleores:silver_grate_from_silver_block_stonecutting",
         "simpleores:silver_ingot_from_silver_block",
         "simpleores:silver_pillar",
         "simpleores:silver_pillar_from_silver_block_stonecutting",
         "simpleores:silver_tiles_from_silver_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:silver_grate",
+      "name": {
+        "en_us": "Silver Grate",
+        "de_de": "Silberrost"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A see-through grate like the copper grate with its own silver pattern; it can hold water. Four blocks of silver in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Silbermuster; er kann Wasser halten. Vier Silberblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/silver_grate.png",
+      "craftedBy": [
+        "simpleores:silver_grate",
+        "simpleores:silver_grate_from_silver_block_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:silver_mirror",
@@ -13314,10 +14941,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "A wall decoration: a silver frame round a glass pane, one pixel thick, in four directions. Crafted from a glass pane and a silver sheet. No mechanic."
+          "summary": "A decoration: a silver frame round a glass pane, one pixel thick. Hangs on a wall or lies on the floor or the ceiling, like a button, and falls off when its support goes. Crafted from a glass pane and a silver sheet. No mechanic."
         },
         "de": {
-          "summary": "Eine Wanddekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick, in vier Richtungen. Hergestellt aus einer Glasscheibe und einem Silberblech. Keine Mechanik."
+          "summary": "Eine Dekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick. Hängt an einer Wand oder liegt wie ein Knopf auf dem Boden oder an der Decke und fällt ab, wenn der Halt verschwindet. Hergestellt aus einer Glasscheibe und einem Silberblech. Keine Mechanik."
         }
       },
       "texture": "assets/textures/simpleores/block/silver_mirror.png",
@@ -13361,10 +14988,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Silver Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Silbersäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/silver_pillar.png",
@@ -13385,10 +15012,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "A one pixel thin silver sheet that covers a whole side of its cell; it is laid on the side you click (floor, wall, ceiling) like the lead plate. Three silver ingots in a row make 12. Needs an iron pickaxe."
+          "summary": "A one pixel thin silver sheet that covers a whole side of its cell; it is laid on the side you click (floor, wall, ceiling) like the lead plate. Using another sheet on its free side stacks it: 1 to 8 layers, one pixel each; breaking it gives back one sheet per layer. Three silver ingots in a row make 12. Needs an iron pickaxe."
         },
         "de": {
-          "summary": "Ein ein Pixel dünnes Silberblech, das eine ganze Seite seiner Zelle bedeckt; es wird wie die Bleiplatte an die angeklickte Seite gelegt (Boden, Wand, Decke). Drei Silberbarren in einer Reihe ergeben 12. Braucht eine Eisenspitzhacke."
+          "summary": "Ein ein Pixel dünnes Silberblech, das eine ganze Seite seiner Zelle bedeckt; es wird wie die Bleiplatte an die angeklickte Seite gelegt (Boden, Wand, Decke). Ein weiteres Blech auf die freie Seite gesetzt stapelt es: 1 bis 8 Lagen zu je einem Pixel; abgebaut gibt es ein Blech je Lage zurück. Drei Silberbarren in einer Reihe ergeben 12. Braucht eine Eisenspitzhacke."
         }
       },
       "texture": "assets/textures/simpleores/block/silver_sheet.png",
@@ -13410,10 +15037,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Silver Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Silberfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/silver_tiles.png",
@@ -13421,6 +15048,29 @@
         "simpleores:silver_tiles",
         "simpleores:silver_tiles_from_cut_silver_stonecutting",
         "simpleores:silver_tiles_from_silver_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:stainless_steel_bars",
+      "name": {
+        "en_us": "Stainless Steel Bars",
+        "de_de": "Edelstahlgitter"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Bars like iron bars with their own stainless steel pattern: they join each other, panes and walls, and let light and view through. Six stainless steel ingots in two rows make 16. Any pickaxe."
+        },
+        "de": {
+          "summary": "Gitter wie Eisengitter mit eigenem Edelstahlmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Edelstahlbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_bars.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_bars"
       ],
       "usedIn": []
     },
@@ -13446,8 +15096,34 @@
         "simpleores:stainless_steel_block"
       ],
       "usedIn": [
+        "simpleores:stainless_steel_grate",
+        "simpleores:stainless_steel_grate_from_stainless_steel_block_stonecutting",
         "simpleores:stainless_steel_ingot_from_stainless_steel_block"
       ]
+    },
+    {
+      "id": "simpleores:stainless_steel_grate",
+      "name": {
+        "en_us": "Stainless Steel Grate",
+        "de_de": "Edelstahlrost"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A see-through grate like the copper grate with its own stainless steel pattern; it can hold water. Four blocks of stainless steel in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Edelstahlmuster; er kann Wasser halten. Vier Edelstahlblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_grate.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_grate",
+        "simpleores:stainless_steel_grate_from_stainless_steel_block_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:terranite_block",
@@ -13473,6 +15149,29 @@
       "usedIn": [
         "simpleores:terranite_ingot_from_terranite_block"
       ]
+    },
+    {
+      "id": "simpleores:tin_bars",
+      "name": {
+        "en_us": "Tin Bars",
+        "de_de": "Zinngitter"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Bars like iron bars with their own tin pattern: they join each other, panes and walls, and let light and view through. Six tin ingots in two rows make 16. Any pickaxe."
+        },
+        "de": {
+          "summary": "Gitter wie Eisengitter mit eigenem Zinnmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Zinnbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/tin_bars.png",
+      "craftedBy": [
+        "simpleores:tin_bars"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:tin_bearing_gravel",
@@ -13543,11 +15242,37 @@
         "simpleores:cut_tin_from_tin_block_stonecutting",
         "simpleores:cut_tin_slab_from_tin_block_stonecutting",
         "simpleores:cut_tin_stairs_from_tin_block_stonecutting",
+        "simpleores:tin_grate",
+        "simpleores:tin_grate_from_tin_block_stonecutting",
         "simpleores:tin_ingot_from_tin_block",
         "simpleores:tin_pillar",
         "simpleores:tin_pillar_from_tin_block_stonecutting",
         "simpleores:tin_tiles_from_tin_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:tin_grate",
+      "name": {
+        "en_us": "Tin Grate",
+        "de_de": "Zinnrost"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A see-through grate like the copper grate with its own tin pattern; it can hold water. Four blocks of tin in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Zinnmuster; er kann Wasser halten. Vier Zinnblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/tin_grate.png",
+      "craftedBy": [
+        "simpleores:tin_grate",
+        "simpleores:tin_grate_from_tin_block_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:tin_ore",
@@ -13584,10 +15309,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Tin Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Zinnsäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/tin_pillar.png",
@@ -13608,10 +15333,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Tin Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Zinnfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/tin_tiles.png",
@@ -13648,6 +15373,29 @@
       ]
     },
     {
+      "id": "simpleores:zinc_bars",
+      "name": {
+        "en_us": "Zinc Bars",
+        "de_de": "Zinkgitter"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Bars like iron bars with their own zinc pattern: they join each other, panes and walls, and let light and view through. Six zinc ingots in two rows make 16. Any pickaxe."
+        },
+        "de": {
+          "summary": "Gitter wie Eisengitter mit eigenem Zinkmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Zinkbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/zinc_bars.png",
+      "craftedBy": [
+        "simpleores:zinc_bars"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:zinc_block",
       "name": {
         "en_us": "Block of Zinc",
@@ -13674,11 +15422,37 @@
         "simpleores:cut_zinc_from_zinc_block_stonecutting",
         "simpleores:cut_zinc_slab_from_zinc_block_stonecutting",
         "simpleores:cut_zinc_stairs_from_zinc_block_stonecutting",
+        "simpleores:zinc_grate",
+        "simpleores:zinc_grate_from_zinc_block_stonecutting",
         "simpleores:zinc_ingot_from_zinc_block",
         "simpleores:zinc_pillar",
         "simpleores:zinc_pillar_from_zinc_block_stonecutting",
         "simpleores:zinc_tiles_from_zinc_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:zinc_grate",
+      "name": {
+        "en_us": "Zinc Grate",
+        "de_de": "Zinkrost"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A see-through grate like the copper grate with its own zinc pattern; it can hold water. Four blocks of zinc in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Zinkmuster; er kann Wasser halten. Vier Zinkblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/zinc_grate.png",
+      "craftedBy": [
+        "simpleores:zinc_grate",
+        "simpleores:zinc_grate_from_zinc_block_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:zinc_ore",
@@ -13715,10 +15489,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Zinc Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Zinksäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/zinc_pillar.png",
@@ -13739,10 +15513,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Zinc Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+          "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
         },
         "de": {
-          "summary": "Zinkfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+          "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
         }
       },
       "texture": "assets/textures/simpleores/block/zinc_tiles.png",
@@ -13768,14 +15542,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 15,
-    "recipes": 243,
-    "lootTables": 87,
+    "features": 18,
+    "recipes": 273,
+    "lootTables": 103,
     "tags": 11,
     "advancements": 1,
     "enchantments": 0,
-    "items": 64,
-    "blocks": 87,
+    "items": 67,
+    "blocks": 103,
     "trades": 0,
     "config": 0,
     "quests": 0,
