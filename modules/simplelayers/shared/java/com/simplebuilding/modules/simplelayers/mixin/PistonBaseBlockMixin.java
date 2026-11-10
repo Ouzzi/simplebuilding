@@ -23,6 +23,5 @@ public abstract class PistonBaseBlockMixin {
                                                        boolean allowDestroyable, Direction connectionDirection,
                                                        CallbackInfoReturnable<Boolean> cir) {
         if (BackroomBlock.heldInPlace(state, level)) cir.setReturnValue(false);
-        if (com.simplebuilding.modules.simplelayers.vault.VaultEffect.heldInPlace(state, level)) cir.setReturnValue(false); // UNDER21
     }
 }

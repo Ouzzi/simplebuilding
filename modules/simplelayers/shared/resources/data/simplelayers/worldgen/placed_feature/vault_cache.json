@@ -1,8 +1,0 @@
-{
-  "feature": "simplelayers:vault_cache",
-  "placement": [
-    {
-      "type": "minecraft:biome"
-    }
-  ]
-}

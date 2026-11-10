@@ -5,8 +5,7 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "BlockStateBaseMixin",
-    "PistonBaseBlockMixin",
-    "VaultPistonBreachMixin"
+    "PistonBaseBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

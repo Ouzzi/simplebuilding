@@ -75,7 +75,6 @@ public final class SimpleLayers {
                 .file(configDir, LayersConfig.FILE).register();
         List<String> items = new ArrayList<>();
         for (String path : LayersRegistry.ITEM_PATHS) items.add(MOD_ID + ":" + path);
-        for (String path : com.simplebuilding.modules.simplelayers.vault.VaultRegistry.ITEM_PATHS) items.add(MOD_ID + ":" + path); // UNDER21
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "layers", "simplelayers.testcentre.station", items);
     }
 }

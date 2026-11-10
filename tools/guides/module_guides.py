@@ -293,6 +293,14 @@ MODULES = [
                 "Glitched Bedrock with a Netherite Pickaxe and fall into the Backrooms - endless, empty yellow rooms. Find the exit.",
                 "Zwei neue Weltschichten: Steig in der Oberwelt über y 700 ins Wolkenmeer, einen Himmel aus Wolkeninseln, oder "
                 "brich fehlerhaftes Grundgestein mit einer Netherit-Spitzhacke auf und fall in die Backrooms - endlose, leere gelbe Räume. Finde den Ausgang.")),
+    dict(module="simplevault", ns="simplevault", package="com.simplebuilding.modules.simplevault.guide", cls="VaultGuide", kind="item",
+         author="Simple Vault", recipe="minecraft:amethyst_shard",
+         name=("Simple Vault Guide", "Grundgewölbe-Handbuch"),
+         intro=("The Bedrock Vault: far below, a rare gap in the Overworld bedrock leads into quiet halls enclosed by bedrock. "
+                "The gate closes behind you - three riddles give three seal parts, and the Ascent Altar carries you back up.",
+                "Das Grundgewölbe: tief unten führt eine seltene Lücke im Grundgestein der Oberwelt in stille Hallen, rundum von "
+                "Grundgestein umschlossen. Das Tor schließt sich hinter dir - drei Rätsel geben drei Siegelteile, und der "
+                "Aufstiegsaltar trägt dich wieder hinauf.")),
     dict(module="simplegadgets", ns="simplegadgets", package="com.simplegadgets.guide", cls="GadgetsGuide", kind="item",
          author="Simple Gadgets", recipe="minecraft:clock",
          name=("Simple Gadgets Guide", "Simple-Gadgets-Handbuch"),

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "part=light,ready=false": {
+      "model": "simplevault:block/seal_pedestal"
+    },
+    "part=light,ready=true": {
+      "model": "simplevault:block/seal_pedestal_light"
+    },
+    "part=sound,ready=false": {
+      "model": "simplevault:block/seal_pedestal"
+    },
+    "part=sound,ready=true": {
+      "model": "simplevault:block/seal_pedestal_sound"
+    },
+    "part=path,ready=false": {
+      "model": "simplevault:block/seal_pedestal"
+    },
+    "part=path,ready=true": {
+      "model": "simplevault:block/seal_pedestal_path"
+    }
+  }
+}

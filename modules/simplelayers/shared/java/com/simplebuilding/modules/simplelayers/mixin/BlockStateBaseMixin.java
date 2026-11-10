@@ -21,6 +21,5 @@ public abstract class BlockStateBaseMixin {
     @Inject(method = "getDestroyProgress", at = @At("HEAD"), cancellable = true)
     private void simplelayers$holdLevelBlocks(Player player, BlockGetter level, BlockPos pos, CallbackInfoReturnable<Float> cir) {
         if (BackroomBlock.heldFor((BlockState) (Object) this, player)) cir.setReturnValue(0.0F);
-        if (com.simplebuilding.modules.simplelayers.vault.VaultEffect.held((BlockState) (Object) this, player)) cir.setReturnValue(0.0F); // UNDER21
     }
 }

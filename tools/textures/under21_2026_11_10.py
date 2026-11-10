@@ -28,7 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import layers  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / 'modules/simplelayers/shared/resources/assets/simplelayers/textures'
+OUT = ROOT / 'modules/simplevault/shared/resources/assets/simplevault/textures'
 
 
 def hexc(h):

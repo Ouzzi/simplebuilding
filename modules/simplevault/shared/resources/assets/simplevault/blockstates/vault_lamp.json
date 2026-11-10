@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simplevault:block/vault_lamp"
+    },
+    "lit=true": {
+      "model": "simplevault:block/vault_lamp_on"
+    }
+  }
+}

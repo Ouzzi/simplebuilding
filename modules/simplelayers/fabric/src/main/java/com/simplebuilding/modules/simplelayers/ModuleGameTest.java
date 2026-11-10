@@ -6,47 +6,6 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link LayersTests}. */
 public final class ModuleGameTest {
-    // UNDER21: Bedrock Vault (bodies in vault/VaultTests)
-    @GameTest(structure = "simplelayers:empty")
-    public void vaultRegistered(GameTestHelper h) {
-        LayersTests.ALL.get("vault_registered").accept(h);
-    }
-
-    @GameTest(structure = "simplelayers:empty", maxTicks = 400)
-    public void vaultBedrockHull(GameTestHelper h) {
-        LayersTests.ALL.get("vault_bedrock_hull").accept(h);
-    }
-
-    @GameTest(structure = "simplelayers:empty", maxTicks = 400)
-    public void vaultLayoutConnected(GameTestHelper h) {
-        LayersTests.ALL.get("vault_layout_connected").accept(h);
-    }
-
-    @GameTest(structure = "simplelayers:empty")
-    public void vaultLayeredBiome(GameTestHelper h) {
-        LayersTests.ALL.get("vault_layered_biome").accept(h);
-    }
-
-    @GameTest(structure = "simplelayers:empty")
-    public void vaultGateCloses(GameTestHelper h) {
-        LayersTests.ALL.get("vault_gate_closes").accept(h);
-    }
-
-    @GameTest(structure = "simplelayers:empty", maxTicks = 400)
-    public void vaultPuzzleSolvable(GameTestHelper h) {
-        LayersTests.ALL.get("vault_puzzle_solvable").accept(h);
-    }
-
-    @GameTest(structure = "simplelayers:empty")
-    public void vaultBedrockHeld(GameTestHelper h) {
-        LayersTests.ALL.get("vault_bedrock_held").accept(h);
-    }
-
-    @GameTest(structure = "simplelayers:empty")
-    public void vaultGapGenerated(GameTestHelper h) {
-        LayersTests.ALL.get("vault_gap_generated").accept(h);
-    }
-
     @GameTest(structure = "simplelayers:empty")
     public void registered(GameTestHelper h) {
         LayersTests.ALL.get("registered").accept(h);
