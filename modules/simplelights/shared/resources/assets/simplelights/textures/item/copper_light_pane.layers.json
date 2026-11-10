@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#746238ff", "#ffff92ff", "#f7d177ff", "#e8c470ff", "#ebc772ff", "#e4c47aff", "#e9c97cff", "#edc872ff", "#e2bf6dff", "#e3c479ff", "#edcc7fff", "#e9c571ff", "#e7c77bff", "#e3c47aff", "#e7c370ff", "#e4c16eff", "#eccb7eff", "#ebcb7eff", "#edc873ff", "#e6c26fff", "#e7c77cff", "#e4c57aff", "#e8c87cff", "#e9c570ff", "#e6c77bff", "#e5c67aff", "#eac671ff", "#eaca7dff", "#eccc7eff", "#e9c470ff", "#e5c57aff", "#e4c06eff", "#eecd7fff", "#eec973ff", "#e7c36fff", "#e3c379ff", "#e5c16eff", "#edcd7fff", "#e3bf6dff", "#edcc7eff", "#e3c06eff", "#e3c06dff", "#e6c67bff", "#e9c97dff", "#e5c26fff", "#ecc772ff", "#ebc671ff", "#e9c87cff", "#ebc771ff", "#e5c67bff", "#eac97dff"],
+  "palette": ["#746238ff", "#ffff92ff", "#f7d177ff", "#e8c470ff", "#ebc772ff", "#e4c47aff", "#e9c97cff", "#edc872ff", "#e2bf6dff", "#e3c479ff", "#edcc7fff", "#e9c571ff", "#e7c77bff", "#e3c47aff", "#e7c370ff", "#e4c16eff", "#eccb7eff", "#ebcb7eff", "#edc873ff", "#e6c26fff", "#e7c77cff", "#e4c57aff", "#e8c87cff", "#e9c570ff", "#e6c77bff", "#e5c67aff", "#eac671ff", "#eaca7dff", "#eccc7eff", "#e9c470ff", "#e5c57aff", "#e4c06eff", "#eecd7fff", "#eec973ff", "#e7c36fff", "#e3c379ff", "#e5c16eff", "#edcd7fff", "#e3bf6dff", "#edcc7eff", "#e3c06eff", "#e3c06dff", "#e6c67bff", "#e9c97dff", "#e5c26fff", "#ecc772ff", "#ebc671ff", "#e9c87cff", "#ebc771ff", "#e5c67bff", "#eac97dff", "#6b5a34ff", "#ebeb86ff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "..0000000000000000000000000000..",
@@ -23,6 +23,24 @@
       "00011e14300b1b112d07092a0b280200",
       "00020202020202020202020202020200",
       "..0000000000000000000000000000.."
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "....33....3333..3333....3333....",
+      "............34..................",
+      "........1414042c141c04..1414..33",
+      "33..2c2c1c1c040414142c..14......",
+      "..341414..04141404041c..2c03....",
+      "....1414042c1c1c2c2c1c1404......",
+      "33....2c1c142c041c142c041c140433",
+      "33..2c041c14042c1c14040414..0433",
+      "....1c142c2c141c2c..141c..04....",
+      "33....14......1c040414140404..33",
+      "....2c..14142c041414..2c1c14....",
+      "....2c04141c042c141404041c1c....",
+      "33..141404..1414..2c1c140404..33",
+      "....14..04041c1c04041414042c..33",
+      "..040404............0404........",
+      "......3333..3333....3333..33...."
     ]}
   ]
 }

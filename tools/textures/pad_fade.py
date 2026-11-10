@@ -1,9 +1,13 @@
 """Generate 26.3 pad fade steps from the existing owner textures, without redrawing pixels."""
 import argparse
+import sys
 import json
 from pathlib import Path
 
 from PIL import Image, ImageDraw
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from texrate16_rework_2026_11_09 import finish as a8d_finish  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / 'src/main/resources/assets/simplebuilding/textures/block'
@@ -39,6 +43,7 @@ def main():
     problems = []
     for name, image, metadata in images():
         path = TARGET / name
+        image = a8d_finish(image, path)  # b-texrate16: A8d rework of listed pads survives re-runs
         if args.check:
             if not path.exists() or Image.open(path).convert('RGBA').tobytes() != image.tobytes():
                 problems.append(str(path.relative_to(ROOT)))

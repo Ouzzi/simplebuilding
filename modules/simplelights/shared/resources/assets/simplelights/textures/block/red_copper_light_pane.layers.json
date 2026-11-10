@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#581713ff", "#e53c31ff", "#bc3129ff", "#b02e26ff", "#ad2d25ff", "#af3b34ff", "#ad3a33ff", "#b42f27ff", "#ae2d25ff", "#b03b34ff", "#b23c34ff", "#ae2d26ff", "#b12e26ff", "#ac2d25ff", "#af2e26ff", "#ae3a33ff", "#b23c35ff", "#b33c35ff", "#b13b34ff", "#b43c35ff", "#ac3a33ff", "#ae2e26ff", "#b22e26ff", "#b22f26ff", "#b22f27ff", "#b32f27ff", "#ae3a34ff"],
+  "palette": ["#581713ff", "#e53c31ff", "#bc3129ff", "#b02e26ff", "#ad2d25ff", "#af3b34ff", "#ad3a33ff", "#b42f27ff", "#ae2d25ff", "#b03b34ff", "#b23c34ff", "#ae2d26ff", "#b12e26ff", "#ac2d25ff", "#af2e26ff", "#ae3a33ff", "#b23c35ff", "#b33c35ff", "#b13b34ff", "#b43c35ff", "#ac3a33ff", "#ae2e26ff", "#b22e26ff", "#b22f26ff", "#b22f27ff", "#b32f27ff", "#ae3a34ff", "#511511ff", "#d3372dff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00000000000000000000000000000000",
@@ -23,6 +23,24 @@
       "00011112190b0911191805090e040200",
       "00020202020202020202020202020200",
       "00000000000000000000000000000000"
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "1b1b......1b1b..................",
+      "1b..........1c1c1c............1b",
+      "....0c..0a0a0c040a..04..0a0a..1b",
+      "....040c0a0a....0a0a..0c0a0a04..",
+      "....0a0a0c040a0a0c0c0a0a..0c04..",
+      "..1c..0a0c040a0a0c0c0a0a0c0c04..",
+      "..1c040c0a0a0c040a0a0c..0a0a....",
+      "1b..0c040a0a..0c0a0a040c0a0a....",
+      "1b..0a..040c0a0a..0c0a0a0c......",
+      "....0a0a0c040a0a0c0c0a0a040c04..",
+      "....04..0a0a0c..0a0a0c0c0a0a04..",
+      "....0c0c0a0a0c0c0a0a0c0c0a0a..1b",
+      "....0a0a0c0c0a0a0c040a0a0c04..1b",
+      "....0a0a0c040a0a0c0c0a0a0c....1b",
+      "............0404......0404......",
+      "1b1b1b..........1b1b1b.........."
     ]}
   ]
 }

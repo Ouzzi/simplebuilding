@@ -388,3 +388,70 @@ Messwerte: größte Fläche / ≥6 px % / Hauptton % / hart % / Farben.
 | 3 | Simple Blocks / Baubloecke | simplebuilding | `block/warped_blazewood_bookshelf` | orange | 14/16.4/10.9/22.5/63 | hart 22.5, Farben 63 (Verlauf?) |
 | 3 | Simple Blocks / Baubloecke | simplebuilding | `block/weathered_copper_pressure_plate` | orange | 26/38.3/31.6/0.2/10 | groesste Flaeche 26 |
 | 3 | Simple Blocks / Baubloecke | simplebuilding | `block/weathered_copper_pressure_plate_active` | orange | 24/26.2/30.1/1/20 | groesste Flaeche 24 |
+
+## Runde 16 (b-texrate16, 09.11., N13d Fortsetzung)
+
+Neu bewertet über den Stand hub/b-bundle166 (inkl. der fertigen b-pal15-Meißelblöcke und Simple Fun, vorher gesperrt):
+**2032 Texturen, 547 rot / 517 orange / 619 grün / 349 grau**. Danach 565 Ziele nach Problemgruppe überarbeitet
+(`tools/textures/texrate16_2026_11_09.py` wählt aus, `texrate16_rework_2026_11_09.py` überarbeitet, Liste mit Gruppe,
+Methode und Grund: `tools/textures/texrate16_targets.json`). **Nachher: 101 rot / 678 orange / 904 grün / 349 grau.**
+Vorschau `/root/sb-tools-b/previews/b-texrate16-preview.html` (Antwortcode **TEXRATE16**), Plan
+docs/ai/PLAN-B-TEXRATE16-2026-11-09.md.
+
+| Familie | rot | orange | grün | grau |
+|---|---|---|---|---|
+| Simple End | 64 → 18 | 67 → 64 | 73 → 122 | 44 |
+| Simple Ores | 10 → 4 | 19 → 7 | 31 → 49 | 0 |
+| Simple Blocks / Baublöcke | 42 → 9 | 35 → 43 | 34 → 59 | 77 |
+| simplelights | 92 → 3 | 17 → 29 | 0 → 77 | 0 |
+| simplemusic | 73 → 5 | 20 → 71 | 9 → 26 | 0 |
+| simplepads | 54 → 1 | 33 → 76 | 16 → 26 | 0 |
+| simpleshops | 54 → 19 | 8 → 43 | 1 → 1 | 0 |
+| simplesandwiches | 40 → 9 | 44 → 50 | 157 → 182 | 0 |
+| simplestorage | 25 → 2 | 22 → 23 | 9 → 31 | 86 |
+| simplelayers | 19 → 0 | 3 → 8 | 1 → 15 | 0 |
+| simplecrucibles | 12 → 1 | 6 → 9 | 1 → 9 | 0 |
+| simpledinos | 14 → 12 | 6 → 7 | 0 → 1 | 15 |
+| simplearrows | 7 → 7 | 11 | 0 | 0 |
+| simpleenchanting | 6 → 2 | 6 → 8 | 1 → 3 | 0 |
+| simplefoundry | 5 → 1 | 13 → 16 | 1 → 2 | 0 |
+| simplefun | 5 → 1 | 6 → 7 | 2 → 5 | 0 |
+| simpletools | 5 → 1 | 13 → 14 | 10 → 13 | 0 |
+| simplebeacons | 4 → 0 | 5 → 7 | 0 → 2 | 0 |
+| simplequestionary / simpletweaks / simpleanimals / simpleoctets / simplemobs | 10 → 2 | – | – | – |
+| Kern (sonstige) | 4 → 1 | 65 → 66 | 145 → 147 | 75 |
+| übrige Module | unverändert | | | |
+
+### Gruppen, Vanilla-Vorbild, Methode (A8d) und Ergebnis
+| Gruppe | Ziele | Vanilla-Vorbild → Methode | vorher → nachher |
+|---|---|---|---|
+| Pads (Elytra-/Launch-/Flypads, Teleporter, Chunk-Loader, Trank-Pads; Kern + simplepads) | 101 | respawn_anchor_top/lodestone_top: Glut-/Ringmotiv in 2–3 Stufen; die Wirbelkante ist Motiv (Vanilla end_portal_frame_top hart 43 %) → Extreme ab 22 Helligkeit vom Mittelton gestuft gestaucht bis hart ≤ 20 %, dann Flächen brechen | 87 rot → 85 orange + 2 grün, 14 orange → grün |
+| Lampen (astralit/nihilith_lamp, _top) | 4 | redstone_lamp: Mäander mit harten Kanten (Vanilla selbst rot: 88 px, hart 18 %) → nur Felder mit feinen Tonstufen (≤ 14) brechen | bleiben rot (wie Vanilla), Felder 112 → ≤ 30 px |
+| Licht-Scheiben (simplelights, 16 Farben × an/aus, Kupfer) | 104 | copper_bulb_lit/shroomlight: 6–12 Stufen ohne weichen Verlauf → Verlauf auf 8 echte Töne gestuft, feine 2–4-px-Haufen, Rahmen/Nieten bleiben | 89 rot → 62 grün + 27 orange, 15 orange → grün |
+| Esche/Dämmerholz + Holz (Türen, Falltüren, entrindete Stämme, Bretter, Schilder, Schneidbretter) | 39 | birch/cherry door + trapdoor, stripped_*_log: Maserung → nur 2–3-px-Striche längs der Bretter | 34 rot → 18 grün + 16 orange |
+| Vitrinen (display_case_frame/base, sales_storage) | 35 | glass_pane_top/oak_planks: Glas bleibt wie Vanilla-Glas; Schrägstreifen sind Motiv → Streifenkontrast in 2 Stufen (hart ≤ 20 %), Tonwechsel nur längs der Streifen | 35 rot → orange |
+| Modellflächen (Rucksäcke, Taschen-Jukeboxen, Tiegel, Fass-Flansch, Tische) | 129 | barrel/chest/lectern: 2–4-px-Haufen eines Nachbartons, Drift | 128 rot → 68 grün + 60 orange |
+| Kanten-Motive (Schach, gerissene Ziegel) | 12 | target/crying_obsidian: Risse dürfen hart sein, Extreme gestuft | 6 rot → 4 grün + 2 orange, 6 orange → grün |
+| Weiche Verläufe (Rissscherben, Infernit/Terranit/Zenithit, Bündel/Köcher) | 11 | Vanilla-Baustoffe 6–16 Töne → auf 8 echte Töne gestuft | orange → grün |
+| Flächen allgemein | 98 | Tiefenschiefer/Endstein/polished_*: texrate15-R3-Brecher + Hauptton ≤ 38 % | 67 rot → 48 grün + 19 orange, 31 orange → grün |
+| Runde 15 (Metallformen, End-Paletten) | 32 | unverändert, jetzt in den Generatoren verankert | – |
+
+### Nicht überarbeitet (begründet)
+- **Froschlichter** (aqua/azure/scarlet): haben schon 6–8 Töne; die ruhige helle Mitte ist Vanilla (ochre_froglight_top:
+  132 px, 52 %). Haufen auf Fast-Weiß wirkten in R2/R3 wie graue Flecken → bleiben (rot wie Vanilla).
+- **Leuchtende Motive**: lit Öfen (`*_furnace_front_on`), Verzauberer-Oberseiten, `*_lamp_on`, Dimensionsschrott (Funken auf
+  Schwarz), Farbkasten (Regenbogen), glitched_bedrock (Vanilla-Grundgestein hart 47 %): die Stufung dämpfte den Schein.
+- **Besitzer-Zeichnungen** (nie geändert): bridge_redstone*, extra_head, yarn_ball, diamond_pebble, astralit_dust,
+  Besatzvorlagen, layered_raw_enderite, nihilith_shard, cracked_diamond_block, Handbücher.
+- **Vanilla-artiges Glas** (display_case_glass*, transparent_*): wie Vanilla-Glas/-Buntglas (selbst rot).
+- **131 Kandidaten ohne Ampel-Gewinn** (orange → orange dämpft nur Abgenommenes, rot → rot sind dünne Formen wie
+  Pfeilschäfte/Kuchenschichten/Fossilien): Liste `not_improved` in texrate16_targets.json.
+- veined/crystalline/layered/frosted (Vanilla-Umfärbungen, Altbestand) weiter offen; mc1_21_11-Kopien behalten alte Pixel
+  (Port-Run).
+
+### Verankerung in den Generatoren
+`layers.save()`/`layers.write_layers_for()` und generate_textures.py (Schreiben **und** `--check`) rufen
+`texrate16_rework_2026_11_09.finish(img, pfad)`; light_panes/copper_light_panes und pad_fade ebenso. Geprüft: metals14 und
+pal15 `--own` neu laufen lassen → keine Änderung; generate_textures `--check` (mit Stub für die fehlende Handvorlage
+enderite_carrot) → 0 veraltete Ziele (vorher 10: die texrate15-End-Paletten); light panes `--check` OK.
+`texrate16_rework_2026_11_09.py --check` (alle Ziele = Rework der Ebenen-Basis), `--apply` ist idempotent.
