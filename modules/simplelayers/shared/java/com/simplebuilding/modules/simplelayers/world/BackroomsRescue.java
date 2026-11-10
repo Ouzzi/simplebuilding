@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
+import java.util.List;
 
 /**
  * Migration of BACK18 worlds (BACK22 core K6, concept §7): the five old Backrooms dimensions are gone. A player saved in one of
@@ -35,9 +36,35 @@ public final class BackroomsRescue {
         return y < top - 2;
     }
 
-    /** Moves a stranded player onto the surface above his entry point; returns whether it did. */
+    /** Players already checked once after the update (R6: only the first join can come from a removed dimension). */
+    public static final class Checked extends net.minecraft.world.level.saveddata.SavedData {
+        public static final com.mojang.serialization.Codec<Checked> CODEC = net.minecraft.core.UUIDUtil.CODEC.listOf()
+                .xmap(Checked::new, c -> List.copyOf(c.players)).fieldOf("players").codec();
+        public static final net.minecraft.world.level.saveddata.SavedDataType<Checked> TYPE = new net.minecraft.world.level.saveddata.SavedDataType<>(
+                SimpleLayers.id("back22_migration"), Checked::new, CODEC, net.minecraft.util.datafix.DataFixTypes.SAVED_DATA_COMMAND_STORAGE);
+        private final java.util.Set<java.util.UUID> players = new java.util.HashSet<>();
+
+        public Checked() {}
+
+        private Checked(List<java.util.UUID> list) {
+            players.addAll(list);
+        }
+
+        static Checked get(MinecraftServer server) {
+            return server.overworld().getDataStorage().computeIfAbsent(TYPE);
+        }
+
+        /** Marks the player; true when this is his first join since BACK22. */
+        boolean first(java.util.UUID id) {
+            if (!players.add(id)) return false;
+            setDirty();
+            return true;
+        }
+    }
+
+    /** Moves a stranded player onto the surface above his entry point (first join after the update only); returns whether it did. */
     public static boolean onJoin(ServerPlayer player) {
-        if (!stranded(player)) return false;
+        if (!Checked.get(player.level().getServer()).first(player.getUUID()) || !stranded(player)) return false;
         MinecraftServer server = player.level().getServer();
         BlockPos entry = BackroomsEntries.get(server).get(player.getUUID());
         Vec3 pos = BackroomsTravel.surface(server.overworld(), entry.getX(), entry.getZ());
@@ -46,6 +73,14 @@ public final class BackroomsRescue {
         BackroomsEntries.get(server).remove(player.getUUID());
         SimpleLayers.LOG.info("BACK22 migration: moved {} out of an old Backrooms dimension to {}", player.getName().getString(), moved.blockPosition());
         return true;
+    }
+
+    /** Portal passages keep the entries right: into the stack from the Overworld = entry, out of the stack = none. */
+    public static void afterTransit(ServerLevel from, BlockPos door, ServerPlayer player) {
+        MinecraftServer server = from.getServer();
+        boolean was = SimpleLayers.inBackrooms(from), is = SimpleLayers.inBackrooms(player.level());
+        if (!was && is && from == server.overworld()) BackroomsEntries.get(server).put(player.getUUID(), door);
+        if (was && !is) BackroomsEntries.get(server).remove(player.getUUID());
     }
 
     /** After a respawn outside the stack the entry is stale (died inside): forget it. */

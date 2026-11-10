@@ -284,6 +284,8 @@ final class BandsTests {
                 if (up != null) {
                     twoSided++;
                     h.assertTrue(DoorPlacement.fits(up, cx, cz), "door up inside the same chunk");
+                    DoorEnd own = upper + 1 < BandStack.BANDS ? DoorNet.down(seed, upper + 1, cx, cz) : null;
+                    h.assertTrue(own == null || !DoorPlacement.overlaps(own, up), "door up and door down of level " + (upper + 1) + " apart");
                     DoorNet.Found g = DoorNet.at(seed, up.x(), BandStack.worldY(upper + 1, up.ly()), up.z());
                     h.assertTrue(g != null && !g.down() && g.target() == upper && g.upper() == upper, "found the door up of " + (upper + 1));
                 }
@@ -460,6 +462,7 @@ final class BandsTests {
         BlockPos lobbyLeaf1 = new BlockPos(lobby.leafX(1), BandStack.worldY(1, lobby.ly()), lobby.leafZ(1));
         BlockPos lobbyFront = lobbyLeaf1.relative(Direction.from2DDataValue(lobby.facing()).getOpposite());
         h.assertTrue(in != null && in.level() == stack && in.blockPosition().equals(lobbyFront), "in the Lobby before leaf 1: " + (in == null ? null : in.blockPosition()));
+        h.assertTrue(BackroomsEntries.get(server).get(player.getUUID()) != null, "entry remembered at the cellar door");
         h.assertTrue(stack.getBlockState(lobbyLeaf1).is(LayersRegistry.BACKROOMS_DOOR) && stack.getBlockState(lobbyLeaf1).getValue(BackroomsDoorBlock.SYMBOL) == 0, "Lobby door, symbol 0 = house");
         // and back out (after the cooldown)
         BlockPos lobbyAnchor = new BlockPos(lobby.x(), BandStack.worldY(1, lobby.ly()), lobby.z());
@@ -471,6 +474,7 @@ final class BandsTests {
             Entity out = PortalTransit.transit(stack, back, lobbyAnchor);
             BlockPos cellarFront = anchor.relative(Direction.EAST);
             h.assertTrue(out != null && out.level() == over && out.blockPosition().equals(cellarFront), "back in the cellar: " + (out == null ? null : out.blockPosition()));
+            h.assertTrue(BackroomsEntries.get(server).get(back.getUUID()) == null, "entry forgotten after leaving");
             h.succeed();
         });
     }
@@ -499,6 +503,10 @@ final class BandsTests {
         h.assertTrue(BackroomsRescue.onJoin(player), "rescued");
         h.assertTrue(player.getY() >= top - 1 && BackroomsEntries.get(server).get(player.getUUID()) == null, "on the surface, entry gone: " + player.getY());
         h.assertFalse(BackroomsRescue.stranded(player), "not stranded any more");
+        BackroomsEntries.get(server).put(player.getUUID(), new BlockPos(x, top, z));
+        player.teleportTo(over, x + 0.5, y, z + 0.5, Set.of(), 0.0F, 0.0F, false);
+        h.assertFalse(BackroomsRescue.onJoin(player), "only the first join after the update rescues");
+        BackroomsEntries.get(server).remove(player.getUUID());
         h.succeed();
     }
 }

@@ -25,7 +25,10 @@ public final class Entrances {
 
     /** The Lobby's entrance double door in house chunk (cx, cz) (the Lobby's up-door slot, it has no level above). */
     public static @Nullable DoorEnd lobbyEnd(long seed, int cx, int cz) {
-        return houseChunk(seed, cx, cz) ? DoorPlacement.find(Bands.get(1).layout(), seed, cx, cz, 10, 10, 2) : null;
+        if (!houseChunk(seed, cx, cz)) return null;
+        DoorEnd e = DoorPlacement.find(Bands.get(1).layout(), seed, cx, cz, 10, 10, 2);
+        DoorEnd down = DoorNet.down(seed, 1, cx, cz);
+        return e != null && down != null && DoorPlacement.overlaps(down, e) ? null : e; // R3: never into the Lobby's door down
     }
 
     public static long link(int cx, int cz) {

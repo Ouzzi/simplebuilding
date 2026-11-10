@@ -65,4 +65,33 @@ public final class DoorPlacement {
         }
         return true;
     }
+
+    /** Whether (x, ly, z) lies in the door chamber of {@code e} (frame, door, wall behind, spots in front, floor, lintel). */
+    public static boolean inFootprint(DoorEnd e, int x, int ly, int z) {
+        if (ly < e.ly() - 1 || ly > e.ly() + 2) return false;
+        int cw = (e.facing() + 1) & 3;
+        for (int i = -1; i <= e.width(); i++) {
+            for (int d = -1; d <= 1; d++) {
+                if (x == e.x() + DoorEnd.DX[cw] * i + DoorEnd.DX[e.facing()] * d && z == e.z() + DoorEnd.DZ[cw] * i + DoorEnd.DZ[e.facing()] * d) return true;
+            }
+        }
+        return false;
+    }
+
+    /** Whether the chambers of two door ends touch (then the second one is dropped: one-way pair or no entrance). */
+    public static boolean overlaps(DoorEnd a, DoorEnd b) {
+        if (Math.abs(a.ly() - b.ly()) > 4) return false;
+        int cw = (b.facing() + 1) & 3;
+        for (int i = -1; i <= b.width(); i++) {
+            for (int d = -1; d <= 1; d++) {
+                int x = b.x() + DoorEnd.DX[cw] * i + DoorEnd.DX[b.facing()] * d, z = b.z() + DoorEnd.DZ[cw] * i + DoorEnd.DZ[b.facing()] * d;
+                for (int ly = b.ly() - 1; ly <= b.ly() + 2; ly++) {
+                    for (int m = -1; m <= 1; m++) {
+                        if (inFootprint(a, x + m, ly, z) || inFootprint(a, x, ly, z + m)) return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

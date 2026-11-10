@@ -45,6 +45,7 @@ public final class LayersFabric implements ModInitializer {
         });
         // BACK22 core: entities of other stack levels stay hidden; players stranded by the removed BACK18 dimensions are rescued.
         com.simplelib.api.TrackingFilters.register(com.simplebuilding.modules.simplelayers.world.BackroomsRescue::sameLevel);
+        com.simplelib.api.portal.PortalTransit.listen(com.simplebuilding.modules.simplelayers.world.BackroomsRescue::afterTransit);
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
                 server.execute(() -> com.simplebuilding.modules.simplelayers.world.BackroomsRescue.onJoin(handler.getPlayer())));
         net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) ->

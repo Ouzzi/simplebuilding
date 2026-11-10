@@ -87,5 +87,52 @@ statt mechanischem Umbau in eigene Piece-Enums (die Ebenen-Branches ersetzen den
 dahin gemeinsame Kern-Dateien, die keine Ebene ändert). 4. Nebelpuls als HUD-Fläche statt Nebel-Shader. 5. Block-Ids Riss/fehlerhaftes
 Grundgestein bleiben vorerst (s. K6). 6. K7 und S2 nicht in diesem Branch.
 
+## 5b. Kern-Hinweise aus BACK22c §8 (Nachricht B-Hauptsitzung, während des Baus)
+| Hinweis | Umsetzung im Kern |
+|---|---|
+| (1) Türdichte auf/ab getrennt, Ebene wählt Ort | `Band.upDoorShare()` (Anteil zweiseitiger Paare; Rest einwegig nach unten, Ankunft auf freiem Platz), `Band.doorDensity()` abwärts; Ort über `BandLayout.doorEnd(…, down)` (Haken, Standard `DoorPlacement`) |
+| (2) Wartungskasten-Lage je Ebene | `Band.boxPlacement()` (`FRAME` gebaut; `BEHIND_PANEL`/`IN_ROOM`/`TRAIL` reserviert, fallen auf FRAME zurück) – Rest offen |
+| (3) Bauzeichen-Lesbarkeit | reine Darstellung der Ebene, kein Kern-Code (offen, Ebene) |
+| (4) Rätsel schaltet Tür/Abkürzung frei | `Puzzle` (rein) + `PortalTransit.mend(level, shape, null)` / `PortalStates.set` als Haken; eigene Gate-Blöcke bleiben in der Ebene |
+| (5) Plattform per Vanilla-Redstone | K7 nicht gebaut; Vorgabe für K7 übernommen (Eingabe = Redstone-Signal, kein Gewichtsblock) |
+| (6) Schlüsselbund gestrichen | nichts gebaut |
+| (7) Beute mit Namen aus dem Seed | offen (Kern-Nachtrag: Loot-Funktion `set_name`/`custom_data` aus Seed+Position) |
+| (8) Vorbauer-Pfeile Anteil | `Band.pointerShare()` + `Pointers.toward` |
+
 ## 6. Revisionen nach der Implementierung
-(werden nach dem Bau ergänzt, ≥ 5)
+Achsen wie im Konzept (MB Machbarkeit · PF Leistung · RR Risiko · MU Modul-Unabhängigkeit · A12 · PAR parallel baubar), 1–5.
+
+**R1 – Übersetzen und alte Tests (sbt 1+2).** Prüfen: sbt 1 COMPILE_RC=1 (26.3 kennt keine `Blocks.GRAY_CONCRETE` u. ä. → `Blocks.CONCRETE.pick(DyeColor)`,
+`DYED_TERRACOTTA`, `WOOL`; `PushReaction.BLOCK` fehlt → `IMMOVEABLE`; ein Test `backrooms_grid` war beim Entfernen des Nachbartests mit gelöscht).
+sbt 2: COMPILE_RC=0, DATA_RC=0, DI_RC=0 (48/48), Module 150/154 – rot nur zwei Alt-Tests mit alten Ids (`registered`: Generator `backrooms`,
+`ambience_sounds`: Biom `backrooms`). Verbessert: Ids auf `backrooms_stack`/`band_stack`/`backrooms_lobby`. Bewertung MB 4 → 4,5.
+
+**R2 – Plan-Abgleich.** Gebaut: S0 (Server), K1, K2 (ohne Zeiger-Block, s. u.), K3, K4-klein (Nebelpuls, Schleier-Modell), K5, K6. Nicht gebaut und
+benannt: Zeiger-Block (nur `Pointers.toward`, der Block kommt mit der ersten Ebene, die ihn braucht – E8/E10), Sprach-Namespaces je Ebene und
+vorregistrierte Klang-Ereignisse (Klang braucht .ogg-Dateien, `check_data` prüft sie; als additiver Kern-Nachtrag vor der Welle), K7, S2,
+Kulisse/Übergangsbild am Client. Bewertung PAR 4 (Java/Daten-Skripte/Tests je Ebene getrennt; Sprache bleibt gemeinsame Datei).
+
+**R3 – Robustheit Tür-Netz.** Prüfen: Tür nach oben und Tür nach unten derselben Ebene (Wunschplätze 5/5 und 10/10) können bei
+Ausweichsuche zusammenrücken; die Lobby-Eingangstür kann die Abwärtstür treffen; die Versorgungskiste kann auf dem Ankunftsplatz vor einer Tür
+landen. Verbessert: `DoorPlacement.inFootprint/overlaps` – berührende Türkammern lassen die zweite Tür fallen (Paar wird einwegig bzw. kein
+Lobby-Eingang, Haus führt dann auf den Rückfall), Kisten nie in einer Türkammer (`DoorNet.inChamber`); Test prüft „Kammern getrennt“.
+Bewertung RR 3,5 → 4.
+
+**R4 – Leistung (S0-Zahlen).** Server-Messung im Modul-Lauf: Säule 49 einwertige + 22 gemischte Sektionen, 45 461 Byte Blockdaten
+(Netzgröße) je Säule; Generator 1,8 ms je Säule (warm, Modul-Lauf) bzw. 4,9 ms (Standalone-Lauf, kalt) – Budget 10 ms eingehalten. Bei Sichtweite 12
+(625 Säulen) ≈ 28 MB Blockdaten statt geschätzter 130 MB, weil Stummel-Ebenen nur eine gemischte Sektion haben; mit ausgebauten Ebenen (3–5
+gemischte Sektionen) ≈ 60–90 MB. Entscheid: **M2 Bandfenster nicht nötig** bis zur Client-Messung. Verbessert: nichts nötig; Messung als Test
+(`bands_separators_bedrock`, `bands_gen_budget`) bleibt, damit jede Ebene ihr Budget sieht. Bewertung PF 4.
+
+**R5 – Migration und Einträge.** Prüfen: (a) Rettung beim Beitreten hätte jeden Spieler mit altem Eintrag getroffen, der später unter y 64 gräbt;
+(b) wer über die Kellertür hinein- und hinausgeht, bekam keinen bzw. behielt einen Eintrag (Ausgangstür führte zum Weltspawn).
+Verbessert: Rettung nur beim ersten Beitreten nach dem Update (`back22_migration`, gespeichert); SimpleLib `PortalTransit.listen` (allgemeiner
+Haken nach jedem Durchgang) – Simple Layers setzt den Eintrag beim Betreten über eine Tür und löscht ihn beim Verlassen. Tests erweitert.
+Bewertung MB 4,5, RR 4.
+
+**R6 – Modul-Unabhängigkeit und A12.** Prüfen: Kern (`common/src/shared`) unberührt (nur der Client-Test Rel10 auf die neue Dimension
+umgestellt); SimpleLib-Portal kennt keine Backrooms-Klasse; Mixin `Entity.broadcastToPlayer` liegt in der gemeinsamen SimpleLib-Mixin-Datei (auch
+NeoForge kennt die Methode, Regel 11 unberührt – Simple Layers hat keinen NeoForge/Forge-Build); nur Spieler gehen durch Türen (A12: keine
+Logistik), keine Gegner (fg8 a). Ergebnis ohne Änderung. Bewertung MU 5, A12 4,5.
+
+**Endstand:** MB 4,5 · PF 4 · RR 4 (S1) · MU 5 · A12 4,5 · PAR 4.

@@ -140,7 +140,8 @@ public final class LayersTests {
             if (!BuiltInRegistries.BLOCK.containsKey(SimpleLayers.id(path))) missing.add("block " + path);
             if (BuiltInRegistries.ITEM.containsKey(SimpleLayers.id(path))) missing.add("no item expected for " + path);
         }
-        if (!BuiltInRegistries.CHUNK_GENERATOR.containsKey(SimpleLayers.id("backrooms"))) missing.add("chunk generator");
+        if (!BuiltInRegistries.CHUNK_GENERATOR.containsKey(SimpleLayers.id("backrooms_stack"))) missing.add("chunk generator");
+        if (!BuiltInRegistries.BIOME_SOURCE.containsKey(SimpleLayers.id("band_stack"))) missing.add("biome source");
         for (String f : List.of("mist_pit", "sky_chest", "glitched_bedrock", "entrance_shaft", "backrooms_cache")) if (!BuiltInRegistries.FEATURE_TYPE.containsKey(SimpleLayers.id(f))) missing.add("feature " + f);
         for (String s : List.of("ambient.backrooms.hum", "ambient.backrooms.additions", "ambient.cloud_sea.wind", "block.neon_light.buzz", "ambient.backrooms.listener")) {
             if (!BuiltInRegistries.SOUND_EVENT.containsKey(SimpleLayers.id(s))) missing.add("sound " + s);
@@ -783,7 +784,7 @@ public final class LayersTests {
             LayersConfig.ambientVolume = before;
         }
         var biomes = h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
-        h.assertTrue(biomes.containsKey(SimpleLayers.id("backrooms")), "lobby biome");
+        h.assertTrue(biomes.containsKey(SimpleLayers.id("backrooms_lobby")), "lobby biome");
         h.succeed();
     }
 

@@ -47,6 +47,8 @@ public record BackroomsCacheFeature() implements Feature {
             java.util.List<int[]> spots = new java.util.ArrayList<>();
             b.layout().containers(seed, cx, cz, spots);
             for (int[] spot : spots) {
+                // R3: never in a door chamber (a chest on the arrival spot would block the way)
+                if (com.simplebuilding.modules.simplelayers.backrooms.door.DoorNet.inChamber(seed, band, cx, cz, spot[0], spot[1], spot[2])) continue;
                 BlockPos at = new BlockPos(spot[0], com.simplebuilding.modules.simplelayers.backrooms.stack.BandStack.worldY(band, spot[1]), spot[2]);
                 if (!level.getBlockState(at).isAir() || level.getBlockState(at.below()).isAir()) continue;
                 level.setBlock(at, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random)), 2);

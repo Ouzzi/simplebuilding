@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplelayers.backrooms.door;
 
 import com.simplebuilding.modules.simplelayers.backrooms.api.Band;
 import com.simplebuilding.modules.simplelayers.backrooms.api.DoorEnd;
+import com.simplebuilding.modules.simplelayers.backrooms.gen.DoorPlacement;
 import com.simplebuilding.modules.simplelayers.backrooms.stack.BandStack;
 import com.simplebuilding.modules.simplelayers.backrooms.stack.Bands;
 import com.simplebuilding.modules.simplelayers.world.gen.GenHash;
@@ -43,7 +44,10 @@ public final class DoorNet {
     public static @Nullable DoorEnd up(long seed, int lower, int cx, int cz) {
         int upper = lower - 1;
         if (down(seed, upper, cx, cz) == null || !twoSided(seed, upper, cx, cz)) return null;
-        return end(seed, lower, false, cx, cz);
+        DoorEnd up = end(seed, lower, false, cx, cz);
+        DoorEnd own = lower < BandStack.BANDS ? down(seed, lower, cx, cz) : null;
+        // R3: a door up whose chamber would touch this level's door down is dropped (the pair stays one-way)
+        return up != null && own != null && DoorPlacement.overlaps(own, up) ? null : up;
     }
 
     public static boolean twoSided(long seed, int upper, int cx, int cz) {
@@ -85,6 +89,14 @@ public final class DoorNet {
         DoorEnd u = band > 1 ? up(seed, band, cx, cz) : null;
         if (u != null && holds(u, x, ly, z)) return new Found(band, false, u, band - 1);
         return null;
+    }
+
+    /** Whether (x, ly, z) of level {@code band} lies in a door chamber of chunk (cx, cz) (containers keep out). */
+    public static boolean inChamber(long seed, int band, int cx, int cz, int x, int ly, int z) {
+        DoorEnd d = band < BandStack.BANDS ? down(seed, band, cx, cz) : null;
+        if (d != null && DoorPlacement.inFootprint(d, x, ly, z)) return true;
+        DoorEnd u = band > 1 ? up(seed, band, cx, cz) : Entrances.lobbyEnd(seed, cx, cz);
+        return u != null && DoorPlacement.inFootprint(u, x, ly, z);
     }
 
     static boolean holds(DoorEnd e, int x, int ly, int z) {

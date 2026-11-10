@@ -35,7 +35,18 @@ public final class PortalTransit {
     public static final int COOLDOWN = 10, PULSE_TICKS = 4;
     /** Set by the loader entry: sends the fog pulse to a player (does nothing without a client channel). */
     public static BiConsumer<ServerPlayer, PortalPulsePayload> pulseSender = (player, payload) -> {};
+    /** Called after every passage with the level left and the moved player (other mods: entries, progress, puzzles). */
+    @FunctionalInterface
+    public interface Listener {
+        void moved(ServerLevel from, BlockPos door, ServerPlayer player);
+    }
+
+    private static final List<Listener> LISTENERS = new java.util.concurrent.CopyOnWriteArrayList<>();
     private static final Map<UUID, Long> LAST = new HashMap<>();
+
+    public static void listen(Listener listener) {
+        LISTENERS.add(listener);
+    }
     private static final Map<UUID, Long> HINTED = new HashMap<>();
 
     private PortalTransit() {}
@@ -109,6 +120,13 @@ public final class PortalTransit {
         PortalDoorBlock.refresh(to, target.anchor());
         to.playSound(null, front, SoundEvents.IRON_DOOR_CLOSE, SoundSource.BLOCKS, 0.5F, 0.7F);
         if (moved instanceof ServerPlayer p) {
+            for (Listener l : LISTENERS) {
+                try {
+                    l.moved(level, pos, p);
+                } catch (RuntimeException e) {
+                    // a broken listener never stops the passage
+                }
+            }
             try {
                 pulseSender.accept(p, new PortalPulsePayload(target.color(), PULSE_TICKS));
             } catch (RuntimeException e) {
