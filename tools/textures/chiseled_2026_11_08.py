@@ -80,10 +80,10 @@ def vanilla(jar: Path, sprite: str) -> np.ndarray:
 
 def derived(jar, look: str = 'M') -> dict:
     """The build hook: texture path -> RGBA image. Since b-pal15 (owner 09.11., N13a) the built look is 'M': frame + one carved
-    motif per family (tools/textures/pal15_2026_11_09.py, since b-pal16 pal16_2026_11_10.py); the frame looks A/B stay for the PAL09 history."""
+    motif per family (tools/textures/pal15_2026_11_09.py, since b-pal16 pal16_2026_11_10.py, since b-pal20 pal20_2026_11_10.py); the frame looks A/B stay for the PAL09 history."""
     if look == 'M':
-        import pal16_2026_11_10 as pal16   # b-pal16 (owner PAL15 10.11.): symmetric motifs, prismarine keeps its PAL15 eye
-        return {k: Image.fromarray(v, 'RGBA') for k, v in pal16.simpleblocks(Path(jar)).items() if k[len('block/'):-4] in SPRITES}
+        import pal20_2026_11_10 as pal20   # b-pal20 (owner PAL16 10.11.): new diorite motif, the rest PAL16 (prismarine PAL15)
+        return {k: Image.fromarray(v, 'RGBA') for k, v in pal20.simpleblocks(Path(jar)).items() if k[len('block/'):-4] in SPRITES}
     return {f'block/{name}.png': Image.fromarray(LOOKS[look](vanilla(Path(jar), sprite)), 'RGBA') for name, sprite in SPRITES.items()}
 
 

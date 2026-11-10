@@ -1,4 +1,5 @@
-"""PAL16 (b-pal16, owner answer PAL15 10.11. ~00:00, N17b): every chiseled motif MIRROR-SYMMETRIC like the Vanilla chiseled blocks,
+"""[History since b-pal20: the build hooks call pal20_2026_11_10.py, which keeps the accepted PAL16 motifs from here.]
+PAL16 (b-pal16, owner answer PAL15 10.11. ~00:00, N17b): every chiseled motif MIRROR-SYMMETRIC like the Vanilla chiseled blocks,
 new motifs where the owner objected, the pre-PAL15 look back (and only optimised) where he wrote "vorher besser".
 
 Owner code PAL15 (word by word): polished_andesite/diorite/granite=einwand, prismarine=OK (kept: pal15 R3), dark_prismarine=einwand,
@@ -566,7 +567,8 @@ def main() -> None:
     ap.add_argument('--preview')
     ap.add_argument('--jar')
     a = ap.parse_args()
-    if a.own:
+    if a.own:   # b-pal20: the own art (End bricks, zinc, silver) now comes from pal20 - writing PAL16 here would undo the owner's PAL16 answer
+        sys.exit('pal16 --own is superseded: python3.12 tools/textures/pal20_2026_11_10.py --own')
         for p, im in own().items():
             layers.save(im, p)
         print(f'pal16: {len(END) + len(METAL)} own textures + layers written')
