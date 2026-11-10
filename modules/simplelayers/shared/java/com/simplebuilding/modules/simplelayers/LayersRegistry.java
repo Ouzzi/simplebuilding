@@ -55,7 +55,8 @@ public final class LayersRegistry {
     /** Item ids in tab order (the test centre station and the coverage tests read this). */
     public static final List<String> ITEM_PATHS = List.of("cloud_block", "cloud_stone", "mist_block", "damp_carpet", "wallpaper",
             "striped_wallpaper", "dotted_wallpaper", "ceiling_tile", "stained_ceiling_tile", "neon_light", "exit_sign",
-            "caution_sign", "caution_tape", "glitched_bedrock", "almond_water", "backdoor_key");
+            "caution_sign", "caution_tape", "glitched_bedrock", "almond_water", "backdoor_key",
+            "chalk", "red_chalk", "blue_chalk", "yellow_chalk", "chalk_box");
     /** Fall damage factors (concept §1.1: Cloud Block -30 %, Cloud Stone -10 %). */
     public static final float CLOUD_DAMAGE = 0.7F, CLOUD_STONE_DAMAGE = 0.9F;
 
@@ -68,6 +69,9 @@ public final class LayersRegistry {
     /** BACK18: Vanilla blocks the deeper levels are built of; held like Backrooms blocks inside the Backrooms. */
     public static final TagKey<Block> BACKROOMS_STRUCTURE = TagKey.create(Registries.BLOCK, SimpleLayers.id("backrooms_structure"));
     public static Item ALMOND_WATER, BACKDOOR_KEY;
+    /** BACK20: chalk marks (no item), chalk in four colours and the chalk box. */
+    public static Block CHALK_MARK;
+    public static Item CHALK, RED_CHALK, BLUE_CHALK, YELLOW_CHALK, CHALK_BOX;
     public static List<Item> ITEMS = List.of();
     public static CreativeModeTab TAB;
 
@@ -106,6 +110,9 @@ public final class LayersRegistry {
                 .pushReaction(PushReaction.IMMOVEABLE));
         CAUTION_SIGN = block("caution_sign", CautionSignBlock::new, props(MapColor.COLOR_YELLOW, SoundType.METAL).strength(1.0F).noOcclusion());
         CAUTION_TAPE = block("caution_tape", CautionTapeBlock::new, props(MapColor.COLOR_YELLOW, SoundType.WOOL).strength(0.2F).noOcclusion());
+        CHALK_MARK = block("chalk_mark", com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock::new, props(MapColor.NONE, SoundType.CALCITE)
+                .instabreak().noCollision().noOcclusion().replaceable().noLootTable().pushReaction(PushReaction.POPPED)
+                .lightLevel(com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock::light).isValidSpawn((s, l, pos, type) -> false));
         RIFT = block("rift", RiftBlock::new, props(MapColor.COLOR_BLACK, SoundType.STONE).strength(-1.0F, 3600000.0F).noCollision()
                 .noOcclusion().noLootTable().lightLevel(s -> 4).pushReaction(PushReaction.IMMOVEABLE).isValidSpawn((s, l, pos, type) -> false)
                 .isSuffocating((s, l, pos) -> false).isViewBlocking((s, l, pos, box) -> false));
@@ -127,6 +134,12 @@ public final class LayersRegistry {
         out.add(ALMOND_WATER);
         BACKDOOR_KEY = item("backdoor_key", com.simplebuilding.modules.simplelayers.block.KeyItem::new, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
         out.add(BACKDOOR_KEY);
+        CHALK = chalk("chalk", com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock.Color.WHITE);
+        RED_CHALK = chalk("red_chalk", com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock.Color.RED);
+        BLUE_CHALK = chalk("blue_chalk", com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock.Color.BLUE);
+        YELLOW_CHALK = chalk("yellow_chalk", com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock.Color.YELLOW);
+        CHALK_BOX = item("chalk_box", com.simplebuilding.modules.simplelayers.block.ChalkBoxItem::new, new Item.Properties().stacksTo(1));
+        out.addAll(List.of(CHALK, RED_CHALK, BLUE_CHALK, YELLOW_CHALK, CHALK_BOX));
         ITEMS = List.copyOf(out);
         com.simplebuilding.modules.simplelayers.guide.LayersGuide.register();
     }
@@ -161,6 +174,10 @@ public final class LayersRegistry {
     /** The Backrooms' building blocks (wallpaper, carpet, tiles, lights, sign, door) - what the dimension protects. */
     public static boolean isBackroomBlock(Block block) {
         return block instanceof BackroomBlock;
+    }
+
+    private static Item chalk(String name, com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock.Color color) {
+        return item(name, p -> new com.simplebuilding.modules.simplelayers.block.ChalkItem(color, p), new Item.Properties().durability(com.simplebuilding.modules.simplelayers.block.ChalkItem.USES));
     }
 
     private static BlockBehaviour.Properties props(MapColor color, SoundType sound) {

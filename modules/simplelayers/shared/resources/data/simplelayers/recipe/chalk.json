@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "group": "simplelayers_chalk",
+  "ingredients": [
+    "minecraft:calcite",
+    "minecraft:bone_meal"
+  ],
+  "result": {
+    "id": "simplelayers:chalk",
+    "count": 4
+  }
+}

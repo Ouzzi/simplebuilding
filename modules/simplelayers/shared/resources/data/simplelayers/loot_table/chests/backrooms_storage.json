@@ -110,6 +110,19 @@
               "min": 2
             }
           }
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplelayers:chalk",
+          "weight": 8,
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 2,
+              "min": 1
+            }
+          }
         }
       ]
     },

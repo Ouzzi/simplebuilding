@@ -31,7 +31,7 @@ public final class LobbyGen {
      */
     public enum Shape { NORMAL, LOW, DAIS, ATRIUM }
 
-    public static final double ROOM_CHANCE = 0.025;
+    public static final double ROOM_CHANCE = 0.025, CHALK_CHANCE = 0.06;
     public static final double LOW_CHANCE = 0.09, DAIS_CHANCE = 0.04, ATRIUM_CHANCE = 0.035;
 
     /**
@@ -317,6 +317,10 @@ public final class LobbyGen {
             if (dir == GenHash.EAST && lx == 7 && lz == 4 || dir == GenHash.WEST && lx == 1 && lz == 4
                     || dir == GenHash.SOUTH && lx == 4 && lz == 7 || dir == GenHash.NORTH && lx == 4 && lz == 1) return Piece.EXIT_SIGN;
         }
+        if (layer == 0 && ly == 4) {
+            Piece mark = chalkMark(s, seed, cx, cz, lx, lz);
+            if (mark != null) return mark;
+        }
         if (layer == 0 && ly <= 3) {
             Shape shape = shape(s, seed, cx, cz);
             if (shape == Shape.DAIS) {
@@ -329,6 +333,27 @@ public final class LobbyGen {
         }
         Piece supply = supplyPiece(s, seed, layer, cx, cz, lx, ly, lz);
         return supply != null ? supply : Piece.AIR;
+    }
+
+    /**
+     * BACK20: chalk arrows left by earlier wanderers (6 % of the Lobby's plain cells): red, at eye level, on the north wall (pointing
+     * east or west) or the west wall (north or south) - always the true way towards the exit (the escape tree), so they help (A14).
+     */
+    public static boolean chalked(Style s, long seed, int cx, int cz) {
+        return s.extras && s.region > 0 && !exitCell(s, seed, cx, cz) && !signed(s, seed, cx, cz) && !stairwell(s, seed, cx, cz)
+                && unit(seed, cx, cz, 19 + s.salt) < CHALK_CHANCE;
+    }
+
+    static Piece chalkMark(Style s, long seed, int cx, int cz, int lx, int lz) {
+        if (!chalked(s, seed, cx, cz)) return null;
+        int dir = GenHash.toward(seed, cx, cz, s.region, s.salt + 21);
+        if ((dir == GenHash.EAST || dir == GenHash.WEST) && lx == 2 && lz == 1 && north(s, seed, 0, cx, cz) != Edge.OPEN) {
+            return dir == GenHash.EAST ? Piece.CHALK_E : Piece.CHALK_W;
+        }
+        if ((dir == GenHash.NORTH || dir == GenHash.SOUTH) && lx == 1 && lz == 2 && west(s, seed, 0, cx, cz) != Edge.OPEN) {
+            return dir == GenHash.NORTH ? Piece.CHALK_N : Piece.CHALK_S;
+        }
+        return null;
     }
 
     /** Where travellers arrive in the cell holding (x, z): its centre at y 2, 2 blocks south of the exit wall in an exit cell. */

@@ -66,7 +66,7 @@
       ],
       "en": {
         "title": "The Backrooms",
-        "summary": "Two ways lead into the Backrooms: rarely a fenced-off maintenance shaft stands in the Overworld (see \"Entrance shaft\"), and rarely Glitched Bedrock sits in the bedrock floor (one new chunk in 48, config backrooms.entranceRarity; only a Netherite Pickaxe breaks it, about 30 s, and it leaves a Rift). Whatever falls into a Rift lands in Level 0: endless empty rooms, 8 x 8 blocks and 5 high, with yellow wallpaper, damp carpet and humming neon lights.",
+        "summary": "Two ways lead into the Backrooms: rarely an abandoned house stands in the Overworld, its cellar concreted shut over a maintenance shaft (see \"Abandoned house\"), and rarely Glitched Bedrock sits in the bedrock floor (one new chunk in 48, config backrooms.entranceRarity; only a Netherite Pickaxe breaks it, about 30 s, and it leaves a Rift). Whatever falls into a Rift lands in Level 0: endless empty rooms, 8 x 8 blocks and 5 high, with yellow wallpaper, damp carpet and humming neon lights.",
         "details": [
           "The rooms never change and need no storage: every wall and door follows from the world seed. Some rooms are dark, some groups of 4 x 4 rooms are open pillar halls. There is no sky, no time and yellow fog. Above the bedrock slab lies an upper floor (older paper, darker, more dead ends), reached by stairwells.",
           "Special rooms (jigsaw structures like the Trial Chambers) hold chests with Almond Water and other finds, a flooded room and dark rooms."
@@ -74,7 +74,7 @@
       },
       "de": {
         "title": "Die Backrooms",
-        "summary": "Zwei Wege führen in die Backrooms: selten steht in der Oberwelt ein abgesperrter Wartungsschacht (siehe „Wartungsschacht“), und selten sitzt fehlerhaftes Grundgestein im Bedrock-Boden (einer von 48 neuen Chunks, Config backrooms.entranceRarity; nur eine Netherit-Spitzhacke baut es ab, etwa 30 s, dann bleibt ein Riss). Wer in einen Riss fällt, landet in Level 0: endlose leere Räume, 8 x 8 Blöcke und 5 hoch, mit gelber Tapete, feuchtem Teppich und summenden Neonröhren.",
+        "summary": "Zwei Wege führen in die Backrooms: selten steht in der Oberwelt ein verlassenes Haus, dessen Keller über einem Wartungsschacht zubetoniert ist (siehe „Verlassenes Haus“), und selten sitzt fehlerhaftes Grundgestein im Bedrock-Boden (einer von 48 neuen Chunks, Config backrooms.entranceRarity; nur eine Netherit-Spitzhacke baut es ab, etwa 30 s, dann bleibt ein Riss). Wer in einen Riss fällt, landet in Level 0: endlose leere Räume, 8 x 8 Blöcke und 5 hoch, mit gelber Tapete, feuchtem Teppich und summenden Neonröhren.",
         "details": [
           "Die Räume ändern sich nie und brauchen keinen Speicher: jede Wand und Tür folgt aus dem Welt-Seed. Manche Räume sind dunkel, manche Gruppen aus 4 x 4 Räumen sind offene Säulenhallen. Es gibt keinen Himmel, keine Zeit und gelben Nebel. Über der Grundgesteinsdecke liegt ein Obergeschoss (ältere Tapete, dunkler, mehr Sackgassen), erreichbar über Treppenhäuser.",
           "Sonderräume (Jigsaw-Strukturen wie die Prüfungskammern) enthalten Truhen mit Mandelwasser und anderen Funden, einen gefluteten Raum und dunkle Räume."
@@ -92,11 +92,17 @@
       ],
       "en": {
         "title": "The quick way out",
-        "summary": "Level 0 always has an exit near you: every block of 12 x 12 rooms has one exit room, a free-standing wall with the Exit Door under a green EXIT sign, and from every room a way of at most 18 rooms leads to it. In the row and the column of the exit an EXIT sign hangs under the ceiling beside the door that leads on - follow the signs. The Exit Door brings you back to the Overworld above the place you came in (with a Backdoor Key 1500-3000 blocks away)."
+        "summary": "Level 0 always has an exit near you: every block of 8 x 8 rooms has one exit room, a free-standing wall with the Exit Door under a green EXIT sign, and from every room a way of at most 10 rooms leads to it. In the row and the column of the exit an EXIT sign hangs under the ceiling beside the door that leads on - follow the signs. The Exit Door brings you back to the Overworld above the place you came in (with a Backdoor Key 1500-3000 blocks away).",
+        "details": [
+          "Red chalk arrows at eye level, left by earlier wanderers in some rooms, point the same way: towards the nearest exit. Wall rifts (the way deeper) are common up here too - whoever wants to vanish finds one within a few rooms."
+        ]
       },
       "de": {
         "title": "Der schnelle Weg hinaus",
-        "summary": "Level 0 hat immer einen Ausgang in der Nähe: jeder Block aus 12 x 12 Räumen hat einen Ausgangsraum, eine freistehende Wand mit der Ausgangstür unter einem grünen EXIT-Schild, und von jedem Raum führt ein Weg über höchstens 18 Räume dorthin. In der Reihe und der Spalte des Ausgangs hängt ein EXIT-Schild unter der Decke neben der Tür, die weiterführt – folge den Schildern. Die Ausgangstür bringt dich zurück in die Oberwelt über der Stelle, an der du hineinkamst (mit Hintertür-Schlüssel 1500-3000 Blöcke entfernt)."
+        "summary": "Level 0 hat immer einen Ausgang in der Nähe: jeder Block aus 8 x 8 Räumen hat einen Ausgangsraum, eine freistehende Wand mit der Ausgangstür unter einem grünen EXIT-Schild, und von jedem Raum führt ein Weg über höchstens 10 Räume dorthin. In der Reihe und der Spalte des Ausgangs hängt ein EXIT-Schild unter der Decke neben der Tür, die weiterführt – folge den Schildern. Die Ausgangstür bringt dich zurück in die Oberwelt über der Stelle, an der du hineinkamst (mit Hintertür-Schlüssel 1500-3000 Blöcke entfernt).",
+        "details": [
+          "Rote Kreidepfeile auf Augenhöhe, von früheren Wanderern in manchen Räumen hinterlassen, zeigen in dieselbe Richtung: zum nächsten Ausgang. Auch Wandrisse (der Weg tiefer) sind hier oben häufig – wer verschwinden will, findet einen nach wenigen Räumen."
+        ]
       }
     },
     {
@@ -109,12 +115,14 @@
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/LevelDoorBlock.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/RiftBlock.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsCacheFeature.java",
-        "modules/simplelayers/tools/gen_data.py"
+        "modules/simplelayers/tools/gen_data.py",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/Maze.java"
       ],
       "en": {
         "title": "Deeper levels",
         "summary": "Rifts in walls (noclip spots) and Maintenance Doors lead one level deeper; the action bar names the level. Level 1, the Warehouse: a concrete hall 8 high with pillars, racks of crates (wood) and cobwebs (string), supply chests. Level 2, the Pipes: narrow warm corridors under copper ducts, two storeys joined by ladder shafts, many dead ends, chests in some of them. Holes in the floor of both drop into the Poolrooms: calm tiled rooms with shallow and deep pools.",
         "details": [
+          "The deeper, the more of a labyrinth: the Lobby is quick to cross (an exit about 30 blocks away on average), the Poolrooms and the Warehouse are mazes with many loops (about 55 and 80 blocks to their goal), the Pipes are a real labyrinth with long winding corridors (about 120 blocks to the hatch, often far more) - mark your way with chalk. Every goal is still reachable from every place of its level.",
           "Ways: Level 0 rifts in walls and the Maintenance Doors of its upper floor lead to the Warehouse; the Warehouse freight lifts (a door framed in yellow and black) and its wall rifts lead to the Pipes; floor holes in the Warehouse (drains) and the Pipes lead to the Poolrooms.",
           "Every level keeps your x/z and has its own fog and light. The Backroom effect, the bedrock hull and the piston rule hold in every level; the Vanilla blocks the levels are built of cannot be mined there either (supplies can)."
         ]
@@ -123,8 +131,59 @@
         "title": "Tiefere Ebenen",
         "summary": "Risse in Wänden (Noclip-Stellen) und Wartungstüren führen eine Ebene tiefer; die Aktionsleiste nennt die Ebene. Level 1, die Lagerhalle: eine 8 Blöcke hohe Betonhalle mit Säulen, Regalen voller Kisten (Holz) und Spinnweben (Faden), Vorratstruhen. Level 2, die Rohrgänge: enge, warme Gänge unter Kupferrohren, zwei Etagen mit Leiterschächten, viele Sackgassen, in manchen Truhen. Löcher im Boden beider Ebenen führen in die Poolrooms: ruhige gekachelte Räume mit flachen und tiefen Becken.",
         "details": [
+          "Je tiefer, desto labyrinthischer: die Lobby ist schnell durchquert (ein Ausgang im Schnitt etwa 30 Blöcke entfernt), Poolrooms und Lagerhalle sind Irrgärten mit vielen Schlaufen (etwa 55 und 80 Blöcke bis zum Ziel), die Rohrgänge ein echtes Labyrinth mit langen, verwinkelten Gängen (etwa 120 Blöcke bis zur Luke, oft weit mehr) – markiere deinen Weg mit Kreide. Jedes Ziel bleibt von jedem Ort seiner Ebene aus erreichbar.",
           "Wege: Risse in Wänden von Level 0 und die Wartungstüren seines Obergeschosses führen in die Lagerhalle; die Lastenaufzüge der Lagerhalle (eine Tür im gelb-schwarzen Rahmen) und ihre Wandrisse führen in die Rohrgänge; Bodenlöcher in der Lagerhalle (Abflüsse) und den Rohrgängen führen in die Poolrooms.",
           "Jede Ebene behält dein x/z und hat eigenen Nebel und eigenes Licht. Backroom-Effekt, Grundgestein-Hülle und Kolben-Regel gelten in jeder Ebene; auch die Vanilla-Blöcke, aus denen die Ebenen gebaut sind, lassen sich dort nicht abbauen (Vorräte schon)."
+        ]
+      }
+    },
+    {
+      "id": "backrooms_heights",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/LobbyGen.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/WarehouseGen.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/PipesGen.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/PoolsGen.java"
+      ],
+      "en": {
+        "title": "Heights and rooms",
+        "summary": "The rooms are not all alike. Level 0 has dropped ceilings (rooms only 3 high), carpeted daises one step up (sometimes a lone chair on top) and atriums: a light well through the floor above with a gallery and a parapet on the upper floor. Some offices became break rooms (a cauldron sink, a barrel counter with a smoker, a table) or lounges (a sofa, a rug, a dead plant); parts of the upper floor are an archive with walls of bookshelves.",
+        "details": [
+          "Level 1 has mezzanines (a deck on posts with a railing, a ladder and a chest up top) and loading docks one block high. Level 2 has boiler rooms two storeys high (a copper tank, a see-through grate gallery, a ladder between the storeys) and crawl ways only 2 high. The Poolrooms have tall halls with a balcony and a stair, and terraced pools that step down into the water.",
+          "Household things are the Backrooms' resources: smokers, cauldrons, barrels, carpets, crates and logs can be taken; walls, floors, decks, daises and bookshelf walls hold like the rest of the structure."
+        ]
+      },
+      "de": {
+        "title": "Höhen und Räume",
+        "summary": "Die Räume sind nicht alle gleich. Level 0 hat abgehängte Decken (Räume nur 3 hoch), Teppichpodeste eine Stufe hoch (manchmal steht ein einzelner Stuhl darauf) und Lichthöfe: ein Lichtschacht durch die Decke ins Obergeschoss mit Galerie und Brüstung. Manche Büros wurden Pausenräume (Kessel als Spüle, Fass-Theke mit Räucherofen, Tisch) oder Sitzecken (Sofa, Teppich, vertrocknete Pflanze); Teile des Obergeschosses sind ein Archiv mit Wänden aus Bücherregalen.",
+        "details": [
+          "Level 1 hat Zwischengeschosse (ein Deck auf Stützen mit Geländer, Leiter und einer Truhe oben) und einen Block hohe Laderampen. Level 2 hat Kesselräume über zwei Etagen (Kupfertank, durchsichtige Gitter-Galerie, Leiter zwischen den Etagen) und Kriechgänge, nur 2 hoch. Die Poolrooms haben hohe Hallen mit Balkon und Treppe und Terrassenbecken, die stufenweise ins Wasser führen.",
+          "Haushaltsdinge sind die Rohstoffe der Backrooms: Räucheröfen, Kessel, Fässer, Teppiche, Kisten und Stämme lassen sich mitnehmen; Wände, Böden, Decks, Podeste und Bücherwände halten wie der Rest des Baus."
+        ]
+      }
+    },
+    {
+      "id": "chalk",
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkItem.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkBoxItem.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkMarkBlock.java",
+        "modules/simplelayers/tools/gen_data.py"
+      ],
+      "en": {
+        "title": "Chalk",
+        "summary": "Chalk marks your way - in the Backrooms, in caves, in any mine. Use it on a wall, floor or ceiling: click off-centre for an arrow pointing that way, in the middle for a cross, sneak for a circle. White, red, blue and yellow; 64 marks per stick. Crafting: calcite + bone meal = 4 chalk; add a dye (red, blue, yellow) for 4 coloured ones.",
+        "details": [
+          "Marks have no collision, break at once, drop nothing and give way to any block placed there. A glow ink sac makes a mark glow (light 4), an ink sac puts it out - as on a sign.",
+          "The Chalk Box (2 paper over 3 wooden slabs) holds chalk of all four colours, up to 256 strokes each: click chalk onto it in the inventory. Used on a block it draws with the selected colour; sneak + use in the air picks the next colour. A glow ink sac adds 16 glowing strokes. The bar shows the selected colour, the tooltip all of them."
+        ]
+      },
+      "de": {
+        "title": "Kreide",
+        "summary": "Kreide markiert deinen Weg – in den Backrooms, in Höhlen, in jeder Mine. Benutze sie auf Wand, Boden oder Decke: neben die Mitte geklickt ein Pfeil in diese Richtung, in die Mitte ein Kreuz, beim Schleichen ein Kreis. Weiß, Rot, Blau und Gelb; 64 Zeichen je Stück. Herstellung: Kalzit + Knochenmehl = 4 Kreide; mit Farbstoff (Rot, Blau, Gelb) 4 farbige.",
+        "details": [
+          "Zeichen haben keine Kollision, brechen sofort, droppen nichts und weichen jedem Block, der dort gesetzt wird. Ein Leuchttintenbeutel lässt ein Zeichen leuchten (Licht 4), ein Tintenbeutel löscht es – wie bei einem Schild.",
+          "Die Kreidebox (2 Papier über 3 Holzstufen) hält Kreide aller vier Farben, bis 256 Striche je Farbe: Kreide im Inventar daraufklicken. Auf einem Block zeichnet sie mit der gewählten Farbe; Schleichen + Benutzen in die Luft wählt die nächste. Ein Leuchttintenbeutel gibt 16 leuchtende Striche. Der Balken zeigt die gewählte Farbe, der Tooltip alle."
         ]
       }
     },
@@ -150,18 +209,24 @@
       "id": "entrance_shaft",
       "sources": [
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/EntranceShaftFeature.java",
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/ShaftTemplate.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/HouseTemplate.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CautionSignBlock.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/CautionTapeBlock.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/config/LayersConfig.java"
       ],
       "en": {
-        "title": "Entrance shaft",
-        "summary": "Rarely (one new Overworld chunk in 200, config backrooms.shaftRarity, 0 = none; only on flat, dry ground) a fenced-off maintenance shaft stands in the open: a concrete pad, a barrier of posts and yellow-and-black Caution Tape, Caution Signs facing out and orange warning lights on the corners, a hoist frame with a chain over a 3 x 3 shaft. A ladder leads 12 blocks down to a floor of rifts - the way into Level 0. The tape stops walking, not jumping."
+        "title": "Abandoned house",
+        "summary": "Rarely (one new Overworld chunk in 200, config backrooms.shaftRarity, 0 = none; only on flat, dry ground) an abandoned cottage stands in the landscape - cobblestone footing, plank walls, log corners, a gable roof, one broken window; spruce in cold biomes, acacia in hot dry ones. A trapdoor in the floor leads down a ladder into the cellar. One cellar wall is concreted shut: a grey plug in a yellow-and-black frame, Caution Tape across it, Caution Signs on both sides and a warning light above. Break the concrete with a pickaxe: behind it the old maintenance shaft leads down a ladder to a floor of rifts - the way into Level 0.",
+        "details": [
+          "The barrels in the house and the cellar hold what was left behind: paper, chalk, candles, bread, sometimes a map, rarely almond water or a Chalk Box. The Glitched Bedrock in the bedrock floor stays the hidden second way in."
+        ]
       },
       "de": {
-        "title": "Wartungsschacht",
-        "summary": "Selten (einer von 200 neuen Oberwelt-Chunks, Config backrooms.shaftRarity, 0 = keiner; nur auf flachem, trockenem Boden) steht ein abgesperrter Wartungsschacht im Freien: eine Betonplatte, eine Absperrung aus Pfosten und gelb-schwarzem Absperrband, Warnschilder nach außen und orange Warnleuchten an den Ecken, ein Hebegerüst mit Kette über einem 3 x 3 großen Schacht. Eine Leiter führt 12 Blöcke hinab zu einem Boden aus Rissen – der Weg in Level 0. Das Band hält Laufende auf, Springende nicht."
+        "title": "Verlassenes Haus",
+        "summary": "Selten (einer von 200 neuen Oberwelt-Chunks, Config backrooms.shaftRarity, 0 = keiner; nur auf flachem, trockenem Boden) steht ein verlassenes Häuschen in der Landschaft – Bruchsteinsockel, Bretterwände, Stammecken, Satteldach, ein kaputtes Fenster; in kalten Biomen aus Fichte, in heißen trockenen aus Akazie. Eine Falltür im Boden führt über eine Leiter in den Keller. Eine Kellerwand ist zubetoniert: ein grauer Pfropfen im gelb-schwarzen Rahmen, Absperrband davor, Warnschilder an beiden Seiten und eine Warnleuchte darüber. Schlag den Beton mit der Spitzhacke auf: dahinter führt der alte Wartungsschacht über eine Leiter zu einem Boden aus Rissen – der Weg in Level 0.",
+        "details": [
+          "Die Fässer in Haus und Keller enthalten, was zurückblieb: Papier, Kreide, Kerzen, Brot, manchmal eine Karte, selten Mandelwasser oder eine Kreidebox. Das fehlerhafte Grundgestein im Grundgesteinboden bleibt der versteckte Zweitweg."
+        ]
       }
     },
     {
@@ -415,7 +480,7 @@
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsTravel.java"
       ],
       "en": {
-        "summary": "No item: what a broken Glitched Bedrock leaves, the floor of the entrance shaft, and noclip spots and holes inside the Backrooms. No collision, unbreakable; whatever enters it lands in the Backrooms (inside: one level deeper, holes in the floor: the Poolrooms)."
+        "summary": "No item: what a broken Glitched Bedrock leaves, the floor of the maintenance shaft under the abandoned house, and noclip spots and holes inside the Backrooms. No collision, unbreakable; whatever enters it lands in the Backrooms (inside: one level deeper, holes in the floor: the Poolrooms)."
       },
       "de": {
         "summary": "Kein Item: bleibt von abgebautem fehlerhaftem Grundgestein, bildet den Boden des Wartungsschachts und die Noclip-Stellen und Löcher in den Backrooms. Ohne Kollision, unzerstörbar; wer hineingerät, landet in den Backrooms (drinnen: eine Ebene tiefer, Bodenlöcher: die Poolrooms)."
@@ -427,10 +492,10 @@
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
       ],
       "en": {
-        "summary": "Yellow warning plate with a black triangle; hangs on the face of the block behind it. Marks the entrance shaft; also a decoration block."
+        "summary": "Yellow warning plate with a black triangle; hangs on the face of the block behind it. Marks the sealed cellar of the abandoned house; also a decoration block."
       },
       "de": {
-        "summary": "Gelbes Warnschild mit schwarzem Dreieck; hängt an der Seite des Blocks dahinter. Markiert den Wartungsschacht; auch ein Dekoblock."
+        "summary": "Gelbes Warnschild mit schwarzem Dreieck; hängt an der Seite des Blocks dahinter. Markiert den zubetonierten Keller des verlassenen Hauses; auch ein Dekoblock."
       }
     },
     "simplelayers:caution_tape": {
@@ -455,6 +520,66 @@
       },
       "de": {
         "summary": "Nur generiert (kein Item): eine Stahltür mit Warnstreifen, die eine Backrooms-Ebene tiefer führt. In den Rohrgängen versiegelt: drei Ventilhebel müssen richtig stehen."
+      }
+    },
+    "simplelayers:chalk": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkItem.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "White chalk: 64 marks; calcite + bone meal = 4."
+      },
+      "de": {
+        "summary": "Weiße Kreide: 64 Zeichen; Kalzit + Knochenmehl = 4."
+      }
+    },
+    "simplelayers:red_chalk": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkItem.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Red chalk: 64 marks; calcite + bone meal + red dye = 4."
+      },
+      "de": {
+        "summary": "Rote Kreide: 64 Zeichen; Kalzit + Knochenmehl + roter Farbstoff = 4."
+      }
+    },
+    "simplelayers:blue_chalk": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkItem.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Blue chalk: 64 marks; calcite + bone meal + blue dye = 4."
+      },
+      "de": {
+        "summary": "Blaue Kreide: 64 Zeichen; Kalzit + Knochenmehl + blauer Farbstoff = 4."
+      }
+    },
+    "simplelayers:yellow_chalk": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkItem.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Yellow chalk: 64 marks; calcite + bone meal + yellow dye = 4. Shows best in dark corridors."
+      },
+      "de": {
+        "summary": "Gelbe Kreide: 64 Zeichen; Kalzit + Knochenmehl + gelber Farbstoff = 4. Am besten sichtbar in dunklen Gängen."
+      }
+    },
+    "simplelayers:chalk_box": {
+      "sources": [
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/ChalkBoxItem.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
+      ],
+      "en": {
+        "summary": "Holds up to 256 strokes of each chalk colour plus glowing strokes; click chalk onto it, sneak + use in the air for the next colour."
+      },
+      "de": {
+        "summary": "Hält bis 256 Striche je Kreidefarbe und leuchtende Striche; Kreide daraufklicken, Schleichen + Benutzen in die Luft für die nächste Farbe."
       }
     }
   }

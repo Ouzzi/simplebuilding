@@ -15,7 +15,10 @@ public final class PipesGen {
     /** BACK20: share of extra open links beside the region maze (low: the deepest grid level is a real labyrinth). */
     public static final double LOOPS = 0.06;
 
-    public enum Node { PLAIN, SHAFT, HOLE, HATCH }
+    public enum Node { PLAIN, SHAFT, HOLE, HATCH, BOILER }
+
+    /** BACK20: share of crawl links (2 high) per storey and of boiler rooms (two storeys high) among ground nodes. */
+    public static final double CRAWL_CHANCE = 0.15, BOILER_CHANCE = 0.035;
 
     private PipesGen() {}
 
@@ -36,7 +39,8 @@ public final class PipesGen {
         if (storey == 1) return Node.PLAIN;
         double u = unit(seed, nx, nz, SALT + 3);
         if (u < 0.07) return Node.SHAFT;
-        return u < 0.095 ? Node.HOLE : Node.PLAIN;
+        if (u < 0.095) return Node.HOLE;
+        return u < 0.095 + BOILER_CHANCE ? Node.BOILER : Node.PLAIN;
     }
 
     /** Open links of a node (0-4): one means a dead end. */
@@ -52,6 +56,11 @@ public final class PipesGen {
     }
 
     public static final int[] CACHE = {2, 2, 4};
+
+    /** BACK20: a quarter of the plain dead ends carry a red chalk cross on the floor - someone was here and turned back. */
+    public static boolean crossed(long seed, int storey, int nx, int nz) {
+        return node(seed, storey, nx, nz) == Node.PLAIN && links(seed, storey, nx, nz) == 1 && unit(seed, nx, nz, salt(storey) + 12) < 0.25;
+    }
 
     /** The hatch's valve pattern: bit 0 north lever, bit 1 east, bit 2 west (1 = on); never all off. */
     public static int pattern(long seed, int nx, int nz) {
@@ -71,6 +80,16 @@ public final class PipesGen {
             if (lx == 2 && lz == 2 && y >= 2 && y <= 12) return Piece.COPPER_BOX;
             if (lx == 3 && lz == 2 && y >= 2 && y <= 9) return Piece.LADDER_E;
         }
+        if (ground == Node.BOILER && lx >= 2 && lx <= 4 && lz >= 2 && lz <= 4 && y >= 2 && y <= STOREY + 1) {
+            // A boiler room: the core is open through both storeys around a copper tank, the upper storey walks on a grate
+            // gallery (see-through), a ladder on the tank joins them.
+            if (lx == 3 && lz == 3) return Piece.COPPER_BOX;
+            if (lx == 3 && lz == 4) return Piece.LADDER_S;
+            if (y == STOREY + 1) return Piece.GRATE;
+            if (y == 2 && (lx == 2 || lx == 4) && lz == 3) return Piece.BULB; // the firebox glow at the foot of the tank
+            return Piece.AIR;
+        }
+        if (ground == Node.BOILER && lx == 3 && lz == 3 && y > STOREY + 1 && y <= STOREY + 5) return Piece.COPPER_BOX;
         if (y == 0 || y == STOREY) return Piece.BEDROCK;
         int storey = y < STOREY ? 0 : 1;
         if (storey == 1 && y > STOREY + 6) return Piece.BEDROCK;
@@ -87,6 +106,15 @@ public final class PipesGen {
         return false;
     }
 
+    /** BACK20: whether the link holding (lx, lz) of node (nx, nz) is a crawl way (2 high: the duct hangs low). */
+    public static boolean crawl(long seed, int storey, int nx, int nz, int lx, int lz) {
+        int salt = salt(storey) + 10;
+        if (lx <= 1) return unit(seed, nx, nz, salt) < CRAWL_CHANCE;
+        if (lx == 5) return unit(seed, nx + 1, nz, salt) < CRAWL_CHANCE;
+        if (lz <= 1) return unit(seed, nx, nz, salt + 1) < CRAWL_CHANCE;
+        return unit(seed, nx, nz + 1, salt + 1) < CRAWL_CHANCE;
+    }
+
     /** One storey; ly = 1 floor, 2-5 corridor, 6 ceiling. */
     static Piece storeyAt(long seed, int storey, Node node, int nx, int nz, int x, int ly, int z, int lx, int lz) {
         boolean core = lx >= 2 && lx <= 4 && lz >= 2 && lz <= 4;
@@ -95,11 +123,13 @@ public final class PipesGen {
             if (core && lx == 3 && lz == 3 && unit(seed, nx, nz, salt(storey) + 6) < 0.4) return Piece.GRATE;
             return open(seed, storey, nx, nz, lx, lz) ? Piece.PIPE_FLOOR : Piece.PIPE_WALL;
         }
+        if (ly == 2 && lx == 3 && lz == 3 && crossed(seed, storey, nx, nz)) return Piece.CHALK_X;
         if (ly == 6) {
             if (lx == 3 && lz == 3 && lit(seed, storey, nx, nz)) return Piece.BULB;
             return Piece.PIPE_CEILING;
         }
         if (!open(seed, storey, nx, nz, lx, lz)) return Piece.PIPE_WALL;
+        if (!core && ly >= 4 && crawl(seed, storey, nx, nz, lx, lz)) return ly == 4 ? Piece.COPPER_BOX : Piece.PIPE_CEILING;
         if (node == Node.HATCH) {
             if (lx == 3 && lz == 3 && ly <= 4) return ly == 2 ? Piece.SEALED_DOOR_LOWER : ly == 3 ? Piece.SEALED_DOOR_UPPER : Piece.COPPER_BOX;
             if (ly == 2 && lx == 3 && lz == 2) return Piece.LEVER_N;
@@ -121,7 +151,7 @@ public final class PipesGen {
                 if (!alongX && (lx == 2 || lx == 4)) return Piece.PIPE_Z;
             }
         }
-        if (ly == 2 && !core && unit(seed, nx, nz, salt(storey) + 7 + (lx <= 1 || lx == 5 ? 0 : 1)) < 0.3) {
+        if (ly == 2 && !core && !crawl(seed, storey, nx, nz, lx, lz) && unit(seed, nx, nz, salt(storey) + 7 + (lx <= 1 || lx == 5 ? 0 : 1)) < 0.3) {
             // a low pipe along one wall of some links (step over it)
             if ((lx <= 1 || lx == 5) && lz == 2) return Piece.PIPE_X;
             if ((lz <= 1 || lz == 5) && lx == 2) return Piece.PIPE_Z;
@@ -129,9 +159,10 @@ public final class PipesGen {
         return Piece.AIR;
     }
 
-    /** Arrival: the junction of the node at (x, z), ground storey; south of the hatch in a hatch node. */
+    /** Arrival: the junction of the node at (x, z), ground storey; south of the hatch in a hatch node, north of the tank in a boiler room. */
     public static int[] arrival(long seed, int x, int z) {
         int nx = Math.floorDiv(x, NODE), nz = Math.floorDiv(z, NODE);
-        return new int[] {nx * NODE + 3, 2, nz * NODE + (node(seed, 0, nx, nz) == Node.HATCH ? 4 : 3)};
+        Node node = node(seed, 0, nx, nz);
+        return new int[] {nx * NODE + 3, 2, nz * NODE + (node == Node.HATCH ? 4 : node == Node.BOILER ? 2 : 3)};
     }
 }

@@ -13,7 +13,10 @@ public final class PoolsGen {
     /** BACK20: region maze with many loops - calm and open, yet confusing. */
     public static final double LOOPS = 0.4;
 
-    public enum Room { POOL, DEEP, FLOODED, COLUMNS, DRY, EXIT }
+    public enum Room { POOL, DEEP, FLOODED, COLUMNS, DRY, EXIT, GALLERY, TERRACE }
+
+    /** BACK20: the gallery's balcony floor (walk on y 8). */
+    public static final int BALCONY_Y = WALK_Y + 4;
 
     private PoolsGen() {}
 
@@ -38,6 +41,8 @@ public final class PoolsGen {
     public static Room room(long seed, int rx, int rz) {
         if (GenHash.root(seed, rx, rz, REGION, SALT + 21)) return Room.EXIT;
         double u = unit(seed, rx, rz, SALT + 3);
+        if (u < 0.08) return Room.GALLERY;
+        if (u < 0.16) return Room.TERRACE;
         if (u < 0.42) return Room.POOL;
         if (u < 0.56) return Room.DEEP;
         if (u < 0.72) return Room.FLOODED;
@@ -46,7 +51,7 @@ public final class PoolsGen {
 
     public static int ceiling(long seed, int rx, int rz) {
         Room room = room(seed, rx, rz);
-        return room == Room.COLUMNS || room != Room.EXIT && unit(seed, rx, rz, SALT + 4) < 0.3 ? 13 : 9;
+        return room == Room.COLUMNS || room == Room.GALLERY || room != Room.EXIT && unit(seed, rx, rz, SALT + 4) < 0.3 ? 13 : 9;
     }
 
     /** The exit room's supply chest (cache feature), room-local. */
@@ -91,6 +96,17 @@ public final class PoolsGen {
             else if (shape == 2) walk = lx <= 3 || lx >= 7;
         }
         boolean pool = !walk;
+        if (room == Room.GALLERY) {
+            // a tall hall with a balcony along the north wall (lz 1-3, a parapet at its edge) and a stair up the east walkway
+            if (lz <= 3 && y == BALCONY_Y) return Piece.TILE_FLOOR;
+            if (lz == 3 && y == BALCONY_Y + 1 && lx <= 8) return Piece.TILE;
+            if (lx == 9 && lz >= 4 && lz <= 7 && y == WALK_Y + 1 + (7 - lz)) return Piece.STAIR_N;
+        }
+        if (room == Room.TERRACE && !walk && y < WALK_Y) {
+            // steps down into the water: shallow in the west, two deep in the east
+            int floor = lx <= 4 ? WALK_Y - 1 : WALK_Y - 2;
+            return y < floor ? Piece.TILE : y == floor ? Piece.POOL_TILE : Piece.WATER;
+        }
         if (y < WALK_Y - 1) return room == Room.DEEP && pool ? Piece.POOL_TILE : Piece.TILE;
         switch (room) {
             case POOL -> {
@@ -109,6 +125,10 @@ public final class PoolsGen {
                 if (y == WALK_Y - 1) return lz == 5 ? Piece.POOL_TILE : Piece.TILE;
                 if (y == WALK_Y) return lz == 5 ? Piece.WATER : Piece.TILE_FLOOR;
                 if ((lx == 3 || lx == 7) && (lz == 3 || lz == 7)) return Piece.TILE_COLUMN;
+            }
+            case GALLERY, TERRACE -> {
+                if (y == WALK_Y - 1) return pool ? (room == Room.GALLERY ? Piece.POOL_TILE : Piece.WATER) : Piece.TILE;
+                if (y == WALK_Y) return pool ? Piece.WATER : Piece.TILE_FLOOR;
             }
             case DRY -> {
                 if (y == WALK_Y - 1) return Piece.TILE;

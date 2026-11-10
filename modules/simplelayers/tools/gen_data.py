@@ -125,7 +125,7 @@ def loot():
             item(f'{NS}:almond_water', 30, 1, 3), item(f'{NS}:backdoor_key', 4), item('minecraft:paper', 20, 2, 8),
             item('minecraft:book', 10), item('minecraft:bread', 15, 1, 3), item('minecraft:torch', 12, 2, 6),
             item('minecraft:map', 6), item('minecraft:music_disc_11', 2), item('minecraft:music_disc_13', 2),
-            item('minecraft:string', 10, 2, 5), item('minecraft:stick', 8, 2, 6)]},
+            item('minecraft:string', 10, 2, 5), item('minecraft:stick', 8, 2, 6), item(f'{NS}:chalk', 8, 1, 2)]},
         {'rolls': {'type': 'minecraft:uniform', 'max': 2, 'min': 0}, 'entries': [
             item(f'{NS}:wallpaper', 10, 4, 12), item(f'{NS}:striped_wallpaper', 5, 4, 12), item(f'{NS}:dotted_wallpaper', 5, 4, 12),
             item(f'{NS}:damp_carpet', 10, 4, 12), item(f'{NS}:ceiling_tile', 8, 4, 12), item(f'{NS}:neon_light', 6, 1, 4),
@@ -140,10 +140,12 @@ def loot():
         return {'rolls': {'type': 'minecraft:uniform', 'max': hi, 'min': lo}, 'entries': list(entries)}
     chest('backrooms_warehouse', [roll(2, 4, item('minecraft:oak_planks', 20, 4, 12), item('minecraft:stick', 15, 2, 8),
                                         item('minecraft:string', 20, 2, 6), item(f'{NS}:almond_water', 15, 1, 2), item('minecraft:torch', 12, 2, 6),
-                                        item('minecraft:paper', 10, 2, 6), item('minecraft:iron_nugget', 8, 2, 7), item(f'{NS}:backdoor_key', 2))])
+                                        item('minecraft:paper', 10, 2, 6), item('minecraft:iron_nugget', 8, 2, 7), item(f'{NS}:backdoor_key', 2),
+                                        item(f'{NS}:chalk', 8, 1, 2), item(f'{NS}:chalk_box', 2))])
     chest('backrooms_pipes', [roll(2, 4, item('minecraft:copper_ingot', 20, 2, 6), item('minecraft:iron_nugget', 15, 3, 9),
                                     item('minecraft:string', 10, 1, 4), item('minecraft:torch', 12, 2, 6), item(f'{NS}:almond_water', 15, 1, 2),
-                                    item('minecraft:coal', 12, 2, 6), item('minecraft:redstone', 8, 2, 6), item(f'{NS}:backdoor_key', 3))])
+                                    item('minecraft:coal', 12, 2, 6), item('minecraft:redstone', 8, 2, 6), item(f'{NS}:backdoor_key', 3),
+                                    item(f'{NS}:yellow_chalk', 8, 1, 2))])
     chest('backrooms_pools', [roll(2, 4, item(f'{NS}:almond_water', 30, 1, 4), item('minecraft:prismarine_shard', 15, 2, 6),
                                     item('minecraft:prismarine_crystals', 10, 1, 4), item('minecraft:nautilus_shell', 4),
                                     item('minecraft:sponge', 3), item('minecraft:heart_of_the_sea', 1), item(f'{NS}:backdoor_key', 5))])
@@ -163,7 +165,7 @@ def loot():
 def tags():
     put_json('data/minecraft/tags/block/mineable/pickaxe.json', {'values': [f'{NS}:glitched_bedrock', f'{NS}:cloud_stone', f'{NS}:exit_sign', f'{NS}:exit_door',
                                                                        f'{NS}:level_door', f'{NS}:caution_sign']})
-    d('tags/block/backrooms_structure.json', {'values': [f'minecraft:{b}' for b in STRUCTURE]})
+    d('tags/block/backrooms_structure.json', {'values': [f'minecraft:{b}' for b in STRUCTURE + STRUCTURE_BACK20]})
     put_json('data/minecraft/tags/block/mineable/axe.json', {'values': [f'{NS}:wallpaper', f'{NS}:striped_wallpaper', f'{NS}:dotted_wallpaper',
                                                   f'{NS}:ceiling_tile', f'{NS}:stained_ceiling_tile']})
     put_json('data/minecraft/tags/block/dampens_vibrations.json', {'values': [f'{NS}:damp_carpet']})
@@ -382,6 +384,73 @@ def rooms():
         FILES[RES / f'data/{NS}/structure/backrooms/{name}.nbt'] = room.save()
 
 
+# ---------------------------------------------------------------- BACK20 (plan docs/ai/PLAN-B-BACK20-2026-11-10.md)
+CHALK_COLORS = ['white', 'red', 'blue', 'yellow']
+CHALK_SYMBOLS = {'arrow_up': ('arrow', 0), 'arrow_right': ('arrow', 90), 'arrow_down': ('arrow', 180), 'arrow_left': ('arrow', 270),
+                 'cross': ('cross', 0), 'circle': ('circle', 0)}
+# facing -> blockstate rotation of the base model (the mark drawn on a block to the north, facing south)
+CHALK_FACING = {'south': {}, 'west': {'y': 90}, 'north': {'y': 180}, 'east': {'y': 270}, 'up': {'x': 90}, 'down': {'x': 270}}
+CHALK_ITEMS = ['chalk', 'red_chalk', 'blue_chalk', 'yellow_chalk', 'chalk_box']
+# Vanilla blocks of the BACK20 rooms that are part of the structure (held inside the Backrooms); the household things (smoker,
+# cauldron, barrel, carpet, pot) and crates stay loose - they are the resources.
+STRUCTURE_BACK20 = ['birch_slab', 'smooth_stone_slab', 'bookshelf']
+
+
+def chalk_name(color):
+    return 'chalk' if color == 'white' else f'{color}_chalk'
+
+
+def back20():
+    variants = {}
+    for color in CHALK_COLORS:
+        for symbol, (tex, rot) in CHALK_SYMBOLS.items():
+            face = {'texture': '#mark', 'uv': [0, 0, 16, 16]}
+            if rot:
+                face['rotation'] = rot
+            a(f'models/block/chalk_mark_{color}_{symbol}.json', {
+                'parent': 'minecraft:block/block', 'render_type': 'minecraft:cutout', 'ambientocclusion': False,
+                'textures': {'mark': f'{NS}:block/chalk_{color}_{tex}', 'particle': f'{NS}:block/chalk_{color}_{tex}'},
+                'elements': [{'from': [0, 0, 0.25], 'to': [16, 16, 0.25], 'shade': False, 'faces': {'south': face}}]})
+            for facing, r in CHALK_FACING.items():
+                for glowing in ('false', 'true'):
+                    v = {'model': f'{NS}:block/chalk_mark_{color}_{symbol}'}
+                    v.update(r)
+                    variants[f'color={color},facing={facing},glowing={glowing},symbol={symbol}'] = v
+    a('blockstates/chalk_mark.json', {'variants': variants})
+    for i in CHALK_ITEMS:
+        a(f'items/{i}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{i}'}})
+        a(f'models/item/{i}.json', {'parent': 'minecraft:item/handheld' if i != 'chalk_box' else 'minecraft:item/generated',
+                                    'textures': {'layer0': f'{NS}:item/{i}'}})
+
+    def recipe(name, body, unlock):
+        d(f'recipe/{name}.json', body)
+        d(f'advancement/recipes/tools/{name}.json', {
+            'parent': 'minecraft:recipes/root',
+            'criteria': {f'has_{unlock.split(":")[1]}': {'conditions': {'items': [{'items': unlock}]}, 'trigger': 'minecraft:inventory_changed'},
+                         'has_the_recipe': {'conditions': {'recipes': f'{NS}:{name}'}, 'trigger': 'minecraft:recipe_unlocked'}},
+            'requirements': [['has_the_recipe', f'has_{unlock.split(":")[1]}']], 'rewards': {'recipes': [f'{NS}:{name}']}})
+    # Vanilla-near: calcite ground with bone meal gives four sticks; a dye colours them; the box is a paper-lined tray of slabs.
+    recipe('chalk', {'type': 'minecraft:crafting_shapeless', 'category': 'equipment', 'group': 'simplelayers_chalk',
+                     'ingredients': ['minecraft:calcite', 'minecraft:bone_meal'], 'result': {'id': f'{NS}:chalk', 'count': 4}}, 'minecraft:calcite')
+    for color in CHALK_COLORS[1:]:
+        recipe(chalk_name(color), {'type': 'minecraft:crafting_shapeless', 'category': 'equipment', 'group': 'simplelayers_chalk',
+                                   'ingredients': ['minecraft:calcite', 'minecraft:bone_meal', f'minecraft:{color}_dye'],
+                                   'result': {'id': f'{NS}:{chalk_name(color)}', 'count': 4}}, 'minecraft:calcite')
+    # The abandoned house's barrels: what was left behind - paper, chalk (someone marked the way), candles, bread, a map; rarely
+    # almond water or a chalk box (the owner went down there).
+    def item(name, weight, lo=1, hi=1):
+        e = {'type': 'minecraft:item', 'name': name, 'weight': weight}
+        if hi > 1:
+            e['modifier'] = {'type': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'max': hi, 'min': lo}}
+        return e
+    d('loot_table/chests/backrooms_house.json', {'type': 'minecraft:chest', 'pools': [{'rolls': {'type': 'minecraft:uniform', 'max': 4, 'min': 2}, 'entries': [
+        item('minecraft:paper', 20, 2, 7), item(f'{NS}:chalk', 18, 1, 3), item(f'{NS}:red_chalk', 6, 1, 2), item('minecraft:candle', 12, 1, 3),
+        item('minecraft:bread', 14, 1, 3), item('minecraft:map', 6), item('minecraft:string', 10, 1, 4), item('minecraft:torch', 10, 2, 5),
+        item(f'{NS}:almond_water', 4), item(f'{NS}:chalk_box', 3), item('minecraft:book', 6)]}], 'random_sequence': f'{NS}:chests/backrooms_house'})
+    recipe('chalk_box', {'type': 'minecraft:crafting_shaped', 'category': 'equipment', 'key': {'P': 'minecraft:paper', 'S': '#minecraft:wooden_slabs'},
+                         'pattern': ['P P', 'SSS'], 'result': {'id': f'{NS}:chalk_box'}}, f'{NS}:chalk')
+
+
 def same(path, data):
     """Equal content; NBT is compared decoded (gzip bytes differ between zlib versions, e.g. python3 vs python3.12)."""
     old = path.read_bytes()
@@ -397,6 +466,7 @@ def main():
     sounds()
     dimensions()
     rooms()
+    back20()
     check = '--check' in sys.argv
     bad = []
     for path, data in sorted(FILES.items()):

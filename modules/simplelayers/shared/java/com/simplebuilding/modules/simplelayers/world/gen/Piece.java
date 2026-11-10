@@ -12,6 +12,7 @@ public enum Piece {
     LEVEL_DOOR_LOWER, LEVEL_DOOR_UPPER, SEALED_DOOR_LOWER, SEALED_DOOR_UPPER,
     COBWEB, DESK, CHAIR_N, CHAIR_S, LOGS_X, CRAFTING_TABLE, STEP_E, STEP_S,
     // BACK20: heights and rooms
+    CHALK_E, CHALK_W, CHALK_N, CHALK_S, CHALK_X,
     SLAB, DECK, STONE_SLAB, LADDER_N, SINK, COUNTER, SMOKER_N, SMOKER_S, RUG, POT, BOOKSHELF,
     END_FLOOR, END_WALL, END_CEILING,
     // Level 1 (warehouse)
@@ -19,10 +20,13 @@ public enum Piece {
     // Level 2 (pipes)
     PIPE_WALL, PIPE_FLOOR, PIPE_CEILING, PIPE_X, PIPE_Z, PIPE_Y, COPPER_BOX, BULB, GRATE, LADDER_E, LADDER_S, LEVER_N, LEVER_E, LEVER_W,
     // Poolrooms
-    TILE, TILE_FLOOR, POOL_TILE, WATER, SEA_LANTERN, ARCH_E, ARCH_W, ARCH_N, ARCH_S, TILE_COLUMN,
+    TILE, TILE_FLOOR, POOL_TILE, WATER, SEA_LANTERN, ARCH_E, ARCH_W, ARCH_N, ARCH_S, TILE_COLUMN, STAIR_N,
     // Entrance shaft (Overworld)
     PAD, GRAVEL, STONE, STONE_BRICKS, CRACKED_STONE_BRICKS, POST, WARNING_LAMP, TAPE_X, TAPE_Z,
-    SIGN_N, SIGN_E, SIGN_S, SIGN_W, GLITCHED_BEDROCK, CHAIN;
+    SIGN_N, SIGN_E, SIGN_S, SIGN_W, GLITCHED_BEDROCK, CHAIN,
+    // BACK20: the abandoned house over the sealed cellar (wood pieces H_* and the roof take the biome's wood)
+    COBBLE, H_FLOOR, H_LOG, H_PLANKS, H_DOOR_LOWER, H_DOOR_UPPER, H_TRAPDOOR, GLASS_X, GLASS_Z, ROOF_N, ROOF_S, ROOF_TOP,
+    BARREL_LOOT, MOSSY_STONE_BRICKS, LADDER_W, LANTERN;
 
     public boolean isAir() {
         return this == AIR;
@@ -31,7 +35,7 @@ public enum Piece {
     /** Whether a player can stand in it (no collision worth mentioning): air, water, rift, cobweb, lever, ladder. */
     public boolean passable() {
         return switch (this) {
-            case AIR, WATER, RIFT, COBWEB, LEVER_N, LEVER_E, LEVER_W, LADDER_E, LADDER_S, LADDER_N, CHAIN, RUG -> true;
+            case AIR, WATER, RIFT, COBWEB, LEVER_N, LEVER_E, LEVER_W, LADDER_E, LADDER_S, LADDER_N, LADDER_W, CHAIN, RUG, CHALK_E, CHALK_W, CHALK_N, CHALK_S, CHALK_X -> true;
             default -> false;
         };
     }

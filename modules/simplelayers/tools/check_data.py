@@ -9,6 +9,8 @@ MODULE = Path(__file__).resolve().parents[1]
 RES = MODULE / 'shared/resources'
 ITEMS = ['cloud_block', 'cloud_stone', 'mist_block', 'damp_carpet', 'wallpaper', 'striped_wallpaper', 'dotted_wallpaper', 'ceiling_tile',
          'stained_ceiling_tile', 'neon_light', 'exit_sign', 'caution_sign', 'caution_tape', 'glitched_bedrock', 'almond_water', 'backdoor_key']
+ITEMS += ['chalk', 'red_chalk', 'blue_chalk', 'yellow_chalk', 'chalk_box']  # BACK20
+FLAT = ('almond_water', 'backdoor_key', 'chalk', 'red_chalk', 'blue_chalk', 'yellow_chalk', 'chalk_box')
 problems = []
 r = subprocess.run([sys.executable, str(MODULE / 'tools/gen_data.py'), '--check'], capture_output=True, text=True)
 if r.returncode:
@@ -16,7 +18,7 @@ if r.returncode:
 lang = {loc: json.loads((RES / f'assets/simplelayers/lang/{loc}.json').read_text(encoding='utf-8')) for loc in ('en_us', 'de_de')}
 notes = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))['notes']
 for item in ITEMS:
-    kind = 'item' if item in ('almond_water', 'backdoor_key') else 'block'
+    kind = 'item' if item in FLAT else 'block'
     for loc, data in lang.items():
         if f'{kind}.simplelayers.{item}' not in data:
             problems.append(f'{loc}: {kind}.simplelayers.{item}')

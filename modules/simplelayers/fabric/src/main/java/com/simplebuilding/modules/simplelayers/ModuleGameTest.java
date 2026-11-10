@@ -165,4 +165,29 @@ public final class ModuleGameTest {
     public void levelBlocksProtected(GameTestHelper h) {
         LayersTests.ALL.get("level_blocks_protected").accept(h);
     }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void labyrinthDepthGradient(GameTestHelper h) {
+        LayersTests.ALL.get("labyrinth_depth_gradient").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void levelHeightsVary(GameTestHelper h) {
+        LayersTests.ALL.get("level_heights_vary").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void chalkMarks(GameTestHelper h) {
+        LayersTests.ALL.get("chalk_marks").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void chalkBox(GameTestHelper h) {
+        LayersTests.ALL.get("chalk_box").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void chalkRecipes(GameTestHelper h) {
+        LayersTests.ALL.get("chalk_recipes").accept(h);
+    }
 }
