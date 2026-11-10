@@ -253,6 +253,14 @@ OUTPUTS = {
     'block/nihil_purpur_pillar_top.png': ((16, 16), 'pal14_2026_11_09.derived() - Vanilla sprite as a new palette member (b-pal14)'),
     'block/ender_purpur_pillar.png': ((16, 16), 'pal14_2026_11_09.derived() - Vanilla sprite as a new palette member (b-pal14)'),
     'block/ender_purpur_pillar_top.png': ((16, 16), 'pal14_2026_11_09.derived() - Vanilla sprite as a new palette member (b-pal14)'),
+    # b-texrate17 (10.11.): the Astralit/Nihilith alternative blocks of 03.10. (Vanilla patterns in the End colours, committed
+    # before the 12.10. rule; the files stay in the Git history, owner decision).
+    'block/veined_astralit.png': ((16, 16), 'astralit_nihilit_alternates_2026_10_03.derived() - Vanilla calcite recoloured by brightness rank (b-texrate17)'),
+    'block/crystalline_astralit.png': ((16, 16), 'astralit_nihilit_alternates_2026_10_03.derived() - Vanilla amethyst_block recoloured by brightness rank (b-texrate17)'),
+    'block/layered_astralit.png': ((16, 16), 'astralit_nihilit_alternates_2026_10_03.derived() - Vanilla dripstone_block recoloured by brightness rank (b-texrate17)'),
+    'block/veined_nihilith.png': ((16, 16), 'astralit_nihilit_alternates_2026_10_03.derived() - Vanilla calcite recoloured by brightness rank (b-texrate17)'),
+    'block/crystalline_nihilith.png': ((16, 16), 'astralit_nihilit_alternates_2026_10_03.derived() - Vanilla amethyst_block recoloured by brightness rank (b-texrate17)'),
+    'block/frosted_nihilith.png': ((16, 16), 'astralit_nihilit_alternates_2026_10_03.derived() - Vanilla packed_ice recoloured by brightness rank (b-texrate17)'),
 }
 # Module textures (namespace = module id, shipped by that module's own jars through gradle/module-vanilla-derived.gradle):
 # module -> {texture path under assets/<module>/textures/: (size, generator description)}.
@@ -298,7 +306,8 @@ MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures', 'abn29_
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03',
                     'music_disc_textures', 'placed_egg_textures', 'standing_rods_2026_10_04', 'vehicles_2026_10_10',
-                    'placed_display_3d_2026_10_16', 'apples_derived_2026_11_02', 'sulfur_lights_2026_10_15', 'sbtex23_2026_10_23', 'abn29_core', 'doors_2026_10_29', 'shelves01_core', 'recolour08_2026_11_08', 'pal14_2026_11_09')
+                    'placed_display_3d_2026_10_16', 'apples_derived_2026_11_02', 'sulfur_lights_2026_10_15', 'sbtex23_2026_10_23', 'abn29_core', 'doors_2026_10_29', 'shelves01_core', 'recolour08_2026_11_08', 'pal14_2026_11_09',
+                    'astralit_nihilit_alternates_2026_10_03')
 # Probe file every usable jar contains.
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
 # Shipped next to placeholder textures (assets/<ns>/<MARKER>, also by the Gradle fallbacks): the client logs an error
@@ -415,7 +424,10 @@ WIKI_RENDERS = {'astral_vault': 128, 'nihil_vault': 128, 'enderite_barrel': 128,
                 'block/astral_redstone': 128, 'block/nihil_redstone': 128, 'diamond_pole': 128, 'enderite_pole': 128,
                 'gold_pole': 128, 'iron_pole': 128, 'netherite_pole': 128,
                 # b-pal14: the End purpur members (pal14_2026_11_09 textures)
-                'ender_purpur_block': 128, 'astral_purpur_pillar': 128, 'astral_purpur_stairs': 128, 'astral_purpur_slab': 128, 'nihil_purpur_pillar': 128, 'nihil_purpur_stairs': 128, 'nihil_purpur_slab': 128, 'ender_purpur_pillar': 128, 'ender_purpur_stairs': 128, 'ender_purpur_slab': 128}
+                'ender_purpur_block': 128, 'astral_purpur_pillar': 128, 'astral_purpur_stairs': 128, 'astral_purpur_slab': 128, 'nihil_purpur_pillar': 128, 'nihil_purpur_stairs': 128, 'nihil_purpur_slab': 128, 'ender_purpur_pillar': 128, 'ender_purpur_stairs': 128, 'ender_purpur_slab': 128,
+                # b-texrate17: the Astralit/Nihilith alternative blocks
+                'veined_astralit': 128, 'crystalline_astralit': 128, 'layered_astralit': 128, 'veined_nihilith': 128,
+                'crystalline_nihilith': 128, 'frosted_nihilith': 128}
 
 
 def placeholder_png(key: str, w: int, h: int) -> bytes:

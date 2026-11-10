@@ -20,6 +20,7 @@ MODULE = Path(__file__).resolve().parents[1]
 ROOT = MODULE.parents[1]
 sys.path.insert(0, str(ROOT / 'tools/textures'))
 import layers as L  # noqa: E402
+import texrate16_rework_2026_11_09 as RW  # noqa: E402  A8d rework of the texrate16/17 targets (b-texrate17)
 
 NS = 'simpledinos'
 ASSETS = MODULE / 'shared/resources/assets' / NS
@@ -286,6 +287,7 @@ def main(argv):
                     path.parent.mkdir(parents=True, exist_ok=True)
                     path.write_text(content, encoding='utf-8')
         else:
+            content = RW.finish(content, path)  # b-texrate17: egg_utahraptor etc. keep the A8d rework on re-runs and in --check
             same = path.exists() and Image.open(path).convert('RGBA').tobytes() == content.convert('RGBA').tobytes()
             if not same:
                 stale.append(path)

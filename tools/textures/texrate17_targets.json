@@ -1,0 +1,2322 @@
+{
+ "note": "b-texrate17 (10.11., N19c): Runde 17 targets (method = texrate16_rework recipe, rounds R1-R3 with rating), exclusions with category/reason, candidates without gain; see texrate17_2026_11_10.py",
+ "groups": {
+  "Esche/Daemmerholz + Kristall-Laub": "",
+  "Froschlichter": "",
+  "Baubloecke + Modellflaechen": ""
+ },
+ "targets": {
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/aqua_froglight_side.png": {
+   "group": "Froschlichter",
+   "method": "stripe",
+   "light": "orange",
+   "why": "groesste Flaeche 48, in Flaechen>=6 48",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 1.76,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "quant8f",
+     "light": "gruen",
+     "why": "",
+     "ch": 1.46,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 1.71,
+     "span": 0.98,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/aqua_froglight_top.png": {
+   "group": "Froschlichter",
+   "method": "stripe",
+   "light": "rot",
+   "why": "groesste Flaeche 113, in Flaechen>=6 71.1, Hauptton 44.5",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.1,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.34,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.34,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/azure_froglight_side.png": {
+   "group": "Froschlichter",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 68, in Flaechen>=6 47.3",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.89,
+     "span": 0.97,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.17,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.17,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/azure_froglight_top.png": {
+   "group": "Froschlichter",
+   "method": "stripe",
+   "light": "rot",
+   "why": "groesste Flaeche 97, in Flaechen>=6 56.2",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "grain",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.08,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.06,
+     "span": 0.97,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.06,
+     "span": 0.97,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/scarlet_froglight_side.png": {
+   "group": "Froschlichter",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 63, in Flaechen>=6 45.7",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.83,
+     "span": 0.97,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "quant8f",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.14,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.45,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/scarlet_froglight_top.png": {
+   "group": "Froschlichter",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 104, in Flaechen>=6 60.2, Hauptton 40.6",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.02,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.02,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.02,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/egg_utahraptor.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "k40s25a",
+   "light": "rot",
+   "why": "groesste Flaeche 67, hart 34.4, in Flaechen>=6 62.5, Hauptton 49.6",
+   "after": "orange",
+   "after_why": "hart 19.6",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 7.01,
+     "span": 0.73,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 6.4,
+     "span": 0.73,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "k40s25a",
+     "light": "orange",
+     "why": "hart 19.6",
+     "ch": 4.01,
+     "span": 0.91,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_door_bottom.png": {
+   "group": "Esche/Daemmerholz + Kristall-Laub",
+   "method": "stripe",
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 84, hart 34",
+   "after": "orange",
+   "after_why": "hart 15",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "hart 15",
+     "ch": 12.64,
+     "span": 0.73,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "orange",
+     "why": "hart 15",
+     "ch": 12.56,
+     "span": 0.59,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "stripe",
+     "light": "orange",
+     "why": "hart 15",
+     "ch": 12.56,
+     "span": 0.59,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_leaves_crystal.png": {
+   "group": "Esche/Daemmerholz + Kristall-Laub",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 67.6, Hauptton 67.6, hart 46.2, groesste Flaeche 23",
+   "after": "orange",
+   "after_why": "Hauptton 52",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "Hauptton 49.2",
+     "ch": 6.32,
+     "span": 0.81,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "orange",
+     "why": "Hauptton 52",
+     "ch": 5.97,
+     "span": 0.81,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "stripe",
+     "light": "orange",
+     "why": "Hauptton 52",
+     "ch": 5.97,
+     "span": 0.81,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_log_top.png": {
+   "group": "Esche/Daemmerholz + Kristall-Laub",
+   "method": "soft16",
+   "light": "orange",
+   "why": "hart 20.6",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 12.11,
+     "span": 0.61,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 5.93,
+     "span": 0.81,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 5.93,
+     "span": 0.81,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_shelf.png": {
+   "group": "Esche/Daemmerholz + Kristall-Laub",
+   "method": "pad",
+   "light": "orange",
+   "why": "hart 23.5",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 9.47,
+     "span": 0.6,
+     "sat": 0.62
+    },
+    "R2": {
+     "m": "pad",
+     "light": "gruen",
+     "why": "",
+     "ch": 5.2,
+     "span": 0.82,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "pad",
+     "light": "gruen",
+     "why": "",
+     "ch": 5.2,
+     "span": 0.82,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_leaves_crystal.png": {
+   "group": "Esche/Daemmerholz + Kristall-Laub",
+   "method": "stripe",
+   "light": "rot",
+   "why": "in Flaechen>=6 67.6, Hauptton 67.6, hart 50.4, groesste Flaeche 23",
+   "after": "orange",
+   "after_why": "Hauptton 53.1",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "Hauptton 47.7",
+     "ch": 6.15,
+     "span": 0.81,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "orange",
+     "why": "Hauptton 53.1",
+     "ch": 5.49,
+     "span": 0.81,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "stripe",
+     "light": "orange",
+     "why": "Hauptton 53.1",
+     "ch": 5.49,
+     "span": 0.81,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_sign.png": {
+   "group": "Esche/Daemmerholz + Kristall-Laub",
+   "method": "areas",
+   "light": "orange",
+   "why": "in Flaechen>=6 64.7",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 8.19,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 0.96,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "areas",
+     "light": "gruen",
+     "why": "",
+     "ch": 0.96,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_sticks.png": {
+   "group": "Esche/Daemmerholz + Kristall-Laub",
+   "method": "stripe",
+   "light": "orange",
+   "why": "in Flaechen>=6 53.1, hart 21",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.36,
+     "span": 0.97,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.12,
+     "span": 0.97,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.12,
+     "span": 0.97,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/light_gray_copper_light_pane.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "k40s16a",
+   "light": "orange",
+   "why": "groesste Flaeche 27, in Flaechen>=6 42.9, hart 16.9",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 12.16,
+     "span": 0.58,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "k40s16a",
+     "light": "gruen",
+     "why": "",
+     "ch": 5.54,
+     "span": 0.83,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "k40s16a",
+     "light": "gruen",
+     "why": "",
+     "ch": 5.54,
+     "span": 0.83,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/cyan_pocket_jukebox_open_back.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "quant8f",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 64",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "in Flaechen>=6 51.2",
+     "ch": 14.71,
+     "span": 0.6,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "quant8f",
+     "light": "orange",
+     "why": "in Flaechen>=6 64",
+     "ch": 2.21,
+     "span": 0.9,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "quant8f",
+     "light": "orange",
+     "why": "in Flaechen>=6 64",
+     "ch": 2.21,
+     "span": 0.9,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/gray_pocket_jukebox_open_back.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "quant8f",
+   "light": "rot",
+   "why": "in Flaechen>=6 93.3, groesste Flaeche 40",
+   "after": "orange",
+   "after_why": "in Flaechen>=6 63.4",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "in Flaechen>=6 51.8",
+     "ch": 13.47,
+     "span": 0.57,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "quant8f",
+     "light": "orange",
+     "why": "in Flaechen>=6 63.4",
+     "ch": 1.63,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "quant8f",
+     "light": "orange",
+     "why": "in Flaechen>=6 63.4",
+     "ch": 1.63,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/oak_cutting_board_side.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "soft16",
+   "light": "orange",
+   "why": "hart 17.5",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.41,
+     "span": 0.78,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.8,
+     "span": 0.82,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.8,
+     "span": 0.82,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/pale_oak_cutting_board_side.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "soft16",
+   "light": "orange",
+   "why": "hart 17.9",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.68,
+     "span": 0.8,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 0.93,
+     "span": 0.94,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 0.93,
+     "span": 0.94,
+     "sat": 1.0
+    }
+   }
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_base.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "k60s25a",
+   "light": "rot",
+   "why": "groesste Flaeche 116, in Flaechen>=6 68.4, hart 32.3, Hauptton 45.3",
+   "after": "orange",
+   "after_why": "hart 21.9",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 15.36,
+     "span": 0.41,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 15.36,
+     "span": 0.41,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "k60s25a",
+     "light": "orange",
+     "why": "hart 21.9",
+     "ch": 5.93,
+     "span": 0.94,
+     "sat": 1.0
+    }
+   }
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/cracked_ender_quartz_bricks.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "soft16",
+   "light": "orange",
+   "why": "hart 18.5",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 7.68,
+     "span": 0.7,
+     "sat": 0.97
+    },
+    "R2": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.29,
+     "span": 0.83,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.29,
+     "span": 0.83,
+     "sat": 1.0
+    }
+   }
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/nihilith_quartz_checker.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "stripe",
+   "light": "orange",
+   "why": "hart 22.1",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 27.56,
+     "span": 0.54,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.96,
+     "span": 0.95,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.96,
+     "span": 0.95,
+     "sat": 1.0
+    }
+   }
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/nihilith_quartz_checker_mirror.png": {
+   "group": "Baubloecke + Modellflaechen",
+   "method": "stripe",
+   "light": "orange",
+   "why": "hart 22.1",
+   "after": "gruen",
+   "after_why": "",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 27.59,
+     "span": 0.54,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.96,
+     "span": 0.95,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.96,
+     "span": 0.95,
+     "sat": 1.0
+    }
+   }
+  }
+ },
+ "excluded": {
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/astralit_lamp_on.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/astralit_lamp_top_on.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihilith_lamp_on.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihilith_lamp_top_on.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/fletching_feather.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/fletching_phantom_membrane.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_blaze_rod.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_breeze_rod.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_diamond_rod.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_end_rod.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/shaft_stick.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/upgrade_band_cracked_diamond.png": {
+   "category": "Besitzer-Textur",
+   "why": "Besitzer-Zeichnung bzw. vom Besitzer gemacht/abgenommen - nie aendern",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_0.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_1.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_2.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_3.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_4.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_5.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_6.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_7.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_8.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/fossil_9.png": {
+   "category": "Fossil-Stufen",
+   "why": "zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen zu aendern liesse das Sediment beim Pinseln springen",
+   "light": "rot"
+  },
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/astral_enchanter_top.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/dark_enchanter_top.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_leaves.png": {
+   "category": "Toenungsmaske",
+   "why": "Toenungsmaske (BlockColorsMixin faerbt grau ein) - nicht bewertbar",
+   "light": "orange"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_leaves_inner.png": {
+   "category": "Toenungsmaske",
+   "why": "Toenungsmaske (BlockColorsMixin faerbt grau ein) - nicht bewertbar",
+   "light": "orange"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_leaves_loose.png": {
+   "category": "Toenungsmaske",
+   "why": "Toenungsmaske (BlockColorsMixin faerbt grau ein) - nicht bewertbar",
+   "light": "orange"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_leaves.png": {
+   "category": "Toenungsmaske",
+   "why": "Toenungsmaske (BlockColorsMixin faerbt grau ein) - nicht bewertbar",
+   "light": "orange"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_leaves_inner.png": {
+   "category": "Toenungsmaske",
+   "why": "Toenungsmaske (BlockColorsMixin faerbt grau ein) - nicht bewertbar",
+   "light": "orange"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_leaves_loose.png": {
+   "category": "Toenungsmaske",
+   "why": "Toenungsmaske (BlockColorsMixin faerbt grau ein) - nicht bewertbar",
+   "light": "orange"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/end_grass.png": {
+   "category": "Toenungsmaske",
+   "why": "Toenungsmaske (BlockColorsMixin faerbt grau ein) - nicht bewertbar",
+   "light": "orange"
+  },
+  "modules/simplefun/shared/resources/assets/simplefun/textures/item/party_popper_confetti.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/caution_sign.png": {
+   "category": "andere Abnahme",
+   "why": "liegt in einer anderen offenen Abnahme (BACK18) - nicht vermischen",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/glitched_bedrock.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/level_door_lower.png": {
+   "category": "andere Abnahme",
+   "why": "liegt in einer anderen offenen Abnahme (BACK18) - nicht vermischen",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/level_door_upper.png": {
+   "category": "andere Abnahme",
+   "why": "liegt in einer anderen offenen Abnahme (BACK18) - nicht vermischen",
+   "light": "rot"
+  },
+  "modules/simplelib/shared/resources/assets/simplelib/textures/block/cracked_diamond_block.png": {
+   "category": "Besitzer-Textur",
+   "why": "Besitzer-Zeichnung bzw. vom Besitzer gemacht/abgenommen - nie aendern",
+   "light": "rot"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/transparent_light_pane.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/block/transparent_light_pane_off.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simplelights/shared/resources/assets/simplelights/textures/item/transparent_light_pane.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/custom_disc_composed_label.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/item/custom_disc_label.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/dimensional_scrap_side.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/dimensional_scrap_top.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/end_dimensional_scrap_side.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/end_dimensional_scrap_top.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "modules/simpleovens/shared/resources/assets/simpleovens/textures/block/reinforced_furnace_front_on.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "modules/simplequestionary/shared/resources/assets/simplequestionary/textures/block/questionary_table_gem.png": {
+   "category": "nur messbar",
+   "why": "Gewinn nur messtechnisch (ein Ton auf wenigen Pixeln, Aenderung <= 1,3 Helligkeit); der eigene Modul-Generator (check_data --check) muesste dafuer umgebaut werden",
+   "light": "rot"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_1_apple.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_1_pie.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_2_apple.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_2_pie.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_3_apple.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_3_pie.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_4_apple.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/item/sandwich/layer_4_pie.png": {
+   "category": "Teilebene",
+   "why": "wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_black.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_blue.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_brown.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_cyan.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_gray.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_green.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_light_blue.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_light_gray.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_lime.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_magenta.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_orange.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_pink.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_purple.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_red.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_white.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/display_case_glass_yellow.png": {
+   "category": "Vanilla-artiges Glas",
+   "why": "wie Vanilla-Glas/-Buntglas (selbst rot): grosse ruhige Glasflaeche ist richtig",
+   "light": "rot"
+  },
+  "modules/simpletools/shared/resources/assets/simpletools/textures/block/strip_station_bars.png": {
+   "category": "nur messbar",
+   "why": "Gewinn nur messtechnisch (ein Ton auf wenigen Pixeln, Aenderung <= 1,3 Helligkeit); der eigene Modul-Generator (check_data --check) muesste dafuer umgebaut werden",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/cracked_diamond_block.png": {
+   "category": "Besitzer-Textur",
+   "why": "Besitzer-Zeichnung bzw. vom Besitzer gemacht/abgenommen - nie aendern",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/crystalline_astralit.png": {
+   "category": "Vanilla-Umfaerbung",
+   "why": "pixelweise Umfaerbung von Vanilla-Texturen -> vanilla_derived.py (Runde 17), nicht bewertbar",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/crystalline_nihilith.png": {
+   "category": "Vanilla-Umfaerbung",
+   "why": "pixelweise Umfaerbung von Vanilla-Texturen -> vanilla_derived.py (Runde 17), nicht bewertbar",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/frosted_nihilith.png": {
+   "category": "Vanilla-Umfaerbung",
+   "why": "pixelweise Umfaerbung von Vanilla-Texturen -> vanilla_derived.py (Runde 17), nicht bewertbar",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_furnace_front_on.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/veined_astralit.png": {
+   "category": "Vanilla-Umfaerbung",
+   "why": "pixelweise Umfaerbung von Vanilla-Texturen -> vanilla_derived.py (Runde 17), nicht bewertbar",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/veined_nihilith.png": {
+   "category": "Vanilla-Umfaerbung",
+   "why": "pixelweise Umfaerbung von Vanilla-Texturen -> vanilla_derived.py (Runde 17), nicht bewertbar",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/paint_box.png": {
+   "category": "leuchtendes Motiv",
+   "why": "der helle Schein ist das Motiv (Runde 16: Stufung daempfte ihn); Runde 17: kein Gewinn ohne Daempfung",
+   "light": "rot"
+  }
+ },
+ "not_improved": {
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/astral_redstone_block.png": {
+   "light": "orange",
+   "why": "groesste Flaeche 41, in Flaechen>=6 62.1, hart 25",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "hart 15.2",
+     "ch": 24.5,
+     "span": 0.49,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "frog",
+     "light": "orange",
+     "why": "groesste Flaeche 41, in Flaechen>=6 62.1, hart 25",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "orange",
+     "why": "groesste Flaeche 41, in Flaechen>=6 62.1, hart 25",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/blazing_obsidian.png": {
+   "light": "orange",
+   "why": "hart 24, Farben 96 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 9.97,
+     "span": 0.57,
+     "sat": 0.71
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 9.97,
+     "span": 0.57,
+     "sat": 0.71
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "hart 24, Farben 96 (Verlauf?)",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/chess/astralit.png": {
+   "light": "orange",
+   "why": "hart 21.7",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 6.84,
+     "span": 0.52,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 6.84,
+     "span": 0.52,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "hart 21.7",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/crimson_blazewood_bookshelf.png": {
+   "light": "orange",
+   "why": "hart 23.3, Farben 63 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 12.64,
+     "span": 0.57,
+     "sat": 0.94
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 12.64,
+     "span": 0.57,
+     "sat": 0.94
+    },
+    "R3": {
+     "m": "k60s25",
+     "light": "orange",
+     "why": "hart 22.9, Farben 63 (Verlauf?)",
+     "ch": 0.29,
+     "span": 0.98,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/hammock_rope.png": {
+   "light": "rot",
+   "why": "hart 50, Farben 3, groesste Flaeche 31, in Flaechen>=6 49.6, Hauptton 50",
+   "rounds": {
+    "R1": {
+     "m": "stripe",
+     "light": "rot",
+     "why": "Farben 3, Hauptton 43, hart 17.5",
+     "ch": 8.66,
+     "span": 0.62,
+     "sat": 0.0
+    },
+    "R2": {
+     "m": "frog",
+     "light": "rot",
+     "why": "hart 50, Farben 3, groesste Flaeche 31, in Flaechen>=6 49.6, Hauptton 50",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 0.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "rot",
+     "why": "hart 50, Farben 3, groesste Flaeche 31, in Flaechen>=6 49.6, Hauptton 50",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 0.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihil_obsidian.png": {
+   "light": "orange",
+   "why": "hart 24",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 10.78,
+     "span": 0.53,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 10.78,
+     "span": 0.53,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "fine",
+     "light": "orange",
+     "why": "hart 24",
+     "ch": 0.03,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihil_redstone_block.png": {
+   "light": "orange",
+   "why": "groesste Flaeche 37, in Flaechen>=6 61.3, hart 18.3",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 13.74,
+     "span": 0.63,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "k40s16a",
+     "light": "gruen",
+     "why": "",
+     "ch": 9.93,
+     "span": 0.72,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "orange",
+     "why": "groesste Flaeche 37, in Flaechen>=6 61.3, hart 18.3",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "mc26_3/overlay/resources/assets/simplebuilding/textures/block/warped_blazewood_bookshelf.png": {
+   "light": "orange",
+   "why": "hart 22.5, Farben 63 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 13.91,
+     "span": 0.52,
+     "sat": 0.86
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 13.91,
+     "span": 0.52,
+     "sat": 0.86
+    },
+    "R3": {
+     "m": "k60s25",
+     "light": "orange",
+     "why": "hart 22.1, Farben 63 (Verlauf?)",
+     "ch": 0.2,
+     "span": 0.99,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/blue_nether_bricks.png": {
+   "light": "orange",
+   "why": "hart 25.4",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 8.17,
+     "span": 0.64,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 5.66,
+     "span": 0.76,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "hart 25.4",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/nautilus_shell_block_side.png": {
+   "light": "orange",
+   "why": "groesste Flaeche 39, hart 28.3",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "hart 25.2",
+     "ch": 11.67,
+     "span": 0.46,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "quant10",
+     "light": "orange",
+     "why": "groesste Flaeche 39, hart 28.3",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "quant10",
+     "light": "orange",
+     "why": "groesste Flaeche 39, hart 28.3",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/egg_parasaurolophus.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 56, hart 30.8, in Flaechen>=6 54.7, Hauptton 47.3",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 6.42,
+     "span": 0.67,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 6.42,
+     "span": 0.67,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "quant10",
+     "light": "rot",
+     "why": "groesste Flaeche 56, hart 30.8, in Flaechen>=6 54.7, Hauptton 47.3",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/crimson_blazewood_bookshelf.png": {
+   "light": "orange",
+   "why": "hart 23.3, Farben 63 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 12.64,
+     "span": 0.57,
+     "sat": 0.94
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 12.64,
+     "span": 0.57,
+     "sat": 0.94
+    },
+    "R3": {
+     "m": "k60s25",
+     "light": "orange",
+     "why": "hart 22.9, Farben 63 (Verlauf?)",
+     "ch": 0.29,
+     "span": 0.98,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/warped_blazewood_bookshelf.png": {
+   "light": "orange",
+   "why": "hart 22.5, Farben 63 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 13.91,
+     "span": 0.52,
+     "sat": 0.86
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 13.91,
+     "span": 0.52,
+     "sat": 0.86
+    },
+    "R3": {
+     "m": "k60s25",
+     "light": "orange",
+     "why": "hart 22.1, Farben 63 (Verlauf?)",
+     "ch": 0.2,
+     "span": 0.99,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_bookshelf.png": {
+   "light": "orange",
+   "why": "hart 22.1, Farben 59 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 14.2,
+     "span": 0.49,
+     "sat": 0.67
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 14.2,
+     "span": 0.49,
+     "sat": 0.67
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "hart 22.1, Farben 59 (Verlauf?)",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_sticks_top.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 156, Hauptton 60.9, hart 51.2, in Flaechen>=6 60.9",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 55.52,
+     "span": 0.48,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft20a",
+     "light": "gruen",
+     "why": "",
+     "ch": 55.44,
+     "span": 0.48,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "rot",
+     "why": "groesste Flaeche 156, Hauptton 60.9, hart 51.2, in Flaechen>=6 60.9",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_bookshelf.png": {
+   "light": "orange",
+   "why": "hart 20.8, Farben 52 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 8.89,
+     "span": 0.65,
+     "sat": 0.66
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 8.89,
+     "span": 0.65,
+     "sat": 0.66
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "hart 20.8, Farben 52 (Verlauf?)",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_log.png": {
+   "light": "orange",
+   "why": "Farben 86 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant",
+     "light": "gruen",
+     "why": "",
+     "ch": 4.22,
+     "span": 1.23,
+     "sat": 0.73
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 2.79,
+     "span": 0.94,
+     "sat": 0.76
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "Farben 86 (Verlauf?)",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_log_top.png": {
+   "light": "orange",
+   "why": "Farben 112 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.73,
+     "span": 0.99,
+     "sat": 0.84
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.73,
+     "span": 0.99,
+     "sat": 0.84
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "Farben 112 (Verlauf?)",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_sticks_top.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 156, Hauptton 60.9, hart 41.2, in Flaechen>=6 60.9",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 44.71,
+     "span": 0.5,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 44.71,
+     "span": 0.5,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "rot",
+     "why": "groesste Flaeche 156, Hauptton 60.9, hart 41.2, in Flaechen>=6 60.9",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simplefoundry/shared/resources/assets/simplefoundry/textures/block/casting_tray_iron.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 63, in Flaechen>=6 68.4, hart 30",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "hart 22.1",
+     "ch": 62.96,
+     "span": 0.38,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft",
+     "light": "orange",
+     "why": "hart 22.1",
+     "ch": 62.96,
+     "span": 0.38,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "rot",
+     "why": "groesste Flaeche 63, in Flaechen>=6 68.4, hart 30",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simplemobs/shared/resources/assets/simplemobs/textures/block/makeshift_spawner.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 61, hart 32.3, in Flaechen>=6 59.4",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 40.49,
+     "span": 0.51,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 40.49,
+     "span": 0.51,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "rot",
+     "why": "groesste Flaeche 61, hart 32.3, in Flaechen>=6 59.4",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/disc_press_top.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 60, in Flaechen>=6 89.1, hart 43.3",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "in Flaechen>=6 50.8",
+     "ch": 29.58,
+     "span": 0.39,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "k60s16a",
+     "light": "orange",
+     "why": "hart 25.2",
+     "ch": 10.33,
+     "span": 0.71,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "rot",
+     "why": "groesste Flaeche 60, in Flaechen>=6 89.1, hart 43.3",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/deepslate_sage_ore.png": {
+   "light": "orange",
+   "why": "hart 20.8",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 27.02,
+     "span": 0.62,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 7.35,
+     "span": 0.54,
+     "sat": 0.84
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "hart 20.8",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/sage_ore.png": {
+   "light": "orange",
+   "why": "hart 24.2",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 7.82,
+     "span": 0.65,
+     "sat": 0.98
+    },
+    "R2": {
+     "m": "soft16",
+     "light": "gruen",
+     "why": "",
+     "ch": 4.71,
+     "span": 0.76,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "k60s25",
+     "light": "orange",
+     "why": "hart 24.2",
+     "ch": 0.16,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/item/enderite_nugget.png": {
+   "light": "orange",
+   "why": "Hauptton 41.7",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "Hauptton 41.7",
+     "ch": 9.96,
+     "span": 0.69,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "areas",
+     "light": "orange",
+     "why": "Hauptton 41.7",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "Hauptton 41.7",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/ashwood_cutting_board.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 58, in Flaechen>=6 75.6, hart 38.1",
+   "rounds": {
+    "R1": {
+     "m": "stripe",
+     "light": "orange",
+     "why": "hart 17.5",
+     "ch": 12.2,
+     "span": 0.6,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "orange",
+     "why": "hart 17.5",
+     "ch": 12.2,
+     "span": 0.6,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "quant10",
+     "light": "rot",
+     "why": "groesste Flaeche 58, in Flaechen>=6 75.6, hart 38.1",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/glow_display_case_base.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 80, hart 38.5, in Flaechen>=6 62.5",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 24.73,
+     "span": 0.46,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 24.73,
+     "span": 0.46,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "rot",
+     "why": "groesste Flaeche 80, hart 38.5, in Flaechen>=6 62.5",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/sales_storage_back.png": {
+   "light": "orange",
+   "why": "Farben 56 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 4.36,
+     "span": 0.87,
+     "sat": 0.56
+    },
+    "R2": {
+     "m": "quant10",
+     "light": "gruen",
+     "why": "",
+     "ch": 4.15,
+     "span": 0.9,
+     "sat": 0.56
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "Farben 56 (Verlauf?)",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simpleshops/shared/resources/assets/simpleshops/textures/block/sales_storage_side.png": {
+   "light": "orange",
+   "why": "Farben 64 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.96,
+     "span": 0.94,
+     "sat": 0.53
+    },
+    "R2": {
+     "m": "quant10",
+     "light": "gruen",
+     "why": "",
+     "ch": 3.45,
+     "span": 0.97,
+     "sat": 0.53
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "Farben 64 (Verlauf?)",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_barrel_flange.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 92, in Flaechen>=6 96.5, hart 30, Hauptton 54.7",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 13.35,
+     "span": 0.48,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 9.38,
+     "span": 0.62,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "rot",
+     "why": "groesste Flaeche 92, in Flaechen>=6 96.5, hart 30, Hauptton 54.7",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_barrel_flange.png": {
+   "light": "rot",
+   "why": "groesste Flaeche 92, in Flaechen>=6 96.5, hart 30.8, Hauptton 54.7",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 19.9,
+     "span": 0.47,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "stripe",
+     "light": "gruen",
+     "why": "",
+     "ch": 16.94,
+     "span": 0.52,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "frog",
+     "light": "rot",
+     "why": "groesste Flaeche 92, in Flaechen>=6 96.5, hart 30.8, Hauptton 54.7",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/cracked_nihilith_bricks.png": {
+   "light": "orange",
+   "why": "hart 26.9, Farben 34 (Verlauf?)",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "Farben 34 (Verlauf?)",
+     "ch": 15.71,
+     "span": 0.5,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "fine",
+     "light": "orange",
+     "why": "hart 26.9, Farben 34 (Verlauf?)",
+     "ch": 0.08,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "fine",
+     "light": "orange",
+     "why": "hart 26.9, Farben 34 (Verlauf?)",
+     "ch": 0.08,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_furnace_front.png": {
+   "light": "orange",
+   "why": "groesste Flaeche 20, hart 16.2",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 7.64,
+     "span": 0.74,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 6.89,
+     "span": 0.66,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "k60s20",
+     "light": "orange",
+     "why": "groesste Flaeche 20, hart 16.2",
+     "ch": 0.21,
+     "span": 0.99,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_blast_furnace_front.png": {
+   "light": "orange",
+   "why": "groesste Flaeche 20, hart 27.3",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 17.26,
+     "span": 0.44,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 17.26,
+     "span": 0.44,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "fine",
+     "light": "orange",
+     "why": "hart 27.3",
+     "ch": 0.24,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_furnace_front.png": {
+   "light": "orange",
+   "why": "groesste Flaeche 20, hart 24",
+   "rounds": {
+    "R1": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 24.32,
+     "span": 0.34,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "quant_soft",
+     "light": "gruen",
+     "why": "",
+     "ch": 24.32,
+     "span": 0.34,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "fine",
+     "light": "orange",
+     "why": "hart 24.6",
+     "ch": 0.36,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/enderite_nugget.png": {
+   "light": "orange",
+   "why": "Hauptton 41.7",
+   "rounds": {
+    "R1": {
+     "m": "soft",
+     "light": "orange",
+     "why": "Hauptton 41.7",
+     "ch": 9.96,
+     "span": 0.69,
+     "sat": 1.0
+    },
+    "R2": {
+     "m": "areas",
+     "light": "orange",
+     "why": "Hauptton 41.7",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    },
+    "R3": {
+     "m": "areas",
+     "light": "orange",
+     "why": "Hauptton 41.7",
+     "ch": 0.0,
+     "span": 1.0,
+     "sat": 1.0
+    }
+   },
+   "reason": "kein Ampel-Gewinn mit Motiv-Schutz (Kontrast/Saettigung)"
+  }
+ }
+}
