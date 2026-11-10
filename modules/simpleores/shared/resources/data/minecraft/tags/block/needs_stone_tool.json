@@ -7,6 +7,14 @@
     "simpleores:zinc_ore",
     "simpleores:raw_zinc_block",
     "simpleores:tin_ore",
-    "simpleores:raw_tin_block"
+    "simpleores:raw_tin_block",
+    "simpleores:silver_grate",
+    "simpleores:lead_grate",
+    "simpleores:zinc_grate",
+    "simpleores:nickel_grate",
+    "simpleores:tin_grate",
+    "simpleores:brass_grate",
+    "simpleores:bronze_grate",
+    "simpleores:stainless_steel_grate"
   ]
 }

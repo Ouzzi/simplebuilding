@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "lead_grate",
+  "key": {
+    "M": "simpleores:lead_block"
+  },
+  "pattern": [
+    " M ",
+    "M M",
+    " M "
+  ],
+  "result": {
+    "id": "simpleores:lead_grate",
+    "count": 4
+  }
+}

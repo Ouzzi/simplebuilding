@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "tin_grate",
+  "key": {
+    "M": "simpleores:tin_block"
+  },
+  "pattern": [
+    " M ",
+    "M M",
+    " M "
+  ],
+  "result": {
+    "id": "simpleores:tin_grate",
+    "count": 4
+  }
+}

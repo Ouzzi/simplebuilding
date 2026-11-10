@@ -88,9 +88,16 @@ public final class Soundproofing {
         return count;
     }
 
-    /** Muffling weight of one block: 1 (tag soundproofing, also lead octets), 0.5 (tag soundproofing_half), else 0. */
+    /**
+     * Muffling weight of one block: 1 (tag soundproofing, also lead octets), 0.5 (tag soundproofing_half), else 0. N25: a stacked plate
+     * (layers 1..8) grows from 0.5 at one layer to 1 at eight (a whole block of lead).
+     */
     public static float weight(net.minecraft.world.level.block.state.BlockState state) {
-        return state.is(BLOCKS) ? 1.0F : state.is(HALF_BLOCKS) ? HALF : 0.0F;
+        if (state.is(BLOCKS)) return 1.0F;
+        if (!state.is(HALF_BLOCKS)) return 0.0F;
+        if (!state.hasProperty(com.simpleores.block.LeadPlateBlock.LAYERS)) return HALF;
+        int layers = state.getValue(com.simpleores.block.LeadPlateBlock.LAYERS);
+        return HALF + (1.0F - HALF) * (layers - 1) / (com.simpleores.block.LeadPlateBlock.MAX_LAYERS - 1);
     }
 
     private static int floor(double v) {

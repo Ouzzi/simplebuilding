@@ -1,6 +1,6 @@
 {
   "textures": {
-    "sheet": "simpleores:block/silver_sheet",
+    "plate": "simpleores:block/silver_sheet",
     "particle": "simpleores:block/silver_sheet"
   },
   "elements": [
@@ -23,7 +23,7 @@
             16,
             16
           ],
-          "texture": "#sheet",
+          "texture": "#plate",
           "cullface": "down"
         },
         "up": {
@@ -33,7 +33,7 @@
             16,
             16
           ],
-          "texture": "#sheet"
+          "texture": "#plate"
         },
         "north": {
           "uv": [
@@ -42,7 +42,7 @@
             16,
             16
           ],
-          "texture": "#sheet",
+          "texture": "#plate",
           "cullface": "north"
         },
         "south": {
@@ -52,7 +52,7 @@
             16,
             16
           ],
-          "texture": "#sheet",
+          "texture": "#plate",
           "cullface": "south"
         },
         "west": {
@@ -62,7 +62,7 @@
             16,
             16
           ],
-          "texture": "#sheet",
+          "texture": "#plate",
           "cullface": "west"
         },
         "east": {
@@ -72,7 +72,7 @@
             16,
             16
           ],
-          "texture": "#sheet",
+          "texture": "#plate",
           "cullface": "east"
         }
       }

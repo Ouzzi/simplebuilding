@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_bars_side",
+  "textures": {
+    "bars": "simpleores:block/stainless_steel_bars",
+    "edge": "simpleores:block/stainless_steel_bars"
+  }
+}

@@ -15,7 +15,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -71,7 +70,7 @@ public final class OresRegistry {
     /** Like the Nether gold ore: nuggets (2 to 6), a little experience. */
     public static final Block END_SILVER_ORE = block("end_silver_ore", Blocks.GOLD_ORE, s -> new DropExperienceBlock(UniformInt.of(0, 1), s));
     public static final Block RAW_SILVER_BLOCK = block("raw_silver_block", Blocks.RAW_GOLD_BLOCK, Block::new);
-    public static final Block SILVER_BLOCK = block("silver_block", Blocks.GOLD_BLOCK, Block::new);
+    public static final Block SILVER_BLOCK = block("silver_block", Blocks.GOLD_BLOCK, s -> new Block(s.sound(OresSounds.of("silver"))));
     public static final Block ROSE_BRONZE_BLOCK = block("rose_bronze_block", Blocks.GOLD_BLOCK, Block::new);
     public static final Block ROSE_GOLD_BLOCK = block("rose_gold_block", Blocks.GOLD_BLOCK, Block::new);
     /** 06.11. (BLOCKS07): storage of nine pressings each, a pure storage block (no melting; the blast furnace takes the single pressling). */
@@ -80,10 +79,10 @@ public final class OresRegistry {
 
     /**
      * Lead (concept ORES31 section 3): quiet metal it is not - the heavy sound is the point (walking on it or mining it is loud, a lead wall
-     * only keeps the Sculk and the world's noise out, see {@code Soundproofing}). Netherite hits and falls, anvil steps and placing, pitched low.
+     * only keeps the Sculk and the world's noise out, see {@code Soundproofing}). N25 (owner 10.11.: lead dull and soft): its own events
+     * ({@link OresSounds}), heavy core and Netherite takes pitched low, a little louder than the other metals.
      */
-    public static final SoundType LEAD_SOUND = new SoundType(1.4F, 0.6F, SoundEvents.NETHERITE_BLOCK_BREAK, SoundEvents.ANVIL_STEP,
-            SoundEvents.ANVIL_PLACE, SoundEvents.NETHERITE_BLOCK_HIT, SoundEvents.NETHERITE_BLOCK_FALL);
+    public static final SoundType LEAD_SOUND = OresSounds.of("lead");
     /** Blast resistance of lead, a little below obsidian (1200). */
     public static final float LEAD_RESISTANCE = 1000.0F;
     /** Hardness of lead (obsidian 50). */
@@ -98,10 +97,10 @@ public final class OresRegistry {
             s -> new LeadPlateBlock(s.strength(LEAD_HARDNESS, LEAD_RESISTANCE).sound(LEAD_SOUND).noOcclusion()));
     /** 05.11.: the lead plate's little sister: a one pixel silver sheet over a whole side of the cell, laid like the plate. */
     public static final Block SILVER_SHEET = block("silver_sheet", Blocks.IRON_BLOCK,
-            s -> new SilverSheetBlock(s.strength(3.0F, 6.0F).sound(SoundType.METAL).noOcclusion()));
+            s -> new SilverSheetBlock(s.strength(3.0F, 6.0F).sound(OresSounds.of("silver")).noOcclusion()));
     /** Wall decoration of silver and glass: thin, no mechanic. */
     public static final Block SILVER_MIRROR = block("silver_mirror", Blocks.GLASS,
-            s -> new SilverMirrorBlock(s.strength(0.5F).sound(SoundType.METAL)));
+            s -> new SilverMirrorBlock(s.strength(0.5F).sound(OresSounds.of("silver"))));
 
     /** RG30-2 (08.11.): zinc, nickel, tin and the plain alloys brass, stainless steel, bronze (building metals, no tools). Properties are copies of iron. */
     public static final String[] METALS = {"zinc", "nickel", "tin"};
@@ -112,9 +111,9 @@ public final class OresRegistry {
             if (!m.equals("nickel")) block(m + "_ore", Blocks.IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
             if (m.equals("nickel")) block("deepslate_" + m + "_ore", Blocks.DEEPSLATE_IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
             block("raw_" + m + "_block", Blocks.RAW_IRON_BLOCK, Block::new);
-            block(m + "_block", Blocks.IRON_BLOCK, Block::new);
+            block(m + "_block", Blocks.IRON_BLOCK, s -> new Block(s.sound(OresSounds.of(m))));
         }
-        for (String a : MIXES) block(a + "_block", Blocks.IRON_BLOCK, Block::new);
+        for (String a : MIXES) block(a + "_block", Blocks.IRON_BLOCK, s -> new Block(s.sound(OresSounds.of(a))));
     }
 
     /**
@@ -132,6 +131,18 @@ public final class OresRegistry {
             block(m + "_tiles", base, Block::new);
             block(m + "_pillar", base, net.minecraft.world.level.block.RotatedPillarBlock::new);
             block("chiseled_" + m, base, Block::new);
+        }
+    }
+
+    /**
+     * N25 (b-metals25, owner 10.11.): bars (like iron bars) and a grate (like the copper grate, without ageing) of every building metal,
+     * each with its own pattern. Same numbers as the Vanilla blocks; the metal's sound ({@link OresSounds}).
+     */
+    public static final String[] BARS = {"silver", "lead", "zinc", "nickel", "tin", "brass", "bronze", "stainless_steel"};
+    static {
+        for (String m : BARS) {
+            block(m + "_bars", Blocks.IRON_BARS, s -> new com.simpleores.block.MetalBarsBlock(s.sound(OresSounds.of(m))));
+            block(m + "_grate", Blocks.COPPER_GRATE, s -> new com.simpleores.block.MetalGrateBlock(s.sound(OresSounds.of(m))));
         }
     }
 
@@ -215,7 +226,10 @@ public final class OresRegistry {
             plain(m + "_ingot");
             plain(m + "_nugget");
         }
-        for (String a : MIXES) plain(a + "_ingot");
+        for (String a : MIXES) {
+            plain(a + "_ingot");
+            plain(a + "_nugget");   // N25: the alloys' nuggets (9 <-> 1 like Vanilla)
+        }
         plain("sage_crystal_shard");
         plain("sage_crystal");
         ITEMS.put("sage_orb", new com.simpleores.item.SageOrbItem(new Item.Properties().stacksTo(16).setId(itemKey("sage_orb"))));
@@ -313,6 +327,7 @@ public final class OresRegistry {
 
     /** Fabric: registries are open during init. */
     public static void registerAll() {
+        OresSounds.events((k, v) -> Registry.register(BuiltInRegistries.SOUND_EVENT, k, v));
         blocks((k, v) -> Registry.register(BuiltInRegistries.BLOCK, k, v));
         items((k, v) -> Registry.register(BuiltInRegistries.ITEM, k, v));
     }
@@ -339,11 +354,12 @@ public final class OresRegistry {
         for (String path : paths) {
             out.add(path);
             for (String m : COSMETIC) if (path.equals(m + "_block")) out.addAll(family(m));
+            for (String m : BARS) if (path.equals(m + "_block")) out.addAll(List.of(m + "_bars", m + "_grate"));
         }
         return out.toArray(String[]::new);
     }
     public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "raw_zinc", "zinc_nugget", "zinc_ingot", "raw_nickel", "nickel_nugget", "nickel_ingot", "raw_tin", "tin_nugget", "tin_ingot",
-            "brass_ingot", "stainless_steel_ingot", "bronze_ingot", "rose_bronze_pressling",
+            "brass_ingot", "brass_nugget", "stainless_steel_ingot", "stainless_steel_nugget", "bronze_ingot", "bronze_nugget", "rose_bronze_pressling",
             "rose_bronze_nugget", "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_nugget", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
             "enderite_ingot", "enderite_upgrade_template", "rift_shard", "nether_rift_shard", "end_rift_shard", "terranite_ingot", "infernite_ingot", "zenithite_ingot", "sage_crystal_shard", "sage_crystal", "sage_orb"};
     /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */

@@ -261,4 +261,37 @@ assert json.loads((mc / 'item/beacon_payment_items.json').read_text(encoding='ut
 assert 'rift_alloys' in {f['id'] for f in manual['features']}
 import subprocess
 subprocess.run([sys.executable, str(MODULE / 'tools/gen_data.py'), '--check'], check=True)
+# N25 (b-metals25, owner 10.11.): nuggets of the plain alloys; stacked plates (layers 1..8, drops per layer); mirror on floor/wall/ceiling;
+# bars and grates of the eight building metals (own textures with layers, Vanilla recipes, tags); own sound events per metal.
+BAR_METALS = ('silver', 'lead', 'zinc', 'nickel', 'tin', 'brass', 'bronze', 'stainless_steel')
+for a in MIXES:
+    assert (RES / f'assets/{NS}/textures/item/{a}_nugget.png').is_file() and (RES / f'assets/{NS}/textures/item/{a}_nugget.layers.json').is_file(), a
+    assert json.loads((RES / f'data/{NS}/recipe/{a}_nugget.json').read_text(encoding='utf-8'))['result'] == {'id': f'{NS}:{a}_nugget', 'count': 9}
+    assert json.loads((RES / f'data/c/tags/item/nuggets/{a}.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:{a}_nugget']
+for plate in ('lead_plate', 'silver_sheet'):
+    variants = json.loads((RES / f'assets/{NS}/blockstates/{plate}.json').read_text(encoding='utf-8'))['variants']
+    assert len(variants) == 6 * 8 and all((RES / f'assets/{NS}/models/block/{v["model"].split("/")[-1]}.json').is_file() for v in variants.values()), plate
+    loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{plate}.json').read_text(encoding='utf-8'))
+    assert [m['count'] for m in loot['pools'][0]['entries'][0]['modifier']] == list(range(2, 9)), plate
+mirror = json.loads((RES / f'assets/{NS}/blockstates/silver_mirror.json').read_text(encoding='utf-8'))['variants']
+assert {k.split(',')[0] for k in mirror} == {'face=floor', 'face=wall', 'face=ceiling'} and len(mirror) == 12
+bars_tag = json.loads((mc / 'block/bars.json').read_text(encoding='utf-8'))['values']
+stone = json.loads((mc / 'block/needs_stone_tool.json').read_text(encoding='utf-8'))['values']
+for m in BAR_METALS:
+    for b in (f'{m}_bars', f'{m}_grate'):
+        assert (RES / f'assets/{NS}/textures/block/{b}.png').is_file() and (RES / f'assets/{NS}/textures/block/{b}.layers.json').is_file(), b
+        assert f'block/{b}.png' not in derived and f'{NS}:{b}' in pickaxe, b
+        for l in langs.values():
+            assert l.get(f'block.{NS}.{b}'), b
+    assert f'{NS}:{m}_bars' in bars_tag and f'{NS}:{m}_grate' in stone, m
+    assert json.loads((RES / f'data/{NS}/recipe/{m}_bars.json').read_text(encoding='utf-8'))['result'] == {'id': f'{NS}:{m}_bars', 'count': 16}
+    assert json.loads((RES / f'data/{NS}/recipe/{m}_grate_from_{m}_block_stonecutting.json').read_text(encoding='utf-8'))['result']['count'] == 4
+sounds = json.loads((RES / f'assets/{NS}/sounds.json').read_text(encoding='utf-8'))
+assert set(sounds) == {f'block.{m}.{k}' for m in BAR_METALS for k in ('break', 'step', 'place', 'hit', 'fall')}, sorted(sounds)
+for event in sounds.values():
+    for snd in event['sounds']:
+        name = snd['name']
+        assert name.startswith('minecraft:') or (RES / f'assets/{NS}/sounds/{name.split(":")[1]}.ogg').is_file(), name
+        assert snd.get('volume', 1.0) <= 1.0, name   # quiet (owner: "leise, nicht nervig")
+
 print('simpleores: bilingual texts, loot, recipes, worldgen numbers, derived textures and wiki data valid')

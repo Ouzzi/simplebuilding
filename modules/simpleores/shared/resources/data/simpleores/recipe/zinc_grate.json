@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "zinc_grate",
+  "key": {
+    "M": "simpleores:zinc_block"
+  },
+  "pattern": [
+    " M ",
+    "M M",
+    " M "
+  ],
+  "result": {
+    "id": "simpleores:zinc_grate",
+    "count": 4
+  }
+}

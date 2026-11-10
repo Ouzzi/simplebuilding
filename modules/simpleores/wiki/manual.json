@@ -240,16 +240,94 @@
       ],
       "en": {
         "title": "Silver mirror",
-        "summary": "A wall decoration of silver and glass.",
+        "summary": "A decoration of silver and glass for walls, floors and ceilings.",
         "details": [
-          "Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration."
+          "Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror is placed like a button: on a wall in the four directions, or lying on the floor or the ceiling (turned the way you look), one pixel thick, and falls off when its support goes. Mirrors placed before 10.11. stay on their wall. It has no function: pure decoration."
         ]
       },
       "de": {
         "title": "Silberspiegel",
-        "summary": "Eine Wanddekoration aus Silber und Glas.",
+        "summary": "Eine Dekoration aus Silber und Glas für Wände, Böden und Decken.",
         "details": [
-          "Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel hängt in den vier Richtungen an einer Wand, ein Pixel dick, und fällt ab, wenn die Wand verschwindet. Er hat keine Funktion: reine Dekoration."
+          "Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel wird wie ein Knopf gesetzt: an eine Wand in den vier Richtungen oder liegend auf den Boden oder an die Decke (in Blickrichtung gedreht), ein Pixel dick, und fällt ab, wenn der Halt verschwindet. Vor dem 10.11. gesetzte Spiegel bleiben an ihrer Wand. Er hat keine Funktion: reine Dekoration."
+        ]
+      }
+    },
+    {
+      "id": "stacked_plates",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/LeadPlateBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/block/SilverSheetBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_plate.json"
+      ],
+      "en": {
+        "title": "Stacking plates",
+        "summary": "Lead plates and silver sheets stack like snow layers: up to 8 layers in one cell.",
+        "details": [
+          "Use a plate on the free side of a plate of the same kind (floor, wall or ceiling) to add a layer, 1 to 8. A lead layer is 2 pixels (8 make a whole block), a silver layer 1 pixel (8 make half a block) - three ingots give 6 plates or 12 sheets, the same metal per pixel.",
+          "Shape, collision and the outline follow the layers; breaking gives back one plate per layer. A lead plate muffles sound like half a block of lead at one layer and like a whole block at eight.",
+          "Plates placed before 10.11. are one layer. Plates do not turn into slabs or blocks: 8 lead plates are 4 ingots, a block of lead 9."
+        ]
+      },
+      "de": {
+        "title": "Platten stapeln",
+        "summary": "Bleiplatten und Silberbleche stapeln sich wie Schneeschichten: bis zu 8 Lagen in einer Zelle.",
+        "details": [
+          "Eine Platte auf die freie Seite einer Platte derselben Art (Boden, Wand oder Decke) gesetzt ergibt eine Lage mehr, 1 bis 8. Eine Bleilage ist 2 Pixel dick (8 ergeben einen ganzen Block), eine Silberlage 1 Pixel (8 ergeben einen halben Block) - drei Barren ergeben 6 Platten oder 12 Bleche, gleich viel Metall je Pixel.",
+          "Form, Kollision und Umriss folgen den Lagen; abgebaut gibt es eine Platte je Lage zurück. Eine Bleiplatte dämmt mit einer Lage wie ein halber Bleiblock und mit acht wie ein ganzer.",
+          "Vor dem 10.11. gesetzte Platten haben eine Lage. Platten werden nicht zu Stufen oder Blöcken: 8 Bleiplatten sind 4 Barren, ein Bleiblock 9."
+        ]
+      }
+    },
+    {
+      "id": "bars_and_grates",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalBarsBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalGrateBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_bars.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate_from_silver_block_stonecutting.json"
+      ],
+      "en": {
+        "title": "Metal bars and grates",
+        "summary": "Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has bars like iron bars and a grate like the copper grate, each with its own pattern.",
+        "details": [
+          "Bars: six ingots in two rows make 16; they join each other, panes and walls like iron bars and count as Vanilla bars. Any pickaxe.",
+          "Grate: four blocks of the metal in a diamond make 4, the stonecutter makes 4 from one block, like the copper grate. See-through, holds water, needs a stone pickaxe. They do not age and need no wax (only copper oxidises).",
+          "Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different."
+        ]
+      },
+      "de": {
+        "title": "Metallgitter und -roste",
+        "summary": "Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat ein Gitter wie das Eisengitter und einen Rost wie der Kupferrost, jedes mit eigenem Muster.",
+        "details": [
+          "Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.",
+          "Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).",
+          "Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus."
+        ]
+      }
+    },
+    {
+      "id": "metal_sounds",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresSounds.java",
+        "modules/simpleores/shared/resources/assets/simpleores/sounds.json"
+      ],
+      "en": {
+        "title": "Metal sounds",
+        "summary": "Every building metal sounds like itself when placed, mined, hit or walked on - quietly.",
+        "details": [
+          "Lead dull and soft (and a little louder: whoever walks on lead is heard), silver bright and ringing, zinc and nickel plain, tin with its crackling \"tin cry\", brass and bronze warm, stainless steel hard. Every block of a metal (storage block, building family, plate, bars, grate) uses its sound.",
+          "Made from Vanilla sounds at other pitches; the tin cry was generated with ElevenLabs (CREDITS.md)."
+        ]
+      },
+      "de": {
+        "title": "Metall-Klänge",
+        "summary": "Jedes Baumetall klingt beim Setzen, Abbauen, Schlagen und Betreten nach sich selbst - leise.",
+        "details": [
+          "Blei dumpf und weich (und etwas lauter: wer über Blei geht, wird gehört), Silber hell und klingend, Zink und Nickel schlicht, Zinn mit seinem knisternden „Zinngeschrei“, Messing und Bronze warm, Edelstahl hart. Jeder Block eines Metalls (Speicherblock, Baufamilie, Platte, Gitter, Rost) nutzt seinen Klang.",
+          "Aus Vanilla-Klängen in anderer Tonhöhe; das Zinngeschrei wurde mit ElevenLabs erzeugt (CREDITS.md)."
         ]
       }
     },
@@ -422,10 +500,10 @@
         "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 17 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 17 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleores:silver_ore": {
@@ -521,10 +599,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Lead Plate: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "A 2 pixel lead plate that lies on the side you click (floor, wall, ceiling), like a carpet that also stands upright. Using another plate on its free side stacks it like snow: 1 to 8 layers, 8 make a whole block; breaking it gives back one plate per layer. Muffles sound like half a block of lead at one layer, up to a whole block at eight. Three lead ingots in a row make 6. Needs an iron pickaxe."
       },
       "de": {
-        "summary": "Bleiplatte: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Eine 2 Pixel dicke Bleiplatte, die an der angeklickten Seite liegt (Boden, Wand, Decke), wie ein Teppich, der auch aufrecht steht. Eine weitere Platte auf die freie Seite gesetzt stapelt sie wie Schnee: 1 bis 8 Lagen, 8 ergeben einen ganzen Block; abgebaut gibt sie eine Platte je Lage zurück. Dämmt Schall mit einer Lage wie ein halber Bleiblock, mit acht wie ein ganzer. Drei Bleibarren in einer Reihe ergeben 6. Braucht eine Eisenspitzhacke."
       }
     },
     "simpleores:silver_sheet": {
@@ -532,10 +610,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "A one pixel thin silver sheet that covers a whole side of its cell; it is laid on the side you click (floor, wall, ceiling) like the lead plate. Three silver ingots in a row make 12. Needs an iron pickaxe."
+        "summary": "A one pixel thin silver sheet that covers a whole side of its cell; it is laid on the side you click (floor, wall, ceiling) like the lead plate. Using another sheet on its free side stacks it: 1 to 8 layers, one pixel each; breaking it gives back one sheet per layer. Three silver ingots in a row make 12. Needs an iron pickaxe."
       },
       "de": {
-        "summary": "Ein ein Pixel dünnes Silberblech, das eine ganze Seite seiner Zelle bedeckt; es wird wie die Bleiplatte an die angeklickte Seite gelegt (Boden, Wand, Decke). Drei Silberbarren in einer Reihe ergeben 12. Braucht eine Eisenspitzhacke."
+        "summary": "Ein ein Pixel dünnes Silberblech, das eine ganze Seite seiner Zelle bedeckt; es wird wie die Bleiplatte an die angeklickte Seite gelegt (Boden, Wand, Decke). Ein weiteres Blech auf die freie Seite gesetzt stapelt es: 1 bis 8 Lagen zu je einem Pixel; abgebaut gibt es ein Blech je Lage zurück. Drei Silberbarren in einer Reihe ergeben 12. Braucht eine Eisenspitzhacke."
       }
     },
     "simpleores:silver_mirror": {
@@ -543,10 +621,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "A wall decoration: a silver frame round a glass pane, one pixel thick, in four directions. Crafted from a glass pane and a silver sheet. No mechanic."
+        "summary": "A decoration: a silver frame round a glass pane, one pixel thick. Hangs on a wall or lies on the floor or the ceiling, like a button, and falls off when its support goes. Crafted from a glass pane and a silver sheet. No mechanic."
       },
       "de": {
-        "summary": "Eine Wanddekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick, in vier Richtungen. Hergestellt aus einer Glasscheibe und einem Silberblech. Keine Mechanik."
+        "summary": "Eine Dekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick. Hängt an einer Wand oder liegt wie ein Knopf auf dem Boden oder an der Decke und fällt ab, wenn der Halt verschwindet. Hergestellt aus einer Glasscheibe und einem Silberblech. Keine Mechanik."
       }
     },
     "simpleores:rose_bronze_block": {
@@ -862,10 +940,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Silver: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittener Silberblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_silver_stairs": {
@@ -873,10 +951,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Silver Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Silbertreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_silver_slab": {
@@ -884,10 +962,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Silver Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Silberstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:silver_tiles": {
@@ -895,10 +973,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Silver Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Silberfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:silver_pillar": {
@@ -906,10 +984,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Silver Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Silbersäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:chiseled_silver": {
@@ -917,10 +995,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled Silver: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the silver family (like the cut copper family): crafted from the block of silver or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Gemeißelter Silberblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Silber-Familie (wie die Familie des geschnittenen Kupfers): aus dem Silberblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_lead": {
@@ -928,10 +1006,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Lead: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittener Bleiblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_lead_stairs": {
@@ -939,10 +1017,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Lead Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Bleitreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_lead_slab": {
@@ -950,10 +1028,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Lead Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Bleistufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:lead_tiles": {
@@ -961,10 +1039,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Lead Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Bleifliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:lead_pillar": {
@@ -972,10 +1050,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Lead Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Bleisäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:chiseled_lead": {
@@ -983,10 +1061,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled Lead: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the lead family (like the cut copper family): crafted from the block of lead or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Gemeißelter Bleiblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Blei-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bleiblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_zinc": {
@@ -994,10 +1072,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Zinc: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittener Zinkblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_zinc_stairs": {
@@ -1005,10 +1083,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Zinc Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Zinktreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_zinc_slab": {
@@ -1016,10 +1094,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Zinc Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Zinkstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:zinc_tiles": {
@@ -1027,10 +1105,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Zinc Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Zinkfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:zinc_pillar": {
@@ -1038,10 +1116,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Zinc Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Zinksäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:chiseled_zinc": {
@@ -1049,10 +1127,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled Zinc: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the zinc family (like the cut copper family): crafted from the block of zinc or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Gemeißelter Zinkblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zink-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinkblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_nickel": {
@@ -1060,10 +1138,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Nickel: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittener Nickelblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_nickel_stairs": {
@@ -1071,10 +1149,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Nickel Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Nickeltreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_nickel_slab": {
@@ -1082,10 +1160,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Nickel Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Nickelstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:nickel_tiles": {
@@ -1093,10 +1171,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Nickel Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Nickelfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:nickel_pillar": {
@@ -1104,10 +1182,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Nickel Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Nickelsäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:chiseled_nickel": {
@@ -1115,10 +1193,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled Nickel: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the nickel family (like the cut copper family): crafted from the block of nickel or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Gemeißelter Nickelblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Nickel-Familie (wie die Familie des geschnittenen Kupfers): aus dem Nickelblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_tin": {
@@ -1126,10 +1204,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Tin: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittener Zinnblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_tin_stairs": {
@@ -1137,10 +1215,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Tin Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Zinntreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_tin_slab": {
@@ -1148,10 +1226,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Tin Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Zinnstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:tin_tiles": {
@@ -1159,10 +1237,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Tin Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Zinnfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:tin_pillar": {
@@ -1170,10 +1248,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Tin Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Zinnsäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:chiseled_tin": {
@@ -1181,10 +1259,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled Tin: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the tin family (like the cut copper family): crafted from the block of tin or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Gemeißelter Zinnblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Zinn-Familie (wie die Familie des geschnittenen Kupfers): aus dem Zinnblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_brass": {
@@ -1192,10 +1270,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Brass: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittener Messingblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_brass_stairs": {
@@ -1203,10 +1281,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Brass Stairs: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Messingtreppe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:cut_brass_slab": {
@@ -1214,10 +1292,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Cut Brass Slab: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Geschnittene Messingstufe: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:brass_tiles": {
@@ -1225,10 +1303,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Brass Tiles: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Messingfliesen: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:brass_pillar": {
@@ -1236,10 +1314,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Brass Pillar: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Messingsäule: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
     "simpleores:chiseled_brass": {
@@ -1247,10 +1325,186 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled Brass: nine ingots (or raw pieces) in a block, craftable both ways."
+        "summary": "Building block of the brass family (like the cut copper family): crafted from the block of brass or cut in the stonecutter. Decoration only."
       },
       "de": {
-        "summary": "Gemeißelter Messingblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:silver_bars": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Bars like iron bars with their own silver pattern: they join each other, panes and walls, and let light and view through. Six silver ingots in two rows make 16. Any pickaxe."
+      },
+      "de": {
+        "summary": "Gitter wie Eisengitter mit eigenem Silbermuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Silberbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+      }
+    },
+    "simpleores:silver_grate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A see-through grate like the copper grate with its own silver pattern; it can hold water. Four blocks of silver in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Silbermuster; er kann Wasser halten. Vier Silberblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:lead_bars": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Bars like iron bars with their own lead pattern: they join each other, panes and walls, and let light and view through. Six lead ingots in two rows make 16. Any pickaxe."
+      },
+      "de": {
+        "summary": "Gitter wie Eisengitter mit eigenem Bleimuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Bleibarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+      }
+    },
+    "simpleores:lead_grate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A see-through grate like the copper grate with its own lead pattern; it can hold water. Four blocks of lead in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Bleimuster; er kann Wasser halten. Vier Bleiblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:zinc_bars": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Bars like iron bars with their own zinc pattern: they join each other, panes and walls, and let light and view through. Six zinc ingots in two rows make 16. Any pickaxe."
+      },
+      "de": {
+        "summary": "Gitter wie Eisengitter mit eigenem Zinkmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Zinkbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+      }
+    },
+    "simpleores:zinc_grate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A see-through grate like the copper grate with its own zinc pattern; it can hold water. Four blocks of zinc in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Zinkmuster; er kann Wasser halten. Vier Zinkblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:nickel_bars": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Bars like iron bars with their own nickel pattern: they join each other, panes and walls, and let light and view through. Six nickel ingots in two rows make 16. Any pickaxe."
+      },
+      "de": {
+        "summary": "Gitter wie Eisengitter mit eigenem Nickelmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Nickelbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+      }
+    },
+    "simpleores:nickel_grate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A see-through grate like the copper grate with its own nickel pattern; it can hold water. Four blocks of nickel in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Nickelmuster; er kann Wasser halten. Vier Nickelblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:tin_bars": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Bars like iron bars with their own tin pattern: they join each other, panes and walls, and let light and view through. Six tin ingots in two rows make 16. Any pickaxe."
+      },
+      "de": {
+        "summary": "Gitter wie Eisengitter mit eigenem Zinnmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Zinnbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+      }
+    },
+    "simpleores:tin_grate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A see-through grate like the copper grate with its own tin pattern; it can hold water. Four blocks of tin in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Zinnmuster; er kann Wasser halten. Vier Zinnblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:brass_bars": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Bars like iron bars with their own brass pattern: they join each other, panes and walls, and let light and view through. Six brass ingots in two rows make 16. Any pickaxe."
+      },
+      "de": {
+        "summary": "Gitter wie Eisengitter mit eigenem Messingmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Messingbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+      }
+    },
+    "simpleores:brass_grate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A see-through grate like the copper grate with its own brass pattern; it can hold water. Four blocks of brass in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Messingmuster; er kann Wasser halten. Vier Messingblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:bronze_bars": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Bars like iron bars with their own bronze pattern: they join each other, panes and walls, and let light and view through. Six bronze ingots in two rows make 16. Any pickaxe."
+      },
+      "de": {
+        "summary": "Gitter wie Eisengitter mit eigenem Bronzemuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Bronzebarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+      }
+    },
+    "simpleores:bronze_grate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A see-through grate like the copper grate with its own bronze pattern; it can hold water. Four blocks of bronze in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Bronzemuster; er kann Wasser halten. Vier Bronzeblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_bars": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Bars like iron bars with their own stainless steel pattern: they join each other, panes and walls, and let light and view through. Six stainless steel ingots in two rows make 16. Any pickaxe."
+      },
+      "de": {
+        "summary": "Gitter wie Eisengitter mit eigenem Edelstahlmuster: verbinden sich miteinander, mit Scheiben und Mauern und lassen Licht und Blick durch. Sechs Edelstahlbarren in zwei Reihen ergeben 16. Jede Spitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_grate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A see-through grate like the copper grate with its own stainless steel pattern; it can hold water. Four blocks of stainless steel in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Edelstahlmuster; er kann Wasser halten. Vier Edelstahlblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
       }
     },
     "simpleores:rift_shard_block": {
@@ -1649,6 +1903,17 @@
         "summary": "Neun ergeben einen Zinnbarren."
       }
     },
+    "simpleores:brass_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a brass ingot, an ingot gives nine."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Messingbarren, ein Barren gibt neun."
+      }
+    },
     "simpleores:brass_ingot": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -1660,6 +1925,17 @@
         "summary": "Messingbarren: formlos in der Werkbank, 2 Kupfer + 1 Zink ergeben 3 (nichts geht verloren). Neun ergeben einen Messingblock."
       }
     },
+    "simpleores:stainless_steel_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a stainless steel ingot, an ingot gives nine."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Edelstahlbarren, ein Barren gibt neun."
+      }
+    },
     "simpleores:stainless_steel_ingot": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -1669,6 +1945,17 @@
       },
       "de": {
         "summary": "Edelstahlbarren: formlos in der Werkbank, 3 Eisen + 1 Nickel ergeben 4 (nichts geht verloren). Neun ergeben einen Edelstahlblock."
+      }
+    },
+    "simpleores:bronze_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a bronze ingot, an ingot gives nine."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Bronzebarren, ein Barren gibt neun."
       }
     },
     "simpleores:bronze_ingot": {

@@ -21,6 +21,7 @@ public final class OresNeoForge {
         SimpleOres.init(FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
+            event.register(Registries.SOUND_EVENT, h -> com.simpleores.OresSounds.events(h::register));
             event.register(Registries.BLOCK, h -> OresRegistry.blocks(h::register));
             event.register(Registries.ITEM, h -> OresRegistry.items(h::register));
         });

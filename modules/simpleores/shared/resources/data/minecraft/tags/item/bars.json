@@ -1,0 +1,12 @@
+{
+  "values": [
+    "simpleores:silver_bars",
+    "simpleores:lead_bars",
+    "simpleores:zinc_bars",
+    "simpleores:nickel_bars",
+    "simpleores:tin_bars",
+    "simpleores:brass_bars",
+    "simpleores:bronze_bars",
+    "simpleores:stainless_steel_bars"
+  ]
+}
