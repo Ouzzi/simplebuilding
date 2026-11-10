@@ -53,10 +53,26 @@ public final class SimpleOres {
         }
         com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.BLOCK, lib("enderite_block"), id("enderite_block"));
         moveBlossomGold();
+        moveRetiredOres();
         OresRegistry.RECIPES_FROM_SIMPLELIB.forEach((path, folder) -> {
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.RECIPE, lib(path), id(path));
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.ADVANCEMENT, lib("recipes/" + folder + "/" + path),
                     id("recipes/" + folder + "/" + path));
+        });
+    }
+
+    /** N23 (b-ores23, 10.11.): the retired ore twins and the item/block/recipe/advancement ids they leave behind -> the remaining variant. */
+    public static final Map<String, String> RETIRED_ORES = Map.of("deepslate_lead_ore", "lead_ore", "deepslate_tin_ore", "tin_ore",
+            "nickel_ore", "deepslate_nickel_ore", "deepslate_zinc_ore", "zinc_ore");
+
+    private static void moveRetiredOres() {
+        RETIRED_ORES.forEach((from, to) -> {
+            moveId(Registries.ITEM, from, to);
+            moveId(Registries.BLOCK, from, to);
+            String metal = to.replace("deepslate_", "").replace("_ore", "");
+            for (String how : List.of("smelting", "blasting")) {
+                moveRecipe(metal + "_ingot_from_" + how + "_" + from, metal + "_ingot_from_" + how + "_" + to, "misc");
+            }
         });
     }
 

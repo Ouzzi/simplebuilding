@@ -90,7 +90,6 @@ public final class OresRegistry {
     public static final float LEAD_HARDNESS = 25.0F;
 
     public static final Block LEAD_ORE = block("lead_ore", Blocks.IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
-    public static final Block DEEPSLATE_LEAD_ORE = block("deepslate_lead_ore", Blocks.DEEPSLATE_IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
     public static final Block RAW_LEAD_BLOCK = block("raw_lead_block", Blocks.RAW_IRON_BLOCK, Block::new);
     public static final Block LEAD_BLOCK = block("lead_block", Blocks.IRON_BLOCK,
             s -> new Block(s.strength(LEAD_HARDNESS, LEAD_RESISTANCE).sound(LEAD_SOUND)));
@@ -109,8 +108,9 @@ public final class OresRegistry {
     public static final String[] MIXES = {"brass", "stainless_steel", "bronze"};
     static {
         for (String m : METALS) {
-            block(m + "_ore", Blocks.IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
-            block("deepslate_" + m + "_ore", Blocks.DEEPSLATE_IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
+            // N23 (b-ores23): nickel only forms in deepslate, zinc and tin only as the stone ore (zinc: geode ore); the twins are gone.
+            if (!m.equals("nickel")) block(m + "_ore", Blocks.IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
+            if (m.equals("nickel")) block("deepslate_" + m + "_ore", Blocks.DEEPSLATE_IRON_ORE, s -> new DropExperienceBlock(ConstantInt.of(0), s));
             block("raw_" + m + "_block", Blocks.RAW_IRON_BLOCK, Block::new);
             block(m + "_block", Blocks.IRON_BLOCK, Block::new);
         }
@@ -325,9 +325,9 @@ public final class OresRegistry {
         return out;
     }
 
-    public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "deepslate_lead_ore", "raw_lead_block",
-            "end_lead_ore", "zinc_ore", "deepslate_zinc_ore", "end_zinc_ore", "geode_crust", "raw_zinc_block", "nickel_ore", "deepslate_nickel_ore", "raw_nickel_block",
-            "tin_ore", "deepslate_tin_ore", "tin_bearing_gravel", "tin_bearing_sand", "raw_tin_block",
+    public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "raw_lead_block",
+            "end_lead_ore", "zinc_ore", "end_zinc_ore", "geode_crust", "raw_zinc_block", "deepslate_nickel_ore", "raw_nickel_block",
+            "tin_ore", "tin_bearing_gravel", "tin_bearing_sand", "raw_tin_block",
             "sage_ore", "deepslate_sage_ore", "nether_sage_ore", "end_sage_ore", "nether_rose_gold_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
     public static final String[] BUILDING = withFamilies(new String[] {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "zinc_block", "nickel_block", "tin_block", "brass_block", "stainless_steel_block", "bronze_block", "rose_bronze_block", "rose_gold_block", "rose_bronze_pressling_block", "rose_gold_pressling_block", "sage_crystal_block", "enderite_block",
             "netherite_scrap_block", "enderite_scrap_block", "sage_orb_block", "rift_shard_block", "nether_rift_shard_block", "end_rift_shard_block",

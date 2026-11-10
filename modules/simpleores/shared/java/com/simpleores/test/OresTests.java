@@ -99,7 +99,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 - 4 /* N23: four retired ore blocks */ && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36 - 4, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance",
                             "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers"))
                     && OresConfig.leadOre && OresConfig.endLeadOre && OresConfig.zincGeodes && OresConfig.endZincGeodes && OresConfig.nickelOre && OresConfig.tinOre && OresConfig.tinPlacers
@@ -576,15 +576,19 @@ public final class OresTests {
                     && !endLead.targetStates().get(0).target().test(Blocks.STONE.defaultBlockState(), BlockPos.ZERO, random), "End lead: End stone only, air exposure 1.0");
             int[] endRange = heights(level, placedRegistry.getValue(ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("end_lead_ore"))));
             check(h, endRange[0] >= 20 && endRange[1] <= 80, "End lead Y 20 to 80, measured " + endRange[0] + " to " + endRange[1]);
-            // No Simple Ores feature generates the retired ores any more (they stay registered for old worlds).
-            for (var ref : features.listElements().toList()) {
-                if (!ref.key().identifier().getNamespace().equals(SimpleOres.MOD_ID) || !(ref.value() instanceof net.minecraft.world.level.levelgen.feature.AbstractOreFeature ore)) continue;
-                for (var target : ore.targetStates()) {
-                    for (String retired : new String[] {"deepslate_lead_ore", "deepslate_zinc_ore", "zinc_ore", "deepslate_tin_ore", "nickel_ore"}) {
-                        check(h, !target.state().is(OresRegistry.BLOCKS.get(retired)), ref.key().identifier() + " still generates " + retired);
-                    }
-                }
-            }
+            // N23: the retired ore twins are gone (not registered); their ids move to the remaining variant (blocks, items, recipes, saved stacks).
+            var ops = level.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE);
+            SimpleOres.RETIRED_ORES.forEach((from, to) -> {
+                check(h, OresRegistry.BLOCKS.get(from) == null && OresRegistry.ITEMS.get(from) == null, from + " is not registered by the module");
+                check(h, to.equals(com.simplelib.api.IdMoves.target(Registries.BLOCK, SimpleOres.id(from)).getPath())
+                        && to.equals(com.simplelib.api.IdMoves.target(Registries.ITEM, SimpleOres.id(from)).getPath()), from + " moves to " + to);
+                check(h, net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(to)) && OresRegistry.ITEMS.get(to) != null, to + " exists");
+                net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+                tag.putString("id", SimpleOres.id(from).toString());
+                tag.putInt("count", 3);
+                ItemStack old = ItemStack.CODEC.parse(ops, tag).result().orElse(ItemStack.EMPTY);
+                check(h, old.is(OresRegistry.ITEMS.get(to)) && old.getCount() == 3, "an old stack of " + from + " loads as " + to + ": " + old);
+            });
             check(h, features.getValue(ResourceKey.create(Registries.FEATURE, SimpleOres.id("zinc_ore"))) == null, "zinc forms no free veins");
             h.succeed();
         });
@@ -593,7 +597,7 @@ public final class OresTests {
             ServerLevel level = h.getLevel();
             var recipes = level.getServer().getRecipeManager();
             for (String m : OresRegistry.METALS) {
-                for (String source : new String[] {"raw_" + m, m + "_ore", "deepslate_" + m + "_ore"}) {
+                for (String source : m.equals("nickel") ? new String[] {"raw_nickel", "deepslate_nickel_ore"} : new String[] {"raw_" + m, m + "_ore"}) {
                     SingleRecipeInput in = new SingleRecipeInput(stack(source));
                     var smelting = recipes.getRecipeFor(RecipeType.SMELTING, in, level);
                     check(h, smelting.isPresent() && smelting.get().value().assemble(in).is(item(m + "_ingot")), source + " -> " + m + " ingot in a furnace");
@@ -750,11 +754,12 @@ public final class OresTests {
             for (int i = 0; i < 3; i++) {
                 String m = OresRegistry.METALS[i];
                 BlockPos pos = h.absolutePos(new BlockPos(2, 1, 2));
-                level.setBlockAndUpdate(pos, OresRegistry.BLOCKS.get(m + "_ore").defaultBlockState());
+                String oreId = m.equals("nickel") ? "deepslate_nickel_ore" : m + "_ore";
+                level.setBlockAndUpdate(pos, OresRegistry.BLOCKS.get(oreId).defaultBlockState());
                 List<ItemStack> drops = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.IRON_PICKAXE));
                 check(h, drops.size() == 1 && drops.getFirst().is(item("raw_" + m)), m + " ore gives raw " + m + ": " + drops);
                 boolean stoneTier = !m.equals("nickel");
-                BlockState state = OresRegistry.BLOCKS.get(m + "_ore").defaultBlockState();
+                BlockState state = OresRegistry.BLOCKS.get(oreId).defaultBlockState();
                 check(h, new ItemStack(Items.STONE_PICKAXE).isCorrectToolForDrops(state) == stoneTier && new ItemStack(Items.IRON_PICKAXE).isCorrectToolForDrops(state),
                         m + " ore tier " + (stoneTier ? "stone" : "iron"));
                 level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());

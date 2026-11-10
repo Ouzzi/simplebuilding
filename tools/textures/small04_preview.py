@@ -63,7 +63,7 @@ O.RAMPS['lead_a'] = tex03_ramp
 blue = O.derived(JAR)
 O.RAMPS['lead_a'] = keep
 old = OLD.derived(JAR)
-LEAD = [('Erz', 'block/lead_ore'), ('Tiefenschiefer-Erz', 'block/deepslate_lead_ore'), ('Barren', 'item/lead_ingot'), ('Nugget', 'item/lead_nugget'),
+LEAD = [('Erz', 'block/lead_ore'), ('Barren', 'item/lead_ingot'), ('Nugget', 'item/lead_nugget'),
         ('Rohblei', 'item/raw_lead'), ('Rohbleiblock', 'block/raw_lead_block'), ('Bleiblock', 'block/lead_block')]
 rows = ''
 for name, k in LEAD:

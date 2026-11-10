@@ -1964,11 +1964,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
       "items": 64,
-      "blocks": 91,
-      "recipes": 251,
+      "blocks": 87,
+      "recipes": 243,
       "features": 15
     },
-    "dataHash": "f3fac4ccf09b"
+    "dataHash": "f9c712ba30a4"
   },
   {
     "id": "simplemachines",

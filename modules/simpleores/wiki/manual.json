@@ -494,17 +494,6 @@
         "summary": "Nur im Stein zu finden, 6 Adern zu 9 je Chunk, Y 0 bis 72, nie an Luft. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
-    "simpleores:deepslate_lead_ore": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-      ],
-      "en": {
-        "summary": "The deepslate twin of the lead ore; it no longer generates (lead forms only in stone), old worlds keep theirs. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore)."
-      },
-      "de": {
-        "summary": "Der Tiefenschiefer-Zwilling des Bleierzes; er entsteht nicht mehr (Blei bildet sich nur im Stein), alte Welten behalten ihre. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
-      }
-    },
     "simpleores:raw_lead_block": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -747,17 +736,6 @@
         "summary": "Nur in geschlossenen Mini-Geoden zu finden (1 bis 8 je Geode, Hülle aus Geodenkruste, Calcit-Futter), nie in freien Adern. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
-    "simpleores:deepslate_zinc_ore": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-      ],
-      "en": {
-        "summary": "The deepslate twin of the zinc ore; it no longer generates (zinc forms only in geodes), old worlds keep theirs. Needs a stone pickaxe. Drops raw zinc (Fortune helps, Silk Touch keeps the ore)."
-      },
-      "de": {
-        "summary": "Der Tiefenschiefer-Zwilling des Zinkerzes; er entsteht nicht mehr (Zink bildet sich nur in Geoden), alte Welten behalten ihre. Braucht eine Steinspitzhacke. Lässt Rohzink fallen (Glück hilft, Behutsamkeit behält das Erz)."
-      }
-    },
     "simpleores:raw_zinc_block": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -778,17 +756,6 @@
       },
       "de": {
         "summary": "Zinkblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
-      }
-    },
-    "simpleores:nickel_ore": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-      ],
-      "en": {
-        "summary": "The stone twin of the nickel ore; it no longer generates (nickel forms only in deepslate), old worlds keep theirs. Needs an iron pickaxe. Drops raw nickel (Fortune helps, Silk Touch keeps the ore)."
-      },
-      "de": {
-        "summary": "Der Stein-Zwilling des Nickelerzes; er entsteht nicht mehr (Nickel bildet sich nur im Tiefenschiefer), alte Welten behalten ihre. Braucht eine Eisenspitzhacke. Lässt Rohnickel fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:deepslate_nickel_ore": {
@@ -833,17 +800,6 @@
       },
       "de": {
         "summary": "In Stein und Granit zwischen Y 20 und 80 zu finden (dichte Nester im Granit) und bis Y 180 in den Gebirgsbiomen. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
-      }
-    },
-    "simpleores:deepslate_tin_ore": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-      ],
-      "en": {
-        "summary": "The deepslate twin of the tin ore; it no longer generates (tin forms only in the mountains), old worlds keep theirs. Needs a stone pickaxe. Drops raw tin (Fortune helps, Silk Touch keeps the ore)."
-      },
-      "de": {
-        "summary": "Der Tiefenschiefer-Zwilling des Zinnerzes; er entsteht nicht mehr (Zinn bildet sich nur in den Bergen), alte Welten behalten ihre. Braucht eine Steinspitzhacke. Lässt Rohzinn fallen (Glück hilft, Behutsamkeit behält das Erz)."
       }
     },
     "simpleores:raw_tin_block": {
