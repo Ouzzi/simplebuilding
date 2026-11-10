@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""CLOUDS17 (docs/ai/PLAN-B-CLOUDS17-2026-11-10.md): alpha for the approved cloud textures, colours unchanged.
+"""CLOUDS17/20 (docs/ai/PLAN-B-CLOUDS17-2026-11-10.md): alpha for the approved cloud textures, colours unchanged.
 
 In MC 26.3 the chunk layer of a block face follows its sprite: alpha only 255 = solid, any 0 = cutout (Glass), any 1..254 =
 translucent (Ice). Cloud Stone gets Ice-like alpha per palette tone, the Cloud Block gets Glass-like holes (alpha 0) in its
@@ -86,6 +86,7 @@ def write(doc: dict, png: Path) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path)
+    ap.add_argument("--variant", choices="ab", default="b", help="Cloud Block in place: a = glass holes, b = milk glass (CLOUDS20, default)")
     args = ap.parse_args()
     stone = build(load("cloud_stone"), STONE)
     cloud = load("cloud_block")
@@ -96,7 +97,7 @@ def main() -> None:
         write(build(cloud, CLOUD_B), args.out / "cloud_block_b.png")
     else:
         write(stone, TEX / "cloud_stone.png")
-        write(build(cloud, CLOUD_A, CLOUD_A_HOLES), TEX / "cloud_block.png")
+        write(build(cloud, CLOUD_A, CLOUD_A_HOLES) if args.variant == "a" else build(cloud, CLOUD_B), TEX / "cloud_block.png")
 
 
 if __name__ == "__main__":
