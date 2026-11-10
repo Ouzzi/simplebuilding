@@ -42,6 +42,11 @@ public final class SimpleLibFabricClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.simplelib.net.ModpackGuideStatePayload.TYPE,
                 (payload, context) -> context.client().execute(() -> com.simplelib.api.client.ModpackGuideScreens.receive(payload.done())));
         net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simplelib.client.guide.GuideProbe::tick);
+        // BACK22 core: the fog pulse after a portal door (HUD fill, renderer-neutral).
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.simplelib.net.PortalPulsePayload.TYPE,
+                (payload, context) -> context.client().execute(() -> com.simplelib.api.client.PortalPulse.receive(payload)));
+        net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.attachElementBefore(net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements.CHAT,
+                com.simplelib.SimpleLib.id("portal_pulse"), (context, tickCounter) -> com.simplelib.api.client.PortalPulse.render(context));
         // SimpleLib's own client file (inventory brightness).
         com.simplelib.api.client.ui.UiBrightness.registerConfigCommand();
     }

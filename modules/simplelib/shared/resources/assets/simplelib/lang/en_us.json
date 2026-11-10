@@ -161,5 +161,10 @@
   "simplelib.guide.page.18.title": "Commands",
   "simplelib.guide.page.18": "/simplelib config shows and changes every option of config/simplelib-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once;",
   "simplelib.guide.page.19.title": "Commands",
-  "simplelib.guide.page.19": "options read only at start say so. Permission level 2. /simpleclient simplelib (list, get, set, reset, help) does the same for config/simplelib-client.json on your own client."
+  "simplelib.guide.page.19": "options read only at start say so. Permission level 2. /simpleclient simplelib (list, get, set, reset, help) does the same for config/simplelib-client.json on your own client.",
+  "message.simplelib.portal.unframed": "The door needs its frame: a solid block left, right and above.",
+  "message.simplelib.portal.dormant": "This door is dormant - it needs to be activated first.",
+  "message.simplelib.portal.broken": "This door is broken - repair it first.",
+  "message.simplelib.portal.active": "The door is open.",
+  "message.simplelib.portal.mended": "The door works again."
 }

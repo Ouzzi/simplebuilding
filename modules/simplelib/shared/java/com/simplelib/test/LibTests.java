@@ -459,6 +459,7 @@ public final class LibTests {
         ALL.put("discover_behaviour_hints", com.simplelib.discover.LibDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplelib.discover.LibDiscover::firstPickupTips);
         WarpedWartTests.register();
+        PortalLibTests.register();
     }
 
     /**
