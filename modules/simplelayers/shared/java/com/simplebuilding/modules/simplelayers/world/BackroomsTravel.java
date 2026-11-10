@@ -31,12 +31,12 @@ public final class BackroomsTravel {
 
     private BackroomsTravel() {}
 
-    /** Rift contact at {@code pos}: everything but riders goes in, once per cooldown. */
-    public static void enterFromRift(ServerLevel level, Entity entity, BlockPos pos) {
-        if (!SimpleLayers.backroomsOn() || entity.isPassenger() || entity.isOnPortalCooldown() || !entity.canUsePortal(false)) return;
+    /** Rift contact at {@code pos}: everything but riders goes in, once per cooldown; returns the entity in the new level (or null). */
+    public static @Nullable Entity enterFromRift(ServerLevel level, Entity entity, BlockPos pos) {
+        if (!SimpleLayers.backroomsOn() || entity.isPassenger() || entity.isOnPortalCooldown() || !entity.canUsePortal(false)) return null;
         BackroomsLevel here = SimpleLayers.levelOf(level);
         BackroomsLevel target = here == null ? BackroomsLevel.LOBBY : here.riftTarget(pos.getY());
-        if (target != null) travel(level.getServer(), entity, target);
+        return target == null ? null : travel(level.getServer(), entity, target);
     }
 
     /** Sends {@code entity} into Level 0 below its x/z; returns the entity in the new level (or null). */
@@ -53,6 +53,9 @@ public final class BackroomsTravel {
         }
         int[] spot = target.arrival(BackroomsChunkGenerator.seed(to.getChunkSource().randomState()), entity.getBlockX(), entity.getBlockZ());
         Vec3 pos = new Vec3(spot[0] + 0.5, spot[1], spot[2] + 0.5);
+        // Load/generate the arrival chunk first (like surface() for the exit): the copy joins a loaded entity section at once instead of
+        // waiting in a hidden one until the portal ticket's chunk is generated (FIX172).
+        to.getChunk(spot[0] >> 4, spot[2] >> 4);
         Entity moved = entity.teleport(new TeleportTransition(to, pos, Vec3.ZERO, entity.getYRot(), entity.getXRot(), TeleportTransition.PLACE_PORTAL_TICKET));
         if (moved != null) {
             moved.setPortalCooldown(COOLDOWN);
