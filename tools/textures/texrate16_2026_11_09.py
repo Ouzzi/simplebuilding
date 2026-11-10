@@ -35,6 +35,12 @@ OUT = HERE / 'texrate16_targets.json'
 OWNER = ('bridge_redstone', 'extra_head', 'yarn_ball', 'diamond_pebble', 'astralit_dust', 'trim_template',
          'layered_raw_enderite', 'nihilith_shard', 'cracked_diamond', 'guide_book', 'money_bill')
 VANILLA_GLASS = ('display_case_glass', 'transparent_')
+# b-fix169tex (bundle 169): not reworked - textures of module generators that do not call finish() (their check_data would
+# report the reworked PNG as stale: Simple Dinos eggs, the octet melon flesh, the questionary table) and the chiseled motifs
+# of b-pal16 (owner answer PAL15, symmetric motifs; PAL16 won the merge conflict, so the A8d layer is not on them).
+GENERATOR_OWN = ('egg_trex', 'egg_triceratops', 'melon_flesh', 'questionary_table_book', 'questionary_table_side',
+                 'chiseled_brass', 'chiseled_lead', 'chiseled_nickel', 'chiseled_silver', 'chiseled_tin', 'chiseled_zinc',
+                 'chiseled_astralit_bricks', 'chiseled_ender_quartz_bricks', 'chiseled_nihilith_bricks')
 # Glowing faces whose bright motif is the point (lit furnace fire, enchanter glow, lit lamps, sparks on black, rainbow):
 # the contrast step-down dulled them in R3 (look check) -> not reworked, like Vanilla furnace_front_on/glowstone.
 GLOW = ('furnace_front_on', 'blast_furnace_front_on', 'enchanter_top', '_lamp_on', '_lamp_top_on', 'dimensional_scrap',
@@ -89,7 +95,7 @@ def select(rows):
         name = r['key'].split(':')[1]
         if r['light'] not in ('rot', 'orange') or r['lock'].startswith('vanilla'):
             continue
-        if any(o in name for o in OWNER) or any(v in name for v in VANILLA_GLASS) or any(g in name for g in GLOW):
+        if any(o in name for o in OWNER + GENERATOR_OWN) or any(v in name for v in VANILLA_GLASS) or any(g in name for g in GLOW):
             continue
         g, meth, why = group_of(r['key'], r)
         if r['light'] == 'orange' and g not in PROBLEM and r['prio'] > 3:
