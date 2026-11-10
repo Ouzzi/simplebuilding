@@ -523,134 +523,6 @@
    "after": "orange",
    "after_why": "in Flaechen>=6 45"
   },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/ceiling_tile.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 143, in Flaechen>=6 80.5, Hauptton 56.2",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/dotted_wallpaper.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 148, Hauptton 66, in Flaechen>=6 62.9",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_door_end.png": {
-   "group": "Esche/Daemmerholz",
-   "method": "grain",
-   "light": "rot",
-   "why": "groesste Flaeche 86, in Flaechen>=6 84.4, Hauptton 64.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_door_lower.png": {
-   "group": "Esche/Daemmerholz",
-   "method": "grain",
-   "light": "rot",
-   "why": "in Flaechen>=6 84.4, groesste Flaeche 49, Hauptton 40.2",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_door_upper.png": {
-   "group": "Esche/Daemmerholz",
-   "method": "grain",
-   "light": "rot",
-   "why": "in Flaechen>=6 79.3, groesste Flaeche 48",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_sign.png": {
-   "group": "Esche/Daemmerholz",
-   "method": "grain",
-   "light": "rot",
-   "why": "in Flaechen>=6 67.6, groesste Flaeche 29, hart 21.5",
-   "after": "orange",
-   "after_why": "hart 21.9"
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_sign_top.png": {
-   "group": "Esche/Daemmerholz",
-   "method": "grain",
-   "light": "rot",
-   "why": "groesste Flaeche 136, in Flaechen>=6 80.9, Hauptton 53.5",
-   "after": "orange",
-   "after_why": "hart 15.8"
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 76, in Flaechen>=6 90.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light_broken.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 76, in Flaechen>=6 89.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light_flicker.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 76, in Flaechen>=6 90.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light_side.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 128, in Flaechen>=6 82.4, Hauptton 54.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/rift.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 77, Hauptton 55.5, in Flaechen>=6 53.5, hart 25.6",
-   "after": "orange",
-   "after_why": "hart 25.4"
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/stained_ceiling_tile.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 74, in Flaechen>=6 77.3",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/striped_wallpaper.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 65, in Flaechen>=6 94.1, Farben 3, Hauptton 50.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/wallpaper.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 190, in Flaechen>=6 84.4, Hauptton 74.2",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/item/backdoor_key.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "Hauptton 55.3",
-   "after": "orange",
-   "after_why": "Hauptton 51.3"
-  },
   "modules/simplelights/shared/resources/assets/simplelights/textures/block/black_copper_light_pane.png": {
    "group": "Licht-Scheiben",
    "method": "quant",
@@ -3304,5 +3176,71 @@
   "src/main/resources/assets/simplebuilding/textures/block/spawn_teleporter_tier_3.png": "Pads: rot -> rot",
   "src/main/resources/assets/simplebuilding/textures/block/stellar_flypad.png": "Pads: orange -> orange",
   "src/main/resources/assets/simplebuilding/textures/item/enderite_nugget.png": "Flaechen (allgemein): orange -> orange"
+ },
+ "excluded": {
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/ceiling_tile.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/dotted_wallpaper.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_door_end.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_door_lower.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_door_upper.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_sign.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/exit_sign_top.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light_broken.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light_flicker.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/neon_light_side.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/rift.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/stained_ceiling_tile.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/striped_wallpaper.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/wallpaper.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplelayers/shared/resources/assets/simplelayers/textures/item/backdoor_key.png": {
+   "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  }
  }
 }
