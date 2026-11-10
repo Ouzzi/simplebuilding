@@ -202,8 +202,11 @@ def outputs():
 def main():
     check = '--check' in sys.argv
     stale = []
+    sys.path.insert(0, HERE)
+    import texrate16_rework_2026_11_09 as rw  # A8d rework of the texrate16/17 targets (b-texrate17: frame + base)
     for name, img in outputs().items():
         path = os.path.join(ASSETS, name)
+        img = rw.finish(img, path).convert('RGBA')
         if check:
             if not os.path.exists(path) or Image.open(path).convert('RGBA').tobytes() != img.tobytes():
                 stale.append(path)

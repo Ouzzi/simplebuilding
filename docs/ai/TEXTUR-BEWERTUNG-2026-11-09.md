@@ -455,3 +455,55 @@ docs/ai/PLAN-B-TEXRATE16-2026-11-09.md.
 pal15 `--own` neu laufen lassen → keine Änderung; generate_textures `--check` (mit Stub für die fehlende Handvorlage
 enderite_carrot) → 0 veraltete Ziele (vorher 10: die texrate15-End-Paletten); light panes `--check` OK.
 `texrate16_rework_2026_11_09.py --check` (alle Ziele = Rework der Ebenen-Basis), `--apply` ist idempotent.
+
+## Runde 17 (b-texrate17, 10.11., N19c)
+
+Nur Texturen außerhalb der TEXRATE16-Abnahme (die 464 Ziele von c8ece50d6 bleiben tabu): die übrigen roten ohne Pads und die
+orangen aus `not_improved` von Runde 16 = **148 Kandidaten**. Bewertung über hub/b-bundle171-gen vorher **2036 Texturen,
+198 rot / 611 orange / 878 grün / 349 grau**, nachher **2030 Texturen, 181 rot / 606 orange / 894 grün / 349 grau**
+(6 Vanilla-Umfärbungen nicht mehr im Repository). Werkzeug `tools/textures/texrate17_2026_11_10.py`, Ziele/Ausschlüsse/
+Runden je Textur in `tools/textures/texrate17_targets.json`, Rezepte in `texrate16_rework_2026_11_09.py` (`R17`).
+Vorschau `/root/sb-tools-b/previews/b-texrate17-preview.html` (Antwortcode **TEXRATE17 g<n>: tex=ok|einwand(…)**), Plan
+docs/ai/PLAN-B-TEXRATE17-2026-11-10.md.
+
+### Runden (A8c)
+- **R1 größter Ampel-Gewinn** (alle Runde-16-Methoden): fast überall „soft“ (Kontrast bis hart ≤ 12 %) → Ampel grün, aber
+  Blick: Stöcke-Fugen verschwinden, Glimmer (Dämmerholz-Stamm), Goldschloss (Verkaufslager), Ofenöffnungen, Bücherfarben,
+  Fossil-Knochen, schwarze Plattenrille, Spawner-Käfig werden grau.
+- **R2 sanftester Gewinn** (dazu soft 16/20/24, Knie 40/60, quant 10, Brecher allein; kleinste mittlere Helligkeitsänderung):
+  ruhiger, aber Quantisierung schluckt 2–3-px-Akzente (Glimmer, Gold), Froschlicht-Mitte bekam einen grauen Fleck.
+- **R3 Motiv-Schutz** (gebaut): nur Rezepte, die ≥ 80 % der Kontrastspanne (p5–p95) und ≥ 85 % der stärksten Sättigung
+  behalten; Blick 1×/8× neben Vanilla (Froschlichter, birch_door, amethyst_block, lectern, quartz_bricks): Froschlichter nur
+  Brecher/Streifen (quant → grau, Stufen-Brecher → graue Kleckse, grain → Querstriche gegen Vanillas senkrechte Streifen),
+  ashwood_door_bottom R2-Streifen übernommen (Spanne 0,79).
+
+### Ergebnis: 23 eingebaut (11 orange → grün, 7 rot → orange, 5 rot → grün)
+| Gruppe | Texturen | vorher → nachher |
+|---|---|---|
+| g1 Esche/Dämmerholz + Kristall-Laub | ashwood_door_bottom, ashwood/duskwood_leaves_crystal, ashwood_log_top, ashwood_shelf, duskwood_sign, duskwood_sticks | 3 rot → orange, 4 orange → grün |
+| g2 Froschlichter | aqua/azure/scarlet _side/_top | 5 rot → grün, 1 orange → grün |
+| g3 Baublöcke + Modellflächen | cracked_ender_quartz_bricks, nihilith_quartz_checker(_mirror), egg_utahraptor, cyan/gray_pocket_jukebox_open_back, display_case_base, light_gray_copper_light_pane (Item), oak/pale_oak_cutting_board_side | 4 rot → orange, 6 orange → grün |
+
+### Nicht angefasst (82, Grund je Kategorie in texrate17_targets.json `excluded`)
+Vanilla-artiges Glas 20, Teilebenen (Pfeilschäfte/-federn, Sandwich-Schichten, Disc-Etiketten, Konfetti) 18, leuchtende Motive 14,
+Fossil-Stufen 10 (nur Stufe 0–2 würden gewinnen; Sediment spränge beim Pinseln), Tönungsmasken (End-Laub, End-Gras) 7,
+Vanilla-Umfärbungen 5 (+ layered_astralit, orange), Besitzer-Texturen 3, BACK18-Abnahme 3, „nur messbar“ 2
+(questionary_table_gem, strip_station_bars: ein Ton auf wenigen Pixeln, der eigene Generator müsste umgebaut werden).
+**Ohne Gewinn mit Motiv-Schutz: 36** (`not_improved`, bleiben): u. a. Stöcke-Oberseiten, Spawner, Fass-Flansche, Gussform,
+Plattenpresse, glow_display_case_base, Schneidbrett Esche, hammock_rope, Dino-Ei Parasaurolophus, Bücherregale, Öfen,
+Lohenobsidian, Erze, Enderit-Nugget – Kontrast/Kante ist dort das Motiv.
+
+### Vanilla-Umfärbungen → vanilla_derived.py
+veined/crystalline/layered_astralit, veined/crystalline/frosted_nihilith: `astralit_nihilit_alternates_2026_10_03.derived(jar)`
+(Jar-Sprites + Block-PNGs von 259a382d1 als Eingabe `tools/textures/hand/alternates_2026_10_03/`), 6 OUTPUTS-Zeilen, OLDER_GENERATORS,
+WIKI_RENDERS; PNG/.layers.json und Wiki-Kopien aus Git, Pfade in .gitignore. `vanilla_derived.py --out` mit Jar: 6/6 pixelgleich.
+
+### Verankerung je Ziel
+- automatisch über `layers.save`/`finish()` (texrate16_rework liest jetzt auch texrate17_targets.json): simpleend
+  gen_textures (7 Holz/Laub-Ziele; Neulauf geprüft: keine Änderung an den Zielen), generate_textures (Nihilith-Quarz-
+  Schachbrett), copper_light_panes (`--check` OK).
+- neu verankert: simpledinos gen_blocks (egg_utahraptor; check_data `--check` grün), simple_shops_2026_10_15 (display_case_base;
+  `--check` jetzt grün, vorher schon veraltet für die Runde-16-Rahmen).
+- ohne Verankerung (begründet): nature_blocks_2026_10_09 schreibt noch an den alten Kern-Ort (vor dem Umzug nach simpleblocks)
+  → berührt die Modul-Froschlichter nicht; sandwiches.py auf der Basis nicht lauffähig (ashwood_planks-Pfad fehlt);
+  music03/ig3114 (Taschen-Jukebox) einmalige Datums-Generatoren ohne Check. Nach einem Neulauf: `texrate17 --apply`.
