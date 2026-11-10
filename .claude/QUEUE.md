@@ -1244,6 +1244,8 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
 
 ## b-pal16 (10.11.)
 - [~] (B, b-pal16, 10.11., Plan docs/ai/PLAN-B-PAL16-2026-11-10.md) **N17b PAL16** Meißel-Motive nach Besitzer-Code PAL15: alle symmetrisch (Licht von oben, Masken spiegelgleich), neue Motive Andesit Säule/Diorit Fossil/Granit Kristall/Dunkler Prismarin Dreizack/Enderquarz Enderman-Kopf/Zink Schild/Zinn Zinnsoldat/Messing Zahnrad neu, Silber+Blei optimiert symmetrisch, Rote Netherziegel Flamme symmetrisch, Eis/Astralit/Nihilith/Nickel Fassung vor PAL15 zurück + optimiert, Prismarin unverändert; Runden R1–R5, Vorschau /root/sb-tools-b/previews/b-pal16-preview.html. Offen: Besitzer PAL16, Client-Sicht im Bündel.
+## b-under21 (10.11.)
+- [~] (B, b-under21, 10.11.) **N21 UNDER21 Grundgewölbe bauen** (Besitzer-Abnahme UNDER18 = B, 10.11. ~09:20): eigene Dimension unter dem Grundgestein, rundum Bedrock hinter Verkleidung, Schichtbiom, liminal/ruhig, Rätsel Siegelteile/Hebelmuster/Klangfolge/Pfad/Aufstiegsaltar, Eingang über seltene Bedrock-Lücke, Tor schließt nach 30 s. Plan docs/ai/PLAN-B-UNDER21-2026-11-10.md.
 ## b-pal15 (09.11.)
 - [x] (B, b-lic15, 09.11., sbt MM/SYNC/STYLE/PRE/TREE/UNIT/JAR/SMOKE_RC=0, Jars mit LICENSE_*; offen Besitzer: Rechtsprüfung, GitHub-Branch cla-signatures, Plattformfelder) **N15 Lizenz umstellen** (Besitzer 09.11. ~21:00: „All Rights Reserved, source-available“ + CLA): LICENSE/Modul-LICENSE, Lizenzfelder → LicenseRef-SimpleMods-ARR, CLA.md/CONTRIBUTING.md/cla.yml, Texte, Check in multimod.py; Plan docs/ai/PLAN-B-LIC15-2026-11-09.md. Rechtliche Prüfung durch den Besitzer bleibt empfohlen; keine Rechtsberatung.
 ## b-gadg14 (09.11.)
@@ -1259,6 +1261,3 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
 ## b-lic15 (09.11.)
 ## b-back18 (10.11.)
 - [x] (B, b-back18, 10.11., Beleg f488a5766, sbt COMPILE_RC=0, MODULE_RC=0 (simplelayers fabric+standalone 60/60), DI_RC=0 (48/48), TAB_RC=0, GUIDES/WIKIGEN/DISCOVER/WIKICHECK_RC=0, DATA_RC=0) **N18 BACK18** Backrooms-Ausbau: Level 0 (Ausgang ≤ 18 Räume mit EXIT-Wegschildern, Obergeschoss, Treppenhäuser, Noclip-Risse), Level 1 Lagerhalle, Level 2 Rohrgänge (Leiterschächte, Ventil-Rätsel-Luke), Poolrooms, Ausgangs-Ebene (Belohnung), Wartungsschacht-Eingang mit Warnschild/Absperrband, leise Ambient-Geräusche (Config ambientVolume), 4 Runden + Texturen R1–R3. Plan docs/ai/PLAN-B-BACK18-2026-11-10.md, Vorschau previews/b-back18-preview.html (BACK18). Teil 2 nur Konzept docs/ai/KONZEPT-B-UNDER18-2026-11-10.md, Vorschau previews/b-under18-preview.html (UNDER18). Offen: Besitzer-Antworten BACK18/UNDER18, Client-Sicht, Bündel/Gate durch A.
-
-## b-under21 (10.11.)
-- [~] (B, b-under21, 10.11.) **N21 UNDER21 Grundgewölbe bauen** (Besitzer-Abnahme UNDER18 = B, 10.11. ~09:20): eigene Dimension unter dem Grundgestein, rundum Bedrock hinter Verkleidung, Schichtbiom, liminal/ruhig, Rätsel Siegelteile/Hebelmuster/Klangfolge/Pfad/Aufstiegsaltar, Eingang über seltene Bedrock-Lücke, Tor schließt nach 30 s. Plan docs/ai/PLAN-B-UNDER21-2026-11-10.md.
