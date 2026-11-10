@@ -22,7 +22,7 @@
   function digitsFor(count) { return count <= 256 ? 2 : count <= 4096 ? 3 : 4; }
 
   /* ---------------- model: {w, h, layers: [{name, visible, opacity, px: Uint8ClampedArray RGBA}]}, layers[0] = bottom */
-  function newLayer(w, h, name) { return { name: name || 'Layer', visible: true, opacity: 100, alphaLock: false, px: new Uint8ClampedArray(w * h * 4) }; }
+  function newLayer(w, h, name) { return { name: name || 'Layer', visible: true, opacity: 100, blend: 'normal', alphaLock: false, px: new Uint8ClampedArray(w * h * 4) }; }
   function blank(w, h, name) { return { w: w, h: h, palette: [], layers: [newLayer(w, h, name || 'Base')] }; }
 
   function validate(doc) {
@@ -37,7 +37,7 @@
       if (typeof l.name !== 'string') out.push(tag + ': name missing');
       if (typeof l.visible !== 'boolean') out.push(tag + ': visible must be true/false');
       if (!(l.opacity >= 0 && l.opacity <= 100 && l.opacity % 1 === 0)) out.push(tag + ': opacity must be an integer 0-100');
-      if ((l.blend || 'normal') !== 'normal') out.push(tag + ': only blend "normal"');
+      if (BLENDS.indexOf(l.blend || 'normal') < 0) out.push(tag + ': unknown blend "' + l.blend + '"');
       if (!Array.isArray(l.rows) || l.rows.length !== h) { out.push(tag + ': needs ' + h + ' rows'); return; }
       for (var y = 0; y < h; y++) {
         var row = l.rows[y];
@@ -61,7 +61,7 @@
       w: w, h: h, palette: doc.palette.slice(),
       layers: doc.layers.map(function (l) {
         var layer = newLayer(w, h, l.name);
-        layer.visible = l.visible; layer.opacity = l.opacity;
+        layer.visible = l.visible; layer.opacity = l.opacity; layer.blend = l.blend || 'normal';
         for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) {
           var cell = l.rows[y].substr(x * d, d);
           if (cell === empty) continue;
@@ -92,7 +92,7 @@
           }
           rows.push(r);
         }
-        return { name: l.name, visible: l.visible, opacity: l.opacity, blend: 'normal', rows: rows };
+        return { name: l.name, visible: l.visible, opacity: l.opacity, blend: l.blend || 'normal', rows: rows };
       })
     };
   }
@@ -119,18 +119,79 @@
     return m;
   }
 
-  /* Visible layers bottom first, source-over, integer rounding exactly as layers.py compose(). */
+  /* ---------------- blend modes (b-texed16, docs/ai/PLAN-B-TEXED16-2026-11-09.md): W3C Compositing Level 1 plus
+   * add/subtract. Written expression by expression like tools/textures/layers.py, so both give the same doubles. */
+  var BLENDS = ['normal', 'add', 'subtract', 'multiply', 'screen', 'overlay', 'soft-light', 'hard-light',
+    'lighten', 'darken', 'difference', 'hue', 'saturation', 'color', 'luminosity'];
+  function hardLight(cb, cs) { if (cs <= 0.5) return cb * (2 * cs); var s = 2 * cs - 1; return cb + s - cb * s; }
+  function softLight(cb, cs) {
+    if (cs <= 0.5) return cb - (1 - 2 * cs) * cb * (1 - cb);
+    var d = cb <= 0.25 ? ((16 * cb - 12) * cb + 4) * cb : Math.sqrt(cb);
+    return cb + (2 * cs - 1) * (d - cb);
+  }
+  function sep(mode, cb, cs) {
+    switch (mode) {
+      case 'add': return Math.min(1, cb + cs);
+      case 'subtract': return Math.max(0, cb - cs);
+      case 'multiply': return cb * cs;
+      case 'screen': return cb + cs - cb * cs;
+      case 'overlay': return hardLight(cs, cb);
+      case 'hard-light': return hardLight(cb, cs);
+      case 'soft-light': return softLight(cb, cs);
+      case 'lighten': return Math.max(cb, cs);
+      case 'darken': return Math.min(cb, cs);
+      case 'difference': return Math.abs(cb - cs);
+      default: return cs;
+    }
+  }
+  function lum(c) { return 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2]; }
+  function clipColor(c) {
+    var l = lum(c), n = Math.min(c[0], c[1], c[2]), x = Math.max(c[0], c[1], c[2]), k;
+    if (n < 0) for (k = 0; k < 3; k++) c[k] = l + (c[k] - l) * l / (l - n);
+    if (x > 1) for (k = 0; k < 3; k++) c[k] = l + (c[k] - l) * (1 - l) / (x - l);
+    return c;
+  }
+  function setLum(c, l) { var d = l - lum(c); return clipColor([c[0] + d, c[1] + d, c[2] + d]); }
+  function sat(c) { return Math.max(c[0], c[1], c[2]) - Math.min(c[0], c[1], c[2]); }
+  function setSat(c, s) {
+    var n = Math.min(c[0], c[1], c[2]), x = Math.max(c[0], c[1], c[2]);
+    if (x > n) return [(c[0] - n) * s / (x - n), (c[1] - n) * s / (x - n), (c[2] - n) * s / (x - n)];
+    return [0, 0, 0];
+  }
+  /* B(Cb, Cs) for one pixel, colours as [r, g, b] in 0..1 */
+  function blendRgb(mode, cb, cs) {
+    if (mode === 'hue') return setLum(setSat(cs, sat(cb)), lum(cb));
+    if (mode === 'saturation') return setLum(setSat(cb, sat(cs)), lum(cb));
+    if (mode === 'color') return setLum(cs, lum(cb));
+    if (mode === 'luminosity') return setLum(cb, lum(cs));
+    return [sep(mode, cb[0], cs[0]), sep(mode, cb[1], cs[1]), sep(mode, cb[2], cs[2])];
+  }
+  function clamp8(v) { return v < 0 ? 0 : v > 255 ? 255 : v; }
+  /* One source pixel (r, g, b of src at s, alpha sa already with the layer opacity) over out at o. */
+  function blendPixel(out, o, src, s, sa, mode) {
+    var da = out[o + 3];
+    var b = blendRgb(mode, [out[o] / 255, out[o + 1] / 255, out[o + 2] / 255], [src[s] / 255, src[s + 1] / 255, src[s + 2] / 255]);
+    var rest = da * (255 - sa) / 255, oa = sa + rest;
+    for (var k = 0; k < 3; k++) {
+      var m = (src[s + k] * (255 - da) + b[k] * 255 * da) / 255;
+      out[o + k] = clamp8(rnd((m * sa + out[o + k] * rest) / oa));
+    }
+    out[o + 3] = rnd(oa);
+  }
+
+  /* Visible layers bottom first, source-over (or the layer's blend mode), integer rounding exactly as layers.py compose(). */
   function compose(model, only) {
     var w = model.w, h = model.h, out = new Uint8ClampedArray(w * h * 4);
     model.layers.forEach(function (l, n) {
       if (only != null && only !== n) return;
       if (!l.visible || l.opacity <= 0) return;
-      var op = l.opacity, px = l.px;
+      var op = l.opacity, px = l.px, mode = l.blend || 'normal';
       for (var i = 0; i < w * h * 4; i += 4) {
         var a = px[i + 3];
         if (!a) continue;
         var sa = rnd(a * op / 100);
         if (sa <= 0) continue;
+        if (mode !== 'normal') { blendPixel(out, i, px, i, sa, mode); continue; }
         if (sa >= 255) { out[i] = px[i]; out[i + 1] = px[i + 1]; out[i + 2] = px[i + 2]; out[i + 3] = 255; continue; }
         var rest = out[i + 3] * (255 - sa) / 255, oa = sa + rest;
         for (var k = 0; k < 3; k++) out[i + k] = rnd((px[i + k] * sa + out[i + k] * rest) / oa);
@@ -142,7 +203,7 @@
 
   function cloneModel(m) {
     return { w: m.w, h: m.h, palette: (m.palette || []).slice(), layers: m.layers.map(function (l) {
-      return { name: l.name, visible: l.visible, opacity: l.opacity, alphaLock: !!l.alphaLock, px: new Uint8ClampedArray(l.px) };
+      return { name: l.name, visible: l.visible, opacity: l.opacity, blend: l.blend || 'normal', alphaLock: !!l.alphaLock, px: new Uint8ClampedArray(l.px) };
     }) };
   }
 
@@ -322,14 +383,45 @@
     });
     return out;
   }
+  /* Paint colour over the layer pixel (b-texed16): source-over with the colour's alpha, the same integer formula as
+   * compose(); alpha 255 replaces, alpha 0 (or no colour) clears. Alpha lock mixes the colour and keeps the alpha.
+   * Every pixel counts once per call (a stroke is redrawn from its start state, so going back and forth never adds up). */
+  function paintPixel(px, o, color, alphaLock) {
+    var sa = color[3], da = px[o + 3], k;
+    if (alphaLock) {
+      for (k = 0; k < 3; k++) px[o + k] = rnd((color[k] * sa + px[o + k] * (255 - sa)) / 255);
+      return;
+    }
+    if (sa >= 255 || !da) { px[o] = color[0]; px[o + 1] = color[1]; px[o + 2] = color[2]; px[o + 3] = sa; return; }
+    var rest = da * (255 - sa) / 255, oa = sa + rest;
+    for (k = 0; k < 3; k++) px[o + k] = rnd((color[k] * sa + px[o + k] * rest) / oa);
+    px[o + 3] = rnd(oa);
+  }
   function plot(px, w, h, pts, color, alphaLock) {
+    var seen = new Set();
     pts.forEach(function (p) {
       var x = p[0], y = p[1];
       if (x < 0 || y < 0 || x >= w || y >= h) return;
       var o = (y * w + x) * 4;
+      if (seen.has(o)) return;
+      seen.add(o);
       if (alphaLock && !px[o + 3]) return;
       if (!color || !color[3]) { px[o] = px[o + 1] = px[o + 2] = px[o + 3] = 0; return; }
-      px[o] = color[0]; px[o + 1] = color[1]; px[o + 2] = color[2]; px[o + 3] = color[3];
+      paintPixel(px, o, color, alphaLock);
+    });
+  }
+  /* Eraser with strength 1..255 (the primary colour's opacity): alpha * (255 - strength) / 255, 0 leaves the pixel empty. */
+  function erase(px, w, h, pts, strength) {
+    var e = strength == null ? 255 : strength, seen = new Set();
+    pts.forEach(function (p) {
+      var x = p[0], y = p[1];
+      if (x < 0 || y < 0 || x >= w || y >= h) return;
+      var o = (y * w + x) * 4;
+      if (seen.has(o) || !px[o + 3]) return;
+      seen.add(o);
+      var a = e >= 255 ? 0 : rnd(px[o + 3] * (255 - e) / 255);
+      if (a <= 0) { px[o] = px[o + 1] = px[o + 2] = px[o + 3] = 0; return; }
+      px[o + 3] = a;
     });
   }
   function same(px, o, c) { return c[3] === 0 ? px[o + 3] === 0 : px[o] === c[0] && px[o + 1] === c[1] && px[o + 2] === c[2] && px[o + 3] === c[3]; }
@@ -405,8 +497,8 @@
     if (n <= 0 || n >= model.layers.length) return false;
     var lo = model.layers[n - 1], hi = model.layers[n];
     var tmp = { w: model.w, h: model.h, layers: [
-      { visible: true, opacity: lo.visible ? lo.opacity : 0, px: lo.px },
-      { visible: true, opacity: hi.visible ? hi.opacity : 0, px: hi.px }] };
+      { visible: true, opacity: lo.visible ? lo.opacity : 0, blend: 'normal', px: lo.px },
+      { visible: true, opacity: hi.visible ? hi.opacity : 0, blend: hi.blend || 'normal', px: hi.px }] };
     lo.px = compose(tmp); lo.opacity = 100; lo.visible = true;
     model.layers.splice(n, 1);
     return true;
@@ -452,13 +544,13 @@
   History.prototype.redo = function (current) { if (!this.future.length) return null; this.past.push(cloneModel(current)); return this.future.pop(); };
 
   return {
-    FORMAT: FORMAT, SUFFIX: SUFFIX, VANILLA_NEAR: VANILLA_NEAR,
+    FORMAT: FORMAT, SUFFIX: SUFFIX, VANILLA_NEAR: VANILLA_NEAR, BLENDS: BLENDS, blendRgb: blendRgb, blendPixel: blendPixel,
     rnd: rnd, colorHex: colorHex, parseColor: parseColor, digitsFor: digitsFor,
     newLayer: newLayer, blank: blank, validate: validate, fromDoc: fromDoc, toDoc: toDoc, dumps: dumps, fromRgba: fromRgba,
     compose: compose, cloneModel: cloneModel, mergeDown: mergeDown, colorsOf: colorsOf, gpl: gpl,
     crc32: crc32, inflate: inflate, deflate: deflate, deflateStored: deflateStored, pngChunks: pngChunks, pngPixels: pngPixels,
     pngDecode: pngDecode, pngEncode: pngEncode,
-    linePoints: linePoints, rectPoints: rectPoints, pixelPerfect: pixelPerfect, brush: brush, mirror: mirror, plot: plot, fill: fill, pixelAt: pixelAt,
+    linePoints: linePoints, rectPoints: rectPoints, pixelPerfect: pixelPerfect, brush: brush, mirror: mirror, plot: plot, erase: erase, paintPixel: paintPixel, fill: fill, pixelAt: pixelAt,
     clipRect: clipRect, copyRect: copyRect, clearRect: clearRect, pasteBuf: pasteBuf, flipBuf: flipBuf, rotateBuf: rotateBuf, transformRect: transformRect,
     History: History
   };

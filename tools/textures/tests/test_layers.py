@@ -47,8 +47,9 @@ class Compose(unittest.TestCase):
         self.assertTrue(ly.validate(doc(2, 1, ["#ff0000ff"], {"rows": ["0001"]})))
         self.assertTrue(ly.validate(doc(2, 1, ["#ff0000ff"], {"rows": ["00"]})))
         self.assertTrue(ly.validate(doc(2, 1, ["#FF0000FF"], {"rows": ["00.."]})))
-        bad = doc(2, 1, ["#ff0000ff"], {"rows": ["00.."], "blend": "multiply"})
-        self.assertTrue(ly.validate(bad))
+        # b-texed16: blend modes are allowed (W3C list), unknown ones are not
+        self.assertEqual(ly.validate(doc(2, 1, ["#ff0000ff"], {"rows": ["00.."], "blend": "multiply"})), [])
+        self.assertTrue(ly.validate(doc(2, 1, ["#ff0000ff"], {"rows": ["00.."], "blend": "dodge"})))
         self.assertTrue(ly.validate({"format": "x"}))
 
 

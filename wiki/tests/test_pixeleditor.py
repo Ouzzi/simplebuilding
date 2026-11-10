@@ -34,6 +34,14 @@ class EditorWiring(unittest.TestCase):
         # a-wiki22: vanilla-derived textures (A8, not in the repo/mirror) get no pencil and no editor
         self.assertIn('build\\/vanilla-derived', overlay)
         self.assertIn('isDerived(textureById(info.target.id))', overlay)
+        # b-texed16: saved textures show at once (editor event -> overlay swaps images, state from /api/textures)
+        self.assertIn("'sb-texture-saved'", overlay)
+        self.assertIn('loadSaves()', overlay)
+        self.assertIn('swapImages()', overlay)
+        ui = (ROOT / 'wiki' / 'assets' / 'pixeleditor.js').read_text(encoding='utf-8')
+        self.assertIn("new CustomEvent('sb-texture-saved'", ui)
+        self.assertIn('C.erase(', ui)
+        self.assertIn("'data-k': 'blend'", ui)
 
     def test_editor_files_and_api(self):
         ui = (ROOT / 'wiki' / 'assets' / 'pixeleditor.js').read_text(encoding='utf-8')
@@ -81,11 +89,12 @@ class CoreMatchesPython(unittest.TestCase):
         rng = random.Random(21)
         with tempfile.TemporaryDirectory() as tmp:
             files = []
-            for n in range(12):
+            for n in range(40):
                 w, h = rng.randint(1, 9), rng.randint(1, 9)
                 palette = sorted({'#%08x' % rng.getrandbits(32) for _ in range(rng.randint(1, 12))})
+                # b-texed16: every blend mode, random alpha in the palette
                 layers = [{'name': f'L{k}', 'visible': rng.random() > 0.2, 'opacity': rng.choice([0, 1, 33, 50, 99, 100]),
-                           'blend': 'normal',
+                           'blend': rng.choice(ly.BLENDS) if k else 'normal',
                            'rows': [''.join('..' if rng.random() < 0.3 else '%02x' % rng.randrange(len(palette))
                                             for _ in range(w)) for _ in range(h)]}
                           for k in range(rng.randint(1, 4))]

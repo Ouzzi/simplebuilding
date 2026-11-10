@@ -360,6 +360,12 @@ Funktionen) und `assets/pixeleditor.js` (Oberfläche). Das öffentliche Wiki lä
    Kontextleiste je Werkzeug (Pinselgröße 1–3, Pixel Perfect, Symmetrie, Gefüllt, Überall), Statusleiste, Ebenen mit
    Vorschau, Auge/Sperre und Ziehgriff; Handy: Werkzeuge unten, Farben/Ebenen/Mehr als Blätter. Browser-Test:
    `wiki/tests/pixeleditor_ui.cjs` (Playwright, auf sb-test).
+   b-texed16 (`docs/ai/PLAN-B-TEXED16-2026-11-09.md`): Malen mit Deckung mischt über den Ebenen-Pixel (source-over),
+   Radierer nimmt Alpha nach Deckung weg; Ebenen-Modus („Modus“ unter der Deckkraft, Umschalt+O/P): Normal, Addieren,
+   Subtrahieren, Multiplizieren, Negativ multiplizieren, Überlagern, Weiches/Hartes Licht, Aufhellen, Abdunkeln,
+   Differenz, Farbton, Sättigung, Farbe, Luminanz – als `blend` in `.layers.json`, `layers.py` rechnet pixelgleich
+   (gemeinsame Vektoren `tools/textures/tests/blend_vectors.json`). Nach dem Speichern zeigt die Wiki-Dev sofort die
+   gespeicherte Fassung mit Abzeichen „gespeichert“/„übernommen“ (`tools/zentrale-web/dev-overlay.js`).
 2. „PNG + Ebenen“ lädt `<name>.png` und `<name>.layers.json` herunter (die Seite ist statisch, sie schreibt nichts ins Repo).
 3. Beide in den Ordner des Originals legen (Pfad steht im Editor), dann
    `python tools/textures/layers.py check` und `python wiki/generate.py --all`, committen.

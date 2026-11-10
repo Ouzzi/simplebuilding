@@ -271,7 +271,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json(200, self.server.texture_saves())
             return
         if path.startswith("/api/textures/"):
-            save = self.server.texture_save(path[len("/api/textures/"):])
+            save = self.server.texture_save(path[len("/api/textures/"):], adopted=True)
             self.send_json(200 if save else 404, save or {"error": "not found"})
             return
         parts = path.split("/")
@@ -672,6 +672,7 @@ class DevQueueServer(ThreadingHTTPServer):
         self.textures_dir.mkdir(parents=True, exist_ok=True)
         self.attachments_dir = data_dir / "attachments"  # images of suggestions (+ reference textures)
         self.last_save_id = 0
+        self._adopt = {"head": None, "map": {}}  # b-texed16: save id -> taken-over info, valid for one checkout HEAD
         self.lock = threading.Lock()
         self.queue = []
         self._runs_cache = []
@@ -716,15 +717,18 @@ class DevQueueServer(ThreadingHTTPServer):
             return None
         return data if len(data) <= MAX_REF and image_kind(data) == "png" else None
 
-    def texture_save(self, sid: str) -> dict | None:
+    def texture_save(self, sid: str, adopted: bool = False) -> dict | None:
         if not editor_save.SAVE_ID.match(sid or ""):
             return None
         path = self.textures_dir / f"{sid}.json"
         try:
             with open(path, "r", encoding="utf-8") as f:
-                return json.load(f)
+                save = json.load(f)
         except (OSError, ValueError):
             return None
+        if adopted:
+            self.mark_adopted([save])
+        return save
 
     def texture_saves(self) -> list:
         """Newest first, without the layers (the editor and the pickup only need the state)."""
@@ -734,7 +738,28 @@ class DevQueueServer(ThreadingHTTPServer):
             if save:
                 save.pop("layers", None)
                 out.append(save)
+        self.mark_adopted(out)
         return out
+
+    def mark_adopted(self, saves: list) -> None:
+        """b-texed16: "adopted" {commit, subject, bundle} when the save id is in the history of this checkout (what the
+        Wiki-Dev shows). Read only: the save files stay as they are. Cached per HEAD of the checkout."""
+        head = (editor_save._git_out(Path(self.repo), "rev-parse", "HEAD") or "").strip()
+        if not head:
+            return
+        cache = self._adopt
+        if cache["head"] != head:
+            cache["head"], cache["map"] = head, {}
+        todo = [str(s.get("sid")) for s in saves if str(s.get("sid")) not in cache["map"]]
+        if todo:
+            since = min((int(s.get("createdAt") or 0) for s in saves), default=0) or None
+            found = editor_save.adopted_in(Path(self.repo), todo, since)
+            for sid in todo:
+                cache["map"][sid] = found.get(sid)
+        for s in saves:
+            info = cache["map"].get(str(s.get("sid")))
+            if info:
+                s["adopted"] = info
 
     def runs_list(self) -> list:
         return list(self._runs_cache)

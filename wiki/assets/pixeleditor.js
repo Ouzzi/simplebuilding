@@ -36,7 +36,11 @@
       derived: 'Vanilla-derived texture: never commit it (A8). Edit tools/textures/vanilla_derived.py instead.',
       save: 'Save to repo', saveTip: 'Saves PNG + layers on a branch tex-… (taken over with the next bundle)', saveComment: 'Comment for the commit (optional)',
       saving: 'Saving…', saved: 'Saved.', saveFail: 'Saving failed: ',
-      st_new: 'Saved – waiting for the pickup.', st_picked: 'Picked up – being committed.', st_ready: 'On branch {b} – goes in with the next bundle.', st_failed: 'Not taken over: {n}',
+      st_new: 'Saved – waiting for the pickup.', st_picked: 'Picked up – being committed.', st_ready: 'On branch {b} – goes in with the next bundle.', st_failed: 'Not taken over: {n}', st_adopted: 'Taken over in {b} ({c}).',
+      blend: 'Mode', blendTip: 'Blend mode of the layer (Shift+O / Shift+P)', blendShort: 'mode',
+      bl: { normal: 'Normal', add: 'Add', subtract: 'Subtract', multiply: 'Multiply', screen: 'Screen', overlay: 'Overlay',
+        'soft-light': 'Soft light', 'hard-light': 'Hard light', lighten: 'Lighten', darken: 'Darken', difference: 'Difference',
+        hue: 'Hue', saturation: 'Saturation', color: 'Color', luminosity: 'Luminosity' },
       loading: 'Loading the texture…', loadFail: 'The texture could not be loaded.', blank: 'Empty 16×16 texture', hidden: 'Active layer is hidden',
       dirty: 'Discard your changes? They are not exported yet.', discard: 'Discard', cancel: 'Cancel', ok: 'OK',
       fileFail: 'The file could not be opened: ', rotSquare: 'Rotating needs a square area.', nothing: 'Nothing copied yet.', copied: 'Copied.',
@@ -45,7 +49,7 @@
       k: [['B E G I L U M V', 'tools'], ['Alt (hold)', 'eyedropper'], ['Shift+click', 'straight line'], ['X', 'swap colours'], ['[ ]', 'brush size'],
         ['Ctrl+Z / Ctrl+Y', 'undo / redo'], ['+ − 0', 'zoom, fit'], ["Ctrl+'", 'grid'], ['Shift+N', 'new layer'], ['Shift+↑/↓', 'active layer'],
         ['Ctrl+A / Ctrl+D', 'select all / deselect'], ['Ctrl+C / Ctrl+V', 'copy / paste'], ['Arrows', 'move selection'], ['Del', 'clear'],
-        ['Space+drag, middle mouse', 'pan'], ['Two fingers', 'zoom/pan; tap = undo, three = redo'], ['Long press', 'eyedropper'], ['Esc', 'close panel / deselect / close']]
+        ['Shift+O / Shift+P', 'next / previous layer mode'], ['Space+drag, middle mouse', 'pan'], ['Two fingers', 'zoom/pan; tap = undo, three = redo'], ['Long press', 'eyedropper'], ['Esc', 'close panel / deselect / close']]
     },
     de: {
       title: 'Pixeleditor', undo: 'Rückgängig', redo: 'Wiederholen', grid: 'Pixelraster', symX: 'Spiegeln links/rechts', symY: 'Spiegeln oben/unten',
@@ -70,7 +74,11 @@
       derived: 'Vanilla-abgeleitete Textur: nie einchecken (A8), stattdessen tools/textures/vanilla_derived.py anpassen.',
       save: 'Speichern ins Repo', saveTip: 'Speichert PNG + Ebenen auf einem Branch tex-… (Übernahme mit dem nächsten Bündel)', saveComment: 'Kommentar zum Commit (optional)',
       saving: 'Wird gespeichert…', saved: 'Gespeichert.', saveFail: 'Speichern fehlgeschlagen: ',
-      st_new: 'Gespeichert – wartet auf die Abholung.', st_picked: 'Abgeholt – wird committet.', st_ready: 'Auf Branch {b} – kommt mit dem nächsten Bündel.', st_failed: 'Nicht übernommen: {n}',
+      st_new: 'Gespeichert – wartet auf die Abholung.', st_picked: 'Abgeholt – wird committet.', st_ready: 'Auf Branch {b} – kommt mit dem nächsten Bündel.', st_failed: 'Nicht übernommen: {n}', st_adopted: 'Übernommen in {b} ({c}).',
+      blend: 'Modus', blendTip: 'Mischmodus der Ebene (Umschalt+O / Umschalt+P)', blendShort: 'Modus',
+      bl: { normal: 'Normal', add: 'Addieren', subtract: 'Subtrahieren', multiply: 'Multiplizieren', screen: 'Negativ multiplizieren',
+        overlay: 'Überlagern', 'soft-light': 'Weiches Licht', 'hard-light': 'Hartes Licht', lighten: 'Aufhellen', darken: 'Abdunkeln',
+        difference: 'Differenz', hue: 'Farbton', saturation: 'Sättigung', color: 'Farbe', luminosity: 'Luminanz' },
       loading: 'Textur wird geladen…', loadFail: 'Die Textur ließ sich nicht laden.', blank: 'Leere 16×16-Textur', hidden: 'Aktive Ebene ist ausgeblendet',
       dirty: 'Änderungen verwerfen? Sie sind noch nicht exportiert.', discard: 'Verwerfen', cancel: 'Abbrechen', ok: 'OK',
       fileFail: 'Datei nicht lesbar: ', rotSquare: 'Drehen braucht eine quadratische Fläche.', nothing: 'Noch nichts kopiert.', copied: 'Kopiert.',
@@ -79,7 +87,7 @@
       k: [['B E G I L U M V', 'Werkzeuge'], ['Alt (halten)', 'Pipette'], ['Umschalt+Klick', 'gerade Linie'], ['X', 'Farben tauschen'], ['[ ]', 'Pinselgröße'],
         ['Strg+Z / Strg+Y', 'rückgängig / wiederholen'], ['+ − 0', 'Zoom, einpassen'], ["Strg+'", 'Raster'], ['Umschalt+N', 'neue Ebene'], ['Umschalt+↑/↓', 'aktive Ebene'],
         ['Strg+A / Strg+D', 'alles / nichts auswählen'], ['Strg+C / Strg+V', 'kopieren / einfügen'], ['Pfeiltasten', 'Auswahl verschieben'], ['Entf', 'leeren'],
-        ['Leertaste+Ziehen, mittlere Maustaste', 'verschieben'], ['Zwei Finger', 'Zoom/Verschieben; Tipp = rückgängig, drei = wiederholen'], ['Langdruck', 'Pipette'], ['Esc', 'Paneel / Auswahl / Editor schließen']]
+        ['Umschalt+O / Umschalt+P', 'nächster / vorheriger Ebenen-Modus'], ['Leertaste+Ziehen, mittlere Maustaste', 'verschieben'], ['Zwei Finger', 'Zoom/Verschieben; Tipp = rückgängig, drei = wiederholen'], ['Langdruck', 'Pipette'], ['Esc', 'Paneel / Auswahl / Editor schließen']]
     }
   };
   function lang() { var l = String(window.LANG || document.documentElement.lang || 'en'); return l.indexOf('de') === 0 ? 'de' : 'en'; }
@@ -278,6 +286,7 @@
     '.pe-keys dd{margin:0;color:var(--pe-muted)}',
     '.pe-side details summary{cursor:pointer;min-height:36px;display:flex;align-items:center;font-size:13px;font-weight:600}',
     '.pe-root input[type=text]{padding:6px 8px;min-height:40px;border-radius:8px;border:1px solid var(--pe-line2);background:var(--pe-bg);width:100%;font-family:ui-monospace,monospace}',
+    '.pe-root select.pe-blend{padding:6px 8px;min-height:40px;border-radius:8px;border:1px solid var(--pe-line2);background:var(--pe-bg);width:100%;color:var(--pe-text)}',
     '.pe-root input[type=range]{accent-color:var(--pe-acc);min-height:32px;width:100%}',
     '.pe-root input[type=color]{width:100%;height:40px;padding:2px;border:1px solid var(--pe-line2);border-radius:8px;background:var(--pe-bg);cursor:pointer}',
     '.pe-file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}',
@@ -387,7 +396,7 @@
     showEmpty('loading');
     var load = opts.model ? Promise.resolve({ model: opts.model, from: '' })
       : opts.layers ? fetch(opts.layers).then(function (r) { if (!r.ok) throw new Error(r.status + ' ' + opts.layers); return r.json(); })
-        .then(function (doc) { return { model: C.fromDoc(doc), from: T('fromLayers') }; })
+        .then(function (doc) { return { model: C.fromDoc(doc), from: opts.from || T('fromLayers') }; })
         : fetchBytes(opts.png).then(decodePng).then(function (img) { return { model: C.fromRgba(img.w, img.h, img.rgba, T('base')), from: T('fromPng') }; });
     return load.then(function (r) { if (S) setModel(r.model, r.from); })
       .catch(function (e) { if (S) showEmpty('error', e && e.message || String(e)); });
@@ -870,8 +879,13 @@
     });
     op.addEventListener('change', function () { if (opBefore) changed(opBefore); opBefore = null; });
     var opLabel = h('output', { text: l.opacity + '%' });
+    // b-texed16: blend mode of the active layer (stored as "blend" in the layer source, layers.py composes the same)
+    var bsel = h('select', { class: 'pe-blend', 'aria-label': T('blendTip'), title: T('blendTip'), 'data-k': 'blend',
+      onchange: function () { setBlend(bsel.value); } }, C.BLENDS.map(function (b) { return h('option', { value: b, text: T('bl')[b] || b }); }));
+    bsel.value = l.blend || 'normal';
     side.appendChild(section('layers', T('layers') + ' (' + m.layers.length + ')', 'layers', [list,
       h('label', { class: 'pe-opacity' }, [T('opacity'), op, opLabel]),
+      h('label', { class: 'pe-opacity' }, [T('blend'), bsel, h('span')]),
       h('div', { class: 'pe-iconbar', role: 'toolbar', 'aria-label': T('layers') }, [
         ibtn('add', tip('add'), addLayer, { 'data-k': 'add' }), ibtn('dup', T('dup'), dupLayer, { 'data-k': 'dup' }),
         ibtn('up', T('up'), function () { moveLayer(1); }, { disabled: S.active >= m.layers.length - 1, 'data-k': 'up' }),
@@ -957,12 +971,14 @@
       label.addEventListener('click', function (e) { e.stopPropagation(); });
     } else label = h('span', { class: 'pe-ln', text: l.name });
     var opTxt = h('span', { class: 'pe-op', text: l.opacity + '%' });
+    var bl = l.blend && l.blend !== 'normal' ? T('bl')[l.blend] || l.blend : '';
+    if (bl) opTxt.title = T('blend') + ': ' + bl;
     var row = h('div', { class: 'pe-layer' + (l.visible ? '' : ' pe-hid'), role: 'option', 'aria-selected': String(n === S.active), tabindex: n === S.active ? 0 : -1,
-      'data-k': 'layer' + n, 'aria-label': l.name + ', ' + l.opacity + '%' + (l.visible ? '' : ', ' + T('hide')),
+      'data-k': 'layer' + n, 'aria-label': l.name + ', ' + l.opacity + '%' + (bl ? ', ' + bl : '') + (l.visible ? '' : ', ' + T('hide')),
       onclick: function () { if (S.active !== n) { S.active = n; refreshSide(); } },
       ondblclick: function () { startRename(n); },
       onkeydown: function (e) { rowKey(e, n); } },
-      [grip, eye, th, label, opTxt, lock]);
+      [grip, eye, th, label, bl ? h('span', { class: 'pe-op pe-bl', text: bl.slice(0, 5) + (bl.length > 5 ? '.' : '') }) : null, opTxt, lock]);
     grip.addEventListener('pointerdown', function (e) { startDrag(e, n, row); });
     S.rows.push({ n: n, el: row, op: opTxt });
     return row;
@@ -1007,6 +1023,11 @@
   }
 
   /* ---------------- layer operations */
+  function setBlend(mode) {
+    var l = layer(); if (!l || C.BLENDS.indexOf(mode) < 0 || (l.blend || 'normal') === mode) return;
+    var b = C.cloneModel(S.model); l.blend = mode; changed(b);
+  }
+  function stepBlend(d) { var l = layer(); if (!l) return; var i = C.BLENDS.indexOf(l.blend || 'normal'); setBlend(C.BLENDS[(i + d + C.BLENDS.length) % C.BLENDS.length]); }
   function addLayer() { var b = C.cloneModel(S.model); S.model.layers.splice(S.active + 1, 0, C.newLayer(S.model.w, S.model.h, T('layer') + ' ' + (S.model.layers.length + 1))); S.active++; changed(b); }
   function dupLayer() { var b = C.cloneModel(S.model), l = layer(), c = C.cloneModel({ w: 0, h: 0, layers: [l] }).layers[0]; c.name = l.name + ' 2'; S.model.layers.splice(S.active + 1, 0, c); S.active++; changed(b); }
   function delLayer() { if (S.model.layers.length < 2) return; var b = C.cloneModel(S.model); S.model.layers.splice(S.active, 1); S.active = Math.max(0, S.active - 1); changed(b); }
@@ -1064,12 +1085,16 @@
     var m = S.model, doc = C.toDoc(m), mine = S;
     m.palette = doc.palette;
     S.saving = true; setSaveNote(T('saving'));
+    var layersText = C.dumps(doc), pngBytes = null;
     C.pngEncode(m.w, m.h, C.compose(m)).then(function (bytes) {
+      pngBytes = bytes;
       return fetch('/api/textures', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: mine.opts.id, source: mine.opts.source, layers: C.dumps(doc), png: b64(bytes), comment: mine.saveComment || '' }) });
+        body: JSON.stringify({ id: mine.opts.id, source: mine.opts.source, layers: layersText, png: b64(bytes), comment: mine.saveComment || '' }) });
     }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status)); return j; });
     }).then(function (save) {
+      // b-texed16: the page shows the saved texture at once (dev overlay swaps the tiles, tools/zentrale-web/dev-overlay.js)
+      try { window.dispatchEvent(new CustomEvent('sb-texture-saved', { detail: { id: mine.opts.id, source: mine.opts.source, sid: save.sid, png: pngBytes, layers: layersText } })); } catch (err) { /* old browser */ }
       if (S !== mine) return;
       S.saving = false; S.dirty = false; toast(T('saved')); setSaveNote(T('st_new'));
       pollSave(mine, save.sid, 0);
@@ -1082,8 +1107,9 @@
     if (S !== mine || !sid) return;
     fetch('/api/textures/' + encodeURIComponent(sid), { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (s) {
       if (S !== mine || !s) return;
+      if (s.adopted) { setSaveNote(T('st_adopted', { b: s.adopted.bundle || s.adopted.commit, c: s.adopted.commit })); return; }
       setSaveNote(T('st_' + s.state, { b: s.branch || '', n: s.note || '' }));
-      if ((s.state === 'new' || s.state === 'picked') && n < 120) S.pollT = setTimeout(function () { pollSave(mine, sid, n + 1); }, 5000);
+      if ((s.state === 'new' || s.state === 'picked' || s.state === 'ready') && n < 120) S.pollT = setTimeout(function () { pollSave(mine, sid, n + 1); }, 5000);
     }).catch(function () { /* status stays */ });
   }
   function askOpen() {
@@ -1237,7 +1263,10 @@
     else if (st.tool === 'rect') pts = C.rectPoints(st.start[0], st.start[1], p[0], p[1], S.filled);
     else return;
     l.px.set(st.base);
-    C.plot(l.px, m.w, m.h, C.mirror(C.brush(pts, S.size), m.w, m.h, S.sym), st.tool === 'eraser' ? null : st.color, l.alphaLock);
+    var all = C.mirror(C.brush(pts, S.size), m.w, m.h, S.sym);
+    // b-texed16: the colour mixes over the layer pixel by its opacity; the eraser takes away that much alpha
+    if (st.tool === 'eraser') C.erase(l.px, m.w, m.h, all, st.color && st.color[3] ? st.color[3] : 255);
+    else C.plot(l.px, m.w, m.h, all, st.color, l.alphaLock);
     keepFrame(l.px, st.base);
     st.changed = true;
     paint();
@@ -1292,6 +1321,7 @@
     if (mod && (e.key === "'" || e.code === 'Backslash' || e.code === 'Quote')) { e.preventDefault(); toggleGrid(); return; }
     if (mod || e.altKey) return;
     if (e.shiftKey && k === 'n') { e.preventDefault(); addLayer(); return; }
+    if (e.shiftKey && (k === 'o' || k === 'p')) { e.preventDefault(); stepBlend(k === 'o' ? 1 : -1); return; }
     var tool = TOOLS.filter(function (x) { return x[1] === k; })[0];
     if (tool && !e.shiftKey) { e.preventDefault(); setTool(tool[0]); return; }
     if (k === 'x') { e.preventDefault(); swap(); return; }
