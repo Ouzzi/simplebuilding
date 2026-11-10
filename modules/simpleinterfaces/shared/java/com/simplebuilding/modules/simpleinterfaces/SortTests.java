@@ -27,6 +27,7 @@ public final class SortTests {
         ALL.put("sort_refused", SortTests::refused);
         ALL.put("sort_payload", SortTests::payload);
         ALL.put("sort_families", SortTests::families);
+        ALL.put("sort_creative_inventory", SortTests::creativeInventory);
     }
 
     private SortTests() {}
@@ -141,6 +142,31 @@ public final class SortTests {
         SortPayload.CODEC.encode(buf, new SortPayload(7, 31));
         var back = SortPayload.CODEC.decode(buf);
         h.assertTrue(back.containerId() == 7 && back.slotIndex() == 31 && buf.readableBytes() == 0, "codec roundtrip");
+        h.succeed();
+    }
+
+    /**
+     * b-sort26 (WE25-3 rest): creative. Only the main rows of the creative screen's Survival Inventory tab are a sort target
+     * (item tabs, hotbar, armour, crafting keep Vanilla's clone click), and a creative player's request on the inventory menu sorts
+     * like in survival.
+     */
+    public static void creativeInventory(GameTestHelper h) {
+        h.assertTrue(ContainerSort.creativeInventoryIndex(true, true, 9) == 9 && ContainerSort.creativeInventoryIndex(true, true, 35) == 35, "main rows of the inventory tab");
+        h.assertTrue(ContainerSort.creativeInventoryIndex(false, true, 20) == -1, "item tab: Vanilla clone stays");
+        h.assertTrue(ContainerSort.creativeInventoryIndex(true, true, 36) == -1 && ContainerSort.creativeInventoryIndex(true, true, 44) == -1, "hotbar: Vanilla clone stays");
+        h.assertTrue(ContainerSort.creativeInventoryIndex(true, true, 5) == -1 && ContainerSort.creativeInventoryIndex(true, false, 1) == -1, "armour and crafting refused");
+        ServerPlayer p = h.makeMockServerPlayerInLevel();
+        p.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
+        Inventory inv = p.getInventory();
+        inv.setItem(0, new ItemStack(Items.TORCH, 3));
+        inv.setItem(12, new ItemStack(Items.STONE, 10));
+        inv.setItem(30, new ItemStack(Items.DIAMOND, 2));
+        var menu = p.inventoryMenu;
+        h.assertTrue(p.hasInfiniteMaterials() && p.containerMenu == menu, "creative player with the inventory menu");
+        h.assertTrue(ContainerSort.sort(p, menu.containerId, ContainerSort.creativeInventoryIndex(true, true, 30)), "creative inventory tab sorts");
+        h.assertTrue(inv.getItem(9).is(Items.DIAMOND) && inv.getItem(10).is(Items.STONE) && inv.getItem(10).getCount() == 10
+                && inv.getItem(12).isEmpty() && inv.getItem(30).isEmpty(), "sorted like in survival");
+        h.assertTrue(inv.getItem(0).is(Items.TORCH) && inv.getItem(0).getCount() == 3, "hotbar untouched");
         h.succeed();
     }
 }
