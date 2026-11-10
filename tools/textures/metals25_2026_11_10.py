@@ -41,6 +41,8 @@ SPANS = {1: {m: (0.0, 9.0) for m in METALS},
              'bronze': (0.6, 7.0), 'stainless_steel': (-0.8, 5.6)}}
 SPANS[3] = SPANS[4] = SPANS[2]
 PICK = {(m, form): 'A' for m in METALS for form in ('bars', 'grate')}
+# METALS25 (owner 10.11.): A everywhere except these three, which are B.
+PICK.update({('lead', 'bars'): 'B', ('tin', 'bars'): 'B', ('brass', 'grate'): 'B'})
 
 
 def hard_share(im: Image.Image, jump: float = 40.0) -> float:
