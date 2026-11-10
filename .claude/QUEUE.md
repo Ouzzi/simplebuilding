@@ -495,7 +495,7 @@ Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fet
 |---|---|---|---|---|---|
 | 2 | SP22-8 | Claims-Umbau in master (Bündel 49); Besitzer-Antworten C1–C13 + UI A gelten (W24); offen nur Abnahme im Spiel | – | – | – |
 | 4 | TZ22-9 | Testzentrale neu bauen + Rundgang dokumentieren (Bilder nur per Server-Render) | M | Doku (+ Mechanik) | TZ22 in master |
-| 5 | STIL | ST-15 catalog-Pfad, ST-20 Teil 2 (14 LEGACY-Module) | M | Mechanik/Doku | – |
+| 5 | STIL | ST-20 Teil 2 (14 LEGACY-Module) | M | Mechanik/Doku | – |
 | 6 | WEB | Stufe 4 (3D) + Dimensionen-Auswahl | L | Mechanik | Browser-Abnahme (2) |
 | 7 | MA-9, MA-N70 | Modulaufteilung Stufe 9 Teil 2 (b-s9b; B pausiert bis 24.10. 01:00) – übernehmen oder warten; MA-6 Haken prüfen (Octets laut MA-N70 in master) | M / S | Mechanik / Doku | B-Pause |
 | 8 | DIST | `dist-publish.sh` streng + `starter.ps1` auf sb-web neu ausliefern | S | Doku/Betrieb | OPS-4 (Platz auf sb-web) |
