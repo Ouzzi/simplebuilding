@@ -705,17 +705,21 @@ public final class LayersTests {
         Entity lobby = BackroomsTravel.travel(server, e, BackroomsLevel.LOBBY);
         lobby.setPortalCooldown(0);
         ServerLevel lobbyLevel = (ServerLevel) lobby.level();
-        BackroomsTravel.enterFromRift(lobbyLevel, lobby, lobby.blockPosition());
-        // A cross-dimension teleport removes the old instance; the copy stands in the Warehouse.
-        h.assertTrue(lobby.isRemoved(), "lobby rift -> left the lobby");
         ServerLevel warehouse = server.getLevel(SimpleLayers.levelKey(BackroomsLevel.WAREHOUSE));
         int[] spot = BackroomsLevel.WAREHOUSE.arrival(BackroomsChunkGenerator.seed(warehouse.getChunkSource().randomState()), lobby.getBlockX(), lobby.getBlockZ());
-        var box = new net.minecraft.world.phys.AABB(spot[0] - 3, spot[1] - 3, spot[2] - 3, spot[0] + 4, spot[1] + 4, spot[2] + 4);
-        // The copy joins the Warehouse's entity sections a tick later.
+        Entity copy = BackroomsTravel.enterFromRift(lobbyLevel, lobby, lobby.blockPosition());
+        // A cross-dimension teleport removes the old instance; the returned copy stands at the Warehouse's arrival spot (FIX172: checked
+        // directly instead of searching a small box a tick later - the arrival chunk is loaded by travel(), position-independent).
+        h.assertTrue(lobby.isRemoved(), "lobby rift -> left the lobby");
+        h.assertTrue(copy != null && copy.level() == warehouse && !copy.isRemoved(), "lobby rift -> warehouse");
+        h.assertTrue(copy.blockPosition().getX() == spot[0] && copy.blockPosition().getZ() == spot[2] && Math.abs(copy.getY() - spot[1]) < 0.01,
+                "lobby rift -> warehouse arrival " + spot[0] + " " + spot[1] + " " + spot[2] + " but at " + copy.blockPosition().toShortString());
+        java.util.UUID id = copy.getUUID();
+        String at = copy.blockPosition().toShortString();
         h.succeedWhen(() -> {
-            var found = warehouse.getEntitiesOfClass(ArmorStand.class, box);
-            h.assertTrue(!found.isEmpty(), "lobby rift -> warehouse at " + spot[0] + " " + spot[1] + " " + spot[2]);
-            found.forEach(Entity::discard);
+            Entity tracked = warehouse.getEntity(id);
+            h.assertTrue(tracked != null, "copy tracked in the warehouse at " + at);
+            tracked.discard();
         });
     }
 
