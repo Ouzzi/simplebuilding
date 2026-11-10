@@ -323,22 +323,6 @@
    "after": "orange",
    "after_why": "hart 18.3"
   },
-  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/egg_trex.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 75, in Flaechen>=6 66.4, Hauptton 40.6, hart 16.9",
-   "after": "orange",
-   "after_why": "hart 16.9"
-  },
-  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/egg_triceratops.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "in Flaechen>=6 78.1, groesste Flaeche 41",
-   "after": "gruen",
-   "after_why": ""
-  },
   "modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/astral_enchanter_bottom.png": {
    "group": "Flaechen (allgemein)",
    "method": "areas",
@@ -2091,14 +2075,6 @@
    "after": "orange",
    "after_why": "in Flaechen>=6 49.4"
   },
-  "modules/simpleoctets/shared/resources/assets/simpleoctets/textures/block/melon_flesh.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 153, in Flaechen>=6 83.2, Hauptton 59.8, hart 15.4",
-   "after": "orange",
-   "after_why": "hart 15.2"
-  },
   "modules/simpleores/shared/resources/assets/simpleores/textures/block/brass_pillar.png": {
    "group": "Runde 15 (Simple Ores)",
    "method": "r15",
@@ -2119,54 +2095,6 @@
    "light": "rot",
    "why": "b-texrate15",
    "after": "siehe Runde 15"
-  },
-  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_brass.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "in Flaechen>=6 87.9, groesste Flaeche 46",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_lead.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 52, in Flaechen>=6 95.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_nickel.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "in Flaechen>=6 88.7, groesste Flaeche 42",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_silver.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 63, in Flaechen>=6 88.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_tin.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 56, in Flaechen>=6 92.2",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simpleores/shared/resources/assets/simpleores/textures/block/chiseled_zinc.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 64, in Flaechen>=6 89.5",
-   "after": "gruen",
-   "after_why": ""
   },
   "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_brass.png": {
    "group": "Runde 15 (Simple Ores)",
@@ -2410,22 +2338,6 @@
    "why": "Farben 60 (Verlauf?)",
    "after": "gruen",
    "after_why": ""
-  },
-  "modules/simplequestionary/shared/resources/assets/simplequestionary/textures/block/questionary_table_book.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "in Flaechen>=6 78.5",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplequestionary/shared/resources/assets/simplequestionary/textures/block/questionary_table_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 40, in Flaechen>=6 53.9, hart 23.8, Farben 34 (Verlauf?)",
-   "after": "orange",
-   "after_why": "hart 23.3, Farben 35 (Verlauf?)"
   },
   "modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block/acacia_cutting_board.png": {
    "group": "Esche/Daemmerholz",
@@ -3271,30 +3183,6 @@
    "method": "areas",
    "light": "rot",
    "why": "groesste Flaeche 130, in Flaechen>=6 89.1, Hauptton 51.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/chiseled_astralit_bricks.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 100, in Flaechen>=6 95.3",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/chiseled_ender_quartz_bricks.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 60, in Flaechen>=6 79.3",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/chiseled_nihilith_bricks.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 72, in Flaechen>=6 83.6",
    "after": "gruen",
    "after_why": ""
   },
