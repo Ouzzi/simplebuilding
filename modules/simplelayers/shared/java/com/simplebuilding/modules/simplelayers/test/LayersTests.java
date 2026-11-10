@@ -4,6 +4,9 @@ import com.simplebuilding.modules.simplelayers.LayersRegistry;
 import com.simplebuilding.modules.simplelayers.SimpleLayers;
 import com.simplebuilding.modules.simplelayers.block.BackroomBlock;
 import com.simplebuilding.modules.simplelayers.block.CautionSignBlock;
+import com.simplebuilding.modules.simplelayers.block.ChalkBoxItem;
+import com.simplebuilding.modules.simplelayers.block.ChalkItem;
+import com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock;
 import com.simplebuilding.modules.simplelayers.block.GlitchedBedrockBlock;
 import com.simplebuilding.modules.simplelayers.block.LevelDoorBlock;
 import com.simplebuilding.modules.simplelayers.block.NeonLightBlock;
@@ -19,9 +22,13 @@ import com.simplebuilding.modules.simplelayers.world.EntranceShaftFeature;
 import com.simplebuilding.modules.simplelayers.world.gen.BackroomsLevel;
 import com.simplebuilding.modules.simplelayers.world.gen.EscapeCheck;
 import com.simplebuilding.modules.simplelayers.world.gen.LobbyGen;
+import com.simplebuilding.modules.simplelayers.world.gen.Maze;
+import com.simplebuilding.modules.simplelayers.world.gen.PoolsGen;
+import com.simplebuilding.modules.simplelayers.world.gen.WarehouseGen;
 import com.simplebuilding.modules.simplelayers.world.gen.Piece;
 import com.simplebuilding.modules.simplelayers.world.gen.PipesGen;
-import com.simplebuilding.modules.simplelayers.world.gen.ShaftTemplate;
+import com.simplebuilding.modules.simplelayers.world.gen.HouseTemplate;
+import com.simplebuilding.modules.simplelayers.world.BackroomsBlocks;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -44,6 +51,7 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.pig.Pig;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
@@ -97,6 +105,12 @@ public final class LayersTests {
         ALL.put("sealed_hatch_puzzle", LayersTests::sealedHatchPuzzle);
         ALL.put("ambience_sounds", LayersTests::ambienceSounds);
         ALL.put("level_blocks_protected", LayersTests::levelBlocksProtected);
+        ALL.put("labyrinth_depth_gradient", LayersTests::labyrinthDepthGradient);
+        ALL.put("level_heights_vary", LayersTests::levelHeightsVary);
+        ALL.put("chalk_marks", LayersTests::chalkMarks);
+        ALL.put("chalk_box", LayersTests::chalkBox);
+        ALL.put("chalk_recipes", LayersTests::chalkRecipes);
+        ALL.put("stairwells_walkable", LayersTests::stairwellsWalkable);
     }
 
     private LayersTests() {}
@@ -361,7 +375,7 @@ public final class LayersTests {
             h.assertTrue(BackroomsGrid.at(seed, x, 1, z).is(LayersRegistry.DAMP_CARPET), "carpet floor");
             h.assertTrue(BackroomsGrid.at(seed, x, 4, z) == BackroomsGrid.at(seed, x, 4, z), "deterministic");
             int[] a = LobbyGen.arrival(s, seed, x, z);
-            for (int y = 2; y <= 3; y++) h.assertTrue(LobbyGen.at(s, seed, a[0], y, a[2]).passable(), "arrival free at y " + y + " " + a[0] + " " + a[2]);
+            for (int y = a[1]; y <= a[1] + 1; y++) h.assertTrue(LobbyGen.at(s, seed, a[0], y, a[2]).passable(), "arrival free at y " + y + " " + a[0] + " " + a[2]);
             for (int cell = 0; cell < 2; cell++) {
                 LobbyGen.Edge e = cell == 0 ? LobbyGen.west(s, seed, 0, Math.floorDiv(x, 8), Math.floorDiv(z, 8)) : LobbyGen.north(s, seed, 0, Math.floorDiv(x, 8), Math.floorDiv(z, 8));
                 if (e != LobbyGen.Edge.OPEN) {
@@ -553,7 +567,7 @@ public final class LayersTests {
         java.util.Random random = new java.util.Random(3);
         for (int i = 0; i < 200; i++) {
             int x = random.nextInt(40000) - 20000, z = random.nextInt(40000) - 20000;
-            boolean stair = LobbyGen.stairwell(s, seed, Math.floorDiv(x, 8), Math.floorDiv(z, 8));
+            boolean stair = LobbyGen.opensSlab(s, seed, Math.floorDiv(x, 8), Math.floorDiv(z, 8));
             h.assertTrue(BackroomsGrid.at(seed, x, 0, z).is(Blocks.BEDROCK), "floor y 0");
             h.assertTrue(stair || BackroomsGrid.at(seed, x, BackroomsGrid.TOP_Y, z).is(Blocks.BEDROCK), "slab y 8");
             for (int y = BackroomsGrid.HULL_FROM_Y; y <= BackroomsGrid.HULL_TOP_Y; y++) h.assertTrue(BackroomsGrid.at(seed, x, y, z).is(Blocks.BEDROCK), "hull y " + y);
@@ -574,7 +588,7 @@ public final class LayersTests {
             for (int z = 0; z < 16; z += 5) {
                 for (int y : new int[] {0, 8, 16, 30, 63}) {
                     BlockPos p = new BlockPos(cx * 16 + x, y, cz * 16 + z);
-                    boolean stair = y == 8 && LobbyGen.stairwell(LobbyGen.LOBBY, BackroomsChunkGenerator.seed(back.getChunkSource().randomState()),
+                    boolean stair = y == 8 && LobbyGen.opensSlab(LobbyGen.LOBBY, BackroomsChunkGenerator.seed(back.getChunkSource().randomState()),
                             Math.floorDiv(p.getX(), 8), Math.floorDiv(p.getZ(), 8));
                     h.assertTrue(back.getBlockState(p).is(Blocks.BEDROCK) || stair || inSpecialRoom(back, p), "generated hull at " + p.toShortString());
                 }
@@ -593,18 +607,20 @@ public final class LayersTests {
         boolean before = LobbyGen.supplies;
         try {
             LobbyGen.supplies = true;
-            int cells = 0, offices = 0, webCells = 0, tables = 0;
+            int cells = 0, offices = 0, webCells = 0, tables = 0, rooms = 0;
             for (int cx = -30; cx < 30; cx++) {
                 for (int cz = -30; cz < 30; cz++) {
                     cells++;
                     LobbyGen.Supply supply = LobbyGen.supply(st, seed, 0, cx, cz);
                     if (supply == LobbyGen.Supply.OFFICE) offices++;
                     if (supply == LobbyGen.Supply.WEBS) webCells++;
-                    if (LobbyGen.exitCell(st, seed, cx, cz) || LobbyGen.signed(st, seed, cx, cz) || LobbyGen.stairwell(st, seed, cx, cz)) {
+                    if (LobbyGen.exitCell(st, seed, cx, cz) || LobbyGen.signed(st, seed, cx, cz) || LobbyGen.stairwell(st, seed, cx, cz)
+                            || LobbyGen.shape(st, seed, cx, cz) != LobbyGen.Shape.NORMAL) {
                         h.assertTrue(supply == LobbyGen.Supply.NONE || LobbyGen.signed(st, seed, cx, cz), "no supplies in exit/stair cell " + cx + " " + cz);
                         continue;
                     }
-                    int logs = 0, webs = 0, wood = 0;
+                    if (supply == LobbyGen.Supply.BREAK_ROOM || supply == LobbyGen.Supply.LOUNGE) rooms++;
+                    int logs = 0, webs = 0, wood = 0, house = 0;
                     for (int lx = 1; lx < BackroomsGrid.CELL; lx++) {
                         for (int lz = 1; lz < BackroomsGrid.CELL; lz++) {
                             for (int y = 2; y < BackroomsGrid.CEILING_Y; y++) {
@@ -615,15 +631,20 @@ public final class LayersTests {
                                 if (s.is(Blocks.COBWEB)) webs++;
                                 if (s.is(Blocks.CRAFTING_TABLE)) tables++;
                                 if (s.is(Blocks.OAK_SLAB) || s.is(Blocks.OAK_STAIRS)) wood++;
+                                if (s.is(Blocks.SMOKER) || s.is(Blocks.WATER_CAULDRON) || s.is(Blocks.BARREL) || s.is(Blocks.CARPET.pick(net.minecraft.world.item.DyeColor.RED)) || s.is(Blocks.POTTED_DEAD_BUSH)) house++;
                             }
                         }
                     }
                     if (supply == LobbyGen.Supply.OFFICE) {
                         h.assertTrue(logs == 3 && wood == 3 && webs == 0, "office " + cx + " " + cz + ": logs " + logs + ", desk/chair " + wood);
+                    } else if (supply == LobbyGen.Supply.BREAK_ROOM) {
+                        h.assertTrue(house == 3 && wood == 2 && logs + webs == 0, "break room " + cx + " " + cz + ": sink, counter, smoker, " + house);
+                    } else if (supply == LobbyGen.Supply.LOUNGE) {
+                        h.assertTrue(house == 4 && wood == 2 && logs + webs == 0, "lounge " + cx + " " + cz + ": sofa " + wood + ", rug/pot/counter " + house);
                     } else if (supply == LobbyGen.Supply.WEBS) {
                         h.assertTrue(webs >= 12 && logs == 0, "cobweb cell " + cx + " " + cz + ": " + webs);
                     } else {
-                        h.assertTrue(logs + webs + wood == 0, "empty cell " + cx + " " + cz);
+                        h.assertTrue(logs + webs + wood + house == 0, "empty cell " + cx + " " + cz);
                     }
                 }
             }
@@ -631,6 +652,7 @@ public final class LayersTests {
             h.assertTrue(officeShare > 0.03 && officeShare < 0.08, "office share " + officeShare);
             h.assertTrue(webShare > 0.04 && webShare < 0.14, "cobweb share " + webShare);
             h.assertTrue(tables > 0, "some crafting tables");
+            h.assertTrue(rooms > 40, "break rooms and lounges " + rooms);
             LobbyGen.supplies = false;
             for (int cx = -10; cx < 10; cx++) h.assertTrue(LobbyGen.supply(st, seed, 0, cx, 3) == LobbyGen.Supply.NONE, "config off: no supplies");
         } finally {
@@ -702,7 +724,7 @@ public final class LayersTests {
     }
 
     /**
-     * BACK18: the quick way out - from anywhere in Level 0 an exit cell lies at most 18 cells away (escape tree), the exit cell holds
+     * BACK18: the quick way out - from anywhere in Level 0 an exit cell lies at most 10 cells away (escape tree, BACK20: regions of 8), the exit cell holds
      * the Exit Door under an EXIT sign, the cells of its row and column show the way with a sign; the other levels' goals too.
      */
     static void easiestExitReachable(GameTestHelper h) {
@@ -712,10 +734,10 @@ public final class LayersTests {
         int worst = 0;
         for (int i = 0; i < 300; i++) {
             int x = random.nextInt(200000) - 100000, z = random.nextInt(200000) - 100000;
-            int d = EscapeCheck.lobbyToExit(seed, x, z, 18);
-            h.assertTrue(d >= 0 && d <= 18, "exit within 18 cells from " + x + " " + z + ": " + d);
+            int d = EscapeCheck.lobbyToExit(seed, x, z, 10);
+            h.assertTrue(d >= 0 && d <= 10, "exit within 10 cells from " + x + " " + z + ": " + d);
             worst = Math.max(worst, d);
-            int end = EscapeCheck.endToExit(seed, x, z, 4), pools = EscapeCheck.poolsToExit(seed, x, z, 10), pipes = EscapeCheck.pipesToHatch(seed, x, z, 10);
+            int end = EscapeCheck.endToExit(seed, x, z, 4), pools = EscapeCheck.poolsToExit(seed, x, z, 2 * 64), pipes = EscapeCheck.pipesToHatch(seed, x, z, 2 * 144);
             h.assertTrue(end >= 0 && pools >= 0 && pipes >= 0, "exit level " + end + ", poolrooms " + pools + ", pipes hatch " + pipes);
         }
         int found = 0;
@@ -757,34 +779,57 @@ public final class LayersTests {
         h.succeed();
     }
 
-    /** BACK18: the entrance shaft has its rift floor (9), ladder, barrier tape, 4 caution signs facing out and 4 warning lights. */
+    /**
+     * BACK18 shaft, BACK20 house: the abandoned house stands (door, panes, roof), a trapdoor and ladder lead into the cellar, the
+     * cellar's west wall is a grey concrete plug framed in hazard stripes with tape, two caution signs facing into the cellar and a
+     * warning light; behind it the shaft's floor of 9 rifts (the portal) on glitched bedrock; barrels carry the house loot; the wood
+     * follows the biome.
+     */
     static void entranceShaftGenerated(GameTestHelper h) {
         ServerLevel level = h.getLevel();
         BlockPos o = h.absolutePos(BlockPos.ZERO);
-        BlockPos ground = new BlockPos(o.getX() + 1600, Math.max(o.getY() + 20, level.getMinY() + ShaftTemplate.DEPTH + 4), o.getZ() + 8);
+        BlockPos ground = new BlockPos(o.getX() + 1600, Math.max(o.getY() + 20, level.getMinY() + HouseTemplate.DEPTH + 4), o.getZ() + 8);
         for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) level.getChunk((ground.getX() >> 4) + dx, (ground.getZ() >> 4) + dz);
-        EntranceShaftFeature.build(level, ground);
-        int rifts = 0, signs = 0, tape = 0, lamps = 0, ladders = 0;
-        for (int dy = -ShaftTemplate.DEPTH; dy <= ShaftTemplate.HEIGHT; dy++) {
-            for (int dx = -ShaftTemplate.RADIUS; dx <= ShaftTemplate.RADIUS; dx++) {
-                for (int dz = -ShaftTemplate.RADIUS; dz <= ShaftTemplate.RADIUS; dz++) {
-                    BlockState st = level.getBlockState(ground.offset(dx, dy, dz));
+        EntranceShaftFeature.build(level, ground, BackroomsBlocks.Wood.OAK, level.getRandom());
+        int rifts = 0, signs = 0, tape = 0, lamps = 0, ladders = 0, plug = 0, barrels = 0, doors = 0, panes = 0, roof = 0, trapdoors = 0;
+        for (int dy = -HouseTemplate.DEPTH; dy <= HouseTemplate.HEIGHT; dy++) {
+            for (int dx = HouseTemplate.MIN_X; dx <= HouseTemplate.MAX_X; dx++) {
+                for (int dz = -HouseTemplate.HALF_Z; dz <= HouseTemplate.HALF_Z; dz++) {
+                    BlockPos at = ground.offset(dx, dy, dz);
+                    BlockState st = level.getBlockState(at);
                     if (st.is(LayersRegistry.RIFT)) rifts++;
                     if (st.is(LayersRegistry.CAUTION_SIGN)) {
                         signs++;
-                        Direction out = st.getValue(CautionSignBlock.FACING);
-                        h.assertTrue(dx * out.getStepX() + dz * out.getStepZ() > 0, "sign faces out at " + dx + " " + dz);
+                        h.assertTrue(st.getValue(CautionSignBlock.FACING) == Direction.EAST, "sign faces into the cellar at " + dx + " " + dz);
                     }
                     if (st.is(LayersRegistry.CAUTION_TAPE)) tape++;
                     if (st.is(Blocks.COPPER_BULB.waxed().unaffected())) lamps++;
                     if (st.is(Blocks.LADDER)) ladders++;
+                    if (st.is(Blocks.CONCRETE.pick(net.minecraft.world.item.DyeColor.GRAY)) && dx == HouseTemplate.PLUG_X) plug++;
+                    if (st.is(Blocks.BARREL) && level.getBlockEntity(at) instanceof net.minecraft.world.level.block.entity.BarrelBlockEntity barrel
+                            && EntranceShaftFeature.LOOT.equals(barrel.getLootTable())) barrels++;
+                    if (st.is(Blocks.OAK_DOOR)) doors++;
+                    if (st.is(Blocks.GLASS_PANE)) panes++;
+                    if (st.is(Blocks.OAK_STAIRS)) roof++;
+                    if (st.is(Blocks.OAK_TRAPDOOR)) trapdoors++;
                 }
             }
         }
-        h.assertTrue(rifts == 9 && level.getBlockState(ground.offset(0, ShaftTemplate.PORTAL_DY, 0)).is(LayersRegistry.RIFT), "rift floor " + rifts);
-        h.assertTrue(signs == 4 && lamps == 4 && tape >= 24 && ladders >= 10, "signs " + signs + ", lamps " + lamps + ", tape " + tape + ", ladders " + ladders);
-        h.assertTrue(level.getBlockState(ground.offset(1, 0, 1)).isAir() && level.getBlockState(ground.offset(1, -5, 1)).isAir(), "the shaft is open");
-        h.assertTrue(LayersConfig.shaftRarity > 0, "shafts on by default");
+        h.assertTrue(rifts == 9 && level.getBlockState(ground.offset(HouseTemplate.SHAFT_X, HouseTemplate.PORTAL_DY, 0)).is(LayersRegistry.RIFT)
+                && level.getBlockState(ground.offset(HouseTemplate.SHAFT_X, -HouseTemplate.DEPTH, 0)).is(LayersRegistry.GLITCHED_BEDROCK), "rift floor " + rifts);
+        h.assertTrue(plug == 6 && signs == 2 && tape == 3 && lamps == 1, "sealed wall: plug " + plug + ", signs " + signs + ", tape " + tape + ", lamp " + lamps);
+        h.assertTrue(ladders >= 13 && trapdoors == 1 && barrels == 2, "ladders " + ladders + ", trapdoor " + trapdoors + ", loot barrels " + barrels);
+        h.assertTrue(doors == 2 && panes == 5 && roof >= 60, "house: door " + doors + ", panes " + panes + ", roof " + roof);
+        // the passage behind the plug is open into the shaft; the cellar is 3 high
+        h.assertTrue(level.getBlockState(ground.offset(-5, -2, 0)).isAir() && level.getBlockState(ground.offset(HouseTemplate.SHAFT_X, -6, 0)).isAir(), "passage and shaft open");
+        h.assertTrue(level.getBlockState(ground.offset(0, -2, 0)).isAir() && level.getBlockState(ground.offset(0, HouseTemplate.CELLAR_FLOOR, 0)).is(Blocks.STONE_BRICKS), "cellar");
+        // wood per biome
+        var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);
+        h.assertTrue(EntranceShaftFeature.wood(biomes.getOrThrow(net.minecraft.world.level.biome.Biomes.SNOWY_TAIGA).value()) == BackroomsBlocks.Wood.SPRUCE
+                && EntranceShaftFeature.wood(biomes.getOrThrow(net.minecraft.world.level.biome.Biomes.SAVANNA).value()) == BackroomsBlocks.Wood.ACACIA
+                && EntranceShaftFeature.wood(biomes.getOrThrow(net.minecraft.world.level.biome.Biomes.PLAINS).value()) == BackroomsBlocks.Wood.OAK, "wood per biome");
+        h.assertTrue(BackroomsBlocks.wood(Piece.ROOF_N, BackroomsBlocks.Wood.SPRUCE).is(Blocks.SPRUCE_STAIRS), "spruce roof");
+        h.assertTrue(LayersConfig.shaftRarity > 0, "houses on by default");
         h.succeed();
     }
 
@@ -867,4 +912,391 @@ public final class LayersTests {
         h.setBlock(rel, LayersRegistry.LEVEL_DOOR);
         h.assertTrue(h.getLevel().getBlockState(abs).getDestroyProgress(player, h.getLevel(), abs) == 0.0F, "the maintenance door holds with the effect");
         h.succeed();
-    }}
+    }
+
+    // ---------------------------------------------------------------- BACK20 (plan docs/ai/PLAN-B-BACK20-2026-11-10.md)
+
+    /**
+     * BACK20: the deeper, the more of a labyrinth - measured as the shortest way (in blocks) from 150 random places to each level's
+     * goal: the Lobby is quick (exit at most 10 rooms, rifts near), the Poolrooms and the Warehouse are medium, the Pipes the longest;
+     * the exit level stays short. Every goal is reachable within its region.
+     */
+    static void labyrinthDepthGradient(GameTestHelper h) {
+        long seed = 2026L;
+        java.util.Random random = new java.util.Random(20);
+        int n = 150;
+        double lobby = 0, deeper = 0, warehouse = 0, pools = 0, pipes = 0, end = 0;
+        for (int i = 0; i < n; i++) {
+            int x = random.nextInt(200000) - 100000, z = random.nextInt(200000) - 100000;
+            int a = EscapeCheck.lobbyToExit(seed, x, z, 10), b = EscapeCheck.lobbyToDeeper(seed, x, z, 30), c = EscapeCheck.warehouseToLift(seed, x, z, 128),
+                    d = EscapeCheck.poolsToExit(seed, x, z, 128), e = EscapeCheck.pipesToHatch(seed, x, z, 288), f = EscapeCheck.endToExit(seed, x, z, 4);
+            h.assertTrue(a >= 0 && b >= 0 && c >= 0 && d >= 0 && e >= 0 && f >= 0, "goal reachable from " + x + " " + z + ": " + a + " " + b + " " + c + " " + d + " " + e + " " + f);
+            lobby += a * LobbyGen.CELL;
+            deeper += b * LobbyGen.CELL;
+            warehouse += c * WarehouseGen.BAY;
+            pools += d * PoolsGen.ROOM;
+            pipes += e * PipesGen.NODE;
+            end += f * LobbyGen.CELL;
+        }
+        lobby /= n;
+        deeper /= n;
+        warehouse /= n;
+        pools /= n;
+        pipes /= n;
+        end /= n;
+        String stats = String.format(java.util.Locale.ROOT, "lobby %.0f, deeper %.0f, pools %.0f, warehouse %.0f, pipes %.0f, end %.0f blocks", lobby, deeper, pools, warehouse, pipes, end);
+        h.assertTrue(lobby <= 48 && deeper <= 48, "the Lobby is quick to leave: " + stats);
+        h.assertTrue(lobby < pools && pools < warehouse && warehouse < pipes, "harder with depth: " + stats);
+        h.assertTrue(pipes >= 80 && pipes > 2.5 * lobby, "the Pipes are a labyrinth: " + stats);
+        h.assertTrue(end <= 32, "the exit level is a relief: " + stats);
+        // the region maze is a spanning tree: inside one region every node reaches the root without leaving it
+        int rx = 3, rz = -2, size = PipesGen.REGION;
+        for (int k = 0; k < 20; k++) {
+            int nx = rx * size + random.nextInt(size), nz = rz * size + random.nextInt(size);
+            int dist = EscapeCheck.distance(nx, nz, size * size, (cx, cz) -> Math.floorMod(cx, size) != 0 && Maze.west(seed, cx, cz, size, 321, 0),
+                    (cx, cz) -> Math.floorMod(cz, size) != 0 && Maze.north(seed, cx, cz, size, 321, 0), q -> Maze.root(seed, (int) q[0], (int) q[1], size, 321));
+            h.assertTrue(dist >= 0, "maze tree spans its region from " + nx + " " + nz);
+        }
+        h.succeed();
+    }
+
+    /** BACK20: every level has rooms of other heights - Lobby ceilings/daises/atriums, mezzanines and docks, boiler rooms and crawl ways, galleries. */
+    static void levelHeightsVary(GameTestHelper h) {
+        long seed = 77L;
+        LobbyGen.Style s = LobbyGen.LOBBY;
+        int low = 0, dais = 0, atrium = 0, cells = 0;
+        for (int cx = -40; cx < 40; cx++) {
+            for (int cz = -40; cz < 40; cz++) {
+                cells++;
+                int x = cx * 8, z = cz * 8;
+                switch (LobbyGen.shape(s, seed, cx, cz)) {
+                    case LOW -> {
+                        low++;
+                        h.assertTrue(LobbyGen.at(s, seed, x + 2, 4, z + 2).isAir() && !LobbyGen.at(s, seed, x + 2, 5, z + 2).passable(), "dropped ceiling at y 5 in " + cx + " " + cz);
+                    }
+                    case DAIS -> {
+                        dais++;
+                        h.assertTrue(LobbyGen.at(s, seed, x + 4, 2, z + 4) == s.carpet() && LobbyGen.at(s, seed, x + 2, 2, z + 4) == Piece.SLAB
+                                && LobbyGen.arrival(s, seed, x, z)[1] == 3, "dais with a step in " + cx + " " + cz);
+                    }
+                    case ATRIUM -> {
+                        atrium++;
+                        for (int y = 2; y <= 14; y++) h.assertTrue(LobbyGen.at(s, seed, x + 4, y, z + 4).isAir(), "light well open at y " + y + " in " + cx + " " + cz);
+                        h.assertTrue(LobbyGen.at(s, seed, x + 2, 10, z + 4) == s.dotted() && LobbyGen.at(s, seed, x + 1, 10, z + 4).passable(), "gallery with a parapet in " + cx + " " + cz);
+                    }
+                    default -> {
+                    }
+                }
+            }
+        }
+        h.assertTrue(low > cells * 0.05 && dais > cells * 0.02 && atrium > cells * 0.015, "lobby shapes: low " + low + ", dais " + dais + ", atrium " + atrium + " of " + cells);
+        int mezz = 0, docks = 0, boilers = 0, crawls = 0, galleries = 0, terraces = 0;
+        for (int a = -30; a < 30; a++) {
+            for (int b = -30; b < 30; b++) {
+                WarehouseGen.Bay bay = WarehouseGen.bay(seed, a, b);
+                int x = a * WarehouseGen.BAY, z = b * WarehouseGen.BAY;
+                if (bay == WarehouseGen.Bay.MEZZANINE) {
+                    mezz++;
+                    h.assertTrue(WarehouseGen.at(seed, x + 8, WarehouseGen.DECK_Y, z + 9) == Piece.DECK && WarehouseGen.at(seed, x + 8, WarehouseGen.DECK_Y + 1, z + 9).isAir()
+                            && WarehouseGen.at(seed, x + 6, 3, z + 6) == Piece.LADDER_N && WarehouseGen.at(seed, x + 8, 3, z + 9).isAir(), "mezzanine " + a + " " + b);
+                }
+                if (bay == WarehouseGen.Bay.DOCK) {
+                    docks++;
+                    h.assertTrue(WarehouseGen.at(seed, x + 6, WarehouseGen.DOCK_Y, z + 3) == Piece.CONCRETE_FLOOR && WarehouseGen.at(seed, x + 6, WarehouseGen.DOCK_Y, z + 5) == Piece.STONE_SLAB, "dock " + a + " " + b);
+                }
+                if (PipesGen.node(seed, 0, a, b) == PipesGen.Node.BOILER) {
+                    boilers++;
+                    int px = a * PipesGen.NODE, pz = b * PipesGen.NODE;
+                    for (int y = 2; y <= PipesGen.STOREY; y++) h.assertTrue(PipesGen.at(seed, px + 2, y, pz + 2).isAir(), "boiler open through the storeys at y " + y);
+                    h.assertTrue(PipesGen.at(seed, px + 2, PipesGen.STOREY + 1, pz + 2) == Piece.GRATE && PipesGen.at(seed, px + 3, 5, pz + 3) == Piece.COPPER_BOX, "grate gallery and tank");
+                }
+                if (PipesGen.west(seed, 0, a, b) && PipesGen.crawl(seed, 0, a, b, 0, 3)) {
+                    crawls++;
+                    int px = a * PipesGen.NODE, pz = b * PipesGen.NODE;
+                    h.assertTrue(PipesGen.at(seed, px, 2, pz + 3).passable() && PipesGen.at(seed, px, 3, pz + 3).passable() && !PipesGen.at(seed, px, 4, pz + 3).passable(), "crawl way 2 high");
+                }
+                PoolsGen.Room room = PoolsGen.room(seed, a, b);
+                int qx = a * PoolsGen.ROOM, qz = b * PoolsGen.ROOM;
+                if (room == PoolsGen.Room.GALLERY) {
+                    galleries++;
+                    h.assertTrue(PoolsGen.at(seed, qx + 5, PoolsGen.BALCONY_Y, qz + 2) == Piece.TILE_FLOOR && PoolsGen.at(seed, qx + 9, PoolsGen.WALK_Y + 1, qz + 7) == Piece.STAIR_N
+                            && PoolsGen.ceiling(seed, a, b) == 13, "gallery " + a + " " + b);
+                }
+                if (room == PoolsGen.Room.TERRACE) {
+                    terraces++;
+                    h.assertTrue(PoolsGen.at(seed, qx + 3, PoolsGen.WALK_Y - 1, qz + 5) == Piece.POOL_TILE && PoolsGen.at(seed, qx + 6, PoolsGen.WALK_Y - 1, qz + 5) == Piece.WATER, "terrace steps " + a + " " + b);
+                }
+            }
+        }
+        h.assertTrue(mezz > 50 && docks > 50 && boilers > 30 && crawls > 150 && galleries > 100 && terraces > 100,
+                "mezzanines " + mezz + ", docks " + docks + ", boilers " + boilers + ", crawls " + crawls + ", galleries " + galleries + ", terraces " + terraces);
+        h.succeed();
+    }
+
+    /** BACK20: chalk draws arrows/cross/circle by the click, costs durability, redraws, glows with a glow ink sac and falls with its support. */
+    static void chalkMarks(GameTestHelper h) {
+        h.assertTrue(ChalkMarkBlock.symbolFor(Direction.SOUTH, new Vec3(0.4, 0, 0), false) == ChalkMarkBlock.Symbol.ARROW_RIGHT, "south wall, east = right");
+        h.assertTrue(ChalkMarkBlock.symbolFor(Direction.EAST, new Vec3(0, 0, -0.4), false) == ChalkMarkBlock.Symbol.ARROW_RIGHT, "east wall, north = right");
+        h.assertTrue(ChalkMarkBlock.symbolFor(Direction.NORTH, new Vec3(0, 0.4, 0.3), false) == ChalkMarkBlock.Symbol.ARROW_UP, "up");
+        h.assertTrue(ChalkMarkBlock.symbolFor(Direction.UP, new Vec3(0, 0, -0.4), false) == ChalkMarkBlock.Symbol.ARROW_UP
+                && ChalkMarkBlock.symbolFor(Direction.UP, new Vec3(-0.4, 0, 0), false) == ChalkMarkBlock.Symbol.ARROW_LEFT, "floor: up = north");
+        h.assertTrue(ChalkMarkBlock.symbolFor(Direction.WEST, new Vec3(0, 0.05, 0.05), false) == ChalkMarkBlock.Symbol.CROSS
+                && ChalkMarkBlock.symbolFor(Direction.WEST, new Vec3(0, 0.4, 0), true) == ChalkMarkBlock.Symbol.CIRCLE, "cross in the middle, circle sneaking");
+        BlockPos wall = new BlockPos(2, 2, 2), front = wall.south();
+        h.setBlock(wall, Blocks.STONE);
+        Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack chalk = new ItemStack(LayersRegistry.RED_CHALK);
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, chalk);
+        BlockPos abs = h.absolutePos(wall);
+        Vec3 hit = Vec3.atCenterOf(abs).add(0.35, 0.05, 0.5);
+        var result = chalk.useOn(new net.minecraft.world.item.context.UseOnContext(player, net.minecraft.world.InteractionHand.MAIN_HAND,
+                new net.minecraft.world.phys.BlockHitResult(hit, Direction.SOUTH, abs, false)));
+        BlockState mark = h.getBlockState(front);
+        h.assertTrue(result.consumesAction() && mark.is(LayersRegistry.CHALK_MARK) && mark.getValue(ChalkMarkBlock.FACING) == Direction.SOUTH
+                && mark.getValue(ChalkMarkBlock.COLOR) == ChalkMarkBlock.Color.RED && mark.getValue(ChalkMarkBlock.SYMBOL) == ChalkMarkBlock.Symbol.ARROW_RIGHT, "drawn: " + mark);
+        h.assertTrue(chalk.getDamageValue() == 1 && chalk.getMaxDamage() == ChalkItem.USES, "one stroke used: " + chalk.getDamageValue());
+        h.assertTrue(mark.getCollisionShape(h.getLevel(), h.absolutePos(front)).isEmpty() && mark.canBeReplaced() && mark.getLightEmission() == 0, "no collision, replaceable, dark");
+        // redraw over the mark itself: a cross
+        ChalkMarkBlock.draw(h.getLevel(), h.absolutePos(front), Direction.SOUTH, Vec3.atCenterOf(h.absolutePos(front)), ChalkMarkBlock.Color.WHITE, false, false);
+        h.assertTrue(h.getBlockState(front).getValue(ChalkMarkBlock.SYMBOL) == ChalkMarkBlock.Symbol.CROSS && h.getBlockState(front).getValue(ChalkMarkBlock.COLOR) == ChalkMarkBlock.Color.WHITE, "redrawn");
+        // glow ink sac
+        h.setBlock(front, h.getBlockState(front).setValue(ChalkMarkBlock.GLOWING, Boolean.TRUE));
+        h.assertTrue(h.getBlockState(front).getLightEmission() == ChalkMarkBlock.GLOW_LIGHT, "glowing mark gives light");
+        // no mark into a non-sturdy face or water
+        h.assertFalse(ChalkMarkBlock.draw(h.getLevel(), h.absolutePos(new BlockPos(5, 5, 5)), Direction.UP, Vec3.atCenterOf(h.absolutePos(new BlockPos(5, 5, 5))),
+                ChalkMarkBlock.Color.WHITE, false, false), "nothing to draw on in the air");
+        // the support goes, the mark goes
+        h.setBlock(wall, Blocks.AIR);
+        h.assertTrue(h.getBlockState(front).isAir(), "mark falls off with its wall");
+        // the generated marks: Lobby arrows point the true way out, pipe dead ends get crosses
+        long seed = 9L;
+        int arrows = 0, crosses = 0;
+        for (int cx = -40; cx < 40; cx++) {
+            for (int cz = -40; cz < 40; cz++) {
+                if (LobbyGen.chalked(LobbyGen.LOBBY, seed, cx, cz)) {
+                    Piece p = LobbyGen.at(LobbyGen.LOBBY, seed, cx * 8 + 2, 4, cz * 8 + 1), q = LobbyGen.at(LobbyGen.LOBBY, seed, cx * 8 + 1, 4, cz * 8 + 2);
+                    int dir = com.simplebuilding.modules.simplelayers.world.gen.GenHash.toward(seed, cx, cz, LobbyGen.LOBBY.region(), LobbyGen.LOBBY.salt() + 21);
+                    if (p == Piece.CHALK_E || p == Piece.CHALK_W || q == Piece.CHALK_N || q == Piece.CHALK_S) {
+                        arrows++;
+                        Piece m = p == Piece.CHALK_E || p == Piece.CHALK_W ? p : q;
+                        int want = switch (m) {
+                            case CHALK_E -> com.simplebuilding.modules.simplelayers.world.gen.GenHash.EAST;
+                            case CHALK_W -> com.simplebuilding.modules.simplelayers.world.gen.GenHash.WEST;
+                            case CHALK_N -> com.simplebuilding.modules.simplelayers.world.gen.GenHash.NORTH;
+                            default -> com.simplebuilding.modules.simplelayers.world.gen.GenHash.SOUTH;
+                        };
+                        h.assertTrue(dir == want, "chalk arrow points the escape way in " + cx + " " + cz);
+                    }
+                }
+                if (PipesGen.crossed(seed, 0, cx, cz)) {
+                    crosses++;
+                    h.assertTrue(PipesGen.at(seed, cx * PipesGen.NODE + 3, 2, cz * PipesGen.NODE + 3) == Piece.CHALK_X, "cross on the floor of a dead end");
+                }
+            }
+        }
+        h.assertTrue(arrows > 100 && crosses > 50, "generated marks: arrows " + arrows + ", crosses " + crosses);
+        h.succeed();
+    }
+
+    /** BACK20: the chalk box takes chalk and glow ink, picks the next filled colour, draws with it and counts down. */
+    static void chalkBox(GameTestHelper h) {
+        ItemStack box = new ItemStack(LayersRegistry.CHALK_BOX);
+        ItemStack blue = new ItemStack(LayersRegistry.BLUE_CHALK);
+        blue.setDamageValue(10);
+        h.assertTrue(ChalkBoxItem.absorb(box, blue) && blue.isEmpty() && ChalkBoxItem.strokes(box, ChalkMarkBlock.Color.BLUE) == ChalkItem.USES - 10, "blue chalk taken");
+        h.assertTrue(ChalkBoxItem.selected(box) == ChalkMarkBlock.Color.BLUE, "the first chalk selects its colour");
+        ItemStack white = new ItemStack(LayersRegistry.CHALK, 5);
+        for (int i = 0; i < 5; i++) ChalkBoxItem.absorb(box, white);
+        h.assertTrue(ChalkBoxItem.strokes(box, ChalkMarkBlock.Color.WHITE) == ChalkBoxItem.CAPACITY && white.getCount() == 1, "white full at " + ChalkBoxItem.CAPACITY + ", one left over");
+        h.assertFalse(ChalkBoxItem.absorb(box, white), "a full colour takes no more");
+        ItemStack ink = new ItemStack(Items.GLOW_INK_SAC, 2);
+        h.assertTrue(ChalkBoxItem.absorb(box, ink) && ChalkBoxItem.glow(box) == ChalkBoxItem.GLOW_PER_SAC && ink.getCount() == 1, "glow ink");
+        h.assertTrue(ChalkBoxItem.next(box) == ChalkMarkBlock.Color.WHITE, "next filled colour after blue is white");
+        BlockPos floor = new BlockPos(3, 1, 3);
+        h.setBlock(floor, Blocks.STONE);
+        Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, box);
+        BlockPos abs = h.absolutePos(floor);
+        box.useOn(new net.minecraft.world.item.context.UseOnContext(player, net.minecraft.world.InteractionHand.MAIN_HAND,
+                new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(abs).add(0, 0.5, 0), Direction.UP, abs, false)));
+        BlockState mark = h.getBlockState(floor.above());
+        h.assertTrue(mark.is(LayersRegistry.CHALK_MARK) && mark.getValue(ChalkMarkBlock.COLOR) == ChalkMarkBlock.Color.BLUE && mark.getValue(ChalkMarkBlock.GLOWING)
+                && mark.getValue(ChalkMarkBlock.SYMBOL) == ChalkMarkBlock.Symbol.CROSS, "box draws a glowing blue cross: " + mark);
+        h.assertTrue(ChalkBoxItem.strokes(box, ChalkMarkBlock.Color.BLUE) == ChalkItem.USES - 11 && ChalkBoxItem.glow(box) == ChalkBoxItem.GLOW_PER_SAC - 1, "one stroke and one glow used");
+        h.assertTrue(box.isBarVisible() && box.getBarWidth() > 0, "bar shows the selected colour");
+        h.succeed();
+    }
+
+    /** BACK20: the chalk recipes exist (calcite + bone meal, + dye; the box from paper and slabs) and chalk is in the tab. */
+    static void chalkRecipes(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        for (String id : List.of("chalk", "red_chalk", "blue_chalk", "yellow_chalk", "chalk_box")) {
+            var key = net.minecraft.resources.ResourceKey.create(Registries.RECIPE, SimpleLayers.id(id));
+            h.assertTrue(server.getRecipeManager().byKey(key).isPresent(), "recipe " + id);
+        }
+        List<Item> tab = LayersRegistry.tabStacks().stream().map(ItemStack::getItem).toList();
+        h.assertTrue(tab.contains(LayersRegistry.CHALK) && tab.contains(LayersRegistry.CHALK_BOX), "chalk in the tab");
+        h.assertFalse(BuiltInRegistries.ITEM.containsKey(SimpleLayers.id("chalk_mark")), "no item for the mark");
+        // round 11: loot ties only while the other mod's item exists; chalk in mineshaft chests always
+        List<Object> pools = new ArrayList<>();
+        com.simplebuilding.modules.simplelayers.world.BackroomsLoot.apply(net.minecraft.resources.ResourceKey.create(Registries.LOOT_TABLE,
+                Identifier.parse(com.simplebuilding.modules.simplelayers.world.BackroomsLoot.MINESHAFT)), pools::add);
+        h.assertTrue(pools.size() == 1, "chalk pool in mineshaft chests");
+        pools.clear();
+        com.simplebuilding.modules.simplelayers.world.BackroomsLoot.apply(net.minecraft.resources.ResourceKey.create(Registries.LOOT_TABLE,
+                Identifier.parse(com.simplebuilding.modules.simplelayers.world.BackroomsLoot.PIPES)), pools::add);
+        boolean gadgets = BuiltInRegistries.ITEM.containsKey(com.simplebuilding.modules.simplelayers.world.BackroomsLoot.ECHO_SOUNDER);
+        h.assertTrue(pools.size() == (gadgets ? 1 : 0), "echo sounder only with Simple Gadgets: " + pools.size() + ", gadgets " + gadgets);
+        h.succeed();
+    }
+
+    // ---------------------------------------------------------------- STAIRS22 (plan docs/ai/PLAN-B-STAIRS22-2026-11-10.md, merged in b-back20s)
+
+    /** A generator seen as absolute block positions (for the stair checks). */
+    interface At {
+        Piece at(int x, int y, int z);
+    }
+
+    /**
+     * STAIRS22 (live bug: loose stair blocks, head against the ceiling tiles), extended to every stair of the BACK20 levels: per seed
+     * and level every step stands on a base and has {@link LobbyGen#STAIR_HEADROOM} passable blocks above it, and a simulated player
+     * (0.6 x 1.8 box, step height 0.6, the real collision shapes of the generated blocks) walks every flight up without jumping and
+     * without hitting anything, exit included. Level 0: Lobby stairwells and dais steps; Level 1: loading dock steps, mezzanine
+     * ladders; Level 2: ladder shafts and boiler ladders; Poolrooms: gallery stairs to the balcony.
+     */
+    static void stairwellsWalkable(GameTestHelper h) {
+        LobbyGen.Style s = LobbyGen.LOBBY;
+        int[] count = new int[7];
+        for (long seed : new long[] {1L, 99L, 12345L, -7L, 424242L}) {
+            java.util.Random random = new java.util.Random(seed);
+            At lobby = (x, y, z) -> LobbyGen.at(s, seed, x, y, z), pools = (x, y, z) -> PoolsGen.at(seed, x, y, z),
+                    warehouse = (x, y, z) -> WarehouseGen.at(seed, x, y, z), pipes = (x, y, z) -> PipesGen.at(seed, x, y, z);
+            int[] found = new int[7];
+            for (int i = 0; i < 40000 && java.util.Arrays.stream(found).anyMatch(f -> f < 3); i++) {
+                int cx = random.nextInt(4000) - 2000, cz = random.nextInt(4000) - 2000;
+                // Level 0: stairwells (the L-shaped flight to the upper floor)
+                if (found[0] < 3 && LobbyGen.stairwell(s, seed, cx, cz)) {
+                    found[0]++;
+                    int ox = cx * LobbyGen.CELL, oz = cz * LobbyGen.CELL;
+                    for (int[] step : LobbyGen.STAIR_STEPS) assertStep(h, lobby, "lobby stairwell", ox + step[0], step[1], oz + step[2]);
+                    String fail = walk(lobby, ox, oz, ox + LobbyGen.CELL, oz + LobbyGen.CELL, LobbyGen.TOP_Y + LobbyGen.UPPER, ox + 1.5, oz + 2.5,
+                            LobbyGen.FLOOR_Y + 1, new double[][] {{ox + 7.5, oz + 2.5}, {ox + 7.5, oz + 5.5}}, LobbyGen.TOP_Y + 2);
+                    h.assertTrue(fail == null, "seed " + seed + " stairwell " + cx + " " + cz + ": " + fail);
+                }
+                // Level 0: daises (one slab step up, BACK20)
+                if (found[1] < 3 && LobbyGen.shape(s, seed, cx, cz) == LobbyGen.Shape.DAIS) {
+                    found[1]++;
+                    int ox = cx * LobbyGen.CELL, oz = cz * LobbyGen.CELL;
+                    for (int lx = 2; lx <= 6; lx++) assertStep(h, lobby, "dais edge", ox + lx, 2, oz + 2);
+                    String fail = walk(lobby, ox, oz, ox + LobbyGen.CELL, oz + LobbyGen.CELL, LobbyGen.CEILING_Y, ox + 1.5, oz + 4.5,
+                            LobbyGen.FLOOR_Y + 1, new double[][] {{ox + 4.5, oz + 4.5}}, 3);
+                    h.assertTrue(fail == null, "seed " + seed + " dais " + cx + " " + cz + ": " + fail);
+                }
+                // Level 1: loading docks (one block up, edged by slabs as a step) and mezzanine ladders (BACK20)
+                WarehouseGen.Bay bay = WarehouseGen.bay(seed, cx, cz);
+                int bx = cx * WarehouseGen.BAY, bz = cz * WarehouseGen.BAY;
+                if (found[2] < 3 && bay == WarehouseGen.Bay.DOCK) {
+                    found[2]++;
+                    for (int lx = 2; lx <= 10; lx++) assertStep(h, warehouse, "dock edge", bx + lx, WarehouseGen.DOCK_Y, bz + 5);
+                    String fail = walk(warehouse, bx, bz, bx + WarehouseGen.BAY, bz + WarehouseGen.BAY, WarehouseGen.CEILING_Y, bx + 6.5, bz + 7.5,
+                            WarehouseGen.FLOOR_Y + 1, new double[][] {{bx + 6.5, bz + 3.5}}, WarehouseGen.DOCK_Y + 1);
+                    h.assertTrue(fail == null, "seed " + seed + " dock " + cx + " " + cz + ": " + fail);
+                }
+                if (found[3] < 3 && bay == WarehouseGen.Bay.MEZZANINE) {
+                    found[3]++;
+                    assertLadder(h, warehouse, "mezzanine ladder", bx + 6, WarehouseGen.FLOOR_Y + 1, WarehouseGen.DECK_Y, bz + 6, 0, 1);
+                }
+                // Level 2: ladder shafts and boiler ladders
+                PipesGen.Node node = PipesGen.node(seed, 0, cx, cz);
+                int px = cx * PipesGen.NODE, pz = cz * PipesGen.NODE;
+                if (found[4] < 3 && node == PipesGen.Node.SHAFT) {
+                    found[4]++;
+                    assertLadder(h, pipes, "ladder shaft", px + 3, 2, PipesGen.STOREY + 1, pz + 2, 0, 1);
+                }
+                if (found[5] < 3 && node == PipesGen.Node.BOILER) {
+                    found[5]++;
+                    assertLadder(h, pipes, "boiler ladder", px + 3, 2, PipesGen.STOREY + 1, pz + 4, 1, 0);
+                }
+                // Poolrooms: gallery stairs up to the balcony (BACK20)
+                if (found[6] < 3 && PoolsGen.room(seed, cx, cz) == PoolsGen.Room.GALLERY) {
+                    found[6]++;
+                    int qx = cx * PoolsGen.ROOM, qz = cz * PoolsGen.ROOM;
+                    for (int lz = 4; lz <= 7; lz++) assertStep(h, pools, "gallery stair", qx + 9, PoolsGen.WALK_Y + 1 + (7 - lz), qz + lz);
+                    String fail = walk(pools, qx, qz, qx + PoolsGen.ROOM, qz + PoolsGen.ROOM, PoolsGen.ceiling(seed, cx, cz), qx + 9.5, qz + 8.5,
+                            PoolsGen.WALK_Y + 1, new double[][] {{qx + 9.5, qz + 2.5}}, PoolsGen.BALCONY_Y + 1);
+                    h.assertTrue(fail == null, "seed " + seed + " gallery " + cx + " " + cz + ": " + fail);
+                }
+            }
+            for (int k = 0; k < found.length; k++) {
+                h.assertTrue(found[k] > 0, "seed " + seed + ": no stair of kind " + k + " found");
+                count[k] += found[k];
+            }
+        }
+        h.assertTrue(java.util.Arrays.stream(count).allMatch(c -> c >= 10), "stairs checked " + java.util.Arrays.toString(count));
+        h.succeed();
+    }
+
+    /** One step at (x, y, z): solid, a base under it (nothing loose), {@link LobbyGen#STAIR_HEADROOM} passable blocks above it. */
+    static void assertStep(GameTestHelper h, At at, String what, int x, int y, int z) {
+        h.assertFalse(at.at(x, y, z).passable(), what + ": step at " + x + " " + y + " " + z);
+        h.assertFalse(at.at(x, y - 1, z).passable(), what + ": a base under the step at " + x + " " + y + " " + z);
+        for (int k = 1; k <= LobbyGen.STAIR_HEADROOM; k++) {
+            h.assertTrue(at.at(x, y + k, z).passable(), what + ": headroom " + k + " above the step at " + x + " " + y + " " + z);
+        }
+    }
+
+    /**
+     * A ladder column at (x, z) from feet {@code bottom} to the floor {@code top} it leads to: free all the way and 2 free blocks
+     * above the top, and where it lets off (dx, dz) a floor at {@code top} with 2 free blocks above.
+     */
+    static void assertLadder(GameTestHelper h, At at, String what, int x, int bottom, int top, int z, int dx, int dz) {
+        for (int y = bottom; y <= top + 2; y++) h.assertTrue(at.at(x, y, z).passable(), what + " free at " + x + " " + y + " " + z);
+        h.assertFalse(at.at(x + dx, top, z + dz).passable(), what + ": a floor beside the ladder top at " + x + " " + top + " " + z);
+        h.assertTrue(at.at(x + dx, top + 1, z + dz).passable() && at.at(x + dx, top + 2, z + dz).passable(), what + ": 2 free blocks where the ladder lets off at " + x + " " + top + " " + z);
+    }
+
+    /**
+     * Walks a simulated player through the blocks of the box (x0..x1, 0..y1, z0..z1) from (startX, startZ) with the feet on
+     * {@code startFeet} along the path; null when he ends with the feet on {@code endFeet}, else where he got stuck.
+     */
+    static String walk(At at, int x0, int z0, int x1, int z1, int y1, double startX, double startZ, double startFeet, double[][] path, double endFeet) {
+        List<net.minecraft.world.phys.AABB> boxes = new ArrayList<>();
+        for (int x = x0; x <= x1; x++) {
+            for (int z = z0; z <= z1; z++) {
+                for (int y = 0; y <= y1; y++) {
+                    BlockState st = BackroomsBlocks.state(at.at(x, y, z));
+                    for (net.minecraft.world.phys.AABB b : st.getCollisionShape(net.minecraft.world.level.EmptyBlockGetter.INSTANCE, BlockPos.ZERO).toAabbs()) {
+                        boxes.add(b.move(x, y, z));
+                    }
+                }
+            }
+        }
+        double px = startX, pz = startZ, feet = stairSupport(boxes, px, pz, startFeet);
+        if (Math.abs(feet - startFeet) > 1.0E-4) return "start not on the floor: " + feet;
+        for (double[] target : path) {
+            while (Math.abs(px - target[0]) > 1.0E-6 || Math.abs(pz - target[1]) > 1.0E-6) {
+                double nx = px + Math.max(-0.05, Math.min(0.05, target[0] - px)), nz = pz + Math.max(-0.05, Math.min(0.05, target[1] - pz));
+                double nf = stairSupport(boxes, nx, nz, feet);
+                net.minecraft.world.phys.AABB body = new net.minecraft.world.phys.AABB(nx - 0.3, nf, nz - 0.3, nx + 0.3, nf + 1.8, nz + 0.3).deflate(1.0E-5);
+                for (net.minecraft.world.phys.AABB b : boxes) {
+                    if (b.intersects(body)) return String.format(java.util.Locale.ROOT, "stuck at %.2f %.2f %.2f against %s", nx, nf, nz, b);
+                }
+                px = nx;
+                pz = nz;
+                feet = nf;
+            }
+        }
+        return Math.abs(feet - endFeet) < 1.0E-4 ? null : "ends at feet " + feet + " instead of " + endFeet;
+    }
+
+    /** The highest top under the player's footprint he can stand on from feet height {@code feet} (step height 0.6, falling ok). */
+    static double stairSupport(List<net.minecraft.world.phys.AABB> boxes, double x, double z, double feet) {
+        double best = Double.NEGATIVE_INFINITY;
+        for (net.minecraft.world.phys.AABB b : boxes) {
+            if (b.minX < x + 0.3 - 1.0E-6 && b.maxX > x - 0.3 + 1.0E-6 && b.minZ < z + 0.3 - 1.0E-6 && b.maxZ > z - 0.3 + 1.0E-6 && b.maxY <= feet + 0.6 + 1.0E-6) {
+                best = Math.max(best, b.maxY);
+            }
+        }
+        return best;
+    }
+}

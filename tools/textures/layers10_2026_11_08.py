@@ -588,6 +588,119 @@ def backroom_effect():
     return t
 
 
+# ---------------------------------------------------------------- chalk (b-back20, BACK20 rounds C1-C3)
+CHALK_ROUND = 3
+# per colour: light, mid, dark (marks use light + mid; the stick all three with a darker outline)
+CHALK = {'white': [(248, 247, 242), (222, 220, 212), (176, 170, 156)], 'red': [(214, 84, 66), (184, 58, 44), (130, 36, 28)],
+         'blue': [(96, 136, 214), (64, 102, 184), (40, 66, 132)], 'yellow': [(244, 210, 84), (220, 178, 46), (164, 124, 24)]}
+MARKS = {
+    'arrow': ['................', '.......##.......', '......####......', '.....##..##.....', '....##....##....', '...##..##..##...',
+              '.......##.......', '.......##.......', '.......##.......', '.......##.......', '.......##.......', '.......##.......',
+              '.......##.......', '.......##.......', '................', '................'],
+    'cross': ['................', '................', '..##........##..', '..###......###..', '...###....###...', '....###..###....',
+              '.....######.....', '......####......', '......####......', '.....######.....', '....###..###....', '...###....###...',
+              '..###......###..', '..##........##..', '................', '................'],
+    'circle': ['................', '................', '.....######.....', '....##....##....', '...##......##...', '..##........##..',
+               '..#..........#..', '..#..........#..', '..#..........#..', '..#..........#..', '..##........##..', '...##......##...',
+               '....##....##....', '.....######.....', '................', '................'],
+}
+
+
+def _seg(p, q, w=1.05):
+    """Pixels within w of the segment p-q (pixel centres), the 2 px strokes of C2."""
+    yy, xx = np.mgrid[0:16, 0:16] + 0.5
+    (x0, y0), (x1, y1) = p, q
+    dx, dy = x1 - x0, y1 - y0
+    tt = np.clip(((xx - x0) * dx + (yy - y0) * dy) / (dx * dx + dy * dy), 0, 1)
+    return np.hypot(xx - x0 - tt * dx, yy - y0 - tt * dy) <= w
+
+
+def mark_mask(symbol):
+    if CHALK_ROUND == 1:
+        return np.array([[ch == '#' for ch in r] for r in MARKS[symbol]])
+    if symbol == 'arrow':
+        if CHALK_ROUND == 2:
+            return _seg((8, 2.2), (8, 13.8)) | _seg((8, 2.2), (3.6, 6.8)) | _seg((8, 2.2), (12.4, 6.8))
+        # C3: a wider head so it does not close into a lump at 1x
+        return _seg((8, 2.0), (8, 13.8)) | _seg((8, 2.0), (3.0, 7.4)) | _seg((8, 2.0), (13.0, 7.4))
+    if symbol == 'cross':
+        return _seg((3.2, 3.2), (12.8, 12.8)) | _seg((12.8, 3.2), (3.2, 12.8))
+    yy, xx = np.mgrid[0:16, 0:16] + 0.5
+    r = np.hypot(xx - 8, yy - 8)
+    return (r >= 4.1) & (r <= 5.9)
+
+
+def chalk_mark(color, symbol, seed=0):
+    """A chalk mark: strokes 2 px wide in two tones of the colour; chalk on a rough wall leaves gaps. C1 hand-drawn rows (stroke
+    width uneven, arrow head 1 px, too many gaps); C2 strokes from line distance (even 2 px), fewer gaps, never at a stroke end."""
+    t = Tex()
+    light, mid, _ = CHALK[color]
+    mask = mark_mask(symbol)
+    a = np.zeros((16, 16, 4), np.uint8)
+    a[mask] = light + (255,)
+    t.step('Strich', a)
+    r = rng(seed + 900 + len(color) * 7 + len(symbol))
+    b = a.copy()
+    gaps = mask & (r.random((16, 16)) < (0.12 if CHALK_ROUND == 1 else 0.05))
+    shade = mask & ~gaps & (r.random((16, 16)) < 0.35)
+    b[shade, :3] = mid
+    b[gaps] = 0
+    t.step('Kreidekörnung', b)
+    return t
+
+
+CHALK_STICK = ['................', '................', '................', '................', '..........OOO...', '.........OLLHO..',
+               '........OLMMLO..', '.......OLMMMO...', '......OLMMMO....', '.....OLMMMO.....', '....OLMMMO......', '...OLMMDO.......',
+               '...OMMDO........', '...ODDO.........', '....OO..........', '................']
+
+
+def chalk_item(color):
+    """A chalk stick lying diagonally like Vanilla's stick, lit from the top left, the cut end at the top brighter."""
+    light, mid, dark = CHALK[color]
+    out = tuple(max(0, int(c * 0.45)) for c in dark)
+    c = {'O': out, 'H': tuple(min(255, int(v * 1.06)) for v in light), 'L': light, 'M': mid, 'D': dark}
+    t = Tex()
+    t.step('Umriss', grid([''.join(ch if ch == 'O' else '.' for ch in r) for r in CHALK_STICK], c))
+    t.step('Kreide', grid(CHALK_STICK, c))
+    return t
+
+
+CHALK_BOX_ROWS_C1 = ['................', '................', '................', '.....O.O.O.O....', '....OwOrObOyO...', '....OwOrObOyO...',
+                     '..OOOOOOOOOOOOO.', '..OHHHHHHHHHHMO.', '..OLLLLLLLLLLDO.', '..OLMMMMMMMMLDO.', '..OLMOOOOOOMLDO.', '..OLMMMMMMMMLDO.',
+                     '..OLLLLLLLLLLDO.', '..ODDDDDDDDDDDO.', '...OOOOOOOOOOO..', '................']
+# C2: an open tray seen from the front and a little above - the chalks lean out of it, 2 px each, the inside dark
+CHALK_BOX_ROWS = ['................', '................', '...OO...........', '..OwWO.OO.......', '..OwWOOrRO.OO...', '...OwWOrRObBO.OO',
+                  '...OwWOrRObBOyYO', '.OOOOOOOOOOOOOOO', '.OkkkkkkkkkkkkkO', '.OHHHHHHHHHHHHMO', '.OLLLLLLLLLLLLDO', '.OLMMMMMMMMMMLDO',
+                  '.OLLLLLLLLLLLLDO', '.OMMDDDDDDDDDDDO', '..OOOOOOOOOOOOO.', '................']
+
+# C3: four upright sticks of different length in the box, each outlined, lit on the left
+CHALK_BOX_ROWS_C3 = ['................', '................', '..OOOO..OOOO....', '..OwWOOOObBO....', '..OwWOrRObBOOOO.', '..OwWOrRObBOyYO.', '..OwWOrRObBOyYO.', '.OOOOOOOOOOOOOO.', '.OkkkkkkkkkkkkO.', '.OHHHHHHHHHHHMO.', '.OLLLLLLLLLLLDO.', '.OLMMMMMMMMMLDO.', '.OLLLLLLLLLLLDO.', '.OMDDDDDDDDDDDO.', '..OOOOOOOOOOOO..', '................']
+
+
+def chalk_box():
+    """A small wooden box (planks tones, label slot) with the four chalk colours standing up out of it."""
+    wood = {'H': (196, 160, 100), 'L': (168, 132, 78), 'M': (144, 110, 62), 'D': (104, 76, 40), 'O': (52, 36, 18)}
+    c = dict(wood)
+    c.update({'w': CHALK['white'][0], 'r': CHALK['red'][0], 'b': CHALK['blue'][0], 'y': CHALK['yellow'][0],
+              'W': CHALK['white'][1], 'R': CHALK['red'][1], 'B': CHALK['blue'][1], 'Y': CHALK['yellow'][1], 'k': (60, 42, 22)})
+    rows = CHALK_BOX_ROWS_C1 if CHALK_ROUND == 1 else CHALK_BOX_ROWS if CHALK_ROUND == 2 else CHALK_BOX_ROWS_C3
+    t = Tex()
+    t.step('Umriss', grid([''.join(ch if ch == 'O' else '.' for ch in r) for r in rows], c))
+    t.step('Holz und Kreide', grid(rows, c))
+    return t
+
+
+def chalk_textures():
+    out = {}
+    for color in CHALK:
+        name = 'chalk' if color == 'white' else f'{color}_chalk'
+        out[f'item/{name}'] = chalk_item(color)
+        for symbol in MARKS:
+            out[f'block/chalk_{color}_{symbol}'] = chalk_mark(color, symbol)
+    out['item/chalk_box'] = chalk_box()
+    return out
+
+
 def build(variants=None):
     v = variants or {}
     c = v.get('cloud', 'A')
@@ -603,6 +716,7 @@ def build(variants=None):
         'block/level_door_lower': level_door('lower'), 'block/level_door_upper': level_door('upper'),
         'item/almond_water': almond_water(), 'item/backdoor_key': backdoor_key(), 'mob_effect/backroom': backroom_effect(),
     }
+    out.update(chalk_textures())
     meta = {}
     for name, fn in (('block/glitched_bedrock', glitched_bedrock), ('block/rift', rift), ('block/neon_light_flicker', neon_flicker)):
         tex, m = fn()

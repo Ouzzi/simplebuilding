@@ -71,7 +71,10 @@ public enum BackroomsLevel {
             for (int cz = Math.floorDiv(z0, cell); cz <= Math.floorDiv(z0 + size - 1, cell); cz++) {
                 switch (this) {
                     case WAREHOUSE -> {
-                        if (WarehouseGen.hasCache(seed, cx, cz)) add(out, x0, z0, size, cx * cell + WarehouseGen.CACHE[0], WarehouseGen.CACHE[1], cz * cell + WarehouseGen.CACHE[2]);
+                        if (WarehouseGen.hasCache(seed, cx, cz)) {
+                            int[] c = WarehouseGen.cache(seed, cx, cz);
+                            add(out, x0, z0, size, cx * cell + c[0], c[1], cz * cell + c[2]);
+                        }
                     }
                     case PIPES -> {
                         for (int storey = 0; storey < 2; storey++) {

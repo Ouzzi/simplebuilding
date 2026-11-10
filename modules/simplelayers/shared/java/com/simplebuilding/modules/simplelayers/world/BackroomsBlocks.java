@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplelayers.world;
 
 import com.simplebuilding.modules.simplelayers.LayersRegistry;
+import com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock;
 import com.simplebuilding.modules.simplelayers.block.LevelDoorBlock;
 import com.simplebuilding.modules.simplelayers.block.NeonLightBlock;
 import com.simplebuilding.modules.simplelayers.world.gen.Piece;
@@ -69,6 +70,31 @@ public final class BackroomsBlocks {
         return LayersRegistry.CAUTION_TAPE.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_AXIS, axis);
     }
 
+    /** BACK20: the house's wood per biome: oak, spruce (cold) or acacia (hot and dry); other pieces as {@link #state}. */
+    public enum Wood { OAK, SPRUCE, ACACIA }
+
+    public static BlockState wood(Piece piece, Wood wood) {
+        BlockState oak = state(piece);
+        if (wood == Wood.OAK) return oak;
+        boolean spruce = wood == Wood.SPRUCE;
+        Block to = switch (piece) {
+            case H_FLOOR, H_PLANKS -> spruce ? Blocks.SPRUCE_PLANKS : Blocks.ACACIA_PLANKS;
+            case H_LOG -> spruce ? Blocks.SPRUCE_LOG : Blocks.ACACIA_LOG;
+            case H_DOOR_LOWER, H_DOOR_UPPER -> spruce ? Blocks.SPRUCE_DOOR : Blocks.ACACIA_DOOR;
+            case H_TRAPDOOR -> spruce ? Blocks.SPRUCE_TRAPDOOR : Blocks.ACACIA_TRAPDOOR;
+            case ROOF_N, ROOF_S -> spruce ? Blocks.SPRUCE_STAIRS : Blocks.ACACIA_STAIRS;
+            case ROOF_TOP -> spruce ? Blocks.SPRUCE_SLAB : Blocks.ACACIA_SLAB;
+            default -> null;
+        };
+        return to == null ? oak : to.withPropertiesOf(oak);
+    }
+
+    /** BACK20: a red chalk mark (earlier wanderers) facing {@code facing}. */
+    private static BlockState chalk(Direction facing, ChalkMarkBlock.Symbol symbol) {
+        return LayersRegistry.CHALK_MARK.defaultBlockState().setValue(ChalkMarkBlock.FACING, facing).setValue(ChalkMarkBlock.SYMBOL, symbol)
+                .setValue(ChalkMarkBlock.COLOR, ChalkMarkBlock.Color.RED);
+    }
+
     private static Map<Piece, BlockState> build() {
         Map<Piece, BlockState> m = new EnumMap<>(Piece.class);
         m.put(Piece.AIR, Blocks.AIR.defaultBlockState());
@@ -98,6 +124,23 @@ public final class BackroomsBlocks {
         m.put(Piece.CRAFTING_TABLE, Blocks.CRAFTING_TABLE.defaultBlockState());
         m.put(Piece.STEP_E, stairs(Blocks.BIRCH_STAIRS, Direction.EAST, Half.BOTTOM));
         m.put(Piece.STEP_S, stairs(Blocks.BIRCH_STAIRS, Direction.SOUTH, Half.BOTTOM));
+        m.put(Piece.CHALK_E, chalk(Direction.SOUTH, ChalkMarkBlock.Symbol.ARROW_RIGHT));
+        m.put(Piece.CHALK_W, chalk(Direction.SOUTH, ChalkMarkBlock.Symbol.ARROW_LEFT));
+        m.put(Piece.CHALK_N, chalk(Direction.EAST, ChalkMarkBlock.Symbol.ARROW_RIGHT));
+        m.put(Piece.CHALK_S, chalk(Direction.EAST, ChalkMarkBlock.Symbol.ARROW_LEFT));
+        m.put(Piece.CHALK_X, chalk(Direction.UP, ChalkMarkBlock.Symbol.CROSS));
+        m.put(Piece.SLAB, Blocks.BIRCH_SLAB.defaultBlockState());
+        m.put(Piece.DECK, Blocks.SMOOTH_STONE_SLAB.defaultBlockState().setValue(BlockStateProperties.SLAB_TYPE, SlabType.TOP));
+        m.put(Piece.STONE_SLAB, Blocks.SMOOTH_STONE_SLAB.defaultBlockState());
+        m.put(Piece.LADDER_N, facing(Blocks.LADDER, Direction.NORTH));
+        m.put(Piece.SINK, Blocks.WATER_CAULDRON.defaultBlockState().setValue(BlockStateProperties.LEVEL_CAULDRON, 3));
+        m.put(Piece.COUNTER, Blocks.BARREL.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP));
+        m.put(Piece.SMOKER_N, facing(Blocks.SMOKER, Direction.NORTH));
+        m.put(Piece.SMOKER_S, facing(Blocks.SMOKER, Direction.SOUTH));
+        m.put(Piece.RUG, Blocks.CARPET.pick(DyeColor.RED).defaultBlockState());
+        m.put(Piece.POT, Blocks.POTTED_DEAD_BUSH.defaultBlockState());
+        m.put(Piece.BOOKSHELF, Blocks.BOOKSHELF.defaultBlockState());
+        m.put(Piece.STAIR_BASE, Blocks.BIRCH_PLANKS.defaultBlockState());
         m.put(Piece.END_FLOOR, Blocks.BIRCH_PLANKS.defaultBlockState());
         m.put(Piece.END_WALL, concrete(DyeColor.WHITE));
         m.put(Piece.END_CEILING, Blocks.SMOOTH_QUARTZ.defaultBlockState());
@@ -135,6 +178,7 @@ public final class BackroomsBlocks {
         m.put(Piece.ARCH_W, stairs(Blocks.SMOOTH_QUARTZ_STAIRS, Direction.WEST, Half.TOP));
         m.put(Piece.ARCH_N, stairs(Blocks.SMOOTH_QUARTZ_STAIRS, Direction.NORTH, Half.TOP));
         m.put(Piece.ARCH_S, stairs(Blocks.SMOOTH_QUARTZ_STAIRS, Direction.SOUTH, Half.TOP));
+        m.put(Piece.STAIR_N, stairs(Blocks.SMOOTH_QUARTZ_STAIRS, Direction.NORTH, Half.BOTTOM));
         m.put(Piece.TILE_COLUMN, Blocks.QUARTZ_PILLAR.defaultBlockState());
         m.put(Piece.PAD, concrete(DyeColor.GRAY));
         m.put(Piece.GRAVEL, Blocks.GRAVEL.defaultBlockState());
@@ -151,6 +195,23 @@ public final class BackroomsBlocks {
         m.put(Piece.SIGN_W, facing(LayersRegistry.CAUTION_SIGN, Direction.WEST));
         m.put(Piece.GLITCHED_BEDROCK, LayersRegistry.GLITCHED_BEDROCK.defaultBlockState());
         m.put(Piece.CHAIN, Blocks.IRON_CHAIN.defaultBlockState().setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
+        // BACK20: the abandoned house (oak; the entrance feature swaps the wood per biome, see wood())
+        m.put(Piece.COBBLE, Blocks.COBBLESTONE.defaultBlockState());
+        m.put(Piece.H_FLOOR, Blocks.OAK_PLANKS.defaultBlockState());
+        m.put(Piece.H_PLANKS, Blocks.OAK_PLANKS.defaultBlockState());
+        m.put(Piece.H_LOG, Blocks.OAK_LOG.defaultBlockState());
+        m.put(Piece.H_DOOR_LOWER, door(Blocks.OAK_DOOR, DoubleBlockHalf.LOWER).setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
+        m.put(Piece.H_DOOR_UPPER, door(Blocks.OAK_DOOR, DoubleBlockHalf.UPPER).setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
+        m.put(Piece.H_TRAPDOOR, Blocks.OAK_TRAPDOOR.defaultBlockState().setValue(BlockStateProperties.HALF, Half.TOP));
+        m.put(Piece.GLASS_X, Blocks.GLASS_PANE.defaultBlockState().setValue(BlockStateProperties.EAST, Boolean.TRUE).setValue(BlockStateProperties.WEST, Boolean.TRUE));
+        m.put(Piece.GLASS_Z, Blocks.GLASS_PANE.defaultBlockState().setValue(BlockStateProperties.NORTH, Boolean.TRUE).setValue(BlockStateProperties.SOUTH, Boolean.TRUE));
+        m.put(Piece.ROOF_N, stairs(Blocks.OAK_STAIRS, Direction.SOUTH, Half.BOTTOM));
+        m.put(Piece.ROOF_S, stairs(Blocks.OAK_STAIRS, Direction.NORTH, Half.BOTTOM));
+        m.put(Piece.ROOF_TOP, Blocks.OAK_SLAB.defaultBlockState());
+        m.put(Piece.BARREL_LOOT, Blocks.BARREL.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP));
+        m.put(Piece.MOSSY_STONE_BRICKS, Blocks.MOSSY_STONE_BRICKS.defaultBlockState());
+        m.put(Piece.LADDER_W, facing(Blocks.LADDER, Direction.WEST));
+        m.put(Piece.LANTERN, Blocks.LANTERN.defaultBlockState().setValue(BlockStateProperties.HANGING, Boolean.TRUE));
         for (Piece p : Piece.values()) if (!m.containsKey(p)) throw new IllegalStateException("no block state for " + p);
         return m;
     }

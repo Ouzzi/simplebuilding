@@ -103,6 +103,19 @@
           "type": "minecraft:item",
           "name": "simplelayers:backdoor_key",
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplelayers:yellow_chalk",
+          "weight": 8,
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 2,
+              "min": 1
+            }
+          }
         }
       ]
     }

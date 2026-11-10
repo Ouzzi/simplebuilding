@@ -24,6 +24,9 @@
     "minecraft:quartz_pillar",
     "minecraft:white_concrete",
     "minecraft:birch_planks",
-    "minecraft:birch_stairs"
+    "minecraft:birch_stairs",
+    "minecraft:birch_slab",
+    "minecraft:smooth_stone_slab",
+    "minecraft:bookshelf"
   ]
 }
