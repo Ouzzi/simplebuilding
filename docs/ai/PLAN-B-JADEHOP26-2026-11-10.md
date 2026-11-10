@@ -22,3 +22,8 @@ Quelle: /root/sb-tools-b/prio26.md #6 (MACH32 St.3 Rest), Queue MACH32-MOD („o
 Gametest `jade_hopper_filter_data` (HopperModuleTests + Fabric-Adapter): Aus → nur Moduszeile; Exakt ohne Items → „nimmt nichts an“;
 mit Smaragd/Eisen → Items in den Daten und Items-Zeile; Truhe → keine Daten. Ein sbt: Compile Kern + Modul, module-simplemachines fabric+standalone.
 Nicht getestet: Jade-Tooltip im Client (kein Client-Lauf je Branch; macht das Bündel/Client-Sicht).
+
+## Teststand (10.11. ~20:40)
+- sbt-Lauf (Compile Kern+Modul, module-simplemachines fabric+standalone) eingereiht, Ergebnis **offen – sb-test hing** (STOPP A 20:35).
+  Log auf sb-agent: /root/sb-tools-b/b-jadehop26-sbt.log.
+- Lokal: javac der neuen/geänderten Klassen (HopperInfo, compat/jade/*, HopperModuleTests) gegen MC-26.3-Jar + Jade lt43vWtF fehlerfrei.
