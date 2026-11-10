@@ -374,7 +374,7 @@ public final class LayersTests {
             h.assertTrue(BackroomsGrid.at(seed, x, 1, z).is(LayersRegistry.DAMP_CARPET), "carpet floor");
             h.assertTrue(BackroomsGrid.at(seed, x, 4, z) == BackroomsGrid.at(seed, x, 4, z), "deterministic");
             int[] a = LobbyGen.arrival(s, seed, x, z);
-            for (int y = 2; y <= 3; y++) h.assertTrue(LobbyGen.at(s, seed, a[0], y, a[2]).passable(), "arrival free at y " + y + " " + a[0] + " " + a[2]);
+            for (int y = a[1]; y <= a[1] + 1; y++) h.assertTrue(LobbyGen.at(s, seed, a[0], y, a[2]).passable(), "arrival free at y " + y + " " + a[0] + " " + a[2]);
             for (int cell = 0; cell < 2; cell++) {
                 LobbyGen.Edge e = cell == 0 ? LobbyGen.west(s, seed, 0, Math.floorDiv(x, 8), Math.floorDiv(z, 8)) : LobbyGen.north(s, seed, 0, Math.floorDiv(x, 8), Math.floorDiv(z, 8));
                 if (e != LobbyGen.Edge.OPEN) {
