@@ -1,6 +1,4 @@
-# Simple Tools 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Tools 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,19 @@ First release of **Simple Tools** for Minecraft 26.3 on Fabric.
 
 Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.
 
-## Highlights (from the commit history)
+## Added
 
-- One clean creative tab per mod, family order
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- Remove first pickup tips (), mirror chance by level, narrow pipe neck, gadget messages as sound/particles, dead Fabric tab hooks
-- /<modid> config for every config option
-- W23-5 frames flat from above (variant A), chisel tilts in 6 x 15 degree steps (synced frame datum)
-- Death vault legend as icon cards, Simple Music windows in jukebox brown (owner 23.10.)
-- Death vault legend in groups with count column, crafting storage items 1 px (owner 22.10.)
-- Death vault in box style, crafting storage items 1.5 px high
+- **Furnace lava fill** - Either hand inserts one lava bucket into a furnace, blast furnace, or smoker with an empty fuel slot or one leftover empty bucket.
+- **Better item frames** - Item frames and glow item frames, only while sneaking and only with an item in the frame: shears hide or show the frame (Vanilla Invisible flag, 1 durability, Unbreaking counts).
+- **Durability bonus** - Damageable held Vanilla and mod tools above the durability threshold can gain attack damage and mining speed.
+- **Biome Brush** - Brush in the main hand, a biome material in the off hand, right-click a block: the biome around it becomes the material's biome.
+- **Thrift** - Enchantment for every item with durability, levels I-III: +1/3 maximum durability per level, level III doubles it.
+- **Repairing keeps the anvil cost** - Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it.
+- **Enderite and ceramic buckets** - Enderite holds two, never breaks; ceramic wears out.
+- **Soulbound** - Treasure enchantment, one level, for everything that can carry the Curse of Vanishing (the two exclude each other).
+- **Death Vault** - Crafted block (obsidian, eye of ender, soul sand or soul soil, chest).
+- **(with Simple Money) Money bills as offering** - When Simple Money is installed, its money bills count like diamonds in the Death Vault offering slot (optional tag entry, nothing changes without the mod).
+- **Strip Station** - Crafted cage (iron axe, 4 iron bars, 4 planks).
 
 ## Requirements
 

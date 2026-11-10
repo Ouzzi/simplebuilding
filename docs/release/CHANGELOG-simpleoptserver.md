@@ -1,6 +1,4 @@
-# Simple Opt Server 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Opt Server 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,14 +6,10 @@ First release of **Simple Opt Server** for Minecraft 26.3 on Fabric.
 
 Server optimizations of Simple Optimization: view distance follows server load (MSPT) within the server.properties bounds; optional activation range for far mobs (off by default); steps back when ServerCore is installed.
 
-## Highlights (from the commit history)
+## Added
 
-- Commands start with their mod id, old names stay as aliases
-- /<modid> config for the remaining modules, simplelib bundled
-- S1a/S5b headless measurements (a-opt45b plan)
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Stage 4 - O3 more culling, O9 detail switches, O4 shared state tables, S5b activation range (off), target check
-- Simple Optimization super-mod, sub-mods render/memory/server, compat engine (framework 0.1.12), O1/O7/M1/M2/S5a
+- **View distance by server load** - On a dedicated server with players online, every stepSeconds (default 15) the average tick time is checked: above targetMspt (default 45 ms) the view distance drops by one down to minView (default 6), below 80 % of it the distance climbs back to the server.properties value.
+- **Activation range (off by default)** - Changes gameplay, so it starts with mode off in config/simpleoptserver.json; set mode auto to use it (restart needed).
 
 ## Requirements
 

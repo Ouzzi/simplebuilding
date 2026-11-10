@@ -1,6 +1,4 @@
-# Simple Quality of Life 0.9.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Quality of Life 0.9.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,12 @@ First release of **Simple Quality of Life** for Minecraft 26.3 on Fabric.
 
 Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.
 
-## Highlights (from the commit history)
 
-- Commands start with their mod id, old names stay as aliases
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- /<modid> config for every config option
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Feat: misc 21.10. (enderite repair tag, creative tab names, modules 0.9.0, claim land costs)
-- ST-40 guide books + FTB start quests for maps/tools/enddragonfight, ST-41 questionary texts
-- New Simple Blocks sub-mod - module skeleton, 33 blocks, tab, loot hook, tests
-- Marked container HUD banner, Escape cancel, auto-end after visit, creative guard
+
+## Added
+
+- **Bundled quality-of-life mods** - Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement come in one package, each with its own switch ("Enable Simple ...") in the config.
+- **Guide book and start quest** - A guide book for the family and a first quest that hands it out.
 
 ## Requirements
 

@@ -1,6 +1,4 @@
-# Simple Respawn 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Respawn 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,14 +6,12 @@ First release of **Simple Respawn** for Minecraft 26.3 on Fabric.
 
 Downed instead of dead: a teammate can revive you before you bleed out (then 3 hearts, no food).
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- /<modid> config for every config option
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Item stats, death vault, downed screen, models tab on simplelib blocks; contrast lint (ST-30..35)
-- Feat: Simple Respawn shows a red name tag with time left and a red locator-bar mark for downed players
-- Recipe-book unlocks for every module, registry tests and first pickup tips
+- **Downed instead of dead** - Lethal damage knocks a player down instead of killing them, as long as another player is online who could help (config onlyWithOtherPlayers; alone it is the Vanilla death).
+- **Downed screen** - An own screen in the style of the Vanilla death screen shows the time left and three buttons: Spectate, Inventory and Give up.
+- **Reviving** - A teammate holds right-click on the downed player for 5 seconds (reviveSeconds); afterwards the player stands up with 3 hearts and an empty food bar.
+- **Fair play** - Leaving the game while downed is death; the real death is always the Vanilla one, so drops and other mods behave as usual.
 
 ## Requirements
 

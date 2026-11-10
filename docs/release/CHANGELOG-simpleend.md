@@ -1,6 +1,4 @@
-# Simple End 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple End 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,16 @@ First release of **Simple End** for Minecraft 26.3 on Fabric.
 
 End wood (Ashwood, Duskwood), End grass and the Ash Valley and Dawnlands biomes; bundles Simple End Dragon Fight.
 
-## Highlights (from the commit history)
+## Added
 
-- Cracked Astralit/Nihilit/Ender Quartz bricks, Nihilit End planks (Ashwood/Duskwood), book designs for chiseled shelves (WU 06.11. 7-9)
-- End bookshelves, chiseled bookshelves with Vanilla book variation, Nihilit Book, mod books in chiseled shelves
-- Spawn eggs in the Vanilla 26.3 scheme, calmer boss textures
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- Vanilla-Form discs, softer sheet lines/jukebox, Duskwood log softer + signs B with lilac chains, inverted trim stage logic (1 px outline, armor-shaded fill)
-- ..3 evil rarity, nether heart/gem recipes, mighty/evil conduits, creative tab policy
-- Owner picks /5 - planks A, boats A, rods A, sculk strips, door items C, pistons, shapecutter wood caps, chiseled shelves A, strong powder B + TNT blue pixels
-- /<modid> config for the remaining modules, simplelib bundled
+- **Ashwood and Duskwood** - Two End woods with the full Vanilla wood set: log, wood, stripped log and wood, planks, stairs, slab, fence, fence gate, door, trapdoor, button, pressure plate, sign, hanging sign, shelf, leaves, boat and boat with chest.
+- **Buds, gigantic End trees and stick trees** - Ash Bud and Dusk Bud grow on End stone or dirt.
+- **Leaves, Drift Fruit and Spoiled Drift Fruit** - End leaves are no full block: see-through tendril fronds around a small crystal, tinted by the biome.
+- **Void-safe wood** - Dropped End-wood items (logs, planks, everything of the sets, buds, End grass, Drift Fruit) are not lost in the void: below the world they float back up and hover just above the bottom.
+- **End grass and End bushes** - Wiry End grass and twiggy End bushes, like Vanilla dry grass and dead bushes, standing on End stone and wherever those stand (sand, terracotta, dirt, grass, moss, mud, farmland).
+- **Ash Valley and Dawnlands** - Two large End biomes on the outer islands (never on the dragon island): rare patches 28-44 chunks (450-700 blocks) across with a wavy rim, spanning several islands, replace the End highlands/midlands/barrens.
+- **Nibblemite** - A small, passive Endermite kin that lives in Ash Valley and Dawnlands in groups of 3-5, colored after its biome (pale gray with lavender, taupe with rose).
+- **Simple End and its sub-mod** - SimpleBuilding bundles Simple End ("Enable Simple End"); Simple End bundles Simple End Dragon Fight ("Enable Simple End Dragon Fight" in config/simpleend.json).
 
 ## Requirements
 

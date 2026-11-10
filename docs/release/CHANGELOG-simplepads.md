@@ -1,6 +1,4 @@
-# Simple Pads 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Pads 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,9 +6,9 @@ First release of **Simple Pads** for Minecraft 26.3 on Fabric.
 
 The pads and pressure plates of the Simple Pads tab: Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn Elytra. Needs Simple Ores (Enderite) and Simple Mobheads (heads of the first tiers).
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Pads as its own required sub-mod - pads, pressure plates and the Spawn Elytra move out of the SimpleBuilding core
+- **Simple Pads: pads, pressure plates and the Spawn Elytra** - The pads and pressure plates of the old Simple Tweaks part of SimpleBuilding, as their own mod since 04.11.2026: Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers each, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn Elytra.
 
 ## Requirements
 

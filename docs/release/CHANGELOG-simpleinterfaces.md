@@ -1,6 +1,4 @@
-# Simple Interfaces 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Interfaces 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,19 @@ First release of **Simple Interfaces** for Minecraft 26.3 on Fabric.
 
 Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.
 
-## Highlights (from the commit history)
+## Added
 
-- Shellker/Deceiver eggs back to pre-, Keys screens back to transparent style, Free Look wheel zoom
-- Variant A box for key pages and Shapecutter
-- Keyboard layouts US/DE/UK/FR, own layout editor (b-keys34)
-- Free Look hand stays with body + grey real crosshair, default keys, Simple Keybinds fold all/sub-groups
-- Free look keys/rules/reset (), hopper padding (), Vanilla-widget key page with function view
-- Key binding page (list + keyboard 60/75/100, conflicts), blueprint and picture map on UiBoxes (WP-25/)
-- Dev variants panel and registry, scope frame A/B as first variant
-- Spyglass overlay as inverted UI window frame, flat/headless mob heads (horse family, warden feelers, camel/llama, ghast, mites, cod, creaking, elder guardian, glow squid)
+- **Style comparison switch** - In development, or when showStyleToggle is enabled, the button and unbound key toggle all SimpleLib-based screens between the Simple style and Vanilla.
+- **Simple container style** - Chest, barrel, ender chest, shulker box, hopper, dispenser/dropper and crafter screens and the mount inventories (horse, donkey, mule, llama, camel, nautilus) get a box in the block's color around the container slots and a light box around your inventory, with sunk rounded slots.
+- **Simple style for workstations** - Crafting table, furnace, blast furnace, smoker, brewing stand, beacon and enchanting table screens get the Simple style in the block's color.
+- **Simple style for anvil, loom & co.** - Anvil, grindstone, stonecutter, loom, cartography table, smithing table, villager trading and your own inventory get the Simple style: a box in the block's color, the big result slot, engraved symbols (plus, arrow, grinding wheel, XP) instead of Vanilla's pictures, raised tiles for recipes, patterns and offers.
+- **Linked containers** - Sneak + right-click a container with an empty main hand to mark it (a double chest counts as one); dust particles at your hand show the mark.
+- **Easy shulker boxes and ender chests** - Right-click a shulker box (any color, also SimpleBuilding tier boxes) or an ender chest in the air, or right-click it on its own inventory slot, to open it without placing it.
+- **Shulker box and ender chest tooltips** - Hold Shift over a shulker box to see its contents as a slot grid; the ender chest item shows your own ender chest.
+- **Bundles show everything** - Bundle tooltips show every entry instead of Vanilla's twelve, and the mouse wheel selects any of them.
+- **Spyglass and zoom** - The spyglass darkens only the screen edge, hides the HUD (crosshair stays) and zooms steplessly with the mouse wheel.
+- **Clearer slot highlight** - The highlight of the hovered slot is drawn only behind the item, so the item stays fully visible.
+- **Key binding page** - A page for all key bindings of Minecraft and every mod by mod, by function or as a 60/75/100 % keyboard, with search and conflict marks.
 
 ## Requirements
 

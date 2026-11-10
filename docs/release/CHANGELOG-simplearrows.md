@@ -1,6 +1,4 @@
-# Simple Arrows 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Arrows 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,11 +6,11 @@ First release of **Simple Arrows** for Minecraft 26.3 on Fabric.
 
 Arrows: the Fletching Table (tip, shaft and fletching, an optional potion: 4 arrows with their own damage and flight), the Light Arrow, which lights the spot where it sticks until it despawns like a normal arrow, and the Silver Arrow, which hits undead harder (crafted with Simple Ores' silver). Works on its own.
 
-## Highlights (from the commit history)
+## Added
 
-- Silver sheet (1 px plate, 12 per 3 ingots), mirror = glass pane + sheet, lead arrow tip (gravity x1.5, +0.5 damage)
-- Simple Arrows stage 2 - Fletching Table and all SimpleBuilding arrows move into the module
-- Simple Arrows sub-mod - Silver Arrow moved from Simple Ores, Light Arrow; Fletching Table potion slot (), engraving A
+- **Light Arrow** - An arrow that lights the spot where it sticks - until it despawns like any arrow.
+- **Silver Arrow** - An arrow with a silver head that hits the undead harder (moved here from Simple Ores on 03.11.2026).
+- **Fletching Table** - Arrows from the Fletching Table: one tip, one shaft and one fletching make 4 arrows.
 
 ## Requirements
 

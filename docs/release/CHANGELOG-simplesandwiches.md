@@ -1,6 +1,4 @@
-# Simple Sandwiches 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Sandwiches 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,13 @@ First release of **Simple Sandwiches** for Minecraft 26.3 on Fabric.
 
 Sandwiches built on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- Remove first pickup tips (), mirror chance by level, narrow pipe neck, gadget messages as sound/particles, dead Fabric tab hooks
-- ..3 evil rarity, nether heart/gem recipes, mighty/evil conduits, creative tab policy
-- Pipe side keys, interface flush + wall edges, cable collars, mixed slice stacks, leather sheet to simplestorage
-- Feat: chisel on every framed item (), example button in sheet music editor (), stackable cheese/butter layers
-- Recipe viewer entries per module, also standalone
-- /<modid> config for every config option
-- Butter carpet - no collision (sinks in), slowed, slippery inside
+- **Sandwiches** - One bread plus up to five ingredients, with optional butter first; matching components stack to 16.
+- **Cutting board** - Place bread, open with the knife, add toppings, then close and collect with an empty hand.
+- **Knife** - 250 durability, total attack damage 2, attack speed 2.0 and anvil repair with iron nuggets.
+- **Cheese and butter** - Milk in a cauldron ripens into butter after 5 minutes and into cheese after 5 more.
+- **Eating from bundles** - Hold use to eat the selected food in a bundle, or its first item when none is selected.
 
 ## Requirements
 

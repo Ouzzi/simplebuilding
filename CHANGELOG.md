@@ -43,6 +43,12 @@ Shops, Wanderers, Questionary) stay bundled and can each be switched off in the 
   and keeps those values.
 - The backpack key is now Simple Storage's (`key.simplestorage.open_backpack`); your old binding is taken over once.
 
+### License
+
+Starting with this release all Simple mods are licensed under the Simple Mods License: All Rights Reserved, with the source
+code open to read (source-available). Contributions need a signed contributor license agreement (CLA). Earlier versions stay
+under CC0. See `LICENSE` and `docs/release/LIZENZ-ERKLAERUNG.md`.
+
 ### Other lines
 
 Minecraft 26.2 and 1.21.11 keep the single-jar SimpleBuilding with `simplebuilding:` ids; they share the version number

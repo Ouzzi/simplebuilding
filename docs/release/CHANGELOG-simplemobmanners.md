@@ -1,6 +1,4 @@
-# Simple Mob Manners 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Mob Manners 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,12 @@ First release of **Simple Mob Manners** for Minecraft 26.3 on Fabric.
 
 Mob manners: muted mobs, named babies that stay young and piglins that accept gold trims and tools; a sub-mod of Simple QoL, also playable alone.
 
-## Highlights (from the commit history)
+## Added
 
-- One clean creative tab per mod, family order
-- Owner choices 31.10. built in
-- Info pages and drops for code-only items (mobs, beacons, mobmanners); testcentre tour stops and Rundgang doc
-- /<modid> config for the remaining modules, simplelib bundled
-- /<modid> config for every config option
-- Mod icons with characteristic motif on background tile, smaller strong upgrade shard
-- Bucket of Frog (water bucket on frog keeps variant, name, age)
-- Rename Simple Creatures to Simple Mob Manners (simplemobmanners)
+- **Mute mobs** - mutedEntities selects entity IDs.
+- **Permanent babies (golden dandelion)** - Minecraft 26.3 and newer: off.
+- **Piglin gold equipment** - Gold armor trims or a golden sword, spear, pickaxe, axe, shovel, or hoe in either hand count as safe equipment.
+- **Bucket of Frog** - A water bucket used on a frog catches it like an axolotl or tadpole.
 
 ## Requirements
 

@@ -1,6 +1,4 @@
-# Simple Lights 0.9.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Lights 0.9.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,11 +6,13 @@ First release of **Simple Lights** for Minecraft 26.3 on Fabric.
 
 Light Panes: flat 1 px lamps on any block side - plain, transparent, sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb. Moved from SimpleBuilding (ids migrate).
 
-## Highlights (from the commit history)
+## Added
 
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- ..3 evil rarity, nether heart/gem recipes, mighty/evil conduits, creative tab policy
-- Simple Lights - the 37 Light Panes move to a required sub-mod (Fabric)
+- **Light Panes** - A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.
+
+## Changed
+
+- Content that used to live in SimpleBuilding now lives in this mod. Old worlds convert automatically and every old id keeps an alias; back up your world before updating.
 
 ## Requirements
 

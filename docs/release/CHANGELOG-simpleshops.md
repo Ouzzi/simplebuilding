@@ -1,6 +1,4 @@
-# Simple Shops 0.1.0 - changelog draft (Minecraft 26.3, Fabric)
-
-_Auto-drafted from the git history: the highlight list is raw and needs hand editing before upload. Nothing here is published._
+# Simple Shops 0.1.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -8,16 +6,17 @@ First release of **Simple Shops** for Minecraft 26.3 on Fabric.
 
 Strong Beacon (6 pyramid levels, 6 more effects), Strong Conduit (7x7x7 frame, 144 blocks under water) and the Strong Upgrade template. Works on its own with the axe; a hammer mod adds the sledgehammer.
 
-## Highlights (from the commit history)
+## Added
 
-- Commands start with their mod id, old names stay as aliases
-- Simple Modpack guide in SimpleLib - top bookmarks per super-mod, chapters per mod as data
-- ..3 evil rarity, nether heart/gem recipes, mighty/evil conduits, creative tab policy
-- Feat: 1.5 wide doors, double piston redraw, final shops look, cracked packed/blue ice, beacon icon B
-- /<modid> config for every config option
-- Feat: inverse trim rim as subtraction, 16 tinted display cases (variant C), pictureMap default on
-- Terminal needs silk touch, new shop recipes, red display tint example
-- Sales storage attaches to its sales block, free display cases, glass lid
+- **Display Case** - A glass case with five goods slots that shows what is for sale; the lid is glass too, so the goods are visible from above.
+- **Sales Block** - The cash register of a shop: a wooden block under the Display Case.
+- **Sales Storage** - Chest-sized extra store for the earnings.
+- **Buying** - Click the Display Case or the Sales Block: pick a goods stack, put the price items into the pay slots (same positions as the price row) and press Trade.
+- **Server shop** - An unlimited shop that only operators (permission level 2) create and configure with /simpleshops servershop.
+- **Ender shops** - Like an ender chest: the goods, prices and earnings of every shop live in the world data, the blocks are only windows onto them.
+- **Trade Terminal** - Remote access to shops: gold ingots, an eye of ender, bookshelves, a lectern and planks.
+- **Protection** - A placed shop belongs to its owner (the player who placed it, saved by UUID on the server).
+- **Claims and Simple Money** - Standalone, a shop works everywhere.
 
 ## Requirements
 
