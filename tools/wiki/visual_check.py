@@ -57,7 +57,7 @@ FIXED_PAGES = [
     ("config", "?mod=simplebuilding&tab=config"),
     ("textures", "?mod=simplebuilding&tab=textures"),
     ("search", "?mod=simplebuilding&q=hammer"),
-    ("item", "?mod=simplebuilding&item=simplebuilding:enderite_chisel"),
+    ("item", "?mod=simplechisels&item=simplechisels:enderite_chisel"),
     # N24: new pages (Getting started, Submods, Guidebook with a chapter spread, Questionary with an open entry)
     ("gettingstarted", "?mod=simplebuilding&tab=start"),
     ("submods", "?mod=simplebuilding&tab=submods"),
@@ -238,7 +238,8 @@ def main() -> int:
 
                     def on_response(resp, entry=entry):
                         if resp.status >= 400:
-                            if ignored(urlparse(resp.url).path):
+                            # /api/auth/check: sitebar.js asks for a login; hosts without one answer 404 (expected)
+                            if ignored(urlparse(resp.url).path) or urlparse(resp.url).path.endswith("/api/auth/check"):
                                 entry["expected404"] += 1
                             else:
                                 entry["http"].append(f"{resp.status} {resp.url.replace(base, '/')}")
