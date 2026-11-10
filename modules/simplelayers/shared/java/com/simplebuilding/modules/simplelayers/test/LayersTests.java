@@ -60,6 +60,8 @@ public final class LayersTests {
         ALL.put("mist_has_no_collision", LayersTests::mistHasNoCollision);
         ALL.put("cloud_light_properties", LayersTests::cloudLightProperties);
         ALL.put("cloud_roof_lets_light_through", LayersTests::cloudRoofLetsLightThrough);
+        ALL.put("cloud_face_culling", LayersTests::cloudFaceCulling);
+        ALL.put("cloud_texture_layers", LayersTests::cloudTextureLayers);
         ALL.put("fall_damage_factors", LayersTests::fallDamageFactors);
         ALL.put("dimensions_load", LayersTests::dimensionsLoad);
         ALL.put("cloud_entry_rule", LayersTests::cloudEntryRule);
@@ -161,7 +163,62 @@ public final class LayersTests {
             }
         }
         h.assertTrue(level.getBlockState(abs).propagatesSkylightDown(), "mist lets sky light straight down");
+        // CLOUDS17: Cloud Block = Glass (sky light straight down), Cloud Stone = Ice (no straight-down sky light); neither occludes.
+        h.assertTrue(LayersRegistry.CLOUD_BLOCK.defaultBlockState().propagatesSkylightDown(), "cloud block lets sky light down like glass");
+        h.assertFalse(LayersRegistry.CLOUD_STONE.defaultBlockState().propagatesSkylightDown(), "cloud stone dampens like ice");
+        h.assertFalse(LayersRegistry.CLOUD_BLOCK.defaultBlockState().canOcclude(), "cloud block does not occlude (glass)");
+        h.assertFalse(LayersRegistry.CLOUD_STONE.defaultBlockState().canOcclude(), "cloud stone does not occlude (ice)");
         h.succeed();
+    }
+
+    /**
+     * CLOUDS17 (plan docs/ai/PLAN-B-CLOUDS17-2026-11-10.md): face culling like Glass/Ice - same blocks merge; the icy core skips its
+     * (translucent, sorted) faces behind the cloud shell, the shell keeps its face toward the core (Glass draws toward other blocks).
+     */
+    static void cloudFaceCulling(GameTestHelper h) {
+        BlockState cloud = LayersRegistry.CLOUD_BLOCK.defaultBlockState(), stone = LayersRegistry.CLOUD_STONE.defaultBlockState();
+        BlockState mist = LayersRegistry.MIST_BLOCK.defaultBlockState(), air = Blocks.AIR.defaultBlockState();
+        for (Direction d : Direction.values()) {
+            h.assertTrue(stone.skipRendering(stone, d), "cloud stone hides faces between core blocks (" + d + ")");
+            h.assertTrue(stone.skipRendering(cloud, d), "cloud stone hides its face behind the cloud shell (" + d + ")");
+            h.assertTrue(cloud.skipRendering(cloud, d), "cloud blocks merge like glass (" + d + ")");
+            h.assertTrue(cloud.skipRendering(mist, d), "cloud merges with the mist plug (" + d + ")");
+            h.assertFalse(cloud.skipRendering(stone, d), "cloud shell draws its face toward the core (" + d + ")");
+            h.assertFalse(stone.skipRendering(air, d), "open core face is drawn (" + d + ")");
+            h.assertFalse(cloud.skipRendering(air, d), "open cloud face is drawn (" + d + ")");
+        }
+        h.succeed();
+    }
+
+    /**
+     * CLOUDS17: in 26.3 the chunk layer follows the sprite's alpha (only 255 = solid, any 0 = cutout, any 1..254 = translucent). Cloud
+     * Stone must be part-transparent everywhere like Ice (translucent), the Cloud Block only clear or opaque with clear gaps like Glass
+     * (cutout). Reads the shipped PNGs, so a repainted texture cannot silently change the render type.
+     */
+    static void cloudTextureLayers(GameTestHelper h) {
+        int[] stone = alphaCounts(h, "cloud_stone"), cloud = alphaCounts(h, "cloud_block");
+        h.assertTrue(stone[0] == 0 && stone[2] == 0 && stone[1] > 0, "cloud stone: only part-transparent pixels (ice, translucent), got clear "
+                + stone[0] + " / part " + stone[1] + " / opaque " + stone[2]);
+        h.assertTrue(cloud[1] == 0 && cloud[0] > 0 && cloud[2] > cloud[0], "cloud block: opaque with clear gaps (glass, cutout), got clear "
+                + cloud[0] + " / part " + cloud[1] + " / opaque " + cloud[2]);
+        h.succeed();
+    }
+
+    /** {clear, part-transparent, opaque} pixel counts of a Simple Layers block texture. */
+    private static int[] alphaCounts(GameTestHelper h, String name) {
+        String path = "/assets/simplelayers/textures/block/" + name + ".png";
+        try (java.io.InputStream in = LayersTests.class.getResourceAsStream(path)) {
+            h.assertTrue(in != null, "texture on the class path: " + path);
+            java.awt.image.BufferedImage img = javax.imageio.ImageIO.read(in);
+            int[] counts = new int[3];
+            for (int y = 0; y < img.getHeight(); y++) for (int x = 0; x < img.getWidth(); x++) {
+                int a = img.getRGB(x, y) >>> 24;
+                counts[a == 0 ? 0 : a == 255 ? 2 : 1]++;
+            }
+            return counts;
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read " + path, e);
+        }
     }
 
     /**

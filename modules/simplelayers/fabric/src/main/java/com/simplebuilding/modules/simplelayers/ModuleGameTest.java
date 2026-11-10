@@ -37,6 +37,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplelayers:empty")
+    public void cloudFaceCulling(GameTestHelper h) {
+        LayersTests.ALL.get("cloud_face_culling").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void cloudTextureLayers(GameTestHelper h) {
+        LayersTests.ALL.get("cloud_texture_layers").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
     public void fallDamageFactors(GameTestHelper h) {
         LayersTests.ALL.get("fall_damage_factors").accept(h);
     }
