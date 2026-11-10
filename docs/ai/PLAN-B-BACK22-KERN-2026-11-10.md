@@ -136,3 +136,38 @@ NeoForge kennt die Methode, Regel 11 unberührt – Simple Layers hat keinen Neo
 Logistik), keine Gegner (fg8 a). Ergebnis ohne Änderung. Bewertung MU 5, A12 4,5.
 
 **Endstand:** MB 4,5 · PF 4 · RR 4 (S1) · MU 5 · A12 4,5 · PAR 4.
+
+## 7. Andocken für Ebenen-Agenten (API-Freeze 10.11., Branch-Basis `b-back22-kern`)
+
+**Eingefroren** (nur noch additive Default-Methoden, nie Signaturen ändern): `backrooms.api.*` (`Band`, `BandLayout`, `BandPiece`, `CorePiece`,
+`BandWriter`, `BandRegistrar`, `BandView`, `DoorEnd`, `DoorRule`, `BoxPlacement`), `backrooms.gen.*` (`DoorPlacement`, `StairRule`/`StairRun`,
+`Puzzle`, `Pointers`, `BuildRules`, `LegacyBand`, `StubBand`), `backrooms.door.*` (`DoorNet`, `DoorStamp`, `Entrances`), `backrooms.stack.*`
+(`BandStack` Raster 112, `Bands.ORDER` = R9), SimpleLib `com.simplelib.api.portal.*` (`PortalDoorBlock`, `PortalRule`, `PortalStates`,
+`PortalLinks`, `PortalTransit` inkl. `listen`/`mend`, `PortalPreload`, `FrameRule`, `PortalShape`, `PortalTarget`), `TrackingFilters`.
+
+**Dateien je Ebene `<id>`** (lobby, pools, archive, warehouse, pipes, electro, hotel, lightless, suburb, wheatfield) – nur diese ändern:
+| Was | Ort |
+|---|---|
+| Java | `modules/simplelayers/shared/java/.../backrooms/level/<id>/**` – `<Id>Band` (ersetzt `LegacyBand`/`StubBand` als Oberklasse durch eigene `Band`-Implementierung), eigenes `BandPiece`-Enum, Layout, Blöcke/Items, Rätsel, Client-Teile |
+| Fabric-Gametest-Adapter | `modules/simplelayers/fabric/.../level/<Id>GameTest.java` (schon eingetragen in `fabric.mod.json`; je Test eine Methode, Name camelCase von `<id>_…`) |
+| Daten | `modules/simplelayers/tools/backrooms/gen_<id>.py` (`generate(d, a)`; darf `worldgen/biome/backrooms_<id>.json` überschreiben: Nebel Anfang/Ende, Licht, Klang), `data/simplelayers/loot_table/backrooms/<id>/**`, `recipe/<id>/**`, `tags/block/backrooms/<id>_*.json` |
+| Assets | `textures/block|item/backrooms/<id>/**` (Texturen von b-tex22d aus `/root/sb-tools-b/back22/tex22d/<id>/`), Modelle/Blockstates über `gen_<id>.py` |
+| Sprache | eigener Namespace `assets/simplelayers_<id>/lang/en_us.json` + `de_de.json` (lädt Vanilla aus allen Namespaces; keine Zeilen in der Haupt-Sprachdatei) |
+| Wiki | eigene Feature-Einträge erst im Bündel (manual.json ist gemeinsam; Texte im Plan der Ebene vorbereiten) |
+
+**Registrieren:** `Band.register(BandRegistrar r)` überschreiben – `r.block("<id>_name", Factory, props)`, `r.item(...)`, `r.blockItem(block)`;
+Ids immer mit Präfix `<id>_`; Items erscheinen im Simple-Layers-Reiter nach den Kern-Items. Ersatzteil: `Band.repairPart()` → Item der Ebene
+(Tür-Reparatur/Aktivierung mit Rechtsklick, Wartungskasten bleibt). Beute: `Band.loot()` + `BandLayout.containers(...)` (Kisten nie in Türkammern).
+Türen: `BandLayout.doorEnd(seed, cx, cz, down)` wählt den Ort (Türnische mit festem Boden, Kammer bleibt im Chunk – `DoorPlacement.fits`); der Kern
+stempelt Tür, Rahmen, Rückwand, Kasten. Parameter: `doorDensity()` (abwärts), `upDoorShare()` (Anteil zweiseitiger Paare), `boxPlacement()`,
+`pointerShare()`. Rätsel: `Puzzle` (rein, Test `solvable`), Freischalten über `PortalTransit.mend(level, shape, null)` bzw. `PortalStates.set`.
+Hülle: `CorePiece.HULL` = fester Block der Ebene, ly 0 und ly 95 nie begehbar; ganze Hüll-Sektionen über `hullSection` melden (Budget).
+Treppen nur nach `StairRule` (≤ 8 Stufen, Sockel, 3 frei, Leiter-Austritt 3).
+
+**Tests je Ebene:** `Band.tests((name, body) -> …)` mit Namen `<id>_*` + Methode im eigenen Adapter. Gezielt laufen lassen:
+`python3.12 tools/testrunner/run.py --targets module-simplelayers-fabric-263,module-simplelayers-standalone-fabric-263 --filter 'simplelayers:module_game_test_<id>*'`
+und Kern-Filter `--filter 'simplelayers:module_game_test_bands*'` (Hülle, Budget, Türen gelten für alle Ebenen automatisch). Daten: `python3 modules/simplelayers/tools/gen_data.py` + `check_data.py`.
+
+**Nicht in diesem Branch (additive Kern-Nachträge):** K7 bewegte Plattform (Eingabe = Vanilla-Redstone, vor Welle E4/E7), S2 Tiefenfenster,
+Kulisse/Übergangsbild beim Dimensionswechsel, Beute-Namen aus dem Seed (§5b-7), Kasten-Lagen außer `FRAME`, vorregistrierte Klang-Ereignisse
+je Ebene (die Ebene registriert eigene Klänge mit Präfix `<id>.` in `gen_<id>.py`/`register`, bis der Kern sie bündelt).

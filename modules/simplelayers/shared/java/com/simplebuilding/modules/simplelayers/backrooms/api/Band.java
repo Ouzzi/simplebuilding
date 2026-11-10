@@ -55,4 +55,10 @@ public interface Band {
     }
 
     BandView view();
+
+    /** Registers the level's own blocks/items (API freeze 10.11.; standard: none). */
+    default void register(BandRegistrar registrar) {}
+
+    /** Adds the level's gametests (names {@code <id>_*}) to the module catalogue; the adapter is {@code level/<Id>GameTest} (Fabric). */
+    default void tests(java.util.function.BiConsumer<String, java.util.function.Consumer<net.minecraft.gametest.framework.GameTestHelper>> catalogue) {}
 }

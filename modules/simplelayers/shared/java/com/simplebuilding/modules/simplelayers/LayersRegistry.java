@@ -145,6 +145,28 @@ public final class LayersRegistry {
         YELLOW_CHALK = chalk("yellow_chalk", com.simplebuilding.modules.simplelayers.block.ChalkMarkBlock.Color.YELLOW);
         CHALK_BOX = item("chalk_box", com.simplebuilding.modules.simplelayers.block.ChalkBoxItem::new, new Item.Properties().stacksTo(1));
         out.addAll(List.of(CHALK, RED_CHALK, BLUE_CHALK, YELLOW_CHALK, CHALK_BOX));
+        // BACK22: every level registers its own blocks/items (in stack order, after the core's)
+        com.simplebuilding.modules.simplelayers.backrooms.api.BandRegistrar registrar = new com.simplebuilding.modules.simplelayers.backrooms.api.BandRegistrar() {
+            @Override
+            public Block block(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties) {
+                return LayersRegistry.block(name, factory, properties);
+            }
+
+            @Override
+            public Item item(String name, Function<Item.Properties, Item> factory, Item.Properties properties) {
+                Item item = LayersRegistry.item(name, factory, properties);
+                out.add(item);
+                return item;
+            }
+
+            @Override
+            public Item blockItem(Block block) {
+                Item item = LayersRegistry.blockItem(block, false);
+                out.add(item);
+                return item;
+            }
+        };
+        com.simplebuilding.modules.simplelayers.backrooms.stack.Bands.ORDER.forEach(band -> band.register(registrar));
         ITEMS = List.copyOf(out);
         com.simplebuilding.modules.simplelayers.guide.LayersGuide.register();
     }

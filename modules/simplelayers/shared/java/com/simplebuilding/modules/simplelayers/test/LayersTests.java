@@ -109,6 +109,7 @@ public final class LayersTests {
         ALL.put("chalk_recipes", LayersTests::chalkRecipes);
         ALL.put("stairwells_walkable", LayersTests::stairwellsWalkable);
         BandsTests.register();
+        com.simplebuilding.modules.simplelayers.backrooms.stack.Bands.ORDER.forEach(band -> band.tests(ALL::put));
     }
 
     private LayersTests() {}

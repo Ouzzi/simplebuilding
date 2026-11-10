@@ -81,6 +81,8 @@ final class BandsTests {
         LayersTests.ALL.put("portal_transit_loaded", BandsTests::transitLoaded);
         LayersTests.ALL.put("cellar_door_roundtrip", BandsTests::cellarRoundtrip);
         LayersTests.ALL.put("migration_rescue", BandsTests::migrationRescue);
+        // one test per level (adapter level/<Id>GameTest, owned by the level branch): the level stands in the stack with its biome
+        for (Band band : Bands.ORDER) LayersTests.ALL.put(band.id() + "_registered", h -> levelRegistered(h, band));
     }
 
     static ServerLevel stack(GameTestHelper h) {
@@ -113,6 +115,17 @@ final class BandsTests {
             String want = "backrooms_" + Bands.get(b).id();
             h.assertTrue(source.biome(BandStack.worldY(b, 40)).is(SimpleLayers.id(want)), "biome of level " + b);
         }
+        h.succeed();
+    }
+
+    static void levelRegistered(GameTestHelper h, Band band) {
+        int index = Bands.indexOf(band);
+        h.assertTrue(index >= 1 && Bands.byId(band.id()) == band, band.id() + " in the stack");
+        h.assertTrue(h.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.BIOME)
+                .containsKey(SimpleLayers.id("backrooms_" + band.id())), "biome of " + band.id());
+        h.assertTrue(BuildRules.hull(band.layout(), 5L, 3, -4).isEmpty(), "hull rule " + band.id());
+        int[] a = band.layout().arrival(5L, 100, 100);
+        h.assertTrue(band.layout().at(5L, a[0], a[1], a[2]).passable() && band.layout().at(5L, a[0], a[1] + 1, a[2]).passable(), "free arrival " + band.id());
         h.succeed();
     }
 
