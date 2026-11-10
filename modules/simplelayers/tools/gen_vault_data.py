@@ -73,7 +73,7 @@ def world():
 def entry(name, weight, lo=1, hi=1):
     e = {'type': 'minecraft:item', 'name': name, 'weight': weight}
     if hi > 1:
-        e['functions'] = [{'function': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'min': lo, 'max': hi}}]
+        e['modifier'] = {'type': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'max': hi, 'min': lo}}  # 26.3 entry format
     return e
 
 
