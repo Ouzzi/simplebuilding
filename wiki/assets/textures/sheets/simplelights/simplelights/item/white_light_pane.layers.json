@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#7b7d7dff", "#edf2f1ff", "#ccd0cfff", "#ced1d0ff", "#dadeddff", "#e3e7e6ff", "#d0d4d3ff", "#e6eae9ff", "#e2e6e5ff", "#cbcfceff", "#d2d6d5ff", "#d9deddff", "#949796ff", "#e0e4e3ff", "#d6dad9ff", "#dbdfdeff", "#ecf0efff", "#e6ebeaff", "#ced2d1ff", "#e1e5e4ff", "#e4e8e7ff", "#d7dbdaff", "#e5e9e8ff", "#e2e7e5ff", "#dfe3e2ff", "#cdd1d0ff", "#e5eae9ff", "#d4d8d7ff", "#eef3f2ff", "#f1f5f4ff", "#dce0dfff", "#e9edecff", "#cacdccff", "#ebefeeff", "#e3e8e7ff", "#d5d9d8ff", "#e3e6e6ff", "#f1f6f5ff", "#f0f5f4ff", "#e7ebeaff", "#d1d5d4ff", "#fbffffff", "#eef2f1ff", "#d8dcdbff", "#dee2e1ff", "#ebf0efff", "#edf1f0ff", "#f3f8f7ff", "#cfd3d2ff", "#e8ecebff", "#eaefedff", "#dcdfdfff", "#e3e8e6ff", "#eff3f2ff", "#c8cccbff", "#cacecdff", "#e1e6e5ff", "#d9dddcff", "#dde1e0ff", "#d3d7d6ff", "#e0e5e3ff"],
+  "palette": ["#7b7d7dff", "#edf2f1ff", "#ccd0cfff", "#ced1d0ff", "#dadeddff", "#e3e7e6ff", "#d0d4d3ff", "#e6eae9ff", "#e2e6e5ff", "#cbcfceff", "#d2d6d5ff", "#d9deddff", "#949796ff", "#e0e4e3ff", "#d6dad9ff", "#dbdfdeff", "#ecf0efff", "#e6ebeaff", "#ced2d1ff", "#e1e5e4ff", "#e4e8e7ff", "#d7dbdaff", "#e5e9e8ff", "#e2e7e5ff", "#dfe3e2ff", "#cdd1d0ff", "#e5eae9ff", "#d4d8d7ff", "#eef3f2ff", "#f1f5f4ff", "#dce0dfff", "#e9edecff", "#cacdccff", "#ebefeeff", "#e3e8e7ff", "#d5d9d8ff", "#e3e6e6ff", "#f1f6f5ff", "#f0f5f4ff", "#e7ebeaff", "#d1d5d4ff", "#fbffffff", "#eef2f1ff", "#d8dcdbff", "#dee2e1ff", "#ebf0efff", "#edf1f0ff", "#f3f8f7ff", "#cfd3d2ff", "#e8ecebff", "#eaefedff", "#dcdfdfff", "#e3e8e6ff", "#eff3f2ff", "#c8cccbff", "#cacecdff", "#e1e6e5ff", "#d9dddcff", "#dde1e0ff", "#d3d7d6ff", "#e0e5e3ff", "#717373ff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "..0000000000000000000000000000..",
@@ -23,6 +23,24 @@
       "000114180a0a31082b0e083c12300100",
       "00010101010101010101010101010100",
       "..0000000000000000000000000000.."
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "......3d......3d3d..3d..........",
+      "..2f2f..2f2f..............0707..",
+      "3d2f30302b07302b..0d3030072b07..",
+      "....3000....2b2b..072b30000d..3d",
+      "....2b072b2b07..2b2b0d0d3030....",
+      "3d..0d072b2b01012b0d07073030....",
+      "..2f2b2b10072b0d2f010d2b070d..3d",
+      "..2f302b0d072f2f..01..2b0d07....",
+      "....0d10300d01..2f2f100730......",
+      "3d..07102b2b07102b2b..07..30073d",
+      "......300707....01072b......073d",
+      "....30300d0d2b2b07..2b300d0d07..",
+      "3d....00302b07072b2b0d0d0030..3d",
+      "3d..070d3030070d..2b0d0d30......",
+      "......0707............070707....",
+      "....3d3d....3d3d....3d....3d...."
     ]}
   ]
 }

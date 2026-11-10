@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#7c807fff", "#ffffffff", "#f9fffeff", "#feffffff", "#ebf1f0ff", "#e9eeedff", "#faffffff", "#fcffffff", "#e8edecff", "#ecf1f0ff", "#f4faf9ff", "#fdffffff", "#ebf0efff", "#f8fefdff", "#e3e8e7ff", "#e5eae9ff", "#eaefeeff", "#e6ebeaff", "#eef3f2ff", "#f7fdfcff", "#e4e9e8ff", "#f6fcfbff", "#e7ecebff", "#eaf0efff", "#edf2f1ff", "#f3f9f8ff", "#f6fbfaff", "#e5e9e8ff", "#fbffffff", "#e7ebebff", "#ecf2f1ff", "#edf3f1ff", "#e3e7e6ff", "#f5fbfaff"],
+  "palette": ["#7c807fff", "#ffffffff", "#f9fffeff", "#feffffff", "#ebf1f0ff", "#e9eeedff", "#faffffff", "#fcffffff", "#e8edecff", "#ecf1f0ff", "#f4faf9ff", "#fdffffff", "#ebf0efff", "#f8fefdff", "#e3e8e7ff", "#e5eae9ff", "#eaefeeff", "#e6ebeaff", "#eef3f2ff", "#f7fdfcff", "#e4e9e8ff", "#f6fcfbff", "#e7ecebff", "#eaf0efff", "#edf2f1ff", "#f3f9f8ff", "#f6fbfaff", "#e5e9e8ff", "#fbffffff", "#e7ebebff", "#ecf2f1ff", "#edf3f1ff", "#e3e7e6ff", "#f5fbfaff", "#727675ff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "..0000000000000000000000000000..",
@@ -23,6 +23,24 @@
       "000110050b210f111c0a16110d020100",
       "00010101010101010101010101010100",
       "..0000000000000000000000000000.."
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "....2222..22....2222..22........",
+      "....1919........1919......1919..",
+      "..191c0110101c1c1010191c10101922",
+      "2219131920..19........19..10....",
+      "22..0f1019..0f10131c..101c1c....",
+      "..19200f1c13..1001..0f10131c1922",
+      "22..191c101013..1010..130f10....",
+      "....1c1c100f..1c..1013..1010....",
+      "..190f....1c201013..20101c..1922",
+      "2219..0f13..100f131c10....1c1922",
+      "....13..0f101c..10101301..10....",
+      "..19..1c10101c....0f..01200f..22",
+      "..190f10131c10..131c2010..1c....",
+      "2219..101c13..0f..190f0f131c19..",
+      "..19....191919..............19..",
+      "......2222....22....22....22...."
     ]}
   ]
 }

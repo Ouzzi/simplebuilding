@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#9a2b2bff", "#9a782bff", "#709a2bff", "#2b9a33ff", "#2b9a7fff", "#2b689aff", "#3b2b9aff", "#872b9aff", "#ff4747ff", "#ffc647ff", "#b9ff47ff", "#47ff54ff", "#47ffd3ff", "#47acffff", "#6147ffff", "#e047ffff", "#f4be44ff", "#f1bc44ff", "#b4f845ff", "#b3f645ff", "#45f551ff", "#44f4caff", "#44f1c8ff", "#44a3f1ff", "#45a8f8ff", "#5e45f6ff", "#5e45f7ff", "#f5be45ff", "#b1f344ff", "#b1f444ff", "#44f250ff", "#44f150ff", "#43f0c7ff", "#45a6f6ff", "#44a4f3ff", "#5c43f0ff", "#f2bc44ff", "#f3bd44ff", "#aff144ff", "#45f752ff", "#44f350ff", "#44f2c8ff", "#45f7ccff", "#44a5f4ff", "#5c44f2ff", "#5d44f3ff", "#b3f745ff", "#45f5cbff", "#45a6f5ff", "#5c44f1ff", "#f8c145ff", "#f6bf45ff", "#aff043ff", "#45f651ff", "#44f451ff", "#45a7f7ff", "#5d45f5ff", "#f0ba43ff", "#46a8f9ff", "#45f852ff", "#f7c045ff", "#46f952ff", "#45f6ccff", "#43a2f0ff", "#f0bb43ff", "#b5f946ff", "#44f3c9ff", "#5d44f4ff", "#5f46f9ff", "#b0f244ff", "#43f04fff", "#45f8cdff"],
+  "palette": ["#9a2b2bff", "#9a782bff", "#709a2bff", "#2b9a33ff", "#2b9a7fff", "#2b689aff", "#3b2b9aff", "#872b9aff", "#ff4747ff", "#ffc647ff", "#b9ff47ff", "#47ff54ff", "#47ffd3ff", "#47acffff", "#6147ffff", "#e047ffff", "#f4be44ff", "#f1bc44ff", "#b4f845ff", "#b3f645ff", "#45f551ff", "#44f4caff", "#44f1c8ff", "#44a3f1ff", "#45a8f8ff", "#5e45f6ff", "#5e45f7ff", "#f5be45ff", "#b1f344ff", "#b1f444ff", "#44f250ff", "#44f150ff", "#43f0c7ff", "#45a6f6ff", "#44a4f3ff", "#5c43f0ff", "#f2bc44ff", "#f3bd44ff", "#aff144ff", "#45f752ff", "#44f350ff", "#44f2c8ff", "#45f7ccff", "#44a5f4ff", "#5c44f2ff", "#5d44f3ff", "#b3f745ff", "#45f5cbff", "#45a6f5ff", "#5c44f1ff", "#f8c145ff", "#f6bf45ff", "#aff043ff", "#45f651ff", "#44f451ff", "#45a7f7ff", "#5d45f5ff", "#f0ba43ff", "#46a8f9ff", "#45f852ff", "#f7c045ff", "#46f952ff", "#45f6ccff", "#43a2f0ff", "#f0bb43ff", "#b5f946ff", "#44f3c9ff", "#5d44f4ff", "#5f46f9ff", "#b0f244ff", "#43f04fff", "#45f8cdff", "#553eddff", "#dead3fff", "#3f96deff", "#eb4141ff", "#7c288eff", "#41eb4dff", "#a1de3fff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00000101020203030404050506060707",
@@ -23,6 +23,24 @@
       "0008244045121e46472f22212d230f07",
       "000809090a0a0b0b0c0c0d0d0e0e0f07",
       "00000101020203030404050506060707"
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "0707070726260b0b0505....2348....",
+      "07..49111111....4a17174a234808..",
+      "07..49..11110b0b4a17..4a48234b4c",
+      "074b114926260b4d174a4a1748234b4c",
+      "4c4b4911264e0b4d174a174a2348084c",
+      "4c..4911114e4d0b174a174a23484b..",
+      "074b1111..264d0b4a17174a234808..",
+      "07..491126260b4d4a4a4a..482308..",
+      "4c..494926110b4d17174a17482308..",
+      "4c..49114e260b4d4a17174a..484b..",
+      "074b11114e110b0b4a17..4a234808..",
+      "074b..494e114d4d4a174a4a232308..",
+      "07..114911..0b0b174a1717482308..",
+      "074b491126110b4d174a174a48..4b4c",
+      "074b49111111..4d174a174a23484b4c",
+      "0707070726260b4d0505....2348...."
     ]}
   ]
 }

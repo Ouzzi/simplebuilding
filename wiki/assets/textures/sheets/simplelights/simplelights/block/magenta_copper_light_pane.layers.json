@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#64275eff", "#ff65f6ff", "#d453c9ff", "#c74ebdff", "#c24cb9ff", "#c459bbff", "#c95bc0ff", "#cb50c1ff", "#c54dbbff", "#c659bdff", "#c34dbaff", "#cc50c1ff", "#ca5bc1ff", "#c458bbff", "#c54dbcff", "#c24cb8ff", "#c75abeff", "#c64ebcff", "#cc50c2ff", "#c559bcff", "#c358baff", "#c64dbcff", "#c44dbaff", "#c85abfff", "#cb5cc1ff", "#cb4fc0ff", "#c34cb9ff", "#c258baff", "#c84ebeff", "#c85bbfff", "#c94fbfff", "#ca5cc1ff", "#c258b9ff", "#cc5cc2ff", "#cb4fc1ff", "#ca4fc0ff", "#c65abdff", "#c44dbbff", "#c34db9ff", "#cb5cc2ff", "#cc5cc3ff"],
+  "palette": ["#64275eff", "#ff65f6ff", "#d453c9ff", "#c74ebdff", "#c24cb9ff", "#c459bbff", "#c95bc0ff", "#cb50c1ff", "#c54dbbff", "#c659bdff", "#c34dbaff", "#cc50c1ff", "#ca5bc1ff", "#c458bbff", "#c54dbcff", "#c24cb8ff", "#c75abeff", "#c64ebcff", "#cc50c2ff", "#c559bcff", "#c358baff", "#c64dbcff", "#c44dbaff", "#c85abfff", "#cb5cc1ff", "#cb4fc0ff", "#c34cb9ff", "#c258baff", "#c84ebeff", "#c85bbfff", "#c94fbfff", "#ca5cc1ff", "#c258b9ff", "#cc5cc2ff", "#cb4fc1ff", "#ca4fc0ff", "#c65abdff", "#c44dbbff", "#c34db9ff", "#cb5cc2ff", "#cc5cc3ff", "#5c2456ff", "#eb5de2ff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00000000000000000000000000000000",
@@ -23,6 +23,24 @@
       "000110270b0e2409250314130b080200",
       "00020202020202020202020202020200",
       "00000000000000000000000000000000"
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "..............292929....2929..29",
+      "..2a....2a2a....2a2a..2a2a..0329",
+      "..2a..160d1d..161d1d16071d..03..",
+      "29..16161d0d03070d0d03..1d1d....",
+      "292a1d1d16071d0d03161d1d1616..29",
+      "29..1d0d03030d1d0716..1d..16..29",
+      "....03030d..03..0d....031d0d....",
+      "..2a16031d1d0316..0d07030d1d....",
+      "....0d0d07070d1d..07..0d0703..29",
+      "....0d0d03..1d1d..071d1d0303....",
+      "..2a03..0d1d16030d0d16..1d0d03..",
+      "....16161d1d03030d1d..071d1d03..",
+      "29..0d1d16030d1d..031d0d..160329",
+      "29..1d1d07161d1d16..0d0d0716..29",
+      "290303......0303..............29",
+      "....29....2929....29....2929..29"
     ]}
   ]
 }

@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#275666ff", "#4ca7c4ff", "#418fa8ff", "#4393acff", "#469ab5ff", "#4ba1bdff", "#4693acff", "#4794adff", "#4fa6c2ff", "#4a9eb8ff", "#4594adff", "#4495afff", "#4699b4ff", "#4291abff", "#30687aff", "#489bb6ff", "#4ca2beff", "#4794acff", "#4c9db7ff", "#51a8c3ff", "#4da1bcff", "#4899b3ff", "#428fa8ff", "#49a0bcff", "#479cb8ff", "#489bb5ff", "#4796afff", "#4793abff", "#51a7c3ff", "#51a4beff", "#4c9ab3ff", "#4995adff", "#4da0bbff", "#4a9db7ff", "#4492abff", "#418ea7ff", "#4d9db7ff", "#55aac5ff", "#4e9ab3ff", "#4d9bb4ff", "#4ea1bbff", "#4694adff", "#4390a9ff", "#4795afff", "#4a9ab4ff", "#4fa4bfff", "#53a8c4ff", "#4e9bb4ff", "#509eb7ff", "#55a9c3ff", "#53a6c1ff", "#4e9fb8ff", "#4b9ab3ff", "#4ea3bfff", "#4da4c0ff", "#4996afff", "#50a2bdff", "#54a9c4ff", "#5db6d3ff", "#58adc8ff", "#55a9c4ff", "#4f9eb8ff", "#4fa2bdff", "#4c9eb9ff", "#51a8c4ff", "#4e9eb8ff", "#4f9db6ff", "#58afcbff", "#58acc7ff", "#55abc7ff", "#52a6c1ff", "#4b9cb6ff", "#4fa5c1ff", "#4b9ab4ff", "#56adc9ff", "#56aac5ff", "#509cb5ff", "#52a7c2ff", "#50a6c1ff", "#4999b3ff", "#4898b2ff", "#4596afff", "#4fa3beff", "#4d9cb6ff", "#4f9eb7ff", "#52a5bfff", "#53a9c5ff", "#4a99b2ff", "#4a9bb5ff", "#4da3beff", "#489cb6ff", "#4392acff", "#4595aeff", "#4ca1bdff", "#4c9cb6ff", "#4b97b0ff", "#51a4bfff", "#4998b1ff", "#4a9ebaff", "#479cb7ff", "#4da2bdff", "#52a8c4ff", "#4a98b1ff", "#499db7ff", "#4290aaff", "#4598b2ff", "#408ca5ff", "#4ca2bdff", "#4795adff", "#4aa0bbff", "#489eb9ff", "#4494aeff", "#4393adff"],
+  "palette": ["#275666ff", "#4ca7c4ff", "#418fa8ff", "#4393acff", "#469ab5ff", "#4ba1bdff", "#4693acff", "#4794adff", "#4fa6c2ff", "#4a9eb8ff", "#4594adff", "#4495afff", "#4699b4ff", "#4291abff", "#30687aff", "#489bb6ff", "#4ca2beff", "#4794acff", "#4c9db7ff", "#51a8c3ff", "#4da1bcff", "#4899b3ff", "#428fa8ff", "#49a0bcff", "#479cb8ff", "#489bb5ff", "#4796afff", "#4793abff", "#51a7c3ff", "#51a4beff", "#4c9ab3ff", "#4995adff", "#4da0bbff", "#4a9db7ff", "#4492abff", "#418ea7ff", "#4d9db7ff", "#55aac5ff", "#4e9ab3ff", "#4d9bb4ff", "#4ea1bbff", "#4694adff", "#4390a9ff", "#4795afff", "#4a9ab4ff", "#4fa4bfff", "#53a8c4ff", "#4e9bb4ff", "#509eb7ff", "#55a9c3ff", "#53a6c1ff", "#4e9fb8ff", "#4b9ab3ff", "#4ea3bfff", "#4da4c0ff", "#4996afff", "#50a2bdff", "#54a9c4ff", "#5db6d3ff", "#58adc8ff", "#55a9c4ff", "#4f9eb8ff", "#4fa2bdff", "#4c9eb9ff", "#51a8c4ff", "#4e9eb8ff", "#4f9db6ff", "#58afcbff", "#58acc7ff", "#55abc7ff", "#52a6c1ff", "#4b9cb6ff", "#4fa5c1ff", "#4b9ab4ff", "#56adc9ff", "#56aac5ff", "#509cb5ff", "#52a7c2ff", "#50a6c1ff", "#4999b3ff", "#4898b2ff", "#4596afff", "#4fa3beff", "#4d9cb6ff", "#4f9eb7ff", "#52a5bfff", "#53a9c5ff", "#4a99b2ff", "#4a9bb5ff", "#4da3beff", "#489cb6ff", "#4392acff", "#4595aeff", "#4ca1bdff", "#4c9cb6ff", "#4b97b0ff", "#51a4bfff", "#4998b1ff", "#4a9ebaff", "#479cb7ff", "#4da2bdff", "#52a8c4ff", "#4a98b1ff", "#499db7ff", "#4290aaff", "#4598b2ff", "#408ca5ff", "#4ca2bdff", "#4795adff", "#4aa0bbff", "#489eb9ff", "#4494aeff", "#4393adff", "#244f5eff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "..0000000000000000000000000000..",
@@ -23,6 +23,24 @@
       "000104696a226b086c296d6e6f700100",
       "00010101010101010101010101010100",
       "..0000000000000000000000000000.."
+    ]},
+    {"name": "A8d Flaechen-Brecher", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "......71......71....71..........",
+      "........3f3f3f......3f3f..4a4a..",
+      "71..22224f2d22222d3f22224f4f..71",
+      "71..22..4f2d223f012d4f22..3f....",
+      "....3f4f4f22012d4f223f3f..22....",
+      "..3f4f3f223f2d4a4f4f3f2d2222..71",
+      "713f224f..4a3f3f4a2d3f4f2d2d..71",
+      "71..224f2d4a4a4a01013f4f2d2d....",
+      "......013f3f01014a4a4a2d4f3f....",
+      "....3f2d4f3f014a3f3f2d2d..4f..71",
+      "713f224f3f2d3f3f2d4a4f4f2d4f3f71",
+      "..3f22222d2d3f4f2d2d4f4f3f4f3f..",
+      "..3f4f..224f2d014f222d3f..223f..",
+      "....4f4f22..2d2d22223f3f2222..71",
+      "..3f3f3f................3f3f....",
+      "....71......7171..7171..71......"
     ]}
   ]
 }
