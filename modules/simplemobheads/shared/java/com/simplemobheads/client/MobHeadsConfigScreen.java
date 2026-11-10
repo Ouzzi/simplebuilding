@@ -19,35 +19,35 @@ public final class MobHeadsConfigScreen {
         MobHeadsConfig config = gson.fromJson(gson.toJson(SimpleMobHeads.config()), MobHeadsConfig.class);
         config.normalize(SimpleMobHeads.abilityIds());
         MobHeadsConfig defaults = new MobHeadsConfig();
-        var builder = ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("config.simplemobheads.title"));
+        var builder = ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("text.autoconfig.simplemobheads.title"));
         var entries = builder.entryBuilder();
-        var drops = builder.getOrCreateCategory(Component.translatable("config.simplemobheads.category.drops"));
+        var drops = builder.getOrCreateCategory(Component.translatable("text.autoconfig.simplemobheads.category.drops"));
         for (Field field : MobHeadsConfig.class.getFields()) {
             if (Modifier.isStatic(field.getModifiers()) || field.getName().equals("abilities")) {
                 continue;
             }
-            String key = "config.simplemobheads." + field.getName();
+            String key = "text.autoconfig.simplemobheads.option." + field.getName();
             try {
                 if (field.getType() == boolean.class) {
                     drops.addEntry(entries.startBooleanToggle(Component.translatable(key), field.getBoolean(config))
-                            .setDefaultValue(field.getBoolean(defaults)).setTooltip(Component.translatable(key + ".tooltip"))
+                            .setDefaultValue(field.getBoolean(defaults)).setTooltip(Component.translatable(key + ".@Tooltip"))
                             .setSaveConsumer(value -> set(field, config, value)).build());
                 } else if (field.getType() == float.class) {
                     float[] range = MobHeadsConfig.range(field.getName());
                     drops.addEntry(entries.startFloatField(Component.translatable(key), field.getFloat(config))
-                            .setDefaultValue(field.getFloat(defaults)).setMin(range[0]).setMax(range[1]).setTooltip(Component.translatable(key + ".tooltip"))
+                            .setDefaultValue(field.getFloat(defaults)).setMin(range[0]).setMax(range[1]).setTooltip(Component.translatable(key + ".@Tooltip"))
                             .setSaveConsumer(value -> set(field, config, value)).build());
                 } else if (field.getType() == int.class) {
                     float[] range = MobHeadsConfig.range(field.getName());
                     drops.addEntry(entries.startIntField(Component.translatable(key), field.getInt(config))
-                            .setDefaultValue(field.getInt(defaults)).setMin((int) range[0]).setMax((int) range[1]).setTooltip(Component.translatable(key + ".tooltip"))
+                            .setDefaultValue(field.getInt(defaults)).setMin((int) range[0]).setMax((int) range[1]).setTooltip(Component.translatable(key + ".@Tooltip"))
                             .setSaveConsumer(value -> set(field, config, value)).build());
                 }
             } catch (IllegalAccessException e) {
                 throw new IllegalStateException(e);
             }
         }
-        var abilities = builder.getOrCreateCategory(Component.translatable("config.simplemobheads.category.abilities"));
+        var abilities = builder.getOrCreateCategory(Component.translatable("text.autoconfig.simplemobheads.category.abilities"));
         for (String id : SimpleMobHeads.abilityIds()) {
             abilities.addEntry(entries.startBooleanToggle(Component.translatable("ability.simplemobheads." + id), config.ability(id))
                     .setDefaultValue(true).setTooltip(Component.translatable("ability.simplemobheads." + id + ".tooltip"))

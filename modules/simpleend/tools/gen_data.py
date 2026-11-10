@@ -475,8 +475,8 @@ def lang():
     de.update(pde)
     gen_paintings.data(OUT / f'assets/{NS}', OUT / f'data/{NS}')
     for key, (e, d, et, dt) in CONFIG.items():
-        en[f'config.{NS}.{key}'], de[f'config.{NS}.{key}'] = e, d
-        en[f'config.{NS}.{key}.tooltip'], de[f'config.{NS}.{key}.tooltip'] = et, dt
+        en[f'text.autoconfig.{NS}.option.{key}'], de[f'text.autoconfig.{NS}.option.{key}'] = e, d
+        en[f'text.autoconfig.{NS}.option.{key}.@Tooltip'], de[f'text.autoconfig.{NS}.option.{key}.@Tooltip'] = et, dt
     for path, data in ((LANG / 'en_us.json', en), (LANG / 'de_de.json', de)):
         old = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
         # b-shelves01: keep every key written by hand elsewhere (e.g. the Nibblemite modes); the generated ones are overwritten.

@@ -35,10 +35,10 @@ public final class FarmingScreen {
     }
 
     private static Component name(String key) {
-        return Component.translatable("simplefarming.option." + key);
+        return Component.translatable("text.autoconfig.simplefarming.option." + key);
     }
 
     private static Component tip(String key) {
-        return Component.translatable("simplefarming.option." + key + ".tooltip");
+        return Component.translatable("text.autoconfig.simplefarming.option." + key + ".@Tooltip");
     }
 }

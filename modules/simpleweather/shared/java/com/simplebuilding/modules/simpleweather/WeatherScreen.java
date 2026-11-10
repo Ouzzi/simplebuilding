@@ -30,10 +30,10 @@ public final class WeatherScreen {
     }
 
     private static Component name(String key) {
-        return Component.translatable("simpleweather.option." + key);
+        return Component.translatable("text.autoconfig.simpleweather.option." + key);
     }
 
     private static Component tip(String key) {
-        return Component.translatable("simpleweather.option." + key + ".tooltip");
+        return Component.translatable("text.autoconfig.simpleweather.option." + key + ".@Tooltip");
     }
 }

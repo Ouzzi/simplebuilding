@@ -48,7 +48,7 @@ for item in items:
     assert f'block.{NS}.{item}' in langs['en_us'] or f'item.{NS}.{item}' in langs['en_us'], f'no name: {item}'
 keys = re.findall(r'"([A-Za-z]+)"', re.search(r'KEYS = List\.of\(([^;]*)\);', (MODULE / 'shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java').read_text(encoding='utf-8')).group(1))
 for k in keys:
-    assert langs['en_us'].get(f'config.{NS}.{k}') and langs['de_de'].get(f'config.{NS}.{k}.tooltip'), k
+    assert langs['en_us'].get(f'text.autoconfig.{NS}.option.{k}') and langs['de_de'].get(f'text.autoconfig.{NS}.option.{k}.@Tooltip'), k
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 for k in keys:
     assert k in json.dumps(manual), f'wiki misses config key {k}'

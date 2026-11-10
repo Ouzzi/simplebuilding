@@ -61,7 +61,7 @@ public final class DimensionsGuideTests {
             for (String word : List.of("Skyblock", "Mining", "Travel", "/simpledimension guide", "/simpledimension config")) {
                 h.assertTrue(text.contains(word), locale + " guide lacks: " + word);
             }
-            h.assertTrue(data.has("simpledimension.config.giveGuideOnFirstTravel") && data.has("simpledimension.config.giveGuideOnFirstTravel.tooltip"),
+            h.assertTrue(data.has("text.autoconfig.simpledimension.option.giveGuideOnFirstTravel") && data.has("text.autoconfig.simpledimension.option.giveGuideOnFirstTravel.@Tooltip"),
                     locale + " lacks the first-trip option text");
             h.assertTrue(data.has("simpledimension.guide.command.given") && data.has("simpledimension.guide.command.missing"), locale + " lacks the command texts");
         }
