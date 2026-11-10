@@ -259,7 +259,8 @@ public class ModBlocks {
 
     /** Auto-Schmied: der Crafter des Schmiedetischs (2026-10-02, McVersion.AUTO_SMITHER). Eigenschaften wie der Crafter. */
     public static final Block AUTO_SMITHER = McVersion.AUTO_SMITHER
-            ? registerBlock("auto_smither", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutoSmitherBlock::new) : null;
+            ? registerBlock("auto_smither", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutoSmitherBlock::new)
+            : McVersion.AUTO_SMITHER_IN_MACHINES ? com.simplebuilding.util.MachineRefs.block("auto_smither") : null; // 26.3: Simple Machines (MACH32-MOD stage 4)
     /** Autonomer Crafter: craftet selbst in den Trichter darunter (2026-10-09, McVersion.AUTONOMOUS_CRAFTER). Wie der Crafter. */
     public static final Block AUTONOMOUS_CRAFTER = McVersion.AUTONOMOUS_CRAFTER
             ? registerBlock("autonomous_crafter", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutonomousCrafterBlock::new) : null;

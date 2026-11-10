@@ -4750,7 +4750,8 @@
       ],
       "optional": [
         "simplebuilding",
-        "simpleores"
+        "simpleores",
+        "jei"
       ],
       "checks": [
         "modules/simplemachines/tools/check_data.py"

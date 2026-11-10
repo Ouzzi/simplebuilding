@@ -30,6 +30,10 @@ public final class MachinesFabric implements ModInitializer {
                 com.simplemachines.hopper.TierHopperBlockEntity::new, java.util.Set.of(com.simplemachines.hopper.Hoppers.blocks())));
         com.simplemachines.hopper.Hoppers.registerEntityTypes();
         com.simplemachines.hopper.Hoppers.registerMenus();
+        // Stage 4: the Auto Smither's block entity type and menu.
+        com.simplemachines.smither.Smithers.registerBlockEntity(new net.minecraft.world.level.block.entity.BlockEntityType<>(
+                com.simplemachines.smither.AutoSmitherBlockEntity::new, java.util.Set.of(com.simplemachines.smither.Smithers.BLOCK)));
+        com.simplemachines.smither.Smithers.registerMenu();
         MachinesRegistry.registerTab();
         PistonsFabric.init();
         HoppersFabric.init();
@@ -37,6 +41,8 @@ public final class MachinesFabric implements ModInitializer {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleMachines.MOD_ID)) return;
             // Stage 3: the hoppers behind Vanilla's hopper, where SimpleBuilding had them.
             insertAfter(out, Items.HOPPER, com.simplemachines.hopper.Hoppers.stacks());
+            // Stage 4: the Auto Smither behind Vanilla's Crafter.
+            insertAfter(out, Items.CRAFTER, com.simplemachines.smither.Smithers.stacks());
             var stacks = MachinesRegistry.partStacks().stream().filter(s -> out.getDisplayStacks().stream().noneMatch(d -> ItemStack.isSameItemSameComponents(d, s))).toList();
             if (stacks.isEmpty()) return;
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.REPEATER))) out.insertAfter(Items.REPEATER, stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

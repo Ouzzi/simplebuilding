@@ -189,7 +189,7 @@ public final class Vis24ClientTest implements FabricClientGameTest {
                 "simplestorage:storage_crafting_table",
                 "simplebuilding:reinforced_hopper", "simplebuilding:netherite_hopper", "simplebuilding:enderite_hopper",
                 "simpleovens:reinforced_furnace", "simpleovens:netherite_blast_furnace", "simpleovens:enderite_furnace",
-                "simplebuilding:auto_smither", "simplebuilding:autonomous_crafter", "simpleenchanting:dark_enchanter",
+                "simplemachines:auto_smither", "simplebuilding:autonomous_crafter", "simpleenchanting:dark_enchanter",
                 "simplebuilding:astral_vault", "simplebuilding:nihil_vault",
                 "simplebeacons:strong_beacon", "simplecrucibles:iron_crucible", "simplecrucibles:netherite_crucible",
                 "simplemusic:disc_press", "simpleblocks:shapecutter", "simplequestionary:questionary_table",

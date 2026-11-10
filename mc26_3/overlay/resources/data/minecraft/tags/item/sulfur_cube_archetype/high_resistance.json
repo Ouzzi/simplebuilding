@@ -57,7 +57,7 @@
       "required": false
     },
     {
-      "id": "simplebuilding:auto_smither",
+      "id": "simplemachines:auto_smither",
       "required": false
     },
     {

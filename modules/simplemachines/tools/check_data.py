@@ -15,10 +15,10 @@ HEADS = ['reinforced_piston_head', 'netherite_piston_head', 'enderite_piston_hea
 # stage 3: the mod hoppers and their carts
 HOPPERS = [f'{t}_hopper' for t in ('reinforced', 'netherite', 'enderite')]
 CARTS = [f'{h}_minecart' for h in HOPPERS]
-BLOCKS = ['double_piston', 'double_piston_head', 'double_piston_arm', 'signal_dampener'] + PISTONS + HEADS + HOPPERS
-ITEMS = ['double_piston', 'signal_dampener'] + PISTONS + HOPPERS + CARTS
+BLOCKS = ['double_piston', 'double_piston_head', 'double_piston_arm', 'signal_dampener'] + PISTONS + HEADS + HOPPERS + ['auto_smither']
+ITEMS = ['double_piston', 'signal_dampener'] + PISTONS + HOPPERS + CARTS + ['auto_smither']
 # crafted items (the breakers come from the hammer upgrade, data/simplemachines/in_world_upgrades/pistons.json)
-CRAFTED = ['double_piston', 'signal_dampener', 'reinforced_piston', 'reinforced_sticky_piston', 'reinforced_hopper_from_crafting']
+CRAFTED = ['double_piston', 'signal_dampener', 'reinforced_piston', 'reinforced_sticky_piston', 'reinforced_hopper_from_crafting', 'auto_smither']
 
 used = set()
 for src in JAVA.rglob('*.java'):

@@ -355,4 +355,60 @@ public final class ModuleGameTest {
     public void hopperTooltipsNameSpeedAndFilter(GameTestHelper h) {
         com.simplemachines.test.HopperModuleTests.hopperTooltipsNameSpeedAndFilter(h);
     }
+
+    // MACH32-MOD stage 4: the Auto Smither (AutoSmitherTests).
+    @GameTest(structure = "simplemachines:empty")
+    public void autoSmitherRegistered(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherRegistered(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void oldAutoSmitherIdsMove(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.oldAutoSmitherIdsMove(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void smitherDelayComesOverFromSimpleBuilding(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.smitherDelayComesOverFromSimpleBuilding(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 60)
+    public void autoSmitherUpgradesDiamondToNetherite(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherUpgradesDiamondToNetherite(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 60)
+    public void autoSmitherAppliesArmourTrim(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherAppliesArmourTrim(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 120)
+    public void autoSmitherStopsWithoutRedstone(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherStopsWithoutRedstone(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 100)
+    public void autoSmitherSmithsOncePerPulse(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherSmithsOncePerPulse(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 60)
+    public void autoSmitherEjectsWithoutContainer(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherEjectsWithoutContainer(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 80)
+    public void autoSmitherSortsHopperInput(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherSortsHopperInput(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void autoSmitherOutputRejectsInsertion(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherOutputRejectsInsertion(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void autoSmitherOutputCapacityAndRecipeError(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherOutputCapacityAndRecipeError(h);
+    }
 }

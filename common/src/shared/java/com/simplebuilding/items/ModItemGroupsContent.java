@@ -558,8 +558,8 @@ public final class ModItemGroupsContent {
      */
     public static List<CreativeTabLayout.Row> functionalRows() {
         var rows = new java.util.ArrayList<>(baseFunctionalRows());
-        if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
-            // Auto-Schmied direkt hinter den Kolben (2026-10-02); der Vanilla-Crafter gehoert nicht in Mod-Tabs.
+        if (com.simplebuilding.version.McVersion.AUTO_SMITHER || com.simplebuilding.version.McVersion.AUTO_SMITHER_IN_MACHINES) {
+            // Auto-Schmied direkt hinter den Kolben (2026-10-02; seit 10.11. Simple Machines', Feld = Modul-Item); der Vanilla-Crafter gehoert nicht in Mod-Tabs.
             int pistons = rows.indexOf(rows.stream().filter(row -> row.name().equals("pistons")).findFirst().orElseThrow());
             rows.add(pistons + 1, autoSmitherRow());
         }

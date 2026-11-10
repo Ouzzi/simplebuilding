@@ -8,7 +8,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:auto_smither"
+          "name": "simplemachines:auto_smither"
         }
       ],
       "rolls": 1

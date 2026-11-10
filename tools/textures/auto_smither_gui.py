@@ -24,7 +24,7 @@ def build(asset):
     draw.rectangle((25, 16, 78, 33), fill=background)
     draw.rectangle((25, 52, 78, 69), fill=background)
     after.alpha_composite(asset('gui/sprites/container/crafter/unpowered_redstone.png'), (97, 35))
-    menu = (ROOT / 'common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java').read_text(encoding='utf-8')
+    menu = (ROOT / 'modules/simplemachines/shared/java/com/simplemachines/smither/AutoSmitherMenu.java').read_text(encoding='utf-8')
     inputs = [(int(x), int(y)) for x, y in re.findall(r'new InputSlot\(container, AutoSmitherBlockEntity\.\w+, (\d+), (\d+),', menu)]
     output = re.search(r'new Slot\(container, RESULT_SLOT, (\d+), (\d+)\)', menu)
     assert inputs == [(26, 35), (44, 35), (62, 35)]

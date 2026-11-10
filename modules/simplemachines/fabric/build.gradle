@@ -7,3 +7,6 @@ dependencies { include project(':framework') }
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 // Hopper minecart item textures are Vanilla-derived (built, never committed; MACH32-MOD stage 3).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
+// Optional JEI plugin (shared/java/com/simplemachines/compat/jei, stage 4: Auto Smither as smithing catalyst): compiled against, never bundled.
+repositories { maven { url = "https://maven.blamejared.com" } }
+dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}" }

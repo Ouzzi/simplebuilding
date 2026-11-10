@@ -183,7 +183,8 @@ public final class ConfigOptionTests {
 
     /** Restore the global value before yielding; the queued pulse retains its captured delay. */
     public static void configuredSmitherDelayChangesScheduledWork(GameTestHelper helper) {
-        if (!McVersion.GADGET_REWORK) { helper.succeed(); return; }
+        // 26.3 (MACH32-MOD stage 4): the Smither and its delay are Simple Machines' (its module tests).
+        if (!McVersion.GADGET_REWORK || !McVersion.AUTO_SMITHER) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(1, 2, 1);
         helper.setBlock(pos, com.simplebuilding.blocks.ModBlocks.AUTO_SMITHER);
         var smither = helper.getBlockEntity(pos, com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity.class);
@@ -1498,6 +1499,7 @@ public final class ConfigOptionTests {
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES, !McVersion.PISTONS_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_ENCHANTING, McVersion.ASTRAL_ENCHANTING);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES_HOPPERS, !McVersion.HOPPERS_IN_SB);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES_SMITHER, McVersion.AUTO_SMITHER_IN_MACHINES);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_PADS, !McVersion.PADS_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_BTOOLS, !McVersion.BTOOLS_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_GADGETS, !McVersion.GADGETS_IN_SB);
@@ -1517,7 +1519,9 @@ public final class ConfigOptionTests {
                 if (option.hidden()) hiddenCount++;
                 // An old file with a changed value: flip switches, halve numbers (inside every clamp).
                 Object value = option.defaultValue();
+                // The Smither delay's floor is its default 4 (clamp 4-100): doubled instead.
                 Object changed = value instanceof Boolean b ? (Object) !b
+                        : path.equals("server.machines.autoSmitherDelayTicks") ? (Object) 8
                         : value instanceof Integer n ? (Object) Math.max(1, n / 2)
                         : value instanceof Float f ? (Object) (f / 2)
                         : value instanceof String ? (Object) "minecraft:the_nether" : (Object) (((Double) value) / 2);
