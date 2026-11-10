@@ -1,0 +1,12 @@
+# Simple Livemap variant B (N14b): template, install as /etc/systemd/system/livemap-sync.timer
+[Unit]
+Description=Simple Livemap tile copy every 5 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+RandomizedDelaySec=30
+Persistent=false
+
+[Install]
+WantedBy=timers.target
