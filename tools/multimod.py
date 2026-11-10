@@ -200,8 +200,11 @@ def validate_licenses(root=ROOT):
     if not root_license.is_file() or LICENSE_ID not in root_license.read_text(encoding='utf-8'):
         raise ValueError(f'LICENSE must name {LICENSE_ID}')
     # <prefix>/src/<sourceset>/resources/... for the root, loader folders, mc* lines, modules/* and tools/templates/module/*
+    # Only tracked files: other checkouts under .claude/worktrees, build/ or run/ must not count (gate 167 tripped on one).
+    tracked = set(subprocess.check_output(['git', 'ls-files'], cwd=root, text=True).splitlines())
     metadata = sorted({p for depth in range(5) for name in ('fabric.mod.json', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml')
-                       for p in root.glob('*/' * depth + 'src/*/resources/' + name)})
+                       for p in root.glob('*/' * depth + 'src/*/resources/' + name)
+                       if p.relative_to(root).as_posix() in tracked})
     if len(metadata) < 3:
         raise ValueError('no mod metadata found for the licence check')
     for path in metadata:
