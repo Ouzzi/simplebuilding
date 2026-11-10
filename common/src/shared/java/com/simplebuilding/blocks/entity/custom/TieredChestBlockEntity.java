@@ -85,7 +85,7 @@ public class TieredChestBlockEntity extends ChestBlockEntity {
 
         @Override
         public boolean isOwnContainer(Player player) {
-            return player.containerMenu instanceof TieredChestMenu menu && menu.shows(TieredChestBlockEntity.this);
+            return TieredChestBlockEntity.this.ownsMenu(player);
         }
     };
 
@@ -97,6 +97,11 @@ public class TieredChestBlockEntity extends ChestBlockEntity {
 
     public ChestTier tier() {
         return this.tier;
+    }
+
+    /** Whether the menu {@code player} has open is this chest's own (the opener count keeps the lid up while it is). */
+    protected boolean ownsMenu(Player player) {
+        return player.containerMenu instanceof TieredChestMenu menu && menu.shows(this);
     }
 
     @Override
