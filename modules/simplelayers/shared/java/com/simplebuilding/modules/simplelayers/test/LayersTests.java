@@ -722,7 +722,7 @@ public final class LayersTests {
         }
         h.assertTrue(rifts == 9 && level.getBlockState(ground.offset(0, ShaftTemplate.PORTAL_DY, 0)).is(LayersRegistry.RIFT), "rift floor " + rifts);
         h.assertTrue(signs == 4 && lamps == 4 && tape >= 24 && ladders >= 10, "signs " + signs + ", lamps " + lamps + ", tape " + tape + ", ladders " + ladders);
-        h.assertTrue(level.getBlockState(ground.offset(0, 1, 0)).getCollisionShape(level, ground.offset(0, 1, 0)).isEmpty(), "the shaft is open");
+        h.assertTrue(level.getBlockState(ground.offset(1, 0, 1)).isAir() && level.getBlockState(ground.offset(1, -5, 1)).isAir(), "the shaft is open");
         h.assertTrue(LayersConfig.shaftRarity > 0, "shafts on by default");
         h.succeed();
     }
