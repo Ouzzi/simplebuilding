@@ -67,8 +67,28 @@ Events registriert), `registered` (Zählung), `lead_plate_soundproofing` (Gewich
 check_tooltip_text, check_missing_textures, module_guides --check, precheck --fast, layers check.
 sbt (ein Lauf): Compile Kern + simpleores, module-simpleores fabric+standalone, `fabric-263 --filter 'simplebuilding:data_integrity*'`, module-simplemoney, Wiki-Check.
 
-## 6. Textur-Runden (Bewertung)
-(wird in der Umsetzung ergänzt)
+## 6. Textur-Runden (Bewertung, A8c)
+Werkzeug: `python3.12 tools/textures/metals25_2026_11_10.py --rounds DIR` (jede Runde/Variante/Metall, Härte nach A8b); Kontaktbogen 6× nearest neben
+Vanilla iron_bars/copper_bars/copper_grate (26.3-Jar), dazu 3×3 in Spielgröße vor Himmel. Vanilla: Eisengitter 30 % hart, Kupfergitter 10 %, Kupferrost 3 %,
+Eisen-/Goldnugget 52/45 %.
+
+| Runde | Bewertung | Änderung danach |
+|---|---|---|
+| R1 | Kanten 2/6, volle Rampe: Gitter 40–60 % hart, Silber-Ranken = Kratzer, Blei-Stäbe = Bretter, Edelstahl-Rost B (Schachbrett) flimmert 45 %, Messing-Nugget = Banane, Bronze = Kakaobohne | Kanten 3/6, Rampe auf Speicherblock-Helligkeit (Spannen wie METALS14), neue Nugget-Formen |
+| R2 | Gitter 12–48 %, Roste 0–1 %; Silber-Rost A Filigran (Loch mit Blüte) eigenständig; Roste zu blass; Messing-Rost A wieder Kupfer-Kreuze; Messing-Nugget Goldkugel, Bronze Zwiebel | Roste eine Stufe dunkler, Messing-Rauten, Blei-Glanzmitte, Nugget-Formen R3 |
+| R3 | Roste gut lesbar, Messing-Rost A Rauten, Blei-Stäbe rund; Gitter mit 3/5 flach und blass (0 % hart) | Gitter zurück auf 3/6, Silber-S-Ranken, Messing-Nugget Sechskant |
+| R4 (gebaut A) | Gitter 12–48 % (Zinn A wegen der Wellen am höchsten, Eisengitter 30 %), Roste 0,5–17 %; jedes Metall eigenes Muster, 1× und 3×3 lesbar; Nuggets: Messing Sechskant-Brocken, Bronze Guss-Tropfen, Edelstahl flacher Span | – |
+
+Muster (A gebaut / B Alternative): Silber S-Ranken|Ringe, Filigran-Löcher|Vierblatt; Blei dicke runde Stäbe mit Kragen|mit Mittelband, 4 große Quadrate|Schlitze;
+Zink Zickzack-Streben|Leitersprossen, Diagonalschlitze|Waben; Nickel Nietbänder|Doppelstäbe, 1-px-Lochung|Kreuze; Zinn gebogene Stäbe|Rautengitter, Wellenschlitze|Dreiecke;
+Messing Rauten|Rautenknoten, Rautenlöcher|Rautengitter; Bronze Rundbögen|Gussringe, Bullaugen|Bogenschlitze; Edelstahl Flachschienen|Quadratnetz, Lüftungsschlitze|2-px-Netz.
+
+## 7. Abweichungen während der Umsetzung
+- `module_guides.py` lief lokal (versehentlich ohne `--check`, schreibt nur simpleores: OresGuide 1 Zeile, Lang, Modpack-Guide, manual.json); Wiki/Discover werden im sbt
+  erzeugt und als `b-metals25-gen` gepusht.
+- Wiki-Notizen der METALS14-Familie und der Bleiplatte waren falsch („neun Barren in einem Block“) → eigene Texte (gen_data `note_summaries`).
+- Vorhandene Silber-/Blei-Speicherblöcke bekommen den Metall-Klang (Familie erbt ihn); Silberspiegel/-blech klingen wie Silber.
+- Preise: Simple Ores verkauft nichts → neue Teile als `excluded` mit Begründung in simplemoney `prices.json`.
 
 ## Rückfragen (Besitzer)
 - R1: Platten auch für Zink/Nickel/Zinn/Messing/Bronze/Edelstahl anlegen? (Empfehlung: nur bei Bedarf; Klasse kann es schon)
