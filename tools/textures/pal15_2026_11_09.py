@@ -16,7 +16,10 @@ Three kinds of output, one rule:
   simpleores metals (own art): roles -> tones of metals14 (frame of METALS14 kept, the rhombus replaced by the metal's motif).
 Rounds (A8c) are parameter sets in ROUNDS, ROUND is built.
 
-    python3.12 tools/textures/pal15_2026_11_09.py --own                write the 9 own-art textures + .layers.json
+Superseded by tools/textures/pal16_2026_11_10.py (b-pal16, owner answer PAL15): the build hooks call pal16; --own here would write the PAL15
+pixels back (history only).
+
+    python3.12 tools/textures/pal15_2026_11_09.py --own                write the 9 own-art textures + .layers.json (PAL15 history)
     python3.12 tools/textures/pal15_2026_11_09.py --preview OUT.html   owner page (old/new, 1x/8x/cube, Vanilla model, rounds; PAL15)
 """
 from __future__ import annotations
