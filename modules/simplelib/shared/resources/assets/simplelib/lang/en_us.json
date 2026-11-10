@@ -123,6 +123,11 @@
   "item.simplelib.strong_upgrade_template.additions_slot_description": "Add a heart or a gem",
   "jei.simplelib.note.wither_shard": "The Vanilla Wither always drops one Strong Upgrade Shard next to its Nether Star",
   "jei.simplelib.note.wither_template": "Without a mod of its own way to the Strong Upgrade, the Vanilla Wither drops a whole Strong Upgrade next to its Nether Star",
+  "message.simplelib.portal.unframed": "The door needs its frame: a solid block left, right and above.",
+  "message.simplelib.portal.dormant": "This door is dormant - it needs to be activated first.",
+  "message.simplelib.portal.broken": "This door is broken - repair it first.",
+  "message.simplelib.portal.active": "The door is open.",
+  "message.simplelib.portal.mended": "The door works again.",
   "simplelib.guide.chapter": "SimpleLib",
   "simplelib.guide.page.1.title": "SimpleLib",
   "simplelib.guide.page.1": "What every Simple mod shares: this guide, warm food, shared materials, rarity tiers and Free Look.",
@@ -161,10 +166,5 @@
   "simplelib.guide.page.18.title": "Commands",
   "simplelib.guide.page.18": "/simplelib config shows and changes every option of config/simplelib-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once;",
   "simplelib.guide.page.19.title": "Commands",
-  "simplelib.guide.page.19": "options read only at start say so. Permission level 2. /simpleclient simplelib (list, get, set, reset, help) does the same for config/simplelib-client.json on your own client.",
-  "message.simplelib.portal.unframed": "The door needs its frame: a solid block left, right and above.",
-  "message.simplelib.portal.dormant": "This door is dormant - it needs to be activated first.",
-  "message.simplelib.portal.broken": "This door is broken - repair it first.",
-  "message.simplelib.portal.active": "The door is open.",
-  "message.simplelib.portal.mended": "The door works again."
+  "simplelib.guide.page.19": "options read only at start say so. Permission level 2. /simpleclient simplelib (list, get, set, reset, help) does the same for config/simplelib-client.json on your own client."
 }

@@ -123,6 +123,11 @@
   "item.simplelib.strong_upgrade_template.additions_slot_description": "Herz oder Juwel hinzufügen",
   "jei.simplelib.note.wither_shard": "Der Vanilla-Wither lässt neben seinem Netherstern immer einen Splitter der Starken Aufwertung fallen",
   "jei.simplelib.note.wither_template": "Ohne einen Mod mit eigenem Weg zur Starken Aufwertung lässt der Vanilla-Wither neben seinem Netherstern eine ganze Starke Aufwertungsvorlage fallen",
+  "message.simplelib.portal.unframed": "Die Tür braucht ihren Rahmen: ein fester Block links, rechts und oben.",
+  "message.simplelib.portal.dormant": "Diese Tür ruht – sie muss erst aktiviert werden.",
+  "message.simplelib.portal.broken": "Diese Tür ist kaputt – erst reparieren.",
+  "message.simplelib.portal.active": "Die Tür ist offen.",
+  "message.simplelib.portal.mended": "Die Tür funktioniert wieder.",
   "simplelib.guide.chapter": "SimpleLib",
   "simplelib.guide.page.1.title": "SimpleLib",
   "simplelib.guide.page.1": "Was alle Simple-Mods teilen: dieses Handbuch, warmes Essen, gemeinsame Materialien, Seltenheitsstufen und Freie Sicht.",
@@ -161,10 +166,5 @@
   "simplelib.guide.page.18.title": "Befehle",
   "simplelib.guide.page.18": "/simplelib config zeigt und ändert jede Option von config/simplelib-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort;",
   "simplelib.guide.page.19.title": "Befehle",
-  "simplelib.guide.page.19": "Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2. /simpleclient simplelib (list, get, set, reset, help) macht dasselbe für config/simplelib-client.json auf dem eigenen Client.",
-  "message.simplelib.portal.unframed": "Die Tür braucht ihren Rahmen: ein fester Block links, rechts und oben.",
-  "message.simplelib.portal.dormant": "Diese Tür ruht – sie muss erst aktiviert werden.",
-  "message.simplelib.portal.broken": "Diese Tür ist kaputt – erst reparieren.",
-  "message.simplelib.portal.active": "Die Tür ist offen.",
-  "message.simplelib.portal.mended": "Die Tür funktioniert wieder."
+  "simplelib.guide.page.19": "Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2. /simpleclient simplelib (list, get, set, reset, help) macht dasselbe für config/simplelib-client.json auf dem eigenen Client."
 }

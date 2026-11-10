@@ -124,32 +124,31 @@
     {
       "id": "backrooms_levels",
       "sources": [
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/BackroomsLevel.java",
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/WarehouseGen.java",
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/PipesGen.java",
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/PoolsGen.java",
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/LevelDoorBlock.java",
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/RiftBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/backrooms/stack/BandStack.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/backrooms/stack/Bands.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/backrooms/door/DoorNet.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/BackroomsDoorBlock.java",
+        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/block/MaintenanceBoxBlock.java",
+        "modules/simplelib/shared/java/com/simplelib/api/portal/PortalTransit.java",
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/BackroomsCacheFeature.java",
-        "modules/simplelayers/tools/gen_data.py",
-        "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/world/gen/Maze.java"
+        "modules/simplelayers/tools/gen_data.py"
       ],
       "en": {
-        "title": "Deeper levels",
-        "summary": "Rifts in walls (noclip spots) and Maintenance Doors lead one level deeper; the action bar names the level. Level 1, the Warehouse: a concrete hall 8 high with pillars, racks of crates (wood) and cobwebs (string), supply chests. Level 2, the Pipes: narrow warm corridors under copper ducts, two storeys joined by ladder shafts, many dead ends, chests in some of them. Holes in the floor of both drop into the Poolrooms: calm tiled rooms with shallow and deep pools.",
+        "title": "Ten levels, one below the other",
+        "summary": "The Backrooms are one dimension with ten levels stacked under each other, 96 blocks high each, a full layer of bedrock between them: Lobby, Poolrooms, Archives, Warehouse, Pipes, Power Station, Hotel, Lightless, Suburb at Night, Wheat Field. Doors in a frame (a solid block left, right and above) lead one level down or up; the symbol on a door names the level it leads to. Step into the open doorway and you stand in front of the other door, without a loading screen.",
         "details": [
-          "The deeper, the more of a labyrinth: the Lobby is quick to cross (an exit about 30 blocks away on average), the Poolrooms and the Warehouse are mazes with many loops (about 55 and 80 blocks to their goal), the Pipes are a real labyrinth with long winding corridors (about 120 blocks to the hatch, often far more) - mark your way with chalk. Every goal is still reachable from every place of its level.",
-          "Ways: Level 0 rifts in walls and the Maintenance Doors of its upper floor lead to the Warehouse; the Warehouse freight lifts (a door framed in yellow and black) and its wall rifts lead to the Pipes; floor holes in the Warehouse (drains) and the Pipes lead to the Poolrooms.",
-          "Every level keeps your x/z and has its own fog and light. The Backroom effect, the bedrock hull and the piston rule hold in every level; the Vanilla blocks the levels are built of cannot be mined there either (supplies can)."
+          "Door rules: the Lobby's doors work both ways, the Poolrooms' doors are dormant until activated once, from the Archives down every door breaks after a passage and must be repaired. The maintenance box in the frame of such a door activates or repairs it once; later each level has its own repair part.",
+          "A door without its full frame does nothing (the action bar says why). Only players go through - no items, animals or carts.",
+          "Each level has its own fog colour and only shows its own players. The levels below the Lobby are still being built (rooms of Vanilla blocks for now)."
         ]
       },
       "de": {
-        "title": "Tiefere Ebenen",
-        "summary": "Risse in Wänden (Noclip-Stellen) und Wartungstüren führen eine Ebene tiefer; die Aktionsleiste nennt die Ebene. Level 1, die Lagerhalle: eine 8 Blöcke hohe Betonhalle mit Säulen, Regalen voller Kisten (Holz) und Spinnweben (Faden), Vorratstruhen. Level 2, die Rohrgänge: enge, warme Gänge unter Kupferrohren, zwei Etagen mit Leiterschächten, viele Sackgassen, in manchen Truhen. Löcher im Boden beider Ebenen führen in die Poolrooms: ruhige gekachelte Räume mit flachen und tiefen Becken.",
+        "title": "Zehn Ebenen untereinander",
+        "summary": "Die Backrooms sind eine Dimension mit zehn Ebenen untereinander, je 96 Blöcke hoch, dazwischen eine volle Lage Grundgestein: Lobby, Poolrooms, Archive, Lagerhalle, Rohrgänge, Elektrostation, Hotel, Lichtlos, Vorstadt bei Nacht, Weizenfeld. Türen in einem Rahmen (fester Block links, rechts und oben) führen eine Ebene tiefer oder höher; das Symbol an der Tür nennt die Ebene, in die sie führt. Wer in die offene Tür tritt, steht vor der anderen Tür – ohne Ladebildschirm.",
         "details": [
-          "Je tiefer, desto labyrinthischer: die Lobby ist schnell durchquert (ein Ausgang im Schnitt etwa 30 Blöcke entfernt), Poolrooms und Lagerhalle sind Irrgärten mit vielen Schlaufen (etwa 55 und 80 Blöcke bis zum Ziel), die Rohrgänge ein echtes Labyrinth mit langen, verwinkelten Gängen (etwa 120 Blöcke bis zur Luke, oft weit mehr) – markiere deinen Weg mit Kreide. Jedes Ziel bleibt von jedem Ort seiner Ebene aus erreichbar.",
-          "Wege: Risse in Wänden von Level 0 und die Wartungstüren seines Obergeschosses führen in die Lagerhalle; die Lastenaufzüge der Lagerhalle (eine Tür im gelb-schwarzen Rahmen) und ihre Wandrisse führen in die Rohrgänge; Bodenlöcher in der Lagerhalle (Abflüsse) und den Rohrgängen führen in die Poolrooms.",
-          "Jede Ebene behält dein x/z und hat eigenen Nebel und eigenes Licht. Backroom-Effekt, Grundgestein-Hülle und Kolben-Regel gelten in jeder Ebene; auch die Vanilla-Blöcke, aus denen die Ebenen gebaut sind, lassen sich dort nicht abbauen (Vorräte schon)."
+          "Tür-Regeln: Die Türen der Lobby gehen in beide Richtungen, die der Poolrooms ruhen, bis sie einmal aktiviert werden, ab den Archiven bricht jede Tür nach einem Durchgang und muss repariert werden. Der Wartungskasten im Rahmen einer solchen Tür aktiviert oder repariert sie einmal; später hat jede Ebene ihr eigenes Ersatzteil.",
+          "Eine Tür ohne vollständigen Rahmen tut nichts (die Aktionsleiste sagt warum). Nur Spieler gehen hindurch – keine Items, Tiere oder Loren.",
+          "Jede Ebene hat ihre eigene Nebelfarbe und zeigt nur ihre eigenen Spieler. Die Ebenen unter der Lobby werden noch ausgebaut (vorerst Räume aus Vanilla-Blöcken)."
         ]
       }
     },
@@ -241,14 +240,14 @@
       ],
       "en": {
         "title": "Abandoned house",
-        "summary": "Rarely (one new Overworld chunk in 200, config backrooms.shaftRarity, 0 = none; only on flat, dry ground) an abandoned cottage stands in the landscape - cobblestone footing, plank walls, log corners, a gable roof, one broken window; spruce in cold biomes, acacia in hot dry ones. A trapdoor in the floor leads down a ladder into the cellar. One cellar wall is concreted shut: a grey plug in a yellow-and-black frame, Caution Tape across it, Caution Signs on both sides and a warning light above. Break the concrete with a pickaxe: behind it the old maintenance shaft leads down a ladder to a floor of rifts - the way into Level 0.",
+        "summary": "Rarely (one Overworld chunk in 200, config backrooms.shaftRarity, 0 = none; only on flat, dry ground) an abandoned cottage stands in the landscape - cobblestone footing, plank walls, log corners, a gable roof, one broken window; spruce in cold biomes, acacia in hot dry ones. A trapdoor in the floor leads down a ladder into the cellar. In one cellar wall a double door sits in a yellow-and-black frame, Caution Tape and Caution Signs beside it, a warning light above: open it and step through - you stand in the Lobby, in front of its entrance door, which leads back here.",
         "details": [
           "The barrels in the house and the cellar hold what was left behind: paper, chalk, candles, bread, sometimes a map, rarely almond water or a Chalk Box. The Glitched Bedrock in the bedrock floor stays the hidden second way in."
         ]
       },
       "de": {
         "title": "Verlassenes Haus",
-        "summary": "Selten (einer von 200 neuen Oberwelt-Chunks, Config backrooms.shaftRarity, 0 = keiner; nur auf flachem, trockenem Boden) steht ein verlassenes Häuschen in der Landschaft – Bruchsteinsockel, Bretterwände, Stammecken, Satteldach, ein kaputtes Fenster; in kalten Biomen aus Fichte, in heißen trockenen aus Akazie. Eine Falltür im Boden führt über eine Leiter in den Keller. Eine Kellerwand ist zubetoniert: ein grauer Pfropfen im gelb-schwarzen Rahmen, Absperrband davor, Warnschilder an beiden Seiten und eine Warnleuchte darüber. Schlag den Beton mit der Spitzhacke auf: dahinter führt der alte Wartungsschacht über eine Leiter zu einem Boden aus Rissen – der Weg in Level 0.",
+        "summary": "Selten (ein Oberwelt-Chunk von 200, Config backrooms.shaftRarity, 0 = keins; nur auf flachem, trockenem Boden) steht ein verlassenes Häuschen in der Landschaft – Bruchstein-Sockel, Bretterwände, Stamm-Ecken, Satteldach, ein kaputtes Fenster; Fichte in kalten Biomen, Akazie in heißen trockenen. Eine Falltür im Boden führt über eine Leiter in den Keller. In einer Kellerwand sitzt eine Doppeltür in gelb-schwarzem Rahmen, daneben Absperrband und Warnschilder, darüber ein Warnlicht: öffnen und hindurchgehen – man steht in der Lobby vor ihrer Eingangstür, die wieder hierher führt.",
         "details": [
           "Die Fässer in Haus und Keller enthalten, was zurückblieb: Papier, Kreide, Kerzen, Brot, manchmal eine Karte, selten Mandelwasser oder eine Kreidebox. Das fehlerhafte Grundgestein im Grundgesteinboden bleibt der versteckte Zweitweg."
         ]
@@ -1102,20 +1101,65 @@
         {
           "id": "minecraft:bookshelf",
           "required": true
-        }
-      ],
-      "source": "modules/simplelayers/shared/resources/data/simplelayers/tags/block/backrooms_structure.json"
-    },
-    {
-      "id": "simplelayers:worldgen/biome/has_structure/backrooms_room",
-      "replace": false,
-      "values": [
+        },
         {
-          "id": "simplelayers:backrooms",
+          "id": "minecraft:spruce_planks",
+          "required": true
+        },
+        {
+          "id": "minecraft:stripped_spruce_wood",
+          "required": true
+        },
+        {
+          "id": "minecraft:ochre_froglight",
+          "required": true
+        },
+        {
+          "id": "minecraft:red_wool",
+          "required": true
+        },
+        {
+          "id": "minecraft:red_terracotta",
+          "required": true
+        },
+        {
+          "id": "minecraft:dark_oak_planks",
+          "required": true
+        },
+        {
+          "id": "minecraft:blackstone",
+          "required": true
+        },
+        {
+          "id": "minecraft:stone",
+          "required": true
+        },
+        {
+          "id": "minecraft:bricks",
+          "required": true
+        },
+        {
+          "id": "minecraft:deepslate_tiles",
+          "required": true
+        },
+        {
+          "id": "minecraft:pearlescent_froglight",
+          "required": true
+        },
+        {
+          "id": "minecraft:hay_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:dirt",
+          "required": true
+        },
+        {
+          "id": "minecraft:shroomlight",
           "required": true
         }
       ],
-      "source": "modules/simplelayers/shared/resources/data/simplelayers/tags/worldgen/biome/has_structure/backrooms_room.json"
+      "source": "modules/simplelayers/shared/resources/data/simplelayers/tags/block/backrooms_structure.json"
     }
   ],
   "advancements": [
@@ -1335,6 +1379,16 @@
     }
   ],
   "blocks": [
+    {
+      "id": "simplelayers:backrooms_door",
+      "name": {
+        "en_us": "Backrooms Door",
+        "de_de": "Backrooms-Tür"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
     {
       "id": "simplelayers:caution_sign",
       "name": {
@@ -1582,6 +1636,16 @@
       "usedIn": []
     },
     {
+      "id": "simplelayers:maintenance_box",
+      "name": {
+        "en_us": "Maintenance Box",
+        "de_de": "Wartungskasten"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplelayers:mist_block",
       "name": {
         "en_us": "Mist Block",
@@ -1724,23 +1788,25 @@
     "sources": []
   },
   "undocumented": [
-    "simplelayers:chalk_mark"
+    "simplelayers:backrooms_door",
+    "simplelayers:chalk_mark",
+    "simplelayers:maintenance_box"
   ],
   "incompleteProse": {},
   "counts": {
     "features": 12,
     "recipes": 5,
     "lootTables": 20,
-    "tags": 2,
+    "tags": 1,
     "advancements": 1,
     "enchantments": 0,
     "items": 8,
-    "blocks": 18,
+    "blocks": 20,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 3,
     "inWorld": 0,
     "incompleteProse": 0
   }
