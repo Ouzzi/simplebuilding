@@ -202,6 +202,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void crackedIceGlueFreezesState(GameTestHelper h) {
+        BlocksTests.ALL.get("cracked_ice_glue_freezes_state").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void crackedIceGlueSilkKeepsState(GameTestHelper h) {
+        BlocksTests.ALL.get("cracked_ice_glue_silk_keeps_state").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void movedBlocksRegistered(GameTestHelper h) {
         BlocksTests.ALL.get("moved_blocks_registered").accept(h);
     }
