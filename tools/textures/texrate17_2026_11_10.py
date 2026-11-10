@@ -51,6 +51,8 @@ EXCLUDE = [
     ('Teilebene', 'wird zur Laufzeit/im Generator zusammengesetzt bzw. Partikel; 2-3 Farben gewollt',
      ('arrow/shaft_', 'arrow/fletching_', 'sandwich/layer_', 'custom_disc_label', 'custom_disc_composed_label', 'confetti')),
     ('andere Abnahme', 'liegt in einer anderen offenen Abnahme (BACK18) - nicht vermischen', ('caution_', 'level_door')),
+    ('Backrooms BACK22d', 'b-tex22d (10.11.): eigene Silhouetten je Textur (Besitzer: unique), Generator layers22d - nicht nacharbeiten',
+     ('/simplelayers/textures/block/', '/simplelayers/textures/item/', '/simplelayers/textures/mob_effect/')),
     ('Fossil-Stufen', 'zehn Pinsel-Stufen eines Blocks: nur Stufe 0-2 gewinnen, die Knochenkante ist Motiv; einzelne Stufen '
                       'zu aendern liesse das Sediment beim Pinseln springen', ('fossil_',)),
     ('nur messbar', 'Gewinn nur messtechnisch (ein Ton auf wenigen Pixeln, Aenderung <= 1,3 Helligkeit); der eigene '

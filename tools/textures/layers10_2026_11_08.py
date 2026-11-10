@@ -11,6 +11,9 @@ bedrock, rift) are vertical strips with an .mcmeta.
 
     python3 tools/textures/layers10_2026_11_08.py                 write the textures
     python3 tools/textures/layers10_2026_11_08.py --preview OUT   page with every texture (8x, hard share)
+    python3 tools/textures/layers10_2026_11_08.py --check         checked-in PNGs == fresh draw?
+b-tex22d (BACK22d, 10.11.): the Backrooms textures now come from layers22d_2026_11_10.py (TEX22D = True); the functions
+below stay for the clouds and as the history of rounds LAYERS10-BACK20.
 """
 from __future__ import annotations
 
@@ -722,12 +725,45 @@ def build(variants=None):
         tex, m = fn()
         out[name] = tex
         meta[name] = m
+    if TEX22D:  # b-tex22d (BACK22d, 10.11.): every Backrooms texture redrawn with its own silhouette (owner: "unique machen")
+        import layers22d_2026_11_10 as t22
+        new, anim = t22.EXISTING()
+        out.update(new)
+        for name, (tex, m) in anim.items():
+            out[name] = tex
+            meta[name] = m
     return out, meta
+
+
+TEX22D = True
+
+
+# Since CLOUDS17/CLOUDS20 the cloud textures come from modules/simplelayers/tools/gen_clouds17_alpha.py (translucent);
+# writing them here would put the old opaque drafts back (b-tex22d found it), so write/check leave them alone.
+OWNED_ELSEWHERE = ('block/cloud_block', 'block/cloud_stone', 'block/mist_block')
+
+
+def check():
+    """Exit 1 when a checked-in texture differs from what the generator draws now."""
+    out, _ = build()
+    out = {k: v for k, v in out.items() if k not in OWNED_ELSEWHERE}
+    bad = []
+    for name, tex in out.items():
+        path = OUT / f'{name}.png'
+        have = np.array(Image.open(path).convert('RGBA')) if path.exists() else None
+        if have is None or have.shape != tex.a.shape or (have != tex.a).any():
+            bad.append(name)
+    for name in bad:
+        print(f'{name}: differs from the generator - run python3 tools/textures/layers10_2026_11_08.py', file=sys.stderr)
+    print(f'check: {len(out) - len(bad)}/{len(out)} textures match')
+    return 1 if bad else 0
 
 
 def write():
     out, meta = build()
     for name, tex in out.items():
+        if name in OWNED_ELSEWHERE:
+            continue
         path = OUT / f'{name}.png'
         path.parent.mkdir(parents=True, exist_ok=True)
         layers.save(tex.image(), path)
@@ -775,7 +811,10 @@ figcaption{{font-size:.85rem}} small{{display:block;opacity:.75}}
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--preview')
+    ap.add_argument('--check', action='store_true', help='compare the checked-in PNGs with a fresh draw')
     args = ap.parse_args()
+    if args.check:
+        sys.exit(check())
     if args.preview:
         preview(args.preview)
     else:
