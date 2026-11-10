@@ -555,22 +555,6 @@
    "after": "gruen",
    "after_why": ""
   },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/cloud_block.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 161, in Flaechen>=6 65.6, Hauptton 66",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/cloud_stone.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "Hauptton 55.9, groesste Flaeche 36, in Flaechen>=6 51.6",
-   "after": "gruen",
-   "after_why": ""
-  },
   "modules/simplelayers/shared/resources/assets/simplelayers/textures/block/dotted_wallpaper.png": {
    "group": "Flaechen (allgemein)",
    "method": "areas",
