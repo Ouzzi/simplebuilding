@@ -2,7 +2,7 @@
 common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModBlocks.java allow: CheckerShapes/4 CoatedKind/10 EndAlternates/4 EndPalette/15 alternates/0 blocks/0 boards/0 hammockBlockEntityBlocks/0 register/0 registerModBlocks/0 shapes/0 slabs/0 squareChain/0 stairs/0 tieredChests/0 trappedCopperChests/0 walls/0
 common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlock.java allow: canSurvive/3 codec/0 getStateForPlacement/1 onPlace/5 storedStack/1 tick/4 updateShape/8
 common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java modules/simplestorage/shared/java/com/simplestorage/chest/ChestTier.java
-common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java modules/simpleores/shared/java/com/simpleores/block/DimensionalScrapBlock.java allow: isEnderiteTool/1
+common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java modules/simpleores/shared/java/com/simpleores/block/DimensionalScrapBlock.java
 common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/EnderitePistonBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/ModPistonHeadBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/ModPistonHeadBlock.java allow: codec/0
@@ -13,7 +13,7 @@ common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java mo
 common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlock.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlockEntity.java
-common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java allow: ownsMenu/1
+common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlockEntity.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintBlockSearch.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBlockSearch.java
@@ -59,7 +59,7 @@ common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java m
 common/src/shared/java/com/simplebuilding/client/render/BackpackLayer.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackLayer.java
 common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/render/BuildingWandPreviewRenderer.java
 common/src/shared/java/com/simplebuilding/client/render/PlacedBundleRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/PlacedBundleRenderer.java
-common/src/shared/java/com/simplebuilding/client/render/QuiverLayer.java modules/simplestorage/shared/java/com/simplestorage/client/QuiverLayer.java allow: backItem/1
+common/src/shared/java/com/simplebuilding/client/render/QuiverLayer.java modules/simplestorage/shared/java/com/simplestorage/client/QuiverLayer.java
 common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TieredChestRenderer.java
 common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TieredShulkerBoxRenderer.java
 common/src/shared/java/com/simplebuilding/client/render/TrappedCopperChestRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TrappedCopperChestRenderer.java
@@ -87,7 +87,7 @@ common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java module
 common/src/shared/java/com/simplebuilding/items/custom/NetheritePistonItem.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheritePistonItem.java
 common/src/shared/java/com/simplebuilding/items/custom/OctantItem.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/OctantItem.java
 common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java
-common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: insertFromWorld/3 visualFill/1
+common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: visualFill/1
 common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorItem.java allow: publishFacts/0
 common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java modules/simpleores/shared/java/com/simpleores/item/SageOrbItem.java
 common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java allow: appendHoverText/5
@@ -212,7 +212,7 @@ common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplest
 common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/EnchantmentHelper.java allow: getDrawerLevel/1 getFastChiselingLevel/1 getMagnetRangeLevel/2 getOverrideLevel/1 hasColorPalette/2 hasConstructorsTouch/2 hasMasterBuilder/2
 common/src/shared/java/com/simplebuilding/util/Feedback.java modules/simplepads/shared/java/com/simplepads/util/Feedback.java
 common/src/shared/java/com/simplebuilding/util/FilterHopper.java modules/simplemachines/shared/java/com/simplemachines/hopper/FilterHopper.java
-common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java allow: of/1
+common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java
 common/src/shared/java/com/simplebuilding/util/ItemFilter.java modules/simplemachines/shared/java/com/simplemachines/hopper/ItemFilter.java
 common/src/shared/java/com/simplebuilding/util/LongCookContainerData.java modules/simpleovens/shared/java/com/simpleovens/LongCookContainerData.java
 common/src/shared/java/com/simplebuilding/util/ModSounds.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModSounds.java allow: register/0 registerSounds/0
