@@ -186,10 +186,14 @@ def corner_rotation(x, y, z):
 def outputs():
     files = {}
     a = lambda rel, data: files.__setitem__(os.path.join(ASSETS, *rel.split('/')), data)
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import texrate16_rework_2026_11_09 as rw  # A8d rework (texrate16/17) + b-texrate20 new drawings (purpur, quartz_accent)
     for colour, checker in COLOURS:
         tex = field(checker)
-        a(f'textures/block/chess/{colour}.png', png_bytes(tex))
-        a(f'textures/block/chess/{colour}_accent.png', png_bytes(accent(tex)))
+        p_m = os.path.join(ASSETS, 'textures', 'block', 'chess', colour + '.png')
+        p_a = os.path.join(ASSETS, 'textures', 'block', 'chess', colour + '_accent.png')
+        a(f'textures/block/chess/{colour}.png', png_bytes(rw.finish(tex, p_m)))
+        a(f'textures/block/chess/{colour}_accent.png', png_bytes(rw.finish(accent(tex), p_a)))
     # octet block
     a('models/block/chess/octet_corner.json', js({
         'parent': 'minecraft:block/block',
@@ -367,8 +371,10 @@ def main():
         if check:
             try:
                 with open(path, 'rb') as f:
-                    if f.read() != data:
-                        bad.append(path)
+                    have = f.read()
+                if have != data and not (path.endswith('.png') and  # PNGs compare by pixels (encoders differ)
+                        Image.open(io.BytesIO(have)).convert('RGBA').tobytes() == Image.open(io.BytesIO(data)).convert('RGBA').tobytes()):
+                    bad.append(path)
             except OSError:
                 bad.append(path)
         else:

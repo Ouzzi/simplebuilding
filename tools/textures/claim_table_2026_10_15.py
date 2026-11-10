@@ -95,7 +95,9 @@ def textures():
 
 
 def main():
-    tex = textures()
+    sys.path.insert(0, HERE)
+    import texrate20_2026_11_10 as t20  # b-texrate20 (N20b): the three faces are new drawings (design A there)
+    tex = {n: t20.override_img(im, os.path.join(OUT, n + '.png')) for n, im in textures().items()}
     if '--check' in sys.argv:
         bad = [n for n, im in tex.items() if not os.path.exists(os.path.join(OUT, n + '.png'))
                or Image.open(os.path.join(OUT, n + '.png')).convert('RGBA').tobytes() != im.tobytes()]
@@ -105,6 +107,8 @@ def main():
     os.makedirs(PREVIEW, exist_ok=True)
     for name, im in tex.items():
         im.save(os.path.join(OUT, name + '.png'))
+        import layers as L
+        L.write_layers_for(im, os.path.join(OUT, name + '.png'))
     sheet = Image.new('RGBA', (16 * 16 * 3 + 32, 16 * 16 + 16), (60, 60, 60, 255))
     for i, name in enumerate(('claim_table_top', 'claim_table_side', 'claim_table_bottom')):
         sheet.paste(tex[name].resize((256, 256), Image.NEAREST), (8 + i * (256 + 8), 8))

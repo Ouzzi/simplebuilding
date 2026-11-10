@@ -241,6 +241,7 @@ def main(argv):
     check = '--check' in argv
     stale = []
     for path, img in outputs().items():
+        img = L._a8d_finish(img, path)  # rework/new-drawing targets (texrate16/17/20) as L.save writes them
         same = path.exists() and Image.open(path).convert('RGBA').tobytes() == img.tobytes()
         if not same:
             stale.append(path)

@@ -17,6 +17,8 @@ import layers as L  # noqa: E402
 ASSETS = os.path.join(HERE, '..', '..', 'modules', 'simpleshops', 'shared', 'resources', 'assets', 'simpleshops', 'textures', 'block')
 CLEAR = (200, 232, 244, 24)
 IRON = [(224, 228, 234), (184, 188, 196), (136, 140, 148), (96, 100, 108)]
+# b-texrate20: the new frame (texrate20_2026_11_10.case_frame) also uses two half steps; they map to the ramp midpoints.
+IRON_MID = [(204, 208, 215), (160, 164, 172)]
 RED_RAMP = [(240, 150, 140), (214, 96, 88), (170, 52, 48), (116, 32, 32)]
 RED_GLASS = (226, 70, 60, 48)
 GLASS_ALPHA = 48
@@ -61,8 +63,16 @@ def pack(pixels):
     return b''.join(bytes(p) for p in pixels)
 
 
+def ramp_map(name):
+    r = ramp(name)
+    m = dict(zip(IRON, r))
+    for k, c in enumerate(IRON_MID):
+        m[c] = tuple((a + b + 1) // 2 for a, b in zip(r[k], r[k + 1]))
+    return m
+
+
 def textures(name):
-    m = dict(zip(IRON, ramp(name)))
+    m = ramp_map(name)
     return {
         'display_case_glass_' + name: [glass_color(name) if p == CLEAR else p for p in read('display_case_glass')],
         'display_case_frame_' + name: [m.get(p[:3], p[:3]) + (p[3],) for p in read('display_case_frame')],
