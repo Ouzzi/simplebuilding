@@ -1264,3 +1264,6 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
 
 ## b-pal20 (10.11.)
 - [x] (B, b-back20, 10.11., Beleg 9de13b41e, sbt COMPILE_RC=0, MODULE_RC=0 (74/74), DI_RC=0, TAB_RC=0, WIKICHECK/DATA/LAYERS/GUIDES_RC=0; Vorschau previews/b-back20-preview.html BACK20; abgeschlossen wegen Neukonzept N22) **N20d BACK20** Backrooms in Runden: höhenvariierte Räume, Labyrinth-Gefälle je Ebene (Pfadlängen-Test), Kreide + Kreidebox, Keller-Eingang im Haus (zubetoniert), 5 Runden Modpack-Bezüge. Plan docs/ai/PLAN-B-BACK20-2026-11-10.md.
+
+## b-metals25 (10.11.)
+- [~] (B, b-metals25, 10.11.; Plan docs/ai/PLAN-B-METALS25-2026-11-10.md) **N25 Simple Ores Metalle** (Besitzer 10.11. ~15:20): Nuggets Messing/Edelstahl/Bronze, Blei-/Silberplatten stapelbar 1–8, eigene Sounds je Metall, Silberspiegel Boden/Decke, Gitter + Rost je Metall (8) mit eigenem Muster. Läuft.
