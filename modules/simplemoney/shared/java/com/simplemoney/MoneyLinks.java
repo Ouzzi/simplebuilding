@@ -22,15 +22,26 @@ public final class MoneyLinks {
     static {
         try (var stream = Objects.requireNonNull(MoneyLinks.class.getResourceAsStream("/data/simplemoney/money/prices.json"));
              var reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
-            var prices = new LinkedHashMap<String, Price>();
-            for (Price price : new Gson().fromJson(reader, Table.class).prices()) {
-                if (price.tier() < 0 || price.tier() > 5 || !Double.isFinite(price.hours()) || price.hours() < 0 || price.hours() > 45
-                        || price.craft() < 0 || price.craft() > 64 || price.safetyFloor() < 8 || price.safetyFloor() > MAX_PRICE
-                        || price.stock() < 1 || price.stock() > MAX_STOCK || prices.put(price.item(), price) != null)
-                    throw new IllegalArgumentException("Invalid linked price: " + price.item());
-            }
-            PRICES = Collections.unmodifiableMap(prices);
+            PRICES = load(reader);
         } catch (Exception e) { throw new IllegalStateException("Cannot load linked prices", e); }
+    }
+    /**
+     * Reads a price table. Gate 168 (b-fix168): a row without a valid item id (empty row, broken id) is skipped with a
+     * warning instead of leaving a null price behind; bounds violations still fail loudly.
+     */
+    public static Map<String, Price> load(java.io.Reader reader) {
+        var prices = new LinkedHashMap<String, Price>();
+        for (Price price : new Gson().fromJson(reader, Table.class).prices()) {
+            if (price == null || price.item() == null || Identifier.tryParse(price.item()) == null) {
+                com.mojang.logging.LogUtils.getLogger().warn("[simplemoney] skipping linked price without a valid item id: {}", price);
+                continue;
+            }
+            if (price.tier() < 0 || price.tier() > 5 || !Double.isFinite(price.hours()) || price.hours() < 0 || price.hours() > 45
+                    || price.craft() < 0 || price.craft() > 64 || price.safetyFloor() < 8 || price.safetyFloor() > MAX_PRICE
+                    || price.stock() < 1 || price.stock() > MAX_STOCK || prices.put(price.item(), price) != null)
+                throw new IllegalArgumentException("Invalid linked price: " + price.item());
+        }
+        return Collections.unmodifiableMap(prices);
     }
     public static int buy(Price price) {
         var c = SimpleMoney.config.links;

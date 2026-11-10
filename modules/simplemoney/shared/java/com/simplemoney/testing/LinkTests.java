@@ -138,10 +138,21 @@ public final class LinkTests {
         h.succeed();
     }
     public static void menu(GameTestHelper h) {
-        if (MoneyTests.partnerMissing(h, "simplebuilding", "linked trade menu with a SimpleBuilding item")) return;
+        // Gate 168 (b-fix168): rows without an item id are skipped, not loaded as null; every row of a loaded mod names a registered item.
+        var parsed = MoneyLinks.load(new java.io.StringReader("{\"prices\":[null,{\"tier\":1},{\"item\":\"Bad Id\",\"tier\":1},"
+                + "{\"item\":\"minecraft:stick\",\"tier\":1,\"hours\":1,\"craft\":1,\"safetyFloor\":8,\"merchant\":\"toolsmith\",\"level\":1,\"stock\":1,\"chance\":1}]}"));
+        h.assertTrue(parsed.size() == 1 && parsed.containsKey("minecraft:stick"), "broken price rows skipped: " + parsed.keySet());
+        for (var row : MoneyLinks.PRICES.values()) {
+            String mod = Identifier.parse(row.item()).getNamespace();
+            if (MoneyTests.isModLoaded(mod))
+                h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse(row.item())), "priced item registered: " + row.item());
+        }
+        // Gate 168 (b-fix168): the Detector moved to Simple Gadgets (N12); its price row followed, the test still read the old id.
+        if (MoneyTests.partnerMissing(h, "simplegadgets", "linked trade menu with a Simple Gadgets item")) return;
         var player = h.makeMockServerPlayerInLevel(); player.setUUID(UUID.randomUUID());
         var merchant = EntityTypes.VILLAGER.create(h.getLevel(),EntitySpawnReason.COMMAND); merchant.setTradingPlayer(player);
-        var price = MoneyLinks.PRICES.get("simplebuilding:detector");
+        var price = MoneyLinks.PRICES.get("simplegadgets:detector");
+        h.assertTrue(price != null, "price row simplegadgets:detector");
         var item = BuiltInRegistries.ITEM.getValue(Identifier.parse(price.item()));
         var offer = new MerchantOffer(new ItemCost(MoneyItems.ITEMS.get("money_bill"),MoneyLinks.buy(price)),new ItemStack(item),4,0,0);
         var offers = new MerchantOffers(); offers.add(offer); merchant.setOffers(offers);

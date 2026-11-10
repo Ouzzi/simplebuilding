@@ -331,6 +331,12 @@ LIB_EXTRAS = [{'ns': 'simplelib', 'base': 'polished_end_stone', 'key': 'polished
 # Simple Ores is loaded (OctetRegistry#materialCell). The lead octet mutes like a whole block of lead (simpleores:soundproofing).
 ORES_EXTRAS = [{'ns': 'simpleores', 'base': 'lead_block', 'key': 'lead_block', 'group': 'metal', 'tex': {'all': 'simpleores:block/lead_block'},
                 'en': 'Block of Lead', 'de': 'Bleiblock'}]
+# b-fix168 (Gate 168, octet rule O1): the cut metal blocks of b-metals14 have stairs and slabs, so they get octets too (texture =
+# the cut block's own; same load condition as the lead block).
+ORES_EXTRAS += [{'ns': 'simpleores', 'base': f'cut_{m}', 'key': f'cut_{m}', 'group': 'metal', 'tex': {'all': f'simpleores:block/cut_{m}'},
+                 'en': f'Cut {en}', 'de': f'Geschnittener {de}block'}
+                for m, en, de in (('silver', 'Silver', 'Silber'), ('lead', 'Lead', 'Blei'), ('zinc', 'Zinc', 'Zink'),
+                                  ('nickel', 'Nickel', 'Nickel'), ('tin', 'Tin', 'Zinn'), ('brass', 'Brass', 'Messing'))]
 
 
 # Palette stage 2 (a-palette05, IG31-42): the octets of the families that got stairs and slabs - the seven mossy bricks of Simple

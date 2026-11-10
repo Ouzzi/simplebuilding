@@ -126,7 +126,12 @@ public final class OctetRegistry {
             }
             if ("simpleores".equals(material.namespace())) {
                 // Block of lead (owner ORES31-BEXTRA): iron-like cell as sturdy as the lead block; it muffles sound like a whole block (simpleores:soundproofing).
-                return block(name, Blocks.IRON_BLOCK, s -> new MaterialOctetBlock(source, piece(name), properties(s.strength(25.0F, 1000.0F), Blocks.IRON_BLOCK)));
+                if (material.base().contains("lead")) {
+                    return block(name, Blocks.IRON_BLOCK, s -> new MaterialOctetBlock(source, piece(name), properties(s.strength(25.0F, 1000.0F), Blocks.IRON_BLOCK)));
+                }
+                // Cut metal blocks (b-metals14, octet rule): as hard as their block - silver copies gold, the others iron.
+                Block metal = material.base().contains("silver") ? Blocks.GOLD_BLOCK : Blocks.IRON_BLOCK;
+                return block(name, metal, s -> new MaterialOctetBlock(source, piece(name), properties(s, metal)));
             }
             Block template = TEMPLATES.get(material.base());
             if (template != null) {
