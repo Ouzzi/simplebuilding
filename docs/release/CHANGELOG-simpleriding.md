@@ -37,7 +37,7 @@ Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and tra
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config
+- Required mods: none (Cloth Config optional: config screen only)
 - Optional integrations: simplebuilding, modmenu, simpleores
 
 ## Notes

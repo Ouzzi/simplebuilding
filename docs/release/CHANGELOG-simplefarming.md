@@ -15,7 +15,7 @@ Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and repl
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config
+- Required mods: none (Cloth Config optional: config screen only)
 - Optional integrations: simplebuilding, simplequalityoflife, modmenu
 
 ## Notes

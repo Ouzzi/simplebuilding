@@ -19,7 +19,7 @@ Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on pow
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config
+- Required mods: none (Cloth Config optional: config screen only)
 - Optional integrations: simplequalityoflife, modmenu
 
 ## Notes
