@@ -22,3 +22,9 @@ Quelle: /root/sb-tools-b/prio27.md #7, docs/ai/RELEASE-ABNAHME-A-2026-11-09.md Z
 ## Test
 Ein sb-test-Lauf (nur bei leerem sb-test, Regel 16 + Auftrag): Probe + `module-simplemaps-client-263` (Smoke-Bilder context-menu/pick-slot neu) nacheinander.
 Ergebnis + Bilder: /root/sb-tools-b/previews/b-mapsmenu27-preview.html.
+
+## Teststand (11.11. 14:07 UTC)
+- Ursache gefunden (Code + altes Bild rel10/pipe/112): Smoke klickte mit rohen Zahlen 1/0 = 26.3-SDL links/keine Taste → kein Menü. Mod-Code korrekt
+  (`MOUSE_BUTTON_RIGHT`), Smoke auf Konstanten umgestellt (ebenso die beiden „structures-off“-Klicks, die bisher ins Leere gingen).
+- Probe-/Client-Lauf **nicht gefahren**: sb-test 11:07–14:07 UTC durchgehend belegt (Gate 6e6faa936, A-Jobs, bprep b-bundle182), 3-h-Grenze erreicht.
+- Nachholen bei leerem sb-test: `/root/sb-tools-b/mapsmenu27/run.sh` (Probe + `module-simplemaps-client-263`, Ergebnis /var/tmp/sb/mapsmenu27 auf sb-test).
