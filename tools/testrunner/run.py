@@ -446,8 +446,15 @@ SERVER_SOLO_TARGETS = tuple(Target(
     id=f"server-solo-{m['id']}-fabric-263", label=f"{m['displayName']} Server solo + Vanilla",
     loader="fabric", mc_line="26.3", gradle_task=f"{m['projects']['fabric']}:jar", report="", catalogue="",
     kind="dedicated", namespace="server-solo") for m in server_solo.solo_modules())
+# N27b (b-opte4): headless Simple Optimization measurement, tools/bench/headless_bench.py - the server gametest
+# simpleoptimization bench_headless in fresh JVMs with every area off / default / all on (MSPT, heap, O4, O1 counts).
+# Opt in, never part of a plain run (several Gradle starts, about 10-15 min).
+BENCH_TARGETS = (Target(
+    id="bench-opt-headless-263", label="Simple Optimization headless: aus/Standard/alle (MSPT, Heap, O4, O1)",
+    loader="fabric", mc_line="26.3", gradle_task=":integration:runSimpleoptimizationStandaloneGameTest", report="",
+    catalogue="", kind="bench", namespace="bench"),)
 ALL_TARGETS: tuple[Target, ...] = (TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS + MODULE_TARGETS + FORGE263_TARGETS
-                                   + SERVER_SOLO_TARGETS)
+                                   + SERVER_SOLO_TARGETS + BENCH_TARGETS)
 
 BY_ID = {t.id: t for t in ALL_TARGETS}
 
@@ -975,6 +982,36 @@ def run_solo_target(target: Target, run_id: str, build: tuple[int, str] | None) 
     }
 
 
+def run_bench_target(target: Target, run_id: str, timeout: int) -> dict:
+    """Headless bench (tools/bench/headless_bench.py): each scenario run is one test; passed = measured line found."""
+    started_at = now_utc()
+    sys.path.insert(0, str(REPO / "tools" / "bench"))
+    import headless_bench
+    out_dir = REPO / "bench-results" / f"{run_id}-headless"
+    error = None
+    try:
+        res = headless_bench.run(int(os.environ.get("SB_BENCH_RUNS", "2")), list(headless_bench.SCENARIOS), out_dir,
+                                 timeout)
+    except (OSError, ValueError, KeyError) as exc:
+        res, error = {"runs": []}, f"{type(exc).__name__}: {exc}"
+    tests = [{"id": f"bench:{r['scenario']}_{r['rep']}", "status": "failed" if "error" in r else "passed",
+              "message": (r.get("error", "") or "")[-300:] or json.dumps({k: r.get(k) for k in ("mspt_avg", "heap_mb")}),
+              "durationMs": int(r.get("wall_s", 0) * 1000)} for r in res["runs"]]
+    failed = sum(1 for t in tests if t["status"] == "failed")
+    if error is None and failed:
+        error = f"{failed} Messlauf/-läufe ohne Ergebnis (Logs {out_dir.relative_to(REPO)}/logs)"
+    md = out_dir / "results.md"
+    return {
+        "id": target.id, "label": target.label, "loader": target.loader, "mcLine": target.mc_line,
+        "gradleTask": target.gradle_task, "kind": "bench", "selected": True,
+        "exitCode": 0 if error is None else 1,
+        "durationMs": int((now_utc() - started_at).total_seconds() * 1000),
+        "logPath": str(md.relative_to(REPO)) if md.exists() else None,
+        "counts": {"total": len(tests), "passed": len(tests) - failed, "failed": failed, "known": 0, "foreign": 0},
+        "missing": [], "unexpected": [], "faults": [], "tests": tests, "error": error, "warning": None,
+    }
+
+
 def new_run_id(started: datetime) -> str:
     return started.strftime("%Y-%m-%dT%H-%M-%SZ") + "-" + uuid.uuid4().hex[:4]
 
@@ -1174,6 +1211,8 @@ def execute(
             target_records.append(run_target(target, run_id, test_filter, timeout, on_line, shared))
         elif target.kind == "dedicated":
             target_records.append(run_solo_target(target, run_id, solo_build))
+        elif target.kind == "bench":
+            target_records.append(run_bench_target(target, run_id, timeout))
         elif target.kind == "client":
             # A test selector means nothing here: the client tests are whole scenes, not a
             # catalogue of ids that can be picked from.
@@ -1711,7 +1750,7 @@ def select_targets(spec: str) -> list[Target]:
     if spec.strip() == "server-solo":
         return list(SERVER_SOLO_TARGETS)
     if spec.strip() == "everything-plus-snapshot":
-        return [t for t in ALL_TARGETS if t.kind != "dedicated"]
+        return [t for t in ALL_TARGETS if t.kind not in ("dedicated", "bench")]
     chosen: list[Target] = []
     for part in spec.split(","):
         key = part.strip()
