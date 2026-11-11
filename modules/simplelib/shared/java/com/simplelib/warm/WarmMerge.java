@@ -41,6 +41,18 @@ public final class WarmMerge {
         return true;
     }
 
+    /**
+     * REV2-A-12: {@code ItemStack.matches} (exact equality: the menu sync's {@code RemoteSlot}, slot listeners) must still see a pure
+     * warmth change, only stacking ignores it. True when both stacks carry the same warm component; a pair remembered by the
+     * comparison inside {@code matches} is dropped then (no grow follows an equality check).
+     */
+    public static boolean sameWarmth(ItemStack a, ItemStack b) {
+        if (java.util.Objects.equals(a.get(LibComponents.WARM), b.get(LibComponents.WARM))) return true;
+        ItemStack[] pair = PENDING.get();
+        if (pair != null && (pair[0] == a || pair[0] == b) && (pair[1] == a || pair[1] == b)) PENDING.remove();
+        return false;
+    }
+
     /** Called before {@code target.grow(amount)}: blends the warmth with the stack it was compared to. */
     public static void beforeGrow(ItemStack target, int amount) {
         ItemStack[] pair = PENDING.get();

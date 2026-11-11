@@ -61,7 +61,7 @@ final class KeyboardStore {
             root.add("layouts", layouts);
             Path f = file();
             Files.createDirectories(f.getParent());
-            Files.writeString(f, GSON.toJson(root));
+            com.simplebuilding.framework.api.ConfigFiles.writeAtomic(f, GSON.toJson(root));
         } catch (Exception e) {
             org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn("keyboard layouts not saved: {}", e.toString());
         }

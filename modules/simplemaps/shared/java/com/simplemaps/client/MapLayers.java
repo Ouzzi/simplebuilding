@@ -70,7 +70,7 @@ public final class MapLayers {
         json.add("layers", array);
         try {
             Files.createDirectories(file().getParent());
-            Files.writeString(file(), new GsonBuilder().setPrettyPrinting().create().toJson(json));
+            com.simplebuilding.framework.api.ConfigFiles.writeAtomic(file(), new GsonBuilder().setPrettyPrinting().create().toJson(json));
         } catch (Exception e) {
             SimpleMaps.LOG.warn("Cannot save map settings: {}", e.toString());
         }

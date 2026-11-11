@@ -135,7 +135,7 @@ public final class DevVariants {
             new ArrayList<>(CHOICES.entrySet()).forEach(e -> choices.addProperty(e.getKey(), e.getValue()));
             json.add("choices", choices);
             Files.createDirectories(dir);
-            Files.writeString(dir.resolve(FILE), new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(json));
+            com.simplebuilding.framework.api.ConfigFiles.writeAtomic(dir.resolve(FILE), new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(json));
         } catch (Exception e) {
             com.simplelib.SimpleLib.LOG.warn("Cannot save the dev variants: {}", e.toString());
         }

@@ -35,6 +35,8 @@ public final class LibTests {
         ALL.put("warm_bundle_insulates", LibTests::warmBundleInsulates);
         ALL.put("hoppers_fill_raised_slots", LibTests::hoppersFillRaisedSlots);
         ALL.put("player_state_leave_stop", LibTests::playerStateLeaveStop);
+        ALL.put("client_state_disconnect", LibTests::clientStateDisconnect);
+        ALL.put("warm_change_reaches_menu_sync", LibTests::warmChangeReachesMenuSync);
         ALL.put("inventory_brightness_tones_palettes", LibTests::inventoryBrightness);
         ALL.put("ui_text_contrast", LibTests::uiTextContrast);
         ALL.put("shift_tooltip_collapse", LibTests::shiftTooltipCollapse);
@@ -417,6 +419,49 @@ public final class LibTests {
             com.simplelib.api.PlayerState.onStop("test:boom", () -> { });
             com.simplelib.api.PlayerState.onStop("test:stop", () -> { });
         }
+        h.succeed();
+    }
+
+    /** REV2-B-11: ClientState runs every disconnect listener once; a throwing one does not stop the others; a replaced id runs once. */
+    private static void clientStateDisconnect(GameTestHelper h) {
+        int[] ran = {0, 0};
+        com.simplelib.api.ClientState.onDisconnect("test:boom", () -> { throw new IllegalStateException("expected by the test"); });
+        com.simplelib.api.ClientState.onDisconnect("test:cache", () -> ran[0]++);
+        com.simplelib.api.ClientState.onDisconnect("test:cache", () -> ran[1]++);
+        try {
+            com.simplelib.api.ClientState.disconnected();
+            check(h, ran[0] == 0 && ran[1] == 1, "replaced listener ran once, the old one not: " + ran[0] + "/" + ran[1]);
+        } finally {
+            com.simplelib.api.ClientState.remove("test:boom");
+            com.simplelib.api.ClientState.remove("test:cache");
+        }
+        h.succeed();
+    }
+
+    /**
+     * REV2-A-12: stacking ignores warmth, but exact equality does not - the menu sync ({@code RemoteSlot}) compares with
+     * {@code ItemStack.matches}, so a pure warmth change in an open menu reaches the client; equal warmth still matches.
+     */
+    private static void warmChangeReachesMenuSync(GameTestHelper h) {
+        long now = h.getLevel().getGameTime();
+        com.simplelib.warm.WarmMerge.tick(now);
+        ItemStack cold = new ItemStack(Items.COOKED_BEEF, 2);
+        ItemStack warm = cold.copy();
+        warm.set(LibComponents.WARM, new Warm(now + 1000));
+        check(h, ItemStack.isSameItemSameComponents(warm, cold), "warm and cold still stack");
+        check(h, !ItemStack.matches(warm, cold), "exact equality sees the warmth");
+        ItemStack twin = warm.copy();
+        check(h, ItemStack.matches(warm, twin), "same warmth matches");
+        var remote = new net.minecraft.world.inventory.RemoteSlot.Synchronized(null);
+        remote.force(cold);
+        check(h, !remote.matches(warm), "menu sync sends the warmed stack");
+        remote.force(warm);
+        check(h, remote.matches(twin), "menu sync stays quiet for an unchanged stack");
+        // the comparison inside matches must not leave a pair that blends on a later grow
+        ItemStack target = cold.copy();
+        ItemStack.matches(target, warm);
+        target.grow(1);
+        check(h, Warm.remaining(target, now) == 0, "no warmth blended by a mere equality check: " + Warm.remaining(target, now));
         h.succeed();
     }
 
