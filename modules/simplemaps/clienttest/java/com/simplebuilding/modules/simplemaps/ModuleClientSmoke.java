@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simplemaps;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.simplemaps.MapsComponents;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.Waypoint;
@@ -62,13 +63,14 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(10);
             context.runOnClient(c -> {
                 WayfinderScreen s = (WayfinderScreen) c.gui.screen();
-                s.mouseClicked(new MouseButtonEvent(s.mapCenterX() + 20, s.mapCenterY() + 10, new MouseButtonInfo(1, 0)), false);
+                s.mouseClicked(new MouseButtonEvent(s.mapCenterX() + 20, s.mapCenterY() + 10, new MouseButtonInfo(InputConstants.MOUSE_BUTTON_RIGHT, 0)), false);
             });
             context.waitTicks(2);
+            // 26.3 counts mouse buttons like SDL (left 1, right 3): never raw numbers, the old 1/0 meant left/none and showed no menu.
             context.takeScreenshot("simplemaps-context-menu");
             context.runOnClient(c -> {
                 WayfinderScreen s = (WayfinderScreen) c.gui.screen();
-                s.mouseClicked(new MouseButtonEvent(s.mapCenterX() + 26, s.mapCenterY() + 16, new MouseButtonInfo(0, 0)), false);
+                s.mouseClicked(new MouseButtonEvent(s.mapCenterX() + 26, s.mapCenterY() + 16, new MouseButtonInfo(InputConstants.MOUSE_BUTTON_LEFT, 0)), false);
             });
             context.waitTicks(2);
             context.takeScreenshot("simplemaps-pick-slot");
@@ -83,13 +85,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             screen(context, "simplemaps-structures", true, true, false, 0);
             context.runOnClient(c -> {
                 WayfinderScreen s = (WayfinderScreen) c.gui.screen();
-                s.mouseClicked(new MouseButtonEvent(s.leftTabCenterX(), s.leftTabCenterY(4), new MouseButtonInfo(0, 0)), false);
+                s.mouseClicked(new MouseButtonEvent(s.leftTabCenterX(), s.leftTabCenterY(4), new MouseButtonInfo(InputConstants.MOUSE_BUTTON_LEFT, 0)), false);
             });
             context.waitTicks(3);
             context.takeScreenshot("simplemaps-structures-off");
             context.runOnClient(c -> {
                 WayfinderScreen s = (WayfinderScreen) c.gui.screen();
-                s.mouseClicked(new MouseButtonEvent(s.leftTabCenterX(), s.leftTabCenterY(4), new MouseButtonInfo(0, 0)), false);
+                s.mouseClicked(new MouseButtonEvent(s.leftTabCenterX(), s.leftTabCenterY(4), new MouseButtonInfo(InputConstants.MOUSE_BUTTON_LEFT, 0)), false);
             });
             screen(context, "simplemaps-contour", true, false, true, 0);
             screen(context, "simplemaps-zoom", false, true, false, 3);
