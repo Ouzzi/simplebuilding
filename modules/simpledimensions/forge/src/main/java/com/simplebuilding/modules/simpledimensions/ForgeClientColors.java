@@ -17,7 +17,7 @@ import java.util.List;
  * Client-only: tints the nether-style portal texture with the per-portal hue
  * stored in each {@link SkyPortalBlockEntity}, using the data-driven tint system.
  */
-@Mod.EventBusSubscriber(modid = "simpledimension", value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = "simpledimensions", value = Dist.CLIENT)
 public final class ForgeClientColors {
 
     private static final int DEFAULT_COLOR = 0xFF66D9FF;

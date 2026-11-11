@@ -37,7 +37,8 @@ public final class SkyPortalBlockEntity extends BlockEntity {
     }
 
     private static String validDestination(String value) {
-        var id = value == null ? null : net.minecraft.resources.Identifier.tryParse(value);
+        // WD25-14: portals saved under the old mod id point at simpledimensions:<id> now.
+        var id = value == null ? null : net.minecraft.resources.Identifier.tryParse(LegacyIds.migrate(value));
         return id == null ? DEFAULT_DESTINATION : id.toString();
     }
     public int getColor() {
@@ -66,7 +67,7 @@ public final class SkyPortalBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
-        definition=input.getStringOr("Definition","");linkDimension=input.getStringOr("LinkDimension","");
+        definition=input.getStringOr("Definition","");linkDimension=LegacyIds.migrate(input.getStringOr("LinkDimension",""));
         anchor=BlockPos.of(input.getLongOr("Anchor",0));link=BlockPos.of(input.getLongOr("Link",0));
         generated=input.getBooleanOr("Generated",false);linked=input.getBooleanOr("Linked",false)&&net.minecraft.resources.Identifier.tryParse(linkDimension)!=null;
         color = input.getIntOr("Color", DEFAULT_COLOR) & 0xFFFFFF;

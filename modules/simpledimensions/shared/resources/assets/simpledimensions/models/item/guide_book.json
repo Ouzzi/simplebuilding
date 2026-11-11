@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "simpledimension:item/guide_book"
+    "layer0": "simpledimensions:item/guide_book"
   }
 }

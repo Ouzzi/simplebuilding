@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpledimensions.guide.chapter",
+  "icon": "minecraft:flint_and_steel",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpledimensions:guide",
+      "title": "simpledimensions.guide.chapter",
+      "icon": "minecraft:flint_and_steel",
+      "page_key": "simpledimensions.guide.page",
+      "pages": 37,
+      "advancement": "simpledimensions:guide/chapter",
+      "hint": "minecraft:flint_and_steel"
+    }
+  ]
+}

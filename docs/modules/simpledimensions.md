@@ -2,12 +2,12 @@
 
 Status: Entwurf abgenommen; Implementierung und Pr?fkatalog f?r Fabric/NeoForge 26.3 vorhanden.
 Aktuelle Pr?fergebnisse und Grenzen stehen am Ende dieses Dokuments. Modul-ID: simpledimensions; persistenter
-Registry-/Loader-Namensraum: simpledimension. Fabric und NeoForge zuerst.
+Registry-/Loader-Namensraum: simpledimensions. Fabric und NeoForge zuerst.
 
 ## Quellen und Entscheidung
 
 Primär: simpledimentions_05-2026, Minecraft 26.1.2, Pakete dev.simpledimension.
-Sekundär: simpledimensions, Pakete de.simpledimension, einschließlich der vollständig
+Sekundär: simpledimensions, Pakete de.simpledimensions, einschließlich der vollständig
 gelesenen Datei instructions+ (eine Datei, kein Ordner). Beide Quellen bleiben read-only.
 Der neuere Stand hat echte Loader-Registrierung, konfigurierbare Portalrezepte,
 Blockentitäten und drei Dimensionen; der ältere Stand enthält überwiegend reflektive
@@ -23,9 +23,9 @@ Skyblock-Standard: sechs Besitzerbögen und separates Licht. Bestehende Definiti
 
 | ID | Thema / Stimmung | Zugang | Regeln und Belohnung | Weltlogik |
 |---|---|---|---|---|
-| simpledimension:skyblock | Stille, hellblaue Leere; eigener Bauplatz | Sechs Glowstone-Bögen, Feuerzeug/Feuerkugel und echte Zusatzlichtquelle | Leere Vanilla-Void-Biome; 1:1; sichere Insel mit Rückweg; keine geschenkten Erze/Items | Licht hält einen Weg in die Leere offen; Materialien bringt der Spieler mit |
-| simpledimension:mining | Tiefer Stein, Waldoberfläche; Erkundung | DXXD / D..D / D..D / D..D / DEED; D Tiefenschieferziegel, X Diamanterz, E Smaragderz | Quellstandard 0.5 Quellblöcke je Zielblock; Oberfläche Y191, Erze/Bäume über Vanilla-Biomefeatures | Aufwand für den Zugang zu einem getrennten Rohstoffgebiet; keine Chunk-Resets |
-| simpledimension:travel | Karger violetter Durchgang | KRRK / O..O / O..O / O..O / SSSS; K Witherskelettschädel, R Harzziegel, O dunkler Eichenstamm, S Seelensand | Quelle 10:1; flache Bedrock-Ebene; keine zusätzliche Bewegungsgeschwindigkeit | Seltene Endgame-Zutaten erschließen einen komprimierten Reiseweg |
+| simpledimensions:skyblock | Stille, hellblaue Leere; eigener Bauplatz | Sechs Glowstone-Bögen, Feuerzeug/Feuerkugel und echte Zusatzlichtquelle | Leere Vanilla-Void-Biome; 1:1; sichere Insel mit Rückweg; keine geschenkten Erze/Items | Licht hält einen Weg in die Leere offen; Materialien bringt der Spieler mit |
+| simpledimensions:mining | Tiefer Stein, Waldoberfläche; Erkundung | DXXD / D..D / D..D / D..D / DEED; D Tiefenschieferziegel, X Diamanterz, E Smaragderz | Quellstandard 0.5 Quellblöcke je Zielblock; Oberfläche Y191, Erze/Bäume über Vanilla-Biomefeatures | Aufwand für den Zugang zu einem getrennten Rohstoffgebiet; keine Chunk-Resets |
+| simpledimensions:travel | Karger violetter Durchgang | KRRK / O..O / O..O / O..O / SSSS; K Witherskelettschädel, R Harzziegel, O dunkler Eichenstamm, S Seelensand | Quelle 10:1; flache Bedrock-Ebene; keine zusätzliche Bewegungsgeschwindigkeit | Seltene Endgame-Zutaten erschließen einen komprimierten Reiseweg |
 | Datapack-/Config-Dimensionen | Vom Pack definierte, zweisprachig dokumentierte Themen | Eindeutiges Rezept oder Rechteck; keine Vanilla-Portalübernahme | Begrenzte Definitionen; unbekannte Ziele deaktivieren Zugang; immer Rückweg | Weltgeneration beim Weltstart, nicht durch /reload nachträglich versprechen |
 
 Mining-Schichten ab Y-64: 1 Bedrock, 64 Tiefenschiefer, 188 Stein, 2 Erde, 1 Gras.
@@ -48,7 +48,7 @@ zwei Blöcke Überstand je Seite. Rückweg darf keine Lichtpflicht haben, die Sp
 
 ## Vollständiges Quellinventar
 
-Neu: Block und Blockentität simpledimension:sky_portal, Achse x/z; BE-Felder Color (RGB)
+Neu: Block und Blockentität simpledimensions:sky_portal, Achse x/z; BE-Felder Color (RGB)
 und Destination (String). Kein Blockitem, kein eigener Kreativtab, Entity, Enchantment,
 Befehl, Keybind, Craftingrezept, Loot-Tabelle, Tag, Advancement, Mixin oder Config-GUI.
 Portalbau ist ein Welt-Rezept und kein Craftingrezept. Oberfläche: weiße animierte
@@ -57,7 +57,7 @@ Feuerkugeln aktivieren, Spieler-Berührung reist. Quelle schreibt deutsche Chatm
 diese werden durch Sounds/Partikel ersetzt. NeoForge lädt generierte Packs über
 FolderRepositorySource; Fabric verlangt manuelles Kopieren. Gleichwertige automatische
 Pack-Anbindung beider Loader ist ein Portziel. README nennt vier Beispiele, vorhanden sind drei.
-Alt: simpledimension:light_blue_portal einschließlich Blockitem und skyblock-Dimension;
+Alt: simpledimensions:light_blue_portal einschließlich Blockitem und skyblock-Dimension;
 5x5x3-Halbkugel, Spawnlocator, 1:1-Reise, Lichtabfrage, gemeinsame Orchestrator-Interfaces,
 Fabric/Forge/NeoForge-Reflection und Paper-Plugin. Legacy-Block/Item-ID muss lesbar bleiben,
 auch wenn es im Survival keinen Drop und kein Craftingrezept gibt.
@@ -70,7 +70,7 @@ sind kein Launch-/Worldgen-Nachweis; Pflichtkatalog muss tatsächliche Serverwel
 
 ## Konfigurationsvertrag
 
-Pfad bleibt config/simpledimension/dimensions/*.json. Eine Datei je Definition.
+Pfad bleibt config/simpledimensions/dimensions/*.json. Eine Datei je Definition.
 Identität: id, sourceDimensionId, targetDimensionId, targetDisplayName.
 Optik: portalColorHex. Form: portalRecipes (rows, legend, interior, ignore), frameBlock,
 minPortalWidth, maxPortalWidth, minPortalHeight, maxPortalHeight.
@@ -118,7 +118,7 @@ Ablehnung mit Sound/Partikeln, keine Chat-/Aktionsleistenmeldung.
 ## Kollisionen und Integration
 
 SimpleBuilding bietet Spawn-Teleporter und Echolot, aber keine eigenen Dimensionen oder
-simpledimension-IDs. Nicht duplizieren: Spawn-Konfiguration, generelle Nether-/End-Sperren,
+simpledimensions-IDs. Nicht duplizieren: Spawn-Konfiguration, generelle Nether-/End-Sperren,
 Chunkloader und Spawn-Elytra. Module koppeln nur über öffentliche Registry-IDs/Vanilla.
 SpawnRules.blocksDimensionChange kontrolliert Vanilla Nether/End; Modul darf keinen
 Befehls-Bypass verwenden. Tests müssen echte Wechsel samt geladenem SimpleBuilding prüfen,
@@ -148,7 +148,7 @@ muss zusätzlich abgenommen werden; IDs allein beweisen keinen erfolgreichen Wel
 ## Implementierung (Fortsetzung 2026-09-30)
 
 Modulger?st mit tools/newmod.py; Modul-/Launch-Hub-ID simpledimensions, tats?chliche
-Loader-, Block-, Item-, BE- und Dimensions-IDs weiterhin simpledimension. Fabric/NeoForge
+Loader-, Block-, Item-, BE- und Dimensions-IDs weiterhin simpledimensions. Fabric/NeoForge
 26.3 werden gebaut; Forge-Ger?st ist nicht im aktiven Manifest und gilt nicht als Port.
 Kein SimpleBuilding-Feature wurde kopiert. Vanilla-TeleportTransition respektiert dessen
 Nether-/End-Sperr-Mixin; keine Befehlsreise und keine internen SimpleBuilding-Imports.
@@ -157,10 +157,10 @@ Stufencommits: 4d8c3af9 Ger?st, f901cdb2 Registry/BE, 049597b3 JSON/Caps,
 dfd10ef7 Formen/Z?ndung, b12d1399 Reisen/R?ckadressen, e864f622 Pack/Generation,
 111baec0 Spiel-/Quelltests samt Client-/Configadaptern. Abschlie?ende Daten/Belege folgen.
 
-Serverdatei config/simpledimension/server.json hat Zugang, automatische Zielanlage,
+Serverdatei config/simpledimensions/server.json hat Zugang, automatische Zielanlage,
 Mindestwartezeit und Mindestcooldown. NonplayerTravel ist ein reservierter Legacywert,
 der immer false normalisiert wird: Mobs, Items, Reittiere und Passagiere sind verweigert.
-Portaldefinitionen behalten die Quellschl?ssel in config/simpledimension/dimensions/*.json.
+Portaldefinitionen behalten die Quellschl?ssel in config/simpledimensions/dimensions/*.json.
 Die Einzeldefinition kann gr??ere Wartezeiten als den globalen Mindestwert verlangen.
 Bestehende JSON-Dateien werden nicht ?berschrieben. Beispiele entstehen nur, wenn die
 jeweilige Datei fehlt. Alle Optionsnamen, Reiter,
@@ -172,7 +172,7 @@ und schneller Lava ?bersetzt. Beds/Anker setzen bewusst keinen Spawn in den Modd
 Legacy preset/orePreset bleiben Bezeichnungen. Noise verwendet Quell-Settings
 (overworld bei generateOres=true, sonst caves); das ist kein Schalter zum garantierten
 Entfernen aller Erze. Mining verwendet Vanilla-Flat-Biomfeatures statt eigener Erzalgorithmen.
-Ziele sind konservativ auf simpledimension:<id> beschr?nkt; Vanilla-Zieldimensionen sind
+Ziele sind konservativ auf simpledimensions:<id> beschr?nkt; Vanilla-Zieldimensionen sind
 nicht ?ber JSON freischaltbar. Datapacks k?nnen diese eigenen Dimensionen definieren.
 
 Zielplan: runde Bedrockinsel mit ebener Oberfl?che, keine abbaubaren wertvollen Rahmen.
@@ -184,7 +184,7 @@ Abbauen/Neusetzen zum Umgehen). Es gibt keine dauerhaften Chunk-Tickets.
 
 Jede erzeugte R?ckfl?che speichert das exakte sichere Ursprungsziel; alle Quellfl?chen
 speichern die exakte Zielverbindung. config entfernt/Zugang aus sperrt erzeugte Ausg?nge
-nicht. R?ckadressen ?berleben einen Serverneustart unter <world>/simpledimension-returns.json.
+nicht. R?ckadressen ?berleben einen Serverneustart unter <world>/simpledimensions-returns.json.
 Ein zerst?rter/unsicherer Ursprung f?hrt zur gepr?ften Oberweltoberfl?che nahe Spawn.
 Sollte auch dort kein sicheres, erlaubtes Feld existieren, verweigert die Mod die unsichere
 Teleportation; sie ?berschreibt keine Spawn-/Claimbauten. Auf einer vollst?ndig absichtlich
@@ -225,7 +225,7 @@ Modulkatalog 60/60 gemeinsam gruen (Run 2026-09-30T17-01-21Z-ad92).
 Erweiterter Modulkatalog: 68/68 gruen (2026-09-30T17-30-24Z-c774),
 23 uebernommene JUnit-Pruefungen ohne Fehler; Fabric-Client 3/3 gruen
 (2026-09-30T17-24-34Z-f4ba), Portal- und Konfigurationsscreenshots angesehen.
-Legacy-Dimensionstyp simpledimension:skyblock bleibt neben skyblock_type ladbar.
+Legacy-Dimensionstyp simpledimensions:skyblock bleibt neben skyblock_type ladbar.
 Beide Portal-BlockEntityTypes verweigern nicht autorisierte Creative-Item-NBT;
 gefaelschte Rueckverbindungen wurden auf beiden Loadern abgewiesen (2/2,
 2026-09-30T17-35-34Z-65d2). Endlauf/Gate siehe abschliessenden Commit und Run-Daten.
@@ -329,7 +329,7 @@ Skyblock, Mining and Travel have independent default-on server settings: `skyblo
 `miningEnabled`, `travelEnabled`. The dedicated Dimensions tab shows localized names,
 tooltips and defaults. Local integrated-server changes are queued on the server thread;
 remote clients retain the existing read-only notice without a server-edit packet. A
-dedicated administrator sets the server-owned `config/simpledimension/server.json` and
+dedicated administrator sets the server-owned `config/simpledimensions/server.json` and
 restarts the server. Existing server files without these keys default all three to on.
 
 Ignition, first outbound travel and already-linked outbound travel use the same settings

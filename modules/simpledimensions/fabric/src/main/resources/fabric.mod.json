@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "simpledimension",
+  "id": "simpledimensions",
   "version": "${version}",
   "name": "Simple Dimensions",
-  "icon": "assets/simpledimension/icon.png",
+  "icon": "assets/simpledimensions/icon.png",
   "description": "Configurable dimensions, light arches, and safe linked portals.",
   "authors": [
     "Ouzzi"
@@ -36,7 +36,7 @@
     "java": ">=25"
   },
   "mixins": [
-    "simpledimension.mixins.json"
+    "simpledimensions.mixins.json"
   ],
   "suggests": {
     "simplebuilding": "*",

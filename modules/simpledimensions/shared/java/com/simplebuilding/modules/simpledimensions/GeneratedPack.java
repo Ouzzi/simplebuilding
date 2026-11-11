@@ -12,8 +12,8 @@ public final class GeneratedPack {
  public static void load(Consumer<Pack> result){
   DimensionConfigStore.loadAndGenerate(DimensionRuntime.CONFIG_ROOT,SharedConstants.getCurrentVersion().packVersion(PackType.SERVER_DATA).major());
   try {FolderRepositorySource.discoverPacks(DimensionConfigStore.datapacksFolder(DimensionRuntime.CONFIG_ROOT),new DirectoryValidator(p->false),(path,resources)->{
-   if(!path.getFileName().toString().equals("simpledimension_generated"))return;
-   var info=new PackLocationInfo("simpledimension_generated",Component.literal("Simple Dimensions"),PackSource.BUILT_IN,Optional.empty());
+   if(!path.getFileName().toString().equals("simpledimensions_generated"))return;
+   var info=new PackLocationInfo("simpledimensions_generated",Component.literal("Simple Dimensions"),PackSource.BUILT_IN,Optional.empty());
    var pack=Pack.readMetaAndCreate(info,resources,PackType.SERVER_DATA,new PackSelectionConfig(true,Pack.Position.TOP,true));
    if(pack==null)throw new IllegalStateException("Generated dimension pack failed validation");result.accept(pack);
   });}catch(java.io.IOException e){throw new IllegalStateException("Cannot load generated dimension pack",e);}

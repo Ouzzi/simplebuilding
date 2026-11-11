@@ -90,8 +90,8 @@ class ModTests(unittest.TestCase):
         self.assertIn('simpledimensions', entry['optional'])
         path = self.root / entry['paths']['fabric'] / 'src/main/resources/fabric.mod.json'
         data = multimod.read(path)
-        self.assertIn('simpledimension', data['suggests'])
-        data['suggests']['simpledimensions'] = data['suggests'].pop('simpledimension')
+        self.assertIn('simpledimensions', data['suggests'])
+        data['suggests']['simpledimension'] = data['suggests'].pop('simpledimensions')
         multimod.write(path, data)
         with self.assertRaisesRegex(ValueError, 'Optional dependencies differ'):
             multimod.registries(self.root)

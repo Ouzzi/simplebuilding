@@ -9,7 +9,7 @@ dependencies { jarJar project(':framework') }
 neoForge.runs {
     moduleIntegrationGameTest {
         type = 'gameTestServer'
-        programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simpledimension:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
+        programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simpledimensions:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
     }
 }
 

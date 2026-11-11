@@ -8,16 +8,16 @@
       ],
       "en": {
         "title": "Default Dimensions",
-        "summary": "Three dimensions exist from the first start, no setup needed: Skyblock (a void with a safe island to build on), Mining (a deep stone resource world) and Travel (a flat plane for fast travel). Their definitions are written to config/simpledimension/dimensions on the first start; existing files and worlds are never overwritten. Each one has a server switch (Enable Skyblock, Enable Mining, Enable Travel) that is on by default; switching one off only stops new journeys, return paths stay open.",
+        "summary": "Three dimensions exist from the first start, no setup needed: Skyblock (a void with a safe island to build on), Mining (a deep stone resource world) and Travel (a flat plane for fast travel). Their definitions are written to config/simpledimensions/dimensions on the first start; existing files and worlds are never overwritten. Each one has a server switch (Enable Skyblock, Enable Mining, Enable Travel) that is on by default; switching one off only stops new journeys, return paths stay open.",
         "details": [
-          "Three dimensions exist from the first start, no setup needed: Skyblock (a void with a safe island to build on), Mining (a deep stone resource world) and Travel (a flat plane for fast travel). Their definitions are written to config/simpledimension/dimensions on the first start; existing files and worlds are never overwritten. Each one has a server switch (Enable Skyblock, Enable Mining, Enable Travel) that is on by default; switching one off only stops new journeys, return paths stay open."
+          "Three dimensions exist from the first start, no setup needed: Skyblock (a void with a safe island to build on), Mining (a deep stone resource world) and Travel (a flat plane for fast travel). Their definitions are written to config/simpledimensions/dimensions on the first start; existing files and worlds are never overwritten. Each one has a server switch (Enable Skyblock, Enable Mining, Enable Travel) that is on by default; switching one off only stops new journeys, return paths stay open."
         ]
       },
       "de": {
         "title": "Standard-Dimensionen",
-        "summary": "Drei Dimensionen gibt es ab dem ersten Start ohne Einrichtung: Skyblock (Leere mit sicherer Bauinsel), Mining (tiefe Stein-Rohstoffwelt) und Travel (flache Ebene zum schnellen Reisen). Ihre Definitionen werden beim ersten Start nach config/simpledimension/dimensions geschrieben; vorhandene Dateien und Welten werden nie überschrieben. Jede hat einen Server-Schalter (Skyblock/Mining/Travel erlauben), standardmäßig an; Abschalten stoppt nur neue Reisen, Rückwege bleiben offen.",
+        "summary": "Drei Dimensionen gibt es ab dem ersten Start ohne Einrichtung: Skyblock (Leere mit sicherer Bauinsel), Mining (tiefe Stein-Rohstoffwelt) und Travel (flache Ebene zum schnellen Reisen). Ihre Definitionen werden beim ersten Start nach config/simpledimensions/dimensions geschrieben; vorhandene Dateien und Welten werden nie überschrieben. Jede hat einen Server-Schalter (Skyblock/Mining/Travel erlauben), standardmäßig an; Abschalten stoppt nur neue Reisen, Rückwege bleiben offen.",
         "details": [
-          "Drei Dimensionen gibt es ab dem ersten Start ohne Einrichtung: Skyblock (Leere mit sicherer Bauinsel), Mining (tiefe Stein-Rohstoffwelt) und Travel (flache Ebene zum schnellen Reisen). Ihre Definitionen werden beim ersten Start nach config/simpledimension/dimensions geschrieben; vorhandene Dateien und Welten werden nie überschrieben. Jede hat einen Server-Schalter (Skyblock/Mining/Travel erlauben), standardmäßig an; Abschalten stoppt nur neue Reisen, Rückwege bleiben offen."
+          "Drei Dimensionen gibt es ab dem ersten Start ohne Einrichtung: Skyblock (Leere mit sicherer Bauinsel), Mining (tiefe Stein-Rohstoffwelt) und Travel (flache Ebene zum schnellen Reisen). Ihre Definitionen werden beim ersten Start nach config/simpledimensions/dimensions geschrieben; vorhandene Dateien und Welten werden nie überschrieben. Jede hat einen Server-Schalter (Skyblock/Mining/Travel erlauben), standardmäßig an; Abschalten stoppt nur neue Reisen, Rückwege bleiben offen."
         ]
       }
     },
@@ -137,9 +137,9 @@
       ],
       "en": {
         "title": "Configuration and Data Packs",
-        "summary": "Server JSON: config/simpledimension/server.json. Portal definitions: config/simpledimension/dimensions/*.json; existing files are preserved. The mandatory generated pack loads on both loaders before world registries. At most 16 definitions, eight recipes each, 23×23 matrices, 21×21 interiors, eight extra origins, 64 KiB per input file, and coordinate ratios 0.5–10. Generation height is 16–384 in 16-block steps, minimum Y -64–0. Destinations stay in the isolated simpledimension namespace. New dimensions require a world restart. preset and orePreset are retained legacy labels without generation effects. Access/Safety/Dimensions config tabs show defaults; multiplayer clients cannot edit server values. Nonplayer travel is reserved and permanently refused. Known claim mods require a registered permission integration; no claim bypass is offered. The Dimensions tab controls Skyblock, Mining, and Travel independently, all On by default. These server settings persist in server.json and apply immediately to the local integrated server. Dedicated servers read them at startup; remote clients cannot change them. Disabling access preserves dimension data and generated return portals. The old enabled flag in built-in dimension definitions is ignored; it remains supported for custom definitions.",
+        "summary": "Server JSON: config/simpledimensions/server.json. Portal definitions: config/simpledimensions/dimensions/*.json; existing files are preserved. The mandatory generated pack loads on both loaders before world registries. At most 16 definitions, eight recipes each, 23×23 matrices, 21×21 interiors, eight extra origins, 64 KiB per input file, and coordinate ratios 0.5–10. Generation height is 16–384 in 16-block steps, minimum Y -64–0. Destinations stay in the isolated simpledimensions namespace. New dimensions require a world restart. preset and orePreset are retained legacy labels without generation effects. Access/Safety/Dimensions config tabs show defaults; multiplayer clients cannot edit server values. Nonplayer travel is reserved and permanently refused. Known claim mods require a registered permission integration; no claim bypass is offered. The Dimensions tab controls Skyblock, Mining, and Travel independently, all On by default. These server settings persist in server.json and apply immediately to the local integrated server. Dedicated servers read them at startup; remote clients cannot change them. Disabling access preserves dimension data and generated return portals. The old enabled flag in built-in dimension definitions is ignored; it remains supported for custom definitions.",
         "details": [
-          "Server JSON: config/simpledimension/server.json. Portal definitions: config/simpledimension/dimensions/*.json; existing files are preserved. The mandatory generated pack loads on both loaders before world registries. At most 16 definitions, eight recipes each, 23×23 matrices, 21×21 interiors, eight extra origins, 64 KiB per input file, and coordinate ratios 0.5–10. Generation height is 16–384 in 16-block steps, minimum Y -64–0. Destinations stay in the isolated simpledimension namespace. New dimensions require a world restart. preset and orePreset are retained legacy labels without generation effects. Access/Safety/Dimensions config tabs show defaults; multiplayer clients cannot edit server values. Nonplayer travel is reserved and permanently refused. Known claim mods require a registered permission integration; no claim bypass is offered. The Dimensions tab controls Skyblock, Mining, and Travel independently, all On by default. These server settings persist in server.json and apply immediately to the local integrated server. Dedicated servers read them at startup; remote clients cannot change them. Disabling access preserves dimension data and generated return portals. The old enabled flag in built-in dimension definitions is ignored; it remains supported for custom definitions.",
+          "Server JSON: config/simpledimensions/server.json. Portal definitions: config/simpledimensions/dimensions/*.json; existing files are preserved. The mandatory generated pack loads on both loaders before world registries. At most 16 definitions, eight recipes each, 23×23 matrices, 21×21 interiors, eight extra origins, 64 KiB per input file, and coordinate ratios 0.5–10. Generation height is 16–384 in 16-block steps, minimum Y -64–0. Destinations stay in the isolated simpledimensions namespace. New dimensions require a world restart. preset and orePreset are retained legacy labels without generation effects. Access/Safety/Dimensions config tabs show defaults; multiplayer clients cannot edit server values. Nonplayer travel is reserved and permanently refused. Known claim mods require a registered permission integration; no claim bypass is offered. The Dimensions tab controls Skyblock, Mining, and Travel independently, all On by default. These server settings persist in server.json and apply immediately to the local integrated server. Dedicated servers read them at startup; remote clients cannot change them. Disabling access preserves dimension data and generated return portals. The old enabled flag in built-in dimension definitions is ignored; it remains supported for custom definitions.",
           "accessEnabled – Enable Portal Access: New outbound journeys can be disabled without disabling generated exits. Default: true. Server setting.",
           "skyblockEnabled – Enable Skyblock: Allow new journeys to Skyblock. Turning this off keeps existing return paths and world data. Default: On. Server setting.",
           "miningEnabled – Enable Mining: Allow new journeys to Mining. Turning this off keeps existing return paths and world data. Default: On. Server setting.",
@@ -150,7 +150,7 @@
           "nonPlayerTravel – Nonplayer Travel (Reserved): Locked off: items, mobs, mounts, and passengers are never transported. Default: false. Server setting.",
           "id – Definition ID: Advanced server JSON option. Default: \"skyblock\". World generation requires a world restart; preset and orePreset are legacy labels only.",
           "sourceDimensionId – Origin Dimension: Advanced server JSON option. Default: \"minecraft:overworld\". World generation requires a world restart; preset and orePreset are legacy labels only.",
-          "targetDimensionId – Destination Dimension: Advanced server JSON option. Default: \"simpledimension:skyblock\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "targetDimensionId – Destination Dimension: Advanced server JSON option. Default: \"simpledimensions:skyblock\". World generation requires a world restart; preset and orePreset are legacy labels only.",
           "targetDisplayName – Destination Name: Advanced server JSON option. Default: \"Skyblock\". World generation requires a world restart; preset and orePreset are legacy labels only.",
           "enabled – Enable Custom Definition (Legacy): Custom definitions only. Skyblock, Mining, and Travel use the Dimensions tab in server settings instead. Existing built-in enabled values are ignored. Default: true.",
           "requireSeparateLight – Require Separate Light: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
@@ -192,9 +192,9 @@
       },
       "de": {
         "title": "Konfiguration und Datenpakete",
-        "summary": "Server-JSON: config/simpledimension/server.json. Portaldefinitionen: config/simpledimension/dimensions/*.json; bestehende Dateien bleiben erhalten. Das erforderliche generierte Pack lädt auf beiden Loadern vor den Weltregistries. Höchstens 16 Definitionen, acht Formen je Definition, 23×23 Matrizen, 21×21 Innenraum, acht Zusatzursprünge, 64 KiB je Eingabedatei, Verhältnis 0,5–10. Generationshöhe 16–384 in 16er-Schritten, minY -64–0. Ziele bleiben im isolierten Namensraum simpledimension. Neue Dimensionen brauchen Weltneustart. preset und orePreset bleiben wirkungslose Legacybezeichnungen. Reiter Zugang/Sicherheit zeigen Standards; Mehrspielerclients ändern keine Serverwerte. Nichtspielerreise ist reserviert und dauerhaft verweigert. Bekannte Claimmods benötigen registrierte Freigabeintegration; kein Claim-Bypass. Der eigene Reiter Dimensionen schaltet Skyblock, Abbau und Reise einzeln; Standard ist jeweils Ein. Diese Serveroptionen werden in server.json gespeichert und auf dem lokalen integrierten Server sofort wirksam. Dedizierte Server lesen sie beim Start; entfernte Clients können sie nicht ändern. Abschalten erhält Weltdaten und erzeugte Rückportale. Alte enabled-Werte in vorinstallierten Dimensionsdefinitionen werden ignoriert; eigene Definitionen behalten diesen Schalter.",
+        "summary": "Server-JSON: config/simpledimensions/server.json. Portaldefinitionen: config/simpledimensions/dimensions/*.json; bestehende Dateien bleiben erhalten. Das erforderliche generierte Pack lädt auf beiden Loadern vor den Weltregistries. Höchstens 16 Definitionen, acht Formen je Definition, 23×23 Matrizen, 21×21 Innenraum, acht Zusatzursprünge, 64 KiB je Eingabedatei, Verhältnis 0,5–10. Generationshöhe 16–384 in 16er-Schritten, minY -64–0. Ziele bleiben im isolierten Namensraum simpledimensions. Neue Dimensionen brauchen Weltneustart. preset und orePreset bleiben wirkungslose Legacybezeichnungen. Reiter Zugang/Sicherheit zeigen Standards; Mehrspielerclients ändern keine Serverwerte. Nichtspielerreise ist reserviert und dauerhaft verweigert. Bekannte Claimmods benötigen registrierte Freigabeintegration; kein Claim-Bypass. Der eigene Reiter Dimensionen schaltet Skyblock, Abbau und Reise einzeln; Standard ist jeweils Ein. Diese Serveroptionen werden in server.json gespeichert und auf dem lokalen integrierten Server sofort wirksam. Dedizierte Server lesen sie beim Start; entfernte Clients können sie nicht ändern. Abschalten erhält Weltdaten und erzeugte Rückportale. Alte enabled-Werte in vorinstallierten Dimensionsdefinitionen werden ignoriert; eigene Definitionen behalten diesen Schalter.",
         "details": [
-          "Server-JSON: config/simpledimension/server.json. Portaldefinitionen: config/simpledimension/dimensions/*.json; bestehende Dateien bleiben erhalten. Das erforderliche generierte Pack lädt auf beiden Loadern vor den Weltregistries. Höchstens 16 Definitionen, acht Formen je Definition, 23×23 Matrizen, 21×21 Innenraum, acht Zusatzursprünge, 64 KiB je Eingabedatei, Verhältnis 0,5–10. Generationshöhe 16–384 in 16er-Schritten, minY -64–0. Ziele bleiben im isolierten Namensraum simpledimension. Neue Dimensionen brauchen Weltneustart. preset und orePreset bleiben wirkungslose Legacybezeichnungen. Reiter Zugang/Sicherheit zeigen Standards; Mehrspielerclients ändern keine Serverwerte. Nichtspielerreise ist reserviert und dauerhaft verweigert. Bekannte Claimmods benötigen registrierte Freigabeintegration; kein Claim-Bypass. Der eigene Reiter Dimensionen schaltet Skyblock, Abbau und Reise einzeln; Standard ist jeweils Ein. Diese Serveroptionen werden in server.json gespeichert und auf dem lokalen integrierten Server sofort wirksam. Dedizierte Server lesen sie beim Start; entfernte Clients können sie nicht ändern. Abschalten erhält Weltdaten und erzeugte Rückportale. Alte enabled-Werte in vorinstallierten Dimensionsdefinitionen werden ignoriert; eigene Definitionen behalten diesen Schalter.",
+          "Server-JSON: config/simpledimensions/server.json. Portaldefinitionen: config/simpledimensions/dimensions/*.json; bestehende Dateien bleiben erhalten. Das erforderliche generierte Pack lädt auf beiden Loadern vor den Weltregistries. Höchstens 16 Definitionen, acht Formen je Definition, 23×23 Matrizen, 21×21 Innenraum, acht Zusatzursprünge, 64 KiB je Eingabedatei, Verhältnis 0,5–10. Generationshöhe 16–384 in 16er-Schritten, minY -64–0. Ziele bleiben im isolierten Namensraum simpledimensions. Neue Dimensionen brauchen Weltneustart. preset und orePreset bleiben wirkungslose Legacybezeichnungen. Reiter Zugang/Sicherheit zeigen Standards; Mehrspielerclients ändern keine Serverwerte. Nichtspielerreise ist reserviert und dauerhaft verweigert. Bekannte Claimmods benötigen registrierte Freigabeintegration; kein Claim-Bypass. Der eigene Reiter Dimensionen schaltet Skyblock, Abbau und Reise einzeln; Standard ist jeweils Ein. Diese Serveroptionen werden in server.json gespeichert und auf dem lokalen integrierten Server sofort wirksam. Dedizierte Server lesen sie beim Start; entfernte Clients können sie nicht ändern. Abschalten erhält Weltdaten und erzeugte Rückportale. Alte enabled-Werte in vorinstallierten Dimensionsdefinitionen werden ignoriert; eigene Definitionen behalten diesen Schalter.",
           "accessEnabled – Portalzugang erlauben: Neue Hinreisen abschalten; erzeugte Rückwege bleiben benutzbar. Standard: true. Servereinstellung.",
           "skyblockEnabled – Skyblock erlauben: Neue Reisen zur Dimension Skyblock erlauben. Abschalten erhält bestehende Rückwege und Weltdaten. Standard: Ein. Servereinstellung.",
           "miningEnabled – Abbau erlauben: Neue Reisen zur Dimension Abbau erlauben. Abschalten erhält bestehende Rückwege und Weltdaten. Standard: Ein. Servereinstellung.",
@@ -205,7 +205,7 @@
           "nonPlayerTravel – Nichtspielerreise (reserviert): Fest ausgeschaltet: Items, Mobs, Reittiere und Passagiere reisen nicht. Standard: false. Servereinstellung.",
           "id – Definitions-ID: Erweiterte serverseitige JSON-Option. Standard: \"skyblock\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
           "sourceDimensionId – Ursprungsdimension: Erweiterte serverseitige JSON-Option. Standard: \"minecraft:overworld\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
-          "targetDimensionId – Zieldimension: Erweiterte serverseitige JSON-Option. Standard: \"simpledimension:skyblock\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "targetDimensionId – Zieldimension: Erweiterte serverseitige JSON-Option. Standard: \"simpledimensions:skyblock\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
           "targetDisplayName – Zielname: Erweiterte serverseitige JSON-Option. Standard: \"Skyblock\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
           "enabled – Eigene Definition erlauben (Altwert): Nur eigene Definitionen. Skyblock, Abbau und Reise verwenden den Reiter Dimensionen der Servereinstellungen. Alte enabled-Werte der vorinstallierten Definitionen werden ignoriert. Standard: true.",
           "requireSeparateLight – Zusatzlicht verlangen: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
@@ -280,16 +280,16 @@
       ],
       "en": {
         "title": "Getting the Guide",
-        "summary": "This guide is easy to get: craft the Simple Modpack guide from a book and a crafting table, run /simpledimension guide (any player) to receive it with this chapter open, or travel to a dimension for the first time and it is handed to you once. The option Give Guide on First Trip (on by default) turns the gift off. Picking up flint and steel also opens this chapter.",
+        "summary": "This guide is easy to get: craft the Simple Modpack guide from a book and a crafting table, run /simpledimensions guide (any player) to receive it with this chapter open, or travel to a dimension for the first time and it is handed to you once. The option Give Guide on First Trip (on by default) turns the gift off. Picking up flint and steel also opens this chapter.",
         "details": [
-          "This guide is easy to get: craft the Simple Modpack guide from a book and a crafting table, run /simpledimension guide (any player) to receive it with this chapter open, or travel to a dimension for the first time and it is handed to you once. The option Give Guide on First Trip (on by default) turns the gift off. Picking up flint and steel also opens this chapter."
+          "This guide is easy to get: craft the Simple Modpack guide from a book and a crafting table, run /simpledimensions guide (any player) to receive it with this chapter open, or travel to a dimension for the first time and it is handed to you once. The option Give Guide on First Trip (on by default) turns the gift off. Picking up flint and steel also opens this chapter."
         ]
       },
       "de": {
         "title": "Das Handbuch erhalten",
-        "summary": "Dieses Handbuch ist leicht zu bekommen: Das Simple-Modpack-Handbuch aus Buch und Werkbank herstellen, /simpledimension guide ausführen (jeder Spieler), um es mit offenem Kapitel zu erhalten, oder zum ersten Mal in eine Dimension reisen, dann bekommst du es einmalig geschenkt. Die Option Handbuch bei erster Reise (standardmäßig an) schaltet das Geschenk ab. Auch das Aufnehmen eines Feuerzeugs öffnet dieses Kapitel.",
+        "summary": "Dieses Handbuch ist leicht zu bekommen: Das Simple-Modpack-Handbuch aus Buch und Werkbank herstellen, /simpledimensions guide ausführen (jeder Spieler), um es mit offenem Kapitel zu erhalten, oder zum ersten Mal in eine Dimension reisen, dann bekommst du es einmalig geschenkt. Die Option Handbuch bei erster Reise (standardmäßig an) schaltet das Geschenk ab. Auch das Aufnehmen eines Feuerzeugs öffnet dieses Kapitel.",
         "details": [
-          "Dieses Handbuch ist leicht zu bekommen: Das Simple-Modpack-Handbuch aus Buch und Werkbank herstellen, /simpledimension guide ausführen (jeder Spieler), um es mit offenem Kapitel zu erhalten, oder zum ersten Mal in eine Dimension reisen, dann bekommst du es einmalig geschenkt. Die Option Handbuch bei erster Reise (standardmäßig an) schaltet das Geschenk ab. Auch das Aufnehmen eines Feuerzeugs öffnet dieses Kapitel."
+          "Dieses Handbuch ist leicht zu bekommen: Das Simple-Modpack-Handbuch aus Buch und Werkbank herstellen, /simpledimensions guide ausführen (jeder Spieler), um es mit offenem Kapitel zu erhalten, oder zum ersten Mal in eine Dimension reisen, dann bekommst du es einmalig geschenkt. Die Option Handbuch bei erster Reise (standardmäßig an) schaltet das Geschenk ab. Auch das Aufnehmen eines Feuerzeugs öffnet dieses Kapitel."
         ]
       }
     },
@@ -301,16 +301,16 @@
       ],
       "en": {
         "title": "Inventory and Rights",
-        "summary": "Your inventory stays with you: only unmounted players travel, items lying around, mobs and mounts stay behind. Anyone may use a portal and the guide command. Changing settings with /simpledimension config needs permission level 2, and server claims decide who may build or ignite a portal.",
+        "summary": "Your inventory stays with you: only unmounted players travel, items lying around, mobs and mounts stay behind. Anyone may use a portal and the guide command. Changing settings with /simpledimensions config needs permission level 2, and server claims decide who may build or ignite a portal.",
         "details": [
-          "Your inventory stays with you: only unmounted players travel, items lying around, mobs and mounts stay behind. Anyone may use a portal and the guide command. Changing settings with /simpledimension config needs permission level 2, and server claims decide who may build or ignite a portal."
+          "Your inventory stays with you: only unmounted players travel, items lying around, mobs and mounts stay behind. Anyone may use a portal and the guide command. Changing settings with /simpledimensions config needs permission level 2, and server claims decide who may build or ignite a portal."
         ]
       },
       "de": {
         "title": "Inventar und Rechte",
-        "summary": "Dein Inventar bleibt bei dir: Nur nicht reitende Spieler reisen, herumliegende Items, Mobs und Reittiere bleiben zurück. Jeder darf ein Portal und den Handbuch-Befehl nutzen. Einstellungen mit /simpledimension config brauchen Berechtigungsstufe 2, und Server-Claims entscheiden, wer ein Portal bauen oder zünden darf.",
+        "summary": "Dein Inventar bleibt bei dir: Nur nicht reitende Spieler reisen, herumliegende Items, Mobs und Reittiere bleiben zurück. Jeder darf ein Portal und den Handbuch-Befehl nutzen. Einstellungen mit /simpledimensions config brauchen Berechtigungsstufe 2, und Server-Claims entscheiden, wer ein Portal bauen oder zünden darf.",
         "details": [
-          "Dein Inventar bleibt bei dir: Nur nicht reitende Spieler reisen, herumliegende Items, Mobs und Reittiere bleiben zurück. Jeder darf ein Portal und den Handbuch-Befehl nutzen. Einstellungen mit /simpledimension config brauchen Berechtigungsstufe 2, und Server-Claims entscheiden, wer ein Portal bauen oder zünden darf."
+          "Dein Inventar bleibt bei dir: Nur nicht reitende Spieler reisen, herumliegende Items, Mobs und Reittiere bleiben zurück. Jeder darf ein Portal und den Handbuch-Befehl nutzen. Einstellungen mit /simpledimensions config brauchen Berechtigungsstufe 2, und Server-Claims entscheiden, wer ein Portal bauen oder zünden darf."
         ]
       }
     },
@@ -321,26 +321,26 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "/simpledimension guide gives you the Simple Modpack guide with this chapter open (every player). /simpledimension config shows and changes every option of config/simpledimension/server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Config needs permission level 2.",
+        "summary": "/simpledimensions guide gives you the Simple Modpack guide with this chapter open (every player). /simpledimensions config shows and changes every option of config/simpledimensions/server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Config needs permission level 2.",
         "details": [
-          "Example: /simpledimension config get <option> shows the value, the default and the type; /simpledimension config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+          "Example: /simpledimensions config get <option> shows the value, the default and the type; /simpledimensions config reset <option> brings the default back; a wrong type is refused and nothing is saved."
         ]
       },
       "de": {
         "title": "Befehle",
-        "summary": "/simpledimension guide gibt dir das Simple-Modpack-Handbuch mit offenem Kapitel (jeder Spieler). /simpledimension config zeigt und ändert jede Option von config/simpledimension/server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Config braucht Berechtigungsstufe 2.",
+        "summary": "/simpledimensions guide gibt dir das Simple-Modpack-Handbuch mit offenem Kapitel (jeder Spieler). /simpledimensions config zeigt und ändert jede Option von config/simpledimensions/server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Config braucht Berechtigungsstufe 2.",
         "details": [
-          "Beispiel: /simpledimension config get <Option> zeigt Wert, Standard und Typ; /simpledimension config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+          "Beispiel: /simpledimensions config get <Option> zeigt Wert, Standard und Typ; /simpledimensions config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
       }
     }
   ],
   "notes": {
-    "simpledimension:guide_book": {
+    "simpledimensions:guide_book": {
       "sources": [
         "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/guide/DimensionsGuide.java",
-        "modules/simpledimensions/shared/resources/assets/simpledimension/simplelib/modpack_guide.json",
-        "modules/simpledimensions/shared/resources/data/simpledimension/advancement/guide/chapter.json"
+        "modules/simpledimensions/shared/resources/assets/simpledimensions/simplelib/modpack_guide.json",
+        "modules/simpledimensions/shared/resources/data/simpledimensions/advancement/guide/chapter.json"
       ],
       "en": {
         "summary": "Chapter \"Simple Dimensions\" of the Simple Modpack guide (SimpleLib): 37 pages taken from this wiki, shown in your language. Unlocked by picking up: flint and steel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
@@ -349,7 +349,7 @@
         "summary": "Kapitel \"Simple Dimensions\" im Simple-Modpack-Handbuch (SimpleLib): 37 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerzeug. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
-    "simpledimension:sky_portal": {
+    "simpledimensions:sky_portal": {
       "en": {
         "summary": "An ignited in-world portal surface, not a craftable item. It has no survival drop. Tint and destination are saved in its block entity."
       },
@@ -357,7 +357,7 @@
         "summary": "Gezündete Portalfläche, kein herstellbares Item und kein Survivaldrop. Farbe und Ziel werden in der Blockentität gespeichert."
       }
     },
-    "simpledimension:light_blue_portal": {
+    "simpledimensions:light_blue_portal": {
       "en": {
         "summary": "Legacy block, block entity, and item ID retained for world loading. No survival crafting recipe, loot source, or creative tab entry."
       },

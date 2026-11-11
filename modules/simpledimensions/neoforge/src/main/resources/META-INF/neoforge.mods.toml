@@ -2,69 +2,69 @@ modLoader="javafml"
 loaderVersion="[11,)"
 license="LicenseRef-SimpleMods-ARR"
 [[mods]]
-modId="simpledimension"
+modId="simpledimensions"
 version="${version}"
 displayName="Simple Dimensions"
-iconFile="assets/simpledimension/icon.png"
+iconFile="assets/simpledimensions/icon.png"
 description="Configurable dimensions, light arches, and safe linked portals."
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
-[[dependencies.simpledimension]]
+[[dependencies.simpledimensions]]
 modId="minecraft"
 type="required"
 versionRange="[26.3,26.4)"
 
 [[mixins]]
-config="simpledimension.mixins.json"
+config="simpledimensions.mixins.json"
 
-[[dependencies.simpledimension]]
+[[dependencies.simpledimensions]]
 modId="cloth_config"
 type="required"
 versionRange="[0,)"
 
-[[dependencies.simpledimension]]
+[[dependencies.simpledimensions]]
 modId="simplebuilding"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.simpledimension]]
+[[dependencies.simpledimensions]]
 modId="modmenu"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="CLIENT"
 
-[[dependencies.simpledimension]]
+[[dependencies.simpledimensions]]
 modId="flan"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.simpledimension]]
+[[dependencies.simpledimensions]]
 modId="ftbchunks"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.simpledimension]]
+[[dependencies.simpledimensions]]
 modId="openpartiesandclaims"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.simpledimension]]
+[[dependencies.simpledimensions]]
 modId="griefdefender"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.simpledimension]]
+[[dependencies.simpledimensions]]
 modId="claimchunk"
 type="optional"
 versionRange="[0,)"

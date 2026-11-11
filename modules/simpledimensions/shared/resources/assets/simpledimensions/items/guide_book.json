@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simpledimension:item/guide_book"
+    "model": "simpledimensions:item/guide_book"
   }
 }

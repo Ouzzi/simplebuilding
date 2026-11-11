@@ -18,7 +18,12 @@ import com.simplebuilding.framework.api.Protection;
 /** Per-server state: game ticks, exact persisted return addresses, bounded builds, no chunk tickets. */
 public final class DimensionRuntime {
  private static final Map<MinecraftServer,DimensionRuntime> SERVERS=new WeakHashMap<>();
- public static final Path CONFIG_ROOT=Path.of("config/simpledimension");
+ /** Config folder {@code <loader config dir>/simpledimensions}, set by {@link #configure} (REV2-A-5b: never the working directory). */
+ public static volatile Path CONFIG_ROOT=Path.of("config","simpledimensions");
+ /** Called first by every loader entry: config folder from the loader, old {@code simpledimension} folder taken over once, id moves. */
+ public static void configure(Path loaderConfigDir){
+  CONFIG_ROOT=loaderConfigDir.resolve(LegacyIds.NEW);LegacyIds.adoptConfig(loaderConfigDir,CONFIG_ROOT);LegacyIds.registerIdMoves();
+ }
  public final List<DimensionPortalConfig> configs;
  public final DimensionSettings settings;
  private final MinecraftServer server;
@@ -74,21 +79,23 @@ public final class DimensionRuntime {
  private static final class Contact {String portal="";int warmup;long cooldown;boolean exit;long rescueAt;}
  public static DimensionRuntime get(MinecraftServer s){return SERVERS.computeIfAbsent(s,DimensionRuntime::new);}
  public static void stop(MinecraftServer s){SERVERS.remove(s);}
- /** CMD24: a new settings object (from {@code /simpledimension config}) is saved and taken over by every running server at once. */
+ /** CMD24: a new settings object (from {@code /simpledimensions config}) is saved and taken over by every running server at once. */
  public static void applySettings(DimensionSettings n){n.normalize();n.save(CONFIG_ROOT);SERVERS.values().forEach(r->r.settings.copyFrom(n));}
  private DimensionRuntime(MinecraftServer s){
   server=s;configs=DimensionConfigStore.loadAndGenerate(CONFIG_ROOT,net.minecraft.SharedConstants.getCurrentVersion().packVersion(net.minecraft.server.packs.PackType.SERVER_DATA).major());
-  settings=DimensionSettings.load(CONFIG_ROOT);ledger=s.getWorldPath(LevelResource.ROOT).resolve("simpledimension-returns.json");
-  if(Files.exists(ledger))try{
-   if(Files.size(ledger)>1048576||Files.isSymbolicLink(ledger))throw new IllegalStateException("Unsafe ledger");
-   var data=JsonParser.parseString(Files.readString(ledger)).getAsJsonObject();
-   for(var e:data.getAsJsonObject("returns").entrySet()) {if(returns.size()>=ConfigLimits.MAX_RETURN_RECORDS)break;returns.put(UUID.fromString(e.getKey()),new Gson().fromJson(e.getValue(),ReturnAddress.class));}
-   for(var e:data.getAsJsonArray("portals")){if(portals.size()>=ConfigLimits.MAX_PORTALS)break;portals.add(e.getAsString());}
+  settings=DimensionSettings.load(CONFIG_ROOT);ledger=s.getWorldPath(LevelResource.ROOT).resolve("simpledimensions-returns.json");
+  // WD25-14: a world of the old mod id keeps its ledger under the old name; read once, the next save writes the new file.
+  var source=Files.exists(ledger)?ledger:ledger.resolveSibling(LegacyIds.OLD+"-returns.json");
+  if(Files.exists(source))try{
+   if(Files.size(source)>1048576||Files.isSymbolicLink(source))throw new IllegalStateException("Unsafe ledger");
+   var data=JsonParser.parseString(Files.readString(source)).getAsJsonObject();
+   for(var e:data.getAsJsonObject("returns").entrySet()) {if(returns.size()>=ConfigLimits.MAX_RETURN_RECORDS)break;var r=new Gson().fromJson(e.getValue(),ReturnAddress.class);returns.put(UUID.fromString(e.getKey()),new ReturnAddress(LegacyIds.migrate(r.dimension()),r.pos()));}
+   for(var e:data.getAsJsonArray("portals")){if(portals.size()>=ConfigLimits.MAX_PORTALS)break;portals.add(LegacyIds.migrate(e.getAsString()));}
   }catch(Exception e){throw new IllegalStateException("Cannot read return ledger",e);}
  }
  private void save(){
   try{var root=new JsonObject();root.add("returns",new Gson().toJsonTree(returns));root.add("portals",new Gson().toJsonTree(portals));
-   var temp=ledger.resolveSibling("simpledimension-returns.tmp");Files.writeString(temp,new Gson().toJson(root));Files.move(temp,ledger,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);
+   var temp=ledger.resolveSibling("simpledimensions-returns.tmp");Files.writeString(temp,new Gson().toJson(root));Files.move(temp,ledger,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);
   }catch(Exception e){org.slf4j.LoggerFactory.getLogger("simpledimensions").error("Cannot persist safe returns (will retry on the next change)",e);}
  }
  private static String key(ServerLevel l,BlockPos p){return l.dimension().identifier()+"@"+p.asLong();}
@@ -129,7 +136,7 @@ public final class DimensionRuntime {
      if(++c.warmup>delay){c.warmup=0;if(travel(p,touched)) {c.cooldown=server.getTickCount()+Math.max(settings.teleportCooldownTicks,cfg==null?60:cfg.teleportCooldownTicks);c.exit=true;}else{c.cooldown=server.getTickCount()+20;signal(l,touched,false);}}
     }
    }
-   if(p.level()==l&&l.dimension().identifier().getNamespace().equals("simpledimension")&&(p.getY()<l.getMinY()+3||configs.stream().noneMatch(d->d.targetDimensionId.equals(l.dimension().identifier().toString())))
+   if(p.level()==l&&l.dimension().identifier().getNamespace().equals("simpledimensions")&&(p.getY()<l.getMinY()+3||configs.stream().noneMatch(d->d.targetDimensionId.equals(l.dimension().identifier().toString())))
     &&server.getTickCount()>=c.rescueAt&&!emergencyReturn(p))c.rescueAt=server.getTickCount()+20; // REV2-A: a failed rescue (chunk loads, ~3000 checks) retries once a second, not every tick
  }
  private BlockPos findTouched(ServerLevel l,ServerPlayer p){
@@ -150,7 +157,7 @@ public final class DimensionRuntime {
   var source=player.level();if(!DimensionRegistry.on()||player.isPassenger()||player.isVehicle()||player.isSpectator()||!(source.getBlockEntity(contact) instanceof SkyPortalBlockEntity be))return false;
   var cfg=config(be.definition);
   if(cfg==null&&be.definition.isEmpty()) {
-   if(source.dimension().identifier().getNamespace().equals("simpledimension"))return emergencyReturn(player);
+   if(source.dimension().identifier().getNamespace().equals("simpledimensions"))return emergencyReturn(player);
    for(var candidate:configs){
     if(!candidate.sourceDimensionId.equals(source.dimension().identifier().toString())&&!candidate.openFromDimensions.contains(source.dimension().identifier().toString()))continue;
     boolean legacy=source.getBlockState(contact).is(DimensionRegistry.LEGACY);

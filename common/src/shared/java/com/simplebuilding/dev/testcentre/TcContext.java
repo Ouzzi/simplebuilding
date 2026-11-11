@@ -151,11 +151,11 @@ public record TcContext(HolderLookup.Provider lookup,
 
     /**
      * Namensraeume der SimpleBuilding-Familie (TZ22-1): die Modul-Ids aus {@code modules/modules.json} ohne das
-     * Beispielmodul {@code wiringexample} (dazu {@code simpledimension}, die Id des Sub-Mod-Schalters). Ein geladener
+     * Beispielmodul {@code wiringexample}. Ein geladener
      * Namensraum mit Praefix "simple", der hier fehlt, meldet der Vollstaendigkeitstest.
      */
     public static final java.util.Set<String> FAMILY = java.util.Set.of("simplebuilding", "simplemoney", "simpleriding",
-            "simplemodels", "simplefun", "simplevisuals", "simplesounds", "simplequalityoflife", "simpletweaks", "simpledimension",
+            "simplemodels", "simplefun", "simplevisuals", "simplesounds", "simplequalityoflife", "simpletweaks",
             "simpledimensions", "simplesandwiches", "simplelib", "simpleinterfaces", "simplemaps", "simpletrims", "simplemobs",
             "simpleweather", "simplemovement", "simpletools", "simplefarming", "simplemobmanners", "simpleloot", "simplequestionary",
             "simpleaesthetics", "simpleenddragonfight", "simpleend", "simplerespawn", "simplebeacons", "simpleovens",

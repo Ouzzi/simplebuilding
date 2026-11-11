@@ -21,6 +21,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 public class SimplefunNeoForge {
 
   public SimplefunNeoForge(IEventBus modBus, ModContainer modContainer, Dist dist) {
+    SimplefunCommon.configDir = net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get();
     SimplefunCommon.init();
     com.simplebuilding.modules.simplefun.ModuleNeoTests.register(modBus);
     if (net.neoforged.fml.ModList.get().isLoaded("ftbquests"))

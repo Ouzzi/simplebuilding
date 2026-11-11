@@ -94,7 +94,7 @@ public final class DimensionSettingsTests {
         }
         void atSource(String message) { h.assertTrue(player.level() == h.getLevel(), id + ": " + message); }
         void atTarget() {
-            h.assertTrue(player.level().dimension().identifier().toString().equals("simpledimension:" + id), id + " actual outbound tick hook");
+            h.assertTrue(player.level().dimension().identifier().toString().equals("simpledimensions:" + id), id + " actual outbound tick hook");
             h.assertTrue(DimensionRuntime.safe(player.level(), player.blockPosition()), id + " safe arrival");
         }
         void run() {

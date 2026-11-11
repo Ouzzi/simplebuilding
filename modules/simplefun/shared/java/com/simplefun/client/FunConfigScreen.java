@@ -75,8 +75,8 @@ public final class FunConfigScreen {
         () -> {
           c.normalize();
           try {
-            java.nio.file.Files.writeString(
-                java.nio.file.Path.of("config/simplefun.json"), gson.toJson(c));
+            com.simplebuilding.framework.api.ConfigFiles.writeAtomic(
+                SimplefunCommon.configFile(), gson.toJson(c));
           } catch (Exception e) {
             throw new IllegalStateException(e);
           }
