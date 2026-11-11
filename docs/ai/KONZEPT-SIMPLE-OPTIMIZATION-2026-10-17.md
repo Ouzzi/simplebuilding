@@ -259,3 +259,8 @@ Plan `docs/ai/PLAN-A-OPT45B-2026-10-23.md`. Geprüft am Vanilla-26.3-Code (Fabri
   übersprungen (5400/7200), Mob-Tick-Zeit −72/−73 % (Modul- und Standalone-Lauf), Prüfung allein ≈ 0,8–0,9 µs je Mob.
   O4-Zählung Integrationslauf (alle Module, beim Start): 193 643 von 262 327 Arrays geteilt, ≈ 7,1 MiB. S1a oben. FPS/Frame-Zeit
   O3/O9 und Heap nach Modell-Laden bleiben Besitzer-PC/Client (Bench-Harness startet immer einen Client).
+
+## 12. Messung headless mit/ohne (`b-opte4`, 11.11.2026)
+Runner-Ziel `bench-opt-headless-263` (`tools/bench/headless_bench.py`, Gametest `bench_headless`): Standalone, frische JVMs,
+off/default/all. sb-test: MSPT default ±0 (Rauschen), all (S5b) −15 %; Heap −1 % (O4 3,4 MiB geteilt); O1 −83 %
+Blattflächen im 6³-Würfel. Details `docs/ai/PLAN-B-OPTE4-2026-11-11.md`. Offen nur Client-FPS (Folgepunkt).
