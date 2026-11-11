@@ -39,7 +39,8 @@ VANILLA_GLASS = ('display_case_glass', 'transparent_')
 # report the reworked PNG as stale: Simple Dinos eggs, the octet melon flesh, the questionary table) and the chiseled motifs
 # of b-pal16 (owner answer PAL15, symmetric motifs; PAL16 won the merge conflict, so the A8d layer is not on them); since b-pal20
 # (owner PAL16) the End bricks are the pre-PAL15 pixels unchanged - owner wish, never rework them here.
-GENERATOR_OWN = ('egg_trex', 'egg_triceratops', 'melon_flesh', 'questionary_table_book', 'questionary_table_side',
+# b-texsb31 (11.11.): melon_flesh and questionary_table_book/_side left this list again - their generators call finish().
+GENERATOR_OWN = ('egg_trex', 'egg_triceratops',
                  'chiseled_brass', 'chiseled_lead', 'chiseled_nickel', 'chiseled_silver', 'chiseled_tin', 'chiseled_zinc',
                  'chiseled_astralit_bricks', 'chiseled_ender_quartz_bricks', 'chiseled_nihilith_bricks')
 # Glowing faces whose bright motif is the point (lit furnace fire, enchanter glow, lit lamps, sparks on black, rainbow):
