@@ -15,7 +15,7 @@ SimpleBuilding is the core of the Simple family. It bundles the required sub-mod
 ## Dependencies
 
 - **Required:** Fabric API, Cloth Config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels
-- **Optional:** JEI, Roughly Enough Items, Mod Menu, Jade, AppleSkin, Mouse Tweaks, Trinkets Updated, Curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs, Simple Layers
+- **Optional:** JEI, Roughly Enough Items, Mod Menu, Jade, AppleSkin, Mouse Tweaks, Trinkets Updated, Curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs, Simple Layers, Simple Vault
 <!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
 ## Compatibility
 

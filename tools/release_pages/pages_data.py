@@ -184,4 +184,7 @@ P = {
 "simplelayers": ("World layers: the Cloud Sea sky dimension above y 700 and the Backrooms below the bedrock.",
   "Simple Layers adds the Cloud Sea above y 700 and the Backrooms below the bedrock, with cloud blocks, wallpaper, carpet and neon lights.",
   "adventure, worldgen", "dimensions, backrooms, clouds"),
+"simplevault": ("Find a rare gap in the Overworld bedrock, solve three riddles in the Bedrock Vault and ride the Ascent Altar back to the surface.",
+  "Simple Vault hides a rare 2 x 2 gap in the Overworld bedrock. It leads to the Bedrock Vault: quiet halls on two floors in a dimension of solid bedrock. Three riddles of light, sound and path give you the seal parts that open the Ascent Altar, your only way back up.",
+  "adventure, worldgen", "dungeon, bedrock, riddles, exploration"),
 }
