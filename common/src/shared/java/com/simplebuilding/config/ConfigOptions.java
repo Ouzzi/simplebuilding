@@ -135,6 +135,7 @@ public final class ConfigOptions {
             "enableSimpleBuildingtools",
             "enableSimpleChisels",
             "enableSimpleLayers",
+            "enableSimpleVault",
             // <submods:end restart>
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
@@ -204,6 +205,12 @@ public final class ConfigOptions {
             "server.machines.reinforcedHopperSpeed",
             "server.machines.netheriteHopperSpeed",
             "server.machines.enderiteHopperSpeed");
+
+    /**
+     * MACH32-MOD stage 4: the Auto Smither's delay lives in Simple Machines on 26.3 ({@code autoSmither.delayTicks}, taken over once
+     * from here); {@code McVersion.AUTO_SMITHER_IN_MACHINES} (inverted flag: hidden when true).
+     */
+    public static final Set<String> MOVED_TO_MACHINES_SMITHER = Set.of("server.machines.autoSmitherDelayTicks");
 
     /**
      * IG31-13: world generation of Sage Ore and Dimensional Scrap lives in Simple Ores on 26.3
@@ -283,6 +290,7 @@ public final class ConfigOptions {
                 || !com.simplebuilding.version.McVersion.PISTONS_IN_SB && MOVED_TO_MACHINES.contains(path)
                 || com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING && MOVED_TO_ENCHANTING.contains(path)
                 || !com.simplebuilding.version.McVersion.HOPPERS_IN_SB && MOVED_TO_MACHINES_HOPPERS.contains(path)
+                || com.simplebuilding.version.McVersion.AUTO_SMITHER_IN_MACHINES && MOVED_TO_MACHINES_SMITHER.contains(path)
                 || !com.simplebuilding.version.McVersion.PADS_IN_SB && MOVED_TO_PADS.contains(path)
                 || !com.simplebuilding.version.McVersion.BTOOLS_IN_SB && MOVED_TO_BTOOLS.contains(path)
                 || !com.simplebuilding.version.McVersion.GADGETS_IN_SB && MOVED_TO_GADGETS.contains(path)

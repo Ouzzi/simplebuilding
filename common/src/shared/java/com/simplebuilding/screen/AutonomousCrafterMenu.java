@@ -70,8 +70,7 @@ public class AutonomousCrafterMenu extends AbstractContainerMenu implements Cont
     }
 
     public HopperFilterMode filterMode() {
-        int ordinal = this.data.get(AutonomousCrafterBlockEntity.DATA_FILTER);
-        return ordinal >= 0 && ordinal < HopperFilterMode.values().length ? HopperFilterMode.values()[ordinal] : HopperFilterMode.NONE;
+        return HopperFilterMode.of(this.data.get(AutonomousCrafterBlockEntity.DATA_FILTER));
     }
 
     @Override

@@ -61,7 +61,8 @@ window.WIKI_MODULES = [
       "simpleearth",
       "simplechallenges",
       "simpledinos",
-      "simplelayers"
+      "simplelayers",
+      "simplevault"
     ],
     "stage": "done",
     "overview": {
@@ -82,9 +83,9 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 487,
-      "blocks": 280,
-      "recipes": 803,
+      "items": 485,
+      "blocks": 278,
+      "recipes": 801,
       "config": 153,
       "features": 42
     }
@@ -357,9 +358,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmElEQVR42mNICHP4TwlmABHfnh8hGX+4sQDVgE931/7/8fYKmCaEQZrXzinGNAAZa2lpgTE2zSCL8BoA0jhr1iwMA6wWnAAbgNUFMBtBODs7G8UAZI0wNlYDQBqRMcwAZI0wNtEGoNtMWwOwhQE2zQSjETkWYBrRDcJpAEwBzDXIBiBjrAbgUkyUAaDURbYBMAFSMdwASjAABHrCsb/q5xYAAAAASUVORK5CYII=",
     "counts": {
+      "config": 18,
       "features": 21
     },
-    "dataHash": "edf746181675"
+    "dataHash": "776ced69d83e"
   },
   {
     "id": "simplequalityoflife",
@@ -472,7 +474,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 42
     },
-    "dataHash": "65547997e170"
+    "dataHash": "9244107e5ae7"
   },
   {
     "id": "simpledimensions",
@@ -512,9 +514,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 2,
+      "config": 53,
       "features": 11
     },
-    "dataHash": "1e3f79642edb"
+    "dataHash": "b237a2eb7ce5"
   },
   {
     "id": "simplesandwiches",
@@ -624,10 +627,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mPQsgj4TwlmABGLd9wlGWf1nEA1gIGBgSTskzoBYQBIgBRw7NgxsB4MA0ASxODQ0FDcBpibm8MxTAO6GEEDvG48QHERSKy7uxsuRtAAZL9iE8NrwOAIA2T/DqEwgEkQi1EMAGUMivICJRgA0mVXKrPxqV4AAAAASUVORK5CYII=",
     "counts": {
-      "config": 5,
+      "config": 46,
       "features": 55
     },
-    "dataHash": "21d0527a56b4"
+    "dataHash": "a1e65b067304"
   },
   {
     "id": "simplemaps",
@@ -802,9 +805,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnUlEQVR42mOQVtD5TwlmABHdk5aSjF0C8lANiMto+r96wz4wDcJZxQ0oGCYOwiDNhlb+mAYga/706RMKhhkC0gyyCKsBMNvQNSMbAsMYBuDTiMswuAGkaqbYgB0HzmAaABIkBaMYAAsDUjDWWLCvfwCPKhAG8WFsdD6GAaRoxpmQkBUQwhgGgFIXMTbD+CgGwARAkiAahgnx4QZQggHab2K50IVYOwAAAABJRU5ErkJggg==",
     "counts": {
+      "config": 4,
       "features": 5
     },
-    "dataHash": "9bfa35af48b3"
+    "dataHash": "6a65005dd9fe"
   },
   {
     "id": "simplemovement",
@@ -840,9 +844,10 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmElEQVR42mNI8FX7TwlmABHfbswhGX84kIBqwKeTZf9/PN4OpglhkOa1Xa6YBiBjLXFuFIysGWQRUQasyLD63+2vBTcApBmGMQzwWvEAjrEZgKyZaC8QbQCy7TRzAQyTFQbIGGYIXheAFOAyAGYITgNgTgQp8tISxYlB8hgGoAcUemJCxhguAKUudAPwYRQDYAKkYrgBlGAAoGJxbA1gD88AAAAASUVORK5CYII=",
     "counts": {
+      "config": 8,
       "features": 17
     },
-    "dataHash": "72e9172c5f34"
+    "dataHash": "d21fd81ccad0"
   },
   {
     "id": "simpletools",
@@ -882,7 +887,7 @@ window.WIKI_MODULES = [
       "config": 23,
       "features": 36
     },
-    "dataHash": "9583ddf83e19"
+    "dataHash": "93924fab75a1"
   },
   {
     "id": "simplefarming",
@@ -916,9 +921,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAkUlEQVR42mMw8Ir6TwlmABGrL78hGVfseIBqQPehJ/8P3f/4/8WBADAbhHGxQZrDWhZiGgBStKNNB0zjYoM0gyzCagBMEYjGxQYZQLELcBpAsQtAuGuWAQobpgGZjdcAZENgmtA14zXASkPgf5aXAgYGidPHAGQnk+wFdMUkBSIodaErwsdHMQAmQCqGG0AJBgArfJi0eSLOewAAAABJRU5ErkJggg==",
     "counts": {
+      "config": 7,
       "features": 12
     },
-    "dataHash": "e0104a495005"
+    "dataHash": "4674dae119c0"
   },
   {
     "id": "simplemobmanners",
@@ -952,9 +958,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mOIcQr4TwlmABEfTtwlGT9bdgLVgFebLvz/cv0ZmCaEQZqXVUzANACENxfr/79y7QSYxsYHaQZZhNUAkKLDTf7/D1RZgWlsfJABWF0AkgQpBNFaChJwjdj4OA2AYZhCGIbZDsJLctQwDfAo2vY/Z8JuMB3VtIMgBqlDMaCudcL/hctWE41B6jEMmDp7EdG4uKodMwxAhnRNmEkQgzRjDUSYK9A1gMSRDcdpACgdwBTjwjDNWA0ApS6QBEwhNgzTjGEATIBUDDeAEgwAVWeiZax11pUAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
+      "config": 5,
       "features": 11
     },
-    "dataHash": "ee07b0e88697"
+    "dataHash": "74b19447fa84"
   },
   {
     "id": "simpleloot",
@@ -987,9 +994,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcElEQVR42mOIDVD4TwlmABEf704iGb84EYBqwOsLGf+/PtsApglhkOblE6xQDdCS4iEJYzVgRYnN/yNdXmAaH8ZrADGYdgag408XHMCYpDBAxjsmKIDxEAoDig3IclIgChMdC0SnRFjaJhXDDaAEAwDEoiaJlv+QRgAAAABJRU5ErkJggg==",
     "counts": {
+      "config": 2,
       "features": 5
     },
-    "dataHash": "4e9aaf9aef23"
+    "dataHash": "dcc743e32c9c"
   },
   {
     "id": "simplequestionary",
@@ -1296,10 +1304,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 194,
-      "config": 24,
+      "config": 22,
       "features": 16
     },
-    "dataHash": "e547b2bc8962"
+    "dataHash": "febf6b2ee921"
   },
   {
     "id": "simpleshops",
@@ -1447,7 +1455,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 17
     },
-    "dataHash": "b13f4556084d"
+    "dataHash": "c18a17705499"
   },
   {
     "id": "simplecrucibles",
@@ -2027,8 +2035,10 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [
+      "jade",
       "simplebuilding",
-      "simpleores"
+      "simpleores",
+      "jei"
     ],
     "stage": "new",
     "parent": "simplebuilding",
@@ -2040,11 +2050,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA70lEQVR42mPwUlH4TwlmABGXZ04iGe+ICkAYsHjJMrIw2ID6hia4wPQZs+DsTd2d/y+5mPzfYar1f9eUSf/Xb9iEgkFq0zOyEAaABJANWNnc+P9FlCvYEJBhyJph6uEGrJrcD1YMwiA2SHJhVQXcAJBhyIbDLEMxAKQQhLEZAGLDNMFwd08ffhd8/fQeBYM04DRgQWcrhguePbyDgmGaYBikD24ASKAryON/lZsd3IYrZ4+hYGTNWA0AaUY2AORvWDSC2AQNQPfjjMJ8uAEgNrr/UcKguKQMBSMbim4rDIPUYbiAVIzTBcRisAGUZmcAIROGNE6TrXwAAAAASUVORK5CYII=",
     "counts": {
       "items": 4,
-      "blocks": 14,
-      "recipes": 10,
-      "features": 8
+      "blocks": 16,
+      "recipes": 12,
+      "features": 10
     },
-    "dataHash": "e775dc3d3b21"
+    "dataHash": "d2c77368b695"
   },
   {
     "id": "simplearrows",
@@ -2311,5 +2321,40 @@ window.WIKI_MODULES = [
       "features": 12
     },
     "dataHash": "43e7eefe75d6"
+  },
+  {
+    "id": "simplevault",
+    "displayName": "Simple Vault",
+    "description": "The Bedrock Vault (Grundgewoelbe): a rare gap in the Overworld bedrock leads into quiet halls enclosed by bedrock; three riddles and an ascent altar are the only way out.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "The Bedrock Vault: far below, a rare gap in the Overworld bedrock leads into quiet halls enclosed by bedrock. The gate closes behind you - three riddles give three seal parts, and the Ascent Altar carries you back up.",
+      "de": "Das Grundgewölbe: tief unten führt eine seltene Lücke im Grundgestein der Oberwelt in stille Hallen, rundum von Grundgestein umschlossen. Das Tor schließt sich hinter dir - drei Rätsel geben drei Siegelteile, und der Aufstiegsaltar trägt dich wieder hinauf."
+    },
+    "purpose": {
+      "en": "Das Grundgewölbe: eine seltene Lücke im Grundgestein der Oberwelt führt in stille Hallen unter dem Grundgestein, rundum von Grundgestein umschlossen; drei Rätsel und der Aufstiegsaltar sind der einzige Weg hinaus.",
+      "de": "Das Grundgewölbe: eine seltene Lücke im Grundgestein der Oberwelt führt in stille Hallen unter dem Grundgestein, rundum von Grundgestein umschlossen; drei Rätsel und der Aufstiegsaltar sind der einzige Weg hinaus."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVR42mMwt7L9TwlmABHbdu1HwTJySlgxspquCTNQDZi1YNn/U2cvghUuXr0VKwbJgdSBNCdn5GIaANNcUtOGYTtIzDswEswGWYRhALpmLVm3/1H2fWAahNENQTEAm2YQPrLiC5yNzRCCBsAwzCUkGYDsfIpdAPMKyQagu4JsF5BlAHoM0C8QCWGQZqwGkIPhBlCCAbv75A6OjFCvAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 4,
+      "blocks": 10,
+      "config": 4,
+      "features": 3
+    },
+    "dataHash": "76d7260ac84d"
   }
 ];

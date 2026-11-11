@@ -540,9 +540,11 @@ public class ModItems {
             ? registerItem("dull_nihilith_shard", s -> new Item(s)) : null;
 
     public static final Item AUTO_SMITHER = com.simplebuilding.version.McVersion.AUTO_SMITHER
-            ? registerItem("auto_smither", s -> new BlockItem(ModBlocks.AUTO_SMITHER, s)) : null;
+            ? registerItem("auto_smither", s -> new BlockItem(ModBlocks.AUTO_SMITHER, s))
+            : com.simplebuilding.version.McVersion.AUTO_SMITHER_IN_MACHINES ? com.simplebuilding.util.MachineRefs.item("auto_smither") : null; // 26.3: Simple Machines (MACH32-MOD stage 4)
     public static final Item AUTONOMOUS_CRAFTER = com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
-            ? registerItem("autonomous_crafter", s -> new BlockItem(ModBlocks.AUTONOMOUS_CRAFTER, s)) : null;
+            ? registerItem("autonomous_crafter", s -> new BlockItem(ModBlocks.AUTONOMOUS_CRAFTER, s))
+            : com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER_IN_MACHINES ? com.simplebuilding.util.MachineRefs.item("autonomous_crafter") : null; // 26.3: Simple Machines (MACH32-MOD stage 4b)
     // Astral-Verzauberung (Queue N27).
     /** ENCH02: the tables are Simple Enchanting's (simpleenchanting:*), found by id (air without the module). */
     public static final Item DARK_ENCHANTER = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING

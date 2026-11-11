@@ -355,4 +355,101 @@ public final class ModuleGameTest {
     public void hopperTooltipsNameSpeedAndFilter(GameTestHelper h) {
         com.simplemachines.test.HopperModuleTests.hopperTooltipsNameSpeedAndFilter(h);
     }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void jadeHopperFilterData(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.jadeHopperFilterData(h);
+    }
+
+    // MACH32-MOD stage 4: the Auto Smither (AutoSmitherTests).
+    @GameTest(structure = "simplemachines:empty")
+    public void autoSmitherRegistered(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherRegistered(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void oldAutoSmitherIdsMove(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.oldAutoSmitherIdsMove(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void smitherDelayComesOverFromSimpleBuilding(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.smitherDelayComesOverFromSimpleBuilding(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 60)
+    public void autoSmitherUpgradesDiamondToNetherite(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherUpgradesDiamondToNetherite(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 60)
+    public void autoSmitherAppliesArmourTrim(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherAppliesArmourTrim(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 120)
+    public void autoSmitherStopsWithoutRedstone(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherStopsWithoutRedstone(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 100)
+    public void autoSmitherSmithsOncePerPulse(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherSmithsOncePerPulse(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 60)
+    public void autoSmitherEjectsWithoutContainer(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherEjectsWithoutContainer(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 80)
+    public void autoSmitherSortsHopperInput(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherSortsHopperInput(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void autoSmitherOutputRejectsInsertion(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherOutputRejectsInsertion(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void autoSmitherOutputCapacityAndRecipeError(GameTestHelper h) {
+        com.simplemachines.test.AutoSmitherTests.autoSmitherOutputCapacityAndRecipeError(h);
+    }
+
+    // MACH32-MOD stage 4b: the Autonomous Crafter (AutonomousCrafterTests).
+    @GameTest(structure = "simplemachines:empty")
+    public void autonomousCrafterRegistered(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterRegistered(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void oldAutonomousCrafterIdsMove(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.oldAutonomousCrafterIdsMove(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 200)
+    public void autonomousCrafterCraftsOnlyAboveHoppers(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterCraftsOnlyAboveHoppers(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 200)
+    public void autonomousCrafterStopsOnRedstone(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterStopsOnRedstone(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 200)
+    public void autonomousCrafterFilterKeepsTheRecipeItems(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterFilterKeepsTheRecipeItems(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void autonomousCrafterKeepsItsIngredients(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterKeepsItsIngredients(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void autonomousCrafterMenuLayout(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterMenuLayout(h);
+    }
 }

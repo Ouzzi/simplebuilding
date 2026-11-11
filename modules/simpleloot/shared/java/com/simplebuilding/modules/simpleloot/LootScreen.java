@@ -26,10 +26,10 @@ public final class LootScreen {
     }
 
     private static Component name(String key) {
-        return Component.translatable("simpleloot.option." + key);
+        return Component.translatable("text.autoconfig.simpleloot.option." + key);
     }
 
     private static Component tip(String key) {
-        return Component.translatable("simpleloot.option." + key + ".tooltip");
+        return Component.translatable("text.autoconfig.simpleloot.option." + key + ".@Tooltip");
     }
 }

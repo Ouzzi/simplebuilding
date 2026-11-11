@@ -21,7 +21,7 @@ Configurable dimensions, light arches, and safe linked portals.
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config
+- Required mods: none (Cloth Config optional: config screen only)
 - Optional integrations: simplebuilding, modmenu, flan, ftbchunks, openpartiesandclaims, griefdefender, claimchunk
 
 ## Notes

@@ -1,7 +1,6 @@
 package com.simplequalityoflife.config;
 
 import com.simplequalityoflife.Simplequalityoflife;
-import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
@@ -11,7 +10,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
  * each sub-mod takes its old values over once from this file, unknown old keys are ignored here.
  */
 @Config(name = Simplequalityoflife.MOD_ID)
-public class SimplequalityoflifeConfig implements ConfigData {
+public class SimplequalityoflifeConfig { // Q-B1: no Cloth type in the hierarchy, so the class loads without Cloth Config (its annotations are skipped then)
 
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleWeather = true;

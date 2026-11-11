@@ -14,8 +14,8 @@ fields = re.findall(r'^    public (?:boolean|int|double|List<String>|\w+Mode) (\
 assert fields, 'config fields'
 for option in fields:
     for lang in (en, de):
-        tip = lang.get(f'{MID}.option.{option}.tooltip', '')
-        assert f'{MID}.option.{option}' in lang and ('Default:' in tip or 'Standard:' in tip), option
+        tip = lang.get(f'text.autoconfig.{MID}.option.{option}.@Tooltip', '')
+        assert f'text.autoconfig.{MID}.option.{option}' in lang and ('Default:' in tip or 'Standard:' in tip), option
 assert not any(k.startswith(('item.', 'block.')) and k != 'item.simplemobmanners.frog_bucket' for k in en), 'no items besides the frog bucket'
 assert all(chr(195) not in v and chr(194) not in v for v in de.values()), 'German text has mojibake'
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))

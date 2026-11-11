@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simplevault:block/path_tile"
+    },
+    "lit=true": {
+      "model": "simplevault:block/path_tile_lit"
+    }
+  }
+}

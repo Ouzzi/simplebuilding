@@ -32,7 +32,7 @@ manual = read(MODULE / 'wiki/manual.json')
 features = {f['id'] for f in manual['features']}
 for key in ['enabled'] + ['screen.' + i for i in ids]:
     for lang in langs:
-        name, tip = lang['simpleinterfaces.option.' + key], lang['simpleinterfaces.option.' + key + '.tooltip']
+        name, tip = lang['text.autoconfig.simpleinterfaces.option.' + key], lang['text.autoconfig.simpleinterfaces.option.' + key + '.@Tooltip']
         assert name and tip and ('Default: on.' in tip or 'Standard: an.' in tip), f'option {key} needs name and default'
     assert 'config_' + key.replace('.', '_') in features, f'wiki feature missing for {key}'
 for lang in langs:

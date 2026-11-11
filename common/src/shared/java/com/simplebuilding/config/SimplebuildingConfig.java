@@ -171,6 +171,10 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleLayers = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleVault = true;
     // <submods:end fields>
 
     /**
@@ -214,6 +218,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simplebuildingtools", c.enableSimpleBuildingtools);
         setSubMod("simplechisels", c.enableSimpleChisels);
         setSubMod("simplelayers", c.enableSimpleLayers);
+        setSubMod("simplevault", c.enableSimpleVault);
         // <submods:end apply>
     }
 

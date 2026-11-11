@@ -23,7 +23,7 @@ Restyle of the Vanilla container screens (a coloured box per block, drawn in cod
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config, SimpleLib
+- Required mods: SimpleLib (Cloth Config optional: config screen only)
 - Optional integrations: simplebuilding, modmenu
 
 ## Notes

@@ -105,12 +105,12 @@ public class ModBlockEntities {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_bundle"),
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, ModBlocks.PLACED_BUNDLE).build());
 
-        if (ModBlocks.AUTO_SMITHER != null) {
+        if (com.simplebuilding.version.McVersion.AUTO_SMITHER) { // 26.3: Simple Machines' block entity (MACH32-MOD stage 4)
             AUTO_SMITHER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "auto_smither"),
                     FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity::new, ModBlocks.AUTO_SMITHER).build());
         }
-        if (ModBlocks.AUTONOMOUS_CRAFTER != null) {
+        if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) { // 26.3: Simple Machines' block entity (MACH32-MOD stage 4b)
             AUTONOMOUS_CRAFTER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "autonomous_crafter"),
                     FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity::new, ModBlocks.AUTONOMOUS_CRAFTER).build());

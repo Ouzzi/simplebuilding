@@ -1,12 +1,11 @@
 package com.simplefun.config;
 
 import com.simplefun.Constants;
-import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 @Config(name = Constants.MOD_ID)
-public class SimplefunConfig implements ConfigData {
+public class SimplefunConfig { // Q-B1: no Cloth type in the hierarchy, so the class loads without Cloth Config (its annotations are skipped then)
 
   @ConfigEntry.Gui.CollapsibleObject public Fun fun = new Fun();
 

@@ -37,7 +37,7 @@ Bounded playful mechanics, throwable bricks and cosmetic transformations (the an
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config
+- Required mods: none (Cloth Config optional: config screen only)
 - Optional integrations: modmenu, jei, jade
 
 ## Notes

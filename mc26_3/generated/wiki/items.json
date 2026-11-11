@@ -32,8 +32,6 @@
     "simplebuilding:astralit_slab",
     "simplebuilding:astralit_stairs",
     "simplebuilding:astralit_wall",
-    "simplebuilding:auto_smither",
-    "simplebuilding:autonomous_crafter",
     "simplebuilding:bamboo_cauldron",
     "simplebuilding:bamboo_sheet",
     "simplebuilding:birch_cauldron",
@@ -430,12 +428,6 @@
     },
     {
       "id": "simplebuilding:astralit_wall"
-    },
-    {
-      "id": "simplebuilding:auto_smither"
-    },
-    {
-      "id": "simplebuilding:autonomous_crafter"
     },
     {
       "id": "simplebuilding:bamboo_cauldron"

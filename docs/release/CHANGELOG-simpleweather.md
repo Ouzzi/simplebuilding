@@ -15,7 +15,7 @@ Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config
+- Required mods: none (Cloth Config optional: config screen only)
 - Optional integrations: simplequalityoflife, modmenu
 
 ## Notes

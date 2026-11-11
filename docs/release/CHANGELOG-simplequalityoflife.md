@@ -16,7 +16,7 @@ Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Ma
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config, Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement
+- Required mods (Cloth Config optional: config screen only): Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement
 - Optional integrations: simplebuilding, modmenu
 
 ## Notes

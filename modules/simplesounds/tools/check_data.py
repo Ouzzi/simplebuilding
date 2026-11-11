@@ -23,7 +23,7 @@ for lang in langs:
 manual=read(MODULE/'wiki/manual.json');features={f['id'] for f in manual['features']}
 assert manual['notes']=={} and not list((MODULE/'shared/resources/assets/simplesounds/items').glob('*.json'))
 for key,default in [('followVisuals','true'),('globalLevel','SUBTLE'),('volumeCap','0.25'),('soundsPerTick','2'),('soundsPerPlayer','1'),('cooldownTicks','40')]+[(e['id'],'INHERIT') for e in effects]:
- for lang in langs:assert lang['simplesounds.option.'+key] and default in lang['simplesounds.option.'+key+'.tooltip']
+ for lang in langs:assert lang['text.autoconfig.simplesounds.option.'+key] and default in lang['text.autoconfig.simplesounds.option.'+key+'.@Tooltip']
  assert ('effect_' if key in {e['id'] for e in effects} else 'config_')+key in features
 for e in effects:
  assert e['sound'].startswith('minecraft:') and 20<=e['interval']<=1200 and 0<e['volume']<=.25 and .5<=e['pitch']<=2

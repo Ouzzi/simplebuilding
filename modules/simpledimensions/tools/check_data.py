@@ -19,14 +19,14 @@ for option in read(MODULE/'config-options.json')['options']:
  for lang,word in ((en,'Default:'),(de,'Standard:')):
   assert option['name'] in lang and option['tooltip'] in lang
   assert word in lang[option['tooltip']]
-  assert 'simpledimension.config.'+option['tab'] in lang
+  assert 'text.autoconfig.simpledimension.option.'+option['tab'] in lang
 options={o['key']:o for o in read(MODULE/'config-options.json')['options']}
 screen=(MODULE/'shared/java/com/simplebuilding/modules/simpledimensions/client/DimensionConfigScreen.java').read_text()
 assert 'var dimensions=b.getOrCreateCategory(text("dimensions"))' in screen
 for key in ('skyblockEnabled','miningEnabled','travelEnabled'):
  option=options[key]
  assert option['tab']=='dimensions' and option['scope']=='server' and option['default'] is True
- assert f'dimensions.addEntry(e.startBooleanToggle(text("{key}"),source.{key}).setDefaultValue(true).setTooltip(text("{key}.tooltip")).setSaveConsumer(v->source.{key}=v)' in screen
+ assert f'dimensions.addEntry(e.startBooleanToggle(text("{key}"),source.{key}).setDefaultValue(true).setTooltip(text("{key}.@Tooltip")).setSaveConsumer(v->source.{key}=v)' in screen
  assert f'c.{key}=source.{key}' in screen
  for lang,default in ((en,'Default: On.'),(de,'Standard: Ein.')):
   assert default in lang[option['tooltip']]

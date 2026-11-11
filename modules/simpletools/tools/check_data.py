@@ -14,8 +14,8 @@ fields = re.findall(r'^    public (?:boolean|int|double|List<String>|\w+Mode) (\
 assert fields, 'config fields'
 for option in fields:
     for lang in (en, de):
-        tip = lang.get(f'{MID}.option.{option}.tooltip', '')
-        assert f'{MID}.option.{option}' in lang and ('Default:' in tip or 'Standard:' in tip), option
+        tip = lang.get(f'text.autoconfig.{MID}.option.{option}.@Tooltip', '')
+        assert f'text.autoconfig.{MID}.option.{option}' in lang and ('Default:' in tip or 'Standard:' in tip), option
 # WH26-7: the Enderite and ceramic buckets (22 items, ids in bucket/ToolsBuckets.java) moved here from Simple Crucibles.
 buckets = re.findall(r'"([a-z_]+)"', (JAVA / 'bucket/ToolsBuckets.java').read_text(encoding='utf-8').split('IDS = List.of(')[1].split(');')[0])
 assert len(buckets) == 22 and all(f'item.{MID}.{b}' in en for b in buckets), 'every bucket has a name'

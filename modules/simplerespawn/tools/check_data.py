@@ -19,7 +19,7 @@ for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
     for k in config_keys:
-        assert data.get(f'config.{NS}.{k}') and data.get(f'config.{NS}.{k}.tooltip'), (locale, k)
+        assert data.get(f'text.autoconfig.{NS}.option.{k}') and data.get(f'text.autoconfig.{NS}.option.{k}.@Tooltip'), (locale, k)
     for k in sorted(used) + [f'item.{NS}.guide_book', f'advancements.{NS}.first_aid.title', f'advancements.{NS}.first_aid.description']:
         assert data.get(k), (locale, k)
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'

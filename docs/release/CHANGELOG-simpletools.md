@@ -23,7 +23,7 @@ Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, t
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config
+- Required mods: none (Cloth Config optional: config screen only)
 - Optional integrations: simplebuilding, simplequalityoflife, modmenu
 
 ## Notes

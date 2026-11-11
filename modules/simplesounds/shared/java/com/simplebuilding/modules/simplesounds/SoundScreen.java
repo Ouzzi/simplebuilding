@@ -18,7 +18,7 @@ public final class SoundScreen {
   }
   b.setSavingRunnable(()->{c.normalize();SoundClient.CONFIG=c;SoundClient.save();});return b.build();
  }
- private static Component name(String s){return Component.translatable("simplesounds.option."+s);}
- private static Component tip(String s){return Component.translatable("simplesounds.option."+s+".tooltip");}
+ private static Component name(String s){return Component.translatable("text.autoconfig.simplesounds.option."+s);}
+ private static Component tip(String s){return Component.translatable("text.autoconfig.simplesounds.option."+s+".@Tooltip");}
  private static Component level(Enum<?> e){return Component.translatable("simplesounds.level."+e.name().toLowerCase(java.util.Locale.ROOT));}
 }

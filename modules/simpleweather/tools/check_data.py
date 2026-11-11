@@ -7,7 +7,7 @@ en, de = (json.loads((MODULE / f'shared/resources/assets/simpleweather/lang/{l}.
 assert en.keys() == de.keys(), 'en/de keys differ'
 for option in ('disableWeather', 'clientRainParticleDensity'):
     for lang in (en, de):
-        assert f'simpleweather.option.{option}' in lang and f'simpleweather.option.{option}.tooltip' in lang, option
+        assert f'text.autoconfig.simpleweather.option.{option}' in lang and f'text.autoconfig.simpleweather.option.{option}.@Tooltip' in lang, option
 assert not any(k.startswith(('item.', 'block.')) for k in en), 'Simple Weather has no items'
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 for feature in manual['features']:

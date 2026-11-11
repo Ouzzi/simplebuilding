@@ -57,6 +57,9 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import server_solo  # noqa: E402  (same folder; tools/testrunner/server_solo.py)
+
 REPO = Path(__file__).resolve().parents[2]
 TESTING = REPO / "testing"
 RUNS_DIR = TESTING / "runs"
@@ -467,7 +470,15 @@ FORGE263_TARGETS = (Target(
     catalogue="common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
     gradle_args=("-Pforge263=true",) + FORGE_GRADLE_ARGS,
 ),)
-ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS + MODULE_TARGETS + FORGE263_TARGETS
+# REL-CHK §4 (prio26 #5, b-server26): a real Fabric dedicated server with one mod plus its hard requirements (no Cloth
+# unless declared hard, no client mods), then a vanilla client pings and logs in. tools/testrunner/server_solo.py.
+# Selected with --targets server-solo (all, one after the other) or by id; never part of a plain run.
+SERVER_SOLO_TARGETS = tuple(Target(
+    id=f"server-solo-{m['id']}-fabric-263", label=f"{m['displayName']} Server solo + Vanilla",
+    loader="fabric", mc_line="26.3", gradle_task=f"{m['projects']['fabric']}:jar", report="", catalogue="",
+    kind="dedicated", namespace="server-solo") for m in server_solo.solo_modules())
+ALL_TARGETS: tuple[Target, ...] = (TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS + MODULE_TARGETS + FORGE263_TARGETS
+                                   + SERVER_SOLO_TARGETS)
 
 BY_ID = {t.id: t for t in ALL_TARGETS}
 
@@ -961,6 +972,42 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     }
 
 
+def solo_module(target: Target) -> str:
+    return target.id[len("server-solo-"):-len("-fabric-263")]
+
+
+def run_solo_target(target: Target, run_id: str, build: tuple[int, str] | None) -> dict:
+    """One mod alone on a real dedicated server, then the vanilla client (server_solo.run_solo). Each step is a test."""
+    started_at = now_utc()
+    RUNS_DIR.mkdir(parents=True, exist_ok=True)
+    log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
+    if build is not None and build[0] != 0:
+        tail = [l for l in strip_ansi(build[1]).splitlines() if l.strip()][-3:]
+        result = {"steps": [("jar_build", "failed", " | ".join(tail))], "error": "Jar-Bau rot: " + " | ".join(tail),
+                  "warning": None}
+        log_path.write_text(strip_ansi(build[1]), encoding="utf-8")
+    else:
+        try:
+            result = server_solo.run_solo(solo_module(target), log_path)
+        except (OSError, ValueError, KeyError) as error:
+            result = {"steps": [("setup", "failed", f"{type(error).__name__}: {error}")],
+                      "error": f"Vorbereitung: {type(error).__name__}: {error}", "warning": None}
+    tests = [{"id": f"server-solo:{name}", "status": status, "message": message, "durationMs": 0}
+             for name, status, message in result["steps"]]
+    failed = sum(1 for t in tests if t["status"] == "failed")
+    return {
+        "id": target.id, "label": target.label, "loader": target.loader, "mcLine": target.mc_line,
+        "gradleTask": target.gradle_task, "kind": "dedicated", "selected": True,
+        "exitCode": 0 if result["error"] is None else 1,
+        "durationMs": int((now_utc() - started_at).total_seconds() * 1000),
+        "logPath": f"runs/{log_path.name}" if log_path.exists() else None,
+        "counts": {"total": len(tests), "passed": sum(1 for t in tests if t["status"] == "passed"), "failed": failed,
+                   "known": sum(1 for t in tests if t["status"] == "known"), "foreign": 0},
+        "missing": [], "unexpected": [], "faults": result.get("faults", []), "tests": tests,
+        "error": result["error"], "warning": result["warning"],
+    }
+
+
 def new_run_id(started: datetime) -> str:
     return started.strftime("%Y-%m-%dT%H-%M-%SZ") + "-" + uuid.uuid4().hex[:4]
 
@@ -1141,7 +1188,15 @@ def execute(
     props = gradle_properties()
 
     target_records: list[dict] = []
-    servers = [t for t in selected if t.kind != "client"]
+    servers = [t for t in selected if t.kind == "server"]
+    solo = [t for t in selected if t.kind == "dedicated"]
+    solo_build = None
+    if solo:
+        # One Gradle call builds every release jar the solo servers need; then the servers run one after the other.
+        needed = sorted({m for t in solo for m in server_solo.closure(solo_module(t))["modules"]})
+        if on_line:
+            on_line(f"$ server_solo.build_jars({len(needed)} Module)")
+        solo_build = server_solo.build_jars(needed, timeout)
     shared = None
     if len(servers) > 1 and os.environ.get("SIMPLEBUILDING_SERIAL_TESTS") != "1":
         shared = run_server_targets_in_parallel(servers, test_filter, timeout, on_line)
@@ -1150,6 +1205,8 @@ def execute(
             on_target(target)
         if shared is not None and target in servers:
             target_records.append(run_target(target, run_id, test_filter, timeout, on_line, shared))
+        elif target.kind == "dedicated":
+            target_records.append(run_solo_target(target, run_id, solo_build))
         elif target.kind == "client":
             # A test selector means nothing here: the client tests are whole scenes, not a
             # catalogue of ids that can be picked from.
@@ -1652,7 +1709,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--targets",
         default="all",
         help=("comma separated target ids; 'all' (default) runs the four server targets, "
-              "'client' only the client ones, 'everything' both, 'standalone' every module alone; the experimental 26.4 snapshot "
+              "'client' only the client ones, 'everything' both, 'standalone' every module alone, 'server-solo' every mod alone on a real dedicated server + vanilla client; the experimental 26.4 snapshot "
               "targets only by id, 'snapshot' or 'everything-plus-snapshot': "
               + ", ".join(t.id for t in ALL_TARGETS)),
     )
@@ -1684,8 +1741,10 @@ def select_targets(spec: str) -> list[Target]:
         # Owner 22.10.: SB_GATE_LOADERS (e.g. "fabric") narrows the standalone runs to those loaders.
         loaders = [l for l in os.environ.get("SB_GATE_LOADERS", "").split(",") if l]
         return [t for t in STANDALONE_TARGETS if not loaders or t.loader in loaders]
+    if spec.strip() == "server-solo":
+        return list(SERVER_SOLO_TARGETS)
     if spec.strip() == "everything-plus-snapshot":
-        return list(ALL_TARGETS)
+        return [t for t in ALL_TARGETS if t.kind != "dedicated"]
     chosen: list[Target] = []
     for part in spec.split(","):
         key = part.strip()

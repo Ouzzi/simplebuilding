@@ -1634,10 +1634,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Anvil repair keeps cost",
-      "labelDe": "Anvil repair keeps cost",
-      "tooltip": "Repairing without a new enchantment keeps the anvil work cost (2026-10-02).",
-      "tooltipDe": "Repairing without a new enchantment keeps the anvil work cost (2026-10-02)."
+      "label": "Repairing Keeps Anvil Cost",
+      "labelDe": "Reparieren hält Ambosskosten",
+      "tooltip": "Repairing or renaming at the anvil without\nnew enchantments does not raise the item's\nanvil cost. Only enchanting does. Default:\ntrue.",
+      "tooltipDe": "Reparieren oder Umbenennen am Amboss ohne\nneue Verzauberung erhöht die Ambosskosten des\nGegenstands nicht. Nur Verzaubern tut das.\nStandard: true."
     },
     {
       "range": null,
@@ -1653,10 +1653,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Biome brush enabled",
-      "labelDe": "Biome brush enabled",
-      "tooltip": "Biome Brush on/off (moved from Simple Mobs on 21.10.).",
-      "tooltipDe": "Biome Brush on/off (moved from Simple Mobs on 21.10.)."
+      "label": "Biome Brush",
+      "labelDe": "Biom-Pinsel",
+      "tooltip": "The Biome Brush paints the biome around a\nclicked block. Off: every stroke is refused.\nDefault: true.",
+      "tooltipDe": "Der Biom-Pinsel malt das Biom um einen\ngeklickten Block. Aus: jeder Strich wird\nabgelehnt. Standard: true."
     },
     {
       "range": null,
@@ -1672,10 +1672,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Biome brush ops only",
-      "labelDe": "Biome brush ops only",
-      "tooltip": "Biome Brush only for operators.",
-      "tooltipDe": "Biome Brush only for operators."
+      "label": "Biome Brush Only for Operators",
+      "labelDe": "Biom-Pinsel nur für Operatoren",
+      "tooltip": "Only operators may paint biomes. Default:\nfalse.",
+      "tooltipDe": "Nur Operatoren dürfen Biome malen.\nStandard: false."
     },
     {
       "range": null,
@@ -1691,10 +1691,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Biome brush radius",
-      "labelDe": "Biome brush radius",
-      "tooltip": "Biome Brush radius in 4-block biome cells, 0-2 (0 = one cell).",
-      "tooltipDe": "Biome Brush radius in 4-block biome cells, 0-2 (0 = one cell)."
+      "label": "Biome Brush Radius",
+      "labelDe": "Biom-Pinsel-Radius",
+      "tooltip": "Biome cells (4 blocks each) painted around\nthe clicked cell. Default: 1. Allowed range:\n0–2.",
+      "tooltipDe": "Biomzellen (je 4 Blöcke) um die geklickte\nZelle. Standard: 1. Bereich: 0–2."
     },
     {
       "range": null,
@@ -1710,10 +1710,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Death durability cap",
-      "labelDe": "Death durability cap",
-      "tooltip": "Soulbound items and Death Vault returns keep at most this much durability, 1-2031.",
-      "tooltipDe": "Soulbound items and Death Vault returns keep at most this much durability, 1-2031."
+      "label": "Durability After Death",
+      "labelDe": "Haltbarkeit nach dem Tod",
+      "tooltip": "Soulbound items and Death Vault returns\nkeep at most this much durability.\nDefault: 50. Allowed range: 1–2031.",
+      "tooltipDe": "Seelengebundene Gegenstände und Rückgaben\ndes Todesgewölbes behalten höchstens so\nviel Haltbarkeit. Standard: 50. Bereich:\n1–2031."
     },
     {
       "range": null,
@@ -1729,10 +1729,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Death vault cost per item",
-      "labelDe": "Death vault cost per item",
-      "tooltip": "Future redeem option: offering points (diamonds, Simple Money bills) per returned item, 1-64.",
-      "tooltipDe": "Future redeem option: offering points (diamonds, Simple Money bills) per returned item, 1-64."
+      "label": "Death Vault Cost per Item",
+      "labelDe": "Todesgewölbe: Preis je Gegenstand",
+      "tooltip": "Future buy-back: diamonds (or Simple Money\nbills) per returned item. Default: 4.\nAllowed range: 1–64.",
+      "tooltipDe": "Zukünftiger Rückkauf: Diamanten (oder\nSimple-Money-Scheine) je zurückgegebenem\nGegenstand. Standard: 4. Bereich: 1–64."
     },
     {
       "range": null,
@@ -1748,10 +1748,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Death vault max deaths",
-      "labelDe": "Death vault max deaths",
-      "tooltip": "Future redeem option: deaths kept per player, 1-100 (the oldest are forgotten); without it only the last death is kept.",
-      "tooltipDe": "Future redeem option: deaths kept per player, 1-100 (the oldest are forgotten); without it only the last death is kept."
+      "label": "Remembered Deaths",
+      "labelDe": "Gemerkte Tode",
+      "tooltip": "Future buy-back: deaths kept per player\n(otherwise only the last). Default: 20.\nAllowed range: 1–100.",
+      "tooltipDe": "Zukünftiger Rückkauf: Tode je Spieler (sonst\nnur der letzte). Standard: 20. Bereich: 1–100."
     },
     {
       "range": null,
@@ -1767,10 +1767,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Death vault max per offering",
-      "labelDe": "Death vault max per offering",
-      "tooltip": "Future redeem option: items returned by one offering at most, 1-27.",
-      "tooltipDe": "Future redeem option: items returned by one offering at most, 1-27."
+      "label": "Returns per Offering",
+      "labelDe": "Rückgaben je Opfer",
+      "tooltip": "Future buy-back: items one offering returns\nat most. Default: 3. Allowed range: 1–27.",
+      "tooltipDe": "Zukünftiger Rückkauf: so viele Gegenstände\ngibt ein Opfer höchstens zurück. Standard: 3.\nBereich: 1–27."
     },
     {
       "range": null,
@@ -1786,10 +1786,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Death vault redeem",
-      "labelDe": "Death vault redeem",
-      "tooltip": "Future feature, off by default: buy lost death drops (despawned, burned) back with an offering at the Death Vault.",
-      "tooltipDe": "Future feature, off by default: buy lost death drops (despawned, burned) back with an offering at the Death Vault."
+      "label": "Death Vault Buy-Back (future)",
+      "labelDe": "Todesgewölbe: Rückkauf (Zukunft)",
+      "tooltip": "Future feature: buy lost death drops back\nwith an offering. Default: false (off).",
+      "tooltipDe": "Zukünftige Funktion: verlorene Todes-Drops\nmit einem Opfer zurückkaufen. Standard:\nfalse (aus)."
     },
     {
       "range": null,
@@ -1805,10 +1805,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Enable death vault",
-      "labelDe": "Enable death vault",
-      "tooltip": "Death Vault block: shows what became of the items dropped at your last death.",
-      "tooltipDe": "Death Vault block: shows what became of the items dropped at your last death."
+      "label": "Death Vault",
+      "labelDe": "Todesgewölbe",
+      "tooltip": "Records the items dropped at your last death;\nthe Death Vault shows what became of them.\nDefault: true.",
+      "tooltipDe": "Merkt sich die Gegenstände deines letzten Todes;\ndas Todesgewölbe zeigt, was daraus wurde.\nStandard: true."
     },
     {
       "range": null,
@@ -1824,10 +1824,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Enable full durability bonus",
-      "labelDe": "Enable full durability bonus",
-      "tooltip": "config/simpletools.json (formerly qOL.* in Simple QoL); server values, sent to clients. */\npublic final class ToolsConfig {\n    public static final double MAX_BONUS = 1.5;\n    public static final double DEFAULT_DURABILITY_THRESHOLD = 0.8;\n    public static final double DEFAULT_DURABILITY_BONUS_MULTIPLIER = 1.0;\n    /** A tool above the threshold gets the damage/mining bonus.",
-      "tooltipDe": "config/simpletools.json (formerly qOL.* in Simple QoL); server values, sent to clients. */\npublic final class ToolsConfig {\n    public static final double MAX_BONUS = 1.5;\n    public static final double DEFAULT_DURABILITY_THRESHOLD = 0.8;\n    public static final double DEFAULT_DURABILITY_BONUS_MULTIPLIER = 1.0;\n    /** A tool above the threshold gets the damage/mining bonus."
+      "label": "Full Durability Bonus",
+      "labelDe": "Voll-Haltbarkeits-Bonus",
+      "tooltip": "Grants a bonus to mining speed and damage\nwhen tools/weapons are near full durability.\nDefault: true.",
+      "tooltipDe": "Gewährt einen Bonus auf Abbaugeschwindigkeit\nund Schaden, wenn Werkzeuge/Waffen nahezu\nvolle Haltbarkeit haben. Standard: true."
     },
     {
       "range": null,
@@ -1843,10 +1843,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Enable furnace lava fill",
-      "labelDe": "Enable furnace lava fill",
-      "tooltip": "Right click a furnace with a lava bucket fills its fuel slot.",
-      "tooltipDe": "Right click a furnace with a lava bucket fills its fuel slot."
+      "label": "Fill Furnace with Lava",
+      "labelDe": "Ofen mit Lava befüllen",
+      "tooltip": "Insert one lava bucket into an empty fuel\nslot or exchange one leftover bucket. An\nempty bucket remains in the furnace after\nburning. Default: true.",
+      "tooltipDe": "Einen Lavaeimer in den leeren Brennstoffplatz\neinsetzen oder einen verbliebenen Eimer\ntauschen. Der leere Eimer bleibt nach dem\nVerbrennen im Ofen. Standard: true."
     },
     {
       "range": null,
@@ -1862,10 +1862,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Enable item frame invisibility",
-      "labelDe": "Enable item frame invisibility",
-      "tooltip": "Sneak + shears on a filled item frame hides/shows it (Vanilla Invisible); an emptied hidden frame shows again (2026-10-19).",
-      "tooltipDe": "Sneak + shears on a filled item frame hides/shows it (Vanilla Invisible); an emptied hidden frame shows again (2026-10-19)."
+      "label": "Hide Item Frames with Shears",
+      "labelDe": "Rahmen mit Schere verstecken",
+      "tooltip": "Sneak + shears on a frame with an item\nhides or shows the frame (costs 1\ndurability). An emptied hidden frame\nshows again. Default: true.",
+      "tooltipDe": "Schleichen + Schere an einem Rahmen mit\nItem macht ihn unsichtbar oder wieder\nsichtbar (1 Haltbarkeit). Ein geleerter\nunsichtbarer Rahmen wird wieder\nsichtbar. Standard: true."
     },
     {
       "range": null,
@@ -1881,10 +1881,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Enable item frame lock",
-      "labelDe": "Enable item frame lock",
-      "tooltip": "Sneak + honeycomb or glass pane locks a filled item frame (Vanilla Fixed), sneak + axe unlocks it (2026-10-19).",
-      "tooltipDe": "Sneak + honeycomb or glass pane locks a filled item frame (Vanilla Fixed), sneak + axe unlocks it (2026-10-19)."
+      "label": "Lock Item Frames",
+      "labelDe": "Rahmen sperren",
+      "tooltip": "Sneak + honeycomb or glass pane locks a\nframe with an item: no turning, no taking out, no\nbreaking. Sneak + axe unlocks it.\nDefault: true.",
+      "tooltipDe": "Schleichen + Honigwabe oder Glasscheibe\nsperrt einen Rahmen mit Item: nicht drehen, nicht\nentnehmen, nicht abbauen. Schleichen +\nAxt entsperrt ihn. Standard: true."
     },
     {
       "range": null,
@@ -1900,10 +1900,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Enable item frame reverse rotate",
-      "labelDe": "Enable item frame reverse rotate",
-      "tooltip": "Sneak + right click turns the item in a frame backwards (2026-10-19).",
-      "tooltipDe": "Sneak + right click turns the item in a frame backwards (2026-10-19)."
+      "label": "Turn Framed Items Backwards",
+      "labelDe": "Rahmen-Items rückwärts drehen",
+      "tooltip": "Sneak + right-click turns the item in a\nframe backwards. Default: true.",
+      "tooltipDe": "Schleichen + Rechtsklick dreht das Item\nim Rahmen rückwärts. Standard: true."
     },
     {
       "range": null,
@@ -1919,10 +1919,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Enable soulbound",
-      "labelDe": "Enable soulbound",
-      "tooltip": "Soulbound items stay in their slot on death (owner 2026-10-12).",
-      "tooltipDe": "Soulbound items stay in their slot on death (owner 2026-10-12)."
+      "label": "Soulbound",
+      "labelDe": "Seelengebunden",
+      "tooltip": "Items with Soulbound stay in their slot on\ndeath and never drop. Off: they drop like\nany item. Default: true.",
+      "tooltipDe": "Gegenstände mit Seelengebunden bleiben beim\nTod in ihrem Platz und fallen nie. Aus: sie\nfallen wie alle anderen. Standard: true."
     },
     {
       "range": null,
@@ -1938,10 +1938,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Enable strip station",
-      "labelDe": "Enable strip station",
-      "tooltip": "Strip station (IG31-59): a cage in which an axe works a whole stack of blocks at once.",
-      "tooltipDe": "Strip station (IG31-59): a cage in which an axe works a whole stack of blocks at once."
+      "label": "Strip Station",
+      "labelDe": "Entrindungs-Station",
+      "tooltip": "A cage that holds a whole stack of blocks;\nan axe strips, scrapes or unwaxes the whole stack in one click.\nDefault: true.",
+      "tooltipDe": "Ein Käfig, der einen ganzen Stapel Blöcke hält;\neine Axt entrindet, schabt oder entwachst den ganzen Stapel mit einem Klick.\nStandard: true."
     },
     {
       "range": null,
@@ -1957,10 +1957,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Full durability bonus multiplier",
-      "labelDe": "Full durability bonus multiplier",
-      "tooltip": "Damage and mining speed factor, 1.0-1.5 (1.0 = no bonus).",
-      "tooltipDe": "Damage and mining speed factor, 1.0-1.5 (1.0 = no bonus)."
+      "label": "Bonus Multiplier",
+      "labelDe": "Bonus-Multiplikator",
+      "tooltip": "The multiplier applied to speed/damage (e.g.,\n1.15 for +15%). Default: 1.0. Allowed range:\n1.0–1.5. Applies to Vanilla and mod tools.\n1.0 means no bonus; saved values are\nretained.",
+      "tooltipDe": "Multiplikator für Geschwindigkeit/Schaden\n(z.B. 1.15 für +15%). Standard: 1.0.\nErlaubter Bereich: 1.0–1.5. Gilt für Vanilla-\nund Mod-Werkzeuge. 1.0 bedeutet keinen Bonus;\ngespeicherte Werte bleiben erhalten."
     },
     {
       "range": null,
@@ -1976,10 +1976,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Full durability threshold",
-      "labelDe": "Full durability threshold",
-      "tooltip": "Share of durability left from which the bonus applies, 0.8-1.",
-      "tooltipDe": "Share of durability left from which the bonus applies, 0.8-1."
+      "label": "Durability Threshold (0.8–1.0)",
+      "labelDe": "Haltbarkeitsschwelle (0.8–1.0)",
+      "tooltip": "The fraction of durability required to\ntrigger the bonus (e.g., 0.9 for 90%).\nDefault: 0.8. Allowed range: 0.8–1.0.",
+      "tooltipDe": "Benötigter Haltbarkeits-Anteil, um den Bonus\nauszulösen (z.B. 0.9 für 90%). Standard: 0.8.\nErlaubter Bereich: 0.8–1.0."
     },
     {
       "range": null,
@@ -1995,10 +1995,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Soulbound anvil cost",
-      "labelDe": "Soulbound anvil cost",
-      "tooltip": "Anvil levels for every combination that applies Soulbound, 1-39 (Vanilla refuses 40+).",
-      "tooltipDe": "Anvil levels for every combination that applies Soulbound, 1-39 (Vanilla refuses 40+)."
+      "label": "Soulbound Anvil Cost",
+      "labelDe": "Amboss-Kosten Seelengebunden",
+      "tooltip": "Levels for every anvil combination that\napplies Soulbound. Default: 35. Allowed\nrange: 1–39.",
+      "tooltipDe": "Level für jede Amboss-Kombination, die\nSeelengebunden aufträgt. Standard: 35.\nBereich: 1–39."
     },
     {
       "range": null,
@@ -2014,10 +2014,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Soulbound end city chance",
-      "labelDe": "Soulbound end city chance",
-      "tooltip": "Chance of a Soulbound book in an End City treasure chest, 0-1 (applied on data reload).",
-      "tooltipDe": "Chance of a Soulbound book in an End City treasure chest, 0-1 (applied on data reload)."
+      "label": "Soulbound End City Chance",
+      "labelDe": "Endsiedlungs-Chance Seelengebunden",
+      "tooltip": "Chance of a Soulbound book in an End City\ntreasure chest (after a data reload).\nDefault: 0.02. Allowed range: 0–1.",
+      "tooltipDe": "Chance auf ein Seelengebunden-Buch in einer\nEndsiedlungs-Schatztruhe (nach Neuladen\nder Daten). Standard: 0.02. Bereich: 0–1."
     },
     {
       "range": null,
@@ -2033,10 +2033,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Soulbound trader chance",
-      "labelDe": "Soulbound trader chance",
-      "tooltip": "Chance that a wandering trader offers a Soulbound book, 0-1.",
-      "tooltipDe": "Chance that a wandering trader offers a Soulbound book, 0-1."
+      "label": "Soulbound Trader Chance",
+      "labelDe": "Händler-Chance Seelengebunden",
+      "tooltip": "Chance that a wandering trader sells one\nSoulbound book for 24–32 diamonds.\nDefault: 0.05. Allowed range: 0–1.",
+      "tooltipDe": "Chance, dass ein fahrender Händler ein\nSeelengebunden-Buch für 24–32 Diamanten\nverkauft. Standard: 0.05. Bereich: 0–1."
     },
     {
       "range": null,
@@ -2052,10 +2052,10 @@
       "categoryDe": "Simple Tools",
       "group": null,
       "groupDe": null,
-      "label": "Strip station hopper",
-      "labelDe": "Strip station hopper",
-      "tooltip": "Strip station: a hopper above fills it, a hopper below takes only the worked blocks.",
-      "tooltipDe": "Strip station: a hopper above fills it, a hopper below takes only the worked blocks."
+      "label": "Strip Station Hoppers",
+      "labelDe": "Trichter an der Entrindungs-Station",
+      "tooltip": "A hopper above fills the strip station,\na hopper below takes only the worked blocks.\nDefault: true.",
+      "tooltipDe": "Ein Trichter darüber füllt die Station,\nein Trichter darunter nimmt nur bearbeitete Blöcke.\nStandard: true."
     }
   ],
   "quests": [],

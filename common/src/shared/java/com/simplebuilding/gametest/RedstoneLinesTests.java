@@ -385,9 +385,9 @@ public final class RedstoneLinesTests {
             list.add(Device.of("astral_rail", ModBlocks.ASTRAL_RAIL.defaultBlockState(), s -> s.getValue(com.simplebuilding.blocks.custom.EndRailBlock.POWERED)));
             list.add(Device.of("nihil_rail", ModBlocks.NIHIL_RAIL.defaultBlockState(), s -> s.getValue(com.simplebuilding.blocks.custom.EndRailBlock.POWERED)));
         }
-        if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) {
+        if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER || com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER_IN_MACHINES) {
             list.add(Device.of("autonomous_crafter", ModBlocks.AUTONOMOUS_CRAFTER.defaultBlockState(),
-                    s -> s.getValue(com.simplebuilding.blocks.custom.AutonomousCrafterBlock.TRIGGERED)));
+                    s -> s.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.TRIGGERED))); // 26.3: Simple Machines' block (stage 4b)
         }
         return list;
     }

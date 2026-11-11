@@ -26,7 +26,7 @@ public class DimensionalScrapBlock extends Block {
         super(properties);
     }
 
-    public static boolean isEnderiteTool(ItemStack stack) {
+    private static boolean isEnderiteTool(ItemStack stack) {
         return stack.is(ModItems.ENDERITE_PICKAXE) || stack.is(com.simplebuilding.util.HammerRefs.item("enderite"));
     }
 

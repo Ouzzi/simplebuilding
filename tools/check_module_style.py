@@ -19,13 +19,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MODULES = ROOT / "modules"
 
-# module id -> old schemas it still uses (ST-20 part 2, docs/ai/PLAN-A-STYLE22-2026-10-22.md "Später")
-LEGACY = {
-    "simpledimensions": {"d"},
-    "simpleend": {"c"}, "simpleenddragonfight": {"c"}, "simplemobheads": {"c"}, "simplerespawn": {"c"}, "simpletweaks": {"c"},
-    "simplefarming": {"a"}, "simpleinterfaces": {"a"}, "simpleloot": {"a"}, "simplemobmanners": {"a"},
-    "simplemovement": {"a"}, "simplesounds": {"a"}, "simpletools": {"a"}, "simpleweather": {"a"},
-}
+# module id -> old schemas it still uses; empty since b-cfglang26 (10.11., ST-20 part 2 done). Must not grow.
+LEGACY: dict[str, set[str]] = {}
 # keys owned by other mods' config APIs (Jade plugin options), not ours to rename
 FOREIGN = re.compile(r"^config\.jade\.")
 TAB = re.compile(r"CreativeModeTab\.builder\(.{0,400}?\.title\(\s*(?:[\w.]*\.)?Component\.translatable\(\s*\"([^\"]+)\"", re.S)

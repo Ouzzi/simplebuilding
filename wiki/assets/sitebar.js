@@ -32,7 +32,9 @@
   header.insertBefore(bar, meta ? meta.nextSibling : document.getElementById('theme-btn'));
 
   function here() { return location.pathname + location.search + location.hash; }
+  var shown = false, last = null;
   function render(me) {
+    shown = true; last = me;
     bar.textContent = '';
     if (!me) {
       var a = el('a', 'icon-btn', t('login'));
@@ -65,6 +67,9 @@
   // labels follow the language switch; the links follow the current page
   var lang = document.getElementById('lang');
   if (lang) lang.addEventListener('change', function () { setTimeout(check, 0); });
+  // the wiki sets <html lang> only after its data loaded, often after the first answer: relabel then (b-wiki24b)
+  if (window.MutationObserver) new MutationObserver(function () { if (shown) render(last); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   window.addEventListener('hashchange', function () {
     var a = bar.querySelectorAll('a');
     for (var i = 0; i < a.length; i++) {
