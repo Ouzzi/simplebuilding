@@ -204,7 +204,12 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
         return false;
     }
 
-    private boolean takeFrom(Container source, Direction face) {
+    /**
+     * One pull from {@code source} through {@code face}. Like a Vanilla hopper it asks {@link Container#canTakeItem} before every
+     * single item (audit b-audsb31-a, simplestorage-P2-1): a filter hopper keeps its fixed item, an autonomous crafter its grid.
+     * Public for the game tests.
+     */
+    public boolean takeFrom(Container source, Direction face) {
         int[] slots;
         if (source instanceof WorldlyContainer worldly) {
             slots = worldly.getSlotsForFace(face);
@@ -223,7 +228,14 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
             int room = limit - (held.isEmpty() ? 0 : held.getCount());
             int count = Math.min(tier().amount(), Math.min(room, candidate.getCount()));
             if (count <= 0) continue;
-            ItemStack taken = source.removeItem(slot, count);
+            // One by one (at most tier().amount() = 4): the source decides again after every item, as it does for a hopper.
+            ItemStack taken = ItemStack.EMPTY;
+            for (int i = 0; i < count && source.canTakeItem(this, slot, source.getItem(slot)); i++) {
+                ItemStack one = source.removeItem(slot, 1);
+                if (one.isEmpty()) break;
+                if (taken.isEmpty()) taken = one;
+                else taken.grow(one.getCount());
+            }
             if (taken.isEmpty()) continue;
             if (held.isEmpty()) this.items.set(0, taken);
             else held.grow(taken.getCount());

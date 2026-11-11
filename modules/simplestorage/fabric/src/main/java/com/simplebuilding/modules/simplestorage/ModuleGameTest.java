@@ -706,6 +706,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void pipePullRespectsCanTakeItem(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_pull_respects_can_take_item").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void pipeOldSingleOutputMigratesAndNewStatesPersist(GameTestHelper h) {
         StorageTests.ALL.get("pipe_old_single_output_migrates_and_new_states_persist").accept(h);
     }
