@@ -1,15 +1,45 @@
 {
  "_doc": "Anpassungen der Landing (tools/landing/concepts.py liest diese Datei bei jedem Lauf; leer = alles automatisch aus den Mod-Ressourcen). Bilder: 'ns:block/name' bzw. 'ns:item/name' (eigene Mod-Textur) oder 'file:bilder/x.png' (Datei neben dieser JSON). Schlüssel mit _ werden ignoriert.",
  "mods": {
-  "_beispiel": {"icon": "simplehammers:item/diamond_sledgehammer", "de": "Kurztext deutsch", "en": "short text english"}
+  "_beispiel": {
+   "icon": "simplehammers:item/diamond_sledgehammer",
+   "de": "Kurztext deutsch",
+   "en": "short text english"
+  },
+  "simplelayers": {
+   "icon": "simplelayers:block/wallpaper",
+   "_warum": "N32: icon_128 ist noch die Platzhalter-Raute (gleich wie Simple Pads); bis zum echten Mod-Icon zeigt die Landing die Backrooms-Tapete"
+  },
+  "simplepads": {
+   "icon": "simplepads:block/launchpad",
+   "_warum": "N32: icon_128 ist noch die Platzhalter-Raute (gleich wie Simple Layers); bis zum echten Mod-Icon zeigt die Landing die Startrampe"
+  }
  },
  "textures": {
   "_beispiel": "simpleores:item/enderite_ingot"
  },
  "stages": {
-  "_beispiel_build": {"de": "Bauen", "en": "Building", "tde": "Text", "ten": "text", "bg": "simpleblocks:block/sculk_tiles", "items": ["simplehammers:item/iron_sledgehammer"]}
+  "_beispiel_build": {
+   "de": "Bauen",
+   "en": "Building",
+   "tde": "Text",
+   "ten": "text",
+   "bg": "simpleblocks:block/sculk_tiles",
+   "items": [
+    "simplehammers:item/iron_sledgehammer"
+   ]
+  }
  },
  "discover": {
-  "_beispiel_simplehammers": {"tde": "Vorschlaghämmer", "ten": "Sledgehammers", "pde": "Satz", "pen": "sentence", "bg": "simplefoundry:block/foundry_brick", "items": ["simplehammers:item/stone_sledgehammer"]}
+  "_beispiel_simplehammers": {
+   "tde": "Vorschlaghämmer",
+   "ten": "Sledgehammers",
+   "pde": "Satz",
+   "pen": "sentence",
+   "bg": "simplefoundry:block/foundry_brick",
+   "items": [
+    "simplehammers:item/stone_sledgehammer"
+   ]
+  }
  }
 }

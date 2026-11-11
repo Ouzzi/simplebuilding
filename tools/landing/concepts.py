@@ -100,7 +100,8 @@ SIZES = ('h1{font-size:clamp(52px,13vw,128px);line-height:1;letter-spacing:4px;m
          'h2{font-size:clamp(28px,4.6vw,40px);line-height:1.15;margin:72px 0 22px}'
          '.hero{padding:88px 0 56px}.sub{font-size:19px;line-height:1.55;margin:0 auto 32px}'
          '.c b{font-size:18px}.c p{font-size:15px;line-height:1.55}'
-         '@media(max-width:600px){.hero{padding:60px 0 36px}h2{margin:52px 0 16px}}')
+         '@media(max-width:600px){.hero{padding:60px 0 36px}h2{margin:52px 0 16px}}'
+         '.icf .gl{display:flex;align-items:center;gap:6px;margin:0 0 4px}.icf .gl span{margin:0}.icf .gi{width:20px;height:20px;border:0;image-rendering:pixelated}')
 
 
 def full_icg(h):
@@ -116,13 +117,15 @@ def full_icg(h):
             out += [c['id']] + desc(c['id'])
         return out
 
-    def group(label, ids):
+    def group(label, gid, ids):  # N32: Gruppen-Icon (Super-Mod bzw. SimpleLib) vor dem Gruppennamen
         imgs = ''.join(f'<img data-ico="{i}" src="" title="{i}" alt="{i}">' for i in ids)
-        return f'<div class="icf">{label}<div class="ic">{imgs}</div></div>'
+        gi = f'<img data-ico="{gid}" src="" class="gi" alt="">'
+        return f'<div class="icf"><div class="gl">{gi}{label}</div><div class="ic">{imgs}</div></div>', len(ids)
 
-    groups = [group(f'<span>{E(m["name"])}</span>', ([] if m['id'] == 'simplebuilding' else [m['id']]) + desc(m['id'])) for m in sup]
-    groups.append(group('<span data-en="More mods">Weitere Mods</span>', [modtree.BASE] + [m['id'] for m in rest]))
-    count = sum(g.count('<img ') for g in groups)
+    groups = [group(f'<span>{E(m["name"])}</span>', m['id'], ([] if m['id'] == 'simplebuilding' else [m['id']]) + desc(m['id'])) for m in sup]
+    groups.append(group('<span data-en="More mods">Weitere Mods</span>', modtree.BASE, [modtree.BASE] + [m['id'] for m in rest]))
+    count = sum(n for _, n in groups)
+    groups = [g for g, _ in groups]
     i = h.find('<h2 data-en="All ')
     j = h.find('<footer', i)
     assert i > 0 and j > i, 'Icon-Galerie der Basis nicht gefunden'
@@ -231,7 +234,7 @@ TXT = {
  'simplemobs': ('Bosse wie Hollow Howler und Hollow Watcher und neue Mobs.', 'Bosses like the Hollow Howler and Hollow Watcher and new mobs.'),
  'simpleweather': ('Wetter-Schalter am Server und Regendichte am Client.', 'Weather switch on the server and rain density on the client.'),
  'simplemovement': ('Free Look, Kriechen, Autowalk und schnellere Leitern.', 'Free Look, crawling, autowalk and faster ladders.'),
- 'simpletools': ('Sparsamkeit, Seelenbindung und der Todes-Tresor.', 'Thrift, Soulbound and the Death Vault.'),
+ 'simpletools': ('Sparsamkeit, Seelenbindung, Todes-Tresor, Biom-Pinsel und Amboss-Reparaturen ohne Aufpreis.', 'Thrift, Soulbound, the Death Vault, the Biome Brush and anvil repairs at no extra cost.'),
  'simplefarming': ('Federfall schützt Ackerboden, Hacke erntet in der Fläche.', 'Feather Falling protects farmland, the hoe harvests an area.'),
  'simplemobmanners': ('Mobs stummschalten, Babys jung halten, friedlichere Piglins.', 'Mute mobs, keep babies young, calmer piglins.'),
  'simpleloot': ('Tresor-Abklingzeit in Tagen statt einmal je Spieler.', 'Vault cooldown in days instead of once per player.'),
@@ -259,18 +262,19 @@ TXT = {
  'simplestorage': ('Kisten, Rucksäcke, Fässer, Rohre und Truhen-Netzwerk.', 'Crates, backpacks, barrels, pipes and a chest network.'),
  'simplemusic': ('Notenblätter, Plattenpresse und eigene Schallplatten.', 'Sheet music, the disc press and your own records.'),
  'simplelights': ('Lichtscheiben: flache Lampen auf jeder Blockseite.', 'Light panes: flat lamps on any block side.'),
- 'simplegadgets': ('Handgeräte wie der Tacho mit Fallschaden-Warnung.', 'Handheld gadgets like the gauge with a fall warning.'),
+ 'simplegadgets': ('Geräte für die Hand: Messuhr mit Fallwarnung, Transponierer, Detektor, Attraktor, Echolot und Resonanzstab.', 'Gadgets for your hand: the Gauge with a fall warning, Transposer, Detector, Attractor, Echo Sounder and Resonance Rod.'),
  'simpleearth': ('Die Oberwelt von oben gesehen, aus der Umlaufbahn.', 'The Overworld seen from orbit.'),
  'simplechallenges': ('Spielmodi für eine Welt deiner Wahl.', 'Game modes for a world of your choice.'),
  'simpleanimals': ('Hirsch, Wildschwein, Igel, Krabbe und Zebra.', 'Deer, wild boar, hedgehog, crab and zebra.'),
  'simpledinos': ('Fossilien, Dino-Eier zum Ausbrüten und reitbare Dinos.', 'Fossils, dino eggs to hatch and rideable dinos.'),
- 'simpleores': ('Silber, Roségold, Enderit und Sage-Kristalle.', 'Silver, rose gold, enderite and sage crystals.'),
- 'simplemachines': ('Doppelkolben, Signaldämpfer, Kolben- und Trichter-Stufen.', 'Double piston, signal dampener, piston and hopper tiers.'),
+ 'simpleores': ('Silber und zwei Roségold-Legierungen mit eigenen Werkzeugen, Enderit über Netherit, Dimensionsschrott und Weisheitserz.', 'Silver and two rose gold alloys with their own tools, Enderite above Netherite, Dimensional Scrap and Sage Ore.'),
+ 'simplemachines': ('Doppelkolben, Signaldämpfer, stärkere Kolben, schnelle Filter-Trichter, Schmied und Auto-Crafter.', 'Double Piston, Signal Dampener, stronger pistons, fast filter hoppers, the Smither and the Auto Crafter.'),
  'simplearrows': ('Pfeiltisch, Licht- und Silberpfeil.', 'Fletching table, light and silver arrows.'),
  'simpleresonance': ('Spielerwert, Gefahrenzonen und Spawn-Besitzer.', 'Player value, danger zones and spawn owners.'),
  'simplefoundry': ('Gießerei als Multiblock: Schmelzkammern und Gussformen.', 'A multiblock foundry: melting chambers and casts.'),
  'simpleenchanting': ('Dunkler und Astral-Verzauberer über dem Vanilla-Tisch.', 'Dark and Astral Enchanter above the Vanilla table.'),
- 'simplelayers': ('Welt-Ebenen: Wolkenmeer über y 700 und die Backrooms unter dem Grundgestein.', 'World layers: the Cloud Sea above y 700 and the Backrooms below the bedrock.'),
+ 'simplelayers': ('Welt-Ebenen: das Wolkenmeer über y 700 und die Backrooms mit Tapete, Neonlicht und Kreide unter dem Grundgestein.', 'World layers: the Cloud Sea above y 700 and the Backrooms with wallpaper, neon lights and chalk below the bedrock.'),
+ 'simplevault': ('Das Grundgewölbe: ein Spalt im Grundgestein führt in stille Hallen, drei Rätsel und ein Aufstiegsaltar sind der einzige Weg hinaus.', 'The Bedrock Vault: a gap in the bedrock leads into quiet halls, three riddles and an ascent altar are the only way out.'),
  'simplepads': ('Startrampen, Elytra-Pads, Druckplatten und Spawn-Teleporter.', 'Launchpads, elytra pads, pressure plates and a spawn teleporter.'),
 }
 for _k, _o in (OVR.get('mods') or {}).items():  # overrides.json: Kurztext je Mod
@@ -367,8 +371,8 @@ def k1():
             + ICG)
     js = 'var D=' + J + ''';
 (function(){var M=D.mods,S=new Set(),L=function(){return document.documentElement.lang=="en"?"en":"de"};
-var T={de:{req:"Pflicht-Teile",opt:"Optional",more:"Einzelne Mods",fam:"ganze Familie",n:"Mods",picked:"Gewählt",auto:"Automatisch dazu",ext:"Fremd-Mods",fit:"Passt gut dazu",for:"für",empty:"Noch nichts gewählt. Klick auf einen Mod oder eine Familie.",how:"So installierst du genau diese Auswahl",s1:"Fabric Loader für Minecraft 26.3 installieren.",s2:"Unten bei „Herunterladen“ die ZIP laden und die .jar-Dateien in den Ordner mods legen. Enthalten:",s3:"Fremd-Mods zusätzlich selbst laden (Links unten):",s4:"Profil „Fabric 26.3“ im Launcher starten.",cp:"Liste kopieren",ok:"Kopiert",share:"Link zu dieser Auswahl",none:"keine"},
-en:{req:"Required parts",opt:"Optional",more:"Single mods",fam:"whole family",n:"mods",picked:"Picked",auto:"Added automatically",ext:"Other mods",fit:"Goes well with",for:"for",empty:"Nothing picked yet. Click a mod or a family.",how:"How to install exactly this selection",s1:"Install Fabric Loader for Minecraft 26.3.",s2:"Download the ZIP below under “Download” and put the .jar files into the mods folder. Included:",s3:"Get these other mods yourself (links below):",s4:"Start the “Fabric 26.3” profile in the launcher.",cp:"Copy list",ok:"Copied",share:"Link to this selection",none:"none"}};
+var T={de:{req:"Pflicht-Teile",opt:"Optional",more:"Einzelne Mods",fam:"ganze Familie",n:"Mods",picked:"Gewählt",auto:"Automatisch dazu",ext:"Fremd-Mods",fit:"Passt gut dazu",for:"für",empty:"Noch nichts gewählt. Klick auf einen Mod oder eine Familie.",how:"So installierst du genau diese Auswahl",s1:"Fabric Loader für Minecraft 26.3 installieren.",s2:"Unten bei „Herunterladen“ die ZIP laden und die .jar-Dateien in den Ordner mods legen. Enthalten:",s2s:"Mit dem Release unten bei „Herunterladen“ die Dateien laden und die .jar-Dateien in den Ordner mods legen. Enthalten:",s3:"Fremd-Mods zusätzlich selbst laden (Links unten):",s4:"Profil „Fabric 26.3“ im Launcher starten.",cp:"Liste kopieren",ok:"Kopiert",share:"Link zu dieser Auswahl",none:"keine"},
+en:{req:"Required parts",opt:"Optional",more:"Single mods",fam:"whole family",n:"mods",picked:"Picked",auto:"Added automatically",ext:"Other mods",fit:"Goes well with",for:"for",empty:"Nothing picked yet. Click a mod or a family.",how:"How to install exactly this selection",s1:"Install Fabric Loader for Minecraft 26.3.",s2:"Download the ZIP below under “Download” and put the .jar files into the mods folder. Included:",s2s:"Once released, download the files below under “Download” and put the .jar files into the mods folder. Included:",s3:"Get these other mods yourself (links below):",s4:"Start the “Fabric 26.3” profile in the launcher.",cp:"Copy list",ok:"Copied",share:"Link to this selection",none:"none"}};
 var P={build:["simpleblocks","simpleoctets","simplehammers","simplelights","simpleend"],adv:["simplemobs","simpleanimals","simpledinos","simpleend","simplemobheads","simpleenddragonfight"],comfort:["simplequalityoflife","simpleoptimization"]};
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function closure(){var W={},st=[];S.forEach(function(i){W[i]=null;st.push(i)});while(st.length){var i=st.pop();M[i].r.forEach(function(r){if(!(r in W)){W[r]=i;st.push(r)}})}return W}
@@ -378,7 +382,7 @@ function render(){var l=L(),t=T[l],W=closure(),h="";
 D.groups.forEach(function(g){h+='<div class="fam">';if(g.id){h+='<button type="button" class="fh" data-f="'+g.id+'">'+img(g.id)+'<span>'+esc(g.n)+' <small>'+g.ids.length+' '+t.n+' · '+t.fam+'</small></span></button>';
 var rq=g.ids.filter(function(i){return i==g.id||M[i].b=="required"}),op=g.ids.filter(function(i){return i!=g.id&&M[i].b!="required"});
 h+='<div class="sub2">'+t.req+'</div><div class="ml">'+rq.map(function(i){return btn(i,W)}).join("")+'</div>';if(op.length)h+='<div class="sub2">'+t.opt+'</div><div class="ml">'+op.map(function(i){return btn(i,W)}).join("")+'</div>'}
-else h+='<div class="fh">'+t.more+'</div><div class="ml">'+g.ids.map(function(i){return btn(i,W)}).join("")+'</div>';h+='</div>'});
+else h+='<div class="fh">'+img("simplelib")+'<span>'+t.more+'</span></div><div class="ml">'+g.ids.map(function(i){return btn(i,W)}).join("")+'</div>';h+='</div>'});
 document.getElementById("fams").innerHTML=h;
 var ids=Object.keys(W),au=ids.filter(function(i){return !S.has(i)}),ext={},fit={};ids.forEach(function(i){M[i].x.forEach(function(x){ext[x]=1});M[i].o.forEach(function(o){if(!(o in W))fit[o]=1})});
 var s='<div class="big sk">'+ids.length+'</div><div>'+t.n+'</div>';if(!ids.length)s+='<p>'+t.empty+'</p>';
@@ -388,7 +392,7 @@ s+='<h3>'+t.ext+'</h3><ul>'+(Object.keys(ext).length?Object.keys(ext).map(functi
 var f=Object.keys(fit).slice(0,12);if(f.length)s+='<h3>'+t.fit+'</h3>'+f.map(function(i){return '<button type="button" class="sug" data-m="'+i+'">+ '+esc(M[i].n)+'</button>'}).join("")}
 document.getElementById("sum").innerHTML=s;document.getElementById("bar").textContent=ids.length+" "+t.n;
 var names=ids.map(function(i){return M[i].n}).sort();
-document.getElementById("ins").innerHTML='<h2 style="margin-top:0">'+t.how+'</h2><ol><li>'+t.s1+'</li><li>'+t.s2+'<br><code>'+(names.length?esc(names.join(", ")):"-")+'</code></li><li>'+t.s3+' '+(Object.keys(ext).join(", ")||t.none)+'</li><li>'+t.s4+'</li></ol><button type="button" class="btn s cp" id="cp">'+t.cp+'</button> <a class="btn s" href="#sel='+Array.from(S).join(",")+'">'+t.share+'</a>';
+document.getElementById("ins").innerHTML='<h2 style="margin-top:0">'+t.how+'</h2><ol><li>'+t.s1+'</li><li>'+(DL.soon?t.s2s:t.s2)+'<br><code>'+(names.length?esc(names.join(", ")):"-")+'</code></li><li>'+t.s3+' '+(Object.keys(ext).join(", ")||t.none)+'</li><li>'+t.s4+'</li></ol><button type="button" class="btn s cp" id="cp">'+t.cp+'</button> <a class="btn s" href="#sel='+Array.from(S).join(",")+'">'+t.share+'</a>';
 document.getElementById("cp").onclick=function(){var b=this;try{navigator.clipboard.writeText(names.join("\\n")).then(function(){b.textContent=t.ok})}catch(e){}};
 dlRender(W,M);
 try{history.replaceState(null,"",S.size?"#sel="+Array.from(S).join(","):location.pathname+location.search)}catch(e){}}
@@ -398,7 +402,10 @@ else if(b.dataset.f){var g=D.groups.filter(function(x){return x.id==b.dataset.f}
 else{var p=b.dataset.p;S.clear();if(p=="all")Object.keys(M).forEach(function(i){S.add(i)});else if(P[p])P[p].forEach(function(i){S.add(i)})}render()});
 var m=/sel=([a-z0-9_,]+)/.exec(location.hash);if(m)m[1].split(",").forEach(function(i){if(M[i])S.add(i)});
 document.addEventListener("smlang",render);dlInit(render);render()})();'''
-    js = (D / 'paket_dl.js').read_text(encoding='utf-8') + js
+    # N32: Downloads erst nach Freigabe des Besitzers (Release); bis dahin "coming soon" ohne Abfrage von downloads/index.json.
+    # Scharf schalten: overrides.json "downloads": "live" (dann wie W12: public_downloads.py-Index).
+    soon = '' if OVR.get('downloads') == 'live' else 'window.SM_DL_SOON=true;'
+    js = soon + (D / 'paket_dl.js').read_text(encoding='utf-8') + js
     return page('paket.html', css, body, js)
 
 
@@ -419,7 +426,7 @@ STAGES = [
  dict(k='tech', de='Technik', en='Technology', c='#7a8ea3', bg='simplefoundry:block/foundry_brick',
       tde='Ab jetzt läuft es von allein: Tiegel kochen alle Plätze zugleich, Rohre verbinden Truhen, verstärkte Trichter und Kolben schieben mehr, die Gießerei schmilzt Erz in Formen.',
       ten='From here on it runs itself: crucibles cook every slot at once, pipes link chests, reinforced hoppers and pistons push more, the foundry melts ore into casts.',
-      items=['simplecrucibles:block/iron_crucible_side', 'simpleovens:block/reinforced_furnace_front_on', 'simplemachines:item/guide_book', 'simplemachines:item/signal_dampener',
+      items=['simplecrucibles:block/iron_crucible_side', 'simpleovens:block/reinforced_furnace_front_on', 'simplemachines:item/signal_dampener', 'simplegadgets:item/velocity_gauge',
              'simplestorage:block/pipe', 'simplestorage:block/chest_interface', 'simplefoundry:block/foundry_desk_front', 'simplepads:block/launchpad'],
       mods=['simplecrucibles', 'simpleovens', 'simplemachines', 'simplestorage', 'simplefoundry', 'simplepads', 'simplegadgets']),
  dict(k='nether', de='Nether', en='Nether', c='#b5472a', bg='simpleenchanting:block/crimson_blazewood_planks',
@@ -435,6 +442,12 @@ STAGES = [
       items=['simplebuilding:block/astralit_block', 'simplebuilding:block/nihilith_block', 'simplebuilding:item/astralit_dust', 'simplebuilding:item/nihilith_shard',
              'simpleend:block/ashwood_log', 'simpleend:block/end_grass', 'simpleores:item/enderite_ingot'],
       mods=['simpleend', 'simpleores', 'simplebuilding', 'simpleenddragonfight', 'simplemobs']),
+ dict(k='layers', de='Welt-Ebenen', en='World layers', c='#4fa3c7', bg='simplelayers:block/cloud_stone',
+      tde='Über y 700 schwebt das Wolkenmeer, unter dem Grundgestein warten die Backrooms mit gelber Tapete und Neonlicht. Und manchmal öffnet ein Spalt im Grundgestein das Grundgewölbe: drei Rätsel, dann trägt dich der Aufstiegsaltar wieder nach oben.',
+      ten='Above y 700 floats the Cloud Sea, below the bedrock the Backrooms wait with yellow wallpaper and neon lights. And sometimes a gap in the bedrock opens the Bedrock Vault: three riddles, then the ascent altar carries you back up.',
+      items=['simplelayers:block/cloud_block', 'simplelayers:block/wallpaper', 'simplelayers:block/neon_light', 'simplelayers:item/almond_water',
+             'simplelayers:item/chalk', 'simplevault:block/vault_gate', 'simplevault:item/seal_fragment_light', 'simplevault:item/seal_fragment_sound'],
+      mods=['simplelayers', 'simplevault']),
  dict(k='endgame', de='Endgame', en='Endgame', c='#d4af37', bg='simpleenchanting:block/nihil_obsidian',
       tde='Ganz oben: der Enderit-Hammer, der Astral-Verzauberer auf Nihil-Obsidian, das Mächtige Leuchtfeuer und Bosse wie der Hollow Howler, der dich in der Deep Dark erwartet.',
       ten='At the top: the Enderite hammer, the Astral Enchanter on Nihil Obsidian, the Mighty Beacon and bosses like the Hollow Howler waiting in the Deep Dark.',
@@ -492,6 +505,14 @@ S.forEach(function(s){o.observe(s)})})();'''
 
 # ---------------------------------------------------------------- K3 Schaufenster
 def audio():
+    """Hörprobe (20 s mp3). N32: der Clip aus dem vorhandenen discover.html wird übernommen, damit Lauf und --check ohne
+    ffmpeg gehen (sb-test, gen-Schritt der Bündel) und das Ergebnis nicht vom ffmpeg-Stand abhängt; neu kodiert wird nur,
+    wenn noch keiner da ist oder LANDING_AUDIO=1 gesetzt ist (braucht ffmpeg)."""
+    old = D / 'discover.html'
+    m = re.search(r'<audio id="clip" preload="none" src="(data:audio/mpeg;base64,[A-Za-z0-9+/=]+)"',
+                  old.read_text(encoding='utf-8')) if old.exists() else None
+    if m and os.environ.get('LANDING_AUDIO') != '1':
+        return m.group(1)
     src = R / 'modules/simplemusic/shared/resources/assets/simplemusic/sounds/records/ember_forge.ogg'
     tmp = Path(os.environ.get('TMPDIR', '/tmp')) / 'land09-clip.mp3'
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(src), '-t', '20', '-af', 'afade=t=out:st=17:d=3',
@@ -527,6 +548,9 @@ SHOW = [  # (mod, Titel de/en, Satz de/en, Hintergrund, Haupttexturen, wiki)
   ['simplemobs:item/hollow_howler_spawn_egg', 'simplemobs:item/watcher_eye', 'simplemobs:item/ender_heart'], 'simplemobs'),
 ]
 NEWS = [  # aus git log (Datum, de, en)
+ ('11.11.2026', 'Simple Machines bekommt Schmied und Auto-Crafter, Simple Gadgets sammelt Transponierer, Detektor, Attraktor, Echolot und Resonanzstab.', 'Simple Machines gets the Smither and the Auto Crafter, Simple Gadgets gathers the Transposer, Detector, Attractor, Echo Sounder and Resonance Rod.'),
+ ('10.11.2026', 'Simple Vault: das Grundgewölbe unter dem Grundgestein mit drei Rätseln und Aufstiegsaltar wird eigenes Mod.', 'Simple Vault: the Bedrock Vault below the bedrock with three riddles and an ascent altar becomes its own mod.'),
+ ('08.11.2026', 'Simple Layers: Wolkenmeer über y 700 und die Backrooms unter dem Grundgestein.', 'Simple Layers: the Cloud Sea above y 700 and the Backrooms below the bedrock.'),
  ('06.11.2026', 'Kompakte und dichte Blöcke für 19 Grundblöcke, Plattenpresse mit Farbstoff-Platz, gesprungene End-Ziegel.', 'Compact and dense blocks for 19 base blocks, disc press with a dye slot, cracked End bricks.'),
  ('05.11.2026', 'Free Look: Fadenkreuz am Zielpunkt. Roségold neu benannt, Silberblech und Blei-Pfeilspitze.', 'Free Look: crosshair at the aim point. Rose gold renamed, silver sheet and lead arrow tip.'),
  ('04.11.2026', 'Simple Pads wird eigenes Mod, ein Kreativ-Tab je Mod, End-Bücherregale.', 'Simple Pads becomes its own mod, one creative tab per mod, End bookshelves.'),
@@ -592,6 +616,16 @@ b.onclick=function(){if(a.paused){a.currentTime=0;a.play()}else a.pause();lab()}
 
 
 pages = {'default': OUT['index.html'], 'k1': k1(), 'k2': k2(), 'k3': k3()}
+# N32: Kontrast >= 4,5:1 (PRINZIPIEN UI-Lesbarkeit): weiße Schrift auf dunklerem Grün, hellere Nebentexte,
+# Etappen-Farben nur noch als Rand/Akzent statt als Schriftfarbe auf dunklem Grund.
+A11Y = ('.btn{background:#3a7a1f;box-shadow:inset -4px -4px 0 #2a5a16,inset 4px 4px 0 #55a630}'
+        '.lg button[aria-pressed=true],.c b.n,.tn a[aria-current=page],.mb[aria-pressed=true],.lob[aria-pressed=true],.bar{background:#3a7a1f}'
+        'footer{color:#a39880}.fh small,.why{color:#b3a88f}.st .no{color:#e6dcc4}.it .nm i{color:#f0e6d2}'
+        '.jn a.on{background:#1d1a16;color:#fff;box-shadow:inset 0 -4px 0 var(--c)}')
+for _f, _v in OUT.items():
+    _i = _v.find('</style>')
+    OUT[_f] = _v[:_i] + A11Y + _v[_i:]
+pages = {'default': OUT['index.html'], 'k1': OUT['paket.html'], 'k2': OUT['reise.html'], 'k3': OUT['discover.html']}
 stale = [f for f, v in OUT.items() if not (D / f).exists() or (D / f).read_text(encoding='utf-8') != v]
 if CHECK:
     if stale:  # Hinweis, kein Abbruch: die Landing ist kein Gate-Inhalt, der gen-Schritt jedes Buendels schreibt sie neu
