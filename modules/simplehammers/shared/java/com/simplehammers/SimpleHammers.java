@@ -43,11 +43,12 @@ public final class SimpleHammers {
     /** SimpleLib materials the hammers are made from, crush into or upgrade with (their recipes and sources go on). */
     public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates");
     /**
-     * Owner rule F3 (PLAN-MODULFAMILIE §5): Enderite tiers of the sub-mods are unlocked only with Simple Enderite. That mod
-     * does not exist yet, so the Enderite sledgehammer stays registered and craftable as before.
-     * TODO(Simple Enderite, stage P4): set to true and gate the Enderite smithing recipe on {@code simpleenderite}.
+     * Owner rule F3 (PLAN-MODULFAMILIE §5): the Enderite tier is unlocked only with the mod that provides Enderite. That is Simple
+     * Ores (MACH32-ENDSYS; the planned Simple Enderite was never built): the smithing recipe and its unlock carry a
+     * {@code simpleores} load condition, SimpleLib's creative-tab policy hides the item while no mod provides Enderite. The item
+     * itself stays registered, so worlds keep their Enderite hammers. Test {@code enderite_needs_ores}.
      */
-    public static final boolean ENDERITE_NEEDS_SIMPLE_ENDERITE = false;
+    public static final String ENDERITE_MOD = "simpleores";
 
     private static Predicate<String> loaded = id -> false;
     private static boolean movesRegistered;
