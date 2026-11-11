@@ -29,7 +29,7 @@ public abstract class StyleToggleMixin extends Screen {
     private void simpleinterfaces$toggle(CallbackInfo ci) {
         if (ContainersConfig.on() && (StyleToggleClient.development || ContainersClient.config().showStyleToggle)
                 && StyleToggleClient.KEY != null) {
-            this.addRenderableWidget(new StyleToggleButton(this.leftPos + this.imageWidth + 4, this.topPos - 18,
+            this.addRenderableWidget(new StyleToggleButton(this.leftPos, this.topPos - 18, // REL-ABN-A: top-left above the frame; right of the frame is where JEI draws its list
                     button -> UiStyleToggle.toggle()));
         }
     }
