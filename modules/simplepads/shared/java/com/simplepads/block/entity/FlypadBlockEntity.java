@@ -234,6 +234,33 @@ public class FlypadBlockEntity extends OwnedBlockEntity implements PadSignalSour
 
     /** Ob ein anderes eingeschaltetes Flypad den Spieler abdeckt (Suche ueber die Chunks in Reichweite des groessten Pads). */
     private boolean anotherPadCovers(ServerLevel level, ServerPlayer player) {
+        return padCovers(level, player, this);
+    }
+
+    /** How often (ticks) {@link #sweepStaleFlight} looks at the players. */
+    public static final int STALE_SWEEP_INTERVAL = 20;
+
+    /**
+     * Audit b-audsb31-a (simplepads-P1-1): a pad remembers its flyers only at runtime. Who logged out while flying, or whose pad
+     * was broken, unloaded or switched off while he was offline or after a restart, came back with the flight tag and creative
+     * flight and no pad that would ever take it again - survival flight for good. Every {@link #STALE_SWEEP_INTERVAL} ticks each
+     * player with the tag whom no switched-on flypad covers loses the flight (with the safety net, like leaving a pad).
+     *
+     * @return how many players lost a stale flight
+     */
+    public static int sweepStaleFlight(net.minecraft.server.MinecraftServer server) {
+        int revoked = 0;
+        for (ServerPlayer player : List.copyOf(server.getPlayerList().getPlayers())) {
+            if (player.entityTags().contains(FLIGHT_TAG) && !padCovers(player.level(), player, null)) {
+                revoke(player, PadTiers.FLYPAD_MAX);
+                revoked++;
+            }
+        }
+        return revoked;
+    }
+
+    /** Whether a switched-on flypad other than {@code except} covers the player. */
+    private static boolean padCovers(ServerLevel level, ServerPlayer player, @org.jetbrains.annotations.Nullable FlypadBlockEntity except) {
         if (!SimplePads.config().pads.enableFlypads
                 || com.simplepads.SimplePads.config().tuning.flypadBlockedIn(level.dimension().identifier())) {
             return false;
@@ -249,7 +276,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity implements PadSignalSour
                     continue;
                 }
                 for (BlockEntity other : chunk.getBlockEntities().values()) {
-                    if (other != this && !other.isRemoved() && other instanceof FlypadBlockEntity pad
+                    if (other != except && !other.isRemoved() && other instanceof FlypadBlockEntity pad
                             && !com.simplepads.block.PadBlock.isDisabledByRedstone(level, pad.getBlockPos())
                             && areaOf(level, pad.getBlockPos(), pad.getBlockState()).intersects(player.getBoundingBox())) {
                         return true;
