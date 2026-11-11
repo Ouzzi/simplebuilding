@@ -393,6 +393,7 @@ public final class StorageTests {
         ALL.put("network_full_keeps_the_item_with_the_player", NetworkTests::fullNetworkKeepsTheItemWithThePlayer);
         ALL.put("network_controller_intake_feeds_the_network", NetworkTests::controllerIntakeFeedsTheNetwork);
         ALL.put("network_old_controller_items_move_into_the_network", NetworkTests::oldControllerItemsMoveIntoTheNetwork);
+        ALL.put("network_shift_take_with_full_inventory_loses_nothing", NetworkTests::shiftTakeWithFullInventoryLosesNothing);
         ALL.put("network_search_finds_chests_through_cables", NetworkTests::searchFindsChestsThroughCables);
         ALL.put("network_controller_takes_chests_of_its_step_or_lower", NetworkTests::controllerTakesChestsOfItsStepOrLower);
         ALL.put("network_too_many_chests_break_the_controller", NetworkTests::tooManyChestsBreakTheController);

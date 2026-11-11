@@ -571,6 +571,35 @@ public final class NetworkTests {
     }
 
     /**
+     * Audit b-audsb31-a (simplestorage-P2-2): shift-click on an old controller item while the inventory and every chest are full.
+     * The item cannot go back into the controller (no store target), so it used to vanish; now it is dropped at the player.
+     */
+    public static void shiftTakeWithFullInventoryLosesNothing(GameTestHelper h) {
+        ControllerChestBlockEntity controller = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);
+        for (BlockPos pos : List.of(UP_CHEST, SOUTH_CHEST)) {
+            Container chest = container(h, pos);
+            for (int i = 0; i < chest.getContainerSize(); i++) chest.setItem(i, new ItemStack(Items.GOLD_BLOCK, 64));
+        }
+        controller.setItem(0, new ItemStack(Items.EMERALD, 5));
+        ServerPlayer player = player(h);
+        for (int i = 0; i < 36; i++) player.getInventory().setItem(i, new ItemStack(Items.DIRT, 64));
+        ControllerMenu menu = ControllerMenu.server(1, player.getInventory(), controller);
+        List<String> problems = new ArrayList<>();
+        int cell = -1;
+        for (int i = 0; i < ControllerMenu.CELLS; i++) if (menu.getSlot(i).getItem().is(Items.EMERALD)) cell = i;
+        if (cell < 0) problems.add("emeralds not listed");
+        else menu.clicked(cell, 0, ContainerInput.QUICK_MOVE, player);
+        int dropped = 0;
+        for (net.minecraft.world.entity.item.ItemEntity item : h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                player.getBoundingBox().inflate(8.0), e -> e.getItem().is(Items.EMERALD))) dropped += item.getItem().getCount();
+        long total = controller.countItem(Items.EMERALD) + networkCount(h, controller, Items.EMERALD)
+                + player.getInventory().countItem(Items.EMERALD) + menu.getCarried().getCount() * (menu.getCarried().is(Items.EMERALD) ? 1 : 0) + dropped;
+        if (total != 5) problems.add("emeralds after the shift-click: " + total + " of 5 (dropped " + dropped + ")");
+        h.assertTrue(problems.isEmpty(), "full inventory shift-take: " + problems);
+        h.succeed();
+    }
+
+    /**
      * IG31-37: barrels and shulker boxes (vanilla and tiered) take an interface like a chest, the terminal counts their contents,
      * take and store work through the Container interface, and no shulker box goes into a shulker box.
      */
