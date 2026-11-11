@@ -65,3 +65,17 @@ Start +1–2 min Launcher/Bibliotheken, dann je Mod ~40–60 s → **gesamt ca. 
 Auswertung: `testing/runs/<lauf>-server-solo-<mod>-fabric-263.log` (Serverlog) + Datensatz-JSON; erwartete Ergebnisse:
 alle `boot/stop/log_clean` grün, `vanilla_join` meist `known` (Abweisung). Rot → einzeln nachlaufen:
 `run.py --targets server-solo-<mod>-fabric-263`.
+
+## Erster echter Lauf 11.11. (Datensatz 2026-11-11T01-34-23Z-b8c3) – ROT 300/420, Ursachen + Fix
+Rot waren ausschließlich die 60 `log_clean`-Schritte; alle anderen Schritte grün bzw. `vanilla_join` = known.
+1. **„[Worker-Main-N/ERROR]: No key layers in MapLike[{}]“** bei allen 60 Mods direkt nach „No existing world data,
+   creating new world“ – **Harness-Fehler**: `level-type=minecraft:flat` ohne `generator-settings`; 26.3 schreibt
+   `generator-settings={}` und der Flat-Codec verlangt `layers`. Fix: `generator-settings` mit den Schichten aus
+   `data/minecraft/worldgen/world_preset/flat.json` (Grundgestein/Erde/Gras, Ebene). Kein Mod-Fehler.
+2. **„You are not white-listed on this server!“** – **Harness-Fehler**: frische 26.3-`server.properties` hat
+   `white-list=true` als Standard. Fix: `white-list=false`, `enforce-whitelist=false` explizit.
+   Damit prüft `vanilla_join` erst jetzt die eigentliche Frage (lässt der Mod Vanilla rein?).
+   `VANILLA_JOIN_REQUIRED` bleibt leer – Rückfrage an den Besitzer offen.
+3. Unit-Test `test_properties_no_whitelist_and_flat_layers` (neue Funktion `properties_text`).
+   Abweichung: Unit-Tests liegen in `tools/testrunner/tests/` (`discover -s tools/testrunner` findet 0 Tests),
+   daher im sbt `-s tools/testrunner/tests`.

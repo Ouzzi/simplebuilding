@@ -245,12 +245,24 @@ def free_port() -> int:
         return s.getsockname()[1]
 
 
-def write_properties(port: int) -> None:
-    (SERVER_DIR / "server.properties").write_text("\n".join([
+#: Flat overworld needs explicit layers: 26.3 writes generator-settings={} by default and the flat codec then logs
+#: "No key layers in MapLike[{}]" as ERROR (11.11.). Same layers as data/minecraft/worldgen/world_preset/flat.json.
+FLAT_SETTINGS = ('{"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},'
+                 '{"block":"minecraft:grass_block","height":1}],"biome":"minecraft:plains","lakes":false,"features":false}')
+
+
+def properties_text(port: int) -> str:
+    """26.3 defaults to white-list=true on a fresh server.properties, so the whitelist is switched off explicitly."""
+    return "\n".join([
         f"server-port={port}", "server-ip=127.0.0.1", "online-mode=false", "enforce-secure-profile=false",
-        "level-type=minecraft\\:flat", "generate-structures=false", "spawn-monsters=false",
+        "white-list=false", "enforce-whitelist=false",
+        "level-type=minecraft\\:flat", f"generator-settings={FLAT_SETTINGS}", "generate-structures=false", "spawn-monsters=false",
         "view-distance=3", "simulation-distance=3", "max-players=2", "sync-chunk-writes=false",
-        "motd=simplebuilding server-solo", ""]), encoding="utf-8")
+        "motd=simplebuilding server-solo", ""])
+
+
+def write_properties(port: int) -> None:
+    (SERVER_DIR / "server.properties").write_text(properties_text(port), encoding="utf-8")
 
 
 # ----------------------------------------------------------------------------
