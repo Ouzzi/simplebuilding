@@ -19,3 +19,8 @@ Quelle: /root/sb-tools-b/prio27.md #8, Queue Z.92 (b-sort26: „offen echte-Maus
 Ein sb-test-Lauf nur bei leerem sb-test, NACH dem Lauf von b-mapsmenu27 (nie parallel): `xvfb-run … sort_probe.py --out /var/tmp/sb/sortprobe27`.
 Rot wegen Probe-Logik → Probe fixen, höchstens ein zweiter Lauf. Rot wegen Mod → Fix in SortClient + gezielter sbt.
 Ergebnis + Bilder: /root/sb-tools-b/previews/b-sortprobe27-preview.html.
+
+## Teststand (11.11. 14:07 UTC)
+- Code fertig (SortProbe kompiliert lokal gegen 26.3-Jar ohne Fehler in den neuen Zeilen; Rest nur fehlende Fremd-Libs im lokalen Klassenpfad).
+- Probe-Lauf **nicht gefahren**: sb-test 11:07–14:07 UTC durchgehend belegt (Gate, A-Jobs, bprep b-bundle182); Lauf seriell nach b-mapsmenu27 vorgesehen.
+- Nachholen bei leerem sb-test (nach mapsmenu27): `/root/sb-tools-b/sortprobe27/run.sh 1` (Ergebnis /var/tmp/sb/sortprobe27/results.json auf sb-test).
