@@ -105,6 +105,15 @@ def js(data):
     return (json.dumps(data, indent=2) + '\n').encode('utf-8')
 
 
+def a8d_finish(img, path):
+    """A8d rework of the TEXRATE16 target (owner ok 10.11., b-texsb31): texrate16_rework_2026_11_09.finish."""
+    if img is None:
+        return None
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import texrate16_rework_2026_11_09 as rw
+    return rw.finish(img, path)
+
+
 def flesh():
     try:
         from PIL import Image
@@ -623,7 +632,8 @@ def outputs():
     # The mixed cell is drawn by its block entity renderer (RenderShape.INVISIBLE): only a particle texture.
     a('blockstates/mixed_octet.json', js({'variants': {'': {'model': f'{NS}:block/mixed_octet'}}}))
     a('models/block/mixed_octet.json', js({'textures': {'particle': 'minecraft:block/stone'}}))
-    texture = png_bytes(flesh())
+    flesh_png = os.path.join(ASSETS, 'textures', 'block', 'melon_flesh.png')
+    texture = png_bytes(a8d_finish(flesh(), flesh_png))
     if texture is not None:
         a('textures/block/melon_flesh.png', texture)
     else:

@@ -9,6 +9,7 @@ from pathlib import Path
 from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'tools/textures'))
 from layers import save, snap, snap_grid  # noqa: E402  layer sources beside the PNGs (A8 b)
+from texrate16_rework_2026_11_09 import finish as a8d_finish  # noqa: E402  TEXRATE16 rework (book, side; b-texsb31)
 
 MODULE = Path(__file__).resolve().parents[1]
 ASSETS = MODULE / 'shared/resources/assets/simplequestionary'
@@ -193,7 +194,8 @@ def main():
         img = snap_grid(grid(rows), rows, C, [('Lapis', '456adehiyz'), ('Obsidian', 'tuvwx'), ('Bücher', '789bcfgklnrCF')], 'Holz')
         path = OUT / f'{name}.png'
         if args.check:
-            if not path.exists() or list(Image.open(path).convert('RGBA').getdata()) != list(img.getdata()):
+            # save() finishes listed A8d targets (layers._a8d_finish); the check compares the finished pixels.
+            if not path.exists() or list(Image.open(path).convert('RGBA').getdata()) != list(a8d_finish(img, path).convert('RGBA').getdata()):
                 bad.append(name)
         else:
             path.parent.mkdir(parents=True, exist_ok=True)

@@ -1,5 +1,5 @@
 {
- "note": "b-texrate16 (09.11.): A8d rework targets; method see texrate16_rework_2026_11_09.py, groups and Vanilla models see texrate16_2026_11_09.py GROUPS | Pads entfernt (Besitzer 09.11.: Pads = Besitzer-Zeichnungen, unverändert lassen). | b-texrate20 (10.11.): 49 TEXRATE16-Einwaende raus (47 + die zwei Grund-Vitrinenrahmen), neu gezeichnet in texrate20_2026_11_10.py (DESIGNS).",
+ "note": "b-texrate16 (09.11.): A8d rework targets; method see texrate16_rework_2026_11_09.py, groups and Vanilla models see texrate16_2026_11_09.py GROUPS | Pads entfernt (Besitzer 09.11.: Pads = Besitzer-Zeichnungen, unverändert lassen). | b-texrate20 (10.11.): 49 TEXRATE16-Einwaende raus (47 + die zwei Grund-Vitrinenrahmen), neu gezeichnet in texrate20_2026_11_10.py (DESIGNS). | b-texsb31 (11.11.): melon_flesh, questionary_table_book/_side wieder Ziel (TEXRATE16-NEU abgenommen 10.11.), jetzt in octets_2026_10_09.py bzw. simplequestionary gen_textures.py ueber finish() verankert.",
  "groups": {
   "Holz-/Lederflaechen (Modell)": "Vanilla barrel/chest/lectern: Holz/Leder/Metall in 2-4-px-Haufen eines Nachbartons, Drift oben/links hell",
   "Kanten-Motive": "Vanilla glowstone/target/crying_obsidian: Funken/Risse duerfen hart sein, aber Extreme gestuft -> hart <= 20 %",
@@ -3042,6 +3042,30 @@
    "why": "in Flaechen>=6 73.8",
    "after": "gruen",
    "after_why": ""
+  },
+  "modules/simpleoctets/shared/resources/assets/simpleoctets/textures/block/melon_flesh.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 153, in Flaechen>=6 83.2, Hauptton 59.8, hart 15.4",
+   "after": "orange",
+   "after_why": "hart 15.2"
+  },
+  "modules/simplequestionary/shared/resources/assets/simplequestionary/textures/block/questionary_table_book.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "in Flaechen>=6 78.5",
+   "after": "gruen",
+   "after_why": ""
+  },
+  "modules/simplequestionary/shared/resources/assets/simplequestionary/textures/block/questionary_table_side.png": {
+   "group": "Holz-/Lederflaechen (Modell)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 40, in Flaechen>=6 53.9, hart 23.8, Farben 34 (Verlauf?)",
+   "after": "orange",
+   "after_why": "hart 23.3, Farben 35 (Verlauf?)"
   }
  },
  "not_improved": {
