@@ -431,6 +431,17 @@ public final class HammerTests {
             }
             h.succeed();
         });
+        ALL.put("enderite_needs_ores", h -> {
+            // prio27 #9 (F3): the Enderite hammer is made exactly while Simple Ores (the Enderite provider) is loaded; the item stays.
+            boolean ores = SimpleHammers.isLoaded(SimpleHammers.ENDERITE_MOD);
+            var key = net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, SimpleHammers.id("enderite_sledgehammer_smithing"));
+            boolean recipe = h.getLevel().getServer().getRecipeManager().byKey(key).isPresent();
+            h.assertTrue(recipe == ores, "Enderite hammer recipe present=" + recipe + " but Simple Ores loaded=" + ores);
+            var unlock = h.getLevel().getServer().getAdvancements().get(SimpleHammers.id("recipes/combat/enderite_sledgehammer_smithing"));
+            h.assertTrue((unlock != null) == ores, "Enderite hammer recipe unlock present=" + (unlock != null) + " but Simple Ores loaded=" + ores);
+            h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleHammers.id("enderite_sledgehammer")), "the Enderite hammer item stays registered (old worlds)");
+            h.succeed();
+        });
         ALL.put("guide_book", com.simplehammers.guide.HammersGuide::gameTest);
         ALL.put("discover_recipe_unlocks", com.simplehammers.discover.HammersDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplehammers.discover.HammersDiscover::behaviourHints);

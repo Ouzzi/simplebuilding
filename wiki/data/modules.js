@@ -1579,7 +1579,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "52ada146057a"
+    "dataHash": "e0daa65a2ad8"
   },
   {
     "id": "simpleoptimization",

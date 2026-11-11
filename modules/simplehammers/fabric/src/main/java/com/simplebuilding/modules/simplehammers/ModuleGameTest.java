@@ -115,4 +115,9 @@ public final class ModuleGameTest {
     public void roseGoldOptional(GameTestHelper h) {
         HammerTests.ALL.get("rose_gold_optional").accept(h);
     }
+
+    @GameTest
+    public void enderiteNeedsOres(GameTestHelper h) {
+        HammerTests.ALL.get("enderite_needs_ores").accept(h);
+    }
 }
