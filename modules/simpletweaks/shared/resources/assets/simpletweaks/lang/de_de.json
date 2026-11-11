@@ -512,5 +512,9 @@
   "simpletweaks.guide.page.71.title": "Befehle",
   "simpletweaks.guide.page.71": "/simpletweaks config zeigt und ändert jede Option von config/simpletweaks-play.json, -admin.json, -protect.json and -claims.json in einem Baum: play.*, admin.*, protect.*, claims.* (list [Gruppe], get, set, reset, help;",
   "simpletweaks.guide.page.72.title": "Befehle",
-  "simpletweaks.guide.page.72": "Tab ergänzt Optionen und Werte). Werte werden wie in den Dateien begrenzt und sofort gespeichert; play, admin und protect wirken sofort, claims.* nach einem Neustart. Berechtigung 2."
+  "simpletweaks.guide.page.72": "Tab ergänzt Optionen und Werte). Werte werden wie in den Dateien begrenzt und sofort gespeichert; play, admin und protect wirken sofort, claims.* nach einem Neustart. Berechtigung 2.",
+"simpletweaks.claim.code.header1": "# Claim-Rechte. Eine Zeile pro Person: Name oder UUID, ein Doppelpunkt, dann Buchstaben oder eine Rolle.",
+"simpletweaks.claim.code.header2": "# B Bauen  D Zerstören  U Benutzen  C Behälter  R Redstone  A Tiere/Fahrzeuge  M Verwalten",
+"simpletweaks.claim.code.header3": "# Rollen: @guest (U)  @helper (UCA)  @member (BDUCRA)  @manager (alle)",
+"simpletweaks.claim.code.header4": "# *: U gibt allen Spielern ein Recht. [x,z] beginnt einen Abschnitt, der die Regeln dieses Chunks ersetzt."
 }

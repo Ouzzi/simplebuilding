@@ -232,6 +232,15 @@ public final class ClaimCode {
             # Roles: @guest (U)  @helper (UCA)  @member (BDUCRA)  @manager (all)
             # *: U gives every player a right. [x,z] starts a section replacing the rules of that chunk.
             """;
+    /** Lang keys of the four header comment lines (the server always writes the English {@link #HEADER}; the client swaps it for the player's language). */
+    public static final String[] HEADER_KEYS = {"simpletweaks.claim.code.header1", "simpletweaks.claim.code.header2", "simpletweaks.claim.code.header3", "simpletweaks.claim.code.header4"};
+    /** Replaces the English header comment block with translated lines; the code itself is untouched. Comments are ignored by the parser, so this never changes the rules. */
+    public static String localizeHeader(String code, java.util.function.Function<String,String> translate) {
+        if (code == null || !code.startsWith(HEADER)) return code;
+        var out = new StringBuilder();
+        for (String key : HEADER_KEYS) out.append(translate.apply(key)).append('\n');
+        return out + code.substring(HEADER.length());
+    }
     /** Canonical code for a rule set (header comment, UUIDs). Parsing it yields the same rules. Null if it exceeds the code limits. */
     public static String generate(Rules top, Map<At,Rules> sections) {
         var out = new StringBuilder(HEADER);
