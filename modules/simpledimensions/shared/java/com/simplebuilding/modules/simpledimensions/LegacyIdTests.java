@@ -62,13 +62,15 @@ public final class LegacyIdTests {
             var oldKey = ResourceKey.create(Registries.LEVEL_STEM, old("skyblock"));
             var newKey = ResourceKey.create(Registries.LEVEL_STEM, DimensionRegistry.id("skyblock"));
             var empty = new MappedRegistry<LevelStem>(Registries.LEVEL_STEM, Lifecycle.stable()).freeze();
-            var keys = new WorldDimensions(Map.of(oldKey, stem)).bake(empty).dimensions().registryKeySet();
+            // A saved world always lists the overworld (the WorldDimensions constructor insists on it).
+            var keys = new WorldDimensions(Map.of(LevelStem.OVERWORLD, stem, oldKey, stem)).bake(empty).dimensions().registryKeySet();
             h.assertTrue(keys.contains(newKey) && !keys.contains(oldKey), "saved world dimension re-keyed: " + keys);
             Map<ResourceKey<LevelStem>, LevelStem> both = new LinkedHashMap<>();
+            both.put(LevelStem.OVERWORLD, stem);
             both.put(oldKey, stem);
             both.put(newKey, stem);
             keys = new WorldDimensions(both).bake(empty).dimensions().registryKeySet();
-            h.assertTrue(keys.size() == 1 && keys.contains(newKey), "old and new key saved: one level only: " + keys);
+            h.assertTrue(keys.size() == 2 && keys.contains(newKey) && !keys.contains(oldKey), "old and new key saved: one level only: " + keys);
 
             Path world = Files.createTempDirectory("simpledimensions-world");
             Path oldRegion = world.resolve("dimensions/simpledimension/skyblock/region/r.0.0.mca");
