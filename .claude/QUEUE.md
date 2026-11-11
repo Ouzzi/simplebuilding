@@ -1283,3 +1283,6 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
 - [~] (B, b-relui27, 11.11., Basis hub/b-bundle179-gen, Plan docs/ai/PLAN-B-RELUI27-2026-11-11.md) **prio27 #4 REL-ABN-A** Rohr-Tooltip, Entrinden-Zahl, Stil-Knopf oben links; offen Client-Sicht, Dev-/Models-Knopf vs JEI
 ## b-relsb31 (11.11.)
 - [~] (B, b-relsb31, 11.11., Basis hub/b-bundle181-gen) **N31 RELSB31** Release-Checkliste SimpleBuilding + 41 Sub-Mods: docs/ai/RELEASE-SIMPLEBUILDING.md (Tabelle je Mod, Lücken L1–L16), Arbeitsliste /root/sb-tools-b/relsb31-lücken.md, Fragen f1–f6 Vorschau /root/sb-tools-b/previews/b-relsb31-preview.html (Antwortcode RELSB31). Offen: Lücken abarbeiten, Besitzer-Antwort.
+
+## b-cfgscreen31 (11.11.)
+- [~] (B, b-cfgscreen31, 11.11., Basis hub/b-bundle182-gen) **N31b L13 / RELSB31 f2=A** Config-Bildschirm für jede Mod aus SimpleLib (ConfigCommands-Spec → Mod Menu, Cloth optional, Vanilla-Bildschirm ohne Cloth). Plan docs/ai/PLAN-B-CFGSCREEN31-2026-11-11.md.
