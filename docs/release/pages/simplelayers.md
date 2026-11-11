@@ -27,6 +27,10 @@ Simple Layers adds the Cloud Sea above y 700 and the Backrooms below the bedrock
 - **Walls, hull and supplies**
 - **The Listener** - Option backrooms.listener (off by default): now and then footsteps sound behind you in the Backrooms, come closer and stop.
 
+## Vanilla use
+
+Adds a sky dimension above y 700 and a Backrooms dimension below the bedrock for explorers; the Overworld below and above stays Vanilla, with small piston and block-state hooks for the new blocks.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

@@ -19,6 +19,10 @@ Simple Enchanting adds the Dark Enchanter (three random enchantments with slider
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simpleenchanting config [list | get | set | reset | help] (operators).
 
+## Vanilla use
+
+Gives players two upgraded enchanting tables for higher tiers; the Vanilla enchanting table works as before.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

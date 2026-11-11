@@ -349,6 +349,81 @@ Eisen-, verstärkte, Netherit- und Enderit-Tiegel und -Fässer, verstärkter Kes
 
 - In-World-Upgrades: Axt allein, Vorschlaghammer in SimpleBuilding. Ids wanderten aus SimpleLib/SimpleBuilding (IdMoves).
 
+### Simple Building Tools (`simplebuildingtools`)
+Bauzauberstäbe, Octant in 17 Farben, Bauplan mit Editor und Bildimport; Pflicht-Sub-Mod von SimpleBuilding.
+
+- **A12:** Nutzen: schnelleres Bauen großer Flächen und Kopieren von Bauten. Ändert Vanilla nur, wenn man das Werkzeug hält; kleine Hooks an Kartentisch (Bauplan-Kopien), Mausrad und Container-Menü. Eingriff in Vanilla: gering.
+
+### Simple Challenges (`simplechallenges`)
+Freischalt-Modus (Zellen, Preise) und Skyblock-Weltmodi, nur bei gewählter Challenge.
+
+- **A12:** Nutzen: schwererer Start für Spieler, die Vanilla zu leicht finden. Ohne gewählte Challenge ändert das Modul nichts (kein Zustand, Hooks kehren sofort zurück). Gewählt: Betreten und Blockänderungen außerhalb freier Zellen werden verhindert (Hooks an Entity/Level/ServerLevel). Eingriff in Vanilla: stark, aber nur auf ausdrückliche Wahl bei der Welterstellung.
+
+### Simple Chisels (`simplechisels`)
+Sieben Meißel von Stein bis Enderit; Blöcke einen Schritt entlang ihrer Familie, mit Sneak zurück.
+
+- **A12:** Nutzen: Bauvarianten ohne Handwerk und Steinsäge. Keine Mixins, nur Items und Daten-Ketten. Eingriff in Vanilla: keiner.
+
+### Simple Earth (`simpleearth`)
+Würfel-Erde in sehr großer Höhe, Vanilla-Kartenfarben aus dem Weltgenerator.
+
+- **A12:** Nutzen: Orbit-Ansicht der eigenen Welt. Unter der Renderhöhe bleibt alles Vanilla; Client-Mixins an Himmel, Wolken, Wetter und Optionen. Eingriff in Vanilla: nur Client-Darstellung in der Höhe, abschaltbar (`enabled`).
+
+### Simple Enchanting (`simpleenchanting`)
+Dunkler und Astraler Verzauberer über dem Vanilla-Tisch; Pflicht-Sub-Mod von SimpleBuilding.
+
+- **A12:** Nutzen: höhere Verzauberungsstufen im Spätspiel (Schutz V, Federfall V). Keine Mixins; der Vanilla-Tisch bleibt unverändert. Eingriff in Vanilla: gering (Zusatzblöcke).
+
+### Simple Foundry (`simplefoundry`)
+Mehrblock-Gießerei: Gold, Kupfer, Eisen schmelzen und in Gießtabletts ausgießen; braucht Simple Ovens.
+
+- **A12:** Nutzen: Ziegel-Mehrblock als Mid-Game-Ziel, ein Barren je Barren. Keine Mixins; Vanilla-Schmelzen bleibt. Eingriff in Vanilla: keiner.
+
+### Simple Gadgets (`simplegadgets`)
+Hand-Werkzeuge: Messgerät, Transposer, Detektor, Attraktor, Resonanzstab.
+
+- **A12:** Nutzen: Mess-, Dreh- und Erzsuch-Hilfen für Bauen und Bergbau. Wirken nur gehalten (je Gadget abschaltbar, z. B. `attractorEnabled`); Client-Mixins für HUD, Blickrichtung und Item-Glanz, Server-Mixins an Rüstungsständer- und Todesdrops. Eingriff in Vanilla: gering bis mittel (Drop-Markierung bei Tod).
+
+### Simple Hammers (`simplehammers`)
+Sieben Vorschlaghämmer (3x3 abbauen, umformen, Octets schnitzen, Blöcke aufwerten) und die Verzauberungen Durchbruch, Überschreiben, Radius.
+
+- **A12:** Nutzen: schneller Abbau und Umbau. Mixins an Abbau-Tempo, Amboss, Treppenform, Rezepten und Rendern. Eingriff in Vanilla: mittel (Abbau-Hook), nur mit Hammer in der Hand.
+
+### Simple Layers (`simplelayers`)
+Wolkenmeer über y 700 und Backrooms unter dem Grundgestein.
+
+- **A12:** Nutzen: zwei zusätzliche Erkundungsorte. Betreten über Höhe bzw. seltene Eingänge; Overworld sonst Vanilla (Mixins nur Kolben und Blockzustand für die neuen Blöcke). Eingriff in Vanilla: mittel (Höhenübergang), Wolken und Backrooms je abschaltbar (`cloudsEnabled`, `backroomsEnabled`).
+
+### Simple Lights (`simplelights`)
+1-px-Lampen für jede Blockseite, 16 Farben, Redstone-Scheibe, Kupferscheiben.
+
+- **A12:** Nutzen: dezente Beleuchtung beim Bauen. Keine Mixins, nur Blöcke. Eingriff in Vanilla: keiner.
+
+### Simple Machines (`simplemachines`)
+Doppelkolben, Signaldämpfer, verstärkte/Netherit-/Enderit-Kolben, schnellere Trichter und Trichterloren, Schmied und Auto-Crafter.
+
+- **A12:** Nutzen: größere Redstone-Maschinen und schnellerer Itemtransport. Mixins an Kolben-Logik (Verschieben, Explosion, Rendern); Vanilla-Kolben und -Trichter bleiben. Eingriff in Vanilla: mittel (Kolben-Hooks), greifen nur bei den neuen Kolben.
+
+### Simple Music (`simplemusic`)
+Notenblätter (Textcode, .txt/.nbs), Plattenpresse, hochgeladene Ogg-Platten, Taschen-Jukebox.
+
+- **A12:** Nutzen: eigene Musik im Spiel. Mixins an Jukebox, Sound-Laden und Kartentisch/Bündel-Anzeige; Vanilla-Platten laufen weiter. Eingriff in Vanilla: mittel (Jukebox-Hook), Upload mit Quote und Operator-Freigabe, abschaltbar (`enabled`).
+
+### Simple Pads (`simplepads`)
+Startpad, Elytra-Pad, Flugpad, Trankpad, Spawn-Teleporter, Chunk-Lader, stärkere Druckplatten, Spawn-Elytra.
+
+- **A12:** Nutzen: Reisen und Automatisierung. Mixins an Windladung, Erfahrungsleiste/HUD, Spawn-Elytra und Schmiede-Rezept-Wächter. Eingriff in Vanilla: gering bis mittel (Spawn-Elytra-Schaden/Slot-Hooks).
+
+### Simple Storage (`simplestorage`)
+Kisten, Truhen- und Shulker-Stufen, Fässer, Loren/Boote, Bündel, Köcher, Rucksäcke, Verzauberungen Schublade/Tiefe Taschen/Trichter.
+
+- **A12:** Nutzen: mehr Platz und Ordnung. Viele Mixins an Truhe, Shulker, Bündel, Bögen und Pfeil-Aufnahme, Strukturtruhen. Eingriff in Vanilla: mittel bis stark (Behälterverhalten); Altbestände wandern per IdMoves.
+
+### Simple Vault (`simplevault`)
+Seltene Lücke im Grundgestein, Tresor mit drei Rätseln und Aufstiegsaltar.
+
+- **A12:** Nutzen: seltener Erkundungsfund mit Belohnung. Eigene Dimension; Mixins nur an Kolben und Blockzustand des Tresors. Eingriff in Vanilla: gering, Seltenheit `gapRarity`, abschaltbar (`enabled`).
+
 ### Geplante Module (noch nicht in `modules.json`)
 
 - `simplehammers`: Geplant (Stufe 7): Hämmer, Hammer-Verzauberungen, Schnitzen, In-World-Crafting. Eigene Regeln: keine bisher.

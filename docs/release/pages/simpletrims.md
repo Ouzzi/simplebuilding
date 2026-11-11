@@ -22,6 +22,10 @@ Simple Trims adds three new armor trim templates, trim templates you can place i
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simpletrims config shows and changes every option of config/simpletrims-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Adds three armor trim templates, placeable templates and trim upgrades for players who like armor looks; Vanilla trims are unchanged.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

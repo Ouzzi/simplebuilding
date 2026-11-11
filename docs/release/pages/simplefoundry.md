@@ -16,6 +16,10 @@ Simple Foundry is a multiblock: a tank of melting chambers in a brick hull, fuel
 
 - **Foundry (multiblock)** - Build a tank of melting chambers inside a closed hull, light it with fuel on the desk, throw in ore and pour the melt by layer.
 
+## Vanilla use
+
+Lets you melt gold, copper and iron and cast it again in a multiblock, one ingot per ingot; Vanilla smelting is unchanged.
+
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)

@@ -27,6 +27,10 @@ Simple Money adds a currency you can produce, weighted villager trades and money
 - **Trade: armorer/28** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
 - **Trade: armorer/29** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
 
+## Vanilla use
+
+Adds a currency, weighted villager trades and treasure loot so survival worlds get an economy; Vanilla trades are not removed.
+
 ## Dependencies
 
 - **Required:** Fabric API, Cloth Config

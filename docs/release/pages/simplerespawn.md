@@ -20,6 +20,10 @@ With Simple Respawn you are downed first. A teammate can revive you within the b
 - **Fair play** - Leaving the game while downed is death; the real death is always the Vanilla one, so drops and other mods behave as usual.
 - **Commands** - /simplerespawn giveup for the downed player (the Give up button); /simplerespawn down <players> and /simplerespawn revive <players> for game masters.
 
+## Vanilla use
+
+Replaces instant death with a downed state a teammate can revive; this is a clear change to how death works in multiplayer.
+
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)

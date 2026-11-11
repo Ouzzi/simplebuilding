@@ -35,7 +35,7 @@ SimpleLib holds what every Simple mod shares: one modpack handbook, warm food, s
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding, Simple Tweaks, Simple Interfaces, Simple Maps, Simple Trims, Simple Mobs, Simple Questionary, Simple Beacons, Simple Ovens, Simple Mobheads, Simple Shops, Simple Blocks, Simple Crucibles, Simple Octets, Simple Hammers, Simple Storage, Simple Music, Simple Lights, Simple Gadgets, Simple Earth, Simple Challenges, Simple Ores, Simple Machines, Simple Arrows, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Chisels, Simple Layers. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding, Simple Tweaks, Simple Interfaces, Simple Maps, Simple Trims, Simple Mobs, Simple Questionary, Simple Beacons, Simple Ovens, Simple Mobheads, Simple Shops, Simple Blocks, Simple Crucibles, Simple Octets, Simple Hammers, Simple Storage, Simple Music, Simple Lights, Simple Gadgets, Simple Earth, Simple Challenges, Simple Ores, Simple Machines, Simple Arrows, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Chisels, Simple Layers, Simple Vault. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
 
 ## License
 

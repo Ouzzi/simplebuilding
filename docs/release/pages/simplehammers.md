@@ -27,6 +27,10 @@ Simple Hammers adds seven sledgehammers that mine a 3x3 area, reshape blocks int
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simplehammers config shows and changes every option of config/simplehammers-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Adds sledgehammers that mine 3x3, reshape and upgrade blocks; they are tools and enchantments on top of Vanilla, with hooks on mining speed, anvil and a few recipes.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

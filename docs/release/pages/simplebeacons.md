@@ -27,6 +27,10 @@ Simple Beacons adds the Strong Beacon (six pyramid levels, ten more effects, ran
 - **Mighty Conduit** - The Strong Conduit's big brother: frames up to 9x9x9 (90 blocks), range (frame blocks / 7) x 32 (at most 324), attack 16 with the full frame.
 - **Evil Conduit** - The opposite of the Strong Conduit: players really under water in range get Mining Fatigue and Slowness.
 
+## Vanilla use
+
+Gives late-game players a stronger beacon and conduit to build towards; the Vanilla beacon and conduit stay as they are.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

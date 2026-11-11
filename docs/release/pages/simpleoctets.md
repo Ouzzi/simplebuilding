@@ -21,6 +21,10 @@ Simple Octets adds 0.5 x 0.5 x 0.5 cubes you cut in the stonecutter and craft ba
 - **Octets of other mods' blocks** - Octets of another mod's blocks exist only while that mod is loaded, with their recipes; without it neither the cells nor the recipes are there.
 - **Worlds from SimpleBuilding**
 
+## Vanilla use
+
+Adds eighth-size blocks cut in the stonecutter so builders get finer detail; the Vanilla blocks stay as they are.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

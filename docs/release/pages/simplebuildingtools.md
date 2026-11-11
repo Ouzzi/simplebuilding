@@ -20,6 +20,10 @@ Simple Building Tools adds Building Wands (copper to Enderite and creative), the
 - **Blueprint: Writing, Scanning and Building Structures** - A Blueprint stores a whole structure as a short, readable build code.
 - **Old worlds**
 
+## Vanilla use
+
+Speeds up large builds with wands, colored octants and the Blueprint; it only acts when you hold the tool, and it hooks the cartography table for blueprint copies.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

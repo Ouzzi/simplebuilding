@@ -16,6 +16,10 @@ Simple Pads adds the Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter
 
 - **Simple Pads: pads, pressure plates and the Spawn Elytra**
 
+## Vanilla use
+
+Adds launch, flight, potion and teleport pads plus stronger pressure plates for travel and automation; Vanilla elytra and wind charges work as before, with small hooks for the spawn elytra.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib, Simple Ores, Simple Mobheads

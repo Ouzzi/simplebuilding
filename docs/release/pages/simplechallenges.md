@@ -27,6 +27,10 @@ Simple Challenges adds the Unlock mode: the world is cut into cells (a block col
 - **Spawn, edges and the crosshair line**
 - **Lucky Block and Random Drops** - In a Lucky challenge a block you break drops another block instead of itself.
 
+## Vanilla use
+
+Offers an optional world mode with free and locked areas for players who want a harder start; without a chosen challenge it changes nothing.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

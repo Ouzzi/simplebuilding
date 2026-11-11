@@ -26,6 +26,10 @@ Simple Shops adds a Sales Block with a price (up to five exact price items) and 
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simpleshops config shows and changes every option of config/simpleshops-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Lets players sell goods from a block and a display case on a server; Vanilla villager trading is untouched.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

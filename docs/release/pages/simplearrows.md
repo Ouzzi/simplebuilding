@@ -19,6 +19,10 @@ Simple Arrows adds a Fletching Table that builds four arrows from a tip, a shaft
 - **Fletching Table** - Arrows from the Fletching Table: one tip, one shaft and one fletching make 4 arrows.
 - **Commands** - /simplearrows config [list | get | set | reset | help] (operators).
 
+## Vanilla use
+
+Gives archers a new arrow workbench plus a light and a silver arrow; Vanilla arrows, bows and the Vanilla fletching table keep working unchanged.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

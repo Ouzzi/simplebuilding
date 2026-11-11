@@ -27,6 +27,10 @@ Simple Blocks fills gaps in Vanilla building blocks, such as Hushed Deepslate Ti
 - **Natural Block Variants** - Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.
 - **Suspended and Levitating Sand and Gravel** - Sand and gravel without gravity (suspended) and with reversed gravity (levitating).
 
+## Vanilla use
+
+Fills gaps in Vanilla building blocks (missing stairs, slabs, walls and variants) so builders find the shape they need; no Vanilla block is changed.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib
