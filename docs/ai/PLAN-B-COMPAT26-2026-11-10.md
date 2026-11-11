@@ -1,6 +1,6 @@
 # Plan B-COMPAT26 (10.11.2026): Kompat-Lauf Lithium + JEI + Mod Menu (REL-AUDIT 5 / REL13)
 
-Branch b-compat26, Basis hub/b-bundle175-gen. Stand: **vorbereitet, Lauf offen - sb-test hing** (Regel 16, nichts auf sb-test gestartet).
+Branch b-compat26, Basis hub/b-bundle175-gen. Stand 11.11.: **auf b-bundle179-gen gemergt, Compile grün; Client-Lauf + Probes offen (sb-test 2 h belegt)** – siehe „Teststand 11.11.“.
 
 ## Ist-Stand
 - Kein Lauf mit Lithium/JEI/Mod Menu je gelaufen (git log 0 Treffer). Vorhanden: Ziel `compat-opt-263` (nur Opt-Rivalen, Muster), `rel10-client-263`, `integration/enabled-mods.json` (alle 61 Module + JEI, Mod Menu, Cloth, Jade ...), `tools/devmods.json` (Maven-Quellen), `gradle/local-devmods.gradle`.
@@ -30,3 +30,11 @@ Reihenfolge: Kompat-Lauf, mouse_probe, keys_probe (je eigener Befehl, nie parall
 
 ## Teststand: offen - sb-test hing
 Offen: Kompat-Lauf, beide Probes, ggf. Compile-Fehler im Test, Pins (Lithium 0.26.3 fWv5bnZk geprueft am 10.11. gegen Modrinth-API; JEI 31.7.0.37 und Mod Menu 21.0.0 aus gradle.properties). Keine Rueckfragen.
+
+## Teststand 11.11.
+- Merge hub/b-bundle179-gen (089fdc551) → 361b89a8a, konfliktfrei. Abweichung: `integration/enabled-mods-compat26.json` neu aus enabled-mods.json + `lithium` erzeugt (neu: simplevault) → 8167a3593.
+- Lokal: `test_compat26` 3/3 OK.
+- sbt 8167a3593: `./gradlew :integration:compileGametestJava -PmoduleClientTest=compat26 -PintegrationMods=integration/enabled-mods-compat26.json -q` → **COMPILE_RC=0** (nur Deprecation-Warnungen, Compat26ClientTest kompiliert fehlerfrei; Log /root/sb-tools-b/b-compat26-sbt1.log). Einen separaten Server-/Gametest-Teil hat der Plan nicht.
+- Client-Lauf `compat26-client-263`, mouse_probe, keys_probe: **nicht gestartet**. sb-test war 07:29–09:29 UTC (12 Prüfungen im 10-min-Takt, Log /root/sb-tools-b/b-compat26-wait1.log) nie leer: Gates 089fdc551/7def212d6 + B-sbt-Läufe. Client-Läufe genutzt: 0 von 3.
+- Screenshots: keine (Zielpfad nach dem Lauf /var/tmp/sb/compat26shots auf sb-test). Gefundene Konflikte: keine bisher (ohne Client-Lauf nicht prüfbar).
+- Nächster Schritt: bei leerem sb-test die drei Befehle oben einzeln nacheinander starten.
