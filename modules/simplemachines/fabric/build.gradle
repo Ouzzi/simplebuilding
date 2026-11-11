@@ -8,4 +8,5 @@ dependencies { include project(':modules:simplelib:fabric'); implementation proj
 // Hopper minecart item textures are Vanilla-derived (built, never committed; MACH32-MOD stage 3).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
 // b-jadehop26: optional Jade plugin (shared/java/com/simplemachines/compat/jade): compiled against, never bundled.
+repositories { maven { url = "https://api.modrinth.com/maven" } }
 dependencies { compileOnly("maven.modrinth:jade:${rootProject.mc263_dev_jade_fabric}") { transitive = false } }

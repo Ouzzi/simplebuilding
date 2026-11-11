@@ -24,6 +24,6 @@ mit Smaragd/Eisen → Items in den Daten und Items-Zeile; Truhe → keine Daten.
 Nicht getestet: Jade-Tooltip im Client (kein Client-Lauf je Branch; macht das Bündel/Client-Sicht).
 
 ## Teststand (10.11. ~20:40)
-- sbt-Lauf (Compile Kern+Modul, module-simplemachines fabric+standalone) eingereiht, Ergebnis **offen – sb-test hing** (STOPP A 20:35).
+- sbt-Lauf 1 (3bd6b3f96, lief nach dem Hänger noch durch): COMPILE_RC=1, TEST_RC=1 – Ursache: Modrinth-Maven-Repo fehlte in modules/simplemachines/fabric/build.gradle (`Could not find maven.modrinth:jade:lt43vWtF`). Fix: Repo-Zeile wie Simple Pads ergänzt. Zweiter (letzter erlaubter) sbt-Lauf **offen – sb-test-STOPP**.
   Log auf sb-agent: /root/sb-tools-b/b-jadehop26-sbt.log.
 - Lokal: javac der neuen/geänderten Klassen (HopperInfo, compat/jade/*, HopperModuleTests) gegen MC-26.3-Jar + Jade lt43vWtF fehlerfrei.
