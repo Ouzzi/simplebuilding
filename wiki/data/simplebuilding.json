@@ -427,20 +427,24 @@
         "simplebuilding:enderite_upgrade_template"
       ],
       "sources": [
-        "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+        "modules/simplechisels/shared/java/com/simplechisels/item/ChiselItem.java",
+        "modules/simplechisels/shared/java/com/simplechisels/ChiselTier.java",
+        "modules/simplechisels/shared/java/com/simplechisels/registry/ChiselRegistry.java",
+        "modules/simplechisels/shared/java/com/simplechisels/data/ChiselTables.java",
+        "modules/simplechisels/shared/java/com/simplechisels/data/BuiltInChains.java",
+        "modules/simplechisels/shared/java/com/simplechisels/config/ChiselConfig.java",
+        "modules/simplechisels/shared/resources/data/simplechisels/recipe/stone_chisel.json",
+        "modules/simplechisels/shared/resources/data/simplechisels/recipe/netherite_chisel_smithing.json",
+        "modules/simplechisels/shared/resources/data/simplechisels/recipe/enderite_chisel_smithing.json",
+        "modules/simplechisels/shared/resources/data/simplechisels/recipe/upgrade_copper_chisel_to_iron_chisel.json",
+        "modules/simplechisels/shared/resources/data/simplechisels/tags/item/chisels.json",
+        "modules/simplechisels/shared/resources/assets/simplechisels/lang/en_us.json",
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/util/LegacySpatulaMigration.java",
         "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/generated/data/simplebuilding/recipe/stone_chisel.json",
-        "src/main/generated/data/simplebuilding/recipe/netherite_chisel_smithing.json",
-        "src/main/generated/data/simplebuilding/recipe/enderite_chisel_smithing.json",
-        "src/main/generated/data/simplebuilding/recipe/upgrade_copper_chisel_to_iron_chisel.json",
-        "src/main/resources/data/simplebuilding/villager_trade/toolsmith/3/emerald_copper_chisel.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
       ],
       "en": {
         "title": "Chisel",
@@ -1608,7 +1612,6 @@
         "src/main/generated/data/simplebuilding/worldgen/configured_feature/nihilith_ore.json",
         "src/main/generated/data/simplebuilding/worldgen/placed_feature/astralit_ore_placed.json",
         "src/main/generated/data/simplebuilding/worldgen/placed_feature/nihilith_ore_placed.json",
-        "common/src/shared/java/com/simplebuilding/util/ModWorldGen.java",
         "src/main/java/com/simplebuilding/world/gen/ModOreGeneration.java",
         "neoforge/src/main/resources/data/simplebuilding/neoforge/biome_modifier/astralit_ore.json",
         "neoforge/src/main/resources/data/simplebuilding/neoforge/biome_modifier/nihilith_ore.json",
@@ -1720,7 +1723,7 @@
         "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
         "common/src/shared/java/com/simplebuilding/util/GlowingTrimUtils.java",
         "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/EquipmentRendererMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/client/EquipmentRendererMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
         "common/src/shared/java/com/simplebuilding/recipe/UpgradeSmithingRecipe.java",
         "src/main/java/com/simplebuilding/recipe/ModRecipes.java",
@@ -1972,7 +1975,8 @@
       ],
       "sources": [
         "common/src/jade/java/com/simplebuilding/compat/jade/SimplebuildingJadePlugin.java",
-        "common/src/jade/java/com/simplebuilding/compat/jade/BlockInfoProvider.java",
+        "common/src/jade/java/com/simplebuilding/compat/jade/BlockInfoServerProvider.java",
+        "common/src/jade/java/com/simplebuilding/compat/jade/BlockInfoClientProvider.java",
         "common/src/shared/java/com/simplebuilding/compat/BlockInfo.java",
         "common/src/shared/java/com/simplebuilding/gametest/BlockInfoTests.java",
         "src/main/resources/fabric.mod.json",
@@ -2223,7 +2227,7 @@
         "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
         "common/src/shared/java/com/simplebuilding/client/DoubleJumpController.java",
         "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
         "common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java",
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "src/main/java/com/simplebuilding/condition/ConfigResourceCondition.java",
@@ -2620,7 +2624,7 @@
     {
       "id": "themed_fires",
       "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/ThemedFireBlock.java",
+        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/ThemedFireBlock.java",
         "common/src/shared/java/com/simplebuilding/mixin/BaseFireGetStateMixin.java",
         "mc26_3/overlay/resources/data/simplebuilding/recipe/gunpowder_from_sulfur.json",
         "mc26_3/overlay/resources/data/simplebuilding/tags/block/sulfur_fire_base_blocks.json",
@@ -7000,7 +7004,7 @@
         "sources": [
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -23520,7 +23524,7 @@
         "sources": [
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -26903,7 +26907,7 @@
         "sources": [
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -35495,7 +35499,7 @@
         "sources": [
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
         ]
       },
       "hasCustomBehaviour": false

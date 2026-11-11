@@ -155,14 +155,39 @@
         "title": "Takeover from SimpleBuilding",
         "summary": "Nothing is lost: on a player's first tick Simple Resonance reads the old tracker block SimpleBuildingData (baselines since the last death, active time, kill totals) and starts the long-term points at 1 per 30 old active minutes. The base multiplier of the trim resonance is taken over from config/simplebuilding.json on the first start.",
         "details": [
-          "SimpleBuilding keeps its own tracker and trim bonuses unchanged; the move of the trim abilities to Simple Mobs follows in a later step."
+          "Since MOB27-3 R2 SimpleBuilding no longer counts anything itself: it only keeps the old block readable for this one-time takeover, and its trim abilities (in Simple Mobs) get the resonance from here."
         ]
       },
       "de": {
         "title": "Übernahme aus SimpleBuilding",
         "summary": "Nichts geht verloren: beim ersten Tick eines Spielers liest Simple Resonance den alten Tracker-Block SimpleBuildingData (Basiswerte seit dem letzten Tod, aktive Zeit, Kill-Summen) und startet die Langzeitpunkte bei 1 je 30 alten aktiven Minuten. Der Basis-Multiplikator der Besatz-Resonanz wird beim ersten Start aus config/simplebuilding.json übernommen.",
         "details": [
-          "SimpleBuilding behält seinen eigenen Tracker und die Besatz-Boni unverändert; der Umzug der Besatz-Fähigkeiten nach Simple Mobs folgt in einem späteren Schritt."
+          "Seit MOB27-3 R2 zählt SimpleBuilding selbst nichts mehr: es hält den alten Block nur für diese einmalige Übernahme lesbar, und die Besatz-Fähigkeiten (in Simple Mobs) bekommen die Resonanz von hier."
+        ]
+      }
+    },
+    {
+      "id": "resonance_button",
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/client/ResonancePanel.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/client/ResonanceLayout.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/net/ResonanceStatsPayload.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceBridge.java"
+      ],
+      "en": {
+        "title": "Resonance button",
+        "summary": "A small button right of the player in the inventory shows the trim resonance as a heart in eight tiers, from cobblestone to enderite. Hovering it shows the value (base x mean of experience, survival and combat since the last death), with Shift every factor.",
+        "details": [
+          "The server sends the numbers once a second (simpleresonance:stats); the button also shows in Simple Storage's backpack.",
+          "SimpleBuilding's armour trims read this resonance through ResonanceBridge; the base is trimBenefitBaseMultiplier in simpleresonance.json (Default: 2.0)."
+        ]
+      },
+      "de": {
+        "title": "Resonanz-Knopf",
+        "summary": "Ein kleiner Knopf rechts neben dem Spieler im Inventar zeigt die Besatz-Resonanz als Herz in acht Stufen, von Bruchstein bis Enderit. Beim Überfahren steht der Wert (Basis x Mittel aus Erfahrung, Überleben und Kampf seit dem letzten Tod), mit Shift jeder Faktor.",
+        "details": [
+          "Der Server schickt die Zahlen einmal pro Sekunde (simpleresonance:stats); der Knopf erscheint auch im Rucksack von Simple Storage.",
+          "Die Rüstungsbesätze von SimpleBuilding lesen diese Resonanz über ResonanceBridge; die Basis ist trimBenefitBaseMultiplier in simpleresonance.json (Standard: 2,0)."
         ]
       }
     },
@@ -263,10 +288,10 @@
           "modules/simpleresonance/shared/resources/data/simpleresonance/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Resonance\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: echo shard. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Resonance\" of the Simple Modpack guide (SimpleLib): 18 pages taken from this wiki, shown in your language. Unlocked by picking up: echo shard. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Resonance\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Echo-Scherbe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Resonance\" im Simple-Modpack-Handbuch (SimpleLib): 18 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Echo-Scherbe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleresonance/item/guide_book.png",
@@ -313,7 +338,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
+    "features": 9,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

@@ -517,7 +517,7 @@ window.WIKI_MODULES = [
       "config": 53,
       "features": 11
     },
-    "dataHash": "8d1112e76544"
+    "dataHash": "164645240bd6"
   },
   {
     "id": "simplesandwiches",
@@ -1746,7 +1746,7 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 16
     },
-    "dataHash": "b03f2e16e5d9"
+    "dataHash": "0f8f85dbbeaf"
   },
   {
     "id": "simplemusic",
@@ -2118,9 +2118,9 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42mPQUnb7TwlmABGLp5/DiqWEDMAYm1xWxAZUA+rzd//fs+U2mIZpPLHhAxjD+CA5EAZp9rGvxzQAphmmER2D5ECaQRZhNQCmGWbYrLoHYAzjIxuCYQCyZphGdAzSCDOEoAEgGgQ+vPgP1ojXAGR/w2yDaYZhmDhyeOA1AFkzQQOweQHkXJhmgl6gSiAiRyNIIcxWmEZkzTgTEkiCmISE1QBQ6oJJ4krKMHkMA2AC6BimEZscigGUYAAdGmaSr7d4OgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
-      "features": 8
+      "features": 9
     },
-    "dataHash": "29b559e054ce"
+    "dataHash": "a2831e1ef436"
   },
   {
     "id": "simplefoundry",
