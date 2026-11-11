@@ -450,6 +450,17 @@ def wait_for(proc, out_path: Path, needle: str, timeout: float) -> bool:
     return False
 
 
+def reject_reason(text: str) -> list[str]:
+    """Server-side kick reason for the probe. 26.3 logs 'SoloProbe (<uuid>) lost connection: ...' in the configuration
+    phase (11.11.); Fabric registry sync adds the namespaces on the following lines up to the admin hint."""
+    m = re.search(rf"{PLAYER}(?: \([^)]*\))? lost connection: (.*(?:\n(?!\[).*)*)", text) \
+        or re.search(rf"Disconnecting {PLAYER}.*?: (.*)", text)
+    if not m:
+        return []
+    reason = " ".join(m.group(1).split())
+    return [reason.replace(" Contact the server's administrator for more information!", "")]
+
+
 def run_solo(module_id: str, log_path: Path) -> dict:
     """Steps -> status. Returns {'steps': [(name, status, message)], 'error': str|None, 'warning': str|None}."""
     steps: list[tuple[str, str, str | None]] = []
@@ -488,7 +499,7 @@ def run_solo(module_id: str, log_path: Path) -> dict:
             time.sleep(2)
             text = log_path.read_text(encoding="utf-8", errors="replace")
             joined = f"{PLAYER} joined the game" in text
-            lost = re.findall(rf"{PLAYER} lost connection: (.*)", text) or re.findall(rf"Disconnecting {PLAYER}.*?: (.*)", text)
+            lost = reject_reason(text)
             if outcome == "play" or joined:
                 steps.append(("vanilla_join", "passed", "Vanilla-Client in der Welt"))
             elif outcome == "rejected" or lost:
