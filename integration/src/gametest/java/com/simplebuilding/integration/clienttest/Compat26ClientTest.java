@@ -75,9 +75,15 @@ public final class Compat26ClientTest implements FabricClientGameTest {
 
     /** Mod Menu's own list screen (class by reflection), opened like the title screen button does. */
     private void modMenuList(ClientGameTestContext context) throws Throwable {
-        Class<?> cls = Class.forName("com.terraformersmc.modmenu.gui.ModsScreen");
-        Screen screen = (Screen) cls.getConstructor(Screen.class).newInstance((Screen) null);
-        context.runOnClient(c -> c.setScreenAndShow(screen));
+        var ctor = Class.forName("com.terraformersmc.modmenu.gui.ModsScreen").getConstructor(Screen.class);
+        // Screen.<init> calls Minecraft.getInstance(), which Fabric's client gametest forbids on the test thread: build on the client.
+        context.setScreen(() -> {
+            try {
+                return (Screen) ctor.newInstance((Screen) null);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException(e);
+            }
+        });
         context.waitTicks(10);
         shot(context, "modmenu-list");
         context.setScreen(() -> null);
@@ -95,10 +101,16 @@ public final class Compat26ClientTest implements FabricClientGameTest {
                 Method getFactory = api.getClass().getMethod("getModConfigScreenFactory");
                 Object factory = getFactory.invoke(api);
                 Method create = Class.forName("com.terraformersmc.modmenu.api.ConfigScreenFactory").getMethod("create", Screen.class);
-                Screen screen = (Screen) create.invoke(factory, (Screen) null);
-                context.runOnClient(c -> c.setScreenAndShow(screen));
+                context.setScreen(() -> {
+                    try {
+                        return (Screen) create.invoke(factory, (Screen) null);
+                    } catch (ReflectiveOperationException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 context.waitTicks(8);
-                System.out.println("[compat26] INFO config " + id + " -> " + screen.getClass().getName());
+                String shown = context.computeOnClient(c -> c.gui.screen() == null ? "-" : c.gui.screen().getClass().getName());
+                System.out.println("[compat26] INFO config " + id + " -> " + shown);
                 if (index < 4) shot(context, "config-" + id);
                 context.setScreen(() -> null);
                 context.waitTicks(2);
@@ -214,8 +226,12 @@ public final class Compat26ClientTest implements FabricClientGameTest {
         try {
             work.run();
         } catch (Throwable e) {
-            faults.add(what + ": " + e);
-            System.out.println("[compat26] FAIL " + what + ": " + e);
+            Throwable root = e;
+            while (root.getCause() != null && root.getCause() != root) root = root.getCause();
+            String text = root == e ? e.toString() : e.getClass().getSimpleName() + " <- " + root;
+            faults.add(what + ": " + text);
+            System.out.println("[compat26] FAIL " + what + ": " + text);
+            e.printStackTrace(System.out);
         }
     }
 
