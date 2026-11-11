@@ -38,3 +38,14 @@ Daten: modules.json/modtree.py, Lang-Dateien, git-verfolgte Mod-Texturen (nie bu
   Textur oder `file:bild.png`, `stages.<k>` (Reise), `discover.<mod>` (Kacheln). Danach `python3 tools/landing/concepts.py`.
 - Auslieferung: `deploy_dom07.sh domains` (einmalig, mit nginx) bzw. `deploy_dom07.sh landing`; danach kopiert
   `sb-web-sync` die Seiten bei jedem Production-Stand selbst nach `/srv/landing`.
+
+## N32 (11.11.): build.py ist der Einstieg, --check im precheck
+- `python3 tools/landing/build.py` schreibt alle vier Seiten (ruft `concepts.py`), `build.py --check` schreibt nichts und
+  braucht kein ffmpeg: Exit 2 = Mod aus `modules.json` ohne Kachel (Kurztext in `concepts.py` TXT, eigenes Icon,
+  Baukasten-Eintrag, Galerie-Bild) oder mit fremdem Icon, Exit 1 = Seiten veraltet, Exit 0 = aktuell.
+  `/root/sb-tools-b/precheck.py --fast`: Exit 2 = FEHLER, Exit 1 = HINWEIS.
+- Neue Mod: Kurztext DE/EN in `TXT` (concepts.py) bzw. `overrides.json` `mods.<id>`, dann `build.py`.
+- Hörprobe (discover.html): wird aus dem vorhandenen discover.html übernommen; neu kodieren nur mit `LANDING_AUDIO=1` (ffmpeg).
+  Damit läuft der gen-Schritt der Bündel (wiki/generate.py --all) auch auf sb-test ohne ffmpeg.
+- Galerie-Gruppen tragen das Icon ihrer Super-Mod (bzw. SimpleLib bei „Weitere Mods“) vor dem Namen.
+- Downloads bleiben „coming soon“ bis zur Freigabe (public_downloads/Paket-ZIP unverändert).
