@@ -22,6 +22,10 @@ Simple Sandwiches adds a cutting board, a kitchen knife, cheese and butter from 
 - **Recipe book** - Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe.
 - **Commands** - /simplesandwiches config shows and changes every option of config/simplesandwiches-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Adds sandwiches, butter and cheese as food built on a cutting board; Vanilla food is not changed.
+
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)

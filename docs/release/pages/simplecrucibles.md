@@ -23,6 +23,10 @@ Simple Crucibles adds Iron, Reinforced, Netherite and Enderite crucibles (a cook
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simplecrucibles config shows and changes every option of config/simplecrucibles-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Adds a fuel-free cooking station and sturdier cauldron and barrel tiers for the mid game; the Vanilla cauldron is not changed.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

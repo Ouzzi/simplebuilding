@@ -18,6 +18,10 @@ Simple Vault hides a rare 2 x 2 gap in the Overworld bedrock. It leads to the Be
 - **The three riddles** - Three chambers each hold a riddle; a froglight above the door shows its colour.
 - **The ascent** - Set the three seal parts into the sockets of the Ascent Altar (yellow, violet, green).
 
+## Vanilla use
+
+Gives explorers a rare find in the bedrock with riddles and a reward; the Vanilla bedrock stays except at the rare gap, and a few hooks handle its pistons and block states.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

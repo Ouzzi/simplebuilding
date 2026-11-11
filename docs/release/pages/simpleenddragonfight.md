@@ -22,6 +22,10 @@ Simple End Dragon Fight adds one health bar per player on the island, a faster d
 - **Config** - Server file config/simpleenddragonfight.json; with SimpleBuilding the module is also switched by "Enable Simple End Dragon Fight".
 - **Commands** - /simpleenddragonfight config shows and changes every option of config/simpleenddragonfight.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Makes the Vanilla dragon fight tougher and fairer for groups (a health bar per player, a faster dragon, extra minions); it changes the fight, not the End itself.
+
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)

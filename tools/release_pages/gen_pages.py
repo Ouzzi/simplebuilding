@@ -2,7 +2,7 @@
 """Generate docs/release/pages/<modid>.md + INDEX.md (store page drafts). Run from repo root: python3 tools/release_pages/gen_pages.py"""
 import json, re, sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from pages_data import P
+from pages_data import P, V
 from check_pages import FORBIDDEN
 R = pathlib.Path(__file__).resolve().parents[2]
 mods = json.load(open(R / "modules/modules.json"))["modules"]
@@ -48,6 +48,7 @@ for m in mods:
         "## Description (Markdown)", "", f"# {m['name']}", "", over, ""]
     f = features(i)
     if f: lines += ["## Features", ""] + f + [""]
+    if i in V: lines += ["## Vanilla use", "", V[i], ""]
     lines += ["## Dependencies", "",
         "- **Required:** Fabric API" + "".join(f", {x}" for x in req) + ("" if req else " (no other mods)"),
         "- **Optional:** " + (", ".join(opt) if opt else "none"),

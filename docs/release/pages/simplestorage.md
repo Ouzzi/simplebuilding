@@ -27,6 +27,10 @@ Simple Storage adds crates, the Storage Crafting Table, tiered and trapped chest
 - **Backpacks** - Backpacks are storage you wear in the chest slot: four tiers from 9 to 50 slots, opened with their own key (default B) as your normal inventory plus the backpack's slots.
 - **Storage enchantments: Deep Pockets, Drawer, Funnel**
 
+## Vanilla use
+
+Gives players more storage (crates, tiered chests and shulker boxes, bundles, quivers, backpacks); the Vanilla containers stay, and some mixins touch chest, shulker, bundle and arrow pickup behavior.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

@@ -22,6 +22,10 @@ Simple Gadgets collects tools you hold and use. The Gauge is the first one; more
 - **Moved from SimpleBuilding** - The Gauge, the Transposer and the Resonance Rod, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*).
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 
+## Vanilla use
+
+Gives builders and miners hand-held helpers (gauge, transposer, detector, attractor, rod); they only work while held, and a few client mixins add HUD and view effects.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

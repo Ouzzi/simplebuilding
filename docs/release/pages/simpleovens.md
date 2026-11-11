@@ -23,6 +23,10 @@ Simple Ovens adds faster furnace, smoker and blast furnace tiers (Netherite doub
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simpleovens config shows and changes every option of config/simpleovens-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Gives smelting-heavy players faster furnace, smoker and blast furnace tiers and furnace minecarts, upgraded in the world; the Vanilla furnaces are not replaced.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

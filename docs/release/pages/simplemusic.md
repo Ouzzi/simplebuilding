@@ -27,6 +27,10 @@ Simple Music adds sheet music with a text note code (editor with test listening,
 - **Pocket Jukebox** - A bundle for up to 20 discs (Vanilla discs and track discs).
 - **Placed Pocket Jukebox** - Sneak + right click with the pocket jukebox on a block puts it down, front to you.
 
+## Vanilla use
+
+Lets players write sheet music, press discs and carry a pocket jukebox; Vanilla discs and the jukebox still work, with hooks to play uploaded discs.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

@@ -18,6 +18,10 @@ Simple Lights adds 1 px lamps for any block side: plain, transparent, sixteen co
 - **Moved from SimpleBuilding** - The 37 Light Panes, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*).
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 
+## Vanilla use
+
+Adds thin lamps that can sit on any block side so builders can light rooms neatly; Vanilla lamps are unchanged.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

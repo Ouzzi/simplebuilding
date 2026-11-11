@@ -27,6 +27,10 @@ Simple Riding improves mounts: saddle speed, horse jumps, nautilus dashes and mo
 - **Ghast Speed Multiplier** - enchantments.swiftRide.ghastSpeedMultiplier: Speed bonus per Tailwind level; range 0–1.
 - **Horse Speed Multiplier** - enchantments.swiftRide.horseSpeedMultiplier: Speed bonus per Tailwind level; range 0–1.
 
+## Vanilla use
+
+Improves mounts (faster saddles, higher jumps, mount armor) so riding is worth it; the Vanilla mounts stay and are only tuned.
+
 ## Dependencies
 
 - **Required:** Fabric API, Cloth Config

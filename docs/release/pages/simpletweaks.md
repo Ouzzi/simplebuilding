@@ -27,6 +27,10 @@ Simple Tweaks keeps older worlds compatible and adds server-side claims that are
 - **Freeze (on by default)** - /simpletweaks freeze <player> holds a player in place: every move is set back, and breaking, using, placing, attacking and the drop key are refused.
 - **Restart announcements (on by default)**
 
+## Vanilla use
+
+Keeps older worlds loading and adds server claims that are on by default; the claim rules change who may build where on a server.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

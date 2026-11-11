@@ -20,6 +20,10 @@ Above a very high activation height, Simple Earth turns the world into a slightl
 - **Sky**
 - **Menu**
 
+## Vanilla use
+
+Turns a very high flight into a view of the world as a rounded cube; below that height the game is Vanilla, and it hooks the client sky, clouds and weather rendering.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

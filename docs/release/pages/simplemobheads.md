@@ -27,6 +27,10 @@ Simple Mobheads gives every mob a head. Heads drop when a charged creeper's expl
 - **Creative Tab** - Own tab "Simple Mob Heads" with every head and variant; no Vanilla tabs, the search tab finds the heads through it.
 - **He Was Never Removed** - A secret head that no mob drops.
 
+## Vanilla use
+
+Gives every mob a collectible head for decoration and note blocks, dropped when a charged creeper kills the mob; no Vanilla loot table is replaced.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib, Cloth Config

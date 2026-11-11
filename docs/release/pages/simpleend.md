@@ -24,6 +24,10 @@ Simple End adds Ashwood and Duskwood with buds, trees and stick scrub, End grass
 - **Simple End and its sub-mod** - SimpleBuilding bundles Simple End ("Enable Simple End"); Simple End bundles Simple End Dragon Fight ("Enable Simple End Dragon Fight" in config/simpleend.json).
 - **Commands** - /simpleend config shows and changes every option of config/simpleend.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Adds new wood, plants and two biomes on the outer End islands for players who explore past the dragon; the main island and the Vanilla End are unchanged.
+
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)

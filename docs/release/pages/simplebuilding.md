@@ -12,6 +12,10 @@ Building tools, storage, machines and enchantments: the super mod that bundles t
 
 SimpleBuilding is the core of the Simple family. It bundles the required sub-mods for building wands, chisels, sledgehammers, storage, ovens, crucibles, building blocks, gadgets, pads and more, and adds its own enchantments and progression on top.
 
+## Vanilla use
+
+Bundles the building, storage and workstation sub-mods so a normal survival world gets better tools and containers; it adds items and blocks and leaves Vanilla recipes, loot and worlds as they are.
+
 ## Dependencies
 
 - **Required:** Fabric API, Cloth Config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels

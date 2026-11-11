@@ -18,6 +18,10 @@ Simple Questionary adds a table that explains any item you put in, in an open bo
 - **Questionary texts** - Every mod describes its own items in assets/<namespace>/questionary/<language>.json; resource packs can add or replace entries.
 - **Commands** - /simplequestionary config shows and changes every option of config/simplequestionary.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Explains any item you put in a table, for newcomers; it adds no gameplay of its own.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

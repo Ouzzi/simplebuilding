@@ -26,6 +26,10 @@ Simple Dimensions lets you configure dimensions, build light arches and use link
 - **Inventory and Rights** - Your inventory stays with you: only unmounted players travel, items lying around, mobs and mounts stay behind.
 - **Commands** - /simpledimensions guide gives you the Simple Modpack guide with this chapter open (every player).
 
+## Vanilla use
+
+Lets server owners add and tune extra dimensions and safe portals; the three Vanilla dimensions stay untouched.
+
 ## Dependencies
 
 - **Required:** Fabric API, Cloth Config

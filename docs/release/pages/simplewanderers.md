@@ -21,6 +21,10 @@ Simple Wanderers adds one Wandering Trader per village with a leashed horse. Goo
 - **Biome assortment**
 - **Commands** - /simplewanderers config shows and changes every option of config/simplewanderers-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Gives every village a wandering trader with a horse; it works with Vanilla alone and splits goods from the Vanilla traveling trader.
+
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)

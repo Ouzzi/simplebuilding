@@ -24,6 +24,10 @@ Simple Machines adds the Double Piston, the Signal Dampener, Reinforced and Rein
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simplemachines config [list | get | set | reset | help] (operators).
 
+## Vanilla use
+
+Gives redstone players stronger pistons, faster hoppers, a double piston and a signal dampener; Vanilla pistons and hoppers stay as they are, and the upgrades extend the piston logic by mixin.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

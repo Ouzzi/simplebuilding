@@ -21,6 +21,10 @@ Simple Chisels moves blocks one step along their family (stone to chiseled, bric
 - **Creative tab** - The chisels and the Fast Chiseling books sit in the tab Simple Chisels only (no Vanilla tabs).
 - **Commands** - /simplechisels config shows and changes every option of config/simplechisels-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Lets you step a block along its family (stone, chiseled, cracked, stairs, slabs) in the world instead of crafting it; no Vanilla recipe or block is replaced.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib

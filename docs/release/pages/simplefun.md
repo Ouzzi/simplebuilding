@@ -27,6 +27,10 @@ Simple Fun collects small playful mechanics, such as throwable bricks and cosmet
 - **Carrot Crunch** - Cosmetic delight: eat a carrot.
 - **Melon Splash** - Cosmetic delight: eat melon.
 
+## Vanilla use
+
+Adds small playful items such as throwable bricks, each bounded so it cannot damage a world.
+
 ## Dependencies
 
 - **Required:** Fabric API, Cloth Config

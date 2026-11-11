@@ -25,6 +25,10 @@ Simple Maps adds endless maps per dimension with zoom, waypoints shown in the lo
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simplemaps config shows and changes every option of config/simplemaps-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Gives explorers endless maps per dimension with waypoints; Vanilla maps keep working.
+
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib
