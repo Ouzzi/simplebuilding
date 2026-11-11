@@ -3,7 +3,8 @@
   "to_place": {
     "id": "simpleblocks:cracked_ice",
     "properties": {
-      "age": "0"
+      "age": "0",
+      "waxed": "false"
     }
   }
 }

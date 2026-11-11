@@ -31,7 +31,8 @@
         "then": {
           "id": "simpleblocks:cracked_ice",
           "properties": {
-            "age": "1"
+            "age": "1",
+            "waxed": "false"
           }
         }
       },
