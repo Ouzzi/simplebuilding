@@ -367,6 +367,10 @@
   "jei.simpletweaks.note.deed_copy_once": "The original stays; a copy cannot be copied",
   "simpletweaks.play.weather.none": "No weather schedule lines.",
   "simpletweaks.play.weather.list": "Weather schedule (%s clock): %s",
+  "simpletweaks.claim.code.header1": "# Claim rights. One line per person: name or UUID, a colon, then letters or a role.",
+  "simpletweaks.claim.code.header2": "# B Build  D Destroy  U Use  C Container  R Redstone  A Animals/vehicles  M Manage",
+  "simpletweaks.claim.code.header3": "# Roles: @guest (U)  @helper (UCA)  @member (BDUCRA)  @manager (all)",
+  "simpletweaks.claim.code.header4": "# *: U gives every player a right. [x,z] starts a section replacing the rules of that chunk.",
   "item.simpletweaks.guide_book": "Simple Tweaks Guide",
   "simpletweaks.guide.chapter": "Simple Tweaks",
   "simpletweaks.guide.page.1.title": "Simple Tweaks",
@@ -512,9 +516,5 @@
   "simpletweaks.guide.page.71.title": "Commands",
   "simpletweaks.guide.page.71": "/simpletweaks config shows and changes every option of config/simpletweaks-play.json, -admin.json, -protect.json and -claims.json in one tree: play.*, admin.*, protect.*, claims.* (list [group], get, set, reset, help;",
   "simpletweaks.guide.page.72.title": "Commands",
-  "simpletweaks.guide.page.72": "Tab completes options and values). Values are bounded like in the files and saved at once; play, admin and protect take effect at once, claims.* needs a restart. Permission level 2.",
-"simpletweaks.claim.code.header1": "# Claim rights. One line per person: name or UUID, a colon, then letters or a role.",
-"simpletweaks.claim.code.header2": "# B Build  D Destroy  U Use  C Container  R Redstone  A Animals/vehicles  M Manage",
-"simpletweaks.claim.code.header3": "# Roles: @guest (U)  @helper (UCA)  @member (BDUCRA)  @manager (all)",
-"simpletweaks.claim.code.header4": "# *: U gives every player a right. [x,z] starts a section replacing the rules of that chunk."
+  "simpletweaks.guide.page.72": "Tab completes options and values). Values are bounded like in the files and saved at once; play, admin and protect take effect at once, claims.* needs a restart. Permission level 2."
 }
