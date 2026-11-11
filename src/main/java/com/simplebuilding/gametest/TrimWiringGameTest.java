@@ -17,30 +17,6 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class TrimWiringGameTest {
 
     @GameTest
-    public void theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath(GameTestHelper helper) {
-        TrimWiringTests.theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath(helper);
-    }
-
-    @GameTest
-    public void survivalTimeCountsOnlyWhileThePlayerMoves(GameTestHelper helper) {
-        TrimWiringTests.survivalTimeCountsOnlyWhileThePlayerMoves(helper);
-    }
-
-    @GameTest
-    public void theCombatFactorWeighsKillsAndDamageByMobCategory(GameTestHelper helper) {
-        TrimWiringTests.theCombatFactorWeighsKillsAndDamageByMobCategory(helper);
-    }
-
-    @GameTest
-    public void theTrackerSurvivesTheSaveAndRebasesOnlyOnDeath(GameTestHelper helper) {
-        TrimWiringTests.theTrackerSurvivesTheSaveAndRebasesOnlyOnDeath(helper);
-    }
-
-
-
-
-
-    @GameTest
     public void theThreeTrimMaterialsKeepTheirColoursAndTheirTags(GameTestHelper helper) {
         TrimWiringTests.theThreeTrimMaterialsKeepTheirColoursAndTheirTags(helper);
     }
@@ -51,23 +27,13 @@ public final class TrimWiringGameTest {
     }
 
     @GameTest
-    public void theTrimMultiplierCommandGuardsItsRangeAndItsPermission(GameTestHelper helper) {
-        TrimWiringTests.theTrimMultiplierCommandGuardsItsRangeAndItsPermission(helper);
-    }
-
-    @GameTest
-    public void theTrimMultiplierCommandSavesAndSyncsItsValue(GameTestHelper helper) {
-        TrimWiringTests.theTrimMultiplierCommandSavesAndSyncsItsValue(helper);
-    }
-
-    @GameTest
     public void resonancePanelLayoutSitsBesideRecipeBook(GameTestHelper helper) {
         TrimWiringTests.resonancePanelLayoutSitsBesideRecipeBook(helper);
     }
 
     @GameTest
-    public void maxResonanceShowsTheDiamondHeart(GameTestHelper helper) {
-        TrimWiringTests.maxResonanceShowsTheDiamondHeart(helper);
+    public void theCoreReadsTheResonanceFromSimpleResonance(GameTestHelper helper) {
+        TrimWiringTests.theCoreReadsTheResonanceFromSimpleResonance(helper);
     }
 
     @GameTest

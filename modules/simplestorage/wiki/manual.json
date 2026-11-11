@@ -1897,7 +1897,7 @@
         "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackMenuProviders.java",
         "modules/simplestorage/shared/java/com/simplestorage/client/BackpackScreen.java",
         "modules/simplestorage/shared/java/com/simplestorage/client/BackpackLayer.java",
-        "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+        "mc26_3/overlay/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
         "modules/simplestorage/shared/java/com/simplestorage/client/BackpackKeyHandler.java",
         "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackNet.java",
         "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",

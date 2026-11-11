@@ -19,9 +19,4 @@ public final class HopperAndTrimGameTest {
     public void hopperPayloadsOnlyActOnAnOpenHopperMenu(GameTestHelper helper) {
         HopperAndTrimTests.hopperPayloadsOnlyActOnAnOpenHopperMenu(helper);
     }
-
-    @GameTest
-    public void trimMultiplierFollowsTheExperienceCurveAndTheConfiguredBase(GameTestHelper helper) {
-        HopperAndTrimTests.trimMultiplierFollowsTheExperienceCurveAndTheConfiguredBase(helper);
-    }
 }

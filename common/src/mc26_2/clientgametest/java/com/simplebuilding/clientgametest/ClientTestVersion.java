@@ -17,6 +17,9 @@ public final class ClientTestVersion {
      */
     public static final boolean SET_COMMANDS_REJECT_NO_CHANGE = false;
 
+    /** Whether SimpleBuilding's own resonance tracker sends {@code SurvivalSyncPayload} once a second. 26.2: the core still tracks and syncs. */
+    public static final boolean CORE_RESONANCE_TRACKER = true;
+
     /**
      * Whether Cloth Config's screen works on this line. The 26.4 snapshots run on the 26.3 Cloth Config
      * (no 26.4 build yet), whose screen crashes there (RenderPipeline moved back to blaze3d), so the

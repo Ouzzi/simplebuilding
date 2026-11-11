@@ -1794,7 +1794,7 @@
   "book.simplebuilding.admin.9.title": "Trade Switches",
   "book.simplebuilding.admin.9.text": "worldGen.enableVillagerTrades and worldGen.enableWanderingTrades add the mod's trades; both apply on /reload.",
   "book.simplebuilding.admin.10.title": "Gameplay Switches",
-  "book.simplebuilding.admin.10.text": "trimBenefitBaseMultiplier sets the resonance base (2.0), airJumpCooldownTicks the rest after an Air Jump.",
+  "book.simplebuilding.admin.10.text": "trimBenefitBaseMultiplier (Simple Resonance) sets the resonance base (2.0), airJumpCooldownTicks the rest after an Air Jump.",
   "book.simplebuilding.admin.11.title": "Tool Switches",
   "book.simplebuilding.admin.11.text": "pistons.breakerPistonsLoseDurability (Simple Machines) turns breaker piston wear on or off.\ntools.buildingWandHungerCost sets the hunger of huge wand builds.",
   "book.simplebuilding.admin.12.title": "Feature Switches",

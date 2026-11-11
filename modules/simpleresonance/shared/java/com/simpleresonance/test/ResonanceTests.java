@@ -35,7 +35,7 @@ public final class ResonanceTests {
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
     /** The tests that need no running Resonance service (pure rules, registrations): what a loader without the service wiring can run. */
     public static final List<String> PURE = List.of("registered", "config_caps", "zone_curve", "player_value",
-            "owner_probabilities", "owner_distribution_seeded", "newcomer_caps", "migration_legacy_block");
+            "owner_probabilities", "owner_distribution_seeded", "newcomer_caps", "migration_legacy_block", "stats_payload_roundtrip", "panel_layout");
     private static final String OVERWORLD = "minecraft:overworld";
 
     private ResonanceTests() {}
@@ -572,6 +572,132 @@ public final class ResonanceTests {
                 double pureMs = (System.nanoTime() - pure) / 1.0e6;
                 check(pureMs < 50.0, "1000 pure rule runs took " + pureMs + " ms");
             });
+            h.succeed();
+        });
+        // ---- MOB27-3 R2 (docs/ai/PLAN-B-TRIMSTATS27-2026-11-11.md): the measurement for the trims, its payload, its button, the bridge
+        add("stats_payload_roundtrip", h -> {
+            var sent = new com.simpleresonance.net.ResonanceStatsPayload(279, 4000, 72000, 12, 5, 340, 1.5);
+            io.netty.buffer.ByteBuf raw = io.netty.buffer.Unpooled.buffer();
+            try {
+                var buf = new net.minecraft.network.FriendlyByteBuf(raw);
+                com.simpleresonance.net.ResonanceStatsPayload.CODEC.encode(buf, sent);
+                var got = com.simpleresonance.net.ResonanceStatsPayload.CODEC.decode(buf);
+                check(got.equals(sent), "the stats survive the trip: " + sent + " -> " + got);
+                check(buf.readableBytes() == 0, "nothing left over after decoding");
+                // a negative count (a baseline above the current stat after /stats reset) goes over as 0, never as a huge varint
+                com.simpleresonance.net.ResonanceStatsPayload.CODEC.encode(buf, new com.simpleresonance.net.ResonanceStatsPayload(-5, -1, 0, 0, 0, -9, 2.0));
+                var clamped = com.simpleresonance.net.ResonanceStatsPayload.CODEC.decode(buf);
+                check(clamped.xp() == 0 && clamped.metres() == 0 && clamped.damage() == 0, "negative counts arrive as 0: " + clamped);
+            } finally {
+                raw.release();
+            }
+            check(com.simpleresonance.net.ResonanceStatsPayload.TYPE.id().equals(Identifier.fromNamespaceAndPath(SimpleResonance.MOD_ID, "stats")),
+                    "the payload lives in the module's namespace");
+            near(sent.multiplier(), 1.5 * ResonanceMath.meanFactor(ResonanceMath.xpFactor(279), ResonanceMath.survivalFactor(4000, 72000),
+                    ResonanceMath.combatFactor(12, 5, 340)), 1e-12, "the client computes the server's formula");
+            h.succeed();
+        });
+        add("stats_measure", h -> {
+            guarded(() -> {
+                ResonanceConfig.reset();
+                var svc = ResonanceService.INSTANCE;
+                var p = mock(h, 2, 2);
+                ResonanceService.testPlayers = List.of(p);
+                var fresh = svc.stats(p);
+                check(fresh.xp() == 0 && fresh.hostile() == 0 && fresh.metres() == 0, "a new player is fresh: " + fresh);
+                near(fresh.multiplier(), 0.2, 0.001, "fresh resonance 2.0 x 0.1");
+                PlayerRecord r = svc.data().record(p.getUUID());
+                r.baseXp = 100;
+                p.totalExperience = 379;
+                r.active = 72000 + 400;
+                r.baseActive = 400;
+                r.hostile = 12;
+                r.baseHostile = 2;
+                r.passive = 5;
+                p.getStats().setValue(p, Stats.CUSTOM.get(Stats.WALK_ONE_CM), 400000);
+                p.getStats().setValue(p, Stats.CUSTOM.get(Stats.DAMAGE_TAKEN), 200);
+                ResonanceConfig.trimBenefitBaseMultiplier = 1.5;
+                var s = svc.stats(p);
+                check(s.xp() == 279 && s.metres() == 4000 && s.activeTicks() == 72000 && s.hostile() == 10 && s.passive() == 5 && s.damage() == 200,
+                        "the stats count since the last death: " + s);
+                near(s.base(), 1.5, 1e-12, "the configured base travels along");
+                double[] f = svc.factors(p);
+                double[] g = s.factors();
+                for (int i = 0; i < 3; i++) near(g[i], f[i], 1e-12, "factor " + i + " as the service computes it");
+                near(f[0], 0.28, 1e-9, "279 of 1395 points = 0.28");
+                near(s.multiplier(), svc.trimMultiplier(p.getUUID()), 1e-12, "the payload's resonance is the contract's");
+                check(s.multiplier() > 0.15 && s.multiplier() <= 1.5, "between the floor and the base");
+            });
+            h.succeed();
+        });
+        add("bridge_values", h -> {
+            guarded(() -> {
+                ResonanceConfig.reset();
+                var svc = ResonanceService.INSTANCE;
+                var p = mock(h, 2, 2);
+                ResonanceService.testPlayers = List.of(p);
+                PlayerRecord r = svc.data().record(p.getUUID());
+                p.totalExperience = 1395;
+                r.hostile = 50;
+                near(com.simpleresonance.ResonanceBridge.trimMultiplier(p), svc.trimMultiplier(p.getUUID()), 1e-12, "bridge = contract");
+                double[] f = com.simpleresonance.ResonanceBridge.factors(p);
+                near(f[0], 1.0, 1e-12, "full experience factor through the bridge");
+                int[] g = com.simpleresonance.ResonanceBridge.gathered(p);
+                check(g.length == 6 && g[0] == 1395 && g[3] == 50, "gathered numbers through the bridge");
+                near(com.simpleresonance.ResonanceBridge.base(false), ResonanceConfig.trimBenefitBaseMultiplier, 1e-12, "server base = config");
+                // the core calls these by name and with Object parameters (reflection): the signatures must stay
+                try {
+                    Class<?> b = com.simpleresonance.ResonanceBridge.class;
+                    b.getMethod("trimMultiplier", Object.class);
+                    b.getMethod("factors", Object.class);
+                    b.getMethod("gathered", Object.class);
+                    b.getMethod("base", boolean.class);
+                    b.getMethod("shown", Object.class, boolean.class);
+                    b.getMethod("tooltip", Object.class);
+                } catch (NoSuchMethodException e) {
+                    throw new AssertionError("SimpleBuilding's TrimMultiplierLogic/TrimStatsPanel look up a bridge method that is gone: " + e.getMessage());
+                }
+                // anything that is no player is fresh, and nothing throws
+                near(com.simpleresonance.ResonanceBridge.trimMultiplier("not a player"), 0.2, 1e-12, "no player: the floor");
+                near(com.simpleresonance.ResonanceBridge.trimMultiplier(null), 0.2, 1e-12, "null: the floor");
+            });
+            h.succeed();
+        });
+        add("panel_layout", h -> {
+            var L = com.simpleresonance.client.ResonanceLayout.class;
+            check(com.simpleresonance.client.ResonanceLayout.SIZE == 19 && com.simpleresonance.client.ResonanceLayout.ICON_INSET * 2
+                    + com.simpleresonance.client.ResonanceLayout.ICON == 19, "19x19 button, 9x9 heart exactly in the middle");
+            check(com.simpleresonance.client.ResonanceLayout.INVENTORY_X == 76 && com.simpleresonance.client.ResonanceLayout.INVENTORY_Y == 34,
+                    "the same place as SimpleBuilding's button was (between its head slot at y 8 and the off-hand slot at y 62)");
+            check(com.simpleresonance.client.ResonanceLayout.over(76, 34, 94.9, 52.9) && !com.simpleresonance.client.ResonanceLayout.over(76, 34, 95, 40),
+                    "hover area is the button");
+            check(com.simpleresonance.client.ResonanceLayout.isMax(2.996, 3.0) && !com.simpleresonance.client.ResonanceLayout.isMax(2.99, 3.0),
+                    "maximum with the half-cent tolerance of the shown value");
+            check(com.simpleresonance.client.ResonanceLayout.heartSprite(1.5, 1.5).equals("resonance_heart_enderite"), "enderite heart at the maximum");
+            check(com.simpleresonance.client.ResonanceLayout.heartSprite(0.15, 1.5).equals("resonance_heart_cobblestone"), "cobblestone at the floor");
+            String[] tiers = com.simpleresonance.client.ResonanceLayout.TIERS;
+            for (int i = 0; i < tiers.length; i++) {
+                double fraction = 0.1 + 0.9 * (i + 0.5) / tiers.length;
+                check(com.simpleresonance.client.ResonanceLayout.heartSprite(2.0 * fraction, 2.0).equals("resonance_heart_" + tiers[i]), "tier " + i);
+            }
+            // the sprites ship with the module (not with SimpleBuilding any more) and the tooltip is translated in English and German
+            List<String> sprites = new java.util.ArrayList<>(List.of("resonance_field", "resonance_field_highlighted"));
+            for (String t : tiers) sprites.add("resonance_heart_" + t);
+            for (String sprite : sprites) {
+                check(L.getClassLoader().getResource("assets/simpleresonance/textures/gui/sprites/" + sprite + ".png") != null, "sprite " + sprite + " ships");
+            }
+            for (String lang : List.of("en_us", "de_de")) {
+                try (var in = L.getClassLoader().getResourceAsStream("assets/simpleresonance/lang/" + lang + ".json")) {
+                    check(in != null, lang + " present");
+                    var json = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+                    for (String key : List.of("title", "max", "formula", "max_factor", "level", "xp_gathered", "survival", "distance_part",
+                            "time_part", "combat", "hostiles", "passives", "damage_taken")) {
+                        check(json.has("gui.simpleresonance.stats." + key), lang + " lacks gui.simpleresonance.stats." + key);
+                    }
+                } catch (java.io.IOException e) {
+                    throw new AssertionError(e);
+                }
+            }
             h.succeed();
         });
         add("guide_book", h -> com.simpleresonance.guide.ResonanceGuide.gameTest(h));

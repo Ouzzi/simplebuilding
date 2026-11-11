@@ -19,6 +19,9 @@
     "main": [
       "com.simplebuilding.modules.simpleresonance.ResonanceFabric"
     ],
+    "client": [
+      "com.simplebuilding.modules.simpleresonance.ResonanceFabricClient"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpleresonance.ModuleGameTest"
     ]

@@ -18,7 +18,7 @@ import net.minecraft.world.entity.player.Player;
 /**
  * The resonance of the armour-trim bonuses in the inventory (owner N49, 2026-10-12): a slot-sized button between the
  * extra head slot and the off-hand slot, framed like the Vanilla recipe-book button (blue when hovered), showing only
- * the heart of the current tier ({@link TrimStatsLayout#heartSprite}); the value and its parts are in the tooltip.
+ * the heart of the current tier ({@link #heartSprite}); the value and its parts are in the tooltip.
  * The tooltip shows only its first line and "Hold Shift for more", with Shift everything (owner 2026-10-21, SimpleLib
  * {@code UiShiftTooltip} through {@link LibClientServices}).
  *
@@ -34,6 +34,37 @@ public final class TrimStatsPanel {
     public static final double FACTOR_MIN = 0.1, FACTOR_MAX = 1.0;
     /** Lines shown without Shift: "Resonance: 0.21x (max 2.0x)" (owner 2026-10-21). */
     public static final int BRIEF_LINES = 1;
+
+    /** Heart tiers from the lowest to the highest resonance; sprite {@code resonance_heart_<tier>}. */
+    public static final String[] TIERS = {"cobblestone", "stone", "copper", "iron", "gold", "diamond", "netherite", "enderite"};
+
+    /**
+     * Maximum resonance: the value has reached the configured base (all three factors at 1.0), with the same half-cent
+     * tolerance as the shown value ("3.00x"); the tooltip calls it "capped".
+     */
+    public static boolean isMaxResonance(double total, double base) {
+        return total >= base - 0.005;
+    }
+
+    /**
+     * The heart tier (index into {@link #TIERS}) for this resonance: the band 0.1..1.0 of the base (the three factors'
+     * floor to their full value) in eight equal steps; the maximum is always the last tier.
+     */
+    public static int heartTier(double total, double base) {
+        if (base <= 0) {
+            return 0;
+        }
+        if (isMaxResonance(total, base)) {
+            return TIERS.length - 1;
+        }
+        double fraction = (total / base - 0.1) / 0.9;
+        return Math.max(0, Math.min(TIERS.length - 1, (int) Math.floor(fraction * TIERS.length)));
+    }
+
+    /** The GUI sprite of the heart for this resonance. */
+    public static String heartSprite(double total, double base) {
+        return "resonance_heart_" + TIERS[heartTier(total, base)];
+    }
 
     /** The compact value, e.g. "0.22x". */
     public static String compact(double resonance) {
@@ -51,7 +82,7 @@ public final class TrimStatsPanel {
         boolean hovered = TrimStatsLayout.hovered(x, y, mouseX, mouseY);
         context.blitSprite(RenderPipelines.GUI_TEXTURED, hovered ? PANEL_SPRITE_HIGHLIGHTED : PANEL_SPRITE, x, y,
                 TrimStatsLayout.SIZE, TrimStatsLayout.SIZE);
-        context.blitSprite(RenderPipelines.GUI_TEXTURED, Identifier.fromNamespaceAndPath("simplebuilding", TrimStatsLayout.heartSprite(total, base)),
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, Identifier.fromNamespaceAndPath("simplebuilding", heartSprite(total, base)),
                 x + TrimStatsLayout.ICON_INSET, y + TrimStatsLayout.ICON_INSET, TrimStatsLayout.ICON_WIDTH, TrimStatsLayout.ICON_HEIGHT);
         if (hovered) {
             context.setComponentTooltipForNextFrame(font, shown(player, LibClientServices.shiftHeld()), mouseX, mouseY);

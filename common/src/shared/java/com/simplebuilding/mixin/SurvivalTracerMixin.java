@@ -18,6 +18,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * The old tracker of the trim resonance (counts since the last death, NBT block {@code SimpleBuildingData}, sync payloads). On 26.3
+ * Simple Resonance measures instead (MOB27-3 R2, {@code McVersion.RESONANCE_IN_SB} false): there this mixin counts, sends and rebases
+ * nothing and only keeps the block as it was read, so Simple Resonance's {@code LegacyImport} can take it over once.
+ */
 @Mixin(ServerPlayer.class)
 public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
 
@@ -70,7 +75,7 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     // Kill Tracking
     @Inject(method = "awardKillScore", at = @At("HEAD"))
     private void onUpdateKilledAdvancementCriterion(Entity entityKilled, DamageSource damageSource, CallbackInfo ci) {
-        if (entityKilled == null) return;
+        if (entityKilled == null || !com.simplebuilding.version.McVersion.RESONANCE_IN_SB) return;
         MobCategory group = entityKilled.getType().getCategory();
         if (group == MobCategory.MONSTER) {
             totalHostileKills++;
@@ -83,7 +88,7 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     @Override
     public void simplebuilding$syncTrimData() {
         ServerPlayer player = (ServerPlayer) (Object) this;
-        if (player.connection != null && PlatformServices.canSendToPlayer(player, TrimDataPayload.ID)) {
+        if (com.simplebuilding.version.McVersion.RESONANCE_IN_SB && player.connection != null && PlatformServices.canSendToPlayer(player, TrimDataPayload.ID)) {
             PlatformServices.sendToPlayer(player, new TrimDataPayload(baseDist, baseTime, baseHostile, basePassive, baseDamage, baseXp,
                     com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier));
         }
@@ -91,6 +96,7 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$onTick(CallbackInfo ci) {
+        if (!com.simplebuilding.version.McVersion.RESONANCE_IN_SB) return;
         ServerPlayer player = (ServerPlayer) (Object) this;
         if (player.tickCount % 20 == 0) {
             // Kein AFK: die Zeit zaehlt nur, solange sich der Spieler in der letzten Minute bewegt hat.
@@ -156,7 +162,8 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     @Inject(method = "restoreFrom", at = @At("TAIL"))
     public void onRespawn(ServerPlayer oldPlayer, boolean alive, CallbackInfo ci) {
         SurvivalTracerAccessor oldAccessor = (SurvivalTracerAccessor) oldPlayer;
-        if (!alive) {
+        // 26.3: no rebase on death - the block only travels on unchanged until Simple Resonance imported it.
+        if (!alive && com.simplebuilding.version.McVersion.RESONANCE_IN_SB) {
             // Reset
             ServerPlayer player = (ServerPlayer) (Object) this;
             this.baseDist = getStatTotalDistance(player);

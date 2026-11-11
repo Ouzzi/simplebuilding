@@ -280,6 +280,12 @@ public final class ConfigOptions {
      */
     public static final Set<String> MOVED_TO_BLOCKS = Set.of("server.features.levitatingBlocks");
 
+    /**
+     * b-trimstats27 (MOB27-3 R2): the base of the trim resonance lives in Simple Resonance on 26.3 ({@code config/simpleresonance.json},
+     * taken over once from here; {@code McVersion.RESONANCE_IN_SB}).
+     */
+    public static final Set<String> MOVED_TO_RESONANCE = Set.of("trimBenefitBaseMultiplier");
+
     /** True if {@code path} belongs to a sub-mod on this line (see {@link #MOVED_TO_OVENS}). */
     public static boolean hidden(String path) {
         return !com.simplebuilding.version.McVersion.OVENS_IN_SB && MOVED_TO_OVENS.contains(path)
@@ -295,7 +301,8 @@ public final class ConfigOptions {
                 || !com.simplebuilding.version.McVersion.BTOOLS_IN_SB && MOVED_TO_BTOOLS.contains(path)
                 || !com.simplebuilding.version.McVersion.GADGETS_IN_SB && MOVED_TO_GADGETS.contains(path)
                 || !com.simplebuilding.version.McVersion.TRIMS_IN_SB && MOVED_TO_TRIMS.contains(path)
-                || !com.simplebuilding.version.McVersion.BLOCKS_IN_SB && MOVED_TO_BLOCKS.contains(path);
+                || !com.simplebuilding.version.McVersion.BLOCKS_IN_SB && MOVED_TO_BLOCKS.contains(path)
+                || !com.simplebuilding.version.McVersion.RESONANCE_IN_SB && MOVED_TO_RESONANCE.contains(path);
     }
 
     private static final List<Option> ALL;

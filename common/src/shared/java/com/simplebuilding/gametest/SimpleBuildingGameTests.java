@@ -641,8 +641,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("hopper_and_trim_game_test_hopper_payloads_only_act_on_an_open_hopper_menu", HopperAndTrimTests::hopperPayloadsOnlyActOnAnOpenHopperMenu)
                     .rotation(Rotation.NONE)
                     .build(),
-            GameTestSpec.named("hopper_and_trim_game_test_trim_multiplier_follows_the_experience_curve_and_the_configured_base", HopperAndTrimTests::trimMultiplierFollowsTheExperienceCurveAndTheConfiguredBase)
-                    .build(),
             GameTestSpec.named("building_enchantment_game_test_constructors_touch_unlocks_the_extra_chisel_tables_in_both_directions", BuildingEnchantmentTests::constructorsTouchUnlocksTheExtraChiselTablesInBothDirections)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -1160,25 +1158,13 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("magnet_game_test_the_magnet_recipe_still_crafts_from_its_documented_pattern", MagnetTests::theMagnetRecipeStillCraftsFromItsDocumentedPattern)
                     .build(),
-            GameTestSpec.named("trim_wiring_game_test_the_survival_factor_tracks_distance_and_time_since_the_last_death", TrimWiringTests::theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath)
-                    .build(),
-            GameTestSpec.named("trim_wiring_game_test_survival_time_counts_only_while_the_player_moves", TrimWiringTests::survivalTimeCountsOnlyWhileThePlayerMoves)
-                    .build(),
-            GameTestSpec.named("trim_wiring_game_test_the_combat_factor_weighs_kills_and_damage_by_mob_category", TrimWiringTests::theCombatFactorWeighsKillsAndDamageByMobCategory)
-                    .build(),
-            GameTestSpec.named("trim_wiring_game_test_the_tracker_survives_the_save_and_rebases_only_on_death", TrimWiringTests::theTrackerSurvivesTheSaveAndRebasesOnlyOnDeath)
-                    .build(),
             GameTestSpec.named("trim_wiring_game_test_the_three_trim_materials_keep_their_colours_and_their_tags", TrimWiringTests::theThreeTrimMaterialsKeepTheirColoursAndTheirTags)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_enderite_trim_turns_darker_on_enderite_armour", TrimWiringTests::enderiteTrimTurnsDarkerOnEnderiteArmour)
                     .build(),
-            GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_guards_its_range_and_its_permission", TrimWiringTests::theTrimMultiplierCommandGuardsItsRangeAndItsPermission)
-                    .build(),
-            GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_saves_and_syncs_its_value", TrimWiringTests::theTrimMultiplierCommandSavesAndSyncsItsValue)
-                    .build(),
             GameTestSpec.named("trim_wiring_game_test_resonance_panel_layout_sits_beside_recipe_book", TrimWiringTests::resonancePanelLayoutSitsBesideRecipeBook)
                     .build(),
-            GameTestSpec.named("trim_wiring_game_test_max_resonance_shows_the_diamond_heart", TrimWiringTests::maxResonanceShowsTheDiamondHeart)
+            GameTestSpec.named("trim_wiring_game_test_the_core_reads_the_resonance_from_simple_resonance", TrimWiringTests::theCoreReadsTheResonanceFromSimpleResonance)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_displayed_rates_match_the_balance_table", TrimWiringTests::theDisplayedRatesMatchTheBalanceTable)
                     .build(),
