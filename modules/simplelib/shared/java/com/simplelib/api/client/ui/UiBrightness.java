@@ -131,7 +131,7 @@ public enum UiBrightness {
         }
         try {
             Files.createDirectories(dir);
-            Files.writeString(dir.resolve(FILE), new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(toJson()));
+            com.simplebuilding.framework.api.ConfigFiles.writeAtomic(dir.resolve(FILE), new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(toJson()));
         } catch (Exception e) {
             com.simplelib.SimpleLib.LOG.warn("Cannot save the inventory brightness: {}", e.toString());
         }

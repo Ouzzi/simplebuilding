@@ -104,7 +104,7 @@ public final class PresetRegistry {
         if (clean.isBlank() || clean.length() > 40) clean = "preset";
         Path folder = configDir.resolve(SimpleChallenges.MOD_ID).resolve("presets");
         Files.createDirectories(folder);
-        Files.writeString(folder.resolve(clean + ".json"), text, StandardCharsets.UTF_8);
+        com.simplebuilding.framework.api.ConfigFiles.writeAtomic(folder.resolve(clean + ".json"), text);
         add("user/" + clean, text, "user " + clean);
         return "user/" + clean;
     }

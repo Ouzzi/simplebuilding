@@ -24,7 +24,7 @@ public final class LegacyMigration {
             if (Files.isRegularFile(options) && Files.size(options) <= 1 << 20) {
                 String text = Files.readString(options);
                 String migrated = options(text);
-                if (!migrated.equals(text)) Files.writeString(options, migrated);
+                if (!migrated.equals(text)) com.simplebuilding.framework.api.ConfigFiles.writeAtomic(options, migrated);
             }
         } catch (IOException | RuntimeException e) {
             org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn("Cannot take over simplecontainers settings", e);

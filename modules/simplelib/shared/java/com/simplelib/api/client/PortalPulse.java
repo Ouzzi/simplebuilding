@@ -20,6 +20,11 @@ public final class PortalPulse {
         start = System.nanoTime();
     }
 
+    /** Leaving a world or server: a running pulse ends (REV2-B-11). */
+    public static void reset() {
+        length = 0;
+    }
+
     public static void render(GuiGraphicsExtractor graphics) {
         if (length == 0) return;
         int a = PortalPulsePayload.alpha(System.nanoTime() - start, length);

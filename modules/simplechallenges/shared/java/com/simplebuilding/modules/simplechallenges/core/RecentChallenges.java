@@ -58,7 +58,7 @@ public final class RecentChallenges {
             Files.createDirectories(f.getParent());
             JsonArray a = new JsonArray();
             for (String s : recent) a.add(s);
-            Files.writeString(f, new Gson().toJson(a), StandardCharsets.UTF_8);
+            com.simplebuilding.framework.api.ConfigFiles.writeAtomic(f, new Gson().toJson(a));
         } catch (IOException e) {
             SimpleChallenges.LOG.warn("Could not write recent.json: {}", e.toString());
         }

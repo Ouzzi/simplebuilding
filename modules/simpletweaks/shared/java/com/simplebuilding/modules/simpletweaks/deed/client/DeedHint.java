@@ -43,7 +43,7 @@ final class DeedHint {
             }
             root.addProperty(KEY, false);
             Files.createDirectories(f.getParent());
-            Files.writeString(f, root.toString(), StandardCharsets.UTF_8);
+            com.simplebuilding.framework.api.ConfigFiles.writeAtomic(f, root.toString());
         } catch (Exception e) { /* only a convenience: the hint comes back next start */ }
     }
 }

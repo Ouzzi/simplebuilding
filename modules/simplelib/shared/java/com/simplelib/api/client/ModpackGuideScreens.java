@@ -174,6 +174,12 @@ public final class ModpackGuideScreens {
         version++;
     }
 
+    /** Leaving a world or server: the unlocks were that server's answer (REV2-B-11, {@link com.simplelib.api.ClientState}). */
+    public static void forgetServer() {
+        done = Set.of();
+        version++;
+    }
+
     /** Test probe only: pretend these advancements are done (null: back to what the server said). */
     public static void override(@Nullable Set<Identifier> completed) {
         override = completed == null ? null : Set.copyOf(completed);

@@ -24,10 +24,14 @@ public final class SimpleLibFabricClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.simplelib.net.FreeLookRulesPayload.TYPE,
                 (payload, context) -> com.simplelib.api.FreeLookRules.setServer(payload.playerTurns()
                         ? com.simplelib.api.FreeLookRules.Release.PLAYER : com.simplelib.api.FreeLookRules.Release.CAMERA, payload.enforce()));
-        net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+        // REV2-B-11: one disconnect hook for all client caches (ClientState); SimpleLib's own ones register here.
+        com.simplelib.api.ClientState.onDisconnect("simplelib:free_look", () -> {
             com.simplelib.api.FreeLookRules.clearServer();
             com.simplelib.api.client.FreeLook.reset();
         });
+        com.simplelib.api.ClientState.onDisconnect("simplelib:guide_unlocks", com.simplelib.api.client.ModpackGuideScreens::forgetServer);
+        com.simplelib.api.ClientState.onDisconnect("simplelib:portal_pulse", com.simplelib.api.client.PortalPulse::reset);
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> com.simplelib.api.ClientState.disconnected());
         net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simplelib.api.client.FreeLook::tick);
         // ABN30-9: dev variants panel beside the inventory (a development environment shows it by default).
         com.simplelib.api.DevVariants.setDevEnvironment(net.fabricmc.loader.api.FabricLoader.getInstance().isDevelopmentEnvironment());
