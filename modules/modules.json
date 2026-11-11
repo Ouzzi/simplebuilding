@@ -4749,6 +4749,7 @@
         "simplelib"
       ],
       "optional": [
+        "jade",
         "simplebuilding",
         "simpleores"
       ],
