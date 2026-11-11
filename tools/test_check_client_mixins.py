@@ -92,5 +92,71 @@ class Plugin(unittest.TestCase):
         self.assertEqual(problems, [])
 
 
+class LocalCapture(unittest.TestCase):
+    """b-mixlocal27: @Local against the target's local variable table."""
+    WRAP = c.MX + "wrapoperation/WrapOperation;"
+    CALL = ("INVOKE", "net/mc/Foo", "draw", "(I)V")
+
+    def target(self, lvt, static=False):
+        # instance method tick(Lnet/mc/Level;I)V: this=0, level=1, n=2; locals pos (slot 3, offsets 4..20), a second
+        # BlockPos other (slot 4, offsets 12..20); draw() called at offsets 8 and 16; return at 20
+        return c.Member(0x0008 if static else 0, "tick", "(Lnet/mc/Level;I)V", {}, {self.CALL},
+                        lvt=lvt, pcs={self.CALL: [8, 16], ("RETURN",): [20]})
+
+    LVT = [(0, 21, "this", "Lnet/mc/Foo;", 0), (0, 21, "level", "Lnet/mc/Level;", 1), (0, 21, "n", "I", 2),
+           (4, 17, "pos", "Lnet/mc/BlockPos;", 3), (12, 9, "other", "Lnet/mc/BlockPos;", 4)]
+
+    def check(self, local_desc, local_ann, at=None, lvt=LVT, sig=None):
+        at = at or {"value": "INVOKE", "target": "Lnet/mc/Foo;draw(I)V"}
+        handler = c.Member(0, "h", f"(ILcom/llamalad7/mixinextras/injector/wrapoperation/Operation;{local_desc})V", {}, set(),
+                           params=[{}, {}, {c.LOCAL: local_ann}], sig=sig)
+        problems = []
+        c.check_locals("M", "net/mc/Foo", handler, "@WrapOperation", [self.target(lvt)], {"at": ("x", at)}, problems)
+        return problems
+
+    def test_implicit_unique_in_scope(self):
+        # at offset 8 only pos is in scope; at 16 pos and other -> ambiguous
+        self.assertEqual(self.check("Lnet/mc/Level;", {}), [])
+        self.assertEqual(self.check("Lnet/mc/BlockPos;", {}, {"value": "INVOKE", "target": "Lnet/mc/Foo;draw(I)V", "ordinal": ("int", 0)}), [])
+        self.assertEqual(len(self.check("Lnet/mc/BlockPos;", {})), 1)
+
+    def test_missing_type(self):
+        self.assertEqual(len(self.check("Lnet/mc/Entity;", {})), 1)
+
+    def test_ordinal_name_index(self):
+        second = {"value": "INVOKE", "target": "Lnet/mc/Foo;draw(I)V", "ordinal": ("int", 1)}
+        self.assertEqual(self.check("Lnet/mc/BlockPos;", {"ordinal": ("int", 1)}, second), [])
+        self.assertEqual(len(self.check("Lnet/mc/BlockPos;", {"ordinal": ("int", 1)})), 1)  # first call: only pos in scope
+        self.assertEqual(len(self.check("Lnet/mc/BlockPos;", {"ordinal": ("int", 2)}, second)), 1)
+        self.assertEqual(self.check("Lnet/mc/BlockPos;", {"name": ["other"]}, second), [])
+        self.assertEqual(len(self.check("Lnet/mc/BlockPos;", {"name": ["other"]})), 1)
+        self.assertEqual(len(self.check("Lnet/mc/BlockPos;", {"name": ["missing"]})), 1)
+        self.assertEqual(self.check("Lnet/mc/BlockPos;", {"index": ("int", 4)}, second), [])
+        self.assertEqual(len(self.check("Lnet/mc/BlockPos;", {"index": ("int", 2)})), 1)
+
+    def test_this_is_not_a_local(self):
+        self.assertEqual(len(self.check("Lnet/mc/Foo;", {})), 1)
+
+    def test_args_only(self):
+        self.assertEqual(self.check("I", {"argsOnly": ("int", 1)}), [])
+        self.assertEqual(self.check("Lnet/mc/Level;", {"argsOnly": ("int", 1)}), [])
+        self.assertEqual(len(self.check("Lnet/mc/BlockPos;", {"argsOnly": ("int", 1)})), 1)
+        self.assertEqual(len(self.check("I", {"argsOnly": ("int", 1), "ordinal": ("int", 1)})), 1)
+
+    def test_ref_types(self):
+        self.assertEqual(self.check("Lcom/llamalad7/mixinextras/sugar/ref/LocalIntRef;", {}), [])
+        self.assertEqual(len(self.check("Lcom/llamalad7/mixinextras/sugar/ref/LocalFloatRef;", {})), 1)
+        sig = "(ILcom/llamalad7/mixinextras/injector/wrapoperation/Operation<Ljava/lang/Void;>;Lcom/llamalad7/mixinextras/sugar/ref/LocalRef<Lnet/mc/Level;>;)V"
+        self.assertEqual(self.check("Lcom/llamalad7/mixinextras/sugar/ref/LocalRef;", {}, sig=sig), [])
+        self.assertEqual(len(self.check("Lcom/llamalad7/mixinextras/sugar/ref/LocalRef;", {}, sig=sig.replace("Level", "Entity"))), 1)
+
+    def test_head_and_unmodelled_at(self):
+        self.assertEqual(len(self.check("Lnet/mc/BlockPos;", {}, {"value": "HEAD"})), 1)  # pos not yet in scope
+        self.assertEqual(self.check("Lnet/mc/BlockPos;", {}, {"value": "JUMP"}), [])  # whole method: present, no uniqueness
+
+    def test_no_table_no_verdict(self):
+        self.assertEqual(self.check("Lnet/mc/Entity;", {}, lvt=None), [])
+
+
 if __name__ == "__main__":
     unittest.main()
