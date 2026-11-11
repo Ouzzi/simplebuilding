@@ -253,6 +253,7 @@
           "summary": "Kapitel \"Simple Vault\" im Simple-Modpack-Handbuch (SimpleLib): 9 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Echo-Scherbe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
+      "texture": "assets/textures/simplevault/item/guide_book.png",
       "craftedBy": [],
       "usedIn": []
     },
