@@ -1024,13 +1024,13 @@
     {
       "id": "lithium",
       "name": "Lithium",
-      "version": "0.26.2+mc26.3",
+      "version": "0.26.3+mc26.3",
       "minecraft": "26.3",
       "defaultEnabled": false,
       "purpose": "Lithium is a free and open-source optimization mod for Minecraft which makes a wide range of performance improvements to the game.",
       "sources": {
         "fabric": {
-          "local": "mc26_3/fabric/run/mods/lithium-fabric-0.26.2+mc26.3.jar"
+          "maven": "maven.modrinth:lithium:${mc263_dev_lithium_fabric}"
         }
       },
       "runtimeDependencies": {
