@@ -93,6 +93,7 @@ public final class ClaimTests {
         TESTS.put("claims_credit_migration",CreditTests::migration);
         TESTS.put("claims_credit_dimensions",CreditTests::dimensions);
         TESTS.put("claims_credit_buy",CreditTests::buy);
+        TESTS.put("claims_legacy_dimension",CreditTests::legacyDimension);
         TESTS.put("claims_deedui_pictures",DeedUiTests::pictures);
         TESTS.put("claims_deedui_tiles",DeedUiTests::tiles);
         TESTS.put("claims_deedui_actions",DeedUiTests::actions);
