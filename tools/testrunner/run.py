@@ -483,7 +483,11 @@ SERVER_SOLO_TARGETS = tuple(Target(
 BENCH_TARGETS = (Target(
     id="bench-opt-headless-263", label="Simple Optimization headless: aus/Standard/alle (MSPT, Heap, O4, O1)",
     loader="fabric", mc_line="26.3", gradle_task=":integration:runSimpleoptimizationStandaloneGameTest", report="",
-    catalogue="", kind="bench", namespace="bench"),)
+    catalogue="", kind="bench", namespace="bench"),
+    # N31b L9 (b-benchsb31): SimpleBuilding + 20 mandatory mods against Vanilla, verdict against the 10 % MSPT limit.
+    Target(id="bench-sb-headless-263", label="SimpleBuilding + Pflicht-Mods gegen Vanilla headless (MSPT-Grenze 10 %)",
+           loader="fabric", mc_line="26.3", gradle_task=":integration:runIntegrationGameTest", report="",
+           catalogue="", kind="bench", namespace="bench"))
 ALL_TARGETS: tuple[Target, ...] = (TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS + MODULE_TARGETS + FORGE263_TARGETS
                                    + SERVER_SOLO_TARGETS + BENCH_TARGETS)
 
@@ -1020,16 +1024,23 @@ def run_bench_target(target: Target, run_id: str, timeout: int) -> dict:
     started_at = now_utc()
     sys.path.insert(0, str(REPO / "tools" / "bench"))
     import headless_bench
-    out_dir = REPO / "bench-results" / f"{run_id}-headless"
+    sb = target.id == "bench-sb-headless-263"
+    out_dir = REPO / "bench-results" / f"{run_id}-headless{'-sb' if sb else ''}"
     error = None
     try:
-        res = headless_bench.run(int(os.environ.get("SB_BENCH_RUNS", "2")), list(headless_bench.SCENARIOS), out_dir,
-                                 timeout)
+        res = headless_bench.run(int(os.environ.get("SB_BENCH_RUNS", "5" if sb else "2")),
+                                 list(headless_bench.SB_SCENARIOS if sb else headless_bench.SCENARIOS), out_dir, timeout,
+                                 "sb" if sb else "opt")
     except (OSError, ValueError, KeyError) as exc:
         res, error = {"runs": []}, f"{type(exc).__name__}: {exc}"
     tests = [{"id": f"bench:{r['scenario']}_{r['rep']}", "status": "failed" if "error" in r else "passed",
               "message": (r.get("error", "") or "")[-300:] or json.dumps({k: r.get(k) for k in ("mspt_avg", "heap_mb")}),
               "durationMs": int(r.get("wall_s", 0) * 1000)} for r in res["runs"]]
+    ver = res.get("verdict")
+    if ver:  # L9: the verdict is a test of its own (green = PASS), the value is in the message
+        tests.append({"id": "bench:sb_mspt_limit", "status": "passed" if ver["result"] == "PASS" else "failed",
+                      "message": f"{ver['result']}: MSPT {ver['mspt_avg_delta_pct']:+} % gegen Vanilla (Grenze +{ver['limit_pct']:g} %)",
+                      "durationMs": 0})
     failed = sum(1 for t in tests if t["status"] == "failed")
     if error is None and failed:
         error = f"{failed} Messlauf/-läufe ohne Ergebnis (Logs {out_dir.relative_to(REPO)}/logs)"

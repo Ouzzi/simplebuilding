@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "modules": [
+    "simplebuilding",
+    "simplechisels",
+    "simplelib",
+    "simpletools",
+    "simplebuildingtools",
+    "simplepads",
+    "simplemobheads",
+    "simpleores",
+    "simpleenchanting",
+    "simpleresonance",
+    "simplemobs",
+    "simplearrows",
+    "simplemachines",
+    "simplegadgets",
+    "simplelights",
+    "simplestorage",
+    "simplehammers",
+    "simpleblocks",
+    "simpleoctets",
+    "simplecrucibles",
+    "simpleovens"
+  ],
+  "devMods": [
+    "cloth_config"
+  ]
+}
