@@ -12,14 +12,17 @@ import java.util.HexFormat;
 
 /**
  * Server config {@code config/simplelivemap.json}, four groups (categories): {@code general}, {@code record} (what counts as
- * explored), {@code render} (tile budget), {@code web} (built-in web server, off by default). Missing or broken keys use the
- * defaults and the file is rewritten complete; every number is clamped (server authority, A9). Plan
- * {@code docs/ai/PLAN-B-LIVE32-2026-10-31.md}.
+ * explored), {@code render} (tile budget), {@code web} (built-in web server: on, local only, private). Missing or broken keys use the
+ * defaults and the file is rewritten complete; every number is clamped (server authority, A9). Plans
+ * {@code docs/ai/PLAN-B-LIVE32-2026-10-31.md}, {@code docs/ai/PLAN-B-LIVEMAP29-2026-11-11.md} (web server on by default since
+ * N29: only on this machine, private with the key; an existing file keeps its written {@code "enabled": false}).
  */
 public final class LivemapConfig {
     public static final String FILE = SimpleLivemap.MOD_ID + ".json";
     public static final String PRIVATE = "private", PUBLIC = "public";
     public static final int PORT_DEFAULT = 8125, RADIUS_MAX = 8, RATE_DEFAULT = 1200, RATE_MIN = 30, RATE_MAX = 20000;
+    /** Ports tried when the configured one is busy: 8125-8134 (only when the configured port is in that range). */
+    public static final int PORT_RANGE = 10;
 
     // general
     public static boolean enabled;
@@ -47,6 +50,8 @@ public final class LivemapConfig {
     public static boolean showPlayers;
     public static int requestsPerMinute;
     public static int liveSeconds;
+    /** Single player / LAN host: one clickable "open the live map" chat line per session. */
+    public static boolean chatHint;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private static final SecureRandom RANDOM = new SecureRandom();
@@ -59,6 +64,17 @@ public final class LivemapConfig {
 
     public static boolean isPublic() {
         return PUBLIC.equals(visibility);
+    }
+
+    /**
+     * Ports to try in this order: a port in the default range 8125-8134 is followed by the rest of the range (ring: up to
+     * 8134, then from 8125); any other port (chosen on purpose, a proxy or firewall points to it) is tried alone.
+     */
+    public static int[] candidates(int port) {
+        if (port < PORT_DEFAULT || port >= PORT_DEFAULT + PORT_RANGE) return new int[] {port};
+        int[] out = new int[PORT_RANGE];
+        for (int i = 0; i < PORT_RANGE; i++) out[i] = PORT_DEFAULT + (port - PORT_DEFAULT + i) % PORT_RANGE;
+        return out;
     }
 
     /** A fresh random token (128 bit, hex). */
@@ -96,7 +112,7 @@ public final class LivemapConfig {
         chunksPerTick = integer(d, "chunksPerTick", 2, 1, 32);
         refreshMinutes = integer(d, "refreshMinutes", 10, 1, 1440);
         shading = bool(d, "shading", true);
-        webEnabled = bool(w, "enabled", false);
+        webEnabled = bool(w, "enabled", true);
         String b = string(w, "bind", "127.0.0.1").trim();
         bind = b.isEmpty() || b.length() > 64 ? "127.0.0.1" : b;
         port = integer(w, "port", PORT_DEFAULT, 1, 65535);
@@ -107,6 +123,7 @@ public final class LivemapConfig {
         showPlayers = bool(w, "showPlayers", false);
         requestsPerMinute = integer(w, "requestsPerMinute", RATE_DEFAULT, RATE_MIN, RATE_MAX);
         liveSeconds = integer(w, "liveSeconds", 2, 1, 60);
+        chatHint = bool(w, "chatHint", true);
     }
 
     public static JsonObject toJson() {
@@ -133,6 +150,7 @@ public final class LivemapConfig {
         w.addProperty("showPlayers", showPlayers);
         w.addProperty("requestsPerMinute", requestsPerMinute);
         w.addProperty("liveSeconds", liveSeconds);
+        w.addProperty("chatHint", chatHint);
         o.add("web", w);
         return o;
     }

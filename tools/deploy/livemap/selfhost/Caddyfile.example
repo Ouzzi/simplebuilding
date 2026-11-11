@@ -1,0 +1,47 @@
+# Simple Livemap behind Caddy (self-hosting guide: docs/deploy/LIVEMAP-SELF-HOST.md). Caddy gets the TLS certificate
+# for map.example.org by itself. Replace the PLACEHOLDERS, then `caddy validate --config Caddyfile && caddy reload`.
+#
+#   map.example.org   your host name
+#   127.0.0.1:8125    the game server's livemap (same machine = keep 127.0.0.1)
+#
+# Key handling (web.visibility stays "private"):
+#   A (default here)  visitors open https://map.example.org/#t=<key>; Caddy passes the Authorization header through.
+#   B                 own login + Caddy adds the key: uncomment the basic_auth block and the header_up line and start
+#                     Caddy with the environment variable LIVEMAP_TOKEN=<key> (e.g. systemd EnvironmentFile, mode 600).
+#                     Password hash: caddy hash-password. Directive name: basic_auth (Caddy 2.8+), basicauth (older).
+# Rate limit per visitor needs the plugin github.com/mholt/caddy-ratelimit (xcaddy build --with ...); without it the
+# mod's own budget (web.requestsPerMinute) still applies, but for all visitors together.
+
+map.example.org {
+	# basic_auth {
+	# 	viewer <hash from caddy hash-password>
+	# }
+
+	# Caddy matchers: several "path" lines are OR, but path and path_regexp in one block are AND -> two matchers instead.
+	@page {
+		method GET HEAD
+		path / /live.json
+	}
+	@tile {
+		method GET HEAD
+		path_regexp ^/tiles/[a-z0-9_.-]{1,96}/[0-4]/-?[0-9]{1,7}/-?[0-9]{1,7}\.png$
+	}
+
+	handle @page {
+		reverse_proxy 127.0.0.1:8125 {
+			header_up -Cookie
+			# header_up Authorization "Bearer {env.LIVEMAP_TOKEN}"
+			header_down -Set-Cookie
+		}
+	}
+	handle @tile {
+		reverse_proxy 127.0.0.1:8125 {
+			header_up -Cookie
+			# header_up Authorization "Bearer {env.LIVEMAP_TOKEN}"
+			header_down -Set-Cookie
+		}
+	}
+	handle {
+		respond 404
+	}
+}

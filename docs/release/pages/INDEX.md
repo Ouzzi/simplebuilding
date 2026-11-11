@@ -19,7 +19,7 @@
 | [SimpleLib](simplelib.md) | `simplelib` | Shared base of the Simple family: modpack guide, warm food, shared materials, rarity tiers and UI building blocks. | draft |
 | [Simple Interfaces](simpleinterfaces.md) | `simpleinterfaces` | Restyled Vanilla container screens, linked containers and easy Shulker and Ender Chest access. | draft |
 | [Simple Maps](simplemaps.md) | `simplemaps` | Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar and cartography upgrades. | draft |
-| [Simple Livemap](simplelivemap.md) | `simplelivemap` | Live web map of your world as players explored it, with an optional local-only web server that is off by default. | draft |
+| [Simple Livemap](simplelivemap.md) | `simplelivemap` | Live web map of your world as players explored it, with a built-in web server that works out of the box, only on your own computer. | draft |
 | [Simple Trims](simpletrims.md) | `simpletrims` | Glowing, Emitting and Pulsating armor trims, placeable trim templates and trim upgrades. | draft |
 | [Simple Mobs](simplemobs.md) | `simplemobs` | New monsters and bosses: Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Blighted and Abyssal Wither and more. | draft |
 | [Simple Weather](simpleweather.md) | `simpleweather` | Server weather switch and client rain density option; a sub-mod of Simple Quality of Life. | draft |

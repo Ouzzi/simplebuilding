@@ -28,7 +28,7 @@ import net.minecraft.world.level.storage.LevelResource;
 
 /**
  * Server side of the live map: records explored chunks (players, held Vanilla maps), draws them with a per-tick budget, saves
- * the store, runs the optional web server and prepares {@code live.json}. All game access on the server thread; tile files
+ * the store, runs the web server (on by default, local, private) and prepares {@code live.json}. All game access on the server thread; tile files
  * on the {@link TileStore} thread; the web server only reads files and the prepared string.
  */
 public final class LivemapRuntime {
@@ -48,6 +48,8 @@ public final class LivemapRuntime {
     /** Last chunk per player (only a chunk change records), and when a map id was last read. */
     private static final Map<UUID, Long> lastChunk = new HashMap<>();
     private static final Map<Integer, Integer> mapRead = new HashMap<>();
+    /** Players that got the "open the live map" chat line in this session (N29). */
+    private static final Set<UUID> hinted = new HashSet<>();
 
     private LivemapRuntime() {}
 
@@ -90,6 +92,7 @@ public final class LivemapRuntime {
         drawn.clear();
         lastChunk.clear();
         mapRead.clear();
+        hinted.clear();
         tick = 0;
         webRetryTick = 0;
         syncWeb(s);
@@ -120,7 +123,10 @@ public final class LivemapRuntime {
     public static void tick(MinecraftServer s) {
         if (s != server) return;
         tick++;
-        if (tick % 20 == 0) syncWeb(s);
+        if (tick % 20 == 0) {
+            syncWeb(s);
+            sendHints(s);
+        }
         if (!SimpleLivemap.on()) return;
         if (tick % LivemapConfig.intervalTicks == 0) {
             for (ServerPlayer p : s.getPlayerList().getPlayers()) record(p);
@@ -297,13 +303,62 @@ public final class LivemapRuntime {
             web = null;
         }
         if (tick < webRetryTick) return;
+        int[] ports = LivemapConfig.candidates(wanted.port());
         try {
             live = buildLive(s);
-            web = LivemapWeb.start(wanted, LivemapRuntime::live, s::isRunning);
+            web = LivemapWeb.start(wanted, ports, LivemapRuntime::live, s::isRunning);
+            if (web.port() != wanted.port()) {
+                SimpleLivemap.LOG.info("Simple Livemap: port {} is busy, the web map uses port {} this session", wanted.port(), web.port());
+            }
             SimpleLivemap.LOG.info("Simple Livemap: web map on http://{}:{}/ ({})", wanted.bind(), web.port(), LivemapConfig.visibility);
+            if (s.isDedicatedServer()) SimpleLivemap.LOG.info(dedicatedHint(wanted.bind()));
         } catch (IOException | RuntimeException e) {
             webRetryTick = tick + 1200;
-            SimpleLivemap.LOG.warn("Simple Livemap: web server could not start on {}:{}: {}", wanted.bind(), wanted.port(), e.toString());
+            SimpleLivemap.LOG.warn("Simple Livemap: web server could not start on {} port {}: {}", wanted.bind(),
+                    ports.length > 1 ? ports[0] + "-" + (LivemapConfig.PORT_DEFAULT + LivemapConfig.PORT_RANGE - 1) : wanted.port(), e.toString());
+        }
+    }
+
+    /** Dedicated server log line: who reaches the web map and which settings change that (never the token). */
+    public static String dedicatedHint(String bind) {
+        boolean local;
+        try {
+            local = java.net.InetAddress.getByName(bind).isLoopbackAddress();
+        } catch (IOException | RuntimeException e) {
+            local = false;
+        }
+        String how = "/simplelivemap link (operators) shows the private link; see the Simple Livemap wiki page for proxies and own websites.";
+        return local
+                ? "Simple Livemap: the web map only answers on this machine (web.bind " + bind + "). To share it, set web.bind in config/"
+                        + LivemapConfig.FILE + " to a network address (keep web.visibility private) or put a reverse proxy in front. " + how
+                : "Simple Livemap: the web map listens on the network (web.bind " + bind + ", " + LivemapConfig.visibility + "). "
+                        + (LivemapConfig.isPublic() ? "Public: everyone who reaches the port sees it. " : "Private: only links with the key open it. ") + how;
+    }
+
+    // ---------------------------------------------------------------- chat hint (N29)
+
+    /**
+     * Whether a player gets the one "open the live map" line now: chatHint on, web server running, an integrated server
+     * (single player or "Open to LAN", never dedicated) and the single-player owner (LAN guests never get the host's key; a
+     * 127.0.0.1 link would not work on their machine anyway). Once per player and session.
+     */
+    public static boolean hintDue(UUID player, boolean dedicated, boolean owner, boolean webRunning) {
+        if (!LivemapConfig.chatHint || dedicated || !owner || !webRunning) return false;
+        return hinted.add(player);
+    }
+
+    /** Forgets who got the hint (tests; a new session starts empty anyway). */
+    public static void resetHints() {
+        hinted.clear();
+    }
+
+    private static void sendHints(MinecraftServer s) {
+        if (!LivemapConfig.chatHint || s.isDedicatedServer() || web == null || !web.running()) return;
+        for (ServerPlayer p : s.getPlayerList().getPlayers()) {
+            if (hintDue(p.getUUID(), false, s.isSingleplayerOwner(p.nameAndId()), true)) {
+                // Only to this player: no broadcast, no log line with the key.
+                p.sendSystemMessage(LivemapCommands.hintMessage(LivemapCommands.url(web)));
+            }
         }
     }
 }
