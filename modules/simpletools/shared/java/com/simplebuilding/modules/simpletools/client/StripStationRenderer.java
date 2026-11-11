@@ -77,7 +77,7 @@ public class StripStationRenderer implements BlockEntityRenderer<StripStationBlo
         if (state.hasOutput) draw(state.output, state, poseStack, collector, both ? 0.7F : 0.5F, scale);
         if (state.label != null) {
             poseStack.pushPose();
-            poseStack.translate(0.5F, 1.12F, 0.5F);
+            poseStack.translate(0.5F, 1.4F, 0.5F); // REL-ABN-A: higher, so a held item's name no longer covers the count
             poseStack.rotate(camera.orientation);
             poseStack.scale(0.02F, -0.02F, 0.02F);
             collector.submitText(poseStack, -state.labelWidth / 2.0F, 0.0F, state.label, false, Font.DisplayMode.NORMAL,
