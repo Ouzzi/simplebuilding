@@ -170,7 +170,9 @@ public final class AutoSmitherTests {
                 })
                 .thenExecuteAfter(10, () -> helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.BASE_SLOT).is(Items.DIAMOND_SWORD),
                         "smithed before the configured delay"))
-                .thenExecuteAfter(30, () -> {
+                // b-machines26: poll each tick instead of one fixed check at tick 60 - the ejected sword had already flown
+                // out of the search box by then (both module runs red on b-mach32s4b, 11.11.).
+                .thenWaitUntil(() -> {
                     helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.BASE_SLOT).isEmpty(), "the delayed pulse did not smith");
                     helper.assertTrue(ejected(helper, smitherPos).stream().anyMatch(e -> e.getItem().is(Items.NETHERITE_SWORD)), "no netherite sword");
                 })
