@@ -2,7 +2,7 @@ package com.simplebuilding.modules.simpledimensions;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
- @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpledimension", false); }
+ @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpledimensions", false); }
  @GameTest(structure="simpledimensions:empty",maxTicks=100) public void defaultDimensions(GameTestHelper h){DimensionsGuideTests.defaultDimensions(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=100) public void guideRecipe(GameTestHelper h){DimensionsGuideTests.guideRecipe(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=100) public void guideContent(GameTestHelper h){DimensionsGuideTests.guideContent(h);}
@@ -11,10 +11,10 @@ public final class ModuleGameTest {
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsFootprints(GameTestHelper h){PortalProtectionTests.footprints(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsLinkedTravel(GameTestHelper h){PortalProtectionTests.linkedTravel(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsUnsupportedProvider(GameTestHelper h){PortalProtectionTests.unsupportedProvider(h);}
- @GameTest(structure="simpledimensions:empty",environment="simpledimension:settings_skyblock",maxTicks=420) public void settingsSkyblock(GameTestHelper h){DimensionSettingsTests.journey(h,"skyblock",130);}
- @GameTest(structure="simpledimensions:empty",environment="simpledimension:settings_mining",maxTicks=420) public void settingsMining(GameTestHelper h){DimensionSettingsTests.journey(h,"mining",220);}
- @GameTest(structure="simpledimensions:empty",environment="simpledimension:settings_travel",maxTicks=420) public void settingsTravel(GameTestHelper h){DimensionSettingsTests.journey(h,"travel",310);}
- @GameTest(structure="simpledimensions:empty",environment="simpledimension:settings",maxTicks=240) public void settingsPersistence(GameTestHelper h){DimensionSettingsTests.persistence(h);}
+ @GameTest(structure="simpledimensions:empty",environment="simpledimensions:settings_skyblock",maxTicks=420) public void settingsSkyblock(GameTestHelper h){DimensionSettingsTests.journey(h,"skyblock",130);}
+ @GameTest(structure="simpledimensions:empty",environment="simpledimensions:settings_mining",maxTicks=420) public void settingsMining(GameTestHelper h){DimensionSettingsTests.journey(h,"mining",220);}
+ @GameTest(structure="simpledimensions:empty",environment="simpledimensions:settings_travel",maxTicks=420) public void settingsTravel(GameTestHelper h){DimensionSettingsTests.journey(h,"travel",310);}
+ @GameTest(structure="simpledimensions:empty",environment="simpledimensions:settings",maxTicks=240) public void settingsPersistence(GameTestHelper h){DimensionSettingsTests.persistence(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void launch(GameTestHelper h){DimensionTests.launch(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void worldGeneration(GameTestHelper h){DimensionTests.worldGeneration(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void sixArchesBothAxes(GameTestHelper h){DimensionTests.sixArchesBothAxes(h);}
@@ -27,6 +27,9 @@ public final class ModuleGameTest {
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void hostileConfig(GameTestHelper h){DimensionTests.hostileConfig(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void configFiles(GameTestHelper h){DimensionTests.configFiles(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void legacyEntity(GameTestHelper h){DimensionTests.legacyEntity(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void legacyIds(GameTestHelper h){LegacyIdTests.ids(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void legacyDimensions(GameTestHelper h){LegacyIdTests.dimensions(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void legacyConfig(GameTestHelper h){LegacyIdTests.config(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void coordinateRules(GameTestHelper h){DimensionTests.coordinateRules(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void platformGeometry(GameTestHelper h){DimensionTests.platformGeometry(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void safeGround(GameTestHelper h){DimensionTests.safeGround(h);}

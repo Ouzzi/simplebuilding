@@ -295,7 +295,7 @@
         "summary": "The seven sledgehammers, the enchantments Break Through, Override and Radius, the ten hammer recipes and their recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplehammers:* through SimpleLib's id moves and save the new ids.",
         "details": [
           "Enchantments on items and stored progress of begun upgrades stay.",
-          "SimpleBuilding needs Simple Hammers and bundles it; Simple Hammers runs on its own with SimpleLib, which it bundles. The Enderite hammer stays craftable until Simple Enderite exists."
+          "SimpleBuilding needs Simple Hammers and bundles it; Simple Hammers runs on its own with SimpleLib, which it bundles. The Enderite hammer (smithing from the Netherite hammer with Enderite ingot and template) needs Simple Ores, which brings Enderite; without it the recipe and the creative tab entry are left out."
         ]
       },
       "de": {
@@ -303,7 +303,7 @@
         "summary": "Die sieben Vorschlaghämmer, die Verzauberungen Durchbruch, Übersteuerung und Radius, die zehn Hammer-Rezepte und ihre Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplehammers:* und speichern die neuen Ids.",
         "details": [
           "Verzauberungen auf Items und gespeicherter Fortschritt angefangener Aufwertungen bleiben.",
-          "SimpleBuilding braucht Simple Hammers und bündelt es; Simple Hammers läuft allein mit SimpleLib, das es mitbringt. Der Enderit-Hammer bleibt herstellbar, bis es Simple Enderite gibt."
+          "SimpleBuilding braucht Simple Hammers und bündelt es; Simple Hammers läuft allein mit SimpleLib, das es mitbringt. Der Enderit-Hammer (Schmieden aus dem Netherit-Hammer mit Enderit-Barren und Vorlage) braucht Simple Ores, das Enderit mitbringt; ohne es fehlen Rezept und Kreativ-Tab-Eintrag."
         ]
       }
     },

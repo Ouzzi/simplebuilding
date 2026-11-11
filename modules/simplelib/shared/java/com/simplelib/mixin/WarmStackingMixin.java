@@ -20,13 +20,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Warm food stacks by mean warmth (see {@link WarmMerge}) and shows its remaining warm time in the
- * tooltip ("Warm (about 7 min)").
+ * tooltip ("Warm (about 7 min)"). Only stacking is warm-blind: {@code ItemStack.matches} (menu sync) still tells warmth apart.
  */
 @Mixin(ItemStack.class)
 public abstract class WarmStackingMixin {
     @Inject(method = "isSameItemSameComponents", at = @At("RETURN"), cancellable = true)
     private static void simplelib$ignoreWarm(ItemStack a, ItemStack b, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValueZ() && WarmMerge.sameIgnoringWarm(a, b)) cir.setReturnValue(true);
+    }
+
+    /** REV2-A-12: exact equality stays warm-aware, so the menu sync sends a pure warmth change (tooltip in an open menu). */
+    @Inject(method = "matches(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z", at = @At("RETURN"), cancellable = true)
+    private static void simplelib$exactWarm(ItemStack a, ItemStack b, CallbackInfoReturnable<Boolean> cir) {
+        if (cir.getReturnValueZ() && a != b && !WarmMerge.sameWarmth(a, b)) cir.setReturnValue(false);
     }
 
     @Inject(method = "grow", at = @At("HEAD"))

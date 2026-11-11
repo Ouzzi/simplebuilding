@@ -9,6 +9,7 @@ public class SimplefunFabric implements ModInitializer {
 
   @Override
   public void onInitialize() {
+    SimplefunCommon.configDir = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir();
     SimplefunCommon.init();
     SimplefunCommon.registerConfig();
     // CMD24: /simplefun config for every option (the existing /simplefun tweaks switches stay).

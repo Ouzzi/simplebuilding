@@ -7,6 +7,8 @@ java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
 // which the harness prepares per run (so it is not cleared here); -PbenchProps=key=value;... passes the scene settings
 // as system properties. Without them nothing changes.
 def benchRunDir = project.findProperty('benchRunDir')
+// -PintegrationMods=integration/enabled-mods-compat26.json swaps the mod selection (b-compat26: all modules + Lithium; default = enabled-mods.json).
+def selectionFile = rootProject.file(project.findProperty('integrationMods') ?: 'integration/enabled-mods.json')
 fabricApi {
     configureTests { createSourceSet = true; modId = 'sbmodules-clienttest'; enableGameTests = false; clearRunDirectory = benchRunDir == null }
 }
@@ -37,7 +39,7 @@ def jarTasks = registry.modules.collect { entry -> "${entry.projects.fabric}:jar
 def prepare = tasks.register('prepareIntegrationMods') {
     dependsOn jarTasks, ':checkMultimod'
     doLast {
-        def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+        def selected = new groovy.json.JsonSlurper().parse(selectionFile)
         if (selected.schemaVersion != 1 || !registry.modules*.id.containsAll(selected.modules)
                 || !devRegistry.mods*.id.containsAll(selected.devMods)) throw new GradleException('Invalid integration mod selection')
         if (selected.modules.contains('simplebuilding') && !selected.devMods.contains('cloth_config'))
@@ -87,7 +89,7 @@ moduleSuites.each { entry ->
     tasks.named(taskName) {
         dependsOn prepare
         doFirst {
-            def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+            def selected = new groovy.json.JsonSlurper().parse(selectionFile)
             if (!selected.modules.containsAll(entry.tests.requires ?: [entry.id]) || !selected.devMods.containsAll(entry.tests.devMods ?: []))
                 throw new GradleException("Missing integration selection for ${entry.id}")
         }
@@ -213,8 +215,10 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def rel10 = requested == 'rel10'
         // 'guidechap' is no module either: b-guidechap14, an old mod handbook opens the Simple Modpack guide at its chapter (switch on/off).
         def guidechap = requested == 'guidechap'
-        def entries = (audit || bench || compat || bs25 || mixinaudit || b09 || rel10 || guidechap || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
-        if (requested && !audit && !bench && !compat && !bs25 && !mixinaudit && !vis && !b09 && !rel10 && !guidechap && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
+        // 'compat26' is no module either: b-compat26, all modules next to Lithium + JEI + Mod Menu (Compat26ClientTest, tools/testrunner target compat26-client-263).
+        def compat26 = requested == 'compat26'
+        def entries = (audit || bench || compat || bs25 || mixinaudit || b09 || rel10 || guidechap || compat26 || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
+        if (requested && !audit && !bench && !compat && !bs25 && !mixinaudit && !vis && !b09 && !rel10 && !guidechap && !compat26 && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
             entrypoints:['fabric-client-gametest':audit ? ['com.simplebuilding.integration.clienttest.ModelAuditClientTest']
@@ -225,8 +229,9 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
                 : b09 ? ['com.simplebuilding.integration.clienttest.B09ToolsClientTest']
                 : rel10 ? ['com.simplebuilding.integration.clienttest.Rel10ClientTest']
                 : guidechap ? ['com.simplebuilding.integration.clienttest.GuideChapterClientTest']
+                : compat26 ? ['com.simplebuilding.integration.clienttest.Compat26ClientTest']
                 : entries.collectMany { it.tests.client.entrypoints } + (vis ? ['com.simplebuilding.integration.clienttest.Vis24ClientTest'] : [])],
-            depends:(audit || bs25 || mixinaudit || b09 || rel10 || guidechap || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
+            depends:(audit || bs25 || mixinaudit || b09 || rel10 || guidechap || compat26 || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
                 def producer = registry.modules.find { it.id == requiredId }
                 [(producer?.modId ?: requiredId):'*']
             }]
@@ -241,7 +246,7 @@ tasks.named('runClientGameTest') {
     dependsOn prepare
     doFirst {
         def requested = project.findProperty('moduleClientTest')
-        def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+        def selected = new groovy.json.JsonSlurper().parse(selectionFile)
         registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }.each { entry ->
             if (!selected.modules.containsAll(entry.tests.requires ?: [entry.id]) || !selected.devMods.containsAll(entry.tests.devMods ?: []))
                 throw new GradleException("Missing client integration selection for ${entry.id}")
@@ -251,7 +256,7 @@ tasks.named('runClientGameTest') {
 tasks.matching { it.name in ['runIntegrationClient','runIntegrationServer','runIntegrationGameTest'] }.configureEach { dependsOn prepare }
 tasks.named('runIntegrationGameTest') {
     doFirst {
-        def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+        def selected = new groovy.json.JsonSlurper().parse(selectionFile)
         if (!selected.modules.containsAll(['simplebuilding','wiringexample']))
             throw new GradleException('The cross-mod test requires simplebuilding and wiringexample')
     }
@@ -285,7 +290,7 @@ loom.runs.configureEach {
 
 // A-MIXCHECK31: gametests run a dedicated server, so CLIENT mixins are never applied there. This checks every
 // mixin of every 26.3 Fabric module (all sections) statically against the game jar on this classpath:
-// target classes, @Shadow/@Accessor/@Invoker members, injector methods and @At INVOKE/FIELD/NEW targets.
+// target classes, @Shadow/@Accessor/@Invoker members, injector methods, @At INVOKE/FIELD/NEW targets and @Local captures.
 def mixinCheckArgs = layout.buildDirectory.file('checkClientMixins.args')
 def mixinCheckDirs = registry.modules.collectMany { entry ->
     def build = rootProject.file(entry.projects.fabric.substring(1).replace(':', '/') + '/build')

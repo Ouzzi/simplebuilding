@@ -49,6 +49,11 @@ public final class ClaimRightsTests {
                 && !dup.top().members().containsKey(ALEX), "Doubled letters and empty rights are hints, not errors");
         var back = parse(ClaimCode.generate(p.top(), p.sections()));
         yes(h, back.ok() && back.top().equals(p.top()) && back.sections().equals(p.sections()), "Generated code parses back to the same rules");
+        var gen = ClaimCode.generate(p.top(), p.sections());
+        var loc = ClaimCode.localizeHeader(gen, k -> "# [" + k + "]");
+        var locBack = parse(loc);
+        yes(h, loc.startsWith("# [simpletweaks.deed.code.header1]\n") && !loc.contains("Claim rights") && locBack.ok() && locBack.top().equals(p.top()) && locBack.sections().equals(p.sections())
+                && ClaimCode.localizeHeader("Steve: BDU\n", k -> "x").equals("Steve: BDU\n"), "Translated header comment: same rules, other code untouched");
         yes(h, parse("").ok() && parse("# only a comment\n\n").top().isEmpty(), "Empty code is valid and grants nothing");
         yes(h, ClaimRights.letters(ClaimRights.ALL).equals("BDUCRAM") && ClaimRights.describe(ClaimRights.LEGACY).equals("@member") && ClaimRights.describe(3).equals("BD"), "Letters and role names");
         h.succeed();

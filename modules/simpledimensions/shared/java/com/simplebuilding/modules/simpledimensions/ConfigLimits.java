@@ -31,7 +31,7 @@ public final class ConfigLimits {
  public static DimensionPortalConfig validate(DimensionPortalConfig c) {
   if(c==null||c.id==null||!c.id.matches("[a-z0-9_]{1,48}"))throw new IllegalArgumentException("Invalid definition id");
   id(c.sourceDimensionId); id(c.targetDimensionId);
-  if(!c.targetDimensionId.equals("simpledimension:"+c.id)||c.sourceDimensionId.equals(c.targetDimensionId))throw new IllegalArgumentException("Target must be isolated under simpledimension");
+  if(!c.targetDimensionId.equals("simpledimensions:"+c.id)||c.sourceDimensionId.equals(c.targetDimensionId))throw new IllegalArgumentException("Target must be isolated under simpledimensions");
   c.portalDelayTicks=clamp(c.portalDelayTicks,0,MAX_DELAY);c.teleportCooldownTicks=clamp(c.teleportCooldownTicks,MIN_COOLDOWN,MAX_COOLDOWN);
   c.travelCoordinateScale=scale(c.travelCoordinateScale);
   c.minPortalWidth=clamp(c.minPortalWidth,1,MAX_INTERIOR); c.maxPortalWidth=clamp(c.maxPortalWidth,c.minPortalWidth,MAX_INTERIOR);

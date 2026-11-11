@@ -24,7 +24,7 @@ public final class DimensionPortalConfig {
     public boolean requireSeparateLight = false;
     public String id = "skyblock";
     public String sourceDimensionId = "minecraft:overworld";
-    public String targetDimensionId = "simpledimension:skyblock";
+    public String targetDimensionId = "simpledimensions:skyblock";
     public String targetDisplayName = "Skyblock";
 
     // ---- portal appearance ------------------------------------------------------
@@ -100,7 +100,7 @@ public final class DimensionPortalConfig {
     public static DimensionPortalConfig miningDimensionPreset() {
         DimensionPortalConfig config = new DimensionPortalConfig();
         config.id = "mining";
-        config.targetDimensionId = "simpledimension:mining";
+        config.targetDimensionId = "simpledimensions:mining";
         config.targetDisplayName = "Mining";
         config.portalColorHex = "#FFAA55";
         config.frameBlock = "minecraft:deepslate_bricks";
@@ -126,7 +126,7 @@ public final class DimensionPortalConfig {
     public static DimensionPortalConfig travelDimensionPreset() {
         DimensionPortalConfig config = new DimensionPortalConfig();
         config.id = "travel";
-        config.targetDimensionId = "simpledimension:travel";
+        config.targetDimensionId = "simpledimensions:travel";
         config.targetDisplayName = "Travel";
         config.portalColorHex = "#B080FF";
         config.frameBlock = "minecraft:purpur_block";

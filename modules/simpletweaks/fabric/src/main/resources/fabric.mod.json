@@ -46,7 +46,7 @@
   ],
   "license": "LicenseRef-SimpleMods-ARR",
   "suggests": {
-    "simpledimension": "*",
+    "simpledimensions": "*",
     "simplebuilding": "*",
     "simplemoney": "*",
     "simpleweather": "*",

@@ -189,7 +189,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simpleriding", c.enableSimpleRiding);
         setSubMod("simplefun", c.enableSimpleFun);
         setSubMod("simpletweaks", c.enableSimpleTweaks);
-        setSubMod("simpledimension", c.enableSimpleDimensions);
+        setSubMod("simpledimensions", c.enableSimpleDimensions);
         setSubMod("simplesandwiches", c.enableSimpleSandwiches);
         setSubMod("simpletrims", c.enableSimpleTrims);
         setSubMod("simplemobs", c.enableSimpleMobs);

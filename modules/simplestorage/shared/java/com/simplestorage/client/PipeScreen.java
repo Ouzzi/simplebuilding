@@ -128,7 +128,10 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
             int left = HEX_X + at[0] - SIDE_SIZE / 2, top = HEX_Y + at[1] - SIDE_SIZE / 2;
             if (x >= left && x < left + SIDE_SIZE && y >= top && y < top + SIDE_SIZE) {
                 this.hoveredSide = side;
-                graphics.setTooltipForNextFrame(this.font, sideTooltipLines(this.menu.tier(), side, this.menu.sideMode(side)), java.util.Optional.empty(), mouseX, mouseY);
+                var lines = sideTooltipLines(this.menu.tier(), side, this.menu.sideMode(side));
+                // REL-ABN-A: the tooltip sits left of the compass so it never covers the up/down column (vanilla puts it 12 px right of the pointer).
+                int width = lines.stream().mapToInt(this.font::width).max().orElse(0) + 8;
+                graphics.setTooltipForNextFrame(this.font, lines, java.util.Optional.empty(), Math.max(0, this.leftPos + HEX_X - 18 - width - 12), mouseY);
                 return;
             }
         }

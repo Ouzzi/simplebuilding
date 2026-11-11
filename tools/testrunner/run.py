@@ -102,6 +102,8 @@ class Target:
     audit: bool = False
     #: Client targets only: Simple Optimization next to the mods it covers (compat_opt_prepare/compat_opt_check).
     compat: bool = False
+    #: Client targets only: b-compat26, all Simple mods next to Lithium + JEI + Mod Menu (compat26_check scans the log).
+    compat26: bool = False
 
 
 #: ForgeGradle 7 builds its run tasks only with -Pforge_runs=true, and creating them needs a
@@ -332,6 +334,13 @@ INTEGRATION_TARGETS = (Target(
     loader="fabric", kind="client", mc_line="integration-26.3", gradle_task=":integration:runClientGameTest",
     report="", catalogue="", audit=True, compat=True,
     gradle_args=("-PmoduleClientTest=compat", "-PbenchRunDir=run-compat-263"),
+), Target(
+    # b-compat26 (10.11.): ALL Simple mods + Lithium + JEI + Mod Menu in one real client (selection integration/enabled-mods-compat26.json,
+    # jars from Modrinth/Maven via tools/devmods.json, never committed). World, inventory, JEI R/U, Mod Menu list + config screens,
+    # block placed; the log is scanned for mixin conflicts. Opt in (heavy, boots a real client): REL-AUDIT 5 / REL13.
+    id="compat26-client-263", label="Kompat-Lauf: alle Module + Lithium + JEI + Mod Menu - MC 26.3", loader="fabric", kind="client",
+    mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="", audit=True, compat26=True,
+    gradle_args=("-PmoduleClientTest=compat26", "-PintegrationMods=integration/enabled-mods-compat26.json"),
 ))
 
 COMPAT_OPT_RIVALS = ("cullleaves", "moreculling", "badoptimizations", "servercore", "cloth-config")
@@ -359,6 +368,28 @@ def compat_opt_prepare() -> None:
     (run / "mods").mkdir(parents=True)
     for jar in list(jars.values()) + list(foreign.values()):
         shutil.copy2(jar, run / "mods")
+
+
+#: Log lines that mean two mods (or a mod and a mixin target) fight: a mixin that failed to apply, an injection that found no target.
+COMPAT26_MIXIN_FAULTS = re.compile(
+    r"InjectionError|InvalidInjectionException|InvalidMixinException|MixinApplyError|MixinTransformerError|Mixin apply for mod .* failed|"
+    r"Critical injection failure|Mixin transformation of .* failed|Error loading class: .*(Mixin|simple)|@Mixin target .* was not found|"
+    r"Mixin config .* does not specify|ClassMetadataNotFoundException", re.I)
+
+
+def compat26_check(output: str) -> str | None:
+    """None when the compat26 test finished clean and the log shows no mixin conflict; else the first fault."""
+    text = strip_ansi(output)
+    if not re.search(r"\[compat26\] done: shots \d+, faults 0\b", text):
+        fault = next((l for l in text.splitlines() if "[compat26] FAULT" in l or "[compat26] FAIL" in l), None)
+        return fault or "der Test hat '[compat26] done: shots N, faults 0' nicht geschrieben - Beweis fehlt"
+    for line in text.splitlines():
+        if COMPAT26_MIXIN_FAULTS.search(line):
+            return "Mixin-Konflikt im Log: " + line.strip()[:200]
+    for mod in ("lithium", "jei", "modmenu"):
+        if f"[compat26] INFO mod {mod} loaded=true" not in text:
+            return f"{mod} wurde nicht geladen"
+    return None
 
 
 def compat_opt_check(output: str) -> str | None:
@@ -886,6 +917,8 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
             error = "Gradle brach ab: " + " | ".join(tail)
         elif target.compat:
             error = compat_opt_check(output)
+        elif target.compat26:
+            error = compat26_check(output)
         elif log_faults:
             error = f"{len(log_faults)} Fehlende-Textur/Modell-Meldungen im Client-Log (siehe {log_path.name})"
         elif "[vis24] screens shot:" in output or "[rel10] screens shot:" in output or "[guidechap] faults: 0" in output:

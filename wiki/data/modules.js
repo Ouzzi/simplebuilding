@@ -517,7 +517,7 @@ window.WIKI_MODULES = [
       "config": 53,
       "features": 11
     },
-    "dataHash": "b237a2eb7ce5"
+    "dataHash": "164645240bd6"
   },
   {
     "id": "simplesandwiches",
@@ -1579,7 +1579,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "52ada146057a"
+    "dataHash": "e0daa65a2ad8"
   },
   {
     "id": "simpleoptimization",

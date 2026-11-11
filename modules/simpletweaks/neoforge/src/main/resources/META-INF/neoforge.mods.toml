@@ -46,7 +46,7 @@ config="simpletweaks.protect.mixins.json"
 config="simpletweaks.protect.client.mixins.json"
 
 [[dependencies.simpletweaks]]
-modId="simpledimension"
+modId="simpledimensions"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"

@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.function.Function;
 public final class ModuleClientSmoke implements FabricClientGameTest {
  public void runTest(ClientGameTestContext context){
-  context.runOnClient(client->{if(!(client.gui.screen() instanceof TitleScreen)||!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simpledimension"))throw new AssertionError("Module title boot");});
+  context.runOnClient(client->{if(!(client.gui.screen() instanceof TitleScreen)||!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simpledimensions"))throw new AssertionError("Module title boot");});
   context.takeScreenshot("simpledimensions-title");
   var language=context.computeOnClient(client->client.getLanguageManager().getSelected());
   var optionLanguage=context.computeOnClient(client->client.options.languageCode);
@@ -34,7 +34,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
    var instance=client.gameDirectory.toPath().toRealPath();
    require(instance.endsWith(Path.of("integration/run-fabric-263")),"Use only the integration test instance");
    var root=configRoot().toAbsolutePath().normalize();
-   require(root.equals(instance.resolve("config/simpledimension")),"Settings must belong to the test instance");
+   require(root.equals(instance.resolve("config/simpledimensions")),"Settings must belong to the test instance");
    require(!Files.isSymbolicLink(root.getParent())&&!Files.isSymbolicLink(root),"Test settings directory must not redirect elsewhere");
    require(!Files.exists(root)||root.toRealPath().equals(root),"Test settings directory must remain inside the instance");
    require(!Files.isSymbolicLink(root.resolve("server.json")),"Test settings must not be a symlink");
@@ -45,12 +45,12 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   try(var world=context.worldBuilder().create()){
    world.getConnection().waitForClientboundPackets();world.getConnection().waitForChunksRender();
    world.getServer().runOnServer(server->{
-    for(String name:java.util.List.of("skyblock","mining","travel"))if(server.getLevel(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,net.minecraft.resources.Identifier.fromNamespaceAndPath("simpledimension",name)))==null)throw new AssertionError("Normal world dimension "+name);
+    for(String name:java.util.List.of("skyblock","mining","travel"))if(server.getLevel(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,net.minecraft.resources.Identifier.fromNamespaceAndPath("simpledimensions",name)))==null)throw new AssertionError("Normal world dimension "+name);
     var p=server.getPlayerList().getPlayers().getFirst();var l=p.level();var base=p.blockPosition().offset(-2,0,-5);
     for(int x=0;x<4;x++)for(int y=0;y<4;y++){
      var q=base.offset(x,y,0);boolean inside=x>0&&x<3&&y<3;
-     l.setBlock(q,inside?net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.parse("simpledimension:sky_portal")).defaultBlockState():((y<3||x==1||x==2)?Blocks.GLOWSTONE:Blocks.AIR).defaultBlockState(),3);
-     if(inside&&l.getBlockEntity(q)!=null){try{var b=l.getBlockEntity(q);b.getClass().getMethod("configure",int.class,String.class).invoke(b,0x66D9FF,"simpledimension:skyblock");}catch(Exception e){throw new AssertionError(e);}l.sendBlockUpdated(q,l.getBlockState(q),l.getBlockState(q),3);}
+     l.setBlock(q,inside?net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.parse("simpledimensions:sky_portal")).defaultBlockState():((y<3||x==1||x==2)?Blocks.GLOWSTONE:Blocks.AIR).defaultBlockState(),3);
+     if(inside&&l.getBlockEntity(q)!=null){try{var b=l.getBlockEntity(q);b.getClass().getMethod("configure",int.class,String.class).invoke(b,0x66D9FF,"simpledimensions:skyblock");}catch(Exception e){throw new AssertionError(e);}l.sendBlockUpdated(q,l.getBlockState(q),l.getBlockState(q),3);}
     }
     l.setBlock(base.offset(0,0,2),Blocks.SEA_LANTERN.defaultBlockState(),3);
     p.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES,net.minecraft.world.phys.Vec3.atCenterOf(base.offset(2,1,0)));

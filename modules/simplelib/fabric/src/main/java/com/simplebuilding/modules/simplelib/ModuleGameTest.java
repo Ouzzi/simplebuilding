@@ -102,6 +102,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void clientStateDisconnect(GameTestHelper h) {
+        LibTests.ALL.get("client_state_disconnect").accept(h);
+    }
+
+    @GameTest
+    public void warmChangeReachesMenuSync(GameTestHelper h) {
+        LibTests.ALL.get("warm_change_reaches_menu_sync").accept(h);
+    }
+
+    @GameTest
     public void uiTextContrast(GameTestHelper h) {
         LibTests.ALL.get("ui_text_contrast").accept(h);
     }

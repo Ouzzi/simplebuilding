@@ -11,8 +11,8 @@ public final class DimensionRegistry {
  public static SkyPortalBlock PORTAL, LEGACY;
  public static BlockEntityType<SkyPortalBlockEntity> PORTAL_ENTITY, LEGACY_ENTITY;
  /** Super-mod switch "Enable Simple Dimensions" (framework SubMods): off = blocks stay registered but portals neither ignite nor teleport. */
- public static boolean on(){return com.simplebuilding.framework.api.SubMods.enabled("simpledimension");}
- public static Identifier id(String path) { return Identifier.fromNamespaceAndPath("simpledimension", path); }
+ public static boolean on(){return com.simplebuilding.framework.api.SubMods.enabled("simpledimensions");}
+ public static Identifier id(String path) { return Identifier.fromNamespaceAndPath("simpledimensions", path); }
  public static void blocks() {
   PORTAL=block("sky_portal"); LEGACY=block("light_blue_portal");
  }

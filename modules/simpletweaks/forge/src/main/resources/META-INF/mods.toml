@@ -38,7 +38,7 @@ ordering="AFTER"
 side="BOTH"
 
 [[dependencies.simpletweaks]]
-modId="simpledimension"
+modId="simpledimensions"
 mandatory=false
 versionRange="[0,)"
 ordering="NONE"

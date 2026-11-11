@@ -20,11 +20,11 @@ Simple Dimensions lets you configure dimensions, build light arches and use link
 - **Travel Dimension** - Portal rows: KRRK / O..O / O..O / O..O / SSSS.
 - **Portal Shapes**
 - **Safe Travel and Return** - Only unmounted players travel.
-- **Configuration and Data Packs** - Server JSON: config/simpledimension/server.json.
+- **Configuration and Data Packs** - Server JSON: config/simpledimensions/server.json.
 - **Server Claim Permissions** - Enabled Simple Tweaks claims are checked through the public framework API.
 - **Getting the Guide**
 - **Inventory and Rights** - Your inventory stays with you: only unmounted players travel, items lying around, mobs and mounts stay behind.
-- **Commands** - /simpledimension guide gives you the Simple Modpack guide with this chapter open (every player).
+- **Commands** - /simpledimensions guide gives you the Simple Modpack guide with this chapter open (every player).
 
 ## Dependencies
 

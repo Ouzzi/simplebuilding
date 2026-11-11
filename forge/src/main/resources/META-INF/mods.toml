@@ -121,7 +121,7 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.${modId}]]
-modId="simpledimension"
+modId="simpledimensions"
 mandatory=false
 versionRange="[0,)"
 ordering="NONE"
