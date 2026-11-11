@@ -6,4 +6,4 @@ Abweichung: "Wachs spaeter Kleber" -> Kleber = Schleimball wie bei den End-Blaet
 Tests: NatureTests cracked_ice_glue_freezes_state, cracked_ice_glue_silk_keeps_state (+ Fabric-Adapter); bestehende Risstests decken "ohne Kleber wie Vanilla". Wiki-Notiz EN/DE in modules/simpleblocks/wiki/manual.json (wiki/data nicht regeneriert, macht das Buendel). Kein neuer Lang-/Tooltip-Text noetig (kein neues Item).
 Verifikation: ein sbt: Compile + module-simpleblocks-fabric-263,module-simpleblocks-standalone-fabric-263 + data_integrity.
 
-Teststand (10.11.): sbt (Compile + module-simpleblocks fabric/standalone + data_integrity) lief auf baf8ba929, Ergebnis offen - sb-test hing (Stopp A 20:35). Nach Entwarnung Log /root/wt/b-iceglue26-sbt.log lesen oder neu starten.
+Teststand (11.11.): sbt auf baf8ba929 GRUEN: C_RC=0 M_RC=0 D_RC=0 (Compile, module-simpleblocks fabric+standalone, data_integrity).
