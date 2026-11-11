@@ -245,12 +245,24 @@ def free_port() -> int:
         return s.getsockname()[1]
 
 
-def write_properties(port: int) -> None:
-    (SERVER_DIR / "server.properties").write_text("\n".join([
+#: Flat overworld needs explicit layers: 26.3 writes generator-settings={} by default and the flat codec then logs
+#: "No key layers in MapLike[{}]" as ERROR (11.11.). Same layers as data/minecraft/worldgen/world_preset/flat.json.
+FLAT_SETTINGS = ('{"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},'
+                 '{"block":"minecraft:grass_block","height":1}],"biome":"minecraft:plains","lakes":false,"features":false}')
+
+
+def properties_text(port: int) -> str:
+    """26.3 defaults to white-list=true on a fresh server.properties, so the whitelist is switched off explicitly."""
+    return "\n".join([
         f"server-port={port}", "server-ip=127.0.0.1", "online-mode=false", "enforce-secure-profile=false",
-        "level-type=minecraft\\:flat", "generate-structures=false", "spawn-monsters=false",
+        "white-list=false", "enforce-whitelist=false",
+        "level-type=minecraft\\:flat", f"generator-settings={FLAT_SETTINGS}", "generate-structures=false", "spawn-monsters=false",
         "view-distance=3", "simulation-distance=3", "max-players=2", "sync-chunk-writes=false",
-        "motd=simplebuilding server-solo", ""]), encoding="utf-8")
+        "motd=simplebuilding server-solo", ""])
+
+
+def write_properties(port: int) -> None:
+    (SERVER_DIR / "server.properties").write_text(properties_text(port), encoding="utf-8")
 
 
 # ----------------------------------------------------------------------------
@@ -438,6 +450,17 @@ def wait_for(proc, out_path: Path, needle: str, timeout: float) -> bool:
     return False
 
 
+def reject_reason(text: str) -> list[str]:
+    """Server-side kick reason for the probe. 26.3 logs 'SoloProbe (<uuid>) lost connection: ...' in the configuration
+    phase (11.11.); Fabric registry sync adds the namespaces on the following lines up to the admin hint."""
+    m = re.search(rf"{PLAYER}(?: \([^)]*\))? lost connection: (.*(?:\n(?!\[).*)*)", text) \
+        or re.search(rf"Disconnecting {PLAYER}.*?: (.*)", text)
+    if not m:
+        return []
+    reason = " ".join(m.group(1).split())
+    return [reason.replace(" Contact the server's administrator for more information!", "")]
+
+
 def run_solo(module_id: str, log_path: Path) -> dict:
     """Steps -> status. Returns {'steps': [(name, status, message)], 'error': str|None, 'warning': str|None}."""
     steps: list[tuple[str, str, str | None]] = []
@@ -476,7 +499,7 @@ def run_solo(module_id: str, log_path: Path) -> dict:
             time.sleep(2)
             text = log_path.read_text(encoding="utf-8", errors="replace")
             joined = f"{PLAYER} joined the game" in text
-            lost = re.findall(rf"{PLAYER} lost connection: (.*)", text) or re.findall(rf"Disconnecting {PLAYER}.*?: (.*)", text)
+            lost = reject_reason(text)
             if outcome == "play" or joined:
                 steps.append(("vanilla_join", "passed", "Vanilla-Client in der Welt"))
             elif outcome == "rejected" or lost:

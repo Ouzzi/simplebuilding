@@ -65,3 +65,29 @@ Start +1–2 min Launcher/Bibliotheken, dann je Mod ~40–60 s → **gesamt ca. 
 Auswertung: `testing/runs/<lauf>-server-solo-<mod>-fabric-263.log` (Serverlog) + Datensatz-JSON; erwartete Ergebnisse:
 alle `boot/stop/log_clean` grün, `vanilla_join` meist `known` (Abweisung). Rot → einzeln nachlaufen:
 `run.py --targets server-solo-<mod>-fabric-263`.
+
+## Erster echter Lauf 11.11. (Datensatz 2026-11-11T01-34-23Z-b8c3) – ROT 300/420, Ursachen + Fix
+Rot waren ausschließlich die 60 `log_clean`-Schritte; alle anderen Schritte grün bzw. `vanilla_join` = known.
+1. **„[Worker-Main-N/ERROR]: No key layers in MapLike[{}]“** bei allen 60 Mods direkt nach „No existing world data,
+   creating new world“ – **Harness-Fehler**: `level-type=minecraft:flat` ohne `generator-settings`; 26.3 schreibt
+   `generator-settings={}` und der Flat-Codec verlangt `layers`. Fix: `generator-settings` mit den Schichten aus
+   `data/minecraft/worldgen/world_preset/flat.json` (Grundgestein/Erde/Gras, Ebene). Kein Mod-Fehler.
+2. **„You are not white-listed on this server!“** – **Harness-Fehler**: frische 26.3-`server.properties` hat
+   `white-list=true` als Standard. Fix: `white-list=false`, `enforce-whitelist=false` explizit.
+   Damit prüft `vanilla_join` erst jetzt die eigentliche Frage (lässt der Mod Vanilla rein?).
+   `VANILLA_JOIN_REQUIRED` bleibt leer – Rückfrage an den Besitzer offen.
+3. Unit-Test `test_properties_no_whitelist_and_flat_layers` (neue Funktion `properties_text`).
+   Abweichung: Unit-Tests liegen in `tools/testrunner/tests/` (`discover -s tools/testrunner` findet 0 Tests),
+   daher im sbt `-s tools/testrunner/tests`.
+
+## Zweiter Lauf 11.11. (47ff8b97d, Datensatz 2026-11-11T04-22-09Z-af38) – GRÜN 360/420, 0 rot
+UNIT_RC=0, SOLO_RC=0; die 60 nicht grünen Schritte sind alle `vanilla_join` = known. Kein ERROR mehr im Log.
+**Vanilla-Join-Ergebnis:** alle 60 Mods weisen den Vanilla-Client ab, einheitlich durch Fabric API Registry Sync
+(„This server requires Fabric Loader and Fabric API installed on your client!“ + Namensräume). `simplelib` steht in
+jeder Liste – SimpleLib registriert selbst Blöcke/Items/Kreativ-Tab/Datenkomponenten (`Registry.register` in
+simplelib/shared), daher lässt **kein** Mod Vanilla rein, auch reine Logik-Mods (simpleearth, simplefarming,
+simplemovement, simplesounds, simplevisuals, simpleweather, simpleopt*, simplelivemap, simpleloot,
+simpleinterfaces, simplechallenges) nicht. Soll ein Mod Vanilla-Clients reinlassen, müsste SimpleLib ohne
+synchronisierte Registry-Einträge laufen (bzw. Einträge optional). Rückfrage Besitzer bleibt offen.
+Nachbesserung: Abweisungsgrund wurde nicht erfasst (26.3 loggt „SoloProbe (<uuid>) lost connection“, mehrzeilig) →
+`reject_reason()` + Unit-Test mit der echten Logzeile; nur Log-Auswertung, kein dritter sb-test-Lauf.

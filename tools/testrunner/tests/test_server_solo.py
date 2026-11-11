@@ -139,5 +139,33 @@ class ClosureTest(unittest.TestCase):
         self.assertFalse(any("Loading 3 mods" in f for f in faults))
 
 
+    def test_properties_no_whitelist_and_flat_layers(self):
+        props = dict(line.split("=", 1) for line in ss.properties_text(25599).splitlines() if line)
+        self.assertEqual(props["server-port"], "25599")
+        self.assertEqual(props["online-mode"], "false")
+        self.assertEqual(props["white-list"], "false")  # 26.3 default is true -> "not white-listed"
+        self.assertEqual(props["enforce-whitelist"], "false")
+        self.assertEqual(props["level-type"], "minecraft\\:flat")
+        flat = json.loads(props["generator-settings"])  # empty {} -> "No key layers in MapLike[{}]"
+        self.assertEqual([l["block"] for l in flat["layers"]],
+                         ["minecraft:bedrock", "minecraft:dirt", "minecraft:grass_block"])
+        self.assertFalse(ss.log_faults(ss.properties_text(1)))
+
+    def test_reject_reason_registry_sync(self):
+        log = "\n".join([
+            "[04:26:04] [Server thread/INFO]: SoloProbe (3eded576-b836-357b-85d7-3add7fc282a9) lost connection: "
+            "This server requires Fabric Loader and Fabric API installed on your client!",
+            "The following registry entry namespaces may be related:",
+            "",
+            "simpletweaks simplelib",
+            "",
+            "Contact the server's administrator for more information!",
+            "[04:26:04] [Server thread/WARN]: handleDisconnection() called twice",
+        ])
+        self.assertEqual(ss.reject_reason(log), [
+            "This server requires Fabric Loader and Fabric API installed on your client! The following registry entry "
+            "namespaces may be related: simpletweaks simplelib"])
+        self.assertEqual(ss.reject_reason("[x] [Server thread/INFO]: SoloProbe joined the game"), [])
+
 if __name__ == "__main__":
     unittest.main()
