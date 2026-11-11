@@ -64,6 +64,10 @@ public final class LibTests {
         ALL.put("config_command_types", ConfigCommandTests::types);
         ALL.put("config_command_lib", ConfigCommandTests::lib);
         ALL.put("config_command_every_option", ConfigCommandTests::everyOption);
+        ALL.put("config_screen_model", ConfigScreenTests::model);
+        ALL.put("config_screen_save", ConfigScreenTests::save);
+        ALL.put("config_screen_access", ConfigScreenTests::access);
+        ALL.put("config_screen_every_mod", ConfigScreenTests::everyMod);
         ALL.put("recipe_viewer_table_entries", RecipeViewerTests::tableEntries);
         ALL.put("recipe_viewer_loot_items", RecipeViewerTests::lootItems);
         ALL.put("recipe_viewer_partner_shown", RecipeViewerTests::partnerShown);

@@ -84,5 +84,18 @@
   "simplehammers.guide.page.25.title": "Befehle",
   "simplehammers.guide.page.25": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
   "simplehammers.guide.page.26.title": "Einstellungen",
-  "simplehammers.guide.page.26": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simplehammers.guide.page.26": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "text.autoconfig.simplehammers.title": "Simple Hammers",
+  "text.autoconfig.simplehammers.option.enabled": "Simple Hammers aktivieren",
+  "text.autoconfig.simplehammers.option.enabled.@Tooltip": "Aus: Hämmer arbeiten wie eine einfache\nSpitzhacke (kein Flächenabbau, keine\nAufwertungen). Standard: true.",
+  "text.autoconfig.simplehammers.option.upgradeSeconds": "Schläge je Aufwertung",
+  "text.autoconfig.simplehammers.option.upgradeSeconds.@Tooltip": "Schläge einer Vorschlaghammer-Aufwertung,\neiner je Sekunde; der letzte baut den Block\num. Standard: 5. Bereich: 1–30.",
+  "text.autoconfig.simplehammers.option.reinforcedDamagePerHit": "Haltbarkeit je Schlag: Verstärkt",
+  "text.autoconfig.simplehammers.option.reinforcedDamagePerHit.@Tooltip": "Haltbarkeit, die der Vorschlaghammer je Schlag\neiner Verstärkt-Aufwertung verliert.\nStandard: 2. Bereich: 0–64.",
+  "text.autoconfig.simplehammers.option.netheriteDamagePerHit": "Haltbarkeit je Schlag: Netherit",
+  "text.autoconfig.simplehammers.option.netheriteDamagePerHit.@Tooltip": "Dasselbe für eine Netherit-Aufwertung.\nStandard: 4. Bereich: 0–64.",
+  "text.autoconfig.simplehammers.option.enderiteDamagePerHit": "Haltbarkeit je Schlag: Enderit",
+  "text.autoconfig.simplehammers.option.enderiteDamagePerHit.@Tooltip": "Dasselbe für eine Enderit-Aufwertung.\nStandard: 10. Bereich: 0–64.",
+  "text.autoconfig.simplehammers.option.diamondBlockPebbles": "Diamantkiesel je Block",
+  "text.autoconfig.simplehammers.option.diamondBlockPebbles.@Tooltip": "Diamantkiesel, in die ein Diamantblock\nzerfällt (9 Diamanten = 81 Kiesel).\nStandard: 81. Bereich: 1–81."
 }

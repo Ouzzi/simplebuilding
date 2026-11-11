@@ -173,6 +173,7 @@ public final class ConfigCommands {
         private final List<String> restart = new ArrayList<>();
         private final Set<String> secret = new LinkedHashSet<>();
         private final Map<String, List<String>> choices = new LinkedHashMap<>();
+        private final Map<String, double[]> ranges = new LinkedHashMap<>();
         private Runnable after = () -> {};
 
         private Builder(String modId, boolean client) {
@@ -254,6 +255,15 @@ public final class ConfigCommands {
             return this;
         }
 
+        /**
+         * The allowed range of a number option, shown by the config screen (L13, {@link ConfigScreenModel}). Only a hint: the
+         * config class keeps clamping in its own {@code apply}/{@code validate}.
+         */
+        public Builder range(String path, double min, double max) {
+            ranges.put(path, new double[] {min, max});
+            return this;
+        }
+
         /** Runs after every saved change (client sync and the like). */
         public Builder after(Runnable after) {
             this.after = after;
@@ -288,6 +298,7 @@ public final class ConfigCommands {
         private final List<String> restart;
         private final Set<String> secret;
         private final Map<String, List<String>> choices;
+        private final Map<String, double[]> ranges;
         private final Runnable after;
         private JsonObject defaults;
 
@@ -303,6 +314,7 @@ public final class ConfigCommands {
             restart = List.copyOf(b.restart);
             secret = Set.copyOf(b.secret);
             choices = Map.copyOf(b.choices);
+            ranges = Map.copyOf(b.ranges);
             after = b.after;
         }
 
@@ -397,6 +409,17 @@ public final class ConfigCommands {
 
         public List<String> choices(String path) {
             return choices.getOrDefault(path, List.of());
+        }
+
+        /** The range of a number option ({@code {min, max}}), or null when the module names none. */
+        public double[] range(String path) {
+            double[] r = ranges.get(path);
+            return r == null ? null : r.clone();
+        }
+
+        /** Whether the option is never shown in clear text (tokens, passwords). */
+        public boolean secret(String path) {
+            return secret.contains(path);
         }
 
         public Result set(String path, String text) {
