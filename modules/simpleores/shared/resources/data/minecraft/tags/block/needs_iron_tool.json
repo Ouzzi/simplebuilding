@@ -61,6 +61,18 @@
     "simpleores:brass_tiles",
     "simpleores:brass_pillar",
     "simpleores:chiseled_brass",
+    "simpleores:cut_stainless_steel",
+    "simpleores:cut_stainless_steel_stairs",
+    "simpleores:cut_stainless_steel_slab",
+    "simpleores:stainless_steel_tiles",
+    "simpleores:stainless_steel_pillar",
+    "simpleores:chiseled_stainless_steel",
+    "simpleores:cut_bronze",
+    "simpleores:cut_bronze_stairs",
+    "simpleores:cut_bronze_slab",
+    "simpleores:bronze_tiles",
+    "simpleores:bronze_pillar",
+    "simpleores:chiseled_bronze",
     "simpleores:sage_ore",
     "simpleores:deepslate_sage_ore"
   ]

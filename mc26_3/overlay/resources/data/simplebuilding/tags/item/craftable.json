@@ -508,17 +508,20 @@
     "simplebuilding:astral_purpur_pillar",
     "simplebuilding:astral_purpur_stairs",
     "simplebuilding:astral_purpur_slab",
+    "simplebuilding:astral_purpur_wall",
     "simplebuilding:nihil_end_stone_stairs",
     "simplebuilding:nihil_end_stone_slab",
     "simplebuilding:nihil_end_stone_wall",
     "simplebuilding:nihil_purpur_pillar",
     "simplebuilding:nihil_purpur_stairs",
     "simplebuilding:nihil_purpur_slab",
+    "simplebuilding:nihil_purpur_wall",
     "simplebuilding:ender_end_stone_stairs",
     "simplebuilding:ender_end_stone_slab",
     "simplebuilding:ender_end_stone_wall",
     "simplebuilding:ender_purpur_pillar",
     "simplebuilding:ender_purpur_stairs",
-    "simplebuilding:ender_purpur_slab"
+    "simplebuilding:ender_purpur_slab",
+    "simplebuilding:ender_purpur_wall"
   ]
 }

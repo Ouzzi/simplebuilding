@@ -99,7 +99,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 - 4 /* N23: four retired ore blocks */ + 16 /* N25: bars and grates */ && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36 - 4 + 16 + 3 /* N25: their items, three nuggets */, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 - 4 /* N23: four retired ore blocks */ + 16 /* N25: bars and grates */ + 12 + 16 /* N28: two alloy families, doors and trapdoors */ && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36 - 4 + 16 + 3 /* N25: their items, three nuggets */ + 12 + 16 /* N28 */, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance",
                             "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers"))
                     && OresConfig.leadOre && OresConfig.endLeadOre && OresConfig.zincGeodes && OresConfig.endZincGeodes && OresConfig.nickelOre && OresConfig.tinOre && OresConfig.tinPlacers
@@ -671,6 +671,46 @@ public final class OresTests {
             BlockState old = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
             check(h, old != null && old.is(OresRegistry.SILVER_MIRROR) && old.getValue(face) == net.minecraft.world.level.block.state.properties.AttachFace.WALL
                     && old.getValue(SilverMirrorBlock.FACING) == Direction.WEST, "an old mirror loads on its wall: " + old);
+            h.succeed();
+        });
+        ALL.put("metal_doors", h -> {
+            // N28 (b-pal28): a door and a trapdoor of every building metal like the copper ones: classes, open by hand, tags (doors, trapdoors,
+            // mob_interactable_doors), pickaxe without tier, a door drops once from its lower half, recipes 6 ingots -> 3 doors and 4 -> 1 trapdoor,
+            // creative list right behind the grate, the metal's sound.
+            ServerLevel level = h.getLevel();
+            List<String> building = List.of(OresRegistry.BUILDING);
+            BlockPos pos = h.absolutePos(new BlockPos(4, 1, 12));
+            check(h, OresRegistry.DOORS.length == 8, "eight metals");
+            for (String m : OresRegistry.DOORS) {
+                Block door = OresRegistry.BLOCKS.get(m + "_door"), trap = OresRegistry.BLOCKS.get(m + "_trapdoor");
+                check(h, door instanceof net.minecraft.world.level.block.DoorBlock d && d.type().canOpenByHand()
+                        && trap instanceof net.minecraft.world.level.block.TrapDoorBlock, m + ": door and trapdoor classes, open by hand");
+                check(h, door.defaultBlockState().is(BlockTags.DOORS) && door.defaultBlockState().is(BlockTags.MOB_INTERACTABLE_DOORS)
+                        && trap.defaultBlockState().is(BlockTags.TRAPDOORS) && stack(m + "_door").is(net.minecraft.tags.BlockItemTags.DOORS.item())
+                        && stack(m + "_trapdoor").is(net.minecraft.tags.BlockItemTags.TRAPDOORS.item()), m + ": Vanilla door/trapdoor tags");
+                for (Block b : new Block[] {door, trap}) {
+                    check(h, b.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE) && !b.defaultBlockState().is(BlockTags.NEEDS_IRON_TOOL)
+                            && !b.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL), m + ": pickaxe, no tier");
+                    check(h, b.defaultBlockState().getSoundType() == com.simpleores.OresSounds.of(m), m + " door/trapdoor sounds like " + m);
+                }
+                check(h, building.indexOf(m + "_door") == building.indexOf(m + "_grate") + 1 && building.indexOf(m + "_trapdoor") == building.indexOf(m + "_door") + 1,
+                        m + ": door and trapdoor right behind the grate");
+                BlockState lower = door.defaultBlockState().setValue(net.minecraft.world.level.block.DoorBlock.HALF, net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER);
+                level.setBlockAndUpdate(pos, lower);
+                List<ItemStack> drops = Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.DIAMOND_PICKAXE));
+                check(h, drops.size() == 1 && drops.getFirst().is(item(m + "_door")), m + " door drops itself from the lower half: " + drops);
+                level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                List<ItemStack> upper = Block.getDrops(door.defaultBlockState().setValue(net.minecraft.world.level.block.DoorBlock.HALF,
+                        net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER), level, pos, null, null, new ItemStack(Items.DIAMOND_PICKAXE));
+                check(h, upper.isEmpty(), m + " door: nothing from the upper half: " + upper);
+                List<ItemStack> trapDrops = Block.getDrops(trap.defaultBlockState(), level, pos, null, null, new ItemStack(Items.DIAMOND_PICKAXE));
+                check(h, trapDrops.size() == 1 && trapDrops.getFirst().is(item(m + "_trapdoor")), m + " trapdoor drops itself: " + trapDrops);
+                ItemStack ingot = stack(m + "_ingot"), e = ItemStack.EMPTY;
+                ItemStack made = craft(h, of(ingot, ingot, e, ingot, ingot, e, ingot, ingot));
+                check(h, made.is(item(m + "_door")) && made.getCount() == 3, m + ": 6 ingots -> 3 doors, was " + made);
+                made = craft(h, of(ingot, ingot, e, ingot, ingot));
+                check(h, made.is(item(m + "_trapdoor")) && made.getCount() == 1, m + ": 4 ingots -> 1 trapdoor, was " + made);
+            }
             h.succeed();
         });
         ALL.put("bars_and_grates", h -> {

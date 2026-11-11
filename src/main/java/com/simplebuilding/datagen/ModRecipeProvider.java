@@ -1384,6 +1384,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, kind.purpurPillar(), purpur);
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, kind.purpurStairs(), purpur);
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, kind.purpurSlab(), purpur, 2);
+                    // PAL28 (Besitzer 11.11.): Purpur-Mauer der Art wie jede Mauer (6 -> 6, Steinmetz 1 -> 1).
+                    wallBuilder(RecipeCategory.DECORATIONS, kind.purpurWall(), Ingredient.of(purpur)).unlockedBy(getHasName(purpur), has(purpur)).save(output);
+                    stonecutterResultFromBase(RecipeCategory.DECORATIONS, kind.purpurWall(), purpur);
                 }
 
                 // Alternativbloecke (2026-10-03): der Steinmetz schneidet jeden 1:1 aus dem Grundblock, und

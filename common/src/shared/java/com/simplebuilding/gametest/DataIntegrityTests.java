@@ -2131,6 +2131,7 @@ public final class DataIntegrityTests {
             expectedCuts.add(path(kind.purpur()) + " -> 1 " + path(kind.purpurPillar()));
             expectedCuts.add(path(kind.purpur()) + " -> 1 " + path(kind.purpurStairs()));
             expectedCuts.add(path(kind.purpur()) + " -> 2 " + path(kind.purpurSlab()));
+            expectedCuts.add(path(kind.purpur()) + " -> 1 " + path(kind.purpurWall()));   // PAL28
             // Vanilla shapes: stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6; the purpur pillar from two purpur slabs.
             Item stone = kind.stone().asItem();
             Item purpur = kind.purpur().asItem();
@@ -2144,6 +2145,8 @@ public final class DataIntegrityTests {
                     new String[]{"#  ", "## ", "###"}, Map.of('#', purpur), problems);
             assertShapedRecipe(helper, modRecipes, path(kind.purpurSlab()), kind.purpurSlab().asItem(), 6, new String[]{"###"},
                     Map.of('#', purpur), problems);
+            assertShapedRecipe(helper, modRecipes, path(kind.purpurWall()), kind.purpurWall().asItem(), 6,
+                    new String[]{"###", "###"}, Map.of('#', purpur), problems);
             assertShapedRecipe(helper, modRecipes, path(kind.purpurPillar()), kind.purpurPillar().asItem(), 1,
                     new String[]{"#", "#"}, Map.of('#', kind.purpurSlab().asItem()), problems);
             for (Block shape : kind.shapes()) {
@@ -2162,8 +2165,10 @@ public final class DataIntegrityTests {
                     + (kind.purpurStairs().defaultBlockState().is(BlockTags.STAIRS) ? "s" : "-")
                     + (kind.purpurSlab().defaultBlockState().is(BlockTags.SLABS) ? "s" : "-")
                     + (kind.purpurStairs().asItem().builtInRegistryHolder().is(stairsItems) ? "i" : "-")
-                    + (kind.stoneWall().asItem().builtInRegistryHolder().is(wallItems) ? "i" : "-");
-            if (!shapeTags.equals("sswssii")) {
+                    + (kind.stoneWall().asItem().builtInRegistryHolder().is(wallItems) ? "i" : "-")
+                    + (kind.purpurWall().defaultBlockState().is(BlockTags.WALLS) ? "w" : "-")
+                    + (kind.purpurWall().asItem().builtInRegistryHolder().is(wallItems) ? "i" : "-");
+            if (!shapeTags.equals("sswssiiwi")) {
                 problems.add(kind.kind() + ": vanilla shape tags " + shapeTags);
             }
         }
@@ -3237,7 +3242,8 @@ public final class DataIntegrityTests {
                         ModItems.POLISHED_ASTRALIT_WALL),
                 CreativeTabLayout.Row.of("astral_coated", // PAL14: Endstein- und Purpur-Formen der Art
                         ModBlocks.ASTRAL_COATED.stoneStairs(), ModBlocks.ASTRAL_COATED.stoneSlab(), ModBlocks.ASTRAL_COATED.stoneWall(),
-                        ModBlocks.ASTRAL_COATED.purpurPillar(), ModBlocks.ASTRAL_COATED.purpurStairs(), ModBlocks.ASTRAL_COATED.purpurSlab()),
+                        ModBlocks.ASTRAL_COATED.purpurPillar(), ModBlocks.ASTRAL_COATED.purpurStairs(), ModBlocks.ASTRAL_COATED.purpurSlab(),
+                        ModBlocks.ASTRAL_COATED.purpurWall()),
                 CreativeTabLayout.Row.of("nihilith",
                         ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_STAIRS, ModItems.NIHILITH_SLAB, ModItems.NIHILITH_WALL,
                         ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
@@ -3250,7 +3256,8 @@ public final class DataIntegrityTests {
                         ModItems.POLISHED_NIHILITH_WALL),
                 CreativeTabLayout.Row.of("nihil_coated", // PAL14: Endstein- und Purpur-Formen der Art
                         ModBlocks.NIHIL_COATED.stoneStairs(), ModBlocks.NIHIL_COATED.stoneSlab(), ModBlocks.NIHIL_COATED.stoneWall(),
-                        ModBlocks.NIHIL_COATED.purpurPillar(), ModBlocks.NIHIL_COATED.purpurStairs(), ModBlocks.NIHIL_COATED.purpurSlab()),
+                        ModBlocks.NIHIL_COATED.purpurPillar(), ModBlocks.NIHIL_COATED.purpurStairs(), ModBlocks.NIHIL_COATED.purpurSlab(),
+                        ModBlocks.NIHIL_COATED.purpurWall()),
                 CreativeTabLayout.Row.of("ender_quartz",
                         ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB, ModItems.ENDER_QUARTZ_WALL,
                         ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB,
@@ -3261,7 +3268,8 @@ public final class DataIntegrityTests {
                         ModItems.POLISHED_ENDER_QUARTZ_WALL),
                 CreativeTabLayout.Row.of("ender_coated", // PAL14: Endstein- und Purpur-Formen der Art
                         ModBlocks.ENDER_COATED.stoneStairs(), ModBlocks.ENDER_COATED.stoneSlab(), ModBlocks.ENDER_COATED.stoneWall(),
-                        ModBlocks.ENDER_COATED.purpurPillar(), ModBlocks.ENDER_COATED.purpurStairs(), ModBlocks.ENDER_COATED.purpurSlab()),
+                        ModBlocks.ENDER_COATED.purpurPillar(), ModBlocks.ENDER_COATED.purpurStairs(), ModBlocks.ENDER_COATED.purpurSlab(),
+                        ModBlocks.ENDER_COATED.purpurWall()),
                 CreativeTabLayout.Row.of("checkers",
                         ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
                         ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,

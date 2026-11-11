@@ -115,7 +115,7 @@ public class ModModelProvider extends FabricModelProvider {
         // Beschichtete Endsteine und Purpurbloecke (PAL14: samt Treppe/Stufe/Mauer bzw. Saeule/Treppe/Stufe, ModBlocks.COATED_KINDS).
         for (ModBlocks.CoatedKind kind : ModBlocks.COATED_KINDS) {
             blockStateModelGenerator.family(kind.stone()).stairs(kind.stoneStairs()).slab(kind.stoneSlab()).wall(kind.stoneWall());
-            blockStateModelGenerator.family(kind.purpur()).stairs(kind.purpurStairs()).slab(kind.purpurSlab());
+            blockStateModelGenerator.family(kind.purpur()).stairs(kind.purpurStairs()).slab(kind.purpurSlab()).wall(kind.purpurWall());   // PAL28: + Mauer
             blockStateModelGenerator.createAxisAlignedPillarBlock(kind.purpurPillar(), TexturedModel.COLUMN_ALT);
         }
 

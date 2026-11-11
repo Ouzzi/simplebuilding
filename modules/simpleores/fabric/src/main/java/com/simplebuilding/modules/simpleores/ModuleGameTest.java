@@ -230,6 +230,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void metalDoors(GameTestHelper h) {
+        OresTests.ALL.get("metal_doors").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void barsAndGrates(GameTestHelper h) {
         OresTests.ALL.get("bars_and_grates").accept(h);
     }

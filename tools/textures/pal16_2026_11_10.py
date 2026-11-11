@@ -72,6 +72,9 @@ MOTIFS = {
     'rhombus': ['...##...', '..#..#..', '.#.##.#.', '#.####.#', '#.####.#', '.#.##.#.', '..#..#..', '...##...'],  # nickel: METALS14 rhombus
     'soldier': ['...##...', '..####..', '..####..', '...##...', '.######.', '#.####.#', '..#..#..', '..#..#..'],  # tin: tin soldier (shako)
     'gear': ['...##...', '.#.##.#.', '..####..', '###oo###', '###oo###', '..####..', '.#.##.#.', '...##...'],   # brass: gear
+    # N28 (b-pal28): the two alloys, mirror-symmetric like the others
+    'labrys': ['...##...', '#..##..#', '##.##.##', '########', '##.##.##', '#..##..#', '...##...', '...##...'],   # bronze: Bronze Age double axe
+    'anchor': ['...##...', '..#..#..', '...##...', '.######.', '...##...', '#..##..#', '##.##.##', '.######.'],   # stainless steel: anchor (sea steel)
 }
 
 SIMPLEBLOCKS = {
@@ -81,7 +84,7 @@ SIMPLEBLOCKS = {
 }
 KEEP = {'chiseled_prismarine': ('guardian_eye', 'prismarine')}       # owner PAL15: prismarine=OK -> pal15 R3 unchanged
 END = {'chiseled_astralit_bricks': 'panel', 'chiseled_nihilith_bricks': 'boss', 'chiseled_ender_quartz_bricks': 'enderman'}
-METAL = {'silver': 'moon', 'lead': 'bell', 'zinc': 'shield', 'nickel': 'rhombus', 'tin': 'soldier', 'brass': 'gear'}
+METAL = {'silver': 'moon', 'lead': 'bell', 'zinc': 'shield', 'nickel': 'rhombus', 'tin': 'soldier', 'brass': 'gear', 'stainless_steel': 'anchor', 'bronze': 'labrys'}
 ORDER = (list(SIMPLEBLOCKS)[:3] + ['chiseled_prismarine', 'chiseled_dark_prismarine', 'chiseled_red_nether_bricks', 'chiseled_ice']
          + list(END) + [f'chiseled_{m}' for m in METAL])
 OWNER = {'polished_andesite': 'einwand', 'polished_diorite': 'einwand', 'polished_granite': 'einwand', 'prismarine': 'OK (unverändert)',

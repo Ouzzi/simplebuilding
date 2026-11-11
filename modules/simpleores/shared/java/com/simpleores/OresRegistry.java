@@ -119,9 +119,10 @@ public final class OresRegistry {
     /**
      * N9 (b-metals14, owner 09.11.: "silver, lead, zinc, nickel, tin and brass only cosmetic"): the building family of each metal, copies of
      * its storage block (lead keeps hardness, blast resistance and sound): cut block with stairs and slab (like cut copper), tiles, pillar,
-     * chiseled block. No tools, no armor (test {@code metals_are_cosmetic}).
+     * chiseled block. No tools, no armor (test {@code metals_are_cosmetic}). N28 (b-pal28, owner 11.11.): stainless steel and bronze get the
+     * same family (the red column beside brass in the test centre gallery).
      */
-    public static final String[] COSMETIC = {"silver", "lead", "zinc", "nickel", "tin", "brass"};
+    public static final String[] COSMETIC = {"silver", "lead", "zinc", "nickel", "tin", "brass", "stainless_steel", "bronze"};   // N28: + the two plain alloys
     static {
         for (String m : COSMETIC) {
             Block base = BLOCKS.get(m + "_block");
@@ -143,6 +144,19 @@ public final class OresRegistry {
         for (String m : BARS) {
             block(m + "_bars", Blocks.IRON_BARS, s -> new com.simpleores.block.MetalBarsBlock(s.sound(OresSounds.of(m))));
             block(m + "_grate", Blocks.COPPER_GRATE.asList().getFirst(), s -> new com.simpleores.block.MetalGrateBlock(s.sound(OresSounds.of(m))));
+        }
+    }
+
+    /**
+     * N28 (b-pal28, owner 11.11.: the door and trapdoor rows of the gallery were red beside the iron and copper columns): a door and a trapdoor
+     * of every building metal like the Vanilla copper ones (open by hand, no ageing), the metal's sound. Textures: the metal's frame with its
+     * own grate pattern as window (tools/textures/pal28_2026_11_11.py).
+     */
+    public static final String[] DOORS = BARS;
+    static {
+        for (String m : DOORS) {
+            block(m + "_door", Blocks.COPPER_DOOR.asList().getFirst(), s -> new com.simpleores.block.MetalDoorBlock(s.sound(OresSounds.of(m))));
+            block(m + "_trapdoor", Blocks.COPPER_TRAPDOOR.asList().getFirst(), s -> new com.simpleores.block.MetalTrapDoorBlock(s.sound(OresSounds.of(m))));
         }
     }
 
@@ -354,7 +368,7 @@ public final class OresRegistry {
         for (String path : paths) {
             out.add(path);
             for (String m : COSMETIC) if (path.equals(m + "_block")) out.addAll(family(m));
-            for (String m : BARS) if (path.equals(m + "_block")) out.addAll(List.of(m + "_bars", m + "_grate"));
+            for (String m : BARS) if (path.equals(m + "_block")) out.addAll(List.of(m + "_bars", m + "_grate", m + "_door", m + "_trapdoor"));
         }
         return out.toArray(String[]::new);
     }

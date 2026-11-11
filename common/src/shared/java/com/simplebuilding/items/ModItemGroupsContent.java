@@ -384,7 +384,8 @@ public final class ModItemGroupsContent {
                         ModItems.POLISHED_ASTRALIT_WALL),
                 CreativeTabLayout.Row.of("astral_coated", // PAL14: Endstein- und Purpur-Formen der Art
                         ModBlocks.ASTRAL_COATED.stoneStairs(), ModBlocks.ASTRAL_COATED.stoneSlab(), ModBlocks.ASTRAL_COATED.stoneWall(),
-                        ModBlocks.ASTRAL_COATED.purpurPillar(), ModBlocks.ASTRAL_COATED.purpurStairs(), ModBlocks.ASTRAL_COATED.purpurSlab()),
+                        ModBlocks.ASTRAL_COATED.purpurPillar(), ModBlocks.ASTRAL_COATED.purpurStairs(), ModBlocks.ASTRAL_COATED.purpurSlab(),
+                        ModBlocks.ASTRAL_COATED.purpurWall()),
                 CreativeTabLayout.Row.of("nihilith",
                         ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_STAIRS, ModItems.NIHILITH_SLAB, ModItems.NIHILITH_WALL,
                         ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
@@ -397,7 +398,8 @@ public final class ModItemGroupsContent {
                         ModItems.POLISHED_NIHILITH_WALL),
                 CreativeTabLayout.Row.of("nihil_coated", // PAL14: Endstein- und Purpur-Formen der Art
                         ModBlocks.NIHIL_COATED.stoneStairs(), ModBlocks.NIHIL_COATED.stoneSlab(), ModBlocks.NIHIL_COATED.stoneWall(),
-                        ModBlocks.NIHIL_COATED.purpurPillar(), ModBlocks.NIHIL_COATED.purpurStairs(), ModBlocks.NIHIL_COATED.purpurSlab()),
+                        ModBlocks.NIHIL_COATED.purpurPillar(), ModBlocks.NIHIL_COATED.purpurStairs(), ModBlocks.NIHIL_COATED.purpurSlab(),
+                        ModBlocks.NIHIL_COATED.purpurWall()),
                 CreativeTabLayout.Row.of("ender_quartz",
                         ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB, ModItems.ENDER_QUARTZ_WALL,
                         ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB,
@@ -408,7 +410,8 @@ public final class ModItemGroupsContent {
                         ModItems.POLISHED_ENDER_QUARTZ_WALL),
                 CreativeTabLayout.Row.of("ender_coated", // PAL14: Endstein- und Purpur-Formen der Art
                         ModBlocks.ENDER_COATED.stoneStairs(), ModBlocks.ENDER_COATED.stoneSlab(), ModBlocks.ENDER_COATED.stoneWall(),
-                        ModBlocks.ENDER_COATED.purpurPillar(), ModBlocks.ENDER_COATED.purpurStairs(), ModBlocks.ENDER_COATED.purpurSlab()),
+                        ModBlocks.ENDER_COATED.purpurPillar(), ModBlocks.ENDER_COATED.purpurStairs(), ModBlocks.ENDER_COATED.purpurSlab(),
+                        ModBlocks.ENDER_COATED.purpurWall()),
                 CreativeTabLayout.Row.of("checkers",
                         ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
                         ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,

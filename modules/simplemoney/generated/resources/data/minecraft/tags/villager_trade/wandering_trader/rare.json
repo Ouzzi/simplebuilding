@@ -410,6 +410,10 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/astral_purpur_wall",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/nihil_end_stone_stairs",
       "required": false
     },
@@ -434,6 +438,10 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/nihil_purpur_wall",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/ender_end_stone_stairs",
       "required": false
     },
@@ -455,6 +463,10 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/ender_purpur_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_purpur_wall",
       "required": false
     },
     {

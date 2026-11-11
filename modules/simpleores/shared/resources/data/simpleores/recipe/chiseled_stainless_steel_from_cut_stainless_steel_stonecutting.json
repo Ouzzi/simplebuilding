@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:cut_stainless_steel",
+  "result": {
+    "count": 1,
+    "id": "simpleores:chiseled_stainless_steel"
+  }
+}
