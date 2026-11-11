@@ -144,6 +144,10 @@ Dedicated Server mit dem Mod allein (b-server26).
 - Lang EN/DE vollständig (62 Module), Tooltip-Prüfer grün, Config-Befehl in allen 55 Mods mit Config.
 - **Mod-Menu-Bildschirm** nur: SimpleBuilding, Mobheads, Dimensions, Fun, Money, Riding. Alle anderen (u. a. Hammers, Storage,
   Ores, Pads, Machines, Gadgets, Ovens, Enchanting, Building Tools) nur `config/<mod>-server.json` + `/<mod> config` → Frage **f2**.
+- **Stand 11.11. (b-cfgscreen31, f2=A):** jede geladene Mod mit angemeldeter Config bekommt über SimpleLibs Mod-Menu-Eintrag
+  (`getProvidedConfigScreenFactories`) einen Bildschirm: Kategorien = erste JSON-Ebene, Tooltip aus Lang + „Standard:/Default:“
+  (+ „Bereich:“, „Neustart“), mit Cloth der Cloth-Builder, ohne Cloth Vanilla-Widgets. Eigene Bildschirme bleiben vorne.
+  Server-Werte nur ohne Welt, in eigener Welt mit Operator-Rechten, auf fremden Servern nur lesbar.
 
 ### 4.7 Rezepte/JEI
 - `check_jei_coverage.py`: keine Lücke; Sonder-Rezepttypen alle mit Ansicht (Formsäge 401, Befiederung 17, Trims, Rucksack,
@@ -189,7 +193,7 @@ Dedicated Server mit dem Mod allein (b-server26).
 | L10 | SimpleBuilding | `wiki/manual.json`: 6 Kapitel mit toten Quellpfaden, `chisel` auf `modules/simplechisels` umstellen | S | b-manualsb31 | nein |
 | L11 | alle 41 Sub-Mods | Code-Audit je Mod wie b-rel32 (Zeile für Zeile, P1–P3, `modules/<mod>/AUDIT.md`, Fixes klein) – kein SB-Familien-Mod hat ein AUDIT.md | L | b-audsb31-<gruppe> (5 Gruppen) | nein |
 | L12 | Simple Mobheads, Tweaks | BS25-19 Absturz Seelenfeuer-Lohen-Kopf im echten Client nachstellen (Client-Lauf) | M | b-bs25crash31 | nein |
-| L13 | Sub-Mods ohne Bildschirm | Config-Bildschirm je nach f2 | M | b-cfgscreen31 | **ja (f2)** |
+| L13 | Sub-Mods ohne Bildschirm | Config-Bildschirm je nach f2 → **f2=A umgesetzt** (b-cfgscreen31, 11.11.): SimpleLib baut ihn aus dem `ConfigCommands`-Spec jeder Mod, Mod Menu für jede Mod, Cloth optional; offen: Lang-Texte der Optionen bei 10 Pflicht-Mods ohne Options-Lang (Chisels, Enchanting, Gadgets, Lights, Machines, Mobs, Octets, Ovens, Crucibles, Resonance; Storage 1 von ~10) – dort lesbare Pfadnamen, Besitzer-Darstellung CFGSCREEN31 | M | b-cfgscreen31 | erledigt (f2=A); Darstellung CFGSCREEN31 |
 | L14 | SimpleBuilding | Kern-Inhalt abspalten oder nicht | L | – | **ja (f3)** |
 | L15 | Release-Welle | Reihenfolge/Umfang der Veröffentlichung | – | – | **ja (f1, f4)** |
 | L16 | 4 Familien | begründet rote Texturen für den Release akzeptieren | – | – | **ja (f6)** |
@@ -211,6 +215,15 @@ Vorschau mit Kontext, Optionen und vorausgewählter Empfehlung: `/root/sb-tools-
 | f6 | Begründet rote Texturen (Pad-Originale, Vitrinen-Glas, Fossilien, Pfeil-Teile, Lampen): akzeptieren (A) / vor Release neu (B) | A |
 
 Antwort z. B. `RELSB31: f1=A f2=A f3=A f4=A f5=B f6=A`.
+
+**Antwort des Besitzers (11.11. ~15:30, Auftrag N31b):** `RELSB31: f1=A f2=A f3=A f4=A f5=B f6=A`
+- f1=A: Welle 1 = SB + 20 Pflicht-Mods; optionale je einzeln, sobald ihre Checkliste grün ist.
+- f2=A: gemeinsamer SimpleLib-Baustein baut den Config-Bildschirm aus der Server-/Client-JSON, Mod Menu für jede Mod, Cloth optional
+  → L13 umgesetzt auf b-cfgscreen31 (Plan docs/ai/PLAN-B-CFGSCREEN31-2026-11-11.md).
+- f3=A: Kern-Inhalt bleibt in SB 2.0.0, Abspaltung später (L14 ruht).
+- f4=A: Simple Dinosaurs erst mit allen fünf Dinos → DINO-REST in die Liste der optionalen Mods nach Welle 1.
+- f5=B: Grenze ≤ 10 % mehr MSPT als Vanilla (Heap nur berichten) → L9 b-benchsb31.
+- f6=A: begründet rote Texturen blockieren den Release nicht (L16 erledigt).
 
 ## 7. Nächste Schritte
 1. Lücken ohne Besitzer (L1–L12) nach `/root/sb-tools-b/relsb31-lücken.md` abarbeiten; kleine Doku-/Daten-Branches ohne eigenen

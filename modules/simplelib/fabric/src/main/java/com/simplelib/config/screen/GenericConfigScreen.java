@@ -52,12 +52,25 @@ public final class GenericConfigScreen {
         Screen build(Screen parent, Component title, Runnable save);
     }
 
-    /** Loaded mods with an announced config (server or client); Mod Menu offers the screen for these. */
+    /**
+     * Loaded mods with an announced config (server or client); Mod Menu offers the screen for these. Without a running own
+     * server it also takes each spec's defaults snapshot once (a spec without a defaults source briefly applies an empty JSON
+     * for that), so the screen never does it later on the client thread next to the integrated server.
+     */
     public static Set<String> modIds() {
         Set<String> out = new LinkedHashSet<>();
+        boolean idle = Minecraft.getInstance().getSingleplayerServer() == null;
         for (boolean client : new boolean[] {false, true}) {
             for (ConfigCommands.Spec spec : ConfigCommands.specs(client)) {
-                if (FabricLoader.getInstance().isModLoaded(spec.modId())) out.add(spec.modId());
+                if (!FabricLoader.getInstance().isModLoaded(spec.modId())) continue;
+                out.add(spec.modId());
+                if (idle) {
+                    try {
+                        spec.defaults();
+                    } catch (RuntimeException e) {
+                        com.simplelib.SimpleLib.LOG.warn("Config screen: no defaults for {}: {}", spec.modId(), e.toString());
+                    }
+                }
             }
         }
         return out;
