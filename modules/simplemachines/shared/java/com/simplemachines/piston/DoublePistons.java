@@ -268,6 +268,12 @@ public final class DoublePistons {
             BlockState state = level.getBlockState(pos);
             BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
             Block.dropResources(state, level, pos, blockEntity);
+            // Vanilla's moveBlocks clears the cell first (audit b-audsb31-a, simplemachines-P2-1): without it the moving block
+            // below replaced it with UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS, so a container that breaks (a decorated pot) lost its
+            // item, and sculk sensors never heard the block break.
+            if (!state.is(net.minecraft.tags.BlockTags.FIRE) && level.isClientSide()) level.levelEvent(2001, pos, Block.getId(state));
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 18);
+            level.gameEvent(net.minecraft.world.level.gameevent.GameEvent.BLOCK_DESTROY, pos, net.minecraft.world.level.gameevent.GameEvent.Context.of(state));
             toUpdate[updateIndex++] = state;
         }
         for (int i = toPush.size() - 1; i >= 0; i--) {
