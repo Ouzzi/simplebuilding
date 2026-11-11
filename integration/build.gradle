@@ -290,7 +290,7 @@ loom.runs.configureEach {
 
 // A-MIXCHECK31: gametests run a dedicated server, so CLIENT mixins are never applied there. This checks every
 // mixin of every 26.3 Fabric module (all sections) statically against the game jar on this classpath:
-// target classes, @Shadow/@Accessor/@Invoker members, injector methods and @At INVOKE/FIELD/NEW targets.
+// target classes, @Shadow/@Accessor/@Invoker members, injector methods, @At INVOKE/FIELD/NEW targets and @Local captures.
 def mixinCheckArgs = layout.buildDirectory.file('checkClientMixins.args')
 def mixinCheckDirs = registry.modules.collectMany { entry ->
     def build = rootProject.file(entry.projects.fabric.substring(1).replace(':', '/') + '/build')

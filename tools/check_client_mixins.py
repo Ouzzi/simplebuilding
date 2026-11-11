@@ -22,7 +22,13 @@ server), parses the compiled mixin classes and checks them against the game jar 
   * require = 0 injectors (REV2-C-2): checked like all others, a miss is tagged because Mixin would skip it silently;
     a config's "injectors": {"defaultRequire": 0} makes every injector without an own require count as require = 0
   * mixin config "plugin" class exists and implements IMixinConfigPlugin
-  * not checked (needs the local variable table / runtime): @Local captures, @Desc selectors, regex selectors
+  * MixinExtras @Local captures (b-mixlocal27) against the target's LocalVariableTable: argsOnly against the parameters;
+    otherwise the locals in scope at the injection point (@At INVOKE/INVOKE_ASSIGN/FIELD/NEW incl. its ordinal, HEAD,
+    RETURN, TAIL; other @At kinds: the whole method). name/index must exist with the parameter's type, ordinal needs
+    ordinal + 1 locals of the type, an implicit capture exactly one (MixinExtras' rule). Local*Ref parameters stand
+    for their primitive (LocalRef<T>: T from the generic signature, else any object). A method without a local
+    variable table is not judged.
+  * not checked (runtime only): @Desc selectors, regex selectors
 
 Usage (Gradle passes explicit paths, see :integration:checkClientMixins):
   check_client_mixins.py --mods <dir|jar>... --cp <dir|jar>...
@@ -43,7 +49,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 MIXIN = "Lorg/spongepowered/asm/mixin/"
 INJ = MIXIN + "injection/"
-MX = "Lcom/llamalab/mixinextras/injector/"
+MX = "Lcom/llamalad7/mixinextras/injector/"
 INJECTORS = {
     INJ + "Inject;", INJ + "Redirect;", INJ + "ModifyArg;", INJ + "ModifyArgs;", INJ + "ModifyVariable;",
     INJ + "ModifyConstant;", MX + "wrapoperation/WrapOperation;", MX + "ModifyExpressionValue;",
@@ -56,10 +62,14 @@ ACCESSOR, INVOKER = MIXIN + "gen/Accessor;", MIXIN + "gen/Invoker;"
 
 # ---------------------------------------------------------------- class file parsing
 class Member:
-    __slots__ = ("access", "name", "desc", "ann", "insns")
+    __slots__ = ("access", "name", "desc", "ann", "insns", "params", "lvt", "pcs", "sig")
 
-    def __init__(self, access, name, desc, ann, insns):
+    def __init__(self, access, name, desc, ann, insns, params=None, lvt=None, pcs=None, sig=None):
         self.access, self.name, self.desc, self.ann, self.insns = access, name, desc, ann, insns
+        self.params = params or []  # per parameter: {annotation type: values} (parameter annotations)
+        self.lvt = lvt  # [(start, length, name, desc, index)] or None without a LocalVariableTable
+        self.pcs = pcs or {}  # instruction tuple (as in insns, plus ("RETURN",)) -> code offsets in order
+        self.sig = sig  # generic Signature attribute or None
 
 
 class ClassInfo:
@@ -183,7 +193,7 @@ def parse_class(data: bytes, with_code: bool) -> ClassInfo:
             vals[name] = element()
         return (typ, vals)
 
-    def attributes(member_code: bool):
+    def attributes(member_code: bool, extra: dict | None = None):
         nonlocal off
         anns, insns = {}, None
         for _ in range(u2()):
@@ -194,11 +204,24 @@ def parse_class(data: bytes, with_code: bool) -> ClassInfo:
                 for _ in range(u2()):
                     t, v = annotation()
                     anns[t] = v
+            elif name in ("RuntimeVisibleParameterAnnotations", "RuntimeInvisibleParameterAnnotations") and extra is not None:
+                params = extra.setdefault("params", [])
+                count = data[off]
+                off += 1
+                while len(params) < count:
+                    params.append({})
+                for i in range(count):
+                    for _ in range(u2()):
+                        t, v = annotation()
+                        params[i][t] = v
+            elif name == "Signature" and extra is not None:
+                extra["sig"] = cp[u2()]
             elif name == "Code" and member_code:
                 off += 4
                 clen = u4()
                 code = data[off:off + clen]
                 insns = set()
+                pcs: dict = {}
                 pc = 0
                 while pc < clen:
                     op = code[pc]
@@ -208,14 +231,32 @@ def parse_class(data: bytes, with_code: bool) -> ClassInfo:
                     if 0xb2 <= op <= 0xb9 or op == 0xbb:
                         ref = cp[struct.unpack_from(">H", code, pc + 1)[0]]
                         if op == 0xbb:
-                            insns.add(("NEW", cp[ref[1]], "", ""))
+                            key = ("NEW", cp[ref[1]], "", "")
                         else:
                             nat = cp[ref[2]]
                             kind = "FIELD" if op <= 0xb5 else "INVOKE"
-                            insns.add((kind, cls(ref[1]), cp[nat[1]], cp[nat[2]]))
+                            key = (kind, cls(ref[1]), cp[nat[1]], cp[nat[2]])
                             if op == 0xb8:
                                 insns.add(("STATIC", cls(ref[1]), cp[nat[1]], cp[nat[2]]))
+                        insns.add(key)
+                        pcs.setdefault(key, []).append(pc)
+                    elif 0xac <= op <= 0xb1:
+                        pcs.setdefault(("RETURN",), []).append(pc)
                     pc += _oplen(code, pc)
+                off += clen
+                handlers = u2()
+                off += 8 * handlers  # exception table
+                if extra is not None:
+                    extra["pcs"] = pcs
+                    for _ in range(u2()):
+                        sub, sub_len = cp[u2()], u4()
+                        if sub == "LocalVariableTable":
+                            lvt = extra.setdefault("lvt", [])
+                            for _ in range(u2()):
+                                start, length, n, d, index = u2(), u2(), cp[u2()], cp[u2()], u2()
+                                lvt.append((start, length, n, d, index))
+                        else:
+                            off += sub_len
             off = end
         return anns, insns
 
@@ -229,8 +270,9 @@ def parse_class(data: bytes, with_code: bool) -> ClassInfo:
     for bucket, code in ((ci.fields, False), (ci.methods, with_code)):
         for _ in range(u2()):
             acc, name, desc = u2(), cp[u2()], cp[u2()]
-            ann, insns = attributes(code)
-            bucket.append(Member(acc, name, desc, ann, insns))
+            extra: dict = {}
+            ann, insns = attributes(code, extra if bucket is ci.methods else None)
+            bucket.append(Member(acc, name, desc, ann, insns, extra.get("params"), extra.get("lvt"), extra.get("pcs"), extra.get("sig")))
     ci.ann, _ = attributes(False)
     return ci
 
@@ -549,6 +591,179 @@ def check_signature(tag, handler, atype, short, selected, ann, problems):
     problems.append(f"{tag}.{handler.name}: {short} handler {handler.desc} does not fit {name}{desc}; expected ({reasons[0]})")
 
 
+# ---------------------------------------------------------------- @Local (b-mixlocal27)
+LOCAL = "Lcom/llamalad7/mixinextras/sugar/Local;"
+REF = "Lcom/llamalad7/mixinextras/sugar/ref/"
+REF_TYPES = {REF + f"Local{n}Ref;": d for n, d in (("Int", "I"), ("Boolean", "Z"), ("Float", "F"), ("Double", "D"),
+                                                   ("Long", "J"), ("Char", "C"), ("Byte", "B"), ("Short", "S"))}
+ANY_OBJECT = "*"
+
+
+def _sig_type(sig: str, i: int) -> tuple[str, int]:
+    """One type of a generic signature at i -> (text, end)."""
+    j = i
+    while sig[j] == "[":
+        j += 1
+    if sig[j] in "LT":
+        depth = 0
+        while True:
+            c = sig[j]
+            if c == "<":
+                depth += 1
+            elif c == ">":
+                depth -= 1
+            elif c == ";" and depth == 0:
+                return sig[i:j + 1], j + 1
+            j += 1
+    return sig[i:j + 1], j + 1
+
+
+def sig_params(sig: str) -> list[str]:
+    """Parameter types of a generic method signature (type parameters skipped)."""
+    i = 0
+    if sig.startswith("<"):
+        depth = 0
+        for i, c in enumerate(sig):
+            depth += c == "<"
+            depth -= c == ">"
+            if depth == 0:
+                break
+        i += 1
+    i = sig.index("(", i) + 1
+    out = []
+    while sig[i] != ")":
+        t, i = _sig_type(sig, i)
+        out.append(t)
+    return out
+
+
+def erase(generic: str) -> str:
+    """Generic type signature -> descriptor (type arguments dropped; a type variable is any object)."""
+    if generic.lstrip("[").startswith("T"):
+        return ANY_OBJECT
+    out, depth = [], 0
+    for c in generic:
+        if c == "<":
+            depth += 1
+        elif c == ">":
+            depth -= 1
+        elif depth == 0:
+            out.append(c)
+    return "".join(out).replace(".", "/")
+
+
+def local_type(handler: Member, i: int) -> str:
+    """The type a @Local parameter captures: its own, the primitive of a Local*Ref, T of LocalRef<T> (else any object)."""
+    desc = split_args(handler.desc)[0][i]
+    if desc in REF_TYPES:
+        return REF_TYPES[desc]
+    if desc == REF + "LocalRef;":
+        try:
+            generic = sig_params(handler.sig)[i] if handler.sig else ""
+            inner = generic[generic.index("<") + 1:generic.rindex(">")]
+            return erase(inner) if inner and inner[0] in "LT[" else ANY_OBJECT
+        except (ValueError, IndexError):
+            return ANY_OBJECT
+    return desc
+
+
+def injection_pcs(m: Member, ann: dict):
+    """Code offsets in m where the injector applies (list), or None when the @At kind is not modelled."""
+    at_list = ats(ann)
+    if not at_list:
+        return None
+    at = at_list[0]
+    kind = at.get("value", "")
+    if kind in ("INVOKE", "INVOKE_ASSIGN", "FIELD", "NEW") and at.get("target"):
+        pcs = sorted(pc for hit in at_matches([m], kind, at["target"]) for pc in m.pcs.get(hit, ()))
+    elif kind == "HEAD":
+        pcs = [0]
+    elif kind in ("RETURN", "TAIL"):
+        pcs = list(m.pcs.get(("RETURN",), ()))
+        pcs = pcs[-1:] if kind == "TAIL" else pcs
+    else:
+        return None
+    ordinal = at.get("ordinal")
+    if isinstance(ordinal, tuple) and ordinal[1] >= 0:
+        pcs = pcs[ordinal[1]:ordinal[1] + 1]
+    return pcs
+
+
+def locals_at(m: Member, pc, args_only: bool) -> list[tuple[str, str, int]]:
+    """(name, descriptor, slot) of the parameters (args_only) or of the locals in scope at pc (None: anywhere); never 'this'."""
+    static = bool(m.access & 0x0008)
+    if args_only:
+        names = {e[4]: e[2] for e in (m.lvt or ()) if e[0] == 0}
+        out, slot = [], 0 if static else 1
+        for n, d in enumerate(split_args(m.desc)[0]):
+            out.append((names.get(slot, f"arg{n}"), d, slot))
+            slot += 2 if d in "JD" else 1
+        return out
+    seen = {(e[2], e[3], e[4]) for e in m.lvt or ()
+            if (pc is None or e[0] <= pc < e[0] + e[1]) and (static or e[4] != 0)}
+    return sorted(seen, key=lambda e: e[2])
+
+
+def judge_local(la: dict, want: str, entries, scoped: bool) -> str | None:
+    """None when the capture resolves, else the reason."""
+    typed = [e for e in entries if e[1] == want or (want == ANY_OBJECT and e[1][0] in "L[")]
+    names = la.get("name")
+    names = [names] if isinstance(names, str) else names or []
+    index = la.get("index", ("int", -1))[1]
+    ordinal = la.get("ordinal", ("int", -1))[1]
+    if names:
+        return None if any(e[0] in names for e in typed) else f"no local named {'/'.join(names)} of type {want}"
+    if index >= 0:
+        return None if any(e[2] == index for e in typed) else f"no local in slot {index} of type {want}"
+    if ordinal >= 0:
+        return None if len(typed) > ordinal else f"ordinal {ordinal} but {len(typed)} local(s) of type {want}"
+    if not typed:
+        return f"no local of type {want}"
+    if scoped and want != ANY_OBJECT and len(typed) != 1:
+        return f"implicit capture needs exactly one local of type {want}, found {len(typed)} ({', '.join(e[0] for e in typed)})"
+    return None
+
+
+LOCALS_SEEN: list[str] = []
+LOCALS_UNJUDGED: list[str] = []
+
+
+def check_locals(tag, tname, handler, short, selected, ann, problems):
+    for i, pann in enumerate(handler.params):
+        if LOCAL not in pann:
+            continue
+        la = pann[LOCAL]
+        args_only = la.get("argsOnly") == ("int", 1)
+        try:
+            want = local_type(handler, i)
+        except IndexError:
+            continue
+        reasons, judged = [], False
+        LOCALS_SEEN.append(f"{tag}.{handler.name}#{i}")
+        for m in selected:
+            if m.lvt is None and not (args_only and not la.get("name")):
+                continue  # no local variable table: no verdict
+            pcs = [None] if args_only else injection_pcs(m, ann)
+            if pcs == []:
+                continue  # the @At itself does not resolve: reported by check_at
+            judged = True
+            reason = None
+            for pc in pcs or [None]:
+                reason = judge_local(la, want, locals_at(m, pc, args_only), args_only or pcs is not None)
+                if reason:
+                    reason = f"{m.name}{'' if pc is None else f' at offset {pc}'}: {reason}"
+                    break
+            if reason is None:
+                break
+            reasons.append(reason)
+        else:
+            if not judged:
+                LOCALS_UNJUDGED.append(f"{tag}.{handler.name}#{i}")
+            elif reasons:
+                what = "argsOnly " if args_only else ""
+                problems.append(f"{tag}.{handler.name}: {short} @Local {what}parameter {i} ({want}) does not resolve in {tname}.{reasons[0]}")
+
+
 def check_injector(cp, tag, tname, target, handler, atype, ann, problems):
     short = "@" + atype.rsplit("/", 1)[-1].rstrip(";")
     selectors = ann.get("method", [])
@@ -568,6 +783,7 @@ def check_injector(cp, tag, tname, target, handler, atype, ann, problems):
         check_at(cp, tag, tname, handler, short, selected, at, problems)
     check_constants(tag, tname, handler, short, selected, ann, problems)
     check_signature(tag, handler, atype, short, selected, ann, problems)
+    check_locals(tag, tname, handler, short, selected, ann, problems)
     if atype == INJ + "Inject;":
         args, _ = split_args(handler.desc)
         ci_at = next((i for i, a in enumerate(args) if "callback/CallbackInfo" in a), None)
@@ -684,6 +900,8 @@ def main() -> int:
     for p in problems:
         print("  " + p)
     print(f"check_client_mixins: {len(REQUIRE0)} require=0 injectors seen (each resolved unless listed above)")
+    print(f"check_client_mixins: {len(LOCALS_SEEN)} @Local captures seen, {len(LOCALS_UNJUDGED)} without a verdict"
+          f"{' (' + ', '.join(LOCALS_UNJUDGED) + ')' if LOCALS_UNJUDGED else ''}")
     print(f"check_client_mixins: {checked} mixins checked, {len(problems)} problem(s)")
     return 1 if problems else 0
 
