@@ -61,7 +61,8 @@
     "simplepads",
     "simplechisels",
     "simplebuildingtools",
-    "simplelayers"
+    "simplelayers",
+    "simplevault"
   ],
   "devMods": [
     "jei",
