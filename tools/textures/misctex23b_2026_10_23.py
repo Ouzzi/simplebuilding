@@ -50,7 +50,9 @@ sys.argv = _argv
 
 SHOPS = m.SHOPS
 STORAGE = m.STORAGE
-OVERLAY = m.OVERLAY
+OVERLAY = m.OVERLAY   # legacy SimpleBuilding overlay: the A1 textures moved out (ig3113 / Simple Enchanting), see a1_dir()
+ORES_BLOCK = ROOT / 'modules/simpleores/shared/resources/assets/simpleores/textures/block'
+ENCH_BLOCK = ROOT / 'modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block'
 FUN = ROOT / 'modules/simplefun/shared/resources/assets/simplefun/textures/mob_effect'
 SAN = ROOT / 'modules/simplesandwiches/shared/resources/assets/simplesandwiches/textures/block'
 END_TOOLS = ROOT / 'modules/simpleend/tools'
@@ -734,10 +736,15 @@ A1 = {
 A1_BASE = 'Basis: abgenommene Textur'
 
 
+def a1_dir(name):
+    """Home of an A1 texture: Simple Enchanting (blazewood) or Simple Ores (scrap, sage ore)."""
+    return ENCH_BLOCK if 'blazewood' in name else ORES_BLOCK
+
+
 def a1_source(name):
     """The accepted still texture: the PNG itself while it is 16 x 16, afterwards the first frame of the strip's base
     layer (the base layer repeats the accepted texture in every frame), so --write stays idempotent."""
-    path = OVERLAY / 'block' / f'{name}.png'
+    path = a1_dir(name) / f'{name}.png'
     im = load(path)
     if im.height == 16:
         return im
@@ -763,16 +770,24 @@ PIGGY_CHOICE = 'P2'
 BUTTER_CHOICE = 'X'   # W24-1 (owner 23.10. late: all open choices accepted, recommendation X)
 
 
+# Redrawn after this generator by later, accepted runs (A8d round 16: blazewood planks; ABN30-6: storage crafting table).
+# They stay out of --write/--check so a rerun never reverts them.
+SUPERSEDED = {'crimson_blazewood_planks', 'warped_blazewood_planks',
+              'storage_crafting_table_top', 'storage_crafting_table_front', 'storage_crafting_table_side'}
+
+
 def built():
     """repo path -> (Tex, mcmeta or None) for everything this generator ships (the leaves go through gen_textures)."""
     out = {}
     # ABN30-6: the Sales Storage faces are drawn by shops31_2026_10_30.py (A, refined); sales_storage_soft() stays as history.
     for n, t in storage_table_soft(SHOP_TABLE_CHOICE).items():
-        out[STORAGE / 'block' / f'{n}.png'] = (t, None)
+        if n not in SUPERSEDED:
+            out[STORAGE / 'block' / f'{n}.png'] = (t, None)
     out[FUN / 'piggy_effect.png'] = (piggy(PIGGY_CHOICE), None)
     out[SAN / 'butter_block_inner.png'] = (butter_inner(BUTTER_CHOICE), None)   # sandwiches.py leaves this one out
     for n in A1:
-        out[OVERLAY / 'block' / f'{n}.png'] = (a1_strip(n)[0], ANIM_MCMETA)
+        if n not in SUPERSEDED:
+            out[a1_dir(n) / f'{n}.png'] = (a1_strip(n)[0], ANIM_MCMETA)
     return out
 
 
