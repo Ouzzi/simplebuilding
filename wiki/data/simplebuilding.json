@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 487,
+      "count": 485,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -4410,141 +4410,6 @@
       "trades": [],
       "icon": "assets/textures/render/astralit_wall.png",
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:auto_smither",
-      "name": {
-        "en_us": "Smither",
-        "de_de": "Schmied"
-      },
-      "texture": "assets/textures/block/auto_smither_front.png",
-      "craftedBy": [
-        "simplebuilding:auto_smither"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/auto_smither.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "A smith that never sleeps and only works when someone claps."
-          ],
-          "use": [
-            "Smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front of it or stay in its output slot."
-          ],
-          "secret": [
-            "It works from the same three inputs as the smithing table, so any upgrade you could do by hand it can do on a pulse."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Schmied, der nie schläft und nur arbeitet, wenn jemand klatscht."
-          ],
-          "use": [
-            "Schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Zutat. Fertige Ergebnisse landen in einem Behälter davor oder bleiben im Ausgabeplatz."
-          ],
-          "secret": [
-            "Er arbeitet mit denselben drei Eingaben wie der Schmiedetisch, jede Aufwertung, die du von Hand machen könntest, schafft er also per Impuls."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
-          "details": [
-            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
-            "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
-            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled input slot (0 to 15). The error arrow appears only when all three inputs are present but their recipe is invalid.",
-            "Recipe: iron ingots around a smithing table, redstone, a dropper and redstone in the bottom row - like the Crafter."
-          ]
-        },
-        "de": {
-          "summary": "Der Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
-          "details": [
-            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
-            "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
-            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Eingabeslot (0 bis 15). Der Fehlerpfeil erscheint nur bei drei belegten Eingaben ohne gültiges Rezept.",
-            "Rezept: Eisenbarren um einen Schmiedetisch, unten Redstone, ein Spender und Redstone - wie beim Crafter."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AutoSmitherBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:autonomous_crafter",
-      "name": {
-        "en_us": "Auto Crafter",
-        "de_de": "Auto-Crafter"
-      },
-      "texture": "assets/textures/block/autonomous_crafter_side.png",
-      "craftedBy": [
-        "simplebuilding:autonomous_crafter"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/autonomous_crafter.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "A crafter that finally learned to work on its own."
-          ],
-          "use": [
-            "A Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper."
-          ],
-          "secret": [
-            "The hopper below is the machine's only door out: if it is full, nothing is crafted. A redstone signal is the off switch."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Handwerker, der endlich lernte, allein zu arbeiten."
-          ],
-          "use": [
-            "Ein Crafter, der sein Raster alle 4 Ticks selbst herstellt, solange unter ihm ein Trichter steht. Ein Redstone-Signal stoppt ihn; Ergebnisse gehen in diesen Trichter."
-          ],
-          "secret": [
-            "Der Trichter darunter ist die einzige Tür nach draußen: Ist er voll, wird nichts hergestellt. Ein Redstone-Signal ist der Ausschalter."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Auto Crafter is a Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper.",
-          "details": [
-            "It crafts only with a hopper (vanilla or mod hopper) directly below and no redstone signal reaching it. Result and recipe remainders go into that hopper; if the result does not fit completely, nothing is crafted. Remainders that do not fit drop on top of the crafter.",
-            "The 3x3 grid works like the Crafter's: clicking an empty slot with an empty cursor switches it off, clicking it again switches it on. Hoppers and droppers fill it from the top and the sides; nothing can be pulled out, and the hopper below cannot suck up the ingredients.",
-            "Filter key (same key as the mod hoppers, modes Disabled, Exact Match and Type Match): with it on, every filled slot keeps one real item as its recipe item - it crafts only when each filled slot holds at least two and uses up one of each; hoppers only top up slots that hold a match, empty slots take nothing. With the filter off it uses up the last items like the Crafter.",
-            "A comparator reads the filled or switched-off slots (0 to 9), like the Crafter. The faces light up for a moment after each craft and show red lights while powered.",
-            "Recipe (shapeless): Crafter + Hopper + Redstone Comparator."
-          ]
-        },
-        "de": {
-          "summary": "Der Auto-Crafter ist ein Crafter, der sein Raster alle 4 Ticks selbst craftet, solange ein Trichter unter ihm steht. Ein Redstone-Signal hält ihn an; Ergebnisse gehen in diesen Trichter.",
-          "details": [
-            "Er craftet nur mit einem Trichter (Vanilla- oder Mod-Trichter) direkt darunter und ohne Redstone-Signal. Ergebnis und Rezept-Reste gehen in diesen Trichter; passt das Ergebnis nicht ganz hinein, wird nichts gecraftet. Reste, die nicht passen, fallen oben auf den Crafter.",
-            "Das 3x3-Raster funktioniert wie beim Crafter: Klick mit leerem Mauszeiger auf einen leeren Platz schaltet ihn ab, ein weiterer Klick wieder an. Trichter und Spender füllen von oben und den Seiten; herausziehen lässt sich nichts, auch der Trichter darunter saugt die Zutaten nicht ab.",
-            "Filter-Knopf (derselbe wie bei den Mod-Trichtern, Modi Aus, Exakt gleich und Gleiche Art): eingeschaltet behält jeder belegte Platz ein echtes Item als Rezept-Item - gecraftet wird erst, wenn jeder belegte Platz mindestens zwei hat, verbraucht wird je eins; Trichter füllen nur Plätze mit passendem Item auf, leere Plätze nehmen nichts. Ohne Filter verbraucht er wie der Crafter auch die letzten Items.",
-            "Ein Komparator liest die belegten oder abgeschalteten Plätze (0 bis 9), wie beim Crafter. Nach jedem Craft leuchten die Seiten kurz auf, mit Redstone-Signal zeigen sie rote Lichter.",
-            "Rezept (formlos): Crafter + Trichter + Redstone-Komparator."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AutonomousCrafterBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutonomousCrafterBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/AutonomousCrafterMenu.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/AutonomousCrafterScreen.java",
-          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:bamboo_cauldron",
@@ -25087,149 +24952,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:auto_smither",
-      "name": {
-        "en_us": "Smither",
-        "de_de": "Schmied"
-      },
-      "texture": "assets/textures/block/auto_smither_front.png",
-      "craftedBy": [
-        "simplebuilding:auto_smither"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/auto_smither.png",
-      "lootTable": "simplebuilding:blocks/auto_smither",
-      "drops": [
-        "simplebuilding:auto_smither"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A smith that never sleeps and only works when someone claps."
-          ],
-          "use": [
-            "Smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front of it or stay in its output slot."
-          ],
-          "secret": [
-            "It works from the same three inputs as the smithing table, so any upgrade you could do by hand it can do on a pulse."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Schmied, der nie schläft und nur arbeitet, wenn jemand klatscht."
-          ],
-          "use": [
-            "Schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Zutat. Fertige Ergebnisse landen in einem Behälter davor oder bleiben im Ausgabeplatz."
-          ],
-          "secret": [
-            "Er arbeitet mit denselben drei Eingaben wie der Schmiedetisch, jede Aufwertung, die du von Hand machen könntest, schafft er also per Impuls."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
-          "details": [
-            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
-            "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
-            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled input slot (0 to 15). The error arrow appears only when all three inputs are present but their recipe is invalid.",
-            "Recipe: iron ingots around a smithing table, redstone, a dropper and redstone in the bottom row - like the Crafter."
-          ]
-        },
-        "de": {
-          "summary": "Der Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
-          "details": [
-            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
-            "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
-            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Eingabeslot (0 bis 15). Der Fehlerpfeil erscheint nur bei drei belegten Eingaben ohne gültiges Rezept.",
-            "Rezept: Eisenbarren um einen Schmiedetisch, unten Redstone, ein Spender und Redstone - wie beim Crafter."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AutoSmitherBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:autonomous_crafter",
-      "name": {
-        "en_us": "Auto Crafter",
-        "de_de": "Auto-Crafter"
-      },
-      "texture": "assets/textures/block/autonomous_crafter_side.png",
-      "craftedBy": [
-        "simplebuilding:autonomous_crafter"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/autonomous_crafter.png",
-      "lootTable": "simplebuilding:blocks/autonomous_crafter",
-      "drops": [
-        "simplebuilding:autonomous_crafter"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A crafter that finally learned to work on its own."
-          ],
-          "use": [
-            "A Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper."
-          ],
-          "secret": [
-            "The hopper below is the machine's only door out: if it is full, nothing is crafted. A redstone signal is the off switch."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Handwerker, der endlich lernte, allein zu arbeiten."
-          ],
-          "use": [
-            "Ein Crafter, der sein Raster alle 4 Ticks selbst herstellt, solange unter ihm ein Trichter steht. Ein Redstone-Signal stoppt ihn; Ergebnisse gehen in diesen Trichter."
-          ],
-          "secret": [
-            "Der Trichter darunter ist die einzige Tür nach draußen: Ist er voll, wird nichts hergestellt. Ein Redstone-Signal ist der Ausschalter."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Auto Crafter is a Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper.",
-          "details": [
-            "It crafts only with a hopper (vanilla or mod hopper) directly below and no redstone signal reaching it. Result and recipe remainders go into that hopper; if the result does not fit completely, nothing is crafted. Remainders that do not fit drop on top of the crafter.",
-            "The 3x3 grid works like the Crafter's: clicking an empty slot with an empty cursor switches it off, clicking it again switches it on. Hoppers and droppers fill it from the top and the sides; nothing can be pulled out, and the hopper below cannot suck up the ingredients.",
-            "Filter key (same key as the mod hoppers, modes Disabled, Exact Match and Type Match): with it on, every filled slot keeps one real item as its recipe item - it crafts only when each filled slot holds at least two and uses up one of each; hoppers only top up slots that hold a match, empty slots take nothing. With the filter off it uses up the last items like the Crafter.",
-            "A comparator reads the filled or switched-off slots (0 to 9), like the Crafter. The faces light up for a moment after each craft and show red lights while powered.",
-            "Recipe (shapeless): Crafter + Hopper + Redstone Comparator."
-          ]
-        },
-        "de": {
-          "summary": "Der Auto-Crafter ist ein Crafter, der sein Raster alle 4 Ticks selbst craftet, solange ein Trichter unter ihm steht. Ein Redstone-Signal hält ihn an; Ergebnisse gehen in diesen Trichter.",
-          "details": [
-            "Er craftet nur mit einem Trichter (Vanilla- oder Mod-Trichter) direkt darunter und ohne Redstone-Signal. Ergebnis und Rezept-Reste gehen in diesen Trichter; passt das Ergebnis nicht ganz hinein, wird nichts gecraftet. Reste, die nicht passen, fallen oben auf den Crafter.",
-            "Das 3x3-Raster funktioniert wie beim Crafter: Klick mit leerem Mauszeiger auf einen leeren Platz schaltet ihn ab, ein weiterer Klick wieder an. Trichter und Spender füllen von oben und den Seiten; herausziehen lässt sich nichts, auch der Trichter darunter saugt die Zutaten nicht ab.",
-            "Filter-Knopf (derselbe wie bei den Mod-Trichtern, Modi Aus, Exakt gleich und Gleiche Art): eingeschaltet behält jeder belegte Platz ein echtes Item als Rezept-Item - gecraftet wird erst, wenn jeder belegte Platz mindestens zwei hat, verbraucht wird je eins; Trichter füllen nur Plätze mit passendem Item auf, leere Plätze nehmen nichts. Ohne Filter verbraucht er wie der Crafter auch die letzten Items.",
-            "Ein Komparator liest die belegten oder abgeschalteten Plätze (0 bis 9), wie beim Crafter. Nach jedem Craft leuchten die Seiten kurz auf, mit Redstone-Signal zeigen sie rote Lichter.",
-            "Rezept (formlos): Crafter + Trichter + Redstone-Komparator."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AutonomousCrafterBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutonomousCrafterBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/AutonomousCrafterMenu.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/AutonomousCrafterScreen.java",
-          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:bamboo_cauldron",
       "name": {
         "en_us": "Bamboo Cauldron",
@@ -39367,125 +39089,6 @@
           {
             "id": "simplebuilding:dull_astralit_dust",
             "count": 16
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:auto_smither",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:auto_smither",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/auto_smither.json",
-      "ingredients": [
-        "minecraft:dropper",
-        "minecraft:iron_ingot",
-        "minecraft:redstone",
-        "minecraft:smithing_table"
-      ],
-      "pattern": [
-        "III",
-        "ISI",
-        "RDR"
-      ],
-      "key": {
-        "D": [
-          "minecraft:dropper"
-        ],
-        "I": [
-          "minecraft:iron_ingot"
-        ],
-        "R": [
-          "minecraft:redstone"
-        ],
-        "S": [
-          "minecraft:smithing_table"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cobblestone",
-            "count": 7
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 7
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 3
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:autonomous_crafter",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:autonomous_crafter",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/autonomous_crafter.json",
-      "ingredients": [
-        "minecraft:comparator",
-        "minecraft:crafter",
-        "minecraft:hopper"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:crafter"
-        ],
-        [
-          "minecraft:hopper"
-        ],
-        [
-          "minecraft:comparator"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 10
-          },
-          {
-            "id": "minecraft:cobblestone",
-            "count": 7
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 6
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 3.375
-          },
-          {
-            "id": "minecraft:stone",
-            "count": 3
-          },
-          {
-            "id": "minecraft:quartz",
-            "count": 1
           }
         ]
       }
@@ -78997,42 +78600,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_wall.json"
     },
     {
-      "id": "simplebuilding:blocks/auto_smither",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:auto_smither"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/auto_smither.json"
-    },
-    {
-      "id": "simplebuilding:blocks/autonomous_crafter",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:autonomous_crafter"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/autonomous_crafter.json"
-    },
-    {
       "id": "simplebuilding:blocks/bamboo_cauldron",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -92453,29 +92020,6 @@
       "labelDe": "Rissiges-Eis-Felder",
       "tooltip": "Off: no large Cracked Ice traps in Ice Spikes\nand on frozen oceans. Takes effect at the next\nworld start in newly generated chunks.\nDefault: on.",
       "tooltipDe": "Aus: keine großen Fallen aus rissigem Eis in\nEiszapfen-Biomen und auf gefrorenen Ozeanen.\nWirkt beim nächsten Weltstart in neu erzeugten\nChunks. Standard: an."
-    },
-    {
-      "range": [
-        4.0,
-        100.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.machines.autoSmitherDelayTicks",
-      "shortName": "autoSmitherDelayTicks",
-      "type": "int",
-      "default": "4",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Smither Delay",
-      "labelDe": "Schmied: Verzögerung",
-      "tooltip": "Delay after a redstone edge: 4–100 ticks.\nServer-side, MC 26.3. Default: 4. Applies to\nnew pulses; existing scheduled work keeps\nits delay. No restart required.",
-      "tooltipDe": "Verzögerung nach Redstone-Flanke: 4–100 Ticks.\nServerseitig, MC 26.3. Standard: 4. Wirkt für\nneue Impulse; bereits geplante Arbeit behält\nihre Frist. Kein Neustart erforderlich."
     },
     {
       "range": [
@@ -108462,14 +108006,14 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 487,
-    "blocks": 280,
-    "recipes": 803,
-    "lootTables": 299,
+    "items": 485,
+    "blocks": 278,
+    "recipes": 801,
+    "lootTables": 297,
     "trades": 20,
     "enchantments": 9,
     "tags": 53,
-    "config": 154,
+    "config": 153,
     "inWorld": 169,
     "advancements": 102,
     "features": 42,

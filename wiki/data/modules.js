@@ -517,7 +517,7 @@ window.WIKI_MODULES = [
       "config": 53,
       "features": 11
     },
-    "dataHash": "b237a2eb7ce5"
+    "dataHash": "3043f6a61ed0"
   },
   {
     "id": "simplesandwiches",
@@ -2035,9 +2035,10 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [
+      "jade",
       "simplebuilding",
       "simpleores",
-      "jade"
+      "jei"
     ],
     "stage": "new",
     "parent": "simplebuilding",
@@ -2049,11 +2050,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA70lEQVR42mPwUlH4TwlmABGXZ04iGe+ICkAYsHjJMrIw2ID6hia4wPQZs+DsTd2d/y+5mPzfYar1f9eUSf/Xb9iEgkFq0zOyEAaABJANWNnc+P9FlCvYEJBhyJph6uEGrJrcD1YMwiA2SHJhVQXcAJBhyIbDLEMxAKQQhLEZAGLDNMFwd08ffhd8/fQeBYM04DRgQWcrhguePbyDgmGaYBikD24ASKAryON/lZsd3IYrZ4+hYGTNWA0AaUY2AORvWDSC2AQNQPfjjMJ8uAEgNrr/UcKguKQMBSMbim4rDIPUYbiAVIzTBcRisAGUZmcAIROGNE6TrXwAAAAASUVORK5CYII=",
     "counts": {
       "items": 4,
-      "blocks": 14,
-      "recipes": 10,
-      "features": 8
+      "blocks": 16,
+      "recipes": 12,
+      "features": 10
     },
-    "dataHash": "e775dc3d3b21"
+    "dataHash": "d2c77368b695"
   },
   {
     "id": "simplearrows",
