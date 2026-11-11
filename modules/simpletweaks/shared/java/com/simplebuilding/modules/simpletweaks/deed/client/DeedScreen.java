@@ -70,8 +70,9 @@ public final class DeedScreen extends Screen {
         super(Component.translatable(data.mode() == DeedOpenPayload.CLAIM ? "simpletweaks.deed.title.claim" : "simpletweaks.deed.title.owner", data.owner()));
         this.data = data;
         this.parent = parent;
-        this.original = data.code();
-        this.text = data.code();
+        String code = ClaimCode.localizeHeader(data.code(), key -> net.minecraft.locale.Language.getInstance().getOrDefault(key));
+        this.original = code;
+        this.text = code;
         this.revision = data.revision();
         recheck();
     }
