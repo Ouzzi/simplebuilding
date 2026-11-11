@@ -17,7 +17,8 @@ import net.minecraft.world.item.SmithingTemplateItem;
  * Only invalid recipes show the smithing error arrow; redstone controls crafting.
  */
 public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> {
-    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath("simplebuilding", "textures/gui/container/auto_smither.png");
+    // MACH32-MOD stage 4: the Vanilla-derived background is built for Simple Machines (this class is unused since then).
+    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath("simplemachines", "textures/gui/container/auto_smither.png");
     private static final Identifier ERROR = Identifier.withDefaultNamespace("container/smithing/error");
     private static final List<Identifier> TEMPLATE_ICONS = List.of(
             Identifier.withDefaultNamespace("container/slot/smithing_template_armor_trim"),

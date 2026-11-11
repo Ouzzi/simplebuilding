@@ -52,10 +52,8 @@ SB_TIPS = [
     # b-gadg14 (OW24-2 G3): the Attractor tip is Simple Gadgets' (simplegadgets id below)
     # OW24-2 G2: the Transposer tip is Simple Gadgets' (simplegadgets id below; 26.2 keeps the class but loses the tip)
     # split stage 8c-2: the backpack tip is Simple Storage's (simplestorage id below)
-    ("autonomous_crafter", ["autonomous_crafter"], "Crafts by itself onto a hopper below; redstone stops it",
-     "Craftet selbst in einen Trichter darunter; Redstone stoppt"),
-    ("auto_smither", ["auto_smither"], "Smiths once per redstone pulse",
-     "Schmiedet einmal pro Redstone-Impuls"),
+    # MACH32-MOD stage 4b: the Auto Crafter tip is Simple Machines' (simplemachines id below)
+    # MACH32-MOD stage 4: the Smither tip is Simple Machines' (simplemachines id below)
     # b-gadg14 (OW24-2 G3): the Detector tip is Simple Gadgets' (simplegadgets id below)
     # OW24-2 G4: the Echo Sounder tip is Simple Gadgets' (simplegadgets id below)
     ("silent_dandelion", ["silent_dandelion"], "Use on a mob to switch its sounds off or on",
@@ -126,7 +124,11 @@ MODS = [
     dict(id="simpledinos", ns=["simpledinos"], cls="DinosDiscover", package="com.simpledinos.discover",
          own_packages=["com.simpledinos."]),
     dict(id="simplemachines", ns=["simplemachines"], cls="MachinesDiscover", package="com.simplemachines.discover",
-         own_packages=["com.simplemachines."]),
+         own_packages=["com.simplemachines."],
+         tips=[("auto_smither", ["auto_smither"], "Smiths once per redstone pulse",
+                "Schmiedet einmal pro Redstone-Impuls"),
+               ("autonomous_crafter", ["autonomous_crafter"], "Crafts by itself onto a hopper below; redstone stops it",
+                "Craftet selbst in einen Trichter darunter; Redstone stoppt")]),
     dict(id="simpleenchanting", ns=["simpleenchanting"], cls="EnchantingDiscover", package="com.simpleenchanting.discover",
          own_packages=["com.simpleenchanting."]),
     # b-arrows03 (04.11.): the Fletching Table moved here from SimpleBuilding; its part recipes (no ingredients in the JSON) share

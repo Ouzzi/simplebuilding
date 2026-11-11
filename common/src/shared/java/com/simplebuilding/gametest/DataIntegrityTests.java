@@ -3067,8 +3067,8 @@ public final class DataIntegrityTests {
             // IG31-12: Doppelkolben und Signaldaempfer direkt hinter den Kolben.
             expected.add(CreativeTabLayout.Row.of("double_pistons", com.simplebuilding.util.MachineRefs.item("double_piston"), com.simplebuilding.util.MachineRefs.item("signal_dampener")));
         }
-        if (McVersion.AUTO_SMITHER) {
-            // Auto-Schmied (2026-10-02) direkt hinter den Kolben.
+        if (McVersion.AUTO_SMITHER || McVersion.AUTO_SMITHER_IN_MACHINES) {
+            // Auto-Schmied (2026-10-02, seit 10.11. Simple Machines') direkt hinter den Kolben.
             // Autonomer Crafter (2026-10-09) in derselben Zeile.
             // Werkbank mit Lager (2026-10-09) ebenfalls.
             expected.add(com.simplebuilding.items.ModItemGroupsContent.autoSmitherRow());

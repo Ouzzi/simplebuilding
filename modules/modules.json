@@ -4745,9 +4745,10 @@
         "simplelib"
       ],
       "optional": [
+        "jade",
         "simplebuilding",
         "simpleores",
-        "jade"
+        "jei"
       ],
       "checks": [
         "modules/simplemachines/tools/check_data.py"

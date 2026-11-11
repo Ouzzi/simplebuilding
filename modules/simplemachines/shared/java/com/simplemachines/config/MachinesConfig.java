@@ -16,7 +16,10 @@ import java.util.List;
  * {@code pistons.*} (until 03.11. SimpleBuilding's {@code breakerPistonsLoseDurability}, {@code pistonsBreachEndPortalFrames},
  * {@code pistonsBreachModdedUnbreakables}, {@code pistonsFireBreakEvents}; a file without the section takes them over once from
  * {@code simplebuilding.json}) and, since stage 3, the hopper speeds {@code hoppers.*} (how many times faster than a Vanilla hopper,
- * 1 to {@value #MAX_HOPPER_SPEED}; until 03.11. SimpleBuilding's {@code server.machines.*HopperSpeed}, taken over once the same way).
+ * 1 to {@value #MAX_HOPPER_SPEED}; until 03.11. SimpleBuilding's {@code server.machines.*HopperSpeed}, taken over once the same way)
+ * and, since stage 4, the Auto Smither's delay {@code autoSmither.delayTicks} (ticks from the redstone pulse to the smithing,
+ * {@value #MIN_SMITHER_DELAY} to {@value #MAX_SMITHER_DELAY}; until 10.11. SimpleBuilding's {@code server.machines.autoSmitherDelayTicks},
+ * taken over once the same way).
  * Missing or broken keys use the defaults and the file is rewritten complete.
  */
 public final class MachinesConfig {
@@ -24,7 +27,7 @@ public final class MachinesConfig {
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("features.doublePiston", "features.signalDampener",
             "pistons.breakerPistonsLoseDurability", "pistons.breachEndPortalFrames", "pistons.breachModdedUnbreakables",
-            "pistons.fireBreakEvents", "hoppers.reinforcedSpeed", "hoppers.netheriteSpeed", "hoppers.enderiteSpeed");
+            "pistons.fireBreakEvents", "hoppers.reinforcedSpeed", "hoppers.netheriteSpeed", "hoppers.enderiteSpeed", "autoSmither.delayTicks");
     /** SimpleBuilding's config, read once for the piston options (stage 2). */
     public static final String LEGACY_FILE = "simplebuilding.json";
 
@@ -46,6 +49,10 @@ public final class MachinesConfig {
     public static int netheriteHopperSpeed = NETHERITE_HOPPER_DEFAULT;
     public static int enderiteHopperSpeed = ENDERITE_HOPPER_DEFAULT;
 
+    /** Stage 4: ticks from the rising redstone edge to the smithing (the Crafter's 4 at least). */
+    public static final int MIN_SMITHER_DELAY = 4, MAX_SMITHER_DELAY = 100;
+    public static int autoSmitherDelayTicks = MIN_SMITHER_DELAY;
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static void load(Path dir) {
@@ -65,6 +72,13 @@ public final class MachinesConfig {
             if (taken != null) {
                 json.add("hoppers", taken);
                 SimpleMachines.LOG.info("Took over the hopper speeds from {} into {} (old file unchanged)", LEGACY_FILE, FILE);
+            }
+        }
+        if (dir != null && !json.has("autoSmither")) {
+            JsonObject taken = smitherFromSimpleBuilding(dir.resolve(LEGACY_FILE));
+            if (taken != null) {
+                json.add("autoSmither", taken);
+                SimpleMachines.LOG.info("Took over the Auto Smither delay from {} into {} (old file unchanged)", LEGACY_FILE, FILE);
             }
         }
         apply(json);
@@ -94,6 +108,29 @@ public final class MachinesConfig {
         reinforcedHopperSpeed = speed(h, "reinforcedSpeed", REINFORCED_HOPPER_DEFAULT);
         netheriteHopperSpeed = speed(h, "netheriteSpeed", NETHERITE_HOPPER_DEFAULT);
         enderiteHopperSpeed = speed(h, "enderiteSpeed", ENDERITE_HOPPER_DEFAULT);
+        JsonElement smither = json.get("autoSmither");
+        JsonObject a = smither != null && smither.isJsonObject() ? smither.getAsJsonObject() : new JsonObject();
+        autoSmitherDelayTicks = clamp(a, "delayTicks", MIN_SMITHER_DELAY, MIN_SMITHER_DELAY, MAX_SMITHER_DELAY);
+    }
+
+    /** The Auto Smither's delay out of SimpleBuilding's config ({@code server.machines.autoSmitherDelayTicks}), or null without file or value. */
+    public static JsonObject smitherFromSimpleBuilding(Path legacy) {
+        if (legacy == null || !Files.isRegularFile(legacy)) return null;
+        try {
+            JsonElement parsed = com.google.gson.JsonParser.parseString(Files.readString(legacy));
+            if (!parsed.isJsonObject()) return null;
+            JsonElement server = parsed.getAsJsonObject().get("server");
+            JsonElement machines = server != null && server.isJsonObject() ? server.getAsJsonObject().get("machines") : null;
+            if (machines == null || !machines.isJsonObject()) return null;
+            JsonElement v = machines.getAsJsonObject().get("autoSmitherDelayTicks");
+            if (v == null || !v.isJsonPrimitive() || !v.getAsJsonPrimitive().isNumber()) return null;
+            JsonObject taken = new JsonObject();
+            taken.add("delayTicks", v);
+            return taken;
+        } catch (Exception e) {
+            SimpleMachines.LOG.warn("Could not read the Auto Smither delay from {}: {}", LEGACY_FILE, e.toString());
+            return null;
+        }
     }
 
     /** How many times faster than a Vanilla hopper a tier moves items (also the items per tick of its cart). */
@@ -165,10 +202,13 @@ public final class MachinesConfig {
         hoppers.addProperty("reinforcedSpeed", reinforcedHopperSpeed);
         hoppers.addProperty("netheriteSpeed", netheriteHopperSpeed);
         hoppers.addProperty("enderiteSpeed", enderiteHopperSpeed);
+        JsonObject smither = new JsonObject();
+        smither.addProperty("delayTicks", autoSmitherDelayTicks);
         JsonObject o = new JsonObject();
         o.add("features", features);
         o.add("pistons", pistons);
         o.add("hoppers", hoppers);
+        o.add("autoSmither", smither);
         return o;
     }
 
@@ -179,6 +219,17 @@ public final class MachinesConfig {
     private static boolean bool(JsonObject json, String key, boolean fallback) {
         JsonElement v = json.get(key);
         return v != null && v.isJsonPrimitive() && v.getAsJsonPrimitive().isBoolean() ? v.getAsBoolean() : fallback;
+    }
+
+    private static int clamp(JsonObject json, String key, int fallback, int min, int max) {
+        JsonElement v = json.get(key);
+        int value = fallback;
+        try {
+            if (v != null && v.isJsonPrimitive() && v.getAsJsonPrimitive().isNumber()) value = v.getAsInt();
+        } catch (RuntimeException e) {
+            value = fallback;
+        }
+        return Math.max(min, Math.min(max, value));
     }
 
     private static int speed(JsonObject json, String key, int fallback) {

@@ -327,8 +327,10 @@ public final class GuideContent {
             addChapter(GuideBooks.Book.MACHINES, TOOLS_BUCKETS ? ch("simpletools:ceramic_bucket", List.of(), List.of("simpletools:ceramic_bucket", "simpletools:raw_ceramic_bucket"))
                     : ch("minecraft:clay_ball", List.of(), List.of("minecraft:clay_ball"))); // WH26-7: Simple Tools' bucket, Vanilla clay without it
         }
-        if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
-            addChapter(GuideBooks.Book.MACHINES, ch("simplebuilding:auto_smither", List.of("simplebuilding:auto_smither"), List.of()));
+        if (com.simplebuilding.version.McVersion.AUTO_SMITHER || com.simplebuilding.version.McVersion.AUTO_SMITHER_IN_MACHINES) {
+            // MACH32-MOD stage 4: on 26.3 the Smither is Simple Machines' (by id).
+            String smither = (com.simplebuilding.version.McVersion.AUTO_SMITHER ? "simplebuilding" : "simplemachines") + ":auto_smither";
+            addChapter(GuideBooks.Book.MACHINES, ch(smither, List.of(smither), List.of()));
         }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             addChapter(GuideBooks.Book.BUILDING, ch("minecraft:stripped_oak_log", List.of(), List.of("minecraft:stripped_oak_log", com.simplebuilding.version.McVersion.CHISELS_NAMESPACE + ":stone_chisel", "minecraft:angler_pottery_sherd")));

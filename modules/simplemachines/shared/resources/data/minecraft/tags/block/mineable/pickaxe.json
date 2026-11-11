@@ -12,6 +12,8 @@
     "simplemachines:enderite_piston_head",
     "simplemachines:reinforced_hopper",
     "simplemachines:netherite_hopper",
-    "simplemachines:enderite_hopper"
+    "simplemachines:enderite_hopper",
+    "simplemachines:auto_smither",
+    "simplemachines:autonomous_crafter"
   ]
 }
