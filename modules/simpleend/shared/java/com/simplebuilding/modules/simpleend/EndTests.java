@@ -1042,7 +1042,7 @@ public final class EndTests {
         var timers = new java.util.WeakHashMap<net.minecraft.world.entity.decoration.painting.Painting, long[]>();
         java.util.function.IntUnaryOperator shortest = n -> 0;
         h.assertTrue(com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, 0, shortest) == 0, "idle at first");
-        h.assertTrue(com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, EndPaintings.GAP_MIN_TICKS - 1, shortest) == 0, "idle until 60 s");
+        h.assertTrue(com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, EndPaintings.GAP_MIN_TICKS - 1, shortest) == 0, "idle until the minimum gap");
         for (int k = 0; k < EndPaintings.ANIM_SEQUENCE.length; k++) {
             int f = com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, EndPaintings.GAP_MIN_TICKS + (long) k * EndPaintings.ANIM_STEP_TICKS, shortest);
             h.assertTrue(f == EndPaintings.ANIM_SEQUENCE[k], "frame " + k + " is " + EndPaintings.ANIM_SEQUENCE[k] + ", got " + f);
@@ -1050,7 +1050,7 @@ public final class EndTests {
         long end = EndPaintings.GAP_MIN_TICKS + (long) EndPaintings.ANIM_SEQUENCE.length * EndPaintings.ANIM_STEP_TICKS;
         h.assertTrue(com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(timers, painting, end, n -> n - 1) == 0, "idle after the animation");
         long next = timers.get(painting)[0];
-        h.assertTrue(next - end >= EndPaintings.GAP_MIN_TICKS && next - end <= EndPaintings.GAP_MIN_TICKS + EndPaintings.GAP_SPAN_TICKS, "next gap 60..120 s, got " + (next - end));
+        h.assertTrue(next - end >= EndPaintings.GAP_MIN_TICKS && next - end <= EndPaintings.GAP_MIN_TICKS + EndPaintings.GAP_SPAN_TICKS, "next gap 42..84 s, got " + (next - end));
         // b-paint12: each start picks one of the three animations at random; the last one uses the frame textures 9..12
         h.assertTrue(timers.get(painting)[1] == EndPaintings.ANIM_COUNT - 1, "the random pick chose the last animation, got " + timers.get(painting)[1]);
         for (int k = 0; k < EndPaintings.ANIM_SEQUENCE.length; k++) {
@@ -1066,6 +1066,22 @@ public final class EndTests {
             picked.add(t2.get(painting)[1]);
         }
         h.assertTrue(picked.size() == EndPaintings.ANIM_COUNT, "every animation can be picked, got " + picked);
+        // b-paint30: the gap is random in [GAP_MIN, GAP_MIN+GAP_SPAN]; over many seeds the mean is ~63 s (30 % under the old 90 s) and the spread stays
+        var rnd = new java.util.Random(30);
+        long min = Long.MAX_VALUE, max = 0, sum = 0;
+        int n = 2000;
+        for (int i = 0; i < n; i++) {
+            var t3 = new java.util.WeakHashMap<net.minecraft.world.entity.decoration.painting.Painting, long[]>();
+            com.simplebuilding.modules.simpleend.client.EndPaintingAnim.frame(t3, painting, 0, rnd::nextInt);
+            long g = t3.get(painting)[0];
+            min = Math.min(min, g);
+            max = Math.max(max, g);
+            sum += g;
+        }
+        double mean = sum / (double) n;
+        h.assertTrue(min >= EndPaintings.GAP_MIN_TICKS && max <= EndPaintings.GAP_MIN_TICKS + EndPaintings.GAP_SPAN_TICKS, "gap range, got " + min + ".." + max);
+        h.assertTrue(max - min > EndPaintings.GAP_SPAN_TICKS * 0.9, "gap spread kept, got " + (max - min));
+        h.assertTrue(mean > 1200 && mean < 1320, "mean gap about 63 s (1260 ticks), got " + mean);
         h.succeed();
     }
     /** b-paint12: every End picture has its idle texture and 3 x 4 frame textures of the same size, and every animation starts from the idle picture. */

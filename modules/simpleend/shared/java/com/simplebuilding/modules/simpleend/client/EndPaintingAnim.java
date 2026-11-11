@@ -9,7 +9,7 @@ import net.minecraft.world.entity.decoration.painting.PaintingVariant;
 
 /**
  * Client only, no network: every End painting plays one of its {@link EndPaintings#ANIM_COUNT} animations (chosen at
- * random each time; all start from the idle picture) at a random moment, 60 to 120 s after the last one (or after it
+ * random each time; all start from the idle picture) at a random moment, 42 to 84 s after the last one (or after it
  * first came into view); between the animations it shows its idle picture.
  */
 public final class EndPaintingAnim {

@@ -30,9 +30,9 @@ public final class EndPaintings {
     /** Frame order of one animation (1-based frame numbers within the animation) and ticks per step: 16 ticks. */
     public static final int[] ANIM_SEQUENCE = {1, 2, 3, 4, 4, 3, 2, 1};
     public static final int ANIM_STEP_TICKS = 2;
-    /** Random gap between two animations of one painting: 60 to 120 s. */
-    public static final int GAP_MIN_TICKS = 1200;
-    public static final int GAP_SPAN_TICKS = 1200;
+    /** Random gap between two animations of one painting: 42 to 84 s (mean 63 s; b-paint30: was 60 to 120 s, mean 90 s). */
+    public static final int GAP_MIN_TICKS = 840;
+    public static final int GAP_SPAN_TICKS = 840;
 
     private EndPaintings() {}
 
