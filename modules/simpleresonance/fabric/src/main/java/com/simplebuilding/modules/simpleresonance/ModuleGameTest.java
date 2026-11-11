@@ -26,5 +26,9 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleresonance:empty") public void contractValues(GameTestHelper h) { ResonanceTests.ALL.get("contract_values").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void command(GameTestHelper h) { ResonanceTests.ALL.get("command").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void performance(GameTestHelper h) { ResonanceTests.ALL.get("performance").accept(h); }
+    @GameTest(structure = "simpleresonance:empty") public void statsPayloadRoundtrip(GameTestHelper h) { ResonanceTests.ALL.get("stats_payload_roundtrip").accept(h); }
+    @GameTest(structure = "simpleresonance:empty") public void statsMeasure(GameTestHelper h) { ResonanceTests.ALL.get("stats_measure").accept(h); }
+    @GameTest(structure = "simpleresonance:empty") public void bridgeValues(GameTestHelper h) { ResonanceTests.ALL.get("bridge_values").accept(h); }
+    @GameTest(structure = "simpleresonance:empty") public void panelLayout(GameTestHelper h) { ResonanceTests.ALL.get("panel_layout").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void guideBook(GameTestHelper h) { ResonanceTests.ALL.get("guide_book").accept(h); }
 }

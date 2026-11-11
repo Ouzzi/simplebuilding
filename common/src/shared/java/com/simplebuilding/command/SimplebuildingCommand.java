@@ -57,7 +57,8 @@ public final class SimplebuildingCommand {
         dispatcher.register(Commands.literal("simplebuilding")
                 .requires(OPERATOR_ONLY)
                 .then(Commands.literal("config")
-                        .then(Commands.literal("setTrimMultiplier")
+                        // MOB27-3 R2: on 26.3 the base lives in Simple Resonance (/simpleresonance config set trimBenefitBaseMultiplier).
+                        .then(Commands.literal("setTrimMultiplier").requires(source -> com.simplebuilding.version.McVersion.RESONANCE_IN_SB)
                                 .then(Commands.argument("value", DoubleArgumentType.doubleArg(0.0, SimplebuildingConfig.maxMultiplierLimit))
                                         .executes(context -> {
                                             double newValue = DoubleArgumentType.getDouble(context, "value");
@@ -74,7 +75,7 @@ public final class SimplebuildingCommand {
                                         })
                                 )
                         )
-                        .then(Commands.literal("getTrimMultiplier")
+                        .then(Commands.literal("getTrimMultiplier").requires(source -> com.simplebuilding.version.McVersion.RESONANCE_IN_SB)
                                 .executes(context -> {
                                     context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.trim_multiplier.get", com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier).withStyle(ChatFormatting.YELLOW), false);
                                     return 1;

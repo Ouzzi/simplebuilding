@@ -66,7 +66,12 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * The <em>wiring</em> of the armour trim benefits: the inputs the multiplier is built from, the
+ * MOB27-3 R2 (docs/ai/PLAN-B-TRIMSTATS27-2026-11-11.md): the measurement (factors, tracker, save/death, the base command, the heart
+ * tiers) moved to Simple Resonance on 26.3 and its tests with it ({@code ResonanceTests} stats_measure, death_and_respawn,
+ * migration_tick_consumes, panel_layout ...); what stays here is the core's part: the bridge, the materials, the layout of the
+ * head slot and button spot, the displayed rates. The text below describes the history of this class.
+ *
+ * <p>The <em>wiring</em> of the armour trim benefits: the inputs the multiplier is built from, the
  * mixins that carry a bonus to the player, the tracker that survives a save and a death, the two
  * item tags that make the trims craftable at all, and the operator command that scales everything.
  *
@@ -215,113 +220,6 @@ public final class TrimWiringTests {
      * only, the {@code /100} disappearing, one of the five distance counters being dropped,
      * the sum turning back into {@code max}, or the {@code Math.max(0, ...)} clamps going away.
      */
-    public static void theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath(GameTestHelper helper) {
-        ServerPlayer player = mockPlayer(helper);
-        SurvivalTracerAccessor tracker = tracker(helper, player);
-        clearProgress(helper, player);
-
-        // --- the floor, cross-checked against the other two curves ---
-        double floor = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        helper.assertTrue(floor > 0.0 && floor < 1.0,
-                "the survival factor of a player who has never moved is " + floor
-                        + ", which is outside the 0..1 band the whole multiplier is built on");
-        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), floor,
-                "the combat curve starts from a different floor than the survival curve");
-        player.totalExperience = 0;
-        assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), floor,
-                "the experience curve starts from a different floor than the survival curve");
-
-        // --- the ceiling, needed below to invert the curve ---
-        setStat(player, Stats.WALK_ONE_CM, 100_000_000);
-        tracker.simplebuilding$setActiveTime(100_000_000);
-        double ceiling = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        helper.assertTrue(ceiling > floor && ceiling <= 1.0 + 1.0e-6,
-                "the survival factor saturates at " + ceiling + "; it has to converge on a value "
-                        + "above its floor and never above 1.0, otherwise the configured base is no "
-                        + "longer the only thing that can push the multiplier past 1");
-        // The band above is only a band, and every scale below is recovered from this very reading,
-        // so the amplitude of the exponential cancels out of all three of them. Pinning the top end
-        // against the experience curve is what stops a shrunken amplitude - a fully progressed
-        // player quietly getting a fraction of the trim benefits they earned - from passing here.
-        player.totalExperience = TrimMultiplierLogic.XP_POINTS_FOR_FULL_FACTOR;
-        assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), ceiling,
-                "the survival curve saturates at " + ceiling + " where the experience curve reaches "
-                        + TrimMultiplierLogic.calculateXPMultiplier(player) + "; the three factors "
-                        + "no longer share one 0.1..1.0 band, so a fully progressed player gets a "
-                        + "fraction of the multiplier the design promises");
-        player.totalExperience = 0;
-        // N49: S = distance half + time half, each half covers half of the band above the floor.
-        double halfCeiling = floor + (ceiling - floor) / 2.0;
-
-        // --- centimetres into metres, and all five counters into one sum ---
-        clearProgress(helper, player);
-        setStat(player, Stats.WALK_ONE_CM, 99);
-        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), floor,
-                "99 cm of walking already counted as distance; the /100 conversion is gone");
-
-        clearProgress(helper, player);
-        setStat(player, Stats.WALK_ONE_CM, 500);
-        double fiveMetresWalked = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        helper.assertTrue(fiveMetresWalked > floor,
-                "five metres of walking moved the survival factor by nothing at all");
-        clearProgress(helper, player);
-        setStat(player, Stats.WALK_ONE_CM, 100);
-        setStat(player, Stats.SPRINT_ONE_CM, 100);
-        setStat(player, Stats.CROUCH_ONE_CM, 100);
-        setStat(player, Stats.FLY_ONE_CM, 100);
-        setStat(player, Stats.CLIMB_ONE_CM, 100);
-        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), fiveMetresWalked,
-                "one metre in each of the five distance counters is not worth five metres of "
-                        + "walking, so one of them is no longer being added up");
-
-        // --- the distance scale ---
-        clearProgress(helper, player);
-        setStat(player, Stats.WALK_ONE_CM, 400_000);
-        double atFourThousandMetres = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        assertRelative(helper, curveScale(4000.0, atFourThousandMetres, floor, halfCeiling), 4000.0,
-                "the distance scale of the survival curve");
-
-        // --- the play time scale ---
-        clearProgress(helper, player);
-        tracker.simplebuilding$setActiveTime(72_000);
-        double atOneHour = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        assertRelative(helper, curveScale(72_000.0, atOneHour, floor, halfCeiling), 72_000.0,
-                "the play time scale of the survival curve");
-
-        // --- the sum (owner N49): distance and time both count, each half on its own ---
-        clearProgress(helper, player);
-        setStat(player, Stats.WALK_ONE_CM, 40_000);
-        double atFourHundredMetres = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        tracker.simplebuilding$setActiveTime(72_000);
-        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), atFourHundredMetres + atOneHour - floor,
-                "an hour of play plus 400 m walked is not the sum of both halves");
-
-        clearProgress(helper, player);
-        tracker.simplebuilding$setActiveTime(7_200);
-        double atSixMinutes = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        setStat(player, Stats.WALK_ONE_CM, 400_000);
-        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), atFourThousandMetres + atSixMinutes - floor,
-                "4000 m walked plus six minutes of play is not the sum of both halves");
-        helper.assertTrue(TrimMultiplierLogic.distancePart(100_000_000) <= TrimMultiplierLogic.SURVIVAL_PART_MAX + 1.0e-9
-                        && TrimMultiplierLogic.timePart(Integer.MAX_VALUE) <= TrimMultiplierLogic.SURVIVAL_PART_MAX + 1.0e-9,
-                "a survival half goes above its maximum of 0.5");
-
-        // --- the baselines, which is what "since the last death" means ---
-        tracker.simplebuilding$setBaseValues(4000, 7_200, 0, 0, 0);
-        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), floor,
-                "the survival factor ignores its baseline, so a death no longer costs anything");
-
-        tracker.simplebuilding$setBaseValues(9_999, 999_999, 0, 0, 0);
-        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), floor,
-                "a baseline above the current statistics produced a factor of "
-                        + TrimMultiplierLogic.calculateSurvivalMultiplier(player)
-                        + " instead of the floor; the Math.max(0, ...) clamps are gone and the "
-                        + "whole multiplier can now go negative");
-
-        clearProgress(helper, player);
-        helper.succeed();
-    }
-
     /**
      * The combat half of the trim multiplier, and the mob-category sorting that feeds it.
      *
@@ -352,96 +250,6 @@ public final class TrimWiringTests {
      * back while the player data keeps the baseline, and that is exactly when losing the clamp
      * turns the multiplier negative and {@code modifyDamage} into damage amplification.
      */
-    public static void theCombatFactorWeighsKillsAndDamageByMobCategory(GameTestHelper helper) {
-        ServerPlayer player = mockPlayer(helper);
-        SurvivalTracerAccessor tracker = tracker(helper, player);
-        DamageSource anyKill = helper.getLevel().damageSources().generic();
-        Mob hostile = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, new BlockPos(1, 2, 1));
-        Mob peaceful = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(6, 2, 1));
-        Mob ambient = helper.spawnWithNoFreeWill(EntityTypes.BAT, new BlockPos(1, 2, 6));
-        ArmorStand neither = helper.spawn(EntityTypes.ARMOR_STAND, new BlockPos(6, 2, 6));
-
-        clearProgress(helper, player);
-        double floor = TrimMultiplierLogic.calculateCombatMultiplier(player);
-
-        // --- one hostile kill sets the yardstick ---
-        rebaseKills(player, tracker, 0);
-        player.awardKillScore(hostile, anyKill);
-        double oneHostileKill = TrimMultiplierLogic.calculateCombatMultiplier(player);
-        helper.assertTrue(oneHostileKill > floor,
-                "killing a zombie left the combat factor at its floor; either the kill is not being "
-                        + "counted or MONSTER has fallen out of the hostile branch");
-
-        // --- five peaceful kills have to be worth exactly the same ---
-        rebaseKills(player, tracker, 0);
-        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), floor,
-                "test setup broken: rebasing the kill tally did not put the factor back on its floor");
-        for (int i = 0; i < 5; i++) {
-            player.awardKillScore(peaceful, anyKill);
-        }
-        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), oneHostileKill,
-                "five cows are not worth one zombie; either the 1.0 / 0.2 weighting moved or "
-                        + "CREATURE has left the peaceful branch");
-
-        // --- and so has twenty points of damage taken ---
-        rebaseKills(player, tracker, 0);
-        setStat(player, Stats.DAMAGE_TAKEN, 20);
-        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), oneHostileKill,
-                "twenty points of damage taken are not worth one zombie; the 0.05 weighting moved");
-
-        // --- AMBIENT counts as peaceful, MISC as nothing at all ---
-        setStat(player, Stats.DAMAGE_TAKEN, 0);
-        rebaseKills(player, tracker, 0);
-        for (int i = 0; i < 5; i++) {
-            player.awardKillScore(ambient, anyKill);
-        }
-        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), oneHostileKill,
-                "five bats are not worth one zombie, so AMBIENT is no longer a peaceful category");
-
-        rebaseKills(player, tracker, 0);
-        for (int i = 0; i < 20; i++) {
-            player.awardKillScore(neither, anyKill);
-        }
-        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), floor,
-                "twenty armour stands moved the combat factor; MISC entities are being counted and "
-                        + "every falling block, boat and item frame in the world now feeds the trim "
-                        + "multiplier");
-
-        // --- the scale, recovered the same way as the two survival scales ---
-        double ceiling = ceilingOf(helper, player, tracker);
-        rebaseKills(player, tracker, 0);
-        setStat(player, Stats.DAMAGE_TAKEN, 2_000);
-        double atScore100 = TrimMultiplierLogic.calculateCombatMultiplier(player);
-        assertRelative(helper, curveScale(100.0, atScore100, floor, ceiling), 100.0,
-                "the scale of the combat curve");
-
-        // --- the baseline, including the rolled-back case ---
-        setStat(player, Stats.DAMAGE_TAKEN, 0);
-        rebaseKills(player, tracker, 999_999);
-        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), floor,
-                "a kill baseline above the current tally produced "
-                        + TrimMultiplierLogic.calculateCombatMultiplier(player)
-                        + " instead of the floor; the kill clamps are gone");
-
-        // The same rollback on the damage counter, which has a clamp of its own. Every other case
-        // in this test leaves the damage baseline at zero, so nothing above would notice it going
-        // away; the counter is left at 20 here so that the two readings really differ in sign.
-        setStat(player, Stats.DAMAGE_TAKEN, 20);
-        tracker.simplebuilding$setBaseValues(0, 0,
-                tracker.simplebuilding$getCurrentHostileKills(),
-                tracker.simplebuilding$getCurrentPassiveKills(),
-                999_999);
-        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), floor,
-                "a damage baseline above the damage actually taken produced "
-                        + TrimMultiplierLogic.calculateCombatMultiplier(player)
-                        + " instead of the floor; the clamp on the damage counter is gone, so a "
-                        + "lost statistics file drives the combat factor far below zero and "
-                        + "modifyDamage turns every trim's damage reduction into amplification");
-
-        clearProgress(helper, player);
-        helper.succeed();
-    }
-
     // =====================================================================================
     // (b) THE TRACKER'S PERSISTENCE
     // =====================================================================================
@@ -484,160 +292,6 @@ public final class TrimWiringTests {
      * reset rather than carried over, or one of the five distance counters - or the {@code /100} -
      * disappearing from the mixin's own distance sum.
      */
-    public static void theTrackerSurvivesTheSaveAndRebasesOnlyOnDeath(GameTestHelper helper) {
-        DamageSource anyKill = helper.getLevel().damageSources().generic();
-        Mob hostile = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, new BlockPos(1, 2, 1));
-        Mob peaceful = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(6, 2, 1));
-
-        // ---------- the save ----------
-        ServerPlayer saver = detachedPlayer(helper, new Vec3(2.5, 2.0, 2.5));
-        SurvivalTracerAccessor saverTracker = tracker(helper, saver);
-        saverTracker.simplebuilding$setBaseValues(11, 22, 33, 44, 55);
-        saverTracker.simplebuilding$setBaseXp(66);
-        saverTracker.simplebuilding$setActiveTime(77);
-        for (int i = 0; i < 3; i++) {
-            saver.awardKillScore(hostile, anyKill);
-        }
-        for (int i = 0; i < 2; i++) {
-            saver.awardKillScore(peaceful, anyKill);
-        }
-
-        CompoundTag saved = saveOf(helper, saver);
-        Optional<CompoundTag> block = saved.getCompound("SimpleBuildingData");
-        helper.assertTrue(block.isPresent(),
-                "a saved player carries no SimpleBuildingData compound; either the key was renamed - "
-                        + "which resets every existing world to zero - or writeSurvivalData is no "
-                        + "longer injected");
-        CompoundTag data = block.orElse(new CompoundTag());
-        assertField(helper, data, "BaseDist", 11);
-        assertField(helper, data, "BaseTime", 22);
-        assertField(helper, data, "BaseHostile", 33);
-        assertField(helper, data, "BasePassive", 44);
-        assertField(helper, data, "BaseDamage", 55);
-        assertField(helper, data, "TotalHostile", 3);
-        assertField(helper, data, "TotalPassive", 2);
-        assertField(helper, data, "BaseXp", 66);
-        assertField(helper, data, "ActiveTicks", 77);
-
-        // ---------- the load ----------
-        // A second, fresh player, so that every number arriving on the other side really came out
-        // of the tag. Its own counters all start at zero, and the tag says otherwise for each one.
-        ServerPlayer loader = detachedPlayer(helper, new Vec3(4.5, 2.0, 2.5));
-        SurvivalTracerAccessor loaderTracker = tracker(helper, loader);
-        CompoundTag handWritten = saved.copy();
-        CompoundTag replacement = new CompoundTag();
-        replacement.putInt("BaseDist", 101);
-        replacement.putInt("BaseTime", 102);
-        replacement.putInt("BaseHostile", 103);
-        replacement.putInt("BasePassive", 104);
-        replacement.putInt("BaseDamage", 105);
-        replacement.putInt("TotalHostile", 106);
-        replacement.putInt("TotalPassive", 107);
-        replacement.putInt("BaseXp", 108);
-        replacement.putInt("ActiveTicks", 109);
-        handWritten.put("SimpleBuildingData", replacement);
-        loader.load(TagValueInput.create(
-                ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), handWritten));
-
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseDistance(), 101, "BaseDist after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseTime(), 102, "BaseTime after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseHostileKills(), 103, "BaseHostile after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBasePassiveKills(), 104, "BasePassive after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseDamageTaken(), 105, "BaseDamage after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getCurrentHostileKills(), 106, "TotalHostile after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getCurrentPassiveKills(), 107, "TotalPassive after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseXp(), 108, "BaseXp after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getCurrentTime(), 109, "ActiveTicks after loading");
-        // A save from before the active clock existed: its BaseTime was a play time statistic and
-        // does not fit the new counter, so both start from zero.
-        ServerPlayer legacy = detachedPlayer(helper, new Vec3(6.5, 2.0, 2.5));
-        CompoundTag legacyTag = saved.copy();
-        CompoundTag legacyData = replacement.copy();
-        legacyData.remove("ActiveTicks");
-        legacyTag.put("SimpleBuildingData", legacyData);
-        legacy.load(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), legacyTag));
-        helper.assertValueEqual(tracker(helper, legacy).simplebuilding$getBaseTime(), 0,
-                "a save without ActiveTicks kept its play-time BaseTime, which would hold the time factor at its floor for hours");
-
-        // ---------- the respawn ----------
-        ServerPlayer dead = detachedPlayer(helper, new Vec3(2.5, 2.0, 4.5));
-        SurvivalTracerAccessor deadTracker = tracker(helper, dead);
-        deadTracker.simplebuilding$setBaseValues(11, 22, 33, 44, 55);
-        deadTracker.simplebuilding$setBaseXp(66);
-        deadTracker.simplebuilding$setActiveTime(5678);
-        for (int i = 0; i < 7; i++) {
-            dead.awardKillScore(hostile, anyKill);
-        }
-        for (int i = 0; i < 4; i++) {
-            dead.awardKillScore(peaceful, anyKill);
-        }
-
-        // An end portal is not a death: every baseline has to survive it untouched.
-        ServerPlayer travelled = detachedPlayer(helper, new Vec3(4.5, 2.0, 4.5));
-        SurvivalTracerAccessor travelledTracker = tracker(helper, travelled);
-        stampProgress(travelled);
-        travelled.restoreFrom(dead, true);
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseDistance(), 11,
-                "the distance baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseTime(), 22,
-                "the time baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseHostileKills(), 33,
-                "the hostile kill baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBasePassiveKills(), 44,
-                "the peaceful kill baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseDamageTaken(), 55,
-                "the damage baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseXp(), 66,
-                "the experience baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getCurrentTime(), 5678,
-                "the active time did not follow the player through the portal");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getCurrentHostileKills(), 7,
-                "the hostile kill tally did not follow the player through the portal");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getCurrentPassiveKills(), 4,
-                "the peaceful kill tally did not follow the player through the portal");
-
-        // A death: the baselines move to the respawning player's own statistics, and the kill
-        // tally is carried over and becomes its own baseline in the same step.
-        ServerPlayer respawned = detachedPlayer(helper, new Vec3(2.5, 2.0, 6.5));
-        SurvivalTracerAccessor respawnedTracker = tracker(helper, respawned);
-        stampProgress(respawned);
-        respawned.restoreFrom(dead, false);
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseDistance(), STAMPED_DISTANCE,
-                "after a death the distance baseline has to be the respawning player's own distance "
-                        + "in metres, summed over all five counters and each divided by 100");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseTime(), 5678,
-                "after a death the time baseline has to be the active time carried over from the old life");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getCurrentTime(), 5678,
-                "the active time counter was not carried over into the new life");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseXp(), respawned.totalExperience,
-                "after a death the experience baseline has to be the experience the new life starts with");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseDamageTaken(), 91,
-                "after a death the damage baseline has to be the respawning player's own damage taken");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getCurrentHostileKills(), 7,
-                "the hostile kill tally was not carried over into the new life");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getCurrentPassiveKills(), 4,
-                "the peaceful kill tally was not carried over into the new life");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseHostileKills(), 7,
-                "the carried-over hostile kills were not made the new baseline, so they keep paying "
-                        + "out after the death that should have cost them");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBasePassiveKills(), 4,
-                "the carried-over peaceful kills were not made the new baseline");
-
-        // ...which is the whole point: both progress factors are back at their floor. The floors
-        // are read off the save player, put back into the "nothing since the baseline" state, so
-        // that a rebalanced floor moves both sides of this comparison together.
-        clearProgress(helper, saver);
-        rebaseKills(saver, saverTracker, 0);
-        double survivalFloor = TrimMultiplierLogic.calculateSurvivalMultiplier(saver);
-        double combatFloor = TrimMultiplierLogic.calculateCombatMultiplier(saver);
-        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(respawned), survivalFloor,
-                "the survival factor did not fall back to its floor after a death");
-        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(respawned), combatFloor,
-                "the combat factor did not fall back to its floor after a death");
-
-        helper.succeed();
-    }
-
     // (c) WHAT THE MIXINS ACTUALLY DELIVER: moved to Simple Mobs with the trim abilities (ZO9 A / MOB27-3, TrimHookRuleTests).
 
     // =====================================================================================
@@ -736,47 +390,6 @@ public final class TrimWiringTests {
      * <p>What breaks this: the tick injection leaving the mixin, counting plain play time again, the
      * grace window growing or disappearing, or the counter not feeding the survival curve.
      */
-    public static void survivalTimeCountsOnlyWhileThePlayerMoves(GameTestHelper helper) {
-        ServerPlayer player = mockPlayer(helper);
-        player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
-        SurvivalTracerAccessor tracker = tracker(helper, player);
-        clearProgress(helper, player);
-
-        // First look at the distance: nothing counts yet, there is no earlier reading to compare.
-        serverTickAt(player, 20);
-        int start = tracker.simplebuilding$getCurrentTime();
-
-        // Moving: the distance changes between two looks, so the next looks count.
-        setStat(player, Stats.WALK_ONE_CM, 500);
-        serverTickAt(player, 40);
-        serverTickAt(player, 60);
-        int moving = tracker.simplebuilding$getCurrentTime() - start;
-        helper.assertTrue(moving == 40,
-                "two looks right after moving added " + moving + " ticks of active time instead of 40");
-
-        // Standing still: the grace minute keeps counting, after it nothing does.
-        int beforeIdle = tracker.simplebuilding$getCurrentTime();
-        serverTickAt(player, 1240);
-        int insideGrace = tracker.simplebuilding$getCurrentTime() - beforeIdle;
-        helper.assertTrue(insideGrace == 20,
-                "a look inside the grace minute after the last step added " + insideGrace + " ticks instead of 20");
-        int afterGrace = tracker.simplebuilding$getCurrentTime();
-        serverTickAt(player, 2000);
-        serverTickAt(player, 4000);
-        helper.assertTrue(tracker.simplebuilding$getCurrentTime() == afterGrace,
-                "an AFK player kept earning active time: " + (tracker.simplebuilding$getCurrentTime() - afterGrace)
-                        + " ticks after the grace minute");
-
-        // And it feeds the curve: an hour of active time is the same as the old hour of play time.
-        tracker.simplebuilding$setActiveTime(72_000);
-        tracker.simplebuilding$setBaseValues(0, 0, 0, 0, 0);
-        // N49: time is one half of S (distance + time); an hour fills it to about 0.33 of its 0.5.
-        helper.assertTrue(TrimMultiplierLogic.calculateSurvivalMultiplier(player) > 0.3,
-                "an hour of active time did not move the survival factor");
-        clearProgress(helper, player);
-        helper.succeed();
-    }
-
     /**
      * {@code /simplebuilding config setTrimMultiplier} - the one switch that scales every trim
      * bonus in the game at runtime - driven through the server's own command dispatcher.
@@ -807,88 +420,6 @@ public final class TrimWiringTests {
      * widening, the executor no longer writing the config, the whole registration being dropped
      * on one loader, or a loader building its own tree again instead of the shared one.
      */
-    public static void theTrimMultiplierCommandGuardsItsRangeAndItsPermission(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
-        ServerPlayer player = mockPlayer(helper);
-        PlayerList players = helper.getLevel().getServer().getPlayerList();
-        CommandDispatcher<CommandSourceStack> dispatcher =
-                helper.getLevel().getServer().getCommands().getDispatcher();
-        boolean wasOperator = players.isOp(player.nameAndId());
-        Runnable installedSaver = com.simplebuilding.config.ConfigSaving.saver();
-        // The command saves the config; a game test must not write the file (other tests hold options
-        // flipped while it runs). Saving itself is theTrimMultiplierCommandSavesAndSyncsItsValue's job.
-        com.simplebuilding.config.ConfigSaving.setSaver(() -> { });
-        try {
-            helper.assertFalse(wasOperator,
-                    "the mock player is already an operator, so the permission check below would pass "
-                            + "with the requires() gate deleted");
-
-            // --- the live node is the shared tree, on every loader ---
-            CommandNode<CommandSourceStack> live = dispatcher.getRoot().getChild("simplebuilding");
-            helper.assertTrue(live != null, "/simplebuilding is not registered by this loader at all");
-            helper.assertTrue(live.getRequirement() == SimplebuildingCommand.OPERATOR_ONLY,
-                    "/simplebuilding on this loader carries a requirement of its own instead of "
-                            + "SimplebuildingCommand.OPERATOR_ONLY, so the loader builds its own tree again");
-            CommandDispatcher<CommandSourceStack> reference = new CommandDispatcher<>();
-            SimplebuildingCommand.register(reference);
-            // /simplebuilding tweaks ... haengt der Simple-Tweaks-Teil an denselben Knoten.
-            com.simplebuilding.tweaks.command.TweaksCommands.register(reference);
-            CommandSourceStack source = player.createCommandSourceStack();
-            // Sorted: the loaders register the tweaks and config branches in different orders.
-            helper.assertValueEqual(java.util.Arrays.stream(dispatcher.getAllUsage(live, source, false)).sorted().toList(),
-                    java.util.Arrays.stream(reference.getAllUsage(reference.getRoot().getChild("simplebuilding"), source, false))
-                            .sorted().toList(),
-                    "usage of the live /simplebuilding subtree against the one SimplebuildingCommand builds");
-
-            // --- without operator rights the subtree is not even reachable ---
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = 1.0;
-            assertRefused(helper, dispatcher, player, "simplebuilding config setTrimMultiplier 3.5",
-                    "a player who is not an operator");
-            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, 1.0,
-                    "a player who is not an operator changed the trim multiplier anyway");
-
-            players.op(player.nameAndId());
-            helper.assertTrue(players.isOp(player.nameAndId()),
-                    "the mock player could not be made an operator, so the rest of this test would "
-                            + "only be re-checking the refusal above");
-
-            // --- an accepted value reaches the config ---
-            run(helper, dispatcher, player, "simplebuilding config setTrimMultiplier 3.5");
-            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, 3.5,
-                    "setTrimMultiplier reported success but the configured base did not move");
-
-            // --- the declared limit is inclusive ---
-            double limit = SimplebuildingConfig.maxMultiplierLimit;
-            run(helper, dispatcher, player, "simplebuilding config setTrimMultiplier " + limit);
-            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, limit,
-                    "the configured upper limit was refused by the command that declares it");
-
-            // --- and both ends of the range are closed ---
-            assertRefused(helper, dispatcher, player,
-                    "simplebuilding config setTrimMultiplier " + (limit + 0.5), "a value above the limit");
-            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, limit,
-                    "a value above the limit was refused but written anyway");
-            assertRefused(helper, dispatcher, player,
-                    "simplebuilding config setTrimMultiplier -0.5", "a negative value");
-            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, limit,
-                    "a negative value was refused but written anyway");
-
-            // --- the getter reports and changes nothing ---
-            helper.assertValueEqual(run(helper, dispatcher, player, "simplebuilding config getTrimMultiplier"),
-                    1, "return code of getTrimMultiplier");
-            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, limit,
-                    "getTrimMultiplier changed the value it was only meant to report");
-
-            helper.succeed();
-        } finally {
-            if (!wasOperator) {
-                players.deop(player.nameAndId());
-            }
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
-            com.simplebuilding.config.ConfigSaving.setSaver(installedSaver);
-        }
-    }
-
     /**
      * {@code setTrimMultiplier} is persistent and reaches the clients (audit 2026-09-26 #19): the
      * value is an instance field of the config - so Gson writes it into {@code simplebuilding.json},
@@ -899,67 +430,6 @@ public final class TrimWiringTests {
      * <p>The saver and the packet sender are swapped for recorders, so the test neither writes the
      * real file nor depends on the mock player's connection.
      */
-    public static void theTrimMultiplierCommandSavesAndSyncsItsValue(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
-        ServerPlayer player = mockPlayer(helper);
-        PlayerList players = helper.getLevel().getServer().getPlayerList();
-        CommandDispatcher<CommandSourceStack> dispatcher =
-                helper.getLevel().getServer().getCommands().getDispatcher();
-        boolean wasOperator = players.isOp(player.nameAndId());
-
-        List<com.google.gson.JsonElement> saved = new java.util.ArrayList<>();
-        Runnable installedSaver = com.simplebuilding.config.ConfigSaving.saver();
-        com.simplebuilding.config.ConfigSaving.setSaver(() -> saved.add(
-                new com.google.gson.Gson().toJsonTree(com.simplebuilding.Simplebuilding.getConfig())
-                        .getAsJsonObject().get("trimBenefitBaseMultiplier")));
-
-        List<Double> sentBases = new java.util.ArrayList<>();
-        com.simplebuilding.platform.PlayerPacketSender installedSender = com.simplebuilding.platform.PlatformServices.playerPacketSender();
-        com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(new com.simplebuilding.platform.PlayerPacketSender() {
-            @Override
-            public boolean canSend(ServerPlayer target, net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<?> type) {
-                return target == player || installedSender.canSend(target, type);
-            }
-
-            @Override
-            public void send(ServerPlayer target, net.minecraft.network.protocol.common.custom.CustomPacketPayload payload) {
-                if (target == player) {
-                    if (payload instanceof com.simplebuilding.networking.TrimDataPayload data) {
-                        sentBases.add(data.baseMultiplier());
-                    }
-                    return;
-                }
-                installedSender.send(target, payload);
-            }
-        });
-        try {
-            players.op(player.nameAndId());
-            run(helper, dispatcher, player, "simplebuilding config setTrimMultiplier 4.5");
-
-            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, 4.5,
-                    "setTrimMultiplier did not write the config instance");
-            assertClose(helper, com.simplebuilding.util.TrimMultiplierLogic.baseMultiplier(false), 4.5,
-                    "the server side resonance base does not follow the config");
-            helper.assertTrue(saved.size() == 1,
-                    "setTrimMultiplier saved the config " + saved.size() + " times instead of once, so the "
-                            + "value is gone after a restart");
-            helper.assertTrue(saved.get(0) != null && Math.abs(saved.get(0).getAsDouble() - 4.5) < 1e-9,
-                    "the saved config carries trimBenefitBaseMultiplier=" + saved.get(0)
-                            + " instead of 4.5 - the field is not part of simplebuilding.json");
-            helper.assertTrue(sentBases.contains(4.5),
-                    "no TrimDataPayload with the new base 4.5 reached the online player (sent: " + sentBases
-                            + "), so the client keeps showing its own value");
-            helper.succeed();
-        } finally {
-            if (!wasOperator) {
-                players.deop(player.nameAndId());
-            }
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
-            com.simplebuilding.config.ConfigSaving.setSaver(installedSaver);
-            com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(installedSender);
-        }
-    }
-
     /** Resonance button (owner N49): slot-sized, between the extra head slot and the off-hand slot, heart only. */
     public static void resonancePanelLayoutSitsBesideRecipeBook(GameTestHelper helper) {
         helper.assertValueEqual(TrimStatsLayout.SIZE, 19, "the resonance button is 19x19 so the 9x9 heart is exactly centred");
@@ -976,27 +446,37 @@ public final class TrimWiringTests {
         helper.succeed();
     }
 
-    /** Owner N29/N49: tier hearts, at maximum resonance (all factors 1.0, value = base) the enderite heart. */
-    public static void maxResonanceShowsTheDiamondHeart(GameTestHelper helper) {
-        helper.assertTrue(TrimStatsLayout.isMaxResonance(3.0, 3.0), "value equal to the base is the maximum");
-        helper.assertTrue(TrimStatsLayout.isMaxResonance(2.996, 3.0), "a value shown as the base (3.00x) is the maximum");
-        helper.assertFalse(TrimStatsLayout.isMaxResonance(2.99, 3.0), "2.99x below a base of 3.00 is not the maximum");
-        helper.assertValueEqual(TrimStatsLayout.heartSprite(1.5, 1.5), "resonance_heart_enderite", "enderite heart at the maximum");
-        helper.assertValueEqual(TrimStatsLayout.heartSprite(0.15, 1.5), "resonance_heart_cobblestone", "cobblestone heart at the floor");
-        // N49: eight tiers in equal steps over the band 0.1..1.0 of the base
-        String[] expected = TrimStatsLayout.TIERS;
-        for (int i = 0; i < expected.length; i++) {
-            double fraction = 0.1 + 0.9 * (i + 0.5) / expected.length;
-            helper.assertValueEqual(TrimStatsLayout.heartSprite(2.0 * fraction, 2.0), "resonance_heart_" + expected[i],
-                    "heart tier in the middle of band " + i);
-        }
+    /**
+     * MOB27-3 R2 (docs/ai/PLAN-B-TRIMSTATS27-2026-11-11.md): the resonance the core hands to the trim abilities and shows in tooltips is
+     * Simple Resonance's on 26.3 - {@code TrimMultiplierLogic} there is a bridge (reflection, no import) to
+     * {@code com.simpleresonance.ResonanceBridge}; the core's own tracker counts nothing any more. On both lines the value stays the
+     * base times the mean of the three factors, each 0.1..1.0, and asking never throws (a missing bridge gives the floor values).
+     */
+    public static void theCoreReadsTheResonanceFromSimpleResonance(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
         double base = TrimMultiplierLogic.baseMultiplier(false);
-        double total = TrimMultiplierLogic.getMultiplier(player);
-        helper.assertFalse(TrimStatsLayout.isMaxResonance(total, base),
-                "a fresh player (" + total + " of " + base + ") has no maximum resonance yet");
-        helper.assertValueEqual(TrimStatsLayout.heartSprite(base * (1.0 + 1.0 + 1.0) / 3.0, base), "resonance_heart_enderite",
-                "all three factors at 1.0 give the enderite heart");
+        double xp = TrimMultiplierLogic.calculateXPMultiplier(player);
+        double survival = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
+        double combat = TrimMultiplierLogic.calculateCombatMultiplier(player);
+        for (double f : new double[] {xp, survival, combat}) {
+            helper.assertTrue(f >= 0.1 - 1e-9 && f <= 1.0 + 1e-9, "every factor lies in 0.1..1.0, got " + f);
+        }
+        assertClose(helper, TrimMultiplierLogic.getMultiplier(player), base * (xp + survival + combat) / 3.0,
+                "the resonance is the base times the mean of the three factors");
+        if (!com.simplebuilding.version.McVersion.RESONANCE_IN_SB) {
+            boolean bridge;
+            try {
+                Class.forName("com.simpleresonance.ResonanceBridge");
+                bridge = true;
+            } catch (ClassNotFoundException e) {
+                bridge = false;
+            }
+            helper.assertTrue(bridge, "Simple Resonance is a required sub-mod on 26.3: its bridge class must be loadable");
+            // A fresh player (unknown to Simple Resonance) has the floor factors: the core's own counters do not feed the value.
+            ((com.simplebuilding.util.SurvivalTracerAccessor) player).simplebuilding$setBaseXp(-100000);
+            assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), xp,
+                    "the core's old tracker no longer moves the experience factor");
+        }
         helper.succeed();
     }
 

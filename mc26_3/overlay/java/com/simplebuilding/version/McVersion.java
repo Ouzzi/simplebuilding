@@ -183,6 +183,12 @@ public final class McVersion {
      * docs/ai/PLAN-B-S8B-STORAGE-2026-10-19.md. 26.3: Simple Storage registers them; SimpleBuilding's classes stay for 26.2 and are not registered here. SimpleBuilding reaches them by id ({@code util/StorageRefs}).
      */
     public static final boolean STORAGE_IN_SB = false;
+    /**
+     * The trim resonance measurement (MOB27-3 R2, docs/ai/PLAN-B-TRIMSTATS27-2026-11-11.md): tracker ({@code SurvivalTracerMixin}),
+     * {@code TrimDataPayload}/{@code SurvivalSyncPayload}, the resonance button, {@code trimBenefitBaseMultiplier} and
+     * {@code /simplebuilding config setTrimMultiplier}. 26.3: Simple Resonance measures it, sends {@code simpleresonance:stats} and draws the button; the core reads it through {@code TrimMultiplierLogic} (bridge) and only keeps reading/writing its old {@code SimpleBuildingData} block for the one-time import.
+     */
+    public static final boolean RESONANCE_IN_SB = false;
     /** Split stage 9 backup marker ({@code datafix/SplitBackupMarker}, plan §3.4): 26.3: SimpleBuilding 2.0 moved its ids into sub-mods, so the first start of a world writes it. */
     public static final boolean SPLIT_BACKUP_MARKER = true;
     /** Sulfur fire and copper fire (queue N33): burn on sulfur / copper blocks, sulfur fire gives nausea. */

@@ -9,7 +9,7 @@
       "title": "simpleresonance.guide.chapter",
       "icon": "minecraft:echo_shard",
       "page_key": "simpleresonance.guide.page",
-      "pages": 16,
+      "pages": 18,
       "advancement": "simpleresonance:guide/chapter",
       "hint": "minecraft:echo_shard"
     }

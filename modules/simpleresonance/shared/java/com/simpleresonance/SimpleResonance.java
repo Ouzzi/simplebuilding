@@ -25,6 +25,14 @@ public final class SimpleResonance {
         return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID) && ResonanceConfig.enabled;
     }
 
+    /**
+     * Whether the resonance button shows in the inventory (MOB27-3 R2): only the super-mod switch "Enable Simple Resonance" hides it,
+     * the trim resonance itself is measured even while zones and values are off.
+     */
+    public static boolean panelShown() {
+        return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID);
+    }
+
     public static void init(Path configDir) {
         ResonanceConfig.load(configDir);
         ResonanceService.install();

@@ -229,7 +229,8 @@ public final class SmokeClientTest {
 
         modLanguageFileReachesTheClient(script);
         furnaceBlockStatesBakeIntoOrientedModels(script);
-        survivalCountersArriveOnTheClientEverySecond(script);
+        // MOB27-3 R2: on 26.3 the core no longer syncs the resonance (Simple Resonance does).
+        if (ClientTestVersion.CORE_RESONANCE_TRACKER) survivalCountersArriveOnTheClientEverySecond(script);
         chiselAnswersTheClientSideUseOnItself(script);
         chiselAndSpatulaSoundsReachTheClient(script);
         rotatorSledgehammerAndWandSoundsReachTheClient(script);

@@ -94,7 +94,17 @@ public final class ResonanceMath {
 
     /** Survival: distance half plus active-time half (each 0.05..0.5). */
     public static double survivalFactor(int metres, int activeTicks) {
-        return factorCurve(Math.max(0, metres), DISTANCE_SCALE) / 2.0 + factorCurve(Math.max(0, activeTicks), ACTIVE_TIME_SCALE) / 2.0;
+        return distancePart(metres) + timePart(activeTicks);
+    }
+
+    /** The distance half of the survival factor: 0.05 at 0 m, towards 0.5 (scale 4000 m). */
+    public static double distancePart(int metres) {
+        return factorCurve(Math.max(0, metres), DISTANCE_SCALE) / 2.0;
+    }
+
+    /** The active-time half of the survival factor: 0.05 at 0 ticks, towards 0.5 (scale one active hour). */
+    public static double timePart(int activeTicks) {
+        return factorCurve(Math.max(0, activeTicks), ACTIVE_TIME_SCALE) / 2.0;
     }
 
     /** Combat: hostile kills + 0.2 x passive kills + 0.05 x damage taken, all since the last death. */

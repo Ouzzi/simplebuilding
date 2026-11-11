@@ -6,6 +6,9 @@
   "mixins": [
     "ServerPlayerLegacyMixin"
   ],
+  "client": [
+    "client.InventoryScreenResonanceMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

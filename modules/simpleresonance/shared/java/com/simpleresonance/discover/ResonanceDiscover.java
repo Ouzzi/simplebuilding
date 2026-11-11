@@ -58,6 +58,7 @@ public final class ResonanceDiscover {
             "simpleresonance:migration",
             "simpleresonance:newcomer_protection",
             "simpleresonance:player_value",
+            "simpleresonance:resonance_button",
             "simpleresonance:spawn_owner",
             "simpleresonance:zones");
     static final List<Tip> TIPS = List.of();

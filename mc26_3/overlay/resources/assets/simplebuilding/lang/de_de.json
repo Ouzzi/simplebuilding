@@ -1794,7 +1794,7 @@
   "book.simplebuilding.admin.9.title": "Handels-Schalter",
   "book.simplebuilding.admin.9.text": "worldGen.enableVillagerTrades und worldGen.enableWanderingTrades fügen die Mod-Angebote hinzu; beide gelten nach /reload.",
   "book.simplebuilding.admin.10.title": "Spiel-Schalter",
-  "book.simplebuilding.admin.10.text": "trimBenefitBaseMultiplier setzt die Resonanz-Basis (2.0), airJumpCooldownTicks die Pause nach einem Luftsprung.",
+  "book.simplebuilding.admin.10.text": "trimBenefitBaseMultiplier (Simple Resonance) setzt die Resonanz-Basis (2.0), airJumpCooldownTicks die Pause nach einem Luftsprung.",
   "book.simplebuilding.admin.11.title": "Werkzeug-Schalter",
   "book.simplebuilding.admin.11.text": "pistons.breakerPistonsLoseDurability (Simple Machines) schaltet die Abnutzung der Brecherkolben.\ntools.buildingWandHungerCost setzt den Hunger riesiger Baustab-Bauten.",
   "book.simplebuilding.admin.12.title": "Funktions-Schalter",

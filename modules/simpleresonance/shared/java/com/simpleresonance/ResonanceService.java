@@ -27,6 +27,11 @@ public final class ResonanceService implements ResonanceContracts.Service {
     /** Boss points of the Vanilla bosses (KONZEPT §1.2); other bosses use {@link #award}. */
     public static final Map<String, Double> BOSS_POINTS = Map.of("minecraft:wither", 5.0, "minecraft:ender_dragon", 10.0, "minecraft:warden", 8.0);
 
+    /**
+     * Sends the {@code simpleresonance:stats} payload to one player (set by the loader entry that registered the payload; null = no
+     * network, e.g. a loader without the wiring). Called once a second from {@link #tick} (MOB27-3 R2).
+     */
+    public static java.util.function.BiConsumer<ServerPlayer, com.simpleresonance.net.ResonanceStatsPayload> toClient;
     /** Test hook: the players the service sees instead of the server's list (null = the server's). Server thread only. */
     public static List<ServerPlayer> testPlayers;
     private MinecraftServer server;
@@ -122,6 +127,18 @@ public final class ResonanceService implements ResonanceContracts.Service {
                 ResonanceMath.xpFactor(p.totalExperience - r.baseXp),
                 ResonanceMath.survivalFactor(totalDistance(p) - r.baseDistance, r.active - r.baseActive),
                 ResonanceMath.combatFactor(r.hostile - r.baseHostile, r.passive - r.basePassive, damageTaken(p) - r.baseDamage)};
+    }
+
+    /**
+     * What {@code p} gathered since his last death, as the client gets it (MOB27-3 R2): no record is created for a player the service
+     * never saw (fake players of other mods), he simply counts as fresh.
+     */
+    public com.simpleresonance.net.ResonanceStatsPayload stats(ServerPlayer p) {
+        PlayerRecord r = this.data == null ? null : this.data.find(p.getUUID());
+        if (r == null) return new com.simpleresonance.net.ResonanceStatsPayload(0, 0, 0, 0, 0, 0, ResonanceConfig.trimBenefitBaseMultiplier);
+        return new com.simpleresonance.net.ResonanceStatsPayload(p.totalExperience - r.baseXp, totalDistance(p) - r.baseDistance,
+                r.active - r.baseActive, r.hostile - r.baseHostile, r.passive - r.basePassive, damageTaken(p) - r.baseDamage,
+                ResonanceConfig.trimBenefitBaseMultiplier);
     }
 
     /** F of an online player. */
@@ -283,6 +300,10 @@ public final class ResonanceService implements ResonanceContracts.Service {
         boolean changed = false;
         for (ServerPlayer p : s.getPlayerList().getPlayers()) changed |= update(p, now);
         if (changed) this.data.setDirty();
+        var send = toClient;
+        if (send != null) {
+            for (ServerPlayer p : s.getPlayerList().getPlayers()) send.accept(p, stats(p));
+        }
     }
 
     /** One second of one player ({@code now} = server tick); true when his record changed. */

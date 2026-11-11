@@ -9,6 +9,9 @@ public final class ClientTestVersion {
     /** 26.3: gamerule / time set / weather without a change are command errors. */
     public static final boolean SET_COMMANDS_REJECT_NO_CHANGE = true;
 
+    /** Whether SimpleBuilding's own resonance tracker sends {@code SurvivalSyncPayload} once a second. 26.3: Simple Resonance measures and syncs ({@code simpleresonance:stats}, MOB27-3 R2). */
+    public static final boolean CORE_RESONANCE_TRACKER = false;
+
     /** Cloth Config 26.3 draws its screen fine on 26.3 (see the 26.2 twin). */
     public static final boolean CLOTH_CONFIG_SCREEN = true;
 

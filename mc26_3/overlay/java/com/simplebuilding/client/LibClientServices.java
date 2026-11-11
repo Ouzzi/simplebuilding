@@ -18,8 +18,8 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Client side of {@code util/LibServices} on 26.3 (split stage 8c-2, docs/ai/PLAN-B-S8C2-STORAGE-2026-10-21.md): Simple
  * Storage's backpack screen rebuilds the player inventory and draws what SimpleBuilding adds to it through SimpleLib
- * {@link InventoryExtrasClient} - the frame of the extra head slot (owner N49), the resonance button and the empty slot's
- * hint, as in the inventory. The slot itself comes through SimpleLib {@code InventoryExtras} ({@code LibServices.init}).
+ * {@link InventoryExtrasClient} - the frame of the extra head slot (owner N49) and the empty slot's hint, as in the inventory
+ * (the resonance button between them is Simple Resonance's own panel since MOB27-3 R2). The slot itself comes through SimpleLib {@code InventoryExtras} ({@code LibServices.init}).
  * Tooltips fold behind SimpleLib's "Hold Shift for more" ({@link UiShiftTooltip}, owner 2026-10-21).
  */
 public final class LibClientServices {
@@ -30,8 +30,6 @@ public final class LibClientServices {
     public static void init() {
         registerModpackSection();
         InventoryExtrasClient.register(new InventoryExtrasClient.Panel() {
-            private final TrimStatsPanel trimStats = new TrimStatsPanel();
-
             @Override
             public void background(GuiGraphicsExtractor graphics, int x, int y) {
                 TrimStatsPanel.slotFrame(graphics, x + TrimStatsLayout.HEAD_SLOT_X - 1, y + TrimStatsLayout.HEAD_SLOT_Y - 1);
@@ -40,7 +38,6 @@ public final class LibClientServices {
             @Override
             public void foreground(GuiGraphicsExtractor graphics, Font font, Minecraft minecraft, int x, int y, int mouseX, int mouseY,
                                    Slot hovered, ItemStack carried) {
-                this.trimStats.render(graphics, font, minecraft, x + TrimStatsLayout.INVENTORY_X, y + TrimStatsLayout.INVENTORY_Y, mouseX, mouseY);
                 if (hovered instanceof ExtraHead.HeadSlot && !hovered.hasItem() && carried.isEmpty()) {
                     graphics.setTooltipForNextFrame(font, Component.translatable("gui.simplebuilding.extra_head_slot"), mouseX, mouseY);
                 }

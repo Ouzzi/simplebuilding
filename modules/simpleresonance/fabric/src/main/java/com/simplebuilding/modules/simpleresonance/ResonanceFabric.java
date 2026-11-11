@@ -5,6 +5,7 @@ import com.simpleresonance.ResonanceService;
 import com.simpleresonance.SimpleResonance;
 import com.simpleresonance.config.ResonanceConfig;
 import com.simpleresonance.guide.ResonanceGuide;
+import com.simpleresonance.net.ResonanceStatsPayload;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
@@ -12,6 +13,8 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
@@ -27,6 +30,11 @@ public final class ResonanceFabric implements ModInitializer {
     public void onInitialize() {
         var configDir = FabricLoader.getInstance().getConfigDir();
         SimpleResonance.init(configDir);
+        // MOB27-3 R2: the stats for the resonance button, once a second from the service's tick (simpleresonance:stats).
+        PayloadTypeRegistry.clientboundPlay().register(ResonanceStatsPayload.TYPE, ResonanceStatsPayload.CODEC);
+        ResonanceService.toClient = (player, payload) -> {
+            if (ServerPlayNetworking.canSend(player, ResonanceStatsPayload.TYPE)) ServerPlayNetworking.send(player, payload);
+        };
         // CMD24: /simpleresonance config for every option.
         com.simplelib.api.config.ConfigCommands.server(SimpleResonance.MOD_ID).json(ResonanceConfig::toJson, ResonanceConfig::apply).file(configDir, ResonanceConfig.FILE).register();
         ResonanceGuide.register();
