@@ -132,10 +132,11 @@ public final class TrapTests {
             helper.assertTrue(new ItemStack(item).is(heavy), item + " is not heavy sulfur cube food");
             helper.assertTrue(new ItemStack(item).is(swallowable), item + " is not swallowable");
         }
-        for (String path : new String[]{"reinforced_furnace", "netherite_blast_furnace", "enderite_smoker", "auto_smither"}) {
-            Item item = BuiltInRegistries.ITEM.getOptional(Identifier.fromNamespaceAndPath("simplebuilding", path)).orElse(null);
+        for (String id : new String[]{"simplebuilding:reinforced_furnace", "simplebuilding:netherite_blast_furnace", "simplebuilding:enderite_smoker",
+                "simplebuilding:auto_smither", "simplemachines:auto_smither"}) {
+            Item item = BuiltInRegistries.ITEM.getOptional(Identifier.parse(id)).orElse(null);
             if (item != null) {
-                helper.assertTrue(new ItemStack(item).is(heavy), path + " is not heavy sulfur cube food");
+                helper.assertTrue(new ItemStack(item).is(heavy), id + " is not heavy sulfur cube food");
             }
         }
         helper.assertTrue(!new ItemStack(Items.DIRT).is(heavy), "dirt must stay light");

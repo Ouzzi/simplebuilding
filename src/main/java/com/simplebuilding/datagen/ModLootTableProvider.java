@@ -80,8 +80,8 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
         dropSelf(ModBlocks.CONSTRUCTION_LIGHT);
         if (ModBlocks.IRON_POLE != null) dropSelf(ModBlocks.IRON_POLE);
-        if (ModBlocks.AUTO_SMITHER != null) dropSelf(ModBlocks.AUTO_SMITHER);
-        if (ModBlocks.AUTONOMOUS_CRAFTER != null) dropSelf(ModBlocks.AUTONOMOUS_CRAFTER);
+        if (com.simplebuilding.version.McVersion.AUTO_SMITHER) dropSelf(ModBlocks.AUTO_SMITHER); // 26.3: Simple Machines' loot
+        if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) dropSelf(ModBlocks.AUTONOMOUS_CRAFTER); // 26.3: Simple Machines' loot
         if (ModBlocks.BLAZING_OBSIDIAN != null) {
             // Astral-Verzauberung (Queue N27): der Tisch gibt den Vanilla-Tisch und einen Enderit-Barren zurueck (Besitzer 15.10.)
             // (gelagerter Lapis/Lohenstaub faellt als Inhalt heraus), Lohen-Regale drei Lohenbuecher wie Vanilla-Regale.

@@ -6,7 +6,7 @@ Smither it keeps the crafter's stone casing and plank pillars, so it reads as a 
   Vanilla's red corner lights (a redstone signal stops it),
 - sides: a copper arrow pointing down between the pillars - the result goes into the hopper below (lit while crafting),
 - bottom: an outlet with a copper rim over the hopper.
-Output: mc26_3/overlay/resources/assets/simplebuilding/textures/block/autonomous_crafter_*.png. Vanilla never checked in.
+Output: modules/simplemachines/shared/resources/assets/simplemachines/textures/block/autonomous_crafter_*.png (since stage 4b). Vanilla never checked in.
 """
 import os
 import sys
@@ -15,7 +15,7 @@ from PIL import Image, ImageDraw
 V = sys.argv[1]
 PREVIEW = next((a for a in sys.argv[2:] if a.endswith('.png')), None)
 CHECK = '--check' in sys.argv
-OUT = 'mc26_3/overlay/resources/assets/simplebuilding/textures/block'
+OUT = 'modules/simplemachines/shared/resources/assets/simplemachines/textures/block'  # MACH32-MOD stage 4b
 
 COPPER = [(40, 22, 16), (70, 36, 24), (96, 50, 32), (120, 64, 40), (150, 82, 52), (186, 106, 66), (216, 132, 84)]
 AMBER = [(96, 46, 20), (150, 80, 30), (206, 120, 44), (240, 168, 72), (255, 214, 120)]

@@ -44,6 +44,8 @@ public final class MachinesRegistry {
                 .setId(key).instabreak().sound(SoundType.STONE))); // default push reaction: a piston moves it like a block
         com.simplemachines.upgrade.PistonUpgrades.registerBlocks();
         com.simplemachines.hopper.Hoppers.registerBlocks();
+        com.simplemachines.smither.Smithers.registerBlocks();
+        com.simplemachines.crafter.Crafters.registerBlocks();
     }
 
     public static void registerItems() {
@@ -51,6 +53,8 @@ public final class MachinesRegistry {
         SIGNAL_DAMPENER_ITEM = item("signal_dampener", p -> new MachinePartItem(SIGNAL_DAMPENER, "signal_dampener", p));
         com.simplemachines.upgrade.PistonUpgrades.registerItems();
         com.simplemachines.hopper.Hoppers.registerItems();
+        com.simplemachines.smither.Smithers.registerItems();
+        com.simplemachines.crafter.Crafters.registerItems();
         com.simplemachines.guide.MachinesGuide.register();
     }
 
@@ -62,12 +66,14 @@ public final class MachinesRegistry {
                 .build());
     }
 
-    /** The three hoppers, the four piston upgrades, the two parts, the three hopper carts, then the guide (empty while switched off). */
+    /** The three hoppers, the four piston upgrades, the two parts, the Auto Smither, the Auto Crafter (stage 4b), the three hopper carts, then the guide (empty while switched off). */
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleMachines.on()) return out;
         out.addAll(com.simplemachines.hopper.Hoppers.stacks());
         out.addAll(partStacks());
+        out.addAll(com.simplemachines.smither.Smithers.stacks());
+        out.addAll(com.simplemachines.crafter.Crafters.stacks());
         out.addAll(com.simplemachines.hopper.Hoppers.cartStacks());
         out.add(com.simplemachines.guide.MachinesGuide.stack());
         return out;

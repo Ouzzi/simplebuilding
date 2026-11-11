@@ -251,7 +251,7 @@ public final class GuideBookTests {
         if (!com.simplebuilding.version.McVersion.CRUCIBLE) {
             disabledChapters.addAll(List.of("book.simplebuilding.machines.9", "book.simplebuilding.machines.10", "book.simplebuilding.machines.12"));
         }
-        if (!com.simplebuilding.version.McVersion.AUTO_SMITHER) disabledChapters.add("book.simplebuilding.machines.13");
+        if (!com.simplebuilding.version.McVersion.AUTO_SMITHER && !com.simplebuilding.version.McVersion.AUTO_SMITHER_IN_MACHINES) disabledChapters.add("book.simplebuilding.machines.13");
         if (!com.simplebuilding.version.McVersion.WOODWORK) {
             disabledChapters.addAll(List.of("book.simplebuilding.building.15", "book.simplebuilding.building.16", "book.simplebuilding.storage.11"));
         }

@@ -7,6 +7,6 @@
     "minecraft:comparator"
   ],
   "result": {
-    "id": "simplebuilding:autonomous_crafter"
+    "id": "simplemachines:autonomous_crafter"
   }
 }

@@ -105,7 +105,7 @@ def derived_module(jar, module: str) -> dict:
 # Former byte copies of Vanilla sprites whose references now point at the Vanilla sprite itself.
 REDIRECTS = {('simplecrucibles', 'block/iron_crucible_inner.png'): 'block/cauldron_inner.png',
              ('simplecrucibles', 'block/reinforced_crucible_inner.png'): 'block/cauldron_inner.png',
-             ('simplebuilding', 'block/auto_smither_bottom.png'): 'block/crafter_bottom.png',
+             ('simplemachines', 'block/auto_smither_bottom.png'): 'block/crafter_bottom.png',
              ('simplefun', 'entity/pig/pig.png'): 'entity/pig/pig_temperate.png'}
 
 

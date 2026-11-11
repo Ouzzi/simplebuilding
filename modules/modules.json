@@ -4747,7 +4747,8 @@
       "optional": [
         "simplebuilding",
         "simpleores",
-        "jade"
+        "jade",
+        "jei"
       ],
       "checks": [
         "modules/simplemachines/tools/check_data.py"

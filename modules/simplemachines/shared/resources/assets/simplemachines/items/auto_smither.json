@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:block/auto_smither"
+    "model": "simplemachines:block/auto_smither"
   }
 }
