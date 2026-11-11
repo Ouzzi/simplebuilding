@@ -54,6 +54,12 @@ public final class DetectorTests {
     private static final int MODE_ALL = 4, MODE_CUSTOM = 5;
     private static final int LINE_Y = 64;
     private static final Vec3 LINE_EYE = new Vec3(0.5, LINE_Y + 0.5, 0.5);
+    /**
+     * Targets in the real level: blocks no other test places and no world generation makes, one per test, so a block
+     * left on a neighbouring test plate is never found (Gate 180 failed on a froglight from another test).
+     */
+    private static final Block PING_TARGET = Blocks.HONEYCOMB_BLOCK;
+    private static final Block PLATE_TARGET = Blocks.DRIED_KELP_BLOCK;
 
     private DetectorTests() {
     }
@@ -119,27 +125,39 @@ public final class DetectorTests {
         helper.succeed();
     }
 
-    /** A ping that finds something costs 1 durability and tells partners ("ore_detected"); an empty ping costs nothing. */
+    /**
+     * A ping that finds something costs 1 durability and tells partners ("ore_detected"); an empty ping costs nothing.
+     * The ping searches the real level, so the target is a block no other test places and no world generation makes
+     * (Gate 180: a froglight left on a neighbouring test plate made the "empty" ping find something), and the reach is
+     * cut to its minimum factor (6 blocks) so neighbouring plates stay out of the sphere.
+     */
     public static void pingsCostDurabilityOnlyWhenTheyFindSomething(GameTestHelper helper) {
-        ServerPlayer player = AttractorTests.mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
-        player.getAbilities().instabuild = false;
-        ItemStack stack = calibratedOn(Blocks.PEARLESCENT_FROGLIGHT);
-        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
-        AtomicInteger told = new AtomicInteger();
-        GadgetActions.listen(GadgetActions.ORE_DETECTED, p -> {
-            if (p == player) told.incrementAndGet();
-        });
-        BlockPos target = new BlockPos(3, 2, 3);
-        helper.setBlock(target, Blocks.PEARLESCENT_FROGLIGHT);
-        BlockPos found = detector().ping(helper.getLevel(), stack, player, EquipmentSlot.MAINHAND);
-        same(helper, found, helper.absolutePos(target), "the ping target");
-        helper.assertValueEqual(stack.getDamageValue(), DetectorItem.DURABILITY_PER_HIT, "durability after a finding ping");
-        helper.assertValueEqual(told.get(), 1, "ore_detected events for the finding ping");
-        helper.assertTrue(stack.has(DataComponents.LODESTONE_TRACKER), "the needle does not point at the find");
-        helper.setBlock(target, Blocks.AIR);
-        helper.assertTrue(detector().ping(helper.getLevel(), stack, player, EquipmentSlot.MAINHAND) == null, "the empty ping found something");
-        helper.assertValueEqual(stack.getDamageValue(), DetectorItem.DURABILITY_PER_HIT, "an empty ping cost durability");
-        helper.assertTrue(!stack.has(DataComponents.LODESTONE_TRACKER), "the needle keeps pointing after an empty ping");
+        double range = GadgetsConfig.detectorRangeMultiplier;
+        try {
+            GadgetsConfig.detectorRangeMultiplier = 0.25;
+            ServerPlayer player = AttractorTests.mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+            player.getAbilities().instabuild = false;
+            ItemStack stack = calibratedOn(PING_TARGET);
+            player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+            AtomicInteger told = new AtomicInteger();
+            GadgetActions.listen(GadgetActions.ORE_DETECTED, p -> {
+                if (p == player) told.incrementAndGet();
+            });
+            BlockPos target = new BlockPos(3, 2, 3);
+            helper.setBlock(target, PING_TARGET);
+            BlockPos found = detector().ping(helper.getLevel(), stack, player, EquipmentSlot.MAINHAND);
+            same(helper, found, helper.absolutePos(target), "the ping target");
+            helper.assertValueEqual(stack.getDamageValue(), DetectorItem.DURABILITY_PER_HIT, "durability after a finding ping");
+            helper.assertValueEqual(told.get(), 1, "ore_detected events for the finding ping");
+            helper.assertTrue(stack.has(DataComponents.LODESTONE_TRACKER), "the needle does not point at the find");
+            helper.setBlock(target, Blocks.AIR);
+            BlockPos empty = detector().ping(helper.getLevel(), stack, player, EquipmentSlot.MAINHAND);
+            helper.assertTrue(empty == null, "the empty ping found something at " + empty);
+            helper.assertValueEqual(stack.getDamageValue(), DetectorItem.DURABILITY_PER_HIT, "an empty ping cost durability");
+            helper.assertTrue(!stack.has(DataComponents.LODESTONE_TRACKER), "the needle keeps pointing after an empty ping");
+        } finally {
+            GadgetsConfig.detectorRangeMultiplier = range;
+        }
         helper.succeed();
     }
 
@@ -147,13 +165,13 @@ public final class DetectorTests {
     public static void thePlacedDetectorSearchesFromThePlate(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         BlockPos pos = helper.absolutePos(new BlockPos(1, 1, 1));
-        AttractorTests.TestPlate plate = new AttractorTests.TestPlate(calibratedOn(Blocks.PEARLESCENT_FROGLIGHT), Vec3.atCenterOf(pos));
-        helper.setBlock(new BlockPos(4, 1, 1), Blocks.PEARLESCENT_FROGLIGHT);
+        AttractorTests.TestPlate plate = new AttractorTests.TestPlate(calibratedOn(PLATE_TARGET), Vec3.atCenterOf(pos));
+        helper.setBlock(new BlockPos(4, 1, 1), PLATE_TARGET);
         PlacedDetector.Result result = PlacedDetector.scan(level, pos, plate, false);
         same(helper, result.found(), helper.absolutePos(new BlockPos(4, 1, 1)), "the placed Detector's find");
         ServerPlayer holder = AttractorTests.mockPlayer(helper, new Vec3(3.5, 1.0, 3.5));
-        holder.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.PEARLESCENT_FROGLIGHT));
-        helper.assertTrue(PlacedDetector.nearestHolder(level, pos, Blocks.PEARLESCENT_FROGLIGHT.defaultBlockState()) == holder,
+        holder.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(PLATE_TARGET.asItem()));
+        helper.assertTrue(PlacedDetector.nearestHolder(level, pos, PLATE_TARGET.defaultBlockState()) == holder,
                 "the placed Detector does not notice the holder of its target");
         int paid = 0;
         for (int i = 0; i < 40; i++) paid += PlacedDetector.wear(level, pos, plate, new PlacedDetector.Result(helper.absolutePos(new BlockPos(4, 1, 1)), null));
