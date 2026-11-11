@@ -27,31 +27,6 @@
       }
     },
     {
-      "id": "resonance_button",
-      "sources": [
-        "modules/simpleresonance/shared/java/com/simpleresonance/client/ResonancePanel.java",
-        "modules/simpleresonance/shared/java/com/simpleresonance/client/ResonanceLayout.java",
-        "modules/simpleresonance/shared/java/com/simpleresonance/net/ResonanceStatsPayload.java",
-        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceBridge.java"
-      ],
-      "en": {
-        "title": "Resonance button",
-        "summary": "A small button right of the player in the inventory shows the trim resonance as a heart in eight tiers, from cobblestone to enderite. Hovering it shows the value (base x mean of experience, survival and combat since the last death), with Shift every factor.",
-        "details": [
-          "The server sends the numbers once a second (simpleresonance:stats); the button also shows in Simple Storage's backpack.",
-          "SimpleBuilding's armour trims read this resonance through ResonanceBridge; the base is trimBenefitBaseMultiplier in simpleresonance.json (Default: 2.0)."
-        ]
-      },
-      "de": {
-        "title": "Resonanz-Knopf",
-        "summary": "Ein kleiner Knopf rechts neben dem Spieler im Inventar zeigt die Besatz-Resonanz als Herz in acht Stufen, von Bruchstein bis Enderit. Beim Überfahren steht der Wert (Basis x Mittel aus Erfahrung, Überleben und Kampf seit dem letzten Tod), mit Shift jeder Faktor.",
-        "details": [
-          "Der Server schickt die Zahlen einmal pro Sekunde (simpleresonance:stats); der Knopf erscheint auch im Rucksack von Simple Storage.",
-          "Die Rüstungsbesätze von SimpleBuilding lesen diese Resonanz über ResonanceBridge; die Basis ist trimBenefitBaseMultiplier in simpleresonance.json (Standard: 2,0)."
-        ]
-      }
-    },
-    {
       "id": "zones",
       "sources": [
         "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceMath.java",
@@ -170,6 +145,31 @@
         "summary": "Nichts geht verloren: beim ersten Tick eines Spielers liest Simple Resonance den alten Tracker-Block SimpleBuildingData (Basiswerte seit dem letzten Tod, aktive Zeit, Kill-Summen) und startet die Langzeitpunkte bei 1 je 30 alten aktiven Minuten. Der Basis-Multiplikator der Besatz-Resonanz wird beim ersten Start aus config/simplebuilding.json übernommen.",
         "details": [
           "Seit MOB27-3 R2 zählt SimpleBuilding selbst nichts mehr: es hält den alten Block nur für diese einmalige Übernahme lesbar, und die Besatz-Fähigkeiten (in Simple Mobs) bekommen die Resonanz von hier."
+        ]
+      }
+    },
+    {
+      "id": "resonance_button",
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/client/ResonancePanel.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/client/ResonanceLayout.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/net/ResonanceStatsPayload.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceBridge.java"
+      ],
+      "en": {
+        "title": "Resonance button",
+        "summary": "A small button right of the player in the inventory shows the trim resonance as a heart in eight tiers, from cobblestone to enderite. Hovering it shows the value (base x mean of experience, survival and combat since the last death), with Shift every factor.",
+        "details": [
+          "The server sends the numbers once a second (simpleresonance:stats); the button also shows in Simple Storage's backpack.",
+          "SimpleBuilding's armour trims read this resonance through ResonanceBridge; the base is trimBenefitBaseMultiplier in simpleresonance.json (Default: 2.0)."
+        ]
+      },
+      "de": {
+        "title": "Resonanz-Knopf",
+        "summary": "Ein kleiner Knopf rechts neben dem Spieler im Inventar zeigt die Besatz-Resonanz als Herz in acht Stufen, von Bruchstein bis Enderit. Beim Überfahren steht der Wert (Basis x Mittel aus Erfahrung, Überleben und Kampf seit dem letzten Tod), mit Shift jeder Faktor.",
+        "details": [
+          "Der Server schickt die Zahlen einmal pro Sekunde (simpleresonance:stats); der Knopf erscheint auch im Rucksack von Simple Storage.",
+          "Die Rüstungsbesätze von SimpleBuilding lesen diese Resonanz über ResonanceBridge; die Basis ist trimBenefitBaseMultiplier in simpleresonance.json (Standard: 2,0)."
         ]
       }
     },
