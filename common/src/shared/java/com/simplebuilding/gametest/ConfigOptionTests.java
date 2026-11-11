@@ -1212,7 +1212,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleRiding", "simpleriding"},
                 {"enableSimpleFun", "simplefun"},
                 {"enableSimpleTweaks", "simpletweaks"},
-                {"enableSimpleDimensions", "simpledimension"},
+                {"enableSimpleDimensions", "simpledimensions"},
                 {"enableSimpleSandwiches", "simplesandwiches"},
                 {"enableSimpleTrims", "simpletrims"},
                 {"enableSimpleMobs", "simplemobs"},

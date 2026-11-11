@@ -4,7 +4,10 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "DimensionPackMixin",
-    "DimensionTestWorldMixin"
+    "DimensionTestWorldMixin",
+    "DimensionFolderMigrationMixin",
+    "ServerLevelMigrationMixin",
+    "WorldDimensionsMigrationMixin"
   ],
   "injectors": {
     "defaultRequire": 1

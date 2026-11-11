@@ -36,7 +36,7 @@ public final class ClaimPortalTests {
     }
     public static void flow(GameTestHelper h){
         // Principle 8: Simple Dimensions is an optional partner; the standalone run (Tweaks + SimpleBuilding) passes with a note.
-        if(!BuiltInRegistries.BLOCK.containsKey(Identifier.parse("simpledimension:sky_portal"))){com.mojang.logging.LogUtils.getLogger().info("[standalone] simpledimension not loaded - skipping claim portal flow");h.succeed();return;}
+        if(!BuiltInRegistries.BLOCK.containsKey(Identifier.parse("simpledimensions:sky_portal"))){com.mojang.logging.LogUtils.getLogger().info("[standalone] simpledimensions not loaded - skipping claim portal flow");h.succeed();return;}
         var source=h.getLevel();var server=source.getServer();var original=Claims.get(server);
         var base=h.absolutePos(new BlockPos(2,80,2));var cell=new BlockPos((base.getX()>>4)*16+6,base.getY(),(base.getZ()>>4)*16+6);
         source.getChunkAt(cell);
@@ -51,10 +51,10 @@ public final class ClaimPortalTests {
         h.runBeforeTestEnd(cleanup);
         java.util.function.BiConsumer<Integer,Runnable> later=(ticks,step)->h.runAfterDelay(ticks,guarded(closed,cleanup,step));
         guarded(closed,cleanup,()->{
-        var config=new ClaimConfig(true,8,8,16,20,false,0,List.of("minecraft:overworld","simpledimension:skyblock"));
+        var config=new ClaimConfig(true,8,8,16,20,false,0,List.of("minecraft:overworld","simpledimensions:skyblock"));
         var root=temp();ClaimAccessTests.seed(root,ClaimAccessTests.key(owner),owner.getUUID(),Set.of());
         var claims=new Claims(config,root,Map.of());Claims.install(server,claims);var commands=ClaimAccessTests.dispatcher(config);
-        var portal=BuiltInRegistries.BLOCK.getValue(Identifier.parse("simpledimension:sky_portal"));
+        var portal=BuiltInRegistries.BLOCK.getValue(Identifier.parse("simpledimensions:sky_portal"));
         yes(h,portal!=Blocks.AIR,"Real Dimensions module is loaded");
         guest.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.FIRE_CHARGE,2));
         yes(h,ignite(guest,cell)==InteractionResult.FAIL&&guest.getMainHandItem().getCount()==2&&source.getBlockState(cell).isAir(),"Untrusted real loader activation denied without mutation/cost");

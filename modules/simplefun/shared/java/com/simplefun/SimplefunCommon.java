@@ -7,6 +7,13 @@ import java.nio.file.*;
 public final class SimplefunCommon {
   private static SimplefunConfig config;
 
+  /** Config folder of the loader (REV2-A-9: never the working directory); every loader sets it before {@link #registerConfig}. */
+  public static volatile Path configDir = Path.of("config");
+
+  public static Path configFile() {
+    return configDir.resolve("simplefun.json");
+  }
+
   /** Super-mod switch "Enable Simple Fun" (framework SubMods): off = items stay registered but inert, no tabs, no loot. */
   public static boolean on() {
     return com.simplebuilding.framework.api.SubMods.enabled("simplefun");
@@ -18,7 +25,7 @@ public final class SimplefunCommon {
 
   public static synchronized void registerConfig() {
     if (config != null) return;
-    var p = Path.of("config/simplefun.json");
+    var p = configFile();
     var gson = new GsonBuilder().setPrettyPrinting().create();
     config =
         com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(
@@ -43,10 +50,10 @@ public final class SimplefunCommon {
   public static void saveConfig() {
     try {
       config.normalize();
-      Files.createDirectories(Path.of("config"));
+      Files.createDirectories(configDir);
       // Atomic like every other module config (REV24-N-4): a crash mid-write must not leave half a file.
       com.simplebuilding.framework.api.ConfigFiles.writeAtomic(
-          Path.of("config/simplefun.json"),
+          configFile(),
           new GsonBuilder().setPrettyPrinting().create().toJson(config));
     } catch (Exception e) {
       throw new IllegalStateException(e);

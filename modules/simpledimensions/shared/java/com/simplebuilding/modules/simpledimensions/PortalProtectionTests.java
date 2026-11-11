@@ -74,7 +74,7 @@ public final class PortalProtectionTests {
                 Protection.register(server,PROVIDER,t->true);
                 var generated=(SkyPortalBlockEntity)target.getBlockEntity(exit);var linkDimension=generated.linkDimension;var link=generated.link;
                 try {
-                    h.assertTrue(rt.travelTest(guest,cell),"Return-link recovery fixture reaches destination");generated.linkDimension="simpledimension:missing";
+                    h.assertTrue(rt.travelTest(guest,cell),"Return-link recovery fixture reaches destination");generated.linkDimension="simpledimensions:missing";
                     h.assertTrue(rt.travelTest(guest,exit)&&guest.level()==source,"Missing generated-return dimension uses checked fallback");generated.linkDimension=linkDimension;
                     h.assertTrue(rt.travelTest(guest,cell),"Border recovery fixture reaches destination");generated.link=new BlockPos(30000001,80,30000001);
                     h.assertTrue(rt.travelTest(guest,exit)&&guest.level()==source,"Out-of-border generated return uses checked fallback");

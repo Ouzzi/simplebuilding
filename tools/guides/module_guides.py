@@ -93,7 +93,7 @@ MODULES = [
          name=("Simple Models Guide", "Simple-Models-Handbuch"),
          intro=("Server-approved custom item models, anvil assignment and a searchable model browser.",
                 "Vom Server freigegebene eigene Itemmodelle, Zuweisung am Amboss und ein durchsuchbarer Modell-Browser.")),
-    dict(module="simpledimensions", ns="simpledimension", package="com.simplebuilding.modules.simpledimensions.guide",
+    dict(module="simpledimensions", ns="simpledimensions", package="com.simplebuilding.modules.simpledimensions.guide",
          cls="DimensionsGuide", kind="item", author="Simple Dimensions", recipe="minecraft:flint_and_steel",
          name=("Simple Dimensions Guide", "Simple-Dimensions-Handbuch"),
          intro=("Configurable dimensions, light arches and safe linked portals.",

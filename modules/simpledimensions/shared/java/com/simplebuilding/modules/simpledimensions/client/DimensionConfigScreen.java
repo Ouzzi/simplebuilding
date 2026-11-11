@@ -5,7 +5,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 public final class DimensionConfigScreen {
- private static Component text(String key){return Component.translatable("text.autoconfig.simpledimension.option."+key);}
+ private static Component text(String key){return Component.translatable("text.autoconfig.simpledimensions.option."+key);}
  public static Screen create(Screen parent){
   var mc=Minecraft.getInstance();boolean editable=mc.level==null||mc.hasSingleplayerServer();
   var b=ConfigBuilder.create().setParentScreen(parent).setTitle(text(editable?"title":"remote"));var e=b.entryBuilder();

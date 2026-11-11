@@ -2,6 +2,7 @@ package dev.simpledimension.common.config;
 
 import com.google.gson.Gson;
 import com.simplebuilding.modules.simpledimensions.ConfigLimits;
+import com.simplebuilding.modules.simpledimensions.LegacyIds;
 import com.google.gson.GsonBuilder;
 import dev.simpledimension.common.portal.DimensionPortalConfig;
 
@@ -62,7 +63,7 @@ public final class DimensionConfigStore {
 
     /**
      * Folder that the loader should register as a pack <em>source</em>. It
-     * contains exactly one pack ({@code simpledimension_generated}) so a folder
+     * contains exactly one pack ({@code simpledimensions_generated}) so a folder
      * repository source picks up only our generated datapack.
      */
     public static Path datapacksFolder(Path configRoot) {
@@ -71,13 +72,19 @@ public final class DimensionConfigStore {
 
     /** Absolute path of the generated datapack root (where pack.mcmeta lives). */
     public static Path generatedDatapackRoot(Path configRoot) {
-        return datapacksFolder(configRoot).resolve("simpledimension_generated");
+        return datapacksFolder(configRoot).resolve("simpledimensions_generated");
     }
 
     private static DimensionPortalConfig read(Path path) {
         try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
             if (Files.isSymbolicLink(path) || Files.size(path)>ConfigLimits.MAX_BYTES) return null;
-            return ConfigLimits.validate(GSON.fromJson(reader, DimensionPortalConfig.class));
+            DimensionPortalConfig config = GSON.fromJson(reader, DimensionPortalConfig.class);
+            if (config != null) {
+                // WD25-14: definitions written under the old mod id name simpledimension:<id>.
+                config.targetDimensionId = LegacyIds.migrate(config.targetDimensionId);
+                config.sourceDimensionId = LegacyIds.migrate(config.sourceDimensionId);
+            }
+            return ConfigLimits.validate(config);
         } catch (Exception error) {
             org.slf4j.LoggerFactory.getLogger("simpledimensions").warn("Simple Dimensions rejected {}: {}", path.getFileName(), error.getMessage());
             return null;
@@ -104,7 +111,7 @@ public final class DimensionConfigStore {
     // ---- datapack generation ----------------------------------------------------
 
     private static void generateDatapack(Path packRoot, List<DimensionPortalConfig> configs, int dataPackFormat) {
-        Path dataRoot = packRoot.resolve("data").resolve("simpledimension");
+        Path dataRoot = packRoot.resolve("data").resolve("simpledimensions");
         Path dimensionDir = dataRoot.resolve("dimension");
         Path dimensionTypeDir = dataRoot.resolve("dimension_type");
         try {
@@ -118,7 +125,7 @@ public final class DimensionConfigStore {
         for (DimensionPortalConfig cfg : configs) {
             String id = safeId(cfg.id);
             writeJson(dimensionTypeDir.resolve(id + "_type.json"), toDimensionTypeJson(cfg));
-            // Older owner's worlds stored the type key simpledimension:skyblock.
+            // Older owner's worlds stored the type key simpledimension:skyblock (now moved to simpledimensions:skyblock by IdMoves).
             if (id.equals("skyblock")) writeJson(dimensionTypeDir.resolve("skyblock.json"), toDimensionTypeJson(cfg));
             writeJson(dimensionDir.resolve(id + ".json"), toDimensionJson(cfg));
         }
@@ -210,7 +217,7 @@ public final class DimensionConfigStore {
         String id = safeId(cfg.id);
 
         Map<String, Object> out = new LinkedHashMap<>();
-        out.put("type", "simpledimension:" + id + "_type");
+        out.put("type", "simpledimensions:" + id + "_type");
 
         Map<String, Object> generator = new LinkedHashMap<>();
         if ("noise".equalsIgnoreCase(gen.generatorType)) {

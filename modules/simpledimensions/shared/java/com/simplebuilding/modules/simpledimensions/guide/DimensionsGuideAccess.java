@@ -9,7 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 /**
  * W5 (IG31-64): the Simple Dimensions chapter of the Simple Modpack guide is easy to get - crafted (book + crafting table,
- * SimpleLib), by {@code /simpledimension guide}, and handed out on a player's first journey into a dimension. Hand-written;
+ * SimpleLib), by {@code /simpledimensions guide}, and handed out on a player's first journey into a dimension. Hand-written;
  * {@link DimensionsGuide} is generated and must not be edited. The book is SimpleLib's; without it nothing is given.
  */
 public final class DimensionsGuideAccess {

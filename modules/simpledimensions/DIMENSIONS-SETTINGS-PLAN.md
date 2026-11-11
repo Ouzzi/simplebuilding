@@ -4,7 +4,7 @@ Branch: `codex-next-dimensions`. Work only in this worktree; no push, merge, cli
 
 ## Current flow
 
-`DimensionSettings` loads `config/simpledimension/server.json`. The Cloth screen saves local settings and applies them on the integrated server thread; remote clients cannot edit server settings. Loader interaction hooks call `PortalActivation`; registered server tick hooks route player contact through `DimensionRuntime` (`SkyPortalBlock` supplies the surface and visuals). Outbound access originally checked both the global switch and the definition's `enabled` field, while generated return portals bypassed those switches. `DimensionConfigStore` supplies dimension definitions and world generation independently.
+`DimensionSettings` loads `<config>/simpledimensions/server.json`. The Cloth screen saves local settings and applies them on the integrated server thread; remote clients cannot edit server settings. Loader interaction hooks call `PortalActivation`; registered server tick hooks route player contact through `DimensionRuntime` (`SkyPortalBlock` supplies the surface and visuals). Outbound access originally checked both the global switch and the definition's `enabled` field, while generated return portals bypassed those switches. `DimensionConfigStore` supplies dimension definitions and world generation independently.
 
 ## Implementation stages
 

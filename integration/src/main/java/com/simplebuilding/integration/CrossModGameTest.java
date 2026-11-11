@@ -358,7 +358,7 @@ public final class CrossModGameTest {
      * old worlds, and the wiring example mod is a developer sample.
      */
     private static final Set<String> HIDDEN_BY_DESIGN = Set.of("simplemobs:trick_mirror",
-            "simpleenddragonfight:dragonmite_spawn_egg", "simpledimension:light_blue_portal", "wiringexample:token",
+            "simpleenddragonfight:dragonmite_spawn_egg", "simpledimensions:light_blue_portal", "wiringexample:token",
             // Only made by burning an uploaded track onto a blank disc; an empty one would be meaningless.
             "simplemusic:custom_disc",
             // SP22-8: the old claim table only remains so old worlds load; it turns into a cartography table when used.

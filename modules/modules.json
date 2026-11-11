@@ -1022,7 +1022,7 @@
         "modules/simpledimensions/tools/check_data.py"
       ],
       "tests": {
-        "namespace": "simpledimension",
+        "namespace": "simpledimensions",
         "catalogues": [
           "modules/simpledimensions/fabric/src/main/java/com/simplebuilding/modules/simpledimensions/ModuleGameTest.java"
         ],
@@ -1085,7 +1085,7 @@
         "neoforge": "modules/simpledimensions/neoforge",
         "forge": "modules/simpledimensions/forge",
         "generated": "modules/simpledimensions/generated/resources",
-        "lang": "modules/simpledimensions/shared/resources/assets/simpledimension/lang",
+        "lang": "modules/simpledimensions/shared/resources/assets/simpledimensions/lang",
         "wikiManual": "modules/simpledimensions/wiki/manual.json",
         "balanceDir": "balance/simpledimensions"
       },
@@ -1094,8 +1094,8 @@
         "neoforge": ":modules:simpledimensions:neoforge",
         "forge": ":modules:simpledimensions:forge"
       },
-      "namespace": "simpledimension",
-      "modId": "simpledimension",
+      "namespace": "simpledimensions",
+      "modId": "simpledimensions",
       "parent": "simplebuilding",
       "bundle": "optional",
       "configSwitch": true

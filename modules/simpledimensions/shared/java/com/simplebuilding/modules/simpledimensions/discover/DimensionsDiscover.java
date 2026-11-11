@@ -43,7 +43,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 public final class DimensionsDiscover {
     public static final String MOD_ID = "simpledimensions";
     static final List<String> NAMESPACES = List.of(
-            "simpledimension");
+            "simpledimensions");
     /** Items whose item or block class comes from these packages carry their own behaviour. */
     static final List<String> OWN_PACKAGES = List.of(
             "com.simplebuilding.modules.simpledimensions.",
@@ -52,20 +52,20 @@ public final class DimensionsDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
-            "simpledimension:claims_adapter",
-            "simpledimension:commands",
-            "simpledimension:configuration",
-            "simpledimension:default_dimensions",
-            "simpledimension:guide_access",
-            "simpledimension:guide_book",
-            "simpledimension:inventory_rights",
-            "simpledimension:light_blue_portal",
-            "simpledimension:mining",
-            "simpledimension:portal_shapes",
-            "simpledimension:safe_return",
-            "simpledimension:sky_portal",
-            "simpledimension:skyblock",
-            "simpledimension:travel");
+            "simpledimensions:claims_adapter",
+            "simpledimensions:commands",
+            "simpledimensions:configuration",
+            "simpledimensions:default_dimensions",
+            "simpledimensions:guide_access",
+            "simpledimensions:guide_book",
+            "simpledimensions:inventory_rights",
+            "simpledimensions:light_blue_portal",
+            "simpledimensions:mining",
+            "simpledimensions:portal_shapes",
+            "simpledimensions:safe_return",
+            "simpledimensions:sky_portal",
+            "simpledimensions:skyblock",
+            "simpledimensions:travel");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {

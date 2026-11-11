@@ -25,7 +25,7 @@ public final class DimensionsGuideTests {
         for (String id : List.of("skyblock", "mining", "travel")) {
             var config = runtime.config(id);
             h.assertTrue(config != null, "default dimension missing: " + id);
-            h.assertTrue(config.targetDimensionId.equals("simpledimension:" + id), "wrong target for " + id + ": " + config.targetDimensionId);
+            h.assertTrue(config.targetDimensionId.equals("simpledimensions:" + id), "wrong target for " + id + ": " + config.targetDimensionId);
             h.assertTrue(Files.isRegularFile(DimensionRuntime.CONFIG_ROOT.resolve("dimensions").resolve(id + ".json")), id + ".json not written on first start");
             h.assertTrue(runtime.settings.allowsAccess(config) == runtime.settings.accessEnabled, id + " not switched on by default");
         }
@@ -49,27 +49,27 @@ public final class DimensionsGuideTests {
     /** The chapter covers the default dimensions, getting the guide, inventory/rights and the commands, in both languages. */
     public static void guideContent(GameTestHelper h) {
         for (String locale : List.of("en_us", "de_de")) {
-            String lang = read("/assets/simpledimension/lang/" + locale + ".json");
+            String lang = read("/assets/simpledimensions/lang/" + locale + ".json");
             h.assertTrue(lang != null, locale + " lang missing");
             var data = com.google.gson.JsonParser.parseString(lang).getAsJsonObject();
             StringBuilder all = new StringBuilder();
             for (int i = 1; i <= DimensionsGuide.PAGES; i++) {
-                h.assertTrue(data.has("simpledimension.guide.page." + i), locale + " page " + i + " missing");
-                all.append(data.get("simpledimension.guide.page." + i).getAsString()).append(' ');
+                h.assertTrue(data.has("simpledimensions.guide.page." + i), locale + " page " + i + " missing");
+                all.append(data.get("simpledimensions.guide.page." + i).getAsString()).append(' ');
             }
             String text = all.toString();
-            for (String word : List.of("Skyblock", "Mining", "Travel", "/simpledimension guide", "/simpledimension config")) {
+            for (String word : List.of("Skyblock", "Mining", "Travel", "/simpledimensions guide", "/simpledimensions config")) {
                 h.assertTrue(text.contains(word), locale + " guide lacks: " + word);
             }
-            h.assertTrue(data.has("text.autoconfig.simpledimension.option.giveGuideOnFirstTravel") && data.has("text.autoconfig.simpledimension.option.giveGuideOnFirstTravel.@Tooltip"),
+            h.assertTrue(data.has("text.autoconfig.simpledimensions.option.giveGuideOnFirstTravel") && data.has("text.autoconfig.simpledimensions.option.giveGuideOnFirstTravel.@Tooltip"),
                     locale + " lacks the first-trip option text");
-            h.assertTrue(data.has("simpledimension.guide.command.given") && data.has("simpledimension.guide.command.missing"), locale + " lacks the command texts");
+            h.assertTrue(data.has("simpledimensions.guide.command.given") && data.has("simpledimensions.guide.command.missing"), locale + " lacks the command texts");
         }
         h.assertTrue(DimensionsGuide.PAGES >= 30, "the handbook has not grown: " + DimensionsGuide.PAGES);
         h.succeed();
     }
 
-    /** /simpledimension guide and the first journey: the guide is handed over (chapter open), the first journey only once. */
+    /** /simpledimensions guide and the first journey: the guide is handed over (chapter open), the first journey only once. */
     public static void guideWelcome(GameTestHelper h) {
         var guide = BuiltInRegistries.ITEM.getOptional(DimensionsGuide.MODPACK_GUIDE).orElse(null);
         h.assertTrue(guide != null, "the Simple Modpack guide is missing");

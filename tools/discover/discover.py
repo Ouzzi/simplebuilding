@@ -188,7 +188,7 @@ MODS = [
                 "Halten zieht Items an; Schleichen pausiert"),
                ("detector", ["detector"], "Hold it: the needle points to the nearest ore",
                 "Halten: die Nadel zeigt zum nächsten Erz")]),
-    dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
+    dict(id="simpledimensions", ns=["simpledimensions"], cls="DimensionsDiscover",
          package="com.simplebuilding.modules.simpledimensions.discover",
          own_packages=["com.simplebuilding.modules.simpledimensions.", "dev.simpledimension."]),
     dict(id="simpleend", ns=["simpleend"], cls="EndDiscover", package="com.simplebuilding.modules.simpleend.discover",
