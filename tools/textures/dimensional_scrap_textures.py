@@ -1,9 +1,15 @@
-"""Usage: python tools/textures/dimensional_scrap_textures.py <out-dir> <vanilla textures dir>
+"""RETIRED (11.11.2026, b-scrapgen31): writes the state before MISCTEX23 (not the accepted textures). Use
+tools/textures/misctex23b_2026_10_23.py --write/--check (A1 animations on top of the accepted base layer) instead.
+Kept only as history of the first scrap draw.
+
+Usage: python tools/textures/dimensional_scrap_textures.py <out-dir> <vanilla textures dir>
 
 Dimensional Scrap textures (owner 2026-10-01): vanilla ancient debris keeps its structure; its body is
 mapped onto the dimension's stone ramp and its brightest swirl lines become a rift accent."""
 from PIL import Image, ImageDraw
 import sys, os
+if __name__ == '__main__':
+    raise SystemExit('retired: use tools/textures/misctex23b_2026_10_23.py --check/--write (see docstring)')
 OUT = sys.argv[1] if len(sys.argv) > 1 else 'build/scrap-textures/'
 V = sys.argv[2] if len(sys.argv) > 2 else 'build/vanilla-textures/'
 VARIANTS = {
