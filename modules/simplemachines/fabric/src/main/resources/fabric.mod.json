@@ -12,7 +12,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages), Signal Dampener (takes 0-3 off the signal), and the piston upgrades - Reinforced (Sticky) Piston (pushes 18, one paid unbreakable), Netherite and Enderite Piston (break the block in front, with durability, repaired with their nugget), Reinforced, Netherite and Enderite Hopper (2/4/8 times as fast, item filter) and their hopper minecarts, and the Auto Smither (runs the smithing table on a redstone pulse). Works on its own; the Enderite parts need Simple Ores.",
+  "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages), Signal Dampener (takes 0-3 off the signal), and the piston upgrades - Reinforced (Sticky) Piston (pushes 18, one paid unbreakable), Netherite and Enderite Piston (break the block in front, with durability, repaired with their nugget), Reinforced, Netherite and Enderite Hopper (2/4/8 times as fast, item filter) and their hopper minecarts, the Auto Smither (runs the smithing table on a redstone pulse) and the Auto Crafter (crafts by itself into a hopper below). Works on its own; the Enderite parts need Simple Ores.",
   "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "mixins": [

@@ -263,7 +263,8 @@ public class ModBlocks {
             : McVersion.AUTO_SMITHER_IN_MACHINES ? com.simplebuilding.util.MachineRefs.block("auto_smither") : null; // 26.3: Simple Machines (MACH32-MOD stage 4)
     /** Autonomer Crafter: craftet selbst in den Trichter darunter (2026-10-09, McVersion.AUTONOMOUS_CRAFTER). Wie der Crafter. */
     public static final Block AUTONOMOUS_CRAFTER = McVersion.AUTONOMOUS_CRAFTER
-            ? registerBlock("autonomous_crafter", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutonomousCrafterBlock::new) : null;
+            ? registerBlock("autonomous_crafter", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutonomousCrafterBlock::new)
+            : McVersion.AUTONOMOUS_CRAFTER_IN_MACHINES ? com.simplebuilding.util.MachineRefs.block("autonomous_crafter") : null; // 26.3: Simple Machines (MACH32-MOD stage 4b)
     // Astral-Verzauberung (2026-10-09, N27, docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md, McVersion.ASTRAL_ENCHANTING).
     // ENCH02 (03.11.): die Tische gehoeren dem Pflicht-Sub-Mod Simple Enchanting (simpleenchanting:*, der alte Astral-Tisch ist
     // der Dark Enchanter); SB behaelt die Baubloecke darunter. Die Felder zeigen per Id auf die Modul-Bloecke (Luft ohne Modul).

@@ -93,7 +93,6 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:astralit_lamp",
             "simplebuilding:astralit_ore",
             "simplebuilding:astralit_pillar",
-            "simplebuilding:autonomous_crafter",
             "simplebuilding:backpack",
             "simplebuilding:backpacks",
             "simplebuilding:basic_upgrade_template",

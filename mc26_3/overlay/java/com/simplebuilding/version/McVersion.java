@@ -62,8 +62,13 @@ public final class McVersion {
     public static final boolean AUTO_SMITHER = false;
     /** MACH32-MOD stage 4: the Auto Smither is the required sub-mod Simple Machines' ({@code simplemachines:auto_smither}). */
     public static final boolean AUTO_SMITHER_IN_MACHINES = true;
-    /** Autonomous Crafter: crafts on its own over a hopper (owner 2026-10-09, queue N26). */
-    public static final boolean AUTONOMOUS_CRAFTER = true;
+    /**
+     * Autonomous Crafter: crafts on its own over a hopper (owner 2026-10-09, queue N26) - SimpleBuilding's own one. Since MACH32-MOD
+     * stage 4b (10.11.) it is Simple Machines' on 26.3 ({@link #AUTONOMOUS_CRAFTER_IN_MACHINES}); SimpleBuilding registers nothing of it.
+     */
+    public static final boolean AUTONOMOUS_CRAFTER = false;
+    /** MACH32-MOD stage 4b: the Autonomous Crafter is the required sub-mod Simple Machines' ({@code simplemachines:autonomous_crafter}). */
+    public static final boolean AUTONOMOUS_CRAFTER_IN_MACHINES = true;
     /** Enchanting building blocks: blazewood, blaze books and shelves, Blazing and Nihil Obsidian (owner 2026-10-09, queue N27). Since ENCH02 (03.11.) the tables (Dark/Astral Enchanter) are the required sub-mod Simple Enchanting's ({@code util/EnchantingRefs}); SB keeps the blocks and its endgame option is hidden. */
     public static final boolean ASTRAL_ENCHANTING = true;
     /** Crafting table that keeps its 3x3 grid and shows it on top (owner 2026-10-09, queue N26); since split stage 8a it is Simple Storage's ({@link #STORAGE_NAMESPACE}). */

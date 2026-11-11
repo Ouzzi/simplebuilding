@@ -246,6 +246,44 @@
       }
     },
     {
+      "id": "autonomous_crafter",
+      "sources": [
+        "modules/simplemachines/shared/java/com/simplemachines/crafter/Crafters.java",
+        "modules/simplemachines/shared/java/com/simplemachines/crafter/AutonomousCrafterBlock.java",
+        "modules/simplemachines/shared/java/com/simplemachines/crafter/AutonomousCrafterBlockEntity.java",
+        "modules/simplemachines/shared/java/com/simplemachines/crafter/AutonomousCrafterMenu.java",
+        "modules/simplemachines/shared/java/com/simplemachines/client/AutonomousCrafterScreen.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/ItemFilter.java",
+        "modules/simplemachines/shared/java/com/simplemachines/compat/jei/MachinesJeiPlugin.java",
+        "modules/simplemachines/shared/resources/data/simplemachines/recipe/autonomous_crafter.json",
+        "modules/simplemachines/shared/java/com/simplemachines/test/AutonomousCrafterTests.java"
+      ],
+      "en": {
+        "title": "Auto Crafter (Autonomous Crafter)",
+        "summary": "The Auto Crafter is a Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper. Until 10.11. SimpleBuilding's; old simplebuilding: ids and placed Auto Crafters move here.",
+        "details": [
+          "It crafts only with a hopper (vanilla or mod hopper) directly below and no redstone signal reaching it. Result and recipe remainders go into that hopper; if the result does not fit completely, nothing is crafted. Remainders that do not fit drop on top of the crafter.",
+          "The 3x3 grid works like the Crafter's: clicking an empty slot with an empty cursor switches it off, clicking it again switches it on. Hoppers and droppers fill it from the top and the sides; nothing can be pulled out, and the hopper below cannot suck up the ingredients.",
+          "Filter key (same key as the mod hoppers, modes Disabled, Exact Match and Type Match): with it on, every filled slot keeps one real item as its recipe item - it crafts only when each filled slot holds at least two and uses up one of each; hoppers only top up slots that hold a match, empty slots take nothing. With the filter off it uses up the last items like the Crafter.",
+          "A comparator reads the filled or switched-off slots (0 to 9), like the Crafter. The faces light up for a moment after each craft and show red lights while powered.",
+          "With JEI the Auto Crafter is listed as a station of the crafting recipes.",
+          "Recipe (shapeless): Crafter + Hopper + Redstone Comparator."
+        ]
+      },
+      "de": {
+        "title": "Auto-Crafter (Autonomer Crafter)",
+        "summary": "Der Auto-Crafter ist ein Crafter, der sein Raster alle 4 Ticks selbst craftet, solange ein Trichter unter ihm steht. Ein Redstone-Signal hält ihn an; Ergebnisse gehen in diesen Trichter. Bis 10.11. SimpleBuildings; alte simplebuilding:-Ids und gesetzte Auto-Crafter ziehen hierher um.",
+        "details": [
+          "Er craftet nur mit einem Trichter (Vanilla- oder Mod-Trichter) direkt darunter und ohne Redstone-Signal. Ergebnis und Rezept-Reste gehen in diesen Trichter; passt das Ergebnis nicht ganz hinein, wird nichts gecraftet. Reste, die nicht passen, fallen oben auf den Crafter.",
+          "Das 3x3-Raster funktioniert wie beim Crafter: Klick mit leerem Mauszeiger auf einen leeren Platz schaltet ihn ab, ein weiterer Klick wieder an. Trichter und Spender füllen von oben und den Seiten; herausziehen lässt sich nichts, auch der Trichter darunter saugt die Zutaten nicht ab.",
+          "Filter-Knopf (derselbe wie bei den Mod-Trichtern, Modi Aus, Exakt gleich und Gleiche Art): eingeschaltet behält jeder belegte Platz ein echtes Item als Rezept-Item - gecraftet wird erst, wenn jeder belegte Platz mindestens zwei hat, verbraucht wird je eins; Trichter füllen nur Plätze mit passendem Item auf, leere Plätze nehmen nichts. Ohne Filter verbraucht er wie der Crafter auch die letzten Items.",
+          "Ein Komparator liest die belegten oder abgeschalteten Plätze (0 bis 9), wie beim Crafter. Nach jedem Craft leuchten die Seiten kurz auf, mit Redstone-Signal zeigen sie rote Lichter.",
+          "Mit JEI steht der Auto-Crafter als Station bei den Werkbank-Rezepten.",
+          "Rezept (formlos): Crafter + Trichter + Redstone-Komparator."
+        ]
+      }
+    },
+    {
       "id": "creative_tab_switch",
       "sources": [
         "modules/simplemachines/shared/java/com/simplemachines/MachinesRegistry.java",
@@ -329,10 +367,10 @@
         "modules/simplemachines/shared/resources/data/simplemachines/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Machines\" of the Simple Modpack guide (SimpleLib): 15 pages taken from this wiki, shown in your language. Unlocked by picking up: redstone dust. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Machines\" of the Simple Modpack guide (SimpleLib): 17 pages taken from this wiki, shown in your language. Unlocked by picking up: redstone dust. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Machines\" im Simple-Modpack-Handbuch (SimpleLib): 15 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Redstone-Staub. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Machines\" im Simple-Modpack-Handbuch (SimpleLib): 17 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Redstone-Staub. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplemachines:double_piston": {
@@ -546,6 +584,19 @@
       },
       "de": {
         "summary": "Schmiedet einmal pro Redstone-Impuls mit den Rezepten des Schmiedetischs; Ergebnisse gehen in den Behälter davor."
+      }
+    },
+    "simplemachines:autonomous_crafter": {
+      "sources": [
+        "modules/simplemachines/shared/java/com/simplemachines/crafter/Crafters.java",
+        "modules/simplemachines/shared/java/com/simplemachines/crafter/AutonomousCrafterBlock.java",
+        "modules/simplemachines/shared/java/com/simplemachines/crafter/AutonomousCrafterBlockEntity.java"
+      ],
+      "en": {
+        "summary": "Crafts its grid by itself into the hopper below; a redstone signal stops it."
+      },
+      "de": {
+        "summary": "Craftet sein Raster selbst in den Trichter darunter; ein Redstone-Signal hält ihn an."
       }
     }
   }

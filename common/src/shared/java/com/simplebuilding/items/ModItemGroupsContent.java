@@ -666,7 +666,8 @@ public final class ModItemGroupsContent {
     public static CreativeTabLayout.Row autoSmitherRow() {
         List<net.minecraft.world.level.ItemLike> items = new java.util.ArrayList<>();
         items.add(ModItems.AUTO_SMITHER);
-        if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) items.add(ModItems.AUTONOMOUS_CRAFTER);
+        // Seit 10.11. (MACH32-MOD Stufe 4b) Simple Machines' (Feld = Modul-Item).
+        if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER || com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER_IN_MACHINES) items.add(ModItems.AUTONOMOUS_CRAFTER);
         // Split stage 8a: the Storage Crafting Table is Simple Storage's (by id; air on 26.2 is skipped).
         if (com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE) items.add(com.simplebuilding.util.StorageRefs.item(com.simplebuilding.util.StorageRefs.STORAGE_CRAFTING_TABLE));
         return CreativeTabLayout.Row.of("auto_smither", items.toArray(net.minecraft.world.level.ItemLike[]::new));

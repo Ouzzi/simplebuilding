@@ -411,4 +411,40 @@ public final class ModuleGameTest {
     public void autoSmitherOutputCapacityAndRecipeError(GameTestHelper h) {
         com.simplemachines.test.AutoSmitherTests.autoSmitherOutputCapacityAndRecipeError(h);
     }
+
+    // MACH32-MOD stage 4b: the Autonomous Crafter (AutonomousCrafterTests).
+    @GameTest(structure = "simplemachines:empty")
+    public void autonomousCrafterRegistered(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterRegistered(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void oldAutonomousCrafterIdsMove(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.oldAutonomousCrafterIdsMove(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 200)
+    public void autonomousCrafterCraftsOnlyAboveHoppers(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterCraftsOnlyAboveHoppers(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 200)
+    public void autonomousCrafterStopsOnRedstone(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterStopsOnRedstone(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 200)
+    public void autonomousCrafterFilterKeepsTheRecipeItems(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterFilterKeepsTheRecipeItems(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void autonomousCrafterKeepsItsIngredients(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterKeepsItsIngredients(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void autonomousCrafterMenuLayout(GameTestHelper h) {
+        com.simplemachines.test.AutonomousCrafterTests.autonomousCrafterMenuLayout(h);
+    }
 }

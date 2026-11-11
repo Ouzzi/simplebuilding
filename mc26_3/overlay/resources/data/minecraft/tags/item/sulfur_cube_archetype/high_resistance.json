@@ -61,7 +61,7 @@
       "required": false
     },
     {
-      "id": "simplebuilding:autonomous_crafter",
+      "id": "simplemachines:autonomous_crafter",
       "required": false
     },
     {

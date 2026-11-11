@@ -34,6 +34,10 @@ public final class MachinesFabric implements ModInitializer {
         com.simplemachines.smither.Smithers.registerBlockEntity(new net.minecraft.world.level.block.entity.BlockEntityType<>(
                 com.simplemachines.smither.AutoSmitherBlockEntity::new, java.util.Set.of(com.simplemachines.smither.Smithers.BLOCK)));
         com.simplemachines.smither.Smithers.registerMenu();
+        // Stage 4b: the Autonomous Crafter's block entity type and menu.
+        com.simplemachines.crafter.Crafters.registerBlockEntity(new net.minecraft.world.level.block.entity.BlockEntityType<>(
+                com.simplemachines.crafter.AutonomousCrafterBlockEntity::new, java.util.Set.of(com.simplemachines.crafter.Crafters.BLOCK)));
+        com.simplemachines.crafter.Crafters.registerMenu();
         MachinesRegistry.registerTab();
         PistonsFabric.init();
         HoppersFabric.init();
@@ -41,8 +45,10 @@ public final class MachinesFabric implements ModInitializer {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleMachines.MOD_ID)) return;
             // Stage 3: the hoppers behind Vanilla's hopper, where SimpleBuilding had them.
             insertAfter(out, Items.HOPPER, com.simplemachines.hopper.Hoppers.stacks());
-            // Stage 4: the Auto Smither behind Vanilla's Crafter.
-            insertAfter(out, Items.CRAFTER, com.simplemachines.smither.Smithers.stacks());
+            // Stage 4/4b: the Auto Smither and the Autonomous Crafter behind Vanilla's Crafter (SimpleBuilding's order).
+            var workshop = new java.util.ArrayList<>(com.simplemachines.smither.Smithers.stacks());
+            workshop.addAll(com.simplemachines.crafter.Crafters.stacks());
+            insertAfter(out, Items.CRAFTER, workshop);
             var stacks = MachinesRegistry.partStacks().stream().filter(s -> out.getDisplayStacks().stream().noneMatch(d -> ItemStack.isSameItemSameComponents(d, s))).toList();
             if (stacks.isEmpty()) return;
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.REPEATER))) out.insertAfter(Items.REPEATER, stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

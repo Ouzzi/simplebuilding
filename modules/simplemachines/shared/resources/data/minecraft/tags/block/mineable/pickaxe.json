@@ -13,6 +13,7 @@
     "simplemachines:reinforced_hopper",
     "simplemachines:netherite_hopper",
     "simplemachines:enderite_hopper",
-    "simplemachines:auto_smither"
+    "simplemachines:auto_smither",
+    "simplemachines:autonomous_crafter"
   ]
 }

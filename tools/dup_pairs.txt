@@ -1,6 +1,7 @@
 # core path, module path, allow: drift accepted so far (tools/check_dup_impl.py --baseline rewrites this)
 common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModBlocks.java allow: CheckerShapes/4 CoatedKind/10 EndAlternates/4 EndPalette/15 alternates/0 blocks/0 boards/0 hammockBlockEntityBlocks/0 register/0 registerModBlocks/0 shapes/0 slabs/0 squareChain/0 stairs/0 tieredChests/0 trappedCopperChests/0 walls/0
 common/src/shared/java/com/simplebuilding/blocks/custom/AutoSmitherBlock.java modules/simplemachines/shared/java/com/simplemachines/smither/AutoSmitherBlock.java allow: codec/0
+common/src/shared/java/com/simplebuilding/blocks/custom/AutonomousCrafterBlock.java modules/simplemachines/shared/java/com/simplemachines/crafter/AutonomousCrafterBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlock.java allow: canSurvive/3 codec/0 getStateForPlacement/1 onPlace/5 storedStack/1 tick/4 updateShape/8
 common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java modules/simplestorage/shared/java/com/simplestorage/chest/ChestTier.java
 common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java modules/simpleores/shared/java/com/simpleores/block/DimensionalScrapBlock.java allow: isEnderiteTool/1
@@ -13,6 +14,7 @@ common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.ja
 common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlock.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java modules/simplemachines/shared/java/com/simplemachines/smither/AutoSmitherBlockEntity.java
+common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutonomousCrafterBlockEntity.java modules/simplemachines/shared/java/com/simplemachines/crafter/AutonomousCrafterBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java allow: ownsMenu/1
@@ -45,6 +47,7 @@ common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintScreen.java 
 common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintTooltip.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/blueprint/BlueprintTooltip.java
 common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintView.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/blueprint/BlueprintView.java
 common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java modules/simplemachines/shared/java/com/simplemachines/client/AutoSmitherScreen.java
+common/src/shared/java/com/simplebuilding/client/gui/AutonomousCrafterScreen.java modules/simplemachines/shared/java/com/simplemachines/client/AutonomousCrafterScreen.java
 common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackScreen.java allow: palette/2 slotColor/1
 common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/gui/BuildingWandScreen.java
 common/src/shared/java/com/simplebuilding/client/gui/HudPanel.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/client/gui/HudPanel.java allow: active/2 contrastOver/2 draw/5
@@ -137,6 +140,7 @@ common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java modu
 common/src/shared/java/com/simplebuilding/recipe/EnchantedShapelessRecipe.java modules/simplepads/shared/java/com/simplepads/recipe/EnchantedShapelessRecipe.java
 common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleRecipe.java
 common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java modules/simplemachines/shared/java/com/simplemachines/smither/AutoSmitherMenu.java
+common/src/shared/java/com/simplebuilding/screen/AutonomousCrafterMenu.java modules/simplemachines/shared/java/com/simplemachines/crafter/AutonomousCrafterMenu.java
 common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackArmorSlot.java
 common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackContainer.java
 common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackLayout.java

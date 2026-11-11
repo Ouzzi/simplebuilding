@@ -8,7 +8,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:autonomous_crafter"
+          "name": "simplemachines:autonomous_crafter"
         }
       ],
       "rolls": 1

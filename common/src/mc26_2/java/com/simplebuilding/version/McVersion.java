@@ -64,8 +64,10 @@ public final class McVersion {
     public static final boolean AUTO_SMITHER = false;
     /** MACH32-MOD stage 4: on 26.3 the Auto Smither is Simple Machines'; 26.2 has none. */
     public static final boolean AUTO_SMITHER_IN_MACHINES = false;
-    /** Autonomous Crafter: crafts on its own over a hopper (owner 2026-10-09, queue N26). */
+    /** Autonomous Crafter: crafts on its own over a hopper (owner 2026-10-09, queue N26) - SimpleBuilding's own one. */
     public static final boolean AUTONOMOUS_CRAFTER = false;
+    /** MACH32-MOD stage 4b: on 26.3 the Autonomous Crafter is Simple Machines'; 26.2 has none. */
+    public static final boolean AUTONOMOUS_CRAFTER_IN_MACHINES = false;
     /** Astral Enchanting Table, blazewood, blaze books and shelves, blazing obsidian (owner 2026-10-09, queue N27). */
     public static final boolean ASTRAL_ENCHANTING = false;
     /** Crafting table that keeps its 3x3 grid and shows it on top (owner 2026-10-09, queue N26). */

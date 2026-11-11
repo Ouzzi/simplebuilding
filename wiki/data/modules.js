@@ -82,9 +82,9 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 486,
-      "blocks": 279,
-      "recipes": 802,
+      "items": 485,
+      "blocks": 278,
+      "recipes": 801,
       "config": 152,
       "features": 42
     }
@@ -2041,11 +2041,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA70lEQVR42mPwUlH4TwlmABGXZ04iGe+ICkAYsHjJMrIw2ID6hia4wPQZs+DsTd2d/y+5mPzfYar1f9eUSf/Xb9iEgkFq0zOyEAaABJANWNnc+P9FlCvYEJBhyJph6uEGrJrcD1YMwiA2SHJhVQXcAJBhyIbDLEMxAKQQhLEZAGLDNMFwd08ffhd8/fQeBYM04DRgQWcrhguePbyDgmGaYBikD24ASKAryON/lZsd3IYrZ4+hYGTNWA0AaUY2AORvWDSC2AQNQPfjjMJ8uAEgNrr/UcKguKQMBSMbim4rDIPUYbiAVIzTBcRisAGUZmcAIROGNE6TrXwAAAAASUVORK5CYII=",
     "counts": {
       "items": 4,
-      "blocks": 15,
-      "recipes": 11,
-      "features": 9
+      "blocks": 16,
+      "recipes": 12,
+      "features": 10
     },
-    "dataHash": "50e904cec085"
+    "dataHash": "d2c77368b695"
   },
   {
     "id": "simplearrows",

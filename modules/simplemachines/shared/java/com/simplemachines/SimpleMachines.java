@@ -15,7 +15,8 @@ import org.slf4j.LoggerFactory;
  * (IG31-12) and are a required sub-mod of SimpleBuilding now. Stage 2 (docs/ai/PLAN-B-MACHINES02-2026-11-03.md): the piston upgrades
  * ({@link com.simplemachines.upgrade.PistonUpgrades}). Stage 3 (docs/ai/PLAN-B-MACHINES03-2026-11-03.md): the mod hoppers and hopper
  * carts ({@link com.simplemachines.hopper.Hoppers}). Stage 4 (docs/ai/PLAN-B-MACH32S4-2026-11-10.md): the Auto Smither
- * ({@link com.simplemachines.smither.Smithers}). Vanilla and SimpleLib ingredients, runs alone.
+ * ({@link com.simplemachines.smither.Smithers}); stage 4b (docs/ai/PLAN-B-MACH32S4B-2026-11-10.md) the Autonomous Crafter
+ * ({@link com.simplemachines.crafter.Crafters}). Vanilla and SimpleLib ingredients, runs alone.
  * The loader entry point calls {@link #init} once with its config directory before it registers anything.
  */
 public final class SimpleMachines {
@@ -73,7 +74,7 @@ public final class SimpleMachines {
                         MOD_ID + ":enderite_piston", MOD_ID + ":double_piston", MOD_ID + ":signal_dampener",
                         MOD_ID + ":reinforced_hopper", MOD_ID + ":netherite_hopper", MOD_ID + ":enderite_hopper",
                         MOD_ID + ":reinforced_hopper_minecart", MOD_ID + ":netherite_hopper_minecart", MOD_ID + ":enderite_hopper_minecart",
-                        MOD_ID + ":auto_smither", MOD_ID + ":guide_book"));
+                        MOD_ID + ":auto_smither", MOD_ID + ":autonomous_crafter", MOD_ID + ":guide_book"));
     }
 
     /**
@@ -129,6 +130,14 @@ public final class SimpleMachines {
         move(Registries.BLOCK_ENTITY_TYPE, CORE_NAMESPACE, smither);
         move(Registries.RECIPE, CORE_NAMESPACE, smither);
         move(Registries.ADVANCEMENT, CORE_NAMESPACE, "recipes/" + com.simplemachines.smither.Smithers.RECIPE_FOLDER + "/" + smither);
+        // Stage 4b (10.11.): the Autonomous Crafter; block state (triggered, crafting) and block entity data (Items, disabled_slots,
+        // FilterMode, cooldown, crafting_ticks_remaining) are the same, the block entity type keeps its path.
+        String crafter = com.simplemachines.crafter.Crafters.ID;
+        move(Registries.ITEM, CORE_NAMESPACE, crafter);
+        move(Registries.BLOCK, CORE_NAMESPACE, crafter);
+        move(Registries.BLOCK_ENTITY_TYPE, CORE_NAMESPACE, crafter);
+        move(Registries.RECIPE, CORE_NAMESPACE, crafter);
+        move(Registries.ADVANCEMENT, CORE_NAMESPACE, "recipes/" + com.simplemachines.crafter.Crafters.RECIPE_FOLDER + "/" + crafter);
     }
 
     private static void move(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>> registry, String from, String path) {
