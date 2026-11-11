@@ -3,6 +3,8 @@
 Runs the full integration client under xvfb-run. The client-side SortProbe creates a flat world and reports the open container
 screen's slots; this script presses E, moves the X11 pointer over a main-inventory slot and clicks the MIDDLE button through XTest
 (Pointer of Simple Earth's menu_probe.py): X server -> SDL -> MouseHandler -> screen, like a player's mouse.
+Steps: (a) creative - item tab clones, Survival Inventory tab sorts its main rows, its hotbar clones (b-sortprobe27); (b) survival
+inventory; (c) hotbar; (d) chest.
 
 Usage (inside xvfb-run, from the repository root):
     python3.12 modules/simpleinterfaces/tools/sort_probe.py --out /var/tmp/sb/sortprobe
@@ -136,18 +138,68 @@ def main():
             for i, (item, n) in enumerate(items):
                 chat(f'item replace entity @s inventory.{i} with {item} {n}', 0.3)
 
-        # ---- (a) creative: the key must do nothing (Vanilla's middle click = pick block stack)
+        # ---- (a) creative (b-sort26 / b-sortprobe27): the Survival Inventory tab sorts its main rows, item tabs and the hotbar keep
+        # Vanilla's middle click (clone a full stack onto the cursor).
         chat('gamemode creative @s')
-        fill([('minecraft:dirt', 3), ('minecraft:apple', 2), ('minecraft:dirt', 4)])
+        scramble_c = [('minecraft:dirt', 20), ('minecraft:apple', 3), ('minecraft:stone', 7), ('minecraft:dirt', 30), ('minecraft:apple', 4)]
+        chat('clear @s')
+        for i, (item, n) in enumerate(scramble_c):
+            chat(f'item replace entity @s inventory.{9 + i * 3} with {item} {n}', 0.3)
+        chat('item replace entity @s hotbar.0 with minecraft:torch 5', 0.3)
         io.key('e')
         st = fresh()
-        check('(a) E opens the inventory screen', 'Inventory' in st['screen'], st['screen'])
-        s0 = slot(st, 9)
-        before = st['inventory'][:]
+        check('(a) creative: E opens the creative screen', 'CreativeModeInventoryScreen' in st['screen'], st['screen'])
+        check('(a) creative player', st['creative'] is True, st['creative'])
+        # (a1) item tab: middle click on an item clones a full stack (Vanilla), the inventory is untouched
+        if st.get('inventoryTab'):
+            check('(a1) creative screen opened on an item tab', False, 'inventory tab already open')
+        else:
+            pre = st['inventory'][:]
+            item = next((x for x in st['slots'] if not x['own'] and x['stack']), None)
+            check('(a1) item tab shows items', item is not None, len(st['slots']))
+            if item:
+                io.middle_click(st['windowX'] + item['x'], st['windowY'] + item['y'])
+                st = fresh()
+                got = st.get('carried', '')
+                check('(a1) item tab: real middle click clones a full stack (Vanilla)', got.split(' x')[0] == item['stack'].split(' x')[0] and got.endswith(('x64', 'x16', 'x1')), f'{item["stack"]} -> carried {got}')
+                check('(a1) item tab: inventory unchanged', st['inventory'] == pre, st['inventory'][9:36])
+            io.key('Escape')
+            io.key('e')
+            st = fresh()
+        # (a2) the real left click on the Survival Inventory tab
+        if not st.get('inventoryTab'):
+            check('(a2) inventory tab position reported', 'invTabX' in st, st.get('invTabError', st.get('screen')))
+            if 'invTabX' in st:
+                io.click(st['windowX'] + st['invTabX'], st['windowY'] + st['invTabY'])
+                st = fresh()
+        check('(a2) real click opens the Survival Inventory tab', st.get('inventoryTab') is True, st.get('inventoryTab'))
+        command('expect')
+        st = fresh()
+        pre = st['inventory'][:]
+        command('shot')
+        # (a3) middle click on a main-row slot sorts the main rows (server sorts the inventory menu)
+        s9 = slot(st, 9)
+        check('(a3) main-row slot 9 shown in the inventory tab', s9 is not None, len(st['slots']))
+        if s9:
+            io.middle_click(st['windowX'] + s9['x'], st['windowY'] + s9['y'])
+            time.sleep(0.5)
+            st = fresh()
+            inv = st['inventory']
+            command('shot')
+            check('(a3) creative inventory tab: real middle click sorts the main rows as ContainerSort.sorted predicts', inv[9:36] == st['expected'], f'{inv[9:36]} vs {st["expected"]}')
+            check('(a3) dirt merged to 50, apple 7', 'minecraft:dirt x50' in inv[9:36] and 'minecraft:apple x7' in inv[9:36], inv[9:36])
+            check('(a3) hotbar untouched', inv[0:9] == pre[0:9], inv[0:9])
+            check('(a3) nothing on the cursor (sort, not clone)', not st.get('carried'), st.get('carried'))
+        # (a4) middle click on the hotbar in the inventory tab keeps Vanilla's clone
+        again = st['inventory'][:]
+        s0 = slot(st, 0)
         if s0:
             io.middle_click(st['windowX'] + s0['x'], st['windowY'] + s0['y'])
-        st = fresh()
-        check('(a) creative: middle click does not crash (screen stays)', 'Screen' in st['screen'], st['screen'])
+            st = fresh()
+            check('(a4) inventory tab hotbar: real middle click clones (torch x64 on the cursor)', st.get('carried') == 'minecraft:torch x64', st.get('carried'))
+            check('(a4) inventory tab hotbar: inventory unchanged', st['inventory'] == again, st['inventory'][:9])
+        else:
+            check('(a4) hotbar slot 0 shown in the inventory tab', False, len(st['slots']))
         io.key('Escape')
         # ---- (b) survival inventory
         chat('gamemode survival @s')
