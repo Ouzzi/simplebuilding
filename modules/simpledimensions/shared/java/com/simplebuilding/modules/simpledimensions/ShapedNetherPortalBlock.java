@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * {@link NetherPortalBlock} - teleport, 1:8 travel, exit search and creation, particles, sound, transition time,
  * zombified piglins - whose frame may be any arch of the owner's rules. Only the shape check differs: Vanilla's
  * {@code updateShape} would test for a rectangle and dissolve the arch, so it is replaced, never called.
- * The texture is Vanilla's portal 20 % darker (built from the client jar, never committed).
+ * The texture is Vanilla's portal 40 % darker (built from the client jar, never committed).
  */
 public final class ShapedNetherPortalBlock extends NetherPortalBlock {
 
