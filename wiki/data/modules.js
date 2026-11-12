@@ -2161,7 +2161,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 2
     },
-    "dataHash": "c6b93b84180d"
+    "dataHash": "d4f04d690792"
   },
   {
     "id": "simpleenchanting",

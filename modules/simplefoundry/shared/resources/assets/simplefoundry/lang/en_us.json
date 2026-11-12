@@ -43,6 +43,8 @@
   "simplefoundry.guide.page.1": "A multiblock foundry: melting chambers in a brick hull, ore thrown in, the melt poured by layer into casting trays.",
   "simplefoundry.guide.page.2.title": "Foundry (multiblock)",
   "simplefoundry.guide.page.2": "Build a tank of melting chambers inside a closed hull, light it with fuel on the desk, throw in ore and pour the melt by layer.",
-  "simplefoundry.guide.page.3.title": "Settings",
-  "simplefoundry.guide.page.3": "More settings are in the mod's config screen."
+  "simplefoundry.guide.page.3.title": "Foundry (multiblock)",
+  "simplefoundry.guide.page.3": "A broken desk keeps its tier on the item; its melt and fuel tank are lost.",
+  "simplefoundry.guide.page.4.title": "Settings",
+  "simplefoundry.guide.page.4": "More settings are in the mod's config screen."
 }
