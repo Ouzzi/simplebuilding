@@ -309,6 +309,32 @@
       }
     },
     {
+      "id": "metal_doors",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalDoorBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalTrapDoorBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_door.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_trapdoor.json"
+      ],
+      "en": {
+        "title": "Metal doors and trapdoors",
+        "summary": "Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has a door and a trapdoor like the copper ones.",
+        "details": [
+          "Door: six ingots (2 x 3) make 3; trapdoor: four ingots (2 x 2) make 1. Both open by hand or by redstone like copper, villagers and other mobs use the doors.",
+          "The window shows the metal's own grate pattern, the frame its tones. They do not age (only copper oxidises). Any pickaxe."
+        ]
+      },
+      "de": {
+        "title": "Metalltüren und -falltüren",
+        "summary": "Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat eine Tür und eine Falltür wie die aus Kupfer.",
+        "details": [
+          "Tür: sechs Barren (2 x 3) ergeben 3; Falltür: vier Barren (2 x 2) ergeben 1. Beide öffnen per Hand oder Redstone wie Kupfer, Dorfbewohner und andere Mobs nutzen die Türen.",
+          "Das Fenster zeigt das eigene Rostmuster des Metalls, der Rahmen seine Töne. Sie altern nicht (nur Kupfer oxidiert). Jede Spitzhacke."
+        ]
+      }
+    },
+    {
       "id": "metal_sounds",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresSounds.java",
@@ -500,10 +526,10 @@
         "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 21 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 21 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleores:silver_ore": {
@@ -1331,6 +1357,138 @@
         "summary": "Baublock der Messing-Familie (wie die Familie des geschnittenen Kupfers): aus dem Messingblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
       }
     },
+    "simpleores:cut_stainless_steel": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:cut_stainless_steel_stairs": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:cut_stainless_steel_slab": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:stainless_steel_tiles": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:stainless_steel_pillar": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:chiseled_stainless_steel": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:cut_bronze": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:cut_bronze_stairs": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:cut_bronze_slab": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:bronze_tiles": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:bronze_pillar": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
+    "simpleores:chiseled_bronze": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+      },
+      "de": {
+        "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+      }
+    },
     "simpleores:silver_bars": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -1505,6 +1663,182 @@
       },
       "de": {
         "summary": "Ein durchsichtiger Rost wie der Kupferrost mit eigenem Edelstahlmuster; er kann Wasser halten. Vier Edelstahlblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:silver_door": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A door like the copper door, framed in silver with its own grate pattern as window: opens by hand or redstone, does not age. Six silver ingots (2 x 3) make 3. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Tür wie die Kupfertür, mit Silberrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Silberbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+      }
+    },
+    "simpleores:silver_trapdoor": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A trapdoor like the copper trapdoor with the silver grate pattern: opens by hand or redstone, does not age. Four silver ingots (2 x 2) make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Falltür wie die Kupferfalltür mit dem Silberrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Silberbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:lead_door": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A door like the copper door, framed in lead with its own grate pattern as window: opens by hand or redstone, does not age. Six lead ingots (2 x 3) make 3. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Tür wie die Kupfertür, mit Bleirahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Bleibarren (2 x 3) ergeben 3. Jede Spitzhacke."
+      }
+    },
+    "simpleores:lead_trapdoor": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A trapdoor like the copper trapdoor with the lead grate pattern: opens by hand or redstone, does not age. Four lead ingots (2 x 2) make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Falltür wie die Kupferfalltür mit dem Bleirostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Bleibarren (2 x 2) ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:zinc_door": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A door like the copper door, framed in zinc with its own grate pattern as window: opens by hand or redstone, does not age. Six zinc ingots (2 x 3) make 3. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Tür wie die Kupfertür, mit Zinkrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Zinkbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+      }
+    },
+    "simpleores:zinc_trapdoor": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A trapdoor like the copper trapdoor with the zinc grate pattern: opens by hand or redstone, does not age. Four zinc ingots (2 x 2) make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Falltür wie die Kupferfalltür mit dem Zinkrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Zinkbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:nickel_door": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A door like the copper door, framed in nickel with its own grate pattern as window: opens by hand or redstone, does not age. Six nickel ingots (2 x 3) make 3. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Tür wie die Kupfertür, mit Nickelrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Nickelbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+      }
+    },
+    "simpleores:nickel_trapdoor": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A trapdoor like the copper trapdoor with the nickel grate pattern: opens by hand or redstone, does not age. Four nickel ingots (2 x 2) make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Falltür wie die Kupferfalltür mit dem Nickelrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Nickelbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:tin_door": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A door like the copper door, framed in tin with its own grate pattern as window: opens by hand or redstone, does not age. Six tin ingots (2 x 3) make 3. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Tür wie die Kupfertür, mit Zinnrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Zinnbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+      }
+    },
+    "simpleores:tin_trapdoor": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A trapdoor like the copper trapdoor with the tin grate pattern: opens by hand or redstone, does not age. Four tin ingots (2 x 2) make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Falltür wie die Kupferfalltür mit dem Zinnrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Zinnbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:brass_door": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A door like the copper door, framed in brass with its own grate pattern as window: opens by hand or redstone, does not age. Six brass ingots (2 x 3) make 3. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Tür wie die Kupfertür, mit Messingrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Messingbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+      }
+    },
+    "simpleores:brass_trapdoor": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A trapdoor like the copper trapdoor with the brass grate pattern: opens by hand or redstone, does not age. Four brass ingots (2 x 2) make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Falltür wie die Kupferfalltür mit dem Messingrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Messingbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:bronze_door": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A door like the copper door, framed in bronze with its own grate pattern as window: opens by hand or redstone, does not age. Six bronze ingots (2 x 3) make 3. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Tür wie die Kupfertür, mit Bronzerahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Bronzebarren (2 x 3) ergeben 3. Jede Spitzhacke."
+      }
+    },
+    "simpleores:bronze_trapdoor": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A trapdoor like the copper trapdoor with the bronze grate pattern: opens by hand or redstone, does not age. Four bronze ingots (2 x 2) make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Falltür wie die Kupferfalltür mit dem Bronzerostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Bronzebarren (2 x 2) ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_door": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A door like the copper door, framed in stainless steel with its own grate pattern as window: opens by hand or redstone, does not age. Six stainless steel ingots (2 x 3) make 3. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Tür wie die Kupfertür, mit Edelstahlrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Edelstahlbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_trapdoor": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A trapdoor like the copper trapdoor with the stainless steel grate pattern: opens by hand or redstone, does not age. Four stainless steel ingots (2 x 2) make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Falltür wie die Kupferfalltür mit dem Edelstahlrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Edelstahlbarren (2 x 2) ergeben 1. Jede Spitzhacke."
       }
     },
     "simpleores:rift_shard_block": {

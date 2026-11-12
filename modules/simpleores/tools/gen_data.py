@@ -101,7 +101,7 @@ def ores_of(m):
 # N9 (b-metals14, owner 09.11., docs/ai/PLAN-B-METALS14-2026-11-09.md): the six metals are cosmetic only (no tools, no armor); each gets a
 # building family behind its storage block (OresRegistry.COSMETIC), own textures (tools/textures/metals14_2026_11_09.py, committed with layers).
 COSMETIC = {'silver': ('Silver', 'Silber'), 'lead': ('Lead', 'Blei'), 'zinc': ('Zinc', 'Zink'), 'nickel': ('Nickel', 'Nickel'), 'tin': ('Tin', 'Zinn'),
-            'brass': ('Brass', 'Messing')}
+            'brass': ('Brass', 'Messing'), 'stainless_steel': ('Stainless Steel', 'Edelstahl'), 'bronze': ('Bronze', 'Bronze')}   # N28: + the alloys
 FAMILY = {}   # block path -> (kind, metal)
 for m, (en, de) in COSMETIC.items():
     for path, kind, names in ((f'cut_{m}', 'cube', (f'Cut {en}', f'Geschnittener {de}block')),
@@ -121,6 +121,13 @@ GRATES = [f'{m}_grate' for m in BAR_METALS]
 for m, (en, de) in BAR_METALS.items():
     BLOCKS[f'{m}_bars'] = (f'{en} Bars', f'{de}gitter')
     BLOCKS[f'{m}_grate'] = (f'{en} Grate', f'{de}rost')
+# N28 (b-pal28, owner 11.11., docs/ai/PLAN-B-PAL28-2026-11-11.md): door and trapdoor of every building metal like the copper ones (OresRegistry.DOORS);
+# textures tools/textures/pal28_2026_11_11.py (the metal's frame, its own grate pattern as window).
+DOORS = [f'{m}_door' for m in BAR_METALS]
+TRAPDOORS = [f'{m}_trapdoor' for m in BAR_METALS]
+for m, (en, de) in BAR_METALS.items():
+    BLOCKS[f'{m}_door'] = (f'{en} Door', f'{de}tür')
+    BLOCKS[f'{m}_trapdoor'] = (f'{en} Trapdoor', f'{de}falltür')
 # IG31-58 (a-dims10, 08.11., docs/ai/PLAN-A-DIMS10-2026-11-08.md): the processing chain of the Dimensional Scrap, names set A.
 # dimension prefix -> (scrap, EN/DE prefix, rift metal, metal EN/DE, partner ingot, blast furnace seconds, experience)
 RIFTS = {'': ('dimensional_scrap', ('', ''), 'terranite', ('Terranite', 'Terranit'), 'enderite_ingot', 40, 2.0),
@@ -164,7 +171,7 @@ DIAMOND_NEW = ('netherite_scrap_block', 'enderite_scrap_block')   # like ancient
 
 # ---------------------------------------------------------------- assets
 for path in BLOCKS:
-    if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY or path in BARS:
+    if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY or path in BARS or path in DOORS or path in TRAPDOORS:
         continue
     put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
     put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
@@ -231,6 +238,33 @@ for m in BAR_METALS:
         {'apply': {'model': model('side_alt'), 'y': 90}, 'when': {'west': 'true'}}]})
     put(ASSETS / f'models/item/{bars}.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': tex}})
     put(ASSETS / f'items/{bars}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{bars}'}})
+
+
+# N28: doors and trapdoors like the Vanilla copper door/trapdoor (same templates and rotations; the door item is a flat sprite).
+DOOR_Y = {'east': 0, 'south': 90, 'west': 180, 'north': 270}
+for m in BAR_METALS:
+    door = f'{m}_door'
+    for half, hp in (('lower', 'bottom'), ('upper', 'top')):
+        for hinge in ('left', 'right'):
+            for opened in ('', '_open'):
+                put(ASSETS / f'models/block/{door}_{hp}_{hinge}{opened}.json', {'parent': f'minecraft:block/door_{hp}_{hinge}{opened}',
+                    'textures': {'bottom': f'{NS}:block/{door}_bottom', 'top': f'{NS}:block/{door}_top'}})
+    put(ASSETS / f'blockstates/{door}.json', {'variants': {
+        f'facing={f},half={half},hinge={hinge},open={str(o).lower()}': {
+            'model': f'{NS}:block/{door}_{hp}_{hinge}{"_open" if o else ""}',
+            **({'y': y} if (y := (DOOR_Y[f] + ((90 if hinge == 'left' else 270) if o else 0)) % 360) else {})}
+        for f in ('east', 'north', 'south', 'west') for half, hp in (('lower', 'bottom'), ('upper', 'top'))
+        for hinge in ('left', 'right') for o in (False, True)}})
+    put(ASSETS / f'models/item/{door}.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/{door}'}})
+    put(ASSETS / f'items/{door}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{door}'}})
+    trap = f'{m}_trapdoor'
+    for part in ('bottom', 'top', 'open'):
+        put(ASSETS / f'models/block/{trap}_{part}.json', {'parent': f'minecraft:block/template_trapdoor_{part}', 'textures': {'texture': f'{NS}:block/{trap}'}})
+    put(ASSETS / f'blockstates/{trap}.json', {'variants': {
+        f'facing={f},half={half},open={str(o).lower()}': {'model': f'{NS}:block/{trap}_{"open" if o else half}',
+                                                         **({'y': y} if o and (y := {'north': 0, 'east': 90, 'south': 180, 'west': 270}[f]) else {})}
+        for f in ('east', 'north', 'south', 'west') for half in ('bottom', 'top') for o in (False, True)}})
+    put(ASSETS / f'items/{trap}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{trap}_bottom'}})
 
 
 def stairs_state(name):
@@ -363,8 +397,12 @@ for plate in PLATES:
     block_loot(plate, [{'rolls': 1, 'condition': {'type': 'minecraft:survives_explosion'}, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{plate}', 'modifier': [
         {'type': 'minecraft:set_count', 'condition': {'type': 'minecraft:match_block', 'blocks': f'{NS}:{plate}', 'state': {'layers': str(n)}}, 'count': n}
         for n in range(2, 9)]}]}])
-for path in BARS + GRATES:
+for path in BARS + GRATES + TRAPDOORS:
     self_drop(path)
+# N28: a door drops once, from its lower half (like the Vanilla doors)
+for path in DOORS:
+    block_loot(path, [{'rolls': 1, 'condition': {'type': 'minecraft:survives_explosion'}, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{path}',
+        'condition': {'type': 'minecraft:match_block', 'blocks': f'{NS}:{path}', 'state': {'half': 'lower'}}}]}])
 
 for path, (kind, _m) in FAMILY.items():
     if kind != 'slab':
@@ -525,6 +563,13 @@ for m in BAR_METALS:
     recipe(f'{m}_grate_from_{m}_block_stonecutting', 'building_blocks', {'type': 'minecraft:stonecutting', 'ingredient': item(f'{m}_block'),
                                                                          'result': {'count': 4, 'id': item(f'{m}_grate')}}, item(f'{m}_block'))
 
+# N28: doors and trapdoors like the copper ones (6 ingots 2x3 -> 3 doors, 4 ingots 2x2 -> 1 trapdoor).
+for m in BAR_METALS:
+    recipe(f'{m}_door', 'redstone', {'type': 'minecraft:crafting_shaped', 'category': 'redstone', 'key': {'#': item(f'{m}_ingot')}, 'pattern': ['##', '##', '##'],
+                                     'result': result(f'{m}_door', 3)}, item(f'{m}_ingot'))
+    recipe(f'{m}_trapdoor', 'redstone', {'type': 'minecraft:crafting_shaped', 'category': 'redstone', 'key': {'#': item(f'{m}_ingot')}, 'pattern': ['##', '##'],
+                                         'result': result(f'{m}_trapdoor')}, item(f'{m}_ingot'))
+
 # IG31-58: scrap -> rift shard only in the blast furnace (26.3 halves the stored furnace time: 40/60/80 s there); a crucible needs
 # extreme heat (tag below). 9 shards <-> block, 4 shards + 1 partner ingot -> the end material (shapeless), 9 ingots <-> block.
 for d, (scrap, _p, metal, _m, partner, seconds, xp) in RIFTS.items():
@@ -639,13 +684,16 @@ for a in MIXES:
 # N25: bars join the Vanilla bars tag (zombie villager curing, motion blocking); grates need a stone pickaxe like the copper grate, bars any pickaxe.
 for kind in ('block', 'item'):
     tag(f'minecraft/tags/{kind}/bars.json', ids(BARS))
+    tag(f'minecraft/tags/{kind}/doors.json', ids(DOORS))          # N28: like the copper door/trapdoor (no tool tier, mobs may open the doors)
+    tag(f'minecraft/tags/{kind}/trapdoors.json', ids(TRAPDOORS))
+tag('minecraft/tags/block/mob_interactable_doors.json', ids(DOORS))
 every = list(BLOCKS)
 tag('minecraft/tags/block/mineable/pickaxe.json', ids([b for b in every if b not in SHOVEL] + list(MOVED_BLOCKS)))
 tag('minecraft/tags/block/mineable/shovel.json', ids(list(SHOVEL)))
 STONE_TIER = ['lead_ore', 'raw_lead_block', 'end_lead_ore', 'end_zinc_ore'] + [b for m, v in METALS.items() if v[2] == 'stone'
                                                                    for b in (*ores_of(m), f'raw_{m}_block')]   # like Vanilla iron and copper ore
 tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b not in ('silver_mirror', 'geode_crust') + SHOVEL and b not in DIAMOND_NEW and b not in RIFT_BLOCKS
-                                                       and b not in BARS and b not in GRATES] + SAGE_ORES))
+                                                       and b not in BARS and b not in GRATES and b not in DOORS and b not in TRAPDOORS] + SAGE_ORES))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
 tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS + RIFT_BLOCKS))
@@ -997,6 +1045,14 @@ def note_summaries():
             en, de = BAR_METALS[m]
             notes[f'block:{p}'] = (f'A see-through grate like the copper grate with its own {en.lower()} pattern; it can hold water. Four blocks of {en.lower()} in a diamond make 4, or the stonecutter makes 4 from one block. It does not age. Needs a stone pickaxe.',
                                    f'Ein durchsichtiger Rost wie der Kupferrost mit eigenem {de}muster; er kann Wasser halten. Vier {de}blöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block. Er altert nicht. Braucht eine Steinspitzhacke.')
+        elif p in DOORS or p in TRAPDOORS:
+            door = p in DOORS
+            m = p[:-len('_door' if door else '_trapdoor')]
+            en, de = BAR_METALS[m]
+            notes[f'block:{p}'] = ((f'A door like the copper door, framed in {en.lower()} with its own grate pattern as window: opens by hand or redstone, does not age. Six {en.lower()} ingots (2 x 3) make 3. Any pickaxe.' if door else
+                                    f'A trapdoor like the copper trapdoor with the {en.lower()} grate pattern: opens by hand or redstone, does not age. Four {en.lower()} ingots (2 x 2) make 1. Any pickaxe.'),
+                                   (f'Eine Tür wie die Kupfertür, mit {de}rahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs {de}barren (2 x 3) ergeben 3. Jede Spitzhacke.' if door else
+                                    f'Eine Falltür wie die Kupferfalltür mit dem {de}rostmuster: öffnet per Hand oder Redstone, altert nicht. Vier {de}barren (2 x 2) ergeben 1. Jede Spitzhacke.'))
         elif p in FAMILY:
             kind, m = FAMILY[p]
             en, de = COSMETIC[m]
@@ -1273,6 +1329,14 @@ FEATURES = [
              ['Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.',
               'Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).',
               'Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus.'])),
+    feature('metal_doors', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/MetalDoorBlock.java', f'{JAVA}/block/MetalTrapDoorBlock.java', f'{DATAP}/recipe/silver_door.json',
+                            f'{DATAP}/recipe/silver_trapdoor.json'],
+            ('Metal doors and trapdoors', 'Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has a door and a trapdoor like the copper ones.',
+             ['Door: six ingots (2 x 3) make 3; trapdoor: four ingots (2 x 2) make 1. Both open by hand or by redstone like copper, villagers and other mobs use the doors.',
+              'The window shows the metal\'s own grate pattern, the frame its tones. They do not age (only copper oxidises). Any pickaxe.']),
+            ('Metalltüren und -falltüren', 'Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat eine Tür und eine Falltür wie die aus Kupfer.',
+             ['Tür: sechs Barren (2 x 3) ergeben 3; Falltür: vier Barren (2 x 2) ergeben 1. Beide öffnen per Hand oder Redstone wie Kupfer, Dorfbewohner und andere Mobs nutzen die Türen.',
+              'Das Fenster zeigt das eigene Rostmuster des Metalls, der Rahmen seine Töne. Sie altern nicht (nur Kupfer oxidiert). Jede Spitzhacke.'])),
     feature('metal_sounds', [f'{JAVA}/OresSounds.java', f'modules/{NS}/shared/resources/assets/{NS}/sounds.json'],
             ('Metal sounds', 'Every building metal sounds like itself when placed, mined, hit or walked on - quietly.',
              ['Lead dull and soft (and a little louder: whoever walks on lead is heard), silver bright and ringing, zinc and nickel plain, tin with its crackling "tin cry", brass and bronze warm, stainless steel hard. Every block of a metal (storage block, building family, plate, bars, grate) uses its sound.',

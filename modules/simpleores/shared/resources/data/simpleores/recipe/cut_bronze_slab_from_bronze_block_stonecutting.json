@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:bronze_block",
+  "result": {
+    "count": 8,
+    "id": "simpleores:cut_bronze_slab"
+  }
+}

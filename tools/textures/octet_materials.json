@@ -925,6 +925,28 @@
   "de": "Geschnittener Messingblock"
  },
  {
+  "ns": "simpleores",
+  "base": "cut_stainless_steel",
+  "key": "cut_stainless_steel",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_stainless_steel"
+  },
+  "en": "Cut Stainless Steel",
+  "de": "Geschnittener Edelstahlblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "cut_bronze",
+  "key": "cut_bronze",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_bronze"
+  },
+  "en": "Cut Bronze",
+  "de": "Geschnittener Bronzeblock"
+ },
+ {
   "ns": "minecraft",
   "base": "acacia_log",
   "key": "acacia_log",

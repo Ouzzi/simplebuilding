@@ -40,7 +40,7 @@ p15 = p16.p15
 SB_TEX, ORE_TEX = p16.SB_TEX, p16.ORE_TEX
 END_MATS = {'chiseled_astralit_bricks': 'astralit', 'chiseled_nihilith_bricks': 'nihilith',
             'chiseled_ender_quartz_bricks': 'ender_quartz'}
-METALS = ('silver', 'lead', 'zinc', 'nickel', 'tin', 'brass')
+METALS = ('silver', 'lead', 'zinc', 'nickel', 'tin', 'brass', 'stainless_steel', 'bronze')   # N28: + the alloys (PAL16 rule, own motifs)
 
 # ---------------------------------------------------------------- candidate masks per round (verdicts: plan section 5)
 MASKS = {

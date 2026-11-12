@@ -99,6 +99,8 @@ public final class OctetMaterials {
             new Material("simpleores", "cut_nickel", "cut_nickel", "metal"),
             new Material("simpleores", "cut_tin", "cut_tin", "metal"),
             new Material("simpleores", "cut_brass", "cut_brass", "metal"),
+            new Material("simpleores", "cut_stainless_steel", "cut_stainless_steel", "metal"),
+            new Material("simpleores", "cut_bronze", "cut_bronze", "metal"),
             new Material("minecraft", "acacia_log", "acacia_log", "log"),
             new Material("minecraft", "birch_log", "birch_log", "log"),
             new Material("minecraft", "cherry_log", "cherry_log", "log"),

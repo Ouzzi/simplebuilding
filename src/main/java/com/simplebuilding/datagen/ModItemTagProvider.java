@@ -251,7 +251,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         for (ModBlocks.CoatedKind kind : ModBlocks.COATED_KINDS) {
             builder(BlockItemTags.STAIRS.item()).add(key(kind.stoneStairs().asItem())).add(key(kind.purpurStairs().asItem()));
             builder(BlockItemTags.SLABS.item()).add(key(kind.stoneSlab().asItem())).add(key(kind.purpurSlab().asItem()));
-            builder(BlockItemTags.WALLS.item()).add(key(kind.stoneWall().asItem()));
+            builder(BlockItemTags.WALLS.item()).add(key(kind.stoneWall().asItem())).add(key(kind.purpurWall().asItem()));   // PAL28
         }
 
         // Treppen und Stufen der Schachbretter (Schach 2026-10-06) ebenso.

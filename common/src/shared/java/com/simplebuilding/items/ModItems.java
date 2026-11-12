@@ -288,18 +288,21 @@ public class ModItems {
     public static final Item ASTRAL_PURPUR_PILLAR = registerItem("astral_purpur_pillar", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_PILLAR, s));
     public static final Item ASTRAL_PURPUR_STAIRS = registerItem("astral_purpur_stairs", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_STAIRS, s));
     public static final Item ASTRAL_PURPUR_SLAB = registerItem("astral_purpur_slab", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_SLAB, s));
+    public static final Item ASTRAL_PURPUR_WALL = registerItem("astral_purpur_wall", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_WALL, s));   // PAL28
     public static final Item NIHIL_END_STONE_STAIRS = registerItem("nihil_end_stone_stairs", s -> new BlockItem(ModBlocks.NIHIL_END_STONE_STAIRS, s));
     public static final Item NIHIL_END_STONE_SLAB = registerItem("nihil_end_stone_slab", s -> new BlockItem(ModBlocks.NIHIL_END_STONE_SLAB, s));
     public static final Item NIHIL_END_STONE_WALL = registerItem("nihil_end_stone_wall", s -> new BlockItem(ModBlocks.NIHIL_END_STONE_WALL, s));
     public static final Item NIHIL_PURPUR_PILLAR = registerItem("nihil_purpur_pillar", s -> new BlockItem(ModBlocks.NIHIL_PURPUR_PILLAR, s));
     public static final Item NIHIL_PURPUR_STAIRS = registerItem("nihil_purpur_stairs", s -> new BlockItem(ModBlocks.NIHIL_PURPUR_STAIRS, s));
     public static final Item NIHIL_PURPUR_SLAB = registerItem("nihil_purpur_slab", s -> new BlockItem(ModBlocks.NIHIL_PURPUR_SLAB, s));
+    public static final Item NIHIL_PURPUR_WALL = registerItem("nihil_purpur_wall", s -> new BlockItem(ModBlocks.NIHIL_PURPUR_WALL, s));   // PAL28
     public static final Item ENDER_END_STONE_STAIRS = registerItem("ender_end_stone_stairs", s -> new BlockItem(ModBlocks.ENDER_END_STONE_STAIRS, s));
     public static final Item ENDER_END_STONE_SLAB = registerItem("ender_end_stone_slab", s -> new BlockItem(ModBlocks.ENDER_END_STONE_SLAB, s));
     public static final Item ENDER_END_STONE_WALL = registerItem("ender_end_stone_wall", s -> new BlockItem(ModBlocks.ENDER_END_STONE_WALL, s));
     public static final Item ENDER_PURPUR_PILLAR = registerItem("ender_purpur_pillar", s -> new BlockItem(ModBlocks.ENDER_PURPUR_PILLAR, s));
     public static final Item ENDER_PURPUR_STAIRS = registerItem("ender_purpur_stairs", s -> new BlockItem(ModBlocks.ENDER_PURPUR_STAIRS, s));
     public static final Item ENDER_PURPUR_SLAB = registerItem("ender_purpur_slab", s -> new BlockItem(ModBlocks.ENDER_PURPUR_SLAB, s));
+    public static final Item ENDER_PURPUR_WALL = registerItem("ender_purpur_wall", s -> new BlockItem(ModBlocks.ENDER_PURPUR_WALL, s));   // PAL28
 
 
 

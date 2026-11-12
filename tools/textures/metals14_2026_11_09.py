@@ -26,7 +26,7 @@ import ores_2026_10_30 as ores  # noqa: E402
 
 ROOT = HERE.parents[1]
 TEX = ROOT / 'modules/simpleores/shared/resources/assets/simpleores/textures/block'
-METALS = {'silver': 'silver', 'lead': 'lead_a', 'zinc': 'zinc', 'nickel': 'nickel', 'tin': 'tin', 'brass': 'brass'}
+METALS = {'silver': 'silver', 'lead': 'lead_a', 'zinc': 'zinc', 'nickel': 'nickel', 'tin': 'tin', 'brass': 'brass', 'stainless_steel': 'stainless_steel', 'bronze': 'bronze'}   # N28 (b-pal28): + the two alloys
 # Part of the ramp the form tones 0..9 are spread over, per round (rounds 1-3 the full ramp; round 4 narrowed so that two form tones stay below the
 # A8b jump; round 5 = built: form tone 4, the plain face, sits on the mean brightness of the existing Block of <metal>, width 5 ramp steps, so the
 # family reads as one with the storage block like cut copper with the copper block; tones above the ramp's top clamp to its brightest tone).
@@ -37,6 +37,13 @@ SPANS[2] = SPANS[3] = SPANS[1]
 # round 6 (built): the face 0.4 step below the storage block and 6 ramp steps wide - round 5 matched the brightness, but zinc, nickel, tin and
 # silver washed out to one pale white and the forms lost their edges at game size.
 SPANS[6] = {'silver': (-0.4, 5.6), 'lead': (0.97, 6.97), 'zinc': (-1.24, 4.76), 'nickel': (-1.24, 4.76), 'tin': (-1.24, 4.76), 'brass': (-0.46, 5.54)}
+# N28 (b-pal28): stainless steel and bronze with the same rule (their storage blocks sit at ramp position 0.98/0.95 -> lo -1.29/-1.32, clamped
+# to -1.24 like zinc/nickel/tin); the earlier rounds as for the pale metals.
+for _r, _span in ((1, (0.5, 8.5)), (2, (0.5, 8.5)), (3, (0.5, 8.5)), (4, (1.0, 8.0)), (5, (-1.2, 3.8)), (6, (-1.24, 4.76))):
+    SPANS[_r] = {**SPANS[_r], 'stainless_steel': _span, 'bronze': _span}
+# PAL28 round R2 (built): stainless steel 1.5 steps darker - with the pale span it read as silver/zinc (one white); grey like brushed steel.
+SPANS[6]['stainless_steel'] = (0.3, 6.3)
+SPANS[6]['bronze'] = (-0.35, 3.65)
 ROUND = 6
 ROUNDS = (1, 2, 3, 4, 5, 6)
 FORMS = ('cut', 'tiles', 'pillar', 'pillar_top', 'chiseled')

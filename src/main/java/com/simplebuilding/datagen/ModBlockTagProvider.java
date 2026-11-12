@@ -218,7 +218,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             kind.shapes().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
             builder(BlockTags.STAIRS).add(key(kind.stoneStairs())).add(key(kind.purpurStairs()));
             builder(BlockTags.SLABS).add(key(kind.stoneSlab())).add(key(kind.purpurSlab()));
-            builder(BlockTags.WALLS).add(key(kind.stoneWall()));
+            builder(BlockTags.WALLS).add(key(kind.stoneWall())).add(key(kind.purpurWall()));   // PAL28: Purpur-Mauer
         }
 
         // End-Paletten (Astralit, Nihilith, Enderquarz): alle verlangen eine Spitzhacke; Treppen,

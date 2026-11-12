@@ -115,9 +115,9 @@ assert all(b in json.loads((mc / 'block/occludes_vibration_signals.json').read_t
 
 # N9 (b-metals14): the six metals are cosmetic only - no gear item of any of them (or of the plain alloys); each has its building family with
 # blockstate, models, item definition, loot, own texture + layer source (committed, not Vanilla-derived), lang EN/DE and pickaxe tag.
-COSMETIC = ('silver', 'lead', 'zinc', 'nickel', 'tin', 'brass')
+COSMETIC = ('silver', 'lead', 'zinc', 'nickel', 'tin', 'brass', 'stainless_steel', 'bronze')   # N28: + the alloys' families
 item_files = {p.stem for p in (RES / f'assets/{NS}/items').glob('*.json')}
-for m in COSMETIC + ('stainless_steel', 'bronze'):
+for m in COSMETIC:
     assert not any(f'{m}_{g}' in item_files for g in GEAR), f'{m} is cosmetic only: no tools, no armor (N9)'
 pickaxe = json.loads((mc / 'block/mineable/pickaxe.json').read_text(encoding='utf-8'))['values']
 for m in COSMETIC:
@@ -136,6 +136,22 @@ for m in COSMETIC:
         assert (RES / f'data/{NS}/recipe/{name}.json').is_file(), name
     slab_loot = json.loads((RES / f'data/{NS}/loot_table/blocks/cut_{m}_slab.json').read_text(encoding='utf-8'))
     assert slab_loot['pools'][0]['entries'][0]['modifier'][0]['count'] == 2, 'a double slab drops two'
+# N28 (b-pal28): door and trapdoor of every building metal: blockstate, models, item, loot (door only from the lower half), recipe, tags, lang,
+# own textures with layer sources (door top/bottom, item sprite, trapdoor).
+doors_tag = json.loads((mc / 'block/doors.json').read_text(encoding='utf-8'))['values']
+trap_tag = json.loads((mc / 'block/trapdoors.json').read_text(encoding='utf-8'))['values']
+iron_tier = json.loads((mc / 'block/needs_iron_tool.json').read_text(encoding='utf-8'))['values']
+for m in COSMETIC:
+    for b, tag_values in ((f'{m}_door', doors_tag), (f'{m}_trapdoor', trap_tag)):
+        for rel in (f'assets/{NS}/blockstates/{b}.json', f'assets/{NS}/items/{b}.json', f'data/{NS}/loot_table/blocks/{b}.json', f'data/{NS}/recipe/{b}.json'):
+            assert (RES / rel).is_file(), rel
+        assert f'{NS}:{b}' in tag_values and f'{NS}:{b}' in pickaxe and f'{NS}:{b}' not in iron_tier, b
+        for lang in langs.values():
+            assert lang.get(f'block.{NS}.{b}'), b
+    door_loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{m}_door.json').read_text(encoding='utf-8'))
+    assert door_loot['pools'][0]['entries'][0]['condition']['state'] == {'half': 'lower'}, 'a door drops from its lower half'
+    for tex in (f'block/{m}_door_top', f'block/{m}_door_bottom', f'block/{m}_trapdoor', f'item/{m}_door'):
+        assert (RES / f'assets/{NS}/textures/{tex}.png').is_file() and (RES / f'assets/{NS}/textures/{tex}.layers.json').is_file(), tex
 plate = json.loads((RES / f'data/{NS}/recipe/lead_plate.json').read_text(encoding='utf-8'))
 assert plate['pattern'] == ['###'] and plate['result'] == {'id': f'{NS}:lead_plate', 'count': 6}
 assert not (RES / f'data/{NS}/recipe/silver_arrow.json').exists(), 'the silver arrow moved to Simple Arrows (03.11.)'

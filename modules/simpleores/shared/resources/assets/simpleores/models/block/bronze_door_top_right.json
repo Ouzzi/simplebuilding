@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right",
+  "textures": {
+    "bottom": "simpleores:block/bronze_door_bottom",
+    "top": "simpleores:block/bronze_door_top"
+  }
+}

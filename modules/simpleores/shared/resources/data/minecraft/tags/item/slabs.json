@@ -5,6 +5,8 @@
     "simpleores:cut_zinc_slab",
     "simpleores:cut_nickel_slab",
     "simpleores:cut_tin_slab",
-    "simpleores:cut_brass_slab"
+    "simpleores:cut_brass_slab",
+    "simpleores:cut_stainless_steel_slab",
+    "simpleores:cut_bronze_slab"
   ]
 }

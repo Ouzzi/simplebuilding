@@ -1,0 +1,12 @@
+{
+  "values": [
+    "simpleores:silver_door",
+    "simpleores:lead_door",
+    "simpleores:zinc_door",
+    "simpleores:nickel_door",
+    "simpleores:tin_door",
+    "simpleores:brass_door",
+    "simpleores:bronze_door",
+    "simpleores:stainless_steel_door"
+  ]
+}

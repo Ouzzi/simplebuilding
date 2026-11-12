@@ -1246,6 +1246,17 @@
       "chance": 0.1
     },
     {
+      "item": "simplebuilding:astral_purpur_wall",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplebuilding:nihil_end_stone_stairs",
       "tier": 4,
       "hours": 25.0,
@@ -1312,6 +1323,17 @@
       "chance": 0.1
     },
     {
+      "item": "simplebuilding:nihil_purpur_wall",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplebuilding:ender_end_stone_stairs",
       "tier": 4,
       "hours": 25.0,
@@ -1368,6 +1390,17 @@
     },
     {
       "item": "simplebuilding:ender_purpur_slab",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:ender_purpur_wall",
       "tier": 4,
       "hours": 25.0,
       "craft": 9,

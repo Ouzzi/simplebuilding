@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:cut_bronze",
+  "result": {
+    "count": 1,
+    "id": "simpleores:cut_bronze_stairs"
+  }
+}
