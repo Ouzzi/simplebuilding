@@ -1,0 +1,24 @@
+{
+  "tier": "enderite",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "simplebuilding:layered_astralit",
+        "simplebuilding:cracked_astralit_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:frosted_nihilith",
+        "simplebuilding:cracked_nihilith_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:ender_quartz_block",
+        "simplebuilding:cracked_ender_quartz_bricks"
+      ]
+    }
+  ]
+}

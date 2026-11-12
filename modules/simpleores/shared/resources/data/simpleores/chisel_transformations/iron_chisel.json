@@ -1,0 +1,84 @@
+{
+  "tier": "iron",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "simpleores:cut_brass",
+        "simpleores:brass_tiles",
+        "simpleores:chiseled_brass",
+        "simpleores:brass_grate"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:cut_bronze",
+        "simpleores:bronze_tiles",
+        "simpleores:chiseled_bronze",
+        "simpleores:bronze_grate"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:cut_lead",
+        "simpleores:lead_tiles",
+        "simpleores:chiseled_lead",
+        "simpleores:lead_grate"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:cut_nickel",
+        "simpleores:nickel_tiles",
+        "simpleores:chiseled_nickel",
+        "simpleores:nickel_grate"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:cut_silver",
+        "simpleores:silver_tiles",
+        "simpleores:chiseled_silver",
+        "simpleores:silver_grate"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:cut_stainless_steel",
+        "simpleores:stainless_steel_tiles",
+        "simpleores:chiseled_stainless_steel",
+        "simpleores:stainless_steel_grate"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:cut_tin",
+        "simpleores:tin_tiles",
+        "simpleores:chiseled_tin",
+        "simpleores:tin_grate"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:cut_zinc",
+        "simpleores:zinc_tiles",
+        "simpleores:chiseled_zinc",
+        "simpleores:zinc_grate"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:cut_rose_gold",
+        "simpleores:rose_gold_tiles",
+        "simpleores:chiseled_rose_gold"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:cut_rose_bronze",
+        "simpleores:rose_bronze_tiles",
+        "simpleores:chiseled_rose_bronze"
+      ]
+    }
+  ]
+}

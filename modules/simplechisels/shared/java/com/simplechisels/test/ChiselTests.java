@@ -46,6 +46,8 @@ import net.minecraft.world.phys.Vec3;
  */
 public final class ChiselTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
+    /** Not a look of another block: the storage block of the Cracked Diamond material (a chain would turn cracked diamonds into diamonds). */
+    static final java.util.Set<String> OWN_VARIANTS_EXEMPT = java.util.Set.of("simplelib:cracked_diamond_block", "simplebuilding:cracked_diamond_block");
     static final BlockPos SPOT = new BlockPos(1, 1, 1);
 
     private ChiselTests() {}
@@ -170,6 +172,43 @@ public final class ChiselTests {
             }
             if (ChiselTables.tier("stone").forward().get(Blocks.STONE) != Blocks.CHISELED_STONE_BRICKS) problems.add("tables restored");
             h.assertTrue(problems.isEmpty(), "datapack tables: " + problems);
+            h.succeed();
+        });
+        // simplechisels-1 (PLAN40): every chiseled, cracked or mossy block of a Simple mod is the target of some chain (the chains
+        // live as data in the owning mods; tools/check_chisel_chains.py checks the same without Minecraft, plus the dupe guard).
+        ALL.put("own_variants_reachable", h -> {
+            java.util.Set<Block> targets = new java.util.HashSet<>();
+            for (String tier : ChiselTables.TIERS) {
+                targets.addAll(ChiselTables.tier(tier).forward().values());
+                targets.addAll(ChiselTables.tier(tier).touchForward().values());
+            }
+            List<String> unreachable = new ArrayList<>();
+            int checked = 0;
+            for (Block block : BuiltInRegistries.BLOCK) {
+                Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+                String path = id.getPath();
+                if (!id.getNamespace().startsWith("simple") || !path.matches("(chiseled|cracked|mossy)_.*")
+                        || path.endsWith("_bookshelf") || path.endsWith("_octet") || OWN_VARIANTS_EXEMPT.contains(id.toString())) continue;
+                checked++;
+                if (!targets.contains(block)) unreachable.add(id.toString());
+            }
+            h.assertTrue(unreachable.isEmpty(), "variants no chisel reaches: " + unreachable);
+            // Dupe guard: the stonecutter makes four Cut Copper from one Block of Copper, so the block is in no chain.
+            Block copper = BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("copper_block"));
+            Block cutCopper = BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("cut_copper"));
+            Block chiseledCopper = BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("chiseled_copper"));
+            for (String tier : ChiselTables.TIERS) {
+                h.assertFalse(ChiselTables.tier(tier).touchForward().containsKey(copper)
+                        || ChiselTables.tier(tier).touchBackward().get(cutCopper) == copper, tier + ": copper block <-> cut copper");
+            }
+            h.assertTrue(ChiselTables.tier("diamond").touchForward().get(cutCopper) == chiseledCopper, "cut copper -> chiseled copper stays");
+            Block cutIron = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("simpleblocks", "cut_iron"));
+            if (SimpleChisels.isLoaded("simpleblocks")) {
+                Block tiles = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("simpleblocks", "iron_tiles"));
+                h.assertTrue(ChiselTables.tier("iron").forward().get(cutIron) == tiles, "Simple Blocks file: cut iron -> iron tiles with the iron chisel");
+                h.assertFalse(ChiselTables.tier("stone").forward().containsKey(cutIron), "the stone chisel does not work iron");
+                h.assertTrue(checked > 50, "only " + checked + " Simple variants found with Simple Blocks loaded");
+            }
             h.succeed();
         });
         ALL.put("fast_chiseling_cooldown", h -> {

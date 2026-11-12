@@ -86,6 +86,33 @@
       }
     },
     {
+      "id": "own_chains",
+      "sources": [
+        "tools/check_chisel_chains.py",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json",
+        "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json",
+        "mc26_3/overlay/resources/data/simplebuilding/chisel_transformations/cracked_end_bricks_enderite_chisel.json"
+      ],
+      "en": {
+        "title": "Chains of the Simple blocks",
+        "summary": "Every chiseled, cracked and mossy block of the Simple mods sits in a chain, shipped by the mod that owns the block, so the chisel reaches it.",
+        "details": [
+          "Simple Blocks: the ice families (polished, chiseled, bricks, cracked bricks, ice, cracked ice; stone tier for ice, iron for packed ice, diamond for blue ice), cut, tiles and chiseled iron (iron) and gold (diamond), chiseled coal, lapis, diamond, emerald, redstone and netherite on their block, the chiseled polished stones, cracked and mossy mud, tuff, deepslate, end stone, cinnabar and sulfur bricks, prismarine, dark prismarine and red and blue nether bricks, copper grate to copper tiles in every oxidation stage.",
+          "Simple Ores: cut, tiles, chiseled and grate of brass, bronze, lead, nickel, silver, stainless steel, tin and zinc, of rose gold and rose bronze without grate (iron tier); chiseled infernite, terranite and zenithite (netherite) and chiseled enderite (enderite). SimpleBuilding: the cracked astralit, nihilith and ender quartz bricks at the end of their enderite chains.",
+          "A chain only joins blocks of the same worth: a block the stonecutter makes four of from one block (cut, tiles, chiseled, grate) never chains with its source block or a pillar, so chiseling back makes no material. For the same reason Vanilla's copper chain now starts at cut copper (Block of Copper is no longer in it)."
+        ]
+      },
+      "de": {
+        "title": "Ketten der Simple-Blöcke",
+        "summary": "Jeder gemeißelte, rissige und bemooste Block der Simple-Mods steckt in einer Kette, die die Mod mitliefert, der der Block gehört, damit der Meißel ihn erreicht.",
+        "details": [
+          "Simple Blocks: die Eis-Familien (poliert, gemeißelt, Ziegel, rissige Ziegel, Eis, rissiges Eis; Steinstufe für Eis, Eisen für Packeis, Diamant für Blaueis), geschnittenes Eisen, Eisenfliesen und gemeißeltes Eisen (Eisen) sowie Gold (Diamant), gemeißelte Kohle, Lapis, Diamant, Smaragd, Redstone und Netherit an ihrem Block, die gemeißelten polierten Steine, rissige und bemooste Schlamm-, Tuff-, Tiefenschiefer-, Endstein-, Zinnober- und Schwefelziegel, Prismarin, dunkles Prismarin, rote und blaue Netherziegel, Kupfergitter zu Kupferfliesen in jeder Oxidationsstufe.",
+          "Simple Ores: geschnitten, Fliesen, gemeißelt und Gitter von Messing, Bronze, Blei, Nickel, Silber, Edelstahl, Zinn und Zink, von Roségold und Rosébronze ohne Gitter (Eisenstufe); gemeißeltes Infernit, Terranit und Zenithit (Netherit) und gemeißeltes Enderit (Enderit). SimpleBuilding: die rissigen Astralit-, Nihilith- und Enderquarzziegel am Ende ihrer Enderit-Ketten.",
+          "Eine Kette verbindet nur gleich viel werte Blöcke: einen Block, von dem die Steinsäge vier aus einem Block macht (geschnitten, Fliesen, gemeißelt, Gitter), verbindet sie nie mit seinem Ausgangsblock oder einer Säule, damit Zurückmeißeln kein Material schafft. Aus demselben Grund beginnt Vanillas Kupferkette jetzt beim geschnittenen Kupfer (der Kupferblock gehört nicht mehr dazu)."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simplechisels/shared/java/com/simplechisels/config/ChiselConfig.java"

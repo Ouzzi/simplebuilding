@@ -1,0 +1,193 @@
+{
+  "tier": "iron",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "simpleblocks:polished_packed_ice",
+        "simpleblocks:chiseled_packed_ice",
+        "simpleblocks:packed_ice_bricks",
+        "simpleblocks:cracked_packed_ice_bricks",
+        "minecraft:packed_ice",
+        "simpleblocks:cracked_packed_ice"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:packed_ice_stairs",
+        "simpleblocks:packed_ice_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:packed_ice_slab",
+        "simpleblocks:packed_ice_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:packed_ice_wall",
+        "simpleblocks:packed_ice_brick_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:cut_iron",
+        "simpleblocks:iron_tiles",
+        "simpleblocks:chiseled_iron"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:lapis_block",
+        "simpleblocks:chiseled_lapis"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:andesite",
+        "simpleblocks:chiseled_polished_andesite"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:diorite",
+        "simpleblocks:chiseled_polished_diorite"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:granite",
+        "simpleblocks:chiseled_polished_granite"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_cinnabar",
+        "minecraft:chiseled_cinnabar",
+        "minecraft:cinnabar_bricks",
+        "simpleblocks:cracked_cinnabar_bricks",
+        "simpleblocks:mossy_cinnabar_bricks",
+        "minecraft:cinnabar"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_cinnabar_stairs",
+        "minecraft:cinnabar_brick_stairs",
+        "simpleblocks:mossy_cinnabar_brick_stairs",
+        "minecraft:cinnabar_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_cinnabar_slab",
+        "minecraft:cinnabar_brick_slab",
+        "simpleblocks:mossy_cinnabar_brick_slab",
+        "minecraft:cinnabar_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_cinnabar_wall",
+        "minecraft:cinnabar_brick_wall",
+        "simpleblocks:mossy_cinnabar_brick_wall",
+        "minecraft:cinnabar_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_sulfur",
+        "minecraft:chiseled_sulfur",
+        "minecraft:sulfur_bricks",
+        "simpleblocks:cracked_sulfur_bricks",
+        "simpleblocks:mossy_sulfur_bricks",
+        "minecraft:sulfur"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_sulfur_stairs",
+        "minecraft:sulfur_brick_stairs",
+        "simpleblocks:mossy_sulfur_brick_stairs",
+        "minecraft:sulfur_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_sulfur_slab",
+        "minecraft:sulfur_brick_slab",
+        "simpleblocks:mossy_sulfur_brick_slab",
+        "minecraft:sulfur_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_sulfur_wall",
+        "minecraft:sulfur_brick_wall",
+        "simpleblocks:mossy_sulfur_brick_wall",
+        "minecraft:sulfur_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:tuff_brick_stairs",
+        "simpleblocks:mossy_tuff_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:tuff_brick_slab",
+        "simpleblocks:mossy_tuff_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:copper_grate",
+        "simpleblocks:copper_tiles"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:exposed_copper_grate",
+        "simpleblocks:exposed_copper_tiles"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:weathered_copper_grate",
+        "simpleblocks:weathered_copper_tiles"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:oxidized_copper_grate",
+        "simpleblocks:oxidized_copper_tiles"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:waxed_copper_grate",
+        "simpleblocks:waxed_copper_tiles"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:waxed_exposed_copper_grate",
+        "simpleblocks:waxed_exposed_copper_tiles"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:waxed_weathered_copper_grate",
+        "simpleblocks:waxed_weathered_copper_tiles"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:waxed_oxidized_copper_grate",
+        "simpleblocks:waxed_oxidized_copper_tiles"
+      ]
+    }
+  ]
+}
