@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  * at the same time. Notes are written at the pitch they sound: each instrument covers its two note block octaves
  * (harp f#3-f#5, bass f#1-f#3, flute f#4-f#6, bell f#5-f#7 ...); a number 0-24 is the raw note block note.
  * Limits: {@link #MAX_TRACKS} tracks, {@link #MAX_TONES_PER_STEP} tones per step in total, {@link #MAX_TICKS}
- * ticks (10 minutes), {@link #MAX_CODE_LENGTH} characters.
+ * ticks (10 minutes), {@link #MAX_CODE_LENGTH} characters, {@link #MAX_NESTING} nested repetitions in one line.
  */
 public final class NoteCode {
     public static final int MAX_CODE_LENGTH = 32000;
@@ -40,6 +40,8 @@ public final class NoteCode {
     public static final int MAX_TONES_PER_STEP = 8;
     public static final int MAX_CHORD = 4;
     public static final int MAX_REPEAT = 64;
+    /** Deepest nesting of {@code xN { ... }} inside one track line (the parser recurses once per level: a stack overflow would take the server down). */
+    public static final int MAX_NESTING = 16;
     /** 10 minutes. */
     public static final int MAX_TICKS = 12000;
     public static final int MIN_TEMPO = 1, MAX_TEMPO = 20, DEFAULT_TEMPO = 4;
@@ -216,6 +218,8 @@ public final class NoteCode {
         int tempo = DEFAULT_TEMPO;
         boolean tooLong;
         int line;
+        /** Levels of {@code xN { ... }} the running {@link #sequence} is inside (capped by {@link #MAX_NESTING}). */
+        int depth;
 
         Parser(String code, SoundPolicy policy) {
             this.code = code;
@@ -474,9 +478,22 @@ public final class NoteCode {
                     }
                     style(tokens.get(at[0]), STYLE_OPERATOR);
                     at[0]++;
-                    List<Step> inner = new ArrayList<>();
                     int open = at[0] - 1;
-                    if (!sequence(tokens, at, instrumentIndex, volume, inner, true)) problemAt(tokens.get(open), "unclosed_block");
+                    if (depth >= MAX_NESTING) {
+                        // simplemusic-P1-1: no deeper recursion (a few thousand "x2{" overflowed the stack on the server thread); skip to the matching }
+                        problemAt(tokens.get(open), "too_deep", String.valueOf(MAX_NESTING));
+                        skipBlock(tokens, at);
+                        continue;
+                    }
+                    List<Step> inner = new ArrayList<>();
+                    depth++;
+                    boolean closed;
+                    try {
+                        closed = sequence(tokens, at, instrumentIndex, volume, inner, true);
+                    } finally {
+                        depth--;
+                    }
+                    if (!closed) problemAt(tokens.get(open), "unclosed_block");
                     for (int i = 0; i < count && !tooLong; i++) {
                         for (Step s : inner) addStep(out, s);
                     }
@@ -524,6 +541,16 @@ public final class NoteCode {
                 addStep(out, step);
             }
             return false;
+        }
+
+        /** Moves {@code at} behind the } that closes the block whose { was just consumed (or to the end of the line). */
+        void skipBlock(List<int[]> tokens, int[] at) {
+            int open = 1;
+            while (at[0] < tokens.size() && open > 0) {
+                String word = text(tokens.get(at[0]++));
+                if (word.equals("{")) open++;
+                else if (word.equals("}")) open--;
+            }
         }
 
         void addStep(List<Step> out, Step step) {

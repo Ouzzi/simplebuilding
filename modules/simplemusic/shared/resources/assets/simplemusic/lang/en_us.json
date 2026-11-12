@@ -54,6 +54,7 @@
   "simplemusic.code.error.unexpected": "Unexpected text here",
   "simplemusic.code.error.unknown_line": "Not a track, alias, tempo or block line",
   "simplemusic.code.error.bad_repeat": "Repeat count must be 1 to %s",
+  "simplemusic.code.error.too_deep": "Repeat blocks can be nested at most %s deep",
   "simplemusic.code.error.bad_alias": "An alias starts with $ and uses a-z, 0-9, _",
   "simplemusic.code.error.missing_instrument": "Name an instrument after =",
   "simplemusic.code.error.missing_sound": "Name a sound id after \"sound\"",
