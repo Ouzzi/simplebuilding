@@ -50,6 +50,7 @@ public final class MusicForge {
                         new BlockEntityType<>(com.simplemusic.pocket.PocketJukeboxBlockEntity::new, Set.copyOf(MusicRegistry.POCKET_JUKEBOX_BLOCKS)));
             }
             if (key.equals(Registries.MENU)) MusicRegistry.registerMenus();
+            if (key.equals(Registries.RECIPE_SERIALIZER)) MusicRegistry.registerRecipeSerializers();
         });
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
             boolean vanillaTabs = com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleMusic.MOD_ID);

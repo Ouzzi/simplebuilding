@@ -38,6 +38,10 @@ public final class MusicFabric implements ModInitializer {
         MusicRegistry.registerBlockEntities(new BlockEntityType<>(com.simplemusic.press.DiscPressBlockEntity::new, Set.of(MusicRegistry.DISC_PRESS)),
                 new BlockEntityType<>(com.simplemusic.pocket.PocketJukeboxBlockEntity::new, Set.copyOf(MusicRegistry.POCKET_JUKEBOX_BLOCKS)));
         MusicRegistry.registerMenus();
+        MusicRegistry.registerRecipeSerializers();
+        // Since 26.x Vanilla sends no recipes to the client; JEI gets them through the Fabric recipe sync, which only carries
+        // announced serializers (the 17 Pocket Jukebox recipes use empty_bundle_shaped).
+        net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization.synchronizeRecipeSerializer(com.simplemusic.recipe.EmptyBundleShapedRecipe.SERIALIZER);
         MusicRegistry.registerTab();
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(out -> {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleMusic.MOD_ID)) return;

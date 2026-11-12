@@ -27,6 +27,7 @@ HANDLED_TYPES = {
     "simplearrows:fletching": "RecipeViewer.special (Fletchings.recipeViewerEntries, Simple Arrows)",
     "simplebuilding:count_based_smithing": "SimpleBuilding's smithing extension (only loaded with SimpleBuilding)",
     "simplepads:enchanted_shapeless": "ShapelessRecipe subclass with its own display, JEI crafting (serializer synced in PadsFabric)",
+    "simplemusic:empty_bundle_shaped": "ShapedRecipe subclass (only empty bundles, AUDSB31E2 F8), JEI crafting (serializer synced in MusicFabric)",
     # a-fix09b: deliberately without a view - the Easter chain is a secret (docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md rule 5,
     # EasterSmithingRecipe#display() is empty, no recipe book, no unlock); the pads' recipes themselves are shown.
     "simplepads:easter_smithing": "hidden on purpose (secret Easter chain, PRINZIPIEN-ENTDECKBARKEIT rule 5)",

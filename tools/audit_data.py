@@ -103,7 +103,7 @@ def recipes(files):
         if isinstance(res, dict): res = res.get('id')
         if t == 'minecraft:brewing': res = (d.get('output') or {}).get('id')
         ins = []  # list of slots, each slot = alternatives
-        if t == 'minecraft:crafting_shaped' or t == 'simplebuilding:backpack_upgrade' or t == 'simplebuilding:reinforced_bundle':
+        if t in ('minecraft:crafting_shaped', 'simplebuilding:backpack_upgrade', 'simplebuilding:reinforced_bundle', 'simplemusic:empty_bundle_shaped'):
             key = d.get('key', {})
             for row in d.get('pattern', []):
                 for ch in row:
@@ -228,7 +228,7 @@ def recipe_audit(files):
     for r in rs:
         if r['type'] == 'minecraft:crafting_shapeless' or r['type'] == 'simplebuilding:enchanted_shapeless':
             s = ('shapeless', tuple(sorted('|'.join(sorted(x)) for x in r['ins'])))
-        elif r['type'] in ('minecraft:crafting_shaped',):
+        elif r['type'] in ('minecraft:crafting_shaped', 'simplemusic:empty_bundle_shaped'):
             rows = r['d']['pattern']; key = r['d']['key']
             s = ('shaped', tuple(tuple('|'.join(sorted(ing_alts(key.get(c)))) if c != ' ' else '' for c in row) for row in rows))
         elif r['type'] in ('minecraft:stonecutting', 'minecraft:smelting', 'minecraft:blasting'):

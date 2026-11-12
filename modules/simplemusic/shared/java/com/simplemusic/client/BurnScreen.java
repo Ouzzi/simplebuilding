@@ -5,6 +5,7 @@ import com.simplemusic.net.UploadBeginPayload;
 import com.simplemusic.net.UploadChunkPayload;
 import com.simplemusic.net.UploadResultPayload;
 import com.simplemusic.sheet.NoteCode;
+import com.simplemusic.sheet.SheetMusicItem;
 import com.simplemusic.upload.OggCheck;
 import com.simplemusic.upload.UploadSession;
 import com.simplelib.api.client.ui.UiBoxes;
@@ -27,7 +28,8 @@ import net.minecraft.network.chat.Component;
  * disc press, owner 21.10.): lists the {@code .ogg} files of
  * {@code config/simplemusic/upload/}, checks the chosen one locally with the same {@link OggCheck} as the server
  * (format, mono, length, size), takes a title and sends the file in chunks, paced below the server's rate. The server
- * checks everything again and answers with {@link UploadResultPayload}.
+ * checks everything again and answers with {@link UploadResultPayload}. A sheet that still carries an unsigned composition
+ * loses it to the track (owner 12.11., F9=A): the window says so in a warning line ({@link SheetMusicItem#replacesDraft}).
  */
 public class BurnScreen extends Screen {
     /**
@@ -39,10 +41,13 @@ public class BurnScreen extends Screen {
     static final int INK = 0xFFF2EEE8;         // = PALETTE.label(), 6.84:1 on the panel
     static final int PROBLEM_INK = 0xFFFFB8B0; // 4.79:1
     static final int OK_INK = 0xFFB8F0B6;      // 6.09:1
+    static final int WARN_INK = 0xFFFFE08A;    // 6.13:1, the "draft will be replaced" line
     private static final int PANEL_WIDTH = 260;
     private static BurnScreen current;
 
     private final int hand;
+    /** The editor had code when it opened this window (its save may not have come back to the held stack yet). */
+    private final boolean editorDraft;
     private Path chosen;
     private byte[] data;
     private Component status = Component.translatable("simplemusic.burn.choose");
@@ -50,24 +55,40 @@ public class BurnScreen extends Screen {
     private EditBox titleBox;
     private Button burn;
     private boolean sending;
+    private boolean uploaded;
     private int nextChunk = -1;
     private long startedMillis;
     private long bytesPerSecond = 128 * 1024;
 
     public BurnScreen(int hand) {
+        this(hand, false);
+    }
+
+    /** {@code editorDraft}: the sheet editor that opens this window holds note code (it saved it just before). */
+    public BurnScreen(int hand, boolean editorDraft) {
         super(Component.translatable("simplemusic.burn.title"));
         this.hand = hand;
+        this.editorDraft = editorDraft;
     }
 
     public static void open(int hand) {
         Minecraft.getInstance().gui.setScreen(new BurnScreen(hand));
     }
 
+    /** Whether the upload will replace a composition on the sheet in the hand (live, so a late save or sync is picked up). */
+    private boolean warnsDraft() {
+        if (uploaded) return false; // done: the composition is gone, the sheet holds the track
+        if (editorDraft) return true;
+        var player = Minecraft.getInstance().player;
+        return player != null && SheetMusicItem.replacesDraft(player.getItemInHand(
+                hand == 1 ? net.minecraft.world.InteractionHand.OFF_HAND : net.minecraft.world.InteractionHand.MAIN_HAND));
+    }
+
     @Override
     protected void init() {
         current = this;
         List<Path> files = SheetFiles.list(SheetFiles.uploads(), ".ogg");
-        int y = 40;
+        int y = 48; // below the folder line and the warning line
         for (Path file : files) {
             if (y > height - 90) break;
             addRenderableWidget(Button.builder(Component.literal(file.getFileName().toString()), b -> choose(file))
@@ -140,6 +161,7 @@ public class BurnScreen extends Screen {
             }
             case "accepted", "pending" -> {
                 sending = false;
+                uploaded = true;
                 status(Component.translatable("simplemusic.upload." + result.key(), result.args().toArray()), OK_INK);
             }
             default -> {
@@ -178,6 +200,10 @@ public class BurnScreen extends Screen {
         g.text(font, getTitle(), width / 2 - font.width(getTitle()) / 2, 12, ink, false);
         Component folder = Component.translatable("simplemusic.burn.folder", SheetFiles.uploads().toString());
         g.text(font, folder, width / 2 - Math.min(font.width(folder), 240) / 2, 24, ink, false);
+        if (warnsDraft()) {
+            Component warning = Component.translatable("simplemusic.burn.draft");
+            g.text(font, warning, width / 2 - Math.min(font.width(warning), 240) / 2, 35, ink(WARN_INK), false);
+        }
         g.text(font, status, left, height - 52, ink(statusInk), false);
         g.text(font, Component.translatable("simplemusic.burn.rights"), left, height - 42, ink, false);
         if (chosen != null) g.text(font, Component.literal(chosen.getFileName().toString()), left, height - 88, ink, false);

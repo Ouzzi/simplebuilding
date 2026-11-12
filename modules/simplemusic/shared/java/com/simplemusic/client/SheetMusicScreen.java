@@ -430,7 +430,7 @@ public class SheetMusicScreen extends Screen {
     /** Saves the draft, then opens the upload window for this sheet (the server puts the track on it). */
     private void upload() {
         save();
-        minecraft.gui.setScreen(new BurnScreen(hand));
+        minecraft.gui.setScreen(new BurnScreen(hand, !code.isBlank()));
     }
 
     @Override

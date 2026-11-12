@@ -28,7 +28,7 @@ from __future__ import annotations
 import json
 from fractions import Fraction
 
-SHAPED = ("minecraft:crafting_shaped", "simplebuilding:backpack_upgrade", "simplebuilding:reinforced_bundle")
+SHAPED = ("minecraft:crafting_shaped", "simplebuilding:backpack_upgrade", "simplebuilding:reinforced_bundle", "simplemusic:empty_bundle_shaped")
 SHAPELESS = ("minecraft:crafting_shapeless", "simplebuilding:enchanted_shapeless")
 COOKING = ("minecraft:smelting", "minecraft:blasting", "minecraft:smoking", "minecraft:campfire_cooking")
 SMITHING = ("minecraft:smithing_transform", "simplebuilding:count_based_smithing")

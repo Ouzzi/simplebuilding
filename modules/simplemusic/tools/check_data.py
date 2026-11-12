@@ -38,6 +38,7 @@ pockets = [k for k in recipes if k.endswith('pocket_jukebox')]
 assert len(pockets) == 17 and len([k for k in recipes if k.endswith('pocket_jukebox_dyeing')]) == 16, 'pocket jukebox recipes'
 for k in pockets:  # owner 21.10.: a diamond instead of the blank disc, the colour comes from the bundle
     r = recipes[k]
+    assert r['type'] == 'simplemusic:empty_bundle_shaped', ('F8=B: only empty bundles', k)  # no filled bundle is eaten
     assert r['pattern'] == ['NDN', 'NBN', 'NNN'] and r['key']['N'] == 'minecraft:copper_nugget' and r['key']['D'] == 'minecraft:diamond', k
     assert r['key']['B'] == 'minecraft:' + k.replace('pocket_jukebox', 'bundle').lstrip('_'), k
     for suffix in ('', '_open_back', '_open_front'):

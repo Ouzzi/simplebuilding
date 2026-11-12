@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "simplemusic:empty_bundle_shaped",
   "category": "equipment",
   "group": "pocket_jukebox",
   "pattern": [

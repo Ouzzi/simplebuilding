@@ -556,6 +556,70 @@ public final class MusicTests {
             h.assertTrue(!jukebox.is(net.minecraft.tags.ItemTags.BUNDLES), "not a Vanilla bundle (its dye recipes would eat it)");
             h.succeed();
         });
+        // F8=B (owner 12.11.): the 17 Pocket Jukebox recipes take an empty bundle only, a filled one keeps its contents
+        ALL.put("pocket_jukebox_needs_empty_bundle", h -> {
+            var serializer = BuiltInRegistries.RECIPE_SERIALIZER.getValue(SimpleMusic.id("empty_bundle_shaped"));
+            h.assertTrue(serializer == com.simplemusic.recipe.EmptyBundleShapedRecipe.SERIALIZER, "the serializer is registered");
+            ItemStack n = new ItemStack(Items.COPPER_NUGGET);
+            ItemStack diamond = new ItemStack(Items.DIAMOND);
+            for (int i = 0; i < MusicRegistry.POCKET_JUKEBOXES.size(); i++) {
+                net.minecraft.world.item.DyeColor color = i == 0 ? null : net.minecraft.world.item.DyeColor.values()[i - 1];
+                net.minecraft.world.item.Item bundleItem = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(
+                        color == null ? "bundle" : color.getSerializedName() + "_bundle"));
+                ItemStack plain = new ItemStack(bundleItem);
+                ItemStack emptied = new ItemStack(bundleItem);
+                emptied.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS, new net.minecraft.world.item.component.BundleContents(List.of()));
+                ItemStack filled = new ItemStack(bundleItem);
+                filled.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS, new net.minecraft.world.item.component.BundleContents(
+                        List.of(new net.minecraft.world.item.ItemStackTemplate(Items.STONE, 3))));
+                for (ItemStack ok : List.of(plain, emptied)) {
+                    ItemStack out = craft(h, net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(n, diamond, n, n, ok, n, n, n, n)));
+                    h.assertTrue(out.is(MusicRegistry.POCKET_JUKEBOXES.get(i)), "an empty " + bundleItem + " crafts " + MusicRegistry.POCKET_JUKEBOXES.get(i) + ": " + out);
+                }
+                ItemStack refused = craft(h, net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(n, diamond, n, n, filled, n, n, n, n)));
+                h.assertTrue(refused.isEmpty(), "a filled " + bundleItem + " crafts nothing: " + refused);
+            }
+            var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(n, diamond, n, n, new ItemStack(Items.BUNDLE), n, n, n, n));
+            var holder = h.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, h.getLevel());
+            h.assertTrue(holder.isPresent() && holder.get().value() instanceof com.simplemusic.recipe.EmptyBundleShapedRecipe, "the recipe is the empty-bundle type");
+            // the network form (recipe sync for JEI) round-trips and still refuses a filled bundle
+            var recipe = (com.simplemusic.recipe.EmptyBundleShapedRecipe) holder.get().value();
+            var buf = new net.minecraft.network.RegistryFriendlyByteBuf(io.netty.buffer.Unpooled.buffer(), h.getLevel().registryAccess());
+            com.simplemusic.recipe.EmptyBundleShapedRecipe.STREAM_CODEC.encode(buf, recipe);
+            var copy = com.simplemusic.recipe.EmptyBundleShapedRecipe.STREAM_CODEC.decode(buf);
+            ItemStack filled = new ItemStack(Items.BUNDLE);
+            filled.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS, new net.minecraft.world.item.component.BundleContents(
+                    List.of(new net.minecraft.world.item.ItemStackTemplate(Items.STONE))));
+            h.assertTrue(copy.matches(input, h.getLevel()) && !copy.matches(net.minecraft.world.item.crafting.CraftingInput.of(3, 3,
+                    List.of(n, diamond, n, n, filled, n, n, n, n)), h.getLevel()), "the synced copy behaves the same");
+            h.succeed();
+        });
+        // F9=A (owner 12.11.): the burn window warns exactly when an upload throws an unsigned composition away
+        ALL.put("upload_warns_about_draft", h -> {
+            ServerPlayer alice = h.makeMockServerPlayerInLevel();
+            List<CustomPacketPayload> sent = capture(alice);
+            try {
+                ItemStack blank = new ItemStack(MusicRegistry.SHEET_MUSIC);
+                ItemStack titleOnly = new ItemStack(MusicRegistry.SHEET_MUSIC);
+                titleOnly.set(MusicComponents.SHEET, new SheetContent("  ", "Idea", "", false));
+                ItemStack draft = new ItemStack(MusicRegistry.SHEET_MUSIC);
+                draft.set(MusicComponents.SHEET, new SheetContent(TUNE, "Draft", "", false));
+                h.assertTrue(!SheetMusicItem.replacesDraft(blank) && !SheetMusicItem.replacesDraft(titleOnly), "blank sheet or title only: nothing to lose");
+                h.assertTrue(SheetMusicItem.replacesDraft(draft) && MusicServer.uploadTarget(draft), "an unsigned composition is replaced");
+                h.assertTrue(!SheetMusicItem.replacesDraft(sheet(TUNE)) && !MusicServer.uploadTarget(sheet(TUNE)), "a signed sheet is no upload target");
+                h.assertTrue(!SheetMusicItem.replacesDraft(new ItemStack(Items.PAPER)), "paper is no sheet");
+                // the warning matches what the server does
+                alice.setItemInHand(InteractionHand.MAIN_HAND, draft);
+                upload(alice, uniqueOgg(1, 5), "Replaces");
+                ItemStack uploaded = alice.getMainHandItem();
+                h.assertTrue(SheetMusicItem.track(uploaded) != null && SheetMusicItem.content(uploaded).code().isEmpty(),
+                        "the upload replaced the draft (" + last(sent) + "): " + SheetMusicItem.content(uploaded));
+                h.assertTrue(!SheetMusicItem.replacesDraft(uploaded), "an upload sheet has no draft any more");
+                h.succeed();
+            } finally {
+                restore();
+            }
+        });
         ALL.put("pocket_insert_remove", h -> {
             ItemStack jukebox = new ItemStack(MusicRegistry.POCKET_JUKEBOXES.get(0));
             h.assertTrue(!PocketJukeboxItem.insert(jukebox, new ItemStack(Items.DIRT)), "no dirt");
