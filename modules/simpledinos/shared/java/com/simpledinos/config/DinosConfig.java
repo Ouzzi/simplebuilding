@@ -19,7 +19,7 @@ public final class DinosConfig {
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "brushSeconds", "incubateSeconds", "hatchSeconds", "hatchWaitsForOwner",
             "growMinutes", "trexBiteDamage", "triceratopsShake", "shakeShare", "shakeAppleChance", "shakeTreeCooldownSeconds",
-            "ramCooldownSeconds");
+            "ramCooldownSeconds", "stegosaurusPlowWidth", "stegosaurusSow");
 
     public static final int BRUSH_DEFAULT = 45, BRUSH_MIN = 5, BRUSH_MAX = 600;
     public static final int INCUBATE_DEFAULT = 300, INCUBATE_MIN = 10, INCUBATE_MAX = 3600;
@@ -29,6 +29,7 @@ public final class DinosConfig {
     public static final double SHARE_DEFAULT = 0.5, APPLE_DEFAULT = 0.35;
     public static final int TREE_REST_DEFAULT = 600, TREE_REST_MIN = 60, TREE_REST_MAX = 3600;
     public static final int RAM_COOLDOWN_DEFAULT = 3, RAM_COOLDOWN_MIN = 1, RAM_COOLDOWN_MAX = 30;
+    public static final int PLOW_WIDTH_DEFAULT = 3, PLOW_WIDTH_MIN = 1, PLOW_WIDTH_MAX = 3;
 
     public static boolean enabled = true;
     /** Seconds of brushing that free a fossil (45 = 75 % of the former minute, a pause costs twice its length). */
@@ -57,6 +58,10 @@ public final class DinosConfig {
     public static int shakeTreeCooldownSeconds = TREE_REST_DEFAULT;
     /** Seconds between two Triceratops charges (shown in the jump bar). */
     public static int ramCooldownSeconds = RAM_COOLDOWN_DEFAULT;
+    /** a-dinorest2: blocks the lowered Dino Plow tills side by side behind a Stegosaurus (1 to 3). */
+    public static int stegosaurusPlowWidth = PLOW_WIDTH_DEFAULT;
+    /** a-dinorest2: the lowered plow sows seeds from the rider's off hand on the empty fields of its strip. */
+    public static boolean stegosaurusSow = true;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -113,6 +118,8 @@ public final class DinosConfig {
         shakeAppleChance = clamp(number(json, "shakeAppleChance", APPLE_DEFAULT), 0.0, 1.0);
         shakeTreeCooldownSeconds = (int) clamp(number(json, "shakeTreeCooldownSeconds", TREE_REST_DEFAULT), TREE_REST_MIN, TREE_REST_MAX);
         ramCooldownSeconds = (int) clamp(number(json, "ramCooldownSeconds", RAM_COOLDOWN_DEFAULT), RAM_COOLDOWN_MIN, RAM_COOLDOWN_MAX);
+        stegosaurusPlowWidth = (int) clamp(number(json, "stegosaurusPlowWidth", PLOW_WIDTH_DEFAULT), PLOW_WIDTH_MIN, PLOW_WIDTH_MAX);
+        stegosaurusSow = bool(json, "stegosaurusSow", true);
     }
 
     public static JsonObject toJson() {
@@ -129,6 +136,8 @@ public final class DinosConfig {
         o.addProperty("shakeAppleChance", shakeAppleChance);
         o.addProperty("shakeTreeCooldownSeconds", shakeTreeCooldownSeconds);
         o.addProperty("ramCooldownSeconds", ramCooldownSeconds);
+        o.addProperty("stegosaurusPlowWidth", stegosaurusPlowWidth);
+        o.addProperty("stegosaurusSow", stegosaurusSow);
         return o;
     }
 

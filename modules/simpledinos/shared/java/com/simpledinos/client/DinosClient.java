@@ -11,6 +11,7 @@ public final class DinosClient {
     public static void modelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> sink) {
         sink.accept(TrexModel.LAYER, TrexModel::createBodyLayer);
         sink.accept(TriceratopsModel.LAYER, TriceratopsModel::createBodyLayer);
+        sink.accept(StegosaurusModel.LAYER, StegosaurusModel::createBodyLayer);
     }
 
     private DinosClient() {}

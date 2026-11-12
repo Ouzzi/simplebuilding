@@ -34,8 +34,9 @@ public final class SimpleDinos {
                         "simpledinos:stegosaurus_egg", "simpledinos:utahraptor_egg", "simpledinos:parasaurolophus_egg",
                         "simpledinos:large_saddle", "simpledinos:trex_armor_leather", "simpledinos:trex_armor_iron",
                         "simpledinos:trex_armor_diamond", "simpledinos:triceratops_armor_leather", "simpledinos:triceratops_armor_iron",
-                        "simpledinos:triceratops_armor_diamond", "simpledinos:triceratops_eggshell", "simpledinos:stegosaurus_eggshell",
-                        "simpledinos:utahraptor_eggshell", "simpledinos:parasaurolophus_eggshell", "minecraft:apple", "minecraft:brush",
+                        "simpledinos:triceratops_armor_diamond", "simpledinos:stegosaurus_armor_leather", "simpledinos:stegosaurus_armor_iron",
+                        "simpledinos:stegosaurus_armor_diamond", "simpledinos:dino_plow", "simpledinos:triceratops_eggshell", "simpledinos:stegosaurus_eggshell",
+                        "simpledinos:utahraptor_eggshell", "simpledinos:parasaurolophus_eggshell", "minecraft:apple", "minecraft:fern", "minecraft:wheat_seeds", "minecraft:brush",
                         "simpledinos:guide_book"));
     }
 

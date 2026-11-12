@@ -30,6 +30,13 @@ public final class DinosForge {
         EntityAttributeCreationEvent.BUS.addListener(event -> {
             event.put(DinosRegistry.TREX, DinosRegistry.trexAttributes().build());
             event.put(DinosRegistry.TRICERATOPS, DinosRegistry.triceratopsAttributes().build());
+            event.put(DinosRegistry.STEGOSAURUS, DinosRegistry.stegosaurusAttributes().build());
         });
+        // a-dinorest2: the Dino Plow asks claim mods like a block break would (same probe as Simple Tools on Forge)
+        com.simplelib.api.InteractionGuard.permission = (p, pos) -> {
+            var event = new net.minecraftforge.event.level.BlockEvent.BreakEvent(p.level(), pos, p.level().getBlockState(pos), p,
+                    net.minecraftforge.common.util.Result.DEFAULT);
+            return !net.minecraftforge.event.level.BlockEvent.BreakEvent.BUS.post(event) && !event.getResult().isDenied();
+        };
     }
 }

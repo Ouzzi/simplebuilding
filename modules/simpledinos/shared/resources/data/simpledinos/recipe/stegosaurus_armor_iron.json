@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:iron_ingot",
+    "S": "simpledinos:stegosaurus_eggshell"
+  },
+  "pattern": [
+    "MMM",
+    "MSM",
+    "MMM"
+  ],
+  "result": {
+    "id": "simpledinos:stegosaurus_armor_iron",
+    "count": 1
+  }
+}

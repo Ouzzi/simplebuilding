@@ -38,7 +38,12 @@ public final class DinosNeoForge {
         bus.addListener((EntityAttributeCreationEvent event) -> {
             event.put(DinosRegistry.TREX, DinosRegistry.trexAttributes().build());
             event.put(DinosRegistry.TRICERATOPS, DinosRegistry.triceratopsAttributes().build());
+            event.put(DinosRegistry.STEGOSAURUS, DinosRegistry.stegosaurusAttributes().build());
         });
+        // a-dinorest2: the Dino Plow asks claim mods like a block break would (same probe as Simple Tools/Farming on NeoForge)
+        var game = net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
+        com.simplelib.api.InteractionGuard.permission = (p, pos) -> !game.post(new net.neoforged.neoforge.event.level.block.BreakBlockEvent(p.level(), pos,
+                p.level().getBlockState(pos), p)).isCanceled();
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
             if (!SimpleDinos.on()) return;
             var stacks = DinosRegistry.tabStacks();
@@ -46,6 +51,7 @@ public final class DinosNeoForge {
             if (event.getTabKey().equals(CreativeModeTabs.NATURAL_BLOCKS)) stacks.subList(0, 1 + com.simpledinos.DinoKind.values().length).forEach(s -> event.accept(s, vis));
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.LARGE_SADDLE), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.DINO_PLOW), vis);
                 event.accept(com.simpledinos.guide.DinosGuide.stack(), vis);
             }
             if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
@@ -55,6 +61,9 @@ public final class DinosNeoForge {
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TRICERATOPS_ARMOR_LEATHER), vis);
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TRICERATOPS_ARMOR_IRON), vis);
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TRICERATOPS_ARMOR_DIAMOND), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_LEATHER), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_IRON), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_DIAMOND), vis);
             }
             if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 DinosRegistry.EGGSHELLS.values().forEach(i -> event.accept(new net.minecraft.world.item.ItemStack(i), vis));

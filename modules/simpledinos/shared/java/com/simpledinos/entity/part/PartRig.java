@@ -23,7 +23,7 @@ public final class PartRig {
     /** Model scale of the grown-up dinosaur (the renderer draws this x growth). */
     public final float modelScale;
     private final int neck, head;
-    private final int[] headBones, tailBones;
+    private final int[] headBones, tailBones, tailBoxBones;
     private final float neckLook, headLook, headPitch, tuckNeck, tuckHead, bendStep;
     /** How far the stretched head reaches in front of the entity position, grown up, in blocks. */
     public final double reach;
@@ -41,6 +41,16 @@ public final class PartRig {
 
     public PartRig(Skeleton skeleton, float modelScale, String neck, String head, String[] headBones, String[] tailBones,
             float neckLook, float headLook, float headPitch, float tuckNeck, float tuckHead, float bendStep, boolean solidHead) {
+        this(skeleton, modelScale, neck, head, headBones, tailBones, new String[0], neckLook, headLook, headPitch, tuckNeck, tuckHead, bendStep,
+                solidHead);
+    }
+
+    /**
+     * a-dinorest2: {@code tailExtra} are bones hanging on the tail (the Stegosaurus' spikes): their boxes count as tail boxes and they
+     * follow the bend of their parents, but they are not bent themselves.
+     */
+    public PartRig(Skeleton skeleton, float modelScale, String neck, String head, String[] headBones, String[] tailBones, String[] tailExtra,
+            float neckLook, float headLook, float headPitch, float tuckNeck, float tuckHead, float bendStep, boolean solidHead) {
         this.solidHead = solidHead;
         this.skeleton = skeleton;
         this.modelScale = modelScale;
@@ -48,6 +58,9 @@ public final class PartRig {
         this.head = skeleton.index(head);
         this.headBones = indices(skeleton, headBones);
         this.tailBones = indices(skeleton, tailBones);
+        String[] all = java.util.Arrays.copyOf(tailBones, tailBones.length + tailExtra.length);
+        System.arraycopy(tailExtra, 0, all, tailBones.length, tailExtra.length);
+        this.tailBoxBones = indices(skeleton, all);
         this.neckLook = neckLook;
         this.headLook = headLook;
         this.headPitch = headPitch;
@@ -97,8 +110,8 @@ public final class PartRig {
         skeleton.boxes(pose, headBones, (double) modelScale * growth, bodyYaw, x, y, z, out);
     }
 
-    /** World boxes of the tail segments in {@code pose}. */
+    /** World boxes of the tail segments (and what hangs on them) in {@code pose}. */
     public void tailBoxes(float[][] pose, float growth, float bodyYaw, double x, double y, double z, List<AABB> out) {
-        skeleton.boxes(pose, tailBones, (double) modelScale * growth, bodyYaw, x, y, z, out);
+        skeleton.boxes(pose, tailBoxBones, (double) modelScale * growth, bodyYaw, x, y, z, out);
     }
 }

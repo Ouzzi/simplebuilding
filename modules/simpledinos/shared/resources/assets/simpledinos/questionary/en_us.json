@@ -37,10 +37,10 @@
       "A slate-grey egg with a pattern like small plates."
     ],
     "use": [
-      "Can be placed and brooded like every dinosaur egg. The Stegosaurus itself is not built yet, so it stays an egg for now."
+      "Place it and sit on it with an empty hand: 5 minutes of sitting broods it, 10 minutes later a tame Stegosaurus hatchling hatches for the player who sat longest. Three eggshells stay behind."
     ],
     "secret": [
-      "It is waiting for its dinosaur."
+      "Badlands fossils hold more of these eggs."
     ]
   },
   "utahraptor_egg": {
@@ -142,6 +142,50 @@
       "The recipe only shows once you hold an eggshell, like the turtle shell after the scute."
     ]
   },
+  "stegosaurus_armor_leather": {
+    "lore": [
+      "Boiled leather for a neck and two flanks, with gaps for the plates."
+    ],
+    "use": [
+      "Put it on a grown, tamed Stegosaurus: protection like leather horse armor. Eight leather around a Stegosaurus eggshell."
+    ],
+    "secret": [
+      "The plates on its back need no armor: they are its own."
+    ]
+  },
+  "stegosaurus_armor_iron": {
+    "lore": [
+      "Riveted iron flank plates and a neck guard."
+    ],
+    "use": [
+      "Put it on a grown, tamed Stegosaurus: protection like iron horse armor. Eight iron ingots around a Stegosaurus eggshell."
+    ],
+    "secret": [
+      "The plow does not care how shiny its puller is."
+    ]
+  },
+  "stegosaurus_armor_diamond": {
+    "lore": [
+      "Diamond flank plates that glitter between the back plates."
+    ],
+    "use": [
+      "Put it on a grown, tamed Stegosaurus: protection like diamond horse armor. Eight diamonds around a Stegosaurus eggshell."
+    ],
+    "secret": [
+      "Even the tail spikes look a little jealous."
+    ]
+  },
+  "dino_plow": {
+    "lore": [
+      "Three iron shares on a beam, far too heavy for a horse."
+    ],
+    "use": [
+      "The owner puts it on a grown Stegosaurus (right click); shears take it off. Ride with a saddle and press the jump key: the plow goes down and tills three blocks wide like a hoe, where you may build. Seeds in your off hand are sown on the way. 750 durability, repaired with iron ingots."
+    ],
+    "secret": [
+      "Unbreaking and Mending work on it like on any tool."
+    ]
+  },
   "triceratops_eggshell": {
     "lore": [
       "Half a shell, still warm from the hatchling."
@@ -158,10 +202,10 @@
       "Half a slate-grey shell with plate marks."
     ],
     "use": [
-      "Falls when a Stegosaurus hatches; one makes three bone meal. Its armor comes with the Stegosaurus."
+      "Falls when a Stegosaurus hatches; one makes three bone meal. Eight leather, iron ingots or diamonds around it make Stegosaurus armor."
     ],
     "secret": [
-      "The Stegosaurus itself is not built yet."
+      "Hold one and the plow recipe shows up too."
     ]
   },
   "utahraptor_eggshell": {
