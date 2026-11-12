@@ -248,12 +248,32 @@ public final class OresRegistry {
                     s -> new com.simpleores.block.MetalPressurePlateBlock(light, s, OresSounds.of(m)));
         }
     }
+    /**
+     * PAL35b (owner 12.11.: "cut variants for rose gold and rose copper, chiseled variants of every ore material", docs/ai/PLAN-A-PAL35-2026-11-12.md
+     * part b): the two rose alloys get the building family of the Simple Ores metals (cut block with stairs and slab, tiles, pillar, chiseled),
+     * copies of their storage block; Enderite and the three rift metals a chiseled block (like the Netherite block they have no cut family).
+     */
+    public static final String[] ROSE_FAMILY = {"rose_gold", "rose_bronze"};
+    public static final String[] CHISELED_ONLY = {"enderite", "terranite", "infernite", "zenithite"};
+    static {
+        for (String m : ROSE_FAMILY) {
+            Block base = BLOCKS.get(m + "_block");
+            Block cut = block("cut_" + m, base, Block::new);
+            block("cut_" + m + "_stairs", base, s -> new net.minecraft.world.level.block.StairBlock(cut.defaultBlockState(), s));
+            block("cut_" + m + "_slab", base, net.minecraft.world.level.block.SlabBlock::new);
+            block(m + "_tiles", base, Block::new);
+            block(m + "_pillar", base, net.minecraft.world.level.block.RotatedPillarBlock::new);
+            block("chiseled_" + m, base, Block::new);
+        }
+        for (String m : CHISELED_ONLY) block("chiseled_" + m, BLOCKS.get(m + "_block"), Block::new);
+    }
     /** Block items that survive fire and lava (Enderite, scrap). */
     private static final java.util.Set<String> FIRE_RESISTANT = java.util.Set.of("enderite_block", "dimensional_scrap", "nether_dimensional_scrap",
             "end_dimensional_scrap", "enderite_nugget", "enderite_scrap", "enderite_ingot", "netherite_scrap_block", "enderite_scrap_block",
             "rift_shard", "nether_rift_shard", "end_rift_shard", "rift_shard_block", "nether_rift_shard_block", "end_rift_shard_block",
             "terranite_ingot", "infernite_ingot", "zenithite_ingot", "terranite_block", "infernite_block", "zenithite_block",
-            "enderite_pressure_plate", "terranite_pressure_plate", "infernite_pressure_plate", "zenithite_pressure_plate");
+            "enderite_pressure_plate", "terranite_pressure_plate", "infernite_pressure_plate", "zenithite_pressure_plate",
+            "chiseled_enderite", "chiseled_terranite", "chiseled_infernite", "chiseled_zenithite");
 
     static {
         for (String path : List.copyOf(BLOCKS.keySet())) {
@@ -313,6 +333,11 @@ public final class OresRegistry {
         food("rose_gold_apple", p -> p.food(OresFood.ROSE_GOLD_APPLE_FOOD, OresFood.ROSE_GOLD_APPLE));
         food("enchanted_rose_gold_apple", p -> p.food(OresFood.ROSE_GOLD_APPLE_FOOD, OresFood.ENCHANTED_ROSE_GOLD_APPLE)
                 .rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
+        // PAL35b: apple and carrot of each rift metal (one Vanilla effect per dimension, numbers: OresFood), fire resistant like the ingots.
+        for (String m : RIFT_METALS) {
+            food(m + "_apple", p -> p.food(OresFood.RIFT_APPLE_FOOD, OresFood.riftApple(m)).fireResistant());
+            food(m + "_carrot", p -> p.food(OresFood.RIFT_CARROT_FOOD, OresFood.riftCarrot(m)).fireResistant());
+        }
     }
 
     private static Block block(String path, Block base, Function<BlockBehaviour.Properties, Block> factory) {
@@ -408,6 +433,8 @@ public final class OresRegistry {
         for (String path : paths) {
             out.add(path);
             for (String m : COSMETIC) if (path.equals(m + "_block")) out.addAll(family(m));
+            for (String m : ROSE_FAMILY) if (path.equals(m + "_block")) out.addAll(family(m));   // PAL35b
+            for (String m : CHISELED_ONLY) if (path.equals(m + "_block")) out.add("chiseled_" + m);
             for (String m : BARS) if (path.equals(m + "_block")) out.addAll(List.of(m + "_bars", m + "_grate", m + "_door", m + "_trapdoor"));
             // N30/N35: plate, pole, chain, lantern, lamp - the order of the metal row of the new test centre (a-tz38)
             if (path.endsWith("_block") && List.of(PLATE_METALS).contains(path.substring(0, path.length() - 6))) {
@@ -437,7 +464,8 @@ public final class OresRegistry {
 
     /** IG31-41: the four rose gold apples, shown in the Food and Drinks tab behind the enchanted golden apple. */
     public static final String[] FOOD = {"rose_bronze_apple", "enchanted_rose_bronze_apple", "rose_gold_apple", "enchanted_rose_gold_apple",
-            "rose_bronze_carrot", "rose_gold_carrot"};
+            "rose_bronze_carrot", "rose_gold_carrot", "terranite_apple", "terranite_carrot", "infernite_apple", "infernite_carrot",
+            "zenithite_apple", "zenithite_carrot"};
 
     private OresRegistry() {}
 }

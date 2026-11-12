@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:golden_carrot",
+    "#": "simpleores:terranite_ingot"
+  },
+  "pattern": [
+    "CCC",
+    "C#C",
+    "CCC"
+  ],
+  "result": {
+    "id": "simpleores:terranite_carrot",
+    "count": 8
+  }
+}

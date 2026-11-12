@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpleblocks:block/exposed_copper_tiles"
+    }
+  }
+}

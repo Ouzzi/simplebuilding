@@ -11,6 +11,10 @@
     "simpleores:nether_rift_shard_block",
     "simpleores:infernite_block",
     "simpleores:end_rift_shard_block",
-    "simpleores:zenithite_block"
+    "simpleores:zenithite_block",
+    "simpleores:chiseled_enderite",
+    "simpleores:chiseled_terranite",
+    "simpleores:chiseled_infernite",
+    "simpleores:chiseled_zenithite"
   ]
 }

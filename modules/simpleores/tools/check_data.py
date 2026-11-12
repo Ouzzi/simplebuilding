@@ -70,7 +70,14 @@ for b in N4_DERIVED + ('geode_crust',):
     assert (f'block/{b}.png' in derived) == (b != 'geode_crust'), b
     assert (RES / f'assets/{NS}/textures/block/{b}.png').exists() == (b == 'geode_crust'), b
 assert (RES / f'assets/{NS}/textures/block/geode_crust.layers.json').is_file()
-assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 2 * len(ALLOYS) + len(ORES07_DERIVED) + len(N4_DERIVED), len(derived)
+# PAL35b (a-pal35b): apple and carrot of the rift metals are Vanilla-derived too (golden apple/carrot on the metal's ramp, pal35b_2026_11_12).
+RIFT_FOOD = tuple(f'{m}_{k}' for m in ('terranite', 'infernite', 'zenithite') for k in ('apple', 'carrot'))
+for f in RIFT_FOOD:
+    for rel in (f'assets/{NS}/models/item/{f}.json', f'assets/{NS}/items/{f}.json', f'data/{NS}/recipe/{f}.json'):
+        assert (RES / rel).is_file(), rel
+    assert f'item/{f}.png' in derived and not (RES / f'assets/{NS}/textures/item/{f}.png').exists(), f
+    assert all(langs[l].get(f'item.{NS}.{f}') for l in langs), f
+assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 2 * len(ALLOYS) + len(ORES07_DERIVED) + len(N4_DERIVED) + len(RIFT_FOOD), len(derived)
 assert not any('silver_arrow' in d for d in derived), 'the silver arrow moved to Simple Arrows (03.11.)'
 
 # Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
@@ -136,6 +143,22 @@ for m in COSMETIC:
         assert (RES / f'data/{NS}/recipe/{name}.json').is_file(), name
     slab_loot = json.loads((RES / f'data/{NS}/loot_table/blocks/cut_{m}_slab.json').read_text(encoding='utf-8'))
     assert slab_loot['pools'][0]['entries'][0]['modifier'][0]['count'] == 2, 'a double slab drops two'
+# PAL35b (a-pal35b): the rose alloys' families like the metals (files, pickaxe, lang, own textures with layers, recipes), chiseled Enderite
+# and rift metals (diamond tier, stonecutter 1:1, own texture with layers).
+for m in ('rose_gold', 'rose_bronze'):
+    for b in (f'cut_{m}', f'cut_{m}_stairs', f'cut_{m}_slab', f'{m}_tiles', f'{m}_pillar', f'chiseled_{m}'):
+        for rel in (f'assets/{NS}/blockstates/{b}.json', f'assets/{NS}/items/{b}.json', f'data/{NS}/loot_table/blocks/{b}.json', f'data/{NS}/recipe/{b}.json'):
+            assert (RES / rel).is_file(), rel
+        assert f'{NS}:{b}' in pickaxe and all(lang.get(f'block.{NS}.{b}') for lang in langs.values()), b
+    for t in (f'cut_{m}', f'{m}_tiles', f'{m}_pillar', f'{m}_pillar_top', f'chiseled_{m}'):
+        assert (RES / f'assets/{NS}/textures/block/{t}.png').is_file() and (RES / f'assets/{NS}/textures/block/{t}.layers.json').is_file(), t
+diamond_tier = json.loads((mc / 'block/needs_diamond_tool.json').read_text(encoding='utf-8'))['values']
+for m in ('enderite', 'terranite', 'infernite', 'zenithite'):
+    b = f'chiseled_{m}'
+    for rel in (f'assets/{NS}/blockstates/{b}.json', f'assets/{NS}/items/{b}.json', f'data/{NS}/loot_table/blocks/{b}.json',
+                f'data/{NS}/recipe/{b}_from_{m}_block_stonecutting.json', f'assets/{NS}/textures/block/{b}.png', f'assets/{NS}/textures/block/{b}.layers.json'):
+        assert (RES / rel).is_file(), rel
+    assert f'{NS}:{b}' in diamond_tier and f'{NS}:{b}' in pickaxe, b
 # N28 (b-pal28): door and trapdoor of every building metal: blockstate, models, item, loot (door only from the lower half), recipe, tags, lang,
 # own textures with layer sources (door top/bottom, item sprite, trapdoor).
 doors_tag = json.loads((mc / 'block/doors.json').read_text(encoding='utf-8'))['values']

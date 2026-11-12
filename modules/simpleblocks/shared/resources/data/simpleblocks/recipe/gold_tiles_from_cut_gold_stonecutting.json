@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:cut_gold",
+  "result": {
+    "id": "simpleblocks:gold_tiles"
+  }
+}

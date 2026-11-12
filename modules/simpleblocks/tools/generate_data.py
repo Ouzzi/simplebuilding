@@ -118,6 +118,46 @@ BLOCKS[BLUE] = dict(kind='cube', tex=BLUE_TEX)
 for kind, suffix in (('stairs', 'stairs'), ('slab', 'slab'), ('wall', 'wall')):
     BLOCKS[f'blue_nether_brick_{suffix}'] = dict(kind=kind, base=f'{NS}:{BLUE}', top=BLUE_TEX, side=BLUE_TEX, wall=BLUE_TEX, double=BLUE_TEX, family=BLUE)
 
+# PAL35b (owner 11./12.11., docs/ai/PLAN-A-PAL35-2026-11-12.md part b): the metal row of the Vanilla metals and ore materials. Java:
+# BlocksRegistry.METALS (+ com.simpleblocks.metal.MetalBlocks for the aged/waxed copper stages). Own textures (committed with layers):
+# tools/textures/pal35b_2026_11_12.py; the chiseled gems are Vanilla-derived (built, never committed).
+# metal -> (EN, DE, Vanilla storage block, tool tier tag)
+METAL_FAMILIES = {'gold': ('Gold', 'Gold', 'gold_block', 'needs_iron_tool'), 'iron': ('Iron', 'Eisen', 'iron_block', 'needs_stone_tool')}
+# (block, Vanilla storage block, EN, DE, tool tier tag or None)
+CHISELED_ORES = [('chiseled_diamond', 'diamond_block', 'Chiseled Diamond', 'Gemeißelter Diamantblock', 'needs_iron_tool'),
+                 ('chiseled_emerald', 'emerald_block', 'Chiseled Emerald', 'Gemeißelter Smaragdblock', 'needs_iron_tool'),
+                 ('chiseled_lapis', 'lapis_block', 'Chiseled Lapis Lazuli', 'Gemeißelter Lapislazuliblock', 'needs_stone_tool'),
+                 ('chiseled_redstone', 'redstone_block', 'Chiseled Redstone', 'Gemeißelter Redstoneblock', None),
+                 ('chiseled_coal', 'coal_block', 'Chiseled Coal', 'Gemeißelter Kohleblock', None),
+                 ('chiseled_netherite', 'netherite_block', 'Chiseled Netherite', 'Gemeißelter Netheritblock', 'needs_diamond_tool')]
+METAL_NAMES = {'copper_tiles': ('Copper Tiles', 'Kupferfliesen'), 'copper_pillar': ('Copper Pillar', 'Kupfersäule')}
+for _m, (_en, _de, _block, _tier) in METAL_FAMILIES.items():
+    METAL_NAMES.update({f'cut_{_m}': (f'Cut {_en}', f'Geschnittener {_de}block'), f'{_m}_tiles': (f'{_en} Tiles', f'{_de}fliesen'),
+                        f'{_m}_pillar': (f'{_en} Pillar', f'{_de}säule'), f'chiseled_{_m}': (f'Chiseled {_en}', f'Gemeißelter {_de}block')})
+    _cut = f'{NS}:block/cut_{_m}'
+    BLOCKS[f'cut_{_m}'] = dict(kind='cube', tex=_cut)
+    for _kind in ('stairs', 'slab'):
+        BLOCKS[f'cut_{_m}_{_kind}'] = dict(kind=_kind, base=f'{NS}:cut_{_m}', top=_cut, side=_cut, double=_cut, family=f'cut_{_m}')
+    BLOCKS[f'{_m}_tiles'] = dict(kind='cube', tex=f'{NS}:block/{_m}_tiles')
+    BLOCKS[f'{_m}_pillar'] = dict(kind='column', side=f'{NS}:block/{_m}_pillar', end=f'{NS}:block/{_m}_pillar_top')
+    BLOCKS[f'chiseled_{_m}'] = dict(kind='cube', tex=f'{NS}:block/chiseled_{_m}')
+for _name, _block, _en, _de, _tier in CHISELED_ORES:
+    METAL_NAMES[_name] = (_en, _de)
+    BLOCKS[_name] = dict(kind='cube', tex=f'{NS}:block/{_name}')
+BLOCKS['copper_tiles'] = dict(kind='cube', tex=f'{NS}:block/copper_tiles')
+BLOCKS['copper_pillar'] = dict(kind='column', side=f'{NS}:block/copper_pillar', end=f'{NS}:block/copper_pillar_top')
+METAL_ALL = list(METAL_NAMES)
+# Vanilla copper stages: '' (base) and the three aged words; the Vanilla ids of each stage (block, cut copper) for the recipes.
+COPPER_WORDS = ['exposed', 'weathered', 'oxidized']
+
+
+def copper_vanilla(word, waxed=False):
+    """(copper block id, cut copper id) of a stage ('' = unaffected), Vanilla names (copper_block / waxed_copper_block)."""
+    block = f'{word}_copper' if word else 'copper_block'
+    cut = f'{word}_cut_copper' if word else 'cut_copper'
+    return (f'minecraft:waxed_{block}', f'minecraft:waxed_{cut}') if waxed else (f'minecraft:{block}', f'minecraft:{cut}')
+
+
 AGED_BASE = dict(AGED)
 HUSHED_BLOCKS = [n for n in BLOCKS if n.startswith('hushed_')]
 
@@ -271,6 +311,14 @@ def models_and_states():
                 'axis=x': {'model': f'{NS}:block/{name}', 'x': 90, 'y': 90}, 'axis=y': {'model': f'{NS}:block/{name}'},
                 'axis=z': {'model': f'{NS}:block/{name}', 'x': 90}}})
             put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}'}})
+        elif kind == 'column':
+            textures = {'end': b['end'], 'side': b['side']}
+            put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/cube_column', 'textures': textures})
+            put(f'assets/{NS}/models/block/{name}_horizontal.json', {'parent': 'minecraft:block/cube_column_horizontal', 'textures': textures})
+            put(f'assets/{NS}/blockstates/{name}.json', {'variants': {
+                'axis=x': {'model': f'{NS}:block/{name}_horizontal', 'x': 90, 'y': 90}, 'axis=y': {'model': f'{NS}:block/{name}'},
+                'axis=z': {'model': f'{NS}:block/{name}_horizontal', 'x': 90}}})
+            put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}'}})
         elif kind == 'cube':
             put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': b['tex']}})
             put(f'assets/{NS}/blockstates/{name}.json', {'variants': {'': {'model': f'{NS}:block/{name}'}}})
@@ -384,7 +432,7 @@ def recipes():
            'minecraft:warped_wart_block', conditions=no_lib)
     for name, b in BLOCKS.items():
         kind = b['kind']
-        if kind in ('cube', 'pillar'):
+        if kind in ('cube', 'pillar', 'column'):
             continue
         base = b['base']
         if kind == 'stairs':
@@ -449,9 +497,45 @@ def recipes():
         for rid, centre, cond in ((name, sb_item, sb), (f'{name}_without_simplebuilding', vanilla_item, no_sb)):
             recipe(rid, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'B': f'minecraft:{base}', 'M': centre},
                          'pattern': ['BBB', 'BMB', 'BBB'], 'result': result(name, 8)}, centre, conditions=cond)
+    metal_recipes()
     for path, ingredient, out, count, mod in sawing_list():
         res = {'id': out} if count == 1 else {'count': count, 'id': out}
         put(f'data/{NS}/recipe/{path}.json', {**(mod_condition(mod) if mod else {}), 'type': f'{NS}:sawing', 'ingredient': ingredient, 'result': res})
+
+
+def metal_recipes():
+    """PAL35b: the families like the Simple Ores metals (4 blocks -> 4 cut, 4 cut -> 4 tiles, 2 blocks upright -> 2 pillars, 2 cut slabs
+    upright -> 1 chiseled; stonecutter block -> 4 cut/stairs, 8 slabs, 4 tiles, 1 pillar, 4 chiseled, cut -> 1 tiles/chiseled), copper
+    per stage and waxed from the Vanilla copper of that stage, the chiseled ore blocks 1:1 from their block at the stonecutter only."""
+    def shaped(out, pattern, src, count):
+        recipe(out, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': src}, 'pattern': pattern,
+                     'result': result(out, count)}, src)
+
+    def cutting(src, out, count):
+        recipe(f'{out}_from_{src.split(":")[1]}_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': src, 'result': result(out, count)}, src)
+
+    for m, (_en, _de, block, _tier) in METAL_FAMILIES.items():
+        block, cut = f'minecraft:{block}', f'{NS}:cut_{m}'
+        shaped(f'cut_{m}', ['##', '##'], block, 4)
+        shaped(f'{m}_tiles', ['##', '##'], cut, 4)
+        shaped(f'{m}_pillar', ['#', '#'], block, 2)
+        shaped(f'chiseled_{m}', ['#', '#'], f'{NS}:cut_{m}_slab', 1)
+        for out, count in ((f'cut_{m}', 4), (f'cut_{m}_stairs', 4), (f'cut_{m}_slab', 8), (f'{m}_tiles', 4), (f'{m}_pillar', 1), (f'chiseled_{m}', 4)):
+            cutting(block, out, count)
+        for out in (f'{m}_tiles', f'chiseled_{m}'):
+            cutting(cut, out, 1)
+    for waxed in (False, True):
+        for word in [''] + COPPER_WORDS:
+            stage = '_'.join(x for x in ('waxed' if waxed else '', word) if x)
+            tiles, pillar = (f'{stage}_copper_tiles' if stage else 'copper_tiles'), (f'{stage}_copper_pillar' if stage else 'copper_pillar')
+            block, cut = copper_vanilla(word, waxed)
+            shaped(tiles, ['##', '##'], cut, 4)
+            shaped(pillar, ['#', '#'], block, 2)
+            cutting(block, tiles, 4)
+            cutting(block, pillar, 1)
+            cutting(cut, tiles, 1)
+    for name, block, *_ in CHISELED_ORES:
+        cutting(f'minecraft:{block}', name, 1)
 
 
 # --- loot and tags ----------------------------------------------------------------------------------------------------
@@ -503,11 +587,21 @@ def tags():
     moved_ice = [f'{NS}:{n}' for n in NATURE_ICE + [c[0] for c in CRACKED_HARD]]
     moved_slabs = [f'{NS}:{n}' for n in NATURE_SLABS]
     compact_tool = {t: [f'{NS}:{st}_{b[0]}' for b in COMPACT_BASES if b[1] == t for st in COMPACT_STAGES] for t in ('pickaxe', 'shovel')}
-    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'] + moved_ice + [f'{NS}:nautilus_shell_block'] + compact_tool['pickaxe'])
+    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'] + moved_ice + [f'{NS}:nautilus_shell_block'] + compact_tool['pickaxe']
+        + [f'{NS}:{n}' for n in metal_chain_blocks()])
     # Suspended/levitating sand and gravel dig like their Vanilla block (AUDM24).
     # SN30 (b-snow32): frost grass and the snowlogged cell dig like the grass block and snow (their other tags are hand-written).
     tag('data/minecraft/tags/block/mineable/shovel.json', moved_slabs + [f'{NS}:{g[0]}' for g in GRAVITY] + [f'{NS}:frost_grass', f'{NS}:snowlogged', f'{NS}:snow_cap'] + compact_tool['shovel'])
     tag('data/minecraft/tags/block/ice.json', moved_ice + [f'{NS}:{n}' for n in ICE_FULL])
+    # PAL35b: tool tier of the metal row like its Vanilla block (copper stone, iron stone, gold iron, diamond/emerald iron, netherite diamond).
+    tiers = {'needs_stone_tool': ['copper_tiles', 'copper_pillar'] + [f'{NS}:{n}' for n in metal_chain_blocks()], 'needs_iron_tool': [], 'needs_diamond_tool': []}
+    for m, (_en, _de, _block, tier) in METAL_FAMILIES.items():
+        tiers[tier] += [f'cut_{m}', f'cut_{m}_stairs', f'cut_{m}_slab', f'{m}_tiles', f'{m}_pillar', f'chiseled_{m}']
+    for name, _block, _en, _de, tier in CHISELED_ORES:
+        if tier:
+            tiers[tier].append(name)
+    for tier, names_ in tiers.items():
+        tag(f'data/minecraft/tags/block/{tier}.json', [n if ':' in n else f'{NS}:{n}' for n in names_])
     tag(f'data/{NS}/tags/item/froglights.json', ['minecraft:ochre_froglight', 'minecraft:verdant_froglight', 'minecraft:pearlescent_froglight']
         + [f'{NS}:{n}' for n in NATURE_OTHER[1:]])
     tag('data/minecraft/tags/block/occludes_vibration_signals.json', [f'{NS}:{n}' for n in HUSHED_BLOCKS])
@@ -538,6 +632,9 @@ DE_FAMILY = {'calcite': 'Kalzit', 'netherrack': 'Netherrack-', 'smooth_basalt': 
              'polished_andesite': 'Polierte Andesit', 'quartz': 'Quarz', 'smooth_quartz': 'Glatte Quarz', 'purpur': 'Purpur',
              'quartz_brick': 'Quarzziegel', 'end_stone': 'Endstein', 'prismarine_brick': 'Prismarinziegel', 'dark_prismarine': 'Dunkle Prismarin',
              **{k: d for k, _, d in ICES}}
+for _m, (_en, _de, *_r) in METAL_FAMILIES.items():   # PAL35b: Cut Gold Stairs / Geschnittene Goldtreppe (like Simple Ores)
+    EN_FAMILY[f'cut_{_m}'] = f'Cut {_en}'
+    DE_FAMILY[f'cut_{_m}'] = f'Geschnittene {_de}'
 DE_KIND = {'stairs': 'treppe', 'slab': 'stufe', 'wall': 'mauer'}
 EN_KIND = {'stairs': 'Stairs', 'slab': 'Slab', 'wall': 'Wall'}
 EN_BRICK = {'red_nether_bricks': 'Red Nether Bricks', 'tuff_bricks': 'Tuff Bricks', 'mud_bricks': 'Mud Bricks', 'end_stone_bricks': 'End Stone Bricks',
@@ -564,6 +661,8 @@ def names():
             en[name], de[name] = 'Sculk Tiles', 'Sculk-Fliesen'
         elif name in CHISELED_NAMES:
             en[name], de[name] = CHISELED_NAMES[name]
+        elif name in METAL_NAMES:
+            en[name], de[name] = METAL_NAMES[name]
         elif name in ICE_NAMES:
             en[name], de[name] = ICE_NAMES[name]
         elif b['kind'] == 'pillar':
@@ -638,6 +737,9 @@ def lang():
             data[f'block.{NS}.{name}'] = text
             data[f'item.{NS}.{name}'] = text
         data.update(PALE_TEXT[locale])
+        for name, text in metal_chain_names(locale).items():
+            data[f'block.{NS}.{name}'] = text
+            data[f'item.{NS}.{name}'] = text
         for name, text in compact_names(locale).items():
             data[f'block.{NS}.{name}'] = text
             data[f'item.{NS}.{name}'] = text
@@ -765,6 +867,47 @@ def pale():
         put(f'data/{NS}/advancement/recipes/building_blocks/{recipe}.json', A._recipe_advancement(carved, recipe, f'{NS}:{src}'))
 
 
+# --- PAL35b copper tiles/pillar: SimpleLib aging chains (com.simpleblocks.metal.MetalBlocks), waxed end stage like Vanilla copper ---
+COPPER_CHAINS = [
+    A.Chain(NS, f'{NS}:copper_tiles', [f'{w}_copper_tiles' for w in COPPER_WORDS], f'{NS}:block/copper_tiles', {'all': 'copper_tiles'},
+            wax_end=True, block_tags=['mineable/pickaxe', 'needs_stone_tool']),
+    A.Chain(NS, f'{NS}:copper_pillar', [f'{w}_copper_pillar' for w in COPPER_WORDS], f'{NS}:block/copper_pillar',
+            {'end': 'copper_pillar_top', 'side': 'copper_pillar'}, state='axis', horizontal_model=f'{NS}:block/copper_pillar_horizontal',
+            wax_end=True, block_tags=['mineable/pickaxe', 'needs_stone_tool']),
+]
+COPPER_EN = {'exposed': 'Exposed', 'weathered': 'Weathered', 'oxidized': 'Oxidized'}
+COPPER_DE = {'exposed': 'Angelaufene', 'weathered': 'Verwitterte', 'oxidized': 'Oxidierte'}   # die Fliesen / die Säule
+
+
+def metal_chain_blocks():
+    return [b for c in COPPER_CHAINS for b in c.blocks()]
+
+
+def metal_chain_names(locale):
+    """Exposed Copper Tiles / Angelaufene Kupferfliesen, Waxed Oxidized Copper Pillar / Gewachste oxidierte Kupfersäule."""
+    out = {}
+    for c in COPPER_CHAINS:
+        en, de = METAL_NAMES[c.base_path]
+        for path in c.blocks():
+            waxed = path.startswith('waxed_')
+            word = next((w for w in COPPER_WORDS if path.removeprefix('waxed_').startswith(w + '_')), None)
+            if locale == 'en_us':
+                out[path] = ' '.join(x for x in ('Waxed' if waxed else '', COPPER_EN.get(word, ''), en) if x)
+            else:
+                adj = ([COPPER_DE[word]] if word else [])
+                if waxed:
+                    adj = ['Gewachste'] + [a.lower() for a in adj]
+                out[path] = ' '.join(adj + [de])
+    return out
+
+
+def metal():
+    """PAL35b: SimpleLib aging data of the two copper chains (stage models, blockstates, items, loot, wax recipes) and their tags."""
+    for c in COPPER_CHAINS:
+        for rel, data in A.files(c).items():
+            put(rel, data)
+
+
 def compact():
     """Compact/Dense blocks: cube models on the derived textures, self-drop loot, 4 recipes per base (9 -> 1 and 1 -> 9, twice), advancements."""
     for base, *_ in COMPACT_BASES:
@@ -789,6 +932,7 @@ def build():
     cracked_hard()
     compact()
     pale()
+    metal()
     models_and_states()
     recipes()
     loot()

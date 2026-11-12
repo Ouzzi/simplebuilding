@@ -815,6 +815,17 @@
   "de": "Goldblock"
  },
  {
+  "ns": "simpleblocks",
+  "base": "cut_gold",
+  "key": "cut_gold",
+  "group": "metal",
+  "tex": {
+   "all": "simpleblocks:block/cut_gold"
+  },
+  "en": "Cut Gold",
+  "de": "Geschnittener Goldblock"
+ },
+ {
   "ns": "minecraft",
   "base": "iron_block",
   "key": "iron_block",
@@ -824,6 +835,17 @@
   },
   "en": "Block of Iron",
   "de": "Eisenblock"
+ },
+ {
+  "ns": "simpleblocks",
+  "base": "cut_iron",
+  "key": "cut_iron",
+  "group": "metal",
+  "tex": {
+   "all": "simpleblocks:block/cut_iron"
+  },
+  "en": "Cut Iron",
+  "de": "Geschnittener Eisenblock"
  },
  {
   "ns": "minecraft",
@@ -945,6 +967,28 @@
   },
   "en": "Cut Bronze",
   "de": "Geschnittener Bronzeblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "cut_rose_gold",
+  "key": "cut_rose_gold",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_rose_gold"
+  },
+  "en": "Cut Rose Gold",
+  "de": "Geschnittener Roségoldblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "cut_rose_bronze",
+  "key": "cut_rose_bronze",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/cut_rose_bronze"
+  },
+  "en": "Cut Rose Copper",
+  "de": "Geschnittener Rosenkupferblock"
  },
  {
   "ns": "minecraft",

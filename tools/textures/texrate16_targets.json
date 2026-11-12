@@ -3290,6 +3290,202 @@
    "why": "groesste Flaeche 153, in Flaechen>=6 83.2, Hauptton 59.8, hart 15.4",
    "after": "orange",
    "after_why": "hart 15.2"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/copper_tiles.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/copper_pillar.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/copper_pillar_top.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/exposed_copper_tiles.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/exposed_copper_pillar.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/exposed_copper_pillar_top.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/weathered_copper_tiles.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/weathered_copper_pillar.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/weathered_copper_pillar_top.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/oxidized_copper_tiles.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/oxidized_copper_pillar.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/oxidized_copper_pillar_top.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cut_gold.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/gold_tiles.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/gold_pillar.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/gold_pillar_top.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cut_iron.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/iron_tiles.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/iron_pillar.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/iron_pillar_top.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_rose_gold.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/rose_gold_tiles.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/rose_gold_pillar.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/rose_gold_pillar_top.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_rose_bronze.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/rose_bronze_tiles.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/rose_bronze_pillar.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/rose_bronze_pillar_top.png": {
+   "group": "Metall-Familien",
+   "method": "r15",
+   "light": "neu",
+   "why": "PAL35b: METALS14-Form auf eigener Rampe",
+   "after": "siehe PAL35b"
   }
  },
  "not_improved": {

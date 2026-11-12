@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:zenithite_block",
+  "result": {
+    "count": 1,
+    "id": "simpleores:chiseled_zenithite"
+  }
+}

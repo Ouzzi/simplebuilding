@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleblocks:block/cut_iron_slab"
+    },
+    "type=double": {
+      "model": "simpleblocks:block/cut_iron"
+    },
+    "type=top": {
+      "model": "simpleblocks:block/cut_iron_slab_top"
+    }
+  }
+}

@@ -19,6 +19,8 @@
     "simpleblocks:ice_stairs",
     "simpleblocks:packed_ice_stairs",
     "simpleblocks:blue_ice_stairs",
-    "simpleblocks:blue_nether_brick_stairs"
+    "simpleblocks:blue_nether_brick_stairs",
+    "simpleblocks:cut_gold_stairs",
+    "simpleblocks:cut_iron_stairs"
   ]
 }

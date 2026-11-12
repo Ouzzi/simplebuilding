@@ -1,7 +1,7 @@
 """Data of a SimpleLib aging chain (com.simplelib.api.aging.AgingChain, DW04B-1): one call per chain returns every JSON file the
 chain's blocks need, so a module's own generator only lists its chains (see modules/simpleblocks/tools/generate_data.py).
 
-Per chain (base block + aged stages, the last is the end stage, + waxed copies of the base and every stage but the end):
+Per chain (base block + aged stages, the last is the end stage, + waxed copies of the base and every stage but the end; wax_end: also the end):
   - blockstates in the base's shape (STATE_KINDS: single, facing = horizontal y-rotation, axis = pillar) pointing at models
     that inherit the Vanilla model of the base and only swap its textures (``block/<stage>_<vanilla sprite>``);
   - waxed blocks use the models of their stage (like waxed copper), the waxed base the base's own model;
@@ -33,6 +33,7 @@ class Chain:
     horizontal_model: str | None = None   # axis kind: the base's horizontal model (e.g. hay_block_horizontal)
     stage_words: list | None = None       # prefix of the stage textures (default: stage path minus the base name)
     wax: bool = True
+    wax_end: bool = False                 # AgingChain.Builder.waxEnd(): the end stage has a waxed copy too (Vanilla copper)
     waxed_prefix: str = 'waxed_'
     block_tags: list = field(default_factory=list)   # Vanilla tags of the base ('mineable/axe' -> minecraft:mineable/axe)
     item_tags: list = field(default_factory=list)
@@ -44,10 +45,10 @@ class Chain:
         return self.base.split(':')[1]
 
     def waxed(self):
-        """(waxed path, stage index) for the base and every stage but the end."""
+        """(waxed path, stage index) for the base and every stage but the end (with wax_end: every stage)."""
         if not self.wax:
             return []
-        names = [self.base_path] + self.stages[:-1]
+        names = [self.base_path] + (self.stages if self.wax_end else self.stages[:-1])
         return [(self.waxed_prefix + n, i) for i, n in enumerate(names)]
 
     def words(self):

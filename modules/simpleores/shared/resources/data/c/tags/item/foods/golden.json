@@ -5,6 +5,12 @@
     "simpleores:rose_bronze_carrot",
     "simpleores:rose_gold_apple",
     "simpleores:enchanted_rose_gold_apple",
-    "simpleores:rose_gold_carrot"
+    "simpleores:rose_gold_carrot",
+    "simpleores:terranite_apple",
+    "simpleores:terranite_carrot",
+    "simpleores:infernite_apple",
+    "simpleores:infernite_carrot",
+    "simpleores:zenithite_apple",
+    "simpleores:zenithite_carrot"
   ]
 }

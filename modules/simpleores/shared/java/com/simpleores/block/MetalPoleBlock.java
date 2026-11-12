@@ -1,6 +1,5 @@
 package com.simpleores.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -21,20 +20,14 @@ import net.minecraft.world.level.material.Fluids;
 /**
  * N30/N35 (a-pal35a, owner 11./12.11.): pole of a Simple Ores metal, placed like the Vanilla lightning rod (on the clicked face, a pole
  * against a pole of the same facing turns round, waterloggable). Decoration only: it is no lightning rod (no POI, no signal), the
- * lightning rod stays copper's (A12: no change to thunderstorms).
+ * lightning rod stays copper's (A12: no change to thunderstorms). No block codec: 26.3 removed them (a-pal35b fix; simpleores is 26.3 only).
  */
 public class MetalPoleBlock extends RodBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<MetalPoleBlock> CODEC = simpleCodec(MetalPoleBlock::new);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public MetalPoleBlock(BlockBehaviour.Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.UP).setValue(WATERLOGGED, false));
-    }
-
-    @Override
-    protected MapCodec<? extends MetalPoleBlock> codec() {
-        return CODEC;
     }
 
     @Override

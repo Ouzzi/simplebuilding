@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:golden_apple",
+    "simpleores:terranite_ingot"
+  ],
+  "result": {
+    "id": "simpleores:terranite_apple"
+  }
+}

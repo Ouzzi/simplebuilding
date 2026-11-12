@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:oxidized_copper",
+  "result": {
+    "count": 4,
+    "id": "simpleblocks:oxidized_copper_tiles"
+  }
+}

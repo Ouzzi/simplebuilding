@@ -235,6 +235,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void pal35bChiseledAndFood(GameTestHelper h) {
+        OresTests.ALL.get("pal35b_chiseled_and_food").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void metalLights(GameTestHelper h) {
         OresTests.ALL.get("metal_lights").accept(h);
     }

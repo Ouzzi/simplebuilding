@@ -1,5 +1,6 @@
 package com.simpleores.test;
 
+import com.simpleores.OresFood;
 import com.simpleores.OresMaterials;
 import com.simpleores.OresRegistry;
 import com.simpleores.SimpleOres;
@@ -713,6 +714,55 @@ public final class OresTests {
             }
             h.succeed();
         });
+        ALL.put("pal35b_chiseled_and_food", h -> {
+            // PAL35b (a-pal35b): chiseled Enderite and rift metals like their block (behind it in the creative list, hardness, diamond tier,
+            // fire resistant, stonecutter 1:1); apple and carrot of each rift metal (numbers OresFood, one dimension effect, recipes, tag).
+            ServerLevel level = h.getLevel();
+            List<String> building = List.of(OresRegistry.BUILDING);
+            for (String m : OresRegistry.CHISELED_ONLY) {
+                Block chiseled = OresRegistry.BLOCKS.get("chiseled_" + m), base = OresRegistry.BLOCKS.get(m + "_block");
+                check(h, building.indexOf("chiseled_" + m) == building.indexOf(m + "_block") + 1, m + ": chiseled right behind the block");
+                check(h, chiseled.defaultDestroyTime() == base.defaultDestroyTime() && chiseled.getExplosionResistance() == base.getExplosionResistance(), m + ": as hard as the block");
+                check(h, chiseled.defaultBlockState().is(BlockTags.NEEDS_DIAMOND_TOOL) && !chiseled.defaultBlockState().is(BlockTags.BEACON_BASE_BLOCKS), m + ": diamond tier, no beacon base");
+                check(h, stack("chiseled_" + m).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), m + ": chiseled block survives fire");
+                SingleRecipeInput in = new SingleRecipeInput(stack(m + "_block"));
+                boolean found = false;
+                for (var holder : level.getServer().getRecipeManager().getRecipes()) {
+                    if (holder.value() instanceof net.minecraft.world.item.crafting.StonecutterRecipe r && r.matches(in, level)) {
+                        ItemStack out = r.assemble(in);
+                        found |= out.is(item("chiseled_" + m)) && out.getCount() == 1;
+                    }
+                }
+                check(h, found, m + ": stonecutter block -> 1 chiseled");
+            }
+            var golden = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "foods/golden"));
+            for (String m : OresRegistry.RIFT_METALS) {
+                var effect = OresFood.riftEffect(m);
+                ItemStack apple = stack(m + "_apple"), carrot = stack(m + "_carrot");
+                var af = apple.get(net.minecraft.core.component.DataComponents.FOOD);
+                var cf = carrot.get(net.minecraft.core.component.DataComponents.FOOD);
+                check(h, af != null && af.nutrition() == 6 && af.canAlwaysEat() && cf != null && cf.nutrition() == 8 && !cf.canAlwaysEat(), m + " food numbers: " + af + " " + cf);
+                check(h, apple.has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT) && carrot.has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), m + " food survives fire");
+                check(h, apple.is(golden) && carrot.is(golden), m + " food in c:foods/golden");
+                var player = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+                apple.finishUsingItem(level, player);
+                var e = player.getEffect(effect);
+                check(h, player.getActiveEffects().size() == 3 && e != null && e.getDuration() == OresFood.RIFT_APPLE_TICKS
+                        && player.getEffect(net.minecraft.world.effect.MobEffects.REGENERATION) != null && player.getEffect(net.minecraft.world.effect.MobEffects.ABSORPTION) != null,
+                        m + " apple: golden apple effects + the dimension's effect " + player.getActiveEffects());
+                var p2 = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+                carrot.finishUsingItem(level, p2);
+                check(h, p2.getActiveEffects().size() == 1 && p2.getEffect(effect) != null && p2.getEffect(effect).getDuration() == OresFood.RIFT_CARROT_TICKS, m + " carrot: the effect for 1:00 " + p2.getActiveEffects());
+                ItemStack ingot = stack(m + "_ingot"), gc = new ItemStack(Items.GOLDEN_CARROT);
+                ItemStack made = craft(h, of(new ItemStack(Items.GOLDEN_APPLE), ingot));
+                check(h, made.is(item(m + "_apple")) && made.getCount() == 1, m + ": golden apple + ingot -> apple, was " + made);
+                made = craft(h, of(gc, gc, gc, gc, ingot, gc, gc, gc, gc));
+                check(h, made.is(item(m + "_carrot")) && made.getCount() == 8, m + ": 8 golden carrots round an ingot -> 8, was " + made);
+            }
+            check(h, OresFood.riftEffect("terranite") == net.minecraft.world.effect.MobEffects.HASTE && OresFood.riftEffect("infernite") == net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE
+                    && OresFood.riftEffect("zenithite") == net.minecraft.world.effect.MobEffects.SLOW_FALLING, "one Vanilla effect per dimension");
+            h.succeed();
+        });
         ALL.put("metal_lights", h -> {
             // N30/N35 (a-pal35a): lamp (copper bulb logic), lantern, chain and pole of every building metal, poles of the rose alloys, weighted
             // pressure plates of every metal: classes, tags, tool tier, drops, Vanilla recipes, creative order behind the trapdoor, the metal's sound,
@@ -971,7 +1021,9 @@ public final class OresTests {
             ServerLevel level = h.getLevel();
             List<String> building = List.of(OresRegistry.BUILDING);
             BlockPos pos = h.absolutePos(new BlockPos(2, 1, 2));
-            for (String m : OresRegistry.COSMETIC) {
+            List<String> familyMetals = new java.util.ArrayList<>(List.of(OresRegistry.COSMETIC));
+            familyMetals.addAll(List.of(OresRegistry.ROSE_FAMILY));   // PAL35b: the rose alloys have the same family
+            for (String m : familyMetals) {
                 Block base = OresRegistry.BLOCKS.get(m + "_block");
                 List<String> family = OresRegistry.family(m);
                 check(h, building.indexOf(family.getFirst()) == building.indexOf(m + "_block") + 1, m + " family right behind the block in the creative list");
