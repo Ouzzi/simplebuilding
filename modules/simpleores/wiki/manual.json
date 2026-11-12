@@ -482,7 +482,8 @@
         "details": [
           "On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.",
           "Chain: 4 raw fragments -> raw Enderite scrap (crafting), that melts only in a blast furnace into Enderite scrap; 4 scrap + 4 diamonds + 1 netherite ingot -> Enderite ingot; 9 ingots <-> block, 9 nuggets <-> ingot.",
-          "Other mods ask for Enderite through SimpleLib (it is \"provided\" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them."
+          "Other mods ask for Enderite through SimpleLib (it is \"provided\" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them.",
+          "What it is for: on its own (Vanilla + Simple Ores) Enderite is a rare treasure for building - the Block of Enderite (also a beacon base), the chiseled block, the weighted pressure plate - and the first step of the rift alloys (a Terranite ingot needs an Enderite ingot). Its gear lives in the other Simple mods: tools, armor, apples and the smithing upgrade in SimpleBuilding, the sledgehammer in Simple Hammers, chests, backpacks, bundles, furnaces, pistons and hoppers in Simple Storage, Ovens and Machines. Without them Enderite is a material, not a tier."
         ]
       },
       "de": {
@@ -491,7 +492,8 @@
         "details": [
           "Allein: Endstadt-Truhen enthalten Enderitplatten (15 %), die Enderit-Aufwertung (30 %) und rohe Enderitfragmente oder -klumpen; mit SimpleBuilding füllt dieses die Truhen selbst.",
           "Kette: 4 rohe Fragmente -> rohe Enderitplatten (Werkbank), die nur im Hochofen zu Enderitplatten schmelzen; 4 Platten + 4 Diamanten + 1 Netheritbarren -> Enderitbarren; 9 Barren <-> Block, 9 Klumpen <-> Barren.",
-          "Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie."
+          "Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie.",
+          "Wozu es dient: allein (Vanilla + Simple Ores) ist Enderit ein seltener Schatz zum Bauen - der Enderitblock (auch als Leuchtfeuer-Sockel), der gemeißelte Block, die Wägeplatte - und der erste Schritt der Riss-Legierungen (ein Terranitbarren braucht einen Enderitbarren). Die Ausrüstung liegt in den anderen Simple-Mods: Werkzeuge, Rüstung, Äpfel und die Schmiede-Aufwertung in SimpleBuilding, der Vorschlaghammer in Simple Hammers, Truhen, Rucksäcke, Bündel, Öfen, Kolben und Trichter in Simple Storage, Ovens und Machines. Ohne sie ist Enderit ein Material, keine Ausrüstungsstufe."
         ]
       }
     },
@@ -631,6 +633,19 @@
     }
   ],
   "notes": {
+    "simpleores:guide_book": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
+        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
+        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 26 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 26 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+      }
+    },
     "simpleores:silver_ore": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -3566,19 +3581,6 @@
       },
       "de": {
         "summary": "Zenithitbarren: 4 End-Riss-Splitter + 1 Infernitbarren (formlos). Das Ende der Kette. Bezahlt ein Leuchtfeuer; neun ergeben einen Block. Prestige-Material neben Enderit, keine Werkzeug- oder Rüstungsstufe. Feuerfest."
-      }
-    },
-    "simpleores:guide_book": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
-        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
-      ],
-      "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 26 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
-      },
-      "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 26 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     }
   }
