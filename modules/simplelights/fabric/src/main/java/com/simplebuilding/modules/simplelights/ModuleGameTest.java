@@ -62,6 +62,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplelights:empty")
+    public void rightClickWithABlockTunesAndSneakingPlaces(GameTestHelper h) {
+        LightsTests.ALL.get("right_click_with_a_block_tunes_and_sneaking_places").accept(h);
+    }
+
+    @GameTest(structure = "simplelights:empty")
     public void panesHaveTheirRecipes(GameTestHelper h) {
         LightsTests.ALL.get("panes_have_their_recipes").accept(h);
     }

@@ -62,6 +62,7 @@ public final class LightsTests {
         ALL.put("pane_light_reaches_the_world_and_goes_out", LightsTests::paneLightReachesTheWorldAndGoesOut);
         ALL.put("redstone_pane_color_follows_signal_strength", LightsTests::redstonePaneColorFollowsSignalStrength);
         ALL.put("right_click_cycles_the_start_color", LightsTests::rightClickCyclesTheStartColor);
+        ALL.put("right_click_with_a_block_tunes_and_sneaking_places", LightsTests::rightClickWithABlockTunesAndSneakingPlaces);
         ALL.put("panes_have_their_recipes", LightsTests::panesHaveTheirRecipes);
         ALL.put("copper_pane_flips_on_every_rising_edge", LightsTests::copperPaneFlipsOnEveryRisingEdge);
         ALL.put("copper_redstone_pane_colors_and_flips", LightsTests::copperRedstonePaneColorsAndFlips);
@@ -363,6 +364,57 @@ public final class LightsTests {
                 (helper.getBlockState(at).getValue(RedstoneLightPaneBlock.START) + 4) % 16, "strength 5 follows in sequence");
         helper.assertTrue(problems.isEmpty(), "cycle problems: " + String.join("; ", problems));
         helper.succeed();
+    }
+
+    /**
+     * PLAN40 simplelights-1: the player's real right-click path ({@code ServerPlayerGameMode#useItemOn}), like Vanilla's note block.
+     * With a block in the hand and not sneaking, both multicolor panes take the click (start color +1) and nothing is placed; sneaking
+     * with the block places it in front of the pane and leaves the start color alone. The plain and copper panes have no use: the
+     * click places the block in front of them.
+     */
+    public static void rightClickWithABlockTunesAndSneakingPlaces(GameTestHelper helper) {
+        ServerPlayer player = player(helper);
+        List<String> problems = new ArrayList<>();
+        for (Block pane : List.of(LightsRegistry.REDSTONE_LIGHT_PANE, LightsRegistry.COPPER_REDSTONE_LIGHT_PANE, LightsRegistry.LIGHT_PANE,
+                LightsRegistry.COPPER_LIGHT_PANE)) {
+            boolean tunes = pane == LightsRegistry.REDSTONE_LIGHT_PANE || pane == LightsRegistry.COPPER_REDSTONE_LIGHT_PANE;
+            clear(helper);
+            helper.setBlock(CENTER, Blocks.STONE);
+            BlockPos at = CENTER.above();
+            BlockPos front = at.above();
+            helper.setBlock(at, pane.defaultBlockState().setValue(AbstractLightPaneBlock.FACING, Direction.UP));
+            BlockPos abs = helper.absolutePos(at);
+            BlockHitResult hit = new BlockHitResult(new Vec3(abs.getX() + 0.5, abs.getY() + 1.0 / 16.0, abs.getZ() + 0.5), Direction.UP, abs, false);
+            for (boolean sneaking : new boolean[]{false, true}) {
+                helper.setBlock(front, Blocks.AIR);
+                ItemStack stone = new ItemStack(Items.STONE, 4);
+                player.setItemInHand(InteractionHand.MAIN_HAND, stone);
+                player.setShiftKeyDown(sneaking);
+                int before = start(helper.getBlockState(at));
+                var result = player.gameMode.useItemOn(player, helper.getLevel(), stone, InteractionHand.MAIN_HAND, hit);
+                player.setShiftKeyDown(false);
+                BlockState after = helper.getBlockState(at);
+                boolean placed = helper.getBlockState(front).is(Blocks.STONE);
+                String where = id(pane) + (sneaking ? " sneaking" : "");
+                if (!result.consumesAction()) problems.add(where + ": click not taken (" + result + ")");
+                if (!after.is(pane)) problems.add(where + ": pane gone (" + after + ")");
+                if (tunes && !sneaking) {
+                    if (placed) problems.add(where + ": placed the stone instead of tuning");
+                    if (start(after) != before + 1) problems.add(where + ": start " + before + " -> " + start(after));
+                    if (player.getMainHandItem().getCount() != 4) problems.add(where + ": used up " + (4 - player.getMainHandItem().getCount()));
+                } else {
+                    if (!placed) problems.add(where + ": stone not placed in front of the pane");
+                    if (start(after) != before) problems.add(where + ": start changed " + before + " -> " + start(after));
+                    if (player.getMainHandItem().getCount() != 3) problems.add(where + ": stone count " + player.getMainHandItem().getCount());
+                }
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " right-click problem(s): " + String.join("; ", problems));
+        helper.succeed();
+    }
+
+    private static int start(BlockState state) {
+        return state.hasProperty(RedstoneLightPaneBlock.START) ? state.getValue(RedstoneLightPaneBlock.START) : -1;
     }
 
     /** N65: the Copper Light Pane flips on every rising redstone edge like the Copper Bulb; falling edges and a steady signal change nothing. */
