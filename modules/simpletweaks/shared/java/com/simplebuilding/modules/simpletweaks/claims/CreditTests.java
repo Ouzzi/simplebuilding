@@ -127,6 +127,44 @@ public final class CreditTests {
         h.succeed();
     }
 
+    /**
+     * RELSB31 L8: Simple Dimensions renamed its namespace (simpledimension -> simpledimensions). An old allowlist entry is
+     * rewritten and saved once; old ledger chunks and sections move to the new id; a chunk already claimed again under the
+     * new id keeps the new owner instead of failing the whole ledger.
+     */
+    public static void legacyDimension(GameTestHelper h) {
+        try {
+            var p = temp().resolve("claims.json");
+            Files.writeString(p, "{\"configVersion\":" + ClaimConfig.CONFIG_VERSION + ",\"dimensions\":[\"minecraft:overworld\",\"simpledimension:farm\"]}");
+            var c = ClaimConfig.load(p);
+            yes(h, c.dimensions().equals(List.of("minecraft:overworld", "simpledimensions:farm")) && c.allowsDimension("simpledimensions:farm"), "Old allowlist entry renamed");
+            String saved = Files.readString(p);
+            yes(h, saved.contains("simpledimensions:farm") && !saved.contains("simpledimension:farm"), "Renamed allowlist written back");
+            yes(h, ClaimConfig.load(p).dimensions().equals(c.dimensions()) && Files.readString(p).equals(saved), "Second load: nothing left to rewrite");
+            yes(h, "minecraft:overworld".equals(ClaimConfig.migrateDimension("minecraft:overworld")) && "simpledimensions:a".equals(ClaimConfig.migrateDimension("simpledimensions:a")), "Other ids stay");
+
+            UUID old = UUID.randomUUID(), fresh = UUID.randomUUID();
+            long a = ChunkPos.pack(1, 1), b = ChunkPos.pack(2, 2);
+            var ledger = temp().resolve("simpletweaks-claims.json");
+            Files.writeString(ledger, "{\"version\":2,\"claims\":["
+                    + "{\"dimension\":\"simpledimension:farm\",\"chunk\":" + a + ",\"Owner\":\"" + old + "\"},"
+                    + "{\"dimension\":\"simpledimension:farm\",\"chunk\":" + b + ",\"Owner\":\"" + old + "\"},"
+                    + "{\"dimension\":\"simpledimensions:farm\",\"chunk\":" + b + ",\"Owner\":\"" + fresh + "\"}],"
+                    + "\"lands\":[{\"Owner\":\"" + old + "\",\"code\":\"\",\"everyone\":0,\"members\":[],\"sections\":["
+                    + "{\"dimension\":\"simpledimension:farm\",\"chunk\":" + a + ",\"everyone\":1,\"members\":[]}]}],\"budgets\":[]}");
+            var store = new ClaimStore(ledger, Map.of());
+            var view = store.view();
+            yes(h, view.size() == 2 && view.keySet().stream().allMatch(k -> k.dimension().equals("simpledimensions:farm")), "Ledger chunks moved to the new id");
+            yes(h, old.equals(view.get(key("simpledimensions:farm", 1, 1)).owner()), "Old chunk keeps its owner");
+            yes(h, fresh.equals(view.get(key("simpledimensions:farm", 2, 2)).owner()), "Chunk claimed again under the new id keeps the new owner");
+            yes(h, store.lands().get(old).sections().containsKey(key("simpledimension:farm", 1, 1)), "Land section moved to the new id");
+            store.replace(view);
+            String written = Files.readString(ledger);
+            yes(h, !written.contains("simpledimension:") && written.contains("simpledimensions:farm"), "Next save writes only the new id");
+        } catch (java.io.IOException e) { throw new AssertionError(e); }
+        h.succeed();
+    }
+
     /** Buying ahead gives credits; without a credit "buy and claim" saves budget and chunk together; the server limit caps. */
     public static void buy(GameTestHelper h) {
         var server = h.getLevel().getServer(); var previous = Claims.get(server); String dim = h.getLevel().dimension().identifier().toString();

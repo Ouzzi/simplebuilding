@@ -21,7 +21,8 @@ public final class ClaimStore {
     public static final long MAX_BYTES = 64L * 1024 * 1024;
     public static final int VERSION = 2;
     public record Key(String dimension, long chunk) {
-        public Key { if (!ClaimConfig.validDimension(dimension)) throw new IllegalArgumentException("Dimension"); }
+        /** A dimension of the old Simple Dimensions namespace is renamed ({@link ClaimConfig#migrateDimension}). */
+        public Key { dimension = ClaimConfig.migrateDimension(dimension); if (!ClaimConfig.validDimension(dimension)) throw new IllegalArgumentException("Dimension"); }
         public ClaimCode.At at() { return new ClaimCode.At(dimension, net.minecraft.world.level.ChunkPos.getX(chunk), net.minecraft.world.level.ChunkPos.getZ(chunk)); }
         public static Key of(ClaimCode.At at) { return new Key(at.dimension(), net.minecraft.world.level.ChunkPos.pack(at.x(), at.z())); }
     }
@@ -64,9 +65,10 @@ public final class ClaimStore {
             var root = JsonParser.parseString(Files.readString(path)).getAsJsonObject();
             int version = root.get("version").getAsBigDecimal().intValueExact();
             if (version != 1 && version != VERSION) throw new IOException("Unknown claim ledger version");
-            for (var entry : root.getAsJsonArray("claims")) {
+            for (var entry : legacyLast(root.getAsJsonArray("claims"))) {
                 var j = entry.getAsJsonObject();
                 var key = new Key(j.get("dimension").getAsString(), j.get("chunk").getAsBigDecimal().longValueExact());
+                if (renamedTaken(j, loaded.containsKey(key))) continue;
                 var owner = UUID.fromString(j.get("Owner").getAsString());
                 if (version == 1) {
                     Set<UUID> trusted = new HashSet<>();
@@ -84,8 +86,9 @@ public final class ClaimStore {
                 var j = entry.getAsJsonObject();
                 var owner = UUID.fromString(j.get("Owner").getAsString());
                 var sections = new HashMap<Key,Rules>();
-                for (var s : j.getAsJsonArray("sections")) {
+                for (var s : legacyLast(j.getAsJsonArray("sections"))) {
                     var sj = s.getAsJsonObject();
+                    if (renamedTaken(sj, sections.containsKey(new Key(sj.get("dimension").getAsString(), sj.get("chunk").getAsBigDecimal().longValueExact())))) continue;
                     if (sections.put(new Key(sj.get("dimension").getAsString(), sj.get("chunk").getAsBigDecimal().longValueExact()), rules(sj)) != null)
                         throw new IOException("Duplicate land section");
                 }
@@ -116,6 +119,22 @@ public final class ClaimStore {
         }
         claims = Map.copyOf(loaded);
         lands = Map.copyOf(loadedLands);
+    }
+    /** Entries of the old {@code simpledimension:} namespace after all others, so a chunk claimed again under the new id wins. */
+    private static List<JsonElement> legacyLast(JsonArray rows) {
+        var out = new ArrayList<JsonElement>(rows.asList());
+        out.sort(Comparator.comparing((JsonElement e) -> isLegacy(e.getAsJsonObject())));
+        return out;
+    }
+    private static boolean isLegacy(JsonObject j) {
+        return j.has("dimension") && j.get("dimension").isJsonPrimitive() && j.get("dimension").getAsString().startsWith(ClaimConfig.LEGACY_NS);
+    }
+    /** An old-namespace entry whose renamed chunk is already taken is dropped (logged) instead of failing the ledger as a duplicate. */
+    private static boolean renamedTaken(JsonObject j, boolean taken) {
+        if (!taken || !isLegacy(j)) return false;
+        org.slf4j.LoggerFactory.getLogger("simpletweaks-claims").warn("Claim ledger: {} chunk {} is held under the new id simpledimensions already; old entry dropped",
+                j.get("dimension").getAsString(), j.get("chunk"));
+        return true;
     }
     private static Map<UUID,Integer> readBudgets(JsonObject root) throws IOException {
         var out = new HashMap<UUID,Integer>();

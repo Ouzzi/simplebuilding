@@ -135,6 +135,7 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
             var d = DEFAULT;
             int version = versionOf(json);
             if (version < CONFIG_VERSION) migrate(path, json, version);
+            migrateLegacyDimensions(path, json);
             return new ClaimConfig(bool(json,"enabled",d.enabled), integer(json,"maxClaimsPerPlayer",d.maxClaimsPerPlayer),
                     integer(json,"maxTrustedPlayers",d.maxTrustedPlayers), integer(json,"globalCap",d.globalCap),
                     integer(json,"cooldownTicks",d.cooldownTicks), bool(json,"opBypass",d.opBypass),
@@ -196,6 +197,29 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
             ClaimStore.atomicWrite(path, new GsonBuilder().setPrettyPrinting().create().toJson(json));
             if (wasOff) org.slf4j.LoggerFactory.getLogger("simpletweaks-claims").info(
                     "Claim config migrated to version {}: \"enabled\": false from the old default was set to true once. Set it to false again to opt out.", CONFIG_VERSION);
+        } catch (IOException e) {
+            org.slf4j.LoggerFactory.getLogger("simpletweaks-claims").warn("Could not write migrated claim config {}", path, e);
+        }
+    }
+    /** Namespace of Simple Dimensions before WD25-14 (b-dimid27): {@code simpledimension} became {@code simpledimensions}. */
+    public static final String LEGACY_NS = "simpledimension:", NEW_NS = "simpledimensions:";
+    /** {@code simpledimension:x} becomes {@code simpledimensions:x}; everything else (also null) stays. Text only: no Simple Dimensions class needed. */
+    public static String migrateDimension(String id) {
+        return id != null && id.startsWith(LEGACY_NS) ? NEW_NS + id.substring(LEGACY_NS.length()) : id;
+    }
+    /** Allowlist entries of the old Simple Dimensions namespace are rewritten (any config version) and the file saved once. */
+    private static void migrateLegacyDimensions(Path path, JsonObject json) {
+        if (!json.has("dimensions") || !json.get("dimensions").isJsonArray()) return;
+        var now = new JsonArray(); boolean changed = false;
+        for (var e : json.getAsJsonArray("dimensions")) {
+            if (e.isJsonPrimitive() && e.getAsString().startsWith(LEGACY_NS)) { now.add(migrateDimension(e.getAsString())); changed = true; }
+            else now.add(e);
+        }
+        if (!changed) return;
+        json.add("dimensions", now);
+        try {
+            ClaimStore.atomicWrite(path, new GsonBuilder().setPrettyPrinting().create().toJson(json));
+            org.slf4j.LoggerFactory.getLogger("simpletweaks-claims").info("Claim config {}: dimensions of the old namespace simpledimension renamed to simpledimensions", path);
         } catch (IOException e) {
             org.slf4j.LoggerFactory.getLogger("simpletweaks-claims").warn("Could not write migrated claim config {}", path, e);
         }
