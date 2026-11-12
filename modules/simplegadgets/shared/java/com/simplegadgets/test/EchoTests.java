@@ -58,7 +58,8 @@ public final class EchoTests {
 
     /** Seven nuggets, the recovery compass and a core: "NNN" / "NRN" / "ENN"; alone amethyst shards and a netherite ingot take the place of the enderite. */
     public static void theEchoSounderIsCraftedFromTheRecoveryCompassACoreAndSevenNuggets(GameTestHelper helper) {
-        boolean sb = withSimpleBuilding();
+        // PLAN40 simplegadgets-3 (WE25-8 part 2): the Enderite nuggets only with Simple Ores (IG31-13), else the amethyst recipe.
+        boolean sb = withSimpleBuilding() && BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simpleores", "enderite_nugget"));
         Item n = sb ? BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleores", "enderite_nugget")) : Items.AMETHYST_SHARD;
         Item core = sb ? BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplelib", "enderite_core")) : Items.NETHERITE_INGOT;
         helper.assertTrue(n != Items.AIR && core != Items.AIR, "the recipe ingredients are not registered");
@@ -87,7 +88,7 @@ public final class EchoTests {
         helper.assertValueEqual(de.get("item.simplegadgets.echo_sounder").getAsString(), "Echolot", "german item name");
         for (JsonObject lang : List.of(en, de)) {
             for (String key : List.of("item.simplegadgets.echo_sounder.charged", "item.simplegadgets.echo_sounder.cracked",
-                    "item.simplegadgets.echo_sounder.cracked_hint", "message.simplegadgets.feature_disabled")) {
+                    "item.simplegadgets.echo_sounder.cracked_hint")) {
                 helper.assertTrue(lang.has(key), "lang key " + key + " is missing");
             }
         }
@@ -411,8 +412,20 @@ public final class EchoTests {
         ItemStack missing = new ItemStack(GadgetsRegistry.ECHO_SOUNDER);
         missing.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(Optional.of(far), false));
         player.setItemInHand(InteractionHand.MAIN_HAND, missing);
+        // PLAN40 simplegadgets-3: a far target is never loaded on the server thread; the charge starts (a ticket loads the
+        // chunk in the background) and the jump at its end counts an unloaded or empty target as missing.
+        net.minecraft.world.level.ChunkPos farChunk = net.minecraft.world.level.ChunkPos.containing(far.pos());
+        boolean farLoaded = level.getChunkSource().hasChunk(farChunk.x(), farChunk.z());
         InteractionResult refused = missing.getItem().use(level, player, InteractionHand.MAIN_HAND);
-        helper.assertTrue(refused == InteractionResult.FAIL && !player.isUsingItem(), "an echo sounder without its lodestone charged: " + refused);
+        if (farLoaded) {
+            helper.assertTrue(refused == InteractionResult.FAIL && !player.isUsingItem(), "an echo sounder without its lodestone charged: " + refused);
+        } else {
+            helper.assertFalse(level.getChunkSource().hasChunk(farChunk.x(), farChunk.z()), "starting the charge loaded the far chunk on the server thread");
+            helper.assertTrue(refused.consumesAction(), "the charge towards an unloaded target did not start: " + refused);
+            helper.assertFalse(EchoSounderItem.teleport(player, InteractionHand.MAIN_HAND, missing), "jumped to an unloaded, unchecked target");
+            helper.assertFalse(level.getChunkSource().hasChunk(farChunk.x(), farChunk.z()), "the jump check loaded the far chunk on the server thread");
+            player.stopUsingItem();
+        }
         for (int t = 1; t < EchoSounderItem.ATTEMPT_LOCK_TICKS; t++) {
             player.getCooldowns().tick();
         }

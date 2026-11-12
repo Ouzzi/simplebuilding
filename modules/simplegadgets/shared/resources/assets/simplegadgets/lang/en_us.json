@@ -5,7 +5,6 @@
   "item.simplegadgets.echo_sounder.charged": "Charged: hold use for 3 seconds to jump to the linked lodestone",
   "item.simplegadgets.echo_sounder.cracked": "Empty: %s%% recharged",
   "item.simplegadgets.echo_sounder.cracked_hint": "Recharge it with Mending XP or echo shards at an anvil. Used like this it charges for 6 seconds and shatters after the jump.",
-  "message.simplegadgets.feature_disabled": "The Echo Sounder is switched off on this server.",
   "item.simplegadgets.velocity_gauge": "Gauge",
   "tooltip.simplegadgets.velocity_gauge.tooltip": "Held: shows speed.",
   "tooltip.simplegadgets.velocity_gauge.touch_hint": "Constructor's Touch:",

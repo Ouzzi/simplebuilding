@@ -5,7 +5,6 @@
   "item.simplegadgets.echo_sounder.charged": "Geladen: Benutzen 3 Sekunden halten, um zum verknüpften Leitstein zu springen",
   "item.simplegadgets.echo_sounder.cracked": "Leer: zu %s %% aufgeladen",
   "item.simplegadgets.echo_sounder.cracked_hint": "Mit Reparatur-XP oder Echoscherben am Amboss aufladen. So benutzt lädt es 6 Sekunden und zerspringt nach dem Sprung.",
-  "message.simplegadgets.feature_disabled": "Das Echolot ist auf diesem Server abgeschaltet.",
   "item.simplegadgets.velocity_gauge": "Messuhr",
   "tooltip.simplegadgets.velocity_gauge.tooltip": "Gehalten: zeigt dein Tempo.",
   "tooltip.simplegadgets.velocity_gauge.touch_hint": "Berührung des Konstrukteurs:",

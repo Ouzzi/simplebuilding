@@ -112,8 +112,8 @@ public final class ArmorPoses {
         }
         Pose pose = step(stand, player.isShiftKeyDown());
         RotatorItem.drain(player, rotator, RotatorItem.useCost());
+        // PLAN40 simplegadgets-3 (rule 4, owner 12.11.: no text on the screen): the stand shows its new pose, the hit sounds.
         player.level().playSound(null, stand.blockPosition(), SoundEvents.ARMOR_STAND_HIT, SoundSource.BLOCKS, 1.0f, 1.0f);
-        player.sendOverlayMessage(pose.label());
         return InteractionResult.SUCCESS;
     }
 
