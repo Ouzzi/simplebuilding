@@ -19,6 +19,21 @@ public final class SimplefunCommon {
     return com.simplebuilding.framework.api.SubMods.enabled("simplefun");
   }
 
+  /**
+   * AUDSB31E1 F11: set by the loader at start-up - whether the Knockback data override (built-in data pack
+   * {@code simplefun:higher_knockback}: max level 4, feathers/sticks/melee weapons) was added to this session.
+   */
+  public static volatile boolean higherKnockbackData;
+
+  /**
+   * AUDSB31E1 F11: the Vanilla {@code minecraft:enchantment/knockback} override exists only while Simple Fun is on and
+   * {@code enableHigherKnockback} is on. Data registries load once per world start, so this is read at start-up.
+   * (A load condition on the override file would delete the Vanilla enchantment when false: the override is the top file.)
+   */
+  public static boolean wantsHigherKnockbackData() {
+    return on() && getConfig().fun.enableHigherKnockback;
+  }
+
   public static void init() {
     Constants.LOG.info("Initializing Simple Fun 26.3");
   }

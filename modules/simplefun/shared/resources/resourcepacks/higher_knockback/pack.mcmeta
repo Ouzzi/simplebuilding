@@ -1,0 +1,7 @@
+{
+  "pack": {
+    "description": "Simple Fun: Knockback up to IV on feathers, sticks and melee weapons (only added while the option is on)",
+    "min_format": 88,
+    "max_format": 121
+  }
+}

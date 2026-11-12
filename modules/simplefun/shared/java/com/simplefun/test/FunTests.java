@@ -60,6 +60,8 @@ public final class FunTests {
     ALL.put("old_config", FunSecurityTests::oldConfig);
     ALL.put("no_damage_indirect", FunSecurityTests::noDamageIndirect);
     ALL.put("projectile_damage_and_glass", FunSecurityTests::projectileDamageAndGlass);
+    ALL.put("brick_breaks_glass_option", FunSecurityTests::brickBreaksGlassOption);
+    ALL.put("knockback_data_follows_switch", FunTests::knockbackDataFollowsSwitch);
     ALL.put("trade_offer", FunSecurityTests::tradeOffer);
     ALL.put("delight_triggers", FunSecurityTests::delightTriggers);
     // FUN11-1..10 (b-fun14).
@@ -345,6 +347,64 @@ public final class FunTests {
             <= 2,
         "vanilla cap when off");
     h.succeed();
+  }
+
+  /**
+   * AUDSB31E1 F11 (owner): the Vanilla Knockback data change (max level 4, feathers/sticks/melee weapons) exists only while
+   * Simple Fun and {@code enableHigherKnockback} are on at start-up. It ships as a built-in data pack that is added only then,
+   * not as a data file with a load condition (a failing condition on that top file would delete the Vanilla enchantment).
+   */
+  public static void knockbackDataFollowsSwitch(GameTestHelper h) {
+    var knock =
+        h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.KNOCKBACK).value();
+    boolean data = SimplefunCommon.higherKnockbackData;
+    h.assertTrue(
+        knock.getMaxLevel() == (data ? SimplefunConfig.HIGHER_KNOCKBACK_LEVEL : 2),
+        "knockback max level follows the data pack, got " + knock.getMaxLevel());
+    h.assertTrue(knock.isSupportedItem(new ItemStack(Items.FEATHER)) == data, "feathers are supported exactly with the data pack");
+    h.assertTrue(knock.isSupportedItem(new ItemStack(Items.IRON_SWORD)), "swords are always supported");
+    h.assertTrue(SimplefunConfig.HIGHER_KNOCKBACK_LEVEL == 4, "level 4 matches the hard cap of maxKnockback");
+    h.assertTrue(!SimplefunCommon.wantsHigherKnockbackData() || data, "switches on at start-up: the built-in data pack was registered");
+    // The start-up decision: Simple Fun on AND the option on.
+    var cfg = SimplefunCommon.getConfig().fun;
+    boolean sw = com.simplebuilding.framework.api.SubMods.enabled("simplefun");
+    try {
+      com.simplebuilding.framework.api.SubMods.set("simplefun", true);
+      cfg.enableHigherKnockback = true;
+      h.assertTrue(SimplefunCommon.wantsHigherKnockbackData(), "mod on + option on: data wanted");
+      cfg.enableHigherKnockback = false;
+      h.assertTrue(!SimplefunCommon.wantsHigherKnockbackData(), "option off: Vanilla Knockback stays");
+      cfg.enableHigherKnockback = true;
+      com.simplebuilding.framework.api.SubMods.set("simplefun", false);
+      h.assertTrue(!SimplefunCommon.wantsHigherKnockbackData(), "mod switched off: Vanilla Knockback stays");
+    } finally {
+      com.simplebuilding.framework.api.SubMods.set("simplefun", sw);
+    }
+    // The class path holds no unconditional override: every minecraft:enchantment/knockback is Vanilla's (max level 2).
+    var loader = FunTests.class.getClassLoader();
+    try {
+      for (var url : java.util.Collections.list(loader.getResources("data/minecraft/enchantment/knockback.json"))) {
+        h.assertTrue(json(url).get("max_level").getAsInt() == 2, "no unconditional knockback override: " + url);
+      }
+      var pack = loader.getResource("resourcepacks/higher_knockback/data/minecraft/enchantment/knockback.json");
+      h.assertTrue(pack != null && loader.getResource("resourcepacks/higher_knockback/pack.mcmeta") != null, "the built-in pack ships");
+      var packed = json(pack);
+      h.assertTrue(
+          packed.get("max_level").getAsInt() == SimplefunConfig.HIGHER_KNOCKBACK_LEVEL
+              && packed.get("supported_items").getAsString().equals("#simplefun:knockback_allowed"),
+          "pack: level 4 and the knockback_allowed tag");
+    } catch (java.io.IOException e) {
+      throw new IllegalStateException(e);
+    }
+    h.succeed();
+  }
+
+  private static com.google.gson.JsonObject json(java.net.URL url) throws java.io.IOException {
+    try (var in = url.openStream()) {
+      return com.google.gson.JsonParser.parseReader(
+              new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8))
+          .getAsJsonObject();
+    }
   }
 
   public static void piggy(GameTestHelper h) {

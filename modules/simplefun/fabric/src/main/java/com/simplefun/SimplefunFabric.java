@@ -26,6 +26,14 @@ public class SimplefunFabric implements ModInitializer {
     com.simplefun.registry.FunContent.items();
     com.simplefun.registry.FunContent.tab();
     FunFabricData.register();
+    // AUDSB31E1 F11: the Knockback override (max level 4, more supported items) is a built-in data pack that is only added
+    // while Simple Fun and enableHigherKnockback are on; otherwise the Vanilla enchantment stays untouched.
+    SimplefunCommon.higherKnockbackData =
+        SimplefunCommon.wantsHigherKnockbackData()
+            && net.fabricmc.fabric.api.resource.v1.ResourceLoader.registerBuiltinPack(
+                com.simplefun.registry.FunContent.id("higher_knockback"),
+                net.fabricmc.loader.api.FabricLoader.getInstance().getModContainer(Constants.MOD_ID).orElseThrow(),
+                net.fabricmc.fabric.api.resource.v1.pack.PackActivationType.ALWAYS_ENABLED);
     SimplefunRegistry.registerEntities();
     SimplefunRegistry.registerEffects();
     com.simplefun.registry.ModToys.registerEntities();

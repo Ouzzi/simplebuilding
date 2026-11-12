@@ -131,14 +131,17 @@ public class BrickProjectileEntity extends ThrowableItemProjectile {
 
     BlockPos pos = result.getBlockPos();
     BlockState state = this.level().getBlockState(pos);
+    // Glass breaking is off by default (throwableBricksBreakBlocks, /simplefun tweaks bricks breakGlass). Switched on (server
+    // side) it needs a real player owner with building rights: not adventure mode, spawn protection, world border and
+    // every claim provider (AUDSB31E1 F12; the old single-player-only rule stood in for the claim check).
     boolean canBreak = SimplefunCommon.getConfig().fun.throwableBricksBreakBlocks;
 
     if (canBreak
-        && canBreakGlass(level().getServer().isSingleplayer(), level().getServer().isPublished())
         && shouldBreakBlock(state)
         && this.getOwner() instanceof net.minecraft.server.level.ServerPlayer player
-        && player.mayInteract((ServerLevel) level(), pos)
-        && level().getWorldBorder().isWithinBounds(pos)) {
+        && player.getAbilities().mayBuild
+        && level().getWorldBorder().isWithinBounds(pos)
+        && com.simplefun.toys.FunToys.mayChange((ServerLevel) level(), player, pos)) {
       this.level().destroyBlock(pos, true, this.getOwner());
       this.playSound(SoundEvents.GLASS_BREAK, 1.0f, 1.0f);
     } else if (this.getItem().is(ModItems.BRICK_SNOWBALL)) {
@@ -163,8 +166,5 @@ public class BrickProjectileEntity extends ThrowableItemProjectile {
         || state.is(Blocks.GLASS_PANE)
         || state.getBlock() instanceof net.minecraft.world.level.block.StainedGlassBlock
         || state.getBlock() instanceof net.minecraft.world.level.block.StainedGlassPaneBlock;
-  }
-  public static boolean canBreakGlass(boolean singleplayer, boolean published) {
-    return singleplayer && !published;
   }
 }
