@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplechallenges.core;
 
 import com.simplebuilding.modules.simplechallenges.SimpleChallenges;
+import com.simplebuilding.modules.simplechallenges.config.ChallengeServerConfig;
 import com.simplebuilding.modules.simplechallenges.unlock.UnlockGrid;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ import net.minecraft.world.phys.Vec3;
 /**
  * Keeps the borders (S1). Three layers: the entity collision (mixin {@code Entity.collide}: every entity on both sides stops at a
  * locked cell like at a wall, no entity border, no rubber banding), block changes inside locked cells are refused (mixin
- * {@code Level.setBlock}, server), and a tick that brings anyone found inside a locked cell (teleport, ender pearl, respawn,
+ * {@code Level.setBlock}, server), using and attacking across the border is refused ({@link #refusesUse}), and a tick that brings anyone found inside a locked cell (teleport, ender pearl, respawn,
  * spawn) back to the nearest free cell; new mobs are not spawned inside locked cells; sneaking leans over the edge. All of it starts
  * with the {@link Gate}.
  */
@@ -55,6 +56,17 @@ public final class Enforcement {
     /** True when a block change at this position must be refused (server side only). */
     public static boolean blocksChange(Level level, BlockPos pos) {
         return !level.isClientSide() && locked(level, pos);
+    }
+
+    /**
+     * True when {@code player} may not use a block or entity or attack at {@code pos} (server side only; AUDSB31E2 F6=A): the server option
+     * {@code lockedCellsBlockUse} is on, a challenge covers the level, the player is not exempt (creative/spectator only with
+     * {@code exemptCreative}) and the position lies in a locked cell. The server alone decides because the option is not synced to clients.
+     */
+    public static boolean refusesUse(Player player, Level level, BlockPos pos) {
+        if (level.isClientSide() || !ChallengeServerConfig.lockedCellsBlockUse) return false;
+        View view = Gate.view(level);
+        return view != null && !exempt(player, view) && locked(level, pos);
     }
 
     /** True when the position lies in a locked cell of this level's view (also on the client, which knows the grid; false without a challenge). */

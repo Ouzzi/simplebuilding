@@ -144,7 +144,7 @@ public final class ChallengeTests {
             ChallengeServerConfig.reset();
             check(h, ChallengeServerConfig.enabled && !ChallengeServerConfig.allowAdminCommands, "admin commands are off by default (safety lock)");
             check(h, "none".equals(ChallengeServerConfig.defaultChallenge), "no default challenge");
-            check(h, ChallengeServerConfig.exemptCreative && ChallengeServerConfig.pityEnabled, "defaults");
+            check(h, ChallengeServerConfig.exemptCreative && ChallengeServerConfig.pityEnabled && ChallengeServerConfig.lockedCellsBlockUse, "defaults");
             ChallengeServerConfig.apply(JsonParser.parseString("{\"defaultChallenge\":\"\",\"enabled\":{}}").getAsJsonObject());
             check(h, "none".equals(ChallengeServerConfig.defaultChallenge) && ChallengeServerConfig.enabled, "broken values use the defaults");
             ChallengeServerConfig.reset();
@@ -432,6 +432,60 @@ public final class ChallengeTests {
                 PresetRegistry.remove("zz_test");
             }
             check(h, !Gate.active(level) && !Enforcement.blocksChange(h.getLevel(), new BlockPos(5_000_000, 70, 0)), "off again: nothing refused");
+            h.succeed();
+        });
+
+        // AUDSB31E2 F6=A: using or attacking across the border is refused for locked cells (creative only per exemptCreative, option lockedCellsBlockUse).
+        ALL.put("locked_cell_refuses_use", h -> {
+            ServerLevel level = h.getLevel();
+            MinecraftServer server = level.getServer();
+            ChallengeService.deactivate(server);
+            boolean exempt = ChallengeServerConfig.exemptCreative;
+            boolean option = ChallengeServerConfig.lockedCellsBlockUse;
+            String dim = OW;
+            try {
+                dim = Gate.dim(level);
+                PresetRegistry.add("zz_use", "{\"schemaVersion\":1,\"name\":\"T\",\"modes\":[{\"type\":\"unlock\",\"cell\":16,\"start\":[[-1,-1,0,0]],\"dimensions\":[\"" + dim + "\"]}]}", "test");
+                check(h, ChallengeService.activate(server, "zz_use") == ChallengeService.Result.OK, "activated: " + PresetRegistry.problems());
+                Active a = ChallengeRuntime.server();
+                UnlockGrid g = a.grid(dim);
+                BlockPos origin = h.absolutePos(BlockPos.ZERO);
+                int cx0 = g.cellOf(origin.getX()), cz0 = g.cellOf(origin.getZ());
+                g.addRect(cx0 - 2, cz0 - 2, cx0 + 2, cz0 + 2);
+                BlockPos locked = new BlockPos((cx0 + 6) * 16 + 3, origin.getY() + 2, origin.getZ() + 3);
+                BlockPos free = h.absolutePos(new BlockPos(1, 2, 1));
+                check(h, Gate.active(level), "gate open for the test level " + dim);
+                check(h, Enforcement.locked(level, locked) && !Enforcement.locked(level, free), "one locked and one free position");
+                Pig pig = h.spawn(EntityTypes.PIG, new Vec3(1.5, 2, 1.5));
+                pig.setPos(locked.getX() + 0.5, locked.getY(), locked.getZ() + 0.5);
+                // the mock player is always in creative: the border applies to it only when the server does not exempt creative
+                ServerPlayer player = h.makeMockServerPlayerInLevel();
+                ChallengeServerConfig.lockedCellsBlockUse = true;
+                ChallengeServerConfig.exemptCreative = false;
+                check(h, Enforcement.refusesUse(player, level, locked), "a locked cell refuses use (block)");
+                check(h, Enforcement.refusesUse(player, level, pig.blockPosition()), "a locked cell refuses use and attack (entity)");
+                check(h, !Enforcement.refusesUse(player, level, free), "a free cell can be used");
+                ChallengeServerConfig.exemptCreative = true;
+                check(h, !Enforcement.refusesUse(player, level, locked), "creative may use when the server exempts creative");
+                ChallengeServerConfig.exemptCreative = false;
+                ChallengeServerConfig.lockedCellsBlockUse = false;
+                check(h, !Enforcement.refusesUse(player, level, locked), "option off: nothing is refused");
+                ChallengeServerConfig.lockedCellsBlockUse = true;
+                boolean before = com.simplebuilding.framework.api.SubMods.enabled(SimpleChallenges.MOD_ID);
+                try {
+                    com.simplebuilding.framework.api.SubMods.set(SimpleChallenges.MOD_ID, false);
+                    check(h, !Enforcement.refusesUse(player, level, locked), "mod switch off: nothing is refused");
+                } finally {
+                    com.simplebuilding.framework.api.SubMods.set(SimpleChallenges.MOD_ID, before);
+                }
+                pig.discard();
+            } finally {
+                ChallengeServerConfig.exemptCreative = exempt;
+                ChallengeServerConfig.lockedCellsBlockUse = option;
+                ChallengeService.deactivate(server);
+                PresetRegistry.remove("zz_use");
+            }
+            check(h, !Gate.active(level) && !Enforcement.locked(level, new BlockPos(5_000_000, 70, 0)), "off again: no challenge, nothing locked");
             h.succeed();
         });
 
