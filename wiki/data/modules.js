@@ -733,7 +733,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 7
     },
-    "dataHash": "e2142be0208e"
+    "dataHash": "3c9be7d94ab0"
   },
   {
     "id": "simplemobs",
@@ -1459,7 +1459,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 19
     },
-    "dataHash": "3d1823097c28"
+    "dataHash": "0f663294a269"
   },
   {
     "id": "simplecrucibles",

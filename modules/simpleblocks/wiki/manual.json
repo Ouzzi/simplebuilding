@@ -1244,6 +1244,198 @@
       "de": {
         "summary": "Sandsteinsäule bzw. Rote Sandsteinsäule: zwei Sandstein übereinander in der Werkbank ergeben zwei, oder 1:1 im Steinmetz. Wird wie Stämme entlang der Blickachse gesetzt, die Stirnseiten zeigen die Sandstein-Oberseite."
       }
+    },
+    "*copper_tiles": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Copper tiles (4 cut copper -> 4, also at the stonecutter). They weather through the three Vanilla stages like copper next to them; a honeycomb waxes every stage, an axe scrapes wax or one stage off."
+      },
+      "de": {
+        "summary": "Kupferfliesen (4 geschnittenes Kupfer -> 4, auch in der Steinsäge). Sie altern in den drei Vanilla-Stufen wie Kupfer daneben; eine Honigwabe wachst jede Stufe, eine Axt kratzt Wachs oder eine Stufe ab."
+      }
+    },
+    "*copper_pillar": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Copper pillar (2 copper blocks upright -> 2, also at the stonecutter), placed along an axis like a log. Weathers and is waxed like Vanilla copper."
+      },
+      "de": {
+        "summary": "Kupfersäule (2 Kupferblöcke senkrecht -> 2, auch in der Steinsäge), wird wie ein Stamm entlang einer Achse gesetzt. Altert und wird gewachst wie Vanilla-Kupfer."
+      }
+    },
+    "cut_gold": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Cut gold (4 gold blocks -> 4, also at the stonecutter), base of the gold building family with stairs, slab and octet."
+      },
+      "de": {
+        "summary": "Geschnittenes Gold (4 Goldblöcke -> 4, auch in der Steinsäge), Grundblock der Gold-Baufamilie mit Treppe, Stufe und Octet."
+      }
+    },
+    "cut_iron": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Cut iron (4 iron blocks -> 4, also at the stonecutter), base of the iron building family with stairs, slab and octet."
+      },
+      "de": {
+        "summary": "Geschnittenes Eisen (4 Eisenblöcke -> 4, auch in der Steinsäge), Grundblock der Eisen-Baufamilie mit Treppe, Stufe und Octet."
+      }
+    },
+    "gold_tiles": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Gold tiles (4 cut gold -> 4, also at the stonecutter)."
+      },
+      "de": {
+        "summary": "Goldfliesen (4 geschnittenes Gold -> 4, auch in der Steinsäge)."
+      }
+    },
+    "iron_tiles": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Iron tiles (4 cut iron -> 4, also at the stonecutter)."
+      },
+      "de": {
+        "summary": "Eisenfliesen (4 geschnittenes Eisen -> 4, auch in der Steinsäge)."
+      }
+    },
+    "gold_pillar": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Gold pillar (2 gold blocks upright -> 2, also at the stonecutter), placed along an axis."
+      },
+      "de": {
+        "summary": "Goldsäule (2 Goldblöcke senkrecht -> 2, auch in der Steinsäge), wird entlang einer Achse gesetzt."
+      }
+    },
+    "iron_pillar": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Iron pillar (2 iron blocks upright -> 2, also at the stonecutter), placed along an axis."
+      },
+      "de": {
+        "summary": "Eisensäule (2 Eisenblöcke senkrecht -> 2, auch in der Steinsäge), wird entlang einer Achse gesetzt."
+      }
+    },
+    "chiseled_gold": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Chiseled gold (2 cut gold slabs upright -> 1, or at the stonecutter), motif: a crown."
+      },
+      "de": {
+        "summary": "Gemeißeltes Gold (2 geschnittene Goldstufen senkrecht -> 1 oder Steinsäge), Motiv: Krone."
+      }
+    },
+    "chiseled_iron": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Chiseled iron (2 cut iron slabs upright -> 1, or at the stonecutter), motif: an anvil."
+      },
+      "de": {
+        "summary": "Gemeißeltes Eisen (2 geschnittene Eisenstufen senkrecht -> 1 oder Steinsäge), Motiv: Amboss."
+      }
+    },
+    "chiseled_diamond": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Chiseled diamond: cut 1:1 from the diamond block at the stonecutter, no way back. Decoration only (no beacon base). Motif: a beacon."
+      },
+      "de": {
+        "summary": "Gemeißelter Diamant: 1:1 in der Steinsäge aus dem Diamantblock, ohne Rückweg. Nur Dekoration (kein Leuchtfeuer-Sockel). Motiv: Leuchtfeuer."
+      }
+    },
+    "chiseled_emerald": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Chiseled emerald: cut 1:1 from the emerald block at the stonecutter, no way back. Decoration only. Motif: a villager."
+      },
+      "de": {
+        "summary": "Gemeißelter Smaragd: 1:1 in der Steinsäge aus dem Smaragdblock, ohne Rückweg. Nur Dekoration. Motiv: Dorfbewohner."
+      }
+    },
+    "chiseled_lapis": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Chiseled lapis lazuli: cut 1:1 from the lapis block at the stonecutter, no way back. Decoration only. Motif: an open book."
+      },
+      "de": {
+        "summary": "Gemeißelter Lapislazuli: 1:1 in der Steinsäge aus dem Lapisblock, ohne Rückweg. Nur Dekoration. Motiv: offenes Buch."
+      }
+    },
+    "chiseled_redstone": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Chiseled redstone: cut 1:1 from the redstone block at the stonecutter, no way back. Powers like the redstone block. Motif: a redstone torch."
+      },
+      "de": {
+        "summary": "Gemeißelter Redstone: 1:1 in der Steinsäge aus dem Redstone-Block, ohne Rückweg. Gibt Strom wie der Redstone-Block. Motiv: Redstone-Fackel."
+      }
+    },
+    "chiseled_coal": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Chiseled coal: cut 1:1 from the coal block at the stonecutter, no way back. Not a fuel, decoration only. Motif: a minecart."
+      },
+      "de": {
+        "summary": "Gemeißelte Kohle: 1:1 in der Steinsäge aus dem Kohleblock, ohne Rückweg. Kein Brennstoff, nur Dekoration. Motiv: Lore."
+      }
+    },
+    "chiseled_netherite": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+      ],
+      "en": {
+        "summary": "Chiseled netherite: cut 1:1 from the netherite block at the stonecutter, no way back. Survives fire. Motif: crossed swords."
+      },
+      "de": {
+        "summary": "Gemeißeltes Netherit: 1:1 in der Steinsäge aus dem Netheritblock, ohne Rückweg. Übersteht Feuer. Motiv: gekreuzte Schwerter."
+      }
     }
   }
 }

@@ -63,6 +63,8 @@ public final class BlocksDiscover {
             "simpleblocks:*collapsed_*",
             "simpleblocks:*compact_*",
             "simpleblocks:*compressed_*",
+            "simpleblocks:*copper_pillar",
+            "simpleblocks:*copper_tiles",
             "simpleblocks:*dense_*",
             "simpleblocks:*ice_bricks",
             "simpleblocks:*sandstone_pillar",
