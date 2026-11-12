@@ -194,6 +194,7 @@ public final class ModuleGameTest {
     public void noEnderiteWithoutRequester(GameTestHelper h) {
         SandwichTests.ALL.get("no_enderite_without_requester").accept(h);
     }
+    @GameTest public void bundleEatingNeedsSneak(GameTestHelper h) { SandwichTests.ALL.get("bundle_eating_needs_sneak").accept(h); }
     @GameTest public void vanillaTabStacks(GameTestHelper h) { SandwichTests.ALL.get("vanilla_tab_stacks").accept(h); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.behaviourHints(h); }

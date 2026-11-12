@@ -106,6 +106,7 @@ public final class SandwichTests {
         ALL.put("cauldron_ripens_in_world", SandwichTests::cauldronRipensInWorld);
         ALL.put("reinforced_milk_cauldron", SandwichTests::reinforcedMilkCauldron);
         ALL.put("bundle_eating", SandwichTests::bundleEating);
+        ALL.put("bundle_eating_needs_sneak", SandwichTests::bundleEatingNeedsSneak);
         ALL.put("sub_mod_switch", SandwichTests::subModSwitch);
         ALL.put("cake_slice", SandwichTests::cakeSlice);
     }
@@ -1066,16 +1067,19 @@ public final class SandwichTests {
         m.tryInsert(new ItemStack(Items.COOKED_BEEF, 3));
         bundle.set(DataComponents.BUNDLE_CONTENTS, m.toImmutable());
         p.setItemInHand(InteractionHand.MAIN_HAND, bundle);
+        p.setShiftKeyDown(true); // AUDSB31E1 F14: the meal starts only while sneaking
         h.assertTrue(BundleEating.top(bundle).is(Items.COOKED_BEEF), "the steak is on top");
-        h.assertTrue(bundle.getUseDuration(p) == 32, "eat time of the steak, got " + bundle.getUseDuration(p));
         InteractionResult r = bundle.use(h.getLevel(), p, InteractionHand.MAIN_HAND);
         h.assertTrue(r.consumesAction() && p.isUsingItem(), "starts eating");
+        h.assertTrue(bundle.getUseDuration(p) == 32, "eat time of the steak, got " + bundle.getUseDuration(p));
         p.stopUsingItem();
         ItemStack result = bundle.finishUsingItem(h.getLevel(), p);
         h.assertTrue(p.getFoodData().getFoodLevel() == 12, "steak eaten from the bundle, food " + p.getFoodData().getFoodLevel());
         h.assertTrue(BundleEating.top(result).is(Items.COOKED_BEEF) && BundleEating.top(result).getCount() == 2, "one steak removed");
         BundleItem.toggleSelectedItem(result, 1);
         h.assertTrue(BundleEating.top(result).is(Items.DIRT) && BundleEating.eating(result) == null, "non-food on top: Vanilla bundle");
+        p.stopUsingItem();
+        BundleEating.abort(p);
         h.assertTrue(result.getUseDuration(p) == 200, "Vanilla drop duration for non-food");
         ItemStack stew = new ItemStack(Items.BUNDLE);
         BundleContents.Mutable sm = new BundleContents.Mutable();
@@ -1096,6 +1100,45 @@ public final class SandwichTests {
         } finally {
             SandwichConfig.bundleEating = before;
         }
+        h.succeed();
+    }
+
+    /**
+     * AUDSB31E1 F14 (owner): the bundle meal starts only on sneak + right-click. A normal right-click keeps Vanilla (hold to
+     * drop the contents), also with food on top: no eating, Vanilla duration, and finishing the hold does not eat either.
+     */
+    static void bundleEatingNeedsSneak(GameTestHelper h) {
+        ServerPlayer p = player(h, new BlockPos(2, 2, 2));
+        ItemStack bundle = new ItemStack(Items.BUNDLE);
+        BundleContents.Mutable m = new BundleContents.Mutable();
+        m.tryInsert(new ItemStack(Items.COOKED_BEEF, 3));
+        bundle.set(DataComponents.BUNDLE_CONTENTS, m.toImmutable());
+        p.setItemInHand(InteractionHand.MAIN_HAND, bundle);
+        int food = p.getFoodData().getFoodLevel();
+        // Not sneaking: Vanilla BundleItem#use holds the use button for dropping; nothing of ours takes over.
+        p.setShiftKeyDown(false);
+        InteractionResult plain = bundle.use(h.getLevel(), p, InteractionHand.MAIN_HAND);
+        h.assertTrue(plain.consumesAction() && p.isUsingItem(), "normal right-click: Vanilla use of the bundle");
+        h.assertTrue(bundle.getUseDuration(p) == 200, "normal right-click: Vanilla drop duration, got " + bundle.getUseDuration(p));
+        ItemStack held = bundle.finishUsingItem(h.getLevel(), p);
+        h.assertTrue(p.getFoodData().getFoodLevel() == food && BundleEating.top(held).getCount() == 3, "normal right-click never eats");
+        p.stopUsingItem();
+        // Sneaking: the meal.
+        p.setShiftKeyDown(true);
+        InteractionResult sneak = bundle.use(h.getLevel(), p, InteractionHand.MAIN_HAND);
+        h.assertTrue(sneak.consumesAction() && p.isUsingItem() && bundle.getUseDuration(p) == 32, "sneak + right-click starts the meal (32 ticks)");
+        ItemStack after = bundle.finishUsingItem(h.getLevel(), p);
+        h.assertTrue(p.getFoodData().getFoodLevel() > food && BundleEating.top(after).getCount() == 2, "sneaking meal eats one steak");
+        p.stopUsingItem();
+        // An aborted sneaking meal does not leak into the next normal use.
+        bundle = after;
+        p.setItemInHand(InteractionHand.MAIN_HAND, bundle);
+        bundle.use(h.getLevel(), p, InteractionHand.MAIN_HAND);
+        p.stopUsingItem();
+        p.setShiftKeyDown(false);
+        bundle.use(h.getLevel(), p, InteractionHand.MAIN_HAND);
+        h.assertTrue(bundle.getUseDuration(p) == 200, "left-over meal state does not hijack a normal use");
+        p.stopUsingItem();
         h.succeed();
     }
 
