@@ -39,6 +39,8 @@ final class WebHttpTests {
         all.put("web_http_endpoints", WebHttpTests::endpoints);
         all.put("web_http_rate_limit", WebHttpTests::rateLimit);
         all.put("web_live_opt_in", WebHttpTests::liveOptIn);
+        all.put("web_http_public_bind_token", WebHttpTests::publicBindToken);
+        all.put("web_http_token_url_encoded", WebHttpTests::tokenUrlEncoded);
     }
 
     private WebHttpTests() {}
@@ -316,6 +318,56 @@ final class WebHttpTests {
             h.assertTrue(root.get("refreshSeconds").getAsInt() == MapsConfig.webLiveSeconds && root.has("exportedAt"), "refresh and export stamp");
         } finally {
             WebMap.setVisible(server, player.getUUID(), false);
+        }
+        h.succeed();
+    }
+
+    /**
+     * a-audsb31e1: {@code /simplemaps config set webHttpBind 0.0.0.0} (permission level 2) applies live, so a public bind must get its
+     * random token there too (like at load), never an open map; an own token stays, a local bind needs none.
+     */
+    private static void publicBindToken(GameTestHelper h) {
+        JsonObject saved = MapsConfig.toJson();
+        try {
+            JsonObject json = MapsConfig.toJson();
+            json.addProperty("webHttpBind", "0.0.0.0");
+            json.addProperty("webHttpToken", "");
+            MapsConfig.apply(json);
+            h.assertTrue(MapsConfig.webHttpToken.matches("[0-9a-f]{32}"), "a public bind without a token gets a random one, got '" + MapsConfig.webHttpToken + "'");
+            json.addProperty("webHttpToken", "mine");
+            MapsConfig.apply(json);
+            h.assertTrue("mine".equals(MapsConfig.webHttpToken), "an own token stays");
+            json.addProperty("webHttpBind", MapsConfig.WEB_HTTP_BIND_DEFAULT);
+            json.addProperty("webHttpToken", "");
+            MapsConfig.apply(json);
+            h.assertTrue(MapsConfig.webHttpToken.isEmpty(), "the local bind needs no token");
+        } finally {
+            MapsConfig.apply(saved);
+        }
+        h.succeed();
+    }
+
+    /** a-audsb31e1: the viewer sends {@code encodeURIComponent(token)}; a token with a space or symbols must still be accepted (and a wrong or broken one not). */
+    private static void tokenUrlEncoded(GameTestHelper h) {
+        String token = "my token&1+x=%";
+        String encoded = java.net.URLEncoder.encode(token, StandardCharsets.UTF_8).replace("+", "%20");
+        h.assertTrue(WebHttp.tokenOk(token, "/markers.json?v=2&token=" + encoded, null), "percent-encoded token accepted");
+        h.assertTrue(WebHttp.tokenOk("a+b", "/?token=a+b", null) && WebHttp.tokenOk("abc", "/?token=abc", null), "raw tokens still work, a plus stays a plus");
+        h.assertTrue(!WebHttp.tokenOk(token, "/?token=" + encoded + "x", null) && !WebHttp.tokenOk(token, "/?token=%zz", null)
+                && !WebHttp.tokenOk(token, "/", null), "wrong, broken or missing token refused");
+        h.assertTrue(WebHttp.tokenOk(token, "/", "Bearer " + token), "bearer unchanged");
+        Path dir = WebTests.temp();
+        WebHttp locked = null;
+        try {
+            Files.writeString(dir.resolve("markers.json"), "{}");
+            locked = server(dir, token, 1000, null);
+            h.assertTrue(get(locked.port(), "/markers.json?token=" + encoded).status() == 200, "the viewer's encoded token opens the server");
+            h.assertTrue(get(locked.port(), "/markers.json?token=wrong").status() == 401, "wrong token still 401");
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        } finally {
+            if (locked != null) locked.close();
+            WebTests.delete(dir);
         }
         h.succeed();
     }

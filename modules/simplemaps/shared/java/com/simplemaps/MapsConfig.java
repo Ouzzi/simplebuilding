@@ -90,12 +90,6 @@ public final class MapsConfig {
         JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), SimpleMaps.LOG::warn);
         if (read != null) json = read;
         apply(json);
-        // A public bind without a token would serve the map to anyone: make a random one once and keep it in the file.
-        if (!WEB_HTTP_BIND_DEFAULT.equals(webHttpBind) && webHttpToken.isEmpty()) {
-            byte[] b = new byte[16];
-            new java.security.SecureRandom().nextBytes(b);
-            webHttpToken = java.util.HexFormat.of().formatHex(b);
-        }
         enabled = hostAllows(dir);
         if (file != null) {
             try {
@@ -151,6 +145,16 @@ public final class MapsConfig {
         String rule = getString(json, "megaUnlockDefault", MegaMaps.ANY);
         megaUnlockDefault = rule.isEmpty() || rule.equals(MegaMaps.ANY) ? rule : MegaMaps.ANY;
         megaUnlockLevels = clamp(getInt(json, "megaUnlockLevels", MEGA_LEVELS_DEFAULT), MEGA_LEVELS_MIN, MEGA_LEVELS_MAX);
+        // A public bind without a token would serve the map to anyone: make a random one and keep it in the file. Here and not
+        // only at load, because "/simplemaps config set webHttpBind ..." (permission level 2) applies live (a-audsb31e1).
+        if (!WEB_HTTP_BIND_DEFAULT.equals(webHttpBind) && webHttpToken.isEmpty()) webHttpToken = randomToken();
+    }
+
+    /** 16 random bytes as 32 hex characters (the web server's access token when the admin set none for a public bind). */
+    static String randomToken() {
+        byte[] b = new byte[16];
+        new java.security.SecureRandom().nextBytes(b);
+        return java.util.HexFormat.of().formatHex(b);
     }
 
     public static JsonObject toJson() {

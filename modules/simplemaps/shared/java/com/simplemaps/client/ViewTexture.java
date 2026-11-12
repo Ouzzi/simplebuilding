@@ -6,9 +6,11 @@ import com.simplemaps.SimpleMaps;
 import com.simplemaps.Waypoint;
 import com.simplemaps.Waypoints;
 import com.simplemaps.WayfinderData;
+import com.simplemaps.net.MapsNetwork;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.MapColor;
 
 /**
@@ -54,6 +56,9 @@ public final class ViewTexture {
     private void compose(TileCache cache, int mapId, int zoom, int mag, int centerX, int centerZ, Waypoints waypoints, boolean contour, int jamTint, long tick) {
         zoom = WayfinderData.validZoom(zoom);
         mag = zoom == 1 && mag > 1 && SIZE % mag == 0 ? mag : 1;
+        // A centre at Integer.MIN_VALUE (old exploit, odd data) overflowed the tile maths below into a negative array size and crashed the client.
+        centerX = Mth.clamp(centerX, -MapsNetwork.MAX_COORD, MapsNetwork.MAX_COORD);
+        centerZ = Mth.clamp(centerZ, -MapsNetwork.MAX_COORD, MapsNetwork.MAX_COORD);
         // Map pixels (at this zoom) of the picture's left/top edge; the picture covers SIZE / mag of them.
         int span = SIZE / mag;
         int left = Math.floorDiv(centerX, zoom) - span / 2, top = Math.floorDiv(centerZ, zoom) - span / 2;

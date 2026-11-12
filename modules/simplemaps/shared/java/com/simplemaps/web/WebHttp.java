@@ -282,16 +282,32 @@ public final class WebHttp implements AutoCloseable {
         }
     }
 
-    /** No token configured, or {@code ?token=} / {@code Authorization: Bearer} equals it (constant-time compare). */
+    /**
+     * No token configured, or {@code ?token=} / {@code Authorization: Bearer} equals it (constant-time compare). The query value
+     * is also compared percent-decoded: the viewer sends {@code encodeURIComponent(token)}, so a token with a space or a symbol
+     * (the admin may pick any text) would never match its raw form (a-audsb31e1).
+     */
     public static boolean tokenOk(String token, String target, String authorization) {
         if (token == null || token.isEmpty()) return true;
-        String given = null;
+        String given = null, decoded = null;
         if (authorization != null && authorization.regionMatches(true, 0, "Bearer ", 0, 7)) given = authorization.substring(7).trim();
         int q = target == null ? -1 : target.indexOf('?');
         if (given == null && q >= 0) {
-            for (String pair : target.substring(q + 1).split("&")) if (pair.startsWith("token=")) given = pair.substring(6);
+            for (String pair : target.substring(q + 1).split("&")) {
+                if (!pair.startsWith("token=")) continue;
+                given = pair.substring(6);
+                try {
+                    decoded = java.net.URLDecoder.decode(given.replace("+", "%2B"), StandardCharsets.UTF_8);
+                } catch (IllegalArgumentException e) {
+                    decoded = null;
+                }
+            }
         }
-        return given != null && MessageDigest.isEqual(bytes(token), bytes(given));
+        if (given == null) return false;
+        byte[] expected = bytes(token);
+        boolean raw = MessageDigest.isEqual(expected, bytes(given));
+        boolean percentDecoded = decoded != null && MessageDigest.isEqual(expected, bytes(decoded));
+        return raw | percentDecoded;
     }
 
     /** Fixed one-minute window per client address; at most {@link #MAX_CLIENTS} addresses per window (new ones refused). */

@@ -131,7 +131,8 @@ Dedicated Server mit dem Mod allein (b-server26).
 
 ### 4.4 UI
 - Kontrast-Prüfer grün. Echt-Maus-Probes vorhanden und grün: Building Tools (`mouse_probe` 53/53, b-compat26), Storage
-  (`pipe_probe` 30/30, a-rel10), Tweaks (`deed_probe` 22/22), Earth (`menu_probe`), Arrows (`fletching_probe`), Maps (b-mapsmenu27).
+  (`pipe_probe` 30/30, a-rel10), Tweaks (`deed_probe` 22/22), Earth (`menu_probe`), Arrows (`fletching_probe`). Maps: Probe `maps_menu_probe.py` (b-mapsmenu27) vorhanden, aber nie
+  gelaufen (AUDSB31E1: `/root/sb-tools-b/mapsmenu27/run.sh` bei leerem sb-test).
 - **Ohne Probe** (nur Smoke-Bilder aus rel10/vis24all): Kern (18 Fenster), Blocks (Formsäge), Enchanting, Machines (Schmied,
   Crafter, Trichter), Crucibles, Foundry, Mobheads, Beacons, Music (4), Challenges (2), Questionary, Respawn, Riding, Shops → L6.
 

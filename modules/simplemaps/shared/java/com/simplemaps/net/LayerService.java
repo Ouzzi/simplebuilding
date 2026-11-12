@@ -52,9 +52,13 @@ public final class LayerService {
             }
         }
         long w = (long) p.maxX() - p.minX(), h = (long) p.maxZ() - p.minZ();
+        // Chunk columns the rectangle touches: an unaligned one of MAX_SPAN blocks touches one more than the bit field of the answer
+        // may hold, and the answer would not encode (the sender is kicked, a-audsb31e1).
+        long chunksX = (long) (p.maxX() >> 4) - (p.minX() >> 4) + 1, chunksZ = (long) (p.maxZ() >> 4) - (p.minZ() >> 4) + 1;
         ResourceKey<Level> key = data.dimension().orElse(null);
         ServerLevel level = key == null ? null : server.getLevel(key);
         if (level == null || w < 0 || h < 0 || w > MAX_SPAN || h > MAX_SPAN
+                || chunksX > LayerDataPayload.MAX_SPAN_CHUNKS || chunksZ > LayerDataPayload.MAX_SPAN_CHUNKS
                 || Math.abs((long) p.minX()) > MapsNetwork.MAX_COORD || Math.abs((long) p.minZ()) > MapsNetwork.MAX_COORD
                 || Math.abs((long) p.maxX()) > MapsNetwork.MAX_COORD || Math.abs((long) p.maxZ()) > MapsNetwork.MAX_COORD) {
             SimpleMaps.toClient.accept(player, new LayerDataPayload(p.mapId(), new LayerDataPayload.Area(0, 0, 0, 0), new byte[0], List.of(), available));

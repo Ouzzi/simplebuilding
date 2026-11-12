@@ -85,6 +85,15 @@ public final class MapsNetwork {
         }
     }
 
+    /**
+     * Whether a coordinate lies beyond {@link #MAX_COORD}. Not {@code Math.abs(v) > MAX_COORD}: {@code Math.abs(Integer.MIN_VALUE)}
+     * is negative and slipped through, and a framed view centred there overflowed the client's tile maths and crashed every
+     * client that rendered the frame (a-audsb31e1).
+     */
+    public static boolean outside(int v) {
+        return v > MAX_COORD || v < -MAX_COORD;
+    }
+
     /** Frames within this distance show their map to the player (entity tracking range, generous). */
     public static final double FRAME_VIEW_RANGE = 64.0;
 
@@ -136,7 +145,7 @@ public final class MapsNetwork {
      * for an item with a block (anything else is shown from the front). Returns the cleaned waypoint, or null when refused.
      */
     public static Waypoint clean(Waypoint w) {
-        if (Math.abs(w.x()) > MAX_COORD || Math.abs(w.z()) > MAX_COORD) return null;
+        if (outside(w.x()) || outside(w.z())) return null;
         java.util.Optional<net.minecraft.world.item.Item> item = BuiltInRegistries.ITEM.getOptional(w.icon());
         if (item.isEmpty() || item.get() == net.minecraft.world.item.Items.AIR || !CubeNet.validFace(w.face())) return null;
         boolean block = item.get() instanceof net.minecraft.world.item.BlockItem;
@@ -181,7 +190,7 @@ public final class MapsNetwork {
     public static FrameSave saveFrameView(ServerPlayer player, int entityId, MapsComponents.View view) {
         if (!com.simplemaps.MapsConfig.enabled || !(player.level().getEntity(entityId) instanceof ItemFrame frame) || frame.isRemoved()) return FrameSave.INVALID;
         if (player.distanceToSqr(frame) > FRAME_REACH_SQR || !MapsItems.isWayfinder(frame.getItem())) return FrameSave.INVALID;
-        if (Math.abs(view.x()) > MAX_COORD || Math.abs(view.z()) > MAX_COORD) return FrameSave.INVALID;
+        if (outside(view.x()) || outside(view.z())) return FrameSave.INVALID;
         if (!mayChange(player, frame)) return FrameSave.DENIED;
         ItemStack copy = frame.getItem().copy();
         copy.set(MapsComponents.VIEW, view);

@@ -82,6 +82,8 @@ public final class MapsTests {
         ALL.put("foreign_map_tiles_refused", MapsTests::foreignMapTilesRefused);
         ALL.put("shop_icon", MapsTests::shopIcon);
         ALL.put("claims_layer_absent", MapsTests::claimsLayerAbsent);
+        ALL.put("layers_unaligned_area", MapsTests::layersUnalignedArea);
+        ALL.put("coords_min_value_refused", MapsTests::coordsMinValueRefused);
         WebTests.register(ALL);
         MegaTests.register(ALL);
     }
@@ -476,6 +478,34 @@ public final class MapsTests {
     }
 
     /**
+     * a-audsb31e1: a rectangle of the largest width that is not chunk aligned touches 129 chunk columns; the answer's bit field
+     * (at most 128 x 128 bits) could not be encoded and the requesting player was kicked. Such a request now gets the empty area.
+     */
+    private static void layersUnalignedArea(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        ItemStack map = bound(h, Waypoints.EMPTY);
+        player.setItemInHand(InteractionHand.MAIN_HAND, map);
+        int id = map.get(MapsComponents.MAP_ID).id();
+        var sent = new ArrayList<net.minecraft.network.protocol.common.custom.CustomPacketPayload>();
+        var old = SimpleMaps.toClient;
+        SimpleMaps.toClient = (p, payload) -> sent.add(payload);
+        try {
+            int span = com.simplemaps.net.LayerService.MAX_SPAN;
+            com.simplemaps.net.LayerService.handle(new com.simplemaps.net.LayerRequestPayload(id, 1, 1, 1 + span, 1 + span, true, List.of()), player);
+            h.assertTrue(sent.size() == 1 && sent.get(0) instanceof com.simplemaps.net.LayerDataPayload, "answered once");
+            var answer = (com.simplemaps.net.LayerDataPayload) sent.get(0);
+            h.assertTrue(answer.loaded().length <= com.simplemaps.net.LayerDataPayload.MAX_SPAN_CHUNKS * com.simplemaps.net.LayerDataPayload.MAX_SPAN_CHUNKS / 8,
+                    "the bit field fits the codec's limit: " + answer.loaded().length);
+            var buf = new net.minecraft.network.RegistryFriendlyByteBuf(io.netty.buffer.Unpooled.buffer(), h.getLevel().registryAccess());
+            com.simplemaps.net.LayerDataPayload.CODEC.encode(buf, answer);
+            h.assertTrue(answer.area().w() == 0 && answer.area().h() == 0 && answer.loaded().length == 0, "refused with the empty area");
+        } finally {
+            SimpleMaps.toClient = old;
+        }
+        h.succeed();
+    }
+
+    /**
      * Owner 19.10.: the loaded-chunks layer flags only the viewer's own chunks and forced ones (chunk loaders), never a
      * chunk that only another player keeps loaded, and none of another dimension unless forced there.
      */
@@ -713,6 +743,33 @@ public final class MapsTests {
                     && view.equals(frame.getItem().get(MapsComponents.VIEW)), "claim allows: saved");
         } finally {
             com.simplebuilding.framework.api.Protection.unregister(server, provider);
+            frame.discard();
+        }
+        h.succeed();
+    }
+
+    /**
+     * a-audsb31e1 (P1): {@code Math.abs(Integer.MIN_VALUE)} is negative, so a framed view or a waypoint at exactly that coordinate
+     * passed the "inside the world" check; a frame centred there crashed every client that rendered it (negative tile array).
+     * The edges of the world stay valid.
+     */
+    private static void coordsMinValueRefused(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        ItemFrame frame = framedMap(h, player);
+        try {
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), new MapsComponents.View(Integer.MIN_VALUE, 0, 1))
+                    == MapsNetwork.FrameSave.INVALID, "view x = Integer.MIN_VALUE refused");
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), new MapsComponents.View(0, Integer.MIN_VALUE, 1, 8))
+                    == MapsNetwork.FrameSave.INVALID, "view z = Integer.MIN_VALUE refused");
+            h.assertTrue(!frame.getItem().has(MapsComponents.VIEW), "nothing stored while refused");
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), new MapsComponents.View(-MapsNetwork.MAX_COORD, MapsNetwork.MAX_COORD, 1))
+                    == MapsNetwork.FrameSave.SAVED, "the edge of the world is still fine");
+            Identifier stone = Identifier.withDefaultNamespace("stone");
+            h.assertTrue(MapsNetwork.clean(new Waypoint(0, Integer.MIN_VALUE, 0, "", 0xFFFFFF, stone, com.simplemaps.CubeNet.FRONT)) == null
+                    && MapsNetwork.clean(new Waypoint(0, 0, Integer.MIN_VALUE, "", 0xFFFFFF, stone, com.simplemaps.CubeNet.FRONT)) == null, "waypoint at MIN_VALUE refused");
+            h.assertTrue(MapsNetwork.clean(new Waypoint(0, -MapsNetwork.MAX_COORD, MapsNetwork.MAX_COORD, "", 0xFFFFFF, stone, com.simplemaps.CubeNet.FRONT)) != null,
+                    "waypoint at the edge of the world is fine");
+        } finally {
             frame.discard();
         }
         h.succeed();

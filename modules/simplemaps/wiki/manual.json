@@ -54,7 +54,7 @@
         "summary": "One map for every dimension: buttons in the map screen's title bar switch between the Overworld (grass block), the Nether (netherrack), the End (end stone) and further dimensions; the map remembers the last one.",
         "details": [
           "Recipe (shaped): top row 3 enderite nuggets (only when a Simple mod brings enderite; otherwise 3 eyes of ender), middle row End, Nether and plain wayfinder map, bottom row 3 echo shards. Crafting takes over the three maps' explored areas and waypoints.",
-          "Held in the main or off hand it explores the dimension you stand in, each dimension in its own map with its own waypoints. Buttons of dimensions you have not explored yet are greyed out; only places you have been are on the map.",
+          "Held in the main or off hand it explores the dimension you stand in, each dimension in its own map with its own waypoints. Buttons of dimensions you have not explored yet are grayed out; only places you have been are on the map.",
           "Further dimensions at the anvil: mega map + the dimension's item (server config megaUnlockItems, dimension id to item id or \"any\"); \"any\" (default for every dimension not listed, megaUnlockDefault) takes any block while you stand in that dimension. Costs megaUnlockLevels levels (default 5, 1–39) and one item.",
           "From six dimensions on, the title bar shows five buttons per page with a chevron left and right; free places on the last page stay disabled.",
           "The cartography table only copies a mega map (extending and combining needs a single-dimension map)."
@@ -87,12 +87,12 @@
         "title": "Map screen",
         "summary": "Use the map to open it: drag to move, mouse wheel or +/− to zoom (1, 4, 8, 16 and 64 blocks per pixel).",
         "details": [
-          "The map area is 4:3 with a 16-pixel grid that always fits (12 x 9 cells). Left bookmarks: snap to grid, grid on/off, zoom, height lines. Right bookmarks: player and waypoints 1–8; a click centres the view (with snap the player's grid cell).",
+          "The map area is 4:3 with a 16-pixel grid that always fits (12 x 9 cells). Left bookmarks: snap to grid, grid on/off, zoom, height lines. Right bookmarks: player and waypoints 1–8; a click centers the view (with snap the player's grid cell).",
           "Height lines color explored land in bands of 8 blocks with a dark line between bands.",
           "With a recovery compass in the other hand the last death point appears on the map, also over unexplored ground.",
           "The loaded-chunks layer shows only your own chunks (within the server view distance around you) and chunks kept loaded by chunk loaders or /forceload, never chunks other players load.",
           "With Simple Tweaks a Claims layer (layers button) shows claims as colored strips on explored terrain, your own land framed. The server decides what you see (claimVisibility of Simple Tweaks claims); without Simple Tweaks there is no Claims layer.",
-          "A map of another dimension (for example the End map in the Overworld) still shows what it explored; only unexplored spots carry a faint static. In the hand it is centred on your position converted to that dimension (Nether 1:8), without the player arrow.",
+          "A map of another dimension (for example the End map in the Overworld) still shows what it explored; only unexplored spots carry a faint static. In the hand it is centered on your position converted to that dimension (Nether 1:8), without the player arrow.",
           "Shops (with Simple Shops) are marked with Simple Money's bill when Simple Money is loaded, otherwise with a diamond."
         ]
       },
@@ -147,7 +147,7 @@
         "title": "Waypoints",
         "summary": "Up to eight waypoints belong to the map itself; they show in the locator bar while the map is in the main or off hand.",
         "details": [
-          "Right-click the map → Create waypoint: everything except the eight waypoint bookmarks is greyed out; a free bookmark takes it at once, an occupied one turns red first and is replaced by a second click.",
+          "Right-click the map → Create waypoint: everything except the eight waypoint bookmarks is grayed out; a free bookmark takes it at once, an occupied one turns red first and is replaced by a second click.",
           "Right-click a waypoint bookmark → configure (name up to 32 characters, one of 16 colors or a mob head as icon from the tag simplemaps:waypoint_heads) or delete."
         ]
       },
@@ -236,9 +236,9 @@
           "Only what wayfinder maps have explored is exported, in the Vanilla map colors: tiles/<dimension>/<z>/<x>/<y>.png, zoom 4 = one block per pixel (128 blocks per tile) down to zoom 0 = 16 blocks per pixel. Where a chunk is loaded the explored pixels are read fresh; no chunk is ever loaded.",
           "The export runs on the server at webChunksPerTick chunks per tick (default 32, bounds 1–512). The folder is <world>/simplemaps-web unless webExportDir says otherwise; serve it with any web server (nginx, Caddy); by default the mod opens no port.",
           "Players are hidden by default; each player shows or hides themselves with /simplemaps web show or /simplemaps web hide. markers.json holds only names and positions of those players, no UUIDs.",
-          "webHideClaims (default off) leaves chunks empty where a protection (for example claims of Simple Tweaks) forbids strangers to build. webClaimStyle pixelate (default hide) shows such a chunk in one colour instead (its most common one): rough terrain, no buildings.",
+          "webHideClaims (default off) leaves chunks empty where a protection (for example claims of Simple Tweaks) forbids strangers to build. webClaimStyle pixelate (default hide) shows such a chunk in one color instead (its most common one): rough terrain, no buildings.",
           "Only changed tiles: after the first export of a server session the next one renders only tiles whose map pixels, blocks (any block change marks its tile) or claims changed; the rest is checked and kept. /simplemaps web export full renders everything again.",
-          "Waypoints (webWaypoints, default off): a player holding a wayfinder map shares a snapshot of its waypoints with /simplemaps web waypoints share (again after changes) and takes it back with /simplemaps web waypoints unshare (without a map: all own shares). markers.json then lists name, colour and position, only on explored tiles, never in hidden claims, without player names or UUIDs.",
+          "Waypoints (webWaypoints, default off): a player holding a wayfinder map shares a snapshot of its waypoints with /simplemaps web waypoints share (again after changes) and takes it back with /simplemaps web waypoints unshare (without a map: all own shares). markers.json then lists name, color and position, only on explored tiles, never in hidden claims, without player names or UUIDs.",
           "webShops (default off) adds shops (with Simple Shops) to markers.json: position, offer, price and owner name, only on explored tiles and, with webHideClaims, never in protected chunks. With Simple Money they carry its bill icon.",
           "Optional built-in web server (webHttpEnabled, default off, only together with webEnabled): read only, GET and HEAD only, it serves just the viewer, markers.json, the tiles, the icons and live.json on webHttpBind:webHttpPort (default 127.0.0.1:8124, this machine only). Anything else gets 404; no commands run over HTTP. webHttpRequestsPerMinute (default 1200, 60–20000) limits each address, webHttpToken (empty = none) is then needed as ?token= or Authorization: Bearer. /simplemaps web status shows the address.",
           "Live: live.json holds the opted-in players right now (every webLiveSeconds, default 2, 1–60; no UUIDs, no spectators) and the time of the last export. The viewer polls it and reloads the tiles when a new export finished (for example with webIntervalMinutes).",
