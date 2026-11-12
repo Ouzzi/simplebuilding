@@ -39,4 +39,39 @@ javac aller geänderten Dateien je Modul (`/root/sb-tools-a/audsb31b/javac.sh`),
 chisels, buildingtools, foundry, arrows, mobs, mobheads, resonance.
 
 ## Ergebnis
-(nach Umsetzung)
+Alle neun Antworten umgesetzt, je Antwort ein Commit (F4+F5 zusammen, gleiche Dateien):
+
+| F | Commit | Gametest |
+|---|---|---|
+| F1 | c51725928 | `chisel_tier_decides_drops` (simplechisels) |
+| F2 | 85bef595e | `largeFreeBuildNeedsPermission` (simplebuildingtools) |
+| F6 | 3add39aec | `creativeBlueprintBuildsFarAndStaysLockedOnceSigned` erweitert |
+| F3 | 2b4096e3c (plan40 simplefoundry-1) | `desk_tier_stays_on_the_item` (simplefoundry) |
+| F4, F5 | a35720413 | `fletching_blaze_shaft_fire_is_capped`; F5 in `fletching_impact_effects_happen_on_a_direct_hit` |
+| F7 | 3e1e4130e, 1637c1cdf | `deceiver_fakes_give_no_xp` + Prüfung in `fight` (simplemobs) |
+| F8 | 8cce3084f | `giant_head_needs_room` (simplemobheads) |
+| F9 | a4569f5f2 | `riding_counts_as_moved` (simpleresonance) |
+
+Wiki-Daten neu (a66a63fcf), danach `hub/b-bundle190` d91f28407 (a-nihilplanks, a-dinorest1) konfliktfrei hineingemergt.
+
+## Abweichungen
+- **F2**: Die Grenze gilt nur für **Gratis-Bauten** (Kreativmodus oder Kreativ-Baustab). Die Antwort lautet „Bauten über 32 768 Stellen
+  nur für OPs“; Frage und Audit begründen aber nur den Kreativ-Lag-Hebel, und Überleben ist durch das Material begrenzt – eine Sperre
+  großer Überlebens-Bauten wäre ein neuer Eingriff. Abschaltbar mit `largeBuildCells = 0`.
+- **F5** (so lassen): keine Code-Änderung, nur Wiki-Satz und eine Test-Prüfung (liegender Gegenstand wird geschoben, nur bei `mobGriefing`).
+- **F8**: geprüft wird die volle 1,5x-Box (Breite und Höhe) wie bei den Riesen-Mobs; wer direkt an einer Wand steht, wächst erst einen
+  Schritt weiter weg. Der Tempo-Bonus des Riesenkopfs braucht keinen Platz.
+- Kern-Kopien (26.2) von Meißel und Kartentisch unverändert, Drift in `tools/dup_pairs.txt` (`mineable/1`, `copyResult/2|3`).
+- simplemobs/AUDIT.md: Nachtrag als eigener Abschnitt am Ende (a-w1b ändert dieselben Tabellenzeilen, so kein Merge-Konflikt).
+- Guides (`module_guides.py`) blieben unverändert: geändert wurden nur Details und Notizen, keine Feature-Zusammenfassungen.
+
+## Test (lokal)
+javac aller geänderten Dateien je Modul (`/root/sb-tools-a/audsb31b/javac.sh`, volle Ausgabe): nur bekannte Access-Widener-Meldungen in
+unveränderten Zeilen (`LibMaterials`, `CreativeModeTab.Output`, `MenuType`, Schädel-Konstruktoren, `FUNCTIONAL_BLOCKS`).
+`precheck.py` (voll, 89 Prüfungen) grün, auch nach dem Merge; `precheck --fast` grün; alle `modules/*/tools/check_data.py` grün;
+`check_dup_impl` 0 Probleme; `check_tooltip_text`, `check_lang_keys`, `check_gametest_adapters` grün; `check_missing_textures` 0 Fehler;
+`layers.py check` 0 Probleme; `wiki/generate.py --all --check` aktuell; `module_guides.py --check` aktuell.
+
+**Nicht getestet**: kein Gametest lief (sb-test nicht erreichbar, kein Gradle auf sb-agent) – sbt-Befehl in
+`/root/sb-tools-a/a-audsb31b-sbt.cmd` (Compile + module-<mod>-fabric-263 und -standalone für die 7 Mods). Kein Client
+(Pult-Tooltip, Riesenkopf im Gang, Reiten), kein NeoForge/Forge.
