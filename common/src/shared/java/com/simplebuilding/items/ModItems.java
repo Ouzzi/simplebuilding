@@ -558,10 +558,6 @@ public class ModItems {
             ? registerItem("crimson_blazewood_planks", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_PLANKS, s)) : null;
     public static final Item WARPED_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("warped_blazewood_planks", s -> new BlockItem(ModBlocks.WARPED_BLAZEWOOD_PLANKS, s)) : null;
-    public static final Item NIHILITH_ASHWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("nihilith_ashwood_planks", s -> new BlockItem(ModBlocks.NIHILITH_ASHWOOD_PLANKS, s)) : null;
-    public static final Item NIHILITH_DUSKWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("nihilith_duskwood_planks", s -> new BlockItem(ModBlocks.NIHILITH_DUSKWOOD_PLANKS, s)) : null;
     public static final Item CRIMSON_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("crimson_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF, s)) : null;
     public static final Item WARPED_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING

@@ -68,6 +68,12 @@ public final class EndWood {
     public BlockSetType setType;
     public Block log, strippedLog, wood, strippedWood, planks, stairs, slab, fence, fenceGate, door, trapdoor, button, pressurePlate,
             sign, wallSign, hangingSign, wallHangingSign, shelf, bookshelf, chiseledBookshelf, leaves, bud, pottedBud, sticks;
+    /**
+     * a-nihilplanks (owner 12.11.): the Nihilit planks of this wood ({@code nihilith_<wood>_planks}, until 12.11. SimpleBuilding's,
+     * IdMoves on Fabric) - the planks with Nihilit in their gaps, the material of the End bookshelves with SimpleBuilding. Registered
+     * only with SimpleBuilding, the owner of Nihilit (null without it); its recipes are SimpleBuilding's (load condition simpleend).
+     */
+    public Block nihilPlanks;
     public Item boat, chestBoat;
     private EntityType<Boat> boatType;
     private EntityType<ChestBoat> chestBoatType;
@@ -119,6 +125,7 @@ public final class EndWood {
         wood = block(id("W_wood"), RotatedPillarBlock::new, logProps());
         strippedWood = block(id("stripped_W_wood"), RotatedPillarBlock::new, logProps().mapColor(plankColor));
         planks = block(id("W_planks"), Block::new, wood(plankColor));
+        if (SimpleEnd.simpleBuilding()) nihilPlanks = block(id("nihilith_W_planks"), Block::new, wood(plankColor));
         Block base = planks;
         stairs = block(id("W_stairs"), p -> new StairBlock(base.defaultBlockState(), p) {}, Properties.ofLegacyCopy(planks));
         slab = block(id("W_slab"), SlabBlock::new, Properties.ofLegacyCopy(planks));
@@ -178,6 +185,7 @@ public final class EndWood {
     public void items() {
         var blocks = ContextIntProviders.COOKING_TIME_WOOD_BLOCKS;
         for (Block b : new Block[] {log, strippedLog, wood, strippedWood, planks, stairs, fence, fenceGate, trapdoor, pressurePlate}) blockItem(b, blocks);
+        if (nihilPlanks != null) blockItem(nihilPlanks, blocks);
         blockItem(slab, ContextIntProviders.COOKING_TIME_WOOD_SLABS);
         blockItem(button, ContextIntProviders.COOKING_TIME_WOOD_ITEMS_EXTRA_SMALL);
         item(id("W_door"), p -> new DoubleHighBlockItem(door, p), new Item.Properties().useBlockDescriptionPrefix().cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE));
@@ -223,13 +231,14 @@ public final class EndWood {
         Registry.register(BuiltInRegistries.ENTITY_TYPE, SimpleEnd.id(id("W_chest_boat")), chestBoatType());
     }
 
-    /** Creative tab order, like a Vanilla wood row. */
+    /** Creative tab order, like a Vanilla wood row; a-nihilplanks: the Nihilit planks (with SimpleBuilding) right before the bookshelves they make. */
     public List<Item> tabItems() {
         List<Item> out = new ArrayList<>();
         for (String id : List.of("W_log", "W_wood", "stripped_W_log", "stripped_W_wood", "W_planks", "W_stairs", "W_slab", "W_fence",
-                "W_fence_gate", "W_door", "W_trapdoor", "W_pressure_plate", "W_button", "W_sign", "W_hanging_sign", "W_shelf", "W_bookshelf", "chiseled_W_bookshelf", "W_boat",
-                "W_chest_boat", "W_leaves", "B", "W_sticks")) {
-            out.add(itemIds.get(id.equals("B") ? budName : id(id)));
+                "W_fence_gate", "W_door", "W_trapdoor", "W_pressure_plate", "W_button", "W_sign", "W_hanging_sign", "W_shelf", "nihilith_W_planks", "W_bookshelf",
+                "chiseled_W_bookshelf", "W_boat", "W_chest_boat", "W_leaves", "B", "W_sticks")) {
+            Item item = itemIds.get(id.equals("B") ? budName : id(id));
+            if (item != null) out.add(item);   // the Nihilit planks only exist with SimpleBuilding
         }
         return out;
     }

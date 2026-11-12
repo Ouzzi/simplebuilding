@@ -1,0 +1,61 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleend"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleend"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleend"
+  },
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ashwood_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleend:ashwood_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nihilith_ashwood_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleend:nihilith_ashwood_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:chiseled_ashwood_bookshelf"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ashwood_slab",
+      "has_nihilith_ashwood_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:chiseled_ashwood_bookshelf"
+    ]
+  }
+}

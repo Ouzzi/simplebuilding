@@ -21,7 +21,7 @@
   "category": "building",
   "key": {
     "N": "simplebuilding:nihilith_book",
-    "P": "simplebuilding:nihilith_ashwood_planks"
+    "P": "simpleend:nihilith_ashwood_planks"
   },
   "pattern": [
     "PPP",

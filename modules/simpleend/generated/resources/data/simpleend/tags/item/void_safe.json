@@ -40,6 +40,14 @@
     "simpleend:duskwood_bookshelf",
     "simpleend:chiseled_ashwood_bookshelf",
     "simpleend:chiseled_duskwood_bookshelf",
+    {
+      "id": "simpleend:nihilith_ashwood_planks",
+      "required": false
+    },
+    {
+      "id": "simpleend:nihilith_duskwood_planks",
+      "required": false
+    },
     "simpleend:end_grass",
     "simpleend:end_bush",
     "simpleend:drift_fruit",
