@@ -45,7 +45,7 @@ public final class DimensionSettings {
    if(Files.isSymbolicLink(file)||Files.isRegularFile(file)&&Files.size(file)>ConfigLimits.MAX_BYTES)
     log.warn("Unsafe server.json (link or too big), using defaults; old file kept as {}",com.simplebuilding.framework.api.ConfigFiles.quarantine(file));
    var c=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file,text->gson.fromJson(text,DimensionSettings.class),log::warn);
-   if(c==null){c=new DimensionSettings();Files.writeString(file,gson.toJson(c));}
+   if(c==null){c=new DimensionSettings();com.simplebuilding.framework.api.ConfigFiles.writeAtomic(file,gson.toJson(c));}
    c.normalize();return c;
   }catch(Exception e){throw new IllegalStateException("Invalid server settings",e);}
  }
