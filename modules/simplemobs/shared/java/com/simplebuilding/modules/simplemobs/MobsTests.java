@@ -184,8 +184,29 @@ public final class MobsTests {
                     check(m.isSilent(), "a fake makes no step sounds");
                     // audit simplemobs-P2-3 (a-audsb31): summons have no loot, so killing them gives no Mob Essence either
                     check(m.entityTags().contains(BroodRitual.NO_ESSENCE), "a Deceiver summon gives no Mob Essence");
+                    // owner AUDSB31B F7 = A: a fake gives no experience
+                    check(m.getExperienceReward(level, player) == 0, "a fake gives experience: " + m.getExperienceReward(level, player));
                 }
             }
+            h.succeed();
+        });
+        // Owner AUDSB31B F7 = A: the fake tag takes the experience (also on a mob that only got the tag, as after a restart),
+        // a real summon keeps Vanilla's (zombie: 5 + equipment).
+        add("deceiver_fakes_give_no_xp", h -> {
+            var level = h.getLevel();
+            var player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
+            var fake = h.spawnWithNoFreeWill(net.minecraft.world.entity.EntityTypes.ZOMBIE, new BlockPos(1, 2, 1));
+            var real = h.spawnWithNoFreeWill(net.minecraft.world.entity.EntityTypes.ZOMBIE, new BlockPos(3, 2, 1));
+            for (var slot : net.minecraft.world.entity.EquipmentSlot.values()) {
+                fake.setItemSlot(slot, net.minecraft.world.item.ItemStack.EMPTY);
+                real.setItemSlot(slot, net.minecraft.world.item.ItemStack.EMPTY);
+            }
+            fake.addTag(DeceiverEntity.TAG_FAKE);
+            check(fake.getExperienceReward(level, player) == 0, "a fake gives experience: " + fake.getExperienceReward(level, player));
+            check(real.getExperienceReward(level, player) > 0, "a real zombie lost its experience: " + real.getExperienceReward(level, player));
+            fake.discard();
+            real.discard();
             h.succeed();
         });
         add("disguise_hitbox", h -> {

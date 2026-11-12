@@ -8,6 +8,7 @@
     "SculkSensorBlockMixin",
     "AvatarDisguiseMixin",
     "LivingEntityDisguiseMixin",
+    "DeceiverFakeXpMixin",
     "PlayerDisguiseMixin",
     "ServerPlayerGameModeDisguiseMixin",
     "TargetingConditionsCloakMixin",
