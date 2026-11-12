@@ -175,19 +175,29 @@ def validate_bundle(entry, modules, root):
     field = 'requires' if entry['bundle'] == 'required' else 'optional'
     if mid not in parent[field]:
         raise ValueError(f'{parent["id"]} must list {mid} in {field}')
+    # simplebuilding-1 (a-w1a, owner RELSB31 f1=A): an optional sub-mod is its own download. The parent nests it only once it
+    # is listed in the parent's "bundleOptional" (release profile, its checklist is green); otherwise it must not be nested.
+    # Applies to the SimpleBuilding jar of release wave 1: SB itself and its required sub-mods (Ovens nests no Foundry); other
+    # parents (e.g. Simple End, itself an optional download) keep nesting their optional sub-mods for now.
+    sb = by_id.get('simplebuilding', {})
+    sb_family = parent['id'] == 'simplebuilding' or parent['id'] in sb.get('requires', [])
+    released = (entry['bundle'] == 'required' or mid in parent.get('bundleOptional', []) or not sb_family
+                or mid in sb.get('requires', []))  # Simple Crucibles: optional under Ovens, but required by SimpleBuilding
     nest = {'fabric': 'include', 'neoforge': 'jarJar'}
     for loader in set(entry['loaders']) & set(parent['loaders']):
         sub = entry['projects'][loader]
         build = (root.joinpath(*parent['projects'][loader].strip(':').split(':')) / 'build.gradle').read_text(encoding='utf-8')
+        # B1: SimpleBuilding's 26.3 Fabric build nests its requires (+ bundleOptional) from modules.json itself.
+        generic = loader == 'fabric' and 'include project(sbModuleById[it].projects.fabric)' in build
         if loader == 'forge':
             name = sub.strip(':').split(':')[-2]
-            found = 'forgeBundleModules' in build and (f"'{sub}'" in build or f"'{name}'" in build)
+            literal = 'forgeBundleModules' in build and (f"'{sub}'" in build or f"'{name}'" in build)
         else:
-            # B1: SimpleBuilding's 26.3 Fabric build nests every sub-mod of its requires/optional (checked above) from modules.json.
-            found = (f"{nest[loader]} project('{sub}')" in build
-                     or (loader == 'fabric' and 'include project(sbModuleById[it].projects.fabric)' in build))
-        if not found:
+            literal = f"{nest[loader]} project('{sub}')" in build
+        if released and not (literal or generic):
             raise ValueError(f'{parent["id"]}/{loader} does not bundle {mid} ({sub})')
+        if not released and literal and loader == 'fabric':  # SB wave 1 only (see sb_family)
+            raise ValueError(f'{parent["id"]}/{loader} nests the optional sub-mod {mid} ({sub}) without "bundleOptional" (simplebuilding-1)')
 
 
 LICENSE_ID = 'LicenseRef-SimpleMods-ARR'  # b-lic15: all rights reserved, source-available (LICENSE, CLA.md)
