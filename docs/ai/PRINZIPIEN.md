@@ -395,7 +395,7 @@ Sieben Vorschlaghämmer (3x3 abbauen, umformen, Octets schnitzen, Blöcke aufwer
 - **A12:** Nutzen: schneller Abbau und Umbau. Mixins an Abbau-Tempo, Amboss, Treppenform, Rezepten und Rendern. Eingriff in Vanilla: mittel (Abbau-Hook), nur mit Hammer in der Hand.
 
 ### Simple Layers (`simplelayers`)
-Wolkenmeer über y 700 und Backrooms unter dem Grundgestein.
+Wolkenmeer über y 700 und Backrooms als eigene Dimension mit zehn Ebenen (Eingänge: Keller eines verlassenen Hauses, Riss im gestörten Grundgestein).
 
 - **A12:** Nutzen: zwei zusätzliche Erkundungsorte. Betreten über Höhe bzw. seltene Eingänge; Overworld sonst Vanilla (Mixins nur Kolben und Blockzustand für die neuen Blöcke). Eingriff in Vanilla: mittel (Höhenübergang), Wolken und Backrooms je abschaltbar (`cloudsEnabled`, `backroomsEnabled`).
 
