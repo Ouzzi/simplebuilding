@@ -89,6 +89,12 @@ public final class MusicRegistry {
         POCKET_JUKEBOX_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleMusic.id("pocket_jukebox"), pocket);
     }
 
+    /** F8=B (12.11.): the Pocket Jukebox recipes only take empty bundles ({@code simplemusic:empty_bundle_shaped}). */
+    public static void registerRecipeSerializers() {
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleMusic.id("empty_bundle_shaped"),
+                com.simplemusic.recipe.EmptyBundleShapedRecipe.SERIALIZER);
+    }
+
     public static void registerMenus() {
         DISC_PRESS_MENU = Registry.register(BuiltInRegistries.MENU, SimpleMusic.id("disc_press"),
                 new MenuType<>(DiscPressMenu::client, FeatureFlags.VANILLA_SET));

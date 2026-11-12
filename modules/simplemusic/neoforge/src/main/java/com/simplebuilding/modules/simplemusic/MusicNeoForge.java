@@ -46,6 +46,7 @@ public final class MusicNeoForge {
                         new BlockEntityType<>(com.simplemusic.pocket.PocketJukeboxBlockEntity::new, Set.copyOf(MusicRegistry.POCKET_JUKEBOX_BLOCKS), false));
             }
             if (key.equals(Registries.MENU)) MusicRegistry.registerMenus();
+            if (key.equals(Registries.RECIPE_SERIALIZER)) MusicRegistry.registerRecipeSerializers();
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
             boolean vanillaTabs = com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleMusic.MOD_ID);

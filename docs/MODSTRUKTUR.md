@@ -78,7 +78,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - optional: SimpleBuilding
   - **Simple Dimensions** `simpledimensions` (optional) [neu]: Configurable dimensions, light arches, and safe linked portals.
     - required: cloth_config, SimpleLib
-    - optional: SimpleBuilding, modmenu, flan, ftbchunks, openpartiesandclaims, griefdefender, claimchunk
+    - optional: SimpleBuilding, modmenu
   - **Simple Dinosaurs** `simpledinos` (optional) [neu]: Fossil block, dinosaur eggs you brush free and brood by sitting on them, and the first dinosaur: a rideable T. rex that hatches as a hatchling and grows up. Works on its own with Vanilla.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Money, Simple Mobheads

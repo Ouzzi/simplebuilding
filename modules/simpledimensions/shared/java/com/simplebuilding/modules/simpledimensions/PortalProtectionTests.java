@@ -83,16 +83,28 @@ public final class PortalProtectionTests {
             h.succeed();
         });
     }
+    /**
+     * A claim mod without adapter (owner AUDSB31E2 F3=B): lighting and entering stay locked, the way out never is - the generated exit
+     * and the emergency return work, a framework provider cannot unlock the entry.
+     */
     public static void unsupportedProvider(GameTestHelper h) {
-        var cell=activate(h);var p=player(h,cell,Items.AIR);var server=h.getLevel().getServer();var rt=DimensionRuntime.get(server);
+        h.runAfterDelay(160,()->{
+        var cell=activate(h);var p=player(h,cell,Items.AIR);var server=h.getLevel().getServer();var rt=DimensionRuntime.get(server);var source=p.level();
         boolean required=DimensionRuntime.claimIntegrationRequired;var old=DimensionRuntime.permission;
         try {
+            h.assertTrue(rt.travelTest(p,cell),"Fixture enters before the foreign claim mod counts");var exit=p.blockPosition();
             DimensionRuntime.claimIntegrationRequired=true;DimensionRuntime.permission=null;
             Protection.register(server,PROVIDER,t->true);
-            h.assertTrue(!rt.travelTest(p,cell)&&!rt.emergencyReturn(p),"Supported framework provider cannot mask unsupported foreign mod");
+            h.assertTrue(rt.travelTest(p,exit)&&p.level()==source,"F3: the generated exit stays open under a foreign claim mod");
+            h.assertTrue(!rt.travelTest(p,cell)&&p.level()==source,"Supported framework provider cannot mask unsupported foreign mod: entering stays locked");
+            h.assertTrue(rt.emergencyReturn(p),"F3: the emergency return stays open under a foreign claim mod");
             var blank=build(h,DimensionPortalConfig.defaultSkyblock(),0,Direction.Axis.X);h.getLevel().setBlock(blank.offset(0,0,2),Blocks.SEA_LANTERN.defaultBlockState(),3);
-            h.assertTrue(ignite(player(h,blank,Items.FIRE_CHARGE),blank)==InteractionResult.FAIL,"Unsupported foreign mod blocks activation");
+            var lighter=player(h,blank,Items.FIRE_CHARGE);
+            h.assertTrue(ignite(lighter,blank)==InteractionResult.FAIL&&lighter.getMainHandItem().getCount()==2,"Unsupported foreign mod blocks activation, no cost");
+            DimensionRuntime.foreignClaimMods(List.of());h.assertTrue(!DimensionRuntime.claimIntegrationRequired,"No foreign claim mod loaded: no lock");
+            DimensionRuntime.foreignClaimMods(List.of("flan"));h.assertTrue(DimensionRuntime.claimIntegrationRequired,"A loaded foreign claim mod locks lighting/entering");
         } finally {Protection.unregister(server,PROVIDER);DimensionRuntime.claimIntegrationRequired=required;DimensionRuntime.permission=old;}
         h.succeed();
+        });
     }
 }

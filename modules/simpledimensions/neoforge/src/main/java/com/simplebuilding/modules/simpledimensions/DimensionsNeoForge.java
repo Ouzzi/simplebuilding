@@ -16,7 +16,7 @@ public final class DimensionsNeoForge {
   events.addListener((net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock e)->{
    if(e.getEntity() instanceof net.minecraft.server.level.ServerPlayer p){var result=PortalActivation.ignite(p,e.getHand(),e.getHitVec());if(result!=net.minecraft.world.InteractionResult.PASS){e.setCanceled(true);e.setCancellationResult(result);}}
   });
-  DimensionRuntime.claimIntegrationRequired=java.util.List.of("flan","ftbchunks","openpartiesandclaims","griefdefender","claimchunk").stream().anyMatch(net.neoforged.fml.ModList.get()::isLoaded);
+  DimensionRuntime.foreignClaimMods(DimensionRuntime.FOREIGN_CLAIM_MODS.stream().filter(net.neoforged.fml.ModList.get()::isLoaded).toList());
   bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)-> {
    if(e.getRegistryKey().equals(Registries.BLOCK)) DimensionRegistry.blocks();
    if(e.getRegistryKey().equals(Registries.ITEM)) DimensionRegistry.items();

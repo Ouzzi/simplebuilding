@@ -5,8 +5,10 @@ import com.simplebeacons.SimpleBeacons;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -38,6 +40,8 @@ public class StrongConduitBlockEntity extends BlockEntity {
     private final List<BlockPos> effectBlocks = new ArrayList<>();
     private @Nullable EntityReference<LivingEntity> destroyTarget;
     private long nextAmbientSoundActivation;
+    /** Placer or upgrader (F7): the Evil kinds spare players in claims this player may not be in ({@link com.simplebeacons.beacon.EvilGate}); null for blocks of older worlds. */
+    private @Nullable UUID owner;
 
     public StrongConduitBlockEntity(BlockPos pos, BlockState state) {
         super(BeaconsRegistry.STRONG_CONDUIT_BE, pos, state);
@@ -47,12 +51,19 @@ public class StrongConduitBlockEntity extends BlockEntity {
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.destroyTarget = EntityReference.read(input, "Target");
+        this.owner = input.read("owner", UUIDUtil.CODEC).orElse(null);
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         EntityReference.store(this.destroyTarget, output, "Target");
+        output.storeNullable("owner", UUIDUtil.CODEC, this.owner);
+    }
+
+    @Override
+    public void removeComponentsFromTag(ValueOutput output) {
+        output.discard("owner"); // an item (pick block) never carries the owner on to the next placer
     }
 
     @Override
@@ -62,7 +73,19 @@ public class StrongConduitBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return this.saveCustomOnly(registries);
+        CompoundTag tag = this.saveCustomOnly(registries);
+        tag.remove("owner"); // the client has no use for it
+        return tag;
+    }
+
+    /** Who placed or upgraded this conduit, or null (older blocks, dispensers, commands). */
+    public @Nullable UUID owner() {
+        return this.owner;
+    }
+
+    public void setOwner(@Nullable UUID owner) {
+        this.owner = owner;
+        setChanged();
     }
 
     /** The kind of the block this entity sits in (STRONG while the block is gone). */
@@ -116,7 +139,7 @@ public class StrongConduitBlockEntity extends BlockEntity {
                 level.playSound(null, pos, event, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
             if (entity.isActive) {
-                StrongConduitLogic.applyEffects(level, pos, entity.effectBlocks.size(), entity.kind());
+                StrongConduitLogic.applyEffects(level, pos, entity.effectBlocks.size(), entity.kind(), entity.owner);
                 entity.attack((ServerLevel) level, pos, state);
             }
         }

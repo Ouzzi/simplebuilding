@@ -133,6 +133,7 @@
         "details": [
           "Level 1: Slowness, Mining Fatigue, Hunger. Level 2: Weakness, Bad Luck, Oozing. Level 3: Darkness, Glowing, Infested. Level 4: Weaving. Secondary (level 5): Nausea. All level I, no level II.",
           "Fair play: the Evil beacons only reach survival players who died at least 5 minutes ago (config evilBeaconGraceMinutes), who are not under the newcomer protection of Simple Tweaks and have not switched their personal PvP off. Nobody can be kept down at a spawn point.",
+          "Owner and claims: the owner is whoever placed the block or upgraded it. On the owner's own land everybody is reached, the owner and the owner's team included - there is no exception for them. Players standing in a claim in which the owner has no rights are not reached (a claims mod of the family such as Simple Tweaks; server option evilSparesForeignClaims, on by default). Free land is reached; blocks of older worlds have no owner and spare every claim. Without Simple Tweaks only spectators and the grace time protect: the PvP switch and the newcomer protection come with Simple Tweaks.",
           "Every power can be switched off by the server (strongBeaconEffects)."
         ]
       },
@@ -142,6 +143,7 @@
         "details": [
           "Ebene 1: Langsamkeit, Abbaumüdigkeit, Hunger. Ebene 2: Schwäche, Pech, Schleimigkeit. Ebene 3: Dunkelheit, Leuchten, Befall. Ebene 4: Gewebe. Sekundär (Ebene 5): Übelkeit. Alle Stufe I, keine Stufe II.",
           "Fairness: Die Bösen Leuchtfeuer erreichen nur Überlebens-Spieler, die vor mindestens 5 Minuten gestorben sind (Config evilBeaconGraceMinutes), nicht unter dem Neulingsschutz von Simple Tweaks stehen und ihr persönliches PvP nicht ausgeschaltet haben. Niemand kann am Spawnpunkt unten gehalten werden.",
+          "Besitzer und Claims: Besitzer ist, wer den Block gesetzt oder aufgewertet hat. Auf dem eigenen Gebiet des Besitzers wird jeder erreicht, auch der Besitzer und sein Team - für sie gibt es keine Ausnahme. Spieler, die in einem Claim stehen, in dem der Besitzer keine Rechte hat, werden nicht erreicht (Claims-Mod der Familie wie Simple Tweaks; Server-Option evilSparesForeignClaims, standardmäßig an). Freies Land wird erreicht; Blöcke aus älteren Welten haben keinen Besitzer und verschonen jeden Claim. Ohne Simple Tweaks schützen nur Zuschauer-Modus und die Schonfrist: PvP-Schalter und Neulingsschutz kommen mit Simple Tweaks.",
           "Jede Kraft kann der Server abschalten (strongBeaconEffects)."
         ]
       }
@@ -160,7 +162,7 @@
         "summary": "The Evil Beacon's big brother: up to six pyramid levels, primary powers on levels 1 to 5, the secondary power on level 6. Same recipe as the Mighty Beacon with the Evil Beacon in the middle.",
         "details": [
           "Levels 1 to 4 as on the Evil Beacon. Level 5: Wind Charged and the placeholders Hunger II and Mining Fatigue II. Secondary (level 6): Nausea.",
-          "The same protections as the Evil Beacon apply (5 minutes after death, no newcomers, no PvP-off players)."
+          "The same protections as the Evil Beacon apply (5 minutes after death, no newcomers, no PvP-off players, no players in claims in which the owner has no rights)."
         ]
       },
       "de": {
@@ -168,7 +170,7 @@
         "summary": "Der große Bruder des Bösen Leuchtfeuers: bis zu sechs Pyramidenebenen, Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6. Dasselbe Rezept wie das Mächtige Leuchtfeuer mit dem Bösen Leuchtfeuer in der Mitte.",
         "details": [
           "Ebenen 1 bis 4 wie beim Bösen Leuchtfeuer. Ebene 5: Windgeladen und die Platzhalter Hunger II und Abbaumüdigkeit II. Sekundär (Ebene 6): Übelkeit.",
-          "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer (5 Minuten nach dem Tod, keine Neulinge, keine Spieler mit PvP aus)."
+          "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer (5 Minuten nach dem Tod, keine Neulinge, keine Spieler mit PvP aus, keine Spieler in Claims, in denen der Besitzer keine Rechte hat)."
         ]
       }
     },
@@ -239,7 +241,8 @@
           "Every strike cracks the block, rings a rising anvil sound and lets the Strong block grow over the old one from below.",
           "The last strike swaps the block in place: chosen powers, lock and name stay. The template and one nether star are used up, the tool wears by one per strike.",
           "Without a nether star the strike is refused. The beacon does not have to be active.",
-          "With the Evil Upgrade in the off hand the same strikes turn a Vanilla beacon into an Evil Beacon (conduits are not affected)."
+          "With the Evil Upgrade in the off hand the same strikes turn a Vanilla beacon into an Evil Beacon and a Vanilla conduit into an Evil Conduit.",
+          "The player who strikes last becomes the owner of the new block (for the Evil kinds, see the Evil Beacon); a placed block is owned by whoever placed it."
         ]
       },
       "de": {
@@ -249,7 +252,8 @@
           "Jeder Schlag lässt Risse erscheinen, spielt einen steigenden Amboss-Klang und lässt den starken Block von unten über den alten wachsen.",
           "Der letzte Schlag tauscht den Block an Ort und Stelle: gewählte Kräfte, Sperre und Name bleiben. Vorlage und ein Netherstern werden verbraucht, das Werkzeug nutzt sich je Schlag um eins ab.",
           "Ohne Netherstern wird der Schlag abgelehnt. Das Leuchtfeuer muss nicht aktiv sein.",
-          "Mit der Bösen Aufwertungsvorlage in der Nebenhand machen dieselben Schläge aus einem Vanilla-Leuchtfeuer ein Böses Leuchtfeuer (Aquisatoren bleiben unberührt)."
+          "Mit der Bösen Aufwertungsvorlage in der Nebenhand machen dieselben Schläge aus einem Vanilla-Leuchtfeuer ein Böses Leuchtfeuer und aus einem Vanilla-Aquisator einen Bösen Aquisator.",
+          "Wer zuletzt schlägt, wird Besitzer des neuen Blocks (bei den Bösen Varianten siehe Böses Leuchtfeuer); ein gesetzter Block gehört dem, der ihn gesetzt hat."
         ]
       }
     },
@@ -312,6 +316,7 @@
     {
       "id": "evil_conduit",
       "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/EvilGate.java",
         "modules/simplebeacons/shared/java/com/simplebeacons/conduit/ConduitKind.java",
         "modules/simplebeacons/shared/java/com/simplebeacons/conduit/StrongConduitLogic.java",
         "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_conduit_smithing.json"
@@ -322,6 +327,7 @@
         "details": [
           "Smithing table: conduit + Evil Upgrade + Red Nether Gem (Simple Mobs).",
           "Protected like the Evil Beacon: no spectators, no newcomers or players protected by Simple Tweaks, and only 5 minutes after the last death (config).",
+          "Owner and claims as with the Evil Beacon: the owner is whoever placed or upgraded the conduit; it reaches everybody on the owner's own land (owner and team included), but not players standing in a claim in which the owner has no rights (option evilSparesForeignClaims, on by default). Conduits of older worlds have no owner and spare every claim.",
           "It does not attack mobs. Dark soul particles rise around it and it hums low."
         ]
       },
@@ -331,6 +337,7 @@
         "details": [
           "Schmiedetisch: Aquisator + Böse Aufwertungsvorlage + Rotes Nether-Juwel (Simple Mobs).",
           "Geschützt wie das Böse Leuchtfeuer: keine Zuschauer, keine Neulinge oder durch Simple Tweaks geschützten Spieler, und erst 5 Minuten nach dem letzten Tod (Konfig).",
+          "Besitzer und Claims wie beim Bösen Leuchtfeuer: Besitzer ist, wer den Aquisator gesetzt oder aufgewertet hat; er erreicht jeden auf dem eigenen Gebiet des Besitzers (auch Besitzer und Team), aber keine Spieler, die in einem Claim stehen, in dem der Besitzer keine Rechte hat (Option evilSparesForeignClaims, standardmäßig an). Aquisatoren aus älteren Welten haben keinen Besitzer und verschonen jeden Claim.",
           "Er greift keine Mobs an. Dunkle Seelenpartikel steigen um ihn auf und er brummt tief."
         ]
       }
@@ -376,6 +383,7 @@
           "strongConduitMaxRange (216, 96 to 256): cap of the Strong Conduit range.",
           "upgradeStrikes (8, 1 to 32): strikes of the in-world upgrade.",
           "evilBeaconGraceMinutes (5, 0 to 60): minutes after a player's last death before the Evil beacons reach them.",
+          "evilSparesForeignClaims (true): the Evil beacons and conduits do not reach players standing in a claim in which the block's owner (placer or upgrader) has no rights; needs a claims mod such as Simple Tweaks, off reaches everybody.",
           "With SimpleBuilding the switch Enable Simple Beacons in its config turns the bundled module on or off."
         ]
       },
@@ -391,6 +399,7 @@
           "strongConduitMaxRange (216, 96 bis 256): Deckel der Reichweite des Starken Aquisators.",
           "upgradeStrikes (8, 1 bis 32): Schläge der Aufwertung in der Welt.",
           "evilBeaconGraceMinutes (5, 0 bis 60): Minuten nach dem letzten Tod eines Spielers, bevor die Bösen Leuchtfeuer ihn erreichen.",
+          "evilSparesForeignClaims (true): Böse Leuchtfeuer und Aquisatoren erreichen keine Spieler, die in einem Claim stehen, in dem der Besitzer des Blocks (wer ihn gesetzt oder aufgewertet hat) keine Rechte hat; braucht eine Claims-Mod wie Simple Tweaks, aus erreicht alle.",
           "Mit SimpleBuilding schaltet Simple Beacons aktivieren in dessen Konfiguration das gebündelte Modul ein oder aus."
         ]
       }

@@ -217,6 +217,16 @@ public final class ModuleGameTest {
         MusicTests.ALL.get("note_grid_round_trip").accept(h);
     }
 
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void pocketJukeboxNeedsEmptyBundle(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_jukebox_needs_empty_bundle").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void uploadWarnsAboutDraft(GameTestHelper h) {
+        MusicTests.ALL.get("upload_warns_about_draft").accept(h);
+    }
+
     @GameTest
     public void jeiPressAndCopy(GameTestHelper h) {
         MusicTests.ALL.get("jei_press_and_copy").accept(h);

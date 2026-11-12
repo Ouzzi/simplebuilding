@@ -20,7 +20,7 @@ public final class DimensionsFabric implements ModInitializer {
   net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p,l,h,hit)->{
    if(!(p instanceof net.minecraft.server.level.ServerPlayer sp))return net.minecraft.world.InteractionResult.PASS;
    var result=PortalActivation.ignite(sp,h,hit);if(result==net.minecraft.world.InteractionResult.PASS)PortalActivation.hint(sp,h,hit);return result;});
-  DimensionRuntime.claimIntegrationRequired=java.util.List.of("flan","ftbchunks","openpartiesandclaims","griefdefender","claimchunk").stream().anyMatch(net.fabricmc.loader.api.FabricLoader.getInstance()::isModLoaded);
+  DimensionRuntime.foreignClaimMods(DimensionRuntime.FOREIGN_CLAIM_MODS.stream().filter(net.fabricmc.loader.api.FabricLoader.getInstance()::isModLoaded).toList());
   DimensionRegistry.blocks(); DimensionRegistry.items();
   // N33 nether arches (Fabric first): the block, its states as nether portal POI, and a step back for mods that replace nether portals.
   DimensionRegistry.shapedPortal();ShapedNetherPortals.registerPoi(com.simplebuilding.modules.simpledimensions.fabric.mixin.PoiTypesAccessor.simpledimensions$typeByState());

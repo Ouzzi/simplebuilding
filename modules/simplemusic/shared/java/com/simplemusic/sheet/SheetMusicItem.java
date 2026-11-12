@@ -35,6 +35,15 @@ public class SheetMusicItem extends Item {
         return c == null ? SheetContent.EMPTY : c;
     }
 
+    /**
+     * Whether uploading a track onto this stack throws a composition away (F9=A, owner 12.11.): an unsigned sheet that carries
+     * note code ({@code MusicServer#store} writes the track and clears the code). Same target rule as
+     * {@code MusicServer#uploadTarget}, plus non-blank code. Side-free, the upload window shows its warning line from it.
+     */
+    public static boolean replacesDraft(ItemStack stack) {
+        return stack.getItem() instanceof SheetMusicItem && !content(stack).signed() && !content(stack).isBlank();
+    }
+
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!SimpleMusic.on()) return InteractionResult.PASS;

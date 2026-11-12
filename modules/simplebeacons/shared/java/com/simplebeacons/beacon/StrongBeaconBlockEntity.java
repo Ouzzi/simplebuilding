@@ -5,10 +5,12 @@ import com.simplebeacons.BeaconsRegistry;
 import com.simplebeacons.SimpleBeacons;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -65,6 +67,8 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
     int primaryAmp;
     private @Nullable Component name;
     private LockCode lockKey = LockCode.NO_LOCK;
+    /** Placer or upgrader (F7): the Evil kinds spare players in claims this player may not be in ({@link EvilGate}); null for blocks of older worlds. */
+    private @Nullable UUID owner;
     private final ContainerData dataAccess = new ContainerData() {
         @Override
         public int get(int dataId) {
@@ -168,7 +172,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
                 entity.rangePercent = RangeFactor.strongPercent(level, pos, entity.levels);
             }
             if (entity.levels > 0 && !entity.beamSections.isEmpty()) {
-                StrongBeaconLogic.applyEffects(level, pos, entity.kind(), entity.levels, entity.primaryPower, entity.primaryAmp, entity.secondaryPower, entity.rangePercent);
+                StrongBeaconLogic.applyEffects(level, pos, entity.kind(), entity.levels, entity.primaryPower, entity.primaryAmp, entity.secondaryPower, entity.rangePercent, entity.owner);
                 playSound(level, pos, SoundEvents.BEACON_AMBIENT);
             }
         }
@@ -246,7 +250,19 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return this.saveCustomOnly(registries);
+        CompoundTag tag = this.saveCustomOnly(registries);
+        tag.remove("owner"); // the client has no use for it
+        return tag;
+    }
+
+    /** Who placed or upgraded this beacon, or null (older blocks, dispensers, commands). */
+    public @Nullable UUID owner() {
+        return this.owner;
+    }
+
+    public void setOwner(@Nullable UUID owner) {
+        this.owner = owner;
+        setChanged();
     }
 
     private static void storeEffect(ValueOutput output, String field, @Nullable Holder<MobEffect> effect) {
@@ -269,6 +285,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         this.levels = Math.min(input.getIntOr("Levels", 0), StrongBeaconLogic.maxLevels(kind()));
         this.name = parseCustomNameSafe(input, "CustomName");
         this.lockKey = LockCode.fromTag(input);
+        this.owner = input.read("owner", UUIDUtil.CODEC).orElse(null);
     }
 
     @Override
@@ -280,6 +297,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         output.putInt("Levels", this.levels);
         output.storeNullable("CustomName", ComponentSerialization.CODEC, this.name);
         this.lockKey.addToTag(output);
+        output.storeNullable("owner", UUIDUtil.CODEC, this.owner);
     }
 
     public void setCustomName(@Nullable Component name) {
@@ -328,6 +346,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
     public void removeComponentsFromTag(ValueOutput output) {
         output.discard("CustomName");
         output.discard("lock");
+        output.discard("owner"); // an item (pick block) never carries the owner on to the next placer
     }
 
     @Override

@@ -44,6 +44,8 @@ public class DinoEggBlockEntity extends BlockEntity {
     /** A single step never credits more than this many ticks (a long sleep of the chunk gives no free progress). */
     public static final int MAX_STEP = 40;
     public static final int CRACK_THIRD = 25, CRACK_SECOND = 55, CRACK_FIRST = 85;
+    /** A player must be this close (blocks) for the egg to hatch. */
+    public static final double HATCH_RADIUS = 16.0;
 
     private final Progress progress = new Progress(GRACE);
     private long lastStep;
@@ -209,13 +211,20 @@ public class DinoEggBlockEntity extends BlockEntity {
         if (now >= hatchAt) hatch(level);
     }
 
-    /** Hatches now if a player is near (the owner if online, else the nearest player within 16 blocks). Returns true when it hatched. */
+    /**
+     * Hatches now if the right player is near. With {@code hatchWaitsForOwner} (default) and a known owner that is only the
+     * owner: online, in this dimension, within {@link #HATCH_RADIUS} blocks - until then the egg stays brooded and keeps cracking.
+     * Otherwise (option off, or nobody is known as owner) the owner if online, else the nearest player within 16 blocks.
+     * Returns true when it hatched.
+     */
     public boolean hatch(ServerLevel level) {
         EntityType<?> type = kind().entity();
         if (type == null) return false; // this kind has no dinosaur yet: the egg stays as it is
         ServerPlayer player = owner == null ? null : level.getServer().getPlayerList().getPlayer(owner);
-        if (player == null) {
-            Player near = level.getNearestPlayer(this.worldPosition.getX() + 0.5, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5, 16.0, false);
+        if (owner != null && DinosConfig.hatchWaitsForOwner) {
+            if (player == null || !ownerIsHere(level, player)) return false;
+        } else if (player == null) {
+            Player near = level.getNearestPlayer(this.worldPosition.getX() + 0.5, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5, HATCH_RADIUS, false);
             if (near instanceof ServerPlayer sp) player = sp;
         }
         if (player == null) return false;
@@ -230,6 +239,12 @@ public class DinoEggBlockEntity extends BlockEntity {
         level.playSound(null, pos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 1.0F, 0.6F);
         level.sendParticles(ParticleTypes.POOF, pos.getX() + 0.5, pos.getY() + 0.4, pos.getZ() + 0.5, 12, 0.3, 0.3, 0.3, 0.02);
         return true;
+    }
+
+    /** The owner is in the egg's dimension and within {@link #HATCH_RADIUS} blocks. */
+    private boolean ownerIsHere(ServerLevel level, ServerPlayer owner) {
+        return owner.level().dimension() == level.dimension()
+                && owner.distanceToSqr(this.worldPosition.getX() + 0.5, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5) <= HATCH_RADIUS * HATCH_RADIUS;
     }
 
     // ------------------------------------------------------------------------------------------------ storage

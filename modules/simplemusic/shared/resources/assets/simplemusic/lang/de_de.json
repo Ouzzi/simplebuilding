@@ -82,6 +82,7 @@
   "simplemusic.burn.sending": "Sende ... %s %%",
   "simplemusic.burn.burn": "Hochladen",
   "simplemusic.burn.rights": "Nur eigene oder freie Musik hochladen.",
+  "simplemusic.burn.draft": "Der Entwurf auf diesem Blatt wird ersetzt.",
   "simplemusic.upload.accepted": "Hochgeladen (%s); in der Plattenpresse auf eine Platte pressen",
   "simplemusic.upload.pending": "Hochgeladen (%s); andere hören sie, sobald ein Operator sie freigibt",
   "simplemusic.upload.error.empty": "Die Datei ist leer",

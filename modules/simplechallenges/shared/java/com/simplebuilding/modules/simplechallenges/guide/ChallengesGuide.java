@@ -19,7 +19,7 @@ import net.minecraft.network.chat.Component;
  */
 public final class ChallengesGuide {
     public static final String NAMESPACE = "simplechallenges";
-    public static final int PAGES = 66;
+    public static final int PAGES = 67;
 
     private ChallengesGuide() {
     }

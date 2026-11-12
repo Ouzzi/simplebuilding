@@ -11,6 +11,9 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityLevelChangeEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -18,6 +21,7 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
+import com.simplebuilding.modules.simplechallenges.core.Enforcement;
 import net.minecraft.world.InteractionResult;
 
 /** Fabric entry: config, the sync payloads, the commands and the lifecycle hooks of the challenge (all inert until a challenge is chosen). */
@@ -44,6 +48,10 @@ public final class ChallengeFabric implements ModInitializer {
         ServerChunkEvents.CHUNK_GENERATE.register(SkylineService::chunkGenerated);
         AttackBlockCallback.EVENT.register((player, level, hand, pos, direction) -> SkylineService.attack(player, level, pos) ? InteractionResult.SUCCESS : InteractionResult.PASS);
         ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((player, origin, destination) -> SkylineService.arrived(player, destination));
+        // Locked cells cannot be used or attacked across the border (survival; creative per exemptCreative; option lockedCellsBlockUse, server decides)
+        UseBlockCallback.EVENT.register((player, level, hand, hit) -> Enforcement.refusesUse(player, level, hit.getBlockPos()) ? InteractionResult.FAIL : InteractionResult.PASS);
+        UseEntityCallback.EVENT.register((player, level, hand, entity, hit) -> Enforcement.refusesUse(player, level, entity.blockPosition()) ? InteractionResult.FAIL : InteractionResult.PASS);
+        AttackEntityCallback.EVENT.register((player, level, hand, entity, hit) -> Enforcement.refusesUse(player, level, entity.blockPosition()) ? InteractionResult.FAIL : InteractionResult.PASS);
         // Lucky Block / Random Drops: a broken block drops another block (inert unless the running challenge has the mode)
         PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> LuckyService.beforeBreak(level, player, pos, state));
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> ChallengeService.join(handler.player));

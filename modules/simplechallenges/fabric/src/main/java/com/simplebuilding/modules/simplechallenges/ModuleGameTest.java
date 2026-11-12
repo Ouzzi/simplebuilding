@@ -67,6 +67,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void lockedCellRefusesUse(GameTestHelper h) {
+        ChallengeTests.ALL.get("locked_cell_refuses_use").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
     public void unlockPayAndCredits(GameTestHelper h) {
         ChallengeTests.ALL.get("unlock_pay_and_credits").accept(h);
     }

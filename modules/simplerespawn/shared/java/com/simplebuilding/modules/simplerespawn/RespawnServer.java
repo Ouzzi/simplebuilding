@@ -43,9 +43,18 @@ public final class RespawnServer {
     static final Identifier JUMP_ID = SimpleRespawn.id("downed_jump");
     public static final Identifier FIRST_AID = SimpleRespawn.id("first_aid");
 
+    /** A further knock-down within 5 minutes (server ticks) counts as a repeat (AUDSB31E2 F2). */
+    static final int REPEAT_WINDOW_TICKS = 5 * 60 * 20;
+    /** The bleed-out time never drops below this many seconds because of repeats (or {@code bleedOutSeconds}, if smaller). */
+    static final int REPEAT_FLOOR_SECONDS = 15;
+
     private static final Map<UUID, Downed> DOWNED = new ConcurrentHashMap<>();
-    private static int ticks;
+    /** Knock-downs of a player within the window and the tick of the last one; gone after 5 minutes and with the real death. */
+    private static final Map<UUID, Repeat> REPEATS = new ConcurrentHashMap<>();
+    static int ticks;
     private static boolean listDirty;
+
+    private record Repeat(int count, int lastTick) {}
 
     /** State of one downed player; the revive fields belong to the helper currently holding right-click. */
     public static final class Downed {
@@ -80,6 +89,7 @@ public final class RespawnServer {
     /** Forgets everything (server stop). */
     public static void reset() {
         DOWNED.clear();
+        REPEATS.clear();
         ticks = 0;
     }
 
@@ -89,12 +99,31 @@ public final class RespawnServer {
     }
 
     /**
-     * Could {@code other} revive {@code player}? Not the player, not a spectator and in the same dimension: a revive
-     * needs the helper in the same level within reach ({@link #helperStillHelping}), so someone in another dimension
-     * cannot help in the bleed-out time and must not keep the player from the Vanilla death (audit simplerespawn-P2-1).
+     * Could {@code other} revive {@code player}? Not the player, not a spectator, in the same dimension and, unless
+     * {@code helperMaxDistance} is 0, within that many blocks: a revive needs the helper in the same level within reach
+     * ({@link #helperStillHelping}), so someone in another dimension or far away cannot help in the bleed-out time and
+     * must not keep the player from the Vanilla death (audit simplerespawn-P2-1/P2-2, AUDSB31E2 F1).
      */
     static boolean couldHelp(ServerPlayer player, ServerPlayer other) {
-        return other != player && !other.isSpectator() && other.level() == player.level();
+        if (other == player || other.isSpectator() || other.level() != player.level()) return false;
+        int max = RespawnConfig.helperMaxDistance;
+        return max <= 0 || other.distanceToSqr(player) <= (double) max * max;
+    }
+
+    /** Bleed-out ticks for a knock-down that is the {@code repeats}-th repeat: {@code penalty} seconds less each, never below the floor. */
+    static int bleedTicks(int baseSeconds, int penaltySeconds, int repeats) {
+        long seconds = baseSeconds - (long) Math.max(0, penaltySeconds) * Math.max(0, repeats);
+        return (int) Math.max(Math.min(REPEAT_FLOOR_SECONDS, baseSeconds), seconds) * 20;
+    }
+
+    /** Knock-downs of the player within the last 5 minutes (as of tick {@code now}). */
+    static int repeatsOf(UUID id, int now) {
+        Repeat r = REPEATS.get(id);
+        return r == null || now - r.lastTick() > REPEAT_WINDOW_TICKS ? 0 : r.count();
+    }
+
+    static int repeatsOf(UUID id) {
+        return repeatsOf(id, ticks);
     }
 
     static int otherPlayers(ServerPlayer player) {
@@ -120,13 +149,17 @@ public final class RespawnServer {
             downed.ticksLeft -= ticksLost(damage, RespawnConfig.secondsLostPerDamage);
             if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) || downed.ticksLeft <= 0) {
                 clear(player);
+                REPEATS.remove(player.getUUID());
                 return false;
             }
             player.setHealth(1f);
             sendState(player, downed);
             return true;
         }
-        if (!canKnockDown(player, source)) return false;
+        if (!canKnockDown(player, source)) {
+            REPEATS.remove(player.getUUID());
+            return false;
+        }
         knockDown(player, source);
         return true;
     }
@@ -138,7 +171,9 @@ public final class RespawnServer {
 
     /** Puts the player into the downed state (also the op command and the tests). */
     public static void knockDown(ServerPlayer player, DamageSource source) {
-        Downed downed = new Downed(RespawnConfig.bleedOutSeconds * 20, source);
+        int repeats = repeatsOf(player.getUUID());
+        REPEATS.put(player.getUUID(), new Repeat(repeats + 1, ticks));
+        Downed downed = new Downed(bleedTicks(RespawnConfig.bleedOutSeconds, RespawnConfig.repeatPenaltySeconds, repeats), source);
         DOWNED.put(player.getUUID(), downed);
         player.setHealth(1f);
         player.stopUsingItem();
@@ -215,6 +250,7 @@ public final class RespawnServer {
             }
         }
         if (ticks % 20 == 0) {
+            REPEATS.values().removeIf(r -> ticks - r.lastTick() > REPEAT_WINDOW_TICKS);
             for (ServerPlayer player : new ArrayList<>(server.getPlayerList().getPlayers())) {
                 // Downed when the server went away without a logout (crash): the items must not survive that.
                 if (player.entityTags().contains(TAG) && !isDowned(player) && player.isAlive()) die(player, player.damageSources().generic());
@@ -271,6 +307,7 @@ public final class RespawnServer {
 
     public static void die(ServerPlayer player, DamageSource source) {
         clear(player);
+        REPEATS.remove(player.getUUID());
         // The combat log forgets a hit after a few seconds; the death message should still name the original cause.
         player.getCombatTracker().recordDamage(source, 0f);
         player.setHealth(0f);

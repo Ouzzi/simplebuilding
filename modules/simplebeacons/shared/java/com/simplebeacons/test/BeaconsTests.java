@@ -14,6 +14,7 @@ import com.simplebeacons.conduit.StrongConduitBlockEntity;
 import com.simplebeacons.conduit.StrongConduitLogic;
 import com.simplebeacons.config.BeaconsConfig;
 import com.simplebeacons.upgrade.StrongUpgrades;
+import com.simplebuilding.framework.api.Protection;
 import com.simplelib.api.InWorldStrikes;
 import com.simplelib.api.InWorldUpgrades;
 import com.simplelib.api.SimpleLibApi;
@@ -22,6 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -780,6 +782,117 @@ ALL.put("config_command", h -> {
             com.simplelib.api.HarmShields.unregister("conduits-test");
             StrongConduitLogic.applyEffects(h.getLevel(), center, 66, com.simplebeacons.conduit.ConduitKind.MIGHTY);
             h.assertTrue(swimmer.hasEffect(MobEffects.CONDUIT_POWER) && swimmer.hasEffect(MobEffects.NIGHT_VISION), "Mighty Conduit: Conduit Power + Night Vision");
+            h.succeed();
+        });
+        ALL.put("evil_spares_foreign_claims", h -> {
+            // F7 (AUDSB31E2, 12.11.): the Evil beacons and conduits do not reach players in claims their owner has no right in. The test
+            // provider claims the area around the beacon for "holder"; no provider, free land, the holder as owner and the switch off still reach.
+            BeaconsConfig.reset();
+            JsonObject json = new JsonObject();
+            json.addProperty("strongBeaconRangeBase", 0);
+            json.addProperty("strongBeaconRangePerLevel", 1);
+            json.addProperty("evilBeaconGraceMinutes", 0);
+            BeaconsConfig.apply(json);
+            water(h);
+            BlockPos center = h.absolutePos(CENTER);
+            var server = h.getLevel().getServer();
+            String dimension = h.getLevel().dimension().identifier().toString();
+            UUID holder = UUID.randomUUID(), stranger = UUID.randomUUID();
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> {
+                server.getPlayerList().remove(player);
+                Protection.unregister(server, "e2ans-test");
+                com.simplelib.api.HarmShields.unregister("beacons-test");
+                BeaconsConfig.reset();
+            });
+            player.snapTo(center.getX() + 0.5, center.getY() - 1.0, center.getZ() + 0.5);
+            player.baseTick();
+            h.assertTrue(player.isInWater() && EvilGate.affects(player), "the player is in the water and passes the old rules (grace 0)");
+            // without a claims provider nothing is foreign (the registry may hold others of the test world: free land is allowed)
+            h.assertTrue(EvilGate.affects(player, stranger) && EvilGate.affects(player, null), "no claim here: reached, owner known or not");
+            Protection.register(server, "e2ans-test", t -> !dimension.equals(t.dimension()) || Math.abs(t.x() - center.getX()) > 12
+                    || Math.abs(t.z() - center.getZ()) > 12 || Math.abs(t.y() - center.getY()) > 12 || holder.equals(t.actor()));
+            h.assertTrue(!EvilGate.affects(player, stranger), "a claim of somebody else: spared");
+            h.assertTrue(!EvilGate.affects(player, null), "an unknown owner (block of an older world): every claim is foreign");
+            h.assertTrue(EvilGate.affects(player, holder), "the claim's own holder as owner: reached");
+            h.assertTrue(EvilGate.affects(player), "the rules without claims are unchanged");
+            // the beacons and conduits ask the gate with their owner
+            for (BeaconKind kind : List.of(BeaconKind.EVIL, BeaconKind.MIGHTY_EVIL)) {
+                int levels = kind.mighty() ? 6 : 5;
+                h.assertTrue(StrongBeaconLogic.applyEffects(h.getLevel(), center, kind, levels, MobEffects.SLOWNESS, 0, null, RangeFactor.NONE, stranger).isEmpty()
+                        && !player.hasEffect(MobEffects.SLOWNESS), kind + ": a foreign claim is spared");
+                h.assertTrue(StrongBeaconLogic.applyEffects(h.getLevel(), center, kind, levels, MobEffects.SLOWNESS, 0, null, RangeFactor.NONE, null).isEmpty()
+                        && !player.hasEffect(MobEffects.SLOWNESS), kind + ": no owner, claim spared");
+                h.assertTrue(StrongBeaconLogic.applyEffects(h.getLevel(), center, kind, levels, MobEffects.SLOWNESS, 0, null, RangeFactor.NONE, holder).contains(player)
+                        && player.hasEffect(MobEffects.SLOWNESS), kind + ": the owner's own claim is reached");
+                player.removeAllEffects();
+            }
+            h.assertTrue(!StrongBeaconLogic.applyEffects(h.getLevel(), center, BeaconKind.STRONG, 5, MobEffects.SPEED, 0, null, RangeFactor.NONE, stranger).isEmpty()
+                    && player.hasEffect(MobEffects.SPEED), "a Strong Beacon helps in every claim");
+            player.removeAllEffects();
+            for (com.simplebeacons.conduit.ConduitKind kind : List.of(com.simplebeacons.conduit.ConduitKind.EVIL, com.simplebeacons.conduit.ConduitKind.MIGHTY_EVIL)) {
+                int frame = kind.mighty() ? 90 : 66;
+                h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, stranger).isEmpty() && !player.hasEffect(MobEffects.MINING_FATIGUE),
+                        kind + ": a foreign claim is spared");
+                h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, null).isEmpty() && !player.hasEffect(MobEffects.MINING_FATIGUE),
+                        kind + ": no owner, claim spared");
+                h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, holder).contains(player) && player.hasEffect(MobEffects.MINING_FATIGUE),
+                        kind + ": the owner's own claim is reached");
+                player.removeAllEffects();
+            }
+            h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, 66, com.simplebeacons.conduit.ConduitKind.MIGHTY, stranger).contains(player),
+                    "a Mighty Conduit helps in every claim");
+            player.removeAllEffects();
+            // the switch off: everybody is reached again
+            JsonObject off = new JsonObject();
+            off.addProperty("evilSparesForeignClaims", false);
+            off.addProperty("evilBeaconGraceMinutes", 0);
+            BeaconsConfig.apply(off);
+            h.assertTrue(EvilGate.affects(player, stranger) && EvilGate.affects(player, null), "evilSparesForeignClaims off: reached in every claim");
+            h.assertTrue(!StrongConduitLogic.applyEffects(h.getLevel(), center, 66, com.simplebeacons.conduit.ConduitKind.EVIL, stranger).isEmpty(), "switch off: the Evil Conduit reaches");
+            player.removeAllEffects();
+            BeaconsConfig.apply(json);
+            h.assertTrue(BeaconsConfig.evilSparesForeignClaims, "default / missing key: on");
+            // protection of the old rules still wins in the owner's claim
+            com.simplelib.api.HarmShields.register("beacons-test", p -> p == player);
+            h.assertTrue(!EvilGate.affects(player, holder), "a protected player is spared in the owner's claim too");
+            com.simplelib.api.HarmShields.unregister("beacons-test");
+            h.succeed();
+        });
+        ALL.put("evil_owner_kept", h -> {
+            // F7: the placer / upgrader is the owner; the owner is saved, survives the in-world swap and never goes to the client or an item
+            BeaconsConfig.reset();
+            ServerPlayer player = upgrader(h, true);
+            BlockPos pos = h.absolutePos(CENTER);
+            var access = h.getLevel().registryAccess();
+            h.setBlock(CENTER, BeaconsRegistry.STRONG_BEACON);
+            StrongBeaconBlockEntity beacon = h.getBlockEntity(CENTER, StrongBeaconBlockEntity.class);
+            h.assertTrue(beacon.owner() == null, "a block set without a placer has no owner");
+            BeaconsRegistry.STRONG_BEACON.setPlacedBy(h.getLevel(), pos, h.getBlockState(CENTER), null, ItemStack.EMPTY);
+            h.assertTrue(beacon.owner() == null, "no placer: no owner");
+            BeaconsRegistry.STRONG_BEACON.setPlacedBy(h.getLevel(), pos, h.getBlockState(CENTER), player, ItemStack.EMPTY);
+            h.assertTrue(player.getUUID().equals(beacon.owner()), "the placing player owns the beacon");
+            h.assertTrue(beacon.saveCustomOnly(access).contains("owner") && !beacon.getUpdateTag(access).contains("owner"), "saved to disk, not sent to the client");
+            StrongUpgrades.upgrade(h.getLevel(), pos, BeaconsRegistry.EVIL_BEACON);
+            h.assertTrue(h.getBlockState(CENTER).is(BeaconsRegistry.EVIL_BEACON)
+                    && player.getUUID().equals(h.getBlockEntity(CENTER, StrongBeaconBlockEntity.class).owner()), "the swap keeps the owner");
+            h.setBlock(CENTER, BeaconsRegistry.EVIL_CONDUIT);
+            StrongConduitBlockEntity conduit = h.getBlockEntity(CENTER, StrongConduitBlockEntity.class);
+            h.assertTrue(conduit.owner() == null, "a conduit set without a placer has no owner");
+            BeaconsRegistry.EVIL_CONDUIT.setPlacedBy(h.getLevel(), pos, h.getBlockState(CENTER), player, ItemStack.EMPTY);
+            h.assertTrue(player.getUUID().equals(conduit.owner()) && conduit.saveCustomOnly(access).contains("owner") && !conduit.getUpdateTag(access).contains("owner"),
+                    "the placing player owns the conduit, saved but not sent");
+            StrongUpgrades.upgrade(h.getLevel(), pos, BeaconsRegistry.MIGHTY_EVIL_CONDUIT);
+            h.assertTrue(player.getUUID().equals(h.getBlockEntity(CENTER, StrongConduitBlockEntity.class).owner()), "the swap keeps the conduit's owner");
+            // a Vanilla beacon struck up by a player: the last strike makes that player the owner
+            h.setBlock(CENTER, Blocks.BEACON);
+            player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(BeaconsRegistry.EVIL_UPGRADE_TEMPLATE));
+            for (int i = 0; i < BeaconsConfig.upgradeStrikes; i++) {
+                StrongUpgrades.strike(h.getLevel(), pos, player, InteractionHand.MAIN_HAND);
+                InWorldStrikes.allowNextStrike(h.getLevel(), pos);
+            }
+            h.assertTrue(h.getBlockState(CENTER).is(BeaconsRegistry.EVIL_BEACON)
+                    && player.getUUID().equals(h.getBlockEntity(CENTER, StrongBeaconBlockEntity.class).owner()), "the upgrader owns the Evil Beacon");
             h.succeed();
         });
         ALL.put("range_factor_by_material", h -> {

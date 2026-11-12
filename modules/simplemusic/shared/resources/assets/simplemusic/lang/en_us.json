@@ -82,6 +82,7 @@
   "simplemusic.burn.sending": "Sending... %s%%",
   "simplemusic.burn.burn": "Upload",
   "simplemusic.burn.rights": "Only upload your own or free music.",
+  "simplemusic.burn.draft": "The draft on this sheet will be replaced.",
   "simplemusic.upload.accepted": "Uploaded (%s); press it onto a disc in the disc press",
   "simplemusic.upload.pending": "Uploaded (%s); others hear it after an operator approves it",
   "simplemusic.upload.error.empty": "The file is empty",

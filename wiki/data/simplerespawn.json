@@ -32,7 +32,9 @@
           "A totem of undying still works first; the void, /kill and other damage that bypasses invulnerability kill at once. Creative and spectator players are never downed.",
           "A downed player lies on the ground (swimming pose) at 1 health, crawls at half the sneaking speed (crawlSpeed 0.5), cannot jump, attack, mine, use, place, drop or swap items; the server refuses those packets too.",
           "The bleed-out time is 60 seconds (bleedOutSeconds). Every point of damage taken while downed costs one second (secondsLostPerDamage); when the time is up the player dies.",
-          "Monsters do not target or chase a downed player (mobsIgnoreDowned). Everyone reads in chat who is down (announce)."
+          "Monsters do not target or chase a downed player (mobsIgnoreDowned). Everyone reads in chat who is down (announce).",
+          "Only a mate in the same dimension and within 128 blocks counts as a possible helper (helperMaxDistance, 0 = no limit); without one a lethal hit is the Vanilla death.",
+          "Knocked down again within 5 minutes, the bleed-out time is 15 seconds shorter each time (repeatPenaltySeconds, 0 = off), but never below 15 seconds. The counter lapses after 5 minutes without a knock-down and with the real death; a revive does not reset it."
         ]
       },
       "de": {
@@ -42,7 +44,9 @@
           "Ein Totem der Unsterblichkeit wirkt weiterhin zuerst; Leere, /kill und anderer Schaden, der Unverwundbarkeit umgeht, töten sofort. Kreativ- und Zuschauer-Spieler werden nie niedergeschlagen.",
           "Ein Niedergeschlagener liegt am Boden (Schwimm-Pose) mit 1 Leben, kriecht mit halbem Schleichtempo (crawlSpeed 0,5), kann nicht springen, angreifen, abbauen, benutzen, setzen, wegwerfen oder Hände tauschen; der Server verweigert diese Pakete auch.",
           "Die Ausblutzeit beträgt 60 Sekunden (bleedOutSeconds). Jeder Schadenspunkt im Zustand kostet eine Sekunde (secondsLostPerDamage); ist die Zeit um, stirbt der Spieler.",
-          "Monster greifen Niedergeschlagene nicht an und verfolgen sie nicht (mobsIgnoreDowned). Alle lesen im Chat, wer niedergeschlagen ist (announce)."
+          "Monster greifen Niedergeschlagene nicht an und verfolgen sie nicht (mobsIgnoreDowned). Alle lesen im Chat, wer niedergeschlagen ist (announce).",
+          "Nur ein Mitspieler in derselben Dimension und höchstens 128 Blöcke entfernt zählt als möglicher Helfer (helperMaxDistance, 0 = keine Grenze); ohne einen ist ein tödlicher Treffer der Vanilla-Tod.",
+          "Wer binnen 5 Minuten erneut niedergeschlagen wird, blutet jedes Mal 15 Sekunden kürzer aus (repeatPenaltySeconds, 0 = aus), aber nie unter 15 Sekunden. Der Zähler verfällt nach 5 Minuten ohne Niederschlagen und mit dem echten Tod; ein Wiederbeleben setzt ihn nicht zurück."
         ]
       }
     },
@@ -163,7 +167,8 @@
         "summary": "Server file config/simplerespawn.json; with SimpleBuilding the module is also switched by \"Enable Simple Respawn\".",
         "details": [
           "enabled, onlyWithOtherPlayers, bleedOutSeconds 60, secondsLostPerDamage 1, crawlSpeed 0.5, mobsIgnoreDowned, announce.",
-          "reviveSeconds 5, reviveRange 3, reviveHealth 6, reviveFood 0, reviveResistanceSeconds 3, reviveWeaknessSeconds 0."
+          "reviveSeconds 5, reviveRange 3, reviveHealth 6, reviveFood 0, reviveResistanceSeconds 3, reviveWeaknessSeconds 0.",
+          "helperMaxDistance 128 (0 = no limit), repeatPenaltySeconds 15 (0 = off)."
         ]
       },
       "de": {
@@ -171,7 +176,8 @@
         "summary": "Server-Datei config/simplerespawn.json; mit SimpleBuilding schaltet zusätzlich \"Simple Respawn aktivieren\" das Modul.",
         "details": [
           "enabled, onlyWithOtherPlayers, bleedOutSeconds 60, secondsLostPerDamage 1, crawlSpeed 0,5, mobsIgnoreDowned, announce.",
-          "reviveSeconds 5, reviveRange 3, reviveHealth 6, reviveFood 0, reviveResistanceSeconds 3, reviveWeaknessSeconds 0."
+          "reviveSeconds 5, reviveRange 3, reviveHealth 6, reviveFood 0, reviveResistanceSeconds 3, reviveWeaknessSeconds 0.",
+          "helperMaxDistance 128 (0 = keine Grenze), repeatPenaltySeconds 15 (0 = aus)."
         ]
       }
     }
@@ -368,6 +374,28 @@
       "tooltipDe": "Schaltet Simple Respawn ein oder aus. Aus: tödlicher Schaden tötet wie in Vanilla."
     },
     {
+      "range": [
+        0,
+        4096
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/RespawnConfig.java",
+      "name": "helperMaxDistance",
+      "shortName": "helperMaxDistance",
+      "type": "int",
+      "default": "128",
+      "note": null,
+      "category": "Simple Respawn",
+      "categoryDe": "Simple Respawn",
+      "group": null,
+      "groupDe": null,
+      "label": "Helper distance",
+      "labelDe": "Helfer-Entfernung",
+      "tooltip": "Highest distance in blocks at which another player still counts as a possible helper (0-4096, default 128; 0 = no limit). Without a helper in reach a lethal hit is the normal death. Players in other dimensions never count.",
+      "tooltipDe": "Größter Abstand in Blöcken, bis zu dem ein anderer Spieler noch als möglicher Helfer zählt (0-4096, Standard 128; 0 = keine Grenze). Ohne Helfer in Reichweite ist ein tödlicher Treffer der normale Tod. Spieler in anderen Dimensionen zählen nie."
+    },
+    {
       "range": null,
       "side": "server",
       "reload": null,
@@ -404,6 +432,28 @@
       "labelDe": "Nur mit Mitspielern",
       "tooltip": "On: knocked down only while another player is online who could help. Off: always (also alone).",
       "tooltipDe": "An: nur niedergeschlagen, solange ein anderer Spieler online ist, der helfen kann. Aus: immer (auch allein)."
+    },
+    {
+      "range": [
+        0,
+        120
+      ],
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/RespawnConfig.java",
+      "name": "repeatPenaltySeconds",
+      "shortName": "repeatPenaltySeconds",
+      "type": "int",
+      "default": "15",
+      "note": null,
+      "category": "Simple Respawn",
+      "categoryDe": "Simple Respawn",
+      "group": null,
+      "groupDe": null,
+      "label": "Repeat knock-down penalty",
+      "labelDe": "Abzug bei erneutem Niederschlagen",
+      "tooltip": "Seconds the bleed-out time shrinks for each further knock-down within 5 minutes (0-120, default 15; 0 = off). It never drops below 15 seconds. The count lapses after 5 minutes without a knock-down and with a real death; a revive does not reset it.",
+      "tooltipDe": "Sekunden, um die die Ausblutzeit bei jedem weiteren Niederschlagen binnen 5 Minuten sinkt (0-120, Standard 15; 0 = aus). Sie sinkt nie unter 15 Sekunden. Der Zähler verfällt nach 5 Minuten ohne Niederschlagen und mit einem echten Tod; ein Wiederbeleben setzt ihn nicht zurück."
     },
     {
       "range": [
@@ -581,7 +631,7 @@
     "items": 1,
     "blocks": 0,
     "trades": 0,
-    "config": 13,
+    "config": 15,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

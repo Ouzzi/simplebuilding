@@ -43,6 +43,8 @@
   "block.simplebeacons.mighty_conduit": "Mighty Conduit",
   "block.simplebeacons.evil_conduit": "Evil Conduit",
   "block.simplebeacons.mighty_evil_conduit": "Mighty Evil Conduit",
+  "text.autoconfig.simplebeacons.option.evilSparesForeignClaims": "Spare foreign claims",
+  "text.autoconfig.simplebeacons.option.evilSparesForeignClaims.@Tooltip": "On: Evil Beacons and Evil Conduits do not reach players standing in a claim that the beacon's owner (who placed or upgraded it) has no right in. Land that is free and the claims of the owner and the owner's team are still reached. Blocks of older worlds have no owner, so they spare every claim. Needs a claims mod such as Simple Tweaks. Off: they reach everybody. Default on.",
   "item.simplebeacons.guide_book": "Simple Beacons Guide",
   "simplebeacons.guide.chapter": "Simple Beacons",
   "simplebeacons.guide.page.1.title": "Simple Beacons",

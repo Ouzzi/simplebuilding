@@ -39,15 +39,16 @@
         "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/unlock/UnlockGrid.java",
         "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/Enforcement.java",
         "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/mixin/EntityCollideMixin.java",
-        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/mixin/LevelSetBlockMixin.java"
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/mixin/LevelSetBlockMixin.java",
+        "modules/simplechallenges/fabric/src/main/java/com/simplebuilding/modules/simplechallenges/ChallengeFabric.java"
       ],
       "en": {
         "title": "Unlock grid",
-        "summary": "The Overworld is cut into square columns of 1, 2, 4, 8, 16 (a chunk), 32 or 48 blocks (three chunks) over the full height. Only free cells can be entered: every entity, players, mobs, items, vehicles and projectiles, stops at a locked cell like at a wall, without a border entity or rubber banding, and slides along it. Blocks in locked cells cannot be changed (players, pistons, fluids, growth, explosions). Anyone found inside a locked cell (teleport, ender pearl, respawn, spawn) is brought to the nearest free cell. Creative and spectator players may pass if exemptCreative is on."
+        "summary": "The Overworld is cut into square columns of 1, 2, 4, 8, 16 (a chunk), 32 or 48 blocks (three chunks) over the full height. Only free cells can be entered: every entity, players, mobs, items, vehicles and projectiles, stops at a locked cell like at a wall, without a border entity or rubber banding, and slides along it. Blocks in locked cells cannot be changed (players, pistons, fluids, growth, explosions). Anyone found inside a locked cell (teleport, ender pearl, respawn, spawn) is brought to the nearest free cell. Nothing in a locked cell can be used, opened or attacked either (blocks, chests, doors, levers, animals, villagers), not even from a free cell in reach across the border (server option lockedCellsBlockUse, on by default). Creative and spectator players may pass, use and attack if exemptCreative is on; they still cannot change blocks."
       },
       "de": {
         "title": "Freischalt-Raster",
-        "summary": "Die Oberwelt wird in quadratische Säulen von 1, 2, 4, 8, 16 (ein Chunk), 32 oder 48 Blöcken (drei Chunks) über die ganze Höhe zerlegt. Nur freie Zellen sind betretbar: Jede Entität, Spieler, Mobs, Items, Fahrzeuge und Projektile, stoppt an einer gesperrten Zelle wie an einer Wand, ohne Grenz-Entität und ohne Zurückruckeln, und gleitet an ihr entlang. Blöcke in gesperrten Zellen lassen sich nicht ändern (Spieler, Kolben, Flüssigkeiten, Wachstum, Explosionen). Wer in einer gesperrten Zelle gefunden wird (Teleport, Enderperle, Respawn, Spawn), kommt in die nächste freie Zelle. Kreativ- und Zuschauer-Spieler dürfen durch, wenn exemptCreative an ist."
+        "summary": "Die Oberwelt wird in quadratische Säulen von 1, 2, 4, 8, 16 (ein Chunk), 32 oder 48 Blöcken (drei Chunks) über die ganze Höhe zerlegt. Nur freie Zellen sind betretbar: Jede Entität, Spieler, Mobs, Items, Fahrzeuge und Projektile, stoppt an einer gesperrten Zelle wie an einer Wand, ohne Grenz-Entität und ohne Zurückruckeln, und gleitet an ihr entlang. Blöcke in gesperrten Zellen lassen sich nicht ändern (Spieler, Kolben, Flüssigkeiten, Wachstum, Explosionen). Wer in einer gesperrten Zelle gefunden wird (Teleport, Enderperle, Respawn, Spawn), kommt in die nächste freie Zelle. In einer gesperrten Zelle lässt sich auch nichts benutzen, öffnen oder angreifen (Blöcke, Truhen, Türen, Hebel, Tiere, Dorfbewohner), nicht einmal aus einer freien Zelle in Reichweite über die Grenze hinweg (Server-Option lockedCellsBlockUse, standardmäßig an). Kreativ- und Zuschauer-Spieler dürfen durch sowie benutzen und angreifen, wenn exemptCreative an ist; Blöcke ändern können sie trotzdem nicht."
       }
     },
     {
@@ -159,7 +160,8 @@
           "defaultChallenge (none): preset for a brand-new world.",
           "exemptCreative (true): creative and spectator pass the borders.",
           "pityEnabled (true): emergency unlock.",
-          "perPlayerCredits (false): every player has a pot of credits of their own."
+          "perPlayerCredits (false): every player has a pot of credits of their own.",
+          "lockedCellsBlockUse (true): nothing in a locked cell can be used, opened or attacked (creative per exemptCreative)."
         ]
       },
       "de": {
@@ -171,7 +173,8 @@
           "defaultChallenge (none): Preset für eine brandneue Welt.",
           "exemptCreative (true): Kreativ und Zuschauer passieren die Grenzen.",
           "pityEnabled (true): Notfall-Freischaltung.",
-          "perPlayerCredits (false): jeder Spieler hat einen eigenen Credit-Topf."
+          "perPlayerCredits (false): jeder Spieler hat einen eigenen Credit-Topf.",
+          "lockedCellsBlockUse (true): in einer gesperrten Zelle lässt sich nichts benutzen, öffnen oder angreifen (Kreativ je nach exemptCreative)."
         ]
       }
     },
@@ -407,6 +410,25 @@
       "side": "server",
       "reload": null,
       "source": "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/config/ChallengeServerConfig.java",
+      "name": "lockedCellsBlockUse",
+      "shortName": "lockedCellsBlockUse",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Challenges",
+      "categoryDe": "Simple Challenges",
+      "group": null,
+      "groupDe": null,
+      "label": "Locked cells cannot be used",
+      "labelDe": "Gesperrte Zellen nicht benutzbar",
+      "tooltip": "On: nothing in a locked cell can be opened, used or attacked, not even from a free cell in reach across the border. Creative and spectator players follow \"Creative ignores borders\".",
+      "tooltipDe": "An: In einer gesperrten Zelle lässt sich nichts öffnen, benutzen oder angreifen, auch nicht aus einer freien Zelle in Reichweite über die Grenze hinweg. Kreativ- und Zuschauer-Spieler folgen \"Kreativ ignoriert Grenzen\"."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/config/ChallengeServerConfig.java",
       "name": "perPlayerCredits",
       "shortName": "perPlayerCredits",
       "type": "boolean",
@@ -462,7 +484,7 @@
     "items": 0,
     "blocks": 0,
     "trades": 0,
-    "config": 6,
+    "config": 7,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

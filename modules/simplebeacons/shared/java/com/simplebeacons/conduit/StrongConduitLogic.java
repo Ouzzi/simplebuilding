@@ -4,6 +4,7 @@ import com.simplebeacons.beacon.EvilGate;
 import com.simplebeacons.config.BeaconsConfig;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -11,6 +12,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The rules of the Strong Conduit (concept §4): Vanilla's 5x5x5 frame (42 blocks) or the 7x7x7 frame (three 7x7
@@ -112,6 +114,11 @@ public final class StrongConduitLogic {
      * minutes after a death).
      */
     public static List<Player> applyEffects(Level level, BlockPos pos, int frameBlocks, ConduitKind kind) {
+        return applyEffects(level, pos, frameBlocks, kind, null);
+    }
+
+    /** {@link #applyEffects(Level, BlockPos, int, ConduitKind)} for a conduit placed or upgraded by {@code owner} (null: unknown; see {@link EvilGate}). */
+    public static List<Player> applyEffects(Level level, BlockPos pos, int frameBlocks, ConduitKind kind, @Nullable UUID owner) {
         int range = range(frameBlocks, kind);
         AABB box = new AABB(pos).inflate(range).expandTowards(0.0, level.getHeight(), 0.0);
         List<Player> reached = new ArrayList<>();
@@ -119,7 +126,7 @@ public final class StrongConduitLogic {
             if (!pos.closerThan(player.blockPosition(), range)) continue;
             boolean far = !pos.closerThan(player.blockPosition(), VANILLA_MAX_RANGE);
             boolean wet = kind.evil() || far ? player.isInWater() : player.isInWaterOrRain();
-            if (!wet || kind.evil() && !EvilGate.affects(player)) continue;
+            if (!wet || kind.evil() && !EvilGate.affects(player, owner)) continue;
             for (ConduitKind.Power power : kind.effects()) {
                 if (power.effect().equals(MobEffects.DOLPHINS_GRACE) && !player.isInWater()) continue;
                 player.addEffect(new MobEffectInstance(power.effect(), EFFECT_TICKS, power.amplifier(), true, true));

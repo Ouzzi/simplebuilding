@@ -26,8 +26,7 @@ public final class DimensionsForge {
             }
             return false;
         });
-        DimensionRuntime.claimIntegrationRequired = java.util.List.of("flan", "ftbchunks", "openpartiesandclaims", "griefdefender", "claimchunk")
-                .stream().anyMatch(net.minecraftforge.fml.ModList::isLoaded);
+        DimensionRuntime.foreignClaimMods(DimensionRuntime.FOREIGN_CLAIM_MODS.stream().filter(net.minecraftforge.fml.ModList::isLoaded).toList());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             if (event.getRegistryKey().equals(Registries.BLOCK)) DimensionRegistry.blocks();
             if (event.getRegistryKey().equals(Registries.ITEM)) DimensionRegistry.items();

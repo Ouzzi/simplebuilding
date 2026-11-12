@@ -13,6 +13,8 @@
   "simpledinos.testcentre.station": "Simple Dinosaurs",
   "simpledinos.egg.brooded": "This egg is already brooded. It hatches soon.",
   "simpledinos.egg.occupied": "Somebody is already sitting on this egg.",
+  "text.autoconfig.simpledinos.option.hatchWaitsForOwner": "Hatch waits for the owner",
+  "text.autoconfig.simpledinos.option.hatchWaitsForOwner.@Tooltip": "A brooded egg hatches only when its owner (the\nlongest sitter) is online, in the same dimension and\nwithin 16 blocks. Off: a player nearby gets the\nhatchling if the owner is offline. Default: true.",
   "itemgroup.simpledinos.dinos": "Simple Dinos",
   "item.simpledinos.guide_book": "Simple Dinosaurs Guide",
   "simpledinos.guide.chapter": "Simple Dinosaurs",

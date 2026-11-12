@@ -36,37 +36,7 @@ versionRange="[0,)"
 ordering="NONE"
 side="CLIENT"
 
-[[dependencies.simpledimensions]]
-modId="flan"
-type="optional"
-versionRange="[0,)"
-ordering="NONE"
-side="BOTH"
 
-[[dependencies.simpledimensions]]
-modId="ftbchunks"
-type="optional"
-versionRange="[0,)"
-ordering="NONE"
-side="BOTH"
 
-[[dependencies.simpledimensions]]
-modId="openpartiesandclaims"
-type="optional"
-versionRange="[0,)"
-ordering="NONE"
-side="BOTH"
 
-[[dependencies.simpledimensions]]
-modId="griefdefender"
-type="optional"
-versionRange="[0,)"
-ordering="NONE"
-side="BOTH"
 
-[[dependencies.simpledimensions]]
-modId="claimchunk"
-type="optional"
-versionRange="[0,)"
-ordering="NONE"
-side="BOTH"

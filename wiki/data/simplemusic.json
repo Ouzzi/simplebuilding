@@ -78,6 +78,7 @@
         "modules/simplemusic/shared/java/com/simplemusic/client/SheetMusicScreen.java",
         "modules/simplemusic/shared/java/com/simplemusic/client/SheetPreview.java",
         "modules/simplemusic/shared/java/com/simplemusic/client/BurnScreen.java",
+        "modules/simplemusic/shared/java/com/simplemusic/sheet/SheetMusicItem.java",
         "modules/simplelib/shared/java/com/simplelib/api/client/ui/UiCodeArea.java"
       ],
       "en": {
@@ -85,7 +86,8 @@
         "summary": "Coloured code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib). Listen plays the code on your client only.",
         "details": [
           "Buttons: Listen/Stop, Import, Add example (loads one of nine ready-made pieces, simple to complex, into the sheet and the grid; there are no single example items), Copy (code to the clipboard), Sign, Upload, Done. Closing saves the draft.",
-          "Upload opens the upload window: it lists the .ogg files in config/simplemusic/upload/; choose a file, give a title, Upload. The client checks the file first, then sends it in parts. Only upload your own or free music."
+          "Upload opens the upload window: it lists the .ogg files in config/simplemusic/upload/; choose a file, give a title, Upload. The client checks the file first, then sends it in parts. Only upload your own or free music.",
+          "A sheet that still holds an unsigned composition loses it to the track: the upload window warns with a line under the folder (\"The draft on this sheet will be replaced.\"). To keep the music, upload onto another blank sheet or copy the code first (Copy button)."
         ]
       },
       "de": {
@@ -93,7 +95,8 @@
         "summary": "Farbiges Codefeld mit Zeilennummern und unterstrichenen Fehlern (das Feld des Blaupausen-Editors, jetzt in SimpleLib). Probehören spielt den Code nur auf deinem Client.",
         "details": [
           "Knöpfe: Probehören/Stopp, Importieren, Beispiel hinzufügen (lädt eines von neun fertigen Stücken, einfach bis komplex, in Blatt und Raster; es gibt keine einzelnen Beispiel-Items), Kopieren (Code in die Zwischenablage), Signieren, Hochladen, Fertig. Schließen speichert den Entwurf.",
-          "Hochladen öffnet das Upload-Fenster mit den .ogg-Dateien aus config/simplemusic/upload/; Datei wählen, Titel geben, Hochladen. Der Client prüft die Datei zuerst und schickt sie dann in Stücken. Nur eigene oder freie Musik hochladen."
+          "Hochladen öffnet das Upload-Fenster mit den .ogg-Dateien aus config/simplemusic/upload/; Datei wählen, Titel geben, Hochladen. Der Client prüft die Datei zuerst und schickt sie dann in Stücken. Nur eigene oder freie Musik hochladen.",
+          "Ein Blatt mit unsignierter Komposition verliert sie an den Titel: das Upload-Fenster warnt mit einer Zeile unter dem Ordner (\"Der Entwurf auf diesem Blatt wird ersetzt.\"). Wer die Musik behalten will, lädt auf ein anderes leeres Blatt hoch oder kopiert vorher den Code (Knopf Kopieren)."
         ]
       }
     },
@@ -276,6 +279,7 @@
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketPlayback.java",
         "modules/simplemusic/shared/java/com/simplemusic/client/PocketPlayer.java",
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/pocket_jukebox.json",
+        "modules/simplemusic/shared/java/com/simplemusic/recipe/EmptyBundleShapedRecipe.java",
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox_dyeing.json",
         "modules/simplemusic/shared/java/com/simplemusic/client/PocketMouseActions.java"
       ],
@@ -283,7 +287,7 @@
         "title": "Pocket Jukebox",
         "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
         "details": [
-          "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
+          "Recipe: 8 copper nuggets around an empty bundle, a diamond on top (the colour comes from the bundle). A bundle with anything inside does not fit, so nothing in it is lost: empty it first. Dye it any time with a dye in the crafting grid: the discs stay in.",
           "Discs go in and out like a bundle: left click puts one in, the mouse wheel over it selects a disc, right click with an empty hand takes the selected one out (without a selection the newest). The tooltip grid reads in play order.",
           "Plays the discs in the order they went in and starts over after the last; a disc put in later goes to the end. Pausing keeps the position. Starting and pausing click like a record player. Starting it stops other music and pauses another pocket jukebox.",
           "It goes on playing while you move it around your inventory, when you drop it (then everyone near the item hears it, and whoever picks it up carries it on) and when you put it down or break it. It stops when the playing disc is taken out or the jukebox stays gone for a while (in a chest). The off hand only holds it.",
@@ -294,7 +298,7 @@
         "title": "Taschen-Jukebox",
         "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo. Schleichen + Rechtsklick auf einen Block stellt sie ab (siehe Abgestellte Taschen-Jukebox).",
         "details": [
-          "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
+          "Rezept: 8 Kupfernuggets um ein leeres Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Ein Bündel mit Inhalt passt nicht, so geht nichts darin verloren: vorher leeren. Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
           "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, das Mausrad darüber wählt eine Platte, Rechtsklick mit leerer Hand nimmt die gewählte heraus (ohne Wahl die neueste). Das Raster im Tooltip liest sich in Spielreihenfolge.",
           "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn; später eingelegte kommen ans Ende. Pause merkt sich die Stelle. Start und Pause klicken wie ein Plattenspieler. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
           "Sie spielt weiter, während du sie im Inventar verschiebst, wenn du sie fallen lässt (dann hören sie alle in der Nähe des Items, und wer sie aufhebt, trägt sie weiter) und wenn du sie abstellst oder abbaust. Sie stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox eine Weile weg bleibt (in einer Kiste). Die Nebenhand hält sie nur.",
@@ -437,7 +441,7 @@
   "recipes": [
     {
       "id": "simplemusic:black_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -561,7 +565,7 @@
     },
     {
       "id": "simplemusic:blue_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -633,7 +637,7 @@
     },
     {
       "id": "simplemusic:brown_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -705,7 +709,7 @@
     },
     {
       "id": "simplemusic:cyan_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -834,7 +838,7 @@
     },
     {
       "id": "simplemusic:gray_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -906,7 +910,7 @@
     },
     {
       "id": "simplemusic:green_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -978,7 +982,7 @@
     },
     {
       "id": "simplemusic:light_blue_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1050,7 +1054,7 @@
     },
     {
       "id": "simplemusic:light_gray_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1122,7 +1126,7 @@
     },
     {
       "id": "simplemusic:lime_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1194,7 +1198,7 @@
     },
     {
       "id": "simplemusic:magenta_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1266,7 +1270,7 @@
     },
     {
       "id": "simplemusic:orange_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1338,7 +1342,7 @@
     },
     {
       "id": "simplemusic:pink_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1410,7 +1414,7 @@
     },
     {
       "id": "simplemusic:pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1463,7 +1467,7 @@
     },
     {
       "id": "simplemusic:purple_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1535,7 +1539,7 @@
     },
     {
       "id": "simplemusic:red_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1651,7 +1655,7 @@
     },
     {
       "id": "simplemusic:white_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -1723,7 +1727,7 @@
     },
     {
       "id": "simplemusic:yellow_pocket_jukebox",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplemusic:empty_bundle_shaped",
       "category": "equipment",
       "group": "pocket_jukebox",
       "result": {
@@ -2622,10 +2626,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2646,10 +2650,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2670,10 +2674,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2694,10 +2698,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2773,10 +2777,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2797,10 +2801,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2821,10 +2825,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2845,10 +2849,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2869,10 +2873,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2893,10 +2897,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2917,10 +2921,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2941,10 +2945,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -2964,7 +2968,7 @@
           "title": "Pocket Jukebox",
           "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
           "details": [
-            "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
+            "Recipe: 8 copper nuggets around an empty bundle, a diamond on top (the colour comes from the bundle). A bundle with anything inside does not fit, so nothing in it is lost: empty it first. Dye it any time with a dye in the crafting grid: the discs stay in.",
             "Discs go in and out like a bundle: left click puts one in, the mouse wheel over it selects a disc, right click with an empty hand takes the selected one out (without a selection the newest). The tooltip grid reads in play order.",
             "Plays the discs in the order they went in and starts over after the last; a disc put in later goes to the end. Pausing keeps the position. Starting and pausing click like a record player. Starting it stops other music and pauses another pocket jukebox.",
             "It goes on playing while you move it around your inventory, when you drop it (then everyone near the item hears it, and whoever picks it up carries it on) and when you put it down or break it. It stops when the playing disc is taken out or the jukebox stays gone for a while (in a chest). The off hand only holds it.",
@@ -2975,7 +2979,7 @@
           "title": "Taschen-Jukebox",
           "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo. Schleichen + Rechtsklick auf einen Block stellt sie ab (siehe Abgestellte Taschen-Jukebox).",
           "details": [
-            "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
+            "Rezept: 8 Kupfernuggets um ein leeres Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Ein Bündel mit Inhalt passt nicht, so geht nichts darin verloren: vorher leeren. Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
             "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, das Mausrad darüber wählt eine Platte, Rechtsklick mit leerer Hand nimmt die gewählte heraus (ohne Wahl die neueste). Das Raster im Tooltip liest sich in Spielreihenfolge.",
             "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn; später eingelegte kommen ans Ende. Pause merkt sich die Stelle. Start und Pause klicken wie ein Plattenspieler. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
             "Sie spielt weiter, während du sie im Inventar verschiebst, wenn du sie fallen lässt (dann hören sie alle in der Nähe des Items, und wer sie aufhebt, trägt sie weiter) und wenn du sie abstellst oder abbaust. Sie stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox eine Weile weg bleibt (in einer Kiste). Die Nebenhand hält sie nur.",
@@ -3000,10 +3004,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -3024,10 +3028,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -3048,10 +3052,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [
@@ -3072,10 +3076,10 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
         },
         "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
         }
       },
       "craftedBy": [

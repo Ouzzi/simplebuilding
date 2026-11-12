@@ -9,7 +9,7 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplebeacons'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/BeaconsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert len(config_keys) == 10, config_keys
+assert len(config_keys) == 11, config_keys
 used = set()
 for src in JAVA.rglob('*.java'):
     used |= set(re.findall(r'translatable\("([a-z0-9_.]+)"', src.read_text(encoding='utf-8')))

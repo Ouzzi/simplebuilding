@@ -10,7 +10,7 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simpledinos'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/DinosConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert config_keys == ['enabled', 'brushSeconds', 'incubateSeconds', 'hatchSeconds', 'growMinutes', 'trexBiteDamage'], config_keys
+assert config_keys == ['enabled', 'brushSeconds', 'incubateSeconds', 'hatchSeconds', 'hatchWaitsForOwner', 'growMinutes', 'trexBiteDamage'], config_keys
 KINDS = ('trex', 'triceratops', 'stegosaurus', 'utahraptor', 'parasaurolophus')
 EGGS = tuple(f'{k}_egg' for k in KINDS)
 ARMORS = ('trex_armor_leather', 'trex_armor_iron', 'trex_armor_diamond')

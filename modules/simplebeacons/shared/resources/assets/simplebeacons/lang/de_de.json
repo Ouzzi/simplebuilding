@@ -43,6 +43,8 @@
   "block.simplebeacons.mighty_conduit": "Mächtiger Aquisator",
   "block.simplebeacons.evil_conduit": "Böser Aquisator",
   "block.simplebeacons.mighty_evil_conduit": "Mächtiger Böser Aquisator",
+  "text.autoconfig.simplebeacons.option.evilSparesForeignClaims": "Fremde Claims verschonen",
+  "text.autoconfig.simplebeacons.option.evilSparesForeignClaims.@Tooltip": "An: Böse Leuchtfeuer und Böse Conduits erreichen keine Spieler, die in einem Claim stehen, in dem der Besitzer des Blocks (wer ihn gesetzt oder aufgewertet hat) keine Rechte hat. Freies Land sowie die Claims des Besitzers und seines Teams werden weiter erreicht. Blöcke aus älteren Welten haben keinen Besitzer und verschonen daher jeden Claim. Braucht eine Claims-Mod wie Simple Tweaks. Aus: Sie erreichen alle. Standard an.",
   "item.simplebeacons.guide_book": "Simple-Beacons-Handbuch",
   "simplebeacons.guide.chapter": "Simple Beacons",
   "simplebeacons.guide.page.1.title": "Simple Beacons",

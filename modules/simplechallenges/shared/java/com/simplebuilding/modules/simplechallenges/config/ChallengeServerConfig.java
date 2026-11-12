@@ -16,7 +16,7 @@ import java.util.List;
  */
 public final class ChallengeServerConfig {
     public static final String FILE = "simplechallenges-server.json";
-    public static final List<String> KEYS = List.of("enabled", "allowAdminCommands", "defaultChallenge", "exemptCreative", "pityEnabled", "perPlayerCredits");
+    public static final List<String> KEYS = List.of("enabled", "allowAdminCommands", "defaultChallenge", "exemptCreative", "pityEnabled", "perPlayerCredits", "lockedCellsBlockUse");
 
     public static boolean enabled;
     /** Whether /simplechallenges activate, deactivate, unlock-for-free and credits add work (R2: test worlds only). */
@@ -29,6 +29,8 @@ public final class ChallengeServerConfig {
     public static boolean pityEnabled;
     /** Credits belong to each player (a pot of their own) instead of one pot for the whole team. */
     public static boolean perPlayerCredits;
+    /** Survival players cannot use blocks or entities or attack in a locked cell from outside (AUDSB31E2 F6); creative follows {@link #exemptCreative}. */
+    public static boolean lockedCellsBlockUse;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -61,6 +63,7 @@ public final class ChallengeServerConfig {
         exemptCreative = bool(json, "exemptCreative", true);
         pityEnabled = bool(json, "pityEnabled", true);
         perPlayerCredits = bool(json, "perPlayerCredits", false);
+        lockedCellsBlockUse = bool(json, "lockedCellsBlockUse", true);
     }
 
     public static JsonObject toJson() {
@@ -71,6 +74,7 @@ public final class ChallengeServerConfig {
         o.addProperty("exemptCreative", exemptCreative);
         o.addProperty("pityEnabled", pityEnabled);
         o.addProperty("perPlayerCredits", perPlayerCredits);
+        o.addProperty("lockedCellsBlockUse", lockedCellsBlockUse);
         return o;
     }
 

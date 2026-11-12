@@ -4,6 +4,7 @@ import com.simplebeacons.SimpleBeacons;
 import com.simplebeacons.config.BeaconsConfig;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -152,9 +153,18 @@ public final class StrongBeaconLogic {
         return kind.isSecondary(secondary) && effectOn(secondary);
     }
 
-    /** Vanilla's {@code applyEffects} with the kind's powers and range times {@code percent}; returns the players that got the primary effect. */
+    /** {@link #applyEffects(Level, BlockPos, BeaconKind, int, Holder, int, Holder, int, UUID)} for a beacon without a known owner. */
     public static List<Player> applyEffects(Level level, BlockPos pos, BeaconKind kind, int levels, @Nullable Holder<MobEffect> primary,
                                             int primaryAmp, @Nullable Holder<MobEffect> secondary, int percent) {
+        return applyEffects(level, pos, kind, levels, primary, primaryAmp, secondary, percent, null);
+    }
+
+    /**
+     * Vanilla's {@code applyEffects} with the kind's powers and range times {@code percent}; returns the players that got the primary effect.
+     * {@code owner} is the beacon's placer or upgrader: the Evil kinds spare players in claims it may not be in ({@link EvilGate}).
+     */
+    public static List<Player> applyEffects(Level level, BlockPos pos, BeaconKind kind, int levels, @Nullable Holder<MobEffect> primary,
+                                            int primaryAmp, @Nullable Holder<MobEffect> secondary, int percent, @Nullable UUID owner) {
         if (level.isClientSide() || primary == null || primaryLevel(kind, primary, primaryAmp) > levels) return List.of();
         double range = range(levels, percent);
         int amplifier = amplifier(kind, primary, primaryAmp, secondary, levels);
@@ -164,7 +174,7 @@ public final class StrongBeaconLogic {
         AABB box = new AABB(pos).inflate(range).expandTowards(0.0, level.getHeight(), 0.0);
         List<Player> players = new java.util.ArrayList<>();
         for (Player player : level.players()) {
-            if (box.intersects(player.getBoundingBox()) && (!kind.evil() || EvilGate.affects(player))) players.add(player);
+            if (box.intersects(player.getBoundingBox()) && (!kind.evil() || EvilGate.affects(player, owner))) players.add(player);
         }
         boolean pulse = MobEffects.SATURATION.equals(primary);
         if (!pulse || saturationDue(level.getGameTime())) {

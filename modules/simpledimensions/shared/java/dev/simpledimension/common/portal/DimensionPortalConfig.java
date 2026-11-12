@@ -85,6 +85,17 @@ public final class DimensionPortalConfig {
     /** Build a small frame-block platform under a freshly generated destination portal (avoids void death). */
     public boolean createDestinationPlatform = true;
 
+    // ---- falling into the void (owner AUDSB31E2 F5) ------------------------------
+    /**
+     * What happens to a player below {@code minY + 3} of the destination: {@code "home"} (default: back to where
+     * they came from), {@code "spawn"} (overworld world spawn), {@code "sky"} (overworld at {@link #voidFallHeight},
+     * falling, at the position the portal travel maps to) or {@code "vanilla"} (no rescue, the Vanilla void death).
+     * Unknown values read as {@code "home"}.
+     */
+    public String voidFall = "home";
+    /** Height of the {@code "sky"} landing in the overworld (kept below the build limit). */
+    public int voidFallHeight = 300;
+
     // ---- destination terrain ----------------------------------------------------
     public WorldGenerationConfig worldGeneration = WorldGenerationConfig.skyblockPreset();
 

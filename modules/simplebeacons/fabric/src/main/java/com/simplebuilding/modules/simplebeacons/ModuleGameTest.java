@@ -200,4 +200,14 @@ public final class ModuleGameTest {
     public void conduitEvilEffects(GameTestHelper h) {
         BeaconsTests.ALL.get("conduit_evil_effects").accept(h);
     }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void evilSparesForeignClaims(GameTestHelper h) {
+        BeaconsTests.ALL.get("evil_spares_foreign_claims").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void evilOwnerKept(GameTestHelper h) {
+        BeaconsTests.ALL.get("evil_owner_kept").accept(h);
+    }
 }

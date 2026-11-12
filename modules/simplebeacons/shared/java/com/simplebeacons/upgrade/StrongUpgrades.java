@@ -2,6 +2,8 @@ package com.simplebeacons.upgrade;
 
 import com.simplebeacons.BeaconsRegistry;
 import com.simplebeacons.SimpleBeacons;
+import com.simplebeacons.beacon.StrongBeaconBlockEntity;
+import com.simplebeacons.conduit.StrongConduitBlockEntity;
 import com.simplebeacons.config.BeaconsConfig;
 import com.simplebuilding.framework.api.Protection;
 import com.simplelib.api.HammerActions;
@@ -119,6 +121,10 @@ public final class StrongUpgrades {
             player.getOffhandItem().shrink(1);
         }
         upgrade(level, pos, target);
+        // F7: the upgrader owns the block now (a Vanilla beacon or conduit has no owner; mayUpgrade just asked the claims about this player)
+        BlockEntity upgraded = level.getBlockEntity(pos);
+        if (upgraded instanceof StrongBeaconBlockEntity beacon) beacon.setOwner(player.getUUID());
+        else if (upgraded instanceof StrongConduitBlockEntity conduit) conduit.setOwner(player.getUUID());
         level.playSound(null, pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
         level.playSound(null, pos, SoundEvents.BEACON_POWER_SELECT, SoundSource.BLOCKS, 1.0F, 1.2F);
     }
