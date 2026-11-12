@@ -77,7 +77,7 @@ public final class ShopsTests {
     static {
         ALL.put("config_defaults", h -> {
             ShopsConfig.reset();
-            h.assertTrue(ShopsConfig.enabled && ShopsConfig.maxShopsPerPlayer == 16 && ShopsConfig.idleTimeoutSeconds == 300, "defaults");
+            h.assertTrue(ShopsConfig.enabled && ShopsConfig.maxShopsPerPlayer == 16 && ShopsConfig.idleTimeoutSeconds == 300 && ShopsConfig.ownerFirst, "defaults");
             JsonObject json = new JsonObject();
             json.addProperty("maxShopsPerPlayer", 500);
             json.addProperty("idleTimeoutSeconds", 1);
@@ -672,16 +672,69 @@ public final class ShopsTests {
             h.assertTrue(ShopActions.useSales(one, h.getLevel(), shop.sales).consumesAction() && one.containerMenu instanceof ShopBuyerMenu, "first buyer opens");
             h.assertTrue(ShopActions.useSales(two, h.getLevel(), shop.sales).consumesAction() && !(two.containerMenu instanceof ShopBuyerMenu), "second buyer is refused");
             h.assertTrue(ShopActions.useCase(two, h.getLevel(), shop.box).consumesAction() && !(two.containerMenu instanceof ShopBuyerMenu), "also through the case");
-            h.assertTrue(ShopActions.useSales(owner, h.getLevel(), shop.sales).consumesAction() && !(owner.containerMenu instanceof SalesOwnerMenu), "the owner waits too");
-            h.assertTrue(ShopActions.useCase(owner, h.getLevel(), shop.box).consumesAction() && !(owner.containerMenu instanceof StockMenu), "also for the goods menu");
+            try {
+                // ownerFirst off (E1ANS F5 option): first come, first served, the owner waits too.
+                ShopsConfig.ownerFirst = false;
+                h.assertTrue(ShopActions.useSales(owner, h.getLevel(), shop.sales).consumesAction() && !(owner.containerMenu instanceof SalesOwnerMenu), "the owner waits too");
+                h.assertTrue(ShopActions.useCase(owner, h.getLevel(), shop.box).consumesAction() && !(owner.containerMenu instanceof StockMenu), "also for the goods menu");
+            } finally {
+                ShopsConfig.reset();
+            }
             one.closeContainer();
             h.assertTrue(ShopActions.useSales(two, h.getLevel(), shop.sales).consumesAction() && two.containerMenu instanceof ShopBuyerMenu, "free again after closing");
             two.closeContainer();
             // The owner's menus lock the buyers out as well, and the owner can edit while nobody buys.
             h.assertTrue(ShopActions.useCase(owner, h.getLevel(), shop.box).consumesAction() && owner.containerMenu instanceof SalesOwnerMenu m && m.isCombined(), "shared owner screen");
-            h.assertTrue(ShopActions.useSales(one, h.getLevel(), shop.sales).consumesAction() && !(one.containerMenu instanceof ShopBuyerMenu), "buyer waits for the owner");
+            // E1ANS F5: the buyer waits for the owner behind the maintenance sign (his screen opens, trading waits).
+            h.assertTrue(ShopActions.useSales(one, h.getLevel(), shop.sales).consumesAction() && one.containerMenu instanceof ShopBuyerMenu waiting
+                    && waiting.underMaintenance(), "buyer waits for the owner");
+            one.closeContainer();
             owner.closeContainer();
             h.assertTrue(ShopActions.useSales(owner, h.getLevel(), shop.sales).consumesAction() && owner.containerMenu instanceof SalesOwnerMenu, "price menu");
+            h.succeed();
+        });
+        ALL.put("owner_first_maintenance", h -> {
+            // E1ANS F5 (owner 12.11.): the owner always goes first; a customer's screen stays open behind the maintenance sign.
+            ServerPlayer owner = player(h, GameType.SURVIVAL);
+            ServerPlayer one = player(h, GameType.SURVIVAL);
+            ServerPlayer two = player(h, GameType.SURVIVAL);
+            Shop shop = shop(h, owner);
+            shop.box().goods().set(0, new ItemStack(Items.DIAMOND, 3));
+            shop.sales().prices().set(2, new ItemStack(Items.EMERALD));
+            for (ServerPlayer p : List.of(owner, one, two)) p.setPos(Vec3.atCenterOf(shop.sales).add(0.0, 0.0, -2.0));
+            h.assertTrue(ShopsConfig.ownerFirst, "on by default");
+            ShopActions.useSales(one, h.getLevel(), shop.sales);
+            h.assertTrue(one.containerMenu instanceof ShopBuyerMenu, "customer shops");
+            ShopBuyerMenu menu = (ShopBuyerMenu) one.containerMenu;
+            menu.pay().setItem(2, new ItemStack(Items.EMERALD, 2));
+            // The owner's click takes the shop over: his screen opens, the customer's lock ends, the customer's screen stays.
+            h.assertTrue(ShopActions.useSales(owner, h.getLevel(), shop.sales).consumesAction() && owner.containerMenu instanceof SalesOwnerMenu,
+                    "the owner opens his shop at once");
+            h.assertTrue(shop.sales().lockHolder() == owner && one.containerMenu == menu, "owner holds the shop, customer's screen open");
+            menu.broadcastChanges();
+            h.assertTrue(menu.underMaintenance() && menu.stillValid(one), "maintenance sign, screen stays valid");
+            h.assertTrue(!menu.getSlot(ShopBuyerMenu.PAY_START + 2).isActive() && !menu.getSlot(ShopBuyerMenu.GOODS_START).isActive(), "rows hidden behind the sign");
+            h.assertTrue(trade(menu, one) == ShopTrade.Result.BUSY && shop.box().goods().get(0).getCount() == 3 && earnings(shop, Items.EMERALD) == 0,
+                    "no trade behind the sign");
+            h.assertTrue(menu.pay().getItem(2).getCount() == 2, "the payment stays the customer's");
+            // A second customer also gets the sign while the owner works.
+            ShopActions.useSales(two, h.getLevel(), shop.sales);
+            h.assertTrue(two.containerMenu instanceof ShopBuyerMenu second && second.underMaintenance(), "second customer sees the sign");
+            two.closeContainer();
+            // The owner restocks and leaves: the waiting customer takes the shop back and trades (new revision seen).
+            shop.box().goods().set(0, new ItemStack(Items.DIAMOND, 5));
+            shop.sales().bumpRevision();
+            owner.closeContainer();
+            menu.broadcastChanges();
+            h.assertTrue(!menu.underMaintenance() && shop.sales().lockHolder() == one, "the customer has the shop again");
+            h.assertTrue(trade(menu, one) == ShopTrade.Result.OK && shop.box().goods().get(0).getCount() == 4, "trades after the maintenance");
+            // Quick stock by the owner also goes first (no screen: the customer keeps his place).
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND, 2));
+            h.assertTrue(ShopActions.quickStock(owner, h.getLevel(), shop.box, InteractionHand.MAIN_HAND) == InteractionResult.SUCCESS, "quick stock goes first");
+            menu.broadcastChanges();
+            h.assertTrue(!menu.underMaintenance() && shop.sales().lockHolder() == one, "customer back at once after a quick stock");
+            one.closeContainer();
+            h.assertTrue(shop.sales().lockFree(), "free at the end");
             h.succeed();
         });
         ALL.put("lock_disconnect_release", h -> {

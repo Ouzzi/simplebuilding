@@ -42,6 +42,13 @@ public class ShopBuyerMenu extends ShopMenu {
     private final DataSlot full = DataSlot.standalone();
     /** 1 for the owner of the shop: shows the developer button that leads back to the owner's screen. */
     private final DataSlot manage = DataSlot.standalone();
+    /**
+     * 1 while the owner works on the shop (E1ANS F5, {@code ownerFirst}): the screen stays open behind the maintenance sign, trading
+     * waits; 2 when another customer got the shop meanwhile (the menu closes); computed on the server only.
+     */
+    private final DataSlot maintenance = DataSlot.standalone();
+    /** The buyer (server side), to take the lock back once the owner is done. */
+    private final @Nullable ServerPlayer viewer;
     /** Last outcome for tests: ordinal of {@link ShopTrade.Result}, -1 none (server only). */
     public ShopTrade.@Nullable Result lastResult;
 
@@ -55,11 +62,12 @@ public class ShopBuyerMenu extends ShopMenu {
         super(ShopsRegistry.BUYER_MENU, containerId, sales);
         this.sales = sales;
         this.shopCase = shopCase;
+        this.viewer = player;
         for (int i = 0; i < DisplayCaseBlockEntity.SIZE; i++) {
-            addSlot(new ViewSlot(this.goodsView, i, ROW_X + i * 18, GOODS_Y, i2 -> true));
+            addSlot(new ViewSlot(this.goodsView, i, ROW_X + i * 18, GOODS_Y, i2 -> !underMaintenance()));
         }
         for (int p = 0; p < PriceRow.SIZE; p++) {
-            addSlot(new ViewSlot(this.priceView, p, ROW_X + p * 18, PRICE_Y, i -> !this.priceView.getItem(i).isEmpty()));
+            addSlot(new ViewSlot(this.priceView, p, ROW_X + p * 18, PRICE_Y, i -> !underMaintenance() && !this.priceView.getItem(i).isEmpty()));
         }
         for (int p = 0; p < PriceRow.SIZE; p++) {
             final int position = p;
@@ -67,12 +75,12 @@ public class ShopBuyerMenu extends ShopMenu {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
                     ItemStack price = ShopBuyerMenu.this.priceView.getItem(position);
-                    return !price.isEmpty() && ItemStack.isSameItemSameComponents(price, stack);
+                    return !underMaintenance() && !price.isEmpty() && ItemStack.isSameItemSameComponents(price, stack);
                 }
 
                 @Override
                 public boolean isActive() {
-                    return !ShopBuyerMenu.this.priceView.getItem(position).isEmpty();
+                    return !underMaintenance() && !ShopBuyerMenu.this.priceView.getItem(position).isEmpty();
                 }
             });
         }
@@ -81,9 +89,14 @@ public class ShopBuyerMenu extends ShopMenu {
         addDataSlot(this.revision);
         addDataSlot(this.full);
         addDataSlot(this.manage);
+        addDataSlot(this.maintenance);
         if (sales != null && player != null) {
             // A server shop is never locked: its prices and goods do not change by trading, any number of buyers can use it.
-            if (!sales.isServerShop()) sales.lock(player, this);
+            // While the owner works on the shop (E1ANS F5) the buyer waits without the lock; refresh() takes it once he is done.
+            if (!sales.isServerShop()) {
+                if (sales.lockFree()) sales.lock(player, this);
+                else this.maintenance.set(sales.heldByOwner() ? 1 : 2);
+            }
             if (player != null && sales.mayEdit(player) && !sales.isServerShop()) this.manage.set(1);
             refresh();
         }
@@ -95,6 +108,11 @@ public class ShopBuyerMenu extends ShopMenu {
 
     public boolean canManage() {
         return this.manage.get() != 0;
+    }
+
+    /** E1ANS F5: the owner works on the shop; the screen shows the maintenance sign and trading waits (both sides). */
+    public boolean underMaintenance() {
+        return this.maintenance.get() != 0;
     }
 
     public int selectedWare() {
@@ -119,6 +137,16 @@ public class ShopBuyerMenu extends ShopMenu {
 
     private void refresh() {
         if (this.sales == null || this.shopCase == null) return;
+        // Only while the screen is really open (lockHolder() drops a lock whose menu is not the player's open one).
+        if (this.viewer != null && !this.sales.isServerShop() && this.viewer.containerMenu == this) {
+            // E1ANS F5: the lock is this buyer's, or the owner's (maintenance), or free again (the buyer takes it back).
+            ServerPlayer holder = this.sales.lockHolder();
+            if (holder == null) {
+                this.sales.lock(this.viewer, this);
+                holder = this.sales.lockHolder();
+            }
+            this.maintenance.set(holder == this.viewer ? 0 : this.sales.heldByOwner() ? 1 : 2);
+        }
         for (int p = 0; p < PriceRow.SIZE; p++) {
             ItemStack template = this.sales.prices().get(p);
             if (!ItemStack.matches(this.priceView.getItem(p), template)) this.priceView.setItem(p, template.copy());
@@ -182,6 +210,13 @@ public class ShopBuyerMenu extends ShopMenu {
         if (action != TRADE && action != TRADE_MAX) return false;
         int times = action == TRADE_MAX ? MAX_REPEAT : 1;
         ServerLevel level = sp.level();
+        if (!this.sales.isServerShop() && this.sales.lockHolder() != sp) {
+            // E1ANS F5: only the lock holder trades; behind the maintenance sign the buyer waits for the owner.
+            this.lastResult = ShopTrade.Result.BUSY;
+            feedback(level, false);
+            broadcastChanges();
+            return true;
+        }
         for (int i = 0; i < times; i++) {
             // The repeat sees the new revision it just produced.
             int expected = i == 0 ? seen : this.sales.revision() & 0xFFFF;
@@ -236,6 +271,8 @@ public class ShopBuyerMenu extends ShopMenu {
     @Override
     public boolean stillValid(Player player) {
         if (this.shopCase != null && this.shopCase.isRemoved()) return false;
+        // Another customer got the shop while this one waited behind the maintenance sign: one buyer at a time.
+        if (player instanceof ServerPlayer && this.maintenance.get() == 2) return false;
         return super.stillValid(player);
     }
 

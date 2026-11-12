@@ -133,6 +133,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void ownerFirstMaintenance(GameTestHelper h) {
+        ShopsTests.ALL.get("owner_first_maintenance").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void idleTimeoutCloses(GameTestHelper h) {
         ShopsTests.ALL.get("idle_timeout_closes").accept(h);
     }
@@ -360,6 +365,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void terminalLockSharedWithSite(GameTestHelper h) {
         ShopsTests.ALL.get("terminal_lock_shared_with_site").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void terminalOwnerFirst(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_owner_first").accept(h);
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 120)

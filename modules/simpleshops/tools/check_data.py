@@ -11,7 +11,7 @@ BLOCKS = ('sales_block', 'sales_storage', 'display_case', 'glow_display_case')
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/ShopsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'maxShopsPerPlayer', 'idleTimeoutSeconds', 'collectServerShopIncome', 'remoteStock', 'remoteDelaySeconds',
-                       'remoteCrossDimension', 'shopMusic', 'shopMusicRange'], config_keys
+                       'remoteCrossDimension', 'shopMusic', 'shopMusicRange', 'ownerFirst'], config_keys
 used = set()
 for src in JAVA.rglob('*.java'):
     used |= set(re.findall(r'translatable\("([a-z0-9_.]+)"', src.read_text(encoding='utf-8')))
@@ -65,3 +65,9 @@ for locale in ('en_us', 'de_de'):
     q = json.loads((RES / f'assets/{NS}/questionary/{locale}.json').read_text(encoding='utf-8'))
     assert set(q) == set(BLOCKS) | {'trade_terminal'}, (locale, set(q))
 print(f'{NS}: {len(config_keys)} config keys, {len(used)} UI texts, {len(recipes)} recipes, tags, mixins, structure, questionary and wiki valid')
+# E1ANS F5: the maintenance sign (texture with its layer source, both lines EN/DE).
+gui = RES / f'assets/{NS}/textures/gui'
+assert (gui / 'maintenance_sign.png').is_file() and (gui / 'maintenance_sign.layers.json').is_file(), 'maintenance sign texture'
+for locale in ('en_us', 'de_de'):
+    for k in ('simpleshops.screen.maintenance', 'simpleshops.screen.maintenance.owner'):
+        assert langs[locale].get(k), (locale, k)

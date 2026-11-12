@@ -272,6 +272,25 @@ public final class EnderShops extends SavedData {
             }
         }
 
+        /**
+         * The owner goes first (E1ANS F5, {@code ownerFirst}): a lock another player holds ends here, so the owner can open or
+         * restock his shop; that player's screen stays open and shows the maintenance sign until the owner is done. False when
+         * nothing was taken over (lock free, held by the owner himself, option off, or {@code owner} is not the owner).
+         */
+        public boolean ownerTakesOver(ServerPlayer owner) {
+            ServerPlayer holder = lockHolder();
+            if (holder == null || holder == owner || !com.simpleshops.config.ShopsConfig.ownerFirst || !isOwner(owner.getUUID())) return false;
+            this.lockPlayer = null;
+            this.lockMenu = null;
+            return true;
+        }
+
+        /** Whether the owner holds the shop right now: a customer waits in front of the maintenance sign ({@code ownerFirst}). */
+        public boolean heldByOwner() {
+            ServerPlayer holder = lockHolder();
+            return com.simpleshops.config.ShopsConfig.ownerFirst && holder != null && isOwner(holder.getUUID());
+        }
+
         Stored stored() {
             return new Stored(this.id, this.kind, Optional.ofNullable(this.owner), this.ownerName, this.dimension, this.pos, SlotStack.of(this.items),
                     SlotStack.of(this.prices), this.serverId, this.listed, this.name, this.caseId, List.copyOf(this.storages),

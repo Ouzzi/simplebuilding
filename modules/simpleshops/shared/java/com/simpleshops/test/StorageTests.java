@@ -385,9 +385,10 @@ final class StorageTests {
             h.assertTrue(trade(buyer, owner) == ShopTrade.Result.OK, "test purchase");
             int after = total(h, c, Items.EMERALD) + count(owner.getInventory(), Items.EMERALD) + total(h, c, Items.DIAMOND) + count(owner.getInventory(), Items.DIAMOND);
             h.assertTrue(before == after, "the test purchase creates and destroys nothing");
-            // A second player is told "busy" while the owner holds the shop in either view.
+            // A second player waits behind the maintenance sign while the owner holds the shop in either view (E1ANS F5).
             ShopActions.useSales(stranger, h.getLevel(), c.sales);
-            h.assertTrue(!(stranger.containerMenu instanceof ShopBuyerMenu), "busy");
+            h.assertTrue(stranger.containerMenu instanceof ShopBuyerMenu waiting && waiting.underMaintenance(), "maintenance sign");
+            stranger.closeContainer();
             // Back to the owner screen; the old menu released the lock, the new one holds it.
             h.assertTrue(buyer.clickMenuButton(owner, ShopBuyerMenu.TO_OWNER), "back");
             h.assertTrue(owner.containerMenu instanceof SalesOwnerMenu m && m.isCombined() && owner.containerMenu != ownerMenu, "owner screen again");

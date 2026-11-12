@@ -11,6 +11,8 @@
   "simpleshops.screen.pay": "Du zahlst",
   "simpleshops.screen.earnings": "Einnahmen",
   "simpleshops.screen.trade": "Tauschen",
+  "simpleshops.screen.maintenance": "Wartungsarbeiten",
+  "simpleshops.screen.maintenance.owner": "Besitzer am Werk",
   "simpleshops.screen.not_for_sale": "Nicht im Verkauf",
   "simpleshops.screen.sold_out": "Ausverkauft",
   "simpleshops.screen.pay_exactly": "Preis-Items in die Bezahlplätze legen",

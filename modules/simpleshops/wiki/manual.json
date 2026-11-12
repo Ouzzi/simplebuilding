@@ -143,7 +143,7 @@
           "Only the exact price item fits a pay slot. What is left over in the pay slots returns to you when you close the menu.",
           "The trade is one atomic server step: price items out, earnings in, one piece out of the case, one piece to you. If the earnings store is full, the price is wrong or the goods are gone, nothing changes.",
           "A full inventory does not cancel the trade: the piece drops in front of you.",
-          "Only one player at a time: while anyone has the shop open (owner or buyer), a second click only makes a short refusal sound. A menu left open without a click for the idle time (default 5 minutes) is closed by the server, and a vanished player releases the shop.",
+          "Only one buyer at a time: while a buyer has the shop open, a second buyer's click only makes a short refusal sound. The owner always goes first (ownerFirst): his click takes the shop over, and a buyer's open screen waits behind a pixel-art maintenance sign (\"Maintenance - Owner at work\") until the owner closes his screen; then the buyer can trade again. A buyer who clicks while the owner is at work sees the same sign. A menu left open without a click for the idle time (default 5 minutes) is closed by the server, and a vanished player releases the shop.",
           "Feedback is sounds and particles only (no chat text)."
         ]
       },
@@ -154,7 +154,7 @@
           "In einen Bezahlplatz passt nur das exakte Preis-Item. Was dort übrig bleibt, bekommst du beim Schließen zurück.",
           "Der Tausch ist ein atomarer Serverschritt: Preis-Items heraus, Einnahmen hinein, ein Stück aus der Vitrine, ein Stück zu dir. Ist der Einnahmen-Speicher voll, der Preis falsch oder die Ware weg, ändert sich nichts.",
           "Ein volles Inventar bricht den Tausch nicht ab: das Stück fällt vor dir zu Boden.",
-          "Immer nur ein Spieler: solange jemand den Shop offen hat (Besitzer oder Käufer), macht ein zweiter Klick nur einen kurzen Ablehnungsklang. Ein Menü ohne Klick über die Leerlaufzeit (Standard 5 Minuten) schließt der Server, und ein verschwundener Spieler gibt den Shop frei.",
+          "Immer nur ein Käufer: solange ein Käufer den Shop offen hat, macht der Klick eines zweiten Käufers nur einen kurzen Ablehnungsklang. Der Besitzer geht immer vor (ownerFirst): sein Klick übernimmt den Shop, und das offene Fenster eines Käufers wartet hinter einem Pixelart-Schild (\"Wartungsarbeiten - Besitzer am Werk\"), bis der Besitzer sein Fenster schließt; dann kann der Käufer weiter handeln. Wer klickt, während der Besitzer arbeitet, sieht dasselbe Schild. Ein Menü ohne Klick über die Leerlaufzeit (Standard 5 Minuten) schließt der Server, und ein verschwundener Spieler gibt den Shop frei.",
           "Rückmeldung nur per Klang und Partikeln (kein Chat-Text)."
         ]
       }
@@ -327,6 +327,7 @@
           "remoteCrossDimension (false): off = a trade terminal reaches only shops in its own dimension.",
           "shopMusic (true): off = the disc slot of a Sales Block takes no disc and no client plays shop music.",
           "shopMusicRange (24, 8 to 48): base reach of shop music in blocks; every further shop with the same disc adds 50 %, at most 2.5 times.",
+          "ownerFirst (true): the owner always goes first: his click on site (or his own shop in a trade terminal) takes the shop from a customer, whose open screen waits behind a maintenance sign until the owner is done; off = first come, first served.",
           "With SimpleBuilding the switch Enable Simple Shops in its config turns the bundled module on or off."
         ]
       },
@@ -343,6 +344,7 @@
           "remoteCrossDimension (false): aus = ein Handelskontor erreicht nur Shops der eigenen Dimension.",
           "shopMusic (true): aus = der Plattenplatz des Verkaufsblocks nimmt keine Platte, kein Client spielt Ladenmusik.",
           "shopMusicRange (24, 8 bis 48): Grundreichweite der Ladenmusik in Blöcken; jeder weitere Shop mit derselben Platte gibt 50 % dazu, höchstens das 2,5-Fache.",
+          "ownerFirst (true): der Besitzer geht immer vor: sein Klick vor Ort (oder sein eigener Shop im Handelskontor) nimmt einem Kunden den Shop ab; dessen offenes Fenster wartet hinter einem Wartungsschild, bis der Besitzer fertig ist; aus = wer zuerst kommt.",
           "Mit SimpleBuilding schaltet der Schalter Simple Shops aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }

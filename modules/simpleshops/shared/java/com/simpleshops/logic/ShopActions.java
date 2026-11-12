@@ -42,7 +42,7 @@ public final class ShopActions {
         SalesBlockEntity sales = level.getBlockEntity(pos.below()) instanceof SalesBlockEntity s && ShopGuard.belongs(shopCase, s) ? s : null;
         if (shopCase.isOwner(player.getUUID())) {
             if (sales != null && sales.isOwner(player.getUUID())) return openOwner(player, level, pos.below(), sales);
-            if (sales != null && !sales.lockFree()) return busy(level, pos);
+            if (sales != null && !ownerFree(player, sales)) return busy(level, pos);
             player.openMenu(new SimpleMenuProvider((id, inv, p) -> new StockMenu(id, inv, shopCase, sales, player),
                     Component.translatable("container.simpleshops.stock")));
             return InteractionResult.SUCCESS;
@@ -60,7 +60,7 @@ public final class ShopActions {
         ItemStack held = player.getItemInHand(hand);
         if (held.isEmpty()) return InteractionResult.TRY_WITH_EMPTY_HAND;
         SalesBlockEntity sales = level.getBlockEntity(pos.below()) instanceof SalesBlockEntity s && ShopGuard.belongs(shopCase, s) ? s : null;
-        if (sales != null && !sales.lockFree()) return busy(level, pos);
+        if (sales != null && !ownerFree(player, sales)) return busy(level, pos);
         int slot = shopCase.freeSlot();
         if (slot < 0) return fail(level, pos);
         shopCase.goods().set(slot, held.copy());
@@ -84,7 +84,7 @@ public final class ShopActions {
 
     /** The owner's screen: one shared screen when his display case stands on the sales block, else the sales block's own. */
     private static InteractionResult openOwner(ServerPlayer player, ServerLevel level, BlockPos salesPos, SalesBlockEntity sales) {
-        if (!sales.lockFree()) return busy(level, salesPos);
+        if (!ownerFree(player, sales)) return busy(level, salesPos);
         if (level.getBlockEntity(salesPos.above()) instanceof DisplayCaseBlockEntity shopCase && shopCase.isOwner(player.getUUID()) && !sales.isServerShop()) {
             player.openMenu(new SimpleMenuProvider((id, inv, p) -> SalesOwnerMenu.combined(id, inv, sales, shopCase, player),
                     Component.translatable("container.simpleshops.shop")));
@@ -121,7 +121,8 @@ public final class ShopActions {
 
     private static InteractionResult open(ServerPlayer player, ServerLevel level, BlockPos pos, SalesBlockEntity sales, boolean owner,
                                           @Nullable DisplayCaseBlockEntity shopCase) {
-        if (!sales.isServerShop() && !sales.lockFree()) return busy(level, pos);
+        // E1ANS F5: while the owner works on his shop a customer still gets the buyer screen, behind the maintenance sign.
+        if (!sales.isServerShop() && !sales.lockFree() && (owner || !sales.heldByOwner())) return busy(level, pos);
         String name = sales.ownerName().isEmpty() ? "?" : sales.ownerName();
         if (owner) {
             player.openMenu(new SimpleMenuProvider((id, inv, p) -> new SalesOwnerMenu(id, inv, sales, player),
@@ -132,6 +133,11 @@ public final class ShopActions {
                             : Component.translatable("container.simpleshops.buyer", name)));
         }
         return InteractionResult.SUCCESS;
+    }
+
+    /** The owner may go on: the shop is free, or he takes it over from a customer (E1ANS F5, {@code ownerFirst}). */
+    private static boolean ownerFree(ServerPlayer owner, SalesBlockEntity sales) {
+        return sales.lockFree() || sales.ownerTakesOver(owner) && sales.lockFree();
     }
 
     private static InteractionResult busy(ServerLevel level, BlockPos pos) {
