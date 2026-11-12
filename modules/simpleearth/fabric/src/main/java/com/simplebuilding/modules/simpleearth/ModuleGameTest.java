@@ -42,6 +42,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleearth:empty", maxTicks = 100)
+    public void tileServiceStopReleasesSlots(GameTestHelper h) {
+        EarthTests.ALL.get("tile_service_stop_releases_slots").accept(h);
+    }
+
+    @GameTest(structure = "simpleearth:empty", maxTicks = 100)
     public void orbitLifecycle(GameTestHelper h) {
         EarthTests.ALL.get("orbit_lifecycle").accept(h);
     }
