@@ -484,6 +484,12 @@ public final class FletchingTests {
         Mob amethystNear = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(2, 2, 4));
         Mob breezeTarget = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(6, 2, 6));
         Mob breezeNear = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(7, 2, 6));
+        // Owner AUDSB31B F5 = A (so lassen): the burst also pushes a dropped item, unlike Vanilla's wind charge (the arrow is the source).
+        Vec3 itemAt = helper.absoluteVec(new Vec3(6.5, 2.0, 7.5));
+        net.minecraft.world.entity.item.ItemEntity dropped = new net.minecraft.world.entity.item.ItemEntity(helper.getLevel(), itemAt.x, itemAt.y, itemAt.z,
+                new ItemStack(Items.STONE), 0.0, 0.0, 0.0);
+        dropped.setNoGravity(true);
+        helper.getLevel().addFreshEntity(dropped);
         float ironBefore = ironNear.getHealth();
         float amethystBefore = amethystNear.getHealth();
         arrow(helper, parts(ArrowParts.Tip.IRON, ArrowParts.Shaft.STICK, ArrowParts.Fletching.FEATHER))
@@ -496,6 +502,30 @@ public final class FletchingTests {
         helper.assertTrue(ironNear.getDeltaMovement().lengthSqr() < 1.0E-6, "an iron arrow pushes the mob next to its target");
         helper.assertTrue(amethystBefore - amethystNear.getHealth() > 0.9F, "the amethyst splash missed the mob next to the target: " + amethystNear.getHealth());
         helper.assertTrue(breezeNear.getDeltaMovement().lengthSqr() > 0.01, "the breeze rod burst did not push the mob next to the target: " + breezeNear.getDeltaMovement());
+        // Vanilla lets an explosion move items only with mobGriefing on (ServerExplosion#shouldAffectBlocklikeEntities).
+        boolean griefing = helper.getLevel().getGameRules().get(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING);
+        helper.assertTrue(!griefing || dropped.getDeltaMovement().lengthSqr() > 0.01, "the breeze rod burst did not push the dropped item: " + dropped.getDeltaMovement());
+        dropped.discard();
+        helper.succeed();
+    }
+
+    /** Owner AUDSB31B F4 = A: a blaze rod shaft adds 3 s of fire per hit, at most 10 s in all; longer fire (lava) is never shortened. */
+    public static void blazeShaftFireIsCapped(GameTestHelper helper) {
+        Mob cow = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(1, 2, 1));
+        CraftedArrow blaze = arrow(helper, parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.BLAZE_ROD, ArrowParts.Fletching.FEATHER));
+        blaze.applyHitEffects(cow);
+        helper.assertValueEqual(cow.getRemainingFireTicks(), ArrowParts.BLAZE_EXTRA_FIRE_TICKS, "fire ticks after one hit");
+        for (int i = 0; i < 10; i++) {
+            blaze.applyHitEffects(cow);
+        }
+        helper.assertValueEqual(cow.getRemainingFireTicks(), ArrowParts.BLAZE_MAX_FIRE_TICKS, "fire ticks after eleven hits");
+        cow.setRemainingFireTicks(300);
+        blaze.applyHitEffects(cow);
+        helper.assertValueEqual(cow.getRemainingFireTicks(), 300, "fire ticks of a longer fire after a hit");
+        CraftedArrow plain = arrow(helper, parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.STICK, ArrowParts.Fletching.FEATHER));
+        cow.setRemainingFireTicks(0);
+        plain.applyHitEffects(cow);
+        helper.assertValueEqual(cow.getRemainingFireTicks(), 0, "fire ticks after a stick shaft");
         helper.succeed();
     }
 

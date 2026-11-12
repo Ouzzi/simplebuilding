@@ -185,6 +185,8 @@ public final class ArrowParts {
     public static final int ENDERITE_WEIGHTLESS_TICKS = 20;
     /** Lohenrute: so viele Ticks brennt das Ziel zusaetzlich zu Flamme. */
     public static final int BLAZE_EXTRA_FIRE_TICKS = 60;
+    /** Lohenrute: hoechstens so lange Brand insgesamt (Besitzer AUDSB31B F4 = A: 10 s); laengeres Feuer (Lava) wird nie gekuerzt. */
+    public static final int BLAZE_MAX_FIRE_TICKS = 200;
     /** Amethyst-Spitze: Splitterschaden und Radius. */
     public static final float AMETHYST_SPLASH_DAMAGE = 1.0F;
     public static final double AMETHYST_SPLASH_RADIUS = 1.5;
