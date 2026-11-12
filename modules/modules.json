@@ -90,7 +90,8 @@
         "simplemaps",
         "simplequestionary",
         "simpletrims"
-      ]
+      ],
+      "bundleOptional": []
     },
     {
       "id": "wiringexample",

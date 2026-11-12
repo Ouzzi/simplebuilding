@@ -356,7 +356,9 @@ tasks.named('check') { dependsOn 'testLivemapWeb' }
  'checkModuleStyle': 'tools/check_module_style.py', 'checkClientTestSources': 'tools/check_client_test_sources.py', 'checkDupImpl': 'tools/check_dup_impl.py',
  'checkConfigCommands': 'tools/check_config_commands.py', 'checkGametestAdapters': 'tools/check_gametest_adapters.py', 'checkCodecLists': 'tools/check_codec_lists.py',
  // B1 (b-lib01): sub-mod switches/suggests generated from modules/modules.json; stale -> python tools/submods/sync.py
- 'checkSubMods': 'tools/submods/sync.py --check'].each { taskName, script ->
+ 'checkSubMods': 'tools/submods/sync.py --check',
+ // simplebuilding-1 (a-w1a): SB files not shipped on 26.3 (moved content) must stay unused there; stale -> tools/release/dead_assets_263.py
+ 'checkNotShipped263': 'tools/release/dead_assets_263.py --check'].each { taskName, script ->
 	tasks.register(taskName, Exec) {
 		group = 'verification'
 		description = "Runs ${script}."

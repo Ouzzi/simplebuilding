@@ -156,12 +156,28 @@ def sbModuleById = sbModuleRegistry.collectEntries { [(it.id): it] }
 def sbEntry = sbModuleById['simplebuilding']
 def sbRequiredSubMods = sbEntry.requires.findAll { sbModuleById[it]?.projects?.fabric }
 def sbOptionalSubMods = sbEntry.optional.findAll { sbModuleById[it]?.projects?.fabric }
+// simplebuilding-1 (PLAN40, owner RELSB31 f1=A/f4=A): the release jar nests only the required sub-mods. An optional sub-mod is
+// its own download; it is nested only once listed in "bundleOptional" of SB's modules.json entry (release profile: add an id
+// when that mod's release checklist is green). Empty = no optional sub-mod inside SimpleBuilding.
+def sbBundledOptional = (sbEntry.bundleOptional ?: []).collect { it as String }
+def sbBundledOptionalUnknown = sbBundledOptional.findAll { !(it in sbOptionalSubMods) }
+if (sbBundledOptionalUnknown) {
+	throw new GradleException("modules.json simplebuilding.bundleOptional names ${sbBundledOptionalUnknown}, which are not optional Fabric sub-mods of SimpleBuilding")
+}
 def sbFabricModId = { String id -> sbModuleById[id].modId ?: id }
 def sbRequiredDepends = sbRequiredSubMods.collect { "\"${sbFabricModId(it)}\": \">=${sbModuleById[it].version}\"" }.join(', ')
 
+// simplebuilding-1: files SimpleBuilding does not ship on 26.3 - the editor's layer sources (*.layers.json, only the wiki pixel
+// editor and the texture tools read them, from the source tree) and the 26.2 originals of content that moved into sub-mods
+// (mc26_3/not-shipped-on-26.3.txt, written by tools/release/dead_assets_263.py). Excluded from the processed resources, so the
+// dev/test runs see exactly what the jar ships; the 26.2 line keeps them.
+def sbNotShipped263 = rootProject.file('mc26_3/not-shipped-on-26.3.txt').readLines('UTF-8').findAll { it.trim() && !it.startsWith('#') }.collect { it.trim() } as Set
 processResources {
 	inputs.property "version", project.version
 	inputs.property "requiredSubMods", sbRequiredDepends
+	inputs.file rootProject.file('mc26_3/not-shipped-on-26.3.txt')
+	exclude '**/*.layers.json'
+	exclude { FileTreeElement e -> !e.directory && sbNotShipped263.contains(e.relativePath.pathString) }
 	// fabric.mod.json is shared with the 26.2 line; only the Minecraft and Cloth Config ranges
 	// differ.
 	filesMatching("fabric.mod.json") {
@@ -245,13 +261,13 @@ apply from: rootProject.file('gradle/hub-project-mods.gradle')
 
 // Public cross-mod contracts are packaged on the main line only.
 dependencies { implementation project(':framework'); include project(':framework') }
-// Sub-mods of the super-mod from modules/modules.json (B1, see sbRequiredSubMods above): every sub-mod is nested for
-// production (include); required ones and "fabricDevClasspath" are also compiled against and loaded in SB's dev/test
-// runs (SB code reaches most of them only by id, util/*Refs). The other optional sub-mods are only nested: SB's own
-// dev/test runs stay without them, each sub-mod's integration target loads it together with SimpleBuilding.
+// Sub-mods of the super-mod from modules/modules.json (B1, see sbRequiredSubMods above): the required sub-mods are nested for
+// production (include) and, with "fabricDevClasspath", compiled against and loaded in SB's dev/test runs (SB code reaches most
+// of them only by id, util/*Refs). Optional sub-mods are separate downloads (simplebuilding-1, see sbBundledOptional); each
+// sub-mod's integration target loads its own jar together with SimpleBuilding.
 dependencies {
     (sbRequiredSubMods + sbEntry.fabricDevClasspath).unique().each { implementation project(sbModuleById[it].projects.fabric) }
-    (sbRequiredSubMods + sbOptionalSubMods).unique().each { include project(sbModuleById[it].projects.fabric) }
+    (sbRequiredSubMods + sbBundledOptional).unique().each { include project(sbModuleById[it].projects.fabric) }
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
@@ -277,10 +293,20 @@ tasks.named('jar', Jar) {
 					.findAll { it.startsWith('com.simplebuilding.') }
 					.collect { it.split('::')[0] }
 					.findAll { zip.getEntry(it.replace('.', '/') + '.class') == null }
-			def leaked = zip.entries().toList()*.name.findAll { it ==~ /com\/simplebuilding\/gametest\/.+/ }
+			def names = zip.entries().toList()*.name
+			def leaked = names.findAll { it ==~ /com\/simplebuilding\/gametest\/.+/ }
 			def centre = zip.getEntry('com/simplebuilding/dev/testcentre/TestCentreCommand.class') != null
 			if (missing || leaked || !centre) {
 				throw new GradleException("Release jar: entrypoints without class ${missing}, gametest classes ${leaked.take(5)}, test centre present: ${centre}")
+			}
+			// simplebuilding-1: nested jars = framework, the required sub-mods (+ their nested libraries) and the released optional
+			// ones only; no editor layer sources, none of the files not shipped on 26.3.
+			def nestedOptional = names.findAll { it.startsWith('META-INF/jars/') }.collect { it.substring(14) }
+					.findAll { jar -> sbOptionalSubMods.any { id -> jar.startsWith(id + '-') } && !sbBundledOptional.any { id -> jar.startsWith(id + '-') } }
+			def layers = names.findAll { it.endsWith('.layers.json') }
+			def dead = names.findAll { sbNotShipped263.contains(it) }
+			if (nestedOptional || layers || dead) {
+				throw new GradleException("Release jar: optional sub-mods nested without release (bundleOptional) ${nestedOptional}, layer sources ${layers.take(5)}, files not shipped on 26.3 ${dead.take(5)}")
 			}
 		} finally {
 			zip.close()
