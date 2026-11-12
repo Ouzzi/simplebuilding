@@ -14,7 +14,9 @@ public final class SimpleEndFabric implements ModInitializer {
     @Override public void onInitialize() {
         SimpleEnd.init(FabricLoader.getInstance().getConfigDir());
         // CMD24: /simpleend config for every option.
-        com.simplelib.api.config.ConfigCommands.server(SimpleEnd.ID).json(SimpleEndConfig::toJson, SimpleEndConfig::apply).file(FabricLoader.getInstance().getConfigDir(), SimpleEndConfig.FILE).register();
+        // a-audsb31e2: after every saved change the nested Dragon Fight switch follows (it was only set at the server start before)
+        com.simplelib.api.config.ConfigCommands.server(SimpleEnd.ID).json(SimpleEndConfig::toJson, SimpleEndConfig::apply).file(FabricLoader.getInstance().getConfigDir(), SimpleEndConfig.FILE)
+                .after(SimpleEnd::applySubSwitches).register();
         EndRegistry.blocks();
         EndRegistry.effects();
         EndRegistry.items();

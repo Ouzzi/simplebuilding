@@ -4,6 +4,22 @@ import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric runs only @GameTest methods: one wrapper per shared test body in {@link EndTests}. */
 public final class ModuleGameTest {
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleend", false); }
+    /** a-audsb31e2 simpleend-P2-1: /simpleend config enableSimpleEndDragonFight reaches the nested switch at once (Fabric only: the command comes from SimpleLib). */
+    @GameTest public void nestedSwitchFollowsConfigCommand(GameTestHelper h) {
+        var spec = com.simplelib.api.config.ConfigCommands.spec(SimpleEnd.ID, false);
+        h.assertTrue(spec != null, "simpleend config is announced");
+        boolean before = SimpleEndConfig.enableSimpleEndDragonFight;
+        try {
+            h.assertTrue(spec.set("enableSimpleEndDragonFight", "false").ok(), "set false");
+            h.assertTrue(!com.simplebuilding.framework.api.SubMods.enabled(SimpleEnd.DRAGON_FIGHT), "Dragon Fight is off at once");
+            h.assertTrue(spec.set("enableSimpleEndDragonFight", "true").ok(), "set true");
+            h.assertTrue(com.simplebuilding.framework.api.SubMods.enabled(SimpleEnd.DRAGON_FIGHT), "Dragon Fight is on at once");
+        } finally {
+            spec.set("enableSimpleEndDragonFight", String.valueOf(before));
+            SimpleEnd.applySubSwitches();
+        }
+        h.succeed();
+    }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void guideBook(GameTestHelper helper) { EndTests.ALL.get("guide_book").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void registered(GameTestHelper helper) { EndTests.ALL.get("registered").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void woodTagsAndRecipes(GameTestHelper helper) { EndTests.ALL.get("wood_tags_and_recipes").accept(helper); }
