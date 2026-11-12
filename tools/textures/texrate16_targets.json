@@ -1,5 +1,5 @@
 {
- "note": "b-texrate16 (09.11.): A8d rework targets; method see texrate16_rework_2026_11_09.py, groups and Vanilla models see texrate16_2026_11_09.py GROUPS | Pads entfernt (Besitzer 09.11.: Pads = Besitzer-Zeichnungen, unverändert lassen). | b-texrate20 (10.11.): 49 TEXRATE16-Einwaende raus (47 + die zwei Grund-Vitrinenrahmen), neu gezeichnet in texrate20_2026_11_10.py (DESIGNS). | b-texsb31 (11.11.): melon_flesh, questionary_table_book/_side wieder Ziel (TEXRATE16-NEU abgenommen 10.11.), jetzt in octets_2026_10_09.py bzw. simplequestionary gen_textures.py ueber finish() verankert.",
+ "note": "b-texrate16 (09.11.): A8d rework targets; method see texrate16_rework_2026_11_09.py, groups and Vanilla models see texrate16_2026_11_09.py GROUPS | Pads entfernt (Besitzer 09.11.: Pads = Besitzer-Zeichnungen, unverändert lassen). | b-texrate20 (10.11.): 49 TEXRATE16-Einwaende raus (47 + die zwei Grund-Vitrinenrahmen), neu gezeichnet in texrate20_2026_11_10.py (DESIGNS).",
  "groups": {
   "Holz-/Lederflaechen (Modell)": "Vanilla barrel/chest/lectern: Holz/Leder/Metall in 2-4-px-Haufen eines Nachbartons, Drift oben/links hell",
   "Kanten-Motive": "Vanilla glowstone/target/crying_obsidian: Funken/Risse duerfen hart sein, aber Extreme gestuft -> hart <= 20 %",
@@ -3043,13 +3043,229 @@
    "after": "gruen",
    "after_why": ""
   },
-  "modules/simpleoctets/shared/resources/assets/simpleoctets/textures/block/melon_flesh.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 153, in Flaechen>=6 83.2, Hauptton 59.8, hart 15.4",
-   "after": "orange",
-   "after_why": "hart 15.2"
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_stainless_steel.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: neue Familie, gleiche A8d-Bearbeitung wie die sechs Metalle",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/stainless_steel_tiles.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: neue Familie, gleiche A8d-Bearbeitung wie die sechs Metalle",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/stainless_steel_pillar.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: neue Familie, gleiche A8d-Bearbeitung wie die sechs Metalle",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/stainless_steel_pillar_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: neue Familie, gleiche A8d-Bearbeitung wie die sechs Metalle",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/cut_bronze.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: neue Familie, gleiche A8d-Bearbeitung wie die sechs Metalle",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/bronze_tiles.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: neue Familie, gleiche A8d-Bearbeitung wie die sechs Metalle",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/bronze_pillar.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: neue Familie, gleiche A8d-Bearbeitung wie die sechs Metalle",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/bronze_pillar_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: neue Familie, gleiche A8d-Bearbeitung wie die sechs Metalle",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/silver_door_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/silver_door_bottom.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/silver_trapdoor.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/lead_door_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/lead_door_bottom.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/lead_trapdoor.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/zinc_door_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/zinc_door_bottom.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/zinc_trapdoor.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/nickel_door_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/nickel_door_bottom.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/nickel_trapdoor.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/tin_door_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/tin_door_bottom.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/tin_trapdoor.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/brass_door_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/brass_door_bottom.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/brass_trapdoor.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/bronze_door_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/bronze_door_bottom.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/bronze_trapdoor.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/stainless_steel_door_top.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/stainless_steel_door_bottom.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
+  },
+  "modules/simpleores/shared/resources/assets/simpleores/textures/block/stainless_steel_trapdoor.png": {
+   "group": "Runde 15 (Simple Ores)",
+   "method": "r15",
+   "light": "neu",
+   "why": "b-pal28: Tür/Falltür, A8d wie die Metall-Familie (R3 rot -> R4)",
+   "after": "siehe PAL28"
   },
   "modules/simplequestionary/shared/resources/assets/simplequestionary/textures/block/questionary_table_book.png": {
    "group": "Holz-/Lederflaechen (Modell)",
@@ -3066,6 +3282,14 @@
    "why": "groesste Flaeche 40, in Flaechen>=6 53.9, hart 23.8, Farben 34 (Verlauf?)",
    "after": "orange",
    "after_why": "hart 23.3, Farben 35 (Verlauf?)"
+  },
+  "modules/simpleoctets/shared/resources/assets/simpleoctets/textures/block/melon_flesh.png": {
+   "group": "Flaechen (allgemein)",
+   "method": "areas",
+   "light": "rot",
+   "why": "groesste Flaeche 153, in Flaechen>=6 83.2, Hauptton 59.8, hart 15.4",
+   "after": "orange",
+   "after_why": "hart 15.2"
   }
  },
  "not_improved": {
