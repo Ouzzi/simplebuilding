@@ -186,6 +186,16 @@ public final class ModuleGameTest {
   }
 
   @GameTest
+  public void toyWaterBalloonProtection(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_water_balloon_protection").accept(h);
+  }
+
+  @GameTest
+  public void toyRubberDuckProtection(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("toy_rubber_duck_protection").accept(h);
+  }
+
+  @GameTest
   public void toyBubbleWand(GameTestHelper h) {
     com.simplefun.test.FunTests.ALL.get("toy_bubble_wand").accept(h);
   }

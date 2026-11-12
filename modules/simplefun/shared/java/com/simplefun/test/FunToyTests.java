@@ -53,6 +53,8 @@ public final class FunToyTests {
     all.put("toy_petting", FunToyTests::petting);
     all.put("toy_skip_stone", FunToyTests::skipStone);
     all.put("toy_water_balloon", FunToyTests::waterBalloon);
+    all.put("toy_water_balloon_protection", FunToyTests::waterBalloonProtection);
+    all.put("toy_rubber_duck_protection", FunToyTests::rubberDuckProtection);
     all.put("toy_bubble_wand", FunToyTests::bubbleWand);
     all.put("toy_paper_plane", FunToyTests::paperPlane);
     all.put("toy_rubber_duck", FunToyTests::rubberDuck);
@@ -203,6 +205,7 @@ public final class FunToyTests {
     ItemStack crafted = craft(h, Items.LEATHER, Items.STRING, Items.WATER_BUCKET);
     h.assertTrue(crafted.is(ModToys.WATER_BALLOON) && crafted.getCount() == 4, "leather + string + water bucket make four");
     var level = h.getLevel();
+    var owner = player(h); // block changes need the owner's building rights (AUDSB31E1)
     h.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
     h.setBlock(new BlockPos(2, 2, 2), Blocks.FIRE);
     h.setBlock(new BlockPos(5, 1, 5), Blocks.STONE);
@@ -212,16 +215,16 @@ public final class FunToyTests {
     h.assertTrue(level.getBlockState(fire).is(Blocks.FIRE), "fire set up");
     WaterBalloonEntity.splash(level, Vec3.atCenterOf(netherFire), null, null, null, true);
     h.assertTrue(level.getBlockState(netherFire).is(Blocks.FIRE), "in the Nether it only steams");
-    int changed = WaterBalloonEntity.splash(level, Vec3.atCenterOf(fire), null, null, null, false);
+    int changed = WaterBalloonEntity.splash(level, Vec3.atCenterOf(fire), null, null, owner, false);
     h.assertTrue(changed >= 1 && !level.getBlockState(fire).is(Blocks.FIRE), "the splash douses the fire");
     h.assertTrue(level.getBlockState(fire.below()).is(Blocks.STONE), "nothing else breaks");
     h.setBlock(new BlockPos(4, 2, 2), Blocks.CAULDRON);
     BlockPos cauldron = h.absolutePos(new BlockPos(4, 2, 2));
     var hit = new BlockHitResult(Vec3.atCenterOf(cauldron), Direction.UP, cauldron, false);
-    WaterBalloonEntity.splash(level, Vec3.atCenterOf(cauldron), hit, null, null, false);
+    WaterBalloonEntity.splash(level, Vec3.atCenterOf(cauldron), hit, null, owner, false);
     BlockState filled = level.getBlockState(cauldron);
     h.assertTrue(filled.is(Blocks.WATER_CAULDRON) && filled.getValue(LayeredCauldronBlock.LEVEL) == 1, "empty cauldron gets one level");
-    WaterBalloonEntity.splash(level, Vec3.atCenterOf(cauldron), hit, null, null, false);
+    WaterBalloonEntity.splash(level, Vec3.atCenterOf(cauldron), hit, null, owner, false);
     h.assertTrue(level.getBlockState(cauldron).getValue(LayeredCauldronBlock.LEVEL) == 2, "one more level per balloon");
     var p = player(h);
     p.igniteForSeconds(5);
@@ -234,6 +237,72 @@ public final class FunToyTests {
     p.setItemSlot(EquipmentSlot.MAINHAND, balloon);
     h.assertTrue(FunToys.throwToy(p, balloon, com.simplefun.item.ToyThrowItem.Kind.WATER_BALLOON) != null, "throw");
     h.assertTrue(FunToys.throwToy(p, balloon, com.simplefun.item.ToyThrowItem.Kind.WATER_BALLOON) == null, "5 s cooldown");
+    h.succeed();
+  }
+
+  /**
+   * AUDSB31E1 (simplefun-P2-1): a balloon changes blocks only for an owner with building rights. No owner (logged out in
+   * flight) and a claim provider that refuses the block leave fire, campfire and cauldron alone; a plain owner still douses.
+   */
+  static void waterBalloonProtection(GameTestHelper h) {
+    var level = h.getLevel();
+    var owner = player(h);
+    h.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
+    h.setBlock(new BlockPos(2, 2, 2), Blocks.FIRE);
+    h.setBlock(new BlockPos(5, 2, 2), Blocks.CAULDRON);
+    BlockPos fire = h.absolutePos(new BlockPos(2, 2, 2));
+    BlockPos cauldron = h.absolutePos(new BlockPos(5, 2, 2));
+    var hit = new BlockHitResult(Vec3.atCenterOf(cauldron), Direction.UP, cauldron, false);
+    h.assertTrue(
+        WaterBalloonEntity.splash(level, Vec3.atCenterOf(fire), null, null, null, false) == 0 && level.getBlockState(fire).is(Blocks.FIRE),
+        "a balloon without an owner douses nothing");
+    h.assertTrue(
+        WaterBalloonEntity.splash(level, Vec3.atCenterOf(cauldron), hit, null, null, false) == 0 && level.getBlockState(cauldron).is(Blocks.CAULDRON),
+        "a balloon without an owner fills nothing");
+    var server = level.getServer();
+    com.simplebuilding.framework.api.Protection.register(
+        server, "simplefun-test-claim", target -> !(target.y() == fire.getY() && Math.abs(target.x() - fire.getX()) <= 6 && Math.abs(target.z() - fire.getZ()) <= 6));
+    try {
+      h.assertTrue(
+          WaterBalloonEntity.splash(level, Vec3.atCenterOf(fire), null, null, owner, false) == 0 && level.getBlockState(fire).is(Blocks.FIRE),
+          "a claim keeps the fire where it is");
+      h.assertTrue(
+          WaterBalloonEntity.splash(level, Vec3.atCenterOf(cauldron), hit, null, owner, false) == 0 && level.getBlockState(cauldron).is(Blocks.CAULDRON),
+          "a claim keeps the cauldron empty");
+    } finally {
+      com.simplebuilding.framework.api.Protection.unregister(server, "simplefun-test-claim");
+    }
+    h.assertTrue(
+        WaterBalloonEntity.splash(level, Vec3.atCenterOf(fire), null, null, owner, false) >= 1 && !level.getBlockState(fire).is(Blocks.FIRE),
+        "without a claim the owner still douses");
+    h.succeed();
+  }
+
+  /**
+   * AUDSB31E1 (simplefun-P2-2): the air click that lays the duck on water skips the packet handler's spawn-protection check,
+   * so the item asks for the building rights itself. A claim on the target block refuses it, otherwise the duck floats.
+   */
+  static void rubberDuckProtection(GameTestHelper h) {
+    var level = h.getLevel();
+    h.setBlock(new BlockPos(2, 1, 2), Blocks.WATER);
+    BlockPos target = h.absolutePos(new BlockPos(2, 2, 2));
+    var p = player(h);
+    Vec3 above = h.absoluteVec(new Vec3(2.5, 3.0, 2.5));
+    p.snapTo(above.x, above.y, above.z, 0.0f, 90.0f); // looking straight down at the water
+    ItemStack duck = new ItemStack(ModToys.RUBBER_DUCK, 2);
+    p.setItemInHand(InteractionHand.MAIN_HAND, duck);
+    var server = level.getServer();
+    com.simplebuilding.framework.api.Protection.register(
+        server, "simplefun-test-claim", t -> !(t.x() == target.getX() && t.y() == target.getY() && t.z() == target.getZ()));
+    try {
+      var result = ModToys.RUBBER_DUCK.use(level, p, InteractionHand.MAIN_HAND);
+      h.assertTrue(!result.consumesAction() && level.getBlockState(target).isAir() && duck.getCount() == 2, "a claimed water surface takes no duck: " + result);
+    } finally {
+      com.simplebuilding.framework.api.Protection.unregister(server, "simplefun-test-claim");
+    }
+    var result = ModToys.RUBBER_DUCK.use(level, p, InteractionHand.MAIN_HAND);
+    h.assertTrue(result.consumesAction() && level.getBlockState(target).is(ModToys.RUBBER_DUCK_BLOCK) && duck.getCount() == 1,
+        "without a claim the duck floats on the water: " + result);
     h.succeed();
   }
 

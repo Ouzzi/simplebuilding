@@ -73,6 +73,24 @@ public final class FunToys {
     return SimplefunCommon.on() && FunDelights.enabled(key);
   }
 
+  /**
+   * Building rights for one block a toy changes (a water balloon dousing a campfire or filling a cauldron, the duck laid on
+   * water by an air click, which skips the packet handler's own check): only a real player owner, who must pass spawn
+   * protection and the world border and every claim provider ({@code framework Protection}) - like the brick's glass break.
+   * No owner (logged out while the balloon flew) changes nothing.
+   */
+  public static boolean mayChange(ServerLevel level, Entity owner, BlockPos pos) {
+    if (!(owner instanceof ServerPlayer player) || !player.mayInteract(level, pos)) return false;
+    var server = level.getServer();
+    if (!com.simplebuilding.framework.api.Protection.active(server)) return true;
+    boolean admin = net.minecraft.commands.Commands.hasPermission(net.minecraft.commands.Commands.LEVEL_OWNERS)
+        .test(player.createCommandSourceStack());
+    return com.simplebuilding.framework.api.Protection.allows(
+        server,
+        new com.simplebuilding.framework.api.Protection.Target(
+            player.getUUID(), level.dimension().identifier().toString(), pos.getX(), pos.getY(), pos.getZ(), admin));
+  }
+
   // ---------------------------------------------------------------- FUN11-1 party popper
 
   /** Confetti in the popper's colour (no colour: a mix), one use; {@code false} while cooling down. */

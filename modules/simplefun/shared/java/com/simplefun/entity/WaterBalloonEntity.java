@@ -1,6 +1,7 @@
 package com.simplefun.entity;
 
 import com.simplefun.registry.ModToys;
+import com.simplefun.toys.FunToys;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -31,7 +32,8 @@ import net.minecraft.world.phys.Vec3;
 /**
  * FUN11-6 Wasserbombe: hits only players and blocks (never mobs). On impact it douses fire, lit candles and campfires
  * within one block, fills a hit cauldron by one level and makes a hit player wet (fire out, drips). No damage, nothing
- * broken. Where water evaporates (the Nether) it turns into steam without any effect.
+ * broken; every block change needs the owner's building rights ({@link FunToys#mayChange}). Where water evaporates (the
+ * Nether) it turns into steam without any effect.
  */
 public class WaterBalloonEntity extends ThrowableItemProjectile {
   public WaterBalloonEntity(EntityType<? extends WaterBalloonEntity> type, Level level) {
@@ -99,11 +101,13 @@ public class WaterBalloonEntity extends ThrowableItemProjectile {
     if (block != null) {
       BlockPos hitPos = block.getBlockPos();
       BlockState state = level.getBlockState(hitPos);
-      if (state.is(Blocks.CAULDRON)) {
+      // spawn protection / claim: a cauldron without building rights stays as it is (fire is checked block by block in douse)
+      boolean may = FunToys.mayChange(level, owner, hitPos);
+      if (may && state.is(Blocks.CAULDRON)) {
         level.setBlockAndUpdate(hitPos, Blocks.WATER_CAULDRON.defaultBlockState());
         level.gameEvent(owner, GameEvent.BLOCK_CHANGE, hitPos);
         changed++;
-      } else if (state.is(Blocks.WATER_CAULDRON) && state.getValue(LayeredCauldronBlock.LEVEL) < LayeredCauldronBlock.MAX_FILL_LEVEL) {
+      } else if (may && state.is(Blocks.WATER_CAULDRON) && state.getValue(LayeredCauldronBlock.LEVEL) < LayeredCauldronBlock.MAX_FILL_LEVEL) {
         level.setBlockAndUpdate(hitPos, state.setValue(LayeredCauldronBlock.LEVEL, state.getValue(LayeredCauldronBlock.LEVEL) + 1));
         level.gameEvent(owner, GameEvent.BLOCK_CHANGE, hitPos);
         changed++;
@@ -118,6 +122,8 @@ public class WaterBalloonEntity extends ThrowableItemProjectile {
   /** Like Vanilla splash water: fire goes out, lit candles and campfires are put out. Nothing else changes. */
   static boolean douse(ServerLevel level, BlockPos pos, Entity owner) {
     BlockState state = level.getBlockState(pos);
+    boolean lit = state.is(BlockTags.FIRE) || AbstractCandleBlock.isLit(state) || CampfireBlock.isLitCampfire(state);
+    if (!lit || !FunToys.mayChange(level, owner, pos)) return false;
     if (state.is(BlockTags.FIRE)) {
       level.removeBlock(pos, false);
       level.levelEvent(null, 1009, pos, 0);

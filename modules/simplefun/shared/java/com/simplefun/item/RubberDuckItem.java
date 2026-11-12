@@ -22,6 +22,9 @@ public class RubberDuckItem extends BlockItem {
     BlockHitResult hit = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
     if (hit.getType() != HitResult.Type.BLOCK || level.getFluidState(hit.getBlockPos()).isEmpty())
       return InteractionResult.PASS;
+    // An air click never passes the packet handler's spawn-protection check of a block click: ask for the building rights here.
+    if (level instanceof net.minecraft.server.level.ServerLevel server
+        && !com.simplefun.toys.FunToys.mayChange(server, player, hit.getBlockPos().above())) return InteractionResult.FAIL;
     return super.useOn(new UseOnContext(player, hand, hit.withPosition(hit.getBlockPos().above())));
   }
 }
