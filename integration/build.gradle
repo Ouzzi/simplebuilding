@@ -69,6 +69,10 @@ loom {
             vmArg '-Dfabric-api.gametest'
             vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.get()}/junit.xml"
             vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: 'sbintegration:*'}"
+            // L9 (tools/bench/headless_bench.py --profile sb): -PbenchSb switches SbBenchGameTest on, -PbenchSbProfile adds the stack sampler.
+            if (project.hasProperty('benchSb')) vmArg '-Dsb.bench=true'
+            if (project.hasProperty('benchSbProfile')) vmArg '-Dsb.bench.profile=true'
+            if (project.hasProperty('benchSb')) vmArg "-Xmx${project.findProperty('benchXmx') ?: '4G'}"
         }
     }
 }
@@ -257,7 +261,7 @@ tasks.matching { it.name in ['runIntegrationClient','runIntegrationServer','runI
 tasks.named('runIntegrationGameTest') {
     doFirst {
         def selected = new groovy.json.JsonSlurper().parse(selectionFile)
-        if (!selected.modules.containsAll(['simplebuilding','wiringexample']))
+        if (!project.hasProperty('benchSb') && !selected.modules.containsAll(['simplebuilding','wiringexample']))
             throw new GradleException('The cross-mod test requires simplebuilding and wiringexample')
     }
 }
