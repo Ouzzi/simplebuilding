@@ -434,6 +434,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void staleFlypadFlightIsSweptAway(GameTestHelper h) {
+        PadsTests.ALL.get("stale_flypad_flight_is_swept_away").accept(h);
+    }
+
+    @GameTest
     public void padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind(GameTestHelper h) {
         PadsTests.ALL.get("pads_placed_in_water_are_waterlogged_and_leave_the_water_behind").accept(h);
     }

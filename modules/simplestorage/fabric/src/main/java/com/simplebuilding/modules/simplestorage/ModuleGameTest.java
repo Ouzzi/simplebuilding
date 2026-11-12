@@ -691,6 +691,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void networkShiftTakeWithFullInventoryLosesNothing(GameTestHelper h) {
+        StorageTests.ALL.get("network_shift_take_with_full_inventory_loses_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void pipeSideKeysCycleInOutOff(GameTestHelper h) {
         StorageTests.ALL.get("pipe_side_keys_cycle_in_out_off").accept(h);
     }
@@ -703,6 +708,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplestorage:empty")
     public void pipeOffSideTakesAndGivesNothing(GameTestHelper h) {
         StorageTests.ALL.get("pipe_off_side_takes_and_gives_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipePullRespectsCanTakeItem(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_pull_respects_can_take_item").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")

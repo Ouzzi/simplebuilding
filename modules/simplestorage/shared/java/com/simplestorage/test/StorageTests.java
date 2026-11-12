@@ -374,6 +374,7 @@ public final class StorageTests {
         ALL.put("pipe_side_keys_cycle_in_out_off", PipeTests::sideKeysCycleInOutOff);
         ALL.put("pipe_several_outputs_share_round_robin", PipeTests::severalOutputsShareRoundRobin);
         ALL.put("pipe_off_side_takes_and_gives_nothing", PipeTests::offSideTakesAndGivesNothing);
+        ALL.put("pipe_pull_respects_can_take_item", PipeTests::pullRespectsCanTakeItem);
         ALL.put("pipe_old_single_output_migrates_and_new_states_persist", PipeTests::oldSingleOutputMigratesAndNewStatesPersist);
         ALL.put("pipe_connections_grow_arms", PipeTests::connectionsGrowArms);
         MAX_TICKS.put("pipe_filter_keeps_one_item_and_follows_the_principle", PipeTests.MOVE_MAX_TICKS);
@@ -392,6 +393,7 @@ public final class StorageTests {
         ALL.put("network_full_keeps_the_item_with_the_player", NetworkTests::fullNetworkKeepsTheItemWithThePlayer);
         ALL.put("network_controller_intake_feeds_the_network", NetworkTests::controllerIntakeFeedsTheNetwork);
         ALL.put("network_old_controller_items_move_into_the_network", NetworkTests::oldControllerItemsMoveIntoTheNetwork);
+        ALL.put("network_shift_take_with_full_inventory_loses_nothing", NetworkTests::shiftTakeWithFullInventoryLosesNothing);
         ALL.put("network_search_finds_chests_through_cables", NetworkTests::searchFindsChestsThroughCables);
         ALL.put("network_controller_takes_chests_of_its_step_or_lower", NetworkTests::controllerTakesChestsOfItsStepOrLower);
         ALL.put("network_too_many_chests_break_the_controller", NetworkTests::tooManyChestsBreakTheController);

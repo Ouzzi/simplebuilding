@@ -1003,6 +1003,30 @@ public final class PadTweaksTests {
         helper.succeed();
     }
 
+    /**
+     * Audit b-audsb31-a (simplepads-P1-1): flypad flight that no pad covers any more (logout while flying, restart, pad broken
+     * meanwhile) is taken by the sweep; a player inside a switched-on flypad keeps it.
+     */
+    public static void staleFlypadFlightIsSweptAway(GameTestHelper helper) {
+        ServerPlayer stale = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        stale.getAbilities().instabuild = false;
+        stale.getAbilities().mayfly = true;
+        stale.addTag(FlypadBlockEntity.FLIGHT_TAG);
+        BlockPos pad = new BlockPos(5, 1, 5);
+        helper.setBlock(pad, PadsBlocks.FLYPAD);
+        ServerPlayer covered = mockPlayer(helper, new Vec3(5.5, 3.0, 5.5));
+        covered.getAbilities().instabuild = false;
+        covered.getAbilities().mayfly = false;
+        FlypadBlockEntity be = helper.getBlockEntity(pad, FlypadBlockEntity.class);
+        FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(pad), helper.getBlockState(pad), be);
+        helper.assertTrue(covered.getAbilities().mayfly && covered.entityTags().contains(FlypadBlockEntity.FLIGHT_TAG), "the flypad did not let the covered player fly");
+        FlypadBlockEntity.sweepStaleFlight(helper.getLevel().getServer());
+        helper.assertFalse(stale.getAbilities().mayfly, "a player with stale flypad flight kept creative flight");
+        helper.assertFalse(stale.entityTags().contains(FlypadBlockEntity.FLIGHT_TAG), "the stale flight tag stayed");
+        helper.assertTrue(covered.getAbilities().mayfly, "the sweep took the flight of a player over a switched-on flypad");
+        helper.succeed();
+    }
+
     private static boolean isForced(ServerLevel level, long key) {
         return level.getForceLoadedChunks().contains(ChunkPos.pack((int) key, (int) (key >> 32)));
     }

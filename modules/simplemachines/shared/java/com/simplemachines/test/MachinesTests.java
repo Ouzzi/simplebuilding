@@ -71,6 +71,7 @@ public final class MachinesTests {
         ALL.put("double_piston_switch_off_keeps_it_still", MachinesTests::doublePistonSwitchOffKeepsItStill);
         ALL.put("double_piston_all_facings", MachinesTests::doublePistonAllFacings);
         ALL.put("double_piston_moves_with_vanilla_blocks", MachinesTests::doublePistonMovesWithVanillaBlocks);
+        ALL.put("double_piston_breaks_a_pot_with_its_item", MachinesTests::doublePistonBreaksAPotWithItsItem);
         ALL.put("discover_recipe_unlocks", com.simplemachines.discover.MachinesDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemachines.discover.MachinesDiscover::behaviourHints);
         ALL.put("guide_book", com.simplemachines.guide.MachinesGuide::gameTest);
@@ -429,6 +430,31 @@ public final class MachinesTests {
                         () -> ext(h, base) == 2 && parts(h, base, 2) && at(h, base.east(3)).is(Blocks.STONE)),
                 new Step("signal gone: back to 0, the stone stays", () -> h.setBlock(base.north(), Blocks.AIR),
                         () -> ext(h, base) == 0 && parts(h, base, 0) && at(h, base.east(3)).is(Blocks.STONE) && at(h, base.east()).isAir())));
+    }
+
+    /**
+     * Audit b-audsb31-a (simplemachines-P2-1): a block the double piston breaks (a decorated pot) goes like under Vanilla's piston -
+     * the pot drops and so does the item inside it (before, the moving head replaced the cell without block entity side effects).
+     */
+    public static void doublePistonBreaksAPotWithItsItem(GameTestHelper h) {
+        clear(h);
+        BlockPos base = new BlockPos(1, 2, 4);
+        doublePiston(h, base);
+        h.setBlock(base.east().below(), Blocks.STONE);
+        h.setBlock(base.east(), Blocks.DECORATED_POT);
+        h.getBlockEntity(base.east(), net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.class)
+                .setTheItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND, 3));
+        sequence(h, List.of(
+                new Step("signal: the head breaks the pot, its diamonds drop", () -> h.setBlock(base.north(), Blocks.REDSTONE_BLOCK),
+                        () -> ext(h, base) >= 1 && !at(h, base.east(2)).is(Blocks.DECORATED_POT)
+                                && dropped(h, net.minecraft.world.item.Items.DIAMOND) == 3)));
+    }
+
+    private static int dropped(GameTestHelper h, net.minecraft.world.item.Item item) {
+        int n = 0;
+        for (net.minecraft.world.entity.item.ItemEntity e : h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(h.absolutePos(BlockPos.ZERO)).expandTowards(8, 8, 8), e -> e.getItem().is(item))) n += e.getItem().getCount();
+        return n;
     }
 
     /** From stage 2 a weaker signal (15 down to 6) takes it back one stage: head at the first cell, second cell free. */

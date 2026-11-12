@@ -11,6 +11,9 @@ public final class MachinesFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ClientPlayNetworking.registerGlobalReceiver(PistonConfigPayload.ID, (payload, context) -> context.client().execute(payload::apply));
+        // Audit b-audsb31-a (simplemachines-P3-1): the next server's rules are its own - a server without the mod sends none.
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((handler, client) ->
+                com.simplemachines.upgrade.PistonBreach.setClientRules(null));
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> PistonUpgrades.registerLateHooks());
         // Stage 3: the hopper menu (one type per tier) and the hopper carts (Vanilla's cart model with the tier hopper).
         com.simplemachines.hopper.Hoppers.MENUS.values().forEach(type -> net.minecraft.client.gui.screens.MenuScreens.register(type, com.simplemachines.client.TierHopperScreen::new));

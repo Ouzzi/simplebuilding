@@ -111,6 +111,7 @@ public final class PadsTests {
         ALL.put("flight_time_and_boosts_are_capped_and_broken_launchpads_drop_their_charges", PadTweaksTests::flightTimeAndBoostsAreCappedAndBrokenLaunchpadsDropTheirCharges);
         ALL.put("a_chunk_loader_replaced_by_another_loader_type_releases_its_chunks", PadTweaksTests::aChunkLoaderReplacedByAnotherLoaderTypeReleasesItsChunks);
         ALL.put("creative_players_lose_the_stale_flypad_flight_tag", PadTweaksTests::creativePlayersLoseTheStaleFlypadFlightTag);
+        ALL.put("stale_flypad_flight_is_swept_away", PadTweaksTests::staleFlypadFlightIsSweptAway);
         ALL.put("pads_placed_in_water_are_waterlogged_and_leave_the_water_behind", PadTweaksTests::padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind);
     }
 

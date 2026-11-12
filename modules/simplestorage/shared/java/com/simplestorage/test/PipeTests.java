@@ -332,6 +332,42 @@ public final class PipeTests {
         h.succeed();
     }
 
+    /**
+     * Audit b-audsb31-a (simplestorage-P2-1): a pull asks the source's {@code canTakeItem} before every item, like a hopper. A
+     * container that refuses gives nothing; one that keeps its last item (a filter hopper) keeps it even for the four-item step.
+     */
+    public static void pullRespectsCanTakeItem(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        place(h, PIPE, "enderite_pipe", Direction.EAST);
+        ItemPipeBlockEntity pipe = entity(h, PIPE);
+        net.minecraft.world.SimpleContainer refusing = new net.minecraft.world.SimpleContainer(1) {
+            @Override
+            public boolean canTakeItem(Container target, int slot, ItemStack stack) {
+                return false;
+            }
+        };
+        refusing.setItem(0, new ItemStack(Items.DIRT, 8));
+        if (pipe.takeFrom(refusing, Direction.WEST)) problems.add("pulled from a container that refuses");
+        if (refusing.getItem(0).getCount() != 8 || !pipe.getItem(0).isEmpty()) problems.add("refusing container lost items: " + refusing.getItem(0));
+        net.minecraft.world.SimpleContainer keepsOne = new net.minecraft.world.SimpleContainer(1) {
+            @Override
+            public boolean canTakeItem(Container target, int slot, ItemStack stack) {
+                return getItem(slot).getCount() > 1;
+            }
+        };
+        keepsOne.setItem(0, new ItemStack(Items.STONE, 3));
+        if (!pipe.takeFrom(keepsOne, Direction.WEST)) problems.add("took nothing from a container with two spare items");
+        if (keepsOne.getItem(0).getCount() != 1) problems.add("the kept item went too: " + keepsOne.getItem(0));
+        if (!pipe.getItem(0).is(Items.STONE) || pipe.getItem(0).getCount() != 2) problems.add("pipe holds " + pipe.getItem(0) + ", expected 2 stone");
+        if (pipe.takeFrom(keepsOne, Direction.WEST)) problems.add("took the last kept item");
+        net.minecraft.world.SimpleContainer plain = new net.minecraft.world.SimpleContainer(1);
+        plain.setItem(0, new ItemStack(Items.STONE, 10));
+        pipe.takeFrom(plain, Direction.WEST);
+        if (pipe.getItem(0).getCount() != 6 || plain.getItem(0).getCount() != 6) problems.add("a plain container did not give the full step of 4: " + pipe.getItem(0));
+        h.assertTrue(problems.isEmpty(), "pull canTakeItem: " + problems);
+        h.succeed();
+    }
+
     /** ROHR33: an off side takes nothing in (pull, hopper insert) and gives nothing out; an output side is no input either. */
     public static void offSideTakesAndGivesNothing(GameTestHelper h) {
         List<String> problems = new ArrayList<>();

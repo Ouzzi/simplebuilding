@@ -21,6 +21,10 @@ public final class PadsContent {
             ChunkLoaderRegistry.reconcile(server);
         }
         LaunchSafety.serverTick(server);
+        // Audit b-audsb31-a (simplepads-P1-1): flypad flight that no pad covers any more (logout, restart, pad gone meanwhile).
+        if (server.getTickCount() % com.simplepads.block.entity.FlypadBlockEntity.STALE_SWEEP_INTERVAL == 0) {
+            com.simplepads.block.entity.FlypadBlockEntity.sweepStaleFlight(server);
+        }
     }
 
     public static void onPlayerJoin(ServerPlayer player) {

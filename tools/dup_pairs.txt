@@ -176,7 +176,7 @@ common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistr
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/CopperPressurePlateBlockEntity.java
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/ElytraPadBlockEntity.java
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/FilterPlateBlockEntity.java
-common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/FlypadBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/FlypadBlockEntity.java allow: sweepStaleFlight/1
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/LaunchpadBlockEntity.java
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/OwnedBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/OwnedBlockEntity.java
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/PadSignalSource.java modules/simplepads/shared/java/com/simplepads/block/entity/PadSignalSource.java

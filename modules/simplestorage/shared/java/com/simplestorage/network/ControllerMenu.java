@@ -254,7 +254,10 @@ public class ControllerMenu extends AbstractContainerMenu {
                 ItemStack taken = storage.take(kind, ChestNetwork.takeAmount(kind, false, available));
                 if (!taken.isEmpty()) {
                     player.getInventory().add(taken);
-                    if (!taken.isEmpty()) storage.insert(taken);
+                    // What the inventory did not take goes back; whatever the network cannot hold any more is dropped, never lost
+                    // (audit b-audsb31-a, simplestorage-P2-2).
+                    ItemStack back = taken.isEmpty() ? ItemStack.EMPTY : storage.insert(taken);
+                    if (!back.isEmpty()) player.drop(back, false, net.minecraft.util.Prediction.SERVER_ONLY);
                 }
             }
         }
