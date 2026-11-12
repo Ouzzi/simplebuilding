@@ -40,6 +40,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void cloakMorph(GameTestHelper helper) { MobsTests.ALL.get("cloak_morph").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void cloakPlayerMorph(GameTestHelper helper) { MobsTests.ALL.get("cloak_player_morph").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void cloakReveal(GameTestHelper helper) { MobsTests.ALL.get("cloak_reveal").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void deceiverFakesAreNeverSaved(GameTestHelper helper) { MobsTests.ALL.get("deceiver_fakes_are_never_saved").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trickMirror(GameTestHelper helper) { MobsTests.ALL.get("trick_mirror").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trickMirrorBalance(GameTestHelper helper) { MobsTests.ALL.get("trick_mirror_balance").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trumpetNotes(GameTestHelper helper) { MobsTests.ALL.get("trumpet_notes").accept(helper); }

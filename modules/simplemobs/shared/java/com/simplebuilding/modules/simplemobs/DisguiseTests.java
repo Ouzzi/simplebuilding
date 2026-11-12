@@ -212,6 +212,19 @@ final class DisguiseTests {
             h.assertTrue(!MobsConfig.trickMirrorEnabled, "the mirror is off by default");
             h.succeed();
         });
+        // PLAN40 simplemobs-1 (audit P2-5): the Deceiver's fakes are never written to the chunk, so no unload or restart keeps them.
+        add.accept("deceiver_fakes_are_never_saved", h -> {
+            floor(h, 0, 8);
+            var fake = mob(h, EntityTypes.ZOMBIE, 2, 2);
+            fake.addTag(DeceiverEntity.TAG_FAKE);   // the marks DeceiverEntity#makeFake sets
+            fake.setPersistenceRequired();
+            var plain = mob(h, EntityTypes.ZOMBIE, 5, 5);
+            plain.setPersistenceRequired();
+            h.assertTrue(fake.isPersistenceRequired(), "a fake still does not despawn during the fight");
+            h.assertTrue(!fake.shouldBeSaved(), "a fake is never saved");
+            h.assertTrue(plain.shouldBeSaved(), "a normal (persistent) mob is saved as usual");
+            h.succeed();
+        });
         // TROMP-3: the look angle picks a C major step (15 steps over two octaves), two samples, pitch inside Vanilla's range.
         add.accept("trumpet_notes", h -> {
             h.assertTrue(TrumpetItem.note(15f) == 0 && TrumpetItem.note(-15f) == 24 && TrumpetItem.note(40f) == 0 && TrumpetItem.note(-80f) == 24,

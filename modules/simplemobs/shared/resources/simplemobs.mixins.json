@@ -36,7 +36,8 @@
     "BlockRotProcessorMixin",
     "StructureWeatheredMixin",
     "ItemBossRitualMixin",
-    "FlintAndSteelBroodMixin"
+    "FlintAndSteelBroodMixin",
+    "DeceiverFakeSaveMixin"
   ],
   "client": [
     "DeceiverLookMixin",
