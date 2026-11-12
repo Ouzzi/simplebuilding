@@ -1,6 +1,7 @@
 package com.simpledinos.client;
 
 import com.simpledinos.SimpleDinos;
+import com.simpledinos.entity.Trex;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -13,7 +14,6 @@ import net.minecraft.util.Mth;
  */
 public class TrexModel extends EntityModel<TrexRenderer.State> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(SimpleDinos.id("trex"), "main");
-    private static final float DEG = (float) (Math.PI / 180.0);
     private final ModelPart body, neck, head, jaw, tail1, tail2, tail3, rightThigh, leftThigh, rightShin, leftShin, rightFoot, leftFoot;
     private final ModelPart saddle, armorHead, armorBack;
 
@@ -37,6 +37,13 @@ public class TrexModel extends EntityModel<TrexRenderer.State> {
         this.armorBack = body.getChild("armor_back");
     }
 
+    private static void add(ModelPart part, float[] rot) {
+        if (rot == null) return;
+        part.xRot += rot[0];
+        part.yRot += rot[1];
+        part.zRot += rot[2];
+    }
+
     public static LayerDefinition createBodyLayer() {
         return TrexLayers.create();
     }
@@ -54,16 +61,21 @@ public class TrexModel extends EntityModel<TrexRenderer.State> {
         this.rightFoot.xRot -= Math.max(0.0F, -swing) * 0.6F;
         this.leftFoot.xRot -= Math.max(0.0F, swing) * 0.6F;
         this.body.y += Mth.abs(Mth.sin(pos)) * 1.2F * speed;
-        // head follows the look direction (the neck takes a share), the jaw hangs a little open and breathes
-        this.neck.yRot = state.yRot * DEG * 0.4F;
-        this.head.yRot = state.yRot * DEG * 0.4F;
-        this.head.xRot += state.xRot * DEG * 0.5F;
+        // head follows the look direction (the neck takes a share) and pulls in when a wall or somebody is in the way, the tail bends
+        // away from obstacles: the same pose the server tested with the part boxes (Trex.RIG, a-dino36b)
+        float[][] pose = Trex.RIG.pose(state.yRot, state.xRot, state.headTuck, state.tailBend);
+        add(this.neck, pose[Trex.RIG.neck()]);
+        add(this.head, pose[Trex.RIG.head()]);
+        int[] tail = Trex.RIG.tailBones();
+        ModelPart[] tailParts = {this.tail1, this.tail2, this.tail3};
+        for (int i = 0; i < tail.length && i < tailParts.length; i++) add(tailParts[i], pose[tail[i]]);
+        // the jaw hangs a little open and breathes
         this.jaw.xRot += 0.05F + Mth.sin(state.ageInTicks * 0.09F) * 0.03F;
-        // the tail sways against the walk
-        float sway = Mth.sin(state.ageInTicks * 0.05F) * 0.05F + Mth.sin(pos) * 0.12F * speed;
-        this.tail1.yRot = sway;
-        this.tail2.yRot = sway * 1.2F;
-        this.tail3.yRot = sway * 1.4F;
+        // the tail sways against the walk (less while it is bent away from a wall)
+        float sway = (Mth.sin(state.ageInTicks * 0.05F) * 0.05F + Mth.sin(pos) * 0.12F * speed) * (1.0F - Math.min(1.0F, Math.abs(state.tailBend)) * 0.5F);
+        this.tail1.yRot += sway;
+        this.tail2.yRot += sway * 1.2F;
+        this.tail3.yRot += sway * 1.4F;
         this.saddle.visible = state.saddled;
         this.armorHead.visible = state.armorTier > 0;
         this.armorBack.visible = state.armorTier > 0;

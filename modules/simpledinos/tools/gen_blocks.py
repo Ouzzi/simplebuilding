@@ -4,9 +4,9 @@ three T. rex armors, from ONE spec (concept docs/ai/KONZEPT-A-WP18-2026-10-29.md
     python3 modules/simpledinos/tools/gen_blocks.py            write
     python3 modules/simpledinos/tools/gen_blocks.py --check    fail when a file is stale
 
-Fossil block: ten stages (the bones come out of the sediment as the progress rises). Egg: one base texture per dinosaur; the
-twelve brooding steps add warm glow dots (overlay), the three crack steps add cracks (overlay). The egg model is a stack of three
-boxes with automatic UVs, so the front of the 16 x 16 texture is the front of the egg.
+Fossil block: ten stages (the bones come out of the sediment as the progress rises). Eggs (a-dino36b, owner DINO36): drawn in
+eggs.py like the Vanilla turtle/sniffer eggs - six stacked boxes (dragon egg profile), a side and a lid texture per dinosaur, the
+twelve brooding steps add a translucent warm sheen in four steps, the three crack steps add hairline cracks (side and lid).
 """
 from __future__ import annotations
 
@@ -92,73 +92,26 @@ def fossil_stage(stage: int):
     return img
 
 
-# ---------------------------------------------------------------- eggs
-EGG_STYLES = {
-    'trex': (H('7d8c58'), H('3e4a28'), H('b4c088'), 'spots'),
-    'triceratops': (H('b69a68'), H('6e5632'), H('dcc898'), 'stripes'),
-    'stegosaurus': (H('6c7686'), H('353c4a'), H('a0aabb'), 'plates'),
-    'utahraptor': (H('a8643c'), H('5a2e18'), H('dc9a68'), 'speckle'),
-    'parasaurolophus': (H('4e8a84'), H('26504c'), H('8ac8c0'), 'dots'),
-}
+# ---------------------------------------------------------------- eggs (a-dino36b: eggs.py, variant eggs.CHOSEN)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import eggs as EG  # noqa: E402
 
 
 def egg_base(kind: str):
-    base, dark, light, style = EGG_STYLES[kind]
-    seed = 40 + KINDS.index(kind)
-    img = Image.new('RGBA', (16, 16))
-    px = img.load()
-    for y in range(16):
-        for x in range(16):
-            n = hsh(x, y, seed)
-            c = base
-            if style == 'spots':
-                if hsh(x // 2, y // 2, seed) > 0.72:
-                    c = dark
-            elif style == 'stripes':
-                if (y // 2) % 3 == 0:
-                    c = mix(base, dark, 0.55)
-            elif style == 'plates':
-                if (x + y) % 6 == 0 or (x - y) % 6 == 0:
-                    c = mix(base, dark, 0.45)
-            elif style == 'speckle':
-                if n > 0.8:
-                    c = dark
-            elif style == 'dots':
-                if hsh(x // 3, y // 3, seed) > 0.6 and (x + y) % 2 == 0:
-                    c = light
-            if n < 0.1:
-                c = mix(c, light, 0.35)
-            elif n > 0.93:
-                c = mix(c, dark, 0.4)
-            if x >= 12:
-                c = mix(c, dark, 0.22)  # shaded side
-            px[x, y] = c + (255,)
-    return img
+    return EG.egg_side(kind, snap=L.snap)
 
 
-GLOW_SPOTS = sorted(((x, y) for y in range(5, 15) for x in range(3, 14)), key=lambda p: hsh(p[0], p[1], 123))
-CRACK_PATH = [(8, 5), (8, 6), (7, 7), (7, 8), (8, 9), (8, 10), (9, 11), (9, 12), (10, 13), (7, 9), (6, 10), (5, 10), (4, 11),
-              (9, 8), (10, 8), (11, 9), (12, 9), (8, 12), (8, 13), (7, 13)]
-CRACK_COUNT = (7, 13, 20)
-
-
-def glow_pixels(step: int):
-    """Warm dots of brooding step 0..11 (11 = the most)."""
-    n = round(len(GLOW_SPOTS) * 0.55 * step / 11)
-    return GLOW_SPOTS[:n]
+def egg_lid(kind: str):
+    return EG.egg_top(kind, snap=L.snap)
 
 
 def egg_overlay(phase: int):
-    """Overlay of a state phase: glow for 0..11, glow 11 plus cracks for 12..14."""
-    img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
-    px = img.load()
-    step = min(phase, 11)
-    for i, (x, y) in enumerate(glow_pixels(step)):
-        px[x, y] = (mix(H('ffb23a'), H('ffe48a'), hsh(x, y, 3)) + (255,))
-    if phase >= 12:
-        for i, (x, y) in enumerate(CRACK_PATH[: CRACK_COUNT[phase - 12]]):
-            px[x, y] = H('241810') + (255,)
-    return img
+    return EG.overlay_side(phase)
+
+
+def lid_overlay(phase: int):
+    """Lid overlay of a phase: clear while brooding, cracks 1..3 in the crack phases."""
+    return EG.overlay_top(max(0, phase - (PHASES - 4)))
 
 
 # ---------------------------------------------------------------- items
@@ -200,18 +153,8 @@ def block_model_cube(texture: str):
     return {'parent': 'minecraft:block/cube_all', 'textures': {'all': texture}}
 
 
-FACES = ('down', 'up', 'north', 'south', 'west', 'east')
-
-
 def egg_parent_model():
-    boxes = [([4, 0, 4], [12, 3, 12]), ([3, 3, 3], [13, 9, 13]), ([5, 9, 5], [11, 12, 11])]
-    elements = []
-    for tex, grow in (('#egg', 0.0), ('#overlay', 0.02)):
-        for lo, hi in boxes:
-            # the overlay may not leave the 16 x 16 block (its default UV would, "Cannot compute translucency out of bounds"): the floor stays at 0
-            elements.append({'from': [max(0.0, round(v - grow, 3)) for v in lo], 'to': [round(v + grow, 3) for v in hi],
-                             'faces': {f: {'texture': tex} for f in FACES}})
-    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#egg'}, 'elements': elements}
+    return EG.egg_parent_model()
 
 
 def dumps(obj):
@@ -230,15 +173,20 @@ def outputs():
     files[it / 'fossil_block.json'] = dumps({'model': {'type': 'minecraft:model', 'model': f'{NS}:block/fossil_9'}})
     for kind in KINDS:
         files[tb / f'egg_{kind}.png'] = egg_base(kind)
+        files[tb / f'egg_{kind}_top.png'] = egg_lid(kind)
     for p in range(PHASES):
         files[tb / f'egg_overlay_{p}.png'] = egg_overlay(p)
+    for c in range(4):
+        files[tb / f'egg_overlay_top_{c}.png'] = EG.overlay_top(c)
     files[mb / 'dino_egg.json'] = dumps(egg_parent_model())
     for kind in KINDS:
         for p in range(PHASES):
             files[mb / f'{kind}_egg_{p}.json'] = dumps({'parent': f'{NS}:block/dino_egg', 'textures': {
-                'egg': f'{NS}:block/egg_{kind}', 'overlay': f'{NS}:block/egg_overlay_{p}'}})
+                'side': f'{NS}:block/egg_{kind}', 'top': f'{NS}:block/egg_{kind}_top', 'overlay': f'{NS}:block/egg_overlay_{p}',
+                'overlay_top': f'{NS}:block/egg_overlay_top_{max(0, p - (PHASES - 4))}'}})
         files[bs / f'{kind}_egg.json'] = dumps({'variants': {f'phase={p}': {'model': f'{NS}:block/{kind}_egg_{p}'} for p in range(PHASES)}})
-        files[it / f'{kind}_egg.json'] = dumps({'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{kind}_egg_11'}})
+        # the item shows the fresh egg (phase 0), not a brooded one
+        files[it / f'{kind}_egg.json'] = dumps({'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{kind}_egg_0'}})
     files[ti / 'large_saddle.png'] = saddle_image()
     for tier in ARMOR_TIERS:
         files[ti / f'trex_armor_{tier}.png'] = armor_image(tier)
@@ -260,15 +208,16 @@ def preview_images(image_uri):
 
         cards.append(dict(title='Fossilienblock: 10 Stufen beim Pinseln', text='Die Knochen kommen Stufe für Stufe aus dem Sediment (etwa 60 s Pinseln).',
                           items=[dict(src=uri(fossil_stage(s)), label=f'Stufe {s}') for s in range(STAGES)]))
-        cards.append(dict(title='Die fünf Eier (Muster)', text='Je Dinosaurier ein eigenes Muster. In Stufe 1 schlüpft nur der T-Rex; die anderen vier folgen nach Abnahme.',
+        cards.append(dict(title='Die fünf Eier (Seite)', text='Je Dinosaurier ein eigenes Muster (a-dino36b, Variante ' + EG.CHOSEN + '). In Stufe 1 schlüpft nur der T-Rex.',
                           items=[dict(src=uri(egg_base(k)), label=k) for k in KINDS]))
+        cards.append(dict(title='Die fünf Eier (Deckel)', text='Spitze und Ringe von oben.', items=[dict(src=uri(egg_lid(k)), label=k) for k in KINDS]))
         base = egg_base('trex')
         glow = []
-        for p in (0, 3, 6, 9, 11, 12, 13, 14):
+        for p in (0, 3, 6, 9, 12, 13, 14):
             im = base.copy()
             im.alpha_composite(egg_overlay(p))
             glow.append(dict(src=uri(im), label=('Brüten ' + str(p + 1) + '/12') if p < 12 else f'Risse {p - 11}/3'))
-        cards.append(dict(title='Ei: Brütstufen und Risse (T-Rex-Ei)', text='12 sichtbare Brütstufen (warmer Glanz nimmt zu), danach drei Rissstufen bis zum Schlüpfen.', items=glow))
+        cards.append(dict(title='Ei: Brütstufen und Risse (T-Rex-Ei)', text='Warmer Schimmer in vier Stufen von unten, danach drei Rissstufen bis zum Schlüpfen.', items=glow))
         gear = [dict(src=uri(saddle_image()), label='Großer Sattel')]
         for tier in ARMOR_TIERS:
             gear.append(dict(src=uri(armor_image(tier)), label='T-Rex-Rüstung ' + tier))

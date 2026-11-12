@@ -132,4 +132,44 @@ public final class ModuleGameTest {
     public void trexDefendsOnlyHunted(GameTestHelper h) {
         DinosTests.ALL.get("trex_defends_only_hunted").accept(h);
     }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexPartRigGeometry(GameTestHelper h) {
+        DinosTests.ALL.get("trex_part_rig_geometry").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexHeadPullsInAtWall(GameTestHelper h) {
+        DinosTests.ALL.get("trex_head_pulls_in_at_wall").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexHeadStretchesAgainStepByStep(GameTestHelper h) {
+        DinosTests.ALL.get("trex_head_stretches_again_step_by_step").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexHeadAvoidsPlayer(GameTestHelper h) {
+        DinosTests.ALL.get("trex_head_avoids_player").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexHeadBrushesThroughLeaves(GameTestHelper h) {
+        DinosTests.ALL.get("trex_head_brushes_through_leaves").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexTailBendsAwayFromPillar(GameTestHelper h) {
+        DinosTests.ALL.get("trex_tail_bends_away_from_pillar").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexBitesFromHeadReach(GameTestHelper h) {
+        DinosTests.ALL.get("trex_bites_from_head_reach").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexFollowStopsOutsideHeadAndHatchlingPartsScale(GameTestHelper h) {
+        DinosTests.ALL.get("trex_follow_stops_outside_head_and_hatchling_parts_scale").accept(h);
+    }
 }

@@ -2,6 +2,8 @@ package com.simpledinos.entity;
 
 import com.simpledinos.DinosRegistry;
 import com.simpledinos.config.DinosConfig;
+import com.simpledinos.entity.part.PartRig;
+import com.simpledinos.entity.part.TrexBones;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -12,14 +14,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 
 /**
- * Tyrannosaurus rex (concept 3.4): the combat mount. Life size (12 m long, about 3.7 m at the hips) with a core hitbox of
- * 3.0 x 4.0 blocks (the tail and the head reach beyond it, R4) and a large culling box on the client. Bite 10 damage (config),
- * bites only monsters that attack its owner or itself; carries one rider with a large saddle.
+ * Tyrannosaurus rex (concept 3.4): the combat mount. Drawn at three quarters of life size ({@link #MODEL_SCALE}, TREX32 T1) with a
+ * core hitbox of 3.6 x 3.5 blocks; head and tail reach beyond it and have part boxes ({@link #RIG}, a-dino36b) that turn away from walls
+ * and living things. Bite 10 damage (config), bites only monsters that attack its owner or itself; carries one rider with a large saddle.
  */
 public class Trex extends Dino {
+    /** TREX32 T1 (owner 01.11.): the model is drawn at 75 % so the turning head stays near the 3.6 x 3.5 hitbox. */
+    public static final float MODEL_SCALE = 0.75F;
+    /**
+     * Part boxes (a-dino36b): neck and head share the look yaw (0.4 each), the head takes half the pitch; pulled in, the neck leans back
+     * 1.2 rad and the head turns 1.2 rad down again, so it lies level over the chest (front 1.63 < 1.8, top 4.03 blocks); each tail
+     * segment bends 0.3 rad per step.
+     */
+    public static final PartRig RIG = new PartRig(TrexBones.SKELETON, MODEL_SCALE, "neck", "head", new String[] {"neck", "head", "jaw"},
+            new String[] {"tail1", "tail2", "tail3"}, 0.4F, 0.4F, 0.5F, -1.2F, 1.2F, 0.3F);
+
     public Trex(EntityType<? extends Trex> type, Level level) {
         super(type, level);
         applyBite();
+    }
+
+    @Override
+    public PartRig rig() {
+        return RIG;
     }
 
     /**

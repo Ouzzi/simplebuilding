@@ -13,6 +13,7 @@ import com.simpledinos.config.DinosConfig;
 import com.simpledinos.entity.Dino;
 import com.simpledinos.entity.Trex;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -103,6 +104,31 @@ public final class DinosTests {
         trex.setOwner(owner);
         trex.setAge(0);
         return trex;
+    }
+
+    /** a-dino36b: an adult T. rex without AI at a block, body and head turned to +z (yaw 0), so its head and tail boxes stay put. */
+    private static Trex standing(GameTestHelper h, int x, int z) {
+        Trex trex = h.spawn(DinosRegistry.TREX, at(x, z));
+        trex.setPersistenceRequired();
+        trex.setTamed(true);
+        trex.setAge(0);
+        trex.setNoAi(true);
+        Vec3 p = trex.position();
+        trex.snapTo(p.x, p.y, p.z, 0.0F, 0.0F);
+        trex.setYBodyRot(0.0F);
+        trex.setYHeadRot(0.0F);
+        return trex;
+    }
+
+    /** A wall of {@code block} across x 5..11 at row z, from the floor up to y 5 (the head of an adult reaches y 4.1..5.04 here). */
+    private static void wall(GameTestHelper h, int z, net.minecraft.world.level.block.Block block) {
+        for (int x = 5; x <= 11; x++) for (int y = 1; y <= 5; y++) h.setBlock(new BlockPos(x, y, z), block);
+    }
+
+    /** No box touches a block shape (independent of the dinosaur's own rule: the Vanilla collision check). */
+    private static boolean clearOfBlocks(GameTestHelper h, Trex trex, List<AABB> boxes) {
+        for (AABB box : boxes) if (!h.getLevel().noBlockCollision(trex, box.deflate(0.02))) return false;
+        return true;
     }
 
     static {
@@ -397,6 +423,116 @@ public final class DinosTests {
             be.advance(level, be.hatchAt() + 10, null);
             h.assertTrue(be.brooded() && h.getBlockState(pos).getBlock() == DinosRegistry.EGGS.get(DinoKind.TRICERATOPS),
                     "a kind without a dinosaur yet brooded, but stays an egg (stage 1)");
+            h.succeed();
+        });
+
+        // --- part hitboxes (a-dino36b, owner DINO36: heads not in walls or people) ----------------------------------------------
+        ALL.put("trex_part_rig_geometry", h -> {
+            h.assertTrue(Trex.RIG.reach > 2.8 && Trex.RIG.reach < 2.9, "the stretched snout reaches 2.85 blocks in front (" + Trex.RIG.reach + ")");
+            Trex trex = standing(h, 8, 8);
+            double front = 0.0, top = 0.0;
+            for (AABB b : trex.headBoxes(com.simpledinos.entity.part.PartRig.TUCK_STEPS)) {
+                front = Math.max(front, b.maxZ - trex.getZ());
+                top = Math.max(top, b.maxY - trex.getY());
+            }
+            h.assertTrue(front < trex.getBbWidth() / 2.0, "pulled in, the head stays inside the front of the core box (" + front + ")");
+            h.assertTrue(top < 4.1, "pulled in, the head is no higher than the stretched one (" + top + ")");
+            h.assertTrue(trex.headTuck() == 0 && trex.tailBend() == 0, "a new T. rex stands stretched and straight");
+            trex.updateParts();
+            h.assertTrue(trex.headTuck() == 0 && trex.tailBend() == 0, "in the open field nothing moves");
+            h.succeed();
+        });
+        ALL.put("trex_head_pulls_in_at_wall", h -> {
+            Trex trex = standing(h, 8, 4);
+            wall(h, 7, Blocks.STONE);
+            h.assertTrue(!clearOfBlocks(h, trex, trex.headBoxes(0)), "the stretched head would stick in the wall");
+            h.assertTrue(clearOfBlocks(h, trex, List.of(trex.getBoundingBox())), "the core box itself fits in front of the wall");
+            trex.updateParts();
+            int tuck = trex.headTuck();
+            h.assertTrue(tuck > 0, "the head pulls in before the wall (step " + tuck + ")");
+            h.assertTrue(clearOfBlocks(h, trex, trex.headBoxes(tuck)), "no part of neck, head or jaw is in the wall at step " + tuck);
+            h.assertTrue(!clearOfBlocks(h, trex, trex.headBoxes(tuck - 1)), "and it pulls in no further than needed");
+            h.succeed();
+        });
+        ALL.put("trex_head_stretches_again_step_by_step", h -> {
+            Trex trex = standing(h, 8, 4);
+            wall(h, 7, Blocks.STONE);
+            trex.updateParts();
+            int tuck = trex.headTuck();
+            h.assertTrue(tuck >= 2, "pulled in at the wall (step " + tuck + ")");
+            wall(h, 7, Blocks.AIR);
+            int last = tuck, calls = 0;
+            while (trex.headTuck() > 0 && calls < 60) {
+                trex.updateParts();
+                calls++;
+                int now = trex.headTuck();
+                h.assertTrue(now == last || now == last - 1, "one step at a time (" + last + " -> " + now + ")");
+                last = now;
+            }
+            h.assertTrue(trex.headTuck() == 0, "stretched again once the wall is gone");
+            h.assertTrue(calls >= 4, "not at once: the head waits a moment before every step (" + calls + " checks)");
+            h.succeed();
+        });
+        ALL.put("trex_head_avoids_player", h -> {
+            Trex trex = standing(h, 8, 4);
+            ServerPlayer p = player(h, 8, 7);
+            Vec3 high = h.absoluteVec(new Vec3(8.5, 4.0, 7.0)); // standing on something at the height of the snout
+            p.setPos(high.x, high.y, high.z);
+            AABB body = p.getBoundingBox();
+            h.assertTrue(trex.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched head would stick in the player");
+            trex.updateParts();
+            int tuck = trex.headTuck();
+            h.assertTrue(tuck > 0, "the head pulls in before the player (step " + tuck + ")");
+            h.assertTrue(trex.headBoxes(tuck).stream().noneMatch(b -> b.intersects(body)), "no part of the head is in the player");
+            h.succeed();
+        });
+        ALL.put("trex_head_brushes_through_leaves", h -> {
+            Trex trex = standing(h, 8, 4);
+            wall(h, 7, Blocks.OAK_LEAVES);
+            trex.updateParts();
+            h.assertTrue(trex.headTuck() == 0, "leaves are no obstacle for the head (as the ravager walks into foliage; nothing breaks)");
+            h.assertTrue(h.getBlockState(new BlockPos(8, 4, 7)).is(Blocks.OAK_LEAVES), "the leaves stay");
+            h.succeed();
+        });
+        ALL.put("trex_tail_bends_away_from_pillar", h -> {
+            Trex trex = standing(h, 8, 10);
+            for (int y = 1; y <= 3; y++) h.setBlock(new BlockPos(8, y, 5), Blocks.STONE);
+            h.assertTrue(!clearOfBlocks(h, trex, trex.tailBoxes(0)), "the straight tail would stick in the pillar");
+            trex.updateParts();
+            int bend = trex.tailBend();
+            h.assertTrue(bend != 0, "the tail bends away");
+            h.assertTrue(clearOfBlocks(h, trex, trex.tailBoxes(bend)), "no tail segment is in the pillar (bend " + bend + ")");
+            h.succeed();
+        });
+        ALL.put("trex_bites_from_head_reach", h -> {
+            Trex trex = standing(h, 8, 4);
+            net.minecraft.world.entity.monster.Monster near = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(8, 7));
+            net.minecraft.world.entity.monster.Monster far = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(8, 9));
+            near.setNoAi(true);
+            far.setNoAi(true);
+            double vanilla = Math.sqrt(2.04) - 0.6;
+            AABB core = trex.getBoundingBox().inflate(vanilla, 0.0, vanilla);
+            h.assertTrue(!core.intersects(near.getBoundingBox()), "the near zombie is out of the Vanilla reach of the core box");
+            h.assertTrue(trex.isWithinMeleeAttackRange(near), "but in reach of the head: it bites from its head");
+            h.assertTrue(!trex.isWithinMeleeAttackRange(far), "a zombie beyond the snout is out of reach");
+            near.discard();
+            far.discard();
+            h.succeed();
+        });
+        ALL.put("trex_follow_stops_outside_head_and_hatchling_parts_scale", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Trex trex = adult(h, owner, 8, 8);
+            h.assertTrue(trex.followStop(3.0) > trex.headReach() + 0.3, "it stops following before its head reaches the owner ("
+                    + trex.followStop(3.0) + " > " + trex.headReach() + " + 0.3)");
+            Trex baby = h.spawn(DinosRegistry.TREX, at(3, 12));
+            baby.setPersistenceRequired();
+            baby.hatch(owner);
+            h.assertTrue(Math.abs(baby.headReach() - trex.headReach() * Dino.MIN_SCALE) < 1.0E-4, "a hatchling's head reaches a quarter as far");
+            h.assertTrue(baby.followStop(3.0) == 3.0, "the hatchling keeps the old 3 blocks");
+            double top = 0.0;
+            for (AABB b : baby.headBoxes(0)) top = Math.max(top, b.maxY - baby.getY());
+            h.assertTrue(top < 1.1 && top > 0.9, "its head boxes are a quarter of the height too (" + top + ")");
+            baby.discard();
             h.succeed();
         });
 

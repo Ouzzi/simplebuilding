@@ -210,40 +210,6 @@
     }
    }
   },
-  "modules/simpledinos/shared/resources/assets/simpledinos/textures/block/egg_utahraptor.png": {
-   "group": "Baubloecke + Modellflaechen",
-   "method": "k40s25a",
-   "light": "rot",
-   "why": "groesste Flaeche 67, hart 34.4, in Flaechen>=6 62.5, Hauptton 49.6",
-   "after": "orange",
-   "after_why": "hart 19.6",
-   "rounds": {
-    "R1": {
-     "m": "soft",
-     "light": "gruen",
-     "why": "",
-     "ch": 7.01,
-     "span": 0.73,
-     "sat": 1.0
-    },
-    "R2": {
-     "m": "stripe",
-     "light": "gruen",
-     "why": "",
-     "ch": 6.4,
-     "span": 0.73,
-     "sat": 1.0
-    },
-    "R3": {
-     "m": "k40s25a",
-     "light": "orange",
-     "why": "hart 19.6",
-     "ch": 4.01,
-     "span": 0.91,
-     "sat": 1.0
-    }
-   }
-  },
   "modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_door_bottom.png": {
    "group": "Esche/Daemmerholz + Kristall-Laub",
    "method": "stripe",

@@ -1,5 +1,6 @@
 package com.simpledinos.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.simpledinos.DinoVariants;
 import com.simpledinos.SimpleDinos;
 import com.simpledinos.entity.Trex;
@@ -21,12 +22,15 @@ public class TrexRenderer extends MobRenderer<Trex, TrexRenderer.State, TrexMode
             .map(c -> java.util.Arrays.stream(TIERS).map(t -> SimpleDinos.id("textures/entity/trex/" + c.name() + "/" + t + ".png")).toArray(Identifier[]::new))
             .toArray(Identifier[][]::new);
 
-    static final float MODEL_SCALE = 0.75F;
+    static final float MODEL_SCALE = Trex.MODEL_SCALE;
 
     public static class State extends LivingEntityRenderState {
         public boolean saddled;
         public int armorTier;
         public int coat;
+        /** a-dino36b: head pulled in 0..1 and tail bend in steps, as chosen by the server (part boxes). */
+        public float headTuck;
+        public float tailBend;
     }
 
     public TrexRenderer(EntityRendererProvider.Context context) {
@@ -49,8 +53,20 @@ public class TrexRenderer extends MobRenderer<Trex, TrexRenderer.State, TrexMode
         state.saddled = entity.isSaddled();
         state.armorTier = entity.armorTier();
         state.coat = entity.coat();
+        state.headTuck = entity.headTuck(partialTicks);
+        state.tailBend = entity.tailBend(partialTicks);
         // TREX32 T1 (owner 01.11.): model drawn 25 % smaller so the turning head stays near the 3.6 x 3.5 hitbox.
         state.scale *= MODEL_SCALE;
+    }
+
+    /**
+     * a-dino36b: the model grows with the hitbox. A hatchling's hitbox is 25 % of the size ({@code getAgeScale}), but Vanilla's renderer
+     * does not apply the age scale, so hatchlings were drawn full size and stuck in walls and players. Scaled here (feet stay on the
+     * ground); the shadow already follows the age scale ({@code MobRenderer}).
+     */
+    @Override
+    protected void scale(State state, PoseStack poseStack) {
+        poseStack.scale(state.ageScale, state.ageScale, state.ageScale);
     }
 
     @Override
