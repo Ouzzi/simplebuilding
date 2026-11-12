@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -45,7 +44,7 @@ public final class FearServer {
         }
         if (now % 1200 == 0) FOREST_TICKS.keySet().removeIf(id -> server.getPlayerList().getPlayer(id) == null);
         if (now % FearLogic.WATCHER_ROLL_INTERVAL != 0 || !MobsConfig.hollowWatcherSpawns) return;
-        if (end == null || end.getDifficulty() == Difficulty.PEACEFUL) return;
+        if (end == null || !MobsServer.naturalSpawns(end)) return;   // audit simplemobs-P2-1: game rules, Peaceful, sub-mod
         for (ServerPlayer p : end.players()) {
             if (p.isSpectator()) continue;
             boolean dwell = FOREST_TICKS.getOrDefault(p.getUUID(), 0) >= MobsConfig.hollowWatcherForestSeconds * 20;

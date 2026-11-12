@@ -10,6 +10,7 @@ public final class ModuleGameTest {
     @GameTest public void provocation(GameTestHelper helper) { MobsTests.ALL.get("provocation").accept(helper); }
     @GameTest public void pulseAndHeal(GameTestHelper helper) { MobsTests.ALL.get("pulse_and_heal").accept(helper); }
     @GameTest public void spawnRules(GameTestHelper helper) { MobsTests.ALL.get("spawn_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void naturalSpawnRules(GameTestHelper helper) { MobsTests.ALL.get("natural_spawn_rules").accept(helper); }
     @GameTest public void fight(GameTestHelper helper) { MobsTests.ALL.get("fight").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void disguiseHitbox(GameTestHelper helper) { MobsTests.ALL.get("disguise_hitbox").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerRegistered(GameTestHelper helper) { MobsTests.ALL.get("howler_registered").accept(helper); }
@@ -110,6 +111,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void spawnerMakeshiftPlace(GameTestHelper helper) { MobsTests.ALL.get("spawner_makeshift_place").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void spawnerFragmentRoll(GameTestHelper helper) { MobsTests.ALL.get("spawner_fragment_roll").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void spawnerFragmentBreak(GameTestHelper helper) { MobsTests.ALL.get("spawner_fragment_break").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void spawnerMakeshiftNoXpLoop(GameTestHelper helper) { MobsTests.ALL.get("spawner_makeshift_no_xp_loop").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherAttacks(GameTestHelper helper) { MobsTests.ALL.get("wither_attacks").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherWilt(GameTestHelper helper) { MobsTests.ALL.get("wither_wilt").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherOrder(GameTestHelper helper) { MobsTests.ALL.get("wither_order").accept(helper); }
@@ -188,6 +190,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void trialsBuffs(GameTestHelper helper) { TrialsTests.ALL.get("trials_buffs").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsConfigVoidOff(GameTestHelper helper) { TrialsTests.ALL.get("trials_config_void_off").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsSpawnerCap(GameTestHelper helper) { TrialsTests.ALL.get("trials_spawner_cap").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsForgetOnStop(GameTestHelper helper) { TrialsTests.ALL.get("trials_forget_on_stop").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsLootDistinct(GameTestHelper helper) { TrialsTests.ALL.get("trials_loot_distinct").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsHitEffects(GameTestHelper helper) { TrialsTests.ALL.get("trials_hit_effects").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 200) public void trialsVoidTricks(GameTestHelper helper) { TrialsTests.ALL.get("trials_void_tricks").accept(helper); }
@@ -207,5 +210,6 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void bossSummonBrimguard(GameTestHelper helper) { MobsTests.ALL.get("boss_summon_brimguard").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void bossLoot(GameTestHelper helper) { MobsTests.ALL.get("boss_loot").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void broodRules(GameTestHelper helper) { MobsTests.ALL.get("brood_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void broodNoEssenceFromSummons(GameTestHelper helper) { MobsTests.ALL.get("brood_no_essence_from_summons").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void broodRitual(GameTestHelper helper) { MobsTests.ALL.get("brood_ritual").accept(helper); }
 }

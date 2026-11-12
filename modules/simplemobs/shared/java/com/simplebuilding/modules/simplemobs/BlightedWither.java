@@ -262,6 +262,7 @@ public class BlightedWither extends WitherBoss {
         var input = TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), tag);
         Entity e = EntityType.create(EntityTypes.WITHER_SKELETON, input, level, EntitySpawnReason.MOB_SUMMONED).orElse(null);
         if (e == null) return null;
+        e.addTag(BroodRitual.NO_ESSENCE);   // audit simplemobs-P2-3: minions have no loot, so no Mob Essence either
         e.snapTo(spot.x, spot.y, spot.z, this.random.nextFloat() * 360f, 0f);
         if (e instanceof Mob mob) {
             mob.finalizeSpawn(level, level.getCurrentDifficultyAt(BlockPos.containing(spot)), EntitySpawnReason.MOB_SUMMONED, null);

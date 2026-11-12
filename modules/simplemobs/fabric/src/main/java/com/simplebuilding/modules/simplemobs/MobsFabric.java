@@ -45,6 +45,7 @@ public final class MobsFabric implements ModInitializer {
         WitherMobs.registerAll();
         com.simplebuilding.modules.simplemobs.trials.TrialsHooks.register();
         ServerTickEvents.END_SERVER_TICK.register(com.simplebuilding.modules.simplemobs.trials.EvilOmen::serverTick);
+        com.simplelib.api.PlayerState.onStop("simplemobs:trials", com.simplebuilding.modules.simplemobs.trials.EvilOmen::forgetAll);   // audit simplemobs-P2-2
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents.ENTITY_LOAD.register(com.simplebuilding.modules.simplemobs.trials.EvilOmen::onRaiderLoaded);
         com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
         MobsRegistry.registerTab();

@@ -141,5 +141,35 @@ final class SpawnerPartsTests {
             }
             h.succeed();
         });
+        // Audit simplemobs-P1-1 (a-audsb31): the Makeshift Spawner drops itself, so it must not also pay the Vanilla spawner's XP (endless place-and-mine loop).
+        add.accept("spawner_makeshift_no_xp_loop", h -> {
+            var level = h.getLevel();
+            BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
+            ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
+            float old = MobsConfig.spawnerFragmentChance;
+            try {
+                MobsConfig.spawnerFragmentChance = 0.0f;
+                xpOrbsAround(h, pos);
+                level.setBlock(pos, Blocks.SPAWNER.defaultBlockState(), 3);
+                level.getBlockState(pos).spawnAfterBreak(level, pos, pick, true);
+                check(xpOrbsAround(h, pos) > 0, "a mined Vanilla spawner still drops its experience (Vanilla unchanged)");
+                for (int i = 0; i < 3; i++) {
+                    level.setBlock(pos, SpawnerParts.MAKESHIFT_SPAWNER.defaultBlockState(), 3);
+                    level.getBlockState(pos).spawnAfterBreak(level, pos, pick, true);
+                    check(xpOrbsAround(h, pos) == 0, "mining the Makeshift Spawner (round " + (i + 1) + ") drops no experience");
+                }
+            } finally {
+                MobsConfig.spawnerFragmentChance = old;
+                level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+            }
+            h.succeed();
+        });
+    }
+
+    /** Counts and removes the experience orbs around {@code pos}. */
+    private static int xpOrbsAround(GameTestHelper h, BlockPos pos) {
+        List<net.minecraft.world.entity.ExperienceOrb> orbs = h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.ExperienceOrb.class, new AABB(pos).inflate(3.0));
+        orbs.forEach(net.minecraft.world.entity.Entity::discard);
+        return orbs.size();
     }
 }

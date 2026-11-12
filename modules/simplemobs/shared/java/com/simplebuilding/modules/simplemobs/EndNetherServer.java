@@ -6,7 +6,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -18,7 +17,7 @@ public final class EndNetherServer {
 
     /** Puts four Shellkers into the open cells around a freshly placed End gateway (they sit on the bedrock below). */
     public static int guardGateway(ServerLevelAccessor level, BlockPos gateway) {
-        if (!MobsConfig.shellkerGatewayGuards) return 0;
+        if (!MobsConfig.shellkerGatewayGuards || !MobsRegistry.on()) return 0;   // audit simplemobs-P2-1: inert while the sub-mod is off
         ServerLevel server = level.getLevel();
         if (server == null || server.dimension() != Level.END) return 0;
         return placeGuards(level, gateway);
@@ -44,7 +43,7 @@ public final class EndNetherServer {
     public static void tick(MinecraftServer server) {
         if (server.getTickCount() % EndNetherLogic.SOUL_ROLL_INTERVAL != 0 || !MobsConfig.soulfireBlazeSpawns) return;
         ServerLevel level = server.getLevel(Level.NETHER);
-        if (level == null || level.getDifficulty() == Difficulty.PEACEFUL) return;
+        if (level == null || !MobsServer.naturalSpawns(level)) return;   // audit simplemobs-P2-1: game rules, Peaceful, sub-mod
         for (ServerPlayer p : level.players()) {
             if (p.isSpectator()) continue;
             trySoulSpawn(level, p);

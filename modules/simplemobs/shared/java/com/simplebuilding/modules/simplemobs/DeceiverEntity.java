@@ -516,6 +516,7 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
         if (e == null) return;
         e.snapTo(pos.x, pos.y, pos.z, this.random.nextFloat() * 360f, 0f);
         e.addTag(TAG_SUMMON);
+        e.addTag(BroodRitual.NO_ESSENCE);   // audit simplemobs-P2-3: summons have no loot, so no Mob Essence either (endless waves)
         if (e instanceof Mob mob) {
             mob.finalizeSpawn(level, level.getCurrentDifficultyAt(BlockPos.containing(pos)), EntitySpawnReason.MOB_SUMMONED, null);
             for (EquipmentSlot s : EquipmentSlot.values()) mob.setDropChance(s, 0.0f);

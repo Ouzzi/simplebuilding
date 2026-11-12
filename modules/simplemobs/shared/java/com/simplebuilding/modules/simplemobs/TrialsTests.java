@@ -373,6 +373,27 @@ public final class TrialsTests {
             }
             h.succeed();
         });
+        // Audit simplemobs-P2-2 (a-audsb31): what the server-stop hook runs - the static trial state of a world does not live on into the next one.
+        add("trials_forget_on_stop", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
+            level.setBlock(pos, Trials.WEATHERED_TRIAL_SPAWNER.defaultBlockState(), 3);
+            var spawner = ((TrialSpawnerBlockEntity) level.getBlockEntity(pos)).getTrialSpawner();
+            int old = MobsConfig.trialSpawnerCap;
+            try {
+                MobsConfig.trialSpawnerCap = 3;
+                long now = level.getGameTime();
+                for (int i = 0; i < 3; i++) TrialsExtras.markActive(level.dimension(), pos.offset(3 + i, 0, 0), now);
+                check(TrialsExtras.capReached(level, pos, spawner), "three active neighbours reach the cap");
+                EvilOmen.forgetAll();
+                check(!TrialsExtras.capReached(level, pos, spawner), "after the stop hook no cap mark of the old world counts");
+            } finally {
+                MobsConfig.trialSpawnerCap = old;
+                TrialsExtras.clearActive();
+                level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+            }
+            h.succeed();
+        });
         add("trials_loot_distinct", h -> {
             java.util.Iterator<java.util.List<ItemStack>> rolls = java.util.List.of(
                     java.util.List.of(new ItemStack(Items.DIAMOND), new ItemStack(Items.DIAMOND), new ItemStack(Items.EMERALD)),

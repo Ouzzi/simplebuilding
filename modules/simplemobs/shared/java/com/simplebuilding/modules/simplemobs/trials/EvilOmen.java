@@ -308,6 +308,15 @@ public final class EvilOmen {
         }
     }
 
+    /**
+     * The server stopped (audit simplemobs-P2-2, a-audsb31): running omens, the cached Evil Raids (each holds its ServerLevel) and the
+     * spawner-cap marks are dropped, so no world lives on in memory into the next world of the same JVM (single player). The saved data stays.
+     */
+    public static void forgetAll() {
+        clearRaids();
+        TrialsExtras.clearActive();
+    }
+
     /** Test hook: forget running Evil Raids (the memory only, as after a server restart; the saved {@link EvilTrialsData} stays). */
     public static void clearRaids() {
         RAIDS.clear();

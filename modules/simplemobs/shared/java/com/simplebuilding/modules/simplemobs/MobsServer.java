@@ -5,8 +5,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.StructureTags;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 /** Natural spawning: a rare roll per player every 30 s, decided by {@link DeceiverLogic#mayNaturallySpawn}. */
@@ -18,11 +20,25 @@ public final class MobsServer {
     public static void tick(MinecraftServer server) {
         if (!MobsRegistry.on() || server.getTickCount() % ROLL_INTERVAL != 0) return;
         ServerLevel level = server.getLevel(Level.OVERWORLD);
-        if (level == null) return;
+        if (level == null || !naturalSpawns(level)) return;
         for (ServerPlayer p : level.players()) {
             if (p.isSpectator() || p.isCreative()) continue;
             trySpawn(level, p);
         }
+    }
+
+    /**
+     * Audit simplemobs-P2-1 (a-audsb31): the own natural spawns (Deceiver, Hollow Watcher, Soulfire Blaze) follow the same switches as
+     * Vanilla's monster spawning - the game rules spawnMobs and spawnMonsters, never on Peaceful - and the sub-mod switch.
+     */
+    public static boolean naturalSpawns(ServerLevel level) {
+        return naturalSpawns(MobsRegistry.on(), level.getDifficulty() == Difficulty.PEACEFUL,
+                level.getGameRules().get(GameRules.SPAWN_MOBS), level.getGameRules().get(GameRules.SPAWN_MONSTERS));
+    }
+
+    /** The rule of {@link #naturalSpawns(ServerLevel)} without world access. */
+    public static boolean naturalSpawns(boolean on, boolean peaceful, boolean spawnMobs, boolean spawnMonsters) {
+        return on && !peaceful && spawnMobs && spawnMonsters;
     }
 
     static void trySpawn(ServerLevel level, ServerPlayer player) {
