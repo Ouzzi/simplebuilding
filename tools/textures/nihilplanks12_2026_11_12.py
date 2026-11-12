@@ -4,16 +4,22 @@
 Owner ASTRAL07=A (06.11.): "the wood looks like the real planks: take the Dusk-/Ashwood planks, animate the grooves softly like the
 Blaze planks". The real End planks are a recolour of a Vanilla sprite (recolour08, a-mojang08), so these strips are built from the
 client jar at build time too (tools/textures/vanilla_derived.MODULE_OUTPUTS['simpleend'], git-ignored); only the .png.mcmeta
-(animation) is committed. The resting frame is the End plank itself; its board gaps (the three darkest tones of the plank) hold
-Nihilit: each tone moves to the Nihilit-shard blue of about the same brightness (hue contrast, the ~7 % hardness of A8b stays), and
-every connected gap breathes by itself between deep Nihilit blue and a pale shard teal (blazewood's rhythm: 16 frames, frametime 4,
-interpolate). Until 12.11. (a-end07/a-astral07) the gaps breathed in Astralit rose and were hard to tell from plain planks.
+(animation) is committed. The resting frame is the End plank itself; its board gaps (the two darkest tones of the plank and the
+third tone where it continues a gap line) are only TINTED towards Nihilit: a small share of the Nihilit-shard blue of the same
+brightness is mixed into the wood tone (darkest tone most, the line's lighter pixels less), and every gap breathes by itself
+(blazewood's rhythm: 16 frames, frametime 4, interpolate) by a little more/less of that share and +-4 brightness.
+a-nihilplanks2 (owner NIHILPLANKS 12.11. ~22:40: "Fugenfarbe ist viel zu extrem, bitte dezent halten"): until then the gap tones
+were replaced by full Nihilit blue and breathed between deep navy and pale teal (saturation ~0.6 on a ~0.15 wood).
 
-    python3.12 tools/textures/nihilplanks12_2026_11_12.py --preview DIR   (variants A/B/C + the old strip as PNG/GIF, nothing in the repo)
+    python3.12 tools/textures/nihilplanks12_2026_11_12.py --preview DIR   (strengths S1/S2/S3 as PNG strips, nothing in the repo;
+    the strip before a-nihilplanks2: the same script from hub/b-bundle190)
+    python3.12 tools/textures/nihilplanks12_2026_11_12.py --check         (mcmeta + built strips subtle, exit 1 otherwise)
 """
 from __future__ import annotations
 
 import argparse
+import colorsys
+import json
 import math
 import random
 import sys
@@ -22,6 +28,7 @@ from pathlib import Path
 from PIL import Image
 
 HERE = Path(__file__).resolve().parent
+MCMETA_DIR = HERE.parent.parent / 'modules/simpleend/shared/resources/assets/simpleend/textures/block'
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 from misctex23_2026_10_23 import mix, regions  # noqa: E402
@@ -32,17 +39,14 @@ MCMETA = {'animation': {'interpolate': True, 'frametime': 4}}
 # Nihilit ramp from the Nihilit Shard (simplebuilding:item/nihilith_shard): deep navy -> blue -> shard teal -> glint.
 NIHIL = [(0x26, 0x4e, 0xb9), (0x2a, 0x57, 0x97), (0x3f, 0x7c, 0xa8), (0x40, 0x87, 0xb2), (0x4b, 0x96, 0xb3), (0x58, 0xaa, 0xb8),
          (0x5e, 0xb5, 0xbf), (0x7c, 0xc8, 0xcc)]
-DEEP = (0x19, 0x32, 0x5f)        # the gap at its darkest breath
-GLINT = (0x9c, 0xdd, 0xdc)       # the gap at its brightest breath (pale shard teal)
-# Variants (preview, A8c rounds): groove tones, brightness offset of the Nihilit tone against the wood tone it replaces,
-# breathing amount and style. A is built.
-VARIANTS = {
-    'A': dict(offset=0, amount=0.32, style='own'),      # every gap breathes by itself, Nihilit of the gap's own brightness
-    'B': dict(offset=-25, amount=0.32, style='own'),    # deeper inlay, more contrast
-    'C': dict(offset=0, amount=0.32, style='wave'),     # one slow wave runs over all gaps
-    'D': dict(offset=0, amount=0.32, style='drift'),    # A, and inside each gap the breath drifts along in 3-px steps
-}
-BUILT = 'A'
+# Strength = share of the Nihilit tone (same brightness) mixed into the gap's wood tone (A8c round 3, a-nihilplanks2). S1 is built:
+# the gaps rest just cool of the wood (no longer warm), the blue shows in the breath; S2/S3 are the stronger options of the preview.
+VARIANTS = {'S1': 0.22, 'S2': 0.30, 'S3': 0.40}
+BUILT = 'S1'
+DEPTH = (1.0, 0.8, 0.6)   # darkest, second, third gap tone: the Nihilit sits deepest in the gap, the line changes tone (A8d 4)
+BREATH = 0.5              # the share breathes x (1 +- BREATH)
+GLOW = 4                  # and the brightness +- GLOW steps
+SAT_MAX = 0.25            # --check: the built gaps stay subtle (before a-nihilplanks2: ~0.65)
 
 
 def lum(p):
@@ -60,23 +64,31 @@ def nihil_of(target):
     return ramp[-1]
 
 
+def tones_of(planks):
+    return sorted({planks.getpixel((x, y)) for x in range(16) for y in range(16)}, key=lum)
+
+
 def gap_pixels(planks):
-    """The board gaps: the two darkest tones of the plank, plus a third-darkest pixel that lies in such a gap line (left or
-    right neighbour in the two darkest tones); third-darkest pixels inside a board stay wood (no single blue specks, A8d)."""
-    tones = sorted({planks.getpixel((x, y)) for x in range(16) for y in range(16)}, key=lum)
+    """The board gaps: the two darkest tones of the plank, plus third-darkest pixels that continue such a gap line (runs of the third
+    tone touching the line left or right, also a run of three); third-darkest pixels inside a board stay wood (no specks, A8d)."""
+    tones = tones_of(planks)
     dark, third = set(tones[:2]), tones[2]
     tone = lambda x, y: planks.getpixel((x % 16, y))
-    return [(x, y) for y in range(16) for x in range(16)
-            if tone(x, y) in dark or (tone(x, y) == third and (tone(x - 1, y) in dark or tone(x + 1, y) in dark))]
+    gap = {(x, y) for y in range(16) for x in range(16) if tone(x, y) in dark}
+    while True:
+        more = {(x, y) for y in range(16) for x in range(16) if (x, y) not in gap and tone(x, y) == third
+                and (((x - 1) % 16, y) in gap or ((x + 1) % 16, y) in gap)}
+        if not more:
+            return sorted(gap, key=lambda p: (p[1], p[0]))
+        gap |= more
 
 
 def strip(planks, wood, variant=BUILT):
-    """16-frame strip (16 x 256): the End plank with Nihilit in its gaps, the gaps breathing."""
-    v = VARIANTS[variant]
+    """16-frame strip (16 x 256): the End plank with its gaps tinted towards Nihilit, every gap breathing by itself."""
+    tint = VARIANTS[variant]
     planks = planks.convert('RGBA').crop((0, 0, 16, 16))
+    tones = tones_of(planks)
     gap = gap_pixels(planks)
-    gap_tones = {planks.getpixel(p) for p in gap}
-    base = {t: nihil_of(lum(t) + v['offset']) for t in gap_tones}
     rnd = random.Random({'ashwood': 7, 'duskwood': 11}[wood])
     phase = {}
     for grp in regions(gap):
@@ -90,15 +102,10 @@ def strip(planks, wood, variant=BUILT):
             for x in range(16):
                 p = planks.getpixel((x, y))
                 if (x, y) in phase:
-                    if v['style'] == 'wave':
-                        k = math.sin(a - (x + y) * 2 * math.pi / 16)
-                    else:   # own phase per gap; 'drift': plus a step every 3 px along the gap (A8d: long lines change tone)
-                        k = math.sin(a + 2 * math.pi * (phase[(x, y)] + (x // 3 * 0.09 if v['style'] == 'drift' else 0)))
-                    c = base[p]
-                    c = mix(c, GLINT, k * v['amount']) if k > 0 else mix(c, DEEP, -k * v['amount'])
-                    out.putpixel((x, y + f * 16), tuple(c) + (255,))
-                else:
-                    out.putpixel((x, y + f * 16), p)
+                    k = math.sin(a + 2 * math.pi * phase[(x, y)])
+                    c = mix(p, nihil_of(lum(p)), tint * DEPTH[tones.index(p)] * (1 + BREATH * k))
+                    p = tuple(max(0, min(255, round(v + GLOW * k))) for v in c) + (255,)
+                out.putpixel((x, y + f * 16), p)
     return out
 
 
@@ -126,11 +133,32 @@ def hard(im):
     return 100.0 * h / n
 
 
+def check(jar_arg=None):
+    """Exit code 1 when a committed .png.mcmeta differs from MCMETA or (with a client jar) a built strip is not 16 x 256 or its gaps
+    are no longer subtle (owner NIHILPLANKS: HSV saturation of every gap pixel in every frame <= SAT_MAX)."""
+    metas = {w: MCMETA_DIR / f'nihilith_{w}_planks.png.mcmeta' for w in WOODS}
+    bad = [m.name for m in metas.values() if not m.is_file() or json.loads(m.read_text(encoding='utf-8')) != MCMETA]
+    import vanilla_derived
+    jar = vanilla_derived.find_jar(jar_arg)
+    if jar is not None:
+        for w, planks in end_planks(jar).items():
+            st, gap = strip(planks, w), gap_pixels(planks.convert('RGBA'))
+            sat = max(colorsys.rgb_to_hsv(*(v / 255 for v in st.getpixel((x, y + f * 16))[:3]))[1]
+                      for f in range(FRAMES) for x, y in gap)
+            if st.size != (16, 16 * FRAMES) or sat > SAT_MAX:
+                bad.append(f'{w} (strip {st.size}, gap saturation {sat:.2f})')
+    print('nihilplanks12:', 'OK' + ('' if jar else ' (mcmeta only, no client jar)') if not bad else 'differs: ' + ', '.join(bad))
+    return 1 if bad else 0
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--preview', type=Path, help='write the variants (first frame PNG, animated GIF) into this directory')
+    ap.add_argument('--preview', type=Path, help='write the plain End planks and the strengths S1-S3 (PNG strips) into this directory')
+    ap.add_argument('--check', action='store_true', help='committed .png.mcmeta and the built strips (with a jar) as expected')
     ap.add_argument('--jar')
     a = ap.parse_args()
+    if a.check:
+        sys.exit(check(a.jar))
     if not a.preview:
         ap.print_help()
         return
