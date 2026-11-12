@@ -4,8 +4,10 @@ import com.simplebeacons.BeaconsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.BeaconBeamBlock;
@@ -43,6 +45,15 @@ public class StrongBeaconBlock extends BaseEntityBlock implements BeaconBeamBloc
     @Override
     public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return createTickerHelper(type, BeaconsRegistry.STRONG_BEACON_BE, StrongBeaconBlockEntity::tick);
+    }
+
+    /** F7: the player who places the block is its owner (what the Evil kinds measure foreign claims against). */
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (!level.isClientSide() && placer instanceof Player && level.getBlockEntity(pos) instanceof StrongBeaconBlockEntity beacon) {
+            beacon.setOwner(placer.getUUID());
+        }
     }
 
     @Override

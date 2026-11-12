@@ -21,7 +21,7 @@ public final class BeaconsConfig {
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "strongBeaconMaxLevels", "strongBeaconRangeBase",
             "strongBeaconRangePerLevel", "strongBeaconEffects", "strongBeaconMaterialRange", "vanillaBeaconMaterialRange",
-            "strongConduitMaxRange", "upgradeStrikes", "evilBeaconGraceMinutes");
+            "strongConduitMaxRange", "upgradeStrikes", "evilBeaconGraceMinutes", "evilSparesForeignClaims");
     /**
      * The extra effects that have a server switch {@code strongBeaconEffects.<id>} (Vanilla id path): those of the Strong
      * and Mighty beacons that are not Vanilla's own six, and the Evil beacons' powers (A29, BS28b-4/5 replaced the old ten).
@@ -49,6 +49,8 @@ public final class BeaconsConfig {
     public static int strongConduitMaxRange = CONDUIT_RANGE_DEFAULT;
     public static int upgradeStrikes = STRIKES_DEFAULT;
     public static int evilBeaconGraceMinutes = EVIL_GRACE_DEFAULT;
+    /** F7: Evil beacons and conduits do not reach players in claims their owner (placer or upgrader) has no right in; no effect without a claims mod. */
+    public static boolean evilSparesForeignClaims = true;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -86,6 +88,7 @@ public final class BeaconsConfig {
         strongConduitMaxRange = clamp(integer(json, "strongConduitMaxRange", CONDUIT_RANGE_DEFAULT), CONDUIT_RANGE_MIN, CONDUIT_RANGE_MAX);
         upgradeStrikes = clamp(integer(json, "upgradeStrikes", STRIKES_DEFAULT), STRIKES_MIN, STRIKES_MAX);
         evilBeaconGraceMinutes = clamp(integer(json, "evilBeaconGraceMinutes", EVIL_GRACE_DEFAULT), EVIL_GRACE_MIN, EVIL_GRACE_MAX);
+        evilSparesForeignClaims = bool(json, "evilSparesForeignClaims", true);
     }
 
     public static JsonObject toJson() {
@@ -102,6 +105,7 @@ public final class BeaconsConfig {
         o.addProperty("strongConduitMaxRange", strongConduitMaxRange);
         o.addProperty("upgradeStrikes", upgradeStrikes);
         o.addProperty("evilBeaconGraceMinutes", evilBeaconGraceMinutes);
+        o.addProperty("evilSparesForeignClaims", evilSparesForeignClaims);
         return o;
     }
 
