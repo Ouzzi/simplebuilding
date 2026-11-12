@@ -201,6 +201,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void legendaryFeatureRequests(GameTestHelper h) {
+        LibTests.ALL.get("legendary_feature_requests").accept(h);
+    }
+
+    @GameTest
     public void configCommandTypes(GameTestHelper h) {
         LibTests.ALL.get("config_command_types").accept(h);
     }

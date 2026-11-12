@@ -3,6 +3,7 @@ package com.simplelib.test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.simplelib.api.LegendaryMoments;
+import com.simplelib.api.LibFeatures;
 import com.simplelib.config.LibConfig;
 import java.util.List;
 import net.minecraft.core.Holder;
@@ -27,9 +28,32 @@ import net.minecraft.world.level.GameType;
 public final class LegendaryTests {
     private LegendaryTests() {}
 
+    /**
+     * simplelib-3: features a mod must ask for - the rule (declared lists to requesting mods, unknown names ignored), and without a
+     * request the moments stay silent and Vanilla's jingle keeps playing even with {@code legendaryEffects} on.
+     */
+    public static void featureRequests(GameTestHelper h) {
+        var rule = LibFeatures.byFeature(java.util.Map.of("simplequalityoflife", List.of("free_look", "legendary_moments"),
+                "simpleearth", List.of("free_look", "no_such_feature"), "simpleores", List.of()));
+        h.assertTrue(rule.get(LibFeatures.FREE_LOOK).equals(List.of("simpleearth", "simplequalityoflife")), "free look: " + rule);
+        h.assertTrue(rule.get(LibFeatures.LEGENDARY_MOMENTS).equals(List.of("simplequalityoflife")), "legendary: " + rule);
+        h.assertTrue(rule.size() == LibFeatures.ALL.size(), "unknown feature names must be ignored: " + rule);
+        h.assertTrue(LibFeatures.byFeature(java.util.Map.of()).values().stream().allMatch(List::isEmpty), "nobody asked: all off");
+        try (LibFeatures.TestSwitch on = LibFeatures.forTest(LibFeatures.LEGENDARY_MOMENTS)) {
+            h.assertTrue(LibFeatures.requested(LibFeatures.LEGENDARY_MOMENTS), "a test switch turns the feature on");
+        }
+        if (!LibFeatures.requested(LibFeatures.LEGENDARY_MOMENTS)) {
+            // This installation has no requesting mod (e.g. the SimpleLib suite alone): no choir, the jingle stays.
+            var holder = h.getLevel().getServer().getAdvancements().get(Identifier.withDefaultNamespace("nether/all_effects"));
+            h.assertFalse(LegendaryMoments.isLegendary(holder), "not asked for, but How Did We Get Here? counts as legendary");
+            h.assertFalse(LegendaryMoments.muteToast(holder), "not asked for, but Vanilla's jingle is muted");
+        }
+        h.succeed();
+    }
+
     /** "How Did We Get Here?" celebrates once; a normal advancement does not; the switch, the list and "all challenges" work. */
     public static void advancements(GameTestHelper h) {
-        try {
+        try (LibFeatures.TestSwitch on = LibFeatures.forTest(LibFeatures.LEGENDARY_MOMENTS)) {
             LibConfig.apply(new JsonObject());
             ServerPlayer player = player(h);
             award(h, player, "nether/all_effects");
@@ -75,7 +99,7 @@ public final class LegendaryTests {
         var advancements = h.getLevel().getServer().getAdvancements();
         var legendary = advancements.get(Identifier.withDefaultNamespace("nether/all_effects"));
         var normal = advancements.get(Identifier.withDefaultNamespace("story/mine_stone"));
-        try {
+        try (LibFeatures.TestSwitch on = LibFeatures.forTest(LibFeatures.LEGENDARY_MOMENTS)) {
             LibConfig.apply(new JsonObject());
             h.assertTrue(LibConfig.legendaryMuteToast, "legendaryMuteToast defaults to true");
             h.assertTrue(LibConfig.toJson().has("legendaryMuteToast"), "legendaryMuteToast is written to the file");
@@ -100,7 +124,7 @@ public final class LegendaryTests {
      * already present level do not; the config list extends the tag; the enchanting table path counts a fresh item.
      */
     public static void enchantments(GameTestHelper h) {
-        try {
+        try (LibFeatures.TestSwitch on = LibFeatures.forTest(LibFeatures.LEGENDARY_MOMENTS)) {
             LibConfig.apply(new JsonObject());
             var lookup = h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
             for (var key : List.of(Enchantments.SWIFT_SNEAK, Enchantments.SOUL_SPEED, Enchantments.WIND_BURST)) {

@@ -51,6 +51,14 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
      * off; an enforcing server overrides the client's mode; a respawn switches it off.
      */
     private static void freeLook(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
+        // simplelib-3: without a mod that asks for free look the hold key comes unbound - bind left Alt for this run then.
+        context.runOnClient(mc -> {
+            if (com.simplelib.api.client.FreeLook.KEY.isUnbound()) {
+                com.simplelib.api.client.FreeLook.KEY.setKey(com.mojang.blaze3d.platform.InputConstants.Type.KEYBOARD
+                        .getOrCreate(com.mojang.blaze3d.platform.InputConstants.KEY_LALT));
+                net.minecraft.client.KeyMapping.resetMapping();
+            }
+        });
         context.waitTicks(5);
         check(!context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.active()), "free look is on right after the join");
         context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);

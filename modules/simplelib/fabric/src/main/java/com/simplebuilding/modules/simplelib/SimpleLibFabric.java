@@ -9,6 +9,8 @@ import net.fabricmc.loader.api.FabricLoader;
 public final class SimpleLibFabric implements ModInitializer {
     @Override
     public void onInitialize() {
+        // simplelib-3: features a mod must ask for (free look's default key, legendary moments) - before any client entrypoint.
+        LibFeaturesFabric.decide();
         SimpleLib.init(FabricLoader.getInstance().getConfigDir());
         LibComponents.register();
         com.simplelib.registry.LibBlocks.register();

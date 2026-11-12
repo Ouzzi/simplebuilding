@@ -42,5 +42,8 @@
   "suggests": {
     "simplebuilding": "*",
     "modmenu": "*"
+  },
+  "custom": {
+    "simplelib:features": ["free_look", "legendary_moments"]
   }
 }
