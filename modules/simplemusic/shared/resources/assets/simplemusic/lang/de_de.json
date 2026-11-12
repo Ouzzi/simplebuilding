@@ -54,6 +54,7 @@
   "simplemusic.code.error.unexpected": "Unerwarteter Text",
   "simplemusic.code.error.unknown_line": "Keine Spur-, Alias-, Tempo- oder Blockzeile",
   "simplemusic.code.error.bad_repeat": "Wiederholung muss 1 bis %s sein",
+  "simplemusic.code.error.too_deep": "Wiederholungsblöcke dürfen höchstens %s tief verschachtelt sein",
   "simplemusic.code.error.bad_alias": "Ein Alias beginnt mit $ und nutzt a-z, 0-9, _",
   "simplemusic.code.error.missing_instrument": "Nach = ein Instrument nennen",
   "simplemusic.code.error.missing_sound": "Nach \"sound\" eine Klang-ID nennen",

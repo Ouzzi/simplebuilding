@@ -358,6 +358,36 @@ public final class EarthTests {
             h.succeed();
         });
 
+        // audsb31e2 simpleearth-P2-1: closing a world must give back the slots of sampling jobs that never started
+        ALL.put("tile_service_stop_releases_slots", h -> {
+            int before = TileService.running();
+            java.util.concurrent.ExecutorService pool = java.util.concurrent.Executors.newSingleThreadExecutor(r -> {
+                Thread t = new Thread(r, "Simple Earth test sampler");
+                t.setDaemon(true);
+                return t;
+            });
+            java.util.concurrent.CountDownLatch started = new java.util.concurrent.CountDownLatch(1);
+            TileService.submit(pool, () -> {
+                started.countDown();
+                try {
+                    Thread.sleep(60_000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            });
+            TileService.submit(pool, () -> {}); // queued behind the busy worker, never starts
+            TileService.submit(pool, () -> {});
+            try {
+                h.assertTrue(started.await(5, java.util.concurrent.TimeUnit.SECONDS), "the worker started");
+            } catch (InterruptedException e) {
+                throw new AssertionError(e);
+            }
+            h.assertTrue(TileService.running() == before + 3, "three jobs counted: " + (TileService.running() - before));
+            TileService.shutdown(pool);
+            // the running job ends by interrupt and gives back its own slot; the two dropped ones were given back by shutdown
+            h.succeedWhen(() -> h.assertTrue(TileService.running() == before, "slots given back: " + (TileService.running() - before) + " left"));
+        });
+
         ALL.put("orbit_lifecycle", h -> {
             ServerPlayer player = h.makeMockServerPlayerInLevel();
             OrbitTracker.forget(player.getUUID());

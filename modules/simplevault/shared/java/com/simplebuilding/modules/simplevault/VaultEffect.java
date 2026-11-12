@@ -45,7 +45,17 @@ public final class VaultEffect extends MobEffect {
 
     /** A block of the vault the player cannot mine here: bedrock or a frieze/marker block, in the vault, with the effect, not creative. */
     public static boolean held(BlockState state, Player player) {
-        return state.is(VaultRegistry.VAULT_HELD) && !player.isCreative() && holder != null && player.hasEffect(holder) && VaultRegistry.inVault(player.level());
+        return state.is(VaultRegistry.VAULT_HELD) && holder != null && VaultRegistry.inVault(player.level())
+                && holds(player.isCreative(), player.hasEffect(holder), !player.level().isClientSide(), due(player));
+    }
+
+    /**
+     * The rule of {@link #held} on its four facts (pure, tested): the server does not rely on the effect alone - milk, a totem or
+     * {@code /effect clear} would open a window until the next refresh, and a frieze mined away makes the sound riddle unreadable
+     * (audsb31e2 simplevault-P2-1). The client keeps going by the synced effect (no ghost progress).
+     */
+    public static boolean holds(boolean creative, boolean hasEffect, boolean serverSide, boolean due) {
+        return !creative && (hasEffect || serverSide && due);
     }
 
     /** Pistons leave the vault's held blocks where they are. */

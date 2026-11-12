@@ -281,6 +281,89 @@ public final class MusicTests {
             h.assertTrue(played == 2, "at most maxTonesPerTick: " + played);
             h.succeed();
         });
+        ALL.put("note_code_nesting_limit", h -> {
+            // simplemusic-P1-1 (a-audsb31e2): thousands of nested "x2{" on one line overflowed the parser's stack on the server thread
+            // (signing a sheet, the disc press, a composition disc in a jukebox) = server crash; now a problem, like any other
+            String deep = "harp: " + "x2{".repeat(5000) + "c4" + "}".repeat(5000);
+            NoteCode.Result r;
+            try {
+                r = NoteCode.parse(deep, SheetSounds.policy());
+            } catch (StackOverflowError e) {
+                throw h.assertionException("the note code parser overflowed its stack");
+            }
+            h.assertTrue(!r.ok() && r.problems().stream().anyMatch(p -> p.key().equals("too_deep")), "deep nesting is a problem: " + r.problems().size());
+            SheetContent draft = new SheetContent("", "", "", false);
+            h.assertTrue(MusicServer.edited(draft, new SheetEditPayload(0, deep, "Song", true), "Ann") == null, "signing refuses it");
+            h.assertTrue(MusicServer.edited(draft, new SheetEditPayload(0, deep, "", false), "Ann") != null, "a draft may still be saved");
+            h.assertTrue(!DiscPress.pressable(sheet(deep)), "the press does not take it");
+            String fine = "harp: " + "x1{".repeat(NoteCode.MAX_NESTING) + "c4" + "}".repeat(NoteCode.MAX_NESTING);
+            h.assertTrue(NoteCode.parse(fine, SheetSounds.policy()).ok(), "the allowed depth still parses");
+            h.succeed();
+        });
+        ALL.put("nbs_import_fits_limit", h -> {
+            // simplemusic-P2-1 (a-audsb31e2): a long .nbs song became more code than the editor and its packet take (32000 characters);
+            // closing the editor sent the over-long string and the packet codec dropped the player. The import now cuts after a whole bar.
+            ByteArrayOutputStream nbs = new ByteArrayOutputStream();
+            java.util.function.IntConsumer s16 = v -> {
+                nbs.write(v & 0xFF);
+                nbs.write((v >> 8) & 0xFF);
+            };
+            java.util.function.Consumer<String> text = t -> {
+                byte[] b = t.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+                s16.accept(b.length);
+                s16.accept(b.length >> 16);
+                nbs.writeBytes(b);
+            };
+            int ticks = 1500, instruments = 8;
+            s16.accept(ticks);
+            s16.accept(3);
+            text.accept("Long");
+            text.accept("T");
+            text.accept("");
+            text.accept("");
+            s16.accept(1000);
+            nbs.write(0);
+            nbs.write(0);
+            nbs.write(4);
+            for (int i = 0; i < 5; i++) {
+                s16.accept(0);
+                s16.accept(0);
+            }
+            text.accept("");
+            for (int t = 0; t < ticks; t++) {
+                s16.accept(1);
+                for (int k = 0; k < instruments; k++) {
+                    s16.accept(1);
+                    nbs.write(k);
+                    nbs.write(33 + (t + k) % 25);
+                }
+                s16.accept(0);
+            }
+            s16.accept(0);
+            h.assertTrue(com.simplemusic.sheet.NbsReader.read(nbs.toByteArray()).code().length() > NoteCode.MAX_CODE_LENGTH, "the reader alone writes more than the limit");
+            java.nio.file.Path file = null;
+            try {
+                file = java.nio.file.Files.createTempFile("simplemusic-test", ".nbs");
+                java.nio.file.Files.write(file, nbs.toByteArray());
+                String code = com.simplemusic.client.SheetFiles.importCode(file);
+                h.assertTrue(code != null && code.length() <= NoteCode.MAX_CODE_LENGTH, "the import fits the limit: " + (code == null ? -1 : code.length()));
+                NoteCode.Result r = NoteCode.parse(code, SheetSounds.policy());
+                h.assertTrue(r.ok() && r.song().steps() > 100, "and still parses as a song: " + r.problems());
+                String plain = "tempo 4\n$h = harp\n$h: c4 d4";
+                h.assertTrue(com.simplemusic.client.SheetFiles.fit(plain).equals(plain), "short code stays as it is");
+            } catch (java.io.IOException e) {
+                throw h.assertionException("temp file: " + e);
+            } finally {
+                if (file != null) {
+                    try {
+                        java.nio.file.Files.deleteIfExists(file);
+                    } catch (java.io.IOException ignored) {
+                        // a temp file
+                    }
+                }
+            }
+            h.succeed();
+        });
         ALL.put("upload_abandoned_expires", h -> {
             ServerPlayer alice = h.makeMockServerPlayerInLevel();
             capture(alice);

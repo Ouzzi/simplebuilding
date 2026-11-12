@@ -98,7 +98,7 @@ public final class DimensionRuntime {
    var temp=ledger.resolveSibling("simpledimensions-returns.tmp");Files.writeString(temp,new Gson().toJson(root));Files.move(temp,ledger,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);
   }catch(Exception e){org.slf4j.LoggerFactory.getLogger("simpledimensions").error("Cannot persist safe returns (will retry on the next change)",e);}
  }
- private static String key(ServerLevel l,BlockPos p){return l.dimension().identifier()+"@"+p.asLong();}
+ static String key(ServerLevel l,BlockPos p){return l.dimension().identifier()+"@"+p.asLong();}
  public boolean reserve(ServerLevel l,BlockPos3i p){return portals.size()<ConfigLimits.MAX_PORTALS||portals.contains(key(l,pos(p)));}
  public void recordPortal(ServerLevel l,BlockPos3i p){portals.add(key(l,pos(p)));save();}
  public DimensionPortalConfig config(String id){return configs.stream().filter(c->c.id.equals(id)).findFirst().orElse(null);}
@@ -109,14 +109,26 @@ public final class DimensionRuntime {
   else l.playSound(null,p,SoundEvents.DISPENSER_FAIL,SoundSource.BLOCKS,.5f,1.2f);
   l.sendParticles(success?ParticleTypes.PORTAL:ParticleTypes.SMOKE,p.getX()+.5,p.getY()+.5,p.getZ()+.5,success?6:4,.3,.3,.3,.01);
  }
+ /**
+  * One ledger entry per visit (audit simpledimensions-P2-1): a lit source portal is checked for its frame (decay). An entry whose
+  * anchor chunk is loaded but whose anchor cell is no portal any more (frame broken, portal gone), or whose key cannot be read, is
+  * forgotten: {@link ConfigLimits#MAX_PORTALS} then counts portals that exist, not every portal ever lit (before, a long-running
+  * server ran out of records and no portal could be lit or built any more). True if the record was forgotten.
+  */
+ boolean decay(String k){
+  ServerLevel l;BlockPos p;
+  try{int split=k.lastIndexOf('@');l=level(k.substring(0,split));p=BlockPos.of(Long.parseLong(k.substring(split+1)));}catch(RuntimeException e){return portals.remove(k);}
+  if(l==null||!l.hasChunkAt(p))return false;
+  if(!(l.getBlockEntity(p) instanceof SkyPortalBlockEntity b))return portals.remove(k);
+  if(!b.generated){var def=config(b.definition);if(def!=null&&!validFrame(l,p,b,def))return portals.remove(k);}
+  return false;
+ }
+ boolean recorded(String key){return portals.contains(key);}
  public void tick(){
   if(!portals.isEmpty()) {
-   var anchors=new ArrayList<>(portals);
-   for(int i=0;i<Math.min(ConfigLimits.MAX_DECAY_SCANS_PER_TICK,anchors.size());i++){
-    String k=anchors.get(Math.floorMod(decayCursor++,anchors.size()));int split=k.lastIndexOf('@');
-    var l=level(k.substring(0,split));var p=BlockPos.of(Long.parseLong(k.substring(split+1)));
-    if(l!=null&&l.hasChunkAt(p)&&l.getBlockEntity(p) instanceof SkyPortalBlockEntity b&&!b.generated){var def=config(b.definition);if(def!=null)validFrame(l,p,b,def);}
-   }
+   var anchors=new ArrayList<>(portals);boolean forgot=false;
+   for(int i=0;i<Math.min(ConfigLimits.MAX_DECAY_SCANS_PER_TICK,anchors.size());i++)forgot|=decay(anchors.get(Math.floorMod(decayCursor++,anchors.size())));
+   if(forgot)save();
   }
   ignitions.keySet().removeIf(id->server.getPlayerList().getPlayer(id)==null);
   contacts.keySet().removeIf(id->server.getPlayerList().getPlayer(id)==null);

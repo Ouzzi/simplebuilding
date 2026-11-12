@@ -103,6 +103,16 @@ public final class ModuleGameTest {
         LayersTests.ALL.get("backroom_effect_blocks_mining").accept(h);
     }
 
+    @GameTest(structure = "simplelayers:empty")
+    public void configCommand(GameTestHelper h) {
+        LayersTests.ALL.get("config_command").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
+    public void backroomWallsHoldWithoutEffect(GameTestHelper h) {
+        LayersTests.ALL.get("backroom_walls_hold_without_effect").accept(h);
+    }
+
     @GameTest(structure = "simplelayers:empty", maxTicks = 100)
     public void netheritePistonMovesWall(GameTestHelper h) {
         LayersTests.ALL.get("netherite_piston_moves_wall").accept(h);

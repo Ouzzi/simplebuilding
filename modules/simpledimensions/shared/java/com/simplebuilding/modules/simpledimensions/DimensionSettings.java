@@ -34,11 +34,19 @@ public final class DimensionSettings {
    Files.move(temp,file,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);
   }catch(Exception e){throw new IllegalStateException("Cannot save server settings",e);}
  }
+ /**
+  * Project policy of the framework {@code ConfigFiles} (audit simpledimensions-P2-2): a server.json that is a link, too big, unreadable or
+  * empty never crashes the server - it is kept as {@code server.json.broken-<time>}, a warning names it, and the defaults are written.
+  */
  public static DimensionSettings load(Path root){
   var file=root.resolve("server.json"); var gson=new GsonBuilder().setPrettyPrinting().create();
-  try{Files.createDirectories(root);if(!Files.exists(file)){var c=new DimensionSettings();Files.writeString(file,gson.toJson(c));return c;}
-   if(Files.isSymbolicLink(file)||Files.size(file)>ConfigLimits.MAX_BYTES)throw new IllegalArgumentException("Settings file size");
-   var c=gson.fromJson(Files.readString(file),DimensionSettings.class);if(c==null)throw new IllegalArgumentException("Empty settings");c.normalize();return c;
+  var log=org.slf4j.LoggerFactory.getLogger("simpledimensions");
+  try{Files.createDirectories(root);
+   if(Files.isSymbolicLink(file)||Files.isRegularFile(file)&&Files.size(file)>ConfigLimits.MAX_BYTES)
+    log.warn("Unsafe server.json (link or too big), using defaults; old file kept as {}",com.simplebuilding.framework.api.ConfigFiles.quarantine(file));
+   var c=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file,text->gson.fromJson(text,DimensionSettings.class),log::warn);
+   if(c==null){c=new DimensionSettings();com.simplebuilding.framework.api.ConfigFiles.writeAtomic(file,gson.toJson(c));}
+   c.normalize();return c;
   }catch(Exception e){throw new IllegalStateException("Invalid server settings",e);}
  }
 }

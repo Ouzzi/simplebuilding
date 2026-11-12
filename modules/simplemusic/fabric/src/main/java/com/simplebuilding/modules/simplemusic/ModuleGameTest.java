@@ -48,6 +48,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void noteCodeNestingLimit(GameTestHelper h) {
+        MusicTests.ALL.get("note_code_nesting_limit").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void nbsImportFitsLimit(GameTestHelper h) {
+        MusicTests.ALL.get("nbs_import_fits_limit").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
     public void uploadModerationDownload(GameTestHelper h) {
         MusicTests.ALL.get("upload_moderation_download").accept(h);
     }

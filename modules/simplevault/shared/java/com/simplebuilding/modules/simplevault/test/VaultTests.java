@@ -63,6 +63,9 @@ public final class VaultTests {
         all.put("vault_gate_closes", VaultTests::gateCloses);
         all.put("vault_puzzle_solvable", VaultTests::puzzleSolvable);
         all.put("vault_bedrock_held", VaultTests::bedrockHeld);
+        all.put("vault_frieze_holds_without_effect", VaultTests::friezeHoldsWithoutEffect);
+        // BEW39: the config command is registered (SimpleVault#init) - announced, defaults, set / wrong type / reset / level 0 refused
+        all.put("config_command", h -> com.simplelib.test.ConfigCommandTests.module(h, SimpleVault.MOD_ID, false));
         all.put("vault_gap_generated", VaultTests::gapGenerated);
     }
 
@@ -307,6 +310,21 @@ public final class VaultTests {
         h.assertFalse(VaultEffect.held(Blocks.AMETHYST_BLOCK.defaultBlockState(), player), "outside the vault amethyst breaks");
         h.setBlock(rel, Blocks.AMETHYST_BLOCK);
         h.assertTrue(h.getLevel().getBlockState(abs).getDestroyProgress(player, h.getLevel(), abs) > 0.0F, "and the mixin lets it");
+        h.succeed();
+    }
+
+    /**
+     * audsb31e2 simplevault-P2-1: inside the vault the server keeps friezes and markers shut for a survival player even when his
+     * Vault-bound effect is gone (milk, totem, /effect clear). The rule is pure; the vault dimension is not baked in the standalone run.
+     */
+    static void friezeHoldsWithoutEffect(GameTestHelper h) {
+        h.assertTrue(VaultEffect.holds(false, true, true, true) && VaultEffect.holds(false, true, false, false), "with the effect the blocks hold");
+        h.assertTrue(VaultEffect.holds(false, false, true, true), "server: no effect but inside the vault - the blocks still hold");
+        h.assertFalse(VaultEffect.holds(false, false, false, true), "client: follows the synced effect only (no ghost progress)");
+        h.assertFalse(VaultEffect.holds(false, false, true, false), "outside the vault nothing is held");
+        h.assertFalse(VaultEffect.holds(true, true, true, true) || VaultEffect.holds(true, false, true, true), "creative always mines");
+        Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        h.assertFalse(VaultEffect.held(Blocks.AMETHYST_BLOCK.defaultBlockState(), player), "outside the vault amethyst is not held (unchanged)");
         h.succeed();
     }
 

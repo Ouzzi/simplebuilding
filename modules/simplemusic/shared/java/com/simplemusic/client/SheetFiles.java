@@ -50,11 +50,23 @@ public final class SheetFiles {
         try {
             if (Files.size(file) > MAX_NBS_BYTES) return null;
             String name = file.getFileName().toString().toLowerCase(Locale.ROOT);
-            if (name.endsWith(".nbs")) return NbsReader.read(Files.readAllBytes(file)).code();
-            String text = Files.readString(file, StandardCharsets.UTF_8).replace("\r\n", "\n");
-            return text.length() > NoteCode.MAX_CODE_LENGTH ? text.substring(0, NoteCode.MAX_CODE_LENGTH) : text;
+            if (name.endsWith(".nbs")) return fit(NbsReader.read(Files.readAllBytes(file)).code());
+            return fit(Files.readString(file, StandardCharsets.UTF_8).replace("\r\n", "\n"));
         } catch (IOException | RuntimeException e) {
             return null;
         }
+    }
+
+    /**
+     * Code that fits the editor and the packet ({@link NoteCode#MAX_CODE_LENGTH}): longer text is cut after the last whole bar
+     * (blank line, as the .nbs import writes them), else after the last line. simplemusic-P2-1: a long .nbs song wrote more than
+     * the limit; closing the editor then sent a string the packet codec refuses, which drops the player from the server.
+     */
+    public static String fit(String code) {
+        int max = NoteCode.MAX_CODE_LENGTH;
+        if (code.length() <= max) return code;
+        int cut = code.lastIndexOf("\n\n", max);
+        if (cut <= 0) cut = code.lastIndexOf('\n', max);
+        return code.substring(0, cut > 0 ? cut : max);
     }
 }

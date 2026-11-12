@@ -54,7 +54,11 @@ public final class Enforcement {
 
     /** True when a block change at this position must be refused (server side only). */
     public static boolean blocksChange(Level level, BlockPos pos) {
-        if (level.isClientSide()) return false;
+        return !level.isClientSide() && locked(level, pos);
+    }
+
+    /** True when the position lies in a locked cell of this level's view (also on the client, which knows the grid; false without a challenge). */
+    public static boolean locked(Level level, BlockPos pos) {
         UnlockGrid g = Gate.grid(level);
         return g != null && !g.isFree(g.cellOf(pos.getX()), g.cellOf(pos.getZ()));
     }

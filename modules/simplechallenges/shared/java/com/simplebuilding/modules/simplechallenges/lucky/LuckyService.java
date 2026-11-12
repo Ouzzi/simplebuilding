@@ -3,6 +3,7 @@ package com.simplebuilding.modules.simplechallenges.lucky;
 import com.simplebuilding.modules.simplechallenges.SimpleChallenges;
 import com.simplebuilding.modules.simplechallenges.core.Active;
 import com.simplebuilding.modules.simplechallenges.core.ChallengeRuntime;
+import com.simplebuilding.modules.simplechallenges.core.Enforcement;
 import com.simplebuilding.modules.simplechallenges.core.Gate;
 import com.simplebuilding.modules.simplechallenges.preset.LuckyMode;
 import net.minecraft.core.BlockPos;
@@ -32,13 +33,15 @@ public final class LuckyService {
 
     /**
      * Fabric BEFORE hook. @return false = the break was handled here (the vanilla break is cancelled), true = Vanilla goes on.
-     * Creative players, blocks with contents (chests, furnaces...), blocks that give nothing anyway (wrong tool) and blocks that
-     * are no survival blocks keep their normal break.
+     * Creative players, blocks with contents (chests, furnaces...), blocks that give nothing anyway (wrong tool), blocks that
+     * are no survival blocks and blocks in locked cells (they cannot be broken) keep their normal break.
      */
     public static boolean beforeBreak(Level level, net.minecraft.world.entity.player.Player player, BlockPos pos, BlockState state) {
         Active a = ChallengeRuntime.server();
         if (a == null || a.preset.lucky() == null || level.isClientSide() || !(level instanceof ServerLevel sl) || !(player instanceof ServerPlayer)) return true;
         if (!SimpleChallenges.on() || Gate.creativeCheck.test(player) || state.hasBlockEntity() || !player.hasCorrectToolForDrops(state)) return true;
+        // a block in a locked cell cannot be broken (Level.setBlock refuses): Vanilla goes on, so nothing is rolled, dropped or counted
+        if (Enforcement.blocksChange(level, pos)) return true;
         Block drop = rolled(a, sl, state);
         if (drop == null || drop.asItem() == net.minecraft.world.item.Items.AIR) return true;
         ItemStack tool = player.getMainHandItem();

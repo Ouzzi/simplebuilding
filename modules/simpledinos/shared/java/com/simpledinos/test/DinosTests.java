@@ -362,6 +362,54 @@ public final class DinosTests {
             h.assertTrue(!trex.canMate(trex) && trex.getBreedOffspring(h.getLevel(), trex) == null, "dinosaurs do not breed");
             h.succeed();
         });
+        // a-audsb31e2 (simpledinos-P2-1): the saved attribute must not freeze the bite at the value of the last save.
+        ALL.put("trex_bite_follows_config", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Trex trex = adult(h, owner, 8, 8);
+            var attack = net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE;
+            try {
+                h.assertTrue(trex.getAttributeValue(attack) == DinosConfig.BITE_DEFAULT, "a new T. rex bites with the config value");
+                var out = net.minecraft.world.level.storage.TagValueOutput.createWithContext(net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess());
+                trex.saveWithoutId(out);
+                DinosConfig.trexBiteDamage = 25.0;
+                Trex loaded = DinosRegistry.TREX.create(h.getLevel(), net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
+                h.assertTrue(loaded != null, "the T. rex type creates");
+                loaded.load(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess(), out.buildResult()));
+                h.assertTrue(loaded.getAttributeValue(attack) == 25.0, "a loaded T. rex bites with the current config, not the saved value: " + loaded.getAttributeValue(attack));
+                DinosConfig.trexBiteDamage = 12.0;
+                trex.applyBite();
+                h.assertTrue(trex.getAttributeValue(attack) == 12.0, "a live config change reaches a T. rex that stands in the world");
+            } finally {
+                DinosConfig.reset();
+            }
+            h.succeed();
+        });
+        // a-audsb31e2 (simpledinos-P2-2): without an online owner every idle monster was "hunting the owner" (null == null).
+        // A pig stands in for the owner (any living entity can own a horse), so no player target rules (creative, peaceful) get in the way.
+        ALL.put("trex_defends_only_hunted", h -> {
+            net.minecraft.world.entity.LivingEntity owner = h.spawn(net.minecraft.world.entity.EntityTypes.PIG, at(5, 5));
+            Trex trex = h.spawn(DinosRegistry.TREX, at(8, 8));
+            trex.setPersistenceRequired();
+            trex.setTamed(true);
+            trex.setOwner(owner);
+            trex.setAge(0);
+            net.minecraft.world.entity.monster.Monster zombie = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(11, 11));
+            zombie.setPersistenceRequired();
+            zombie.setTarget(null);
+            h.assertTrue(trex.getOwner() == owner, "the owner stand-in resolves");
+            h.assertTrue(!trex.defends(zombie), "an idle monster is no reason to bite");
+            zombie.setTarget(owner);
+            h.assertTrue(zombie.getTarget() == owner && trex.defends(zombie), "a monster that hunts the owner is");
+            zombie.setTarget(trex);
+            h.assertTrue(zombie.getTarget() == trex && trex.defends(zombie), "a monster that hunts the T. rex is");
+            zombie.setTarget(null);
+            trex.setOwner(null);
+            h.assertTrue(trex.getOwner() == null && !trex.defends(zombie), "owner offline: still no bite at idle monsters");
+            zombie.discard();
+            trex.discard();
+            owner.discard();
+            h.succeed();
+        });
         ALL.put("trex_saddle_armor_riding", h -> {
             ServerPlayer owner = player(h, 3, 3);
             Trex trex = adult(h, owner, 8, 8);

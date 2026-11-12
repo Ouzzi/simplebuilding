@@ -24,9 +24,20 @@ public class BackroomBlock extends Block {
         super(properties);
     }
 
-    /** Whether {@code player} may not break Backrooms blocks: survival (or adventure) with the Backroom effect. */
+    /**
+     * Whether {@code player} may not break Backrooms blocks: survival (or adventure) with the Backroom effect. The server does not
+     * rely on the effect alone: milk, a totem or {@code /effect clear} would open a window of up to {@link BackroomEffect#PERIOD}
+     * ticks until the next refresh (a quick tool breaks a wall in one tick), so it also holds whoever {@link BackroomEffect#due} is
+     * for (audsb31e2 simplelayers-P2-1). The client keeps going by the synced effect (no ghost progress).
+     */
     public static boolean protectedFor(Player player) {
-        return !player.isCreative() && BackroomEffect.holder() != null && player.hasEffect(BackroomEffect.holder());
+        if (BackroomEffect.holder() == null) return false;
+        return protects(player.isCreative(), player.hasEffect(BackroomEffect.holder()), !player.level().isClientSide(), BackroomEffect.due(player));
+    }
+
+    /** The rule of {@link #protectedFor} on its four facts (pure, tested). */
+    public static boolean protects(boolean creative, boolean hasEffect, boolean serverSide, boolean due) {
+        return !creative && (hasEffect || serverSide && due);
     }
 
     /** Part of the rooms: a Backrooms block, or a block of the levels' Vanilla palette (tag {@code backrooms_structure}). */

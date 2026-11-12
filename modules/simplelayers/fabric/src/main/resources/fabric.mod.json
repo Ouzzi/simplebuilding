@@ -3,7 +3,7 @@
   "id": "simplelayers",
   "version": "${version}",
   "name": "Simple Layers",
-  "description": "World layers: the Cloud Sea, a sky dimension above y 700 of the Overworld, and the Backrooms below the bedrock - endless yellow rooms with wallpaper, damp carpet and neon lights.",
+  "description": "World layers: the Cloud Sea, a sky dimension above y 700 of the Overworld, and the Backrooms - their own dimension of ten stacked levels, starting with endless yellow rooms with wallpaper, damp carpet and neon lights.",
   "authors": [
     "Ouzzi"
   ],

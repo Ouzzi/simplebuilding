@@ -6,7 +6,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials (building cores, Strong Upgrade with the Wither drop), id moves, in-world upgrades and UI building blocks.
   - optional: jei
-  - required von: Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chisels, Simple Crucibles, Simple Earth, Simple Enchanting, Simple Fun, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Money, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, Simple Wanderers, SimpleBuilding
+  - required von: Simple Animals, Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chisels, Simple Crucibles, Simple Dimensions, Simple Dinosaurs, Simple Earth, Simple Enchanting, Simple End, Simple Fun, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Money, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Respawn, Simple Riding, Simple Sandwiches, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, Simple Wanderers, SimpleBuilding
 
 ## SimpleBuilding
 
@@ -68,29 +68,32 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - required: SimpleLib
     - optional: SimpleBuilding, Simple End, trinkets_updated, curios, Simple Ores, Simple Crucibles
   - **Simple Animals** `simpleanimals` (optional) [neu]: Deer, wild boar, hedgehog, crab and zebra (with the infertile zorse): five new animals with low spawn rates, Vanilla goals and no block damage. Works on its own with Vanilla.
+    - required: SimpleLib
     - optional: SimpleBuilding, Simple Money, Simple Mobheads
-  - **Simple Beacons** `simplebeacons` (optional) [neu]: Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.
+  - **Simple Beacons** `simplebeacons` (optional) [neu]: Strong Beacon (5 pyramid levels, new powers, range by pyramid material, Vanilla-style screen), Mighty and Evil beacons, Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and its Mighty/Evil kinds, upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Ores
   - **Simple Challenges** `simplechallenges` (optional) [neu]: Game modes for a world of your choice. S0-S2: the Unlock mode - the world is cut into cells (a block column, a chunk, three chunks) and only free cells can be entered; every cell has a price worked out from the world (items, credits from advancements or levels), with deadlock protection and an emergency unlock. Presets are data files. Without a chosen challenge the mod changes nothing (safety lock). Needs SimpleLib; SimpleBuilding optional.
     - required: SimpleLib
     - optional: SimpleBuilding
   - **Simple Dimensions** `simpledimensions` (optional) [neu]: Configurable dimensions, light arches, and safe linked portals.
-    - required: cloth_config
+    - required: cloth_config, SimpleLib
     - optional: SimpleBuilding, modmenu, flan, ftbchunks, openpartiesandclaims, griefdefender, claimchunk
   - **Simple Dinosaurs** `simpledinos` (optional) [neu]: Fossil block, dinosaur eggs you brush free and brood by sitting on them, and the first dinosaur: a rideable T. rex that hatches as a hatchling and grows up. Works on its own with Vanilla.
+    - required: SimpleLib
     - optional: SimpleBuilding, Simple Money, Simple Mobheads
-  - **Simple Earth** `simpleearth` (optional) [neu]: The Overworld seen from orbit: above a very high activation height the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colours sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.
+  - **Simple Earth** `simpleearth` (optional) [neu]: The Overworld seen from orbit: from the render height (default 1536) the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colors sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below it everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.
     - required: SimpleLib
     - optional: SimpleBuilding
   - **Simple End** `simpleend` (optional) [neu]: End wood (Ashwood, Duskwood) with buds, trees and stick scrub, End grass, the Ash Valley and Dawnlands biomes on the outer End islands; bundles Simple End Dragon Fight.
+    - required: SimpleLib
     - optional: Simple End Dragon Fight
     - **Simple End Dragon Fight** `simpleenddragonfight` (optional) [neu]: Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.
       - optional: Simple Mobs
   - **Simple Fun** `simplefun` (optional) [fertig]: Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).
     - required: SimpleLib
     - optional: modmenu, jei, jade
-  - **Simple Layers** `simplelayers` (optional) [neu]: World layers: the Cloud Sea sky dimension above y 700 and the Backrooms below the bedrock, with cloud blocks, wallpaper, carpet and neon lights.
+  - **Simple Layers** `simplelayers` (optional) [neu]: World layers: the Cloud Sea sky dimension above y 700 and the Backrooms, their own dimension of ten stacked levels (entered through an abandoned house's cellar or a rift in glitched bedrock), with cloud blocks, wallpaper, carpet and neon lights.
     - required: SimpleLib
     - optional: SimpleBuilding
   - **Simple Maps** `simplemaps` (optional) [neu]: Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar, framed views and cartography table upgrades.
@@ -105,6 +108,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
   - **Simple Questionary** `simplequestionary` (optional) [neu]: The Questionary Table: put any item in and read its lore, its use and a secret in an open book.
     - required: SimpleLib
   - **Simple Respawn** `simplerespawn` (optional) [neu]: Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up.
+    - required: SimpleLib
   - **Simple Riding** `simpleriding` (optional) [fertig]: Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.
     - required: SimpleLib
     - optional: SimpleBuilding, modmenu, Simple Ores

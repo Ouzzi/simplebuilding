@@ -56,10 +56,40 @@ public final class TileService {
     }
 
     public static synchronized void stop() {
-        if (pool != null) pool.shutdownNow();
+        if (pool != null) shutdown(pool);
         pool = null;
         QUEUES.clear();
         STORES.clear();
+    }
+
+    /**
+     * Stops a sampler pool. {@code shutdownNow} drops the jobs that never started and their {@code finally} never runs, so their
+     * slots must be given back here - otherwise every world closed in this JVM (single player) would leave {@link #RUNNING} higher
+     * and the tick would serve fewer and fewer tiles, finally none (audsb31e2 simpleearth-P2-1).
+     */
+    public static void shutdown(ExecutorService p) {
+        RUNNING.addAndGet(-p.shutdownNow().size());
+    }
+
+    /** Starts one sampling job on {@code p}; it holds a slot of {@link #RUNNING} until it ends (or {@link #shutdown} drops it). */
+    public static void submit(ExecutorService p, Runnable job) {
+        RUNNING.incrementAndGet();
+        try {
+            p.execute(() -> {
+                try {
+                    job.run();
+                } finally {
+                    RUNNING.decrementAndGet();
+                }
+            });
+        } catch (java.util.concurrent.RejectedExecutionException ex) { // stopped meanwhile
+            RUNNING.decrementAndGet();
+        }
+    }
+
+    /** Sampling jobs started and not yet finished (tests, debug). */
+    public static int running() {
+        return RUNNING.get();
     }
 
     public static synchronized TileStore store(ServerLevel level) {
@@ -128,10 +158,9 @@ public final class TileService {
                         send(player, k, hit);
                         continue;
                     }
-                    RUNNING.incrementAndGet();
                     UUID id = entry.getKey();
                     boolean explored = EarthServerConfig.exploredOnly;
-                    pool().execute(() -> {
+                    submit(pool(), () -> {
                         try {
                             byte[] data = fetch(level, store, k, explored);
                             server.execute(() -> {
@@ -144,8 +173,6 @@ public final class TileService {
                             });
                         } catch (RuntimeException ex) {
                             SimpleEarth.LOG.warn("Earth tile {} failed: {}", k, ex.toString());
-                        } finally {
-                            RUNNING.decrementAndGet();
                         }
                     });
                 }
