@@ -47,6 +47,8 @@ WOODS = [
     ("duskwood", "duskwood_log", 0xB2A493),
 ]
 END_WOODS = ("ashwood", "duskwood")
+# Woods with only a crate (Simple Storage), no SimpleBuilding woodwork: Vanilla 26.3 poplar (PLAN40 simplestorage-2, 12.11.).
+CRATE_ONLY_WOODS = ("poplar",)
 MOTIFS = ["angler", "archer", "arms_up", "blade", "brewer", "burn", "danger", "explorer", "flow", "friend",
           "guster", "heart", "heartbreak", "howl", "miner", "mourner", "plenty", "prize", "scrape", "sheaf",
           "shelter", "skull", "snort"]
@@ -490,14 +492,7 @@ def wood_assets(wood: str, log: str) -> None:
             variants[f"content={content},level={level}"] = {"model": sb(f"block/{model}")}
     put_json(f"{NS}/blockstates/{name}.json", {"variants": variants})
     block_item(name, sb(f"item/{name}"))
-    # crate: an open box of plank slats with gaps (template_crate), the opening turned to facing like a barrel
-    name = f"{wood}_crate"
-    st = lambda path: f"{STORAGE_NS}:{path}"
-    put_crate_json(f"{STORAGE_NS}/models/block/{name}.json", {"parent": st("block/template_crate"), "textures": {
-        "particle": tex["planks"], "planks": tex["planks"]}})
-    put_crate_json(f"{STORAGE_NS}/blockstates/{name}.json", {"variants": {
-        f"facing={facing}": ({"model": st(f"block/{name}")} | rot) for facing, rot in CRATE_FACING.items()}})
-    put_crate_json(f"{STORAGE_NS}/items/{name}.json", {"model": {"type": "minecraft:model", "model": st(f"block/{name}")}})
+    crate_assets(wood, tex["planks"])
     # carved wood: one model per motif, turned by facing
     name = f"carved_{log}"
     put_png(f"{NS}/textures/block/carved/{wood}_carving.png", carving(wood))
@@ -549,6 +544,17 @@ CAULDRON_ITEM_DISPLAY = {
     "fixed": {"rotation": [0, 0, 0], "translation": [0, 0, 0], "scale": [0.5, 0.5, 0.5]},
     "thirdperson_righthand": {"rotation": [75, 45, 0], "translation": [0, 2.5, 0], "scale": [0.375, 0.375, 0.375]},
     "firstperson_righthand": {"rotation": [0, 45, 0], "translation": [0, 0, 0], "scale": [0.4, 0.4, 0.4]}}
+
+
+def crate_assets(wood: str, planks: str) -> None:
+    """Crate: an open box of plank slats with gaps (template_crate), the opening turned to facing like a barrel."""
+    name = f"{wood}_crate"
+    st = lambda path: f"{STORAGE_NS}:{path}"
+    put_crate_json(f"{STORAGE_NS}/models/block/{name}.json", {"parent": st("block/template_crate"), "textures": {
+        "particle": planks, "planks": planks}})
+    put_crate_json(f"{STORAGE_NS}/blockstates/{name}.json", {"variants": {
+        f"facing={facing}": ({"model": st(f"block/{name}")} | rot) for facing, rot in CRATE_FACING.items()}})
+    put_crate_json(f"{STORAGE_NS}/items/{name}.json", {"model": {"type": "minecraft:model", "model": st(f"block/{name}")}})
 
 
 def stripped_cauldron(wood: str, log: str) -> None:
@@ -636,6 +642,8 @@ def main() -> int:
     for wood, log, _c in WOODS:
         wood_assets(wood, log)
         stripped_cauldron(wood, log)
+    for wood in CRATE_ONLY_WOODS:
+        crate_assets(wood, mc(f"block/{wood}_planks"))
     if "--preview" in sys.argv:
         i = sys.argv.index("--preview")
         preview(sys.argv[i + 1], Path(sys.argv[i + 2]))

@@ -15,7 +15,7 @@ DERIVED08 = {e['path'] for e in json.loads((ROOT / 'tools/textures/recolour08_20
 JAVA = MODULE / 'shared/java/com/simplestorage'
 
 woods = re.findall(r'^    ([A-Z_]+)\("([a-z_]+)"', (JAVA / 'crate/CrateWood.java').read_text(encoding='utf-8'), re.M)
-assert len(woods) == 14, woods
+assert len(woods) == 15, woods  # 13 Vanilla woods (poplar since 26.3) + 2 End woods
 BLOCKS = [f'{w}_crate' for _, w in woods] + ['storage_crafting_table']
 TIERS = ('reinforced', 'netherite', 'enderite')
 CHESTS = ([f'{t}_chest' for t in TIERS] + [f'{t}_trapped_chest' for t in TIERS]
