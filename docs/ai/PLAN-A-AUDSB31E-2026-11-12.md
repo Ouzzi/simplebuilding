@@ -77,4 +77,4 @@ alle `check_data.py` gruen, `check_dup_impl` 0 Probleme, `check_tooltip_text`, `
 `multimod.py` gueltig. `wiki/generate.py --all --check`: dieselben 28 Meldungen wie die Basis 9dfb3f643 (simpleblocks/simpleoctets/
 textures/modules.js), keine neue. Volles `precheck`: rot nur durch Basis-Fehler (wiki-Tests simpleblocks, Adapter-Kern-Luecke).
 **sbt offen** (sb-test nicht erreichbar): `/root/sb-tools-a/a-audsb31e2-sbt.cmd` – Compile + `module-<mod>-fabric-263` + Standalone
-fuer die 10 Mods mit Code-Aenderung + `data_integrity`. Die 18 neuen Gametests sind nur typgeprueft, nicht gelaufen.
+fuer die 10 Mods mit Code-Aenderung + `data_integrity`. Die 17 neuen Gametests sind nur typgeprueft, nicht gelaufen.
