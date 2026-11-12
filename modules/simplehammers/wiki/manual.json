@@ -176,7 +176,7 @@
         "title": "In-world upgrades with the hammer",
         "summary": "Hammer in the main hand, the upgrade material in the off hand, hold use on an upgradable block: one strike per tick-gap of the hammer tier (about one per second, 5 by default), the last one turns it into the next tier with its contents. Which blocks go up is SimpleLib's data type in_world_upgrades - every Simple mod ships its own (crucibles, furnaces, beacons, SimpleBuilding's chests, hoppers and pistons).",
         "details": [
-          "While Simple Hammers is loaded the axe ways of the other Simple mods are off: building crucibles, attaching barrels and upgrading run with the hammer only.",
+          "While Simple Hammers is loaded and switched on, the axe ways of the other Simple mods are off: building crucibles, attaching barrels and upgrading run with the hammer only. Switched off (enabled false or \"Enable Simple Hammers\" off), the axe takes these ways again.",
           "Netherite tiers need at least a Diamond Sledgehammer, Enderite tiers a Netherite one (min_tool). Each strike costs 2 (to reinforced), 4 (Netherite) or 10 (Enderite) durability (config).",
           "Strikes are saved with the world and shown as cracks; anyone continues where it stopped. Letting go, looking away, a changed block or missing material stops it without using the material.",
           "Crucibles go up strike by strike with one material unit every few strikes (Simple Crucibles); a double chest needs the material twice (SimpleBuilding).",
@@ -189,7 +189,7 @@
         "title": "Aufwerten in der Welt mit dem Hammer",
         "summary": "Hammer in der Haupthand, das Aufwertungsmaterial in der Nebenhand, Benutzen auf einem aufwertbaren Block halten: ein Schlag im Takt der Hammerstufe (etwa einer je Sekunde, Standard 5), der letzte macht ihn samt Inhalt zur nächsten Stufe. Welche Blöcke aufsteigen, sagt SimpleLibs Datentyp in_world_upgrades - jede Simple-Mod bringt ihre eigenen mit (Tiegel, Öfen, Leuchtfeuer, SimpleBuildings Truhen, Trichter und Kolben).",
         "details": [
-          "Solange Simple Hammers geladen ist, sind die Axt-Wege der anderen Simple-Mods aus: Tiegel bauen, Fässer andocken und Aufwerten gehen nur mit dem Hammer.",
+          "Solange Simple Hammers geladen und eingeschaltet ist, sind die Axt-Wege der anderen Simple-Mods aus: Tiegel bauen, Fässer andocken und Aufwerten gehen nur mit dem Hammer. Abgeschaltet (enabled false oder „Enable Simple Hammers“ aus) übernimmt wieder die Axt.",
           "Netherit-Stufen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Stufen einen aus Netherit (min_tool). Jeder Schlag kostet 2 (zu verstärkt), 4 (Netherit) oder 10 (Enderit) Haltbarkeit (Config).",
           "Die Schläge werden mit der Welt gespeichert und als Risse gezeigt; jeder setzt dort fort. Loslassen, Wegschauen, ein anderer Block oder fehlendes Material bricht ab, ohne Material zu verbrauchen.",
           "Tiegel steigen Schlag für Schlag auf, alle paar Schläge eine Materialeinheit (Simple Crucibles); eine Doppeltruhe braucht das Material doppelt (SimpleBuilding).",
@@ -273,14 +273,14 @@
         "title": "Server Config",
         "summary": "config/simplehammers-server.json: enabled, upgradeSeconds (1-30, default 5), reinforcedDamagePerHit (2), netheriteDamagePerHit (4), enderiteDamagePerHit (10) (0-64 each) and diamondBlockPebbles (1-81, default 81). On the first start it takes these values from SimpleBuilding's config (server.tools); missing or broken keys use the defaults.",
         "details": [
-          "enabled false makes the hammers plain pickaxes of their tier (no area, no reshaping, no upgrades)."
+          "enabled false makes the hammers plain pickaxes of their tier (no area, no reshaping, no upgrades); the axe ways of the other Simple mods come back."
         ]
       },
       "de": {
         "title": "Server-Config",
         "summary": "config/simplehammers-server.json: enabled, upgradeSeconds (1-30, Standard 5), reinforcedDamagePerHit (2), netheriteDamagePerHit (4), enderiteDamagePerHit (10) (je 0-64) und diamondBlockPebbles (1-81, Standard 81). Beim ersten Start übernimmt sie diese Werte aus SimpleBuildings Config (server.tools); fehlende oder kaputte Schlüssel nehmen die Standardwerte.",
         "details": [
-          "enabled false macht die Hämmer zu einfachen Spitzhacken ihrer Stufe (keine Fläche, kein Umformen, keine Aufwertung)."
+          "enabled false macht die Hämmer zu einfachen Spitzhacken ihrer Stufe (keine Fläche, kein Umformen, keine Aufwertung); die Axt-Wege der anderen Simple-Mods kommen zurück."
         ]
       }
     },

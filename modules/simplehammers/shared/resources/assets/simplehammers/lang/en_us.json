@@ -33,7 +33,7 @@
   "jei.simplehammers.info.netherite_grade": "The higher in-world upgrades name the hammer they need: Netherite steps take a Netherite or Enderite Sledgehammer, Enderite steps only the Enderite one; Diamond steps take Diamond or better. Netherite strikes every 20 ticks, Enderite every 19.",
   "text.autoconfig.simplehammers.title": "Simple Hammers",
   "text.autoconfig.simplehammers.option.enabled": "Enable Simple Hammers",
-  "text.autoconfig.simplehammers.option.enabled.@Tooltip": "Off: hammers work like a plain pickaxe (no\narea mining, no upgrades). Default: true.",
+  "text.autoconfig.simplehammers.option.enabled.@Tooltip": "Off: hammers work like a plain pickaxe (no\narea mining, no upgrades); the axe takes\nthe upgrades of the Simple mods. Default: true.",
   "text.autoconfig.simplehammers.option.upgradeSeconds": "Upgrade Strikes",
   "text.autoconfig.simplehammers.option.upgradeSeconds.@Tooltip": "Strikes of one sledgehammer upgrade, one per\nsecond; the last strike rebuilds the block.\nDefault: 5. Range: 1–30.",
   "text.autoconfig.simplehammers.option.reinforcedDamagePerHit": "Durability per Strike: Reinforced",

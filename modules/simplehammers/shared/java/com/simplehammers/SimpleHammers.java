@@ -87,8 +87,9 @@ public final class SimpleHammers {
                 .range("diamondBlockPebbles", 1, com.simplehammers.config.HammerConfig.DIAMOND_BLOCK_PEBBLES_DEFAULT).register();
         registerIdMoves();
         MATERIALS.forEach(SimpleLibApi::requestMaterial);
-        // Principle 5a / split plan §2.6: with a hammer mod the in-world ways run with the hammer only, the Vanilla axe ways go off.
-        SimpleLibApi.disableAxeWays();
+        // Principle 5a / split plan §2.6: with a hammer mod the in-world ways run with the hammer only, the Vanilla axe ways go off -
+        // only while the hammers are on (PLAN40 simplehammers-1: switched off, the axe takes the upgrades again).
+        SimpleLibApi.disableAxeWays(SimpleHammers::on);
         HammerActions.setUpgradeTakesClick(com.simplehammers.engine.SledgehammerUpgrades::shouldSkipBlockUse);
         // HS29-2: one strike tempo per hammer tier for every click conversion of every mod (SimpleLib InWorldStrikes.interval).
         com.simplelib.api.InWorldStrikes.setTempo(stack -> stack.getItem() instanceof com.simplehammers.item.SledgehammerItem hammer

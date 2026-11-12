@@ -33,7 +33,7 @@
   "jei.simplehammers.info.netherite_grade": "Die höheren In-World-Aufwertungen nennen den Hammer, den sie brauchen: Netherit-Schritte nehmen einen Netherit- oder Enderit-Vorschlaghammer, Enderit-Schritte nur den Enderit-Vorschlaghammer; Diamant-Schritte Diamant oder besser. Netherit schlägt alle 20 Ticks zu, Enderit alle 19.",
   "text.autoconfig.simplehammers.title": "Simple Hammers",
   "text.autoconfig.simplehammers.option.enabled": "Simple Hammers aktivieren",
-  "text.autoconfig.simplehammers.option.enabled.@Tooltip": "Aus: Hämmer arbeiten wie eine einfache\nSpitzhacke (kein Flächenabbau, keine\nAufwertungen). Standard: true.",
+  "text.autoconfig.simplehammers.option.enabled.@Tooltip": "Aus: Hämmer arbeiten wie eine einfache\nSpitzhacke (kein Flächenabbau, keine\nAufwertungen); die Axt übernimmt die\nAufwertungen der Simple-Mods. Standard: true.",
   "text.autoconfig.simplehammers.option.upgradeSeconds": "Schläge je Aufwertung",
   "text.autoconfig.simplehammers.option.upgradeSeconds.@Tooltip": "Schläge einer Vorschlaghammer-Aufwertung,\neiner je Sekunde; der letzte baut den Block\num. Standard: 5. Bereich: 1–30.",
   "text.autoconfig.simplehammers.option.reinforcedDamagePerHit": "Haltbarkeit je Schlag: Verstärkt",

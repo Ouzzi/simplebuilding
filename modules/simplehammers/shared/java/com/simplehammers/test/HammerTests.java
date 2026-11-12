@@ -166,9 +166,13 @@ public final class HammerTests {
                 stoneLayer(h);
                 h.assertTrue(SledgehammerItem.getBlocksToBeDestroyed(1, h.absolutePos(SPOT), player).isEmpty(), "no area while off");
                 h.assertTrue(SledgehammerUtils.miningSpeedDivisor(player, h.absolutePos(SPOT)) == 1.0F, "mines like a pickaxe while off");
+                // PLAN40 simplehammers-1: switched off, the Vanilla axe ways come back (no dead end for the in-world upgrades).
+                h.assertTrue(SimpleLibApi.axeWaysEnabled(), "axe ways back while the hammers are off");
+                h.assertTrue(InWorldUpgrades.isUpgradeTool(new ItemStack(Items.DIAMOND_AXE)), "an axe runs the upgrades while the hammers are off");
             } finally {
                 com.simplebuilding.framework.api.SubMods.set(SimpleHammers.MOD_ID, true);
             }
+            h.assertFalse(SimpleLibApi.axeWaysEnabled(), "axe ways off again with the hammers on");
             h.succeed();
         });
         ALL.put("area_break", h -> {
