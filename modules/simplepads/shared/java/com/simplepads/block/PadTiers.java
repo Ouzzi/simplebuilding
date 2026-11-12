@@ -7,9 +7,8 @@ import net.minecraft.world.phys.AABB;
  * Bereiche der Elytra-Pads und Flypads je Stufe (docs/SIMPLETWEAKS-UEBERNAHME.md, Abschnitt 2).
  *
  * <p>Elytra-Pad (Besitzer 2026-09-27), seit 2026-10-07 drei Stufen, Breite x Breite x Hoehe:
- * I 5x5x5, II 32x32x32, III 128x128x192 (die alten Stufen II und V sind als Legacy-Bloecke nur noch
- * zum Laden alter Welten da, siehe {@link LegacyElytraPadBlock}). Ab {@link #ENDERITE} laden Boosts im
- * ganzen Bereich.
+ * I 5x5x5, II 32x32x32, III 128x128x192 (die Ids der alten Stufen II und V fuehren per IdMoves auf
+ * Stufe I bzw. III). Ab {@link #ENDERITE} laden Boosts im ganzen Bereich.
  *
  * <p>Flypad (Besitzer 2026-09-27), drei Stufen aus Enderit, Breite x Breite x Hoehe: I 4x4x8,
  * II 8x8x16, III 16x16x32 - die Hoehe ist die doppelte Breite (Besitzer 2026-10-02, vorher 6/12/24).

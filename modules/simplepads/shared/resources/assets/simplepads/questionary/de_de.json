@@ -4,7 +4,7 @@
       "{name}: Ein kleines Stück Himmel, auf dem du stehen darfst."
     ],
     "use": [
-      "Gewährt Kreativflug in seinem Bereich (Stufe I: 4x4x8 Blöcke, Breite, Tiefe, Höhe) und nimmt ihn zurück, wenn du ihn verlässt. Stufe I wird formlos aus einem Enderitkern, einer Enderit-Druckplatte, einem Shulkerkopf und einer Elytra mit Reparatur hergestellt."
+      "Gewährt Kreativflug in seinem Bereich (Stufe I: 4x4x8 Blöcke, Breite, Tiefe, Höhe) und nimmt ihn zurück, wenn du ihn verlässt. Stufe I wird formlos aus einem Enderitkern, einer Enderit-Besitzerplatte, einem Shulkerkopf und einer Elytra mit Reparatur hergestellt."
     ],
     "secret": [
       "Es gibt drei Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III. Pads stapeln nicht, jedes ist ein Einzelstück."
@@ -103,7 +103,7 @@
       "{name}: ein Windstoß, der auf dich wartet."
     ],
     "use": [
-      "Lade es mit Windkugeln auf (Stufe III: bis zu 16) und steh 3 Sekunden darauf: Es schleudert dich hoch, mit mehr Ladungen höher. Schmieden: Enderit-Aufwertung, Startrampe II und eine Enderit-Druckplatte, geschmiedet."
+      "Lade es mit Windkugeln auf (Stufe III: bis zu 16) und steh 3 Sekunden darauf: Es schleudert dich hoch, mit mehr Ladungen höher. Schmieden: Enderit-Aufwertung, Startrampe II und eine Enderit-Besitzerplatte, geschmiedet."
     ],
     "secret": [
       "Drei Stufen: Startrampe I, Netherit-Startrampe II und Enderit-Startrampe III. Pads stapeln nicht."
@@ -169,7 +169,7 @@
       "{name}: eine Laterne für das Land, damit es nicht vergisst, da zu sein."
     ],
     "use": [
-      "Hält Chunks geladen. Stufe III: 9 Chunks im 3x3-Quadrat. Mit den Server-Standardeinstellungen muss ein eingetragener Besitzer online sein. Schmieden: Enderit-Aufwertung, Chunk-Lader II und eine Enderit-Druckplatte."
+      "Hält Chunks geladen. Stufe III: 9 Chunks im 3x3-Quadrat. Mit den Server-Standardeinstellungen muss ein eingetragener Besitzer online sein. Schmieden: Enderit-Aufwertung, Chunk-Lader II und eine Enderit-Besitzerplatte."
     ],
     "secret": [
       "Drei Stufen: Chunk-Lader I, Netherit II und Enderit III."

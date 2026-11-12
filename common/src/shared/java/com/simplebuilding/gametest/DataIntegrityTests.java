@@ -3555,8 +3555,11 @@ public final class DataIntegrityTests {
             problems.add(ModTags.Items.ENDERITE_ITEMS.location() + " additionally holds " + extra
                     + " and lacks " + lacking + " (datagen not re-run, or the rule drifted from this test)");
         }
+        // 26.3 (simplepads-4): the retired netherite_flypad id leads to the Reinforced Flypad, an Enderite tier; the Netherite
+        // Launchpad is the netherite pad there.
         for (Item control : List.of(com.simplebuilding.util.StorageRefs.item("netherite_quiver"), ModItems.NETHERITE_CORE, ModItems.ENDER_QUARTZ,
-                TweaksBlocks.NETHERITE_FLYPAD.asItem(), ModItems.GUIDE_BOOK_END, Items.NETHERITE_INGOT,
+                (com.simplebuilding.version.McVersion.PADS_IN_SB ? TweaksBlocks.NETHERITE_FLYPAD : TweaksBlocks.NETHERITE_LAUNCHPAD).asItem(),
+                ModItems.GUIDE_BOOK_END, Items.NETHERITE_INGOT,
                 Items.NETHERITE_HORSE_ARMOR, Items.ENDER_PEARL)) {
             ItemStack stack = new ItemStack(control);
             if (stack.typeHolder().is(ModTags.Items.ENDERITE_ITEMS) || isVoidProtected(stack)

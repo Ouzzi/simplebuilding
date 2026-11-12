@@ -24,6 +24,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void legacyIdsMoveToTheNewTier(GameTestHelper h) {
+        PadsTests.ALL.get("legacy_ids_move_to_the_new_tier").accept(h);
+    }
+
+    @GameTest
     public void configTakeover(GameTestHelper h) {
         PadsTests.ALL.get("config_takeover").accept(h);
     }
@@ -56,16 +61,6 @@ public final class ModuleGameTest {
     @GameTest(maxTicks = com.simplepads.test.PadOverhaulTests.WAIT_MAX_TICKS)
     public void spawnTeleporterTiersWaitFiftyTwentyAndFiveSeconds(GameTestHelper h) {
         PadsTests.ALL.get("spawn_teleporter_tiers_wait_fifty_twenty_and_five_seconds").accept(h);
-    }
-
-    @GameTest
-    public void oldSpawnTeleportersBecomeTheirNewTierInTheWorldAndTheInventory(GameTestHelper h) {
-        PadsTests.ALL.get("old_spawn_teleporters_become_their_new_tier_in_the_world_and_the_inventory").accept(h);
-    }
-
-    @GameTest
-    public void oldElytraPadsBecomeTheirNewTierInTheWorldAndTheInventory(GameTestHelper h) {
-        PadsTests.ALL.get("old_elytra_pads_become_their_new_tier_in_the_world_and_the_inventory").accept(h);
     }
 
     @GameTest
@@ -224,6 +219,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void ownerPlateNameDiffersFromOresPlate(GameTestHelper h) {
+        PadsTests.ALL.get("owner_plate_name_differs_from_ores_plate").accept(h);
+    }
+
+    @GameTest
     public void launchpadTiersHoldFourEightAndSixteenWindCharges(GameTestHelper h) {
         PadsTests.ALL.get("launchpad_tiers_hold_four_eight_and_sixteen_wind_charges").accept(h);
     }
@@ -256,11 +256,6 @@ public final class ModuleGameTest {
     @GameTest
     public void elytraPadAndFlypadAreasMatchTheirTiers(GameTestHelper h) {
         PadsTests.ALL.get("elytra_pad_and_flypad_areas_match_their_tiers").accept(h);
-    }
-
-    @GameTest
-    public void oldFlypadsTurnIntoTheirNewTierInTheWorldAndInTheInventory(GameTestHelper h) {
-        PadsTests.ALL.get("old_flypads_turn_into_their_new_tier_in_the_world_and_in_the_inventory").accept(h);
     }
 
     @GameTest

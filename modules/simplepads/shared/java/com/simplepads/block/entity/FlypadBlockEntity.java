@@ -3,7 +3,6 @@ package com.simplepads.block.entity;
 import com.simplepads.util.PlayerScan;
 import com.simplepads.SimplePads;
 import com.simplepads.block.FlypadBlock;
-import com.simplepads.block.LegacyFlypadBlock;
 import com.simplepads.block.PadTiers;
 import com.simplepads.easter.EasterEggs;
 import java.util.HashMap;
@@ -32,9 +31,8 @@ import net.minecraft.world.phys.AABB;
 /**
  * Flypad, aus Simple Tweaks: im Bereich Kreativflug + Leuchten; wer den Bereich verlaesst,
  * verliert den Flug wieder (ausser Kreativ/Zuschauer). Seit 2026-09-27 drei Stufen aus Enderit,
- * jede mit dem Sicherheitsnetz: wer fliegend hinausfliegt, bekommt 10 s Sanfter Fall. Alte Flypads
- * (netherite_flypad, enderite_flypad) werden beim ersten Tick zu ihrer neuen Stufe
- * ({@link LegacyFlypadBlock}).
+ * jede mit dem Sicherheitsnetz: wer fliegend hinausfliegt, bekommt 10 s Sanfter Fall. Die Ids der
+ * alten Flypads (netherite_flypad, enderite_flypad) fuehren per IdMoves auf ihre neue Stufe.
  * Neu gegenueber Simple Tweaks: wird das Pad abgebaut oder abgeschaltet, verlieren auch die
  * Spieler im Bereich den Flug (vorher behielten sie ihn fuer immer).
  *
@@ -76,10 +74,6 @@ public class FlypadBlockEntity extends OwnedBlockEntity implements PadSignalSour
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, FlypadBlockEntity be) {
-        if (state.getBlock() instanceof LegacyFlypadBlock legacy) {
-            legacy.migrate(level, pos, be);
-            return;
-        }
         if (level.getGameTime() % 5 == 0) {
             update(level, pos, state, be);
         }

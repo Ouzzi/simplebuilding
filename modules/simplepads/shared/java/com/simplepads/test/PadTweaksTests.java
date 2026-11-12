@@ -122,7 +122,6 @@ public final class PadTweaksTests {
         helper.assertValueEqual(List.of(PadTiers.height(1), PadTiers.height(2), PadTiers.height(3)),
                 List.of(5, 32, 192), "pad heights per tier");
         helper.assertValueEqual(ElytraPadBlockEntity.tierOf(PadsBlocks.ENDERITE_ELYTRA_PAD.defaultBlockState()), 3, "tier of the enderite elytra pad");
-        helper.assertValueEqual(ElytraPadBlockEntity.tierOf(PadsBlocks.FINE_ELYTRA_PAD.defaultBlockState()), 5, "tier of the fine elytra pad");
         helper.assertValueEqual(FlypadBlockEntity.tierOf(PadsBlocks.REINFORCED_FLYPAD.defaultBlockState()), 2, "tier of the reinforced flypad");
         helper.assertValueEqual(FlypadBlockEntity.tierOf(PadsBlocks.STELLAR_FLYPAD.defaultBlockState()), 3, "tier of the stellar flypad");
         helper.assertFalse(PadTiers.hasEnderiteBonus(2), "the netherite tier already carries the enderite bonus");
@@ -139,7 +138,9 @@ public final class PadTweaksTests {
         expectSmithing(helper, com.simplepads.util.PadRefs.enderiteTemplate(), PadsBlocks.REINFORCED_FLYPAD, PadsBlocks.REINFORCED_FLYPAD.asItem(), PadsBlocks.STELLAR_FLYPAD);
         Optional<RecipeHolder<SmithingRecipe>> one = smithing(helper, com.simplepads.util.PadRefs.enderiteTemplate(), PadsBlocks.FLYPAD, PadsBlocks.REINFORCED_FLYPAD.asItem());
         helper.assertTrue(one.isEmpty(), "a flypad I and a flypad II already smith something");
-        Item f = PadsBlocks.ENDERITE_FLYPAD.asItem();
+        // The old grid KKK / ESE / FFF took the retired Enderite Flypad (its id is the Stellar Flypad now); with the tier below
+        // in the bottom row no crafting recipe makes a Stellar Flypad either.
+        Item f = PadsBlocks.REINFORCED_FLYPAD.asItem();
         CraftingInput oldGrid = grid(Items.OMINOUS_TRIAL_KEY, Items.OMINOUS_TRIAL_KEY, Items.OMINOUS_TRIAL_KEY,
                 Items.ENCHANTED_GOLDEN_APPLE, Items.NETHER_STAR, Items.ENCHANTED_GOLDEN_APPLE, f, f, f);
         helper.assertTrue(craftingResult(helper, oldGrid).isEmpty(), "the old crafting recipe still makes a stellar flypad");
@@ -1186,7 +1187,7 @@ public final class PadTweaksTests {
             }
         }
         for (Block expected : List.of(PadsBlocks.SPAWN_TELEPORTER, PadsBlocks.ENDERITE_SPAWN_TELEPORTER,
-                PadsBlocks.ELYTRA_PAD, PadsBlocks.FINE_ELYTRA_PAD, PadsBlocks.LAUNCHPAD,
+                PadsBlocks.ELYTRA_PAD, PadsBlocks.ENDERITE_ELYTRA_PAD, PadsBlocks.LAUNCHPAD,
                 PadsBlocks.ENDERITE_LAUNCHPAD, PadsBlocks.DIAMOND_PRESSURE_PLATE)) {
             helper.assertTrue(pads.contains(expected), expected + " is not waterloggable any more");
         }

@@ -5,7 +5,6 @@ import com.simplepads.block.ChunkLoaderBlock;
 import com.simplepads.block.ElytraPadBlock;
 import com.simplepads.block.FlypadBlock;
 import com.simplepads.block.LaunchpadBlock;
-import com.simplepads.block.LegacyTierBlock;
 import com.simplepads.block.PadTiers;
 import com.simplepads.block.PotionPadBlock;
 import com.simplepads.block.SpawnTeleporterBlock;
@@ -36,9 +35,6 @@ public final class PadTooltips {
     }
 
     private static void blockLines(Block block, List<Component> out) {
-        if (block instanceof LegacyTierBlock) {
-            return; // turns into its new tier on the first tick; no promises about the old one
-        }
         if (block instanceof LaunchpadBlock pad) {
             out.add(tier(pad.getTier(), LaunchpadBlock.ENDERITE_TIER));
             out.add(gray("tooltip.simplepads.pad.charges", LaunchpadBlock.maxCharges(pad.getTier())));

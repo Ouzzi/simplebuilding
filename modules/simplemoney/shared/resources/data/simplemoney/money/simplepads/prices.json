@@ -72,17 +72,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplepads:enderite_flypad",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplepads:enderite_launchpad",
       "tier": 5,
       "hours": 38.1,
@@ -125,17 +114,6 @@
       "level": 1,
       "stock": 2,
       "chance": 1
-    },
-    {
-      "item": "simplepads:fine_elytra_pad",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
     },
     {
       "item": "simplepads:flypad",
@@ -204,17 +182,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplepads:netherite_flypad",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplepads:netherite_launchpad",
       "tier": 4,
       "hours": 24.9,
@@ -257,17 +224,6 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
-    },
-    {
-      "item": "simplepads:reinforced_elytra_pad",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
     },
     {
       "item": "simplepads:reinforced_flypad",
@@ -323,28 +279,6 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
-    },
-    {
-      "item": "simplepads:spawn_teleporter_tier_3",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplepads:spawn_teleporter_tier_4",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
     },
     {
       "item": "simplepads:stellar_flypad",

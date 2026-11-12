@@ -25,6 +25,8 @@ import net.minecraft.world.level.material.MapColor;
 /**
  * Die Pads und Druckplatten von Simple Pads (bis 04.11.2026 SimpleBuilding {@code TweaksBlocks}, Ids von
  * {@code simplebuilding:} verschoben). Registrierung direkt in die Vanilla-Registry beim ersten Zugriff ({@link #init()}).
+ * Die sechs alten Stufenbloecke der Fuenf-Stufen-Zeit gibt es nicht mehr (vor dem ersten Release entfernt, simplepads-4):
+ * ihre Ids fuehren per SimpleLib-IdMoves auf die neue Stufe ({@code SimplePads#registerIdMoves}).
  */
 public final class PadsBlocks {
 
@@ -35,12 +37,6 @@ public final class PadsBlocks {
             p -> new SpawnTeleporterBlock(sturdy(p).lightLevel(s -> 10), 1));
     public static final Block SPAWN_TELEPORTER_TIER_2 = register("spawn_teleporter_tier_2",
             p -> new SpawnTeleporterBlock(sturdy(p).lightLevel(s -> 12).mapColor(MapColor.DIAMOND), 2));
-    // Alte Stufen III und IV (bis 2026-09-28 fuenf Stufen): nur noch zum Laden alter Welten, werden zu II bzw. III.
-    public static final Block SPAWN_TELEPORTER_TIER_3 = register("spawn_teleporter_tier_3",
-            p -> new LegacySpawnTeleporterBlock(sturdy(p).lightLevel(s -> 14).mapColor(MapColor.EMERALD), 2, () -> PadsBlocks.SPAWN_TELEPORTER_TIER_2));
-    public static final Block SPAWN_TELEPORTER_TIER_4 = register("spawn_teleporter_tier_4",
-            p -> new LegacySpawnTeleporterBlock(sturdy(p).lightLevel(s -> 15).mapColor(MapColor.GOLD), SpawnTeleporterBlock.ENDERITE_TIER,
-                    () -> PadsBlocks.ENDERITE_SPAWN_TELEPORTER));
     public static final Block ENDERITE_SPAWN_TELEPORTER = register("enderite_spawn_teleporter",
             p -> new SpawnTeleporterBlock(sturdy(p).lightLevel(s -> 15).mapColor(MapColor.COLOR_PURPLE), SpawnTeleporterBlock.ENDERITE_TIER));
 
@@ -63,19 +59,13 @@ public final class PadsBlocks {
             p -> new FilterPressurePlateBlock(BlockSetType.IRON,
                     p.mapColor(MapColor.COLOR_PURPLE).noCollision().strength(5.0f).pushReaction(PadsVersion.PUSH_BLOCKED), true));
 
-    // --- Elytra-Pads I-III (seit 2026-10-07 drei Stufen; alte II und V nur noch als Legacy) ---
+    // --- Elytra-Pads I-III (seit 2026-10-07 drei Stufen) ---
     public static final Block ELYTRA_PAD = register("elytra_pad",
             p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.COLOR_CYAN).strength(1.5f).sound(SoundType.METAL), 1));
-    // Alte Stufe II (vorher fuenf Stufen): nur zum Laden alter Welten, wird zu Stufe I.
-    public static final Block REINFORCED_ELYTRA_PAD = register("reinforced_elytra_pad",
-            p -> new LegacyElytraPadBlock(sturdy(p).mapColor(MapColor.DIAMOND).strength(2.0f).sound(SoundType.METAL), 2, () -> PadsBlocks.ELYTRA_PAD));
     public static final Block NETHERITE_ELYTRA_PAD = register("netherite_elytra_pad",
             p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(4.0f).sound(SoundType.NETHERITE_BLOCK), 2));
     public static final Block ENDERITE_ELYTRA_PAD = register("enderite_elytra_pad",
             p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(4.5f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 7), 3));
-    // Alte Endstufe V (vorher fuenf Stufen): nur zum Laden alter Welten, wird zur neuen Endstufe III.
-    public static final Block FINE_ELYTRA_PAD = register("fine_elytra_pad",
-            p -> new LegacyElytraPadBlock(sturdy(p).mapColor(MapColor.GOLD).strength(4.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 10), 5, () -> PadsBlocks.ENDERITE_ELYTRA_PAD));
 
     // --- Flypads I-III aus Enderit (4x4x8 / 8x8x16 / 16x16x32, Besitzer 2026-09-27, Hoehe 2026-10-02) ---
     public static final Block FLYPAD = register("flypad",
@@ -84,11 +74,6 @@ public final class PadsBlocks {
             p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 10), 2));
     public static final Block STELLAR_FLYPAD = register("stellar_flypad",
             p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 15), 3));
-    // Alte Flypads (vorher Stufen III und IV von fuenf): nur noch zum Laden alter Welten, werden zur neuen Stufe.
-    public static final Block NETHERITE_FLYPAD = register("netherite_flypad",
-            p -> new LegacyFlypadBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(5.0f), 2, () -> PadsBlocks.REINFORCED_FLYPAD));
-    public static final Block ENDERITE_FLYPAD = register("enderite_flypad",
-            p -> new LegacyFlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 10), 3, () -> PadsBlocks.STELLAR_FLYPAD));
 
     // --- Chunk-Loader I-III (eigener Chunk / 5 Chunks im Kreuz / 3x3) ---
     public static final Block CHUNK_LOADER = register("chunk_loader",
@@ -125,12 +110,6 @@ public final class PadsBlocks {
             p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED, true, fragile(p).mapColor(MapColor.WARPED_NYLIUM)));
 
     private PadsBlocks() {
-    }
-
-    /** Alte, abgeloeste Stufenbloecke (nur zum Laden alter Welten; kein Rezept, kein Kreativ-Tab). */
-    public static List<Block> legacy() {
-        return List.of(NETHERITE_FLYPAD, ENDERITE_FLYPAD, SPAWN_TELEPORTER_TIER_3, SPAWN_TELEPORTER_TIER_4,
-                REINFORCED_ELYTRA_PAD, FINE_ELYTRA_PAD);
     }
 
     /** Alle Bloecke in Registrierungsreihenfolge (Datagen, Tests, Kreativ-Tab). */

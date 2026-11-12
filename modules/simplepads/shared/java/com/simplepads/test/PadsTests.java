@@ -29,6 +29,7 @@ public final class PadsTests {
     static {
         ALL.put("registered", PadsTests::registered);
         ALL.put("old_pad_ids_move", PadsTests::oldPadIdsMove);
+        ALL.put("legacy_ids_move_to_the_new_tier", PadsTests::legacyIdsMoveToTheNewTier);
         ALL.put("config_takeover", PadsTests::configTakeover);
         ALL.put("sub_mod_switch", PadsTests::subModSwitch);
         ALL.put("enderite_tiers_need_simple_ores", PadsTests::enderiteTiersNeedSimpleOres);
@@ -36,8 +37,6 @@ public final class PadsTests {
         ALL.put("discover_behaviour_hints", com.simplepads.discover.PadsDiscover::behaviourHints);
         ALL.put("guide_book", com.simplepads.guide.PadsGuide::gameTest);
         ALL.put("spawn_teleporter_tiers_wait_fifty_twenty_and_five_seconds", PadOverhaulTests::spawnTeleporterTiersWaitFiftyTwentyAndFiveSeconds);
-        ALL.put("old_spawn_teleporters_become_their_new_tier_in_the_world_and_the_inventory", PadOverhaulTests::oldSpawnTeleportersBecomeTheirNewTierInTheWorldAndTheInventory);
-        ALL.put("old_elytra_pads_become_their_new_tier_in_the_world_and_the_inventory", PadOverhaulTests::oldElytraPadsBecomeTheirNewTierInTheWorldAndTheInventory);
         ALL.put("tier_one_of_every_pad_family_is_smithed_from_its_plate_and_unlock_item", PadOverhaulTests::tierOneOfEveryPadFamilyIsSmithedFromItsPlateAndUnlockItem);
         ALL.put("redstone_switches_launchpads_and_flypads_off_and_comparators_read_them", PadOverhaulTests::redstoneSwitchesLaunchpadsAndFlypadsOffAndComparatorsReadThem);
         ALL.put("hoppers_fill_only_wind_charges_into_the_launchpad", PadOverhaulTests::hoppersFillOnlyWindChargesIntoTheLaunchpad);
@@ -69,6 +68,7 @@ public final class PadsTests {
         ALL.put("copper_plates_release_as_late_as_they_press", PressurePlateTests::copperPlatesReleaseAsLateAsTheyPress);
         ALL.put("every_mod_pressure_plate_visibly_sinks_when_pressed", PressurePlateTests::everyModPressurePlateVisiblySinksWhenPressed);
         ALL.put("every_mod_pressure_plate_is_named_like_the_vanilla_ones", PressurePlateTests::everyModPressurePlateIsNamedLikeTheVanillaOnes);
+        ALL.put("owner_plate_name_differs_from_ores_plate", PressurePlateTests::ownerPlateNameDiffersFromOresPlate);
         ALL.put("launchpad_tiers_hold_four_eight_and_sixteen_wind_charges", PadTierTests::launchpadTiersHoldFourEightAndSixteenWindCharges);
         ALL.put("sneaking_with_wind_charges_loads_the_whole_hand_up_to_capacity", PadTierTests::sneakingWithWindChargesLoadsTheWholeHandUpToCapacity);
         ALL.put("launch_strength_per_charge_is_doubled_so_full_tiers_launch_like_twice_the_old_charges", PadTierTests::launchStrengthPerChargeIsDoubledSoFullTiersLaunchLikeTwiceTheOldCharges);
@@ -76,7 +76,6 @@ public final class PadsTests {
         ALL.put("chunk_loader_tiers_force_one_five_and_nine_chunks", PadTierTests::chunkLoaderTiersForceOneFiveAndNineChunks);
         ALL.put("a_netherite_chunk_loader_takes_over_only_the_chunks_of_its_cross", PadTierTests::aNetheriteChunkLoaderTakesOverOnlyTheChunksOfItsCross);
         ALL.put("elytra_pad_and_flypad_areas_match_their_tiers", PadTierTests::elytraPadAndFlypadAreasMatchTheirTiers);
-        ALL.put("old_flypads_turn_into_their_new_tier_in_the_world_and_in_the_inventory", PadTierTests::oldFlypadsTurnIntoTheirNewTierInTheWorldAndInTheInventory);
         ALL.put("every_family_names_its_last_tier", PadTierTests::everyFamilyNamesItsLastTier);
         ALL.put("the_last_tier_smiths_back_into_dont_do_it_that_works_like_tier_one", PadEasterTests::theLastTierSmithsBackIntoDontDoItThatWorksLikeTierOne);
         ALL.put("easter_chain_names_every_stage_and_costs_what_the_normal_tiers_cost", PadEasterTests::easterChainNamesEveryStageAndCostsWhatTheNormalTiersCost);
@@ -128,7 +127,7 @@ public final class PadsTests {
             if (!SimplePads.MOD_ID.equals(id.getNamespace())) problems.add("block " + id);
             if (block.asItem() == Items.AIR) problems.add("no item for " + id);
         }
-        if (PadsBlocks.all().size() != 35) problems.add("35 blocks expected, found " + PadsBlocks.all().size());
+        if (PadsBlocks.all().size() != 29) problems.add("29 blocks expected, found " + PadsBlocks.all().size());
         for (String path : List.of("spawn_elytra", "funny_stick", "guide_book")) {
             if (!BuiltInRegistries.ITEM.containsKey(SimplePads.id(path))) problems.add("item " + path);
         }
@@ -163,6 +162,74 @@ public final class PadsTests {
         Identifier adv = com.simplelib.api.IdMoves.target(Registries.ADVANCEMENT, Identifier.fromNamespaceAndPath(SimplePads.SB_NAMESPACE, "pads/liftoff"));
         if (!SimplePads.id("pads/liftoff").equals(adv)) problems.add("advancement pads/liftoff -> " + adv);
         h.assertTrue(problems.isEmpty(), "old ids: " + problems);
+        h.succeed();
+    }
+
+    /**
+     * simplepads-4: the six tiers of the five-tier time (Spawn Teleporter III/IV, Reinforced and Fine Elytra Pad, Netherite and
+     * Enderite Flypad) are gone before the first release. They are no registry entries of their own any more; their old ids, under
+     * simplepads: and simplebuilding:, resolve to the tier that replaced them (SimpleLib IdMoves), block and item. An old chunk
+     * palette entry loads as the new tier, an old stack loads and saves under the new id, and the pad's block entity (its type id
+     * never changed) keeps its owner.
+     */
+    public static void legacyIdsMoveToTheNewTier(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        Map<String, String> retired = SimplePads.retiredTiers();
+        if (!retired.equals(Map.of("spawn_teleporter_tier_3", "spawn_teleporter_tier_2", "spawn_teleporter_tier_4", "enderite_spawn_teleporter",
+                "reinforced_elytra_pad", "elytra_pad", "fine_elytra_pad", "enderite_elytra_pad", "netherite_flypad", "reinforced_flypad",
+                "enderite_flypad", "stellar_flypad"))) {
+            problems.add("retired tiers " + retired);
+        }
+        var ops = h.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE);
+        retired.forEach((old, now) -> {
+            Block block = BuiltInRegistries.BLOCK.getValue(SimplePads.id(now));
+            if (block == Blocks.AIR || !PadsBlocks.all().contains(block)) {
+                problems.add("new tier " + now + " is no pad block");
+                return;
+            }
+            net.minecraft.world.item.Item item = block.asItem();
+            if (BuiltInRegistries.BLOCK.keySet().contains(SimplePads.id(old))) problems.add("block " + old + " is still registered");
+            if (BuiltInRegistries.ITEM.keySet().contains(SimplePads.id(old))) problems.add("item " + old + " is still registered");
+            for (String ns : List.of(SimplePads.MOD_ID, SimplePads.SB_NAMESPACE)) {
+                Identifier id = Identifier.fromNamespaceAndPath(ns, old);
+                if (BuiltInRegistries.BLOCK.getValue(id) != block) problems.add("block " + id + " -> " + BuiltInRegistries.BLOCK.getValue(id));
+                if (BuiltInRegistries.ITEM.getValue(id) != item) problems.add("item " + id + " -> " + BuiltInRegistries.ITEM.getValue(id));
+                if (!BuiltInRegistries.BLOCK.containsKey(id)) problems.add("block " + id + " is not known");
+            }
+            // Chunk palette of an old world: 26.3 names the block under "id" and decodes it through BlockState.CODEC.
+            net.minecraft.nbt.CompoundTag palette = net.minecraft.nbt.NbtUtils.writeBlockState(block.defaultBlockState());
+            palette.remove("Name");
+            palette.putString("id", SimplePads.id(old).toString());
+            net.minecraft.world.level.block.state.BlockState state = net.minecraft.world.level.block.state.BlockState.CODEC
+                    .parse(net.minecraft.nbt.NbtOps.INSTANCE, palette).result().orElse(null);
+            if (state == null || !state.is(block)) {
+                problems.add("palette " + old + " loads as " + state);
+                return;
+            }
+            // Stack of an old inventory: loads as the new tier and is saved under the new id.
+            net.minecraft.nbt.CompoundTag stackTag = new net.minecraft.nbt.CompoundTag();
+            stackTag.putString("id", SimplePads.id(old).toString());
+            stackTag.putInt("count", 1);
+            net.minecraft.world.item.ItemStack stack = net.minecraft.world.item.ItemStack.CODEC.parse(ops, stackTag).result()
+                    .orElse(net.minecraft.world.item.ItemStack.EMPTY);
+            String saved = stack.isEmpty() ? "" : net.minecraft.world.item.ItemStack.CODEC.encodeStart(ops, stack).result()
+                    .map(t -> ((net.minecraft.nbt.CompoundTag) t).getStringOr("id", "")).orElse("");
+            if (!stack.is(item) || !saved.equals(SimplePads.id(now).toString())) problems.add("stack " + old + " loads as " + stack + ", saves as " + saved);
+            // The pad's block entity: same type id as before, the owner survives on the new tier.
+            String type = old.startsWith("spawn_teleporter") ? "spawn_teleporter_be" : old.endsWith("elytra_pad") ? "elytra_pad_be" : "flypad_be";
+            net.minecraft.nbt.CompoundTag beTag = new net.minecraft.nbt.CompoundTag();
+            beTag.putString("id", SimplePads.id(type).toString());
+            beTag.putIntArray("Owner", new int[] {1, 2, 3, 4});
+            net.minecraft.world.level.block.entity.BlockEntity be = net.minecraft.world.level.block.entity.BlockEntity.loadStatic(
+                    net.minecraft.core.BlockPos.ZERO, state, beTag, h.getLevel().registryAccess());
+            if (be == null || !be.getType().isValid(state)) {
+                problems.add("block entity " + type + " does not load on " + now);
+            } else if (!java.util.Arrays.equals(be.saveWithoutMetadata(h.getLevel().registryAccess()).getIntArray("Owner").orElse(new int[0]),
+                    new int[] {1, 2, 3, 4})) {
+                problems.add("the owner of an old " + old + " is lost");
+            }
+        });
+        h.assertTrue(problems.isEmpty(), "retired tiers: " + problems);
         h.succeed();
     }
 

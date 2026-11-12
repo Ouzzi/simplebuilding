@@ -40,16 +40,13 @@ public final class PadsBlockEntities {
         }
         registered = true;
         SPAWN_TELEPORTER = register("spawn_teleporter_be", factory.create(SpawnTeleporterBlockEntity::new,
-                PadsBlocks.SPAWN_TELEPORTER, PadsBlocks.SPAWN_TELEPORTER_TIER_2, PadsBlocks.SPAWN_TELEPORTER_TIER_3,
-                PadsBlocks.SPAWN_TELEPORTER_TIER_4, PadsBlocks.ENDERITE_SPAWN_TELEPORTER));
+                PadsBlocks.SPAWN_TELEPORTER, PadsBlocks.SPAWN_TELEPORTER_TIER_2, PadsBlocks.ENDERITE_SPAWN_TELEPORTER));
         LAUNCHPAD = register("launchpad_be", factory.create(LaunchpadBlockEntity::new,
                 PadsBlocks.LAUNCHPAD, PadsBlocks.NETHERITE_LAUNCHPAD, PadsBlocks.ENDERITE_LAUNCHPAD));
         ELYTRA_PAD = register("elytra_pad_be", factory.create(ElytraPadBlockEntity::new,
-                PadsBlocks.ELYTRA_PAD, PadsBlocks.REINFORCED_ELYTRA_PAD, PadsBlocks.NETHERITE_ELYTRA_PAD,
-                PadsBlocks.ENDERITE_ELYTRA_PAD, PadsBlocks.FINE_ELYTRA_PAD));
+                PadsBlocks.ELYTRA_PAD, PadsBlocks.NETHERITE_ELYTRA_PAD, PadsBlocks.ENDERITE_ELYTRA_PAD));
         FLYPAD = register("flypad_be", factory.create(FlypadBlockEntity::new,
-                PadsBlocks.FLYPAD, PadsBlocks.REINFORCED_FLYPAD, PadsBlocks.NETHERITE_FLYPAD,
-                PadsBlocks.ENDERITE_FLYPAD, PadsBlocks.STELLAR_FLYPAD));
+                PadsBlocks.FLYPAD, PadsBlocks.REINFORCED_FLYPAD, PadsBlocks.STELLAR_FLYPAD));
         CHUNK_LOADER = register("chunk_loader_be", factory.create(ChunkLoaderBlockEntity::new,
                 PadsBlocks.CHUNK_LOADER, PadsBlocks.NETHERITE_CHUNK_LOADER, PadsBlocks.ENDERITE_CHUNK_LOADER));
         COPPER_PRESSURE_PLATE = register("copper_pressure_plate_be", factory.create(CopperPressurePlateBlockEntity::new,

@@ -371,8 +371,7 @@ public final class CrossModGameTest {
             // guide when used; they left every tab and the recipe viewer (SimpleLib CreativeTabPolicy).
             "guide_book",
             "creative_spacer", "stone_spatula", "copper_spatula", "iron_spatula", "gold_spatula", "diamond_spatula",
-            "netherite_spatula", "spawn_teleporter_tier_3", "spawn_teleporter_tier_4", "netherite_flypad",
-            "enderite_flypad", "reinforced_elytra_pad", "fine_elytra_pad", "funny_stick",
+            "netherite_spatula", "funny_stick", // simplepads-4: the six retired pad tiers are gone (their ids lead to the new tier)
             "chipped_ceramic_bucket", "chipped_ceramic_water_bucket", "chipped_ceramic_lava_bucket",
             "cracked_ceramic_bucket", "cracked_ceramic_water_bucket", "cracked_ceramic_lava_bucket",
             "brittle_ceramic_bucket", "brittle_ceramic_water_bucket", "brittle_ceramic_lava_bucket",

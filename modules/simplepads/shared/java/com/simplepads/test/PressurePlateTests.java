@@ -37,7 +37,9 @@ import net.minecraft.world.phys.Vec3;
  * Druckplatten der Mod (Besitzer 2026-09-27): gewachste Kupferplatten (Honigwabe wachst, die Axt
  * kratzt erst das Wachs und dann die Oxidation ab, gewachst oxidiert nichts), das Loslassen der
  * Kupferplatte dauert so lange wie das Ausloesen, jede Mod-Platte sinkt gedrueckt sichtbar ein wie eine
- * Vanilla-Platte und heisst wie eine ("X Pressure Plate"/"...Druckplatte").
+ * Vanilla-Platte und heisst wie eine ("X Pressure Plate"/"...Druckplatte") - ausser der Enderit-Platte mit
+ * Besitzerschloss, die "Enderite Owner Plate"/"Enderit-Besitzerplatte" heisst (simplepads-4: Simple Ores hat
+ * eine eigene Enderit-Waegeplatte "Enderite Pressure Plate").
  *
  * <p>Die Platten werden hier nicht aus einer Liste im Test genommen, sondern aus der Registry: jeder
  * Mod-Block {@code *_pressure_plate} - eine neue Platte faellt so automatisch unter die Pruefungen.
@@ -223,7 +225,10 @@ public final class PressurePlateTests {
         helper.succeed();
     }
 
-    /** Alle Mod-Druckplatten heissen wie Vanilla-Platten: "X Pressure Plate" und "...Druckplatte". */
+    /**
+     * Alle Mod-Druckplatten heissen wie Vanilla-Platten: "X Pressure Plate" und "...Druckplatte"; die Enderit-Platte mit
+     * Besitzerschloss heisst "Enderite Owner Plate"/"Enderit-Besitzerplatte" (simplepads-4).
+     */
     public static void everyModPressurePlateIsNamedLikeTheVanillaOnes(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         JsonObject en = json("/assets/simplepads/lang/en_us.json", problems);
@@ -233,6 +238,13 @@ public final class PressurePlateTests {
                 String key = block.getDescriptionId();
                 String enName = en.has(key) ? en.get(key).getAsString() : null;
                 String deName = de.has(key) ? de.get(key).getAsString() : null;
+                if (block == PadsBlocks.ENDERITE_PRESSURE_PLATE) {
+                    if (!OWNER_PLATE_EN.equals(enName) || !OWNER_PLATE_DE.equals(deName)) {
+                        problems.add(key + " is \"" + enName + "\" / \"" + deName + "\" instead of \"" + OWNER_PLATE_EN + "\" / \""
+                                + OWNER_PLATE_DE + "\"");
+                    }
+                    continue;
+                }
                 if (enName == null || !enName.endsWith(" Pressure Plate")) {
                     problems.add(key + " is \"" + enName + "\" in English, not \"<Material> Pressure Plate\"");
                 }
@@ -247,6 +259,41 @@ public final class PressurePlateTests {
             }
         }
         helper.assertTrue(problems.isEmpty(), "pressure plate names: " + problems);
+        helper.succeed();
+    }
+
+    /** The names of the owner-locked Enderite plate (simplepads-4), apart from Simple Ores' Enderite weighted plate. */
+    static final String OWNER_PLATE_EN = "Enderite Owner Plate";
+    static final String OWNER_PLATE_DE = "Enderit-Besitzerplatte";
+
+    /**
+     * Zwei Bloecke hiessen "Enderite Pressure Plate": die Besitzer-Platte hier und Simple Ores' Enderit-Waegeplatte
+     * (simpleores:enderite_pressure_plate; Simple Ores ist Pflicht). Seit simplepads-4 heisst die hiesige "Enderite Owner Plate" /
+     * "Enderit-Besitzerplatte"; beide Namen unterscheiden sich in EN und DE. Nur die Sprachdateien werden verglichen, keine Klasse
+     * von Simple Ores.
+     */
+    public static void ownerPlateNameDiffersFromOresPlate(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        String key = PadsBlocks.ENDERITE_PRESSURE_PLATE.getDescriptionId();
+        String oresKey = "block.simpleores.enderite_pressure_plate";
+        for (String[] lang : new String[][] {{"en_us", OWNER_PLATE_EN}, {"de_de", OWNER_PLATE_DE}}) {
+            JsonObject pads = json("/assets/simplepads/lang/" + lang[0] + ".json", problems);
+            JsonObject ores = json("/assets/simpleores/lang/" + lang[0] + ".json", problems);
+            if (pads == null || ores == null) {
+                continue;
+            }
+            String own = pads.has(key) ? pads.get(key).getAsString() : null;
+            String other = ores.has(oresKey) ? ores.get(oresKey).getAsString() : null;
+            if (!lang[1].equals(own)) {
+                problems.add(lang[0] + ": " + key + " is \"" + own + "\", not \"" + lang[1] + "\"");
+            }
+            if (other == null) {
+                problems.add(lang[0] + ": Simple Ores has no " + oresKey);
+            } else if (other.equals(own)) {
+                problems.add(lang[0] + ": both Enderite plates are called \"" + own + "\"");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "owner plate name: " + problems);
         helper.succeed();
     }
 

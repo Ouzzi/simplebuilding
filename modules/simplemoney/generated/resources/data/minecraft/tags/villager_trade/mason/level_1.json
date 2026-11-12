@@ -86,14 +86,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplepads/spawn_teleporter_tier_3",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplepads/spawn_teleporter_tier_4",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplepads/waxed_copper_pressure_plate",
       "required": false
     },

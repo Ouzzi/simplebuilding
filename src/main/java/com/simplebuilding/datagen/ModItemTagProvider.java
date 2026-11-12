@@ -221,16 +221,22 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 hidden.add(key(spatula));
             }
         }
+        // Alte, abgeloeste Stufenbloecke: nur fuer alte Welten. 26.3 (simplepads-4): Simple Pads hat sie vor dem ersten Release
+        // entfernt, ihre Ids fuehren per IdMoves auf die neue Stufe - die Felder zeigen dort auf die echten Stufen, die nicht
+        // versteckt werden duerfen.
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            hidden
+                    // Alte Flypads (netherite_flypad, enderite_flypad)
+                    .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.NETHERITE_FLYPAD.asItem()))
+                    .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.ENDERITE_FLYPAD.asItem()))
+                    // Alte Spawn-Teleporter III und IV (bis 2026-09-28 fuenf Stufen)
+                    .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.SPAWN_TELEPORTER_TIER_3.asItem()))
+                    .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.SPAWN_TELEPORTER_TIER_4.asItem()))
+                    // Alte Elytra-Pads II und V (bis 2026-10-07 fuenf Stufen)
+                    .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem()))
+                    .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.FINE_ELYTRA_PAD.asItem()));
+        }
         hidden
-                // Alte, abgeloeste Stufenbloecke (netherite_flypad, enderite_flypad): nur fuer alte Welten.
-                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.NETHERITE_FLYPAD.asItem()))
-                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.ENDERITE_FLYPAD.asItem()))
-                // Alte Spawn-Teleporter III und IV (bis 2026-09-28 fuenf Stufen)
-                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.SPAWN_TELEPORTER_TIER_3.asItem()))
-                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.SPAWN_TELEPORTER_TIER_4.asItem()))
-                // Alte Elytra-Pads II und V (bis 2026-10-07 fuenf Stufen)
-                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem()))
-                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.FINE_ELYTRA_PAD.asItem()))
                 // Versteckt, Ende der Easter-Kette (docs/SIMPLETWEAKS-UEBERNAHME.md, Spoiler).
                 .add(key(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick()));
         if (com.simplebuilding.version.McVersion.DOORS) {

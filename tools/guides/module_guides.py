@@ -255,12 +255,12 @@ MODULES = [
          name=("Simple Pads Guide", "Simple-Pads-Handbuch"),
          intro=("Pads you stand on: the Launchpad throws you up, the Elytra Pad lends a Spawn Elytra, the Flypad lets you fly "
                 "above it, the Potion Pad gives a stored potion, the Spawn Teleporter sends you home and the Chunk Loader keeps "
-                "chunks loaded - each in three tiers, the last one from Enderite (Simple Ores). Diamond, Netherite, Enderite and "
-                "copper pressure plates.",
+                "chunks loaded - each in three tiers, the last one from Enderite (Simple Ores). Diamond, Netherite and copper "
+                "pressure plates and the Enderite Owner Plate.",
                 "Pads zum Draufstellen: das Launchpad wirft dich hoch, das Elytra-Pad leiht dir eine Spawn-Elytra, über dem "
                 "Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim "
                 "und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, "
-                "Netherit-, Enderit- und Kupfer-Druckplatten.")),
+                "Netherit- und Kupfer-Druckplatten und die Enderit-Besitzerplatte.")),
     dict(module="simplechisels", ns="simplechisels", package="com.simplechisels.guide", cls="ChiselsGuide", kind="item",
          author="Simple Chisels", recipe="minecraft:copper_nugget",
          name=("Simple Chisels Guide", "Simple-Chisels-Handbuch"),

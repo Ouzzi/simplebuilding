@@ -42,10 +42,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplepads/reinforced_elytra_pad",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplepads/spawn_teleporter",
       "required": false
     },

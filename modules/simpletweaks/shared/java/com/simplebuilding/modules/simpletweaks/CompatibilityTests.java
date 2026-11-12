@@ -38,8 +38,15 @@ public final class CompatibilityTests {
  static Identifier id(String namespace, String path) { return Identifier.fromNamespaceAndPath(namespace, path); }
  static Identifier old(String path) { return id("simpletweaks", path); }
  static Identifier now(String path) { return id("simplebuilding", path); }
- /** The id an entry really has: Simple Pads took the pad ids over from simplebuilding (04.11.2026, IdMoves). */
- static Identifier canon(Registry<?> r, Identifier target) { Identifier pads=id("simplepads",target.getPath()); return target.getNamespace().equals("simplebuilding") && r.containsKey(pads) ? pads : target; }
+ /**
+  * The id an entry really has: Simple Pads took the pad ids over from simplebuilding (04.11.2026, IdMoves) and retired six old tiers
+  * (simplepads-4: e.g. netherite_flypad leads to reinforced_flypad), so the SimpleLib move table is followed to a registered id.
+  */
+ static Identifier canon(Registry<?> r, Identifier target) {
+  Identifier id=target;
+  for(int i=0;i<8 && !r.keySet().contains(id);i++){Identifier next=com.simplelib.api.IdMoves.target(r.key(),id);if(next==null)break;id=next;}
+  return id;
+ }
  static RegistryOps<Tag> ops(GameTestHelper h) { return RegistryOps.create(NbtOps.INSTANCE, h.getLevel().registryAccess()); }
  static ItemStack stack(GameTestHelper h, String path) {
   CompoundTag tag=new CompoundTag();tag.putString("id",old(path).toString());tag.putInt("count",1);

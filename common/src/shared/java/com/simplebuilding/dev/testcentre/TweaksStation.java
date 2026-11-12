@@ -45,9 +45,12 @@ public final class TweaksStation {
             List<ItemStack> stacks = row.stacks().stream().filter(s -> !s.isEmpty() && !TcContext.isSpacer(s.getItem())).toList();
             lines.add(new TcCanvas.Line(TcText.t("tweaks.row." + row.name(), row.name().replace('_', ' ')), stacks));
         }
-        // Alte, abgeloeste Stufenbloecke (nur fuer alte Welten registriert, werden zur neuen Stufe).
-        lines.add(new TcCanvas.Line(TcText.t("tweaks.row.legacy", "old tiers"),
-                TweaksBlocks.legacy().stream().map(ItemStack::new).toList()));
+        // Alte, abgeloeste Stufenbloecke (nur fuer alte Welten registriert, werden zur neuen Stufe). 26.3 (simplepads-4): Simple Pads
+        // hat sie entfernt, die Felder zeigen dort auf die neuen Stufen - keine Zeile "alte Stufen".
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            lines.add(new TcCanvas.Line(TcText.t("tweaks.row.legacy", "old tiers"),
+                    TweaksBlocks.legacy().stream().map(ItemStack::new).toList()));
+        }
         // TZ22-5: die Tab-Zeilen auf Regalen hinter der Stationswand (je Wand vier Zeilen) statt einer 13 hohen Wand.
         c.title(0, 3, wallZ, TcText.t("section.tweaks", "Simple Tweaks"), TcText.t("section.tweaks.sub", "pads and plates"));
         int end = c.shelves(0, wallZ + TcCanvas.SHELF_PITCH, lines);
