@@ -146,7 +146,7 @@ class TradeValueTests(unittest.TestCase):
     def test_generated_money_bill_page_states_its_value(self):
         data = json.loads((g.WIKI / "data" / "simplemoney.json").read_text(encoding="utf-8"))
         bill = next(e for e in data["items"] if e["id"] == "simplemoney:money_bill")
-        self.assertEqual(bill["value"]["emeralds"], {"min": 16, "max": 16}  # E1ANS F7: one price logic, 1 bill = 16 emeralds)
+        self.assertEqual(bill["value"]["emeralds"], {"min": 16, "max": 16})  # E1ANS F7: one price logic, 1 bill = 16 emeralds
         self.assertTrue(all(s.startswith("modules/simplemoney/") for s in bill["value"]["sources"]))
         self.assertTrue(bill["craftedBy"])
 
