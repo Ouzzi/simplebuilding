@@ -1,0 +1,17 @@
+{
+  "_comment": "Server config of tools/livemap-web (copy to /etc/simplemods/livemap-web.json, mode 600, owner = service user). Never commit the real file. 'secret' (64+ hex) is made in <data_dir>/secret when missing.",
+  "data_dir": "/srv/livemap-web",
+  "hosts": {"account": "account.simplemods.de", "livemap": "livemap.simplemods.de"},
+  "scheme": "https",
+  "cookie": {"name": "__Secure-sm_session", "domain": "simplemods.de", "secure": true, "days": 30},
+  "client_ip_header": "X-Client-IP",
+  "storage_quota_gb": 20,
+  "disk_stop_percent": 90,
+  "prep_slots": 4,
+  "registration": true,
+  "dev_outbox": false,
+  "smtp": {"host": "", "port": 587, "user": "", "password": "", "from": "Simple Mods <no-reply@simplemods.de>", "starttls": true},
+  "billing_file": "/etc/simplemods/livemap-billing.json",
+  "tiers": {},
+  "legal": {"imprint_url": "", "privacy_url": "", "terms_url": ""}
+}

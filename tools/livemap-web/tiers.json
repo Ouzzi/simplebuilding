@@ -1,0 +1,25 @@
+{
+  "_comment": "Simple Livemap tiers (spec LIVEMAP34 section 4, owner ok 12.11.2026). Numbers here are the defaults; the server config may override single values under \"tiers\". Prices in euro cents; yearly = 10 months.",
+  "order": ["free", "pro", "max", "ultra"],
+  "tiers": {
+    "free":  {"name": "Free",  "price_month": 0,    "maps": 2,  "public": 1,  "archive": 1,  "archive_days": 30,
+              "views_day": 300,    "live_seconds": 10, "tile_seconds": 900, "prep_minutes": 360, "priority": 0,
+              "slot_lock_days": 7, "shares": 2,  "map_mb": 64,   "upload_tiles_min": 300,   "batch_kb": 2048,
+              "custom_name": false},
+    "pro":   {"name": "Pro",   "price_month": 399,  "maps": 4,  "public": 3,  "archive": 10, "archive_days": 90,
+              "views_day": 3000,   "live_seconds": 5,  "tile_seconds": 300, "prep_minutes": 60,  "priority": 1,
+              "slot_lock_days": 0, "shares": 10, "map_mb": 256,  "upload_tiles_min": 2000,  "batch_kb": 4096,
+              "custom_name": true},
+    "max":   {"name": "Max",   "price_month": 799,  "maps": 6,  "public": 5,  "archive": 20, "archive_days": 180,
+              "views_day": 15000,  "live_seconds": 2,  "tile_seconds": 120, "prep_minutes": 20,  "priority": 2,
+              "slot_lock_days": 0, "shares": 50, "map_mb": 1024, "upload_tiles_min": 6000,  "batch_kb": 8192,
+              "custom_name": true},
+    "ultra": {"name": "Ultra", "price_month": 1499, "maps": 13, "public": 10, "archive": 50, "archive_days": 365,
+              "views_day": 100000, "live_seconds": 1,  "tile_seconds": 60,  "prep_minutes": 5,   "priority": 3,
+              "slot_lock_days": 0, "shares": -1, "map_mb": 4096, "upload_tiles_min": 20000, "batch_kb": 8192,
+              "custom_name": true}
+  },
+  "first_connections_without_wait": 2,
+  "downgrade_archive_days": 30,
+  "yearly_months_paid": 10
+}

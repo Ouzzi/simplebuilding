@@ -1,0 +1,11 @@
+{
+  "_comment": "Stripe, prepared and OFF (spec 6). The real file lives outside the repo (server config 'billing_file', mode 600). Keys/ids below are placeholders; enabled stays false until legal texts + Stripe account exist (owner).",
+  "enabled": false,
+  "secret_key": "",
+  "webhook_secret": "",
+  "prices": {
+    "pro":   {"month": "price_PRO_MONTH_PLACEHOLDER",   "year": "price_PRO_YEAR_PLACEHOLDER"},
+    "max":   {"month": "price_MAX_MONTH_PLACEHOLDER",   "year": "price_MAX_YEAR_PLACEHOLDER"},
+    "ultra": {"month": "price_ULTRA_MONTH_PLACEHOLDER", "year": "price_ULTRA_YEAR_PLACEHOLDER"}
+  }
+}
