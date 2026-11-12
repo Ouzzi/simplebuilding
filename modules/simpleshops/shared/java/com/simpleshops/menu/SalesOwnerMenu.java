@@ -29,6 +29,11 @@ public class SalesOwnerMenu extends ShopMenu {
     public static final int C_GOODS_END = DisplayCaseBlockEntity.SIZE, C_PRICE_START = C_GOODS_END, C_EARNINGS_START = C_PRICE_START + PriceRow.SIZE,
             C_EARNINGS_END = C_EARNINGS_START + SalesBlockEntity.EARNINGS_SIZE;
     public static final int C_HEIGHT = 222, C_GOODS_Y = 18, C_PRICE_Y = 40, C_EARNINGS_Y = 62, C_INVENTORY_Y = 140;
+    /**
+     * Shop music (a-shopmusic37): the disc slot right after the earnings (before the inventory), in the free ninth column of the
+     * first row in both layouts. Jukebox logic: a disc in the slot plays, taken out it stops.
+     */
+    public static final int DISC_X = 152, DISC_Y = 18;
     /** Menu button: switch to the buyer's screen (owner only, combined layout). */
     public static final int DEV_BUYER = 20;
 
@@ -77,6 +82,8 @@ public class SalesOwnerMenu extends ShopMenu {
                 }
             });
         }
+        Container disc = sales != null ? sales.discView() : new SimpleContainer(1);
+        addSlot(new DiscSlot(disc, DISC_X, DISC_Y));
         addInventory(inventory, 8, combined ? C_INVENTORY_Y : INVENTORY_Y);
         if (sales != null && player != null) {
             sales.lock(player, this);
@@ -98,6 +105,16 @@ public class SalesOwnerMenu extends ShopMenu {
 
     public int earningsEnd() {
         return this.combined ? C_EARNINGS_END : EARNINGS_END;
+    }
+
+    /** Index of the music disc slot (a-shopmusic37). */
+    public int discSlot() {
+        return earningsEnd();
+    }
+
+    /** First slot of the player inventory. */
+    public int inventoryStart() {
+        return earningsEnd() + 1;
     }
 
     /** The template slot is drawn when it holds one or sits next to the run (its own empty slot, see {@link PriceRow#visible}). */
@@ -148,10 +165,22 @@ public class SalesOwnerMenu extends ShopMenu {
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        int es = earningsStart(), ee = earningsEnd();
-        if (index >= es && index < ee) return moveToInventory(this.slots.get(index), ee);
-        if (this.combined && index < C_GOODS_END) return moveToInventory(this.slots.get(index), ee);
-        if (this.combined && index >= ee) {
+        int es = earningsStart(), ee = earningsEnd(), inv = inventoryStart();
+        if (index >= es && index < ee) return moveToInventory(this.slots.get(index), inv);
+        if (index == discSlot()) return moveToInventory(this.slots.get(index), inv);
+        if (this.combined && index < C_GOODS_END) return moveToInventory(this.slots.get(index), inv);
+        // Alone (no goods row): a disc from the inventory goes into the empty disc slot.
+        if (!this.combined && index >= inv) {
+            Slot slot = this.slots.get(index);
+            ItemStack stack = slot.getItem();
+            if (stack.isEmpty() || !this.slots.get(discSlot()).mayPlace(stack) || this.slots.get(discSlot()).hasItem()) return ItemStack.EMPTY;
+            ItemStack copy = stack.copy();
+            if (!moveItemStackTo(stack, discSlot(), discSlot() + 1, false)) return ItemStack.EMPTY;
+            if (stack.isEmpty()) slot.setByPlayer(ItemStack.EMPTY);
+            else slot.setChanged();
+            return copy;
+        }
+        if (this.combined && index >= inv) {
             Slot slot = this.slots.get(index);
             ItemStack stack = slot.getItem();
             if (stack.isEmpty()) return ItemStack.EMPTY;
@@ -174,6 +203,23 @@ public class SalesOwnerMenu extends ShopMenu {
     @Override
     protected void onClosed(Player player) {
         if (this.sales != null) this.sales.unlock(this);
+    }
+
+    /** The music disc slot: one item that a jukebox plays; takes nothing while the server's music switch is off (taking out still works). */
+    public static final class DiscSlot extends Slot {
+        public DiscSlot(Container container, int x, int y) {
+            super(container, 0, x, y);
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) {
+            return com.simpleshops.logic.ShopMusic.accepts(stack) && (this.container instanceof SimpleContainer || com.simpleshops.logic.ShopMusic.on());
+        }
+
+        @Override
+        public int getMaxStackSize() {
+            return 1;
+        }
     }
 
     /** The price row as this side sees it (synced template slots on the client). */

@@ -53,6 +53,33 @@
       }
     ]
   },
+  "music_disc.browsing_bossa": {
+    "subtitle": "subtitles.simplemusic.music_disc.browsing_bossa",
+    "sounds": [
+      {
+        "name": "simplemusic:records/browsing_bossa",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.coin_lounge": {
+    "subtitle": "subtitles.simplemusic.music_disc.coin_lounge",
+    "sounds": [
+      {
+        "name": "simplemusic:records/coin_lounge",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.window_shopping": {
+    "subtitle": "subtitles.simplemusic.music_disc.window_shopping",
+    "sounds": [
+      {
+        "name": "simplemusic:records/window_shopping",
+        "stream": true
+      }
+    ]
+  },
   "block.disc_press.press": {
     "subtitle": "subtitles.simplemusic.block.disc_press.press",
     "sounds": [

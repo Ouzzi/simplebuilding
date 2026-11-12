@@ -27,7 +27,7 @@ public final class MusicViewer {
         RecipeViewer.info(SimpleMusic.MOD_ID, MusicViewer::discPages);
     }
 
-    /** The six structure discs: no recipe, only one structure's chests (or its brushed gravel) - an info page each. */
+    /** The music discs (six structure discs, three village shop discs): no recipe, only one structure's chests (or its brushed gravel) - an info page each. */
     public static List<RecipeViewer.Info> discPages() {
         List<RecipeViewer.Info> out = new ArrayList<>();
         var discs = com.simplemusic.disc.MusicDiscs.DISCS;

@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "simplemusic:wandering_trader/emerald_music_disc_browsing_bossa",
+      "required": false
+    },
+    {
+      "id": "simplemusic:wandering_trader/emerald_music_disc_coin_lounge",
+      "required": false
+    },
+    {
+      "id": "simplemusic:wandering_trader/emerald_music_disc_window_shopping",
+      "required": false
+    }
+  ]
+}

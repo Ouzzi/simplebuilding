@@ -386,4 +386,24 @@ public final class ModuleGameTest {
     public void endershopsSurviveAnUnreadableItem(GameTestHelper h) {
         ShopsTests.ALL.get("ender_shops_survive_an_unreadable_item").accept(h);
     }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void shopMusicSlot(GameTestHelper h) {
+        ShopsTests.ALL.get("shop_music_slot").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void shopMusicSyncStart(GameTestHelper h) {
+        ShopsTests.ALL.get("shop_music_sync_start").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void shopMusicDropsDisc(GameTestHelper h) {
+        ShopsTests.ALL.get("shop_music_drops_disc").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void shopMusicSwitchOff(GameTestHelper h) {
+        ShopsTests.ALL.get("shop_music_switch_off").accept(h);
+    }
 }

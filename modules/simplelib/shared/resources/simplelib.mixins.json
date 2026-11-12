@@ -50,7 +50,8 @@
     "client.FreeLookHandMixin",
     "client.FreeLookCrosshairMixin",
     "client.FreeLookZoomMixin",
-    "client.FreeLookFovMixin"
+    "client.FreeLookFovMixin",
+    "client.SoundSeekMixin"
   ],
   "server": [],
   "injectors": {

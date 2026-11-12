@@ -1127,7 +1127,7 @@ public final class MusicTests {
             } catch (java.io.IOException e) {
                 throw h.assertionException("sounds.json unreadable: " + e);
             }
-            h.assertTrue(MusicDiscs.DISCS.size() == 6 && MusicDiscs.ITEMS.size() == 6, "six discs registered");
+            h.assertTrue(MusicDiscs.DISCS.size() == 9 && MusicDiscs.ITEMS.size() == 9, "nine discs registered (six structure discs, three shop discs)");
             for (int i = 0; i < MusicDiscs.DISCS.size(); i++) {
                 MusicDiscs.Disc disc = MusicDiscs.DISCS.get(i);
                 ItemStack stack = new ItemStack(MusicDiscs.ITEMS.get(i));
@@ -1180,6 +1180,26 @@ public final class MusicTests {
             int[] calls = {0};
             MusicDiscs.loot(net.minecraft.world.level.storage.loot.BuiltInLootTables.SIMPLE_DUNGEON, pool -> calls[0]++, change -> calls[0]++);
             h.assertTrue(calls[0] == 0, "other tables untouched");
+            // a-shopmusic37: the wandering trader sells each shop disc (12 emeralds, once), listed in his "uncommon" offers
+            var trades = h.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.VILLAGER_TRADE);
+            var uncommon = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.VILLAGER_TRADE,
+                    net.minecraft.resources.Identifier.withDefaultNamespace("wandering_trader/uncommon"));
+            var trader = h.spawnWithNoFreeWill(net.minecraft.world.entity.EntityTypes.WANDERING_TRADER, new BlockPos(1, 2, 1));
+            var tradeParams = new net.minecraft.world.level.storage.loot.LootParams.Builder(h.getLevel())
+                    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN, trader.position())
+                    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.THIS_ENTITY, trader)
+                    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ADDITIONAL_COST_COMPONENT_ALLOWED, net.minecraft.util.Unit.INSTANCE)
+                    .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.VILLAGER_TRADE);
+            var tradeContext = new net.minecraft.world.level.storage.loot.LootContext.Builder(tradeParams).withOptionalRandomSeed(20261112L).create(java.util.Optional.empty());
+            for (String shopDisc : List.of("browsing_bossa", "coin_lounge", "window_shopping")) {
+                var id = SimpleMusic.id("wandering_trader/emerald_music_disc_" + shopDisc);
+                var trade = trades.get(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.VILLAGER_TRADE, id));
+                h.assertTrue(trade.isPresent() && trade.get().is(uncommon), shopDisc + ": trade loaded and in the trader's uncommon offers");
+                var offer = trade.get().value().getOffer(tradeContext);
+                h.assertTrue(offer != null && offer.getBaseCostA().is(Items.EMERALD) && offer.getBaseCostA().getCount() == 12
+                        && BuiltInRegistries.ITEM.getKey(offer.getResult().getItem()).equals(SimpleMusic.id("music_disc_" + shopDisc)) && offer.getMaxUses() == 1,
+                        shopDisc + ": 12 emeralds for the disc, once");
+            }
             h.succeed();
         });
     }

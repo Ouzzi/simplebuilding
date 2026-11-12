@@ -82,7 +82,7 @@ for f in manual['features']:
 # texture, both languages, a wiki entry
 discs = re.findall(r'new Disc\("([a-z_]+)", ([0-9.]+)F, (\d+), table\("([a-z_/]+)"\), (\d+)\)',
                    (JAVA / 'disc/MusicDiscs.java').read_text(encoding='utf-8'))
-assert len(discs) == 6, discs
+assert len(discs) == 9, discs  # six structure discs + three shop discs (a-shopmusic37)
 sounds_json = json.loads((RES / f'assets/{NS}/sounds.json').read_text(encoding='utf-8'))
 for disc, seconds, comparator, table, weight in discs:
     song = json.loads((RES / f'data/{NS}/jukebox_song/{disc}.json').read_text(encoding='utf-8'))

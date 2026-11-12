@@ -11,7 +11,7 @@ BLOCKS = ('sales_block', 'sales_storage', 'display_case', 'glow_display_case')
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/ShopsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'maxShopsPerPlayer', 'idleTimeoutSeconds', 'collectServerShopIncome', 'remoteStock', 'remoteDelaySeconds',
-                       'remoteCrossDimension'], config_keys
+                       'remoteCrossDimension', 'shopMusic', 'shopMusicRange'], config_keys
 used = set()
 for src in JAVA.rglob('*.java'):
     used |= set(re.findall(r'translatable\("([a-z0-9_.]+)"', src.read_text(encoding='utf-8')))

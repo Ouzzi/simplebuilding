@@ -19,11 +19,12 @@ public final class ShopsConfig {
     public static final String FILE = "simpleshops-server.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "maxShopsPerPlayer", "idleTimeoutSeconds", "collectServerShopIncome",
-            "remoteStock", "remoteDelaySeconds", "remoteCrossDimension");
+            "remoteStock", "remoteDelaySeconds", "remoteCrossDimension", "shopMusic", "shopMusicRange");
 
     public static final int MAX_SHOPS_DEFAULT = 16, MAX_SHOPS_MIN = 1, MAX_SHOPS_MAX = 64;
     public static final int IDLE_DEFAULT = 300, IDLE_MIN = 30, IDLE_MAX = 1800;
     public static final int REMOTE_DELAY_DEFAULT = 2, REMOTE_DELAY_MIN = 0, REMOTE_DELAY_MAX = 20;
+    public static final int MUSIC_RANGE_DEFAULT = 24, MUSIC_RANGE_MIN = 8, MUSIC_RANGE_MAX = 48;
 
     public static boolean enabled = true;
     /** Sales blocks and display cases a player may have placed, each counted on its own. */
@@ -40,6 +41,11 @@ public final class ShopsConfig {
     public static int remoteDelaySeconds = REMOTE_DELAY_DEFAULT;
     /** Trade terminal across dimensions (KONZ20 S3): off = only shops in the terminal's own dimension. */
     public static boolean remoteCrossDimension = false;
+
+    /** Shop music (a-shopmusic37): a music disc in a sales block plays near the shop; off = the disc slot takes nothing, clients hear nothing. */
+    public static boolean shopMusic = true;
+    /** Base reach of shop music in blocks (each further shop with the same disc adds 50 %, at most 2.5 times). */
+    public static int shopMusicRange = MUSIC_RANGE_DEFAULT;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -68,6 +74,8 @@ public final class ShopsConfig {
         remoteStock = stock != null && stock.isJsonPrimitive() && "none".equals(stock.getAsString()) ? "none" : "take";
         remoteDelaySeconds = clamp(integer(json, "remoteDelaySeconds", REMOTE_DELAY_DEFAULT), REMOTE_DELAY_MIN, REMOTE_DELAY_MAX);
         remoteCrossDimension = bool(json, "remoteCrossDimension", false);
+        shopMusic = bool(json, "shopMusic", true);
+        shopMusicRange = clamp(integer(json, "shopMusicRange", MUSIC_RANGE_DEFAULT), MUSIC_RANGE_MIN, MUSIC_RANGE_MAX);
     }
 
     public static boolean remoteTake() {
@@ -83,6 +91,8 @@ public final class ShopsConfig {
         o.addProperty("remoteStock", remoteStock);
         o.addProperty("remoteDelaySeconds", remoteDelaySeconds);
         o.addProperty("remoteCrossDimension", remoteCrossDimension);
+        o.addProperty("shopMusic", shopMusic);
+        o.addProperty("shopMusicRange", shopMusicRange);
         return o;
     }
 

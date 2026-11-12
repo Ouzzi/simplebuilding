@@ -1,0 +1,10 @@
+{
+  "comparator_output": 6,
+  "description": {
+    "translate": "jukebox_song.simplemusic.coin_lounge"
+  },
+  "length_in_seconds": 69.95,
+  "sound_event": {
+    "sound_id": "simplemusic:music_disc.coin_lounge"
+  }
+}

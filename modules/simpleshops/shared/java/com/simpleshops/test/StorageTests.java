@@ -410,7 +410,7 @@ final class StorageTests {
             Column c = column(h, owner, 0);
             ShopActions.useSales(owner, h.getLevel(), c.sales);
             SalesOwnerMenu both = (SalesOwnerMenu) owner.containerMenu;
-            h.assertTrue(both.isCombined() && both.slots.size() == 5 + 5 + 27 + 36, "combined: goods, price, earnings, inventory");
+            h.assertTrue(both.isCombined() && both.slots.size() == 5 + 5 + 27 + 1 + 36, "combined: goods, price, earnings, disc slot, inventory");
             h.assertTrue(SalesOwnerMenu.C_HEIGHT == 114 + 6 * 18, "double chest height");
             // Earnings take nothing from outside (only the shop's own transfer fills them); goods slots are real.
             h.assertTrue(!both.slots.get(both.earningsStart()).mayPlace(new ItemStack(Items.STICK)) && both.slots.get(0).mayPlace(new ItemStack(Items.STICK)), "slot rules");
@@ -423,7 +423,7 @@ final class StorageTests {
             h.getLevel().setBlock(c.box, Blocks.AIR.defaultBlockState(), 3);
             ShopActions.useSales(owner, h.getLevel(), c.sales);
             SalesOwnerMenu alone = (SalesOwnerMenu) owner.containerMenu;
-            h.assertTrue(!alone.isCombined() && alone.slots.size() == 5 + 27 + 36, "sales block alone: own screen");
+            h.assertTrue(!alone.isCombined() && alone.slots.size() == 5 + 27 + 1 + 36, "sales block alone: own screen");
             owner.closeContainer();
             // Sales block removed instead: the case has its own goods screen.
             h.getLevel().setBlock(c.box, ShopsRegistry.DISPLAY_CASE.defaultBlockState(), 3);

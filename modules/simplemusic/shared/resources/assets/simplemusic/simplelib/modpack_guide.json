@@ -9,7 +9,7 @@
       "title": "simplemusic.guide.chapter",
       "icon": "minecraft:note_block",
       "page_key": "simplemusic.guide.page",
-      "pages": 22,
+      "pages": 23,
       "advancement": "simplemusic:guide/chapter",
       "hint": "minecraft:note_block"
     }
