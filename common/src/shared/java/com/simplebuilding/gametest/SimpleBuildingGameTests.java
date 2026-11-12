@@ -193,6 +193,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_mod_block_families_stand_once_and_aligned", TestCentreTests::modBlockFamiliesStandOnceAndAligned)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_order_areas_show_everything_in_owner_order", TestCentreTests::orderAreasShowEverythingInOwnerOrder)
+                    .build(),
             GameTestSpec.named("test_centre_game_test_testcenter_command_clears_and_builds_the_mod_area", TestCentreTests::testcenterCommandClearsAndBuildsTheModArea)
                     .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)

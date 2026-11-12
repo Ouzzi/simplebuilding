@@ -56,6 +56,9 @@ public final class TestCentreLayout {
     public static final List<List<String>> DISTRICTS = List.of(
             // Eingang: Steuerwand, Werkzeuge und Bauen.
             List.of("controls", "tools", "chisel", "planning", "mining", "enchants"),
+            // TZ38 (Besitzer 12.11.): die geordneten Bereiche 1-4 vor den Testflaechen - Block-Familien, Rohstoffe/Metalle,
+            // Items je Mod (mit Besatz-Staendern und Mobs), kompakt je Mod (OrderAreas).
+            OrderAreas.SECTIONS,
             // Zustaende, Umwandlungen, Ablegen, Buecher.
             List.of("states", "inworld", "upgrades", "templates", "placeables", "books"),
             // Baubloecke und Material.
@@ -66,8 +69,8 @@ public final class TestCentreLayout {
             List.of("armour", "archery", "arrows", "sinkdamper", "riding", "tweaks", "deathvault", "respawn", "food", "materials"),
             // Die Module der Familie (Modulaufteilung 3c, TZ22-1); nur mit Modulen.
             List.of(MODULES_SECTION),
-            // DW04D-1: alle Bloecke je Mod als Material-Familien (Spalten) und Formzeilen, Items nach Gruppen.
-            List.of(ModBlockGallery.SECTION),
+            // DW04D-1 (alle Bloecke je Mod als Familien-Spalten) ist seit TZ38 durch "order" ersetzt; einzeln bleibt
+            // /testcenter mods|mod <id> build.
             // Mobs of every loaded mod (Queue N43); empty without such mods.
             List.of("mobs"),
             // Jede eigene Struktur und jedes Strukturteil (TZ22-3); leer ohne Strukturen (26.2).
@@ -80,8 +83,8 @@ public final class TestCentreLayout {
             List.of("gallery", "unsorted"));
 
     /** Namen der Bezirke fuer {@code /sbtestcentre build only|without} (TZ22-4), in der Reihenfolge von {@link #DISTRICTS}. */
-    public static final List<String> DISTRICT_NAMES = List.of("workshop", "states", "blocks", "technics", "combat", "modules",
-            ModBlockGallery.SECTION, "mobs", "structures", RecipeStation.SECTION, "catalog", "rest");
+    public static final List<String> DISTRICT_NAMES = List.of("workshop", "order", "states", "blocks", "technics", "combat",
+            "modules", "mobs", "structures", RecipeStation.SECTION, "catalog", "rest");
 
     /**
      * Teilbau (TZ22-4, Besitzer 22.10.: "Der Standardbefehl baut alles. Optionen schraenken die Groesse ein, z. B. ohne die
@@ -297,10 +300,11 @@ public final class TestCentreLayout {
     /** Tiefe des Befehlsblocks am Ausgabe-Knopf; der Knopf selbst sitzt davor zum Gang hin. */
     public static final int KIOSK_Z = 1;
     /** Erhoehen, wenn sich der Bau-Code (nicht die Planung) aendert: dann bauen alte Welten neu. */
-    static final int BUILDER_VERSION = 2;
+    static final int BUILDER_VERSION = 3;
 
     public static final int MAX_ROW_WIDTH = 120;
-    public static final int GAP = 4;
+    /** Abstand der Abschnitte in einer Reihe (TZ38, Besitzer 12.11.: "1 Block Abstand zwischen Bereichen"; vorher 4). */
+    public static final int GAP = 1;
     public static final int CORRIDOR = 7;
 
     /** Ein geplanter Abschnitt: Lage relativ zum Ursprung, Groesse, Schritte in absoluten Koordinaten. */
@@ -397,6 +401,7 @@ public final class TestCentreLayout {
                     + command.label().stream().map(TestCentreLayout::componentText).toList();
             case TcOp.Hammock hammock -> hammock.dx() + "," + hammock.dz();
             case TcOp.Structure structure -> structure.template() + " " + structure.size().toShortString() + " " + structure.frames();
+            case TcOp.Mob mob -> mob.entity() + " " + mob.yaw();
         };
     }
 
@@ -549,9 +554,12 @@ public final class TestCentreLayout {
             canvases.put(TabBrowser.sectionId(tab), wall);
         }
 
-        // DW04D-1: Mod-Bloecke als Familien - wie die Tab-Waende nach der Abdeckung (zeigt alles noch einmal geordnet,
-        // nimmt Modul-Buchten und Galerie nichts weg).
-        canvases.put(ModBlockGallery.SECTION, ModBlockGallery.all().canvas());
+        // TZ38: die geordneten Bereiche - wie die Tab-Waende nach der Abdeckung (zeigen alles noch einmal geordnet, nehmen
+        // Stationen, Modul-Buchten und Galerie nichts weg).
+        canvases.put(OrderAreas.FAMILIES, OrderAreas.families().canvas());
+        canvases.put(OrderAreas.METALS, OrderAreas.metals().canvas());
+        canvases.put(OrderAreas.ITEMS, OrderAreas.items(ctx).canvas());
+        canvases.put(OrderAreas.COMPACT, OrderAreas.compact().canvas());
 
         // Crafting-Rezepte (Nachtrag 13): wie die Tab-Waende nach der Abdeckung - Zutaten im Crafter zaehlen nicht als Platz.
         canvases.put(RecipeStation.SECTION, RecipeStation.build(ctx));
@@ -688,6 +696,8 @@ public final class TestCentreLayout {
                 case TcOp.Hammock hammock -> {
                 }
                 case TcOp.Structure structure -> {
+                }
+                case TcOp.Mob mob -> {
                 }
             }
         }

@@ -457,6 +457,7 @@ public final class TestCentreTests {
             Map<BlockPos, BlockState> expected = new HashMap<>();
             int frames = 0;
             int stands = 0;
+            int mobs = 0;
             List<BlockPos> signs = new ArrayList<>();
             for (TestCentreLayout.Section section : plan.sections()) {
                 for (TcOp op : section.ops()) {
@@ -464,6 +465,7 @@ public final class TestCentreTests {
                     switch (op) {
                         case TcOp.Place place -> expected.put(place.pos(), place.state());
                         case TcOp.Stand stand -> stands++;
+                        case TcOp.Mob mob -> mobs++;
                         case TcOp.Sign sign -> signs.add(sign.pos());
                         default -> {
                         }
@@ -506,6 +508,15 @@ public final class TestCentreTests {
             int placedStands = level.getEntitiesOfClass(ArmorStand.class, area).size();
             helper.assertTrue(placedFrames == frames, "item frames: planned " + frames + ", placed " + placedFrames);
             helper.assertTrue(placedStands == stands, "armour stands: planned " + stands + ", placed " + placedStands);
+            // TZ38: the mobs behind each mod line stand still, unhurt and silent.
+            List<net.minecraft.world.entity.Entity> spawned = level.getEntitiesOfClass(net.minecraft.world.entity.Entity.class, area,
+                    entity -> entity.entityTags().contains(com.simplebuilding.dev.testcentre.OrderAreas.MOB_TAG));
+            helper.assertTrue(spawned.size() == mobs, "order area mobs: planned " + mobs + ", alive " + spawned.size());
+            for (net.minecraft.world.entity.Entity entity : spawned) {
+                helper.assertTrue(entity.isInvulnerable() && entity.isSilent()
+                                && (!(entity instanceof net.minecraft.world.entity.Mob mob) || mob.isNoAi() && mob.isPersistenceRequired()),
+                        BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()) + " in the order area is not still/unhurt/silent");
+            }
             // TZ22-2: Setzbares steht als Block; Rahmen bleiben fuer Werkzeuge, Ruestung, Buecher, Eimer ... (vorher 2630).
             helper.assertTrue(frames > 100, "suspiciously few frames planned: " + frames);
             // Die Blaupause im Rahmen wurde beim Bau wirklich gescannt, der Oktant daneben traegt seine Auswahl.
@@ -913,7 +924,9 @@ public final class TestCentreTests {
         Set<Item> placedAnywhere = new HashSet<>();
         for (TestCentreLayout.Section section : plan.sections()) {
             // DW04D-1: the mod block families are planned after the tab walls (like them a second, ordered view).
-            if (!section.id().startsWith(TabBrowser.PREFIX) && !section.id().equals(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION)) {
+            // TZ38: the order areas likewise.
+            if (!section.id().startsWith(TabBrowser.PREFIX) && !section.id().equals(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION)
+                    && !com.simplebuilding.dev.testcentre.OrderAreas.SECTIONS.contains(section.id())) {
                 placedAnywhere.addAll(TestCentreLayout.shownPlaced(section.ops()));
             }
         }
@@ -1982,6 +1995,241 @@ public final class TestCentreTests {
     }
 
     /**
+     * TZ38 (Besitzer 12.11.: "Testzentrale neu ordnen"): die vier geordneten Bereiche stehen im Bezirk "order" vor den
+     * Testflaechen. Items je Mod: jedes Familien-Item genau einmal (gesetzt oder gerahmt), Mods in Wiki-Reihenfolge, je
+     * Besatzmuster und -material ein Staender mit vier besetzten Teilen, je Familien-Mob ein Mob. Kompakt: jeder Familien-Block
+     * genau einmal, Mods mit mindestens einem Feld Abstand. Familien: jede Reihe in einer Spalte, feste Spaltenfolge Zaun ...
+     * Saeule je Band (vorn aufsteigend, gegenueber gespiegelt), Betonlinie, kein Item doppelt, schmelzendes Eis im Rahmen,
+     * Tiefenschiefer-Ziegel mit verstaerktem Tiefenschiefer als Sonderblock. Metalle: Spalte = feste Slot-Spalte von der
+     * Wand, Eisen/Kupfer/Gold an ihren Plaetzen, Reihen in Besitzer-Reihenfolge, kein Item doppelt. {@code /testcenter order}.
+     */
+    public static void orderAreasShowEverythingInOwnerOrder(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
+        for (String id : com.simplebuilding.dev.testcentre.OrderAreas.SECTIONS) {
+            if (!TestCentreLayout.sectionIds().contains(id)) {
+                problems.add(id + " is not a section of the test centre");
+            } else if (!id.equals(com.simplebuilding.dev.testcentre.OrderAreas.FAMILIES) && plan.section(id).ops().isEmpty()) {
+                problems.add(id + " plans nothing");
+            }
+        }
+        helper.assertTrue("order".equals(TestCentreLayout.districtOf(com.simplebuilding.dev.testcentre.OrderAreas.ITEMS))
+                && TestCentreLayout.DISTRICTS.indexOf(com.simplebuilding.dev.testcentre.OrderAreas.SECTIONS) == 1,
+                "the order areas are not the district right after the entrance");
+        var root = helper.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("testcenter");
+        helper.assertTrue(root != null && root.getChild("order") != null, "/testcenter order is not registered");
+        List<String> namespaces = com.simplebuilding.dev.testcentre.OrderAreas.namespaces();
+
+        // 3. Items je Mod.
+        TcContext ctx = new TcContext(helper.getLevel().registryAccess());
+        com.simplebuilding.dev.testcentre.OrderAreas.Area items = com.simplebuilding.dev.testcentre.OrderAreas.items(ctx);
+        Map<Item, Integer> shown = orderShown(items.canvas().ops());
+        int expectedMobs = 0;
+        int previousZ = Integer.MIN_VALUE;
+        for (String ns : namespaces) {
+            List<Item> list = com.simplebuilding.dev.testcentre.OrderAreas.items(ns);
+            for (Item item : list) {
+                int n = shown.getOrDefault(item, 0);
+                if (n != 1) {
+                    problems.add("items: " + BuiltInRegistries.ITEM.getKey(item) + " stands " + n + " times");
+                }
+            }
+            expectedMobs += com.simplebuilding.dev.testcentre.OrderAreas.mobs(ns).size();
+            int firstZ = items.cells().stream().filter(cell -> cell.group().equals(ns)).mapToInt(cell -> cell.pos().getZ()).min()
+                    .orElse(previousZ);
+            if (firstZ < previousZ) {
+                problems.add("items: " + ns + " does not follow the wiki order");
+            }
+            previousZ = firstZ;
+        }
+        int mobs = 0;
+        int stands = 0;
+        for (TcOp op : items.canvas().ops()) {
+            if (op instanceof TcOp.Mob) {
+                mobs++;
+            } else if (op instanceof TcOp.Stand stand) {
+                stands++;
+                if (stand.gear().subList(0, 4).stream().anyMatch(stack -> !stack.has(net.minecraft.core.component.DataComponents.TRIM))) {
+                    problems.add("items: a trim stand wears an untrimmed piece");
+                }
+            }
+        }
+        int trims = (int) (helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.TRIM_PATTERN).listElements().count()
+                + helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.TRIM_MATERIAL).listElements().count());
+        if (stands != trims) {
+            problems.add("items: " + stands + " trim stands, patterns + materials = " + trims);
+        }
+        if (mobs != expectedMobs) {
+            problems.add("items: " + mobs + " mobs planned, the family has " + expectedMobs);
+        }
+
+        // 4. Kompakt je Mod.
+        com.simplebuilding.dev.testcentre.OrderAreas.Area compact = com.simplebuilding.dev.testcentre.OrderAreas.compact();
+        Map<Item, Integer> compactShown = orderShown(compact.canvas().ops());
+        Map<String, int[]> boxes = new LinkedHashMap<>();
+        for (String ns : namespaces) {
+            for (Item item : com.simplebuilding.dev.testcentre.OrderAreas.blocks(ns)) {
+                int n = compactShown.getOrDefault(item, 0);
+                if (n != 1) {
+                    problems.add("compact: " + BuiltInRegistries.ITEM.getKey(item) + " stands " + n + " times");
+                }
+            }
+        }
+        for (var cell : compact.cells()) {
+            boxes.merge(cell.group(), new int[] {cell.pos().getX(), cell.pos().getZ(), cell.pos().getX(), cell.pos().getZ()},
+                    (a, b) -> new int[] {Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])});
+        }
+        List<Map.Entry<String, int[]>> boxList = new ArrayList<>(boxes.entrySet());
+        for (int i = 0; i < boxList.size(); i++) {
+            for (int j = i + 1; j < boxList.size(); j++) {
+                int[] a = boxList.get(i).getValue();
+                int[] b = boxList.get(j).getValue();
+                if (a[0] <= b[2] + 1 && b[0] <= a[2] + 1 && a[1] <= b[3] + 1 && b[1] <= a[3] + 1) {
+                    problems.add("compact: " + boxList.get(i).getKey() + " touches " + boxList.get(j).getKey());
+                }
+            }
+        }
+
+        // 1. Block-Familien.
+        com.simplebuilding.dev.testcentre.OrderAreas.Area families = com.simplebuilding.dev.testcentre.OrderAreas.families();
+        BlockState line = com.simplebuilding.dev.testcentre.OrderAreas.lineState();
+        Map<Item, Integer> familyShown = new HashMap<>();
+        int lines = 0;
+        for (TcOp op : families.canvas().ops()) {
+            if (op instanceof TcOp.Place place && place.state().equals(line)) {
+                lines++;
+            }
+        }
+        Map<String, Set<Integer>> rowX = new HashMap<>();
+        boolean reinforced = false;
+        boolean deepslateBricks = false;
+        Set<BlockPos> frameAt = new HashSet<>();
+        for (TcOp op : families.canvas().ops()) {
+            if (op instanceof TcOp.Frame frame) {
+                frameAt.add(frame.pos());
+            }
+        }
+        for (var cell : families.cells()) {
+            familyShown.merge(cell.item(), 1, Integer::sum);
+            rowX.computeIfAbsent(cell.group(), key -> new HashSet<>()).add(cell.pos().getX());
+            var band = families.bands().stream().filter(b -> cell.pos().getX() >= b.x0() && cell.pos().getX() <= b.x1()
+                    && (cell.pos().getZ() - b.lineZ()) * b.step() < 0 && Math.abs(cell.pos().getZ() - b.lineZ()) <= b.columns().size()).findFirst();
+            if (band.isEmpty()) {
+                problems.add("families: " + BuiltInRegistries.ITEM.getKey(cell.item()) + " lies in no band at " + cell.pos());
+                continue;
+            }
+            if (cell.pos().getZ() != band.get().frontZ() + band.get().step() * cell.column()) {
+                problems.add("families: " + BuiltInRegistries.ITEM.getKey(cell.item()) + " is not in column " + cell.column());
+            }
+            var slot = com.simplebuilding.dev.testcentre.OrderAreas.slotOf(cell.item());
+            if (cell.column() < com.simplebuilding.dev.testcentre.OrderAreas.Slot.FIXED
+                    && cell.column() != com.simplebuilding.dev.testcentre.OrderAreas.Slot.PILLAR.ordinal()
+                    && (slot == null || slot.ordinal() != cell.column())) {
+                problems.add("families: " + BuiltInRegistries.ITEM.getKey(cell.item()) + " (" + slot + ") stands in fixed column " + cell.column());
+            }
+            if (cell.item() instanceof net.minecraft.world.item.BlockItem blockItem
+                    && blockItem.getBlock() instanceof net.minecraft.world.level.block.IceBlock && !frameAt.contains(cell.pos())) {
+                problems.add("families: melting " + BuiltInRegistries.ITEM.getKey(cell.item()) + " is placed instead of framed");
+            }
+            if (cell.group().equals("deepslate_brick")) {
+                deepslateBricks = true;
+                reinforced |= cell.item() == Items.REINFORCED_DEEPSLATE
+                        && cell.column() == com.simplebuilding.dev.testcentre.OrderAreas.Slot.PILLAR.ordinal();
+            }
+        }
+        familyShown.forEach((item, n) -> {
+            if (n != 1) {
+                problems.add("families: " + BuiltInRegistries.ITEM.getKey(item) + " stands " + n + " times");
+            }
+        });
+        rowX.forEach((row, xs) -> {
+            if (xs.size() != 1) {
+                problems.add("families: row " + row + " spreads over columns " + xs);
+            }
+        });
+        if (!families.cells().isEmpty() && (lines == 0 || families.bands().isEmpty())) {
+            problems.add("families: no concrete line between the bands");
+        }
+        if (deepslateBricks && !reinforced) {
+            problems.add("families: the deepslate brick row has no reinforced deepslate as its special block");
+        }
+
+        // 2. Rohstoffe und Metalle.
+        com.simplebuilding.dev.testcentre.OrderAreas.Area metals = com.simplebuilding.dev.testcentre.OrderAreas.metals();
+        Map<Item, Integer> metalShown = new HashMap<>();
+        Map<String, Integer> rowZ = new LinkedHashMap<>();
+        Map<String, Map<Integer, Item>> byColumn = new HashMap<>();
+        int slots = com.simplebuilding.dev.testcentre.OrderAreas.MSlot.values().length;
+        for (var cell : metals.cells()) {
+            metalShown.merge(cell.item(), 1, Integer::sum);
+            if (cell.column() < slots) {
+                if (cell.pos().getX() != 1 + cell.column()) {
+                    problems.add("metals: " + BuiltInRegistries.ITEM.getKey(cell.item()) + " is not in column " + cell.column());
+                }
+                rowZ.putIfAbsent(cell.group(), cell.pos().getZ());
+                byColumn.computeIfAbsent(cell.group(), key -> new HashMap<>()).put(cell.column(), cell.item());
+            }
+        }
+        metalShown.forEach((item, n) -> {
+            if (n != 1) {
+                problems.add("metals: " + BuiltInRegistries.ITEM.getKey(item) + " stands " + n + " times");
+            }
+        });
+        Object[][] expectations = {
+                {"iron", com.simplebuilding.dev.testcentre.OrderAreas.MSlot.STORAGE, Items.IRON_BLOCK},
+                {"iron", com.simplebuilding.dev.testcentre.OrderAreas.MSlot.INGOT, Items.IRON_INGOT},
+                {"iron", com.simplebuilding.dev.testcentre.OrderAreas.MSlot.DEEPSLATE_ORE, Items.DEEPSLATE_IRON_ORE},
+                {"copper", com.simplebuilding.dev.testcentre.OrderAreas.MSlot.POLE, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("lightning_rod"))},
+                {"copper", com.simplebuilding.dev.testcentre.OrderAreas.MSlot.RAW_BLOCK, Items.RAW_COPPER_BLOCK},
+                {"gold", com.simplebuilding.dev.testcentre.OrderAreas.MSlot.SWORD, Items.GOLDEN_SWORD},
+                {"netherite", com.simplebuilding.dev.testcentre.OrderAreas.MSlot.NETHER_ORE, Items.ANCIENT_DEBRIS}};
+        for (Object[] e : expectations) {
+            Item at = byColumn.getOrDefault((String) e[0], Map.of()).get(((com.simplebuilding.dev.testcentre.OrderAreas.MSlot) e[1]).ordinal());
+            if (at != e[2]) {
+                problems.add("metals: " + e[0] + " " + e[1] + " shows " + (at == null ? "nothing" : BuiltInRegistries.ITEM.getKey(at))
+                        + " instead of " + BuiltInRegistries.ITEM.getKey((Item) e[2]));
+            }
+        }
+        List<String> order = com.simplebuilding.dev.testcentre.OrderAreas.METAL_LIST.stream().map(m -> m.key())
+                .filter(rowZ::containsKey).toList();
+        for (int i = 1; i < order.size(); i++) {
+            if (rowZ.get(order.get(i)) <= rowZ.get(order.get(i - 1))) {
+                problems.add("metals: " + order.get(i) + " does not follow " + order.get(i - 1));
+            }
+        }
+        for (String id : com.simplebuilding.dev.testcentre.OrderAreas.SECTIONS) {
+            if (TestCentreLayout.sectionIds().contains(id) && plan.section(id).width() > TestCentreLayout.MAX_ROW_WIDTH) {
+                problems.add(id + " is " + plan.section(id).width() + " wide");
+            }
+        }
+        com.simplebuilding.Simplebuilding.LOGGER.info("order areas: families {} cells in {} rows / {} bands, metals {} rows {} cells, items {} cells"
+                        + " {} stands {} mobs, compact {} cells, {} mods", families.cells().size(), rowX.size(), families.bands().size(),
+                rowZ.size(), metals.cells().size(), items.cells().size(), stands, mobs, compact.cells().size(), namespaces.size());
+        helper.assertTrue(problems.isEmpty(), problems.size() + " order area problem(s): "
+                + String.join("; ", problems.subList(0, Math.min(30, problems.size()))));
+        helper.succeed();
+    }
+
+    /** Wie oft jedes Item in Schritten steht: gesetzt (untere Haelfte bei Tueren) oder im Rahmen. */
+    private static Map<Item, Integer> orderShown(List<TcOp> ops) {
+        Map<Item, Integer> counts = new HashMap<>();
+        for (TcOp op : ops) {
+            if (op instanceof TcOp.Place place) {
+                BlockState state = place.state();
+                boolean upper = state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF)
+                        && state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF)
+                        == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
+                if (!upper) {
+                    counts.merge(TcContext.itemOf(state.getBlock()), 1, Integer::sum);
+                }
+            } else if (op instanceof TcOp.Frame frame) {
+                counts.merge(frame.stack().getItem(), 1, Integer::sum);
+            }
+        }
+        return counts;
+    }
+
+    /**
      * DW04D-1 (Besitzer 04.11.: "alle bloecke in logischer reihenfolge nebeneinander"): der Abschnitt
      * {@link com.simplebuilding.dev.testcentre.ModBlockGallery#SECTION} steht in der Planung; jedes Item der Familien-Mods steht
      * dort genau einmal (gesetzt oder im Rahmen); jede Material-Familie ist eine Spalte; je Band liegen die Formzeilen in
@@ -1989,10 +2237,9 @@ public final class TestCentreTests {
      */
     public static void modBlockFamiliesStandOnceAndAligned(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
-        helper.assertTrue(TestCentreLayout.sectionIds().contains(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION)
-                && !plan.section(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION).ops().isEmpty(),
-                "the test centre plans no mod block families");
+        // TZ38: the gallery left the plan (replaced by the order areas); it stays as /testcenter mods|mod <id> build.
+        helper.assertTrue(!TestCentreLayout.sectionIds().contains(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION),
+                "the old mod block gallery is still planned next to the order areas");
         List<String> namespaces = com.simplebuilding.dev.testcentre.ModBlockGallery.namespaces();
         com.simplebuilding.dev.testcentre.ModBlockGallery.Gallery gallery = com.simplebuilding.dev.testcentre.ModBlockGallery.gallery(namespaces);
         Map<Item, Integer> counts = new HashMap<>();

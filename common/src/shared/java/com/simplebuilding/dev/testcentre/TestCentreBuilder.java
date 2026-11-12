@@ -286,6 +286,12 @@ public final class TestCentreBuilder {
                     entities++;
                     count++;
                 }
+                case TcOp.Mob mob -> {
+                    if (spawnMob(level, mob)) {
+                        entities++;
+                    }
+                    count++;
+                }
                 case TcOp.Hammock hammock -> {
                     com.simplebuilding.blocks.custom.HammockLayout.link(level,
                             new com.simplebuilding.blocks.custom.HammockLayout.Spot(hammock.pos(), hammock.dx(), hammock.dz()));
@@ -320,6 +326,33 @@ public final class TestCentreBuilder {
             }
         }
         return new int[]{count, entities};
+    }
+
+    /**
+     * TZ38: spawnt einen Mob ohne KI, unverwundbar, still und dauerhaft, mit dem Tag {@link OrderAreas#MOB_TAG}; false, wenn
+     * der Typ fehlt oder sich nicht erzeugen laesst.
+     */
+    static boolean spawnMob(ServerLevel level, TcOp.Mob mob) {
+        net.minecraft.world.entity.EntityType<?> type = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getOptional(mob.entity()).orElse(null);
+        Entity entity = type == null ? null : type.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+        if (entity == null || entity instanceof ArmorStand) {
+            if (entity != null) {
+                entity.discard();
+            }
+            return false;
+        }
+        entity.setPos(mob.pos().getX() + 0.5, mob.pos().getY(), mob.pos().getZ() + 0.5);
+        entity.setYRot(mob.yaw());
+        entity.setYHeadRot(mob.yaw());
+        if (entity instanceof net.minecraft.world.entity.Mob living) {
+            living.setNoAi(true);
+            living.setPersistenceRequired();
+            living.setYBodyRot(mob.yaw());
+        }
+        entity.setSilent(true);
+        McVersion.setInvulnerable(entity, true);
+        entity.addTag(OrderAreas.MOB_TAG);
+        return level.addFreshEntity(entity);
     }
 
     /**
