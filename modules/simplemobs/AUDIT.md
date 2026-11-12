@@ -41,7 +41,7 @@ Geprueft **risikogeleitet** (P1-Klassen zuerst), Aufbau wie `modules/simplestora
 | simplemobs-P2-1 | P2 (Rechte/Logik) | Die eigenen natuerlichen Spawns (Taeuscher `MobsServer.java:23`, Hohlwaechter `FearServer.java:47`, Seelenfeuer-Lohe `EndNetherServer.java:46`) ignorierten die Spielregeln `spawnMobs`/`spawnMonsters`; der Taeuscher kam auch auf Friedlich, Lohe und Shellker-Torwachen (`EndNetherServer.java:20`) auch bei ausgeschaltetem Sub-Mod. | **gefixt**: `MobsServer.naturalSpawns(level)` (Sub-Mod an, nicht Friedlich, beide Regeln an) an allen drei Stellen, Torwachen fragen den Sub-Mod; Gametest `natural_spawn_rules` |
 | simplemobs-P2-2 | P2 (Leak) | `EvilOmen.EVIL_RAIDS` (WeakHashMap, Wert `RaidInfo` haelt das `ServerLevel` und damit den Schluessel-Raid, `EvilOmen.java:52-54`), `RAIDS` und `TrialsExtras.ACTIVE` (`TrialsExtras.java:59`) wurden beim Server-Stopp nie geleert: im Einzelspieler blieb die alte Welt im Speicher, und alte Deckel-Marken (Zeitstempel in der Zukunft, `TrialsExtras.java:111`) zaehlten in der naechsten Welt als aktiv. | **gefixt**: `EvilOmen.forgetAll()` (`EvilOmen.java:315`), registriert per `PlayerState.onStop("simplemobs:trials")` (`MobsFabric.java:48`); Gametest `trials_forget_on_stop` (prueft die Aufraeum-Methode; der Stopp-Aufruf selbst ist per Gametest nicht pruefbar) |
 | simplemobs-P2-3 | P2 (Endlos-Farm) | Beschworene des Taeuschers (Wellen ohne Ende, Fakes mit 1 Leben) und Wither-Diener haben bewusst keine Beute (`DeathLootTable` = summoned), gaben aber Mob-Essenz (`BroodRitual.java:51` kennt `MOB_SUMMONED` nicht) - risikoloser Essenz-/Spawn-Ei-Farm. | **gefixt**: Tag `simplemobs.no_essence` beim Beschwoeren (`DeceiverEntity.java:519`, `BlightedWither.java:265`); Gametests `brood_no_essence_from_summons` (Wither-Diener + Kontrolle) und Pruefung in `fight` (Taeuscher-Welle) |
-| simplemobs-P2-4 | P2 (Balance/Farm) | Taeuscher-Fakes (Illusionen, 1 Leben, kein Schaden) geben echte Erfahrung (Zombie 5 EP); ein feindlicher Taeuscher beschwoert alle 8-12 s 5-16 davon, solange ein Spieler in 32 Bloecken steht - EP-Farm ohne Risiko (`DeceiverEntity.java:532` `makeFake`). | **Besitzer AUDSB31B F7 = A, umgesetzt (a-audsb31b)**: Mixin `DeceiverFakeXpMixin` (`LivingEntity#getExperienceReward`, final, HEAD): Tag `simplemobs_fake` -> 0 EP, echte Beschworene wie Vanilla; der Tag wird gespeichert, gilt also auch nach einem Neustart. Gametest `deceiver_fakes_give_no_xp`, Pruefung im Test `fight`, Wiki EN/DE |
+| simplemobs-P2-4 | P2 (Balance/Farm) | Taeuscher-Fakes (Illusionen, 1 Leben, kein Schaden) geben echte Erfahrung (Zombie 5 EP); ein feindlicher Taeuscher beschwoert alle 8-12 s 5-16 davon, solange ein Spieler in 32 Bloecken steht - EP-Farm ohne Risiko (`DeceiverEntity.java:532` `makeFake`). | **Rueckfrage AUDSB31-M1** (unten) |
 | simplemobs-P2-5 | P2 (Server-Last) | Die Liste der Beschworenen wird nicht gespeichert (`DeceiverEntity.java:93`, `:200`); Fakes sind dauerhaft (`setPersistenceRequired`, `:541`). Entlaedt der Taeuscher-Chunk mitten im Kampf oder startet der Server neu, bleiben alle Fakes der Welle fuer immer (stumm, 1 Leben). Haeuft sich bei abgebrochenen Kaempfen. | offen (kein kleiner Fix): Vorschlag Fakes mit Ablaufzeit im Tag (`FAKE_LIFETIME_TICKS`) und eine kleine Tick-Pruefung, die abgelaufene Fakes entfernt; zusaetzlich Liste speichern |
 | simplemobs-P3-1 | P3 | Helm auf Skelettschaedel (`ItemHelmetDreadMixin.java:31`), Netherit-Helm auf Witherschaedel (`ItemHelmetWitherMixin.java:31`), Drachenatem/Netherstern auf Purpur/Obsidian (`ItemBossRitualMixin.java:34`): auch bei ausgeschalteter Beschwoerung oder Sub-Mod Rauch + verbrauchter Klick (Helm laesst sich dort nicht per Rechtsklick anziehen; Client nutzt Standard-Config). | Empfehlung: bei Aus frueh `return` (Vanilla-Verhalten) |
 | simplemobs-P3-2 | P3 | Tarnumhang/Verkleidung (`Disguise.java:39`, Player-Mixins) wirken auch bei ausgeschaltetem Sub-Mod. | Hinweis |
@@ -56,10 +56,9 @@ Geprueft **risikogeleitet** (P1-Klassen zuerst), Aufbau wie `modules/simplestora
 ## Rueckfragen (Besitzer)
 - **AUDSB31-M1** (simplemobs-P2-4): Sollen Taeuscher-Fakes Erfahrung geben? A: nein, Fakes 0 EP, echte Beschworene wie Vanilla
   (Empfehlung - Illusionen, die nur den Kampf erschweren). B: Fakes 1 EP. C: bleibt (Vanilla-Beschwoerer wie der Magier geben auch EP).
-  **Besitzer AUDSB31B F7 = A** (12.11.), umgesetzt auf a-audsb31b.
 
 ## Urteil
-**shipbar nach Fix** (1 P1 gefixt, 5 P2: 4 gefixt - P2-4 nach Besitzer-Antwort AUDSB31B F7 = A -, 1 offen, 9 P3). Netzwerk und Mixins sind sauber (keine Overwrites,
+**shipbar nach Fix** (1 P1 gefixt, 5 P2: 3 gefixt, 1 Rueckfrage, 1 offen, 9 P3). Netzwerk und Mixins sind sauber (keine Overwrites,
 Griefing-Regeln beachtet); die Risiken lagen bei Drops/Farmen und Spawn-Schaltern.
 
 ## Testergebnis
@@ -68,7 +67,12 @@ Access-Widener-Meldungen (`MobsRegistry`, `LibMaterials`, in `MobsFabric.java:56
 keine in neuem Code. `modules/simplemobs/tools/check_data.py` gruen, `tools/check_dup_impl.py` 0 Probleme.
 Neue Gametests: `spawner_makeshift_no_xp_loop`, `natural_spawn_rules`, `trials_forget_on_stop`, `brood_no_essence_from_summons` (+ Pruefung in `fight`).
 sbt: siehe docs/ai/PLAN-A-AUDSB31-2026-11-12.md.
-a-audsb31b (F7): javac von `DeceiverFakeXpMixin`, `MobsTests`, Adapter lokal sauber (nur bekannte Access-Widener-Meldungen); sbt siehe
-`docs/ai/PLAN-A-AUDSB31B-2026-11-12.md`.
 Nicht getestet: der echte Server-Stopp-Aufruf (P2-2), Naturspawns im laufenden Tick (nur die Regel), Client, Forge/NeoForge
 (deren Einstiege registrieren `forgetAll` nicht - nicht Teil des Releases), Mehrspieler.
+
+## Nachtrag a-audsb31b (12.11.2026, Besitzer AUDSB31B F7 = A)
+- **simplemobs-P2-4 umgesetzt**: Mixin `DeceiverFakeXpMixin` (`LivingEntity#getExperienceReward`, final, HEAD): Tag `simplemobs_fake`
+  -> 0 EP, echte Beschworene wie Vanilla; der Tag wird gespeichert, gilt also auch fuer Fakes aus einem alten Spielstand.
+  Gametest `deceiver_fakes_give_no_xp` und Pruefung im Test `fight`; Wiki EN/DE. Rueckfrage AUDSB31-M1 damit beantwortet.
+- Test: javac von `DeceiverFakeXpMixin`, `MobsTests`, Adapter lokal sauber (nur bekannte Access-Widener-Meldungen); sbt siehe
+  `docs/ai/PLAN-A-AUDSB31B-2026-11-12.md`. (Eigener Abschnitt statt Tabellen-Edit: a-w1b aendert dieselben Zeilen.)
