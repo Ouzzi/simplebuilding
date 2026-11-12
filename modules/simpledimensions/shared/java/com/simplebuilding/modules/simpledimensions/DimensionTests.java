@@ -47,6 +47,8 @@ public final class DimensionTests {
   ALL.put("settings_persistence",DimensionSettingsTests::persistence);
   ALL.put("settings_broken_file",DimensionSettingsTests::brokenFile);
   ALL.put("portal_records_follow_portals",DimensionTests::portalRecordsFollowPortals);
+  ALL.put("broken_ledger_quarantined",DimensionTests::brokenLedgerQuarantined);
+  ALL.put("void_fall_modes",DimensionTests::voidFallModes);
 
  }
  private static void yes(GameTestHelper h,boolean b,String s){h.assertTrue(b,s);}
@@ -116,6 +118,45 @@ public final class DimensionTests {
  }
  public static void portalDecay(GameTestHelper h){var p=activate(h);var b=(SkyPortalBlockEntity)h.getLevel().getBlockEntity(p);h.getLevel().setBlock(base(h),Blocks.DIRT.defaultBlockState(),3);yes(h,!DimensionRuntime.get(h.getLevel().getServer()).validFrame(h.getLevel(),p,b,DimensionPortalConfig.defaultSkyblock()),"Broken frame fails");yes(h,h.getLevel().getBlockState(p).isAir(),"Portal decays");h.succeed();}
  /** Audit simpledimensions-P2-1: the ledger (cap {@link ConfigLimits#MAX_PORTALS}) forgets a portal that is gone, keeps a live one. */
+ /** Owner AUDSB31E2 F4=A: a broken return ledger is moved aside and read as empty instead of stopping the server at every start. */
+ public static void brokenLedgerQuarantined(GameTestHelper h){
+  try{
+   var dir=Files.createTempDirectory("sd-ledger");var file=dir.resolve("simpledimensions-returns.json");
+   var returns=new HashMap<UUID,DimensionRuntime.ReturnAddress>();var portals=new HashSet<String>();
+   Files.writeString(file,"{bad");
+   yes(h,!DimensionRuntime.readLedger(file,returns,portals)&&returns.isEmpty()&&portals.isEmpty(),"Broken ledger reads as empty, no exception");
+   List<Path> left;try(var list=Files.list(dir)){left=list.toList();}
+   yes(h,!Files.exists(file)&&left.size()==1&&left.getFirst().getFileName().toString().startsWith("simpledimensions-returns.json.broken-"),"Broken ledger kept as .broken-<time>: "+left);
+   var id=UUID.randomUUID();Files.writeString(file,"{\"returns\":{\""+id+"\":{\"dimension\":\"minecraft:overworld\",\"pos\":5}},\"portals\":[\"minecraft:overworld@7\"]}");
+   yes(h,DimensionRuntime.readLedger(file,returns,portals)&&returns.get(id).pos()==5&&portals.contains("minecraft:overworld@7"),"A valid ledger still reads");
+   try(var list=Files.list(dir)){for(var f:list.toList())Files.delete(f);}Files.delete(dir);
+  }catch(java.io.IOException e){throw new AssertionError("Ledger fixture",e);}
+  h.succeed();
+ }
+ /** Owner AUDSB31E2 F5: void-fall modes per definition - parser and validation, the sky target mapping, real falls (vanilla, sky, spawn) and the look-ahead. */
+ public static void voidFallModes(GameTestHelper h){h.runAfterDelay(6,()->{
+  yes(h,ConfigLimits.voidFall(" SKY ").equals("sky")&&ConfigLimits.voidFall("bogus").equals("home")&&ConfigLimits.voidFall(null).equals("home"),"Modes parse, unknown = home");
+  yes(h,new DimensionPortalConfig().voidFall.equals("home")&&new DimensionPortalConfig().voidFallHeight==300,"Default: home (as before), sky height 300");
+  var bad=DimensionPortalConfig.defaultSkyblock();bad.voidFall="Nowhere";bad.voidFallHeight=99999;ConfigLimits.validate(bad);
+  yes(h,bad.voidFall.equals("home")&&bad.voidFallHeight==4064,"Validation repairs mode and height");
+  var server=h.getLevel().getServer();var rt=DimensionRuntime.get(server);var overworld=server.overworld();int skyY=Math.min(300,overworld.getMaxY()-2);
+  var sky=rt.skyTarget(new BlockPos(100,-60,-40),DimensionPortalConfig.miningDimensionPreset());
+  yes(h,sky.getX()==50&&sky.getZ()==-20&&sky.getY()==skyY,"Sky target: mining (1 overworld : 2 mining) mapped back, at the configured height: "+sky);
+  var skyblock=server.getLevel(ResourceKey.create(Registries.DIMENSION,DimensionRegistry.id("skyblock")));
+  var def=rt.configs.stream().filter(c->c.id.equals("skyblock")).findFirst().orElseThrow();var mode=def.voidFall;
+  try{
+   def.voidFall="vanilla";var a=falling(h,skyblock,3200,1);rt.tickPlayerTest(a);yes(h,a.level()==skyblock,"vanilla: no rescue (the Vanilla void death follows)");
+   def.voidFall="sky";var b=falling(h,skyblock,3232,1);rt.tickPlayerTest(b);
+   yes(h,b.level()==overworld&&b.blockPosition().getX()==3232&&b.blockPosition().getY()==skyY,"sky: overworld sky above the mapped column, still falling: "+b.blockPosition());
+   var d=falling(h,skyblock,3296,10);d.fallDistance=5;d.setOnGround(false);rt.tickPlayerTest(d);yes(h,d.level()==skyblock,"Above the rescue line only the destination is loaded ahead");
+   def.voidFall="spawn";var c=falling(h,skyblock,3264,1);rt.tickPlayerTest(c);yes(h,c.level()==overworld,"spawn: back at the overworld spawn");
+  }finally{def.voidFall=mode;}
+  h.succeed();
+ });}
+ private static ServerPlayer falling(GameTestHelper h,ServerLevel level,int x,int rows){
+  var p=h.makeMockServerPlayerInLevel();p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);level.getChunk(x>>4,0);
+  p.teleport(new net.minecraft.world.level.portal.TeleportTransition(level,new Vec3(x+.5,level.getMinY()+rows,.5),Vec3.ZERO,0,0,net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING));return p;
+ }
  public static void portalRecordsFollowPortals(GameTestHelper h){var l=h.getLevel();var rt=DimensionRuntime.get(l.getServer());var cell=activate(h);var key=DimensionRuntime.key(l,cell);
   yes(h,rt.recorded(key),"A lit portal is in the ledger");yes(h,!rt.decay(key)&&rt.recorded(key),"A live portal keeps its record");
   l.setBlock(cell,Blocks.AIR.defaultBlockState(),3);yes(h,rt.decay(key)&&!rt.recorded(key),"A gone portal frees its record");

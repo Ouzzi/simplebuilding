@@ -36,11 +36,24 @@ public final class DimensionRuntime {
  public boolean canIgnite(UUID id){long now=server.getTickCount();long last=ignitions.getOrDefault(id,-100L);if(now-last<10)return false;ignitions.put(id,now);return true;}
  private final Path ledger;
  public static boolean claimIntegrationRequired=false;
+ /** Claim mods without a protection adapter here: while one is loaded, lighting portals and entering mod dimensions stay locked. */
+ public static final List<String> FOREIGN_CLAIM_MODS=List.of("flan","ftbchunks","openpartiesandclaims","griefdefender","claimchunk");
+ /**
+  * Loader entry (owner AUDSB31E2 F3=B): the loaded {@link #FOREIGN_CLAIM_MODS}. They lock lighting and entering, never the way out
+  * (generated exits, emergency return, void rescue); the lock shows like every refusal (dry click + smoke, no screen text) and one
+  * log line at start names the mods.
+  */
+ public static void foreignClaimMods(List<String> loaded){
+  claimIntegrationRequired=!loaded.isEmpty();
+  if(claimIntegrationRequired)org.slf4j.LoggerFactory.getLogger("simpledimensions").warn("Claim mod(s) {} loaded without a Simple Dimensions protection adapter: lighting portals and entering mod dimensions stay locked; exits and the emergency return stay open.",loaded);
+ }
+ /** True while a player is on the way out (generated exit, emergency return): the foreign-claim-mod lock does not apply (F3=B). */
+ private boolean leaving;
  public interface Permission {boolean allow(ServerPlayer player,ServerLevel level,BlockPos pos);}
  public static Permission permission=null;
  public boolean permitted(ServerPlayer p,ServerLevel l,BlockPos pos){
   // A framework provider never satisfies the separate unsupported-foreign-mod gate.
-  return l.mayInteract(p,pos)&&(!claimIntegrationRequired||permission!=null)&&(permission==null||permission.allow(p,l,pos))
+  return l.mayInteract(p,pos)&&(leaving||!claimIntegrationRequired||permission!=null)&&(permission==null||permission.allow(p,l,pos))
    &&(!Protection.active(server)||Protection.allows(server,new Protection.Target(p.getUUID(),l.dimension().identifier().toString(),pos.getX(),pos.getY(),pos.getZ(),net.minecraft.commands.Commands.hasPermission(net.minecraft.commands.Commands.LEVEL_OWNERS).test(p.createCommandSourceStack()))));
  }
  private boolean protectedAccess(){return Protection.active(server)||claimIntegrationRequired||permission!=null;}
@@ -76,7 +89,7 @@ public final class DimensionRuntime {
    ||permittedPortal(p,l,at,be,config(be.definition)));
  }
  public record ReturnAddress(String dimension,long pos){}
- private static final class Contact {String portal="";int warmup;long cooldown;boolean exit;long rescueAt;}
+ private static final class Contact {String portal="";int warmup;long cooldown;boolean exit;long rescueAt;boolean preloaded;}
  public static DimensionRuntime get(MinecraftServer s){return SERVERS.computeIfAbsent(s,DimensionRuntime::new);}
  public static void stop(MinecraftServer s){SERVERS.remove(s);}
  /** CMD24: a new settings object (from {@code /simpledimensions config}) is saved and taken over by every running server at once. */
@@ -86,12 +99,25 @@ public final class DimensionRuntime {
   settings=DimensionSettings.load(CONFIG_ROOT);ledger=s.getWorldPath(LevelResource.ROOT).resolve("simpledimensions-returns.json");
   // WD25-14: a world of the old mod id keeps its ledger under the old name; read once, the next save writes the new file.
   var source=Files.exists(ledger)?ledger:ledger.resolveSibling(LegacyIds.OLD+"-returns.json");
-  if(Files.exists(source))try{
+  if(Files.exists(source))readLedger(source,returns,portals);
+ }
+ /**
+  * Reads the return ledger into the two collections. Owner AUDSB31E2 F4=A: a broken, too big or linked file no longer stops the server at
+  * every start - it is kept as {@code <name>.broken-<time>} (framework {@code ConfigFiles}), a warning names it and the server starts with an
+  * empty ledger (every portal keeps its own way back in its block entity, else the emergency return to the spawn applies). True if read.
+  */
+ static boolean readLedger(Path source,Map<UUID,ReturnAddress> returns,Set<String> portals){
+  try{
    if(Files.size(source)>1048576||Files.isSymbolicLink(source))throw new IllegalStateException("Unsafe ledger");
    var data=JsonParser.parseString(Files.readString(source)).getAsJsonObject();
    for(var e:data.getAsJsonObject("returns").entrySet()) {if(returns.size()>=ConfigLimits.MAX_RETURN_RECORDS)break;var r=new Gson().fromJson(e.getValue(),ReturnAddress.class);returns.put(UUID.fromString(e.getKey()),new ReturnAddress(LegacyIds.migrate(r.dimension()),r.pos()));}
    for(var e:data.getAsJsonArray("portals")){if(portals.size()>=ConfigLimits.MAX_PORTALS)break;portals.add(LegacyIds.migrate(e.getAsString()));}
-  }catch(Exception e){throw new IllegalStateException("Cannot read return ledger",e);}
+   return true;
+  }catch(Exception e){
+   returns.clear();portals.clear();
+   org.slf4j.LoggerFactory.getLogger("simpledimensions").warn("Unreadable return ledger {}, starting with an empty one ({}); old file kept as {}",source.getFileName(),e.toString(),com.simplebuilding.framework.api.ConfigFiles.quarantine(source));
+   return false;
+  }
  }
  private void save(){
   try{var root=new JsonObject();root.add("returns",new Gson().toJsonTree(returns));root.add("portals",new Gson().toJsonTree(portals));
@@ -148,8 +174,62 @@ public final class DimensionRuntime {
      if(++c.warmup>delay){c.warmup=0;if(travel(p,touched)) {c.cooldown=server.getTickCount()+Math.max(settings.teleportCooldownTicks,cfg==null?60:cfg.teleportCooldownTicks);c.exit=true;}else{c.cooldown=server.getTickCount()+20;signal(l,touched,false);}}
     }
    }
-   if(p.level()==l&&l.dimension().identifier().getNamespace().equals("simpledimensions")&&(p.getY()<l.getMinY()+3||configs.stream().noneMatch(d->d.targetDimensionId.equals(l.dimension().identifier().toString())))
-    &&server.getTickCount()>=c.rescueAt&&!emergencyReturn(p))c.rescueAt=server.getTickCount()+20; // REV2-A: a failed rescue (chunk loads, ~3000 checks) retries once a second, not every tick
+   if(p.level()==l&&l.dimension().identifier().getNamespace().equals("simpledimensions"))rescue(p,l,c);
+ }
+ /** Rows above the rescue line in which a falling player's destination chunks are loaded ahead (F5). */
+ private static final int VOID_PRELOAD_ROWS=24;
+ DimensionPortalConfig definitionOf(ServerLevel l){var id=l.dimension().identifier().toString();return configs.stream().filter(d->d.targetDimensionId.equals(id)).findFirst().orElse(null);}
+ /**
+  * Mod dimensions: a player below {@code minY + 3} - or anywhere in a dimension without definition - is rescued as the definition's
+  * {@code voidFall} says (owner AUDSB31E2 F5: "home" = the emergency return as before and the default, "spawn", "sky", "vanilla" = no
+  * rescue). A falling player within {@link #VOID_PRELOAD_ROWS} above that line gets the destination chunks loaded ahead.
+  */
+ private void rescue(ServerPlayer p,ServerLevel l,Contact c){
+  var def=definitionOf(l);var mode=def==null?"home":ConfigLimits.voidFall(def.voidFall);
+  if(def!=null&&p.getY()>=l.getMinY()+3){
+   boolean falling=!p.onGround()&&p.fallDistance>1;
+   if(!falling)c.preloaded=false;
+   else if(!c.preloaded&&p.getY()<l.getMinY()+3+VOID_PRELOAD_ROWS&&!mode.equals("vanilla")){c.preloaded=true;var spot=voidSpot(p,def,mode);spot.level().getChunkSource().addTicketWithRadius(net.minecraft.server.level.TicketType.PORTAL,net.minecraft.world.level.ChunkPos.containing(spot.pos()),2);}
+   return;
+  }
+  if(mode.equals("vanilla")||server.getTickCount()<c.rescueAt)return;
+  // REV2-A: a failed rescue (chunk loads, ~3000 checks) retries once a second, not every tick
+  if(voidFall(p,def,mode))c.preloaded=false;else c.rescueAt=server.getTickCount()+20;
+ }
+ /** Where a void fall of {@code mode} leads (the chunk that is loaded ahead; "home" without address and "spawn": the overworld spawn). */
+ record VoidSpot(ServerLevel level,BlockPos pos){}
+ VoidSpot voidSpot(ServerPlayer p,DimensionPortalConfig def,String mode){
+  var overworld=server.overworld();
+  if(mode.equals("sky"))return new VoidSpot(overworld,skyTarget(p.blockPosition(),def));
+  var address=mode.equals("home")?returns.get(p.getUUID()):null;var home=address==null?null:level(address.dimension());
+  return home==null?new VoidSpot(overworld,overworld.getRespawnData().pos()):new VoidSpot(home,BlockPos.of(address.pos()));
+ }
+ /**
+  * F5 "sky": the overworld column above the player's position taken back through the portal travel - the definition's
+  * {@code travelCoordinateScale}, then Vanilla's scale from its origin dimension to the overworld - inside the world border, at
+  * {@code voidFallHeight} kept below the build limit.
+  */
+ BlockPos skyTarget(BlockPos at,DimensionPortalConfig def){
+  var overworld=server.overworld();var origin=level(def.sourceDimensionId);if(origin==null)origin=overworld;
+  var mapped=PortalTravelRules.toSource(new BlockPos3i(at.getX(),at.getY(),at.getZ()),def.travelCoordinateScale);
+  double factor=net.minecraft.world.level.dimension.DimensionType.getTeleportationScale(origin.dimensionType(),overworld.dimensionType());
+  int y=Math.max(overworld.getMinY()+8,Math.min(def.voidFallHeight,overworld.getMaxY()-2));
+  return overworld.getWorldBorder().clampToBounds(mapped.x()*factor,y,mapped.z()*factor).atY(y);
+ }
+ boolean voidFall(ServerPlayer p,DimensionPortalConfig def,String mode){
+  return switch(mode){
+   case "spawn" -> emergencyReturn(p,false);
+   case "sky" -> skyFall(p,def);
+   default -> emergencyReturn(p,true);
+  };
+ }
+ /** F5 "sky": into the overworld sky, still falling (no safe ground needed, nothing is built); the travel back counts as done. */
+ private boolean skyFall(ServerPlayer p,DimensionPortalConfig def){
+  var target=server.overworld();var at=skyTarget(p.blockPosition(),def);target.getChunk(at.getX()>>4,at.getZ()>>4);
+  boolean done=p.teleport(new net.minecraft.world.level.portal.TeleportTransition(target,new net.minecraft.world.phys.Vec3(at.getX()+.5,at.getY(),at.getZ()+.5),
+   new net.minecraft.world.phys.Vec3(0,Math.min(0,p.getDeltaMovement().y),0),p.getYRot(),p.getXRot(),net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING))!=null;
+  if(done){p.fallDistance=0;signal(target,at,true);if(returns.remove(p.getUUID())!=null)save();}
+  return done;
  }
  private BlockPos findTouched(ServerLevel l,ServerPlayer p){
   var box=p.getBoundingBox();if(box.maxX-box.minX>3||box.maxY-box.minY>5||box.maxZ-box.minZ>3)return null;for(var q:BlockPos.betweenClosed(BlockPos.containing(box.minX,box.minY,box.minZ),BlockPos.containing(box.maxX,box.maxY,box.maxZ)))if(DimensionRegistry.portal(l.getBlockState(q)))return q.immutable();return null;
@@ -166,6 +246,11 @@ public final class DimensionRuntime {
  }
  private ServerLevel level(String id){var value=Identifier.tryParse(id);return value==null?null:server.getLevel(ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,value));}
  public boolean travel(ServerPlayer player,BlockPos contact){
+  // Owner AUDSB31E2 F3=B: a generated exit always lets the player out, also while a foreign claim mod locks lighting and entering.
+  boolean exit=player.level().getBlockEntity(contact) instanceof SkyPortalBlockEntity b&&b.generated;boolean was=leaving;leaving=was||exit;
+  try{return travelOnce(player,contact);}finally{leaving=was;}
+ }
+ private boolean travelOnce(ServerPlayer player,BlockPos contact){
   var source=player.level();if(!DimensionRegistry.on()||player.isPassenger()||player.isVehicle()||player.isSpectator()||!(source.getBlockEntity(contact) instanceof SkyPortalBlockEntity be))return false;
   var cfg=config(be.definition);
   if(cfg==null&&be.definition.isEmpty()) {
@@ -263,8 +348,11 @@ public final class DimensionRuntime {
   if(done){player.setDeltaMovement(0,0,0);player.fallDistance=0;signal(target,landing,true);if(returning){returns.remove(player.getUUID());save();}else if(settings.giveGuideOnFirstTravel)com.simplebuilding.modules.simpledimensions.guide.DimensionsGuideAccess.welcome(player);}
   return done;
  }
- public boolean emergencyReturn(ServerPlayer player){
-  var address=returns.get(player.getUUID());var target=address==null?server.overworld():level(address.dimension());if(target==null)target=server.overworld();
+ public boolean emergencyReturn(ServerPlayer player){return emergencyReturn(player,true);}
+ /** The way out is always open (F3=B, no foreign-claim-mod lock); {@code home} false = straight to the overworld spawn (F5 "spawn"). */
+ boolean emergencyReturn(ServerPlayer player,boolean home){boolean was=leaving;leaving=true;try{return returnOnce(player,home);}finally{leaving=was;}}
+ private boolean returnOnce(ServerPlayer player,boolean home){
+  var address=home?returns.get(player.getUUID()):null;var target=address==null?server.overworld():level(address.dimension());if(target==null)target=server.overworld();
   var center=address==null?target.getRespawnData().pos():BlockPos.of(address.pos());
   if(!target.getWorldBorder().isWithinBounds(center))center=target.getRespawnData().pos();
   target.getChunk(center.getX()>>4,center.getZ()>>4);var safe=safeNearby(player,target,center);

@@ -41,11 +41,6 @@
   ],
   "suggests": {
     "simplebuilding": "*",
-    "modmenu": "*",
-    "flan": "*",
-    "ftbchunks": "*",
-    "openpartiesandclaims": "*",
-    "griefdefender": "*",
-    "claimchunk": "*"
+    "modmenu": "*"
   }
 }

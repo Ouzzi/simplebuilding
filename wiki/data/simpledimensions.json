@@ -157,16 +157,16 @@
       ],
       "en": {
         "title": "Safe Travel and Return",
-        "summary": "Only unmounted players travel. Items, mobs, mounts, and passengers are refused. Target registries, borders, build height, solid ground, headroom, claim permissions, and an exact return path are checked. Builds use only empty cells and bedrock; valuable frames are never copied. In terrain dimensions, the platform is raised above every existing block in its bounded footprint, including nonblocking plants. Vegetation and existing builds are preserved. One build per server tick, at most nine chunks per build and 1,024 recorded portals. Warmup is 0–200 ticks, cooldown 20–1,200 ticks, and players must leave the portal after arrival. Generated exits remain usable when access is disabled. Missing definitions or falling near the void floor invokes the persisted safe origin; otherwise a checked overworld spawn is used.",
+        "summary": "Only unmounted players travel. Items, mobs, mounts, and passengers are refused. Target registries, borders, build height, solid ground, headroom, claim permissions, and an exact return path are checked. Builds use only empty cells and bedrock; valuable frames are never copied. In terrain dimensions, the platform is raised above every existing block in its bounded footprint, including nonblocking plants. Vegetation and existing builds are preserved. One build per server tick, at most nine chunks per build and 1,024 recorded portals. Warmup is 0–200 ticks, cooldown 20–1,200 ticks, and players must leave the portal after arrival. Generated exits remain usable when access is disabled. Missing definitions invoke the persisted safe origin, otherwise a checked overworld spawn. Falling near the void floor (below the dimension's minimum Y + 3) follows the definition's voidFall: home (default: the persisted safe origin, else the overworld spawn), spawn (checked overworld spawn), sky (the overworld sky at voidFallHeight 300, still falling, above the position the portal travel maps to, coordinate ratio included) or vanilla (no rescue, the Vanilla void death); a player falling within 24 blocks of that line has the destination chunks loaded ahead. A damaged return ledger is set aside as .broken-<time> and the server starts with an empty one.",
         "details": [
-          "Only unmounted players travel. Items, mobs, mounts, and passengers are refused. Target registries, borders, build height, solid ground, headroom, claim permissions, and an exact return path are checked. Builds use only empty cells and bedrock; valuable frames are never copied. In terrain dimensions, the platform is raised above every existing block in its bounded footprint, including nonblocking plants. Vegetation and existing builds are preserved. One build per server tick, at most nine chunks per build and 1,024 recorded portals. Warmup is 0–200 ticks, cooldown 20–1,200 ticks, and players must leave the portal after arrival. Generated exits remain usable when access is disabled. Missing definitions or falling near the void floor invokes the persisted safe origin; otherwise a checked overworld spawn is used."
+          "Only unmounted players travel. Items, mobs, mounts, and passengers are refused. Target registries, borders, build height, solid ground, headroom, claim permissions, and an exact return path are checked. Builds use only empty cells and bedrock; valuable frames are never copied. In terrain dimensions, the platform is raised above every existing block in its bounded footprint, including nonblocking plants. Vegetation and existing builds are preserved. One build per server tick, at most nine chunks per build and 1,024 recorded portals. Warmup is 0–200 ticks, cooldown 20–1,200 ticks, and players must leave the portal after arrival. Generated exits remain usable when access is disabled. Missing definitions invoke the persisted safe origin, otherwise a checked overworld spawn. Falling near the void floor (below the dimension's minimum Y + 3) follows the definition's voidFall: home (default: the persisted safe origin, else the overworld spawn), spawn (checked overworld spawn), sky (the overworld sky at voidFallHeight 300, still falling, above the position the portal travel maps to, coordinate ratio included) or vanilla (no rescue, the Vanilla void death); a player falling within 24 blocks of that line has the destination chunks loaded ahead. A damaged return ledger is set aside as .broken-<time> and the server starts with an empty one."
         ]
       },
       "de": {
         "title": "Sichere Reise und Rückkehr",
-        "summary": "Nur unberittene Spieler reisen; Items, Mobs, Reittiere und Passagiere werden verweigert. Zielregistry, Weltgrenze, Bauhöhe, Boden, Kopffreiheit, Claimfreigabe und exakter Rückweg werden geprüft. Bau nur in Luft mit Bedrock; wertvolle Rahmen werden nie kopiert. In Dimensionen mit Terrain liegt die Plattform oberhalb aller vorhandenen Blöcke innerhalb ihrer begrenzten Grundfläche, auch oberhalb nicht kollidierender Pflanzen. Vegetation und bestehende Bauten bleiben erhalten. Ein Bau pro Servertick, höchstens neun Chunks je Bau und 1.024 gespeicherte Portale. Wartezeit 0–200, Reisesperre 20–1.200 Ticks; nach Ankunft Portal verlassen. Erzeugte Rückwege funktionieren auch bei abgeschaltetem Zugang. Fehlende Definitionen oder Nähe zum Leerboden lösen Rückkehr zum gespeicherten sicheren Ursprung aus, sonst zu geprüftem Oberweltspawn.",
+        "summary": "Nur unberittene Spieler reisen; Items, Mobs, Reittiere und Passagiere werden verweigert. Zielregistry, Weltgrenze, Bauhöhe, Boden, Kopffreiheit, Claimfreigabe und exakter Rückweg werden geprüft. Bau nur in Luft mit Bedrock; wertvolle Rahmen werden nie kopiert. In Dimensionen mit Terrain liegt die Plattform oberhalb aller vorhandenen Blöcke innerhalb ihrer begrenzten Grundfläche, auch oberhalb nicht kollidierender Pflanzen. Vegetation und bestehende Bauten bleiben erhalten. Ein Bau pro Servertick, höchstens neun Chunks je Bau und 1.024 gespeicherte Portale. Wartezeit 0–200, Reisesperre 20–1.200 Ticks; nach Ankunft Portal verlassen. Erzeugte Rückwege funktionieren auch bei abgeschaltetem Zugang. Fehlende Definitionen lösen Rückkehr zum gespeicherten sicheren Ursprung aus, sonst zu geprüftem Oberweltspawn. Ein Sturz nahe dem Leerboden (unter Mindesthöhe + 3) folgt voidFall der Definition: home (Standard: gespeicherter sicherer Ursprung, sonst Oberweltspawn), spawn (geprüfter Oberweltspawn), sky (Oberwelt-Himmel auf voidFallHeight 300 im freien Fall über der Stelle, auf die die Portalreise umrechnet, Koordinatenverhältnis eingerechnet) oder vanilla (keine Rettung, Vanilla-Tod in der Leere); wer innerhalb von 24 Blöcken über dieser Linie fällt, bekommt die Ziel-Chunks vorgeladen. Ein beschädigtes Rückkehr-Verzeichnis wird als .broken-<Zeit> beiseitegelegt, der Server startet mit einem leeren.",
         "details": [
-          "Nur unberittene Spieler reisen; Items, Mobs, Reittiere und Passagiere werden verweigert. Zielregistry, Weltgrenze, Bauhöhe, Boden, Kopffreiheit, Claimfreigabe und exakter Rückweg werden geprüft. Bau nur in Luft mit Bedrock; wertvolle Rahmen werden nie kopiert. In Dimensionen mit Terrain liegt die Plattform oberhalb aller vorhandenen Blöcke innerhalb ihrer begrenzten Grundfläche, auch oberhalb nicht kollidierender Pflanzen. Vegetation und bestehende Bauten bleiben erhalten. Ein Bau pro Servertick, höchstens neun Chunks je Bau und 1.024 gespeicherte Portale. Wartezeit 0–200, Reisesperre 20–1.200 Ticks; nach Ankunft Portal verlassen. Erzeugte Rückwege funktionieren auch bei abgeschaltetem Zugang. Fehlende Definitionen oder Nähe zum Leerboden lösen Rückkehr zum gespeicherten sicheren Ursprung aus, sonst zu geprüftem Oberweltspawn."
+          "Nur unberittene Spieler reisen; Items, Mobs, Reittiere und Passagiere werden verweigert. Zielregistry, Weltgrenze, Bauhöhe, Boden, Kopffreiheit, Claimfreigabe und exakter Rückweg werden geprüft. Bau nur in Luft mit Bedrock; wertvolle Rahmen werden nie kopiert. In Dimensionen mit Terrain liegt die Plattform oberhalb aller vorhandenen Blöcke innerhalb ihrer begrenzten Grundfläche, auch oberhalb nicht kollidierender Pflanzen. Vegetation und bestehende Bauten bleiben erhalten. Ein Bau pro Servertick, höchstens neun Chunks je Bau und 1.024 gespeicherte Portale. Wartezeit 0–200, Reisesperre 20–1.200 Ticks; nach Ankunft Portal verlassen. Erzeugte Rückwege funktionieren auch bei abgeschaltetem Zugang. Fehlende Definitionen lösen Rückkehr zum gespeicherten sicheren Ursprung aus, sonst zu geprüftem Oberweltspawn. Ein Sturz nahe dem Leerboden (unter Mindesthöhe + 3) folgt voidFall der Definition: home (Standard: gespeicherter sicherer Ursprung, sonst Oberweltspawn), spawn (geprüfter Oberweltspawn), sky (Oberwelt-Himmel auf voidFallHeight 300 im freien Fall über der Stelle, auf die die Portalreise umrechnet, Koordinatenverhältnis eingerechnet) oder vanilla (keine Rettung, Vanilla-Tod in der Leere); wer innerhalb von 24 Blöcken über dieser Linie fällt, bekommt die Ziel-Chunks vorgeladen. Ein beschädigtes Rückkehr-Verzeichnis wird als .broken-<Zeit> beiseitegelegt, der Server startet mit einem leeren."
         ]
       }
     },
@@ -211,6 +211,8 @@
           "openFromDimensions – Additional Origins: Advanced server JSON option. Default: []. World generation requires a world restart; preset and orePreset are legacy labels only.",
           "generateReturnPortalOnArrival – Generate Return Portal: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
           "createDestinationPlatform – Create Destination Island: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "voidFall – Falling into the Void: Advanced server JSON option per dimension. Default: \"home\". home = back to the persisted origin, spawn = overworld spawn, sky = overworld sky at voidFallHeight, still falling, vanilla = no rescue (void death). Unknown values read as home.",
+          "voidFallHeight – Sky Fall Height: Advanced server JSON option. Default: 300. Overworld height of the sky void fall, kept below the build limit.",
           "worldGeneration.preset – Preset (legacy): Advanced server JSON option. Default: \"skyblock_void\". World generation requires a world restart; preset and orePreset are legacy labels only.",
           "worldGeneration.generatorType – Generator type: Advanced server JSON option. Default: \"flat\". World generation requires a world restart; preset and orePreset are legacy labels only.",
           "worldGeneration.baseBiome – Base biome: Advanced server JSON option. Default: \"minecraft:the_void\". World generation requires a world restart; preset and orePreset are legacy labels only.",
@@ -274,6 +276,8 @@
           "openFromDimensions – Weitere Ursprünge: Erweiterte serverseitige JSON-Option. Standard: []. Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
           "generateReturnPortalOnArrival – Rückportal erzeugen: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
           "createDestinationPlatform – Zielinsel erzeugen: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "voidFall – Sturz in die Leere: Erweiterte serverseitige JSON-Option je Dimension. Standard: \"home\". home = zurück zum gespeicherten Ursprung, spawn = Oberweltspawn, sky = Oberwelt-Himmel auf voidFallHeight im freien Fall, vanilla = keine Rettung (Tod in der Leere). Unbekannte Werte gelten als home.",
+          "voidFallHeight – Himmelssturz-Höhe: Erweiterte serverseitige JSON-Option. Standard: 300. Oberwelt-Höhe des Sturzes sky, unter der Baugrenze gehalten.",
           "worldGeneration.preset – Vorlage (veraltet): Erweiterte serverseitige JSON-Option. Standard: \"skyblock_void\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
           "worldGeneration.generatorType – Generatortyp: Erweiterte serverseitige JSON-Option. Standard: \"flat\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
           "worldGeneration.baseBiome – Basisbiom: Erweiterte serverseitige JSON-Option. Standard: \"minecraft:the_void\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
@@ -318,7 +322,7 @@
         "details": [
           "Owner and trusted-player access follows the server ledger; revocation takes effect on the next attempt. OP4 bypass follows the claim provider configuration.",
           "Generated exits allow escape from a newly denied source. A denied original return location is never entered: the server searches for an authorized safe landing, then checks the overworld spawn area. If no safe authorized location exists, travel is refused and an administrator must help. No claim blocks are overwritten.",
-          "Detected unsupported foreign claim mods still require their own permission adapter. A registered framework provider does not clear that separate gate. Simple Tweaks claims are on by default and complete (all six stages)."
+          "Detected claim mods without an adapter here (Flan, FTB Chunks, Open Parties and Claims, GriefDefender, ClaimChunk) lock lighting portals and entering mod dimensions; a registered framework provider does not clear that separate gate. The way out always stays open: generated exits, the emergency return and the void rescue ignore that lock. A refused lighting answers with the dry click and smoke like every failed lighting (no text on screen); the server log names the claim mods once at start. Simple Tweaks claims are on by default and complete (all six stages)."
         ]
       },
       "de": {
@@ -327,7 +331,7 @@
         "details": [
           "Besitzer- und Vertrauensrechte stammen aus den Serverdaten; Widerruf gilt beim nächsten Versuch. OP4-Umgehung folgt der Claim-Konfiguration.",
           "Erzeugte Ausgänge erlauben das Verlassen einer nachträglich gesperrten Quelle. Ein gesperrter Ursprung wird nie betreten: Der Server sucht eine erlaubte sichere Landung und danach am Oberweltspawn. Ohne sicheren erlaubten Ort bleibt die Reise verweigert und ein Administrator muss helfen. Keine Claim-Bauten werden überschrieben.",
-          "Erkannte nicht unterstützte Claim-Mods benötigen weiterhin ihren eigenen Adapter. Ein Framework-Anbieter hebt diese getrennte Sperre nicht auf. Simple-Tweaks-Claims sind standardmäßig an und vollständig (alle sechs Stufen)."
+          "Erkannte Claim-Mods ohne Adapter hier (Flan, FTB Chunks, Open Parties and Claims, GriefDefender, ClaimChunk) sperren das Zünden von Portalen und das Betreten der Mod-Dimensionen; ein Framework-Anbieter hebt diese getrennte Sperre nicht auf. Der Weg hinaus bleibt immer offen: erzeugte Ausgänge, Notfall-Rückkehr und Leere-Rettung ignorieren die Sperre. Eine verweigerte Zündung antwortet wie jede gescheiterte Zündung mit trockenem Klicken und Rauch (kein Text auf dem Bildschirm); das Server-Log nennt die Claim-Mods einmal beim Start. Simple-Tweaks-Claims sind standardmäßig an und vollständig (alle sechs Stufen)."
         ]
       }
     },
@@ -459,10 +463,10 @@
           "modules/simpledimensions/shared/resources/data/simpledimensions/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Dimensions\" of the Simple Modpack guide (SimpleLib): 48 pages taken from this wiki, shown in your language. Unlocked by picking up: flint and steel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Dimensions\" of the Simple Modpack guide (SimpleLib): 52 pages taken from this wiki, shown in your language. Unlocked by picking up: flint and steel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Dimensions\" im Simple-Modpack-Handbuch (SimpleLib): 48 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerzeug. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Dimensions\" im Simple-Modpack-Handbuch (SimpleLib): 52 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerzeug. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpledimensions/item/guide_book.png",
@@ -1783,6 +1787,44 @@
       "labelDe": "Reise erlauben",
       "tooltip": "Allow new journeys to Travel. Turning this\noff keeps existing return paths and world\ndata. Default: On. Server setting.",
       "tooltipDe": "Neue Reisen zur Dimension Reise erlauben.\nAbschalten erhält bestehende Rückwege und\nWeltdaten. Standard: Ein. Servereinstellung."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java",
+      "name": "voidFall",
+      "shortName": "voidFall",
+      "type": "string",
+      "default": "home",
+      "note": null,
+      "category": "Simple Dimensions: Server Settings",
+      "categoryDe": "Simple Dimensions: Servereinstellungen",
+      "group": null,
+      "groupDe": null,
+      "label": "Falling into the Void",
+      "labelDe": "Sturz in die Leere",
+      "tooltip": "Advanced server JSON option per dimension. Default: \"home\".\nhome: back to where you came from; spawn: overworld\nspawn; sky: overworld sky, falling; vanilla: void death.",
+      "tooltipDe": "Erweiterte serverseitige JSON-Option je Dimension.\nStandard: \"home\". home: zurück zum Ursprung;\nspawn: Oberweltspawn; sky: Oberwelt-Himmel im\nfreien Fall; vanilla: Tod in der Leere."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java",
+      "name": "voidFallHeight",
+      "shortName": "voidFallHeight",
+      "type": "int",
+      "default": "300",
+      "note": null,
+      "category": "Simple Dimensions: Server Settings",
+      "categoryDe": "Simple Dimensions: Servereinstellungen",
+      "group": null,
+      "groupDe": null,
+      "label": "Sky Fall Height",
+      "labelDe": "Himmelssturz-Höhe",
+      "tooltip": "Advanced server JSON option. Default: 300.\nOverworld height of the \"sky\" void fall,\nkept below the build limit.",
+      "tooltipDe": "Erweiterte serverseitige JSON-Option.\nStandard: 300. Oberwelt-Höhe des Sturzes\n„sky“, unter der Baugrenze gehalten."
     }
   ],
   "quests": [],
@@ -1806,7 +1848,7 @@
     "items": 1,
     "blocks": 3,
     "trades": 0,
-    "config": 61,
+    "config": 63,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

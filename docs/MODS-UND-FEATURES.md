@@ -63,7 +63,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 | Simple Mobheads (`simplemobheads`, Pflicht-Sub-Mod SB) | Cloth Config, simplelib | SimpleBuilding (Extra-Kopf-Slot), Simple Mobs/End/End Dragon Fight (Köpfe ihrer Mobs), JEI, ModMenu | simplelib, framework |
 | Simple Visuals (`simplevisuals`) | Cloth Config | SimpleBuilding, Simple Models, ModMenu | – |
 | Simple Sounds (`simplesounds`) | Cloth Config | Simple Visuals (Stufe koppeln), SimpleBuilding, ModMenu | – |
-| Simple Dimensions (`simpledimensions`) | Cloth Config | SimpleBuilding, ModMenu, Claim-Mods (Flan, FTB Chunks, OPAC, GriefDefender, ClaimChunk) | – |
+| Simple Dimensions (`simpledimensions`) | Cloth Config | SimpleBuilding, ModMenu (Claim-Mods Flan/FTB Chunks/OPAC/GriefDefender/ClaimChunk nicht mehr empfohlen: ohne Adapter sperren sie Zünden/Betreten, Ausgang bleibt offen – AUDSB31E2 F3, 12.11.) | – |
 | Simple Tweaks (`simpletweaks`) | simplelib | SimpleBuilding, Simple Dimensions, Simple Maps (Claims-Ebene, empfohlen) | simplelib, framework |
 | Simple Stats (`simplestats`) | – (Fabric API) | SimpleBuilding (Hammer-Flächenabbau zählt jeden Block), FTB Quests (Handbuch-Kapitel) | framework |
 | Simple Livemap (`simplelivemap`) | simplelib, framework (gebündelt) | Simple Maps (nur `suggests`, keine Klassen; Wegfinder-Karten zählen erst ab Stufe 2) | simplelib, framework |

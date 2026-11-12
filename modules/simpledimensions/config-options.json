@@ -241,6 +241,22 @@
       "scope": "server-json"
     },
     {
+      "key": "voidFall",
+      "default": "home",
+      "tab": "advanced",
+      "name": "text.autoconfig.simpledimensions.option.voidFall",
+      "tooltip": "text.autoconfig.simpledimensions.option.voidFall.@Tooltip",
+      "scope": "server-json"
+    },
+    {
+      "key": "voidFallHeight",
+      "default": 300,
+      "tab": "advanced",
+      "name": "text.autoconfig.simpledimensions.option.voidFallHeight",
+      "tooltip": "text.autoconfig.simpledimensions.option.voidFallHeight.@Tooltip",
+      "scope": "server-json"
+    },
+    {
       "key": "worldGeneration.preset",
       "default": "skyblock_void",
       "tab": "advanced",

@@ -1012,12 +1012,7 @@
       ],
       "optional": [
         "simplebuilding",
-        "modmenu",
-        "flan",
-        "ftbchunks",
-        "openpartiesandclaims",
-        "griefdefender",
-        "claimchunk"
+        "modmenu"
       ],
       "checks": [
         "modules/simpledimensions/tools/check_data.py"

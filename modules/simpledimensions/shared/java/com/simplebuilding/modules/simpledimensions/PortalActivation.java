@@ -19,10 +19,11 @@ public final class PortalActivation {
    if(!runtime.settings.allowsAccess(c)||!(origin&&c.allowIgniteFromSource||dim.equals(c.targetDimensionId)&&c.allowIgniteFromTarget))continue;
    var view=new PortalWorld(level,c);var found=PortalActivationService.match(view,c,pos.getX(),pos.getY(),pos.getZ());if(found.isEmpty())continue;
    var shape=found.get();if(c.requireSeparateLight&&!view.separateLight(shape)){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
-   if(!runtime.permittedShape(player,level,shape))return InteractionResult.FAIL;
+   // Owner AUDSB31E2 F3: a refusal by protection (claims, a foreign claim mod) answers like every failed lighting - dry click and smoke, no text.
+   if(!runtime.permittedShape(player,level,shape)){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
    if(!runtime.reserve(level,shape.anchor())){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
    for(var cell:shape.interior())if(DimensionRegistry.portal(level.getBlockState(new BlockPos(cell.x(),cell.y(),cell.z()))))return InteractionResult.FAIL;
-   for(var cell:shape.interior())if(!level.mayInteract(player,new BlockPos(cell.x(),cell.y(),cell.z()))||!runtime.permitted(player,level,new BlockPos(cell.x(),cell.y(),cell.z())))return InteractionResult.FAIL;
+   for(var cell:shape.interior())if(!level.mayInteract(player,new BlockPos(cell.x(),cell.y(),cell.z()))||!runtime.permitted(player,level,new BlockPos(cell.x(),cell.y(),cell.z()))){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
    // Entire plan is checked before the first mutation; never consume the igniter on rejection.
    for(var cell:shape.interior()){
     var p=new BlockPos(cell.x(),cell.y(),cell.z());if(DimensionRegistry.portal(level.getBlockState(p)))continue;

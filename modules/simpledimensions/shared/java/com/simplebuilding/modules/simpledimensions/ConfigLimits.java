@@ -27,6 +27,9 @@ public final class ConfigLimits {
  public static final int MAX_DECAY_SCANS_PER_TICK=8;
  public static int clamp(int v,int min,int max){return Math.max(min,Math.min(max,v));}
  public static double scale(double v){if(!Double.isFinite(v))throw new IllegalArgumentException("Non-finite coordinate scale");return Math.max(MIN_SCALE,Math.min(MAX_SCALE,v));}
+ /** F5 (AUDSB31E2): the void-fall modes of a definition; anything else (typo, missing) is the old behavior "home". */
+ public static final List<String> VOID_FALL_MODES=List.of("home","spawn","sky","vanilla");
+ public static String voidFall(String v){var s=v==null?"":v.trim().toLowerCase(Locale.ROOT);return VOID_FALL_MODES.contains(s)?s:"home";}
  private static void id(String v){if(v==null||v.length()>128||Identifier.tryParse(v)==null)throw new IllegalArgumentException("Invalid resource id");}
  public static DimensionPortalConfig validate(DimensionPortalConfig c) {
   if(c==null||c.id==null||!c.id.matches("[a-z0-9_]{1,48}"))throw new IllegalArgumentException("Invalid definition id");
@@ -34,6 +37,7 @@ public final class ConfigLimits {
   if(!c.targetDimensionId.equals("simpledimensions:"+c.id)||c.sourceDimensionId.equals(c.targetDimensionId))throw new IllegalArgumentException("Target must be isolated under simpledimensions");
   c.portalDelayTicks=clamp(c.portalDelayTicks,0,MAX_DELAY);c.teleportCooldownTicks=clamp(c.teleportCooldownTicks,MIN_COOLDOWN,MAX_COOLDOWN);
   c.travelCoordinateScale=scale(c.travelCoordinateScale);
+  c.voidFall=voidFall(c.voidFall);c.voidFallHeight=clamp(c.voidFallHeight,0,4064);
   c.minPortalWidth=clamp(c.minPortalWidth,1,MAX_INTERIOR); c.maxPortalWidth=clamp(c.maxPortalWidth,c.minPortalWidth,MAX_INTERIOR);
   c.minPortalHeight=clamp(c.minPortalHeight,2,MAX_INTERIOR); c.maxPortalHeight=clamp(c.maxPortalHeight,c.minPortalHeight,MAX_INTERIOR);
   id(c.frameBlock); if(c.frameBlock.equals("minecraft:obsidian"))throw new IllegalArgumentException("Vanilla portal frame reserved");
