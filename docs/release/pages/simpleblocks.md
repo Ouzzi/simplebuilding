@@ -23,9 +23,9 @@ Simple Blocks fills gaps in Vanilla building blocks, such as Hushed Deepslate Ti
 - **Chiseled Blocks** - Chiseled Polished Andesite, Diorite and Granite, Chiseled Prismarine, Chiseled Dark Prismarine and Chiseled Red Nether Bricks: the carved cousins Vanilla lacks.
 - **Sandstone Pillars** - Sandstone Pillar and Red Sandstone Pillar: the pillar Vanilla gives quartz and purpur, now for both sandstones.
 - **Ice Building Blocks** - Polished ice and ice bricks of ice, packed ice and blue ice, chiseled ice, and stairs, slabs and walls of all three ices.
+- **Ice Brick Families** - Ice bricks, packed ice bricks and blue ice bricks are families of their own: cracked bricks, stairs, slabs, walls and an octet (Simple Octets).
 - **Blue Nether Bricks** - A blue counterpart to Red Nether Bricks, with stairs, slab and wall.
 - **Natural Block Variants** - Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.
-- **Suspended and Levitating Sand and Gravel** - Sand and gravel without gravity (suspended) and with reversed gravity (levitating).
 
 ## Vanilla use
 

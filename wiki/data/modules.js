@@ -1821,9 +1821,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 37,
       "recipes": 37,
-      "features": 3
+      "features": 5
     },
-    "dataHash": "11cae6c9f00b"
+    "dataHash": "d3829d5a2cf0"
   },
   {
     "id": "simplegadgets",
@@ -2034,7 +2034,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplemachines",
     "displayName": "Simple Machines",
-    "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts. Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
+    "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts; since stage 4 the Smither (smithing table worked by a redstone pulse) and since 10.11. the Auto Crafter (a Crafter that crafts by itself into the hopper below, unlike the Vanilla Crafter without a redstone clock; ids moved from SimpleBuilding). Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -2061,9 +2061,10 @@ window.WIKI_MODULES = [
       "items": 4,
       "blocks": 16,
       "recipes": 12,
+      "config": 10,
       "features": 10
     },
-    "dataHash": "d2c77368b695"
+    "dataHash": "533e0d8cbfad"
   },
   {
     "id": "simplearrows",
