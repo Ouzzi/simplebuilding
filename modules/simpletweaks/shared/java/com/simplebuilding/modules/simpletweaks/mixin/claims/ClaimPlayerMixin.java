@@ -15,7 +15,7 @@ public abstract class ClaimPlayerMixin {
   if((Object)this instanceof ServerPlayer p && !Claims.allowEntity(p,target))cir.setReturnValue(InteractionResult.FAIL);
  }
  @Inject(method="attack",at=@At("HEAD"),cancellable=true)
- private void claims$attack(Entity target,CallbackInfo ci){if((Object)this instanceof ServerPlayer p && !Claims.allowEntity(p,target))ci.cancel();}
+ private void claims$attack(Entity target,CallbackInfo ci){if((Object)this instanceof ServerPlayer p && !Claims.allowAttack(p,target))ci.cancel();}
  @Inject(method="stabAttack",at=@At("HEAD"),cancellable=true)
- private void claims$stab(net.minecraft.world.entity.EquipmentSlot slot,Entity target,float damage,boolean knockback,boolean dismount,boolean pull,CallbackInfoReturnable<Boolean> cir){if((Object)this instanceof ServerPlayer p && !Claims.allowEntity(p,target))cir.setReturnValue(false);}
+ private void claims$stab(net.minecraft.world.entity.EquipmentSlot slot,Entity target,float damage,boolean knockback,boolean dismount,boolean pull,CallbackInfoReturnable<Boolean> cir){if((Object)this instanceof ServerPlayer p && !Claims.allowAttack(p,target))cir.setReturnValue(false);}
 }

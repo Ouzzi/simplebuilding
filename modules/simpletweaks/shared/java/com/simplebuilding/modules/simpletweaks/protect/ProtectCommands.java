@@ -32,7 +32,7 @@ public final class ProtectCommands {
     static int status(CommandSourceStack s) {
         var c = Protect.config();
         var a = c.antiXray();
-        s.sendSuccess(() -> Protect.t("status.antixray", onOff(a.enabled()), a.engineMode(), String.join(", ", a.dimensions().keySet())), false);
+        s.sendSuccess(() -> Protect.t("status.antixray", onOff(a.runsOn(s.getServer())), a.engineMode(), String.join(", ", a.dimensions().keySet())), false);
         s.sendSuccess(() -> Protect.t("status.freecam", onOff(c.freecam().enabled()), onOff(c.freecam().requireClient())), false);
         s.sendSuccess(() -> Protect.t("status.others", onOff(c.seedHash().enabled()), onOff(c.hideHealth().enabled()), onOff(c.actionChecks().enabled())), false);
         return 1;

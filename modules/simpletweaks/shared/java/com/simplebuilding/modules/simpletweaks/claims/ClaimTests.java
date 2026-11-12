@@ -107,6 +107,10 @@ public final class ClaimTests {
         TESTS.put("claims_carto_copy",CartoTests::copy);
         TESTS.put("claims_carto_wrap",CartoTests::wrap);
         TESTS.put("claims_carto_legacy",CartoTests::legacy);
+        TESTS.put("claims_visitor_monsters",VisitorClaimTests::monsters);
+        TESTS.put("claims_visitor_pickup",VisitorClaimTests::pickup);
+        TESTS.put("claims_visitor_projectiles",VisitorClaimTests::projectiles);
+        TESTS.put("claims_visitor_config",VisitorClaimTests::config);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */

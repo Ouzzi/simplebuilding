@@ -10,5 +10,5 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 @Mixin(net.minecraft.world.entity.LivingEntity.class)
 public abstract class ClaimEffectMixin {
  @Inject(method="addEffect(Lnet/minecraft/world/effect/MobEffectInstance;Lnet/minecraft/world/entity/Entity;)Z",at=@At("HEAD"),cancellable=true)
- private void claims$effect(net.minecraft.world.effect.MobEffectInstance effect,net.minecraft.world.entity.Entity source,CallbackInfoReturnable<Boolean> cir){if(source!=null&&!effect.getEffect().value().isBeneficial()&&!Claims.action(source,(net.minecraft.world.entity.Entity)(Object)this))cir.setReturnValue(false);}
+ private void claims$effect(net.minecraft.world.effect.MobEffectInstance effect,net.minecraft.world.entity.Entity source,CallbackInfoReturnable<Boolean> cir){if(source!=null&&!effect.getEffect().value().isBeneficial()&&!Claims.attack(source,(net.minecraft.world.entity.Entity)(Object)this))cir.setReturnValue(false);}
 }

@@ -16,6 +16,8 @@ import net.minecraft.server.level.ServerPlayer;
  * {@code dayNight}, off by default), /vote yes|no. One vote at a time with clickable [Yes] [No]; it passes as soon as
  * {@code percent} % of the active players (not AFK, not spectating) said yes, otherwise it fails after {@code seconds}.
  * Each topic then waits {@code cooldownSeconds}. The weather vote is not offered while Simple Weather switches weather off.
+ * E1ANS F3: an event vote needs {@code eventMinPlayers} (default 2) active players, is refused while an event runs, and the
+ * cooldown of an event topic counts from the end of the event ({@link #eventEnded}), not from the vote.
  */
 public final class Votes {
     public record Vote(String topic, UUID starter, Set<UUID> yes, Set<UUID> no, long until) {}
@@ -74,6 +76,11 @@ public final class Votes {
     /** Starts a vote; null if it started, otherwise the reason it did not. */
     public static Component start(MinecraftServer server, ServerPlayer starter, String topic) {
         if (running != null) return PlayText.t("vote.busy");
+        if (topic.startsWith(EVENT)) {
+            if (ServerEvents.current() != null) return PlayText.t("vote.event_running");
+            int need = Play.config().vote().eventMinPlayers();
+            if (eligibleCount.applyAsInt(server) < need) return PlayText.t("vote.min_players", need);
+        }
         long now = System.currentTimeMillis();
         Long cd = COOLDOWN.get(topic);
         if (cd != null && cd > now) return PlayText.t("vote.cooldown", (cd - now) / 1000 + 1);
@@ -113,11 +120,16 @@ public final class Votes {
     static void finish(MinecraftServer server, boolean passed) {
         var v = running;
         running = null;
-        COOLDOWN.put(v.topic(), System.currentTimeMillis() + Play.config().vote().cooldownSeconds() * 1000L);
         server.getPlayerList().broadcastSystemMessage(PlayText.t(passed ? "vote.passed" : "vote.failed", topic(v.topic()))
                 .withStyle(passed ? ChatFormatting.GREEN : ChatFormatting.RED), false);
         if (passed) action.accept(server, v.topic());
+        // an event that really runs starts its cooldown when it ends (ServerEvents calls eventEnded); every other outcome waits from now
+        if (!(passed && v.topic().startsWith(EVENT) && ServerEvents.current() != null)) cooldown(v.topic());
     }
+    private static final String EVENT = "event_";
+    private static void cooldown(String topic) { COOLDOWN.put(topic, System.currentTimeMillis() + Play.config().vote().cooldownSeconds() * 1000L); }
+    /** E1ANS F3: the event {@code name} ended (time up, stopped, replaced): its vote topic waits {@code cooldownSeconds} from now. */
+    public static void eventEnded(String name) { cooldown(EVENT + name); }
     static void apply(MinecraftServer server, String topic) {
         var source = server.createCommandSourceStack().withSuppressedOutput();
         switch (topic) {

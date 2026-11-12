@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import java.nio.file.*;
 import java.util.*;
 import java.util.function.Consumer;
+import com.simplebuilding.modules.simpletweaks.admin.Admin;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,6 +44,7 @@ public final class ProtectTests {
         TESTS.put("config_defaults_and_bounds", ProtectTests::config);
         TESTS.put("commands_follow_switches", ProtectTests::commands);
         TESTS.put("obfuscated_chunk_hides_enclosed_ore", ProtectTests::hides);
+        TESTS.put("antixray_only_on_dedicated", ProtectTests::dedicated);
         TESTS.put("exempt_admin_sees_real_blocks", ProtectTests::exempt);
         TESTS.put("mining_reveals_neighbours", ProtectTests::reveals);
         TESTS.put("fake_ores_mode_two", ProtectTests::fakes);
@@ -188,6 +190,32 @@ public final class ProtectTests {
         with(ProtectConfig.of("{\"antiXray\":{\"dimensions\":{\"minecraft:the_nether\":{}}}}"), () -> yes(h, shown(p, level, ore).is(Blocks.DIAMOND_ORE), "Uncovered dimension: real blocks"));
         with(ProtectConfig.of("{\"antiXray\":{\"dimensions\":{\"minecraft:overworld\":{\"maxY\":" + (ore.getY() - 20) + "}}}}"),
                 () -> yes(h, shown(p, level, ore).is(Blocks.DIAMOND_ORE), "Above maxY: real blocks"));
+        h.succeed();
+    }
+
+    /** E1ANS F1 (owner 12.11.): anti-x-ray hides ores on dedicated servers only (antiXray.onlyDedicated, default on), not on the integrated server. */
+    static void dedicated(GameTestHelper h) {
+        var level = h.getLevel();
+        var p = player(h, new BlockPos(0, 6, 0), GameType.SURVIVAL);
+        var ore = cube(h, new BlockPos(1, 2, 1), Blocks.STONE, Blocks.DIAMOND_ORE);
+        yes(h, ProtectConfig.DEFAULT.antiXray().onlyDedicated() && ProtectConfig.DEFAULT.antiXray().enabled(), "Default: on, for dedicated servers only");
+        yes(h, ProtectConfig.of("{\"antiXray\":{\"enabled\":true}}").antiXray().onlyDedicated(), "A file without the key takes the default");
+        try {
+            with(ProtectConfig.DEFAULT, () -> {
+                Admin.dedicatedForTest(true);
+                yes(h, AntiXray.applies(p, level) && shown(p, level, ore).equals(host(ore)), "Dedicated server: the enclosed ore is hidden");
+                Admin.dedicatedForTest(false);
+                yes(h, !AntiXray.applies(p, level) && shown(p, level, ore).is(Blocks.DIAMOND_ORE), "Integrated server (single player, LAN): real blocks");
+            });
+            with(ProtectConfig.of("{\"antiXray\":{\"onlyDedicated\":false}}"), () -> {
+                Admin.dedicatedForTest(false);
+                yes(h, AntiXray.applies(p, level) && shown(p, level, ore).equals(host(ore)), "onlyDedicated false: also hidden on the integrated server");
+            });
+            with(ProtectConfig.of("{\"antiXray\":{\"enabled\":false,\"onlyDedicated\":false}}"), () -> {
+                Admin.dedicatedForTest(true);
+                yes(h, !AntiXray.applies(p, level) && shown(p, level, ore).is(Blocks.DIAMOND_ORE), "A switch that is off stays off");
+            });
+        } finally { Admin.dedicatedForTest(null); }
         h.succeed();
     }
 

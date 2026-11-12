@@ -9,7 +9,17 @@ import net.minecraft.resources.Identifier;
 /** Server-only, restart-bound configuration. No client can change these values. */
 public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTrustedPlayers,
         int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer, List<String> dimensions, String claimVisibility,
-        int startChunks, boolean expansionEnabled, List<Tier> expansionTiers, List<Trade> deedTrades) {
+        int startChunks, boolean expansionEnabled, List<Tier> expansionTiers, List<Trade> deedTrades, Visitors visitors) {
+    /**
+     * What a visitor without rights may still do in foreign land (E1ANS F2, owner 12.11.; each part on by default):
+     * {@code fightMonsters} hit and shoot monsters ({@code Enemy}) - animals, vehicles and decorations stay protected;
+     * {@code ownItems} pick up items they dropped or threw themselves (also their own death drops);
+     * {@code xp} pick up experience orbs; {@code returnProjectiles} a trident or arrow refused by a claim is not lost
+     * but goes back to the shooter (inventory, else at their feet) exactly once.
+     */
+    public record Visitors(boolean fightMonsters, boolean ownItems, boolean xp, boolean returnProjectiles) {
+        public static final Visitors DEFAULT = new Visitors(true, true, true, true);
+    }
     /** One material of an expansion step: item id and count. Existence of the item is checked when the step is bought. */
     public record Cost(String id, int count) {
         public Cost { if (id == null || id.length() > 128 || Identifier.tryParse(id) == null || !id.contains(":") || count < 1 || count > MAX_COST_COUNT) throw new IllegalArgumentException("Invalid expansion cost"); }
@@ -42,17 +52,26 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
                        List<String> dimensions, String claimVisibility, int startChunks, boolean expansionEnabled, List<Tier> expansionTiers) {
         this(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, startChunks, expansionEnabled, expansionTiers, DEFAULT_TRADES);
     }
+    /** Without visitor options: the defaults (all on). */
+    public ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTrustedPlayers, int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer,
+                       List<String> dimensions, String claimVisibility, int startChunks, boolean expansionEnabled, List<Tier> expansionTiers, List<Trade> deedTrades) {
+        this(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, startChunks, expansionEnabled, expansionTiers, deedTrades, Visitors.DEFAULT);
+    }
     /** Same settings with other deed trades (tests). */
     public ClaimConfig withTrades(List<Trade> trades) {
-        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, startChunks, expansionEnabled, expansionTiers, trades);
+        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, startChunks, expansionEnabled, expansionTiers, trades, visitors);
     }
     /** Same settings with another claim table visibility (tests). */
     public ClaimConfig withVisibility(String value) {
-        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, value, startChunks, expansionEnabled, expansionTiers, deedTrades);
+        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, value, startChunks, expansionEnabled, expansionTiers, deedTrades, visitors);
     }
     /** Same settings with the land expansion (tests). */
     public ClaimConfig withExpansion(int start, List<Tier> tiers) {
-        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, start, true, tiers, deedTrades);
+        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, start, true, tiers, deedTrades, visitors);
+    }
+    /** Same settings with other visitor options (tests). */
+    public ClaimConfig withVisitors(Visitors value) {
+        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, startChunks, expansionEnabled, expansionTiers, deedTrades, value);
     }
     /** The default curve of the owner-approved plan: 4 chunks to start, 64 at the end (copper ... nether star). */
     /** Owner 2026-10-21: step n costs n diamonds, levels rise 10, 15, 20, 30, 35, 40, 50, 60. */
@@ -96,7 +115,7 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
             List.of(ALL_DIMENSIONS), "all", 4, true, DEFAULT_TIERS);
     /** The defaults with the main switch off (server administrators' opt-out, disabled-path tests). */
     public static final ClaimConfig OFF = new ClaimConfig(false, DEFAULT.maxClaimsPerPlayer, DEFAULT.maxTrustedPlayers,
-            DEFAULT.globalCap, DEFAULT.cooldownTicks, DEFAULT.opBypass, DEFAULT.spawnBuffer, DEFAULT.dimensions, DEFAULT.claimVisibility, DEFAULT.startChunks, DEFAULT.expansionEnabled, DEFAULT.expansionTiers, DEFAULT.deedTrades);
+            DEFAULT.globalCap, DEFAULT.cooldownTicks, DEFAULT.opBypass, DEFAULT.spawnBuffer, DEFAULT.dimensions, DEFAULT.claimVisibility, DEFAULT.startChunks, DEFAULT.expansionEnabled, DEFAULT.expansionTiers, DEFAULT.deedTrades, DEFAULT.visitors);
     public ClaimConfig {
         maxClaimsPerPlayer = Math.clamp(maxClaimsPerPlayer, 1, MAX_CLAIMS);
         maxTrustedPlayers = Math.clamp(maxTrustedPlayers, 0, MAX_TRUSTED);
@@ -115,6 +134,7 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
         expansionTiers = List.copyOf(expansionTiers);
         if (deedTrades == null || deedTrades.size() > MAX_TRADES) throw new IllegalArgumentException("Invalid deed trades");
         deedTrades = List.copyOf(deedTrades);
+        if (visitors == null) visitors = Visitors.DEFAULT;
     }
     static boolean validDimension(String id) {
         if (id==null || id.length()>128 || Identifier.tryParse(id)==null || !id.contains(":")) return false;
@@ -143,7 +163,7 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
                     ? json.getAsJsonArray("dimensions").asList().stream().map(JsonElement::getAsString).toList() : d.dimensions,
                     json.has("claimVisibility") ? json.get("claimVisibility").getAsString() : d.claimVisibility,
                     integer(json,"startChunks",d.startChunks), bool(json,"expansionEnabled",d.expansionEnabled), tiers(json,d.expansionTiers),
-                    trades(json,d.deedTrades));
+                    trades(json,d.deedTrades), visitors(json,d.visitors));
         } catch (Exception e) {
             // Never turn protection off silently because a server administrator made a typo.
             throw new IllegalStateException("Invalid claim config; original file preserved: " + path, e);
@@ -173,6 +193,14 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
             out.add(new Trade(new Cost(give.get("id").getAsString(), integer(give, "count", 1)), integer(t, "credits", 0)));
         }
         return out;
+    }
+    /** {@code "visitors": {"fightMonsters": true, "ownItems": true, "xp": true, "returnProjectiles": true}}; a missing section or key is on. */
+    private static Visitors visitors(JsonObject j, Visitors fallback) {
+        if (!j.has("visitors")) return fallback;
+        if (!j.get("visitors").isJsonObject()) throw new IllegalArgumentException("visitors");
+        var v = j.getAsJsonObject("visitors");
+        return new Visitors(bool(v,"fightMonsters",fallback.fightMonsters), bool(v,"ownItems",fallback.ownItems), bool(v,"xp",fallback.xp),
+                bool(v,"returnProjectiles",fallback.returnProjectiles));
     }
     private static int versionOf(JsonObject j) {
         return j.has("configVersion") && j.get("configVersion").isJsonPrimitive() ? j.get("configVersion").getAsInt() : 1;

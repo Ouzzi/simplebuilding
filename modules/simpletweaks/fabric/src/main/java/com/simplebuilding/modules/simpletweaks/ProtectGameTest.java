@@ -18,4 +18,5 @@ public final class ProtectGameTest {
  @GameTest(maxTicks=100) public void fastBreakUsesRealSpeed(GameTestHelper h) { ProtectTests.TESTS.get("fast_break_uses_real_speed").accept(h); }
  @GameTest(maxTicks=100) public void hammerAreaBreakNotFlagged(GameTestHelper h) { ProtectTests.TESTS.get("hammer_area_break_not_flagged").accept(h); }
  @GameTest(maxTicks=100) public void autoOffWithPartnerMods(GameTestHelper h) { ProtectTests.TESTS.get("auto_off_with_partner_mods").accept(h); }
+ @GameTest(maxTicks=100) public void antixrayOnlyOnDedicated(GameTestHelper h) { ProtectTests.TESTS.get("antixray_only_on_dedicated").accept(h); }
 }

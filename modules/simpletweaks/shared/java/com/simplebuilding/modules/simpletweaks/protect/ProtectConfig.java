@@ -14,9 +14,13 @@ import java.util.*;
 public record ProtectConfig(int permission, AntiXray antiXray, Freecam freecam, SeedHash seedHash, HideHealth hideHealth, ActionChecks actionChecks,
         Map<String, List<String>> autoOffWith) {
 
-    /** Ore hiding in chunk packets; {@code dimensions} keyed by dimension id, "*" = every other dimension. */
+    /**
+     * Ore hiding in chunk packets; {@code dimensions} keyed by dimension id, "*" = every other dimension. {@code onlyDedicated}
+     * (E1ANS F1, default on): it runs on dedicated servers only, not in single player or on LAN; an explicit {@code false}
+     * keeps it on everywhere.
+     */
     public record AntiXray(boolean enabled, int engineMode, double fakeOreChance, boolean exemptCreative, boolean exemptSpectator,
-            int exemptPermission, Map<String, Dimension> dimensions) {
+            int exemptPermission, Map<String, Dimension> dimensions, boolean onlyDedicated) {
         public record Dimension(List<String> hidden, String replacement, String deepslateReplacement, int maxY, List<String> fakeOres) {
             public Dimension {
                 hidden = entries(hidden); fakeOres = entries(fakeOres);
@@ -31,6 +35,13 @@ public record ProtectConfig(int permission, AntiXray antiXray, Freecam freecam, 
             if (dimensions != null) dimensions.forEach((k, v) -> { if (k != null && v != null && (k.equals("*") || net.minecraft.resources.Identifier.tryParse(k) != null) && out.size() < 64) out.put(k, v); });
             dimensions = Collections.unmodifiableMap(out);
         }
+        /** Without {@code onlyDedicated}: the default (dedicated servers only). */
+        public AntiXray(boolean enabled, int engineMode, double fakeOreChance, boolean exemptCreative, boolean exemptSpectator,
+                int exemptPermission, Map<String, Dimension> dimensions) {
+            this(enabled, engineMode, fakeOreChance, exemptCreative, exemptSpectator, exemptPermission, dimensions, true);
+        }
+        /** Is the ore hiding on for this server? */
+        public boolean runsOn(net.minecraft.server.MinecraftServer server) { return com.simplebuilding.modules.simpletweaks.admin.Admin.runs(server, enabled, onlyDedicated); }
     }
     /** "Freecam may not pass through blocks"; requireClient kicks clients without Simple Tweaks while the rule is on. */
     public record Freecam(boolean enabled, boolean requireClient, String kickMessage) {
@@ -84,7 +95,7 @@ public record ProtectConfig(int permission, AntiXray antiXray, Freecam freecam, 
         var r = this;
         if (hits.containsKey("antiXray")) {
             var a = r.antiXray;
-            r = new ProtectConfig(r.permission, new AntiXray(false, a.engineMode, a.fakeOreChance, a.exemptCreative, a.exemptSpectator, a.exemptPermission, a.dimensions),
+            r = new ProtectConfig(r.permission, new AntiXray(false, a.engineMode, a.fakeOreChance, a.exemptCreative, a.exemptSpectator, a.exemptPermission, a.dimensions, a.onlyDedicated),
                     r.freecam, r.seedHash, r.hideHealth, r.actionChecks, r.autoOffWith);
         }
         if (hits.containsKey("actionChecks")) {

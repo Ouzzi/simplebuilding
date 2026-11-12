@@ -14,8 +14,8 @@ public abstract class ClaimProjectileMixin {
   var projectile=(net.minecraft.world.entity.projectile.Projectile)(Object)this;
   if(!(projectile.level() instanceof ServerLevel level)||!Claims.enabled(level.getServer()))return;
   var actor=projectile.getOwner();boolean permitted=true;
-  if(hit instanceof net.minecraft.world.phys.EntityHitResult entity)permitted=Claims.action(actor,entity.getEntity());
+  if(hit instanceof net.minecraft.world.phys.EntityHitResult entity)permitted=Claims.attack(actor,entity.getEntity());
   else if(hit instanceof net.minecraft.world.phys.BlockHitResult block)permitted=Claims.action(actor,level,block.getBlockPos())&&Claims.action(actor,level,block.getBlockPos().relative(block.getDirection()));
-  if(!permitted){projectile.discard();cir.setReturnValue(net.minecraft.world.entity.projectile.ProjectileDeflection.NONE);}
+  if(!permitted){Claims.refuse(projectile);cir.setReturnValue(net.minecraft.world.entity.projectile.ProjectileDeflection.NONE);}
  }
 }

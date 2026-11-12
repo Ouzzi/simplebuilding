@@ -25,6 +25,24 @@ public final class Admin {
     public static MinecraftServer server() { return server; }
     public static AdminState state() { return state; }
 
+    /** Tests: the answer of {@link #dedicated} (null = the real one). */
+    private static volatile Boolean dedicatedForTest;
+    public static void dedicatedForTest(Boolean value) { dedicatedForTest = value; }
+    /**
+     * Dedicated server (E1ANS F1)? False on the integrated server (single player, LAN). The gametest server counts as dedicated,
+     * so the server tools are testable; it is told apart by its class name (no hard reference to a test class).
+     */
+    public static boolean dedicated(MinecraftServer s) {
+        var test = dedicatedForTest;
+        if (test != null) return test;
+        return s != null && (s.isDedicatedServer() || s.getClass().getName().equals("net.minecraft.gametest.framework.GameTestServer"));
+    }
+    /**
+     * A server tool (block log, auto backup, anti-x-ray) runs when its {@code enabled} switch is on and, with its
+     * {@code onlyDedicated} option (default), only on a dedicated server (owner 12.11.: off in single player and on LAN).
+     */
+    public static boolean runs(MinecraftServer s, boolean enabled, boolean onlyDedicated) { return enabled && (!onlyDedicated || dedicated(s)); }
+
     public static void start(MinecraftServer s) {
         server = s;
         state = AdminState.load(s);

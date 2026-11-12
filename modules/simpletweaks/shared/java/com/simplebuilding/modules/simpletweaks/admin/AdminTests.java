@@ -60,6 +60,7 @@ public final class AdminTests {
         TESTS.put("backup_stop_resumes_saving", AdminTests::backupStop);
         TESTS.put("backup_prune_keeps_other_worlds", AdminTests::backupPruneOtherWorlds);
         TESTS.put("lag_finder_ignores_other_threads", AdminTests::lagOtherThreads);
+        TESTS.put("server_tools_only_on_dedicated", AdminTests::toolsOnlyDedicated);
         TESTS.put("maintenance_login_and_motd", AdminTests::maintenance);
         TESTS.put("lag_finder_samples", AdminTests::lag);
         TESTS.put("unreadable_state_file_kept", h -> unreadableStateKept(h, AdminState.fileOf(h.getLevel().getServer()), () -> AdminState.load(h.getLevel().getServer())));
@@ -886,6 +887,47 @@ public final class AdminTests {
         var types = LagFinder.blockEntityTypes();
         yes(h, !types.contains("simpletweaks:audsb31e1_other_thread"), "Another thread is not counted: " + types);
         yes(h, types.contains("simpletweaks:audsb31e1_server_thread"), "The server thread is still counted: " + types);
+        h.succeed();
+    }
+
+    /**
+     * E1ANS F1 (owner 12.11.): block log and auto backup run on dedicated servers only (option onlyDedicated, default on), not on the
+     * integrated server (single player, LAN). Existing files keep working: a file without the key takes the default, an explicit false
+     * keeps the tool on everywhere, a switch that is off stays off.
+     */
+    static void toolsOnlyDedicated(GameTestHelper h) {
+        var server = h.getLevel().getServer();
+        var d = AdminConfig.DEFAULT;
+        yes(h, d.blockLog().onlyDedicated() && d.backups().onlyDedicated() && d.blockLog().enabled() && d.backups().enabled(), "Default: on, for dedicated servers only");
+        AdminConfig everywhere, switchedOff, oldFile;
+        try {
+            Path dir = Files.createTempDirectory("st-admin-dedicated");
+            Path file = dir.resolve("a.json");
+            Files.writeString(file, "{\"blockLog\":{\"enabled\":true,\"retentionDays\":3},\"backups\":{\"keep\":2}}");
+            oldFile = AdminConfig.load(file);
+            Files.writeString(file, "{\"blockLog\":{\"onlyDedicated\":false},\"backups\":{\"onlyDedicated\":false}}");
+            everywhere = AdminConfig.load(file);
+            Files.writeString(file, "{\"blockLog\":{\"enabled\":false,\"onlyDedicated\":false},\"backups\":{\"enabled\":false,\"onlyDedicated\":false}}");
+            switchedOff = AdminConfig.load(file);
+        } catch (java.io.IOException e) { throw new AssertionError(e); }
+        yes(h, oldFile.blockLog().onlyDedicated() && oldFile.backups().onlyDedicated() && oldFile.blockLog().retentionDays() == 3 && oldFile.backups().keep() == 2,
+                "An existing file without the key takes the default and keeps its other values");
+        var dispatcher = new CommandDispatcher<CommandSourceStack>();
+        AdminCommands.register(dispatcher, d);
+        var owner = server.createCommandSourceStack();
+        try {
+            Admin.dedicatedForTest(true);
+            yes(h, BlockLog.wanted(server, d.blockLog()) && Backups.wanted(server, d.backups()), "Dedicated server: block log and backups run");
+            yes(h, dispatcher.getRoot().getChild("backup").canUse(owner) && dispatcher.getRoot().getChild("inspect").canUse(owner)
+                    && dispatcher.getRoot().getChild("tweaks").getChild("lookup").canUse(owner), "Dedicated server: their commands are there");
+            Admin.dedicatedForTest(false);
+            yes(h, !BlockLog.wanted(server, d.blockLog()) && !Backups.wanted(server, d.backups()), "Integrated server (single player, LAN): both are off");
+            yes(h, !dispatcher.getRoot().getChild("backup").canUse(owner) && !dispatcher.getRoot().getChild("inspect").canUse(owner)
+                    && !dispatcher.getRoot().getChild("tweaks").getChild("lookup").canUse(owner), "Integrated server: their commands are not offered");
+            yes(h, !BlockLog.wanted(server, oldFile.blockLog()) && !Backups.wanted(server, oldFile.backups()), "An old file counts as the default");
+            yes(h, BlockLog.wanted(server, everywhere.blockLog()) && Backups.wanted(server, everywhere.backups()), "onlyDedicated false: also on the integrated server");
+            yes(h, !BlockLog.wanted(server, switchedOff.blockLog()) && !Backups.wanted(server, switchedOff.backups()), "A switch that is off stays off");
+        } finally { Admin.dedicatedForTest(null); }
         h.succeed();
     }
 

@@ -32,4 +32,5 @@ public final class AdminGameTest {
  @GameTest(maxTicks=100) public void lagFinderIgnoresOtherThreads(GameTestHelper h) { AdminTests.TESTS.get("lag_finder_ignores_other_threads").accept(h); }
  @GameTest(maxTicks=100) public void backupPruneKeepsOtherWorlds(GameTestHelper h) { AdminTests.TESTS.get("backup_prune_keeps_other_worlds").accept(h); }
  @GameTest(maxTicks=100) public void unreadableStateFileKept(GameTestHelper h) { AdminTests.TESTS.get("unreadable_state_file_kept").accept(h); }
+ @GameTest(maxTicks=100) public void serverToolsOnlyOnDedicated(GameTestHelper h) { AdminTests.TESTS.get("server_tools_only_on_dedicated").accept(h); }
 }

@@ -35,13 +35,15 @@ public final class Backups {
     private static long last;
 
     public static boolean active() { return Admin.on() && Admin.config().backups().enabled(); }
+    /** E1ANS F1: should backups run on this server? Switch on and, with {@code onlyDedicated}, a dedicated server. */
+    public static boolean wanted(MinecraftServer server, AdminConfig.Backups c) { return Admin.runs(server, c.enabled(), c.onlyDedicated()); }
     public static boolean running() { return running; }
     public static Path directory(MinecraftServer server) { return server.getServerDirectory().resolve(Admin.config().backups().directory()).normalize(); }
     private static Path marker(MinecraftServer server) { return directory(server).resolve(".simpletweaks-last"); }
 
     public static void start(MinecraftServer server) {
         running = false;
-        if (!Admin.config().backups().enabled()) return;
+        if (!wanted(server, Admin.config().backups())) return;
         try { Files.createDirectories(directory(server)); cleanParts(directory(server)); } catch (IOException ignored) {}
         worker = Executors.newSingleThreadExecutor(r -> { var t = new Thread(r, "simpletweaks-backup"); t.setDaemon(true); return t; });
         try { last = Long.parseLong(Files.readString(marker(server)).strip()); }
@@ -187,7 +189,7 @@ public final class Backups {
 
     public static void register(CommandDispatcher<CommandSourceStack> d, AdminConfig config) {
         if (!config.backups().enabled()) return;
-        d.register(Commands.literal("backup").requires(s -> Admin.on() && AdminPerms.has(s, Admin.config().backups().permission()))
+        d.register(Commands.literal("backup").requires(s -> Admin.on() && wanted(s.getServer(), Admin.config().backups()) && AdminPerms.has(s, Admin.config().backups().permission()))
                 .then(Commands.literal("now").executes(c -> {
                     if (begin(c.getSource().getServer(), null)) return 1;
                     c.getSource().sendFailure(Component.translatable("simpletweaks.admin.backup.busy"));
