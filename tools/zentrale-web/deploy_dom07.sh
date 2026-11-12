@@ -10,7 +10,7 @@
 #   deploy_dom07.sh rollback    site file back to the state before the first "domains" run (.bak-dom07), seconds
 #
 # Hosts: wiki.simplemods.de = wiki (/, /dev/, /zentrale/, /api/, /setup/, /downloads/); simplemods.de = landing page;
-# www.simplemods.de, simplewiki.de, www.simplewiki.de, simplemods-wiki.azarfane.com = 301 to wiki.simplemods.de
+# simplewiki.de, www.simplewiki.de, simplemods-wiki.azarfane.com = 301 to wiki.simplemods.de; www.simplemods.de = 301 to simplemods.de
 # (old address keeps /setup/ and /downloads/). Tunnel hostnames are the owner's (Cloudflare), not touched here.
 set -euo pipefail
 
