@@ -1,0 +1,58 @@
+# Simple Livemap behind your own nginx (self-hosting guide: docs/deploy/LIVEMAP-SELF-HOST.md).
+# Generalised from tools/deploy/livemap/nginx-map.conf.in. Copy to /etc/nginx/conf.d/livemap.conf (Debian/Ubuntu:
+# conf.d is included in the http block), replace the PLACEHOLDERS, then `nginx -t && systemctl reload nginx`.
+#
+#   map.example.org     your host name (TLS: certbot --nginx -d map.example.org, or your own certificate lines)
+#   127.0.0.1:8125      the game server's livemap (web.bind/web.port in config/simplelivemap.json; same machine = keep
+#                       127.0.0.1; another machine = its LAN address + a firewall rule that lets only this proxy in)
+#
+# Two ways to handle the key (web.visibility stays "private" in both):
+#   A (default here)  visitors open https://map.example.org/#t=<key> (the link from /simplelivemap link with the host
+#                     part replaced). The browser sends the key as "Authorization: Bearer", nginx passes it through.
+#   B                 nginx has its own login (auth_basic) and adds the key itself; the browser never knows it.
+#                     Uncomment the three B lines and create the files (see the guide). Never put the key in a URL.
+
+# Per visitor: one viewer loads ~40 tiles at once and polls live.json every 2 s.
+limit_req_zone $binary_remote_addr zone=livemap:2m rate=10r/s;
+
+upstream simplelivemap {
+  server 127.0.0.1:8125 max_fails=2 fail_timeout=10s;
+}
+
+server {
+  listen 80;
+  # listen 443 ssl;  ssl_certificate ...;  ssl_certificate_key ...;   (or let certbot add these)
+  server_name map.example.org;
+
+  # B: own login + key added by nginx (the key file holds one line:  proxy_set_header Authorization "Bearer <key>";)
+  # auth_basic "Live map";
+  # auth_basic_user_file /etc/nginx/livemap.htpasswd;
+  # include /etc/nginx/livemap-token.conf;
+
+  limit_req zone=livemap burst=80 nodelay;
+  limit_req_status 429;
+  client_max_body_size 1k;
+  proxy_http_version 1.1;
+  proxy_connect_timeout 3s;
+  proxy_read_timeout 10s;
+  proxy_set_header Host $proxy_host;
+  proxy_set_header Connection "";
+  proxy_set_header Cookie "";
+  proxy_hide_header Set-Cookie;
+
+  # Only the three routes of the mod, only GET/HEAD; everything else is answered here and never reaches the game.
+  location = / {
+    limit_except GET { deny all; }
+    proxy_pass http://simplelivemap/;
+  }
+  location = /live.json {
+    limit_except GET { deny all; }
+    proxy_pass http://simplelivemap/live.json;
+  }
+  location ~ "^/tiles/[a-z0-9_.-]{1,96}/[0-4]/-?[0-9]{1,7}/-?[0-9]{1,7}\.png$" {
+    limit_except GET { deny all; }
+    proxy_pass http://simplelivemap;
+  }
+  location = /index.html { return 301 /; }
+  location / { return 404; }
+}

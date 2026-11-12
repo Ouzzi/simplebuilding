@@ -1,6 +1,8 @@
 # Simple Livemap unter wiki.simplemods.de/map/ (N14b)
 
-Anleitung für A (Einspielen nur mit Besitzer-OK). Hintergrund, Varianten und Begründung:
+Anleitung für A (Einspielen nur mit Besitzer-OK). Allgemeine Fassung für Spieler/Server-Betreiber (eigene Domain, nginx/Caddy,
+statische Kopie): `docs/deploy/LIVEMAP-SELF-HOST.md`. Seit N29 ist `web.enabled` für neue Installationen Standard an
+(127.0.0.1, privat); bestehende Configs behalten ihr `false`. Hintergrund, Varianten und Begründung:
 `docs/ai/PLAN-B-LIVEMAP16-2026-11-09.md`. Skripte: `tools/deploy/livemap/`.
 
 **Kurz:** Der Spielserver behält seinen eingebauten Livemap-Webserver (nur im LAN, nur für den Web-Host erreichbar,

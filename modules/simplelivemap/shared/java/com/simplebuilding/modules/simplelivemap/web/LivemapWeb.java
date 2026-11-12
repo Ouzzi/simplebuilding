@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /**
- * Built-in read-only web server of the live map (off by default, plan E10/E11): {@code GET}/{@code HEAD} only and three fixed
+ * Built-in read-only web server of the live map (on by default since N29, 127.0.0.1 and private; plan E10/E11): {@code GET}/{@code HEAD} only and three fixed
  * routes – the viewer page {@code /} (no data in it), {@code /live.json} (a string the server thread prepared) and
  * {@code /tiles/<dimension>/<z>/<x>/<y>.png} (files of the tile folder, numbers only). Anything else is 404; no percent
  * decoding, no {@code ..}, links out of the folder are not followed. Private map: data routes need
@@ -39,6 +39,7 @@ import java.util.regex.Pattern;
 public final class LivemapWeb implements AutoCloseable {
     public static final int TIMEOUT_MS = 5000, MAX_LINE = 2048, MAX_HEADERS = 64, THREADS = 4, QUEUE = 32;
     public static final long MAX_FILE = 1L << 20;
+    private static final boolean WINDOWS = System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT).startsWith("windows");
     public static final String INDEX = "index.html", LIVE = "live.json";
     private static final Pattern TILE = Pattern.compile("tiles/[a-z0-9_.-]{1,96}/[0-4]/-?\\d{1,7}/-?\\d{1,7}\\.png");
     private static final String CSP = "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' blob:; "
@@ -75,16 +76,35 @@ public final class LivemapWeb implements AutoCloseable {
 
     /** Binds and starts serving; {@code alive} false closes the server (checked about once per second). */
     public static LivemapWeb start(Settings settings, Supplier<String> live, BooleanSupplier alive) throws IOException {
-        ServerSocket socket = new ServerSocket();
-        try {
-            socket.setReuseAddress(true);
-            socket.bind(new InetSocketAddress(InetAddress.getByName(settings.bind()), settings.port()), 50);
-            socket.setSoTimeout(1000);
-        } catch (IOException | RuntimeException e) {
-            socket.close();
-            throw e;
+        return start(settings, new int[] {settings.port()}, live, alive);
+    }
+
+    /**
+     * Like {@link #start(Settings, Supplier, BooleanSupplier)}, but binds the first free port of {@code ports} (N29: a busy
+     * default port moves to the next free one); {@link #port()} tells which. All busy: the last bind error.
+     */
+    public static LivemapWeb start(Settings settings, int[] ports, Supplier<String> live, BooleanSupplier alive) throws IOException {
+        InetAddress address = InetAddress.getByName(settings.bind());
+        IOException failed = null;
+        for (int port : ports) {
+            ServerSocket socket = new ServerSocket();
+            try {
+                // Quick restart over TIME_WAIT on Linux/macOS; on Windows SO_REUSEADDR would let a second game share a busy
+                // port instead of moving to the next one, so it stays off there.
+                socket.setReuseAddress(!WINDOWS);
+                socket.bind(new InetSocketAddress(address, port), 50);
+                socket.setSoTimeout(1000);
+            } catch (IOException e) {
+                socket.close();
+                failed = e;
+                continue;
+            } catch (RuntimeException e) {
+                socket.close();
+                throw e;
+            }
+            return new LivemapWeb(settings, socket, live, alive);
         }
-        return new LivemapWeb(settings, socket, live, alive);
+        throw failed != null ? failed : new IOException("no port to bind");
     }
 
     public Settings settings() {

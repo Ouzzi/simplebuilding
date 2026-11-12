@@ -28,7 +28,8 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
 /**
  * Game test bodies (Fabric adapter {@code ModuleGameTest}): config defaults, recording, persistence, maps, tile colours,
- * explored-only tiles and the web server (off by default, private/public, traversal, player fields, rate limit). Servers in
+ * explored-only tiles and the web server (on by default, local and private; port fallback; chat hint once; private/public,
+ * traversal, player fields, rate limit). Servers in
  * tests bind to 127.0.0.1 on a free port; fake dimension ids keep test data apart from the real map.
  */
 public final class LivemapTests {
@@ -51,16 +52,20 @@ public final class LivemapTests {
         }
     }
 
-    /** Web off, local only, private with a made token, players off; numbers clamped; groups written to the file. */
+    /** Web on (N29) but local only and private with a made token, players off, chat hint on; numbers clamped; an old file's
+     * written {@code enabled: false} stays off; groups written to the file. */
     public static void configDefaults(GameTestHelper h) {
         JsonObject saved = LivemapConfig.toJson();
         try {
             LivemapConfig.apply(new JsonObject());
-            h.assertTrue(!LivemapConfig.webEnabled && "127.0.0.1".equals(LivemapConfig.bind) && LivemapConfig.port == LivemapConfig.PORT_DEFAULT,
-                    "web server off, 127.0.0.1, default port");
+            h.assertTrue(LivemapConfig.webEnabled && "127.0.0.1".equals(LivemapConfig.bind) && LivemapConfig.port == LivemapConfig.PORT_DEFAULT,
+                    "web server on, 127.0.0.1, default port");
+            h.assertTrue(LivemapConfig.chatHint, "chat hint on by default");
             h.assertTrue(!LivemapConfig.isPublic() && !LivemapConfig.showPlayers, "private, players hidden by default");
             h.assertTrue(LivemapConfig.enabled && LivemapConfig.radius == 2 && LivemapConfig.maps && LivemapConfig.shading, "record + render defaults");
-            h.assertTrue(!LivemapRuntime.webWanted(), "no web server wanted with the defaults");
+            h.assertTrue(LivemapRuntime.webWanted() == SimpleLivemap.on(), "web server wanted with the defaults (module on)");
+            LivemapConfig.apply(JsonParser.parseString("{\"web\":{\"enabled\":false,\"chatHint\":false}}").getAsJsonObject());
+            h.assertTrue(!LivemapConfig.webEnabled && !LivemapConfig.chatHint && !LivemapRuntime.webWanted(), "an existing file with enabled false stays off");
             JsonObject json = JsonParser.parseString("{\"record\":{\"radius\":99,\"intervalTicks\":0},\"web\":{\"port\":70000,\"bind\":\" \","
                     + "\"visibility\":\"everyone\",\"token\":\"short\",\"requestsPerMinute\":1}}").getAsJsonObject();
             LivemapConfig.apply(json);
@@ -70,7 +75,8 @@ public final class LivemapTests {
             String t = LivemapConfig.newToken();
             h.assertTrue(t.matches("[0-9a-f]{32}") && !t.equals(LivemapConfig.newToken()), "random 128-bit tokens");
             JsonObject out = LivemapConfig.toJson();
-            h.assertTrue(out.has("general") && out.has("record") && out.has("render") && out.getAsJsonObject("web").has("token"), "categories in the file");
+            h.assertTrue(out.has("general") && out.has("record") && out.has("render") && out.getAsJsonObject("web").has("token")
+                    && out.getAsJsonObject("web").has("chatHint"), "categories in the file");
         } finally {
             LivemapConfig.apply(saved);
         }
@@ -243,22 +249,22 @@ public final class LivemapTests {
         }
     }
 
-    /** Default config: no server runs on the test server; switching web.enabled on opens 127.0.0.1, off closes it again. */
-    public static void httpOffDefault(GameTestHelper h) {
+    /** Default config (N29): the server runs on 127.0.0.1, private (401 without the key); web.enabled off closes it. */
+    public static void httpDefaultOn(GameTestHelper h) {
         var srv = h.getLevel().getServer();
         JsonObject saved = LivemapConfig.toJson();
         try {
             LivemapConfig.apply(new JsonObject());
-            LivemapRuntime.syncWeb(srv);
-            h.assertTrue(LivemapRuntime.web() == null, "no web server by default");
-            LivemapConfig.webEnabled = true;
+            // A free port outside 8125-8134 keeps the test apart from a real map on this machine (no fallback there).
             LivemapConfig.port = freePort();
             LivemapConfig.token = LivemapConfig.newToken();
+            h.assertTrue(LivemapConfig.webEnabled, "on by default");
             LivemapRuntime.syncWeb(srv);
             LivemapWeb web = LivemapRuntime.web();
             h.assertTrue(web != null && web.running() && InetAddress.getByName(web.settings().bind()).isLoopbackAddress(), "on: bound to the local machine");
             int port = web.port();
             h.assertTrue(get(port, "/live.json").status() == 401, "private by default: live data needs the key");
+            h.assertTrue(get(port, "/live.json", "Authorization: Bearer " + LivemapConfig.token).status() == 200, "the key opens it");
             LivemapConfig.webEnabled = false;
             LivemapRuntime.syncWeb(srv);
             h.assertTrue(LivemapRuntime.web() == null && !web.running(), "off: closed");
@@ -267,6 +273,66 @@ public final class LivemapTests {
         } finally {
             LivemapConfig.apply(saved);
             LivemapRuntime.syncWeb(srv);
+        }
+        h.succeed();
+    }
+
+    /** Busy port: the default range rings through 8125-8134, an own port stays; a busy port moves on; all busy = error. */
+    public static void httpPortFallback(GameTestHelper h) {
+        int d = LivemapConfig.PORT_DEFAULT;
+        h.assertTrue(Arrays.equals(LivemapConfig.candidates(d), new int[] {d, d + 1, d + 2, d + 3, d + 4, d + 5, d + 6, d + 7, d + 8, d + 9}), "8125: 8125-8134");
+        int[] mid = LivemapConfig.candidates(d + 7);
+        h.assertTrue(mid.length == 10 && mid[0] == d + 7 && mid[2] == d + 9 && mid[3] == d && mid[9] == d + 6, "8132: ring up to 8134, then from 8125");
+        h.assertTrue(Arrays.equals(LivemapConfig.candidates(9000), new int[] {9000}) && Arrays.equals(LivemapConfig.candidates(0), new int[] {0}),
+                "an own port does not move");
+        Path dir = temp();
+        LivemapWeb web = null;
+        try (java.net.ServerSocket busy = new java.net.ServerSocket(0, 1, InetAddress.getByName(LOCAL))) {
+            int taken = busy.getLocalPort(), free = freePort();
+            web = LivemapWeb.start(new LivemapWeb.Settings(LOCAL, taken, "", true, 1000, dir), new int[] {taken, free}, () -> "{}", () -> true);
+            h.assertTrue(web.port() == free && web.settings().port() == taken && get(web.port(), "/").status() == 200,
+                    "busy " + taken + " -> next free " + free + " (setting unchanged)");
+            boolean threw = false;
+            try {
+                LivemapWeb.start(new LivemapWeb.Settings(LOCAL, taken, "", true, 1000, dir), new int[] {taken, web.port()}, () -> "{}", () -> true).close();
+            } catch (IOException e) {
+                threw = true;
+            }
+            h.assertTrue(threw, "all ports busy: an error (retry later), never a shared port");
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        } finally {
+            if (web != null) web.close();
+            delete(dir);
+        }
+        h.succeed();
+    }
+
+    /** The chat hint: once per player and session, only the single-player owner, never dedicated, off switch; link with #t=. */
+    public static void chatHintOnce(GameTestHelper h) {
+        boolean before = LivemapConfig.chatHint;
+        String token = LivemapConfig.token, visibility = LivemapConfig.visibility;
+        UUID owner = UUID.randomUUID(), guest = UUID.randomUUID();
+        try {
+            LivemapRuntime.resetHints();
+            LivemapConfig.chatHint = true;
+            h.assertTrue(!LivemapRuntime.hintDue(owner, false, true, false), "no web server: no hint");
+            h.assertTrue(!LivemapRuntime.hintDue(owner, true, true, true), "dedicated server: log only");
+            h.assertTrue(!LivemapRuntime.hintDue(guest, false, false, true), "LAN guests never get the host's key");
+            h.assertTrue(LivemapRuntime.hintDue(owner, false, true, true), "owner: hint");
+            h.assertTrue(!LivemapRuntime.hintDue(owner, false, true, true), "only once per session");
+            LivemapRuntime.resetHints();
+            LivemapConfig.chatHint = false;
+            h.assertTrue(!LivemapRuntime.hintDue(owner, false, true, true), "switched off");
+            String url = "http://127.0.0.1:8125/#t=" + LivemapConfig.newToken();
+            String json = net.minecraft.network.chat.ComponentSerialization.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE,
+                    LivemapCommands.hintMessage(url)).getOrThrow().toString();
+            h.assertTrue(json.contains("open_url") && json.contains(url) && json.contains("/simplelivemap hint off"), "clickable link + off switch: " + json);
+        } finally {
+            LivemapConfig.chatHint = before;
+            LivemapConfig.token = token;
+            LivemapConfig.visibility = visibility;
+            LivemapRuntime.resetHints();
         }
         h.succeed();
     }

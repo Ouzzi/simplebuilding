@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "Simple Livemap",
   "icon": "assets/simplelivemap/icon.png",
-  "description": "Live web map of the world as the players really explored it (visited chunks and held maps): top-down tiles with map relief, player positions on request, optional built-in web server (off by default, local only, private with a key).",
+  "description": "Live web map of the world as the players really explored it (visited chunks and held maps): top-down tiles with map relief, player positions on request, built-in web server (on out of the box, only on this computer, private with a key; own website possible).",
   "authors": [
     "Ouzzi"
   ],
