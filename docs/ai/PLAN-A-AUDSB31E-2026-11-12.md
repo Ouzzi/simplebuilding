@@ -49,10 +49,36 @@ Chunk-Loader). Nur MC 26.3 Fabric. Vorbild: `docs/ai/PLAN-A-AUDSB31-2026-11-12.m
 - Wenig RAM auf sb-agent (4 GB, Swap voll): javac nur seriell, keine Repo-Kopien.
 
 ## e1 – Ergebnis
-(folgt)
+| Mod | P1 | P2 | P3 | Fixes (Gametest) |
+|---|---|---|---|---|
+| Wanderers | 0 | 1 (gefixt) | 5 (1 gefixt) | Vanilla-Haendler-Sets nicht mehr ueberschrieben, Haelfte nur bei `on()` per Mixin (`trader_split_follows_the_switch`) |
+| Tweaks | 0 | 5 (2 gefixt, F2–F4) | 12 | Backup-Aufraeumen trifft keine fremde Welt (`backup_prune_keeps_other_worlds`), `/lag` nur Server-Thread (`lag_finder_ignores_other_threads`); F1 Standardwerte |
+| Shops | 0 | 2 (1 gefixt, F5) | 7 (1 gefixt) | Vitrine faerben ueber den echten Klickweg (`display_tint_through_game_mode`), Beschreibung war Simple Beacons |
+| Money | 0 | 0 | 8 (2 gefixt) | Handbuch-Preistabellen (BEW39 rot) und Config-Eintrag; F6 Raketenrezept, F7 Balance |
+| Maps | **1 (gefixt)** | 4 (2 gefixt, F8, F9) | 11 (2 gefixt) | `Integer.MIN_VALUE`-Rahmen liess Clients abstuerzen (`coords_min_value_refused`), Token bei Live-Freigabe (`web_http_public_bind_token`), URL-kodiertes Token (`web_http_token_url_encoded`), `layers_unaligned_area`; F10 |
+| Questionary | 0 | 0 | 6 (1 gefixt) | Schreibweise; Text-Abdeckung = BEW39 missing, nicht gebaut |
+| Fun | 0 | 3 (2 gefixt, F11) | 8 | Wasserbombe/Ente achten auf Schutz (`toy_water_balloon_protection`, `toy_rubber_duck_protection`); F12 |
+| Sandwiches | 0 | 2 (gefixt) | 7 | Handbuch-Formel (BEW39 rot), `depends simplelib`; F13, F14 |
+| Trims | 0 | 2 (gefixt) | 7 | Licht nur in reinem Wasser (`radiance_light_spares_waterlogged_blocks`), Vorlage prueft Zielblock (`placing_checks_the_placed_block`); F15 |
+| Riding | 0 | 1 (gefixt) | 6 | `depends simplelib`; F16, F17 |
+
+Summe: 1 P1 (gefixt), 20 P2 (13 gefixt, 7 als Frage), 77 P3. Besitzer-Fragen F1–F17: Vorschau
+`/root/sb-tools-a/previews/a-audsb31e1-preview.html`, Antwortcode **AUDSB31E1** (die AUDIT.md-Dateien nummerieren ihre Fragen je Mod).
+Querschnitt: `modules.json` `requires` = simplelib fuer Money/Riding/Fun/Sandwiches/Wanderers (statt `cloth_config` bzw. leer), Modtree neu.
 
 ## e1 – Abweichungen
-(folgt)
+- Wie Gruppen A–D risikogeleitet (4 Unteragenten, Wanderers selbst); nicht Gelesenes steht je AUDIT.md.
+- Wanderers-Fix nicht ueber eine Fabric-Ladebedingung (wuerde den Vanilla-Eintrag ganz verwerfen), sondern eigenes Set + Mixin;
+  Mixin-Konfig auch in NeoForge-TOML und Forge-`forgeMixinConfigs` eingetragen, dort aber weder kompiliert noch getestet.
+- `fabric.mod.json` von Riding/Sandwiches: `depends simplelib` ergaenzt (Absturz ohne SimpleLib); NeoForge/Forge-Metadaten nur TODO.
+- Zusatz ausserhalb der Mods: `docs/ai/RELEASE-SIMPLEBUILDING.md` 4.4 (Maps-Probe nie gelaufen).
+- Wiki: nur die Daten der geaenderten Handbuecher committet; `simpleblocks`/`simpleoctets`/`textures.js`/`simplebuilding.json`
+  sind schon auf der Basis veraltet (pal35 bzw. lokale Pfade) und bleiben fuer das Buendel-gen.
 
 ## e1 – Test
-(folgt)
+Lokal: javac aller geaenderten Dateien (nur bekannte Access-Widener-Meldungen in nicht geaenderten Dateien), alle `check_data.py` gruen,
+`check_dup_impl` 0 Probleme, `check_tooltip_text` gruen, `multimod.py` gueltig, `check_missing_textures` 0 Fehler, `layers.py check` 0 Probleme,
+`precheck --fast` gruen, `wiki/generate.py --all --check` rot nur durch Basis-Altlasten (siehe Abweichungen).
+**sbt offen** (sb-test „No route to host“): Befehl `/root/sb-tools-a/a-audsb31e1-sbt.cmd` – Compile der 8 Mods mit Code-/Metadaten-Aenderung,
+`module-<mod>-fabric-263` + standalone fuer Wanderers, Tweaks, Shops, Maps, Fun, Trims, standalone fuer Riding, Sandwiches, Money, dazu data_integrity.
+Nicht getestet: Gametests selbst (kein Lauf), Client (Kartenrahmen, Vitrine), NeoForge/Forge.
