@@ -1214,7 +1214,7 @@ public final class TweaksTests {
         boolean flypads = SimpleTweaks.config().pads.enableFlypads;
         int radius = SimpleTweaks.config().spawn.spawnElytraRadius;
         try {
-            players.op(player.nameAndId());
+            players.op(player.nameAndId(), java.util.Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), java.util.Optional.empty()); // level 2: OPERATOR_ONLY (audit simplebuilding-P2-1)
             var dispatcher = helper.getLevel().getServer().getCommands().getDispatcher();
             var source = player.createCommandSourceStack().withSuppressedOutput();
             dispatcher.execute("simplebuilding tweaks pads flypads false", source);
@@ -1480,7 +1480,7 @@ public final class TweaksTests {
             helper.assertValueEqual(sent.size(), 1, "config packets sent at login");
             helper.assertValueEqual(sent.get(0).values(), SimpleTweaks.localValues(), "values sent at login");
 
-            players.op(player.nameAndId());
+            players.op(player.nameAndId(), java.util.Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), java.util.Optional.empty()); // level 2: OPERATOR_ONLY (audit simplebuilding-P2-1)
             helper.getLevel().getServer().getCommands().getDispatcher()
                     .execute("simplebuilding tweaks balancing rocketStackSize 16", player.createCommandSourceStack().withSuppressedOutput());
             helper.assertValueEqual(sent.size(), 2, "config packets sent after the command");
@@ -2375,7 +2375,7 @@ public final class TweaksTests {
         // y fest, denn der Befehl nimmt nur -1..320 (die Testwelt liegt teils tiefer).
         BlockPos target = new BlockPos(savedSpawn.pos().getX() + 3, 70, savedSpawn.pos().getZ() - 2);
         try {
-            players.op(player.nameAndId());
+            players.op(player.nameAndId(), java.util.Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), java.util.Optional.empty()); // level 2: OPERATOR_ONLY (audit simplebuilding-P2-1)
             helper.getLevel().getServer().getCommands().getDispatcher().execute(
                     "simplebuilding tweaks worldspawn set " + target.getX() + " " + target.getY() + " " + target.getZ(),
                     player.createCommandSourceStack().withSuppressedOutput());
@@ -2574,7 +2574,7 @@ public final class TweaksTests {
         var dispatcher = server.getCommands().getDispatcher();
         var source = player.createCommandSourceStack().withSuppressedOutput();
         try {
-            players.op(player.nameAndId());
+            players.op(player.nameAndId(), java.util.Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), java.util.Optional.empty()); // level 2: OPERATOR_ONLY (audit simplebuilding-P2-1)
             spawn.useCustomWorldSpawn = true;
             spawn.xCoordSpawnPoint = configured.getX();
             spawn.yCoordSpawnPoint = configured.getY();
@@ -2676,7 +2676,7 @@ public final class TweaksTests {
         var dispatcher = helper.getLevel().getServer().getCommands().getDispatcher();
         var source = player.createCommandSourceStack().withSuppressedOutput();
         try {
-            players.op(player.nameAndId());
+            players.op(player.nameAndId(), java.util.Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), java.util.Optional.empty()); // level 2: OPERATOR_ONLY (audit simplebuilding-P2-1)
             commands.enableKillCartsCommand = false;
             commands.enableKillBoatsCommand = false;
             helper.assertValueEqual(dispatcher.execute("killcarts all", source), 0, "carts removed while /killcarts is switched off");
@@ -2696,7 +2696,7 @@ public final class TweaksTests {
             }
             helper.assertTrue(refused, "a non-operator could run /killcarts");
             helper.assertFalse(plain.isRemoved() || full.isRemoved() || empty.isRemoved(), "a non-operator removed a cart");
-            players.op(player.nameAndId());
+            players.op(player.nameAndId(), java.util.Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), java.util.Optional.empty()); // level 2: OPERATOR_ONLY (audit simplebuilding-P2-1)
 
             helper.assertValueEqual(dispatcher.execute("killcarts", source), 1, "carts removed by /killcarts (standard)");
             helper.assertTrue(plain.isRemoved(), "/killcarts standard left the plain minecart");
