@@ -30,7 +30,7 @@ public final class OvensConfig {
     public static boolean enabled = true;
     /** Super-mod switch "Enable Simple Foundry" (sub-mod, framework {@code SubMods}); off = the foundry does not work, blocks stay. */
     public static boolean enableSimpleFoundry = true;
-    /** Super-mod switch "Enable Simple Crucibles" (sub-mod, framework {@code SubMods}); off = no crucible guide book / village kitchen, the blocks stay. */
+    /** Super-mod switch "Enable Simple Crucibles" (sub-mod, framework {@code SubMods}); off = no tab entries, guide book, village kitchen or tool ways, built crucibles keep working. */
     public static boolean enableSimpleCrucibles = true;
     public static int reinforcedSpeed = REINFORCED_DEFAULT;
     public static int netheriteSpeed = NETHERITE_DEFAULT;

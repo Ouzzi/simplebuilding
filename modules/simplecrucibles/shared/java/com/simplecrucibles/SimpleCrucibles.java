@@ -57,7 +57,11 @@ public final class SimpleCrucibles {
         return Identifier.fromNamespaceAndPath(SB_NAMESPACE, path);
     }
 
-    /** Super-mod switch "Enable Simple Crucibles" (framework SubMods, set by SimpleBuilding); off = no guide book in the tabs. */
+    /**
+     * Sub-mod switch "Enable Simple Crucibles" (framework SubMods, set by Simple Ovens' config {@code enableSimpleCrucibles}). Off
+     * (PLAN40 simplecrucibles-1, like Simple Ovens): nothing in the creative tabs, no guide book, no village kitchen, no axe or hammer
+     * ways (build, attach, upgrade in the world); the registrations stay and crucibles already built keep working (no contents frozen).
+     */
     public static boolean on() {
         return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID);
     }

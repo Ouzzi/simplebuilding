@@ -24,7 +24,8 @@ public abstract class AxeBuildMixin {
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     private void simplecrucibles$buildCrucible(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         Player player = context.getPlayer();
-        if (player == null || context.getHand() != InteractionHand.MAIN_HAND || !SimpleLibApi.axeWaysEnabled()) return;
+        if (player == null || context.getHand() != InteractionHand.MAIN_HAND || !SimpleLibApi.axeWaysEnabled()
+                || !com.simplecrucibles.SimpleCrucibles.on()) return; // PLAN40 simplecrucibles-1: switched off = plain axe
         // HEAD runs before Vanilla's Adventure check in useOn: building/upgrading is building (REV2-A).
         if (!player.mayBuild()) return;
         if (!CrucibleBlankBlock.isAxe((ItemStack) (Object) this)) return;

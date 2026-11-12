@@ -76,6 +76,7 @@ public final class CrucibleTests {
         ALL.put("barrel_attached_later_takes_over_reservations", CrucibleTests::barrelAttachedLater);
         ALL.put("client_menu_shows_the_raised_stack_limit", CrucibleTests::clientMenuStackLimit);
         ALL.put("axe_click_reaches_axe_not_menu", CrucibleTests::axeClickReachesAxe);
+        ALL.put("sub_mod_switch", CrucibleTests::subModSwitch);
         ALL.put("axe_upgrades_cauldron", CrucibleTests::axeUpgradesCauldron);
         ALL.put("reinforced_cauldron_holds_buckets", CrucibleTests::reinforcedCauldronBuckets);
         ALL.put("reinforced_cauldron_inherits_vanilla", CrucibleTests::reinforcedCauldronInheritsVanilla);
@@ -979,6 +980,45 @@ public final class CrucibleTests {
         boolean expected = com.simplelib.api.SimpleLibApi.axeWaysEnabled();
         check(h, com.simplelib.api.SimpleLibApi.toolWants(state, h.getLevel(), abs, player, net.minecraft.world.InteractionHand.MAIN_HAND) == expected,
                 "axe + 2 diamonds reaches the axe exactly when the axe way is on (" + expected + ")");
+        h.succeed();
+    }
+
+    /**
+     * PLAN40 simplecrucibles-1: "Enable Simple Crucibles" off works like Simple Ovens' switch - no tab entries, no buckets, no
+     * axe or hammer way (build, attach, upgrade); the registrations stay and a placed crucible keeps its block.
+     */
+    private static void subModSwitch(GameTestHelper h) {
+        BlockPos rel = new BlockPos(1, 2, 1);
+        crucible(h, rel, Blocks.STONE.defaultBlockState(), CrucibleBlocks.IRON_CRUCIBLE);
+        BlockPos abs = h.absolutePos(rel);
+        BlockPos cauldronRel = new BlockPos(3, 2, 1);
+        h.setBlock(cauldronRel, Blocks.CAULDRON);
+        BlockPos cauldron = h.absolutePos(cauldronRel);
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, axe);
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.DIAMOND, 2));
+        var state = h.getLevel().getBlockState(abs);
+        boolean axeWays = SimpleLibApi.axeWaysEnabled();
+        check(h, SimpleLibApi.toolWants(state, h.getLevel(), abs, player, net.minecraft.world.InteractionHand.MAIN_HAND) == axeWays,
+                "switched on, the axe way takes the click exactly while it is on (" + axeWays + ")");
+        com.simplebuilding.framework.api.SubMods.set(SimpleCrucibles.MOD_ID, false);
+        try {
+            check(h, !SimpleCrucibles.on(), "switched off");
+            check(h, com.simplecrucibles.registry.CrucibleRegistry.tabStacks().isEmpty()
+                    && com.simplecrucibles.registry.CrucibleRegistry.bucketStacks().isEmpty(), "no tab stacks while off");
+            check(h, net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(SimpleCrucibles.id("iron_crucible")), "registrations stay");
+            check(h, !SimpleLibApi.toolWants(state, h.getLevel(), abs, player, net.minecraft.world.InteractionHand.MAIN_HAND),
+                    "no axe way on a crucible while off");
+            player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 16));
+            axe.useOn(new net.minecraft.world.item.context.UseOnContext(player, net.minecraft.world.InteractionHand.MAIN_HAND,
+                    new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(cauldron), Direction.UP, cauldron, false)));
+            check(h, h.getLevel().getBlockState(cauldron).is(Blocks.CAULDRON) && player.getOffhandItem().getCount() == 16,
+                    "the axe builds no crucible while off: " + h.getLevel().getBlockState(cauldron));
+            check(h, h.getLevel().getBlockState(abs).is(CrucibleBlocks.IRON_CRUCIBLE), "a placed crucible stays");
+        } finally {
+            com.simplebuilding.framework.api.SubMods.set(SimpleCrucibles.MOD_ID, true);
+        }
         h.succeed();
     }
 

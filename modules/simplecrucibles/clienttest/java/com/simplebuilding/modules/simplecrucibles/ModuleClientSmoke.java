@@ -95,7 +95,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
 
     /**
      * Row 0: the blank stages 1-15 and the finished iron crucible, two blocks apart. Rows 1-3: iron, reinforced and
-     * netherite crucibles with 0-3 upgrade units, then the next tier (enderite only with SimpleBuilding: left out).
+     * netherite crucibles with 0-3 upgrade units, then the next tier (the Enderite step needs Simple Ores: left out).
      */
     private static void buildScene(net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
         world.getServer().runOnServer(server -> {

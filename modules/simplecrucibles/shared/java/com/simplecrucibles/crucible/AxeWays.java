@@ -14,7 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public final class AxeWays {
     public static boolean wants(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
-        if (hand != InteractionHand.MAIN_HAND || !SimpleLibApi.axeWaysEnabled() || !CrucibleBlankBlock.isAxe(player.getMainHandItem())) return false;
+        if (hand != InteractionHand.MAIN_HAND || !com.simplecrucibles.SimpleCrucibles.on() || !SimpleLibApi.axeWaysEnabled()
+                || !CrucibleBlankBlock.isAxe(player.getMainHandItem())) return false;
         if (CrucibleUpgrades.stepFor(state, player.getOffhandItem()) != null) return true;
         return SimpleCruciblesApi.canAttach(level, pos, state);
     }
