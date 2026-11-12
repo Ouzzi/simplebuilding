@@ -328,11 +328,15 @@ public final class HammerTests {
                 if (result.getDamageValue() != expected) problems.add("damage " + result.getDamageValue() + " != " + expected);
                 var enchants = net.minecraft.world.item.enchantment.EnchantmentHelper.getEnchantmentsForCrafting(result);
                 if (enchants.getLevel(silk) != 1 || enchants.getLevel(fortune) != 0 || enchants.getLevel(unbreaking) != 2) problems.add("enchantments " + enchants);
-                if (result.getOrDefault(net.minecraft.core.component.DataComponents.REPAIR_COST, -1) != 0) problems.add("repair cost raised");
+                // PLAN40 simplehammers-2 (owner A): Vanilla's prior work penalty - the result carries 2 x 7 + 1.
+                if (result.getOrDefault(net.minecraft.core.component.DataComponents.REPAIR_COST, -1) != 15) problems.add("repair cost "
+                        + result.getOrDefault(net.minecraft.core.component.DataComponents.REPAIR_COST, -1) + " != 15");
             }
-            if (menu.getCost() != 1) problems.add("cost " + menu.getCost());
-            player.experienceLevel = 1;
-            if (!menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).mayPickup(player)) problems.add("cannot take with 1 level");
+            if (menu.getCost() != 8) problems.add("cost " + menu.getCost() + " (1 + the left hammer's repair cost 7)");
+            player.experienceLevel = 7;
+            if (menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).mayPickup(player)) problems.add("taken with 7 levels");
+            player.experienceLevel = 8;
+            if (!menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).mayPickup(player)) problems.add("cannot take with 8 levels");
             h.assertTrue(problems.isEmpty(), "hammer + hammer: " + problems);
             h.succeed();
         });
@@ -350,6 +354,8 @@ public final class HammerTests {
             List<String> problems = new ArrayList<>();
             if (!result.is(left.getItem()) || result.getDamageValue() != 0) problems.add("result " + result + " damage " + result.getDamageValue());
             if (menu.getCost() != 3) problems.add("cost " + menu.getCost() + " (one level per ingot, 3 ingots)");
+            if (result.getOrDefault(net.minecraft.core.component.DataComponents.REPAIR_COST, -1) != 1) problems.add("repair cost after the first work "
+                    + result.getOrDefault(net.minecraft.core.component.DataComponents.REPAIR_COST, -1) + " != 1");
             player.experienceLevel = 3;
             if (!slot.mayPickup(player)) problems.add("cannot take with 3 levels");
             else {
@@ -359,6 +365,60 @@ public final class HammerTests {
                 if (rest.getCount() != 7) problems.add("ingots left " + rest.getCount() + " != 7");
             }
             h.assertTrue(problems.isEmpty(), "hammer + material: " + problems);
+            h.succeed();
+        });
+        ALL.put("anvil_hammer_too_expensive", h -> {
+            // PLAN40 simplehammers-2 (owner A): from 40 levels on the anvil refuses a hammer outside creative, like Vanilla.
+            ItemStack left = new ItemStack(HammerRegistry.hammer(HammerTiers.IRON));
+            left.setDamageValue(Math.max(1, left.getMaxDamage() / 11));
+            left.set(net.minecraft.core.component.DataComponents.REPAIR_COST, 39);
+            ServerPlayer player = lookingDown(h, ItemStack.EMPTY);
+            var menu = anvil(player, left, new ItemStack(Items.IRON_INGOT, 1));
+            List<String> problems = new ArrayList<>();
+            if (menu.getCost() != 40) problems.add("cost " + menu.getCost() + " != 1 + 39");
+            if (!menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty()) problems.add("survival gets a result at 40 levels");
+            player.setGameMode(GameType.CREATIVE);
+            var creative = anvil(player, left.copy(), new ItemStack(Items.IRON_INGOT, 1));
+            if (creative.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty()) problems.add("creative gets no result");
+            h.assertTrue(problems.isEmpty(), "too expensive: " + problems);
+            h.succeed();
+        });
+        ALL.put("override_levels", h -> {
+            // PLAN40 simplehammers-2: what Override takes along - 0 the same pickaxe block, I any pickaxe block the hammer
+            // harvests, II any breakable block (no fluids); II also makes axe/shovel/hoe blocks correct and fast.
+            BlockPos origin = new BlockPos(1, 1, 1), sameRel = new BlockPos(2, 1, 1), cobbleRel = new BlockPos(3, 1, 1),
+                    dirtRel = new BlockPos(1, 1, 3), logRel = new BlockPos(2, 1, 3), waterRel = new BlockPos(3, 1, 3);
+            h.setBlock(origin, Blocks.STONE);
+            h.setBlock(sameRel, Blocks.STONE);
+            h.setBlock(cobbleRel, Blocks.COBBLESTONE);
+            h.setBlock(dirtRel, Blocks.DIRT);
+            h.setBlock(logRel, Blocks.OAK_LOG);
+            h.setBlock(waterRel, Blocks.WATER);
+            ItemStack hammer = new ItemStack(HammerRegistry.hammer(HammerTiers.IRON));
+            var level = h.getLevel();
+            var originState = Blocks.STONE.defaultBlockState();
+            List<String> problems = new ArrayList<>();
+            int[][] want = {{1, 0, 0, 0, 0}, {1, 1, 0, 0, 0}, {1, 1, 1, 1, 0}}; // same stone, cobblestone, dirt, log, water
+            BlockPos[] targets = {sameRel, cobbleRel, dirtRel, logRel, waterRel};
+            for (int lvl = 0; lvl <= 2; lvl++) {
+                for (int i = 0; i < targets.length; i++) {
+                    boolean got = SledgehammerUtils.shouldBreak(level, h.absolutePos(targets[i]), originState, hammer, lvl);
+                    if (got != (want[lvl][i] == 1)) problems.add("override " + lvl + " on " + level.getBlockState(h.absolutePos(targets[i])).getBlock() + ": " + got);
+                }
+            }
+            var override = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(com.simplehammers.engine.HammerEnchantments.OVERRIDE);
+            ItemStack two = hammer.copy();
+            two.enchant(override, 2);
+            ItemStack one = hammer.copy();
+            one.enchant(override, 1);
+            SledgehammerItem item = (SledgehammerItem) hammer.getItem();
+            var log = Blocks.OAK_LOG.defaultBlockState();
+            var dirt = Blocks.DIRT.defaultBlockState();
+            if (item.isCorrectToolForDrops(one, log) || item.isCorrectToolForDrops(hammer, log)) problems.add("log harvested below Override II");
+            if (!item.isCorrectToolForDrops(two, log) || !item.isCorrectToolForDrops(two, dirt)) problems.add("Override II does not harvest log/dirt");
+            if (item.getDestroySpeed(two, dirt) <= 1.0F || item.getDestroySpeed(hammer, dirt) > 1.0F) problems.add("Override II speed on dirt "
+                    + item.getDestroySpeed(two, dirt) + " / plain " + item.getDestroySpeed(hammer, dirt));
+            h.assertTrue(problems.isEmpty(), "override: " + problems);
             h.succeed();
         });
         ALL.put("hammer_tempo", h -> {

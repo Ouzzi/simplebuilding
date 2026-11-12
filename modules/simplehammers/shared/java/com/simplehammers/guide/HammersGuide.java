@@ -47,7 +47,7 @@ import net.minecraft.world.level.Level;
 public final class HammersGuide {
     public static final String NAMESPACE = "simplehammers";
     public static final String AUTHOR = "Simple Hammers";
-    public static final int PAGES = 26;
+    public static final int PAGES = 28;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Simple Modpack guide (SimpleLib) the old book turns into. */
     public static final Identifier MODPACK_GUIDE = Identifier.fromNamespaceAndPath("simplelib", "modpack_guide");

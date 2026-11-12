@@ -397,6 +397,7 @@ Hand-Werkzeuge: Messgerät, Transposer, Detektor, Attraktor, Resonanzstab.
 Sieben Vorschlaghämmer (3x3 abbauen, umformen, Octets schnitzen, Blöcke aufwerten) und die Verzauberungen Durchbruch, Überschreiben, Radius.
 
 - **A12:** Nutzen: schneller Abbau und Umbau. Mixins an Abbau-Tempo, Amboss, Treppenform, Rezepten und Rendern. Eingriff in Vanilla: mittel (Abbau-Hook), nur mit Hammer in der Hand.
+- **Balance (PLAN40 simplehammers-2):** Steinhammer ohne Eisen (Steinblock + `#minecraft:stone_tool_materials`, wie Vanillas Steinwerkzeuge); Amboss mit Vanillas Arbeitskosten (Vorbelastung steigt, ab 40 Stufen zu teuer); Aufwertungs-Leiter mit SimpleBuilding bleibt bei der Familienregel der einfachen Aufwertung (doppeltes Handwerksmaterial, 22; Leiter über Gold wie bei den Vanilla-Werkzeugen), Neubau bleibt billiger, die Aufwertung behält Verzauberungen. Übersteuerung II (Allzweck-Hammer) ist der stärkste Eingriff, nur über die Verzauberung Stufe II, getestet (`override_levels`).
 
 ### Simple Layers (`simplelayers`)
 Wolkenmeer über y 700 und Backrooms als eigene Dimension mit zehn Ebenen (Eingänge: Keller eines verlassenen Hauses, Riss im gestörten Grundgestein).

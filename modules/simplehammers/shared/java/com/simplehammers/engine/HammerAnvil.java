@@ -14,8 +14,10 @@ import org.jetbrains.annotations.Nullable;
 /**
  * The anvil rules for sledgehammers (moved from SimpleBuilding's anvil mixin, REV24-F-18; {@code HammerAnvilMixin}
  * applies them). Hammer + hammer of the same tier adds both durabilities plus 12 % and combines the enchantments like vanilla for one
- * level; hammer + its repair material mends one eleventh per piece, one level per piece (+1 for a new name, at most
- * 39). Results never raise the repair cost.
+ * level; hammer + its repair material mends one eleventh per piece, one level per piece (+1 for a new name).
+ * PLAN40 simplehammers-2 (owner A): the prior work penalty works like Vanilla's - the cost adds the repair cost of both
+ * inputs, the result carries {@code AnvilMenu.calculateIncreasedRepairCost} of the higher one, and from 40 levels on the
+ * anvil is "too expensive" outside creative ({@code HammerAnvilMixin}).
  */
 public final class HammerAnvil {
     /** The anvil result: the stack, its level cost and how many items the right slot gives up. */
@@ -42,7 +44,7 @@ public final class HammerAnvil {
 
         ItemStack result = left.copy();
         result.setDamageValue(newDamage);
-        result.set(DataComponents.REPAIR_COST, 0);
+        result.set(DataComponents.REPAIR_COST, increasedRepairCost(left, right));
 
         ItemEnchantments leftEnchants = EnchantmentHelper.getEnchantmentsForCrafting(left);
         ItemEnchantments rightEnchants = EnchantmentHelper.getEnchantmentsForCrafting(right);
@@ -66,7 +68,7 @@ public final class HammerAnvil {
         EnchantmentHelper.setEnchantments(result, builder.toImmutable());
 
         rename(left, result, itemName);
-        return new Result(result, 1, 1);
+        return new Result(result, 1 + priorWork(left, right), 1);
     }
 
     private static Result repair(ItemStack left, ItemStack right, @Nullable String itemName) {
@@ -83,8 +85,19 @@ public final class HammerAnvil {
 
         int cost = materialsUsed;
         if (rename(left, result, itemName)) cost += 1;
-        result.set(DataComponents.REPAIR_COST, 0);
-        return new Result(result, Math.min(Math.max(cost, 1), 39), materialsUsed);
+        result.set(DataComponents.REPAIR_COST, increasedRepairCost(left, right));
+        return new Result(result, Math.max(cost, 1) + priorWork(left, right), materialsUsed);
+    }
+
+    /** Vanilla's prior work penalty: the repair cost of both inputs (a material stack carries none). */
+    private static int priorWork(ItemStack left, ItemStack right) {
+        return left.getOrDefault(DataComponents.REPAIR_COST, 0) + right.getOrDefault(DataComponents.REPAIR_COST, 0);
+    }
+
+    /** Vanilla's next repair cost: twice the higher input's plus one. */
+    private static int increasedRepairCost(ItemStack left, ItemStack right) {
+        return net.minecraft.world.inventory.AnvilMenu.calculateIncreasedRepairCost(
+                Math.max(left.getOrDefault(DataComponents.REPAIR_COST, 0), right.getOrDefault(DataComponents.REPAIR_COST, 0)));
     }
 
     /** Vanilla's rename step; true if the name changed. */

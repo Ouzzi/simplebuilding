@@ -124,7 +124,9 @@ import net.minecraft.resources.RegistryOps;
  * gates the whole tier behind iron. {@link #modRecipesOnlyReferenceRegisteredItems} pins the shape
  * of that recipe - the two cobblestones and the two sticks in their documented positions - but
  * deliberately makes no statement about what belongs in the corner slot, so the defect is neither
- * frozen as intended behaviour nor hidden.
+ * frozen as intended behaviour nor hidden. On 26.3 Simple Hammers ships the recipe and fixed it (PLAN40
+ * simplehammers-2: a stone block in the corner, {@code #minecraft:stone_tool_materials} beside it); 26.2 keeps
+ * the iron ingot until the port run.
  */
 public final class DataIntegrityTests {
 
