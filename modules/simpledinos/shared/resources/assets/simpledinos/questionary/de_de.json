@@ -26,10 +26,10 @@
       "Ein sandfarbenes Ei mit braunen Bändern."
     ],
     "use": [
-      "Lässt sich wie jedes Dinosaurier-Ei platzieren und bebrüten. Der Triceratops selbst ist noch nicht gebaut, das Ei bleibt vorerst ein Ei."
+      "Platzieren und mit leerer Hand daraufsetzen: 5 Minuten Sitzen bebrüten es, 10 Minuten später schlüpft ein zahmes Triceratops-Jungtier für den Spieler, der am längsten gesessen hat. Drei Eierschalen bleiben zurück."
     ],
     "secret": [
-      "Es wartet auf seinen Dinosaurier."
+      "Seine Hörner sind nicht zum Kämpfen: ein Anlauf gegen einen Baum schüttelt das Obst ab."
     ]
   },
   "stegosaurus_egg": {
@@ -107,6 +107,83 @@
     ],
     "secret": [
       "Sieht an einem grünen T-Rex am besten aus."
+    ]
+  },
+  "triceratops_armor_leather": {
+    "lore": [
+      "Ein Kragenschild aus genähtem Leder mit weichen Hornkappen."
+    ],
+    "use": [
+      "Einem erwachsenen, zahmen Triceratops anlegen: Schutz wie Leder-Pferderüstung. Acht Leder um eine Triceratops-Eierschale."
+    ],
+    "secret": [
+      "Mit Hornkappen wirkt jeder Anlauf doppelt so mutig."
+    ]
+  },
+  "triceratops_armor_iron": {
+    "lore": [
+      "Ein genieteter Eisen-Kragenschild mit drei Hornkappen."
+    ],
+    "use": [
+      "Einem erwachsenen, zahmen Triceratops anlegen: Schutz wie Eisen-Pferderüstung. Acht Eisenbarren um eine Triceratops-Eierschale."
+    ],
+    "secret": [
+      "Den Bäumen ist das Scheppern egal, dem Triceratops auch."
+    ]
+  },
+  "triceratops_armor_diamond": {
+    "lore": [
+      "Ein geschliffener Diamant-Kragenschild, der das Licht fängt."
+    ],
+    "use": [
+      "Einem erwachsenen, zahmen Triceratops anlegen: Schutz wie Diamant-Pferderüstung. Acht Diamanten um eine Triceratops-Eierschale."
+    ],
+    "secret": [
+      "Das Rezept erscheint erst, wenn du eine Eierschale hältst, wie der Schildkrötenpanzer nach dem Hornschild."
+    ]
+  },
+  "triceratops_eggshell": {
+    "lore": [
+      "Eine halbe Schale, noch warm vom Jungtier."
+    ],
+    "use": [
+      "Drei fallen, wenn ein Triceratops schlüpft. Eine ergibt drei Knochenmehl; eine in der Mitte von acht Leder, Eisen oder Diamanten ergibt Triceratops-Rüstung."
+    ],
+    "secret": [
+      "Kein Triceratops, keine Schale: die Rüstung wartet auf das erste Jungtier."
+    ]
+  },
+  "stegosaurus_eggshell": {
+    "lore": [
+      "Eine halbe schiefergraue Schale mit Plattenmuster."
+    ],
+    "use": [
+      "Fällt, wenn ein Stegosaurus schlüpft; eine ergibt drei Knochenmehl. Seine Rüstung kommt mit dem Stegosaurus."
+    ],
+    "secret": [
+      "Der Stegosaurus selbst ist noch nicht gebaut."
+    ]
+  },
+  "utahraptor_eggshell": {
+    "lore": [
+      "Eine halbe rostrote Schale mit dunklen Sprenkeln."
+    ],
+    "use": [
+      "Fällt, wenn ein Utahraptor schlüpft; eine ergibt drei Knochenmehl. Seine Rüstung kommt mit dem Utahraptor."
+    ],
+    "secret": [
+      "Der Utahraptor selbst ist noch nicht gebaut."
+    ]
+  },
+  "parasaurolophus_eggshell": {
+    "lore": [
+      "Eine halbe türkise Schale mit hellen Tupfen."
+    ],
+    "use": [
+      "Fällt, wenn ein Parasaurolophus schlüpft; eine ergibt drei Knochenmehl. Seine Rüstung kommt mit dem Parasaurolophus."
+    ],
+    "secret": [
+      "Der Parasaurolophus selbst ist noch nicht gebaut."
     ]
   },
   "guide_book": {

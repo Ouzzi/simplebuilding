@@ -1,11 +1,16 @@
 package com.simpledinos.entity;
 
+import com.simpledinos.DinoKind;
 import com.simpledinos.DinosRegistry;
 import com.simpledinos.config.DinosConfig;
 import com.simpledinos.entity.part.PartRig;
 import com.simpledinos.entity.part.TrexBones;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
@@ -37,6 +42,52 @@ public class Trex extends Dino {
     @Override
     public PartRig rig() {
         return RIG;
+    }
+
+    @Override
+    public DinoKind kind() {
+        return DinoKind.TREX;
+    }
+
+    /**
+     * The T. rex is the only fighter (concept DINO36, a-dinorest1 moved these goals here from Dino): it bites monsters that hunt its
+     * owner or itself, from the reach of its head, never players.
+     */
+    @Override
+    protected void addBehaviourGoals() {
+        super.addBehaviourGoals();
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, true) {
+            @Override
+            public boolean canUse() {
+                return !Trex.this.isBaby() && !Trex.this.isVehicle() && super.canUse();
+            }
+
+            @Override
+            public void tick() {
+                super.tick();
+                // a-dino36b: in bite reach it stands and bites from its head instead of pushing its head into the target
+                LivingEntity target = Trex.this.getTarget();
+                if (target != null && Trex.this.isWithinMeleeAttackRange(target)) Trex.this.getNavigation().stop();
+            }
+        });
+        // Defends the owner: only monsters that have the owner or the dinosaur as their target, scanned every 10 ticks.
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<Monster>(this, Monster.class, 10, true, false,
+                (target, level) -> target instanceof Monster m && defends(m)) {
+            @Override
+            public boolean canUse() {
+                return Trex.this.isTamed() && !Trex.this.isBaby() && !Trex.this.isVehicle() && super.canUse();
+            }
+        });
+    }
+
+    /**
+     * Whether {@code monster} is a reason to bite: it hunts the owner or this dinosaur. An idle monster is none - also while the
+     * owner is offline or in another dimension, where {@link #getOwner()} is null and a plain {@code getTarget() == getOwner()}
+     * would be true for every monster without a target.
+     */
+    public boolean defends(Monster monster) {
+        LivingEntity hunted = monster.getTarget();
+        return hunted != null && (hunted == getOwner() || hunted == this);
     }
 
     /**

@@ -36,10 +36,14 @@ public class FossilBlockEntity extends BlockEntity {
         super(DinosRegistry.FOSSIL_BE, pos, state);
     }
 
-    /** The dinosaur whose egg this block holds (stable per position). */
+    /**
+     * The dinosaur whose egg this block holds (stable per position, rolled once and stored). The biome of the find shifts the odds
+     * (a-dinorest1, {@link DinoKind#siteHalves}); a block that has rolled already keeps its kind.
+     */
     public DinoKind kind() {
         if (sort < 0) {
-            sort = DinoKind.roll(RandomSource.create(this.worldPosition.asLong() * 0x9E3779B97F4A7C15L + 0x51ED2701L)).ordinal();
+            var biome = this.level == null ? null : this.level.getBiome(this.worldPosition);
+            sort = DinoKind.roll(RandomSource.create(this.worldPosition.asLong() * 0x9E3779B97F4A7C15L + 0x51ED2701L), biome).ordinal();
             setChanged();
         }
         return DinoKind.byIndex(sort);

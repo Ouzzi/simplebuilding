@@ -35,7 +35,10 @@ public final class DinosNeoForge {
                         new BlockEntityType<>(DinoEggBlockEntity::new, DinosRegistry.eggBlocks(), false));
             }
         });
-        bus.addListener((EntityAttributeCreationEvent event) -> event.put(DinosRegistry.TREX, DinosRegistry.trexAttributes().build()));
+        bus.addListener((EntityAttributeCreationEvent event) -> {
+            event.put(DinosRegistry.TREX, DinosRegistry.trexAttributes().build());
+            event.put(DinosRegistry.TRICERATOPS, DinosRegistry.triceratopsAttributes().build());
+        });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
             if (!SimpleDinos.on()) return;
             var stacks = DinosRegistry.tabStacks();
@@ -49,6 +52,12 @@ public final class DinosNeoForge {
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TREX_ARMOR_LEATHER), vis);
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TREX_ARMOR_IRON), vis);
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TREX_ARMOR_DIAMOND), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TRICERATOPS_ARMOR_LEATHER), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TRICERATOPS_ARMOR_IRON), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TRICERATOPS_ARMOR_DIAMOND), vis);
+            }
+            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
+                DinosRegistry.EGGSHELLS.values().forEach(i -> event.accept(new net.minecraft.world.item.ItemStack(i), vis));
             }
         });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simpledinos.guide.DinosGuide.installQuests(FMLPaths.CONFIGDIR.get());

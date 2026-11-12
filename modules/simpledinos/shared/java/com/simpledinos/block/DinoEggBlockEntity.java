@@ -236,6 +236,11 @@ public class DinoEggBlockEntity extends BlockEntity {
         dino.hatch(player);
         level.removeBlock(pos, false);
         level.addFreshEntity(dino);
+        var shell = kind().eggshell(); // a-dinorest1: the shell stays behind (3 pieces; bone meal, and the middle of the kind's armor)
+        if (shell != null) {
+            level.addFreshEntity(new net.minecraft.world.entity.item.ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
+                    new net.minecraft.world.item.ItemStack(shell, 3)));
+        }
         level.playSound(null, pos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 1.0F, 0.6F);
         level.sendParticles(ParticleTypes.POOF, pos.getX() + 0.5, pos.getY() + 0.4, pos.getZ() + 0.5, 12, 0.3, 0.3, 0.3, 0.02);
         return true;

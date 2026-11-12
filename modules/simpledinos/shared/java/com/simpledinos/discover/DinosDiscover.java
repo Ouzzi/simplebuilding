@@ -60,14 +60,22 @@ public final class DinosDiscover {
             "simpledinos:guide_book",
             "simpledinos:large_saddle",
             "simpledinos:parasaurolophus_egg",
+            "simpledinos:parasaurolophus_eggshell",
             "simpledinos:stegosaurus_egg",
+            "simpledinos:stegosaurus_eggshell",
             "simpledinos:trex",
             "simpledinos:trex_armor_diamond",
             "simpledinos:trex_armor_iron",
             "simpledinos:trex_armor_leather",
             "simpledinos:trex_egg",
+            "simpledinos:triceratops",
+            "simpledinos:triceratops_armor_diamond",
+            "simpledinos:triceratops_armor_iron",
+            "simpledinos:triceratops_armor_leather",
             "simpledinos:triceratops_egg",
-            "simpledinos:utahraptor_egg");
+            "simpledinos:triceratops_eggshell",
+            "simpledinos:utahraptor_egg",
+            "simpledinos:utahraptor_eggshell");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
