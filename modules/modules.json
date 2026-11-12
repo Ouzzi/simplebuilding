@@ -2968,8 +2968,7 @@
         "forge"
       ],
       "requires": [
-        "simplelib",
-        "cloth_config"
+        "simplelib"
       ],
       "optional": [
         "simplebuilding",
@@ -2977,7 +2976,8 @@
         "simpleend",
         "simpleenddragonfight",
         "jei",
-        "modmenu"
+        "modmenu",
+        "cloth_config"
       ],
       "checks": [
         "modules/simplemobheads/tools/check_data.py"

@@ -41,8 +41,8 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - required: SimpleLib
     - optional: jade, SimpleBuilding, Simple Ores, jei
   - **Simple Mobheads** `simplemobheads` (required) [fertig]: A head for every mob: dropped when a charged creeper's explosion kills it, worn for a small secret, placed, or played on a note block. Required sub-mod of SimpleBuilding; Simple Fun's and SimpleBuilding's heads moved in.
-    - required: SimpleLib, cloth_config
-    - optional: SimpleBuilding, Simple Mobs, Simple End, Simple End Dragon Fight, jei, modmenu
+    - required: SimpleLib
+    - optional: SimpleBuilding, Simple Mobs, Simple End, Simple End Dragon Fight, jei, modmenu, cloth_config
   - **Simple Mobs** `simplemobs` (required) [neu]: Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted and Abyssal Wither with Nether Heart and Red Nether Gem, and the Potion of Silence.
     - required: SimpleLib, Simple Resonance
   - **Simple Octets** `simpleoctets` (required) [fertig]: Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.

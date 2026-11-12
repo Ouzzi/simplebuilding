@@ -281,7 +281,8 @@ Verstärkte, Netherit- und Enderit-Öfen, Räucher- und Hochöfen, Ofen-Loren; P
 ### Simple Mobheads (`simplemobheads`)
 Kopf für jeden Mob; Pflicht-Sub-Mod von SimpleBuilding.
 
-- keine eigenen Regeln bisher
+- Abhängigkeiten: nur SimpleLib; Cloth Config ist optional (nur der Einstellungsbildschirm über Mod Menu braucht es, `ModMenuIntegration` prüft es; PLAN40 simplemobheads-2).
+- **A12 (PLAN40 simplemobheads-2, Besitzer-Entscheide 29.09./13.10./KONZ20/EH21 bleiben):** Nutzen: Sammel- und Deko-Ziel für jeden Mob (Notenblock spielt den Mob-Klang), Köpfe fallen nach Vanilla-Regel (Explosion eines geladenen Creepers, ein Kopf je Explosion); kleine Trage-Fähigkeiten, je Fähigkeit abschaltbar (`abilities`). Eingriffe, standardmäßig an und begründet: (1) **Zusatz-Kopfplatz** (SimpleBuilding, N49): Kopf und Helm zugleich – Fähigkeit plus voller Rüstungsschutz; bewusst, weil die Fähigkeiten klein sind und sonst kein Kopf getragen würde; nur mit SimpleBuilding. (2) **Easter-Spawns**: Killerkaninchen (1 : 1000 in Blumenwald/Wiese), Riesenzombie (natürlicher Blitz bei Vollmond), Riesenkuh (1 : 5000 je gefressenem Heuballen) – selten, nur Spaß, einzeln abschaltbar (`killerBunnies`, `giantZombies`, `giantCows`); der Riesenkopf prüft beim Wachsen den Platz (AUDSB31B F8, a-audsb31b). (3) **Herobrine**: Ritual nur auf ausdrückliche Tat des Spielers (goldener Schrein bei Nacht), danach fünf Minuten Spuk nur für diesen Spieler ohne Weltänderung (`herobrineRitual`, `hauntPhase`, Hinweisbuch `hintBook`). Keine Vanilla-Beutetabelle wird ersetzt, Wither-Kopf standardmäßig aus. Eingriff in Vanilla: gering bis mittel (seltene Zusatz-Spawns), alles abschaltbar außer dem Zusatz-Kopfplatz (SimpleBuilding).
 
 ### Simple Shops (`simpleshops`)
 Spieler-Shops: Verkaufsblock mit Preis, Vitrine mit Waren.
