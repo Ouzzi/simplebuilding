@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:blue_ice_bricks",
+  "result": {
+    "id": "simpleblocks:blue_ice_brick_stairs"
+  }
+}

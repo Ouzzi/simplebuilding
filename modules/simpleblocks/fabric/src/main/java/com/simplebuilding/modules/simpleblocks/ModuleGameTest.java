@@ -22,6 +22,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void iceBrickFamily(GameTestHelper h) {
+        BlocksTests.ALL.get("icebricks38_family").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void tagsAndShapes(GameTestHelper h) {
         BlocksTests.ALL.get("tags_and_shapes").accept(h);
     }

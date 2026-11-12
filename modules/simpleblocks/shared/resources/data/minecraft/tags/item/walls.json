@@ -30,6 +30,9 @@
     "simpleblocks:ice_wall",
     "simpleblocks:packed_ice_wall",
     "simpleblocks:blue_ice_wall",
+    "simpleblocks:ice_brick_wall",
+    "simpleblocks:packed_ice_brick_wall",
+    "simpleblocks:blue_ice_brick_wall",
     "simpleblocks:blue_nether_brick_wall"
   ]
 }

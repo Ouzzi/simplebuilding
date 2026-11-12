@@ -242,7 +242,19 @@
     "simpleoctets:polished_sulfur_octet",
     "simpleoctets:sulfur_octet",
     "simpleoctets:ice_octet",
+    {
+      "id": "simpleoctets:ice_bricks_octet",
+      "required": false
+    },
     "simpleoctets:packed_ice_octet",
-    "simpleoctets:blue_ice_octet"
+    {
+      "id": "simpleoctets:packed_ice_bricks_octet",
+      "required": false
+    },
+    "simpleoctets:blue_ice_octet",
+    {
+      "id": "simpleoctets:blue_ice_bricks_octet",
+      "required": false
+    }
   ]
 }

@@ -171,7 +171,10 @@
     "simpleoctets:white_wool_octet": "Cut in the stonecutter from its block (8 per block); like Vanilla building blocks not traded.",
     "simpleoctets:yellow_concrete_octet": "Cut in the stonecutter from its block (8 per block); like Vanilla building blocks not traded.",
     "simpleoctets:yellow_terracotta_octet": "Cut in the stonecutter from its block (8 per block); like Vanilla building blocks not traded.",
-    "simpleoctets:yellow_wool_octet": "Cut in the stonecutter from its block (8 per block); like Vanilla building blocks not traded."
+    "simpleoctets:yellow_wool_octet": "Cut in the stonecutter from its block (8 per block); like Vanilla building blocks not traded.",
+    "simpleoctets:ice_bricks_octet": "Cut in the stonecutter from its block (8 per block); like Vanilla building blocks not traded.",
+    "simpleoctets:packed_ice_bricks_octet": "Cut in the stonecutter from its block (8 per block); like Vanilla building blocks not traded.",
+    "simpleoctets:blue_ice_bricks_octet": "Cut in the stonecutter from its block (8 per block); like Vanilla building blocks not traded."
   },
   "prices": []
 }

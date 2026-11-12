@@ -85,6 +85,14 @@ for _k, _en, _de in ICES:
     ICE_NAMES[f'polished_{_k}'] = (f'Polished {_en}', f'Poliertes {_de}')
     ICE_NAMES[f'{_k}_bricks'] = (f'{_en} Bricks', f'{_de}ziegel')
     SHAPES.append((_k, f'minecraft:{_k}', 'sSw', _tex(f'minecraft:block/{_k}')))
+# a-icebricks38 (owner 12.11., docs/ai/PLAN-A-ICEBRICKS38-2026-11-12.md): the ice bricks become a family of their own - cracked bricks
+# and stairs/slab/wall of the bricks (+ an octet in simpleoctets). Cracked texture: icebricks38_2026_11_12.py (Vanilla-derived);
+# the shapes show the bricks' texture. Like every ice member: Silk Touch loot, properties of the ice, only normal ice melts.
+ICE_BRICK_FULL = [f'cracked_{k}_bricks' for k, *_ in ICES]
+for _k, _en, _de in ICES:
+    ICE_NAMES[f'cracked_{_k}_bricks'] = (f'Cracked {_en} Bricks', f'Rissige {_de}ziegel')
+    SHAPES.append((f'{_k}_brick', f'{NS}:{_k}_bricks', 'sSw', _tex(f'{NS}:block/{_k}_bricks')))
+ICE_FULL += ICE_BRICK_FULL
 
 # name -> dict(kind, family, base item, textures)
 BLOCKS = {}
@@ -108,7 +116,7 @@ for name, _, end, *_ in PILLARS:
 for name in ICE_FULL:
     BLOCKS[name] = dict(kind='cube', tex=f'{NS}:block/{name}')
 # Every ice member: Silk Touch loot like Vanilla ice (stairs/slab/wall included, see ICE_SHAPES).
-ICE_SHAPES = [f'{k}_{kind}' for k, *_ in ICES for kind in ('stairs', 'slab', 'wall')]
+ICE_SHAPES = [f'{k}{brick}_{kind}' for k, *_ in ICES for brick in ('', '_brick') for kind in ('stairs', 'slab', 'wall')]
 ICE_ALL = ICE_FULL + ICE_SHAPES
 
 # Blue nether bricks (N71): own texture, full block + stairs/slab/wall; made from warped wart (SimpleLib) like red nether bricks from nether wart.
@@ -427,6 +435,22 @@ def recipes():
             recipe(rid, {'type': 'minecraft:stonecutting', 'ingredient': src, 'result': result(out)}, src)
     recipe('chiseled_ice_from_ice_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': 'minecraft:ice', 'result': result('chiseled_ice')},
            'minecraft:ice')
+    # a-icebricks38: the brick family. Cracked: the stonecutter (a furnace would melt the ice; like the cracked ice). The brick shapes are
+    # also cut from the ice and the polished ice (Vanilla: deepslate brick stairs from cobbled/polished deepslate). Chiseled ice of the
+    # kind: 2 brick slabs on top of each other (like chiseled stone bricks) or the stonecutter from the bricks.
+    for k, *_ in ICES:
+        bricks, cracked = f'{NS}:{k}_bricks', f'cracked_{k}_bricks'
+        recipe(f'{cracked}_from_{k}_bricks_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': bricks, 'result': result(cracked)}, bricks)
+        for src in (f'minecraft:{k}', f'{NS}:polished_{k}'):
+            for kind, count in (('stairs', 1), ('slab', 2), ('wall', 1)):
+                out = f'{k}_brick_{kind}'
+                recipe(f'{out}_from_{src.split(":")[1]}_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': src, 'result': result(out, count)},
+                       src, 'decorations' if kind == 'wall' else 'building_blocks')
+        chiseled, slab = f'{NS}:chiseled_{k}', f'{NS}:{k}_brick_slab'
+        recipe(f'chiseled_{k}_from_{k}_brick_slab', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': slab},
+                                                     'pattern': ['#', '#'], 'result': result(f'chiseled_{k}')}, slab)
+        recipe(f'chiseled_{k}_from_{k}_bricks_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': bricks, 'result': result(f'chiseled_{k}')},
+               bricks)
     for name, base in AGED:
         brick = base if ':' in base else f'minecraft:{base}'
         if name.startswith('cracked_'):
@@ -527,7 +551,7 @@ EN_FAMILY = {'calcite': 'Calcite', 'netherrack': 'Netherrack', 'smooth_basalt': 
              'mossy_sulfur_brick': 'Mossy Sulfur Brick', 'stone': 'Stone', 'smooth_stone': 'Smooth Stone', 'polished_granite': 'Polished Granite',
              'polished_diorite': 'Polished Diorite', 'polished_andesite': 'Polished Andesite', 'quartz': 'Quartz', 'smooth_quartz': 'Smooth Quartz',
              'purpur': 'Purpur', 'quartz_brick': 'Quartz Brick', 'end_stone': 'End Stone', 'prismarine_brick': 'Prismarine Brick',
-             'dark_prismarine': 'Dark Prismarine', **{k: e for k, e, _ in ICES}}
+             'dark_prismarine': 'Dark Prismarine', **{k: e for k, e, _ in ICES}, **{f'{k}_brick': f'{e} Brick' for k, e, _ in ICES}}
 DE_FAMILY = {'calcite': 'Kalzit', 'netherrack': 'Netherrack-', 'smooth_basalt': 'Glatte Basalt', 'cut_sandstone': 'Geschnittene Sandstein',
              'cut_red_sandstone': 'Geschnittene Rote Sandstein', 'smooth_sandstone': 'Glatte Sandstein', 'smooth_red_sandstone': 'Glatte Rote Sandstein',
              HUSHED: 'Gedämpfte Tiefenschieferfliesen', BLUE: 'Blaue Netherziegel',
@@ -537,7 +561,7 @@ DE_FAMILY = {'calcite': 'Kalzit', 'netherrack': 'Netherrack-', 'smooth_basalt': 
              'smooth_stone': 'Glatte Stein', 'polished_granite': 'Polierte Granit', 'polished_diorite': 'Polierte Diorit',
              'polished_andesite': 'Polierte Andesit', 'quartz': 'Quarz', 'smooth_quartz': 'Glatte Quarz', 'purpur': 'Purpur',
              'quartz_brick': 'Quarzziegel', 'end_stone': 'Endstein', 'prismarine_brick': 'Prismarinziegel', 'dark_prismarine': 'Dunkle Prismarin',
-             **{k: d for k, _, d in ICES}}
+             **{k: d for k, _, d in ICES}, **{f'{k}_brick': f'{d}ziegel' for k, _, d in ICES}}
 DE_KIND = {'stairs': 'treppe', 'slab': 'stufe', 'wall': 'mauer'}
 EN_KIND = {'stairs': 'Stairs', 'slab': 'Slab', 'wall': 'Wall'}
 EN_BRICK = {'red_nether_bricks': 'Red Nether Bricks', 'tuff_bricks': 'Tuff Bricks', 'mud_bricks': 'Mud Bricks', 'end_stone_bricks': 'End Stone Bricks',

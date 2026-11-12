@@ -11,6 +11,9 @@
     "simpleblocks:polished_packed_ice",
     "simpleblocks:packed_ice_bricks",
     "simpleblocks:polished_blue_ice",
-    "simpleblocks:blue_ice_bricks"
+    "simpleblocks:blue_ice_bricks",
+    "simpleblocks:cracked_ice_bricks",
+    "simpleblocks:cracked_packed_ice_bricks",
+    "simpleblocks:cracked_blue_ice_bricks"
   ]
 }

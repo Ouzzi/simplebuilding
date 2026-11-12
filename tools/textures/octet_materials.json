@@ -2105,6 +2105,17 @@
   "de": "Eis"
  },
  {
+  "ns": "simpleblocks",
+  "base": "ice_bricks",
+  "key": "ice_bricks",
+  "group": "other",
+  "tex": {
+   "all": "simpleblocks:block/ice_bricks"
+  },
+  "en": "Ice Bricks",
+  "de": "Eisziegel"
+ },
+ {
   "ns": "minecraft",
   "base": "packed_ice",
   "key": "packed_ice",
@@ -2116,6 +2127,17 @@
   "de": "Packeis"
  },
  {
+  "ns": "simpleblocks",
+  "base": "packed_ice_bricks",
+  "key": "packed_ice_bricks",
+  "group": "other",
+  "tex": {
+   "all": "simpleblocks:block/packed_ice_bricks"
+  },
+  "en": "Packed Ice Bricks",
+  "de": "Packeisziegel"
+ },
+ {
   "ns": "minecraft",
   "base": "blue_ice",
   "key": "blue_ice",
@@ -2125,5 +2147,16 @@
   },
   "en": "Blue Ice",
   "de": "Blaueis"
+ },
+ {
+  "ns": "simpleblocks",
+  "base": "blue_ice_bricks",
+  "key": "blue_ice_bricks",
+  "group": "other",
+  "tex": {
+   "all": "simpleblocks:block/blue_ice_bricks"
+  },
+  "en": "Blue Ice Bricks",
+  "de": "Blaueisziegel"
  }
 ]

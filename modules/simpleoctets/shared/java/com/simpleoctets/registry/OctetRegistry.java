@@ -53,7 +53,9 @@ public final class OctetRegistry {
             Map.entry("mossy_deepslate_bricks", Blocks.DEEPSLATE_BRICKS), Map.entry("mossy_deepslate_tiles", Blocks.DEEPSLATE_TILES),
             Map.entry("mossy_tuff_bricks", Blocks.TUFF_BRICKS), Map.entry("mossy_mud_bricks", Blocks.MUD_BRICKS),
             Map.entry("mossy_end_stone_bricks", Blocks.END_STONE_BRICKS), Map.entry("mossy_cinnabar_bricks", Blocks.CINNABAR_BRICKS),
-            Map.entry("mossy_sulfur_bricks", Blocks.SULFUR_BRICKS));
+            Map.entry("mossy_sulfur_bricks", Blocks.SULFUR_BRICKS),
+            // The ice bricks (a-icebricks38): their ice - as slippery, glass sound; like the ice octets they do not melt.
+            Map.entry("ice_bricks", Blocks.ICE), Map.entry("packed_ice_bricks", Blocks.PACKED_ICE), Map.entry("blue_ice_bricks", Blocks.BLUE_ICE));
     /** Octets stack to the engine maximum (owner N18: "128"; item stacks are saved with at most 99). */
     public static final int MAX_STACK = 99;
 
