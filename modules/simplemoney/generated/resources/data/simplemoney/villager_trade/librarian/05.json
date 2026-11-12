@@ -1,11 +1,11 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 4
+    "count": 3
   },
-  "max_uses": 1,
-  "xp": 50,
-  "reputation_discount": 0.7,
+  "max_uses": 2,
+  "xp": 20,
+  "reputation_discount": 0.2,
   "gives": {
     "id": "minecraft:enchanted_book"
   },

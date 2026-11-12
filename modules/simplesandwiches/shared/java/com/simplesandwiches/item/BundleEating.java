@@ -19,6 +19,10 @@ import net.minecraft.world.level.Level;
  * use remainder (stews, honey bottles stay out). Eating uses that item's own consume time, animation,
  * sound, particles, nutrition and effects; one piece leaves the bundle. Anything else on top keeps the
  * Vanilla behavior. Config {@code bundleEating}.
+ *
+ * <p>AUDSB31E1 F14 (owner): the meal only starts while sneaking ({@link #begin}); a normal right-click keeps the
+ * Vanilla bundle (hold to drop the contents). Every use begins with {@link #begin}, which forgets an older meal; the
+ * later hooks (tick, duration, animation, finish) follow {@link #eatingNow}, i.e. only a meal that sneaking started.
  */
 public final class BundleEating {
     /** What each eater started on (REV2-C-6): when the bundle's top changes meanwhile, the meal is dropped, not switched. */
@@ -44,6 +48,34 @@ public final class BundleEating {
         if (!com.simplesandwiches.Sandwiches.on() || !SandwichConfig.bundleEating || !(bundle.getItem() instanceof BundleItem)) return null;
         ItemStack top = top(bundle);
         return edible(top) ? top.get(DataComponents.CONSUMABLE) : null;
+    }
+
+    /**
+     * Start of every bundle use: forgets a meal left over from an aborted use (released early, slot switched) so it cannot
+     * take over this use, and returns the consumable to eat only when {@code player} is sneaking; otherwise null = Vanilla.
+     */
+    public static Consumable begin(ItemStack bundle, Player player) {
+        synchronized (STARTED) { STARTED.remove(player); }
+        return player.isShiftKeyDown() ? eating(bundle) : null;
+    }
+
+    /** The consumable of a meal {@code entity} started by sneaking with this bundle, or null (Vanilla bundle behavior). */
+    public static Consumable eatingNow(ItemStack bundle, LivingEntity entity) {
+        boolean started;
+        synchronized (STARTED) { started = STARTED.containsKey(entity); }
+        // Another player seen on this client: the meal began elsewhere (no entry here), so follow the sneaking posture - cosmetics only.
+        if (!started && entity instanceof Player other && other.level().isClientSide() && !other.isLocalPlayer()) started = other.isShiftKeyDown();
+        return started ? eating(bundle) : null;
+    }
+
+    /** The eater let go before the meal was done: forget the meal (the next use starts clean anyway). */
+    public static void abort(LivingEntity entity) {
+        synchronized (STARTED) { STARTED.remove(entity); }
+    }
+
+    /** Whether any meal is running (the use animation has no entity to ask; Vanilla's bundle animation otherwise). */
+    public static boolean anyMeal() {
+        synchronized (STARTED) { return !STARTED.isEmpty(); }
     }
 
     public static InteractionResult use(Level level, Player player, InteractionHand hand, ItemStack bundle, Consumable consumable) {

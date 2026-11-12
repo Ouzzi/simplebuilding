@@ -77,11 +77,16 @@ public final class ServerEvents {
         return true;
     }
     static void stopQuietly() {
+        var was = current;
+        end();
+        if (was != null) com.simplebuilding.modules.simpletweaks.play.vote.Votes.eventEnded(was); // E1ANS F3: the vote cooldown counts from here
+    }
+    private static void end() {
         current = null; until = -1;
         if (bar != null) { bar.removeAllPlayers(); bar = null; }
     }
     /** Server stop: nothing carries over. */
-    public static void shutdown() { stopQuietly(); lastMinute = -1; }
+    public static void shutdown() { end(); lastMinute = -1; }
 
     /** Experience of an orb while double XP runs. */
     public static int xp(int amount) {

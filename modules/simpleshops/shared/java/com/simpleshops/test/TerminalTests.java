@@ -234,6 +234,49 @@ final class TerminalTests {
             data.delete(box);
             h.succeed();
         });
+        all.put("terminal_owner_first", h -> {
+            // E1ANS F5: a customer at a trade terminal waits behind the maintenance sign while the owner works on site, and the
+            // owner's own terminal takes the shop from a customer on site.
+            ServerPlayer owner = player(h, GameType.SURVIVAL);
+            ServerPlayer remote = player(h, GameType.SURVIVAL);
+            ServerPlayer local = player(h, GameType.SURVIVAL);
+            StorageTests.Column c = StorageTests.column(h, owner, 0);
+            c.box().goods().set(0, new ItemStack(Items.DIAMOND, 4));
+            c.sales().prices().set(2, new ItemStack(Items.EMERALD, 2));
+            EnderShops.link(c.sales());
+            String id = c.sales().vault().id;
+            TradeTerminalMenu menu = open(h, remote);
+            browse(menu, remote, owner.getGameProfile().name());
+            h.assertTrue(select(menu, remote, id, 0) && c.sales().lockHolder() == remote, "remote customer holds the shop");
+            owner.setPos(Vec3.atCenterOf(c.sales).add(0, 0, -2));
+            ShopActions.useSales(owner, h.getLevel(), c.sales);
+            h.assertTrue(owner.containerMenu instanceof com.simpleshops.menu.SalesOwnerMenu && c.sales().lockHolder() == owner, "the owner takes his shop over");
+            menu.broadcastChanges();
+            h.assertTrue(menu.underMaintenance() && id.equals(menu.selectedShopForTest()), "terminal keeps the selection behind the sign");
+            menu.pay().setItem(2, new ItemStack(Items.EMERALD, 2));
+            menu.clickMenuButton(remote, TradeTerminalMenu.BUY | (menu.revisionSeen() & 0xFFFF));
+            h.assertTrue(c.box().goods().get(0).getCount() == 4, "no remote buy behind the sign");
+            owner.closeContainer();
+            menu.broadcastChanges();
+            h.assertTrue(!menu.underMaintenance() && c.sales().lockHolder() == remote, "the terminal takes the shop back once the owner is done");
+            remote.closeContainer();
+            // The owner's own terminal ("My shops") goes first as well: a customer on site keeps his screen behind the sign.
+            local.setPos(Vec3.atCenterOf(c.sales).add(0, 0, -2));
+            ShopActions.useSales(local, h.getLevel(), c.sales);
+            h.assertTrue(local.containerMenu instanceof ShopBuyerMenu && c.sales().lockHolder() == local, "customer on site");
+            TradeTerminalMenu own = open(h, owner);
+            own.coolDownForTest();
+            own.clickMenuButton(owner, TradeTerminalMenu.B_TAB_MINE);
+            own.coolDownForTest();
+            own.broadcastChanges();
+            h.assertTrue(select(own, owner, id, -1) || select(own, owner, id, 0), "owner selects his shop");
+            h.assertTrue(c.sales().lockHolder() == owner, "the owner's terminal took the shop");
+            ((ShopBuyerMenu) local.containerMenu).broadcastChanges();
+            h.assertTrue(((ShopBuyerMenu) local.containerMenu).underMaintenance(), "the customer on site sees the sign");
+            owner.closeContainer();
+            local.closeContainer();
+            h.succeed();
+        });
         all.put("terminal_lock_shared_with_site", h -> {
             ServerPlayer owner = player(h, GameType.SURVIVAL);
             ServerPlayer remote = player(h, GameType.SURVIVAL);

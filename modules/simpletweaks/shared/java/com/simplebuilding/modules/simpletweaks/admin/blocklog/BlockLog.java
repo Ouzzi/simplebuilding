@@ -60,10 +60,12 @@ public final class BlockLog {
 
     public static boolean active() { return Admin.on() && root != null && Admin.config().blockLog().enabled(); }
     public static Path root() { return root; }
+    /** E1ANS F1: should the log run on this server? Switch on and, with {@code onlyDedicated}, a dedicated server. */
+    public static boolean wanted(MinecraftServer server, AdminConfig.BlockLog c) { return Admin.runs(server, c.enabled(), c.onlyDedicated()); }
 
     public static void start(MinecraftServer server) {
         stop();
-        if (!Admin.config().blockLog().enabled()) return;
+        if (!wanted(server, Admin.config().blockLog())) return;
         root = server.getWorldPath(LevelResource.ROOT).resolve("simpletweaks").resolve("blocklog");
         io = Executors.newSingleThreadExecutor(r -> { var t = new Thread(r, "simpletweaks-blocklog"); t.setDaemon(true); return t; });
         lastPurge = null;

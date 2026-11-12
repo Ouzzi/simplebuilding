@@ -236,6 +236,18 @@ public class SalesBlockEntity extends BlockEntity implements EarningsStore {
         if (v != null) v.lock(player, menu, false);
     }
 
+    /** E1ANS F5: the owner takes the lock over from a customer ({@link EnderShops.Vault#ownerTakesOver}). */
+    public boolean ownerTakesOver(ServerPlayer owner) {
+        EnderShops.Vault v = vault();
+        return v != null && v.ownerTakesOver(owner);
+    }
+
+    /** E1ANS F5: the owner holds the shop (customers see the maintenance sign). */
+    public boolean heldByOwner() {
+        EnderShops.Vault v = vault();
+        return v != null && v.heldByOwner();
+    }
+
     /** Releases the lock if {@code menu} holds it. */
     public void unlock(AbstractContainerMenu menu) {
         EnderShops.Vault v = vault();

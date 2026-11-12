@@ -99,10 +99,55 @@ public final class FunSecurityTests {
     }
   }
 
+  /**
+   * AUDSB31E1 F12 (owner): the brick throw stays on by default; only glass breaking by thrown bricks is off by default
+   * ({@code throwableBricksBreakBlocks}, command {@code /simplefun tweaks bricks breakGlass}) and works on a server once
+   * switched on - for a real owner with building rights only (claims, adventure mode, ownerless bricks keep the glass).
+   */
+  public static void brickBreaksGlassOption(GameTestHelper h) {
+    var defaults = new SimplefunConfig.Fun();
+    h.assertTrue(defaults.enableThrowableBricks && !defaults.throwableBricksBreakBlocks, "bricks are thrown by default, glass stays");
+    var level = h.getLevel();
+    var cfg = SimplefunCommon.getConfig().fun;
+    var p = FunTests.player(h);
+    var probe = new Probe(level, p);
+    var rel = new BlockPos(3, 2, 3);
+    BlockPos pos = h.absolutePos(rel);
+    var glasses = List.of(Blocks.GLASS, Blocks.STAINED_GLASS.white(), Blocks.GLASS_PANE, Blocks.STAINED_GLASS_PANE.red());
+    cfg.throwableBricksBreakBlocks = defaults.throwableBricksBreakBlocks;
+    for (var glass : glasses) {
+      h.setBlock(rel, glass);
+      probe.hit(pos);
+      h.assertTrue(h.getBlockState(rel).is(glass), "default: a thrown brick leaves " + glass);
+    }
+    cfg.throwableBricksBreakBlocks = true;
+    for (var glass : glasses) {
+      h.setBlock(rel, glass);
+      probe.hit(pos);
+      h.assertTrue(h.getBlockState(rel).isAir(), "option on: a thrown brick breaks " + glass);
+    }
+    var server = level.getServer();
+    h.setBlock(rel, Blocks.GLASS);
+    com.simplebuilding.framework.api.Protection.register(
+        server, "simplefun-test-claim", t -> !(t.x() == pos.getX() && t.y() == pos.getY() && t.z() == pos.getZ()));
+    try {
+      probe.hit(pos);
+      h.assertTrue(h.getBlockState(rel).is(Blocks.GLASS), "option on, but a claim keeps the glass");
+    } finally {
+      com.simplebuilding.framework.api.Protection.unregister(server, "simplefun-test-claim");
+    }
+    p.getAbilities().mayBuild = false;
+    probe.hit(pos);
+    h.assertTrue(h.getBlockState(rel).is(Blocks.GLASS), "option on, but an adventure-mode owner may not build");
+    p.getAbilities().mayBuild = true;
+    new Probe(level, h.spawn(EntityTypes.PIG, new BlockPos(4, 2, 4))).hit(pos);
+    h.assertTrue(h.getBlockState(rel).is(Blocks.GLASS), "option on, but a brick without a player owner changes nothing");
+    probe.hit(pos);
+    h.assertTrue(h.getBlockState(rel).isAir(), "option on, owner with building rights, no claim: the glass breaks");
+    h.succeed();
+  }
+
   public static void projectileDamageAndGlass(GameTestHelper h) {
-    h.assertTrue(BrickProjectileEntity.canBreakGlass(true, false), "private single-player allows glass option");
-    h.assertTrue(!BrickProjectileEntity.canBreakGlass(true, true), "LAN publication prevents claim bypass");
-    h.assertTrue(!BrickProjectileEntity.canBreakGlass(false, false), "dedicated multiplayer denies glass destruction");
     var saved = new com.google.gson.Gson().toJson(SimplefunCommon.getConfig().fun);
     h.runBeforeTestEnd(
         () ->
@@ -116,12 +161,7 @@ public final class FunSecurityTests {
     probe.hit(pig);
     h.assertTrue(pig.getHealth() == hp - 4, "actual projectile damage capped");
     var pos = new BlockPos(3, 2, 3);
-    h.setBlock(pos, Blocks.GLASS);
     SimplefunCommon.getConfig().fun.throwableBricksBreakBlocks = true;
-    probe.hit(h.absolutePos(pos));
-    h.assertTrue(
-        h.getBlockState(pos).is(Blocks.GLASS),
-        "dedicated server refuses terrain destruction even if config enables it");
     h.setBlock(pos, Blocks.TINTED_GLASS);
     probe.hit(h.absolutePos(pos));
     h.assertTrue(h.getBlockState(pos).is(Blocks.TINTED_GLASS), "tinted glass retained");

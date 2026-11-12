@@ -50,6 +50,9 @@ Umfang: 30 Java-Dateien / 3,1k Zeilen (shared + fabric, ohne Tests; Tests zusaet
 - C: vor der Freigabe MSPT messen (Server mit 20 leuchtenden Spielern und 200 Mobs) und erst dann entscheiden.
 - Empfehlung: **A + C** - die Lichtbloecke sind durch Markierung (`OwnedLights`) und die Fixes jetzt unschaedlich; ein Messlauf zeigt, ob B noetig ist.
 
+## Antworten des Besitzers (12.11.2026, E1ANS)
+- **F1 (Vorschau F15) = A + C**: Vanilla-Abwaegung (A12) im Handbuch; die Last-Messung (MSPT, 20 leuchtende Spieler + 200 Mobs) ist sbt-TODO.
+
 ## Urteil
 **shipbar nach Fix** (0 P1, 2 P2 gefixt, 7 P3). Besonders sorgfaeltig: Obergrenzen der Aufwertungen, Ein-Mal-Rueckgabe der Vorlage, Absturzsicherung der Lichter ueber `OwnedLights`.
 

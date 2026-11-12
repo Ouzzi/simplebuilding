@@ -23,11 +23,11 @@ public final class Riding {
   if(Horseshoes.TEMPLATE!=null)out.accept(Horseshoes.TEMPLATE);
   for(var item:Horseshoes.ITEMS.values())out.accept(item);
  }).build();
- /** Set by each loader before registration: the Enderite horseshoe only exists alongside SimpleBuilding. */
+ /** Set by each loader before registration: whether SimpleBuilding is loaded (its Enderite armor joins the enchantable tags; the Enderite horseshoe no longer depends on it). */
  public static boolean SIMPLEBUILDING=false;
  /** Super-mod switch "Enable Simple Riding" (framework SubMods): off = items stay registered but inert, no tabs, no loot. */
  public static boolean on(){return com.simplebuilding.framework.api.SubMods.enabled("simpleriding");}
- public static void items(){Horseshoes.register(SIMPLEBUILDING);com.simpleriding.guide.RidingGuide.register();}
+ public static void items(){Horseshoes.register();com.simpleriding.guide.RidingGuide.register();}
  public static void components(){Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE,id("coordinates"),COORDINATES);}
  public static void tab(){Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,id("riding_items"),TAB);}
  /**

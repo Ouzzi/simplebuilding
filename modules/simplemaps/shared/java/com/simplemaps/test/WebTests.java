@@ -46,6 +46,7 @@ final class WebTests {
         all.put("web_auto_off", WebTests::autoOff);
         all.put("web_command_permissions", WebTests::commandPermissions);
         all.put("web_shops", WebTests::shops);
+        all.put("web_export_leaves_cache", WebTests::exportLeavesCache);
         WebHttpTests.register(all);
         WebStage3Tests.register(all);
     }
@@ -133,6 +134,59 @@ final class WebTests {
                 h.assertTrue(png(dir, folder, z, Math.floorDiv(tx, f), Math.floorDiv(tz, f)) != null, "pyramid tile at zoom " + z);
             }
             h.assertTrue(Files.isRegularFile(dir.resolve("markers.json")) && Files.isRegularFile(dir.resolve("index.html")), "markers.json and viewer written");
+        } finally {
+            delete(dir);
+        }
+        h.succeed();
+    }
+
+    /** Wayfinder maps in the saved-data cache (the ids counter {@code wayfinder_ids} is not a map). */
+    private static long cachedMaps(Map<net.minecraft.world.level.saveddata.SavedDataType<?>, java.util.Optional<net.minecraft.world.level.saveddata.SavedData>> cache) {
+        return cache.keySet().stream().filter(t -> t.id().getNamespace().equals(SimpleMaps.MOD_ID)
+                && t.id().getPath().startsWith("wayfinder_") && !t.id().getPath().equals("wayfinder_ids")).count();
+    }
+
+    /**
+     * AUDSB31E1 F9 (owner): the all-maps export reads each saved map from disk one after the other and does not put it into
+     * Vanilla's saved-data cache, so a map that is not in use does not stay loaded until the server stops. A map the game
+     * has open (cached, here with an unsaved change) is used as it is and stays where it was.
+     */
+    private static void exportLeavesCache(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        var storage = server.overworld().getDataStorage();
+        var cache = ((com.simplemaps.mixin.SavedDataStorageAccessor) storage).simplemaps$cache();
+        int b = FAR_TILE * 128;
+        int id = com.simplemaps.WayfinderIds.allocate(server);
+        var type = WayfinderData.type(id);
+        int gold = MapColor.GOLD.getPackedId(MapColor.Brightness.NORMAL) & 0xFF;
+        // A map as the game makes it (cached), written to disk, then forgotten by the cache: a saved map nobody has open.
+        WayfinderData made = WayfinderData.get(server, id);
+        made.bind(Level.OVERWORLD);
+        h.assertTrue(made.set(b + 3, b + 5, gold, 100, true), "the map has an explored pixel");
+        storage.saveAndJoin();
+        h.assertTrue(cache.remove(type) != null && !cache.containsKey(type), "the map left the cache (saved, not loaded)");
+        h.assertTrue(WayfinderData.peek(server, id) != null && !cache.containsKey(type), "peek reads the file and does not cache it");
+        long before = cachedMaps(cache);
+        Path dir = temp();
+        String folder = WebExport.folder(Level.OVERWORLD);
+        try {
+            WebExport job = WebExport.ofAllMaps(server, dir, WebExport.Claims.SHOW, null, null);
+            h.assertTrue(job.tilesTotal() >= 1, "the export finds the saved map");
+            run(job);
+            h.assertTrue(job.done() && !job.failed(), "export finished");
+            BufferedImage img = png(dir, folder, WebExport.MAX_ZOOM, FAR_TILE, FAR_TILE);
+            h.assertTrue(img != null && img.getRGB(3, 5) == WebExport.argb(MapColor.GOLD.getPackedId(MapColor.Brightness.NORMAL)),
+                    "the pixel read from disk is in the tile");
+            h.assertTrue(!cache.containsKey(type), "the export did not put the map into the cache");
+            h.assertTrue(cachedMaps(cache) == before, "the export added no wayfinder map to the cache (" + before + " before, " + cachedMaps(cache) + " after)");
+            // The game has the map open again and changes it without saving: the export uses that open copy as it is.
+            WayfinderData open = WayfinderData.get(server, id);
+            h.assertTrue(cache.containsKey(type), "the game caches a map it opens");
+            h.assertTrue(open.set(b + 128 + 7, b + 9, gold, 100, true), "unsaved change in the open map");
+            long opened = cachedMaps(cache);
+            run(WebExport.ofAllMaps(server, dir, WebExport.Claims.SHOW, null, null));
+            h.assertTrue(png(dir, folder, WebExport.MAX_ZOOM, FAR_TILE + 1, FAR_TILE) != null, "the open map's unsaved tile is exported");
+            h.assertTrue(cache.get(type).orElse(null) == open && cachedMaps(cache) == opened, "normal caching of the open map is unchanged");
         } finally {
             delete(dir);
         }

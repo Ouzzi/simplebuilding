@@ -32,4 +32,5 @@ public final class PlayGameTest {
  @GameTest(maxTicks=12000) public void pregenSpiralAndGenerates(GameTestHelper h) { PlayTests.TESTS.get("pregen_spiral_and_generates").accept(h); }
  @GameTest(maxTicks=100) public void vanishedAdminsStayHidden(GameTestHelper h) { PlayTests.TESTS.get("vanished_admins_stay_hidden").accept(h); }
  @GameTest(maxTicks=100) public void unreadableStateFileKept(GameTestHelper h) { PlayTests.TESTS.get("unreadable_state_file_kept").accept(h); }
+ @GameTest(maxTicks=100) public void voteEventRules(GameTestHelper h) { PlayTests.TESTS.get("vote_event_rules").accept(h); }
 }

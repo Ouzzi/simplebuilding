@@ -1,22 +1,29 @@
 {
   "fabric:load_conditions": [
     {
-      "condition": "fabric:all_mods_loaded",
+      "condition": "fabric:tags_populated",
+      "registry": "minecraft:item",
       "values": [
-        "simplebuilding"
+        "c:ingots/enderite"
       ]
     }
   ],
   "neoforge:conditions": [
     {
-      "type": "neoforge:mod_loaded",
-      "modid": "simplebuilding"
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/enderite"
+      }
     }
   ],
   "forge:conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "simplebuilding"
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "c:ingots/enderite"
+      }
     }
   ],
   "parent": "minecraft:recipes/root",

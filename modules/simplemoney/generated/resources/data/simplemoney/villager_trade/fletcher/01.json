@@ -3,12 +3,12 @@
     "id": "simplemoney:money_bill",
     "count": 1
   },
-  "max_uses": 4,
-  "xp": 5,
+  "max_uses": 8,
+  "xp": 2,
   "reputation_discount": 0.05,
   "gives": {
     "id": "minecraft:firework_rocket",
-    "count": 10
+    "count": 48
   },
   "fabric:load_conditions": [
     {

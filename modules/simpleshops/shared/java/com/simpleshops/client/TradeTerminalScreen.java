@@ -114,7 +114,7 @@ public final class TradeTerminalScreen extends ShopScreens.Base<TradeTerminalMen
         this.publicToggle.active = selected;
         this.publicToggle.setMessage(Component.translatable((flags & TradeTerminalMenu.F_PUBLIC) != 0 ? "simpleshops.terminal.public" : "simpleshops.terminal.private"));
         this.publicToggle.setTooltip(Tooltip.create(Component.translatable("simpleshops.terminal.public.tip")));
-        this.buy.visible = !mine;
+        this.buy.visible = !mine && !this.menu.underMaintenance();
         this.buy.active = this.menu.canBuyClient();
     }
 
@@ -143,6 +143,10 @@ public final class TradeTerminalScreen extends ShopScreens.Base<TradeTerminalMen
             graphics.fill(x, y, x + 1, y + 18, 0xFFE8B030);
             graphics.fill(x + 17, y, x + 18, y + 18, 0xFFE8B030);
         }
+        if (this.menu.underMaintenance()) {
+            // E1ANS F5: the owner works on the selected shop; its buy rows (hidden slots) lie behind the sign.
+            MaintenanceSign.draw(graphics, this.font, this.leftPos + (this.imageWidth - MaintenanceSign.WIDTH) / 2, this.topPos + 88);
+        }
     }
 
     @Override
@@ -160,6 +164,7 @@ public final class TradeTerminalScreen extends ShopScreens.Base<TradeTerminalMen
                 : Component.empty();
         int w = this.font.width(line);
         graphics.text(this.font, line, Math.max(50, 150 - w), 76, label(), false);
+        if (this.menu.underMaintenance()) return;
         if (selected) {
             graphics.text(this.font, Component.translatable(mine ? "simpleshops.screen.goods" : "simpleshops.screen.price"), 8, TradeTerminalMenu.ROW_A_Y + 5, label(), false);
             graphics.text(this.font, Component.translatable(mine ? "simpleshops.screen.price" : "simpleshops.screen.pay"), 8, TradeTerminalMenu.ROW_B_Y + 5, label(), false);

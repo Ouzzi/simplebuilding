@@ -98,7 +98,7 @@ public final class AntiXray {
     public static boolean applies(ServerPlayer player, Level level) {
         if (player == null || !Protect.on()) return false;
         var c = Protect.config().antiXray();
-        if (!c.enabled() || exempt(player, c)) return false;
+        if (!c.runsOn(level.getServer()) || exempt(player, c)) return false;
         return rules(level) != null;
     }
     public static boolean exempt(ServerPlayer player, ProtectConfig.AntiXray c) {
@@ -212,7 +212,7 @@ public final class AntiXray {
 
     /** After a block change: neighbours that may be shown concealed are re-sent with their real state. */
     public static void revealAround(ServerLevel level, BlockPos pos) {
-        if (!Protect.on() || !Protect.config().antiXray().enabled()) return;
+        if (!Protect.on() || !Protect.config().antiXray().runsOn(level.getServer())) return;
         var rules = rules(level);
         if (rules == null || pos.getY() > rules.maxY() + 1) return;
         var m = new BlockPos.MutableBlockPos();

@@ -76,9 +76,19 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
             refreshSeconds = Math.clamp(refreshSeconds, 10, 3600);
         }
     }
-    /** T23 votes; the day/night option is off. */
-    public record Vote(boolean enabled, int seconds, int percent, int cooldownSeconds, boolean weather, boolean events, boolean dayNight) {
-        public Vote { seconds = Math.clamp(seconds, 10, 300); percent = Math.clamp(percent, 1, 100); cooldownSeconds = Math.clamp(cooldownSeconds, 0, 86400); }
+    /**
+     * T23 votes; the day/night option is off. {@code eventMinPlayers} (E1ANS F3, default 2): {@code /vote event} needs at least
+     * this many active players (online, not AFK, not spectating); an event topic's cooldown starts when the event ends.
+     */
+    public record Vote(boolean enabled, int seconds, int percent, int cooldownSeconds, boolean weather, boolean events, boolean dayNight, int eventMinPlayers) {
+        public Vote {
+            seconds = Math.clamp(seconds, 10, 300); percent = Math.clamp(percent, 1, 100); cooldownSeconds = Math.clamp(cooldownSeconds, 0, 86400);
+            eventMinPlayers = Math.clamp(eventMinPlayers, 1, 100);
+        }
+        /** Without {@code eventMinPlayers}: the default (2). */
+        public Vote(boolean enabled, int seconds, int percent, int cooldownSeconds, boolean weather, boolean events, boolean dayNight) {
+            this(enabled, seconds, percent, cooldownSeconds, weather, events, dayNight, 2);
+        }
     }
     /** T24 AFK; the kick is off (Vanilla has player-idle-timeout too). */
     public record Afk(boolean enabled, int minutes, boolean excludeFromSleep, boolean kick, int kickMinutes) {

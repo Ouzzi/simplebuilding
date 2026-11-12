@@ -5,9 +5,6 @@
     "simpleriding:golden_horseshoe",
     "simpleriding:diamond_horseshoe",
     "simpleriding:netherite_horseshoe",
-    {
-      "id": "simpleriding:enderite_horseshoe",
-      "required": false
-    }
+    "simpleriding:enderite_horseshoe"
   ]
 }

@@ -36,7 +36,7 @@
         "details": [
           "While held in the main or off hand the map explores like a Vanilla map at 1:1 (default radius 128 blocks like Vanilla, halved under a ceiling; server bounds 16–128), one 16th of the columns per tick, only in loaded chunks. Under a ceiling (Nether) the floor below the holder is mapped.",
           "A map binds to the dimension it is first used in. Which dimensions a map accepts is set by the dimension type tags simplemaps:nether_wayfinder and simplemaps:end_wayfinder; the plain map takes every dimension in neither tag.",
-          "Only explored 128 x 128-block tiles are stored (color and height per block); at most maxTilesPerMap tiles per map (default 4096, server bounds 16–16384). Picture maps (server option pictureMap, on by default): /simplemaps picture opens a screen that turns a PNG from config/simplemaps/images into 1 to 4 x 4 locked Vanilla maps (pictureMapMaxSide, default 3; pictureMapPermission 0–4), hang them in item frames as a wall.",
+          "Only explored 128 x 128-block tiles are stored (color and height per block); at most maxTilesPerMap tiles per map (default 4096, server bounds 16–16384). Picture maps (server option pictureMap, on by default): /simplemaps picture opens a screen that turns a PNG from config/simplemaps/images into 1 to 4 x 4 locked Vanilla maps (pictureMapMaxSide, default 3; pictureMapPermission 0–4), hang them in item frames as a wall. Each picture map uses up one empty map from the inventory, like copying at the cartography table (pictureMapCostsMap, on by default; free in creative).",
           "Recipes (shapeless): map + compass + 4 gold ingots + 1 echo shard; the Nether map adds a netherite scrap. The End map: map + compass + 4 gold ingots + 2 echo shards + enderite scrap when a Simple mod brings enderite, otherwise map + compass + 3 gold ingots + 2 netherite scrap + shulker shell + echo shard.",
           "Found in chests: cartographer and shipwreck map chests 5 % (plain map), bastions and Nether fortresses 2 % (Nether map), end city treasure 2 % (End map).",
           "Wayfinder maps do not stack: each one holds its own waypoints and view.",
@@ -49,7 +49,7 @@
         "details": [
           "In Haupt- oder Nebenhand deckt die Karte wie eine Vanilla-Karte im Maßstab 1:1 auf (Standard-Radius 128 Blöcke wie Vanilla, unter einer Decke halbiert; Servergrenzen 16–128), je Tick ein Sechzehntel der Spalten, nur in geladenen Chunks. Unter einer Decke (Nether) wird der Boden unter dem Halter kartiert.",
           "Eine Karte bindet sich an die Dimension, in der sie zuerst benutzt wird. Welche Dimensionen eine Karte annimmt, legen die Dimensionstyp-Tags simplemaps:nether_wayfinder und simplemaps:end_wayfinder fest; die einfache Karte nimmt jede Dimension, die in keinem der beiden steht.",
-          "Gespeichert werden nur erkundete Kacheln zu 128 × 128 Blöcken (Farbe und Höhe je Block); höchstens maxTilesPerMap Kacheln je Karte (Standard 4096, Servergrenzen 16–16384). Bildkarten (Server-Option pictureMap, Standard an): /simplemaps picture öffnet ein Fenster, das ein PNG aus config/simplemaps/images in 1 bis 4 x 4 gesperrte Vanilla-Karten umrechnet (pictureMapMaxSide, Standard 3; pictureMapPermission 0–4), als Wand in Rahmen hängen.",
+          "Gespeichert werden nur erkundete Kacheln zu 128 × 128 Blöcken (Farbe und Höhe je Block); höchstens maxTilesPerMap Kacheln je Karte (Standard 4096, Servergrenzen 16–16384). Bildkarten (Server-Option pictureMap, Standard an): /simplemaps picture öffnet ein Fenster, das ein PNG aus config/simplemaps/images in 1 bis 4 x 4 gesperrte Vanilla-Karten umrechnet (pictureMapMaxSide, Standard 3; pictureMapPermission 0–4), als Wand in Rahmen hängen. Jede Bildkarte verbraucht eine leere Karte aus dem Inventar wie das Kopieren am Kartentisch (pictureMapCostsMap, Standard an; im Kreativmodus kostenlos).",
           "Rezepte (formlos): Karte + Kompass + 4 Goldbarren + 1 Echo-Splitter; die Nether-Karte zusätzlich einen Netherit-Schrott. Die End-Karte: Karte + Kompass + 4 Goldbarren + 2 Echo-Splitter + Enderit-Schrott, wenn ein Simple-Mod Enderit mitbringt, sonst Karte + Kompass + 3 Goldbarren + 2 Netherit-Schrott + Shulker-Schale + Echo-Splitter.",
           "Fundorte: Kartografen- und Schiffswrack-Kartentruhen 5 % (einfache Karte), Bastionen und Netherfestungen 2 % (Nether-Karte), Endstadt-Schatz 2 % (End-Karte).",
           "Wegfinder-Karten stapeln nicht: jede hat ihre eigenen Wegpunkte und ihren eigenen Ausschnitt.",
@@ -239,6 +239,7 @@
       "id": "web_map",
       "sources": [
         "modules/simplemaps/shared/java/com/simplemaps/web/WebExport.java",
+        "modules/simplemaps/shared/java/com/simplemaps/mixin/SavedDataStorageAccessor.java",
         "modules/simplemaps/shared/java/com/simplemaps/web/WebMap.java",
         "modules/simplemaps/shared/java/com/simplemaps/web/WebCommands.java",
         "modules/simplemaps/shared/java/com/simplemaps/web/WebHttp.java",
@@ -253,6 +254,7 @@
           "Off by default (webEnabled in simplemaps-server.json). /simplemaps web export starts an export, /simplemaps web status shows its progress (both need permission level 2); webIntervalMinutes (0–1440, default 0 = off) repeats it.",
           "Only what wayfinder maps have explored is exported, in the Vanilla map colors: tiles/<dimension>/<z>/<x>/<y>.png, zoom 4 = one block per pixel (128 blocks per tile) down to zoom 0 = 16 blocks per pixel. Where a chunk is loaded the explored pixels are read fresh; no chunk is ever loaded.",
           "The export runs on the server at webChunksPerTick chunks per tick (default 32, bounds 1–512). The folder is <world>/simplemaps-web unless webExportDir says otherwise; serve it with any web server (nginx, Caddy); by default the mod opens no port.",
+          "Memory: the export reads each saved map from disk, one after the other, and does not add it to the server's map cache (a map a player has open is used as it is); while it runs it holds the maps with explored tiles in memory, about 32 KiB per explored 128 x 128 tile (up to 128 MiB for a map with the default 4096 tiles, up to 512 MiB at maxTilesPerMap 16384), and lets go of them when it is done.",
           "Players are hidden by default; each player shows or hides themselves with /simplemaps web show or /simplemaps web hide. markers.json holds only names and positions of those players, no UUIDs.",
           "webHideClaims (default off) leaves chunks empty where a protection (for example claims of Simple Tweaks) forbids strangers to build. webClaimStyle pixelate (default hide) shows such a chunk in one color instead (its most common one): rough terrain, no buildings.",
           "Only changed tiles: after the first export of a server session the next one renders only tiles whose map pixels, blocks (any block change marks its tile) or claims changed; the rest is checked and kept. /simplemaps web export full renders everything again.",
@@ -270,6 +272,7 @@
           "Standardmäßig aus (webEnabled in simplemaps-server.json). /simplemaps web export startet einen Export, /simplemaps web status zeigt den Fortschritt (beide brauchen Rechtestufe 2); webIntervalMinutes (0–1440, Standard 0 = aus) wiederholt ihn.",
           "Exportiert wird nur, was Wegfinder-Karten erkundet haben, in den Vanilla-Kartenfarben: tiles/<Dimension>/<z>/<x>/<y>.png, Zoom 4 = ein Block je Pixel (128 Blöcke je Kachel) bis Zoom 0 = 16 Blöcke je Pixel. Ist ein Chunk geladen, werden die erkundeten Pixel frisch gelesen; es wird nie ein Chunk geladen.",
           "Der Export läuft auf dem Server mit webChunksPerTick Chunks je Tick (Standard 32, Grenzen 1–512). Ordner ist <Welt>/simplemaps-web, sofern webExportDir nichts anderes sagt; ausgeliefert wird er mit einem beliebigen Webserver (nginx, Caddy); standardmäßig öffnet die Mod keinen Port.",
+          "Speicherbedarf: Der Export liest jede gespeicherte Karte nacheinander von der Platte und legt sie nicht in den Karten-Zwischenspeicher des Servers (eine Karte, die ein Spieler gerade geöffnet hat, wird so benutzt, wie sie ist); solange er läuft, hält er die Karten mit erkundeten Kacheln im Speicher, etwa 32 KiB je erkundeter 128-x-128-Kachel (bis 128 MiB für eine Karte mit den standardmäßigen 4096 Kacheln, bis 512 MiB bei maxTilesPerMap 16384), und gibt sie danach wieder frei.",
           "Spieler sind standardmäßig verborgen; jeder zeigt oder verbirgt sich selbst mit /simplemaps web show bzw. /simplemaps web hide. markers.json enthält nur Namen und Positionen dieser Spieler, keine UUIDs.",
           "webHideClaims (Standard aus) lässt Chunks leer, in denen ein Schutz (z. B. Claims von Simple Tweaks) Fremden das Bauen verbietet. Mit webClaimStyle pixelate (Standard hide) zeigt so ein Chunk stattdessen eine einzige Farbe (seine häufigste): grobes Gelände, keine Bauten.",
           "Nur Geändertes: Nach dem ersten Export einer Serversitzung rendert der nächste nur Kacheln, deren Kartenpixel, Blöcke (jede Blockänderung markiert ihre Kachel) oder Claims sich geändert haben; der Rest wird geprüft und behalten. /simplemaps web export full rendert alles neu.",
@@ -1283,6 +1286,25 @@
       "tooltipDe": null
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplemaps/shared/java/com/simplemaps/MapsConfig.java",
+      "name": "pictureMapCostsMap",
+      "shortName": "pictureMapCostsMap",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Maps",
+      "categoryDe": "Simple Maps",
+      "group": null,
+      "groupDe": null,
+      "label": "Picture map costs map",
+      "labelDe": "Picture map costs map",
+      "tooltip": "Each picture map uses up one empty map (owner MAPS8 = C, 12.11.; creative free): no free, endless map files.",
+      "tooltipDe": "Each picture map uses up one empty map (owner MAPS8 = C, 12.11.; creative free): no free, endless map files."
+    },
+    {
       "range": [
         1,
         4
@@ -1651,7 +1673,7 @@
     "items": 5,
     "blocks": 0,
     "trades": 0,
-    "config": 25,
+    "config": 26,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

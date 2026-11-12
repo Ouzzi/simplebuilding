@@ -19,7 +19,7 @@ public final class ShopsConfig {
     public static final String FILE = "simpleshops-server.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "maxShopsPerPlayer", "idleTimeoutSeconds", "collectServerShopIncome",
-            "remoteStock", "remoteDelaySeconds", "remoteCrossDimension", "shopMusic", "shopMusicRange");
+            "remoteStock", "remoteDelaySeconds", "remoteCrossDimension", "shopMusic", "shopMusicRange", "ownerFirst");
 
     public static final int MAX_SHOPS_DEFAULT = 16, MAX_SHOPS_MIN = 1, MAX_SHOPS_MAX = 64;
     public static final int IDLE_DEFAULT = 300, IDLE_MIN = 30, IDLE_MAX = 1800;
@@ -46,6 +46,12 @@ public final class ShopsConfig {
     public static boolean shopMusic = true;
     /** Base reach of shop music in blocks (each further shop with the same disc adds 50 %, at most 2.5 times). */
     public static int shopMusicRange = MUSIC_RANGE_DEFAULT;
+
+    /**
+     * The owner goes first (owner E1ANS F5, 12.11.): his click on site or his own shop in the trade terminal takes the shop from a
+     * customer; the customer's screen stays open behind a maintenance sign until the owner is done. Off = first come, first served.
+     */
+    public static boolean ownerFirst = true;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -76,6 +82,7 @@ public final class ShopsConfig {
         remoteCrossDimension = bool(json, "remoteCrossDimension", false);
         shopMusic = bool(json, "shopMusic", true);
         shopMusicRange = clamp(integer(json, "shopMusicRange", MUSIC_RANGE_DEFAULT), MUSIC_RANGE_MIN, MUSIC_RANGE_MAX);
+        ownerFirst = bool(json, "ownerFirst", true);
     }
 
     public static boolean remoteTake() {
@@ -93,6 +100,7 @@ public final class ShopsConfig {
         o.addProperty("remoteCrossDimension", remoteCrossDimension);
         o.addProperty("shopMusic", shopMusic);
         o.addProperty("shopMusicRange", shopMusicRange);
+        o.addProperty("ownerFirst", ownerFirst);
         return o;
     }
 

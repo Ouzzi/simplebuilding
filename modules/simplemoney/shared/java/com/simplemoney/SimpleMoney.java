@@ -24,7 +24,9 @@ public final class SimpleMoney {
  }
  public static final class Trades { public boolean enableVillagerTrades=true; public boolean enableWanderingTrades=true;
   /** Price-list links of the Village Wanderer (Simple Wanderers, a-small22): the 14 heads with chance 0.1. */
-  public boolean enableWandererTrades=true; }
+  public boolean enableWandererTrades=true;
+  /** Budding amethyst and diamond ore at the Wandering Trader (owner E1ANS F7 = B): they undo Vanilla scarcity (A12), so off by default. */
+  public boolean enableRareWanderingTrades=false; }
  private static Path configFile;
  private static java.nio.file.attribute.FileTime lastRead;
  private static final org.slf4j.Logger LOG=org.slf4j.LoggerFactory.getLogger("SimpleMoney");
@@ -56,7 +58,7 @@ public final class SimpleMoney {
   }
   if(!on()) return false;
   if(flag.startsWith("links:")) return MoneyLinks.enabled(flag.substring(6));
-  return switch(flag) {case "enableVillagerTrades" -> config.trades.enableVillagerTrades; case "enableWanderingTrades" -> config.trades.enableWanderingTrades; case "enableWandererTrades" -> config.trades.enableWandererTrades; default -> false;};
+  return switch(flag) {case "enableVillagerTrades" -> config.trades.enableVillagerTrades; case "enableWanderingTrades" -> config.trades.enableWanderingTrades; case "enableWandererTrades" -> config.trades.enableWandererTrades; case "enableRareWanderingTrades" -> config.trades.enableRareWanderingTrades; default -> false;};
  }
  /** The config switch of a price-list merchant (tools/generate_links.py FLAGS): every profession is a villager. */
  public static String merchantFlag(String merchant) {

@@ -34,7 +34,8 @@
           "/simpletweaks claim create claims the current chunk (a free chunk credit, cooldown, world border, spawn buffer; every dimension unless the server's dimensions list restricts it); /simpletweaks claim unclaim releases it. /simpletweaks claim trust and untrust accept online names or full offline UUIDs. Only the owner can change trust; trusted players cannot delegate. OP4 may use admin listall, list <UUID/name>, or unclaim, independently of the default-off protection bypass. Changes are saved atomically before becoming effective.",
           "Server ticks between successful claim, trust, revocation or removal operations by one player. Range 20–72000, across dimensions; resets on restart. Default: 100 ticks.",
           "Rights per person (server-side): B Build, D Destroy, U Use (doors, levers, workbenches), C Container (chests, frames, pickup), R Redstone, A Animals and vehicles, M Manage. Roles: @guest = U, @helper = UCA, @member = BDUCRA (what \"trusted\" always meant), @manager = all. Unknown actions need B and D. /simpletweaks claim trust <player> [rights] sets them for the chunk you stand in, /simpletweaks claim info shows yours, /simpletweaks claim code shows the code of your land. The code (at most 4096 characters, 200 lines) is parsed and checked only by the server; the ledger is version 2 and keeps a copy of the old file (simpletweaks-claims.v1.json) on the first write.",
-          "Server config of the claims (no screen, edit the file): maxTrustedPlayers is the number of trusted players per claim, globalCap the total number of claims on the server (default 4,096), cooldownTicks the wait between two /simpletweaks claim create (default 100 ticks) and spawnBuffer the extra radius in blocks around the world spawn where nobody may claim (default 16, the larger of it and the server's spawn protection applies)."
+          "Server config of the claims (no screen, edit the file): maxTrustedPlayers is the number of trusted players per claim, globalCap the total number of claims on the server (default 4,096), cooldownTicks the wait between two /simpletweaks claim create (default 100 ticks) and spawnBuffer the extra radius in blocks around the world spawn where nobody may claim (default 16, the larger of it and the server's spawn protection applies).",
+          "Visitors without rights are not helpless (section visitors, every part on by default): fightMonsters lets anybody hit and shoot monsters (what Vanilla counts as an Enemy); animals, vehicles and decorations stay protected, and using a monster with a right click still needs the animal right A. ownItems lets a player pick up items they dropped or threw themselves, also their own death drops (a death drop gets its player as thrower); other items still need the container right C. xp lets anybody collect experience orbs; switch it off to protect XP farms. returnProjectiles: a trident or an arrow that can be picked up and is refused because the shooter has no rights at the target is not lost but returned to the shooter exactly once, into the inventory or else at their feet; arrows that cannot be picked up (Infinity, creative) vanish as before."
         ]
       },
       "de": {
@@ -48,7 +49,8 @@
           "/simpletweaks claim create beansprucht den aktuellen Chunk (ein freier Chunk-Credit, Abklingzeit, Weltgrenze, Spawnpuffer; jede Dimension, außer die Server-Liste dimensions schränkt ein); /simpletweaks claim unclaim gibt ihn frei. /simpletweaks claim trust und untrust nehmen Online-Namen oder vollständige Offline-UUIDs an. Nur der Besitzer ändert Vertrauen; Vertraute dürfen es nicht weitergeben. OP4 darf admin listall, list <UUID/Name> und unclaim nutzen, unabhängig von der standardmäßig ausgeschalteten Schutzumgehung. Änderungen gelten erst nach atomarem Speichern.",
           "Server-Ticks zwischen erfolgreichen Claim-, Vertrauens-, Widerrufs- oder Löschvorgängen eines Spielers. Bereich 20–72000, dimensionsübergreifend; Neustart setzt zurück. Standard: 100 Ticks.",
           "Rechte je Person (serverseitig): B Bauen, D Abbauen, U Benutzen (Türen, Hebel, Werkbänke), C Container (Truhen, Rahmen, Aufheben), R Redstone, A Tiere und Fahrzeuge, M Verwalten. Rollen: @guest = U, @helper = UCA, @member = BDUCRA (so viel bedeutete „vertraut“ immer), @manager = alles. Unbekannte Aktionen brauchen B und D. /simpletweaks claim trust <Spieler> [Rechte] setzt sie für den Chunk, in dem du stehst, /simpletweaks claim info zeigt deine, /simpletweaks claim code zeigt den Code deines Landes. Der Code (höchstens 4096 Zeichen, 200 Zeilen) wird nur vom Server geparst und geprüft; das Ledger ist Version 2 und sichert beim ersten Schreiben die alte Datei (simpletweaks-claims.v1.json).",
-          "Server-Config der Claims (ohne Oberfläche, Datei bearbeiten): maxTrustedPlayers ist die Zahl vertrauter Spieler pro Claim, globalCap die Gesamtzahl der Claims auf dem Server (Standard 4.096), cooldownTicks die Wartezeit zwischen zwei /simpletweaks claim create (Standard 100 Ticks) und spawnBuffer der zusätzliche Radius in Blöcken um den Welt-Spawn, in dem niemand claimen darf (Standard 16; es gilt der größere Wert aus ihm und dem Spawnschutz des Servers)."
+          "Server-Config der Claims (ohne Oberfläche, Datei bearbeiten): maxTrustedPlayers ist die Zahl vertrauter Spieler pro Claim, globalCap die Gesamtzahl der Claims auf dem Server (Standard 4.096), cooldownTicks die Wartezeit zwischen zwei /simpletweaks claim create (Standard 100 Ticks) und spawnBuffer der zusätzliche Radius in Blöcken um den Welt-Spawn, in dem niemand claimen darf (Standard 16; es gilt der größere Wert aus ihm und dem Spawnschutz des Servers).",
+          "Besucher ohne Rechte sind nicht wehrlos (Abschnitt visitors, jeder Teil standardmäßig an): fightMonsters erlaubt jedem, Monster (was Vanilla als Enemy zählt) zu schlagen und zu beschießen; Tiere, Fahrzeuge und Dekoration bleiben geschützt, und ein Monster mit Rechtsklick zu benutzen braucht weiter das Tier-Recht A. ownItems erlaubt, Items aufzuheben, die man selbst fallen gelassen oder geworfen hat, auch die eigenen Todes-Drops (ein Todes-Drop bekommt seinen Spieler als Werfer); andere Items brauchen weiter das Container-Recht C. xp erlaubt jedem, Erfahrungskugeln aufzusammeln; zum Schutz von XP-Farmen ausschalten. returnProjectiles: Ein Dreizack oder Pfeil, der aufhebbar ist und abgewiesen wird, weil der Schütze am Ziel keine Rechte hat, geht nicht verloren, sondern genau einmal an den Schützen zurück, ins Inventar oder sonst vor seine Füße; nicht aufhebbare Pfeile (Unendlich, Kreativ) verschwinden wie bisher."
         ]
       },
       "sources": [
@@ -70,7 +72,12 @@
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimTransportMixin.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimRights.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimCode.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimItemUseMixin.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimItemUseMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimPlayerMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimProjectileMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimPickupMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimDropMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimEffectMixin.java"
       ]
     },
     {
@@ -194,7 +201,9 @@
           "/simpletweaks rollback <filter> [--preview] (rollbackPermission, default 3) takes the lookup filters and needs time: plus player: or radius:; the old form <player> <time> [radius] still works. Newest first: placed blocks are removed while the same block is still there, broken, exploded and burned blocks return onto air or replaceable blocks (with their contents, so an exploded chest can be duplicated), taken items go back, deposited items are taken out, signs get their old text back; hopper moves are never undone. --preview checks the same and changes nothing. At most rollbackMaxChanges (default 20000) entries.",
           "New events (each with a switch in section blockLog): signs (S, old and new text, on), explosions (X, actor = the player behind it, else #creeper, #tnt or #explosion, on), fire (F, #fire, on), hoppers and hopper minecarts moving items into or out of a container (I/O, #hopper, summed per flush, off). Explosions, fire and hoppers together log at most worldEventsPerTick (default 1000) blocks per tick. Actors that are no player are stored with the zero UUID and a name starting with #; the file format is unchanged and old day files stay readable.",
           "/simpletweaks lookup <filter> (lookupPermission, default 2): player:<name|uuid|#actor>, action:break|place|take|put|sign|explode|burn|hopperin|hopperout, item:<id>, block:<id>, dim:<dimension>, time:<2h>, radius:<1-4096> around you in your dimension; values can be comma lists. 7 lines per page (/simpletweaks lookup page <n>), at most lookupMaxResults (default 5000) entries, newest first.",
-          "/simpletweaks restore (restorePermission, default 3) plays the last rollback forward again (kept in memory until the next rollback or restart). /simpletweaks purge <player> (purgePermission, default 4) deletes every log line of that player from all day files (privacy)."
+          "/simpletweaks restore (restorePermission, default 3) plays the last rollback forward again (kept in memory until the next rollback or restart). /simpletweaks purge <player> (purgePermission, default 4) deletes every log line of that player from all day files (privacy).",
+          "Dedicated servers only by default (blockLog.onlyDedicated, default true): the log runs on dedicated servers, not in single player or on LAN (the integrated server), and /simpletweaks inspect, lookup, rollback, restore and purge are not offered there either. Set onlyDedicated to false to log everywhere. A file without the key counts as true, so a dedicated server keeps logging; blockLog.enabled false still switches the log off everywhere.",
+          "Containers and rollback: the container log compares what a container held when a player opened it and when they closed it. Whatever hoppers, furnaces or other automation move in between is credited to that player, and a rollback puts it back. A rollback of a broken or exploded container restores its contents although the items may lie in the world as drops, so the items can exist twice. Before a rollback check the drops and the inventory of the culprit, and run it with --preview first (it checks the same and changes nothing)."
         ]
       },
       "de": {
@@ -206,7 +215,9 @@
           "/simpletweaks rollback <Filter> [--preview] (rollbackPermission, Standard 3) nimmt die Lookup-Filter und braucht time: plus player: oder radius:; die alte Form <Spieler> <Zeit> [Radius] geht weiter. Neueste zuerst: gesetzte Blöcke verschwinden, solange noch derselbe Block dort steht, abgebaute, gesprengte und verbrannte kommen auf Luft oder ersetzbare Blöcke zurück (mit Inhalt, eine gesprengte Truhe kann sich also verdoppeln), genommene Items wandern zurück, hineingelegte wieder heraus, Schilder bekommen den alten Text; Trichter-Bewegungen werden nie zurückgesetzt. --preview prüft dasselbe und ändert nichts. Höchstens rollbackMaxChanges (Standard 20000) Einträge.",
           "Neue Ereignisse (je ein Schalter im Abschnitt blockLog): Schilder (S, alter und neuer Text, an), Explosionen (X, Verursacher = der Spieler dahinter, sonst #creeper, #tnt oder #explosion, an), Feuer (F, #fire, an), Trichter und Trichterloren, die Items in einen Container legen oder herausnehmen (I/O, #hopper, je Schreibintervall zusammengefasst, aus). Explosionen, Feuer und Trichter zusammen protokollieren höchstens worldEventsPerTick (Standard 1000) Blöcke je Tick. Verursacher ohne Spieler stehen mit der Null-UUID und einem Namen mit # in der Datei; das Format bleibt gleich, alte Tagesdateien bleiben lesbar.",
           "/simpletweaks lookup <Filter> (lookupPermission, Standard 2): player:<Name|UUID|#Verursacher>, action:break|place|take|put|sign|explode|burn|hopperin|hopperout, item:<ID>, block:<ID>, dim:<Dimension>, time:<2h>, radius:<1-4096> um dich in deiner Dimension; Werte auch als Komma-Liste. 7 Zeilen je Seite (/simpletweaks lookup page <n>), höchstens lookupMaxResults (Standard 5000) Einträge, neueste zuerst.",
-          "/simpletweaks restore (restorePermission, Standard 3) spielt den letzten Rollback wieder vorwärts (im Speicher bis zum nächsten Rollback oder Neustart). /simpletweaks purge <Spieler> (purgePermission, Standard 4) löscht alle Protokollzeilen dieses Spielers aus allen Tagesdateien (Datenschutz)."
+          "/simpletweaks restore (restorePermission, Standard 3) spielt den letzten Rollback wieder vorwärts (im Speicher bis zum nächsten Rollback oder Neustart). /simpletweaks purge <Spieler> (purgePermission, Standard 4) löscht alle Protokollzeilen dieses Spielers aus allen Tagesdateien (Datenschutz).",
+          "Standardmäßig nur auf Dedicated Servern (blockLog.onlyDedicated, Standard true): Das Protokoll läuft auf Dedicated Servern, nicht im Einzelspieler oder im LAN (integrierter Server), und /simpletweaks inspect, lookup, rollback, restore und purge werden dort auch nicht angeboten. Mit onlyDedicated false wird überall protokolliert. Eine Datei ohne den Schlüssel zählt als true, ein Dedicated Server protokolliert also weiter; blockLog.enabled false schaltet das Protokoll weiter überall aus.",
+          "Container und Rollback: Das Container-Protokoll vergleicht, was ein Container beim Öffnen und beim Schließen durch den Spieler enthielt. Was Trichter, Öfen oder andere Automation dazwischen bewegen, wird diesem Spieler zugeschrieben, und ein Rollback legt es zurück. Ein Rollback eines abgebauten oder gesprengten Containers stellt dessen Inhalt wieder her, obwohl die Items als Drops in der Welt liegen können; sie können dann doppelt existieren. Vor einem Rollback also Drops und das Inventar des Täters prüfen und zuerst mit --preview laufen lassen (prüft dasselbe und ändert nichts)."
         ]
       },
       "sources": [
@@ -346,14 +357,16 @@
         "title": "Automatic world backups (on by default)",
         "summary": "Every intervalHours (default 6, 1–168) and with /simpletweaks backup now the world is zipped like save-off, save-all flush, save-on: saving pauses, everything is flushed, a worker thread writes the archive, then saving resumes.",
         "details": [
-          "Archives go to directory (default backups, next to the server) as <world>-<date>-<time>.zip, without session.lock and without the backup folder; the newest keep (default 5, 1–100) stay. Only one backup runs at a time; the first automatic one comes one interval after the first start. Operator level permission (default 3), section backups."
+          "Archives go to directory (default backups, next to the server) as <world>-<date>-<time>.zip, without session.lock and without the backup folder; the newest keep (default 5, 1–100) stay. Only one backup runs at a time; the first automatic one comes one interval after the first start. Operator level permission (default 3), section backups.",
+          "Dedicated servers only by default (backups.onlyDedicated, default true): in single player and on LAN (the integrated server) no automatic backup runs and /simpletweaks backup is not offered. Set onlyDedicated to false to back up everywhere. A file without the key counts as true, so a dedicated server keeps its schedule; backups.enabled false still switches it off everywhere."
         ]
       },
       "de": {
         "title": "Automatische Welt-Backups (standardmäßig an)",
         "summary": "Alle intervalHours (Standard 6, 1–168) und mit /simpletweaks backup now wird die Welt wie save-off, save-all flush, save-on gepackt: Speichern pausiert, alles wird geschrieben, ein eigener Thread erzeugt das Archiv, danach wird wieder gespeichert.",
         "details": [
-          "Archive landen in directory (Standard backups, neben dem Server) als <welt>-<datum>-<zeit>.zip, ohne session.lock und ohne den Backup-Ordner; die neuesten keep (Standard 5, 1–100) bleiben. Es läuft immer nur ein Backup; das erste automatische kommt ein Intervall nach dem ersten Start. OP-Stufe permission (Standard 3), Abschnitt backups."
+          "Archive landen in directory (Standard backups, neben dem Server) als <welt>-<datum>-<zeit>.zip, ohne session.lock und ohne den Backup-Ordner; die neuesten keep (Standard 5, 1–100) bleiben. Es läuft immer nur ein Backup; das erste automatische kommt ein Intervall nach dem ersten Start. OP-Stufe permission (Standard 3), Abschnitt backups.",
+          "Standardmäßig nur auf Dedicated Servern (backups.onlyDedicated, Standard true): Im Einzelspieler und im LAN (integrierter Server) läuft kein automatisches Backup und /simpletweaks backup wird nicht angeboten. Mit onlyDedicated false wird überall gesichert. Eine Datei ohne den Schlüssel zählt als true, ein Dedicated Server behält also seinen Zeitplan; backups.enabled false schaltet es weiter überall aus."
         ]
       },
       "sources": [
@@ -687,7 +700,8 @@
         "details": [
           "A vote passes once percent (default 50) % of the active players (not AFK, not spectating) said yes, otherwise it fails after seconds (default 30); each topic then waits cooldownSeconds (default 300).",
           "The day/night vote (dayNight) is off by default. While Simple Weather switches weather off, the weather vote is refused.",
-          "Server setting vote.enabled, default on."
+          "Server setting vote.enabled, default on.",
+          "Event votes (/simpletweaks vote event <name>) need at least eventMinPlayers (default 2, 1–100) active players, counted like the votes (online, not AFK, not spectating); with fewer the vote is refused with a message. No event vote starts while an event runs, and the cooldown (cooldownSeconds) of an event topic counts from the end of the event, not from the vote. Weather and day/night votes need no minimum and wait cooldownSeconds after the vote as before."
         ]
       },
       "de": {
@@ -696,12 +710,14 @@
         "details": [
           "Angenommen ist sie, sobald percent (Standard 50) % der aktiven Spieler (nicht AFK, nicht Zuschauer) Ja gesagt haben, sonst scheitert sie nach seconds (Standard 30); danach wartet das Thema cooldownSeconds (Standard 300).",
           "Die Tag/Nacht-Abstimmung (dayNight) ist standardmäßig aus. Schaltet Simple Weather das Wetter ab, wird die Wetter-Abstimmung abgelehnt.",
-          "Servereinstellung vote.enabled, Standard an."
+          "Servereinstellung vote.enabled, Standard an.",
+          "Event-Abstimmungen (/simpletweaks vote event <Name>) brauchen mindestens eventMinPlayers (Standard 2, 1–100) aktive Spieler, gezählt wie bei den Abstimmungen (online, nicht AFK, nicht Zuschauer); bei weniger wird sie mit einer Meldung abgelehnt. Solange ein Event läuft, startet keine Event-Abstimmung, und die Abklingzeit (cooldownSeconds) eines Event-Themas zählt ab dem Ende des Events, nicht ab der Abstimmung. Wetter- und Tag/Nacht-Abstimmungen brauchen kein Minimum und warten wie bisher cooldownSeconds nach der Abstimmung."
         ]
       },
       "sources": [
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/vote/Votes.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/events/ServerEvents.java"
       ]
     },
     {
@@ -969,7 +985,8 @@
           "The world keeps the real ores; only the chunk data sent to the player changes. Mining, an explosion or any other change next to a hidden ore sends its real block at once, so normal mining looks the same.",
           "Per dimension: list of hidden blocks (all Vanilla ores, ancient debris and the c:ores tag of other mods by default), the replacement block and a maximum height. Mode 2 also shows fake ores inside solid stone (off by default).",
           "Players in creative or spectator mode see the real blocks (exemptCreative, exemptSpectator); exemptPermission lets operators of a level see them too. Ore detectors and maps work on the server and are not affected.",
-          "Operators of level 3: /simpletweaks protect status, reload and bench (measures the extra time per chunk packet)."
+          "Operators of level 3: /simpletweaks protect status, reload and bench (measures the extra time per chunk packet).",
+          "Dedicated servers only by default (antiXray.onlyDedicated, default true): in single player and on LAN (the integrated server) players see the real blocks, and /simpletweaks protect status shows anti-x-ray as off there. Set onlyDedicated to false to hide ores everywhere. A file without the key counts as true, so a dedicated server keeps hiding ores; antiXray.enabled false still switches it off everywhere."
         ]
       },
       "de": {
@@ -979,7 +996,8 @@
           "Die Welt behält die echten Erze; nur die an den Spieler gesendeten Chunk-Daten ändern sich. Abbau, Explosionen oder jede andere Änderung neben einem versteckten Erz schicken sofort den echten Block, normales Abbauen sieht also gleich aus.",
           "Je Dimension: Liste der versteckten Blöcke (Standard: alle Vanilla-Erze, Antiker Schrott und der Tag c:ores anderer Mods), Ersatzblock und Höchsthöhe. Modus 2 zeigt zusätzlich falsche Erze im festen Stein (Standard aus).",
           "Spieler im Kreativ- oder Zuschauermodus sehen die echten Blöcke (exemptCreative, exemptSpectator); mit exemptPermission auch Operatoren ab einer Stufe. Erzdetektoren und Karten arbeiten auf dem Server und sind nicht betroffen.",
-          "Operatoren ab Stufe 3: /simpletweaks protect status, reload und bench (misst die Zusatzzeit je Chunk-Paket)."
+          "Operatoren ab Stufe 3: /simpletweaks protect status, reload und bench (misst die Zusatzzeit je Chunk-Paket).",
+          "Standardmäßig nur auf Dedicated Servern (antiXray.onlyDedicated, Standard true): Im Einzelspieler und im LAN (integrierter Server) sehen Spieler die echten Blöcke, und /simpletweaks protect status zeigt Anti-X-Ray dort als aus. Mit onlyDedicated false werden Erze überall versteckt. Eine Datei ohne den Schlüssel zählt als true, ein Dedicated Server versteckt also weiter Erze; antiXray.enabled false schaltet es weiter überall aus."
         ]
       },
       "sources": [

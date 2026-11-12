@@ -44,7 +44,8 @@
 "ClaimMushroomMixin",
 "ClaimBonemealMixin",
 "ClaimSculkMixin",
-"ClaimFrostMixin"
+"ClaimFrostMixin",
+"ClaimDropMixin"
   ],
   "injectors": {
     "defaultRequire": 1

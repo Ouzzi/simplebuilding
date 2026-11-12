@@ -49,6 +49,8 @@ public class TradeTerminalMenu extends AbstractContainerMenu implements EnderSho
             S_PAY = 9, S_FULL = 10, S_STALE = 11, S_SLOW = 12, S_OFF = 13, S_GONE = 14, S_NOT_OWNER = 15, S_DELIVERING = 16;
     /** Shop flags (data slot bits). */
     public static final int F_PUBLIC = 1, F_FULL = 2, F_TAKE = 4, F_BUY = 8, F_SELECTED = 16;
+    /** E1ANS F5: the owner works on the selected shop; the buy rows wait behind the maintenance sign. */
+    public static final int F_MAINTENANCE = 32;
     public static final int RATE_TICKS = 5, MAX_DELIVERIES = 5;
 
     private final ContainerLevelAccess access;
@@ -86,7 +88,7 @@ public class TradeTerminalMenu extends AbstractContainerMenu implements EnderSho
         this.access = access;
         this.player = player;
         for (int i = 0; i < LIST; i++) addSlot(new ShopMenu.ViewSlot(this.listView, i, LIST_X + (i % 9) * 18, LIST_Y + (i / 9) * 18, x -> true));
-        for (int i = 0; i < 5; i++) addSlot(new ShopMenu.ViewSlot(this.rowA, i, ROW_X + i * 18, ROW_A_Y, x -> this.flags.get() != 0));
+        for (int i = 0; i < 5; i++) addSlot(new ShopMenu.ViewSlot(this.rowA, i, ROW_X + i * 18, ROW_A_Y, x -> this.flags.get() != 0 && !underMaintenance()));
         for (int i = 0; i < 5; i++) {
             addSlot(new ShopMenu.ViewSlot(this.rowB, i, ROW_X + i * 18, ROW_B_Y, x -> this.tab.get() == TAB_MINE && (this.flags.get() & F_SELECTED) != 0));
         }
@@ -96,12 +98,13 @@ public class TradeTerminalMenu extends AbstractContainerMenu implements EnderSho
                 @Override
                 public boolean mayPlace(ItemStack stack) {
                     ItemStack price = TradeTerminalMenu.this.rowA.getItem(position);
-                    return TradeTerminalMenu.this.tab.get() == TAB_BROWSE && !price.isEmpty() && ItemStack.isSameItemSameComponents(price, stack);
+                    return TradeTerminalMenu.this.tab.get() == TAB_BROWSE && !underMaintenance() && !price.isEmpty()
+                            && ItemStack.isSameItemSameComponents(price, stack);
                 }
 
                 @Override
                 public boolean isActive() {
-                    return TradeTerminalMenu.this.tab.get() == TAB_BROWSE && !TradeTerminalMenu.this.rowA.getItem(position).isEmpty();
+                    return TradeTerminalMenu.this.tab.get() == TAB_BROWSE && !underMaintenance() && !TradeTerminalMenu.this.rowA.getItem(position).isEmpty();
                 }
             });
         }
@@ -148,6 +151,11 @@ public class TradeTerminalMenu extends AbstractContainerMenu implements EnderSho
 
     public int status() {
         return this.status.get();
+    }
+
+    /** E1ANS F5: the owner works on the selected shop (maintenance sign over the buy rows). */
+    public boolean underMaintenance() {
+        return (this.flags.get() & F_MAINTENANCE) != 0;
     }
 
     public int revisionSeen() {
@@ -263,6 +271,23 @@ public class TradeTerminalMenu extends AbstractContainerMenu implements EnderSho
         java.util.Arrays.fill(b, ItemStack.EMPTY);
         if (v != null && data != null) {
             f |= F_SELECTED;
+            if (this.lockedId != null && this.lockedId.equals(v.id) && !this.closed) {
+                // E1ANS F5: the owner had the shop; once he is done the waiting selection takes the lock (customers only wait for him).
+                ServerPlayer holder = v.lockHolder();
+                if (holder == null) {
+                    v.lock(this.player, this, true);
+                    holder = v.lockHolder();
+                }
+                if (holder != this.player) {
+                    if (v.heldByOwner()) f |= F_MAINTENANCE;
+                    else {
+                        select(null, -1);
+                        setStatus(S_BUSY);
+                        this.flags.set(0);
+                        return;
+                    }
+                }
+            }
             EnderShops.Vault box = data.caseOf(v);
             if (v.listed()) f |= F_PUBLIC;
             if (!ShopTrade.fitsRemote(data, v)) f |= F_FULL;
@@ -273,7 +298,7 @@ public class TradeTerminalMenu extends AbstractContainerMenu implements EnderSho
             } else {
                 for (int i = 0; i < 5; i++) a[i] = v.prices.get(i).copy();
                 boolean stocked = box != null && this.ware >= 0 && !box.items.get(this.ware).isEmpty();
-                if (TradeTerminal.mayBuy(this.player, v) == TradeTerminal.Why.OK && stocked && this.lockedId != null) f |= F_BUY;
+                if (TradeTerminal.mayBuy(this.player, v) == TradeTerminal.Why.OK && stocked && this.lockedId != null && (f & F_MAINTENANCE) == 0) f |= F_BUY;
             }
             this.revision.set(v.revision() & 0xFFFF);
         }
@@ -290,7 +315,9 @@ public class TradeTerminalMenu extends AbstractContainerMenu implements EnderSho
         if (this.player == null || data == null) return false;
         EnderShops.Vault next = id == null ? null : data.find(id);
         boolean needLock = next != null && (this.tab.get() == TAB_MINE || !next.isOwner(this.player.getUUID()));
-        if (next != null && needLock && !id.equals(this.lockedId) && next.lockHolder() != null && next.lockHolder() != this.player) {
+        if (next != null && needLock && !id.equals(this.lockedId) && next.lockHolder() != null && next.lockHolder() != this.player
+                // E1ANS F5: the owner takes his shop over; a customer may still select a shop the owner works on (maintenance).
+                && !next.ownerTakesOver(this.player) && !(!next.isOwner(this.player.getUUID()) && next.heldByOwner())) {
             setStatus(S_BUSY);
             return false;
         }
@@ -303,7 +330,8 @@ public class TradeTerminalMenu extends AbstractContainerMenu implements EnderSho
         this.shopId = id;
         this.ware = newWare;
         if (next != null && needLock) {
-            next.lock(this.player, this, true);
+            // Behind the maintenance sign the customer only keeps the selection; refreshShop() takes the lock once the owner is done.
+            if (next.lockFree()) next.lock(this.player, this, true);
             this.lockedId = id;
         }
         return true;

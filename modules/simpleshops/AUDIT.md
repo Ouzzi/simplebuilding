@@ -57,6 +57,15 @@ BEW39 "missing" nicht gebaut (Antwort des Besitzers steht aus): Client-Bilder Te
    vor Ort bleiben 300 s); **C** so lassen. Empfehlung **A**: der Besitzer behaelt immer die Kontrolle, ehrliche Kaeufer merken nichts, kleiner Eingriff
    an einer Stelle (Sperre in `EnderShops.Vault`).
 
+## Antworten des Besitzers (12.11.2026, E1ANS)
+- **Frage 1 (Vorschau F5) = A + Wartungsschild**: der Besitzer geht immer vor (`ownerFirst`, Standard an): sein Klick vor Ort (Verkaufsblock,
+  Vitrine, Schnell-Einraeumen) oder sein Shop im Handelskontor („Meine Shops“) nimmt einem Kunden die Sperre ab (`EnderShops.Vault#ownerTakesOver`).
+  Das Kunden-Fenster (vor Ort oder Kontor) bleibt offen, Handelszeilen liegen hinter einem Pixelart-Schild „Wartungsarbeiten/Besitzer am Werk“
+  (`client/MaintenanceSign`, Textur `textures/gui/maintenance_sign.png` aus `tools/textures/shop_maintenance_2026_11_12.py`, Variante A von 3);
+  Handel serverseitig gesperrt (`ShopBuyerMenu` nur mit Sperre, `executeRemote` wie bisher); schliesst der Besitzer, nimmt das wartende Fenster
+  die Sperre zurueck. Wer klickt, waehrend der Besitzer arbeitet, sieht dasselbe Schild. Gametests `owner_first_maintenance`, `terminal_owner_first`,
+  angepasst `lock_second_player` (ownerFirst aus = alte Regel), Owner-Screen-Test in `StorageTests`.
+
 ## Urteil
 **shipbar nach Fix** (0 P1; 2 P2: P2-1 gefixt, P2-2 Rueckfrage ohne Dupe-/Verlustrisiko; 7 P3, davon P3-1 gefixt). Die Kauf-, Lager- und
 Terminalwege sind gegen Dupes und Diebstahl sauber gebaut (atomarer Kern, Weltdaten statt Container, Identitaets-Lieferungen); die neue

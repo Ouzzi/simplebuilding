@@ -538,9 +538,58 @@ public final class Claims {
         if(!(target.level() instanceof ServerLevel level)||!enabled(level.getServer()))return true;
         var raw=source.getEntity()!=null?source.getEntity():source.getDirectEntity();
         var actor=responsible(raw);
-        if(actor instanceof ServerPlayer player)return allowEntity(player,target);
+        if(actor instanceof ServerPlayer player)return allowAttack(player,target);
         if(source.is(net.minecraft.tags.DamageTypeTags.IS_EXPLOSION))return action(null,target);
         return true;
+    }
+    /** E1ANS F2: monsters ({@code Enemy}) may be fought by anybody (option {@code visitors.fightMonsters}); animals, vehicles and decorations still need rights. */
+    private static boolean fightsMonster(net.minecraft.world.entity.Entity target){
+        return target instanceof net.minecraft.world.entity.monster.Enemy&&target.level() instanceof ServerLevel level&&enabled(level.getServer())
+                &&get(level.getServer()).config.visitors().fightMonsters();
+    }
+    /** A player hits, shoots or stabs {@code target}: {@link #allowEntity}, except for monsters (F2). */
+    public static boolean allowAttack(ServerPlayer actor,net.minecraft.world.entity.Entity target){
+        return fightsMonster(target)||allowEntity(actor,target);
+    }
+    /** Projectile hits and harmful effects: {@link #action(net.minecraft.world.entity.Entity,net.minecraft.world.entity.Entity)}, except for monsters hit by a player (F2). */
+    public static boolean attack(net.minecraft.world.entity.Entity actor,net.minecraft.world.entity.Entity target){
+        return responsible(actor) instanceof ServerPlayer&&fightsMonster(target)||action(actor,target);
+    }
+    /**
+     * A player touches an item or experience orb ({@code playerTouch}): {@link #action(net.minecraft.world.entity.Entity,net.minecraft.world.entity.Entity)},
+     * except for experience orbs ({@code visitors.xp}) and items the player dropped or threw themselves ({@code visitors.ownItems}, F2).
+     */
+    public static boolean pickup(net.minecraft.world.entity.player.Player player,net.minecraft.world.entity.Entity drop){
+        if(player instanceof ServerPlayer&&drop.level() instanceof ServerLevel level&&enabled(level.getServer())){
+            var v=get(level.getServer()).config.visitors();
+            if(v.xp()&&drop instanceof net.minecraft.world.entity.ExperienceOrb)return true;
+            if(v.ownItems()&&drop instanceof net.minecraft.world.entity.item.ItemEntity item){
+                var thrower=item.getOwner();
+                if(thrower!=null&&thrower.getUUID().equals(player.getUUID()))return true;
+            }
+        }
+        return action(player,drop);
+    }
+    /** A death drop of a player has no thrower in Vanilla; it gets the player, so only they may pick it up in foreign land (F2). */
+    public static void droppedBy(net.minecraft.world.entity.item.ItemEntity item,ServerPlayer player){
+        if(item.getOwner()==null&&enabled(player.level().getServer())&&get(player.level().getServer()).config.visitors().ownItems())item.setThrower(player);
+    }
+    /**
+     * A projectile of a player hit land the player has no rights in (F2): it is removed (once) and, when it was fired from an item that
+     * could be picked up again (arrow, trident with pickup allowed), that item goes back to the shooter exactly once: into the inventory,
+     * else to their feet. Arrows that cannot be picked up (Infinity, creative) vanish as before.
+     */
+    public static void refuse(net.minecraft.world.entity.projectile.Projectile projectile){
+        boolean first=!projectile.isRemoved();
+        projectile.discard();
+        if(!first||!(projectile instanceof net.minecraft.world.entity.projectile.arrow.AbstractArrow arrow)
+                ||arrow.pickup!=net.minecraft.world.entity.projectile.arrow.AbstractArrow.Pickup.ALLOWED
+                ||!(arrow.getOwner() instanceof ServerPlayer shooter)||!(arrow.level() instanceof ServerLevel level)||!enabled(level.getServer())
+                ||!get(level.getServer()).config.visitors().returnProjectiles())return;
+        var stack=arrow.getPickupItemStackOrigin().copy();
+        if(stack.isEmpty())return;
+        shooter.getInventory().add(stack);
+        if(!stack.isEmpty()){var left=shooter.spawnAtLocation(level,stack);if(left!=null)left.setThrower(shooter);}
     }
     private static net.minecraft.world.entity.Entity responsible(net.minecraft.world.entity.Entity actor){
         for(int i=0;i<8;i++){

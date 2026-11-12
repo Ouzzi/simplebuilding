@@ -45,7 +45,7 @@
         "summary": "Brick, nether brick and resin brick: throw with use. Server cooldown 10 ticks, lifetime 200 ticks, damage 0–4. Glass breaking defaults off.",
         "details": [
           "Brick, nether brick and resin brick: throw with use. Server cooldown 10 ticks, lifetime 200 ticks, damage 0–4. Glass breaking defaults off.",
-          "Glass destruction is available only in private single-player; published LAN and dedicated servers refuse it even if enabled."
+          "The brick throw is on by default (enableThrowableBricks); only glass breaking is off by default. Switch it on with throwableBricksBreakBlocks or /simplefun tweaks bricks breakGlass (server side): a thrown brick then breaks ordinary and stained glass and panes (not tinted glass), but only for a player owner with building rights - not in adventure mode, not under spawn protection, not outside the world border, not inside a claim."
         ]
       },
       "de": {
@@ -53,7 +53,7 @@
         "summary": "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0–4. Glasbrechen standardmäßig aus.",
         "details": [
           "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0–4. Glasbrechen standardmäßig aus.",
-          "Glaszerstörung nur im privaten Einzelspieler; veröffentlichte LAN-Welten und dedizierte Server verweigern sie auch bei aktiviertem Schalter."
+          "Der Ziegelwurf ist standardmäßig an (enableThrowableBricks); nur das Glasbrechen ist standardmäßig aus. Einschalten mit throwableBricksBreakBlocks oder /simplefun tweaks bricks breakGlass (serverseitig): ein geworfener Ziegel bricht dann normales und buntes Glas samt Scheiben (kein getöntes Glas), aber nur für einen Spieler als Besitzer mit Baurechten – nicht im Abenteuermodus, nicht im Spawnschutz, nicht außerhalb der Weltgrenze und nicht in einem Claim."
         ]
       },
       "sources": [
@@ -107,24 +107,24 @@
     {
       "id": "knockback",
       "en": {
-        "title": "Knockback V",
-        "summary": "Vanilla Knockback accepts feathers/sticks and levels up to five; this replaces vanilla enchantment data and can collide with datapacks.",
+        "title": "Knockback IV",
+        "summary": "With the higher-knockback switch on, Vanilla Knockback accepts feathers/sticks and levels up to four; this changes the Vanilla enchantment data and can collide with datapacks. Off: Vanilla Knockback stays untouched.",
         "details": [
-          "Vanilla Knockback accepts feathers/sticks and levels up to five; this replaces vanilla enchantment data and can collide with datapacks.",
+          "The data change (max level 4, supported items #simplefun:knockback_allowed) is a built-in data pack that is added only while Simple Fun is on and enableHigherKnockback is on. Data registries are read when a world starts, so changing the option needs a restart. The level cap matches the hard limit of Max knockback (4).",
           "The knockback cap (Max knockback) also applies when the higher-knockback switch is off: without it the cap is 2."
         ]
       },
       "de": {
-        "title": "Rückstoß V",
-        "summary": "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren.",
+        "title": "Rückstoß IV",
+        "summary": "Bei eingeschaltetem Schalter für höheren Rückstoß erlaubt Vanilla-Rückstoß Federn/Stöcke und Stufe bis vier; das ändert die Vanilla-Verzauberungsdaten und kann mit Datenpaketen kollidieren. Aus: Vanilla-Rückstoß bleibt unverändert.",
         "details": [
-          "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren.",
+          "Die Datenänderung (Höchststufe 4, unterstützte Items #simplefun:knockback_allowed) ist ein eingebautes Datenpaket, das nur hinzugefügt wird, solange Simple Fun und enableHigherKnockback an sind. Daten-Registries werden beim Start einer Welt gelesen, eine Änderung der Option braucht daher einen Neustart. Die Stufengrenze entspricht der harten Grenze von Max. Rückstoß (4).",
           "Die Rückstoß-Kappe (Max. Rückstoß) wirkt auch bei ausgeschaltetem Schalter für höheren Rückstoß: ohne ihn gilt die Kappe 2."
         ]
       },
       "sources": [
         "modules/simplefun/shared/java/com/simplefun/mixin/KnockbackCapMixin.java",
-        "modules/simplefun/shared/resources/data/minecraft/enchantment/knockback.json"
+        "modules/simplefun/shared/resources/resourcepacks/higher_knockback/data/minecraft/enchantment/knockback.json"
       ]
     },
     {
@@ -646,16 +646,16 @@
       "id": "config_throwableBricksBreakBlocks",
       "en": {
         "title": "Throwable Bricks Break Glass",
-        "summary": "Breaks ordinary/stained glass only in private single-player, with server protection and world border checks. Published LAN and dedicated servers refuse terrain destruction. Default: false.",
+        "summary": "A thrown brick breaks ordinary and stained glass (not tinted); needs a player owner with building rights (spawn protection, world border, claims). Default: false.",
         "details": [
-          "Breaks ordinary/stained glass only in private single-player, with server protection and world border checks. Published LAN and dedicated servers refuse terrain destruction. Default: false."
+          "A thrown brick breaks ordinary and stained glass (not tinted); needs a player owner with building rights (spawn protection, world border, claims). The brick throw itself stays on. Default: false."
         ]
       },
       "de": {
         "title": "Ziegel brechen Glas",
-        "summary": "Bricht normales/buntes Glas nur im privaten Einzelspieler, mit Serverschutz und Weltgrenze. Veröffentlichte LAN-Welten und dedizierte Server verweigern Geländezerstörung. Standard: false.",
+        "summary": "Ein geworfener Ziegel bricht normales und buntes Glas (kein getöntes); braucht einen Spieler mit Baurechten (Spawnschutz, Weltgrenze, Claims). Standard: false.",
         "details": [
-          "Bricht normales/buntes Glas nur im privaten Einzelspieler, mit Serverschutz und Weltgrenze. Veröffentlichte LAN-Welten und dedizierte Server verweigern Geländezerstörung. Standard: false."
+          "Ein geworfener Ziegel bricht normales und buntes Glas (kein getöntes); braucht einen Spieler mit Baurechten (Spawnschutz, Weltgrenze, Claims). Der Ziegelwurf selbst bleibt an. Standard: false."
         ]
       },
       "sources": [
@@ -923,16 +923,16 @@
       ],
       "en": {
         "title": "Enable higher knockback",
-        "summary": "Server option. Default: true. Server-owned; restart required.",
+        "summary": "Knockback up to IV, also on feathers and sticks (data pack, only added while on). Default: true. Server-owned; restart required.",
         "details": [
-          "Server option. Default: true. Server-owned; restart required."
+          "Knockback up to IV, also on feathers and sticks (data pack, only added while on). Default: true. Server-owned; restart required."
         ]
       },
       "de": {
         "title": "Stärkerer Rückstoß",
-        "summary": "Serveroption. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "summary": "Rückstoß bis IV, auch auf Federn und Stöcken (Datenpaket, nur bei „an“ hinzugefügt). Standard: true. Server bestimmt Werte; Neustart erforderlich.",
         "details": [
-          "Serveroption. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+          "Rückstoß bis IV, auch auf Federn und Stöcken (Datenpaket, nur bei „an“ hinzugefügt). Standard: true. Server bestimmt Werte; Neustart erforderlich."
         ]
       }
     },
@@ -2602,10 +2602,10 @@
           "modules/simplefun/shared/resources/data/simplefun/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Fun\" of the Simple Modpack guide (SimpleLib): 39 pages taken from this wiki, shown in your language. Unlocked by picking up: brick. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Fun\" of the Simple Modpack guide (SimpleLib): 40 pages taken from this wiki, shown in your language. Unlocked by picking up: brick. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Fun\" im Simple-Modpack-Handbuch (SimpleLib): 39 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Ziegel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Fun\" im Simple-Modpack-Handbuch (SimpleLib): 40 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Ziegel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplefun/item/guide_book.png",
@@ -3044,8 +3044,8 @@
       "groupDe": null,
       "label": "Enable higher knockback",
       "labelDe": "Stärkerer Rückstoß",
-      "tooltip": "Server option. Default: true. Server-owned;\nrestart required.",
-      "tooltipDe": "Serveroption. Standard: true. Server bestimmt\nWerte; Neustart erforderlich."
+      "tooltip": "Knockback up to IV, also on feathers and sticks\n(data pack, only added while on). Default: true.\nServer-owned; restart required.",
+      "tooltipDe": "Rückstoß bis IV, auch auf Federn und Stöcken\n(Datenpaket, nur bei „an“ hinzugefügt). Standard:\ntrue. Server bestimmt Werte; Neustart erforderlich."
     },
     {
       "range": null,
@@ -3367,8 +3367,8 @@
       "groupDe": null,
       "label": "Throwable Bricks Break Glass",
       "labelDe": "Ziegel brechen Glas",
-      "tooltip": "Breaks ordinary/stained glass only in private\nsingle-player, with server protection and\nworld border checks. Published LAN and\ndedicated servers refuse terrain destruction.\nDefault: false.",
-      "tooltipDe": "Bricht normales/buntes Glas nur im privaten\nEinzelspieler, mit Serverschutz und\nWeltgrenze. Veröffentlichte LAN-Welten und\ndedizierte Server verweigern\nGeländezerstörung. Standard: false."
+      "tooltip": "A thrown brick breaks ordinary and stained\nglass (not tinted). Needs a player owner with\nbuilding rights: spawn protection, world border\nand claims count. Default: false.",
+      "tooltipDe": "Ein geworfener Ziegel bricht normales und buntes\nGlas (kein getöntes). Braucht einen Spieler mit\nBaurechten: Spawnschutz, Weltgrenze und Claims\nzählen. Standard: false."
     },
     {
       "range": null,

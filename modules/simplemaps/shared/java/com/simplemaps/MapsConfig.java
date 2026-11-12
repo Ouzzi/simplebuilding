@@ -30,6 +30,8 @@ public final class MapsConfig {
     public static final int PICTURE_SIDE_DEFAULT = 3, PICTURE_SIDE_MIN = 1, PICTURE_SIDE_MAX = 4, PICTURE_PERMISSION_MAX = 4;
     public static boolean pictureMap = true;
     public static int pictureMapMaxSide = PICTURE_SIDE_DEFAULT, pictureMapPermission = 0;
+    /** Each picture map uses up one empty map (owner MAPS8 = C, 12.11.; creative free): no free, endless map files. */
+    public static boolean pictureMapCostsMap = true;
     /** Web map export (stage 1, static files): off by default; see {@code docs/SIMPLEMAPS-WEBKARTE.md}. */
     public static final int WEB_CHUNKS_DEFAULT = 32, WEB_CHUNKS_MIN = 1, WEB_CHUNKS_MAX = 512;
     public static final int WEB_INTERVAL_DEFAULT = 0, WEB_INTERVAL_MAX = 1440;
@@ -124,6 +126,7 @@ public final class MapsConfig {
         pictureMap = getBool(json, "pictureMap", true);
         pictureMapMaxSide = clamp(getInt(json, "pictureMapMaxSide", PICTURE_SIDE_DEFAULT), PICTURE_SIDE_MIN, PICTURE_SIDE_MAX);
         pictureMapPermission = clamp(getInt(json, "pictureMapPermission", 0), 0, PICTURE_PERMISSION_MAX);
+        pictureMapCostsMap = getBool(json, "pictureMapCostsMap", true);
         webEnabled = getBool(json, "webEnabled", false);
         webHideClaims = getBool(json, "webHideClaims", false);
         webShops = getBool(json, "webShops", false);
@@ -168,6 +171,7 @@ public final class MapsConfig {
         o.addProperty("pictureMap", pictureMap);
         o.addProperty("pictureMapMaxSide", pictureMapMaxSide);
         o.addProperty("pictureMapPermission", pictureMapPermission);
+        o.addProperty("pictureMapCostsMap", pictureMapCostsMap);
         o.addProperty("webEnabled", webEnabled);
         o.addProperty("webExportDir", webExportDir);
         o.addProperty("webChunksPerTick", webChunksPerTick);

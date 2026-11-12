@@ -211,7 +211,7 @@ public final class MapsNetwork {
     }
 
     /** What became of a {@link PictureMapPayload}. */
-    public enum PictureResult { OK, OFF, PERMISSION, SIZE, INVALID, RATE }
+    public enum PictureResult { OK, OFF, PERMISSION, SIZE, INVALID, RATE, NO_MAP }
 
     /** Window and per-player tile count of the picture rate limit: at most twice the largest wall per minute. */
     private static final int PICTURE_WINDOW = 1200;
@@ -227,6 +227,7 @@ public final class MapsNetwork {
                         case PERMISSION -> "You may not make picture maps on this server.";
                         case SIZE -> "That picture wall is larger than this server allows.";
                         case RATE -> "Too many picture maps in a short time, wait a minute.";
+                        case NO_MAP -> "Each picture map uses up one empty map from your inventory.";
                         default -> "The picture data was refused.";
                     }));
         }
@@ -235,8 +236,9 @@ public final class MapsNetwork {
     /**
      * One map of a picture wall (AUD-6): refused unless picture maps are on, the player has the permission level, the wall is
      * at most {@code pictureMapMaxSide} maps per edge, the index lies in it, exactly one map of colour bytes arrives with only
-     * valid map colours, and the per-minute budget lasts. Then a locked, 1:1 Vanilla map with these colours goes to the
-     * player's inventory (dropped at the feet when full).
+     * valid map colours, the player carries an empty map ({@code pictureMapCostsMap}, owner MAPS8 = C: one {@code minecraft:map}
+     * is used up per picture map like copying at the cartography table, free in creative) and the per-minute budget lasts.
+     * Then a locked, 1:1 Vanilla map with these colours goes to the player's inventory (dropped at the feet when full).
      */
     public static PictureResult createPictureMap(ServerPlayer player, PictureMapPayload p) {
         if (!com.simplemaps.MapsConfig.pictureMap) return PictureResult.OFF;
@@ -245,11 +247,15 @@ public final class MapsNetwork {
         if (p.cols() < 1 || p.rows() < 1 || p.cols() > max || p.rows() > max) return PictureResult.SIZE;
         if (p.col() < 0 || p.row() < 0 || p.col() >= p.cols() || p.row() >= p.rows() || p.colors().length != com.simplemaps.PictureMaps.BYTES) return PictureResult.INVALID;
         for (byte b : p.colors()) if (!com.simplemaps.PictureMaps.valid(b)) return PictureResult.INVALID;
+        boolean pay = com.simplemaps.MapsConfig.pictureMapCostsMap && !player.hasInfiniteMaterials();
+        int emptyMap = pay ? emptyMapSlot(player) : -1;
+        if (pay && emptyMap < 0) return PictureResult.NO_MAP;
         int now = player.level().getServer().getTickCount();
         int[] window = PICTURES.computeIfAbsent(player.getUUID(), k -> new int[]{now, 0});
         if (now - window[0] < 0 || now - window[0] >= PICTURE_WINDOW) { window[0] = now; window[1] = 0; }
         if (window[1] >= 2 * max * max) return PictureResult.RATE;
         window[1]++;
+        if (pay) player.getInventory().getItem(emptyMap).shrink(1);
         if (PICTURES.size() > 4096) PICTURES.keySet().retainAll(player.level().getServer().getPlayerList().getPlayers().stream().map(ServerPlayer::getUUID).toList());
         ServerLevel level = player.level();
         var fresh = net.minecraft.world.level.saveddata.maps.MapItemSavedData.createFresh(0, 0, (byte) 0, false, false, level.dimension());
@@ -265,6 +271,13 @@ public final class MapsNetwork {
                 "simplemaps.picture.map_name", "Picture %s/%s", p.col() + 1 + p.row() * p.cols(), p.cols() * p.rows()));
         player.getInventory().placeItemBackInInventory(stack, net.minecraft.util.Prediction.SERVER_ONLY);
         return PictureResult.OK;
+    }
+
+    /** Inventory slot of an empty Vanilla map ({@code minecraft:map}), -1 when the player carries none. */
+    static int emptyMapSlot(ServerPlayer player) {
+        var inventory = player.getInventory();
+        for (int i = 0; i < inventory.getContainerSize(); i++) if (inventory.getItem(i).is(net.minecraft.world.item.Items.MAP)) return i;
+        return -1;
     }
 
     /** Vanilla permission level 0..4 (0 = everyone), fresh from the operator list like commands. */

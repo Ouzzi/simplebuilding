@@ -21,7 +21,7 @@ public final class BlockLogCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> d, AdminConfig config) {
         if (!config.blockLog().enabled()) return;
-        d.register(Commands.literal("inspect").requires(s -> Admin.on() && AdminPerms.has(s, Admin.config().blockLog().permission()))
+        d.register(Commands.literal("inspect").requires(s -> Admin.on() && BlockLog.wanted(s.getServer(), Admin.config().blockLog()) && AdminPerms.has(s, Admin.config().blockLog().permission()))
                 .executes(c -> {
                     boolean on = Inspect.toggle(c.getSource().getPlayerOrException());
                     c.getSource().sendSuccess(() -> Component.translatable(on ? "simpletweaks.admin.blocklog.inspect.on" : "simpletweaks.admin.blocklog.inspect.off"), false);
@@ -33,18 +33,18 @@ public final class BlockLogCommands {
                     return 0;
                 }))));
         d.register(Commands.literal("tweaks")
-                .then(Commands.literal("lookup").requires(s -> Admin.on() && AdminPerms.has(s, Admin.config().blockLog().lookupPermission()))
+                .then(Commands.literal("lookup").requires(s -> Admin.on() && BlockLog.wanted(s.getServer(), Admin.config().blockLog()) && AdminPerms.has(s, Admin.config().blockLog().lookupPermission()))
                         .executes(c -> { c.getSource().sendFailure(Component.translatable("simpletweaks.admin.blocklog.filter.usage")); return 0; })
                         .then(Commands.literal("page").then(Commands.argument("page", IntegerArgumentType.integer(1))
                                 .executes(c -> page(c.getSource(), IntegerArgumentType.getInteger(c, "page")) ? 1 : 0)))
                         .then(Commands.argument("filter", StringArgumentType.greedyString()).suggests(suggest(false))
                                 .executes(c -> lookup(c.getSource(), StringArgumentType.getString(c, "filter")))))
-                .then(Commands.literal("rollback").requires(s -> Admin.on() && AdminPerms.has(s, Admin.config().blockLog().rollbackPermission()))
+                .then(Commands.literal("rollback").requires(s -> Admin.on() && BlockLog.wanted(s.getServer(), Admin.config().blockLog()) && AdminPerms.has(s, Admin.config().blockLog().rollbackPermission()))
                         .then(Commands.argument("filter", StringArgumentType.greedyString()).suggests(suggest(true))
                                 .executes(c -> rollback(c.getSource(), StringArgumentType.getString(c, "filter")))))
-                .then(Commands.literal("restore").requires(s -> Admin.on() && AdminPerms.has(s, Admin.config().blockLog().restorePermission()))
+                .then(Commands.literal("restore").requires(s -> Admin.on() && BlockLog.wanted(s.getServer(), Admin.config().blockLog()) && AdminPerms.has(s, Admin.config().blockLog().restorePermission()))
                         .executes(c -> restore(c.getSource())))
-                .then(Commands.literal("purge").requires(s -> Admin.on() && AdminPerms.has(s, Admin.config().blockLog().purgePermission()))
+                .then(Commands.literal("purge").requires(s -> Admin.on() && BlockLog.wanted(s.getServer(), Admin.config().blockLog()) && AdminPerms.has(s, Admin.config().blockLog().purgePermission()))
                         .then(Commands.argument("player", StringArgumentType.word())
                                 .executes(c -> purge(c.getSource(), StringArgumentType.getString(c, "player"))))));
     }

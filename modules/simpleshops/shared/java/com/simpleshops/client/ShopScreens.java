@@ -193,6 +193,8 @@ public final class ShopScreens {
             super.containerTick();
             if (this.back != null) this.back.visible = this.menu.canManage();
             if (this.trade != null) {
+                // E1ANS F5: behind the maintenance sign there is nothing to press.
+                this.trade.visible = !this.menu.underMaintenance();
                 this.trade.setMessage(Component.translatable(this.menu.earningsFull() ? "simpleshops.screen.earnings_full_short" : "simpleshops.screen.trade"));
                 this.trade.active = this.menu.canTradeClient();
                 this.trade.setTooltip(Tooltip.create(Component.translatable(this.trade.active ? "simpleshops.screen.repeat"
@@ -209,6 +211,11 @@ public final class ShopScreens {
         @Override
         public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
             super.extractBackground(graphics, mouseX, mouseY, a);
+            if (this.menu.underMaintenance()) {
+                // E1ANS F5: the owner works on the shop; the trade rows (hidden slots) lie behind the sign.
+                MaintenanceSign.draw(graphics, this.font, this.leftPos + (this.imageWidth - MaintenanceSign.WIDTH) / 2, this.topPos + 30);
+                return;
+            }
             // The chosen goods slot gets a gold frame.
             int sel = this.menu.selectedWare();
             if (sel >= 0 && sel < 5 && !this.menu.goodsView().getItem(sel).isEmpty()) {
@@ -223,6 +230,7 @@ public final class ShopScreens {
         @Override
         protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
             super.extractLabels(graphics, xm, ym);
+            if (this.menu.underMaintenance()) return;
             label(graphics, "simpleshops.screen.goods", 8, ShopBuyerMenu.GOODS_Y + 5);
             label(graphics, "simpleshops.screen.price", 8, ShopBuyerMenu.PRICE_Y + 5);
             label(graphics, "simpleshops.screen.pay", 8, ShopBuyerMenu.PAY_Y + 5);
@@ -231,6 +239,7 @@ public final class ShopScreens {
         @Override
         protected void slotClicked(Slot slot, int slotId, int buttonNum, ContainerInput input) {
             // A click on a goods slot picks the ware (a menu button, no item moves); the price row is display only.
+            if (slot != null && slotId >= ShopBuyerMenu.GOODS_START && slotId < ShopBuyerMenu.PAY_END && this.menu.underMaintenance()) return;
             if (slot != null && slotId >= ShopBuyerMenu.GOODS_START && slotId < ShopBuyerMenu.PRICE_START) {
                 send(ShopBuyerMenu.SELECT + slotId);
                 return;

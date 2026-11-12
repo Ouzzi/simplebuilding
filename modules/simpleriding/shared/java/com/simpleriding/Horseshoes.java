@@ -52,8 +52,11 @@ public final class Horseshoes {
 
  private static ResourceKey<Item> key(String name){return ResourceKey.create(Registries.ITEM,Riding.id(name));}
  private static net.minecraft.network.chat.MutableComponent line(String key){return Component.translatable("item.simpleriding.horseshoe_smithing_template."+key);}
- /** Registers the template and the tiers; the Enderite tier only exists alongside SimpleBuilding. */
- public static void register(boolean simplebuilding){
+ /**
+  * Registers the template and every tier, the Enderite one too (AUDSB31E1 F17: the item exists like the other tiers; without
+  * an Enderite source it is simply not craftable - the recipe takes {@code #c:ingots/enderite} and loads only while that tag has content).
+  */
+ public static void register(){
   if(TEMPLATE!=null)return;
   var tk=key("horseshoe_smithing_template");
   TEMPLATE=Registry.register(BuiltInRegistries.ITEM,tk,new SmithingTemplateItem(
@@ -63,7 +66,6 @@ public final class Horseshoes {
    List.of(Identifier.withDefaultNamespace("container/slot/ingot")),
    new Item.Properties().setId(tk).rarity(Rarity.UNCOMMON)));
   for(Tier t:Tier.values()){
-   if(t==Tier.ENDERITE&&!simplebuilding)continue;
    var k=key(t.itemName());
    var p=new Item.Properties().setId(k).durability(t.durability).enchantable(t.enchantability).repairable(t.repair);
    if(t.fireResistant)p.fireResistant();

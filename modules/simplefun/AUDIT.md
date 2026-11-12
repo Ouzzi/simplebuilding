@@ -58,6 +58,14 @@ gegen den Code geprueft.
 - C: alles an lassen, A12-Saetze im Store-Text ergaenzen.
 - Empfehlung: **B** - der Ziegelwurf kollidiert mit dem Bauen (Rechtsklick mit Ziegeln), die uebrigen sind kosmetisch oder haben Gegenwirkung (Yeet-Deckel 1,5 Bloecke/Tick, Gesten nur mit leerer Hand).
 
+## Antworten des Besitzers (12.11.2026, E1ANS)
+- **F1 (Vorschau F11) = A**: die Knockback-Ueberschreibung ist jetzt ein eingebautes Datenpaket `simplefun:higher_knockback`
+  (`shared/resources/resourcepacks/higher_knockback`, `max_level` 4), das nur bei Simple Fun an **und** `enableHigherKnockback` an registriert wird
+  (eine Ladebedingung auf der Vanilla-Datei wuerde die Verzauberung ganz loeschen); Neustart noetig; Gametest `knockback_data_follows_switch`.
+  NeoForge/Forge: Paket fehlt bis zum Port.
+- **F2 (F12) = B geaendert**: Ziegelwurf bleibt an; Glas-Zerbrechen bleibt Standard aus (`throwableBricksBreakBlocks`, gab es schon) und wirkt
+  eingeschaltet jetzt auch auf Servern, wenn der Werfer Baurecht hat (Abenteuer, Spawnschutz, Weltgrenze, Claims); Gametest `brick_breaks_glass_option`.
+
 ## Urteil
 **shipbar nach Fix** (0 P1, 3 P2: 2 gefixt, 1 Rueckfrage F1; 8 P3). Das Modul ist durch Deckel, Abklingzeiten, `WeakHashMap`-Zustand und Gametests (42 Tests vor diesem Audit) solide; die zwei Schutzluecken (Wasserbombe, Ente) sind geschlossen.
 

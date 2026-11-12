@@ -93,4 +93,8 @@ public final class ClaimsGameTest {
  @GameTest public void claimsCartoCopy(GameTestHelper h) { ClaimTests.TESTS.get("claims_carto_copy").accept(h); }
  @GameTest public void claimsCartoWrap(GameTestHelper h) { ClaimTests.TESTS.get("claims_carto_wrap").accept(h); }
  @GameTest public void claimsCartoLegacy(GameTestHelper h) { ClaimTests.TESTS.get("claims_carto_legacy").accept(h); }
+ @GameTest public void claimsVisitorMonsters(GameTestHelper h) { ClaimTests.TESTS.get("claims_visitor_monsters").accept(h); }
+ @GameTest public void claimsVisitorPickup(GameTestHelper h) { ClaimTests.TESTS.get("claims_visitor_pickup").accept(h); }
+ @GameTest public void claimsVisitorProjectiles(GameTestHelper h) { ClaimTests.TESTS.get("claims_visitor_projectiles").accept(h); }
+ @GameTest public void claimsVisitorConfig(GameTestHelper h) { ClaimTests.TESTS.get("claims_visitor_config").accept(h); }
 }

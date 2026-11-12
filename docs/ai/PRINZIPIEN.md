@@ -120,6 +120,7 @@ Minimales Beispiel-Modul für Lader-/Integrations-Verdrahtung.
 Währung, gewichtete Dorfbewohner-Handel, Schatz-Loot.
 
 - Preise nehmen fremde Items nur über `prices.json` je Modul (`modules/<id>/…/money/<ns>/prices.json`), nie über Klassen.
+- Eine Preislogik (Besitzer 12.11., E1ANS F7): 1 Schein = 3 Diamanten = 16 Smaragde; alle eigenen Angebote folgen den Regeln in `modules/simplemoney/tools/source_prices.py` (dort ändern, nicht in den Handelsdateien). Angebote, die Vanilla-Knappheit aufheben, nur hinter eigenem Schalter (Standard aus).
 
 ### Simple Riding (`simpleriding`)
 Sattel-Tempo, Pferdesprünge, Nautilus-Dashes, Reittier-Rüstungen.
@@ -156,7 +157,8 @@ Super-Mod für die QoL-Sub-Mods (Wetter, Interfaces, Loot, Mob-Manieren, Farming
 Legacy-Kompatibilität, serverautoritäre Claims (Standard an).
 
 - Server-Autorität (AGENTS.md 3.8): alle Stellschrauben serverseitig mit Obergrenzen.
-- Schutz (17.10.): Anti-X-Ray Standard an, jede andere Schutzfunktion eigener Schalter Standard aus; Prüfungen nur protokollieren (kein Auto-Bann) und Grenzen immer aus den echten Serverwerten des Spielers (Attribute, Werkzeug, Verzauberungen, unsere Mixins) ableiten, nie aus festen Vanilla-Zahlen – serverseitige Mod-Aktionen (Hammer-Fläche, Baustab, Blaupause) werden nie gemeldet.
+- Server-Werkzeuge (Besitzer 12.11., E1ANS F1): Block-Log, Auto-Backup und Anti-X-Ray standardmäßig nur auf Dedicated Servern (`onlyDedicated`), im Einzelspieler/LAN aus. Claims machen Besucher nicht wehrlos (F2: Monster, eigene Items/XP, Projektile zurück); Event-Abstimmungen ab 2 aktiven Spielern (F3).
+- Schutz (17.10.): Anti-X-Ray Standard an (seit E1ANS nur auf Dedicated Servern), jede andere Schutzfunktion eigener Schalter Standard aus; Prüfungen nur protokollieren (kein Auto-Bann) und Grenzen immer aus den echten Serverwerten des Spielers (Attribute, Werkzeug, Verzauberungen, unsere Mixins) ableiten, nie aus festen Vanilla-Zahlen – serverseitige Mod-Aktionen (Hammer-Fläche, Baustab, Blaupause) werden nie gemeldet.
 - Befehle (Besitzer 17.10.): Alle Befehle auch unter `/simpletweaks <befehl>` (ein Wort, ohne Bindestrich; Redirect auf dieselben Knoten, gleiche Rechte). Neue Befehle per `TweakCommands.add(dispatcher, literal(...))` registrieren (oder `TweakCommands.alias(...)` nach der Registrierung; `/tweaks`-Zweige werden automatisch übernommen) und den Register-Aufruf der Gruppe im Gametest (`AdminTests`) ergänzen; `/simpletweaks help` listet nur erlaubte; Doku und Wiki nennen die `/simpletweaks`-Form.
 
 ### Simple Dimensions (`simpledimensions`)
@@ -284,6 +286,7 @@ Kopf für jeden Mob; Pflicht-Sub-Mod von SimpleBuilding.
 Spieler-Shops: Verkaufsblock mit Preis, Vitrine mit Waren.
 
 - Käufer brauchen kein Claim-Recht; Schutz vor Fremden, Explosionen, Kolben, Trichtern.
+- Der Besitzer geht immer vor (Besitzer 12.11., E1ANS F5): ein Kunden-Fenster wird nicht geschlossen, sondern wartet hinter dem Wartungsschild (`ownerFirst`).
 
 ### Simple Wanderers (`simplewanderers`)
 Dorf-Wanderer: ein fahrender Händler je Dorf mit Pferd, Warenwechsel alle 3 Tage.

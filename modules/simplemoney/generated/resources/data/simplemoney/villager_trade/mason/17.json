@@ -3,8 +3,8 @@
     "id": "simplemoney:money_bill",
     "count": 1
   },
-  "max_uses": 3,
-  "xp": 6,
+  "max_uses": 8,
+  "xp": 10,
   "reputation_discount": 0.05,
   "gives": {
     "id": "minecraft:prismarine_bricks",

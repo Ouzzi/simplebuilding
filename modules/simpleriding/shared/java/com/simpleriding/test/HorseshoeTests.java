@@ -35,7 +35,7 @@ public final class HorseshoeTests {
   ALL.put("horseshoe_items",HorseshoeTests::items); ALL.put("horseshoe_recipes",HorseshoeTests::recipes);
   ALL.put("horseshoe_points",HorseshoeTests::points); ALL.put("horseshoe_effects",HorseshoeTests::effects);
   ALL.put("horseshoe_handling",HorseshoeTests::handling); ALL.put("horseshoe_menu",HorseshoeTests::menu);
-  ALL.put("horseshoe_panel_layout",HorseshoeTests::panelLayout);
+  ALL.put("horseshoe_panel_layout",HorseshoeTests::panelLayout); ALL.put("horseshoe_enderite_always",HorseshoeTests::enderiteAlways);
   ALL.put("horseshoe_save_and_drop",HorseshoeTests::saveAndDrop); ALL.put("horseshoe_wear",HorseshoeTests::wear);
   ALL.put("horseshoe_mending",HorseshoeTests::mending); ALL.put("horseshoe_fall",HorseshoeTests::fall);
   ALL.put("horseshoe_loot",HorseshoeTests::loot);
@@ -56,9 +56,9 @@ public final class HorseshoeTests {
  private static double modifier(LivingEntity e,Holder<net.minecraft.world.entity.ai.attributes.Attribute> attribute,Identifier id){var m=e.getAttribute(attribute).getModifier(id);return m==null?0:m.amount();}
 
  public static void items(GameTestHelper h){
-  // Principle 5: Enderite shoes are registered only with SimpleBuilding.
-  h.assertTrue(Horseshoes.ITEMS.size()==(Riding.SIMPLEBUILDING?6:5)&&Horseshoes.TEMPLATE!=null,"Every available tier and the template are registered");
-  h.assertTrue(Horseshoes.ITEMS.containsKey(Tier.ENDERITE)==Riding.SIMPLEBUILDING,"Enderite tier follows SimpleBuilding");
+  // AUDSB31E1 F17: every tier, the Enderite one too, is registered whatever else is loaded.
+  h.assertTrue(Horseshoes.ITEMS.size()==6&&Horseshoes.TEMPLATE!=null,"Every tier and the template are registered");
+  h.assertTrue(Horseshoes.ITEMS.containsKey(Tier.ENDERITE),"Enderite tier is always registered");
   int[] durability={120,180,80,400,500,620};
   for(Tier t:Horseshoes.ITEMS.keySet()){
    var stack=new ItemStack(shoe(t));
@@ -72,12 +72,12 @@ public final class HorseshoeTests {
    h.assertTrue(fireproof==(t==Tier.NETHERITE||t==Tier.ENDERITE),"Fire resistance only for Netherite/Enderite "+t);
   }
   h.assertTrue(new ItemStack(shoe(Tier.IRON)).isValidRepairItem(new ItemStack(Items.IRON_INGOT)),"Iron repairs iron horseshoes");
-  if(Riding.SIMPLEBUILDING)h.assertTrue(new ItemStack(shoe(Tier.ENDERITE)).isValidRepairItem(enderiteIngot()),"Enderite ingot repairs Enderite horseshoes");
+  if(!enderiteIngot().isEmpty())h.assertTrue(new ItemStack(shoe(Tier.ENDERITE)).isValidRepairItem(enderiteIngot()),"Enderite ingot repairs Enderite horseshoes");
   var menu=new AnvilMenu(0,h.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE).getInventory());
   menu.getSlot(0).set(new ItemStack(shoe(Tier.DIAMOND)));menu.getSlot(1).set(EnchantmentHelper.createBook(new EnchantmentInstance(ench(h,Enchantments.MENDING),1)));menu.createResult();
   h.assertTrue(EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.MENDING),menu.getSlot(2).getItem())==1,"Real anvil applies Mending");
   h.assertTrue(!EnchantmentHelper.selectEnchantment(net.minecraft.util.RandomSource.create(3),new ItemStack(shoe(Tier.IRON)),30,java.util.stream.Stream.of(ench(h,Enchantments.UNBREAKING))).isEmpty(),"Enchanting table offers Unbreaking");
-  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")&&!i.getPath().equals("guide_book")).count()==(Riding.SIMPLEBUILDING?7:6),"Exactly the R1 items (Enderite only with SimpleBuilding; plus the guide)");
+  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")&&!i.getPath().equals("guide_book")).count()==7,"Exactly the R1 items (six tiers incl. Enderite, the template; plus the guide)");
   h.succeed();
  }
 
@@ -94,12 +94,14 @@ public final class HorseshoeTests {
   var diamond=new ItemStack(shoe(Tier.DIAMOND));diamond.enchant(ench(h,Enchantments.UNBREAKING),3);diamond.setDamageValue(7);
   var netherite=smith(h,"netherite_horseshoe_smithing",diamond,new ItemStack(Items.NETHERITE_INGOT));
   h.assertTrue(netherite.is(shoe(Tier.NETHERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),netherite)==3&&netherite.getDamageValue()==7,"Netherite upgrade keeps enchantments and wear");
-  if(Riding.SIMPLEBUILDING){
+  // AUDSB31E1 F17: the Enderite recipe takes #c:ingots/enderite and loads exactly while that tag has content (any mod's ingot), not by mod name.
   var enderiteIngot=enderiteIngot();
-  h.assertTrue(!enderiteIngot.isEmpty(),"the common Enderite ingot tag c:ingots/enderite holds an ingot");
-  var enderite=smith(h,"enderite_horseshoe_smithing",netherite,enderiteIngot);
-  h.assertTrue(enderite.is(shoe(Tier.ENDERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),enderite)==3,"Enderite upgrade with SimpleBuilding");
-  }else h.assertTrue(h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,Riding.id("enderite_horseshoe_smithing"))).isEmpty(),"Without SimpleBuilding the Enderite recipe stays unloaded");
+  var enderiteRecipe=h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,Riding.id("enderite_horseshoe_smithing")));
+  h.assertTrue(enderiteRecipe.isPresent()==!enderiteIngot.isEmpty(),"Enderite recipe loads iff c:ingots/enderite has content");
+  if(!enderiteIngot.isEmpty()){
+   var enderite=smith(h,"enderite_horseshoe_smithing",netherite,enderiteIngot);
+   h.assertTrue(enderite.is(shoe(Tier.ENDERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),enderite)==3,"Enderite upgrade with the tag's ingot");
+  }
   var wrong=new SmithingRecipeInput(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),new ItemStack(Items.IRON_INGOT),new ItemStack(Items.IRON_NUGGET));
   h.assertTrue(h.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING,wrong,h.getLevel()).isEmpty(),"Other templates do not make horseshoes");
   ItemStack c=new ItemStack(Items.COPPER_INGOT),t=new ItemStack(Horseshoes.TEMPLATE),i=new ItemStack(Items.IRON_INGOT);
@@ -157,7 +159,7 @@ public final class HorseshoeTests {
   handling(h,Tier.GOLDEN,.175);
   handling(h,Tier.DIAMOND,.216);
   handling(h,Tier.NETHERITE,.258);
-  if(Riding.SIMPLEBUILDING)handling(h,Tier.ENDERITE,.3);
+  handling(h,Tier.ENDERITE,.3);
   h.succeed();
  }
 
@@ -349,6 +351,30 @@ public final class HorseshoeTests {
    h.assertTrue(pools.isEmpty()&&RidingLoot.archaeology(rare,hit,new ItemStack(Items.BRICK),h.getLevel().registryAccess()).is(Items.BRICK),"Loot switch disables horseshoe loot");
   }finally{Riding.CONFIG=original;}
   h.succeed();
+ }
+ /**
+  * AUDSB31E1 F17: the Enderite horseshoe is registered, sorted into the tags, listed in the tab and has its model/texture/name
+  * without SimpleBuilding; the smithing recipe takes the item tag {@code #c:ingots/enderite} (data file, not a mod-name condition).
+  */
+ public static void enderiteAlways(GameTestHelper h){
+  var id=Riding.id("enderite_horseshoe");
+  h.assertTrue(BuiltInRegistries.ITEM.containsKey(id)&&Horseshoes.ITEMS.get(Tier.ENDERITE)==BuiltInRegistries.ITEM.getValue(id),"Enderite horseshoe is registered with the other tiers");
+  var stack=new ItemStack(shoe(Tier.ENDERITE));
+  h.assertTrue(stack.is(Horseshoes.TAG)&&Horseshoes.tier(stack).orElse(null)==Tier.ENDERITE,"Enderite horseshoe is in #simpleriding:horseshoes and counts as tier 6");
+  var tab=Riding.vanillaTabStacks(CreativeModeTabs.COMBAT);
+  h.assertTrue(tab.stream().anyMatch(s->s.is(shoe(Tier.ENDERITE))),"Enderite horseshoe stands in the Combat tab with the other tiers");
+  var json=resource("/data/simpleriding/recipe/enderite_horseshoe_smithing.json");
+  h.assertTrue(json!=null&&"#c:ingots/enderite".equals(json.get("addition").getAsString()),"Recipe ingredient is the item tag #c:ingots/enderite");
+  h.assertTrue(!json.toString().contains("simplebuilding"),"No condition names SimpleBuilding");
+  h.assertTrue(json.get("fabric:load_conditions").getAsJsonArray().get(0).getAsJsonObject().get("condition").getAsString().equals("fabric:tags_populated"),"Recipe loads on tag content");
+  var tag=resource("/data/simpleriding/tags/item/horseshoes.json");
+  h.assertTrue(tag!=null&&tag.get("values").getAsJsonArray().contains(new com.google.gson.JsonPrimitive("simpleriding:enderite_horseshoe")),"Enderite horseshoe is a plain (required) tag entry");
+  h.succeed();
+ }
+ private static com.google.gson.JsonObject resource(String path){
+  try(var in=Horseshoes.class.getResourceAsStream(path)){
+   return in==null?null:com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+  }catch(java.io.IOException e){throw new IllegalStateException(e);}
  }
  /** The Enderite ingot through the common tag (principle 6, plan stage 3d) - never a fixed mod id. */
  static ItemStack enderiteIngot(){

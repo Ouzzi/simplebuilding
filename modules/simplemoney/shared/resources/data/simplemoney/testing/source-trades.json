@@ -7,10 +7,10 @@
     },
     "gives": {
       "id": "minecraft:emerald",
-      "count": 3
+      "count": 16
     },
-    "max_uses": 10,
-    "xp": 10,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
@@ -23,16 +23,6 @@
         "type": "simplemoney:config",
         "flag": "enableVillagerTrades"
       }
-    ],
-    "given_item_modifier": [
-      {
-        "count": {
-          "type": "minecraft:uniform",
-          "min": 3,
-          "max": 35
-        },
-        "type": "minecraft:set_count"
-      }
     ]
   },
   {
@@ -41,12 +31,12 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 4,
-    "xp": 5,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:firework_rocket",
-      "count": 10
+      "count": 48
     },
     "fabric:load_conditions": [
       {
@@ -65,14 +55,14 @@
     "id": "simplemoney:fletcher/02",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": 2
+      "count": 1
     },
-    "max_uses": 6,
-    "xp": 10,
+    "max_uses": 8,
+    "xp": 20,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:firework_rocket",
-      "count": 16
+      "count": 48
     },
     "fabric:load_conditions": [
       {
@@ -94,8 +84,8 @@
       "count": 3
     },
     "max_uses": 2,
-    "xp": 10,
-    "reputation_discount": 0.5,
+    "xp": 2,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:enchanted_book"
     },
@@ -168,7 +158,7 @@
     },
     "max_uses": 2,
     "xp": 10,
-    "reputation_discount": 0.5,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:enchanted_book"
     },
@@ -212,11 +202,11 @@
     "id": "simplemoney:librarian/05",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": 4
+      "count": 3
     },
-    "max_uses": 1,
-    "xp": 50,
-    "reputation_discount": 0.7,
+    "max_uses": 2,
+    "xp": 20,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:enchanted_book"
     },
@@ -263,8 +253,8 @@
       "count": 4
     },
     "max_uses": 1,
-    "xp": 50,
-    "reputation_discount": 0.7,
+    "xp": 30,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:enchanted_book"
     },
@@ -321,8 +311,8 @@
       "count": 5
     },
     "max_uses": 1,
-    "xp": 50,
-    "reputation_discount": 0.7,
+    "xp": 30,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:enchanted_book"
     },
@@ -365,10 +355,10 @@
     },
     "gives": {
       "id": "minecraft:emerald",
-      "count": 3
+      "count": 16
     },
-    "max_uses": 10,
-    "xp": 10,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
@@ -381,16 +371,6 @@
         "type": "simplemoney:config",
         "flag": "enableVillagerTrades"
       }
-    ],
-    "given_item_modifier": [
-      {
-        "count": {
-          "type": "minecraft:uniform",
-          "min": 3,
-          "max": 35
-        },
-        "type": "minecraft:set_count"
-      }
     ]
   },
   {
@@ -399,12 +379,12 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 4,
-    "xp": 10,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:ender_pearl",
-      "count": 8
+      "count": 3
     },
     "fabric:load_conditions": [
       {
@@ -427,10 +407,10 @@
     },
     "gives": {
       "id": "minecraft:emerald",
-      "count": 3
+      "count": 16
     },
-    "max_uses": 10,
-    "xp": 10,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
@@ -443,16 +423,6 @@
         "type": "simplemoney:config",
         "flag": "enableVillagerTrades"
       }
-    ],
-    "given_item_modifier": [
-      {
-        "count": {
-          "type": "minecraft:uniform",
-          "min": 3,
-          "max": 35
-        },
-        "type": "minecraft:set_count"
-      }
     ]
   },
   {
@@ -461,8 +431,8 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 4,
-    "xp": 3,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:smooth_stone",
@@ -487,8 +457,8 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 4,
-    "xp": 3,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:stone_bricks",
@@ -513,12 +483,12 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 4,
-    "xp": 3,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:deepslate_bricks",
-      "count": 52
+      "count": 64
     },
     "fabric:load_conditions": [
       {
@@ -539,12 +509,12 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 4,
-    "xp": 3,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:mossy_cobblestone",
-      "count": 32
+      "count": 64
     },
     "fabric:load_conditions": [
       {
@@ -565,8 +535,8 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 6,
-    "xp": 5,
+    "max_uses": 8,
+    "xp": 10,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:smooth_stone",
@@ -591,8 +561,8 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 6,
-    "xp": 6,
+    "max_uses": 8,
+    "xp": 10,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:stone_bricks",
@@ -617,8 +587,8 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 3,
-    "xp": 6,
+    "max_uses": 8,
+    "xp": 10,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:prismarine_bricks",
@@ -645,10 +615,10 @@
     },
     "gives": {
       "id": "minecraft:emerald",
-      "count": 3
+      "count": 16
     },
-    "max_uses": 10,
-    "xp": 10,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
@@ -661,16 +631,6 @@
         "type": "simplemoney:config",
         "flag": "enableVillagerTrades"
       }
-    ],
-    "given_item_modifier": [
-      {
-        "count": {
-          "type": "minecraft:uniform",
-          "min": 3,
-          "max": 35
-        },
-        "type": "minecraft:set_count"
-      }
     ]
   },
   {
@@ -679,12 +639,12 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 16,
-    "xp": 5,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:wheat_seeds",
-      "count": 52
+      "count": 64
     },
     "fabric:load_conditions": [
       {
@@ -705,12 +665,12 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 6,
-    "xp": 5,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:carrot",
-      "count": 20
+      "count": 64
     },
     "fabric:load_conditions": [
       {
@@ -731,12 +691,12 @@
       "id": "simplemoney:money_bill",
       "count": 1
     },
-    "max_uses": 6,
-    "xp": 5,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:potato",
-      "count": 24
+      "count": 64
     },
     "fabric:load_conditions": [
       {
@@ -755,14 +715,14 @@
     "id": "simplemoney:farmer/22",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": 2
+      "count": 1
     },
-    "max_uses": 4,
-    "xp": 10,
+    "max_uses": 8,
+    "xp": 2,
     "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:apple",
-      "count": 28
+      "count": 64
     },
     "fabric:load_conditions": [
       {
@@ -781,11 +741,11 @@
     "id": "simplemoney:farmer/23",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": 2
+      "count": 1
     },
-    "max_uses": 2,
-    "xp": 15,
-    "reputation_discount": 0.1,
+    "max_uses": 8,
+    "xp": 10,
+    "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:cake",
       "count": 1
@@ -807,11 +767,11 @@
     "id": "simplemoney:farmer/24",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": 2
+      "count": 1
     },
-    "max_uses": 4,
-    "xp": 20,
-    "reputation_discount": 0.1,
+    "max_uses": 8,
+    "xp": 10,
+    "reputation_discount": 0.05,
     "gives": {
       "id": "minecraft:golden_carrot",
       "count": 16
@@ -833,11 +793,11 @@
     "id": "simplemoney:armorer/25",
     "wants": {
       "id": "minecraft:diamond",
-      "count": 15
+      "count": 10
     },
-    "max_uses": 2,
+    "max_uses": 4,
     "xp": 10,
-    "reputation_discount": 0.2,
+    "reputation_discount": 0.05,
     "gives": {
       "id": "simplemoney:money_bill",
       "count": 2
@@ -862,7 +822,7 @@
       "count": 3
     },
     "max_uses": 2,
-    "xp": 15,
+    "xp": 20,
     "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_helmet"
@@ -915,7 +875,7 @@
       "count": 3
     },
     "max_uses": 2,
-    "xp": 15,
+    "xp": 20,
     "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_boots"
@@ -968,8 +928,8 @@
       "count": 5
     },
     "max_uses": 1,
-    "xp": 50,
-    "reputation_discount": 0.7,
+    "xp": 30,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_chestplate"
     },
@@ -1048,11 +1008,11 @@
     "id": "simplemoney:armorer/29",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": 4
+      "count": 5
     },
     "max_uses": 1,
-    "xp": 50,
-    "reputation_discount": 0.7,
+    "xp": 30,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_leggings"
     },
@@ -1126,11 +1086,11 @@
     "id": "simplemoney:armorer/30",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": 5
+      "count": 6
     },
     "max_uses": 1,
-    "xp": 50,
-    "reputation_discount": 0.7,
+    "xp": 30,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_chestplate"
     },
@@ -1189,11 +1149,11 @@
     "id": "simplemoney:armorer/31",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": 3
+      "count": 5
     },
-    "max_uses": 2,
-    "xp": 15,
-    "reputation_discount": 0.7,
+    "max_uses": 1,
+    "xp": 30,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_boots"
     },
@@ -1260,8 +1220,8 @@
       "count": 5
     },
     "max_uses": 1,
-    "xp": 50,
-    "reputation_discount": 0.7,
+    "xp": 30,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_helmet"
     },
@@ -1328,8 +1288,8 @@
       "count": 2
     },
     "max_uses": 2,
-    "xp": 15,
-    "reputation_discount": 0.7,
+    "xp": 20,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_hoe"
     },
@@ -1376,8 +1336,8 @@
       "count": 2
     },
     "max_uses": 2,
-    "xp": 10,
-    "reputation_discount": 0.7,
+    "xp": 20,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_shovel"
     },
@@ -1424,8 +1384,8 @@
       "count": 3
     },
     "max_uses": 1,
-    "xp": 15,
-    "reputation_discount": 0.7,
+    "xp": 30,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_pickaxe"
     },
@@ -1477,8 +1437,8 @@
       "count": 3
     },
     "max_uses": 1,
-    "xp": 15,
-    "reputation_discount": 0.7,
+    "xp": 30,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_axe"
     },
@@ -1531,7 +1491,7 @@
     },
     "max_uses": 1,
     "xp": 30,
-    "reputation_discount": 0.7,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_pickaxe"
     },
@@ -1594,7 +1554,7 @@
     },
     "max_uses": 1,
     "xp": 30,
-    "reputation_discount": 0.7,
+    "reputation_discount": 0.2,
     "gives": {
       "id": "minecraft:diamond_sword"
     },
@@ -1653,11 +1613,11 @@
     "id": "simplemoney:toolsmith/39",
     "wants": {
       "id": "minecraft:diamond",
-      "count": 7
+      "count": 10
     },
-    "max_uses": 5,
-    "xp": 10,
-    "reputation_discount": 0.1,
+    "max_uses": 4,
+    "xp": 30,
+    "reputation_discount": 0.05,
     "gives": {
       "id": "simplemoney:money_bill",
       "count": 2
@@ -1679,19 +1639,15 @@
     "id": "simplemoney:wandering_trader/40",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": {
-        "type": "minecraft:uniform",
-        "min": 6,
-        "max": 9
-      }
+      "count": 1
     },
     "gives": {
       "id": "minecraft:chorus_fruit",
-      "count": 16
+      "count": 42
     },
-    "max_uses": 3,
-    "xp": 10,
-    "reputation_discount": 0.1,
+    "max_uses": 4,
+    "xp": 1,
+    "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
         "condition": "simplemoney:config",
@@ -1702,16 +1658,6 @@
       {
         "type": "simplemoney:config",
         "flag": "enableWanderingTrades"
-      }
-    ],
-    "given_item_modifier": [
-      {
-        "count": {
-          "type": "minecraft:uniform",
-          "min": 16,
-          "max": 23
-        },
-        "type": "minecraft:set_count"
       }
     ]
   },
@@ -1719,19 +1665,15 @@
     "id": "simplemoney:wandering_trader/41",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": {
-        "type": "minecraft:uniform",
-        "min": 2,
-        "max": 3
-      }
+      "count": 1
     },
     "gives": {
       "id": "minecraft:apple",
-      "count": 30
+      "count": 42
     },
-    "max_uses": 3,
-    "xp": 10,
-    "reputation_discount": 0.1,
+    "max_uses": 4,
+    "xp": 1,
+    "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
         "condition": "simplemoney:config",
@@ -1743,35 +1685,21 @@
         "type": "simplemoney:config",
         "flag": "enableWanderingTrades"
       }
-    ],
-    "given_item_modifier": [
-      {
-        "count": {
-          "type": "minecraft:uniform",
-          "min": 30,
-          "max": 49
-        },
-        "type": "minecraft:set_count"
-      }
     ]
   },
   {
     "id": "simplemoney:wandering_trader/42",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": {
-        "type": "minecraft:uniform",
-        "min": 30,
-        "max": 44
-      }
+      "count": 11
     },
     "gives": {
       "id": "minecraft:netherite_scrap",
       "count": 7
     },
-    "max_uses": 1,
-    "xp": 100,
-    "reputation_discount": 0.5,
+    "max_uses": 2,
+    "xp": 1,
+    "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
         "condition": "simplemoney:config",
@@ -1789,19 +1717,15 @@
     "id": "simplemoney:wandering_trader/43",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": {
-        "type": "minecraft:uniform",
-        "min": 30,
-        "max": 39
-      }
+      "count": 4
     },
     "gives": {
       "id": "minecraft:shulker_shell",
       "count": 2
     },
-    "max_uses": 1,
-    "xp": 200,
-    "reputation_discount": 0.5,
+    "max_uses": 2,
+    "xp": 1,
+    "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
         "condition": "simplemoney:config",
@@ -1819,29 +1743,33 @@
     "id": "simplemoney:wandering_trader/44",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": {
-        "type": "minecraft:uniform",
-        "min": 5,
-        "max": 6
-      }
+      "count": 3
     },
     "gives": {
       "id": "minecraft:diamond_ore",
       "count": 6
     },
-    "max_uses": 5,
-    "xp": 150,
-    "reputation_discount": 0.5,
+    "max_uses": 2,
+    "xp": 1,
+    "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
         "condition": "simplemoney:config",
         "flag": "enableWanderingTrades"
+      },
+      {
+        "condition": "simplemoney:config",
+        "flag": "enableRareWanderingTrades"
       }
     ],
     "neoforge:conditions": [
       {
         "type": "simplemoney:config",
         "flag": "enableWanderingTrades"
+      },
+      {
+        "type": "simplemoney:config",
+        "flag": "enableRareWanderingTrades"
       }
     ]
   },
@@ -1849,29 +1777,33 @@
     "id": "simplemoney:wandering_trader/45",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": {
-        "type": "minecraft:uniform",
-        "min": 5,
-        "max": 6
-      }
+      "count": 2
     },
     "gives": {
       "id": "minecraft:deepslate_diamond_ore",
       "count": 4
     },
-    "max_uses": 7,
-    "xp": 150,
-    "reputation_discount": 0.5,
+    "max_uses": 2,
+    "xp": 1,
+    "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
         "condition": "simplemoney:config",
         "flag": "enableWanderingTrades"
+      },
+      {
+        "condition": "simplemoney:config",
+        "flag": "enableRareWanderingTrades"
       }
     ],
     "neoforge:conditions": [
       {
         "type": "simplemoney:config",
         "flag": "enableWanderingTrades"
+      },
+      {
+        "type": "simplemoney:config",
+        "flag": "enableRareWanderingTrades"
       }
     ]
   },
@@ -1879,29 +1811,33 @@
     "id": "simplemoney:wandering_trader/46",
     "wants": {
       "id": "simplemoney:money_bill",
-      "count": {
-        "type": "minecraft:uniform",
-        "min": 14,
-        "max": 18
-      }
+      "count": 5
     },
     "gives": {
       "id": "minecraft:budding_amethyst",
       "count": 1
     },
-    "max_uses": 3,
-    "xp": 150,
-    "reputation_discount": 0.5,
+    "max_uses": 2,
+    "xp": 1,
+    "reputation_discount": 0.05,
     "fabric:load_conditions": [
       {
         "condition": "simplemoney:config",
         "flag": "enableWanderingTrades"
+      },
+      {
+        "condition": "simplemoney:config",
+        "flag": "enableRareWanderingTrades"
       }
     ],
     "neoforge:conditions": [
       {
         "type": "simplemoney:config",
         "flag": "enableWanderingTrades"
+      },
+      {
+        "type": "simplemoney:config",
+        "flag": "enableRareWanderingTrades"
       }
     ]
   }

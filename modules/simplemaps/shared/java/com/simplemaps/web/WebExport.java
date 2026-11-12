@@ -149,10 +149,31 @@ public final class WebExport {
         this.dirty = dirty == null ? Map.of() : dirty;
     }
 
-    /** Export of every wayfinder map on the server (loads their saved data once, like opening each map). */
+    /**
+     * Export of every wayfinder map on the server. Each map is read from disk when its turn comes and is not added to the
+     * saved-data cache ({@link WayfinderData#peek}, AUDSB31E1 F9): a map the game has open is used as it is, any other is
+     * dropped again right away if it has nothing to show, and the rest is held only until this export is done.
+     */
     public static WebExport ofAllMaps(MinecraftServer server, Path dir, Claims claims, State previous, Map<String, Set<Long>> dirty) {
-        List<WayfinderData> maps = new ArrayList<>();
-        for (int id = 0, n = WayfinderIds.count(server); id < n; id++) maps.add(WayfinderData.get(server, id));
+        int count = WayfinderIds.count(server);
+        Iterable<WayfinderData> maps = () -> new java.util.Iterator<>() {
+            private int id;
+            private WayfinderData next;
+
+            @Override
+            public boolean hasNext() {
+                while (next == null && id < count) next = WayfinderData.peek(server, id++);
+                return next != null;
+            }
+
+            @Override
+            public WayfinderData next() {
+                if (!hasNext()) throw new java.util.NoSuchElementException();
+                WayfinderData map = next;
+                next = null;
+                return map;
+            }
+        };
         return of(server, dir, claims, maps, previous, dirty);
     }
 
@@ -165,7 +186,7 @@ public final class WebExport {
      * Export of exactly these maps (maps without a bound, existing dimension are skipped); with a matching
      * {@code previous} state only changed tiles and the tiles in {@code dirty} (1:1 tile keys per folder) are rendered.
      */
-    public static WebExport of(MinecraftServer server, Path dir, Claims claims, List<WayfinderData> maps, State previous, Map<String, Set<Long>> dirty) {
+    public static WebExport of(MinecraftServer server, Path dir, Claims claims, Iterable<WayfinderData> maps, State previous, Map<String, Set<Long>> dirty) {
         Map<String, Dim> byFolder = new TreeMap<>();
         Map<String, TreeSet<Long>> keys = new HashMap<>();
         for (WayfinderData map : maps) {

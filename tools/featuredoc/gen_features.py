@@ -223,7 +223,7 @@ def md_fun():
     o = ['## Simple Fun – 10 neue Konzepte', '']
     fun = MODDATA['simplefun']
     o.append(f"Bestand: Simple Fun hat heute {len(fun['rows'])} Wiki-Features und {len(fun['cfg'])} Config-Optionen; der Abschnitt „Simple Fun“ oben listet alle mit Fundstelle. "
-             'Kurz: Schleichwurf (Yeet), Wurfziegel samt Ziegel-Schneeball, Schweinverwandlung, Schadlos (Feder und Verzauberung), Rückstoß V, '
+             'Kurz: Schleichwurf (Yeet), Wurfziegel samt Ziegel-Schneeball, Schweinverwandlung, Schadlos (Feder und Verzauberung), Rückstoß IV (nur mit Schalter), '
              'acht kosmetische Freuden (Blumenschnuppern, Keksbrösel, Apfelfunkeln, Karottenknacken, Melonenspritzer, Honigblasen, Brotkrümel, Beerenröte), Admin-Befehle, Config-Bildschirm, Handbuch.')
     o.append('')
     o.append('Regeln für alle Konzepte: nur Kosmetik oder kleine, abschaltbare Mechanik; jeder Eintrag bekommt einen Serverschalter (Standard an für Kosmetik, aus bei Gameplay-Wirkung); '

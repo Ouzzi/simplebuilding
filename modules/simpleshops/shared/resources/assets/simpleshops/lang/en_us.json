@@ -11,6 +11,8 @@
   "simpleshops.screen.pay": "You pay",
   "simpleshops.screen.earnings": "Earnings",
   "simpleshops.screen.trade": "Trade",
+  "simpleshops.screen.maintenance": "Maintenance",
+  "simpleshops.screen.maintenance.owner": "Owner at work",
   "simpleshops.screen.not_for_sale": "Not for sale",
   "simpleshops.screen.sold_out": "Sold out",
   "simpleshops.screen.pay_exactly": "Put the price items into the pay slots",

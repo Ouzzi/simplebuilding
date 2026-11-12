@@ -13,10 +13,13 @@ import java.util.*;
  */
 public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee, Vanish vanish, Freeze freeze,
         Restart restart, Backups backups, Maintenance maintenance, Lag lagFinder, Map<String, List<String>> autoOffWith) {
-    /** T10 block and container log. */
+    /**
+     * T10 block and container log. {@code onlyDedicated} (E1ANS F1, default on): it runs on dedicated servers only, not in
+     * single player or on LAN; an explicit {@code false} keeps it on everywhere.
+     */
     public record BlockLog(boolean enabled, int permission, int rollbackPermission, int retentionDays, int rollbackMaxChanges, int flushSeconds,
             boolean signs, boolean explosions, boolean fire, boolean hoppers, int worldEventsPerTick,
-            int lookupPermission, int restorePermission, int purgePermission, int lookupMaxResults) {
+            int lookupPermission, int restorePermission, int purgePermission, int lookupMaxResults, boolean onlyDedicated) {
         public BlockLog {
             permission = level(permission); rollbackPermission = level(rollbackPermission);
             retentionDays = Math.clamp(retentionDays, 1, 365); rollbackMaxChanges = Math.clamp(rollbackMaxChanges, 1, 200000);
@@ -25,13 +28,20 @@ public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee,
             lookupPermission = level(lookupPermission); restorePermission = level(restorePermission); purgePermission = level(purgePermission);
             lookupMaxResults = Math.clamp(lookupMaxResults, 10, 100000);
         }
+        /** Without {@code onlyDedicated}: the default (dedicated servers only). */
+        public BlockLog(boolean enabled, int permission, int rollbackPermission, int retentionDays, int rollbackMaxChanges, int flushSeconds,
+                boolean signs, boolean explosions, boolean fire, boolean hoppers, int worldEventsPerTick,
+                int lookupPermission, int restorePermission, int purgePermission, int lookupMaxResults) {
+            this(enabled, permission, rollbackPermission, retentionDays, rollbackMaxChanges, flushSeconds, signs, explosions, fire, hoppers,
+                    worldEventsPerTick, lookupPermission, restorePermission, purgePermission, lookupMaxResults, true);
+        }
         /** The T10 basics; the event groups and command levels take their defaults (signs, explosions, fire on; hoppers off). */
         public BlockLog(boolean enabled, int permission, int rollbackPermission, int retentionDays, int rollbackMaxChanges, int flushSeconds) {
             this(enabled, permission, rollbackPermission, retentionDays, rollbackMaxChanges, flushSeconds, true, true, true, false, 1000, 2, 3, 4, 5000);
         }
         public BlockLog withEnabled(boolean on) {
             return new BlockLog(on, permission, rollbackPermission, retentionDays, rollbackMaxChanges, flushSeconds, signs, explosions, fire, hoppers,
-                    worldEventsPerTick, lookupPermission, restorePermission, purgePermission, lookupMaxResults);
+                    worldEventsPerTick, lookupPermission, restorePermission, purgePermission, lookupMaxResults, onlyDedicated);
         }
     }
     /** T11 inventory backups on death. */
@@ -58,12 +68,14 @@ public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee,
             warnMinutes = warnMinutes == null ? List.of() : warnMinutes.stream().filter(Objects::nonNull).map(m -> Math.clamp(m, 1, 120)).distinct().sorted(Comparator.reverseOrder()).limit(12).toList();
         }
     }
-    /** T17 automatic world backups. */
-    public record Backups(boolean enabled, int permission, int intervalHours, int keep, String directory) {
+    /** T17 automatic world backups. {@code onlyDedicated}: as for {@link BlockLog} (E1ANS F1). */
+    public record Backups(boolean enabled, int permission, int intervalHours, int keep, String directory, boolean onlyDedicated) {
         public Backups {
             permission = level(permission); intervalHours = Math.clamp(intervalHours, 1, 168); keep = Math.clamp(keep, 1, 100);
             if (directory == null || directory.isBlank() || directory.length() > 256) directory = "backups";
         }
+        /** Without {@code onlyDedicated}: the default (dedicated servers only). */
+        public Backups(boolean enabled, int permission, int intervalHours, int keep, String directory) { this(enabled, permission, intervalHours, keep, directory, true); }
     }
     /** T18 maintenance mode (the switch; the mode itself starts inactive and is turned on with /maintenance on). */
     public record Maintenance(boolean enabled, int permission, int joinPermission, List<String> allowed, String kickMessage, String motd, boolean kickOnline) {

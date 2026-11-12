@@ -62,6 +62,8 @@ public class SimplefunConfig { // Q-B1: no Cloth type in the hierarchy, so the c
           "snowAngel");
 
   public static final float MAX_YEET_STRENGTH = 3, MAX_DAMAGE = 4, MAX_ITEM_SPEED = 1.5f;
+  /** Hard cap of {@code maxKnockback} and the {@code max_level} of the higher-knockback data (AUDSB31E1 F11): level V would act like IV. */
+  public static final int HIGHER_KNOCKBACK_LEVEL = 4;
   public static final int THROW_COOLDOWN = 10,
       MAX_PROJECTILE_TICKS = 200,
       COSMETIC_COOLDOWN = 100,
@@ -77,6 +79,6 @@ public class SimplefunConfig { // Q-B1: no Cloth type in the hierarchy, so the c
     fun.yeetStrength = bounded(fun.yeetStrength, 3, .1f, MAX_YEET_STRENGTH);
     fun.brickDamage = bounded(fun.brickDamage, 2, 0, MAX_DAMAGE);
     fun.brickSnowballDamage = bounded(fun.brickSnowballDamage, 2, 0, MAX_DAMAGE);
-    fun.maxKnockback = bounded(fun.maxKnockback, 4, 0, 4);
+    fun.maxKnockback = bounded(fun.maxKnockback, HIGHER_KNOCKBACK_LEVEL, 0, HIGHER_KNOCKBACK_LEVEL);
   }
 }

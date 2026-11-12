@@ -46,6 +46,16 @@ public final class ModuleGameTest {
   }
 
   @GameTest
+  public void knockbackDataFollowsSwitch(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("knockback_data_follows_switch").accept(h);
+  }
+
+  @GameTest
+  public void brickBreaksGlassOption(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("brick_breaks_glass_option").accept(h);
+  }
+
+  @GameTest
   public void piggy(GameTestHelper h) {
     com.simplefun.test.FunTests.ALL.get("piggy").accept(h);
   }

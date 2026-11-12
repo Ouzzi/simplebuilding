@@ -157,11 +157,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABoUlEQVR42r2TS0sbURiG/V2CgjQBtaUxxFEhtQS7ELWWpG4CophfoFatmlSdgAUxCyt00ZBKQUSCF7zhQry1CUWN8TImxpnODI8ns3e0iC5evsN3Pp7znpdzSuKJOR6jkicBtL59g8/twVvtsvSuxm3VewHFofWpTo4Xo3g/uzBNzVLHpGT11r52ERkO3w0onnqa7EFN/eCV7KB+vpT2ZA37qRhqOs7FZpTJ0cG7AaEWL6Z+jKn+FVWhOdaAS35BINYkeinMm12+jEbsHRhnK6BfEpQ/IEWq6E2E2D/dAO0E/eQX8ti4fQa/EyMWJDAngalgahn2MutincO4WrV3UAQUdnppCzfyWlhvm/axuBenccJD93QQXdftQ+xwV2BcH4ornPMy6iCV3UJe/kTfQgizILLRzxgYHLLPQMunhQ7oX+oS9s9R81kBWkK9yWLkth8Qohgq5I7w/6zD0BT06yP+ZDYtwD9lyx4QHhoh+L6Wb2N+8tkdtEvhRkmzlhzgu/zR2puZmb3/KTfVS5SXlSE5q6l1OvBUOvFJnmf8TP+jW3RFGn0zsn8bAAAAAElFTkSuQmCC",
     "counts": {
       "items": 8,
-      "recipes": 8,
-      "config": 10,
+      "recipes": 7,
+      "config": 11,
       "features": 80
     },
-    "dataHash": "a9f0744816e3"
+    "dataHash": "000436829e46"
   },
   {
     "id": "simpleriding",
@@ -203,7 +203,7 @@ window.WIKI_MODULES = [
       "config": 25,
       "features": 36
     },
-    "dataHash": "a29bc709aae2"
+    "dataHash": "36fe0d17086d"
   },
   {
     "id": "simplemodels",
@@ -284,7 +284,7 @@ window.WIKI_MODULES = [
       "config": 30,
       "features": 58
     },
-    "dataHash": "813c38422b8b"
+    "dataHash": "7400d6b85566"
   },
   {
     "id": "simplevisuals",
@@ -471,10 +471,10 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 1,
       "recipes": 2,
-      "config": 8,
+      "config": 16,
       "features": 42
     },
-    "dataHash": "9244107e5ae7"
+    "dataHash": "1658ec26afc3"
   },
   {
     "id": "simpledimensions",
@@ -493,7 +493,12 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simplebuilding",
-      "modmenu"
+      "modmenu",
+      "flan",
+      "ftbchunks",
+      "openpartiesandclaims",
+      "griefdefender",
+      "claimchunk"
     ],
     "stage": "new",
     "parent": "simplebuilding",
@@ -510,10 +515,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 3,
-      "config": 63,
+      "config": 61,
       "features": 12
     },
-    "dataHash": "ca7461192cba"
+    "dataHash": "8c4001f53a1b"
   },
   {
     "id": "simplesandwiches",
@@ -551,7 +556,7 @@ window.WIKI_MODULES = [
       "recipes": 16,
       "features": 7
     },
-    "dataHash": "f6cc03ade772"
+    "dataHash": "395a3f930a70"
   },
   {
     "id": "simplelib",
@@ -666,10 +671,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 5,
       "recipes": 6,
-      "config": 25,
+      "config": 26,
       "features": 10
     },
-    "dataHash": "1ac8d3d7b605"
+    "dataHash": "c9d631db9d05"
   },
   {
     "id": "simplelivemap",
@@ -694,7 +699,7 @@ window.WIKI_MODULES = [
       "config": 17,
       "features": 9
     },
-    "dataHash": "6faba3cc39e9"
+    "dataHash": "2c0adb27a685"
   },
   {
     "id": "simpletrims",
@@ -733,7 +738,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 7
     },
-    "dataHash": "3c9be7d94ab0"
+    "dataHash": "2d7b2e8204aa"
   },
   {
     "id": "simplemobs",
@@ -1179,10 +1184,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwjor9TwlmABEn33wkGa948ALVgC1PXv+34uBAwSAxbOIgzZULl6MaAJL4UFDw/4qWFhzDNCCLwcRRDIBpRjcAHwbpwTAAXREMEGUANo3ogGoGdImIoBoAC0RivADTjBELsOjCZwBMM9ZoRI5zbIGGrBmvASBJdEPQNeM0AFkBzBBsmrEacOPjVwxFyEkXrwEwAVIx3ABKMADfR3xpZ2gp6gAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
-      "config": 15,
+      "config": 13,
       "features": 6
     },
-    "dataHash": "8e09d1eb9c4a"
+    "dataHash": "9e0e41685511"
   },
   {
     "id": "simplebeacons",
@@ -1218,10 +1223,10 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 8,
       "recipes": 13,
-      "config": 10,
+      "config": 9,
       "features": 16
     },
-    "dataHash": "2aedd90eda26"
+    "dataHash": "c6651e8326d1"
   },
   {
     "id": "simpleovens",
@@ -1349,10 +1354,10 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 5,
       "recipes": 5,
-      "config": 9,
+      "config": 10,
       "features": 13
     },
-    "dataHash": "4c674278853e"
+    "dataHash": "2ddc2b8565bf"
   },
   {
     "id": "simplewanderers",
@@ -1459,7 +1464,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 19
     },
-    "dataHash": "0f663294a269"
+    "dataHash": "3d1823097c28"
   },
   {
     "id": "simplecrucibles",
@@ -1786,13 +1791,13 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwElEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBsCwspwGBkbWDLIIwwBkxXZmHhgYWR7DBciaAt3iwBhZM7oYSD3cAJhmdE33Dn36PyPpDBijGwYzBKcBMI0CfEIYhuA0AJchaXYzsMqjGKChrEdSGIDUww0AEcICYmBBGMYWC8jyIPUY0QgShGFkxciaYBhnQgJJgDCyYmRNyBjDAFDqQleED6MYABMgFcMNoAQDABEaFxrtfuqxAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 18,
+      "items": 13,
       "blocks": 18,
       "recipes": 36,
       "config": 12,
       "features": 16
     },
-    "dataHash": "f440f3ef922d"
+    "dataHash": "8e38540c98cd"
   },
   {
     "id": "simplelights",
@@ -1909,10 +1914,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mMQVxH/TwlmABGtM1tJxlZRVqgGCIjIkYwxDKjfZAHH2PizZs2CY9oYEN+lBcfY+FlZWXCM1YDRMKBCGKA7kRCfLAM+HHDAbQC6Hwnx4QaAMgZFYUAJBgCULcsj0xrVkAAAAABJRU5ErkJggg==",
     "counts": {
-      "config": 7,
+      "config": 6,
       "features": 16
     },
-    "dataHash": "360b23348d2a"
+    "dataHash": "0152a32f1aca"
   },
   {
     "id": "simpleanimals",
@@ -1987,10 +1992,9 @@ window.WIKI_MODULES = [
       "items": 5,
       "blocks": 6,
       "recipes": 4,
-      "config": 1,
       "features": 6
     },
-    "dataHash": "d5e64ff0f704"
+    "dataHash": "032c4c092a72"
   },
   {
     "id": "simpleores",
@@ -2229,7 +2233,7 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 1
     },
-    "dataHash": "d49aea547a66"
+    "dataHash": "47f49dc7a39e"
   },
   {
     "id": "simplebuildingtools",

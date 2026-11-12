@@ -38,6 +38,23 @@ for name in ['brick_snowball']:
   assert model['model']=={'type':'minecraft:head','kind':'simplefun:'+name.removesuffix('_head')}
 assert read(MODULE/'shared/resources/data/simplefun/recipe/brick_snowball.json')['result']=={'count':1,'id':'simplefun:brick_snowball'}
 assert read(MODULE/'generated/resources/data/simplefun/villager_trade/librarian/1/no_damage.json')['wants']['count']==25
+# AUDSB31E1 F11: the Knockback override is a built-in data pack that only exists while Simple Fun and enableHigherKnockback are on
+# (a load condition on a file that replaces a Vanilla one would delete the Vanilla enchantment when it fails).
+assert not (MODULE/'shared/resources/data/minecraft/enchantment/knockback.json').exists(),'unconditional Knockback override'
+pack=MODULE/'shared/resources/resourcepacks/higher_knockback'
+assert read(pack/'pack.mcmeta')['pack']['description'],'pack.mcmeta'
+knock=read(pack/'data/minecraft/enchantment/knockback.json')
+cap=int(re.search(r'HIGHER_KNOCKBACK_LEVEL\s*=\s*(\d+)',(MODULE/'shared/java/com/simplefun/config/SimplefunConfig.java').read_text(encoding='utf-8')).group(1))
+assert knock['max_level']==cap==4,'max_level matches the hard cap of maxKnockback'
+assert knock['supported_items']=='#simplefun:knockback_allowed' and read(MODULE/'shared/resources/data/simplefun/tags/item/knockback_allowed.json')['values']
+sfun=(MODULE/'fabric/src/main/java/com/simplefun/SimplefunFabric.java').read_text(encoding='utf-8')
+assert 'wantsHigherKnockbackData()' in sfun and 'registerBuiltinPack' in sfun,'pack registered only when wanted'
+server_jar=Path.home()/'.gradle/caches/fabric-loom/26.3/minecraft-extracted_server.jar'
+if server_jar.exists():
+ with zipfile.ZipFile(server_jar) as z:
+  vanilla=json.loads(z.read('data/minecraft/enchantment/knockback.json'))
+ for key in set(vanilla)|set(knock):
+  if key not in ('max_level','supported_items'):assert vanilla[key]==knock[key],f'Knockback differs from Vanilla in {key}'
 client=Path.home()/'.gradle/caches/fabric-loom/26.3/minecraft-client.jar'
 if client.exists():
  with zipfile.ZipFile(client) as z:

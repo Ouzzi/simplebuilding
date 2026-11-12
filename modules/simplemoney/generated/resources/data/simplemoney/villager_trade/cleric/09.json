@@ -3,12 +3,12 @@
     "id": "simplemoney:money_bill",
     "count": 1
   },
-  "max_uses": 4,
-  "xp": 10,
+  "max_uses": 8,
+  "xp": 2,
   "reputation_discount": 0.05,
   "gives": {
     "id": "minecraft:ender_pearl",
-    "count": 8
+    "count": 3
   },
   "fabric:load_conditions": [
     {

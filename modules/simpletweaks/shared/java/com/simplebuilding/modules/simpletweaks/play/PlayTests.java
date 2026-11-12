@@ -71,6 +71,7 @@ public final class PlayTests {
         TESTS.put("weather_schedule_sets_weather", PlayTests::weatherSchedule);
         TESTS.put("leaderboard_sorts_and_sidebar", PlayTests::leaderboard);
         TESTS.put("vote_majority_and_options", PlayTests::vote);
+        TESTS.put("vote_event_rules", PlayTests::voteEvents);
         TESTS.put("afk_tab_name_and_sleep", PlayTests::afk);
         TESTS.put("border_per_dimension", PlayTests::border);
         TESTS.put("nether_roof_moves_down", PlayTests::roof);
@@ -519,6 +520,54 @@ public final class PlayTests {
             });
             yes(h, Votes.topic("event_double_xp").getString().length() > 0, "Topic text");
         } finally { Votes.reset(); }
+        h.succeed();
+    }
+
+    static String key(net.minecraft.network.chat.Component c) {
+        return c != null && c.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : "";
+    }
+    /**
+     * E1ANS F3 (owner 12.11.): an event vote needs {@code vote.eventMinPlayers} (default 2) active players, is refused while an event runs,
+     * and the cooldown of an event topic counts from the end of the event, not from the vote. Other topics need no minimum.
+     */
+    static void voteEvents(GameTestHelper h) {
+        var server = h.getLevel().getServer();
+        var p = player(h, new BlockPos(1, 2, 1));
+        yes(h, PlayConfig.DEFAULT.vote().eventMinPlayers() == 2, "Default: two active players for an event vote");
+        yes(h, new PlayConfig.Vote(true, 30, 50, 300, true, true, false, 999).eventMinPlayers() == 100
+                && new PlayConfig.Vote(true, 30, 50, 300, true, true, false, 0).eventMinPlayers() == 1, "The minimum is clamped to 1-100");
+        yes(h, PlayConfig.of("{\"vote\":{\"percent\":10}}").vote().eventMinPlayers() == 2, "A file without the key takes the default");
+        ServerEvents.shutdown();
+        Votes.reset();
+        // a passed event vote starts the real event (1 minute); everything else a vote does is not under test here
+        Votes.action = (s, topic) -> { if (topic.startsWith("event_")) ServerEvents.start(s, topic.substring(6), 1); };
+        try {
+            with(PlayConfig.of("{\"vote\":{\"percent\":50,\"cooldownSeconds\":300}}"), () -> {
+                Votes.eligibleCount = s -> 1;
+                var alone = Votes.start(server, p, "event_double_xp");
+                yes(h, "simpletweaks.play.vote.min_players".equals(key(alone)) && Votes.running() == null && ServerEvents.current() == null,
+                        "One active player: no event vote (" + key(alone) + ")");
+                yes(h, Votes.start(server, p, "weather_clear") == null, "Other topics need no minimum");
+                Votes.eligibleCount = s -> 2;
+                yes(h, Votes.start(server, p, "event_double_xp") == null && ServerEvents.is("double_xp"), "Two active players: the vote passes and the event runs");
+                var during = Votes.start(server, p, "event_more_loot");
+                yes(h, "simpletweaks.play.vote.event_running".equals(key(during)), "No event vote while an event runs (" + key(during) + ")");
+                var same = Votes.start(server, p, "event_double_xp");
+                yes(h, "simpletweaks.play.vote.event_running".equals(key(same)), "The cooldown has not started at the vote, it starts at the end (" + key(same) + ")");
+                yes(h, ServerEvents.stop(server), "The event ends");
+                var after = Votes.start(server, p, "event_double_xp");
+                yes(h, "simpletweaks.play.vote.cooldown".equals(key(after)), "After the event the topic waits its cooldown (" + key(after) + ")");
+                yes(h, Votes.start(server, p, "event_more_loot") == null && ServerEvents.is("more_loot"), "Another event topic is not held back");
+                ServerEvents.stop(server);
+            });
+            with(PlayConfig.of("{\"vote\":{\"percent\":50,\"eventMinPlayers\":1}}"), () -> {
+                Votes.reset();
+                Votes.eligibleCount = s -> 1;
+                Votes.action = (s, topic) -> { if (topic.startsWith("event_")) ServerEvents.start(s, topic.substring(6), 1); };
+                yes(h, Votes.start(server, p, "event_blood_moon") == null && ServerEvents.is("blood_moon"), "eventMinPlayers 1: a single player may start it");
+                ServerEvents.stop(server);
+            });
+        } finally { Votes.reset(); ServerEvents.shutdown(); }
         h.succeed();
     }
 

@@ -23,6 +23,18 @@ for option in ('enabled','maxClaimsPerPlayer','maxTrustedPlayers','globalCap','c
   for suffix in ('','.@Tooltip','.default','.tab'):
    assert lang['text.autoconfig.simpletweaks.option.claims.'+option+suffix]
   assert lang['text.autoconfig.simpletweaks.option.claims.'+option+'.default'] in lang['text.autoconfig.simpletweaks.option.claims.'+option+'.@Tooltip']
+# E1ANS: options of the owner decisions F1-F3 have names/tooltips (family schema text.autoconfig.<mod>.option.<path>, tooltip names the default) and the new vote messages exist
+for path in ('admin.blockLog.onlyDedicated','admin.backups.onlyDedicated','protect.antiXray.onlyDedicated','play.vote.eventMinPlayers',
+             'claims.visitors.fightMonsters','claims.visitors.ownItems','claims.visitors.xp','claims.visitors.returnProjectiles'):
+ key='text.autoconfig.simpletweaks.option.'+path
+ for lang,word in zip(langs,('Default:','Standard:')):
+  assert lang[key] and word in lang[key+'.@Tooltip'], key
+for key in ('simpletweaks.play.vote.min_players','simpletweaks.play.vote.event_running'):
+ assert all(lang[key] for lang in langs), key
+assert '%s' in langs[0]['simpletweaks.play.vote.min_players'] and '%s' in langs[1]['simpletweaks.play.vote.min_players']
+# every claim mixin of the config exists as a class (a typo would only show at game start)
+claim_mixins=unique(M/'shared/resources/simpletweaks.claims.mixins.json')['mixins']
+assert 'ClaimDropMixin' in claim_mixins and all((M/'shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims'/(m+'.java')).is_file() for m in claim_mixins)
 manual=unique(M/'wiki/manual.json')
 assert manual['notes']['simpletweaks:claim_deed']['en']['summary']
 assert manual['notes']['simpletweaks:claim_deed']['de']['summary']

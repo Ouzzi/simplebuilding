@@ -57,6 +57,11 @@ Umfang: 36 Java-Dateien / 3,2k Zeilen (shared + fabric, ohne Tests; Tests zusaet
 - C: nur mit Schleichen+Rechtsklick essen, Vanilla-Abwerfen bleibt Standard.
 - Empfehlung: **C** - behaelt die Vanilla-Bedeutung des einfachen Rechtsklicks und bleibt trotzdem ohne Config erreichbar (A12 "starke Eingriffe eher nicht"); falls der Besitzer F10 bestaetigt, A.
 
+## Antworten des Besitzers (12.11.2026, E1ANS)
+- **F1 (Vorschau F13) = A**: Nutzen-Satz im Handbuch (EN/DE).
+- **F2 (F14) = C**: aus Buendeln wird nur beim Schleichen + Rechtsklick gegessen, normaler Rechtsklick = Vanilla (`BundleEating`, `BundleEatMixin`;
+  `bundleEating` bleibt Hauptschalter); behebt nebenbei P3-2; Gametest `bundle_eating_needs_sneak`, `bundle_eating` angepasst.
+
 ## Urteil
 **shipbar** (0 P1, 2 P2 gefixt - Handbuch-Formel durch mich, `fabric.mod.json` durch den Hauptagent -, 7 P3). Server-Logik des Bretts, Kessels und der Scheiben haelt Dupe-Pruefung stand (1:1 Verbrauch/Rueckgabe, Codec-Grenzen, Selbstheilung).
 

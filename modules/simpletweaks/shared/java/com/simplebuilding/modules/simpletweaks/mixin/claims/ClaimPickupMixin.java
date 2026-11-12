@@ -6,5 +6,5 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({net.minecraft.world.entity.item.ItemEntity.class,net.minecraft.world.entity.ExperienceOrb.class})
 public abstract class ClaimPickupMixin {
  @Inject(method="playerTouch",at=@At("HEAD"),cancellable=true)
- private void claims$pickup(net.minecraft.world.entity.player.Player player,CallbackInfo ci){if(!Claims.action(player,(net.minecraft.world.entity.Entity)(Object)this))ci.cancel();}
+ private void claims$pickup(net.minecraft.world.entity.player.Player player,CallbackInfo ci){if(!Claims.pickup(player,(net.minecraft.world.entity.Entity)(Object)this))ci.cancel();}
 }
