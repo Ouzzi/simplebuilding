@@ -56,8 +56,8 @@ public final class TestCentreLayout {
     public static final List<List<String>> DISTRICTS = List.of(
             // Eingang: Steuerwand, Werkzeuge und Bauen.
             List.of("controls", "tools", "chisel", "planning", "mining", "enchants"),
-            // TZ38 (Besitzer 12.11.): die geordneten Bereiche 1-4 vor den Testflaechen - Block-Familien, Rohstoffe/Metalle,
-            // Items je Mod (mit Besatz-Staendern und Mobs), kompakt je Mod (OrderAreas).
+            // TZ38 (Besitzer 12.11.): die geordneten Bereiche vor den Testflaechen - Block-Familien mit den Rohstoffen/Metallen
+            // im selben Spaltenplan (TZ38b), Items je Mod (mit Besatz-Staendern und Mobs), kompakt je Mod (OrderAreas).
             OrderAreas.SECTIONS,
             // Zustaende, Umwandlungen, Ablegen, Buecher.
             List.of("states", "inworld", "upgrades", "templates", "placeables", "books"),
@@ -557,7 +557,6 @@ public final class TestCentreLayout {
         // TZ38: die geordneten Bereiche - wie die Tab-Waende nach der Abdeckung (zeigen alles noch einmal geordnet, nehmen
         // Stationen, Modul-Buchten und Galerie nichts weg).
         canvases.put(OrderAreas.FAMILIES, OrderAreas.families().canvas());
-        canvases.put(OrderAreas.METALS, OrderAreas.metals().canvas());
         canvases.put(OrderAreas.ITEMS, OrderAreas.items(ctx).canvas());
         canvases.put(OrderAreas.COMPACT, OrderAreas.compact().canvas());
 

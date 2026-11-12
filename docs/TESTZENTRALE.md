@@ -101,20 +101,20 @@ es auch im Kit. Stationen, die nichts zeigen (heute `devices`, `gallery`, `unsor
 
 ## Übersicht der Abschnitte
 
-**Ordnung (TZ38, Besitzer 12.11.2026, `OrderAreas`, Plan `docs/ai/PLAN-A-TZ38-2026-11-12.md`):** direkt nach dem Eingang
-der Bezirk `order` mit vier Bereichen, danach die Teststationen (Bereich 5, jetzt 1 Feld Abstand zwischen Abschnitten,
-`GAP = 1`). Jeder Bereich zeigt für sich alles seiner Art (zwischen den Bereichen doppelt gewollt, innerhalb genau einmal);
-wie die Tab-Wände zählen sie nicht für die Abdeckung.
+**Ordnung (TZ38, Besitzer 12.11.2026, `OrderAreas`, Plan `docs/ai/PLAN-A-TZ38-2026-11-12.md`; Spaltenplan TZ38b/TZ38c,
+`docs/ai/PLAN-A-TZ38C-2026-11-12.md`):** direkt nach dem Eingang der Bezirk `order` mit drei Bereichen, danach die
+Teststationen (Bereich 5, jetzt 1 Feld Abstand zwischen Abschnitten, `GAP = 1`). Jeder Bereich zeigt für sich alles seiner
+Art (zwischen den Bereichen doppelt gewollt, innerhalb genau einmal); wie die Tab-Wände zählen sie nicht für die Abdeckung.
 
 | Id | Inhalt |
 |---|---|
-| `order_families` | **Block-Familien:** je Variante eine Reihe vom Gang in die Tiefe, feste Spalten Zaun, Druckplatte, Octet, Mauer, Stufe, Treppe, Block, rissig, gemeißelt, Säule/Sonder (Tiefenschiefer-Ziegel → verstärkter Tiefenschiefer, Tiefenschiefer-Fliesen → Sculk-Fliesen), danach benutzte Zusatzformen (Zauntor, Knopf, Falltür, Tür, Scheibe) und „weitere“; bemooste/farbige/polierte Varianten eigene Reihen direkt nebeneinander, eine leere Spalte zwischen Familien (Familie = `materialKey`), Vanilla-Glieder als Bezug in derselben Reihe; Bänder paarweise um eine Linie grauer Betonstufen, das Gegenband gespiegelt (Zaun am hinteren Gang). Schmelzendes Eis im Rahmen |
-| `order_metals` | **Rohstoffe & Metalle:** Wand bei x = 0, je Metall eine Reihe (Schild an der Wand), Spalten `OrderAreas.MSlot`: Speicherblock, Rohblock, Stein-/Tiefenschiefer-/Nether-/End-Erz, Kies/Sand-Erz, 2 frei, Platte, Octet (cut), Gitter, cut-Stufe/-Treppe/-Block, Rost, gemeißelt, Säule, Fliesen, frei, Falltür, Stange (Kupfer: Blitzableiter), Kette, Laterne, Lampe, Truhe, Tür, Sonder, Trichter, Rohr, Core, Pferde-/Nautilus-/Tier-Rüstung, Hufeisen, Werkzeuge (Schwert … Speer, Meißel, Hammer, Baustab, Spachtel), Rüstung, Barren, Nugget, Roh-Item, Schrott, dann „weitere Objekte“ (übrige Ids mit dem Metall-Wort). Reihenfolge Kupfer (+ Anlauf-Stufen) … Astralit, Nihilith, gegenüber Silber … Edelstahl, danach Redstone, Lapis, Quarz, Kohle, Amethyst. Fehlende Glieder bleiben leer |
+| `order_families` | **Block-Familien und Metalle in einem Spaltenplan** (`OrderAreas.Slot`, TZ38b F1–F5 = A): je Variante eine Reihe vom Gang in die Tiefe. Kern für ALLE Reihen: Octet, Mauer (Metall: Gitter; Scheibe, wenn keine Mauer), Stufe, Treppe, Block (Metall: geschnitten), rissig (Metall: Rost), gemeißelt, Säule/Sonder (Tiefenschiefer-Ziegel → verstärkter Tiefenschiefer, Tiefenschiefer-Fliesen → Sculk-Fliesen); Zusatz in Vanilla-Folge: Zaun, Zauntor, Tür, Falltür, Blech/Platte (Holz-Platten, Silberblech, Bleiplatte), Druckplatte, Knopf; normale Familien hängen danach nur „weitere“ an. Bemooste/farbige/polierte Varianten eigene Reihen direkt nebeneinander, eine leere Spalte zwischen Familien (Familie = `materialKey`), Vanilla-Glieder als Bezug in derselben Reihe; Bänder paarweise um eine Linie grauer Betonstufen, das Gegenband gespiegelt; schmelzendes Eis im Rahmen. **Metalle** als letztes Band-Paar (eigener Gang, Schild je Reihe am Gang): vorn Kupfer mit Anlauf- und Wachs-Stufen, Eisen, Gold, Roségold … Astralit, Nihilith; gegenüber Silber … Edelstahl, dann Redstone, Lapis, Quarz, Kohle, Amethyst. Ihr Anhang ab Feld 16: Fliesen, Gitterblock, Stange (Kupfer: Blitzableiter), Kette, Laterne, Lampe/Birne, Truhe, Sonder (Statue, Spiegel), Trichter, Rohr → Speicherblock, Speicher-Octet, Rohblock, Stein-/Tiefenschiefer-/Nether-/End-/Kies-Erz → Roh-Item, Barren, Nugget, Schrott, Core → Pferde-/Nautilus-/Tier-Rüstung, Hufeisen, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Hammer, Baustab, Helm … Schuhe → „weitere“ (übrige Ids mit dem Metall-Wort). Keine Spachtel-/frei-Spalten; fehlende Glieder bleiben leer; Metall-Formen stehen nicht zusätzlich als Familien-Reihen (eigene Stein-Familien wie glatter Quarz/Quarzziegel bleiben Familien) |
 | `order_items` | **Items je Mod:** zuerst Besatz-Ständer (je Muster ein Eisen-Satz in Gold, je Material ein Eisen-Satz mit „Sentry“), dann je Mod (Wiki-Reihenfolge `OrderAreas.WIKI_ORDER`) eine Linie, Setzbares gesetzt, sonst Rahmen flach am Boden; dahinter die Mobs der Mod (`TcOp.Mob`: ohne KI, unverwundbar, still, dauerhaft, Tag `sb_testcentre_mob`) |
 | `order_compact` | **Kompakt je Mod:** alle Blöcke einer Mod dicht (fast quadratisch, Schildpfosten im ersten Feld), 1 Feld Abstand zur nächsten Mod |
 
 Prüfung: `order_areas_show_everything_in_owner_order` (ohne Welt: Vollständigkeit Items/Blöcke, Wiki-Reihenfolge, Besatz-Ständer
-und Mobs, Spaltenfolge Familien/Metalle, Betonlinie, Eis im Rahmen, Sonderblock, Eisen/Kupfer/Gold/Netherit an ihren Plätzen);
+und Mobs, gemeinsamer Spaltenplan je Band, feste Spalten nur mit Items ihrer Form, Betonlinie, Eis im Rahmen, Sonderblock, kein
+Doppel zwischen Familien- und Metall-Reihen, Metall-Folge und eigenes Band-Paar, Eisen/Kupfer/Gold/Netherit/Quarz an ihren Plätzen);
 der Bau-Test zählt zusätzlich die gespawnten Mobs (still, unverwundbar, ohne KI).
 
 **Bezirke (TZ22-5, 22.10.2026):** Die Abschnitte gehören zu Themen-Bezirken (`TestCentreLayout.DISTRICTS`):
