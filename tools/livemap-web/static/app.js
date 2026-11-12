@@ -78,6 +78,7 @@
     const which = btn.dataset.interval;
     document.querySelectorAll(".toggle [data-interval]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.interval === which)));
     document.querySelectorAll("[data-month][data-year]").forEach(el => { el.textContent = el.dataset[which]; });
+    document.querySelectorAll("[data-show]").forEach(el => { el.hidden = el.dataset.show !== which; });   // struck 12 x monthly
   }));
 
   // ------------------------------------------------------------------ copy buttons, confirm dialogs

@@ -171,13 +171,23 @@ public final class LivemapTests {
         h.assertTrue(gold && (got >>> 24) == 0xFF, "pixel is an opaque gold shade: " + Integer.toHexString(got));
         int flat = ChunkSampler.sample(h.getLevel(), chunk, false)[(pos.getZ() & 15) * 16 + (pos.getX() & 15)];
         h.assertTrue(flat == ChunkSampler.argb(MapColor.GOLD, MapColor.Brightness.NORMAL), "without shading: normal brightness");
+        // Height layer (N34c): y and "dry" in the height pixel, colours unchanged; a real dimension never lands in a ".h" folder.
+        int[] heights = new int[256];
+        h.assertTrue(Arrays.equals(ChunkSampler.sample(h.getLevel(), chunk, true, heights), px), "heights leave the colours alone");
+        int hp = heights[(pos.getZ() & 15) * 16 + (pos.getX() & 15)];
+        h.assertTrue((hp >>> 24) == 0xFF && ChunkSampler.heightOf(hp) == pos.getY() && (hp & 63) == 0,
+                "height pixel: y " + ChunkSampler.heightOf(hp) + " depth " + (hp & 63));
+        h.assertTrue(ChunkSampler.heightOf(ChunkSampler.heightPixel(-64, 0, MapColor.Brightness.LOW)) == -64, "negative heights survive");
+        h.assertTrue(!TileStore.folder("test:odd.h").endsWith(TileStore.HEIGHTS), "a dimension folder never looks like a height layer");
         Path dir = temp();
         try (TileStore tiles = new TileStore(dir)) {
             int cx = pos.getX() >> 4, cz = pos.getZ() >> 4;
-            h.assertTrue(tiles.putChunk("t", cx, cz, px), "queued");
+            h.assertTrue(tiles.putChunk("t", cx, cz, px, heights), "queued");
             tiles.flushNow();
             int[] tile = tiles.readTile("t", TileStore.MAX_ZOOM, Math.floorDiv(pos.getX(), 128), Math.floorDiv(pos.getZ(), 128));
             h.assertTrue(tile != null && tile[Math.floorMod(pos.getZ(), 128) * 128 + Math.floorMod(pos.getX(), 128)] == got, "tile pixel = chunk pixel");
+            int[] htile = tiles.readTile("t" + TileStore.HEIGHTS, TileStore.MAX_ZOOM, Math.floorDiv(pos.getX(), 128), Math.floorDiv(pos.getZ(), 128));
+            h.assertTrue(htile != null && htile[Math.floorMod(pos.getZ(), 128) * 128 + Math.floorMod(pos.getX(), 128)] == hp, "height tile pixel = height pixel");
             int otherCol = (Math.floorMod(cx, 8) + 1) % 8 * 16 + 5, row = Math.floorMod(cz, 8) * 16 + 5;
             h.assertTrue(tile[row * 128 + otherCol] == 0, "other chunks of the tile stay empty");
             h.assertTrue(tiles.readTile("t", 0, Math.floorDiv(pos.getX(), 128 * 16), Math.floorDiv(pos.getZ(), 128 * 16)) != null, "pyramid down to zoom 0");

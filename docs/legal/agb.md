@@ -66,7 +66,7 @@ Priorität. Es gelten folgende Werte (Stand dieses Entwurfs):
 | Teilen mit anderen Konten | 2 | 10 | 50 | unbegrenzt |
 | Speicher je Karte | 64 MB | 256 MB | 1 GB | 4 GB |
 | Preis pro Monat | 0 € | 3,99 € | 7,99 € | 14,99 € |
-| Preis bei Jahreszahlung (12 Monate zum Preis von 10) | – | 39,90 € | 79,90 € | 149,90 € |
+| Preis bei Jahreszahlung (12 Monate zum Preis von 10; danach monatlich zum Monatspreis, siehe 11.3) | – | 39,90 € | 79,90 € | 149,90 € |
 
 > **[Anmerkung Entwurf]** Die Zahlen stammen aus der abgenommenen Spezifikation bzw. `tiers.json`; Preise sind dort ausdrücklich „Vorschlag“.
 > Der Speicher je Karte (D17 im Plan) steht in der Spezifikation nur als „begrenzt“ – Werte vom Besitzer bestätigen.
@@ -227,20 +227,17 @@ außerordentlichen Kündigung bleibt unberührt.
 **jederzeit zum Ende des bezahlten Monats** kündigen. Bis dahin bleibt die gebuchte Stufe nutzbar. Eine anteilige Erstattung für den
 laufenden Monat erfolgt bei ordentlicher Kündigung nicht.
 
-11.3 **Jahresabo** (Zahlung im Voraus, 12 Monate zum Preis von 10). Die Laufzeit beträgt 12 Monate. Sie können **bis zum Ende der
-Laufzeit** kündigen; die Kündigung wirkt zum Ende der bezahlten 12 Monate. *(Eine der folgenden Varianten wählen:)*
+11.3 **Jahresabo** (Zahlung im Voraus, 12 Monate zum Preis von 10). Die erste Laufzeit beträgt 12 Monate. Sie können **bis zum Ende
+dieser 12 Monate** kündigen; die Kündigung wirkt zum Ende der bezahlten 12 Monate. Kündigen Sie nicht, läuft der Vertrag nach Ablauf der
+12 Monate **auf unbestimmte Zeit mit monatlicher Abrechnung zum Monatspreis** der Stufe (Abschnitt 11.2) weiter; er ist dann **jederzeit
+zum Ende des bezahlten Monats kündbar**. Eine Verlängerung um ein weiteres Jahr erfolgt nicht. Wir weisen Sie ⟦PLATZHALTER: 4 bis 6 Wochen⟧
+vor Ablauf der 12 Monate per E-Mail auf den Übergang in die monatliche Laufzeit, den dann geltenden Monatspreis und die
+Kündigungsmöglichkeit hin.
 
-- **Variante A (empfohlen, im Entwurf vorgesehen; vereinbar mit § 309 Nr. 9 BGB):** Kündigen Sie nicht, verlängert sich der Vertrag nach
-  Ablauf der 12 Monate **auf unbestimmte Zeit mit monatlicher Abrechnung zum Monatspreis** der Stufe (Abschnitt 11.2); er ist dann jederzeit
-  zum Ende des bezahlten Monats kündbar. Wir weisen Sie ⟦PLATZHALTER: 4 bis 6 Wochen⟧ vor Ablauf per E-Mail auf die Verlängerung und
-  die Kündigungsmöglichkeit hin.
-- **Variante B:** Das Jahresabo endet nach 12 Monaten automatisch; eine Verlängerung gibt es nur durch neue Buchung.
-- **Variante C (Wortlaut der Spezifikation: „verlängert sich nur ohne Kündigung“ um jeweils weitere 12 Monate):** Gegenüber
-  **Verbrauchern unwirksam** (§ 309 Nr. 9 Buchst. b BGB, Verlängerung nur auf unbestimmte Zeit mit monatlicher Kündigungsmöglichkeit); nur gegenüber Unternehmern
-  zulässig (§ 310 Abs. 1 BGB). Nur nach anwaltlicher Prüfung verwenden.
-
-> **[Anmerkung Entwurf]** Die Spezifikation sagt: „Jahresabo läuft bis zum Ende des Jahres und verlängert sich nur, wenn nicht gekündigt.“ Eine automatische
-> Verlängerung um ein weiteres volles Jahr ist gegenüber Verbrauchern nach § 309 Nr. 9 BGB nicht wirksam. Deshalb Variante A im Entwurf. Entscheidung des Besitzers nötig.
+> **[Anmerkung Entwurf]** Entschieden vom Besitzer am 12.11.2026 (LIVEMAP34b Frage 1 = A): nach Ablauf des Jahres monatlich kündbar –
+> vereinbar mit § 309 Nr. 9 BGB (Verlängerung nur auf unbestimmte Zeit mit monatlicher Kündigungsmöglichkeit). Die Varianten B (Ende ohne
+> Verlängerung) und C (Verlängerung um ein weiteres Jahr, gegenüber Verbrauchern unwirksam) sind gestrichen. Technik: Stripe-Abo-Zeitplan
+> (Jahrespreis für 12 Monate, danach Monatspreis), siehe `tools/livemap-web/smweb/billing.py`; Preisseite sagt dasselbe.
 
 11.4 **Kündigungsbutton.** Verbraucher können kostenpflichtige Verträge, die über diese Website geschlossen wurden, jederzeit über die
 dauerhaft sichtbare Schaltfläche „Verträge hier kündigen“ ⟦PLATZHALTER: genaue Beschriftung, § 312k BGB⟧ kündigen. Über die
@@ -402,8 +399,10 @@ bestätigt haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüll
 **Zusammenfassung unmittelbar über der Bestell-Schaltfläche** (Art. 246a § 1 EGBGB, § 312j Abs. 2 BGB)
 
 - Gewählte Stufe, Leistung (Verweis auf Tabelle 3.1), Laufzeit (Monat/Jahr), Gesamtpreis einschließlich Umsatzsteuer bzw. Hinweis auf § 19 UStG,
-  Abrechnungszeitraum, Zahlungsart, Hinweis auf automatische Verlängerung und Kündigungsbedingungen (Abschnitt 11), Hinweis auf Widerrufsrecht und
-  Fundstelle der Widerrufsbelehrung.
+  Abrechnungszeitraum, Zahlungsart, Kündigungsbedingungen (Abschnitt 11; beim Jahresabo ausdrücklich: „nach 12 Monaten monatlich zum
+  Monatspreis weiter, jederzeit zum Monatsende kündbar“), Hinweis auf Widerrufsrecht und Fundstelle der Widerrufsbelehrung.
+- Wird beim Jahresabo der Monatspreis × 12 durchgestrichen gezeigt (Preisseite), steht daneben, dass es der Vergleich mit 12 Monatszahlungen
+  ist, kein früherer Preis.
 
 **Zustimmungen** (Kästchen, einzeln, nicht vorangekreuzt)
 

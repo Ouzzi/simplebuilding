@@ -10,7 +10,7 @@ import unittest
 import urllib.request
 import zipfile
 
-from helpers import (ROOT, WORLD, WORLD2, Client, account, bundle, code_for, connect, link_from_mail, make, png, temp)
+from helpers import (ROOT, WORLD, WORLD2, Client, account, bundle, code_for, connect, link_from_mail, make, png, png_gray, temp)
 from smweb import billing, security
 from smweb.app import serve
 from smweb.config import VIEWER
@@ -461,7 +461,14 @@ class ViewerTests(Base):
         self.assertTrue(key)
         with self.svc.db.tx() as tx:
             tx.execute("UPDATE maps SET key_hash = ? WHERE id = ?", (security.sha256("slm_k"), mid))
+        # A height tile (N34c, folder "<dimension>.h") is data for the viewer, never the preview - even when it is the biggest one.
+        import os
+        noisy = png_gray(os.urandom(128 * 128))
+        self.c.api("POST", "tiles", key="slm_k", raw=bundle({"minecraft_overworld.h/2/0/0.png": noisy}), ctype="application/zip")
+        self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM tiles WHERE path = 'minecraft_overworld.h/2/0/0'"), 1, "height tiles upload like tiles")
+        self.assertEqual(self.c.get(f"https://livemap.test/app/m/{mid}/preview.png").status, 204, "a height tile is no preview")
         self.c.api("POST", "tiles", key="slm_k", raw=bundle({"minecraft_overworld/2/0/0.png": png(77)}), ctype="application/zip")
+        self.assertGreater(len(noisy), len(png(77)))
         self.assertEqual(self.c.get(f"https://livemap.test/app/m/{mid}/preview.png").body, png(77), "zoom 2 overview as preview")
         for path in ("/app/archive", "/app/plan", "/app/account", "/pricing", "/", "/self-host", "/explore"):
             self.assertEqual(self.c.get("https://livemap.test" + path).status, 200, path)
@@ -545,6 +552,56 @@ class DeployTemplateTests(unittest.TestCase):
         self.assertIn("simplemods-allow.conf", conf, "only the tunnel connector and loopback")
         sh = (d / "deploy_livemap_web.sh").read_text(encoding="utf-8")
         self.assertNotRegex(sh, r"(?i)(sk_live|whsec_[a-z0-9]{8}|password\s*=\s*\S)", "no secrets in the deploy script")
+
+
+class PricingTests(Base):
+    def test_pricing_yearly_strike_and_q1a(self):
+        """Owner 12.11.: in the yearly view 12 x the monthly price is struck through next to the yearly price; Q1 = A: after the
+        year the plan runs on monthly and can be cancelled every month - same words on the pricing page and in the terms draft."""
+        months = self.svc.cfg.tiers.get("yearly_months_paid", 10)
+        for lang, fmt, struck, runs_on in (("en", lambda c: f"€{c // 100}.{c % 100:02d}", "struck through: 12 × the monthly price", "runs on monthly"),
+                                           ("de", lambda c: f"{c // 100},{c % 100:02d} €", "durchgestrichen: 12 × Monatspreis", "monatlich weiter")):
+            page = self.c.get(f"https://livemap.test/pricing?lang={lang}").body.decode()
+            self.assertIn(struck, page)
+            self.assertIn(runs_on, page)
+            self.assertNotIn("renews only", page)
+            self.assertNotIn("verlängert sich nur", page)
+            for name, t in self.svc.cfg.tiers["tiers"].items():
+                p = t["price_month"]
+                if not p:
+                    continue
+                cell = f'<s class="was" data-show="year" hidden><span class="vh">{"instead of" if lang == "en" else "statt"} </span>{fmt(p * 12)}</s>'
+                self.assertIn(cell, page, f"{name}: struck 12 x monthly, hidden until 'yearly' is chosen")
+                self.assertIn(f'data-year="{fmt(p * months)}"', page, f"{name}: yearly price")
+        self.assertIn("data-show", (ROOT / "static/app.js").read_text(encoding="utf-8"), "the toggle shows the struck price")
+        agb = (ROOT.parents[1] / "docs/legal/agb.md").read_text(encoding="utf-8")
+        q = " ".join(agb[agb.index("11.3 **Jahresabo**"):agb.index("11.4 ")].replace("**", "").split())
+        self.assertIn("auf unbestimmte Zeit mit monatlicher Abrechnung zum Monatspreis", q)
+        self.assertIn("jederzeit zum Ende des bezahlten Monats kündbar", q)
+        self.assertNotIn("Variante C", q, "Q1 = A decided: no other variants left")
+
+
+class HeightLayerTests(Base):
+    def test_static_sync_lists_no_height_layer(self):
+        """livemap_static_sync.py copies "<dim>.h" tiles but never offers them as a dimension (N34c)."""
+        spec = importlib.util.spec_from_file_location("slm_sync", ROOT.parent / "deploy/livemap/selfhost/livemap_static_sync.py")
+        sync = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(sync)
+        from pathlib import Path
+        tiles = Path(self.dir) / "tiles"
+        for folder in ("minecraft_overworld", "minecraft_overworld.h"):
+            (tiles / folder / "4" / "0").mkdir(parents=True)
+            (tiles / folder / "4" / "0" / "0.png").write_bytes(png(1))
+        self.assertEqual([d["folder"] for d in json.loads(sync.live_json(tiles))["dimensions"]], ["minecraft_overworld"])
+        self.assertEqual(len(list(sync.tile_files(tiles))), 2, "height tiles are copied too")
+
+    def test_viewer_has_three_styles(self):
+        """One viewer file for mod and service: styles blocks (default), shaded, cartographer; remembered in this browser."""
+        html = VIEWER.read_text(encoding="utf-8")
+        for style in ('value="blocks"', 'value="shaded"', 'value="paper"'):
+            self.assertIn(style, html)
+        self.assertIn('style: "blocks"', html, "default = blocks")
+        self.assertIn('".h/"', html, "height layer path")
 
 
 class LegalDraftTests(Base):

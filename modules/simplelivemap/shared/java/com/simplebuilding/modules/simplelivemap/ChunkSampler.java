@@ -22,6 +22,14 @@ public final class ChunkSampler {
 
     /** 256 ARGB pixels, index {@code (z & 15) * 16 + (x & 15)}; 0 where nothing mappable was found. */
     public static int[] sample(ServerLevel level, LevelChunk chunk, boolean shading) {
+        return sample(level, chunk, shading, null);
+    }
+
+    /**
+     * Like {@link #sample(ServerLevel, LevelChunk, boolean)}; {@code heights} (256 entries, may be null) receives the height pixel
+     * of every column ({@link #heightPixel}, 0 where nothing mappable was found) for the shaded and cartographer views (N34c).
+     */
+    public static int[] sample(ServerLevel level, LevelChunk chunk, boolean shading, int[] heights) {
         int[] out = new int[256];
         int x0 = chunk.getPos().getMinBlockX(), z0 = chunk.getPos().getMinBlockZ();
         LevelChunk north = level.getChunkSource().getChunkNow(chunk.getPos().x(), chunk.getPos().z() - 1);
@@ -34,15 +42,32 @@ public final class ChunkSampler {
                 int z = z0 + lz;
                 if (!column(level, chunk, x, z, pos, s)) {
                     previous = Integer.MIN_VALUE;
+                    if (heights != null) heights[lz * 16 + lx] = 0;
                     continue;
                 }
                 MapColor color = MapColor.byId(s[0]);
                 MapColor.Brightness b = shading ? brightness(color, s[1], previous, s[2], x, z) : MapColor.Brightness.NORMAL;
                 out[lz * 16 + lx] = argb(color, b);
+                if (heights != null) heights[lz * 16 + lx] = heightPixel(s[1], s[2], b);
                 previous = s[1];
             }
         }
         return out;
+    }
+
+    /**
+     * Pixel of the height layer (tile folder {@code <dimension>.h}, read by the viewer only): red/green = {@code y + 32768} as 16
+     * bits, blue = brightness id of the colour tile * 64 + fluid depth (0-63; 0 = dry), alpha 255. The brightness lets the viewer
+     * take the Vanilla relief back out of the colour before it shades by itself.
+     */
+    public static int heightPixel(int y, int fluidDepth, MapColor.Brightness brightness) {
+        int v = Math.max(0, Math.min(0xFFFF, y + 32768));
+        return 0xFF000000 | (v << 8) | ((brightness.id & 3) << 6) | Math.max(0, Math.min(63, fluidDepth));
+    }
+
+    /** Height {@code y} of a height pixel (see {@link #heightPixel}). */
+    public static int heightOf(int pixel) {
+        return ((pixel >>> 8) & 0xFFFF) - 32768;
     }
 
     /** Opaque ARGB of a map colour at a brightness. */

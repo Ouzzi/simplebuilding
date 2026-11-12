@@ -475,8 +475,10 @@ class App:
         if m is None or (m["user_id"] != user["id"] and user["role"] != "developer"):
             raise Problem(404, "not_found")
         if preview:
-            # Overview picture: the fullest tile of a coarse zoom (2 = 512 blocks per tile, then 1, 0, 3).
+            # Overview picture: the fullest tile of a coarse zoom (2 = 512 blocks per tile, then 1, 0, 3); never a height tile
+            # (folder "<dimension>.h", data for the viewer's shaded styles, not a picture).
             row = svc.db.one("SELECT sha FROM tiles WHERE map_id = ? AND substr(path, instr(path, '/') + 1, 2) IN ('2/', '1/', '0/', '3/') "
+                             "AND substr(path, 1, instr(path, '/') - 1) NOT LIKE '%.h' "
                              "ORDER BY CASE substr(path, instr(path, '/') + 1, 1) WHEN '2' THEN 0 WHEN '1' THEN 1 WHEN '0' THEN 2 ELSE 3 END, size DESC LIMIT 1", m["id"])
             if not row:
                 return Response(204, b"", self.headers("image/png", None))

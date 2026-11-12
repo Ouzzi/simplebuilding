@@ -134,3 +134,85 @@ Fehler: 401 (Schlüssel unbekannt), 410 (Karte getrennt → Mod vergisst Zugang)
 - **Nicht getestet:** Gametests (`selfHostLock`, `selfHostPortProbe`, `hostedParts`, `hostedConnect`, `connectPermission` und die
   bestehenden) – sb-test „No route to host“; nginx -t der Vorlagen (kein nginx auf sb-agent, nur Struktur-Test); echter
   Mod↔Dienst-Lauf (nach Dev-Deploy); SMTP-Versand; Stripe gegen die echte API.
+
+## 9. a-livemap34c – Anzeigearten, Streichpreis, Q1 = A (Besitzer 12.11. ~18:35, LIVEMAP34b 1–7 = A)
+
+Auftrag: `/root/sb-tools-a/agenten-1530.md` § 12c; Wortlaut „Livemap-Themes/Anzeigearten: 1 Blockform wie Chunkbase (Standard),
+2 Shader, 3 etwas Besonderes; Preise: alten Jahresplan durchgestrichen notieren“. Basis hub/b-bundle188 90fb9d8b6, Branch `a-livemap34c`.
+
+### 9.1 Ist-Stand (erhoben)
+
+- Viewer (`index.html`, eine Datei für Mod und Dienst) zeichnet nur die Farbkacheln: Vanilla-Kartenfarben **mit eingebranntem**
+  Vanilla-Relief (`render.shading`, 3 Helligkeitsstufen + 1-Pixel-Dither, nur Vergleich mit dem Nordnachbarn). Die Kachel enthält
+  **keine Höhe** – eine echte Höhenschattierung oder Höhenlinien lassen sich aus dem Bild nicht berechnen.
+- `ChunkSampler.column` kennt Höhe und Wassertiefe je Säule schon, wirft sie nach dem Färben weg.
+- Kachelpfade: Mod-Webserver, Dienst-Upload, Manifest und Auslieferung prüfen `<ordner>/<z>/<x>/<y>` mit Ordner `[a-z0-9_.-]{1,96}`.
+  Dashboard-Vorschau nimmt die größte Kachel einer groben Zoomstufe; `livemap_static_sync.py` baut `live.json` aus den Ordnern.
+- Preisseite: Monat/Jahr-Umschalter (`data-month`/`data-year`), Jahrespreis = 10 × Monatspreis, kein Vergleichspreis. Karte „Kündigen“
+  sagt „Jährlich … verlängert sich nur, wenn nicht gekündigt“ – passt nicht zu Q1 = A. AGB 11.3 hat noch drei Varianten (A/B/C),
+  README B1 „Entscheidung nötig“, Anlage 3 nennt „automatische Verlängerung“.
+
+### 9.2 Entscheidungen (selbst getroffen, begründet)
+
+| # | Entscheidung | Grund |
+|---|---|---|
+| E1 | **Höhenebene** als zweite Kachelreihe im Ordner `<dimension>.h` (gleiche Pyramide, gleiche Routen, gleicher Upload): Pixel RGBA, R/G = y + 32768 (16 bit), B = Vanilla-Helligkeitsstufe (2 bit) · 64 + Flüssigkeitstiefe (0–63), A = 255; durchsichtig = unbekannt (z. B. nur von Karten-Items gefüllt). `TileStore.folder` gibt für echte Dimensionen nie `….h` aus (dann Hash-Form), höchstens 94 Zeichen. | Farbkacheln bleiben Bilder (Dashboard-Vorschau, statisches Hosten, alte Daten, Anzeigeart 1 braucht nichts Neues); keine neue Route, kein neues Prüfmuster (der Punkt ist schon erlaubt). |
+| E2 | Anzeigeart **1 „Blöcke“ (Standard)**: Farbkacheln wie bisher (Vanilla-Kartenfarben + -relief); ab 6 px je Block Blockkanten (oben/links hell, unten/rechts dunkel) und je Block eine kleine Helligkeitsstreuung → liest sich wie die Blockkarte von Chunkbase. Braucht keine Höhenebene. | Wortlaut „Blockform wie Chunkbase“; keine Mojang-Texturen (eigene, berechnete Pixel). |
+| E3 | Anzeigeart **2 „Schattiert“**: Farben ohne eingebranntes Relief (Helligkeitsstufe aus B herausgerechnet) × Hangschattierung (Licht Nordwest 45°, zentrale Differenzen über Kachelgrenzen mit Nachbarkacheln), leichte Höhentönung; Flüssigkeiten nach Tiefe (flach hell → tief dunkel). | „Shader: Höhenschattierung/Relief, Wasser-Tiefe“. |
+| E4 | Anzeigeart **3 „Kartograf“** (alte Papierkarte): Pergament, Farben als Tusche-Lasur, Höhenlinien (alle 8 Blöcke fein, alle 32 kräftig, bei grobem Zoom weiter), Wasser blaugrau mit Uferlinie, Papierkorn, Windrose; Unerkundetes = leeres Papier wie bei Vanilla-Karten. | Passt zu Simple Maps / Kartentisch, braucht nur vorhandene Daten. „Nacht/Leuchten“ verworfen: bräuchte Blocklicht-Daten, die die Kacheln nicht haben. |
+| E5 | Ohne Höhenebene (alte Kacheln, Karten-Items, Höhenkachel fehlt): 2 und 3 nutzen die Farben ohne Relief-Neuberechnung – nichts bricht. | Rückwärtsverträglich. |
+| E6 | Auswahl „Kartenstil“ als drei Knöpfe im Ansichts-Fenster, gemerkt in `slm-opts.style` (nur dieser Browser, try/catch), Standard `blocks`. | Auftrag; wie die übrigen Ansichts-Einstellungen. |
+| E7 | Zeichnen: je Kachel und Stil ein 128×128-Zwischenbild, höchstens 12 neue je Bild (Rest im nächsten Bild, bis dahin Farbkachel), neu, wenn Kachel oder Nachbar-Höhe nachlädt; Höhenkacheln nur in Stil 2/3 geladen. | Flüssig auch auf dem Handy, Stil 1 lädt nichts zusätzlich. |
+| E8 | Preisseite + Stufen-Seite: im Jahresmodus neben dem Jahrespreis **durchgestrichen 12 × Monatspreis** (`<s>`, Screenreader-Text „statt“, Unterzeile „12 × Monatspreis“). Beschriftung als Monatsvergleich, nicht als früherer Preis. | Wortlaut; Irreführungsschutz (§ 5 UWG/§ 11 PAngV) → Prüfpunkt in `docs/legal/README.md`. |
+| E9 | **Q1 = A** überall gleich: AGB 11.3 nur noch Variante A (12 Monate, danach unbefristet monatlich zum Monatspreis, jederzeit zum Monatsende kündbar, Hinweis-Mail vor Ablauf), README B1 entschieden, Anlage 3 angepasst, Preisseite „Kündigen“ + Hinweis unter dem Umschalter. Test prüft Preisseite/AGB. | Besitzer-Antwort. |
+| E10 | Dienst: Dashboard-Vorschau ohne `.h`-Ordner; `livemap_static_sync.py` listet `.h` nicht als Dimension (kopiert die Kacheln aber mit). | Höhenkacheln sind keine Bilder für Menschen. |
+
+### 9.3 Dateien
+
+Viewer `modules/simplelivemap/shared/resources/assets/simplelivemap/web/index.html`; Mod `ChunkSampler`, `TileStore`, `LivemapRuntime`,
+`LivemapTests` (tileColor + Höhenebene); `modules/simplelivemap/wiki/manual.json` (Kacheln, Ansicht) + Wiki neu;
+Dienst `smweb/pages.py`, `smweb/app.py`, `static/app.js`, `static/site.css`, `tests/test_service.py`, `tests/harness.py` (Höhenkacheln
+für die Bilder); `tools/deploy/livemap/selfhost/livemap_static_sync.py`; `docs/legal/agb.md`, `docs/legal/README.md`.
+
+### 9.4 Risiken
+
+- Speicher/Upload: Höhenkacheln ≈ +50–100 % Dateien und Bytes (zählen zu `map_mb` und Upload-Takt). Bewusst ohne neuen Schalter;
+  Rückfrage in der Vorschau.
+- Java nur per `javac` geprüft; Gametest-Lauf erst, wenn sb-test erreichbar ist (`/root/sb-tools-a/a-livemap34c-sbt.cmd`).
+- Canvas-Rücklesen: Höhenkacheln mit `colorSpaceConversion: "none"`, `premultiplyAlpha: "none"` dekodiert (A = 255 → verlustfrei).
+
+### 9.5 Prüfung (geplant)
+
+Unit-Tests des Dienstes (+ Streichpreis, Q1-Text, Vorschau ohne `.h`, statische Synchronisation), `javac` der Mod-Klassen, lokale
+Repo-Checks laut Regeln, Playwright-Bilder der drei Stile (Desktop + Handy, 0 JS-Fehler, kein Querüberlauf) und der Preisseite
+(Jahr) gegen `tests/harness.py`, Kontrast ≥ 4,5:1 gerechnet; Gametests als sbt-Datei + TODO.
+
+### 9.6 Abweichungen (während der Umsetzung)
+
+- **A8 Eigener PNG-Schreiber für Höhenkacheln** (`TileStore.pngUp`, Filter „Up“ je Zeile, Deflate 9): ImageIO schrieb die Höhenkacheln
+  ~3× so groß wie die Farbkacheln, `pngUp` ~2× (gemessen an Beispieldaten mit Wald; Rundlauf über ImageIO/Pillow verlustfrei).
+  Farbkacheln bleiben bei ImageIO (dort kleiner).
+- **A9 Höhenlinien nicht auf Baumkronen** (Kartograf): Pixel mit der Vanilla-Kartenfarbe „plant“ (Laub) bekommen keine Linie – sonst
+  zeichnet der Wald Rauschen statt Gelände.
+- **A10 Gametest:** kein neuer Test, `tileColor` prüft zusätzlich Höhenpixel (y, trocken), Farben unverändert, Höhenkachel = Höhenpixel,
+  negative Höhen und die `.h`-Ordnerregel.
+- **A11 Harness:** zeichnet jetzt Vanilla-artig (Grundfarbe × Helligkeitsstufe, Relief gegen den Nordnachbarn, ganze Blockhöhen, Bäume)
+  und lädt Höhenkacheln mit hoch; nur Bild-Erzeugung.
+- **A12 Preistabelle:** `.tw` ist `position: relative`, sonst ragte der Screenreader-Text „statt“ auf dem Handy aus dem Scroll-Kasten.
+- **A13 Speicher:** Höhenebene ≈ +200 % zu den Farbkacheln (Beispieldaten) → Besitzer-Frage LIVEMAP34c F2 (A immer / B Schalter /
+  C nur bis Zoom 3). Handy: das Ansichts-Fenster liegt wie vorher über der 2./3. Leiste (unverändert).
+
+### 9.7 Prüfung (Ergebnis 12.11. abends)
+
+- Plan-Abgleich 9.2 E1–E10 umgesetzt (E9: AGB 11.3, Tabelle 3.1, Anlage 3, README B1/24, Preisseite, `billing.py`-Hinweis).
+- `python3 -m unittest discover -s tools/livemap-web/tests -t tools/livemap-web/tests`: **43 grün** (Python 3.12 und 3.13).
+- `javac` aller Klassen von simplelivemap gegen 26.3: nur der bekannte SimpleLib-AW-Fehler (`LibMaterials` StairBlock).
+- precheck --fast grün, 60 × `check_data.py` grün, `check_dup_impl` 0, `check_tooltip_text` OK, `check_missing_textures` 0 Fehler,
+  `layers.py check` 0; `wiki/generate.py --module simplelivemap` neu; `--all --check` nur mit den Abweichungen aus Bündel 188
+  (simpleblocks/simpleoctets/modules.js/simplebuilding.json/textures.js – nicht von diesem Branch).
+- Playwright gegen `tests/harness.py` (lokal, danach beendet): 3 Stile × 2 Zoomstufen + Blockkanten + Fenster (Desktop/Handy) +
+  Preisseite DE/EN/Handy: 0 JS-Fehler, 0 px Querüberlauf; Stil übersteht Neuladen; Streichpreis nur im Jahresmodus sichtbar.
+- Kontrast: Fenstertext 11,5 · gedämpft 6,9 · Spielername auf Pergament 11,8 · Windrose „N“ 6,4 (Rand: Lichthof 12,6) · alter Preis
+  7,1 · Jahrespreis 12,4 · Hinweis 9,9.
+- **Nicht getestet:** Gametests (sb-test nicht erreichbar → `/root/sb-tools-a/a-livemap34c-sbt.cmd`), echter Mod-Lauf mit echten
+  Welten (Speicherbedarf der Höhenebene in echten Welten), Darstellung in Firefox/Safari (nur Chromium).

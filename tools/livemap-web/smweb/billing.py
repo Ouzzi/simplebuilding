@@ -4,6 +4,11 @@ checkout and the customer portal answer "coming soon" while ``enabled`` is false
 
 Switching on (owner, after legal texts + Stripe account): fill the real price ids and keys in the server config's
 billing file (outside the repo), set ``enabled: true``, restart. The HTTP calls to Stripe use the standard library only.
+
+Yearly plan (owner 12.11.2026, LIVEMAP34b Q1 = A, AGB draft 11.3): 12 months paid in advance, then it runs on MONTHLY at the
+monthly price, cancellable to the end of every paid month. With Stripe that is a subscription schedule (phase 1: the "year"
+price for one iteration, phase 2: the "month" price, ``end_behavior: release``) - not a plain yearly subscription that renews
+for another year. To build with the payment start (TODO a-livemap34c in the hand-over).
 """
 from __future__ import annotations
 

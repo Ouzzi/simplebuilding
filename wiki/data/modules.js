@@ -694,7 +694,7 @@ window.WIKI_MODULES = [
       "config": 17,
       "features": 9
     },
-    "dataHash": "2c0adb27a685"
+    "dataHash": "6faba3cc39e9"
   },
   {
     "id": "simpletrims",

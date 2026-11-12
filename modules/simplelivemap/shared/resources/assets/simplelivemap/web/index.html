@@ -24,6 +24,8 @@
   #panel label { display: flex; gap: 8px; align-items: center; padding: 3px 0; }
   #panel h2 { font-size: 15px; margin: 0 0 6px; }
   #panel p { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+  #panel fieldset { border: 0; border-bottom: 1px solid var(--line); margin: 0 0 6px; padding: 0 0 6px; }
+  #panel legend { padding: 0; font-weight: 600; }
   @media (max-width: 600px) { .bar { gap: 6px; } .box { padding: 4px 6px; } button, select { padding: 6px 9px; } }
 </style>
 </head>
@@ -39,6 +41,11 @@
 </div>
 <div id="panel" class="box" role="dialog" aria-label="View settings">
   <h2>View settings</h2>
+  <fieldset id="styles"><legend>Map style</legend>
+    <label><input type="radio" name="style" value="blocks"> Blocks</label>
+    <label><input type="radio" name="style" value="shaded"> Shaded relief</label>
+    <label><input type="radio" name="style" value="paper"> Cartographer (paper map)</label>
+  </fieldset>
   <label><input type="checkbox" id="o-players" checked> Show players</label>
   <label><input type="checkbox" id="o-coords" checked> Show coordinates</label>
   <label><input type="checkbox" id="o-grid"> Region grid (512 blocks)</label>
@@ -53,77 +60,269 @@
 // The same page serves the built-in server of the mod (self-host) and livemap.simplemods.de (N34): relative paths only.
 // A private map needs its key: the link carries it in the fragment (#t=...), which the browser never sends to a server;
 // it goes out only as an Authorization header. Names are drawn on the canvas (no HTML from the server is ever shown).
+// Map styles (N34c, chosen in the view settings, kept in this browser): "blocks" (default) = the tile pictures with block edges
+// when zoomed in; "shaded" = hillshade and water depth from the height layer <dim>.h (red/green = y + 32768, blue = Vanilla
+// brightness * 64 + fluid depth); "paper" = a cartographer's paper map with contour lines. Without a height tile the styles
+// fall back to the colours alone.
 const canvas = document.getElementById("map"), ctx = canvas.getContext("2d");
 const dimSel = document.getElementById("dim"), info = document.getElementById("info"), msg = document.getElementById("msg");
 const playersBox = document.getElementById("players"), pcount = document.getElementById("pcount"), followSel = document.getElementById("follow");
 const panel = document.getElementById("panel"), gear = document.getElementById("gear");
 // View settings (this browser only; never sent anywhere). Storage can be missing (private windows): defaults then.
-const OPTS = { players: true, coords: true, grid: false, keep: true };
+const STYLES = ["blocks", "shaded", "paper"];
+const OPTS = { players: true, coords: true, grid: false, keep: true, style: "blocks" };
 const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
 try { Object.assign(OPTS, JSON.parse(store.get("slm-opts") || "{}")); } catch (e) {}
+if (!STYLES.includes(OPTS.style)) OPTS.style = "blocks";
 const VIEW_KEY = "slm-view:" + location.pathname;
 const token = new URLSearchParams(location.hash.slice(1)).get("t") || "";
 const headers = token ? { Authorization: "Bearer " + token } : {};
-const TILE = 128, MAX_Z = 4, CACHE = 400;
+const TILE = 128, N = TILE * TILE, MAX_Z = 4, CACHE = 500, NO = -32768, RENDERS_PER_FRAME = 12;
+const BG = { blocks: "#0f1418", shaded: "#0f1418", paper: "#d4c29a" };
 let view = { x: 0, z: 0, s: 1 };            // centre in blocks, s = screen pixels per block
 let dims = [], players = [], folder = "minecraft_overworld";
-const tiles = new Map();                      // key -> { img, t } (img null = empty or failed)
-let pending = 0, dirty = true, denied = false, following = "", pollMs = 2000, pollTimer = 0;
+// key -> { img (colour bitmap), hd (heights {y, b} of a ".h" tile), px (colour bytes), r/rs (styled picture + its inputs),
+// t (last use), at (last load), loading, v (finished loads) }; img/hd null = empty or failed.
+const tiles = new Map();
+let pending = 0, dirty = true, denied = false, following = "", pollMs = 2000, pollTimer = 0, budget = 0;
 try { const v = OPTS.keep && JSON.parse(store.get(VIEW_KEY) || "null"); if (v && isFinite(v.x) && isFinite(v.z) && v.s > 0) { view = { x: v.x, z: v.z, s: v.s }; if (v.f) folder = v.f; } } catch (e) {}
 
+let layer = null, lctx = null;                // off-screen copy for the block edges (only drawn where tiles are)
 function resize() {
   const r = Math.min(window.devicePixelRatio || 1, 2);
   canvas.width = Math.round(innerWidth * r); canvas.height = Math.round(innerHeight * r);
-  ctx.setTransform(r, 0, 0, r, 0, 0); dirty = true;
+  ctx.setTransform(r, 0, 0, r, 0, 0);
+  if (layer) { layer.width = canvas.width; layer.height = canvas.height; lctx.setTransform(r, 0, 0, r, 0, 0); }
+  dirty = true;
 }
 function level() { return Math.max(0, Math.min(MAX_Z, Math.round(MAX_Z + Math.log2(view.s)))); }
 
-function tile(z, x, y) {
-  const key = folder + "/" + z + "/" + x + "/" + y, now = performance.now();
+// ------------------------------------------------------------------ tiles (colour pictures and the height layer)
+function entry(key) {
+  const now = performance.now();
   let t = tiles.get(key);
   if (t) {
     t.t = now;
     if (!t.loading && now - t.at > 30000 && pending < 8) load(key, t);   // tiles change while players explore
-    return t.img;
+    return t;
   }
   if (pending >= 8) return null;
-  t = { img: null, t: now, at: now, loading: false };
+  t = { img: null, hd: null, px: null, r: null, rs: "", t: now, at: now, loading: false, v: 0 };
   tiles.set(key, t);
   load(key, t);
   if (tiles.size > CACHE) {
     const old = [...tiles.entries()].sort((a, b) => a[1].t - b[1].t).slice(0, tiles.size - CACHE);
     for (const [k, v] of old) { if (v.img && v.img.close) v.img.close(); tiles.delete(k); }
   }
-  return null;
+  return t;
 }
 
 function load(key, t) {
+  const height = key.includes(".h/");          // a dimension folder never ends with ".h" (TileStore.folder)
   t.loading = true; t.at = performance.now(); pending++;
   fetch("tiles/" + key + ".png", { headers, cache: "no-cache" }).then(r => {
     if (r.status === 401) { denied = true; throw 0; }
     return r.status === 200 ? r.blob() : null;
-  }).then(b => b ? createImageBitmap(b) : null).then(img => {
-    if (t.img && t.img.close && t.img !== img) t.img.close();
-    t.img = img;
+  }).then(b => b ? createImageBitmap(b, height ? { premultiplyAlpha: "none", colorSpaceConversion: "none" } : {}) : null).then(img => {
+    if (height) {
+      t.hd = img ? heights(img) : null;
+      if (img && img.close) img.close();
+    } else {
+      if (t.img && t.img.close && t.img !== img) t.img.close();
+      t.img = img; t.px = null;
+    }
+    t.v++;
   }).catch(() => {}).finally(() => { t.loading = false; pending--; dirty = true; });
 }
 
+const scratch = document.createElement("canvas"); scratch.width = scratch.height = TILE;
+const sctx = scratch.getContext("2d", { willReadFrequently: true });
+const outImg = sctx.createImageData(TILE, TILE);
+function bytes(img) { sctx.clearRect(0, 0, TILE, TILE); sctx.drawImage(img, 0, 0); return sctx.getImageData(0, 0, TILE, TILE).data; }
+function heights(img) {
+  const d = bytes(img), y = new Int16Array(N), b = new Uint8Array(N);
+  for (let i = 0, p = 0; i < N; i++, p += 4) {
+    if (d[p + 3]) { y[i] = ((d[p] << 8) | d[p + 1]) - 32768; b[i] = d[p + 2]; } else y[i] = NO;
+  }
+  return { y, b };
+}
+
+// ------------------------------------------------------------------ styles "shaded" and "paper": one 128 x 128 picture per tile
+const MOD = [180, 220, 255, 135];             // Vanilla map brightness LOW, NORMAL, HIGH, LOWEST (of 255)
+const DEEP = Array.from({ length: 64 }, (_, d) => 1 - Math.exp(-d / 7));
+const P = TILE + 2, padY = new Int16Array(P * P), padB = new Uint8Array(P * P);
+const PAPER = [238, 226, 196], WATER_INK = [112, 150, 160], SHORE_INK = [52, 76, 86], CONTOUR = [104, 72, 42];
+
+/** Own heights in the middle, one row/column of each loaded neighbour around them (NO where unknown): shading without seams. */
+function pad(h, n, s, e, w) {
+  padY.fill(NO); padB.fill(0);
+  if (h) for (let y = 0; y < TILE; y++) { padY.set(h.y.subarray(y * TILE, y * TILE + TILE), (y + 1) * P + 1); padB.set(h.b.subarray(y * TILE, y * TILE + TILE), (y + 1) * P + 1); }
+  if (n) { padY.set(n.y.subarray(N - TILE), 1); padB.set(n.b.subarray(N - TILE), 1); }
+  if (s) { padY.set(s.y.subarray(0, TILE), (P - 1) * P + 1); padB.set(s.b.subarray(0, TILE), (P - 1) * P + 1); }
+  for (let y = 0; y < TILE; y++) {
+    if (w) { padY[(y + 1) * P] = w.y[y * TILE + TILE - 1]; padB[(y + 1) * P] = w.b[y * TILE + TILE - 1]; }
+    if (e) { padY[(y + 1) * P + P - 1] = e.y[y * TILE]; padB[(y + 1) * P + P - 1] = e.b[y * TILE]; }
+  }
+}
+
+function styled(t, z, tx, ty, style) {
+  const hk = folder + ".h/" + z + "/";
+  const H = entry(hk + tx + "/" + ty);
+  if (!H || (H.loading && !H.v)) return null;                   // wait for the own height tile once
+  const nb = [hk + tx + "/" + (ty - 1), hk + tx + "/" + (ty + 1), hk + (tx + 1) + "/" + ty, hk + (tx - 1) + "/" + ty].map(k => tiles.get(k));
+  const sig = style + "|" + t.v + "|" + H.v + nb.map(e => "|" + (e ? e.v : -1)).join("");
+  if (t.r && t.rs === sig) return t.r;
+  if (budget <= 0) { dirty = true; return t.r && t.rs.startsWith(style + "|") ? t.r : null; }
+  budget--;
+  pad(H.hd, ...nb.map(e => e && e.hd));
+  paint(t.px || (t.px = bytes(t.img)), z, style);
+  if (!t.r) { t.r = document.createElement("canvas"); t.r.width = t.r.height = TILE; }
+  t.r.getContext("2d").putImageData(outImg, 0, 0);
+  t.rs = sig;
+  return t.r;
+}
+
+function paint(c, z, style) {
+  const o = outImg.data, step = 1 << (MAX_Z - z), paper = style === "paper";
+  const ex = paper ? 0.9 : 1.1, minor = 8 * (z >= 3 ? 1 : z === 2 ? 2 : 4), major = minor * 4;
+  for (let y = 0; y < TILE; y++) for (let x = 0; x < TILE; x++) {
+    const p = (y * TILE + x) * 4, q = (y + 1) * P + x + 1;
+    if (!c[p + 3]) { o[p + 3] = 0; continue; }
+    let r = c[p], g = c[p + 1], b = c[p + 2];
+    const h = padY[q], bb = padB[q], depth = h === NO ? 0 : bb & 63;
+    let shade = 1, lo = h;
+    if (h !== NO) {
+      const k = 220 / MOD[bb >> 6];                              // take the Vanilla relief back out of the colour
+      r = Math.min(255, r * k); g = Math.min(255, g * k); b = Math.min(255, b * k);
+      const hw = padY[q - 1], he = padY[q + 1], hn = padY[q - P], hs = padY[q + P];
+      const w = hw === NO ? h : hw, e = he === NO ? h : he, n = hn === NO ? h : hn, s = hs === NO ? h : hs;
+      const nx = -(e - w) / (2 * step) * ex, nz = -(s - n) / (2 * step) * ex;   // light from the north-west, 45 degrees up
+      shade = Math.max(0, (-0.5 * nx - 0.5 * nz + 0.7071) / Math.sqrt(nx * nx + nz * nz + 1)) / 0.7071;
+      lo = Math.min(w, e, n, s);
+    }
+    if (!paper) {
+      const f = depth ? 1.12 - 0.62 * DEEP[depth]
+        : h === NO ? 1 : (0.4 + 0.6 * shade) * (1 + 0.1 * Math.max(-0.5, Math.min(1, (h - 64) / 128)));
+      o[p] = Math.min(255, r * f); o[p + 1] = Math.min(255, g * f); o[p + 2] = Math.min(255, b * f); o[p + 3] = 255;
+      continue;
+    }
+    if (depth && b > r + 30 && b > g) {                          // water: blue-grey wash, darker when deep, inked shore
+      const m = 0.32 + 0.33 * DEEP[depth];
+      let cr = PAPER[0] + (WATER_INK[0] - PAPER[0]) * m, cg = PAPER[1] + (WATER_INK[1] - PAPER[1]) * m, cb = PAPER[2] + (WATER_INK[2] - PAPER[2]) * m;
+      let shore = false;
+      for (const d of [-1, 1, -P, P]) if (padY[q + d] !== NO && (padB[q + d] & 63) === 0) shore = true;
+      if (shore) { cr += (SHORE_INK[0] - cr) * 0.8; cg += (SHORE_INK[1] - cg) * 0.8; cb += (SHORE_INK[2] - cb) * 0.8; }
+      o[p] = cr; o[p + 1] = cg; o[p + 2] = cb; o[p + 3] = 255;
+      continue;
+    }
+    // land: the block colour as a sepia ink wash on the paper, soft relief, contour lines on the upper side of each step
+    const l = 0.3 * r + 0.59 * g + 0.11 * b;
+    const ir = r + (l * 1.06 + 18 - r) * 0.62, ig = g + (l * 0.94 + 8 - g) * 0.62, ib = b + (l * 0.72 - b) * 0.62;
+    const f = 0.86 + 0.14 * Math.min(1.4, shade);
+    let cr = PAPER[0] * (0.4 + 0.6 * ir / 255) * f, cg = PAPER[1] * (0.4 + 0.6 * ig / 255) * f, cb = PAPER[2] * (0.4 + 0.6 * ib / 255) * f;
+    // no contour lines on tree tops (Vanilla map colour "plant" of leaves): they follow the canopy, not the ground
+    const leaves = r < 24 && b < 24 && g > 80 && g < 135;
+    if (h !== NO && !leaves && Math.floor(h / minor) > Math.floor(lo / minor)) {
+      const a = Math.floor(h / major) > Math.floor(lo / major) ? 0.78 : 0.42;
+      cr += (CONTOUR[0] - cr) * a; cg += (CONTOUR[1] - cg) * a; cb += (CONTOUR[2] - cb) * a;
+    }
+    o[p] = Math.min(255, cr); o[p + 1] = Math.min(255, cg); o[p + 2] = Math.min(255, cb); o[p + 3] = 255;
+  }
+}
+
+// ------------------------------------------------------------------ own small textures (no game pixels)
+function noiseCanvas(size, seed, fill) {
+  const c = document.createElement("canvas"); c.width = c.height = size;
+  const x = c.getContext("2d"), d = x.createImageData(size, size);
+  for (let i = 0; i < size * size; i++) { seed = (seed * 16807) % 2147483647; fill(d.data, i * 4, seed / 2147483647); }
+  x.putImageData(d, 0, 0);
+  return c;
+}
+// One texel per block: a little lighter or darker, so neighbouring blocks of one colour still read as blocks.
+const blockNoise = noiseCanvas(128, 4711, (d, p, v) => { const c = v < 0.5 ? 0 : 255; d[p] = d[p + 1] = d[p + 2] = c; d[p + 3] = Math.abs(v - 0.5) * 56; });
+const paperGrain = noiseCanvas(128, 99, (d, p, v) => { d[p] = d[p + 1] = d[p + 2] = 226 + v * 29; d[p + 3] = 255; });
+let blockPattern = null;
+const grainPattern = ctx.createPattern(paperGrain, "repeat");
+
+/** Style "blocks", zoomed in: per-block texture from 3 px per block, bevelled block edges from 6 px (only where tiles are). */
+function blockEdges(g, left, top, w, h) {
+  const s = view.s;
+  g.save();
+  g.globalCompositeOperation = "source-atop";
+  g.globalAlpha = Math.min(1, (s - 2) / 4);
+  blockPattern.setTransform(new DOMMatrix([s, 0, 0, s, -left * s, -top * s]));
+  g.fillStyle = blockPattern; g.fillRect(0, 0, w, h);
+  if (s >= 6) {
+    g.globalAlpha = Math.min(1, (s - 5) / 3); g.lineWidth = 1;
+    const x0 = Math.floor(left), x1 = Math.ceil(left + w / s), z0 = Math.floor(top), z1 = Math.ceil(top + h / s);
+    for (const [shift, colour] of [[0.5, "rgba(255,255,255,0.16)"], [-0.5, "rgba(0,0,0,0.26)"]]) {
+      g.beginPath();
+      for (let bx = x0; bx <= x1; bx++) { const sx = Math.round((bx - left) * s) + shift; g.moveTo(sx, 0); g.lineTo(sx, h); }
+      for (let bz = z0; bz <= z1; bz++) { const sz = Math.round((bz - top) * s) + shift; g.moveTo(0, sz); g.lineTo(w, sz); }
+      g.strokeStyle = colour; g.stroke();
+    }
+  }
+  g.restore();
+}
+
+/** Style "paper": paper grain, darker edges and a compass rose (north = up = -z). */
+function paperFinish(w, h) {
+  ctx.save();
+  ctx.globalCompositeOperation = "multiply";
+  ctx.fillStyle = grainPattern; ctx.fillRect(0, 0, w, h);
+  const v = ctx.createRadialGradient(w / 2, h / 2, Math.min(w, h) * 0.3, w / 2, h / 2, Math.hypot(w, h) / 2);
+  v.addColorStop(0, "rgba(140,104,60,0)"); v.addColorStop(1, "rgba(140,104,60,0.38)");
+  ctx.fillStyle = v; ctx.fillRect(0, 0, w, h);
+  ctx.restore();
+}
+function compass(w, h) {
+  const r = w < 600 ? 24 : 34, ink = "#2a1f14", light = "#efe3c4";
+  ctx.save();
+  ctx.translate(w - r - 20, h - r - 22);
+  ctx.lineWidth = 1.2; ctx.strokeStyle = ink; ctx.fillStyle = "rgba(239,227,196,0.8)";
+  ctx.beginPath(); ctx.arc(0, 0, r * 0.62, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  for (const k of [1, 3, 5, 7, 0, 2, 4, 6]) {
+    const len = k % 2 ? r * 0.58 : r, wd = k % 2 ? r * 0.12 : r * 0.19;
+    ctx.save(); ctx.rotate(k * Math.PI / 4);
+    ctx.beginPath(); ctx.moveTo(0, -len); ctx.lineTo(wd, 0); ctx.lineTo(0, 0); ctx.closePath(); ctx.fillStyle = ink; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(0, -len); ctx.lineTo(-wd, 0); ctx.lineTo(0, 0); ctx.closePath(); ctx.fillStyle = light; ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
+  ctx.font = "bold " + Math.round(r * 0.46) + "px Georgia, serif"; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+  ctx.lineWidth = 3; ctx.strokeStyle = light; ctx.strokeText("N", 0, -r - 1);   // light halo: readable on the darker paper edge
+  ctx.fillStyle = ink; ctx.fillText("N", 0, -r - 1);
+  ctx.restore();
+}
+
+// ------------------------------------------------------------------ drawing
 function draw() {
   requestAnimationFrame(draw);
   if (!dirty) return;
-  dirty = false;
-  const w = innerWidth, h = innerHeight, z = level(), span = TILE * (1 << (MAX_Z - z));
-  ctx.fillStyle = "#0f1418"; ctx.fillRect(0, 0, w, h);
-  ctx.imageSmoothingEnabled = false;
+  dirty = false; budget = RENDERS_PER_FRAME;
+  const style = OPTS.style, w = innerWidth, h = innerHeight, z = level(), span = TILE * (1 << (MAX_Z - z));
+  ctx.fillStyle = BG[style]; ctx.fillRect(0, 0, w, h);
+  const edges = style === "blocks" && view.s >= 3;
+  if (edges && !layer) {
+    layer = document.createElement("canvas"); lctx = layer.getContext("2d");
+    blockPattern = lctx.createPattern(blockNoise, "repeat"); resize();
+  }
+  const g = edges ? lctx : ctx;
+  if (edges) g.clearRect(0, 0, w, h);
+  g.imageSmoothingEnabled = false; ctx.imageSmoothingEnabled = false;
   const left = view.x - w / 2 / view.s, top = view.z - h / 2 / view.s;
   const tx0 = Math.floor(left / span), tz0 = Math.floor(top / span);
   const tx1 = Math.floor((left + w / view.s) / span), tz1 = Math.floor((top + h / view.s) / span);
   for (let ty = tz0; ty <= tz1; ty++) for (let tx = tx0; tx <= tx1; tx++) {
-    const img = tile(z, tx, ty);
-    if (img) ctx.drawImage(img, (tx * span - left) * view.s, (ty * span - top) * view.s, span * view.s, span * view.s);
+    const t = entry(folder + "/" + z + "/" + tx + "/" + ty);
+    if (!t || !t.img) continue;
+    let src = t.img;
+    if (style !== "blocks") src = styled(t, z, tx, ty, style) || (style === "shaded" ? t.img : null);
+    if (src) g.drawImage(src, (tx * span - left) * view.s, (ty * span - top) * view.s, span * view.s, span * view.s);
   }
+  if (edges) { blockEdges(g, left, top, w, h); ctx.drawImage(layer, 0, 0, w, h); }
+  if (style === "paper") paperFinish(w, h);
   if (OPTS.grid) {
-    ctx.strokeStyle = "rgba(255,255,255,0.18)"; ctx.lineWidth = 1; ctx.beginPath();
+    ctx.strokeStyle = style === "paper" ? "rgba(74,56,38,0.4)" : "rgba(255,255,255,0.18)"; ctx.lineWidth = 1; ctx.beginPath();
     for (let gx = Math.floor(left / 512) * 512; gx < left + w / view.s; gx += 512) { const sx = Math.round((gx - left) * view.s) + 0.5; ctx.moveTo(sx, 0); ctx.lineTo(sx, h); }
     for (let gz = Math.floor(top / 512) * 512; gz < top + h / view.s; gz += 512) { const sz = Math.round((gz - top) * view.s) + 0.5; ctx.moveTo(0, sz); ctx.lineTo(w, sz); }
     ctx.stroke();
@@ -139,6 +338,7 @@ function draw() {
     ctx.fillStyle = "rgba(16,22,28,0.85)"; ctx.fillRect(px + 9, pz - 9, tw + 8, 18);
     ctx.fillStyle = "#eef2f4"; ctx.fillText(label, px + 13, pz);
   }
+  if (style === "paper") compass(w, h);
   if (denied) show("This map is private. Open it with the link from /simplelivemap link.");
 }
 
@@ -230,6 +430,10 @@ for (const [id, key] of [["o-players", "players"], ["o-coords", "coords"], ["o-g
   const box = document.getElementById(id);
   box.checked = !!OPTS[key];
   box.onchange = () => { OPTS[key] = box.checked; store.set("slm-opts", JSON.stringify(OPTS)); info.hidden = !OPTS.coords; playersBox.hidden = !OPTS.players || players.length === 0; dirty = true; };
+}
+for (const radio of document.querySelectorAll('#styles input[name="style"]')) {
+  radio.checked = radio.value === OPTS.style;
+  radio.onchange = () => { if (radio.checked) { OPTS.style = radio.value; store.set("slm-opts", JSON.stringify(OPTS)); dirty = true; } };
 }
 info.hidden = !OPTS.coords;
 setInterval(() => { if (OPTS.keep) store.set(VIEW_KEY, JSON.stringify({ x: Math.round(view.x), z: Math.round(view.z), s: view.s, f: folder })); }, 3000);
