@@ -157,11 +157,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABoUlEQVR42r2TS0sbURiG/V2CgjQBtaUxxFEhtQS7ELWWpG4CophfoFatmlSdgAUxCyt00ZBKQUSCF7zhQry1CUWN8TImxpnODI8ns3e0iC5evsN3Pp7znpdzSuKJOR6jkicBtL59g8/twVvtsvSuxm3VewHFofWpTo4Xo3g/uzBNzVLHpGT11r52ERkO3w0onnqa7EFN/eCV7KB+vpT2ZA37qRhqOs7FZpTJ0cG7AaEWL6Z+jKn+FVWhOdaAS35BINYkeinMm12+jEbsHRhnK6BfEpQ/IEWq6E2E2D/dAO0E/eQX8ti4fQa/EyMWJDAngalgahn2MutincO4WrV3UAQUdnppCzfyWlhvm/axuBenccJD93QQXdftQ+xwV2BcH4ornPMy6iCV3UJe/kTfQgizILLRzxgYHLLPQMunhQ7oX+oS9s9R81kBWkK9yWLkth8Qohgq5I7w/6zD0BT06yP+ZDYtwD9lyx4QHhoh+L6Wb2N+8tkdtEvhRkmzlhzgu/zR2puZmb3/KTfVS5SXlSE5q6l1OvBUOvFJnmf8TP+jW3RFGn0zsn8bAAAAAElFTkSuQmCC",
     "counts": {
       "items": 8,
-      "recipes": 8,
-      "config": 10,
+      "recipes": 7,
+      "config": 11,
       "features": 80
     },
-    "dataHash": "a9f0744816e3"
+    "dataHash": "000436829e46"
   },
   {
     "id": "simpleriding",
@@ -203,7 +203,7 @@ window.WIKI_MODULES = [
       "config": 25,
       "features": 36
     },
-    "dataHash": "a29bc709aae2"
+    "dataHash": "36fe0d17086d"
   },
   {
     "id": "simplemodels",
@@ -284,7 +284,7 @@ window.WIKI_MODULES = [
       "config": 30,
       "features": 58
     },
-    "dataHash": "813c38422b8b"
+    "dataHash": "7400d6b85566"
   },
   {
     "id": "simplevisuals",
@@ -471,10 +471,10 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 1,
       "recipes": 2,
-      "config": 8,
+      "config": 16,
       "features": 42
     },
-    "dataHash": "9244107e5ae7"
+    "dataHash": "1658ec26afc3"
   },
   {
     "id": "simpledimensions",
@@ -488,7 +488,8 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "cloth_config"
+      "cloth_config",
+      "simplelib"
     ],
     "optional": [
       "simplebuilding",
@@ -555,7 +556,7 @@ window.WIKI_MODULES = [
       "recipes": 16,
       "features": 7
     },
-    "dataHash": "f6cc03ade772"
+    "dataHash": "395a3f930a70"
   },
   {
     "id": "simplelib",
@@ -670,10 +671,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 5,
       "recipes": 6,
-      "config": 25,
+      "config": 26,
       "features": 10
     },
-    "dataHash": "1ac8d3d7b605"
+    "dataHash": "c9d631db9d05"
   },
   {
     "id": "simplelivemap",
@@ -737,7 +738,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 7
     },
-    "dataHash": "e2142be0208e"
+    "dataHash": "2d7b2e8204aa"
   },
   {
     "id": "simplemobs",
@@ -1118,7 +1119,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simpleenddragonfight"
     ],
@@ -1160,7 +1163,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [],
     "stage": "new",
     "parent": "simplebuilding",
@@ -1187,7 +1192,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplebeacons",
     "displayName": "Simple Beacons",
-    "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.",
+    "description": "Strong Beacon (5 pyramid levels, new powers, range by pyramid material, Vanilla-style screen), Mighty and Evil beacons, Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and its Mighty/Evil kinds, upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1349,10 +1354,10 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 5,
       "recipes": 5,
-      "config": 9,
+      "config": 10,
       "features": 13
     },
-    "dataHash": "4137910c5c38"
+    "dataHash": "2ddc2b8565bf"
   },
   {
     "id": "simplewanderers",
@@ -1859,7 +1864,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleearth",
     "displayName": "Simple Earth",
-    "description": "The Overworld seen from orbit: above a very high activation height the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colours sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
+    "description": "The Overworld seen from orbit: from the render height (default 1536) the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colors sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below it everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1925,7 +1930,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simplebuilding",
       "simplemoney",
@@ -1961,7 +1968,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simplebuilding",
       "simplemoney",
@@ -2297,7 +2306,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplelayers",
     "displayName": "Simple Layers",
-    "description": "World layers: the Cloud Sea sky dimension above y 700 and the Backrooms below the bedrock, with cloud blocks, wallpaper, carpet and neon lights.",
+    "description": "World layers: the Cloud Sea sky dimension above y 700 and the Backrooms, their own dimension of ten stacked levels (entered through an abandoned house's cellar or a rift in glitched bedrock), with cloud blocks, wallpaper, carpet and neon lights.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [

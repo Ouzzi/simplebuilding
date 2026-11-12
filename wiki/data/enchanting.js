@@ -497,14 +497,14 @@ window.WIKI_ENCHANTING = {
   },
   {
    "id": "minecraft:knockback",
-   "module": "simplefun",
-   "family": true,
+   "module": "minecraft",
+   "family": false,
    "name": {
     "en": "Knockback",
     "de": "Rückstoß"
    },
    "desc": null,
-   "maxLevel": 5,
+   "maxLevel": 2,
    "weight": 5,
    "minCost": {
     "base": 5,
@@ -1945,7 +1945,6 @@ window.WIKI_ENCHANTING = {
    ],
    "family": [
     [
-     "minecraft:knockback",
      "simplefun:no_damage",
      "simplequalityoflife:thrift",
      "simpletools:soulbound"
@@ -2046,7 +2045,6 @@ window.WIKI_ENCHANTING = {
    "assumed": false,
    "icon": null,
    "table": [
-    "minecraft:knockback",
     "minecraft:unbreaking",
     "minecraft:power",
     "minecraft:punch",
@@ -2056,7 +2054,6 @@ window.WIKI_ENCHANTING = {
    ],
    "family": [
     [
-     "minecraft:knockback",
      "simplefun:no_damage",
      "simplequalityoflife:thrift",
      "simpletools:soulbound"

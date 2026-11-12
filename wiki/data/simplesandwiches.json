@@ -24,7 +24,7 @@
         "title": "Sandwiches",
         "summary": "One bread plus up to five ingredients, with optional butter first; matching components stack to 16.",
         "details": [
-          "Hunger and saturation (formula IG31-28): bread (5 / 6.0) and every ingredient are ranked by value, highest first. The highest counts in full; each further one adds a falling share of its own value (10%, 5%, 2.5% ...), so the total stays below the sum of the single foods. Hunger is rounded to whole points, saturation to half points and is at most 1.2 x hunger. Vanilla limits restoration when eating. Ingredients use their item's default components, not custom stack components.",
+          "Hunger and saturation (formula IG31-28): bread (5 / 6.0) and every ingredient are ranked by value, highest first. The highest counts in full; each further one adds a falling share of its own value (10%, 5%, 2.5% ...), so the total stays below the sum of the single foods. A sandwich therefore restores less than the same foods eaten one by one; its use is the merged effects of all ingredients in one meal, the room (up to five ingredients and the bread in one item, 16 sandwiches per stack) and the butter bonus. Hunger is rounded to whole points, saturation to half points and is at most 1.2 x hunger. Vanilla limits restoration when eating. Ingredients use their item's default components, not custom stack components.",
           "Butter adds 10% to hunger (rounded), saturation and effect durations by default. Server bounds: butterBonus 0–0.25; maxIngredients 1–5 (default 5). Eating takes 1.6 seconds plus 0.2 seconds per ingredient.",
           "Matching effects merge: maximum strength, longest duration (not added), chance 1 - product(1 - chance). After butter, the duration is capped at 12,000 ticks by default. Server bounds: effectDurationCapTicks 20–12,000 and effectDurationMultiplierCap 1–3 (default 2). Instant effects last one tick. Removal effects are kept once; teleport and sound consumption effects are not copied.",
           "Ingredients need the sandwich_ingredients tag and FOOD without USE_REMAINDER; bread and sandwiches are excluded. Cheese and cake slices are included; SimpleBuilding's netherite and enderite apples and carrots are optional. Ingredient order affects stacking. Highest rarity, glint override, longest cooldown and the ability to eat when full are inherited from ingredients. With SimpleLib, sandwiches are warmable food (tag simplelib:warmable_food): a heated crucible warms them like other warm food."
@@ -34,7 +34,7 @@
         "title": "Sandwiches",
         "summary": "Ein Brot plus bis zu fünf Zutaten, optional zuerst Butter; bei gleichen Komponenten bis 16 stapelbar.",
         "details": [
-          "Hunger und Sättigung (Formel IG31-28): Brot (5 / 6,0) und jede Zutat werden nach Wert absteigend gereiht. Der höchste Wert zählt voll; jeder weitere bringt einen fallenden Anteil seines eigenen Werts (10 %, 5 %, 2,5 % ...), die Summe bleibt damit unter der Summe der einzelnen Speisen. Hunger wird auf ganze Punkte, Sättigung auf halbe Punkte gerundet und ist höchstens 1,2 x Hunger. Vanilla begrenzt die Wiederherstellung beim Essen. Zutaten verwenden ihre Standard-Itemkomponenten, keine angepassten Stapelkomponenten.",
+          "Hunger und Sättigung (Formel IG31-28): Brot (5 / 6,0) und jede Zutat werden nach Wert absteigend gereiht. Der höchste Wert zählt voll; jeder weitere bringt einen fallenden Anteil seines eigenen Werts (10 %, 5 %, 2,5 % ...), die Summe bleibt damit unter der Summe der einzelnen Speisen. Ein Sandwich sättigt daher weniger als dieselben Speisen einzeln gegessen; sein Nutzen sind die zusammengeführten Effekte aller Zutaten in einer Mahlzeit, der Platz (bis zu fünf Zutaten und das Brot in einem Item, 16 Sandwiches je Stapel) und der Butter-Bonus. Hunger wird auf ganze Punkte, Sättigung auf halbe Punkte gerundet und ist höchstens 1,2 x Hunger. Vanilla begrenzt die Wiederherstellung beim Essen. Zutaten verwenden ihre Standard-Itemkomponenten, keine angepassten Stapelkomponenten.",
           "Butter erhöht standardmäßig Hunger (gerundet), Sättigung und Effektdauern um 10 %. Servergrenzen: butterBonus 0–0,25; maxIngredients 1–5 (Standard 5). Esszeit: 1,6 Sekunden plus 0,2 Sekunden je Zutat.",
           "Gleiche Effekte werden zusammengeführt: höchste Stärke, längste Dauer (nicht addiert), Chance 1 - Produkt(1 - Chance). Nach Butter gilt standardmäßig die Dauergrenze 12.000 Ticks. Servergrenzen: effectDurationCapTicks 20–12.000 und effectDurationMultiplierCap 1–3 (Standard 2). Soforteffekte dauern einen Tick. Effektentfernungen bleiben einmal erhalten; Teleport- und Sound-Konsumeffekte werden nicht übernommen.",
           "Zutaten benötigen den Tag sandwich_ingredients und FOOD ohne USE_REMAINDER; Brot und Sandwiches sind ausgeschlossen. Käse- und Kuchenstücke sind enthalten; SimpleBuildings Netherit- und Enderit-Äpfel und -Karotten sind optional. Die Zutatenreihenfolge beeinflusst das Stapeln. Höchste Seltenheit, Glitzervorgabe, längste Benutzungssperre und Essbarkeit bei vollem Hunger werden von Zutaten übernommen. Mit SimpleLib sind Sandwiches aufwärmbares Essen (Tag simplelib:warmable_food): ein beheizter Tiegel wärmt sie wie anderes warmes Essen auf."
@@ -132,18 +132,18 @@
       "id": "eating_from_bundles",
       "en": {
         "title": "Eating from bundles",
-        "summary": "Hold use to eat the selected food in a bundle, or its first item when none is selected.",
+        "summary": "Sneak and hold use to eat the selected food in a bundle, or its first item when none is selected; a normal right-click stays Vanilla.",
         "details": [
-          "The server setting bundleEating defaults to true. The top item needs FOOD and CONSUMABLE without USE_REMAINDER; stews, honey bottles and nested bundles are excluded. Non-food on top keeps Vanilla bundle behavior.",
+          "The server setting bundleEating (default true) is the main switch. The meal starts only on sneak + right-click (hold); a normal right-click keeps the Vanilla bundle and drops the contents, also with food on top. The top item needs FOOD and CONSUMABLE without USE_REMAINDER; stews, honey bottles and nested bundles are excluded. Non-food on top keeps Vanilla bundle behavior.",
           "Eating uses the item's time, animation, sound, particles, hunger and effects. Food that cannot normally be eaten when full remains blocked when full. Instant food is consumed immediately.",
           "Eating removes one item, except in creative mode. The remaining selected stack stays on top."
         ]
       },
       "de": {
         "title": "Aus Bündeln essen",
-        "summary": "Benutzen gedrückt halten, um das ausgewählte Essen im Bündel zu verzehren; ohne Auswahl wird das erste Item verwendet.",
+        "summary": "Schleichen und Benutzen gedrückt halten, um das ausgewählte Essen im Bündel zu verzehren; ohne Auswahl wird das erste Item verwendet; ein normaler Rechtsklick bleibt Vanilla.",
         "details": [
-          "Die Servereinstellung bundleEating ist standardmäßig aktiv. Das oberste Item benötigt FOOD und CONSUMABLE ohne USE_REMAINDER; Eintöpfe, Honigflaschen und verschachtelte Bündel sind ausgeschlossen. Bei Nicht-Essen oben bleibt das Vanilla-Bündelverhalten erhalten.",
+          "Die Servereinstellung bundleEating (Standard aktiv) ist der Hauptschalter. Das Essen beginnt nur mit Schleichen + Rechtsklick (gedrückt halten); ein normaler Rechtsklick bleibt das Vanilla-Bündel und wirft den Inhalt aus, auch mit Essen oben. Das oberste Item benötigt FOOD und CONSUMABLE ohne USE_REMAINDER; Eintöpfe, Honigflaschen und verschachtelte Bündel sind ausgeschlossen. Bei Nicht-Essen oben bleibt das Vanilla-Bündelverhalten erhalten.",
           "Esszeit, Animation, Sound, Partikel, Hunger und Effekte stammen vom Item. Essen, das normalerweise bei vollem Hunger nicht essbar ist, bleibt dann gesperrt. Sofortiges Essen wird unmittelbar verzehrt.",
           "Essen entfernt ein Stück, außer im Kreativmodus. Der Rest des ausgewählten Stapels bleibt oben."
         ]
