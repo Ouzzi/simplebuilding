@@ -56,7 +56,7 @@ for m in mods:
         "## Compatibility", "", "- Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25",
         "- Fabric only for now.", "", "## Part of the Simple family", "", rel, "",
         "## License", "", "All Rights Reserved with source-available code. Contributions need the contributor license agreement (CLA). Earlier SimpleBuilding versions stay CC0.", "",
-        "## Links", "", "- Wiki: <WIKI_URL>", "- Issues: <ISSUES_URL>", "- Source: <SOURCE_URL>", "",
+        "## Links", "", f"- Wiki: https://wiki.simplemods.de/?mod={i}", "- Issues: https://github.com/Ouzzi/simplebuilding/issues", "- Source: https://github.com/Ouzzi/simplebuilding", "",
         "## Categories and tags (suggestion)", "", f"- Modrinth categories: {cats}", f"- Tags: {tags}", "- Environment: client and server", ""]
     (R / "docs/release/pages").mkdir(parents=True, exist_ok=True)
     (R / f"docs/release/pages/{i}.md").write_text("\n".join(l for l in lines if l is not None) + "\n")

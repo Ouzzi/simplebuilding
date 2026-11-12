@@ -25,7 +25,7 @@ Simple Animals adds deer, wild boar, hedgehog, crab and zebra (with the infertil
 
 ## Dependencies
 
-- **Required:** Fabric API (no other mods)
+- **Required:** Fabric API, SimpleLib
 - **Optional:** SimpleBuilding, Simple Money, Simple Mobheads
 
 ## Compatibility
@@ -43,9 +43,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simpleanimals
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

@@ -23,7 +23,7 @@ Simple Music adds sheet music with a text note code (editor with test listening,
 - **Disc Press** - A piston over two iron ingots over three smooth stone.
 - **File check**
 - **Custom Disc** - A pressed disc carries either an uploaded track (hash, title, length, uploader - never audio; amethyst label) or a composition (paper label).
-- **Music Discs** - Six music discs by Simple Music, each found only in one kind of structure, like Vanilla's Pigstep or Otherside.
+- **Music Discs**
 - **Pocket Jukebox** - A bundle for up to 20 discs (Vanilla discs and track discs).
 - **Placed Pocket Jukebox** - Sneak + right click with the pocket jukebox on a block puts it down, front to you.
 
@@ -51,9 +51,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simplemusic
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

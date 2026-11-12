@@ -30,7 +30,7 @@ Adds new wood, plants and two biomes on the outer End islands for players who ex
 
 ## Dependencies
 
-- **Required:** Fabric API (no other mods)
+- **Required:** Fabric API, SimpleLib
 - **Optional:** Simple End Dragon Fight
 
 ## Compatibility
@@ -48,9 +48,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simpleend
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

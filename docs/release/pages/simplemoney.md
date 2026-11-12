@@ -21,11 +21,11 @@ Simple Money adds a currency you can produce, weighted villager trades and money
 - **Refined Banknote Blank** - An uncommon ingredient made by refining a banknote blank.
 - **Raw Bill** - A rare crafting result.
 - **Money Bill** - Currency for the added villager and wandering trader offers.
+- **One price logic** - All 47 own offers follow one rule: one money bill is worth 3 diamonds or 16 emeralds (making a bill costs two diamonds plus gold, iron, resin and blast furnace time).
 - **Trade: armorer/25** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
 - **Trade: armorer/26** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
 - **Trade: armorer/27** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
 - **Trade: armorer/28** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/29** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
 
 ## Vanilla use
 
@@ -33,9 +33,9 @@ Adds a currency, weighted villager trades and treasure loot so survival worlds g
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config
+- **Required:** Fabric API, SimpleLib
 - **Optional:** JEI, Mod Menu, SimpleBuilding, Simple Fun, Simple Models, Simple Quality of Life, Simple Riding, Simple Sandwiches, Simple Sounds, Simple Tweaks, Simple Visuals, Simple Ores
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25
@@ -51,9 +51,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simplemoney
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

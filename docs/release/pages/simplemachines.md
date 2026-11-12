@@ -48,9 +48,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simplemachines
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

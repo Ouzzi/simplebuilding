@@ -20,6 +20,9 @@ Simple Livemap draws a web map from the chunks players visited and the maps they
 - **Private or public**
 - **Open Livemap in chat** - In single player and on a LAN world the host gets one chat line per session with a clickable [Open Livemap].
 - **Own website** - You can show the map on your own website: a reverse proxy (nginx or Caddy) in front of the built-in server, or a static copy of the tiles uploaded to any web space.
+- **One map per installation** - Self-hosting serves exactly one live map per installation and server: one web server, one world.
+- **Hosted map (livemap.simplemods.de)** - Without an own website: make a one-time code on livemap.simplemods.de (valid 15 minutes) and type /simplelivemap connect <code> as game master or single-player owner.
+- **Map viewer**
 
 ## Dependencies
 
@@ -41,9 +44,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simplelivemap
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

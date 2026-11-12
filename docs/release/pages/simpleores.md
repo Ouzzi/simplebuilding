@@ -25,7 +25,7 @@ Simple Ores adds silver ore in the Overworld and the End, two gold-copper-silver
 - **Silver mirror** - A decoration of silver and glass for walls, floors and ceilings.
 - **Stacking plates** - Lead plates and silver sheets stack like snow layers: up to 8 layers in one cell.
 - **Metal bars and grates**
-- **Metal sounds** - Every building metal sounds like itself when placed, mined, hit or walked on - quietly.
+- **Metal doors and trapdoors** - Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has a door and a trapdoor like the copper ones.
 
 ## Dependencies
 
@@ -47,9 +47,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simpleores
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

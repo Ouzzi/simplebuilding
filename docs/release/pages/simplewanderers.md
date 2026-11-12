@@ -27,7 +27,7 @@ Gives every village a wandering trader with a horse; it works with Vanilla alone
 
 ## Dependencies
 
-- **Required:** Fabric API (no other mods)
+- **Required:** Fabric API, SimpleLib
 - **Optional:** SimpleBuilding, Simple Money, Simple Mobheads
 
 ## Compatibility
@@ -45,9 +45,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simplewanderers
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

@@ -50,7 +50,7 @@
 | [Simple Storage](simplestorage.md) | `simplestorage` | Crates, tiered chests, shulker boxes and barrels, chest carts and boats, bundles, quivers and backpacks. | draft |
 | [Simple Music](simplemusic.md) | `simplemusic` | Write sheet music in a text note code, press it onto discs and play uploaded Ogg discs in jukeboxes. | draft |
 | [Simple Lights](simplelights.md) | `simplelights` | Light Panes: flat lamps on any block side in plain, transparent, sixteen colors and redstone variants. | draft |
-| [Simple Gadgets](simplegadgets.md) | `simplegadgets` | Held gadgets, starting with the Gauge: speed dial, altimeter with fall-damage warning and auto-walk. | draft |
+| [Simple Gadgets](simplegadgets.md) | `simplegadgets` | Six held gadgets: Gauge, Transposer, Resonance Rod, Detector, Attractor and an Echo Sounder that jumps back to a lodestone. | draft |
 | [Simple Earth](simpleearth.md) | `simpleearth` | See the Overworld from orbit: above a very high height the world becomes a rounded cube drawn from Vanilla map colors. | draft |
 | [Simple Challenges](simplechallenges.md) | `simplechallenges` | Game modes for a world of your choice, starting with the Unlock mode: priced cells you must free to enter. | draft |
 | [Simple Animals](simpleanimals.md) | `simpleanimals` | Five new animals: deer, wild boar, hedgehog, crab and zebra, with low spawn rates and no block damage. | draft |

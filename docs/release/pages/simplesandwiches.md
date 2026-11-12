@@ -18,7 +18,7 @@ Simple Sandwiches adds a cutting board, a kitchen knife, cheese and butter from 
 - **Cutting board** - Place bread, open with the knife, add toppings, then close and collect with an empty hand.
 - **Knife** - 250 durability, total attack damage 2, attack speed 2.0 and anvil repair with iron nuggets.
 - **Cheese and butter** - Milk in a cauldron ripens into butter after 5 minutes and into cheese after 5 more.
-- **Eating from bundles** - Hold use to eat the selected food in a bundle, or its first item when none is selected.
+- **Eating from bundles** - Sneak and hold use to eat the selected food in a bundle, or its first item when none is selected; a normal right-click stays Vanilla.
 - **Recipe book** - Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe.
 - **Commands** - /simplesandwiches config shows and changes every option of config/simplesandwiches-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
@@ -28,7 +28,7 @@ Adds sandwiches, butter and cheese as food built on a cutting board; Vanilla foo
 
 ## Dependencies
 
-- **Required:** Fabric API (no other mods)
+- **Required:** Fabric API, SimpleLib
 - **Optional:** SimpleBuilding, Simple End
 
 ## Compatibility
@@ -46,9 +46,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simplesandwiches
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

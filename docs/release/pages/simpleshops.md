@@ -16,6 +16,7 @@ Simple Shops adds a Sales Block with a price (up to five exact price items) and 
 
 - **Display Case** - A glass case with five goods slots that shows what is for sale; the lid is glass too, so the goods are visible from above.
 - **Sales Block** - The cash register of a shop: a wooden block under the Display Case.
+- **Shop Music** - Put a music disc into your Sales Block and the shop plays it as a loop while players are near.
 - **Sales Storage** - Chest-sized extra store for the earnings.
 - **Buying** - Click the Display Case or the Sales Block: pick a goods stack, put the price items into the pay slots (same positions as the price row) and press Trade.
 - **Server shop** - An unlimited shop that only operators (permission level 2) create and configure with /simpleshops servershop.
@@ -50,9 +51,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simpleshops
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

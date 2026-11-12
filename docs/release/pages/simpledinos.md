@@ -17,12 +17,13 @@ Simple Dinosaurs adds a fossil block, dinosaur eggs you brush free and brood by 
 - **Fossil block** - A very rare find in the underground of deserts, badlands and swamps.
 - **Dinosaur eggs** - One egg per dinosaur: T.
 - **T. rex** - The combat mount: three-quarter life size, a core hitbox of 3.6 x 3.5 blocks (head and tail reach beyond it).
-- **Large saddle and T. rex armor** - The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider.
+- **Triceratops** - The tree shaker: a heavy quadruped mount that hatches tame like the T.
+- **Large saddle and dinosaur armor** - The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider.
 - **Commands** - /simpledinos config shows and changes every option of config/simpledinos-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
 ## Dependencies
 
-- **Required:** Fabric API (no other mods)
+- **Required:** Fabric API, SimpleLib
 - **Optional:** SimpleBuilding, Simple Money, Simple Mobheads
 
 ## Compatibility
@@ -40,9 +41,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simpledinos
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

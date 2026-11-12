@@ -18,7 +18,7 @@ Simple Fun collects small playful mechanics, such as throwable bricks and cosmet
 - **Throwable Bricks** - Brick, nether brick and resin brick: throw with use.
 - **Piggy Transformation** - Eating raw or cooked pork grants a cosmetic pig head for five minutes; milk removes the effect.
 - **Damageless** - Feather melee and Damageless I deal zero direct melee damage, with knockback.
-- **Knockback IV** - with enableHigherKnockback on, a built-in data pack lets Vanilla Knockback accept feathers/sticks and go up to level four; with the option off the Vanilla enchantment stays untouched.
+- **Knockback IV**
 - **Admin Commands** - Permission level 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage.
 - **Brick Snowball** - Four snowballs around one brick craft one.
 - **Flower Sniff** - Cosmetic delight: hold a flower and sneak.
@@ -33,9 +33,9 @@ Adds small playful items such as throwable bricks, each bounded so it cannot dam
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config
+- **Required:** Fabric API, SimpleLib
 - **Optional:** Mod Menu, JEI, Jade
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25
@@ -51,9 +51,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simplefun
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 

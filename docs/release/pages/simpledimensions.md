@@ -19,6 +19,7 @@ Simple Dimensions lets you configure dimensions, build light arches and use link
 - **Mining Dimension** - Portal rows: DXXD / D..D / D..D / D..D / DEED.
 - **Travel Dimension** - Portal rows: KRRK / O..O / O..O / O..O / SSSS.
 - **Portal Shapes**
+- **Nether Portals in Arch Shape** - Nether portals no longer have to be rectangles: an obsidian frame may also be an arch - round, pointed, stepped or a double arch.
 - **Safe Travel and Return** - Only unmounted players travel.
 - **Configuration and Data Packs** - Server JSON: config/simpledimensions/server.json.
 - **Server Claim Permissions** - Enabled Simple Tweaks claims are checked through the public framework API.
@@ -32,8 +33,8 @@ Lets server owners add and tune extra dimensions and safe portals; the three Van
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config
-- **Optional:** SimpleBuilding, Mod Menu, Flan, FTB Chunks, Open Parties and Claims, GriefDefender, ClaimChunk
+- **Required:** Fabric API, Cloth Config, SimpleLib
+- **Optional:** SimpleBuilding, Mod Menu
 <!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
 ## Compatibility
 
@@ -50,9 +51,9 @@ All Rights Reserved with source-available code. Contributions need the contribut
 
 ## Links
 
-- Wiki: <WIKI_URL>
-- Issues: <ISSUES_URL>
-- Source: <SOURCE_URL>
+- Wiki: https://wiki.simplemods.de/?mod=simpledimensions
+- Issues: https://github.com/Ouzzi/simplebuilding/issues
+- Source: https://github.com/Ouzzi/simplebuilding
 
 ## Categories and tags (suggestion)
 
