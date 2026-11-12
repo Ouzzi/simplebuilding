@@ -345,12 +345,14 @@ Fehlende Baublöcke: Hushed Deepslate Tiles, Sculk-Tiefenschiefer, fehlende Vani
 - Nur öffentliche Registry-Ids und Tags nach außen; verschobene Blöcke mit IdMoves/Alias, Registrierung nie vom Laden anderer Mods abhängig.
 
 ### Simple Octets (`simpleoctets`)
-Achtelblöcke (kleine 1/8-Blöcke), gemischte Zellen, Steinsäge-Rezepte (Stufe 6, Branch `claude-s6-octets`, noch nicht in `claude-wave1`).
+Achtelblöcke (kleine 1/8-Blöcke), gemischte Zellen, Melonen-Achtel, Ecken-Abbau mit dem Vorschlaghammer; geschnitten in der Formsäge von Simple Blocks (ohne Simple Blocks im Steinmetz); Pflicht-Sub-Mod von SimpleBuilding, allein mit Vanilla spielbar.
 
 - **O1 (17.10.):** Jeder Block, der Treppen- oder Stufen-Varianten (stairs/slab) hat, bekommt auch einen Octet-Block (Achtelblock). Gilt für Vanilla-Blöcke, SimpleBuilding-Blöcke und alle Blöcke, denen Simple Blocks Treppe/Stufe gibt. Fremdblöcke nur bedingt bei geladenem Besitzer-Mod (`SimpleOctets.isLoaded`).
-- Quelle der Wahrheit ist die Generator-Liste (`tools/textures/octets_2026_10_09.py`, `octet_materials.json`, `OctetMaterials`); der Abdeckungstest soll fehlende Familien automatisch melden. Stand und Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md` (23 fehlende).
+- Quelle der Wahrheit ist die Generator-Liste (`tools/textures/octets_2026_10_09.py`, `octet_materials.json`, `OctetMaterials`); der Abdeckungstest `stairs_and_slabs_have_octets` meldet fehlende Familien automatisch (die 23 Lücken aus `docs/ai/INVENTAR-OCTETS-2026-10-17.md` sind geschlossen).
 - Bretter gehören dazu (frühere Ausnahme „ohne Bretter“ entfällt). Die Regel gilt einseitig: Octets ohne Treppe-Familie (Obsidian, Metallblöcke, Stämme, Terrakotta) bleiben.
 - Schach-Achtel bleiben in SimpleBuilding (F3); die Zellen-Basisklasse gehört dem Modul.
+- **A12 (PLAN40 simpleoctets-4, 12.11.):** Nutzen: feinere Details beim Bauen (halbe Kanten, Simse, Schrägen), ohne Vanilla-Blöcke zu ändern; Achtel entstehen nur aus ihrem Vollblock (1 Block = 8 Achtel, verlustfrei). Eingriffe in Vanilla und ihre Schalter (`config/simpleoctets-server.json`, `/simpleoctets config`, Standard an): (1) Melonenscheibe schleichend auf einen Block setzt ein Melonen-Achtel statt zu essen (`features.melonSlicePlacing`); (2) Ecken-Abbau mit dem Vorschlaghammer hängt per Mixin am Abbau jedes Blocks (`features.cornerBreaking`, aus = Mixin kehrt sofort zurück). Sonst keine Mixins außer Tooltip-Hinweis und Feuer-Accessor. Eingriff: gering bis mittel, beide abschaltbar.
+- **Fremd-Mod entfernen:** Achtel aus Blöcken einer anderen Mod gibt es nur, solange sie geladen ist; wird sie entfernt, verschwinden ihre gesetzten Zellen und Items wie ihre übrigen Blöcke, eine gemischte Zelle verliert nur die Achtel des fehlenden Materials (Test `mixed_cell_keeps_readable_materials`). Steht im Wiki (Abschnitt „Achtel aus Blöcken anderer Mods“).
 
 ### Simple Crucibles (`simplecrucibles`)
 Eisen-, verstärkte, Netherit- und Enderit-Tiegel und -Fässer, verstärkter Kessel, Dorfküchen; Pflicht-Sub-Mod von SimpleBuilding.

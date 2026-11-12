@@ -368,7 +368,7 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
      */
     public static void startCornerBreak(Level level, BlockPos pos, BlockState state, Player player) {
         if (state.getBlock() instanceof OctetCellBlock || !player.isShiftKeyDown() || player.isSpectator()
-                || state.hasBlockEntity() || !com.simpleoctets.SimpleOctets.on()
+                || state.hasBlockEntity() || !com.simpleoctets.SimpleOctets.on() || !com.simpleoctets.OctetsConfig.cornerBreaking
                 || !com.simplelib.api.SimpleLibApi.isHammer(player.getMainHandItem())) {
             return;
         }

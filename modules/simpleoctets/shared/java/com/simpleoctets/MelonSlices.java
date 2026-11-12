@@ -12,12 +12,13 @@ import org.jetbrains.annotations.Nullable;
 public final class MelonSlices {
     /**
      * Sneak + right-click with a melon slice on a block places it as a melon octet; without sneaking, or where no octet
-     * fits, the slice is eaten as usual (null = not handled). Off with the super-mod switch.
+     * fits, the slice is eaten as usual (null = not handled). Off with the super-mod switch and with the server option
+     * {@code features.melonSlicePlacing} ({@link OctetsConfig}, A12: it changes a Vanilla input).
      */
     public static @Nullable InteractionResult tryPlace(UseOnContext context) {
         Player player = context.getPlayer();
         if (OctetRegistry.MELON_OCTET == null || player == null || !player.isSecondaryUseActive()
-                || !context.getItemInHand().is(Items.MELON_SLICE) || !SimpleOctets.on()) {
+                || !context.getItemInHand().is(Items.MELON_SLICE) || !SimpleOctets.on() || !OctetsConfig.melonSlicePlacing) {
             return null;
         }
         InteractionResult result = OctetCells.place(context, OctetRegistry.MELON_OCTET);

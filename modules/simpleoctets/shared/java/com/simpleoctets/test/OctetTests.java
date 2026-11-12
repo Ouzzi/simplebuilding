@@ -70,6 +70,7 @@ public final class OctetTests {
         ALL.put("corner_break_only_with_hammer", OctetTests::cornerBreakOnlyWithHammer);
         ALL.put("mixed_cell_persists_and_drops_every_material", OctetTests::mixedCellPersistsAndDropsEveryMaterial);
         ALL.put("melon_slice_places_melon_octets", OctetTests::melonSlicePlacesMelonOctets);
+        ALL.put("vanilla_input_switches", OctetTests::vanillaInputSwitches);
         ALL.put("wood_and_wool_octets_burn", OctetTests::woodAndWoolOctetsBurn);
         ALL.put("log_octets_mine_with_the_axe", OctetTests::logOctetsMineWithTheAxe);
         ALL.put("discover_recipe_unlocks", com.simpleoctets.discover.OctetsDiscover::recipeUnlocks);
@@ -675,6 +676,56 @@ public final class OctetTests {
         h.assertValueEqual(slices.getCount(), 2, "melon slice consumed");
         h.getLevel().destroyBlock(h.absolutePos(CELL), true);
         h.assertValueEqual(dropped(h, Items.MELON_SLICE), 1, "the melon octet drops its slice");
+        h.succeed();
+    }
+
+    /**
+     * PLAN40 simpleoctets-4 (A12): both Vanilla-input changes can be switched off on the server. Melon placing off: the sneaking
+     * slice is not placed (it is eaten as usual). Corner breaking off: sneaking with a hammer breaks the whole block like Vanilla.
+     * The file's defaults are on and survive a broken file.
+     */
+    static void vanillaInputSwitches(GameTestHelper h) {
+        boolean melon = com.simpleoctets.OctetsConfig.melonSlicePlacing, corner = com.simpleoctets.OctetsConfig.cornerBreaking;
+        try {
+            com.simpleoctets.OctetsConfig.reset();
+            h.assertTrue(com.simpleoctets.OctetsConfig.melonSlicePlacing && com.simpleoctets.OctetsConfig.cornerBreaking, "defaults on");
+            com.google.gson.JsonObject broken = new com.google.gson.JsonObject();
+            broken.addProperty("features", "nonsense");
+            com.simpleoctets.OctetsConfig.apply(broken);
+            h.assertTrue(com.simpleoctets.OctetsConfig.melonSlicePlacing && com.simpleoctets.OctetsConfig.cornerBreaking, "broken group keeps the defaults");
+            com.google.gson.JsonObject off = com.simpleoctets.OctetsConfig.toJson();
+            off.getAsJsonObject("features").addProperty("melonSlicePlacing", false);
+            off.getAsJsonObject("features").addProperty("cornerBreaking", false);
+            com.simpleoctets.OctetsConfig.apply(off);
+            h.assertTrue(!com.simpleoctets.OctetsConfig.melonSlicePlacing && !com.simpleoctets.OctetsConfig.cornerBreaking, "switched off from the file");
+
+            h.setBlock(CELL.below(), Blocks.STONE);
+            ServerPlayer eater = mockPlayer(h);
+            ItemStack slices = new ItemStack(Items.MELON_SLICE, 3);
+            eater.setShiftKeyDown(true);
+            h.assertFalse(Items.MELON_SLICE.useOn(topClick(h, eater, slices, 1, 1)).consumesAction(), "melon placing off: the sneaking slice was placed");
+            eater.setShiftKeyDown(false);
+            h.assertBlockPresent(Blocks.AIR, CELL);
+            h.assertValueEqual(slices.getCount(), 3, "melon placing off: no slice used");
+
+            ItemStack hammer = hammer("diamond");
+            if (hammer != null) {
+                BlockPos pos = h.absolutePos(CELL);
+                ServerPlayer player = survivalPlayer(h);
+                player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+                player.setShiftKeyDown(true);
+                h.setBlock(CELL, Blocks.DIAMOND_BLOCK);
+                aimFromAbove(h, player, 1, 1);
+                h.assertTrue(player.gameMode.destroyBlock(pos), "the break was refused");
+                player.setShiftKeyDown(false);
+                h.assertBlockPresent(Blocks.AIR, CELL);
+                h.assertValueEqual(dropped(h, Items.DIAMOND_BLOCK), 1, "corner breaking off: the hammer breaks the whole block");
+                h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 0, "and no octet drops");
+            }
+        } finally {
+            com.simpleoctets.OctetsConfig.melonSlicePlacing = melon;
+            com.simpleoctets.OctetsConfig.cornerBreaking = corner;
+        }
         h.succeed();
     }
 

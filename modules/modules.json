@@ -3567,7 +3567,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Octets",
-      "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
+      "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the block; the sledgehammer of Simple Hammers carves them and breaks one corner off a full block. Melon placing and corner breaking can be switched off (simpleoctets-server.json). Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
       "loaders": [
         "fabric",
         "neoforge",
