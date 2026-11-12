@@ -1,21 +1,21 @@
 package com.simplebuilding.modules.simplemobs;
 
 import com.simplelib.api.SimpleRarity;
-import com.simplelib.registry.LibComponents;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.PatchedDataComponentMap;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.FireChargeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -43,6 +43,14 @@ public final class ArmoredWither {
     /** A helmet is five pieces of its material; the Wither gives back 1 to 1.5 times what the side helmets are made of. */
     public static final int PIECES = 5;
     public static final double LOOT_MAX_FACTOR = 1.5;
+
+    /**
+     * The "forbidden" item of the old chainmail recipe (Beta/Alpha: five pieces of fire in the helmet shape, fire being no item
+     * you could hold), its own item since a-w1b (PLAN40 simplemobs-2; it was a renamed Fire Charge): it does what a Fire Charge
+     * does (lights fire, campfires and candles; a dispenser shoots it as a small fireball), in the Cursed rarity of Simple Lib.
+     */
+    public static final ResourceKey<Item> FORBIDDEN_FIRE_KEY = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "forbidden_fire"));
+    public static final Item FORBIDDEN_FIRE = new FireChargeItem(SimpleRarity.CURSED.apply(new Item.Properties()).setId(FORBIDDEN_FIRE_KEY));
 
     private static final Identifier HEALTH_ID = Identifier.fromNamespaceAndPath(MobsRegistry.ID, "armored_health");
     private static final Identifier ARMOR_ID = Identifier.fromNamespaceAndPath(MobsRegistry.ID, "armored_armor");
@@ -153,14 +161,14 @@ public final class ArmoredWither {
         return out;
     }
 
-    /**
-     * The "forbidden" item of the old chainmail recipe (Beta/Alpha: five pieces of fire in the helmet shape, fire being no item
-     * you could hold): a Fire Charge named Fire in the Cursed rarity of Simple Lib. A collectible, it does nothing.
-     */
+    /** The Chainmail Helmet's loot: one {@link #FORBIDDEN_FIRE}. */
     public static ItemStack forbiddenFire() {
-        ItemStack fire = new ItemStack(Items.FIRE_CHARGE);
-        fire.set(DataComponents.ITEM_NAME, Component.translatable("item.simplemobs.forbidden_fire"));
-        fire.set(LibComponents.RARITY, SimpleRarity.CURSED);
-        return fire;
+        return new ItemStack(FORBIDDEN_FIRE);
+    }
+
+    /** Registers the Forbidden Fire (with the other Wither items) and its dispenser behaviour, the one of the Fire Charge. */
+    static void items(java.util.function.BiConsumer<ResourceKey<Item>, Item> sink) {
+        sink.accept(FORBIDDEN_FIRE_KEY, FORBIDDEN_FIRE);
+        net.minecraft.world.level.block.DispenserBlock.registerProjectileBehavior(FORBIDDEN_FIRE);
     }
 }

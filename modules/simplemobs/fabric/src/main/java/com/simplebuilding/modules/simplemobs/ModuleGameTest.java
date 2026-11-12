@@ -43,6 +43,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void deceiverFakesAreNeverSaved(GameTestHelper helper) { MobsTests.ALL.get("deceiver_fakes_are_never_saved").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trickMirror(GameTestHelper helper) { MobsTests.ALL.get("trick_mirror").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trickMirrorBalance(GameTestHelper helper) { MobsTests.ALL.get("trick_mirror_balance").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void ritualsAndCloakSendNoScreenText(GameTestHelper helper) { MobsTests.ALL.get("rituals_and_cloak_send_no_screen_text").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trumpetNotes(GameTestHelper helper) { MobsTests.ALL.get("trumpet_notes").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trumpetNet(GameTestHelper helper) { MobsTests.ALL.get("trumpet_net").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void soundFiles(GameTestHelper helper) { MobsTests.ALL.get("sound_files").accept(helper); }
@@ -117,6 +118,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void witherWilt(GameTestHelper helper) { MobsTests.ALL.get("wither_wilt").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherOrder(GameTestHelper helper) { MobsTests.ALL.get("wither_order").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherArmored(GameTestHelper helper) { MobsTests.ALL.get("wither_armored").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void forbiddenFireIsItsOwnItem(GameTestHelper helper) { MobsTests.ALL.get("forbidden_fire_is_its_own_item").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherMinionArmor(GameTestHelper helper) { MobsTests.ALL.get("wither_minion_armor").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherNovaPush(GameTestHelper helper) { MobsTests.ALL.get("wither_nova_push").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void guideBook(GameTestHelper helper) { MobsTests.ALL.get("guide_book").accept(helper); }

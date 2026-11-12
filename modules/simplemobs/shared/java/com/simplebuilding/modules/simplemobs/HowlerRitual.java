@@ -2,9 +2,7 @@ package com.simplebuilding.modules.simplemobs;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Difficulty;
@@ -44,7 +42,7 @@ public final class HowlerRitual {
     }
 
     /**
-     * Starts the manifestation if every rule allows it; tells the players why not otherwise.
+     * Starts the manifestation if every rule allows it; otherwise the figure shows the abort cue ({@link #abortEffects}) where it applies.
      *
      * @param forcedLight test hook: light value to use instead of the world's light ({@code null}: real light)
      */
@@ -53,11 +51,11 @@ public final class HowlerRitual {
         if (!level.getEntitiesOfClass(HowlerRitualEntity.class, new net.minecraft.world.phys.AABB(m.center()).inflate(1.0)).isEmpty()) return Result.BUSY;
         if (player != null && player.distanceToSqr(Vec3.atCenterOf(m.center())) > HowlerLogic.PLAYER_RANGE * HowlerLogic.PLAYER_RANGE) return Result.TOO_FAR;
         if (level.getDifficulty() == Difficulty.PEACEFUL) {
-            tell(level, m.center(), "too_peaceful");
+            abortEffects(level, m.center(), "too_peaceful");
             return Result.PEACEFUL;
         }
         if (!MobsConfig.howlerAllowDimensions.contains(level.dimension().identifier().toString())) {
-            tell(level, m.center(), "wrong_dimension");
+            abortEffects(level, m.center(), "wrong_dimension");
             return Result.WRONG_DIMENSION;
         }
         if (!HowlerLogic.darkEnough(light(level, m, forcedLight), MobsConfig.howlerMaxLight)) {
@@ -84,20 +82,22 @@ public final class HowlerRitual {
         return level.getBlockState(sensor).getBlock() instanceof SculkSensorBlock;
     }
 
-    /** Abort: particles, the sensor's "stop" click with a muffled sniff and a message; every block stays. */
+    /**
+     * Abort or refusal at the figure: sculk souls and smoke, the sensor's "stop" click with a muffled sniff; every block stays.
+     * GADGET (owner 01.11., PLAN40 simplemobs-2): no action bar text - the cue sits at the figure, two reasons add their own
+     * particles: {@code too_bright} glints of light, {@code wrong_dimension} reversed portal sparks ({@code fades} and
+     * {@code too_peaceful} only the plain cue). The rules themselves are in the guide and the wiki.
+     */
     public static void abortEffects(ServerLevel level, BlockPos center, String reason) {
         var c = Vec3.atCenterOf(center);
         level.sendParticles(ParticleTypes.SCULK_SOUL, c.x, c.y + 0.5, c.z, 16, 0.6, 1.2, 0.6, 0.02);
         level.sendParticles(ParticleTypes.SMOKE, c.x, c.y + 0.5, c.z, 20, 0.6, 1.2, 0.6, 0.02);
+        switch (reason) {
+            case "too_bright" -> level.sendParticles(ParticleTypes.END_ROD, c.x, c.y + 1.5, c.z, 8, 0.4, 0.4, 0.4, 0.01);
+            case "wrong_dimension" -> level.sendParticles(ParticleTypes.REVERSE_PORTAL, c.x, c.y + 0.5, c.z, 24, 0.6, 1.0, 0.6, 0.05);
+            default -> { }
+        }
         level.playSound(null, center, SoundEvents.SCULK_CLICKING_STOP, SoundSource.BLOCKS, 1.5f, 0.8f);
         level.playSound(null, center, SoundEvents.WARDEN_SNIFF, SoundSource.HOSTILE, 0.6f, 0.7f);
-        tell(level, center, reason);
-    }
-
-    public static void tell(ServerLevel level, BlockPos center, String key) {
-        Component msg = Component.translatable("message.simplemobs.howler." + key);
-        for (ServerPlayer p : level.players()) {
-            if (p.distanceToSqr(Vec3.atCenterOf(center)) <= HowlerLogic.PLAYER_RANGE * HowlerLogic.PLAYER_RANGE) p.sendOverlayMessage(msg);
-        }
     }
 }

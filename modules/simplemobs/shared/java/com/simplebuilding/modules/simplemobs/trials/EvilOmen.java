@@ -43,6 +43,10 @@ import org.jspecify.annotations.Nullable;
  * (Volatile, Deflection, Mirror) come with stage 4 / 5. TR31-R added: the hit effects, Void aura and teleporting archers ({@link TrialsExtras}), the extra
  * wave and the Looter Chest of the Evil Raid ({@link #onRaidCreated}, {@link #placeRaidChest}), and the Evil Omen at Vanilla spawners (config, off): their
  * stage cannot live in a block state, so it is saved with the level ({@link EvilTrialsData}), like the raids that still wait for their chest.
+ *
+ * <p>The three action bar lines here (a spawner turned evil, an Evil / Void Raid started, the Looter Chest placed) stay on purpose
+ * (PLAN40 simplemobs-2): they announce world events that change the fight for the player (A14 "telegraph effects", like Vanilla's raid
+ * bar), not gadget feedback; the no-screen-text rule (AGENTS 3.4) covers gadgets.
  */
 public final class EvilOmen {
     /** How long raiders near the player count as the Evil Raid (30 minutes). */

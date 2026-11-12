@@ -5,12 +5,15 @@ MODULE = Path(__file__).resolve().parents[1]
 DERIVED = {'shellker_shell', 'soul_fire_charge', 'soulfire_powder', 'soulfire_rod'}
 _vd = (MODULE.parents[1] / 'tools/textures/vanilla_derived.py').read_text(encoding='utf-8')
 assert "'item/shellker_shell.png'" in _vd, 'Shellker Shell texture is built by vanilla_derived.MODULE_OUTPUTS'
-ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings', 'end_wings', 'void_wings', 'ender_heart', 'ender_gem', 'trumpet')
+ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings', 'end_wings', 'void_wings', 'ender_heart', 'ender_gem', 'trumpet', 'forbidden_fire')
 for locale in ('en_us', 'de_de'):
     data = json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8'))
     assert 'entity.simplemobs.deceiver' in data and 'entity.simplemobs.hollow_howler' in data
-    for key in ('effect.simplemobs.silence', 'item.minecraft.potion.effect.silence', 'message.simplemobs.howler.fades', 'message.simplemobs.howler.too_bright'):
+    for key in ('effect.simplemobs.silence', 'item.minecraft.potion.effect.silence'):
         assert key in data, key
+    # PLAN40 simplemobs-2 (AGENTS 3.4): rituals, cloak and vault answer with sound + particles, no action bar text keys
+    for prefix in ('message.simplemobs.howler.', 'message.simplemobs.disguise.', 'simplemobs.trials.wrong_key.', 'simplemobs.brood.missing.'):
+        assert not any(k.startswith(prefix) for k in data), f'{locale}: screen text {prefix}* is back'
     for item in ITEMS:
         assert f'item.simplemobs.{item}' in data, item
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
