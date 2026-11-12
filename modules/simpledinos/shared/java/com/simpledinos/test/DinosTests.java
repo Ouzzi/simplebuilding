@@ -11,6 +11,7 @@ import com.simpledinos.block.FossilBlock;
 import com.simpledinos.block.FossilBlockEntity;
 import com.simpledinos.config.DinosConfig;
 import com.simpledinos.entity.Dino;
+import com.simpledinos.entity.Stegosaurus;
 import com.simpledinos.entity.Trex;
 import com.simpledinos.entity.Triceratops;
 import java.util.LinkedHashMap;
@@ -144,6 +145,39 @@ public final class DinosTests {
         return tri;
     }
 
+    /** a-dinorest2: an adult Stegosaurus without AI, facing +z (yaw 0), tame. */
+    private static Stegosaurus standingStego(GameTestHelper h, int x, int z) {
+        Stegosaurus stego = h.spawn(DinosRegistry.STEGOSAURUS, at(x, z));
+        stego.setPersistenceRequired();
+        stego.setTamed(true);
+        stego.setAge(0);
+        stego.setNoAi(true);
+        Vec3 p = stego.position();
+        stego.snapTo(p.x, p.y, p.z, 0.0F, 0.0F);
+        stego.setYBodyRot(0.0F);
+        stego.setYHeadRot(0.0F);
+        return stego;
+    }
+
+    /**
+     * a-dinorest2: a saddled adult Stegosaurus at (8, z) facing +z with a lowered plow and {@code rider} on it; its plow strip lies at
+     * block row z - 2 (x 7, 8, 9; the stego stands at z + 0.5, the shares 1.95 behind), the ground there is y 0.
+     */
+    private static Stegosaurus plowing(GameTestHelper h, ServerPlayer rider, int z) {
+        Stegosaurus stego = standingStego(h, 8, z);
+        stego.setOwner(rider);
+        stego.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+        stego.setPlow(new ItemStack(DinosRegistry.DINO_PLOW));
+        stego.setPlowDown(true);
+        rider.startRiding(stego, true, false);
+        return stego;
+    }
+
+    /** a-dinorest2: the three ground blocks of the strip of a Stegosaurus from {@link #plowing} at row {@code z}. */
+    private static BlockPos[] strip(int z) {
+        return new BlockPos[] {new BlockPos(7, 0, z - 2), new BlockPos(8, 0, z - 2), new BlockPos(9, 0, z - 2)};
+    }
+
     /**
      * A small tree: a log column at (x, 1..4, z) and a 5 x 5 crown of leaves in two layers (y 4..5); natural leaves are not persistent
      * (as grown), built ones are. Returns the log the charge hits (y 2).
@@ -181,23 +215,31 @@ public final class DinosTests {
             for (String id : new String[] {"fossil_block", "trex_egg", "triceratops_egg", "stegosaurus_egg", "utahraptor_egg", "parasaurolophus_egg",
                     "large_saddle", "trex_armor_leather", "trex_armor_iron", "trex_armor_diamond", "guide_book",
                     "triceratops_armor_leather", "triceratops_armor_iron", "triceratops_armor_diamond", "triceratops_eggshell",
-                    "stegosaurus_eggshell", "utahraptor_eggshell", "parasaurolophus_eggshell"}) {
+                    "stegosaurus_eggshell", "utahraptor_eggshell", "parasaurolophus_eggshell", "stegosaurus_armor_leather", "stegosaurus_armor_iron",
+                    "stegosaurus_armor_diamond", "dino_plow"}) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleDinos.id(id)), "item " + id);
             }
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("trex")), "entity trex");
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("triceratops")), "entity triceratops");
+            h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("stegosaurus")), "entity stegosaurus");
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("triceratops_spawn_egg")) && !BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_eggshell")),
                     "no spawn egg, no T. rex eggshell (concept DINO36 6)");
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_spawn_egg")), "no spawn egg (owner)");
             h.assertTrue(DinosRegistry.FOSSIL_BE != null && DinosRegistry.EGG_BE != null, "block entity types");
-            h.assertTrue(DefaultAttributes.hasSupplier(DinosRegistry.TREX) && DefaultAttributes.hasSupplier(DinosRegistry.TRICERATOPS), "attributes");
+            h.assertTrue(DefaultAttributes.hasSupplier(DinosRegistry.TREX) && DefaultAttributes.hasSupplier(DinosRegistry.TRICERATOPS)
+                    && DefaultAttributes.hasSupplier(DinosRegistry.STEGOSAURUS), "attributes");
             h.assertTrue(DinosConfig.enabled && DinosConfig.BRUSH_DEFAULT == 45 && DinosConfig.incubateSeconds == 300 && DinosConfig.hatchSeconds == 600
                     && DinosConfig.growMinutes == 40 && DinosConfig.trexBiteDamage == 10.0, "config defaults = concept times");
             h.assertTrue(DinosConfig.triceratopsShake && DinosConfig.shakeShare == 0.5 && DinosConfig.shakeAppleChance == 0.35
                     && DinosConfig.shakeTreeCooldownSeconds == 600 && DinosConfig.ramCooldownSeconds == 3, "Triceratops defaults = concept 4.1");
-            h.assertTrue(DinoKind.TREX.hatchable() && DinoKind.TRICERATOPS.hatchable() && !DinoKind.STEGOSAURUS.hatchable()
-                    && !DinoKind.UTAHRAPTOR.hatchable() && !DinoKind.PARASAUROLOPHUS.hatchable() && DinoKind.hatchableKinds().size() == 2,
-                    "DINO-REST step 1: T. rex and Triceratops hatch");
+            h.assertTrue(DinoKind.TREX.hatchable() && DinoKind.TRICERATOPS.hatchable() && DinoKind.STEGOSAURUS.hatchable()
+                    && !DinoKind.UTAHRAPTOR.hatchable() && !DinoKind.PARASAUROLOPHUS.hatchable() && DinoKind.hatchableKinds().size() == 3,
+                    "DINO-REST step 2: T. rex, Triceratops and Stegosaurus hatch");
+            h.assertTrue(DinosConfig.stegosaurusPlowWidth == 3 && DinosConfig.stegosaurusSow, "Stegosaurus defaults = concept 4.2");
+            h.assertTrue(new ItemStack(DinosRegistry.DINO_PLOW).getMaxDamage() == 750 && new ItemStack(DinosRegistry.DINO_PLOW).isEnchantable()
+                    && new ItemStack(DinosRegistry.DINO_PLOW).is(net.minecraft.tags.ItemTags.DURABILITY_ENCHANTABLE)
+                    && new ItemStack(DinosRegistry.DINO_PLOW).isValidRepairItem(new ItemStack(Items.IRON_INGOT)),
+                    "Dino Plow: 750 durability, enchantable (Unbreaking, Mending), repaired with iron ingots");
             h.assertTrue(DinoKind.TREX.eggshell() == null && DinoKind.TRICERATOPS.eggshell() == DinosRegistry.eggshell(DinoKind.TRICERATOPS)
                     && DinoKind.PARASAUROLOPHUS.eggshell() != null, "an eggshell for every kind but the T. rex");
             h.assertTrue(h.getLevel().registryAccess().lookupOrThrow(Registries.PLACED_FEATURE)
@@ -207,9 +249,11 @@ public final class DinosTests {
         ALL.put("config_caps", h -> {
             try {
                 DinosConfig.apply(com.google.gson.JsonParser.parseString("{\"brushSeconds\":99999,\"incubateSeconds\":0,\"hatchSeconds\":\"x\",\"growMinutes\":-5,\"trexBiteDamage\":1000,"
-                        + "\"shakeShare\":7,\"shakeAppleChance\":-1,\"shakeTreeCooldownSeconds\":1,\"ramCooldownSeconds\":999,\"triceratopsShake\":\"no\"}").getAsJsonObject());
+                        + "\"shakeShare\":7,\"shakeAppleChance\":-1,\"shakeTreeCooldownSeconds\":1,\"ramCooldownSeconds\":999,\"triceratopsShake\":\"no\","
+                        + "\"stegosaurusPlowWidth\":9,\"stegosaurusSow\":\"x\"}").getAsJsonObject());
                 h.assertTrue(DinosConfig.shakeShare == 1.0 && DinosConfig.shakeAppleChance == 0.0 && DinosConfig.shakeTreeCooldownSeconds == DinosConfig.TREE_REST_MIN
                         && DinosConfig.ramCooldownSeconds == DinosConfig.RAM_COOLDOWN_MAX && DinosConfig.triceratopsShake, "Triceratops keys clamped, garbage = default");
+                h.assertTrue(DinosConfig.stegosaurusPlowWidth == DinosConfig.PLOW_WIDTH_MAX && DinosConfig.stegosaurusSow, "Stegosaurus keys clamped, garbage = default");
                 h.assertTrue(DinosConfig.brushSeconds == DinosConfig.BRUSH_MAX && DinosConfig.incubateSeconds == DinosConfig.INCUBATE_MIN
                         && DinosConfig.hatchSeconds == DinosConfig.HATCH_DEFAULT && DinosConfig.growMinutes == DinosConfig.GROW_MIN
                         && DinosConfig.trexBiteDamage == DinosConfig.BITE_MAX, "clamps, garbage = default");
@@ -470,15 +514,15 @@ public final class DinosTests {
         ALL.put("egg_other_kinds_wait_for_their_dinosaur", h -> {
             ServerLevel level = h.getLevel();
             BlockPos pos = at(4, 4);
-            h.setBlock(pos, DinosRegistry.EGGS.get(DinoKind.STEGOSAURUS));
+            h.setBlock(pos, DinosRegistry.EGGS.get(DinoKind.UTAHRAPTOR));
             DinoEggBlockEntity be = (DinoEggBlockEntity) level.getBlockEntity(h.absolutePos(pos));
             ServerPlayer owner = player(h, 5, 5);
             long t = 3000;
             be.advance(level, t, null);
             while (!be.brooded() && t < 3000 + 8000) be.advance(level, t += 40, owner.getUUID());
             be.advance(level, be.hatchAt() + 10, null);
-            h.assertTrue(be.brooded() && h.getBlockState(pos).getBlock() == DinosRegistry.EGGS.get(DinoKind.STEGOSAURUS),
-                    "a kind without a dinosaur yet brooded, but stays an egg (the Stegosaurus comes next)");
+            h.assertTrue(be.brooded() && h.getBlockState(pos).getBlock() == DinosRegistry.EGGS.get(DinoKind.UTAHRAPTOR),
+                    "a kind without a dinosaur yet brooded, but stays an egg (the Utahraptor comes last)");
             h.succeed();
         });
 
@@ -751,13 +795,16 @@ public final class DinosTests {
             h.assertTrue(DinoKind.UTAHRAPTOR.siteHalves(badlands) == 4 && DinoKind.STEGOSAURUS.siteHalves(badlands) == 3, "badlands: Utahraptor x2, Stegosaurus x1.5");
             h.assertTrue(DinoKind.PARASAUROLOPHUS.siteHalves(swamp) == 4 && DinoKind.TRICERATOPS.siteHalves(swamp) == 2, "mangrove swamp: Parasaurolophus x2");
             RandomSource random = RandomSource.create(42L);
-            int tri = 0;
+            int tri = 0, stego = 0;
             for (int i = 0; i < 2000; i++) {
                 DinoKind k = DinoKind.roll(random, badlands);
                 h.assertTrue(k.hatchable(), "only hatchable kinds are rolled");
                 if (k == DinoKind.TRICERATOPS) tri++;
+                if (k == DinoKind.STEGOSAURUS) stego++;
             }
-            h.assertTrue(tri > 2000 * 60 / 100 && tri < 2000 * 82 / 100, "R10 weights between the built kinds: Triceratops 25 : T. rex 10 (" + tri + ")");
+            // a-dinorest2: badlands T. rex 10 x1, Triceratops 25 x1, Stegosaurus 25 x1.5 -> 13.8 % : 34.5 % : 51.7 %
+            h.assertTrue(stego > 2000 * 45 / 100 && stego < 2000 * 59 / 100, "badlands favour the Stegosaurus (" + stego + " of 2000)");
+            h.assertTrue(tri > 2000 * 28 / 100 && tri < 2000 * 41 / 100, "R10 weights between the built kinds: Triceratops (" + tri + " of 2000)");
             h.succeed();
         });
         ALL.put("triceratops_core_hitbox_and_stats", h -> {
@@ -1001,6 +1048,322 @@ public final class DinosTests {
             h.assertTrue(tri.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched head would touch the player");
             tri.updateParts();
             h.assertTrue(tri.headTuck() > 0, "the head lifts before the player (step " + tri.headTuck() + "); the solid head pushes the player aside");
+            h.succeed();
+        });
+        // --- Stegosaurus and the Dino Plow (a-dinorest2, concept KONZEPT-A-DINO36 4.2) ---------------------------------------------
+        ALL.put("stegosaurus_core_hitbox_and_stats", h -> {
+            Stegosaurus stego = standingStego(h, 8, 8);
+            h.assertTrue(stego.getBbWidth() == 2.6F && stego.getBbHeight() == 3.7F, "core hitbox 2.6 x 3.7 (body, legs, plates)");
+            h.assertTrue(stego.getMaxHealth() == 90.0F && stego.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED) == 0.17
+                    && stego.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT) == 1.0, "90 health, speed 0.17, step 1");
+            h.assertTrue(!stego.getAttributes().hasAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE), "no attack: only the T. rex fights");
+            h.assertTrue(stego.kind() == DinoKind.STEGOSAURUS && !stego.canMate(stego), "kind, no breeding");
+            h.assertTrue(Stegosaurus.RIG.solidHead && Stegosaurus.RIG.reach > 2.4 && Stegosaurus.RIG.reach < 2.7, "solid low head, reach 2.55 (" + Stegosaurus.RIG.reach + ")");
+            double front0 = 0.0, front4 = 0.0, low4 = 9.0;
+            for (AABB b : stego.headBoxes(0)) front0 = Math.max(front0, b.maxZ - stego.getZ());
+            for (AABB b : stego.headBoxes(com.simpledinos.entity.part.PartRig.TUCK_STEPS)) {
+                front4 = Math.max(front4, b.maxZ - stego.getZ());
+                low4 = Math.min(low4, b.minY - stego.getY());
+            }
+            h.assertTrue(front4 < front0 - 0.6 && low4 < 0.3, "pulled in, the head goes down and back like grazing (" + front0 + " -> " + front4 + ")");
+            double side = 0.0;
+            for (AABB b : stego.tailBoxes(0)) side = Math.max(side, Math.max(b.maxX - stego.getX(), stego.getX() - b.minX));
+            h.assertTrue(side > 0.6, "the tail spikes count to the tail boxes (" + side + ")");
+            h.succeed();
+        });
+        ALL.put("stegosaurus_head_and_tail_parts", h -> {
+            Stegosaurus stego = standingStego(h, 8, 2);
+            for (int x = 5; x <= 11; x++) for (int y = 1; y <= 4; y++) h.setBlock(new BlockPos(x, y, 6), Blocks.STONE);
+            Vec3 allowed = stego.clipHead(new Vec3(0.0, 0.0, 2.0));
+            h.assertTrue(allowed.z < 1.9 && allowed.z > 0.4, "the low head stops the walk in front of the wall (" + allowed.z + " of 2.0)");
+            for (int x = 5; x <= 11; x++) for (int y = 1; y <= 4; y++) h.setBlock(new BlockPos(x, y, 6), Blocks.OAK_LEAVES);
+            h.assertTrue(stego.clipHead(new Vec3(0.0, 0.0, 2.0)).z == 2.0, "leaves do not stop the head");
+            stego.discard();
+            Stegosaurus other = standingStego(h, 8, 11);
+            other.updateParts();
+            h.assertTrue(other.headTuck() == 0 && other.tailBend() == 0, "in the open field: head stretched, tail straight");
+            for (int y = 1; y <= 4; y++) h.setBlock(new BlockPos(8, y, 7), Blocks.STONE);
+            h.assertTrue(!clearOfBlocks(h, other, other.tailBoxes(0)), "the straight tail (its spikes) would stick in the pillar");
+            other.updateParts();
+            h.assertTrue(other.tailBend() != 0 && clearOfBlocks(h, other, other.tailBoxes(other.tailBend())), "the tail bends away, spikes and all (" + other.tailBend() + ")");
+            ServerPlayer p = player(h, 8, 14);
+            Vec3 at = h.absoluteVec(new Vec3(8.5, 2.0, 14.3));
+            p.setPos(at.x, at.y, at.z);
+            AABB body = p.getBoundingBox();
+            h.assertTrue(other.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched head would touch the player");
+            other.updateParts();
+            h.assertTrue(other.headTuck() > 0 && other.headBoxes(other.headTuck()).stream().noneMatch(b -> b.intersects(body)),
+                    "the head goes down and back before the player (step " + other.headTuck() + ")");
+            h.succeed();
+        });
+        ALL.put("stegosaurus_hatches_tame_with_eggshells", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos pos = at(4, 4);
+            h.setBlock(pos, DinosRegistry.EGGS.get(DinoKind.STEGOSAURUS));
+            DinoEggBlockEntity be = (DinoEggBlockEntity) level.getBlockEntity(h.absolutePos(pos));
+            ServerPlayer owner = player(h, 5, 5);
+            brood(level, be, owner.getUUID());
+            be.advance(level, be.hatchAt(), null);
+            h.assertTrue(h.getBlockState(pos).isAir(), "the Stegosaurus egg hatches");
+            var found = level.getEntitiesOfClass(Stegosaurus.class, new AABB(h.absolutePos(pos)).inflate(3.0));
+            h.assertTrue(found.size() == 1, "one Stegosaurus hatchling");
+            Stegosaurus baby = found.get(0);
+            h.assertTrue(baby.isBaby() && baby.isTamed() && baby.getOwner() != null && baby.getOwner().getUUID().equals(owner.getUUID()),
+                    "tame from the first second, imprinted on the sitter");
+            int shells = itemsNear(h, pos, 3.0).stream().filter(e -> e.getItem().is(DinosRegistry.eggshell(DinoKind.STEGOSAURUS)))
+                    .mapToInt(e -> e.getItem().getCount()).sum();
+            h.assertTrue(shells == 3, "three Stegosaurus eggshells stay behind (" + shells + ")");
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(DinosRegistry.DINO_PLOW));
+            baby.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(!baby.hasPlow() && !owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "a hatchling takes no plow");
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.FERN, 2));
+            int before = baby.getAge();
+            baby.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(baby.getAge() > before && owner.getItemInHand(InteractionHand.MAIN_HAND).getCount() == 1, "feeding speeds the growth up (Vanilla)");
+            baby.discard();
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+        MAX_TICKS.put("stegosaurus_hatches_tame_with_eggshells", 100);
+        ALL.put("stegosaurus_food_heals", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Stegosaurus stego = standingStego(h, 8, 8);
+            stego.setOwner(owner);
+            for (Item food : new Item[] {Items.FERN, Items.LARGE_FERN, Items.WHEAT, Items.HAY_BLOCK, Items.SWEET_BERRIES}) {
+                h.assertTrue(stego.isFood(new ItemStack(food)), "food: " + food);
+            }
+            h.assertTrue(!stego.isFood(new ItemStack(Items.BEEF)) && !stego.isFood(new ItemStack(Items.APPLE)), "no meat, no apple (that is the Triceratops')");
+            stego.setHealth(50.0F);
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.FERN, 1));
+            stego.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(stego.getHealth() == 58.0F, "fern (favourite) heals 8");
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SWEET_BERRIES, 1));
+            stego.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(stego.getHealth() == 62.0F && owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "other food heals 4");
+            h.succeed();
+        });
+        ALL.put("stegosaurus_saddle_armor_riding", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Stegosaurus stego = standingStego(h, 8, 8);
+            stego.setOwner(owner);
+            h.assertTrue(DinosRegistry.LARGE_SADDLE.components().get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable big
+                    && big.canBeEquippedBy(stego.typeHolder()), "the large saddle fits the Stegosaurus");
+            for (Item armor : new Item[] {DinosRegistry.STEGOSAURUS_ARMOR_LEATHER, DinosRegistry.STEGOSAURUS_ARMOR_IRON, DinosRegistry.STEGOSAURUS_ARMOR_DIAMOND}) {
+                h.assertTrue(stego.isEquippableInSlot(new ItemStack(armor), EquipmentSlot.BODY), "Stegosaurus armor fits: " + BuiltInRegistries.ITEM.getKey(armor));
+                h.assertTrue(!(armor.components().get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable e
+                        && (e.canBeEquippedBy(DinosRegistry.TREX.builtInRegistryHolder()) || e.canBeEquippedBy(DinosRegistry.TRICERATOPS.builtInRegistryHolder()))),
+                        "but not the T. rex or the Triceratops (each dinosaur its own armor)");
+            }
+            h.assertTrue(!stego.isEquippableInSlot(new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_IRON), EquipmentSlot.BODY), "Triceratops armor does not fit");
+            stego.setItemSlot(EquipmentSlot.BODY, new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_IRON));
+            h.assertTrue(stego.armorTier() == 2, "iron armor: tier 2");
+            stego.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            h.assertTrue(stego.isSaddled() && !stego.canJump(), "saddled without a plow: the jump key does nothing");
+            owner.startRiding(stego, true, false);
+            h.assertTrue(stego.getControllingPassenger() == owner, "the owner rides and steers");
+            stego.positionRider(owner);
+            Vec3 seat = owner.position().subtract(stego.position());
+            h.assertTrue(seat.z > 0.5 && seat.y > 1.5, "the rider sits over the shoulders, in front of the plates (" + seat + ")");
+            h.succeed();
+        });
+        ALL.put("stegosaurus_plow_on_off_and_death_drop", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer owner = player(h, 3, 3), stranger = player(h, 12, 3);
+            Stegosaurus stego = standingStego(h, 8, 8);
+            stego.setOwner(owner);
+            stranger.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(DinosRegistry.DINO_PLOW));
+            stego.mobInteract(stranger, InteractionHand.MAIN_HAND);
+            h.assertTrue(!stego.hasPlow(), "only the owner puts a plow on");
+            ItemStack plow = new ItemStack(DinosRegistry.DINO_PLOW);
+            plow.setDamageValue(17);
+            owner.setItemInHand(InteractionHand.MAIN_HAND, plow);
+            h.assertTrue(stego.mobInteract(owner, InteractionHand.MAIN_HAND).consumesAction() && stego.hasPlow() && !stego.plowDown()
+                    && owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "the owner puts the plow on (raised)");
+            h.assertTrue(stego.plowStack().getDamageValue() == 17, "the plow keeps its wear");
+            stego.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
+            owner.interactOn(stego, InteractionHand.MAIN_HAND, owner.position());
+            h.assertTrue(!stego.hasPlow() && stego.isSaddled(), "shears take the plow off first, the saddle stays");
+            h.assertTrue(itemsNear(h, at(8, 8), 4.0).stream().anyMatch(e -> e.getItem().is(DinosRegistry.DINO_PLOW) && e.getItem().getDamageValue() == 17),
+                    "the plow drops with its wear");
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            stego.setPlow(new ItemStack(DinosRegistry.DINO_PLOW));
+            stego.hurtServer(level, level.damageSources().generic(), 1000.0F);
+            h.assertTrue(!stego.isAlive(), "the Stegosaurus died");
+            h.assertTrue(itemsNear(h, at(8, 8), 5.0).stream().anyMatch(e -> e.getItem().is(DinosRegistry.DINO_PLOW)), "the plow drops on death");
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+        ALL.put("stegosaurus_jump_key_lowers_plow", h -> {
+            Stegosaurus stego = standingStego(h, 8, 8);
+            stego.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            h.assertTrue(!stego.canJump() && !stego.togglePlow(), "without a plow the key does nothing");
+            stego.setPlow(new ItemStack(DinosRegistry.DINO_PLOW));
+            h.assertTrue(stego.canJump() && stego.getJumpCooldown() == 0, "saddle + plow: the key is ready");
+            stego.handleStartJump(100);
+            h.assertTrue(stego.plowDown() && stego.getJumpCooldown() == Stegosaurus.TOGGLE_TICKS, "the jump key lowers the plow (server), short lock");
+            h.assertTrue(!stego.togglePlow() && stego.plowDown(), "no flicker during the lock");
+            for (int i = 0; i < Stegosaurus.TOGGLE_TICKS; i++) stego.aiStep();
+            h.assertTrue(stego.togglePlow() && !stego.plowDown(), "then the key raises it again");
+            double y = stego.getY();
+            stego.onPlayerJump(100);
+            h.assertTrue(stego.getDeltaMovement().y <= 0.0 && stego.getY() == y, "the Stegosaurus never jumps");
+            Stegosaurus baby = standingStego(h, 3, 12);
+            baby.setAge(-1000);
+            baby.setPlow(new ItemStack(DinosRegistry.DINO_PLOW));
+            h.assertTrue(!baby.togglePlow() && !baby.canJump(), "a hatchling has no plow work");
+            baby.discard();
+            h.succeed();
+        });
+        ALL.put("stegosaurus_plows_three_wide", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer rider = player(h, 3, 3);
+            BlockPos[] strip = strip(10);
+            h.setBlock(strip[0], Blocks.GRASS_BLOCK);
+            h.setBlock(strip[1], Blocks.DIRT);
+            h.setBlock(strip[2], Blocks.DIRT_PATH);
+            h.setBlock(new BlockPos(6, 0, 8), Blocks.GRASS_BLOCK);
+            h.setBlock(new BlockPos(10, 0, 8), Blocks.GRASS_BLOCK);
+            h.setBlock(new BlockPos(8, 0, 9), Blocks.GRASS_BLOCK);
+            Stegosaurus stego = plowing(h, rider, 10);
+            h.assertTrue(stego.strip().stream().map(p -> p.subtract(h.absolutePos(BlockPos.ZERO))).toList().equals(java.util.List.of(strip)),
+                    "the strip: three blocks across, two rows behind the hips (" + stego.strip() + ")");
+            Stegosaurus.Step step = stego.plowStep(level, rider);
+            h.assertTrue(step.tilled() == 3 && step.refused() == 0, "three fields at once (" + step + ")");
+            for (BlockPos p : strip) h.assertTrue(h.getBlockState(p).is(Blocks.FARMLAND), "farmland at " + p);
+            h.assertTrue(h.getBlockState(new BlockPos(6, 0, 8)).is(Blocks.GRASS_BLOCK) && h.getBlockState(new BlockPos(10, 0, 8)).is(Blocks.GRASS_BLOCK)
+                    && h.getBlockState(new BlockPos(8, 0, 9)).is(Blocks.GRASS_BLOCK), "nothing outside the strip");
+            h.assertTrue(stego.plowStack().getDamageValue() == 3, "one durability per field");
+            h.assertTrue(stego.plowStep(level, rider).tilled() == 0, "farmland stays farmland (nothing more to do)");
+            h.succeed();
+        });
+        ALL.put("stegosaurus_plow_follows_the_hoe", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer rider = player(h, 3, 3);
+            BlockPos[] strip = strip(10);
+            h.setBlock(strip[0], Blocks.COARSE_DIRT);
+            h.setBlock(strip[1], Blocks.ROOTED_DIRT);
+            h.setBlock(strip[2], Blocks.GRASS_BLOCK);
+            h.setBlock(strip[2].above(), Blocks.STONE); // a block above: the hoe would not till
+            Stegosaurus stego = plowing(h, rider, 10);
+            stego.plowStep(level, rider);
+            h.assertTrue(h.getBlockState(strip[0]).is(Blocks.DIRT), "coarse dirt -> dirt (Vanilla hoe)");
+            h.assertTrue(h.getBlockState(strip[1]).is(Blocks.DIRT) && itemsNear(h, strip[1], 3.0).stream().anyMatch(e -> e.getItem().is(Items.HANGING_ROOTS)),
+                    "rooted dirt -> dirt and hanging roots (Vanilla hoe)");
+            h.assertTrue(h.getBlockState(strip[2]).is(Blocks.GRASS_BLOCK), "grass under a block stays grass (air above needed)");
+            for (BlockPos p : strip) h.setBlock(p, Blocks.STONE);
+            h.setBlock(strip[2].above(), Blocks.AIR);
+            h.assertTrue(stego.plowStep(level, rider).tilled() == 0, "stone is no field");
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+        ALL.put("stegosaurus_plow_needs_build_rights", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer rider = player(h, 3, 3);
+            BlockPos[] strip = strip(10);
+            for (BlockPos p : strip) h.setBlock(p, Blocks.GRASS_BLOCK);
+            Stegosaurus stego = plowing(h, rider, 10);
+            var old = com.simplelib.api.InteractionGuard.permission;
+            try {
+                com.simplelib.api.InteractionGuard.permission = (p, pos) -> false; // a claim mod says no
+                Stegosaurus.Step refused = stego.plowStep(level, rider);
+                h.assertTrue(refused.tilled() == 0 && refused.refused() > 0, "a foreign claim: nothing is tilled (" + refused + ")");
+                for (BlockPos p : strip) h.assertTrue(h.getBlockState(p).is(Blocks.GRASS_BLOCK), "grass stays at " + p);
+                h.assertTrue(stego.plowStack().getDamageValue() == 0, "no wear without work");
+                com.simplelib.api.InteractionGuard.permission = (p, pos) -> true;
+                rider.setGameMode(net.minecraft.world.level.GameType.ADVENTURE);
+                h.assertTrue(stego.plowStep(level, rider).tilled() == 0, "adventure mode: nothing is tilled");
+                rider.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            } finally {
+                com.simplelib.api.InteractionGuard.permission = old;
+            }
+            h.succeed();
+        });
+        ALL.put("stegosaurus_plow_width_and_wear", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer rider = player(h, 3, 3);
+            BlockPos[] strip = strip(10);
+            for (BlockPos p : strip) h.setBlock(p, Blocks.GRASS_BLOCK);
+            Stegosaurus stego = plowing(h, rider, 10);
+            try {
+                DinosConfig.stegosaurusPlowWidth = 1;
+                h.assertTrue(stego.strip().size() == 1 && stego.plowStep(level, rider).tilled() == 1, "width 1: one field");
+                h.assertTrue(h.getBlockState(strip[1]).is(Blocks.FARMLAND) && h.getBlockState(strip[0]).is(Blocks.GRASS_BLOCK), "the middle one");
+                DinosConfig.stegosaurusPlowWidth = 3;
+                h.setBlock(strip[1], Blocks.GRASS_BLOCK);
+                ItemStack worn = new ItemStack(DinosRegistry.DINO_PLOW);
+                worn.setDamageValue(worn.getMaxDamage() - 2);
+                stego.setPlow(worn);
+                stego.setPlowDown(true);
+                Stegosaurus.Step last = stego.plowStep(level, rider);
+                h.assertTrue(last.tilled() == 2 && !stego.hasPlow() && !stego.plowDown(), "the worn-out plow breaks after its last field (" + last + ")");
+            } finally {
+                DinosConfig.reset();
+            }
+            h.succeed();
+        });
+        ALL.put("stegosaurus_sows_from_offhand", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer rider = player(h, 3, 3);
+            BlockPos[] strip = strip(10);
+            for (BlockPos p : strip) h.setBlock(p, Blocks.GRASS_BLOCK);
+            h.setBlock(strip[2], Blocks.FARMLAND);
+            h.setBlock(strip[2].above(), Blocks.WHEAT);
+            Stegosaurus stego = plowing(h, rider, 10);
+            rider.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.WHEAT_SEEDS, 5));
+            Stegosaurus.Step step = stego.plowStep(level, rider);
+            h.assertTrue(step.tilled() == 2 && step.sown() == 2, "two new fields, two seeds; the planted field is left alone (" + step + ")");
+            h.assertTrue(h.getBlockState(strip[0].above()).is(Blocks.WHEAT) && h.getBlockState(strip[1].above()).is(Blocks.WHEAT), "wheat sown");
+            h.assertTrue(rider.getOffhandItem().getCount() == 3, "two seeds used");
+            for (BlockPos p : strip) h.setBlock(p.above(), Blocks.AIR);
+            rider.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.POTATO, 1));
+            h.assertTrue(stego.plowStep(level, rider).sown() == 1 && rider.getOffhandItem().isEmpty(), "potatoes too; the last one runs out");
+            for (BlockPos p : strip) h.setBlock(p.above(), Blocks.AIR);
+            rider.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.DIAMOND, 4));
+            h.assertTrue(stego.plowStep(level, rider).sown() == 0, "no seed in the hand: nothing is sown");
+            try {
+                DinosConfig.stegosaurusSow = false;
+                rider.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BEETROOT_SEEDS, 4));
+                h.assertTrue(stego.plowStep(level, rider).sown() == 0 && rider.getOffhandItem().getCount() == 4, "sowing switched off");
+            } finally {
+                DinosConfig.reset();
+            }
+            h.succeed();
+        });
+        ALL.put("stegosaurus_never_tramples_farmland", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos field = new BlockPos(8, 0, 8);
+            for (int x = 6; x <= 10; x++) for (int z = 6; z <= 10; z++) h.setBlock(new BlockPos(x, 0, z), Blocks.FARMLAND);
+            Stegosaurus stego = standingStego(h, 8, 8);
+            boolean griefing = level.getGameRules().get(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING);
+            try {
+                level.getGameRules().set(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING, true, level.getServer());
+                for (int i = 0; i < 40; i++) {
+                    stego.fallDistance = 2.5; // a step down onto the field: Vanilla would trample with a chance of 2.5 - 0.5
+                    stego.land(-0.1, true, h.getBlockState(field), h.absolutePos(field));
+                }
+                h.assertTrue(h.getBlockState(field).is(Blocks.FARMLAND), "the farmland stays (40 landings)");
+                h.assertTrue(stego.fallDistance == 0.0, "the fall is counted and over");
+            } finally {
+                level.getGameRules().set(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING, griefing, level.getServer());
+            }
+            h.succeed();
+        });
+        ALL.put("stegosaurus_tail_spikes_hurt_monsters_not_players", h -> {
+            ServerLevel level = h.getLevel();
+            Stegosaurus stego = standingStego(h, 8, 8);
+            net.minecraft.world.entity.monster.Monster zombie = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(8, 11));
+            zombie.setNoAi(true);
+            float health = zombie.getHealth();
+            stego.hurtServer(level, level.damageSources().mobAttack(zombie), 2.0F);
+            h.assertTrue(zombie.getHealth() < health, "the zombie gets 2 damage from the tail spikes (" + health + " -> " + zombie.getHealth() + ")");
+            h.assertTrue(stego.getTarget() == null, "no hunt: it does not fight");
+            ServerPlayer p = player(h, 8, 4);
+            float ph = p.getHealth();
+            stego.setInvulnerableTime(0);
+            stego.hurtServer(level, level.damageSources().playerAttack(p), 1.0F);
+            h.assertTrue(p.getHealth() == ph, "a player is never hurt");
+            zombie.discard();
             h.succeed();
         });
         ALL.put("guide_book", com.simpledinos.guide.DinosGuide::gameTest);

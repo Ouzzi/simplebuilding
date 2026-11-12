@@ -93,10 +93,71 @@ def eggshell(kind: str):
     return paint(SHELL, ramps, seed=29)
 
 
+# ---------------------------------------------------------------- a-dinorest2: Stegosaurus armor and the Dino Plow
+# Stegosaurus armor (side view as worn): the flank plate h with its rim r, open on top where the back plates a stay free (drawn in the
+# warm plate tone, so the shape reads as Stegosaurus armor), the neck guard n in the trim tone; v tier details
+STEGO_ARMOR = ['................',
+               '................',
+               '.......a...a....',
+               '......aa..aa..a.',
+               '....rraarraarraa',
+               '...rhhrrhhrrhhrr',
+               '..rhhhvhhhhhvhhr',
+               '.rhhhhhhhhhhhhhr',
+               'nnrhhhhhhhhhhhhr',
+               'nnnrhhhhhhhhhhr.',
+               '.nnrhhhvhhhhvhr.',
+               '..nrrhhhhhhhhr..',
+               '.....rrrrrrrr...',
+               '................',
+               '................',
+               '................']
+STEGO_DETAILS = {'leather': [(5, 8), (8, 8), (11, 8), (14, 8)], 'iron': [(5, 6), (14, 6), (5, 10), (13, 10)], 'diamond': [(6, 7), (10, 9), (13, 6)]}
+
+
+def stego_armor(tier: str, rows=None):
+    main, trim = TIERS[tier]
+    ramps = {'h': ramp(main, N), 'r': ramp(main, N, spread=0.2, sat_shift=0.05), 'n': ramp(trim, N), 'a': ramp('c07444', N, spread=0.12),
+             'v': ramp(main, N, spread=0.1)}
+    img = paint(rows or STEGO_ARMOR, ramps, seed=31, base={'v': N // 2 + 1})
+    light = ramp(main, N)[N - 2]
+    for x, y in STEGO_DETAILS[tier]:
+        img.putpixel((x, y), light + (255,))
+    return img
+
+
+# Dino Plow (front view, the recipe in a picture): the pull ring and chain c on top, the wooden cross beam w, three posts p and three
+# iron shares s one block apart
+PLOW = ['................',
+        '......cccc......',
+        '......c..c......',
+        '.......kk.......',
+        '.......cc.......',
+        '..wwggwwwwwggw..',
+        '.wwwwwwggwwwwww.',
+        '..ddddddddddddd.',
+        '...p....p....p..',
+        '..sp...sp...sp..',
+        '..sss..sss..sss.',
+        '..sss..sss..sss.',
+        '...ss...ss...ss.',
+        '....s....s....s.',
+        '................',
+        '................']
+
+
+def plow(rows=None):
+    ramps = {'w': ramp('9a7448', N), 'g': ramp('8a6640', N, spread=0.1), 'd': ramp('7a5a36', N), 'p': ramp('6e5030', N), 'c': ramp('8a8e96', N), 'k': ramp('6a6e76', N),
+             's': ramp('b8bcc2', N, spread=0.12)}
+    return paint(rows or PLOW, ramps, seed=37)
+
+
 def all_sprites():
     """{name: image} of every sprite this file draws."""
     out = {f'triceratops_armor_{t}': armor(t) for t in ARMOR_TIERS}
     out.update({f'{k}_eggshell': eggshell(k) for k in SHELL_KINDS})
+    out.update({f'stegosaurus_armor_{t}': stego_armor(t) for t in ARMOR_TIERS})
+    out['dino_plow'] = plow()
     return out
 
 

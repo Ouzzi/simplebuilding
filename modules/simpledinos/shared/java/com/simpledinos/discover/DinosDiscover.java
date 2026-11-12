@@ -53,6 +53,7 @@ public final class DinosDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simpledinos:commands",
             "simpledinos:config_server",
+            "simpledinos:dino_plow",
             "simpledinos:eggs",
             "simpledinos:fossil",
             "simpledinos:fossil_block",
@@ -61,6 +62,10 @@ public final class DinosDiscover {
             "simpledinos:large_saddle",
             "simpledinos:parasaurolophus_egg",
             "simpledinos:parasaurolophus_eggshell",
+            "simpledinos:stegosaurus",
+            "simpledinos:stegosaurus_armor_diamond",
+            "simpledinos:stegosaurus_armor_iron",
+            "simpledinos:stegosaurus_armor_leather",
             "simpledinos:stegosaurus_egg",
             "simpledinos:stegosaurus_eggshell",
             "simpledinos:trex",

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "K": "minecraft:iron_chain",
+    "H": "minecraft:iron_hoe"
+  },
+  "pattern": [
+    "IKI",
+    "HHH"
+  ],
+  "result": {
+    "id": "simpledinos:dino_plow",
+    "count": 1
+  }
+}

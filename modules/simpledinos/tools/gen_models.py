@@ -330,6 +330,144 @@ def triceratops_spec(coat, belly, dark, tier=0, name='triceratops', frill='A'):
     return dict(name=name, w=256, parts=parts)
 
 
+# ---------------------------------------------------------------- Stegosaurus (a-dinorest2, concept KONZEPT-A-DINO36 4.2)
+PLATE_WARM = H('b4582e')               # plate tips: warm ochre-red (blood-rich plates, heat exchange)
+SPIKE = (H('e6dcc0'), H('8e7c5c'))     # thagomizer spikes: light tip, darker base
+WOOD = (H('a07a4a'), H('6e5030'))      # plow frame: oak-like wood, light / dark
+IRON = (H('b8bcc2'), H('6a6e76'))      # plow shares
+# Plate pattern variants (owner preview DINOREST2, UI first as an example): A gradient to an ochre-red tip (built in), B dark rim, C bands.
+PLATE_VARIANTS = ('A', 'B', 'C')
+PLATE_CHOSEN = 'A'
+# One block of the plow strip in model pixels at the drawn scale (0.75): the three shares stand one block apart.
+SHARE_STEP = round(16 / 0.75, 2)
+
+
+def stego_skin(base, belly, dark, seed, belly_from=0.6):
+    """Stegosaurus hide: the dino skin with light lengthwise spots on the flanks (2 px high, 3 px long runs)."""
+    inner = skin(base, belly, dark, seed, belly_from=belly_from)
+
+    def f(face, x, y, w, h):
+        c = inner(face, x, y, w, h)
+        if face in ('right', 'left') and 0.25 < y / max(1, h - 1) < 0.62:
+            if hsh(x // 4, y // 2, seed + 9) > 0.8 and (x % 4) != 3:
+                c = lit(mix(belly, base, 0.35), face, hsh(x, y, seed + 3), 0.03)
+        return c
+    return f
+
+
+def plate_paint(coat, belly, dark, variant, seed, t0=0.0, t1=1.0):
+    """A back plate (flat, its wide faces are right/left): A gradient from the coat at the base to an ochre-red tip, B the coat with a dark
+    rim and a light middle, C the coat with warm bands across. The thin edges stay darker."""
+    warm = mix(PLATE_WARM, belly, 0.15)
+    base_c = mix(coat, dark, 0.15)
+
+    def f(face, x, y, w, h):
+        if face not in ('right', 'left'):
+            return lit(mix(base_c, dark, 0.35), face, hsh(x, y, seed + len(face)), 0.03)
+        t = t0 + (t1 - t0) * (1.0 - y / max(1, h - 1))   # 0 at the plate's base .. 1 at its tip (t0..t1 for this box)
+        if variant == 'A':
+            c = mix(base_c, warm, min(1.0, max(0.0, t * 1.25 - 0.15)))
+        elif variant == 'B':
+            edge = min(x, w - 1 - x, y if t1 >= 1.0 else 9, h - 1 - y if t0 <= 0.0 else 9)
+            c = mix(coat, dark, 0.55) if edge == 0 else mix(coat, belly, 0.25)
+        else:
+            c = mix(warm, coat, 0.35) if (y + 1) % 4 in (0, 1) and y > 0 else base_c
+        if hsh(x // 2, y // 2, seed + 5) > 0.82:
+            c = mix(c, dark, 0.14)
+        return lit(c, face, hsh(x, y, seed + len(face)), 0.03)
+    return f
+
+
+def plates(x0, top, zs, sizes, paint, tag, upper=None):
+    """A row of plates standing on `top` (model y of the back) at x0..x0+2, one per z, sizes (h, d); each plate is a wide base and a
+    narrower tip (two boxes: a stepped, Vanilla-like pixel outline). `upper` paints the tip boxes (the gradient runs base -> tip)."""
+    out = []
+    for z, (h, d) in zip(zs, sizes):
+        hb = max(2, round(h * 0.55))
+        inset = max(1, d // 4)
+        out.append(B((x0, top - hb, z - d / 2), (2, hb, d), paint, share=f'plate{h}x{d}_{tag}'))
+        out.append(B((x0, top - h, z - d / 2 + inset), (2, h - hb, d - 2 * inset), upper or paint, share=f'plate{h}x{d}t_{tag}'))
+    return out
+
+
+def stegosaurus_spec(coat, belly, dark, tier=0, name='stegosaurus', pattern='A'):
+    """Stegosaurus, 1 px = 1/16 block at life size: about 9 m from beak to the tail spikes, 2.7 m at the hips, the plates up to 4 m
+    (drawn at 75 %, as the T. rex). A quadruped whose back rises to the hips (short front legs, long hind legs), the small head carried
+    low on a short neck, two staggered rows of plates from the neck to the middle of the tail and four tail spikes (the thagomizer).
+    The plow (a girth at the hips, two shafts, a cross beam with three shares one block apart) and the gear (saddle over the shoulders,
+    neck and flank armor; the plates stay free) are always in the layout and shown only when worn."""
+    body_p = stego_skin(coat, belly, dark, 51, belly_from=0.7)
+    hump_p = skin(coat, belly, dark, 52, belly_from=1.1)
+    neck_p = skin(coat, belly, dark, 53, belly_from=0.6)
+    skull_p = with_marks(skin(coat, belly, dark, 54, belly_from=0.7), {('right', 7, 3): H('2a2118'), ('left', 3, 3): H('2a2118'),
+                                                                      ('right', 7, 2): H('d8a020'), ('left', 3, 2): H('d8a020')})
+    snout_p = skin(coat, belly, dark, 55, belly_from=0.55)
+    beak_p = horned(BEAK, 56, tip_down=True)
+    leg_p = skin(coat, belly, dark, 57, belly_from=0.9)
+    foot_p = clawed(skin(coat, belly, dark, 58, belly_from=1.1), mix(H('d8ccb0'), dark, 0.3))
+    tail_p = stego_skin(coat, belly, dark, 59, belly_from=0.7)
+    spike_p = horned(SPIKE, 60)
+    plate_p = plate_paint(coat, belly, dark, pattern, 61, 0.0, 0.55)
+    plate_tip = plate_paint(coat, belly, dark, pattern, 62, 0.55, 1.0)
+    seat_p = solid(H('6a4024'), 0.06, 20)
+    pommel_p = solid(H('8a8f96'), 0.05, 21)
+    plate_a = plate(max(1, tier), 63)
+    wood_p = horned(WOOD, 64)
+    strap_p = solid(H('5a3a22'), 0.06, 65)
+    iron_p = horned(IRON, 66, tip_down=True)
+    # plates (side, z, height, depth, back surface y): neck (small), shoulders behind the saddle, hips (largest), tail; the two rows are
+    # staggered by half a plate and sink one pixel into the back (no gap)
+    def row(spec):
+        out = []
+        for side, z, h, d, top in spec:
+            out += plates(-3 if side == 'l' else 1, top + 1, (z,), ((h, d),), plate_p, side, plate_tip)
+        return out
+    body_plates = row((('l', -9, 12, 10, -21), ('r', -2, 14, 12, -21), ('l', 6, 16, 14, -24), ('r', 12, 15, 12, -24), ('l', 17, 14, 10, -21)))
+    neck_plates = row((('l', -11, 6, 6, -5), ('r', -5, 7, 6, -5)))
+    tail1_plates = row((('r', 4, 13, 10, -7), ('l', 10, 11, 9, -7), ('r', 16, 9, 8, -7)))
+    tail2_plates = row((('l', 4, 8, 7, -5), ('r', 10, 6, 6, -5), ('l', 15, 4, 4, -5)))
+    spike = [B((-1.5, -7, -1.5), (3, 7, 3), spike_p, share='spike'), B((-1, -14, -1), (2, 7, 2), spike_p, share='spike_tip')]
+    parts = [
+        P('body', [B((-14, -15, -30), (28, 30, 58), body_p, share='body')], pose=(0, Y(38), 2), rot=(0.16, 0, 0)),
+        P('hump', [B((-12, -21, -16), (24, 6, 38), hump_p, share='hump'), B((-8, -24, -4), (16, 3, 22), hump_p, share='ridge')], parent='body'),
+        P('plates', body_plates, parent='body'),
+        P('neck', [B((-5.5, -5, -16), (11, 11, 16), neck_p, share='neck')] + neck_plates, pose=(0, -2, -28), rot=(0.5, 0, 0), parent='body'),
+        P('head', [B((-4, -4, -10), (8, 8, 10), skull_p, share='skull'), B((-3, -2, -17), (6, 6, 7), snout_p, share='snout'),
+                   B((-2, 0, -19), (4, 4, 2), beak_p, share='beak')], pose=(0, 1.5, -15), rot=(-0.25, 0, 0), parent='neck'),
+        P('tail1', [B((-7.5, -7, 0), (15, 14, 20), tail_p, share='tail1')] + tail1_plates, pose=(0, -6, 27), rot=(0.08, 0, 0), parent='body'),
+        P('tail2', [B((-5, -5, 0), (10, 10, 18), tail_p, share='tail2')] + tail2_plates, pose=(0, 0, 19), rot=(0.06, 0, 0), parent='tail1'),
+        P('tail3', [B((-3, -3, 0), (6, 6, 16), tail_p, share='tail3')], pose=(0, 0, 17), rot=(0.04, 0, 0), parent='tail2'),
+        P('spike_right_front', spike, pose=(-2.5, -1.5, 7), rot=(-0.4, 0, -1.2), parent='tail3'),
+        P('spike_left_front', spike, pose=(2.5, -1.5, 7), rot=(-0.4, 0, 1.2), parent='tail3'),
+        P('spike_right_back', spike, pose=(-2.5, -1.5, 13), rot=(-0.8, 0, -1.3), parent='tail3'),
+        P('spike_left_back', spike, pose=(2.5, -1.5, 13), rot=(-0.8, 0, 1.3), parent='tail3'),
+        P('front_right_leg', [B((-5, 0, -5), (10, 13, 10), leg_p, share='front_upper')], pose=(-10, Y(25), -18)),
+        P('front_right_shin', [B((-4, 0, -4), (8, 12, 8), leg_p, share='front_shin'), B((-5, 10, -6), (10, 2, 11), foot_p, share='front_foot')],
+          pose=(0, 13, 0), parent='front_right_leg'),
+        P('front_left_leg', [B((-5, 0, -5), (10, 13, 10), leg_p, share='front_upper')], pose=(10, Y(25), -18)),
+        P('front_left_shin', [B((-4, 0, -4), (8, 12, 8), leg_p, share='front_shin'), B((-5, 10, -6), (10, 2, 11), foot_p, share='front_foot')],
+          pose=(0, 13, 0), parent='front_left_leg'),
+        P('back_right_leg', [B((-6, 0, -7), (12, 20, 14), leg_p, share='back_upper')], pose=(-11, Y(38), 14)),
+        P('back_right_shin', [B((-4.5, 0, -4.5), (9, 18, 9), leg_p, share='back_shin'), B((-5.5, 16, -6.5), (11, 2, 12), foot_p, share='back_foot')],
+          pose=(0, 20, 0), parent='back_right_leg'),
+        P('back_left_leg', [B((-6, 0, -7), (12, 20, 14), leg_p, share='back_upper')], pose=(11, Y(38), 14)),
+        P('back_left_shin', [B((-4.5, 0, -4.5), (9, 18, 9), leg_p, share='back_shin'), B((-5.5, 16, -6.5), (11, 2, 12), foot_p, share='back_foot')],
+          pose=(0, 20, 0), parent='back_left_leg'),
+        P('saddle', [B((-10, -18, -27), (20, 3, 14), seat_p, share='saddle_seat'), B((-3, -21, -29), (6, 3, 2), pommel_p, share='saddle_pommel')],
+          parent='body'),
+        P('armor_neck', [B((-7, -6.5, -15), (14, 13.5, 10), plate_a, share='armor_neck', grow=0.4)], parent='neck'),
+        P('armor_flank_right', [B((-15, -12, -26), (1, 18, 34), plate_a, share='armor_flank')], parent='body'),
+        P('armor_flank_left', [B((14, -12, -26), (1, 18, 34), plate_a, share='armor_flank')], parent='body'),
+        # the plow: a girth around the hips (on the body), the frame hangs from root level so the tail swings freely above it
+        P('plow_harness', [B((-14.5, -15.5, 8), (29, 31, 4), strap_p, share='harness', grow=0.3)], parent='body'),
+        P('plow', [B((-16, -1, 0), (2, 2, 30), wood_p, share='shaft'), B((14, -1, 0), (2, 2, 30), wood_p, share='shaft'),
+                   B((-27, -2, 28), (54, 3, 3), wood_p, share='beam')], pose=(0, Y(26), 16), rot=(-0.5, 0, 0)),
+        P('plow_shares', [B((-SHARE_STEP - 1.5, 0, -2), (3, 11, 4), iron_p, share='share'), B((-1.5, 0, -2), (3, 11, 4), iron_p, share='share'),
+                          B((SHARE_STEP - 1.5, 0, -2), (3, 11, 4), iron_p, share='share')], pose=(0, 1, 29.5), rot=(0.5, 0, 0), parent='plow'),
+    ]
+    return dict(name=name, w=256, parts=parts)
+
+
 # ---------------------------------------------------------------- the textures
 # Coat variants by rearing biome (DinoVariants.COATS, same names and order): earthy tones, dark back, light belly.
 COATS = {
@@ -345,10 +483,11 @@ for _coat, (_c, _b, _d) in COATS.items():
     for _tier in range(4):
         PALETTES[f'trex_{_coat}_{_tier}'] = trex_spec(_c, _b, _d, _tier)
         PALETTES[f'triceratops_{_coat}_{_tier}'] = triceratops_spec(_c, _b, _d, _tier, frill=FRILL_CHOSEN)
-MODELS = {'trex': 'trex_olive_0', 'triceratops': 'triceratops_olive_0'}
+        PALETTES[f'stegosaurus_{_coat}_{_tier}'] = stegosaurus_spec(_c, _b, _d, _tier, pattern=PLATE_CHOSEN)
+MODELS = {'trex': 'trex_olive_0', 'triceratops': 'triceratops_olive_0', 'stegosaurus': 'stegosaurus_olive_0'}
 TONES = 16
 # a-dinorest1: the Triceratops has more regions (horns, beak, frill pattern), so it keeps a few more tones (A8b soft ramps)
-EXTRA_TONES = {'trex': 0, 'triceratops': 6}
+EXTRA_TONES = {'trex': 0, 'triceratops': 6, 'stegosaurus': 8}  # a-dinorest2: plates, spikes and the plow (wood, iron) need their own ramps
 
 
 def finish(img, tones):

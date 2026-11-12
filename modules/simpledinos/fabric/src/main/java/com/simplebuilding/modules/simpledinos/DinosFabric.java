@@ -44,6 +44,18 @@ public final class DinosFabric implements ModInitializer {
                 new BlockEntityType<>(DinoEggBlockEntity::new, DinosRegistry.eggBlocks()));
         FabricDefaultAttributeRegistry.register(DinosRegistry.TREX, DinosRegistry.trexAttributes());
         FabricDefaultAttributeRegistry.register(DinosRegistry.TRICERATOPS, DinosRegistry.triceratopsAttributes());
+        FabricDefaultAttributeRegistry.register(DinosRegistry.STEGOSAURUS, DinosRegistry.stegosaurusAttributes());
+        // a-dinorest2: the Dino Plow asks claim mods like a block break would (SimpleLib InteractionGuard). Simple Tools and Simple Farming
+        // install the same probe; Simple Dinosaurs does it too, so the plow respects claims when it is played on its own.
+        com.simplelib.api.InteractionGuard.permission = (p, pos) -> {
+            com.simplelib.api.InteractionGuard.probing++;
+            try {
+                return net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker()
+                        .beforeBlockBreak(p.level(), p, pos, p.level().getBlockState(pos), p.level().getBlockEntity(pos));
+            } finally {
+                com.simplelib.api.InteractionGuard.probing--;
+            }
+        };
         BiomeModifications.addFeature(BiomeSelectors.tag(FOSSIL_BIOMES), GenerationStep.Decoration.UNDERGROUND_ORES, FOSSIL_FEATURE);
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS).register(out -> {
             if (!SimpleDinos.on()) return;
@@ -52,7 +64,7 @@ public final class DinosFabric implements ModInitializer {
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             if (!SimpleDinos.on()) return;
-            insert(out, Items.SADDLE, java.util.List.of(new ItemStack(DinosRegistry.LARGE_SADDLE)));
+            insert(out, Items.SADDLE, java.util.List.of(new ItemStack(DinosRegistry.LARGE_SADDLE), new ItemStack(DinosRegistry.DINO_PLOW)));
             var book = java.util.List.of(com.simpledinos.guide.DinosGuide.stack());
             // Before the writable book: a tail append clashes with other mods' insertAfter at the tail.
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.WRITABLE_BOOK))) out.insertBefore(Items.WRITABLE_BOOK, book, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -63,7 +75,8 @@ public final class DinosFabric implements ModInitializer {
             insert(out, Items.DIAMOND_HORSE_ARMOR, java.util.List.of(new ItemStack(DinosRegistry.TREX_ARMOR_LEATHER),
                     new ItemStack(DinosRegistry.TREX_ARMOR_IRON), new ItemStack(DinosRegistry.TREX_ARMOR_DIAMOND),
                     new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_LEATHER), new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_IRON),
-                    new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_DIAMOND)));
+                    new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_DIAMOND), new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_LEATHER),
+                    new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_IRON), new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_DIAMOND)));
         });
         // a-dinorest1: the eggshells next to the turtle scute (the same idea: what a hatchling leaves behind)
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {

@@ -58,7 +58,7 @@
         "details": [
           "Twelve visible brooding stages; standing up (sneak) makes the progress run back at twice the speed. A brooded egg does not run back, cracks now and then and shows three crack stages before it hatches.",
           "A brooded egg hatches only for its owner (the player who sat longest): while the owner is offline, in another dimension or more than 16 blocks away it stays brooded and keeps cracking, without losing anything, and hatches as soon as the owner is back within 16 blocks. With hatchWaitsForOwner off, the old rule applies: an offline owner is replaced by the nearest player within 16 blocks. Times: incubateSeconds (300) and hatchSeconds (600). No spawn egg exists.",
-          "The T. rex and the Triceratops hatch. The eggs of the Stegosaurus, the Utahraptor and the Parasaurolophus can be placed and brooded, but stay eggs until their dinosaur is built. Every dinosaur except the T. rex leaves three eggshells when it hatches; one eggshell makes three bone meal."
+          "The T. rex, the Triceratops and the Stegosaurus hatch. The eggs of the Utahraptor and the Parasaurolophus can be placed and brooded, but stay eggs until their dinosaur is built. Every dinosaur except the T. rex leaves three eggshells when it hatches; one eggshell makes three bone meal."
         ]
       },
       "de": {
@@ -67,7 +67,7 @@
         "details": [
           "Zwölf sichtbare Brutstufen; Aufstehen (Schleichen) lässt den Fortschritt doppelt so schnell zurücklaufen. Ein bebrütetes Ei läuft nicht mehr zurück, knackt ab und zu und zeigt vor dem Schlüpfen drei Rissstufen.",
           "Ein bebrütetes Ei schlüpft nur für seinen Besitzer (den Spieler, der am längsten gesessen hat): solange der Besitzer offline, in einer anderen Dimension oder weiter als 16 Blöcke weg ist, bleibt es bebrütet und knackt weiter, ohne etwas zu verlieren, und schlüpft, sobald der Besitzer wieder in 16 Blöcken ist. Mit hatchWaitsForOwner aus gilt die alte Regel: ein Besitzer, der offline ist, wird durch den nächsten Spieler in 16 Blöcken ersetzt. Zeiten: incubateSeconds (300) und hatchSeconds (600). Ein Spawn-Ei gibt es nicht.",
-          "T-Rex und Triceratops schlüpfen. Die Eier von Stegosaurus, Utahraptor und Parasaurolophus lassen sich platzieren und bebrüten, bleiben aber Eier, bis ihr Dinosaurier gebaut ist. Jeder Dinosaurier außer dem T-Rex lässt beim Schlüpfen drei Eierschalen zurück; eine Eierschale ergibt drei Knochenmehl."
+          "T-Rex, Triceratops und Stegosaurus schlüpfen. Die Eier von Utahraptor und Parasaurolophus lassen sich platzieren und bebrüten, bleiben aber Eier, bis ihr Dinosaurier gebaut ist. Jeder Dinosaurier außer dem T-Rex lässt beim Schlüpfen drei Eierschalen zurück; eine Eierschale ergibt drei Knochenmehl."
         ]
       }
     },
@@ -136,26 +136,62 @@
       }
     },
     {
+      "id": "stegosaurus",
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/entity/Stegosaurus.java",
+        "modules/simpledinos/shared/java/com/simpledinos/entity/Dino.java",
+        "modules/simpledinos/shared/java/com/simpledinos/entity/part/PartRig.java",
+        "modules/simpledinos/shared/java/com/simpledinos/item/DinoPlowItem.java",
+        "modules/simpledinos/shared/java/com/simpledinos/client/StegosaurusModel.java",
+        "modules/simpledinos/shared/resources/data/simpledinos/tags/item/plow_seeds.json"
+      ],
+      "en": {
+        "title": "Stegosaurus",
+        "summary": "The plow animal: a slow, heavy quadruped mount that hatches tame like the T. rex and never jumps. It pulls the Dino Plow: lowered with the jump key, it tills a strip three blocks wide behind its hips like a Vanilla hoe and sows seeds from the rider's off hand. It never fights.",
+        "details": [
+          "The plow: the owner puts a Dino Plow on the grown Stegosaurus (right click); shears take it off again (before saddle and armor), it drops when the Stegosaurus dies. With saddle and plow the jump key lowers or raises the plow (a short lock in the jump bar). Lowered, it walks slower (0.12 instead of 0.17).",
+          "Plowing: only with a rider and only what a Vanilla hoe would till (the 26.3 hoe rules: grass, dirt and paths with air above become farmland, coarse dirt becomes dirt, rooted dirt becomes dirt and drops hanging roots), and only where the rider may build: not in adventure mode, not under spawn protection or outside the world border, not in a claim of someone else (claim mods are asked like for breaking a block). Each field costs one durability of the plow (750, Unbreaking and Mending work); a worn-out plow breaks. Width: setting stegosaurusPlowWidth (3).",
+          "Sowing: seeds in the rider's off hand (wheat, beetroot, melon, pumpkin and torchflower seeds, pitcher pods, carrots, potatoes; tag simpledinos:plow_seeds) go on every empty field of the strip, one each, where the plant can grow (enough light). Setting stegosaurusSow turns it off. The Stegosaurus never tramples farmland.",
+          "A monster that hits a grown Stegosaurus in melee gets 2 damage from the tail spikes (players never); it has no attack. Food: fern and large fern (favourites, heal 4 hearts), wheat, hay bale and sweet berries (2 hearts); feeding a hatchling speeds its growth up. 90 health, core hitbox 2.6 x 3.7 blocks (body, legs and plates).",
+          "Head and tail have part hitboxes. The low head is solid: it stops the walk at walls (leaves and one-block steps excepted); when something stands in front, it lowers the head like grazing. The tail with its four spikes bends to the free side.",
+          "Large saddle (the rider sits over the shoulders, in front of the plates) and Stegosaurus armor (leather, iron, diamond: neck guard and flank plates, the back plates stay free) go on like on a horse. Sounds are Vanilla sounds for now (sniffer, deeper)."
+        ]
+      },
+      "de": {
+        "title": "Stegosaurus",
+        "summary": "Das Pflugtier: ein langsames, schweres vierbeiniges Reittier, das wie der T-Rex zahm schlüpft und nie springt. Es zieht den Dino-Pflug: mit der Sprungtaste gesenkt pflügt er hinter den Hüften einen drei Blöcke breiten Streifen wie eine Vanilla-Hacke und sät Saatgut aus der Nebenhand des Reiters. Es kämpft nie.",
+        "details": [
+          "Der Pflug: der Besitzer legt dem erwachsenen Stegosaurus einen Dino-Pflug an (Rechtsklick); die Schere nimmt ihn wieder ab (vor Sattel und Rüstung), beim Tod fällt er herunter. Mit Sattel und Pflug senkt oder hebt die Sprungtaste den Pflug (kurze Sperre im Sprungbalken). Gesenkt geht er langsamer (0,12 statt 0,17).",
+          "Pflügen: nur mit Reiter und nur, was eine Vanilla-Hacke pflügen würde (die Hackenregeln von 26.3: Gras, Erde und Pfade mit Luft darüber werden Ackerboden, grobe Erde wird Erde, Wurzelerde wird Erde und lässt Hängende Wurzeln fallen), und nur, wo der Reiter bauen darf: nicht im Abenteuermodus, nicht im Spawnschutz oder außerhalb der Weltgrenze, nicht im Claim eines anderen (Claim-Mods werden gefragt wie beim Abbauen). Jedes Feld kostet eine Haltbarkeit des Pflugs (750, Haltbarkeit und Reparatur wirken); ein abgenutzter Pflug zerbricht. Breite: Einstellung stegosaurusPlowWidth (3).",
+          "Säen: Saatgut in der Nebenhand des Reiters (Weizen-, Rote-Bete-, Melonen-, Kürbis- und Fackellilien-Samen, Kannenpflanzen-Kapseln, Karotten, Kartoffeln; Tag simpledinos:plow_seeds) kommt auf jedes leere Feld des Streifens, je eins, wo die Pflanze wachsen kann (genug Licht). Die Einstellung stegosaurusSow schaltet es aus. Der Stegosaurus zertrampelt nie Ackerboden.",
+          "Ein Monster, das einen erwachsenen Stegosaurus im Nahkampf trifft, bekommt 2 Schaden von den Schwanzstacheln (Spieler nie); einen Angriff hat er nicht. Futter: Farn und Großer Farn (Lieblingsfutter, heilen 4 Herzen), Weizen, Heuballen und Süßbeeren (2 Herzen); Füttern lässt ein Jungtier schneller wachsen. 90 Lebenspunkte, Kern-Hitbox 2,6 x 3,7 Blöcke (Rumpf, Beine und Platten).",
+          "Kopf und Schwanz haben Teil-Hitboxen. Der tiefe Kopf ist fest: er hält den Lauf an Wänden an (Blätter und Stufen von einem Block ausgenommen); steht etwas davor, senkt er den Kopf wie beim Grasen. Der Schwanz mit seinen vier Stacheln biegt zur freien Seite.",
+          "Großer Sattel (der Reiter sitzt über den Schultern, vor den Platten) und Stegosaurus-Rüstung (Leder, Eisen, Diamant: Halsschutz und Flankenplatten, die Rückenplatten bleiben frei) legt man wie beim Pferd an. Klänge sind vorerst Vanilla-Klänge (Schnüffler, tiefer)."
+        ]
+      }
+    },
+    {
       "id": "gear",
       "sources": [
         "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java",
         "modules/simpledinos/shared/java/com/simpledinos/client/TrexRenderer.java",
-        "modules/simpledinos/shared/java/com/simpledinos/client/TriceratopsModel.java"
+        "modules/simpledinos/shared/java/com/simpledinos/client/TriceratopsModel.java",
+        "modules/simpledinos/shared/java/com/simpledinos/client/StegosaurusModel.java"
       ],
       "en": {
         "title": "Large saddle and dinosaur armor",
-        "summary": "The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider. Each dinosaur has its own armor in leather, iron and diamond with the protection values of the Vanilla horse armor (3, 5, 11): T. rex armor from 8 of the material around a bone block, Triceratops armor around a Triceratops eggshell.",
+        "summary": "The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider. Each dinosaur has its own armor in leather, iron and diamond with the protection values of the Vanilla horse armor (3, 5, 11): T. rex armor from 8 of the material around a bone block, Triceratops armor around a Triceratops eggshell, Stegosaurus armor around a Stegosaurus eggshell.",
         "details": [
-          "Saddle and armor go on like on a horse: use them on a tamed adult dinosaur. The saddle shows as a seat on its back, the armor as plates (T. rex: head and back; Triceratops: frill shield, horn caps and chest plate), a different texture per material.",
-          "Hatchlings take neither. A T. rex armor does not fit a Triceratops and the other way round. The T. rex recipes unlock when you hold a saddle, leather, iron or diamonds, the Triceratops recipes when you hold a Triceratops eggshell (like the turtle shell)."
+          "Saddle and armor go on like on a horse: use them on a tamed adult dinosaur. The saddle shows as a seat on its back, the armor as plates (T. rex: head and back; Triceratops: frill shield, horn caps and chest plate; Stegosaurus: neck guard and flank plates), a different texture per material.",
+          "Hatchlings take neither. Each armor fits only its own dinosaur. The T. rex recipes unlock when you hold a saddle, leather, iron or diamonds, the Triceratops and Stegosaurus recipes when you hold their eggshell (like the turtle shell)."
         ]
       },
       "de": {
         "title": "Großer Sattel und Dinosaurier-Rüstung",
-        "summary": "Der große Sattel (ein Sattel, 4 Leder und 4 Eisenbarren) passt nur auf Dinosaurier; ein Reiter. Jeder Dinosaurier hat seine eigene Rüstung aus Leder, Eisen und Diamant mit den Schutzwerten der Vanilla-Pferderüstung (3, 5, 11): T-Rex-Rüstung aus 8 Stück des Materials um einen Knochenblock, Triceratops-Rüstung um eine Triceratops-Eierschale.",
+        "summary": "Der große Sattel (ein Sattel, 4 Leder und 4 Eisenbarren) passt nur auf Dinosaurier; ein Reiter. Jeder Dinosaurier hat seine eigene Rüstung aus Leder, Eisen und Diamant mit den Schutzwerten der Vanilla-Pferderüstung (3, 5, 11): T-Rex-Rüstung aus 8 Stück des Materials um einen Knochenblock, Triceratops-Rüstung um eine Triceratops-Eierschale, Stegosaurus-Rüstung um eine Stegosaurus-Eierschale.",
         "details": [
-          "Sattel und Rüstung legt man wie beim Pferd an einem gezähmten erwachsenen Dinosaurier an. Der Sattel erscheint als Sitz auf dem Rücken, die Rüstung als Platten (T-Rex: Kopf und Rücken; Triceratops: Kragenschild, Hornkappen und Brustplatte), je Material eine andere Textur.",
-          "Jungtiere tragen keins von beiden. Eine T-Rex-Rüstung passt nicht auf einen Triceratops und umgekehrt. Die T-Rex-Rezepte schalten sich frei, wenn du einen Sattel, Leder, Eisen oder Diamanten hältst, die Triceratops-Rezepte mit einer Triceratops-Eierschale (wie der Schildkrötenpanzer)."
+          "Sattel und Rüstung legt man wie beim Pferd an einem gezähmten erwachsenen Dinosaurier an. Der Sattel erscheint als Sitz auf dem Rücken, die Rüstung als Platten (T-Rex: Kopf und Rücken; Triceratops: Kragenschild, Hornkappen und Brustplatte; Stegosaurus: Halsschutz und Flankenplatten), je Material eine andere Textur.",
+          "Jungtiere tragen keins von beiden. Jede Rüstung passt nur auf ihren eigenen Dinosaurier. Die T-Rex-Rezepte schalten sich frei, wenn du einen Sattel, Leder, Eisen oder Diamanten hältst, die Triceratops- und Stegosaurus-Rezepte mit ihrer Eierschale (wie der Schildkrötenpanzer)."
         ]
       }
     },
@@ -172,6 +208,7 @@
           "brushSeconds (45, 5 to 600): seconds of brushing that free a fossil. incubateSeconds (300, 10 to 3600): seconds of sitting that brood an egg. hatchSeconds (600, 10 to 7200): seconds from a brooded egg to the hatchling. hatchWaitsForOwner (true): the egg hatches only when its owner is online, in the same dimension and within 16 blocks; off: a nearby stranger gets the hatchling when the owner is offline.",
           "growMinutes (40, 1 to 600): minutes a hatchling needs to grow up. trexBiteDamage (10, 1 to 40): bite damage of an adult T. rex.",
           "triceratopsShake (true): a Triceratops charge shakes natural trees. shakeShare (0.5, 0 to 1): share of the natural leaves whose hand drops fall per shake. shakeAppleChance (0.35, 0 to 1): chance of the windfall apple on oak and dark oak. shakeTreeCooldownSeconds (600, 60 to 3600): seconds a shaken tree rests. ramCooldownSeconds (3, 1 to 30): seconds between two charges.",
+          "stegosaurusPlowWidth (3, 1 to 3): blocks the lowered Dino Plow tills side by side. stegosaurusSow (true): the lowered plow sows seeds from the rider's off hand.",
           "With SimpleBuilding the switch Enable Simple Dinosaurs in its config turns the bundled module on or off."
         ]
       },
@@ -183,6 +220,7 @@
           "brushSeconds (45, 5 bis 600): Sekunden Pinseln, die einen Fund freilegen. incubateSeconds (300, 10 bis 3600): Sekunden Sitzen, die ein Ei ausbrüten. hatchSeconds (600, 10 bis 7200): Sekunden vom bebrüteten Ei bis zum Jungtier. hatchWaitsForOwner (true): das Ei schlüpft nur, wenn sein Besitzer online, in derselben Dimension und in 16 Blöcken ist; aus: ein Fremder in der Nähe bekommt das Jungtier, wenn der Besitzer offline ist.",
           "growMinutes (40, 1 bis 600): Minuten, die ein Jungtier zum Erwachsenwerden braucht. trexBiteDamage (10, 1 bis 40): Bissschaden eines erwachsenen T-Rex.",
           "triceratopsShake (true): ein Triceratops-Anlauf schüttelt natürliche Bäume. shakeShare (0.5, 0 bis 1): Anteil der natürlichen Blätter, deren Hand-Drops je Schütteln fallen. shakeAppleChance (0.35, 0 bis 1): Chance auf den Fallobst-Apfel bei Eiche und Schwarzeiche. shakeTreeCooldownSeconds (600, 60 bis 3600): Sekunden, die ein geschüttelter Baum ruht. ramCooldownSeconds (3, 1 bis 30): Sekunden zwischen zwei Anläufen.",
+          "stegosaurusPlowWidth (3, 1 bis 3): Blöcke, die der gesenkte Dino-Pflug nebeneinander pflügt. stegosaurusSow (true): der gesenkte Pflug sät Saatgut aus der Nebenhand des Reiters.",
           "Mit SimpleBuilding schaltet der Schalter Simple Dinosaurs aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -322,6 +360,50 @@
       }
     },
     {
+      "id": "simpledinos:dino_plow",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpledinos:dino_plow",
+        "count": 1
+      },
+      "source": "modules/simpledinos/shared/resources/data/simpledinos/recipe/dino_plow.json",
+      "ingredients": [
+        "minecraft:iron_chain",
+        "minecraft:iron_hoe",
+        "minecraft:iron_ingot"
+      ],
+      "pattern": [
+        "IKI",
+        "HHH"
+      ],
+      "key": {
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "K": [
+          "minecraft:iron_chain"
+        ],
+        "H": [
+          "minecraft:iron_hoe"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
+          }
+        ]
+      }
+    },
+    {
       "id": "simpledinos:large_saddle",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -362,6 +444,129 @@
           {
             "id": "minecraft:iron_ingot",
             "count": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpledinos:stegosaurus_armor_diamond",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpledinos:stegosaurus_armor_diamond",
+        "count": 1
+      },
+      "source": "modules/simpledinos/shared/resources/data/simpledinos/recipe/stegosaurus_armor_diamond.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "simpledinos:stegosaurus_eggshell"
+      ],
+      "pattern": [
+        "MMM",
+        "MSM",
+        "MMM"
+      ],
+      "key": {
+        "M": [
+          "minecraft:diamond"
+        ],
+        "S": [
+          "simpledinos:stegosaurus_eggshell"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 8
+          },
+          {
+            "id": "simpledinos:stegosaurus_eggshell",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpledinos:stegosaurus_armor_iron",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpledinos:stegosaurus_armor_iron",
+        "count": 1
+      },
+      "source": "modules/simpledinos/shared/resources/data/simpledinos/recipe/stegosaurus_armor_iron.json",
+      "ingredients": [
+        "minecraft:iron_ingot",
+        "simpledinos:stegosaurus_eggshell"
+      ],
+      "pattern": [
+        "MMM",
+        "MSM",
+        "MMM"
+      ],
+      "key": {
+        "M": [
+          "minecraft:iron_ingot"
+        ],
+        "S": [
+          "simpledinos:stegosaurus_eggshell"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 8
+          },
+          {
+            "id": "simpledinos:stegosaurus_eggshell",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpledinos:stegosaurus_armor_leather",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpledinos:stegosaurus_armor_leather",
+        "count": 1
+      },
+      "source": "modules/simpledinos/shared/resources/data/simpledinos/recipe/stegosaurus_armor_leather.json",
+      "ingredients": [
+        "minecraft:leather",
+        "simpledinos:stegosaurus_eggshell"
+      ],
+      "pattern": [
+        "MMM",
+        "MSM",
+        "MMM"
+      ],
+      "key": {
+        "M": [
+          "minecraft:leather"
+        ],
+        "S": [
+          "simpledinos:stegosaurus_eggshell"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 8
+          },
+          {
+            "id": "simpledinos:stegosaurus_eggshell",
+            "count": 1
           }
         ]
       }
@@ -755,6 +960,10 @@
         {
           "id": "simpledinos:triceratops",
           "required": true
+        },
+        {
+          "id": "simpledinos:stegosaurus",
+          "required": true
         }
       ],
       "source": "modules/simpledinos/shared/resources/data/simpledinos/tags/entity_type/can_equip_large_saddle.json"
@@ -771,6 +980,17 @@
       "source": "modules/simpledinos/shared/resources/data/simpledinos/tags/entity_type/can_wear_dino_armor.json"
     },
     {
+      "id": "simpledinos:entity_type/can_wear_stegosaurus_armor",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpledinos:stegosaurus",
+          "required": true
+        }
+      ],
+      "source": "modules/simpledinos/shared/resources/data/simpledinos/tags/entity_type/can_wear_stegosaurus_armor.json"
+    },
+    {
       "id": "simpledinos:entity_type/can_wear_triceratops_armor",
       "replace": false,
       "values": [
@@ -780,6 +1000,72 @@
         }
       ],
       "source": "modules/simpledinos/shared/resources/data/simpledinos/tags/entity_type/can_wear_triceratops_armor.json"
+    },
+    {
+      "id": "simpledinos:item/plow_seeds",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:wheat_seeds",
+          "required": true
+        },
+        {
+          "id": "minecraft:beetroot_seeds",
+          "required": true
+        },
+        {
+          "id": "minecraft:melon_seeds",
+          "required": true
+        },
+        {
+          "id": "minecraft:pumpkin_seeds",
+          "required": true
+        },
+        {
+          "id": "minecraft:torchflower_seeds",
+          "required": true
+        },
+        {
+          "id": "minecraft:pitcher_pod",
+          "required": true
+        },
+        {
+          "id": "minecraft:carrot",
+          "required": true
+        },
+        {
+          "id": "minecraft:potato",
+          "required": true
+        }
+      ],
+      "source": "modules/simpledinos/shared/resources/data/simpledinos/tags/item/plow_seeds.json"
+    },
+    {
+      "id": "simpledinos:item/stegosaurus_food",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:fern",
+          "required": true
+        },
+        {
+          "id": "minecraft:large_fern",
+          "required": true
+        },
+        {
+          "id": "minecraft:wheat",
+          "required": true
+        },
+        {
+          "id": "minecraft:hay_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:sweet_berries",
+          "required": true
+        }
+      ],
+      "source": "modules/simpledinos/shared/resources/data/simpledinos/tags/item/stegosaurus_food.json"
     },
     {
       "id": "simpledinos:item/triceratops_food",
@@ -857,6 +1143,54 @@
   "enchantments": [],
   "items": [
     {
+      "id": "simpledinos:dino_plow",
+      "name": {
+        "en_us": "Dino Plow",
+        "de_de": "Dino-Pflug"
+      },
+      "note": {
+        "sources": [
+          "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java",
+          "modules/simpledinos/shared/java/com/simpledinos/entity/Stegosaurus.java"
+        ],
+        "en": {
+          "summary": "Plow for the Stegosaurus: tills three blocks wide like a hoe, lowered and raised with the jump key. 750 durability, repaired with iron ingots, takes Unbreaking and Mending. Recipe: iron ingot, iron chain, iron ingot over three iron hoes."
+        },
+        "de": {
+          "summary": "Pflug für den Stegosaurus: pflügt drei Blöcke breit wie eine Hacke, mit der Sprungtaste gesenkt und gehoben. Haltbarkeit 750, Reparatur mit Eisenbarren, nimmt Haltbarkeit und Reparatur an. Rezept: Eisenbarren, Eisenkette, Eisenbarren über drei Eisenhacken."
+        }
+      },
+      "texture": "assets/textures/simpledinos/item/dino_plow.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Three iron shares on a beam, far too heavy for a horse."
+          ],
+          "use": [
+            "The owner puts it on a grown Stegosaurus (right click); shears take it off. Ride with a saddle and press the jump key: the plow goes down and tills three blocks wide like a hoe, where you may build. Seeds in your off hand are sown on the way. 750 durability, repaired with iron ingots."
+          ],
+          "secret": [
+            "Unbreaking and Mending work on it like on any tool."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Drei eiserne Schare an einem Balken, viel zu schwer für ein Pferd."
+          ],
+          "use": [
+            "Der Besitzer legt ihn einem erwachsenen Stegosaurus an (Rechtsklick); die Schere nimmt ihn ab. Mit Sattel reiten und die Sprungtaste drücken: der Pflug senkt sich und pflügt drei Blöcke breit wie eine Hacke, wo du bauen darfst. Saatgut in der Nebenhand wird unterwegs gesät. Haltbarkeit 750, Reparatur mit Eisenbarren."
+          ],
+          "secret": [
+            "Haltbarkeit und Reparatur wirken auf ihn wie auf jedes Werkzeug."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpledinos:dino_plow"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpledinos:guide_book",
       "name": {
         "en_us": "Simple Dinosaurs Guide",
@@ -869,10 +1203,10 @@
           "modules/simpledinos/shared/resources/data/simpledinos/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Dinosaurs\" of the Simple Modpack guide (SimpleLib): 15 pages taken from this wiki, shown in your language. Unlocked by picking up: brush. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Dinosaurs\" of the Simple Modpack guide (SimpleLib): 18 pages taken from this wiki, shown in your language. Unlocked by picking up: brush. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Dinosaurs\" im Simple-Modpack-Handbuch (SimpleLib): 15 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Pinsel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Dinosaurs\" im Simple-Modpack-Handbuch (SimpleLib): 18 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Pinsel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpledinos/item/guide_book.png",
@@ -999,6 +1333,147 @@
       ]
     },
     {
+      "id": "simpledinos:stegosaurus_armor_diamond",
+      "name": {
+        "en_us": "Diamond Stegosaurus Armor",
+        "de_de": "Diamant-Stegosaurus-Rüstung"
+      },
+      "note": {
+        "sources": [
+          "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+        ],
+        "en": {
+          "summary": "Diamond armor for the Stegosaurus (protection 11): neck guard and flank plates, the back plates stay free. 8 diamonds around a Stegosaurus eggshell."
+        },
+        "de": {
+          "summary": "Diamantrüstung für den Stegosaurus (Schutz 11): Halsschutz und Flankenplatten, die Rückenplatten bleiben frei. 8 Diamanten um eine Stegosaurus-Eierschale."
+        }
+      },
+      "texture": "assets/textures/simpledinos/item/stegosaurus_armor_diamond.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Diamond flank plates that glitter between the back plates."
+          ],
+          "use": [
+            "Put it on a grown, tamed Stegosaurus: protection like diamond horse armor. Eight diamonds around a Stegosaurus eggshell."
+          ],
+          "secret": [
+            "Even the tail spikes look a little jealous."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Diamant-Flankenplatten, die zwischen den Rückenplatten funkeln."
+          ],
+          "use": [
+            "Einem erwachsenen, zahmen Stegosaurus anlegen: Schutz wie Diamant-Pferderüstung. Acht Diamanten um eine Stegosaurus-Eierschale."
+          ],
+          "secret": [
+            "Sogar die Schwanzstacheln wirken ein wenig neidisch."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpledinos:stegosaurus_armor_diamond"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpledinos:stegosaurus_armor_iron",
+      "name": {
+        "en_us": "Iron Stegosaurus Armor",
+        "de_de": "Eisen-Stegosaurus-Rüstung"
+      },
+      "note": {
+        "sources": [
+          "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+        ],
+        "en": {
+          "summary": "Iron armor for the Stegosaurus (protection 5): neck guard and flank plates, the back plates stay free. 8 iron ingots around a Stegosaurus eggshell."
+        },
+        "de": {
+          "summary": "Eisenrüstung für den Stegosaurus (Schutz 5): Halsschutz und Flankenplatten, die Rückenplatten bleiben frei. 8 Eisenbarren um eine Stegosaurus-Eierschale."
+        }
+      },
+      "texture": "assets/textures/simpledinos/item/stegosaurus_armor_iron.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Riveted iron flank plates and a neck guard."
+          ],
+          "use": [
+            "Put it on a grown, tamed Stegosaurus: protection like iron horse armor. Eight iron ingots around a Stegosaurus eggshell."
+          ],
+          "secret": [
+            "The plow does not care how shiny its puller is."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Genietete Eisen-Flankenplatten und ein Halsschutz."
+          ],
+          "use": [
+            "Einem erwachsenen, zahmen Stegosaurus anlegen: Schutz wie Eisen-Pferderüstung. Acht Eisenbarren um eine Stegosaurus-Eierschale."
+          ],
+          "secret": [
+            "Dem Pflug ist egal, wie sehr sein Zugtier glänzt."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpledinos:stegosaurus_armor_iron"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpledinos:stegosaurus_armor_leather",
+      "name": {
+        "en_us": "Leather Stegosaurus Armor",
+        "de_de": "Leder-Stegosaurus-Rüstung"
+      },
+      "note": {
+        "sources": [
+          "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+        ],
+        "en": {
+          "summary": "Leather armor for the Stegosaurus (protection 3): neck guard and flank plates, the back plates stay free. 8 leather around a Stegosaurus eggshell."
+        },
+        "de": {
+          "summary": "Lederrüstung für den Stegosaurus (Schutz 3): Halsschutz und Flankenplatten, die Rückenplatten bleiben frei. 8 Leder um eine Stegosaurus-Eierschale."
+        }
+      },
+      "texture": "assets/textures/simpledinos/item/stegosaurus_armor_leather.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Boiled leather for a neck and two flanks, with gaps for the plates."
+          ],
+          "use": [
+            "Put it on a grown, tamed Stegosaurus: protection like leather horse armor. Eight leather around a Stegosaurus eggshell."
+          ],
+          "secret": [
+            "The plates on its back need no armor: they are its own."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Gekochtes Leder für Hals und Flanken, mit Lücken für die Platten."
+          ],
+          "use": [
+            "Einem erwachsenen, zahmen Stegosaurus anlegen: Schutz wie Leder-Pferderüstung. Acht Leder um eine Stegosaurus-Eierschale."
+          ],
+          "secret": [
+            "Die Platten auf dem Rücken brauchen keine Rüstung: sie sind seine eigene."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpledinos:stegosaurus_armor_leather"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpledinos:stegosaurus_eggshell",
       "name": {
         "en_us": "Stegosaurus Eggshell",
@@ -1010,10 +1485,10 @@
           "modules/simpledinos/shared/java/com/simpledinos/block/DinoEggBlockEntity.java"
         ],
         "en": {
-          "summary": "Three fall when a Stegosaurus hatches; one makes three bone meal. The Stegosaurus itself is not built yet."
+          "summary": "Three fall when a Stegosaurus hatches; one makes three bone meal. The middle of the Stegosaurus armor recipes."
         },
         "de": {
-          "summary": "Drei fallen, wenn ein Stegosaurus schlüpft; eine ergibt drei Knochenmehl. Der Stegosaurus selbst ist noch nicht gebaut."
+          "summary": "Drei fallen, wenn ein Stegosaurus schlüpft; eine ergibt drei Knochenmehl. Die Mitte der Stegosaurus-Rüstungsrezepte."
         }
       },
       "texture": "assets/textures/simpledinos/item/stegosaurus_eggshell.png",
@@ -1023,10 +1498,10 @@
             "Half a slate-grey shell with plate marks."
           ],
           "use": [
-            "Falls when a Stegosaurus hatches; one makes three bone meal. Its armor comes with the Stegosaurus."
+            "Falls when a Stegosaurus hatches; one makes three bone meal. Eight leather, iron ingots or diamonds around it make Stegosaurus armor."
           ],
           "secret": [
-            "The Stegosaurus itself is not built yet."
+            "Hold one and the plow recipe shows up too."
           ]
         },
         "de": {
@@ -1034,16 +1509,19 @@
             "Eine halbe schiefergraue Schale mit Plattenmuster."
           ],
           "use": [
-            "Fällt, wenn ein Stegosaurus schlüpft; eine ergibt drei Knochenmehl. Seine Rüstung kommt mit dem Stegosaurus."
+            "Fällt, wenn ein Stegosaurus schlüpft; eine ergibt drei Knochenmehl. Acht Leder, Eisenbarren oder Diamanten darum ergeben Stegosaurus-Rüstung."
           ],
           "secret": [
-            "Der Stegosaurus selbst ist noch nicht gebaut."
+            "Wer eine hält, sieht auch das Pflug-Rezept."
           ]
         }
       },
       "craftedBy": [],
       "usedIn": [
-        "simpledinos:bone_meal_from_stegosaurus_eggshell"
+        "simpledinos:bone_meal_from_stegosaurus_eggshell",
+        "simpledinos:stegosaurus_armor_diamond",
+        "simpledinos:stegosaurus_armor_iron",
+        "simpledinos:stegosaurus_armor_leather"
       ]
     },
     {
@@ -1541,10 +2019,10 @@
             "A slate-grey egg with a pattern like small plates."
           ],
           "use": [
-            "Can be placed and brooded like every dinosaur egg. The Stegosaurus itself is not built yet, so it stays an egg for now."
+            "Place it and sit on it with an empty hand: 5 minutes of sitting broods it, 10 minutes later a tame Stegosaurus hatchling hatches for the player who sat longest. Three eggshells stay behind."
           ],
           "secret": [
-            "It is waiting for its dinosaur."
+            "Badlands fossils hold more of these eggs."
           ]
         },
         "de": {
@@ -1552,10 +2030,10 @@
             "Ein schiefergraues Ei mit einem Muster wie kleine Platten."
           ],
           "use": [
-            "Lässt sich wie jedes Dinosaurier-Ei platzieren und bebrüten. Der Stegosaurus selbst ist noch nicht gebaut, das Ei bleibt vorerst ein Ei."
+            "Platzieren und mit leerer Hand daraufsetzen: 5 Minuten Sitzen bebrüten es, 10 Minuten später schlüpft ein zahmes Stegosaurus-Jungtier für den Spieler, der am längsten saß. Drei Eierschalen bleiben liegen."
           ],
           "secret": [
-            "Es wartet auf seinen Dinosaurier."
+            "In den Fossilien der Badlands stecken mehr dieser Eier."
           ]
         }
       },
@@ -1797,6 +2275,44 @@
       "side": null,
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
+      "name": "stegosaurusPlowWidth",
+      "shortName": "stegosaurusPlowWidth",
+      "type": "int",
+      "default": "3",
+      "note": null,
+      "category": "Simple Dinosaurs",
+      "categoryDe": "Simple Dinosaurs",
+      "group": null,
+      "groupDe": null,
+      "label": "Plow width (blocks)",
+      "labelDe": "Pflugbreite (Blöcke)",
+      "tooltip": "Blocks the lowered Dino Plow tills side by side\nbehind a Stegosaurus. 1 to 3. Default: 3.",
+      "tooltipDe": "Blöcke, die der gesenkte Dino-Pflug hinter einem\nStegosaurus nebeneinander pflügt. 1 bis 3.\nStandard: 3."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
+      "name": "stegosaurusSow",
+      "shortName": "stegosaurusSow",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Dinosaurs",
+      "categoryDe": "Simple Dinosaurs",
+      "group": null,
+      "groupDe": null,
+      "label": "Plow sows seeds",
+      "labelDe": "Pflug sät",
+      "tooltip": "The lowered plow sows seeds from the rider's off\nhand on the empty fields of its strip.\nDefault: true.",
+      "tooltipDe": "Der gesenkte Pflug sät Saatgut aus der Nebenhand\ndes Reiters auf die leeren Felder seines Streifens.\nStandard: true."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "triceratopsShake",
       "shortName": "triceratopsShake",
       "type": "boolean",
@@ -1824,16 +2340,16 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 7,
-    "recipes": 11,
+    "features": 8,
+    "recipes": 15,
     "lootTables": 7,
-    "tags": 6,
+    "tags": 9,
     "advancements": 1,
     "enchantments": 0,
-    "items": 12,
+    "items": 16,
     "blocks": 6,
     "trades": 0,
-    "config": 6,
+    "config": 8,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

@@ -37,10 +37,10 @@
       "Ein schiefergraues Ei mit einem Muster wie kleine Platten."
     ],
     "use": [
-      "Lässt sich wie jedes Dinosaurier-Ei platzieren und bebrüten. Der Stegosaurus selbst ist noch nicht gebaut, das Ei bleibt vorerst ein Ei."
+      "Platzieren und mit leerer Hand daraufsetzen: 5 Minuten Sitzen bebrüten es, 10 Minuten später schlüpft ein zahmes Stegosaurus-Jungtier für den Spieler, der am längsten saß. Drei Eierschalen bleiben liegen."
     ],
     "secret": [
-      "Es wartet auf seinen Dinosaurier."
+      "In den Fossilien der Badlands stecken mehr dieser Eier."
     ]
   },
   "utahraptor_egg": {
@@ -142,6 +142,50 @@
       "Das Rezept erscheint erst, wenn du eine Eierschale hältst, wie der Schildkrötenpanzer nach dem Hornschild."
     ]
   },
+  "stegosaurus_armor_leather": {
+    "lore": [
+      "Gekochtes Leder für Hals und Flanken, mit Lücken für die Platten."
+    ],
+    "use": [
+      "Einem erwachsenen, zahmen Stegosaurus anlegen: Schutz wie Leder-Pferderüstung. Acht Leder um eine Stegosaurus-Eierschale."
+    ],
+    "secret": [
+      "Die Platten auf dem Rücken brauchen keine Rüstung: sie sind seine eigene."
+    ]
+  },
+  "stegosaurus_armor_iron": {
+    "lore": [
+      "Genietete Eisen-Flankenplatten und ein Halsschutz."
+    ],
+    "use": [
+      "Einem erwachsenen, zahmen Stegosaurus anlegen: Schutz wie Eisen-Pferderüstung. Acht Eisenbarren um eine Stegosaurus-Eierschale."
+    ],
+    "secret": [
+      "Dem Pflug ist egal, wie sehr sein Zugtier glänzt."
+    ]
+  },
+  "stegosaurus_armor_diamond": {
+    "lore": [
+      "Diamant-Flankenplatten, die zwischen den Rückenplatten funkeln."
+    ],
+    "use": [
+      "Einem erwachsenen, zahmen Stegosaurus anlegen: Schutz wie Diamant-Pferderüstung. Acht Diamanten um eine Stegosaurus-Eierschale."
+    ],
+    "secret": [
+      "Sogar die Schwanzstacheln wirken ein wenig neidisch."
+    ]
+  },
+  "dino_plow": {
+    "lore": [
+      "Drei eiserne Schare an einem Balken, viel zu schwer für ein Pferd."
+    ],
+    "use": [
+      "Der Besitzer legt ihn einem erwachsenen Stegosaurus an (Rechtsklick); die Schere nimmt ihn ab. Mit Sattel reiten und die Sprungtaste drücken: der Pflug senkt sich und pflügt drei Blöcke breit wie eine Hacke, wo du bauen darfst. Saatgut in der Nebenhand wird unterwegs gesät. Haltbarkeit 750, Reparatur mit Eisenbarren."
+    ],
+    "secret": [
+      "Haltbarkeit und Reparatur wirken auf ihn wie auf jedes Werkzeug."
+    ]
+  },
   "triceratops_eggshell": {
     "lore": [
       "Eine halbe Schale, noch warm vom Jungtier."
@@ -158,10 +202,10 @@
       "Eine halbe schiefergraue Schale mit Plattenmuster."
     ],
     "use": [
-      "Fällt, wenn ein Stegosaurus schlüpft; eine ergibt drei Knochenmehl. Seine Rüstung kommt mit dem Stegosaurus."
+      "Fällt, wenn ein Stegosaurus schlüpft; eine ergibt drei Knochenmehl. Acht Leder, Eisenbarren oder Diamanten darum ergeben Stegosaurus-Rüstung."
     ],
     "secret": [
-      "Der Stegosaurus selbst ist noch nicht gebaut."
+      "Wer eine hält, sieht auch das Pflug-Rezept."
     ]
   },
   "utahraptor_eggshell": {

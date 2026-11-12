@@ -237,4 +237,74 @@ public final class ModuleGameTest {
     public void triceratopsPartBoxesLikeTrex(GameTestHelper h) {
         DinosTests.ALL.get("triceratops_part_boxes_like_trex").accept(h);
     }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusCoreHitboxAndStats(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_core_hitbox_and_stats").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusHeadAndTailParts(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_head_and_tail_parts").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusHatchesTameWithEggshells(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_hatches_tame_with_eggshells").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusFoodHeals(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_food_heals").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusSaddleArmorRiding(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_saddle_armor_riding").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusPlowOnOffAndDeathDrop(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_plow_on_off_and_death_drop").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusJumpKeyLowersPlow(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_jump_key_lowers_plow").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusPlowsThreeWide(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_plows_three_wide").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusPlowFollowsTheHoe(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_plow_follows_the_hoe").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusPlowNeedsBuildRights(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_plow_needs_build_rights").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusPlowWidthAndWear(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_plow_width_and_wear").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusSowsFromOffhand(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_sows_from_offhand").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusNeverTramplesFarmland(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_never_tramples_farmland").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void stegosaurusTailSpikesHurtMonstersNotPlayers(GameTestHelper h) {
+        DinosTests.ALL.get("stegosaurus_tail_spikes_hurt_monsters_not_players").accept(h);
+    }
 }

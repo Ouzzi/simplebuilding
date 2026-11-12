@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simpledinos;
 
 import com.simpledinos.DinosRegistry;
 import com.simpledinos.client.DinosClient;
+import com.simpledinos.client.StegosaurusRenderer;
 import com.simpledinos.client.TrexRenderer;
 import com.simpledinos.client.TriceratopsRenderer;
 import net.fabricmc.api.ClientModInitializer;
@@ -14,5 +15,6 @@ public final class DinosFabricClient implements ClientModInitializer {
         DinosClient.modelLayers((location, definition) -> ModelLayerRegistry.registerModelLayer(location, definition::get));
         EntityRendererRegistry.register(DinosRegistry.TREX, TrexRenderer::new);
         EntityRendererRegistry.register(DinosRegistry.TRICERATOPS, TriceratopsRenderer::new);
+        EntityRendererRegistry.register(DinosRegistry.STEGOSAURUS, StegosaurusRenderer::new);
     }
 }
