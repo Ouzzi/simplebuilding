@@ -47,7 +47,7 @@ N3, N8, N9, N13, N15, N16; SBG-03/04) und wurden nicht wiederholt.
 | simplebuildingtools-P3-1 | P3 | Edit-Paket: unsigniertes Zwischenspeichern ohne Drossel (bis 32 000 Zeichen je Paket, Rueckmeldung als Slot-Update) - wie Vanillas Buch. | Hinweis |
 | simplebuildingtools-P3-2 | P3 | Schalter `blueprint.enabled=false` ("weder scannen noch bauen"): Kartentisch-Scan/Kopie (`BlueprintCartography.java:104`), Fortsetzen eines gespeicherten Auftrags (`BlueprintBuilder.java:1140`) und das Edit-Paket (`ModMessageHandlers.java:225`) fragen ihn nicht. | Vorschlag: `BtTuning.blueprintDenied` an allen drei Stellen |
 | simplebuildingtools-P3-3 | P3 | Blaupausen-/Oktant-Bau zeichnet fuer Rueckgaengig immer die Kosten auf (`BlueprintBuilder.java:1005`), `Record.creative` kennt nur den Kreativmodus (`WandUndo.java:97`): mit dem Kreativ-Baustab im Ueberleben erstattet Rueckgaengig nie bezahlte Items. Keine neue Wirkung (der Kreativ-Stab baut ohnehin gratis). | Vorschlag: `creative ? 0 : paid.count()` aufzeichnen |
-| simplebuildingtools-P3-4 | P3 | Kopie einer Kreativ-Blaupause am Kartentisch macht aus jeder leeren normalen Blaupause eine Kreativ-Blaupause (`BlueprintCartography.java:58`); sie gibt jedem Stab im Ueberleben 1024 Bloecke Reichweite (`CreativeReach.java:27`). Braucht einmal das Kreativ-Item. | Hinweis (Besitzer: so gewollt?) |
+| simplebuildingtools-P3-4 | P3 | Kopie einer Kreativ-Blaupause am Kartentisch macht aus jeder leeren normalen Blaupause eine Kreativ-Blaupause (`BlueprintCartography.java:58`); sie gibt jedem Stab im Ueberleben 1024 Bloecke Reichweite (`CreativeReach.java:27`). Braucht einmal das Kreativ-Item. | **Besitzer AUDSB31B F6 = B, umgesetzt (a-audsb31b)**: `copyResult(original, blank, player)` gibt die Kreativ-Kopie nur einem Spieler mit `instabuild` (Kreativmodus), sonst kein Ergebnis; Test `creativeBlueprintBuildsFarAndStaysLockedOnceSigned` erweitert (Ueberleben leer, ohne Spieler leer, Kreativ genaue Kopie). Kern-Kopie (26.2) unveraendert, Drift `copyResult/2|3` in `tools/dup_pairs.txt`. |
 | simplebuildingtools-P3-5 | P3 | Laufender Bau liest `Mode`/`Length` ungeprueft aus dem Stab-NBT (`BuildingWandItem.java:1047`): ein per Befehl/Kreativ gebauter Stab mit riesigem `Length` erzeugt riesige Stellenlisten je Tick. | Vorschlag: `Length` auf `lineLength(radius)` begrenzen |
 | simplebuildingtools-P3-6 | P3 | Bricht der Stab mitten im Ring, setzt `placeWandBlock` (`BuildingWandItem.java:838`) den Rest des Rings noch (kostet Material, keine Gratis-Bloecke). | Hinweis |
 | simplebuildingtools-P3-7 | P3 | Kartentisch-Scan liest bis 256^3 Stellen im 32-Block-Umkreis des Tisches, auch verdeckte Erze und fremde Claims (`BlueprintScanner.java:79`) - der Vanilla-Client hat dieselben Daten; relevant nur mit Anti-Xray-Mod. | Hinweis |
@@ -57,7 +57,7 @@ N3, N8, N9, N13, N15, N16; SBG-03/04) und wurden nicht wiederholt.
 | simplebuildingtools-P3-11 | P3 | 59 Kern-Dubletten; die Kern-Kopien haben beide P1: `common/src/shared/java/com/simplebuilding/blueprint/BlueprintBuilder.java:571`, `common/src/shared/java/com/simplebuilding/util/WandUndo.java:204` (26.2, auf 26.3 nicht registriert). Fixes nur mit privaten Methoden -> `check_dup_impl` 0 Probleme. | beim 26.2-Port nachziehen |
 
 ## Urteil
-**shipbar nach Fix** (2 P1 gefixt, 1 P2 Rueckfrage, 11 P3). Payloads, Schutz je Stelle und Materialabrechnung sind durch die
+**shipbar nach Fix** (2 P1 gefixt, 1 P2 nach Besitzer-Antwort AUDSB31B F2 = B umgesetzt, 11 P3, davon P3-4 nach F6 = B umgesetzt). Payloads, Schutz je Stelle und Materialabrechnung sind durch die
 frueheren Audits solide; beide P1 lagen bei zweiteiligen Bloecken (Bett-Loot haengt am Kopf, nicht am Fussteil).
 
 ## Testergebnis
@@ -67,3 +67,5 @@ gruen, `tools/check_dup_impl.py` 0 Probleme, Lang EN=DE. Vanilla-Verhalten (Loot
 `AbstractBedBlock#updateShape`) am dekompilierten 26.3-Jar nachgesehen. sbt: siehe `docs/ai/PLAN-A-AUDSB31-2026-11-12.md`.
 Nicht getestet: die beiden neuen Gametests liefen lokal nicht (kein Gradle); Client, Forge/NeoForge, echter Paket-Spam,
 Claim-Mods (nur das Fabric-Ereignis).
+a-audsb31b (F2, F6): javac von `BtConfig`, `BtTuning`, `BlueprintBuilder`, `ShapeFill`, `BlueprintCartography`, `BlueprintTests`, Adapter lokal sauber
+(nur die bekannte Access-Widener-Meldung); sbt siehe `docs/ai/PLAN-A-AUDSB31B-2026-11-12.md`.

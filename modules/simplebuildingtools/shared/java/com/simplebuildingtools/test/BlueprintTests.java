@@ -2111,10 +2111,17 @@ public final class BlueprintTests {
         ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "dirt 0,0,0", true, "Other"), player);
         helper.assertTrue(BlueprintItem.content(draft).equals(signed), "the server changed a signed creative blueprint: " + BlueprintItem.content(draft));
 
-        ItemStack copy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(BtItems.BLUEPRINT));
+        // Owner AUDSB31B F6 = B: only a player in creative mode copies a creative blueprint (survival: no result, the blank stays).
+        ItemStack survivalCopy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(BtItems.BLUEPRINT), player);
+        helper.assertTrue(survivalCopy.isEmpty(), "a survival player copied a creative blueprint: " + survivalCopy);
+        helper.assertTrue(com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(BtItems.BLUEPRINT), null).isEmpty(),
+                "a creative blueprint was copied without a player");
+        player.getAbilities().instabuild = true;
+        ItemStack copy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(BtItems.BLUEPRINT), player);
+        player.getAbilities().instabuild = false;
         helper.assertTrue(BlueprintItem.isCreative(copy) && BlueprintItem.content(copy).equals(signed) && copy.getCount() == 1,
                 "the cartography copy of a signed creative blueprint is not an exact signed copy: " + copy + " " + BlueprintItem.content(copy));
-        ItemStack normalCopy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(normal, new ItemStack(BtItems.BLUEPRINT));
+        ItemStack normalCopy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(normal, new ItemStack(BtItems.BLUEPRINT), player);
         helper.assertTrue(!normalCopy.isEmpty() && !BlueprintItem.content(normalCopy).signed() && !BlueprintItem.isCreative(normalCopy),
                 "the normal blueprint no longer copies to an editable one: " + BlueprintItem.content(normalCopy));
         helper.succeed();

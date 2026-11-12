@@ -22,7 +22,7 @@ common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxB
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlockEntity.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintBlockSearch.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBlockSearch.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintBuilder.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBuilder.java
-common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCartography.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCartography.java allow: copyResult/2 copyResult/3
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintCode.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCode.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintCommandText.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCommandText.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintContent.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintContent.java

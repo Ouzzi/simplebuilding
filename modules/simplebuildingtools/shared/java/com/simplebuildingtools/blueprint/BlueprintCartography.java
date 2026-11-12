@@ -49,13 +49,17 @@ public final class BlueprintCartography {
     /**
      * Kopieren wie bei Karten: signierte Blaupause oben, leere unten -> eine unsignierte Kopie mit
      * demselben Code und Titel, ohne Autor, also wieder bearbeitbar. Eine signierte Kreativ-Blaupause gibt
-     * eine genaue, signierte Kopie (Queue N29). Sonst leer.
+     * eine genaue, signierte Kopie (Queue N29) - nur einem Spieler im Kreativmodus (Besitzer AUDSB31B F6 = B:
+     * sonst machte jede leere Blaupause im Ueberleben 1024 Bloecke Reichweite). Sonst leer.
      */
-    public static ItemStack copyResult(ItemStack original, ItemStack blank) {
+    public static ItemStack copyResult(ItemStack original, ItemStack blank, @org.jspecify.annotations.Nullable Player player) {
         if (!isSigned(original) || !isBlank(blank)) {
             return ItemStack.EMPTY;
         }
         if (com.simplebuildingtools.items.custom.BlueprintItem.isCreative(original)) {
+            if (player == null || !player.getAbilities().instabuild) {
+                return ItemStack.EMPTY;
+            }
             // Kreativ-Blaupause (Queue N29): signiert ist sie endgueltig, auch als Kopie - eine genaue,
             // signierte Kopie statt einer bearbeitbaren (Autor, Titel, Code; ohne die Drehung im Baumodus).
             ItemStack exact = original.copyWithCount(1);
@@ -109,7 +113,7 @@ public final class BlueprintCartography {
             job = null;
             if (map.getItem() instanceof com.simplebuildingtools.items.custom.BlueprintItem) {
                 // Kopier-Pfad (signierte Blaupause oben) - kein Scan.
-                result.accept(copyResult(map, additional));
+                result.accept(copyResult(map, additional, player));
                 return;
             }
             if (!BlueprintScanner.isOctant(map) || !BlueprintScanner.isWritableBlueprint(additional)) {
