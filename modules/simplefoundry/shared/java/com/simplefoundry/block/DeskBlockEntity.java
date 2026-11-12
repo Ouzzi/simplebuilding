@@ -13,6 +13,8 @@ import com.simplefoundry.config.FoundryConfig;
 import java.util.HashSet;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ContainerData;
@@ -445,6 +447,28 @@ public class DeskBlockEntity extends BlockEntity {
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         if (level != null && !level.isClientSide()) dropContents(level, pos);
+    }
+
+    /** Owner AUDSB31B F3 = A: a desk placed from an upgraded item keeps its tier ({@link FoundryRegistry#DESK_TIER}). */
+    @Override
+    protected void applyImplicitComponents(DataComponentGetter components) {
+        super.applyImplicitComponents(components);
+        Integer stored = components.get(FoundryRegistry.DESK_TIER);
+        if (stored != null) tier = Tier.byIndex(stored);
+    }
+
+    /** The tier goes onto the dropped item (loot table {@code copy_components}) and the creative pick (Ctrl + middle click). */
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        if (tier != Tier.STONE) components.set(FoundryRegistry.DESK_TIER, tier.ordinal());
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void removeComponentsFromTag(ValueOutput output) {
+        super.removeComponentsFromTag(output);
+        output.discard("Tier");
     }
 
     @Override

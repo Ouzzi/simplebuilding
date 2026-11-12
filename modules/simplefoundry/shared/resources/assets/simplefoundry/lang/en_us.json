@@ -23,6 +23,7 @@
   "simplefoundry.desk.capacity": "Filled %s of %s units, fire %s s, fuel: %s",
   "simplefoundry.desk.no_fuel": "none",
   "simplefoundry.desk.tier": "Desk with %s input slots",
+  "simplefoundry.desk.tooltip.tier": "Tier %s of 4 (%s places)",
   "simplefoundry.desk.layer": "Layer %s: %s",
   "simplefoundry.desk.layer_empty": "empty",
   "simplefoundry.desk.refused": "Nothing taken (%s, or the tank is full)",

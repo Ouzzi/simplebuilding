@@ -23,6 +23,7 @@
   "simplefoundry.desk.capacity": "Gefüllt %s von %s Einheiten, Feuer %s s, Brennstoff: %s",
   "simplefoundry.desk.no_fuel": "keiner",
   "simplefoundry.desk.tier": "Pult mit %s Eingabeplätzen",
+  "simplefoundry.desk.tooltip.tier": "Stufe %s von 4 (%s Plätze)",
   "simplefoundry.desk.layer": "Schicht %s: %s",
   "simplefoundry.desk.layer_empty": "leer",
   "simplefoundry.desk.refused": "Nichts genommen (%s, oder der Tank ist voll)",

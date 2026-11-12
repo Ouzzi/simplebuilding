@@ -9,6 +9,13 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:copy_components",
+            "include": [
+              "simplefoundry:desk_tier"
+            ],
+            "source": "block_entity"
+          },
           "name": "simplefoundry:foundry_desk"
         }
       ]
