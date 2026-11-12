@@ -31,6 +31,24 @@ public final class BtTuning {
         return SimpleBuildingTools.config().blueprint.pictureMaxSide;
     }
 
+    /**
+     * Owner AUDSB31B F2 = B: true (and a red action bar line for a server player) when a free build of {@code cells} cells is
+     * above {@code blueprint.largeBuildCells} and the player lacks {@code blueprint.largeBuildPermission}. Builds that pay with
+     * material are never refused (survival is limited by the material); a client never refuses (the server decides).
+     */
+    public static boolean largeBuildDenied(Player player, int cells, boolean free) {
+        BtConfig.Blueprint blueprint = SimpleBuildingTools.config().blueprint;
+        if (!free || blueprint.largeBuildCells <= 0 || cells <= blueprint.largeBuildCells || !(player instanceof ServerPlayer serverPlayer)) {
+            return false;
+        }
+        if (com.simplebuildingtools.blueprint.BlueprintPicture.hasLevel(serverPlayer, blueprint.largeBuildPermission)) {
+            return false;
+        }
+        serverPlayer.sendOverlayMessage(Component.translatable("simplebuildingtools.blueprint.build.too_large_for_rights", cells,
+                blueprint.largeBuildCells).withStyle(ChatFormatting.RED));
+        return true;
+    }
+
     public static boolean wandHungerCost() {
         return SimpleBuildingTools.config().wands.hungerCost;
     }

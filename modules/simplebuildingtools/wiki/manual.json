@@ -354,7 +354,7 @@
         "title": "Server config",
         "summary": "config/simplebuildingtools-server.json: blueprint on/off, blueprint build speed, the picture import and the wand hunger cost; /simplebuildingtools config changes it in game.",
         "details": [
-          "blueprint.enabled (default on), blueprint.maxBlocksPerTick (1 to 32768, default 32768), blueprint.pictureImport (default on), blueprint.picturePermission (0 to 4, default 0), blueprint.pictureMaxSide (16 to 128, default 128).",
+          "blueprint.enabled (default on), blueprint.maxBlocksPerTick (1 to 32768, default 32768), blueprint.pictureImport (default on), blueprint.picturePermission (0 to 4, default 0), blueprint.pictureMaxSide (16 to 128, default 128), blueprint.largeBuildCells (0 to 4194304, default 32768, 0 = no limit) and blueprint.largeBuildPermission (0 to 4, default 2): a free build (creative mode or creative wand) of a blueprint or octant fill with more positions than largeBuildCells needs that operator level; builds that pay with material are never limited.",
           "wands.hungerCost (default on) and wands.hungerMultiplier (0 to 10, default 1).",
           "A missing file takes these values over once from SimpleBuilding's simplebuilding.json (server.features.blueprint, server.blueprint.*, tools.buildingWandHungerCost, tools.wandHungerMultiplier). The server sends its values to the clients."
         ]
@@ -363,7 +363,7 @@
         "title": "Server-Config",
         "summary": "config/simplebuildingtools-server.json: Blaupause an/aus, Bautempo der Blaupause, der Bild-Import und die Hungerkosten des Baustabs; /simplebuildingtools config ändert sie im Spiel.",
         "details": [
-          "blueprint.enabled (Standard an), blueprint.maxBlocksPerTick (1 bis 32768, Standard 32768), blueprint.pictureImport (Standard an), blueprint.picturePermission (0 bis 4, Standard 0), blueprint.pictureMaxSide (16 bis 128, Standard 128).",
+          "blueprint.enabled (Standard an), blueprint.maxBlocksPerTick (1 bis 32768, Standard 32768), blueprint.pictureImport (Standard an), blueprint.picturePermission (0 bis 4, Standard 0), blueprint.pictureMaxSide (16 bis 128, Standard 128), blueprint.largeBuildCells (0 bis 4194304, Standard 32768, 0 = keine Grenze) und blueprint.largeBuildPermission (0 bis 4, Standard 2): ein Gratis-Bau (Kreativmodus oder Kreativ-Baustab) einer Blaupause oder Oktant-Füllung mit mehr Stellen als largeBuildCells braucht diese Operator-Stufe; Bauten, die Material kosten, sind nie begrenzt.",
           "wands.hungerCost (Standard an) und wands.hungerMultiplier (0 bis 10, Standard 1).",
           "Fehlt die Datei, übernimmt sie diese Werte einmal aus SimpleBuildings simplebuilding.json (server.features.blueprint, server.blueprint.*, tools.buildingWandHungerCost, tools.wandHungerMultiplier). Der Server schickt seine Werte an die Clients."
         ]

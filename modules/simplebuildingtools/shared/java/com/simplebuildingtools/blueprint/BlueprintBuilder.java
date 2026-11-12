@@ -776,6 +776,9 @@ public final class BlueprintBuilder {
         Rotation rotation = rotationFor(player.getDirection(), rotationSteps(blueprint));
         boolean creative = BuildingWandItem.freeBuild(player, wand);
         Layout layout = layout(model, target, rotation);
+        if (com.simplebuildingtools.config.BtTuning.largeBuildDenied(player, layout.size(), creative)) {
+            return null;
+        }
         Object key = List.of(content.code(), target, rotation);
         Result pending = pendingCheck(player, wand, blueprint, key);
         if (pending != null) {
@@ -815,7 +818,7 @@ public final class BlueprintBuilder {
      * ein solcher Auftrag vorbei.
      */
     public static Result buildLayout(Level level, Player player, ItemStack wand, ItemStack offHand, Layout layout) {
-        if (layout.size() == 0) {
+        if (layout.size() == 0 || com.simplebuildingtools.config.BtTuning.largeBuildDenied(player, layout.size(), BuildingWandItem.freeBuild(player, wand))) {
             return null;
         }
         Object key = layout.identity();
@@ -1163,6 +1166,10 @@ public final class BlueprintBuilder {
         }
         Rotation rotation = Rotation.values()[Math.floorMod(pending.rotation(), Rotation.values().length)];
         Layout layout = layout(model, pending.target(), rotation);
+        if (com.simplebuildingtools.config.BtTuning.largeBuildDenied(player, layout.size(), BuildingWandItem.freeBuild(player, wand))) {
+            BlueprintJobs.clear(level, player.getUUID());
+            return;
+        }
         HINTED.remove(player.getUUID());
         tell(player, Component.translatable("simplebuildingtools.blueprint.build.resumed", pending.index(), layout.size())
                 .withStyle(ChatFormatting.AQUA));
