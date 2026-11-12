@@ -327,6 +327,32 @@
       }
     },
     {
+      "id": "metal_doors",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalDoorBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalTrapDoorBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_door.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_trapdoor.json"
+      ],
+      "en": {
+        "title": "Metal doors and trapdoors",
+        "summary": "Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has a door and a trapdoor like the copper ones.",
+        "details": [
+          "Door: six ingots (2 x 3) make 3; trapdoor: four ingots (2 x 2) make 1. Both open by hand or by redstone like copper, villagers and other mobs use the doors.",
+          "The window shows the metal's own grate pattern, the frame its tones. They do not age (only copper oxidises). Any pickaxe."
+        ]
+      },
+      "de": {
+        "title": "Metalltüren und -falltüren",
+        "summary": "Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat eine Tür und eine Falltür wie die aus Kupfer.",
+        "details": [
+          "Tür: sechs Barren (2 x 3) ergeben 3; Falltür: vier Barren (2 x 2) ergeben 1. Beide öffnen per Hand oder Redstone wie Kupfer, Dorfbewohner und andere Mobs nutzen die Türen.",
+          "Das Fenster zeigt das eigene Rostmuster des Metalls, der Rahmen seine Töne. Sie altern nicht (nur Kupfer oxidiert). Jede Spitzhacke."
+        ]
+      }
+    },
+    {
       "id": "metal_sounds",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresSounds.java",
@@ -572,6 +598,39 @@
           {
             "id": "simpleores:brass_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_door",
+        "count": 3
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_door.json",
+      "ingredients": [
+        "simpleores:brass_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:brass_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 6
           }
         ]
       }
@@ -914,6 +973,38 @@
       }
     },
     {
+      "id": "simpleores:brass_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_trapdoor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_trapdoor.json",
+      "ingredients": [
+        "simpleores:brass_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:brass_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:bronze_bars",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -974,6 +1065,39 @@
           {
             "id": "simpleores:bronze_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_door",
+        "count": 3
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_door.json",
+      "ingredients": [
+        "simpleores:bronze_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:bronze_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 6
           }
         ]
       }
@@ -1171,6 +1295,186 @@
       }
     },
     {
+      "id": "simpleores:bronze_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_pillar.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_pillar_from_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_pillar_from_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_tiles.json",
+      "ingredients": [
+        "simpleores:cut_bronze"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_tiles_from_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_tiles_from_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_tiles_from_cut_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_tiles_from_cut_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_trapdoor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_trapdoor.json",
+      "ingredients": [
+        "simpleores:bronze_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:bronze_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:chiseled_brass",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -1253,6 +1557,94 @@
         "materials": [
           {
             "id": "simpleores:brass_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_bronze",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_bronze",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_bronze.json",
+      "ingredients": [
+        "simpleores:cut_bronze_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_bronze_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_bronze_from_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_bronze",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_bronze_from_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_bronze_from_cut_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_bronze",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_bronze_from_cut_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
             "count": 9
           }
         ]
@@ -1517,6 +1909,94 @@
         "materials": [
           {
             "id": "simpleores:silver_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_stainless_steel",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_stainless_steel",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_stainless_steel.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_stainless_steel_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_stainless_steel_from_cut_stainless_steel_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_stainless_steel",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_stainless_steel_from_cut_stainless_steel_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_stainless_steel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_stainless_steel_from_stainless_steel_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_stainless_steel",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_stainless_steel_from_stainless_steel_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
             "count": 9
           }
         ]
@@ -1929,6 +2409,242 @@
         "materials": [
           {
             "id": "simpleores:brass_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_bronze",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_bronze",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_bronze.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_bronze_from_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_bronze",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_bronze_from_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_bronze_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_bronze_slab",
+        "count": 6
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_bronze_slab.json",
+      "ingredients": [
+        "simpleores:cut_bronze"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_bronze_slab_from_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_bronze_slab",
+        "count": 8
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_bronze_slab_from_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_bronze_slab_from_cut_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_bronze_slab",
+        "count": 2
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_bronze_slab_from_cut_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_bronze_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_bronze_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_bronze_stairs.json",
+      "ingredients": [
+        "simpleores:cut_bronze"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 54
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_bronze_stairs_from_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_bronze_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_bronze_stairs_from_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_bronze_stairs_from_cut_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_bronze_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_bronze_stairs_from_cut_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
             "count": 9
           }
         ]
@@ -2637,6 +3353,242 @@
         "materials": [
           {
             "id": "simpleores:silver_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_stainless_steel",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_stainless_steel",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_stainless_steel.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_stainless_steel_from_stainless_steel_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_stainless_steel",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_stainless_steel_from_stainless_steel_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_stainless_steel_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_stainless_steel_slab",
+        "count": 6
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_stainless_steel_slab.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_stainless_steel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_stainless_steel_slab_from_cut_stainless_steel_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_stainless_steel_slab",
+        "count": 2
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_stainless_steel_slab_from_cut_stainless_steel_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_stainless_steel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_stainless_steel_slab_from_stainless_steel_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_stainless_steel_slab",
+        "count": 8
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_stainless_steel_slab_from_stainless_steel_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_stainless_steel_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_stainless_steel_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_stainless_steel_stairs.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_stainless_steel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 54
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_stainless_steel_stairs_from_cut_stainless_steel_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_stainless_steel_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_stainless_steel_stairs_from_cut_stainless_steel_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_stainless_steel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_stainless_steel_stairs_from_stainless_steel_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_stainless_steel_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_stainless_steel_stairs_from_stainless_steel_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
             "count": 9
           }
         ]
@@ -3790,6 +4742,39 @@
       }
     },
     {
+      "id": "simpleores:lead_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_door",
+        "count": 3
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_door.json",
+      "ingredients": [
+        "simpleores:lead_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:lead_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:lead_grate",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -4299,6 +5284,38 @@
       }
     },
     {
+      "id": "simpleores:lead_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_trapdoor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_trapdoor.json",
+      "ingredients": [
+        "simpleores:lead_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:lead_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:nether_rift_shard",
       "type": "minecraft:blasting",
       "category": "misc",
@@ -4511,6 +5528,39 @@
           {
             "id": "simpleores:nickel_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_door",
+        "count": 3
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_door.json",
+      "ingredients": [
+        "simpleores:nickel_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:nickel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 6
           }
         ]
       }
@@ -4929,6 +5979,38 @@
           {
             "id": "simpleores:nickel_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_trapdoor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_trapdoor.json",
+      "ingredients": [
+        "simpleores:nickel_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:nickel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 4
           }
         ]
       }
@@ -6995,6 +8077,39 @@
       }
     },
     {
+      "id": "simpleores:silver_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_door",
+        "count": 3
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_door.json",
+      "ingredients": [
+        "simpleores:silver_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:silver_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:silver_grate",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -7600,6 +8715,38 @@
       }
     },
     {
+      "id": "simpleores:silver_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_trapdoor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_trapdoor.json",
+      "ingredients": [
+        "simpleores:silver_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:silver_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:stainless_steel_bars",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -7660,6 +8807,39 @@
           {
             "id": "simpleores:stainless_steel_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_door",
+        "count": 3
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_door.json",
+      "ingredients": [
+        "simpleores:stainless_steel_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:stainless_steel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 6
           }
         ]
       }
@@ -7857,6 +9037,186 @@
       }
     },
     {
+      "id": "simpleores:stainless_steel_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_pillar.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_pillar_from_stainless_steel_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_pillar_from_stainless_steel_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_tiles.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_stainless_steel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_tiles_from_cut_stainless_steel_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_tiles_from_cut_stainless_steel_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_stainless_steel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_tiles_from_stainless_steel_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_tiles_from_stainless_steel_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:stainless_steel_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:stainless_steel_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_trapdoor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_trapdoor.json",
+      "ingredients": [
+        "simpleores:stainless_steel_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:stainless_steel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:terranite_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -8023,6 +9383,39 @@
           {
             "id": "simpleores:tin_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_door",
+        "count": 3
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_door.json",
+      "ingredients": [
+        "simpleores:tin_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:tin_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 6
           }
         ]
       }
@@ -8446,6 +9839,38 @@
       }
     },
     {
+      "id": "simpleores:tin_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_trapdoor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_trapdoor.json",
+      "ingredients": [
+        "simpleores:tin_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:tin_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:zenithite_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -8612,6 +10037,39 @@
           {
             "id": "simpleores:zinc_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_door",
+        "count": 3
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_door.json",
+      "ingredients": [
+        "simpleores:zinc_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zinc_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 6
           }
         ]
       }
@@ -9093,6 +10551,38 @@
           }
         ]
       }
+    },
+    {
+      "id": "simpleores:zinc_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_trapdoor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_trapdoor.json",
+      "ingredients": [
+        "simpleores:zinc_ingot"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zinc_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 4
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -9131,6 +10621,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_block.json"
+    },
+    {
+      "id": "simpleores:blocks/brass_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_door.json"
     },
     {
       "id": "simpleores:blocks/brass_grate",
@@ -9187,6 +10695,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_tiles.json"
     },
     {
+      "id": "simpleores:blocks/brass_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_trapdoor.json"
+    },
+    {
       "id": "simpleores:blocks/bronze_bars",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -9223,6 +10749,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_block.json"
     },
     {
+      "id": "simpleores:blocks/bronze_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_door.json"
+    },
+    {
       "id": "simpleores:blocks/bronze_grate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -9241,6 +10785,60 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_grate.json"
     },
     {
+      "id": "simpleores:blocks/bronze_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_pillar.json"
+    },
+    {
+      "id": "simpleores:blocks/bronze_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_tiles.json"
+    },
+    {
+      "id": "simpleores:blocks/bronze_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_trapdoor.json"
+    },
+    {
       "id": "simpleores:blocks/chiseled_brass",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -9257,6 +10855,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_brass.json"
+    },
+    {
+      "id": "simpleores:blocks/chiseled_bronze",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:chiseled_bronze"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_bronze.json"
     },
     {
       "id": "simpleores:blocks/chiseled_lead",
@@ -9311,6 +10927,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_silver.json"
+    },
+    {
+      "id": "simpleores:blocks/chiseled_stainless_steel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:chiseled_stainless_steel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_stainless_steel.json"
     },
     {
       "id": "simpleores:blocks/chiseled_tin",
@@ -9399,6 +11033,58 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_brass_stairs.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_bronze",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_bronze"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_bronze.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_bronze_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_bronze_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_bronze_slab.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_bronze_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_bronze_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_bronze_stairs.json"
     },
     {
       "id": "simpleores:blocks/cut_lead",
@@ -9555,6 +11241,58 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_silver_stairs.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_stainless_steel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_stainless_steel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_stainless_steel.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_stainless_steel_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_stainless_steel_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_stainless_steel_slab.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_stainless_steel_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_stainless_steel_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_stainless_steel_stairs.json"
     },
     {
       "id": "simpleores:blocks/cut_tin",
@@ -9938,6 +11676,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_block.json"
     },
     {
+      "id": "simpleores:blocks/lead_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_door.json"
+    },
+    {
       "id": "simpleores:blocks/lead_grate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10025,6 +11781,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_tiles.json"
+    },
+    {
+      "id": "simpleores:blocks/lead_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_trapdoor.json"
     },
     {
       "id": "simpleores:blocks/nether_dimensional_scrap",
@@ -10149,6 +11923,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_block.json"
     },
     {
+      "id": "simpleores:blocks/nickel_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_door.json"
+    },
+    {
       "id": "simpleores:blocks/nickel_grate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10201,6 +11993,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_tiles.json"
+    },
+    {
+      "id": "simpleores:blocks/nickel_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_trapdoor.json"
     },
     {
       "id": "simpleores:blocks/raw_lead_block",
@@ -10472,6 +12282,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_block.json"
     },
     {
+      "id": "simpleores:blocks/silver_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_door.json"
+    },
+    {
       "id": "simpleores:blocks/silver_grate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10579,6 +12407,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_tiles.json"
     },
     {
+      "id": "simpleores:blocks/silver_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_trapdoor.json"
+    },
+    {
       "id": "simpleores:blocks/stainless_steel_bars",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10615,6 +12461,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_block.json"
     },
     {
+      "id": "simpleores:blocks/stainless_steel_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_door.json"
+    },
+    {
       "id": "simpleores:blocks/stainless_steel_grate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10631,6 +12495,60 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_grate.json"
+    },
+    {
+      "id": "simpleores:blocks/stainless_steel_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_pillar.json"
+    },
+    {
+      "id": "simpleores:blocks/stainless_steel_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_tiles.json"
+    },
+    {
+      "id": "simpleores:blocks/stainless_steel_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_trapdoor.json"
     },
     {
       "id": "simpleores:blocks/terranite_block",
@@ -10721,6 +12639,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_block.json"
     },
     {
+      "id": "simpleores:blocks/tin_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_door.json"
+    },
+    {
       "id": "simpleores:blocks/tin_grate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10792,6 +12728,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_tiles.json"
     },
     {
+      "id": "simpleores:blocks/tin_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_trapdoor.json"
+    },
+    {
       "id": "simpleores:blocks/zenithite_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10844,6 +12798,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_block.json"
+    },
+    {
+      "id": "simpleores:blocks/zinc_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_door.json"
     },
     {
       "id": "simpleores:blocks/zinc_grate",
@@ -10915,6 +12887,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_tiles.json"
+    },
+    {
+      "id": "simpleores:blocks/zinc_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_trapdoor.json"
     }
   ],
   "tags": [
@@ -11206,7 +13196,9 @@
       "usedIn": [
         "simpleores:brass_bars",
         "simpleores:brass_block",
-        "simpleores:brass_nugget"
+        "simpleores:brass_door",
+        "simpleores:brass_nugget",
+        "simpleores:brass_trapdoor"
       ]
     },
     {
@@ -11260,7 +13252,9 @@
       "usedIn": [
         "simpleores:bronze_bars",
         "simpleores:bronze_block",
-        "simpleores:bronze_nugget"
+        "simpleores:bronze_door",
+        "simpleores:bronze_nugget",
+        "simpleores:bronze_trapdoor"
       ]
     },
     {
@@ -11478,10 +13472,10 @@
           "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 21 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 21 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleores/item/guide_book.png",
@@ -11571,8 +13565,10 @@
       "usedIn": [
         "simpleores:lead_bars",
         "simpleores:lead_block",
+        "simpleores:lead_door",
         "simpleores:lead_nugget",
-        "simpleores:lead_plate"
+        "simpleores:lead_plate",
+        "simpleores:lead_trapdoor"
       ]
     },
     {
@@ -11656,7 +13652,9 @@
       "usedIn": [
         "simpleores:nickel_bars",
         "simpleores:nickel_block",
+        "simpleores:nickel_door",
         "simpleores:nickel_nugget",
+        "simpleores:nickel_trapdoor",
         "simpleores:stainless_steel_ingot"
       ]
     },
@@ -12670,8 +14668,10 @@
         "simpleores:rose_gold_pressling_a",
         "simpleores:silver_bars",
         "simpleores:silver_block",
+        "simpleores:silver_door",
         "simpleores:silver_nugget",
-        "simpleores:silver_sheet"
+        "simpleores:silver_sheet",
+        "simpleores:silver_trapdoor"
       ]
     },
     {
@@ -12725,7 +14725,9 @@
       "usedIn": [
         "simpleores:stainless_steel_bars",
         "simpleores:stainless_steel_block",
-        "simpleores:stainless_steel_nugget"
+        "simpleores:stainless_steel_door",
+        "simpleores:stainless_steel_nugget",
+        "simpleores:stainless_steel_trapdoor"
       ]
     },
     {
@@ -12810,7 +14812,9 @@
         "simpleores:bronze_ingot",
         "simpleores:tin_bars",
         "simpleores:tin_block",
-        "simpleores:tin_nugget"
+        "simpleores:tin_door",
+        "simpleores:tin_nugget",
+        "simpleores:tin_trapdoor"
       ]
     },
     {
@@ -12896,7 +14900,9 @@
         "simpleores:brass_ingot",
         "simpleores:zinc_bars",
         "simpleores:zinc_block",
-        "simpleores:zinc_nugget"
+        "simpleores:zinc_door",
+        "simpleores:zinc_nugget",
+        "simpleores:zinc_trapdoor"
       ]
     },
     {
@@ -12985,6 +14991,28 @@
       ]
     },
     {
+      "id": "simpleores:brass_door",
+      "name": {
+        "en_us": "Brass Door",
+        "de_de": "Messingtür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A door like the copper door, framed in brass with its own grate pattern as window: opens by hand or redstone, does not age. Six brass ingots (2 x 3) make 3. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Tür wie die Kupfertür, mit Messingrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Messingbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:brass_door"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:brass_grate",
       "name": {
         "en_us": "Brass Grate",
@@ -13058,6 +15086,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:brass_trapdoor",
+      "name": {
+        "en_us": "Brass Trapdoor",
+        "de_de": "Messingfalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A trapdoor like the copper trapdoor with the brass grate pattern: opens by hand or redstone, does not age. Four brass ingots (2 x 2) make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Falltür wie die Kupferfalltür mit dem Messingrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Messingbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/brass_trapdoor.png",
+      "craftedBy": [
+        "simpleores:brass_trapdoor"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:bronze_bars",
       "name": {
         "en_us": "Bronze Bars",
@@ -13104,8 +15155,38 @@
       "usedIn": [
         "simpleores:bronze_grate",
         "simpleores:bronze_grate_from_bronze_block_stonecutting",
-        "simpleores:bronze_ingot_from_bronze_block"
+        "simpleores:bronze_ingot_from_bronze_block",
+        "simpleores:bronze_pillar",
+        "simpleores:bronze_pillar_from_bronze_block_stonecutting",
+        "simpleores:bronze_tiles_from_bronze_block_stonecutting",
+        "simpleores:chiseled_bronze_from_bronze_block_stonecutting",
+        "simpleores:cut_bronze",
+        "simpleores:cut_bronze_from_bronze_block_stonecutting",
+        "simpleores:cut_bronze_slab_from_bronze_block_stonecutting",
+        "simpleores:cut_bronze_stairs_from_bronze_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:bronze_door",
+      "name": {
+        "en_us": "Bronze Door",
+        "de_de": "Bronzetür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A door like the copper door, framed in bronze with its own grate pattern as window: opens by hand or redstone, does not age. Six bronze ingots (2 x 3) make 3. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Tür wie die Kupfertür, mit Bronzerahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Bronzebarren (2 x 3) ergeben 3. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:bronze_door"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:bronze_grate",
@@ -13132,6 +15213,78 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:bronze_pillar",
+      "name": {
+        "en_us": "Bronze Pillar",
+        "de_de": "Bronzesäule"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_pillar.png",
+      "craftedBy": [
+        "simpleores:bronze_pillar",
+        "simpleores:bronze_pillar_from_bronze_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:bronze_tiles",
+      "name": {
+        "en_us": "Bronze Tiles",
+        "de_de": "Bronzefliesen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_tiles.png",
+      "craftedBy": [
+        "simpleores:bronze_tiles",
+        "simpleores:bronze_tiles_from_bronze_block_stonecutting",
+        "simpleores:bronze_tiles_from_cut_bronze_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:bronze_trapdoor",
+      "name": {
+        "en_us": "Bronze Trapdoor",
+        "de_de": "Bronzefalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A trapdoor like the copper trapdoor with the bronze grate pattern: opens by hand or redstone, does not age. Four bronze ingots (2 x 2) make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Falltür wie die Kupferfalltür mit dem Bronzerostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Bronzebarren (2 x 2) ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_trapdoor.png",
+      "craftedBy": [
+        "simpleores:bronze_trapdoor"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:chiseled_brass",
       "name": {
         "en_us": "Chiseled Brass",
@@ -13153,6 +15306,31 @@
         "simpleores:chiseled_brass",
         "simpleores:chiseled_brass_from_brass_block_stonecutting",
         "simpleores:chiseled_brass_from_cut_brass_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:chiseled_bronze",
+      "name": {
+        "en_us": "Chiseled Bronze",
+        "de_de": "Gemeißelter Bronzeblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/chiseled_bronze.png",
+      "craftedBy": [
+        "simpleores:chiseled_bronze",
+        "simpleores:chiseled_bronze_from_bronze_block_stonecutting",
+        "simpleores:chiseled_bronze_from_cut_bronze_stonecutting"
       ],
       "usedIn": []
     },
@@ -13228,6 +15406,31 @@
         "simpleores:chiseled_silver",
         "simpleores:chiseled_silver_from_cut_silver_stonecutting",
         "simpleores:chiseled_silver_from_silver_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:chiseled_stainless_steel",
+      "name": {
+        "en_us": "Chiseled Stainless Steel",
+        "de_de": "Gemeißelter Edelstahlblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/chiseled_stainless_steel.png",
+      "craftedBy": [
+        "simpleores:chiseled_stainless_steel",
+        "simpleores:chiseled_stainless_steel_from_cut_stainless_steel_stonecutting",
+        "simpleores:chiseled_stainless_steel_from_stainless_steel_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -13360,6 +15563,88 @@
         "simpleores:cut_brass_stairs",
         "simpleores:cut_brass_stairs_from_brass_block_stonecutting",
         "simpleores:cut_brass_stairs_from_cut_brass_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:cut_bronze",
+      "name": {
+        "en_us": "Cut Bronze",
+        "de_de": "Geschnittener Bronzeblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/cut_bronze.png",
+      "craftedBy": [
+        "simpleores:cut_bronze",
+        "simpleores:cut_bronze_from_bronze_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleores:bronze_tiles",
+        "simpleores:bronze_tiles_from_cut_bronze_stonecutting",
+        "simpleores:chiseled_bronze_from_cut_bronze_stonecutting",
+        "simpleores:cut_bronze_slab",
+        "simpleores:cut_bronze_slab_from_cut_bronze_stonecutting",
+        "simpleores:cut_bronze_stairs",
+        "simpleores:cut_bronze_stairs_from_cut_bronze_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleores:cut_bronze_slab",
+      "name": {
+        "en_us": "Cut Bronze Slab",
+        "de_de": "Geschnittene Bronzestufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "craftedBy": [
+        "simpleores:cut_bronze_slab",
+        "simpleores:cut_bronze_slab_from_bronze_block_stonecutting",
+        "simpleores:cut_bronze_slab_from_cut_bronze_stonecutting"
+      ],
+      "usedIn": [
+        "simpleores:chiseled_bronze"
+      ]
+    },
+    {
+      "id": "simpleores:cut_bronze_stairs",
+      "name": {
+        "en_us": "Cut Bronze Stairs",
+        "de_de": "Geschnittene Bronzetreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the bronze family (like the cut copper family): crafted from the block of bronze or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Bronze-Familie (wie die Familie des geschnittenen Kupfers): aus dem Bronzeblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "craftedBy": [
+        "simpleores:cut_bronze_stairs",
+        "simpleores:cut_bronze_stairs_from_bronze_block_stonecutting",
+        "simpleores:cut_bronze_stairs_from_cut_bronze_stonecutting"
       ],
       "usedIn": []
     },
@@ -13606,6 +15891,88 @@
         "simpleores:cut_silver_stairs",
         "simpleores:cut_silver_stairs_from_cut_silver_stonecutting",
         "simpleores:cut_silver_stairs_from_silver_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:cut_stainless_steel",
+      "name": {
+        "en_us": "Cut Stainless Steel",
+        "de_de": "Geschnittener Edelstahlblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/cut_stainless_steel.png",
+      "craftedBy": [
+        "simpleores:cut_stainless_steel",
+        "simpleores:cut_stainless_steel_from_stainless_steel_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleores:chiseled_stainless_steel_from_cut_stainless_steel_stonecutting",
+        "simpleores:cut_stainless_steel_slab",
+        "simpleores:cut_stainless_steel_slab_from_cut_stainless_steel_stonecutting",
+        "simpleores:cut_stainless_steel_stairs",
+        "simpleores:cut_stainless_steel_stairs_from_cut_stainless_steel_stonecutting",
+        "simpleores:stainless_steel_tiles",
+        "simpleores:stainless_steel_tiles_from_cut_stainless_steel_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleores:cut_stainless_steel_slab",
+      "name": {
+        "en_us": "Cut Stainless Steel Slab",
+        "de_de": "Geschnittene Edelstahlstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "craftedBy": [
+        "simpleores:cut_stainless_steel_slab",
+        "simpleores:cut_stainless_steel_slab_from_cut_stainless_steel_stonecutting",
+        "simpleores:cut_stainless_steel_slab_from_stainless_steel_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleores:chiseled_stainless_steel"
+      ]
+    },
+    {
+      "id": "simpleores:cut_stainless_steel_stairs",
+      "name": {
+        "en_us": "Cut Stainless Steel Stairs",
+        "de_de": "Geschnittene Edelstahltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "craftedBy": [
+        "simpleores:cut_stainless_steel_stairs",
+        "simpleores:cut_stainless_steel_stairs_from_cut_stainless_steel_stonecutting",
+        "simpleores:cut_stainless_steel_stairs_from_stainless_steel_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -14159,6 +16526,28 @@
       ]
     },
     {
+      "id": "simpleores:lead_door",
+      "name": {
+        "en_us": "Lead Door",
+        "de_de": "Bleitür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A door like the copper door, framed in lead with its own grate pattern as window: opens by hand or redstone, does not age. Six lead ingots (2 x 3) make 3. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Tür wie die Kupfertür, mit Bleirahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Bleibarren (2 x 3) ergeben 3. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:lead_door"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:lead_grate",
       "name": {
         "en_us": "Lead Grate",
@@ -14274,6 +16663,29 @@
         "simpleores:lead_tiles",
         "simpleores:lead_tiles_from_cut_lead_stonecutting",
         "simpleores:lead_tiles_from_lead_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:lead_trapdoor",
+      "name": {
+        "en_us": "Lead Trapdoor",
+        "de_de": "Bleifalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A trapdoor like the copper trapdoor with the lead grate pattern: opens by hand or redstone, does not age. Four lead ingots (2 x 2) make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Falltür wie die Kupferfalltür mit dem Bleirostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Bleibarren (2 x 2) ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/lead_trapdoor.png",
+      "craftedBy": [
+        "simpleores:lead_trapdoor"
       ],
       "usedIn": []
     },
@@ -14453,6 +16865,28 @@
       ]
     },
     {
+      "id": "simpleores:nickel_door",
+      "name": {
+        "en_us": "Nickel Door",
+        "de_de": "Nickeltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A door like the copper door, framed in nickel with its own grate pattern as window: opens by hand or redstone, does not age. Six nickel ingots (2 x 3) make 3. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Tür wie die Kupfertür, mit Nickelrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Nickelbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:nickel_door"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:nickel_grate",
       "name": {
         "en_us": "Nickel Grate",
@@ -14522,6 +16956,29 @@
         "simpleores:nickel_tiles",
         "simpleores:nickel_tiles_from_cut_nickel_stonecutting",
         "simpleores:nickel_tiles_from_nickel_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:nickel_trapdoor",
+      "name": {
+        "en_us": "Nickel Trapdoor",
+        "de_de": "Nickelfalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A trapdoor like the copper trapdoor with the nickel grate pattern: opens by hand or redstone, does not age. Four nickel ingots (2 x 2) make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Falltür wie die Kupferfalltür mit dem Nickelrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Nickelbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/nickel_trapdoor.png",
+      "craftedBy": [
+        "simpleores:nickel_trapdoor"
       ],
       "usedIn": []
     },
@@ -14907,6 +17364,28 @@
       ]
     },
     {
+      "id": "simpleores:silver_door",
+      "name": {
+        "en_us": "Silver Door",
+        "de_de": "Silbertür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A door like the copper door, framed in silver with its own grate pattern as window: opens by hand or redstone, does not age. Six silver ingots (2 x 3) make 3. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Tür wie die Kupfertür, mit Silberrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Silberbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:silver_door"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:silver_grate",
       "name": {
         "en_us": "Silver Grate",
@@ -15052,6 +17531,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:silver_trapdoor",
+      "name": {
+        "en_us": "Silver Trapdoor",
+        "de_de": "Silberfalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A trapdoor like the copper trapdoor with the silver grate pattern: opens by hand or redstone, does not age. Four silver ingots (2 x 2) make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Falltür wie die Kupferfalltür mit dem Silberrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Silberbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/silver_trapdoor.png",
+      "craftedBy": [
+        "simpleores:silver_trapdoor"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:stainless_steel_bars",
       "name": {
         "en_us": "Stainless Steel Bars",
@@ -15096,10 +17598,40 @@
         "simpleores:stainless_steel_block"
       ],
       "usedIn": [
+        "simpleores:chiseled_stainless_steel_from_stainless_steel_block_stonecutting",
+        "simpleores:cut_stainless_steel",
+        "simpleores:cut_stainless_steel_from_stainless_steel_block_stonecutting",
+        "simpleores:cut_stainless_steel_slab_from_stainless_steel_block_stonecutting",
+        "simpleores:cut_stainless_steel_stairs_from_stainless_steel_block_stonecutting",
         "simpleores:stainless_steel_grate",
         "simpleores:stainless_steel_grate_from_stainless_steel_block_stonecutting",
-        "simpleores:stainless_steel_ingot_from_stainless_steel_block"
+        "simpleores:stainless_steel_ingot_from_stainless_steel_block",
+        "simpleores:stainless_steel_pillar",
+        "simpleores:stainless_steel_pillar_from_stainless_steel_block_stonecutting",
+        "simpleores:stainless_steel_tiles_from_stainless_steel_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:stainless_steel_door",
+      "name": {
+        "en_us": "Stainless Steel Door",
+        "de_de": "Edelstahltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A door like the copper door, framed in stainless steel with its own grate pattern as window: opens by hand or redstone, does not age. Six stainless steel ingots (2 x 3) make 3. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Tür wie die Kupfertür, mit Edelstahlrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Edelstahlbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:stainless_steel_door"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:stainless_steel_grate",
@@ -15122,6 +17654,78 @@
       "craftedBy": [
         "simpleores:stainless_steel_grate",
         "simpleores:stainless_steel_grate_from_stainless_steel_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:stainless_steel_pillar",
+      "name": {
+        "en_us": "Stainless Steel Pillar",
+        "de_de": "Edelstahlsäule"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_pillar.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_pillar",
+        "simpleores:stainless_steel_pillar_from_stainless_steel_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:stainless_steel_tiles",
+      "name": {
+        "en_us": "Stainless Steel Tiles",
+        "de_de": "Edelstahlfliesen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the stainless steel family (like the cut copper family): crafted from the block of stainless steel or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Edelstahl-Familie (wie die Familie des geschnittenen Kupfers): aus dem Edelstahlblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_tiles.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_tiles",
+        "simpleores:stainless_steel_tiles_from_cut_stainless_steel_stonecutting",
+        "simpleores:stainless_steel_tiles_from_stainless_steel_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:stainless_steel_trapdoor",
+      "name": {
+        "en_us": "Stainless Steel Trapdoor",
+        "de_de": "Edelstahlfalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A trapdoor like the copper trapdoor with the stainless steel grate pattern: opens by hand or redstone, does not age. Four stainless steel ingots (2 x 2) make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Falltür wie die Kupferfalltür mit dem Edelstahlrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Edelstahlbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_trapdoor.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_trapdoor"
       ],
       "usedIn": []
     },
@@ -15251,6 +17855,28 @@
       ]
     },
     {
+      "id": "simpleores:tin_door",
+      "name": {
+        "en_us": "Tin Door",
+        "de_de": "Zinntür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A door like the copper door, framed in tin with its own grate pattern as window: opens by hand or redstone, does not age. Six tin ingots (2 x 3) make 3. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Tür wie die Kupfertür, mit Zinnrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Zinnbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:tin_door"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:tin_grate",
       "name": {
         "en_us": "Tin Grate",
@@ -15348,6 +17974,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:tin_trapdoor",
+      "name": {
+        "en_us": "Tin Trapdoor",
+        "de_de": "Zinnfalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A trapdoor like the copper trapdoor with the tin grate pattern: opens by hand or redstone, does not age. Four tin ingots (2 x 2) make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Falltür wie die Kupferfalltür mit dem Zinnrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Zinnbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/tin_trapdoor.png",
+      "craftedBy": [
+        "simpleores:tin_trapdoor"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:zenithite_block",
       "name": {
         "en_us": "Block of Zenithite",
@@ -15429,6 +18078,28 @@
         "simpleores:zinc_pillar_from_zinc_block_stonecutting",
         "simpleores:zinc_tiles_from_zinc_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:zinc_door",
+      "name": {
+        "en_us": "Zinc Door",
+        "de_de": "Zinktür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A door like the copper door, framed in zinc with its own grate pattern as window: opens by hand or redstone, does not age. Six zinc ingots (2 x 3) make 3. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Tür wie die Kupfertür, mit Zinkrahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs Zinkbarren (2 x 3) ergeben 3. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:zinc_door"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:zinc_grate",
@@ -15524,6 +18195,29 @@
         "simpleores:zinc_tiles",
         "simpleores:zinc_tiles_from_cut_zinc_stonecutting",
         "simpleores:zinc_tiles_from_zinc_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:zinc_trapdoor",
+      "name": {
+        "en_us": "Zinc Trapdoor",
+        "de_de": "Zinkfalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A trapdoor like the copper trapdoor with the zinc grate pattern: opens by hand or redstone, does not age. Four zinc ingots (2 x 2) make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Falltür wie die Kupferfalltür mit dem Zinkrostmuster: öffnet per Hand oder Redstone, altert nicht. Vier Zinkbarren (2 x 2) ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/zinc_trapdoor.png",
+      "craftedBy": [
+        "simpleores:zinc_trapdoor"
       ],
       "usedIn": []
     }
@@ -15847,14 +18541,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 18,
-    "recipes": 273,
-    "lootTables": 103,
+    "features": 19,
+    "recipes": 321,
+    "lootTables": 131,
     "tags": 11,
     "advancements": 1,
     "enchantments": 0,
     "items": 67,
-    "blocks": 103,
+    "blocks": 131,
     "trades": 0,
     "config": 16,
     "quests": 0,

@@ -161,7 +161,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 78
     },
-    "dataHash": "bba5e3884d82"
+    "dataHash": "e508b9355135"
   },
   {
     "id": "simpleriding",
@@ -517,7 +517,7 @@ window.WIKI_MODULES = [
       "config": 53,
       "features": 11
     },
-    "dataHash": "8d1112e76544"
+    "dataHash": "164645240bd6"
   },
   {
     "id": "simplesandwiches",
@@ -676,7 +676,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplelivemap",
     "displayName": "Simple Livemap",
-    "description": "Live web map of the world as the players really explored it (visited chunks and held maps), with map relief, optional player positions and an optional built-in web server (off by default, local only, private with a key).",
+    "description": "Live web map of the world as the players really explored it (visited chunks and held maps), with map relief, optional player positions and a built-in web server (on out of the box, only on this computer, private with a key; own website possible).",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -693,10 +693,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAt0lEQVR42mOQ1FL5TwlmABHti2fCsZ1XAF4MV5cVhWoAusKoAlSMLq/r44jdAJiGjFlOKNitYAcYYzUAWTNMQ8OGMDh7yoKk/1EdFzAMQTEAphmkEYSjOizgmmEGoBuC1QCYxkceVmCMbBCyITgNgOEVVnpgDDIAhEkyAKYJPSCRwwLDAGyGoAcoSQagG4LufBQD0NMButPRNeJNSGSnxBV7toLTN6G8AFYDxKgpESpAKoYbQAkGAICo9pG6n+pKAAAAAElFTkSuQmCC",
     "counts": {
-      "config": 15,
-      "features": 4
+      "config": 16,
+      "features": 6
     },
-    "dataHash": "43b941156394"
+    "dataHash": "d5f054338a91"
   },
   {
     "id": "simpletrims",
@@ -1534,11 +1534,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArUlEQVR42mOwCrD6TwlmABG77u7Ciq00BMAYm9yEExNQDVhwYcH/s8/OgmmYxi1dAf9PLEiB80FyIAzSnDEhA9MAmGaQJhgGGYJsEEgzyCK8BswqcgBjmCFVYQZgDDOAoAtgBoAwTDNRBsD8is8AmCEoBuAKNJgBuOThBuALNLyBCjMAX6DhDVR0A3D5Gac81QzAFWiwKMMljxKNoNSFrhEd44xGmACpGOEFCjAA7+40ZjR1wYIAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
-      "blocks": 202,
-      "recipes": 591,
+      "blocks": 204,
+      "recipes": 597,
       "features": 6
     },
-    "dataHash": "3f24c94d6622"
+    "dataHash": "7bee0cb6e123"
   },
   {
     "id": "simplehammers",
@@ -1579,7 +1579,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "e0daa65a2ad8"
+    "dataHash": "05d38edc82e8"
   },
   {
     "id": "simpleoptimization",
@@ -2015,12 +2015,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
       "items": 67,
-      "blocks": 103,
-      "recipes": 273,
+      "blocks": 131,
+      "recipes": 321,
       "config": 16,
-      "features": 18
+      "features": 19
     },
-    "dataHash": "642c9e10344f"
+    "dataHash": "1a64bd1185be"
   },
   {
     "id": "simplemachines",
@@ -2220,7 +2220,7 @@ window.WIKI_MODULES = [
       "config": 33,
       "features": 1
     },
-    "dataHash": "74b2aaba6292"
+    "dataHash": "ea36f933ed5f"
   },
   {
     "id": "simplebuildingtools",

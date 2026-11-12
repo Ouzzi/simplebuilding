@@ -212,6 +212,10 @@
   "jade.simplepads.chunk_loader.active": "Keeping %s chunks loaded",
   "jade.simplepads.chunk_loader.idle": "Not keeping any chunks loaded",
   "config.jade.plugin_simplepads.pad_status": "Simple Pads: pad status",
+  "text.autoconfig.simplepads.category.pads": "Pads",
+  "text.autoconfig.simplepads.category.padTuning": "Pad Tuning",
+  "text.autoconfig.simplepads.category.spawn": "Spawn",
+  "text.autoconfig.simplepads.category.tuning": "Tuning",
   "item.simplepads.guide_book": "Simple Pads Guide",
   "simplepads.guide.chapter": "Simple Pads",
   "simplepads.guide.page.1.title": "Simple Pads",
@@ -225,9 +229,5 @@
   "simplepads.guide.page.5.title": "Simple Pads: pads, pressure plates and the Spawn Elytra",
   "simplepads.guide.page.5": "Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers each, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn",
   "simplepads.guide.page.6.title": "Simple Pads: pads, pressure plates and the Spawn Elytra",
-  "simplepads.guide.page.6": "Elytra. Simple Ores brings the Enderite of the last tiers, Simple Mobheads the heads of the first ones; both are required.",
-  "text.autoconfig.simplepads.category.pads": "Pads",
-  "text.autoconfig.simplepads.category.padTuning": "Pad Tuning",
-  "text.autoconfig.simplepads.category.spawn": "Spawn",
-  "text.autoconfig.simplepads.category.tuning": "Tuning"
+  "simplepads.guide.page.6": "Elytra. Simple Ores brings the Enderite of the last tiers, Simple Mobheads the heads of the first ones; both are required."
 }

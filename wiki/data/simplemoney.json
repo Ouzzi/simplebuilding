@@ -5806,6 +5806,31 @@
       "link": "simplebuilding"
     },
     {
+      "id": "simplemoney:links/simplebuilding/astral_purpur_wall",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 46
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplebuilding:astral_purpur_wall",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplebuilding",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_purpur_wall.json",
+      "link": "simplebuilding"
+    },
+    {
       "id": "simplemoney:links/simplebuilding/astral_redstone",
       "profession": "wandering_trader",
       "level": null,
@@ -6878,6 +6903,31 @@
         "enableWanderingTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_purpur_stairs.json",
+      "link": "simplebuilding"
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_purpur_wall",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 46
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplebuilding:ender_purpur_wall",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplebuilding",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_purpur_wall.json",
       "link": "simplebuilding"
     },
     {
@@ -8153,6 +8203,31 @@
         "enableWanderingTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_purpur_stairs.json",
+      "link": "simplebuilding"
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihil_purpur_wall",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 46
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplebuilding:nihil_purpur_wall",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplebuilding",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_purpur_wall.json",
       "link": "simplebuilding"
     },
     {
@@ -15907,7 +15982,7 @@
     "enchantments": 0,
     "items": 8,
     "blocks": 0,
-    "trades": 448,
+    "trades": 451,
     "config": 10,
     "quests": 0,
     "recipesOtherLines": 0,

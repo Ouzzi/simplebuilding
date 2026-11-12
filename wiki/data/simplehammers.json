@@ -1634,10 +1634,10 @@
       "categoryDe": "Simple Hammers",
       "group": null,
       "groupDe": null,
-      "label": "Diamond block pebbles",
-      "labelDe": "Diamond block pebbles",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Diamond Pebbles per Block",
+      "labelDe": "Diamantkiesel je Block",
+      "tooltip": "Diamond Pebbles a diamond block breaks into\n(9 diamonds = 81 pebbles). Default: 81.\nRange: 1–81.",
+      "tooltipDe": "Diamantkiesel, in die ein Diamantblock\nzerfällt (9 Diamanten = 81 Kiesel).\nStandard: 81. Bereich: 1–81."
     },
     {
       "range": null,
@@ -1653,10 +1653,10 @@
       "categoryDe": "Simple Hammers",
       "group": null,
       "groupDe": null,
-      "label": "Enabled",
-      "labelDe": "Enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Enable Simple Hammers",
+      "labelDe": "Simple Hammers aktivieren",
+      "tooltip": "Off: hammers work like a plain pickaxe (no\narea mining, no upgrades). Default: true.",
+      "tooltipDe": "Aus: Hämmer arbeiten wie eine einfache\nSpitzhacke (kein Flächenabbau, keine\nAufwertungen). Standard: true."
     },
     {
       "range": [
@@ -1675,10 +1675,10 @@
       "categoryDe": "Simple Hammers",
       "group": null,
       "groupDe": null,
-      "label": "Enderite damage per hit",
-      "labelDe": "Enderite damage per hit",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Durability per Strike: Enderite",
+      "labelDe": "Haltbarkeit je Schlag: Enderit",
+      "tooltip": "The same for an enderite upgrade.\nDefault: 10. Range: 0–64.",
+      "tooltipDe": "Dasselbe für eine Enderit-Aufwertung.\nStandard: 10. Bereich: 0–64."
     },
     {
       "range": [
@@ -1697,10 +1697,10 @@
       "categoryDe": "Simple Hammers",
       "group": null,
       "groupDe": null,
-      "label": "Netherite damage per hit",
-      "labelDe": "Netherite damage per hit",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Durability per Strike: Netherite",
+      "labelDe": "Haltbarkeit je Schlag: Netherit",
+      "tooltip": "The same for a netherite upgrade.\nDefault: 4. Range: 0–64.",
+      "tooltipDe": "Dasselbe für eine Netherit-Aufwertung.\nStandard: 4. Bereich: 0–64."
     },
     {
       "range": [
@@ -1719,10 +1719,10 @@
       "categoryDe": "Simple Hammers",
       "group": null,
       "groupDe": null,
-      "label": "Reinforced damage per hit",
-      "labelDe": "Reinforced damage per hit",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Durability per Strike: Reinforced",
+      "labelDe": "Haltbarkeit je Schlag: Verstärkt",
+      "tooltip": "Durability the sledgehammer loses per strike\nof a reinforced upgrade. Default: 2.\nRange: 0–64.",
+      "tooltipDe": "Haltbarkeit, die der Vorschlaghammer je Schlag\neiner Verstärkt-Aufwertung verliert.\nStandard: 2. Bereich: 0–64."
     },
     {
       "range": [
@@ -1741,10 +1741,10 @@
       "categoryDe": "Simple Hammers",
       "group": null,
       "groupDe": null,
-      "label": "Upgrade seconds",
-      "labelDe": "Upgrade seconds",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Upgrade Strikes",
+      "labelDe": "Schläge je Aufwertung",
+      "tooltip": "Strikes of one sledgehammer upgrade, one per\nsecond; the last strike rebuilds the block.\nDefault: 5. Range: 1–30.",
+      "tooltipDe": "Schläge einer Vorschlaghammer-Aufwertung,\neiner je Sekunde; der letzte baut den Block\num. Standard: 5. Bereich: 1–30."
     }
   ],
   "quests": [],

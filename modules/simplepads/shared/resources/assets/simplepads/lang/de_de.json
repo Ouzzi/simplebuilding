@@ -212,6 +212,10 @@
   "jade.simplepads.chunk_loader.active": "Hält %s Chunks geladen",
   "jade.simplepads.chunk_loader.idle": "Hält keine Chunks geladen",
   "config.jade.plugin_simplepads.pad_status": "Simple Pads: Pad-Status",
+  "text.autoconfig.simplepads.category.pads": "Pads",
+  "text.autoconfig.simplepads.category.padTuning": "Pad-Feinwerte",
+  "text.autoconfig.simplepads.category.spawn": "Spawn",
+  "text.autoconfig.simplepads.category.tuning": "Feinwerte",
   "item.simplepads.guide_book": "Simple-Pads-Handbuch",
   "simplepads.guide.chapter": "Simple Pads",
   "simplepads.guide.page.1.title": "Simple Pads",
@@ -225,9 +229,5 @@
   "simplepads.guide.page.5.title": "Simple Pads: Pads, Druckplatten und Spawn-Elytra",
   "simplepads.guide.page.5": "Launchpad, Elytra-Pad, Flypad, Trank-Pad, Spawn-Teleporter und Chunk-Loader in je drei Stufen, die Diamant-, Netherit-, Enderit- und Kupfer-Druckplatten und die Spawn-Elytra.",
   "simplepads.guide.page.6.title": "Simple Pads: Pads, Druckplatten und Spawn-Elytra",
-  "simplepads.guide.page.6": "Simple Ores liefert das Enderit der letzten Stufen, Simple Mobheads die Köpfe der ersten; beide sind Pflicht.",
-  "text.autoconfig.simplepads.category.pads": "Pads",
-  "text.autoconfig.simplepads.category.padTuning": "Pad-Feinwerte",
-  "text.autoconfig.simplepads.category.spawn": "Spawn",
-  "text.autoconfig.simplepads.category.tuning": "Feinwerte"
+  "simplepads.guide.page.6": "Simple Ores liefert das Enderit der letzten Stufen, Simple Mobheads die Köpfe der ersten; beide sind Pflicht."
 }

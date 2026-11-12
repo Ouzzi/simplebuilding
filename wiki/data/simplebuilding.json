@@ -733,18 +733,21 @@
         "simplebuilding:astral_purpur_pillar",
         "simplebuilding:astral_purpur_stairs",
         "simplebuilding:astral_purpur_slab",
+        "simplebuilding:astral_purpur_wall",
         "simplebuilding:nihil_end_stone_stairs",
         "simplebuilding:nihil_end_stone_slab",
         "simplebuilding:nihil_end_stone_wall",
         "simplebuilding:nihil_purpur_pillar",
         "simplebuilding:nihil_purpur_stairs",
         "simplebuilding:nihil_purpur_slab",
+        "simplebuilding:nihil_purpur_wall",
         "simplebuilding:ender_end_stone_stairs",
         "simplebuilding:ender_end_stone_slab",
         "simplebuilding:ender_end_stone_wall",
         "simplebuilding:ender_purpur_pillar",
         "simplebuilding:ender_purpur_stairs",
-        "simplebuilding:ender_purpur_slab"
+        "simplebuilding:ender_purpur_slab",
+        "simplebuilding:ender_purpur_wall"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -87896,6 +87899,10 @@
           "required": true
         },
         {
+          "id": "simplebuilding:astral_purpur_wall",
+          "required": true
+        },
+        {
           "id": "simplebuilding:nihil_end_stone_stairs",
           "required": true
         },
@@ -87920,6 +87927,10 @@
           "required": true
         },
         {
+          "id": "simplebuilding:nihil_purpur_wall",
+          "required": true
+        },
+        {
           "id": "simplebuilding:ender_end_stone_stairs",
           "required": true
         },
@@ -87941,6 +87952,10 @@
         },
         {
           "id": "simplebuilding:ender_purpur_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_purpur_wall",
           "required": true
         }
       ],
