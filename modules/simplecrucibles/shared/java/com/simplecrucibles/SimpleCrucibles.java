@@ -70,6 +70,32 @@ public final class SimpleCrucibles {
         CrucibleConfig.load(configDir);
         // CMD24: /simplecrucibles config; the village kitchen and soul lava fuel/world generation are read at start.
         com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(CrucibleConfig::toJson, CrucibleConfig::apply).file(configDir, CrucibleConfig.FILE)
+                // Ranges for the generic config screen (the clamps of CrucibleConfig.apply and SoulLavaConfig.apply).
+                .range("reinforcedSpeed", 1, CrucibleConfig.MAX_SPEED)
+                .range("netheriteSpeed", 1, CrucibleConfig.MAX_SPEED)
+                .range("enderiteSpeed", 1, CrucibleConfig.MAX_SPEED)
+                .range("factorMedium", CrucibleConfig.FACTOR_MIN, CrucibleConfig.FACTOR_MAX)
+                .range("factorHigh", CrucibleConfig.FACTOR_MIN, CrucibleConfig.FACTOR_MAX)
+                .range("factorExtreme", CrucibleConfig.FACTOR_MIN, CrucibleConfig.FACTOR_MAX)
+                .range("twoBelowPenalty", 0, CrucibleConfig.TWO_BELOW_PENALTY_MAX)
+                .range("afterglowIron", 0, CrucibleConfig.AFTERGLOW_MAX_SECONDS)
+                .range("afterglowReinforced", 0, CrucibleConfig.AFTERGLOW_MAX_SECONDS)
+                .range("afterglowNetherite", 0, CrucibleConfig.AFTERGLOW_MAX_SECONDS)
+                .range("afterglowEnderite", 0, CrucibleConfig.AFTERGLOW_MAX_SECONDS)
+                .range("heatRecheckTicks", CrucibleConfig.RECHECK_MIN, CrucibleConfig.RECHECK_MAX)
+                .range("villageKitchenWeight", 0, CrucibleConfig.VILLAGE_WEIGHT_MAX)
+                .range("crucibleBurnDamage", 0, CrucibleConfig.BURN_DAMAGE_MAX)
+                .range("soulLava.flowOverworld", 1, 4)
+                .range("soulLava.flowNether", 1, 7)
+                .range("soulLava.tickDelayOverworld", 20, 200)
+                .range("soulLava.tickDelayNether", 10, 200)
+                .range("soulLava.burnSeconds", 5, 60)
+                .range("soulLava.soulBurnSeconds", 5, 300)
+                .range("soulLava.soulBurnIntervalTicks", 20, 200)
+                .range("soulLava.soulBurnChance", 0, 1)
+                .range("soulLava.fuelMultiplier", 1, 20)
+                .range("soulLava.springChance", 0, 0.05)
+                .range("soulLava.fortressChance", 0, 0.5)
                 .restart("villageKitchenWeight", "soulLava.fuelMultiplier", "soulLava.springChance", "soulLava.fortressChance").register();
         registerIdMoves();
         MATERIALS.forEach(SimpleLibApi::requestMaterial);

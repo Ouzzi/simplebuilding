@@ -95,7 +95,7 @@
       ],
       "en": {
         "title": "Soul lava",
-        "summary": "A rare Nether fluid and the only extreme heat source: it flows short and slow, is never replaced, and gives Seelenbrand (soul burn). Split stage 5b: was SimpleBuilding's, old worlds migrate.",
+        "summary": "A rare Nether fluid and the only extreme heat source: it flows short and slow, is never replaced, and gives Soul Burn. Split stage 5b: was SimpleBuilding's, old worlds migrate.",
         "details": [
           "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. While it lasts, a faint dark-blue filter lies over the screen (besides the vanilla effect icon). It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
           "Server config simplecrucibles-server.json, group soulLava (until split stage 5b SimpleBuilding's server.soulLava, taken over once), controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files.",
@@ -197,6 +197,48 @@
           "Beispiel: /simplecrucibles config get <Option> zeigt Wert, Standard und Typ; /simplecrucibles config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
       }
+    },
+    {
+      "id": "config_server",
+      "sources": [
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java"
+      ],
+      "en": {
+        "title": "Server Config",
+        "summary": "config/simplecrucibles-server.json, clamped when loaded; broken files are set aside and replaced by the defaults. Every option is also in /simplecrucibles config and in the settings screen.",
+        "details": [
+          "reinforcedSpeed, netheriteSpeed, enderiteSpeed (defaults 2, 4, 8; 1 to 16): the cooking speed of the tier as a multiple of the recipe's pace; the iron crucible is always 1.",
+          "factorMedium, factorHigh, factorExtreme (defaults 0.5, 0.75, 1.0; 0.1 to 1.0): the speed factor of the three heat levels, multiplied by the tier speed.",
+          "twoBelowPenalty (default 0.1; 0 to 0.5): the slowdown when the heat source is two blocks below the crucible; 0.1 = 10% slower.",
+          "afterglowIron, afterglowReinforced, afterglowNetherite, afterglowEnderite (defaults 2, 4, 8, 16; 0 to 60 seconds): how long the tier keeps its heat after the heat source is gone; 0 = it cools down at once.",
+          "netherBonus (default true): in the Nether every heat source counts one level hotter, at most up to high.",
+          "heatRecheckTicks (default 20; 5 to 200): besides when a neighboring block changes, a crucible looks for its heat source this often (20 ticks = 1 second).",
+          "villageKitchenWeight (default 3; 0 to 10): the weight of the field kitchen in each village houses pool, 0 = no kitchens; read when the server starts, only villages generated afterwards get it.",
+          "crucibleBurnDamage (default 1.0; 0 to 4): the damage per hit to a creature standing in a crucible at high heat or more, not while sneaking; 0 = off.",
+          "Group soulLava, flow and burning: flowOverworld (default 2; 1 to 4) and flowNether (5; 1 to 7) are the reach in blocks, tickDelayOverworld (45; 20 to 200) and tickDelayNether (20; 10 to 200) the ticks between flow steps, burnSeconds (30; 5 to 60) how long a creature burns, soulBurnSeconds (120; 5 to 300) how long Soul Burn lasts, soulBurnIntervalTicks (60; 20 to 200) the ticks between its damage rolls (halved on cold ground) and soulBurnChance (0.5; 0 to 1) the chance of 1 fire damage per roll.",
+          "Group soulLava, bucket and world generation: fuelMultiplier (default 10; 1 to 20) is the fuel time of a soul lava bucket as a multiple of a lava bucket's, springChance (0.005; 0 to 0.05) the share of the Nether's lava springs and fortressChance (0.1; 0 to 0.5) the chance of a fortress entrance's lava well that become soul lava, in newly generated chunks only.",
+          "villageKitchenWeight, soulLava.fuelMultiplier, soulLava.springChance and soulLava.fortressChance are read at start and need a restart (the fuel multiplier also the same value on client and server); everything else takes effect at once.",
+          "On the first start without its own file the crucible options are taken over once from simplelib-server.json, and the soulLava group from server.soulLava in simplebuilding.json while the file has none; the old files stay unchanged."
+        ]
+      },
+      "de": {
+        "title": "Server-Config",
+        "summary": "config/simplecrucibles-server.json, beim Laden begrenzt; kaputte Dateien werden beiseitegelegt und durch die Standardwerte ersetzt. Jede Option steht auch in /simplecrucibles config und im Einstellungsfenster.",
+        "details": [
+          "reinforcedSpeed, netheriteSpeed, enderiteSpeed (Standard 2, 4, 8; 1 bis 16): das Gartempo der Stufe als Vielfaches des Rezepttempos; der Eisen-Schmelztiegel hat immer 1.",
+          "factorMedium, factorHigh, factorExtreme (Standard 0,5, 0,75, 1,0; 0,1 bis 1,0): der Tempofaktor der drei Hitzestufen, mal Tempo der Stufe.",
+          "twoBelowPenalty (Standard 0,1; 0 bis 0,5): die Verlangsamung, wenn die Hitzequelle zwei Blöcke unter dem Schmelztiegel liegt; 0,1 = 10 % langsamer.",
+          "afterglowIron, afterglowReinforced, afterglowNetherite, afterglowEnderite (Standard 2, 4, 8, 16; 0 bis 60 Sekunden): wie lange die Stufe ihre Hitze behält, nachdem die Hitzequelle weg ist; 0 = sie kühlt sofort ab.",
+          "netherBonus (Standard true): im Nether zählt jede Hitzequelle eine Stufe heißer, höchstens bis hoch.",
+          "heatRecheckTicks (Standard 20; 5 bis 200): außer bei einer Änderung eines Nachbarblocks sucht ein Schmelztiegel so oft seine Hitzequelle (20 Ticks = 1 Sekunde).",
+          "villageKitchenWeight (Standard 3; 0 bis 10): das Gewicht der Feldküche im Häuser-Pool jedes Dorfes, 0 = keine Küchen; wird beim Serverstart gelesen, nur später erzeugte Dörfer bekommen sie.",
+          "crucibleBurnDamage (Standard 1,0; 0 bis 4): der Schaden je Treffer für Wesen, die in einem Schmelztiegel mit hoher oder extremer Hitze stehen, nicht beim Schleichen; 0 = aus.",
+          "Gruppe soulLava, Fließen und Brennen: flowOverworld (Standard 2; 1 bis 4) und flowNether (5; 1 bis 7) sind die Reichweite in Blöcken, tickDelayOverworld (45; 20 bis 200) und tickDelayNether (20; 10 bis 200) die Ticks zwischen Fließschritten, burnSeconds (30; 5 bis 60) wie lange ein Wesen brennt, soulBurnSeconds (120; 5 bis 300) wie lange der Seelenbrand anhält, soulBurnIntervalTicks (60; 20 bis 200) die Ticks zwischen seinen Schadenswürfen (auf kaltem Boden halbiert) und soulBurnChance (0,5; 0 bis 1) die Chance auf 1 Feuerschaden je Wurf.",
+          "Gruppe soulLava, Eimer und Weltgenerierung: fuelMultiplier (Standard 10; 1 bis 20) ist die Brenndauer eines Seelen-Lava-Eimers als Vielfaches eines Lavaeimers, springChance (0,005; 0 bis 0,05) der Anteil der Lavaquellen im Nether und fortressChance (0,1; 0 bis 0,5) die Chance des Lavabrunnens eines Festungs-Eingangs, die zu Seelen-Lava werden, nur in neu erzeugten Chunks.",
+          "villageKitchenWeight, soulLava.fuelMultiplier, soulLava.springChance und soulLava.fortressChance werden beim Start gelesen und brauchen einen Neustart (beim Brennstoff-Faktor auch denselben Wert auf Client und Server); alles andere wirkt sofort.",
+          "Beim ersten Start ohne eigene Datei werden die Tiegel-Optionen einmal aus simplelib-server.json übernommen und die Gruppe soulLava aus server.soulLava in simplebuilding.json, solange die Datei keine hat; die alten Dateien bleiben unverändert."
+        ]
+      }
     }
   ],
   "notes": {
@@ -207,10 +249,10 @@
         "modules/simplecrucibles/shared/resources/data/simplecrucibles/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Crucibles\" of the Simple Modpack guide (SimpleLib): 11 pages taken from this wiki, shown in your language. Unlocked by picking up: cauldron. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Crucibles\" of the Simple Modpack guide (SimpleLib): 12 pages taken from this wiki, shown in your language. Unlocked by picking up: cauldron. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Crucibles\" im Simple-Modpack-Handbuch (SimpleLib): 11 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kessel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Crucibles\" im Simple-Modpack-Handbuch (SimpleLib): 12 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kessel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplecrucibles:iron_crucible": {

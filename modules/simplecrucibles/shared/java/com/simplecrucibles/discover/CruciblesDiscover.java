@@ -53,6 +53,7 @@ public final class CruciblesDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simplecrucibles:buckets",
             "simplecrucibles:commands",
+            "simplecrucibles:config_server",
             "simplecrucibles:copper_*bucket",
             "simplecrucibles:copper_bucket",
             "simplecrucibles:creative_tab_switch",
