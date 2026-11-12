@@ -108,3 +108,42 @@ Nicht getestet: GameTests im Spiel (sb-test „No route to host“) → TODO sbt
 Client-Sicht (Render-Ebene ergibt sich aus der Textur-Transparenz wie bei Vanilla, `render_type` zusätzlich gesetzt).
 Vorschau PORTAL33b: `/root/sb-tools-a/previews/a-portal33-preview2.html` (Schema-Bilder aus Spieltexturen, Urteile vom
 echten Scanner).
+
+## 8. PORTAL33c – Umsetzung der Antwort PORTAL33b (a-portal33b, 12.11. ~19:15 UTC)
+Besitzer 12.11. ~19:10: „PORTAL33b=einwand: B1–B5=A, aber Formportal-Block 40 % dunkler statt 20 %.“
+Branch `a-portal33b`, Basis `hub/b-bundle188` 90fb9d8b6 (enthält a-portal33 76a23c564).
+
+Ist-Stand (geprüft): B1–B5 = A sind alle schon so gebaut – B1 Name „Geformtes Netherportal“/„Shaped Nether Portal“
+(Lang EN/DE), B2 streng (Regel 3 im `ArchPortalScanner`, Test „Schräger Stalaktit“ rot), B3 Grund nur bei einem
+Versuch (`ShapedNetherPortals.reason` filtert über `enclosed`), B4 die sechs Skyblock-Glowstone-Muster unverändert
+(Dimensions-Definitionen nicht angefasst), B5 Piglins wie Vanilla (`randomTick` von `NetherPortalBlock` geerbt).
+Zu tun bleibt nur die Farbe.
+
+Plan:
+1. `tools/textures/shaped_portal_derived.py`: `FACTOR` 0,8 → 0,6 (RGB × 0,6, Alpha und 32 Animationsbilder bleiben,
+   weiter nur beim Build aus dem Client-Jar); Docstring; `tests/test_shaped_portal_derived.py` auf × 0,6.
+2. Texte „20 %“ → „40 %“: Lang EN/DE (Config-Tooltip, Guide-Seite über Generator), `wiki/manual.json` (4 Stellen je
+   Sprache), Questionary („etwas dunkler“ → „deutlich dunkler“), `docs/MODS-UND-FEATURES.md`, `docs/ai/PRINZIPIEN.md`,
+   Kommentare in `ShapedNetherPortalBlock`, `DimensionSettings`, `fabric/build.gradle`, `vanilla_derived.py`.
+3. Generatoren (`precheck.py --fix`: Wiki, Handbücher, Discover, Quests, Modtree).
+4. Prüfung: `tools/textures/tests` (unittest), Ableitung gegen das echte Jar (Mittel RGB = 0,600 × Vanilla, Alpha
+   gleich), precheck --fast + volle Liste (check_data aller Module, dup, tooltip, wiki --all --check,
+   check_missing_textures, layers check); javac der zwei Java-Dateien (nur Kommentare). Spiel-Lauf: sb-test nicht
+   erreichbar → `/root/sb-tools-a/a-portal33b-sbt.cmd` + TODO.
+5. Vorschau `/root/sb-tools-a/previews/a-portal33b-preview.html` (Antwortcode PORTAL33c): Vanilla / 20 % / 40 %
+   animiert nebeneinander, Bogen-Schema in Obsidian, Helligkeitswerte; Vanilla-Pixel nur in der Vorschau, nie im Repo.
+Risiko: keins im Code (eine Konstante); A8c-Runden entfallen weiter (mechanische Ableitung nach Besitzer-Vorgabe).
+
+Ergebnis (Plan-Abgleich: 1–5 umgesetzt). Abweichungen: Questionary EN „glows clearly darker“ statt „a little darker“;
+`precheck --fix` regenerierte auch fremde Basis-Drift aus Bündel 188 (simplemoney/simpletrims/simpleblocks/
+simplebuilding/simpleoctets, modules.js, textures.js, paket.html) – bewusst NICHT übernommen (macht der gen-Schritt
+des Bündels), übernommen nur simpledimensions + guidebook.js/questionary.js.
+Prüfung lokal: `tools/textures/tests` 67/67; Ableitung aus dem echten 26.3-Jar Mittel RGB = 0,600 × Vanilla, Alpha
+identisch, 16 × 512; L* vor Himmel Vanilla 37 → 20 %: 33 → 40 %: 28; `precheck --fast` grün; volle precheck-Liste grün
+bis auf Basis-Fehler von b-bundle188 (nicht von hier: `check_gametest_adapters` Spec
+`test_centre_game_test_order_areas_show_everything_in_owner_order` aus a-tz38; `wiki --all --check` modules.js/
+simplebuilding.json/textures.js veraltet); wiki/tests 112/112; check_data simpledimensions, dup 0, tooltip ok,
+check_missing_textures 0 Fehler, layers 0 Probleme; javac `ShapedNetherPortalBlock` + `DimensionSettings` (mit
+Quellpfad simpledimensions/simplelib/framework) gegen 26.3-Jar → Exit 0.
+Offen: Spiel-Lauf `/root/sb-tools-a/a-portal33b-sbt.cmd` (sb-test „No route to host“), Client-Sicht der Farbe.
+Vorschau `/root/sb-tools-a/previews/a-portal33b-preview.html`, Antwortcode PORTAL33c.
