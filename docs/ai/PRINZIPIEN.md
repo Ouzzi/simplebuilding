@@ -276,6 +276,7 @@ Starker Leuchtturm, starke Conduit, Upgrade-Vorlage.
 Verstärkte, Netherit- und Enderit-Öfen, Räucher- und Hochöfen, Ofen-Loren; Pflicht-Sub-Mod von SimpleBuilding.
 
 - In-World-Upgrades: Axt allein, Vorschlaghammer in SimpleBuilding. Ids wanderten aus SimpleBuilding (IdMoves).
+- **A12 (PLAN40 simpleovens-3):** Nutzen: schneller schmelzen, räuchern und erzschmelzen im Mittel- und Spätspiel (2×/4×/8×), doppelte Erfahrung ab Netherit, dazu Antriebsloren und Ofenboote aller Vanilla-Hölzer. Ändert die Vanilla-Öfen nicht: die Stufen sind eigene Blöcke (Vanilla-Unterklassen mit Vanilla-Menüs, Trichter, Komparator und Abbau wie Vanilla); einziger Mixin `AbstractFurnaceMenuMixin` teilt nur Garzeiten über 32767 für die Anzeige. Balance: Brennstoff je Gegenstand wie in der Vanilla-Maschine (schneller, nicht billiger; PLAN40 simpleovens-2), die frühere Ersparnis nur per Config `fuelEfficiency`; keine Erfahrung aus dem Rissdiamant-Kreislauf (`#simpleovens:furnace_bonus_excluded`). Eingriff in Vanilla: gering, abschaltbar (`enabled`, „Enable Simple Ovens“).
 
 ### Simple Mobheads (`simplemobheads`)
 Kopf für jeden Mob; Pflicht-Sub-Mod von SimpleBuilding.
