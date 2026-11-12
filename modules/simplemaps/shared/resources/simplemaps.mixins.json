@@ -6,6 +6,7 @@
   "mixins": [
     "CartographyTableMenuMixin",
     "ItemFrameAccessor",
+    "SavedDataStorageAccessor",
     "ItemFrameMixin",
     "WebDirtyMixin",
     "MegaAnvilMixin"

@@ -98,6 +98,20 @@ public final class WayfinderData extends SavedData {
         return server.overworld().getDataStorage().computeIfAbsent(type(id));
     }
 
+    /**
+     * For the web export (AUDSB31E1 F9): the map {@code id} without adding it to the saved-data cache. A map the game has
+     * loaded (cached) is returned as it is; any other is read from disk into a copy that only the caller holds and that the
+     * garbage collector takes once the export lets go. {@code null} when there is no file.
+     */
+    public static WayfinderData peek(MinecraftServer server, int id) {
+        var storage = server.overworld().getDataStorage();
+        var accessor = (com.simplemaps.mixin.SavedDataStorageAccessor) storage;
+        var type = type(id);
+        var cached = accessor.simplemaps$cache().get(type);
+        if (cached != null) return cached.map(WayfinderData.class::cast).orElse(null);
+        return accessor.simplemaps$read(type);
+    }
+
     public static long key(int tx, int tz) {
         return ((long) tx << 32) | (tz & 0xFFFFFFFFL);
     }

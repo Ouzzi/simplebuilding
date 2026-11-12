@@ -68,6 +68,13 @@ Zusatzeingabe BEW39 (`/root/sb-tools-a/bewertung39/simplemaps.json`) ist unten e
   Optionen: **A** Export bleibt (Standard aus, `autoOffWith` schaltet bei Dynmap/Bluemap/… ab), Doku verweist auf Livemap. **B** Export + HTTP-Server entfernen, Livemap uebernimmt.
   **C** zusammenlegen (Livemap liest die Wayfinder-Daten). Empfehlung **A** bis der Livemap-Dienst live ist, dann neu entscheiden; `webExportDir` bleibt per Befehl setzbar (Stufe 2 = Server-Admin), solange das Token-Gesetz aus P2-1 gilt.
 
+## Antworten des Besitzers (12.11.2026, E1ANS)
+- **Q1 (Vorschau F8) = C** (MAPS8, Nachtrag 12.11.): jede Bildkarte verbraucht eine leere Karte (`minecraft:map`) aus dem Inventar, Kreativ kostenlos;
+  Option `pictureMapCostsMap` (Standard an), Meldung `message.simplemaps.picture.no_map`, Fenster-Zusammenfassung nennt die Kosten; Gametest `picture_map_costs_empty_map`.
+- **Q2 (F9) = C**: der Web-Export liest jede Karte einzeln (`WayfinderData.peek`, Accessor `SavedDataStorageAccessor`), ohne sie in Vanillas Saved-Data-Cache
+  zu legen; offene Karten werden wie sie sind genommen; Satz zum Speicherbedarf im Handbuch (`web_map`); Gametest `web_export_leaves_cache`.
+- **Q3 (F10) = A**: Web-Export bleibt; neu entscheiden, sobald der Livemap-Dienst live ist.
+
 ## Urteil
 **shipbar nach Fixes** (1 P1 gefixt, 2 P2 gefixt, 2 P2 offen als Rueckfrage, 11 P3 davon 2 gefixt, 1 TODO). Server-Autoritaet, Eingabepruefung und Kartentisch sind sorgfaeltig; der P1 war eine einzelne
 Randwert-Luecke mit grossem Schaden (Absturz fremder Clients). Der HTTP-Server ist nach dem Token-Fix gut gehaertet; offene Punkte sind Speicherbedarf (Q2) und Bildkarten-Kosten (Q1).

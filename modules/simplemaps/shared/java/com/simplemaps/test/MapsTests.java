@@ -69,6 +69,7 @@ public final class MapsTests {
         ALL.put("frame_view", MapsTests::frameView);
         ALL.put("picture_palette", MapsTests::picturePalette);
         ALL.put("picture_map_server", MapsTests::pictureMapServer);
+        ALL.put("picture_map_costs_empty_map", MapsTests::pictureMapCostsEmptyMap);
         ALL.put("frame_save_rules", MapsTests::frameSaveRules);
         ALL.put("frame_code", MapsTests::frameCode);
         ALL.put("stack_size", MapsTests::stackSize);
@@ -169,6 +170,47 @@ public final class MapsTests {
         h.succeed();
     }
 
+    /**
+     * MAPS8 = C (owner 12.11.): each picture map uses up one empty map from the inventory; without one the server refuses and
+     * the budget stays; in creative it is free; {@code pictureMapCostsMap = false} switches the cost off.
+     */
+    private static void pictureMapCostsEmptyMap(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        byte[] colors = new byte[com.simplemaps.PictureMaps.BYTES];
+        java.util.Arrays.fill(colors, (byte) (4 * 4 + 2));
+        var payload = new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, colors);
+        try {
+            MapsConfig.apply(new JsonObject());
+            h.assertTrue(MapsConfig.pictureMapCostsMap, "the cost is on by default");
+            player.getInventory().clearContent();
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, payload), MapsNetwork.PictureResult.NO_MAP, "no empty map, no picture map");
+            h.assertValueEqual(countOf(player, net.minecraft.world.item.Items.FILLED_MAP), 0, "nothing was made");
+            player.getInventory().add(new ItemStack(net.minecraft.world.item.Items.MAP, 2));
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, payload), MapsNetwork.PictureResult.OK, "first empty map");
+            h.assertValueEqual(countOf(player, net.minecraft.world.item.Items.MAP), 1, "one empty map used up");
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, payload), MapsNetwork.PictureResult.OK, "second empty map");
+            h.assertValueEqual(countOf(player, net.minecraft.world.item.Items.MAP), 0, "both used up");
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, payload), MapsNetwork.PictureResult.NO_MAP, "none left");
+            h.assertValueEqual(countOf(player, net.minecraft.world.item.Items.FILLED_MAP), 2, "two picture maps for two empty maps");
+            player.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, payload), MapsNetwork.PictureResult.OK, "creative is free");
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            MapsConfig.pictureMapCostsMap = false;
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, payload), MapsNetwork.PictureResult.OK, "cost switched off");
+            h.assertValueEqual(countOf(player, net.minecraft.world.item.Items.FILLED_MAP), 4, "all picture maps arrived");
+        } finally {
+            MapsConfig.apply(new JsonObject());
+        }
+        h.succeed();
+    }
+
+    private static int countOf(ServerPlayer player, net.minecraft.world.item.Item item) {
+        int n = 0;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) if (player.getInventory().getItem(i).is(item)) n += player.getInventory().getItem(i).getCount();
+        return n;
+    }
+
     /** AUD-6: the server refuses every bad picture packet and makes a locked map with the colours for a good one. */
     private static void pictureMapServer(GameTestHelper h) {
         ServerPlayer player = h.makeMockServerPlayerInLevel();
@@ -188,6 +230,7 @@ public final class MapsTests {
             MapsConfig.pictureMapPermission = 4;
             h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, colors)), MapsNetwork.PictureResult.PERMISSION, "permission level");
             MapsConfig.pictureMapPermission = 0;
+            MapsConfig.pictureMapCostsMap = false; // the cost has its own test (picture_map_costs_empty_map)
             h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(2, 1, 1, 0, colors)), MapsNetwork.PictureResult.OK, "good packet");
             ItemStack map = ItemStack.EMPTY;
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) if (player.getInventory().getItem(i).is(net.minecraft.world.item.Items.FILLED_MAP)) map = player.getInventory().getItem(i);
