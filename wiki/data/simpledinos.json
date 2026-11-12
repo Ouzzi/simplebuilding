@@ -75,6 +75,7 @@
       "sources": [
         "modules/simpledinos/shared/java/com/simpledinos/entity/Trex.java",
         "modules/simpledinos/shared/java/com/simpledinos/entity/Dino.java",
+        "modules/simpledinos/shared/java/com/simpledinos/entity/part/PartRig.java",
         "modules/simpledinos/shared/java/com/simpledinos/client/TrexModel.java"
       ],
       "en": {
@@ -83,6 +84,7 @@
         "details": [
           "Adults eat any raw or cooked meat to heal (4 hearts per piece, up to full health). They bite 10 damage (setting trexBiteDamage), only monsters that attack the owner or the dinosaur, follow the owner and never attack players. Hatchlings run away when hurt.",
           "A T. rex that was not hatched from an egg (summoned by command) has no owner and cannot be ridden. It does not breed, never spawns on its own and does not break blocks.",
+          "Head and tail have their own part hitboxes: the head pulls back over the chest before it would reach into a wall, a player or another animal, the tail bends to the free side. Leaves do not count, they only brush past. It bites from the reach of its head and stops following its owner before the head gets there.",
           "Sounds are Vanilla sounds (ravager) for now; own recordings come later."
         ]
       },
@@ -92,6 +94,7 @@
         "details": [
           "Erwachsene fressen jedes rohe oder gegarte Fleisch zum Heilen (4 Herzen je Stück, bis zur vollen Gesundheit). Sie beißen mit 10 Schaden (Einstellung trexBiteDamage), nur Monster, die den Besitzer oder den Dinosaurier angreifen, folgen dem Besitzer und greifen nie Spieler an. Jungtiere laufen weg, wenn sie verletzt werden.",
           "Ein T-Rex, der nicht aus einem Ei geschlüpft ist (per Befehl gerufen), hat keinen Besitzer und lässt sich nicht reiten. Er züchtet nicht, spawnt nie von selbst und zerstört keine Blöcke.",
+          "Kopf und Schwanz haben eigene Teil-Hitboxen: Der Kopf zieht sich über die Brust zurück, bevor er in eine Wand, einen Spieler oder ein anderes Tier reichen würde, der Schwanz biegt zur freien Seite. Blätter zählen nicht, sie streifen nur vorbei. Er beißt aus der Reichweite seines Kopfes und bleibt beim Folgen stehen, bevor der Kopf den Besitzer erreicht.",
           "Die Geräusche sind vorerst Vanilla-Geräusche (Verwüster); eigene Aufnahmen folgen."
         ]
       }
