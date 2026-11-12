@@ -8,7 +8,7 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplebuilding/modules/simplerespawn'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'RespawnConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert len(config_keys) == 13, config_keys
+assert len(config_keys) == 15, config_keys
 # Every translation key the Java code asks for must exist in both languages.
 used = set()
 for src in JAVA.rglob('*.java'):

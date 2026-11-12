@@ -85,14 +85,18 @@ public final class RespawnTests {
             json.addProperty("reviveHealth", 50);
             json.addProperty("crawlSpeed", -3.0);
             json.addProperty("secondsLostPerDamage", Double.NaN);
+            json.addProperty("helperMaxDistance", 99999);
+            json.addProperty("repeatPenaltySeconds", -5);
             JsonObject before = RespawnConfig.toJson();
             try {
                 RespawnConfig.apply(json);
                 h.assertTrue(RespawnConfig.bleedOutSeconds == 600 && RespawnConfig.reviveSeconds == 1 && RespawnConfig.reviveHealth == 20
                         && RespawnConfig.crawlSpeed == 0.0 && RespawnConfig.secondsLostPerDamage == 0.0, "values clamped");
+                h.assertTrue(RespawnConfig.helperMaxDistance == 4096 && RespawnConfig.repeatPenaltySeconds == 0, "helper distance and repeat penalty clamped (0 = off)");
                 RespawnConfig.apply(new JsonObject());
                 h.assertTrue(RespawnConfig.bleedOutSeconds == 60 && RespawnConfig.reviveSeconds == 5 && RespawnConfig.reviveHealth == 6
                         && RespawnConfig.reviveFood == 0 && RespawnConfig.onlyWithOtherPlayers && RespawnConfig.mobsIgnoreDowned, "defaults: 60 s, 5 s, 3 hearts, 0 food");
+                h.assertTrue(RespawnConfig.helperMaxDistance == 128 && RespawnConfig.repeatPenaltySeconds == 15, "defaults: helpers within 128 blocks, 15 s per repeat");
                 h.assertTrue(RespawnConfig.KEYS.size() == RespawnConfig.toJson().size(), "every key written");
             } finally {
                 RespawnConfig.apply(before);
@@ -119,6 +123,61 @@ public final class RespawnTests {
             h.assertTrue(RespawnServer.otherPlayers(victim) == 0 && !RespawnServer.couldHelp(victim, mate), "a mate in another dimension does not count");
             lethal(h, victim);
             h.assertTrue(!RespawnServer.isDowned(victim) && victim.isDeadOrDying(), "nobody can reach the player: the Vanilla death");
+            h.succeed();
+        });
+        add("helper_too_far_does_not_count", h -> {
+            // AUDSB31E2 F1=B: a mate farther away than helperMaxDistance cannot arrive within the bleed-out time, so it is no helper.
+            int before = RespawnConfig.helperMaxDistance;
+            try {
+                RespawnConfig.helperMaxDistance = 128;
+                ServerPlayer victim = player(h, "far-victim", 1.5, 1.5);
+                ServerPlayer mate = player(h, "far-mate", 3.5, 1.5);
+                h.assertTrue(RespawnServer.otherPlayers(victim) == 1 && RespawnServer.couldHelp(victim, mate), "a mate nearby counts");
+                Vec3 far = h.absoluteVec(new Vec3(3.5, 1.0, 1.5 + 200.0));
+                mate.snapTo(far.x, far.y, far.z, 0f, 0f);
+                h.assertTrue(victim.distanceTo(mate) > 128f, "the mate is more than 128 blocks away");
+                h.assertTrue(RespawnServer.otherPlayers(victim) == 0 && !RespawnServer.couldHelp(victim, mate), "a mate more than 128 blocks away does not count");
+                RespawnConfig.helperMaxDistance = 0;
+                h.assertTrue(RespawnServer.otherPlayers(victim) == 1, "0 = no distance limit: the far mate counts again");
+                RespawnConfig.helperMaxDistance = 128;
+                lethal(h, victim);
+                h.assertTrue(!RespawnServer.isDowned(victim) && victim.isDeadOrDying(), "nobody can arrive in time: the Vanilla death");
+            } finally {
+                RespawnConfig.helperMaxDistance = before;
+            }
+            h.succeed();
+        });
+        add("repeat_knockdown_shortens_bleed_out", h -> {
+            // AUDSB31E2 F2=B: every further knock-down within 5 minutes costs repeatPenaltySeconds, down to a floor of 15 s.
+            h.assertTrue(RespawnServer.bleedTicks(60, 15, 0) == 1200 && RespawnServer.bleedTicks(60, 15, 1) == 900
+                    && RespawnServer.bleedTicks(60, 15, 2) == 600 && RespawnServer.bleedTicks(60, 15, 3) == 300, "60 s, then 45, 30, 15");
+            h.assertTrue(RespawnServer.bleedTicks(60, 15, 4) == 300 && RespawnServer.bleedTicks(60, 120, 1) == 300, "never below 15 s");
+            h.assertTrue(RespawnServer.bleedTicks(10, 15, 3) == 200 && RespawnServer.bleedTicks(60, 0, 5) == 1200, "a base time under 15 s stays, penalty 0 = off");
+            int bleed = RespawnConfig.bleedOutSeconds;
+            int penalty = RespawnConfig.repeatPenaltySeconds;
+            try {
+                RespawnConfig.bleedOutSeconds = 60;
+                RespawnConfig.repeatPenaltySeconds = 15;
+                ServerPlayer victim = downedPair(h, "repeat");
+                var id = victim.getUUID();
+                h.assertTrue(RespawnServer.state(victim).ticksLeft == 60 * 20 && RespawnServer.repeatsOf(id) == 1, "first knock-down: the full 60 s");
+                RespawnServer.revive(victim, null);
+                victim.removeAllEffects();
+                h.assertTrue(!RespawnServer.isDowned(victim) && RespawnServer.repeatsOf(id) == 1, "a revive does not reset the counter");
+                lethal(h, victim);
+                h.assertTrue(RespawnServer.isDowned(victim) && RespawnServer.state(victim).ticksLeft == (60 - 15) * 20, "second knock-down: 45 s");
+                RespawnServer.revive(victim, null);
+                victim.removeAllEffects();
+                lethal(h, victim);
+                h.assertTrue(RespawnServer.isDowned(victim) && RespawnServer.state(victim).ticksLeft == (60 - 30) * 20, "third knock-down: 30 s");
+                h.assertTrue(RespawnServer.repeatsOf(id) == 3 && RespawnServer.repeatsOf(id, RespawnServer.ticks + RespawnServer.REPEAT_WINDOW_TICKS + 1) == 0,
+                        "the counter lapses 5 minutes after the last knock-down");
+                RespawnServer.die(victim);
+                h.assertTrue(RespawnServer.repeatsOf(id) == 0, "the real death clears the counter");
+            } finally {
+                RespawnConfig.bleedOutSeconds = bleed;
+                RespawnConfig.repeatPenaltySeconds = penalty;
+            }
             h.succeed();
         });
         add("downed_instead_of_death", h -> {

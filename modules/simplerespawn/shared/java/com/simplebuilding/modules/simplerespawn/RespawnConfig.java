@@ -19,7 +19,7 @@ public final class RespawnConfig {
     /** All keys in file order (lang/wiki checks read this list). */
     public static final List<String> KEYS = List.of("enabled", "onlyWithOtherPlayers", "bleedOutSeconds", "secondsLostPerDamage",
             "reviveSeconds", "reviveRange", "reviveHealth", "reviveFood", "reviveResistanceSeconds", "reviveWeaknessSeconds",
-            "crawlSpeed", "mobsIgnoreDowned", "announce");
+            "crawlSpeed", "mobsIgnoreDowned", "announce", "helperMaxDistance", "repeatPenaltySeconds");
 
     public static boolean enabled = true;
     /** On: knocked down only while at least one other (non-spectator) player is online; off: always. */
@@ -40,6 +40,10 @@ public final class RespawnConfig {
     public static boolean mobsIgnoreDowned = true;
     /** Chat line to everyone when a player is downed or revived. */
     public static boolean announce = true;
+    /** A mate farther away than this many blocks (same dimension) is no possible helper; 0 = no limit (AUDSB31E2 F1). */
+    public static int helperMaxDistance = 128;
+    /** Seconds each further knock-down within 5 minutes shortens the bleed-out time by; 0 = off (AUDSB31E2 F2). */
+    public static int repeatPenaltySeconds = 15;
 
     private RespawnConfig() {}
 
@@ -76,6 +80,8 @@ public final class RespawnConfig {
         crawlSpeed = clamp(number(json, "crawlSpeed", 0.5), 0.0, 1.0);
         mobsIgnoreDowned = bool(json, "mobsIgnoreDowned", true);
         announce = bool(json, "announce", true);
+        helperMaxDistance = clamp(integer(json, "helperMaxDistance", 128), 0, 4096);
+        repeatPenaltySeconds = clamp(integer(json, "repeatPenaltySeconds", 15), 0, 120);
     }
 
     public static JsonObject toJson() {
@@ -93,6 +99,8 @@ public final class RespawnConfig {
         o.addProperty("crawlSpeed", crawlSpeed);
         o.addProperty("mobsIgnoreDowned", mobsIgnoreDowned);
         o.addProperty("announce", announce);
+        o.addProperty("helperMaxDistance", helperMaxDistance);
+        o.addProperty("repeatPenaltySeconds", repeatPenaltySeconds);
         return o;
     }
 
