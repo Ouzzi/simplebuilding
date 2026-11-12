@@ -82,6 +82,33 @@ final class WingsTests {
                     "heart legendary, evil trial things evil, void trial things void (TIP05)");
             h.succeed();
         });
+        // PLAN40 simplemobs-4 (a-w1b): worn wings follow the look variant (WingsLayerLookMixin draws WitherWings.wornAsset)
+        add.accept("wings_worn_look_follows_variant", h -> {
+            for (var item : java.util.List.of(WitherWings.WITHER, WitherWings.NETHER, WitherWings.END, WitherWings.VOID)) {
+                var asset = new ItemStack(item).get(DataComponents.EQUIPPABLE).assetId().orElseThrow();
+                var v2 = WitherWings.wornAsset(asset, true);
+                h.assertTrue(WitherWings.wornAsset(asset, false).equals(asset), "look 1 keeps the asset: " + asset);
+                h.assertTrue(v2.identifier().equals(Identifier.fromNamespaceAndPath(MobsRegistry.ID, asset.identifier().getPath() + "_v2")),
+                        "look 2 draws the _v2 asset: " + v2);
+                for (var key : java.util.List.of(asset, v2)) {
+                    String path = key.identifier().getPath();
+                    for (String res : java.util.List.of("/assets/simplemobs/equipment/" + path + ".json",
+                            "/assets/simplemobs/textures/entity/equipment/wings/" + path + ".png")) {
+                        h.assertTrue(WingsTests.class.getResource(res) != null, "worn look present: " + res);
+                    }
+                }
+                String def = "/assets/simplemobs/items/" + BuiltInRegistries.ITEM.getKey(item).getPath() + ".json";
+                try (var in = WingsTests.class.getResourceAsStream(def)) {
+                    h.assertTrue(in != null && new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8).contains("simplemobs:wings_look_v2"),
+                            "the item icon switches with the same variant: " + def);
+                } catch (java.io.IOException e) {
+                    h.fail("item definition unreadable: " + def);
+                }
+            }
+            var elytra = net.minecraft.world.item.equipment.EquipmentAssets.ELYTRA;
+            h.assertTrue(WitherWings.wornAsset(elytra, true).equals(elytra), "the Vanilla Elytra keeps its look");
+            h.succeed();
+        });
         add.accept("wings_recipes", h -> {
             // WF25-10 (07.11.): always SimpleLib's Strong Upgrade (Simple Mobs requests it), with or without Simple Beacons
             h.assertTrue(recipe(h, "wither_wings_smithing") && recipe(h, "nether_wings_smithing") && recipe(h, "end_wings_smithing")

@@ -119,6 +119,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void witherOrder(GameTestHelper helper) { MobsTests.ALL.get("wither_order").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherArmored(GameTestHelper helper) { MobsTests.ALL.get("wither_armored").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void forbiddenFireIsItsOwnItem(GameTestHelper helper) { MobsTests.ALL.get("forbidden_fire_is_its_own_item").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void wingsWornLookFollowsVariant(GameTestHelper helper) { MobsTests.ALL.get("wings_worn_look_follows_variant").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherMinionArmor(GameTestHelper helper) { MobsTests.ALL.get("wither_minion_armor").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherNovaPush(GameTestHelper helper) { MobsTests.ALL.get("wither_nova_push").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void guideBook(GameTestHelper helper) { MobsTests.ALL.get("guide_book").accept(helper); }
