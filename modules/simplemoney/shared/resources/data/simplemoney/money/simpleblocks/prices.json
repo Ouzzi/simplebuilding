@@ -208,7 +208,19 @@
     "simpleblocks:blue_ice_bricks": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:blue_ice_stairs": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:blue_ice_slab": "Crafted from its Vanilla base block; no trade.",
-    "simpleblocks:blue_ice_wall": "Crafted from its Vanilla base block; no trade."
+    "simpleblocks:blue_ice_wall": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:cracked_ice_bricks": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:ice_brick_stairs": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:ice_brick_slab": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:ice_brick_wall": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:cracked_packed_ice_bricks": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:packed_ice_brick_stairs": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:packed_ice_brick_slab": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:packed_ice_brick_wall": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:cracked_blue_ice_bricks": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:blue_ice_brick_stairs": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:blue_ice_brick_slab": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:blue_ice_brick_wall": "Crafted from its Vanilla base block; no trade."
   },
   "prices": [
     {

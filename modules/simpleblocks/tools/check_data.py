@@ -17,7 +17,7 @@ registry = set(re.findall(r'add\("([a-z_]+)"', java))
 registry |= {m for m in re.findall(r'"([a-z_]+_(?:stairs|slab|wall))"', java.split('SHAPES = List.of(')[1].split(');')[0])}
 registry |= {m for m in re.findall(r'new String\[\]\{"([a-z_]+)", "[a-z_:]+"\}', java)}
 assert registry == set(g.BLOCKS), (sorted(registry ^ set(g.BLOCKS)))
-assert len(g.BLOCKS) == 105, len(g.BLOCKS)  # 38 + 42 of palette stage 2 (a-palette05) + smooth stone wall + 5 chiseled (a-pal09) + 19 PAL14
+assert len(g.BLOCKS) == 117, len(g.BLOCKS)  # 38 + 42 of palette stage 2 (a-palette05) + smooth stone wall + 5 chiseled (a-pal09) + 19 PAL14 + 12 ice bricks (a-icebricks38)
 
 assert subprocess.run([sys.executable, str(MODULE / 'tools/generate_data.py'), '--check']).returncode == 0
 

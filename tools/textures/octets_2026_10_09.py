@@ -362,16 +362,21 @@ PALETTE_EXTRAS = [
     ('smooth_quartz', 'minecraft', 'quartz_bricks', 'quartz', 'Quartz Bricks', 'Quarzziegel'),
     ('astralit_bricks', 'simplebuilding', 'astralit_block', 'mod', 'Block of Astralit', 'Astralitblock'),
     ('nihilith_bricks', 'simplebuilding', 'nihilith_block', 'mod', 'Block of Nihilit', 'Nihilitblock'),
+    # a-icebricks38 (owner 12.11.): Simple Blocks' ice bricks got stairs and slabs, so octets too (O1), each behind its ice.
+    ('ice', 'simpleblocks', 'ice_bricks', 'other', 'Ice Bricks', 'Eisziegel'),
+    ('packed_ice', 'simpleblocks', 'packed_ice_bricks', 'other', 'Packed Ice Bricks', 'Packeisziegel'),
+    ('blue_ice', 'simpleblocks', 'blue_ice_bricks', 'other', 'Blue Ice Bricks', 'Blaueisziegel'),
 ]
 
 
 def with_palette(out):
     """Inserts PALETTE_EXTRAS behind their anchors (skips the ones already in the list)."""
     for after, ns, base, group, en, de in PALETTE_EXTRAS:
-        if any(m['key'] == base for m in out):
+        anchors = [i for i, m in enumerate(out) if m['key'] == after]
+        if any(m['key'] == base for m in out) or not anchors:
             continue
         entry = {'ns': ns, 'base': base, 'key': base, 'group': group, 'tex': {'all': f'{ns}:block/{base}'}, 'en': en, 'de': de}
-        out.insert(max(i for i, m in enumerate(out) if m['key'] == after) + 1, entry)
+        out.insert(max(anchors) + 1, entry)
     return out
 
 

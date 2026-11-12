@@ -341,6 +341,56 @@ public final class BlocksTests {
         h.succeed();
     }
 
+    /**
+     * a-icebricks38 (owner 12.11.): the ice bricks are a family of their own - the stonecutter cuts the bricks into cracked bricks,
+     * stairs, slabs (2), walls and chiseled ice, the ice and the polished ice straight into the brick shapes; two brick slabs make
+     * the chiseled ice of the kind; the cracked bricks copy their ice, are ice (tag) and stand in the Vanilla tab behind the bricks.
+     */
+    private static void iceBrickFamily(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        for (Block ice : List.of(Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE)) {
+            String kind = BuiltInRegistries.BLOCK.getKey(ice).getPath();
+            Block cracked = BlocksRegistry.BLOCKS.get("cracked_" + kind + "_bricks");
+            h.assertTrue(cracked != null && BlocksRegistry.BASES.get("cracked_" + kind + "_bricks") == ice, "cracked " + kind + " bricks copy " + kind);
+            h.assertTrue(cracked.defaultBlockState().is(net.minecraft.tags.BlockTags.ICE), "cracked " + kind + " bricks are #ice");
+            h.assertTrue((cracked instanceof net.minecraft.world.level.block.IceBlock) == (ice == Blocks.ICE), "only cracked normal ice bricks melt");
+            Item bricks = BlocksRegistry.ITEMS.get(kind + "_bricks");
+            Item chiseled = BuiltInRegistries.ITEM.getValue(com.simpleblocks.SimpleBlocks.id("chiseled_" + kind));
+            java.util.Map<Item, Integer> fromBricks = cuts(level, new ItemStack(bricks));
+            h.assertTrue(fromBricks.getOrDefault(cracked.asItem(), 0) == 1, "stonecutter: " + kind + " bricks -> cracked (" + fromBricks + ")");
+            h.assertTrue(fromBricks.getOrDefault(chiseled, 0) == 1, "stonecutter: " + kind + " bricks -> chiseled " + kind);
+            for (Item source : List.of(bricks, ice.asItem(), BlocksRegistry.ITEMS.get("polished_" + kind))) {
+                java.util.Map<Item, Integer> made = source == bricks ? fromBricks : cuts(level, new ItemStack(source));
+                for (String shape : List.of("stairs", "slab", "wall")) {
+                    Item out = BlocksRegistry.ITEMS.get(kind + "_brick_" + shape);
+                    h.assertTrue(made.getOrDefault(out, 0) == (shape.equals("slab") ? 2 : 1), "stonecutter: " + source + " -> " + out + " (" + made + ")");
+                }
+            }
+            Item slab = BlocksRegistry.ITEMS.get(kind + "_brick_slab");
+            expectCraft(h, level, 1, 2, List.of(new ItemStack(slab), new ItemStack(slab)), BuiltInRegistries.BLOCK.getValue(com.simpleblocks.SimpleBlocks.id("chiseled_" + kind)), 1);
+            expectCraft(h, level, 3, 1, java.util.Collections.nCopies(3, new ItemStack(bricks)), BlocksRegistry.BLOCKS.get(kind + "_brick_slab"), 6);
+        }
+        List<String> placed = BlocksRegistry.placements().stream().flatMap(p -> p.names().stream()).toList();
+        for (String name : List.of("cracked_ice_bricks", "ice_brick_wall", "cracked_packed_ice_bricks", "packed_ice_brick_stairs", "cracked_blue_ice_bricks", "blue_ice_brick_slab")) {
+            h.assertTrue(placed.contains(name), name + " has a place in a Vanilla tab");
+        }
+        h.assertTrue(placed.indexOf("cracked_ice_bricks") == placed.indexOf("ice_bricks") + 1, "cracked ice bricks right behind the ice bricks");
+        h.succeed();
+    }
+
+    /** Stonecutter results (item -> count) of one input. */
+    private static java.util.Map<Item, Integer> cuts(ServerLevel level, ItemStack input) {
+        java.util.Map<Item, Integer> out = new java.util.HashMap<>();
+        var one = new net.minecraft.world.item.crafting.SingleRecipeInput(input);
+        for (var holder : level.getServer().getRecipeManager().getRecipes()) {
+            if (holder.value() instanceof net.minecraft.world.item.crafting.StonecutterRecipe r && r.matches(one, level)) {
+                ItemStack made = r.assemble(one);
+                out.merge(made.getItem(), made.getCount(), Math::max);
+            }
+        }
+        return out;
+    }
+
     private static void expectCraft(GameTestHelper h, ServerLevel level, int w, int hgt, List<ItemStack> grid, Block result, int count) {
         var input = net.minecraft.world.item.crafting.CraftingInput.of(w, hgt, grid);
         ItemStack made = level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, level)
@@ -351,6 +401,7 @@ public final class BlocksTests {
     static {
         ALL.put("pal14_members", BlocksTests::pal14Members);
         ALL.put("pal14_ice", BlocksTests::pal14Ice);
+        ALL.put("icebricks38_family", BlocksTests::iceBrickFamily);
         ALL.put("blue_nether_bricks_recipes", BlocksTests::blueNetherBricksRecipes);
         ALL.put("sculk_tiles", BlocksTests::sculkTiles);
         ALL.put("discover_recipe_unlocks", com.simpleblocks.discover.BlocksDiscover::recipeUnlocks);

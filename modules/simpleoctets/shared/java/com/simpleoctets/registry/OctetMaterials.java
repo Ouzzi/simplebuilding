@@ -199,8 +199,11 @@ public final class OctetMaterials {
             new Material("minecraft", "polished_sulfur", "polished_sulfur", "other"),
             new Material("minecraft", "sulfur", "sulfur", "other"),
             new Material("minecraft", "ice", "ice", "other"),
+            new Material("simpleblocks", "ice_bricks", "ice_bricks", "other"),
             new Material("minecraft", "packed_ice", "packed_ice", "other"),
-            new Material("minecraft", "blue_ice", "blue_ice", "other"));
+            new Material("simpleblocks", "packed_ice_bricks", "packed_ice_bricks", "other"),
+            new Material("minecraft", "blue_ice", "blue_ice", "other"),
+            new Material("simpleblocks", "blue_ice_bricks", "blue_ice_bricks", "other"));
 
     private OctetMaterials() {
     }

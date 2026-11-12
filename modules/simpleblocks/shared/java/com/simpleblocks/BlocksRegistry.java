@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 105 blocks with their block items (plus the 15 moved from SimpleBuilding in
+ * Everything Simple Blocks registers: 117 blocks with their block items (plus the 15 moved from SimpleBuilding in
  * {@link com.simpleblocks.nature.NatureBlocks}), the Shapecutter ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
@@ -80,7 +80,10 @@ public final class BlocksRegistry {
             "mossy_sulfur_brick_stairs", "mossy_sulfur_brick_slab", "mossy_sulfur_brick_wall",
             // PAL14 (owner 09.11.): stairs, slab and wall of the three ices (registered with the ice family below).
             "ice_stairs", "ice_slab", "ice_wall", "packed_ice_stairs", "packed_ice_slab", "packed_ice_wall",
-            "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall");
+            "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall",
+            // a-icebricks38 (owner 12.11.): stairs, slab and wall of the ice bricks (registered with their bricks below).
+            "ice_brick_stairs", "ice_brick_slab", "ice_brick_wall", "packed_ice_brick_stairs", "packed_ice_brick_slab", "packed_ice_brick_wall",
+            "blue_ice_brick_stairs", "blue_ice_brick_slab", "blue_ice_brick_wall");
 
     static {
         shapes("calcite", Blocks.CALCITE, true, true, true);
@@ -149,6 +152,12 @@ public final class BlocksRegistry {
     public static final Block CHISELED_ICE = add("chiseled_ice", Blocks.ICE, IceBlock::new);
     public static final Block POLISHED_ICE = add("polished_ice", Blocks.ICE, IceBlock::new);
     public static final Block ICE_BRICKS = add("ice_bricks", Blocks.ICE, IceBlock::new);
+    /** a-icebricks38 (owner 12.11.): the ice bricks are a family of their own - cracked bricks and the bricks' stairs/slab/wall. */
+    public static final Block CRACKED_ICE_BRICKS = add("cracked_ice_bricks", Blocks.ICE, IceBlock::new);
+
+    static {
+        iceBrickShapes("ice", Blocks.ICE, ICE_BRICKS);
+    }
 
     static {
         add("ice_stairs", Blocks.ICE, s -> new IceShapes.Stairs(Blocks.ICE.defaultBlockState(), s));
@@ -158,6 +167,11 @@ public final class BlocksRegistry {
 
     public static final Block POLISHED_PACKED_ICE = add("polished_packed_ice", Blocks.PACKED_ICE, Block::new);
     public static final Block PACKED_ICE_BRICKS = add("packed_ice_bricks", Blocks.PACKED_ICE, Block::new);
+    public static final Block CRACKED_PACKED_ICE_BRICKS = add("cracked_packed_ice_bricks", Blocks.PACKED_ICE, Block::new);
+
+    static {
+        iceBrickShapes("packed_ice", Blocks.PACKED_ICE, PACKED_ICE_BRICKS);
+    }
 
     static {
         shapes("packed_ice", Blocks.PACKED_ICE, true, true, true);
@@ -165,15 +179,23 @@ public final class BlocksRegistry {
 
     public static final Block POLISHED_BLUE_ICE = add("polished_blue_ice", Blocks.BLUE_ICE, Block::new);
     public static final Block BLUE_ICE_BRICKS = add("blue_ice_bricks", Blocks.BLUE_ICE, Block::new);
+    public static final Block CRACKED_BLUE_ICE_BRICKS = add("cracked_blue_ice_bricks", Blocks.BLUE_ICE, Block::new);
+
+    static {
+        iceBrickShapes("blue_ice", Blocks.BLUE_ICE, BLUE_ICE_BRICKS);
+    }
 
     static {
         shapes("blue_ice", Blocks.BLUE_ICE, true, true, true);
     }
 
-    /** The PAL14 ice members (loot: Silk Touch only, like Vanilla ice). */
+    /** The PAL14 ice members and the a-icebricks38 brick families (loot: Silk Touch only, like Vanilla ice). */
     public static final List<String> ICE = List.of("chiseled_ice", "polished_ice", "ice_bricks", "ice_stairs", "ice_slab", "ice_wall",
             "polished_packed_ice", "packed_ice_bricks", "packed_ice_stairs", "packed_ice_slab", "packed_ice_wall",
-            "polished_blue_ice", "blue_ice_bricks", "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall");
+            "polished_blue_ice", "blue_ice_bricks", "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall",
+            "cracked_ice_bricks", "ice_brick_stairs", "ice_brick_slab", "ice_brick_wall",
+            "cracked_packed_ice_bricks", "packed_ice_brick_stairs", "packed_ice_brick_slab", "packed_ice_brick_wall",
+            "cracked_blue_ice_bricks", "blue_ice_brick_stairs", "blue_ice_brick_slab", "blue_ice_brick_wall");
 
     /** The block an aged brick copies: Vanilla's, or (with a namespace) one of ours, which is not in the registry yet while this class loads. */
     public static Block agedBase(String id) {
@@ -183,6 +205,23 @@ public final class BlocksRegistry {
 
     /** Every block path in registration order. */
     public static final List<String> NAMES = List.copyOf(BLOCKS.keySet());
+
+    /**
+     * Stairs, slab and wall of an ice's bricks (a-icebricks38): properties of the Vanilla ice (slipperiness, sound, hardness), the
+     * stairs shaped like the bricks. Only normal ice melts ({@link IceShapes}); packed and blue ice never do, like in Vanilla.
+     */
+    private static void iceBrickShapes(String ice, Block vanilla, Block bricks) {
+        String stem = ice + "_brick";
+        if (vanilla == Blocks.ICE) {
+            add(stem + "_stairs", vanilla, s -> new IceShapes.Stairs(bricks.defaultBlockState(), s));
+            add(stem + "_slab", vanilla, IceShapes.Slab::new);
+            add(stem + "_wall", vanilla, IceShapes.Wall::new);
+        } else {
+            add(stem + "_stairs", vanilla, s -> new StairBlock(bricks.defaultBlockState(), s));
+            add(stem + "_slab", vanilla, SlabBlock::new);
+            add(stem + "_wall", vanilla, s -> new WallBlock(s.forceSolidOn()));
+        }
+    }
 
     private static void shapes(String base, Block block, boolean stairs, boolean slab, boolean wall) {
         if (stairs) add(base + "_stairs", block, s -> new StairBlock(block.defaultBlockState(), s));
@@ -335,9 +374,13 @@ public final class BlocksRegistry {
         // PAL14: sandstone pillars behind the chiseled sandstone; the ice members in the natural tab behind their ice.
         out.add(Placement.after(false, Items.CHISELED_SANDSTONE, "sandstone_pillar"));
         out.add(Placement.after(false, Items.CHISELED_RED_SANDSTONE, "red_sandstone_pillar"));
-        out.add(Placement.after(true, Items.ICE, "chiseled_ice", "polished_ice", "ice_bricks", "ice_stairs", "ice_slab", "ice_wall"));
-        out.add(Placement.after(true, Items.PACKED_ICE, "polished_packed_ice", "packed_ice_bricks", "packed_ice_stairs", "packed_ice_slab", "packed_ice_wall"));
-        out.add(Placement.after(true, Items.BLUE_ICE, "polished_blue_ice", "blue_ice_bricks", "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall"));
+        // a-icebricks38: Vanilla order (the ice's shapes, chiseled, polished, then the bricks with their cracked block and shapes, like deepslate).
+        out.add(Placement.after(true, Items.ICE, "ice_stairs", "ice_slab", "ice_wall", "chiseled_ice", "polished_ice", "ice_bricks", "cracked_ice_bricks",
+                "ice_brick_stairs", "ice_brick_slab", "ice_brick_wall"));
+        out.add(Placement.after(true, Items.PACKED_ICE, "packed_ice_stairs", "packed_ice_slab", "packed_ice_wall", "polished_packed_ice", "packed_ice_bricks",
+                "cracked_packed_ice_bricks", "packed_ice_brick_stairs", "packed_ice_brick_slab", "packed_ice_brick_wall"));
+        out.add(Placement.after(true, Items.BLUE_ICE, "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall", "polished_blue_ice", "blue_ice_bricks",
+                "cracked_blue_ice_bricks", "blue_ice_brick_stairs", "blue_ice_brick_slab", "blue_ice_brick_wall"));
         out.add(Placement.after(false, Items.POLISHED_DEEPSLATE_WALL, "cracked_polished_deepslate"));
         // The blocks that moved from SimpleBuilding, behind their base block as SimpleBuilding placed them. With SimpleBuilding
         // loaded its search-tab chains keep placing them (by id, in its order with the octets), so only without it.

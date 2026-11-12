@@ -368,6 +368,48 @@
       }
     },
     {
+      "id": "ice_brick_family",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/icebricks38_2026_11_12.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/IceShapes.java",
+        "docs/ai/PLAN-A-ICEBRICKS38-2026-11-12.md"
+      ],
+      "related": [
+        "simpleblocks:cracked_ice_bricks",
+        "simpleblocks:ice_brick_stairs",
+        "simpleblocks:ice_brick_slab",
+        "simpleblocks:ice_brick_wall",
+        "simpleblocks:cracked_packed_ice_bricks",
+        "simpleblocks:packed_ice_brick_stairs",
+        "simpleblocks:packed_ice_brick_slab",
+        "simpleblocks:packed_ice_brick_wall",
+        "simpleblocks:cracked_blue_ice_bricks",
+        "simpleblocks:blue_ice_brick_stairs",
+        "simpleblocks:blue_ice_brick_slab",
+        "simpleblocks:blue_ice_brick_wall"
+      ],
+      "en": {
+        "title": "Ice Brick Families",
+        "summary": "Ice bricks, packed ice bricks and blue ice bricks are families of their own: cracked bricks, stairs, slabs, walls and an octet (Simple Octets).",
+        "details": [
+          "Crafting table: stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6 from the bricks; two brick slabs on top of each other make the chiseled ice of that kind. Stonecutter: the bricks cut into cracked bricks, stairs, slabs (2), walls and chiseled ice; the ice and the polished ice cut straight into the brick stairs, slabs and walls. Shapecutter: 8 octets from one brick block.",
+          "Cracked ice bricks come from the stonecutter (a furnace would melt them). They are decoration and do not crack further like Cracked Ice.",
+          "Every member is as slippery as its ice, sounds like glass and drops only with Silk Touch. Only the members of normal ice melt next to bright light, like Vanilla ice; packed and blue ice members never melt. The octets do not melt either."
+        ]
+      },
+      "de": {
+        "title": "Eisziegel-Familien",
+        "summary": "Eisziegel, Packeisziegel und Blaueisziegel sind eigene Familien: rissige Ziegel, Treppen, Stufen, Mauern und ein Achtelblock (Simple Octets).",
+        "details": [
+          "Werkbank: Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6 aus den Ziegeln; zwei Ziegelstufen übereinander ergeben das gemeißelte Eis der Art. Steinmetz: die Ziegel schneiden in rissige Ziegel, Treppen, Stufen (2), Mauern und gemeißeltes Eis; Eis und Poliertes Eis schneiden direkt in Ziegeltreppe, -stufe und -mauer. Formsäge: 8 Achtelblöcke aus einem Ziegelblock.",
+          "Rissige Eisziegel kommen aus dem Steinmetz (im Ofen würden sie schmelzen). Sie sind Deko und reißen nicht weiter wie Rissiges Eis.",
+          "Jedes Glied ist so rutschig wie sein Eis, klingt wie Glas und droppt nur mit Behutsamkeit. Nur die Glieder aus normalem Eis schmelzen bei hellem Licht wie Vanilla-Eis; Pack- und Blaueis-Glieder schmelzen nie. Auch die Achtelblöcke schmelzen nicht."
+        ]
+      }
+    },
+    {
       "id": "blue_nether_bricks",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",

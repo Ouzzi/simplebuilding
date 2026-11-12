@@ -2031,3 +2031,13 @@ wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/veined_nihilith.
 wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/crystalline_nihilith.png
 wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/frosted_nihilith.png
 wiki/assets/textures/sheets/simplebuilding/simplemachines/block/auto_smither_front.png
+# a-icebricks38: Vanilla-derived (tools/textures/icebricks38_2026_11_12.py), built, never committed
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cracked_ice_bricks.png
+wiki/assets/textures/simpleblocks/block/cracked_ice_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_ice_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cracked_packed_ice_bricks.png
+wiki/assets/textures/simpleblocks/block/cracked_packed_ice_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_packed_ice_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cracked_blue_ice_bricks.png
+wiki/assets/textures/simpleblocks/block/cracked_blue_ice_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_blue_ice_bricks.png
