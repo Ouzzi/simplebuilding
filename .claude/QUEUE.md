@@ -1292,3 +1292,5 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
 
 ## b-livemap29 (11.11.)
 - [~] (B, b-livemap29, 11.11., Basis hub/claude-wave1, Plan docs/ai/PLAN-B-LIVEMAP29-2026-11-11.md) **N29 Simple Livemap: funktioniert immer, selbst hosten, später gehostet** (Besitzer 11.11. ~12:25): a) out of the box (web an, 127.0.0.1, privat+Token, Port-Ausweichen 8125–8134, Chat-Hinweis Einzelspieler/LAN, Log-Hinweis Dedicated), b) Selbst-Hosten-Anleitung (nginx/Caddy, statische Kopie, Token, Ratenlimit), c) nur Konzept gehostete Livemap.
+## b-cfgscreen31 (11.11.)
+- [~] (B, b-cfgscreen31, 11.11., Basis hub/b-bundle182-gen) **N31b L13 / RELSB31 f2=A** Config-Bildschirm für jede Mod aus SimpleLib (ConfigCommands-Spec → Mod Menu, Cloth optional, Vanilla-Bildschirm ohne Cloth). Plan docs/ai/PLAN-B-CFGSCREEN31-2026-11-11.md.

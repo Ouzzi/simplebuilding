@@ -78,7 +78,13 @@ public final class SimpleHammers {
         HammerConfig.load(configDir);
         // CMD24: /simplehammers config for every option.
         com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simplehammers.config.HammerConfig::toJson, com.simplehammers.config.HammerConfig::apply)
-                .file(configDir, com.simplehammers.config.HammerConfig.FILE).register();
+                .file(configDir, com.simplehammers.config.HammerConfig.FILE)
+                // L13: ranges for the generic config screen (the clamps of HammerConfig.apply)
+                .range("upgradeSeconds", 1, com.simplehammers.config.HammerConfig.MAX_UPGRADE_SECONDS)
+                .range("reinforcedDamagePerHit", 0, com.simplehammers.config.HammerConfig.MAX_UPGRADE_DAMAGE)
+                .range("netheriteDamagePerHit", 0, com.simplehammers.config.HammerConfig.MAX_UPGRADE_DAMAGE)
+                .range("enderiteDamagePerHit", 0, com.simplehammers.config.HammerConfig.MAX_UPGRADE_DAMAGE)
+                .range("diamondBlockPebbles", 1, com.simplehammers.config.HammerConfig.DIAMOND_BLOCK_PEBBLES_DEFAULT).register();
         registerIdMoves();
         MATERIALS.forEach(SimpleLibApi::requestMaterial);
         // Principle 5a / split plan §2.6: with a hammer mod the in-world ways run with the hammer only, the Vanilla axe ways go off.

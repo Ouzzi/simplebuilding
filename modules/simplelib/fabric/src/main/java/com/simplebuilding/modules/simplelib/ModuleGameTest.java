@@ -216,6 +216,26 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void configScreenModel(GameTestHelper h) {
+        LibTests.ALL.get("config_screen_model").accept(h);
+    }
+
+    @GameTest
+    public void configScreenSave(GameTestHelper h) {
+        LibTests.ALL.get("config_screen_save").accept(h);
+    }
+
+    @GameTest
+    public void configScreenAccess(GameTestHelper h) {
+        LibTests.ALL.get("config_screen_access").accept(h);
+    }
+
+    @GameTest
+    public void configScreenEveryMod(GameTestHelper h) {
+        LibTests.ALL.get("config_screen_every_mod").accept(h);
+    }
+
+    @GameTest
     public void recipeViewerTableEntries(GameTestHelper h) {
         LibTests.ALL.get("recipe_viewer_table_entries").accept(h);
     }

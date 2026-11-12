@@ -166,5 +166,15 @@
   "simplelib.guide.page.18.title": "Commands",
   "simplelib.guide.page.18": "/simplelib config shows and changes every option of config/simplelib-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once;",
   "simplelib.guide.page.19.title": "Commands",
-  "simplelib.guide.page.19": "options read only at start say so. Permission level 2. /simpleclient simplelib (list, get, set, reset, help) does the same for config/simplelib-client.json on your own client."
+  "simplelib.guide.page.19": "options read only at start say so. Permission level 2. /simpleclient simplelib (list, get, set, reset, help) does the same for config/simplelib-client.json on your own client.",
+  "gui.simplelib.config_screen.general": "General",
+  "gui.simplelib.config_screen.server": "Server: %s",
+  "gui.simplelib.config_screen.client": "Client: %s",
+  "gui.simplelib.config_screen.default": "Default: %s",
+  "gui.simplelib.config_screen.range": "Range: %s–%s",
+  "gui.simplelib.config_screen.restart": "Takes effect after a restart.",
+  "gui.simplelib.config_screen.secret": "Hidden value: change it with the config command.",
+  "gui.simplelib.config_screen.remote": "Settings of the server you play on: only shown here. Operators change them with %s.",
+  "gui.simplelib.config_screen.operator": "Server settings need operator rights in this world (cheats on), or change them from the title screen. Command: %s",
+  "gui.simplelib.config_screen.save_failed": "Could not save the settings (see the log)."
 }

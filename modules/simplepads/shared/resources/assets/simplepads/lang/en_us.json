@@ -225,5 +225,9 @@
   "simplepads.guide.page.5.title": "Simple Pads: pads, pressure plates and the Spawn Elytra",
   "simplepads.guide.page.5": "Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers each, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn",
   "simplepads.guide.page.6.title": "Simple Pads: pads, pressure plates and the Spawn Elytra",
-  "simplepads.guide.page.6": "Elytra. Simple Ores brings the Enderite of the last tiers, Simple Mobheads the heads of the first ones; both are required."
+  "simplepads.guide.page.6": "Elytra. Simple Ores brings the Enderite of the last tiers, Simple Mobheads the heads of the first ones; both are required.",
+  "text.autoconfig.simplepads.category.pads": "Pads",
+  "text.autoconfig.simplepads.category.padTuning": "Pad Tuning",
+  "text.autoconfig.simplepads.category.spawn": "Spawn",
+  "text.autoconfig.simplepads.category.tuning": "Tuning"
 }

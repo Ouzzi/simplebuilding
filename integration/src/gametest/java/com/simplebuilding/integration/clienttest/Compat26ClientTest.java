@@ -89,36 +89,59 @@ public final class Compat26ClientTest implements FabricClientGameTest {
         context.setScreen(() -> null);
     }
 
-    /** The config screens Mod Menu offers (entrypoint "modmenu"): open, photograph the first ones, close; an exception is a fault. */
+    /**
+     * The config screens Mod Menu offers (entrypoint "modmenu"): the mods' own, then (L13) the generic SimpleLib screens it
+     * provides for the other Simple mods; open, photograph the first ones, close; an exception is a fault.
+     */
     private void modMenuConfigs(ClientGameTestContext context) {
         int opened = 0;
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        java.util.Map<String, Object> provided = new java.util.LinkedHashMap<>();
         for (var container : FabricLoader.getInstance().getEntrypointContainers("modmenu", Object.class)) {
             String id = container.getProvider().getMetadata().getId();
             if (!id.startsWith("simple")) continue;
             final int index = opened;
             guard("modmenu-config-" + id, () -> {
                 Object api = container.getEntrypoint();
-                Method getFactory = api.getClass().getMethod("getModConfigScreenFactory");
-                Object factory = getFactory.invoke(api);
-                Method create = Class.forName("com.terraformersmc.modmenu.api.ConfigScreenFactory").getMethod("create", Screen.class);
-                context.setScreen(() -> {
-                    try {
-                        return (Screen) create.invoke(factory, (Screen) null);
-                    } catch (ReflectiveOperationException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-                context.waitTicks(8);
-                String shown = context.computeOnClient(c -> c.gui.screen() == null ? "-" : c.gui.screen().getClass().getName());
-                System.out.println("[compat26] INFO config " + id + " -> " + shown);
-                if (index < 4) shot(context, "config-" + id);
-                context.setScreen(() -> null);
-                context.waitTicks(2);
+                Object factory = api.getClass().getMethod("getModConfigScreenFactory").invoke(api);
+                if (!factory.getClass().getName().endsWith("NullScreenFactory")) open(context, id, factory, index < 4);
+                Object more = api.getClass().getMethod("getProvidedConfigScreenFactories").invoke(api);
+                ((java.util.Map<?, ?>) more).forEach((k, v) -> provided.putIfAbsent((String) k, v));
             });
+            seen.add(id);
             opened++;
         }
+        int generic = 0;
+        for (var e : provided.entrySet()) {
+            String id = e.getKey();
+            if (!id.startsWith("simple") || seen.contains(id)) continue;
+            final boolean photo = generic < 2;
+            guard("modmenu-config-" + id, () -> open(context, id, e.getValue(), photo));
+            generic++;
+        }
+        opened += generic;
+        System.out.println("[compat26] INFO generic config screens (SimpleLib, L13): " + generic);
         System.out.println("[compat26] INFO config screens tried: " + opened);
         if (opened == 0) faults.add("Mod Menu offers no config screen of a Simple mod");
+    }
+
+    /** Opens a Mod Menu config screen factory on the client thread, logs the screen class, photographs it if asked, closes. */
+    private void open(ClientGameTestContext context, String id, Object factory, boolean photo) throws Exception {
+        Method create = Class.forName("com.terraformersmc.modmenu.api.ConfigScreenFactory").getMethod("create", Screen.class);
+        context.setScreen(() -> {
+            try {
+                return (Screen) create.invoke(factory, (Screen) null);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        context.waitTicks(8);
+        String shown = context.computeOnClient(c -> c.gui.screen() == null ? "-" : c.gui.screen().getClass().getName());
+        System.out.println("[compat26] INFO config " + id + " -> " + shown);
+        if (shown.equals("-")) faults.add("config screen of " + id + " did not open");
+        if (photo) shot(context, "config-" + id);
+        context.setScreen(() -> null);
+        context.waitTicks(2);
     }
 
     /** A block placed by a player click (useItemOn), proven on the server. */
