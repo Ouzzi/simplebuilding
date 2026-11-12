@@ -726,7 +726,7 @@
         "modules/simplestorage/shared/java/com/simplestorage/test/NetworkTests.java"
       ],
       "en": {
-        "title": "Chest network (prototype)",
+        "title": "Chest network",
         "summary": "Copper cables connect chests, each with a chest interface on its side, to one controller chest. The controller's window lists every kind of item in all connected chests: take stacks out, click with an item to store it, shift-click in the inventory to store.",
         "details": [
           "Wiring: an interface plate sits in the cell next to a chest, barrel (also the Simple Crucibles barrels, any block tagged c:barrels) or shulker box and points at it; it connects to cables and other interfaces on its other five sides. Its form follows the block: flush with a barrel or shulker box; on a chest the chest's width, beside it only the part below the lid (in front the lock stays free) and moved up to the chest, under it in its own cell. It cannot be placed on top of a chest (the lid). The controller chest needs an interface too. The cable is also a decoration block that draws arms like a chorus plant (lines, corners, pillars).",
@@ -739,7 +739,7 @@
         ]
       },
       "de": {
-        "title": "Truhen-Netzwerk (Prototyp)",
+        "title": "Truhen-Netzwerk",
         "summary": "Kupferkabel verbinden Truhen, jede mit einer Truhen-Schnittstelle an der Seite, mit einer Controller-Truhe. Das Fenster des Controllers listet jede Sorte aller verbundenen Truhen: Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein.",
         "details": [
           "Verdrahtung: eine Schnittstellen-Platte sitzt in der Zelle neben einer Truhe, einem Fass (auch den Fässern von Simple Crucibles, jedem Block mit dem Tag c:barrels) oder einer Shulkerkiste und zeigt darauf; auf ihren anderen fünf Seiten verbindet sie sich mit Kabeln und anderen Schnittstellen. Ihre Form folgt dem Block: bündig mit Fass oder Shulkerkiste; an einer Truhe in Truhenbreite, seitlich nur am Teil unter dem Deckel (vorne bleibt das Schloss frei) und an die Truhe herangerückt, darunter in der eigenen Zelle. Oben auf eine Truhe lässt sie sich nicht setzen (der Deckel). Auch die Controller-Truhe braucht eine. Das Kabel ist zugleich ein Dekoblock, der wie eine Chorus-Pflanze Arme zeichnet (Linien, Ecken, Säulen).",

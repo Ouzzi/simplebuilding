@@ -410,6 +410,7 @@ public final class StorageTests {
         ALL.put("network_take_amounts_are_stacks_and_halves", NetworkTests::takeAmountsAreStacksAndHalves);
         ALL.put("network_search_filters_by_words_and_mod", NetworkTests::searchFiltersByWordsAndMod);
         ALL.put("network_window_search_scroll_and_stack_takes", NetworkTests::windowSearchScrollAndStackTakes);
+        ALL.put("network_controller_recounts_at_most_once_per_tick", NetworkTests::controllerRecountsAtMostOncePerTick);
         crates();
         tables();
         ALL.put("guide_book", com.simplestorage.guide.StorageGuide::gameTest);

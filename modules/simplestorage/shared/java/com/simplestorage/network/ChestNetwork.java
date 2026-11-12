@@ -216,6 +216,13 @@ public final class ChestNetwork {
         return (int) Math.min(available, half ? (stack + 1) / 2 : stack);
     }
 
+    /** Sorts a list of totals in place: by count (most first, then name) or by name (the window re-sorts its last count with it). */
+    public static void sort(List<Entry> entries, Sort sort) {
+        Comparator<Entry> byName = Comparator.comparing(e -> BuiltInRegistries.ITEM.getKey(e.kind().getItem()).toString());
+        if (sort == Sort.NAME) entries.sort(byName);
+        else entries.sort(Comparator.comparingLong((Entry e) -> e.count()).reversed().thenComparing(byName));
+    }
+
     public enum Sort {
         COUNT,
         NAME;
@@ -265,9 +272,7 @@ public final class ChestNetwork {
                 }
             }
             List<Entry> out = new ArrayList<>(sums.values());
-            Comparator<Entry> byName = Comparator.comparing(e -> BuiltInRegistries.ITEM.getKey(e.kind().getItem()).toString());
-            if (sort == Sort.NAME) out.sort(byName);
-            else out.sort(Comparator.comparingLong((Entry e) -> e.count()).reversed().thenComparing(byName));
+            ChestNetwork.sort(out, sort);
             return out;
         }
 

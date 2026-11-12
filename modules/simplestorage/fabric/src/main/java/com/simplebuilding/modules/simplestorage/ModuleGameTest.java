@@ -836,6 +836,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void networkControllerRecountsAtMostOncePerTick(GameTestHelper h) {
+        StorageTests.ALL.get("network_controller_recounts_at_most_once_per_tick").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void barrelsRegistered(GameTestHelper h) {
         StorageTests.ALL.get("barrels_registered").accept(h);
     }

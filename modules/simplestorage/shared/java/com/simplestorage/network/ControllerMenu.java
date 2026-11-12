@@ -22,6 +22,12 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>The list cells are ordinary slots over a view container the server fills ({@link #refresh}, a few times a second while open),
  * so Vanilla syncs and draws them; their totals travel as pairs of 15-bit data slots (a data slot is sent as a short).
+ *
+ * <p>Audit simplestorage-P3-1 (PLAN40 simplestorage-5): counting the network (every slot of every chest) happens at most once
+ * per server tick and otherwise every {@link #REFRESH_TICKS} ticks while the window is open. Search, scroll and sort only filter,
+ * page or re-sort the last count, at once. Takes and stores within a tick that already counted mark the list dirty and the next
+ * tick counts again; a click may therefore use a count one tick old, which is safe: taking and storing always ask the chests for
+ * the real amounts.
  */
 public class ControllerMenu extends AbstractContainerMenu {
     public static final int COLUMNS = 9, ROWS = 5, CELLS = COLUMNS * ROWS;
@@ -39,12 +45,16 @@ public class ControllerMenu extends AbstractContainerMenu {
     private final ContainerData data;
     private final @Nullable ControllerChestBlockEntity controller;
     private final Player player;
+    /** The last count of the whole network (sorted), and the part the search lets through (the list cells page it). */
+    private List<ChestNetwork.Entry> all = new java.util.ArrayList<>();
     private List<ChestNetwork.Entry> entries = List.of();
     private ChestNetwork.Sort sort = ChestNetwork.Sort.COUNT;
     private int scroll;
     private String search = "";
-    private int ticks;
     private boolean dirty = true;
+    /** Game time of the last recount (at most one per tick), and how many recounts this menu did (tests). */
+    private long refreshedAt = -REFRESH_TICKS - 1L;
+    private int refreshes;
 
     /** Client. */
     public ControllerMenu(int containerId, Inventory inventory) {
@@ -142,12 +152,28 @@ public class ControllerMenu extends AbstractContainerMenu {
         this.data.set(id, value);
     }
 
-    /** Looks the network up again and fills the list cells (server only). */
+    /** Counts now unless this tick already counted; otherwise only marks the list dirty for the next tick (server only). */
+    private void refreshThrottled() {
+        if (this.player.level().getGameTime() == this.refreshedAt) {
+            this.dirty = true;
+        } else {
+            refresh();
+        }
+    }
+
+    /** How many times this menu recounted the network (gametests of the throttle). */
+    public int refreshCount() {
+        return this.refreshes;
+    }
+
+    /** Looks the network up again, counts every slot and fills the list cells (server only; at once - tests and opening). */
     public void refresh() {
         this.dirty = false;
         ControllerChestBlockEntity controller = this.controller;
         Level level = this.player.level();
         if (controller == null || level.isClientSide()) return;
+        this.refreshedAt = level.getGameTime();
+        this.refreshes++;
         ChestNetwork.Scan scan = controller.scan();
         ChestNetwork.Members members = ChestNetwork.members(level, controller.step().rank(), scan);
         ChestNetwork.Status status = controller.status(scan, members);
@@ -156,9 +182,16 @@ public class ControllerMenu extends AbstractContainerMenu {
         set(D_LIMIT, controller.step().maxChests());
         set(D_STEP, controller.step().ordinal());
         set(D_REJECTED, members.rejected());
+        this.all = status == ChestNetwork.Status.OK
+                ? new java.util.ArrayList<>(new ChestNetwork.Storage(level, controller, members, this.player).entries(this.sort)) : new java.util.ArrayList<>();
+        show();
+    }
+
+    /** Filters the last count by the search and fills the list cells from the scroll row (cheap: no chest is read). */
+    private void show() {
+        if (this.controller == null || this.player.level().isClientSide()) return;
         set(D_SORT, this.sort.ordinal());
-        this.entries = status == ChestNetwork.Status.OK
-                ? ChestNetwork.filter(new ChestNetwork.Storage(level, controller, members, this.player).entries(this.sort), this.search) : List.of();
+        this.entries = ChestNetwork.filter(this.all, this.search);
         int maxScroll = Math.max(0, (this.entries.size() + COLUMNS - 1) / COLUMNS - ROWS);
         this.scroll = Math.max(0, Math.min(this.scroll, maxScroll));
         set(D_SCROLL, this.scroll);
@@ -177,7 +210,10 @@ public class ControllerMenu extends AbstractContainerMenu {
 
     @Override
     public void broadcastChanges() {
-        if (this.controller != null && !this.player.level().isClientSide() && (this.dirty || ++this.ticks % REFRESH_TICKS == 0)) refresh();
+        if (this.controller != null && !this.player.level().isClientSide()) {
+            // Time-based, not per call: broadcastChanges also runs after every click packet.
+            if (this.dirty || this.player.level().getGameTime() - this.refreshedAt >= REFRESH_TICKS) refreshThrottled();
+        }
         super.broadcastChanges();
     }
 
@@ -189,7 +225,10 @@ public class ControllerMenu extends AbstractContainerMenu {
         switch (id) {
             case BUTTON_UP -> this.scroll = Math.max(0, this.scroll - 1);
             case BUTTON_DOWN -> this.scroll = this.scroll + 1;
-            case BUTTON_SORT -> this.sort = this.sort.next();
+            case BUTTON_SORT -> {
+                this.sort = this.sort.next();
+                ChestNetwork.sort(this.all, this.sort);
+            }
             case BUTTON_SEARCH_CLEAR -> {
                 this.search = "";
                 this.scroll = 0;
@@ -210,7 +249,7 @@ public class ControllerMenu extends AbstractContainerMenu {
                 }
             }
         }
-        refresh();
+        show();
         return true;
     }
 
@@ -226,7 +265,7 @@ public class ControllerMenu extends AbstractContainerMenu {
 
     private void cellClicked(int cell, int button, ContainerInput input, Player player) {
         ControllerChestBlockEntity controller = this.controller;
-        refresh();
+        refreshThrottled();
         if (controller == null || status() != ChestNetwork.Status.OK) return;
         ChestNetwork.Members members = ChestNetwork.members(player.level(), controller.step().rank(), controller.scan());
         ChestNetwork.Storage storage = new ChestNetwork.Storage(player.level(), controller, members, player);
@@ -242,7 +281,7 @@ public class ControllerMenu extends AbstractContainerMenu {
         } else {
             int index = this.scroll * COLUMNS + cell;
             if (index >= this.entries.size()) {
-                refresh();
+                this.dirty = true;
                 return;
             }
             ItemStack kind = this.entries.get(index).kind();
@@ -261,7 +300,7 @@ public class ControllerMenu extends AbstractContainerMenu {
                 }
             }
         }
-        refresh();
+        this.dirty = true;
     }
 
     /** Shift-click in the inventory stores the stack in the network. */
