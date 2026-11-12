@@ -1,9 +1,10 @@
 """b-shelves01 (04.11., DW04C-3, docs/ai/PLAN-B-SHELVES01-2026-11-04.md): End bookshelves, chiseled bookshelves, Nihilit Book.
 
-Own pixels (committed with layer sources, `--write`):
-  - simpleend:block/{ashwood,duskwood}_bookshelf: frame = the wood's own planks texture (top/bottom board, middle board, side
-    posts), two shelves of books in Vanilla's arrangement (1-2 px spines, 4-6 px high) in muted, cool End tones; soft spine shading.
 Vanilla-derived (built from the client jar, never committed; vanilla_derived.py calls derived_core/derived_end/derived_enchanting):
+  - simpleend:block/{ashwood,duskwood}_bookshelf: frame = the wood's planks texture (top/bottom board, middle board, side posts),
+    two shelves of books in Vanilla's arrangement (1-2 px spines, 4-6 px high) in muted, cool End tones; soft spine shading.
+    The books are own pixels, but the frame is the End plank, a recolour of Vanilla's birch planks (recolour08, a-mojang08):
+    until a-shelftex (12.11.) the PNG was committed with 88/256 such pixels (rule A8), now it is built like the planks.
   - chiseled bookshelves of every mod wood (crimson/warped blazewood in SB and Simple Enchanting, ashwood/duskwood in Simple End):
     Vanilla's chiseled front/side/top with the frame recoloured to the wood's planks ramp; the books stay Vanilla's (owner 04.11.:
     "variation der books ... wie in vanilla" - every slot another colour, like Vanilla).
@@ -12,8 +13,6 @@ Vanilla-derived (built from the client jar, never committed; vanilla_derived.py 
   - simplebuilding:block/chiseled_books_{blaze,nihilith}: only the book pixels of Vanilla's occupied front, each slot on its own
     ramp of the book's colours (Vanilla's variation); drawn per slot by ChiseledBooksRenderer over a slot that holds such a book.
 
-    python3.12 tools/textures/shelves01_2026_11_04.py --write
-    python3.12 tools/textures/shelves01_2026_11_04.py --check
     python3.12 tools/textures/shelves01_2026_11_04.py --preview OUT.jpg [--shots DIR]
 """
 from __future__ import annotations
@@ -27,7 +26,6 @@ from PIL import Image, ImageDraw
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import tex29_2026_10_29 as t  # noqa: E402
-from layers import save  # noqa: E402
 
 ROOT = t.ROOT
 END_TEX = t.END_TEX
@@ -53,8 +51,13 @@ def ramp_of(path: Path):
     return sorted({im.getpixel((x, y)) for y in range(16) for x in range(16) if im.getpixel((x, y))[3]}, key=lum), im
 
 
-def end_ramp(wood):
-    return ramp_of(END_TEX / f'block/{wood}_planks.png')
+def end_ramp(wood, jar=None):
+    """Ramp and image of the End planks: from the given jar (build), else via recolour08.open_own (previews)."""
+    if jar is None:
+        return ramp_of(END_TEX / f'block/{wood}_planks.png')
+    import recolour08_2026_11_08
+    im = recolour08_2026_11_08.derived_module(jar_of(jar).path, 'simpleend')[f'block/{wood}_planks.png'].convert('RGBA')
+    return sorted({im.getpixel((x, y)) for y in range(16) for x in range(16) if im.getpixel((x, y))[3]}, key=lum), im
 
 
 def blaze_ramp(wood):
@@ -251,9 +254,10 @@ def blaze_chiseled(jar, wood):
 def derived_end(jar) -> dict:
     out = {}
     for wood in END_WOODS:
-        pal, _ = end_ramp(wood)
+        pal, _ = end_ramp(wood, jar)
         for k, im in chiseled(jar, pal).items():
             out[f'block/chiseled_{wood}_bookshelf_{k}.png'] = im
+        out[f'block/{wood}_bookshelf.png'] = end_bookshelf(wood, jar)   # a-shelftex: the frame is the (derived) plank
     return out
 
 
@@ -277,8 +281,8 @@ SPINES = [(H('3c1c26'), H('6a3442'), H('8c4a58')),   # plum
           (H('3a2a22'), H('5e463a'), H('7a5e50'))]   # leather
 
 
-def end_bookshelf(wood):
-    pal, planks = end_ramp(wood)
+def end_bookshelf(wood, jar=None):
+    pal, planks = end_ramp(wood, jar)
     im = planks.copy()
     seed = {'ashwood': 3, 'duskwood': 11}[wood]
     gap = pal[0]
@@ -307,10 +311,6 @@ def end_bookshelf(wood):
         for x in range(1, 15):                        # shadow under the board above
             im.putpixel((x, row0), mix(im.getpixel((x, row0)), gap, 0.45))
     return im
-
-
-def own_textures() -> dict:
-    return {END_TEX / f'block/{w}_bookshelf.png': end_bookshelf(w) for w in END_WOODS}
 
 
 # ---------------------------------------------------------------- preview
@@ -424,21 +424,10 @@ def preview(out_path: Path, jar, shots: Path | None) -> None:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--write', action='store_true')
-    ap.add_argument('--check', action='store_true')
     ap.add_argument('--preview', type=Path)
     ap.add_argument('--shots', type=Path)
     ap.add_argument('--jar', default=str(t.JAR))
     a = ap.parse_args()
-    if a.write:
-        for path, im in own_textures().items():
-            save(im, path)
-            print('wrote', path.relative_to(ROOT), 'hard', round(100 * t.smooth_pairs(im), 1), '%')
-    if a.check:
-        bad = [p for p, im in own_textures().items() if not p.exists() or list(Image.open(p).convert('RGBA').getdata()) != list(im.getdata())]
-        if bad:
-            sys.exit('out of date: ' + ', '.join(str(p) for p in bad))
-        print('shelves01 textures up to date')
     if a.preview:
         preview(a.preview, a.jar, a.shots)
         print('preview', a.preview)

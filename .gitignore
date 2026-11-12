@@ -1282,6 +1282,14 @@ modules/simpleend/shared/resources/assets/simpleend/textures/block/chiseled_dusk
 wiki/assets/textures/simpleend/block/chiseled_duskwood_bookshelf_top.png
 wiki/assets/textures/sheets/simplebuilding/simpleend/block/chiseled_duskwood_bookshelf_top.png
 wiki/assets/textures/sheets/simpleend/simpleend/block/chiseled_duskwood_bookshelf_top.png
+modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_bookshelf.png
+wiki/assets/textures/simpleend/block/ashwood_bookshelf.png
+wiki/assets/textures/sheets/simplebuilding/simpleend/block/ashwood_bookshelf.png
+wiki/assets/textures/sheets/simpleend/simpleend/block/ashwood_bookshelf.png
+modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_bookshelf.png
+wiki/assets/textures/simpleend/block/duskwood_bookshelf.png
+wiki/assets/textures/sheets/simplebuilding/simpleend/block/duskwood_bookshelf.png
+wiki/assets/textures/sheets/simpleend/simpleend/block/duskwood_bookshelf.png
 modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/block/chiseled_crimson_blazewood_bookshelf_empty.png
 wiki/assets/textures/simpleenchanting/block/chiseled_crimson_blazewood_bookshelf_empty.png
 wiki/assets/textures/sheets/simplebuilding/simpleenchanting/block/chiseled_crimson_blazewood_bookshelf_empty.png
