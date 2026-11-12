@@ -408,7 +408,7 @@ def specks(design: str) -> list:
     return [(wood[(i * 2 + 1) * len(wood) // 8], tones[i]) for i in range(4)]
 
 
-def build(design: str = CHOSEN) -> dict[str, Image.Image]:
+def build(design: str = CHOSEN, snap=None) -> dict[str, Image.Image]:
     images = {}
     for name, colours in TIERS.items():
         img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
@@ -429,7 +429,64 @@ def build(design: str = CHOSEN) -> dict[str, Image.Image]:
     import n41_proposals_2026_10_12 as n41
     for name, tier in B4_TIERS.items():
         images[name] = n41.paint_box(3, n41_tier(n41, tier))
+    images["paint_box"] = leather_a8d(n41, images["paint_box"], snap)
     return images
+
+
+# simplebuilding-6 (12.11.): the plain box (B4) was texrate red - one flat leather tone of 54 px (78 % of the item in flat
+# areas). The B4 shape, window, brass corners and latch stay; the leather is shaded like Vanilla leather/bundle items
+# (light from the top left: 2-px seams between tone bands, highlight groups top left, darkest corner bottom right), the
+# window's bottom lip catches the light, the latch gets a lit and a shaded side, and long edges change tone every 2-3 px.
+# The tiers (N46, orange) are not changed.
+PAINT_BOX_BANDS = (12, 20)          # x + y below the first value: leather tone 4, below the second: 3, else 2
+PAINT_BOX_GRAIN = {                 # (x, y): LEATHER tone
+    (3, 4): 5, (4, 4): 5, (1, 5): 5, (1, 6): 5,          # lit top-left: highlight groups
+    (10, 11): 3, (11, 11): 3, (13, 12): 1, (14, 12): 1,  # shaded bottom-right: a lighter seam near the latch, darkest corner
+    (4, 12): 2, (5, 12): 2, (1, 11): 4, (1, 12): 4,      # lower left
+    (11, 5): 0, (12, 5): 0,                               # window slot: the right end deeper
+    (9, 13): 2, (10, 13): 2,                              # bottom edge
+    (8, 3): 6, (9, 3): 6,                                 # top edge glint
+    (10, 2): 0, (11, 2): 0, (0, 11): 0, (0, 12): 0, (12, 14): 0, (13, 14): 0,  # outline runs change tone
+}
+PAINT_BOX_LATCH = {(7, 11): 3, (8, 11): 3, (9, 11): 2, (6, 12): 3, (7, 12): 2, (8, 12): 2, (9, 12): 1}  # GOLD tones
+
+
+def leather_a8d(n41, base: Image.Image, snap=None) -> Image.Image:
+    L, G = n41.LEATHER, n41.GOLD
+    body, slot, edge, rim = L[3][:3], L[1][:3], L[5][:3], base.getpixel((0, 3))[:3]
+    lo, hi = PAINT_BOX_BANDS
+    im = base.copy()
+    if snap:
+        snap(im, "Grundform B4", base.convert("RGBA").tobytes())
+    for y in range(16):
+        for x in range(16):
+            c = base.getpixel((x, y))[:3]
+            if c == body:                                   # tone bands along the diagonal, 2x2 groups at the seams
+                d = x + y
+                if (x // 2 + y // 2) % 2 == 0:
+                    d += 1 if d in (lo - 1, hi - 1) else (-1 if d in (lo, hi) else 0)
+                tone = L[4] if d < lo else (L[3] if d < hi else L[2])
+            elif c == slot and y == 5:                      # top of the window slot (in shadow), lit left end
+                tone = L[2] if x <= 3 else L[1]
+            elif c == slot and y == 10:                     # bottom lip of the window faces up: lit, changes tone
+                tone = L[3] if x <= 3 or 7 <= x <= 8 else L[2]
+            elif c == slot and y == 13:                     # bottom edge
+                tone = L[2] if x <= 4 else L[1]
+            elif c == edge:                                 # top edge: light at the left, shaded at the right end
+                tone = L[6] if x <= 4 else (L[5] if x <= 11 else L[4])
+            elif c == rim and ((y == 2 and x <= 5) or (x == 0 and y <= 6) or (y == 14 and 6 <= x <= 8)
+                               or (x == 15 and 7 <= y <= 8)):
+                tone = L[0]                                 # outline: lit runs one tone up (Vanilla outlines vary)
+            else:
+                continue
+            im.putpixel((x, y), tone[:3] + (255,))
+    for (x, y), k in PAINT_BOX_LATCH.items():
+        im.putpixel((x, y), G[k][:3] + (255,))
+    for (x, y), k in PAINT_BOX_GRAIN.items():
+        im.putpixel((x, y), L[k][:3] + (255,))
+    if snap:
+        snap(im, "A8d Leder-Schattierung")
+    return im
 
 
 def preview(images: dict[str, Image.Image], path: Path, extra: Path | None) -> None:
@@ -481,11 +538,15 @@ def main() -> None:
     if args.proposals:
         proposals(args.proposals, args.designs, args.scale)
         return
-    images = build()
+    from layers import save, snap
+    images = build(snap=snap)
     for out in OUT_DIRS:
         out.mkdir(parents=True, exist_ok=True)
         for name, img in images.items():
-            img.save(out / f"{name}.png")
+            if out == OUT_DIRS[0]:
+                save(img, out / f"{name}.png")  # with the layer source (PRINZIPIEN A8 b)
+            else:
+                img.save(out / f"{name}.png")
     if args.preview:
         preview(images, args.preview, args.tooltip)
 

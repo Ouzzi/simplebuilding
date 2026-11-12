@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#243a69ff", "#2d4373ff", "#2b4272ff", "#607db5ff", "#5574afff", "#4d6da5ff", "#406198ff", "#273e6eff", "#4766a0ff", "#37548cff", "#263d6dff", "#38688dff", "#295773ff", "#2a4a74ff", "#4975a0ff", "#347789ff"],
+  "palette": ["#2a4272ff", "#304979ff", "#2f4878ff", "#5775abff", "#4e6ea6ff", "#48699fff", "#3f6095ff", "#2c4575ff", "#44639bff", "#38568cff", "#2b4575ff", "#39658dff", "#2d5879ff", "#2e4e7aff", "#456f9bff", "#36708aff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00010101010202000001010101020200",

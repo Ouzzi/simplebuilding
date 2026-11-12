@@ -4251,8 +4251,12 @@ def mod_book_textures():
         # Besitzer 2026-10-04: nicht beauftragt - zurueck zu seinen alten Buechern (hand/q1/books/). Die
         # Vanilla-Grundbuch-Fassung bleibt ueber MOD_BOOK_STYLE/styled_book erreichbar (Vorschau).
         # Besitzer 2026-10-05: "kontrastreicher" - Einband/Motiv +35 % um den Mittelwert, graue Seiten bleiben.
-        out[rel] = more_contrast(Image.open(os.path.join(HAND, "q1", "books", f"enchanted_book_{n}.png")).convert("RGBA"),
-                                 MOD_BOOK_CONTRAST, keep=lambda p: p[0] == p[1] == p[2])
+        img = more_contrast(Image.open(os.path.join(HAND, "q1", "books", f"enchanted_book_{n}.png")).convert("RGBA"),
+                            MOD_BOOK_CONTRAST, keep=lambda p: p[0] == p[1] == p[2])
+        # simplebuilding-6 (12.11., AUDIT-VANILLA-NAEHE 21.10.): nine of the owner's old books carry 152 half-transparent
+        # pixels (alpha 244-252) - Vanilla items are opaque or empty. Alpha snaps to 0/255, the colours stay as they are.
+        img.putalpha(img.getchannel("A").point(lambda a: 255 if a >= 128 else 0))
+        out[rel] = img
         MAIN_TREE_ONLY.add(rel)
     return out
 

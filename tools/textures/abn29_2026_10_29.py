@@ -6,7 +6,8 @@ pairs whose luminance differs by more than 40 (tex29.smooth_pairs).
 Own pixels (committed with layer sources, written by `--write`):
   - ashwood_planks, duskwood_planks (planks A: the 4x4 plank grid, seven soft tones)
   - ashwood_door, duskwood_door item (C: the placed door averaged to 10 x 14, the upper window see-through)
-  - astral_piston(+_active): old texture mixed with C; nihil_piston(+_active): B, less hard
+  - astral_piston(+_active): old texture mixed with C; nihil_piston(+_active): B, less hard; since simplebuilding-6 (12.11.)
+    both with the contrast pulled in (PISTON_CALM, about 7 % hard)
   - sculk_tiles (animation A, softer and darker; written by blocks_b23_2026_10_23.main through sculk_tiles_strip())
 Vanilla-derived (built from the client jar, never committed; vanilla_derived.py calls derived_end/derived_mobs/derived_core):
   - simpleend: ashwood/duskwood boat + chest boat (item and entity sheets), A
@@ -32,6 +33,7 @@ sys.path.insert(0, str(HERE))
 import ig31v_2026_10_31 as ig31v  # noqa: E402
 import tex29_2026_10_29 as t  # noqa: E402
 from layers import save  # noqa: E402
+from texture_round6_2026_10_05 import more_contrast  # noqa: E402
 
 ROOT = t.ROOT
 END_TEX = t.END_TEX
@@ -40,6 +42,9 @@ BLOCKS_TEX = t.BLOCKS_TEX
 MOBS_TEX = ROOT / 'modules/simplemobs/shared/resources/assets/simplemobs/textures'
 SEED = {'ashwood': 7, 'duskwood': 19}
 SOFT_TILE_SCALE = 0.74                # A8b: sculk tiles softer and darker than variant A (17 % hard) -> about 9 %
+# simplebuilding-6 (12.11., BS25-10 "unbedingt weicher", PLAN40): the ABN29-5 pistons keep their layout and tones, only the
+# contrast around the mean colour shrinks (no blur, no new motif): astral 13.1 -> 7.5 % hard, nihil active 13.3 -> 6.2 %.
+PISTON_CALM = {'astral': 0.80, 'nihil': 0.75}
 
 
 def jar_of(jar) -> t.Jar:
@@ -135,9 +140,9 @@ def piston(kind: str, active: bool) -> Image.Image:
     if kind == 'astral':
         # the old texture (before this round) is kept as the source: tools/textures/abn29/astral_piston[_active]_old.png
         old = Image.open(HERE / f'abn29/astral_piston{"_active" if active else ""}_old.png').convert('RGBA')
-        return quant(soften(mix_img(old, t.piston_soft(kind, 'C', active), 0.5), 0.35), 16)
+        return more_contrast(quant(soften(mix_img(old, t.piston_soft(kind, 'C', active), 0.5), 0.35), 16), PISTON_CALM[kind])
     on, off = t.piston_soft(kind, 'B', active), t.piston_soft(kind, 'B', False)
-    return quant(soften(mix_img(on, off, 0.5 if active else 0.0), 0.45), 16)
+    return more_contrast(quant(soften(mix_img(on, off, 0.5 if active else 0.0), 0.45), 16), PISTON_CALM[kind])
 
 
 
