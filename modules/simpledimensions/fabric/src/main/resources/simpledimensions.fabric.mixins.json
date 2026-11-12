@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplebuilding.modules.simpledimensions.fabric.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "BaseFireBlockMixin",
+    "PoiTypesAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

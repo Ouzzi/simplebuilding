@@ -513,11 +513,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlUlEQVR42mPwc475TwlmABG3Tn4AYy42IaIwSO2RFc9QDTiz5RVY0lor5r+UgAZWDJIDqQFp7q1cht0AkMIq/Qtg7Cc1A0xvKPgBpkFyIDVPbnwhbABME8wQZAMIugBZE7JBRBuA7gWYQUQbALMV3SCSXADShG4Q2V5AjwWiDBi4WCA7JYJSF7F5AcMAmACpGG4AJRgArKknSmNVLV8AAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
-      "blocks": 2,
-      "config": 53,
-      "features": 11
+      "blocks": 3,
+      "config": 61,
+      "features": 12
     },
-    "dataHash": "8d1112e76544"
+    "dataHash": "8c4001f53a1b"
   },
   {
     "id": "simplesandwiches",

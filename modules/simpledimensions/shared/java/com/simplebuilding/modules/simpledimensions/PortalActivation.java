@@ -35,4 +35,22 @@ public final class PortalActivation {
   }
   return InteractionResult.PASS;
  }
+ /**
+  * N33 (owner wish): after {@link #ignite} passed, the action bar says why a lit frame opens nothing - a refused
+  * free form of a definition (rectangle/arch/any with its sizes) or a nether arch of obsidian. Only for attempts
+  * (frame below and on both sides of the lit cell); Vanilla then places its fire as usual.
+  */
+ public static void hint(ServerPlayer player,InteractionHand hand,BlockHitResult hit){
+  var item=player.getItemInHand(hand);if(!(item.is(Items.FLINT_AND_STEEL)||item.is(Items.FIRE_CHARGE))||player.isSpectator()||!DimensionRegistry.on())return;
+  var level=player.level();var pos=hit.getBlockPos().relative(hit.getDirection());
+  if(player.distanceToSqr(pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5)>Math.pow(Math.min(5,player.blockInteractionRange()),2))return;
+  var runtime=DimensionRuntime.get(level.getServer());var dim=level.dimension().identifier().toString();
+  if(runtime.settings.accessEnabled)for(var c:runtime.configs){
+   boolean origin=dim.equals(c.sourceDimensionId)||c.openFromDimensions.contains(dim);
+   if(!runtime.settings.allowsAccess(c)||!(origin&&c.allowIgniteFromSource||dim.equals(c.targetDimensionId)&&c.allowIgniteFromTarget))continue;
+   var refusal=PortalActivationService.explain(new PortalWorld(level,c),c,pos.getX(),pos.getY(),pos.getZ());
+   if(refusal.isPresent()){player.sendOverlayMessage(ShapedNetherPortals.text(refusal.get().verdict(),refusal.get().rule().scanner()));return;}
+  }
+  ShapedNetherPortals.hint(player,pos);
+ }
 }

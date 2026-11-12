@@ -162,7 +162,12 @@ Legacy-Kompatibilität, serverautoritäre Claims (Standard an).
 ### Simple Dimensions (`simpledimensions`)
 Konfigurierbare Dimensionen, Lichtbögen, sichere verknüpfte Portale.
 
-- keine eigenen Regeln bisher
+- **Portalformen (N33, Besitzer 12.11.):** ein Portal darf ein Bogen sein – gerader Boden, Seiten von unten nach oben nur
+  gleich oder nach innen, freie Oberkante, Rahmen seitlich/diagonal verbunden (keine Eckblöcke nötig), Innenfläche 4-dicht;
+  Netherportal 1 × 2 bis 21 × 21. Was Vanilla annimmt, bleibt Vanilla; alles andere ist sichtbar anders (20 % dunkler).
+  Dieselben Regeln gelten für die eigenen Dimensions-Portale; ein Pack legt je Portal/Rezept `shape` (rectangle|arch|any,
+  Maße) oder ein festes Muster fest. Obsidian bleibt für Vanilla reserviert. Abgelehnte Versuche nennen den Grund in der
+  Aktionsleiste (Besitzer-Ausnahme zu AGENTS 3.4).
 
 ### Simple Sandwiches (`simplesandwiches`)
 Sandwiches auf dem Schneidebrett, Küchenmesser, Käse und Butter.

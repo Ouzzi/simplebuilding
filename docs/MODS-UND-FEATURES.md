@@ -217,7 +217,11 @@ Vanilla-Klang-Gegenstücke zu den 12 Visuals-Effekten, Intensität gekoppelt an 
 
 ### Simple Dimensions
 Skyblock-, Abbau- und Reisedimension, Portale aus Glowstone-Bögen, sichere Reise und Rückkehr, Datenpakete,
-Claim-Prüfung.
+Claim-Prüfung. Netherportale in Bogenform (N33, a-portal33): Obsidianrahmen als Bogen (gerader Boden, Seiten nur
+hoch/nach innen, freie Oberkante, 1 × 2 bis 21 × 21) werden zum eigenen `simpledimensions:shaped_nether_portal`
+(Vanilla-Verhalten, 20 % dunkler, zählt als Netherportal-POI); Rechtecke bleiben Vanilla; Schalter
+`shapedNetherPortals` (an), Grund in der Aktionsleiste. Formvorgabe je Dimensions-Portal: `portalShape` bzw.
+Rezept-`shape` rectangle/arch/any mit Maßen, neben festen Mustern. Bisher nur Fabric (NeoForge/Forge offen).
 
 ### Simple Tweaks
 Kompatibilität alter Welten (ID-Zuordnung), Claim-System (standardmäßig an). Rechte je Person (B D U C R A M, Rollen

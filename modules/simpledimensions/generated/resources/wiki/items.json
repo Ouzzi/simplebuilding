@@ -7,6 +7,10 @@
     {
       "id": "simpledimensions:light_blue_portal",
       "kind": "block"
+    },
+    {
+      "id": "simpledimensions:shaped_nether_portal",
+      "kind": "block"
     }
   ]
 }

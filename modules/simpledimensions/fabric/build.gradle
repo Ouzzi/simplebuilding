@@ -1,5 +1,7 @@
 plugins { id 'net.fabricmc.fabric-loom' }
 apply from: rootProject.file('gradle/module-fabric.gradle')
+// N33: the shaped nether portal texture is Vanilla's portal 20 % darker, drawn at build time (tools/textures/vanilla_derived.py).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
 
 dependencies { include project(':framework') }
 

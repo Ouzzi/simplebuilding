@@ -39,8 +39,17 @@ public final class ConfigLimits {
   id(c.frameBlock); if(c.frameBlock.equals("minecraft:obsidian"))throw new IllegalArgumentException("Vanilla portal frame reserved");
   if(c.openFromDimensions==null||c.openFromDimensions.size()>MAX_ORIGINS)throw new IllegalArgumentException("Origin limit");
   c.openFromDimensions.forEach(ConfigLimits::id);
+  if(ArchPortalScanner.Mode.parse(c.portalShape,ArchPortalScanner.Mode.ANY)==null)throw new IllegalArgumentException("Unknown portal shape");
   if(c.portalRecipes==null||c.portalRecipes.size()>MAX_RECIPES)throw new IllegalArgumentException("Recipe limit");
   for(var r:c.portalRecipes){
+   // N33: a free form (rectangle|arch|any) of one frame block; size limits clamped like the fallback frame.
+   if(r!=null&&!r.isPattern()){
+    if(ArchPortalScanner.Mode.parse(r.shape,null)==null)throw new IllegalArgumentException("Unknown recipe shape");
+    id(r.frame);if(r.frame.equals("minecraft:obsidian")||r.frame.equals("minecraft:air"))throw new IllegalArgumentException("Reserved frame");
+    r.minWidth=clamp(r.minWidth(),1,MAX_INTERIOR);r.maxWidth=clamp(r.maxWidth(),r.minWidth,MAX_INTERIOR);
+    r.minHeight=clamp(r.minHeight(),2,MAX_INTERIOR);r.maxHeight=clamp(r.maxHeight(),r.minHeight,MAX_INTERIOR);
+    continue;
+   }
    if(r==null||r.rows==null||r.rows.isEmpty()||r.rows.size()>MAX_MATRIX||r.legend==null||r.legend.size()>32)throw new IllegalArgumentException("Invalid matrix");
    int w=r.rows.getFirst().length();if(w<1||w>MAX_MATRIX)throw new IllegalArgumentException("Matrix width");
    if(r.interior==null||r.interior.length()!=1||r.ignore==null||r.ignore.length()!=1||r.interior.equals(r.ignore))throw new IllegalArgumentException("Recipe symbols");

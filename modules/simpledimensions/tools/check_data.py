@@ -32,7 +32,7 @@ for key in ('skyblockEnabled','miningEnabled','travelEnabled'):
   assert default in lang[option['tooltip']]
 assert 'if(!editable)' in screen and 'server.execute(' in screen
 assert not (MODULE/'examples/skyblock-copper.json').exists()
-for id in ('sky_portal','light_blue_portal'):
+for id in ('sky_portal','light_blue_portal','shaped_nether_portal'):
  assert (a/f'blockstates/{id}.json').is_file()
  assert f'block.simpledimensions.{id}' in en
  assert manual['notes'][f'simpledimensions:{id}']['en']['summary']
@@ -42,6 +42,17 @@ model=read(a/'models/block/sky_portal.json')
 for texture in model['textures'].values():
  namespace,name=texture.split(':');assert namespace=='simpledimensions'
  assert (a/f'textures/{name}.png').is_file()
+# N33: the arch portal reuses Vanilla's portal models and a Vanilla-derived texture (built, never committed).
+for side in ('ns','ew'):
+ model=read(a/f'models/block/shaped_nether_portal_{side}.json')
+ assert model['parent']==f'minecraft:block/nether_portal_{side}'
+ assert set(model['textures'].values())=={'simpledimensions:block/shaped_nether_portal'}
+assert (a/'textures/block/shaped_nether_portal.png.mcmeta').is_file()
+derived=(MODULE.parents[1]/'tools/textures/vanilla_derived.py').read_text()
+assert "'simpledimensions': {'block/shaped_nether_portal.png'" in derived
+assert 'modules/simpledimensions/shared/resources/assets/simpledimensions/textures/block/shaped_nether_portal.png' in (MODULE.parents[1]/'.gitignore').read_text()
+for key in ('open','gap','bottom','sides','too_small','rectangle_only','arch_only'):
+ assert f'simpledimensions.portal_shape.{key}' in en and f'simpledimensions.portal_shape.{key}' in de
 source=(MODULE/'shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java').read_text()
 assert 'c.requireSeparateLight = true' in source and source.count('List.of("A')>=6
 assert 'copperSkyblock' not in source and 'blue_ice' not in source
@@ -54,4 +65,4 @@ limits=read(MODULE.parents[1]/'balance/simpledimensions/limits.json')['limits']
 actual={name:float(v) if '.' in v else int(v) for name,v in re.findall(r'public static final (?:int|double) ([A-Z_]+)\s*=\s*([.0-9]+);',(MODULE/'shared/java/com/simplebuilding/modules/simpledimensions/ConfigLimits.java').read_text())}
 assert actual==limits, 'Run export_data.py after changing caps'
 registry=read(MODULE/'generated/resources/wiki/items.json')['items']
-assert {i['id'] for i in registry}=={'simpledimensions:sky_portal','simpledimensions:light_blue_portal'}
+assert {i['id'] for i in registry}=={'simpledimensions:sky_portal','simpledimensions:light_blue_portal','simpledimensions:shaped_nether_portal'}

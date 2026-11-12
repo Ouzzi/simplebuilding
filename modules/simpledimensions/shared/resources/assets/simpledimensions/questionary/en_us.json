@@ -31,5 +31,16 @@
     "secret": [
       "You will only ever meet it in an old world. Nothing new is built from it."
     ]
+  },
+  "shaped_nether_portal": {
+    "lore": [
+      "A nether portal that took the shape of its doorway."
+    ],
+    "use": [
+      "Build an obsidian arch - straight bottom, sides only up or inward, any top, 1 x 2 up to 21 x 21 - and light it with fire. It travels exactly like a nether portal and glows a little darker; plain rectangles stay ordinary Vanilla portals."
+    ],
+    "secret": [
+      "Diagonal steps need no corner blocks. If a lit frame does not qualify, the action bar tells you why."
+    ]
   }
 }
