@@ -62,8 +62,9 @@ public enum HammerTiers {
     }
 
     /**
-     * SimpleBuilding's Enderite tool material, copied (owner rule F3: the Enderite equipment moves to Simple Enderite
-     * later; until then every mod with an Enderite tier carries its numbers).
+     * The Enderite tool material (SimpleBuilding's numbers, copied so the hammers need no SimpleBuilding). Enderite itself
+     * belongs to Simple Ores since IG31-13 (the planned Simple Enderite was never built); without it the Enderite hammer
+     * has no recipe and leaves the tabs (see {@link SimpleHammers#ENDERITE_MOD}).
      */
     public static ToolMaterial enderiteMaterial() {
         return Holder.MATERIAL;
