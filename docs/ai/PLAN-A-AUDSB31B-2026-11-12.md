@@ -63,7 +63,8 @@ Wiki-Daten neu (a66a63fcf), danach `hub/b-bundle190` d91f28407 (a-nihilplanks, a
   Schritt weiter weg. Der Tempo-Bonus des Riesenkopfs braucht keinen Platz.
 - Kern-Kopien (26.2) von Meißel und Kartentisch unverändert, Drift in `tools/dup_pairs.txt` (`mineable/1`, `copyResult/2|3`).
 - simplemobs/AUDIT.md: Nachtrag als eigener Abschnitt am Ende (a-w1b ändert dieselben Tabellenzeilen, so kein Merge-Konflikt).
-- Guides (`module_guides.py`) blieben unverändert: geändert wurden nur Details und Notizen, keine Feature-Zusammenfassungen.
+- Guides (`module_guides.py`): nur Simple Foundry neu (Handbuch-Seite „Pult behält Stufe, Schmelze/Brennstofftank gehen verloren“,
+  plan40 simplefoundry-1, 2929e9a35); sonst wurden nur Details und Notizen geändert, keine Feature-Zusammenfassungen.
 
 ## Test (lokal)
 javac aller geänderten Dateien je Modul (`/root/sb-tools-a/audsb31b/javac.sh`, volle Ausgabe): nur bekannte Access-Widener-Meldungen in
