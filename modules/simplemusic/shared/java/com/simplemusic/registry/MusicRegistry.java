@@ -80,7 +80,7 @@ public final class MusicRegistry {
             DyeColor color = colors[i];
             POCKET_JUKEBOXES.add(item(pocketJukeboxId(color), p -> new PocketJukeboxItem(block, p, color), new Item.Properties()));
         }
-        com.simplemusic.disc.MusicDiscs.register((name, properties) -> item(name, Item::new, properties));
+        com.simplemusic.disc.MusicDiscs.register(MusicRegistry::item);
         com.simplemusic.guide.MusicGuide.register();
     }
 
@@ -100,10 +100,13 @@ public final class MusicRegistry {
         return POCKET_JUKEBOXES.stream().map(ItemStack::new).toList();
     }
 
-    /** The music discs (W24-3, a-shopmusic37) for the Vanilla tools tab, after Vanilla's discs (empty while the module is switched off). */
+    /**
+     * The music discs (W24-3, a-shopmusic37; each B-side after its A-side, a-shopmusic37b) for the Vanilla tools tab, after Vanilla's
+     * discs (empty while the module is switched off).
+     */
     public static List<ItemStack> discStacks() {
         if (!SimpleMusic.on()) return List.of();
-        return com.simplemusic.disc.MusicDiscs.ITEMS.stream().map(ItemStack::new).toList();
+        return com.simplemusic.disc.MusicDiscs.allItems().stream().map(ItemStack::new).toList();
     }
 
     /** Creative tab stacks (empty while the module is switched off). */

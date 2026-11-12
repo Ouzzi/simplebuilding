@@ -78,11 +78,22 @@ for locale in ('en', 'de'):
 for f in manual['features']:
     for src in f['sources']:
         assert (MODULE.parents[1] / src).is_file(), src
-# W24-3: the six music discs - song data, streamed mono Ogg (at most 1 MiB), sound event with subtitle, item model,
-# texture, both languages, a wiki entry
-discs = re.findall(r'new Disc\("([a-z_]+)", ([0-9.]+)F, (\d+), table\("([a-z_/]+)"\), (\d+)\)',
+# W24-3: the music discs - song data, streamed mono Ogg (at most 1 MiB), sound event with subtitle, item model,
+# texture, both languages, a wiki entry; a-shopmusic37b: a sided disc (last number = B-side length) has the same for
+# <id>_b_side, its title ends in "(B-Side)" / "(B-Seite)", same comparator level, never in a trade
+found = re.findall(r'new Disc\("([a-z_]+)", ([0-9.]+)F, (\d+), table\("([a-z_/]+)"\), (\d+)(?:, ([0-9.]+)F)?\)',
                    (JAVA / 'disc/MusicDiscs.java').read_text(encoding='utf-8'))
-assert len(discs) == 9, discs  # six structure discs + three shop discs (a-shopmusic37)
+assert len(found) == 10, found  # six structure discs + four shop discs (a-shopmusic37, a-shopmusic37b)
+assert sum(1 for f in found if f[5]) == 4, 'the four shop discs have a B-side'
+discs = []
+for disc, seconds, comparator, table, weight, b_seconds in found:
+    discs.append((disc, seconds, comparator, table, weight))
+    if b_seconds:
+        discs.append((disc + '_b_side', b_seconds, comparator, None, None))
+        for locale, side in (('en_us', '(B-Side)'), ('de_de', '(B-Seite)')):
+            assert langs[locale][f'jukebox_song.{NS}.{disc}_b_side'].endswith(side), (locale, disc)
+trades = ' '.join(f.read_text(encoding='utf-8') for f in (RES / f'data/{NS}/villager_trade').rglob('*.json'))
+assert '_b_side' not in trades, 'a B-side is never sold'
 sounds_json = json.loads((RES / f'assets/{NS}/sounds.json').read_text(encoding='utf-8'))
 for disc, seconds, comparator, table, weight in discs:
     song = json.loads((RES / f'data/{NS}/jukebox_song/{disc}.json').read_text(encoding='utf-8'))

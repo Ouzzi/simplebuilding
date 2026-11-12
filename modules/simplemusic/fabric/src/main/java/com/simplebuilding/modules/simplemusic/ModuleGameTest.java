@@ -213,6 +213,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void musicDiscSides(GameTestHelper h) {
+        MusicTests.ALL.get("music_disc_sides").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
     public void noteGridRoundTrip(GameTestHelper h) {
         MusicTests.ALL.get("note_grid_round_trip").accept(h);
     }

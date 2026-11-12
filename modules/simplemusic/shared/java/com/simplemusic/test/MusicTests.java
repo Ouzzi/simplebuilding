@@ -1210,10 +1210,34 @@ public final class MusicTests {
             } catch (java.io.IOException e) {
                 throw h.assertionException("sounds.json unreadable: " + e);
             }
-            h.assertTrue(MusicDiscs.DISCS.size() == 9 && MusicDiscs.ITEMS.size() == 9, "nine discs registered (six structure discs, three shop discs)");
+            h.assertTrue(MusicDiscs.DISCS.size() == 10 && MusicDiscs.ITEMS.size() == 10, "ten discs registered (six structure discs, four shop discs)");
+            h.assertTrue(MusicDiscs.DISCS.stream().filter(MusicDiscs.Disc::sided).count() == 4 && MusicDiscs.allItems().size() == 14,
+                    "the four shop discs have a B-side (a-shopmusic37b)");
             for (int i = 0; i < MusicDiscs.DISCS.size(); i++) {
                 MusicDiscs.Disc disc = MusicDiscs.DISCS.get(i);
                 ItemStack stack = new ItemStack(MusicDiscs.ITEMS.get(i));
+                if (disc.sided()) {
+                    // a-shopmusic37b: the B-side is its own item with its own song and streamed record, same comparator level
+                    var b = MusicDiscs.bSide(disc);
+                    h.assertTrue(b != null && BuiltInRegistries.ITEM.getKey(b).equals(SimpleMusic.id("music_disc_" + disc.bId())), disc.id() + ": B-side item");
+                    var bHolder = net.minecraft.world.item.JukeboxSong.fromStack(new ItemStack(b));
+                    h.assertTrue(bHolder.isPresent() && bHolder.get().is(disc.bSong()) && songs.get(disc.bSong()).isPresent(), disc.id() + ": B-side plays its own song");
+                    var bSong = bHolder.get().value();
+                    h.assertTrue(bSong.lengthInSeconds() == disc.bSeconds() && bSong.comparatorOutput() == disc.comparator()
+                            && bSong.soundEvent().value().location().equals(disc.bSound()) && !disc.bSound().equals(disc.sound()),
+                            disc.id() + ": B-side length " + bSong.lengthInSeconds() + ", comparator " + bSong.comparatorOutput() + ", sound " + bSong.soundEvent().value().location());
+                    var bEvent = sounds.getAsJsonObject("music_disc." + disc.bId());
+                    h.assertTrue(bEvent != null && bEvent.has("subtitle") && bEvent.getAsJsonArray("sounds").get(0).getAsJsonObject().get("name").getAsString()
+                            .equals("simplemusic:records/" + disc.bId()), disc.id() + ": B-side sound event");
+                    try (var ogg = SimpleMusic.class.getResourceAsStream("/assets/simplemusic/sounds/records/" + disc.bId() + ".ogg")) {
+                        h.assertTrue(ogg != null && ogg.readNBytes(4).length == 4, disc.id() + ": B-side Ogg file present");
+                    } catch (java.io.IOException e) {
+                        throw h.assertionException(disc.id() + ": " + e);
+                    }
+                    h.assertTrue(MusicDiscs.otherSide(stack.getItem()) == b && MusicDiscs.otherSide(b) == stack.getItem(), disc.id() + ": sides pair up");
+                } else {
+                    h.assertTrue(MusicDiscs.bSide(disc) == null && MusicDiscs.otherSide(stack.getItem()) == null, disc.id() + ": one side only");
+                }
                 h.assertTrue(BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(SimpleMusic.id("music_disc_" + disc.id())), "id of " + disc.id());
                 h.assertTrue(stack.getMaxStackSize() == 1 && stack.get(net.minecraft.core.component.DataComponents.RARITY) == net.minecraft.world.item.Rarity.RARE,
                         disc.id() + ": stacks to 1, rare");
@@ -1256,7 +1280,11 @@ public final class MusicTests {
                 for (int roll = 0; roll < 800 && !found; roll++) {
                     var items = table.getRandomItems(built);
                     if (disc.archaeology()) h.assertTrue(items.size() <= 1, "brushing still yields one item");
-                    for (ItemStack stack : items) found |= stack.is(MusicDiscs.ITEMS.get(i));
+                    for (ItemStack stack : items) {
+                        found |= stack.is(MusicDiscs.ITEMS.get(i));
+                        // a-shopmusic37b: a B-side is never loot, it only comes from turning the A-side over
+                        h.assertTrue(MusicDiscs.otherSide(stack.getItem()) == null || MusicDiscs.ITEMS.contains(stack.getItem()), "no B-side in loot: " + stack);
+                    }
                 }
                 h.assertTrue(found, disc.id() + " never found in " + disc.table().identifier());
             }
@@ -1274,7 +1302,7 @@ public final class MusicTests {
                     .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ADDITIONAL_COST_COMPONENT_ALLOWED, net.minecraft.util.Unit.INSTANCE)
                     .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.VILLAGER_TRADE);
             var tradeContext = new net.minecraft.world.level.storage.loot.LootContext.Builder(tradeParams).withOptionalRandomSeed(20261112L).create(java.util.Optional.empty());
-            for (String shopDisc : List.of("browsing_bossa", "coin_lounge", "window_shopping")) {
+            for (String shopDisc : List.of("browsing_bossa", "coin_lounge", "window_shopping", "bargain_bin")) {
                 var id = SimpleMusic.id("wandering_trader/emerald_music_disc_" + shopDisc);
                 var trade = trades.get(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.VILLAGER_TRADE, id));
                 h.assertTrue(trade.isPresent() && trade.get().is(uncommon), shopDisc + ": trade loaded and in the trader's uncommon offers");
@@ -1283,6 +1311,46 @@ public final class MusicTests {
                         && BuiltInRegistries.ITEM.getKey(offer.getResult().getItem()).equals(SimpleMusic.id("music_disc_" + shopDisc)) && offer.getMaxUses() == 1,
                         shopDisc + ": 12 emeralds for the disc, once");
             }
+            h.succeed();
+        });
+        // a-shopmusic37b: a right click with a sided disc in hand turns it over (A -> B -> A), keeps its name, short cooldown;
+        // a disc with one side does nothing; the turned disc plays its own song in a jukebox
+        ALL.put("music_disc_sides", h -> {
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            int bossa = -1;
+            for (int i = 0; i < MusicDiscs.DISCS.size(); i++) if (MusicDiscs.DISCS.get(i).id().equals("browsing_bossa")) bossa = i;
+            h.assertTrue(bossa >= 0, "browsing_bossa registered");
+            MusicDiscs.Disc disc = MusicDiscs.DISCS.get(bossa);
+            net.minecraft.world.item.Item a = MusicDiscs.ITEMS.get(bossa), b = MusicDiscs.bSide(disc);
+            ItemStack named = new ItemStack(a);
+            named.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Shop A"));
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, named);
+            var first = player.gameMode.useItem(player, h.getLevel(), player.getMainHandItem(), net.minecraft.world.InteractionHand.MAIN_HAND);
+            ItemStack turned = player.getMainHandItem();
+            h.assertTrue(first.consumesAction() && turned.is(b) && turned.getCount() == 1, "turned over to the B-side: " + turned);
+            h.assertTrue("Shop A".equals(turned.getHoverName().getString()), "the name stays: " + turned.getHoverName());
+            h.assertTrue(player.getCooldowns().isOnCooldown(turned), "a short cooldown after turning");
+            var blocked = player.gameMode.useItem(player, h.getLevel(), turned, net.minecraft.world.InteractionHand.MAIN_HAND);
+            h.assertTrue(!blocked.consumesAction() && player.getMainHandItem().is(b), "a held button does not flip it straight back");
+            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(turned));
+            player.gameMode.useItem(player, h.getLevel(), player.getMainHandItem(), net.minecraft.world.InteractionHand.MAIN_HAND);
+            h.assertTrue(player.getMainHandItem().is(a), "and back to the A-side: " + player.getMainHandItem());
+            // a structure disc has one side: the click does nothing
+            int ember = 0;
+            ItemStack single = new ItemStack(MusicDiscs.ITEMS.get(ember));
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, single);
+            var none = player.gameMode.useItem(player, h.getLevel(), single, net.minecraft.world.InteractionHand.MAIN_HAND);
+            h.assertTrue(!none.consumesAction() && player.getMainHandItem().is(MusicDiscs.ITEMS.get(ember)), "a one-sided disc stays: " + MusicDiscs.DISCS.get(ember).id());
+            h.assertTrue(MusicDiscs.turnOver(new ItemStack(Items.MUSIC_DISC_CAT)).isEmpty(), "Vanilla discs have no B-side");
+            // the B-side in a jukebox plays the B-side's song
+            BlockPos pos = new BlockPos(1, 1, 1);
+            h.setBlock(pos, Blocks.JUKEBOX.defaultBlockState());
+            var jukebox = h.getBlockEntity(pos, net.minecraft.world.level.block.entity.JukeboxBlockEntity.class);
+            jukebox.setTheItem(new ItemStack(b));
+            var playing = jukebox.getSongPlayer().getSong();
+            h.assertTrue(jukebox.getSongPlayer().isPlaying() && playing != null && playing.soundEvent().value().location().equals(disc.bSound()),
+                    "the jukebox plays the B-side song: " + (playing == null ? null : playing.soundEvent().value().location()));
             h.succeed();
         });
     }

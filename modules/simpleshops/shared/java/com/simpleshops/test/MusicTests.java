@@ -28,7 +28,7 @@ import net.minecraft.world.phys.Vec3;
 /**
  * Shop music (a-shopmusic37, plan docs/ai/PLAN-A-SHOPMUSIC37-2026-11-12.md): the disc slot of the sales block, the owner's
  * right click, the client update (disc, start tick, reach - nothing else), the shared start tick of shops with the same disc,
- * the drop on removal and the server switch. Which shop a client hears is plain logic ({@code ShopMusicPickTest}, JUnit).
+ * the drop on removal, the server switch and the step per piece, so per disc side (a-shopmusic37b). Which shop a client hears is plain logic ({@code ShopMusicPickTest}, JUnit).
  * <b>What breaks these tests:</b> a slot that takes non-discs or more than one, a disc that does not reach the client update or
  * reaches it while the switch is off, a second shop with the same disc that does not start in step, a disc that vanishes with
  * the block, or a stranger who can put a disc in.
@@ -97,6 +97,36 @@ final class MusicTests {
                 h.assertTrue(same.discStart() == start, "re-inserted: in step again");
                 h.assertTrue(ShopMusic.song(new ItemStack(Items.MUSIC_DISC_CAT)).equals("minecraft:music_disc.cat")
                         && ShopMusic.seconds(new ItemStack(Items.MUSIC_DISC_CAT)) > 100.0F, "song id and length come from the disc's jukebox song");
+                h.succeed();
+            });
+        });
+        // a-shopmusic37b: shops play in step per piece (song), not per item - so the two sides of a disc (Simple Music: one item per
+        // side) are two pieces. Here with Vanilla discs: the same item carrying another song starts on its own, another item
+        // carrying the same song joins in step.
+        all.put("shop_music_per_side", h -> {
+            ShopsConfig.reset();
+            ServerPlayer owner = player(h, GameType.SURVIVAL);
+            ShopsTests.Shop first = shop(h, owner);
+            first.sales().setDisc(new ItemStack(Items.MUSIC_DISC_FAR));
+            long start = first.sales().discStart();
+            h.runAfterDelay(5, () -> {
+                var songs = h.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.JUKEBOX_SONG);
+                ItemStack otherSide = new ItemStack(Items.MUSIC_DISC_FAR);
+                otherSide.set(net.minecraft.core.component.DataComponents.JUKEBOX_PLAYABLE,
+                        new net.minecraft.world.item.JukeboxPlayable(songs.getOrThrow(net.minecraft.world.item.JukeboxSongs.MALL)));
+                ItemStack sameSong = new ItemStack(Items.MUSIC_DISC_STAL);
+                sameSong.set(net.minecraft.core.component.DataComponents.JUKEBOX_PLAYABLE,
+                        new net.minecraft.world.item.JukeboxPlayable(songs.getOrThrow(net.minecraft.world.item.JukeboxSongs.FAR)));
+                SalesBlockEntity flipped = extra(h, owner, new BlockPos(3, 1, 3));
+                SalesBlockEntity joined = extra(h, owner, new BlockPos(11, 1, 11));
+                flipped.setDisc(otherSide);
+                joined.setDisc(sameSong);
+                long now = h.getLevel().getGameTime();
+                h.assertTrue(now > start, "time went on");
+                h.assertTrue("minecraft:music_disc.mall".equals(ShopMusic.song(otherSide)) && flipped.discStart() == now,
+                        "same item, other song (the other side): its own start (" + flipped.discStart() + ")");
+                h.assertTrue("minecraft:music_disc.far".equals(ShopMusic.song(sameSong)) && joined.discStart() == start,
+                        "other item, same song: in step with the first shop (" + joined.discStart() + " vs " + start + ")");
                 h.succeed();
             });
         });

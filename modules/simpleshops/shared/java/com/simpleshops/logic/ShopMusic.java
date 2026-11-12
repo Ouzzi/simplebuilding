@@ -39,7 +39,10 @@ public final class ShopMusic {
         return !stack.isEmpty() && stack.has(DataComponents.JUKEBOX_PLAYABLE);
     }
 
-    /** The song of a disc as an id (its sound event), or {@code null}. Same id = same piece. */
+    /**
+     * The song of a disc as an id (its sound event), or {@code null}. Same id = same piece: shops sync and group per song, not per
+     * item, so the A- and B-side of a disc (Simple Music, a-shopmusic37b) are two pieces.
+     */
     public static @Nullable String song(ItemStack stack) {
         if (!accepts(stack)) return null;
         return JukeboxSong.fromStack(stack).map(h -> h.value().soundEvent().value().location().toString()).orElse(null);
