@@ -61,7 +61,10 @@ public final class EnchantingBlockTests {
                 helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simpleend", wood + "_bookshelf"))).isEmpty(),
                         "Simple End's book recipe of the " + wood + " bookshelf is off with SimpleBuilding");
                 // a-end07 (Wunsch 8): the shelf wants Nihilit planks (4 shards in a plus around an End plank = 2), not the plain End planks.
-                var nihilPlanks = wood.equals("ashwood") ? ModItems.NIHILITH_ASHWOOD_PLANKS : ModItems.NIHILITH_DUSKWOOD_PLANKS;
+                // a-nihilplanks (12.11.): the planks are Simple End's (simpleend:nihilith_<wood>_planks); SB keeps the recipes.
+                var nihilPlanks = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleend", "nihilith_" + wood + "_planks"));
+                helper.assertTrue(nihilPlanks != Items.AIR && "simpleend".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(nihilPlanks).getNamespace()),
+                        "Simple End registers the nihilit " + wood + " planks with SimpleBuilding");
                 var endPlanks = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleend", wood + "_planks"));
                 var shelfItem = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleend", wood + "_bookshelf"));
                 var plankRecipe = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE,
@@ -79,6 +82,19 @@ public final class EnchantingBlockTests {
                 helper.assertTrue(shelfRecipe.matches(grid.apply(nihilPlanks), helper.getLevel()) && shelfRecipe.assemble(grid.apply(nihilPlanks)).is(shelfItem),
                         "6 nihilit " + wood + " planks + 3 nihilit books craft the " + wood + " bookshelf");
                 helper.assertFalse(shelfRecipe.matches(grid.apply(endPlanks), helper.getLevel()), "plain " + wood + " planks no longer craft the nihilit shelf");
+                // a-nihilplanks: the chiseled End shelf like chiseled blazewood - 6 Nihilit planks around 3 slabs of the wood (WWW/SSS/WWW);
+                // Simple End's own one (slabs around plain planks) is off with SimpleBuilding.
+                helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simpleend", "chiseled_" + wood + "_bookshelf"))).isEmpty(),
+                        "Simple End's plain chiseled " + wood + " bookshelf recipe is off with SimpleBuilding");
+                var chiseledRecipe = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE,
+                        Identifier.fromNamespaceAndPath("simplebuilding", "chiseled_" + wood + "_bookshelf"))).orElseThrow().value();
+                var slab = new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleend", wood + "_slab")));
+                var chiseledItem = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleend", "chiseled_" + wood + "_bookshelf"));
+                java.util.function.Function<net.minecraft.world.item.Item, net.minecraft.world.item.crafting.CraftingInput> chiseledGrid = planks ->
+                        net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(new ItemStack(planks), new ItemStack(planks), new ItemStack(planks),
+                                slab.copy(), slab.copy(), slab.copy(), new ItemStack(planks), new ItemStack(planks), new ItemStack(planks)));
+                helper.assertTrue(chiseledRecipe.matches(chiseledGrid.apply(nihilPlanks), helper.getLevel())
+                        && chiseledRecipe.assemble(chiseledGrid.apply(nihilPlanks)).is(chiseledItem), "6 nihilit " + wood + " planks + 3 slabs craft the chiseled " + wood + " bookshelf");
             }
         }
         helper.succeed();

@@ -1,5 +1,6 @@
 package com.simpledinos.entity;
 
+import com.simpledinos.DinoKind;
 import com.simpledinos.DinoVariants;
 import com.simpledinos.config.DinosConfig;
 import com.simpledinos.entity.part.PartRig;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,22 +29,22 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -60,6 +62,11 @@ public abstract class Dino extends AbstractHorse {
     /** a-dino36b: head pose 0 (stretched) .. {@link PartRig#TUCK_STEPS} (pulled in) and tail bend -2..2, chosen by the server. */
     private static final EntityDataAccessor<Byte> HEAD_TUCK = SynchedEntityData.defineId(Dino.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Byte> TAIL_BEND = SynchedEntityData.defineId(Dino.class, EntityDataSerializers.BYTE);
+    /**
+     * a-dinorest1 (jump key frame, concept DINO36 8): ticks until the kind's jump-key ability is ready again. Counted by the server
+     * (server authority); the rider's client shows it in the Vanilla jump bar ({@link #getJumpCooldown}) and sends no jump meanwhile.
+     */
+    private static final EntityDataAccessor<Integer> ABILITY_COOLDOWN = SynchedEntityData.defineId(Dino.class, EntityDataSerializers.INT);
     public static final float MIN_SCALE = 0.25F;
     /** Ticks between two part checks, and ticks a part stays at a pose before it may move one step back toward rest. */
     static final int PART_CHECK_TICKS = 2, PART_RELAX_TICKS = 8;
@@ -78,6 +85,34 @@ public abstract class Dino extends AbstractHorse {
         builder.define(COAT, 0);
         builder.define(HEAD_TUCK, (byte) 0);
         builder.define(TAIL_BEND, (byte) 0);
+        builder.define(ABILITY_COOLDOWN, 0);
+    }
+
+    /** The dinosaur kind (egg, eggshell, fossil weights). */
+    public abstract DinoKind kind();
+
+    // ------------------------------------------------------------------------------------------------ jump key frame (a-dinorest1)
+
+    /**
+     * Whether the jump key triggers this kind's own ability instead of a jump (Triceratops: charge; later Stegosaurus: plow,
+     * Parasaurolophus: call). The T. rex jumps like a horse (false).
+     */
+    protected boolean usesJumpAbility() {
+        return false;
+    }
+
+    public int abilityCooldown() {
+        return this.entityData.get(ABILITY_COOLDOWN);
+    }
+
+    public void setAbilityCooldown(int ticks) {
+        this.entityData.set(ABILITY_COOLDOWN, Math.max(0, ticks));
+    }
+
+    /** Vanilla jump bar: shows the cooldown of the ability (the client sends no jump while it is above 0). */
+    @Override
+    public int getJumpCooldown() {
+        return usesJumpAbility() ? abilityCooldown() : super.getJumpCooldown();
     }
 
     /** Coat variant, an index into {@link DinoVariants#COATS} (the rearing biome, see there); every dinosaur kind has it. */
@@ -155,6 +190,7 @@ public abstract class Dino extends AbstractHorse {
         super.aiStep();
         if (!level().isClientSide() && (this.tickCount % 20 == 0)) syncGrowth();
         if (!level().isClientSide() && (this.tickCount % PART_CHECK_TICKS == 0)) updateParts();
+        if (!level().isClientSide() && abilityCooldown() > 0) setAbilityCooldown(abilityCooldown() - 1);
     }
 
     @Override
@@ -320,6 +356,69 @@ public abstract class Dino extends AbstractHorse {
         return Math.max(min, headReach() + 1.0);
     }
 
+    /**
+     * a-dinorest1, solid head ({@link PartRig#solidHead}): the head stops the walk like the body does. Both sides run this (the rider's
+     * client moves a ridden dinosaur, the server checks the move with the same rule), so the head never walks into a wall.
+     */
+    @Override
+    public void move(MoverType type, Vec3 movement) {
+        PartRig rig = rig();
+        if (rig != null && rig.solidHead && (movement.x != 0.0 || movement.z != 0.0)) movement = clipHead(movement);
+        super.move(type, movement);
+    }
+
+    /**
+     * The horizontal part of {@code movement} that the head boxes (current pose) can make without running into a solid block shape.
+     * Leaves do not count (the head brushes through foliage), nor does anything within the step height above the feet (the body steps
+     * up, the head follows), nor a block the head already touches (after a turn it can move out again).
+     */
+    public Vec3 clipHead(Vec3 movement) {
+        double dx = movement.x, dz = movement.z;
+        Level level = level();
+        CollisionContext context = CollisionContext.of(this);
+        double floor = getY() + maxUpStep() + 0.01;
+        for (AABB raw : headBoxes(headTuck())) {
+            if (raw.maxY <= floor) continue;
+            AABB box = new AABB(raw.minX, Math.max(raw.minY, floor), raw.minZ, raw.maxX, raw.maxY, raw.maxZ).deflate(0.02);
+            AABB swept = box.expandTowards(dx, 0.0, dz);
+            List<VoxelShape> shapes = new ArrayList<>();
+            for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(swept.minX), Mth.floor(swept.minY), Mth.floor(swept.minZ),
+                    Mth.floor(swept.maxX), Mth.floor(swept.maxY), Mth.floor(swept.maxZ))) {
+                BlockState state = level.getBlockState(pos);
+                if (state.isAir() || state.is(BlockTags.LEAVES)) continue;
+                VoxelShape shape = state.getCollisionShape(level, pos, context);
+                if (shape.isEmpty()) continue;
+                VoxelShape placed = shape.move(pos.getX(), pos.getY(), pos.getZ());
+                boolean inside = false;
+                for (AABB part : placed.toAabbs()) inside |= part.intersects(box);
+                if (!inside) shapes.add(placed);
+            }
+            if (shapes.isEmpty()) continue;
+            double cx = Shapes.collide(Direction.Axis.X, box, shapes, dx);
+            double cz = Shapes.collide(Direction.Axis.Z, box.move(cx, 0.0, 0.0), shapes, dz);
+            dx = Math.abs(cx) < Math.abs(dx) ? cx : dx;
+            dz = Math.abs(cz) < Math.abs(dz) ? cz : dz;
+        }
+        return new Vec3(dx, movement.y, dz);
+    }
+
+    /** a-dinorest1, solid head: living things in front of the head are pushed aside like by the body (Vanilla push strength). */
+    @Override
+    protected void pushEntities() {
+        super.pushEntities();
+        PartRig rig = rig();
+        if (rig == null || !rig.solidHead) return;
+        java.util.Set<Entity> done = new java.util.HashSet<>();
+        for (AABB box : headBoxes(headTuck())) {
+            for (Entity other : level().getPushableEntities(this, box)) {
+                if (other.isPassengerOfSameVehicle(this) || hasPassenger(other) || !done.add(other) || other.getBoundingBox().intersects(getBoundingBox())) continue;
+                Vec3 c = box.getCenter();
+                double px = other.getX() - c.x, pz = other.getZ() - c.z, d = Math.max(0.1, Math.sqrt(px * px + pz * pz));
+                if (!other.isVehicle() && other.isPushable()) other.push(px / d * 0.05, 0.0, pz / d * 0.05);
+            }
+        }
+    }
+
     // ------------------------------------------------------------------------------------------------ behaviour
 
     @Override
@@ -336,39 +435,8 @@ public abstract class Dino extends AbstractHorse {
                 return Dino.this.isBaby() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, true) {
-            @Override
-            public boolean canUse() {
-                return !Dino.this.isBaby() && !Dino.this.isVehicle() && super.canUse();
-            }
-
-            @Override
-            public void tick() {
-                super.tick();
-                // a-dino36b: in bite reach it stands and bites from its head instead of pushing its head into the target
-                LivingEntity target = Dino.this.getTarget();
-                if (target != null && Dino.this.isWithinMeleeAttackRange(target)) Dino.this.getNavigation().stop();
-            }
-        });
+        // a-dinorest1: no combat goals here - only the T. rex fights (Trex#addBehaviourGoals), every other kind has its own defence
         this.goalSelector.addGoal(5, new FollowOwnerLiteGoal(this, 1.1, 10.0, 3.0));
-        // Defends the owner: only monsters that have the owner or the dinosaur as their target, scanned every 10 ticks.
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<Monster>(this, Monster.class, 10, true, false,
-                (target, level) -> target instanceof Monster m && defends(m)) {
-            @Override
-            public boolean canUse() {
-                return Dino.this.isTamed() && !Dino.this.isBaby() && !Dino.this.isVehicle() && super.canUse();
-            }
-        });
-    }
-
-    /**
-     * Whether {@code monster} is a reason to bite: it hunts the owner or this dinosaur. An idle monster is none - also while the
-     * owner is offline or in another dimension, where {@link #getOwner()} is null and a plain {@code getTarget() == getOwner()}
-     * would be true for every monster without a target.
-     */
-    public boolean defends(Monster monster) {
-        LivingEntity hunted = monster.getTarget();
-        return hunted != null && (hunted == getOwner() || hunted == this);
     }
 
     /** Walks toward the owner when farther than {@code start} blocks until within {@code stop} blocks (Vanilla goals need a TamableAnimal). */
@@ -427,6 +495,16 @@ public abstract class Dino extends AbstractHorse {
         return stack.is(ItemTags.MEAT);
     }
 
+    /** The favourite food heals an adult more (concept DINO36 4); every food speeds a hatchling's growth up (Vanilla: 10 % of the rest). */
+    public boolean isFavoriteFood(ItemStack stack) {
+        return isFood(stack);
+    }
+
+    /** Health an adult gets back from one piece of food: 8 for the favourite food, 4 for other food. */
+    public float healFor(ItemStack stack) {
+        return isFavoriteFood(stack) ? 8.0F : 4.0F;
+    }
+
     @Override
     public boolean canMate(Animal partner) {
         return false; // dinosaurs come from eggs only
@@ -443,7 +521,7 @@ public abstract class Dino extends AbstractHorse {
         if (!isBaby() && !stack.isEmpty() && isFood(stack)) {
             if (getHealth() < getMaxHealth()) {
                 if (!level().isClientSide()) {
-                    heal(8.0F);
+                    heal(healFor(stack));
                     stack.consume(1, player);
                 }
                 return InteractionResult.SUCCESS;

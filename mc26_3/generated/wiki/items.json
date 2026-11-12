@@ -171,13 +171,11 @@
     "simplebuilding:nihil_redstone_torch",
     "simplebuilding:nihil_redstone_wall_torch",
     "simplebuilding:nihil_vault",
-    "simplebuilding:nihilith_ashwood_planks",
     "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
     "simplebuilding:nihilith_brick_stairs",
     "simplebuilding:nihilith_brick_wall",
     "simplebuilding:nihilith_bricks",
-    "simplebuilding:nihilith_duskwood_planks",
     "simplebuilding:nihilith_end_rod",
     "simplebuilding:nihilith_lamp",
     "simplebuilding:nihilith_ore",
@@ -1235,9 +1233,6 @@
       "id": "simplebuilding:nihil_vault"
     },
     {
-      "id": "simplebuilding:nihilith_ashwood_planks"
-    },
-    {
       "id": "simplebuilding:nihilith_block"
     },
     {
@@ -1302,9 +1297,6 @@
     {
       "id": "simplebuilding:nihilith_chess_rook_flat",
       "maxStackSize": 16
-    },
-    {
-      "id": "simplebuilding:nihilith_duskwood_planks"
     },
     {
       "id": "simplebuilding:nihilith_end_rod"

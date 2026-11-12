@@ -287,13 +287,8 @@ public class ModBlocks {
             ? registerBlock("chiseled_warped_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF, s -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(s.sound(SoundType.NETHER_WOOD))) : null;
     public static final List<Block> CHISELED_BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
             ? List.of(CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, CHISELED_WARPED_BLAZEWOOD_BOOKSHELF) : List.of();
-    /** Nihilit-Bretter je End-Holzart (a-end07, Wunsch 8): ein End-Brett (Simple End) mit Nihilitsplittern; die Zutat der Nihilit-Regale. */
-    public static final Block NIHILITH_ASHWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("nihilith_ashwood_planks", Blocks.OAK_PLANKS, Block::new) : null;
-    public static final Block NIHILITH_DUSKWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("nihilith_duskwood_planks", Blocks.OAK_PLANKS, Block::new) : null;
-    public static final List<Block> NIHILITH_END_PLANKS = McVersion.ASTRAL_ENCHANTING
-            ? List.of(NIHILITH_ASHWOOD_PLANKS, NIHILITH_DUSKWOOD_PLANKS) : List.of();
+    // a-nihilplanks (Besitzer 12.11.): die Nihilit-Bretter je End-Holzart (a-end07) gehoeren Simple End
+    // (simpleend:nihilith_{ashwood,duskwood}_planks, nur mit SimpleBuilding registriert, IdMoves dort); SB liefert nur die Rezepte.
     public static final List<Block> BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
             ? List.of(CRIMSON_BLAZEWOOD_PLANKS, WARPED_BLAZEWOOD_PLANKS) : List.of();
     public static final List<Block> BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING

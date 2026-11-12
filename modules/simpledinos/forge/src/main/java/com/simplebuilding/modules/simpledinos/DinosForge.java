@@ -27,6 +27,9 @@ public final class DinosForge {
                         new BlockEntityType<>(DinoEggBlockEntity::new, DinosRegistry.eggBlocks()));
             }
         });
-        EntityAttributeCreationEvent.BUS.addListener(event -> event.put(DinosRegistry.TREX, DinosRegistry.trexAttributes().build()));
+        EntityAttributeCreationEvent.BUS.addListener(event -> {
+            event.put(DinosRegistry.TREX, DinosRegistry.trexAttributes().build());
+            event.put(DinosRegistry.TRICERATOPS, DinosRegistry.triceratopsAttributes().build());
+        });
     }
 }

@@ -27,9 +27,21 @@ public final class PartRig {
     private final float neckLook, headLook, headPitch, tuckNeck, tuckHead, bendStep;
     /** How far the stretched head reaches in front of the entity position, grown up, in blocks. */
     public final double reach;
+    /**
+     * a-dinorest1: the head is solid like the body - it stops the walk at walls (leaves and steps excepted) and pushes living things
+     * aside like the core box does. For kinds whose head cannot be pulled in far enough (Triceratops: the frill and horns sit in front
+     * of the shoulders); the T. rex pulls its head in instead (false).
+     */
+    public final boolean solidHead;
 
     public PartRig(Skeleton skeleton, float modelScale, String neck, String head, String[] headBones, String[] tailBones,
             float neckLook, float headLook, float headPitch, float tuckNeck, float tuckHead, float bendStep) {
+        this(skeleton, modelScale, neck, head, headBones, tailBones, neckLook, headLook, headPitch, tuckNeck, tuckHead, bendStep, false);
+    }
+
+    public PartRig(Skeleton skeleton, float modelScale, String neck, String head, String[] headBones, String[] tailBones,
+            float neckLook, float headLook, float headPitch, float tuckNeck, float tuckHead, float bendStep, boolean solidHead) {
+        this.solidHead = solidHead;
         this.skeleton = skeleton;
         this.modelScale = modelScale;
         this.neck = skeleton.index(neck);

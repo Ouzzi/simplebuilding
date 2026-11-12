@@ -12,6 +12,13 @@
     "simpledinos:trex_armor_leather": "Crafted from leather around a bone block.",
     "simpledinos:trex_armor_iron": "Crafted from iron ingots around a bone block.",
     "simpledinos:trex_armor_diamond": "Crafted from diamonds around a bone block.",
+    "simpledinos:triceratops_armor_leather": "Crafted from leather around a Triceratops eggshell.",
+    "simpledinos:triceratops_armor_iron": "Crafted from iron ingots around a Triceratops eggshell.",
+    "simpledinos:triceratops_armor_diamond": "Crafted from diamonds around a Triceratops eggshell.",
+    "simpledinos:triceratops_eggshell": "Left behind by a hatching dinosaur; has no price.",
+    "simpledinos:stegosaurus_eggshell": "Left behind by a hatching dinosaur; has no price.",
+    "simpledinos:utahraptor_eggshell": "Left behind by a hatching dinosaur; has no price.",
+    "simpledinos:parasaurolophus_eggshell": "Left behind by a hatching dinosaur; has no price.",
     "simpledinos:guide_book": "Crafted from a book and a bone."
   },
   "prices": []

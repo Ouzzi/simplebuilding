@@ -190,6 +190,146 @@ def trex_spec(coat, belly, dark, tier=0, name='trex'):
     return dict(name=name, w=256, parts=parts)
 
 
+# ---------------------------------------------------------------- Triceratops (a-dinorest1, concept KONZEPT-A-DINO36 4.1)
+HORN = (H('e2d4b0'), H('9c8a66'))      # horn: light tip, darker base (keratin)
+BEAK = (H('5a4c3c'), H('3a3028'))      # horn beak: dark keratin
+# Frill pattern variants (owner preview DINOREST1, UI first as an example): A eye spots (built in), B rim bands, C plain gradient.
+FRILL_VARIANTS = ('A', 'B', 'C')
+FRILL_CHOSEN = 'A'
+
+
+def horned(base_tip, seed, tip_down=False):
+    """Horn or beak: a soft ramp from the base to the tip along the box height (tip = top of the box unless tip_down), 2 px tone groups."""
+    tip, base = base_tip
+
+    def f(face, x, y, w, h):
+        t = y / max(1, h - 1) if face not in ('top', 'bottom') else (0.0 if face == 'top' else 1.0)
+        if tip_down:
+            t = 1.0 - t
+        c = mix(tip, base, min(1.0, t * 1.1))
+        if hsh(x // 2, y // 2, seed) > 0.78:
+            c = mix(c, base, 0.18)
+        return lit(c, face, hsh(x, y, seed + len(face)), 0.03)
+    return f
+
+
+def frill_front(coat, belly, dark, variant, seed, ox=0, oy=0, fw=37, fh=31):
+    """The front of the frill (display colouring). The frill is three plates (a stepped arch); (ox, oy) place this plate's front face in
+    the whole frill (fw x fh px), so the pattern runs across the plates. Darker rim, warm light inside; A two soft ochre display spots
+    in the upper corners, B two rim bands, C a gradient from the light centre to the dark rim."""
+    inner = skin(coat, belly, dark, seed, belly_from=1.1)
+    warm = mix(belly, H('c8823c'), 0.55)
+
+    def f(face, x, y, w, h):
+        if face != 'front':
+            return inner(face, x, y, w, h)
+        gx, gy = x + ox, y + oy
+        cx, cy = (fw - 1) / 2.0, fh * 0.95
+        dx, dy = (gx - cx) / (fw / 2.0), (gy - cy) / (fh * 0.95)
+        r = math.sqrt(dx * dx + dy * dy)
+        c = mix(coat, belly, 0.3)
+        if variant == 'C':
+            c = mix(mix(coat, belly, 0.5), dark, min(1.0, max(0.0, (r - 0.35) / 0.65)) * 0.8)
+        else:
+            if r > 0.93:
+                c = mix(coat, dark, 0.75)
+            elif r > 0.82:
+                c = mix(coat, dark, 0.4)
+            if variant == 'B' and 0.62 < r <= 0.72:
+                c = mix(warm, coat, 0.2)
+            if variant == 'A':
+                for sx in (fw * 0.27, fw * 0.73):
+                    ex, ey = (gx - sx) / 3.4, (gy - fh * 0.36) / 4.2
+                    d = ex * ex + ey * ey
+                    if d <= 1.0:
+                        c = mix(warm, H('e8c890'), 0.3) if d < 0.4 else warm
+                    elif d <= 1.6:
+                        c = mix(c, warm, 0.35)
+        if hsh(gx // 2, gy // 2, seed + 7) > 0.8:
+            c = mix(c, dark, 0.12)
+        return lit(c, face, hsh(gx, gy, seed + len(face)), 0.03)
+    return f
+
+
+def frill_rim(coat, dark, seed):
+    """The back plates of the frill that peek out around the front: dark with light bony knobs (epoccipitals) every 3 px."""
+    def f(face, x, y, w, h):
+        c = mix(coat, dark, 0.7)
+        if face == 'front':
+            edge = min(x, w - 1 - x, y)
+            if edge == 0 and (x + y) % 3 == 0:
+                c = mix(HORN[0], dark, 0.3)
+        elif face == 'back':
+            c = mix(coat, dark, 0.3)
+        return lit(c, face, hsh(x, y, seed + len(face)), 0.03)
+    return f
+
+
+def triceratops_spec(coat, belly, dark, tier=0, name='triceratops', frill='A'):
+    """Triceratops, 1 px = 1/16 block at life size: about 8 m from beak to tail tip, 3.3 m at the arched back, the frill 2.3 m wide
+    (drawn at 75 %, as the T. rex). Quadruped with a barrel body: the back arches over the hips, a short neck under the frill, the
+    skull with a horn beak, a nose horn, two long brow horns and the frill as a stepped arch in two layers (the rim with bony knobs
+    peeks out behind the front plates). Saddle and armor (frill shield, three horn caps, chest plate) are always in the layout and
+    shown only when worn."""
+    body_p = skin(coat, belly, dark, 31)
+    hump_p = skin(coat, belly, dark, 32, belly_from=1.1)
+    neck_p = skin(coat, belly, dark, 33, belly_from=0.6)
+    skull_p = with_marks(skin(coat, belly, dark, 34, belly_from=0.75), {('right', 12, 6): H('2a2118'), ('left', 4, 6): H('2a2118'),
+                                                                       ('right', 12, 5): H('e8b020'), ('left', 4, 5): H('e8b020')})
+    snout_p = skin(coat, belly, dark, 35, belly_from=0.6)
+    beak_p = horned(BEAK, 36, tip_down=True)
+    horn_p = horned(HORN, 37)
+    leg_p = skin(coat, belly, dark, 38, belly_from=0.9)
+    foot_p = clawed(skin(coat, belly, dark, 39, belly_from=1.1), H('d8ccb0'))
+    tail_p = skin(coat, belly, dark, 40, belly_from=0.7)
+    fr_c = frill_front(coat, belly, dark, frill, 41, ox=6, oy=0)
+    fr_r = frill_front(coat, belly, dark, frill, 41, ox=30, oy=7)
+    fr_l = frill_front(coat, belly, dark, frill, 41, ox=0, oy=7)
+    rim_p = frill_rim(coat, dark, 42)
+    seat_p = solid(H('6a4024'), 0.06, 20)
+    pommel_p = solid(H('8a8f96'), 0.05, 21)
+    plate_p = plate(max(1, tier), 43)
+    parts = [
+        P('body', [B((-17, -16, -26), (34, 32, 52), body_p, share='body')], pose=(0, Y(34), 0)),
+        P('hump', [B((-14, -20, -8), (28, 4, 30), hump_p, share='hump'), B((-10, -22, 0), (20, 2, 16), hump_p, share='ridge')], parent='body'),
+        P('neck', [B((-10, -10, -10), (20, 18, 12), neck_p, share='neck')], pose=(0, -2, -22), rot=(0.25, 0, 0), parent='body'),
+        P('head', [B((-10, -10, -16), (20, 19, 17), skull_p, share='skull'), B((-7, -6, -27), (14, 14, 11), snout_p, share='snout'),
+                   B((-4.5, -2, -30), (9, 11, 3), beak_p, share='beak')], pose=(0, 0, -9), rot=(0.1, 0, 0), parent='neck'),
+        P('horn_nose', [B((-1.5, -6, -1.5), (3, 6, 3), horn_p, share='horn_nose')], pose=(0, -6, -22), rot=(0.3, 0, 0), parent='head'),
+        P('horn_right', [B((-2, -15, -2), (4, 15, 4), horn_p, share='horn'), B((-1, -21, -1), (2, 6, 2), horn_p, share='horn_tip')],
+          pose=(-5.5, -9, -10), rot=(0.6, 0, -0.14), parent='head'),
+        P('horn_left', [B((-2, -15, -2), (4, 15, 4), horn_p, share='horn'), B((-1, -21, -1), (2, 6, 2), horn_p, share='horn_tip')],
+          pose=(5.5, -9, -10), rot=(0.6, 0, 0.14), parent='head'),
+        P('frill', [B((-12.5, -31, -1), (25, 31, 2), fr_c, share='frill'), B((-18.5, -24, -1), (6, 22, 2), fr_l, share='frill_side'),
+                    B((12.5, -24, -1), (6, 22, 2), fr_r, share='frill_side_r'),
+                    B((-13.5, -32, 1), (27, 32, 2), rim_p, share='frill_rim'), B((-19.5, -25, 1), (39, 23, 2), rim_p, share='frill_rim_wide')],
+          pose=(0, -7, -2), rot=(-0.75, 0, 0), parent='head'),
+        P('tail1', [B((-8, -7, 0), (16, 14, 16), tail_p, share='tail1')], pose=(0, -6, 25), rot=(-0.3, 0, 0), parent='body'),
+        P('tail2', [B((-5.5, -5, 0), (11, 10, 14), tail_p, share='tail2')], pose=(0, 0, 15), rot=(-0.12, 0, 0), parent='tail1'),
+        P('tail3', [B((-3, -3, 0), (6, 6, 11), tail_p, share='tail3')], pose=(0, 0, 13), rot=(-0.08, 0, 0), parent='tail2'),
+        P('front_right_leg', [B((-5.5, 0, -5.5), (11, 14, 11), leg_p, share='front_upper')], pose=(-12, Y(26), -17)),
+        P('front_right_shin', [B((-4.5, 0, -4.5), (9, 12, 9), leg_p, share='front_shin'), B((-5.5, 10, -6.5), (11, 2, 12), foot_p, share='front_foot')],
+          pose=(0, 14, 0), parent='front_right_leg'),
+        P('front_left_leg', [B((-5.5, 0, -5.5), (11, 14, 11), leg_p, share='front_upper')], pose=(12, Y(26), -17)),
+        P('front_left_shin', [B((-4.5, 0, -4.5), (9, 12, 9), leg_p, share='front_shin'), B((-5.5, 10, -6.5), (11, 2, 12), foot_p, share='front_foot')],
+          pose=(0, 14, 0), parent='front_left_leg'),
+        P('back_right_leg', [B((-6, 0, -7), (12, 18, 14), leg_p, share='back_upper')], pose=(-13, Y(32), 16)),
+        P('back_right_shin', [B((-4.5, 0, -4.5), (9, 14, 9), leg_p, share='back_shin'), B((-5.5, 12, -6.5), (11, 2, 12), foot_p, share='back_foot')],
+          pose=(0, 18, 0), parent='back_right_leg'),
+        P('back_left_leg', [B((-6, 0, -7), (12, 18, 14), leg_p, share='back_upper')], pose=(13, Y(32), 16)),
+        P('back_left_shin', [B((-4.5, 0, -4.5), (9, 14, 9), leg_p, share='back_shin'), B((-5.5, 12, -6.5), (11, 2, 12), foot_p, share='back_foot')],
+          pose=(0, 18, 0), parent='back_left_leg'),
+        P('saddle', [B((-11, -19, -22), (22, 3, 14), seat_p, share='saddle_seat'), B((-3, -22, -24), (6, 3, 2), pommel_p, share='saddle_pommel')],
+          parent='body'),
+        P('armor_frill', [B((-11, -27, -2), (22, 24, 1), plate_p, share='armor_frill')], parent='frill'),
+        P('armor_horn_right', [B((-1.5, -21, -1.5), (3, 7, 3), plate_p, share='armor_cap')], parent='horn_right'),
+        P('armor_horn_left', [B((-1.5, -21, -1.5), (3, 7, 3), plate_p, share='armor_cap')], parent='horn_left'),
+        P('armor_horn_nose', [B((-2, -7, -2), (4, 4, 4), plate_p, share='armor_cap_nose')], parent='horn_nose'),
+        P('armor_chest', [B((-12, -10, -28), (24, 20, 2), plate_p, share='armor_chest')], parent='body'),
+    ]
+    return dict(name=name, w=256, parts=parts)
+
+
 # ---------------------------------------------------------------- the textures
 # Coat variants by rearing biome (DinoVariants.COATS, same names and order): earthy tones, dark back, light belly.
 COATS = {
@@ -204,8 +344,11 @@ PALETTES = {}
 for _coat, (_c, _b, _d) in COATS.items():
     for _tier in range(4):
         PALETTES[f'trex_{_coat}_{_tier}'] = trex_spec(_c, _b, _d, _tier)
-MODELS = {'trex': 'trex_olive_0'}
+        PALETTES[f'triceratops_{_coat}_{_tier}'] = triceratops_spec(_c, _b, _d, _tier, frill=FRILL_CHOSEN)
+MODELS = {'trex': 'trex_olive_0', 'triceratops': 'triceratops_olive_0'}
 TONES = 16
+# a-dinorest1: the Triceratops has more regions (horns, beak, frill pattern), so it keeps a few more tones (A8b soft ramps)
+EXTRA_TONES = {'trex': 0, 'triceratops': 6}
 
 
 def finish(img, tones):
@@ -222,13 +365,18 @@ def finish(img, tones):
     return out
 
 
-TEXTURES = {k: (lambda spec=v, tier=int(k.split('_')[2]): finish(render_model(spec)[0], TONES + (6 if tier else 0))) for k, v in PALETTES.items()}
+def tones_for(key):
+    model, _, tier = key.split('_')
+    return TONES + (6 if int(tier) else 0) + EXTRA_TONES[model]
+
+
+TEXTURES = {k: (lambda spec=v, key=k: finish(render_model(spec)[0], tones_for(key))) for k, v in PALETTES.items()}
 
 
 def out_name(key):
-    """textures/entity/trex/<coat>/<tier>.png for every coat and armor tier."""
-    _, coat, tier = key.split('_')
-    return f'trex/{coat}/{TIER_NAMES[int(tier)]}'
+    """textures/entity/<model>/<coat>/<tier>.png for every model, coat and armor tier."""
+    model, coat, tier = key.split('_')
+    return f'{model}/{coat}/{TIER_NAMES[int(tier)]}'
 
 
 # ---------------------------------------------------------------- packing + painting

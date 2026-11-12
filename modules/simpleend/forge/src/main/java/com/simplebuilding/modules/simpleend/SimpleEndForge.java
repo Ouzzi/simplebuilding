@@ -14,6 +14,7 @@ public final class SimpleEndForge {
         var bus = context.getModBusGroup();
         com.simplebuilding.modules.simpleend.forge.ModuleForgeTests.register(bus);
         SimpleEnd.init(FMLPaths.CONFIGDIR.get());
+        SimpleEnd.setSimpleBuilding(net.minecraftforge.fml.ModList.isLoaded(SimpleEnd.NIHILITH_OWNER)); // a-nihilplanks: Nihilit planks
         RegisterEvent.getBus(bus).addListener(event -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.BLOCK)) EndRegistry.blocks();

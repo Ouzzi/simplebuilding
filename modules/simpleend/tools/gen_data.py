@@ -146,6 +146,27 @@ def vanilla_tags(tags):
         dump(OUT / f'data/minecraft/tags/{kind}/{name}.json', {'values': out})
 
 
+# a-nihilplanks (owner 12.11.2026, docs/ai/PLAN-A-NIHILPLANKS-2026-11-12.md): the Nihilit planks of each End wood, registered only with
+# SimpleBuilding (Nihilit's owner; its recipes, load condition simpleend): tag entries optional, loot table with a load condition.
+SB_LOADED = [{'condition': 'fabric:all_mods_loaded', 'values': ['simplebuilding']}]
+SB_LOADED_NEO = [{'type': 'neoforge:mod_loaded', 'modid': 'simplebuilding'}]
+
+
+def nihil_entry(w):
+    return {'id': f'{NS}:nihilith_{w["name"]}_planks', 'required': False}
+
+
+def nihil_planks(loot):
+    """Blockstate, model (cube_all; the texture is built from the client jar, tools/textures/nihilplanks12_2026_11_12.py), item, loot."""
+    for w in WOODS:
+        n = f'nihilith_{w["name"]}_planks'
+        dump(OUT / f'assets/{NS}/blockstates/{n}.json', {'variants': {'': {'model': f'{NS}:block/{n}'}}})
+        dump(OUT / f'assets/{NS}/models/block/{n}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{n}'}})
+        dump(OUT / f'assets/{NS}/items/{n}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{n}'}})
+        table = json.loads(loot['oak_planks'].replace('minecraft:oak_planks', f'{NS}:{n}').replace('minecraft:blocks/oak_planks', f'{NS}:blocks/{n}'))
+        dump(OUT / f'data/{NS}/loot_table/blocks/{n}.json', {'fabric:load_conditions': SB_LOADED, 'neoforge:conditions': SB_LOADED_NEO, **table})
+
+
 def own_tags():
     for w in WOODS:
         n = w['name']
@@ -159,7 +180,8 @@ def own_tags():
     dump(OUT / f'data/{NS}/tags/block/bud_may_place_on.json', {'values': ground})
     dump(OUT / 'data/minecraft/tags/block/mineable/pickaxe.json', {'values': [f'{NS}:burrowed_end_stone']})
     dump(OUT / 'data/minecraft/tags/block/mineable/axe.json', {'values': [f'{NS}:{w["name"]}_{p}' for w in WOODS for p in ('sticks', 'bookshelf')]
-                                                                  + [f'{NS}:chiseled_{w["name"]}_bookshelf' for w in WOODS]})
+                                                                  + [f'{NS}:chiseled_{w["name"]}_bookshelf' for w in WOODS]
+                                                                  + [nihil_entry(w) for w in WOODS]})
     # DW04C-3: the End bookshelves give enchanting power like Vanilla's (the chiseled ones, like Vanilla's, do not).
     dump(OUT / 'data/minecraft/tags/block/enchantment_power_provider.json', {'values': [f'{NS}:{w["name"]}_bookshelf' for w in WOODS]})
     dump(OUT / 'data/minecraft/tags/block/replaceable_by_trees.json', {'values': [f'{NS}:end_grass', f'{NS}:end_bush']})
@@ -169,6 +191,7 @@ def own_tags():
     for w in WOODS:
         safe += [f'#{NS}:{w["name"]}_logs'] + [f'{NS}:{w["name"]}_{p}' for p in PARTS if p not in ('log', 'wood', 'stripped_log', 'stripped_wood')] + [f'{NS}:{w["bud"]}']
     safe += [f'{NS}:{w["name"]}_bookshelf' for w in WOODS] + [f'{NS}:chiseled_{w["name"]}_bookshelf' for w in WOODS]
+    safe += [nihil_entry(w) for w in WOODS]
     safe += [f'{NS}:end_grass', f'{NS}:end_bush', f'{NS}:drift_fruit', f'{NS}:spoiled_drift_fruit']
     dump(OUT / f'data/{NS}/tags/item/void_safe.json', {'values': safe})
     for biome_tag in ('is_end', 'has_structure/end_city'):
@@ -273,10 +296,11 @@ def bookshelves(jar):
         dump(OUT / f'data/{NS}/recipe/{n}_bookshelf.json', {
             'fabric:load_conditions': alone, 'neoforge:conditions': neo, 'type': 'minecraft:crafting_shaped', 'category': 'building',
             'key': {'K': 'minecraft:book', 'S': f'{NS}:{n}_slab'}, 'pattern': ['SSS', 'KKK', 'SSS'], 'result': {'id': f'{NS}:{n}_bookshelf'}})
+        # a-nihilplanks: with SimpleBuilding the chiseled shelf is made of the Nihilit planks (SimpleBuilding's recipe, same id path).
         dump(OUT / f'data/{NS}/recipe/{chis}.json', {
-            'type': 'minecraft:crafting_shaped', 'category': 'building',
+            'fabric:load_conditions': alone, 'neoforge:conditions': neo, 'type': 'minecraft:crafting_shaped', 'category': 'building',
             'key': {'P': f'{NS}:{n}_planks', 'S': f'{NS}:{n}_slab'}, 'pattern': ['SSS', 'PPP', 'SSS'], 'result': {'id': f'{NS}:{chis}'}})
-        for rid, crit, cond in ((f'{n}_bookshelf', f'{NS}:{n}_slab', alone), (chis, f'{NS}:{n}_planks', None)):
+        for rid, crit, cond in ((f'{n}_bookshelf', f'{NS}:{n}_slab', alone), (chis, f'{NS}:{n}_planks', alone)):
             adv = {'parent': 'minecraft:recipes/root',
                    'criteria': {'has_the_recipe': {'conditions': {'recipes': f'{NS}:{rid}'}, 'trigger': 'minecraft:recipe_unlocked'},
                                 'has_wood': {'conditions': {'items': [{'items': crit}]}, 'trigger': 'minecraft:inventory_changed'}},
@@ -453,6 +477,8 @@ def lang():
         de[f'block.{NS}.{w["name"]}_bookshelf'] = w['de'] + 'holz-Bücherregal'
         en[f'block.{NS}.chiseled_{w["name"]}_bookshelf'] = f'Chiseled {w["en"]} Bookshelf'
         de[f'block.{NS}.chiseled_{w["name"]}_bookshelf'] = f'Gemeißeltes {w["de"]}holz-Bücherregal'
+        en[f'block.{NS}.nihilith_{w["name"]}_planks'] = f'Nihilit {w["en"]} Planks'
+        de[f'block.{NS}.nihilith_{w["name"]}_planks'] = f'Nihilit-{w["de"]}holzbretter'
         en[f'block.{NS}.{w["bud"]}'] = w['bud_en']
         de[f'block.{NS}.{w["bud"]}'] = w['bud_de']
         en[f'block.{NS}.potted_{w["bud"]}'] = f'Potted {w["bud_en"]}'
@@ -496,6 +522,7 @@ def main(argv=None):
     n, loot, tags = templates(args.jar)
     voxel_door_tops(args.jar)
     bookshelves(args.jar)
+    nihil_planks(loot)
     vanilla_tags(tags)
     own_tags()
     plants(loot)

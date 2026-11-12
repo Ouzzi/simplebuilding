@@ -10,6 +10,7 @@ public final class DinosClient {
     /** Model layers: {@code sink.accept(location, definition supplier)}. */
     public static void modelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> sink) {
         sink.accept(TrexModel.LAYER, TrexModel::createBodyLayer);
+        sink.accept(TriceratopsModel.LAYER, TriceratopsModel::createBodyLayer);
     }
 
     private DinosClient() {}

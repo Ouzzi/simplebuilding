@@ -13,6 +13,15 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class SimpleEndFabric implements ModInitializer {
     @Override public void onInitialize() {
         SimpleEnd.init(FabricLoader.getInstance().getConfigDir());
+        // a-nihilplanks (owner 12.11.): the Nihilit planks of each End wood are Simple End's, only with SimpleBuilding (Nihilit's owner);
+        // their old SimpleBuilding ids (a-end07) move here (SimpleLib IdMoves, Fabric: the NeoForge/Forge builds have no SimpleLib).
+        SimpleEnd.setSimpleBuilding(FabricLoader.getInstance().isModLoaded(SimpleEnd.NIHILITH_OWNER));
+        for (EndWood w : EndWood.ALL) {
+            String path = w.id("nihilith_W_planks");
+            for (var registry : java.util.List.of(Registries.BLOCK, Registries.ITEM)) {
+                com.simplelib.api.IdMoves.move(registry, net.minecraft.resources.Identifier.fromNamespaceAndPath(SimpleEnd.NIHILITH_OWNER, path), SimpleEnd.id(path));
+            }
+        }
         // CMD24: /simpleend config for every option.
         // a-audsb31e2: after every saved change the nested Dragon Fight switch follows (it was only set at the server start before)
         com.simplelib.api.config.ConfigCommands.server(SimpleEnd.ID).json(SimpleEndConfig::toJson, SimpleEndConfig::apply).file(FabricLoader.getInstance().getConfigDir(), SimpleEndConfig.FILE)

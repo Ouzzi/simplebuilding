@@ -18,6 +18,7 @@
           "Recipes are the Vanilla wood recipes (logs to 4 planks, planks to stairs, slabs, doors ...; hanging signs from stripped logs and iron chains).",
           "Leaves are tinted with the dry-foliage color of the biome: grey-brown in Ash Valley and Dawnlands, the Vanilla dry-leaf tone elsewhere.",
           "The shelf is Vanilla's shelf in End wood (six from six stripped logs): it holds three items, and linked shelves swap them with the hotbar when powered.",
+          "(with SimpleBuilding) Nihilit Ashwood and Duskwood Planks: the planks with Nihilit in their board gaps (4 Nihilit Shards in a plus around 1 plank give 2), the material of the End bookshelves and chiseled bookshelves - like blazewood for the Nether woods. They stand in this tab right before the bookshelves.",
           "(with SimpleBuilding) Both woods also get SimpleBuilding's woodwork - hollow logs, sheets, wooden cauldrons and carved log - plus wood and log octets and tiered chest boats. (with Simple Storage) A crate of each wood. (with Simple Sandwiches) A cutting board of each wood. Without those mods none of these blocks exists."
         ]
       },
@@ -30,6 +31,7 @@
           "Rezepte sind die Vanilla-Holzrezepte (Stamm zu 4 Brettern, Bretter zu Treppen, Stufen, Türen …; Hängeschilder aus entrindeten Stämmen und Eisenketten).",
           "Laub wird mit der Trockenlaub-Farbe des Bioms gefärbt: grau-braun in Aschental und Dämmerlande, sonst im Vanilla-Trockenlaub-Ton.",
           "Das Regal ist das Vanilla-Regal aus End-Holz (sechs aus sechs entrindeten Stämmen): es hält drei Gegenstände, verbundene Regale tauschen sie mit Redstone-Signal gegen die Schnellleiste.",
+          "(mit SimpleBuilding) Nihilit-Aschholz- und -Dämmerholzbretter: die Bretter mit Nihilit in den Fugen (4 Nihilitsplitter im Plus um 1 Brett ergeben 2), Zutat der End-Bücherregale und gemeißelten Regale - wie Lohenholz für die Nether-Hölzer. Sie stehen in diesem Tab direkt vor den Regalen.",
           "(mit SimpleBuilding) Beide Hölzer bekommen auch SimpleBuildings Holzwerk – ausgehöhlte Stämme, Platten, Holzkessel und geschnitzten Stamm – dazu Holz- und Stamm-Achtel und gestufte Kistenboote. (mit Simple Storage) Eine Kiste je Holz. (mit Simple Sandwiches) Ein Schneidebrett je Holz. Ohne diese Mods gibt es keinen dieser Blöcke."
         ]
       }
@@ -689,10 +691,10 @@
     },
     "simpleend:chiseled_ashwood_bookshelf": {
       "en": {
-        "summary": "Chiseled Ashwood Bookshelf: six book slots like Vanilla's (also Blaze and Nihilit Books), comparator = last slot used; 6 ashwood slabs around 3 planks (Simple End)."
+        "summary": "Chiseled Ashwood Bookshelf: six book slots like Vanilla's (also Blaze and Nihilit Books), comparator = last slot used; 6 ashwood slabs around 3 planks (with SimpleBuilding: 6 Nihilit Ashwood Planks around 3 ashwood slabs, like chiseled blazewood) (Simple End)."
       },
       "de": {
-        "summary": "Gemeißeltes Aschholz-Bücherregal: sechs Buchfächer wie Vanilla (auch Lohen- und Nihilit-Bücher), Komparator = zuletzt benutztes Fach; 6 Aschholzstufen um 3 Bretter (Simple End)."
+        "summary": "Gemeißeltes Aschholz-Bücherregal: sechs Buchfächer wie Vanilla (auch Lohen- und Nihilit-Bücher), Komparator = zuletzt benutztes Fach; 6 Aschholzstufen um 3 Bretter (mit SimpleBuilding: 6 Nihilit-Aschholzbretter um 3 Aschholzstufen, wie gemeißeltes Lohenholz) (Simple End)."
       }
     },
     "simpleend:duskwood_bookshelf": {
@@ -705,10 +707,26 @@
     },
     "simpleend:chiseled_duskwood_bookshelf": {
       "en": {
-        "summary": "Chiseled Duskwood Bookshelf: six book slots like Vanilla's (also Blaze and Nihilit Books), comparator = last slot used; 6 duskwood slabs around 3 planks (Simple End)."
+        "summary": "Chiseled Duskwood Bookshelf: six book slots like Vanilla's (also Blaze and Nihilit Books), comparator = last slot used; 6 duskwood slabs around 3 planks (with SimpleBuilding: 6 Nihilit Duskwood Planks around 3 duskwood slabs, like chiseled blazewood) (Simple End)."
       },
       "de": {
-        "summary": "Gemeißeltes Dämmerholz-Bücherregal: sechs Buchfächer wie Vanilla (auch Lohen- und Nihilit-Bücher), Komparator = zuletzt benutztes Fach; 6 Dämmerholzstufen um 3 Bretter (Simple End)."
+        "summary": "Gemeißeltes Dämmerholz-Bücherregal: sechs Buchfächer wie Vanilla (auch Lohen- und Nihilit-Bücher), Komparator = zuletzt benutztes Fach; 6 Dämmerholzstufen um 3 Bretter (mit SimpleBuilding: 6 Nihilit-Dämmerholzbretter um 3 Dämmerholzstufen, wie gemeißeltes Lohenholz) (Simple End)."
+      }
+    },
+    "simpleend:nihilith_ashwood_planks": {
+      "en": {
+        "summary": "Nihilit Ashwood Planks (with SimpleBuilding): ashwood planks with Nihilit in their board gaps, which breathe softly like the ember grain of blazewood. 4 Nihilit Shards in a plus around 1 Ashwood Planks give 2. Material of the ashwood bookshelves: 6 of them and 3 Nihilit Books make the Ashwood Bookshelf, 6 of them around 3 ashwood slabs the Chiseled Ashwood Bookshelf. Without SimpleBuilding (the owner of Nihilit) the block does not exist."
+      },
+      "de": {
+        "summary": "Nihilit-Aschholzbretter (mit SimpleBuilding): Aschholzbretter mit Nihilit in den Fugen, die sanft atmen wie die Glut im Lohenholz. 4 Nihilitsplitter im Plus um 1 Aschholzbrett ergeben 2. Zutat der Aschholz-Regale: 6 davon und 3 Nihilit-Bücher ergeben das Aschholz-Bücherregal, 6 davon um 3 Aschholzstufen das gemeißelte Aschholz-Bücherregal. Ohne SimpleBuilding (dem das Nihilit gehört) gibt es den Block nicht."
+      }
+    },
+    "simpleend:nihilith_duskwood_planks": {
+      "en": {
+        "summary": "Nihilit Duskwood Planks (with SimpleBuilding): duskwood planks with Nihilit in their board gaps, which breathe softly like the ember grain of blazewood. 4 Nihilit Shards in a plus around 1 Duskwood Planks give 2. Material of the duskwood bookshelves: 6 of them and 3 Nihilit Books make the Duskwood Bookshelf, 6 of them around 3 duskwood slabs the Chiseled Duskwood Bookshelf. Without SimpleBuilding (the owner of Nihilit) the block does not exist."
+      },
+      "de": {
+        "summary": "Nihilit-Dämmerholzbretter (mit SimpleBuilding): Dämmerholzbretter mit Nihilit in den Fugen, die sanft atmen wie die Glut im Lohenholz. 4 Nihilitsplitter im Plus um 1 Dämmerholzbrett ergeben 2. Zutat der Dämmerholz-Regale: 6 davon und 3 Nihilit-Bücher ergeben das Dämmerholz-Bücherregal, 6 davon um 3 Dämmerholzstufen das gemeißelte Dämmerholz-Bücherregal. Ohne SimpleBuilding (dem das Nihilit gehört) gibt es den Block nicht."
       }
     },
     "simpleend:end_painting": {

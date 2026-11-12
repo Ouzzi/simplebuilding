@@ -10,17 +10,21 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simpledinos'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/DinosConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert config_keys == ['enabled', 'brushSeconds', 'incubateSeconds', 'hatchSeconds', 'hatchWaitsForOwner', 'growMinutes', 'trexBiteDamage'], config_keys
+assert config_keys == ['enabled', 'brushSeconds', 'incubateSeconds', 'hatchSeconds', 'hatchWaitsForOwner', 'growMinutes', 'trexBiteDamage',
+                       'triceratopsShake', 'shakeShare', 'shakeAppleChance', 'shakeTreeCooldownSeconds', 'ramCooldownSeconds'], config_keys
 KINDS = ('trex', 'triceratops', 'stegosaurus', 'utahraptor', 'parasaurolophus')
 EGGS = tuple(f'{k}_egg' for k in KINDS)
 ARMORS = ('trex_armor_leather', 'trex_armor_iron', 'trex_armor_diamond')
+TRI_ARMORS = ('triceratops_armor_leather', 'triceratops_armor_iron', 'triceratops_armor_diamond')  # a-dinorest1
+SHELLS = tuple(f'{k}_eggshell' for k in KINDS if k != 'trex')
+ENTITIES = ('trex', 'triceratops')
 BLOCKS = ('fossil_block',) + EGGS
-ITEMS = BLOCKS + ('large_saddle',) + ARMORS + ('guide_book',)
+ITEMS = BLOCKS + ('large_saddle',) + ARMORS + TRI_ARMORS + SHELLS + ('guide_book',)
 langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
-    for k in ([f'entity.{NS}.trex'] + [f'block.{NS}.{b}' for b in BLOCKS] + [f'item.{NS}.{i}' for i in ITEMS if i not in BLOCKS]
+    for k in ([f'entity.{NS}.{e}' for e in ENTITIES] + [f'block.{NS}.{b}' for b in BLOCKS] + [f'item.{NS}.{i}' for i in ITEMS if i not in BLOCKS]
               + [f'{NS}.testcentre.station', f'{NS}.egg.brooded', f'{NS}.egg.occupied']):
         assert data.get(k), (locale, k)
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
@@ -32,11 +36,22 @@ for b in BLOCKS:
 fossil = json.dumps(json.loads((RES / f'data/{NS}/loot_table/blocks/fossil_block.json').read_text(encoding='utf-8')))
 assert 'minecraft:tool/can_silk_touch' in fossil and 'minecraft:bone' in fossil
 # Recipes with their unlocking advancement.
-for r in ('large_saddle',) + ARMORS:
+for r in ('large_saddle',) + ARMORS + TRI_ARMORS:
     recipe = json.loads((RES / f'data/{NS}/recipe/{r}.json').read_text(encoding='utf-8'))
     assert recipe['result']['id'] == f'{NS}:{r}', r
     assert (RES / f'data/{NS}/advancement/recipes/equipment/{r}.json').is_file(), r
 assert json.loads((RES / f'data/{NS}/recipe/trex_armor_iron.json').read_text(encoding='utf-8'))['key']['B'] == 'minecraft:bone_block'
+# each dinosaur its own armor: the Triceratops armor has its eggshell in the middle (concept DINO36 6)
+for r in TRI_ARMORS:
+    assert json.loads((RES / f'data/{NS}/recipe/{r}.json').read_text(encoding='utf-8'))['key']['S'] == f'{NS}:triceratops_eggshell', r
+for s in SHELLS:
+    recipe = json.loads((RES / f'data/{NS}/recipe/bone_meal_from_{s}.json').read_text(encoding='utf-8'))
+    assert recipe['ingredients'] == [f'{NS}:{s}'] and recipe['result'] == {'id': 'minecraft:bone_meal', 'count': 3}, s
+    assert (RES / f'data/{NS}/advancement/recipes/misc/bone_meal_from_{s}.json').is_file(), s
+# Triceratops: food tag, windfall leaves and loot table
+assert json.loads((RES / f'data/{NS}/tags/item/triceratops_food.json').read_text(encoding='utf-8'))['values'][0] == 'minecraft:apple'
+assert set(json.loads((RES / f'data/{NS}/tags/block/windfall_leaves.json').read_text(encoding='utf-8'))['values']) == {'minecraft:oak_leaves', 'minecraft:dark_oak_leaves'}
+assert json.loads((RES / f'data/{NS}/loot_table/shake/windfall.json').read_text(encoding='utf-8'))['type'] == 'minecraft:chest'
 # World generation: configured + placed feature, biome tag, NeoForge modifier; Fabric reads the tag.
 for p in ('worldgen/feature', 'worldgen/placed_feature'):
     assert (RES / f'data/{NS}/{p}/fossil_block.json').is_file(), p
@@ -44,8 +59,10 @@ assert (RES / f'data/{NS}/tags/worldgen/biome/has_fossil_block.json').is_file()
 mod = json.loads((RES / f'data/{NS}/neoforge/biome_modifier/fossil_block.json').read_text(encoding='utf-8'))
 assert mod['features'] == f'{NS}:fossil_block' and mod['step'] == 'underground_ores' and mod['biomes'] == f'#{NS}:has_fossil_block'
 # Entity type tags: who may wear the large saddle and the armor.
-for t in ('can_equip_large_saddle', 'can_wear_dino_armor'):
-    assert json.loads((RES / f'data/{NS}/tags/entity_type/{t}.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:trex'], t
+def tag_values(t):
+    return json.loads((RES / f'data/{NS}/tags/entity_type/{t}.json').read_text(encoding='utf-8'))['values']
+assert tag_values('can_equip_large_saddle') == [f'{NS}:{e}' for e in ENTITIES]
+assert tag_values('can_wear_dino_armor') == [f'{NS}:trex'] and tag_values('can_wear_triceratops_armor') == [f'{NS}:triceratops']
 # The pickaxe mines the fossil block.
 assert f'{NS}:fossil_block' in json.loads((RES / 'data/minecraft/tags/block/mineable/pickaxe.json').read_text(encoding='utf-8'))['values']
 # Textures: fossil stages, egg bases and overlays, entity textures per armor tier, items; and the matching models/blockstates.
@@ -59,10 +76,11 @@ for k in KINDS:
         assert (RES / f'assets/{NS}/models/block/{k}_egg_{p}.json').is_file(), (k, p)
 for p in range(15):
     assert (tex / f'block/egg_overlay_{p}.png').is_file(), p
-for c in ('olive', 'sand', 'rust', 'moss', 'ash'):
-    for t in ('plain', 'leather', 'iron', 'diamond'):
-        assert (tex / f'entity/trex/{c}/{t}.png').is_file(), (c, t)
-for i in ('large_saddle',) + ARMORS + ('guide_book',):
+for e in ENTITIES:
+    for c in ('olive', 'sand', 'rust', 'moss', 'ash'):
+        for t in ('plain', 'leather', 'iron', 'diamond'):
+            assert (tex / f'entity/{e}/{c}/{t}.png').is_file(), (e, c, t)
+for i in ('large_saddle',) + ARMORS + TRI_ARMORS + SHELLS + ('guide_book',):
     assert (tex / f'item/{i}.png').is_file(), i
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
 # Generated files are current (models, blocks).

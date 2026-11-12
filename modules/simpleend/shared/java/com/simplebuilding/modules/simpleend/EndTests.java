@@ -96,9 +96,10 @@ public final class EndTests {
     static {
         add("guide_book", com.simplebuilding.modules.simpleend.guide.EndGuide::gameTest);
         add("registered", h -> {
+            int nihil = SimpleEnd.simpleBuilding() ? 1 : 0;   // a-nihilplanks: the Nihilit planks, only with SimpleBuilding
             for (EndWood w : EndWood.ALL) {
-                h.assertTrue(w.blockIds.size() == 24, w.name + ": 24 blocks, got " + w.blockIds.size());
-                h.assertTrue(w.itemIds.size() == 23, w.name + ": 23 items, got " + w.itemIds.size());
+                h.assertTrue(w.blockIds.size() == 24 + nihil, w.name + ": " + (24 + nihil) + " blocks, got " + w.blockIds.size());
+                h.assertTrue(w.itemIds.size() == 23 + nihil, w.name + ": " + (23 + nihil) + " items, got " + w.itemIds.size());
                 h.assertTrue(BlockEntityTypes.SHELF.isValid(w.shelf.defaultBlockState()), w.name + " shelf block entity");
                 h.assertTrue(BlockEntityTypes.CHISELED_BOOKSHELF.isValid(w.chiseledBookshelf.defaultBlockState()), w.name + " chiseled bookshelf block entity");
                 h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleEnd.id(w.id("W_boat"))), w.name + " boat entity");
@@ -125,6 +126,12 @@ public final class EndTests {
                 for (String r : new String[] {"W_planks", "W_wood", "stripped_W_wood", "W_stairs", "W_slab", "W_fence", "W_fence_gate", "W_door",
                         "W_trapdoor", "W_button", "W_pressure_plate", "W_sign", "W_hanging_sign", "W_shelf", "W_bookshelf", "chiseled_W_bookshelf", "W_boat", "W_chest_boat"}) {
                     ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> key = ResourceKey.create(Registries.RECIPE, SimpleEnd.id(w.id(r)));
+                    if (r.equals("chiseled_W_bookshelf") && loaded("simplebuilding")) {
+                        // a-nihilplanks: with SimpleBuilding the chiseled End bookshelf is made of the Nihilit planks too (SimpleBuilding's
+                        // recipe, same id path; checked in nihilith_planks), Simple End's own one is off.
+                        h.assertTrue(recipes.byKey(key).isEmpty(), w.name + ": Simple End's plain chiseled bookshelf recipe is off with SimpleBuilding");
+                        key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", w.id(r)));
+                    }
                     if (r.equals("W_bookshelf") && loaded("simplebuilding")) {
                         // DW04C-3: with SimpleBuilding the End bookshelf is made of Nihilit Books (SimpleBuilding's recipe, same id path).
                         key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", w.id(r)));
@@ -132,7 +139,7 @@ public final class EndTests {
                         // not the plain planks. Read by id, no SimpleBuilding class.
                         var sbItem = (java.util.function.Function<String, net.minecraft.world.item.Item>) path ->
                                 BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", path));
-                        var nihilPlanks = sbItem.apply("nihilith_" + w.id("W_planks"));
+                        var nihilPlanks = w.nihilPlanks.asItem();   // a-nihilplanks: Simple End's since 12.11.
                         var shard = new ItemStack(sbItem.apply("nihilith_shard"));
                         var shelf = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(key).orElseThrow().value();
                         var book = new ItemStack(sbItem.apply("nihilith_book"));
@@ -151,6 +158,43 @@ public final class EndTests {
                     }
                     h.assertTrue(recipes.byKey(key).isPresent(), "recipe " + key.identifier());
                 }
+            }
+            h.succeed();
+        });
+        // a-nihilplanks (owner 12.11.: "bei Simple End fehlt ... die Ashwood- und Duskwood-Planks mit dem Nihilit"): the Nihilit planks
+        // are Simple End's blocks, only with SimpleBuilding (Nihilit's owner): in the tab right before the bookshelves they make, mined
+        // with the axe, burning like End planks; the chiseled End bookshelf is made of them like chiseled blazewood. Alone: none of it.
+        add("nihilith_planks", h -> {
+            var recipes = h.getLevel().recipeAccess();
+            boolean sb = SimpleEnd.simpleBuilding();
+            h.assertTrue(sb == loaded("simplebuilding"), "the SimpleBuilding switch follows the loader");
+            FireBlockInvoker fire = (FireBlockInvoker) Blocks.FIRE;
+            java.util.List<net.minecraft.world.item.Item> tab = EndRegistry.tabStacks().stream().map(ItemStack::getItem).toList();
+            for (EndWood w : EndWood.ALL) {
+                var id = SimpleEnd.id(w.id("nihilith_W_planks"));
+                h.assertTrue(BuiltInRegistries.BLOCK.containsKey(id) == sb && BuiltInRegistries.ITEM.containsKey(id) == sb, id + " registered only with SimpleBuilding");
+                h.assertTrue((w.nihilPlanks != null) == sb, w.name + ": field nihilPlanks only with SimpleBuilding");
+                var chiseledOwn = ResourceKey.create(Registries.RECIPE, SimpleEnd.id(w.id("chiseled_W_bookshelf")));
+                h.assertTrue(recipes.byKey(chiseledOwn).isPresent() == !sb, "Simple End's chiseled " + w.name + " bookshelf recipe only without SimpleBuilding");
+                if (!sb) continue;
+                BlockState state = w.nihilPlanks.defaultBlockState();
+                h.assertTrue(state.is(BlockTags.MINEABLE_WITH_AXE) && fire.simpleend$canBurn(state), id + " is mined with the axe and burns");
+                h.assertTrue(new ItemStack(w.nihilPlanks).is(EndRegistry.VOID_SAFE), id + " is void-safe like the End wood");
+                int at = tab.indexOf(w.nihilPlanks.asItem());
+                h.assertTrue(at >= 0 && tab.get(at + 1) == w.bookshelf.asItem() && tab.get(at + 2) == w.chiseledBookshelf.asItem(),
+                        id + " stands in the Simple End tab right before the " + w.name + " bookshelves");
+                var lootKey = ResourceKey.create(Registries.LOOT_TABLE, SimpleEnd.id("blocks/" + w.id("nihilith_W_planks")));
+                h.assertTrue(w.nihilPlanks.getLootTable().equals(java.util.Optional.of(lootKey))
+                        && h.getLevel().getServer().reloadableRegistries().getLootTable(lootKey) != net.minecraft.world.level.storage.loot.LootTable.EMPTY,
+                        id + " drops itself");
+                var slab = new ItemStack(w.slab);
+                var planks = new ItemStack(w.nihilPlanks);
+                var grid = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, java.util.List.of(planks.copy(), planks.copy(), planks.copy(),
+                        slab.copy(), slab.copy(), slab.copy(), planks.copy(), planks.copy(), planks.copy()));
+                var chiseled = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE,
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", w.id("chiseled_W_bookshelf")))).orElseThrow().value();
+                h.assertTrue(chiseled.matches(grid, h.getLevel()) && chiseled.assemble(grid).is(w.chiseledBookshelf.asItem()),
+                        w.name + ": 6 Nihilit planks around 3 slabs give the chiseled bookshelf");
             }
             h.succeed();
         });

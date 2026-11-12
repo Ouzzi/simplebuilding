@@ -1540,6 +1540,8 @@ modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/r
 modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/reinforced_cauldron_top.png
 modules/simpleend/shared/resources/assets/simpleend/textures/block/ashwood_planks.png
 modules/simpleend/shared/resources/assets/simpleend/textures/block/duskwood_planks.png
+modules/simpleend/shared/resources/assets/simpleend/textures/block/nihilith_ashwood_planks.png
+modules/simpleend/shared/resources/assets/simpleend/textures/block/nihilith_duskwood_planks.png
 modules/simplelib/shared/resources/assets/simplelib/textures/item/basic_upgrade_template.png
 modules/simplemachines/shared/resources/assets/simplemachines/textures/block/enderite_hopper_inside.png
 modules/simplemachines/shared/resources/assets/simplemachines/textures/block/enderite_hopper_outside.png
@@ -1870,6 +1872,12 @@ wiki/assets/textures/simplearrows/item/light_arrow.png
 wiki/assets/textures/simplearrows/item/silver_arrow.png
 wiki/assets/textures/simpleend/block/ashwood_planks.png
 wiki/assets/textures/simpleend/block/duskwood_planks.png
+wiki/assets/textures/simpleend/block/nihilith_ashwood_planks.png
+wiki/assets/textures/simpleend/block/nihilith_duskwood_planks.png
+wiki/assets/textures/sheets/simplebuilding/simpleend/block/nihilith_ashwood_planks.png
+wiki/assets/textures/sheets/simpleend/simpleend/block/nihilith_ashwood_planks.png
+wiki/assets/textures/sheets/simplebuilding/simpleend/block/nihilith_duskwood_planks.png
+wiki/assets/textures/sheets/simpleend/simpleend/block/nihilith_duskwood_planks.png
 wiki/assets/textures/simplelib/item/basic_upgrade_template.png
 wiki/assets/textures/simplemachines/block/enderite_piston_head.png
 wiki/assets/textures/simplemachines/block/netherite_piston_head.png

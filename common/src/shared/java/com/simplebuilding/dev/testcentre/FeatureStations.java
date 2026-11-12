@@ -847,7 +847,9 @@ public final class FeatureStations {
                 new ItemStack(Items.BLAZE_POWDER, 64), new ItemStack(Items.CRIMSON_PLANKS, 16), new ItemStack(Items.WARPED_PLANKS, 16),
                 new ItemStack(Items.PAPER, 16), new ItemStack(Items.CRYING_OBSIDIAN, 8), new ItemStack(ModItems.CRIMSON_BLAZEWOOD_PLANKS, 8),
                 new ItemStack(ModItems.WARPED_BLAZEWOOD_PLANKS, 8), new ItemStack(ModItems.BLAZE_BOOK, 6),
-                new ItemStack(ModItems.NIHILITH_ASHWOOD_PLANKS, 8), new ItemStack(ModItems.NIHILITH_DUSKWOOD_PLANKS, 8),
+                // a-nihilplanks: the Nihilit End planks are Simple End's (by id; empty without it).
+                new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.parse("simpleend:nihilith_ashwood_planks")), 8),
+                new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.parse("simpleend:nihilith_duskwood_planks")), 8),
                 new ItemStack(ModItems.NIHILITH_BOOK, 6), new ItemStack(ModItems.NIHILITH_SHARD, 16),
                 new ItemStack(ModItems.DARK_ENCHANTER), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.BOOK, 4),
                 new ItemStack(Items.EXPERIENCE_BOTTLE, 64), new ItemStack(Items.GOLDEN_APPLE, 2)));
@@ -1016,6 +1018,9 @@ public final class FeatureStations {
             c.place(17, 0, z, endBlock(w + "_planks"));
             Block shelf = endBlock(w + "_shelf");
             if (shelf != null) c.place(18, 0, z, shelf);
+            // a-nihilplanks: the Nihilit planks (Simple End, only with SimpleBuilding) next to the plain ones.
+            Block nihil = endBlock("nihilith_" + w + "_planks");
+            if (nihil != Blocks.AIR) c.place(19, 0, z, nihil);
             Block bud = endBlock(woods[row][1]);
             int bx = 2 + row * 10;
             // Licht: eine Knospe neben Leuchtstein waechst von selbst/mit Knochenmehl zum grossen Baum.
