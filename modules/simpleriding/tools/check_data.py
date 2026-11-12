@@ -105,9 +105,19 @@ def check():
         recipe = read(recipes / f'{tier}_horseshoe_smithing.json')
         assert recipe['type'] == 'minecraft:smithing_transform' and recipe['template'] == template
         assert recipe['base'] == base and recipe['addition'] == addition and recipe['result']['id'] == f'simpleriding:{tier}_horseshoe'
+    # AUDSB31E1 F17: the Enderite horseshoe is always registered; its recipe takes the item tag and loads only while the tag has content (no mod name).
     enderite = read(recipes / 'enderite_horseshoe_smithing.json')
-    assert enderite['fabric:load_conditions'][0]['values'] == ['simplebuilding'] and enderite['neoforge:conditions'][0]['modid'] == 'simplebuilding'
-    assert enderite['forge:conditions'] == [{'type': 'forge:mod_loaded', 'modid': 'simplebuilding'}]
+    assert enderite['addition'] == '#c:ingots/enderite'
+    assert enderite['fabric:load_conditions'] == [{'condition': 'fabric:tags_populated', 'registry': 'minecraft:item', 'values': ['c:ingots/enderite']}]
+    assert enderite['neoforge:conditions'] == [{'type': 'neoforge:not', 'value': {'type': 'neoforge:tag_empty', 'tag': 'c:ingots/enderite'}}]
+    assert enderite['forge:conditions'] == [{'type': 'forge:not', 'value': {'type': 'forge:tag_empty', 'tag': 'c:ingots/enderite'}}]
+    assert 'simplebuilding' not in json.dumps(enderite), 'the Enderite recipe must not depend on a mod name'
+    advancement = read(MODULE / 'shared/resources/data/simpleriding/advancement/recipes/misc/enderite_horseshoe_smithing.json')
+    for key in ('fabric:load_conditions', 'neoforge:conditions', 'forge:conditions'):
+        assert advancement[key] == enderite[key], f'advancement and recipe share the {key}'
+    assert 'simpleriding:enderite_horseshoe' in read(resources / 'simpleriding/tags/item/horseshoes.json')['values'], 'always-registered Enderite horseshoe is a plain tag entry'
+    registry_java = (MODULE / 'shared/java/com/simpleriding/Horseshoes.java').read_text(encoding='utf-8')
+    assert 'ENDERITE&&!' not in registry_java.replace(' ', ''), 'no tier is skipped at registration'
     assert read(resources / 'simpleriding/tags/item/repairs_enderite_horseshoe.json')['values'] == [
         {'id': '#c:ingots/enderite', 'required': False}]
     # The ingot is Simple Ores' on 26.3 (IG31-13; before SimpleLib's, split stage 3d); it publishes the common tag.

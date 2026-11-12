@@ -54,6 +54,11 @@ Umfang: 44 Java-Dateien / 2,0k Zeilen (shared + fabric, ohne Tests; Tests zusaet
 - C: lassen (nur mit SimpleBuilding), im Handbuch sagen.
 - Empfehlung: **A** - jedes Modul bleibt allein spielbar, ohne Enderit-Quelle ist das Item schlicht nicht herstellbar; Achtung: Welten mit SimpleBuilding behalten dieselbe id.
 
+## Antworten des Besitzers (12.11.2026, E1ANS)
+- **F1 (Vorschau F16) = A**: Abnahme mit kuenstlicher Verzoegerung ist sbt-TODO (bei Rucken Option B).
+- **F2 (F17) = A**: Enderit-Hufeisen immer registriert (`Horseshoes.register()`), Rezept/Advancement mit `fabric:tags_populated c:ingots/enderite`
+  (NeoForge/Forge: `not tag_empty`, ungetestet), Tag `horseshoes` fuehrt es fest; Gametest `horseshoe_enderite_always`, Rezept-/Item-Tests angepasst.
+
 ## Urteil
 **shipbar** (0 P1, 1 P2 gefixt durch den Hauptagent, 6 P3). Menue und Schnellverschieben sind dupe-sicher, die Bewegungsgrenzen laufen nach dem Thread-Wechsel und je Verbindung; offen ist nur die Abnahme unter Latenz (F1).
 
