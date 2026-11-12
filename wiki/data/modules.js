@@ -770,7 +770,7 @@ window.WIKI_MODULES = [
       "config": 61,
       "features": 25
     },
-    "dataHash": "c230856a23e4"
+    "dataHash": "f68d0403a2d6"
   },
   {
     "id": "simpleweather",
@@ -1309,7 +1309,7 @@ window.WIKI_MODULES = [
       "config": 22,
       "features": 16
     },
-    "dataHash": "febf6b2ee921"
+    "dataHash": "6e1d0c60e05a"
   },
   {
     "id": "simpleshops",
@@ -2095,7 +2095,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "66bb382af884"
+    "dataHash": "3227fd1d6d5f"
   },
   {
     "id": "simpleresonance",
@@ -2129,7 +2129,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 9
     },
-    "dataHash": "a2831e1ef436"
+    "dataHash": "8b3b16323006"
   },
   {
     "id": "simplefoundry",
@@ -2161,7 +2161,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 2
     },
-    "dataHash": "80ac24ac0fac"
+    "dataHash": "c6b93b84180d"
   },
   {
     "id": "simpleenchanting",
@@ -2261,10 +2261,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 27,
       "recipes": 28,
-      "config": 7,
+      "config": 9,
       "features": 6
     },
-    "dataHash": "92936ba9af6e"
+    "dataHash": "e3647e49d318"
   },
   {
     "id": "simplechisels",
@@ -2297,7 +2297,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 7
     },
-    "dataHash": "0f4fce8b092a"
+    "dataHash": "e248c2460e6c"
   },
   {
     "id": "simplelayers",
