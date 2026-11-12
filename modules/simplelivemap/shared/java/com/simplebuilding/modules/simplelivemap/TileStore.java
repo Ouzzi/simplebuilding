@@ -1,7 +1,10 @@
 package com.simplebuilding.modules.simplelivemap;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -15,6 +18,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
+import java.util.zip.CRC32;
+import java.util.zip.Deflater;
+import java.util.zip.DeflaterOutputStream;
 import javax.imageio.ImageIO;
 
 /**
@@ -23,10 +29,15 @@ import javax.imageio.ImageIO;
  * transparent (no seed leak, MAP28-2). All file work runs on <b>one</b> background thread (no PNG work on the server thread):
  * the server thread hands over finished chunk pictures; the thread keeps a small cache of zoom-4 tiles, writes changed tiles
  * every {@link #flush} (temp file + atomic move, so the web server never reads half a file) and rebuilds their parents.
+ * Next to each dimension folder a height layer {@code <folder>.h} (same pyramid, {@link ChunkSampler#heightPixel}) feeds the
+ * viewer's shaded and cartographer styles (N34c); map-item pixels have no height there (transparent).
  */
 public final class TileStore implements AutoCloseable {
     public static final int TILE = 128, MAX_ZOOM = 4, CACHE = 256, QUEUE = 4096;
-    private static final Pattern FOLDER = Pattern.compile("[a-z0-9_.-]{1,96}");
+    /** Suffix of the height layer folder; a real dimension folder never ends with it (see {@link #folder}). */
+    public static final String HEIGHTS = ".h";
+    /** 94 + {@link #HEIGHTS} = the 96 characters the web server and the hosted service accept. */
+    private static final Pattern FOLDER = Pattern.compile("[a-z0-9_.-]{1,94}");
 
     private final Path dir;
     private final ThreadPoolExecutor worker;
@@ -58,7 +69,7 @@ public final class TileStore implements AutoCloseable {
     /** Folder name of a dimension id ({@code minecraft:overworld} -> {@code minecraft_overworld}). */
     public static String folder(String dimension) {
         String f = dimension.toLowerCase(java.util.Locale.ROOT).replace(':', '_').replace('/', '_');
-        return FOLDER.matcher(f).matches() ? f : "dimension_" + Integer.toHexString(dimension.hashCode());
+        return FOLDER.matcher(f).matches() && !f.endsWith(HEIGHTS) ? f : "dimension_" + Integer.toHexString(dimension.hashCode());
     }
 
     public static String path(String folder, int z, int x, int y) {
@@ -67,13 +78,24 @@ public final class TileStore implements AutoCloseable {
 
     /** Queues a chunk picture (256 ARGB, see {@link ChunkSampler#sample}); false when the queue is full (redrawn later). */
     public boolean putChunk(String folder, int cx, int cz, int[] pixels) {
-        int[] copy = pixels.clone();
+        return putChunk(folder, cx, cz, pixels, null);
+    }
+
+    /** Like {@link #putChunk(String, int, int, int[])} plus the chunk's height pixels for the {@link #HEIGHTS} layer (may be null). */
+    public boolean putChunk(String folder, int cx, int cz, int[] pixels, int[] heights) {
+        int[] copy = pixels.clone(), h = heights == null ? null : heights.clone();
         return submit(() -> {
-            int[] tile = tile(folder, cx >> 3, cz >> 3);
-            int ox = (cx & 7) * 16, oz = (cz & 7) * 16;
-            for (int z = 0; z < 16; z++) System.arraycopy(copy, z * 16, tile, (oz + z) * TILE + ox, 16);
-            dirty.add(key(folder, cx >> 3, cz >> 3));
+            paste(folder, cx, cz, copy);
+            if (h != null) paste(folder + HEIGHTS, cx, cz, h);
         });
+    }
+
+    /** Worker thread: one 16 x 16 chunk picture into its zoom-4 tile. */
+    private void paste(String folder, int cx, int cz, int[] chunk) {
+        int[] tile = tile(folder, cx >> 3, cz >> 3);
+        int ox = (cx & 7) * 16, oz = (cz & 7) * 16;
+        for (int z = 0; z < 16; z++) System.arraycopy(chunk, z * 16, tile, (oz + z) * TILE + ox, 16);
+        dirty.add(key(folder, cx >> 3, cz >> 3));
     }
 
     /**
@@ -255,6 +277,52 @@ public final class TileStore implements AutoCloseable {
         return read(dir.resolve(path(folder, z, x, y)));
     }
 
+    /**
+     * A height tile as PNG (RGBA, 8 bit) with the "Up" filter on every row: heights change little from row to row, so this is
+     * about 40 % smaller than ImageIO's writer for this data (measured N34c); colour tiles keep ImageIO, which is better there.
+     */
+    static byte[] pngUp(int[] argb) throws IOException {
+        ByteArrayOutputStream idat = new ByteArrayOutputStream();
+        Deflater deflater = new Deflater(Deflater.BEST_COMPRESSION);
+        try (DeflaterOutputStream z = new DeflaterOutputStream(idat, deflater)) {
+            byte[] row = new byte[1 + TILE * 4], prev = new byte[TILE * 4], cur = new byte[TILE * 4];
+            row[0] = 2;
+            for (int y = 0; y < TILE; y++) {
+                for (int x = 0; x < TILE; x++) {
+                    int c = argb[y * TILE + x], i = x * 4;
+                    cur[i] = (byte) (c >> 16);
+                    cur[i + 1] = (byte) (c >> 8);
+                    cur[i + 2] = (byte) c;
+                    cur[i + 3] = (byte) (c >>> 24);
+                }
+                for (int i = 0; i < cur.length; i++) row[i + 1] = (byte) (cur[i] - prev[i]);
+                z.write(row);
+                byte[] t = prev;
+                prev = cur;
+                cur = t;
+            }
+        } finally {
+            deflater.end();
+        }
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        out.writeBytes(new byte[] {(byte) 0x89, 'P', 'N', 'G', '\r', '\n', 0x1A, '\n'});
+        chunk(out, "IHDR", ByteBuffer.allocate(13).putInt(TILE).putInt(TILE).put((byte) 8).put((byte) 6).put((byte) 0).put((byte) 0).put((byte) 0).array());
+        chunk(out, "IDAT", idat.toByteArray());
+        chunk(out, "IEND", new byte[0]);
+        return out.toByteArray();
+    }
+
+    private static void chunk(ByteArrayOutputStream out, String type, byte[] data) {
+        byte[] t = type.getBytes(StandardCharsets.US_ASCII);
+        CRC32 crc = new CRC32();
+        crc.update(t);
+        crc.update(data);
+        out.writeBytes(ByteBuffer.allocate(4).putInt(data.length).array());
+        out.writeBytes(t);
+        out.writeBytes(data);
+        out.writeBytes(ByteBuffer.allocate(4).putInt((int) crc.getValue()).array());
+    }
+
     private void write(String folder, int z, int x, int y, int[] argb) {
         Path file = dir.resolve(path(folder, z, x, y));
         try {
@@ -269,11 +337,15 @@ public final class TileStore implements AutoCloseable {
                 Files.deleteIfExists(file);
                 return;
             }
-            BufferedImage image = new BufferedImage(TILE, TILE, BufferedImage.TYPE_INT_ARGB);
-            image.setRGB(0, 0, TILE, TILE, argb, 0, TILE);
             Files.createDirectories(file.getParent());
             Path tmp = file.resolveSibling(file.getFileName() + ".tmp");
-            if (!ImageIO.write(image, "png", tmp.toFile())) throw new IOException("no PNG writer");
+            if (folder.endsWith(HEIGHTS)) {
+                Files.write(tmp, pngUp(argb));
+            } else {
+                BufferedImage image = new BufferedImage(TILE, TILE, BufferedImage.TYPE_INT_ARGB);
+                image.setRGB(0, 0, TILE, TILE, argb, 0, TILE);
+                if (!ImageIO.write(image, "png", tmp.toFile())) throw new IOException("no PNG writer");
+            }
             Files.move(tmp, file, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
             var l = listener;
             if (l != null) l.accept(folder + "/" + z + "/" + x + "/" + y);

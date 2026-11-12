@@ -278,7 +278,8 @@ public final class LivemapRuntime {
                 int cx = (int) (key >> 32), cz = (int) key;
                 LevelChunk chunk = level.getChunkSource().getChunkNow(cx, cz);
                 if (chunk == null || !store.explored(dim, cx, cz)) continue;
-                tiles.putChunk(TileStore.folder(dim), cx, cz, ChunkSampler.sample(level, chunk, LivemapConfig.shading));
+                int[] heights = new int[256];
+                tiles.putChunk(TileStore.folder(dim), cx, cz, ChunkSampler.sample(level, chunk, LivemapConfig.shading, heights), heights);
                 if (times.size() >= MAX_SESSION) times.clear();
                 times.put(key, tick);
                 done++;

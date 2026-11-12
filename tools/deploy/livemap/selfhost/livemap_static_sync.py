@@ -57,11 +57,12 @@ def tile_files(tiles: Path):
 
 
 def live_json(tiles: Path) -> str:
-    """Like the mod's live.json without players; the folder name turns back into the dimension id at its first "_"."""
+    """Like the mod's live.json without players; the folder name turns back into the dimension id at its first "_".
+    Height layers ("<folder>.h", copied like tiles, used by the viewer's shaded styles) are no dimensions."""
     dims = []
     if tiles.is_dir():
         for d in sorted(tiles.iterdir()):
-            if d.is_dir() and not d.is_symlink() and DIM.match(d.name):
+            if d.is_dir() and not d.is_symlink() and DIM.match(d.name) and not d.name.endswith(".h"):
                 dims.append({"id": d.name.replace("_", ":", 1), "folder": d.name})
     return json.dumps({"players": [], "dimensions": dims}, separators=(",", ":"))
 

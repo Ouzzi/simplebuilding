@@ -206,7 +206,10 @@ def tier_table(ctx, buy: bool) -> str:
         if p == 0:
             price += f'<td><b class="price">{euro(ctx, 0)}</b></td>'
         else:
-            price += (f'<td><b class="price" data-month="{e(euro(ctx, p))}" data-year="{e(euro(ctx, p * months))}">{euro(ctx, p)}</b>'
+            # Yearly view (owner 12.11.): 12 x the monthly price struck through next to the yearly price - a comparison with the
+            # monthly plan, never a "former price" (label under the toggle; docs/legal/README.md check item).
+            price += (f'<td><s class="was" data-show="year" hidden><span class="vh">{ctx.t("instead of", "statt")} </span>{euro(ctx, p * 12)}</s>'
+                      f'<b class="price" data-month="{e(euro(ctx, p))}" data-year="{e(euro(ctx, p * months))}">{euro(ctx, p)}</b>'
                       f'<span class="per" data-month="{ctx.t("per month", "pro Monat")}" data-year="{ctx.t("per year", "pro Jahr")}">{ctx.t("per month", "pro Monat")}</span></td>')
     body += f'<tr class="pricerow"><th scope="row">{ctx.t("Price", "Preis")}</th>{price}</tr>'
     if buy:
@@ -225,7 +228,7 @@ def interval_toggle(ctx) -> str:
     return (f'<div class="toggle" role="group" aria-label="{ctx.t("Billing period", "Abrechnung")}">'
             f'<button type="button" data-interval="month" aria-pressed="true">{ctx.t("Monthly", "Monatlich")}</button>'
             f'<button type="button" data-interval="year" aria-pressed="false">{ctx.t("Yearly", "Jährlich")}</button></div>'
-            f'<p class="mut small">{ctx.t(f"Yearly in advance: 12 months for the price of {months}.", f"Jährlich im Voraus: 12 Monate zum Preis von {months}.")}</p>')
+            f'<p class="mut small">{ctx.t(f"Yearly in advance: 12 months for the price of {months} (struck through: 12 × the monthly price). After the year it runs on monthly and can be cancelled every month.", f"Jährlich im Voraus: 12 Monate zum Preis von {months} (durchgestrichen: 12 × Monatspreis). Nach dem Jahr läuft es monatlich weiter und ist monatlich kündbar.")}</p>')
 
 
 def landing(ctx) -> str:
@@ -304,8 +307,8 @@ def pricing(ctx) -> str:
         "Nothing is blocked: the map stays visible with cached tiles and a slower live rhythm; you get a note “lots of visitors - higher tier?”.",
         "Nichts wird gesperrt: Die Karte bleibt mit zwischengespeicherten Kacheln und langsamerem Live-Takt sichtbar; du bekommst den Hinweis „viel Besuch – höhere Stufe?“.")}</p></div>
 <div class="c"><b>{ctx.t("Cancel", "Kündigen")}</b><p>{ctx.t(
-        "Monthly: to the end of the paid month. Yearly: runs to the end of the year and renews only when not cancelled. On a downgrade extra maps wait 30 days in the archive.",
-        "Monatlich zum Ende des bezahlten Monats. Jährlich: läuft bis zum Ende des Jahres und verlängert sich nur, wenn nicht gekündigt. Beim Herabstufen bleiben überzählige Karten 30 Tage im Puffer.")}</p></div>
+        "Monthly: any time to the end of the paid month. Yearly: 12 months paid in advance; if you do not cancel, it then runs on monthly at the monthly price and can be cancelled any time to the end of the paid month. On a downgrade extra maps wait 30 days in the archive.",
+        "Monatlich: jederzeit zum Ende des bezahlten Monats. Jährlich: 12 Monate im Voraus bezahlt; kündigst du nicht, läuft es danach monatlich zum Monatspreis weiter und ist jederzeit zum Ende des bezahlten Monats kündbar. Beim Herabstufen bleiben überzählige Karten 30 Tage im Puffer.")}</p></div>
 <div class="c"><b>{ctx.t("Later", "Später")}</b><p>{ctx.t(
         "Embedding (iframe), snapshots and time lapse, own domain, API and the public map list come after the start.",
         "Einbetten (iframe), Schnappschüsse und Zeitraffer, eigene Domain, API und die öffentliche Kartenliste kommen nach dem Start.")}</p></div>

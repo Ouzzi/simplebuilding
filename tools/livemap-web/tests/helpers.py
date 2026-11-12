@@ -53,6 +53,15 @@ def png(seed: int = 0, w: int = 128, h: int = 128) -> bytes:
     return b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 0, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b"")
 
 
+def png_gray(pixels: bytes, w: int = 128, h: int = 128) -> bytes:
+    """8-bit grey PNG of the given pixel bytes (row by row)."""
+    raw = b"".join(b"\x00" + pixels[y * w:(y + 1) * w] for y in range(h))
+
+    def chunk(kind, data):
+        return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF)
+    return b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 0, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b"")
+
+
 def bundle(entries: dict, compression=zipfile.ZIP_STORED) -> bytes:
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", compression) as z:

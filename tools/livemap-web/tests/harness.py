@@ -25,8 +25,14 @@ from smweb.service import Service  # noqa: E402
 PW = "correct horse battery"
 
 
-def png_rgba(pixels: list[tuple[int, int, int, int]], w: int = 128, h: int = 128) -> bytes:
-    raw = b"".join(b"\x00" + b"".join(struct.pack("BBBB", *pixels[y * w + x]) for x in range(w)) for y in range(h))
+def png_rgba(pixels: list[tuple[int, int, int, int]], w: int = 128, h: int = 128, up: bool = False) -> bytes:
+    """RGBA PNG; up=True writes every row with the "Up" filter like the mod's height tiles (TileStore.pngUp)."""
+    rows = [b"".join(struct.pack("BBBB", *pixels[y * w + x]) for x in range(w)) for y in range(h)]
+    if up:
+        prev = [bytes(len(r)) for r in rows[:1]] + rows[:-1]
+        raw = b"".join(b"\x02" + bytes((a - b) & 0xFF for a, b in zip(r, q)) for r, q in zip(rows, prev))
+    else:
+        raw = b"".join(b"\x00" + r for r in rows)
 
     def chunk(kind, data):
         return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF)
@@ -34,40 +40,85 @@ def png_rgba(pixels: list[tuple[int, int, int, int]], w: int = 128, h: int = 128
 
 
 def height(x: float, z: float) -> float:
-    return (math.sin(x / 61) + math.cos(z / 47) + 0.6 * math.sin((x + z) / 23) + 0.3 * math.cos((x - 2 * z) / 13)) / 2.9 + 0.5
+    return (math.sin(x / 61) + math.cos(z / 47) + 0.6 * math.sin((x + z) / 23) + 0.3 * math.cos((x - 2 * z) / 13)
+            + 0.22 * math.sin(x / 7.3 + 2 * math.cos(z / 11.1)) * math.cos(z / 8.9 + math.sin(x / 13.7))) / 3.1 + 0.5
 
 
-def colour(x: int, z: int) -> tuple[int, int, int, int]:
-    """A made-up landscape in map-like colours (own drawing, no game pixels); outside a ring = unexplored (transparent)."""
+MOD = (180, 220, 255, 135)   # Vanilla map brightness LOW, NORMAL, HIGH, LOWEST (of 255)
+
+
+def rnd(x: int, z: int) -> int:
+    """Stable pseudo-random 32-bit number of a block (no pattern)."""
+    h = (x * 374761393 + z * 668265263) & 0xFFFFFFFF
+    h = ((h ^ (h >> 13)) * 1274126177) & 0xFFFFFFFF
+    return h ^ (h >> 16)
+
+
+def column(x: int, z: int):
+    """A made-up landscape (own drawing, no game pixels): base colour, surface y and water depth; None outside the explored ring."""
     if math.hypot(x - 40, z + 20) > 300 + 40 * math.sin(x / 50):
-        return (0, 0, 0, 0)
+        return None
     h = height(x, z)
-    shade = 1.12 if h > height(x, z - 1) + 0.002 else (0.86 if h < height(x, z - 1) - 0.002 else 1.0)
+    y = round(62 + (h - 0.36) * 150)          # whole blocks: terraces like real terrain
     if h < 0.36:
-        c = (44, 72, 170) if h < 0.3 else (60, 92, 196)
-        shade = 1.0
-    elif h < 0.4:
-        c = (214, 198, 140)
+        return (64, 64, 255), 62, max(1, min(63, 62 - y))
+    if h < 0.4:
+        c = (247, 233, 163)
     elif h < 0.62:
-        c = (74, 128, 44) if (x * 7 + z * 13) % 11 == 0 else (102, 160, 58)
+        c = (0, 124, 0) if rnd(x, z) % 9 == 0 else (127, 178, 56)
     elif h < 0.72:
-        c = (58, 104, 40)
+        c = (0, 124, 0)
     else:
-        c = (128, 128, 128) if h < 0.8 else (236, 240, 244)
+        c = (112, 112, 112) if h < 0.8 else (255, 255, 255)
+    if c == (0, 124, 0):                      # trees: leaves stand 3-6 blocks above the ground
+        y += 3 + rnd(z, x) % 4
     if (x // 16 + z // 16) % 37 == 0 and 0.4 < h < 0.62:
-        c = (150, 110, 70)  # some paths/houses
-    return (min(255, int(c[0] * shade)), min(255, int(c[1] * shade)), min(255, int(c[2] * shade)), 255)
+        c = (151, 109, 77)  # some paths/houses
+    return c, y, 0
+
+
+def pixels(x: int, z: int, prev):
+    """(colour pixel, height pixel, y) like the mod: Vanilla map relief against the northern neighbour, height layer N34c."""
+    col = column(x, z)
+    if col is None:
+        return (0, 0, 0, 0), (0, 0, 0, 0), None
+    c, y, depth = col
+    dither = (x + z) & 1
+    if depth:
+        d = depth * 0.1 + dither * 0.2
+        b = 2 if d < 0.5 else 0 if d > 0.9 else 1
+    else:
+        d = (y - (y if prev is None else prev)) * 4.0 / 5.0 + (dither - 0.5) * 0.4
+        b = 2 if d > 0.6 else 0 if d < -0.6 else 1
+    v = max(0, min(0xFFFF, y + 32768))
+    return (tuple(ch * MOD[b] // 255 for ch in c) + (255,)), (v >> 8, v & 0xFF, (b << 6) | depth, 255), y
+
+
+def tile_pair(tx: int, tz: int, step: int = 1, cx: int | None = None, cz: int | None = None):
+    """Colour and height pixels of one tile (step blocks per pixel; cx/cz = first block instead of the tile grid)."""
+    colours, heights = [], []
+    for j in range(128):
+        for i in range(128):
+            x = (tx * 128 + i) * step if cx is None else cx + i * step
+            z = (tz * 128 + j) * step if cz is None else cz + j * step
+            n = column(x, z - step)
+            c, hgt, _ = pixels(x, z, None if n is None else n[1])
+            colours.append(c)
+            heights.append(hgt)
+    return colours, heights
 
 
 def tiles() -> dict[str, bytes]:
     out = {}
     for tz in range(-3, 3):
         for tx in range(-3, 3):
-            px = [colour(tx * 128 + i % 128, tz * 128 + i // 128) for i in range(128 * 128)]
+            px, hx = tile_pair(tx, tz)
             if any(p[3] for p in px):
                 out[f"minecraft_overworld/4/{tx}/{tz}"] = png_rgba(px)
+                out[f"minecraft_overworld.h/4/{tx}/{tz}"] = png_rgba(hx, up=True)
     # one coarse overview tile (zoom 0 = 16 blocks per pixel) for the dashboard preview
-    px = [colour((i % 128 - 64) * 16 + 8, (i // 128 - 64) * 16 + 8) if abs(i % 128 - 64) < 30 and abs(i // 128 - 64) < 30 else (0, 0, 0, 0) for i in range(128 * 128)]
+    px, hx = tile_pair(0, 0, 16, -64 * 16 + 8, -64 * 16 + 8)
+    px = [p if abs(i % 128 - 64) < 30 and abs(i // 128 - 64) < 30 else (0, 0, 0, 0) for i, p in enumerate(px)]
     out["minecraft_overworld/0/-1/-1"] = png_rgba(px)
     return out
 

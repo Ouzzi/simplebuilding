@@ -47,7 +47,7 @@ Wo der Entwurf **von der Spezifikation abweicht** oder sie **ergänzt**, steht e
 
 | ID | Befund | Behandlung im Entwurf |
 |---|---|---|
-| B1 | **Jahresabo-Verlängerung.** Spezifikation: „verlängert sich nur, wenn nicht gekündigt“ (= automatisch um ein weiteres Jahr). Gegenüber Verbrauchern nach § 309 Nr. 9 Buchst. b BGB unwirksam. | AGB 11.3: Variante A (nach 12 Monaten Übergang in monatlich kündbares Abo, empfohlen), B (endet), C (Spezifikation, nur B2B). **Entscheidung nötig.** |
+| B1 | **Jahresabo-Verlängerung.** Spezifikation: „verlängert sich nur, wenn nicht gekündigt“ (= automatisch um ein weiteres Jahr). Gegenüber Verbrauchern nach § 309 Nr. 9 Buchst. b BGB unwirksam. | **Entschieden 12.11.2026 (Besitzer, LIVEMAP34b Frage 1 = A):** AGB 11.3 nur noch Variante A – nach 12 Monaten unbefristet monatlich zum Monatspreis, jederzeit zum Monatsende kündbar; Hinweis-Mail vor Ablauf. Preisseite, Tabelle 3.1 und Anlage 3 sagen dasselbe (Test `test_pricing_yearly_strike_and_q1a`). Varianten B/C gestrichen. |
 | B2 | **Spezifikation Abschnitt 5 „gespeichert werden nur E-Mail, Name, Passwort-Hash, Karten und Nutzungszahlen“** ist unvollständig: tatsächlich auch Sitzungen, Signup-Tag, Verbindungszähler, Welt-ID, geteilte Konten, Live-Daten, Logs, Cloudflare. | Datenschutz nennt die vollständige Liste. Landing-/Registrierungs-/FAQ-Texte dürfen **nicht** „nur …“ versprechen. |
 | B3 | **Zusatzleistungen** von Max/Ultra (Einbetten, Verlauf/Schnappschüsse, eigene Domain, ohne Branding, API) liegen laut Spezifikation Abschnitt 8 in „Später“. | AGB 3.2 als Platzhalter: erst Vertragsbestandteil, wenn gebaut; vor Bezahlstart bauen oder aus Preisseite/Tabelle streichen (§ 327e BGB: Beschaffenheit nach Beschreibung). |
 | B4 | **Puffer bei Herabstufung.** Free-Puffer = 1 Karte, Herabstufen = überzählige Karten 30 Tage (kann mehr als 1 sein). | AGB 4.6 stellt klar: 30 Tage unabhängig von der Puffer-Anzahl der neuen Stufe; Regel „welche Karten“ als Platzhalter (Plan D15). |
@@ -126,7 +126,10 @@ Offene Befunde nach Runde 3: keine mechanischen; inhaltlich bleiben die Entschei
 
 22. **Stripe-Konto**: Vertragsgesellschaft (Irland/USA), DPA, Rollen (Verantwortlicher/Auftragsverarbeiter), Zahlungsarten, Steuer-Einstellungen, Rechnungsdaten.
 23. **Endgültige Preise und Limits** bestätigen (Spezifikation: „Vorschlag“), Speicher je Karte (64 MB / 256 MB / 1 GB / 4 GB), Zusatzleistungen nur wenn gebaut (B3).
-24. **Jahresabo-Variante** wählen (B1); Preisänderungs- und AGB-Änderungs-Klauseln (Zustimmungsfiktion) prüfen lassen.
+24. **Jahresabo** (B1, entschieden: Variante A) anwaltlich bestätigen lassen; Preisänderungs- und AGB-Änderungs-Klauseln (Zustimmungsfiktion) prüfen lassen.
+    **Streichpreis** auf der Preisseite (Jahresansicht: 12 × Monatspreis durchgestrichen neben dem Jahrespreis, Besitzer 12.11.): ist als Vergleich mit
+    12 Monatszahlungen beschriftet („durchgestrichen: 12 × Monatspreis“, Screenreader „statt“), kein früherer Preis – auf Irreführung (§ 5 UWG) und
+    Preisermäßigungs-Regeln (§ 11 PAngV, gilt für Waren; hier Dienstleistung) prüfen lassen.
 25. **Widerrufsbelehrung und Muster-Widerrufsformular** wortgleich mit dem aktuellen amtlichen Muster (Anlage 1/2 zu Art. 246a § 1 Abs. 2 Satz 2 EGBGB) abgleichen; Formulierung für Abos (Wertersatz, Erlöschen nach § 356 Abs. 4 BGB); Frage, ob Free ein Widerrufsrecht begründet (§ 312 Abs. 1a BGB).
 26. **Button-Lösung**: „zahlungspflichtig bestellen“ (§ 312j Abs. 3 BGB), Zusammenfassung vor Absenden (§ 312j Abs. 2, Art. 246a § 1 EGBGB), Bestätigung auf dauerhaftem Datenträger (§ 312f BGB), Kästchen für vorzeitigen Leistungsbeginn.
 27. **Kündigungsbutton** (§ 312k BGB): Beschriftung, Erreichbarkeit auch ohne Login, Bestätigungsseite, Eingangsbestätigung.
