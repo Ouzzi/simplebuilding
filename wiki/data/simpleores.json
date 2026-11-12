@@ -353,6 +353,64 @@
       }
     },
     {
+      "id": "metal_lights",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalPoleBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_lamp.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_lantern.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_chain.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_pole.json"
+      ],
+      "en": {
+        "title": "Metal lamps, lanterns, chains and poles",
+        "summary": "Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has a lamp, a lantern, a chain and a pole beside the copper ones; rose gold and rose copper have a pole.",
+        "details": [
+          "Lamp: the logic of the copper bulb - a redstone pulse switches it on or off, light 15, a comparator reads 15 while it is on. Three blocks, a blaze rod and redstone make 4. Stone pickaxe.",
+          "Lantern: like the Vanilla lantern (stands or hangs, light 15); eight nuggets round a torch. Chain: like the iron chain; nugget, ingot, nugget upright. Any pickaxe.",
+          "Pole: placed like the lightning rod, decoration only (lightning keeps to copper). Three ingots upright. Stone pickaxe.",
+          "Every metal has its own pattern: the lamp cage is its grate pattern, the lantern panes, chain links and pole heads differ from metal to metal. Nothing ages (only copper oxidises)."
+        ]
+      },
+      "de": {
+        "title": "Metalllampen, -laternen, -ketten und -stangen",
+        "summary": "Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat neben den Kupferteilen eine Lampe, eine Laterne, eine Kette und eine Stange; Roségold und Rosenkupfer haben eine Stange.",
+        "details": [
+          "Lampe: die Logik der Kupferleuchte - ein Redstone-Impuls schaltet sie an oder aus, Licht 15, ein Komparator liest 15, solange sie an ist. Drei Blöcke, eine Lohenrute und Redstone ergeben 4. Steinspitzhacke.",
+          "Laterne: wie die Vanilla-Laterne (steht oder hängt, Licht 15); acht Klumpen um eine Fackel. Kette: wie die Eisenkette; Klumpen, Barren, Klumpen senkrecht. Jede Spitzhacke.",
+          "Stange: gesetzt wie der Blitzableiter, nur Dekoration (der Blitz bleibt beim Kupfer). Drei Barren senkrecht. Steinspitzhacke.",
+          "Jedes Metall hat sein eigenes Muster: der Lampenkäfig ist sein Rostmuster, Laternenscheiben, Kettenglieder und Stangenköpfe unterscheiden sich von Metall zu Metall. Nichts altert (nur Kupfer oxidiert)."
+        ]
+      }
+    },
+    {
+      "id": "metal_pressure_plates",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalPressurePlateBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pressure_plate.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/lead_pressure_plate.json"
+      ],
+      "en": {
+        "title": "Metal pressure plates",
+        "summary": "Every Simple Ores metal has a weighted pressure plate: silver, lead, zinc, nickel, tin, brass, bronze, stainless steel, rose gold, rose copper, Enderite, Terranite, Infernite and Zenithite.",
+        "details": [
+          "Precious metals (silver, rose gold, rose copper) count like the gold plate: one signal level per entity, up to 15.",
+          "All others count like the iron plate: one signal level per 10 entities, up to 150.",
+          "Two ingots side by side make 1; the plate shows the metal's block. Any pickaxe."
+        ]
+      },
+      "de": {
+        "title": "Metall-Druckplatten",
+        "summary": "Jedes Simple-Ores-Metall hat eine Wägeplatte: Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze, Edelstahl, Roségold, Rosenkupfer, Enderit, Terranit, Infernit und Zenithit.",
+        "details": [
+          "Edelmetalle (Silber, Roségold, Rosenkupfer) zählen wie die Goldplatte: eine Signalstufe je Objekt, bis 15.",
+          "Alle anderen zählen wie die Eisenplatte: eine Signalstufe je 10 Objekte, bis 150.",
+          "Zwei Barren nebeneinander ergeben 1; die Platte zeigt den Block des Metalls. Jede Spitzhacke."
+        ]
+      }
+    },
+    {
       "id": "metal_sounds",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresSounds.java",
@@ -603,6 +661,43 @@
       }
     },
     {
+      "id": "simpleores:brass_chain",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_chain",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_chain.json",
+      "ingredients": [
+        "simpleores:brass_ingot",
+        "simpleores:brass_nugget"
+      ],
+      "pattern": [
+        "N",
+        "I",
+        "N"
+      ],
+      "key": {
+        "I": [
+          "simpleores:brass_ingot"
+        ],
+        "N": [
+          "simpleores:brass_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 1.222
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:brass_door",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -790,8 +885,102 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:brass_nugget",
-            "count": 9
+            "id": "simpleores:brass_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_lamp",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_lamp",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_lamp.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "minecraft:redstone",
+        "simpleores:brass_block"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " R "
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_rod"
+        ],
+        "C": [
+          "simpleores:brass_block"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 27
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleores:brass_nugget"
+      ],
+      "pattern": [
+        "XXX",
+        "X#X",
+        "XXX"
+      ],
+      "key": {
+        "#": [
+          "minecraft:torch"
+        ],
+        "X": [
+          "simpleores:brass_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 0.889
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
           }
         ]
       }
@@ -880,6 +1069,70 @@
           {
             "id": "simpleores:brass_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_pole.json",
+      "ingredients": [
+        "simpleores:brass_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:brass_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:brass_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:brass_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/brass_pressure_plate.json",
+      "ingredients": [
+        "simpleores:brass_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:brass_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:brass_ingot",
+            "count": 2
           }
         ]
       }
@@ -1065,6 +1318,43 @@
           {
             "id": "simpleores:bronze_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_chain",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_chain",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_chain.json",
+      "ingredients": [
+        "simpleores:bronze_ingot",
+        "simpleores:bronze_nugget"
+      ],
+      "pattern": [
+        "N",
+        "I",
+        "N"
+      ],
+      "key": {
+        "I": [
+          "simpleores:bronze_ingot"
+        ],
+        "N": [
+          "simpleores:bronze_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 1.222
           }
         ]
       }
@@ -1260,8 +1550,102 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:bronze_nugget",
-            "count": 9
+            "id": "simpleores:bronze_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_lamp",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_lamp",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_lamp.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "minecraft:redstone",
+        "simpleores:bronze_block"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " R "
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_rod"
+        ],
+        "C": [
+          "simpleores:bronze_block"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 27
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleores:bronze_nugget"
+      ],
+      "pattern": [
+        "XXX",
+        "X#X",
+        "XXX"
+      ],
+      "key": {
+        "#": [
+          "minecraft:torch"
+        ],
+        "X": [
+          "simpleores:bronze_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 0.889
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
           }
         ]
       }
@@ -1350,6 +1734,70 @@
           {
             "id": "simpleores:bronze_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_pole.json",
+      "ingredients": [
+        "simpleores:bronze_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:bronze_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:bronze_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:bronze_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/bronze_pressure_plate.json",
+      "ingredients": [
+        "simpleores:bronze_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:bronze_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:bronze_ingot",
+            "count": 2
           }
         ]
       }
@@ -4411,6 +4859,37 @@
       }
     },
     {
+      "id": "simpleores:enderite_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:enderite_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_pressure_plate.json",
+      "ingredients": [
+        "simpleores:enderite_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:enderite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:enderite_ingot",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:enderite_scrap_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -4640,6 +5119,37 @@
       }
     },
     {
+      "id": "simpleores:infernite_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:infernite_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/infernite_pressure_plate.json",
+      "ingredients": [
+        "simpleores:infernite_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:infernite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:infernite_ingot",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:layered_raw_enderite",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -4737,6 +5247,43 @@
           {
             "id": "simpleores:lead_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:lead_chain",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_chain",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_chain.json",
+      "ingredients": [
+        "simpleores:lead_ingot",
+        "simpleores:lead_nugget"
+      ],
+      "pattern": [
+        "N",
+        "I",
+        "N"
+      ],
+      "key": {
+        "I": [
+          "simpleores:lead_ingot"
+        ],
+        "N": [
+          "simpleores:lead_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 1.222
           }
         ]
       }
@@ -4980,8 +5527,8 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:lead_nugget",
-            "count": 9
+            "id": "simpleores:lead_ingot",
+            "count": 1
           }
         ]
       }
@@ -5072,6 +5619,100 @@
           {
             "id": "simpleores:raw_lead",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:lead_lamp",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_lamp",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_lamp.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "minecraft:redstone",
+        "simpleores:lead_block"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " R "
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_rod"
+        ],
+        "C": [
+          "simpleores:lead_block"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 27
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:lead_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleores:lead_nugget"
+      ],
+      "pattern": [
+        "XXX",
+        "X#X",
+        "XXX"
+      ],
+      "key": {
+        "#": [
+          "minecraft:torch"
+        ],
+        "X": [
+          "simpleores:lead_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 0.889
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
           }
         ]
       }
@@ -5191,6 +5832,70 @@
           {
             "id": "simpleores:lead_ingot",
             "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:lead_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_pole.json",
+      "ingredients": [
+        "simpleores:lead_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:lead_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:lead_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_pressure_plate.json",
+      "ingredients": [
+        "simpleores:lead_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:lead_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 2
           }
         ]
       }
@@ -5533,6 +6238,43 @@
       }
     },
     {
+      "id": "simpleores:nickel_chain",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_chain",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_chain.json",
+      "ingredients": [
+        "simpleores:nickel_ingot",
+        "simpleores:nickel_nugget"
+      ],
+      "pattern": [
+        "N",
+        "I",
+        "N"
+      ],
+      "key": {
+        "I": [
+          "simpleores:nickel_ingot"
+        ],
+        "N": [
+          "simpleores:nickel_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 1.222
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:nickel_door",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -5741,8 +6483,8 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:nickel_nugget",
-            "count": 9
+            "id": "simpleores:nickel_ingot",
+            "count": 1
           }
         ]
       }
@@ -5803,6 +6545,100 @@
           {
             "id": "simpleores:raw_nickel",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_lamp",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_lamp",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_lamp.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "minecraft:redstone",
+        "simpleores:nickel_block"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " R "
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_rod"
+        ],
+        "C": [
+          "simpleores:nickel_block"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 27
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleores:nickel_nugget"
+      ],
+      "pattern": [
+        "XXX",
+        "X#X",
+        "XXX"
+      ],
+      "key": {
+        "#": [
+          "minecraft:torch"
+        ],
+        "X": [
+          "simpleores:nickel_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 0.889
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
           }
         ]
       }
@@ -5891,6 +6727,70 @@
           {
             "id": "simpleores:nickel_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_pole.json",
+      "ingredients": [
+        "simpleores:nickel_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:nickel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:nickel_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:nickel_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/nickel_pressure_plate.json",
+      "ingredients": [
+        "simpleores:nickel_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:nickel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:nickel_ingot",
+            "count": 2
           }
         ]
       }
@@ -6907,6 +7807,39 @@
       }
     },
     {
+      "id": "simpleores:rose_bronze_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pole.json",
+      "ingredients": [
+        "simpleores:rose_bronze_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_bronze_pressling_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -7018,6 +7951,37 @@
           {
             "id": "simpleores:rose_bronze_pressling_block",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_bronze_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pressure_plate.json",
+      "ingredients": [
+        "simpleores:rose_bronze_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 2
           }
         ]
       }
@@ -7660,6 +8624,39 @@
       }
     },
     {
+      "id": "simpleores:rose_gold_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pole.json",
+      "ingredients": [
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_gold_pressling_a",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -7771,6 +8768,37 @@
           {
             "id": "simpleores:rose_gold_pressling_block",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pressure_plate.json",
+      "ingredients": [
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 2
           }
         ]
       }
@@ -8077,6 +9105,43 @@
       }
     },
     {
+      "id": "simpleores:silver_chain",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_chain",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_chain.json",
+      "ingredients": [
+        "simpleores:silver_ingot",
+        "simpleores:silver_nugget"
+      ],
+      "pattern": [
+        "N",
+        "I",
+        "N"
+      ],
+      "key": {
+        "I": [
+          "simpleores:silver_ingot"
+        ],
+        "N": [
+          "simpleores:silver_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 1.222
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:silver_door",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -8317,8 +9382,8 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:silver_nugget",
-            "count": 9
+            "id": "simpleores:silver_ingot",
+            "count": 1
           }
         ]
       }
@@ -8472,6 +9537,100 @@
       }
     },
     {
+      "id": "simpleores:silver_lamp",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_lamp",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_lamp.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "minecraft:redstone",
+        "simpleores:silver_block"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " R "
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_rod"
+        ],
+        "C": [
+          "simpleores:silver_block"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 27
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:silver_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleores:silver_nugget"
+      ],
+      "pattern": [
+        "XXX",
+        "X#X",
+        "XXX"
+      ],
+      "key": {
+        "#": [
+          "minecraft:torch"
+        ],
+        "X": [
+          "simpleores:silver_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 0.889
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:silver_mirror",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -8591,6 +9750,70 @@
           {
             "id": "simpleores:silver_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:silver_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_pole.json",
+      "ingredients": [
+        "simpleores:silver_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:silver_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:silver_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_pressure_plate.json",
+      "ingredients": [
+        "simpleores:silver_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:silver_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 2
           }
         ]
       }
@@ -8812,6 +10035,43 @@
       }
     },
     {
+      "id": "simpleores:stainless_steel_chain",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_chain",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_chain.json",
+      "ingredients": [
+        "simpleores:stainless_steel_ingot",
+        "simpleores:stainless_steel_nugget"
+      ],
+      "pattern": [
+        "N",
+        "I",
+        "N"
+      ],
+      "key": {
+        "I": [
+          "simpleores:stainless_steel_ingot"
+        ],
+        "N": [
+          "simpleores:stainless_steel_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 1.222
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:stainless_steel_door",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -8974,8 +10234,8 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:stainless_steel_nugget",
-            "count": 9
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 1
           }
         ]
       }
@@ -9004,6 +10264,100 @@
           {
             "id": "simpleores:stainless_steel_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_lamp",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_lamp",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_lamp.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "minecraft:redstone",
+        "simpleores:stainless_steel_block"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " R "
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_rod"
+        ],
+        "C": [
+          "simpleores:stainless_steel_block"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 27
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleores:stainless_steel_nugget"
+      ],
+      "pattern": [
+        "XXX",
+        "X#X",
+        "XXX"
+      ],
+      "key": {
+        "#": [
+          "minecraft:torch"
+        ],
+        "X": [
+          "simpleores:stainless_steel_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 0.889
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
           }
         ]
       }
@@ -9092,6 +10446,70 @@
           {
             "id": "simpleores:stainless_steel_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_pole.json",
+      "ingredients": [
+        "simpleores:stainless_steel_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:stainless_steel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:stainless_steel_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:stainless_steel_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/stainless_steel_pressure_plate.json",
+      "ingredients": [
+        "simpleores:stainless_steel_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:stainless_steel_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:stainless_steel_ingot",
+            "count": 2
           }
         ]
       }
@@ -9323,6 +10741,37 @@
       }
     },
     {
+      "id": "simpleores:terranite_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:terranite_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/terranite_pressure_plate.json",
+      "ingredients": [
+        "simpleores:terranite_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:terranite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:terranite_ingot",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:tin_bars",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -9383,6 +10832,43 @@
           {
             "id": "simpleores:tin_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_chain",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_chain",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_chain.json",
+      "ingredients": [
+        "simpleores:tin_ingot",
+        "simpleores:tin_nugget"
+      ],
+      "pattern": [
+        "N",
+        "I",
+        "N"
+      ],
+      "key": {
+        "I": [
+          "simpleores:tin_ingot"
+        ],
+        "N": [
+          "simpleores:tin_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 1.222
           }
         ]
       }
@@ -9568,8 +11054,8 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:tin_nugget",
-            "count": 9
+            "id": "simpleores:tin_ingot",
+            "count": 1
           }
         ]
       }
@@ -9663,6 +11149,100 @@
       }
     },
     {
+      "id": "simpleores:tin_lamp",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_lamp",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_lamp.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "minecraft:redstone",
+        "simpleores:tin_block"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " R "
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_rod"
+        ],
+        "C": [
+          "simpleores:tin_block"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 27
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleores:tin_nugget"
+      ],
+      "pattern": [
+        "XXX",
+        "X#X",
+        "XXX"
+      ],
+      "key": {
+        "#": [
+          "minecraft:torch"
+        ],
+        "X": [
+          "simpleores:tin_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 0.889
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:tin_nugget",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -9746,6 +11326,70 @@
           {
             "id": "simpleores:tin_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_pole.json",
+      "ingredients": [
+        "simpleores:tin_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:tin_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:tin_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:tin_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/tin_pressure_plate.json",
+      "ingredients": [
+        "simpleores:tin_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:tin_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:tin_ingot",
+            "count": 2
           }
         ]
       }
@@ -9977,6 +11621,37 @@
       }
     },
     {
+      "id": "simpleores:zenithite_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:zenithite_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zenithite_pressure_plate.json",
+      "ingredients": [
+        "simpleores:zenithite_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zenithite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zenithite_ingot",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:zinc_bars",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -10037,6 +11712,43 @@
           {
             "id": "simpleores:zinc_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_chain",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_chain",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_chain.json",
+      "ingredients": [
+        "simpleores:zinc_ingot",
+        "simpleores:zinc_nugget"
+      ],
+      "pattern": [
+        "N",
+        "I",
+        "N"
+      ],
+      "key": {
+        "I": [
+          "simpleores:zinc_ingot"
+        ],
+        "N": [
+          "simpleores:zinc_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 1.222
           }
         ]
       }
@@ -10252,8 +11964,8 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:zinc_nugget",
-            "count": 9
+            "id": "simpleores:zinc_ingot",
+            "count": 1
           }
         ]
       }
@@ -10377,6 +12089,100 @@
       }
     },
     {
+      "id": "simpleores:zinc_lamp",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_lamp",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_lamp.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "minecraft:redstone",
+        "simpleores:zinc_block"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " R "
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_rod"
+        ],
+        "C": [
+          "simpleores:zinc_block"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 27
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleores:zinc_nugget"
+      ],
+      "pattern": [
+        "XXX",
+        "X#X",
+        "XXX"
+      ],
+      "key": {
+        "#": [
+          "minecraft:torch"
+        ],
+        "X": [
+          "simpleores:zinc_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 0.889
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:zinc_nugget",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -10460,6 +12266,70 @@
           {
             "id": "simpleores:zinc_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_pole.json",
+      "ingredients": [
+        "simpleores:zinc_ingot"
+      ],
+      "pattern": [
+        "#",
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zinc_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zinc_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:zinc_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zinc_pressure_plate.json",
+      "ingredients": [
+        "simpleores:zinc_ingot"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zinc_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zinc_ingot",
+            "count": 2
           }
         ]
       }
@@ -10623,6 +12493,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_block.json"
     },
     {
+      "id": "simpleores:blocks/brass_chain",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_chain"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_chain.json"
+    },
+    {
       "id": "simpleores:blocks/brass_door",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10659,6 +12547,42 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_grate.json"
     },
     {
+      "id": "simpleores:blocks/brass_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_lamp.json"
+    },
+    {
+      "id": "simpleores:blocks/brass_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_lantern.json"
+    },
+    {
       "id": "simpleores:blocks/brass_pillar",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10675,6 +12599,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_pillar.json"
+    },
+    {
+      "id": "simpleores:blocks/brass_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_pole.json"
+    },
+    {
+      "id": "simpleores:blocks/brass_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:brass_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/brass_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/brass_tiles",
@@ -10749,6 +12709,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_block.json"
     },
     {
+      "id": "simpleores:blocks/bronze_chain",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_chain"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_chain.json"
+    },
+    {
       "id": "simpleores:blocks/bronze_door",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10785,6 +12763,42 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_grate.json"
     },
     {
+      "id": "simpleores:blocks/bronze_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_lamp.json"
+    },
+    {
+      "id": "simpleores:blocks/bronze_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_lantern.json"
+    },
+    {
       "id": "simpleores:blocks/bronze_pillar",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -10801,6 +12815,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_pillar.json"
+    },
+    {
+      "id": "simpleores:blocks/bronze_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_pole.json"
+    },
+    {
+      "id": "simpleores:blocks/bronze_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:bronze_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/bronze_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/bronze_tiles",
@@ -11586,6 +13636,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/enderite_block.json"
     },
     {
+      "id": "simpleores:blocks/enderite_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:enderite_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/enderite_pressure_plate.json"
+    },
+    {
       "id": "simpleores:blocks/enderite_scrap_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -11640,6 +13708,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/infernite_block.json"
     },
     {
+      "id": "simpleores:blocks/infernite_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:infernite_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/infernite_pressure_plate.json"
+    },
+    {
       "id": "simpleores:blocks/lead_bars",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -11676,6 +13762,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_block.json"
     },
     {
+      "id": "simpleores:blocks/lead_chain",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_chain"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_chain.json"
+    },
+    {
       "id": "simpleores:blocks/lead_door",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -11710,6 +13814,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_grate.json"
+    },
+    {
+      "id": "simpleores:blocks/lead_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_lamp.json"
+    },
+    {
+      "id": "simpleores:blocks/lead_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_lantern.json"
     },
     {
       "id": "simpleores:blocks/lead_ore",
@@ -11763,6 +13903,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_plate.json"
+    },
+    {
+      "id": "simpleores:blocks/lead_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_pole.json"
+    },
+    {
+      "id": "simpleores:blocks/lead_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/lead_tiles",
@@ -11923,6 +14099,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_block.json"
     },
     {
+      "id": "simpleores:blocks/nickel_chain",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_chain"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_chain.json"
+    },
+    {
       "id": "simpleores:blocks/nickel_door",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -11959,6 +14153,42 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_grate.json"
     },
     {
+      "id": "simpleores:blocks/nickel_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_lamp.json"
+    },
+    {
+      "id": "simpleores:blocks/nickel_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_lantern.json"
+    },
+    {
       "id": "simpleores:blocks/nickel_pillar",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -11975,6 +14205,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_pillar.json"
+    },
+    {
+      "id": "simpleores:blocks/nickel_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_pole.json"
+    },
+    {
+      "id": "simpleores:blocks/nickel_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nickel_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nickel_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/nickel_tiles",
@@ -12139,6 +14405,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_block.json"
     },
     {
+      "id": "simpleores:blocks/rose_bronze_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_bronze_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_pole.json"
+    },
+    {
       "id": "simpleores:blocks/rose_bronze_pressling_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12155,6 +14439,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_pressling_block.json"
+    },
+    {
+      "id": "simpleores:blocks/rose_bronze_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_bronze_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/rose_gold_block",
@@ -12175,6 +14477,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_block.json"
     },
     {
+      "id": "simpleores:blocks/rose_gold_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_gold_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_pole.json"
+    },
+    {
       "id": "simpleores:blocks/rose_gold_pressling_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12191,6 +14511,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_pressling_block.json"
+    },
+    {
+      "id": "simpleores:blocks/rose_gold_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_gold_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/sage_crystal_block",
@@ -12282,6 +14620,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_block.json"
     },
     {
+      "id": "simpleores:blocks/silver_chain",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_chain"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_chain.json"
+    },
+    {
       "id": "simpleores:blocks/silver_door",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12316,6 +14672,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_grate.json"
+    },
+    {
+      "id": "simpleores:blocks/silver_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_lamp.json"
+    },
+    {
+      "id": "simpleores:blocks/silver_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_lantern.json"
     },
     {
       "id": "simpleores:blocks/silver_mirror",
@@ -12369,6 +14761,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_pillar.json"
+    },
+    {
+      "id": "simpleores:blocks/silver_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_pole.json"
+    },
+    {
+      "id": "simpleores:blocks/silver_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/silver_sheet",
@@ -12461,6 +14889,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_block.json"
     },
     {
+      "id": "simpleores:blocks/stainless_steel_chain",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_chain"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_chain.json"
+    },
+    {
       "id": "simpleores:blocks/stainless_steel_door",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12497,6 +14943,42 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_grate.json"
     },
     {
+      "id": "simpleores:blocks/stainless_steel_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_lamp.json"
+    },
+    {
+      "id": "simpleores:blocks/stainless_steel_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_lantern.json"
+    },
+    {
       "id": "simpleores:blocks/stainless_steel_pillar",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12513,6 +14995,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_pillar.json"
+    },
+    {
+      "id": "simpleores:blocks/stainless_steel_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_pole.json"
+    },
+    {
+      "id": "simpleores:blocks/stainless_steel_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:stainless_steel_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/stainless_steel_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/stainless_steel_tiles",
@@ -12567,6 +15085,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/terranite_block.json"
+    },
+    {
+      "id": "simpleores:blocks/terranite_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:terranite_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/terranite_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/tin_bars",
@@ -12639,6 +15175,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_block.json"
     },
     {
+      "id": "simpleores:blocks/tin_chain",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_chain"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_chain.json"
+    },
+    {
       "id": "simpleores:blocks/tin_door",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12675,6 +15229,42 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_grate.json"
     },
     {
+      "id": "simpleores:blocks/tin_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_lamp.json"
+    },
+    {
+      "id": "simpleores:blocks/tin_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_lantern.json"
+    },
+    {
       "id": "simpleores:blocks/tin_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12708,6 +15298,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_pillar.json"
+    },
+    {
+      "id": "simpleores:blocks/tin_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_pole.json"
+    },
+    {
+      "id": "simpleores:blocks/tin_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:tin_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/tin_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/tin_tiles",
@@ -12764,6 +15390,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zenithite_block.json"
     },
     {
+      "id": "simpleores:blocks/zenithite_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zenithite_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zenithite_pressure_plate.json"
+    },
+    {
       "id": "simpleores:blocks/zinc_bars",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12798,6 +15442,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_block.json"
+    },
+    {
+      "id": "simpleores:blocks/zinc_chain",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_chain"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_chain.json"
     },
     {
       "id": "simpleores:blocks/zinc_door",
@@ -12836,6 +15498,42 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_grate.json"
     },
     {
+      "id": "simpleores:blocks/zinc_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_lamp.json"
+    },
+    {
+      "id": "simpleores:blocks/zinc_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_lantern.json"
+    },
+    {
       "id": "simpleores:blocks/zinc_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12869,6 +15567,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_pillar.json"
+    },
+    {
+      "id": "simpleores:blocks/zinc_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_pole.json"
+    },
+    {
+      "id": "simpleores:blocks/zinc_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:zinc_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/zinc_pressure_plate.json"
     },
     {
       "id": "simpleores:blocks/zinc_tiles",
@@ -13196,8 +15930,11 @@
       "usedIn": [
         "simpleores:brass_bars",
         "simpleores:brass_block",
+        "simpleores:brass_chain",
         "simpleores:brass_door",
         "simpleores:brass_nugget",
+        "simpleores:brass_pole",
+        "simpleores:brass_pressure_plate",
         "simpleores:brass_trapdoor"
       ]
     },
@@ -13223,7 +15960,9 @@
         "simpleores:brass_nugget"
       ],
       "usedIn": [
-        "simpleores:brass_ingot_from_nuggets"
+        "simpleores:brass_chain",
+        "simpleores:brass_ingot_from_nuggets",
+        "simpleores:brass_lantern"
       ]
     },
     {
@@ -13252,8 +15991,11 @@
       "usedIn": [
         "simpleores:bronze_bars",
         "simpleores:bronze_block",
+        "simpleores:bronze_chain",
         "simpleores:bronze_door",
         "simpleores:bronze_nugget",
+        "simpleores:bronze_pole",
+        "simpleores:bronze_pressure_plate",
         "simpleores:bronze_trapdoor"
       ]
     },
@@ -13279,7 +16021,9 @@
         "simpleores:bronze_nugget"
       ],
       "usedIn": [
-        "simpleores:bronze_ingot_from_nuggets"
+        "simpleores:bronze_chain",
+        "simpleores:bronze_ingot_from_nuggets",
+        "simpleores:bronze_lantern"
       ]
     },
     {
@@ -13379,6 +16123,7 @@
       "usedIn": [
         "simpleores:enderite_block",
         "simpleores:enderite_nugget_from_ingot",
+        "simpleores:enderite_pressure_plate",
         "simpleores:terranite_ingot"
       ]
     },
@@ -13472,10 +16217,10 @@
           "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 21 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 21 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleores/item/guide_book.png",
@@ -13506,6 +16251,7 @@
       ],
       "usedIn": [
         "simpleores:infernite_block",
+        "simpleores:infernite_pressure_plate",
         "simpleores:zenithite_ingot"
       ]
     },
@@ -13565,9 +16311,12 @@
       "usedIn": [
         "simpleores:lead_bars",
         "simpleores:lead_block",
+        "simpleores:lead_chain",
         "simpleores:lead_door",
         "simpleores:lead_nugget",
         "simpleores:lead_plate",
+        "simpleores:lead_pole",
+        "simpleores:lead_pressure_plate",
         "simpleores:lead_trapdoor"
       ]
     },
@@ -13593,7 +16342,9 @@
         "simpleores:lead_nugget"
       ],
       "usedIn": [
-        "simpleores:lead_ingot_from_nuggets"
+        "simpleores:lead_chain",
+        "simpleores:lead_ingot_from_nuggets",
+        "simpleores:lead_lantern"
       ]
     },
     {
@@ -13652,8 +16403,11 @@
       "usedIn": [
         "simpleores:nickel_bars",
         "simpleores:nickel_block",
+        "simpleores:nickel_chain",
         "simpleores:nickel_door",
         "simpleores:nickel_nugget",
+        "simpleores:nickel_pole",
+        "simpleores:nickel_pressure_plate",
         "simpleores:nickel_trapdoor",
         "simpleores:stainless_steel_ingot"
       ]
@@ -13680,7 +16434,9 @@
         "simpleores:nickel_nugget"
       ],
       "usedIn": [
-        "simpleores:nickel_ingot_from_nuggets"
+        "simpleores:nickel_chain",
+        "simpleores:nickel_ingot_from_nuggets",
+        "simpleores:nickel_lantern"
       ]
     },
     {
@@ -14063,6 +16819,8 @@
         "simpleores:rose_bronze_leggings",
         "simpleores:rose_bronze_nugget",
         "simpleores:rose_bronze_pickaxe",
+        "simpleores:rose_bronze_pole",
+        "simpleores:rose_bronze_pressure_plate",
         "simpleores:rose_bronze_shovel",
         "simpleores:rose_bronze_sword"
       ]
@@ -14410,6 +17168,8 @@
         "simpleores:rose_gold_leggings",
         "simpleores:rose_gold_nugget",
         "simpleores:rose_gold_pickaxe",
+        "simpleores:rose_gold_pole",
+        "simpleores:rose_gold_pressure_plate",
         "simpleores:rose_gold_shovel",
         "simpleores:rose_gold_sword"
       ]
@@ -14668,8 +17428,11 @@
         "simpleores:rose_gold_pressling_a",
         "simpleores:silver_bars",
         "simpleores:silver_block",
+        "simpleores:silver_chain",
         "simpleores:silver_door",
         "simpleores:silver_nugget",
+        "simpleores:silver_pole",
+        "simpleores:silver_pressure_plate",
         "simpleores:silver_sheet",
         "simpleores:silver_trapdoor"
       ]
@@ -14696,7 +17459,9 @@
         "simpleores:silver_nugget"
       ],
       "usedIn": [
-        "simpleores:silver_ingot_from_nuggets"
+        "simpleores:silver_chain",
+        "simpleores:silver_ingot_from_nuggets",
+        "simpleores:silver_lantern"
       ]
     },
     {
@@ -14725,8 +17490,11 @@
       "usedIn": [
         "simpleores:stainless_steel_bars",
         "simpleores:stainless_steel_block",
+        "simpleores:stainless_steel_chain",
         "simpleores:stainless_steel_door",
         "simpleores:stainless_steel_nugget",
+        "simpleores:stainless_steel_pole",
+        "simpleores:stainless_steel_pressure_plate",
         "simpleores:stainless_steel_trapdoor"
       ]
     },
@@ -14752,7 +17520,9 @@
         "simpleores:stainless_steel_nugget"
       ],
       "usedIn": [
-        "simpleores:stainless_steel_ingot_from_nuggets"
+        "simpleores:stainless_steel_chain",
+        "simpleores:stainless_steel_ingot_from_nuggets",
+        "simpleores:stainless_steel_lantern"
       ]
     },
     {
@@ -14779,7 +17549,8 @@
       ],
       "usedIn": [
         "simpleores:infernite_ingot",
-        "simpleores:terranite_block"
+        "simpleores:terranite_block",
+        "simpleores:terranite_pressure_plate"
       ]
     },
     {
@@ -14812,8 +17583,11 @@
         "simpleores:bronze_ingot",
         "simpleores:tin_bars",
         "simpleores:tin_block",
+        "simpleores:tin_chain",
         "simpleores:tin_door",
         "simpleores:tin_nugget",
+        "simpleores:tin_pole",
+        "simpleores:tin_pressure_plate",
         "simpleores:tin_trapdoor"
       ]
     },
@@ -14839,7 +17613,9 @@
         "simpleores:tin_nugget"
       ],
       "usedIn": [
-        "simpleores:tin_ingot_from_nuggets"
+        "simpleores:tin_chain",
+        "simpleores:tin_ingot_from_nuggets",
+        "simpleores:tin_lantern"
       ]
     },
     {
@@ -14865,7 +17641,8 @@
         "simpleores:zenithite_ingot_from_zenithite_block"
       ],
       "usedIn": [
-        "simpleores:zenithite_block"
+        "simpleores:zenithite_block",
+        "simpleores:zenithite_pressure_plate"
       ]
     },
     {
@@ -14900,8 +17677,11 @@
         "simpleores:brass_ingot",
         "simpleores:zinc_bars",
         "simpleores:zinc_block",
+        "simpleores:zinc_chain",
         "simpleores:zinc_door",
         "simpleores:zinc_nugget",
+        "simpleores:zinc_pole",
+        "simpleores:zinc_pressure_plate",
         "simpleores:zinc_trapdoor"
       ]
     },
@@ -14927,7 +17707,9 @@
         "simpleores:zinc_nugget"
       ],
       "usedIn": [
-        "simpleores:zinc_ingot_from_nuggets"
+        "simpleores:zinc_chain",
+        "simpleores:zinc_ingot_from_nuggets",
+        "simpleores:zinc_lantern"
       ]
     }
   ],
@@ -14980,6 +17762,7 @@
         "simpleores:brass_grate",
         "simpleores:brass_grate_from_brass_block_stonecutting",
         "simpleores:brass_ingot_from_brass_block",
+        "simpleores:brass_lamp",
         "simpleores:brass_pillar",
         "simpleores:brass_pillar_from_brass_block_stonecutting",
         "simpleores:brass_tiles_from_brass_block_stonecutting",
@@ -14989,6 +17772,29 @@
         "simpleores:cut_brass_slab_from_brass_block_stonecutting",
         "simpleores:cut_brass_stairs_from_brass_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:brass_chain",
+      "name": {
+        "en_us": "Brass Chain",
+        "de_de": "Messingkette"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A chain like the iron chain with brass links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A brass nugget, an ingot and a nugget upright make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Kette wie die Eisenkette mit Messinggliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Messingklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/brass_chain.png",
+      "craftedBy": [
+        "simpleores:brass_chain"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:brass_door",
@@ -15037,6 +17843,52 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:brass_lamp",
+      "name": {
+        "en_us": "Brass Lamp",
+        "de_de": "Messinglampe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lamp with the logic of the copper bulb in brass: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the brass grate pattern; it does not age. Three blocks of brass, a blaze rod and redstone make 4. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Messing: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Messingrostmuster; sie altert nicht. Drei Messingblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/brass_lamp.png",
+      "craftedBy": [
+        "simpleores:brass_lamp"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:brass_lantern",
+      "name": {
+        "en_us": "Brass Lantern",
+        "de_de": "Messinglaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lantern like the Vanilla one with a brass housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight brass nuggets round a torch make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Laterne wie die aus Vanilla mit Messinggehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Messingklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/brass_lantern.png",
+      "craftedBy": [
+        "simpleores:brass_lantern"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:brass_pillar",
       "name": {
         "en_us": "Brass Pillar",
@@ -15057,6 +17909,51 @@
       "craftedBy": [
         "simpleores:brass_pillar",
         "simpleores:brass_pillar_from_brass_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:brass_pole",
+      "name": {
+        "en_us": "Brass Pole",
+        "de_de": "Messingstange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A brass pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three brass ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Messingstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Messingbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/brass_pole.png",
+      "craftedBy": [
+        "simpleores:brass_pole"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:brass_pressure_plate",
+      "name": {
+        "en_us": "Brass Pressure Plate",
+        "de_de": "Messingdruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of brass: heavy like the iron plate (one signal level per 10 entities, up to 150). Two brass ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Messing: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Messingbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:brass_pressure_plate"
       ],
       "usedIn": []
     },
@@ -15156,6 +18053,7 @@
         "simpleores:bronze_grate",
         "simpleores:bronze_grate_from_bronze_block_stonecutting",
         "simpleores:bronze_ingot_from_bronze_block",
+        "simpleores:bronze_lamp",
         "simpleores:bronze_pillar",
         "simpleores:bronze_pillar_from_bronze_block_stonecutting",
         "simpleores:bronze_tiles_from_bronze_block_stonecutting",
@@ -15165,6 +18063,29 @@
         "simpleores:cut_bronze_slab_from_bronze_block_stonecutting",
         "simpleores:cut_bronze_stairs_from_bronze_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:bronze_chain",
+      "name": {
+        "en_us": "Bronze Chain",
+        "de_de": "Bronzekette"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A chain like the iron chain with bronze links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A bronze nugget, an ingot and a nugget upright make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Kette wie die Eisenkette mit Bronzegliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Bronzeklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_chain.png",
+      "craftedBy": [
+        "simpleores:bronze_chain"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:bronze_door",
@@ -15213,6 +18134,52 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:bronze_lamp",
+      "name": {
+        "en_us": "Bronze Lamp",
+        "de_de": "Bronzelampe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lamp with the logic of the copper bulb in bronze: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the bronze grate pattern; it does not age. Three blocks of bronze, a blaze rod and redstone make 4. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Bronze: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Bronzerostmuster; sie altert nicht. Drei Bronzeblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_lamp.png",
+      "craftedBy": [
+        "simpleores:bronze_lamp"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:bronze_lantern",
+      "name": {
+        "en_us": "Bronze Lantern",
+        "de_de": "Bronzelaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lantern like the Vanilla one with a bronze housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight bronze nuggets round a torch make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Laterne wie die aus Vanilla mit Bronzegehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Bronzeklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_lantern.png",
+      "craftedBy": [
+        "simpleores:bronze_lantern"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:bronze_pillar",
       "name": {
         "en_us": "Bronze Pillar",
@@ -15233,6 +18200,51 @@
       "craftedBy": [
         "simpleores:bronze_pillar",
         "simpleores:bronze_pillar_from_bronze_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:bronze_pole",
+      "name": {
+        "en_us": "Bronze Pole",
+        "de_de": "Bronzestange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A bronze pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three bronze ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Bronzestange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Bronzebarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/bronze_pole.png",
+      "craftedBy": [
+        "simpleores:bronze_pole"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:bronze_pressure_plate",
+      "name": {
+        "en_us": "Bronze Pressure Plate",
+        "de_de": "Bronzedruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of bronze: heavy like the iron plate (one signal level per 10 entities, up to 150). Two bronze ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Bronze: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Bronzebarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:bronze_pressure_plate"
       ],
       "usedIn": []
     },
@@ -16397,6 +19409,28 @@
       ]
     },
     {
+      "id": "simpleores:enderite_pressure_plate",
+      "name": {
+        "en_us": "Enderite Pressure Plate",
+        "de_de": "Enderitdruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of enderite: heavy like the iron plate (one signal level per 10 entities, up to 150). Two enderite ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Enderit: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Enderitbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:enderite_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:enderite_scrap_block",
       "name": {
         "en_us": "Block of Enderite Scrap",
@@ -16468,6 +19502,28 @@
       ]
     },
     {
+      "id": "simpleores:infernite_pressure_plate",
+      "name": {
+        "en_us": "Infernite Pressure Plate",
+        "de_de": "Infernitdruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of infernite: heavy like the iron plate (one signal level per 10 entities, up to 150). Two infernite ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Infernit: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Infernitbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:infernite_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:lead_bars",
       "name": {
         "en_us": "Lead Bars",
@@ -16520,10 +19576,34 @@
         "simpleores:lead_grate",
         "simpleores:lead_grate_from_lead_block_stonecutting",
         "simpleores:lead_ingot_from_lead_block",
+        "simpleores:lead_lamp",
         "simpleores:lead_pillar",
         "simpleores:lead_pillar_from_lead_block_stonecutting",
         "simpleores:lead_tiles_from_lead_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:lead_chain",
+      "name": {
+        "en_us": "Lead Chain",
+        "de_de": "Bleikette"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A chain like the iron chain with lead links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A lead nugget, an ingot and a nugget upright make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Kette wie die Eisenkette mit Bleigliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Bleiklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/lead_chain.png",
+      "craftedBy": [
+        "simpleores:lead_chain"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:lead_door",
@@ -16568,6 +19648,52 @@
       "craftedBy": [
         "simpleores:lead_grate",
         "simpleores:lead_grate_from_lead_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:lead_lamp",
+      "name": {
+        "en_us": "Lead Lamp",
+        "de_de": "Bleilampe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lamp with the logic of the copper bulb in lead: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the lead grate pattern; it does not age. Three blocks of lead, a blaze rod and redstone make 4. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Blei: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Bleirostmuster; sie altert nicht. Drei Bleiblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/lead_lamp.png",
+      "craftedBy": [
+        "simpleores:lead_lamp"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:lead_lantern",
+      "name": {
+        "en_us": "Lead Lantern",
+        "de_de": "Bleilaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lantern like the Vanilla one with a lead housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight lead nuggets round a torch make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Laterne wie die aus Vanilla mit Bleigehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Bleiklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/lead_lantern.png",
+      "craftedBy": [
+        "simpleores:lead_lantern"
       ],
       "usedIn": []
     },
@@ -16638,6 +19764,51 @@
       },
       "craftedBy": [
         "simpleores:lead_plate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:lead_pole",
+      "name": {
+        "en_us": "Lead Pole",
+        "de_de": "Bleistange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lead pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three lead ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Bleistange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Bleibarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/lead_pole.png",
+      "craftedBy": [
+        "simpleores:lead_pole"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:lead_pressure_plate",
+      "name": {
+        "en_us": "Lead Pressure Plate",
+        "de_de": "Bleidruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of lead: heavy like the iron plate (one signal level per 10 entities, up to 150). Two lead ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Blei: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Bleibarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:lead_pressure_plate"
       ],
       "usedIn": []
     },
@@ -16859,10 +20030,34 @@
         "simpleores:nickel_grate",
         "simpleores:nickel_grate_from_nickel_block_stonecutting",
         "simpleores:nickel_ingot_from_nickel_block",
+        "simpleores:nickel_lamp",
         "simpleores:nickel_pillar",
         "simpleores:nickel_pillar_from_nickel_block_stonecutting",
         "simpleores:nickel_tiles_from_nickel_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:nickel_chain",
+      "name": {
+        "en_us": "Nickel Chain",
+        "de_de": "Nickelkette"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A chain like the iron chain with nickel links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A nickel nugget, an ingot and a nugget upright make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Kette wie die Eisenkette mit Nickelgliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Nickelklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/nickel_chain.png",
+      "craftedBy": [
+        "simpleores:nickel_chain"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:nickel_door",
@@ -16911,6 +20106,52 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:nickel_lamp",
+      "name": {
+        "en_us": "Nickel Lamp",
+        "de_de": "Nickellampe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lamp with the logic of the copper bulb in nickel: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the nickel grate pattern; it does not age. Three blocks of nickel, a blaze rod and redstone make 4. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Nickel: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Nickelrostmuster; sie altert nicht. Drei Nickelblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/nickel_lamp.png",
+      "craftedBy": [
+        "simpleores:nickel_lamp"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:nickel_lantern",
+      "name": {
+        "en_us": "Nickel Lantern",
+        "de_de": "Nickellaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lantern like the Vanilla one with a nickel housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight nickel nuggets round a torch make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Laterne wie die aus Vanilla mit Nickelgehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Nickelklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/nickel_lantern.png",
+      "craftedBy": [
+        "simpleores:nickel_lantern"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:nickel_pillar",
       "name": {
         "en_us": "Nickel Pillar",
@@ -16931,6 +20172,51 @@
       "craftedBy": [
         "simpleores:nickel_pillar",
         "simpleores:nickel_pillar_from_nickel_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:nickel_pole",
+      "name": {
+        "en_us": "Nickel Pole",
+        "de_de": "Nickelstange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A nickel pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three nickel ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Nickelstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Nickelbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/nickel_pole.png",
+      "craftedBy": [
+        "simpleores:nickel_pole"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:nickel_pressure_plate",
+      "name": {
+        "en_us": "Nickel Pressure Plate",
+        "de_de": "Nickeldruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of nickel: heavy like the iron plate (one signal level per 10 entities, up to 150). Two nickel ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Nickel: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Nickelbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:nickel_pressure_plate"
       ],
       "usedIn": []
     },
@@ -17159,6 +20445,29 @@
       ]
     },
     {
+      "id": "simpleores:rose_bronze_pole",
+      "name": {
+        "en_us": "Rose Copper Pole",
+        "de_de": "Rosenkupferstange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A rose copper pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three rose copper ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Rosenkupferstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Rosenkupferbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/rose_bronze_pole.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_pole"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:rose_bronze_pressling_block",
       "name": {
         "en_us": "Block of Rose Copper Pressling",
@@ -17182,6 +20491,28 @@
       "usedIn": [
         "simpleores:rose_bronze_pressling_from_rose_bronze_pressling_block"
       ]
+    },
+    {
+      "id": "simpleores:rose_bronze_pressure_plate",
+      "name": {
+        "en_us": "Rose Copper Pressure Plate",
+        "de_de": "Rosenkupfer-Druckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of rose copper: light like the gold plate (one signal level per entity, up to 15). Two rose copper ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Rosenkupfer: leicht wie die Goldplatte (eine Signalstufe je Objekt, bis 15). Zwei Rosenkupferbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:rose_bronze_pressure_plate"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:rose_gold_block",
@@ -17210,6 +20541,29 @@
       ]
     },
     {
+      "id": "simpleores:rose_gold_pole",
+      "name": {
+        "en_us": "Rose Gold Pole",
+        "de_de": "Roségoldstange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A rose gold pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three rose gold ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Roségoldstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Roségoldbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/rose_gold_pole.png",
+      "craftedBy": [
+        "simpleores:rose_gold_pole"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:rose_gold_pressling_block",
       "name": {
         "en_us": "Block of Rose Gold Pressling",
@@ -17233,6 +20587,28 @@
       "usedIn": [
         "simpleores:rose_gold_pressling_from_rose_gold_pressling_block"
       ]
+    },
+    {
+      "id": "simpleores:rose_gold_pressure_plate",
+      "name": {
+        "en_us": "Rose Gold Pressure Plate",
+        "de_de": "Roségold-Druckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of rose gold: light like the gold plate (one signal level per entity, up to 15). Two rose gold ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Roségold: leicht wie die Goldplatte (eine Signalstufe je Objekt, bis 15). Zwei Roségoldbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:rose_gold_pressure_plate"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:sage_crystal_block",
@@ -17358,10 +20734,34 @@
         "simpleores:silver_grate",
         "simpleores:silver_grate_from_silver_block_stonecutting",
         "simpleores:silver_ingot_from_silver_block",
+        "simpleores:silver_lamp",
         "simpleores:silver_pillar",
         "simpleores:silver_pillar_from_silver_block_stonecutting",
         "simpleores:silver_tiles_from_silver_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:silver_chain",
+      "name": {
+        "en_us": "Silver Chain",
+        "de_de": "Silberkette"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A chain like the iron chain with silver links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A silver nugget, an ingot and a nugget upright make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Kette wie die Eisenkette mit Silbergliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Silberklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/silver_chain.png",
+      "craftedBy": [
+        "simpleores:silver_chain"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:silver_door",
@@ -17406,6 +20806,52 @@
       "craftedBy": [
         "simpleores:silver_grate",
         "simpleores:silver_grate_from_silver_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:silver_lamp",
+      "name": {
+        "en_us": "Silver Lamp",
+        "de_de": "Silberlampe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lamp with the logic of the copper bulb in silver: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the silver grate pattern; it does not age. Three blocks of silver, a blaze rod and redstone make 4. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Silber: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Silberrostmuster; sie altert nicht. Drei Silberblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/silver_lamp.png",
+      "craftedBy": [
+        "simpleores:silver_lamp"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:silver_lantern",
+      "name": {
+        "en_us": "Silver Lantern",
+        "de_de": "Silberlaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lantern like the Vanilla one with a silver housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight silver nuggets round a torch make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Laterne wie die aus Vanilla mit Silbergehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Silberklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/silver_lantern.png",
+      "craftedBy": [
+        "simpleores:silver_lantern"
       ],
       "usedIn": []
     },
@@ -17477,6 +20923,51 @@
       "craftedBy": [
         "simpleores:silver_pillar",
         "simpleores:silver_pillar_from_silver_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:silver_pole",
+      "name": {
+        "en_us": "Silver Pole",
+        "de_de": "Silberstange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A silver pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three silver ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Silberstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Silberbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/silver_pole.png",
+      "craftedBy": [
+        "simpleores:silver_pole"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:silver_pressure_plate",
+      "name": {
+        "en_us": "Silver Pressure Plate",
+        "de_de": "Silberdruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of silver: light like the gold plate (one signal level per entity, up to 15). Two silver ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Silber: leicht wie die Goldplatte (eine Signalstufe je Objekt, bis 15). Zwei Silberbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:silver_pressure_plate"
       ],
       "usedIn": []
     },
@@ -17606,10 +21097,34 @@
         "simpleores:stainless_steel_grate",
         "simpleores:stainless_steel_grate_from_stainless_steel_block_stonecutting",
         "simpleores:stainless_steel_ingot_from_stainless_steel_block",
+        "simpleores:stainless_steel_lamp",
         "simpleores:stainless_steel_pillar",
         "simpleores:stainless_steel_pillar_from_stainless_steel_block_stonecutting",
         "simpleores:stainless_steel_tiles_from_stainless_steel_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:stainless_steel_chain",
+      "name": {
+        "en_us": "Stainless Steel Chain",
+        "de_de": "Edelstahlkette"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A chain like the iron chain with stainless steel links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A stainless steel nugget, an ingot and a nugget upright make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Kette wie die Eisenkette mit Edelstahlgliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Edelstahlklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_chain.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_chain"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:stainless_steel_door",
@@ -17658,6 +21173,52 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:stainless_steel_lamp",
+      "name": {
+        "en_us": "Stainless Steel Lamp",
+        "de_de": "Edelstahllampe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lamp with the logic of the copper bulb in stainless steel: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the stainless steel grate pattern; it does not age. Three blocks of stainless steel, a blaze rod and redstone make 4. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Edelstahl: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Edelstahlrostmuster; sie altert nicht. Drei Edelstahlblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_lamp.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_lamp"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:stainless_steel_lantern",
+      "name": {
+        "en_us": "Stainless Steel Lantern",
+        "de_de": "Edelstahllaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lantern like the Vanilla one with a stainless steel housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight stainless steel nuggets round a torch make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Laterne wie die aus Vanilla mit Edelstahlgehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Edelstahlklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_lantern.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_lantern"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:stainless_steel_pillar",
       "name": {
         "en_us": "Stainless Steel Pillar",
@@ -17678,6 +21239,51 @@
       "craftedBy": [
         "simpleores:stainless_steel_pillar",
         "simpleores:stainless_steel_pillar_from_stainless_steel_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:stainless_steel_pole",
+      "name": {
+        "en_us": "Stainless Steel Pole",
+        "de_de": "Edelstahlstange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A stainless steel pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three stainless steel ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Edelstahlstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Edelstahlbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/stainless_steel_pole.png",
+      "craftedBy": [
+        "simpleores:stainless_steel_pole"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:stainless_steel_pressure_plate",
+      "name": {
+        "en_us": "Stainless Steel Pressure Plate",
+        "de_de": "Edelstahldruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of stainless steel: heavy like the iron plate (one signal level per 10 entities, up to 150). Two stainless steel ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Edelstahl: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Edelstahlbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:stainless_steel_pressure_plate"
       ],
       "usedIn": []
     },
@@ -17753,6 +21359,28 @@
       "usedIn": [
         "simpleores:terranite_ingot_from_terranite_block"
       ]
+    },
+    {
+      "id": "simpleores:terranite_pressure_plate",
+      "name": {
+        "en_us": "Terranite Pressure Plate",
+        "de_de": "Terranitdruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of terranite: heavy like the iron plate (one signal level per 10 entities, up to 150). Two terranite ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Terranit: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Terranitbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:terranite_pressure_plate"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:tin_bars",
@@ -17849,10 +21477,34 @@
         "simpleores:tin_grate",
         "simpleores:tin_grate_from_tin_block_stonecutting",
         "simpleores:tin_ingot_from_tin_block",
+        "simpleores:tin_lamp",
         "simpleores:tin_pillar",
         "simpleores:tin_pillar_from_tin_block_stonecutting",
         "simpleores:tin_tiles_from_tin_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:tin_chain",
+      "name": {
+        "en_us": "Tin Chain",
+        "de_de": "Zinnkette"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A chain like the iron chain with tin links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A tin nugget, an ingot and a nugget upright make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Kette wie die Eisenkette mit Zinngliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Zinnklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/tin_chain.png",
+      "craftedBy": [
+        "simpleores:tin_chain"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:tin_door",
@@ -17901,6 +21553,52 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:tin_lamp",
+      "name": {
+        "en_us": "Tin Lamp",
+        "de_de": "Zinnlampe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lamp with the logic of the copper bulb in tin: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the tin grate pattern; it does not age. Three blocks of tin, a blaze rod and redstone make 4. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Zinn: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Zinnrostmuster; sie altert nicht. Drei Zinnblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/tin_lamp.png",
+      "craftedBy": [
+        "simpleores:tin_lamp"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:tin_lantern",
+      "name": {
+        "en_us": "Tin Lantern",
+        "de_de": "Zinnlaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lantern like the Vanilla one with a tin housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight tin nuggets round a torch make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Laterne wie die aus Vanilla mit Zinngehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Zinnklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/tin_lantern.png",
+      "craftedBy": [
+        "simpleores:tin_lantern"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:tin_ore",
       "name": {
         "en_us": "Tin Ore",
@@ -17945,6 +21643,51 @@
       "craftedBy": [
         "simpleores:tin_pillar",
         "simpleores:tin_pillar_from_tin_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:tin_pole",
+      "name": {
+        "en_us": "Tin Pole",
+        "de_de": "Zinnstange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A tin pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three tin ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Zinnstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Zinnbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/tin_pole.png",
+      "craftedBy": [
+        "simpleores:tin_pole"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:tin_pressure_plate",
+      "name": {
+        "en_us": "Tin Pressure Plate",
+        "de_de": "Zinndruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of tin: heavy like the iron plate (one signal level per 10 entities, up to 150). Two tin ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Zinn: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Zinnbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:tin_pressure_plate"
       ],
       "usedIn": []
     },
@@ -18022,6 +21765,28 @@
       ]
     },
     {
+      "id": "simpleores:zenithite_pressure_plate",
+      "name": {
+        "en_us": "Zenithite Pressure Plate",
+        "de_de": "Zenithitdruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of zenithite: heavy like the iron plate (one signal level per 10 entities, up to 150). Two zenithite ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Zenithit: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Zenithitbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:zenithite_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:zinc_bars",
       "name": {
         "en_us": "Zinc Bars",
@@ -18074,10 +21839,34 @@
         "simpleores:zinc_grate",
         "simpleores:zinc_grate_from_zinc_block_stonecutting",
         "simpleores:zinc_ingot_from_zinc_block",
+        "simpleores:zinc_lamp",
         "simpleores:zinc_pillar",
         "simpleores:zinc_pillar_from_zinc_block_stonecutting",
         "simpleores:zinc_tiles_from_zinc_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:zinc_chain",
+      "name": {
+        "en_us": "Zinc Chain",
+        "de_de": "Zinkkette"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A chain like the iron chain with zinc links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A zinc nugget, an ingot and a nugget upright make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Kette wie die Eisenkette mit Zinkgliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Zinkklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/zinc_chain.png",
+      "craftedBy": [
+        "simpleores:zinc_chain"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:zinc_door",
@@ -18126,6 +21915,52 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:zinc_lamp",
+      "name": {
+        "en_us": "Zinc Lamp",
+        "de_de": "Zinklampe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lamp with the logic of the copper bulb in zinc: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the zinc grate pattern; it does not age. Three blocks of zinc, a blaze rod and redstone make 4. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Zink: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Zinkrostmuster; sie altert nicht. Drei Zinkblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/zinc_lamp.png",
+      "craftedBy": [
+        "simpleores:zinc_lamp"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:zinc_lantern",
+      "name": {
+        "en_us": "Zinc Lantern",
+        "de_de": "Zinklaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lantern like the Vanilla one with a zinc housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight zinc nuggets round a torch make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Laterne wie die aus Vanilla mit Zinkgehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Zinkklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/zinc_lantern.png",
+      "craftedBy": [
+        "simpleores:zinc_lantern"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:zinc_ore",
       "name": {
         "en_us": "Zinc Ore",
@@ -18170,6 +22005,51 @@
       "craftedBy": [
         "simpleores:zinc_pillar",
         "simpleores:zinc_pillar_from_zinc_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:zinc_pole",
+      "name": {
+        "en_us": "Zinc Pole",
+        "de_de": "Zinkstange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A zinc pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three zinc ingots upright make 1. Needs a stone pickaxe."
+        },
+        "de": {
+          "summary": "Eine Zinkstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Zinkbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/zinc_pole.png",
+      "craftedBy": [
+        "simpleores:zinc_pole"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:zinc_pressure_plate",
+      "name": {
+        "en_us": "Zinc Pressure Plate",
+        "de_de": "Zinkdruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A weighted pressure plate of zinc: heavy like the iron plate (one signal level per 10 entities, up to 150). Two zinc ingots side by side make 1. Any pickaxe."
+        },
+        "de": {
+          "summary": "Eine Wägeplatte aus Zink: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Zinkbarren nebeneinander ergeben 1. Jede Spitzhacke."
+        }
+      },
+      "craftedBy": [
+        "simpleores:zinc_pressure_plate"
       ],
       "usedIn": []
     },
@@ -18541,14 +22421,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 19,
-    "recipes": 321,
-    "lootTables": 131,
+    "features": 21,
+    "recipes": 369,
+    "lootTables": 179,
     "tags": 11,
     "advancements": 1,
     "enchantments": 0,
     "items": 67,
-    "blocks": 131,
+    "blocks": 179,
     "trades": 0,
     "config": 16,
     "quests": 0,

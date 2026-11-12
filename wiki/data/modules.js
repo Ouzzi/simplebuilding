@@ -517,7 +517,7 @@ window.WIKI_MODULES = [
       "config": 53,
       "features": 11
     },
-    "dataHash": "8d1112e76544"
+    "dataHash": "164645240bd6"
   },
   {
     "id": "simplesandwiches",
@@ -2015,12 +2015,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
       "items": 67,
-      "blocks": 131,
-      "recipes": 321,
+      "blocks": 179,
+      "recipes": 369,
       "config": 16,
-      "features": 19
+      "features": 21
     },
-    "dataHash": "1a64bd1185be"
+    "dataHash": "51b67422924a"
   },
   {
     "id": "simplemachines",
