@@ -154,6 +154,33 @@ public final class ConfigScreenModel {
         return "text.autoconfig." + modId + ".title";
     }
 
+    /**
+     * simplelib-6 (PLAN40): what the config screen of {@code spec} would show as a raw path - the title, each named category and
+     * each option without a lang key ({@code has} answers whether a key exists). Tooltips stay optional. A mod's GameTest asserts
+     * an empty list for its own id ({@link #missingLabels(String)}), so a new option cannot ship without a readable name.
+     */
+    public static List<String> missingLabels(ConfigCommands.Spec spec, java.util.function.Predicate<String> has) {
+        List<String> out = new ArrayList<>();
+        if (!has.test(titleKey(spec.modId()))) out.add("<title>");
+        for (Category c : categories(spec)) {
+            if (!GENERAL.equals(c.group()) && !has.test(categoryKey(spec.modId(), c.group()))) out.add("<category " + c.group() + ">");
+            for (Field f : c.fields()) {
+                if (!has.test(labelKey(spec.modId(), f.path()))) out.add(f.path());
+            }
+        }
+        return out;
+    }
+
+    /** {@link #missingLabels(ConfigCommands.Spec, java.util.function.Predicate)} for the server and client config of {@code modId}, against the loaded language. */
+    public static List<String> missingLabels(String modId) {
+        List<String> out = new ArrayList<>();
+        for (boolean client : new boolean[] {false, true}) {
+            ConfigCommands.Spec spec = ConfigCommands.spec(modId, client);
+            if (spec != null) out.addAll(missingLabels(spec, net.minecraft.locale.Language.getInstance()::has));
+        }
+        return out;
+    }
+
     /** A readable name when the lang file has none: {@code upgradeSeconds} -> {@code Upgrade seconds}, the last path part. */
     public static String humanize(String path) {
         String last = path.substring(path.lastIndexOf('.') + 1).replace('_', ' ').replace('-', ' ');

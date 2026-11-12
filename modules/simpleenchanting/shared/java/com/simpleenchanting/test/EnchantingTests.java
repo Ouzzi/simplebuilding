@@ -1,5 +1,6 @@
 package com.simpleenchanting.test;
 
+import com.simpleenchanting.BlazewoodFamily;
 import com.simpleenchanting.EnchanterStage;
 import com.simpleenchanting.EnchantingRegistry;
 import com.simpleenchanting.EnchantingRules;
@@ -64,6 +65,10 @@ public final class EnchantingTests {
         ALL.put("end_shelves_count_double", EnchantingTests::endShelvesCountDouble);
         ALL.put("chiseled_shelves_take_mod_books", EnchantingTests::chiseledShelvesTakeModBooks);
         ALL.put("end_shelf_drops_its_books", EnchantingTests::endShelfDropsItsBooks);
+        ALL.put("blazewood_family_registered", EnchantingTests::blazewoodFamilyRegistered);
+        ALL.put("blazewood_recipes", EnchantingTests::blazewoodRecipes);
+        ALL.put("blazewood_door_has_two_halves", EnchantingTests::blazewoodDoorHasTwoHalves);
+        ALL.put("config_labels", EnchantingTests::configLabels);
         ALL.put("discover_recipe_unlocks", com.simpleenchanting.discover.EnchantingDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleenchanting.discover.EnchantingDiscover::behaviourHints);
         ALL.put("guide_book", com.simpleenchanting.guide.EnchantingGuide::gameTest);
@@ -845,6 +850,167 @@ public final class EnchantingTests {
         } finally {
             EnchantingConfig.endgameLevels = before;
         }
+        helper.succeed();
+    }
+
+    // ------------------------------------------------------------------ PLAN40 simpleenchanting-1: the blazewood family
+
+    /**
+     * The 16 family blocks with items in every installation (always this module's ids), Vanilla's classes and crimson/warped block
+     * set, Vanilla's wood tags (stairs, slabs, fences, gates, doors, trapdoors, plates, buttons, axe), Nether wood (not lit by lava,
+     * no fuel, item tags non_flammable_wood and not logs_that_burn), and the tab shows each wood's family right after its planks.
+     */
+    public static void blazewoodFamilyRegistered(GameTestHelper helper) {
+        List<String> problems = new java.util.ArrayList<>();
+        helper.assertTrue(BlazewoodFamily.paths().size() == 16 && BlazewoodFamily.blocks().size() == 16 && BlazewoodFamily.items().size() == 16,
+                "16 blocks and items: " + BlazewoodFamily.blocks().keySet());
+        Map<String, Class<?>> classes = Map.of("stairs", net.minecraft.world.level.block.StairBlock.class, "slab", net.minecraft.world.level.block.SlabBlock.class,
+                "fence", net.minecraft.world.level.block.FenceBlock.class, "fence_gate", net.minecraft.world.level.block.FenceGateBlock.class,
+                "door", net.minecraft.world.level.block.DoorBlock.class, "trapdoor", net.minecraft.world.level.block.TrapDoorBlock.class,
+                "pressure_plate", net.minecraft.world.level.block.PressurePlateBlock.class, "button", net.minecraft.world.level.block.ButtonBlock.class);
+        Map<String, List<net.minecraft.tags.TagKey<Block>>> blockTags = Map.of(
+                "stairs", List.of(net.minecraft.tags.BlockTags.WOODEN_STAIRS, net.minecraft.tags.BlockTags.STAIRS),
+                "slab", List.of(net.minecraft.tags.BlockTags.WOODEN_SLABS, net.minecraft.tags.BlockTags.SLABS),
+                "fence", List.of(net.minecraft.tags.BlockTags.WOODEN_FENCES, net.minecraft.tags.BlockTags.FENCES),
+                "fence_gate", List.of(net.minecraft.tags.BlockTags.FENCE_GATES),
+                "door", List.of(net.minecraft.tags.BlockTags.WOODEN_DOORS, net.minecraft.tags.BlockTags.DOORS),
+                "trapdoor", List.of(net.minecraft.tags.BlockTags.WOODEN_TRAPDOORS, net.minecraft.tags.BlockTags.TRAPDOORS),
+                "pressure_plate", List.of(net.minecraft.tags.BlockTags.WOODEN_PRESSURE_PLATES, net.minecraft.tags.BlockTags.PRESSURE_PLATES),
+                "button", List.of(net.minecraft.tags.BlockTags.WOODEN_BUTTONS, net.minecraft.tags.BlockTags.BUTTONS));
+        Map<String, net.minecraft.tags.TagKey<net.minecraft.world.item.Item>> itemTags = Map.of("stairs", net.minecraft.tags.ItemTags.WOODEN_STAIRS,
+                "slab", net.minecraft.tags.ItemTags.WOODEN_SLABS, "fence", net.minecraft.tags.ItemTags.WOODEN_FENCES, "fence_gate", net.minecraft.tags.ItemTags.FENCE_GATES,
+                "door", net.minecraft.tags.ItemTags.WOODEN_DOORS, "trapdoor", net.minecraft.tags.ItemTags.WOODEN_TRAPDOORS,
+                "pressure_plate", net.minecraft.tags.ItemTags.WOODEN_PRESSURE_PLATES, "button", net.minecraft.tags.ItemTags.WOODEN_BUTTONS);
+        for (String wood : BlazewoodFamily.WOODS) {
+            for (String shape : BlazewoodFamily.SHAPES) {
+                String path = BlazewoodFamily.path(wood, shape);
+                Block block = BuiltInRegistries.BLOCK.getValue(SimpleEnchanting.id(path));
+                net.minecraft.world.item.Item item = BuiltInRegistries.ITEM.getValue(SimpleEnchanting.id(path));
+                Block vanilla = BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace(wood + "_" + shape));
+                if (block == Blocks.AIR || block != BlazewoodFamily.blocks().get(path)) problems.add("block " + path);
+                if (!(item instanceof net.minecraft.world.item.BlockItem blockItem) || blockItem.getBlock() != block) problems.add("item " + path);
+                if ("door".equals(shape) != item instanceof net.minecraft.world.item.DoubleHighBlockItem) problems.add("door item " + path);
+                if (!classes.get(shape).isInstance(block)) problems.add("class " + path);
+                var state = block.defaultBlockState();
+                for (var tag : blockTags.get(shape)) if (!state.is(tag)) problems.add(path + " not in " + tag.location());
+                if (!state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)) problems.add(path + " not axe");
+                if (state.ignitedByLava()) problems.add(path + " burns");
+                if (state.getSoundType() != vanilla.defaultBlockState().getSoundType() || block.defaultMapColor() != vanilla.defaultMapColor()) problems.add(path + " not like " + wood + "_" + shape);
+                ItemStack stack = new ItemStack(item);
+                if (!stack.is(itemTags.get(shape)) || !stack.is(net.minecraft.tags.ItemTags.NON_FLAMMABLE_WOOD)
+                        || stack.is(net.minecraft.tags.ItemTags.LOGS_THAT_BURN)) problems.add(path + " item tags");
+                if (stack.has(net.minecraft.core.component.DataComponents.COOKING_FUEL)) problems.add(path + " is fuel");
+                if (block instanceof net.minecraft.world.level.block.DoorBlock door
+                        && door.type() != ("crimson".equals(wood) ? net.minecraft.world.level.block.state.properties.BlockSetType.CRIMSON : net.minecraft.world.level.block.state.properties.BlockSetType.WARPED)) {
+                    problems.add(path + " block set");
+                }
+            }
+        }
+        if (SimpleEnchanting.on()) {
+            List<net.minecraft.world.item.Item> tab = EnchantingRegistry.tabStacks().stream().map(ItemStack::getItem).toList();
+            for (String wood : BlazewoodFamily.WOODS) {
+                int planks = tab.indexOf(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleEnchanting.buildingNamespace(), wood + "_blazewood_planks")));
+                List<String> paths = BlazewoodFamily.paths(wood);
+                for (int i = 0; i < paths.size(); i++) {
+                    if (planks < 0 || planks + 1 + i >= tab.size() || tab.get(planks + 1 + i) != BlazewoodFamily.items().get(paths.get(i))) problems.add("tab order " + paths.get(i));
+                }
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "blazewood family: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * Each shape's crafting recipe takes the planks of this installation (SimpleBuilding's, or the twins alone) through the item tag
+     * and gives Vanilla's count; the Shapecutter cuts stairs, slab and fence only with Simple Blocks, the stonecutter only without it
+     * (PRINZIPIEN A4b); the chisel chain ships as data.
+     */
+    public static void blazewoodRecipes(GameTestHelper helper) {
+        var level = helper.getLevel();
+        var recipes = level.getServer().getRecipeManager();
+        List<String> problems = new java.util.ArrayList<>();
+        ItemStack stick = new ItemStack(Items.STICK);
+        boolean saw = BuiltInRegistries.RECIPE_TYPE.containsKey(Identifier.parse("simpleblocks:sawing"));
+        for (String wood : BlazewoodFamily.WOODS) {
+            String planksPath = wood + "_blazewood_planks";
+            net.minecraft.world.item.Item planks = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleEnchanting.buildingNamespace(), planksPath));
+            if (planks == Items.AIR || BuiltInRegistries.ITEM.getValue(SimpleEnchanting.id(planksPath)) != planks
+                    || BuiltInRegistries.ITEM.getValue(SimpleEnchanting.old(planksPath)) != planks) {
+                problems.add(planksPath + ": both ids must name the installation's planks");
+                continue;
+            }
+            if (!new ItemStack(planks).is(net.minecraft.tags.TagKey.create(Registries.ITEM, SimpleEnchanting.id(planksPath)))) problems.add("tag " + planksPath);
+            ItemStack p = new ItemStack(planks);
+            ItemStack e = ItemStack.EMPTY;
+            Map<String, net.minecraft.world.item.crafting.CraftingInput> inputs = Map.of(
+                    "stairs", net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(p, e, e, p, p, e, p, p, p)),
+                    "slab", net.minecraft.world.item.crafting.CraftingInput.of(3, 1, List.of(p, p, p)),
+                    "fence", net.minecraft.world.item.crafting.CraftingInput.of(3, 2, List.of(p, stick, p, p, stick, p)),
+                    "fence_gate", net.minecraft.world.item.crafting.CraftingInput.of(3, 2, List.of(stick, p, stick, stick, p, stick)),
+                    "door", net.minecraft.world.item.crafting.CraftingInput.of(2, 3, List.of(p, p, p, p, p, p)),
+                    "trapdoor", net.minecraft.world.item.crafting.CraftingInput.of(3, 2, List.of(p, p, p, p, p, p)),
+                    "pressure_plate", net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(p, p)),
+                    "button", net.minecraft.world.item.crafting.CraftingInput.of(1, 1, List.of(p)));
+            Map<String, Integer> counts = Map.of("stairs", 4, "slab", 6, "fence", 3, "fence_gate", 1, "door", 3, "trapdoor", 2, "pressure_plate", 1, "button", 1);
+            for (String shape : BlazewoodFamily.SHAPES) {
+                String path = BlazewoodFamily.path(wood, shape);
+                var holder = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleEnchanting.id(path)));
+                if (holder.isEmpty() || !(holder.get().value() instanceof net.minecraft.world.item.crafting.CraftingRecipe recipe)) {
+                    problems.add("no crafting recipe " + path);
+                    continue;
+                }
+                var input = inputs.get(shape);
+                ItemStack out = recipe.matches(input, level) ? recipe.assemble(input) : ItemStack.EMPTY;
+                if (!out.is(BlazewoodFamily.items().get(path)) || out.getCount() != counts.get(shape)) problems.add(path + " gives " + out);
+            }
+            for (String shape : List.of("stairs", "slab", "fence")) {
+                String stem = BlazewoodFamily.path(wood, shape) + "_from_" + planksPath;
+                boolean sawing = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleEnchanting.id(stem + "_sawing"))).isPresent();
+                boolean cut = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleEnchanting.id(stem + "_stonecutting"))).isPresent();
+                if (sawing != saw || cut == saw) problems.add(stem + ": Shapecutter " + sawing + ", stonecutter " + cut + " (Simple Blocks " + saw + ")");
+            }
+        }
+        helper.assertTrue(level.getServer().getResourceManager().getResource(SimpleEnchanting.id("chisel_transformations/blazewood_iron_touch.json")).isPresent(),
+                "chisel chain data");
+        helper.assertTrue(problems.isEmpty(), "blazewood recipes: " + problems);
+        helper.succeed();
+    }
+
+    /** The door item places both halves; breaking the lower half removes the upper one and drops one door (Vanilla's door loot). */
+    public static void blazewoodDoorHasTwoHalves(GameTestHelper helper) {
+        for (String wood : BlazewoodFamily.WOODS) {
+            BlockPos ground = new BlockPos("crimson".equals(wood) ? 1 : 5, 1, 1);
+            helper.setBlock(ground, Blocks.STONE);
+            net.minecraft.world.item.Item item = BlazewoodFamily.items().get(BlazewoodFamily.path(wood, "door"));
+            Block door = BlazewoodFamily.blocks().get(BlazewoodFamily.path(wood, "door"));
+            ServerPlayer player = survivor(helper);
+            // Out of the door's way (a player inside the two cells would obstruct the placement).
+            player.snapTo(Vec3.atBottomCenterOf(helper.absolutePos(new BlockPos(3, 2, 6))));
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(item));
+            BlockPos abs = helper.absolutePos(ground);
+            var hit = new BlockHitResult(Vec3.atCenterOf(abs).add(0, 0.5, 0), Direction.UP, abs, false);
+            item.useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, hit));
+            BlockPos lower = ground.above();
+            helper.assertTrue(helper.getBlockState(lower).is(door) && helper.getBlockState(lower).getValue(net.minecraft.world.level.block.DoorBlock.HALF)
+                    == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER, wood + " door: lower half placed");
+            helper.assertTrue(helper.getBlockState(lower.above()).is(door) && helper.getBlockState(lower.above()).getValue(net.minecraft.world.level.block.DoorBlock.HALF)
+                    == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER, wood + " door: upper half placed");
+            helper.getLevel().destroyBlock(helper.absolutePos(lower), true);
+            helper.assertTrue(helper.getBlockState(lower.above()).isAir(), wood + " door: the upper half goes with the lower one");
+            AABB box = new AABB(helper.absolutePos(lower)).inflate(2);
+            List<ItemEntity> drops = helper.getLevel().getEntitiesOfClass(ItemEntity.class, box);
+            helper.assertValueEqual(count(drops, item), 1, wood + " door drops once");
+            drops.forEach(ItemEntity::discard);
+        }
+        helper.succeed();
+    }
+
+    // ------------------------------------------------------------------ PLAN40 simpleenchanting-3
+
+    /** The config screen names the title, the category and every option (simplelib-6: no raw paths on screen). */
+    public static void configLabels(GameTestHelper helper) {
+        List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleEnchanting.MOD_ID);
+        helper.assertTrue(missing.isEmpty(), "config screen labels missing (text.autoconfig.simpleenchanting.*): " + missing);
         helper.succeed();
     }
 

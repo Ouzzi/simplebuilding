@@ -1,0 +1,30 @@
+{
+  "tier": "iron",
+  "table": "touch",
+  "chains": [
+    {
+      "blocks": [
+        "simpleenchanting:crimson_blazewood_planks",
+        "simpleenchanting:crimson_blazewood_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleenchanting:crimson_blazewood_stairs",
+        "simpleenchanting:crimson_blazewood_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleenchanting:warped_blazewood_planks",
+        "simpleenchanting:warped_blazewood_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleenchanting:warped_blazewood_stairs",
+        "simpleenchanting:warped_blazewood_slab"
+      ]
+    }
+  ]
+}

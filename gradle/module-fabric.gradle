@@ -16,6 +16,10 @@ processResources { inputs.property('version', project.version.toString()); files
 
 sourceSets.main.resources.srcDir '../generated/resources'
 
+// Layer sources (*.layers.json, PRINZIPIEN A8 b) are for the repo's generators and the wiki pixel editor; the game never reads
+// them, so no module jar ships them (simplelib-1, PLAN40).
+tasks.named('jar') { exclude '**/*.layers.json' }
+
 // Every module jar carries the licence text (LicenseRef-SimpleMods-ARR; the module's own LICENSE if it has one, else the root one).
 tasks.named('jar') {
     def lic = project.parent.file('LICENSE').exists() ? project.parent.file('LICENSE') : rootProject.file('LICENSE')

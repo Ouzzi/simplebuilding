@@ -32,6 +32,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplechisels:empty")
+    public void ownVariantsReachable(GameTestHelper h) {
+        ChiselTests.ALL.get("own_variants_reachable").accept(h);
+    }
+
+    @GameTest(structure = "simplechisels:empty")
     public void fastChiselingCooldown(GameTestHelper h) {
         ChiselTests.ALL.get("fast_chiseling_cooldown").accept(h);
     }
@@ -39,6 +44,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplechisels:empty")
     public void configDefaultsAndAdoption(GameTestHelper h) {
         ChiselTests.ALL.get("config_defaults_and_adoption").accept(h);
+    }
+
+    @GameTest(structure = "simplechisels:empty")
+    public void configLabels(GameTestHelper h) {
+        ChiselTests.ALL.get("config_labels").accept(h);
     }
 
     @GameTest(structure = "simplechisels:empty")

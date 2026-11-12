@@ -1,0 +1,138 @@
+{
+  "tier": "diamond",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "simpleblocks:polished_blue_ice",
+        "simpleblocks:chiseled_blue_ice",
+        "simpleblocks:blue_ice_bricks",
+        "simpleblocks:cracked_blue_ice_bricks",
+        "minecraft:blue_ice",
+        "simpleblocks:cracked_blue_ice"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:blue_ice_stairs",
+        "simpleblocks:blue_ice_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:blue_ice_slab",
+        "simpleblocks:blue_ice_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:blue_ice_wall",
+        "simpleblocks:blue_ice_brick_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:cut_gold",
+        "simpleblocks:gold_tiles",
+        "simpleblocks:chiseled_gold"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:diamond_block",
+        "simpleblocks:chiseled_diamond"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:emerald_block",
+        "simpleblocks:chiseled_emerald"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:redstone_block",
+        "simpleblocks:chiseled_redstone"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:dark_prismarine",
+        "simpleblocks:chiseled_dark_prismarine",
+        "simpleblocks:cracked_dark_prismarine"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:end_stone_bricks",
+        "simpleblocks:cracked_end_stone_bricks",
+        "simpleblocks:mossy_end_stone_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:end_stone_brick_stairs",
+        "simpleblocks:mossy_end_stone_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:end_stone_brick_slab",
+        "simpleblocks:mossy_end_stone_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:end_stone_brick_wall",
+        "simpleblocks:mossy_end_stone_brick_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cobbled_deepslate",
+        "simpleblocks:mossy_deepslate_bricks",
+        "simpleblocks:mossy_deepslate_tiles",
+        "simpleblocks:cracked_polished_deepslate"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cobbled_deepslate_stairs",
+        "simpleblocks:mossy_deepslate_brick_stairs",
+        "simpleblocks:mossy_deepslate_tile_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cobbled_deepslate_slab",
+        "simpleblocks:mossy_deepslate_brick_slab",
+        "simpleblocks:mossy_deepslate_tile_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:deepslate_brick_wall",
+        "simpleblocks:mossy_deepslate_brick_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:deepslate_tile_wall",
+        "simpleblocks:mossy_deepslate_tile_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:tuff_bricks",
+        "simpleblocks:cracked_tuff_bricks",
+        "simpleblocks:mossy_tuff_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:tuff_brick_wall",
+        "simpleblocks:mossy_tuff_brick_wall"
+      ]
+    }
+  ]
+}

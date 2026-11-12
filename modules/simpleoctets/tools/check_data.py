@@ -16,7 +16,9 @@ DATA = RES / f'data/{NS}'
 
 materials = json.loads((ROOT / 'tools/textures/octet_materials.json').read_text(encoding='utf-8'))
 woods = re.findall(r'"([a-z_]+)"', re.search(r'WOODS = List\.of\(([^;]*)\);', (JAVA / 'registry/OctetRegistry.java').read_text(encoding='utf-8')).group(1))
-assert len(woods) == 15 and woods[0] == 'oak', woods
+assert len(woods) == 17 and woods[0] == 'oak', woods
+# Woods of another mod: Simple End's End woods, Simple Enchanting's blazewoods (PLAN40 simpleenchanting-1).
+WOOD_NS = {'ashwood': 'simpleend', 'duskwood': 'simpleend', 'crimson_blazewood': 'simpleenchanting', 'warped_blazewood': 'simpleenchanting'}
 java_list = (JAVA / 'registry/OctetMaterials.java').read_text(encoding='utf-8')
 assert java_list.count('new Material(') == len(materials), 'OctetMaterials.java out of date (run tools/textures/octets_2026_10_09.py)'
 cells = [w + '_octet' for w in woods] + [m['key'] + '_octet' for m in materials]
@@ -42,8 +44,8 @@ assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 # Octets of another mod's block keep item definition + self-contained item model in that mod's jar (generator PARTNER_RES:
 # the 26.3 client bakes every items/*.json, a missing partner would leave missing textures in the client log).
 PARTNER_RES = {'simpleores': ROOT / 'modules/simpleores/shared/resources', 'simpleend': ROOT / 'modules/simpleend/shared/resources', 'simpleblocks': ROOT / 'modules/simpleblocks/shared/resources',
-               'simplebuilding': ROOT / 'mc26_3/overlay/resources'}
-cell_ns = {w + '_octet': 'simpleend' if w in ('ashwood', 'duskwood') else 'minecraft' for w in woods}
+               'simpleenchanting': ROOT / 'modules/simpleenchanting/shared/resources', 'simplebuilding': ROOT / 'mc26_3/overlay/resources'}
+cell_ns = {w + '_octet': WOOD_NS.get(w, 'minecraft') for w in woods}
 cell_ns.update({m['key'] + '_octet': m['ns'] for m in materials})
 for c in cells:
     assert (ASSETS / f'blockstates/{c}.json').is_file(), ('blockstate', c)
@@ -63,8 +65,8 @@ assert (ASSETS / 'textures/block/melon_flesh.png').is_file()
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (DATA / 'recipe').glob('*.json')}
 assert 'recipes/building_blocks/' in (JAVA / 'SimpleOctets.java').read_text(encoding='utf-8')
 foreign = {m['key'] + '_octet': m['ns'] for m in materials if m['ns'] != 'minecraft'}
-foreign.update({w + '_octet': 'simpleend' for w in woods if w in ('ashwood', 'duskwood')})
-pairs = [(w + '_octet', 'simpleend' if w in ('ashwood', 'duskwood') else 'minecraft', w + '_planks') for w in woods]
+foreign.update({w + '_octet': WOOD_NS[w] for w in woods if w in WOOD_NS})
+pairs = [(w + '_octet', WOOD_NS.get(w, 'minecraft'), w + '_planks') for w in woods]
 pairs += [(m['key'] + '_octet', m['ns'], m['base']) for m in materials]
 def mods_in(conds, key, field):
     """Mod ids a condition list requires (plain mod_loaded) and forbids (inside a not)."""
@@ -116,7 +118,7 @@ assert len(recipes) == 3 * len(cells) - sum(1 for _, ns, _ in pairs if ns == 'si
 # Other mods' ids only behind load conditions or as optional tag entries.
 for path in (RES / 'data').rglob('*.json'):
     text = path.read_text(encoding='utf-8')
-    for ns in ('simplebuilding', 'simpleend', 'simpleblocks', 'simpleores'):
+    for ns in ('simplebuilding', 'simpleend', 'simpleblocks', 'simpleores', 'simpleenchanting'):
         if f'"{ns}:' in text:
             data = json.loads(text)
             ok = 'fabric:load_conditions' in data or all(isinstance(v, dict) and v.get('required') is False

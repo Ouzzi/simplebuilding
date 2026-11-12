@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    "#simpleenchanting:warped_blazewood_planks"
+  ],
+  "result": {
+    "id": "simpleenchanting:warped_blazewood_button"
+  }
+}

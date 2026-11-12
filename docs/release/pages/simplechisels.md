@@ -17,6 +17,7 @@ Simple Chisels moves blocks one step along their family (stone to chiseled, bric
 - **Chisels: the next block of the family** - Seven chisels from Stone to Enderite.
 - **Fast Chiseling**
 - **Chisel tables as data**
+- **Chains of the Simple blocks** - Every chiseled, cracked and mossy block of the Simple mods sits in a chain, shipped by the mod that owns the block, so the chisel reaches it.
 - **Moved from SimpleBuilding** - The seven chisels, Fast Chiseling, the ten chisel recipes and their recipe unlocks were SimpleBuilding's (simplebuilding:*).
 - **Creative tab** - The chisels and the Fast Chiseling books sit in the tab Simple Chisels only (no Vanilla tabs).
 - **Commands** - /simplechisels config shows and changes every option of config/simplechisels-server.json (list [group], get, set, reset, help; Tab completes options and values).

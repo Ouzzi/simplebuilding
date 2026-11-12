@@ -37,6 +37,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
+    public void blazewoodOctetsOnlyWithSimpleEnchanting(GameTestHelper h) {
+        OctetTests.ALL.get("blazewood_octets_only_with_simple_enchanting").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
     public void recipesCutAndCraftBack(GameTestHelper h) {
         OctetTests.ALL.get("recipes_cut_and_craft_back").accept(h);
     }

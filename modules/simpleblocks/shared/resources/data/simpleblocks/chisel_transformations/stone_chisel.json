@@ -1,0 +1,64 @@
+{
+  "tier": "stone",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "simpleblocks:polished_ice",
+        "simpleblocks:chiseled_ice",
+        "simpleblocks:ice_bricks",
+        "simpleblocks:cracked_ice_bricks",
+        "minecraft:ice"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:ice_stairs",
+        "simpleblocks:ice_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:ice_slab",
+        "simpleblocks:ice_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:ice_wall",
+        "simpleblocks:ice_brick_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:coal_block",
+        "simpleblocks:chiseled_coal"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mud_bricks",
+        "simpleblocks:cracked_mud_bricks",
+        "simpleblocks:mossy_mud_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mud_brick_stairs",
+        "simpleblocks:mossy_mud_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mud_brick_slab",
+        "simpleblocks:mossy_mud_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mud_brick_wall",
+        "simpleblocks:mossy_mud_brick_wall"
+      ]
+    }
+  ]
+}

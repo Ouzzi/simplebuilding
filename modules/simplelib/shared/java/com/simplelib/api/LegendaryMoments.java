@@ -69,8 +69,16 @@ public final class LegendaryMoments {
         ADDED.add(advancement);
     }
 
+    /**
+     * simplelib-3 (PLAN40): the moments only play while a loaded mod asked for them ({@link LibFeatures#LEGENDARY_MOMENTS}, e.g.
+     * Simple Quality of Life) and the server switch {@code legendaryEffects} is on; otherwise Vanilla's challenge stays as it is.
+     */
+    public static boolean enabled() {
+        return LibConfig.legendaryEffects && LibFeatures.requested(LibFeatures.LEGENDARY_MOMENTS);
+    }
+
     public static boolean isLegendary(AdvancementHolder holder) {
-        if (!LibConfig.legendaryEffects) return false;
+        if (!enabled()) return false;
         Identifier id = holder.id();
         if (DEFAULT_ADVANCEMENTS.contains(id) || ADDED.contains(id) || LibConfig.legendaryAdvancements.contains(id)) return true;
         return LibConfig.legendaryAllChallenges
@@ -79,7 +87,7 @@ public final class LegendaryMoments {
 
     /** Whether this enchantment at this level is a legendary one (in the tag or the config list, at least its maximum level). */
     public static boolean isLegendary(Holder<Enchantment> enchantment, int level) {
-        if (!LibConfig.legendaryEffects || level < enchantment.value().getMaxLevel()) return false;
+        if (!enabled() || level < enchantment.value().getMaxLevel()) return false;
         return enchantment.is(ENCHANTMENTS)
                 || enchantment.unwrapKey().map(k -> LibConfig.legendaryEnchantments.contains(k.identifier())).orElse(false);
     }
@@ -102,7 +110,7 @@ public final class LegendaryMoments {
      * once when the result carries a legendary enchantment at its maximum level that the input did not have at that level.
      */
     public static void enchanted(ServerPlayer player, ItemStack input, ItemStack result) {
-        if (!LibConfig.legendaryEffects || result.isEmpty()) return;
+        if (!enabled() || result.isEmpty()) return;
         var before = EnchantmentHelper.getEnchantmentsForCrafting(input);
         for (var entry : EnchantmentHelper.getEnchantmentsForCrafting(result).entrySet()) {
             int level = entry.getIntValue();
@@ -115,7 +123,7 @@ public final class LegendaryMoments {
 
     /** Fanfare at the player and the particle show; public for mods that grant something legendary their own way. */
     public static void celebrate(ServerPlayer player) {
-        if (!LibConfig.legendaryEffects) return;
+        if (!enabled()) return;
         synchronized (COUNTS) {
             COUNTS.merge(player, 1, Integer::sum);
         }

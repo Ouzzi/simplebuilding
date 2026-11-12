@@ -1,0 +1,6 @@
+{
+  "parent": "simpleoctets:block/octet_corner",
+  "textures": {
+    "all": "simpleenchanting:block/warped_blazewood_planks"
+  }
+}

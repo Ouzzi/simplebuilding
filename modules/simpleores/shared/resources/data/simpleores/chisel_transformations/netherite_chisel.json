@@ -1,0 +1,24 @@
+{
+  "tier": "netherite",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "simpleores:infernite_block",
+        "simpleores:chiseled_infernite"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:terranite_block",
+        "simpleores:chiseled_terranite"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleores:zenithite_block",
+        "simpleores:chiseled_zenithite"
+      ]
+    }
+  ]
+}

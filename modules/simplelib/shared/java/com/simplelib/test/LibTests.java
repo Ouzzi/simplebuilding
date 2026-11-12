@@ -61,6 +61,7 @@ public final class LibTests {
         ALL.put("legendary_advancements", LegendaryTests::advancements);
         ALL.put("legendary_enchantments", LegendaryTests::enchantments);
         ALL.put("legendary_toast_switch", LegendaryTests::toastSwitch);
+        ALL.put("legendary_feature_requests", LegendaryTests::featureRequests);
         ALL.put("config_command_types", ConfigCommandTests::types);
         ALL.put("config_command_lib", ConfigCommandTests::lib);
         ALL.put("config_command_every_option", ConfigCommandTests::everyOption);
@@ -68,6 +69,7 @@ public final class LibTests {
         ALL.put("config_screen_save", ConfigScreenTests::save);
         ALL.put("config_screen_access", ConfigScreenTests::access);
         ALL.put("config_screen_every_mod", ConfigScreenTests::everyMod);
+        ALL.put("config_screen_labels", ConfigScreenTests::labels);
         ALL.put("recipe_viewer_table_entries", RecipeViewerTests::tableEntries);
         ALL.put("recipe_viewer_loot_items", RecipeViewerTests::lootItems);
         ALL.put("recipe_viewer_partner_shown", RecipeViewerTests::partnerShown);

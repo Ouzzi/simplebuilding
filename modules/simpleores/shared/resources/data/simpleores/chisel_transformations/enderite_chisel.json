@@ -1,0 +1,12 @@
+{
+  "tier": "enderite",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "simpleores:enderite_block",
+        "simpleores:chiseled_enderite"
+      ]
+    }
+  ]
+}

@@ -23,6 +23,10 @@ SimpleLib holds what every Simple mod shares: one modpack handbook, warm food, s
 - **Free Look** - While Free Look is on, the mouse turns only the camera, not the player; walking and all other input stay normal.
 - **Commands** - /simplelib config shows and changes every option of config/simplelib-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Shared base of the Simple mods with a modpack guide and warped wart (found in bastion chests); it reorders creative tabs and hooks hoppers, anvils and the Wither, but anvil crushing, the Wither drop, the legendary choir and the Free Look key switch on only when a Simple mod asks.
+
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)

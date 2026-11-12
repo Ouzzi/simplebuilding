@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleenchanting:block/warped_blazewood_slab"
+    },
+    "type=double": {
+      "model": "simpleenchanting:block/warped_blazewood_planks"
+    },
+    "type=top": {
+      "model": "simpleenchanting:block/warped_blazewood_slab_top"
+    }
+  }
+}

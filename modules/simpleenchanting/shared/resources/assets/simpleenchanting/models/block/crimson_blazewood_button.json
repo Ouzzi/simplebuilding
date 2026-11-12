@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "simpleenchanting:block/crimson_blazewood_planks"
+  }
+}

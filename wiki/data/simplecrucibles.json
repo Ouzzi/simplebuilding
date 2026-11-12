@@ -113,7 +113,7 @@
       ],
       "en": {
         "title": "Soul lava",
-        "summary": "A rare Nether fluid and the only extreme heat source: it flows short and slow, is never replaced, and gives Soul Burn. Split stage 5b: was SimpleBuilding's, old worlds migrate.",
+        "summary": "A rare Nether fluid and the only extreme heat source: it flows short and slow, is never replaced, and gives Seelenbrand (soul burn). Split stage 5b: was SimpleBuilding's, old worlds migrate.",
         "details": [
           "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. While it lasts, a faint dark-blue filter lies over the screen (besides the vanilla effect icon). It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
           "Server config simplecrucibles-server.json, group soulLava (until split stage 5b SimpleBuilding's server.soulLava, taken over once), controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files.",
@@ -213,48 +213,6 @@
         "summary": "/simplecrucibles config zeigt und ändert jede Option von config/simplecrucibles-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
         "details": [
           "Beispiel: /simplecrucibles config get <Option> zeigt Wert, Standard und Typ; /simplecrucibles config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
-        ]
-      }
-    },
-    {
-      "id": "config_server",
-      "sources": [
-        "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java"
-      ],
-      "en": {
-        "title": "Server Config",
-        "summary": "config/simplecrucibles-server.json, clamped when loaded; broken files are set aside and replaced by the defaults. Every option is also in /simplecrucibles config and in the settings screen.",
-        "details": [
-          "reinforcedSpeed, netheriteSpeed, enderiteSpeed (defaults 2, 4, 8; 1 to 16): the cooking speed of the tier as a multiple of the recipe's pace; the iron crucible is always 1.",
-          "factorMedium, factorHigh, factorExtreme (defaults 0.5, 0.75, 1.0; 0.1 to 1.0): the speed factor of the three heat levels, multiplied by the tier speed.",
-          "twoBelowPenalty (default 0.1; 0 to 0.5): the slowdown when the heat source is two blocks below the crucible; 0.1 = 10% slower.",
-          "afterglowIron, afterglowReinforced, afterglowNetherite, afterglowEnderite (defaults 2, 4, 8, 16; 0 to 60 seconds): how long the tier keeps its heat after the heat source is gone; 0 = it cools down at once.",
-          "netherBonus (default true): in the Nether every heat source counts one level hotter, at most up to high.",
-          "heatRecheckTicks (default 20; 5 to 200): besides when a neighboring block changes, a crucible looks for its heat source this often (20 ticks = 1 second).",
-          "villageKitchenWeight (default 3; 0 to 10): the weight of the field kitchen in each village houses pool, 0 = no kitchens; read when the server starts, only villages generated afterwards get it.",
-          "crucibleBurnDamage (default 1.0; 0 to 4): the damage per hit to a creature standing in a crucible at high heat or more, not while sneaking; 0 = off.",
-          "Group soulLava, flow and burning: flowOverworld (default 2; 1 to 4) and flowNether (5; 1 to 7) are the reach in blocks, tickDelayOverworld (45; 20 to 200) and tickDelayNether (20; 10 to 200) the ticks between flow steps, burnSeconds (30; 5 to 60) how long a creature burns, soulBurnSeconds (120; 5 to 300) how long Soul Burn lasts, soulBurnIntervalTicks (60; 20 to 200) the ticks between its damage rolls (halved on cold ground) and soulBurnChance (0.5; 0 to 1) the chance of 1 fire damage per roll.",
-          "Group soulLava, bucket and world generation: fuelMultiplier (default 10; 1 to 20) is the fuel time of a soul lava bucket as a multiple of a lava bucket's, springChance (0.005; 0 to 0.05) the share of the Nether's lava springs and fortressChance (0.1; 0 to 0.5) the chance of a fortress entrance's lava well that become soul lava, in newly generated chunks only.",
-          "villageKitchenWeight, soulLava.fuelMultiplier, soulLava.springChance and soulLava.fortressChance are read at start and need a restart (the fuel multiplier also the same value on client and server); everything else takes effect at once.",
-          "On the first start without its own file the crucible options are taken over once from simplelib-server.json, and the soulLava group from server.soulLava in simplebuilding.json while the file has none; the old files stay unchanged."
-        ]
-      },
-      "de": {
-        "title": "Server-Config",
-        "summary": "config/simplecrucibles-server.json, beim Laden begrenzt; kaputte Dateien werden beiseitegelegt und durch die Standardwerte ersetzt. Jede Option steht auch in /simplecrucibles config und im Einstellungsfenster.",
-        "details": [
-          "reinforcedSpeed, netheriteSpeed, enderiteSpeed (Standard 2, 4, 8; 1 bis 16): das Gartempo der Stufe als Vielfaches des Rezepttempos; der Eisen-Schmelztiegel hat immer 1.",
-          "factorMedium, factorHigh, factorExtreme (Standard 0,5, 0,75, 1,0; 0,1 bis 1,0): der Tempofaktor der drei Hitzestufen, mal Tempo der Stufe.",
-          "twoBelowPenalty (Standard 0,1; 0 bis 0,5): die Verlangsamung, wenn die Hitzequelle zwei Blöcke unter dem Schmelztiegel liegt; 0,1 = 10 % langsamer.",
-          "afterglowIron, afterglowReinforced, afterglowNetherite, afterglowEnderite (Standard 2, 4, 8, 16; 0 bis 60 Sekunden): wie lange die Stufe ihre Hitze behält, nachdem die Hitzequelle weg ist; 0 = sie kühlt sofort ab.",
-          "netherBonus (Standard true): im Nether zählt jede Hitzequelle eine Stufe heißer, höchstens bis hoch.",
-          "heatRecheckTicks (Standard 20; 5 bis 200): außer bei einer Änderung eines Nachbarblocks sucht ein Schmelztiegel so oft seine Hitzequelle (20 Ticks = 1 Sekunde).",
-          "villageKitchenWeight (Standard 3; 0 bis 10): das Gewicht der Feldküche im Häuser-Pool jedes Dorfes, 0 = keine Küchen; wird beim Serverstart gelesen, nur später erzeugte Dörfer bekommen sie.",
-          "crucibleBurnDamage (Standard 1,0; 0 bis 4): der Schaden je Treffer für Wesen, die in einem Schmelztiegel mit hoher oder extremer Hitze stehen, nicht beim Schleichen; 0 = aus.",
-          "Gruppe soulLava, Fließen und Brennen: flowOverworld (Standard 2; 1 bis 4) und flowNether (5; 1 bis 7) sind die Reichweite in Blöcken, tickDelayOverworld (45; 20 bis 200) und tickDelayNether (20; 10 bis 200) die Ticks zwischen Fließschritten, burnSeconds (30; 5 bis 60) wie lange ein Wesen brennt, soulBurnSeconds (120; 5 bis 300) wie lange der Seelenbrand anhält, soulBurnIntervalTicks (60; 20 bis 200) die Ticks zwischen seinen Schadenswürfen (auf kaltem Boden halbiert) und soulBurnChance (0,5; 0 bis 1) die Chance auf 1 Feuerschaden je Wurf.",
-          "Gruppe soulLava, Eimer und Weltgenerierung: fuelMultiplier (Standard 10; 1 bis 20) ist die Brenndauer eines Seelen-Lava-Eimers als Vielfaches eines Lavaeimers, springChance (0,005; 0 bis 0,05) der Anteil der Lavaquellen im Nether und fortressChance (0,1; 0 bis 0,5) die Chance des Lavabrunnens eines Festungs-Eingangs, die zu Seelen-Lava werden, nur in neu erzeugten Chunks.",
-          "villageKitchenWeight, soulLava.fuelMultiplier, soulLava.springChance und soulLava.fortressChance werden beim Start gelesen und brauchen einen Neustart (beim Brennstoff-Faktor auch denselben Wert auf Client und Server); alles andere wirkt sofort.",
-          "Beim ersten Start ohne eigene Datei werden die Tiegel-Optionen einmal aus simplelib-server.json übernommen und die Gruppe soulLava aus server.soulLava in simplebuilding.json, solange die Datei keine hat; die alten Dateien bleiben unverändert."
         ]
       }
     }
@@ -678,10 +636,10 @@
           "modules/simplecrucibles/shared/resources/data/simplecrucibles/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Crucibles\" of the Simple Modpack guide (SimpleLib): 12 pages taken from this wiki, shown in your language. Unlocked by picking up: cauldron. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Crucibles\" of the Simple Modpack guide (SimpleLib): 11 pages taken from this wiki, shown in your language. Unlocked by picking up: cauldron. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Crucibles\" im Simple-Modpack-Handbuch (SimpleLib): 12 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kessel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Crucibles\" im Simple-Modpack-Handbuch (SimpleLib): 11 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kessel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplecrucibles/item/guide_book.png",
@@ -985,13 +943,13 @@
       "default": "30",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Burning Time (Seconds)",
+      "label": "Burn Time (seconds)",
       "labelDe": "Brenndauer (Sekunden)",
-      "tooltip": "Seconds a creature burns after touching soul\nlava. Fire-immune creatures are spared.\nDefault: 30. Range: 5–60.",
-      "tooltipDe": "Sekunden, die ein Wesen nach der Berührung von\nSeelen-Lava brennt. Feuerimmune Wesen bleiben\nverschont. Standard: 30. Bereich: 5–60."
+      "tooltip": "How long a touch of soul lava burns.\nDefault: 30.",
+      "tooltipDe": "Wie lange eine Berührung mit Seelenlava brennt.\nStandard: 30."
     },
     {
       "range": null,
@@ -1004,13 +962,13 @@
       "default": "5",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Flow Reach: Nether",
-      "labelDe": "Fließweite: Nether",
-      "tooltip": "The same in the Nether. Default: 5.\nRange: 1–7.",
-      "tooltipDe": "Dasselbe im Nether. Standard: 5. Bereich: 1–7."
+      "label": "Flow Distance Nether (blocks)",
+      "labelDe": "Fließweite Nether (Blöcke)",
+      "tooltip": "Default: 5.",
+      "tooltipDe": "Standard: 5."
     },
     {
       "range": null,
@@ -1023,13 +981,13 @@
       "default": "2",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Flow Reach: Overworld",
-      "labelDe": "Fließweite: Oberwelt",
-      "tooltip": "How many blocks soul lava spreads sideways\nfrom its source in the Overworld. Default: 2.\nRange: 1–4.",
-      "tooltipDe": "Wie viele Blöcke sich Seelen-Lava in der\nOberwelt von der Quelle aus seitlich\nausbreitet. Standard: 2. Bereich: 1–4."
+      "label": "Flow Distance Overworld (blocks)",
+      "labelDe": "Fließweite Oberwelt (Blöcke)",
+      "tooltip": "Default: 2.",
+      "tooltipDe": "Standard: 2."
     },
     {
       "range": null,
@@ -1042,13 +1000,13 @@
       "default": "0.1",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Nether Fortress Chance",
-      "labelDe": "Netherfestungs-Chance",
-      "tooltip": "Chance that the lava well of a Nether fortress\nentrance becomes soul lava (0.1 = 10%). Only\nnew chunks. Default: 0.1. Range: 0–0.5.",
-      "tooltipDe": "Chance, dass der Lavabrunnen eines\nNetherfestungs-Eingangs zu Seelen-Lava wird\n(0.1 = 10 %). Nur neue Chunks. Standard: 0.1.\nBereich: 0–0.5."
+      "label": "Share of Fortress Lava Wells",
+      "labelDe": "Anteil Festungs-Lavabrunnen",
+      "tooltip": "Share of Nether fortress entrances whose\nlava well is soul lava.\nDefault: 0.1.",
+      "tooltipDe": "Anteil der Netherfestungs-Eingänge, deren\nLavabrunnen Seelenlava ist.\nStandard: 0,1."
     },
     {
       "range": null,
@@ -1061,13 +1019,13 @@
       "default": "10",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Bucket Fuel Multiplier",
-      "labelDe": "Eimer-Brennstoff-Faktor",
-      "tooltip": "Fuel time of a soul lava bucket as a multiple\nof a lava bucket's. Clients need the same\nvalue. Default: 10. Range: 1–20.",
-      "tooltipDe": "Brenndauer eines Seelen-Lava-Eimers als\nVielfaches eines Lavaeimers. Clients brauchen\ndenselben Wert. Standard: 10. Bereich: 1–20."
+      "label": "Bucket Fuel (x lava)",
+      "labelDe": "Eimer-Brennstoff (x Lava)",
+      "tooltip": "A soul lava bucket burns this many times as\nlong as lava. Restart and the same value on\nclient and server.\nDefault: 10.",
+      "tooltipDe": "Ein Seelenlava-Eimer brennt so viel länger\nals Lava. Neustart und gleicher Wert auf\nClient und Server.\nStandard: 10."
     },
     {
       "range": null,
@@ -1080,13 +1038,13 @@
       "default": "0.5",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
       "label": "Soul Burn Chance",
-      "labelDe": "Seelenbrand-Chance",
-      "tooltip": "Chance per roll that Soul Burn deals 1 fire\ndamage; fire resistance blocks it. 1 = every\nroll. Default: 0.5. Range: 0–1.",
-      "tooltipDe": "Chance je Wurf, dass der Seelenbrand 1\nFeuerschaden verursacht; Feuerresistenz blockt\nihn. 1 = jeder Wurf. Standard: 0.5.\nBereich: 0–1."
+      "labelDe": "Chance Seelenbrand",
+      "tooltip": "Chance per interval (0 to 1).\nDefault: 0.5.",
+      "tooltipDe": "Chance je Abstand (0 bis 1).\nStandard: 0,5."
     },
     {
       "range": null,
@@ -1099,13 +1057,13 @@
       "default": "60",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Soul Burn Interval (Ticks)",
-      "labelDe": "Seelenbrand-Intervall (Ticks)",
-      "tooltip": "Ticks between two damage rolls of Soul Burn\n(20 = 1 s); on cold ground (water, ice, snow)\nhalf as many. Default: 60. Range: 20–200.",
-      "tooltipDe": "Ticks zwischen zwei Schadenswürfen des\nSeelenbrands (20 = 1 s); auf kaltem Boden\n(Wasser, Eis, Schnee) halb so viele.\nStandard: 60. Bereich: 20–200."
+      "label": "Soul Burn Interval (ticks)",
+      "labelDe": "Abstand Seelenbrand (Ticks)",
+      "tooltip": "Default: 60.",
+      "tooltipDe": "Standard: 60."
     },
     {
       "range": null,
@@ -1118,13 +1076,13 @@
       "default": "120",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Soul Burn Duration (Seconds)",
-      "labelDe": "Seelenbrand-Dauer (Sekunden)",
-      "tooltip": "Seconds the Soul Burn effect lasts after\ntouching soul lava. Default: 120.\nRange: 5–300.",
-      "tooltipDe": "Sekunden, die der Seelenbrand nach der\nBerührung von Seelen-Lava anhält.\nStandard: 120. Bereich: 5–300."
+      "label": "Soul Burn Time (seconds)",
+      "labelDe": "Dauer Seelenbrand (Sekunden)",
+      "tooltip": "Default: 120.",
+      "tooltipDe": "Standard: 120."
     },
     {
       "range": null,
@@ -1137,13 +1095,13 @@
       "default": "0.005",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Nether Spring Chance",
-      "labelDe": "Nether-Quellen-Chance",
-      "tooltip": "Share of the Nether's lava springs that become\nsoul lava when generated (0.005 = 0.5%). Only\nnew chunks. Default: 0.005. Range: 0–0.05.",
-      "tooltipDe": "Anteil der Lavaquellen im Nether, die bei der\nErzeugung zu Seelen-Lava werden\n(0.005 = 0,5 %). Nur neue Chunks.\nStandard: 0.005. Bereich: 0–0.05."
+      "label": "Share of Nether Lava Springs",
+      "labelDe": "Anteil Nether-Lavaquellen",
+      "tooltip": "Share of the Nether's lava springs that are\nsoul lava (0.005 = 0.5%).\nDefault: 0.005.",
+      "tooltipDe": "Anteil der Lavaquellen im Nether, die\nSeelenlava sind (0,005 = 0,5 %).\nStandard: 0,005."
     },
     {
       "range": null,
@@ -1156,13 +1114,13 @@
       "default": "20",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Flow Delay: Nether (Ticks)",
-      "labelDe": "Fließverzögerung: Nether (Ticks)",
-      "tooltip": "The same in the Nether. Default: 20.\nRange: 10–200.",
-      "tooltipDe": "Dasselbe im Nether. Standard: 20.\nBereich: 10–200."
+      "label": "Flow Delay Nether (ticks)",
+      "labelDe": "Fließverzögerung Nether (Ticks)",
+      "tooltip": "Default: 20.",
+      "tooltipDe": "Standard: 20."
     },
     {
       "range": null,
@@ -1175,13 +1133,13 @@
       "default": "45",
       "note": null,
       "category": "Soul Lava",
-      "categoryDe": "Seelen-Lava",
+      "categoryDe": "Seelenlava",
       "group": null,
       "groupDe": null,
-      "label": "Flow Delay: Overworld (Ticks)",
-      "labelDe": "Fließverzögerung: Oberwelt (Ticks)",
-      "tooltip": "Ticks between two flow steps of soul lava in\nthe Overworld (20 = 1 s). Higher = slower.\nDefault: 45. Range: 20–200.",
-      "tooltipDe": "Ticks zwischen zwei Fließschritten der\nSeelen-Lava in der Oberwelt (20 = 1 s).\nHöher = langsamer. Standard: 45.\nBereich: 20–200."
+      "label": "Flow Delay Overworld (ticks)",
+      "labelDe": "Fließverzögerung Oberwelt (Ticks)",
+      "tooltip": "Default: 45.",
+      "tooltipDe": "Standard: 45."
     },
     {
       "range": null,
@@ -1197,10 +1155,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Afterglow: Enderite (Seconds)",
-      "labelDe": "Nachglühen: Enderit (Sekunden)",
-      "tooltip": "The same for the Enderite crucible.\nDefault: 16. Range: 0–60.",
-      "tooltipDe": "Dasselbe für den Enderit-Schmelztiegel.\nStandard: 16. Bereich: 0–60."
+      "label": "Afterglow Enderite (seconds)",
+      "labelDe": "Nachglühen Enderit (Sekunden)",
+      "tooltip": "Default: 16.",
+      "tooltipDe": "Standard: 16."
     },
     {
       "range": null,
@@ -1216,10 +1174,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Afterglow: Iron (Seconds)",
-      "labelDe": "Nachglühen: Eisen (Sekunden)",
-      "tooltip": "Seconds the iron crucible keeps its heat after\nthe heat source is gone. 0 = it cools down at\nonce. Default: 2. Range: 0–60.",
-      "tooltipDe": "Sekunden, die der Eisen-Schmelztiegel seine\nHitze behält, nachdem die Hitzequelle weg ist.\n0 = er kühlt sofort ab. Standard: 2.\nBereich: 0–60."
+      "label": "Afterglow Iron (seconds)",
+      "labelDe": "Nachglühen Eisen (Sekunden)",
+      "tooltip": "The crucible keeps cooking this long after\nits heat source is gone.\nDefault: 2.",
+      "tooltipDe": "So lange kocht der Tiegel weiter, nachdem\nseine Hitzequelle weg ist.\nStandard: 2."
     },
     {
       "range": null,
@@ -1235,10 +1193,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Afterglow: Netherite (Seconds)",
-      "labelDe": "Nachglühen: Netherit (Sekunden)",
-      "tooltip": "The same for the netherite crucible.\nDefault: 8. Range: 0–60.",
-      "tooltipDe": "Dasselbe für den Netherit-Schmelztiegel.\nStandard: 8. Bereich: 0–60."
+      "label": "Afterglow Netherite (seconds)",
+      "labelDe": "Nachglühen Netherit (Sekunden)",
+      "tooltip": "Default: 8.",
+      "tooltipDe": "Standard: 8."
     },
     {
       "range": null,
@@ -1254,10 +1212,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Afterglow: Reinforced (Seconds)",
-      "labelDe": "Nachglühen: Verstärkt (Sekunden)",
-      "tooltip": "The same for the reinforced crucible.\nDefault: 4. Range: 0–60.",
-      "tooltipDe": "Dasselbe für den verstärkten Schmelztiegel.\nStandard: 4. Bereich: 0–60."
+      "label": "Afterglow Reinforced (seconds)",
+      "labelDe": "Nachglühen verstärkt (Sekunden)",
+      "tooltip": "Default: 4.",
+      "tooltipDe": "Standard: 4."
     },
     {
       "range": [
@@ -1295,10 +1253,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Crucible Burn Damage",
-      "labelDe": "Schmelztiegel: Brandschaden",
-      "tooltip": "Damage per hit to a creature standing in a\ncrucible at high heat or more, like a magma\nblock (1 = half a heart). Not while sneaking.\n0 = off. Default: 1.0. Range: 0–4.",
-      "tooltipDe": "Schaden je Treffer für Wesen, die in einem\nSchmelztiegel mit hoher oder extremer Hitze\nstehen, wie auf einem Magmablock (1 = halbes\nHerz). Nicht beim Schleichen. 0 = aus.\nStandard: 1.0. Bereich: 0–4."
+      "label": "Burn Damage in a Hot Crucible",
+      "labelDe": "Brandschaden im heißen Tiegel",
+      "tooltip": "Damage per hit while standing in a crucible\nat high heat or more, like magma (0 = off).\nDefault: 1.",
+      "tooltipDe": "Schaden je Treffer, wer in einem Tiegel ab\nhoher Hitze steht, wie Magma (0 = aus).\nStandard: 1."
     },
     {
       "range": null,
@@ -1314,10 +1272,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Speed: Enderite Crucible",
-      "labelDe": "Tempo: Enderit-Schmelztiegel",
-      "tooltip": "The same for the Enderite crucible.\nDefault: 8. Range: 1–16.",
-      "tooltipDe": "Dasselbe für den Enderit-Schmelztiegel.\nStandard: 8. Bereich: 1–16."
+      "label": "Enderite Crucible Speed",
+      "labelDe": "Tempo Enderit-Tiegel",
+      "tooltip": "Cooking speed of the enderite crucible.\nDefault: 8.",
+      "tooltipDe": "Kochtempo des Enderit-Tiegels.\nStandard: 8."
     },
     {
       "range": null,
@@ -1333,10 +1291,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Heat Factor: Extreme",
-      "labelDe": "Hitzefaktor: Extrem",
-      "tooltip": "The same at extreme heat (soul lava, soul lava\nin a reinforced cauldron). Default: 1.0.\nRange: 0.1–1.0.",
-      "tooltipDe": "Dasselbe bei extremer Hitze (Seelen-Lava,\nSeelen-Lava im verstärkten Kessel).\nStandard: 1.0. Bereich: 0.1–1.0."
+      "label": "Speed at Extreme Heat",
+      "labelDe": "Tempo bei extremer Hitze",
+      "tooltip": "Share of the full speed at extreme heat.\nDefault: 1.",
+      "tooltipDe": "Anteil des vollen Tempos bei extremer Hitze.\nStandard: 1."
     },
     {
       "range": null,
@@ -1352,10 +1310,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Heat Factor: High",
-      "labelDe": "Hitzefaktor: Hoch",
-      "tooltip": "The same at high heat (lava, lava cauldron,\nflowing soul lava). Smelting and blasting\nrecipes need at least high heat.\nDefault: 0.75. Range: 0.1–1.0.",
-      "tooltipDe": "Dasselbe bei hoher Hitze (Lava, Lavakessel,\nfließende Seelen-Lava). Schmelz- und\nHochofenrezepte brauchen mindestens hohe\nHitze. Standard: 0.75. Bereich: 0.1–1.0."
+      "label": "Speed at High Heat",
+      "labelDe": "Tempo bei hoher Hitze",
+      "tooltip": "Share of the full speed at high heat.\nDefault: 0.75.",
+      "tooltipDe": "Anteil des vollen Tempos bei hoher Hitze.\nStandard: 0,75."
     },
     {
       "range": null,
@@ -1371,10 +1329,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Heat Factor: Medium",
-      "labelDe": "Hitzefaktor: Mittel",
-      "tooltip": "Cooking speed factor at medium heat (campfire,\nsoul campfire, magma block, flowing lava),\nmultiplied by the tier speed. Default: 0.5.\nRange: 0.1–1.0.",
-      "tooltipDe": "Gartempo-Faktor bei mittlerer Hitze\n(Lagerfeuer, Seelenlagerfeuer, Magmablock,\nfließende Lava), mal Tempo der Stufe.\nStandard: 0.5. Bereich: 0.1–1.0."
+      "label": "Speed at Medium Heat",
+      "labelDe": "Tempo bei mittlerer Hitze",
+      "tooltip": "Share of the full speed at medium heat\n(e.g. a campfire).\nDefault: 0.5.",
+      "tooltipDe": "Anteil des vollen Tempos bei mittlerer Hitze\n(z. B. Lagerfeuer).\nStandard: 0,5."
     },
     {
       "range": [
@@ -1478,10 +1436,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Heat Check Interval (Ticks)",
-      "labelDe": "Hitzeprüfung: Intervall (Ticks)",
-      "tooltip": "Besides when a neighboring block changes, a\ncrucible looks for its heat source every this\nmany ticks (20 = 1 s). Higher = less server\nload. Default: 20. Range: 5–200.",
-      "tooltipDe": "Außer bei einer Änderung eines Nachbarblocks\nsucht ein Schmelztiegel so oft seine\nHitzequelle (20 Ticks = 1 s). Höher = weniger\nServerlast. Standard: 20. Bereich: 5–200."
+      "label": "Heat Check Interval (ticks)",
+      "labelDe": "Hitze-Prüfabstand (Ticks)",
+      "tooltip": "How often a crucible looks at its heat\nsource again (20 ticks = 1 second).\nDefault: 20.",
+      "tooltipDe": "Wie oft ein Tiegel seine Hitzequelle neu\nprüft (20 Ticks = 1 Sekunde).\nStandard: 20."
     },
     {
       "range": null,
@@ -1499,8 +1457,8 @@
       "groupDe": null,
       "label": "Nether Heat Bonus",
       "labelDe": "Nether-Hitzebonus",
-      "tooltip": "On: in the Nether every heat source counts one\nlevel hotter, at most up to high (medium\nbecomes high). Off: the Nether heats like the\nOverworld. Default: true.",
-      "tooltipDe": "An: im Nether zählt jede Hitzequelle eine\nStufe heißer, höchstens bis hoch (mittel wird\nhoch). Aus: der Nether heizt wie die Oberwelt.\nStandard: true."
+      "tooltip": "In the Nether a heat source below high heat\ncounts one level hotter.\nDefault: true.",
+      "tooltipDe": "Im Nether zählt eine Hitzequelle unter hoher\nHitze eine Stufe heißer.\nStandard: an."
     },
     {
       "range": null,
@@ -1516,10 +1474,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Speed: Netherite Crucible",
-      "labelDe": "Tempo: Netherit-Schmelztiegel",
-      "tooltip": "The same for the netherite crucible.\nDefault: 4. Range: 1–16.",
-      "tooltipDe": "Dasselbe für den Netherit-Schmelztiegel.\nStandard: 4. Bereich: 1–16."
+      "label": "Netherite Crucible Speed",
+      "labelDe": "Tempo Netherit-Tiegel",
+      "tooltip": "Cooking speed of the netherite crucible.\nDefault: 4.",
+      "tooltipDe": "Kochtempo des Netherit-Tiegels.\nStandard: 4."
     },
     {
       "range": null,
@@ -1535,10 +1493,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Speed: Reinforced Crucible",
-      "labelDe": "Tempo: Verstärkter Schmelztiegel",
-      "tooltip": "Cooking speed of the reinforced crucible, as a\nmultiple of the recipe's pace. The iron\ncrucible is always 1; the heat factor comes on\ntop. Default: 2. Range: 1–16.",
-      "tooltipDe": "Gartempo des verstärkten Schmelztiegels als\nVielfaches des Rezepttempos. Der\nEisen-Schmelztiegel hat immer 1; der\nHitzefaktor kommt dazu. Standard: 2.\nBereich: 1–16."
+      "label": "Reinforced Crucible Speed",
+      "labelDe": "Tempo verstärkter Tiegel",
+      "tooltip": "Cooking speed of the reinforced crucible\n(1 = iron crucible).\nDefault: 2.",
+      "tooltipDe": "Kochtempo des verstärkten Tiegels\n(1 = Eisentiegel).\nStandard: 2."
     },
     {
       "range": [
@@ -1686,10 +1644,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Penalty: Heat Source Two Blocks Below",
-      "labelDe": "Abzug: Hitzequelle zwei Blöcke tiefer",
-      "tooltip": "Slowdown when the heat source is two blocks\nbelow the crucible (air, a hopper or a\nnon-full block in between). 0.1 = 10% slower.\nDefault: 0.1. Range: 0–0.5.",
-      "tooltipDe": "Verlangsamung, wenn die Hitzequelle zwei\nBlöcke unter dem Schmelztiegel liegt\n(dazwischen Luft, Trichter oder ein\nNicht-Vollblock). 0.1 = 10 % langsamer.\nStandard: 0.1. Bereich: 0–0.5."
+      "label": "Heat Source Two Blocks Down",
+      "labelDe": "Hitzequelle zwei Blöcke tiefer",
+      "tooltip": "Speed lost when the heat source sits two\nblocks below (air, hopper or a non-full\nblock between).\nDefault: 0.1.",
+      "tooltipDe": "Tempoverlust, wenn die Hitzequelle zwei\nBlöcke tiefer liegt (Luft, Trichter oder kein\nVollblock dazwischen).\nStandard: 0,1."
     },
     {
       "range": null,
@@ -1705,10 +1663,10 @@
       "categoryDe": "Simple Crucibles",
       "group": null,
       "groupDe": null,
-      "label": "Village Field Kitchen: Weight",
-      "labelDe": "Dorf-Feldküche: Gewicht",
-      "tooltip": "Weight of the field kitchen in each village's\nhouses pool; 3 is about every third village,\n0 = no kitchens. Only villages generated\nafterwards. Default: 3. Range: 0–10.",
-      "tooltipDe": "Gewicht der Feldküche im Häuser-Pool jedes\nDorfes; 3 sind etwa jedes dritte Dorf,\n0 = keine Küchen. Nur für später erzeugte\nDörfer. Standard: 3. Bereich: 0–10."
+      "label": "Field Kitchen in Villages",
+      "labelDe": "Feldküche in Dörfern",
+      "tooltip": "Weight of the field kitchen in each village\nhouse pool (0 = off, about every third\nvillage).\nDefault: 3.",
+      "tooltipDe": "Gewicht der Feldküche in jedem Dorfhaus-\nPool (0 = aus, etwa jedes dritte Dorf).\nStandard: 3."
     }
   ],
   "quests": [],
@@ -1878,7 +1836,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 9,
+    "features": 8,
     "recipes": 1,
     "lootTables": 7,
     "tags": 11,

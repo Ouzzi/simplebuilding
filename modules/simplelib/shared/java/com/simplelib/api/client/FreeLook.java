@@ -12,7 +12,7 @@ import org.joml.Vector3f;
 /**
  * Free look (owner 26.10., E29-4; reworked IG31-29, 31.10.): while it is on, the mouse turns only the camera, not the player -
  * like jumping out of the dropship in Apex Legends; walking, flying, attacking and every other input stay normal. Two keys:
- * {@link #KEY} "Free Look" (hold, standard left Alt) and {@link #TOGGLE_KEY} "Toggle Free Look" (unbound). When it ends, the
+ * {@link #KEY} "Free Look" (hold, standard left Alt when a mod asks for free look, else unbound) and {@link #TOGGLE_KEY} "Toggle Free Look" (unbound). When it ends, the
  * {@link FreeLookRules} mode decides: the camera eases back to where the player looks (standard) or the player turns to where
  * the camera looks. The client picks the mode ({@code config/simplelib-client.json}); a server can enforce its own
  * ({@code simplelib-server.json}, {@code freeLookRelease} + {@code freeLookEnforce}, sent on join).
@@ -25,7 +25,11 @@ import org.joml.Vector3f;
  */
 public final class FreeLook {
     public static final KeyMapping.Category CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("simplelib", "general"));
-    public static final KeyMapping KEY = new KeyMapping("key.simplelib.freelook", InputConstants.KEY_LALT, CATEGORY);
+    /**
+     * simplelib-3 (PLAN40): standard left Alt only while a loaded mod asked for free look ({@link com.simplelib.api.LibFeatures#FREE_LOOK},
+     * Simple Quality of Life, Simple Earth); otherwise the key comes unbound and free look stays off until the player binds it.
+     */
+    public static final KeyMapping KEY = new KeyMapping("key.simplelib.freelook", defaultKey(), CATEGORY);
     public static final KeyMapping TOGGLE_KEY = new KeyMapping("key.simplelib.freelook_toggle", InputConstants.UNKNOWN.getValue(), CATEGORY);
 
     /** Camera offset to the player's own view in degrees. */
@@ -44,6 +48,11 @@ public final class FreeLook {
     public static volatile java.util.function.BooleanSupplier otherZoom = () -> false;
 
     private FreeLook() {}
+
+    /** The default of the hold key: left Alt with a request, unbound without (the loader decided before any client entrypoint). */
+    public static int defaultKey() {
+        return com.simplelib.api.LibFeatures.requested(com.simplelib.api.LibFeatures.FREE_LOOK) ? InputConstants.KEY_LALT : InputConstants.UNKNOWN.getValue();
+    }
 
     /** Wheel step: scrolling up (positive) zooms in; bounded between 1/{@link #MAX_MAGNIFICATION} and normal. */
     public static double zoomAfter(double current, double wheel) {

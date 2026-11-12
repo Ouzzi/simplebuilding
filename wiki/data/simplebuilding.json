@@ -96207,6 +96207,30 @@
         ]
       },
       {
+        "id": "chisel/simplebuilding:ender_quartz_block/simplebuilding:cracked_ender_quartz_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:cracked_ender_quartz_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "enderite"
+        },
+        "source": "mc26_3/overlay/resources/data/simplebuilding/chisel_transformations/cracked_end_bricks_enderite_chisel.json",
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel/simplebuilding:ender_quartz_brick_slab/simplebuilding:ender_quartz_slab",
         "kind": "chisel",
         "inputs": [
@@ -96298,6 +96322,54 @@
           "tier": "enderite"
         },
         "source": "src/main/generated/data/simplebuilding/chisel_transformations/enderite_chisel.json",
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:frosted_nihilith/simplebuilding:cracked_nihilith_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:frosted_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:cracked_nihilith_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "enderite"
+        },
+        "source": "mc26_3/overlay/resources/data/simplebuilding/chisel_transformations/cracked_end_bricks_enderite_chisel.json",
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:layered_astralit/simplebuilding:cracked_astralit_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:layered_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:cracked_astralit_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "enderite"
+        },
+        "source": "mc26_3/overlay/resources/data/simplebuilding/chisel_transformations/cracked_end_bricks_enderite_chisel.json",
         "lines": [
           "26.3"
         ]
@@ -97250,6 +97322,78 @@
           "tier": "enderite"
         },
         "source": "src/main/generated/data/simplebuilding/chisel_transformations/enderite_chisel.json",
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:cracked_astralit_bricks/simplebuilding:layered_astralit",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:cracked_astralit_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:layered_astralit",
+          "count": 1
+        },
+        "stats": {
+          "tier": "enderite"
+        },
+        "source": "mc26_3/overlay/resources/data/simplebuilding/chisel_transformations/cracked_end_bricks_enderite_chisel.json",
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:cracked_ender_quartz_bricks/simplebuilding:ender_quartz_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:cracked_ender_quartz_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "enderite"
+        },
+        "source": "mc26_3/overlay/resources/data/simplebuilding/chisel_transformations/cracked_end_bricks_enderite_chisel.json",
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:cracked_nihilith_bricks/simplebuilding:frosted_nihilith",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:cracked_nihilith_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:frosted_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "tier": "enderite"
+        },
+        "source": "mc26_3/overlay/resources/data/simplebuilding/chisel_transformations/cracked_end_bricks_enderite_chisel.json",
         "lines": [
           "26.3"
         ]
@@ -108353,7 +108497,7 @@
     "enchantments": 9,
     "tags": 53,
     "config": 153,
-    "inWorld": 169,
+    "inWorld": 175,
     "advancements": 102,
     "features": 42,
     "undocumented": 0,

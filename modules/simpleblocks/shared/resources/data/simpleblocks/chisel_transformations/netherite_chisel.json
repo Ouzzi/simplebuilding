@@ -1,0 +1,25 @@
+{
+  "tier": "netherite",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "minecraft:netherite_block",
+        "simpleblocks:chiseled_netherite"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:red_nether_bricks",
+        "simpleblocks:cracked_red_nether_bricks",
+        "simpleblocks:chiseled_red_nether_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleblocks:blue_nether_bricks",
+        "simpleblocks:cracked_blue_nether_bricks"
+      ]
+    }
+  ]
+}

@@ -131,7 +131,8 @@
       "sources": [
         "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java",
         "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
-        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ashwood_octet_from_ashwood_planks_stonecutting.json"
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ashwood_octet_from_ashwood_planks_stonecutting.json",
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/crimson_blazewood_octet_from_crimson_blazewood_planks_stonecutting.json"
       ],
       "en": {
         "title": "Octets of other mods' blocks",
@@ -139,6 +140,7 @@
         "details": [
           "(with SimpleBuilding) Octets of the Astralit, Nihilith and Ender Quartz palettes; its sneaking sledgehammer carves full blocks, stairs and slabs into these octets and drops the removed octet; its chess octets stay SimpleBuilding's and mix with these.",
           "(with Simple End) Ashwood and Duskwood octets (planks) and octets of their logs and stripped logs.",
+          "(with Simple Enchanting) Crimson and Warped Blazewood octets from the blazewood planks (with SimpleBuilding its planks); like the planks they do not burn.",
           "(with Simple Blocks) Octets of Blue Nether Bricks and Hushed Deepslate Tiles.",
           "Carving tools of other mods find the cells through SimpleLib's OctetCells; Simple Octets registers every cell there."
         ]
@@ -149,6 +151,7 @@
         "details": [
           "(mit SimpleBuilding) Achtel der Paletten Astralit, Nihilith und Enderquarz; sein schleichender Vorschlaghammer zerlegt Vollblöcke, Treppen und Stufen in diese Achtel und lässt das abgetragene Achtel fallen; seine Schach-Achtel bleiben bei SimpleBuilding und mischen sich mit diesen.",
           "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme.",
+          "(mit Simple Enchanting) Karmesin- und Wirr-Lohenholz-Achtel aus den Lohenholzbrettern (mit SimpleBuilding dessen Bretter); wie die Bretter brennen sie nicht.",
           "(mit Simple Blocks) Achtel aus Blauen Netherziegeln und Gedämpften Tiefenschieferfliesen.",
           "Schnitzwerkzeuge anderer Mods finden die Zellen über SimpleLibs OctetCells; Simple Octets meldet dort jede Zelle an."
         ]
@@ -3696,6 +3699,102 @@
           {
             "id": "minecraft:copper_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:crimson_blazewood_octet_from_crimson_blazewood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:crimson_blazewood_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/crimson_blazewood_octet_from_crimson_blazewood_planks_sawing.json",
+      "ingredients": [
+        "simpleenchanting:crimson_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:crimson_blazewood_octet_from_crimson_blazewood_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:crimson_blazewood_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/crimson_blazewood_octet_from_crimson_blazewood_planks_stonecutting.json",
+      "ingredients": [
+        "simpleenchanting:crimson_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleenchanting:crimson_blazewood_planks",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:crimson_blazewood_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_planks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/crimson_blazewood_planks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:crimson_blazewood_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:crimson_blazewood_octet"
+        ],
+        [
+          "simpleoctets:crimson_blazewood_octet"
+        ],
+        [
+          "simpleoctets:crimson_blazewood_octet"
+        ],
+        [
+          "simpleoctets:crimson_blazewood_octet"
+        ],
+        [
+          "simpleoctets:crimson_blazewood_octet"
+        ],
+        [
+          "simpleoctets:crimson_blazewood_octet"
+        ],
+        [
+          "simpleoctets:crimson_blazewood_octet"
+        ],
+        [
+          "simpleoctets:crimson_blazewood_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:crimson_blazewood_octet",
+            "count": 8
           }
         ]
       }
@@ -18693,6 +18792,102 @@
       }
     },
     {
+      "id": "simpleoctets:warped_blazewood_octet_from_warped_blazewood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:warped_blazewood_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/warped_blazewood_octet_from_warped_blazewood_planks_sawing.json",
+      "ingredients": [
+        "simpleenchanting:warped_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:warped_blazewood_octet_from_warped_blazewood_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:warped_blazewood_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/warped_blazewood_octet_from_warped_blazewood_planks_stonecutting.json",
+      "ingredients": [
+        "simpleenchanting:warped_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleenchanting:warped_blazewood_planks",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:warped_blazewood_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_planks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/warped_blazewood_planks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:warped_blazewood_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:warped_blazewood_octet"
+        ],
+        [
+          "simpleoctets:warped_blazewood_octet"
+        ],
+        [
+          "simpleoctets:warped_blazewood_octet"
+        ],
+        [
+          "simpleoctets:warped_blazewood_octet"
+        ],
+        [
+          "simpleoctets:warped_blazewood_octet"
+        ],
+        [
+          "simpleoctets:warped_blazewood_octet"
+        ],
+        [
+          "simpleoctets:warped_blazewood_octet"
+        ],
+        [
+          "simpleoctets:warped_blazewood_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:warped_blazewood_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:warped_octet_from_warped_planks_sawing",
       "type": "simpleblocks:sawing",
       "category": null,
@@ -21213,6 +21408,35 @@
       ],
       "usedIn": [
         "simpleoctets:copper_block_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:crimson_blazewood_octet",
+      "name": {
+        "en_us": "Crimson Blazewood Octet Cell",
+        "de_de": "Karmesin-Lohenholz-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:crimson_blazewood_octet_from_crimson_blazewood_planks_sawing",
+        "simpleoctets:crimson_blazewood_octet_from_crimson_blazewood_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:crimson_blazewood_planks_from_octets"
       ]
     },
     {
@@ -25852,6 +26076,35 @@
       ]
     },
     {
+      "id": "simpleoctets:warped_blazewood_octet",
+      "name": {
+        "en_us": "Warped Blazewood Octet Cell",
+        "de_de": "Wirr-Lohenholz-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:warped_blazewood_octet_from_warped_blazewood_planks_sawing",
+        "simpleoctets:warped_blazewood_octet_from_warped_blazewood_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:warped_blazewood_planks_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:warped_octet",
       "name": {
         "en_us": "Warped Octet Cell",
@@ -26273,13 +26526,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 613,
+    "recipes": 619,
     "lootTables": 0,
     "tags": 0,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 211,
+    "blocks": 213,
     "trades": 0,
     "config": 0,
     "quests": 0,

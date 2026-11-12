@@ -46,9 +46,17 @@ CLIENT_JAR = os.environ.get('SB_VANILLA_DIR', os.path.expanduser('~/vanilla263')
 DE_LANG = os.path.expanduser('~/.gradle/caches') + '/neoformruntime/assets/objects/76/766975253e4de94ffc2e7e6d3b10b209da2f52c4'
 # Order = OctetRegistry.WOODS
 WOODS = ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'poplar',
-         'bamboo', 'crimson', 'warped', 'ashwood', 'duskwood']
+         'bamboo', 'crimson', 'warped', 'ashwood', 'duskwood', 'crimson_blazewood', 'warped_blazewood']
 # Simple End woods (registered only with Simple End, docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): planks in its namespace.
 END_WOODS = ('ashwood', 'duskwood')
+# Simple Enchanting's blazewoods (PLAN40 simpleenchanting-1): planks in its namespace (with SimpleBuilding they resolve to
+# SimpleBuilding's planks through the id moves), octets only with Simple Enchanting.
+BLAZEWOODS = ('crimson_blazewood', 'warped_blazewood')
+PARTNER_WOODS = {**{w: 'simpleend' for w in END_WOODS}, **{w: 'simpleenchanting' for w in BLAZEWOODS}}
+
+
+def wood_ns(wood):
+    return PARTNER_WOODS.get(wood, 'minecraft')
 # Octets of another mod's block: their item definition + a self-contained item model live in that mod's resources (still
 # namespace simpleoctets). The 26.3 client loads every items/*.json and bakes its model even when the item is not
 # registered, so without the partner its textures would be missing (client log faults); with it in the partner's jar they
@@ -56,6 +64,7 @@ END_WOODS = ('ashwood', 'duskwood')
 PARTNER_RES = {'simpleend': os.path.join(REPO, 'modules', 'simpleend', 'shared', 'resources'),
                'simpleblocks': os.path.join(REPO, 'modules', 'simpleblocks', 'shared', 'resources'),
                'simpleores': os.path.join(REPO, 'modules', 'simpleores', 'shared', 'resources'),
+               'simpleenchanting': os.path.join(REPO, 'modules', 'simpleenchanting', 'shared', 'resources'),
                'simplebuilding': os.path.join(REPO, 'mc26_3', 'overlay', 'resources')}
 
 
@@ -65,7 +74,7 @@ def item_assets_root(ns):
 
 
 def planks_tex(wood):
-    return f"{'simpleend' if wood in END_WOODS else 'minecraft'}:block/{wood}_planks"
+    return f"{wood_ns(wood)}:block/{wood}_planks"
 
 # melon flesh: the reds of the vanilla melon slice, seeds in its darkest red-brown
 FLESH = {'r': (191, 49, 35), 'l': (193, 60, 45), 'h': (202, 113, 93), 'd': (175, 22, 11), 's': (89, 24, 15),
@@ -472,7 +481,7 @@ def cells(mats):
     """(cell path, base namespace, base path, tool) of every octet cell with a saw/stonecutter recipe, in tab order."""
     out = []
     for wood in WOODS:
-        ns = 'simpleend' if wood in END_WOODS else 'minecraft'
+        ns = wood_ns(wood)
         out.append((f'{wood}_octet', ns, f'{wood}_planks', 'axe'))
     for m in mats:
         b = m['base']
@@ -622,7 +631,7 @@ def outputs():
         a(f'models/block/octet/{wood}.json', js({
             'parent': f'{NS}:block/octet_corner', 'textures': {'all': planks_tex(wood)}}))
         a(f'blockstates/{wood}_octet.json', js(multipart(f'{NS}:block/octet/{wood}')))
-        item(files, 'simpleend' if wood in END_WOODS else 'minecraft', f'{wood}_octet', {'all': planks_tex(wood)}, '')
+        item(files, wood_ns(wood), f'{wood}_octet', {'all': planks_tex(wood)}, '')
     # Melon: the corner's outer faces (north, west, down) carry the rind, the three cut faces the flesh.
     outer = {'texture': '#side'}
     a('models/block/octet/melon_corner.json', js({
@@ -706,7 +715,7 @@ def preview(files, vanilla, out_dir):
     from PIL import Image, ImageDraw, ImageFont
     vt = lambda n: Image.open(os.path.join(vanilla, 'assets', 'minecraft', 'textures', 'block', n + '.png')).convert('RGBA')
     fl = Image.open(io.BytesIO(files[os.path.join(ASSETS, 'textures', 'block', 'melon_flesh.png')])).convert('RGBA')
-    tex = {w: (vt(w + '_planks'), vt(w + '_planks')) for w in WOODS if w not in END_WOODS}
+    tex = {w: (vt(w + '_planks'), vt(w + '_planks')) for w in WOODS if w not in PARTNER_WOODS}
     tex['melon'] = (vt('melon_top'), vt('melon_side'))
     tex['flesh'] = (fl, fl)
     full = {(x * 0.5, y * 0.5, z * 0.5) for x in (0, 1) for y in (0, 1) for z in (0, 1)}
@@ -741,7 +750,7 @@ def preview(files, vanilla, out_dir):
     y = 40 + 2 * ch
     d.text((8, y), 'neu: melon_flesh.png (x4) | Holz-Achtel nutzen die Vanilla-Bretter:', fill=(0, 0, 0, 255), font=font)
     img.alpha_composite(textured_face(fl), (8, y + 16))
-    for i, w in enumerate(w for w in WOODS if w not in END_WOODS):
+    for i, w in enumerate(w for w in WOODS if w not in PARTNER_WOODS):
         img.alpha_composite(textured_face(tex[w][0], 32), (90 + i * 40, y + 16))
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, 'octets-n24.png')

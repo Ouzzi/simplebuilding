@@ -48,6 +48,13 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.simpleoctets]]
+modId="simpleenchanting"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpleoctets]]
 modId="jei"
 mandatory=false
 versionRange="[0,)"

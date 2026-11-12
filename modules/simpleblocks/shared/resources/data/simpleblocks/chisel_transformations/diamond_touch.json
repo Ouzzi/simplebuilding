@@ -1,0 +1,14 @@
+{
+  "tier": "diamond",
+  "table": "touch",
+  "chains": [
+    {
+      "blocks": [
+        "minecraft:prismarine_bricks",
+        "simpleblocks:cracked_prismarine_bricks",
+        "simpleblocks:chiseled_prismarine",
+        "simpleblocks:cracked_prismarine"
+      ]
+    }
+  ]
+}

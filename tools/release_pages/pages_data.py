@@ -191,6 +191,7 @@ P = {
 
 # One sentence per mod: what it is good for in a Vanilla survival game and how far it reaches into Vanilla. Facts from code and manuals only.
 V = {
+"simplelib": "Shared base of the Simple mods with a modpack guide and warped wart (found in bastion chests); it reorders creative tabs and hooks hoppers, anvils and the Wither, but anvil crushing, the Wither drop, the legendary choir and the Free Look key switch on only when a Simple mod asks.",
 "simplebuilding": "Bundles the building, storage and workstation sub-mods so a normal survival world gets better tools and containers; it adds items and blocks and leaves Vanilla recipes, loot and worlds as they are.",
 "simplearrows": "Gives archers a new arrow workbench plus a light and a silver arrow; Vanilla arrows, bows and the Vanilla fletching table keep working unchanged.",
 "simplebeacons": "Gives late-game players a stronger beacon and conduit to build towards; the Vanilla beacon and conduit stay as they are.",

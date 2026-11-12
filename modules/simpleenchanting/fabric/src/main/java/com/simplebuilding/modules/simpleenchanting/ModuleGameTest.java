@@ -87,6 +87,26 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleenchanting:empty")
+    public void blazewoodFamilyRegistered(GameTestHelper h) {
+        EnchantingTests.ALL.get("blazewood_family_registered").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void blazewoodRecipes(GameTestHelper h) {
+        EnchantingTests.ALL.get("blazewood_recipes").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void blazewoodDoorHasTwoHalves(GameTestHelper h) {
+        EnchantingTests.ALL.get("blazewood_door_has_two_halves").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void configLabels(GameTestHelper h) {
+        EnchantingTests.ALL.get("config_labels").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
     public void discoverRecipeUnlocks(GameTestHelper h) {
         EnchantingTests.ALL.get("discover_recipe_unlocks").accept(h);
     }

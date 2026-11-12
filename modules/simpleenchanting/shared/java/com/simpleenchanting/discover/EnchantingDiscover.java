@@ -51,7 +51,16 @@ public final class EnchantingDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simpleenchanting:*_blazewood_button",
+            "simpleenchanting:*_blazewood_door",
+            "simpleenchanting:*_blazewood_fence",
+            "simpleenchanting:*_blazewood_fence_gate",
+            "simpleenchanting:*_blazewood_pressure_plate",
+            "simpleenchanting:*_blazewood_slab",
+            "simpleenchanting:*_blazewood_stairs",
+            "simpleenchanting:*_blazewood_trapdoor",
             "simpleenchanting:astral_enchanter",
+            "simpleenchanting:blazewood_family",
             "simpleenchanting:blazing_obsidian",
             "simpleenchanting:building_blocks",
             "simpleenchanting:chiseled_crimson_blazewood_bookshelf",
