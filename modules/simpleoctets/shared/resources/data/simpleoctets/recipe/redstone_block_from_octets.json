@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:redstone_block_octet",
+    "simpleoctets:redstone_block_octet",
+    "simpleoctets:redstone_block_octet",
+    "simpleoctets:redstone_block_octet",
+    "simpleoctets:redstone_block_octet",
+    "simpleoctets:redstone_block_octet",
+    "simpleoctets:redstone_block_octet",
+    "simpleoctets:redstone_block_octet"
+  ],
+  "result": {
+    "id": "minecraft:redstone_block"
+  }
+}

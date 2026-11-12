@@ -45,9 +45,13 @@ public final class OctetRegistry {
             "mangrove", "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped", "ashwood", "duskwood");
     public static final String SIMPLE_END = "simpleend";
     private static final Set<String> END_WOODS = Set.of("ashwood", "duskwood");
+    /** Simple Ores' full blocks that copy the gold block (OresRegistry), and the Netherite-like ones (fire resistant items). */
+    private static final Set<String> FULL_GOLD_ORES = Set.of("rose_gold_block", "rose_bronze_block");
+    private static final Set<String> FIRE_RESISTANT_ORES = Set.of("enderite_block", "terranite_block", "infernite_block", "zenithite_block");
+
     /** Vanilla template of another mod's block whose properties that mod copies (Simple Blocks, BlocksRegistry). */
     private static final Map<String, Block> TEMPLATES = Map.ofEntries(Map.entry("blue_nether_bricks", Blocks.RED_NETHER_BRICKS),
-            Map.entry("hushed_deepslate_tiles", Blocks.DEEPSLATE_TILES),
+            Map.entry("hushed_deepslate_tiles", Blocks.DEEPSLATE_TILES), Map.entry("sculk_tiles", Blocks.DEEPSLATE_TILES),
             Map.entry("polished_end_stone", Blocks.END_STONE),
             // The mossy bricks (a-palette05): the brick they age.
             Map.entry("mossy_deepslate_bricks", Blocks.DEEPSLATE_BRICKS), Map.entry("mossy_deepslate_tiles", Blocks.DEEPSLATE_TILES),
@@ -132,7 +136,10 @@ public final class OctetRegistry {
                     return block(name, Blocks.IRON_BLOCK, s -> new MaterialOctetBlock(source, piece(name), properties(s.strength(25.0F, 1000.0F), Blocks.IRON_BLOCK)));
                 }
                 // Cut metal blocks (b-metals14, octet rule): as hard as their block - silver copies gold, the others iron.
-                Block metal = material.base().contains("silver") ? Blocks.GOLD_BLOCK : Blocks.IRON_BLOCK;
+                // PLAN40 simpleoctets-1: the full blocks copy what OresRegistry copies - silver and both rose alloys gold,
+                // Enderite and the rift metals Netherite (fire resistant), every other metal iron.
+                Block metal = material.base().contains("silver") || FULL_GOLD_ORES.contains(material.base()) ? Blocks.GOLD_BLOCK
+                        : FIRE_RESISTANT_ORES.contains(material.base()) ? Blocks.NETHERITE_BLOCK : Blocks.IRON_BLOCK;
                 return block(name, metal, s -> new MaterialOctetBlock(source, piece(name), properties(s, metal)));
             }
             Block template = TEMPLATES.get(material.base());
@@ -161,8 +168,8 @@ public final class OctetRegistry {
         }
         for (Block cell : MATERIAL_OCTETS) {
             String name = BuiltInRegistries.BLOCK.getKey(cell).getPath();
-            // Netherite octet like the Netherite block: uncommon and fire resistant.
-            boolean netherite = name.startsWith("netherite_");
+            // Netherite octet like the Netherite block: uncommon and fire resistant; so are Enderite and the rift metals (Simple Ores).
+            boolean netherite = name.startsWith("netherite_") || FIRE_RESISTANT_ORES.contains(name.substring(0, name.length() - "_octet".length()));
             MATERIAL_OCTET_ITEMS.add(item(name, s -> new MaterialOctetItem(() -> cell,
                     netherite ? s.stacksTo(MAX_STACK).rarity(Rarity.UNCOMMON).fireResistant() : s.stacksTo(MAX_STACK))));
         }

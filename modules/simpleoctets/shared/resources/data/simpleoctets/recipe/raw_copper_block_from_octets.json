@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:raw_copper_block_octet",
+    "simpleoctets:raw_copper_block_octet",
+    "simpleoctets:raw_copper_block_octet",
+    "simpleoctets:raw_copper_block_octet",
+    "simpleoctets:raw_copper_block_octet",
+    "simpleoctets:raw_copper_block_octet",
+    "simpleoctets:raw_copper_block_octet",
+    "simpleoctets:raw_copper_block_octet"
+  ],
+  "result": {
+    "id": "minecraft:raw_copper_block"
+  }
+}

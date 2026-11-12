@@ -150,7 +150,8 @@
         "details": [
           "(with SimpleBuilding) Octets of the Astralit, Nihilith and Ender Quartz palettes; its sneaking sledgehammer carves full blocks, stairs and slabs into these octets and drops the removed octet; its chess octets stay SimpleBuilding's and mix with these.",
           "(with Simple End) Ashwood and Duskwood octets (planks) and octets of their logs and stripped logs.",
-          "(with Simple Blocks) Octets of Blue Nether Bricks and Hushed Deepslate Tiles.",
+          "(with Simple Blocks) Octets of Blue Nether Bricks, Hushed Deepslate Tiles, Sculk Tiles, the ice bricks and the mossy bricks.",
+          "(with Simple Ores) Octets of every metal block - silver, lead, zinc, nickel, tin, brass, bronze, stainless steel, rose gold, rose copper, Enderite, Terranite, Infernite, Zenithite - and of the cut metals; Enderite and rift metal octets are fire resistant like Netherite, the lead octet muffles sound like a whole lead block.",
           "Carving tools of other mods find the cells through SimpleLib's OctetCells; Simple Octets registers every cell there.",
           "Removing that mod later: like all its blocks, its placed octet cells are gone from the world (Minecraft drops unknown blocks), and the octet items of it vanish from inventories. In a mixed cell only the octets of the missing material go; every other material stays. Take such octets out first if you want to keep the spot."
         ]
@@ -161,7 +162,8 @@
         "details": [
           "(mit SimpleBuilding) Achtel der Paletten Astralit, Nihilith und Enderquarz; sein schleichender Vorschlaghammer zerlegt Vollblöcke, Treppen und Stufen in diese Achtel und lässt das abgetragene Achtel fallen; seine Schach-Achtel bleiben bei SimpleBuilding und mischen sich mit diesen.",
           "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme.",
-          "(mit Simple Blocks) Achtel aus Blauen Netherziegeln und Gedämpften Tiefenschieferfliesen.",
+          "(mit Simple Blocks) Achtel der Blauen Netherziegel, Gedämpften Tiefenschieferfliesen, Sculk-Fliesen, der Eisziegel und der bemoosten Ziegel.",
+          "(mit Simple Ores) Achtel jedes Metallblocks - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze, Edelstahl, Roségold, Rosenkupfer, Enderit, Terranit, Infernit, Zenithit - und der geschnittenen Metalle; Enderit- und Riss-Metall-Achtel sind feuerfest wie Netherit, das Blei-Achtel dämmt Schall wie ein ganzer Bleiblock.",
           "Schnitzwerkzeuge anderer Mods finden die Zellen über SimpleLibs OctetCells; Simple Octets meldet dort jede Zelle an.",
           "Wird diese Mod später entfernt: wie alle ihre Blöcke fehlen dann ihre gesetzten Achtelzellen in der Welt (Minecraft verwirft unbekannte Blöcke), und ihre Achtel-Items verschwinden aus Inventaren. In einer gemischten Zelle gehen nur die Achtel des fehlenden Materials; jedes andere Material bleibt. Wer die Stelle behalten will, nimmt solche Achtel vorher heraus."
         ]
@@ -221,10 +223,10 @@
         "modules/simpleoctets/shared/resources/data/simpleoctets/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Octets\" of the Simple Modpack guide (SimpleLib): 14 pages taken from this wiki, shown in your language. Unlocked by picking up: stonecutter. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Octets\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: stonecutter. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Octets\" im Simple-Modpack-Handbuch (SimpleLib): 14 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Steinmetz. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Octets\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Steinmetz. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleoctets:melon_octet": {

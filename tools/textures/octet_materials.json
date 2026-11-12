@@ -684,6 +684,50 @@
  },
  {
   "ns": "minecraft",
+  "base": "waxed_copper_block",
+  "key": "waxed_copper_block",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/copper_block"
+  },
+  "en": "Waxed Block of Copper",
+  "de": "Gewachster Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "waxed_exposed_copper",
+  "key": "waxed_exposed_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/exposed_copper"
+  },
+  "en": "Waxed Exposed Copper",
+  "de": "Gewachster angelaufener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "waxed_weathered_copper",
+  "key": "waxed_weathered_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/weathered_copper"
+  },
+  "en": "Waxed Weathered Copper",
+  "de": "Gewachster verwitterter Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "waxed_oxidized_copper",
+  "key": "waxed_oxidized_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/oxidized_copper"
+  },
+  "en": "Waxed Oxidized Copper",
+  "de": "Gewachster oxidierter Kupferblock"
+ },
+ {
+  "ns": "minecraft",
   "base": "cut_copper",
   "key": "cut_copper",
   "group": "copper",
@@ -870,6 +914,61 @@
   "de": "Netheritblock"
  },
  {
+  "ns": "minecraft",
+  "base": "redstone_block",
+  "key": "redstone_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/redstone_block"
+  },
+  "en": "Block of Redstone",
+  "de": "Redstone-Block"
+ },
+ {
+  "ns": "minecraft",
+  "base": "amethyst_block",
+  "key": "amethyst_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/amethyst_block"
+  },
+  "en": "Block of Amethyst",
+  "de": "Amethystblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "raw_iron_block",
+  "key": "raw_iron_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/raw_iron_block"
+  },
+  "en": "Block of Raw Iron",
+  "de": "Roheisenblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "raw_copper_block",
+  "key": "raw_copper_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/raw_copper_block"
+  },
+  "en": "Block of Raw Copper",
+  "de": "Rohkupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "raw_gold_block",
+  "key": "raw_gold_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/raw_gold_block"
+  },
+  "en": "Block of Raw Gold",
+  "de": "Rohgoldblock"
+ },
+ {
   "ns": "simpleores",
   "base": "lead_block",
   "key": "lead_block",
@@ -879,6 +978,149 @@
   },
   "en": "Block of Lead",
   "de": "Bleiblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "silver_block",
+  "key": "silver_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/silver_block"
+  },
+  "en": "Block of Silver",
+  "de": "Silberblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "zinc_block",
+  "key": "zinc_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/zinc_block"
+  },
+  "en": "Block of Zinc",
+  "de": "Zinkblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "nickel_block",
+  "key": "nickel_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/nickel_block"
+  },
+  "en": "Block of Nickel",
+  "de": "Nickelblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "tin_block",
+  "key": "tin_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/tin_block"
+  },
+  "en": "Block of Tin",
+  "de": "Zinnblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "brass_block",
+  "key": "brass_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/brass_block"
+  },
+  "en": "Block of Brass",
+  "de": "Messingblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "bronze_block",
+  "key": "bronze_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/bronze_block"
+  },
+  "en": "Block of Bronze",
+  "de": "Bronzeblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "stainless_steel_block",
+  "key": "stainless_steel_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/stainless_steel_block"
+  },
+  "en": "Block of Stainless Steel",
+  "de": "Edelstahlblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "rose_gold_block",
+  "key": "rose_gold_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/rose_gold_block"
+  },
+  "en": "Block of Rose Gold",
+  "de": "Roségoldblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "rose_bronze_block",
+  "key": "rose_bronze_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/rose_bronze_block"
+  },
+  "en": "Block of Rose Copper",
+  "de": "Rosenkupferblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "enderite_block",
+  "key": "enderite_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/enderite_block"
+  },
+  "en": "Block of Enderite",
+  "de": "Enderitblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "terranite_block",
+  "key": "terranite_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/terranite_block"
+  },
+  "en": "Block of Terranite",
+  "de": "Terranitblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "infernite_block",
+  "key": "infernite_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/infernite_block"
+  },
+  "en": "Block of Infernite",
+  "de": "Infernitblock"
+ },
+ {
+  "ns": "simpleores",
+  "base": "zenithite_block",
+  "key": "zenithite_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/zenithite_block"
+  },
+  "en": "Block of Zenithite",
+  "de": "Zenithitblock"
  },
  {
   "ns": "simpleores",
@@ -2079,6 +2321,17 @@
   },
   "en": "Hushed Deepslate Tiles",
   "de": "Gedämpfte Tiefenschieferfliesen"
+ },
+ {
+  "ns": "simpleblocks",
+  "base": "sculk_tiles",
+  "key": "sculk_tiles",
+  "group": "mod",
+  "tex": {
+   "all": "simpleblocks:block/sculk_tiles"
+  },
+  "en": "Sculk Tiles",
+  "de": "Sculk-Fliesen"
  },
  {
   "ns": "minecraft",
