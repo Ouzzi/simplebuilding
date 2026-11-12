@@ -1459,7 +1459,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 19
     },
-    "dataHash": "0f663294a269"
+    "dataHash": "59673e6aa129"
   },
   {
     "id": "simplecrucibles",
