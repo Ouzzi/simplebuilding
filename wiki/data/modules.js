@@ -488,7 +488,8 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "cloth_config"
+      "cloth_config",
+      "simplelib"
     ],
     "optional": [
       "simplebuilding",
@@ -737,7 +738,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 7
     },
-    "dataHash": "e2142be0208e"
+    "dataHash": "3c9be7d94ab0"
   },
   {
     "id": "simplemobs",
@@ -1118,7 +1119,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simpleenddragonfight"
     ],
@@ -1160,7 +1163,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [],
     "stage": "new",
     "parent": "simplebuilding",
@@ -1187,7 +1192,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplebeacons",
     "displayName": "Simple Beacons",
-    "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.",
+    "description": "Strong Beacon (5 pyramid levels, new powers, range by pyramid material, Vanilla-style screen), Mighty and Evil beacons, Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and its Mighty/Evil kinds, upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1459,7 +1464,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 19
     },
-    "dataHash": "3d1823097c28"
+    "dataHash": "0f663294a269"
   },
   {
     "id": "simplecrucibles",
@@ -1859,7 +1864,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleearth",
     "displayName": "Simple Earth",
-    "description": "The Overworld seen from orbit: above a very high activation height the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colours sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
+    "description": "The Overworld seen from orbit: from the render height (default 1536) the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colors sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below it everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1925,7 +1930,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simplebuilding",
       "simplemoney",
@@ -1961,7 +1968,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simplebuilding",
       "simplemoney",
@@ -2297,7 +2306,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplelayers",
     "displayName": "Simple Layers",
-    "description": "World layers: the Cloud Sea sky dimension above y 700 and the Backrooms below the bedrock, with cloud blocks, wallpaper, carpet and neon lights.",
+    "description": "World layers: the Cloud Sea sky dimension above y 700 and the Backrooms, their own dimension of ten stacked levels (entered through an abandoned house's cellar or a rift in glitched bedrock), with cloud blocks, wallpaper, carpet and neon lights.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [

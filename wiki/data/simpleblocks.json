@@ -386,6 +386,48 @@
       }
     },
     {
+      "id": "ice_brick_family",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "tools/textures/icebricks38_2026_11_12.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/IceShapes.java",
+        "docs/ai/PLAN-A-ICEBRICKS38-2026-11-12.md"
+      ],
+      "related": [
+        "simpleblocks:cracked_ice_bricks",
+        "simpleblocks:ice_brick_stairs",
+        "simpleblocks:ice_brick_slab",
+        "simpleblocks:ice_brick_wall",
+        "simpleblocks:cracked_packed_ice_bricks",
+        "simpleblocks:packed_ice_brick_stairs",
+        "simpleblocks:packed_ice_brick_slab",
+        "simpleblocks:packed_ice_brick_wall",
+        "simpleblocks:cracked_blue_ice_bricks",
+        "simpleblocks:blue_ice_brick_stairs",
+        "simpleblocks:blue_ice_brick_slab",
+        "simpleblocks:blue_ice_brick_wall"
+      ],
+      "en": {
+        "title": "Ice Brick Families",
+        "summary": "Ice bricks, packed ice bricks and blue ice bricks are families of their own: cracked bricks, stairs, slabs, walls and an octet (Simple Octets).",
+        "details": [
+          "Crafting table: stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6 from the bricks; two brick slabs on top of each other make the chiseled ice of that kind. Stonecutter: the bricks cut into cracked bricks, stairs, slabs (2), walls and chiseled ice; the ice and the polished ice cut straight into the brick stairs, slabs and walls. Shapecutter: 8 octets from one brick block.",
+          "Cracked ice bricks come from the stonecutter (a furnace would melt them). They are decoration and do not crack further like Cracked Ice.",
+          "Every member is as slippery as its ice, sounds like glass and drops only with Silk Touch. Only the members of normal ice melt next to bright light, like Vanilla ice; packed and blue ice members never melt. The octets do not melt either."
+        ]
+      },
+      "de": {
+        "title": "Eisziegel-Familien",
+        "summary": "Eisziegel, Packeisziegel und Blaueisziegel sind eigene Familien: rissige Ziegel, Treppen, Stufen, Mauern und ein Achtelblock (Simple Octets).",
+        "details": [
+          "Werkbank: Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6 aus den Ziegeln; zwei Ziegelstufen übereinander ergeben das gemeißelte Eis der Art. Steinmetz: die Ziegel schneiden in rissige Ziegel, Treppen, Stufen (2), Mauern und gemeißeltes Eis; Eis und Poliertes Eis schneiden direkt in Ziegeltreppe, -stufe und -mauer. Formsäge: 8 Achtelblöcke aus einem Ziegelblock.",
+          "Rissige Eisziegel kommen aus dem Steinmetz (im Ofen würden sie schmelzen). Sie sind Deko und reißen nicht weiter wie Rissiges Eis.",
+          "Jedes Glied ist so rutschig wie sein Eis, klingt wie Glas und droppt nur mit Behutsamkeit. Nur die Glieder aus normalem Eis schmelzen bei hellem Licht wie Vanilla-Eis; Pack- und Blaueis-Glieder schmelzen nie. Auch die Achtelblöcke schmelzen nicht."
+        ]
+      }
+    },
+    {
       "id": "blue_nether_bricks",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
@@ -1015,6 +1057,354 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.031
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:blue_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 243
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_slab_from_blue_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_slab_from_blue_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_slab_from_blue_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_slab_from_blue_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_slab_from_polished_blue_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_slab_from_polished_blue_ice_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:polished_blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:polished_blue_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:blue_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 486
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_stairs_from_blue_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_stairs_from_blue_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_stairs_from_blue_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_stairs_from_blue_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_stairs_from_polished_blue_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_stairs_from_polished_blue_ice_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:polished_blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:polished_blue_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:blue_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 486
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_wall_from_blue_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_wall_from_blue_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_wall_from_blue_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_wall_from_blue_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_wall_from_polished_blue_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_ice_brick_wall_from_polished_blue_ice_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:polished_blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:polished_blue_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
           }
         ]
       }
@@ -1769,6 +2159,66 @@
       }
     },
     {
+      "id": "simpleblocks:chiseled_blue_ice_from_blue_ice_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_blue_ice",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_blue_ice_from_blue_ice_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_brick_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:blue_ice_brick_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_blue_ice_from_blue_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_blue_ice",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_blue_ice_from_blue_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:chiseled_blue_ice_from_blue_ice_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2037,6 +2487,66 @@
       }
     },
     {
+      "id": "simpleblocks:chiseled_ice_from_ice_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_ice",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_ice_from_ice_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:ice_brick_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:ice_brick_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_ice_from_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_ice",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_ice_from_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:chiseled_ice_from_ice_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2203,6 +2713,66 @@
         "materials": [
           {
             "id": "minecraft:netherite_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_packed_ice_from_packed_ice_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_packed_ice",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_packed_ice_from_packed_ice_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_brick_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:packed_ice_brick_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_packed_ice_from_packed_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_packed_ice",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_packed_ice_from_packed_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:packed_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
             "count": 9
           }
         ]
@@ -4651,6 +5221,34 @@
       }
     },
     {
+      "id": "simpleblocks:cracked_blue_ice_bricks_from_blue_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cracked_blue_ice_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cracked_blue_ice_bricks_from_blue_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:cracked_blue_ice_from_blue_ice_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4807,6 +5405,34 @@
       }
     },
     {
+      "id": "simpleblocks:cracked_ice_bricks_from_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cracked_ice_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cracked_ice_bricks_from_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:cracked_ice_from_ice_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4864,6 +5490,34 @@
           {
             "id": "minecraft:wheat",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cracked_packed_ice_bricks_from_packed_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cracked_packed_ice_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cracked_packed_ice_bricks_from_packed_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:packed_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
           }
         ]
       }
@@ -8044,6 +8698,354 @@
       }
     },
     {
+      "id": "simpleblocks:ice_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:ice_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_slab_from_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_slab_from_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_slab_from_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_slab_from_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_slab_from_polished_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_slab_from_polished_ice_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:polished_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:polished_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:ice_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_stairs_from_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_stairs_from_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_stairs_from_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_stairs_from_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_stairs_from_polished_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_stairs_from_polished_ice_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:polished_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:polished_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:ice_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_wall_from_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_wall_from_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_wall_from_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_wall_from_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:ice_brick_wall_from_polished_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/ice_brick_wall_from_polished_ice_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:polished_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:polished_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:ice_bricks",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -10771,6 +11773,354 @@
           {
             "id": "minecraft:oxidized_copper",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:packed_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_slab_from_packed_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_slab_from_packed_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:packed_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_slab_from_packed_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_slab_from_packed_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:packed_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_slab_from_polished_packed_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_slab_from_polished_packed_ice_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:polished_packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:polished_packed_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:packed_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 54
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_stairs_from_packed_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_stairs_from_packed_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:packed_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_stairs_from_packed_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_stairs_from_packed_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:packed_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_stairs_from_polished_packed_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_stairs_from_polished_packed_ice_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:polished_packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:polished_packed_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:packed_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 54
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_wall_from_packed_ice_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_wall_from_packed_ice_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:packed_ice_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_wall_from_packed_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_wall_from_packed_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:packed_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_wall_from_polished_packed_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/packed_ice_brick_wall_from_polished_packed_ice_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:polished_packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:polished_packed_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
           }
         ]
       }
@@ -18850,6 +20200,54 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/bleached_pumpkin.json"
     },
     {
+      "id": "simpleblocks:blocks/blue_ice_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:blue_ice_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/blue_ice_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/blue_ice_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:blue_ice_brick_stairs"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/blue_ice_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/blue_ice_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:blue_ice_brick_wall"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/blue_ice_brick_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/blue_ice_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -20072,6 +21470,22 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_blue_ice.json"
     },
     {
+      "id": "simpleblocks:blocks/cracked_blue_ice_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cracked_blue_ice_bricks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_blue_ice_bricks.json"
+    },
+    {
       "id": "simpleblocks:blocks/cracked_blue_nether_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -20160,6 +21574,22 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_ice.json"
     },
     {
+      "id": "simpleblocks:blocks/cracked_ice_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cracked_ice_bricks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_ice_bricks.json"
+    },
+    {
       "id": "simpleblocks:blocks/cracked_mud_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -20192,6 +21622,22 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_packed_ice.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cracked_packed_ice_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cracked_packed_ice_bricks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_packed_ice_bricks.json"
     },
     {
       "id": "simpleblocks:blocks/cracked_polished_deepslate",
@@ -21187,6 +22633,54 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/hushed_deepslate_tiles.json"
     },
     {
+      "id": "simpleblocks:blocks/ice_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:ice_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/ice_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/ice_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:ice_brick_stairs"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/ice_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/ice_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:ice_brick_wall"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/ice_brick_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/ice_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -21917,6 +23411,54 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/oxidized_copper_tiles.json"
+    },
+    {
+      "id": "simpleblocks:blocks/packed_ice_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:packed_ice_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/packed_ice_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/packed_ice_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:packed_ice_brick_stairs"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/packed_ice_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/packed_ice_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:packed_ice_brick_wall"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/packed_ice_brick_wall.json"
     },
     {
       "id": "simpleblocks:blocks/packed_ice_bricks",
@@ -23235,10 +24777,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 30 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 31 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 30 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 31 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -23433,6 +24975,86 @@
       ]
     },
     {
+      "id": "simpleblocks:blue_ice_brick_slab",
+      "name": {
+        "en_us": "Blue Ice Brick Slab",
+        "de_de": "Blaueisziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:blue_ice_brick_slab",
+        "simpleblocks:blue_ice_brick_slab_from_blue_ice_bricks_stonecutting",
+        "simpleblocks:blue_ice_brick_slab_from_blue_ice_stonecutting",
+        "simpleblocks:blue_ice_brick_slab_from_polished_blue_ice_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:chiseled_blue_ice_from_blue_ice_brick_slab"
+      ]
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_stairs",
+      "name": {
+        "en_us": "Blue Ice Brick Stairs",
+        "de_de": "Blaueisziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:blue_ice_brick_stairs",
+        "simpleblocks:blue_ice_brick_stairs_from_blue_ice_bricks_stonecutting",
+        "simpleblocks:blue_ice_brick_stairs_from_blue_ice_stonecutting",
+        "simpleblocks:blue_ice_brick_stairs_from_polished_blue_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:blue_ice_brick_wall",
+      "name": {
+        "en_us": "Blue Ice Brick Wall",
+        "de_de": "Blaueisziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:blue_ice_brick_wall",
+        "simpleblocks:blue_ice_brick_wall_from_blue_ice_bricks_stonecutting",
+        "simpleblocks:blue_ice_brick_wall_from_blue_ice_stonecutting",
+        "simpleblocks:blue_ice_brick_wall_from_polished_blue_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:blue_ice_bricks",
       "name": {
         "en_us": "Blue Ice Bricks",
@@ -23458,7 +25080,16 @@
         "simpleblocks:blue_ice_bricks_from_blue_ice_stonecutting",
         "simpleblocks:blue_ice_bricks_from_polished_blue_ice_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleblocks:blue_ice_brick_slab",
+        "simpleblocks:blue_ice_brick_slab_from_blue_ice_bricks_stonecutting",
+        "simpleblocks:blue_ice_brick_stairs",
+        "simpleblocks:blue_ice_brick_stairs_from_blue_ice_bricks_stonecutting",
+        "simpleblocks:blue_ice_brick_wall",
+        "simpleblocks:blue_ice_brick_wall_from_blue_ice_bricks_stonecutting",
+        "simpleblocks:chiseled_blue_ice_from_blue_ice_bricks_stonecutting",
+        "simpleblocks:cracked_blue_ice_bricks_from_blue_ice_bricks_stonecutting"
+      ]
     },
     {
       "id": "simpleblocks:blue_ice_slab",
@@ -23759,6 +25390,8 @@
       },
       "texture": "assets/textures/simpleblocks/block/chiseled_blue_ice.png",
       "craftedBy": [
+        "simpleblocks:chiseled_blue_ice_from_blue_ice_brick_slab",
+        "simpleblocks:chiseled_blue_ice_from_blue_ice_bricks_stonecutting",
         "simpleblocks:chiseled_blue_ice_from_blue_ice_stonecutting"
       ],
       "usedIn": []
@@ -23769,7 +25402,18 @@
         "en_us": "Chiseled Coal",
         "de_de": "Gemeißelter Kohleblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Chiseled coal: cut 1:1 from the coal block at the stonecutter, no way back. Not a fuel, decoration only. Motif: a minecart."
+        },
+        "de": {
+          "summary": "Gemeißelte Kohle: 1:1 in der Steinsäge aus dem Kohleblock, ohne Rückweg. Kein Brennstoff, nur Dekoration. Motiv: Lore."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_coal.png",
       "craftedBy": [
         "simpleblocks:chiseled_coal_from_coal_block_stonecutting"
@@ -23807,7 +25451,18 @@
         "en_us": "Chiseled Diamond",
         "de_de": "Gemeißelter Diamantblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Chiseled diamond: cut 1:1 from the diamond block at the stonecutter, no way back. Decoration only (no beacon base). Motif: a beacon."
+        },
+        "de": {
+          "summary": "Gemeißelter Diamant: 1:1 in der Steinsäge aus dem Diamantblock, ohne Rückweg. Nur Dekoration (kein Leuchtfeuer-Sockel). Motiv: Leuchtfeuer."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_diamond.png",
       "craftedBy": [
         "simpleblocks:chiseled_diamond_from_diamond_block_stonecutting"
@@ -23820,7 +25475,18 @@
         "en_us": "Chiseled Emerald",
         "de_de": "Gemeißelter Smaragdblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Chiseled emerald: cut 1:1 from the emerald block at the stonecutter, no way back. Decoration only. Motif: a villager."
+        },
+        "de": {
+          "summary": "Gemeißelter Smaragd: 1:1 in der Steinsäge aus dem Smaragdblock, ohne Rückweg. Nur Dekoration. Motiv: Dorfbewohner."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_emerald.png",
       "craftedBy": [
         "simpleblocks:chiseled_emerald_from_emerald_block_stonecutting"
@@ -23833,7 +25499,18 @@
         "en_us": "Chiseled Gold",
         "de_de": "Gemeißelter Goldblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Chiseled gold (2 cut gold slabs upright -> 1, or at the stonecutter), motif: a crown."
+        },
+        "de": {
+          "summary": "Gemeißeltes Gold (2 geschnittene Goldstufen senkrecht -> 1 oder Steinsäge), Motiv: Krone."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_gold.png",
       "craftedBy": [
         "simpleblocks:chiseled_gold",
@@ -23864,6 +25541,8 @@
       },
       "texture": "assets/textures/simpleblocks/block/chiseled_ice.png",
       "craftedBy": [
+        "simpleblocks:chiseled_ice_from_ice_brick_slab",
+        "simpleblocks:chiseled_ice_from_ice_bricks_stonecutting",
         "simpleblocks:chiseled_ice_from_ice_stonecutting"
       ],
       "usedIn": []
@@ -23874,7 +25553,18 @@
         "en_us": "Chiseled Iron",
         "de_de": "Gemeißelter Eisenblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Chiseled iron (2 cut iron slabs upright -> 1, or at the stonecutter), motif: an anvil."
+        },
+        "de": {
+          "summary": "Gemeißeltes Eisen (2 geschnittene Eisenstufen senkrecht -> 1 oder Steinsäge), Motiv: Amboss."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_iron.png",
       "craftedBy": [
         "simpleblocks:chiseled_iron",
@@ -23889,7 +25579,18 @@
         "en_us": "Chiseled Lapis Lazuli",
         "de_de": "Gemeißelter Lapislazuliblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Chiseled lapis lazuli: cut 1:1 from the lapis block at the stonecutter, no way back. Decoration only. Motif: an open book."
+        },
+        "de": {
+          "summary": "Gemeißelter Lapislazuli: 1:1 in der Steinsäge aus dem Lapisblock, ohne Rückweg. Nur Dekoration. Motiv: offenes Buch."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_lapis.png",
       "craftedBy": [
         "simpleblocks:chiseled_lapis_from_lapis_block_stonecutting"
@@ -23902,7 +25603,18 @@
         "en_us": "Chiseled Netherite",
         "de_de": "Gemeißelter Netheritblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Chiseled netherite: cut 1:1 from the netherite block at the stonecutter, no way back. Survives fire. Motif: crossed swords."
+        },
+        "de": {
+          "summary": "Gemeißeltes Netherit: 1:1 in der Steinsäge aus dem Netheritblock, ohne Rückweg. Übersteht Feuer. Motiv: gekreuzte Schwerter."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_netherite.png",
       "craftedBy": [
         "simpleblocks:chiseled_netherite_from_netherite_block_stonecutting"
@@ -23929,6 +25641,8 @@
       },
       "texture": "assets/textures/simpleblocks/block/chiseled_packed_ice.png",
       "craftedBy": [
+        "simpleblocks:chiseled_packed_ice_from_packed_ice_brick_slab",
+        "simpleblocks:chiseled_packed_ice_from_packed_ice_bricks_stonecutting",
         "simpleblocks:chiseled_packed_ice_from_packed_ice_stonecutting"
       ],
       "usedIn": []
@@ -24064,7 +25778,18 @@
         "en_us": "Chiseled Redstone",
         "de_de": "Gemeißelter Redstoneblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Chiseled redstone: cut 1:1 from the redstone block at the stonecutter, no way back. Powers like the redstone block. Motif: a redstone torch."
+        },
+        "de": {
+          "summary": "Gemeißelter Redstone: 1:1 in der Steinsäge aus dem Redstone-Block, ohne Rückweg. Gibt Strom wie der Redstone-Block. Motiv: Redstone-Fackel."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_redstone.png",
       "craftedBy": [
         "simpleblocks:chiseled_redstone_from_redstone_block_stonecutting"
@@ -25103,7 +26828,18 @@
         "en_us": "Copper Pillar",
         "de_de": "Kupfersäule"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper pillar (2 copper blocks upright -> 2, also at the stonecutter), placed along an axis like a log. Weathers and is waxed like Vanilla copper."
+        },
+        "de": {
+          "summary": "Kupfersäule (2 Kupferblöcke senkrecht -> 2, auch in der Steinsäge), wird wie ein Stamm entlang einer Achse gesetzt. Altert und wird gewachst wie Vanilla-Kupfer."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/copper_pillar.png",
       "craftedBy": [
         "simpleblocks:copper_pillar",
@@ -25119,7 +26855,18 @@
         "en_us": "Copper Tiles",
         "de_de": "Kupferfliesen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper tiles (4 cut copper -> 4, also at the stonecutter). They weather through the three Vanilla stages like copper next to them; a honeycomb waxes every stage, an axe scrapes wax or one stage off."
+        },
+        "de": {
+          "summary": "Kupferfliesen (4 geschnittenes Kupfer -> 4, auch in der Steinsäge). Sie altern in den drei Vanilla-Stufen wie Kupfer daneben; eine Honigwabe wachst jede Stufe, eine Axt kratzt Wachs oder eine Stufe ab."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/copper_tiles.png",
       "craftedBy": [
         "simpleblocks:copper_tiles",
@@ -25174,6 +26921,30 @@
       },
       "craftedBy": [
         "simpleblocks:cracked_blue_ice_from_blue_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:cracked_blue_ice_bricks",
+      "name": {
+        "en_us": "Cracked Blue Ice Bricks",
+        "de_de": "Rissige Blaueisziegel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/cracked_blue_ice_bricks.png",
+      "craftedBy": [
+        "simpleblocks:cracked_blue_ice_bricks_from_blue_ice_bricks_stonecutting"
       ],
       "usedIn": []
     },
@@ -25321,6 +27092,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:cracked_ice_bricks",
+      "name": {
+        "en_us": "Cracked Ice Bricks",
+        "de_de": "Rissige Eisziegel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/cracked_ice_bricks.png",
+      "craftedBy": [
+        "simpleblocks:cracked_ice_bricks_from_ice_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:cracked_mud_bricks",
       "name": {
         "en_us": "Cracked Mud Bricks",
@@ -25388,6 +27183,30 @@
       },
       "craftedBy": [
         "simpleblocks:cracked_packed_ice_from_packed_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:cracked_packed_ice_bricks",
+      "name": {
+        "en_us": "Cracked Packed Ice Bricks",
+        "de_de": "Rissige Packeisziegel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/cracked_packed_ice_bricks.png",
+      "craftedBy": [
+        "simpleblocks:cracked_packed_ice_bricks_from_packed_ice_bricks_stonecutting"
       ],
       "usedIn": []
     },
@@ -25541,7 +27360,18 @@
         "en_us": "Cut Gold",
         "de_de": "Geschnittener Goldblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Cut gold (4 gold blocks -> 4, also at the stonecutter), base of the gold building family with stairs, slab and octet."
+        },
+        "de": {
+          "summary": "Geschnittenes Gold (4 Goldblöcke -> 4, auch in der Steinsäge), Grundblock der Gold-Baufamilie mit Treppe, Stufe und Octet."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/cut_gold.png",
       "craftedBy": [
         "simpleblocks:cut_gold",
@@ -25615,7 +27445,18 @@
         "en_us": "Cut Iron",
         "de_de": "Geschnittener Eisenblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Cut iron (4 iron blocks -> 4, also at the stonecutter), base of the iron building family with stairs, slab and octet."
+        },
+        "de": {
+          "summary": "Geschnittenes Eisen (4 Eisenblöcke -> 4, auch in der Steinsäge), Grundblock der Eisen-Baufamilie mit Treppe, Stufe und Octet."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/cut_iron.png",
       "craftedBy": [
         "simpleblocks:cut_iron",
@@ -26437,7 +28278,18 @@
         "en_us": "Exposed Copper Pillar",
         "de_de": "Angelaufene Kupfersäule"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper pillar (2 copper blocks upright -> 2, also at the stonecutter), placed along an axis like a log. Weathers and is waxed like Vanilla copper."
+        },
+        "de": {
+          "summary": "Kupfersäule (2 Kupferblöcke senkrecht -> 2, auch in der Steinsäge), wird wie ein Stamm entlang einer Achse gesetzt. Altert und wird gewachst wie Vanilla-Kupfer."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/exposed_copper_pillar.png",
       "craftedBy": [
         "simpleblocks:exposed_copper_pillar",
@@ -26453,7 +28305,18 @@
         "en_us": "Exposed Copper Tiles",
         "de_de": "Angelaufene Kupferfliesen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper tiles (4 cut copper -> 4, also at the stonecutter). They weather through the three Vanilla stages like copper next to them; a honeycomb waxes every stage, an axe scrapes wax or one stage off."
+        },
+        "de": {
+          "summary": "Kupferfliesen (4 geschnittenes Kupfer -> 4, auch in der Steinsäge). Sie altern in den drei Vanilla-Stufen wie Kupfer daneben; eine Honigwabe wachst jede Stufe, eine Axt kratzt Wachs oder eine Stufe ab."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/exposed_copper_tiles.png",
       "craftedBy": [
         "simpleblocks:exposed_copper_tiles",
@@ -26614,7 +28477,18 @@
         "en_us": "Gold Pillar",
         "de_de": "Goldsäule"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Gold pillar (2 gold blocks upright -> 2, also at the stonecutter), placed along an axis."
+        },
+        "de": {
+          "summary": "Goldsäule (2 Goldblöcke senkrecht -> 2, auch in der Steinsäge), wird entlang einer Achse gesetzt."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/gold_pillar.png",
       "craftedBy": [
         "simpleblocks:gold_pillar",
@@ -26628,7 +28502,18 @@
         "en_us": "Gold Tiles",
         "de_de": "Goldfliesen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Gold tiles (4 cut gold -> 4, also at the stonecutter)."
+        },
+        "de": {
+          "summary": "Goldfliesen (4 geschnittenes Gold -> 4, auch in der Steinsäge)."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/gold_tiles.png",
       "craftedBy": [
         "simpleblocks:gold_tiles",
@@ -26821,6 +28706,86 @@
       ]
     },
     {
+      "id": "simpleblocks:ice_brick_slab",
+      "name": {
+        "en_us": "Ice Brick Slab",
+        "de_de": "Eisziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:ice_brick_slab",
+        "simpleblocks:ice_brick_slab_from_ice_bricks_stonecutting",
+        "simpleblocks:ice_brick_slab_from_ice_stonecutting",
+        "simpleblocks:ice_brick_slab_from_polished_ice_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:chiseled_ice_from_ice_brick_slab"
+      ]
+    },
+    {
+      "id": "simpleblocks:ice_brick_stairs",
+      "name": {
+        "en_us": "Ice Brick Stairs",
+        "de_de": "Eisziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:ice_brick_stairs",
+        "simpleblocks:ice_brick_stairs_from_ice_bricks_stonecutting",
+        "simpleblocks:ice_brick_stairs_from_ice_stonecutting",
+        "simpleblocks:ice_brick_stairs_from_polished_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:ice_brick_wall",
+      "name": {
+        "en_us": "Ice Brick Wall",
+        "de_de": "Eisziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:ice_brick_wall",
+        "simpleblocks:ice_brick_wall_from_ice_bricks_stonecutting",
+        "simpleblocks:ice_brick_wall_from_ice_stonecutting",
+        "simpleblocks:ice_brick_wall_from_polished_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:ice_bricks",
       "name": {
         "en_us": "Ice Bricks",
@@ -26846,7 +28811,16 @@
         "simpleblocks:ice_bricks_from_ice_stonecutting",
         "simpleblocks:ice_bricks_from_polished_ice_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleblocks:chiseled_ice_from_ice_bricks_stonecutting",
+        "simpleblocks:cracked_ice_bricks_from_ice_bricks_stonecutting",
+        "simpleblocks:ice_brick_slab",
+        "simpleblocks:ice_brick_slab_from_ice_bricks_stonecutting",
+        "simpleblocks:ice_brick_stairs",
+        "simpleblocks:ice_brick_stairs_from_ice_bricks_stonecutting",
+        "simpleblocks:ice_brick_wall",
+        "simpleblocks:ice_brick_wall_from_ice_bricks_stonecutting"
+      ]
     },
     {
       "id": "simpleblocks:ice_slab",
@@ -26926,7 +28900,18 @@
         "en_us": "Iron Pillar",
         "de_de": "Eisensäule"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Iron pillar (2 iron blocks upright -> 2, also at the stonecutter), placed along an axis."
+        },
+        "de": {
+          "summary": "Eisensäule (2 Eisenblöcke senkrecht -> 2, auch in der Steinsäge), wird entlang einer Achse gesetzt."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/iron_pillar.png",
       "craftedBy": [
         "simpleblocks:iron_pillar",
@@ -26940,7 +28925,18 @@
         "en_us": "Iron Tiles",
         "de_de": "Eisenfliesen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Iron tiles (4 cut iron -> 4, also at the stonecutter)."
+        },
+        "de": {
+          "summary": "Eisenfliesen (4 geschnittenes Eisen -> 4, auch in der Steinsäge)."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/iron_tiles.png",
       "craftedBy": [
         "simpleblocks:iron_tiles",
@@ -27845,7 +29841,18 @@
         "en_us": "Oxidized Copper Pillar",
         "de_de": "Oxidierte Kupfersäule"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper pillar (2 copper blocks upright -> 2, also at the stonecutter), placed along an axis like a log. Weathers and is waxed like Vanilla copper."
+        },
+        "de": {
+          "summary": "Kupfersäule (2 Kupferblöcke senkrecht -> 2, auch in der Steinsäge), wird wie ein Stamm entlang einer Achse gesetzt. Altert und wird gewachst wie Vanilla-Kupfer."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/oxidized_copper_pillar.png",
       "craftedBy": [
         "simpleblocks:oxidized_copper_pillar",
@@ -27861,7 +29868,18 @@
         "en_us": "Oxidized Copper Tiles",
         "de_de": "Oxidierte Kupferfliesen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper tiles (4 cut copper -> 4, also at the stonecutter). They weather through the three Vanilla stages like copper next to them; a honeycomb waxes every stage, an axe scrapes wax or one stage off."
+        },
+        "de": {
+          "summary": "Kupferfliesen (4 geschnittenes Kupfer -> 4, auch in der Steinsäge). Sie altern in den drei Vanilla-Stufen wie Kupfer daneben; eine Honigwabe wachst jede Stufe, eine Axt kratzt Wachs oder eine Stufe ab."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/oxidized_copper_tiles.png",
       "craftedBy": [
         "simpleblocks:oxidized_copper_tiles",
@@ -27871,6 +29889,86 @@
       "usedIn": [
         "simpleblocks:waxed_oxidized_copper_tiles_from_honeycomb"
       ]
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_slab",
+      "name": {
+        "en_us": "Packed Ice Brick Slab",
+        "de_de": "Packeisziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:packed_ice_brick_slab",
+        "simpleblocks:packed_ice_brick_slab_from_packed_ice_bricks_stonecutting",
+        "simpleblocks:packed_ice_brick_slab_from_packed_ice_stonecutting",
+        "simpleblocks:packed_ice_brick_slab_from_polished_packed_ice_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:chiseled_packed_ice_from_packed_ice_brick_slab"
+      ]
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_stairs",
+      "name": {
+        "en_us": "Packed Ice Brick Stairs",
+        "de_de": "Packeisziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:packed_ice_brick_stairs",
+        "simpleblocks:packed_ice_brick_stairs_from_packed_ice_bricks_stonecutting",
+        "simpleblocks:packed_ice_brick_stairs_from_packed_ice_stonecutting",
+        "simpleblocks:packed_ice_brick_stairs_from_polished_packed_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:packed_ice_brick_wall",
+      "name": {
+        "en_us": "Packed Ice Brick Wall",
+        "de_de": "Packeisziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:packed_ice_brick_wall",
+        "simpleblocks:packed_ice_brick_wall_from_packed_ice_bricks_stonecutting",
+        "simpleblocks:packed_ice_brick_wall_from_packed_ice_stonecutting",
+        "simpleblocks:packed_ice_brick_wall_from_polished_packed_ice_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleblocks:packed_ice_bricks",
@@ -27898,7 +29996,16 @@
         "simpleblocks:packed_ice_bricks_from_packed_ice_stonecutting",
         "simpleblocks:packed_ice_bricks_from_polished_packed_ice_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleblocks:chiseled_packed_ice_from_packed_ice_bricks_stonecutting",
+        "simpleblocks:cracked_packed_ice_bricks_from_packed_ice_bricks_stonecutting",
+        "simpleblocks:packed_ice_brick_slab",
+        "simpleblocks:packed_ice_brick_slab_from_packed_ice_bricks_stonecutting",
+        "simpleblocks:packed_ice_brick_stairs",
+        "simpleblocks:packed_ice_brick_stairs_from_packed_ice_bricks_stonecutting",
+        "simpleblocks:packed_ice_brick_wall",
+        "simpleblocks:packed_ice_brick_wall_from_packed_ice_bricks_stonecutting"
+      ]
     },
     {
       "id": "simpleblocks:packed_ice_slab",
@@ -28128,6 +30235,9 @@
         "simpleblocks:polished_blue_ice_from_blue_ice_stonecutting"
       ],
       "usedIn": [
+        "simpleblocks:blue_ice_brick_slab_from_polished_blue_ice_stonecutting",
+        "simpleblocks:blue_ice_brick_stairs_from_polished_blue_ice_stonecutting",
+        "simpleblocks:blue_ice_brick_wall_from_polished_blue_ice_stonecutting",
         "simpleblocks:blue_ice_bricks",
         "simpleblocks:blue_ice_bricks_from_polished_blue_ice_stonecutting"
       ]
@@ -28206,6 +30316,9 @@
         "simpleblocks:polished_ice_from_ice_stonecutting"
       ],
       "usedIn": [
+        "simpleblocks:ice_brick_slab_from_polished_ice_stonecutting",
+        "simpleblocks:ice_brick_stairs_from_polished_ice_stonecutting",
+        "simpleblocks:ice_brick_wall_from_polished_ice_stonecutting",
         "simpleblocks:ice_bricks",
         "simpleblocks:ice_bricks_from_polished_ice_stonecutting"
       ]
@@ -28236,6 +30349,9 @@
         "simpleblocks:polished_packed_ice_from_packed_ice_stonecutting"
       ],
       "usedIn": [
+        "simpleblocks:packed_ice_brick_slab_from_polished_packed_ice_stonecutting",
+        "simpleblocks:packed_ice_brick_stairs_from_polished_packed_ice_stonecutting",
+        "simpleblocks:packed_ice_brick_wall_from_polished_packed_ice_stonecutting",
         "simpleblocks:packed_ice_bricks",
         "simpleblocks:packed_ice_bricks_from_polished_packed_ice_stonecutting"
       ]
@@ -29472,7 +31588,18 @@
         "en_us": "Weathered Copper Pillar",
         "de_de": "Verwitterte Kupfersäule"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper pillar (2 copper blocks upright -> 2, also at the stonecutter), placed along an axis like a log. Weathers and is waxed like Vanilla copper."
+        },
+        "de": {
+          "summary": "Kupfersäule (2 Kupferblöcke senkrecht -> 2, auch in der Steinsäge), wird wie ein Stamm entlang einer Achse gesetzt. Altert und wird gewachst wie Vanilla-Kupfer."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/weathered_copper_pillar.png",
       "craftedBy": [
         "simpleblocks:weathered_copper_pillar",
@@ -29488,7 +31615,18 @@
         "en_us": "Weathered Copper Tiles",
         "de_de": "Verwitterte Kupferfliesen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper tiles (4 cut copper -> 4, also at the stonecutter). They weather through the three Vanilla stages like copper next to them; a honeycomb waxes every stage, an axe scrapes wax or one stage off."
+        },
+        "de": {
+          "summary": "Kupferfliesen (4 geschnittenes Kupfer -> 4, auch in der Steinsäge). Sie altern in den drei Vanilla-Stufen wie Kupfer daneben; eine Honigwabe wachst jede Stufe, eine Axt kratzt Wachs oder eine Stufe ab."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/weathered_copper_tiles.png",
       "craftedBy": [
         "simpleblocks:weathered_copper_tiles",
@@ -29607,45 +31745,22 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleblocks:chiseled_coal",
-    "simpleblocks:chiseled_diamond",
-    "simpleblocks:chiseled_emerald",
-    "simpleblocks:chiseled_gold",
-    "simpleblocks:chiseled_iron",
-    "simpleblocks:chiseled_lapis",
-    "simpleblocks:chiseled_netherite",
-    "simpleblocks:chiseled_redstone",
-    "simpleblocks:copper_pillar",
-    "simpleblocks:copper_tiles",
-    "simpleblocks:cut_gold",
-    "simpleblocks:cut_iron",
-    "simpleblocks:exposed_copper_pillar",
-    "simpleblocks:exposed_copper_tiles",
-    "simpleblocks:gold_pillar",
-    "simpleblocks:gold_tiles",
-    "simpleblocks:iron_pillar",
-    "simpleblocks:iron_tiles",
-    "simpleblocks:oxidized_copper_pillar",
-    "simpleblocks:oxidized_copper_tiles",
-    "simpleblocks:weathered_copper_pillar",
-    "simpleblocks:weathered_copper_tiles"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 18,
-    "recipes": 637,
-    "lootTables": 245,
+    "features": 19,
+    "recipes": 682,
+    "lootTables": 257,
     "tags": 4,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 247,
+    "blocks": 259,
     "trades": 0,
     "config": 5,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 22,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

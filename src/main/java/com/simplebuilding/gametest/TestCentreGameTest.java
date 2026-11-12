@@ -114,6 +114,11 @@ public final class TestCentreGameTest {
     }
 
     @GameTest
+    public void orderAreasShowEverythingInOwnerOrder(GameTestHelper helper) {
+        TestCentreTests.orderAreasShowEverythingInOwnerOrder(helper);
+    }
+
+    @GameTest
     public void testcenterCommandClearsAndBuildsTheModArea(GameTestHelper helper) {
         TestCentreTests.testcenterCommandClearsAndBuildsTheModArea(helper);
     }

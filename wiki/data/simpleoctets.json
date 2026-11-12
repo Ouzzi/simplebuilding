@@ -1917,6 +1917,74 @@
       }
     },
     {
+      "id": "simpleoctets:blue_ice_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_ice_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_ice_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:blue_ice_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:blue_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:blue_ice_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:blue_ice_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:blue_ice_bricks_octet_from_blue_ice_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:blue_ice_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_ice_bricks_octet_from_blue_ice_bricks_sawing.json",
+      "ingredients": [
+        "simpleblocks:blue_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_ice_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:blue_ice_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -8113,6 +8181,74 @@
       }
     },
     {
+      "id": "simpleoctets:ice_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:ice_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ice_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:ice_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:ice_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:ice_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ice_bricks_octet_from_ice_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ice_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ice_bricks_octet_from_ice_bricks_sawing.json",
+      "ingredients": [
+        "simpleblocks:ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:ice_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:ice_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -12293,6 +12429,74 @@
             "id": "minecraft:oxidized_copper",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:packed_ice_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:packed_ice_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/packed_ice_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:packed_ice_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:packed_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_bricks_octet"
+        ],
+        [
+          "simpleoctets:packed_ice_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:packed_ice_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:packed_ice_bricks_octet_from_packed_ice_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:packed_ice_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/packed_ice_bricks_octet_from_packed_ice_bricks_sawing.json",
+      "ingredients": [
+        "simpleblocks:packed_ice_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:packed_ice_bricks"
         ]
       }
     },
@@ -20463,6 +20667,34 @@
       ]
     },
     {
+      "id": "simpleoctets:blue_ice_bricks_octet",
+      "name": {
+        "en_us": "Blue Ice Bricks Octet Cell",
+        "de_de": "Blaueisziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:blue_ice_bricks_octet_from_blue_ice_bricks_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:blue_ice_bricks_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:blue_ice_octet",
       "name": {
         "en_us": "Blue Ice Octet Cell",
@@ -22344,6 +22576,34 @@
       ]
     },
     {
+      "id": "simpleoctets:ice_bricks_octet",
+      "name": {
+        "en_us": "Ice Bricks Octet Cell",
+        "de_de": "Eisziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:ice_bricks_octet_from_ice_bricks_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:ice_bricks_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:ice_octet",
       "name": {
         "en_us": "Ice Octet Cell",
@@ -23705,6 +23965,34 @@
       ],
       "usedIn": [
         "simpleoctets:oxidized_cut_copper_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:packed_ice_bricks_octet",
+      "name": {
+        "en_us": "Packed Ice Bricks Octet Cell",
+        "de_de": "Packeisziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:packed_ice_bricks_octet_from_packed_ice_bricks_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:packed_ice_bricks_from_octets"
       ]
     },
     {
@@ -25985,13 +26273,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 607,
+    "recipes": 613,
     "lootTables": 0,
     "tags": 0,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 208,
+    "blocks": 211,
     "trades": 0,
     "config": 0,
     "quests": 0,
