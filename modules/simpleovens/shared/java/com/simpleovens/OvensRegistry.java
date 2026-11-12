@@ -45,8 +45,8 @@ public final class OvensRegistry {
     public static final Map<OvenTier, Block> BLAST_FURNACES = new EnumMap<>(OvenTier.class);
     public static final Map<OvenTier, Item> CART_ITEMS = new EnumMap<>(OvenTier.class);
     public static final Map<OvenTier, EntityType<TieredFurnaceMinecart>> CARTS = new EnumMap<>(OvenTier.class);
-    /** BOAT40: the Vanilla wood types a furnace boat exists in (the bamboo one is a raft). */
-    public static final List<String> BOAT_WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "pale_oak", "bamboo");
+    /** BOAT40: the Vanilla wood types a furnace boat exists in (the bamboo one is a raft); PLAN40 simpleovens-1: poplar (Vanilla 26.3). */
+    public static final List<String> BOAT_WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "pale_oak", "poplar", "bamboo");
     /** Keyed by {@link #boatKey}: {@code oak}, {@code reinforced_oak}, {@code netherite_bamboo}, ... (b-small04: one boat per furnace tier). */
     public static final Map<String, Item> BOAT_ITEMS = new LinkedHashMap<>();
     public static final Map<String, EntityType<OvenBoat>> BOATS = new LinkedHashMap<>();

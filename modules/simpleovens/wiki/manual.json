@@ -184,6 +184,7 @@
         "simpleovens:mangrove_furnace_boat",
         "simpleovens:cherry_furnace_boat",
         "simpleovens:pale_oak_furnace_boat",
+        "simpleovens:poplar_furnace_boat",
         "simpleovens:bamboo_furnace_raft",
         "simpleovens:reinforced_oak_furnace_boat",
         "simpleovens:reinforced_spruce_furnace_boat",
@@ -194,6 +195,7 @@
         "simpleovens:reinforced_mangrove_furnace_boat",
         "simpleovens:reinforced_cherry_furnace_boat",
         "simpleovens:reinforced_pale_oak_furnace_boat",
+        "simpleovens:reinforced_poplar_furnace_boat",
         "simpleovens:reinforced_bamboo_furnace_raft",
         "simpleovens:netherite_oak_furnace_boat",
         "simpleovens:netherite_spruce_furnace_boat",
@@ -204,6 +206,7 @@
         "simpleovens:netherite_mangrove_furnace_boat",
         "simpleovens:netherite_cherry_furnace_boat",
         "simpleovens:netherite_pale_oak_furnace_boat",
+        "simpleovens:netherite_poplar_furnace_boat",
         "simpleovens:netherite_bamboo_furnace_raft",
         "simpleovens:enderite_oak_furnace_boat",
         "simpleovens:enderite_spruce_furnace_boat",
@@ -214,6 +217,7 @@
         "simpleovens:enderite_mangrove_furnace_boat",
         "simpleovens:enderite_cherry_furnace_boat",
         "simpleovens:enderite_pale_oak_furnace_boat",
+        "simpleovens:enderite_poplar_furnace_boat",
         "simpleovens:enderite_bamboo_furnace_raft"
       ]
     },
@@ -600,6 +604,18 @@
         "summary": "Blasseichenboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
       }
     },
+    "simpleovens:poplar_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Poplar boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Pappelholzboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
     "simpleovens:bamboo_furnace_raft": {
       "sources": [
         "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
@@ -718,6 +734,18 @@
       },
       "de": {
         "summary": "Blasseichenboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+      }
+    },
+    "simpleovens:reinforced_poplar_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Poplar boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+      },
+      "de": {
+        "summary": "Pappelholzboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
       }
     },
     "simpleovens:reinforced_bamboo_furnace_raft": {
@@ -840,6 +868,18 @@
         "summary": "Blasseichenboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
       }
     },
+    "simpleovens:netherite_poplar_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Poplar boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+      },
+      "de": {
+        "summary": "Pappelholzboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+      }
+    },
     "simpleovens:netherite_bamboo_furnace_raft": {
       "sources": [
         "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
@@ -958,6 +998,18 @@
       },
       "de": {
         "summary": "Blasseichenboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+      }
+    },
+    "simpleovens:enderite_poplar_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Poplar boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+      },
+      "de": {
+        "summary": "Pappelholzboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
       }
     },
     "simpleovens:enderite_bamboo_furnace_raft": {
