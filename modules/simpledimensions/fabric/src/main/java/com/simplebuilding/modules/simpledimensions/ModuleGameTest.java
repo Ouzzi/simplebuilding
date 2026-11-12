@@ -15,6 +15,8 @@ public final class ModuleGameTest {
  @GameTest(structure="simpledimensions:empty",environment="simpledimensions:settings_mining",maxTicks=420) public void settingsMining(GameTestHelper h){DimensionSettingsTests.journey(h,"mining",220);}
  @GameTest(structure="simpledimensions:empty",environment="simpledimensions:settings_travel",maxTicks=420) public void settingsTravel(GameTestHelper h){DimensionSettingsTests.journey(h,"travel",310);}
  @GameTest(structure="simpledimensions:empty",environment="simpledimensions:settings",maxTicks=240) public void settingsPersistence(GameTestHelper h){DimensionSettingsTests.persistence(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void settingsBrokenFile(GameTestHelper h){DimensionSettingsTests.brokenFile(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=240) public void portalRecordsFollowPortals(GameTestHelper h){DimensionTests.portalRecordsFollowPortals(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void launch(GameTestHelper h){DimensionTests.launch(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void worldGeneration(GameTestHelper h){DimensionTests.worldGeneration(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void sixArchesBothAxes(GameTestHelper h){DimensionTests.sixArchesBothAxes(h);}

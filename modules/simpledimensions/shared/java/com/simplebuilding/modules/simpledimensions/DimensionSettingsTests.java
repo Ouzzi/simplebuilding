@@ -156,6 +156,23 @@ public final class DimensionSettingsTests {
         }
     }
 
+    /** Audit simpledimensions-P2-2: a broken or oversized server.json is kept aside and the defaults are used - never a crash. */
+    public static void brokenFile(GameTestHelper h) {
+        try {
+            var root = Files.createTempDirectory("dimension-settings-broken");
+            Files.writeString(root.resolve("server.json"), "{bad");
+            var settings = DimensionSettings.load(root);
+            h.assertTrue(settings.accessEnabled && settings.teleportCooldownTicks == 60, "A broken server.json gives the defaults");
+            h.assertTrue(DimensionSettings.load(root).accessEnabled, "The written defaults read back");
+            Files.writeString(root.resolve("server.json"), "x".repeat(ConfigLimits.MAX_BYTES + 1));
+            h.assertTrue(DimensionSettings.load(root).accessEnabled, "An oversized server.json gives the defaults");
+            try (var files = Files.list(root)) {
+                h.assertTrue(files.filter(f -> f.getFileName().toString().startsWith("server.json.broken-")).count() == 2, "Both broken files are kept aside");
+            }
+        } catch (java.io.IOException e) { throw new AssertionError(e); }
+        h.succeed();
+    }
+
     public static void persistence(GameTestHelper h) {
         try {
             var root = Files.createTempDirectory("dimension-settings-test");

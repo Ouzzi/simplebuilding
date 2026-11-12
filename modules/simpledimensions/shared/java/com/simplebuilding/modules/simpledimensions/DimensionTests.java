@@ -45,6 +45,8 @@ public final class DimensionTests {
   ALL.put("settings_mining",h->DimensionSettingsTests.journey(h,"mining",220));
   ALL.put("settings_travel",h->DimensionSettingsTests.journey(h,"travel",310));
   ALL.put("settings_persistence",DimensionSettingsTests::persistence);
+  ALL.put("settings_broken_file",DimensionSettingsTests::brokenFile);
+  ALL.put("portal_records_follow_portals",DimensionTests::portalRecordsFollowPortals);
 
  }
  private static void yes(GameTestHelper h,boolean b,String s){h.assertTrue(b,s);}
@@ -113,6 +115,11 @@ public final class DimensionTests {
   h.succeed();
  }
  public static void portalDecay(GameTestHelper h){var p=activate(h);var b=(SkyPortalBlockEntity)h.getLevel().getBlockEntity(p);h.getLevel().setBlock(base(h),Blocks.DIRT.defaultBlockState(),3);yes(h,!DimensionRuntime.get(h.getLevel().getServer()).validFrame(h.getLevel(),p,b,DimensionPortalConfig.defaultSkyblock()),"Broken frame fails");yes(h,h.getLevel().getBlockState(p).isAir(),"Portal decays");h.succeed();}
+ /** Audit simpledimensions-P2-1: the ledger (cap {@link ConfigLimits#MAX_PORTALS}) forgets a portal that is gone, keeps a live one. */
+ public static void portalRecordsFollowPortals(GameTestHelper h){var l=h.getLevel();var rt=DimensionRuntime.get(l.getServer());var cell=activate(h);var key=DimensionRuntime.key(l,cell);
+  yes(h,rt.recorded(key),"A lit portal is in the ledger");yes(h,!rt.decay(key)&&rt.recorded(key),"A live portal keeps its record");
+  l.setBlock(cell,Blocks.AIR.defaultBlockState(),3);yes(h,rt.decay(key)&&!rt.recorded(key),"A gone portal frees its record");
+  yes(h,!rt.decay(key),"Nothing left to forget");h.succeed();}
  public static void configBounds(GameTestHelper h){var c=DimensionPortalConfig.defaultSkyblock();c.portalDelayTicks=999;c.teleportCooldownTicks=-1;c.travelCoordinateScale=999;c.maxPortalWidth=999;c.worldGeneration.height=Integer.MAX_VALUE;c.worldGeneration.minY=Integer.MIN_VALUE;ConfigLimits.validate(c);yes(h,c.portalDelayTicks==200&&c.teleportCooldownTicks==20&&c.travelCoordinateScale==10&&c.maxPortalWidth==21&&c.worldGeneration.height==384&&c.worldGeneration.minY==-64,"All numeric hard caps");h.succeed();}
  public static void hostileConfig(GameTestHelper h){for(double n:List.of(Double.NaN,Double.POSITIVE_INFINITY,Double.NEGATIVE_INFINITY)){var c=DimensionPortalConfig.defaultSkyblock();c.travelCoordinateScale=n;rejects(()->ConfigLimits.validate(c));}
   var badId=DimensionPortalConfig.defaultSkyblock();badId.id="../escape";rejects(()->ConfigLimits.validate(badId));var c=DimensionPortalConfig.defaultSkyblock();c.frameBlock="minecraft:obsidian";var obsidian=c;rejects(()->ConfigLimits.validate(obsidian));
