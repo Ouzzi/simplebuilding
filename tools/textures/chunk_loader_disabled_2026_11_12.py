@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Abgeschalteter Chunk-Loader (a-chunk36, Besitzer 12.11.2026): je Stufe `<stufe>_disabled.png` neben den Grundplatten
-von Simple Pads, abgeleitet aus der EIGENEN matten Grundplatte (`<stufe>.png`, keine Vanilla-Pixel).
+"""Abgeschalteter Chunk-Loader (a-chunk36, Besitzer 12.11.2026; a-chunk36b Einwand „statt Riss einfach ausgeschaltet
+darstellen“): je Stufe `<stufe>_disabled.png` neben den Grundplatten von Simple Pads, abgeleitet aus der EIGENEN ruhenden
+Platte (`<stufe>.png`, keine Vanilla-Pixel).
 
-Bildidee: die Platte ist erloschen und gesprungen - matter und flacher im Kontrast als die ruhende Platte (A8b, ~7 %
-hart), die Portal-Spirale ist zu Russ verbrannt (dunkel, entsaettigt, in 2-3 Tonstufen entlang der Spirale), die
-Funkelsterne sind zu Asche-Punkten erloschen und ein Riss laeuft schraeg ueber die Platte (dunkle Fuge mit einer hellen
-Abbruchkante oben/links, A8d 2.). Masken: Spirale und Sterne wie im Pad-Generator (`generate_textures.PAD_VEIL`,
-`PAD_STARS`), damit die Zeichnung zu `_active` passt.
+Bildidee: dieselbe Form wie die aktive Platte (`generate_textures.pad_active`: Spirale = `spiral_order()` der freien
+`PAD_VEIL`-Pixel, Sterne `PAD_STARS`), aber erloschen - wie Vanilla `copper_bulb` neben `copper_bulb_lit`: das
+Leuchtelement wird ein dunkler, entsaettigter Ton der eigenen Leuchtfarbe, die Schattierung bleibt (`glow_mix` wie aktiv),
+die Platte ist leicht gedimmt, die Sterne sind matte graue Kreuze ohne Hof (keine Leuchtpixel). Kein Riss.
 
   python3 tools/textures/chunk_loader_disabled_2026_11_12.py            # schreibt PNG + .layers.json
   python3 tools/textures/chunk_loader_disabled_2026_11_12.py --check    # Exit 1, wenn ein PNG abweicht
@@ -24,25 +24,21 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import layers  # noqa: E402
-from generate_textures import PAD_STARS, PAD_VEIL  # noqa: E402
+from generate_textures import PAD_ACTIVE_GLOW, PAD_STARS, glow_mix, hexrgb, mix, spiral_mean, spiral_order  # noqa: E402
 
 REPO = HERE.parents[1]
 TEX = REPO / "modules/simplepads/shared/resources/assets/simplepads/textures/block"
 TIERS = ("chunk_loader", "netherite_chunk_loader", "enderite_chunk_loader")
 
-# Riss von oben rechts nach unten links (x, y); bewusst mit Knicken, 1 px breit. Abbruchkante = heller Pixel links
-# bzw. oberhalb (EDGE), Ausbruch = ein dunkler Nachbar an zwei Stellen (CHIP).
-CRACK = [(12, 0), (12, 1), (11, 2), (11, 3), (10, 4), (10, 5), (9, 6), (8, 7), (8, 8), (7, 9), (6, 10), (6, 11),
-         (5, 12), (4, 13), (4, 14), (3, 15)]
-EDGE = [(11, 1), (10, 3), (9, 5), (7, 8), (5, 11), (3, 14)]
-CHIP = [(9, 7), (5, 13)]
-
-# Kontrast der matten Platte zur Mitte hin (1 = unveraendert), Saettigung und Helligkeit; Spirale/Russ, Sterne/Asche.
-PARAMS = dict(contrast=0.5, sat=0.85, bright=0.95, soot=(0.58, 0.64, 0.7), soot_sat=0.75, ash_big=0.95, ash_small=0.9,
-              ash_sat=(0.15, 0.35), crack=0.5, edge=1.2, chip=0.7, colors=24)
-# Runden (Plan docs/ai/PLAN-A-CHUNK36-2026-11-12.md): R1 grau/flach (Kupfer verloren, 64 Farben), R2 Kupfer zurueck, Palette
-# 24, Riss schwarz -> hart 19 %, R3 Kontrast 0,62 / Riss 0,62 (Riss kaum sichtbar), R4 Riss 0,5 (gut lesbar, hart 14-15 %),
-# R5 Kontrast 0,55 (hart 12,3/12,5/8,5), R6 = hier Kontrast 0,5: hart 11,7/8,8/9,6 %, alle gruen.
+# Platte: Kontrast zur Mitte (1 = unveraendert), Saettigung, Helligkeit. Spirale: Leuchtfarbe der Stufe entsaettigt
+# (off_sat) und auf off_lum x Plattenmittel abgedunkelt, Deckkraft off_a, Tonwechsel alle 2 px entlang der Spirale
+# (drift), Glaskante rim (oben/links, unten/rechts). Sterne: Leuchtfarbe entsaettigt (star_sat) auf star_lum x Plattenmittel, gross/klein mit star_a.
+PARAMS = dict(contrast=0.6, sat=0.85, bright=0.97, off_sat=0.75, off_lum=0.58, off_a=1.0, drift=(0.92, 1.0, 1.08),
+              rim=(1.06, 0.94), star_sat=0.12, star_lum=0.95, star_a=(0.8, 0.55), colors=24)
+# Runden a-chunk36b (Plan docs/ai/PLAN-A-CHUNK36-2026-11-12.md, Abschnitt a-chunk36b): R1 Spirale kaum sichtbar (hart 2-5 %),
+# R2 Spirale fast schwarz, verbrannt statt aus (hart 15,6 %), R3 violettgrau, zu matschig, R4 Platte heller -> hart 16-19 %,
+# R5 ruhige Platte + geschlossene Spirale (gut, etwas blau), R6 Glaskante 1,14/0,9 zu unruhig, R7 = hier: Glaskante
+# 1,06/0,94, violetter (off_sat 0,75): hart 11,9/10,6/9,2 %, alle gruen.
 
 
 def _lum(c):
@@ -58,7 +54,13 @@ def _desat(c, s):
     return tuple(max(0, min(255, round(v * 255))) for v in colorsys.hls_to_rgb(h, l, sat * s))
 
 
-def disabled(base: Image.Image, p: dict = PARAMS) -> Image.Image:
+def _tone(c, s, target):
+    """Farbe c entsaettigt (Faktor s) mit der Helligkeit target (0..255)."""
+    d = _desat(c, s)
+    return _scale(d, target / max(1.0, _lum(d)))
+
+
+def disabled(base: Image.Image, tier: str, p: dict = PARAMS) -> Image.Image:
     img = base.convert("RGBA").copy()
     px = img.load()
     rgb = lambda x, y: px[x, y][:3]
@@ -68,37 +70,35 @@ def disabled(base: Image.Image, p: dict = PARAMS) -> Image.Image:
 
     layers.snap(img, "Grundplatte (ruhend)")
     mean = sum(_lum(rgb(x, y)) for y in range(16) for x in range(16)) / 256
-    # 1. matt: Kontrast zur Mitte, entsaettigt, etwas dunkler
+    # 1. gedimmt: Kontrast zur Mitte, leicht entsaettigt und dunkler (Kupfer bleibt Kupfer)
     for y in range(16):
         for x in range(16):
             c = _desat(rgb(x, y), p["sat"])
             lum = _lum(c)
             put(x, y, _scale(c, (mean + (lum - mean) * p["contrast"]) * p["bright"] / max(1.0, lum)))
-    layers.snap(img, "matt")
-    # 2. Spirale zu Russ: drei Tonstufen im Wechsel (A8d 4., kein einfarbiger Strang)
-    for y in range(16):
-        for x in range(16):
-            if PAD_VEIL[y][x] == "0":
-                put(x, y, _scale(_desat(rgb(x, y), p["soot_sat"]), p["soot"][(x + 2 * y) % 3]))
-    layers.snap(img, "Spirale verrusst")
-    # 3. Sterne erloschen: grosse Sterne als Asche-Kreuz, kleine kaum sichtbar
+    layers.snap(img, "Platte gedimmt")
+    plate = sum(_lum(rgb(x, y)) for y in range(16) for x in range(16)) / 256
+    glow, _, _ = PAD_ACTIVE_GLOW[tier]
+    # 2. Spirale erloschen: dieselben Pixel und dieselbe Schattierung wie aktiv, nur dunkel statt leuchtend
+    off = _tone(hexrgb(glow), p["off_sat"], plate * p["off_lum"])
+    smean = spiral_mean(px)
+    order = spiral_order()
+    cells = set(order)
+    for i, (x, y) in enumerate(order):
+        # Glaskante (A8d 2.): oben/links an der Platte eine Stufe heller, unten/rechts eine dunkler
+        rim = (p["rim"][0] if (x - 1, y) not in cells or (x, y - 1) not in cells
+               else p["rim"][1] if (x + 1, y) not in cells or (x, y + 1) not in cells else 1.0)
+        put(x, y, glow_mix(rgb(x, y), _scale(off, p["drift"][(i // 2) % 3] * rim), p["off_a"], smean)[:3])
+    layers.snap(img, "Spirale erloschen")
+    # 3. Sterne erloschen: matte graue Kreuze, nicht heller als die Platte, kein Hof
+    star = _tone(hexrgb(glow), p["star_sat"], plate * p["star_lum"])
     for y in range(16):
         for x in range(16):
             ch = PAD_STARS[y][x]
-            if ch == "S":
-                put(x, y, _scale(_desat(rgb(x, y), p["ash_sat"][0]), p["ash_big"]))
-            elif ch == "s":
-                put(x, y, _scale(_desat(rgb(x, y), p["ash_sat"][1]), p["ash_small"]))
+            if ch != ".":
+                put(x, y, mix(rgb(x, y), star, p["star_a"][0 if ch == "S" else 1]))
     layers.snap(img, "Sterne erloschen")
-    # 4. Riss mit heller Abbruchkante oben/links und zwei Ausbruechen
-    for x, y in CRACK:
-        put(x, y, _scale(_desat(rgb(x, y), 0.6), p["crack"]))
-    for x, y in CHIP:
-        put(x, y, _scale(rgb(x, y), p["chip"]))
-    for x, y in EDGE:
-        put(x, y, _scale(rgb(x, y), p["edge"]))
-    layers.snap(img, "Riss")
-    # 5. Palette wie Vanilla-Bloecke (<= 24 Toene), ohne Rasterung
+    # 4. Palette wie Vanilla-Bloecke (<= 24 Toene), ohne Rasterung
     q = img.convert("RGB").quantize(colors=p["colors"], method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert("RGBA")
     layers.carry(img, q, "Palette")
     return q
@@ -111,7 +111,7 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     bad = 0
     for tier in TIERS:
-        img = disabled(Image.open(TEX / f"{tier}.png"))
+        img = disabled(Image.open(TEX / f"{tier}.png"), tier)
         target = (a.out or TEX) / f"{tier}_disabled.png"
         if a.check:
             same = target.exists() and Image.open(target).convert("RGBA").tobytes() == img.tobytes()

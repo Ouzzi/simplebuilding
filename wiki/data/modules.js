@@ -2224,7 +2224,7 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 1
     },
-    "dataHash": "47f49dc7a39e"
+    "dataHash": "d49aea547a66"
   },
   {
     "id": "simplebuildingtools",

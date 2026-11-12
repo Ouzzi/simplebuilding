@@ -30,7 +30,8 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>Drei sichtbare Zustaende (a-chunk36, Besitzer 12.11.2026): <b>aktiv</b> (haelt Chunks: Spirale glimmt, Portal-Funken),
  * <b>matt</b> (Besitzer offline, Dimension gesperrt, Pads aus) und <b>abgeschaltet</b> ({@link #DISABLED}: Redstone-Signal
- * oder Limit je Spieler erreicht - eigene Textur mit erloschener, gerissener Spirale und wenigen kaputten Partikeln).
+ * oder Limit je Spieler erreicht - eigene Textur: dieselbe Platte ausgeschaltet, Spirale und Sterne dunkel, kein Riss
+ * (a-chunk36b) - und wenige kaputte Partikel).
  */
 public class ChunkLoaderBlock extends PadBlock {
     public static final MapCodec<ChunkLoaderBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
@@ -95,7 +96,7 @@ public class ChunkLoaderBlock extends PadBlock {
     /**
      * Nur im Client. Aktiv: aufsteigende Portal-Funken ueber der Platte (seit a-chunk36 doppelt so oft) und selten das
      * Summen eines Seelenankers (wie Vanillas Seelenanker: 1 in 100 Ticks). Abgeschaltet: wenige kaputte Partikel - ein
-     * Rauchwoelkchen, ab und zu ein Elektro-Funke aus dem Riss und ein Portal-Funke, der kaum steigt und verlischt.
+     * Rauchwoelkchen, ab und zu ein Elektro-Funke und ein Portal-Funke, der kaum steigt und verlischt.
      */
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
