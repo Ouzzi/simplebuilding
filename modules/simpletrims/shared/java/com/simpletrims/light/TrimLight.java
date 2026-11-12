@@ -17,7 +17,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -164,13 +163,18 @@ public final class TrimLight {
     }
 
     /**
-     * Sets or updates the light block - only in air, a water source or the carrier's own standing light block
+     * Sets or updates the light block - only in air, a plain water source block or the carrier's own standing light block
      * ({@code ownsExisting}); foreign minecraft:light blocks (maps, adventure) are never touched (review F-04).
      */
     static boolean placeOrUpdate(Level level, BlockPos pos, int light, boolean ownsExisting) {
         BlockState current = level.getBlockState(pos);
-        boolean water = current.getFluidState().is(FluidTags.WATER);
-        if (!(current.isAir() || (ownsExisting && current.is(Blocks.LIGHT)) || (water && current.getFluidState().isSource()))) return false;
+        // A "water source" is the plain water block only: kelp, seagrass, bubble columns and every waterlogged block (ladder,
+        // trapdoor, coral fan, a foreign waterlogged light ...) also report source water as their fluid, were wiped out here
+        // and became plain water when the light went away (AUDSB31E1 simpletrims-P2-1).
+        boolean ownLight = ownsExisting && current.is(Blocks.LIGHT);
+        boolean sourceWater = current.is(Blocks.WATER) && current.getFluidState().isSource();
+        if (!(current.isAir() || ownLight || sourceWater)) return false;
+        boolean water = sourceWater || (ownLight && current.getValue(LightBlock.WATERLOGGED));
         if (!current.is(Blocks.LIGHT) || current.getValue(LightBlock.LEVEL) != light) {
             level.setBlock(pos, Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, light).setValue(LightBlock.WATERLOGGED, water), 3);
         }

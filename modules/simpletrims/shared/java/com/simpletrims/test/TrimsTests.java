@@ -464,6 +464,58 @@ public final class TrimsTests {
             }
             h.succeed();
         });
+        // AUDSB31E1 simpletrims-P2-1: kelp, seagrass and waterlogged blocks report source water but are no water: radiance leaves them be.
+        ALL.put("radiance_light_spares_waterlogged_blocks", h -> {
+            ServerPlayer player = mockPlayer(h);
+            Vec3 at = h.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+            player.snapTo(at.x, at.y, at.z, 0.0F, 0.0F);
+            ItemStack chest = new ItemStack(Items.IRON_CHESTPLATE);
+            for (int i = 0; i < 3; i++) TrimGlow.incrementEmissionLevel(chest);
+            player.setItemSlot(EquipmentSlot.CHEST, chest);
+            BlockPos head = player.blockPosition().above();
+            BlockState trapdoor = Blocks.OAK_TRAPDOOR.defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED, true);
+            BlockState foreign = Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, 4).setValue(LightBlock.WATERLOGGED, true);
+            try {
+                h.getLevel().setBlock(head, trapdoor, 3);
+                TrimLight.tickPlayer(player);
+                h.assertTrue(h.getLevel().getBlockState(head).equals(trapdoor), "a waterlogged trapdoor was replaced: " + h.getLevel().getBlockState(head));
+                h.getLevel().setBlock(head, foreign, 3);
+                TrimLight.tickPlayer(player);
+                h.assertTrue(h.getLevel().getBlockState(head).equals(foreign), "a foreign waterlogged light block was overwritten: " + h.getLevel().getBlockState(head));
+                // a plain water source still takes the light and gets its water back
+                h.getLevel().setBlock(head, Blocks.WATER.defaultBlockState(), 3);
+                TrimLight.tickPlayer(player);
+                BlockState lit = h.getLevel().getBlockState(head);
+                h.assertTrue(lit.is(Blocks.LIGHT) && lit.getValue(LightBlock.WATERLOGGED) && lit.getValue(LightBlock.LEVEL) == 9, "water source holds the light: " + lit);
+                player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+                TrimLight.tickPlayer(player);
+                h.assertTrue(h.getLevel().getBlockState(head).is(Blocks.WATER), "the water is back: " + h.getLevel().getBlockState(head));
+            } finally {
+                TrimLight.forget(player);
+                h.getLevel().setBlock(head, Blocks.AIR.defaultBlockState(), 3);
+            }
+            h.succeed();
+        });
+        // AUDSB31E1 simpletrims-P2-2: a template lies where it is placed - a claim on that (neighbouring) block refuses it.
+        ALL.put("placing_checks_the_placed_block", h -> {
+            ServerPlayer player = mockPlayer(h);
+            player.setShiftKeyDown(true);
+            h.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
+            BlockPos clicked = h.absolutePos(new BlockPos(1, 1, 1));
+            BlockPos target = clicked.above();
+            var server = h.getLevel().getServer();
+            com.simplebuilding.framework.api.Protection.register(server, "simpletrims-test-claim",
+                    t -> !(t.x() == target.getX() && t.y() == target.getY() && t.z() == target.getZ()));
+            try {
+                InteractionResult denied = use(h, player, new ItemStack(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE), new BlockPos(1, 1, 1), Direction.UP);
+                h.assertTrue(h.getLevel().getBlockState(target).isAir() && !denied.consumesAction(), "the claimed target block took a template: " + denied);
+            } finally {
+                com.simplebuilding.framework.api.Protection.unregister(server, "simpletrims-test-claim");
+            }
+            InteractionResult allowed = use(h, player, new ItemStack(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE), new BlockPos(1, 1, 1), Direction.UP);
+            h.assertTrue(allowed.consumesAction() && h.getLevel().getBlockState(target).is(TrimsRegistry.PLACED_TEMPLATE), "without a claim it lies down: " + allowed);
+            h.succeed();
+        });
         // REV24-M-5a: after a crash the carrier table is gone; the marked light block is swept with its chunk, a foreign Vanilla light stays.
         ALL.put("orphan_light_swept", h -> {
             ServerPlayer player = mockPlayer(h);

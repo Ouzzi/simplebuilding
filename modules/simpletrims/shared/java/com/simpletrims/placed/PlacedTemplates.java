@@ -75,6 +75,8 @@ public final class PlacedTemplates {
         if (!place.canPlace()) return null;
         Level level = context.getLevel();
         BlockPos pos = place.getClickedPos();
+        // The template lies where it is placed, not only where the click went: on a neighbouring block it may be another claim's.
+        if (!pos.equals(context.getClickedPos()) && !mayChange(level, player, pos)) return null;
         BlockState state = TrimsRegistry.PLACED_TEMPLATE.getStateForPlacement(place);
         if (state == null || !state.canSurvive(level, pos)) return null;
         if (!level.isClientSide()) {

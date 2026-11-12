@@ -31,7 +31,7 @@
       ],
       "en": {
         "title": "Trim upgrades at the smithing table",
-        "summary": "Template + armor + material: Glowing (Glow Ink Sac, once), Radiance (Glowstone Dust, up to level 5), Pulsating (Echo Shard, once), Inverting (Ink Sac, three times: flat, rimmed, soft rim). The template is used up like any smithing template.",
+        "summary": "Template + armor + material: Glowing (Glow Ink Sac, once), Radiance (Glowstone Dust, up to level 5), Pulsating (Echo Shard, once), Inverting (Ink Sac or Heart of the Sea, three times: flat, rimmed, soft rim). The template is used up like any smithing template.",
         "details": [
           "Glowing draws the trim at full light. Pulsating alone fades the trim colors to gray and back; with Glowing its brightness swells between 1 and 15.",
           "Radiance gives 3 light per level to an invisible light block over the wearer's head (sum of all worn pieces, at most 15).",
@@ -41,7 +41,7 @@
       },
       "de": {
         "title": "Besatz-Aufwertungen am Schmiedetisch",
-        "summary": "Vorlage + Rüstung + Material: Leuchtend (Leuchttintenbeutel, einmal), Strahlkraft (Glowstonestaub, bis Stufe 5), Pulsierend (Echoscherbe, einmal). Die Vorlage wird verbraucht wie jede Schmiedevorlage.",
+        "summary": "Vorlage + Rüstung + Material: Leuchtend (Leuchttintenbeutel, einmal), Strahlkraft (Glowstonestaub, bis Stufe 5), Pulsierend (Echoscherbe, einmal), Invertierend (Tintenbeutel oder Herz des Meeres, dreimal: flach, Rand, weicher Rand). Die Vorlage wird verbraucht wie jede Schmiedevorlage.",
         "details": [
           "Leuchtend zeichnet den Besatz voll hell. Pulsierend allein lässt die Besatzfarben zu Grau verblassen und zurückkehren; mit Leuchtend schwillt die Helligkeit zwischen 1 und 15 an und ab.",
           "Strahlkraft gibt 3 Licht je Stufe an einen unsichtbaren Lichtblock über dem Kopf (Summe aller getragenen Teile, höchstens 15).",
@@ -84,8 +84,9 @@
         "title": "Forging templates: axe or sledgehammer",
         "summary": "A placed Vanilla armor trim template becomes the Glowing one (Glow Ink Sac in the off hand) or the Emitting one (Glowstone Dust): 5 right clicks with the tool, then 2 of the off-hand material, 4 diamonds and 2 glowstone (Glowing) or 2 blaze powder (Emitting) from the inventory.",
         "details": [
-          "The tool is any axe on its own; with SimpleBuilding (or another mod in simpletrims:template_hammers that switches the axe ways off) only the sledgehammer - the same rule as SimpleLib's crucibles. Each strike costs the tool 1 durability.",
+          "The tool is any axe on its own; as soon as a hammer partner that switches SimpleLib's axe ways off is loaded (SimpleBuilding), only hammers of the tag simplelib:hammers work (named in simpletrims:template_hammers; SimpleBuilding's sledgehammer is one) - the same rule as SimpleLib's crucibles. Each strike costs the tool 1 durability.",
           "Pulsating template (shapeless): the tool + 2 echo shards + 2 sculk + 4 diamonds; the tool stays in the grid with 1 durability less.",
+          "Inverting template: Ink Sac in the off hand (2 of it, 4 diamonds, 2 obsidian) or a Heart of the Sea (one is used up, 4 diamonds, 2 prismarine crystals).",
           "Copies: template + 7 diamonds + glowstone block / magma block / sculk = 2 templates."
         ]
       },
@@ -93,8 +94,9 @@
         "title": "Vorlagen schmieden: Axt oder Vorschlaghammer",
         "summary": "Eine abgelegte Vanilla-Besatzvorlage wird zur Leuchtenden (Leuchttintenbeutel in der Nebenhand) oder Strahlenden (Glowstonestaub): 5 Rechtsklicks mit dem Werkzeug, dann 2 vom Nebenhand-Material, 4 Diamanten und 2 Glowstone (Leuchtend) bzw. 2 Lohenstaub (Strahlend) aus dem Inventar.",
         "details": [
-          "Werkzeug ist allein jede Axt; mit SimpleBuilding (oder einer anderen Mod in simpletrims:template_hammers, die die Axt-Wege abschaltet) nur der Vorschlaghammer - dieselbe Regel wie bei den Tiegeln von SimpleLib. Jeder Schlag kostet das Werkzeug 1 Haltbarkeit.",
+          "Werkzeug ist allein jede Axt; sobald ein Hammer-Partner geladen ist, der die Axt-Wege von SimpleLib abschaltet (SimpleBuilding), gelten nur Hämmer des Tags simplelib:hammers (genannt in simpletrims:template_hammers; der Vorschlaghammer von SimpleBuilding ist einer) - dieselbe Regel wie bei den Tiegeln von SimpleLib. Jeder Schlag kostet das Werkzeug 1 Haltbarkeit.",
           "Pulsierende Vorlage (formlos): Werkzeug + 2 Echoscherben + 2 Sculk + 4 Diamanten; das Werkzeug bleibt mit 1 Haltbarkeit weniger im Raster.",
+          "Invertierende Vorlage: Tintenbeutel in der Nebenhand (2 davon, 4 Diamanten, 2 Obsidian) oder ein Herz des Meeres (eines wird verbraucht, 4 Diamanten, 2 Prismarinkristalle).",
           "Kopien: Vorlage + 7 Diamanten + Glowsteinblock / Magmablock / Sculk = 2 Vorlagen."
         ]
       }
@@ -217,10 +219,10 @@
         "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java"
       ],
       "en": {
-        "summary": "Smithing: trimmed armor + Ink Sac = Inverted trim (pattern cut out, the rest of the armor in the trim color); repeat with another Ink Sac for stage 2 (1 px rim) and stage 3 (wider, soft rim). Made by forging a placed armor trim template with an Ink Sac (4 diamonds, 2 obsidian)."
+        "summary": "Smithing: trimmed armor + Ink Sac = Inverted trim (pattern cut out, the rest of the armor in the trim color); repeat with another Ink Sac for stage 2 (1 px rim) and stage 3 (wider, soft rim). Made by forging a placed armor trim template with an Ink Sac (4 diamonds, 2 obsidian) or a Heart of the Sea (4 diamonds, 2 prismarine crystals); the Heart of the Sea works at the smithing table like an Ink Sac."
       },
       "de": {
-        "summary": "Schmieden: Rüstung mit Besatz + Tintenbeutel = invertierter Besatz (Muster ausgespart, Rest der Rüstung in der Besatzfarbe); erneut mit Tintenbeutel: Stufe 2 (1-px-Rand), Stufe 3 (breiter, weicher Rand). Entsteht beim Schmieden einer abgelegten Besatzvorlage mit Tintenbeutel (4 Diamanten, 2 Obsidian)."
+        "summary": "Schmieden: Rüstung mit Besatz + Tintenbeutel = invertierter Besatz (Muster ausgespart, Rest der Rüstung in der Besatzfarbe); erneut mit Tintenbeutel: Stufe 2 (1-px-Rand), Stufe 3 (breiter, weicher Rand). Entsteht beim Schmieden einer abgelegten Besatzvorlage mit Tintenbeutel (4 Diamanten, 2 Obsidian) oder Herz des Meeres (4 Diamanten, 2 Prismarinkristalle); das Herz des Meeres wirkt am Schmiedetisch wie ein Tintenbeutel."
       }
     },
     "simpletrims:placed_template": {

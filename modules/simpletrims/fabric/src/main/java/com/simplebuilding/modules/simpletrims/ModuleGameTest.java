@@ -112,6 +112,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void radianceLightSparesWaterloggedBlocks(GameTestHelper h) {
+        TrimsTests.ALL.get("radiance_light_spares_waterlogged_blocks").accept(h);
+    }
+
+    @GameTest
+    public void placingChecksThePlacedBlock(GameTestHelper h) {
+        TrimsTests.ALL.get("placing_checks_the_placed_block").accept(h);
+    }
+
+    @GameTest
     public void foreignLightUntouched(GameTestHelper h) {
         TrimsTests.ALL.get("foreign_light_untouched").accept(h);
     }
