@@ -2953,7 +2953,7 @@
       },
       "parent": "simplebuilding",
       "bundle": "required",
-      "configSwitch": false
+      "configSwitch": true
     },
     {
       "id": "simplemobheads",
@@ -3056,7 +3056,7 @@
       },
       "parent": "simplebuilding",
       "bundle": "required",
-      "configSwitch": false
+      "configSwitch": true
     },
     {
       "id": "simpleshops",
