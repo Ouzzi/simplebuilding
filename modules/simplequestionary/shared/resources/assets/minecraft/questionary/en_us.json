@@ -205,7 +205,7 @@
       "Needs a pyramid of iron, gold, emerald, diamond or netherite blocks beneath; grants area effects."
     ],
     "secret": [
-      "The beam can be coloured by stained glass above it."
+      "The beam can be colored by stained glass above it."
     ]
   },
   "bee_nest": {
@@ -705,7 +705,7 @@
   },
   "soul_campfire": {
     "lore": [
-      "A fire the colour of memory."
+      "A fire the color of memory."
     ],
     "use": [
       "Craft with soul sand or soil. Cooks food and deals double damage to anything that walks in it."
@@ -1277,7 +1277,7 @@
   },
   "loom": {
     "lore": [
-      "A frame for the colours."
+      "A frame for the colors."
     ],
     "use": [
       "Craft string and planks. Applies patterns to banners."
@@ -1640,7 +1640,7 @@
   },
   "firework_star": {
     "lore": [
-      "A single colour, waiting to explode."
+      "A single color, waiting to explode."
     ],
     "use": [
       "Craft gunpowder and dye. Add effects with extra items."
@@ -1701,7 +1701,7 @@
       "Laid by frogs. Place on water; tadpoles hatch."
     ],
     "secret": [
-      "Tadpoles grow into frogs whose colour depends on the biome they grew up in."
+      "Tadpoles grow into frogs whose color depends on the biome they grew up in."
     ]
   },
   "ghast_tear": {
@@ -1742,7 +1742,7 @@
       "A thin window."
     ],
     "use": [
-      "Craft six glass for sixteen. Connects to neighbours."
+      "Craft six glass for sixteen. Connects to neighbors."
     ],
     "secret": [
       "Silk Touch keeps it."
@@ -1874,7 +1874,7 @@
       "A window with a grudge."
     ],
     "use": [
-      "Craft six iron ingots. Connects to neighbours; mobs cannot pass."
+      "Craft six iron ingots. Connects to neighbors; mobs cannot pass."
     ],
     "secret": [
       "Villagers in a jail stay put behind them."
@@ -2788,7 +2788,7 @@
       "Smithing table: template, an armor piece and a trim material (ingot, gem or dust) add this trim. The template is used up; copy it with seven diamonds and the block it is made of."
     ],
     "secret": [
-      "Same template, any armor, any material: only the combination of pattern and colour makes each look."
+      "Same template, any armor, any material: only the combination of pattern and color makes each look."
     ]
   },
   "family:pottery_sherd": {
@@ -2824,13 +2824,13 @@
       "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_dye"
     ],
     "lore": [
-      "{name}: colour pressed into a small powder."
+      "{name}: color pressed into a small powder."
     ],
     "use": [
-      "Dyes wool, carpets, beds, banners, terracotta, glass, candles, shulker boxes, leather armor, sheep and collars, and mixes into new colours in the crafting grid."
+      "Dyes wool, carpets, beds, banners, terracotta, glass, candles, shulker boxes, leather armor, sheep and collars, and mixes into new colors in the crafting grid."
     ],
     "secret": [
-      "Fireworks use dyes too: a firework star takes its colours from them."
+      "Fireworks use dyes too: a firework star takes its colors from them."
     ]
   },
   "family:wool": {
@@ -2852,10 +2852,10 @@
       "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_carpet"
     ],
     "lore": [
-      "{name}: a thin skin of colour over the floor."
+      "{name}: a thin skin of color over the floor."
     ],
     "use": [
-      "Craft two wool of the same colour for three carpets. Only a sixteenth of a block thick; llamas wear it as a decoration."
+      "Craft two wool of the same color for three carpets. Only a sixteenth of a block thick; llamas wear it as a decoration."
     ],
     "secret": [
       "Carpets muffle vibrations just like wool, so sculk sensors do not hear steps on them."
@@ -2866,13 +2866,13 @@
       "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_concrete"
     ],
     "lore": [
-      "{name}: a hard, flat colour that does not try to be anything else."
+      "{name}: a hard, flat color that does not try to be anything else."
     ],
     "use": [
-      "Made by pouring water on concrete powder of the same colour. Smooth, sturdy and very uniform."
+      "Made by pouring water on concrete powder of the same color. Smooth, sturdy and very uniform."
     ],
     "secret": [
-      "It cannot be dyed back; the colour is fixed once the powder meets water."
+      "It cannot be dyed back; the color is fixed once the powder meets water."
     ]
   },
   "family:concrete_powder": {
@@ -2886,7 +2886,7 @@
       "Craft sand, gravel and dye. It falls like sand and turns into concrete when touched by water."
     ],
     "secret": [
-      "Place it beside water, or let it fall into a pool: a cheap way to build coloured walls."
+      "Place it beside water, or let it fall into a pool: a cheap way to build colored walls."
     ]
   },
   "family:terracotta_colored": {
@@ -2911,7 +2911,7 @@
       "{name}: a patterned tile with a mind of its own."
     ],
     "use": [
-      "Smelt terracotta of the same colour. Its pattern faces the direction it was placed, so four tiles in a square can join into one picture."
+      "Smelt terracotta of the same color. Its pattern faces the direction it was placed, so four tiles in a square can join into one picture."
     ],
     "secret": [
       "Pistons can push glazed terracotta, but sticky pistons cannot pull it back."
@@ -2922,13 +2922,13 @@
       "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_stained_glass"
     ],
     "lore": [
-      "{name}: a window that learned a colour."
+      "{name}: a window that learned a color."
     ],
     "use": [
       "Craft eight glass around one dye. Transparent, tints the light and does not drop itself unless mined with Silk Touch."
     ],
     "secret": [
-      "Beacon beams passing through it take on its colour."
+      "Beacon beams passing through it take on its color."
     ]
   },
   "family:stained_glass_pane": {
@@ -2936,10 +2936,10 @@
       "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_stained_glass_pane"
     ],
     "lore": [
-      "{name}: a thin colour, held at the edges."
+      "{name}: a thin color, held at the edges."
     ],
     "use": [
-      "Craft six stained glass in two rows for sixteen panes. Connects to neighbours like an iron bar."
+      "Craft six stained glass in two rows for sixteen panes. Connects to neighbors like an iron bar."
     ],
     "secret": [
       "Several panes side by side make stained windows with thin frames."
@@ -2956,7 +2956,7 @@
       "Craft six wool and a stick. Add patterns at a loom with dye, and carry them on a shield."
     ],
     "secret": [
-      "Use a map on a placed banner to mark the spot on that map with a coloured pin."
+      "Use a map on a placed banner to mark the spot on that map with a colored pin."
     ]
   },
   "family:bed": {
@@ -3026,7 +3026,7 @@
       "Put it on a Happy Ghast so players can ride it, up to four at a time."
     ],
     "secret": [
-      "The harness colour shows on the ghast while it floats."
+      "The harness color shows on the ghast while it floats."
     ]
   },
   "family:cushion": {
@@ -3037,10 +3037,10 @@
       "{name}: a soft seat that insists on staying put."
     ],
     "use": [
-      "A decorative cushion in this colour. Place it on a chair, a bench or the floor."
+      "A decorative cushion in this color. Place it on a chair, a bench or the floor."
     ],
     "secret": [
-      "Cushions come in all sixteen dye colours."
+      "Cushions come in all sixteen dye colors."
     ]
   },
   "family:log": {
@@ -3502,7 +3502,7 @@
       "Redirects lightning within a wide radius to itself and sends a redstone pulse. Protects wooden builds from fire."
     ],
     "secret": [
-      "Oxidation stage and wax change only the colour; the rod still catches lightning."
+      "Oxidation stage and wax change only the color; the rod still catches lightning."
     ]
   },
   "family:waxed_copper": {
@@ -3516,7 +3516,7 @@
       "Apply honeycomb to stop the oxidation. An axe scrapes the wax off again."
     ],
     "secret": [
-      "Waxing also stops further ageing, so you can keep the exact colour you like."
+      "Waxing also stops further ageing, so you can keep the exact color you like."
     ]
   },
   "family:weathered_copper": {
@@ -3555,7 +3555,7 @@
       "{name}: a reef you can pick up."
     ],
     "use": [
-      "Place it near water and it stays alive; dead versions are grey. Silk Touch keeps live coral."
+      "Place it near water and it stays alive; dead versions are gray. Silk Touch keeps live coral."
     ],
     "secret": [
       "Coral dies in a few seconds when away from water, even a block away."
@@ -3600,7 +3600,7 @@
       "Use a water bucket on the creature to catch it; place the bucket on water to release it again."
     ],
     "secret": [
-      "Mobs kept in a bucket remember their kind and colour when released."
+      "Mobs kept in a bucket remember their kind and color when released."
     ]
   },
   "family:minecart": {
@@ -3751,10 +3751,10 @@
       "{name}: light that a frog ate and returned."
     ],
     "use": [
-      "Dropped when a frog eats a small magma cube; the colour depends on the frog's biome. A bright light block."
+      "Dropped when a frog eats a small magma cube; the color depends on the frog's biome. A bright light block."
     ],
     "secret": [
-      "Place it to light a build with soft colours; it shines at light level 15."
+      "Place it to light a build with soft colors; it shines at light level 15."
     ]
   },
   "family:command_block": {
