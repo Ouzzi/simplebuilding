@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "simpleores:block/nickel_lantern"
+    },
+    "hanging=true": {
+      "model": "simpleores:block/nickel_lantern_hanging"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "simpleores:stainless_steel_ingot",
+    "N": "simpleores:stainless_steel_nugget"
+  },
+  "pattern": [
+    "N",
+    "I",
+    "N"
+  ],
+  "result": {
+    "id": "simpleores:stainless_steel_chain"
+  }
+}

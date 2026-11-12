@@ -1,0 +1,12 @@
+{
+  "values": [
+    "simpleores:silver_chain",
+    "simpleores:lead_chain",
+    "simpleores:zinc_chain",
+    "simpleores:nickel_chain",
+    "simpleores:tin_chain",
+    "simpleores:brass_chain",
+    "simpleores:bronze_chain",
+    "simpleores:stainless_steel_chain"
+  ]
+}

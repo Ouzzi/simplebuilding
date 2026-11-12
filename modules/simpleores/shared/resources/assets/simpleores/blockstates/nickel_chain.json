@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simpleores:block/nickel_chain",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "simpleores:block/nickel_chain"
+    },
+    "axis=z": {
+      "model": "simpleores:block/nickel_chain",
+      "x": 90
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "simpleores:block/lead_lantern"
+    },
+    "hanging=true": {
+      "model": "simpleores:block/lead_lantern_hanging"
+    }
+  }
+}

@@ -139,6 +139,26 @@ for d, (_s, (pen, pde), metal, (men, mde), *_r) in RIFTS.items():
     ITEMS[f'{metal}_ingot'] = (f'{men} Ingot', f'{mde}barren')
     BLOCKS[f'{metal}_block'] = (f'Block of {men}', f'{mde}block')
 RIFT_BLOCKS = [b for d, v in RIFTS.items() for b in (f'{d}rift_shard_block', f'{v[2]}_block')]
+# N30/N35 (a-pal35a, owner 11./12.11., docs/ai/PLAN-A-PAL35-2026-11-12.md): lamp (copper bulb logic), lantern, chain and pole of every building
+# metal, poles of the two rose alloys, weighted pressure plates of every metal (OresRegistry.LIGHTS/POLES/PLATE_METALS); own textures
+# tools/textures/pal35_2026_11_12.py (the plates use the metal's block texture like Vanilla).
+LAMPS = [f'{m}_lamp' for m in BAR_METALS]
+LANTERNS = [f'{m}_lantern' for m in BAR_METALS]
+CHAINS = [f'{m}_chain' for m in BAR_METALS]
+POLE_METALS = {**BAR_METALS, 'rose_gold': ALLOYS['rose_gold'], 'rose_bronze': ALLOYS['rose_bronze']}
+POLES = [f'{m}_pole' for m in POLE_METALS]
+PLATE_METALS = {**POLE_METALS, 'enderite': ('Enderite', 'Enderit'), **{v[2]: v[3] for v in RIFTS.values()}}
+LIGHT_PLATES = ('silver', 'rose_gold', 'rose_bronze')   # precious metals count like the gold plate, the others like the iron plate
+PRESSURE_PLATES = [f'{m}_pressure_plate' for m in PLATE_METALS]
+LIGHTS_ALL = LAMPS + LANTERNS + CHAINS + POLES + PRESSURE_PLATES
+for m, (en, de) in BAR_METALS.items():
+    BLOCKS[f'{m}_lamp'] = (f'{en} Lamp', f'{de}lampe')
+    BLOCKS[f'{m}_lantern'] = (f'{en} Lantern', f'{de}laterne')
+    BLOCKS[f'{m}_chain'] = (f'{en} Chain', f'{de}kette')
+for m, (en, de) in POLE_METALS.items():
+    BLOCKS[f'{m}_pole'] = (f'{en} Pole', f'{de}stange')
+for m, (en, de) in PLATE_METALS.items():
+    BLOCKS[f'{m}_pressure_plate'] = (f'{en} Pressure Plate', f'{de}-Druckplatte' if m.startswith('rose') else f'{de}druckplatte')
 TOOL_PARTS = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe')
 ARMOR_PARTS = ('helmet', 'chestplate', 'leggings', 'boots')
 
@@ -171,7 +191,7 @@ DIAMOND_NEW = ('netherite_scrap_block', 'enderite_scrap_block')   # like ancient
 
 # ---------------------------------------------------------------- assets
 for path in BLOCKS:
-    if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY or path in BARS or path in DOORS or path in TRAPDOORS:
+    if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY or path in BARS or path in DOORS or path in TRAPDOORS or path in LIGHTS_ALL:
         continue
     put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
     put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
@@ -265,6 +285,43 @@ for m in BAR_METALS:
                                                          **({'y': y} if o and (y := {'north': 0, 'east': 90, 'south': 180, 'west': 270}[f]) else {})}
         for f in ('east', 'north', 'south', 'west') for half in ('bottom', 'top') for o in (False, True)}})
     put(ASSETS / f'items/{trap}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{trap}_bottom'}})
+
+
+# N30/N35: lamp like the copper bulb (four cubes), lantern/chain/pole on the Vanilla templates, pressure plate on the metal's block texture.
+POLE_ROT = {'down': (180, 0), 'east': (90, 90), 'north': (90, 0), 'south': (90, 180), 'up': (0, 0), 'west': (90, 270)}
+for m in BAR_METALS:
+    lamp = f'{m}_lamp'
+    for suffix in ('', '_lit', '_powered', '_lit_powered'):
+        put(ASSETS / f'models/block/{lamp}{suffix}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{lamp}{suffix}'}})
+    put(ASSETS / f'blockstates/{lamp}.json', {'variants': {
+        f'lit={str(lit).lower()},powered={str(pw).lower()}': {'model': f'{NS}:block/{lamp}{"_lit" if lit else ""}{"_powered" if pw else ""}'}
+        for lit in (False, True) for pw in (False, True)}})
+    put(ASSETS / f'items/{lamp}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{lamp}'}})
+    lantern = f'{m}_lantern'
+    put(ASSETS / f'models/block/{lantern}.json', {'parent': 'minecraft:block/template_lantern', 'textures': {'lantern': f'{NS}:block/{lantern}'}})
+    put(ASSETS / f'models/block/{lantern}_hanging.json', {'parent': 'minecraft:block/template_hanging_lantern', 'textures': {'lantern': f'{NS}:block/{lantern}'}})
+    put(ASSETS / f'blockstates/{lantern}.json', {'variants': {'hanging=false': {'model': f'{NS}:block/{lantern}'},
+                                                              'hanging=true': {'model': f'{NS}:block/{lantern}_hanging'}}})
+    chain = f'{m}_chain'
+    put(ASSETS / f'models/block/{chain}.json', {'parent': 'minecraft:block/template_chain', 'textures': {'texture': f'{NS}:block/{chain}'}})
+    put(ASSETS / f'blockstates/{chain}.json', {'variants': {'axis=x': {'model': f'{NS}:block/{chain}', 'x': 90, 'y': 90},
+                                                            'axis=y': {'model': f'{NS}:block/{chain}'},
+                                                            'axis=z': {'model': f'{NS}:block/{chain}', 'x': 90}}})
+    for flat in (lantern, chain):
+        put(ASSETS / f'models/item/{flat}.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/{flat}'}})
+        put(ASSETS / f'items/{flat}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{flat}'}})
+for m in POLE_METALS:
+    pole = f'{m}_pole'
+    put(ASSETS / f'models/block/{pole}.json', {'parent': 'minecraft:block/template_lightning_rod', 'textures': {'texture': f'{NS}:block/{pole}'}})
+    put(ASSETS / f'blockstates/{pole}.json', {'variants': {
+        f'facing={f}': {'model': f'{NS}:block/{pole}', **({'x': x} if x else {}), **({'y': y} if y else {})} for f, (x, y) in POLE_ROT.items()}})
+    put(ASSETS / f'items/{pole}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{pole}'}})
+for m in PLATE_METALS:
+    plate = f'{m}_pressure_plate'
+    for suffix, parent in (('', 'pressure_plate_up'), ('_down', 'pressure_plate_down')):
+        put(ASSETS / f'models/block/{plate}{suffix}.json', {'parent': f'minecraft:block/{parent}', 'textures': {'texture': f'{NS}:block/{m}_block'}})
+    put(ASSETS / f'blockstates/{plate}.json', {'variants': {f'power={n}': {'model': f'{NS}:block/{plate}{"_down" if n else ""}'} for n in range(16)}})
+    put(ASSETS / f'items/{plate}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{plate}'}})
 
 
 def stairs_state(name):
@@ -397,7 +454,7 @@ for plate in PLATES:
     block_loot(plate, [{'rolls': 1, 'condition': {'type': 'minecraft:survives_explosion'}, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{plate}', 'modifier': [
         {'type': 'minecraft:set_count', 'condition': {'type': 'minecraft:match_block', 'blocks': f'{NS}:{plate}', 'state': {'layers': str(n)}}, 'count': n}
         for n in range(2, 9)]}]}])
-for path in BARS + GRATES + TRAPDOORS:
+for path in BARS + GRATES + TRAPDOORS + LIGHTS_ALL:   # N30/N35: lamps, lanterns, chains, poles, plates drop themselves like the Vanilla ones
     self_drop(path)
 # N28: a door drops once, from its lower half (like the Vanilla doors)
 for path in DOORS:
@@ -570,6 +627,22 @@ for m in BAR_METALS:
     recipe(f'{m}_trapdoor', 'redstone', {'type': 'minecraft:crafting_shaped', 'category': 'redstone', 'key': {'#': item(f'{m}_ingot')}, 'pattern': ['##', '##'],
                                          'result': result(f'{m}_trapdoor')}, item(f'{m}_ingot'))
 
+# N30/N35: the Vanilla recipes of the copper bulb (3 blocks, blaze rod, redstone -> 4), the lantern (8 nuggets round a torch), the chain
+# (nugget, ingot, nugget), the lightning rod (3 ingots upright) and the weighted pressure plates (2 ingots side by side).
+for m in BAR_METALS:
+    recipe(f'{m}_lamp', 'redstone', {'type': 'minecraft:crafting_shaped', 'category': 'redstone', 'key': {'B': 'minecraft:blaze_rod', 'C': item(f'{m}_block'),
+                                     'R': 'minecraft:redstone'}, 'pattern': [' C ', 'CBC', ' R '], 'result': result(f'{m}_lamp', 4)}, item(f'{m}_block'))
+    recipe(f'{m}_lantern', 'decorations', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': 'minecraft:torch', 'X': item(f'{m}_nugget')},
+                                           'pattern': ['XXX', 'X#X', 'XXX'], 'result': result(f'{m}_lantern')}, item(f'{m}_nugget'))
+    recipe(f'{m}_chain', 'decorations', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'I': item(f'{m}_ingot'), 'N': item(f'{m}_nugget')},
+                                         'pattern': ['N', 'I', 'N'], 'result': result(f'{m}_chain')}, item(f'{m}_ingot'))
+for m in POLE_METALS:
+    recipe(f'{m}_pole', 'decorations', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{m}_ingot')},
+                                        'pattern': ['#', '#', '#'], 'result': result(f'{m}_pole')}, item(f'{m}_ingot'))
+for m in PLATE_METALS:
+    recipe(f'{m}_pressure_plate', 'redstone', {'type': 'minecraft:crafting_shaped', 'category': 'redstone', 'key': {'#': item(f'{m}_ingot')},
+                                               'pattern': ['##'], 'result': result(f'{m}_pressure_plate')}, item(f'{m}_ingot'))
+
 # IG31-58: scrap -> rift shard only in the blast furnace (26.3 halves the stored furnace time: 40/60/80 s there); a crucible needs
 # extreme heat (tag below). 9 shards <-> block, 4 shards + 1 partner ingot -> the end material (shapeless), 9 ingots <-> block.
 for d, (scrap, _p, metal, _m, partner, seconds, xp) in RIFTS.items():
@@ -687,13 +760,17 @@ for kind in ('block', 'item'):
     tag(f'minecraft/tags/{kind}/doors.json', ids(DOORS))          # N28: like the copper door/trapdoor (no tool tier, mobs may open the doors)
     tag(f'minecraft/tags/{kind}/trapdoors.json', ids(TRAPDOORS))
 tag('minecraft/tags/block/mob_interactable_doors.json', ids(DOORS))
+for kind in ('block', 'item'):   # N30/N35: like the Vanilla lanterns and chains
+    tag(f'minecraft/tags/{kind}/lanterns.json', ids(LANTERNS))
+    tag(f'minecraft/tags/{kind}/chains.json', ids(CHAINS))
+tag('minecraft/tags/block/pressure_plates.json', ids(PRESSURE_PLATES))
 every = list(BLOCKS)
 tag('minecraft/tags/block/mineable/pickaxe.json', ids([b for b in every if b not in SHOVEL] + list(MOVED_BLOCKS)))
 tag('minecraft/tags/block/mineable/shovel.json', ids(list(SHOVEL)))
 STONE_TIER = ['lead_ore', 'raw_lead_block', 'end_lead_ore', 'end_zinc_ore'] + [b for m, v in METALS.items() if v[2] == 'stone'
                                                                    for b in (*ores_of(m), f'raw_{m}_block')]   # like Vanilla iron and copper ore
 tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b not in ('silver_mirror', 'geode_crust') + SHOVEL and b not in DIAMOND_NEW and b not in RIFT_BLOCKS
-                                                       and b not in BARS and b not in GRATES and b not in DOORS and b not in TRAPDOORS] + SAGE_ORES))
+                                                       and b not in BARS and b not in GRATES and b not in DOORS and b not in TRAPDOORS and b not in LIGHTS_ALL] + SAGE_ORES))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
 tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS + RIFT_BLOCKS))
@@ -729,7 +806,7 @@ tag('c/tags/item/nuggets.json', ['#c:nuggets/enderite'])
 tag('c/tags/item/raw_materials.json', ['#c:raw_materials/enderite'])
 for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/storage_blocks.json', ['#c:storage_blocks/enderite'])
-tag('minecraft/tags/block/needs_stone_tool.json', ids(STONE_TIER + GRATES))
+tag('minecraft/tags/block/needs_stone_tool.json', ids(STONE_TIER + GRATES + LAMPS + POLES))   # N30/N35: like the copper bulb and the lightning rod
 # Lead keeps the Sculk and the Warden from hearing through it like wool, but is NOT in dampens_vibrations: steps and mining on it stay loud.
 # Whole blocks of lead count 1; the lead octets of Simple Octets (optional, only with that mod) count a whole block too, however little they fill
 # (owner ORES31-BEXTRA, like the wool logic: the cell is what counts). The plate counts half.
@@ -1053,6 +1130,23 @@ def note_summaries():
                                     f'A trapdoor like the copper trapdoor with the {en.lower()} grate pattern: opens by hand or redstone, does not age. Four {en.lower()} ingots (2 x 2) make 1. Any pickaxe.'),
                                    (f'Eine Tür wie die Kupfertür, mit {de}rahmen und dem eigenen Rostmuster als Fenster: öffnet per Hand oder Redstone, altert nicht. Sechs {de}barren (2 x 3) ergeben 3. Jede Spitzhacke.' if door else
                                     f'Eine Falltür wie die Kupferfalltür mit dem {de}rostmuster: öffnet per Hand oder Redstone, altert nicht. Vier {de}barren (2 x 2) ergeben 1. Jede Spitzhacke.'))
+        elif p in LIGHTS_ALL:
+            kind = next(k for k in ('_pressure_plate', '_lamp', '_lantern', '_chain', '_pole') if p.endswith(k))
+            m = p[:-len(kind)]
+            en, de = PLATE_METALS[m]
+            light = m in LIGHT_PLATES
+            notes[f'block:{p}'] = {
+                '_lamp': (f'A lamp with the logic of the copper bulb in {en.lower()}: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the {en.lower()} grate pattern; it does not age. Three blocks of {en.lower()}, a blaze rod and redstone make 4. Needs a stone pickaxe.',
+                          f'Eine Lampe mit der Logik der Kupferleuchte aus {de}: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das {de}rostmuster; sie altert nicht. Drei {de}blöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke.'),
+                '_lantern': (f'A lantern like the Vanilla one with a {en.lower()} housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight {en.lower()} nuggets round a torch make 1. Any pickaxe.',
+                             f'Eine Laterne wie die aus Vanilla mit {de}gehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht {de}klumpen um eine Fackel ergeben 1. Jede Spitzhacke.'),
+                '_chain': (f'A chain like the iron chain with {en.lower()} links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A {en.lower()} nugget, an ingot and a nugget upright make 1. Any pickaxe.',
+                           f'Eine Kette wie die Eisenkette mit {de}gliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein {de}klumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke.'),
+                '_pole': (f'A {en.lower()} pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three {en.lower()} ingots upright make 1. Needs a stone pickaxe.',
+                          f'Eine {de}stange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei {de}barren senkrecht ergeben 1. Braucht eine Steinspitzhacke.'),
+                '_pressure_plate': (f'A weighted pressure plate of {en.lower()}: ' + ('light like the gold plate (one signal level per entity, up to 15).' if light else 'heavy like the iron plate (one signal level per 10 entities, up to 150).') + f' Two {en.lower()} ingots side by side make 1. Any pickaxe.',
+                                    f'Eine Wägeplatte aus {de}: ' + ('leicht wie die Goldplatte (eine Signalstufe je Objekt, bis 15).' if light else 'schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150).') + f' Zwei {de}barren nebeneinander ergeben 1. Jede Spitzhacke.'),
+            }[kind]
         elif p in FAMILY:
             kind, m = FAMILY[p]
             en, de = COSMETIC[m]
@@ -1337,6 +1431,28 @@ FEATURES = [
             ('Metalltüren und -falltüren', 'Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat eine Tür und eine Falltür wie die aus Kupfer.',
              ['Tür: sechs Barren (2 x 3) ergeben 3; Falltür: vier Barren (2 x 2) ergeben 1. Beide öffnen per Hand oder Redstone wie Kupfer, Dorfbewohner und andere Mobs nutzen die Türen.',
               'Das Fenster zeigt das eigene Rostmuster des Metalls, der Rahmen seine Töne. Sie altern nicht (nur Kupfer oxidiert). Jede Spitzhacke.'])),
+    feature('metal_lights', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/MetalPoleBlock.java', f'{DATAP}/recipe/silver_lamp.json', f'{DATAP}/recipe/silver_lantern.json',
+                             f'{DATAP}/recipe/silver_chain.json', f'{DATAP}/recipe/silver_pole.json'],
+            ('Metal lamps, lanterns, chains and poles', 'Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has a lamp, a lantern, a chain and a pole beside the copper ones; rose gold and rose copper have a pole.',
+             ['Lamp: the logic of the copper bulb - a redstone pulse switches it on or off, light 15, a comparator reads 15 while it is on. Three blocks, a blaze rod and redstone make 4. Stone pickaxe.',
+              'Lantern: like the Vanilla lantern (stands or hangs, light 15); eight nuggets round a torch. Chain: like the iron chain; nugget, ingot, nugget upright. Any pickaxe.',
+              'Pole: placed like the lightning rod, decoration only (lightning keeps to copper). Three ingots upright. Stone pickaxe.',
+              'Every metal has its own pattern: the lamp cage is its grate pattern, the lantern panes, chain links and pole heads differ from metal to metal. Nothing ages (only copper oxidises).']),
+            ('Metalllampen, -laternen, -ketten und -stangen', 'Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat neben den Kupferteilen eine Lampe, eine Laterne, eine Kette und eine Stange; Roségold und Rosenkupfer haben eine Stange.',
+             ['Lampe: die Logik der Kupferleuchte - ein Redstone-Impuls schaltet sie an oder aus, Licht 15, ein Komparator liest 15, solange sie an ist. Drei Blöcke, eine Lohenrute und Redstone ergeben 4. Steinspitzhacke.',
+              'Laterne: wie die Vanilla-Laterne (steht oder hängt, Licht 15); acht Klumpen um eine Fackel. Kette: wie die Eisenkette; Klumpen, Barren, Klumpen senkrecht. Jede Spitzhacke.',
+              'Stange: gesetzt wie der Blitzableiter, nur Dekoration (der Blitz bleibt beim Kupfer). Drei Barren senkrecht. Steinspitzhacke.',
+              'Jedes Metall hat sein eigenes Muster: der Lampenkäfig ist sein Rostmuster, Laternenscheiben, Kettenglieder und Stangenköpfe unterscheiden sich von Metall zu Metall. Nichts altert (nur Kupfer oxidiert).'])),
+    feature('metal_pressure_plates', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/MetalPressurePlateBlock.java', f'{DATAP}/recipe/rose_gold_pressure_plate.json',
+                                      f'{DATAP}/recipe/lead_pressure_plate.json'],
+            ('Metal pressure plates', 'Every Simple Ores metal has a weighted pressure plate: silver, lead, zinc, nickel, tin, brass, bronze, stainless steel, rose gold, rose copper, Enderite, Terranite, Infernite and Zenithite.',
+             ['Precious metals (silver, rose gold, rose copper) count like the gold plate: one signal level per entity, up to 15.',
+              'All others count like the iron plate: one signal level per 10 entities, up to 150.',
+              'Two ingots side by side make 1; the plate shows the metal\'s block. Any pickaxe.']),
+            ('Metall-Druckplatten', 'Jedes Simple-Ores-Metall hat eine Wägeplatte: Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze, Edelstahl, Roségold, Rosenkupfer, Enderit, Terranit, Infernit und Zenithit.',
+             ['Edelmetalle (Silber, Roségold, Rosenkupfer) zählen wie die Goldplatte: eine Signalstufe je Objekt, bis 15.',
+              'Alle anderen zählen wie die Eisenplatte: eine Signalstufe je 10 Objekte, bis 150.',
+              'Zwei Barren nebeneinander ergeben 1; die Platte zeigt den Block des Metalls. Jede Spitzhacke.'])),
     feature('metal_sounds', [f'{JAVA}/OresSounds.java', f'modules/{NS}/shared/resources/assets/{NS}/sounds.json'],
             ('Metal sounds', 'Every building metal sounds like itself when placed, mined, hit or walked on - quietly.',
              ['Lead dull and soft (and a little louder: whoever walks on lead is heard), silver bright and ringing, zinc and nickel plain, tin with its crackling "tin cry", brass and bronze warm, stainless steel hard. Every block of a metal (storage block, building family, plate, bars, grate) uses its sound.',

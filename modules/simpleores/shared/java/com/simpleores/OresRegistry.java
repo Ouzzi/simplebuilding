@@ -160,6 +160,30 @@ public final class OresRegistry {
         }
     }
 
+    /**
+     * N30/N35 (a-pal35a, owner 11./12.11.: "lamp, lantern, chain and pole are missing for the metals, all unique and pretty"): the light
+     * and hanging parts of every building metal beside the copper ones - a lamp with the logic of the (waxed) copper bulb, a lantern, a
+     * chain and a pole placed like the lightning rod (decoration only). Lamp and pole keep the metal's sound, lantern and chain the
+     * Vanilla ones. Textures: tools/textures/pal35_2026_11_12.py (the metal's grate pattern as cage, own lantern panes, links, pole heads).
+     */
+    public static final String[] LIGHTS = BARS;
+    static {
+        for (String m : LIGHTS) {
+            block(m + "_lamp", Blocks.COPPER_BULB.asList().getFirst(), s -> new net.minecraft.world.level.block.CopperBulbBlock(s.sound(OresSounds.of(m))));
+            block(m + "_lantern", Blocks.LANTERN, net.minecraft.world.level.block.LanternBlock::new);
+            block(m + "_chain", Blocks.IRON_CHAIN, net.minecraft.world.level.block.ChainBlock::new);
+        }
+    }
+
+    /** N30-4/N35: the poles - every building metal plus the two rose alloys (rose gold, rose copper); null sound = the rose blocks' gold sound. */
+    public static final String[] POLES = {"silver", "lead", "zinc", "nickel", "tin", "brass", "bronze", "stainless_steel", "rose_gold", "rose_bronze"};
+    static {
+        for (String m : POLES) {
+            SoundType sound = OresSounds.of(m) != null ? OresSounds.of(m) : SoundType.METAL;
+            block(m + "_pole", Blocks.LIGHTNING_ROD.asList().getFirst(), s -> new com.simpleores.block.MetalPoleBlock(s.sound(sound)));
+        }
+    }
+
     /** The block paths of a metal's cosmetic family, in creative order. */
     public static List<String> family(String metal) {
         return List.of("cut_" + metal, "cut_" + metal + "_stairs", "cut_" + metal + "_slab", metal + "_tiles", metal + "_pillar", "chiseled_" + metal);
@@ -209,11 +233,27 @@ public final class OresRegistry {
         for (String d : DIMENSIONS) block(d + "rift_shard_block", Blocks.ANCIENT_DEBRIS, Block::new);
         for (String m : RIFT_METALS) block(m + "_block", Blocks.NETHERITE_BLOCK, Block::new);
     }
+    /**
+     * N35 (a-pal35a, owner 12.11.: "pressure plates for rose gold and rose copper, and for every other material that has none"): a weighted
+     * pressure plate of every Simple Ores metal. Precious metals (silver and the two rose alloys) are light like the gold plate, the
+     * others heavy like the iron plate ({@link com.simpleores.block.MetalPressurePlateBlock}). The texture is the metal's block (like Vanilla).
+     */
+    public static final String[] PLATE_METALS = {"silver", "lead", "zinc", "nickel", "tin", "brass", "bronze", "stainless_steel", "rose_gold", "rose_bronze",
+            "enderite", "terranite", "infernite", "zenithite"};
+    public static final java.util.Set<String> LIGHT_PLATES = java.util.Set.of("silver", "rose_gold", "rose_bronze");
+    static {
+        for (String m : PLATE_METALS) {
+            boolean light = LIGHT_PLATES.contains(m);
+            block(m + "_pressure_plate", light ? Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE : Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE,
+                    s -> new com.simpleores.block.MetalPressurePlateBlock(light, s, OresSounds.of(m)));
+        }
+    }
     /** Block items that survive fire and lava (Enderite, scrap). */
     private static final java.util.Set<String> FIRE_RESISTANT = java.util.Set.of("enderite_block", "dimensional_scrap", "nether_dimensional_scrap",
             "end_dimensional_scrap", "enderite_nugget", "enderite_scrap", "enderite_ingot", "netherite_scrap_block", "enderite_scrap_block",
             "rift_shard", "nether_rift_shard", "end_rift_shard", "rift_shard_block", "nether_rift_shard_block", "end_rift_shard_block",
-            "terranite_ingot", "infernite_ingot", "zenithite_ingot", "terranite_block", "infernite_block", "zenithite_block");
+            "terranite_ingot", "infernite_ingot", "zenithite_ingot", "terranite_block", "infernite_block", "zenithite_block",
+            "enderite_pressure_plate", "terranite_pressure_plate", "infernite_pressure_plate", "zenithite_pressure_plate");
 
     static {
         for (String path : List.copyOf(BLOCKS.keySet())) {
@@ -369,6 +409,13 @@ public final class OresRegistry {
             out.add(path);
             for (String m : COSMETIC) if (path.equals(m + "_block")) out.addAll(family(m));
             for (String m : BARS) if (path.equals(m + "_block")) out.addAll(List.of(m + "_bars", m + "_grate", m + "_door", m + "_trapdoor"));
+            // N30/N35: plate, pole, chain, lantern, lamp - the order of the metal row of the new test centre (a-tz38)
+            if (path.endsWith("_block") && List.of(PLATE_METALS).contains(path.substring(0, path.length() - 6))) {
+                String m = path.substring(0, path.length() - 6);
+                out.add(m + "_pressure_plate");
+                if (List.of(POLES).contains(m)) out.add(m + "_pole");
+                if (List.of(LIGHTS).contains(m)) out.addAll(List.of(m + "_chain", m + "_lantern", m + "_lamp"));
+            }
         }
         return out.toArray(String[]::new);
     }

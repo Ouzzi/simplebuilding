@@ -713,6 +713,90 @@ public final class OresTests {
             }
             h.succeed();
         });
+        ALL.put("metal_lights", h -> {
+            // N30/N35 (a-pal35a): lamp (copper bulb logic), lantern, chain and pole of every building metal, poles of the rose alloys, weighted
+            // pressure plates of every metal: classes, tags, tool tier, drops, Vanilla recipes, creative order behind the trapdoor, the metal's sound,
+            // the lamp flips on a rising redstone edge, a lantern hangs from the chain, the pole is no lightning rod, plate weights.
+            ServerLevel level = h.getLevel();
+            List<String> building = List.of(OresRegistry.BUILDING);
+            BlockPos pos = h.absolutePos(new BlockPos(4, 1, 12));
+            ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE), e = ItemStack.EMPTY;
+            check(h, OresRegistry.LIGHTS.length == 8 && OresRegistry.POLES.length == 10 && OresRegistry.PLATE_METALS.length == 14, "8 metals, 10 poles, 14 plates");
+            for (String m : OresRegistry.LIGHTS) {
+                Block lamp = OresRegistry.BLOCKS.get(m + "_lamp"), lantern = OresRegistry.BLOCKS.get(m + "_lantern"), chain = OresRegistry.BLOCKS.get(m + "_chain");
+                check(h, lamp instanceof net.minecraft.world.level.block.CopperBulbBlock && lantern instanceof net.minecraft.world.level.block.LanternBlock
+                        && chain instanceof net.minecraft.world.level.block.ChainBlock, m + ": lamp, lantern, chain classes");
+                check(h, lantern.defaultBlockState().is(BlockTags.LANTERNS) && stack(m + "_lantern").is(net.minecraft.tags.BlockItemTags.LANTERNS.item())
+                        && chain.defaultBlockState().is(BlockTags.CHAINS) && stack(m + "_chain").is(net.minecraft.tags.BlockItemTags.CHAINS.item()), m + ": Vanilla lantern/chain tags");
+                check(h, lamp.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL) && !lantern.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL)
+                        && !chain.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL) && !lamp.defaultBlockState().is(BlockTags.NEEDS_IRON_TOOL), m + ": tiers like copper bulb, lantern, chain");
+                check(h, lamp.defaultBlockState().getSoundType() == com.simpleores.OresSounds.of(m), m + " lamp sounds like " + m);
+                check(h, lamp.defaultBlockState().setValue(net.minecraft.world.level.block.CopperBulbBlock.LIT, true).getLightEmission() == 15
+                        && lantern.defaultBlockState().getLightEmission() == 15 && lamp.defaultBlockState().getLightEmission() == 0, m + ": light 15 when lit");
+                int plate = building.indexOf(m + "_pressure_plate");
+                check(h, plate == building.indexOf(m + "_trapdoor") + 1 && building.indexOf(m + "_pole") == plate + 1 && building.indexOf(m + "_chain") == plate + 2
+                        && building.indexOf(m + "_lantern") == plate + 3 && building.indexOf(m + "_lamp") == plate + 4, m + ": plate, pole, chain, lantern, lamp behind the trapdoor");
+                // the lamp flips on each rising edge and keeps its state without power (copper bulb)
+                level.setBlockAndUpdate(pos, lamp.defaultBlockState());
+                level.setBlockAndUpdate(pos.east(), Blocks.REDSTONE_BLOCK.defaultBlockState());
+                check(h, level.getBlockState(pos).getValue(net.minecraft.world.level.block.CopperBulbBlock.LIT), m + " lamp: on with the first pulse");
+                level.setBlockAndUpdate(pos.east(), Blocks.AIR.defaultBlockState());
+                check(h, level.getBlockState(pos).getValue(net.minecraft.world.level.block.CopperBulbBlock.LIT), m + " lamp: stays on without power");
+                level.setBlockAndUpdate(pos.east(), Blocks.REDSTONE_BLOCK.defaultBlockState());
+                check(h, !level.getBlockState(pos).getValue(net.minecraft.world.level.block.CopperBulbBlock.LIT), m + " lamp: off with the second pulse");
+                level.setBlockAndUpdate(pos.east(), Blocks.AIR.defaultBlockState());
+                // a lantern hangs from the chain of its metal
+                level.setBlockAndUpdate(pos.above(), chain.defaultBlockState());
+                check(h, lantern.defaultBlockState().setValue(net.minecraft.world.level.block.LanternBlock.HANGING, true).canSurvive(level, pos), m + ": lantern hangs from the chain");
+                level.setBlockAndUpdate(pos.above(), Blocks.AIR.defaultBlockState());
+                level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                for (Block b : new Block[] {lamp, lantern, chain}) {
+                    List<ItemStack> drops = Block.getDrops(b.defaultBlockState(), level, pos, null, null, pick);
+                    check(h, drops.size() == 1 && drops.getFirst().is(b.asItem()), b + " drops itself: " + drops);
+                    check(h, b.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE), b + ": pickaxe");
+                }
+                ItemStack block = stack(m + "_block"), nugget = stack(m + "_nugget"), ingot = stack(m + "_ingot");
+                ItemStack made = craft(h, of(e, block, e, block, new ItemStack(Items.BLAZE_ROD), block, e, new ItemStack(Items.REDSTONE), e));
+                check(h, made.is(item(m + "_lamp")) && made.getCount() == 4, m + ": 3 blocks, blaze rod, redstone -> 4 lamps, was " + made);
+                made = craft(h, of(nugget, nugget, nugget, nugget, new ItemStack(Items.TORCH), nugget, nugget, nugget, nugget));
+                check(h, made.is(item(m + "_lantern")) && made.getCount() == 1, m + ": 8 nuggets round a torch -> lantern, was " + made);
+                made = craft(h, of(nugget, e, e, ingot, e, e, nugget));
+                check(h, made.is(item(m + "_chain")) && made.getCount() == 1, m + ": nugget, ingot, nugget -> chain, was " + made);
+            }
+            for (String m : OresRegistry.POLES) {
+                Block pole = OresRegistry.BLOCKS.get(m + "_pole");
+                check(h, pole instanceof com.simpleores.block.MetalPoleBlock && !(pole instanceof net.minecraft.world.level.block.LightningRodBlock)
+                        && !pole.defaultBlockState().is(BlockTags.LIGHTNING_RODS), m + " pole: decoration, no lightning rod");
+                check(h, pole.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL) && pole.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE), m + " pole: stone pickaxe like the rod");
+                BlockState placed = pole.defaultBlockState().setValue(com.simpleores.block.MetalPoleBlock.FACING, Direction.NORTH);
+                level.setBlockAndUpdate(pos, placed);
+                check(h, level.getBlockState(pos).is(pole) && !level.getBlockState(pos).getValue(com.simpleores.block.MetalPoleBlock.WATERLOGGED), m + " pole placed facing north");
+                level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                List<ItemStack> drops = Block.getDrops(pole.defaultBlockState(), level, pos, null, null, pick);
+                check(h, drops.size() == 1 && drops.getFirst().is(pole.asItem()), m + " pole drops itself: " + drops);
+                ItemStack ingot = stack(m + "_ingot");
+                ItemStack made = craft(h, of(ingot, e, e, ingot, e, e, ingot));
+                check(h, made.is(item(m + "_pole")) && made.getCount() == 1, m + ": 3 ingots upright -> pole, was " + made);
+            }
+            for (String m : OresRegistry.PLATE_METALS) {
+                Block plate = OresRegistry.BLOCKS.get(m + "_pressure_plate");
+                boolean light = OresRegistry.LIGHT_PLATES.contains(m);
+                check(h, plate instanceof com.simpleores.block.MetalPressurePlateBlock p && p.light == light && p.maxWeight() == (light ? 15 : 150),
+                        m + " plate: " + (light ? "light like gold" : "heavy like iron"));
+                check(h, plate.defaultBlockState().is(BlockTags.PRESSURE_PLATES) && plate.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE)
+                        && !plate.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL) && !plate.defaultBlockState().is(BlockTags.NEEDS_IRON_TOOL), m + " plate: tags, any pickaxe");
+                if (com.simpleores.OresSounds.of(m) != null) {
+                    check(h, plate.defaultBlockState().getSoundType() == com.simpleores.OresSounds.of(m), m + " plate sounds like " + m);
+                }
+                check(h, building.contains(m + "_pressure_plate"), m + " plate in the creative list");
+                List<ItemStack> drops = Block.getDrops(plate.defaultBlockState(), level, pos, null, null, pick);
+                check(h, drops.size() == 1 && drops.getFirst().is(plate.asItem()), m + " plate drops itself: " + drops);
+                ItemStack ingot = stack(m + "_ingot");
+                ItemStack made = craft(h, of(ingot, ingot));
+                check(h, made.is(item(m + "_pressure_plate")) && made.getCount() == 1, m + ": 2 ingots -> pressure plate, was " + made);
+            }
+            h.succeed();
+        });
         ALL.put("bars_and_grates", h -> {
             // N25: bars (like iron bars) and grates (like the copper grate) of the eight building metals: registered, recipes like Vanilla
             // (6 ingots -> 16 bars, 4 blocks in a diamond -> 4 grates, stonecutter block -> 4), tags, drops, creative list, the metal's sound.

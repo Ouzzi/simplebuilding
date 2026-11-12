@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "simpleores:block/tin_lantern"
+    },
+    "hanging=true": {
+      "model": "simpleores:block/tin_lantern_hanging"
+    }
+  }
+}

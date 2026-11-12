@@ -335,6 +335,64 @@
       }
     },
     {
+      "id": "metal_lights",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalPoleBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_lamp.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_lantern.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_chain.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_pole.json"
+      ],
+      "en": {
+        "title": "Metal lamps, lanterns, chains and poles",
+        "summary": "Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has a lamp, a lantern, a chain and a pole beside the copper ones; rose gold and rose copper have a pole.",
+        "details": [
+          "Lamp: the logic of the copper bulb - a redstone pulse switches it on or off, light 15, a comparator reads 15 while it is on. Three blocks, a blaze rod and redstone make 4. Stone pickaxe.",
+          "Lantern: like the Vanilla lantern (stands or hangs, light 15); eight nuggets round a torch. Chain: like the iron chain; nugget, ingot, nugget upright. Any pickaxe.",
+          "Pole: placed like the lightning rod, decoration only (lightning keeps to copper). Three ingots upright. Stone pickaxe.",
+          "Every metal has its own pattern: the lamp cage is its grate pattern, the lantern panes, chain links and pole heads differ from metal to metal. Nothing ages (only copper oxidises)."
+        ]
+      },
+      "de": {
+        "title": "Metalllampen, -laternen, -ketten und -stangen",
+        "summary": "Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat neben den Kupferteilen eine Lampe, eine Laterne, eine Kette und eine Stange; Roségold und Rosenkupfer haben eine Stange.",
+        "details": [
+          "Lampe: die Logik der Kupferleuchte - ein Redstone-Impuls schaltet sie an oder aus, Licht 15, ein Komparator liest 15, solange sie an ist. Drei Blöcke, eine Lohenrute und Redstone ergeben 4. Steinspitzhacke.",
+          "Laterne: wie die Vanilla-Laterne (steht oder hängt, Licht 15); acht Klumpen um eine Fackel. Kette: wie die Eisenkette; Klumpen, Barren, Klumpen senkrecht. Jede Spitzhacke.",
+          "Stange: gesetzt wie der Blitzableiter, nur Dekoration (der Blitz bleibt beim Kupfer). Drei Barren senkrecht. Steinspitzhacke.",
+          "Jedes Metall hat sein eigenes Muster: der Lampenkäfig ist sein Rostmuster, Laternenscheiben, Kettenglieder und Stangenköpfe unterscheiden sich von Metall zu Metall. Nichts altert (nur Kupfer oxidiert)."
+        ]
+      }
+    },
+    {
+      "id": "metal_pressure_plates",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/MetalPressurePlateBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pressure_plate.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/lead_pressure_plate.json"
+      ],
+      "en": {
+        "title": "Metal pressure plates",
+        "summary": "Every Simple Ores metal has a weighted pressure plate: silver, lead, zinc, nickel, tin, brass, bronze, stainless steel, rose gold, rose copper, Enderite, Terranite, Infernite and Zenithite.",
+        "details": [
+          "Precious metals (silver, rose gold, rose copper) count like the gold plate: one signal level per entity, up to 15.",
+          "All others count like the iron plate: one signal level per 10 entities, up to 150.",
+          "Two ingots side by side make 1; the plate shows the metal's block. Any pickaxe."
+        ]
+      },
+      "de": {
+        "title": "Metall-Druckplatten",
+        "summary": "Jedes Simple-Ores-Metall hat eine Wägeplatte: Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze, Edelstahl, Roségold, Rosenkupfer, Enderit, Terranit, Infernit und Zenithit.",
+        "details": [
+          "Edelmetalle (Silber, Roségold, Rosenkupfer) zählen wie die Goldplatte: eine Signalstufe je Objekt, bis 15.",
+          "Alle anderen zählen wie die Eisenplatte: eine Signalstufe je 10 Objekte, bis 150.",
+          "Zwei Barren nebeneinander ergeben 1; die Platte zeigt den Block des Metalls. Jede Spitzhacke."
+        ]
+      }
+    },
+    {
       "id": "metal_sounds",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresSounds.java",
@@ -526,10 +584,10 @@
         "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 21 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 21 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleores:silver_ore": {
@@ -1905,6 +1963,534 @@
       },
       "de": {
         "summary": "Neun Zenithitbarren, in beide Richtungen herstellbar. Ein Prachtblock wie der Enderitblock: Leuchtfeuer-Sockel, braucht eine Diamantspitzhacke, feuerfest."
+      }
+    },
+    "simpleores:silver_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lamp with the logic of the copper bulb in silver: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the silver grate pattern; it does not age. Three blocks of silver, a blaze rod and redstone make 4. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Silber: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Silberrostmuster; sie altert nicht. Drei Silberblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:silver_lantern": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lantern like the Vanilla one with a silver housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight silver nuggets round a torch make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Laterne wie die aus Vanilla mit Silbergehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Silberklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:silver_chain": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A chain like the iron chain with silver links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A silver nugget, an ingot and a nugget upright make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Kette wie die Eisenkette mit Silbergliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Silberklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:lead_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lamp with the logic of the copper bulb in lead: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the lead grate pattern; it does not age. Three blocks of lead, a blaze rod and redstone make 4. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Blei: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Bleirostmuster; sie altert nicht. Drei Bleiblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:lead_lantern": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lantern like the Vanilla one with a lead housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight lead nuggets round a torch make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Laterne wie die aus Vanilla mit Bleigehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Bleiklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:lead_chain": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A chain like the iron chain with lead links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A lead nugget, an ingot and a nugget upright make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Kette wie die Eisenkette mit Bleigliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Bleiklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:zinc_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lamp with the logic of the copper bulb in zinc: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the zinc grate pattern; it does not age. Three blocks of zinc, a blaze rod and redstone make 4. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Zink: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Zinkrostmuster; sie altert nicht. Drei Zinkblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:zinc_lantern": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lantern like the Vanilla one with a zinc housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight zinc nuggets round a torch make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Laterne wie die aus Vanilla mit Zinkgehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Zinkklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:zinc_chain": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A chain like the iron chain with zinc links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A zinc nugget, an ingot and a nugget upright make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Kette wie die Eisenkette mit Zinkgliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Zinkklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:nickel_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lamp with the logic of the copper bulb in nickel: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the nickel grate pattern; it does not age. Three blocks of nickel, a blaze rod and redstone make 4. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Nickel: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Nickelrostmuster; sie altert nicht. Drei Nickelblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:nickel_lantern": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lantern like the Vanilla one with a nickel housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight nickel nuggets round a torch make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Laterne wie die aus Vanilla mit Nickelgehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Nickelklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:nickel_chain": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A chain like the iron chain with nickel links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A nickel nugget, an ingot and a nugget upright make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Kette wie die Eisenkette mit Nickelgliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Nickelklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:tin_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lamp with the logic of the copper bulb in tin: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the tin grate pattern; it does not age. Three blocks of tin, a blaze rod and redstone make 4. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Zinn: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Zinnrostmuster; sie altert nicht. Drei Zinnblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:tin_lantern": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lantern like the Vanilla one with a tin housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight tin nuggets round a torch make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Laterne wie die aus Vanilla mit Zinngehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Zinnklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:tin_chain": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A chain like the iron chain with tin links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A tin nugget, an ingot and a nugget upright make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Kette wie die Eisenkette mit Zinngliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Zinnklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:brass_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lamp with the logic of the copper bulb in brass: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the brass grate pattern; it does not age. Three blocks of brass, a blaze rod and redstone make 4. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Messing: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Messingrostmuster; sie altert nicht. Drei Messingblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:brass_lantern": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lantern like the Vanilla one with a brass housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight brass nuggets round a torch make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Laterne wie die aus Vanilla mit Messinggehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Messingklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:brass_chain": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A chain like the iron chain with brass links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A brass nugget, an ingot and a nugget upright make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Kette wie die Eisenkette mit Messinggliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Messingklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:bronze_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lamp with the logic of the copper bulb in bronze: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the bronze grate pattern; it does not age. Three blocks of bronze, a blaze rod and redstone make 4. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Bronze: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Bronzerostmuster; sie altert nicht. Drei Bronzeblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:bronze_lantern": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lantern like the Vanilla one with a bronze housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight bronze nuggets round a torch make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Laterne wie die aus Vanilla mit Bronzegehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Bronzeklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:bronze_chain": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A chain like the iron chain with bronze links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A bronze nugget, an ingot and a nugget upright make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Kette wie die Eisenkette mit Bronzegliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Bronzeklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lamp with the logic of the copper bulb in stainless steel: each redstone pulse switches it on or off (it stays as it is without power), light 15, a comparator reads 15 while it is on. The cage shows the stainless steel grate pattern; it does not age. Three blocks of stainless steel, a blaze rod and redstone make 4. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Lampe mit der Logik der Kupferleuchte aus Edelstahl: jeder Redstone-Impuls schaltet sie an oder aus (ohne Strom bleibt sie, wie sie ist), Licht 15, ein Komparator liest 15, solange sie an ist. Der Käfig zeigt das Edelstahlrostmuster; sie altert nicht. Drei Edelstahlblöcke, eine Lohenrute und Redstone ergeben 4. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_lantern": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lantern like the Vanilla one with a stainless steel housing and its own panes: stands on a block or hangs below one or from a chain, light 15, can be waterlogged. Eight stainless steel nuggets round a torch make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Laterne wie die aus Vanilla mit Edelstahlgehäuse und eigenen Scheiben: steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, kann Wasser halten. Acht Edelstahlklumpen um eine Fackel ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_chain": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A chain like the iron chain with stainless steel links of their own shape: placed along any axis, holds lanterns, can be waterlogged. A stainless steel nugget, an ingot and a nugget upright make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Kette wie die Eisenkette mit Edelstahlgliedern in eigener Form: in jeder Achse setzbar, hält Laternen, kann Wasser halten. Ein Edelstahlklumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:silver_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A silver pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three silver ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Silberstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Silberbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:lead_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lead pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three lead ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Bleistange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Bleibarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:zinc_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A zinc pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three zinc ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Zinkstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Zinkbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:nickel_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A nickel pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three nickel ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Nickelstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Nickelbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:tin_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A tin pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three tin ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Zinnstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Zinnbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:brass_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A brass pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three brass ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Messingstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Messingbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:bronze_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A bronze pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three bronze ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Bronzestange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Bronzebarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A stainless steel pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three stainless steel ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Edelstahlstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Edelstahlbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:rose_gold_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A rose gold pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three rose gold ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Roségoldstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Roségoldbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:rose_bronze_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A rose copper pole placed like the lightning rod (on the clicked side, can be waterlogged). Decoration only: lightning still seeks the copper lightning rod. Three rose copper ingots upright make 1. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Eine Rosenkupferstange, gesetzt wie der Blitzableiter (an die angeklickte Seite, kann Wasser halten). Nur Dekoration: der Blitz sucht weiter den Kupfer-Blitzableiter. Drei Rosenkupferbarren senkrecht ergeben 1. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:silver_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of silver: light like the gold plate (one signal level per entity, up to 15). Two silver ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Silber: leicht wie die Goldplatte (eine Signalstufe je Objekt, bis 15). Zwei Silberbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:lead_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of lead: heavy like the iron plate (one signal level per 10 entities, up to 150). Two lead ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Blei: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Bleibarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:zinc_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of zinc: heavy like the iron plate (one signal level per 10 entities, up to 150). Two zinc ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Zink: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Zinkbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:nickel_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of nickel: heavy like the iron plate (one signal level per 10 entities, up to 150). Two nickel ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Nickel: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Nickelbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:tin_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of tin: heavy like the iron plate (one signal level per 10 entities, up to 150). Two tin ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Zinn: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Zinnbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:brass_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of brass: heavy like the iron plate (one signal level per 10 entities, up to 150). Two brass ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Messing: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Messingbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:bronze_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of bronze: heavy like the iron plate (one signal level per 10 entities, up to 150). Two bronze ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Bronze: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Bronzebarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:stainless_steel_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of stainless steel: heavy like the iron plate (one signal level per 10 entities, up to 150). Two stainless steel ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Edelstahl: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Edelstahlbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:rose_gold_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of rose gold: light like the gold plate (one signal level per entity, up to 15). Two rose gold ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Roségold: leicht wie die Goldplatte (eine Signalstufe je Objekt, bis 15). Zwei Roségoldbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:rose_bronze_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of rose copper: light like the gold plate (one signal level per entity, up to 15). Two rose copper ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Rosenkupfer: leicht wie die Goldplatte (eine Signalstufe je Objekt, bis 15). Zwei Rosenkupferbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:enderite_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of enderite: heavy like the iron plate (one signal level per 10 entities, up to 150). Two enderite ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Enderit: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Enderitbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:terranite_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of terranite: heavy like the iron plate (one signal level per 10 entities, up to 150). Two terranite ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Terranit: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Terranitbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:infernite_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of infernite: heavy like the iron plate (one signal level per 10 entities, up to 150). Two infernite ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Infernit: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Infernitbarren nebeneinander ergeben 1. Jede Spitzhacke."
+      }
+    },
+    "simpleores:zenithite_pressure_plate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A weighted pressure plate of zenithite: heavy like the iron plate (one signal level per 10 entities, up to 150). Two zenithite ingots side by side make 1. Any pickaxe."
+      },
+      "de": {
+        "summary": "Eine Wägeplatte aus Zenithit: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Zenithitbarren nebeneinander ergeben 1. Jede Spitzhacke."
       }
     },
     "simpleores:enderite_block": {

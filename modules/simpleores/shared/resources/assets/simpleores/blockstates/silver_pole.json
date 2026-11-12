@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "simpleores:block/silver_pole",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "simpleores:block/silver_pole",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "simpleores:block/silver_pole",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "simpleores:block/silver_pole",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "simpleores:block/silver_pole"
+    },
+    "facing=west": {
+      "model": "simpleores:block/silver_pole",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

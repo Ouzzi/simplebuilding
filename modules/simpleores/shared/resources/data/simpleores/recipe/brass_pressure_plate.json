@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "simpleores:brass_ingot"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "simpleores:brass_pressure_plate"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "simpleores:terranite_ingot"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "simpleores:terranite_pressure_plate"
+  }
+}

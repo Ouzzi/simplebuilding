@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,powered=false": {
+      "model": "simpleores:block/silver_lamp"
+    },
+    "lit=false,powered=true": {
+      "model": "simpleores:block/silver_lamp_powered"
+    },
+    "lit=true,powered=false": {
+      "model": "simpleores:block/silver_lamp_lit"
+    },
+    "lit=true,powered=true": {
+      "model": "simpleores:block/silver_lamp_lit_powered"
+    }
+  }
+}
