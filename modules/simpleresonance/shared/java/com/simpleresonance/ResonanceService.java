@@ -40,7 +40,7 @@ public final class ResonanceService implements ResonanceContracts.Service {
 
     /** Per player, not saved: movement for the active time and the AFK rule, and the value of the last second. */
     private static final class Live {
-        int lastDistance = -1;
+        long lastDistance = -1;
         long lastMoved;
         double w;
         long wAt = Long.MIN_VALUE / 2;
@@ -94,6 +94,23 @@ public final class ResonanceService implements ResonanceContracts.Service {
                 + stats.getValue(Stats.CUSTOM.get(Stats.CROUCH_ONE_CM)) / 100 + stats.getValue(Stats.CUSTOM.get(Stats.FLY_ONE_CM)) / 100
                 + stats.getValue(Stats.CUSTOM.get(Stats.CLIMB_ONE_CM)) / 100;
     }
+
+    /**
+     * Owner AUDSB31B F9 = B: what counts as "moved" for the active time and the AFK rule - the distance of {@link #totalDistance} plus
+     * riding (horse, pig, strider, happy ghast, nautilus), boat, minecart, the water (on, under, swimming) and elytra flight. The
+     * distance formula of the survival factor stays {@link #totalDistance}.
+     */
+    public static long movedDistance(ServerPlayer p) {
+        var stats = p.getStats();
+        long moved = totalDistance(p);
+        for (var stat : MOVED_ONLY) moved += stats.getValue(Stats.CUSTOM.get(stat)) / 100;
+        return moved;
+    }
+
+    /** The movement statistics that only count for "moved" (not for the distance formula). */
+    private static final List<net.minecraft.resources.Identifier> MOVED_ONLY = List.of(Stats.WALK_ON_WATER_ONE_CM, Stats.WALK_UNDER_WATER_ONE_CM,
+            Stats.SWIM_ONE_CM, Stats.AVIATE_ONE_CM, Stats.BOAT_ONE_CM, Stats.MINECART_ONE_CM, Stats.HORSE_ONE_CM, Stats.PIG_ONE_CM,
+            Stats.STRIDER_ONE_CM, Stats.HAPPY_GHAST_ONE_CM, Stats.NAUTILUS_ONE_CM);
 
     public static int damageTaken(ServerPlayer p) {
         return p.getStats().getValue(Stats.CUSTOM.get(Stats.DAMAGE_TAKEN));
@@ -323,7 +340,7 @@ public final class ResonanceService implements ResonanceContracts.Service {
             changed = true;
         }
         Live l = live(p.getUUID(), now);
-        int distance = totalDistance(p);
+        long distance = movedDistance(p);
         if (l.lastDistance >= 0 && distance != l.lastDistance) l.lastMoved = now;
         l.lastDistance = distance;
         if (now - l.lastMoved <= ResonanceMath.ACTIVE_GRACE_TICKS) {

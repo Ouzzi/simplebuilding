@@ -84,15 +84,21 @@ public class ChiselItem extends Item {
     public Map<Block, Block> getTouchForwardMap() { return ChiselTables.tier(tier.table).touchForward(); }
     public Map<Block, Block> getTouchBackwardMap() { return ChiselTables.tier(tier.table).touchBackward(); }
 
-    // Mines pickaxe, axe and shovel blocks with drops, at half the material speed (plus Fast Chiseling).
+    /** Pickaxe, axe and shovel blocks: the chisel mines them at half the material speed (plus Fast Chiseling). */
+    public static boolean mineable(BlockState state) {
+        return state.is(BlockTags.MINEABLE_WITH_PICKAXE) || state.is(BlockTags.MINEABLE_WITH_AXE) || state.is(BlockTags.MINEABLE_WITH_SHOVEL);
+    }
+
+    // Drops like a pickaxe of the same material (owner AUDSB31B F1 = A): blocks of the tier's incorrect tag (a stone chisel on
+    // diamond ore or obsidian) break slowly and drop nothing, as Vanilla's tool rules (denies drops, then mines and drops).
     @Override
     public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
-        return state.is(BlockTags.MINEABLE_WITH_PICKAXE) || state.is(BlockTags.MINEABLE_WITH_AXE) || state.is(BlockTags.MINEABLE_WITH_SHOVEL);
+        return mineable(state) && !state.is(tier.material.incorrectBlocksForDrops());
     }
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        if (!isCorrectToolForDrops(stack, state)) return 1.0f;
+        if (!mineable(state)) return 1.0f;
         int fastChiseling = level(stack, null, FAST_CHISELING);
         float bonus = fastChiseling == 1 ? 5.0f : fastChiseling >= 2 ? 17.0f : 0.0f; // Efficiency II / IV equivalent
         return (tier.material.speed() + bonus) * 0.5f;

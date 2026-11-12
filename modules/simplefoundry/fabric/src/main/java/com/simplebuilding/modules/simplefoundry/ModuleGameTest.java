@@ -55,4 +55,7 @@ public final class ModuleGameTest {
 
     @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
     public void removalWithoutPlayerDropsSlotsAndIngots(GameTestHelper h) { FoundryTests.ALL.get("removal_without_player_drops_slots_and_ingots").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void deskTierStaysOnTheItem(GameTestHelper h) { FoundryTests.ALL.get("desk_tier_stays_on_the_item").accept(h); }
 }

@@ -122,6 +122,7 @@ public final class MobHeadTests {
         put("giant_zombie_lightning", MobHeadTests::giantZombieLightning);
         put("giant_head_drop", MobHeadTests::giantHeadDrop);
         put("giant_head_wearing", MobHeadTests::giantHeadWearing);
+        put("giant_head_needs_room", MobHeadTests::giantHeadNeedsRoom);
         put("giant_cow_hay", MobHeadTests::giantCowHay);
         put("giant_cow_head", MobHeadTests::giantCowHead);
         put("worn_head_death", MobHeadTests::wornHeadDeath);
@@ -1334,6 +1335,43 @@ public final class MobHeadTests {
                 && Math.abs(player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT) - step) < 1.0E-6, "taken off, still big");
         milker.discard();
         helper.succeed();
+    }
+
+    /**
+     * Owner AUDSB31B F8 = A: the giant head makes its wearer big only where the 1.5x standing box is free. Under a ceiling two
+     * blocks up he stays normal (no suffocating), in the open he grows, and a ceiling over a grown wearer takes the size away
+     * again; the giant head's speed needs no room.
+     */
+    public static void giantHeadNeedsRoom(GameTestHelper helper) {
+        ServerPlayer player = player(helper);
+        var speed = player.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED);
+        player.setItemSlot(EquipmentSlot.HEAD, MobHeads.stack(MobHeads.head("giant"), "husk"));
+        try {
+            ceiling(helper, Blocks.STONE);
+            Giants.wearerTick(player);
+            helper.assertTrue(Math.abs(player.getScale() - 1.0F) < 1.0E-4, "the wearer grew under a two-high ceiling: " + player.getScale());
+            helper.assertTrue(speed.hasModifier(Giants.WEAR_SPEED_ID), "the giant head's speed needs room");
+            ceiling(helper, Blocks.AIR);
+            Giants.wearerTick(player);
+            helper.assertTrue(Math.abs(player.getScale() - 1.5F) < 1.0E-4, "the wearer did not grow in the open: " + player.getScale());
+            ceiling(helper, Blocks.STONE);
+            Giants.wearerTick(player);
+            helper.assertTrue(Math.abs(player.getScale() - 1.0F) < 1.0E-4, "a ceiling over the grown wearer left him big: " + player.getScale());
+        } finally {
+            ceiling(helper, Blocks.AIR);
+            wear(player, null);
+            Giants.wearerTick(player);
+        }
+        helper.succeed();
+    }
+
+    /** A 3 x 3 roof two blocks above the feet of {@link #player} (feet at y 2, roof at y 4). */
+    private static void ceiling(GameTestHelper helper, net.minecraft.world.level.block.Block block) {
+        for (int x = 1; x <= 3; x++) {
+            for (int z = 1; z <= 3; z++) {
+                helper.setBlock(new BlockPos(x, 4, z), block);
+            }
+        }
     }
 
     /** CO-2 + owner: each hay bale is one try at 1:5000, at most 64 per cow; calves, mooshrooms and other food never. */

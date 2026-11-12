@@ -22,7 +22,7 @@ common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxB
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlockEntity.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintBlockSearch.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBlockSearch.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintBuilder.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBuilder.java
-common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCartography.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCartography.java allow: copyResult/2 copyResult/3
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintCode.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCode.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintCommandText.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCommandText.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintContent.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintContent.java
@@ -89,7 +89,7 @@ common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java modules
 common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java
 common/src/shared/java/com/simplebuilding/items/custom/BlueprintItem.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/BlueprintItem.java
 common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/BuildingWandItem.java
-common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java modules/simplechisels/shared/java/com/simplechisels/item/ChiselItem.java allow: ensureTablesLoaded/0 getCooldownTicks/0 getMaterial/0 isDedicatedSpatula/0 level/3 setAsDedicatedSpatula/1 setChiselDirectionCycle/1 setChiselSound/1 setCooldownTicks/1 tier/0
+common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java modules/simplechisels/shared/java/com/simplechisels/item/ChiselItem.java allow: ensureTablesLoaded/0 getCooldownTicks/0 getMaterial/0 isDedicatedSpatula/0 level/3 mineable/1 setAsDedicatedSpatula/1 setChiselDirectionCycle/1 setChiselSound/1 setCooldownTicks/1 tier/0
 common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/CreativeReach.java
 common/src/shared/java/com/simplebuilding/items/custom/NetheritePistonItem.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheritePistonItem.java
 common/src/shared/java/com/simplebuilding/items/custom/OctantItem.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/items/custom/OctantItem.java

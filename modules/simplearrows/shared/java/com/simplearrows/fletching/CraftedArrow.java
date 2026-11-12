@@ -157,7 +157,9 @@ public class CraftedArrow extends AbstractArrow {
         net.minecraft.world.entity.Entity source = this.getEffectSource();
         potion().forEachEffect(effect -> target.addEffect(effect, source), scale);
         if (parts().shaft() == ArrowParts.Shaft.BLAZE_ROD) {
-            target.setRemainingFireTicks(target.getRemainingFireTicks() + ArrowParts.BLAZE_EXTRA_FIRE_TICKS);
+            // AUDSB31B F4 = A: many hits no longer keep a target burning for ever (at most 10 s in all, longer fire stays).
+            int fire = target.getRemainingFireTicks();
+            target.setRemainingFireTicks(Math.max(fire, Math.min(ArrowParts.BLAZE_MAX_FIRE_TICKS, fire + ArrowParts.BLAZE_EXTRA_FIRE_TICKS)));
         }
     }
 

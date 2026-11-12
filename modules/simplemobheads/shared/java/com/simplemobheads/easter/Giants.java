@@ -248,9 +248,21 @@ public final class Giants {
     public static void wearerTick(ServerPlayer player) {
         boolean giant = HeadAbilities.active(player, ZOMBIE_HEAD);
         boolean big = giant || HeadAbilities.active(player, COW_HEAD);
-        wear(player, Attributes.SCALE, WEAR_SCALE_ID, WEAR_SCALE, AttributeModifier.Operation.ADD_MULTIPLIED_BASE, big);
-        wear(player, Attributes.STEP_HEIGHT, WEAR_STEP_ID, WEAR_STEP, AttributeModifier.Operation.ADD_VALUE, big);
+        // Owner AUDSB31B F8 = A: grow only where the 1.5x standing box is free, like the giant mobs (hasRoom) - no suffocating in a
+        // two-high tunnel. In a narrow place the size (and the step height) falls away, in the open it comes back; the speed stays.
+        boolean grow = big && roomToGrow(player);
+        wear(player, Attributes.SCALE, WEAR_SCALE_ID, WEAR_SCALE, AttributeModifier.Operation.ADD_MULTIPLIED_BASE, grow);
+        wear(player, Attributes.STEP_HEIGHT, WEAR_STEP_ID, WEAR_STEP, AttributeModifier.Operation.ADD_VALUE, grow);
         wear(player, Attributes.MOVEMENT_SPEED, WEAR_SPEED_ID, WEAR_SPEED, AttributeModifier.Operation.ADD_MULTIPLIED_BASE, giant);
+    }
+
+    /** Whether the wearer, standing at the worn size (1.5x), is free of blocks where he is now (already grown: his own standing box). */
+    public static boolean roomToGrow(LivingEntity wearer) {
+        AttributeInstance scale = wearer.getAttribute(Attributes.SCALE);
+        boolean grown = scale != null && scale.hasModifier(WEAR_SCALE_ID);
+        net.minecraft.world.entity.EntityDimensions standing = wearer.getDimensions(net.minecraft.world.entity.Pose.STANDING);
+        AABB box = (grown ? standing : standing.scale((float) (1.0 + WEAR_SCALE))).makeBoundingBox(wearer.position());
+        return wearer.level().noCollision(wearer, box);
     }
 
     private static void wear(LivingEntity entity, Holder<Attribute> attribute, Identifier id, double amount, AttributeModifier.Operation operation, boolean on) {

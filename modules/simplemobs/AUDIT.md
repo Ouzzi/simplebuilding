@@ -69,3 +69,10 @@ Neue Gametests: `spawner_makeshift_no_xp_loop`, `natural_spawn_rules`, `trials_f
 sbt: siehe docs/ai/PLAN-A-AUDSB31-2026-11-12.md.
 Nicht getestet: der echte Server-Stopp-Aufruf (P2-2), Naturspawns im laufenden Tick (nur die Regel), Client, Forge/NeoForge
 (deren Einstiege registrieren `forgetAll` nicht - nicht Teil des Releases), Mehrspieler.
+
+## Nachtrag a-audsb31b (12.11.2026, Besitzer AUDSB31B F7 = A)
+- **simplemobs-P2-4 umgesetzt**: Mixin `DeceiverFakeXpMixin` (`LivingEntity#getExperienceReward`, final, HEAD): Tag `simplemobs_fake`
+  -> 0 EP, echte Beschworene wie Vanilla; der Tag wird gespeichert, gilt also auch fuer Fakes aus einem alten Spielstand.
+  Gametest `deceiver_fakes_give_no_xp` und Pruefung im Test `fight`; Wiki EN/DE. Rueckfrage AUDSB31-M1 damit beantwortet.
+- Test: javac von `DeceiverFakeXpMixin`, `MobsTests`, Adapter lokal sauber (nur bekannte Access-Widener-Meldungen); sbt siehe
+  `docs/ai/PLAN-A-AUDSB31B-2026-11-12.md`. (Eigener Abschnitt statt Tabellen-Edit: a-w1b aendert dieselben Zeilen.)

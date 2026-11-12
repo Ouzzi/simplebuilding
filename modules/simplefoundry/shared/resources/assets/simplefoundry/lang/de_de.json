@@ -23,6 +23,7 @@
   "simplefoundry.desk.capacity": "Gefüllt %s von %s Einheiten, Feuer %s s, Brennstoff: %s",
   "simplefoundry.desk.no_fuel": "keiner",
   "simplefoundry.desk.tier": "Pult mit %s Eingabeplätzen",
+  "simplefoundry.desk.tooltip.tier": "Stufe %s von 4 (%s Plätze)",
   "simplefoundry.desk.layer": "Schicht %s: %s",
   "simplefoundry.desk.layer_empty": "leer",
   "simplefoundry.desk.refused": "Nichts genommen (%s, oder der Tank ist voll)",
@@ -41,7 +42,9 @@
   "simplefoundry.guide.page.1.title": "Simple Foundry",
   "simplefoundry.guide.page.1": "Eine Gießerei aus mehreren Blöcken: Schmelzkammern in einer Ziegelhülle, Erz hineinwerfen, die Schmelze schichtweise in Gussformen gießen.",
   "simplefoundry.guide.page.2.title": "Gießerei (Mehrblock)",
-  "simplefoundry.guide.page.2": "Baue einen Tank aus Schmelzkammern in einer geschlossenen Hülle, feuere am Pult an, wirf Erz ein und gieße die Schmelze nach Schicht.",
-  "simplefoundry.guide.page.3.title": "Einstellungen",
-  "simplefoundry.guide.page.3": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simplefoundry.guide.page.2": "Baue einen Tank aus Schmelzkammern in einer geschlossenen Hülle, feuere am Pult an, wirf Erz ein und gieße die Schmelze nach Schicht. Ein abgebautes Pult behält seine Stufe am Item;",
+  "simplefoundry.guide.page.3.title": "Gießerei (Mehrblock)",
+  "simplefoundry.guide.page.3": "Schmelze und Brennstofftank gehen verloren.",
+  "simplefoundry.guide.page.4.title": "Einstellungen",
+  "simplefoundry.guide.page.4": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

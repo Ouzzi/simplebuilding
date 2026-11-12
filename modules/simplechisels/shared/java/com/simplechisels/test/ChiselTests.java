@@ -317,6 +317,44 @@ public final class ChiselTests {
             h.assertTrue(problems.isEmpty(), "with SimpleBuilding: " + problems);
             h.succeed();
         });
+        // Owner AUDSB31B F1 = A: a chisel drops a block only where the pickaxe of its material would (stone: no diamond ore,
+        // no obsidian); it still mines such a block at its material speed, like a stone pickaxe on diamond ore (slow, no drop).
+        ALL.put("chisel_tier_decides_drops", h -> {
+            List<String> problems = new ArrayList<>();
+            Map<ChiselTier, net.minecraft.world.item.Item> pickaxes = new LinkedHashMap<>();
+            pickaxes.put(ChiselTier.STONE, net.minecraft.world.item.Items.STONE_PICKAXE);
+            pickaxes.put(ChiselTier.COPPER, net.minecraft.world.item.Items.COPPER_PICKAXE);
+            pickaxes.put(ChiselTier.IRON, net.minecraft.world.item.Items.IRON_PICKAXE);
+            pickaxes.put(ChiselTier.GOLD, net.minecraft.world.item.Items.GOLDEN_PICKAXE);
+            pickaxes.put(ChiselTier.DIAMOND, net.minecraft.world.item.Items.DIAMOND_PICKAXE);
+            pickaxes.put(ChiselTier.NETHERITE, net.minecraft.world.item.Items.NETHERITE_PICKAXE);
+            List<Block> blocks = List.of(Blocks.STONE, Blocks.IRON_ORE, Blocks.DIAMOND_ORE, Blocks.OBSIDIAN, Blocks.ANCIENT_DEBRIS, Blocks.OAK_LOG, Blocks.DIRT);
+            pickaxes.forEach((tier, pickaxe) -> {
+                ItemStack chisel = new ItemStack(ChiselRegistry.chisel(tier));
+                for (Block block : blocks) {
+                    var state = block.defaultBlockState();
+                    // the pickaxe of the material, and the axe/shovel blocks a pickaxe does not take
+                    boolean expected = new ItemStack(pickaxe).isCorrectToolForDrops(state)
+                            || (ChiselItem.mineable(state) && !state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE));
+                    if (chisel.isCorrectToolForDrops(state) != expected) problems.add(tier.name + " on " + BuiltInRegistries.BLOCK.getKey(block) + " should be " + expected);
+                }
+            });
+            var diamondOre = Blocks.DIAMOND_ORE.defaultBlockState();
+            ItemStack stone = new ItemStack(ChiselRegistry.chisel(ChiselTier.STONE));
+            if (stone.isCorrectToolForDrops(diamondOre) || stone.isCorrectToolForDrops(Blocks.OBSIDIAN.defaultBlockState())) problems.add("the stone chisel drops diamond ore or obsidian");
+            if (!new ItemStack(ChiselRegistry.chisel(ChiselTier.IRON)).isCorrectToolForDrops(diamondOre)) problems.add("the iron chisel does not drop diamond ore");
+            if (!new ItemStack(ChiselRegistry.chisel(ChiselTier.DIAMOND)).isCorrectToolForDrops(Blocks.OBSIDIAN.defaultBlockState())) problems.add("the diamond chisel does not drop obsidian");
+            if (stone.getDestroySpeed(diamondOre) != ChiselTier.STONE.material.speed() * 0.5f) problems.add("the stone chisel lost its speed on diamond ore: " + stone.getDestroySpeed(diamondOre));
+            if (stone.getDestroySpeed(Blocks.GLASS.defaultBlockState()) != 1.0f) problems.add("glass became a chisel block");
+            // Vanilla asks the player (ServerPlayerGameMode#destroyBlock): no drop with the stone chisel, a drop with the iron one.
+            h.setBlock(SPOT, Blocks.DIAMOND_ORE);
+            ServerPlayer player = player(h, stone);
+            if (player.hasCorrectToolForDrops(diamondOre)) problems.add("a player with a stone chisel gets diamond ore drops");
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ChiselRegistry.chisel(ChiselTier.IRON)));
+            if (!player.hasCorrectToolForDrops(diamondOre)) problems.add("a player with an iron chisel gets no diamond ore drops");
+            h.assertTrue(problems.isEmpty(), "chisel tiers: " + problems);
+            h.succeed();
+        });
     }
 
     private static net.minecraft.nbt.CompoundTag oldStack(String id, int damage, int fastChiseling) {

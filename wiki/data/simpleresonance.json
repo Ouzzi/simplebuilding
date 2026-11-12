@@ -29,7 +29,7 @@
         "title": "Player value",
         "summary": "A number from 0 to 1 for how experienced a player is: W = 0.7 x long-term value + 0.3 x the share since the last death. Level P = 5 x W. It rises with active playing time and bosses and falls only by a part when you die.",
         "details": [
-          "Long-term value: points V give W_long = 1 - e^(-V/30). One point per 30 active minutes (moved within the last minute), 0.1 per hostile kill (at most 2 points per played hour, against farms), bosses once per 24 played hours each: Wither 5, Ender Dragon 10, Warden 8, Simple Mobs bosses 5. 5 active hours are worth 0.28, 15 hours 0.63, 30 hours 0.86.",
+          "Long-term value: points V give W_long = 1 - e^(-V/30). One point per 30 active minutes (moved within the last minute - walking, sprinting, crouching, climbing, flying, swimming, riding, boat, minecart and elytra all count), 0.1 per hostile kill (at most 2 points per played hour, against farms), bosses once per 24 played hours each: Wither 5, Ender Dragon 10, Warden 8, Simple Mobs bosses 5. 5 active hours are worth 0.28, 15 hours 0.63, 30 hours 0.86.",
           "Share since the last death (F): the old trim resonance of SimpleBuilding (experience, survival, combat since the last death, 0 to 1). A death resets it to 0 and keeps 75 % of the points V.",
           "The value is cached per player and recomputed once a second. It only decides chances, never health or damage."
         ]
@@ -38,7 +38,7 @@
         "title": "Spielerwert",
         "summary": "Eine Zahl von 0 bis 1 dafür, wie erfahren ein Spieler ist: W = 0,7 x Langzeitwert + 0,3 x Anteil seit dem letzten Tod. Stufe P = 5 x W. Er steigt mit aktiver Spielzeit und Bossen und sinkt beim Tod nur um einen Teil.",
         "details": [
-          "Langzeitwert: Punkte V ergeben W_lang = 1 - e^(-V/30). Ein Punkt je 30 aktive Minuten (in der letzten Minute bewegt), 0,1 je feindlichem Kill (höchstens 2 Punkte je gespielter Stunde, gegen Farmen), Bosse einmal je 24 gespielte Stunden: Wither 5, Enderdrache 10, Warden 8, Bosse aus Simple Mobs 5. 5 aktive Stunden sind 0,28 wert, 15 Stunden 0,63, 30 Stunden 0,86.",
+          "Langzeitwert: Punkte V ergeben W_lang = 1 - e^(-V/30). Ein Punkt je 30 aktive Minuten (in der letzten Minute bewegt - Gehen, Sprinten, Schleichen, Klettern, Fliegen, Schwimmen, Reiten, Boot, Lore und Elytra zählen alle), 0,1 je feindlichem Kill (höchstens 2 Punkte je gespielter Stunde, gegen Farmen), Bosse einmal je 24 gespielte Stunden: Wither 5, Enderdrache 10, Warden 8, Bosse aus Simple Mobs 5. 5 aktive Stunden sind 0,28 wert, 15 Stunden 0,63, 30 Stunden 0,86.",
           "Anteil seit dem letzten Tod (F): die alte Besatz-Resonanz von SimpleBuilding (Erfahrung, Überleben, Kampf seit dem letzten Tod, 0 bis 1). Ein Tod setzt ihn auf 0 und behält 75 % der Punkte V.",
           "Der Wert wird je Spieler zwischengespeichert und einmal pro Sekunde neu berechnet. Er entscheidet nur über Chancen, nie über Leben oder Schaden."
         ]

@@ -65,4 +65,9 @@ public final class ModuleGameTest {
     public void withSimplebuilding(GameTestHelper h) {
         ChiselTests.ALL.get("with_simplebuilding").accept(h);
     }
+
+    @GameTest(structure = "simplechisels:empty")
+    public void chiselTierDecidesDrops(GameTestHelper h) {
+        ChiselTests.ALL.get("chisel_tier_decides_drops").accept(h);
+    }
 }

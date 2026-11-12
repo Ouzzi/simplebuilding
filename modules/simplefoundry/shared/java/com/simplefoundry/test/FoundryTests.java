@@ -477,6 +477,44 @@ public final class FoundryTests {
             }
             h.succeed();
         });
+        // Owner AUDSB31B F3 = A: an upgraded desk drops as an item that keeps its tier (loot table copy_components); placing that item
+        // gives the new desk the tier back. A stone desk drops a plain desk that stacks with crafted ones.
+        ALL.put("desk_tier_stays_on_the_item", h -> {
+            ServerLevel level = h.getLevel();
+            try {
+                BlockPos desk = build(h, 1);
+                DeskBlockEntity be = (DeskBlockEntity) level.getBlockEntity(desk);
+                check(h, be.upgrade(new ItemStack(Items.IRON_BLOCK)) && be.upgrade(new ItemStack(Items.DIAMOND_BLOCK)) && be.tier() == Tier.DIAMOND, "lifted to tier 3");
+                ItemStack item = deskDrop(level, desk, be);
+                check(h, Integer.valueOf(Tier.DIAMOND.ordinal()).equals(item.get(FoundryRegistry.DESK_TIER)), "the dropped desk keeps tier 3: " + item.getComponentsPatch());
+                clear(h);
+                ServerPlayer player = h.makeMockServerPlayerInLevel();
+                h.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
+                player.setGameMode(GameType.SURVIVAL);
+                player.snapTo(h.absoluteVec(new Vec3(8.5, 1.0, 8.5)));
+                player.setItemInHand(InteractionHand.MAIN_HAND, item);
+                BlockPos floor = h.absolutePos(new BlockPos(3, 0, 3));
+                player.gameMode.useItemOn(player, level, item, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(floor).add(0, 0.5, 0), Direction.UP, floor, false));
+                check(h, level.getBlockEntity(floor.above()) instanceof DeskBlockEntity placed && placed.tier() == Tier.DIAMOND,
+                        "the placed desk did not take tier 3 from the item: " + level.getBlockEntity(floor.above()));
+                BlockPos fresh = h.absolutePos(new BlockPos(1, 1, 1));
+                level.setBlock(fresh, FoundryRegistry.DESK.defaultBlockState(), Block.UPDATE_ALL);
+                ItemStack plain = deskDrop(level, fresh, level.getBlockEntity(fresh));
+                check(h, !plain.has(FoundryRegistry.DESK_TIER) && ItemStack.isSameItemSameComponents(plain, new ItemStack(FoundryRegistry.item("foundry_desk"))),
+                        "a stone desk drops a plain desk: " + plain.getComponentsPatch());
+            } finally {
+                clear(h);
+            }
+            h.succeed();
+        });
+    }
+
+    /** The desk item the loot table gives for the desk at {@code pos} (empty when none). */
+    private static ItemStack deskDrop(ServerLevel level, BlockPos pos, net.minecraft.world.level.block.entity.BlockEntity be) {
+        for (ItemStack drop : Block.getDrops(level.getBlockState(pos), level, pos, be)) {
+            if (drop.is(FoundryRegistry.item("foundry_desk"))) return drop;
+        }
+        return ItemStack.EMPTY;
     }
 
     /** Items of {@code item} lying as item entities in {@code area}. */

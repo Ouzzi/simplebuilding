@@ -133,6 +133,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplearrows:empty")
+    public void fletchingBlazeShaftFireIsCapped(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_blaze_shaft_fire_is_capped").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
     public void dummyHeadCountsForTips(GameTestHelper h) {
         ArrowsTests.ALL.get("dummy_head_counts_for_tips").accept(h);
     }

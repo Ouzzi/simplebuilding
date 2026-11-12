@@ -130,8 +130,13 @@ def data() -> None:
                                                           for i, c in enumerate(('empty',) + METALS)}})
     item_def('casting_tray', f'{NS}:block/casting_tray_empty')
     for b in BLOCKS:
+        entry = {'type': 'minecraft:item', 'name': f'{NS}:{b}'}
+        if b == 'foundry_desk':
+            # AUDSB31B F3 = A: the desk's tier stays on the item
+            entry = {'type': 'minecraft:item', 'modifier': {'type': 'minecraft:copy_components', 'include': [f'{NS}:desk_tier'], 'source': 'block_entity'},
+                     'name': f'{NS}:{b}'}
         dump(D / f'loot_table/blocks/{b}.json', {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'condition': {'type': 'minecraft:survives_explosion'}, 'entries': [
-            {'type': 'minecraft:item', 'name': f'{NS}:{b}'}]}], 'random_sequence': f'{NS}:blocks/{b}'})
+            entry]}], 'random_sequence': f'{NS}:blocks/{b}'})
     dump(RES / 'data/minecraft/tags/block/mineable/pickaxe.json', {'values': [f'{NS}:{b}' for b in BLOCKS]})
     dump(D / 'tags/block/hull.json', {'values': [f'{NS}:{b}' for b in ('foundry_brick', 'foundry_desk', 'fire_grate', 'foundry_spout')] + ['#minecraft:impermeable']})
     n = f'{NS}:foundry_brick'

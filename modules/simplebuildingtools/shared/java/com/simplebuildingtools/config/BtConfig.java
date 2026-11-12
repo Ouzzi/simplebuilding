@@ -23,9 +23,12 @@ public class BtConfig {
     public static final String LEGACY_FILE = "simplebuilding.json";
     public static final int MAX_BLUEPRINT_BLOCKS_PER_TICK = 32768;
     public static final int MIN_PICTURE_SIDE = 16, MAX_PICTURE_SIDE = 128;
+    /** Highest {@code blueprint.largeBuildCells}: the blueprint cell budget. */
+    public static final int MAX_LARGE_BUILD_CELLS = com.simplebuildingtools.blueprint.BlueprintCode.MAX_EXPANDED_CELLS;
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("blueprint.enabled", "blueprint.maxBlocksPerTick", "blueprint.pictureImport",
-            "blueprint.picturePermission", "blueprint.pictureMaxSide", "wands.hungerCost", "wands.hungerMultiplier");
+            "blueprint.picturePermission", "blueprint.pictureMaxSide", "blueprint.largeBuildCells", "blueprint.largeBuildPermission",
+            "wands.hungerCost", "wands.hungerMultiplier");
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -39,6 +42,8 @@ public class BtConfig {
         blueprint.maxBlocksPerTick = Math.max(1, Math.min(MAX_BLUEPRINT_BLOCKS_PER_TICK, blueprint.maxBlocksPerTick));
         blueprint.picturePermission = Math.max(0, Math.min(4, blueprint.picturePermission));
         blueprint.pictureMaxSide = Math.max(MIN_PICTURE_SIDE, Math.min(MAX_PICTURE_SIDE, blueprint.pictureMaxSide));
+        blueprint.largeBuildCells = Math.max(0, Math.min(MAX_LARGE_BUILD_CELLS, blueprint.largeBuildCells));
+        blueprint.largeBuildPermission = Math.max(0, Math.min(4, blueprint.largeBuildPermission));
         if (!Double.isFinite(wands.hungerMultiplier)) wands.hungerMultiplier = 1.0;
         wands.hungerMultiplier = Math.max(0, Math.min(10, wands.hungerMultiplier));
         return this;
@@ -121,6 +126,13 @@ public class BtConfig {
         public int picturePermission = 0;
         /** Longest picture side in blocks (16..128). */
         public int pictureMaxSide = 128;
+        /**
+         * A free build (creative, creative wand) of a blueprint or octant fill with more cells than this needs
+         * {@link #largeBuildPermission} (owner AUDSB31B F2 = B: the speed stays, the lag lever is for operators only); 0 = no limit.
+         */
+        public int largeBuildCells = MAX_BLUEPRINT_BLOCKS_PER_TICK;
+        /** Permission level for free builds above {@link #largeBuildCells} (0 = everyone .. 4, default 2 = operators). */
+        public int largeBuildPermission = 2;
     }
 
     /** The building wands. */

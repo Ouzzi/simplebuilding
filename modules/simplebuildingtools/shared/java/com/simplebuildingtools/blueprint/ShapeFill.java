@@ -105,6 +105,11 @@ public final class ShapeFill {
             player.sendOverlayMessage(plan.problem());
             return InteractionResult.FAIL;
         }
+        // AUDSB31B F2 = B: grosse Gratis-Fuellungen nur mit der Rechtestufe (eigene Meldung statt "nichts zu tun").
+        if (com.simplebuildingtools.config.BtTuning.largeBuildDenied(player, plan.layout().size(),
+                com.simplebuildingtools.items.custom.BuildingWandItem.freeBuild(player, wand))) {
+            return InteractionResult.FAIL;
+        }
         // Vor dem Bau: Warnungen des Bauauftrags (fehlendes Material) ueberschreiben diesen Hinweis.
         Component hint = roofHint(player, wand, octant);
         if (hint != null) {

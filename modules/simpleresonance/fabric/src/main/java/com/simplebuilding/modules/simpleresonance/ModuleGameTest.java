@@ -25,6 +25,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleresonance:empty") public void sampleOffServerThread(GameTestHelper h) { ResonanceTests.ALL.get("sample_off_server_thread").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void migrationLegacyBlock(GameTestHelper h) { ResonanceTests.ALL.get("migration_legacy_block").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void migrationTickConsumes(GameTestHelper h) { ResonanceTests.ALL.get("migration_tick_consumes").accept(h); }
+    @GameTest(structure = "simpleresonance:empty") public void ridingCountsAsMoved(GameTestHelper h) { ResonanceTests.ALL.get("riding_counts_as_moved").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void contractValues(GameTestHelper h) { ResonanceTests.ALL.get("contract_values").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void command(GameTestHelper h) { ResonanceTests.ALL.get("command").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void performance(GameTestHelper h) { ResonanceTests.ALL.get("performance").accept(h); }

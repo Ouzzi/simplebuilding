@@ -12,6 +12,7 @@ public final class ModuleGameTest {
     @GameTest public void spawnRules(GameTestHelper helper) { MobsTests.ALL.get("spawn_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void naturalSpawnRules(GameTestHelper helper) { MobsTests.ALL.get("natural_spawn_rules").accept(helper); }
     @GameTest public void fight(GameTestHelper helper) { MobsTests.ALL.get("fight").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void deceiverFakesGiveNoXp(GameTestHelper helper) { MobsTests.ALL.get("deceiver_fakes_give_no_xp").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void disguiseHitbox(GameTestHelper helper) { MobsTests.ALL.get("disguise_hitbox").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerRegistered(GameTestHelper helper) { MobsTests.ALL.get("howler_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerRules(GameTestHelper helper) { MobsTests.ALL.get("howler_rules").accept(helper); }

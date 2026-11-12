@@ -549,6 +549,35 @@ public final class ResonanceTests {
             });
             h.succeed();
         });
+        // Owner AUDSB31B F9 = B: riding, boat, minecart, water and elytra count as "moved" (active time, AFK rule); the distance
+        // formula of the survival factor (totalDistance) stays walking, sprinting, crouching, flying and climbing.
+        add("riding_counts_as_moved", h -> {
+            guarded(() -> {
+                ResonanceConfig.reset();
+                var svc = ResonanceService.INSTANCE;
+                var p = mock(h, 2, 2);
+                long now = 5000;
+                svc.update(p, now);
+                PlayerRecord r = svc.data().record(p.getUUID());
+                int distance = ResonanceService.totalDistance(p);
+                var kinds = List.of(Stats.HORSE_ONE_CM, Stats.BOAT_ONE_CM, Stats.MINECART_ONE_CM, Stats.PIG_ONE_CM, Stats.STRIDER_ONE_CM,
+                        Stats.HAPPY_GHAST_ONE_CM, Stats.NAUTILUS_ONE_CM, Stats.SWIM_ONE_CM, Stats.WALK_UNDER_WATER_ONE_CM, Stats.WALK_ON_WATER_ONE_CM,
+                        Stats.AVIATE_ONE_CM);
+                for (var kind : kinds) {
+                    now += ResonanceMath.ACTIVE_GRACE_TICKS + 40;
+                    svc.update(p, now);
+                    int idle = r.active;
+                    svc.update(p, now + 20);
+                    check(r.active == idle, "standing still counts as active before " + kind);
+                    p.getStats().setValue(p, Stats.CUSTOM.get(kind), p.getStats().getValue(Stats.CUSTOM.get(kind)) + 5000);
+                    now += 40;
+                    svc.update(p, now);
+                    check(r.active == idle + 20, kind + " does not count as moved");
+                }
+                check(ResonanceService.totalDistance(p) == distance, "riding changed the distance formula: " + ResonanceService.totalDistance(p));
+            });
+            h.succeed();
+        });
         add("contract_values", h -> {
             guarded(() -> {
                 ResonanceConfig.reset();

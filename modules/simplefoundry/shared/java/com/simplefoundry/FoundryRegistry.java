@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -46,6 +48,12 @@ public final class FoundryRegistry {
     public static final Block FOUNDRY_SPOUT = block("foundry_spout", Blocks.BRICKS, SpoutBlock::new);
     public static final Block CASTING_TRAY = block("casting_tray", Blocks.BRICKS, TrayBlock::new);
 
+    /**
+     * The desk's tier on its item (owner AUDSB31B F3 = A): 1 = iron .. 3 = netherite, missing = stone. The loot table copies it from the
+     * desk ({@code copy_components}), placing the item gives it back ({@link DeskBlockEntity#applyImplicitComponents}).
+     */
+    public static final DataComponentType<Integer> DESK_TIER = DataComponentType.<Integer>builder()
+            .persistent(com.mojang.serialization.Codec.intRange(0, Tier.values().length - 1)).networkSynchronized(ByteBufCodecs.VAR_INT).build();
     public static BlockEntityType<DeskBlockEntity> DESK_BE;
     public static BlockEntityType<TrayBlockEntity> TRAY_BE;
     public static CreativeModeTab TAB;
@@ -53,7 +61,8 @@ public final class FoundryRegistry {
     static {
         for (String path : List.copyOf(BLOCKS.keySet())) {
             ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleFoundry.id(path));
-            ITEMS.put(path, new BlockItem(BLOCKS.get(path), new Item.Properties().useBlockDescriptionPrefix().setId(key)));
+            Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(key);
+            ITEMS.put(path, path.equals("foundry_desk") ? new DeskItem(BLOCKS.get(path), properties) : new BlockItem(BLOCKS.get(path), properties));
         }
     }
 
@@ -77,6 +86,7 @@ public final class FoundryRegistry {
 
     /** Fabric: registries are open during init. */
     public static void registerAll() {
+        Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleFoundry.id("desk_tier"), DESK_TIER);
         BLOCKS.forEach((path, block) -> Registry.register(BuiltInRegistries.BLOCK, SimpleFoundry.id(path), block));
         ITEMS.forEach((path, item) -> Registry.register(BuiltInRegistries.ITEM, SimpleFoundry.id(path), item));
         DESK_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleFoundry.id("foundry_desk"), new BlockEntityType<>(DeskBlockEntity::new, java.util.Set.of(DESK)));
@@ -90,6 +100,24 @@ public final class FoundryRegistry {
                     if (SimpleFoundry.on()) ITEMS.values().forEach(item -> output.accept(new ItemStack(item)));
                 })
                 .build());
+    }
+
+    /** The desk's item: an upgraded desk names its tier (Tooltip rule b: the tier shows nowhere else before it is placed). */
+    public static final class DeskItem extends BlockItem {
+        DeskItem(Block block, Item.Properties properties) {
+            super(block, properties);
+        }
+
+        @Override
+        public void appendHoverText(ItemStack stack, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
+                                    java.util.function.Consumer<Component> tooltip, net.minecraft.world.item.TooltipFlag flag) {
+            super.appendHoverText(stack, context, display, tooltip, flag);
+            Integer stored = stack.get(DESK_TIER);
+            if (stored != null) {
+                Tier tier = Tier.byIndex(stored);
+                tooltip.accept(Component.translatable("simplefoundry.desk.tooltip.tier", tier.ordinal() + 1, tier.slots).withStyle(net.minecraft.ChatFormatting.GRAY));
+            }
+        }
     }
 
     private FoundryRegistry() {}

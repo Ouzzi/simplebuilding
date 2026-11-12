@@ -215,6 +215,12 @@ public final class ModuleGameTest {
         com.simplebuildingtools.test.BlueprintTests.buildConsumesEveryCandleAndPickleItNeeds(helper);
     }
 
+    /** AUDSB31B F2 = B: free builds above blueprint.largeBuildCells need blueprint.largeBuildPermission. */
+    @GameTest
+    public void largeFreeBuildNeedsPermission(GameTestHelper helper) {
+        com.simplebuildingtools.test.BlueprintTests.largeFreeBuildNeedsPermission(helper);
+    }
+
     /** Audit a-audsb31, simplebuildingtools-P1-1: a free bed head needs its own foot (no beds out of nothing). */
     @GameTest
     public void freeBedHeadStandsOnlyAtItsOwnFoot(GameTestHelper helper) {

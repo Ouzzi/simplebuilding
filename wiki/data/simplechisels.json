@@ -36,7 +36,7 @@
           "Five tables: stone (sandstone, stone, slabs), iron for copper and iron (stone bricks, polished stones, tuff, planks to stairs to slabs), diamond for gold and diamond (quartz, tuff bricks, blackstone, basalt, deepslate), netherite (the nether brick cycle, resin bricks, chiseled sandstone to sand) and enderite; every tier contains all lower ones.",
           "Where you click decides the orientation: the outer quarter of a face lines pillars and stairs up with that edge, the middle uses the clicked face or your facing. Waterlogging and other shared properties stay.",
           "After every step there is a cooldown (Stone 30 ticks, Copper and Iron 25, Gold 20, Diamond 10, Netherite and Enderite 5; server config). Durability: 192 (Stone, Copper), 256 (Iron), 128 (Gold), 392 (Diamond), 512 (Netherite), 600 (Enderite); Netherite and Enderite do not burn.",
-          "The chisel also mines pickaxe, axe and shovel blocks with drops, at half the speed of its material; mining costs 2 durability.",
+          "The chisel also mines pickaxe, axe and shovel blocks, at half the speed of its material; mining costs 2 durability. Drops follow the pickaxe of its material: a stone chisel breaks diamond ore or obsidian only slowly and without a drop, an iron chisel drops diamond ore, a diamond chisel obsidian.",
           "With SimpleBuilding: Constructor's Touch adds the bonus tables (mud, mossy cobblestone, stripping logs, bricks, prismarine, end stone, copper, corals, calcite, obsidian, concrete), the End stone palettes come with the enderite tier, and a pottery sherd in the off hand carves stripped logs."
         ]
       },
@@ -48,7 +48,7 @@
           "Fünf Tabellen: Stein (Sandstein, Stein, Stufen), Eisen für Kupfer und Eisen (Steinziegel, polierte Steine, Tuff, Bretter zu Treppen zu Stufen), Diamant für Gold und Diamant (Quarz, Tuffziegel, Schwarzstein, Basalt, Tiefenschiefer), Netherit (der Netherziegel-Kreis, Harzziegel, gemeißelter Sandstein zu Sand) und Enderit; jede Stufe enthält alle darunter.",
           "Wo du klickst, bestimmt die Ausrichtung: das äußere Viertel einer Seite richtet Säulen und Treppen an dieser Kante aus, die Mitte nimmt die angeklickte Seite oder deine Blickrichtung. Wassergefüllt und andere gemeinsame Eigenschaften bleiben.",
           "Nach jedem Schritt gibt es eine Abklingzeit (Stein 30 Ticks, Kupfer und Eisen 25, Gold 20, Diamant 10, Netherit und Enderit 5; Server-Config). Haltbarkeit: 192 (Stein, Kupfer), 256 (Eisen), 128 (Gold), 392 (Diamant), 512 (Netherit), 600 (Enderit); Netherit und Enderit verbrennen nicht.",
-          "Der Meißel baut auch Spitzhacken-, Axt- und Schaufelblöcke mit Drops ab, mit halbem Tempo seines Materials; Abbauen kostet 2 Haltbarkeit.",
+          "Der Meißel baut auch Spitzhacken-, Axt- und Schaufelblöcke ab, mit halbem Tempo seines Materials; Abbauen kostet 2 Haltbarkeit. Drops wie bei der Spitzhacke seines Materials: ein Stein-Meißel baut Diamanterz oder Obsidian nur langsam und ohne Drop ab, ein Eisen-Meißel lässt Diamanterz fallen, ein Diamant-Meißel Obsidian.",
           "Mit SimpleBuilding: Berührung des Konstrukteurs schaltet die Zusatztabellen frei (Schlamm, bemooster Bruchstein, Stämme entrinden, Ziegel, Prismarin, Endstein, Kupfer, Korallen, Kalzit, Obsidian, Beton), die End-Steinpaletten kommen mit der Enderit-Stufe dazu, und eine Töpferscherbe in der Nebenhand schnitzt entrindete Stämme."
         ]
       }

@@ -30,16 +30,18 @@ Umfang: 22 Java-Dateien / 1,8k Zeilen ohne Tests (mit Tests 25 / 2,5k). Klein ge
 | ID | Schwere | Befund | Stand |
 |---|---|---|---|
 | simplefoundry-P2-1 | P2 (Verlust) | Pult und Giessform gaben ihren Inhalt nur in `playerWillDestroy` heraus. Explosion (Creeper/TNT), Befehl oder das Flaechenwerkzeug eines anderen Mods entfernen Bloecke ohne diesen Weg; beide BEs sind kein `Container`, Vanilla wirft also nichts ab: bis zu 13 Slot-Stapel bzw. 9 Barren verschwanden. | **gefixt**: Abwurf in `preRemoveSideEffects` (DeskBlockEntity.java:446, TrayBlockEntity), `playerWillDestroy` entfernt (ein Weg). Gametest `removal_without_player_drops_slots_and_ingots` |
-| simplefoundry-P2-2 | P2 (Verlust, Mechanik) | Die Pult-Stufe (Eisenblock + Diamantblock + Netheritbarren, DeskBlockEntity.java:121) haengt nur am Block-Entity; Abbauen/Versetzen gibt ein Stein-Pult zurueck, die Aufwertung ist weg. | **Rueckfrage** AUDSB31B-C1-1 (Nummer vom Hauptagenten einzuordnen): A) Stufe bleibt am Item (Komponente, Loot-Tabelle kopiert sie) - Empfehlung; B) Aufwertungs-Items fallen beim Abbau zurueck; C) bleibt so, Hinweis im Handbuch |
+| simplefoundry-P2-2 | P2 (Verlust, Mechanik) | Die Pult-Stufe (Eisenblock + Diamantblock + Netheritbarren, DeskBlockEntity.java:121) haengt nur am Block-Entity; Abbauen/Versetzen gibt ein Stein-Pult zurueck, die Aufwertung ist weg. | **Besitzer AUDSB31B F3 = A, umgesetzt (a-audsb31b)**: Komponente `simplefoundry:desk_tier` (0..3), Pult `collectImplicitComponents`/`applyImplicitComponents`/`removeComponentsFromTag`, Loot-Tabelle `copy_components` (block_entity, auch `gen_data.py`), eigenes `DeskItem` mit Stufen-Zeile im Tooltip (EN/DE). Wiki/Handbuch: Stufe bleibt, Schmelze/wartendes Erz/Brennstofftank gehen beim Abbau verloren. Gametest `desk_tier_stays_on_the_item` (Drop ueber die Loot-Tabelle, Setzen per `useItemOn`, Stein-Pult ohne Komponente). |
 | simplefoundry-P3-1 | P3 | Tank (Schmelze, wartende Einheiten) und Brennstoff gehen beim Abbau verloren (bewusst, Kommentar DeskBlockEntity.java:431); per Rechtsklick eingeworfene Erze/Barren sind damit weg. | Hinweis (im Handbuch nennen) |
 | simplefoundry-P3-2 | P3 (Server-Last) | Jeder Rechtsklick auf das Pult prueft die ganze Struktur neu (`revalidate`, Flutfuellung bis 512 Kammern; DeskBlock.java:95, DeskBlockEntity.java:251), ungedrosselt bei Paket-Spam. | Empfehlung: Ergebnis desselben Ticks wiederverwenden |
 | simplefoundry-P3-3 | P3 | Config `enabled` und der Sub-Mod-Schalter blenden nur den Tab aus (SimpleFoundry.java:23); gebaute Giessereien arbeiten weiter. | Hinweis |
 | simplefoundry-P3-4 | P3 (Balance) | Von Mobs fallengelassene Eisen-/Goldausruestung schmilzt zu vollen Barren (Vanilla-Ofen: 1 Nugget), Besitzer SA7 = A. | Hinweis |
 
 ## Urteil
-**shipbar nach Fix** (0 P1, 1 P2 gefixt, 1 P2 Rueckfrage, 4 P3).
+**shipbar nach Fix** (0 P1, 2 P2 gefixt - P2-2 nach Besitzer-Antwort AUDSB31B F3 = A, 4 P3).
 
 ## Testergebnis
 Lokal: `javac.sh simplefoundry` fuer `DeskBlockEntity`, `DeskBlock`, `TrayBlockEntity`, `TrayBlock`, `FoundryTests`, `ModuleGameTest` - nur bekannte
 Access-Widener-Meldungen in nicht geaenderten Dateien. sbt: siehe `docs/ai/PLAN-A-AUDSB31-2026-11-12.md`.
 Nicht getestet: echte Explosion (der Gametest entfernt per `setBlock`), Client, Forge/NeoForge.
+a-audsb31b (F3): javac von `FoundryRegistry`, `DeskBlockEntity`, `FoundryTests`, Adapter lokal sauber (nur bekannte Access-Widener-Meldungen
+in unveraenderten Zeilen); sbt siehe `docs/ai/PLAN-A-AUDSB31B-2026-11-12.md`. Nicht getestet: Tooltip im Client, Strg+Mittelklick.

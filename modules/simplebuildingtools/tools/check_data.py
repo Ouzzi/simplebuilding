@@ -8,7 +8,7 @@ COLORS = 'white orange magenta light_blue yellow lime pink gray light_gray cyan 
 ITEMS = [t + '_building_wand' for t in ('copper', 'iron', 'gold', 'diamond', 'netherite', 'enderite', 'creative')]
 ITEMS += ['octant'] + ['octant_' + c for c in COLORS] + ['blueprint', 'creative_blueprint']
 KEYS = ['blueprint.enabled', 'blueprint.maxBlocksPerTick', 'blueprint.pictureImport', 'blueprint.picturePermission',
-        'blueprint.pictureMaxSide', 'wands.hungerCost', 'wands.hungerMultiplier']
+        'blueprint.pictureMaxSide', 'blueprint.largeBuildCells', 'blueprint.largeBuildPermission', 'wands.hungerCost', 'wands.hungerMultiplier']
 problems = []
 for locale in ('en_us', 'de_de'):
     lang = json.loads((RES / f'assets/simplebuildingtools/lang/{locale}.json').read_text(encoding='utf-8'))

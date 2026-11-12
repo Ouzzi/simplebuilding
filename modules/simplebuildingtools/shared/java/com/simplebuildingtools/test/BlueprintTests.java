@@ -2111,10 +2111,17 @@ public final class BlueprintTests {
         ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "dirt 0,0,0", true, "Other"), player);
         helper.assertTrue(BlueprintItem.content(draft).equals(signed), "the server changed a signed creative blueprint: " + BlueprintItem.content(draft));
 
-        ItemStack copy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(BtItems.BLUEPRINT));
+        // Owner AUDSB31B F6 = B: only a player in creative mode copies a creative blueprint (survival: no result, the blank stays).
+        ItemStack survivalCopy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(BtItems.BLUEPRINT), player);
+        helper.assertTrue(survivalCopy.isEmpty(), "a survival player copied a creative blueprint: " + survivalCopy);
+        helper.assertTrue(com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(BtItems.BLUEPRINT), null).isEmpty(),
+                "a creative blueprint was copied without a player");
+        player.getAbilities().instabuild = true;
+        ItemStack copy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(BtItems.BLUEPRINT), player);
+        player.getAbilities().instabuild = false;
         helper.assertTrue(BlueprintItem.isCreative(copy) && BlueprintItem.content(copy).equals(signed) && copy.getCount() == 1,
                 "the cartography copy of a signed creative blueprint is not an exact signed copy: " + copy + " " + BlueprintItem.content(copy));
-        ItemStack normalCopy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(normal, new ItemStack(BtItems.BLUEPRINT));
+        ItemStack normalCopy = com.simplebuildingtools.blueprint.BlueprintCartography.copyResult(normal, new ItemStack(BtItems.BLUEPRINT), player);
         helper.assertTrue(!normalCopy.isEmpty() && !BlueprintItem.content(normalCopy).signed() && !BlueprintItem.isCreative(normalCopy),
                 "the normal blueprint no longer copies to an editable one: " + BlueprintItem.content(normalCopy));
         helper.succeed();
@@ -2152,6 +2159,57 @@ public final class BlueprintTests {
         ItemStack stack = new ItemStack(item);
         stack.set(BtComponents.BLUEPRINT, new BlueprintContent(code, "Far", "Tester", true));
         return stack;
+    }
+
+    /**
+     * Owner AUDSB31B F2 = B: the build speed stays, but a free build (creative) with more cells than
+     * {@code blueprint.largeBuildCells} needs {@code blueprint.largeBuildPermission}. Builds under the limit, builds that pay with
+     * material and a limit of 0 stay open to everyone.
+     *
+     * <p><strong>What breaks this test:</strong> {@code BtTuning#largeBuildDenied} not asked in {@code BlueprintBuilder#build}, or a
+     * limit that also stops survival builds.
+     */
+    public static void largeFreeBuildNeedsPermission(GameTestHelper helper) {
+        var config = com.simplebuildingtools.SimpleBuildingTools.config().blueprint;
+        int savedCells = config.largeBuildCells;
+        int savedPermission = config.largeBuildPermission;
+        try {
+            config.largeBuildCells = 4;
+            config.largeBuildPermission = 4;
+            ServerPlayer creative = mockPlayer(helper, true);
+            boolean owner = BlueprintPicture.hasLevel(creative, 4);
+            ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+            ItemStack big = blueprint("stone 0..2,0,0..1");
+            hold(creative, wand, big);
+            clear(helper);
+            BlueprintBuilder.Result result = build(helper, creative, wand, big);
+            helper.assertTrue((result != null) == owner && helper.getBlockState(TARGET).is(Blocks.STONE) == owner,
+                    "a free build of 6 cells over a limit of 4 (player owner: " + owner + "): " + result);
+
+            ItemStack small = blueprint("stone 0..1,0,0..1");
+            hold(creative, wand, small);
+            clear(helper);
+            result = build(helper, creative, wand, small);
+            helper.assertTrue(result != null && helper.getBlockState(TARGET).is(Blocks.STONE), "a free build of 4 cells at the limit was refused");
+
+            config.largeBuildCells = 0;
+            hold(creative, wand, big);
+            clear(helper);
+            result = build(helper, creative, wand, big);
+            helper.assertTrue(result != null && helper.getBlockState(TARGET).is(Blocks.STONE), "limit 0 still refused a free build");
+
+            config.largeBuildCells = 4;
+            ServerPlayer survival = mockPlayer(helper, false);
+            ItemStack survivalWand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+            hold(survival, survivalWand, big, new ItemStack(Items.STONE, 16));
+            clear(helper);
+            result = build(helper, survival, survivalWand, big);
+            helper.assertTrue(result != null && helper.getBlockState(TARGET).is(Blocks.STONE), "a survival build that pays with material was refused");
+        } finally {
+            config.largeBuildCells = savedCells;
+            config.largeBuildPermission = savedPermission;
+        }
+        helper.succeed();
     }
 
     // =====================================================================================

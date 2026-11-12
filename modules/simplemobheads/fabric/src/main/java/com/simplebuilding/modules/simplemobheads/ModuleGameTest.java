@@ -222,6 +222,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void giantHeadNeedsRoom(GameTestHelper helper) {
+        MobHeadTests.ALL.get("giant_head_needs_room").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
     public void giantCowHay(GameTestHelper helper) {
         MobHeadTests.ALL.get("giant_cow_hay").accept(helper);
     }
