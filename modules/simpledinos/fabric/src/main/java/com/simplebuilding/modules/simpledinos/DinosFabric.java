@@ -43,6 +43,7 @@ public final class DinosFabric implements ModInitializer {
         DinosRegistry.registerBlockEntityTypes(new BlockEntityType<>(FossilBlockEntity::new, DinosRegistry.fossilBlocks()),
                 new BlockEntityType<>(DinoEggBlockEntity::new, DinosRegistry.eggBlocks()));
         FabricDefaultAttributeRegistry.register(DinosRegistry.TREX, DinosRegistry.trexAttributes());
+        FabricDefaultAttributeRegistry.register(DinosRegistry.TRICERATOPS, DinosRegistry.triceratopsAttributes());
         BiomeModifications.addFeature(BiomeSelectors.tag(FOSSIL_BIOMES), GenerationStep.Decoration.UNDERGROUND_ORES, FOSSIL_FEATURE);
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS).register(out -> {
             if (!SimpleDinos.on()) return;
@@ -60,7 +61,14 @@ public final class DinosFabric implements ModInitializer {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(out -> {
             if (!SimpleDinos.on()) return;
             insert(out, Items.DIAMOND_HORSE_ARMOR, java.util.List.of(new ItemStack(DinosRegistry.TREX_ARMOR_LEATHER),
-                    new ItemStack(DinosRegistry.TREX_ARMOR_IRON), new ItemStack(DinosRegistry.TREX_ARMOR_DIAMOND)));
+                    new ItemStack(DinosRegistry.TREX_ARMOR_IRON), new ItemStack(DinosRegistry.TREX_ARMOR_DIAMOND),
+                    new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_LEATHER), new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_IRON),
+                    new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_DIAMOND)));
+        });
+        // a-dinorest1: the eggshells next to the turtle scute (the same idea: what a hatchling leaves behind)
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
+            if (!SimpleDinos.on()) return;
+            insert(out, Items.TURTLE_SCUTE, DinosRegistry.EGGSHELLS.values().stream().map(ItemStack::new).toList());
         });
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simpledinos.guide.DinosGuide.installQuests(FabricLoader.getInstance().getConfigDir());
     }

@@ -33,7 +33,10 @@ public final class SimpleDinos {
                 java.util.List.of("simpledinos:fossil_block", "simpledinos:trex_egg", "simpledinos:triceratops_egg",
                         "simpledinos:stegosaurus_egg", "simpledinos:utahraptor_egg", "simpledinos:parasaurolophus_egg",
                         "simpledinos:large_saddle", "simpledinos:trex_armor_leather", "simpledinos:trex_armor_iron",
-                        "simpledinos:trex_armor_diamond", "minecraft:brush", "simpledinos:guide_book"));
+                        "simpledinos:trex_armor_diamond", "simpledinos:triceratops_armor_leather", "simpledinos:triceratops_armor_iron",
+                        "simpledinos:triceratops_armor_diamond", "simpledinos:triceratops_eggshell", "simpledinos:stegosaurus_eggshell",
+                        "simpledinos:utahraptor_eggshell", "simpledinos:parasaurolophus_eggshell", "minecraft:apple", "minecraft:brush",
+                        "simpledinos:guide_book"));
     }
 
     private SimpleDinos() {}

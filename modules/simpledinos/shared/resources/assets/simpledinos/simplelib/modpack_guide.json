@@ -9,7 +9,7 @@
       "title": "simpledinos.guide.chapter",
       "icon": "minecraft:brush",
       "page_key": "simpledinos.guide.page",
-      "pages": 12,
+      "pages": 15,
       "advancement": "simpledinos:guide/chapter",
       "hint": "minecraft:brush"
     }

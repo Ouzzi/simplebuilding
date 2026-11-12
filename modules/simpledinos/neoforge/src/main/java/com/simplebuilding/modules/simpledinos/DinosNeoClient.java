@@ -3,6 +3,7 @@ package com.simplebuilding.modules.simpledinos;
 import com.simpledinos.DinosRegistry;
 import com.simpledinos.client.DinosClient;
 import com.simpledinos.client.TrexRenderer;
+import com.simpledinos.client.TriceratopsRenderer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
@@ -11,7 +12,10 @@ final class DinosNeoClient {
     static void init(IEventBus bus) {
         bus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) ->
                 DinosClient.modelLayers((location, definition) -> event.registerLayerDefinition(location, definition::get)));
-        bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerEntityRenderer(DinosRegistry.TREX, TrexRenderer::new));
+        bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
+            event.registerEntityRenderer(DinosRegistry.TREX, TrexRenderer::new);
+            event.registerEntityRenderer(DinosRegistry.TRICERATOPS, TriceratopsRenderer::new);
+        });
     }
 
     private DinosNeoClient() {}

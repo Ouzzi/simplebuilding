@@ -121,6 +121,8 @@ sys.path.insert(0, str(ROOT / 'tools/textures'))
 import optik32_items as OI  # noqa: E402
 
 ARMOR_TIERS = ('leather', 'iron', 'diamond')
+# a-dinorest1: Triceratops armor and the eggshells (tools/dino_items.py)
+import dino_items as DI  # noqa: E402
 
 
 def chosen(img, name):
@@ -190,7 +192,9 @@ def outputs():
     files[ti / 'large_saddle.png'] = saddle_image()
     for tier in ARMOR_TIERS:
         files[ti / f'trex_armor_{tier}.png'] = armor_image(tier)
-    for name in ('large_saddle', 'trex_armor_leather', 'trex_armor_iron', 'trex_armor_diamond'):
+    for name, img in DI.all_sprites().items():
+        files[ti / f'{name}.png'] = L.snap(img, 'Grundform')
+    for name in ('large_saddle', 'trex_armor_leather', 'trex_armor_iron', 'trex_armor_diamond', *DI.all_sprites()):
         files[mi / f'{name}.json'] = dumps({'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/{name}'}})
         files[it / f'{name}.json'] = dumps({'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{name}'}})
     return files

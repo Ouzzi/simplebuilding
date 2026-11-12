@@ -39,8 +39,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
-    public void fossilFinishDropsTrexEgg(GameTestHelper h) {
-        DinosTests.ALL.get("fossil_finish_drops_trex_egg").accept(h);
+    public void fossilFinishDropsEggOfItsKind(GameTestHelper h) {
+        DinosTests.ALL.get("fossil_finish_drops_egg_of_its_kind").accept(h);
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
@@ -171,5 +171,70 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
     public void trexFollowStopsOutsideHeadAndHatchlingPartsScale(GameTestHelper h) {
         DinosTests.ALL.get("trex_follow_stops_outside_head_and_hatchling_parts_scale").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void dinoKindSiteWeights(GameTestHelper h) {
+        DinosTests.ALL.get("dino_kind_site_weights").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsCoreHitboxAndStats(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_core_hitbox_and_stats").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsHeadStopsAtWall(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_head_stops_at_wall").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsHatchesTameWithEggshells(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_hatches_tame_with_eggshells").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsFoodHeals(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_food_heals").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsSaddleArmorRiding(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_saddle_armor_riding").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsChargeCooldown(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_charge_cooldown").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsShakesNaturalTree(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_shakes_natural_tree").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsShakePicksRipeCocoa(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_shake_picks_ripe_cocoa").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsChargeHitsTreeWithHead(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_charge_hits_tree_with_head").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsChargePushesMobsNotPlayers(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_charge_pushes_mobs_not_players").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsDefendsByPushing(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_defends_by_pushing").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void triceratopsPartBoxesLikeTrex(GameTestHelper h) {
+        DinosTests.ALL.get("triceratops_part_boxes_like_trex").accept(h);
     }
 }

@@ -12,6 +12,7 @@ import com.simpledinos.block.FossilBlockEntity;
 import com.simpledinos.config.DinosConfig;
 import com.simpledinos.entity.Dino;
 import com.simpledinos.entity.Trex;
+import com.simpledinos.entity.Triceratops;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CocoaBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -125,9 +130,46 @@ public final class DinosTests {
         for (int x = 5; x <= 11; x++) for (int y = 1; y <= 5; y++) h.setBlock(new BlockPos(x, y, z), block);
     }
 
+    /** a-dinorest1: an adult Triceratops without AI, facing +z (yaw 0), tame. */
+    private static Triceratops standingTri(GameTestHelper h, int x, int z) {
+        Triceratops tri = h.spawn(DinosRegistry.TRICERATOPS, at(x, z));
+        tri.setPersistenceRequired();
+        tri.setTamed(true);
+        tri.setAge(0);
+        tri.setNoAi(true);
+        Vec3 p = tri.position();
+        tri.snapTo(p.x, p.y, p.z, 0.0F, 0.0F);
+        tri.setYBodyRot(0.0F);
+        tri.setYHeadRot(0.0F);
+        return tri;
+    }
+
+    /**
+     * A small tree: a log column at (x, 1..4, z) and a 5 x 5 crown of leaves in two layers (y 4..5); natural leaves are not persistent
+     * (as grown), built ones are. Returns the log the charge hits (y 2).
+     */
+    private static BlockPos tree(GameTestHelper h, int x, int z, Block log, Block leaves, boolean natural) {
+        for (int y = 1; y <= 4; y++) h.setBlock(new BlockPos(x, y, z), log);
+        BlockState leaf = leaves.defaultBlockState().setValue(LeavesBlock.PERSISTENT, !natural).setValue(LeavesBlock.DISTANCE, 1);
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                for (int y = 4; y <= 5; y++) if (!(dx == 0 && dz == 0 && y == 4)) h.setBlock(new BlockPos(x + dx, y, z + dz), leaf);
+            }
+        }
+        return new BlockPos(x, 2, z);
+    }
+
+    private static List<ItemEntity> items(GameTestHelper h) {
+        return h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(h.absolutePos(new BlockPos(0, 0, 0))).expandTowards(16, 8, 16));
+    }
+
+    private static List<ItemEntity> itemsNear(GameTestHelper h, BlockPos rel, double r) {
+        return h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(h.absolutePos(rel)).inflate(r));
+    }
+
     /** No box touches a block shape (independent of the dinosaur's own rule: the Vanilla collision check). */
-    private static boolean clearOfBlocks(GameTestHelper h, Trex trex, List<AABB> boxes) {
-        for (AABB box : boxes) if (!h.getLevel().noBlockCollision(trex, box.deflate(0.02))) return false;
+    private static boolean clearOfBlocks(GameTestHelper h, net.minecraft.world.entity.Entity entity, List<AABB> boxes) {
+        for (AABB box : boxes) if (!h.getLevel().noBlockCollision(entity, box.deflate(0.02))) return false;
         return true;
     }
 
@@ -137,24 +179,37 @@ public final class DinosTests {
                 h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleDinos.id(id)), "block " + id);
             }
             for (String id : new String[] {"fossil_block", "trex_egg", "triceratops_egg", "stegosaurus_egg", "utahraptor_egg", "parasaurolophus_egg",
-                    "large_saddle", "trex_armor_leather", "trex_armor_iron", "trex_armor_diamond", "guide_book"}) {
+                    "large_saddle", "trex_armor_leather", "trex_armor_iron", "trex_armor_diamond", "guide_book",
+                    "triceratops_armor_leather", "triceratops_armor_iron", "triceratops_armor_diamond", "triceratops_eggshell",
+                    "stegosaurus_eggshell", "utahraptor_eggshell", "parasaurolophus_eggshell"}) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleDinos.id(id)), "item " + id);
             }
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("trex")), "entity trex");
+            h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("triceratops")), "entity triceratops");
+            h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("triceratops_spawn_egg")) && !BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_eggshell")),
+                    "no spawn egg, no T. rex eggshell (concept DINO36 6)");
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_spawn_egg")), "no spawn egg (owner)");
             h.assertTrue(DinosRegistry.FOSSIL_BE != null && DinosRegistry.EGG_BE != null, "block entity types");
-            h.assertTrue(DefaultAttributes.hasSupplier(DinosRegistry.TREX), "attributes");
+            h.assertTrue(DefaultAttributes.hasSupplier(DinosRegistry.TREX) && DefaultAttributes.hasSupplier(DinosRegistry.TRICERATOPS), "attributes");
             h.assertTrue(DinosConfig.enabled && DinosConfig.BRUSH_DEFAULT == 45 && DinosConfig.incubateSeconds == 300 && DinosConfig.hatchSeconds == 600
                     && DinosConfig.growMinutes == 40 && DinosConfig.trexBiteDamage == 10.0, "config defaults = concept times");
-            h.assertTrue(DinoKind.TREX.hatchable() && !DinoKind.TRICERATOPS.hatchable() && DinoKind.hatchableKinds().size() == 1,
-                    "stage 1: only the T. rex hatches");
+            h.assertTrue(DinosConfig.triceratopsShake && DinosConfig.shakeShare == 0.5 && DinosConfig.shakeAppleChance == 0.35
+                    && DinosConfig.shakeTreeCooldownSeconds == 600 && DinosConfig.ramCooldownSeconds == 3, "Triceratops defaults = concept 4.1");
+            h.assertTrue(DinoKind.TREX.hatchable() && DinoKind.TRICERATOPS.hatchable() && !DinoKind.STEGOSAURUS.hatchable()
+                    && !DinoKind.UTAHRAPTOR.hatchable() && !DinoKind.PARASAUROLOPHUS.hatchable() && DinoKind.hatchableKinds().size() == 2,
+                    "DINO-REST step 1: T. rex and Triceratops hatch");
+            h.assertTrue(DinoKind.TREX.eggshell() == null && DinoKind.TRICERATOPS.eggshell() == DinosRegistry.eggshell(DinoKind.TRICERATOPS)
+                    && DinoKind.PARASAUROLOPHUS.eggshell() != null, "an eggshell for every kind but the T. rex");
             h.assertTrue(h.getLevel().registryAccess().lookupOrThrow(Registries.PLACED_FEATURE)
                     .get(ResourceKey.create(Registries.PLACED_FEATURE, SimpleDinos.id("fossil_block"))).isPresent(), "worldgen feature");
             h.succeed();
         });
         ALL.put("config_caps", h -> {
             try {
-                DinosConfig.apply(com.google.gson.JsonParser.parseString("{\"brushSeconds\":99999,\"incubateSeconds\":0,\"hatchSeconds\":\"x\",\"growMinutes\":-5,\"trexBiteDamage\":1000}").getAsJsonObject());
+                DinosConfig.apply(com.google.gson.JsonParser.parseString("{\"brushSeconds\":99999,\"incubateSeconds\":0,\"hatchSeconds\":\"x\",\"growMinutes\":-5,\"trexBiteDamage\":1000,"
+                        + "\"shakeShare\":7,\"shakeAppleChance\":-1,\"shakeTreeCooldownSeconds\":1,\"ramCooldownSeconds\":999,\"triceratopsShake\":\"no\"}").getAsJsonObject());
+                h.assertTrue(DinosConfig.shakeShare == 1.0 && DinosConfig.shakeAppleChance == 0.0 && DinosConfig.shakeTreeCooldownSeconds == DinosConfig.TREE_REST_MIN
+                        && DinosConfig.ramCooldownSeconds == DinosConfig.RAM_COOLDOWN_MAX && DinosConfig.triceratopsShake, "Triceratops keys clamped, garbage = default");
                 h.assertTrue(DinosConfig.brushSeconds == DinosConfig.BRUSH_MAX && DinosConfig.incubateSeconds == DinosConfig.INCUBATE_MIN
                         && DinosConfig.hatchSeconds == DinosConfig.HATCH_DEFAULT && DinosConfig.growMinutes == DinosConfig.GROW_MIN
                         && DinosConfig.trexBiteDamage == DinosConfig.BITE_MAX, "clamps, garbage = default");
@@ -242,17 +297,18 @@ public final class DinosTests {
             be.advance(level, t + 100_000, false);
             h.succeed();
         });
-        ALL.put("fossil_finish_drops_trex_egg", h -> {
+        ALL.put("fossil_finish_drops_egg_of_its_kind", h -> {
             ServerLevel level = h.getLevel();
             BlockPos pos = at(6, 6);
             FossilBlockEntity be = fossil(h, pos);
-            h.assertTrue(be.kind() == DinoKind.TREX, "only built dinosaurs are rolled");
+            DinoKind kind = be.kind();
+            h.assertTrue(kind.hatchable(), "only built dinosaurs are rolled (" + kind + ")");
             be.progressState().set(DinosConfig.brushTicks() - 1, 5000L, 5000L);
             be.advance(level, 5001L, true);
             h.assertTrue(h.getBlockState(pos).is(Blocks.SANDSTONE), "the fossil turns into sandstone");
             AABB box = new AABB(h.absolutePos(pos)).inflate(2.0);
-            boolean egg = level.getEntitiesOfClass(ItemEntity.class, box).stream().anyMatch(e -> e.getItem().is(DinosRegistry.eggItem(DinoKind.TREX)));
-            h.assertTrue(egg, "a T. rex egg lies there");
+            boolean egg = level.getEntitiesOfClass(ItemEntity.class, box).stream().anyMatch(e -> e.getItem().is(DinosRegistry.eggItem(kind)));
+            h.assertTrue(egg, "the egg of the rolled kind lies there");
             h.succeed();
         });
         ALL.put("fossil_kind_is_stable_per_position", h -> {
@@ -414,15 +470,15 @@ public final class DinosTests {
         ALL.put("egg_other_kinds_wait_for_their_dinosaur", h -> {
             ServerLevel level = h.getLevel();
             BlockPos pos = at(4, 4);
-            h.setBlock(pos, DinosRegistry.EGGS.get(DinoKind.TRICERATOPS));
+            h.setBlock(pos, DinosRegistry.EGGS.get(DinoKind.STEGOSAURUS));
             DinoEggBlockEntity be = (DinoEggBlockEntity) level.getBlockEntity(h.absolutePos(pos));
             ServerPlayer owner = player(h, 5, 5);
             long t = 3000;
             be.advance(level, t, null);
             while (!be.brooded() && t < 3000 + 8000) be.advance(level, t += 40, owner.getUUID());
             be.advance(level, be.hatchAt() + 10, null);
-            h.assertTrue(be.brooded() && h.getBlockState(pos).getBlock() == DinosRegistry.EGGS.get(DinoKind.TRICERATOPS),
-                    "a kind without a dinosaur yet brooded, but stays an egg (stage 1)");
+            h.assertTrue(be.brooded() && h.getBlockState(pos).getBlock() == DinosRegistry.EGGS.get(DinoKind.STEGOSAURUS),
+                    "a kind without a dinosaur yet brooded, but stays an egg (the Stegosaurus comes next)");
             h.succeed();
         });
 
@@ -682,6 +738,269 @@ public final class DinosTests {
             trex.setCoat(2);
             h.assertTrue(trex.coat() == 2, "a valid coat stays");
             trex.discard();
+            h.succeed();
+        });
+        // --- Triceratops (a-dinorest1, concept KONZEPT-A-DINO36 4.1) --------------------------------------------------------------
+        ALL.put("dino_kind_site_weights", h -> {
+            var desert = biome(h, Biomes.DESERT);
+            var badlands = biome(h, Biomes.BADLANDS);
+            var swamp = biome(h, Biomes.MANGROVE_SWAMP);
+            var plains = biome(h, Biomes.PLAINS);
+            for (DinoKind k : DinoKind.values()) h.assertTrue(k.siteHalves(plains) == 2 && k.siteHalves(null) == 2, "plains: no shift for " + k);
+            h.assertTrue(DinoKind.TRICERATOPS.siteHalves(desert) == 3 && DinoKind.TREX.siteHalves(desert) == 3, "desert: Triceratops, T. rex x1.5");
+            h.assertTrue(DinoKind.UTAHRAPTOR.siteHalves(badlands) == 4 && DinoKind.STEGOSAURUS.siteHalves(badlands) == 3, "badlands: Utahraptor x2, Stegosaurus x1.5");
+            h.assertTrue(DinoKind.PARASAUROLOPHUS.siteHalves(swamp) == 4 && DinoKind.TRICERATOPS.siteHalves(swamp) == 2, "mangrove swamp: Parasaurolophus x2");
+            RandomSource random = RandomSource.create(42L);
+            int tri = 0;
+            for (int i = 0; i < 2000; i++) {
+                DinoKind k = DinoKind.roll(random, badlands);
+                h.assertTrue(k.hatchable(), "only hatchable kinds are rolled");
+                if (k == DinoKind.TRICERATOPS) tri++;
+            }
+            h.assertTrue(tri > 2000 * 60 / 100 && tri < 2000 * 82 / 100, "R10 weights between the built kinds: Triceratops 25 : T. rex 10 (" + tri + ")");
+            h.succeed();
+        });
+        ALL.put("triceratops_core_hitbox_and_stats", h -> {
+            Triceratops tri = standingTri(h, 8, 8);
+            h.assertTrue(tri.getBbWidth() == 2.6F && tri.getBbHeight() == 2.6F, "core hitbox 2.6 x 2.6 (barrel body and legs)");
+            h.assertTrue(tri.getMaxHealth() == 100.0F && tri.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED) == 0.2
+                    && tri.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT) == 1.0, "100 health, speed 0.20, step 1");
+            h.assertTrue(!tri.getAttributes().hasAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE),
+                    "no attack attribute: only the T. rex fights (combat goals moved to Trex)");
+            h.assertTrue(tri.kind() == DinoKind.TRICERATOPS && !tri.canMate(tri), "kind, no breeding");
+            h.assertTrue(Triceratops.RIG.solidHead && !Trex.RIG.solidHead, "the Triceratops head is solid, the T. rex pulls its head in");
+            h.assertTrue(Triceratops.RIG.reach > 2.7 && Triceratops.RIG.reach < 3.0, "the horns reach 2.85 blocks in front (" + Triceratops.RIG.reach + ")");
+            double low0 = 9.0, low4 = 9.0;
+            for (AABB b : tri.headBoxes(0)) low0 = Math.min(low0, b.minY - tri.getY());
+            for (AABB b : tri.headBoxes(com.simpledinos.entity.part.PartRig.TUCK_STEPS)) low4 = Math.min(low4, b.minY - tri.getY());
+            h.assertTrue(low4 > low0 + 0.4, "pulled in, the head is lifted (" + low0 + " -> " + low4 + ")");
+            h.succeed();
+        });
+        ALL.put("triceratops_head_stops_at_wall", h -> {
+            Triceratops tri = standingTri(h, 8, 2);
+            wall(h, 7, Blocks.STONE);
+            Vec3 step = new Vec3(0.0, 0.0, 2.0);
+            Vec3 allowed = tri.clipHead(step);
+            h.assertTrue(allowed.z < 1.9 && allowed.z > 1.3, "the head stops the walk in front of the wall (" + allowed.z + " of 2.0)");
+            boolean clear = true;
+            double floor = tri.getY() + tri.maxUpStep() + 0.05; // the part of the head above the step height (what clipHead guards)
+            for (AABB b : tri.headBoxes(0)) {
+                if (b.maxY <= floor) continue;
+                AABB after = new AABB(b.minX, Math.max(b.minY, floor), b.minZ, b.maxX, b.maxY, b.maxZ).move(allowed.x, 0.0, allowed.z);
+                if (!h.getLevel().noBlockCollision(tri, after.deflate(0.03))) clear = false;
+            }
+            h.assertTrue(clear, "after the allowed move no head box is in the wall");
+            wall(h, 7, Blocks.OAK_LEAVES);
+            h.assertTrue(tri.clipHead(step).z == 2.0, "leaves do not stop the head (it brushes through foliage)");
+            wall(h, 7, Blocks.AIR);
+            for (int x = 5; x <= 11; x++) h.setBlock(new BlockPos(x, 1, 7), Blocks.STONE);
+            h.assertTrue(tri.clipHead(step).z == 2.0, "a step of one block does not stop the head (the body steps up)");
+            h.assertTrue(tri.followStop(3.0) > tri.headReach() + 0.3, "it stops following before its head reaches the owner");
+            h.succeed();
+        });
+        ALL.put("triceratops_hatches_tame_with_eggshells", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos pos = at(4, 4);
+            h.setBlock(pos, DinosRegistry.EGGS.get(DinoKind.TRICERATOPS));
+            DinoEggBlockEntity be = (DinoEggBlockEntity) level.getBlockEntity(h.absolutePos(pos));
+            ServerPlayer owner = player(h, 5, 5);
+            brood(level, be, owner.getUUID());
+            be.advance(level, be.hatchAt(), null);
+            h.assertTrue(h.getBlockState(pos).isAir(), "the Triceratops egg hatches");
+            var found = level.getEntitiesOfClass(Triceratops.class, new AABB(h.absolutePos(pos)).inflate(3.0));
+            h.assertTrue(found.size() == 1, "one Triceratops hatchling");
+            Triceratops baby = found.get(0);
+            h.assertTrue(baby.isBaby() && baby.isTamed() && baby.getOwner() != null && baby.getOwner().getUUID().equals(owner.getUUID()),
+                    "tame from the first second, imprinted on the sitter");
+            int shells = itemsNear(h, pos, 3.0).stream().filter(e -> e.getItem().is(DinosRegistry.eggshell(DinoKind.TRICERATOPS)))
+                    .mapToInt(e -> e.getItem().getCount()).sum();
+            h.assertTrue(shells == 3, "three eggshells stay behind (" + shells + ")");
+            h.assertTrue(!baby.canUseSlot(EquipmentSlot.SADDLE), "a hatchling takes no saddle");
+            ItemStack apple = new ItemStack(Items.APPLE, 2);
+            owner.setItemInHand(InteractionHand.MAIN_HAND, apple);
+            int before = baby.getAge();
+            baby.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(baby.getAge() > before && owner.getItemInHand(InteractionHand.MAIN_HAND).getCount() == 1, "feeding speeds the growth up (Vanilla)");
+            baby.discard();
+            h.succeed();
+        });
+        MAX_TICKS.put("triceratops_hatches_tame_with_eggshells", 100);
+        ALL.put("triceratops_food_heals", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Triceratops tri = standingTri(h, 8, 8);
+            tri.setOwner(owner);
+            for (Item food : new Item[] {Items.APPLE, Items.WHEAT, Items.HAY_BLOCK, Items.CARROT}) h.assertTrue(tri.isFood(new ItemStack(food)), "food: " + food);
+            h.assertTrue(!tri.isFood(new ItemStack(Items.BEEF)), "no meat");
+            tri.setHealth(50.0F);
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.APPLE, 1));
+            tri.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(tri.getHealth() == 58.0F, "the apple (favourite) heals 8");
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WHEAT, 1));
+            tri.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(tri.getHealth() == 62.0F && owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "other food heals 4");
+            h.succeed();
+        });
+        ALL.put("triceratops_saddle_armor_riding", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Triceratops tri = standingTri(h, 8, 8);
+            tri.setOwner(owner);
+            var wearer = tri.typeHolder();
+            h.assertTrue(DinosRegistry.LARGE_SADDLE.components().get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable big
+                    && big.canBeEquippedBy(wearer), "the large saddle fits the Triceratops");
+            for (Item armor : new Item[] {DinosRegistry.TRICERATOPS_ARMOR_LEATHER, DinosRegistry.TRICERATOPS_ARMOR_IRON, DinosRegistry.TRICERATOPS_ARMOR_DIAMOND}) {
+                h.assertTrue(tri.isEquippableInSlot(new ItemStack(armor), EquipmentSlot.BODY), "Triceratops armor fits: " + BuiltInRegistries.ITEM.getKey(armor));
+                h.assertTrue(!(armor.components().get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable e
+                        && e.canBeEquippedBy(DinosRegistry.TREX.builtInRegistryHolder())), "but not the T. rex (each dinosaur its own armor)");
+            }
+            h.assertTrue(!tri.isEquippableInSlot(new ItemStack(DinosRegistry.TREX_ARMOR_IRON), EquipmentSlot.BODY), "T. rex armor does not fit");
+            tri.setItemSlot(EquipmentSlot.BODY, new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_DIAMOND));
+            h.assertTrue(tri.armorTier() == 3, "diamond armor: tier 3");
+            h.assertTrue(DinosRegistry.TRICERATOPS_ARMOR_IRON.components().get(net.minecraft.core.component.DataComponents.ATTRIBUTE_MODIFIERS) != null,
+                    "armor values like the Vanilla horse armor");
+            tri.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            h.assertTrue(tri.isSaddled() && tri.canJump(), "saddled: the jump key charges");
+            owner.startRiding(tri, true, false);
+            h.assertTrue(tri.getControllingPassenger() == owner, "the owner rides and steers");
+            h.succeed();
+        });
+        ALL.put("triceratops_charge_cooldown", h -> {
+            Triceratops tri = standingTri(h, 8, 8);
+            tri.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            h.assertTrue(tri.getJumpCooldown() == 0 && !tri.isRamming(), "ready");
+            h.assertTrue(tri.startRam(), "the server starts the charge");
+            h.assertTrue(tri.isRamming() && tri.abilityCooldown() == DinosConfig.ramCooldownTicks() && tri.getJumpCooldown() == 60,
+                    "3 s cooldown, shown in the jump bar");
+            h.assertTrue(!tri.startRam(), "no second charge during the cooldown (server authority)");
+            for (int i = 0; i < Triceratops.RAM_TICKS + Triceratops.RAM_GRACE + 2; i++) tri.aiStep();
+            h.assertTrue(!tri.isRamming() && tri.serverRamTicks() == 0, "the charge window ends");
+            Triceratops baby = standingTri(h, 3, 12);
+            baby.setAge(-1000);
+            h.assertTrue(!baby.startRam() && !baby.canJump(), "a hatchling does not charge");
+            Trex trex = standing(h, 12, 3);
+            trex.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            h.assertTrue(trex.getJumpCooldown() == 0 && trex.canJump(), "the T. rex keeps the normal jump");
+            baby.discard();
+            trex.discard();
+            h.succeed();
+        });
+        ALL.put("triceratops_shakes_natural_tree", h -> {
+            ServerLevel level = h.getLevel();
+            Triceratops tri = standingTri(h, 8, 2);
+            BlockPos log = tree(h, 8, 11, Blocks.OAK_LOG, Blocks.OAK_LEAVES, true);
+            try {
+                DinosConfig.shakeAppleChance = 1.0; // the windfall roll always gives its apple
+                Triceratops.Tree scanned = Triceratops.scan(level, h.absolutePos(log));
+                h.assertTrue(scanned.natural().size() == 49 && scanned.placed() == 0 && scanned.windfall(), "49 natural oak leaves found (" + scanned.natural().size() + ")");
+                h.assertTrue(scanned.base().equals(h.absolutePos(new BlockPos(8, 1, 11))), "the base is the lowest log");
+                Triceratops.Shake first = tri.shake(level, h.absolutePos(log));
+                h.assertTrue(first == Triceratops.Shake.SHAKEN, "a natural tree shakes (" + first + ")");
+                var items = itemsNear(h, log, 4.0);
+                h.assertTrue(items.stream().anyMatch(e -> e.getItem().is(Items.APPLE)), "the windfall apple falls");
+                int count = items.size();
+                for (int y = 1; y <= 4; y++) h.assertTrue(h.getBlockState(new BlockPos(8, y, 11)).is(Blocks.OAK_LOG), "the trunk stays");
+                h.assertTrue(h.getBlockState(new BlockPos(8, 5, 11)).is(Blocks.OAK_LEAVES) && h.getBlockState(new BlockPos(6, 4, 9)).is(Blocks.OAK_LEAVES), "the leaves stay");
+                Triceratops.Shake again = tri.shake(level, h.absolutePos(new BlockPos(8, 3, 11)));
+                h.assertTrue(again == Triceratops.Shake.RESTING && itemsNear(h, log, 4.0).size() == count, "the same tree rests: a dull knock, nothing falls");
+                h.assertTrue(tri.resting(scanned.base(), level.getGameTime() + DinosConfig.treeRestTicks() - 1)
+                        && !tri.resting(scanned.base(), level.getGameTime() + DinosConfig.treeRestTicks() + 1), "it rests 10 minutes");
+                BlockPos built = tree(h, 3, 3, Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, false);
+                h.assertTrue(tri.shake(level, h.absolutePos(built)) == Triceratops.Shake.NOT_NATURAL && itemsNear(h, built, 2.5).isEmpty(),
+                        "placed leaves give nothing (no farm from built trees)");
+                DinosConfig.triceratopsShake = false;
+                BlockPos off = tree(h, 13, 4, Blocks.SPRUCE_LOG, Blocks.SPRUCE_LEAVES, true);
+                h.assertTrue(tri.shake(level, h.absolutePos(off)) == Triceratops.Shake.OFF, "switched off: only a knock");
+            } finally {
+                DinosConfig.reset();
+            }
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+        ALL.put("triceratops_shake_picks_ripe_cocoa", h -> {
+            ServerLevel level = h.getLevel();
+            Triceratops tri = standingTri(h, 3, 2);
+            BlockPos log = tree(h, 8, 8, Blocks.JUNGLE_LOG, Blocks.JUNGLE_LEAVES, true);
+            BlockPos pod = new BlockPos(8, 2, 7), young = new BlockPos(8, 3, 7);
+            h.setBlock(pod, Blocks.COCOA.defaultBlockState().setValue(CocoaBlock.FACING, net.minecraft.core.Direction.SOUTH).setValue(CocoaBlock.AGE, 2));
+            h.setBlock(young, Blocks.COCOA.defaultBlockState().setValue(CocoaBlock.FACING, net.minecraft.core.Direction.SOUTH).setValue(CocoaBlock.AGE, 1));
+            h.assertTrue(tri.shake(level, h.absolutePos(log)) == Triceratops.Shake.SHAKEN, "the jungle tree shakes");
+            h.assertTrue(itemsNear(h, log, 4.0).stream().anyMatch(e -> e.getItem().is(Items.COCOA_BEANS)), "the ripe pod gives its beans");
+            h.assertTrue(h.getBlockState(pod).is(Blocks.COCOA) && h.getBlockState(pod).getValue(CocoaBlock.AGE) == 0, "and starts over (stays on the trunk)");
+            h.assertTrue(h.getBlockState(young).getValue(CocoaBlock.AGE) == 1, "an unripe pod is left alone");
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+        ALL.put("triceratops_charge_hits_tree_with_head", h -> {
+            ServerLevel level = h.getLevel();
+            Triceratops tri = standingTri(h, 8, 2);
+            tri.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            h.assertTrue(tri.hitLog() == null, "nothing in front yet");
+            BlockPos log = tree(h, 8, 5, Blocks.OAK_LOG, Blocks.OAK_LEAVES, true);
+            try {
+                DinosConfig.shakeAppleChance = 1.0;
+                h.assertTrue(tri.hitLog() != null, "the stretched head (horns) touches the trunk");
+                h.assertTrue(tri.startRam(), "charge");
+                tri.ramStep(level);
+                h.assertTrue(itemsNear(h, log, 4.0).stream().anyMatch(e -> e.getItem().is(Items.APPLE)), "the charge shook the tree");
+                int count = itemsNear(h, log, 4.0).size();
+                tri.ramStep(level);
+                h.assertTrue(itemsNear(h, log, 4.0).size() == count, "one shake per charge");
+            } finally {
+                DinosConfig.reset();
+            }
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+        ALL.put("triceratops_charge_pushes_mobs_not_players", h -> {
+            ServerLevel level = h.getLevel();
+            Triceratops tri = standingTri(h, 8, 3);
+            tri.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            net.minecraft.world.entity.monster.Monster zombie = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(8, 6));
+            zombie.setNoAi(true);
+            float health = zombie.getHealth();
+            ServerPlayer p = player(h, 9, 6);
+            net.minecraft.world.entity.animal.wolf.Wolf wolf = h.spawn(net.minecraft.world.entity.EntityTypes.WOLF, at(7, 6));
+            wolf.setNoAi(true);
+            wolf.tame(p);
+            h.assertTrue(!tri.rammable(p) && !tri.rammable(wolf) && tri.rammable(zombie), "players and tamed animals are never pushed");
+            tri.startRam();
+            tri.ramStep(level);
+            h.assertTrue(zombie.getDeltaMovement().z > 0.5, "the zombie is pushed forward hard (" + zombie.getDeltaMovement() + ")");
+            h.assertTrue(zombie.getHealth() == health, "without damage");
+            Vec3 before = zombie.getDeltaMovement();
+            tri.ramStep(level);
+            h.assertTrue(zombie.getDeltaMovement().equals(before), "once per charge");
+            zombie.discard();
+            wolf.discard();
+            h.succeed();
+        });
+        ALL.put("triceratops_defends_by_pushing", h -> {
+            ServerLevel level = h.getLevel();
+            Triceratops tri = standingTri(h, 8, 8);
+            net.minecraft.world.entity.monster.Monster zombie = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(8, 11));
+            zombie.setNoAi(true);
+            float health = zombie.getHealth();
+            tri.hurtServer(level, level.damageSources().mobAttack(zombie), 2.0F);
+            h.assertTrue(tri.getHealth() < tri.getMaxHealth(), "the zombie hit it");
+            h.assertTrue(zombie.getDeltaMovement().z > 0.3, "the Triceratops pushes the zombie away (" + zombie.getDeltaMovement() + ")");
+            h.assertTrue(zombie.getHealth() == health && tri.getTarget() == null, "no damage, no hunt: it does not fight");
+            zombie.discard();
+            h.succeed();
+        });
+        ALL.put("triceratops_part_boxes_like_trex", h -> {
+            Triceratops tri = standingTri(h, 8, 10);
+            tri.updateParts();
+            h.assertTrue(tri.headTuck() == 0 && tri.tailBend() == 0, "in the open field the head is stretched, the tail straight");
+            for (int y = 1; y <= 3; y++) h.setBlock(new BlockPos(8, y, 7), Blocks.STONE);
+            h.assertTrue(!clearOfBlocks(h, tri, tri.tailBoxes(0)), "the straight tail would stick in the pillar");
+            tri.updateParts();
+            h.assertTrue(tri.tailBend() != 0 && clearOfBlocks(h, tri, tri.tailBoxes(tri.tailBend())), "the tail bends away (" + tri.tailBend() + ")");
+            ServerPlayer p = player(h, 8, 13);
+            Vec3 at = h.absoluteVec(new Vec3(8.5, 2.0, 13.3));
+            p.setPos(at.x, at.y, at.z);
+            AABB body = p.getBoundingBox();
+            h.assertTrue(tri.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched head would touch the player");
+            tri.updateParts();
+            h.assertTrue(tri.headTuck() > 0, "the head lifts before the player (step " + tri.headTuck() + "); the solid head pushes the player aside");
             h.succeed();
         });
         ALL.put("guide_book", com.simpledinos.guide.DinosGuide::gameTest);

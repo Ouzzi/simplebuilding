@@ -26,10 +26,10 @@
       "A sand-coloured egg with brown bands."
     ],
     "use": [
-      "Can be placed and brooded like every dinosaur egg. The Triceratops itself is not built yet, so it stays an egg for now."
+      "Place it and sit on it with an empty hand: 5 minutes of sitting broods it, 10 minutes later a tame Triceratops hatchling hatches for the player who sat longest. Three eggshells stay behind."
     ],
     "secret": [
-      "It is waiting for its dinosaur."
+      "Its horns are not for fighting: a charge against a tree shakes the fruit loose."
     ]
   },
   "stegosaurus_egg": {
@@ -107,6 +107,83 @@
     ],
     "secret": [
       "Looks best on a green T. rex."
+    ]
+  },
+  "triceratops_armor_leather": {
+    "lore": [
+      "A frill shield of stitched leather with soft horn caps."
+    ],
+    "use": [
+      "Put it on a grown, tamed Triceratops: protection like leather horse armor. Eight leather around a Triceratops eggshell."
+    ],
+    "secret": [
+      "The horn caps make a charge look twice as brave."
+    ]
+  },
+  "triceratops_armor_iron": {
+    "lore": [
+      "A riveted iron frill shield with three horn caps."
+    ],
+    "use": [
+      "Put it on a grown, tamed Triceratops: protection like iron horse armor. Eight iron ingots around a Triceratops eggshell."
+    ],
+    "secret": [
+      "The trees do not mind the clang, the Triceratops does not either."
+    ]
+  },
+  "triceratops_armor_diamond": {
+    "lore": [
+      "A faceted diamond frill shield that catches the light."
+    ],
+    "use": [
+      "Put it on a grown, tamed Triceratops: protection like diamond horse armor. Eight diamonds around a Triceratops eggshell."
+    ],
+    "secret": [
+      "The recipe only shows once you hold an eggshell, like the turtle shell after the scute."
+    ]
+  },
+  "triceratops_eggshell": {
+    "lore": [
+      "Half a shell, still warm from the hatchling."
+    ],
+    "use": [
+      "Three fall when a Triceratops hatches. One makes three bone meal; one in the middle of eight leather, iron or diamonds makes Triceratops armor."
+    ],
+    "secret": [
+      "No Triceratops, no shell: the armor waits for the first hatchling."
+    ]
+  },
+  "stegosaurus_eggshell": {
+    "lore": [
+      "Half a slate-grey shell with plate marks."
+    ],
+    "use": [
+      "Falls when a Stegosaurus hatches; one makes three bone meal. Its armor comes with the Stegosaurus."
+    ],
+    "secret": [
+      "The Stegosaurus itself is not built yet."
+    ]
+  },
+  "utahraptor_eggshell": {
+    "lore": [
+      "Half a rust-red shell with dark speckles."
+    ],
+    "use": [
+      "Falls when a Utahraptor hatches; one makes three bone meal. Its armor comes with the Utahraptor."
+    ],
+    "secret": [
+      "The Utahraptor itself is not built yet."
+    ]
+  },
+  "parasaurolophus_eggshell": {
+    "lore": [
+      "Half a teal shell with light dots."
+    ],
+    "use": [
+      "Falls when a Parasaurolophus hatches; one makes three bone meal. Its armor comes with the Parasaurolophus."
+    ],
+    "secret": [
+      "The Parasaurolophus itself is not built yet."
     ]
   },
   "guide_book": {

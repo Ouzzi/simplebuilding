@@ -18,13 +18,17 @@ public final class DinosConfig {
     public static final String FILE = "simpledinos-server.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "brushSeconds", "incubateSeconds", "hatchSeconds", "hatchWaitsForOwner",
-            "growMinutes", "trexBiteDamage");
+            "growMinutes", "trexBiteDamage", "triceratopsShake", "shakeShare", "shakeAppleChance", "shakeTreeCooldownSeconds",
+            "ramCooldownSeconds");
 
     public static final int BRUSH_DEFAULT = 45, BRUSH_MIN = 5, BRUSH_MAX = 600;
     public static final int INCUBATE_DEFAULT = 300, INCUBATE_MIN = 10, INCUBATE_MAX = 3600;
     public static final int HATCH_DEFAULT = 600, HATCH_MIN = 10, HATCH_MAX = 7200;
     public static final int GROW_DEFAULT = 40, GROW_MIN = 1, GROW_MAX = 600;
     public static final double BITE_DEFAULT = 10.0, BITE_MIN = 1.0, BITE_MAX = 40.0;
+    public static final double SHARE_DEFAULT = 0.5, APPLE_DEFAULT = 0.35;
+    public static final int TREE_REST_DEFAULT = 600, TREE_REST_MIN = 60, TREE_REST_MAX = 3600;
+    public static final int RAM_COOLDOWN_DEFAULT = 3, RAM_COOLDOWN_MIN = 1, RAM_COOLDOWN_MAX = 30;
 
     public static boolean enabled = true;
     /** Seconds of brushing that free a fossil (45 = 75 % of the former minute, a pause costs twice its length). */
@@ -43,6 +47,16 @@ public final class DinosConfig {
     public static int growMinutes = GROW_DEFAULT;
     /** Bite damage of an adult T. rex (before difficulty). */
     public static double trexBiteDamage = BITE_DEFAULT;
+    /** a-dinorest1: a Triceratops charge against a natural tree shakes it (fruit, saplings, sticks fall; the tree stays). */
+    public static boolean triceratopsShake = true;
+    /** Share of the tree's natural leaves whose Vanilla hand drops are rolled per shake (at most 40 rolls). */
+    public static double shakeShare = SHARE_DEFAULT;
+    /** Chance of the extra windfall roll (table simpledinos:shake/windfall, an apple) on oak and dark oak trees. */
+    public static double shakeAppleChance = APPLE_DEFAULT;
+    /** Seconds a shaken tree rests (it only knocks dully meanwhile). */
+    public static int shakeTreeCooldownSeconds = TREE_REST_DEFAULT;
+    /** Seconds between two Triceratops charges (shown in the jump bar). */
+    public static int ramCooldownSeconds = RAM_COOLDOWN_DEFAULT;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -60,6 +74,14 @@ public final class DinosConfig {
 
     public static int growTicks() {
         return growMinutes * 1200;
+    }
+
+    public static int ramCooldownTicks() {
+        return ramCooldownSeconds * 20;
+    }
+
+    public static int treeRestTicks() {
+        return shakeTreeCooldownSeconds * 20;
     }
 
     public static void load(Path dir) {
@@ -86,6 +108,11 @@ public final class DinosConfig {
         hatchWaitsForOwner = bool(json, "hatchWaitsForOwner", true);
         growMinutes = (int) clamp(number(json, "growMinutes", GROW_DEFAULT), GROW_MIN, GROW_MAX);
         trexBiteDamage = clamp(number(json, "trexBiteDamage", BITE_DEFAULT), BITE_MIN, BITE_MAX);
+        triceratopsShake = bool(json, "triceratopsShake", true);
+        shakeShare = clamp(number(json, "shakeShare", SHARE_DEFAULT), 0.0, 1.0);
+        shakeAppleChance = clamp(number(json, "shakeAppleChance", APPLE_DEFAULT), 0.0, 1.0);
+        shakeTreeCooldownSeconds = (int) clamp(number(json, "shakeTreeCooldownSeconds", TREE_REST_DEFAULT), TREE_REST_MIN, TREE_REST_MAX);
+        ramCooldownSeconds = (int) clamp(number(json, "ramCooldownSeconds", RAM_COOLDOWN_DEFAULT), RAM_COOLDOWN_MIN, RAM_COOLDOWN_MAX);
     }
 
     public static JsonObject toJson() {
@@ -97,6 +124,11 @@ public final class DinosConfig {
         o.addProperty("hatchWaitsForOwner", hatchWaitsForOwner);
         o.addProperty("growMinutes", growMinutes);
         o.addProperty("trexBiteDamage", trexBiteDamage);
+        o.addProperty("triceratopsShake", triceratopsShake);
+        o.addProperty("shakeShare", shakeShare);
+        o.addProperty("shakeAppleChance", shakeAppleChance);
+        o.addProperty("shakeTreeCooldownSeconds", shakeTreeCooldownSeconds);
+        o.addProperty("ramCooldownSeconds", ramCooldownSeconds);
         return o;
     }
 
