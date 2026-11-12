@@ -1,6 +1,7 @@
 {
   "values": [
     "simpleblocks:hushed_deepslate_tile_slab",
+    "simpleblocks:sculk_tile_slab",
     "simpleblocks:calcite_slab",
     "simpleblocks:netherrack_slab",
     "simpleblocks:smooth_basalt_slab",
@@ -25,6 +26,7 @@
     "simpleblocks:dirt_slab",
     "simpleblocks:grass_slab",
     "simpleblocks:sand_slab",
+    "simpleblocks:red_sand_slab",
     "simpleblocks:gravel_slab"
   ]
 }

@@ -10,9 +10,13 @@ import java.util.Map;
  * Forge). {@link NatureBlocks#NAMES} must equal {@link #NAMES} (module test {@code moved_blocks_registered}).
  */
 public final class NatureIds {
-    /** Block paths in registration (and tab) order. */
-    public static final List<String> NAMES = List.of("suspended_sand", "suspended_gravel", "levitating_sand", "levitating_gravel",
-            "dirt_slab", "grass_slab", "sand_slab", "gravel_slab", "cracked_ice", "chiseled_packed_ice", "chiseled_blue_ice",
+    /**
+     * Block paths in registration (and tab) order. The red sand variants (PLAN40 simpleblocks-3) and the cracked packed/blue ice
+     * (ABN30-7) never were SimpleBuilding's; their id moves cost nothing and keep one list.
+     */
+    public static final List<String> NAMES = List.of("suspended_sand", "suspended_red_sand", "suspended_gravel", "levitating_sand",
+            "levitating_red_sand", "levitating_gravel", "dirt_slab", "grass_slab", "sand_slab", "red_sand_slab", "gravel_slab",
+            "cracked_ice", "chiseled_packed_ice", "chiseled_blue_ice",
             "nautilus_shell_block", "scarlet_froglight", "aqua_froglight", "azure_froglight",
             "cracked_packed_ice", "cracked_blue_ice");
     /** The rising block's entity type path. */

@@ -1418,35 +1418,43 @@
       "id": "money_links_simpleblocks",
       "en": {
         "title": "Linked Price Table: simpleblocks",
-        "summary": "4 item prices; loaded-mod condition: simpleblocks.",
+        "summary": "6 item prices; loaded-mod condition: simpleblocks.",
         "details": [
           "simpleblocks:levitating_gravel: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleblocks:levitating_red_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simpleblocks:levitating_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simpleblocks:suspended_gravel: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleblocks:suspended_red_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simpleblocks:suspended_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1."
         ]
       },
       "de": {
         "title": "Verknüpfte Preisliste: simpleblocks",
-        "summary": "4 Itempreise; Mod-Ladebedingung: simpleblocks.",
+        "summary": "6 Itempreise; Mod-Ladebedingung: simpleblocks.",
         "details": [
           "simpleblocks:levitating_gravel: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleblocks:levitating_red_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simpleblocks:levitating_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simpleblocks:suspended_gravel: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleblocks:suspended_red_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simpleblocks:suspended_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1."
         ]
       },
       "sources": [
         "modules/simplemoney/shared/resources/data/simplemoney/money/simpleblocks/prices.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_gravel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_red_sand.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_sand.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_gravel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_red_sand.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_sand.json"
       ],
       "related": [
         "simpleblocks:levitating_gravel",
+        "simpleblocks:levitating_red_sand",
         "simpleblocks:levitating_sand",
         "simpleblocks:suspended_gravel",
+        "simpleblocks:suspended_red_sand",
         "simpleblocks:suspended_sand"
       ]
     },
@@ -5742,6 +5750,31 @@
       "link": "simpleblocks"
     },
     {
+      "id": "simplemoney:links/simpleblocks/levitating_red_sand",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 46
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simpleblocks:levitating_red_sand",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simpleblocks",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_red_sand.json",
+      "link": "simpleblocks"
+    },
+    {
       "id": "simplemoney:links/simpleblocks/levitating_sand",
       "profession": "wandering_trader",
       "level": null,
@@ -5789,6 +5822,31 @@
         "enableWanderingTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_gravel.json",
+      "link": "simpleblocks"
+    },
+    {
+      "id": "simplemoney:links/simpleblocks/suspended_red_sand",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 46
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simpleblocks:suspended_red_sand",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simpleblocks",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_red_sand.json",
       "link": "simpleblocks"
     },
     {
@@ -16212,7 +16270,7 @@
     "enchantments": 0,
     "items": 8,
     "blocks": 0,
-    "trades": 451,
+    "trades": 453,
     "config": 11,
     "quests": 0,
     "recipesOtherLines": 0,

@@ -128,26 +128,32 @@
         "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
         "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tiles.json",
         "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_tiles.json",
+        "modules/simpleblocks/tools/generate_data.py",
         "tools/textures/blocks_b23_2026_10_23.py",
         "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
       ],
       "related": [
-        "simpleblocks:sculk_tiles"
+        "simpleblocks:sculk_tiles",
+        "simpleblocks:sculk_tile_stairs",
+        "simpleblocks:sculk_tile_slab",
+        "simpleblocks:sculk_tile_wall"
       ],
       "en": {
         "title": "Sculk Tiles",
-        "summary": "Deepslate tiles in sculk colors: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
+        "summary": "Deepslate tiles in sculk colors: each tile a little lighter or darker, a few sculk sparks breathe slowly. With stairs, slab and wall.",
         "details": [
           "Recipe (shaped, 2 x 2): two Deepslate Tiles and two Sculk, crossed, make two Sculk Tiles.",
-          "A plain building block with the hardness, tool and sound of Deepslate Tiles; it drops itself. Unlike the Hushed Deepslate Tiles it does not dampen vibrations."
+          "Sculk Tile Stairs, Slab and Wall: crafting table (stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6) or stonecutter and Shapecutter (one Sculk Tiles block makes 1 stairs, 2 slabs or 1 wall). They show the same slowly pulsing texture. With Simple Octets there is also a sculk tiles octet.",
+          "Plain building blocks with the hardness, tool and sound of Deepslate Tiles; each drops itself. Unlike the Hushed Deepslate Tiles they do not dampen vibrations."
         ]
       },
       "de": {
         "title": "Sculk-Fliesen",
-        "summary": "Tiefenschieferfliesen in Sculk-Farben: jede Fliese etwas heller oder dunkler, einige Sculk-Funken pulsieren langsam.",
+        "summary": "Tiefenschieferfliesen in Sculk-Farben: jede Fliese etwas heller oder dunkler, einige Sculk-Funken pulsieren langsam. Mit Treppe, Stufe und Mauer.",
         "details": [
           "Rezept (geformt, 2 × 2): zwei Tiefenschieferfliesen und zwei Sculk über Kreuz ergeben zwei Sculk-Fliesen.",
-          "Ein reiner Baublock mit Härte, Werkzeug und Klang der Tiefenschieferfliesen; er droppt sich selbst. Anders als die Gedämpften Tiefenschieferfliesen dämpft er keine Vibrationen."
+          "Sculk-Fliesentreppe, -stufe und -mauer: Werkbank (Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6) oder Steinsäge und Formsäge (ein Sculk-Fliesen-Block ergibt 1 Treppe, 2 Stufen oder 1 Mauer). Sie zeigen dieselbe langsam pulsierende Textur. Mit Simple Octets gibt es dazu einen Sculk-Fliesen-Achtelblock.",
+          "Reine Baublöcke mit Härte, Werkzeug und Klang der Tiefenschieferfliesen; jeder droppt sich selbst. Anders als die Gedämpften Tiefenschieferfliesen dämpfen sie keine Vibrationen."
         ]
       }
     },
@@ -297,7 +303,7 @@
       ],
       "en": {
         "title": "Chiseled Blocks",
-        "summary": "Chiseled Polished Andesite, Diorite and Granite, Chiseled Prismarine, Chiseled Dark Prismarine and Chiseled Red Nether Bricks: the carved cousins Vanilla lacks.",
+        "summary": "Chiseled Polished Andesite, Diorite and Granite, Chiseled Prismarine, Chiseled Dark Prismarine and Chiseled Red Nether Bricks (the blue ones stand with the Blue Nether Bricks): the carved cousins Vanilla lacks.",
         "details": [
           "Crafting table: two slabs of the base block on top of each other, like Vanilla's chiseled stone bricks. Stonecutter: one base block makes one chiseled block.",
           "Full blocks with the hardness and sound of their base block; they drop themselves."
@@ -305,7 +311,7 @@
       },
       "de": {
         "title": "Gemeißelte Blöcke",
-        "summary": "Gemeißelter Polierter Andesit, Diorit und Granit, Gemeißelter Prismarin, Gemeißelter Dunkler Prismarin und Gemeißelte Rote Netherziegel: die behauenen Verwandten, die Vanilla fehlen.",
+        "summary": "Gemeißelter Polierter Andesit, Diorit und Granit, Gemeißelter Prismarin, Gemeißelter Dunkler Prismarin und Gemeißelte Rote Netherziegel (die blauen stehen bei den Blauen Netherziegeln): die behauenen Verwandten, die Vanilla fehlen.",
         "details": [
           "Werkbank: zwei Stufen des Grundblocks übereinander, wie Vanillas gemeißelte Steinziegel. Steinmetz: ein Grundblock ergibt einen gemeißelten Block.",
           "Vollblöcke mit Härte und Klang ihres Grundblocks; sie droppen sich selbst."
@@ -372,7 +378,7 @@
         "details": [
           "Crafting table: 4 ice make 4 polished ice, 4 polished ice make 4 ice bricks (the same for packed and blue ice); stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6. Stonecutter: the ice cuts into every member of its family (chiseled ice only there).",
           "Every member is as slippery as its ice (blue ice slides furthest), sounds like glass and drops only with Silk Touch, like Vanilla ice.",
-          "Only the members of normal ice melt next to bright light (block light above 11), like Vanilla ice: full blocks become water and leave water when broken without Silk Touch; stairs, slabs and walls melt into water too but leave none when broken. Packed and blue ice members never melt, like their Vanilla blocks. Normal ice members stay see-through."
+          "Only the members of normal ice melt next to bright light (block light above 11), like Vanilla ice: full blocks become water and leave water when broken without Silk Touch; stairs, slabs and walls melt into water too but leave none when broken. A melted stairs, slab or wall becomes a full water source block, like melted ice: water has no half amount. Packed and blue ice members never melt, like their Vanilla blocks. Normal ice members stay see-through."
         ]
       },
       "de": {
@@ -381,7 +387,7 @@
         "details": [
           "Werkbank: 4 Eis ergeben 4 Poliertes Eis, 4 Poliertes Eis ergeben 4 Eisziegel (ebenso bei Pack- und Blaueis); Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6. Steinmetz: das Eis schneidet in jedes Glied seiner Familie (gemeißeltes Eis nur dort).",
           "Jedes Glied ist so rutschig wie sein Eis (Blaueis gleitet am weitesten), klingt wie Glas und droppt nur mit Behutsamkeit, wie Vanilla-Eis.",
-          "Nur die Glieder aus normalem Eis schmelzen bei hellem Licht (Blocklicht über 11) wie Vanilla-Eis: Vollblöcke werden zu Wasser und hinterlassen ohne Behutsamkeit abgebaut Wasser; Treppen, Stufen und Mauern schmelzen ebenfalls zu Wasser, hinterlassen beim Abbauen aber keins. Pack- und Blaueis-Glieder schmelzen nie, wie ihre Vanilla-Blöcke. Glieder aus normalem Eis bleiben durchsichtig."
+          "Nur die Glieder aus normalem Eis schmelzen bei hellem Licht (Blocklicht über 11) wie Vanilla-Eis: Vollblöcke werden zu Wasser und hinterlassen ohne Behutsamkeit abgebaut Wasser; Treppen, Stufen und Mauern schmelzen ebenfalls zu Wasser, hinterlassen beim Abbauen aber keins. Eine geschmolzene Treppe, Stufe oder Mauer wird wie geschmolzenes Eis zu einer vollen Wasserquelle: Wasser hat keine halbe Menge. Pack- und Blaueis-Glieder schmelzen nie, wie ihre Vanilla-Blöcke. Glieder aus normalem Eis bleiben durchsichtig."
         ]
       }
     },
@@ -414,7 +420,7 @@
         "details": [
           "Crafting table: stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6 from the bricks; two brick slabs on top of each other make the chiseled ice of that kind. Stonecutter: the bricks cut into cracked bricks, stairs, slabs (2), walls and chiseled ice; the ice and the polished ice cut straight into the brick stairs, slabs and walls. Shapecutter: 8 octets from one brick block.",
           "Cracked ice bricks come from the stonecutter (a furnace would melt them). They are decoration and do not crack further like Cracked Ice.",
-          "Every member is as slippery as its ice, sounds like glass and drops only with Silk Touch. Only the members of normal ice melt next to bright light, like Vanilla ice; packed and blue ice members never melt. The octets do not melt either."
+          "Every member is as slippery as its ice, sounds like glass and drops only with Silk Touch. Only the members of normal ice melt next to bright light, like Vanilla ice (a melted brick stairs, slab or wall becomes a full water source block); packed and blue ice members never melt. The octets do not melt either."
         ]
       },
       "de": {
@@ -423,7 +429,7 @@
         "details": [
           "Werkbank: Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6 aus den Ziegeln; zwei Ziegelstufen übereinander ergeben das gemeißelte Eis der Art. Steinmetz: die Ziegel schneiden in rissige Ziegel, Treppen, Stufen (2), Mauern und gemeißeltes Eis; Eis und Poliertes Eis schneiden direkt in Ziegeltreppe, -stufe und -mauer. Formsäge: 8 Achtelblöcke aus einem Ziegelblock.",
           "Rissige Eisziegel kommen aus dem Steinmetz (im Ofen würden sie schmelzen). Sie sind Deko und reißen nicht weiter wie Rissiges Eis.",
-          "Jedes Glied ist so rutschig wie sein Eis, klingt wie Glas und droppt nur mit Behutsamkeit. Nur die Glieder aus normalem Eis schmelzen bei hellem Licht wie Vanilla-Eis; Pack- und Blaueis-Glieder schmelzen nie. Auch die Achtelblöcke schmelzen nicht."
+          "Jedes Glied ist so rutschig wie sein Eis, klingt wie Glas und droppt nur mit Behutsamkeit. Nur die Glieder aus normalem Eis schmelzen bei hellem Licht wie Vanilla-Eis (eine geschmolzene Ziegeltreppe, -stufe oder -mauer wird zu einer vollen Wasserquelle); Pack- und Blaueis-Glieder schmelzen nie. Auch die Achtelblöcke schmelzen nicht."
         ]
       }
     },
@@ -433,28 +439,32 @@
         "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
         "modules/simpleblocks/tools/generate_data.py",
         "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_bricks.json",
-        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java",
+        "tools/textures/blue_chiseled_2026_11_12.py"
       ],
       "related": [
         "simpleblocks:blue_nether_bricks",
         "simpleblocks:blue_nether_brick_slab",
         "simpleblocks:blue_nether_brick_stairs",
-        "simpleblocks:blue_nether_brick_wall"
+        "simpleblocks:blue_nether_brick_wall",
+        "simpleblocks:chiseled_blue_nether_bricks"
       ],
       "en": {
         "title": "Blue Nether Bricks",
-        "summary": "A blue counterpart to Red Nether Bricks, with stairs, slab and wall.",
+        "summary": "A blue counterpart to Red Nether Bricks, with stairs, slab, wall and a chiseled block.",
         "details": [
           "Recipe: two Nether Bricks and two Warped Warts in a checker pattern (needs Simple Lib). Without Simple Lib: one Warped Wart Block and eight Nether Bricks, shapeless, give 4.",
-          "Stairs, slab and wall: crafting table or stonecutter, like the other Simple Blocks shapes."
+          "Stairs, slab and wall: crafting table or stonecutter, like the other Simple Blocks shapes.",
+          "Chiseled Blue Nether Bricks: two Blue Nether Brick Slabs on top of each other, or one Blue Nether Bricks in the stonecutter, like the Chiseled Red Nether Bricks; they show the same carved flame. There is no fence, just as the Red Nether Bricks have none."
         ]
       },
       "de": {
         "title": "Blaue Netherziegel",
-        "summary": "Ein blaues Gegenstück zu den Roten Netherziegeln, mit Treppe, Stufe und Mauer.",
+        "summary": "Ein blaues Gegenstück zu den Roten Netherziegeln, mit Treppe, Stufe, Mauer und gemeißeltem Block.",
         "details": [
           "Rezept: zwei Netherziegel und zwei Wirrwarzen im Schachbrettmuster (braucht Simple Lib). Ohne Simple Lib: ein Wirrwarzenblock und acht Netherziegel, formlos, ergeben 4.",
-          "Treppe, Stufe und Mauer: Werkbank oder Steinsäge, wie die anderen Simple-Blocks-Formen."
+          "Treppe, Stufe und Mauer: Werkbank oder Steinsäge, wie die anderen Simple-Blocks-Formen.",
+          "Gemeißelte Blaue Netherziegel: zwei Blaue Netherziegelstufen übereinander oder ein Blauer Netherziegel in der Steinsäge, wie die Gemeißelten Roten Netherziegel; sie zeigen dieselbe gemeißelte Flamme. Einen Zaun gibt es nicht, wie bei den Roten Netherziegeln."
         ]
       }
     },
@@ -475,6 +485,7 @@
         "simpleblocks:dirt_slab",
         "simpleblocks:grass_slab",
         "simpleblocks:sand_slab",
+        "simpleblocks:red_sand_slab",
         "simpleblocks:gravel_slab",
         "simpleblocks:cracked_ice",
         "simpleblocks:cracked_packed_ice",
@@ -488,38 +499,38 @@
       ],
       "en": {
         "title": "Natural Block Variants",
-        "summary": "Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
+        "summary": "Slabs of dirt, grass, sand, red sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
         "details": [
-          "Dirt, Grass, Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone. A shovel mines them fastest.",
+          "Dirt, Grass, Sand, Red Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone; the Shapecutter cuts one full block into two slabs. A shovel mines them fastest.",
           "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab. Grass lives on slabs like on full blocks: with light 9 or more a grass slab spreads onto nearby dirt and dirt slabs, a grass block spreads onto dirt slabs, and a covered grass slab turns back into a Dirt Slab.",
-          "Two slabs of the same kind make the full vanilla block again: placing a second Dirt, Grass, Sand or Gravel Slab onto one gives dirt, a grass block, sand or gravel instead of a double slab.",
-          "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into the full block instead of breaking. The Gravel Slab never drops flint.",
+          "Two slabs of the same kind make the full vanilla block again: placing a second Dirt, Grass, Sand, Red Sand or Gravel Slab onto one gives dirt, a grass block, sand, red sand or gravel instead of a double slab.",
+          "Sand, Red Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into the full block instead of breaking. The Gravel Slab never drops flint.",
           "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages with the footprints breaking into a star of cracks; after the last stage it breaks away and leaves no water. With nobody on it the cracks stay. Blocks can be placed on and next to it as usual, and next to ice it hides the faces between them like ice next to ice. Otherwise it behaves like ice and drops only with Silk Touch. With SimpleBuilding the stone chisel and the sledgehammer also turn ice into cracked ice, and SimpleBuilding's world generation lays cracked ice fields.",
           "Cracked Packed Ice (stonecutter: one packed ice makes one) and Cracked Blue Ice (one blue ice makes one) work like cracked ice, graded: the harder the ice, the longer it holds, one stage every 1 second (ice), 1.5 seconds (packed ice) and 2 seconds (blue ice). Packed ice shows fine hairlines, blue ice breaks into floes. They do not melt in light, are as slippery as their base block and drop only with Silk Touch.",
           "Glue (WD25-2/4): a slimeball (or a honeycomb, like Vanilla wax) on cracked ice, cracked packed ice or cracked blue ice freezes its crack stage: nobody cracks it further and light no longer melts it (slime sound or Vanilla wax particles, one item used up). An axe scrapes the glue off again. Mined with Silk Touch, the block drops with its stage and glue and is placed again exactly like that; without glue it cracks as before.",
           "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
           "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
           "Scarlet, Aqua and Azure Froglights: any froglight (tag simpleblocks:froglights) plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
-          "Creative mode: in the Simple Blocks tab behind the module's own blocks (no Vanilla tabs).",
-          "Moved from SimpleBuilding (26.3): worlds with the old simplebuilding: ids keep these blocks and items; recipes and their unlocks keep working (SimpleLib id moves)."
+          "Creative mode: in the Simple Blocks tab behind the module's own blocks; without SimpleBuilding also behind their Vanilla block in the Natural Blocks tab (the new red sand variants always behind Red Sand).",
+          "Moved from SimpleBuilding (26.3; the red sand slab and the cracked packed/blue ice are new here): worlds with the old simplebuilding: ids keep these blocks and items; recipes and their unlocks keep working (SimpleLib id moves)."
         ]
       },
       "de": {
         "title": "Naturvarianten",
-        "summary": "Stufen aus Erde, Gras, Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
+        "summary": "Stufen aus Erde, Gras, Sand, Rotem Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
         "details": [
-          "Erd-, Gras-, Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet. Am schnellsten baut man sie mit der Schaufel ab.",
+          "Erd-, Gras-, Sand-, Rote Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet; die Formsäge schneidet einen Vollblock in zwei Stufen. Am schnellsten baut man sie mit der Schaufel ab.",
           "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe. Gras lebt auf Stufen wie auf vollen Blöcken: ab Licht 9 breitet sich eine Grasstufe auf nahe Erde und Erdstufen aus, ein Grasblock auf Erdstufen, und eine bedeckte Grasstufe wird wieder zur Erdstufe.",
-          "Zwei Stufen derselben Art ergeben wieder den vollen Vanilla-Block: Wer eine zweite Erd-, Gras-, Sand- oder Kiesstufe daraufsetzt, bekommt Erde, einen Grasblock, Sand oder Kies statt einer Doppelstufe.",
-          "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zum vollen Block, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
+          "Zwei Stufen derselben Art ergeben wieder den vollen Vanilla-Block: Wer eine zweite Erd-, Gras-, Sand-, Rote Sand- oder Kiesstufe daraufsetzt, bekommt Erde, einen Grasblock, Sand, Roten Sand oder Kies statt einer Doppelstufe.",
+          "Sand-, Rote Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zum vollen Block, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
           "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen, in denen die Trittstelle zu einem Rissstern aufbricht; nach der letzten bricht es weg und hinterlässt kein Wasser. Steht niemand darauf, bleiben die Risse. Darauf und daneben lässt sich normal bauen, und neben Eis blendet es die gemeinsamen Flächen aus wie Eis neben Eis. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit. Mit SimpleBuilding machen auch der Steinmeißel und der Vorschlaghammer aus Eis rissiges Eis, und SimpleBuildings Weltgenerierung legt Felder aus rissigem Eis an.",
           "Rissiges Packeis (Steinmetz: ein Packeis ergibt eins) und Rissiges Blaueis (ein Blaueis ergibt eins) funktionieren wie rissiges Eis, abgestuft: je härter das Eis, desto länger hält es, eine Stufe alle 1 Sekunde (Eis), 1,5 Sekunden (Packeis) und 2 Sekunden (Blaueis). Packeis zeigt feine Haarrisse, Blaueis bricht in Schollen. Sie schmelzen nicht im Licht, sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
           "Kleber (WD25-2/4): ein Schleimball (oder eine Honigwabe, wie Vanilla-Wachs) auf rissigem Eis, Packeis oder Blaueis fixiert die Rissstufe: niemand reißt es weiter, Licht schmilzt es nicht mehr (Schleimklang bzw. Vanilla-Wachspartikel, ein Stück wird verbraucht). Eine Axt kratzt den Kleber wieder ab. Mit Behutsamkeit abgebaut, droppt der Block mit Stufe und Kleber und wird genau so wieder gesetzt; ohne Kleber reißt es wie bisher.",
           "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
           "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
           "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht (Tag simpleblocks:froglights) plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
-          "Kreativmodus: im Tab Simple Blocks hinter den eigenen Blöcken des Moduls (keine Vanilla-Tabs).",
-          "Aus SimpleBuilding umgezogen (26.3): Welten mit den alten simplebuilding:-Ids behalten diese Blöcke und Gegenstände; Rezepte und ihre Freischaltungen gelten weiter (SimpleLib-Id-Umzüge)."
+          "Kreativmodus: im Tab Simple Blocks hinter den eigenen Blöcken des Moduls; ohne SimpleBuilding zusätzlich hinter ihrem Vanilla-Block im Tab Natürliche Blöcke (die neuen Rote-Sand-Varianten immer hinter Rotem Sand).",
+          "Aus SimpleBuilding umgezogen (26.3; Rote Sandstufe sowie rissiges Pack- und Blaueis sind hier neu): Welten mit den alten simplebuilding:-Ids behalten diese Blöcke und Gegenstände; Rezepte und ihre Freischaltungen gelten weiter (SimpleLib-Id-Umzüge)."
         ]
       }
     },
@@ -530,6 +541,7 @@
         "modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java",
         "modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlockEntity.java",
         "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/resources/data/minecraft/tags/block/mineable/shovel.json",
         "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_sand.json",
         "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_sand_without_simplebuilding.json",
         "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_sand.json",
@@ -538,32 +550,34 @@
       ],
       "related": [
         "simpleblocks:suspended_sand",
+        "simpleblocks:suspended_red_sand",
         "simpleblocks:suspended_gravel",
         "simpleblocks:levitating_sand",
+        "simpleblocks:levitating_red_sand",
         "simpleblocks:levitating_gravel"
       ],
       "en": {
-        "title": "Suspended and Levitating Sand and Gravel",
-        "summary": "Sand and gravel without gravity (suspended) and with reversed gravity (levitating).",
+        "title": "Suspended and Levitating Sand, Red Sand and Gravel",
+        "summary": "Sand, red sand and gravel without gravity (suspended) and with reversed gravity (levitating).",
         "details": [
-          "Recipes: 8 Sand or Gravel around one centre item make 8. With SimpleBuilding the centre is a Nihilith Shard (suspended) or Astralit Dust (levitating); without SimpleBuilding a Phantom Membrane (suspended) or a Breeze Rod (levitating). Only one of the two ways is active at a time.",
-          "Suspended Sand and Suspended Gravel are ordinary blocks with no falling logic and the full collision box of sand and gravel: you can stand on both, items rest on them and a rising levitating block lands underneath them.",
-          "Levitating Sand and Levitating Gravel fall upwards: two ticks after being placed, and again whenever a neighbor changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick), so it starts slowly and accelerates like falling sand.",
+          "Recipes: 8 Sand, Red Sand or Gravel around one centre item make 8. With SimpleBuilding the centre is a Nihilith Shard (suspended) or Astralit Dust (levitating); without SimpleBuilding a Phantom Membrane (suspended) or a Breeze Rod (levitating). Only one of the two ways is active at a time.",
+          "Suspended Sand, Suspended Red Sand and Suspended Gravel are ordinary blocks with no falling logic and the full collision box of sand and gravel: you can stand on both, items rest on them and a rising levitating block lands underneath them.",
+          "Levitating Sand, Levitating Red Sand and Levitating Gravel fall upwards: two ticks after being placed, and again whenever a neighbor changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick), so it starts slowly and accelerates like falling sand.",
           "A rising block that runs into a ceiling turns back into a block in the free space below it. If it cannot be placed there, it drops as an item. Above the build limit it breaks and drops as an item.",
-          "Each drops itself. Their models use the vanilla sand and gravel textures, so the item tooltip says what they do. None of them is in a tool tag.",
-          "Moved from SimpleBuilding (26.3): old simplebuilding: ids load as these blocks, items and the rising entity."
+          "Each drops itself. Their models use the vanilla sand, red sand and gravel textures, so the item tooltip says what they do. Like sand they are mined fastest with a shovel.",
+          "Moved from SimpleBuilding (26.3; the red sand ones are new here): old simplebuilding: ids load as these blocks, items and the rising entity."
         ]
       },
       "de": {
-        "title": "Schwebender und aufsteigender Sand und Kies",
-        "summary": "Sand und Kies ohne Schwerkraft (schwebend) und mit umgekehrter Schwerkraft (aufsteigend).",
+        "title": "Schwebender und aufsteigender Sand, Roter Sand und Kies",
+        "summary": "Sand, Roter Sand und Kies ohne Schwerkraft (schwebend) und mit umgekehrter Schwerkraft (aufsteigend).",
         "details": [
-          "Rezepte: 8 Sand oder Kies rund um ein Mittelstück ergeben 8. Mit SimpleBuilding ist das Mittelstück ein Nihilitsplitter (schwebend) bzw. Astralitstaub (aufsteigend); ohne SimpleBuilding eine Phantomhaut (schwebend) bzw. eine Windrute (aufsteigend). Es gilt immer nur einer der beiden Wege.",
-          "Schwebender Sand und schwebender Kies sind gewöhnliche Blöcke ohne Fall-Logik und mit der vollen Kollisionsbox von Sand und Kies: Man steht auf beiden, Gegenstände bleiben darauf liegen und ein aufsteigender Block landet darunter.",
-          "Aufsteigender Sand und aufsteigender Kies fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick) und beschleunigt daher wie fallender Sand.",
+          "Rezepte: 8 Sand, Roter Sand oder Kies rund um ein Mittelstück ergeben 8. Mit SimpleBuilding ist das Mittelstück ein Nihilitsplitter (schwebend) bzw. Astralitstaub (aufsteigend); ohne SimpleBuilding eine Phantomhaut (schwebend) bzw. eine Windrute (aufsteigend). Es gilt immer nur einer der beiden Wege.",
+          "Schwebender Sand, schwebender Roter Sand und schwebender Kies sind gewöhnliche Blöcke ohne Fall-Logik und mit der vollen Kollisionsbox von Sand und Kies: Man steht auf beiden, Gegenstände bleiben darauf liegen und ein aufsteigender Block landet darunter.",
+          "Aufsteigender Sand, aufsteigender Roter Sand und aufsteigender Kies fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick) und beschleunigt daher wie fallender Sand.",
           "Stößt ein aufsteigender Block an eine Decke, wird er in der freien Zelle darunter wieder zum Block. Passt er dort nicht hin, fällt er als Gegenstand. Über dem Baulimit zerbricht er und fällt als Gegenstand.",
-          "Jeder droppt sich selbst. Ihre Modelle nutzen die Vanilla-Texturen von Sand und Kies, deshalb sagt der Tooltip, was sie tun. Keiner steht in einem Werkzeug-Tag.",
-          "Aus SimpleBuilding umgezogen (26.3): alte simplebuilding:-Ids laden als diese Blöcke, Gegenstände und die aufsteigende Entity."
+          "Jeder droppt sich selbst. Ihre Modelle nutzen die Vanilla-Texturen von Sand, Rotem Sand und Kies, deshalb sagt der Tooltip, was sie tun. Wie Sand baut man sie am schnellsten mit der Schaufel ab.",
+          "Aus SimpleBuilding umgezogen (26.3; die Rote-Sand-Varianten sind hier neu): alte simplebuilding:-Ids laden als diese Blöcke, Gegenstände und die aufsteigende Entity."
         ]
       }
     },
@@ -2242,6 +2256,74 @@
           {
             "id": "minecraft:ice",
             "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_blue_nether_bricks",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_blue_nether_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_blue_nether_bricks.json",
+      "ingredients": [
+        "simpleblocks:blue_nether_brick_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:blue_nether_brick_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_blue_nether_bricks_from_blue_nether_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_blue_nether_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_blue_nether_bricks_from_blue_nether_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:blue_nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_nether_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 2
           }
         ]
       }
@@ -9544,6 +9626,88 @@
       }
     },
     {
+      "id": "simpleblocks:levitating_red_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:levitating_red_sand",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_red_sand.json",
+      "ingredients": [
+        "minecraft:red_sand",
+        "simplebuilding:astralit_dust"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:red_sand"
+        ],
+        "M": [
+          "simplebuilding:astralit_dust"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:levitating_red_sand_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:levitating_red_sand",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_red_sand_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:breeze_rod",
+        "minecraft:red_sand"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:red_sand"
+        ],
+        "M": [
+          "minecraft:breeze_rod"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 8
+          },
+          {
+            "id": "minecraft:breeze_rod",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:levitating_sand",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -13210,6 +13374,37 @@
       }
     },
     {
+      "id": "simpleblocks:red_sand_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:red_sand_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/red_sand_slab.json",
+      "ingredients": [
+        "minecraft:red_sand"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:red_sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:red_sandstone_from_compressed_red_sandstone",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -15991,6 +16186,25 @@
       }
     },
     {
+      "id": "simpleblocks:sawing/red_sand_slab_from_red_sand",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:red_sand_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/red_sand_slab_from_red_sand.json",
+      "ingredients": [
+        "minecraft:red_sand"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_sand"
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:sawing/red_wool_slab_from_red_wool",
       "type": "simpleblocks:sawing",
       "category": null,
@@ -17339,6 +17553,210 @@
       }
     },
     {
+      "id": "simpleblocks:sculk_tile_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:sculk_tile_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tile_slab.json",
+      "ingredients": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:sculk_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 3
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sculk_tile_slab_from_sculk_tiles_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:sculk_tile_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tile_slab_from_sculk_tiles_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:sculk_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sculk_tile_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:sculk_tile_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tile_stairs.json",
+      "ingredients": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:sculk_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 6
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sculk_tile_stairs_from_sculk_tiles_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:sculk_tile_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tile_stairs_from_sculk_tiles_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:sculk_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sculk_tile_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:sculk_tile_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tile_wall.json",
+      "ingredients": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:sculk_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 6
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sculk_tile_wall_from_sculk_tiles_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:sculk_tile_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tile_wall_from_sculk_tiles_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:sculk_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:sculk_tiles",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -18137,6 +18555,88 @@
         "materials": [
           {
             "id": "minecraft:gravel",
+            "count": 8
+          },
+          {
+            "id": "minecraft:phantom_membrane",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:suspended_red_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:suspended_red_sand",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_red_sand.json",
+      "ingredients": [
+        "minecraft:red_sand",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:red_sand"
+        ],
+        "M": [
+          "simplebuilding:nihilith_shard"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:suspended_red_sand_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:suspended_red_sand",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_red_sand_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:phantom_membrane",
+        "minecraft:red_sand"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:red_sand"
+        ],
+        "M": [
+          "minecraft:phantom_membrane"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
             "count": 8
           },
           {
@@ -20448,6 +20948,24 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_blue_ice.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_blue_nether_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_blue_nether_bricks"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_blue_nether_bricks.json"
     },
     {
       "id": "simpleblocks:blocks/chiseled_coal",
@@ -22799,6 +23317,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/levitating_gravel.json"
     },
     {
+      "id": "simpleblocks:blocks/levitating_red_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:levitating_red_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/levitating_red_sand.json"
+    },
+    {
       "id": "simpleblocks:blocks/levitating_sand",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -23822,6 +24358,22 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/quartz_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/red_sand_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:red_sand_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/red_sand_slab.json"
+    },
+    {
       "id": "simpleblocks:blocks/red_sandstone_pillar",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -23907,6 +24459,58 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_deepslate.json"
+    },
+    {
+      "id": "simpleblocks:blocks/sculk_tile_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:sculk_tile_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_tile_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/sculk_tile_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:sculk_tile_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_tile_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/sculk_tile_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:sculk_tile_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_tile_wall.json"
     },
     {
       "id": "simpleblocks:blocks/sculk_tiles",
@@ -24131,6 +24735,24 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/suspended_gravel.json"
+    },
+    {
+      "id": "simpleblocks:blocks/suspended_red_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:suspended_red_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/suspended_red_sand.json"
     },
     {
       "id": "simpleblocks:blocks/suspended_sand",
@@ -25185,7 +25807,9 @@
         "simpleblocks:blue_nether_brick_slab",
         "simpleblocks:blue_nether_brick_slab_from_blue_nether_bricks_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleblocks:chiseled_blue_nether_bricks"
+      ]
     },
     {
       "id": "simpleblocks:blue_nether_brick_stairs",
@@ -25244,18 +25868,20 @@
       "note": {
         "en": {
           "title": "Blue Nether Bricks",
-          "summary": "A blue counterpart to Red Nether Bricks, with stairs, slab and wall.",
+          "summary": "A blue counterpart to Red Nether Bricks, with stairs, slab, wall and a chiseled block.",
           "details": [
             "Recipe: two Nether Bricks and two Warped Warts in a checker pattern (needs Simple Lib). Without Simple Lib: one Warped Wart Block and eight Nether Bricks, shapeless, give 4.",
-            "Stairs, slab and wall: crafting table or stonecutter, like the other Simple Blocks shapes."
+            "Stairs, slab and wall: crafting table or stonecutter, like the other Simple Blocks shapes.",
+            "Chiseled Blue Nether Bricks: two Blue Nether Brick Slabs on top of each other, or one Blue Nether Bricks in the stonecutter, like the Chiseled Red Nether Bricks; they show the same carved flame. There is no fence, just as the Red Nether Bricks have none."
           ]
         },
         "de": {
           "title": "Blaue Netherziegel",
-          "summary": "Ein blaues Gegenstück zu den Roten Netherziegeln, mit Treppe, Stufe und Mauer.",
+          "summary": "Ein blaues Gegenstück zu den Roten Netherziegeln, mit Treppe, Stufe, Mauer und gemeißeltem Block.",
           "details": [
             "Rezept: zwei Netherziegel und zwei Wirrwarzen im Schachbrettmuster (braucht Simple Lib). Ohne Simple Lib: ein Wirrwarzenblock und acht Netherziegel, formlos, ergeben 4.",
-            "Treppe, Stufe und Mauer: Werkbank oder Steinsäge, wie die anderen Simple-Blocks-Formen."
+            "Treppe, Stufe und Mauer: Werkbank oder Steinsäge, wie die anderen Simple-Blocks-Formen.",
+            "Gemeißelte Blaue Netherziegel: zwei Blaue Netherziegelstufen übereinander oder ein Blauer Netherziegel in der Steinsäge, wie die Gemeißelten Roten Netherziegel; sie zeigen dieselbe gemeißelte Flamme. Einen Zaun gibt es nicht, wie bei den Roten Netherziegeln."
           ]
         }
       },
@@ -25295,6 +25921,7 @@
         "simpleblocks:blue_nether_brick_stairs_from_blue_nether_bricks_stonecutting",
         "simpleblocks:blue_nether_brick_wall",
         "simpleblocks:blue_nether_brick_wall_from_blue_nether_bricks_stonecutting",
+        "simpleblocks:chiseled_blue_nether_bricks_from_blue_nether_bricks_stonecutting",
         "simpleblocks:cracked_blue_nether_bricks_from_smelting"
       ]
     },
@@ -25393,6 +26020,32 @@
         "simpleblocks:chiseled_blue_ice_from_blue_ice_brick_slab",
         "simpleblocks:chiseled_blue_ice_from_blue_ice_bricks_stonecutting",
         "simpleblocks:chiseled_blue_ice_from_blue_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_blue_nether_bricks",
+      "name": {
+        "en_us": "Chiseled Blue Nether Bricks",
+        "de_de": "Gemeißelte Blaue Netherziegel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/tools/generate_data.py",
+          "tools/textures/blue_chiseled_2026_11_12.py"
+        ],
+        "en": {
+          "summary": "Chiseled Blue Nether Bricks: two Blue Nether Brick Slabs on top of each other in the crafting table, or 1:1 from Blue Nether Bricks in the stonecutter; carved with the flame of the Chiseled Red Nether Bricks."
+        },
+        "de": {
+          "summary": "Gemeißelte Blaue Netherziegel: zwei Blaue Netherziegelstufen übereinander in der Werkbank oder 1:1 aus Blauen Netherziegeln in der Steinsäge; mit der Flamme der Gemeißelten Roten Netherziegel."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/chiseled_blue_nether_bricks.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_blue_nether_bricks",
+        "simpleblocks:chiseled_blue_nether_bricks_from_blue_nether_bricks_stonecutting"
       ],
       "usedIn": []
     },
@@ -28970,6 +29623,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:levitating_red_sand",
+      "name": {
+        "en_us": "Levitating Red Sand",
+        "de_de": "Aufsteigender Roter Sand"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "Levitating Red Sand: red sand with reversed gravity; it rises as an entity and lands under a ceiling."
+        },
+        "de": {
+          "summary": "Aufsteigender Roter Sand: Roter Sand mit umgekehrter Schwerkraft; er steigt als Entity auf und landet unter einer Decke."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:levitating_red_sand",
+        "simpleblocks:levitating_red_sand_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:levitating_sand",
       "name": {
         "en_us": "Levitating Sand",
@@ -30501,6 +31178,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:red_sand_slab",
+      "name": {
+        "en_us": "Red Sand Slab",
+        "de_de": "Rote Sandstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:red_sand_slab",
+        "simpleblocks:sawing/red_sand_slab_from_red_sand"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:red_sandstone_pillar",
       "name": {
         "en_us": "Red Sandstone Pillar",
@@ -30656,6 +31357,78 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:sculk_tile_slab",
+      "name": {
+        "en_us": "Sculk Tile Slab",
+        "de_de": "Sculk-Fliesenstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:sculk_tile_slab",
+        "simpleblocks:sculk_tile_slab_from_sculk_tiles_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:sculk_tile_stairs",
+      "name": {
+        "en_us": "Sculk Tile Stairs",
+        "de_de": "Sculk-Fliesentreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:sculk_tile_stairs",
+        "simpleblocks:sculk_tile_stairs_from_sculk_tiles_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:sculk_tile_wall",
+      "name": {
+        "en_us": "Sculk Tile Wall",
+        "de_de": "Sculk-Fliesenmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:sculk_tile_wall",
+        "simpleblocks:sculk_tile_wall_from_sculk_tiles_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:sculk_tiles",
       "name": {
         "en_us": "Sculk Tiles",
@@ -30664,18 +31437,20 @@
       "note": {
         "en": {
           "title": "Sculk Tiles",
-          "summary": "Deepslate tiles in sculk colors: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
+          "summary": "Deepslate tiles in sculk colors: each tile a little lighter or darker, a few sculk sparks breathe slowly. With stairs, slab and wall.",
           "details": [
             "Recipe (shaped, 2 x 2): two Deepslate Tiles and two Sculk, crossed, make two Sculk Tiles.",
-            "A plain building block with the hardness, tool and sound of Deepslate Tiles; it drops itself. Unlike the Hushed Deepslate Tiles it does not dampen vibrations."
+            "Sculk Tile Stairs, Slab and Wall: crafting table (stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6) or stonecutter and Shapecutter (one Sculk Tiles block makes 1 stairs, 2 slabs or 1 wall). They show the same slowly pulsing texture. With Simple Octets there is also a sculk tiles octet.",
+            "Plain building blocks with the hardness, tool and sound of Deepslate Tiles; each drops itself. Unlike the Hushed Deepslate Tiles they do not dampen vibrations."
           ]
         },
         "de": {
           "title": "Sculk-Fliesen",
-          "summary": "Tiefenschieferfliesen in Sculk-Farben: jede Fliese etwas heller oder dunkler, einige Sculk-Funken pulsieren langsam.",
+          "summary": "Tiefenschieferfliesen in Sculk-Farben: jede Fliese etwas heller oder dunkler, einige Sculk-Funken pulsieren langsam. Mit Treppe, Stufe und Mauer.",
           "details": [
             "Rezept (geformt, 2 × 2): zwei Tiefenschieferfliesen und zwei Sculk über Kreuz ergeben zwei Sculk-Fliesen.",
-            "Ein reiner Baublock mit Härte, Werkzeug und Klang der Tiefenschieferfliesen; er droppt sich selbst. Anders als die Gedämpften Tiefenschieferfliesen dämpft er keine Vibrationen."
+            "Sculk-Fliesentreppe, -stufe und -mauer: Werkbank (Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6) oder Steinsäge und Formsäge (ein Sculk-Fliesen-Block ergibt 1 Treppe, 2 Stufen oder 1 Mauer). Sie zeigen dieselbe langsam pulsierende Textur. Mit Simple Octets gibt es dazu einen Sculk-Fliesen-Achtelblock.",
+            "Reine Baublöcke mit Härte, Werkzeug und Klang der Tiefenschieferfliesen; jeder droppt sich selbst. Anders als die Gedämpften Tiefenschieferfliesen dämpfen sie keine Vibrationen."
           ]
         }
       },
@@ -30707,7 +31482,14 @@
       "craftedBy": [
         "simpleblocks:sculk_tiles"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleblocks:sculk_tile_slab",
+        "simpleblocks:sculk_tile_slab_from_sculk_tiles_stonecutting",
+        "simpleblocks:sculk_tile_stairs",
+        "simpleblocks:sculk_tile_stairs_from_sculk_tiles_stonecutting",
+        "simpleblocks:sculk_tile_wall",
+        "simpleblocks:sculk_tile_wall_from_sculk_tiles_stonecutting"
+      ]
     },
     {
       "id": "simpleblocks:shapecutter",
@@ -31020,6 +31802,30 @@
       "craftedBy": [
         "simpleblocks:suspended_gravel",
         "simpleblocks:suspended_gravel_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:suspended_red_sand",
+      "name": {
+        "en_us": "Suspended Red Sand",
+        "de_de": "Schwebender Roter Sand"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "Suspended Red Sand: red sand without gravity; it stays where it is put and is solid."
+        },
+        "de": {
+          "summary": "Schwebender Roter Sand: Roter Sand ohne Schwerkraft; er bleibt, wo man ihn setzt, und ist fest."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:suspended_red_sand",
+        "simpleblocks:suspended_red_sand_without_simplebuilding"
       ],
       "usedIn": []
     },
@@ -31749,13 +32555,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 19,
-    "recipes": 682,
-    "lootTables": 257,
+    "recipes": 696,
+    "lootTables": 264,
     "tags": 4,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 259,
+    "blocks": 266,
     "trades": 0,
     "config": 5,
     "quests": 0,

@@ -52,8 +52,10 @@ public final class MoneyDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simpleblocks:levitating_gravel",
+            "simpleblocks:levitating_red_sand",
             "simpleblocks:levitating_sand",
             "simpleblocks:suspended_gravel",
+            "simpleblocks:suspended_red_sand",
             "simpleblocks:suspended_sand",
             "simplebuilding:astral_end_stone",
             "simplebuilding:astral_end_stone_slab",

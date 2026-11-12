@@ -30,8 +30,8 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 137 blocks with their block items (+ the 14 aged/waxed copper stages of
- * {@link com.simpleblocks.metal.MetalBlocks}) (plus the 15 moved from SimpleBuilding in
+ * Everything Simple Blocks registers: 141 blocks with their block items (+ the 14 aged/waxed copper stages of
+ * {@link com.simpleblocks.metal.MetalBlocks}) (plus the 20 nature blocks, 15 of them moved from SimpleBuilding, in
  * {@link com.simpleblocks.nature.NatureBlocks}), the Shapecutter ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
@@ -55,6 +55,11 @@ public final class BlocksRegistry {
     public static final Block SCULK_DEEPSLATE = add("sculk_deepslate", Blocks.DEEPSLATE, s -> new DropExperienceBlock(UniformInt.of(1, 2), s));
     /** Sculk Tiles (W23-3): deepslate tiles in sculk colours with a slow pulse (animated texture); a plain building block. */
     public static final Block SCULK_TILES = add("sculk_tiles", Blocks.DEEPSLATE_TILES, Block::new);
+    /** PLAN40 simpleblocks-3: stairs, slab and wall of the sculk tiles, like the hushed tiles' shapes (the octet comes from Simple Octets). */
+    public static final Block SCULK_TILE_STAIRS = add("sculk_tile_stairs", Blocks.DEEPSLATE_TILES,
+            s -> new StairBlock(SCULK_TILES.defaultBlockState(), s));
+    public static final Block SCULK_TILE_SLAB = add("sculk_tile_slab", Blocks.DEEPSLATE_TILES, SlabBlock::new);
+    public static final Block SCULK_TILE_WALL = add("sculk_tile_wall", Blocks.DEEPSLATE_TILES, s -> new WallBlock(s.forceSolidOn()));
 
     // --- Blue nether bricks (N71): turquoise cousin of the red nether bricks, made with SimpleLib's warped wart.
     public static final Block BLUE_NETHER_BRICKS = add("blue_nether_bricks", Blocks.RED_NETHER_BRICKS, Block::new);
@@ -62,6 +67,11 @@ public final class BlocksRegistry {
             s -> new StairBlock(BLUE_NETHER_BRICKS.defaultBlockState(), s));
     public static final Block BLUE_NETHER_BRICK_SLAB = add("blue_nether_brick_slab", Blocks.RED_NETHER_BRICKS, SlabBlock::new);
     public static final Block BLUE_NETHER_BRICK_WALL = add("blue_nether_brick_wall", Blocks.RED_NETHER_BRICKS, s -> new WallBlock(s.forceSolidOn()));
+    /**
+     * PLAN40 simpleblocks-3: the chiseled member, like the chiseled red nether bricks (2 slabs on top of each other, stonecutter 1:1),
+     * right behind its family; own texture (tools/textures/blue_chiseled_2026_11_12.py). No fence: Vanilla's red nether bricks have none.
+     */
+    public static final Block CHISELED_BLUE_NETHER_BRICKS = add("chiseled_blue_nether_bricks", Blocks.RED_NETHER_BRICKS, Block::new);
 
     // --- Missing stairs, slabs and walls of Vanilla blocks (textures: the Vanilla block's).
     public static final List<String> SHAPES = List.of(
@@ -382,7 +392,7 @@ public final class BlocksRegistry {
                 new Placement(false, Items.REINFORCED_DEEPSLATE, List.of("mossy_deepslate_bricks", "mossy_deepslate_brick_stairs", "mossy_deepslate_brick_slab", "mossy_deepslate_brick_wall",
                         "mossy_deepslate_tiles", "mossy_deepslate_tile_stairs", "mossy_deepslate_tile_slab", "mossy_deepslate_tile_wall",
                         "hushed_deepslate_tiles", "hushed_deepslate_tile_stairs", "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall",
-                        "sculk_tiles")),
+                        "sculk_tiles", "sculk_tile_stairs", "sculk_tile_slab", "sculk_tile_wall")),
                 new Placement(false, Items.CHISELED_TUFF_BRICKS, List.of("cracked_tuff_bricks", "mossy_tuff_bricks", "mossy_tuff_brick_stairs", "mossy_tuff_brick_slab", "mossy_tuff_brick_wall")),
                 new Placement(false, Items.RESIN_BRICKS, List.of("cracked_mud_bricks", "mossy_mud_bricks", "mossy_mud_brick_stairs", "mossy_mud_brick_slab", "mossy_mud_brick_wall")),
                 new Placement(false, Items.RED_SANDSTONE, List.of("cut_sandstone_stairs", "cut_sandstone_wall", "smooth_sandstone_wall")),
@@ -391,7 +401,7 @@ public final class BlocksRegistry {
                 new Placement(false, Items.SEA_LANTERN, List.of("cracked_sulfur_bricks", "mossy_sulfur_bricks", "mossy_sulfur_brick_stairs", "mossy_sulfur_brick_slab", "mossy_sulfur_brick_wall")),
                 new Placement(false, Items.NETHER_BRICKS, List.of("netherrack_stairs", "netherrack_slab", "netherrack_wall")),
                 new Placement(false, Items.BASALT, List.of("cracked_red_nether_bricks", "chiseled_red_nether_bricks", "blue_nether_bricks", "blue_nether_brick_stairs",
-                        "blue_nether_brick_slab", "blue_nether_brick_wall", "cracked_blue_nether_bricks")),
+                        "blue_nether_brick_slab", "blue_nether_brick_wall", "cracked_blue_nether_bricks", "chiseled_blue_nether_bricks")),
                 new Placement(false, Items.POLISHED_BASALT, List.of("smooth_basalt_stairs", "smooth_basalt_slab", "smooth_basalt_wall")),
                 new Placement(false, Items.PURPUR_BLOCK, List.of("cracked_end_stone_bricks", "mossy_end_stone_bricks", "mossy_end_stone_brick_stairs", "mossy_end_stone_brick_slab", "mossy_end_stone_brick_wall")),
                 new Placement(false, Items.SMOOTH_STONE_SLAB, List.of("smooth_stone_stairs")),
@@ -422,6 +432,8 @@ public final class BlocksRegistry {
         out.add(Placement.after(true, Items.BLUE_ICE, "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall", "polished_blue_ice", "blue_ice_bricks",
                 "cracked_blue_ice_bricks", "blue_ice_brick_stairs", "blue_ice_brick_slab", "blue_ice_brick_wall"));
         out.add(Placement.after(false, Items.POLISHED_DEEPSLATE_WALL, "cracked_polished_deepslate"));
+        // PLAN40 simpleblocks-3: the red sand variants are new (SimpleBuilding's search-tab chains do not know them), so always here.
+        out.add(Placement.after(true, Items.RED_SAND, "red_sand_slab", "suspended_red_sand", "levitating_red_sand"));
         // The blocks that moved from SimpleBuilding, behind their base block as SimpleBuilding placed them. With SimpleBuilding
         // loaded its search-tab chains keep placing them (by id, in its order with the octets), so only without it.
         if (!SimpleBlocks.simplebuildingLoaded) {

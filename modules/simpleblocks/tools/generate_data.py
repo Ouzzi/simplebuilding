@@ -69,7 +69,11 @@ CHISELED = [('chiseled_polished_andesite', 'polished_andesite', 'polished_andesi
             ('chiseled_prismarine', 'prismarine', 'prismarine_slab', 'Chiseled Prismarine', 'Gemeißelter Prismarin'),
             ('chiseled_red_nether_bricks', 'red_nether_bricks', 'red_nether_brick_slab', 'Chiseled Red Nether Bricks', 'Gemeißelte Rote Netherziegel'),
             # PAL14 (owner 09.11.): the red gap under the dark prismarine bricks.
-            ('chiseled_dark_prismarine', 'dark_prismarine', 'dark_prismarine_slab', 'Chiseled Dark Prismarine', 'Gemeißelter Dunkler Prismarin')]
+            ('chiseled_dark_prismarine', 'dark_prismarine', 'dark_prismarine_slab', 'Chiseled Dark Prismarine', 'Gemeißelter Dunkler Prismarin'),
+            # PLAN40 simpleblocks-3: the blue bricks' chiseled member (our own base, hence the namespace); OWN texture, not Vanilla-derived:
+            # tools/textures/blue_chiseled_2026_11_12.py (the accepted PAL16 flame on blue_nether_bricks.png, committed with layers).
+            ('chiseled_blue_nether_bricks', f'{NS}:blue_nether_bricks', f'{NS}:blue_nether_brick_slab', 'Chiseled Blue Nether Bricks',
+             'Gemeißelte Blaue Netherziegel')]
 CHISELED_NAMES = {c[0]: (c[3], c[4]) for c in CHISELED}
 
 # PAL14 (owner 09.11., docs/ai/PLAN-B-PAL14-2026-11-09.md): sandstone pillars (block, Vanilla sandstone, end texture, EN, DE). Side texture:
@@ -101,8 +105,13 @@ BLOCKS[HUSHED] = dict(kind='cube', tex=OWN_TEX, double=f'{NS}:block/{HUSHED}')
 for kind, suffix in (('stairs', 'tile_stairs'), ('slab', 'tile_slab'), ('wall', 'tile_wall')):
     BLOCKS[f'hushed_deepslate_{suffix}'] = dict(kind=kind, base=f'{NS}:{HUSHED}', top=OWN_TEX, side=OWN_TEX, wall=OWN_TEX, double=OWN_TEX, family=HUSHED)
 BLOCKS['sculk_deepslate'] = dict(kind='cube', tex=f'{NS}:block/sculk_deepslate')
-# Sculk tiles (W23-3, owner pick B23-T3 C): own animated texture, full block only (no stairs/slab, so no octet, A4).
-BLOCKS['sculk_tiles'] = dict(kind='cube', tex=f'{NS}:block/sculk_tiles')
+# Sculk tiles (W23-3, owner pick B23-T3 C): own animated texture. PLAN40 simpleblocks-3: + stairs/slab/wall on the same (animated)
+# texture, like the hushed tiles' shapes; the octet (A4) comes from simpleoctets (sculk_tiles_octet).
+SCULK_TEX = f'{NS}:block/sculk_tiles'
+BLOCKS['sculk_tiles'] = dict(kind='cube', tex=SCULK_TEX)
+for kind in ('stairs', 'slab', 'wall'):
+    BLOCKS[f'sculk_tile_{kind}'] = dict(kind=kind, base=f'{NS}:sculk_tiles', top=SCULK_TEX, side=SCULK_TEX, wall=SCULK_TEX, double=SCULK_TEX,
+                                        family='sculk_tiles')
 for family, base, which, tex in SHAPES:
     for letter, kind in (('s', 'stairs'), ('S', 'slab'), ('w', 'wall')):
         if letter in which:
@@ -172,23 +181,30 @@ HUSHED_BLOCKS = [n for n in BLOCKS if n.startswith('hushed_')]
 # --- Moved from SimpleBuilding (b-blocksmove, docs/ai/PLAN-B-BLOCKSMOVE-2026-10-18.md) -----------------------------------
 # Java: com.simpleblocks.nature.NatureBlocks (not in BlocksRegistry, so the 38 above stay the module's own). The nature
 # variants keep their data files from SimpleBuilding's 26.3 datagen (moved, namespace rewritten; check_data.py checks them);
-# this script writes the gravity blocks' data, the tags and the names of all 15.
+# this script writes the gravity blocks' data, the tags and the names of all of them, and every file of the new red sand slab.
+# PLAN40 simpleblocks-3: the red sand variants (new, not from SimpleBuilding) right behind their sand variant, same recipes and data.
 GRAVITY = [('suspended_sand', 'sand', 'simplebuilding:nihilith_shard', 'minecraft:phantom_membrane'),
+           ('suspended_red_sand', 'red_sand', 'simplebuilding:nihilith_shard', 'minecraft:phantom_membrane'),
            ('suspended_gravel', 'gravel', 'simplebuilding:nihilith_shard', 'minecraft:phantom_membrane'),
            ('levitating_sand', 'sand', 'simplebuilding:astralit_dust', 'minecraft:breeze_rod'),
+           ('levitating_red_sand', 'red_sand', 'simplebuilding:astralit_dust', 'minecraft:breeze_rod'),
            ('levitating_gravel', 'gravel', 'simplebuilding:astralit_dust', 'minecraft:breeze_rod')]
-NATURE_SLABS = ['dirt_slab', 'grass_slab', 'sand_slab', 'gravel_slab']
+NATURE_SLABS = ['dirt_slab', 'grass_slab', 'sand_slab', 'red_sand_slab', 'gravel_slab']
+# Natural slabs whose data this script writes (the others keep SimpleBuilding's moved files): (slab, Vanilla block).
+NEW_NATURE_SLABS = [('red_sand_slab', 'red_sand')]
 NATURE_ICE = ['cracked_ice', 'chiseled_packed_ice', 'chiseled_blue_ice']
 NATURE_OTHER = ['nautilus_shell_block', 'scarlet_froglight', 'aqua_froglight', 'azure_froglight']
 # ABN30-7: cracked packed ice (variant A) and cracked blue ice (variant C), new here (not from SimpleBuilding): (block, Vanilla ice they are cut from).
 CRACKED_HARD = [('cracked_packed_ice', 'packed_ice'), ('cracked_blue_ice', 'blue_ice')]
 MOVED = [g[0] for g in GRAVITY] + NATURE_SLABS + NATURE_ICE + NATURE_OTHER + [c[0] for c in CRACKED_HARD]
 MOVED_NAMES = {
-    'en_us': ['Suspended Sand', 'Suspended Gravel', 'Levitating Sand', 'Levitating Gravel', 'Dirt Slab', 'Grass Slab', 'Sand Slab',
-              'Gravel Slab', 'Cracked Ice', 'Chiseled Packed Ice', 'Chiseled Blue Ice', 'Block of Nautilus Shell', 'Scarlet Froglight',
+    'en_us': ['Suspended Sand', 'Suspended Red Sand', 'Suspended Gravel', 'Levitating Sand', 'Levitating Red Sand', 'Levitating Gravel',
+              'Dirt Slab', 'Grass Slab', 'Sand Slab', 'Red Sand Slab', 'Gravel Slab', 'Cracked Ice', 'Chiseled Packed Ice', 'Chiseled Blue Ice',
+              'Block of Nautilus Shell', 'Scarlet Froglight',
               'Aqua Froglight', 'Azure Froglight', 'Cracked Packed Ice', 'Cracked Blue Ice'],
-    'de_de': ['Schwebender Sand', 'Schwebender Kies', 'Aufsteigender Sand', 'Aufsteigender Kies', 'Erdstufe', 'Grasstufe', 'Sandstufe',
-              'Kiesstufe', 'Rissiges Eis', 'Gemeißeltes Packeis', 'Gemeißeltes Blaueis', 'Nautilusschalenblock', 'Scharlachrotes Froschlicht',
+    'de_de': ['Schwebender Sand', 'Schwebender Roter Sand', 'Schwebender Kies', 'Aufsteigender Sand', 'Aufsteigender Roter Sand',
+              'Aufsteigender Kies', 'Erdstufe', 'Grasstufe', 'Sandstufe', 'Rote Sandstufe', 'Kiesstufe', 'Rissiges Eis', 'Gemeißeltes Packeis',
+              'Gemeißeltes Blaueis', 'Nautilusschalenblock', 'Scharlachrotes Froschlicht',
               'Türkises Froschlicht', 'Azurblaues Froschlicht', 'Rissiges Packeis', 'Rissiges Blaueis']}
 MOVED_TEXT = {
     'en_us': {'tooltip.simpleblocks.levitating': 'Falls upward instead of down', 'tooltip.simpleblocks.suspended': 'Hangs in mid-air and never falls',
@@ -207,7 +223,8 @@ WOODS += [('simpleend', w, 'log', 'wood', 'simpleend') for w in ('ashwood', 'dus
 WOOLS = ['white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple',
          'blue', 'brown', 'green', 'red', 'black']
 # The natural slabs (moved from SimpleBuilding in b-blocksmove; no stonecutting recipe; no octets, owner 17.10.).
-NATURAL_SLABS = [('dirt', 'minecraft:dirt'), ('grass', 'minecraft:grass_block'), ('sand', 'minecraft:sand'), ('gravel', 'minecraft:gravel')]
+NATURAL_SLABS = [('dirt', 'minecraft:dirt'), ('grass', 'minecraft:grass_block'), ('sand', 'minecraft:sand'), ('red_sand', 'minecraft:red_sand'),
+                 ('gravel', 'minecraft:gravel')]
 
 # --- Compact and Dense blocks (WH26-10, docs/ai/PLAN-A-COMPACT-2026-11-06.md) ---------------------------------------------
 # Java: com.simpleblocks.compact.CompactBlocks (names and order are checked against it). Stage 1 "Compressed" = 9 base blocks, stage 2
@@ -353,6 +370,15 @@ def models_and_states():
             put(f'assets/{NS}/blockstates/{name}.json', wall_state(name))
             put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}_inventory'}})
     saw_model()
+    # PLAN40 simpleblocks-3: the red sand slab in the format of the moved sand slab (Vanilla texture, double = the Vanilla block's model).
+    for name, base in NEW_NATURE_SLABS:
+        tex = {'bottom': f'minecraft:block/{base}', 'side': f'minecraft:block/{base}', 'top': f'minecraft:block/{base}'}
+        put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/slab', 'textures': tex})
+        put(f'assets/{NS}/models/block/{name}_top.json', {'parent': 'minecraft:block/slab_top', 'textures': tex})
+        put(f'assets/{NS}/blockstates/{name}.json', {'variants': {'type=bottom': {'model': f'{NS}:block/{name}'},
+                                                                  'type=double': {'model': f'minecraft:block/{base}'},
+                                                                  'type=top': {'model': f'{NS}:block/{name}_top'}}})
+        put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}'}})
     # Gravity blocks look like Vanilla sand and gravel: the models point at minecraft:block/sand / gravel.
     for name, base, _, _ in GRAVITY:
         put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'minecraft:block/{base}'}})
@@ -460,10 +486,11 @@ def recipes():
                'decorations' if kind == 'wall' else 'building_blocks')
     # Chiseled (a-pal09): two slabs on top of each other at the crafting table, like Vanilla's chiseled stone bricks; stonecutter: 1 base block -> 1.
     for name, base, slab, *_ in CHISELED:
-        recipe(name, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': f'minecraft:{slab}'},
-                      'pattern': ['#', '#'], 'result': result(name)}, f'minecraft:{slab}')
-        recipe(f'{name}_from_{base}_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': f'minecraft:{base}', 'result': result(name)},
-               f'minecraft:{base}')
+        base_id, slab_id = (x if ':' in x else f'minecraft:{x}' for x in (base, slab))
+        recipe(name, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': slab_id},
+                      'pattern': ['#', '#'], 'result': result(name)}, slab_id)
+        recipe(f'{name}_from_{base_id.split(":")[1]}_stonecutting', {'type': 'minecraft:stonecutting', 'ingredient': base_id, 'result': result(name)},
+               base_id)
     # PAL14 sandstone pillars: two sandstone on top of each other -> 2 (like the quartz pillar); stonecutter 1 -> 1.
     for name, base, *_ in PILLARS:
         recipe(name, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': f'minecraft:{base}'},
@@ -521,6 +548,9 @@ def recipes():
         for rid, centre, cond in ((name, sb_item, sb), (f'{name}_without_simplebuilding', vanilla_item, no_sb)):
             recipe(rid, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'B': f'minecraft:{base}', 'M': centre},
                          'pattern': ['BBB', 'BMB', 'BBB'], 'result': result(name, 8)}, centre, conditions=cond)
+    for name, base in NEW_NATURE_SLABS:   # like the moved sand slab: 3 in a row -> 6 (no stonecutter: it cuts stone only)
+        recipe(name, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': f'minecraft:{base}'}, 'pattern': ['###'],
+                      'result': result(name, 6)}, f'minecraft:{base}')
     metal_recipes()
     for path, ingredient, out, count, mod in sawing_list():
         res = {'id': out} if count == 1 else {'count': count, 'id': out}
@@ -587,6 +617,11 @@ def loot():
             data = {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
                                                           'entries': [{'type': 'minecraft:item', 'name': item}], 'rolls': 1}]}
         put(f'data/{NS}/loot_table/blocks/{name}.json', data)
+    for name, _ in NEW_NATURE_SLABS:   # like the moved sand slab: a double slab drops 2
+        item = f'{NS}:{name}'
+        put(f'data/{NS}/loot_table/blocks/{name}.json', {'type': 'minecraft:block', 'pools': [{'entries': [{'type': 'minecraft:item', 'modifier': [
+            {'type': 'minecraft:set_count', 'condition': {'type': 'minecraft:match_block', 'blocks': item, 'state': {'type': 'double'}}, 'count': 2},
+            {'type': 'minecraft:explosion_decay'}], 'name': item}], 'rolls': 1}]})
     for name, *_ in GRAVITY:
         put(f'data/{NS}/loot_table/blocks/{name}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
                                                             'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{name}'}], 'rolls': 1}]})
@@ -639,7 +674,7 @@ def tags():
 # --- lang -------------------------------------------------------------------------------------------------------------
 EN_FAMILY = {'calcite': 'Calcite', 'netherrack': 'Netherrack', 'smooth_basalt': 'Smooth Basalt', 'cut_sandstone': 'Cut Sandstone',
              'cut_red_sandstone': 'Cut Red Sandstone', 'smooth_sandstone': 'Smooth Sandstone', 'smooth_red_sandstone': 'Smooth Red Sandstone',
-             HUSHED: 'Hushed Deepslate Tile', BLUE: 'Blue Nether Brick',
+             HUSHED: 'Hushed Deepslate Tile', BLUE: 'Blue Nether Brick', 'sculk_tiles': 'Sculk Tile',
              'mossy_deepslate_brick': 'Mossy Deepslate Brick', 'mossy_deepslate_tile': 'Mossy Deepslate Tile', 'mossy_tuff_brick': 'Mossy Tuff Brick',
              'mossy_mud_brick': 'Mossy Mud Brick', 'mossy_end_stone_brick': 'Mossy End Stone Brick', 'mossy_cinnabar_brick': 'Mossy Cinnabar Brick',
              'mossy_sulfur_brick': 'Mossy Sulfur Brick', 'stone': 'Stone', 'smooth_stone': 'Smooth Stone', 'polished_granite': 'Polished Granite',
@@ -648,7 +683,7 @@ EN_FAMILY = {'calcite': 'Calcite', 'netherrack': 'Netherrack', 'smooth_basalt': 
              'dark_prismarine': 'Dark Prismarine', **{k: e for k, e, _ in ICES}, **{f'{k}_brick': f'{e} Brick' for k, e, _ in ICES}}
 DE_FAMILY = {'calcite': 'Kalzit', 'netherrack': 'Netherrack-', 'smooth_basalt': 'Glatte Basalt', 'cut_sandstone': 'Geschnittene Sandstein',
              'cut_red_sandstone': 'Geschnittene Rote Sandstein', 'smooth_sandstone': 'Glatte Sandstein', 'smooth_red_sandstone': 'Glatte Rote Sandstein',
-             HUSHED: 'Gedämpfte Tiefenschieferfliesen', BLUE: 'Blaue Netherziegel',
+             HUSHED: 'Gedämpfte Tiefenschieferfliesen', BLUE: 'Blaue Netherziegel', 'sculk_tiles': 'Sculk-Fliesen',
              'mossy_deepslate_brick': 'Bemooste Tiefenschieferziegel', 'mossy_deepslate_tile': 'Bemooste Tiefenschieferfliesen',
              'mossy_tuff_brick': 'Bemooste Tuffziegel', 'mossy_mud_brick': 'Bemooste Lehmziegel', 'mossy_end_stone_brick': 'Bemooste Endsteinziegel',
              'mossy_cinnabar_brick': 'Bemooste Zinnoberziegel', 'mossy_sulfur_brick': 'Bemooste Schwefelziegel', 'stone': 'Stein',

@@ -41,6 +41,11 @@ public final class ModuleGameTest {
         BlocksTests.ALL.get("sculk_tiles").accept(h);
     }
 
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sculkTileShapes(GameTestHelper h) {
+        BlocksTests.ALL.get("sculk_tile_shapes").accept(h);
+    }
+
     @GameTest(structure = "simpleblocks:empty", maxTicks = 60)
     public void sculkDeepslateDropsAndXp(GameTestHelper h) {
         BlocksTests.ALL.get("sculk_deepslate_drops_and_xp").accept(h);
@@ -79,6 +84,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void blueNetherBricksRecipes(GameTestHelper h) {
         BlocksTests.ALL.get("blue_nether_bricks_recipes").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void chiseledBlueNetherBricks(GameTestHelper h) {
+        BlocksTests.ALL.get("chiseled_blue_nether_bricks").accept(h);
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
@@ -244,6 +254,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void movedBlocksInTheTab(GameTestHelper h) {
         BlocksTests.ALL.get("moved_blocks_in_the_tab").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void redSandVariantsFallMergeHangAndRise(GameTestHelper h) {
+        BlocksTests.ALL.get("red_sand_variants_fall_merge_hang_and_rise").accept(h);
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)

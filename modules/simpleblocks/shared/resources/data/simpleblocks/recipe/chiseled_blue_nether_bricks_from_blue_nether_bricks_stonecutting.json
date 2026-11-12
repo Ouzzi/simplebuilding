@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:blue_nether_bricks",
+  "result": {
+    "id": "simpleblocks:chiseled_blue_nether_bricks"
+  }
+}

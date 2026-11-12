@@ -161,7 +161,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 80
     },
-    "dataHash": "000436829e46"
+    "dataHash": "c758cb697d55"
   },
   {
     "id": "simpleriding",
@@ -1454,12 +1454,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 259,
-      "recipes": 682,
+      "blocks": 266,
+      "recipes": 696,
       "config": 5,
       "features": 19
     },
-    "dataHash": "59673e6aa129"
+    "dataHash": "2a9ebe449613"
   },
   {
     "id": "simplecrucibles",
