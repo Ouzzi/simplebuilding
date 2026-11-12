@@ -215,6 +215,12 @@ public final class ChiselTests {
             }
             h.succeed();
         });
+        // simplechisels-2 (PLAN40): the config screen names every option (no raw paths such as cooldownTicks.stone).
+        ALL.put("config_labels", h -> {
+            List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleChisels.MOD_ID);
+            h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
+            h.succeed();
+        });
         ALL.put("sub_mod_switch", h -> {
             com.simplebuilding.framework.api.SubMods.set(SimpleChisels.MOD_ID, false);
             try {

@@ -42,6 +42,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplechisels:empty")
+    public void configLabels(GameTestHelper h) {
+        ChiselTests.ALL.get("config_labels").accept(h);
+    }
+
+    @GameTest(structure = "simplechisels:empty")
     public void subModSwitch(GameTestHelper h) {
         ChiselTests.ALL.get("sub_mod_switch").accept(h);
     }
