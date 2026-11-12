@@ -93,6 +93,9 @@ public final class LayersTests {
         ALL.put("almond_water", LayersTests::almondWater);
         ALL.put("guide_book", LayersTests::guideBook);
         ALL.put("backroom_effect_blocks_mining", LayersTests::backroomEffectBlocksMining);
+        ALL.put("backroom_walls_hold_without_effect", LayersTests::backroomWallsHoldWithoutEffect);
+        // audsb31e2: the config command is registered (SimpleLayers#init) - announced, defaults, set / wrong type / reset / level 0 refused
+        ALL.put("config_command", h -> com.simplelib.test.ConfigCommandTests.module(h, SimpleLayers.MOD_ID, false));
         ALL.put("netherite_piston_moves_wall", LayersTests::netheritePistonMovesWall);
         ALL.put("bedrock_hull", LayersTests::bedrockHull);
         ALL.put("supplies_generated", LayersTests::suppliesGenerated);
@@ -490,6 +493,26 @@ public final class LayersTests {
         h.assertTrue(h.getLevel().getBlockState(abs).getDestroyProgress(player, h.getLevel(), abs) == 0.0F, "the bedrock hull holds anyway");
         h.setBlock(rel, Blocks.STRIPPED_OAK_LOG);
         h.assertTrue(h.getLevel().getBlockState(abs).getDestroyProgress(player, h.getLevel(), abs) > 0.0F, "supplies stay breakable");
+        h.succeed();
+    }
+
+    /**
+     * audsb31e2 simplelayers-P2-1: the server keeps the walls shut for a survival player in the Backrooms even when his Backroom
+     * effect is gone (milk, totem, /effect clear). The rule is pure; the stack dimension itself is not baked in the standalone run.
+     */
+    static void backroomWallsHoldWithoutEffect(GameTestHelper h) {
+        h.assertTrue(BackroomBlock.protects(false, true, true, true) && BackroomBlock.protects(false, true, false, false),
+                "with the effect the walls hold (client and server)");
+        h.assertTrue(BackroomBlock.protects(false, false, true, true), "server: no effect but in the Backrooms - the walls still hold");
+        h.assertFalse(BackroomBlock.protects(false, false, false, true), "client: follows the synced effect only (no ghost progress)");
+        h.assertFalse(BackroomBlock.protects(false, false, true, false), "outside the Backrooms (or walls off) nothing is held");
+        h.assertFalse(BackroomBlock.protects(true, true, true, true) || BackroomBlock.protects(true, false, true, true), "creative always breaks");
+        // a mock survival player in the test level: no effect, not in the Backrooms - a wall still breaks (unchanged)
+        Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        BlockPos rel = new BlockPos(2, 2, 2), abs = h.absolutePos(rel);
+        h.setBlock(rel, LayersRegistry.WALLPAPER);
+        h.assertTrue(!BackroomBlock.protectedFor(player) && h.getLevel().getBlockState(abs).getDestroyProgress(player, h.getLevel(), abs) > 0.0F,
+                "outside the Backrooms wallpaper breaks without the effect");
         h.succeed();
     }
 
