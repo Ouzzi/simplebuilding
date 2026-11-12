@@ -488,16 +488,12 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "cloth_config"
+      "cloth_config",
+      "simplelib"
     ],
     "optional": [
       "simplebuilding",
-      "modmenu",
-      "flan",
-      "ftbchunks",
-      "openpartiesandclaims",
-      "griefdefender",
-      "claimchunk"
+      "modmenu"
     ],
     "stage": "new",
     "parent": "simplebuilding",
@@ -514,10 +510,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 3,
-      "config": 61,
+      "config": 63,
       "features": 12
     },
-    "dataHash": "8c4001f53a1b"
+    "dataHash": "0ee3ef0bfc2b"
   },
   {
     "id": "simplesandwiches",
@@ -1118,7 +1114,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simpleenddragonfight"
     ],
@@ -1160,7 +1158,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [],
     "stage": "new",
     "parent": "simplebuilding",
@@ -1179,15 +1179,15 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwjor9TwlmABEn33wkGa948ALVgC1PXv+34uBAwSAxbOIgzZULl6MaAJL4UFDw/4qWFhzDNCCLwcRRDIBpRjcAHwbpwTAAXREMEGUANo3ogGoGdImIoBoAC0RivADTjBELsOjCZwBMM9ZoRI5zbIGGrBmvASBJdEPQNeM0AFkBzBBsmrEacOPjVwxFyEkXrwEwAVIx3ABKMADfR3xpZ2gp6gAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
-      "config": 13,
+      "config": 15,
       "features": 6
     },
-    "dataHash": "9e0e41685511"
+    "dataHash": "8e09d1eb9c4a"
   },
   {
     "id": "simplebeacons",
     "displayName": "Simple Beacons",
-    "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.",
+    "description": "Strong Beacon (5 pyramid levels, new powers, range by pyramid material, Vanilla-style screen), Mighty and Evil beacons, Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and its Mighty/Evil kinds, upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1218,10 +1218,10 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 8,
       "recipes": 13,
-      "config": 9,
+      "config": 10,
       "features": 16
     },
-    "dataHash": "c6651e8326d1"
+    "dataHash": "2aedd90eda26"
   },
   {
     "id": "simpleovens",
@@ -1792,7 +1792,7 @@ window.WIKI_MODULES = [
       "config": 12,
       "features": 16
     },
-    "dataHash": "8e38540c98cd"
+    "dataHash": "b5a4076a76f9"
   },
   {
     "id": "simplelights",
@@ -1859,7 +1859,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleearth",
     "displayName": "Simple Earth",
-    "description": "The Overworld seen from orbit: above a very high activation height the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colours sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
+    "description": "The Overworld seen from orbit: from the render height (default 1536) the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colors sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below it everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1909,10 +1909,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mMQVxH/TwlmABGtM1tJxlZRVqgGCIjIkYwxDKjfZAHH2PizZs2CY9oYEN+lBcfY+FlZWXCM1YDRMKBCGKA7kRCfLAM+HHDAbQC6Hwnx4QaAMgZFYUAJBgCULcsj0xrVkAAAAABJRU5ErkJggg==",
     "counts": {
-      "config": 6,
+      "config": 7,
       "features": 16
     },
-    "dataHash": "0152a32f1aca"
+    "dataHash": "360b23348d2a"
   },
   {
     "id": "simpleanimals",
@@ -1925,7 +1925,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simplebuilding",
       "simplemoney",
@@ -1961,7 +1963,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simplebuilding",
       "simplemoney",
@@ -1983,9 +1987,10 @@ window.WIKI_MODULES = [
       "items": 5,
       "blocks": 6,
       "recipes": 4,
+      "config": 1,
       "features": 6
     },
-    "dataHash": "032c4c092a72"
+    "dataHash": "d5e64ff0f704"
   },
   {
     "id": "simpleores",
@@ -2297,7 +2302,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplelayers",
     "displayName": "Simple Layers",
-    "description": "World layers: the Cloud Sea sky dimension above y 700 and the Backrooms below the bedrock, with cloud blocks, wallpaper, carpet and neon lights.",
+    "description": "World layers: the Cloud Sea sky dimension above y 700 and the Backrooms, their own dimension of ten stacked levels (entered through an abandoned house's cellar or a rift in glitched bedrock), with cloud blocks, wallpaper, carpet and neon lights.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
