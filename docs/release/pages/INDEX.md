@@ -4,7 +4,7 @@
 
 | Mod | Id | Summary | Status |
 |---|---|---|---|
-| [SimpleBuilding](simplebuilding.md) | `simplebuilding` | Building tools, storage, machines and enchantments: the super mod that bundles the Simple family's building content. | draft |
+| [SimpleBuilding](simplebuilding.md) | `simplebuilding` | Super mod of the Simple family: bundles the required sub-mods for building, storage and tools, plus End blocks, Enderite gear, loot and trades. | draft |
 | [Simple Money](simplemoney.md) | `simplemoney` | Currency production, weighted villager trades and treasure loot for survival worlds. | draft |
 | [Simple Riding](simpleriding.md) | `simpleriding` | Faster saddles, higher horse jumps, nautilus dashes, mount armor utilities, loot and trades. | draft |
 | [Simple Models](simplemodels.md) | `simplemodels` | Server-approved custom item models, anvil assignment and a searchable model browser. | draft |

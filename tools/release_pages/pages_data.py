@@ -1,8 +1,8 @@
 """Hand-written store-page copy per mod: id -> (summary <=150 chars, overview, modrinth categories, tags).
 Facts come from modules/modules.json, fabric.mod.json and wiki manual.json; nothing here may claim more than the code does."""
 P = {
-"simplebuilding": ("Building tools, storage, machines and enchantments: the super mod that bundles the Simple family's building content.",
-  "SimpleBuilding is the core of the Simple family. It bundles the required sub-mods for building wands, chisels, sledgehammers, storage, ovens, crucibles, building blocks, gadgets, pads and more, and adds its own enchantments and progression on top.",
+"simplebuilding": ("Super mod of the Simple family: bundles the required sub-mods for building, storage and tools, plus End blocks, Enderite gear, loot and trades.",
+  "SimpleBuilding is the core of the Simple family. It bundles the required sub-mods (building wands, chisels, sledgehammers, storage, ovens, crucibles, building blocks, gadgets, pads and more) and adds its own content on top: End building palettes, Astral and Nihil redstone lines, Enderite tools and armor, enchantments for mining and building, music discs, hammocks and chess. Optional Simple mods (for example Simple Maps or Simple Money) are separate downloads and are not part of this file; each bundled sub-mod can be switched off in the config.",
   "equipment, storage, utility", "building, tools, storage, enchantments, survival"),
 "simplemoney": ("Currency production, weighted villager trades and treasure loot for survival worlds.",
   "Simple Money adds a currency you can produce, weighted villager trades and money in treasure loot.",
@@ -188,7 +188,7 @@ P = {
 
 # One sentence per mod: what it is good for in a Vanilla survival game and how far it reaches into Vanilla. Facts from code and manuals only.
 V = {
-"simplebuilding": "Bundles the building, storage and workstation sub-mods so a normal survival world gets better tools and containers; it adds items and blocks and leaves Vanilla recipes, loot and worlds as they are.",
+"simplebuilding": "Adds tools, blocks and gear on top of a normal survival world, but it also reaches into Vanilla: its pools join the loot of 14 kinds of structure chests and of fishing treasure (switchable per structure, scalable with one factor); its offers join the villagers and the wandering trader (switchable); world generation adds two End ores, four small End structures, cracked-ice fields and sculk jaws (ores and ice fields switchable); new armor stands get arms and swap armor with you, sneaking with small items such as sticks or ingots places them on blocks, XP orbs merge, and repairs without a new enchantment keep the anvil cost (each switchable); hammocks speed up the time of day while enough players rest in them (factor 1 turns it off).",
 "simplearrows": "Gives archers a new arrow workbench plus a light and a silver arrow; Vanilla arrows, bows and the Vanilla fletching table keep working unchanged.",
 "simplebeacons": "Gives late-game players a stronger beacon and conduit to build towards; the Vanilla beacon and conduit stay as they are.",
 "simpleblocks": "Fills gaps in Vanilla building blocks (missing stairs, slabs, walls and variants) so builders find the shape they need; no Vanilla block is changed.",
