@@ -28,7 +28,7 @@ Adds eighth-size blocks cut in the stonecutter so builders get finer detail; the
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib
-- **Optional:** SimpleBuilding, Simple End, Simple Ores, JEI
+- **Optional:** SimpleBuilding, Simple End, Simple Ores, Simple Enchanting, JEI
 
 ## Compatibility
 

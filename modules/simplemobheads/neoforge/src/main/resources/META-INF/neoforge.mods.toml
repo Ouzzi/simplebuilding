@@ -23,7 +23,7 @@ ordering="AFTER"
 side="BOTH"
 [[dependencies.simplemobheads]]
 modId="cloth_config"
-type="required"
+type="optional"
 versionRange="[0,)"
 [[dependencies.simplemobheads]]
 modId="jei"

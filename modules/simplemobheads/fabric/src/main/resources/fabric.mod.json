@@ -37,6 +37,7 @@
     "simplelib": ">=0.4.0"
   },
   "suggests": {
+    "cloth_config": "*",
     "modmenu": "*",
     "jei": "*",
     "simplebuilding": "*",

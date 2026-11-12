@@ -29,6 +29,12 @@ versionRange="[0.4.0,)"
 ordering="AFTER"
 side="BOTH"
 [[dependencies.simplemobheads]]
+modId="cloth_config"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplemobheads]]
 modId="jei"
 mandatory=false
 versionRange="[0,)"
