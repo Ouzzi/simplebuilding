@@ -23,6 +23,10 @@ SimpleLib holds what every Simple mod shares: one modpack handbook, warm food, s
 - **Free Look** - While Free Look is on, the mouse turns only the camera, not the player; walking and all other input stay normal.
 - **Commands** - /simplelib config shows and changes every option of config/simplelib-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
+## Vanilla use
+
+Shared base of the Simple mods with a modpack guide and warped wart (found in bastion chests); it reorders creative tabs and hooks hoppers, anvils and the Wither, but anvil crushing, the Wither drop, the legendary choir and the Free Look key switch on only when a Simple mod asks.
+
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
@@ -35,7 +39,7 @@ SimpleLib holds what every Simple mod shares: one modpack handbook, warm food, s
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding, Simple Tweaks, Simple Interfaces, Simple Maps, Simple Trims, Simple Mobs, Simple Questionary, Simple Beacons, Simple Ovens, Simple Mobheads, Simple Shops, Simple Blocks, Simple Crucibles, Simple Octets, Simple Hammers, Simple Storage, Simple Music, Simple Lights, Simple Gadgets, Simple Earth, Simple Challenges, Simple Ores, Simple Machines, Simple Arrows, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Chisels, Simple Layers, Simple Vault. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding, Simple Money, Simple Riding, Simple Fun, Simple Tweaks, Simple Dimensions, Simple Sandwiches, Simple Interfaces, Simple Maps, Simple Trims, Simple Mobs, Simple Questionary, Simple End, Simple Respawn, Simple Beacons, Simple Ovens, Simple Mobheads, Simple Shops, Simple Wanderers, Simple Blocks, Simple Crucibles, Simple Octets, Simple Hammers, Simple Storage, Simple Music, Simple Lights, Simple Gadgets, Simple Earth, Simple Challenges, Simple Animals, Simple Dinosaurs, Simple Ores, Simple Machines, Simple Arrows, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Chisels, Simple Layers, Simple Vault. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
 
 ## License
 
