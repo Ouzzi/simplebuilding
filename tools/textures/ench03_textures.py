@@ -84,7 +84,9 @@ def strip(frames):
 
 def textures():
     out = {}
-    for name, fn in (('dark_enchanter_top', glow_top), ('dark_enchanter_side', glow_side)):
+    # simpleenchanting-2 (PLAN40, 12.11.): the top comes from enchtop40 (same motif and glow, softer edges, A8b).
+    import enchtop40_2026_11_12 as top40
+    for name, fn in (('dark_enchanter_top', top40.glow_top), ('dark_enchanter_side', glow_side)):
         pairs = [fn(f) for f in range(FRAMES)]
         out[name] = (strip([b for b, _ in pairs]), strip([g for _, g in pairs]))
     return out
