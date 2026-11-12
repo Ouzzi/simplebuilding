@@ -63,7 +63,7 @@
         "summary": "Sword, pickaxe, axe, shovel, hoe and a full armor set of each alloy. Both mine like iron; neither beats diamond.",
         "details": [
           "Rose Copper: durability 190 like copper, speed 8, enchantability 15; armor 2/4/3/1 like copper, durability factor 11, enchantability 12.",
-          "Rose Gold (the best of the two): durability 250 like iron, speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.",
+          "Rose Gold (the better of the two): durability 225 (iron lasts longer: 250), speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.",
           "Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry)."
         ]
       },
@@ -72,7 +72,7 @@
         "summary": "Schwert, Spitzhacke, Axt, Schaufel, Hacke und ein ganzer Rüstungssatz jeder Legierung. Beide bauen wie Eisen ab; keine schlägt Diamant.",
         "details": [
           "Rosenkupfer: Haltbarkeit 190 wie Kupfer, Tempo 8, Verzauberbarkeit 15; Rüstung 2/4/3/1 wie Kupfer, Haltbarkeitsfaktor 11, Verzauberbarkeit 12.",
-          "Roségold (das bessere): Haltbarkeit 250 wie Eisen, Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.",
+          "Roségold (das bessere): Haltbarkeit 225 (Eisen hält länger: 250), Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.",
           "Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers)."
         ]
       }
@@ -631,19 +631,6 @@
     }
   ],
   "notes": {
-    "simpleores:guide_book": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
-        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
-      ],
-      "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 26 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
-      },
-      "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 26 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
-      }
-    },
     "simpleores:silver_ore": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -3311,10 +3298,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold sword: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold sword: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldschwert: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldschwert: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_pickaxe": {
@@ -3322,10 +3309,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold pickaxe: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold pickaxe: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldspitzhacke: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldspitzhacke: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_axe": {
@@ -3333,10 +3320,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold axe: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold axe: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldaxt: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldaxt: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_shovel": {
@@ -3344,10 +3331,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold shovel: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold shovel: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldschaufel: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldschaufel: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_hoe": {
@@ -3355,10 +3342,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold hoe: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold hoe: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldhacke: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldhacke: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_helmet": {
@@ -3579,6 +3566,19 @@
       },
       "de": {
         "summary": "Zenithitbarren: 4 End-Riss-Splitter + 1 Infernitbarren (formlos). Das Ende der Kette. Bezahlt ein Leuchtfeuer; neun ergeben einen Block. Prestige-Material neben Enderit, keine Werkzeug- oder Rüstungsstufe. Feuerfest."
+      }
+    },
+    "simpleores:guide_book": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
+        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
+        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 26 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 26 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     }
   }

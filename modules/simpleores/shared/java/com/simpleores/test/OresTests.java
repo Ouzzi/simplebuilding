@@ -136,7 +136,8 @@ public final class OresTests {
         ALL.put("tool_values", h -> {
             ToolMaterial hard = OresMaterials.ROSE_BRONZE_TOOLS, soft = OresMaterials.ROSE_GOLD_TOOLS;
             check(h, hard.durability() == ToolMaterial.COPPER.durability() && hard.durability() == 190, "Rose Copper durability = copper");
-            check(h, soft.durability() == ToolMaterial.IRON.durability(), "Rose Gold durability = iron: " + soft.durability());
+            // PLAN40 simpleores-3: Rose Gold must not beat iron in everything - it lasts 90 % as long (225 against 250).
+            check(h, soft.durability() == 225 && soft.durability() < ToolMaterial.IRON.durability(), "Rose Gold durability below iron: " + soft.durability());
             check(h, soft.speed() == ToolMaterial.GOLD.speed() && hard.speed() < soft.speed() && hard.speed() > ToolMaterial.COPPER.speed() && soft.speed() > ToolMaterial.IRON.speed(),
                     "tempo: Rose Gold = gold, Rose Copper faster than copper, both faster than their durability twin");
             check(h, hard.enchantmentValue() == 15 && soft.enchantmentValue() == ToolMaterial.GOLD.enchantmentValue(), "enchantability");

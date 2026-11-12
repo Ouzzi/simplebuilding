@@ -1293,8 +1293,8 @@ def note_summaries():
                                      f'{de}-Karotte, eine Stufe über der goldenen Karotte (6 Hunger): {carrot} Hunger, Sättigung {carrot * 2.4:.1f}, keine Effekte, nicht verzaubert. 8 {de}klumpen um eine Karotte, wie die goldene Karotte aus Vanilla mit Goldklumpen; {"besser" if soft else "etwas schwächer"} als die {"Rosenkupfer" if soft else "Roségold"}-Karotte.')
         for part in TOOL_PARTS + ARMOR_PARTS:
             pen, pde = PARTS[part]
-            stats_en = 'durability 190 (like copper), speed 8, enchantability 15' if not soft else 'durability 250 (like iron), speed 12 (like gold), enchantability 22'
-            stats_de = 'Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15' if not soft else 'Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22'
+            stats_en = 'durability 190 (like copper), speed 8, enchantability 15' if not soft else 'durability 225 (iron: 250), speed 12 (like gold), enchantability 22'
+            stats_de = 'Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15' if not soft else 'Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22'
             if part in ARMOR_PARTS:
                 prot = {'rose_bronze': (2, 4, 3, 1), 'rose_gold': (2, 5, 3, 1)}[a][ARMOR_PARTS.index(part)]
                 notes[f'item:{a}_{part}'] = (f'{en} {pen.lower()}: protection {prot}, durability factor {11 if not soft else 15}, enchantability {12 if not soft else 25}.',
@@ -1385,11 +1385,11 @@ FEATURES = [
     feature('rose_gold_gear', [f'{JAVA}/OresMaterials.java', f'{JAVA}/OresRegistry.java'],
             ('Rose gold tools and armor', 'Sword, pickaxe, axe, shovel, hoe and a full armor set of each alloy. Both mine like iron; neither beats diamond.',
              ['Rose Copper: durability 190 like copper, speed 8, enchantability 15; armor 2/4/3/1 like copper, durability factor 11, enchantability 12.',
-              'Rose Gold (the best of the two): durability 250 like iron, speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.',
+              'Rose Gold (the better of the two): durability 225 (iron lasts longer: 250), speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.',
               'Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry).']),
             ('Roségold-Werkzeuge und -Rüstung', 'Schwert, Spitzhacke, Axt, Schaufel, Hacke und ein ganzer Rüstungssatz jeder Legierung. Beide bauen wie Eisen ab; keine schlägt Diamant.',
              ['Rosenkupfer: Haltbarkeit 190 wie Kupfer, Tempo 8, Verzauberbarkeit 15; Rüstung 2/4/3/1 wie Kupfer, Haltbarkeitsfaktor 11, Verzauberbarkeit 12.',
-              'Roségold (das bessere): Haltbarkeit 250 wie Eisen, Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.',
+              'Roségold (das bessere): Haltbarkeit 225 (Eisen hält länger: 250), Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.',
               'Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers).'])),
     feature('rose_gold_apples', [f'{JAVA}/OresFood.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_apple.json', f'{DATAP}/recipe/enchanted_rose_gold_apple.json'],
             ('Rose gold apples', 'A plain and an enchanted apple of each alloy, between the golden apple and the Netherite apple. Always edible, no cooldown.',
