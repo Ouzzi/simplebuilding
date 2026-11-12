@@ -88,10 +88,19 @@ public final class RespawnServer {
         return !onlyWithOtherPlayers || otherPlayers > 0;
     }
 
+    /**
+     * Could {@code other} revive {@code player}? Not the player, not a spectator and in the same dimension: a revive
+     * needs the helper in the same level within reach ({@link #helperStillHelping}), so someone in another dimension
+     * cannot help in the bleed-out time and must not keep the player from the Vanilla death (audit simplerespawn-P2-1).
+     */
+    static boolean couldHelp(ServerPlayer player, ServerPlayer other) {
+        return other != player && !other.isSpectator() && other.level() == player.level();
+    }
+
     static int otherPlayers(ServerPlayer player) {
         int n = 0;
         for (ServerPlayer p : player.level().getServer().getPlayerList().getPlayers()) {
-            if (p != player && !p.isSpectator()) n++;
+            if (couldHelp(player, p)) n++;
         }
         return n;
     }

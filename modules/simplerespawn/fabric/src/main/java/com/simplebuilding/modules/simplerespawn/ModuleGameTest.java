@@ -5,6 +5,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void configBounds(GameTestHelper helper) { RespawnTests.ALL.get("config_bounds").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void aloneIsNormalDeath(GameTestHelper helper) { RespawnTests.ALL.get("alone_is_normal_death").accept(helper); }
+    @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void helperInOtherDimensionDoesNotCount(GameTestHelper helper) { RespawnTests.ALL.get("helper_in_other_dimension_does_not_count").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void downedInsteadOfDeath(GameTestHelper helper) { RespawnTests.ALL.get("downed_instead_of_death").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void downedMarkedRedAndRestored(GameTestHelper helper) { RespawnTests.ALL.get("downed_marked_red_and_restored").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void downedListCarriesTimeLeft(GameTestHelper helper) { RespawnTests.ALL.get("downed_list_carries_time_left").accept(helper); }

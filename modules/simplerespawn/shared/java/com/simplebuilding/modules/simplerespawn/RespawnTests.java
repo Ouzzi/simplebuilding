@@ -106,6 +106,21 @@ public final class RespawnTests {
                     "one second per point of damage");
             h.succeed();
         });
+        add("helper_in_other_dimension_does_not_count", h -> {
+            // Audit simplerespawn-P2-1: a mate in another dimension cannot revive within the bleed-out time, so it is no helper.
+            ServerPlayer victim = player(h, "dim", 1.5, 1.5);
+            ServerPlayer mate = player(h, "dim-mate", 3.5, 1.5);
+            h.assertTrue(RespawnServer.otherPlayers(victim) == 1 && RespawnServer.couldHelp(victim, mate), "a mate in the same dimension counts");
+            ServerLevel nether = h.getLevel().getServer().getLevel(net.minecraft.world.level.Level.NETHER);
+            h.assertTrue(nether != null, "the test server has no nether");
+            nether.getChunk(0, 0);
+            mate.teleportTo(nether, 0.5, 70.0, 0.5, java.util.Set.of(), 0.0F, 0.0F, false);
+            h.assertTrue(mate.level() == nether, "the mate is in the nether now");
+            h.assertTrue(RespawnServer.otherPlayers(victim) == 0 && !RespawnServer.couldHelp(victim, mate), "a mate in another dimension does not count");
+            lethal(h, victim);
+            h.assertTrue(!RespawnServer.isDowned(victim) && victim.isDeadOrDying(), "nobody can reach the player: the Vanilla death");
+            h.succeed();
+        });
         add("downed_instead_of_death", h -> {
             ServerPlayer victim = downedPair(h, "downed");
             h.assertTrue(victim.entityTags().contains(RespawnServer.TAG), "crash tag set");
