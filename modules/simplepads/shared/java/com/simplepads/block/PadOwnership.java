@@ -42,12 +42,17 @@ public final class PadOwnership {
                 && level.getBlockEntity(pos) instanceof OwnedBlockEntity owned) {
             owned.setOwner(player.getUUID());
             // Chunk-Loader: gleich beim Setzen pruefen (Besitzer-Entscheidung 2026-09-28) und sagen, warum
-            // er nicht laeuft - gesperrte Dimension, Pads aus.
+            // er nicht laeuft - gesperrte Dimension, Pads aus, Limit je Spieler erreicht (a-chunk36).
             if (owned instanceof com.simplepads.block.entity.ChunkLoaderBlockEntity loader
                     && level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
                 loader.update(serverLevel);
                 if (!loader.mayRun(serverLevel) && player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
                     serverPlayer.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("message.simplepads.chunk_loader.inactive").withStyle(net.minecraft.ChatFormatting.RED));
+                } else if (loader.offReason() == com.simplepads.block.entity.ChunkLoaderBlockEntity.OFF_LIMIT
+                        && player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+                    // a-chunk36: das Limit je Spieler ist erreicht - der neue Loader bleibt abgeschaltet.
+                    serverPlayer.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("message.simplepads.chunk_loader.limit",
+                            com.simplepads.SimplePads.config().tuning.chunkLoaderLimit()).withStyle(net.minecraft.ChatFormatting.RED));
                 }
             }
         }

@@ -80,9 +80,18 @@ public final class ChunkLoaderCommand {
                         Component.translatable(online ? "commands.simplepads.chunkloaders.online"
                                 : "commands.simplepads.chunkloaders.offline"),
                         Component.translatable("commands.simplepads.chunkloaders.area." + Math.max(1, Math.min(3, entry.tier()))),
-                        Component.translatable(entry.active() ? "commands.simplepads.chunkloaders.active"
-                                : "commands.simplepads.chunkloaders.inactive"))
+                        Component.translatable(state(server, entry)))
                 .withStyle(entry.active() ? ChatFormatting.GREEN : ChatFormatting.GRAY);
+    }
+
+    /** Laedt, per Redstone aus, ueber dem Limit seines Besitzers (a-chunk36) oder untaetig. */
+    private static String state(MinecraftServer server, ChunkLoaderRegistry.Entry entry) {
+        String base = "commands.simplepads.chunkloaders.";
+        if (entry.active()) return base + "active";
+        if (entry.powered()) return base + "redstone";
+        ServerLevel level = entry.levelKey() == null ? null : server.getLevel(entry.levelKey());
+        return level != null && !ChunkLoaderRegistry.withinLimit(level, entry.pos(), entry.owner().orElse(null))
+                ? base + "limit" : base + "inactive";
     }
 
     private static int remove(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

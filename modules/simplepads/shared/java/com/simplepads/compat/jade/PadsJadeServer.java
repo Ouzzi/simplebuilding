@@ -48,6 +48,7 @@ final class PadsJadeServer implements IServerDataProvider<BlockAccessor> {
         } else if (be instanceof ChunkLoaderBlockEntity loader) {
             data.putString(KIND, "chunk_loader");
             data.putInt(A, loader.ownForced().size());
+            data.putInt(B, loader.offReason());  // a-chunk36: 1 = redstone, 2 = per-player limit
         }
     }
 }

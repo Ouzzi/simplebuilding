@@ -29,7 +29,9 @@ import org.jetbrains.annotations.Nullable;
  * <p><b>Redstone</b> (Besitzer 2026-09-28): die eigentlichen Pads (Launchpad, Trank-Pad, Flypad,
  * Elytra-Pad, Spawn-Teleporter; {@link #isRedstoneControlled}) schalten ab, solange sie ein
  * Redstone-Signal bekommen ({@link #isDisabledByRedstone}), und liefern einem Komparator ein Signal
- * ({@link PadSignalSource}). Chunk-Loader und Kupfer-Druckplatte teilen nur die Basisklasse. Ausnahme
+ * ({@link PadSignalSource}). Die Kupfer-Druckplatte teilt nur die Basisklasse; der Chunk-Loader schaltet seit a-chunk36
+ * (12.11.2026) ebenfalls mit Signal ab, regelt das aber selbst ({@code ChunkLoaderBlockEntity#update}, Zustand
+ * {@code disabled}, kein Komparator). Ausnahme
  * (Besitzer 2026-09-29): der Spawn-Teleporter schaltet mit Redstone nicht ab, sondern springt dann zum
  * Weltspawn statt zum eigenen Spawn ({@link #switchesOffWithRedstone}).
  *

@@ -1,10 +1,16 @@
 {
   "variants": {
-    "active=false": {
+    "active=false,disabled=false": {
       "model": "simplepads:block/netherite_chunk_loader"
     },
-    "active=true": {
+    "active=true,disabled=false": {
       "model": "simplepads:block/netherite_chunk_loader_active"
+    },
+    "active=false,disabled=true": {
+      "model": "simplepads:block/netherite_chunk_loader_disabled"
+    },
+    "active=true,disabled=true": {
+      "model": "simplepads:block/netherite_chunk_loader_disabled"
     }
   }
 }

@@ -36,6 +36,10 @@ import org.jetbrains.annotations.Nullable;
  * <p>Ueberlappen sich zwei Loader, gehoert ein Chunk dem, der ihn zuerst erzwang; wird der abgebaut,
  * uebernimmt ein anderer Loader, der den Chunk ebenfalls abdeckt, statt dass der Chunk freikommt
  * (Audit 2026-09-26 #32).
+ *
+ * <p><b>Abgeschaltet</b> (a-chunk36, Besitzer 12.11.2026): ein Redstone-Signal schaltet ihn ab (wie den Vanilla-Trichter
+ * und die uebrigen Pads), ebenso das Limit je Spieler ({@link ChunkLoaderRegistry#withinLimit}); dann gibt er frei und
+ * zeigt {@link ChunkLoaderBlock#DISABLED}. Ein Signalwechsel wirkt sofort ({@link #redstoneChanged}).
  */
 public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     public static final int CHECK_INTERVAL = 100;
@@ -46,8 +50,14 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     public static final int MAX_RADIUS = 2;
     private static final Codec<List<Long>> FORCED_CODEC = Codec.LONG.listOf();
 
+    /** Warum er abgeschaltet ist ({@link #offReason}). */
+    public static final int OFF_NONE = 0, OFF_REDSTONE = 1, OFF_LIMIT = 2;
+
     private final Set<Long> ownForced = new LinkedHashSet<>();
     private boolean checked;
+    /** Redstone-Signal bei der letzten Pruefung (nur zur Laufzeit, jede Pruefung liest es neu). */
+    private boolean powered;
+    private int offReason = OFF_NONE;
 
     public ChunkLoaderBlockEntity(BlockPos pos, BlockState state) {
         super(PadsBlockEntities.CHUNK_LOADER, pos, state);
@@ -81,15 +91,20 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     /**
      * Erzwingt den Bereich seiner Stufe bzw. gibt die eigenen Chunks frei, wenn er nicht laufen darf
      * ({@link ChunkLoaderRegistry#mayRun}: Pads-Schalter aus, Dimension gesperrt oder - seit 2026-09-28
-     * standardmaessig - Besitzer offline). Traegt sich dabei in die {@link ChunkLoaderRegistry} ein.
+     * standardmaessig - Besitzer offline), ein Redstone-Signal ihn abschaltet oder das Limit seines Besitzers
+     * erreicht ist (a-chunk36). Traegt sich dabei in die {@link ChunkLoaderRegistry} ein.
      */
     public void update(ServerLevel level) {
         int tierNow = tierOf(getBlockState());
-        if (!mayRun(level)) {
-            // Pads aus, Dimension gesperrt oder Besitzer offline: freigeben und sichtbar abschalten.
+        powered = level.hasNeighborSignal(worldPosition);
+        boolean mayRun = mayRun(level);
+        offReason = powered ? OFF_REDSTONE
+                : mayRun && !ChunkLoaderRegistry.withinLimit(level, worldPosition, getOwner()) ? OFF_LIMIT : OFF_NONE;
+        if (!mayRun || offReason != OFF_NONE) {
+            // Pads aus, Dimension gesperrt oder Besitzer offline (matt) bzw. Redstone/Limit (abgeschaltet): freigeben.
             release(level);
-            setActive(level, false);
-            ChunkLoaderRegistry.update(level, worldPosition, getOwner(), tierNow, false);
+            setState(level, false, offReason != OFF_NONE);
+            ChunkLoaderRegistry.update(level, worldPosition, getOwner(), tierNow, false, powered);
             return;
         }
         int cx = worldPosition.getX() >> 4;
@@ -111,31 +126,72 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
         if (changed) {
             setChanged();
         }
-        ChunkLoaderRegistry.update(level, worldPosition, getOwner(), tier, true);
-        setActive(level, true);
+        ChunkLoaderRegistry.update(level, worldPosition, getOwner(), tier, true, false);
+        setState(level, true, false);
     }
 
     /**
-     * Sichtbarer Zustand ({@link ChunkLoaderBlock#ACTIVE}): beim Wechsel Leuchtfeuer-Klang und ein
-     * Funkenwirbel (an) bzw. der Abschaltklang (aus). Beim Laden der Welt steht der Zustand schon
-     * im Block, dann bleibt es still.
+     * Ein Nachbar hat sich geaendert ({@link ChunkLoaderBlock#neighborChanged}): hat das Redstone-Signal gewechselt,
+     * sofort neu pruefen statt bis zur naechsten Pruefung zu warten.
      */
+    public void redstoneChanged(ServerLevel level) {
+        if (level.hasNeighborSignal(worldPosition) != powered || !checked) {
+            checked = true;
+            update(level);
+        }
+    }
+
+    /** Warum er abgeschaltet ist: {@link #OFF_NONE}, {@link #OFF_REDSTONE} oder {@link #OFF_LIMIT} (Jade). */
+    public int offReason() {
+        return offReason;
+    }
+
+    /** Wie {@link #setState} ohne den Zustand "abgeschaltet". */
     public void setActive(ServerLevel level, boolean active) {
+        setState(level, active, false);
+    }
+
+    /**
+     * Sichtbarer Zustand ({@link ChunkLoaderBlock#ACTIVE}, {@link ChunkLoaderBlock#DISABLED}): beim Wechsel
+     * Leuchtfeuer-Klang und ein Funkenwirbel (an) bzw. der Abschaltklang mit Rauch (aus), beim Abschalten
+     * (Redstone/Limit) dazu ein paar Elektro-Funken. Beim Laden der Welt steht der Zustand schon im Block, dann
+     * bleibt es still.
+     */
+    public void setState(ServerLevel level, boolean active, boolean disabled) {
         BlockState state = getBlockState();
-        if (!state.hasProperty(ChunkLoaderBlock.ACTIVE) || state.getValue(ChunkLoaderBlock.ACTIVE) == active
-                || level.getBlockState(worldPosition) != state) {
+        if (!state.hasProperty(ChunkLoaderBlock.ACTIVE) || level.getBlockState(worldPosition) != state) {
             return;
         }
-        level.setBlock(worldPosition, state.setValue(ChunkLoaderBlock.ACTIVE, active), Block.UPDATE_ALL);
-        level.playSound(null, worldPosition, active ? SoundEvents.BEACON_ACTIVATE : SoundEvents.BEACON_DEACTIVATE,
-                SoundSource.BLOCKS, 0.6f, 1.4f);
-        if (active) {
-            level.sendParticles(ParticleTypes.REVERSE_PORTAL, worldPosition.getX() + 0.5, worldPosition.getY() + 0.2,
-                    worldPosition.getZ() + 0.5, 24, 0.3, 0.1, 0.3, 0.05);
-        } else {
-            level.sendParticles(ParticleTypes.SMOKE, worldPosition.getX() + 0.5, worldPosition.getY() + 0.15,
-                    worldPosition.getZ() + 0.5, 6, 0.25, 0.02, 0.25, 0.0);
+        boolean wasActive = state.getValue(ChunkLoaderBlock.ACTIVE);
+        boolean wasDisabled = state.hasProperty(ChunkLoaderBlock.DISABLED) && state.getValue(ChunkLoaderBlock.DISABLED);
+        if (wasActive == active && wasDisabled == disabled) {
+            return;
         }
+        BlockState next = state.setValue(ChunkLoaderBlock.ACTIVE, active);
+        if (next.hasProperty(ChunkLoaderBlock.DISABLED)) {
+            next = next.setValue(ChunkLoaderBlock.DISABLED, disabled);
+        }
+        level.setBlock(worldPosition, next, Block.UPDATE_ALL);
+        if (wasActive != active) {
+            level.playSound(null, worldPosition, active ? SoundEvents.BEACON_ACTIVATE : SoundEvents.BEACON_DEACTIVATE,
+                    SoundSource.BLOCKS, 0.6f, 1.4f);
+        }
+        double x = worldPosition.getX() + 0.5;
+        double z = worldPosition.getZ() + 0.5;
+        if (active) {
+            level.sendParticles(ParticleTypes.REVERSE_PORTAL, x, worldPosition.getY() + 0.2, z, 24, 0.3, 0.1, 0.3, 0.05);
+        } else {
+            level.sendParticles(ParticleTypes.SMOKE, x, worldPosition.getY() + 0.15, z, 6, 0.25, 0.02, 0.25, 0.0);
+            if (disabled && !wasDisabled) {
+                level.sendParticles(ParticleTypes.ELECTRIC_SPARK, x, worldPosition.getY() + 0.15, z, 8, 0.3, 0.05, 0.3, 0.1);
+            }
+        }
+    }
+
+    /** Ob der Loader abgeschaltet ist (Redstone oder Limit; Blockzustand). */
+    public boolean isDisabled() {
+        BlockState state = getBlockState();
+        return state.hasProperty(ChunkLoaderBlock.DISABLED) && state.getValue(ChunkLoaderBlock.DISABLED);
     }
 
     /** Ob der Loader gerade laedt (Blockzustand). */
@@ -172,7 +228,7 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
         setChanged();
     }
 
-    /** Ein anderer geladener Loader, dessen Bereich den Chunk abdeckt, oder null. */
+    /** Ein anderer geladener, nicht abgeschalteter Loader, dessen Bereich den Chunk abdeckt, oder null. */
     private @Nullable ChunkLoaderBlockEntity coveringNeighbour(ServerLevel level, int chunkX, int chunkZ) {
         for (int dx = -MAX_RADIUS; dx <= MAX_RADIUS; dx++) {
             for (int dz = -MAX_RADIUS; dz <= MAX_RADIUS; dz++) {
@@ -181,8 +237,9 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
                     continue;
                 }
                 for (BlockEntity be : chunk.getBlockEntities().values()) {
+                    // a-chunk36: ein abgeschalteter Loader (Redstone/Limit) erbt nichts.
                     if (be != this && !be.isRemoved() && be instanceof ChunkLoaderBlockEntity other && other.covers(chunkX, chunkZ)
-                            && other.mayRun(level)) {
+                            && other.mayRun(level) && !other.isDisabled()) {
                         return other;
                     }
                 }

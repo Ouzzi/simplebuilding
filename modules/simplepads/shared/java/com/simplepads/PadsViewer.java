@@ -12,7 +12,7 @@ import net.minecraft.world.level.ItemLike;
 /**
  * Simple Pads in the recipe viewer (JEI24, a-fix09b): one info page per pad family and plate, as SimpleBuilding showed them
  * before the split ({@code jei.simplebuilding.info.*}, now {@code jei.simplepads.info.*}), plus the line with what this
- * server set (stranger break time, chunk loader owner rule) from the pads' own tuning. Free of JEI classes, shown by
+ * server set (stranger break time, chunk loader owner rule and per-player limit) from the pads' own tuning. Free of JEI classes, shown by
  * SimpleLib's JEI plugin, so also without SimpleBuilding. Registered from {@link SimplePads#init}.
  */
 public final class PadsViewer {
@@ -34,8 +34,11 @@ public final class PadsViewer {
         page(out, "elytra_pad", padLine, PadsBlocks.ELYTRA_PAD, PadsBlocks.NETHERITE_ELYTRA_PAD, PadsBlocks.ENDERITE_ELYTRA_PAD);
         page(out, "flypad", padLine, PadsBlocks.FLYPAD, PadsBlocks.REINFORCED_FLYPAD, PadsBlocks.STELLAR_FLYPAD);
         page(out, "spawn_teleporter", padLine, PadsBlocks.SPAWN_TELEPORTER, PadsBlocks.SPAWN_TELEPORTER_TIER_2, PadsBlocks.ENDERITE_SPAWN_TELEPORTER);
+        int limit = tuning.chunkLoaderLimit();
         page(out, "chunk_loader", Component.translatable(SERVER + "chunk_loader",
                         Component.translatable(SERVER + (tuning.chunkLoaderRequireOwnerOnline ? "chunk_loader.owner_online" : "chunk_loader.always")),
+                        limit > 0 ? Component.translatable(SERVER + "chunk_loader.limit", limit)
+                                : Component.translatable(SERVER + "chunk_loader.unlimited"),
                         seconds(tuning.strangerBreakProgress(true))),
                 PadsBlocks.CHUNK_LOADER, PadsBlocks.NETHERITE_CHUNK_LOADER, PadsBlocks.ENDERITE_CHUNK_LOADER);
         page(out, "launchpad", padLine, PadsBlocks.LAUNCHPAD, PadsBlocks.NETHERITE_LAUNCHPAD, PadsBlocks.ENDERITE_LAUNCHPAD);
