@@ -267,7 +267,7 @@
         "title": "Rare structure finds",
         "summary": "In newly generated structures a loot chest is now and then a better chest with double loot, and end city shulkers are sometimes reinforced, netherite or enderite.",
         "details": [
-          "Better chests (betterChestPercent, default 1 %, at most 5 %): a Reinforced Chest in strongholds, a Netherite Chest in bastions and nether fortresses, an Enderite Chest in end cities and end ships. It keeps the chest's loot table and rolls it twice.",
+          "Better chests (betterChestPercent, default 1 %, at most 5 %): a Reinforced Chest in strongholds, a Netherite Chest in bastions and nether fortresses, an Enderite Chest in end cities and end ships (with Simple Ores; without it a Netherite Chest, and no Enderite shulkers). It keeps the chest's loot table and rolls it twice.",
           "Double chests: the first half rolls; only if the second half then rolls again with the same chance do both become better, otherwise both stay normal chests.",
           "The roll is fixed by world seed and position, so both halves of a double chest always agree. Existing worlds and already generated structures do not change.",
           "Rare shulkers (reinforcedShulkerPercent 2 %, at most 10 %; netheriteShulkerPercent 1 %, at most 5 %; enderiteShulkerPercent 0.5 %, at most 5 %): a reinforced shulker has 1.5x, a netherite shulker 2x, an enderite shulker 3x the health. Its shell shows the tier with the texture of the matching tier shulker box.",
@@ -281,7 +281,7 @@
         "title": "Seltene Strukturfunde",
         "summary": "In neu erzeugten Strukturen ist eine Loot-Truhe hin und wieder eine bessere Truhe mit doppelter Beute, und Shulker der End-Stadt sind manchmal verstärkt, aus Netherit oder aus Enderit.",
         "details": [
-          "Bessere Truhen (betterChestPercent, Standard 1 %, höchstens 5 %): eine Verstärkte Truhe in der Festung, eine Netherit-Truhe in Bastion und Netherfestung, eine Enderit-Truhe in End-Stadt und End-Schiff. Sie behält die Loot-Tabelle der Truhe und würfelt sie zweimal.",
+          "Bessere Truhen (betterChestPercent, Standard 1 %, höchstens 5 %): eine Verstärkte Truhe in der Festung, eine Netherit-Truhe in Bastion und Netherfestung, eine Enderit-Truhe in End-Stadt und End-Schiff (mit Simple Ores; ohne eine Netherit-Truhe, und keine Enderit-Shulker). Sie behält die Loot-Tabelle der Truhe und würfelt sie zweimal.",
           "Doppeltruhen: die erste Hälfte würfelt; nur wenn danach auch die zweite Hälfte mit derselben Chance trifft, werden beide besser, sonst bleiben beide normale Truhen.",
           "Der Wurf steht durch Weltseed und Position fest, beide Hälften einer Doppeltruhe sind sich also immer einig. Bestehende Welten und schon erzeugte Strukturen ändern sich nicht.",
           "Seltene Shulker (reinforcedShulkerPercent 2 %, höchstens 10 %; netheriteShulkerPercent 1 %, höchstens 5 %; enderiteShulkerPercent 0,5 %, höchstens 5 %): ein verstärkter Shulker hat 1,5-faches, ein Netherit-Shulker 2-faches, ein Enderit-Shulker 3-faches Leben. Seine Hülle zeigt die Stufe mit der Textur der passenden Stufen-Shulkerkiste.",
@@ -601,7 +601,8 @@
         "modules/simplestorage/shared/java/com/simplestorage/mixin/ItemEntityBundleMixin.java",
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian/4/emerald_advanced_book.json",
-        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json"
+        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json",
+        "modules/simplestorage/shared/java/com/simplestorage/rare/StorageLoot.java"
       ],
       "en": {
         "title": "Storage enchantments: Deep Pockets, Drawer, Funnel",
@@ -612,7 +613,8 @@
           "Funnel turns the container into a vacuum cleaner: level I only picks up item types already inside, level II everything; sneaking pauses it; quivers only take arrows; your hands are checked before the rest of the inventory, a worn backpack comes after the bundles.",
           "Drawer holds only the one kind of item already inside and cannot be combined with Master Builder or Color Palette (SimpleBuilding's; exclusive set simplestorage:exclusive_set/builder_group).",
           "Where they come from: this mod alone has no source (creative inventory and commands). With SimpleBuilding: Deep Pockets II in Ancient Cities, Deep Pockets I as a fishing treasure, Funnel I in bastions, Nether fortresses, dungeons and from the master librarian, Drawer I in woodland mansions and from the level 4 librarian; SimpleBuilding's randomly enchanted Quivers and Reinforced Bundles can carry any of them. Their enchanted books show their own picture only with SimpleBuilding (else the vanilla book).",
-          "Old worlds: simplebuilding:deep_pockets, drawer and funnel on items become these (id moves). On Minecraft 26.2 they are still SimpleBuilding's."
+          "Old worlds: simplebuilding:deep_pockets, drawer and funnel on items become these (id moves). On Minecraft 26.2 they are still SimpleBuilding's.",
+          "Where the books come from: with SimpleBuilding from its chest loot and librarians; on its own Simple Storage puts them into Vanilla chests itself (one book per chest at about 4-9 %): Funnel I in dungeons, nether fortresses and bastions, Deep Pockets I in dungeons, Deep Pockets II in ancient cities, Drawer I in woodland mansions and stronghold libraries."
         ]
       },
       "de": {
@@ -624,7 +626,8 @@
           "Trichter macht den Behälter zum Staubsauger: Stufe I nur für Sorten, die schon drin sind, Stufe II für alles; Schleichen pausiert; Köcher nehmen nur Pfeile; Hände werden vor dem restlichen Inventar geprüft, ein getragener Rucksack kommt nach den Bündeln.",
           "Schublade hält nur die eine Sorte, die schon darin liegt, und ist nicht mit Baumeister oder Farbpalette kombinierbar (SimpleBuildings; exklusive Gruppe simplestorage:exclusive_set/builder_group).",
           "Herkunft: diese Mod allein hat keine Quelle (Kreativ-Inventar und Befehle). Mit SimpleBuilding: Tiefe Taschen II in Antiken Städten, Tiefe Taschen I als Angel-Schatz, Trichter I in Bastionen, Netherfestungen, Verliesen und beim Meister-Bibliothekar, Schublade I in Waldanwesen und beim Bibliothekar Stufe 4; SimpleBuildings zufällig verzauberte Köcher und Verstärkte Bündel können jede davon tragen. Ihre verzauberten Bücher zeigen nur mit SimpleBuilding ein eigenes Bild (sonst das Vanilla-Buch).",
-          "Alte Welten: simplebuilding:deep_pockets, drawer und funnel auf Items werden zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören sie weiter SimpleBuilding."
+          "Alte Welten: simplebuilding:deep_pockets, drawer und funnel auf Items werden zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören sie weiter SimpleBuilding.",
+          "Woher die Bücher kommen: mit SimpleBuilding aus dessen Truhen-Beute und von Bibliothekaren; allein legt Simple Storage sie selbst in Vanilla-Truhen (ein Buch je Truhe zu etwa 4-9 %): Trichter I in Verliesen, Netherfestungen und Bastionen, Tiefe Taschen I in Verliesen, Tiefe Taschen II in antiken Städten, Schublade I in Waldanwesen und Festungsbibliotheken."
         ]
       }
     },

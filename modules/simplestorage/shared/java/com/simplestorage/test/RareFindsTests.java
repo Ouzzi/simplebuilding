@@ -76,7 +76,8 @@ final class RareFindsTests {
         helper.assertValueEqual(BetterChests.tierFor(BuiltInLootTables.STRONGHOLD_CORRIDOR), ChestTier.REINFORCED, "stronghold corridor");
         helper.assertValueEqual(BetterChests.tierFor(BuiltInLootTables.BASTION_TREASURE), ChestTier.NETHERITE, "bastion treasure");
         helper.assertValueEqual(BetterChests.tierFor(BuiltInLootTables.NETHER_BRIDGE), ChestTier.NETHERITE, "nether fortress");
-        helper.assertValueEqual(BetterChests.tierFor(BuiltInLootTables.END_CITY_TREASURE), ChestTier.ENDERITE, "end city / end ship");
+        helper.assertValueEqual(BetterChests.tierFor(BuiltInLootTables.END_CITY_TREASURE),
+                com.simplelib.api.SimpleLibApi.materialPresent("enderite") ? ChestTier.ENDERITE : ChestTier.NETHERITE, "end city / end ship (Enderite only with Simple Ores)");
         helper.assertTrue(BetterChests.tierFor(BuiltInLootTables.SIMPLE_DUNGEON) == null, "a dungeon chest must stay vanilla");
         helper.assertTrue(Math.abs(StorageConfig.betterChestChance() - CHANCE) < 1e-9, "default chance " + StorageConfig.betterChestChance());
 
@@ -147,6 +148,62 @@ final class RareFindsTests {
         return tag;
     }
 
+    /**
+     * PLAN40 simplestorage-1: every storage enchantment drops as a book from a Vanilla chest - on its own through {@code StorageLoot},
+     * with SimpleBuilding through its injections into the same tables (StorageLoot then adds nothing). Fixed seeds, so it never flakes.
+     */
+    static void storageEnchantmentsObtainableAlone(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        var params = new net.minecraft.world.level.storage.loot.LootParams.Builder(level)
+                .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN, Vec3.atCenterOf(helper.absolutePos(new BlockPos(1, 1, 1))))
+                .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
+        List<String> problems = new ArrayList<>();
+        int[] added = {0};
+        for (var source : com.simplestorage.rare.StorageLoot.sources()) com.simplestorage.rare.StorageLoot.apply(source.table(), pool -> added[0]++, level.registryAccess());
+        boolean alone = !com.simplestorage.rare.StorageLoot.simpleBuildingLoaded();
+        if (alone != (added[0] == com.simplestorage.rare.StorageLoot.sources().size())) problems.add("pools added " + added[0] + " (alone " + alone + ")");
+        for (String enchantment : List.of("deep_pockets", "drawer", "funnel")) {
+            var key = net.minecraft.resources.ResourceKey.create(Registries.ENCHANTMENT, SimpleStorage.id(enchantment));
+            boolean found = false;
+            for (var source : com.simplestorage.rare.StorageLoot.sources()) {
+                if (found || !source.enchantment().equals(enchantment)) continue;
+                var table = level.getServer().reloadableRegistries().getLootTable(source.table());
+                for (long seed = 1; seed <= 1500 && !found; seed++) {
+                    for (ItemStack stack : table.getRandomItems(params, seed)) {
+                        var stored = stack.get(DataComponents.STORED_ENCHANTMENTS);
+                        if (stored != null && stored.keySet().stream().anyMatch(h -> h.is(key))) found = true;
+                    }
+                }
+            }
+            if (!found) problems.add("no " + enchantment + " book in 1500 chests of its tables");
+        }
+        helper.assertTrue(problems.isEmpty(), "storage enchantments obtainable: " + problems);
+        helper.succeed();
+    }
+
+    /** PLAN40 simplestorage-1: Enderite structure finds only with Simple Ores - the end city chest and the shulker roll. */
+    static void enderiteFindsOnlyWithSimpleOres(GameTestHelper helper) {
+        boolean ores = com.simplelib.api.SimpleLibApi.materialPresent("enderite");
+        helper.assertValueEqual(BetterChests.enderiteFinds(), ores, "enderite finds follow Simple Ores");
+        helper.assertValueEqual(BetterChests.endTier(), ores ? ChestTier.ENDERITE : ChestTier.NETHERITE, "end city tier");
+        int enderite = 0;
+        var random = net.minecraft.util.RandomSource.create(42L);
+        for (int i = 0; i < 400; i++) {
+            Shulker shulker = EntityTypes.SHULKER.create(helper.getLevel(), net.minecraft.world.entity.EntitySpawnReason.STRUCTURE);
+            if (shulker == null) continue;
+            double before = StorageConfig.enderiteShulkerPercent;
+            StorageConfig.enderiteShulkerPercent = 5.0; // the cap: 400 rolls hit it about 20 times when it may happen at all
+            try {
+                RareShulkers.onEndCitySpawn(shulker, random);
+            } finally {
+                StorageConfig.enderiteShulkerPercent = before;
+            }
+            if (RareShulkers.tierOf(shulker) == ChestTier.ENDERITE) enderite++;
+        }
+        helper.assertTrue(ores ? enderite > 0 : enderite == 0, "enderite shulkers " + enderite + " (Simple Ores " + ores + ")");
+        helper.succeed();
+    }
+
     /** A placed end city chest becomes the Enderite Chest, keeps table and seed and rolls its loot twice. */
     static void placedEndCityChestBecomesEnderiteChestWithDoubleLoot(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -158,7 +215,8 @@ final class RareFindsTests {
             ((RandomizableContainer) level.getBlockEntity(pos)).setLootTable(BuiltInLootTables.END_CITY_TREASURE, lootSeed);
         }
         helper.assertTrue(BetterChests.upgradePlaced(level, betterPos, 1.0), "chance 1 did not upgrade");
-        helper.assertTrue(level.getBlockState(betterPos).is(Refs.chestBlock("enderite")), "not an enderite chest: " + level.getBlockState(betterPos));
+        String expected = BetterChests.enderiteFinds() ? "enderite" : "netherite"; // PLAN40 simplestorage-1
+        helper.assertTrue(level.getBlockState(betterPos).is(Refs.chestBlock(expected)), "not a " + expected + " chest: " + level.getBlockState(betterPos));
         RandomizableContainer better = (RandomizableContainer) level.getBlockEntity(betterPos);
         helper.assertValueEqual(better.getLootTable(), BuiltInLootTables.END_CITY_TREASURE, "loot table");
         helper.assertValueEqual(better.getLootTableSeed(), lootSeed, "loot seed");

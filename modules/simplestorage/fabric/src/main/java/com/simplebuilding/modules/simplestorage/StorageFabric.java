@@ -79,6 +79,9 @@ public final class StorageFabric implements ModInitializer {
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.WRITABLE_BOOK))) out.insertBefore(Items.WRITABLE_BOOK, book, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             else book.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         });
+        // PLAN40 simplestorage-1: storage enchantment books in Vanilla chests while SimpleBuilding (its injections) is absent.
+        net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) ->
+                com.simplestorage.rare.StorageLoot.apply(key, table::withPool, registries));
         if (loader.isModLoaded("ftbquests")) com.simplestorage.guide.StorageGuide.installQuests(loader.getConfigDir());
     }
 }

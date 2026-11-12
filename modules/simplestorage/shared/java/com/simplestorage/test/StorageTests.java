@@ -210,6 +210,8 @@ public final class StorageTests {
         ALL.put("rare_finds_shell_recipes_and_config_caps", RareFindsTests::shellRecipesAndConfigCaps);
         ALL.put("rare_finds_registered", RareFindsTests::registered);
         ALL.put("rare_finds_migration_from_simplebuilding", RareFindsTests::migrationFromSimplebuilding);
+        ALL.put("storage_enchantments_obtainable_alone", RareFindsTests::storageEnchantmentsObtainableAlone);
+        ALL.put("rare_finds_enderite_only_with_simple_ores", RareFindsTests::enderiteFindsOnlyWithSimpleOres);
         ALL.put("registered", h -> {
             List<String> problems = new ArrayList<>();
             boolean end = loaded(CrateWood.SIMPLE_END);

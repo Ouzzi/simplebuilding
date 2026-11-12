@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * Better chests in structures (owner 2026-10-02, split stage 8b-3 from SimpleBuilding, docs/ai/PLAN-B-S8B3-STORAGE-2026-10-21.md):
  * a Vanilla loot chest generates with {@code betterChestPercent} (default 1 %, at most 5 %, {@link StorageConfig}) as a tiered
  * chest with double loot ({@code TieredChestBlockEntity#unpackLootTable}) - the Reinforced Chest in strongholds, the Netherite
- * Chest in bastions and nether fortresses, the Enderite Chest in end cities and end ships. The chest's loot table decides
+ * Chest in bastions and nether fortresses, the Enderite Chest in end cities and end ships (only with Simple Ores, else Netherite). The chest's loot table decides
  * ({@link #tierFor}).
  *
  * <p><b>Roll.</b> Fixed by world seed and position ({@link #rolls}): both halves of a double chest reach the same result, even
@@ -58,8 +58,21 @@ public final class BetterChests {
         map.put(BuiltInLootTables.BASTION_BRIDGE, ChestTier.NETHERITE);
         map.put(BuiltInLootTables.BASTION_HOGLIN_STABLE, ChestTier.NETHERITE);
         map.put(BuiltInLootTables.NETHER_BRIDGE, ChestTier.NETHERITE);
-        map.put(BuiltInLootTables.END_CITY_TREASURE, ChestTier.ENDERITE);
+        map.put(BuiltInLootTables.END_CITY_TREASURE, endTier());
         return map;
+    }
+
+    /**
+     * PLAN40 simplestorage-1 (IG31-13): the Enderite tier of the structure finds needs Simple Ores (owner of Enderite); without it
+     * the end city's better chest is the Netherite Chest.
+     */
+    public static ChestTier endTier() {
+        return enderiteFinds() ? ChestTier.ENDERITE : ChestTier.NETHERITE;
+    }
+
+    /** Whether structure finds may be Enderite: Simple Ores provides the material. */
+    public static boolean enderiteFinds() {
+        return com.simplelib.api.SimpleLibApi.materialPresent("enderite");
     }
 
     public static @Nullable ChestTier tierFor(@Nullable ResourceKey<LootTable> table) {
