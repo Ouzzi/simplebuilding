@@ -49,6 +49,7 @@ public final class SnowTests {
         all.put("snowlogging_place_and_layers", SnowTests::placeAndLayers);
         all.put("snowlogged_fence_connects", SnowTests::fenceConnects);
         all.put("snowlogging_shovel_takes_snow_first", SnowTests::shovelTakesSnowFirst);
+        all.put("snowlogging_respects_protection", SnowTests::respectsProtection);
         all.put("snowlogging_break_without_shovel_drops_plant", SnowTests::breakWithoutShovelDropsPlant);
         all.put("frost_grass_freezes_with_ice_or_cold", SnowTests::frostGrassFreezes);
         all.put("frost_grass_thaws_without_snow", SnowTests::frostGrassThaws);
@@ -94,6 +95,30 @@ public final class SnowTests {
         StringBuilder out = new StringBuilder();
         counts.forEach((name, count) -> out.append(out.isEmpty() ? "" : ", ").append(count).append(' ').append(name));
         return out.toString();
+    }
+
+    /**
+     * a-audsb31 simpleblocks-P2-1: snowlogging is a Fabric use-block event and asks the framework protection (claims) itself; a
+     * provider that denies everything leaves the poppy alone and keeps the snow, the same click works again without it.
+     */
+    public static void respectsProtection(GameTestHelper helper) {
+        BlockPos flower = new BlockPos(1, 2, 1);
+        helper.setBlock(flower.below(), Blocks.GRASS_BLOCK);
+        helper.setBlock(flower, Blocks.POPPY);
+        ServerPlayer player = survivor(helper);
+        ItemStack snow = new ItemStack(Items.SNOW, 8);
+        var server = helper.getLevel().getServer();
+        com.simplebuilding.framework.api.Protection.register(server, "audsb31_snow", t -> false);
+        try {
+            use(helper, player, snow, flower);
+        } finally {
+            com.simplebuilding.framework.api.Protection.unregister(server, "audsb31_snow");
+        }
+        helper.assertTrue(helper.getBlockState(flower).is(Blocks.POPPY), "protected: the poppy stays, is " + helper.getBlockState(flower));
+        helper.assertValueEqual(snow.getCount(), 8, "protected: no snow used");
+        use(helper, player, snow, flower);
+        helper.assertTrue(helper.getBlockState(flower).is(SnowBlocks.SNOWLOGGED), "without the provider the same click snowlogs, is " + helper.getBlockState(flower));
+        helper.succeed();
     }
 
     /** A snow layer on a poppy and on a fern shares the cell; more snow adds layers; on a fence on a fence it does nothing; config off = Vanilla. */

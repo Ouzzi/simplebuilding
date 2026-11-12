@@ -26,7 +26,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Property;
 
 /**
@@ -200,7 +202,7 @@ public final class WandUndo {
             }
             BlockPos pos = record.positions.get(i);
             if (level.getBlockState(pos).getBlock() == record.states.get(i).getBlock()) {
-                level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                clear(level, pos);
             }
             removed++;
             if (!record.creative && record.counts.get(i) > 0 && record.items.get(i) != Items.AIR) {
@@ -214,6 +216,41 @@ public final class WandUndo {
         player.sendOverlayMessage(Component.translatable("simplebuildingtools.wand.undo.done", removed, n - removed)
                 .withStyle(ChatFormatting.GREEN));
         return removed;
+    }
+
+    /**
+     * Raeumt eine Stelle. Bei einem zweiteiligen Block (Bett, Tuer, hohe Pflanze) geht die andere Haelfte zuerst, still und
+     * ohne Formupdate, dann diese Stelle wie gewohnt: sonst zerfiele die andere Haelfte beim Raeumen mit ihrem Drop (ein
+     * Bettkopf laesst das Bett fallen, eine untere Tuerhaelfte die Tuer), und das Rueckgaengig erstattete das Item noch
+     * einmal (Audit a-audsb31, simplebuildingtools-P1-2). Die Nachbarn der anderen Haelfte bekommen ihr Formupdate danach.
+     */
+    private static void clear(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        BlockPos other = otherHalf(pos, state);
+        if (other != null) {
+            BlockState otherState = level.getBlockState(other);
+            if (otherState.is(state.getBlock()) && pos.equals(otherHalf(other, otherState))) {
+                level.setBlock(other, Blocks.AIR.defaultBlockState(), Block.UPDATE_NEIGHBORS | Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
+            } else {
+                other = null;
+            }
+        }
+        level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        if (other != null) {
+            Blocks.AIR.defaultBlockState().updateNeighbourShapes(level, other, Block.UPDATE_CLIENTS);
+        }
+    }
+
+    /** Die andere Haelfte eines Betts bzw. eines Blocks mit oberer/unterer Haelfte, sonst {@code null}. */
+    private static BlockPos otherHalf(BlockPos pos, BlockState state) {
+        if (state.hasProperty(BlockStateProperties.BED_PART) && state.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
+            Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+            return pos.relative(state.getValue(BlockStateProperties.BED_PART) == BedPart.FOOT ? facing : facing.getOpposite());
+        }
+        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+            return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? pos.above() : pos.below();
+        }
+        return null;
     }
 
     /** Derselbe Block mit derselben Menge (Ausrichtung und Verbindungen duerfen sich aendern). */

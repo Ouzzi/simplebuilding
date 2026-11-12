@@ -132,6 +132,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawUpgradeRespectsProtection(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_upgrade_respects_protection").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void sawUpgradeHammer(GameTestHelper h) {
         BlocksTests.ALL.get("saw_upgrade_hammer").accept(h);
     }
@@ -244,6 +249,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void snowloggingPlaceAndLayers(GameTestHelper h) {
         BlocksTests.ALL.get("snowlogging_place_and_layers").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void snowloggingRespectsProtection(GameTestHelper h) {
+        BlocksTests.ALL.get("snowlogging_respects_protection").accept(h);
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)

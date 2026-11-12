@@ -55,6 +55,7 @@ public final class SawTests {
         all.put("saw_upgrade_hammer", SawTests::upgradeHammer);
         all.put("saw_upgrade_mode", SawTests::upgradeMode);
         all.put("saw_metal_finish", SawTests::metalFinish);
+        all.put("saw_upgrade_respects_protection", SawTests::upgradeRespectsProtection);
     }
 
     private static Item item(String id) {
@@ -321,6 +322,40 @@ public final class SawTests {
             ItemStack standIn = new ItemStack(Items.IRON_SHOVEL);
             checkPath(h, true, standIn, t -> t.is(Items.IRON_SHOVEL), "hammer (stand-in, no hammer mod)");
         }
+        h.succeed();
+    }
+
+    /**
+     * a-audsb31 simpleblocks-P2-1: the upgrade and the metal finish are Fabric use-block events and ask the framework protection
+     * (claims) themselves; a provider that denies everything stops both, nothing is used, and the same click works again without it.
+     */
+    private static void upgradeRespectsProtection(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        var server = level.getServer();
+        var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
+        BlockPos rel = new BlockPos(3, 1, 3), pos = h.absolutePos(rel);
+        java.util.function.Predicate<ItemStack> axe = t -> SawUpgrade.toolFits(t, false);
+        String provider = "audsb31_saw";
+        ServerPlayer player = upgradeScene(h, rel, new ItemStack(Items.IRON_AXE), SawUpgrade.NUGGETS);
+        com.simplebuilding.framework.api.Protection.register(server, provider, t -> false);
+        try {
+            h.assertTrue(!SawUpgrade.tryUpgrade(level, pos, player, hand, false, axe), "upgrade refused: the area is protected");
+        } finally {
+            com.simplebuilding.framework.api.Protection.unregister(server, provider);
+        }
+        h.assertTrue(h.getBlockState(rel).is(net.minecraft.world.level.block.Blocks.STONECUTTER)
+                && player.getInventory().countItem(Items.IRON_NUGGET) == SawUpgrade.NUGGETS, "protected: block kept, nuggets kept");
+        h.assertTrue(SawUpgrade.tryUpgrade(level, pos, player, hand, false, axe), "without the provider the same click upgrades");
+        // metal finish on the new saw: 2 heavy plates in the off hand
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, SawUpgrade.PLATES));
+        com.simplebuilding.framework.api.Protection.register(server, provider, t -> false);
+        try {
+            h.assertTrue(!SawUpgrade.tryMetal(level, pos, player, hand, false, axe), "metal finish refused: the area is protected");
+        } finally {
+            com.simplebuilding.framework.api.Protection.unregister(server, provider);
+        }
+        h.assertTrue(!h.getBlockState(rel).getValue(ShapecutterBlock.METAL)
+                && player.getOffhandItem().getCount() == SawUpgrade.PLATES, "protected: finish and plates kept");
         h.succeed();
     }
 

@@ -568,7 +568,13 @@ public final class BlueprintBuilder {
                 BlueprintMaterials.Cost cost = itemLayout == null ? BlueprintMaterials.cost(layout.rawState(i)) : null;
                 if (cost != null && cost.count() == 0) {
                     BlockPos partner = partnerOf(pos, state);
-                    if (partner != null && !level.getBlockState(partner).is(state.getBlock())
+                    BlockState partnerState = partner == null ? null : level.getBlockState(partner);
+                    // Ueberleben: nur auf die bezahlte Haelfte, die genau diese freie Haelfte erwartet (untere Tuer-/Pflanzenhaelfte,
+                    // Bett-Fussteil gleicher Richtung). Frueher genuegte derselbe Block - ein Bettkopf an einem fremden Bettkopf
+                    // stand gratis und liess beim Abbau ein Bett fallen (Audit a-audsb31, simplebuildingtools-P1-1).
+                    boolean paired = partnerState != null
+                            && (creative ? partnerState.is(state.getBlock()) : paysFor(partnerState, state));
+                    if (partner != null && !paired
                             && (simulated == null || !simulated.contains(partner.asLong()))) {
                         missing++;
                         continue;
@@ -611,6 +617,18 @@ public final class BlueprintBuilder {
             return pos.relative(state.getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite());
         }
         return null;
+    }
+
+    /** Ist {@code partner} die bezahlte Haelfte, zu der die kostenlose Haelfte {@code free} gehoert? */
+    private static boolean paysFor(BlockState partner, BlockState free) {
+        if (!partner.is(free.getBlock())) {
+            return false;
+        }
+        if (free.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+            return partner.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER;
+        }
+        return partner.getValue(BlockStateProperties.BED_PART) == BedPart.FOOT
+                && partner.getValue(BlockStateProperties.HORIZONTAL_FACING) == free.getValue(BlockStateProperties.HORIZONTAL_FACING);
     }
 
     /** Vorschau-Quelle: zaehlt den Vorrat einmal je Item und bucht nur in Gedanken ab. */

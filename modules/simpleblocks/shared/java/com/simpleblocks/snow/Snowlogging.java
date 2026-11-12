@@ -37,7 +37,7 @@ public final class Snowlogging {
             return InteractionResult.PASS;
         }
         BlockPos pos = hit.getBlockPos();
-        if (!player.mayUseItemAt(pos, hit.getDirection(), stack)) {
+        if (!player.mayUseItemAt(pos, hit.getDirection(), stack) || !com.simpleblocks.BlocksProtection.mayBuild(level, player, pos)) {
             return InteractionResult.PASS;
         }
         BlockState state = level.getBlockState(pos);

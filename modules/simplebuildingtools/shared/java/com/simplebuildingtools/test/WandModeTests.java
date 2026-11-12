@@ -427,6 +427,61 @@ public final class WandModeTests {
         helper.succeed();
     }
 
+    /**
+     * Undo of a two-part block hands back the one item it cost and drops nothing (audit a-audsb31, simplebuildingtools-P1-2):
+     * a bed the wand placed (only the foot is recorded, the head comes from setPlacedBy) and a door as the blueprint build
+     * records it (lower half paid, upper half free).
+     *
+     * <p><strong>What breaks this test:</strong> clearing one half with a plain block update - the other half then breaks
+     * with its loot (a bed head drops the bed, a lower door half the door) while the undo refunds the item as well.
+     */
+    public static void undoOfTwoPartBlocksRefundsOnceAndDropsNothing(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        WandUndo.forget(player.getUUID());
+        BlockPos floor = new BlockPos(3, 1, 3);
+        helper.setBlock(floor, Blocks.DIRT);
+        Item bed = redBed().asItem();
+        ItemStack wand = wand(helper, BtItems.DIAMOND_BUILDING_WAND, 0, null);
+        stock(player, wand, new ItemStack(bed, 4));
+        click(helper, player, wand, floor, Direction.UP, new Vec3(0.5, 1, 0.5));
+        runUntilIdle(helper, player, wand);
+        helper.assertTrue(helper.getBlockState(floor.above()).is(redBed()) && helper.getBlockState(floor.above().south()).is(redBed()),
+                "the wand did not place the bed");
+        helper.assertValueEqual(countIn(player, bed), 3, "the bed did not cost one item");
+        player.setShiftKeyDown(true);
+        wand.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+        player.setShiftKeyDown(false);
+        helper.assertTrue(helper.getBlockState(floor.above()).isAir() && helper.getBlockState(floor.above().south()).isAir(),
+                "undo left a bed half");
+        helper.assertValueEqual(countIn(player, bed), 4, "undo did not hand the bed back exactly once");
+        helper.assertValueEqual(droppedItems(helper), 0, "undo of the wand's bed dropped an item");
+
+        // The blueprint build records both door halves (lower paid, upper free) and undoes the upper one first.
+        BlockPos lower = helper.absolutePos(floor.above());
+        BlockState door = Blocks.OAK_DOOR.defaultBlockState();
+        WandUndo.begin(player, helper.getLevel());
+        helper.getLevel().setBlock(lower, door, net.minecraft.world.level.block.Block.UPDATE_ALL);
+        WandUndo.record(player, helper.getLevel(), lower, door, Items.OAK_DOOR, 1);
+        BlockState upper = door.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER);
+        helper.getLevel().setBlock(lower.above(), upper, net.minecraft.world.level.block.Block.UPDATE_ALL);
+        WandUndo.record(player, helper.getLevel(), lower.above(), upper, Items.OAK_DOOR, 0);
+        int doorsBefore = countIn(player, Items.OAK_DOOR);
+        helper.assertValueEqual(WandUndo.undo(player, helper.getLevel()), 2, "undo did not take both door halves back");
+        helper.assertTrue(helper.getBlockState(floor.above()).isAir() && helper.getBlockState(floor.above(2)).isAir(), "undo left a door half");
+        helper.assertValueEqual(countIn(player, Items.OAK_DOOR), doorsBefore + 1, "undo did not hand the door back exactly once");
+        helper.assertValueEqual(droppedItems(helper), 0, "undo of the blueprint's door dropped an item");
+        helper.succeed();
+    }
+
+    /** Item entities in the room (and removes them, so a failing run leaves nothing behind). */
+    private static int droppedItems(GameTestHelper helper) {
+        var box = new net.minecraft.world.phys.AABB(helper.absolutePos(BlockPos.ZERO)).expandTowards(8, 8, 8).inflate(1);
+        var items = helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, box);
+        items.forEach(net.minecraft.world.entity.Entity::discard);
+        return items.size();
+    }
+
     // =====================================================================================
     // OCTANT FILL AND ROOF
     // =====================================================================================

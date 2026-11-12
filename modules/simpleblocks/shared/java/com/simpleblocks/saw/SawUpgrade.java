@@ -56,7 +56,7 @@ public final class SawUpgrade {
                                    java.util.function.Predicate<ItemStack> tool) {
         BlockState state = level.getBlockState(pos);
         if (!state.is(Sawing.SAW) || state.getValue(ShapecutterBlock.METAL) || !tool.test(player.getItemInHand(hand))) return false;
-        if (player.isSpectator() || !player.mayBuild()) return false;
+        if (player.isSpectator() || !player.mayBuild() || !com.simpleblocks.BlocksProtection.mayBuild(level, player, pos)) return false;
         InteractionHand other = hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack plates = player.getItemInHand(other);
         boolean free = player.hasInfiniteMaterials();
@@ -77,7 +77,7 @@ public final class SawUpgrade {
         BlockState state = level.getBlockState(pos);
         if (!state.is(Blocks.STONECUTTER) || !tool.test(player.getItemInHand(hand))) return false;
         // Swapping a block is building: not for spectators or players who may not build (Adventure mode, REV2-A).
-        if (player.isSpectator() || !player.mayBuild()) return false;
+        if (player.isSpectator() || !player.mayBuild() || !com.simpleblocks.BlocksProtection.mayBuild(level, player, pos)) return false;
         boolean free = player.hasInfiniteMaterials();
         if (!free && player.getInventory().countItem(Items.IRON_NUGGET) < NUGGETS) return false;
         if (level.isClientSide()) return true;
