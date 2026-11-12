@@ -24629,8 +24629,1696 @@
   "quests": [],
   "recipesOtherLines": [],
   "inWorld": {
-    "entries": [],
-    "kinds": []
+    "kinds": [
+      {
+        "id": "chisel",
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Chiseling",
+            "summary": "Right-click a block with a chisel to turn it into the next block of its chain. Which chains a chisel knows depends on its tier; Constructor's Touch adds more. Every step lists all chisels that can do it.",
+            "details": [
+              "A higher tier contains the entries of the lower ones unless it overrides the same source block; the list is computed from each tier's own table.",
+              "Steps marked Constructor's Touch only work with that enchantment on the chisel.",
+              "After a step the chisel has a cooldown (per tool below); Fast Chiseling shortens it by 30% per level, to at least 1 tick.",
+              "Block properties such as waterlogged are carried over, and the new block is oriented by the clicked face.",
+              "In creative mode a step costs neither durability nor cooldown."
+            ]
+          },
+          "de": {
+            "title": "Meißeln",
+            "summary": "Rechtsklick mit einem Meißel verwandelt den Block in den nächsten seiner Kette. Welche Ketten ein Meißel kennt, hängt von seiner Stufe ab; Berührung des Konstrukteurs fügt weitere hinzu. Jeder Schritt nennt alle Meißel, die ihn können.",
+            "details": [
+              "Eine höhere Stufe enthält die Einträge der niedrigeren, außer sie überschreibt denselben Ausgangsblock; die Liste ist aus der Tabelle jeder Stufe berechnet.",
+              "Schritte mit dem Vermerk Berührung des Konstrukteurs gehen nur mit dieser Verzauberung auf dem Meißel.",
+              "Nach einem Schritt hat der Meißel eine Abklingzeit (je Werkzeug unten); Schnelles Meißeln kürzt sie je Stufe um 30 %, auf mindestens 1 Tick.",
+              "Blockeigenschaften wie wassergeflutet werden übernommen, und der neue Block richtet sich nach der angeklickten Fläche aus.",
+              "Im Kreativmodus kostet ein Schritt weder Haltbarkeit noch Abklingzeit."
+            ]
+          }
+        }
+      },
+      {
+        "id": "chisel_reverse",
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Chiseling backwards",
+            "summary": "Sneak and right-click with a chisel to walk a chain backwards. A backward step costs more durability than a forward step.",
+            "details": [
+              "The backward table is filled together with the forward one, so a chain can be walked in both directions; circular chains (coral blocks, nether bricks) turn the other way round.",
+              "Cooldown, Constructor's Touch and creative mode behave as for chiseling forwards."
+            ]
+          },
+          "de": {
+            "title": "Rückwärts meißeln",
+            "summary": "Schleichen und Rechtsklick mit einem Meißel geht eine Kette rückwärts. Ein Rückwärtsschritt kostet mehr Haltbarkeit als ein Vorwärtsschritt.",
+            "details": [
+              "Die Rückwärts-Tabelle wird zusammen mit der Vorwärts-Tabelle gefüllt, eine Kette lässt sich also in beide Richtungen gehen; Ringe (Korallenblöcke, Netherziegel) drehen sich andersherum.",
+              "Abklingzeit, Berührung des Konstrukteurs und Kreativmodus verhalten sich wie beim Vorwärtsmeißeln."
+            ]
+          }
+        }
+      }
+    ],
+    "entries": [
+      {
+        "id": "chisel/simpleores:brass_tiles/simpleores:chiseled_brass",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:brass_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_brass",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:bronze_tiles/simpleores:chiseled_bronze",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:bronze_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_bronze",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:chiseled_brass/simpleores:brass_grate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_brass",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:brass_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:chiseled_bronze/simpleores:bronze_grate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_bronze",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:bronze_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:chiseled_lead/simpleores:lead_grate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_lead",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:lead_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:chiseled_nickel/simpleores:nickel_grate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_nickel",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:nickel_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:chiseled_silver/simpleores:silver_grate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_silver",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:silver_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:chiseled_stainless_steel/simpleores:stainless_steel_grate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_stainless_steel",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:stainless_steel_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:chiseled_tin/simpleores:tin_grate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_tin",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:tin_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:chiseled_zinc/simpleores:zinc_grate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_zinc",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:zinc_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_brass/simpleores:brass_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_brass",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:brass_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_bronze/simpleores:bronze_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_bronze",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:bronze_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_lead/simpleores:lead_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_lead",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:lead_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_nickel/simpleores:nickel_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_nickel",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:nickel_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_rose_bronze/simpleores:rose_bronze_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_rose_bronze",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:rose_bronze_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_rose_gold/simpleores:rose_gold_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_rose_gold",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:rose_gold_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_silver/simpleores:silver_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_silver",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:silver_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_stainless_steel/simpleores:stainless_steel_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_stainless_steel",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:stainless_steel_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_tin/simpleores:tin_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_tin",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:tin_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:cut_zinc/simpleores:zinc_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:cut_zinc",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:zinc_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:enderite_block/simpleores:chiseled_enderite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:enderite_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_enderite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "enderite"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/enderite_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:infernite_block/simpleores:chiseled_infernite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:infernite_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_infernite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:lead_tiles/simpleores:chiseled_lead",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:lead_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_lead",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:nickel_tiles/simpleores:chiseled_nickel",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:nickel_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_nickel",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:rose_bronze_tiles/simpleores:chiseled_rose_bronze",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:rose_bronze_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_rose_bronze",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:rose_gold_tiles/simpleores:chiseled_rose_gold",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:rose_gold_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_rose_gold",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:silver_tiles/simpleores:chiseled_silver",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:silver_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_silver",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:stainless_steel_tiles/simpleores:chiseled_stainless_steel",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:stainless_steel_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_stainless_steel",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:terranite_block/simpleores:chiseled_terranite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:terranite_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_terranite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:tin_tiles/simpleores:chiseled_tin",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:tin_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_tin",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:zenithite_block/simpleores:chiseled_zenithite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:zenithite_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_zenithite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel/simpleores:zinc_tiles/simpleores:chiseled_zinc",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleores:zinc_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_zinc",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:brass_grate/simpleores:chiseled_brass",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:brass_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_brass",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:brass_tiles/simpleores:cut_brass",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:brass_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_brass",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:bronze_grate/simpleores:chiseled_bronze",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:bronze_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_bronze",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:bronze_tiles/simpleores:cut_bronze",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:bronze_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_bronze",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_brass/simpleores:brass_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_brass",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:brass_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_bronze/simpleores:bronze_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_bronze",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:bronze_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_enderite/simpleores:enderite_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_enderite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:enderite_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "enderite"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/enderite_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_infernite/simpleores:infernite_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_infernite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:infernite_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_lead/simpleores:lead_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_lead",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:lead_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_nickel/simpleores:nickel_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_nickel",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:nickel_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_rose_bronze/simpleores:rose_bronze_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_rose_bronze",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:rose_bronze_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_rose_gold/simpleores:rose_gold_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_rose_gold",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:rose_gold_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_silver/simpleores:silver_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_silver",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:silver_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_stainless_steel/simpleores:stainless_steel_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_stainless_steel",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:stainless_steel_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_terranite/simpleores:terranite_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_terranite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:terranite_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_tin/simpleores:tin_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_tin",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:tin_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_zenithite/simpleores:zenithite_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_zenithite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:zenithite_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:chiseled_zinc/simpleores:zinc_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:chiseled_zinc",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:zinc_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:lead_grate/simpleores:chiseled_lead",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:lead_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_lead",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:lead_tiles/simpleores:cut_lead",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:lead_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_lead",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:nickel_grate/simpleores:chiseled_nickel",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:nickel_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_nickel",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:nickel_tiles/simpleores:cut_nickel",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:nickel_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_nickel",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:rose_bronze_tiles/simpleores:cut_rose_bronze",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:rose_bronze_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_rose_bronze",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:rose_gold_tiles/simpleores:cut_rose_gold",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:rose_gold_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_rose_gold",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:silver_grate/simpleores:chiseled_silver",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:silver_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_silver",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:silver_tiles/simpleores:cut_silver",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:silver_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_silver",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:stainless_steel_grate/simpleores:chiseled_stainless_steel",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:stainless_steel_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_stainless_steel",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:stainless_steel_tiles/simpleores:cut_stainless_steel",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:stainless_steel_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_stainless_steel",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:tin_grate/simpleores:chiseled_tin",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:tin_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_tin",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:tin_tiles/simpleores:cut_tin",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:tin_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_tin",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:zinc_grate/simpleores:chiseled_zinc",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:zinc_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:chiseled_zinc",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleores:zinc_tiles/simpleores:cut_zinc",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleores:zinc_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleores:cut_zinc",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json"
+      }
+    ]
   },
   "obtain": {
     "sources": []
@@ -24651,7 +26339,7 @@
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
-    "inWorld": 0,
+    "inWorld": 64,
     "incompleteProse": 0
   }
 }

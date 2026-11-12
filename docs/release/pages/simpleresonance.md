@@ -20,6 +20,7 @@ Simple Resonance tracks how experienced a player is, how dangerous the land is, 
 - **Newcomer protection** - A spawn is at most one level above the level of its owner, and in the first 6 played hours monsters stay at level 1.
 - **Interface for other mods**
 - **Takeover from SimpleBuilding**
+- **Resonance button** - A small button right of the player in the inventory shows the trim resonance as a heart in eight tiers, from cobblestone to enderite.
 - **Commands** - /simpleresonance shows your value, the level of the land where you stand and your newcomer protection.
 
 ## Dependencies

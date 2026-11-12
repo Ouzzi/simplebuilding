@@ -31739,8 +31739,5334 @@
   "quests": [],
   "recipesOtherLines": [],
   "inWorld": {
-    "entries": [],
-    "kinds": []
+    "kinds": [
+      {
+        "id": "chisel",
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Chiseling",
+            "summary": "Right-click a block with a chisel to turn it into the next block of its chain. Which chains a chisel knows depends on its tier; Constructor's Touch adds more. Every step lists all chisels that can do it.",
+            "details": [
+              "A higher tier contains the entries of the lower ones unless it overrides the same source block; the list is computed from each tier's own table.",
+              "Steps marked Constructor's Touch only work with that enchantment on the chisel.",
+              "After a step the chisel has a cooldown (per tool below); Fast Chiseling shortens it by 30% per level, to at least 1 tick.",
+              "Block properties such as waterlogged are carried over, and the new block is oriented by the clicked face.",
+              "In creative mode a step costs neither durability nor cooldown."
+            ]
+          },
+          "de": {
+            "title": "Meißeln",
+            "summary": "Rechtsklick mit einem Meißel verwandelt den Block in den nächsten seiner Kette. Welche Ketten ein Meißel kennt, hängt von seiner Stufe ab; Berührung des Konstrukteurs fügt weitere hinzu. Jeder Schritt nennt alle Meißel, die ihn können.",
+            "details": [
+              "Eine höhere Stufe enthält die Einträge der niedrigeren, außer sie überschreibt denselben Ausgangsblock; die Liste ist aus der Tabelle jeder Stufe berechnet.",
+              "Schritte mit dem Vermerk Berührung des Konstrukteurs gehen nur mit dieser Verzauberung auf dem Meißel.",
+              "Nach einem Schritt hat der Meißel eine Abklingzeit (je Werkzeug unten); Schnelles Meißeln kürzt sie je Stufe um 30 %, auf mindestens 1 Tick.",
+              "Blockeigenschaften wie wassergeflutet werden übernommen, und der neue Block richtet sich nach der angeklickten Fläche aus.",
+              "Im Kreativmodus kostet ein Schritt weder Haltbarkeit noch Abklingzeit."
+            ]
+          }
+        }
+      },
+      {
+        "id": "chisel_reverse",
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Chiseling backwards",
+            "summary": "Sneak and right-click with a chisel to walk a chain backwards. A backward step costs more durability than a forward step.",
+            "details": [
+              "The backward table is filled together with the forward one, so a chain can be walked in both directions; circular chains (coral blocks, nether bricks) turn the other way round.",
+              "Cooldown, Constructor's Touch and creative mode behave as for chiseling forwards."
+            ]
+          },
+          "de": {
+            "title": "Rückwärts meißeln",
+            "summary": "Schleichen und Rechtsklick mit einem Meißel geht eine Kette rückwärts. Ein Rückwärtsschritt kostet mehr Haltbarkeit als ein Vorwärtsschritt.",
+            "details": [
+              "Die Rückwärts-Tabelle wird zusammen mit der Vorwärts-Tabelle gefüllt, eine Kette lässt sich also in beide Richtungen gehen; Ringe (Korallenblöcke, Netherziegel) drehen sich andersherum.",
+              "Abklingzeit, Berührung des Konstrukteurs und Kreativmodus verhalten sich wie beim Vorwärtsmeißeln."
+            ]
+          }
+        }
+      }
+    ],
+    "entries": [
+      {
+        "id": "chisel/minecraft:andesite/simpleblocks:chiseled_polished_andesite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:andesite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_polished_andesite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:blue_ice/simpleblocks:cracked_blue_ice",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:blue_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_blue_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:chiseled_cinnabar/minecraft:cinnabar_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_cinnabar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:chiseled_sulfur/minecraft:sulfur_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_sulfur",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:cinnabar_brick_slab/simpleblocks:mossy_cinnabar_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_cinnabar_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:cinnabar_brick_stairs/simpleblocks:mossy_cinnabar_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_cinnabar_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:cinnabar_brick_wall/simpleblocks:mossy_cinnabar_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_cinnabar_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:cinnabar_bricks/simpleblocks:cracked_cinnabar_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_cinnabar_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:coal_block/simpleblocks:chiseled_coal",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:coal_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_coal",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:cobbled_deepslate/simpleblocks:mossy_deepslate_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:cobbled_deepslate_slab/simpleblocks:mossy_deepslate_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cobbled_deepslate_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:cobbled_deepslate_stairs/simpleblocks:mossy_deepslate_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cobbled_deepslate_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:copper_grate/simpleblocks:copper_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:copper_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:copper_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:dark_prismarine/simpleblocks:chiseled_dark_prismarine",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dark_prismarine",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_dark_prismarine",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:deepslate_brick_wall/simpleblocks:mossy_deepslate_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:deepslate_tile_wall/simpleblocks:mossy_deepslate_tile_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_tile_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_tile_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:diamond_block/simpleblocks:chiseled_diamond",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:diamond_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_diamond",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:diorite/simpleblocks:chiseled_polished_diorite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:diorite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_polished_diorite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:emerald_block/simpleblocks:chiseled_emerald",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:emerald_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_emerald",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:end_stone_brick_slab/simpleblocks:mossy_end_stone_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:end_stone_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_end_stone_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:end_stone_brick_stairs/simpleblocks:mossy_end_stone_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:end_stone_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_end_stone_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:end_stone_brick_wall/simpleblocks:mossy_end_stone_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:end_stone_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_end_stone_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:end_stone_bricks/simpleblocks:cracked_end_stone_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:end_stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_end_stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:exposed_copper_grate/simpleblocks:exposed_copper_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:exposed_copper_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:exposed_copper_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:granite/simpleblocks:chiseled_polished_granite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:granite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_polished_granite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:lapis_block/simpleblocks:chiseled_lapis",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:lapis_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_lapis",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:mud_brick_slab/simpleblocks:mossy_mud_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:mud_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_mud_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:mud_brick_stairs/simpleblocks:mossy_mud_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:mud_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_mud_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:mud_brick_wall/simpleblocks:mossy_mud_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:mud_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_mud_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:mud_bricks/simpleblocks:cracked_mud_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:mud_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_mud_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:netherite_block/simpleblocks:chiseled_netherite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:netherite_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_netherite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:oxidized_copper_grate/simpleblocks:oxidized_copper_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:oxidized_copper_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:oxidized_copper_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:packed_ice/simpleblocks:cracked_packed_ice",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:packed_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_packed_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:polished_cinnabar/minecraft:chiseled_cinnabar",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_cinnabar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_cinnabar",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:polished_cinnabar_slab/minecraft:cinnabar_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_cinnabar_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:polished_cinnabar_stairs/minecraft:cinnabar_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_cinnabar_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:polished_cinnabar_wall/minecraft:cinnabar_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_cinnabar_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:polished_sulfur/minecraft:chiseled_sulfur",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_sulfur",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_sulfur",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:polished_sulfur_slab/minecraft:sulfur_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_sulfur_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:polished_sulfur_stairs/minecraft:sulfur_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_sulfur_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:polished_sulfur_wall/minecraft:sulfur_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_sulfur_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:prismarine_bricks/simpleblocks:cracked_prismarine_bricks/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:prismarine_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_prismarine_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond",
+          "touch": true
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_touch.json"
+      },
+      {
+        "id": "chisel/minecraft:red_nether_bricks/simpleblocks:cracked_red_nether_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:red_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_red_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:redstone_block/simpleblocks:chiseled_redstone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:redstone_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_redstone",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:sulfur_brick_slab/simpleblocks:mossy_sulfur_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_sulfur_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:sulfur_brick_stairs/simpleblocks:mossy_sulfur_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_sulfur_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:sulfur_brick_wall/simpleblocks:mossy_sulfur_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_sulfur_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:sulfur_bricks/simpleblocks:cracked_sulfur_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_sulfur_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:tuff_brick_slab/simpleblocks:mossy_tuff_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_tuff_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:tuff_brick_stairs/simpleblocks:mossy_tuff_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_tuff_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:tuff_brick_wall/simpleblocks:mossy_tuff_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_tuff_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:tuff_bricks/simpleblocks:cracked_tuff_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_tuff_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:waxed_copper_grate/simpleblocks:waxed_copper_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:waxed_copper_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:waxed_copper_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:waxed_exposed_copper_grate/simpleblocks:waxed_exposed_copper_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:waxed_exposed_copper_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:waxed_exposed_copper_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:waxed_oxidized_copper_grate/simpleblocks:waxed_oxidized_copper_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:waxed_oxidized_copper_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:waxed_oxidized_copper_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:waxed_weathered_copper_grate/simpleblocks:waxed_weathered_copper_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:waxed_weathered_copper_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:waxed_weathered_copper_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/minecraft:weathered_copper_grate/simpleblocks:weathered_copper_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:weathered_copper_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:weathered_copper_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:blue_ice_bricks/simpleblocks:cracked_blue_ice_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:blue_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_blue_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:blue_ice_slab/simpleblocks:blue_ice_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:blue_ice_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:blue_ice_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:blue_ice_stairs/simpleblocks:blue_ice_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:blue_ice_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:blue_ice_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:blue_ice_wall/simpleblocks:blue_ice_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:blue_ice_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:blue_ice_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:blue_nether_bricks/simpleblocks:cracked_blue_nether_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:blue_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_blue_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:chiseled_blue_ice/simpleblocks:blue_ice_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_blue_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:blue_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:chiseled_dark_prismarine/simpleblocks:cracked_dark_prismarine",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_dark_prismarine",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_dark_prismarine",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:chiseled_ice/simpleblocks:ice_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:chiseled_packed_ice/simpleblocks:packed_ice_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_packed_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:packed_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:chiseled_prismarine/simpleblocks:cracked_prismarine/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_prismarine",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_prismarine",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond",
+          "touch": true
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_touch.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_blue_ice_bricks/minecraft:blue_ice",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_blue_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blue_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_cinnabar_bricks/simpleblocks:mossy_cinnabar_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_cinnabar_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_cinnabar_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_end_stone_bricks/simpleblocks:mossy_end_stone_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_end_stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_end_stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_ice_bricks/minecraft:ice",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_mud_bricks/simpleblocks:mossy_mud_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_mud_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_mud_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_packed_ice_bricks/minecraft:packed_ice",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_packed_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:packed_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_prismarine_bricks/simpleblocks:chiseled_prismarine/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_prismarine_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_prismarine",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond",
+          "touch": true
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_touch.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_red_nether_bricks/simpleblocks:chiseled_red_nether_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_red_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_red_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_sulfur_bricks/simpleblocks:mossy_sulfur_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_sulfur_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_sulfur_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cracked_tuff_bricks/simpleblocks:mossy_tuff_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_tuff_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_tuff_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cut_gold/simpleblocks:gold_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cut_gold",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:gold_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:cut_iron/simpleblocks:iron_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cut_iron",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:iron_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:gold_tiles/simpleblocks:chiseled_gold",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:gold_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_gold",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:ice_bricks/simpleblocks:cracked_ice_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:ice_slab/simpleblocks:ice_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:ice_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:ice_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:ice_stairs/simpleblocks:ice_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:ice_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:ice_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:ice_wall/simpleblocks:ice_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:ice_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:ice_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:iron_tiles/simpleblocks:chiseled_iron",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:iron_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_iron",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_cinnabar_brick_slab/minecraft:cinnabar_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_cinnabar_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_cinnabar_brick_stairs/minecraft:cinnabar_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_cinnabar_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_cinnabar_brick_wall/minecraft:cinnabar_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_cinnabar_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_cinnabar_bricks/minecraft:cinnabar",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_cinnabar_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_deepslate_brick_slab/simpleblocks:mossy_deepslate_tile_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_tile_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_deepslate_brick_stairs/simpleblocks:mossy_deepslate_tile_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_tile_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_deepslate_bricks/simpleblocks:mossy_deepslate_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_deepslate_tiles/simpleblocks:cracked_polished_deepslate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_polished_deepslate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_sulfur_brick_slab/minecraft:sulfur_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_sulfur_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_sulfur_brick_stairs/minecraft:sulfur_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_sulfur_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_sulfur_brick_wall/minecraft:sulfur_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_sulfur_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:mossy_sulfur_bricks/minecraft:sulfur",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_sulfur_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:packed_ice_bricks/simpleblocks:cracked_packed_ice_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:packed_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_packed_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:packed_ice_slab/simpleblocks:packed_ice_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:packed_ice_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:packed_ice_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:packed_ice_stairs/simpleblocks:packed_ice_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:packed_ice_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:packed_ice_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:packed_ice_wall/simpleblocks:packed_ice_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:packed_ice_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:packed_ice_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:polished_blue_ice/simpleblocks:chiseled_blue_ice",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:polished_blue_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_blue_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:polished_ice/simpleblocks:chiseled_ice",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:polished_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel/simpleblocks:polished_packed_ice/simpleblocks:chiseled_packed_ice",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:polished_packed_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_packed_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:blue_ice/simpleblocks:cracked_blue_ice_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:blue_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_blue_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_cinnabar/minecraft:polished_cinnabar",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_cinnabar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_cinnabar",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_sulfur/minecraft:polished_sulfur",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_sulfur",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_sulfur",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:cinnabar/simpleblocks:mossy_cinnabar_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_cinnabar_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:cinnabar_brick_slab/minecraft:polished_cinnabar_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_cinnabar_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:cinnabar_brick_stairs/minecraft:polished_cinnabar_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_cinnabar_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:cinnabar_brick_wall/minecraft:polished_cinnabar_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_cinnabar_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:cinnabar_bricks/minecraft:chiseled_cinnabar",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_cinnabar",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:cinnabar_slab/simpleblocks:mossy_cinnabar_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_cinnabar_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:cinnabar_stairs/simpleblocks:mossy_cinnabar_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_cinnabar_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:cinnabar_wall/simpleblocks:mossy_cinnabar_brick_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cinnabar_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_cinnabar_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:ice/simpleblocks:cracked_ice_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:packed_ice/simpleblocks:cracked_packed_ice_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:packed_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_packed_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:sulfur/simpleblocks:mossy_sulfur_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_sulfur_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:sulfur_brick_slab/minecraft:polished_sulfur_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_sulfur_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:sulfur_brick_stairs/minecraft:polished_sulfur_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_sulfur_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:sulfur_brick_wall/minecraft:polished_sulfur_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_sulfur_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:sulfur_bricks/minecraft:chiseled_sulfur",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_sulfur",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:sulfur_slab/simpleblocks:mossy_sulfur_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_sulfur_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:sulfur_stairs/simpleblocks:mossy_sulfur_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_sulfur_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/minecraft:sulfur_wall/simpleblocks:mossy_sulfur_brick_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sulfur_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_sulfur_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:blue_ice_brick_slab/simpleblocks:blue_ice_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:blue_ice_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:blue_ice_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:blue_ice_brick_stairs/simpleblocks:blue_ice_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:blue_ice_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:blue_ice_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:blue_ice_brick_wall/simpleblocks:blue_ice_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:blue_ice_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:blue_ice_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:blue_ice_bricks/simpleblocks:chiseled_blue_ice",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:blue_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_blue_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_blue_ice/simpleblocks:polished_blue_ice",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_blue_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:polished_blue_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_coal/minecraft:coal_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_coal",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:coal_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_dark_prismarine/minecraft:dark_prismarine",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_dark_prismarine",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dark_prismarine",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_diamond/minecraft:diamond_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_diamond",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:diamond_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_emerald/minecraft:emerald_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_emerald",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:emerald_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_gold/simpleblocks:gold_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_gold",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:gold_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_ice/simpleblocks:polished_ice",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:polished_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_iron/simpleblocks:iron_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_iron",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:iron_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_lapis/minecraft:lapis_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_lapis",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:lapis_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_netherite/minecraft:netherite_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_netherite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:netherite_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_packed_ice/simpleblocks:polished_packed_ice",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_packed_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:polished_packed_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_polished_andesite/minecraft:andesite",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_polished_andesite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:andesite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_polished_diorite/minecraft:diorite",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_polished_diorite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:diorite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_polished_granite/minecraft:granite",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_polished_granite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:granite",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_prismarine/simpleblocks:cracked_prismarine_bricks/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_prismarine",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_prismarine_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond",
+          "touch": true
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_touch.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_red_nether_bricks/simpleblocks:cracked_red_nether_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_red_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_red_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_redstone/minecraft:redstone_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_redstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:redstone_block",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:copper_tiles/minecraft:copper_grate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:copper_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:copper_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_blue_ice/minecraft:blue_ice",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_blue_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blue_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_blue_ice_bricks/simpleblocks:blue_ice_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_blue_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:blue_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_blue_nether_bricks/simpleblocks:blue_nether_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_blue_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:blue_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_cinnabar_bricks/minecraft:cinnabar_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_cinnabar_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_dark_prismarine/simpleblocks:chiseled_dark_prismarine",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_dark_prismarine",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_dark_prismarine",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_end_stone_bricks/minecraft:end_stone_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_end_stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:end_stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_ice_bricks/simpleblocks:ice_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_mud_bricks/minecraft:mud_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_mud_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mud_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_packed_ice/minecraft:packed_ice",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_packed_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:packed_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_packed_ice_bricks/simpleblocks:packed_ice_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_packed_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:packed_ice_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_polished_deepslate/simpleblocks:mossy_deepslate_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_polished_deepslate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_tiles",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_prismarine/simpleblocks:chiseled_prismarine/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_prismarine",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_prismarine",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond",
+          "touch": true
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_touch.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_prismarine_bricks/minecraft:prismarine_bricks/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_prismarine_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:prismarine_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond",
+          "touch": true
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_touch.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_red_nether_bricks/minecraft:red_nether_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_red_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:red_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_sulfur_bricks/minecraft:sulfur_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_sulfur_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:cracked_tuff_bricks/minecraft:tuff_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_tuff_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:exposed_copper_tiles/minecraft:exposed_copper_grate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:exposed_copper_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:exposed_copper_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:gold_tiles/simpleblocks:cut_gold",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:gold_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cut_gold",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:ice_brick_slab/simpleblocks:ice_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:ice_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:ice_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:ice_brick_stairs/simpleblocks:ice_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:ice_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:ice_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:ice_brick_wall/simpleblocks:ice_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:ice_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:ice_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:ice_bricks/simpleblocks:chiseled_ice",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:iron_tiles/simpleblocks:cut_iron",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:iron_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cut_iron",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_cinnabar_brick_slab/minecraft:cinnabar_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_cinnabar_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_cinnabar_brick_stairs/minecraft:cinnabar_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_cinnabar_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_cinnabar_brick_wall/minecraft:cinnabar_brick_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_cinnabar_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cinnabar_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_cinnabar_bricks/simpleblocks:cracked_cinnabar_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_cinnabar_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_cinnabar_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_deepslate_brick_slab/minecraft:cobbled_deepslate_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobbled_deepslate_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_deepslate_brick_stairs/minecraft:cobbled_deepslate_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobbled_deepslate_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_deepslate_brick_wall/minecraft:deepslate_brick_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_deepslate_bricks/minecraft:cobbled_deepslate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobbled_deepslate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_deepslate_tile_slab/simpleblocks:mossy_deepslate_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_tile_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_deepslate_tile_stairs/simpleblocks:mossy_deepslate_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_tile_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_deepslate_tile_wall/minecraft:deepslate_tile_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_tile_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_tile_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_deepslate_tiles/simpleblocks:mossy_deepslate_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_deepslate_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:mossy_deepslate_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_end_stone_brick_slab/minecraft:end_stone_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_end_stone_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:end_stone_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_end_stone_brick_stairs/minecraft:end_stone_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_end_stone_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:end_stone_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_end_stone_brick_wall/minecraft:end_stone_brick_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_end_stone_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:end_stone_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_end_stone_bricks/simpleblocks:cracked_end_stone_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_end_stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_end_stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_mud_brick_slab/minecraft:mud_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_mud_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mud_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_mud_brick_stairs/minecraft:mud_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_mud_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mud_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_mud_brick_wall/minecraft:mud_brick_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_mud_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mud_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_mud_bricks/simpleblocks:cracked_mud_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_mud_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_mud_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/stone_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_sulfur_brick_slab/minecraft:sulfur_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_sulfur_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_sulfur_brick_stairs/minecraft:sulfur_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_sulfur_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_sulfur_brick_wall/minecraft:sulfur_brick_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_sulfur_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sulfur_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_sulfur_bricks/simpleblocks:cracked_sulfur_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_sulfur_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_sulfur_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_tuff_brick_slab/minecraft:tuff_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_tuff_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_tuff_brick_stairs/minecraft:tuff_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_tuff_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_tuff_brick_wall/minecraft:tuff_brick_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_tuff_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:mossy_tuff_bricks/simpleblocks:cracked_tuff_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:mossy_tuff_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_tuff_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "diamond"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:oxidized_copper_tiles/minecraft:oxidized_copper_grate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:oxidized_copper_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:oxidized_copper_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:packed_ice_brick_slab/simpleblocks:packed_ice_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:packed_ice_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:packed_ice_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:packed_ice_brick_stairs/simpleblocks:packed_ice_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:packed_ice_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:packed_ice_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:packed_ice_brick_wall/simpleblocks:packed_ice_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:packed_ice_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:packed_ice_wall",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:packed_ice_bricks/simpleblocks:chiseled_packed_ice",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:packed_ice_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_packed_ice",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:waxed_copper_tiles/minecraft:waxed_copper_grate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:waxed_copper_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:waxed_copper_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:waxed_exposed_copper_tiles/minecraft:waxed_exposed_copper_grate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:waxed_exposed_copper_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:waxed_exposed_copper_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:waxed_oxidized_copper_tiles/minecraft:waxed_oxidized_copper_grate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:waxed_oxidized_copper_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:waxed_oxidized_copper_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:waxed_weathered_copper_tiles/minecraft:waxed_weathered_copper_grate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:waxed_weathered_copper_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:waxed_weathered_copper_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:weathered_copper_tiles/minecraft:weathered_copper_grate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:weathered_copper_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:weathered_copper_grate",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json"
+      }
+    ]
   },
   "obtain": {
     "sources": []
@@ -31761,7 +37087,7 @@
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
-    "inWorld": 0,
+    "inWorld": 208,
     "incompleteProse": 0
   }
 }

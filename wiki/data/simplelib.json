@@ -127,6 +127,7 @@
         "title": "Legendary moments",
         "summary": "The hardest advancements and the hardest enchantments play a deep choir and a particle show at the player.",
         "details": [
+          "Only while a loaded mod asks for it (simplelib:features in its fabric.mod.json, here Simple Quality of Life): with only other Simple mods there is no choir and Vanilla's challenge jingle plays as always.",
           "Advancements: How Did We Get Here?, A Furious Cocktail, Adventuring Time, Monsters Hunted, A Balanced Diet, Two by Two, A Complete Catalogue, The Whole Pack, Smithing with Style, Serious Dedication and Hot Tourist Destinations. The server config list legendaryAdvancements adds more ids; legendaryAllChallenges (default false) makes every challenge advancement count.",
           "Enchantments: tag simplelib:legendary (Swift Sneak, Soul Speed, Wind Burst; mods add theirs) plus the config list legendaryEnchantments. It counts when the enchanting table or the anvil makes an item with such an enchantment at its maximum level that the input did not have; loot does not count.",
           "Everyone nearby hears the legendary choir (a low wordless choir resolving from minor to major) and sees totem particles, two rising golden spirals and a ring of sparks for two seconds. Switch: legendaryEffects (default true) in simplelib-server.json or the config screen (Mod Menu with Cloth Config).",
@@ -137,6 +138,7 @@
         "title": "Legendäre Momente",
         "summary": "Die schwersten Fortschritte und die schwersten Verzauberungen spielen einen tiefen Chor und eine Partikelschau am Spieler.",
         "details": [
+          "Nur, wenn eine geladene Mod es anfordert (simplelib:features in ihrer fabric.mod.json, hier Simple Quality of Life): mit nur anderen Simple-Mods gibt es keinen Chor und der Vanilla-Herausforderungsklang spielt wie immer.",
           "Fortschritte: Wie zum Teufel sind wir hierher gekommen?, Ein wütender Cocktail, Abenteuerzeit, Monsterjäger, Ausgewogene Ernährung, Paarweise, Ein vollständiger Katalog, Das ganze Rudel, Schmieden mit Stil, Ernsthafte Hingabe und Heiße Touristenziele. Die Server-Liste legendaryAdvancements ergänzt weitere IDs; legendaryAllChallenges (Standard aus) lässt jede Herausforderung zählen.",
           "Verzauberungen: Tag simplelib:legendary (Huschen, Seelenläufer, Windstoß; Mods ergänzen ihre) plus die Liste legendaryEnchantments. Es zählt, wenn Zaubertisch oder Amboss ein Item mit so einer Verzauberung auf Höchststufe herstellen, die die Vorlage noch nicht hatte; Beute zählt nicht.",
           "Alle in der Nähe hören den legendären Chor (ein tiefer Chor ohne Worte, der sich von Moll nach Dur auflöst) und sehen zwei Sekunden lang Totem-Partikel, zwei aufsteigende goldene Spiralen und einen Funkenkranz. Schalter: legendaryEffects (Standard an) in simplelib-server.json oder im Konfig-Bildschirm (Mod Menu mit Cloth Config).",
@@ -175,11 +177,12 @@
         "modules/simplelib/shared/java/com/simplelib/api/client/FreeLook.java",
         "modules/simplelib/shared/java/com/simplelib/api/FreeLookRules.java",
         "modules/simplelib/shared/java/com/simplelib/config/LibConfig.java",
-        "modules/simplelib/fabric/src/main/java/com/simplelib/config/LibConfigScreen.java"
+        "modules/simplelib/fabric/src/main/java/com/simplelib/config/LibConfigScreen.java",
+        "modules/simplelib/shared/java/com/simplelib/api/LibFeatures.java"
       ],
       "en": {
         "title": "Free Look",
-        "summary": "While Free Look is on, the mouse turns only the camera, not the player; walking and all other input stay normal. Two keys: \"Free Look (hold)\" (standard left Alt) and \"Toggle Free Look\" (unbound, set it in the controls). When it ends, the camera turns back to where you look (standard) or you turn to where the camera looked - freeLookRelease in config/simplelib-client.json or the Free Look tab of the SimpleLib settings. A server can enforce its own choice (freeLookRelease + freeLookEnforce in simplelib-server.json, sent on join). Free Look is always off after joining, a world change and a respawn.",
+        "summary": "While Free Look is on, the mouse turns only the camera, not the player; walking and all other input stay normal. Two keys: \"Free Look (hold)\" (standard left Alt when a loaded mod asks for Free Look - Simple Quality of Life or Simple Earth -, otherwise unbound) and \"Toggle Free Look\" (unbound, set it in the controls). When it ends, the camera turns back to where you look (standard) or you turn to where the camera looked - freeLookRelease in config/simplelib-client.json or the Free Look tab of the SimpleLib settings. A server can enforce its own choice (freeLookRelease + freeLookEnforce in simplelib-server.json, sent on join). Free Look is always off after joining, a world change and a respawn.",
         "details": [
           "A key that is already down when the world opens (for example left Alt from Alt+Tab) does not switch Free Look on; release it and press again.",
           "In first person your hand keeps the direction of your body (it does not travel with the camera), and the normal crosshair moves to where you really aim (clamped to the screen edge, hidden behind you); it is not drawn in the centre meanwhile. Switch this off with freeLookCrosshair in config/simplelib-client.json or in the SimpleLib settings (Free Look tab). Standard: on."
@@ -187,7 +190,7 @@
       },
       "de": {
         "title": "Free Look",
-        "summary": "Solange Free Look an ist, dreht die Maus nur die Kamera, nicht den Spieler; Laufen und alle anderen Eingaben bleiben normal. Zwei Tasten: „Free Look (halten)“ (Standard linke Alt-Taste) und „Free Look umschalten“ (ohne Belegung, in der Steuerung festlegen). Am Ende dreht die Kamera zurück zur Blickrichtung (Standard) oder der Spieler dreht sich dorthin, wohin die Kamera schaute - freeLookRelease in config/simplelib-client.json oder der Reiter Free Look der SimpleLib-Einstellungen. Ein Server kann seine Wahl erzwingen (freeLookRelease + freeLookEnforce in simplelib-server.json, beim Betreten gesendet). Nach dem Betreten, einem Weltwechsel und einem Respawn ist Free Look immer aus.",
+        "summary": "Solange Free Look an ist, dreht die Maus nur die Kamera, nicht den Spieler; Laufen und alle anderen Eingaben bleiben normal. Zwei Tasten: „Free Look (halten)“ (Standard linke Alt-Taste, wenn eine geladene Mod Free Look anfordert - Simple Quality of Life oder Simple Earth -, sonst ohne Belegung) und „Free Look umschalten“ (ohne Belegung, in der Steuerung festlegen). Am Ende dreht die Kamera zurück zur Blickrichtung (Standard) oder der Spieler dreht sich dorthin, wohin die Kamera schaute - freeLookRelease in config/simplelib-client.json oder der Reiter Free Look der SimpleLib-Einstellungen. Ein Server kann seine Wahl erzwingen (freeLookRelease + freeLookEnforce in simplelib-server.json, beim Betreten gesendet). Nach dem Betreten, einem Weltwechsel und einem Respawn ist Free Look immer aus.",
         "details": [
           "Eine Taste, die beim Öffnen der Welt schon gedrückt ist (z. B. linke Alt-Taste von Alt+Tab), schaltet Free Look nicht ein; loslassen und erneut drücken.",
           "In der Ego-Perspektive bleibt deine Hand in der Richtung des Körpers (sie wandert nicht mit der Kamera), und das normale Fadenkreuz wandert dorthin, wohin du wirklich zielst (am Bildrand festgeklemmt, hinter dir ausgeblendet); in der Mitte wird es so lange nicht gezeichnet. Das schaltest du mit freeLookCrosshair in config/simplelib-client.json oder in den SimpleLib-Einstellungen (Reiter Free Look) ab. Standard: an."
@@ -1601,10 +1604,10 @@
       "categoryDe": "SimpleLib",
       "group": null,
       "groupDe": null,
-      "label": "Eat speed bonus",
-      "labelDe": "Eat speed bonus",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Warm Food Eaten Faster By",
+      "labelDe": "Warmes Essen schneller gegessen um",
+      "tooltip": "Share by which warm food is eaten faster\n(0.15 = 15% faster, at most 0.3).\nDefault: 0.15.",
+      "tooltipDe": "Anteil, um den warmes Essen schneller gegessen\nwird (0,15 = 15 % schneller, höchstens 0,3).\nStandard: 0,15."
     },
     {
       "range": null,
@@ -1930,10 +1933,10 @@
       "categoryDe": "SimpleLib",
       "group": null,
       "groupDe": null,
-      "label": "Warm base ticks",
-      "labelDe": "Warm base ticks",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Warming Time per Stack (ticks)",
+      "labelDe": "Aufwärmzeit je Stapel (Ticks)",
+      "tooltip": "How long a crucible needs to warm one stack\nof cooked food (20 ticks = 1 second).\nDefault: 100.",
+      "tooltipDe": "Wie lange ein Tiegel braucht, um einen Stapel\ngekochtes Essen aufzuwärmen (20 Ticks = 1 Sekunde).\nStandard: 100."
     },
     {
       "range": null,
@@ -1943,16 +1946,16 @@
       "name": "warmBundleDurationTicks",
       "shortName": "warmBundleDurationTicks",
       "type": "int",
-      "default": null,
+      "default": "48000",
       "note": null,
       "category": "SimpleLib",
       "categoryDe": "SimpleLib",
       "group": null,
       "groupDe": null,
-      "label": "Warm bundle duration ticks",
-      "labelDe": "Warm bundle duration ticks",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Warm Food Lasts in a Bundle (ticks)",
+      "labelDe": "Essen bleibt im Bündel warm (Ticks)",
+      "tooltip": "How long warm food stays warm inside a\nbundle (48,000 ticks = 40 minutes).\nDefault: 48000.",
+      "tooltipDe": "Wie lange warmes Essen in einem Bündel warm\nbleibt (48.000 Ticks = 40 Minuten).\nStandard: 48000."
     },
     {
       "range": null,
@@ -1962,16 +1965,16 @@
       "name": "warmDurationTicks",
       "shortName": "warmDurationTicks",
       "type": "int",
-      "default": null,
+      "default": "12000",
       "note": null,
       "category": "SimpleLib",
       "categoryDe": "SimpleLib",
       "group": null,
       "groupDe": null,
-      "label": "Warm duration ticks",
-      "labelDe": "Warm duration ticks",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Warm Food Lasts (ticks)",
+      "labelDe": "Essen bleibt warm (Ticks)",
+      "tooltip": "How long food stays warm after it leaves\nthe crucible (12,000 ticks = 10 minutes).\nDefault: 12000.",
+      "tooltipDe": "Wie lange Essen warm bleibt, nachdem es den\nTiegel verlassen hat (12.000 Ticks = 10 Minuten).\nStandard: 12000."
     }
   ],
   "quests": [],

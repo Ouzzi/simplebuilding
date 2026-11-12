@@ -89,6 +89,44 @@
       }
     },
     {
+      "id": "blazewood_family",
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/EnchantingRegistry.java",
+        "modules/simpleenchanting/tools/gen_blazewood.py",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/item/crimson_blazewood_planks.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs_from_crimson_blazewood_planks_sawing.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs_from_crimson_blazewood_planks_stonecutting.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json",
+        "modules/simpleenchanting/shared/resources/data/minecraft/tags/item/non_flammable_wood.json"
+      ],
+      "en": {
+        "title": "Blazewood family",
+        "summary": "Stairs, slab, fence, fence gate, door, trapdoor, pressure plate and button of Crimson and Warped Blazewood, crafted from the blazewood planks like Vanilla's crimson and warped ones (same patterns and counts), with and without SimpleBuilding.",
+        "details": [
+          "They are copies of Vanilla's crimson and warped blocks with Vanilla's block set and wood type (sounds, doors and fence gates open by hand, wooden buttons and pressure plates) and sit in Vanilla's wooden tags. Like all Nether wood they do not burn and are no fuel.",
+          "The recipes take the planks through the item tag simpleenchanting:<wood>_blazewood_planks, which names SimpleBuilding's planks and this module's own (installed alone), so both installations craft the same family.",
+          "(with Simple Blocks) The Shapecutter cuts stairs (1), slabs (2) and fences (1) from one plank; without Simple Blocks the stonecutter cuts them instead.",
+          "(with Simple Chisels) A chisel of iron or better with Constructor's Touch turns planks into stairs and stairs into slabs (sneaking: back), like crimson and warped wood.",
+          "(with Simple Octets) Crimson and Warped Blazewood octets.",
+          "The family follows its planks in the Simple Enchanting creative tab. Stairs, slabs, fences, gates, buttons and pressure plates show the glowing blazewood planks; doors and trapdoors have their own still textures."
+        ]
+      },
+      "de": {
+        "title": "Lohenholz-Familie",
+        "summary": "Treppe, Stufe, Zaun, Zauntor, Tür, Falltür, Druckplatte und Knopf aus Karmesin- und Wirr-Lohenholz, aus den Lohenholzbrettern hergestellt wie Vanillas Karmesin- und Wirrholz (gleiche Muster und Mengen), mit und ohne SimpleBuilding.",
+        "details": [
+          "Sie sind Kopien von Vanillas Karmesin- und Wirrholz-Blöcken mit Vanillas Blockset und Holztyp (Geräusche, Türen und Zauntore öffnen von Hand, hölzerne Knöpfe und Druckplatten) und stehen in Vanillas Holz-Tags. Wie alles Netherholz brennen sie nicht und sind kein Brennstoff.",
+          "Die Rezepte nehmen die Bretter über den Item-Tag simpleenchanting:<holz>_blazewood_planks, der SimpleBuildings Bretter und die eigenen (allein installiert) nennt; beide Installationen stellen dieselbe Familie her.",
+          "(mit Simple Blocks) Die Formsäge schneidet Treppe (1), Stufe (2) und Zaun (1) aus einem Brett; ohne Simple Blocks schneidet sie stattdessen die Steinsäge.",
+          "(mit Simple Chisels) Ein Meißel ab Eisen mit Berührung des Konstrukteurs macht Bretter zu Treppen und Treppen zu Stufen (schleichend zurück), wie bei Karmesin- und Wirrholz.",
+          "(mit Simple Octets) Karmesin- und Wirr-Lohenholz-Achtel.",
+          "Die Familie folgt im Kreativtab Simple Enchanting auf ihre Bretter. Treppe, Stufe, Zaun, Zauntor, Knopf und Druckplatte zeigen die glühenden Lohenholzbretter; Tür und Falltür haben eigene ruhende Texturen."
+        ]
+      }
+    },
+    {
       "id": "creative_tab_switch",
       "sources": [
         "modules/simpleenchanting/shared/java/com/simpleenchanting/EnchantingRegistry.java",
@@ -320,6 +358,209 @@
       }
     },
     {
+      "id": "simpleenchanting:crimson_blazewood_button",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "wooden_button",
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_button",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_button.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "ingredientGroups": [
+        [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_door",
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_door",
+        "count": 3
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_door.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 6
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_fence",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_fence",
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_fence",
+        "count": 3
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "W#W",
+        "W#W"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "W": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 4
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_fence_from_crimson_blazewood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_fence",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence_from_crimson_blazewood_planks_sawing.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_fence_from_crimson_blazewood_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_fence",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence_from_crimson_blazewood_planks_stonecutting.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_fence_gate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_fence_gate",
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_fence_gate",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence_gate.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "#W#",
+        "#W#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "W": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.5
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
       "id": "simpleenchanting:crimson_blazewood_planks",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -357,6 +598,245 @@
             "id": "minecraft:crimson_stem",
             "count": 0.25
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_pressure_plate",
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_pressure_plate.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 2
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "wooden_slab",
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_slab",
+        "count": 6
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_slab.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 3
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_slab_from_crimson_blazewood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_slab",
+        "count": 2
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_slab_from_crimson_blazewood_planks_sawing.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_slab_from_crimson_blazewood_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_slab",
+        "count": 2
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_slab_from_crimson_blazewood_planks_stonecutting.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "wooden_stairs",
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 6
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_stairs_from_crimson_blazewood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs_from_crimson_blazewood_planks_sawing.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_stairs_from_crimson_blazewood_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs_from_crimson_blazewood_planks_stonecutting.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_trapdoor",
+      "result": {
+        "id": "simpleenchanting:crimson_blazewood_trapdoor",
+        "count": 2
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_trapdoor.json",
+      "ingredients": [
+        "#simpleenchanting:crimson_blazewood_planks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_blazewood_planks",
+            "count": 6
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:crimson_blazewood_planks"
         ]
       }
     },
@@ -451,6 +931,209 @@
       }
     },
     {
+      "id": "simpleenchanting:warped_blazewood_button",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "wooden_button",
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_button",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_button.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "ingredientGroups": [
+        [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_door",
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_door",
+        "count": 3
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_door.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 6
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_fence",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_fence",
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_fence",
+        "count": 3
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_fence.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "W#W",
+        "W#W"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "W": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 4
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_fence_from_warped_blazewood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_fence",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_fence_from_warped_blazewood_planks_sawing.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_fence_from_warped_blazewood_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_fence",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_fence_from_warped_blazewood_planks_stonecutting.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_fence_gate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_fence_gate",
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_fence_gate",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_fence_gate.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "#W#",
+        "#W#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "W": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.5
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
       "id": "simpleenchanting:warped_blazewood_planks",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -488,6 +1171,245 @@
             "id": "minecraft:warped_stem",
             "count": 0.25
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_pressure_plate",
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_pressure_plate.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 2
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "wooden_slab",
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_slab",
+        "count": 6
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_slab.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 3
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_slab_from_warped_blazewood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_slab",
+        "count": 2
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_slab_from_warped_blazewood_planks_sawing.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_slab_from_warped_blazewood_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_slab",
+        "count": 2
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_slab_from_warped_blazewood_planks_stonecutting.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "wooden_stairs",
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_stairs.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 6
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_stairs_from_warped_blazewood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_stairs_from_warped_blazewood_planks_sawing.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_stairs_from_warped_blazewood_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_stairs_from_warped_blazewood_planks_stonecutting.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_trapdoor",
+      "result": {
+        "id": "simpleenchanting:warped_blazewood_trapdoor",
+        "count": 2
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_trapdoor.json",
+      "ingredients": [
+        "#simpleenchanting:warped_blazewood_planks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "#simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_blazewood_planks",
+            "count": 6
+          }
+        ],
+        "tagExamples": [
+          "#simpleenchanting:warped_blazewood_planks"
         ]
       }
     }
@@ -593,6 +1515,78 @@
       "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_bookshelf.json"
     },
     {
+      "id": "simpleenchanting:blocks/crimson_blazewood_button",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:crimson_blazewood_button"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_button.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/crimson_blazewood_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:crimson_blazewood_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_door.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/crimson_blazewood_fence",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:crimson_blazewood_fence"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_fence.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/crimson_blazewood_fence_gate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:crimson_blazewood_fence_gate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_fence_gate.json"
+    },
+    {
       "id": "simpleenchanting:blocks/crimson_blazewood_planks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -609,6 +1603,76 @@
         }
       ],
       "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_planks.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/crimson_blazewood_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:crimson_blazewood_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_pressure_plate.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/crimson_blazewood_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:crimson_blazewood_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_slab.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/crimson_blazewood_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:crimson_blazewood_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_stairs.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/crimson_blazewood_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:crimson_blazewood_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/crimson_blazewood_trapdoor.json"
     },
     {
       "id": "simpleenchanting:blocks/dark_enchanter",
@@ -674,6 +1738,78 @@
       "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_bookshelf.json"
     },
     {
+      "id": "simpleenchanting:blocks/warped_blazewood_button",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:warped_blazewood_button"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_button.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/warped_blazewood_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:warped_blazewood_door"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_door.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/warped_blazewood_fence",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:warped_blazewood_fence"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_fence.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/warped_blazewood_fence_gate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:warped_blazewood_fence_gate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_fence_gate.json"
+    },
+    {
       "id": "simpleenchanting:blocks/warped_blazewood_planks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -690,6 +1826,76 @@
         }
       ],
       "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_planks.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/warped_blazewood_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:warped_blazewood_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_pressure_plate.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/warped_blazewood_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:warped_blazewood_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_slab.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/warped_blazewood_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:warped_blazewood_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_stairs.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/warped_blazewood_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:warped_blazewood_trapdoor"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/warped_blazewood_trapdoor.json"
     }
   ],
   "tags": [
@@ -768,6 +1974,36 @@
         }
       ],
       "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/obsidian_floor.json"
+    },
+    {
+      "id": "simpleenchanting:item/crimson_blazewood_planks",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:crimson_blazewood_planks",
+          "required": false
+        },
+        {
+          "id": "simpleenchanting:crimson_blazewood_planks",
+          "required": false
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/item/crimson_blazewood_planks.json"
+    },
+    {
+      "id": "simpleenchanting:item/warped_blazewood_planks",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:warped_blazewood_planks",
+          "required": false
+        },
+        {
+          "id": "simpleenchanting:warped_blazewood_planks",
+          "required": false
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/item/warped_blazewood_planks.json"
     }
   ],
   "advancements": [
@@ -811,10 +2047,10 @@
           "modules/simpleenchanting/shared/resources/data/simpleenchanting/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Enchanting\" of the Simple Modpack guide (SimpleLib): 7 pages taken from this wiki, shown in your language. Unlocked by picking up: lapis lazuli. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Enchanting\" of the Simple Modpack guide (SimpleLib): 9 pages taken from this wiki, shown in your language. Unlocked by picking up: lapis lazuli. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Enchanting\" im Simple-Modpack-Handbuch (SimpleLib): 7 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Lapislazuli. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Enchanting\" im Simple-Modpack-Handbuch (SimpleLib): 9 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Lapislazuli. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleenchanting/item/guide_book.png",
@@ -963,6 +2199,100 @@
       "usedIn": []
     },
     {
+      "id": "simpleenchanting:crimson_blazewood_button",
+      "name": {
+        "en_us": "Crimson Blazewood Button",
+        "de_de": "Karmesin-Lohenholzknopf"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_button.json"
+        ],
+        "en": {
+          "summary": "Blazewood button: 1 blazewood plank makes 1; arrows press it, like a wooden button."
+        },
+        "de": {
+          "summary": "Lohenholzknopf: 1 Lohenholzbrett ergibt 1; auch Pfeile drücken ihn, wie einen Holzknopf."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:crimson_blazewood_button"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_door",
+      "name": {
+        "en_us": "Crimson Blazewood Door",
+        "de_de": "Karmesin-Lohenholztür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_door.json"
+        ],
+        "en": {
+          "summary": "Blazewood door: 6 blazewood planks make 3; it opens by hand and places both halves."
+        },
+        "de": {
+          "summary": "Lohenholztür: 6 Lohenholzbretter ergeben 3; sie öffnet von Hand und setzt beide Hälften."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:crimson_blazewood_door"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_fence",
+      "name": {
+        "en_us": "Crimson Blazewood Fence",
+        "de_de": "Karmesin-Lohenholzzaun"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence.json"
+        ],
+        "en": {
+          "summary": "Blazewood fence: 4 blazewood planks and 2 sticks make 3."
+        },
+        "de": {
+          "summary": "Lohenholzzaun: 4 Lohenholzbretter und 2 Stöcke ergeben 3."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:crimson_blazewood_fence",
+        "simpleenchanting:crimson_blazewood_fence_from_crimson_blazewood_planks_sawing",
+        "simpleenchanting:crimson_blazewood_fence_from_crimson_blazewood_planks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_fence_gate",
+      "name": {
+        "en_us": "Crimson Blazewood Fence Gate",
+        "de_de": "Karmesin-Lohenholzzauntor"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence_gate.json"
+        ],
+        "en": {
+          "summary": "Blazewood fence gate: 2 blazewood planks and 4 sticks make 1; it opens by hand."
+        },
+        "de": {
+          "summary": "Lohenholzzauntor: 2 Lohenholzbretter und 4 Stöcke ergeben 1; es öffnet von Hand."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:crimson_blazewood_fence_gate"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleenchanting:crimson_blazewood_planks",
       "name": {
         "en_us": "Crimson Blazewood Planks",
@@ -988,6 +2318,103 @@
         "simpleenchanting:chiseled_crimson_blazewood_bookshelf",
         "simpleenchanting:crimson_blazewood_bookshelf"
       ]
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_pressure_plate",
+      "name": {
+        "en_us": "Crimson Blazewood Pressure Plate",
+        "de_de": "Karmesin-Lohenholzdruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_pressure_plate.json"
+        ],
+        "en": {
+          "summary": "Blazewood pressure plate: 2 blazewood planks make 1; any entity presses it, like a wooden plate."
+        },
+        "de": {
+          "summary": "Lohenholzdruckplatte: 2 Lohenholzbretter ergeben 1; jedes Wesen drückt sie, wie eine Holzdruckplatte."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:crimson_blazewood_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_slab",
+      "name": {
+        "en_us": "Crimson Blazewood Slab",
+        "de_de": "Karmesin-Lohenholzstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_slab.json"
+        ],
+        "en": {
+          "summary": "Blazewood slab: 3 blazewood planks make 6."
+        },
+        "de": {
+          "summary": "Lohenholzstufe: 3 Lohenholzbretter ergeben 6."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:crimson_blazewood_slab",
+        "simpleenchanting:crimson_blazewood_slab_from_crimson_blazewood_planks_sawing",
+        "simpleenchanting:crimson_blazewood_slab_from_crimson_blazewood_planks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_stairs",
+      "name": {
+        "en_us": "Crimson Blazewood Stairs",
+        "de_de": "Karmesin-Lohenholztreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs.json"
+        ],
+        "en": {
+          "summary": "Blazewood stairs: 6 blazewood planks make 4, like Vanilla's crimson and warped stairs."
+        },
+        "de": {
+          "summary": "Lohenholztreppe: 6 Lohenholzbretter ergeben 4, wie bei Vanillas Karmesin- und Wirrtreppe."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:crimson_blazewood_stairs",
+        "simpleenchanting:crimson_blazewood_stairs_from_crimson_blazewood_planks_sawing",
+        "simpleenchanting:crimson_blazewood_stairs_from_crimson_blazewood_planks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:crimson_blazewood_trapdoor",
+      "name": {
+        "en_us": "Crimson Blazewood Trapdoor",
+        "de_de": "Karmesin-Lohenholzfalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_trapdoor.json"
+        ],
+        "en": {
+          "summary": "Blazewood trapdoor: 6 blazewood planks make 2; it opens by hand."
+        },
+        "de": {
+          "summary": "Lohenholzfalltür: 6 Lohenholzbretter ergeben 2; sie öffnet von Hand."
+        }
+      },
+      "texture": "assets/textures/simpleenchanting/block/crimson_blazewood_trapdoor.png",
+      "craftedBy": [
+        "simpleenchanting:crimson_blazewood_trapdoor"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleenchanting:dark_enchanter",
@@ -1083,6 +2510,100 @@
       "usedIn": []
     },
     {
+      "id": "simpleenchanting:warped_blazewood_button",
+      "name": {
+        "en_us": "Warped Blazewood Button",
+        "de_de": "Wirr-Lohenholzknopf"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_button.json"
+        ],
+        "en": {
+          "summary": "Blazewood button: 1 blazewood plank makes 1; arrows press it, like a wooden button."
+        },
+        "de": {
+          "summary": "Lohenholzknopf: 1 Lohenholzbrett ergibt 1; auch Pfeile drücken ihn, wie einen Holzknopf."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:warped_blazewood_button"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_door",
+      "name": {
+        "en_us": "Warped Blazewood Door",
+        "de_de": "Wirr-Lohenholztür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_door.json"
+        ],
+        "en": {
+          "summary": "Blazewood door: 6 blazewood planks make 3; it opens by hand and places both halves."
+        },
+        "de": {
+          "summary": "Lohenholztür: 6 Lohenholzbretter ergeben 3; sie öffnet von Hand und setzt beide Hälften."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:warped_blazewood_door"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_fence",
+      "name": {
+        "en_us": "Warped Blazewood Fence",
+        "de_de": "Wirr-Lohenholzzaun"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence.json"
+        ],
+        "en": {
+          "summary": "Blazewood fence: 4 blazewood planks and 2 sticks make 3."
+        },
+        "de": {
+          "summary": "Lohenholzzaun: 4 Lohenholzbretter und 2 Stöcke ergeben 3."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:warped_blazewood_fence",
+        "simpleenchanting:warped_blazewood_fence_from_warped_blazewood_planks_sawing",
+        "simpleenchanting:warped_blazewood_fence_from_warped_blazewood_planks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_fence_gate",
+      "name": {
+        "en_us": "Warped Blazewood Fence Gate",
+        "de_de": "Wirr-Lohenholzzauntor"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence_gate.json"
+        ],
+        "en": {
+          "summary": "Blazewood fence gate: 2 blazewood planks and 4 sticks make 1; it opens by hand."
+        },
+        "de": {
+          "summary": "Lohenholzzauntor: 2 Lohenholzbretter und 4 Stöcke ergeben 1; es öffnet von Hand."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:warped_blazewood_fence_gate"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleenchanting:warped_blazewood_planks",
       "name": {
         "en_us": "Warped Blazewood Planks",
@@ -1108,10 +2629,127 @@
         "simpleenchanting:chiseled_warped_blazewood_bookshelf",
         "simpleenchanting:warped_blazewood_bookshelf"
       ]
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_pressure_plate",
+      "name": {
+        "en_us": "Warped Blazewood Pressure Plate",
+        "de_de": "Wirr-Lohenholzdruckplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_pressure_plate.json"
+        ],
+        "en": {
+          "summary": "Blazewood pressure plate: 2 blazewood planks make 1; any entity presses it, like a wooden plate."
+        },
+        "de": {
+          "summary": "Lohenholzdruckplatte: 2 Lohenholzbretter ergeben 1; jedes Wesen drückt sie, wie eine Holzdruckplatte."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:warped_blazewood_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_slab",
+      "name": {
+        "en_us": "Warped Blazewood Slab",
+        "de_de": "Wirr-Lohenholzstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_slab.json"
+        ],
+        "en": {
+          "summary": "Blazewood slab: 3 blazewood planks make 6."
+        },
+        "de": {
+          "summary": "Lohenholzstufe: 3 Lohenholzbretter ergeben 6."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:warped_blazewood_slab",
+        "simpleenchanting:warped_blazewood_slab_from_warped_blazewood_planks_sawing",
+        "simpleenchanting:warped_blazewood_slab_from_warped_blazewood_planks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_stairs",
+      "name": {
+        "en_us": "Warped Blazewood Stairs",
+        "de_de": "Wirr-Lohenholztreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs.json"
+        ],
+        "en": {
+          "summary": "Blazewood stairs: 6 blazewood planks make 4, like Vanilla's crimson and warped stairs."
+        },
+        "de": {
+          "summary": "Lohenholztreppe: 6 Lohenholzbretter ergeben 4, wie bei Vanillas Karmesin- und Wirrtreppe."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:warped_blazewood_stairs",
+        "simpleenchanting:warped_blazewood_stairs_from_warped_blazewood_planks_sawing",
+        "simpleenchanting:warped_blazewood_stairs_from_warped_blazewood_planks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_trapdoor",
+      "name": {
+        "en_us": "Warped Blazewood Trapdoor",
+        "de_de": "Wirr-Lohenholzfalltür"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_trapdoor.json"
+        ],
+        "en": {
+          "summary": "Blazewood trapdoor: 6 blazewood planks make 2; it opens by hand."
+        },
+        "de": {
+          "summary": "Lohenholzfalltür: 6 Lohenholzbretter ergeben 2; sie öffnet von Hand."
+        }
+      },
+      "texture": "assets/textures/simpleenchanting/block/warped_blazewood_trapdoor.png",
+      "craftedBy": [
+        "simpleenchanting:warped_blazewood_trapdoor"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
-  "config": [],
+  "config": [
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "features.endgameLevels",
+      "shortName": "endgameLevels",
+      "type": null,
+      "default": "on",
+      "note": null,
+      "category": "Features",
+      "categoryDe": "Funktionen",
+      "group": null,
+      "groupDe": null,
+      "label": "Endgame Enchantment Levels",
+      "labelDe": "Endgame-Verzauberungsstufen",
+      "tooltip": "Protection V and Feather Falling V at the\nAstral Enchanter's top strength (60); off:\nVanilla maximum. Default: on.",
+      "tooltipDe": "Schutz V und Federfall V am Astral Enchanter\nauf höchster Stärke (60); aus: nur das\nVanilla-Maximum. Standard: an."
+    }
+  ],
   "quests": [],
   "recipesOtherLines": [],
   "inWorld": {
@@ -1159,6 +2797,62 @@
               "Ein ausgefahrener oder mit Strom versorgter Kolben wird nicht aufgewertet. Ein ungeeigneter Klumpen oder Hammer gibt einen leisen Fehlklang; kein Aktionsleisten-Text.",
               "Truhen steigen genauso auf, mit einer Stufe davor: jede Kupfertruhe (jede Oxidationsstufe, gewachst oder nicht) wird mit einem Rissigen Diamanten und einem beliebigen Vorschlaghammer zur Verstärkten Truhe, dann mit den Klumpen zur Netherit- und Enderittruhe. Eine Truhe behält Inhalt, Namen und Schloss; eine Doppeltruhe wird als Ganzes aufgewertet und verbraucht ein Stück Material je Hälfte (zusammen zwei).",
               "Shulkerkisten steigen genauso auf (jede Vanilla-Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste), brauchen aber doppelt so viele Schläge und 2 Stück Material je Stufe; Inhalt und Farbe bleiben."
+            ]
+          }
+        }
+      },
+      {
+        "id": "chisel",
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Chiseling",
+            "summary": "Right-click a block with a chisel to turn it into the next block of its chain. Which chains a chisel knows depends on its tier; Constructor's Touch adds more. Every step lists all chisels that can do it.",
+            "details": [
+              "A higher tier contains the entries of the lower ones unless it overrides the same source block; the list is computed from each tier's own table.",
+              "Steps marked Constructor's Touch only work with that enchantment on the chisel.",
+              "After a step the chisel has a cooldown (per tool below); Fast Chiseling shortens it by 30% per level, to at least 1 tick.",
+              "Block properties such as waterlogged are carried over, and the new block is oriented by the clicked face.",
+              "In creative mode a step costs neither durability nor cooldown."
+            ]
+          },
+          "de": {
+            "title": "Meißeln",
+            "summary": "Rechtsklick mit einem Meißel verwandelt den Block in den nächsten seiner Kette. Welche Ketten ein Meißel kennt, hängt von seiner Stufe ab; Berührung des Konstrukteurs fügt weitere hinzu. Jeder Schritt nennt alle Meißel, die ihn können.",
+            "details": [
+              "Eine höhere Stufe enthält die Einträge der niedrigeren, außer sie überschreibt denselben Ausgangsblock; die Liste ist aus der Tabelle jeder Stufe berechnet.",
+              "Schritte mit dem Vermerk Berührung des Konstrukteurs gehen nur mit dieser Verzauberung auf dem Meißel.",
+              "Nach einem Schritt hat der Meißel eine Abklingzeit (je Werkzeug unten); Schnelles Meißeln kürzt sie je Stufe um 30 %, auf mindestens 1 Tick.",
+              "Blockeigenschaften wie wassergeflutet werden übernommen, und der neue Block richtet sich nach der angeklickten Fläche aus.",
+              "Im Kreativmodus kostet ein Schritt weder Haltbarkeit noch Abklingzeit."
+            ]
+          }
+        }
+      },
+      {
+        "id": "chisel_reverse",
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Chiseling backwards",
+            "summary": "Sneak and right-click with a chisel to walk a chain backwards. A backward step costs more durability than a forward step.",
+            "details": [
+              "The backward table is filled together with the forward one, so a chain can be walked in both directions; circular chains (coral blocks, nether bricks) turn the other way round.",
+              "Cooldown, Constructor's Touch and creative mode behave as for chiseling forwards."
+            ]
+          },
+          "de": {
+            "title": "Rückwärts meißeln",
+            "summary": "Schleichen und Rechtsklick mit einem Meißel geht eine Kette rückwärts. Ein Rückwärtsschritt kostet mehr Haltbarkeit als ein Vorwärtsschritt.",
+            "details": [
+              "Die Rückwärts-Tabelle wird zusammen mit der Vorwärts-Tabelle gefüllt, eine Kette lässt sich also in beide Richtungen gehen; Ringe (Korallenblöcke, Netherziegel) drehen sich andersherum.",
+              "Abklingzeit, Berührung des Konstrukteurs und Kreativmodus verhalten sich wie beim Vorwärtsmeißeln."
             ]
           }
         }
@@ -1218,6 +2912,222 @@
           "hits": 16
         },
         "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/in_world_upgrades/enchanters.json"
+      },
+      {
+        "id": "chisel/simpleenchanting:crimson_blazewood_planks/simpleenchanting:crimson_blazewood_stairs/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleenchanting:crimson_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleenchanting:crimson_blazewood_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron",
+          "touch": true
+        },
+        "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json"
+      },
+      {
+        "id": "chisel/simpleenchanting:crimson_blazewood_stairs/simpleenchanting:crimson_blazewood_slab/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleenchanting:crimson_blazewood_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleenchanting:crimson_blazewood_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron",
+          "touch": true
+        },
+        "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json"
+      },
+      {
+        "id": "chisel/simpleenchanting:warped_blazewood_planks/simpleenchanting:warped_blazewood_stairs/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleenchanting:warped_blazewood_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleenchanting:warped_blazewood_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron",
+          "touch": true
+        },
+        "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json"
+      },
+      {
+        "id": "chisel/simpleenchanting:warped_blazewood_stairs/simpleenchanting:warped_blazewood_slab/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleenchanting:warped_blazewood_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleenchanting:warped_blazewood_slab",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron",
+          "touch": true
+        },
+        "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json"
+      },
+      {
+        "id": "chisel_reverse/simpleenchanting:crimson_blazewood_slab/simpleenchanting:crimson_blazewood_stairs/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleenchanting:crimson_blazewood_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleenchanting:crimson_blazewood_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron",
+          "touch": true
+        },
+        "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json"
+      },
+      {
+        "id": "chisel_reverse/simpleenchanting:crimson_blazewood_stairs/simpleenchanting:crimson_blazewood_planks/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleenchanting:crimson_blazewood_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleenchanting:crimson_blazewood_planks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron",
+          "touch": true
+        },
+        "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json"
+      },
+      {
+        "id": "chisel_reverse/simpleenchanting:warped_blazewood_slab/simpleenchanting:warped_blazewood_stairs/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleenchanting:warped_blazewood_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleenchanting:warped_blazewood_stairs",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron",
+          "touch": true
+        },
+        "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json"
+      },
+      {
+        "id": "chisel_reverse/simpleenchanting:warped_blazewood_stairs/simpleenchanting:warped_blazewood_planks/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleenchanting:warped_blazewood_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleenchanting:warped_blazewood_planks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "iron",
+          "touch": true
+        },
+        "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json"
       }
     ]
   },
@@ -1227,20 +3137,20 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 5,
-    "recipes": 8,
-    "lootTables": 10,
-    "tags": 4,
+    "features": 6,
+    "recipes": 36,
+    "lootTables": 26,
+    "tags": 6,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 10,
+    "blocks": 26,
     "trades": 0,
-    "config": 0,
+    "config": 1,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
-    "inWorld": 2,
+    "inWorld": 10,
     "incompleteProse": 0
   }
 }

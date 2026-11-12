@@ -102,6 +102,33 @@
       }
     },
     {
+      "id": "own_chains",
+      "sources": [
+        "tools/check_chisel_chains.py",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/iron_chisel.json",
+        "modules/simpleores/shared/resources/data/simpleores/chisel_transformations/iron_chisel.json",
+        "mc26_3/overlay/resources/data/simplebuilding/chisel_transformations/cracked_end_bricks_enderite_chisel.json"
+      ],
+      "en": {
+        "title": "Chains of the Simple blocks",
+        "summary": "Every chiseled, cracked and mossy block of the Simple mods sits in a chain, shipped by the mod that owns the block, so the chisel reaches it.",
+        "details": [
+          "Simple Blocks: the ice families (polished, chiseled, bricks, cracked bricks, ice, cracked ice; stone tier for ice, iron for packed ice, diamond for blue ice), cut, tiles and chiseled iron (iron) and gold (diamond), chiseled coal, lapis, diamond, emerald, redstone and netherite on their block, the chiseled polished stones, cracked and mossy mud, tuff, deepslate, end stone, cinnabar and sulfur bricks, prismarine, dark prismarine and red and blue nether bricks, copper grate to copper tiles in every oxidation stage.",
+          "Simple Ores: cut, tiles, chiseled and grate of brass, bronze, lead, nickel, silver, stainless steel, tin and zinc, of rose gold and rose bronze without grate (iron tier); chiseled infernite, terranite and zenithite (netherite) and chiseled enderite (enderite). SimpleBuilding: the cracked astralit, nihilith and ender quartz bricks at the end of their enderite chains.",
+          "A chain only joins blocks of the same worth: a block the stonecutter makes four of from one block (cut, tiles, chiseled, grate) never chains with its source block or a pillar, so chiseling back makes no material. For the same reason Vanilla's copper chain now starts at cut copper (Block of Copper is no longer in it)."
+        ]
+      },
+      "de": {
+        "title": "Ketten der Simple-Blöcke",
+        "summary": "Jeder gemeißelte, rissige und bemooste Block der Simple-Mods steckt in einer Kette, die die Mod mitliefert, der der Block gehört, damit der Meißel ihn erreicht.",
+        "details": [
+          "Simple Blocks: die Eis-Familien (poliert, gemeißelt, Ziegel, rissige Ziegel, Eis, rissiges Eis; Steinstufe für Eis, Eisen für Packeis, Diamant für Blaueis), geschnittenes Eisen, Eisenfliesen und gemeißeltes Eisen (Eisen) sowie Gold (Diamant), gemeißelte Kohle, Lapis, Diamant, Smaragd, Redstone und Netherit an ihrem Block, die gemeißelten polierten Steine, rissige und bemooste Schlamm-, Tuff-, Tiefenschiefer-, Endstein-, Zinnober- und Schwefelziegel, Prismarin, dunkles Prismarin, rote und blaue Netherziegel, Kupfergitter zu Kupferfliesen in jeder Oxidationsstufe.",
+          "Simple Ores: geschnitten, Fliesen, gemeißelt und Gitter von Messing, Bronze, Blei, Nickel, Silber, Edelstahl, Zinn und Zink, von Roségold und Rosébronze ohne Gitter (Eisenstufe); gemeißeltes Infernit, Terranit und Zenithit (Netherit) und gemeißeltes Enderit (Enderit). SimpleBuilding: die rissigen Astralit-, Nihilith- und Enderquarzziegel am Ende ihrer Enderit-Ketten.",
+          "Eine Kette verbindet nur gleich viel werte Blöcke: einen Block, von dem die Steinsäge vier aus einem Block macht (geschnitten, Fliesen, gemeißelt, Gitter), verbindet sie nie mit seinem Ausgangsblock oder einer Säule, damit Zurückmeißeln kein Material schafft. Aus demselben Grund beginnt Vanillas Kupferkette jetzt beim geschnittenen Kupfer (der Kupferblock gehört nicht mehr dazu)."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simplechisels/shared/java/com/simplechisels/config/ChiselConfig.java"
@@ -920,10 +947,10 @@
           "modules/simplechisels/shared/resources/data/simplechisels/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Chisels\" of the Simple Modpack guide (SimpleLib): 13 pages taken from this wiki, shown in your language. Unlocked by picking up: copper nugget. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Chisels\" of the Simple Modpack guide (SimpleLib): 14 pages taken from this wiki, shown in your language. Unlocked by picking up: copper nugget. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Chisels\" im Simple-Modpack-Handbuch (SimpleLib): 13 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kupferklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Chisels\" im Simple-Modpack-Handbuch (SimpleLib): 14 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kupferklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplechisels/item/guide_book.png",
@@ -1013,6 +1040,139 @@
   "config": [
     {
       "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "cooldownTicks.copper",
+      "shortName": "copper",
+      "type": null,
+      "default": "25",
+      "note": null,
+      "category": "Cooldown per Chisel (ticks)",
+      "categoryDe": "Abklingzeit je Meißel (Ticks)",
+      "group": null,
+      "groupDe": null,
+      "label": "Copper Chisel",
+      "labelDe": "Kupfermeißel",
+      "tooltip": "Wait after every step of the copper chisel,\nbefore Fast Chiseling (20 ticks = 1 second).\nDefault: 25.",
+      "tooltipDe": "Wartezeit nach jedem Schritt des Kupfermeißels,\nvor Schnellem Meißeln (20 Ticks = 1 Sekunde).\nStandard: 25."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "cooldownTicks.diamond",
+      "shortName": "diamond",
+      "type": null,
+      "default": "10",
+      "note": null,
+      "category": "Cooldown per Chisel (ticks)",
+      "categoryDe": "Abklingzeit je Meißel (Ticks)",
+      "group": null,
+      "groupDe": null,
+      "label": "Diamond Chisel",
+      "labelDe": "Diamantmeißel",
+      "tooltip": "Wait after every step of the diamond chisel,\nbefore Fast Chiseling (20 ticks = 1 second).\nDefault: 10.",
+      "tooltipDe": "Wartezeit nach jedem Schritt des Diamantmeißels,\nvor Schnellem Meißeln (20 Ticks = 1 Sekunde).\nStandard: 10."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "cooldownTicks.enderite",
+      "shortName": "enderite",
+      "type": null,
+      "default": "5",
+      "note": null,
+      "category": "Cooldown per Chisel (ticks)",
+      "categoryDe": "Abklingzeit je Meißel (Ticks)",
+      "group": null,
+      "groupDe": null,
+      "label": "Enderite Chisel",
+      "labelDe": "Enderitmeißel",
+      "tooltip": "Wait after every step of the enderite chisel,\nbefore Fast Chiseling (20 ticks = 1 second).\nDefault: 5.",
+      "tooltipDe": "Wartezeit nach jedem Schritt des Enderitmeißels,\nvor Schnellem Meißeln (20 Ticks = 1 Sekunde).\nStandard: 5."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "cooldownTicks.gold",
+      "shortName": "gold",
+      "type": null,
+      "default": "20",
+      "note": null,
+      "category": "Cooldown per Chisel (ticks)",
+      "categoryDe": "Abklingzeit je Meißel (Ticks)",
+      "group": null,
+      "groupDe": null,
+      "label": "Gold Chisel",
+      "labelDe": "Goldmeißel",
+      "tooltip": "Wait after every step of the gold chisel,\nbefore Fast Chiseling (20 ticks = 1 second).\nDefault: 20.",
+      "tooltipDe": "Wartezeit nach jedem Schritt des Goldmeißels,\nvor Schnellem Meißeln (20 Ticks = 1 Sekunde).\nStandard: 20."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "cooldownTicks.iron",
+      "shortName": "iron",
+      "type": null,
+      "default": "25",
+      "note": null,
+      "category": "Cooldown per Chisel (ticks)",
+      "categoryDe": "Abklingzeit je Meißel (Ticks)",
+      "group": null,
+      "groupDe": null,
+      "label": "Iron Chisel",
+      "labelDe": "Eisenmeißel",
+      "tooltip": "Wait after every step of the iron chisel,\nbefore Fast Chiseling (20 ticks = 1 second).\nDefault: 25.",
+      "tooltipDe": "Wartezeit nach jedem Schritt des Eisenmeißels,\nvor Schnellem Meißeln (20 Ticks = 1 Sekunde).\nStandard: 25."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "cooldownTicks.netherite",
+      "shortName": "netherite",
+      "type": null,
+      "default": "5",
+      "note": null,
+      "category": "Cooldown per Chisel (ticks)",
+      "categoryDe": "Abklingzeit je Meißel (Ticks)",
+      "group": null,
+      "groupDe": null,
+      "label": "Netherite Chisel",
+      "labelDe": "Netheritmeißel",
+      "tooltip": "Wait after every step of the netherite chisel,\nbefore Fast Chiseling (20 ticks = 1 second).\nDefault: 5.",
+      "tooltipDe": "Wartezeit nach jedem Schritt des Netheritmeißels,\nvor Schnellem Meißeln (20 Ticks = 1 Sekunde).\nStandard: 5."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "cooldownTicks.stone",
+      "shortName": "stone",
+      "type": null,
+      "default": "30",
+      "note": null,
+      "category": "Cooldown per Chisel (ticks)",
+      "categoryDe": "Abklingzeit je Meißel (Ticks)",
+      "group": null,
+      "groupDe": null,
+      "label": "Stone Chisel",
+      "labelDe": "Steinmeißel",
+      "tooltip": "Wait after every step of the stone chisel,\nbefore Fast Chiseling (20 ticks = 1 second).\nDefault: 30.",
+      "tooltipDe": "Wartezeit nach jedem Schritt des Steinmeißels,\nvor Schnellem Meißeln (20 Ticks = 1 Sekunde).\nStandard: 30."
+    },
+    {
+      "range": null,
       "side": "server",
       "reload": null,
       "source": "modules/simplechisels/shared/java/com/simplechisels/config/ChiselConfig.java",
@@ -1025,10 +1185,10 @@
       "categoryDe": "Simple Chisels",
       "group": null,
       "groupDe": null,
-      "label": "Enabled",
-      "labelDe": "Enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Chisels Enabled",
+      "labelDe": "Meißel aktiv",
+      "tooltip": "Off: the chisels stay registered but reshape\nnothing, and the creative tab stays empty.\nDefault: true.",
+      "tooltipDe": "Aus: die Meißel bleiben registriert, formen\naber nichts um, und der Kreativtab bleibt leer.\nStandard: an."
     }
   ],
   "quests": [],
@@ -2081,31 +2241,6 @@
           "touch": true
         },
         "source": "modules/simplechisels/shared/resources/data/simplechisels/chisel_transformations/stone_touch.json"
-      },
-      {
-        "id": "chisel/minecraft:copper_block/minecraft:cut_copper/touch",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:copper_block",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplechisels:gold_chisel",
-          "simplechisels:diamond_chisel",
-          "simplechisels:netherite_chisel",
-          "simplechisels:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:cut_copper",
-          "count": 1
-        },
-        "stats": {
-          "tier": "diamond",
-          "touch": true
-        },
-        "source": "modules/simplechisels/shared/resources/data/simplechisels/chisel_transformations/diamond_touch.json"
       },
       {
         "id": "chisel/minecraft:cracked_deepslate_bricks/minecraft:deepslate_tiles",
@@ -6620,31 +6755,6 @@
         "source": "modules/simplechisels/shared/resources/data/simplechisels/chisel_transformations/netherite_touch.json"
       },
       {
-        "id": "chisel_reverse/minecraft:cut_copper/minecraft:copper_block/touch",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "minecraft:cut_copper",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplechisels:gold_chisel",
-          "simplechisels:diamond_chisel",
-          "simplechisels:netherite_chisel",
-          "simplechisels:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:copper_block",
-          "count": 1
-        },
-        "stats": {
-          "tier": "diamond",
-          "touch": true
-        },
-        "source": "modules/simplechisels/shared/resources/data/simplechisels/chisel_transformations/diamond_touch.json"
-      },
-      {
         "id": "chisel_reverse/minecraft:cut_copper_slab/minecraft:cut_copper_slab/touch",
         "kind": "chisel_reverse",
         "inputs": [
@@ -9971,7 +10081,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 7,
+    "features": 8,
     "recipes": 10,
     "lootTables": 0,
     "tags": 1,
@@ -9980,11 +10090,11 @@
     "items": 8,
     "blocks": 0,
     "trades": 0,
-    "config": 1,
+    "config": 8,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
-    "inWorld": 352,
+    "inWorld": 350,
     "incompleteProse": 0
   }
 }

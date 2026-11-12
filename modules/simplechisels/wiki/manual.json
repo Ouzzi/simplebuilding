@@ -203,10 +203,10 @@
         "modules/simplechisels/shared/resources/data/simplechisels/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Chisels\" of the Simple Modpack guide (SimpleLib): 13 pages taken from this wiki, shown in your language. Unlocked by picking up: copper nugget. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Chisels\" of the Simple Modpack guide (SimpleLib): 14 pages taken from this wiki, shown in your language. Unlocked by picking up: copper nugget. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Chisels\" im Simple-Modpack-Handbuch (SimpleLib): 13 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kupferklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Chisels\" im Simple-Modpack-Handbuch (SimpleLib): 14 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kupferklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplechisels:*_chisel": {

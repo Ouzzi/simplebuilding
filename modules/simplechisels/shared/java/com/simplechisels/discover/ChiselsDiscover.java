@@ -59,7 +59,8 @@ public final class ChiselsDiscover {
             "simplechisels:creative_tab_switch",
             "simplechisels:fast_chiseling",
             "simplechisels:guide_book",
-            "simplechisels:migration");
+            "simplechisels:migration",
+            "simplechisels:own_chains");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {

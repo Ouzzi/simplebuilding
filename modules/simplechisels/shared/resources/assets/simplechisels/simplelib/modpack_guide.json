@@ -9,7 +9,7 @@
       "title": "simplechisels.guide.chapter",
       "icon": "minecraft:copper_nugget",
       "page_key": "simplechisels.guide.page",
-      "pages": 13,
+      "pages": 14,
       "advancement": "simplechisels:guide/chapter",
       "hint": "minecraft:copper_nugget"
     }

@@ -177,7 +177,7 @@
   "simplelib.guide.page.14.title": "Free Look",
   "simplelib.guide.page.14": "Solange Free Look an ist, dreht die Maus nur die Kamera, nicht den Spieler; Laufen und alle anderen Eingaben bleiben normal. Zwei Tasten:",
   "simplelib.guide.page.15.title": "Free Look",
-  "simplelib.guide.page.15": "„Free Look (halten)“ (Standard linke Alt-Taste) und „Free Look umschalten“ (ohne Belegung, in der Steuerung festlegen).",
+  "simplelib.guide.page.15": "„Free Look (halten)“ (Standard linke Alt-Taste, wenn eine geladene Mod Free Look anfordert - Simple Quality of Life oder Simple Earth -, sonst ohne Belegung) und „Free Look umschalten“ (ohne Belegung, in der Steuerung festlegen).",
   "simplelib.guide.page.16.title": "Free Look",
   "simplelib.guide.page.16": "Am Ende dreht die Kamera zurück zur Blickrichtung (Standard) oder der Spieler dreht sich dorthin, wohin die Kamera schaute - freeLookRelease in config/simplelib-client.json oder der Reiter Free Look der",
   "simplelib.guide.page.17.title": "Free Look",
