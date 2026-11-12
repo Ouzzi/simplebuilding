@@ -493,12 +493,7 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simplebuilding",
-      "modmenu",
-      "flan",
-      "ftbchunks",
-      "openpartiesandclaims",
-      "griefdefender",
-      "claimchunk"
+      "modmenu"
     ],
     "stage": "new",
     "parent": "simplebuilding",
@@ -515,10 +510,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 3,
-      "config": 61,
+      "config": 63,
       "features": 12
     },
-    "dataHash": "8c4001f53a1b"
+    "dataHash": "ca7461192cba"
   },
   {
     "id": "simplesandwiches",
@@ -699,7 +694,7 @@ window.WIKI_MODULES = [
       "config": 17,
       "features": 9
     },
-    "dataHash": "2c0adb27a685"
+    "dataHash": "6faba3cc39e9"
   },
   {
     "id": "simpletrims",
@@ -1184,10 +1179,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwjor9TwlmABEn33wkGa948ALVgC1PXv+34uBAwSAxbOIgzZULl6MaAJL4UFDw/4qWFhzDNCCLwcRRDIBpRjcAHwbpwTAAXREMEGUANo3ogGoGdImIoBoAC0RivADTjBELsOjCZwBMM9ZoRI5zbIGGrBmvASBJdEPQNeM0AFkBzBBsmrEacOPjVwxFyEkXrwEwAVIx3ABKMADfR3xpZ2gp6gAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
-      "config": 13,
+      "config": 15,
       "features": 6
     },
-    "dataHash": "9e0e41685511"
+    "dataHash": "8e09d1eb9c4a"
   },
   {
     "id": "simplebeacons",
@@ -1223,10 +1218,10 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 8,
       "recipes": 13,
-      "config": 9,
+      "config": 10,
       "features": 16
     },
-    "dataHash": "c6651e8326d1"
+    "dataHash": "2aedd90eda26"
   },
   {
     "id": "simpleovens",
@@ -1357,7 +1352,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 13
     },
-    "dataHash": "2ddc2b8565bf"
+    "dataHash": "c090ed163c71"
   },
   {
     "id": "simplewanderers",
@@ -1464,7 +1459,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 19
     },
-    "dataHash": "3d1823097c28"
+    "dataHash": "0f663294a269"
   },
   {
     "id": "simplecrucibles",
@@ -1791,13 +1786,13 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwElEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBsCwspwGBkbWDLIIwwBkxXZmHhgYWR7DBciaAt3iwBhZM7oYSD3cAJhmdE33Dn36PyPpDBijGwYzBKcBMI0CfEIYhuA0AJchaXYzsMqjGKChrEdSGIDUww0AEcICYmBBGMYWC8jyIPUY0QgShGFkxciaYBhnQgJJgDCyYmRNyBjDAFDqQleED6MYABMgFcMNoAQDABEaFxrtfuqxAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 13,
+      "items": 18,
       "blocks": 18,
       "recipes": 36,
       "config": 12,
       "features": 16
     },
-    "dataHash": "8e38540c98cd"
+    "dataHash": "f440f3ef922d"
   },
   {
     "id": "simplelights",
@@ -1914,10 +1909,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mMQVxH/TwlmABGtM1tJxlZRVqgGCIjIkYwxDKjfZAHH2PizZs2CY9oYEN+lBcfY+FlZWXCM1YDRMKBCGKA7kRCfLAM+HHDAbQC6Hwnx4QaAMgZFYUAJBgCULcsj0xrVkAAAAABJRU5ErkJggg==",
     "counts": {
-      "config": 6,
+      "config": 7,
       "features": 16
     },
-    "dataHash": "0152a32f1aca"
+    "dataHash": "360b23348d2a"
   },
   {
     "id": "simpleanimals",
@@ -1992,9 +1987,10 @@ window.WIKI_MODULES = [
       "items": 5,
       "blocks": 6,
       "recipes": 4,
+      "config": 1,
       "features": 6
     },
-    "dataHash": "032c4c092a72"
+    "dataHash": "d5e64ff0f704"
   },
   {
     "id": "simpleores",
@@ -2233,7 +2229,7 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 1
     },
-    "dataHash": "47f49dc7a39e"
+    "dataHash": "d49aea547a66"
   },
   {
     "id": "simplebuildingtools",
