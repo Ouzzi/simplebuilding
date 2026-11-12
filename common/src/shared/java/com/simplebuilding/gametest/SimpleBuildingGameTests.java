@@ -111,6 +111,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_nihil_pulls_across_the_gap", EndSystemsTests::nihilPullsAcrossTheGap).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_nihil_vault_config_and_blocked_lid", EndSystemsTests::nihilVaultConfigAndBlockedLid).build(),
             GameTestSpec.named("end_systems_game_test_nihil_vault_no_dupe_with_concurrent_menus", EndSystemsTests::nihilVaultNoDupeWithConcurrentMenus).build(),
+            GameTestSpec.named("end_systems_game_test_nihil_vault_only_in_own_claims", EndSystemsTests::nihilVaultOnlyInOwnClaims).build(),
             GameTestSpec.named("end_systems_game_test_nihil_vault_persists_and_break_keeps_contents", EndSystemsTests::nihilVaultPersistsAndBreakKeepsContents).build(),
             GameTestSpec.named("end_systems_game_test_nihil_vault_shares_between_vaults_and_players", EndSystemsTests::nihilVaultSharesBetweenVaultsAndPlayers).build(),
             GameTestSpec.named("end_systems_game_test_piston_leaves_immovables_alone", EndSystemsTests::pistonLeavesImmovablesAlone).maxTicks(100).build(),

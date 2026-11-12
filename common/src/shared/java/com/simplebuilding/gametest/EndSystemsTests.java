@@ -492,6 +492,32 @@ public final class EndSystemsTests {
         helper.succeed();
     }
 
+    /**
+     * simplebuilding-7 (PLAN40 A): with claims in a shared world the vault opens only on protected land where the player may
+     * use containers. The rule is checked through {@link com.simplebuilding.blocks.custom.NihilVaultBlock#decide} with a
+     * local provider - registering one on the test server would lock the parallel vault tests - and the test server itself
+     * (no shared world) keeps opening it as before.
+     */
+    public static void nihilVaultOnlyInOwnClaims(GameTestHelper helper) {
+        if (!active(helper)) return;
+        BlockPos pos = helper.absolutePos(new BlockPos(1, 1, 1));
+        java.util.UUID owner = java.util.UUID.randomUUID(), stranger = java.util.UUID.randomUUID();
+        String dim = helper.getLevel().dimension().identifier().toString();
+        // One claimed column at pos: its owner (and an administrator, like Simple Tweaks' opBypass) may use containers there;
+        // everywhere else is wilderness where everybody may.
+        java.util.function.Predicate<com.simplebuilding.framework.api.Protection.Target> claim = t ->
+                t.x() != pos.getX() || t.z() != pos.getZ() || owner.equals(t.actor()) || t.administrator();
+        helper.assertTrue(com.simplebuilding.blocks.custom.NihilVaultBlock.decide(claim, dim, pos, owner, false), "owner cannot open the vault in his claim");
+        helper.assertFalse(com.simplebuilding.blocks.custom.NihilVaultBlock.decide(claim, dim, pos, stranger, false), "a stranger opened the vault in a foreign claim");
+        helper.assertTrue(com.simplebuilding.blocks.custom.NihilVaultBlock.decide(claim, dim, pos, stranger, true), "the provider's administrator bypass was ignored");
+        helper.assertFalse(com.simplebuilding.blocks.custom.NihilVaultBlock.decide(claim, dim, pos.east(3), owner, false), "the vault opened on unclaimed land of a claims server");
+        helper.assertFalse(com.simplebuilding.blocks.custom.NihilVaultBlock.decide(t -> false, dim, pos, owner, false), "a claim without container rights opened the vault");
+        helper.setBlock(new BlockPos(1, 1, 1), ModBlocks.NIHIL_VAULT);
+        var player = helper.makeMockServerPlayerInLevel();
+        helper.assertTrue(com.simplebuilding.blocks.custom.NihilVaultBlock.mayOpen(helper.getLevel(), player, pos), "the vault is locked in a world nobody shares");
+        helper.succeed();
+    }
+
     /** Two open menus on the same stack: only the first shift-click gets it, nothing is duplicated. */
     public static void nihilVaultNoDupeWithConcurrentMenus(GameTestHelper helper) {
         if (!active(helper)) return;
