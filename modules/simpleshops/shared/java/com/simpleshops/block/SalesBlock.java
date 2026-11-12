@@ -81,13 +81,22 @@ public class SalesBlock extends BaseEntityBlock {
 
     /**
      * A display case in hand goes on top (that needs the click on this block to place, not to open the menu): PASS skips the
-     * empty-hand use and lets the item place. Everything else with an item opens the menu like an empty hand (a sales storage
-     * attaches with sneak + right click, which never reaches this method).
+     * empty-hand use and lets the item place. The owner's music disc goes into an empty disc slot (a-shopmusic37). Everything
+     * else with an item opens the menu like an empty hand (a sales storage attaches with sneak + right click, which never
+     * reaches this method).
      */
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, net.minecraft.world.InteractionHand hand,
                                           BlockHitResult hit) {
         if (stack.getItem() instanceof net.minecraft.world.item.BlockItem item && item.getBlock() instanceof DisplayCaseBlock) return InteractionResult.PASS;
+        // Shop music (a-shopmusic37): the owner puts a music disc in like into a jukebox (only while the shop has none).
+        if (com.simpleshops.logic.ShopMusic.accepts(stack)) {
+            if (level instanceof ServerLevel server && player instanceof ServerPlayer sp && com.simpleshops.logic.ShopMusic.tryInsert(sp, server, pos, hand)) {
+                return InteractionResult.SUCCESS_SERVER;
+            }
+            if (level.isClientSide() && level.getBlockEntity(pos) instanceof SalesBlockEntity sales && sales.disc().isEmpty()
+                    && sales.mayEdit(player)) return InteractionResult.SUCCESS;
+        }
         return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 

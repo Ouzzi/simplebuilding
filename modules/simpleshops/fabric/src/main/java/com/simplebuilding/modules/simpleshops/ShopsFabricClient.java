@@ -19,5 +19,7 @@ public final class ShopsFabricClient implements ClientModInitializer {
         MenuScreens.register(ShopsRegistry.SHOP_MENU, ShopScreens.Owner::new);
         MenuScreens.register(ShopsRegistry.STORAGE_MENU, ShopScreens.Storage::new);
         MenuScreens.register(ShopsRegistry.TERMINAL_MENU, com.simpleshops.client.TradeTerminalScreen::new);
+        // Shop music (a-shopmusic37): the client picks and plays the nearest shop's disc.
+        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simpleshops.client.ShopMusicClient::tick);
     }
 }

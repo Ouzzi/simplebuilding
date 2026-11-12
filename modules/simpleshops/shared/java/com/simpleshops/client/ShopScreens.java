@@ -106,6 +106,14 @@ public final class ShopScreens {
         }
 
         @Override
+        public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+            super.extractBackground(graphics, mouseX, mouseY, a);
+            // Shop music (a-shopmusic37): an empty disc slot shows a disc silhouette in the palette's slot-icon colour.
+            Slot disc = this.menu.slots.get(this.menu.discSlot());
+            if (!disc.hasItem()) discIcon(graphics, this.leftPos + disc.x, this.topPos + disc.y, PALETTE.slotIcon());
+        }
+
+        @Override
         protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
             super.extractLabels(graphics, xm, ym);
             if (this.menu.isCombined()) {
@@ -123,6 +131,19 @@ public final class ShopScreens {
             int start = this.menu.priceStart();
             if (hovered != null && hovered.index >= start && hovered.index < start + 5 && this.menu.getCarried().isEmpty() && !hovered.hasItem()) {
                 graphics.setTooltipForNextFrame(Component.translatable("simpleshops.screen.template"), mouseX, mouseY);
+            }
+            if (hovered != null && hovered.index == this.menu.discSlot() && this.menu.getCarried().isEmpty() && !hovered.hasItem()) {
+                graphics.setTooltipForNextFrame(Component.translatable("simpleshops.screen.disc"), mouseX, mouseY);
+            }
+        }
+    }
+
+    /** A flat disc silhouette (ring around the hole, 13 px) like Vanilla's grey empty-slot icons, drawn with fills. */
+    static void discIcon(GuiGraphicsExtractor graphics, int x, int y, int color) {
+        for (int py = 0; py < 16; py++) {
+            for (int px = 0; px < 16; px++) {
+                double dx = px + 0.5 - 8, dy = py + 0.5 - 8, r = Math.sqrt(dx * dx + dy * dy);
+                if (r > 1.6 && r <= 6.6) graphics.fill(x + px, y + py, x + px + 1, y + py + 1, color);
             }
         }
     }

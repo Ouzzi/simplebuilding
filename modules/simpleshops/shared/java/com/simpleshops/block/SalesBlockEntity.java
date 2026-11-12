@@ -43,6 +43,13 @@ public class SalesBlockEntity extends BlockEntity implements EarningsStore {
     /** Id of the server shop ({@code s001} ...) or empty for a player shop; set only by the operator command, saved server side only. */
     private String serverId = "";
     private final VaultLink link = new VaultLink();
+    /** Shop music (a-shopmusic37): the disc in the shop (one item with {@code jukebox_playable}) and the tick its song started. */
+    private final NonNullList<ItemStack> disc = NonNullList.withSize(1, ItemStack.EMPTY);
+    private long discStart;
+    /** The disc the start tick belongs to (a different one restarts the song). */
+    private ItemStack discSeen = ItemStack.EMPTY;
+    /** Client: the base reach the server sent with the disc (blocks); 0 = no music for this client. */
+    private int musicRange;
 
     public SalesBlockEntity(BlockPos pos, BlockState state) {
         super(ShopsRegistry.SALES_BE, pos, state);
@@ -114,7 +121,50 @@ public class SalesBlockEntity extends BlockEntity implements EarningsStore {
         changed();
     }
 
+    // --- shop music (a-shopmusic37) -------------------------------------------------------------------------------
+
+    /** The disc in this shop (empty when none; on the client empty while the server's music switch is off). */
+    public ItemStack disc() {
+        return this.disc.get(0);
+    }
+
+    /** Game tick the disc's song started at (shared by a group of shops with the same disc). */
+    public long discStart() {
+        return this.discStart;
+    }
+
+    /** Client: base reach in blocks the server sent (0 = music off). */
+    public int musicRange() {
+        return this.musicRange;
+    }
+
+    /** Puts a disc in (or takes it out with an empty stack): a new disc starts now or in step with a shop playing the same song. */
+    public void setDisc(ItemStack stack) {
+        this.disc.set(0, stack);
+        discChanged();
+    }
+
+    /** The one-slot view for the owner menu (Jukebox logic: the disc in the slot plays). */
+    public ListContainer discView() {
+        return new ListContainer(this.disc, this::discChanged);
+    }
+
+    /** After any change of the slot: a different disc gets its start tick, an empty slot none; clients get the update. */
+    private void discChanged() {
+        ItemStack now = disc();
+        if (now.isEmpty()) {
+            this.discStart = 0L;
+        } else if (this.level != null && !ItemStack.isSameItemSameComponents(this.discSeen, now)) {
+            this.discStart = com.simpleshops.logic.ShopMusic.startFor(this.level, this.worldPosition, now);
+        }
+        this.discSeen = now.copy();
+        changed();
+    }
+
     private void clearLocal() {
+        this.disc.set(0, ItemStack.EMPTY);
+        this.discSeen = ItemStack.EMPTY;
+        this.discStart = 0L;
         for (int i = 0; i < PriceRow.SIZE; i++) this.prices.set(i, ItemStack.EMPTY);
         for (int i = 0; i < EARNINGS_SIZE; i++) this.earnings.set(i, ItemStack.EMPTY);
         this.revision = 0;
@@ -208,12 +258,23 @@ public class SalesBlockEntity extends BlockEntity implements EarningsStore {
         // Old blocks (before the rework) and nothing else carry earnings: they move into the world data on first use.
         for (int i = 0; i < EARNINGS_SIZE; i++) this.earnings.set(i, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(input.childOrEmpty("earnings"), this.earnings);
+        // Shop music: absent = no disc (the client update leaves it out while the music switch is off).
+        this.disc.set(0, input.read("disc", ItemStack.CODEC).orElse(ItemStack.EMPTY));
+        this.discStart = input.getLongOr("disc_start", 0L);
+        this.discSeen = disc().copy();
+        this.musicRange = input.getIntOr("music_range", 0);
     }
 
     private void savePublic(ValueOutput output) {
         if (this.owner != null) output.store("owner", UUIDUtil.CODEC, this.owner);
         output.putString("owner_name", this.ownerName);
         ContainerHelper.saveAllItems(output.child("prices"), prices(), false);
+        // Shop music: clients get the disc, its start tick and the reach - nothing else, no ticking packets.
+        if (!disc().isEmpty() && com.simpleshops.logic.ShopMusic.on()) {
+            output.store("disc", ItemStack.CODEC, disc());
+            output.putLong("disc_start", this.discStart);
+            output.putInt("music_range", com.simpleshops.config.ShopsConfig.shopMusicRange);
+        }
     }
 
     @Override
@@ -223,6 +284,10 @@ public class SalesBlockEntity extends BlockEntity implements EarningsStore {
         output.putString("owner_name", this.ownerName);
         if (isServerShop()) output.putString("server_id", this.serverId);
         this.link.write(output);
+        if (!disc().isEmpty()) {
+            output.store("disc", ItemStack.CODEC, disc());
+            output.putLong("disc_start", this.discStart);
+        }
         // Not moved yet (no world entry): the block keeps its own items, nothing is lost.
         if (!this.link.linked()) {
             ContainerHelper.saveAllItems(output.child("prices"), this.prices, false);
@@ -256,6 +321,8 @@ public class SalesBlockEntity extends BlockEntity implements EarningsStore {
             if (v == null) v = vault();
             // A server shop holds nothing real (its earnings are a sink): nothing drops.
             if (!isServerShop()) Containers.dropContents(this.level, pos, v != null ? v.items : this.earnings);
+            // The music disc pops out like a jukebox's (an operator put it into a server shop: it is real too).
+            if (!disc().isEmpty()) Containers.dropItemStack(this.level, pos.getX(), pos.getY(), pos.getZ(), disc().copy());
             if (v != null) for (int i = 0; i < EARNINGS_SIZE; i++) v.items.set(i, ItemStack.EMPTY);
             this.link.drop(this, EnderShops.Kind.SALES);
             clearLocal();

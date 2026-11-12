@@ -17,7 +17,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 /**
- * The six music discs of Simple Music (W24-3, owner 23.10., docs/ai/PLAN-A-SOUND24-2026-10-23.md): instrumental pieces
+ * The music discs of Simple Music (W24-3, owner 23.10., docs/ai/PLAN-A-SOUND24-2026-10-23.md; three shop discs a-shopmusic37,
+ * docs/ai/PLAN-A-SHOPMUSIC37-2026-11-12.md): instrumental pieces
  * made with ElevenLabs Music (Creator plan, the output belongs to the owner; free mod, no artist names in the prompts).
  * Like Vanilla's structure discs: plain items with {@code jukebox_playable}, found only in the chests (or the brushed
  * gravel) of one structure each, no recipe. The songs are data ({@code data/simplemusic/jukebox_song/<id>.json}, the
@@ -50,7 +51,12 @@ public final class MusicDiscs {
             new Disc("end_departure", 100.0F, 14, table("chests/end_city_treasure"), 4),
             new Disc("fortress_march", 90.0F, 8, table("chests/stronghold_corridor"), 4),
             new Disc("deep_pulse", 90.0F, 15, table("chests/ancient_city"), 4),
-            new Disc("sky_forge", 90.0F, 4, table("archaeology/trail_ruins_rare"), 1));
+            new Disc("sky_forge", 90.0F, 4, table("archaeology/trail_ruins_rare"), 1),
+            // a-shopmusic37 (owner 12.11.): three relaxed lounge / bossa shop discs (seamless loops, Simple Shops plays them in a shop);
+            // found in village chests and sold by the wandering trader (data: villager_trade/wandering_trader)
+            new Disc("browsing_bossa", 69.9F, 2, table("chests/village/village_savanna_house"), 5),
+            new Disc("coin_lounge", 69.95F, 6, table("chests/village/village_cartographer"), 5),
+            new Disc("window_shopping", 69.5F, 11, table("chests/village/village_plains_house"), 4));
 
     /** The disc items in {@link #DISCS} order (empty until registered). */
     public static final List<Item> ITEMS = new ArrayList<>();

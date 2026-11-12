@@ -1,0 +1,12 @@
+{
+  "wants": {
+    "id": "minecraft:emerald",
+    "count": 12
+  },
+  "gives": {
+    "id": "simplemusic:music_disc_browsing_bossa"
+  },
+  "max_uses": 1,
+  "xp": 1,
+  "reputation_discount": 0.0
+}

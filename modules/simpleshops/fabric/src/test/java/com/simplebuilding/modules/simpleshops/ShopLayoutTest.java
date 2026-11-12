@@ -76,4 +76,14 @@ class ShopLayoutTest {
         assertTrue(com.simplelib.api.client.ui.UiContrast.ratio(label, fill) >= 4.5, "label on the box: " + com.simplelib.api.client.ui.UiContrast.ratio(label, fill));
         assertTrue(com.simplelib.api.client.ui.UiContrast.ratio(label, 0xFFC6C6C6) >= 4.5, "label on the light panel");
     }
+
+    @Test
+    void discSlotSitsInTheFreeNinthColumn() {
+        // a-shopmusic37: the music disc slot right of the price row (alone) / goods row (combined), inside the box.
+        assertTrue(SalesOwnerMenu.DISC_X + SLOT <= SalesOwnerMenu.WIDTH - FRAME, "disc slot fits the box");
+        assertTrue(SalesOwnerMenu.PRICE_X + 5 * SLOT <= SalesOwnerMenu.DISC_X, "no overlap with the five price or goods slots");
+        assertEquals(SalesOwnerMenu.PRICE_Y, SalesOwnerMenu.DISC_Y, "first row alone");
+        assertEquals(SalesOwnerMenu.C_GOODS_Y, SalesOwnerMenu.DISC_Y, "first row combined");
+        assertEquals(SalesOwnerMenu.EARNINGS_X + 8 * SLOT, SalesOwnerMenu.DISC_X, "aligned with the ninth inventory column");
+    }
 }

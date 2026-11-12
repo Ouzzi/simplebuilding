@@ -243,25 +243,28 @@
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java",
         "modules/simplemusic/shared/resources/data/simplemusic/jukebox_song/ember_forge.json",
-        "modules/simplemusic/fabric/src/main/java/com/simplebuilding/modules/simplemusic/MusicFabric.java"
+        "modules/simplemusic/fabric/src/main/java/com/simplebuilding/modules/simplemusic/MusicFabric.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/villager_trade/wandering_trader/emerald_music_disc_coin_lounge.json"
       ],
       "en": {
         "title": "Music Discs",
-        "summary": "Six music discs by Simple Music, each found only in one kind of structure, like Vanilla's Pigstep or Otherside. They play in every jukebox and the Pocket Jukebox.",
+        "summary": "Nine music discs by Simple Music: six found only in one kind of structure, like Vanilla's Pigstep or Otherside, and three relaxed shop discs from villages. They play in every jukebox and the Pocket Jukebox.",
         "details": [
           "Ember Forge (Nether groove, comparator 13): bastion chests, 5 %. Obsidian Throne (epic boss piece, 9): Nether fortress chests, 4 %. End Departure (floating islands, 14): End city chests, 4 %.",
           "Fortress March (dark march, 8): stronghold corridor chests, 4 %. Deep Pulse (deep caverns, 15): ancient city chests, 4 %. Sky Forge (flight and conquest, 4): brushing suspicious gravel of trail ruins (rare pool, as rare as Relic).",
-          "No recipe, like Vanilla's discs. Lengths 90-100 s; the comparator next to a playing jukebox reads the level given above.",
+          "Shop discs (relaxed lounge and bossa nova, seamless loops of about 70 s): Browsing Bossa (comparator 2): savanna village house chests, 5 %. Coin Lounge (6): cartographer chests, 5 %. Window Shopping (11): plains village house chests, 4 %. The wandering trader sometimes sells one for 12 emeralds. With Simple Shops a disc in a sales block plays as shop music.",
+          "No recipe, like Vanilla's discs. Lengths 70-100 s; the comparator next to a playing jukebox reads the level given above.",
           "Instrumental music made with ElevenLabs Music for this mod (artist: Simple Music); part of the game, not a sample library."
         ]
       },
       "de": {
         "title": "Schallplatten",
-        "summary": "Sechs Schallplatten von Simple Music, jede nur in einer Art Bauwerk zu finden, wie Vanillas Pigstep oder Otherside. Sie spielen in jeder Jukebox und in der Taschen-Jukebox.",
+        "summary": "Neun Schallplatten von Simple Music: sechs nur in einer Art Bauwerk zu finden, wie Vanillas Pigstep oder Otherside, und drei entspannte Laden-Platten aus Dörfern. Sie spielen in jeder Jukebox und in der Taschen-Jukebox.",
         "details": [
           "Glutschmiede (Nether-Groove, Komparator 13): Bastions-Truhen, 5 %. Obsidianthron (epischer Bosskampf, 9): Netherfestungs-Truhen, 4 %. Endaufbruch (schwebende Inseln, 14): Endsiedlungs-Truhen, 4 %.",
           "Festungsmarsch (düsterer Marsch, 8): Gang-Truhen der Festung, 4 %. Tiefenpuls (tiefe Höhlen, 15): Truhen der antiken Stadt, 4 %. Himmelsschmiede (Flug und Eroberung, 4): seltsamen Kies der Pfadruinen abpinseln (seltener Pool, so selten wie Relic).",
-          "Kein Rezept, wie Vanillas Platten. Länge 90-100 s; ein Komparator neben der spielenden Jukebox zeigt die oben genannte Stufe.",
+          "Laden-Platten (entspannte Lounge- und Bossa-Nova-Musik, nahtlose Schleifen von etwa 70 s): Stöber-Bossa (Komparator 2): Truhen der Savannen-Dorfhäuser, 5 %. Münz-Lounge (6): Kartografen-Truhen, 5 %. Schaufensterbummel (11): Truhen der Ebenen-Dorfhäuser, 4 %. Der fahrende Händler verkauft manchmal eine für 12 Smaragde. Mit Simple Shops spielt eine Platte im Verkaufsblock als Ladenmusik.",
+          "Kein Rezept, wie Vanillas Platten. Länge 70-100 s; ein Komparator neben der spielenden Jukebox zeigt die oben genannte Stufe.",
           "Instrumentalmusik, mit ElevenLabs Music für diese Mod erstellt (Künstler: Simple Music); Teil des Spiels, keine Sample-Sammlung."
         ]
       }
@@ -2326,10 +2329,10 @@
           "modules/simplemusic/shared/resources/data/simplemusic/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Music\" of the Simple Modpack guide (SimpleLib): 22 pages taken from this wiki, shown in your language. Unlocked by picking up: note block. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Music\" of the Simple Modpack guide (SimpleLib): 23 pages taken from this wiki, shown in your language. Unlocked by picking up: note block. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Music\" im Simple-Modpack-Handbuch (SimpleLib): 22 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Notenblock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Music\" im Simple-Modpack-Handbuch (SimpleLib): 23 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Notenblock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplemusic/item/guide_book.png",
@@ -2357,6 +2360,48 @@
           ]
         }
       },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_browsing_bossa",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_browsing_bossa.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_coin_lounge",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_coin_lounge.png",
       "craftedBy": [],
       "usedIn": []
     },
@@ -2483,6 +2528,27 @@
         }
       },
       "texture": "assets/textures/simplemusic/item/music_disc_sky_forge.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_window_shopping",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_window_shopping.png",
       "craftedBy": [],
       "usedIn": []
     },
@@ -3019,7 +3085,71 @@
       "usedIn": []
     }
   ],
-  "trades": [],
+  "trades": [
+    {
+      "id": "simplemusic:wandering_trader/emerald_music_disc_browsing_bossa",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "minecraft:emerald",
+        "count": 12
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplemusic:music_disc_browsing_bossa",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 1,
+      "reputationDiscount": 0.0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/villager_trade/wandering_trader/emerald_music_disc_browsing_bossa.json"
+    },
+    {
+      "id": "simplemusic:wandering_trader/emerald_music_disc_coin_lounge",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "minecraft:emerald",
+        "count": 12
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplemusic:music_disc_coin_lounge",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 1,
+      "reputationDiscount": 0.0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/villager_trade/wandering_trader/emerald_music_disc_coin_lounge.json"
+    },
+    {
+      "id": "simplemusic:wandering_trader/emerald_music_disc_window_shopping",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "minecraft:emerald",
+        "count": 12
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplemusic:music_disc_window_shopping",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 1,
+      "reputationDiscount": 0.0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/villager_trade/wandering_trader/emerald_music_disc_window_shopping.json"
+    }
+  ],
   "config": [
     {
       "range": [
@@ -3292,9 +3422,9 @@
     "tags": 2,
     "advancements": 1,
     "enchantments": 0,
-    "items": 10,
+    "items": 13,
     "blocks": 18,
-    "trades": 0,
+    "trades": 3,
     "config": 12,
     "quests": 0,
     "recipesOtherLines": 0,
