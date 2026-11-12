@@ -312,10 +312,13 @@ public final class ModItemGroupsContent {
         return List.copyOf(rows);
     }
 
-    /** Crimson and warped blazewood (a-end07: plus the Nihilit End planks): planks, bookshelves, chiseled bookshelves (DW04C-3: building blocks, Simple Blocks tab). */
+    /**
+     * Crimson and warped blazewood: planks, bookshelves, chiseled bookshelves (DW04C-3: building blocks, Simple Blocks tab). The Nihilit
+     * End planks (a-end07) stand in Simple End's tab since a-nihilplanks (owner 12.11.: "bei Simple End fehlt ...").
+     */
     public static CreativeTabLayout.Row blazewoodRow() {
         return CreativeTabLayout.Row.of("blazewood", ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
-                ModItems.NIHILITH_ASHWOOD_PLANKS, ModItems.NIHILITH_DUSKWOOD_PLANKS, ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
+                ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
                 ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF);
     }
 

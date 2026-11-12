@@ -23,6 +23,20 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void guideBook(GameTestHelper helper) { EndTests.ALL.get("guide_book").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void registered(GameTestHelper helper) { EndTests.ALL.get("registered").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void woodTagsAndRecipes(GameTestHelper helper) { EndTests.ALL.get("wood_tags_and_recipes").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void nihilithPlanks(GameTestHelper helper) { EndTests.ALL.get("nihilith_planks").accept(helper); }
+    /** a-nihilplanks: the old SimpleBuilding ids of the Nihilit planks (a-end07) resolve to Simple End's blocks (SimpleLib IdMoves, Fabric only). */
+    @GameTest public void nihilithPlanksIdsMoved(GameTestHelper h) {
+        for (EndWood w : EndWood.ALL) {
+            var old = net.minecraft.resources.Identifier.fromNamespaceAndPath(SimpleEnd.NIHILITH_OWNER, w.id("nihilith_W_planks"));
+            if (w.nihilPlanks == null) {
+                h.assertTrue(!net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(old), old + " stays unknown without SimpleBuilding");
+                continue;
+            }
+            h.assertTrue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(old) == w.nihilPlanks, old + " (block) moves to Simple End");
+            h.assertTrue(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(old) == w.nihilPlanks.asItem(), old + " (item) moves to Simple End");
+        }
+        h.succeed();
+    }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void axeStripsAndWoodBurns(GameTestHelper helper) { EndTests.ALL.get("axe_strips_and_wood_burns").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void partnerWoodFeatures(GameTestHelper helper) { EndTests.ALL.get("partner_wood_features").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budLightGrowsTree(GameTestHelper helper) { EndTests.ALL.get("bud_light_grows_tree").accept(helper); }

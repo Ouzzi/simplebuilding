@@ -187,6 +187,7 @@ public final class EndRegistry {
             STRIPPABLES.put(w.log, w.strippedLog);
             STRIPPABLES.put(w.wood, w.strippedWood);
             for (Block b : new Block[] {w.planks, w.slab, w.fenceGate, w.fence, w.stairs}) f.simpleend$setFlammable(b, 5, 20);
+            if (w.nihilPlanks != null) f.simpleend$setFlammable(w.nihilPlanks, 5, 20); // a-nihilplanks: End planks with Nihilit, wood all the same
             for (Block b : new Block[] {w.log, w.strippedLog, w.wood, w.strippedWood}) f.simpleend$setFlammable(b, 5, 5);
             f.simpleend$setFlammable(w.shelf, 30, 20);
             f.simpleend$setFlammable(w.bookshelf, 30, 20); // Vanilla bookshelf and chiseled bookshelf values

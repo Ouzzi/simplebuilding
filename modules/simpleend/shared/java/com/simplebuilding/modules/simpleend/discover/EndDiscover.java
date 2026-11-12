@@ -110,6 +110,8 @@ public final class EndDiscover {
             "simpleend:leaves_and_fruit",
             "simpleend:nibblemite",
             "simpleend:nibblemite_spawn_egg",
+            "simpleend:nihilith_ashwood_planks",
+            "simpleend:nihilith_duskwood_planks",
             "simpleend:potted_ash_bud",
             "simpleend:potted_dusk_bud",
             "simpleend:spoiled_drift_fruit",

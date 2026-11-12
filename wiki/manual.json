@@ -6324,48 +6324,6 @@
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
       ]
     },
-    "nihilith_ashwood_planks": {
-      "en": {
-        "summary": "Nihilit Ashwood Planks (needs Simple End): ashwood planks with Nihilit seams. Material for the ashwood bookshelf when SimpleBuilding is installed.",
-        "details": [
-          "Recipe: 4 Nihilit Shards in a plus around 1 Ashwood Planks give 2.",
-          "The Ashwood Bookshelf then takes 6 of these and 3 Nihilit Books."
-        ]
-      },
-      "de": {
-        "summary": "Nihilit-Aschholzbretter (braucht Simple End): Aschholzbretter mit Nihilit-Fugen. Zutat des Aschholz-Bücherregals, wenn SimpleBuilding installiert ist.",
-        "details": [
-          "Rezept: 4 Nihilitsplitter im Plus um 1 Aschholzbretter ergeben 2.",
-          "Das Aschholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
-        ]
-      },
-      "sources": [
-        "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_ashwood_planks.json",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "mc26_3/overlay/resources/data/simplebuilding/recipe/ashwood_bookshelf.json"
-      ]
-    },
-    "nihilith_duskwood_planks": {
-      "en": {
-        "summary": "Nihilit Duskwood Planks (needs Simple End): duskwood planks with Nihilit seams. Material for the duskwood bookshelf when SimpleBuilding is installed.",
-        "details": [
-          "Recipe: 4 Nihilit Shards in a plus around 1 Duskwood Planks give 2.",
-          "The Duskwood Bookshelf then takes 6 of these and 3 Nihilit Books."
-        ]
-      },
-      "de": {
-        "summary": "Nihilit-Dämmerholzbretter (braucht Simple End): Dämmerholzbretter mit Nihilit-Fugen. Zutat des Dämmerholz-Bücherregals, wenn SimpleBuilding installiert ist.",
-        "details": [
-          "Rezept: 4 Nihilitsplitter im Plus um 1 Dämmerholzbretter ergeben 2.",
-          "Das Dämmerholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
-        ]
-      },
-      "sources": [
-        "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_duskwood_planks.json",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "mc26_3/overlay/resources/data/simplebuilding/recipe/duskwood_bookshelf.json"
-      ]
-    },
     "chiseled_crimson_blazewood_bookshelf": {
       "en": {
         "summary": "A chiseled bookshelf of crimson blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",

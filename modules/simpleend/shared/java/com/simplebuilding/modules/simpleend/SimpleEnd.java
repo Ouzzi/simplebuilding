@@ -7,8 +7,21 @@ import net.minecraft.resources.Identifier;
 public final class SimpleEnd {
     public static final String ID = "simpleend";
     public static final String DRAGON_FIGHT = "simpleenddragonfight";
+    /** Owner of Nihilit (simplebuilding:nihilith_shard): the Nihilit planks of each End wood exist only with it (a-nihilplanks). */
+    public static final String NIHILITH_OWNER = "simplebuilding";
+    private static boolean simpleBuilding;
 
     private SimpleEnd() {}
+
+    /** Set by the loader entry before anything registers: whether SimpleBuilding (Nihilit's owner) is installed. */
+    public static void setSimpleBuilding(boolean loaded) {
+        simpleBuilding = loaded;
+    }
+
+    /** Whether SimpleBuilding is installed; then each End wood also has its Nihilit planks ({@link EndWood#nihilPlanks}). */
+    public static boolean simpleBuilding() {
+        return simpleBuilding;
+    }
 
     public static Identifier id(String path) {
         return Identifier.fromNamespaceAndPath(ID, path);

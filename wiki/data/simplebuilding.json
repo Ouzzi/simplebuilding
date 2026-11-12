@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 488,
+      "count": 486,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -14179,44 +14179,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:nihilith_ashwood_planks",
-      "name": {
-        "en_us": "Nihilit Ashwood Planks",
-        "de_de": "Nihilit-Aschholzbretter"
-      },
-      "texture": "assets/textures/block/nihilith_ashwood_planks.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_ashwood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:ashwood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/nihilith_ashwood_planks.png",
-      "note": {
-        "en": {
-          "summary": "Nihilit Ashwood Planks (needs Simple End): ashwood planks with Nihilit seams. Material for the ashwood bookshelf when SimpleBuilding is installed.",
-          "details": [
-            "Recipe: 4 Nihilit Shards in a plus around 1 Ashwood Planks give 2.",
-            "The Ashwood Bookshelf then takes 6 of these and 3 Nihilit Books."
-          ]
-        },
-        "de": {
-          "summary": "Nihilit-Aschholzbretter (braucht Simple End): Aschholzbretter mit Nihilit-Fugen. Zutat des Aschholz-Bücherregals, wenn SimpleBuilding installiert ist.",
-          "details": [
-            "Rezept: 4 Nihilitsplitter im Plus um 1 Aschholzbretter ergeben 2.",
-            "Das Aschholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
-          ]
-        },
-        "sources": [
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_ashwood_planks.json",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/ashwood_bookshelf.json"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:nihilith_block",
       "name": {
         "en_us": "Block of Nihilit",
@@ -14980,44 +14942,6 @@
             "Figuren sind wasserfüllbar; Abbauen, ein fehlender Boden oder ein Kolben droppt alle Figuren. Stapel zu 16."
           ]
         }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nihilith_duskwood_planks",
-      "name": {
-        "en_us": "Nihilit Duskwood Planks",
-        "de_de": "Nihilit-Dämmerholzbretter"
-      },
-      "texture": "assets/textures/block/nihilith_duskwood_planks.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_duskwood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:duskwood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/nihilith_duskwood_planks.png",
-      "note": {
-        "en": {
-          "summary": "Nihilit Duskwood Planks (needs Simple End): duskwood planks with Nihilit seams. Material for the duskwood bookshelf when SimpleBuilding is installed.",
-          "details": [
-            "Recipe: 4 Nihilit Shards in a plus around 1 Duskwood Planks give 2.",
-            "The Duskwood Bookshelf then takes 6 of these and 3 Nihilit Books."
-          ]
-        },
-        "de": {
-          "summary": "Nihilit-Dämmerholzbretter (braucht Simple End): Dämmerholzbretter mit Nihilit-Fugen. Zutat des Dämmerholz-Bücherregals, wenn SimpleBuilding installiert ist.",
-          "details": [
-            "Rezept: 4 Nihilitsplitter im Plus um 1 Dämmerholzbretter ergeben 2.",
-            "Das Dämmerholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
-          ]
-        },
-        "sources": [
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_duskwood_planks.json",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/duskwood_bookshelf.json"
-        ]
       },
       "hasCustomBehaviour": false
     },
@@ -31310,48 +31234,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:nihilith_ashwood_planks",
-      "name": {
-        "en_us": "Nihilit Ashwood Planks",
-        "de_de": "Nihilit-Aschholzbretter"
-      },
-      "texture": "assets/textures/block/nihilith_ashwood_planks.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_ashwood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:ashwood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/nihilith_ashwood_planks.png",
-      "lootTable": "simplebuilding:blocks/nihilith_ashwood_planks",
-      "drops": [
-        "simplebuilding:nihilith_ashwood_planks"
-      ],
-      "note": {
-        "en": {
-          "summary": "Nihilit Ashwood Planks (needs Simple End): ashwood planks with Nihilit seams. Material for the ashwood bookshelf when SimpleBuilding is installed.",
-          "details": [
-            "Recipe: 4 Nihilit Shards in a plus around 1 Ashwood Planks give 2.",
-            "The Ashwood Bookshelf then takes 6 of these and 3 Nihilit Books."
-          ]
-        },
-        "de": {
-          "summary": "Nihilit-Aschholzbretter (braucht Simple End): Aschholzbretter mit Nihilit-Fugen. Zutat des Aschholz-Bücherregals, wenn SimpleBuilding installiert ist.",
-          "details": [
-            "Rezept: 4 Nihilitsplitter im Plus um 1 Aschholzbretter ergeben 2.",
-            "Das Aschholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
-          ]
-        },
-        "sources": [
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_ashwood_planks.json",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/ashwood_bookshelf.json"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:nihilith_block",
       "name": {
         "en_us": "Block of Nihilit",
@@ -31498,48 +31380,6 @@
       "drops": [
         "simplebuilding:nihilith_bricks"
       ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nihilith_duskwood_planks",
-      "name": {
-        "en_us": "Nihilit Duskwood Planks",
-        "de_de": "Nihilit-Dämmerholzbretter"
-      },
-      "texture": "assets/textures/block/nihilith_duskwood_planks.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_duskwood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:duskwood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/nihilith_duskwood_planks.png",
-      "lootTable": "simplebuilding:blocks/nihilith_duskwood_planks",
-      "drops": [
-        "simplebuilding:nihilith_duskwood_planks"
-      ],
-      "note": {
-        "en": {
-          "summary": "Nihilit Duskwood Planks (needs Simple End): duskwood planks with Nihilit seams. Material for the duskwood bookshelf when SimpleBuilding is installed.",
-          "details": [
-            "Recipe: 4 Nihilit Shards in a plus around 1 Duskwood Planks give 2.",
-            "The Duskwood Bookshelf then takes 6 of these and 3 Nihilit Books."
-          ]
-        },
-        "de": {
-          "summary": "Nihilit-Dämmerholzbretter (braucht Simple End): Dämmerholzbretter mit Nihilit-Fugen. Zutat des Dämmerholz-Bücherregals, wenn SimpleBuilding installiert ist.",
-          "details": [
-            "Rezept: 4 Nihilitsplitter im Plus um 1 Dämmerholzbretter ergeben 2.",
-            "Das Dämmerholz-Bücherregal braucht dann 6 davon und 3 Nihilit-Bücher."
-          ]
-        },
-        "sources": [
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_duskwood_planks.json",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/duskwood_bookshelf.json"
-        ]
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -36010,8 +35850,8 @@
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/ashwood_bookshelf.json",
       "ingredients": [
-        "simplebuilding:nihilith_ashwood_planks",
-        "simplebuilding:nihilith_book"
+        "simplebuilding:nihilith_book",
+        "simpleend:nihilith_ashwood_planks"
       ],
       "pattern": [
         "PPP",
@@ -36023,7 +35863,7 @@
           "simplebuilding:nihilith_book"
         ],
         "P": [
-          "simplebuilding:nihilith_ashwood_planks"
+          "simpleend:nihilith_ashwood_planks"
         ]
       },
       "lines": [
@@ -42525,6 +42365,54 @@
       }
     },
     {
+      "id": "simplebuilding:chiseled_ashwood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleend:chiseled_ashwood_bookshelf",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/chiseled_ashwood_bookshelf.json",
+      "ingredients": [
+        "simpleend:ashwood_slab",
+        "simpleend:nihilith_ashwood_planks"
+      ],
+      "pattern": [
+        "WWW",
+        "SSS",
+        "WWW"
+      ],
+      "key": {
+        "S": [
+          "simpleend:ashwood_slab"
+        ],
+        "W": [
+          "simpleend:nihilith_ashwood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
+            "id": "simpleend:ashwood_planks",
+            "count": 3
+          },
+          {
+            "id": "simpleend:ashwood_slab",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -42737,6 +42625,54 @@
           {
             "id": "minecraft:crimson_stem",
             "count": 1.875
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:chiseled_duskwood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleend:chiseled_duskwood_bookshelf",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/chiseled_duskwood_bookshelf.json",
+      "ingredients": [
+        "simpleend:duskwood_slab",
+        "simpleend:nihilith_duskwood_planks"
+      ],
+      "pattern": [
+        "WWW",
+        "SSS",
+        "WWW"
+      ],
+      "key": {
+        "S": [
+          "simpleend:duskwood_slab"
+        ],
+        "W": [
+          "simpleend:nihilith_duskwood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
+            "id": "simpleend:duskwood_planks",
+            "count": 3
+          },
+          {
+            "id": "simpleend:duskwood_slab",
+            "count": 3
           }
         ]
       }
@@ -44301,7 +44237,7 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/duskwood_bookshelf.json",
       "ingredients": [
         "simplebuilding:nihilith_book",
-        "simplebuilding:nihilith_duskwood_planks"
+        "simpleend:nihilith_duskwood_planks"
       ],
       "pattern": [
         "PPP",
@@ -44313,7 +44249,7 @@
           "simplebuilding:nihilith_book"
         ],
         "P": [
-          "simplebuilding:nihilith_duskwood_planks"
+          "simpleend:nihilith_duskwood_planks"
         ]
       },
       "lines": [
@@ -54984,7 +54920,7 @@
       "category": "building",
       "group": null,
       "result": {
-        "id": "simplebuilding:nihilith_ashwood_planks",
+        "id": "simpleend:nihilith_ashwood_planks",
         "count": 2
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_ashwood_planks.json",
@@ -56495,7 +56431,7 @@
       "category": "building",
       "group": null,
       "result": {
-        "id": "simplebuilding:nihilith_duskwood_planks",
+        "id": "simpleend:nihilith_duskwood_planks",
         "count": 2
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_duskwood_planks.json",
@@ -81480,24 +81416,6 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_vault.json"
     },
     {
-      "id": "simplebuilding:blocks/nihilith_ashwood_planks",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:nihilith_ashwood_planks"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_ashwood_planks.json"
-    },
-    {
       "id": "simplebuilding:blocks/nihilith_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -81584,24 +81502,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
-    },
-    {
-      "id": "simplebuilding:blocks/nihilith_duskwood_planks",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:nihilith_duskwood_planks"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_duskwood_planks.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_end_rod",
@@ -108437,10 +108337,10 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 488,
-    "blocks": 281,
-    "recipes": 807,
-    "lootTables": 300,
+    "items": 486,
+    "blocks": 279,
+    "recipes": 809,
+    "lootTables": 298,
     "trades": 20,
     "enchantments": 9,
     "tags": 53,

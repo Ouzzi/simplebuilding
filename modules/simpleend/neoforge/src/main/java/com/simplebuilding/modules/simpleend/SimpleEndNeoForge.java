@@ -16,6 +16,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 public final class SimpleEndNeoForge {
     public SimpleEndNeoForge(IEventBus bus, Dist dist) {
         SimpleEnd.init(FMLPaths.CONFIGDIR.get());
+        SimpleEnd.setSimpleBuilding(net.neoforged.fml.ModList.get().isLoaded(SimpleEnd.NIHILITH_OWNER)); // a-nihilplanks: Nihilit planks
         ModuleNeoTests.register(bus);
         bus.addListener(EventPriority.HIGH, (RegisterEvent event) -> {
             var key = event.getRegistryKey();
