@@ -29,7 +29,7 @@ Umfang: 70 Java-Dateien / 12,1k Zeilen (davon ~45 % Tests). Risikogeleitet gepru
 ## Befunde
 | ID | Schwere | Befund | Stand |
 |---|---|---|---|
-| simplemachines-P2-1 | P2 (Datenverlust) | `DoublePistons.pushLine` liess die Zelle eines zerstoerten Blocks stehen und setzte den bewegten Block mit `UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS` darauf. Ein zerbrechender Behaelter (Verzierter Krug) verlor seinen Inhalt; das `BLOCK_DESTROY`-Spielereignis (Sculk) fehlte. | **gefixt** 056a68ad9: Luft (Flag 18), Partikel, Spielereignis wie Vanilla; Gametest `double_piston_breaks_a_pot_with_its_item` |
+| simplemachines-P2-1 | P2 (Datenverlust) | `DoublePistons.pushLine` liess die Zelle eines zerstoerten Blocks stehen und setzte den bewegten Block mit `UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS` darauf. Ein zerbrechender Behaelter (Verzierter Krug) verlor seinen Inhalt; das `BLOCK_DESTROY`-Spielereignis (Sculk) fehlte. | **gefixt** 056a68ad9: Luft (Flag 18), Partikel, Spielereignis wie Vanilla; Gametest `double_piston_breaks_the_pot_with_its_item` |
 | simplemachines-P3-1 | P3 (Sync) | Die Kolben-Regeln des Servers blieben nach dem Trennen im Client; auf einem Server ohne den Mod spielte der Client Verstaerkte Kolben mit fremden Regeln nach (Geisterbloecke moeglich). | **gefixt** (DISCONNECT setzt zurueck); kein Gametest moeglich (Client) |
 | simplemachines-P3-2 | P3 | 12 Kern-Dubletten (u. a. `AutoSmitherBlockEntity`, `AutonomousCrafterBlockEntity`, Kolben): Fixes muessen im 26.2-Kern nachgezogen werden. | Liste |
 

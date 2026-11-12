@@ -155,8 +155,8 @@ public final class OresRegistry {
     public static final String[] DOORS = BARS;
     static {
         for (String m : DOORS) {
-            block(m + "_door", Blocks.COPPER_DOOR.asList().getFirst(), s -> new com.simpleores.block.MetalDoorBlock(s.sound(OresSounds.of(m))));
-            block(m + "_trapdoor", Blocks.COPPER_TRAPDOOR.asList().getFirst(), s -> new com.simpleores.block.MetalTrapDoorBlock(s.sound(OresSounds.of(m))));
+            block(m + "_door", Blocks.COPPER_DOOR.asList().getFirst(), s -> new com.simpleores.block.MetalDoorBlock(s, OresSounds.of(m)));
+            block(m + "_trapdoor", Blocks.COPPER_TRAPDOOR.asList().getFirst(), s -> new com.simpleores.block.MetalTrapDoorBlock(s, OresSounds.of(m)));
         }
     }
 

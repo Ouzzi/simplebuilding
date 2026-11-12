@@ -71,7 +71,7 @@ public final class MachinesTests {
         ALL.put("double_piston_switch_off_keeps_it_still", MachinesTests::doublePistonSwitchOffKeepsItStill);
         ALL.put("double_piston_all_facings", MachinesTests::doublePistonAllFacings);
         ALL.put("double_piston_moves_with_vanilla_blocks", MachinesTests::doublePistonMovesWithVanillaBlocks);
-        ALL.put("double_piston_breaks_a_pot_with_its_item", MachinesTests::doublePistonBreaksAPotWithItsItem);
+        ALL.put("double_piston_breaks_the_pot_with_its_item", MachinesTests::doublePistonBreaksThePotWithItsItem);
         ALL.put("discover_recipe_unlocks", com.simplemachines.discover.MachinesDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemachines.discover.MachinesDiscover::behaviourHints);
         ALL.put("guide_book", com.simplemachines.guide.MachinesGuide::gameTest);
@@ -436,7 +436,7 @@ public final class MachinesTests {
      * Audit b-audsb31-a (simplemachines-P2-1): a block the double piston breaks (a decorated pot) goes like under Vanilla's piston -
      * the pot drops and so does the item inside it (before, the moving head replaced the cell without block entity side effects).
      */
-    public static void doublePistonBreaksAPotWithItsItem(GameTestHelper h) {
+    public static void doublePistonBreaksThePotWithItsItem(GameTestHelper h) {
         clear(h);
         BlockPos base = new BlockPos(1, 2, 4);
         doublePiston(h, base);

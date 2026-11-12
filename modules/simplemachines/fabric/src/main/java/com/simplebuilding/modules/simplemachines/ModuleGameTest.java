@@ -128,8 +128,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemachines:empty", maxTicks = 200)
-    public void doublePistonBreaksAPotWithItsItem(GameTestHelper h) {
-        MachinesTests.ALL.get("double_piston_breaks_a_pot_with_its_item").accept(h);
+    public void doublePistonBreaksThePotWithItsItem(GameTestHelper h) {
+        MachinesTests.ALL.get("double_piston_breaks_the_pot_with_its_item").accept(h);
     }
 
     @GameTest(structure = "simplemachines:empty")
