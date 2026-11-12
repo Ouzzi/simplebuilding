@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:waxed_copper_block",
+  "result": {
+    "id": "simpleblocks:waxed_copper_pillar"
+  }
+}

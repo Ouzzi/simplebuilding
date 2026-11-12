@@ -96,7 +96,15 @@
     "simpleoctets:diamond_block_octet",
     "simpleoctets:emerald_block_octet",
     "simpleoctets:gold_block_octet",
+    {
+      "id": "simpleoctets:cut_gold_octet",
+      "required": false
+    },
     "simpleoctets:iron_block_octet",
+    {
+      "id": "simpleoctets:cut_iron_octet",
+      "required": false
+    },
     "simpleoctets:lapis_block_octet",
     "simpleoctets:netherite_block_octet",
     {
@@ -133,6 +141,14 @@
     },
     {
       "id": "simpleoctets:cut_bronze_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:cut_rose_gold_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:cut_rose_bronze_octet",
       "required": false
     },
     "simpleoctets:white_concrete_octet",

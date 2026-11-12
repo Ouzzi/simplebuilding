@@ -1,0 +1,6 @@
+{
+  "parent": "simpleblocks:block/copper_tiles",
+  "textures": {
+    "all": "simpleblocks:block/weathered_copper_tiles"
+  }
+}

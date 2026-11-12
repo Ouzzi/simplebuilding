@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:cut_iron",
+  "result": {
+    "id": "simpleblocks:cut_iron_stairs"
+  }
+}

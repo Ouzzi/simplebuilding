@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:terranite_block",
+  "result": {
+    "count": 1,
+    "id": "simpleores:chiseled_terranite"
+  }
+}

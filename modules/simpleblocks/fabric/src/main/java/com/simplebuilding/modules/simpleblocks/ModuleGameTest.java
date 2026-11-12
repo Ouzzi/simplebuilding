@@ -370,4 +370,24 @@ public final class ModuleGameTest {
     public void compactCollapsedSlowness(GameTestHelper h) {
         BlocksTests.ALL.get("compact_collapsed_slowness").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void metalCopperWeathers(GameTestHelper h) {
+        BlocksTests.ALL.get("metal_copper_weathers").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void metalCopperWaxAndAxe(GameTestHelper h) {
+        BlocksTests.ALL.get("metal_copper_wax_and_axe").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void metalCopperBlocks(GameTestHelper h) {
+        BlocksTests.ALL.get("metal_copper_blocks").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void metalFamilies(GameTestHelper h) {
+        BlocksTests.ALL.get("metal_families").accept(h);
+    }
 }

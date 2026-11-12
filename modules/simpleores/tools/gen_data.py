@@ -139,6 +139,34 @@ for d, (_s, (pen, pde), metal, (men, mde), *_r) in RIFTS.items():
     ITEMS[f'{metal}_ingot'] = (f'{men} Ingot', f'{mde}barren')
     BLOCKS[f'{metal}_block'] = (f'Block of {men}', f'{mde}block')
 RIFT_BLOCKS = [b for d, v in RIFTS.items() for b in (f'{d}rift_shard_block', f'{v[2]}_block')]
+# PAL35b (a-pal35b, owner 12.11., docs/ai/PLAN-A-PAL35-2026-11-12.md part b): the rose alloys get the building family of the metals
+# (OresRegistry.ROSE_FAMILY, same data path as COSMETIC), Enderite and the rift metals a chiseled block (OresRegistry.CHISELED_ONLY); apple
+# and carrot of each rift metal (OresFood). Own textures tools/textures/pal35b_2026_11_12.py (food: Vanilla-derived, built).
+ROSE_FAMILY = dict(ALLOYS)
+CHISELED_ONLY = {'enderite': ('Enderite', 'Enderit'), **{v[2]: v[3] for v in RIFTS.values()}}
+FAMILY_NAMES = {**COSMETIC, **ROSE_FAMILY, **CHISELED_ONLY}
+for m, (en, de) in ROSE_FAMILY.items():
+    for path, kind, names in ((f'cut_{m}', 'cube', (f'Cut {en}', f'Geschnittener {de}block')),
+                              (f'cut_{m}_stairs', 'stairs', (f'Cut {en} Stairs', f'Geschnittene {de}treppe')),
+                              (f'cut_{m}_slab', 'slab', (f'Cut {en} Slab', f'Geschnittene {de}stufe')),
+                              (f'{m}_tiles', 'cube', (f'{en} Tiles', f'{de}fliesen')),
+                              (f'{m}_pillar', 'pillar', (f'{en} Pillar', f'{de}säule')),
+                              (f'chiseled_{m}', 'cube', (f'Chiseled {en}', f'Gemeißelter {de}block'))):
+        BLOCKS[path] = names
+        FAMILY[path] = (kind, m)
+CHISELED_RIFT = [f'chiseled_{m}' for m in CHISELED_ONLY]
+for m, (en, de) in CHISELED_ONLY.items():
+    BLOCKS[f'chiseled_{m}'] = (f'Chiseled {en}', f'Gemeißelter {de}block')
+    FAMILY[f'chiseled_{m}'] = ('cube', m)
+RIFT_FOOD = {}   # item -> (metal, apple?)
+for _d, (_s, _p, m, (en, de), *_r) in RIFTS.items():
+    ITEMS[f'{m}_apple'] = (f'{en} Apple', f'{de}-Apfel')
+    ITEMS[f'{m}_carrot'] = (f'{en} Carrot', f'{de}-Karotte')
+    RIFT_FOOD[f'{m}_apple'] = (m, True)
+    RIFT_FOOD[f'{m}_carrot'] = (m, False)
+# metal -> (effect id, EN, DE) of OresFood.riftEffect
+RIFT_EFFECT = {'terranite': ('minecraft:haste', 'Haste', 'Eile'), 'infernite': ('minecraft:fire_resistance', 'Fire Resistance', 'Feuerresistenz'),
+               'zenithite': ('minecraft:slow_falling', 'Slow Falling', 'Sanfter Fall')}
 # N30/N35 (a-pal35a, owner 11./12.11., docs/ai/PLAN-A-PAL35-2026-11-12.md): lamp (copper bulb logic), lantern, chain and pole of every building
 # metal, poles of the two rose alloys, weighted pressure plates of every metal (OresRegistry.LIGHTS/POLES/PLATE_METALS); own textures
 # tools/textures/pal35_2026_11_12.py (the plates use the metal's block texture like Vanilla).
@@ -665,7 +693,7 @@ def cutting(source, out, count):
 
 
 STONECUTTING = {}   # (source, out) -> count, for tests and wiki
-for m in COSMETIC:
+for m in list(COSMETIC) + list(ROSE_FAMILY):   # PAL35b: + the rose alloys
     block_, cut = f'{m}_block', f'cut_{m}'
     shaped(cut, ['##', '##'], block_, cut, 4, block_)
     shaped(f'{cut}_stairs', ['#  ', '## ', '###'], cut, f'{cut}_stairs', 4, cut)
@@ -678,6 +706,19 @@ for m in COSMETIC:
                                (cut, f'{m}_tiles', 1), (cut, f'chiseled_{m}', 1)):
         cutting(source, out, count)
         STONECUTTING[(source, out)] = count
+
+for m in CHISELED_ONLY:   # PAL35b: 1:1 like the Vanilla chiseled quartz from its block, no way back
+    cutting(f'{m}_block', f'chiseled_{m}', 1)
+    STONECUTTING[(f'{m}_block', f'chiseled_{m}')] = 1
+# PAL35b: the rift metals' food. Apple: a golden apple and an ingot; carrots: eight golden carrots round an ingot make eight (the ingot
+# is dear: one Enderite ingot and four rift shards).
+for path, (m, apple) in RIFT_FOOD.items():
+    if apple:
+        recipe(path, 'food', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': ['minecraft:golden_apple', item(f'{m}_ingot')],
+                              'result': result(path)}, item(f'{m}_ingot'))
+    else:
+        recipe(path, 'food', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'C': 'minecraft:golden_carrot', '#': item(f'{m}_ingot')},
+                              'pattern': ['CCC', 'C#C', 'CCC'], 'result': result(path, 8)}, item(f'{m}_ingot'))
 
 SHAPES = {
     'sword': (['X', 'X', 'S'], 'combat'), 'pickaxe': (['XXX', ' S ', ' S '], 'tools'), 'axe': (['XX', 'XS', ' S'], 'tools'),
@@ -730,7 +771,7 @@ tag('c/tags/item/raw_materials/silver.json', ids(['raw_silver']))
 for a in ALLOYS:
     tag(f'c/tags/item/ingots/{a}.json', ids([f'{a}_ingot']))
     tag(f'{NS}/tags/item/repairs_{a}_equipment.json', ids([f'{a}_ingot']))
-tag('c/tags/item/foods/golden.json', ids([p for a in ALLOYS for p in (f'{a}_apple', f'enchanted_{a}_apple', f'{a}_carrot')]))
+tag('c/tags/item/foods/golden.json', ids([p for a in ALLOYS for p in (f'{a}_apple', f'enchanted_{a}_apple', f'{a}_carrot')] + list(RIFT_FOOD)))
 for a in ALLOYS:
     tag(f'c/tags/item/nuggets/{a}.json', ids([f'{a}_nugget']))
     for kind in ('block', 'item'):
@@ -770,10 +811,11 @@ tag('minecraft/tags/block/mineable/shovel.json', ids(list(SHOVEL)))
 STONE_TIER = ['lead_ore', 'raw_lead_block', 'end_lead_ore', 'end_zinc_ore'] + [b for m, v in METALS.items() if v[2] == 'stone'
                                                                    for b in (*ores_of(m), f'raw_{m}_block')]   # like Vanilla iron and copper ore
 tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b not in ('silver_mirror', 'geode_crust') + SHOVEL and b not in DIAMOND_NEW and b not in RIFT_BLOCKS
-                                                       and b not in BARS and b not in GRATES and b not in DOORS and b not in TRAPDOORS and b not in LIGHTS_ALL] + SAGE_ORES))
+                                                       and b not in BARS and b not in GRATES and b not in DOORS and b not in TRAPDOORS and b not in LIGHTS_ALL
+                                                       and b not in CHISELED_RIFT] + SAGE_ORES))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
-tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS + RIFT_BLOCKS))
+tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS + RIFT_BLOCKS + CHISELED_RIFT))
 # IG31-58: the three showpiece blocks carry a beacon like the Enderite block, their ingots pay it (concept A12: small Vanilla hooks).
 RIFT_METALS = [v[2] for v in RIFTS.values()]
 tag('minecraft/tags/block/beacon_base_blocks.json', ids(['enderite_block'] + [f'{m}_block' for m in RIFT_METALS]))
@@ -1147,9 +1189,14 @@ def note_summaries():
                 '_pressure_plate': (f'A weighted pressure plate of {en.lower()}: ' + ('light like the gold plate (one signal level per entity, up to 15).' if light else 'heavy like the iron plate (one signal level per 10 entities, up to 150).') + f' Two {en.lower()} ingots side by side make 1. Any pickaxe.',
                                     f'Eine Wägeplatte aus {de}: ' + ('leicht wie die Goldplatte (eine Signalstufe je Objekt, bis 15).' if light else 'schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150).') + f' Zwei {de}barren nebeneinander ergeben 1. Jede Spitzhacke.'),
             }[kind]
+        elif p in CHISELED_RIFT:
+            m = p[len('chiseled_'):]
+            en, de = FAMILY_NAMES[m]
+            notes[f'block:{p}'] = (f'Chiseled block of {en.lower()} (PAL35b): the stonecutter cuts it 1:1 from the block of {en.lower()}. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base.',
+                                   f'Gemeißelter {de}block (PAL35b): die Steinsäge schneidet ihn 1:1 aus dem {de}block. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel.')
         elif p in FAMILY:
             kind, m = FAMILY[p]
-            en, de = COSMETIC[m]
+            en, de = FAMILY_NAMES[m]
             notes[f'block:{p}'] = (f'Building block of the {en.lower()} family (like the cut copper family): crafted from the block of {en.lower()} or cut in the stonecutter. Decoration only.',
                                    f'Baublock der {de}-Familie (wie die Familie des geschnittenen Kupfers): aus dem {de}block hergestellt oder in der Steinsäge geschnitten. Nur Dekoration.')
         elif p == 'nether_rose_gold_ore':
@@ -1265,6 +1312,16 @@ def note_summaries():
                                     f'{de}-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: {hunger} Hunger, immer essbar. Gibt {eff_de}. 8 {de}barren um einen Apfel.')
         notes[f'item:enchanted_{a}_apple'] = (f'Enchanted {en} apple (glint): {hunger} hunger, always edible. Gives {enc_en}. 8 blocks of {en.lower()} round an apple.',
                                               f'Verzauberter {de}-Apfel (Schimmer): {hunger} Hunger, immer essbar. Gibt {enc_de}. 8 {de}blöcke um einen Apfel.')
+    # PAL35b: the rift metals' food (OresFood.riftApple/riftCarrot)
+    for path, (m, apple) in RIFT_FOOD.items():
+        en, de = FAMILY_NAMES[m]
+        eid, een, ede = RIFT_EFFECT[m]
+        if apple:
+            notes[f'item:{path}'] = (f'{en} apple: 6 hunger, always edible, fire resistant. Gives Regeneration II 0:05 and Absorption 2:00 like the golden apple, plus {een} 2:00. A golden apple and a {en.lower()} ingot (shapeless).',
+                                     f'{de}-Apfel: 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:05 und Absorption 2:00 wie der goldene Apfel, dazu {ede} 2:00. Ein goldener Apfel und ein {de}barren (formlos).')
+        else:
+            notes[f'item:{path}'] = (f'{en} carrot: 8 hunger like the Rose Gold carrot, fire resistant. Gives {een} 1:00. Eight golden carrots round a {en.lower()} ingot make 8.',
+                                     f'{de}-Karotte: 8 Hunger wie die Roségold-Karotte, feuerfest. Gibt {ede} 1:00. Acht goldene Karotten um einen {de}barren ergeben 8.')
     for d, (scrap, (pen, pde), metal, (men, mde), partner, seconds, xp) in RIFTS.items():
         sen, sde = ITEMS[f'{d}rift_shard']
         scen, scde = MOVED_BLOCKS[scrap]
@@ -1453,6 +1510,25 @@ FEATURES = [
              ['Edelmetalle (Silber, Roségold, Rosenkupfer) zählen wie die Goldplatte: eine Signalstufe je Objekt, bis 15.',
               'Alle anderen zählen wie die Eisenplatte: eine Signalstufe je 10 Objekte, bis 150.',
               'Zwei Barren nebeneinander ergeben 1; die Platte zeigt den Block des Metalls. Jede Spitzhacke.'])),
+    feature('rose_and_rift_families', [f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/cut_rose_gold.json', f'{DATAP}/recipe/chiseled_rose_gold.json',
+                                       f'{DATAP}/recipe/chiseled_terranite_from_terranite_block_stonecutting.json'],
+            ('Rose gold and rift metal building blocks', 'Rose gold and rose copper have the building family of the other metals; Enderite, Terranite, Infernite and Zenithite a chiseled block (PAL35b).',
+             ['Rose gold, rose copper: cut block (4 blocks -> 4), cut stairs and slab, tiles (4 cut -> 4), pillar (2 blocks upright -> 2), chiseled block (2 cut slabs upright -> 1); the stonecutter cuts all of them from the block. Simple Octets adds the cut octet.',
+              'Enderite, Terranite, Infernite, Zenithite: like the Netherite block they have no cut family, only a chiseled block, cut 1:1 from the block at the stonecutter. Fire resistant, diamond pickaxe, no beacon base.',
+              'Every chiseled block has its own mirror-symmetric motif: rose (rose gold), heart (rose copper), Eye of Ender, tree (Terranite), Ghast (Infernite), sun (Zenithite). Decoration only.']),
+            ('Bausteine aus Roségold und Riss-Metallen', 'Roségold und Rosenkupfer haben die Baufamilie der anderen Metalle; Enderit, Terranit, Infernit und Zenithit einen gemeißelten Block (PAL35b).',
+             ['Roségold, Rosenkupfer: geschnittener Block (4 Blöcke -> 4), geschnittene Treppe und Stufe, Fliesen (4 geschnittene -> 4), Säule (2 Blöcke senkrecht -> 2), gemeißelter Block (2 geschnittene Stufen senkrecht -> 1); die Steinsäge schneidet alle aus dem Block. Simple Octets ergänzt das geschnittene Octet.',
+              'Enderit, Terranit, Infernit, Zenithit: wie der Netheritblock ohne geschnittene Familie, nur ein gemeißelter Block, 1:1 in der Steinsäge aus dem Block. Feuerfest, Diamantspitzhacke, kein Leuchtfeuer-Sockel.',
+              'Jeder gemeißelte Block hat ein eigenes spiegelgleiches Motiv: Rose (Roségold), Herz (Rosenkupfer), Enderauge, Baum (Terranit), Ghast (Infernit), Sonne (Zenithit). Nur Dekoration.'])),
+    feature('rift_food', [f'{JAVA}/OresFood.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/terranite_apple.json', f'{DATAP}/recipe/zenithite_carrot.json'],
+            ('Rift metal food', 'Each rift metal has an apple and a carrot with one Vanilla effect of its dimension (PAL35b): Terranite Haste, Infernite Fire Resistance, Zenithite Slow Falling.',
+             ['Apple: a golden apple and an ingot (shapeless). 6 hunger, always edible; Regeneration II 0:05 and Absorption 2:00 like the golden apple, plus the effect for 2:00.',
+              'Carrot: eight golden carrots round an ingot make 8. 8 hunger like the Rose Gold carrot, the effect for 1:00.',
+              'Fire resistant like the ingots. No stronger fight bonus than the rose gold apples: a help for mining (Overworld), the Nether and the End islands.']),
+            ('Essen aus Riss-Metallen', 'Jedes Riss-Metall hat einen Apfel und eine Karotte mit einem Vanilla-Effekt seiner Dimension (PAL35b): Terranit Eile, Infernit Feuerresistenz, Zenithit Sanfter Fall.',
+             ['Apfel: ein goldener Apfel und ein Barren (formlos). 6 Hunger, immer essbar; Regeneration II 0:05 und Absorption 2:00 wie der goldene Apfel, dazu der Effekt für 2:00.',
+              'Karotte: acht goldene Karotten um einen Barren ergeben 8. 8 Hunger wie die Roségold-Karotte, der Effekt für 1:00.',
+              'Feuerfest wie die Barren. Kein stärkerer Kampfvorteil als die Roségold-Äpfel: eine Hilfe für den Bergbau (Oberwelt), den Nether und die End-Inseln.'])),
     feature('metal_sounds', [f'{JAVA}/OresSounds.java', f'modules/{NS}/shared/resources/assets/{NS}/sounds.json'],
             ('Metal sounds', 'Every building metal sounds like itself when placed, mined, hit or walked on - quietly.',
              ['Lead dull and soft (and a little louder: whoever walks on lead is heard), silver bright and ringing, zinc and nickel plain, tin with its crackling "tin cry", brass and bronze warm, stainless steel hard. Every block of a metal (storage block, building family, plate, bars, grate) uses its sound.',

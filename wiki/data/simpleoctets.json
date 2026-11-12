@@ -1917,74 +1917,6 @@
       }
     },
     {
-      "id": "simpleoctets:blue_ice_bricks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simpleblocks:blue_ice_bricks",
-        "count": 1
-      },
-      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_ice_bricks_from_octets.json",
-      "ingredients": [
-        "simpleoctets:blue_ice_bricks_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simpleoctets:blue_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:blue_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:blue_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:blue_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:blue_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:blue_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:blue_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:blue_ice_bricks_octet"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleoctets:blue_ice_bricks_octet",
-            "count": 8
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleoctets:blue_ice_bricks_octet_from_blue_ice_bricks_sawing",
-      "type": "simpleblocks:sawing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simpleoctets:blue_ice_bricks_octet",
-        "count": 8
-      },
-      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_ice_bricks_octet_from_blue_ice_bricks_sawing.json",
-      "ingredients": [
-        "simpleblocks:blue_ice_bricks"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleblocks:blue_ice_bricks"
-        ]
-      }
-    },
-    {
       "id": "simpleoctets:blue_ice_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -3989,6 +3921,102 @@
       }
     },
     {
+      "id": "simpleoctets:cut_bronze_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_bronze",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_bronze_from_octets.json",
+      "ingredients": [
+        "simpleoctets:cut_bronze_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:cut_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_bronze_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:cut_bronze_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_bronze_octet_from_cut_bronze_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_bronze_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_bronze_octet_from_cut_bronze_sawing.json",
+      "ingredients": [
+        "simpleores:cut_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_bronze"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_bronze_octet_from_cut_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_bronze_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_bronze_octet_from_cut_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleores:cut_bronze",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:cut_copper_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -4081,6 +4109,142 @@
             "id": "minecraft:copper_ingot",
             "count": 9
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_gold_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_gold",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_gold_from_octets.json",
+      "ingredients": [
+        "simpleoctets:cut_gold_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:cut_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_gold_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:cut_gold_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_gold_octet_from_cut_gold_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_gold_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_gold_octet_from_cut_gold_sawing.json",
+      "ingredients": [
+        "simpleblocks:cut_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_gold"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_iron_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_iron",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_iron_from_octets.json",
+      "ingredients": [
+        "simpleoctets:cut_iron_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:cut_iron_octet"
+        ],
+        [
+          "simpleoctets:cut_iron_octet"
+        ],
+        [
+          "simpleoctets:cut_iron_octet"
+        ],
+        [
+          "simpleoctets:cut_iron_octet"
+        ],
+        [
+          "simpleoctets:cut_iron_octet"
+        ],
+        [
+          "simpleoctets:cut_iron_octet"
+        ],
+        [
+          "simpleoctets:cut_iron_octet"
+        ],
+        [
+          "simpleoctets:cut_iron_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:cut_iron_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_iron_octet_from_cut_iron_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_iron_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_iron_octet_from_cut_iron_sawing.json",
+      "ingredients": [
+        "simpleblocks:cut_iron"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_iron"
         ]
       }
     },
@@ -4373,6 +4537,198 @@
       }
     },
     {
+      "id": "simpleoctets:cut_rose_bronze_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_bronze",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_rose_bronze_from_octets.json",
+      "ingredients": [
+        "simpleoctets:cut_rose_bronze_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:cut_rose_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_bronze_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_bronze_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:cut_rose_bronze_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_rose_bronze_octet_from_cut_rose_bronze_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_rose_bronze_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_rose_bronze_octet_from_cut_rose_bronze_sawing.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_bronze"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_rose_bronze_octet_from_cut_rose_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_rose_bronze_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_rose_bronze_octet_from_cut_rose_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleores:cut_rose_bronze",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_rose_gold_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_gold",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_rose_gold_from_octets.json",
+      "ingredients": [
+        "simpleoctets:cut_rose_gold_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:cut_rose_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_gold_octet"
+        ],
+        [
+          "simpleoctets:cut_rose_gold_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:cut_rose_gold_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_rose_gold_octet_from_cut_rose_gold_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_rose_gold_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_rose_gold_octet_from_cut_rose_gold_sawing.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_gold"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_rose_gold_octet_from_cut_rose_gold_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_rose_gold_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_rose_gold_octet_from_cut_rose_gold_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleores:cut_rose_gold",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:cut_sandstone_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -4559,6 +4915,102 @@
         "materials": [
           {
             "id": "simpleores:cut_silver",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_stainless_steel_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_stainless_steel",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_stainless_steel_from_octets.json",
+      "ingredients": [
+        "simpleoctets:cut_stainless_steel_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:cut_stainless_steel_octet"
+        ],
+        [
+          "simpleoctets:cut_stainless_steel_octet"
+        ],
+        [
+          "simpleoctets:cut_stainless_steel_octet"
+        ],
+        [
+          "simpleoctets:cut_stainless_steel_octet"
+        ],
+        [
+          "simpleoctets:cut_stainless_steel_octet"
+        ],
+        [
+          "simpleoctets:cut_stainless_steel_octet"
+        ],
+        [
+          "simpleoctets:cut_stainless_steel_octet"
+        ],
+        [
+          "simpleoctets:cut_stainless_steel_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:cut_stainless_steel_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_stainless_steel_octet_from_cut_stainless_steel_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_stainless_steel_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_stainless_steel_octet_from_cut_stainless_steel_sawing.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_stainless_steel"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_stainless_steel_octet_from_cut_stainless_steel_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_stainless_steel_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_stainless_steel_octet_from_cut_stainless_steel_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_stainless_steel"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_stainless_steel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleores:cut_stainless_steel",
             "count": 1
           }
         ]
@@ -7657,74 +8109,6 @@
       "slots": {
         "ingredient": [
           "simpleblocks:hushed_deepslate_tiles"
-        ]
-      }
-    },
-    {
-      "id": "simpleoctets:ice_bricks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simpleblocks:ice_bricks",
-        "count": 1
-      },
-      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ice_bricks_from_octets.json",
-      "ingredients": [
-        "simpleoctets:ice_bricks_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simpleoctets:ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:ice_bricks_octet"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleoctets:ice_bricks_octet",
-            "count": 8
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleoctets:ice_bricks_octet_from_ice_bricks_sawing",
-      "type": "simpleblocks:sawing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simpleoctets:ice_bricks_octet",
-        "count": 8
-      },
-      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ice_bricks_octet_from_ice_bricks_sawing.json",
-      "ingredients": [
-        "simpleblocks:ice_bricks"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleblocks:ice_bricks"
         ]
       }
     },
@@ -11909,74 +12293,6 @@
             "id": "minecraft:oxidized_copper",
             "count": 1
           }
-        ]
-      }
-    },
-    {
-      "id": "simpleoctets:packed_ice_bricks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simpleblocks:packed_ice_bricks",
-        "count": 1
-      },
-      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/packed_ice_bricks_from_octets.json",
-      "ingredients": [
-        "simpleoctets:packed_ice_bricks_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simpleoctets:packed_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:packed_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:packed_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:packed_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:packed_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:packed_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:packed_ice_bricks_octet"
-        ],
-        [
-          "simpleoctets:packed_ice_bricks_octet"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleoctets:packed_ice_bricks_octet",
-            "count": 8
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleoctets:packed_ice_bricks_octet_from_packed_ice_bricks_sawing",
-      "type": "simpleblocks:sawing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simpleoctets:packed_ice_bricks_octet",
-        "count": 8
-      },
-      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/packed_ice_bricks_octet_from_packed_ice_bricks_sawing.json",
-      "ingredients": [
-        "simpleblocks:packed_ice_bricks"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleblocks:packed_ice_bricks"
         ]
       }
     },
@@ -20147,34 +20463,6 @@
       ]
     },
     {
-      "id": "simpleoctets:blue_ice_bricks_octet",
-      "name": {
-        "en_us": "Blue Ice Bricks Octet Cell",
-        "de_de": "Blaueisziegel-Achtelzelle"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
-        ],
-        "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
-        },
-        "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
-        }
-      },
-      "craftedBy": [
-        "simpleoctets:blue_ice_bricks_octet_from_blue_ice_bricks_sawing"
-      ],
-      "usedIn": [
-        "simpleoctets:blue_ice_bricks_from_octets"
-      ]
-    },
-    {
       "id": "simpleoctets:blue_ice_octet",
       "name": {
         "en_us": "Blue Ice Octet Cell",
@@ -20783,6 +21071,35 @@
       ]
     },
     {
+      "id": "simpleoctets:cut_bronze_octet",
+      "name": {
+        "en_us": "Cut Bronze Octet Cell",
+        "de_de": "Geschnittener Bronzeblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:cut_bronze_octet_from_cut_bronze_sawing",
+        "simpleoctets:cut_bronze_octet_from_cut_bronze_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:cut_bronze_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:cut_copper_octet",
       "name": {
         "en_us": "Cut Copper Octet Cell",
@@ -20809,6 +21126,62 @@
       ],
       "usedIn": [
         "simpleoctets:cut_copper_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:cut_gold_octet",
+      "name": {
+        "en_us": "Cut Gold Octet Cell",
+        "de_de": "Geschnittener Goldblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:cut_gold_octet_from_cut_gold_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:cut_gold_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:cut_iron_octet",
+      "name": {
+        "en_us": "Cut Iron Octet Cell",
+        "de_de": "Geschnittener Eisenblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:cut_iron_octet_from_cut_iron_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:cut_iron_from_octets"
       ]
     },
     {
@@ -20899,6 +21272,64 @@
       ]
     },
     {
+      "id": "simpleoctets:cut_rose_bronze_octet",
+      "name": {
+        "en_us": "Cut Rose Copper Octet Cell",
+        "de_de": "Geschnittener Rosenkupferblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:cut_rose_bronze_octet_from_cut_rose_bronze_sawing",
+        "simpleoctets:cut_rose_bronze_octet_from_cut_rose_bronze_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:cut_rose_bronze_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:cut_rose_gold_octet",
+      "name": {
+        "en_us": "Cut Rose Gold Octet Cell",
+        "de_de": "Geschnittener Roségoldblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:cut_rose_gold_octet_from_cut_rose_gold_sawing",
+        "simpleoctets:cut_rose_gold_octet_from_cut_rose_gold_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:cut_rose_gold_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:cut_sandstone_octet",
       "name": {
         "en_us": "Cut Sandstone Octet Cell",
@@ -20954,6 +21385,35 @@
       ],
       "usedIn": [
         "simpleoctets:cut_silver_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:cut_stainless_steel_octet",
+      "name": {
+        "en_us": "Cut Stainless Steel Octet Cell",
+        "de_de": "Geschnittener Edelstahlblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:cut_stainless_steel_octet_from_cut_stainless_steel_sawing",
+        "simpleoctets:cut_stainless_steel_octet_from_cut_stainless_steel_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:cut_stainless_steel_from_octets"
       ]
     },
     {
@@ -21881,34 +22341,6 @@
       ],
       "usedIn": [
         "simpleoctets:hushed_deepslate_tiles_from_octets"
-      ]
-    },
-    {
-      "id": "simpleoctets:ice_bricks_octet",
-      "name": {
-        "en_us": "Ice Bricks Octet Cell",
-        "de_de": "Eisziegel-Achtelzelle"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
-        ],
-        "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
-        },
-        "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
-        }
-      },
-      "craftedBy": [
-        "simpleoctets:ice_bricks_octet_from_ice_bricks_sawing"
-      ],
-      "usedIn": [
-        "simpleoctets:ice_bricks_from_octets"
       ]
     },
     {
@@ -23273,34 +23705,6 @@
       ],
       "usedIn": [
         "simpleoctets:oxidized_cut_copper_from_octets"
-      ]
-    },
-    {
-      "id": "simpleoctets:packed_ice_bricks_octet",
-      "name": {
-        "en_us": "Packed Ice Bricks Octet Cell",
-        "de_de": "Packeisziegel-Achtelzelle"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
-        ],
-        "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
-        },
-        "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
-        }
-      },
-      "craftedBy": [
-        "simpleoctets:packed_ice_bricks_octet_from_packed_ice_bricks_sawing"
-      ],
-      "usedIn": [
-        "simpleoctets:packed_ice_bricks_from_octets"
       ]
     },
     {
@@ -25581,13 +25985,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 597,
+    "recipes": 607,
     "lootTables": 0,
     "tags": 0,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 205,
+    "blocks": 208,
     "trades": 0,
     "config": 0,
     "quests": 0,

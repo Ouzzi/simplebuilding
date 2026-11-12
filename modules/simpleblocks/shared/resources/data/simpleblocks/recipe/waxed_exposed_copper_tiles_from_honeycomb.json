@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_exposed_copper_tiles",
+  "ingredients": [
+    "simpleblocks:exposed_copper_tiles",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "id": "simpleblocks:waxed_exposed_copper_tiles"
+  }
+}

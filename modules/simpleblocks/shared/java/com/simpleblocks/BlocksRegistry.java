@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,7 +30,8 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 117 blocks with their block items (plus the 15 moved from SimpleBuilding in
+ * Everything Simple Blocks registers: 137 blocks with their block items (+ the 14 aged/waxed copper stages of
+ * {@link com.simpleblocks.metal.MetalBlocks}) (plus the 15 moved from SimpleBuilding in
  * {@link com.simpleblocks.nature.NatureBlocks}), the Shapecutter ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
@@ -197,6 +199,37 @@ public final class BlocksRegistry {
             "cracked_packed_ice_bricks", "packed_ice_brick_stairs", "packed_ice_brick_slab", "packed_ice_brick_wall",
             "cracked_blue_ice_bricks", "blue_ice_brick_stairs", "blue_ice_brick_slab", "blue_ice_brick_wall");
 
+    // --- PAL35b (owner 11./12.11., docs/ai/PLAN-A-PAL35-2026-11-12.md part b): the metal row of the Vanilla metals and ore materials.
+    /**
+     * (new path, Vanilla block whose properties it copies): copper tiles and pillar (the base stage of SimpleLib aging chains, see
+     * {@link com.simpleblocks.metal.MetalBlocks}), the family of gold and iron like the Simple Ores metals (cut block with stairs and slab,
+     * tiles, pillar, chiseled) and the chiseled storage blocks of the other ore materials (chiseled redstone powers like the redstone block).
+     */
+    public static final List<String[]> METALS = List.of(
+            new String[]{"copper_tiles", "cut_copper"}, new String[]{"copper_pillar", "cut_copper"},
+            new String[]{"cut_gold", "gold_block"}, new String[]{"cut_gold_stairs", "gold_block"}, new String[]{"cut_gold_slab", "gold_block"},
+            new String[]{"gold_tiles", "gold_block"}, new String[]{"gold_pillar", "gold_block"}, new String[]{"chiseled_gold", "gold_block"},
+            new String[]{"cut_iron", "iron_block"}, new String[]{"cut_iron_stairs", "iron_block"}, new String[]{"cut_iron_slab", "iron_block"},
+            new String[]{"iron_tiles", "iron_block"}, new String[]{"iron_pillar", "iron_block"}, new String[]{"chiseled_iron", "iron_block"},
+            new String[]{"chiseled_diamond", "diamond_block"}, new String[]{"chiseled_emerald", "emerald_block"},
+            new String[]{"chiseled_lapis", "lapis_block"}, new String[]{"chiseled_redstone", "redstone_block"},
+            new String[]{"chiseled_coal", "coal_block"}, new String[]{"chiseled_netherite", "netherite_block"});
+    /** Block items that survive fire and lava (like the netherite block's). */
+    public static final Set<String> FIRE_RESISTANT = Set.of("chiseled_netherite");
+
+    static {
+        for (String[] metal : METALS) {
+            String name = metal[0];
+            Function<BlockBehaviour.Properties, Block> factory = name.endsWith("_stairs")
+                    ? s -> new StairBlock(BLOCKS.get(name.substring(0, name.length() - "_stairs".length())).defaultBlockState(), s)
+                    : name.endsWith("_slab") ? SlabBlock::new
+                    : name.endsWith("_pillar") ? RotatedPillarBlock::new
+                    : name.equals("chiseled_redstone") ? net.minecraft.world.level.block.PoweredBlock::new
+                    : Block::new;
+            add(name, agedBase(metal[1]), factory);
+        }
+    }
+
     /** The block an aged brick copies: Vanilla's, or (with a namespace) one of ours, which is not in the registry yet while this class loads. */
     public static Block agedBase(String id) {
         return id.startsWith(SimpleBlocks.MOD_ID + ":") ? BLOCKS.get(id.substring(SimpleBlocks.MOD_ID.length() + 1))
@@ -243,6 +276,7 @@ public final class BlocksRegistry {
         com.simpleblocks.nature.NatureBlocks.registerBlocks();
         com.simpleblocks.snow.SnowBlocks.registerBlocks();
         com.simpleblocks.pale.PaleBlocks.registerBlocks();
+        com.simpleblocks.metal.MetalBlocks.registerBlocks();   // PAL35b: copper tiles/pillar stages (after their base above)
         com.simpleblocks.compact.CompactBlocks.registerBlocks();
         com.simpleblocks.saw.Sawing.registerBlock();
     }
@@ -263,12 +297,14 @@ public final class BlocksRegistry {
     public static void registerItems() {
         BLOCKS.forEach((name, block) -> {
             ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleBlocks.id(name));
-            Item item = new BlockItem(block, new Item.Properties().setId(key).useBlockDescriptionPrefix());
+            Item.Properties properties = new Item.Properties().setId(key).useBlockDescriptionPrefix();
+            Item item = new BlockItem(block, FIRE_RESISTANT.contains(name) ? properties.fireResistant() : properties);
             ITEMS.put(name, Registry.register(BuiltInRegistries.ITEM, key, item));
         });
         com.simpleblocks.nature.NatureBlocks.registerItems();
         com.simpleblocks.snow.SnowBlocks.registerItems();
         com.simpleblocks.pale.PaleBlocks.registerItems();
+        com.simpleblocks.metal.MetalBlocks.registerItems();
         com.simpleblocks.compact.CompactBlocks.registerItems();
         com.simpleblocks.saw.Sawing.registerItem();
         com.simpleblocks.guide.BlocksGuide.register();
@@ -309,7 +345,11 @@ public final class BlocksRegistry {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleBlocks.on()) return out;
         out.add(new ItemStack(com.simpleblocks.saw.Sawing.SAW_ITEM));
-        ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
+        ITEMS.forEach((name, item) -> {
+            out.add(new ItemStack(item));
+            // PAL35b: each copper form's aged and waxed stages right behind its base (like Vanilla's copper rows)
+            out.addAll(com.simpleblocks.metal.MetalBlocks.tabStacks(name));
+        });
         com.simpleblocks.nature.NatureBlocks.ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
         if (com.simpleblocks.snow.SnowBlocks.FROST_GRASS_ITEM != null) out.add(new ItemStack(com.simpleblocks.snow.SnowBlocks.FROST_GRASS_ITEM));
         out.addAll(com.simpleblocks.pale.PaleBlocks.tabStacks()); // DW04B: the pale stages and their waxed copies

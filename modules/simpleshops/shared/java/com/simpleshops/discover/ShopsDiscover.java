@@ -63,6 +63,7 @@ public final class ShopsDiscover {
             "simpleshops:sales_storage",
             "simpleshops:server_shop",
             "simpleshops:shop_compat",
+            "simpleshops:shop_music",
             "simpleshops:shop_protection",
             "simpleshops:trade_terminal");
     static final List<Tip> TIPS = List.of();

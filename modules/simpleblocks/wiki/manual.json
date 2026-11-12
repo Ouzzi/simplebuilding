@@ -683,6 +683,74 @@
       }
     },
     {
+      "id": "metal_row",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/AgingChain.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/copper_tiles.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_diamond_from_diamond_block_stonecutting.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/MetalTests.java"
+      ],
+      "related": [
+        "simpleblocks:copper_tiles",
+        "simpleblocks:copper_pillar",
+        "simpleblocks:cut_gold",
+        "simpleblocks:cut_gold_stairs",
+        "simpleblocks:cut_gold_slab",
+        "simpleblocks:gold_tiles",
+        "simpleblocks:gold_pillar",
+        "simpleblocks:chiseled_gold",
+        "simpleblocks:cut_iron",
+        "simpleblocks:cut_iron_stairs",
+        "simpleblocks:cut_iron_slab",
+        "simpleblocks:iron_tiles",
+        "simpleblocks:iron_pillar",
+        "simpleblocks:chiseled_iron",
+        "simpleblocks:chiseled_diamond",
+        "simpleblocks:chiseled_emerald",
+        "simpleblocks:chiseled_lapis",
+        "simpleblocks:chiseled_redstone",
+        "simpleblocks:chiseled_coal",
+        "simpleblocks:chiseled_netherite",
+        "simpleblocks:exposed_copper_tiles",
+        "simpleblocks:weathered_copper_tiles",
+        "simpleblocks:oxidized_copper_tiles",
+        "simpleblocks:waxed_copper_tiles",
+        "simpleblocks:waxed_exposed_copper_tiles",
+        "simpleblocks:waxed_weathered_copper_tiles",
+        "simpleblocks:waxed_oxidized_copper_tiles",
+        "simpleblocks:exposed_copper_pillar",
+        "simpleblocks:weathered_copper_pillar",
+        "simpleblocks:oxidized_copper_pillar",
+        "simpleblocks:waxed_copper_pillar",
+        "simpleblocks:waxed_exposed_copper_pillar",
+        "simpleblocks:waxed_weathered_copper_pillar",
+        "simpleblocks:waxed_oxidized_copper_pillar"
+      ],
+      "en": {
+        "title": "Copper, gold, iron and the chiseled ore blocks",
+        "summary": "The metal row of the Vanilla metals (PAL35b): copper tiles and pillar that weather and can be waxed like Vanilla copper, the building family of gold and iron like the Simple Ores metals, and a chiseled block of diamond, emerald, lapis, redstone, coal and netherite.",
+        "details": [
+          "Copper tiles (4 cut copper -> 4) and copper pillar (2 copper blocks upright -> 2), also at the stonecutter. Both weather in the three Vanilla stages (exposed, weathered, oxidized) like copper next to them; a honeycomb waxes every stage (also oxidized), an axe scrapes the wax or one stage off, a dispenser waxes too. Each stage and waxed stage is also crafted from the Vanilla copper of that stage. Stone pickaxe.",
+          "Gold and iron: cut block (4 blocks -> 4), cut stairs and slab, tiles (4 cut -> 4), pillar (2 blocks upright -> 2), chiseled block (2 cut slabs upright -> 1); the stonecutter cuts all of them from the block. Tool tier like the block (gold iron, iron stone). Simple Octets adds the cut octet.",
+          "Chiseled diamond, emerald, lapis lazuli, redstone, coal and netherite: cut 1:1 from the storage block at the stonecutter (no way back, like Vanilla chiseled blocks). Chiseled redstone powers like the redstone block, chiseled netherite survives fire. No beacon base, no fuel: decoration only.",
+          "Every chiseled block has its own mirror-symmetric motif: crown (gold), anvil (iron), beacon (diamond), villager (emerald), open book (lapis), redstone torch, minecart (coal), crossed swords (netherite)."
+        ]
+      },
+      "de": {
+        "title": "Kupfer, Gold, Eisen und die gemeißelten Erzblöcke",
+        "summary": "Die Metall-Reihe der Vanilla-Metalle (PAL35b): Kupferfliesen und Kupfersäule, die wie Vanilla-Kupfer altern und gewachst werden, die Baufamilie von Gold und Eisen wie bei den Simple-Ores-Metallen und ein gemeißelter Block aus Diamant, Smaragd, Lapislazuli, Redstone, Kohle und Netherit.",
+        "details": [
+          "Kupferfliesen (4 geschnittenes Kupfer -> 4) und Kupfersäule (2 Kupferblöcke senkrecht -> 2), auch in der Steinsäge. Beide altern in den drei Vanilla-Stufen (angelaufen, verwittert, oxidiert) wie Kupfer daneben; eine Honigwabe wachst jede Stufe (auch oxidiert), eine Axt kratzt Wachs oder eine Stufe ab, ein Werfer wachst ebenfalls. Jede Stufe und gewachste Stufe entsteht auch aus dem Vanilla-Kupfer dieser Stufe. Steinspitzhacke.",
+          "Gold und Eisen: geschnittener Block (4 Blöcke -> 4), geschnittene Treppe und Stufe, Fliesen (4 geschnittene -> 4), Säule (2 Blöcke senkrecht -> 2), gemeißelter Block (2 geschnittene Stufen senkrecht -> 1); die Steinsäge schneidet alle aus dem Block. Werkzeugstufe wie der Block (Gold Eisen, Eisen Stein). Simple Octets ergänzt das geschnittene Octet.",
+          "Gemeißelter Diamant, Smaragd, Lapislazuli, Redstone, Kohle und Netherit: 1:1 in der Steinsäge aus dem Speicherblock (ohne Rückweg, wie Vanilla-Meißelblöcke). Gemeißelter Redstone gibt Strom wie der Redstone-Block, gemeißeltes Netherit übersteht Feuer. Kein Leuchtfeuer-Sockel, kein Brennstoff: nur Dekoration.",
+          "Jeder gemeißelte Block hat ein eigenes spiegelgleiches Motiv: Krone (Gold), Amboss (Eisen), Leuchtfeuer (Diamant), Dorfbewohner (Smaragd), offenes Buch (Lapis), Redstone-Fackel, Lore (Kohle), gekreuzte Schwerter (Netherit)."
+        ]
+      }
+    },
+    {
       "id": "compact_blocks",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/compact/CompactBlocks.java",
@@ -800,10 +868,10 @@
         "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 27 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 31 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 27 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 31 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "*_slab": {

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_oxidized_copper_pillar",
+  "ingredients": [
+    "simpleblocks:oxidized_copper_pillar",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "id": "simpleblocks:waxed_oxidized_copper_pillar"
+  }
+}

@@ -73,6 +73,18 @@
     "simpleores:bronze_tiles",
     "simpleores:bronze_pillar",
     "simpleores:chiseled_bronze",
+    "simpleores:cut_rose_bronze",
+    "simpleores:cut_rose_bronze_stairs",
+    "simpleores:cut_rose_bronze_slab",
+    "simpleores:rose_bronze_tiles",
+    "simpleores:rose_bronze_pillar",
+    "simpleores:chiseled_rose_bronze",
+    "simpleores:cut_rose_gold",
+    "simpleores:cut_rose_gold_stairs",
+    "simpleores:cut_rose_gold_slab",
+    "simpleores:rose_gold_tiles",
+    "simpleores:rose_gold_pillar",
+    "simpleores:chiseled_rose_gold",
     "simpleores:sage_ore",
     "simpleores:deepslate_sage_ore"
   ]

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:cut_rose_bronze",
+  "result": {
+    "count": 1,
+    "id": "simpleores:rose_bronze_tiles"
+  }
+}

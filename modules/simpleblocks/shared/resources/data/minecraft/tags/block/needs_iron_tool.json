@@ -1,0 +1,12 @@
+{
+  "values": [
+    "simpleblocks:cut_gold",
+    "simpleblocks:cut_gold_stairs",
+    "simpleblocks:cut_gold_slab",
+    "simpleblocks:gold_tiles",
+    "simpleblocks:gold_pillar",
+    "simpleblocks:chiseled_gold",
+    "simpleblocks:chiseled_diamond",
+    "simpleblocks:chiseled_emerald"
+  ]
+}

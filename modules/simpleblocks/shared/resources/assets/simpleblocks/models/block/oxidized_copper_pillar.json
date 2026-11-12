@@ -1,0 +1,7 @@
+{
+  "parent": "simpleblocks:block/copper_pillar",
+  "textures": {
+    "end": "simpleblocks:block/oxidized_copper_pillar_top",
+    "side": "simpleblocks:block/oxidized_copper_pillar"
+  }
+}

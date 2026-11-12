@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "simpleblocks:block/cut_iron",
+    "side": "simpleblocks:block/cut_iron",
+    "top": "simpleblocks:block/cut_iron"
+  }
+}

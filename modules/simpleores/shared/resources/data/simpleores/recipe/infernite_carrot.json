@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:golden_carrot",
+    "#": "simpleores:infernite_ingot"
+  },
+  "pattern": [
+    "CCC",
+    "C#C",
+    "CCC"
+  ],
+  "result": {
+    "id": "simpleores:infernite_carrot",
+    "count": 8
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:golden_apple",
+    "simpleores:infernite_ingot"
+  ],
+  "result": {
+    "id": "simpleores:infernite_apple"
+  }
+}

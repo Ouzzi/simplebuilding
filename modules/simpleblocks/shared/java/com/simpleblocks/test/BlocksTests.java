@@ -51,7 +51,7 @@ import net.minecraft.world.phys.Vec3;
 public final class BlocksTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
-    public static final int BLOCK_COUNT = 105;
+    public static final int BLOCK_COUNT = 125;   // PAL35b: + 20 of the metal row (BlocksRegistry.METALS)
     private static final Set<String> HUSHED = Set.of("hushed_deepslate_tiles", "hushed_deepslate_tile_stairs",
             "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall");
 
@@ -413,6 +413,7 @@ public final class BlocksTests {
         SnowTests.register(ALL, MAX_TICKS);
         PaleTests.register(ALL, MAX_TICKS); // DW04B pale blocks on SimpleLib's aging chains
         CompactTests.register(ALL, MAX_TICKS); // WH26-10 Compact and Dense blocks
+        MetalTests.register(ALL, MAX_TICKS); // PAL35b copper tiles/pillar, gold/iron families, chiseled ore blocks
     }
 
     private BlocksTests() {}

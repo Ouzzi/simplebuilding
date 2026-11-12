@@ -95,7 +95,7 @@ public final class AgingChain {
         return stages;
     }
 
-    /** The waxed copy of stage i (index = stage); empty when the chain has no wax. */
+    /** The waxed copy of stage i (index = stage; the end stage only with {@link Builder#waxEnd}); empty when the chain has no wax. */
     public List<Block> waxed() {
         return waxed;
     }
@@ -174,6 +174,7 @@ public final class AgingChain {
         private StageProperties properties = (stage, p) -> p;
         private UnaryOperator<Item.Properties> item = p -> p;
         private boolean wax = true;
+        private boolean waxEnd;
         private String waxedPrefix = "waxed_";
         private String hint;
 
@@ -234,6 +235,15 @@ public final class AgingChain {
             return this;
         }
 
+        /**
+         * The end stage gets a waxed copy too (PAL35b, like Vanilla's {@code waxed_oxidized_copper}): the honeycomb waxes every stage, the
+         * axe takes the wax off the end stage again. Without it the end stage cannot be waxed (it does not age anyway).
+         */
+        public Builder waxEnd() {
+            this.waxEnd = true;
+            return this;
+        }
+
         public Builder waxedPrefix(String prefix) {
             this.waxedPrefix = prefix;
             return this;
@@ -254,7 +264,7 @@ public final class AgingChain {
             }
             List<Block> waxed = new ArrayList<>();
             if (wax) {
-                for (int i = 0; i < names.size(); i++) {
+                for (int i = 0; i < names.size() + (waxEnd ? 1 : 0); i++) {
                     String stagePath = i == 0 ? baseName() : names.get(i - 1);
                     Identifier key = Identifier.fromNamespaceAndPath(id.getNamespace(), waxedPrefix + stagePath);
                     Block block = make.apply(properties.apply(i, copy(key)));
@@ -265,8 +275,9 @@ public final class AgingChain {
             return new AgingChain(this, stages, waxed, created);
         }
 
+        /** Path of the base block; an own base that is not registered yet (registered with the chain's mod) takes the chain id's path. */
         private String baseName() {
-            return BuiltInRegistries.BLOCK.getKey(base).getPath();
+            return BuiltInRegistries.BLOCK.getResourceKey(base).map(k -> k.identifier().getPath()).orElse(id.getPath());
         }
 
         private BlockBehaviour.Properties copy(Identifier key) {

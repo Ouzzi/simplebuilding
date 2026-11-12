@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleores:rose_gold_block",
+  "result": {
+    "count": 4,
+    "id": "simpleores:cut_rose_gold_stairs"
+  }
+}

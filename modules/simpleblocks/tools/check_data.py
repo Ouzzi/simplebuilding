@@ -17,7 +17,7 @@ registry = set(re.findall(r'add\("([a-z_]+)"', java))
 registry |= {m for m in re.findall(r'"([a-z_]+_(?:stairs|slab|wall))"', java.split('SHAPES = List.of(')[1].split(');')[0])}
 registry |= {m for m in re.findall(r'new String\[\]\{"([a-z_]+)", "[a-z_:]+"\}', java)}
 assert registry == set(g.BLOCKS), (sorted(registry ^ set(g.BLOCKS)))
-assert len(g.BLOCKS) == 117, len(g.BLOCKS)  # 38 + 42 of palette stage 2 (a-palette05) + smooth stone wall + 5 chiseled (a-pal09) + 19 PAL14 + 12 ice bricks (a-icebricks38)
+assert len(g.BLOCKS) == 137, len(g.BLOCKS)  # 38 + 42 of palette stage 2 (a-palette05) + smooth stone wall + 5 chiseled (a-pal09) + 19 PAL14 + 12 ice bricks (a-icebricks38) + 20 metal row (PAL35b)
 
 assert subprocess.run([sys.executable, str(MODULE / 'tools/generate_data.py'), '--check']).returncode == 0
 
@@ -114,4 +114,29 @@ assert set(compact_tex.SPRITES) == {b[0] for b in g.COMPACT_BASES}, 'compact tex
 for name in g.COMPACT:
     assert not (tex / f'{name}.png').exists(), f'{name}.png must not be committed (Vanilla-derived)'
     assert (RES / f'data/{NS}/recipe/{name}.json').exists() and (RES / f'data/{NS}/loot_table/blocks/{name}.json').exists(), name
-print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + 2 cracked hard ices + 30 pale blocks + 57 compressed/dense/collapsed blocks + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')
+# PAL35b metal row: MetalBlocks' copper chains equal the generator's, waxed end stage, names, wiki, own textures with layers (not derived),
+# the carved gem blocks Vanilla-derived (never committed), tool tiers.
+metal_java = (MODULE / 'shared/java/com/simpleblocks/metal/MetalBlocks.java').read_text(encoding='utf-8')
+assert re.findall(r'chain\("([a-z_]+)"\)', metal_java) == [c.base_path for c in g.COPPER_CHAINS], 'MetalBlocks chains vs generate_data.COPPER_CHAINS'
+assert 'List.of("exposed", "weathered", "oxidized")' in metal_java and g.COPPER_WORDS == ['exposed', 'weathered', 'oxidized'] and '.waxEnd()' in metal_java
+assert len(g.metal_chain_blocks()) == 14 and all(c.wax_end for c in g.COPPER_CHAINS), g.metal_chain_blocks()
+for locale, data in langs.items():
+    for name in g.metal_chain_blocks():
+        assert data.get(f'block.{NS}.{name}') and data.get(f'item.{NS}.{name}'), (locale, name)
+assert related >= {f'{NS}:{n}' for n in g.metal_chain_blocks()}, 'wiki: every copper stage is documented'
+import pal35b_2026_11_12 as pal35b  # noqa: E402
+own = [p for p in pal35b.outputs() if p.parent == tex]
+assert len(own) == 22, len(own)
+for png in own:
+    assert png.exists() and png.with_suffix('.layers.json').exists() and f'block/{png.name}' not in vanilla_derived.MODULE_OUTPUTS[NS], png.name
+for c in g.COPPER_CHAINS:
+    for word in g.COPPER_WORDS:
+        for sprite in c.textures.values():
+            assert (tex / f'{word}_{sprite}.png').exists(), f'{word}_{sprite}'
+for name in pal35b.GEMS:
+    assert f'block/{name}.png' in vanilla_derived.MODULE_OUTPUTS[NS] and not (tex / f'{name}.png').exists(), f'{name} is Vanilla-derived'
+mc_tags = RES / 'data/minecraft/tags/block'
+tier = {t: json.loads((mc_tags / f'{t}.json').read_text(encoding='utf-8'))['values'] for t in ('needs_stone_tool', 'needs_iron_tool', 'needs_diamond_tool')}
+assert f'{NS}:cut_gold' in tier['needs_iron_tool'] and f'{NS}:cut_iron' in tier['needs_stone_tool'] and f'{NS}:chiseled_netherite' in tier['needs_diamond_tool']
+assert all(f'{NS}:{n}' in tier['needs_stone_tool'] for n in ['copper_tiles', 'copper_pillar'] + g.metal_chain_blocks())
+print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + 2 cracked hard ices + 30 pale blocks + 57 compressed/dense/collapsed blocks + 20+14 metal row (PAL35b) + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')
