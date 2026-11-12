@@ -148,10 +148,13 @@ public final class OctetRegistry {
                 return block(name, template, s -> new MaterialOctetBlock(source, piece(name), properties(s, template)));
             }
             // SimpleBuilding's palettes (Astralit, Nihilith, Ender Quartz): End stone like the astral/nihil End stone they
-            // are made of; Astralit glows like it (light 10), Ender Quartz is purple.
-            int light = material.base().contains("astralit") ? 10 : 0;
-            MapColor color = material.base().contains("ender_quartz") ? MapColor.COLOR_PURPLE : Blocks.END_STONE.defaultMapColor();
-            return block(name, Blocks.END_STONE, s -> new MaterialOctetBlock(source, piece(name),
+            // are made of, the three purpur blocks Purpur like theirs (PLAN40 simpleoctets-2: they sounded like End stone); every
+            // astral block glows like it (light 10: Astralit and the astral End stone and purpur), the Ender ones are purple.
+            String base = material.base();
+            Block palette = base.endsWith("_purpur_block") ? Blocks.PURPUR_BLOCK : Blocks.END_STONE;
+            int light = base.contains("astralit") || base.startsWith("astral_") ? 10 : 0;
+            MapColor color = base.contains("ender_quartz") || base.startsWith("ender_") ? MapColor.COLOR_PURPLE : palette.defaultMapColor();
+            return block(name, palette, s -> new MaterialOctetBlock(source, piece(name),
                     properties(s.mapColor(color).lightLevel(state -> light))));
         }
         Block source = BuiltInRegistries.BLOCK.getOptional(sourceId).orElse(null);

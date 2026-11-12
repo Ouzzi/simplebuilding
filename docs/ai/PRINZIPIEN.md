@@ -27,7 +27,7 @@ Alle Baublöcke gehören zur SimpleBuilding-Familie, nie in fachfremde Mods. **S
 ### A4 Octet-Regel (O1, 17.10.)
 Jeder Block, der Treppen- oder Stufen-Varianten (stairs/slab) hat, bekommt auch einen Octet-Block (Achtelblock) – Vanilla-Blöcke, SimpleBuilding-Blöcke und alle Blöcke,
 denen Simple Blocks Treppe/Stufe gibt. Das Octet liefert `simpleoctets` (bei Fremdblöcken als optionale Integration, nur wenn der Besitzer-Mod geladen ist; jeder Mod bleibt allein spielbar).
-**Ausnahme (Besitzer 17.10.):** Naturstufen (Erde, Gras, Sand, Kies) bekommen keine Octets. Neue Treppen/Stufen in irgendeinem Modul ohne Octet-Eintrag sind ein Fehler (Abdeckungstest). Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md`.
+**Ausnahme (Besitzer 17.10.):** Naturstufen (Erde, Gras, Sand, Kies; Roter Sand zählt als Sand, PLAN40) bekommen keine Octets. Neue Treppen/Stufen/Mauern in irgendeinem Modul ohne Octet-Eintrag sind ein Fehler (Abdeckungstest `stairs_and_slabs_have_octets`, Ausnahmen seit 12.11. als exakte Ids, Formen nach Klasse und Id-Endung). Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md`.
 
 ### A4b Formsäge (Besitzer 17.10.)
 Alles, was Treppen-, Stufen- oder Octet-Varianten hat (Stein, Holz und Blöcke, die die Vanilla-Steinsäge nicht kann), lässt sich in der fortgeschrittenen Säge schneiden („Formsäge“, EN „Shapecutter“ seit 21.10., `simpleblocks:shapecutter`, Simple Blocks; Bildschirm = Vanilla-Steinsäge). Neue Formen müssen dort auftauchen.
@@ -340,7 +340,7 @@ Statistiken je Werkzeug/Waffe/Rüstung mit eigenem Statistik-Bildschirm.
 Fehlende Baublöcke: Hushed Deepslate Tiles, Sculk-Tiefenschiefer, fehlende Vanilla-Treppen/-Stufen/-Mauern, rissige/bemooste Ziegel; allein mit Vanilla spielbar.
 
 - **B1 (17.10.):** Simple Blocks enthält alle Baublöcke der Familie, die keinen anderen fachlichen Ort haben (Deko-/Bauvarianten ohne Themen-Sub-Mod). Lager, Maschinen und Werkzeuge bleiben, wo sie sind. Bestand und Verschiebe-Liste: `docs/ai/INVENTAR-BAUBLOECKE-2026-10-17.md`.
-- Gibt Simple Blocks einem Block Treppe oder Stufe, gilt Regel O1: der Block bekommt ein Achtel (Eintrag im Octet-Generator von `simpleoctets`; Simple Blocks kennt Simple Octets nicht).
+- Gibt Simple Blocks einem Block Treppe oder Stufe, gilt Regel O1: der Block bekommt ein Achtel (Eintrag im Octet-Generator von `simpleoctets`; Simple Blocks kennt Simple Octets nicht). Ausgenommen sind nur die Naturstufen Erde, Gras, Sand, Roter Sand und Kies (Besitzer 17.10.).
 - Genau **ein** Kreativtab „Simple Blocks“ für alle Baublöcke der Familie (Plan im Baublock-Inventar, Abschnitt „Plan: ein Kreativtab“); Standalone-SimpleBuilding behält seinen eigenen Tab.
 - Nur öffentliche Registry-Ids und Tags nach außen; verschobene Blöcke mit IdMoves/Alias, Registrierung nie vom Laden anderer Mods abhängig.
 
@@ -349,7 +349,7 @@ Achtelblöcke (kleine 1/8-Blöcke), gemischte Zellen, Melonen-Achtel, Ecken-Abba
 
 - **O1 (17.10.):** Jeder Block, der Treppen- oder Stufen-Varianten (stairs/slab) hat, bekommt auch einen Octet-Block (Achtelblock). Gilt für Vanilla-Blöcke, SimpleBuilding-Blöcke und alle Blöcke, denen Simple Blocks Treppe/Stufe gibt. Fremdblöcke nur bedingt bei geladenem Besitzer-Mod (`SimpleOctets.isLoaded`).
 - Quelle der Wahrheit ist die Generator-Liste (`tools/textures/octets_2026_10_09.py`, `octet_materials.json`, `OctetMaterials`); der Abdeckungstest `stairs_and_slabs_have_octets` meldet fehlende Familien automatisch (die 23 Lücken aus `docs/ai/INVENTAR-OCTETS-2026-10-17.md` sind geschlossen).
-- Bretter gehören dazu (frühere Ausnahme „ohne Bretter“ entfällt). Die Regel gilt einseitig: Octets ohne Treppe-Familie (Obsidian, Metallblöcke, Stämme, Terrakotta) bleiben.
+- Bretter gehören dazu (frühere Ausnahme „ohne Bretter“ entfällt). Die Regel gilt einseitig: Octets ohne Treppe-Familie (Obsidian, Metallblöcke, Stämme, Terrakotta) bleiben. Ein Achtel behält die Regeln seines Blocks (Vibrationsdämpfung von Wolle/gedämpften Fliesen, Bleidämmung, Licht, Feuerfestigkeit, Klang).
 - Schach-Achtel bleiben in SimpleBuilding (F3); die Zellen-Basisklasse gehört dem Modul.
 - **A12 (PLAN40 simpleoctets-4, 12.11.):** Nutzen: feinere Details beim Bauen (halbe Kanten, Simse, Schrägen), ohne Vanilla-Blöcke zu ändern; Achtel entstehen nur aus ihrem Vollblock (1 Block = 8 Achtel, verlustfrei). Eingriffe in Vanilla und ihre Schalter (`config/simpleoctets-server.json`, `/simpleoctets config`, Standard an): (1) Melonenscheibe schleichend auf einen Block setzt ein Melonen-Achtel statt zu essen (`features.melonSlicePlacing`); (2) Ecken-Abbau mit dem Vorschlaghammer hängt per Mixin am Abbau jedes Blocks (`features.cornerBreaking`, aus = Mixin kehrt sofort zurück). Sonst keine Mixins außer Tooltip-Hinweis und Feuer-Accessor. Eingriff: gering bis mittel, beide abschaltbar.
 - **Fremd-Mod entfernen:** Achtel aus Blöcken einer anderen Mod gibt es nur, solange sie geladen ist; wird sie entfernt, verschwinden ihre gesetzten Zellen und Items wie ihre übrigen Blöcke, eine gemischte Zelle verliert nur die Achtel des fehlenden Materials (Test `mixed_cell_keeps_readable_materials`). Steht im Wiki (Abschnitt „Achtel aus Blöcken anderer Mods“).

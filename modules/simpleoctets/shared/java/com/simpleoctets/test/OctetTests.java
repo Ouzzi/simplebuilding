@@ -71,6 +71,7 @@ public final class OctetTests {
         ALL.put("mixed_cell_persists_and_drops_every_material", OctetTests::mixedCellPersistsAndDropsEveryMaterial);
         ALL.put("melon_slice_places_melon_octets", OctetTests::melonSlicePlacesMelonOctets);
         ALL.put("vanilla_input_switches", OctetTests::vanillaInputSwitches);
+        ALL.put("octets_keep_their_blocks_rules", OctetTests::octetsKeepTheirBlocksRules);
         ALL.put("wood_and_wool_octets_burn", OctetTests::woodAndWoolOctetsBurn);
         ALL.put("log_octets_mine_with_the_axe", OctetTests::logOctetsMineWithTheAxe);
         ALL.put("discover_recipe_unlocks", com.simpleoctets.discover.OctetsDiscover::recipeUnlocks);
@@ -114,28 +115,48 @@ public final class OctetTests {
         h.succeed();
     }
 
-    /** Octet rule (docs/ai/PRINZIPIEN.md O1): reasoned exceptions of the coverage test, by stair/slab path (substring). */
+    /**
+     * Octet rule (docs/ai/PRINZIPIEN.md A4/O1): reasoned exceptions of the coverage test as exact block ids (PLAN40 simpleoctets-2:
+     * a substring let any future id containing "sand_slab" or "checker" slip through unseen).
+     */
     static final Map<String, String> NO_OCTET = Map.of(
-            "dirt_slab", "natural slab (owner 17.10.: no octets for earth, grass, sand, gravel)",
-            "grass_slab", "natural slab (owner 17.10.)",
-            "sand_slab", "natural slab (owner 17.10.)",
-            "gravel_slab", "natural slab (owner 17.10.)",
-            "petrified_oak_slab", "no full block: it looks like oak planks, whose octet (oak_octet) exists",
-            "checker", "chess checkers have the chess octet (checker_octet, SimpleBuilding)");
+            "simpleblocks:dirt_slab", "natural slab (owner 17.10.: no octets for earth, grass, sand, gravel)",
+            "simpleblocks:grass_slab", "natural slab (owner 17.10.)",
+            "simpleblocks:sand_slab", "natural slab (owner 17.10.)",
+            "simpleblocks:red_sand_slab", "natural slab: red sand is sand (owner 17.10., PLAN40 simpleblocks-3)",
+            "simpleblocks:gravel_slab", "natural slab (owner 17.10.)",
+            "minecraft:petrified_oak_slab", "no full block: it looks like oak planks, whose octet (oak_octet) exists");
+
+    /** SimpleBuilding's chess checker shapes ({@code <x>_checker_stairs/_slab} of a {@code simplebuilding:<x>_checker}) have the chess octet. */
+    static boolean chessChecker(Identifier id, String stem) {
+        return "simplebuilding".equals(id.getNamespace()) && stem.endsWith("_checker")
+                && BuiltInRegistries.BLOCK.containsKey(Identifier.fromNamespaceAndPath(id.getNamespace(), stem));
+    }
 
     /**
-     * Every registered stair and slab (any mod) has an octet of its full block or a reasoned exception: a future block
-     * family with stairs fails here until it gets an entry in the octet generator (tools/textures/octets_2026_10_09.py).
+     * Every registered stair, slab and wall (any mod) has an octet of its full block or a reasoned exception: a future block
+     * family fails here until it gets an entry in the octet generator (tools/textures/octets_2026_10_09.py). A shape counts by its
+     * class (StairBlock/SlabBlock/WallBlock) or by its id ending ({@code _stairs/_slab/_wall}, own shape classes); a shape class
+     * whose id lacks the ending is reported, so nothing slips past unchecked.
      */
     static void stairsAndSlabsHaveOctets(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
         int checked = 0;
         for (Block block : BuiltInRegistries.BLOCK) {
-            boolean stairs = block instanceof net.minecraft.world.level.block.StairBlock;
-            if (!stairs && !(block instanceof net.minecraft.world.level.block.SlabBlock)) continue;
             Identifier id = BuiltInRegistries.BLOCK.getKey(block);
-            if (NO_OCTET.keySet().stream().anyMatch(id.getPath()::contains)) continue;
-            String stem = id.getPath().substring(0, id.getPath().length() - (stairs ? 7 : 5));
+            String path = id.getPath();
+            boolean stairsClass = block instanceof net.minecraft.world.level.block.StairBlock;
+            boolean slabClass = block instanceof net.minecraft.world.level.block.SlabBlock;
+            boolean wallClass = block instanceof net.minecraft.world.level.block.WallBlock;
+            String suffix = path.endsWith("_stairs") ? "_stairs" : path.endsWith("_slab") ? "_slab" : path.endsWith("_wall") ? "_wall" : null;
+            if (suffix == null) {
+                if (stairsClass || slabClass || wallClass) problems.add(id + " (shape class without _stairs/_slab/_wall)");
+                continue;
+            }
+            if (path.equals(suffix.substring(1))) continue;
+            if (NO_OCTET.containsKey(id.toString())) continue;
+            String stem = path.substring(0, path.length() - suffix.length());
+            if (chessChecker(id, stem)) continue;
             List<String> bases = List.of(stem, stem + "_planks", stem + "_block", stem + "s");
             checked++;
             boolean found = false;
@@ -152,8 +173,8 @@ public final class OctetTests {
             }
             if (!found) problems.add(id.toString());
         }
-        h.assertTrue(checked > 100, "only " + checked + " stairs/slabs checked");
-        h.assertTrue(problems.isEmpty(), "stairs/slabs without an octet or a reasoned exception: " + problems);
+        h.assertTrue(checked > 150, "only " + checked + " stairs/slabs/walls checked");
+        h.assertTrue(problems.isEmpty(), "stairs/slabs/walls without an octet or a reasoned exception: " + problems);
         for (String path : List.of("polished_end_stone", "cut_sandstone", "cut_red_sandstone", "smooth_stone")) {
             h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleOctets.id(path + "_octet")), "octet of " + path);
         }
@@ -726,6 +747,38 @@ public final class OctetTests {
             com.simpleoctets.OctetsConfig.melonSlicePlacing = melon;
             com.simpleoctets.OctetsConfig.cornerBreaking = corner;
         }
+        h.succeed();
+    }
+
+    /**
+     * PLAN40 simpleoctets-2: an octet keeps what its block does. Wool octets and the Hushed Deepslate Tiles octet swallow
+     * vibrations (Vanilla tags dampens_vibrations + occludes_vibration_signals) like wool; SimpleBuilding's purpur blocks give
+     * Purpur octets (their sound, not End stone's), and every astral block glows (light 10) like its block.
+     */
+    static void octetsKeepTheirBlocksRules(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        List<String> dampening = new ArrayList<>(List.of("white_wool_octet", "black_wool_octet", "lime_wool_octet"));
+        if (SimpleOctets.isLoaded("simpleblocks")) dampening.add("hushed_deepslate_tiles_octet");
+        for (String path : dampening) {
+            BlockState state = BuiltInRegistries.BLOCK.getValue(SimpleOctets.id(path)).defaultBlockState();
+            if (!state.is(net.minecraft.tags.BlockTags.DAMPENS_VIBRATIONS)) problems.add(path + " does not dampen vibrations");
+            if (!state.is(net.minecraft.tags.BlockTags.OCCLUDES_VIBRATION_SIGNALS)) problems.add(path + " does not occlude vibrations");
+        }
+        if (cell(Blocks.STONE).defaultBlockState().is(net.minecraft.tags.BlockTags.DAMPENS_VIBRATIONS)) problems.add("stone octet dampens vibrations");
+        if (SimpleOctets.isLoaded("simplebuilding")) {
+            for (String purpur : List.of("astral_purpur_block_octet", "nihil_purpur_block_octet", "ender_purpur_block_octet")) {
+                Block octet = BuiltInRegistries.BLOCK.getValue(SimpleOctets.id(purpur));
+                if (octet.defaultBlockState().getSoundType() != Blocks.PURPUR_BLOCK.defaultBlockState().getSoundType()) problems.add(purpur + " does not sound like purpur");
+            }
+            for (String astral : List.of("astral_purpur_block", "astral_end_stone", "astralit_block")) {
+                Block block = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("simplebuilding", astral));
+                Block octet = BuiltInRegistries.BLOCK.getValue(SimpleOctets.id(astral + "_octet"));
+                if (octet.defaultBlockState().getLightEmission() != block.defaultBlockState().getLightEmission()) {
+                    problems.add(astral + " octet light " + octet.defaultBlockState().getLightEmission() + " != block " + block.defaultBlockState().getLightEmission());
+                }
+            }
+        }
+        h.assertTrue(problems.isEmpty(), "octet rules: " + problems);
         h.succeed();
     }
 

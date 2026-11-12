@@ -1,0 +1,24 @@
+{
+  "values": [
+    "simpleoctets:white_wool_octet",
+    "simpleoctets:light_gray_wool_octet",
+    "simpleoctets:gray_wool_octet",
+    "simpleoctets:black_wool_octet",
+    "simpleoctets:brown_wool_octet",
+    "simpleoctets:red_wool_octet",
+    "simpleoctets:orange_wool_octet",
+    "simpleoctets:yellow_wool_octet",
+    "simpleoctets:lime_wool_octet",
+    "simpleoctets:green_wool_octet",
+    "simpleoctets:cyan_wool_octet",
+    "simpleoctets:light_blue_wool_octet",
+    "simpleoctets:blue_wool_octet",
+    "simpleoctets:purple_wool_octet",
+    "simpleoctets:magenta_wool_octet",
+    "simpleoctets:pink_wool_octet",
+    {
+      "id": "simpleoctets:hushed_deepslate_tiles_octet",
+      "required": false
+    }
+  ]
+}
