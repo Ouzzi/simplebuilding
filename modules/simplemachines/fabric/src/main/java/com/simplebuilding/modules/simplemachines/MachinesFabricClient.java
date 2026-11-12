@@ -6,7 +6,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
-/** Fabric client entry: the server's piston options (audit N16), the late hooks (nugget hand hint) once the client runs, hopper screens and cart renderers. */
+/** Fabric client entry: the server's piston options (audit N16), the late hooks (nugget hand hint) once the client runs, hopper screens and cart renderers, the window probe. */
 public final class MachinesFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
@@ -23,5 +23,7 @@ public final class MachinesFabricClient implements ClientModInitializer {
         net.minecraft.client.gui.screens.MenuScreens.register(com.simplemachines.crafter.Crafters.MENU, com.simplemachines.client.AutonomousCrafterScreen::new);
         com.simplemachines.hopper.Hoppers.CARTS.values().forEach(type -> net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(type,
                 c -> new net.minecraft.client.renderer.entity.MinecartRenderer(c, net.minecraft.client.model.geom.ModelLayers.HOPPER_MINECART)));
+        // PLAN40 simplemachines-3: real-mouse probe of the three windows, inert without simplemachines-machines-probe.json.
+        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simplemachines.client.MachinesProbe::tick);
     }
 }
