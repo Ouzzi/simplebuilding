@@ -48,6 +48,8 @@ public final class EnchantingRegistry {
     public static void registerBlocks() {
         DARK_ENCHANTER = enchanter(EnchanterStage.DARK);
         ASTRAL_ENCHANTER = enchanter(EnchanterStage.ASTRAL);
+        // PLAN40 simpleenchanting-1: the blazewood family is this module's own in every installation.
+        BlazewoodFamily.registerBlocks();
         if (SimpleEnchanting.simpleBuilding()) return;
         // Without SimpleBuilding: the building blocks the tables need (SimpleBuilding's own when it is installed, ids move along).
         OWN_BLOCKS.add(block("blazing_obsidian", Blocks.CRYING_OBSIDIAN, p -> new ObsidianFloorBlock(false, p.lightLevel(s -> 12))));
@@ -73,6 +75,7 @@ public final class EnchantingRegistry {
     public static void registerItems() {
         DARK_ENCHANTER_ITEM = item("dark_enchanter", p -> new BlockItem(DARK_ENCHANTER, p.fireResistant()));
         ASTRAL_ENCHANTER_ITEM = item("astral_enchanter", p -> new BlockItem(ASTRAL_ENCHANTER, p.fireResistant()));
+        BlazewoodFamily.registerItems();
         for (Block block : OWN_BLOCKS) {
             boolean chiseled = OWN_CHISELED.contains(block);
             item(BuiltInRegistries.BLOCK.getKey(block).getPath(), p -> new BlockItem(block, chiseled
@@ -96,7 +99,10 @@ public final class EnchantingRegistry {
                 .build());
     }
 
-    /** The two enchanters, the building blocks of this installation (SimpleBuilding's or the twins), then the guide; empty while switched off. */
+    /**
+     * The two enchanters, the building blocks of this installation (SimpleBuilding's or the twins) with the blazewood family after each
+     * planks, the partner items, then the guide; empty while switched off.
+     */
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleEnchanting.on()) return out;
@@ -104,6 +110,13 @@ public final class EnchantingRegistry {
         for (String path : SimpleEnchanting.BUILDING_BLOCKS) {
             Item item = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(SimpleEnchanting.buildingNamespace(), path));
             if (item != Items.AIR) out.add(new ItemStack(item));
+            // PLAN40 simpleenchanting-1: the blazewood family right after its planks.
+            if (path.endsWith("_blazewood_planks")) {
+                for (String shape : BlazewoodFamily.paths(path.substring(0, path.indexOf("_blazewood_planks")))) {
+                    Item member = BlazewoodFamily.items().get(shape);
+                    if (member != null) out.add(new ItemStack(member));
+                }
+            }
         }
         // DW04C-3: the books of the strong shelves (SimpleBuilding) and the End bookshelves (Simple End), by id, when installed.
         for (String id : SimpleEnchanting.PARTNER_ITEMS) {

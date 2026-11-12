@@ -35,16 +35,22 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Loader-neutral registration (split stage 6, docs/ai/PLAN-S6-OCTETS-2026-10-17.md): blocks, items, the mixed cell's block
  * entity, fire table, creative tab. Same ids and properties as SimpleBuilding had them ({@code simplebuilding:<x>_octet}
- * before). Octets of another mod's block (SimpleBuilding's palettes, Simple End's woods and logs) exist only while that
+ * before). Octets of another mod's block (SimpleBuilding's palettes, Simple End's woods and logs, Simple Enchanting's blazewoods) exist only while that
  * mod is loaded; their properties come from a fixed template and the source block is read late, so the load order of the
  * mods does not matter.
  */
 public final class OctetRegistry {
-    /** Woods with planks, stairs and slab (order = tab order); Ash-/Duskwood belong to Simple End. */
+    /**
+     * Woods with planks, stairs and slab (order = tab order); Ash-/Duskwood belong to Simple End, the blazewoods (PLAN40
+     * simpleenchanting-1) to Simple Enchanting.
+     */
     public static final List<String> WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak",
-            "mangrove", "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped", "ashwood", "duskwood");
+            "mangrove", "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped", "ashwood", "duskwood",
+            "crimson_blazewood", "warped_blazewood");
     public static final String SIMPLE_END = "simpleend";
+    public static final String SIMPLE_ENCHANTING = "simpleenchanting";
     private static final Set<String> END_WOODS = Set.of("ashwood", "duskwood");
+    private static final Set<String> BLAZEWOODS = Set.of("crimson_blazewood", "warped_blazewood");
     /** Vanilla template of another mod's block whose properties that mod copies (Simple Blocks, BlocksRegistry). */
     private static final Map<String, Block> TEMPLATES = Map.ofEntries(Map.entry("blue_nether_bricks", Blocks.RED_NETHER_BRICKS),
             Map.entry("hushed_deepslate_tiles", Blocks.DEEPSLATE_TILES),
@@ -72,9 +78,12 @@ public final class OctetRegistry {
     private static boolean blocks;
     private static boolean items;
 
-    /** Namespace of a wood's planks. */
+    /**
+     * Namespace of a wood's planks. The blazewood planks are SimpleBuilding's when it is installed: their
+     * {@code simpleenchanting:} id resolves there through Simple Enchanting's id moves (SimpleLib IdMoves).
+     */
     public static String woodNamespace(String wood) {
-        return END_WOODS.contains(wood) ? SIMPLE_END : "minecraft";
+        return END_WOODS.contains(wood) ? SIMPLE_END : BLAZEWOODS.contains(wood) ? SIMPLE_ENCHANTING : "minecraft";
     }
 
     /** The octet woods of this game (Simple End woods only with Simple End). */
@@ -88,6 +97,14 @@ public final class OctetRegistry {
         for (String wood : activeWoods()) {
             String name = wood + "_octet";
             Identifier planksId = Identifier.fromNamespaceAndPath(woodNamespace(wood), wood + "_planks");
+            if (BLAZEWOODS.contains(wood)) {
+                // Blazewood planks (Simple Enchanting, with SimpleBuilding its planks): Vanilla's crimson/warped planks as the
+                // template (Nether wood, does not burn), the source read late.
+                Block template = wood.startsWith("crimson") ? Blocks.CRIMSON_PLANKS : Blocks.WARPED_PLANKS;
+                WOOD_OCTETS.add(block(name, template, s -> new MaterialOctetBlock(() -> BuiltInRegistries.BLOCK.getValue(planksId),
+                        piece(name), properties(s, template))));
+                continue;
+            }
             if (!"minecraft".equals(planksId.getNamespace())) {
                 // Simple End planks: properties of oak planks (Simple End's own may not be registered yet), source read late.
                 MapColor color = "ashwood".equals(wood) ? MapColor.COLOR_LIGHT_GRAY : MapColor.TERRACOTTA_LIGHT_GRAY;

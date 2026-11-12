@@ -16,7 +16,8 @@ import org.slf4j.LoggerFactory;
  * Dark Enchanter (until 03.11. SimpleBuilding's Astral Enchanting Table, {@code simplebuilding:astral_enchanting_table}) and the
  * Astral Enchanter (new, End stage). Required sub-mod of SimpleBuilding, runs alone: SimpleBuilding owns the building blocks the
  * tables stand on and around (Blazing and Nihil Obsidian, blazewood planks and bookshelves); without SimpleBuilding this module
- * registers its own twins of them ({@link EnchantingRegistry#ownBuildingBlocks()}). The loader entry calls {@link #init} once.
+ * registers its own twins of them ({@link EnchantingRegistry#ownBuildingBlocks()}). The blazewood family (stairs to button,
+ * {@link BlazewoodFamily}) is this module's own in every installation. The loader entry calls {@link #init} once.
  */
 public final class SimpleEnchanting {
     public static final String MOD_ID = "simpleenchanting";
@@ -71,6 +72,8 @@ public final class SimpleEnchanting {
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         List<String> items = new java.util.ArrayList<>(List.of(MOD_ID + ":dark_enchanter", MOD_ID + ":astral_enchanter"));
         for (String path : BUILDING_BLOCKS) items.add(buildingNamespace() + ":" + path);
+        // PLAN40 simpleenchanting-1: the blazewood family (always this module's ids).
+        for (String path : BlazewoodFamily.paths()) items.add(MOD_ID + ":" + path);
         items.add(MOD_ID + ":guide_book");
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "enchanting", "simpleenchanting.testcentre.station", items);
     }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fence_gate_wall",
+  "textures": {
+    "texture": "simpleenchanting:block/warped_blazewood_planks"
+  }
+}

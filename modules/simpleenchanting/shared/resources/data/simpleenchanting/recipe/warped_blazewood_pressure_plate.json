@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_pressure_plate",
+  "key": {
+    "#": "#simpleenchanting:warped_blazewood_planks"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "simpleenchanting:warped_blazewood_pressure_plate"
+  }
+}

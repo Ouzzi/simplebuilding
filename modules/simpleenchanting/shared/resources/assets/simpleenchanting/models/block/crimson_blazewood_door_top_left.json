@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left",
+  "textures": {
+    "bottom": "simpleenchanting:block/crimson_blazewood_door_bottom",
+    "top": "simpleenchanting:block/crimson_blazewood_door_top"
+  }
+}

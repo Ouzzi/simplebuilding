@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "simpleenchanting:block/warped_blazewood_planks"
+  }
+}

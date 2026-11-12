@@ -113,7 +113,8 @@
       "sources": [
         "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java",
         "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
-        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ashwood_octet_from_ashwood_planks_stonecutting.json"
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ashwood_octet_from_ashwood_planks_stonecutting.json",
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/crimson_blazewood_octet_from_crimson_blazewood_planks_stonecutting.json"
       ],
       "en": {
         "title": "Octets of other mods' blocks",
@@ -121,6 +122,7 @@
         "details": [
           "(with SimpleBuilding) Octets of the Astralit, Nihilith and Ender Quartz palettes; its sneaking sledgehammer carves full blocks, stairs and slabs into these octets and drops the removed octet; its chess octets stay SimpleBuilding's and mix with these.",
           "(with Simple End) Ashwood and Duskwood octets (planks) and octets of their logs and stripped logs.",
+          "(with Simple Enchanting) Crimson and Warped Blazewood octets from the blazewood planks (with SimpleBuilding its planks); like the planks they do not burn.",
           "(with Simple Blocks) Octets of Blue Nether Bricks and Hushed Deepslate Tiles.",
           "Carving tools of other mods find the cells through SimpleLib's OctetCells; Simple Octets registers every cell there."
         ]
@@ -131,6 +133,7 @@
         "details": [
           "(mit SimpleBuilding) Achtel der Paletten Astralit, Nihilith und Enderquarz; sein schleichender Vorschlaghammer zerlegt Vollblöcke, Treppen und Stufen in diese Achtel und lässt das abgetragene Achtel fallen; seine Schach-Achtel bleiben bei SimpleBuilding und mischen sich mit diesen.",
           "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme.",
+          "(mit Simple Enchanting) Karmesin- und Wirr-Lohenholz-Achtel aus den Lohenholzbrettern (mit SimpleBuilding dessen Bretter); wie die Bretter brennen sie nicht.",
           "(mit Simple Blocks) Achtel aus Blauen Netherziegeln und Gedämpften Tiefenschieferfliesen.",
           "Schnitzwerkzeuge anderer Mods finden die Zellen über SimpleLibs OctetCells; Simple Octets meldet dort jede Zelle an."
         ]

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    "#simpleenchanting:crimson_blazewood_planks"
+  ],
+  "result": {
+    "id": "simpleenchanting:crimson_blazewood_button"
+  }
+}

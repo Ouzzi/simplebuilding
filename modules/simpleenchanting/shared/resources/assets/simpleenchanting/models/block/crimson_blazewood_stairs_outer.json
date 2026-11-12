@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "simpleenchanting:block/crimson_blazewood_planks",
+    "side": "simpleenchanting:block/crimson_blazewood_planks",
+    "top": "simpleenchanting:block/crimson_blazewood_planks"
+  }
+}

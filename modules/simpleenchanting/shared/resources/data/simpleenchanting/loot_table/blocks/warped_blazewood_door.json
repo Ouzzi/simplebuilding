@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "simpleenchanting:warped_blazewood_door",
+            "state": {
+              "half": "lower"
+            }
+          },
+          "name": "simpleenchanting:warped_blazewood_door"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simpleenchanting:blocks/warped_blazewood_door"
+}

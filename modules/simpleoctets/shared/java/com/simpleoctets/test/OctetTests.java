@@ -57,6 +57,7 @@ public final class OctetTests {
         ALL.put("sub_mod_switch", OctetTests::subModSwitch);
         ALL.put("migration_from_simplebuilding", OctetTests::migrationFromSimplebuilding);
         ALL.put("foreign_materials_only_with_their_mod", OctetTests::foreignMaterialsOnlyWithTheirMod);
+        ALL.put("blazewood_octets_only_with_simple_enchanting", OctetTests::blazewoodOctetsOnlyWithSimpleEnchanting);
         ALL.put("mixed_cell_keeps_readable_materials", OctetTests::mixedCellKeepsReadableMaterials);
         ALL.put("recipes_cut_and_craft_back", OctetTests::recipesCutAndCraftBack);
         ALL.put("cells_for_carving_tools", OctetTests::cellsForCarvingTools);
@@ -258,6 +259,41 @@ public final class OctetTests {
         }
         if (!SimpleOctets.isLoaded(SimpleOctets.SB_NAMESPACE)) com.mojang.logging.LogUtils.getLogger().info("[standalone] simplebuilding not loaded - its palettes have no octets");
         h.assertTrue(problems.isEmpty(), "foreign materials: " + problems);
+        h.succeed();
+    }
+
+    /**
+     * PLAN40 simpleenchanting-1: the Crimson/Warped Blazewood octets (cells, items, crafting back) exist exactly while Simple
+     * Enchanting is loaded; their source is the blazewood planks of the installation (SimpleBuilding's with it, the
+     * {@code simpleenchanting:} id resolves there), they do not burn, and 8 octets craft back into those planks.
+     */
+    static void blazewoodOctetsOnlyWithSimpleEnchanting(GameTestHelper h) {
+        boolean loaded = SimpleOctets.isLoaded(OctetRegistry.SIMPLE_ENCHANTING);
+        List<String> problems = new ArrayList<>();
+        var recipes = h.getLevel().getServer().getRecipeManager();
+        var fire = (com.simpleoctets.mixin.FireBlockAccessor) Blocks.FIRE;
+        for (String wood : List.of("crimson_blazewood", "warped_blazewood")) {
+            Identifier id = SimpleOctets.id(wood + "_octet");
+            if (BuiltInRegistries.BLOCK.containsKey(id) != loaded || BuiltInRegistries.ITEM.containsKey(id) != loaded) problems.add(id + " registered with Simple Enchanting loaded=" + loaded);
+            if (OctetRegistry.activeWoods().contains(wood) != loaded) problems.add(wood + " active");
+            var back = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleOctets.id(wood + "_planks_from_octets")));
+            if (back.isPresent() != loaded) problems.add("crafting back of " + wood + " present=" + back.isPresent());
+            if (!loaded) continue;
+            Block cell = BuiltInRegistries.BLOCK.getValue(id);
+            Block planks = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath(OctetRegistry.SIMPLE_ENCHANTING, wood + "_planks"));
+            if (planks == Blocks.AIR || !(cell instanceof MaterialOctetBlock octet) || octet.source() != planks) problems.add("source of " + id);
+            if (fire.simpleoctets$getIgniteOdds(cell.defaultBlockState()) > 0) problems.add(id + " burns (Nether wood)");
+            if (back.isPresent() && back.get().value() instanceof net.minecraft.world.item.crafting.CraftingRecipe recipe) {
+                List<ItemStack> eight = new ArrayList<>();
+                for (int i = 0; i < 8; i++) eight.add(new ItemStack(BuiltInRegistries.ITEM.getValue(id)));
+                eight.add(ItemStack.EMPTY);
+                var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, eight);
+                ItemStack out = recipe.matches(input, h.getLevel()) ? recipe.assemble(input) : ItemStack.EMPTY;
+                if (!out.is(planks.asItem())) problems.add("8 " + id + " craft " + out);
+            }
+        }
+        if (!loaded) com.mojang.logging.LogUtils.getLogger().info("[standalone] simpleenchanting not loaded - no blazewood octets");
+        h.assertTrue(problems.isEmpty(), "blazewood octets: " + problems);
         h.succeed();
     }
 

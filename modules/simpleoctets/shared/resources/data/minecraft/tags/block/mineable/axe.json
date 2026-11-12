@@ -21,6 +21,14 @@
       "id": "simpleoctets:duskwood_octet",
       "required": false
     },
+    {
+      "id": "simpleoctets:crimson_blazewood_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:warped_blazewood_octet",
+      "required": false
+    },
     "simpleoctets:bamboo_mosaic_octet",
     "simpleoctets:acacia_log_octet",
     "simpleoctets:birch_log_octet",

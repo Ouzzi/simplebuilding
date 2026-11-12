@@ -12,7 +12,10 @@ TABLES = ['dark_enchanter', 'astral_enchanter']
 # the building-block twins (registered only without SimpleBuilding)
 TWINS = ['blazing_obsidian', 'nihil_obsidian', 'crimson_blazewood_planks', 'warped_blazewood_planks', 'crimson_blazewood_bookshelf',
          'warped_blazewood_bookshelf', 'chiseled_crimson_blazewood_bookshelf', 'chiseled_warped_blazewood_bookshelf']
-BLOCKS = TABLES + TWINS
+# PLAN40 simpleenchanting-1: the blazewood family (always this module's ids, tools/gen_blazewood.py)
+FAMILY_SHAPES = ['stairs', 'slab', 'fence', 'fence_gate', 'door', 'trapdoor', 'pressure_plate', 'button']
+FAMILY = [f'{w}_blazewood_{s}' for w in ('crimson', 'warped') for s in FAMILY_SHAPES]
+BLOCKS = TABLES + TWINS + FAMILY
 # b-shelves01: the chiseled twins' textures are Vanilla-derived (built, never committed; tools/textures/vanilla_derived.MODULE_OUTPUTS).
 import sys  # noqa: E402
 sys.path.insert(0, str(ROOT / 'tools/textures'))
@@ -45,6 +48,35 @@ for b in TWINS:
     assert 'fabric:not' in cond and 'simplebuilding' in cond, b
     loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{b}.json').read_text(encoding='utf-8'))
     assert 'simplebuilding' in json.dumps(loot.get('fabric:load_conditions')), b
+# The family: crafting recipes always load (no condition) and take the planks by the item tag that names both ids;
+# Shapecutter only with Simple Blocks, stonecutter fallback only without it (PRINZIPIEN A4b); Vanilla's wood tags.
+java_family = (JAVA / 'BlazewoodFamily.java').read_text(encoding='utf-8')
+assert all(f'"{s}"' in java_family for s in FAMILY_SHAPES), 'BlazewoodFamily.SHAPES out of step with check_data'
+for w in ('crimson', 'warped'):
+    tag = json.loads((RES / f'data/{NS}/tags/item/{w}_blazewood_planks.json').read_text(encoding='utf-8'))['values']
+    assert tag == [{'id': f'simplebuilding:{w}_blazewood_planks', 'required': False}, {'id': f'{NS}:{w}_blazewood_planks', 'required': False}], tag
+    for s_ in ('stairs', 'slab', 'fence'):
+        stem = f'{w}_blazewood_{s_}_from_{w}_blazewood_planks'
+        saw = json.loads((RES / f'data/{NS}/recipe/{stem}_sawing.json').read_text(encoding='utf-8'))
+        cut = json.loads((RES / f'data/{NS}/recipe/{stem}_stonecutting.json').read_text(encoding='utf-8'))
+        assert saw['type'] == 'simpleblocks:sawing' and json.dumps(saw['fabric:load_conditions']) == json.dumps(
+            [{'condition': 'fabric:all_mods_loaded', 'values': ['simpleblocks']}]), stem
+        assert cut['type'] == 'minecraft:stonecutting' and 'fabric:not' in json.dumps(cut['fabric:load_conditions']), stem
+for b in FAMILY:
+    recipe = json.loads((RES / f'data/{NS}/recipe/{b}.json').read_text(encoding='utf-8'))
+    assert 'fabric:load_conditions' not in recipe, ('the family recipes always load', b)
+    assert f'#{NS}:{b.split("_blazewood_")[0]}_blazewood_planks' in json.dumps(recipe), ('planks by tag', b)
+    assert recipe['result']['id'] == f'{NS}:{b}', b
+    assert 'simplebuilding' not in json.dumps(json.loads((RES / f'data/{NS}/loot_table/blocks/{b}.json').read_text(encoding='utf-8'))), b
+for tag in ('wooden_stairs', 'wooden_slabs', 'wooden_fences', 'fence_gates', 'wooden_doors', 'wooden_trapdoors', 'wooden_pressure_plates', 'wooden_buttons'):
+    for kind in ('block', 'item'):
+        assert (RES / f'data/minecraft/tags/{kind}/{tag}.json').is_file(), (kind, tag)
+for path in (RES / 'data/minecraft/tags').rglob('*.json'):
+    assert not any(n in path.name for n in ('logs_that_burn', 'planks.json')), ('blazewood is Nether wood (no fire, no Vanilla planks tag)', path)
+assert (RES / f'data/{NS}/chisel_transformations/blazewood_iron_touch.json').is_file()
+import subprocess  # noqa: E402
+gen = subprocess.run([sys.executable, str(MODULE / 'tools/gen_blazewood.py'), '--check'], capture_output=True, text=True)
+assert gen.returncode == 0, 'blazewood family files out of date: ' + gen.stdout + gen.stderr
 upgrades = json.loads((RES / f'data/{NS}/in_world_upgrades/enchanters.json').read_text(encoding='utf-8'))['upgrades']
 assert [(u['from'], u['to'], u['material'], u['material_count']) for u in upgrades] == [
     ('minecraft:enchanting_table', f'{NS}:dark_enchanter', 'simplelib:netherite_nugget', 8),
@@ -88,4 +120,4 @@ assert (RES / f'data/{NS}/structure/empty.nbt').is_file()
 for f in list(manual['features']) + list(manual['notes'].values()):
     for src in f['sources']:
         assert (ROOT / src).is_file(), src
-print(f'{NS}: {len(BLOCKS)} blocks, {len(used)} UI texts, models, textures, recipes, loot, upgrades, tags, config keys and wiki valid')
+print(f'{NS}: {len(BLOCKS)} blocks ({len(FAMILY)} blazewood family), {len(used)} UI texts, models, textures, recipes, loot, upgrades, tags, config keys and wiki valid')

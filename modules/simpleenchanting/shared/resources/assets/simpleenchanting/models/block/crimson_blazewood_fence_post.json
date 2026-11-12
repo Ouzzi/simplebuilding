@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "simpleenchanting:block/crimson_blazewood_planks"
+  }
+}

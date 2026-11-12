@@ -73,6 +73,44 @@
       }
     },
     {
+      "id": "blazewood_family",
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/EnchantingRegistry.java",
+        "modules/simpleenchanting/tools/gen_blazewood.py",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/item/crimson_blazewood_planks.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs_from_crimson_blazewood_planks_sawing.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs_from_crimson_blazewood_planks_stonecutting.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/chisel_transformations/blazewood_iron_touch.json",
+        "modules/simpleenchanting/shared/resources/data/minecraft/tags/item/non_flammable_wood.json"
+      ],
+      "en": {
+        "title": "Blazewood family",
+        "summary": "Stairs, slab, fence, fence gate, door, trapdoor, pressure plate and button of Crimson and Warped Blazewood, crafted from the blazewood planks like Vanilla's crimson and warped ones (same patterns and counts), with and without SimpleBuilding.",
+        "details": [
+          "They are copies of Vanilla's crimson and warped blocks with Vanilla's block set and wood type (sounds, doors and fence gates open by hand, wooden buttons and pressure plates) and sit in Vanilla's wooden tags. Like all Nether wood they do not burn and are no fuel.",
+          "The recipes take the planks through the item tag simpleenchanting:<wood>_blazewood_planks, which names SimpleBuilding's planks and this module's own (installed alone), so both installations craft the same family.",
+          "(with Simple Blocks) The Shapecutter cuts stairs (1), slabs (2) and fences (1) from one plank; without Simple Blocks the stonecutter cuts them instead.",
+          "(with Simple Chisels) A chisel of iron or better with Constructor's Touch turns planks into stairs and stairs into slabs (sneaking: back), like crimson and warped wood.",
+          "(with Simple Octets) Crimson and Warped Blazewood octets.",
+          "The family follows its planks in the Simple Enchanting creative tab. Stairs, slabs, fences, gates, buttons and pressure plates show the glowing blazewood planks; doors and trapdoors have their own still textures."
+        ]
+      },
+      "de": {
+        "title": "Lohenholz-Familie",
+        "summary": "Treppe, Stufe, Zaun, Zauntor, Tür, Falltür, Druckplatte und Knopf aus Karmesin- und Wirr-Lohenholz, aus den Lohenholzbrettern hergestellt wie Vanillas Karmesin- und Wirrholz (gleiche Muster und Mengen), mit und ohne SimpleBuilding.",
+        "details": [
+          "Sie sind Kopien von Vanillas Karmesin- und Wirrholz-Blöcken mit Vanillas Blockset und Holztyp (Geräusche, Türen und Zauntore öffnen von Hand, hölzerne Knöpfe und Druckplatten) und stehen in Vanillas Holz-Tags. Wie alles Netherholz brennen sie nicht und sind kein Brennstoff.",
+          "Die Rezepte nehmen die Bretter über den Item-Tag simpleenchanting:<holz>_blazewood_planks, der SimpleBuildings Bretter und die eigenen (allein installiert) nennt; beide Installationen stellen dieselbe Familie her.",
+          "(mit Simple Blocks) Die Formsäge schneidet Treppe (1), Stufe (2) und Zaun (1) aus einem Brett; ohne Simple Blocks schneidet sie stattdessen die Steinsäge.",
+          "(mit Simple Chisels) Ein Meißel ab Eisen mit Berührung des Konstrukteurs macht Bretter zu Treppen und Treppen zu Stufen (schleichend zurück), wie bei Karmesin- und Wirrholz.",
+          "(mit Simple Octets) Karmesin- und Wirr-Lohenholz-Achtel.",
+          "Die Familie folgt im Kreativtab Simple Enchanting auf ihre Bretter. Treppe, Stufe, Zaun, Zauntor, Knopf und Druckplatte zeigen die glühenden Lohenholzbretter; Tür und Falltür haben eigene ruhende Texturen."
+        ]
+      }
+    },
+    {
       "id": "creative_tab_switch",
       "sources": [
         "modules/simpleenchanting/shared/java/com/simpleenchanting/EnchantingRegistry.java",
@@ -262,6 +300,102 @@
       },
       "de": {
         "summary": "Gemeißeltes Wirr-Lohen-Bücherregal, das eigene dieses Moduls (nur ohne SimpleBuilding): sechs Buchfächer wie Vanilla, keine Verzauberungskraft."
+      }
+    },
+    "simpleenchanting:*_blazewood_stairs": {
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_stairs.json"
+      ],
+      "en": {
+        "summary": "Blazewood stairs: 6 blazewood planks make 4, like Vanilla's crimson and warped stairs."
+      },
+      "de": {
+        "summary": "Lohenholztreppe: 6 Lohenholzbretter ergeben 4, wie bei Vanillas Karmesin- und Wirrtreppe."
+      }
+    },
+    "simpleenchanting:*_blazewood_slab": {
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_slab.json"
+      ],
+      "en": {
+        "summary": "Blazewood slab: 3 blazewood planks make 6."
+      },
+      "de": {
+        "summary": "Lohenholzstufe: 3 Lohenholzbretter ergeben 6."
+      }
+    },
+    "simpleenchanting:*_blazewood_fence": {
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence.json"
+      ],
+      "en": {
+        "summary": "Blazewood fence: 4 blazewood planks and 2 sticks make 3."
+      },
+      "de": {
+        "summary": "Lohenholzzaun: 4 Lohenholzbretter und 2 Stöcke ergeben 3."
+      }
+    },
+    "simpleenchanting:*_blazewood_fence_gate": {
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_fence_gate.json"
+      ],
+      "en": {
+        "summary": "Blazewood fence gate: 2 blazewood planks and 4 sticks make 1; it opens by hand."
+      },
+      "de": {
+        "summary": "Lohenholzzauntor: 2 Lohenholzbretter und 4 Stöcke ergeben 1; es öffnet von Hand."
+      }
+    },
+    "simpleenchanting:*_blazewood_door": {
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_door.json"
+      ],
+      "en": {
+        "summary": "Blazewood door: 6 blazewood planks make 3; it opens by hand and places both halves."
+      },
+      "de": {
+        "summary": "Lohenholztür: 6 Lohenholzbretter ergeben 3; sie öffnet von Hand und setzt beide Hälften."
+      }
+    },
+    "simpleenchanting:*_blazewood_trapdoor": {
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_trapdoor.json"
+      ],
+      "en": {
+        "summary": "Blazewood trapdoor: 6 blazewood planks make 2; it opens by hand."
+      },
+      "de": {
+        "summary": "Lohenholzfalltür: 6 Lohenholzbretter ergeben 2; sie öffnet von Hand."
+      }
+    },
+    "simpleenchanting:*_blazewood_pressure_plate": {
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_pressure_plate.json"
+      ],
+      "en": {
+        "summary": "Blazewood pressure plate: 2 blazewood planks make 1; any entity presses it, like a wooden plate."
+      },
+      "de": {
+        "summary": "Lohenholzdruckplatte: 2 Lohenholzbretter ergeben 1; jedes Wesen drückt sie, wie eine Holzdruckplatte."
+      }
+    },
+    "simpleenchanting:*_blazewood_button": {
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/BlazewoodFamily.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_button.json"
+      ],
+      "en": {
+        "summary": "Blazewood button: 1 blazewood plank makes 1; arrows press it, like a wooden button."
+      },
+      "de": {
+        "summary": "Lohenholzknopf: 1 Lohenholzbrett ergibt 1; auch Pfeile drücken ihn, wie einen Holzknopf."
       }
     }
   }

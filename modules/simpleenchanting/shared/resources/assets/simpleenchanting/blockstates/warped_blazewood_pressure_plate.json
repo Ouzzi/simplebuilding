@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "simpleenchanting:block/warped_blazewood_pressure_plate"
+    },
+    "powered=true": {
+      "model": "simpleenchanting:block/warped_blazewood_pressure_plate_down"
+    }
+  }
+}
