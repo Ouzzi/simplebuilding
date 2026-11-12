@@ -4,14 +4,17 @@ package com.simplestorage.barrel;
  * WH26-6: the barrels moved here from Simple Crucibles (ids {@code simplestorage:<tier>_barrel}). Copper barrel tiers (owner wish round 2, answers 58/59; netherite owner addition 11): on its own a
  * barrel has the size of the matching chest tier (copper 27, reinforced 36, netherite 45, enderite 54
  * with SimpleBuilding), attached to a crucible it offers as many slots as the crucible has (owner N12c: iron 6,
- * reinforced 12 (N30), netherite 18, enderite 30 since N37); the slots beyond stay stored but hidden. Enderite holds double stacks like
- * the Enderite crucible.
+ * reinforced 12 (N30), netherite 18, enderite 30 since N37); the slots beyond stay stored but hidden.
+ *
+ * <p>PLAN40 simplestorage-4: stacks per slot follow the chest of the same tier ({@code ChestTier}): Netherite x2, Enderite x4 (before:
+ * x1/x2). Attached to a crucible the barrel keeps the larger of its own and the crucible's limit. The copper barrel keeps the Vanilla
+ * size (27): it is the entry step that docks to the iron crucible, bought with four copper ingots.
  */
 public enum BarrelTier {
     COPPER("copper", 3, 1),
     REINFORCED("reinforced", 4, 1),
-    NETHERITE("netherite", 5, 1),
-    ENDERITE("enderite", 6, 2);
+    NETHERITE("netherite", 5, 2),
+    ENDERITE("enderite", 6, 4);
 
 
     private final String id;

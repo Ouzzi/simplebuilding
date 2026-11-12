@@ -426,6 +426,7 @@ Startpad, Elytra-Pad, Flugpad, Trankpad, Spawn-Teleporter, Chunk-Lader, stärker
 Kisten, Truhen- und Shulker-Stufen, Fässer, Loren/Boote, Bündel, Köcher, Rucksäcke, Verzauberungen Schublade/Tiefe Taschen/Trichter.
 
 - **A12:** Nutzen: mehr Platz und Ordnung. Viele Mixins an Truhe, Shulker, Bündel, Bögen und Pfeil-Aufnahme, Strukturtruhen. Eingriff in Vanilla: mittel bis stark (Behälterverhalten); Altbestände wandern per IdMoves.
+- **Balance (PLAN40 simplestorage-4, 12.11.):** Stufen kosten je Schritt Material aus dem Endspiel (Rissiger Diamant → Netherit → Enderit, nur mit Hammer bzw. Axt in der Welt, Enderit nur mit Simple Ores), deshalb dürfen sie groß sein: Enderit-Doppeltruhe 108 Plätze × 4 Stapel (= 432 Vanilla-Stapel) entspricht dem Endspiel-Lager anderer Lager-Mods und ersetzt keine Sortierung. Der Vanilla-Kupfergolem beliefert nur Vanilla-Truhen (Stufen-Truhen bewusst nicht, Anbindung nach Release: simplestorage-8). Tragbare Enderit-Shulkerkiste 54 × 4 ist das teuerste Lager-Item (zwei Enderitklumpen je Stufe, End-Stadt-Funde nur mit Simple Ores) – Vanilla kennt Shulker-in-Bündel-Ketten ohnehin. Köcher und Rucksack belegen den Brust-Platz und konkurrieren absichtlich mit Brustpanzer/Elytra (Platz gegen Schutz/Flug; Trinkets/Curios geben eigene Plätze). Fässer stapeln wie die Truhe ihrer Stufe (Netherit ×2, Enderit ×4); das Kupfer-Fass bleibt Vanilla-groß als billige Andock-Stufe der Tiegel.
 
 ### Simple Vault (`simplevault`)
 Seltene Lücke im Grundgestein, Tresor mit drei Rätseln und Aufstiegsaltar.
