@@ -77,11 +77,13 @@ public final class MoneyTests {
   var result=item.use(h.getLevel(),player,net.minecraft.world.InteractionHand.MAIN_HAND);h.assertTrue(result==net.minecraft.world.InteractionResult.SUCCESS,"bill use succeeds");h.assertValueEqual(player.getMainHandItem().getCount(),3,"using money does not spend it");h.succeed();
  }
  public static void recipes(GameTestHelper h) {
-  for(String name:List.of("special_paper_from_crafting_table","special_fiber_from_crafting_table","resin_fiber_from_crafting_table","blank_note_smithing","refined_bank_note_blank_smithing","raw_bill_from_crafting_table","money_bill_from_blasting","rocket_from_paper")) {
+  for(String name:List.of("special_paper_from_crafting_table","special_fiber_from_crafting_table","resin_fiber_from_crafting_table","blank_note_smithing","refined_bank_note_blank_smithing","raw_bill_from_crafting_table","money_bill_from_blasting")) {
    var recipe=h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,id(name)));
    h.assertTrue(recipe.isPresent(),"loaded recipe "+name);
-   if(name.equals("money_bill_from_blasting")) {var cooking=(AbstractCookingRecipe)recipe.get().value();h.assertValueEqual(cooking.cookingTime(),24000,"curing time: one day in a vanilla blast furnace");h.assertValueEqual(cooking.experience(),20f,"source curing xp");}
-  }h.succeed();
+   if(name.equals("money_bill_from_blasting")) {var cooking=(AbstractCookingRecipe)recipe.get().value();h.assertValueEqual(cooking.cookingTime(),6000,"curing time: a quarter day in a vanilla blast furnace (E1ANS F7)");h.assertValueEqual(cooking.experience(),20f,"source curing xp");}
+  }
+  h.assertTrue(h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,id("rocket_from_paper"))).isEmpty(),"paper rocket recipe removed (E1ANS F6)");
+  h.succeed();
  }
  private static ItemStack stack(String name) {return new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(name)));}
  public static void recipeOutputs(GameTestHelper h) {
@@ -89,8 +91,7 @@ public final class MoneyTests {
    {"special_paper_from_crafting_table","minecraft:paper,minecraft:honeycomb,minecraft:paper","simplemoney:special_paper","1","3","1"},
    {"special_fiber_from_crafting_table","minecraft:copper_nugget,minecraft:diamond,minecraft:amethyst_shard,minecraft:gold_nugget,minecraft:gold_nugget,minecraft:gold_nugget,minecraft:amethyst_shard,minecraft:diamond,minecraft:copper_nugget","simplemoney:special_fiber","1","3","3"},
    {"resin_fiber_from_crafting_table","minecraft:iron_nugget,minecraft:resin_clump,minecraft:honeycomb,minecraft:resin_clump,minecraft:bone_meal,minecraft:resin_clump,minecraft:honeycomb,minecraft:resin_clump,minecraft:iron_nugget","simplemoney:resin_fiber","1","3","3"},
-   {"raw_bill_from_crafting_table","minecraft:green_dye,minecraft:ink_sac,minecraft:green_dye,simplemoney:refined_blank_note,simplemoney:refined_blank_note,simplemoney:refined_blank_note,minecraft:ink_sac,minecraft:green_dye,minecraft:ink_sac","simplemoney:raw_bill","3","3","3"},
-   {"rocket_from_paper","minecraft:paper,minecraft:paper,minecraft:paper,minecraft:paper,minecraft:gunpowder,minecraft:paper,minecraft:paper,minecraft:gunpowder,minecraft:paper","minecraft:firework_rocket","1","3","3"}
+   {"raw_bill_from_crafting_table","minecraft:green_dye,minecraft:ink_sac,minecraft:green_dye,simplemoney:refined_blank_note,simplemoney:refined_blank_note,simplemoney:refined_blank_note,minecraft:ink_sac,minecraft:green_dye,minecraft:ink_sac","simplemoney:raw_bill","3","3","3"}
   };
   for(var row:rows) {
    var stacks=new ArrayList<ItemStack>();for(String name:row[1].split(","))stacks.add(stack(name));
@@ -109,11 +110,16 @@ public final class MoneyTests {
  }
  public static void configWorld(GameTestHelper h) {
   var registry=h.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
-  for(var entry:sourceTrades()) {var row=entry.getAsJsonObject();String name=row.get("id").getAsString();boolean expected=SimpleMoney.enabled(name.contains("wandering_trader")?"enableWanderingTrades":"enableVillagerTrades");h.assertValueEqual(registry.containsKey(Identifier.parse(name)),expected,"loader obeyed server config for "+name);}
+  for(var entry:sourceTrades()) {var row=entry.getAsJsonObject();String name=row.get("id").getAsString();h.assertValueEqual(registry.containsKey(Identifier.parse(name)),loads(row),"loader obeyed server config for "+name);}
   if(isModLoaded("simplebuilding"))h.assertTrue(registry.containsKey(Identifier.parse("simplebuilding:librarian/3/emerald_building_book")),"SimpleBuilding trades survive Money config");h.succeed();
  }
  private static JsonArray sourceTrades() {
   try(var reader=new InputStreamReader(Objects.requireNonNull(MoneyTests.class.getResourceAsStream("/data/simplemoney/testing/source-trades.json")),java.nio.charset.StandardCharsets.UTF_8)) {return JsonParser.parseReader(reader).getAsJsonArray();}catch(IOException e){throw new IllegalStateException(e);}
+ }
+ /** Whether the loader keeps a source trade: every simplemoney:config flag of its Fabric load conditions is on (E1ANS F7: the rare wandering offers need a second switch). */
+ private static boolean loads(com.google.gson.JsonObject row) {
+  for(var c:row.getAsJsonArray("fabric:load_conditions")) {var o=c.getAsJsonObject();if(o.get("condition").getAsString().equals("simplemoney:config")&&!SimpleMoney.enabled(o.get("flag").getAsString()))return false;}
+  return true;
  }
  public static void trades(GameTestHelper h) {
   var level=h.getLevel();var villager=EntityTypes.VILLAGER.create(level,EntitySpawnReason.COMMAND);
@@ -122,7 +128,9 @@ public final class MoneyTests {
   var registry=level.registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
   int count=0;
   for(var entry:sourceTrades()) {
-   var row=entry.getAsJsonObject();var name=row.get("id").getAsString();var trade=registry.getValue(Identifier.parse(name));h.assertTrue(trade!=null,"registered trade "+name);count++;
+   var row=entry.getAsJsonObject();var name=row.get("id").getAsString();var trade=registry.getValue(Identifier.parse(name));
+   if(!loads(row)) {h.assertTrue(trade==null,"switched-off trade absent "+name);continue;}
+   h.assertTrue(trade!=null,"registered trade "+name);count++;
    for(int roll=0;roll<128;roll++) {
     var offer=trade.getOffer(context);h.assertTrue(offer!=null,"offer "+name);
     var wants=row.getAsJsonObject("wants");var gives=row.getAsJsonObject("gives");
@@ -142,7 +150,8 @@ public final class MoneyTests {
      }
     }
    }
-  }h.assertValueEqual(count,47,"source offer count");h.succeed();
+  }int loaded=0;for(var entry:sourceTrades())if(loads(entry.getAsJsonObject()))loaded++;
+  h.assertValueEqual(sourceTrades().size(),47,"source offer count");h.assertValueEqual(count,loaded,"loaded source offers");h.succeed();
  }
  /** Super-mod switch "Enable Simple Money" off: registries stay, no tab entries, no loot, no trades. */
  public static void subModSwitch(GameTestHelper h) {
@@ -170,12 +179,13 @@ public final class MoneyTests {
  }
  public static void config(GameTestHelper h) {
   h.assertTrue(new SimpleMoney.Config().trades.enableVillagerTrades && new SimpleMoney.Config().trades.enableWanderingTrades && new SimpleMoney.Config().trades.enableWandererTrades,"source defaults");
+  h.assertTrue(!new SimpleMoney.Config().trades.enableRareWanderingTrades,"rare wandering offers off by default (E1ANS F7)");
   // Hermetic: the shared switches are swapped in a private config dir while holding the class lock `enabled` takes, so neither a
   // rewrite of the live simplemoney.json (mtime reload) nor a resource-condition check on another thread can replace them mid-test.
   var original=SimpleMoney.config;var liveDir=SimpleMoney.configDir();
   synchronized(SimpleMoney.class) {try {
    SimpleMoney.loadConfig(java.nio.file.Files.createTempDirectory("simplemoney-config"));SimpleMoney.config=new SimpleMoney.Config();
-   SimpleMoney.config.trades.enableVillagerTrades=false;h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades") && SimpleMoney.enabled("enableWanderingTrades"),"independent villager switch");SimpleMoney.config.trades.enableWanderingTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWanderingTrades") && SimpleMoney.enabled("enableWandererTrades"),"wandering switch");SimpleMoney.config.trades.enableWandererTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWandererTrades"),"village wanderer switch");h.assertValueEqual(SimpleMoney.merchantFlag("village_wanderer"),"enableWandererTrades","village wanderer flag");h.assertValueEqual(SimpleMoney.merchantFlag("mason"),"enableVillagerTrades","profession flag");h.assertTrue(!SimpleMoney.enabled("unknown"),"unknown flag denied");
+   SimpleMoney.config.trades.enableVillagerTrades=false;h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades") && SimpleMoney.enabled("enableWanderingTrades"),"independent villager switch");SimpleMoney.config.trades.enableWanderingTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWanderingTrades") && SimpleMoney.enabled("enableWandererTrades"),"wandering switch");SimpleMoney.config.trades.enableWandererTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWandererTrades"),"village wanderer switch");h.assertTrue(!SimpleMoney.enabled("enableRareWanderingTrades"),"rare wandering offers off");SimpleMoney.config.trades.enableRareWanderingTrades=true;h.assertTrue(SimpleMoney.enabled("enableRareWanderingTrades"),"rare wandering switch");h.assertValueEqual(SimpleMoney.merchantFlag("village_wanderer"),"enableWandererTrades","village wanderer flag");h.assertValueEqual(SimpleMoney.merchantFlag("mason"),"enableVillagerTrades","profession flag");h.assertTrue(!SimpleMoney.enabled("unknown"),"unknown flag denied");
   }catch(IOException e){throw new IllegalStateException(e);}
   finally{if(liveDir!=null)SimpleMoney.loadConfig(liveDir);SimpleMoney.config=original;}}
   h.succeed();

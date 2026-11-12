@@ -29,6 +29,8 @@ for language in languages:
     for option in ("enableVillagerTrades", "enableWanderingTrades", "enableWandererTrades"):
         prefix = f"text.autoconfig.simplemoney.option.trades.{option}"
         assert prefix in language and "true" in language[prefix + ".tooltip"]
+    prefix = "text.autoconfig.simplemoney.option.trades.enableRareWanderingTrades"
+    assert prefix in language and "false" in language[prefix + ".tooltip"]
     assert "text.autoconfig.simplemoney.category.default" in language
 
 for item in IDS:
@@ -41,7 +43,8 @@ for item in IDS:
 
 data = MODULE / "generated/resources/data/simplemoney"
 recipes = {p.stem: read(p) for p in (data / "recipe").glob("*.json")}
-assert len(recipes) == 8
+assert len(recipes) == 7 and "rocket_from_paper" not in recipes, "E1ANS F6: the paper rocket recipe is gone"
+assert recipes["money_bill_from_blasting"]["cookingtime"] == 6000, "E1ANS F7: a quarter day in the blast furnace"
 assert {r["result"]["id"].split(":")[1] for r in recipes.values()
         if r["result"]["id"].startswith("simplemoney:")} == IDS
 
@@ -89,7 +92,7 @@ for row in balance:
     identity = "simplemoney:" + row.pop("id")
     row.pop("level")
     assert row == trades[identity], f"Balance data drift: {identity}"
-print("Simple Money data: 7 items, 8 recipes, 47 trades, bilingual wiki/assets/manifest/balance complete")
+print("Simple Money data: 7 items, 7 recipes, 47 trades, bilingual wiki/assets/manifest/balance complete")
 
 from generate_links import outputs
 for path, content in outputs().items():
@@ -159,3 +162,6 @@ for row in linked:
     minimum = min(64, max(row["safetyFloor"], math.ceil(row["hours"] + row["tier"] * 2 + row["craft"])))
     assert salvage.get(row["item"], 0) < minimum, f"Salvage can profit at minimum allowed configuration: {row['item']}"
 print("Money links salvage audit: no diamond-exchange profit through single-material recipe/uncrafting chains")
+# E1ANS F7: the 47 own offers follow one price logic (tools/source_prices.py); trade files, expectations and manual agree.
+import subprocess, sys
+assert subprocess.run([sys.executable, str(MODULE / "tools/source_prices.py"), "--check"]).returncode == 0, "source_prices.py --check"

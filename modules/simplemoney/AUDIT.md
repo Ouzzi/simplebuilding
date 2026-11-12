@@ -59,6 +59,17 @@ Preis/Haendler, Abnahme CL-5.
    Brennzeit lassen. Empfehlung **C**: (b) ist der einzige starke Vanilla-Eingriff (PRINZIPIEN A12), Kurse und Brennzeit sind Geschmack und mit
    SB-Oefen ertraeglich.
 
+## Antworten des Besitzers (12.11.2026, E1ANS)
+- **Frage 1 (Vorschau F6) = A**: Papierraketen-Rezept, sein Rezept-Advancement, der Handbuch-Eintrag `rocket_recipe` und die Testerwartung entfernt;
+  Gametest `recipes` prueft, dass das Rezept fehlt.
+- **Frage 2 (F7) = B, alles angleichen**: eine Preislogik fuer alle 47 eigenen Angebote (`tools/source_prices.py`, schreibt Handelsdateien,
+  `testing/source-trades.json`, Handbuch und `balance/simplemoney/trades.json`, `--check` in `check_data.py`): 1 Schein = 3 Diamanten = 16 Smaragde;
+  Ankauf 10 Diamanten -> 2 Scheine (Ruestungs- und Werkzeugschmied), Wechsel 1 Schein -> 16 Smaragde fest, Massenware = Vanilla-Menge fuer 16 Smaragde
+  (hoechstens ein Stapel), verzauberte Ware ceil(Diamanten/3) + Stufen-Aufschlag 1/1/1/2/3 (Buecher 2 + Aufschlag), fahrender Haendler Massenware 2/3
+  der Dorfmenge, Seltenes Diamantwert/3 x 1,5; Vorrat, Haendler-XP und Preisfaktor je Art einheitlich. Knospender Amethyst und Diamanterz nur mit
+  `trades.enableRareWanderingTrades` (Standard aus, A12); Schmelzzeit des Rohscheins 6000 Ticks. Handbuch-Eintrag `prices`; Gametests `trades`,
+  `config_world`, `config` folgen den Ladebedingungen der Zeilen. Money Links (380 Preise) behalten ihre eigene Formel.
+
 ## Urteil
 **shipbar** (0 P1, 0 P2, 8 P3 - davon P3-1 (BEW39 rot) und P3-2 gefixt; 2 Besitzer-Fragen). Die Money-Links sind gegen Arbitrage,
 Rabatt-Umgehung und Schnellverschieben-Umgehung abgesichert und getestet (`linkMenu`, `linkNoArbitrage`, `linkBudgets`).
