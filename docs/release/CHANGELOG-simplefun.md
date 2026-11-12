@@ -12,7 +12,7 @@ Bounded playful mechanics, throwable bricks and cosmetic transformations (the an
 - **Throwable Bricks** - Brick, nether brick and resin brick: throw with use.
 - **Piggy Transformation** - Eating raw or cooked pork grants a cosmetic pig head for five minutes; milk removes the effect.
 - **Damageless** - Feather melee and Damageless I deal zero direct melee damage, with knockback.
-- **Knockback V** - Vanilla Knockback accepts feathers/sticks and levels up to five; this replaces vanilla enchantment data and can collide with datapacks.
+- **Knockback IV** - with enableHigherKnockback on, a built-in data pack lets Vanilla Knockback accept feathers/sticks and go up to level four; with the option off the Vanilla enchantment stays untouched.
 - **Admin Commands** - Permission level 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage.
 - **Brick Snowball** - Four snowballs around one brick craft one.
 - **Flower Sniff** - Cosmetic delight: hold a flower and sneak.
