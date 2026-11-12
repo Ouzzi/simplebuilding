@@ -333,6 +333,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void displayTintThroughGameMode(GameTestHelper h) {
+        ShopsTests.ALL.get("display_tint_through_game_mode").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void terminalRegistered(GameTestHelper h) {
         ShopsTests.ALL.get("terminal_registered").accept(h);
     }

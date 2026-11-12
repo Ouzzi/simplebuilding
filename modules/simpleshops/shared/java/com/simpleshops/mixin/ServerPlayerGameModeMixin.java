@@ -24,7 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * <li>{@code destroyBlock}: a stranger breaks nothing (no tool, creative or mod gets around this), the owner and operators
  * remove the block with Vanilla's sequence without a claim check (the owner may always remove his shop).</li>
  * <li>{@code useItemOn}: buying needs no claim right (owner answer 11), so the click on a shop block is run here unless the
- * player sneaks with an item (then Vanilla places a block next to it, which needs the build right as usual).</li>
+ * player sneaks with an item (then Vanilla places a block next to it, which needs the build right as usual); only sneak + dye
+ * on the owner's display case is handled here (the tint, which Vanilla's sneak rule would never reach).</li>
  * </ul>
  */
 @Mixin(value = ServerPlayerGameMode.class, priority = 100)
@@ -53,7 +54,15 @@ public abstract class ServerPlayerGameModeMixin {
         BlockState state = level.getBlockState(hit.getBlockPos());
         if (!ShopGuard.isShop(state)) return;
         boolean suppress = player.isSecondaryUseActive() && (!player.getMainHandItem().isEmpty() || !player.getOffhandItem().isEmpty());
-        if (suppress) return;
+        if (suppress) {
+            // Sneak + dye on the owner's display case tints it: Vanilla skips the block's click while sneaking with an item, so
+            // the tint is applied here (audit a-audsb31e1, simpleshops-P2-1); any other sneak click stays Vanilla's (placing).
+            if (state.getBlock() instanceof com.simpleshops.block.DisplayCaseBlock
+                    && com.simpleshops.block.DisplayCaseBlock.tint(state, level, hit.getBlockPos(), player, player.getItemInHand(hand))) {
+                cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
+            }
+            return;
+        }
         InteractionResult use = state.useItemOn(player.getItemInHand(hand), level, player, hand, hit);
         if (use.consumesAction()) {
             cir.setReturnValue(use);

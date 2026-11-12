@@ -124,22 +124,29 @@ public class DisplayCaseBlock extends BaseEntityBlock {
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
                                           BlockHitResult hit) {
         // Sneak + dye tints glass and frame of your own case (without sneaking a dye is just goods to stock).
-        Tint tint = Tint.of(stack);
-        if (player.isShiftKeyDown() && tint != Tint.NONE && state.getValue(TINT) != tint) {
-            if (level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity be && be.isOwner(player.getUUID())) {
-                if (!level.isClientSide()) {
-                    level.setBlock(pos, state.setValue(TINT, tint), 3);
-                    level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    stack.consume(1, player);
-                }
-                return InteractionResult.SUCCESS;
-            }
-        }
+        if (tint(state, level, pos, player, stack)) return InteractionResult.SUCCESS;
         if (level instanceof ServerLevel server && player instanceof ServerPlayer sp) return ShopActions.quickStock(sp, server, pos, hand);
         if (!stack.isEmpty() && level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity be && be.isOwner(player.getUUID())) {
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.TRY_WITH_EMPTY_HAND;
+    }
+
+    /**
+     * Sneak + dye: the owner tints glass and frame of his case (one dye, a different tone than now). Returns whether it did.
+     * Vanilla never calls {@link #useItemOn} while the player sneaks with an item in hand, so the shop mixin
+     * ({@code ServerPlayerGameModeMixin}) calls this directly for that click (audit a-audsb31e1, simpleshops-P2-1).
+     */
+    public static boolean tint(BlockState state, Level level, BlockPos pos, Player player, ItemStack stack) {
+        Tint tint = Tint.of(stack);
+        if (!player.isShiftKeyDown() || tint == Tint.NONE || !state.hasProperty(TINT) || state.getValue(TINT) == tint) return false;
+        if (!(level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity be) || !be.isOwner(player.getUUID())) return false;
+        if (!level.isClientSide()) {
+            level.setBlock(pos, state.setValue(TINT, tint), 3);
+            level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            stack.consume(1, player);
+        }
+        return true;
     }
 
     @Override

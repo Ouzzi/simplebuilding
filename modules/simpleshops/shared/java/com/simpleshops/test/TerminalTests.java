@@ -106,6 +106,35 @@ final class TerminalTests {
             h.assertTrue(level.getBlockEntity(c.box) instanceof com.simpleshops.block.DisplayCaseBlockEntity, "the case keeps its entity");
             h.succeed();
         });
+        // Audit a-audsb31e1 (simpleshops-P2-1): the same click through the real path (ServerPlayerGameMode#useItemOn). Vanilla skips
+        // the block's click while a player sneaks with an item in hand, so sneak + dye never reached the case in the game.
+        all.put("display_tint_through_game_mode", h -> {
+            ServerPlayer owner = player(h, GameType.SURVIVAL);
+            ServerPlayer stranger = player(h, GameType.SURVIVAL);
+            StorageTests.Column c = StorageTests.column(h, owner, 0);
+            ServerLevel level = h.getLevel();
+            var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
+            var tintKey = com.simpleshops.block.DisplayCaseBlock.TINT;
+            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(c.box), Direction.UP, c.box, false);
+            ItemStack foreign = new ItemStack(Items.DYE.red(), 2);
+            stranger.setItemInHand(hand, foreign);
+            stranger.setShiftKeyDown(true);
+            stranger.gameMode.useItemOn(stranger, level, foreign, hand, hit);
+            h.assertTrue(level.getBlockState(c.box).getValue(tintKey) == com.simpleshops.block.DisplayCaseBlock.Tint.NONE && foreign.getCount() == 2
+                    && stranger.containerMenu == stranger.inventoryMenu, "a sneaking stranger neither tints nor opens a menu");
+            ItemStack dye = new ItemStack(Items.DYE.red(), 2);
+            owner.setItemInHand(hand, dye);
+            owner.setShiftKeyDown(true);
+            var result = owner.gameMode.useItemOn(owner, level, dye, hand, hit);
+            h.assertTrue(level.getBlockState(c.box).getValue(tintKey) == com.simpleshops.block.DisplayCaseBlock.Tint.RED && dye.getCount() == 1
+                    && result.consumesAction(), "the owner's sneak + dye click tints the case (one dye): " + result);
+            // The same tone again: Vanilla's sneak click (nothing tinted, no dye used, nothing stocked).
+            owner.gameMode.useItemOn(owner, level, dye, hand, hit);
+            h.assertTrue(dye.getCount() == 1 && c.box().goods().stream().allMatch(ItemStack::isEmpty), "same tone: no dye used, nothing stocked");
+            owner.setShiftKeyDown(false);
+            stranger.setShiftKeyDown(false);
+            h.succeed();
+        });
         all.put("terminal_remote_buy_equals_on_site", h -> {
             ServerPlayer owner = player(h, GameType.SURVIVAL);
             ServerPlayer remote = player(h, GameType.SURVIVAL);
