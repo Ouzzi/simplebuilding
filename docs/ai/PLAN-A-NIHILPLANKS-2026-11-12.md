@@ -68,5 +68,26 @@ Tab-Position) mit SB und standalone.
 - Runde 3: D = A + Atem-Drift alle 3 px entlang der Fuge (A8d Punkt 4): lebendiger, aber hart 10,6/9,8 %. Gewählt **A**
   (ASTRAL07=A-Stil „jede Fuge atmet eigen“, A8b am nächsten); C/D als Alternativen in der Vorschau.
 
-## Abweichungen / offen
-- (wird beim Abschluss ergänzt)
+## Abweichungen
+- Zusätzlich: Simple-End-Station der Testzentrale stellt die Nihilit-Bretter neben die End-Bretter; `docs/MODS-UND-FEATURES.md`
+  (Zeile Simple End) nachgezogen; Recipe-Fortschritte der neuen Rezepte schreibt `tools/discover/discover.py` (Kriterium „hat Stufe“).
+- Simple Enchanting unverändert (`PARTNER_ITEMS` bleibt; QW11 filtert die End-Regale dort ohnehin) – Besitzer-Frage F1.
+- Lang von Simple End von Hand eingefügt (gen_data.py würde die Datei umsortieren); gen_data.py kennt die Schlüssel trotzdem.
+
+## Prüfung (Stand Abschluss)
+- Grün lokal: `precheck.py --fast`, alle `modules/*/tools/check_data.py`, `check_dup_impl`, `check_tooltip_text`,
+  `wiki/generate.py --all --check`, `check_missing_textures` (0 Fehler), `layers.py check` (0), `discover.py --check`,
+  `module_guides.py --check`, `guide_book_pages.py` (0), `vanilla_derived.py --module simpleend` (20 Texturen, Platzhalter 16×256).
+- javac gegen das 26.3-Jar (Simple End + SB-Dateien): keine Fehler in den geänderten Stellen (übrige Meldungen = fehlende
+  Access-Widener/Nachbarmodule im Klassenpfad, vorbestehend).
+- Nicht gelaufen: Gametests (sb-test nicht erreichbar, Befehl `/root/sb-tools-a/a-nihilplanks-sbt.cmd`), Client-Sicht,
+  NeoForge/Forge (nur je eine Zeile im Einstieg, nicht kompiliert).
+- Vorbestehend rot, nicht angefasst: `end07 --check` (rissige Ziegel seit späteren Textur-Runden anders),
+  `generate_textures.py --check` (fehlt `tools/textures/hand/enderite_carrot.png`).
+
+## Offen
+- sb-test-Lauf (Datei oben); Client-Sicht (Animation im Spiel, Tab); Besitzer F1–F4 (Vorschau a-nihilplanks-preview.html).
+- NeoForge/Forge-Port: IdMoves fehlen dort (Simple End ohne SimpleLib) – alte NeoForge/Forge-Welten verlieren die Bretter.
+- Befund außerhalb des Auftrags: `simpleend:block/{ashwood,duskwood}_bookshelf.png` (b-shelves01, eingecheckt) enthält 88/256
+  Pixel, die 1:1 dem aus Vanillas Birkenbrett umgefärbten End-Brett gleichen (Rahmenzeilen) → wie hier auf Build-Zeit umstellen
+  oder Rahmen neu zeichnen (Release-Blocker-Regel A8).
