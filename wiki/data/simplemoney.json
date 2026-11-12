@@ -1310,7 +1310,7 @@
         "title": "Server configuration",
         "summary": "config/simplemoney.json preserves trades.enableVillagerTrades and trades.enableWanderingTrades and adds trades.enableWandererTrades (the 14 price-list heads of the Village Wanderer, Simple Wanderers), all true by default.",
         "details": [
-          "The server config controls datapack loading. Restart or reload after changing it. Client settings cannot change a remote server. Cloth Config screen is available from Mod Menu on Fabric and the Mods screen on NeoForge. No blocks, mobs, commands, keybinds or custom enchantments are registered.",
+          "The server config controls datapack loading. Restart or reload after changing it. Client settings cannot change a remote server. Cloth Config screen is available from Mod Menu on Fabric and the Mods screen on NeoForge. No blocks, mobs, keybinds or custom enchantments are registered; the only command is /simplemoney config (permission level 2).",
           "Unused rocketStackSize and vaultCooldownDays language remnants had no source implementation and are omitted."
         ]
       },
@@ -1318,7 +1318,7 @@
         "title": "Serverkonfiguration",
         "summary": "config/simplemoney.json behält trades.enableVillagerTrades und trades.enableWanderingTrades und ergänzt trades.enableWandererTrades (die 14 Kopf-Angebote des Dorf-Wanderers, Simple Wanderers); alle standardmäßig true.",
         "details": [
-          "Die Serverkonfiguration steuert die Datenladung. Nach Änderungen neu starten oder neu laden. Clienteinstellungen verändern keinen entfernten Server. Cloth-Config-Seite über Mod Menu auf Fabric und die Mods-Seite auf NeoForge. Keine Blöcke, Mobs, Befehle, Tastenkürzel oder eigenen Verzauberungen.",
+          "Die Serverkonfiguration steuert die Datenladung. Nach Änderungen neu starten oder neu laden. Clienteinstellungen verändern keinen entfernten Server. Cloth-Config-Seite über Mod Menu auf Fabric und die Mods-Seite auf NeoForge. Keine Blöcke, Mobs, Tastenkürzel oder eigenen Verzauberungen; einziger Befehl ist /simplemoney config (Berechtigung 2).",
           "Die unbenutzten Sprachreste rocketStackSize und vaultCooldownDays hatten keine Implementierung und werden ausgelassen."
         ]
       },
@@ -1380,7 +1380,7 @@
           "Price = clamp(ceil(model hours x billsPerHour + rarity tier x rarityStep + crafting slots x craftWeight), safetyFloor, 64). Defaults: 1, 3, 1. Every price has an 8-bill minimum. One item per purchase.",
           "Server-side limits: stock default 2 (cap 4), shared player allowance 8 purchases per 24000 elapsed game ticks (cap 16), cooldown 100 ticks (20-1200). The overworld SavedData budget survives logout, dimension changes, merchant changes and restart. Daylight/time commands do not refresh it.",
           "No linked sell offers, XP rewards or reputation/Hero discounts. Existing offers retain price/stock until replaced; the enabled switch and player budget are checked at every purchase. Settings are server-owned; the client screen edits a local reload/restart draft.",
-          "Cores remain wandering-trader-only and get less likely by tier. No mason core offers. Creative spacer, integration token and inert legacy deed are intentionally excluded. Mods without distinct items have empty documented tables."
+          "Cores remain wandering-trader-only and get less likely by tier. No mason core offers. Creative spacer, integration token and inert legacy deed are intentionally excluded. Mods without distinct items have an empty table file and no table entry here."
         ]
       },
       "de": {
@@ -1390,7 +1390,7 @@
           "Preis = clamp(ceil(Modellstunden x billsPerHour + Seltenheitsstufe x rarityStep + Rezeptplaetze x craftWeight), safetyFloor, 64). Standards: 1, 3, 1. Jeder Preis mindestens 8 Scheine. Ein Item je Kauf.",
           "Servergrenzen: Vorrat Standard 2 (Cap 4), gemeinsames Spielerbudget 8 Käufe je 24000 vergangene Spielticks (Cap 16), Pause 100 Ticks (20-1200). Overworld-SavedData überlebt Logout, Dimensions-/Haendlerwechsel und Neustart. Tageszeitbefehle erneuern es nicht.",
           "Keine verknüpften Rückkäufe, XP-Belohnungen oder Ruf-/Heldenrabatte. Bestehende Angebote behalten Preis/Vorrat bis zum Austausch; Aktivierung und Spielerbudget werden bei jedem Kauf geprüft. Servereinstellungen; Clientseite speichert lokalen Reload-/Neustartentwurf.",
-          "Kerne nur beim fahrenden Haendler, nach Stufe zunehmend selten. Keine Steinmetz-Kerne. Kreativ-Platzhalter, Testmarke und alte wirkungslose Urkunde ausgeschlossen. Mods ohne eigene Items haben dokumentierte leere Tabellen."
+          "Kerne nur beim fahrenden Haendler, nach Stufe zunehmend selten. Keine Steinmetz-Kerne. Kreativ-Platzhalter, Testmarke und alte wirkungslose Urkunde ausgeschlossen. Mods ohne eigene Items haben eine leere Tabellendatei und hier keinen Tabelleneintrag."
         ]
       },
       "sources": [
@@ -1403,12 +1403,47 @@
       ]
     },
     {
+      "id": "money_links_simpleblocks",
+      "en": {
+        "title": "Linked Price Table: simpleblocks",
+        "summary": "4 item prices; loaded-mod condition: simpleblocks.",
+        "details": [
+          "simpleblocks:levitating_gravel: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleblocks:levitating_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleblocks:suspended_gravel: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleblocks:suspended_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simpleblocks",
+        "summary": "4 Itempreise; Mod-Ladebedingung: simpleblocks.",
+        "details": [
+          "simpleblocks:levitating_gravel: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleblocks:levitating_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleblocks:suspended_gravel: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleblocks:suspended_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simpleblocks/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_gravel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_sand.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_gravel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_sand.json"
+      ],
+      "related": [
+        "simpleblocks:levitating_gravel",
+        "simpleblocks:levitating_sand",
+        "simpleblocks:suspended_gravel",
+        "simpleblocks:suspended_sand"
+      ]
+    },
+    {
       "id": "money_links_simplebuilding",
       "en": {
         "title": "Linked Price Table: simplebuilding",
-        "summary": "148 item prices; loaded-mod condition: simplebuilding.",
+        "summary": "126 item prices; loaded-mod condition: simplebuilding (15 of them also need simpleores).",
         "details": [
-          "simplebuilding:amethyst_lens: tier 1, hours 6.7, craft 9; 19 bills; toolsmith 2; stock 2; chance 1.",
           "simplebuilding:astral_end_stone: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astral_purpur_block: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astral_vault: tier 4, hours 25.0, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1421,33 +1456,33 @@
           "simplebuilding:astralit_ore: tier 4, hours 25.0, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astralit_pillar: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astral_redstone: tier 4, hours 25.0, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astralit_slab: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astralit_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astralit_wall: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:bridge_redstone: tier 4, hours 25.0, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:ender_quartz_wall: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihil_redstone_block: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astral_redstone_block: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:bridge_redstone_block: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihil_redstone_torch: tier 4, hours 25.0, craft 2; 39 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astral_redstone_torch: tier 4, hours 25.0, craft 2; 39 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astralit_end_rod: tier 4, hours 25.0, craft 2; 39 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihilith_end_rod: tier 4, hours 25.0, craft 2; 39 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihilith_lamp: tier 4, hours 25.0, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astralit_lamp: tier 4, hours 25.0, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astralit_quartz_checker: tier 4, hours 25.0, craft 4; 41 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:backpack: tier 0, hours 0.5, craft 9; 10 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:basic_upgrade_template: tier 0, hours 0.5, craft 9; 10 bills; librarian 1; stock 2; chance 1.",
           "simplebuilding:blackstone_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:chiseled_astralit_bricks: tier 4, hours 25.0, craft 2; 39 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:cracked_astralit_bricks: tier 4, hours 25.0, craft 2; 39 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:chiseled_ender_quartz_bricks: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:cracked_ender_quartz_bricks: tier 4, hours 25.0, craft 2; 39 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:chiseled_nihilith_bricks: tier 4, hours 25.0, craft 2; 39 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:cracked_nihilith_bricks: tier 4, hours 25.0, craft 2; 39 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:construction_light: tier 0, hours 0.5, craft 9; 10 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:copper_chisel: tier 0, hours 4.0, craft 4; 8 bills; toolsmith 1; stock 2; chance 1.",
-          "simplebuilding:copper_core: tier 0, hours 4.0, craft 5; 9 bills; wandering_trader 1; stock 2; chance 1.",
-          "simplebuilding:copper_spatula: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:cracked_diamond: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
           "simplebuilding:cracked_diamond_block: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:detector: tier 2, hours 12.5, craft 7; 26 bills; toolsmith 3; stock 2; chance 1.",
-          "simplebuilding:diamond_chisel: tier 3, hours 21.0, craft 4; 34 bills; toolsmith 4; stock 1; chance 1.",
-          "simplebuilding:diamond_core: tier 3, hours 21.0, craft 5; 35 bills; wandering_trader 4; stock 1; chance 0.1.",
           "simplebuilding:diamond_pebble: tier 3, hours 21.0, craft 0; 30 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:diamond_spatula: tier 3, hours 21.0, craft 0; 30 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:echo_sounder: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enchanted_enderite_apple: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enchanted_netherite_apple: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:ender_quartz: tier 4, hours 25.0, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1462,56 +1497,23 @@
           "simplebuilding:ender_quartz_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_apple: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_axe: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_backpack: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_block: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_boots: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_bundle: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_carrot: tier 5, hours 38.1, craft 5; 59 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_chest: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_chestplate: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_chisel: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_core: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.01.",
           "simplebuilding:enderite_helmet: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_hoe: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_hopper: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_horse_armor: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_ingot: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_leggings: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_nautilus_armor: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_nugget: tier 5, hours 38.1, craft 1; 55 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_pickaxe: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_quiver: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_scrap: tier 5, hours 38.1, craft 1; 55 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_shovel: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_shulker_box: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_spear: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_sword: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_upgrade_template: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:gold_chisel: tier 2, hours 12.5, craft 4; 23 bills; toolsmith 3; stock 2; chance 1.",
-          "simplebuilding:gold_core: tier 2, hours 12.5, craft 5; 24 bills; wandering_trader 3; stock 2; chance 0.25.",
-          "simplebuilding:gold_spatula: tier 2, hours 12.5, craft 0; 19 bills; mason 3; stock 2; chance 1.",
           "simplebuilding:guide_book: tier 0, hours 0.5, craft 2; 8 bills; librarian 1; stock 2; chance 1.",
-          "simplebuilding:iron_chisel: tier 1, hours 6.7, craft 4; 14 bills; toolsmith 2; stock 2; chance 1.",
-          "simplebuilding:iron_core: tier 1, hours 6.7, craft 5; 15 bills; wandering_trader 2; stock 2; chance 0.5.",
-          "simplebuilding:iron_spatula: tier 1, hours 6.7, craft 0; 10 bills; mason 2; stock 2; chance 1.",
           "simplebuilding:lapis_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:layered_raw_enderite: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplestorage:leather_sheet: tier 0, hours 0.5, craft 9; 10 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:levitating_gravel: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:levitating_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:magnet: tier 1, hours 6.7, craft 5; 15 bills; toolsmith 2; stock 2; chance 1.",
           "simplebuilding:netherite_apple: tier 4, hours 24.9, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:netherite_backpack: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:netherite_bundle: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:netherite_carrot: tier 4, hours 24.9, craft 5; 42 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:netherite_chest: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:netherite_chisel: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:netherite_core: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.05.",
-          "simplebuilding:netherite_hopper: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:netherite_nugget: tier 4, hours 24.9, craft 1; 38 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:netherite_quiver: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:netherite_shulker_box: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:netherite_spatula: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihil_end_stone: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihil_purpur_block: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihil_vault: tier 4, hours 25.0, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1525,6 +1527,9 @@
           "simplebuilding:nihil_redstone: tier 4, hours 25.0, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihilith_quartz_checker: tier 4, hours 25.0, craft 4; 41 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihilith_shard: tier 4, hours 25.0, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihilith_slab: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihilith_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihilith_wall: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:polished_astralit: tier 4, hours 25.0, craft 4; 41 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:polished_astralit_slab: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:polished_astralit_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1539,30 +1544,38 @@
           "simplebuilding:polished_nihilith_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:polished_nihilith_wall: tier 4, hours 25.0, craft 6; 43 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:purpur_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:quiver: tier 0, hours 0.5, craft 6; 8 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:raw_enderite: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:reinforced_backpack: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:reinforced_bundle: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:reinforced_chest: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:reinforced_hopper: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:reinforced_quiver: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:reinforced_shulker_box: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:red_nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:resin_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:rotator: tier 1, hours 6.7, craft 6; 16 bills; toolsmith 2; stock 2; chance 1.",
-          "simplebuilding:stone_chisel: tier 0, hours 0.5, craft 4; 8 bills; toolsmith 1; stock 2; chance 1.",
-          "simplebuilding:stone_spatula: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:suspended_gravel: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:suspended_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:velocity_gauge: tier 0, hours 4.0, craft 7; 11 bills; toolsmith 1; stock 2; chance 1."
+          "simplebuilding:ender_end_stone: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:ender_purpur_block: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astral_end_stone_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astral_end_stone_slab: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astral_end_stone_wall: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astral_purpur_pillar: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astral_purpur_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astral_purpur_slab: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:astral_purpur_wall: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihil_end_stone_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihil_end_stone_slab: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihil_end_stone_wall: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihil_purpur_pillar: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihil_purpur_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihil_purpur_slab: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:nihil_purpur_wall: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:ender_end_stone_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:ender_end_stone_slab: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:ender_end_stone_wall: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:ender_purpur_pillar: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:ender_purpur_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:ender_purpur_slab: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplebuilding:ender_purpur_wall: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1."
         ]
       },
       "de": {
         "title": "Verknüpfte Preisliste: simplebuilding",
-        "summary": "148 Itempreise; Mod-Ladebedingung: simplebuilding.",
+        "summary": "126 Itempreise; Mod-Ladebedingung: simplebuilding (15 davon brauchen zusätzlich simpleores).",
         "details": [
-          "simplebuilding:amethyst_lens: Stufe 1, Stunden 6.7, Rezeptplaetze 9; 19 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
           "simplebuilding:astral_end_stone: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astral_purpur_block: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astral_vault: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1575,33 +1588,33 @@
           "simplebuilding:astralit_ore: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astralit_pillar: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astral_redstone: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astralit_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astralit_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astralit_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:bridge_redstone: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:ender_quartz_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihil_redstone_block: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astral_redstone_block: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:bridge_redstone_block: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihil_redstone_torch: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 39 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astral_redstone_torch: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 39 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astralit_end_rod: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 39 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihilith_end_rod: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 39 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihilith_lamp: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astralit_lamp: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astralit_quartz_checker: Stufe 4, Stunden 25.0, Rezeptplaetze 4; 41 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:backpack: Stufe 0, Stunden 0.5, Rezeptplaetze 9; 10 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:basic_upgrade_template: Stufe 0, Stunden 0.5, Rezeptplaetze 9; 10 Scheine; librarian 1; Vorrat 2; Chance 1.",
           "simplebuilding:blackstone_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:chiseled_astralit_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 39 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:cracked_astralit_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 39 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:chiseled_ender_quartz_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:cracked_ender_quartz_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 39 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:chiseled_nihilith_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 39 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:cracked_nihilith_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 39 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:construction_light: Stufe 0, Stunden 0.5, Rezeptplaetze 9; 10 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:copper_chisel: Stufe 0, Stunden 4.0, Rezeptplaetze 4; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1.",
-          "simplebuilding:copper_core: Stufe 0, Stunden 4.0, Rezeptplaetze 5; 9 Scheine; wandering_trader 1; Vorrat 2; Chance 1.",
-          "simplebuilding:copper_spatula: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:cracked_diamond: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
           "simplebuilding:cracked_diamond_block: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:detector: Stufe 2, Stunden 12.5, Rezeptplaetze 7; 26 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
-          "simplebuilding:diamond_chisel: Stufe 3, Stunden 21.0, Rezeptplaetze 4; 34 Scheine; toolsmith 4; Vorrat 1; Chance 1.",
-          "simplebuilding:diamond_core: Stufe 3, Stunden 21.0, Rezeptplaetze 5; 35 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
           "simplebuilding:diamond_pebble: Stufe 3, Stunden 21.0, Rezeptplaetze 0; 30 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:diamond_spatula: Stufe 3, Stunden 21.0, Rezeptplaetze 0; 30 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:echo_sounder: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enchanted_enderite_apple: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enchanted_netherite_apple: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:ender_quartz: Stufe 4, Stunden 25.0, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1616,56 +1629,23 @@
           "simplebuilding:ender_quartz_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_apple: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_axe: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_backpack: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_block: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_boots: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_bundle: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_carrot: Stufe 5, Stunden 38.1, Rezeptplaetze 5; 59 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_chest: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_chestplate: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_chisel: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_core: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.01.",
           "simplebuilding:enderite_helmet: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_hoe: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_hopper: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_horse_armor: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_ingot: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_leggings: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_nautilus_armor: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_nugget: Stufe 5, Stunden 38.1, Rezeptplaetze 1; 55 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_pickaxe: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_quiver: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_scrap: Stufe 5, Stunden 38.1, Rezeptplaetze 1; 55 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_shovel: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_shulker_box: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_spear: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_sword: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_upgrade_template: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:gold_chisel: Stufe 2, Stunden 12.5, Rezeptplaetze 4; 23 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
-          "simplebuilding:gold_core: Stufe 2, Stunden 12.5, Rezeptplaetze 5; 24 Scheine; wandering_trader 3; Vorrat 2; Chance 0.25.",
-          "simplebuilding:gold_spatula: Stufe 2, Stunden 12.5, Rezeptplaetze 0; 19 Scheine; mason 3; Vorrat 2; Chance 1.",
           "simplebuilding:guide_book: Stufe 0, Stunden 0.5, Rezeptplaetze 2; 8 Scheine; librarian 1; Vorrat 2; Chance 1.",
-          "simplebuilding:iron_chisel: Stufe 1, Stunden 6.7, Rezeptplaetze 4; 14 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
-          "simplebuilding:iron_core: Stufe 1, Stunden 6.7, Rezeptplaetze 5; 15 Scheine; wandering_trader 2; Vorrat 2; Chance 0.5.",
-          "simplebuilding:iron_spatula: Stufe 1, Stunden 6.7, Rezeptplaetze 0; 10 Scheine; mason 2; Vorrat 2; Chance 1.",
           "simplebuilding:lapis_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:layered_raw_enderite: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplestorage:leather_sheet: Stufe 0, Stunden 0.5, Rezeptplaetze 9; 10 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:levitating_gravel: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:levitating_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:magnet: Stufe 1, Stunden 6.7, Rezeptplaetze 5; 15 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
           "simplebuilding:netherite_apple: Stufe 4, Stunden 24.9, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:netherite_backpack: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:netherite_bundle: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:netherite_carrot: Stufe 4, Stunden 24.9, Rezeptplaetze 5; 42 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:netherite_chest: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:netherite_chisel: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:netherite_core: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.05.",
-          "simplebuilding:netherite_hopper: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:netherite_nugget: Stufe 4, Stunden 24.9, Rezeptplaetze 1; 38 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:netherite_quiver: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:netherite_shulker_box: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:netherite_spatula: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihil_end_stone: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihil_purpur_block: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihil_vault: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1679,6 +1659,9 @@
           "simplebuilding:nihil_redstone: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihilith_quartz_checker: Stufe 4, Stunden 25.0, Rezeptplaetze 4; 41 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihilith_shard: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihilith_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihilith_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihilith_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:polished_astralit: Stufe 4, Stunden 25.0, Rezeptplaetze 4; 41 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:polished_astralit_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:polished_astralit_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1693,28 +1676,36 @@
           "simplebuilding:polished_nihilith_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:polished_nihilith_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 6; 43 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:purpur_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:quiver: Stufe 0, Stunden 0.5, Rezeptplaetze 6; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:raw_enderite: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:reinforced_backpack: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:reinforced_bundle: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:reinforced_chest: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:reinforced_hopper: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:reinforced_quiver: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:reinforced_shulker_box: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:red_nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:resin_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:rotator: Stufe 1, Stunden 6.7, Rezeptplaetze 6; 16 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
-          "simplebuilding:stone_chisel: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1.",
-          "simplebuilding:stone_spatula: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:suspended_gravel: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:suspended_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:velocity_gauge: Stufe 0, Stunden 4.0, Rezeptplaetze 7; 11 Scheine; toolsmith 1; Vorrat 2; Chance 1."
+          "simplebuilding:ender_end_stone: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:ender_purpur_block: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astral_end_stone_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astral_end_stone_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astral_end_stone_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astral_purpur_pillar: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astral_purpur_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astral_purpur_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:astral_purpur_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihil_end_stone_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihil_end_stone_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihil_end_stone_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihil_purpur_pillar: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihil_purpur_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihil_purpur_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:nihil_purpur_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:ender_end_stone_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:ender_end_stone_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:ender_end_stone_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:ender_purpur_pillar: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:ender_purpur_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:ender_purpur_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplebuilding:ender_purpur_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1."
         ]
       },
       "sources": [
         "modules/simplemoney/shared/resources/data/simplemoney/money/simplebuilding/prices.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/amethyst_lens.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_end_stone.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_purpur_block.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_vault.json",
@@ -1727,27 +1718,32 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_ore.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_pillar.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_redstone.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_slab.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_stairs.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_wall.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/bridge_redstone.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_wall.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_redstone_block.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_redstone_block.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/bridge_redstone_block.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_redstone_torch.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_redstone_torch.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_end_rod.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_end_rod.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_lamp.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_lamp.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_quartz_checker.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/backpack.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/basic_upgrade_template.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/blackstone_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/chiseled_astralit_bricks.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/cracked_astralit_bricks.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/chiseled_ender_quartz_bricks.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/cracked_ender_quartz_bricks.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/chiseled_nihilith_bricks.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/cracked_nihilith_bricks.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/construction_light.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/copper_core.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/cracked_diamond.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/cracked_diamond_block.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplegadgets/detector.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/diamond_core.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/diamond_pebble.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enchanted_enderite_apple.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enchanted_netherite_apple.json",
@@ -1763,49 +1759,23 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_stairs.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_apple.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_axe.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_backpack.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_block.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_boots.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_bundle.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_carrot.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_chest.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_chestplate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/enderite_core.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_helmet.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_hoe.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/enderite_hopper.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_horse_armor.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_ingot.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_leggings.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_nautilus_armor.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_nugget.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_pickaxe.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_quiver.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_scrap.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_shovel.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_shulker_box.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_spear.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_sword.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_upgrade_template.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/gold_core.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/guide_book.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/iron_core.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/lapis_quartz_checker.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/layered_raw_enderite.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/leather_sheet.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/levitating_gravel.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/levitating_sand.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplegadgets/magnet.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_apple.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_backpack.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_bundle.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_carrot.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_chest.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/netherite_core.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/netherite_hopper.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_nugget.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_quiver.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_shulker_box.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_end_stone.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_purpur_block.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_vault.json",
@@ -1819,6 +1789,9 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_redstone.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_shard.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_slab.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_stairs.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_wall.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_astralit.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_astralit_slab.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_astralit_stairs.json",
@@ -1833,24 +1806,34 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_nihilith_stairs.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_nihilith_wall.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/purpur_quartz_checker.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/quiver.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/raw_enderite.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_backpack.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_bundle.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_chest.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/reinforced_hopper.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_quiver.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_shulker_box.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nether_brick_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/red_nether_brick_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/resin_quartz_checker.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/rotator.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/suspended_gravel.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/suspended_sand.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/velocity_gauge.json"
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_end_stone.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_purpur_block.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_end_stone_stairs.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_end_stone_slab.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_end_stone_wall.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_purpur_pillar.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_purpur_stairs.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_purpur_slab.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_purpur_wall.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_end_stone_stairs.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_end_stone_slab.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_end_stone_wall.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_purpur_pillar.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_purpur_stairs.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_purpur_slab.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_purpur_wall.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_end_stone_stairs.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_end_stone_slab.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_end_stone_wall.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_purpur_pillar.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_purpur_stairs.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_purpur_slab.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_purpur_wall.json"
       ],
       "related": [
-        "simplebuilding:amethyst_lens",
         "simplebuilding:astral_end_stone",
         "simplebuilding:astral_purpur_block",
         "simplebuilding:astral_vault",
@@ -1863,35 +1846,33 @@
         "simplebuilding:astralit_ore",
         "simplebuilding:astralit_pillar",
         "simplebuilding:astral_redstone",
+        "simplebuilding:astralit_slab",
+        "simplebuilding:astralit_stairs",
+        "simplebuilding:astralit_wall",
         "simplebuilding:bridge_redstone",
+        "simplebuilding:ender_quartz_wall",
         "simplebuilding:nihil_redstone_block",
         "simplebuilding:astral_redstone_block",
         "simplebuilding:bridge_redstone_block",
         "simplebuilding:nihil_redstone_torch",
         "simplebuilding:astral_redstone_torch",
+        "simplebuilding:astralit_end_rod",
+        "simplebuilding:nihilith_end_rod",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_quartz_checker",
-        "simplebuilding:backpack",
         "simplebuilding:basic_upgrade_template",
         "simplebuilding:blackstone_quartz_checker",
         "simplebuilding:chiseled_astralit_bricks",
+        "simplebuilding:cracked_astralit_bricks",
         "simplebuilding:chiseled_ender_quartz_bricks",
+        "simplebuilding:cracked_ender_quartz_bricks",
         "simplebuilding:chiseled_nihilith_bricks",
+        "simplebuilding:cracked_nihilith_bricks",
         "simplebuilding:construction_light",
-        "simplebuilding:copper_chisel",
-        "simplebuilding:copper_core",
-        "simplebuilding:copper_sledgehammer",
-        "simplebuilding:copper_spatula",
         "simplebuilding:cracked_diamond",
         "simplebuilding:cracked_diamond_block",
-        "simplebuilding:detector",
-        "simplebuilding:diamond_chisel",
-        "simplebuilding:diamond_core",
         "simplebuilding:diamond_pebble",
-        "simplebuilding:diamond_sledgehammer",
-        "simplebuilding:diamond_spatula",
-        "simplebuilding:echo_sounder",
         "simplebuilding:enchanted_enderite_apple",
         "simplebuilding:enchanted_netherite_apple",
         "simplebuilding:ender_quartz",
@@ -1906,59 +1887,23 @@
         "simplebuilding:ender_quartz_stairs",
         "simplebuilding:enderite_apple",
         "simplebuilding:enderite_axe",
-        "simplebuilding:enderite_backpack",
-        "simplebuilding:enderite_block",
         "simplebuilding:enderite_boots",
-        "simplebuilding:enderite_bundle",
         "simplebuilding:enderite_carrot",
-        "simplebuilding:enderite_chest",
         "simplebuilding:enderite_chestplate",
-        "simplebuilding:enderite_chisel",
-        "simplebuilding:enderite_core",
         "simplebuilding:enderite_helmet",
         "simplebuilding:enderite_hoe",
-        "simplemachines:enderite_hopper",
         "simplebuilding:enderite_horse_armor",
-        "simplebuilding:enderite_ingot",
         "simplebuilding:enderite_leggings",
         "simplebuilding:enderite_nautilus_armor",
-        "simplebuilding:enderite_nugget",
         "simplebuilding:enderite_pickaxe",
-        "simplebuilding:enderite_quiver",
-        "simplebuilding:enderite_scrap",
         "simplebuilding:enderite_shovel",
-        "simplebuilding:enderite_shulker_box",
-        "simplebuilding:enderite_sledgehammer",
         "simplebuilding:enderite_spear",
         "simplebuilding:enderite_sword",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:gold_chisel",
-        "simplebuilding:gold_core",
-        "simplebuilding:gold_sledgehammer",
-        "simplebuilding:gold_spatula",
         "simplebuilding:guide_book",
-        "simplebuilding:iron_chisel",
-        "simplebuilding:iron_core",
-        "simplebuilding:iron_sledgehammer",
-        "simplebuilding:iron_spatula",
         "simplebuilding:lapis_quartz_checker",
-        "simplebuilding:layered_raw_enderite",
-        "simplebuilding:levitating_gravel",
-        "simplebuilding:levitating_sand",
-        "simplebuilding:magnet",
         "simplebuilding:netherite_apple",
-        "simplebuilding:netherite_backpack",
-        "simplebuilding:netherite_bundle",
         "simplebuilding:netherite_carrot",
-        "simplebuilding:netherite_chest",
-        "simplebuilding:netherite_chisel",
-        "simplebuilding:netherite_core",
-        "simplemachines:netherite_hopper",
         "simplebuilding:netherite_nugget",
-        "simplebuilding:netherite_quiver",
-        "simplebuilding:netherite_shulker_box",
-        "simplebuilding:netherite_sledgehammer",
-        "simplebuilding:netherite_spatula",
         "simplebuilding:nihil_end_stone",
         "simplebuilding:nihil_purpur_block",
         "simplebuilding:nihil_vault",
@@ -1972,6 +1917,9 @@
         "simplebuilding:nihil_redstone",
         "simplebuilding:nihilith_quartz_checker",
         "simplebuilding:nihilith_shard",
+        "simplebuilding:nihilith_slab",
+        "simplebuilding:nihilith_stairs",
+        "simplebuilding:nihilith_wall",
         "simplebuilding:polished_astralit",
         "simplebuilding:polished_astralit_slab",
         "simplebuilding:polished_astralit_stairs",
@@ -1986,198 +1934,39 @@
         "simplebuilding:polished_nihilith_stairs",
         "simplebuilding:polished_nihilith_wall",
         "simplebuilding:purpur_quartz_checker",
-        "simplebuilding:quiver",
-        "simplebuilding:raw_enderite",
-        "simplebuilding:reinforced_backpack",
-        "simplebuilding:reinforced_bundle",
-        "simplebuilding:reinforced_chest",
-        "simplemachines:reinforced_hopper",
-        "simplebuilding:reinforced_quiver",
-        "simplebuilding:reinforced_shulker_box",
         "simplebuilding:nether_brick_quartz_checker",
         "simplebuilding:red_nether_brick_quartz_checker",
         "simplebuilding:resin_quartz_checker",
-        "simplebuilding:rotator",
-        "simplebuilding:stone_chisel",
-        "simplebuilding:stone_sledgehammer",
-        "simplebuilding:stone_spatula",
-        "simplebuilding:suspended_gravel",
-        "simplebuilding:suspended_sand",
-        "simplebuilding:velocity_gauge"
-      ]
-    },
-    {
-      "id": "money_links_simplepads",
-      "en": {
-        "title": "Linked Price Table: simplepads",
-        "details": [
-          "simplepads:chunk_loader: tier 1, hours 6.7, craft 3; 13 bills; mason 2; stock 2; chance 1.",
-          "simplepads:copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:diamond_pressure_plate: tier 3, hours 21.0, craft 2; 32 bills; mason 4; stock 1; chance 1.",
-          "simplepads:elytra_pad: tier 3, hours 21.0, craft 3; 33 bills; mason 4; stock 1; chance 1.",
-          "simplepads:enderite_chunk_loader: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:enderite_elytra_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:enderite_flypad: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:enderite_launchpad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:enderite_pressure_plate: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:enderite_spawn_teleporter: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:exposed_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:fine_elytra_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:flypad: tier 5, hours 38.1, craft 4; 58 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:funny_stick: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:infused_potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:launchpad: tier 1, hours 6.7, craft 3; 13 bills; mason 2; stock 2; chance 1.",
-          "simplepads:netherite_chunk_loader: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:netherite_elytra_pad: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:netherite_flypad: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:netherite_launchpad: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:netherite_pressure_plate: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:oxidized_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:reinforced_elytra_pad: tier 3, hours 21.0, craft 3; 33 bills; mason 4; stock 1; chance 1.",
-          "simplepads:reinforced_flypad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:reinforced_potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:spawn_elytra: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:spawn_teleporter: tier 3, hours 15.0, craft 3; 27 bills; mason 4; stock 1; chance 1.",
-          "simplepads:spawn_teleporter_tier_2: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:spawn_teleporter_tier_3: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:spawn_teleporter_tier_4: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:stellar_flypad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplepads:waxed_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:waxed_exposed_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:waxed_oxidized_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:waxed_weathered_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
-          "simplepads:weathered_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1."
-        ],
-        "summary": "37 item prices; loaded-mod condition: simplepads (moved from SimpleBuilding on 04.11.2026)."
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: simplepads",
-        "details": [
-          "simplepads:chunk_loader: Stufe 1, Stunden 6.7, Rezeptplaetze 3; 13 Scheine; mason 2; Vorrat 2; Chance 1.",
-          "simplepads:copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:diamond_pressure_plate: Stufe 3, Stunden 21.0, Rezeptplaetze 2; 32 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplepads:elytra_pad: Stufe 3, Stunden 21.0, Rezeptplaetze 3; 33 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplepads:enderite_chunk_loader: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:enderite_elytra_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:enderite_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:enderite_launchpad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:enderite_pressure_plate: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:enderite_spawn_teleporter: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:exposed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:fine_elytra_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 4; 58 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:funny_stick: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:infused_potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:launchpad: Stufe 1, Stunden 6.7, Rezeptplaetze 3; 13 Scheine; mason 2; Vorrat 2; Chance 1.",
-          "simplepads:netherite_chunk_loader: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:netherite_elytra_pad: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:netherite_flypad: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:netherite_launchpad: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:netherite_pressure_plate: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:oxidized_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:reinforced_elytra_pad: Stufe 3, Stunden 21.0, Rezeptplaetze 3; 33 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplepads:reinforced_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:reinforced_potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:spawn_elytra: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:spawn_teleporter: Stufe 3, Stunden 15.0, Rezeptplaetze 3; 27 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplepads:spawn_teleporter_tier_2: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:spawn_teleporter_tier_3: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:spawn_teleporter_tier_4: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:stellar_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplepads:waxed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:waxed_exposed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:waxed_oxidized_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:waxed_weathered_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplepads:weathered_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1."
-        ],
-        "summary": "37 Itempreise; Mod-Ladebedingung: simplepads (am 04.11.2026 aus SimpleBuilding verschoben)."
-      },
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simplepads/prices.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/chunk_loader.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/copper_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/diamond_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/elytra_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_chunk_loader.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_elytra_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_flypad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_launchpad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_spawn_teleporter.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/exposed_copper_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/fine_elytra_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/flypad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/funny_stick.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/infused_potion_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/launchpad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_chunk_loader.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_elytra_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_flypad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_launchpad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/oxidized_copper_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/potion_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_elytra_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_flypad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_potion_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_elytra.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_2.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_3.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_4.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/stellar_flypad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_copper_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_exposed_copper_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_oxidized_copper_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_weathered_copper_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/weathered_copper_pressure_plate.json"
-      ],
-      "related": [
-        "simplepads:chunk_loader",
-        "simplepads:copper_pressure_plate",
-        "simplepads:diamond_pressure_plate",
-        "simplepads:elytra_pad",
-        "simplepads:enderite_chunk_loader",
-        "simplepads:enderite_elytra_pad",
-        "simplepads:enderite_flypad",
-        "simplepads:enderite_launchpad",
-        "simplepads:enderite_pressure_plate",
-        "simplepads:enderite_spawn_teleporter",
-        "simplepads:exposed_copper_pressure_plate",
-        "simplepads:fine_elytra_pad",
-        "simplepads:flypad",
-        "simplepads:funny_stick",
-        "simplepads:infused_potion_pad",
-        "simplepads:launchpad",
-        "simplepads:netherite_chunk_loader",
-        "simplepads:netherite_elytra_pad",
-        "simplepads:netherite_flypad",
-        "simplepads:netherite_launchpad",
-        "simplepads:netherite_pressure_plate",
-        "simplepads:oxidized_copper_pressure_plate",
-        "simplepads:potion_pad",
-        "simplepads:reinforced_elytra_pad",
-        "simplepads:reinforced_flypad",
-        "simplepads:reinforced_potion_pad",
-        "simplepads:spawn_elytra",
-        "simplepads:spawn_teleporter",
-        "simplepads:spawn_teleporter_tier_2",
-        "simplepads:spawn_teleporter_tier_3",
-        "simplepads:spawn_teleporter_tier_4",
-        "simplepads:stellar_flypad",
-        "simplepads:waxed_copper_pressure_plate",
-        "simplepads:waxed_exposed_copper_pressure_plate",
-        "simplepads:waxed_oxidized_copper_pressure_plate",
-        "simplepads:waxed_weathered_copper_pressure_plate",
-        "simplepads:weathered_copper_pressure_plate"
+        "simplebuilding:ender_end_stone",
+        "simplebuilding:ender_purpur_block",
+        "simplebuilding:astral_end_stone_stairs",
+        "simplebuilding:astral_end_stone_slab",
+        "simplebuilding:astral_end_stone_wall",
+        "simplebuilding:astral_purpur_pillar",
+        "simplebuilding:astral_purpur_stairs",
+        "simplebuilding:astral_purpur_slab",
+        "simplebuilding:astral_purpur_wall",
+        "simplebuilding:nihil_end_stone_stairs",
+        "simplebuilding:nihil_end_stone_slab",
+        "simplebuilding:nihil_end_stone_wall",
+        "simplebuilding:nihil_purpur_pillar",
+        "simplebuilding:nihil_purpur_stairs",
+        "simplebuilding:nihil_purpur_slab",
+        "simplebuilding:nihil_purpur_wall",
+        "simplebuilding:ender_end_stone_stairs",
+        "simplebuilding:ender_end_stone_slab",
+        "simplebuilding:ender_end_stone_wall",
+        "simplebuilding:ender_purpur_pillar",
+        "simplebuilding:ender_purpur_stairs",
+        "simplebuilding:ender_purpur_slab",
+        "simplebuilding:ender_purpur_wall"
       ]
     },
     {
       "id": "money_links_simplebuildingtools",
       "en": {
         "title": "Linked Price Table: simplebuildingtools",
+        "summary": "24 item prices; loaded-mod condition: simplebuildingtools (1 of them also needs simpleores).",
         "details": [
           "simplebuildingtools:blueprint: tier 4, hours 25.0, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuildingtools:copper_building_wand: tier 0, hours 4.0, craft 3; 8 bills; toolsmith 1; stock 2; chance 1.",
@@ -2203,11 +1992,11 @@
           "simplebuildingtools:octant_red: tier 2, hours 12.5, craft 2; 21 bills; toolsmith 3; stock 2; chance 1.",
           "simplebuildingtools:octant_white: tier 2, hours 12.5, craft 2; 21 bills; toolsmith 3; stock 2; chance 1.",
           "simplebuildingtools:octant_yellow: tier 2, hours 12.5, craft 2; 21 bills; toolsmith 3; stock 2; chance 1."
-        ],
-        "summary": "24 item prices; loaded-mod condition: simplebuildingtools (moved from SimpleBuilding on 07.11.2026)."
+        ]
       },
       "de": {
         "title": "Verknüpfte Preisliste: simplebuildingtools",
+        "summary": "24 Itempreise; Mod-Ladebedingung: simplebuildingtools (1 davon braucht zusätzlich simpleores).",
         "details": [
           "simplebuildingtools:blueprint: Stufe 4, Stunden 25.0, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuildingtools:copper_building_wand: Stufe 0, Stunden 4.0, Rezeptplaetze 3; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1.",
@@ -2233,10 +2022,10 @@
           "simplebuildingtools:octant_red: Stufe 2, Stunden 12.5, Rezeptplaetze 2; 21 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
           "simplebuildingtools:octant_white: Stufe 2, Stunden 12.5, Rezeptplaetze 2; 21 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
           "simplebuildingtools:octant_yellow: Stufe 2, Stunden 12.5, Rezeptplaetze 2; 21 Scheine; toolsmith 3; Vorrat 2; Chance 1."
-        ],
-        "summary": "24 Itempreise; Mod-Ladebedingung: simplebuildingtools (am 07.11.2026 aus SimpleBuilding verschoben)."
+        ]
       },
       "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplebuildingtools/prices.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/blueprint.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/copper_building_wand.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/diamond_building_wand.json",
@@ -2260,8 +2049,7 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/octant_purple.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/octant_red.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/octant_white.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/octant_yellow.json",
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simplebuildingtools/prices.json"
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/octant_yellow.json"
       ],
       "related": [
         "simplebuildingtools:blueprint",
@@ -2294,19 +2082,32 @@
       "id": "money_links_simplechisels",
       "en": {
         "title": "Linked Price Table: simplechisels",
-        "summary": "Prices for the Simple Chisels items when Simple Money is installed.",
+        "summary": "7 item prices; loaded-mod condition: simplechisels (1 of them also needs simpleores).",
         "details": [
-          "Chisels from Simple Chisels are sold by the toolsmith; each tier costs like its material: simplechisels:copper_chisel, simplechisels:diamond_chisel, simplechisels:enderite_chisel, simplechisels:gold_chisel, simplechisels:iron_chisel, simplechisels:netherite_chisel, simplechisels:stone_chisel."
+          "simplechisels:copper_chisel: tier 0, hours 4.0, craft 4; 8 bills; toolsmith 1; stock 2; chance 1.",
+          "simplechisels:diamond_chisel: tier 3, hours 21.0, craft 4; 34 bills; toolsmith 4; stock 1; chance 1.",
+          "simplechisels:enderite_chisel: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplechisels:gold_chisel: tier 2, hours 12.5, craft 4; 23 bills; toolsmith 3; stock 2; chance 1.",
+          "simplechisels:iron_chisel: tier 1, hours 6.7, craft 4; 14 bills; toolsmith 2; stock 2; chance 1.",
+          "simplechisels:netherite_chisel: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplechisels:stone_chisel: tier 0, hours 0.5, craft 4; 8 bills; toolsmith 1; stock 2; chance 1."
         ]
       },
       "de": {
-        "title": "Verknüpfte Preistabelle: simplechisels",
-        "summary": "Preise für die Gegenstände von Simple Chisels, wenn Simple Money installiert ist.",
+        "title": "Verknüpfte Preisliste: simplechisels",
+        "summary": "7 Itempreise; Mod-Ladebedingung: simplechisels (1 davon braucht zusätzlich simpleores).",
         "details": [
-          "Meißel aus Simple Chisels verkauft der Werkzeugschmied; jede Stufe kostet wie ihr Material: simplechisels:copper_chisel, simplechisels:diamond_chisel, simplechisels:enderite_chisel, simplechisels:gold_chisel, simplechisels:iron_chisel, simplechisels:netherite_chisel, simplechisels:stone_chisel."
+          "simplechisels:copper_chisel: Stufe 0, Stunden 4.0, Rezeptplaetze 4; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1.",
+          "simplechisels:diamond_chisel: Stufe 3, Stunden 21.0, Rezeptplaetze 4; 34 Scheine; toolsmith 4; Vorrat 1; Chance 1.",
+          "simplechisels:enderite_chisel: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplechisels:gold_chisel: Stufe 2, Stunden 12.5, Rezeptplaetze 4; 23 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
+          "simplechisels:iron_chisel: Stufe 1, Stunden 6.7, Rezeptplaetze 4; 14 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
+          "simplechisels:netherite_chisel: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplechisels:stone_chisel: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1."
         ]
       },
       "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplechisels/prices.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/copper_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/diamond_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/enderite_chisel.json",
@@ -2314,20 +2115,121 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/iron_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/netherite_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/stone_chisel.json"
+      ],
+      "related": [
+        "simplechisels:copper_chisel",
+        "simplechisels:diamond_chisel",
+        "simplechisels:enderite_chisel",
+        "simplechisels:gold_chisel",
+        "simplechisels:iron_chisel",
+        "simplechisels:netherite_chisel",
+        "simplechisels:stone_chisel"
+      ]
+    },
+    {
+      "id": "money_links_simplecrucibles",
+      "en": {
+        "title": "Linked Price Table: simplecrucibles",
+        "summary": "2 item prices; loaded-mod condition: simplecrucibles (1 of them also needs simpleores).",
+        "details": [
+          "simplecrucibles:enderite_crucible: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplecrucibles:copper_bucket: tier 0, hours 1.0, craft 3; 8 bills; toolsmith 1; stock 2; chance 1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simplecrucibles",
+        "summary": "2 Itempreise; Mod-Ladebedingung: simplecrucibles (1 davon braucht zusätzlich simpleores).",
+        "details": [
+          "simplecrucibles:enderite_crucible: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplecrucibles:copper_bucket: Stufe 0, Stunden 1.0, Rezeptplaetze 3; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplecrucibles/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/enderite_crucible.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/copper_bucket.json"
+      ],
+      "related": [
+        "simplecrucibles:enderite_crucible",
+        "simplecrucibles:copper_bucket"
+      ]
+    },
+    {
+      "id": "money_links_simpleend",
+      "en": {
+        "title": "Linked Price Table: simpleend",
+        "summary": "5 item prices; loaded-mod condition: simpleend.",
+        "details": [
+          "simpleend:ash_bud: tier 4, hours 4.0, craft 0; 16 bills; wandering_trader 1; stock 2; chance 0.2.",
+          "simpleend:dusk_bud: tier 4, hours 4.0, craft 0; 16 bills; wandering_trader 1; stock 2; chance 0.2.",
+          "simpleend:ashwood_log: tier 4, hours 3.0, craft 0; 15 bills; wandering_trader 1; stock 4; chance 0.15.",
+          "simpleend:duskwood_log: tier 4, hours 3.0, craft 0; 15 bills; wandering_trader 1; stock 4; chance 0.15.",
+          "simpleend:drift_fruit: tier 4, hours 2.0, craft 0; 14 bills; wandering_trader 1; stock 3; chance 0.15."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simpleend",
+        "summary": "5 Itempreise; Mod-Ladebedingung: simpleend.",
+        "details": [
+          "simpleend:ash_bud: Stufe 4, Stunden 4.0, Rezeptplaetze 0; 16 Scheine; wandering_trader 1; Vorrat 2; Chance 0.2.",
+          "simpleend:dusk_bud: Stufe 4, Stunden 4.0, Rezeptplaetze 0; 16 Scheine; wandering_trader 1; Vorrat 2; Chance 0.2.",
+          "simpleend:ashwood_log: Stufe 4, Stunden 3.0, Rezeptplaetze 0; 15 Scheine; wandering_trader 1; Vorrat 4; Chance 0.15.",
+          "simpleend:duskwood_log: Stufe 4, Stunden 3.0, Rezeptplaetze 0; 15 Scheine; wandering_trader 1; Vorrat 4; Chance 0.15.",
+          "simpleend:drift_fruit: Stufe 4, Stunden 2.0, Rezeptplaetze 0; 14 Scheine; wandering_trader 1; Vorrat 3; Chance 0.15."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simpleend/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleend/ash_bud.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleend/dusk_bud.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleend/ashwood_log.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleend/duskwood_log.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleend/drift_fruit.json"
+      ],
+      "related": [
+        "simpleend:ash_bud",
+        "simpleend:dusk_bud",
+        "simpleend:ashwood_log",
+        "simpleend:duskwood_log",
+        "simpleend:drift_fruit"
+      ]
+    },
+    {
+      "id": "money_links_simpleenddragonfight",
+      "en": {
+        "title": "Linked Price Table: simpleenddragonfight",
+        "summary": "1 item price; loaded-mod condition: simpleenddragonfight.",
+        "details": [
+          "simpleenddragonfight:dragon_chitin: tier 5, hours 30.0, craft 0; 45 bills; wandering_trader 5; stock 1; chance 0.1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simpleenddragonfight",
+        "summary": "1 Itempreis; Mod-Ladebedingung: simpleenddragonfight.",
+        "details": [
+          "simpleenddragonfight:dragon_chitin: Stufe 5, Stunden 30.0, Rezeptplaetze 0; 45 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simpleenddragonfight/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleenddragonfight/dragon_chitin.json"
+      ],
+      "related": [
+        "simpleenddragonfight:dragon_chitin"
       ]
     },
     {
       "id": "money_links_simplefun",
       "en": {
         "title": "Linked Price Table: simplefun",
-        "summary": "1 item prices; loaded-mod condition: simplefun.",
+        "summary": "1 item price; loaded-mod condition: simplefun.",
         "details": [
           "simplefun:brick_snowball: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1."
         ]
       },
       "de": {
         "title": "Verknüpfte Preisliste: simplefun",
-        "summary": "1 Itempreise; Mod-Ladebedingung: simplefun.",
+        "summary": "1 Itempreis; Mod-Ladebedingung: simplefun.",
         "details": [
           "simplefun:brick_snowball: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1."
         ]
@@ -2341,27 +2243,211 @@
       ]
     },
     {
+      "id": "money_links_simplegadgets",
+      "en": {
+        "title": "Linked Price Table: simplegadgets",
+        "summary": "6 item prices; loaded-mod condition: simplegadgets.",
+        "details": [
+          "simplegadgets:velocity_gauge: tier 0, hours 4.0, craft 7; 11 bills; toolsmith 1; stock 2; chance 1.",
+          "simplegadgets:rotator: tier 1, hours 6.7, craft 6; 16 bills; toolsmith 2; stock 2; chance 1.",
+          "simplegadgets:amethyst_lens: tier 1, hours 6.7, craft 9; 19 bills; toolsmith 2; stock 2; chance 1.",
+          "simplegadgets:echo_sounder: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplegadgets:detector: tier 2, hours 12.5, craft 7; 26 bills; toolsmith 3; stock 2; chance 1.",
+          "simplegadgets:magnet: tier 1, hours 6.7, craft 5; 15 bills; toolsmith 2; stock 2; chance 1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simplegadgets",
+        "summary": "6 Itempreise; Mod-Ladebedingung: simplegadgets.",
+        "details": [
+          "simplegadgets:velocity_gauge: Stufe 0, Stunden 4.0, Rezeptplaetze 7; 11 Scheine; toolsmith 1; Vorrat 2; Chance 1.",
+          "simplegadgets:rotator: Stufe 1, Stunden 6.7, Rezeptplaetze 6; 16 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
+          "simplegadgets:amethyst_lens: Stufe 1, Stunden 6.7, Rezeptplaetze 9; 19 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
+          "simplegadgets:echo_sounder: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplegadgets:detector: Stufe 2, Stunden 12.5, Rezeptplaetze 7; 26 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
+          "simplegadgets:magnet: Stufe 1, Stunden 6.7, Rezeptplaetze 5; 15 Scheine; toolsmith 2; Vorrat 2; Chance 1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplegadgets/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplegadgets/velocity_gauge.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplegadgets/rotator.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplegadgets/amethyst_lens.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplegadgets/echo_sounder.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplegadgets/detector.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplegadgets/magnet.json"
+      ],
+      "related": [
+        "simplegadgets:velocity_gauge",
+        "simplegadgets:rotator",
+        "simplegadgets:amethyst_lens",
+        "simplegadgets:echo_sounder",
+        "simplegadgets:detector",
+        "simplegadgets:magnet"
+      ]
+    },
+    {
+      "id": "money_links_simplehammers",
+      "en": {
+        "title": "Linked Price Table: simplehammers",
+        "summary": "7 item prices; loaded-mod condition: simplehammers (1 of them also needs simpleores).",
+        "details": [
+          "simplehammers:copper_sledgehammer: tier 0, hours 4.0, craft 5; 9 bills; toolsmith 1; stock 2; chance 1.",
+          "simplehammers:diamond_sledgehammer: tier 3, hours 21.0, craft 5; 35 bills; toolsmith 4; stock 1; chance 1.",
+          "simplehammers:enderite_sledgehammer: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplehammers:gold_sledgehammer: tier 2, hours 12.5, craft 5; 24 bills; toolsmith 3; stock 2; chance 1.",
+          "simplehammers:iron_sledgehammer: tier 1, hours 6.7, craft 5; 15 bills; toolsmith 2; stock 2; chance 1.",
+          "simplehammers:netherite_sledgehammer: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplehammers:stone_sledgehammer: tier 0, hours 0.5, craft 5; 8 bills; toolsmith 1; stock 2; chance 1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simplehammers",
+        "summary": "7 Itempreise; Mod-Ladebedingung: simplehammers (1 davon braucht zusätzlich simpleores).",
+        "details": [
+          "simplehammers:copper_sledgehammer: Stufe 0, Stunden 4.0, Rezeptplaetze 5; 9 Scheine; toolsmith 1; Vorrat 2; Chance 1.",
+          "simplehammers:diamond_sledgehammer: Stufe 3, Stunden 21.0, Rezeptplaetze 5; 35 Scheine; toolsmith 4; Vorrat 1; Chance 1.",
+          "simplehammers:enderite_sledgehammer: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplehammers:gold_sledgehammer: Stufe 2, Stunden 12.5, Rezeptplaetze 5; 24 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
+          "simplehammers:iron_sledgehammer: Stufe 1, Stunden 6.7, Rezeptplaetze 5; 15 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
+          "simplehammers:netherite_sledgehammer: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplehammers:stone_sledgehammer: Stufe 0, Stunden 0.5, Rezeptplaetze 5; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplehammers/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/copper_sledgehammer.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/diamond_sledgehammer.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/enderite_sledgehammer.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/gold_sledgehammer.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/iron_sledgehammer.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/netherite_sledgehammer.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/stone_sledgehammer.json"
+      ],
+      "related": [
+        "simplehammers:copper_sledgehammer",
+        "simplehammers:diamond_sledgehammer",
+        "simplehammers:enderite_sledgehammer",
+        "simplehammers:gold_sledgehammer",
+        "simplehammers:iron_sledgehammer",
+        "simplehammers:netherite_sledgehammer",
+        "simplehammers:stone_sledgehammer"
+      ]
+    },
+    {
+      "id": "money_links_simplelib",
+      "en": {
+        "title": "Linked Price Table: simplelib",
+        "summary": "6 item prices; loaded-mod condition: simplelib (1 of them also needs simpleores).",
+        "details": [
+          "simplelib:copper_core: tier 0, hours 4.0, craft 5; 9 bills; wandering_trader 1; stock 2; chance 1.",
+          "simplelib:diamond_core: tier 3, hours 21.0, craft 5; 35 bills; wandering_trader 4; stock 1; chance 0.1.",
+          "simplelib:enderite_core: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.01.",
+          "simplelib:gold_core: tier 2, hours 12.5, craft 5; 24 bills; wandering_trader 3; stock 2; chance 0.25.",
+          "simplelib:iron_core: tier 1, hours 6.7, craft 5; 15 bills; wandering_trader 2; stock 2; chance 0.5.",
+          "simplelib:netherite_core: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.05."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simplelib",
+        "summary": "6 Itempreise; Mod-Ladebedingung: simplelib (1 davon braucht zusätzlich simpleores).",
+        "details": [
+          "simplelib:copper_core: Stufe 0, Stunden 4.0, Rezeptplaetze 5; 9 Scheine; wandering_trader 1; Vorrat 2; Chance 1.",
+          "simplelib:diamond_core: Stufe 3, Stunden 21.0, Rezeptplaetze 5; 35 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
+          "simplelib:enderite_core: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.01.",
+          "simplelib:gold_core: Stufe 2, Stunden 12.5, Rezeptplaetze 5; 24 Scheine; wandering_trader 3; Vorrat 2; Chance 0.25.",
+          "simplelib:iron_core: Stufe 1, Stunden 6.7, Rezeptplaetze 5; 15 Scheine; wandering_trader 2; Vorrat 2; Chance 0.5.",
+          "simplelib:netherite_core: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.05."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplelib/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/copper_core.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/diamond_core.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/enderite_core.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/gold_core.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/iron_core.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplelib/netherite_core.json"
+      ],
+      "related": [
+        "simplelib:copper_core",
+        "simplelib:diamond_core",
+        "simplelib:enderite_core",
+        "simplelib:gold_core",
+        "simplelib:iron_core",
+        "simplelib:netherite_core"
+      ]
+    },
+    {
+      "id": "money_links_simplemachines",
+      "en": {
+        "title": "Linked Price Table: simplemachines",
+        "summary": "7 item prices; loaded-mod condition: simplemachines (2 of them also need simpleores).",
+        "details": [
+          "simplemachines:enderite_hopper: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplemachines:enderite_piston: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplemachines:netherite_hopper: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplemachines:netherite_piston: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplemachines:reinforced_hopper: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
+          "simplemachines:reinforced_piston: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
+          "simplemachines:reinforced_sticky_piston: tier 0, hours 0.5, craft 2; 8 bills; mason 1; stock 2; chance 1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simplemachines",
+        "summary": "7 Itempreise; Mod-Ladebedingung: simplemachines (2 davon brauchen zusätzlich simpleores).",
+        "details": [
+          "simplemachines:enderite_hopper: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplemachines:enderite_piston: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplemachines:netherite_hopper: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplemachines:netherite_piston: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplemachines:reinforced_hopper: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplemachines:reinforced_piston: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplemachines:reinforced_sticky_piston: Stufe 0, Stunden 0.5, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplemachines/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/enderite_hopper.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/enderite_piston.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/netherite_hopper.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/netherite_piston.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/reinforced_hopper.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/reinforced_piston.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/reinforced_sticky_piston.json"
+      ],
+      "related": [
+        "simplemachines:enderite_hopper",
+        "simplemachines:enderite_piston",
+        "simplemachines:netherite_hopper",
+        "simplemachines:netherite_piston",
+        "simplemachines:reinforced_hopper",
+        "simplemachines:reinforced_piston",
+        "simplemachines:reinforced_sticky_piston"
+      ]
+    },
+    {
       "id": "money_links_simplemobheads",
       "en": {
         "title": "Linked Price Table: simplemobheads",
         "summary": "89 item prices; loaded-mod condition: simplemobheads.",
         "details": [
-          "simplemobheads:blaze_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:enderman_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:husk_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:spider_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:cave_spider_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:stray_skull: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.0.",
-          "simplemobheads:bogged_skull: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.0.",
-          "simplemobheads:slime_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:silverfish_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:breeze_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:shulker_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:drowned_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:pig_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:cow_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:chicken_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
-          "simplemobheads:sheep_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
+          "simplemobheads:blaze_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:enderman_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:husk_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:spider_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:cave_spider_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:stray_skull: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
+          "simplemobheads:bogged_skull: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
+          "simplemobheads:slime_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:silverfish_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:breeze_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:shulker_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:drowned_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:pig_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:cow_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:chicken_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
+          "simplemobheads:sheep_head: tier 3, hours 15.0, craft 0; 24 bills; village_wanderer 4; stock 1; chance 0.1.",
           "simplemobheads:zombie_villager_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.05.",
           "simplemobheads:witch_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.05.",
           "simplemobheads:pillager_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.05.",
@@ -2441,22 +2527,22 @@
         "title": "Verknüpfte Preisliste: simplemobheads",
         "summary": "89 Itempreise; Mod-Ladebedingung: simplemobheads.",
         "details": [
-          "simplemobheads:blaze_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:enderman_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:husk_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:spider_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:cave_spider_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:stray_skull: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.0.",
-          "simplemobheads:bogged_skull: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.0.",
-          "simplemobheads:slime_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:silverfish_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:breeze_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:shulker_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:drowned_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:pig_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:cow_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:chicken_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
-          "simplemobheads:sheep_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:blaze_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:enderman_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:husk_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:spider_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:cave_spider_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:stray_skull: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplemobheads:bogged_skull: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplemobheads:slime_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:silverfish_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:breeze_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:shulker_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:drowned_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:pig_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:cow_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:chicken_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
+          "simplemobheads:sheep_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; village_wanderer 4; Vorrat 1; Chance 0.1.",
           "simplemobheads:zombie_villager_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.05.",
           "simplemobheads:witch_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.05.",
           "simplemobheads:pillager_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.05.",
@@ -2717,185 +2803,58 @@
       ]
     },
     {
-      "id": "money_links_simplemodels",
+      "id": "money_links_simpleores",
       "en": {
-        "title": "Linked Price Table: simplemodels",
-        "summary": "0 item prices; loaded-mod condition: simplemodels.",
+        "title": "Linked Price Table: simpleores",
+        "summary": "7 item prices; loaded-mod condition: simpleores.",
         "details": [
-          "No distinct survival items to trade. {}"
+          "simpleores:enderite_block: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleores:enderite_ingot: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleores:enderite_nugget: tier 5, hours 38.1, craft 1; 55 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleores:enderite_scrap: tier 5, hours 38.1, craft 1; 55 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleores:enderite_upgrade_template: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleores:layered_raw_enderite: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleores:raw_enderite: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1."
         ]
       },
       "de": {
-        "title": "Verknüpfte Preisliste: simplemodels",
-        "summary": "0 Itempreise; Mod-Ladebedingung: simplemodels.",
+        "title": "Verknüpfte Preisliste: simpleores",
+        "summary": "7 Itempreise; Mod-Ladebedingung: simpleores.",
         "details": [
-          "Keine eigenen Survival-Items für den Handel. {}"
+          "simpleores:enderite_block: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleores:enderite_ingot: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleores:enderite_nugget: Stufe 5, Stunden 38.1, Rezeptplaetze 1; 55 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleores:enderite_scrap: Stufe 5, Stunden 38.1, Rezeptplaetze 1; 55 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleores:enderite_upgrade_template: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleores:layered_raw_enderite: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleores:raw_enderite: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1."
         ]
       },
       "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simplemodels/prices.json"
-      ],
-      "related": []
-    },
-    {
-      "id": "money_links_simplequalityoflife",
-      "en": {
-        "title": "Linked Price Table: simplequalityoflife",
-        "summary": "0 item prices; loaded-mod condition: simplequalityoflife.",
-        "details": [
-          "No distinct survival items to trade. {}"
-        ]
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: simplequalityoflife",
-        "summary": "0 Itempreise; Mod-Ladebedingung: simplequalityoflife.",
-        "details": [
-          "Keine eigenen Survival-Items für den Handel. {}"
-        ]
-      },
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simplequalityoflife/prices.json"
-      ],
-      "related": []
-    },
-    {
-      "id": "money_links_simpleriding",
-      "en": {
-        "title": "Linked Price Table: simpleriding",
-        "summary": "0 item prices; loaded-mod condition: simpleriding.",
-        "details": [
-          "No distinct survival items to trade. {}"
-        ]
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: simpleriding",
-        "summary": "0 Itempreise; Mod-Ladebedingung: simpleriding.",
-        "details": [
-          "Keine eigenen Survival-Items für den Handel. {}"
-        ]
-      },
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simpleriding/prices.json"
-      ],
-      "related": []
-    },
-    {
-      "id": "money_links_simplesounds",
-      "en": {
-        "title": "Linked Price Table: simplesounds",
-        "summary": "0 item prices; loaded-mod condition: simplesounds.",
-        "details": [
-          "No distinct survival items to trade. {}"
-        ]
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: simplesounds",
-        "summary": "0 Itempreise; Mod-Ladebedingung: simplesounds.",
-        "details": [
-          "Keine eigenen Survival-Items für den Handel. {}"
-        ]
-      },
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simplesounds/prices.json"
-      ],
-      "related": []
-    },
-    {
-      "id": "money_links_simplecrucibles",
-      "en": {
-        "title": "Linked Price Table: simplecrucibles",
-        "summary": "2 item prices; loaded-mod condition: simplecrucibles.",
-        "details": [
-          "simplecrucibles:enderite_crucible: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplecrucibles:copper_bucket: tier 0, hours 1.0, craft 3; 8 bills; toolsmith 1; stock 2; chance 1."
-        ]
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: simplecrucibles",
-        "summary": "2 Itempreise; Mod-Ladebedingung: simplecrucibles.",
-        "details": [
-          "simplecrucibles:enderite_crucible: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplecrucibles:copper_bucket: Stufe 0, Stunden 1.0, Rezeptplaetze 3; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1."
-        ]
-      },
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simplecrucibles/prices.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/enderite_crucible.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/copper_bucket.json"
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simpleores/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_block.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_ingot.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_nugget.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_scrap.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_upgrade_template.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/layered_raw_enderite.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/raw_enderite.json"
       ],
       "related": [
-        "simplecrucibles:enderite_crucible",
-        "simplecrucibles:copper_bucket"
+        "simpleores:enderite_block",
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_nugget",
+        "simpleores:enderite_scrap",
+        "simpleores:enderite_upgrade_template",
+        "simpleores:layered_raw_enderite",
+        "simpleores:raw_enderite"
       ]
-    },
-    {
-      "id": "money_links_simpletools",
-      "en": {
-        "title": "Linked Price Table: simpletools",
-        "summary": "1 item prices; loaded-mod condition: simpletools.",
-        "details": [
-          "simpletools:enderite_bucket: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1."
-        ]
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: simpletools",
-        "summary": "1 Itempreise; Mod-Ladebedingung: simpletools.",
-        "details": [
-          "simpletools:enderite_bucket: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1."
-        ]
-      },
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simpletools/prices.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpletools/enderite_bucket.json"
-      ],
-      "related": [
-        "simpletools:enderite_bucket"
-      ]
-    },
-    {
-      "id": "money_links_simplehammers",
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simplehammers/prices.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/copper_sledgehammer.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/diamond_sledgehammer.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/enderite_sledgehammer.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/gold_sledgehammer.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/iron_sledgehammer.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/netherite_sledgehammer.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplehammers/stone_sledgehammer.json"
-      ],
-      "en": {
-        "title": "Linked Price Table: simplehammers",
-        "summary": "7 item prices; loaded-mod condition: simplehammers.",
-        "details": [
-          "simplehammers:copper_sledgehammer: tier 0, hours 4.0, craft 5; 9 bills; toolsmith 1; stock 2; chance 1.",
-          "simplehammers:diamond_sledgehammer: tier 3, hours 21.0, craft 5; 35 bills; toolsmith 4; stock 1; chance 1.",
-          "simplehammers:enderite_sledgehammer: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplehammers:gold_sledgehammer: tier 2, hours 12.5, craft 5; 24 bills; toolsmith 3; stock 2; chance 1.",
-          "simplehammers:iron_sledgehammer: tier 1, hours 6.7, craft 5; 15 bills; toolsmith 2; stock 2; chance 1.",
-          "simplehammers:netherite_sledgehammer: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplehammers:stone_sledgehammer: tier 0, hours 0.5, craft 5; 8 bills; toolsmith 1; stock 2; chance 1."
-        ]
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: simplehammers",
-        "summary": "7 Itempreise; Mod-Ladebedingung: simplehammers.",
-        "details": [
-          "simplehammers:copper_sledgehammer: Stufe 0, Stunden 4.0, Rezeptplaetze 5; 9 Scheine; toolsmith 1; Vorrat 2; Chance 1.",
-          "simplehammers:diamond_sledgehammer: Stufe 3, Stunden 21.0, Rezeptplaetze 5; 35 Scheine; toolsmith 4; Vorrat 1; Chance 1.",
-          "simplehammers:enderite_sledgehammer: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplehammers:gold_sledgehammer: Stufe 2, Stunden 12.5, Rezeptplaetze 5; 24 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
-          "simplehammers:iron_sledgehammer: Stufe 1, Stunden 6.7, Rezeptplaetze 5; 15 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
-          "simplehammers:netherite_sledgehammer: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplehammers:stone_sledgehammer: Stufe 0, Stunden 0.5, Rezeptplaetze 5; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1."
-        ]
-      }
     },
     {
       "id": "money_links_simpleovens",
       "en": {
         "title": "Linked Price Table: simpleovens",
-        "summary": "9 item prices; loaded-mod condition: simpleovens.",
+        "summary": "9 item prices; loaded-mod condition: simpleovens (3 of them also need simpleores).",
         "details": [
           "simpleovens:enderite_blast_furnace: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simpleovens:enderite_furnace: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -2910,7 +2869,7 @@
       },
       "de": {
         "title": "Verknüpfte Preisliste: simpleovens",
-        "summary": "9 Itempreise; Mod-Ladebedingung: simpleovens.",
+        "summary": "9 Itempreise; Mod-Ladebedingung: simpleovens (3 davon brauchen zusätzlich simpleores).",
         "details": [
           "simpleovens:enderite_blast_furnace: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simpleovens:enderite_furnace: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -2948,39 +2907,387 @@
       ]
     },
     {
-      "id": "money_links_simplemachines",
+      "id": "money_links_simplepads",
       "en": {
-        "title": "Linked Price Table: simplemachines",
-        "summary": "4 item prices; loaded-mod condition: simplemachines (the Enderite Piston also needs simpleores).",
+        "title": "Linked Price Table: simplepads",
+        "summary": "37 item prices; loaded-mod condition: simplepads (6 of them also need simpleores).",
         "details": [
-          "simplemachines:enderite_piston: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplemachines:netherite_piston: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplemachines:reinforced_piston: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
-          "simplemachines:reinforced_sticky_piston: tier 0, hours 0.5, craft 2; 8 bills; mason 1; stock 2; chance 1."
+          "simplepads:chunk_loader: tier 1, hours 6.7, craft 3; 13 bills; mason 2; stock 2; chance 1.",
+          "simplepads:copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:diamond_pressure_plate: tier 3, hours 21.0, craft 2; 32 bills; mason 4; stock 1; chance 1.",
+          "simplepads:elytra_pad: tier 3, hours 21.0, craft 3; 33 bills; mason 4; stock 1; chance 1.",
+          "simplepads:enderite_chunk_loader: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:enderite_elytra_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:enderite_flypad: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:enderite_launchpad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:enderite_pressure_plate: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:enderite_spawn_teleporter: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:exposed_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:fine_elytra_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:flypad: tier 5, hours 38.1, craft 4; 58 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:funny_stick: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:infused_potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:launchpad: tier 1, hours 6.7, craft 3; 13 bills; mason 2; stock 2; chance 1.",
+          "simplepads:netherite_chunk_loader: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:netherite_elytra_pad: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:netherite_flypad: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:netherite_launchpad: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:netherite_pressure_plate: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:oxidized_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:reinforced_elytra_pad: tier 3, hours 21.0, craft 3; 33 bills; mason 4; stock 1; chance 1.",
+          "simplepads:reinforced_flypad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:reinforced_potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:spawn_elytra: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:spawn_teleporter: tier 3, hours 15.0, craft 3; 27 bills; mason 4; stock 1; chance 1.",
+          "simplepads:spawn_teleporter_tier_2: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:spawn_teleporter_tier_3: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:spawn_teleporter_tier_4: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:stellar_flypad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:waxed_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:waxed_exposed_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:waxed_oxidized_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:waxed_weathered_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:weathered_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1."
         ]
       },
       "de": {
-        "title": "Verknüpfte Preisliste: simplemachines",
-        "summary": "4 Itempreise; Mod-Ladebedingung: simplemachines (der Enderitkolben braucht zusätzlich simpleores).",
+        "title": "Verknüpfte Preisliste: simplepads",
+        "summary": "37 Itempreise; Mod-Ladebedingung: simplepads (6 davon brauchen zusätzlich simpleores).",
         "details": [
-          "simplemachines:enderite_piston: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplemachines:netherite_piston: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplemachines:reinforced_piston: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplemachines:reinforced_sticky_piston: Stufe 0, Stunden 0.5, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1."
+          "simplepads:chunk_loader: Stufe 1, Stunden 6.7, Rezeptplaetze 3; 13 Scheine; mason 2; Vorrat 2; Chance 1.",
+          "simplepads:copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:diamond_pressure_plate: Stufe 3, Stunden 21.0, Rezeptplaetze 2; 32 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplepads:elytra_pad: Stufe 3, Stunden 21.0, Rezeptplaetze 3; 33 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplepads:enderite_chunk_loader: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:enderite_elytra_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:enderite_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:enderite_launchpad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:enderite_pressure_plate: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:enderite_spawn_teleporter: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:exposed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:fine_elytra_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 4; 58 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:funny_stick: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:infused_potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:launchpad: Stufe 1, Stunden 6.7, Rezeptplaetze 3; 13 Scheine; mason 2; Vorrat 2; Chance 1.",
+          "simplepads:netherite_chunk_loader: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:netherite_elytra_pad: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:netherite_flypad: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:netherite_launchpad: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:netherite_pressure_plate: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:oxidized_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:reinforced_elytra_pad: Stufe 3, Stunden 21.0, Rezeptplaetze 3; 33 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplepads:reinforced_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:reinforced_potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:spawn_elytra: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:spawn_teleporter: Stufe 3, Stunden 15.0, Rezeptplaetze 3; 27 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplepads:spawn_teleporter_tier_2: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:spawn_teleporter_tier_3: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:spawn_teleporter_tier_4: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:stellar_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:waxed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:waxed_exposed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:waxed_oxidized_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:waxed_weathered_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:weathered_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1."
         ]
       },
       "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simplemachines/prices.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/enderite_piston.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/netherite_piston.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/reinforced_piston.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/reinforced_sticky_piston.json"
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplepads/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/chunk_loader.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/copper_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/diamond_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/elytra_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_chunk_loader.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_elytra_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_flypad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_launchpad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_spawn_teleporter.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/exposed_copper_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/fine_elytra_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/flypad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/funny_stick.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/infused_potion_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/launchpad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_chunk_loader.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_elytra_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_flypad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_launchpad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/oxidized_copper_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/potion_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_elytra_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_flypad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_potion_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_elytra.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_2.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_3.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_4.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/stellar_flypad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_copper_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_exposed_copper_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_oxidized_copper_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_weathered_copper_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/weathered_copper_pressure_plate.json"
       ],
       "related": [
-        "simplemachines:enderite_piston",
-        "simplemachines:netherite_piston",
-        "simplemachines:reinforced_piston",
-        "simplemachines:reinforced_sticky_piston"
+        "simplepads:chunk_loader",
+        "simplepads:copper_pressure_plate",
+        "simplepads:diamond_pressure_plate",
+        "simplepads:elytra_pad",
+        "simplepads:enderite_chunk_loader",
+        "simplepads:enderite_elytra_pad",
+        "simplepads:enderite_flypad",
+        "simplepads:enderite_launchpad",
+        "simplepads:enderite_pressure_plate",
+        "simplepads:enderite_spawn_teleporter",
+        "simplepads:exposed_copper_pressure_plate",
+        "simplepads:fine_elytra_pad",
+        "simplepads:flypad",
+        "simplepads:funny_stick",
+        "simplepads:infused_potion_pad",
+        "simplepads:launchpad",
+        "simplepads:netherite_chunk_loader",
+        "simplepads:netherite_elytra_pad",
+        "simplepads:netherite_flypad",
+        "simplepads:netherite_launchpad",
+        "simplepads:netherite_pressure_plate",
+        "simplepads:oxidized_copper_pressure_plate",
+        "simplepads:potion_pad",
+        "simplepads:reinforced_elytra_pad",
+        "simplepads:reinforced_flypad",
+        "simplepads:reinforced_potion_pad",
+        "simplepads:spawn_elytra",
+        "simplepads:spawn_teleporter",
+        "simplepads:spawn_teleporter_tier_2",
+        "simplepads:spawn_teleporter_tier_3",
+        "simplepads:spawn_teleporter_tier_4",
+        "simplepads:stellar_flypad",
+        "simplepads:waxed_copper_pressure_plate",
+        "simplepads:waxed_exposed_copper_pressure_plate",
+        "simplepads:waxed_oxidized_copper_pressure_plate",
+        "simplepads:waxed_weathered_copper_pressure_plate",
+        "simplepads:weathered_copper_pressure_plate"
+      ]
+    },
+    {
+      "id": "money_links_simplesandwiches",
+      "en": {
+        "title": "Linked Price Table: simplesandwiches",
+        "summary": "19 item prices; loaded-mod condition: simplesandwiches.",
+        "details": [
+          "simplesandwiches:knife: tier 1, hours 1.0, craft 3; 8 bills; toolsmith 1; stock 2; chance 1.",
+          "simplesandwiches:oak_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:spruce_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:birch_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:jungle_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:acacia_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:dark_oak_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:mangrove_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:cherry_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:pale_oak_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:poplar_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:bamboo_cutting_board: tier 0, hours 0.5, craft 3; 8 bills; butcher 1; stock 2; chance 1.",
+          "simplesandwiches:crimson_cutting_board: tier 2, hours 3.0, craft 3; 12 bills; butcher 2; stock 2; chance 1.",
+          "simplesandwiches:warped_cutting_board: tier 2, hours 3.0, craft 3; 12 bills; butcher 2; stock 2; chance 1.",
+          "simplesandwiches:cheese_block: tier 1, hours 1.0, craft 0; 32 bills; farmer 2; stock 2; chance 1.",
+          "simplesandwiches:butter_block: tier 1, hours 1.0, craft 0; 24 bills; farmer 2; stock 2; chance 1.",
+          "simplesandwiches:cheese_slice: tier 1, hours 1.0, craft 0; 8 bills; farmer 1; stock 2; chance 1.",
+          "simplesandwiches:butter_slice: tier 1, hours 1.0, craft 0; 8 bills; farmer 1; stock 2; chance 1.",
+          "simplesandwiches:cake_slice: tier 1, hours 1.0, craft 0; 8 bills; farmer 1; stock 2; chance 1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simplesandwiches",
+        "summary": "19 Itempreise; Mod-Ladebedingung: simplesandwiches.",
+        "details": [
+          "simplesandwiches:knife: Stufe 1, Stunden 1.0, Rezeptplaetze 3; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:oak_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:spruce_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:birch_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:jungle_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:acacia_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:dark_oak_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:mangrove_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:cherry_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:pale_oak_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:poplar_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:bamboo_cutting_board: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; butcher 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:crimson_cutting_board: Stufe 2, Stunden 3.0, Rezeptplaetze 3; 12 Scheine; butcher 2; Vorrat 2; Chance 1.",
+          "simplesandwiches:warped_cutting_board: Stufe 2, Stunden 3.0, Rezeptplaetze 3; 12 Scheine; butcher 2; Vorrat 2; Chance 1.",
+          "simplesandwiches:cheese_block: Stufe 1, Stunden 1.0, Rezeptplaetze 0; 32 Scheine; farmer 2; Vorrat 2; Chance 1.",
+          "simplesandwiches:butter_block: Stufe 1, Stunden 1.0, Rezeptplaetze 0; 24 Scheine; farmer 2; Vorrat 2; Chance 1.",
+          "simplesandwiches:cheese_slice: Stufe 1, Stunden 1.0, Rezeptplaetze 0; 8 Scheine; farmer 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:butter_slice: Stufe 1, Stunden 1.0, Rezeptplaetze 0; 8 Scheine; farmer 1; Vorrat 2; Chance 1.",
+          "simplesandwiches:cake_slice: Stufe 1, Stunden 1.0, Rezeptplaetze 0; 8 Scheine; farmer 1; Vorrat 2; Chance 1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplesandwiches/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/knife.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/oak_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/spruce_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/birch_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/jungle_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/acacia_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/dark_oak_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/mangrove_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/cherry_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/pale_oak_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/poplar_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/bamboo_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/crimson_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/warped_cutting_board.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/cheese_block.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/butter_block.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/cheese_slice.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/butter_slice.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplesandwiches/cake_slice.json"
+      ],
+      "related": [
+        "simplesandwiches:knife",
+        "simplesandwiches:oak_cutting_board",
+        "simplesandwiches:spruce_cutting_board",
+        "simplesandwiches:birch_cutting_board",
+        "simplesandwiches:jungle_cutting_board",
+        "simplesandwiches:acacia_cutting_board",
+        "simplesandwiches:dark_oak_cutting_board",
+        "simplesandwiches:mangrove_cutting_board",
+        "simplesandwiches:cherry_cutting_board",
+        "simplesandwiches:pale_oak_cutting_board",
+        "simplesandwiches:poplar_cutting_board",
+        "simplesandwiches:bamboo_cutting_board",
+        "simplesandwiches:crimson_cutting_board",
+        "simplesandwiches:warped_cutting_board",
+        "simplesandwiches:cheese_block",
+        "simplesandwiches:butter_block",
+        "simplesandwiches:cheese_slice",
+        "simplesandwiches:butter_slice",
+        "simplesandwiches:cake_slice"
+      ]
+    },
+    {
+      "id": "money_links_simplestorage",
+      "en": {
+        "title": "Linked Price Table: simplestorage",
+        "summary": "19 item prices; loaded-mod condition: simplestorage (6 of them also need simpleores).",
+        "details": [
+          "simplestorage:backpack: tier 0, hours 0.5, craft 9; 10 bills; mason 1; stock 2; chance 1.",
+          "simplestorage:enderite_backpack: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:enderite_barrel: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:enderite_bundle: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:enderite_chest: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:enderite_quiver: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:enderite_shulker_box: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:leather_sheet: tier 0, hours 0.5, craft 9; 10 bills; mason 1; stock 2; chance 1.",
+          "simplestorage:netherite_backpack: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:netherite_bundle: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:netherite_chest: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:netherite_quiver: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:netherite_shulker_box: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplestorage:quiver: tier 0, hours 0.5, craft 6; 8 bills; mason 1; stock 2; chance 1.",
+          "simplestorage:reinforced_backpack: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
+          "simplestorage:reinforced_bundle: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
+          "simplestorage:reinforced_chest: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
+          "simplestorage:reinforced_quiver: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
+          "simplestorage:reinforced_shulker_box: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simplestorage",
+        "summary": "19 Itempreise; Mod-Ladebedingung: simplestorage (6 davon brauchen zusätzlich simpleores).",
+        "details": [
+          "simplestorage:backpack: Stufe 0, Stunden 0.5, Rezeptplaetze 9; 10 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplestorage:enderite_backpack: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:enderite_barrel: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:enderite_bundle: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:enderite_chest: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:enderite_quiver: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:enderite_shulker_box: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:leather_sheet: Stufe 0, Stunden 0.5, Rezeptplaetze 9; 10 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplestorage:netherite_backpack: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:netherite_bundle: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:netherite_chest: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:netherite_quiver: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:netherite_shulker_box: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplestorage:quiver: Stufe 0, Stunden 0.5, Rezeptplaetze 6; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplestorage:reinforced_backpack: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplestorage:reinforced_bundle: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplestorage:reinforced_chest: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplestorage:reinforced_quiver: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplestorage:reinforced_shulker_box: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplestorage/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/backpack.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/enderite_backpack.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/enderite_barrel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/enderite_bundle.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/enderite_chest.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/enderite_quiver.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/enderite_shulker_box.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/leather_sheet.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/netherite_backpack.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/netherite_bundle.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/netherite_chest.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/netherite_quiver.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/netherite_shulker_box.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/quiver.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/reinforced_backpack.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/reinforced_bundle.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/reinforced_chest.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/reinforced_quiver.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplestorage/reinforced_shulker_box.json"
+      ],
+      "related": [
+        "simplestorage:backpack",
+        "simplestorage:enderite_backpack",
+        "simplestorage:enderite_barrel",
+        "simplestorage:enderite_bundle",
+        "simplestorage:enderite_chest",
+        "simplestorage:enderite_quiver",
+        "simplestorage:enderite_shulker_box",
+        "simplestorage:leather_sheet",
+        "simplestorage:netherite_backpack",
+        "simplestorage:netherite_bundle",
+        "simplestorage:netherite_chest",
+        "simplestorage:netherite_quiver",
+        "simplestorage:netherite_shulker_box",
+        "simplestorage:quiver",
+        "simplestorage:reinforced_backpack",
+        "simplestorage:reinforced_bundle",
+        "simplestorage:reinforced_chest",
+        "simplestorage:reinforced_quiver",
+        "simplestorage:reinforced_shulker_box"
+      ]
+    },
+    {
+      "id": "money_links_simpletools",
+      "en": {
+        "title": "Linked Price Table: simpletools",
+        "summary": "1 item price; loaded-mod condition: simpletools (1 of them also needs simpleores).",
+        "details": [
+          "simpletools:enderite_bucket: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simpletools",
+        "summary": "1 Itempreis; Mod-Ladebedingung: simpletools (1 davon braucht zusätzlich simpleores).",
+        "details": [
+          "simpletools:enderite_bucket: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simpletools/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpletools/enderite_bucket.json"
+      ],
+      "related": [
+        "simpletools:enderite_bucket"
       ]
     },
     {
@@ -3014,48 +3321,6 @@
         "simpletrims:glowing_trim_template",
         "simpletrims:pulsating_trim_template"
       ]
-    },
-    {
-      "id": "money_links_simpletweaks",
-      "en": {
-        "title": "Linked Price Table: simpletweaks",
-        "summary": "0 item prices; loaded-mod condition: simpletweaks.",
-        "details": [
-          "No distinct survival items to trade. {'simpletweaks:claim_deed': 'Inert legacy/test item; no survival trade.'}"
-        ]
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: simpletweaks",
-        "summary": "0 Itempreise; Mod-Ladebedingung: simpletweaks.",
-        "details": [
-          "Keine eigenen Survival-Items für den Handel. {'simpletweaks:claim_deed': 'Inert legacy/test item; no survival trade.'}"
-        ]
-      },
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simpletweaks/prices.json"
-      ],
-      "related": []
-    },
-    {
-      "id": "money_links_simplevisuals",
-      "en": {
-        "title": "Linked Price Table: simplevisuals",
-        "summary": "0 item prices; loaded-mod condition: simplevisuals.",
-        "details": [
-          "No distinct survival items to trade. {}"
-        ]
-      },
-      "de": {
-        "title": "Verknüpfte Preisliste: simplevisuals",
-        "summary": "0 Itempreise; Mod-Ladebedingung: simplevisuals.",
-        "details": [
-          "Keine eigenen Survival-Items für den Handel. {}"
-        ]
-      },
-      "sources": [
-        "modules/simplemoney/shared/resources/data/simplemoney/money/simplevisuals/prices.json"
-      ],
-      "related": []
     },
     {
       "id": "commands",
@@ -15974,7 +16239,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 78,
+    "features": 80,
     "recipes": 8,
     "lootTables": 0,
     "tags": 0,
