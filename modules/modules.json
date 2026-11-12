@@ -4280,7 +4280,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Gadgets",
-      "description": "Gadgets you hold and use - for now the Gauge (speed dial, altimeter with fall-damage warning, auto-walk), moved from SimpleBuilding (ids migrate); the Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush and Octant follow stage by stage. Fabric only for now.",
+      "description": "Gadgets you hold and use: Gauge (speed dial, altimeter with fall-damage warning, auto-walk), Transposer, Resonance Rod, Detector, Attractor and Echo Sounder, moved from SimpleBuilding (ids migrate); the Color Brush follows later, the Octant lives in Simple Building Tools. Fabric only for now.",
       "loaders": [
         "fabric"
       ],
