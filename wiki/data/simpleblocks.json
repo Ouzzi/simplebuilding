@@ -659,6 +659,74 @@
       }
     },
     {
+      "id": "metal_row",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/metal/MetalBlocks.java",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/AgingChain.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/copper_tiles.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_diamond_from_diamond_block_stonecutting.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/MetalTests.java"
+      ],
+      "related": [
+        "simpleblocks:copper_tiles",
+        "simpleblocks:copper_pillar",
+        "simpleblocks:cut_gold",
+        "simpleblocks:cut_gold_stairs",
+        "simpleblocks:cut_gold_slab",
+        "simpleblocks:gold_tiles",
+        "simpleblocks:gold_pillar",
+        "simpleblocks:chiseled_gold",
+        "simpleblocks:cut_iron",
+        "simpleblocks:cut_iron_stairs",
+        "simpleblocks:cut_iron_slab",
+        "simpleblocks:iron_tiles",
+        "simpleblocks:iron_pillar",
+        "simpleblocks:chiseled_iron",
+        "simpleblocks:chiseled_diamond",
+        "simpleblocks:chiseled_emerald",
+        "simpleblocks:chiseled_lapis",
+        "simpleblocks:chiseled_redstone",
+        "simpleblocks:chiseled_coal",
+        "simpleblocks:chiseled_netherite",
+        "simpleblocks:exposed_copper_tiles",
+        "simpleblocks:weathered_copper_tiles",
+        "simpleblocks:oxidized_copper_tiles",
+        "simpleblocks:waxed_copper_tiles",
+        "simpleblocks:waxed_exposed_copper_tiles",
+        "simpleblocks:waxed_weathered_copper_tiles",
+        "simpleblocks:waxed_oxidized_copper_tiles",
+        "simpleblocks:exposed_copper_pillar",
+        "simpleblocks:weathered_copper_pillar",
+        "simpleblocks:oxidized_copper_pillar",
+        "simpleblocks:waxed_copper_pillar",
+        "simpleblocks:waxed_exposed_copper_pillar",
+        "simpleblocks:waxed_weathered_copper_pillar",
+        "simpleblocks:waxed_oxidized_copper_pillar"
+      ],
+      "en": {
+        "title": "Copper, gold, iron and the chiseled ore blocks",
+        "summary": "The metal row of the Vanilla metals (PAL35b): copper tiles and pillar that weather and can be waxed like Vanilla copper, the building family of gold and iron like the Simple Ores metals, and a chiseled block of diamond, emerald, lapis, redstone, coal and netherite.",
+        "details": [
+          "Copper tiles (4 cut copper -> 4) and copper pillar (2 copper blocks upright -> 2), also at the stonecutter. Both weather in the three Vanilla stages (exposed, weathered, oxidized) like copper next to them; a honeycomb waxes every stage (also oxidized), an axe scrapes the wax or one stage off, a dispenser waxes too. Each stage and waxed stage is also crafted from the Vanilla copper of that stage. Stone pickaxe.",
+          "Gold and iron: cut block (4 blocks -> 4), cut stairs and slab, tiles (4 cut -> 4), pillar (2 blocks upright -> 2), chiseled block (2 cut slabs upright -> 1); the stonecutter cuts all of them from the block. Tool tier like the block (gold iron, iron stone). Simple Octets adds the cut octet.",
+          "Chiseled diamond, emerald, lapis lazuli, redstone, coal and netherite: cut 1:1 from the storage block at the stonecutter (no way back, like Vanilla chiseled blocks). Chiseled redstone powers like the redstone block, chiseled netherite survives fire. No beacon base, no fuel: decoration only.",
+          "Every chiseled block has its own mirror-symmetric motif: crown (gold), anvil (iron), beacon (diamond), villager (emerald), open book (lapis), redstone torch, minecart (coal), crossed swords (netherite)."
+        ]
+      },
+      "de": {
+        "title": "Kupfer, Gold, Eisen und die gemeißelten Erzblöcke",
+        "summary": "Die Metall-Reihe der Vanilla-Metalle (PAL35b): Kupferfliesen und Kupfersäule, die wie Vanilla-Kupfer altern und gewachst werden, die Baufamilie von Gold und Eisen wie bei den Simple-Ores-Metallen und ein gemeißelter Block aus Diamant, Smaragd, Lapislazuli, Redstone, Kohle und Netherit.",
+        "details": [
+          "Kupferfliesen (4 geschnittenes Kupfer -> 4) und Kupfersäule (2 Kupferblöcke senkrecht -> 2), auch in der Steinsäge. Beide altern in den drei Vanilla-Stufen (angelaufen, verwittert, oxidiert) wie Kupfer daneben; eine Honigwabe wachst jede Stufe (auch oxidiert), eine Axt kratzt Wachs oder eine Stufe ab, ein Werfer wachst ebenfalls. Jede Stufe und gewachste Stufe entsteht auch aus dem Vanilla-Kupfer dieser Stufe. Steinspitzhacke.",
+          "Gold und Eisen: geschnittener Block (4 Blöcke -> 4), geschnittene Treppe und Stufe, Fliesen (4 geschnittene -> 4), Säule (2 Blöcke senkrecht -> 2), gemeißelter Block (2 geschnittene Stufen senkrecht -> 1); die Steinsäge schneidet alle aus dem Block. Werkzeugstufe wie der Block (Gold Eisen, Eisen Stein). Simple Octets ergänzt das geschnittene Octet.",
+          "Gemeißelter Diamant, Smaragd, Lapislazuli, Redstone, Kohle und Netherit: 1:1 in der Steinsäge aus dem Speicherblock (ohne Rückweg, wie Vanilla-Meißelblöcke). Gemeißelter Redstone gibt Strom wie der Redstone-Block, gemeißeltes Netherit übersteht Feuer. Kein Leuchtfeuer-Sockel, kein Brennstoff: nur Dekoration.",
+          "Jeder gemeißelte Block hat ein eigenes spiegelgleiches Motiv: Krone (Gold), Amboss (Eisen), Leuchtfeuer (Diamant), Dorfbewohner (Smaragd), offenes Buch (Lapis), Redstone-Fackel, Lore (Kohle), gekreuzte Schwerter (Netherit)."
+        ]
+      }
+    },
+    {
       "id": "compact_blocks",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/compact/CompactBlocks.java",
@@ -1729,6 +1797,34 @@
       }
     },
     {
+      "id": "simpleblocks:chiseled_coal_from_coal_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_coal",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_coal_from_coal_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:coal_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:coal_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:coal",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:chiseled_dark_prismarine",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -1797,6 +1893,150 @@
       }
     },
     {
+      "id": "simpleblocks:chiseled_diamond_from_diamond_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_diamond",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_diamond_from_diamond_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:diamond_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:diamond_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_emerald_from_emerald_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_emerald",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_emerald_from_emerald_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:emerald_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:emerald_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:emerald",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_gold",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_gold",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_gold.json",
+      "ingredients": [
+        "simpleblocks:cut_gold_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:cut_gold_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_gold_from_cut_gold_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_gold",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_gold_from_cut_gold_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:cut_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_gold_from_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_gold",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_gold_from_gold_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:chiseled_ice_from_ice_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -1820,6 +2060,150 @@
           {
             "id": "minecraft:ice",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_iron",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_iron",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_iron.json",
+      "ingredients": [
+        "simpleblocks:cut_iron_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:cut_iron_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_iron_from_cut_iron_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_iron",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_iron_from_cut_iron_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:cut_iron"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_iron"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_iron_from_iron_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_iron",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_iron_from_iron_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:iron_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:iron_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_lapis_from_lapis_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_lapis",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_lapis_from_lapis_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:lapis_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lapis_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_netherite_from_netherite_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_netherite",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_netherite_from_netherite_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:netherite_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:netherite_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 9
           }
         ]
       }
@@ -2180,6 +2564,34 @@
           {
             "id": "minecraft:netherrack",
             "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_redstone_from_redstone_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_redstone",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_redstone_from_redstone_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:redstone_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:redstone_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 9
           }
         ]
       }
@@ -4091,6 +4503,154 @@
       }
     },
     {
+      "id": "simpleblocks:copper_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:copper_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/copper_pillar.json",
+      "ingredients": [
+        "minecraft:copper_block"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:copper_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:copper_pillar_from_copper_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/copper_pillar_from_copper_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:copper_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:copper_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:copper_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/copper_tiles.json",
+      "ingredients": [
+        "minecraft:cut_copper"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:copper_tiles_from_copper_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/copper_tiles_from_copper_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:copper_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:copper_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:copper_tiles_from_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/copper_tiles_from_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:cracked_blue_ice_from_blue_ice_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4516,6 +5076,478 @@
           {
             "id": "minecraft:tuff",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_gold",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_gold",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold.json",
+      "ingredients": [
+        "minecraft:gold_block"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_gold_from_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_gold",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold_from_gold_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_gold_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_gold_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold_slab.json",
+      "ingredients": [
+        "simpleblocks:cut_gold"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:cut_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_gold_slab_from_cut_gold_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_gold_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold_slab_from_cut_gold_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:cut_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_gold_slab_from_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_gold_slab",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold_slab_from_gold_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_gold_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_gold_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold_stairs.json",
+      "ingredients": [
+        "simpleblocks:cut_gold"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:cut_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 54
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_gold_stairs_from_cut_gold_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_gold_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold_stairs_from_cut_gold_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:cut_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_gold_stairs_from_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_gold_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_gold_stairs_from_gold_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_iron",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_iron",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_iron.json",
+      "ingredients": [
+        "minecraft:iron_block"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:iron_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_iron_from_iron_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_iron",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_iron_from_iron_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:iron_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:iron_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_iron_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_iron_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_iron_slab.json",
+      "ingredients": [
+        "simpleblocks:cut_iron"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:cut_iron"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_iron_slab_from_cut_iron_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_iron_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_iron_slab_from_cut_iron_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:cut_iron"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_iron"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_iron_slab_from_iron_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_iron_slab",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_iron_slab_from_iron_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:iron_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:iron_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_iron_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_iron_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_iron_stairs.json",
+      "ingredients": [
+        "simpleblocks:cut_iron"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:cut_iron"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 54
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_iron_stairs_from_cut_iron_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_iron_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_iron_stairs_from_cut_iron_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:cut_iron"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_iron"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cut_iron_stairs_from_iron_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cut_iron_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cut_iron_stairs_from_iron_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:iron_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:iron_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
           }
         ]
       }
@@ -6301,6 +7333,154 @@
       }
     },
     {
+      "id": "simpleblocks:exposed_copper_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:exposed_copper_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/exposed_copper_pillar.json",
+      "ingredients": [
+        "minecraft:exposed_copper"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:exposed_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:exposed_copper_pillar_from_exposed_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:exposed_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/exposed_copper_pillar_from_exposed_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:exposed_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:exposed_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:exposed_copper_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:exposed_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/exposed_copper_tiles.json",
+      "ingredients": [
+        "minecraft:exposed_cut_copper"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:exposed_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:exposed_copper_tiles_from_exposed_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:exposed_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/exposed_copper_tiles_from_exposed_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:exposed_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:exposed_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:exposed_copper_tiles_from_exposed_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:exposed_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/exposed_copper_tiles_from_exposed_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:exposed_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:exposed_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:faded_jack_o_lantern",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -6340,6 +7520,154 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.031
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:gold_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:gold_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/gold_pillar.json",
+      "ingredients": [
+        "minecraft:gold_block"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:gold_pillar_from_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:gold_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/gold_pillar_from_gold_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:gold_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:gold_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/gold_tiles.json",
+      "ingredients": [
+        "simpleblocks:cut_gold"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:cut_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:gold_tiles_from_cut_gold_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:gold_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/gold_tiles_from_cut_gold_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:cut_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:gold_tiles_from_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:gold_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/gold_tiles_from_gold_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
           }
         ]
       }
@@ -6979,6 +8307,154 @@
           {
             "id": "minecraft:ice",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:iron_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:iron_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/iron_pillar.json",
+      "ingredients": [
+        "minecraft:iron_block"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:iron_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:iron_pillar_from_iron_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:iron_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/iron_pillar_from_iron_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:iron_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:iron_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:iron_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:iron_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/iron_tiles.json",
+      "ingredients": [
+        "simpleblocks:cut_iron"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:cut_iron"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:iron_tiles_from_cut_iron_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:iron_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/iron_tiles_from_cut_iron_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:cut_iron"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:cut_iron"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:iron_tiles_from_iron_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:iron_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/iron_tiles_from_iron_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:iron_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:iron_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
           }
         ]
       }
@@ -9146,6 +10622,154 @@
         "materials": [
           {
             "id": "minecraft:netherrack",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:oxidized_copper_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:oxidized_copper_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/oxidized_copper_pillar.json",
+      "ingredients": [
+        "minecraft:oxidized_copper"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:oxidized_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:oxidized_copper_pillar_from_oxidized_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:oxidized_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/oxidized_copper_pillar_from_oxidized_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:oxidized_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oxidized_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:oxidized_copper_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:oxidized_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/oxidized_copper_tiles.json",
+      "ingredients": [
+        "minecraft:oxidized_cut_copper"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:oxidized_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:oxidized_copper_tiles_from_oxidized_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:oxidized_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/oxidized_copper_tiles_from_oxidized_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:oxidized_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oxidized_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:oxidized_copper_tiles_from_oxidized_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:oxidized_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/oxidized_copper_tiles_from_oxidized_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:oxidized_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oxidized_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oxidized_copper",
             "count": 1
           }
         ]
@@ -15555,6 +17179,486 @@
       }
     },
     {
+      "id": "simpleblocks:waxed_copper_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_copper_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_copper_pillar.json",
+      "ingredients": [
+        "minecraft:waxed_copper_block"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:waxed_copper_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 18
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_copper_pillar_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_copper_pillar",
+      "result": {
+        "id": "simpleblocks:waxed_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_copper_pillar_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:copper_pillar"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:copper_pillar"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_copper_pillar_from_waxed_copper_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_copper_pillar_from_waxed_copper_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_copper_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_copper_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_copper_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_copper_tiles.json",
+      "ingredients": [
+        "minecraft:waxed_cut_copper"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:waxed_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 36
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_copper_tiles_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_copper_tiles",
+      "result": {
+        "id": "simpleblocks:waxed_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_copper_tiles_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:copper_tiles"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:copper_tiles"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_copper_tiles_from_waxed_copper_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_copper_tiles_from_waxed_copper_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_copper_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_copper_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_copper_tiles_from_waxed_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_copper_tiles_from_waxed_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_exposed_copper_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_exposed_copper_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_exposed_copper_pillar.json",
+      "ingredients": [
+        "minecraft:waxed_exposed_copper"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:waxed_exposed_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 2
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_exposed_copper_pillar_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_exposed_copper_pillar",
+      "result": {
+        "id": "simpleblocks:waxed_exposed_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_exposed_copper_pillar_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:exposed_copper_pillar"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:exposed_copper_pillar"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_exposed_copper_pillar_from_waxed_exposed_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_exposed_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_exposed_copper_pillar_from_waxed_exposed_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_exposed_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_exposed_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_exposed_copper_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_exposed_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_exposed_copper_tiles.json",
+      "ingredients": [
+        "minecraft:waxed_exposed_cut_copper"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:waxed_exposed_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 4
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_exposed_copper_tiles_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_exposed_copper_tiles",
+      "result": {
+        "id": "simpleblocks:waxed_exposed_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_exposed_copper_tiles_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:exposed_copper_tiles"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:exposed_copper_tiles"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_exposed_copper_tiles_from_waxed_exposed_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_exposed_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_exposed_copper_tiles_from_waxed_exposed_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_exposed_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_exposed_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_exposed_copper_tiles_from_waxed_exposed_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_exposed_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_exposed_copper_tiles_from_waxed_exposed_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_exposed_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_exposed_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:waxed_faded_carved_pumpkin_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -15955,6 +18059,246 @@
       }
     },
     {
+      "id": "simpleblocks:waxed_oxidized_copper_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_oxidized_copper_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_oxidized_copper_pillar.json",
+      "ingredients": [
+        "minecraft:waxed_oxidized_copper"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:waxed_oxidized_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_oxidized_copper_pillar_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_oxidized_copper_pillar",
+      "result": {
+        "id": "simpleblocks:waxed_oxidized_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_oxidized_copper_pillar_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:oxidized_copper_pillar"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:oxidized_copper_pillar"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_oxidized_copper_pillar_from_waxed_oxidized_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_oxidized_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_oxidized_copper_pillar_from_waxed_oxidized_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_oxidized_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_oxidized_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_oxidized_copper_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_oxidized_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_oxidized_copper_tiles.json",
+      "ingredients": [
+        "minecraft:waxed_oxidized_cut_copper"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:waxed_oxidized_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 4
+          },
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_oxidized_copper_tiles_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_oxidized_copper_tiles",
+      "result": {
+        "id": "simpleblocks:waxed_oxidized_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_oxidized_copper_tiles_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:oxidized_copper_tiles"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:oxidized_copper_tiles"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_oxidized_copper_tiles_from_waxed_oxidized_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_oxidized_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_oxidized_copper_tiles_from_waxed_oxidized_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_oxidized_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_oxidized_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_oxidized_copper_tiles_from_waxed_oxidized_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_oxidized_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_oxidized_copper_tiles_from_waxed_oxidized_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_oxidized_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_oxidized_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:waxed_pumpkin_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -15985,6 +18329,394 @@
           },
           {
             "id": "minecraft:pumpkin",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_weathered_copper_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_weathered_copper_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_weathered_copper_pillar.json",
+      "ingredients": [
+        "minecraft:waxed_weathered_copper"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:waxed_weathered_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 2
+          },
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_weathered_copper_pillar_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_weathered_copper_pillar",
+      "result": {
+        "id": "simpleblocks:waxed_weathered_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_weathered_copper_pillar_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:weathered_copper_pillar"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:weathered_copper_pillar"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_weathered_copper_pillar_from_waxed_weathered_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_weathered_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_weathered_copper_pillar_from_waxed_weathered_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_weathered_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_weathered_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_weathered_copper_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_weathered_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_weathered_copper_tiles.json",
+      "ingredients": [
+        "minecraft:waxed_weathered_cut_copper"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:waxed_weathered_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 4
+          },
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_weathered_copper_tiles_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_weathered_copper_tiles",
+      "result": {
+        "id": "simpleblocks:waxed_weathered_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_weathered_copper_tiles_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:weathered_copper_tiles"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:weathered_copper_tiles"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_weathered_copper_tiles_from_waxed_weathered_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_weathered_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_weathered_copper_tiles_from_waxed_weathered_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_weathered_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_weathered_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_weathered_copper_tiles_from_waxed_weathered_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_weathered_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_weathered_copper_tiles_from_waxed_weathered_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_weathered_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_weathered_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:weathered_copper_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:weathered_copper_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/weathered_copper_pillar.json",
+      "ingredients": [
+        "minecraft:weathered_copper"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:weathered_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:weathered_copper_pillar_from_weathered_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:weathered_copper_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/weathered_copper_pillar_from_weathered_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:weathered_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:weathered_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:weathered_copper_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:weathered_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/weathered_copper_tiles.json",
+      "ingredients": [
+        "minecraft:weathered_cut_copper"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "minecraft:weathered_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:weathered_copper_tiles_from_weathered_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:weathered_copper_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/weathered_copper_tiles_from_weathered_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:weathered_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:weathered_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:weathered_copper_tiles_from_weathered_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:weathered_copper_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/weathered_copper_tiles_from_weathered_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:weathered_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:weathered_cut_copper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:weathered_copper",
             "count": 1
           }
         ]
@@ -16320,6 +19052,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_blue_ice.json"
     },
     {
+      "id": "simpleblocks:blocks/chiseled_coal",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_coal"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_coal.json"
+    },
+    {
       "id": "simpleblocks:blocks/chiseled_dark_prismarine",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -16338,6 +19088,60 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_dark_prismarine.json"
     },
     {
+      "id": "simpleblocks:blocks/chiseled_diamond",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_diamond"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_diamond.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_emerald",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_emerald"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_emerald.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_gold",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_gold"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_gold.json"
+    },
+    {
       "id": "simpleblocks:blocks/chiseled_ice",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -16352,6 +19156,60 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_ice.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_iron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_iron"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_iron.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_lapis",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_lapis"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_lapis.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_netherite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_netherite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_netherite.json"
     },
     {
       "id": "simpleblocks:blocks/chiseled_packed_ice",
@@ -16458,6 +19316,24 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_red_nether_bricks.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_redstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_redstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_redstone.json"
     },
     {
       "id": "simpleblocks:blocks/collapsed_andesite",
@@ -17144,6 +20020,42 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/compressed_tuff.json"
     },
     {
+      "id": "simpleblocks:blocks/copper_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:copper_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/copper_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/copper_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:copper_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/copper_tiles.json"
+    },
+    {
       "id": "simpleblocks:blocks/cracked_blue_ice",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -17388,6 +20300,110 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_tuff_bricks.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cut_gold",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cut_gold"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cut_gold.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cut_gold_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cut_gold_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cut_gold_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cut_gold_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cut_gold_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cut_gold_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cut_iron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cut_iron"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cut_iron.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cut_iron_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cut_iron_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cut_iron_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cut_iron_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cut_iron_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cut_iron_stairs.json"
     },
     {
       "id": "simpleblocks:blocks/cut_red_sandstone_stairs",
@@ -17890,6 +20906,42 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/end_stone_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/exposed_copper_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:exposed_copper_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/exposed_copper_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/exposed_copper_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:exposed_copper_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/exposed_copper_tiles.json"
+    },
+    {
       "id": "simpleblocks:blocks/faded_carved_pumpkin",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -17994,6 +21046,42 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/frost_grass.json"
+    },
+    {
+      "id": "simpleblocks:blocks/gold_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:gold_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/gold_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/gold_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:gold_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/gold_tiles.json"
     },
     {
       "id": "simpleblocks:blocks/grass_slab",
@@ -18161,6 +21249,42 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/ice_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/iron_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:iron_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/iron_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/iron_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:iron_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/iron_tiles.json"
     },
     {
       "id": "simpleblocks:blocks/levitating_gravel",
@@ -18757,6 +21881,42 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/netherrack_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/oxidized_copper_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:oxidized_copper_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/oxidized_copper_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/oxidized_copper_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:oxidized_copper_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/oxidized_copper_tiles.json"
     },
     {
       "id": "simpleblocks:blocks/packed_ice_bricks",
@@ -19556,6 +22716,78 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_carved_pumpkin.json"
     },
     {
+      "id": "simpleblocks:blocks/waxed_copper_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_copper_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_copper_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_copper_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_copper_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_copper_tiles.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_exposed_copper_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_exposed_copper_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_exposed_copper_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_exposed_copper_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_exposed_copper_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_exposed_copper_tiles.json"
+    },
+    {
       "id": "simpleblocks:blocks/waxed_faded_carved_pumpkin",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -19698,6 +22930,42 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_melon.json"
     },
     {
+      "id": "simpleblocks:blocks/waxed_oxidized_copper_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_oxidized_copper_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_oxidized_copper_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_oxidized_copper_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_oxidized_copper_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_oxidized_copper_tiles.json"
+    },
+    {
       "id": "simpleblocks:blocks/waxed_pumpkin",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -19714,6 +22982,78 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_weathered_copper_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_weathered_copper_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_weathered_copper_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_weathered_copper_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_weathered_copper_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_weathered_copper_tiles.json"
+    },
+    {
+      "id": "simpleblocks:blocks/weathered_copper_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:weathered_copper_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/weathered_copper_pillar.json"
+    },
+    {
+      "id": "simpleblocks:blocks/weathered_copper_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:weathered_copper_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/weathered_copper_tiles.json"
     }
   ],
   "tags": [
@@ -19895,10 +23235,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 27 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 30 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 27 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 30 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -20424,6 +23764,19 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:chiseled_coal",
+      "name": {
+        "en_us": "Chiseled Coal",
+        "de_de": "Gemeißelter Kohleblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_coal.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_coal_from_coal_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:chiseled_dark_prismarine",
       "name": {
         "en_us": "Chiseled Dark Prismarine",
@@ -20445,6 +23798,47 @@
       "craftedBy": [
         "simpleblocks:chiseled_dark_prismarine",
         "simpleblocks:chiseled_dark_prismarine_from_dark_prismarine_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_diamond",
+      "name": {
+        "en_us": "Chiseled Diamond",
+        "de_de": "Gemeißelter Diamantblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_diamond.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_diamond_from_diamond_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_emerald",
+      "name": {
+        "en_us": "Chiseled Emerald",
+        "de_de": "Gemeißelter Smaragdblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_emerald.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_emerald_from_emerald_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_gold",
+      "name": {
+        "en_us": "Chiseled Gold",
+        "de_de": "Gemeißelter Goldblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_gold.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_gold",
+        "simpleblocks:chiseled_gold_from_cut_gold_stonecutting",
+        "simpleblocks:chiseled_gold_from_gold_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -20471,6 +23865,47 @@
       "texture": "assets/textures/simpleblocks/block/chiseled_ice.png",
       "craftedBy": [
         "simpleblocks:chiseled_ice_from_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_iron",
+      "name": {
+        "en_us": "Chiseled Iron",
+        "de_de": "Gemeißelter Eisenblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_iron.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_iron",
+        "simpleblocks:chiseled_iron_from_cut_iron_stonecutting",
+        "simpleblocks:chiseled_iron_from_iron_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_lapis",
+      "name": {
+        "en_us": "Chiseled Lapis Lazuli",
+        "de_de": "Gemeißelter Lapislazuliblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_lapis.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_lapis_from_lapis_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_netherite",
+      "name": {
+        "en_us": "Chiseled Netherite",
+        "de_de": "Gemeißelter Netheritblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_netherite.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_netherite_from_netherite_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -20620,6 +24055,19 @@
       "craftedBy": [
         "simpleblocks:chiseled_red_nether_bricks",
         "simpleblocks:chiseled_red_nether_bricks_from_red_nether_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_redstone",
+      "name": {
+        "en_us": "Chiseled Redstone",
+        "de_de": "Gemeißelter Redstoneblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_redstone.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_redstone_from_redstone_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -21650,6 +25098,39 @@
       ]
     },
     {
+      "id": "simpleblocks:copper_pillar",
+      "name": {
+        "en_us": "Copper Pillar",
+        "de_de": "Kupfersäule"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/copper_pillar.png",
+      "craftedBy": [
+        "simpleblocks:copper_pillar",
+        "simpleblocks:copper_pillar_from_copper_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_copper_pillar_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:copper_tiles",
+      "name": {
+        "en_us": "Copper Tiles",
+        "de_de": "Kupferfliesen"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/copper_tiles.png",
+      "craftedBy": [
+        "simpleblocks:copper_tiles",
+        "simpleblocks:copper_tiles_from_copper_block_stonecutting",
+        "simpleblocks:copper_tiles_from_cut_copper_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_copper_tiles_from_honeycomb"
+      ]
+    },
+    {
       "id": "simpleblocks:cracked_blue_ice",
       "name": {
         "en_us": "Cracked Blue Ice",
@@ -22051,6 +25532,154 @@
       "texture": "assets/textures/simpleblocks/block/cracked_tuff_bricks.png",
       "craftedBy": [
         "simpleblocks:cracked_tuff_bricks_from_smelting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:cut_gold",
+      "name": {
+        "en_us": "Cut Gold",
+        "de_de": "Geschnittener Goldblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/cut_gold.png",
+      "craftedBy": [
+        "simpleblocks:cut_gold",
+        "simpleblocks:cut_gold_from_gold_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:chiseled_gold_from_cut_gold_stonecutting",
+        "simpleblocks:cut_gold_slab",
+        "simpleblocks:cut_gold_slab_from_cut_gold_stonecutting",
+        "simpleblocks:cut_gold_stairs",
+        "simpleblocks:cut_gold_stairs_from_cut_gold_stonecutting",
+        "simpleblocks:gold_tiles",
+        "simpleblocks:gold_tiles_from_cut_gold_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleblocks:cut_gold_slab",
+      "name": {
+        "en_us": "Cut Gold Slab",
+        "de_de": "Geschnittene Goldstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:cut_gold_slab",
+        "simpleblocks:cut_gold_slab_from_cut_gold_stonecutting",
+        "simpleblocks:cut_gold_slab_from_gold_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:chiseled_gold"
+      ]
+    },
+    {
+      "id": "simpleblocks:cut_gold_stairs",
+      "name": {
+        "en_us": "Cut Gold Stairs",
+        "de_de": "Geschnittene Goldtreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:cut_gold_stairs",
+        "simpleblocks:cut_gold_stairs_from_cut_gold_stonecutting",
+        "simpleblocks:cut_gold_stairs_from_gold_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:cut_iron",
+      "name": {
+        "en_us": "Cut Iron",
+        "de_de": "Geschnittener Eisenblock"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/cut_iron.png",
+      "craftedBy": [
+        "simpleblocks:cut_iron",
+        "simpleblocks:cut_iron_from_iron_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:chiseled_iron_from_cut_iron_stonecutting",
+        "simpleblocks:cut_iron_slab",
+        "simpleblocks:cut_iron_slab_from_cut_iron_stonecutting",
+        "simpleblocks:cut_iron_stairs",
+        "simpleblocks:cut_iron_stairs_from_cut_iron_stonecutting",
+        "simpleblocks:iron_tiles",
+        "simpleblocks:iron_tiles_from_cut_iron_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleblocks:cut_iron_slab",
+      "name": {
+        "en_us": "Cut Iron Slab",
+        "de_de": "Geschnittene Eisenstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:cut_iron_slab",
+        "simpleblocks:cut_iron_slab_from_cut_iron_stonecutting",
+        "simpleblocks:cut_iron_slab_from_iron_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:chiseled_iron"
+      ]
+    },
+    {
+      "id": "simpleblocks:cut_iron_stairs",
+      "name": {
+        "en_us": "Cut Iron Stairs",
+        "de_de": "Geschnittene Eisentreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:cut_iron_stairs",
+        "simpleblocks:cut_iron_stairs_from_cut_iron_stonecutting",
+        "simpleblocks:cut_iron_stairs_from_iron_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -22803,6 +26432,39 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:exposed_copper_pillar",
+      "name": {
+        "en_us": "Exposed Copper Pillar",
+        "de_de": "Angelaufene Kupfersäule"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/exposed_copper_pillar.png",
+      "craftedBy": [
+        "simpleblocks:exposed_copper_pillar",
+        "simpleblocks:exposed_copper_pillar_from_exposed_copper_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_exposed_copper_pillar_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:exposed_copper_tiles",
+      "name": {
+        "en_us": "Exposed Copper Tiles",
+        "de_de": "Angelaufene Kupferfliesen"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/exposed_copper_tiles.png",
+      "craftedBy": [
+        "simpleblocks:exposed_copper_tiles",
+        "simpleblocks:exposed_copper_tiles_from_exposed_copper_stonecutting",
+        "simpleblocks:exposed_copper_tiles_from_exposed_cut_copper_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_exposed_copper_tiles_from_honeycomb"
+      ]
+    },
+    {
       "id": "simpleblocks:faded_carved_pumpkin",
       "name": {
         "en_us": "Faded Carved Pumpkin",
@@ -22944,6 +26606,35 @@
         }
       },
       "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:gold_pillar",
+      "name": {
+        "en_us": "Gold Pillar",
+        "de_de": "Goldsäule"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/gold_pillar.png",
+      "craftedBy": [
+        "simpleblocks:gold_pillar",
+        "simpleblocks:gold_pillar_from_gold_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:gold_tiles",
+      "name": {
+        "en_us": "Gold Tiles",
+        "de_de": "Goldfliesen"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/gold_tiles.png",
+      "craftedBy": [
+        "simpleblocks:gold_tiles",
+        "simpleblocks:gold_tiles_from_cut_gold_stonecutting",
+        "simpleblocks:gold_tiles_from_gold_block_stonecutting"
+      ],
       "usedIn": []
     },
     {
@@ -23226,6 +26917,35 @@
       "craftedBy": [
         "simpleblocks:ice_wall",
         "simpleblocks:ice_wall_from_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:iron_pillar",
+      "name": {
+        "en_us": "Iron Pillar",
+        "de_de": "Eisensäule"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/iron_pillar.png",
+      "craftedBy": [
+        "simpleblocks:iron_pillar",
+        "simpleblocks:iron_pillar_from_iron_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:iron_tiles",
+      "name": {
+        "en_us": "Iron Tiles",
+        "de_de": "Eisenfliesen"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/iron_tiles.png",
+      "craftedBy": [
+        "simpleblocks:iron_tiles",
+        "simpleblocks:iron_tiles_from_cut_iron_stonecutting",
+        "simpleblocks:iron_tiles_from_iron_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -24118,6 +27838,39 @@
         "simpleblocks:netherrack_wall_from_netherrack_stonecutting"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleblocks:oxidized_copper_pillar",
+      "name": {
+        "en_us": "Oxidized Copper Pillar",
+        "de_de": "Oxidierte Kupfersäule"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/oxidized_copper_pillar.png",
+      "craftedBy": [
+        "simpleblocks:oxidized_copper_pillar",
+        "simpleblocks:oxidized_copper_pillar_from_oxidized_copper_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_oxidized_copper_pillar_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:oxidized_copper_tiles",
+      "name": {
+        "en_us": "Oxidized Copper Tiles",
+        "de_de": "Oxidierte Kupferfliesen"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/oxidized_copper_tiles.png",
+      "craftedBy": [
+        "simpleblocks:oxidized_copper_tiles",
+        "simpleblocks:oxidized_copper_tiles_from_oxidized_copper_stonecutting",
+        "simpleblocks:oxidized_copper_tiles_from_oxidized_cut_copper_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_oxidized_copper_tiles_from_honeycomb"
+      ]
     },
     {
       "id": "simpleblocks:packed_ice_bricks",
@@ -25316,6 +29069,104 @@
       ]
     },
     {
+      "id": "simpleblocks:waxed_copper_pillar",
+      "name": {
+        "en_us": "Waxed Copper Pillar",
+        "de_de": "Gewachste Kupfersäule"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_copper_pillar",
+        "simpleblocks:waxed_copper_pillar_from_honeycomb",
+        "simpleblocks:waxed_copper_pillar_from_waxed_copper_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_copper_tiles",
+      "name": {
+        "en_us": "Waxed Copper Tiles",
+        "de_de": "Gewachste Kupferfliesen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_copper_tiles",
+        "simpleblocks:waxed_copper_tiles_from_honeycomb",
+        "simpleblocks:waxed_copper_tiles_from_waxed_copper_block_stonecutting",
+        "simpleblocks:waxed_copper_tiles_from_waxed_cut_copper_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_exposed_copper_pillar",
+      "name": {
+        "en_us": "Waxed Exposed Copper Pillar",
+        "de_de": "Gewachste angelaufene Kupfersäule"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_exposed_copper_pillar",
+        "simpleblocks:waxed_exposed_copper_pillar_from_honeycomb",
+        "simpleblocks:waxed_exposed_copper_pillar_from_waxed_exposed_copper_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_exposed_copper_tiles",
+      "name": {
+        "en_us": "Waxed Exposed Copper Tiles",
+        "de_de": "Gewachste angelaufene Kupferfliesen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_exposed_copper_tiles",
+        "simpleblocks:waxed_exposed_copper_tiles_from_honeycomb",
+        "simpleblocks:waxed_exposed_copper_tiles_from_waxed_exposed_copper_stonecutting",
+        "simpleblocks:waxed_exposed_copper_tiles_from_waxed_exposed_cut_copper_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:waxed_faded_carved_pumpkin",
       "name": {
         "en_us": "Waxed Faded Carved Pumpkin",
@@ -25496,6 +29347,55 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:waxed_oxidized_copper_pillar",
+      "name": {
+        "en_us": "Waxed Oxidized Copper Pillar",
+        "de_de": "Gewachste oxidierte Kupfersäule"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_oxidized_copper_pillar",
+        "simpleblocks:waxed_oxidized_copper_pillar_from_honeycomb",
+        "simpleblocks:waxed_oxidized_copper_pillar_from_waxed_oxidized_copper_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_oxidized_copper_tiles",
+      "name": {
+        "en_us": "Waxed Oxidized Copper Tiles",
+        "de_de": "Gewachste oxidierte Kupferfliesen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_oxidized_copper_tiles",
+        "simpleblocks:waxed_oxidized_copper_tiles_from_honeycomb",
+        "simpleblocks:waxed_oxidized_copper_tiles_from_waxed_oxidized_copper_stonecutting",
+        "simpleblocks:waxed_oxidized_copper_tiles_from_waxed_oxidized_cut_copper_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:waxed_pumpkin",
       "name": {
         "en_us": "Waxed Pumpkin",
@@ -25516,6 +29416,88 @@
         "simpleblocks:waxed_pumpkin_from_honeycomb"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_weathered_copper_pillar",
+      "name": {
+        "en_us": "Waxed Weathered Copper Pillar",
+        "de_de": "Gewachste verwitterte Kupfersäule"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_weathered_copper_pillar",
+        "simpleblocks:waxed_weathered_copper_pillar_from_honeycomb",
+        "simpleblocks:waxed_weathered_copper_pillar_from_waxed_weathered_copper_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_weathered_copper_tiles",
+      "name": {
+        "en_us": "Waxed Weathered Copper Tiles",
+        "de_de": "Gewachste verwitterte Kupferfliesen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_weathered_copper_tiles",
+        "simpleblocks:waxed_weathered_copper_tiles_from_honeycomb",
+        "simpleblocks:waxed_weathered_copper_tiles_from_waxed_weathered_copper_stonecutting",
+        "simpleblocks:waxed_weathered_copper_tiles_from_waxed_weathered_cut_copper_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:weathered_copper_pillar",
+      "name": {
+        "en_us": "Weathered Copper Pillar",
+        "de_de": "Verwitterte Kupfersäule"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/weathered_copper_pillar.png",
+      "craftedBy": [
+        "simpleblocks:weathered_copper_pillar",
+        "simpleblocks:weathered_copper_pillar_from_weathered_copper_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_weathered_copper_pillar_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:weathered_copper_tiles",
+      "name": {
+        "en_us": "Weathered Copper Tiles",
+        "de_de": "Verwitterte Kupferfliesen"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/weathered_copper_tiles.png",
+      "craftedBy": [
+        "simpleblocks:weathered_copper_tiles",
+        "simpleblocks:weathered_copper_tiles_from_weathered_copper_stonecutting",
+        "simpleblocks:weathered_copper_tiles_from_weathered_cut_copper_stonecutting"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_weathered_copper_tiles_from_honeycomb"
+      ]
     }
   ],
   "trades": [],
@@ -25625,22 +29607,45 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpleblocks:chiseled_coal",
+    "simpleblocks:chiseled_diamond",
+    "simpleblocks:chiseled_emerald",
+    "simpleblocks:chiseled_gold",
+    "simpleblocks:chiseled_iron",
+    "simpleblocks:chiseled_lapis",
+    "simpleblocks:chiseled_netherite",
+    "simpleblocks:chiseled_redstone",
+    "simpleblocks:copper_pillar",
+    "simpleblocks:copper_tiles",
+    "simpleblocks:cut_gold",
+    "simpleblocks:cut_iron",
+    "simpleblocks:exposed_copper_pillar",
+    "simpleblocks:exposed_copper_tiles",
+    "simpleblocks:gold_pillar",
+    "simpleblocks:gold_tiles",
+    "simpleblocks:iron_pillar",
+    "simpleblocks:iron_tiles",
+    "simpleblocks:oxidized_copper_pillar",
+    "simpleblocks:oxidized_copper_tiles",
+    "simpleblocks:weathered_copper_pillar",
+    "simpleblocks:weathered_copper_tiles"
+  ],
   "incompleteProse": {},
   "counts": {
-    "features": 17,
-    "recipes": 551,
-    "lootTables": 211,
+    "features": 18,
+    "recipes": 637,
+    "lootTables": 245,
     "tags": 4,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 213,
+    "blocks": 247,
     "trades": 0,
     "config": 5,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 22,
     "inWorld": 0,
     "incompleteProse": 0
   }

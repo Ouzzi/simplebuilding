@@ -411,6 +411,60 @@
       }
     },
     {
+      "id": "rose_and_rift_families",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_gold.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_rose_gold.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_terranite_from_terranite_block_stonecutting.json"
+      ],
+      "en": {
+        "title": "Rose gold and rift metal building blocks",
+        "summary": "Rose gold and rose copper have the building family of the other metals; Enderite, Terranite, Infernite and Zenithite a chiseled block (PAL35b).",
+        "details": [
+          "Rose gold, rose copper: cut block (4 blocks -> 4), cut stairs and slab, tiles (4 cut -> 4), pillar (2 blocks upright -> 2), chiseled block (2 cut slabs upright -> 1); the stonecutter cuts all of them from the block. Simple Octets adds the cut octet.",
+          "Enderite, Terranite, Infernite, Zenithite: like the Netherite block they have no cut family, only a chiseled block, cut 1:1 from the block at the stonecutter. Fire resistant, diamond pickaxe, no beacon base.",
+          "Every chiseled block has its own mirror-symmetric motif: rose (rose gold), heart (rose copper), Eye of Ender, tree (Terranite), Ghast (Infernite), sun (Zenithite). Decoration only."
+        ]
+      },
+      "de": {
+        "title": "Bausteine aus Roségold und Riss-Metallen",
+        "summary": "Roségold und Rosenkupfer haben die Baufamilie der anderen Metalle; Enderit, Terranit, Infernit und Zenithit einen gemeißelten Block (PAL35b).",
+        "details": [
+          "Roségold, Rosenkupfer: geschnittener Block (4 Blöcke -> 4), geschnittene Treppe und Stufe, Fliesen (4 geschnittene -> 4), Säule (2 Blöcke senkrecht -> 2), gemeißelter Block (2 geschnittene Stufen senkrecht -> 1); die Steinsäge schneidet alle aus dem Block. Simple Octets ergänzt das geschnittene Octet.",
+          "Enderit, Terranit, Infernit, Zenithit: wie der Netheritblock ohne geschnittene Familie, nur ein gemeißelter Block, 1:1 in der Steinsäge aus dem Block. Feuerfest, Diamantspitzhacke, kein Leuchtfeuer-Sockel.",
+          "Jeder gemeißelte Block hat ein eigenes spiegelgleiches Motiv: Rose (Roségold), Herz (Rosenkupfer), Enderauge, Baum (Terranit), Ghast (Infernit), Sonne (Zenithit). Nur Dekoration."
+        ]
+      }
+    },
+    {
+      "id": "rift_food",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresFood.java",
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/terranite_apple.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/zenithite_carrot.json"
+      ],
+      "en": {
+        "title": "Rift metal food",
+        "summary": "Each rift metal has an apple and a carrot with one Vanilla effect of its dimension (PAL35b): Terranite Haste, Infernite Fire Resistance, Zenithite Slow Falling.",
+        "details": [
+          "Apple: a golden apple and an ingot (shapeless). 6 hunger, always edible; Regeneration II 0:05 and Absorption 2:00 like the golden apple, plus the effect for 2:00.",
+          "Carrot: eight golden carrots round an ingot make 8. 8 hunger like the Rose Gold carrot, the effect for 1:00.",
+          "Fire resistant like the ingots. No stronger fight bonus than the rose gold apples: a help for mining (Overworld), the Nether and the End islands."
+        ]
+      },
+      "de": {
+        "title": "Essen aus Riss-Metallen",
+        "summary": "Jedes Riss-Metall hat einen Apfel und eine Karotte mit einem Vanilla-Effekt seiner Dimension (PAL35b): Terranit Eile, Infernit Feuerresistenz, Zenithit Sanfter Fall.",
+        "details": [
+          "Apfel: ein goldener Apfel und ein Barren (formlos). 6 Hunger, immer essbar; Regeneration II 0:05 und Absorption 2:00 wie der goldene Apfel, dazu der Effekt für 2:00.",
+          "Karotte: acht goldene Karotten um einen Barren ergeben 8. 8 Hunger wie die Roségold-Karotte, der Effekt für 1:00.",
+          "Feuerfest wie die Barren. Kein stärkerer Kampfvorteil als die Roségold-Äpfel: eine Hilfe für den Bergbau (Oberwelt), den Nether und die End-Inseln."
+        ]
+      }
+    },
+    {
       "id": "metal_sounds",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresSounds.java",
@@ -2099,6 +2153,62 @@
       }
     },
     {
+      "id": "simpleores:chiseled_enderite_from_enderite_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_enderite",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_enderite_from_enderite_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:enderite_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:enderite_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:enderite_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_infernite_from_infernite_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_infernite",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_infernite_from_infernite_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:infernite_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:infernite_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:infernite_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:chiseled_lead",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -2269,6 +2379,182 @@
         "materials": [
           {
             "id": "simpleores:nickel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_rose_bronze",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_rose_bronze",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_rose_bronze.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_rose_bronze_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_rose_bronze_from_cut_rose_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_rose_bronze",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_rose_bronze_from_cut_rose_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_rose_bronze_from_rose_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_rose_bronze",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_rose_bronze_from_rose_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_rose_gold",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_rose_gold",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_rose_gold.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold_slab"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_rose_gold_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_rose_gold_from_cut_rose_gold_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_rose_gold",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_rose_gold_from_cut_rose_gold_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_rose_gold_from_rose_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_rose_gold",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_rose_gold_from_rose_gold_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
             "count": 9
           }
         ]
@@ -2451,6 +2737,34 @@
       }
     },
     {
+      "id": "simpleores:chiseled_terranite_from_terranite_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_terranite",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_terranite_from_terranite_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:terranite_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:terranite_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:terranite_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:chiseled_tin",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -2533,6 +2847,34 @@
         "materials": [
           {
             "id": "simpleores:tin_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:chiseled_zenithite_from_zenithite_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:chiseled_zenithite",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/chiseled_zenithite_from_zenithite_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:zenithite_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:zenithite_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zenithite_ingot",
             "count": 9
           }
         ]
@@ -3565,6 +3907,478 @@
         "materials": [
           {
             "id": "simpleores:nickel_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_bronze",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_bronze",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_bronze.json",
+      "ingredients": [
+        "simpleores:rose_bronze_block"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_bronze_from_rose_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_bronze",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_bronze_from_rose_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_bronze_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_bronze_slab",
+        "count": 6
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_bronze_slab.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_rose_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_bronze_slab_from_cut_rose_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_bronze_slab",
+        "count": 2
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_bronze_slab_from_cut_rose_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_bronze_slab_from_rose_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_bronze_slab",
+        "count": 8
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_bronze_slab_from_rose_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_bronze_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_bronze_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_bronze_stairs.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_rose_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 54
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_bronze_stairs_from_cut_rose_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_bronze_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_bronze_stairs_from_cut_rose_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_bronze_stairs_from_rose_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_bronze_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_bronze_stairs_from_rose_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_gold",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_gold",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_gold.json",
+      "ingredients": [
+        "simpleores:rose_gold_block"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_gold_from_rose_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_gold",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_gold_from_rose_gold_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_gold_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_gold_slab",
+        "count": 6
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_gold_slab.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_rose_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_gold_slab_from_cut_rose_gold_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_gold_slab",
+        "count": 2
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_gold_slab_from_cut_rose_gold_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_gold_slab_from_rose_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_gold_slab",
+        "count": 8
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_gold_slab_from_rose_gold_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_gold_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_gold_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_gold_stairs.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_rose_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 54
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_gold_stairs_from_cut_rose_gold_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_gold_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_gold_stairs_from_cut_rose_gold_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:cut_rose_gold_stairs_from_rose_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:cut_rose_gold_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/cut_rose_gold_stairs_from_rose_gold_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
             "count": 9
           }
         ]
@@ -4742,8 +5556,8 @@
         "yield": 9,
         "materials": [
           {
-            "id": "simpleores:enderite_block",
-            "count": 1
+            "id": "simpleores:enderite_ingot",
+            "count": 9
           }
         ]
       }
@@ -5013,6 +5827,46 @@
       }
     },
     {
+      "id": "simpleores:infernite_apple",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:infernite_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/infernite_apple.json",
+      "ingredients": [
+        "minecraft:golden_apple",
+        "simpleores:infernite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:golden_apple"
+        ],
+        [
+          "simpleores:infernite_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          },
+          {
+            "id": "simpleores:infernite_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:infernite_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -5041,6 +5895,51 @@
           {
             "id": "simpleores:infernite_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:infernite_carrot",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:infernite_carrot",
+        "count": 8
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/infernite_carrot.json",
+      "ingredients": [
+        "minecraft:golden_carrot",
+        "simpleores:infernite_ingot"
+      ],
+      "pattern": [
+        "CCC",
+        "C#C",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "minecraft:golden_carrot"
+        ],
+        "#": [
+          "simpleores:infernite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:carrot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 7.111
+          },
+          {
+            "id": "simpleores:infernite_ingot",
+            "count": 1
           }
         ]
       }
@@ -5112,8 +6011,8 @@
         "yield": 9,
         "materials": [
           {
-            "id": "simpleores:infernite_block",
-            "count": 1
+            "id": "simpleores:infernite_ingot",
+            "count": 9
           }
         ]
       }
@@ -7807,6 +8706,66 @@
       }
     },
     {
+      "id": "simpleores:rose_bronze_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pillar.json",
+      "ingredients": [
+        "simpleores:rose_bronze_block"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_bronze_pillar_from_rose_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pillar_from_rose_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_bronze_pole",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -8064,6 +9023,94 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_bronze_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_tiles.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_rose_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_bronze_tiles_from_cut_rose_bronze_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_tiles_from_cut_rose_bronze_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_bronze"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_bronze"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_bronze_tiles_from_rose_bronze_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_tiles_from_rose_bronze_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_bronze_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_bronze_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
           }
         ]
       }
@@ -8624,6 +9671,66 @@
       }
     },
     {
+      "id": "simpleores:rose_gold_pillar",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_pillar",
+        "count": 2
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pillar.json",
+      "ingredients": [
+        "simpleores:rose_gold_block"
+      ],
+      "pattern": [
+        "#",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_pillar_from_rose_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_pillar",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pillar_from_rose_gold_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_gold_pole",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -8881,6 +9988,94 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_tiles.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleores:cut_rose_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_tiles_from_cut_rose_gold_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_tiles_from_cut_rose_gold_stonecutting.json",
+      "ingredients": [
+        "simpleores:cut_rose_gold"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:cut_rose_gold"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_tiles_from_rose_gold_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_tiles",
+        "count": 4
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_tiles_from_rose_gold_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:rose_gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_gold_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
           }
         ]
       }
@@ -10635,6 +11830,46 @@
       }
     },
     {
+      "id": "simpleores:terranite_apple",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:terranite_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/terranite_apple.json",
+      "ingredients": [
+        "minecraft:golden_apple",
+        "simpleores:terranite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:golden_apple"
+        ],
+        [
+          "simpleores:terranite_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          },
+          {
+            "id": "simpleores:terranite_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:terranite_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -10663,6 +11898,51 @@
           {
             "id": "simpleores:terranite_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:terranite_carrot",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:terranite_carrot",
+        "count": 8
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/terranite_carrot.json",
+      "ingredients": [
+        "minecraft:golden_carrot",
+        "simpleores:terranite_ingot"
+      ],
+      "pattern": [
+        "CCC",
+        "C#C",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "minecraft:golden_carrot"
+        ],
+        "#": [
+          "simpleores:terranite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:carrot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 7.111
+          },
+          {
+            "id": "simpleores:terranite_ingot",
+            "count": 1
           }
         ]
       }
@@ -10734,8 +12014,8 @@
         "yield": 9,
         "materials": [
           {
-            "id": "simpleores:terranite_block",
-            "count": 1
+            "id": "simpleores:terranite_ingot",
+            "count": 9
           }
         ]
       }
@@ -11515,6 +12795,46 @@
       }
     },
     {
+      "id": "simpleores:zenithite_apple",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zenithite_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zenithite_apple.json",
+      "ingredients": [
+        "minecraft:golden_apple",
+        "simpleores:zenithite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:golden_apple"
+        ],
+        [
+          "simpleores:zenithite_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          },
+          {
+            "id": "simpleores:zenithite_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:zenithite_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -11543,6 +12863,51 @@
           {
             "id": "simpleores:zenithite_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zenithite_carrot",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zenithite_carrot",
+        "count": 8
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zenithite_carrot.json",
+      "ingredients": [
+        "minecraft:golden_carrot",
+        "simpleores:zenithite_ingot"
+      ],
+      "pattern": [
+        "CCC",
+        "C#C",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "minecraft:golden_carrot"
+        ],
+        "#": [
+          "simpleores:zenithite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:carrot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 7.111
+          },
+          {
+            "id": "simpleores:zenithite_ingot",
+            "count": 1
           }
         ]
       }
@@ -11614,8 +12979,8 @@
         "yield": 9,
         "materials": [
           {
-            "id": "simpleores:zenithite_block",
-            "count": 1
+            "id": "simpleores:zenithite_ingot",
+            "count": 9
           }
         ]
       }
@@ -12925,6 +14290,42 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_bronze.json"
     },
     {
+      "id": "simpleores:blocks/chiseled_enderite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:chiseled_enderite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_enderite.json"
+    },
+    {
+      "id": "simpleores:blocks/chiseled_infernite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:chiseled_infernite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_infernite.json"
+    },
+    {
       "id": "simpleores:blocks/chiseled_lead",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12959,6 +14360,42 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_nickel.json"
+    },
+    {
+      "id": "simpleores:blocks/chiseled_rose_bronze",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:chiseled_rose_bronze"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_rose_bronze.json"
+    },
+    {
+      "id": "simpleores:blocks/chiseled_rose_gold",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:chiseled_rose_gold"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_rose_gold.json"
     },
     {
       "id": "simpleores:blocks/chiseled_silver",
@@ -12997,6 +14434,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_stainless_steel.json"
     },
     {
+      "id": "simpleores:blocks/chiseled_terranite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:chiseled_terranite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_terranite.json"
+    },
+    {
       "id": "simpleores:blocks/chiseled_tin",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -13013,6 +14468,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_tin.json"
+    },
+    {
+      "id": "simpleores:blocks/chiseled_zenithite",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:chiseled_zenithite"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/chiseled_zenithite.json"
     },
     {
       "id": "simpleores:blocks/chiseled_zinc",
@@ -13239,6 +14712,110 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_nickel_stairs.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_rose_bronze",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_rose_bronze"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_rose_bronze.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_rose_bronze_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_rose_bronze_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_rose_bronze_slab.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_rose_bronze_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_rose_bronze_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_rose_bronze_stairs.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_rose_gold",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_rose_gold"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_rose_gold.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_rose_gold_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_rose_gold_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_rose_gold_slab.json"
+    },
+    {
+      "id": "simpleores:blocks/cut_rose_gold_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:cut_rose_gold_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/cut_rose_gold_stairs.json"
     },
     {
       "id": "simpleores:blocks/cut_silver",
@@ -14405,6 +15982,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_block.json"
     },
     {
+      "id": "simpleores:blocks/rose_bronze_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_bronze_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_pillar.json"
+    },
+    {
       "id": "simpleores:blocks/rose_bronze_pole",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -14459,6 +16054,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_pressure_plate.json"
     },
     {
+      "id": "simpleores:blocks/rose_bronze_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_bronze_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_tiles.json"
+    },
+    {
       "id": "simpleores:blocks/rose_gold_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -14475,6 +16088,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_block.json"
+    },
+    {
+      "id": "simpleores:blocks/rose_gold_pillar",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_gold_pillar"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_pillar.json"
     },
     {
       "id": "simpleores:blocks/rose_gold_pole",
@@ -14529,6 +16160,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_pressure_plate.json"
+    },
+    {
+      "id": "simpleores:blocks/rose_gold_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_gold_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_tiles.json"
     },
     {
       "id": "simpleores:blocks/sage_crystal_block",
@@ -16217,14 +17866,60 @@
           "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 26 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 26 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleores/item/guide_book.png",
       "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:infernite_apple",
+      "name": {
+        "en_us": "Infernite Apple",
+        "de_de": "Infernit-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Infernite apple: 6 hunger, always edible, fire resistant. Gives Regeneration II 0:05 and Absorption 2:00 like the golden apple, plus Fire Resistance 2:00. A golden apple and a infernite ingot (shapeless)."
+        },
+        "de": {
+          "summary": "Infernit-Apfel: 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:05 und Absorption 2:00 wie der goldene Apfel, dazu Feuerresistenz 2:00. Ein goldener Apfel und ein Infernitbarren (formlos)."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/infernite_apple.png",
+      "craftedBy": [
+        "simpleores:infernite_apple"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:infernite_carrot",
+      "name": {
+        "en_us": "Infernite Carrot",
+        "de_de": "Infernit-Karotte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Infernite carrot: 8 hunger like the Rose Gold carrot, fire resistant. Gives Fire Resistance 1:00. Eight golden carrots round a infernite ingot make 8."
+        },
+        "de": {
+          "summary": "Infernit-Karotte: 8 Hunger wie die Roségold-Karotte, feuerfest. Gibt Feuerresistenz 1:00. Acht goldene Karotten um einen Infernitbarren ergeben 8."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/infernite_carrot.png",
+      "craftedBy": [
+        "simpleores:infernite_carrot"
+      ],
       "usedIn": []
     },
     {
@@ -16250,7 +17945,9 @@
         "simpleores:infernite_ingot_from_infernite_block"
       ],
       "usedIn": [
+        "simpleores:infernite_apple",
         "simpleores:infernite_block",
+        "simpleores:infernite_carrot",
         "simpleores:infernite_pressure_plate",
         "simpleores:zenithite_ingot"
       ]
@@ -17526,6 +19223,52 @@
       ]
     },
     {
+      "id": "simpleores:terranite_apple",
+      "name": {
+        "en_us": "Terranite Apple",
+        "de_de": "Terranit-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Terranite apple: 6 hunger, always edible, fire resistant. Gives Regeneration II 0:05 and Absorption 2:00 like the golden apple, plus Haste 2:00. A golden apple and a terranite ingot (shapeless)."
+        },
+        "de": {
+          "summary": "Terranit-Apfel: 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:05 und Absorption 2:00 wie der goldene Apfel, dazu Eile 2:00. Ein goldener Apfel und ein Terranitbarren (formlos)."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/terranite_apple.png",
+      "craftedBy": [
+        "simpleores:terranite_apple"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:terranite_carrot",
+      "name": {
+        "en_us": "Terranite Carrot",
+        "de_de": "Terranit-Karotte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Terranite carrot: 8 hunger like the Rose Gold carrot, fire resistant. Gives Haste 1:00. Eight golden carrots round a terranite ingot make 8."
+        },
+        "de": {
+          "summary": "Terranit-Karotte: 8 Hunger wie die Roségold-Karotte, feuerfest. Gibt Eile 1:00. Acht goldene Karotten um einen Terranitbarren ergeben 8."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/terranite_carrot.png",
+      "craftedBy": [
+        "simpleores:terranite_carrot"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:terranite_ingot",
       "name": {
         "en_us": "Terranite Ingot",
@@ -17549,7 +19292,9 @@
       ],
       "usedIn": [
         "simpleores:infernite_ingot",
+        "simpleores:terranite_apple",
         "simpleores:terranite_block",
+        "simpleores:terranite_carrot",
         "simpleores:terranite_pressure_plate"
       ]
     },
@@ -17619,6 +19364,52 @@
       ]
     },
     {
+      "id": "simpleores:zenithite_apple",
+      "name": {
+        "en_us": "Zenithite Apple",
+        "de_de": "Zenithit-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Zenithite apple: 6 hunger, always edible, fire resistant. Gives Regeneration II 0:05 and Absorption 2:00 like the golden apple, plus Slow Falling 2:00. A golden apple and a zenithite ingot (shapeless)."
+        },
+        "de": {
+          "summary": "Zenithit-Apfel: 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:05 und Absorption 2:00 wie der goldene Apfel, dazu Sanfter Fall 2:00. Ein goldener Apfel und ein Zenithitbarren (formlos)."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/zenithite_apple.png",
+      "craftedBy": [
+        "simpleores:zenithite_apple"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:zenithite_carrot",
+      "name": {
+        "en_us": "Zenithite Carrot",
+        "de_de": "Zenithit-Karotte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Zenithite carrot: 8 hunger like the Rose Gold carrot, fire resistant. Gives Slow Falling 1:00. Eight golden carrots round a zenithite ingot make 8."
+        },
+        "de": {
+          "summary": "Zenithit-Karotte: 8 Hunger wie die Roségold-Karotte, feuerfest. Gibt Sanfter Fall 1:00. Acht goldene Karotten um einen Zenithitbarren ergeben 8."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/zenithite_carrot.png",
+      "craftedBy": [
+        "simpleores:zenithite_carrot"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:zenithite_ingot",
       "name": {
         "en_us": "Zenithite Ingot",
@@ -17641,7 +19432,9 @@
         "simpleores:zenithite_ingot_from_zenithite_block"
       ],
       "usedIn": [
+        "simpleores:zenithite_apple",
         "simpleores:zenithite_block",
+        "simpleores:zenithite_carrot",
         "simpleores:zenithite_pressure_plate"
       ]
     },
@@ -18347,6 +20140,52 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:chiseled_enderite",
+      "name": {
+        "en_us": "Chiseled Enderite",
+        "de_de": "Gemeißelter Enderitblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Chiseled block of enderite (PAL35b): the stonecutter cuts it 1:1 from the block of enderite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
+        },
+        "de": {
+          "summary": "Gemeißelter Enderitblock (PAL35b): die Steinsäge schneidet ihn 1:1 aus dem Enderitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/chiseled_enderite.png",
+      "craftedBy": [
+        "simpleores:chiseled_enderite_from_enderite_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:chiseled_infernite",
+      "name": {
+        "en_us": "Chiseled Infernite",
+        "de_de": "Gemeißelter Infernitblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Chiseled block of infernite (PAL35b): the stonecutter cuts it 1:1 from the block of infernite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
+        },
+        "de": {
+          "summary": "Gemeißelter Infernitblock (PAL35b): die Steinsäge schneidet ihn 1:1 aus dem Infernitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/chiseled_infernite.png",
+      "craftedBy": [
+        "simpleores:chiseled_infernite_from_infernite_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:chiseled_lead",
       "name": {
         "en_us": "Chiseled Lead",
@@ -18393,6 +20232,56 @@
         "simpleores:chiseled_nickel",
         "simpleores:chiseled_nickel_from_cut_nickel_stonecutting",
         "simpleores:chiseled_nickel_from_nickel_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:chiseled_rose_bronze",
+      "name": {
+        "en_us": "Chiseled Rose Copper",
+        "de_de": "Gemeißelter Rosenkupferblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose copper family (like the cut copper family): crafted from the block of rose copper or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Rosenkupfer-Familie (wie die Familie des geschnittenen Kupfers): aus dem Rosenkupferblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/chiseled_rose_bronze.png",
+      "craftedBy": [
+        "simpleores:chiseled_rose_bronze",
+        "simpleores:chiseled_rose_bronze_from_cut_rose_bronze_stonecutting",
+        "simpleores:chiseled_rose_bronze_from_rose_bronze_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:chiseled_rose_gold",
+      "name": {
+        "en_us": "Chiseled Rose Gold",
+        "de_de": "Gemeißelter Roségoldblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose gold family (like the cut copper family): crafted from the block of rose gold or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Roségold-Familie (wie die Familie des geschnittenen Kupfers): aus dem Roségoldblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/chiseled_rose_gold.png",
+      "craftedBy": [
+        "simpleores:chiseled_rose_gold",
+        "simpleores:chiseled_rose_gold_from_cut_rose_gold_stonecutting",
+        "simpleores:chiseled_rose_gold_from_rose_gold_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -18447,6 +20336,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:chiseled_terranite",
+      "name": {
+        "en_us": "Chiseled Terranite",
+        "de_de": "Gemeißelter Terranitblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Chiseled block of terranite (PAL35b): the stonecutter cuts it 1:1 from the block of terranite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
+        },
+        "de": {
+          "summary": "Gemeißelter Terranitblock (PAL35b): die Steinsäge schneidet ihn 1:1 aus dem Terranitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/chiseled_terranite.png",
+      "craftedBy": [
+        "simpleores:chiseled_terranite_from_terranite_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:chiseled_tin",
       "name": {
         "en_us": "Chiseled Tin",
@@ -18468,6 +20380,29 @@
         "simpleores:chiseled_tin",
         "simpleores:chiseled_tin_from_cut_tin_stonecutting",
         "simpleores:chiseled_tin_from_tin_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:chiseled_zenithite",
+      "name": {
+        "en_us": "Chiseled Zenithite",
+        "de_de": "Gemeißelter Zenithitblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Chiseled block of zenithite (PAL35b): the stonecutter cuts it 1:1 from the block of zenithite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
+        },
+        "de": {
+          "summary": "Gemeißelter Zenithitblock (PAL35b): die Steinsäge schneidet ihn 1:1 aus dem Zenithitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/chiseled_zenithite.png",
+      "craftedBy": [
+        "simpleores:chiseled_zenithite_from_zenithite_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -18821,6 +20756,170 @@
         "simpleores:cut_nickel_stairs",
         "simpleores:cut_nickel_stairs_from_cut_nickel_stonecutting",
         "simpleores:cut_nickel_stairs_from_nickel_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:cut_rose_bronze",
+      "name": {
+        "en_us": "Cut Rose Copper",
+        "de_de": "Geschnittener Rosenkupferblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose copper family (like the cut copper family): crafted from the block of rose copper or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Rosenkupfer-Familie (wie die Familie des geschnittenen Kupfers): aus dem Rosenkupferblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/cut_rose_bronze.png",
+      "craftedBy": [
+        "simpleores:cut_rose_bronze",
+        "simpleores:cut_rose_bronze_from_rose_bronze_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleores:chiseled_rose_bronze_from_cut_rose_bronze_stonecutting",
+        "simpleores:cut_rose_bronze_slab",
+        "simpleores:cut_rose_bronze_slab_from_cut_rose_bronze_stonecutting",
+        "simpleores:cut_rose_bronze_stairs",
+        "simpleores:cut_rose_bronze_stairs_from_cut_rose_bronze_stonecutting",
+        "simpleores:rose_bronze_tiles",
+        "simpleores:rose_bronze_tiles_from_cut_rose_bronze_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleores:cut_rose_bronze_slab",
+      "name": {
+        "en_us": "Cut Rose Copper Slab",
+        "de_de": "Geschnittene Rosenkupferstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose copper family (like the cut copper family): crafted from the block of rose copper or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Rosenkupfer-Familie (wie die Familie des geschnittenen Kupfers): aus dem Rosenkupferblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "craftedBy": [
+        "simpleores:cut_rose_bronze_slab",
+        "simpleores:cut_rose_bronze_slab_from_cut_rose_bronze_stonecutting",
+        "simpleores:cut_rose_bronze_slab_from_rose_bronze_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleores:chiseled_rose_bronze"
+      ]
+    },
+    {
+      "id": "simpleores:cut_rose_bronze_stairs",
+      "name": {
+        "en_us": "Cut Rose Copper Stairs",
+        "de_de": "Geschnittene Rosenkupfertreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose copper family (like the cut copper family): crafted from the block of rose copper or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Rosenkupfer-Familie (wie die Familie des geschnittenen Kupfers): aus dem Rosenkupferblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "craftedBy": [
+        "simpleores:cut_rose_bronze_stairs",
+        "simpleores:cut_rose_bronze_stairs_from_cut_rose_bronze_stonecutting",
+        "simpleores:cut_rose_bronze_stairs_from_rose_bronze_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:cut_rose_gold",
+      "name": {
+        "en_us": "Cut Rose Gold",
+        "de_de": "Geschnittener Roségoldblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose gold family (like the cut copper family): crafted from the block of rose gold or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Roségold-Familie (wie die Familie des geschnittenen Kupfers): aus dem Roségoldblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/cut_rose_gold.png",
+      "craftedBy": [
+        "simpleores:cut_rose_gold",
+        "simpleores:cut_rose_gold_from_rose_gold_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleores:chiseled_rose_gold_from_cut_rose_gold_stonecutting",
+        "simpleores:cut_rose_gold_slab",
+        "simpleores:cut_rose_gold_slab_from_cut_rose_gold_stonecutting",
+        "simpleores:cut_rose_gold_stairs",
+        "simpleores:cut_rose_gold_stairs_from_cut_rose_gold_stonecutting",
+        "simpleores:rose_gold_tiles",
+        "simpleores:rose_gold_tiles_from_cut_rose_gold_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleores:cut_rose_gold_slab",
+      "name": {
+        "en_us": "Cut Rose Gold Slab",
+        "de_de": "Geschnittene Roségoldstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose gold family (like the cut copper family): crafted from the block of rose gold or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Roségold-Familie (wie die Familie des geschnittenen Kupfers): aus dem Roségoldblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "craftedBy": [
+        "simpleores:cut_rose_gold_slab",
+        "simpleores:cut_rose_gold_slab_from_cut_rose_gold_stonecutting",
+        "simpleores:cut_rose_gold_slab_from_rose_gold_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleores:chiseled_rose_gold"
+      ]
+    },
+    {
+      "id": "simpleores:cut_rose_gold_stairs",
+      "name": {
+        "en_us": "Cut Rose Gold Stairs",
+        "de_de": "Geschnittene Roségoldtreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose gold family (like the cut copper family): crafted from the block of rose gold or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Roségold-Familie (wie die Familie des geschnittenen Kupfers): aus dem Roségoldblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "craftedBy": [
+        "simpleores:cut_rose_gold_stairs",
+        "simpleores:cut_rose_gold_stairs_from_cut_rose_gold_stonecutting",
+        "simpleores:cut_rose_gold_stairs_from_rose_gold_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -19405,6 +21504,7 @@
         "simpleores:enderite_block"
       ],
       "usedIn": [
+        "simpleores:chiseled_enderite_from_enderite_block_stonecutting",
         "simpleores:enderite_ingot"
       ]
     },
@@ -19498,6 +21598,7 @@
         "simpleores:infernite_block"
       ],
       "usedIn": [
+        "simpleores:chiseled_infernite_from_infernite_block_stonecutting",
         "simpleores:infernite_ingot_from_infernite_block"
       ]
     },
@@ -20440,9 +22541,41 @@
         "simpleores:rose_bronze_block"
       ],
       "usedIn": [
+        "simpleores:chiseled_rose_bronze_from_rose_bronze_block_stonecutting",
+        "simpleores:cut_rose_bronze",
+        "simpleores:cut_rose_bronze_from_rose_bronze_block_stonecutting",
+        "simpleores:cut_rose_bronze_slab_from_rose_bronze_block_stonecutting",
+        "simpleores:cut_rose_bronze_stairs_from_rose_bronze_block_stonecutting",
         "simpleores:enchanted_rose_bronze_apple",
-        "simpleores:rose_bronze_ingot_from_rose_bronze_block"
+        "simpleores:rose_bronze_ingot_from_rose_bronze_block",
+        "simpleores:rose_bronze_pillar",
+        "simpleores:rose_bronze_pillar_from_rose_bronze_block_stonecutting",
+        "simpleores:rose_bronze_tiles_from_rose_bronze_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:rose_bronze_pillar",
+      "name": {
+        "en_us": "Rose Copper Pillar",
+        "de_de": "Rosenkupfersäule"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose copper family (like the cut copper family): crafted from the block of rose copper or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Rosenkupfer-Familie (wie die Familie des geschnittenen Kupfers): aus dem Rosenkupferblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/rose_bronze_pillar.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_pillar",
+        "simpleores:rose_bronze_pillar_from_rose_bronze_block_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:rose_bronze_pole",
@@ -20515,6 +22648,31 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:rose_bronze_tiles",
+      "name": {
+        "en_us": "Rose Copper Tiles",
+        "de_de": "Rosenkupferfliesen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose copper family (like the cut copper family): crafted from the block of rose copper or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Rosenkupfer-Familie (wie die Familie des geschnittenen Kupfers): aus dem Rosenkupferblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/rose_bronze_tiles.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_tiles",
+        "simpleores:rose_bronze_tiles_from_cut_rose_bronze_stonecutting",
+        "simpleores:rose_bronze_tiles_from_rose_bronze_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:rose_gold_block",
       "name": {
         "en_us": "Block of Rose Gold",
@@ -20536,9 +22694,41 @@
         "simpleores:rose_gold_block"
       ],
       "usedIn": [
+        "simpleores:chiseled_rose_gold_from_rose_gold_block_stonecutting",
+        "simpleores:cut_rose_gold",
+        "simpleores:cut_rose_gold_from_rose_gold_block_stonecutting",
+        "simpleores:cut_rose_gold_slab_from_rose_gold_block_stonecutting",
+        "simpleores:cut_rose_gold_stairs_from_rose_gold_block_stonecutting",
         "simpleores:enchanted_rose_gold_apple",
-        "simpleores:rose_gold_ingot_from_rose_gold_block"
+        "simpleores:rose_gold_ingot_from_rose_gold_block",
+        "simpleores:rose_gold_pillar",
+        "simpleores:rose_gold_pillar_from_rose_gold_block_stonecutting",
+        "simpleores:rose_gold_tiles_from_rose_gold_block_stonecutting"
       ]
+    },
+    {
+      "id": "simpleores:rose_gold_pillar",
+      "name": {
+        "en_us": "Rose Gold Pillar",
+        "de_de": "Roségoldsäule"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose gold family (like the cut copper family): crafted from the block of rose gold or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Roségold-Familie (wie die Familie des geschnittenen Kupfers): aus dem Roségoldblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/rose_gold_pillar.png",
+      "craftedBy": [
+        "simpleores:rose_gold_pillar",
+        "simpleores:rose_gold_pillar_from_rose_gold_block_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleores:rose_gold_pole",
@@ -20607,6 +22797,31 @@
       },
       "craftedBy": [
         "simpleores:rose_gold_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_tiles",
+      "name": {
+        "en_us": "Rose Gold Tiles",
+        "de_de": "Roségoldfliesen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Building block of the rose gold family (like the cut copper family): crafted from the block of rose gold or cut in the stonecutter. Decoration only."
+        },
+        "de": {
+          "summary": "Baublock der Roségold-Familie (wie die Familie des geschnittenen Kupfers): aus dem Roségoldblock hergestellt oder in der Steinsäge geschnitten. Nur Dekoration."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/rose_gold_tiles.png",
+      "craftedBy": [
+        "simpleores:rose_gold_tiles",
+        "simpleores:rose_gold_tiles_from_cut_rose_gold_stonecutting",
+        "simpleores:rose_gold_tiles_from_rose_gold_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -21357,6 +23572,7 @@
         "simpleores:terranite_block"
       ],
       "usedIn": [
+        "simpleores:chiseled_terranite_from_terranite_block_stonecutting",
         "simpleores:terranite_ingot_from_terranite_block"
       ]
     },
@@ -21761,6 +23977,7 @@
         "simpleores:zenithite_block"
       ],
       "usedIn": [
+        "simpleores:chiseled_zenithite_from_zenithite_block_stonecutting",
         "simpleores:zenithite_ingot_from_zenithite_block"
       ]
     },
@@ -22421,14 +24638,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 21,
-    "recipes": 369,
-    "lootTables": 179,
+    "features": 23,
+    "recipes": 411,
+    "lootTables": 195,
     "tags": 11,
     "advancements": 1,
     "enchantments": 0,
-    "items": 67,
-    "blocks": 179,
+    "items": 73,
+    "blocks": 195,
     "trades": 0,
     "config": 16,
     "quests": 0,
