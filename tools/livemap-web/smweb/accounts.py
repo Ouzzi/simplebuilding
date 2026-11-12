@@ -226,5 +226,5 @@ def clean_name(value) -> str:
     if not isinstance(value, str):
         return ""
     v = " ".join(value.split())
-    v = "".join(ch for ch in v if ch.isprintable() and ch not in "<>\"'`")
+    v = "".join(ch for ch in v if ch.isprintable() and ch not in "<>")  # everything is escaped on output anyway
     return v[:40]

@@ -450,7 +450,13 @@ class ViewerTests(Base):
         self.assertIn("Ren &amp; Stimpy", r.body.decode(), "cleaned and escaped")
         self.assertEqual(self.svc.db.value("SELECT show_players FROM maps"), 1)
         self.assertTrue(self.svc.user(self.user["id"])["dpa_at"])
-        self.assertEqual(self.c.get(f"https://livemap.test/app/m/{mid}/preview.png").status, 204, "no zoom-0 tile yet")
+        self.assertEqual(self.c.get(f"https://livemap.test/app/m/{mid}/preview.png").status, 204, "no coarse tile yet")
+        key = self.svc.db.value("SELECT key_hash FROM maps")
+        self.assertTrue(key)
+        with self.svc.db.tx() as tx:
+            tx.execute("UPDATE maps SET key_hash = ? WHERE id = ?", (security.sha256("slm_k"), mid))
+        self.c.api("POST", "tiles", key="slm_k", raw=bundle({"minecraft_overworld/2/0/0.png": png(77)}), ctype="application/zip")
+        self.assertEqual(self.c.get(f"https://livemap.test/app/m/{mid}/preview.png").body, png(77), "zoom 2 overview as preview")
         for path in ("/app/archive", "/app/plan", "/app/account", "/pricing", "/", "/self-host", "/explore"):
             self.assertEqual(self.c.get("https://livemap.test" + path).status, 200, path)
         self.assertEqual(self.c.get("https://livemap.test/app/m/9999").status, 404)
@@ -509,6 +515,27 @@ class AdminBillingTests(Base):
         self.assertEqual(self.svc.user(u["id"])["tier"], "free")
         bad = self.app.handle(Request("POST", "livemap.test", "/api/stripe/webhook", {}, {"stripe-signature": "t=1,v1=00"}, b"{}"))
         self.assertEqual(bad.status, 400)
+
+
+class DeployTemplateTests(unittest.TestCase):
+    def test_templates_render_completely(self):
+        import re
+        d = ROOT / "deploy"
+        values = {"@STAGE@": "dev", "@PORT@": "8096", "@ACCOUNT_HOST@": "account-dev.simplemods.de", "@LIVEMAP_HOST@": "livemap-dev.simplemods.de",
+                  "@DEV_AUTH@": 'auth_basic "x"; auth_basic_user_file /etc/nginx/smweb-dev.htpasswd;', "@SRC@": "/srv/x", "@CONFIG@": "/etc/c.json", "@DATA@": "/srv/d"}
+        for name in ("nginx-smweb.conf.in", "nginx-smweb-proxy.conf.in", "smweb.service.in"):
+            text = (d / name).read_text(encoding="utf-8")
+            for k, v in values.items():
+                text = text.replace(k, v)
+            self.assertNotRegex(text, r"@[A-Z_]+@", name)
+            body = "\n".join(l.split("#", 1)[0] for l in text.splitlines())
+            self.assertEqual(body.count("{"), body.count("}"), name + ": braces balanced")
+        conf = (d / "nginx-smweb.conf.in").read_text(encoding="utf-8")
+        self.assertIn("client_max_body_size 9m", conf, "tiles bodies fit (service limit 8 MiB)")
+        self.assertIn("X-Client-IP $sb_client_ip", (d / "nginx-smweb-proxy.conf.in").read_text(encoding="utf-8"))
+        self.assertIn("simplemods-allow.conf", conf, "only the tunnel connector and loopback")
+        sh = (d / "deploy_livemap_web.sh").read_text(encoding="utf-8")
+        self.assertNotRegex(sh, r"(?i)(sk_live|whsec_[a-z0-9]{8}|password\s*=\s*\S)", "no secrets in the deploy script")
 
 
 class LegalDraftTests(Base):

@@ -39,8 +39,8 @@
       for (let y = Math.max(0, cy - r); y < Math.min(H, cy + r); y++)
         for (let x = Math.max(0, cx - r); x < Math.min(W, cx + r); x++) seen[y * W + x] = 1;
     };
-    for (let i = 0; i < 120; i++) { const p = path[i]; reveal(Math.round(p[0]), Math.round(p[1]), 9); }
-    step = 120;
+    for (let i = 0; i < 260; i++) { const p = path[i]; reveal(Math.round(p[0]), Math.round(p[1]), 11); }
+    step = 260;
     const draw = () => {
       for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
         const i = y * W + x, p = i * 4;
@@ -66,8 +66,8 @@
       setInterval(() => {
         if (document.hidden) return;
         step++;
-        const p = path[step % path.length]; reveal(Math.round(p[0]), Math.round(p[1]), 9);
-        if (step % path.length === 0) seen.fill(0);
+        const p = path[step % path.length]; reveal(Math.round(p[0]), Math.round(p[1]), 11);
+        if (step % path.length === 0) { seen.fill(0); for (let i = 0; i < 60; i++) { const q = path[i]; reveal(Math.round(q[0]), Math.round(q[1]), 11); } }
         draw();
       }, 120);
     }

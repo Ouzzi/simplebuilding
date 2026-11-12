@@ -389,10 +389,12 @@ def dashboard(ctx, maps, shared, usage: dict) -> str:
         p = svc.progress(m)
         views = svc.db.value("SELECT SUM(count) FROM views WHERE map_id = ? AND day = ?", m["id"], mapsmod.day(svc.now()), default=0)
         views30 = svc.db.value("SELECT SUM(count) FROM views WHERE map_id = ? AND day > ?", m["id"], mapsmod.day(svc.now() - 30 * 86400), default=0)
-        prev = f'<img class="pv" src="/app/m/{m["id"]}/preview.png" alt="" loading="lazy" width="128" height="128">'
+        has = svc.db.one("SELECT 1 FROM tiles WHERE map_id = ? LIMIT 1", m["id"])
+        prev = (f'<img class="pv" src="/app/m/{m["id"]}/preview.png" alt="" loading="lazy" width="128" height="128">' if has
+                else '<span class="pv" aria-hidden="true"></span>')
         tiles += f"""<a class="c mapcard" href="/app/m/{m['id']}">{prev}<div><b>{e(m["name"])}</b>
-<span class="state s-{e(m["state"])}">{e(state_text(ctx, m, p))}</span>{bar(p) if m["state"] == "preparing" else ""}
-<span class="mut small">{e(vis_text(ctx, m["visibility"]))} · {ctx.t("views", "Aufrufe")} {num(ctx, views)} / 30 {ctx.t("days", "Tage")} {num(ctx, views30)}<br>
+<span class="state s-{e(m["state"])}">{e(state_text(ctx, m))}</span>{bar(p) if m["state"] == "preparing" else ""}
+<span class="mut small">{e(vis_text(ctx, m["visibility"]))} · {ctx.t("views today", "Aufrufe heute")} {num(ctx, views)} · 30 {ctx.t("days", "Tage")} {num(ctx, views30)}<br>
 {ctx.t("updated", "aktualisiert")} {e(when(ctx, m["tiles_at"]))}</span></div></a>"""
     for _ in range(max(0, usage["maps_max"] - len(maps)) if usage["maps_max"] < 50 else 0):
         tiles += f'<a class="c mapcard empty" href="/app/connect"><span>+ {ctx.t("Connect a map", "Karte verbinden")}</span></a>'

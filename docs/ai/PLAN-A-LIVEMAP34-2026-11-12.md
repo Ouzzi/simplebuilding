@@ -101,4 +101,36 @@ Fehler: 401 (Schlüssel unbekannt), 410 (Karte getrennt → Mod vergisst Zugang)
 
 ## 7. Abweichungen (während der Umsetzung nachgetragen)
 
-(siehe unten, Abschnitt 8)
+- **A1 Kachel-URLs:** keine Prüfsummen-URLs im Viewer (D10): Kacheln liegen inhaltsadressiert, ausgeliefert unter dem Pfad
+  mit `ETag` + `max-age` = Kachel-Takt; Prüfsummen-URLs mit dem R2-Umzug.
+- **A2 Spieler gehostet:** zwei Schalter: `web.showPlayers` am Server (was den Server verlässt) und „Spieler zeigen“ der Karte;
+  zusätzlich einmalige Annahme der AV-Vereinbarung (Rechtsentwurf U3, Zeitpunkt + Version am Konto). Positionen nur im RAM.
+- **A3 Rechtsentwurf-Hinweise umgesetzt:** U2 (AGB-Version/Zeitpunkt bei Registrierung), U3 (s. A2), U7 (kein „nur … sonst
+  nichts“ in Texten), U8 (Test: Preise aus `tiers.json` stehen im AGB-Entwurf). Offen: U1 Fußzeilen-Links (Config `legal.*`
+  vorbereitet), U5 Melde-Link je Karte, U12 Bestell-/Kündigungsbutton (Bezahlstart).
+- **A4 Manifest:** Index-Einträge, die die Mod nicht mehr meldet, werden (noch) nicht gelöscht – die Mod löscht Kacheln nur,
+  wenn sie ganz leer werden; harmlos, beim R2-Umzug mitmachen.
+- **A5 Dev-Stufe:** eigene Hosts `account-dev`/`livemap-dev.simplemods.de` mit nginx-Basic-Auth (Mod-API ausgenommen); bekannte
+  Einschränkung: „per Link“-Karten senden `Authorization: Bearer` und kollidieren dort mit Basic-Auth.
+- **A6 E-Mail:** ohne SMTP-Konto landen Mails im Dev-Ausgang (Admin-Seite); Produktion braucht SMTP (Besitzer, LIVEMAP34b-3).
+- **A7 Self-Host:** Sperre je Installation (Config-Ordner) + Port-Erkennung; zwei Installationen mit absichtlich verschiedenen
+  Ports auf einem Rechner sind nicht verhinderbar (dokumentiert, „nicht unterstützt“).
+
+## 8. Prüfung (Ergebnis 12.11.)
+
+- Plan-Abgleich: Abschnitt 4 Punkte 1–5 umgesetzt; Admin/„sofort fertig“, Stufen, erste 2 ohne Wartezeit, Self-Host-Sperre,
+  connect-Befehl, Rechtsentwürfe (≥ 2 Runden, Protokoll in `docs/legal/README.md`), Deploy-Skript (nicht ausgeführt).
+- `python3 -m unittest discover -s tools/livemap-web/tests -t tools/livemap-web/tests`: **39 grün** (Python 3.13 und 3.12;
+  f-Strings zusätzlich auf 3.11-Verträglichkeit geprüft).
+- `javac` der Modul-Klassen gegen das 26.3-Jar: nur der bekannte SimpleLib-AW-Fehler (`LibMaterials` StairBlock), sonst sauber.
+- Lokale Checks: precheck --fast grün, alle 60 `check_data.py` grün, `check_dup_impl` 0, `check_tooltip_text` OK,
+  `check_config_commands` 0, `check_gametest_adapters` OK, `check_missing_textures` grün, `layers.py check` 0;
+  `wiki/generate.py --all --check`: nur die vorbestehende simpledimensions/modules.js-Drift + simplebuilding.json-Quellpfade,
+  die nur durch den nach /tmp verlegten `build/`-Ordner entstehen (sb-agent hatte 0 freie Inodes).
+- Playwright-Bilder gegen `tests/harness.py` (nur lokal, danach beendet): 20 Seiten, 0 JS-Fehler, 0 px Querüberlauf (1280 und
+  390 px) → Vorschau `/root/sb-tools-a/previews/a-livemap34-preview2.html` (LIVEMAP34b).
+- Kontrast (AGENTS 15, gerechnet): Text/Grund 14,0 · gedämpft/Karte 7,1 · Knopf grün 4,9 · grau 6,9 · rot 7,4 · Gold/Karte 8,9 ·
+  Zustand verbunden 7,4 / vorbereitet 6,5 · Eingabefeld 15,1 – alle ≥ 4,5:1.
+- **Nicht getestet:** Gametests (`selfHostLock`, `selfHostPortProbe`, `hostedParts`, `hostedConnect`, `connectPermission` und die
+  bestehenden) – sb-test „No route to host“; nginx -t der Vorlagen (kein nginx auf sb-agent, nur Struktur-Test); echter
+  Mod↔Dienst-Lauf (nach Dev-Deploy); SMTP-Versand; Stripe gegen die echte API.

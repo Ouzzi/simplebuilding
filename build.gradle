@@ -337,6 +337,16 @@ tasks.register('testModtree', Exec) {
 }
 tasks.named('check') { dependsOn 'checkModtree', 'testModtree' }
 
+// N34: unit tests of the Simple Mods account + hosted Simple Livemap service (tools/livemap-web, standard library only).
+tasks.register('testLivemapWeb', Exec) {
+	group = 'verification'
+	workingDir = rootDir
+	commandLine wikiPython, '-m', 'unittest', 'discover', '-s', 'tools/livemap-web/tests', '-t', 'tools/livemap-web/tests'
+	onlyIf { !project.hasProperty('skipWiki') }
+	outputs.upToDateWhen { false }
+}
+tasks.named('check') { dependsOn 'testLivemapWeb' }
+
 // Text/data hygiene without Minecraft: lang JSON (duplicates, EN/DE pairs, 26.3 overlay must not lose shared keys)
 // and empty tag files (only documented extension points). Same skip switch as checkWiki.
 ['checkLangText': 'tools/check_tooltip_text.py', 'checkEmptyTags': 'tools/check_empty_tags.py',
