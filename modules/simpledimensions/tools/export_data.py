@@ -6,6 +6,10 @@ R=M/'shared/java/com/simplebuilding/modules/simpledimensions'
 registry=(R/'DimensionRegistry.java').read_text()
 ids=re.findall(r'=block\("([^" ]+)"\)',registry)
 assert set(ids)=={'sky_portal','light_blue_portal'}
+# N33: the nether portal in arch shape (own block class, Fabric registration first).
+shaped=re.findall(r'BLOCK,id\("([a-z_]+)"\),new ShapedNetherPortalBlock',registry)
+assert shaped==['shaped_nether_portal'],shaped
+ids+=shaped
 wiki=M/'generated/resources/wiki';wiki.mkdir(parents=True,exist_ok=True)
 (wiki/'items.json').write_text(json.dumps({'items':[{'id':'simpledimensions:'+id,'kind':'block'} for id in ids]},indent=2)+'\n')
 constants={name:float(value) if '.' in value else int(value) for name,value in re.findall(r'public static final (?:int|double) ([A-Z_]+)\s*=\s*([.0-9]+);',(R/'ConfigLimits.java').read_text())}

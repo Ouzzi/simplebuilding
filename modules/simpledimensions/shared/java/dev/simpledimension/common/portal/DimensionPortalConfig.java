@@ -33,15 +33,22 @@ public final class DimensionPortalConfig {
 
     // ---- portal build recipe (the "constellation") ------------------------------
     /**
-     * Explicit shape recipes. When non-empty these take precedence over the flexible
-     * rectangle below, letting you draw the exact portal form and pick the block for each
-     * cell (e.g. obsidian frame with glowstone corners). Any recipe that matches activates.
+     * Explicit shape recipes. When non-empty these replace the flexible fallback below: a pattern
+     * recipe draws the exact portal form and picks the block for each cell (e.g. obsidian frame
+     * with glowstone corners); a recipe with {@code shape} rectangle, arch or any allows a free
+     * form of one frame block within its size limits (N33). Any recipe that matches activates.
      */
     public List<PortalRecipeConfig> portalRecipes = new ArrayList<>();
 
-    /** Flexible rectangular fallback (used when {@link #portalRecipes} is empty). */
+    /** Flexible fallback form (used when {@link #portalRecipes} is empty). */
     /** The block the frame must be built from. Igniting this frame opens the portal. */
     public String frameBlock = "minecraft:crying_obsidian";
+    /**
+     * Allowed outline of the fallback frame (N33): "rectangle", "arch" (free arch, not a plain rectangle) or "any"
+     * (both). Unset (null, not written into the generated files) means "any": the arch rules apply to the own
+     * portals too (owner F4=A).
+     */
+    public String portalShape = null;
     /** Inclusive interior size limits (interior = empty cells inside the frame). */
     public int minPortalWidth = 2;
     public int maxPortalWidth = 21;
@@ -204,14 +211,14 @@ public final class DimensionPortalConfig {
         return new PortalFrameScanner(minW, maxW, minH, maxH);
     }
 
-    /** Parse the configured shape recipes, skipping any that are malformed or have no interior. */
+    /** Parse the configured pattern recipes, skipping shape recipes and any that are malformed or have no interior. */
     public List<PortalRecipe> buildRecipes() {
         List<PortalRecipe> out = new ArrayList<>();
         if (portalRecipes == null) {
             return out;
         }
         for (PortalRecipeConfig recipe : portalRecipes) {
-            if (recipe == null || recipe.rows == null || recipe.rows.isEmpty()) {
+            if (recipe == null || !recipe.isPattern() || recipe.rows == null || recipe.rows.isEmpty()) {
                 continue;
             }
             try {
@@ -227,7 +234,48 @@ public final class DimensionPortalConfig {
         return out;
     }
 
+    /**
+     * The frame-based forms (N33): without recipes the fallback ({@link #frameBlock}, {@link #portalShape},
+     * min/max size), otherwise every recipe whose {@code shape} is rectangle, arch or any. Patterns are
+     * {@link #buildRecipes()}; an unknown shape is skipped (validation refuses it before).
+     */
+    public List<PortalShapeRule> buildShapeRules() {
+        List<PortalShapeRule> out = new ArrayList<>();
+        if (portalRecipes == null || portalRecipes.isEmpty()) {
+            ArchPortalScanner.Mode mode = ArchPortalScanner.Mode.parse(portalShape, ArchPortalScanner.Mode.ANY);
+            if (mode != null && frameBlock != null) {
+                int minW = Math.max(1, minPortalWidth), minH = Math.max(1, minPortalHeight);
+                out.add(new PortalShapeRule(frameBlock, mode, minW, Math.max(minW, maxPortalWidth), minH, Math.max(minH, maxPortalHeight)));
+            }
+            return out;
+        }
+        for (PortalRecipeConfig recipe : portalRecipes) {
+            if (recipe == null || recipe.isPattern() || recipe.frame == null || recipe.frame.isBlank()) {
+                continue;
+            }
+            ArchPortalScanner.Mode mode = ArchPortalScanner.Mode.parse(recipe.shape, null);
+            if (mode != null) {
+                int minW = Math.max(1, recipe.minWidth()), minH = Math.max(1, recipe.minHeight());
+                out.add(new PortalShapeRule(recipe.frame, mode, minW, Math.max(minW, recipe.maxWidth()), minH, Math.max(minH, recipe.maxHeight())));
+            }
+        }
+        return out;
+    }
+
     public static final class PortalRecipeConfig {
+        /**
+         * N33: "pattern" (default: the fixed {@link #rows} with {@link #legend}) or a free form of one {@link #frame}
+         * block - "rectangle", "arch" (not a plain rectangle) or "any" - within the size limits below. Unset fields
+         * stay out of the generated files (Gson skips null), so existing pattern recipes keep their JSON.
+         */
+        public String shape = null;
+        /** Frame block of a free form (shape rectangle, arch or any); patterns use the legend instead. */
+        public String frame = null;
+        /** Interior size limits of a free form (width of the bottom row, height of the tallest column); null = 1/21/2/21. */
+        public Integer minWidth = null;
+        public Integer maxWidth = null;
+        public Integer minHeight = null;
+        public Integer maxHeight = null;
         /** Grid rows, top to bottom; one char per cell. */
         public List<String> rows = new ArrayList<>();
         /** Maps a frame char to a block id, e.g. {"O":"minecraft:obsidian","G":"minecraft:glowstone"}. */
@@ -236,6 +284,27 @@ public final class DimensionPortalConfig {
         public String interior = ".";
         /** Char for cells that are not checked at all (default " "). */
         public String ignore = " ";
+
+        /** A fixed pattern (rows + legend) rather than a free form. */
+        public boolean isPattern() {
+            return shape == null || shape.isBlank() || shape.trim().equalsIgnoreCase("pattern");
+        }
+
+        public int minWidth() {
+            return minWidth == null ? 1 : minWidth;
+        }
+
+        public int maxWidth() {
+            return maxWidth == null ? 21 : maxWidth;
+        }
+
+        public int minHeight() {
+            return minHeight == null ? 2 : minHeight;
+        }
+
+        public int maxHeight() {
+            return maxHeight == null ? 21 : maxHeight;
+        }
 
         char interiorChar() {
             return interior == null || interior.isEmpty() ? '.' : interior.charAt(0);

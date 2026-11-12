@@ -36,7 +36,8 @@
     "java": ">=25"
   },
   "mixins": [
-    "simpledimensions.mixins.json"
+    "simpledimensions.mixins.json",
+    "simpledimensions.fabric.mixins.json"
   ],
   "suggests": {
     "simplebuilding": "*",

@@ -52,6 +52,7 @@ public final class DimensionsDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simpledimensions:arch_portals",
             "simpledimensions:claims_adapter",
             "simpledimensions:commands",
             "simpledimensions:configuration",
@@ -63,6 +64,7 @@ public final class DimensionsDiscover {
             "simpledimensions:mining",
             "simpledimensions:portal_shapes",
             "simpledimensions:safe_return",
+            "simpledimensions:shaped_nether_portal",
             "simpledimensions:sky_portal",
             "simpledimensions:skyblock",
             "simpledimensions:travel");

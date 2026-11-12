@@ -53,6 +53,13 @@ public final class ModuleGameTest {
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void compressedTravel(GameTestHelper h){DimensionTests.compressedTravel(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void exactOriginLinks(GameTestHelper h){DimensionTests.exactOriginLinks(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void destinationClaim(GameTestHelper h){DimensionTests.destinationClaim(h);}
+ // N33 nether portals in arch shape + shape rules (Fabric first: the block is not registered on NeoForge/Forge yet).
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void archShapes(GameTestHelper h){ShapedPortalTests.archShapes(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void archInvalid(GameTestHelper h){ShapedPortalTests.archInvalid(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void archBreak(GameTestHelper h){ShapedPortalTests.archBreak(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=240) public void archTravel(GameTestHelper h){ShapedPortalTests.archTravel(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void archSwitch(GameTestHelper h){ShapedPortalTests.archSwitch(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=100) public void shapeRules(GameTestHelper h){ShapedPortalTests.shapeRules(h);}
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simpledimensions.discover.DimensionsDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simpledimensions.discover.DimensionsDiscover.behaviourHints(h); }
 }

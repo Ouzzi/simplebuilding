@@ -17,9 +17,14 @@ public final class DimensionsFabric implements ModInitializer {
    c.getSource().sendSuccess(()->net.minecraft.network.chat.Component.translatable("simpledimensions.guide.command.given"),false);return 1;}))));
   net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(s->DimensionRuntime.get(s).tick());
   net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(DimensionRuntime::stop);
-  net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p,l,h,hit)->p instanceof net.minecraft.server.level.ServerPlayer sp?PortalActivation.ignite(sp,h,hit):net.minecraft.world.InteractionResult.PASS);
+  net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p,l,h,hit)->{
+   if(!(p instanceof net.minecraft.server.level.ServerPlayer sp))return net.minecraft.world.InteractionResult.PASS;
+   var result=PortalActivation.ignite(sp,h,hit);if(result==net.minecraft.world.InteractionResult.PASS)PortalActivation.hint(sp,h,hit);return result;});
   DimensionRuntime.claimIntegrationRequired=java.util.List.of("flan","ftbchunks","openpartiesandclaims","griefdefender","claimchunk").stream().anyMatch(net.fabricmc.loader.api.FabricLoader.getInstance()::isModLoaded);
   DimensionRegistry.blocks(); DimensionRegistry.items();
+  // N33 nether arches (Fabric first): the block, its states as nether portal POI, and a step back for mods that replace nether portals.
+  DimensionRegistry.shapedPortal();ShapedNetherPortals.registerPoi(com.simplebuilding.modules.simpledimensions.fabric.mixin.PoiTypesAccessor.simpledimensions$typeByState());
+  ShapedNetherPortals.yielded=java.util.List.of("imm_ptl_core","immersive_portals").stream().anyMatch(net.fabricmc.loader.api.FabricLoader.getInstance()::isModLoaded);
   if(net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests"))com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.installQuests(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
   net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out->{if(!com.simplebuilding.framework.api.SubMods.enabled("simpledimensions"))return;var book=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.book());/* before the writable book: a tail append clashes with other mods' insertAfter at the tail */if(out.getDisplayStacks().stream().anyMatch(s->s.is(net.minecraft.world.item.Items.WRITABLE_BOOK)))out.insertBefore(net.minecraft.world.item.Items.WRITABLE_BOOK,java.util.List.of(book),net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);else out.accept(book);});
   DimensionRegistry.PORTAL_ENTITY=Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,DimensionRegistry.id("sky_portal"),FabricBlockEntityTypeBuilder.create(SkyPortalBlockEntity::new,DimensionRegistry.PORTAL,DimensionRegistry.LEGACY).canPotentiallyExecuteCommands(true).build());

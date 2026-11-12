@@ -507,6 +507,8 @@ wiki/data/ui-shots.js
 modules/simplebeacons/shared/resources/assets/simplebeacons/textures/gui/container/strong_beacon.png
 wiki/assets/textures/simplebeacons/gui/container/strong_beacon.png
 wiki/assets/textures/sheets/simplebuilding/simplebeacons/gui/container/strong_beacon.png
+modules/simpledimensions/shared/resources/assets/simpledimensions/textures/block/shaped_nether_portal.png
+wiki/assets/textures/simpledimensions/block/shaped_nether_portal.png
 
 # Vorschau-Bilder mit Vanilla-Pixeln (tools/textures/placed_display_preview.py): nur lokal, nie einchecken (Regel 7)
 docs/ai/previews/oc-display-previews/*.png

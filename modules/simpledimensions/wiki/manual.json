@@ -89,20 +89,45 @@
       "id": "portal_shapes",
       "sources": [
         "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java",
-        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionRuntime.java"
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionRuntime.java",
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/PortalShapeRule.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/ConfigLimits.java"
       ],
       "en": {
         "title": "Portal Shapes",
-        "summary": "The six default matrices are AGA/G.G/G.G; AGGA/G..G/G..G/G..G; AGGGA/G...G/G...G/G...G; AAGGAA/AG..GA/G....G/G....G/G....G; AAGGGAA/AG...GA/G.....G/G.....G/G.....G; AAGGGGAA/AG....GA/G......G/G......G/G......G. A is checked air, G glowstone, and dots become portal cells. Both horizontal axes work. Breaking the frame or removing required light dissolves outbound portal cells.",
+        "summary": "The six default matrices are AGA/G.G/G.G; AGGA/G..G/G..G/G..G; AGGGA/G...G/G...G/G...G; AAGGAA/AG..GA/G....G/G....G/G....G; AAGGGAA/AG...GA/G.....G/G.....G/G.....G; AAGGGGAA/AG....GA/G......G/G......G/G......G. A is checked air, G glowstone, and dots become portal cells. Both horizontal axes work. Breaking the frame or removing required light dissolves outbound portal cells. Packs decide which outlines a dimension portal may have: portalShape (rectangle, arch or any; default any) for the frame block when there are no recipes, or a recipe with shape rectangle, arch or any plus frame and minWidth/maxWidth/minHeight/maxHeight (1–21 wide, 2–21 high) next to fixed patterns (shape pattern, rows and legend). arch means an arch that is not a plain rectangle; the arch rules are the same as for nether portals. A refused attempt names the reason in the action bar. Obsidian stays reserved for Vanilla.",
         "details": [
-          "The six default matrices are AGA/G.G/G.G; AGGA/G..G/G..G/G..G; AGGGA/G...G/G...G/G...G; AAGGAA/AG..GA/G....G/G....G/G....G; AAGGGAA/AG...GA/G.....G/G.....G/G.....G; AAGGGGAA/AG....GA/G......G/G......G/G......G. A is checked air, G glowstone, and dots become portal cells. Both horizontal axes work. Breaking the frame or removing required light dissolves outbound portal cells."
+          "The six default matrices are AGA/G.G/G.G; AGGA/G..G/G..G/G..G; AGGGA/G...G/G...G/G...G; AAGGAA/AG..GA/G....G/G....G/G....G; AAGGGAA/AG...GA/G.....G/G.....G/G.....G; AAGGGGAA/AG....GA/G......G/G......G/G......G. A is checked air, G glowstone, and dots become portal cells. Both horizontal axes work. Breaking the frame or removing required light dissolves outbound portal cells. Packs decide which outlines a dimension portal may have: portalShape (rectangle, arch or any; default any) for the frame block when there are no recipes, or a recipe with shape rectangle, arch or any plus frame and minWidth/maxWidth/minHeight/maxHeight (1–21 wide, 2–21 high) next to fixed patterns (shape pattern, rows and legend). arch means an arch that is not a plain rectangle; the arch rules are the same as for nether portals. A refused attempt names the reason in the action bar. Obsidian stays reserved for Vanilla."
         ]
       },
       "de": {
         "title": "Portalformen",
-        "summary": "Die sechs Glowstonebögen bleiben Standard und verlangen separates Licht. A ist geprüfte Luft, G Glowstone, Punkte werden Portalfläche. Beide horizontalen Achsen funktionieren. Rahmenbruch oder fehlendes Pflichtlicht löst Hinportalblöcke auf.",
+        "summary": "Die sechs Glowstonebögen bleiben Standard und verlangen separates Licht. A ist geprüfte Luft, G Glowstone, Punkte werden Portalfläche. Beide horizontalen Achsen funktionieren. Rahmenbruch oder fehlendes Pflichtlicht löst Hinportalblöcke auf. Packs legen fest, welche Umrisse ein Dimensionsportal haben darf: portalShape (rectangle, arch oder any; Standard any) für den Rahmenblock ohne Rezepte oder ein Rezept mit shape rectangle, arch oder any samt frame und minWidth/maxWidth/minHeight/maxHeight (1–21 breit, 2–21 hoch) neben festen Mustern (shape pattern, Zeilen und Legende). arch heißt Bogen, kein einfaches Rechteck; die Bogenregeln sind dieselben wie bei Netherportalen. Ein abgelehnter Versuch nennt den Grund in der Aktionsleiste. Obsidian bleibt Vanilla vorbehalten.",
         "details": [
-          "Die sechs Glowstonebögen bleiben Standard und verlangen separates Licht. A ist geprüfte Luft, G Glowstone, Punkte werden Portalfläche. Beide horizontalen Achsen funktionieren. Rahmenbruch oder fehlendes Pflichtlicht löst Hinportalblöcke auf."
+          "Die sechs Glowstonebögen bleiben Standard und verlangen separates Licht. A ist geprüfte Luft, G Glowstone, Punkte werden Portalfläche. Beide horizontalen Achsen funktionieren. Rahmenbruch oder fehlendes Pflichtlicht löst Hinportalblöcke auf. Packs legen fest, welche Umrisse ein Dimensionsportal haben darf: portalShape (rectangle, arch oder any; Standard any) für den Rahmenblock ohne Rezepte oder ein Rezept mit shape rectangle, arch oder any samt frame und minWidth/maxWidth/minHeight/maxHeight (1–21 breit, 2–21 hoch) neben festen Mustern (shape pattern, Zeilen und Legende). arch heißt Bogen, kein einfaches Rechteck; die Bogenregeln sind dieselben wie bei Netherportalen. Ein abgelehnter Versuch nennt den Grund in der Aktionsleiste. Obsidian bleibt Vanilla vorbehalten."
+        ]
+      }
+    },
+    {
+      "id": "arch_portals",
+      "sources": [
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/ArchPortalScanner.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/ShapedNetherPortals.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/ShapedNetherPortalBlock.java",
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/PortalShapeRule.java"
+      ],
+      "en": {
+        "title": "Nether Portals in Arch Shape",
+        "summary": "Nether portals no longer have to be rectangles: an obsidian frame may also be an arch - round, pointed, stepped or a double arch. Rules: the bottom edge is one straight row of obsidian; from bottom to top the sides only go straight up or step inward; the top edge is free; frame blocks touch at a side or diagonally at a corner, so diagonal steps need no corner blocks; every portal cell borders only portal cells or obsidian. Sizes from 1 wide × 2 high up to 21 × 21. Light it with fire as usual (flint and steel, fire charge, dispenser, spreading fire). A frame Vanilla accepts stays a normal Vanilla portal; any other shape becomes a Shaped Nether Portal that glows 20 % darker. It travels exactly like a nether portal (1:8, same delay, cooldown, sound and particles) and counts as one when the other side looks for an exit; if none is found there, Vanilla builds its usual rectangle. Breaking a frame block puts the whole arch out. When a lit frame does not qualify, the action bar says why (open or too large, foreign block, bottom not straight, sides widen, too small). Server setting shapedNetherPortals (default on); the feature steps back when Immersive Portals is installed.",
+        "details": [
+          "Nether portals no longer have to be rectangles: an obsidian frame may also be an arch - round, pointed, stepped or a double arch. Rules: the bottom edge is one straight row of obsidian; from bottom to top the sides only go straight up or step inward; the top edge is free; frame blocks touch at a side or diagonally at a corner, so diagonal steps need no corner blocks; every portal cell borders only portal cells or obsidian. Sizes from 1 wide × 2 high up to 21 × 21. Light it with fire as usual (flint and steel, fire charge, dispenser, spreading fire). A frame Vanilla accepts stays a normal Vanilla portal; any other shape becomes a Shaped Nether Portal that glows 20 % darker. It travels exactly like a nether portal (1:8, same delay, cooldown, sound and particles) and counts as one when the other side looks for an exit; if none is found there, Vanilla builds its usual rectangle. Breaking a frame block puts the whole arch out. When a lit frame does not qualify, the action bar says why (open or too large, foreign block, bottom not straight, sides widen, too small). Server setting shapedNetherPortals (default on); the feature steps back when Immersive Portals is installed."
+        ]
+      },
+      "de": {
+        "title": "Netherportale in Bogenform",
+        "summary": "Netherportale müssen kein Rechteck mehr sein: ein Obsidianrahmen darf auch ein Bogen sein – Rundbogen, Spitzbogen, Treppe oder Doppelbogen. Regeln: die untere Kante ist eine gerade Reihe Obsidian; von unten nach oben gehen die Seiten nur gerade hoch oder nach innen; die obere Kante ist frei; Rahmenblöcke berühren sich an einer Seite oder diagonal an einer Ecke, Treppenstufen brauchen also keine Eckblöcke; jedes Portalfeld grenzt nur an Portalfelder oder Obsidian. Größe von 1 breit × 2 hoch bis 21 × 21. Angezündet wird wie immer mit Feuer (Feuerzeug, Feuerkugel, Werfer, übergreifendes Feuer). Ein Rahmen, den Vanilla annimmt, bleibt ein normales Vanilla-Portal; jede andere Form wird zum geformten Netherportal, das 20 % dunkler leuchtet. Es reist genau wie ein Netherportal (1:8, gleiche Wartezeit, Abklingzeit, Klang und Partikel) und zählt als Netherportal, wenn die Gegenseite einen Ausgang sucht; findet sie keinen, baut Vanilla dort sein übliches Rechteck. Fehlt ein Rahmenblock, erlischt der ganze Bogen. Passt ein angezündeter Rahmen nicht, nennt die Aktionsleiste den Grund (offen oder zu groß, fremder Block, Boden nicht gerade, Seiten werden breiter, zu klein). Servereinstellung shapedNetherPortals (Standard an); mit Immersive Portals tritt die Funktion zurück.",
+        "details": [
+          "Netherportale müssen kein Rechteck mehr sein: ein Obsidianrahmen darf auch ein Bogen sein – Rundbogen, Spitzbogen, Treppe oder Doppelbogen. Regeln: die untere Kante ist eine gerade Reihe Obsidian; von unten nach oben gehen die Seiten nur gerade hoch oder nach innen; die obere Kante ist frei; Rahmenblöcke berühren sich an einer Seite oder diagonal an einer Ecke, Treppenstufen brauchen also keine Eckblöcke; jedes Portalfeld grenzt nur an Portalfelder oder Obsidian. Größe von 1 breit × 2 hoch bis 21 × 21. Angezündet wird wie immer mit Feuer (Feuerzeug, Feuerkugel, Werfer, übergreifendes Feuer). Ein Rahmen, den Vanilla annimmt, bleibt ein normales Vanilla-Portal; jede andere Form wird zum geformten Netherportal, das 20 % dunkler leuchtet. Es reist genau wie ein Netherportal (1:8, gleiche Wartezeit, Abklingzeit, Klang und Partikel) und zählt als Netherportal, wenn die Gegenseite einen Ausgang sucht; findet sie keinen, baut Vanilla dort sein übliches Rechteck. Fehlt ein Rahmenblock, erlischt der ganze Bogen. Passt ein angezündeter Rahmen nicht, nennt die Aktionsleiste den Grund (offen oder zu groß, fremder Block, Boden nicht gerade, Seiten werden breiter, zu klein). Servereinstellung shapedNetherPortals (Standard an); mit Immersive Portals tritt die Funktion zurück."
         ]
       }
     },
@@ -144,6 +169,7 @@
           "skyblockEnabled – Enable Skyblock: Allow new journeys to Skyblock. Turning this off keeps existing return paths and world data. Default: On. Server setting.",
           "miningEnabled – Enable Mining: Allow new journeys to Mining. Turning this off keeps existing return paths and world data. Default: On. Server setting.",
           "travelEnabled – Enable Travel: Allow new journeys to Travel. Turning this off keeps existing return paths and world data. Default: On. Server setting.",
+          "shapedNetherPortals – Nether Portals in Arch Shape: Obsidian frames may also be arches (1 × 2 to 21 × 21); such portals glow 20 % darker, rectangles stay Vanilla. Default: On. Server setting.",
           "automaticDestination – Create Safe Destinations: Build a checked bedrock island and exact return portal. Disabling this refuses first journeys. Default: true. Server setting.",
           "portalDelayTicks – Portal Warmup (Ticks): Minimum warmup for all definitions; range 0–200 ticks. Default: 0. Server setting.",
           "teleportCooldownTicks – Travel Cooldown (Ticks): Minimum cooldown; 20–1200 ticks. Leave the portal before traveling again. Default: 60. Server setting.",
@@ -187,7 +213,14 @@
           "portalRecipes.interior – Frame interior: Advanced server JSON option. Default: \".\". World generation requires a world restart; preset and orePreset are legacy labels only.",
           "portalRecipes.ignore – Ignored blocks: Advanced server JSON option. Default: \" \". World generation requires a world restart; preset and orePreset are legacy labels only.",
           "worldGeneration.flatLayers.block – Layer block: Advanced server JSON option. Default: \"minecraft:stone\". World generation requires a world restart; preset and orePreset are legacy labels only.",
-          "worldGeneration.flatLayers.height – Layer height: Advanced server JSON option. Default: 1. World generation requires a world restart; preset and orePreset are legacy labels only."
+          "worldGeneration.flatLayers.height – Layer height: Advanced server JSON option. Default: 1. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "portalShape – Frame Outline: Advanced server JSON option. Default: \"any\". rectangle, arch or any; used when portalRecipes is empty.",
+          "portalRecipes.shape – Recipe shape: Advanced server JSON option. Default: \"pattern\". pattern uses rows and legend; rectangle, arch or any use frame and sizes.",
+          "portalRecipes.frame – Recipe frame block: Advanced server JSON option. Default: none. Frame block of a rectangle, arch or any recipe.",
+          "portalRecipes.minWidth – Recipe minimum width: Advanced server JSON option. Default: 1.",
+          "portalRecipes.maxWidth – Recipe maximum width: Advanced server JSON option. Default: 21.",
+          "portalRecipes.minHeight – Recipe minimum height: Advanced server JSON option. Default: 2.",
+          "portalRecipes.maxHeight – Recipe maximum height: Advanced server JSON option. Default: 21."
         ]
       },
       "de": {
@@ -199,6 +232,7 @@
           "skyblockEnabled – Skyblock erlauben: Neue Reisen zur Dimension Skyblock erlauben. Abschalten erhält bestehende Rückwege und Weltdaten. Standard: Ein. Servereinstellung.",
           "miningEnabled – Abbau erlauben: Neue Reisen zur Dimension Abbau erlauben. Abschalten erhält bestehende Rückwege und Weltdaten. Standard: Ein. Servereinstellung.",
           "travelEnabled – Reise erlauben: Neue Reisen zur Dimension Reise erlauben. Abschalten erhält bestehende Rückwege und Weltdaten. Standard: Ein. Servereinstellung.",
+          "shapedNetherPortals – Netherportale in Bogenform: Obsidianrahmen dürfen auch Bögen sein (1 × 2 bis 21 × 21); solche Portale leuchten 20 % dunkler, Rechtecke bleiben Vanilla. Standard: Ein. Servereinstellung.",
           "automaticDestination – Sichere Ziele erzeugen: Geprüfte Bedrockinsel und exakten Rückweg bauen. Aus verweigert erste Reisen. Standard: true. Servereinstellung.",
           "portalDelayTicks – Portalwartezeit (Ticks): Mindestwartezeit für alle Definitionen; 0–200 Ticks. Standard: 0. Servereinstellung.",
           "teleportCooldownTicks – Reisesperre (Ticks): Mindestpause; 20–1200 Ticks. Vor erneuter Reise das Portal verlassen. Standard: 60. Servereinstellung.",
@@ -242,7 +276,14 @@
           "portalRecipes.interior – Rahmeninnenraum: Erweiterte serverseitige JSON-Option. Standard: \".\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
           "portalRecipes.ignore – Ignorierte Blöcke: Erweiterte serverseitige JSON-Option. Standard: \" \". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
           "worldGeneration.flatLayers.block – Schichtblock: Erweiterte serverseitige JSON-Option. Standard: \"minecraft:stone\". Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
-          "worldGeneration.flatLayers.height – Schichthöhe: Erweiterte serverseitige JSON-Option. Standard: 1. Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen."
+          "worldGeneration.flatLayers.height – Schichthöhe: Erweiterte serverseitige JSON-Option. Standard: 1. Weltgeneration benötigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "portalShape – Rahmenumriss: Erweiterte serverseitige JSON-Option. Standard: \"any\". rectangle, arch oder any; gilt, wenn portalRecipes leer ist.",
+          "portalRecipes.shape – Rezeptform: Erweiterte serverseitige JSON-Option. Standard: \"pattern\". pattern nutzt Zeilen und Legende; rectangle, arch oder any nutzen Rahmenblock und Maße.",
+          "portalRecipes.frame – Rezept-Rahmenblock: Erweiterte serverseitige JSON-Option. Standard: keiner. Rahmenblock eines Rezepts mit rectangle, arch oder any.",
+          "portalRecipes.minWidth – Rezept-Mindestbreite: Erweiterte serverseitige JSON-Option. Standard: 1.",
+          "portalRecipes.maxWidth – Rezept-Höchstbreite: Erweiterte serverseitige JSON-Option. Standard: 21.",
+          "portalRecipes.minHeight – Rezept-Mindesthöhe: Erweiterte serverseitige JSON-Option. Standard: 2.",
+          "portalRecipes.maxHeight – Rezept-Höchsthöhe: Erweiterte serverseitige JSON-Option. Standard: 21."
         ]
       }
     },
@@ -343,10 +384,10 @@
         "modules/simpledimensions/shared/resources/data/simpledimensions/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Dimensions\" of the Simple Modpack guide (SimpleLib): 37 pages taken from this wiki, shown in your language. Unlocked by picking up: flint and steel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Dimensions\" of the Simple Modpack guide (SimpleLib): 48 pages taken from this wiki, shown in your language. Unlocked by picking up: flint and steel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Dimensions\" im Simple-Modpack-Handbuch (SimpleLib): 37 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerzeug. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Dimensions\" im Simple-Modpack-Handbuch (SimpleLib): 48 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerzeug. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpledimensions:sky_portal": {
@@ -363,6 +404,14 @@
       },
       "de": {
         "summary": "Alte Block-, Blockentitäts- und Item-ID bleiben ladbar. Kein Survivalrezept, Beutequelle oder Kreativtab-Eintrag."
+      }
+    },
+    "simpledimensions:shaped_nether_portal": {
+      "en": {
+        "summary": "Portal surface of a nether portal in arch shape, lit by fire in an obsidian arch. Not an item and no drop; travels like a nether portal and glows 20 % darker."
+      },
+      "de": {
+        "summary": "Portalfläche eines Netherportals in Bogenform, entsteht durch Feuer in einem Obsidianbogen. Kein Item, kein Drop; reist wie ein Netherportal und leuchtet 20 % dunkler."
       }
     }
   }

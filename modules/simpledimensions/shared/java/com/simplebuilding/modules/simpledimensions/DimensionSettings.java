@@ -6,6 +6,8 @@ public final class DimensionSettings {
  public boolean skyblockEnabled=true, miningEnabled=true, travelEnabled=true;
  /** W5: the first journey into a Simple Dimensions dimension hands out the guide (once per player). */
  public boolean giveGuideOnFirstTravel=true;
+ /** N33 (owner F3=A): obsidian frames may also be arches (1 × 2 to 21 × 21, glow 20 % darker); rectangles stay Vanilla. */
+ public boolean shapedNetherPortals=true;
  public int portalDelayTicks=0, teleportCooldownTicks=60;
  /** Built-in access is a server setting, never a second switch in the definition JSON. */
  public boolean allowsAccess(dev.simpledimension.common.portal.DimensionPortalConfig definition){
@@ -20,7 +22,7 @@ public final class DimensionSettings {
  /** Takes over every value of {@code o} (a live settings object stays the same instance). */
  public void copyFrom(DimensionSettings o){
   accessEnabled=o.accessEnabled;automaticDestination=o.automaticDestination;nonPlayerTravel=o.nonPlayerTravel;
-  giveGuideOnFirstTravel=o.giveGuideOnFirstTravel;skyblockEnabled=o.skyblockEnabled;miningEnabled=o.miningEnabled;travelEnabled=o.travelEnabled;
+  giveGuideOnFirstTravel=o.giveGuideOnFirstTravel;shapedNetherPortals=o.shapedNetherPortals;skyblockEnabled=o.skyblockEnabled;miningEnabled=o.miningEnabled;travelEnabled=o.travelEnabled;
   portalDelayTicks=o.portalDelayTicks;teleportCooldownTicks=o.teleportCooldownTicks;
  }
  public void save(Path root){

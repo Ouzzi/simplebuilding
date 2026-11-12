@@ -31,5 +31,16 @@
     "secret": [
       "Man trifft es nur in alten Welten. Neu gebaut wird daraus nichts."
     ]
+  },
+  "shaped_nether_portal": {
+    "lore": [
+      "Ein Netherportal, das die Form seines Torbogens angenommen hat."
+    ],
+    "use": [
+      "Baue einen Obsidianbogen – gerader Boden, Seiten nur hoch oder nach innen, freie Oberkante, 1 x 2 bis 21 x 21 – und zünde ihn mit Feuer an. Es reist genau wie ein Netherportal und leuchtet etwas dunkler; einfache Rechtecke bleiben normale Vanilla-Portale."
+    ],
+    "secret": [
+      "Treppenstufen brauchen keine Eckblöcke. Passt ein angezündeter Rahmen nicht, nennt die Aktionsleiste den Grund."
+    ]
   }
 }

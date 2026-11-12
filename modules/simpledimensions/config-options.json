@@ -17,6 +17,14 @@
       "scope": "server"
     },
     {
+      "key": "shapedNetherPortals",
+      "default": true,
+      "tab": "access",
+      "name": "text.autoconfig.simpledimensions.option.shapedNetherPortals",
+      "tooltip": "text.autoconfig.simpledimensions.option.shapedNetherPortals.@Tooltip",
+      "scope": "server"
+    },
+    {
       "key": "skyblockEnabled",
       "default": true,
       "tab": "dimensions",
@@ -142,6 +150,14 @@
       "tab": "advanced",
       "name": "text.autoconfig.simpledimensions.option.frameBlock",
       "tooltip": "text.autoconfig.simpledimensions.option.frameBlock.@Tooltip",
+      "scope": "server-json"
+    },
+    {
+      "key": "portalShape",
+      "default": "any",
+      "tab": "advanced",
+      "name": "text.autoconfig.simpledimensions.option.portalShape",
+      "tooltip": "text.autoconfig.simpledimensions.option.portalShape.@Tooltip",
       "scope": "server-json"
     },
     {
@@ -376,6 +392,54 @@
       "tab": "advanced",
       "name": "text.autoconfig.simpledimensions.option.portalRecipes.ignore",
       "tooltip": "text.autoconfig.simpledimensions.option.portalRecipes.ignore.@Tooltip",
+      "scope": "server-json"
+    },
+    {
+      "key": "portalRecipes.shape",
+      "default": "pattern",
+      "tab": "advanced",
+      "name": "text.autoconfig.simpledimensions.option.portalRecipes.shape",
+      "tooltip": "text.autoconfig.simpledimensions.option.portalRecipes.shape.@Tooltip",
+      "scope": "server-json"
+    },
+    {
+      "key": "portalRecipes.frame",
+      "default": "",
+      "tab": "advanced",
+      "name": "text.autoconfig.simpledimensions.option.portalRecipes.frame",
+      "tooltip": "text.autoconfig.simpledimensions.option.portalRecipes.frame.@Tooltip",
+      "scope": "server-json"
+    },
+    {
+      "key": "portalRecipes.minWidth",
+      "default": 1,
+      "tab": "advanced",
+      "name": "text.autoconfig.simpledimensions.option.portalRecipes.minWidth",
+      "tooltip": "text.autoconfig.simpledimensions.option.portalRecipes.minWidth.@Tooltip",
+      "scope": "server-json"
+    },
+    {
+      "key": "portalRecipes.maxWidth",
+      "default": 21,
+      "tab": "advanced",
+      "name": "text.autoconfig.simpledimensions.option.portalRecipes.maxWidth",
+      "tooltip": "text.autoconfig.simpledimensions.option.portalRecipes.maxWidth.@Tooltip",
+      "scope": "server-json"
+    },
+    {
+      "key": "portalRecipes.minHeight",
+      "default": 2,
+      "tab": "advanced",
+      "name": "text.autoconfig.simpledimensions.option.portalRecipes.minHeight",
+      "tooltip": "text.autoconfig.simpledimensions.option.portalRecipes.minHeight.@Tooltip",
+      "scope": "server-json"
+    },
+    {
+      "key": "portalRecipes.maxHeight",
+      "default": 21,
+      "tab": "advanced",
+      "name": "text.autoconfig.simpledimensions.option.portalRecipes.maxHeight",
+      "tooltip": "text.autoconfig.simpledimensions.option.portalRecipes.maxHeight.@Tooltip",
       "scope": "server-json"
     },
     {

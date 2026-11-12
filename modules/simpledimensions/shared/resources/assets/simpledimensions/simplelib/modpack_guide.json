@@ -9,7 +9,7 @@
       "title": "simpledimensions.guide.chapter",
       "icon": "minecraft:flint_and_steel",
       "page_key": "simpledimensions.guide.page",
-      "pages": 37,
+      "pages": 48,
       "advancement": "simpledimensions:guide/chapter",
       "hint": "minecraft:flint_and_steel"
     }
