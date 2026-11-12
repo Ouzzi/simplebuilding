@@ -33,6 +33,8 @@ public final class TileStore implements AutoCloseable {
     /** Worker thread only: zoom-4 tiles, least recently used first. */
     private final LinkedHashMap<String, int[]> cache = new LinkedHashMap<>(64, 0.75f, true);
     private final Set<String> dirty = new HashSet<>();
+    /** Told about every written tile ({@code <folder>/<z>/<x>/<y>}, tile thread): the hosted upload (N34). */
+    private volatile java.util.function.Consumer<String> listener;
 
     public TileStore(Path dir) {
         this.dir = dir.toAbsolutePath().normalize();
@@ -46,6 +48,11 @@ public final class TileStore implements AutoCloseable {
 
     public Path dir() {
         return dir;
+    }
+
+    /** Sets (or clears with null) the listener for written tiles. */
+    public void listener(java.util.function.Consumer<String> l) {
+        listener = l;
     }
 
     /** Folder name of a dimension id ({@code minecraft:overworld} -> {@code minecraft_overworld}). */
@@ -268,6 +275,8 @@ public final class TileStore implements AutoCloseable {
             Path tmp = file.resolveSibling(file.getFileName() + ".tmp");
             if (!ImageIO.write(image, "png", tmp.toFile())) throw new IOException("no PNG writer");
             Files.move(tmp, file, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+            var l = listener;
+            if (l != null) l.accept(folder + "/" + z + "/" + x + "/" + y);
         } catch (IOException | RuntimeException e) {
             SimpleLivemap.LOG.warn("Simple Livemap: could not write tile {}: {}", file, e.toString());
         }

@@ -1,0 +1,31 @@
+# Simple Mods account + hosted Simple Livemap (tools/livemap-web). Rendered by deploy_livemap_web.sh (@STAGE@).
+[Unit]
+Description=Simple Mods web service smweb (@STAGE@)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=smweb
+Group=smweb
+WorkingDirectory=@SRC@
+ExecStart=/usr/bin/python3 -m smweb serve --config @CONFIG@ --bind 127.0.0.1 --port @PORT@
+Restart=on-failure
+RestartSec=5
+# hardening: read-only system, only the data folder writable, no privileges, small memory budget (sb-web has 1 GB)
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictSUIDSGID=yes
+LockPersonality=yes
+ReadWritePaths=@DATA@
+MemoryMax=300M
+TasksMax=200
+
+[Install]
+WantedBy=multi-user.target

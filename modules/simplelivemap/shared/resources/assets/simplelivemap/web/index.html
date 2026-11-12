@@ -18,6 +18,13 @@
   #info { position: fixed; left: 12px; bottom: 12px; color: var(--muted); }
   #msg { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 80vw; text-align: center; display: none; }
   .title { font-weight: 600; }
+  input[type=text] { background: #1c252e; color: var(--text); border: 1px solid var(--line); border-radius: 4px; font: inherit; padding: 4px 6px; width: 9.5em; }
+  #panel { position: fixed; right: 12px; top: 64px; width: min(280px, calc(100vw - 24px)); display: none; }
+  #panel.open { display: block; }
+  #panel label { display: flex; gap: 8px; align-items: center; padding: 3px 0; }
+  #panel h2 { font-size: 15px; margin: 0 0 6px; }
+  #panel p { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+  @media (max-width: 600px) { .bar { gap: 6px; } .box { padding: 4px 6px; } button, select { padding: 6px 9px; } }
 </style>
 </head>
 <body>
@@ -26,25 +33,43 @@
   <span class="box title">Simple Livemap</span>
   <span class="box"><label>Dimension <select id="dim"></select></label></span>
   <span class="box"><button id="zin" aria-label="Zoom in">+</button> <button id="zout" aria-label="Zoom out">&minus;</button> <button id="home">0 / 0</button></span>
-  <span class="box" id="players" hidden></span>
+  <form class="box" id="goto"><input type="text" id="coords" placeholder="x z" aria-label="Go to coordinates (x z)" inputmode="numeric" autocomplete="off"> <button>Go</button></form>
+  <span class="box" id="players" hidden><span id="pcount"></span> <label>Follow <select id="follow"><option value="">&ndash;</option></select></label></span>
+  <span class="box"><button id="full" aria-label="Full screen" title="Full screen"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M1 5V1h4M9 1h4v4M13 9v4H9M5 13H1V9" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> <button id="gear" aria-label="View settings" title="View settings" aria-expanded="false" aria-controls="panel"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 3h10M2 7h10M2 11h10" stroke="currentColor" stroke-width="2"/><circle cx="5" cy="3" r="1.6" fill="currentColor"/><circle cx="9" cy="7" r="1.6" fill="currentColor"/><circle cx="4" cy="11" r="1.6" fill="currentColor"/></svg></button></span>
+</div>
+<div id="panel" class="box" role="dialog" aria-label="View settings">
+  <h2>View settings</h2>
+  <label><input type="checkbox" id="o-players" checked> Show players</label>
+  <label><input type="checkbox" id="o-coords" checked> Show coordinates</label>
+  <label><input type="checkbox" id="o-grid"> Region grid (512 blocks)</label>
+  <label><input type="checkbox" id="o-keep" checked> Remember position</label>
+  <p>Kept in this browser only. Server settings: /simplelivemap config in game.</p>
 </div>
 <div id="info" class="box">x 0, z 0</div>
 <div id="msg" class="box"></div>
 <script>
 "use strict";
 // Viewer of Simple Livemap: tiles /tiles/<dim>/<z>/<x>/<y>.png (128 px; zoom 4 = 1 block per pixel), /live.json (players).
+// The same page serves the built-in server of the mod (self-host) and livemap.simplemods.de (N34): relative paths only.
 // A private map needs its key: the link carries it in the fragment (#t=...), which the browser never sends to a server;
 // it goes out only as an Authorization header. Names are drawn on the canvas (no HTML from the server is ever shown).
 const canvas = document.getElementById("map"), ctx = canvas.getContext("2d");
 const dimSel = document.getElementById("dim"), info = document.getElementById("info"), msg = document.getElementById("msg");
-const playersBox = document.getElementById("players");
+const playersBox = document.getElementById("players"), pcount = document.getElementById("pcount"), followSel = document.getElementById("follow");
+const panel = document.getElementById("panel"), gear = document.getElementById("gear");
+// View settings (this browser only; never sent anywhere). Storage can be missing (private windows): defaults then.
+const OPTS = { players: true, coords: true, grid: false, keep: true };
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+try { Object.assign(OPTS, JSON.parse(store.get("slm-opts") || "{}")); } catch (e) {}
+const VIEW_KEY = "slm-view:" + location.pathname;
 const token = new URLSearchParams(location.hash.slice(1)).get("t") || "";
 const headers = token ? { Authorization: "Bearer " + token } : {};
 const TILE = 128, MAX_Z = 4, CACHE = 400;
 let view = { x: 0, z: 0, s: 1 };            // centre in blocks, s = screen pixels per block
 let dims = [], players = [], folder = "minecraft_overworld";
 const tiles = new Map();                      // key -> { img, t } (img null = empty or failed)
-let pending = 0, dirty = true, denied = false;
+let pending = 0, dirty = true, denied = false, following = "", pollMs = 2000, pollTimer = 0;
+try { const v = OPTS.keep && JSON.parse(store.get(VIEW_KEY) || "null"); if (v && isFinite(v.x) && isFinite(v.z) && v.s > 0) { view = { x: v.x, z: v.z, s: v.s }; if (v.f) folder = v.f; } } catch (e) {}
 
 function resize() {
   const r = Math.min(window.devicePixelRatio || 1, 2);
@@ -97,9 +122,15 @@ function draw() {
     const img = tile(z, tx, ty);
     if (img) ctx.drawImage(img, (tx * span - left) * view.s, (ty * span - top) * view.s, span * view.s, span * view.s);
   }
+  if (OPTS.grid) {
+    ctx.strokeStyle = "rgba(255,255,255,0.18)"; ctx.lineWidth = 1; ctx.beginPath();
+    for (let gx = Math.floor(left / 512) * 512; gx < left + w / view.s; gx += 512) { const sx = Math.round((gx - left) * view.s) + 0.5; ctx.moveTo(sx, 0); ctx.lineTo(sx, h); }
+    for (let gz = Math.floor(top / 512) * 512; gz < top + h / view.s; gz += 512) { const sz = Math.round((gz - top) * view.s) + 0.5; ctx.moveTo(0, sz); ctx.lineTo(w, sz); }
+    ctx.stroke();
+  }
   const dimId = (dims.find(d => d.folder === folder) || {}).id;
   ctx.font = "13px system-ui, sans-serif"; ctx.textBaseline = "middle";
-  for (const p of players) {
+  for (const p of OPTS.players ? players : []) {
     if (p.dimension !== dimId) continue;
     const px = (p.x + 0.5 - left) * view.s, pz = (p.z + 0.5 - top) * view.s;
     ctx.fillStyle = "#ff5a4e"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2;
@@ -130,8 +161,25 @@ async function poll() {
       dimSel.value = folder;
       if (!dims.length) show("Nothing explored yet.");
     }
-    playersBox.hidden = players.length === 0;
-    playersBox.textContent = players.length + (players.length === 1 ? " player" : " players");
+    playersBox.hidden = players.length === 0 || !OPTS.players;
+    pcount.textContent = players.length + (players.length === 1 ? " player" : " players");
+    const names = players.map(p => String(p.name).slice(0, 32));
+    if (JSON.stringify(names) !== JSON.stringify([...followSel.options].slice(1).map(o => o.value))) {
+      followSel.length = 1;
+      for (const n of names) { const o = document.createElement("option"); o.value = n; o.textContent = n; followSel.appendChild(o); }
+      followSel.value = names.includes(following) ? following : "";
+    }
+    if (following) {
+      const p = players.find(q => q.name === following);
+      if (p) {
+        const d = dims.find(x => x.id === p.dimension);
+        if (d && d.folder !== folder) { folder = d.folder; dimSel.value = folder; }
+        view.x = p.x + 0.5; view.z = p.z + 0.5;
+      }
+    }
+    // A hosted map tells its live rhythm ("poll", seconds); the built-in server keeps 2 s.
+    const want = Math.max(1, Math.min(60, Number(live.poll) || 2)) * 1000;
+    if (want !== pollMs) { pollMs = want; clearInterval(pollTimer); pollTimer = setInterval(poll, pollMs); }
     dirty = true;
   } catch (e) { /* server away: keep the last picture */ }
 }
@@ -148,6 +196,7 @@ canvas.addEventListener("pointerdown", e => { canvas.setPointerCapture(e.pointer
 canvas.addEventListener("pointermove", e => {
   const wx = Math.floor(view.x + (e.clientX - innerWidth / 2) / view.s), wz = Math.floor(view.z + (e.clientY - innerHeight / 2) / view.s);
   info.textContent = "x " + wx + ", z " + wz;
+  info.hidden = !OPTS.coords;
   if (pointers.size === 2 && pointers.has(e.pointerId)) {
     const [a, b] = [...pointers.values()], before = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
     pointers.set(e.pointerId, e);
@@ -156,6 +205,7 @@ canvas.addEventListener("pointermove", e => {
     return;
   }
   if (!drag) return;
+  if (following) { following = ""; followSel.value = ""; }
   pointers.set(e.pointerId, e);
   view.x -= (e.clientX - drag.x) / view.s; view.z -= (e.clientY - drag.y) / view.s;
   drag = { x: e.clientX, y: e.clientY }; dirty = true;
@@ -164,11 +214,28 @@ for (const ev of ["pointerup", "pointercancel"]) canvas.addEventListener(ev, e =
 canvas.addEventListener("wheel", e => { e.preventDefault(); zoom(e.deltaY < 0 ? 1.25 : 0.8, e.clientX, e.clientY); }, { passive: false });
 document.getElementById("zin").onclick = () => zoom(2, innerWidth / 2, innerHeight / 2);
 document.getElementById("zout").onclick = () => zoom(0.5, innerWidth / 2, innerHeight / 2);
-document.getElementById("home").onclick = () => { view = { x: 0, z: 0, s: 1 }; dirty = true; };
+document.getElementById("home").onclick = () => { following = ""; followSel.value = ""; view = { x: 0, z: 0, s: 1 }; dirty = true; };
 dimSel.onchange = () => { folder = dimSel.value; dirty = true; };
+followSel.onchange = () => { following = followSel.value; poll(); };
+document.getElementById("goto").onsubmit = e => {
+  e.preventDefault();
+  const n = (document.getElementById("coords").value.match(/-?\d+/g) || []).map(Number);
+  if (n.length >= 2) { following = ""; followSel.value = ""; view.x = n[0] + 0.5; view.z = n[n.length >= 3 ? 2 : 1] + 0.5; view.s = Math.max(view.s, 1); dirty = true; }
+};
+document.getElementById("full").onclick = () => {
+  if (document.fullscreenElement) document.exitFullscreen(); else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+};
+gear.onclick = () => { const open = panel.classList.toggle("open"); gear.setAttribute("aria-expanded", String(open)); };
+for (const [id, key] of [["o-players", "players"], ["o-coords", "coords"], ["o-grid", "grid"], ["o-keep", "keep"]]) {
+  const box = document.getElementById(id);
+  box.checked = !!OPTS[key];
+  box.onchange = () => { OPTS[key] = box.checked; store.set("slm-opts", JSON.stringify(OPTS)); info.hidden = !OPTS.coords; playersBox.hidden = !OPTS.players || players.length === 0; dirty = true; };
+}
+info.hidden = !OPTS.coords;
+setInterval(() => { if (OPTS.keep) store.set(VIEW_KEY, JSON.stringify({ x: Math.round(view.x), z: Math.round(view.z), s: view.s, f: folder })); }, 3000);
 addEventListener("resize", resize);
 document.addEventListener("visibilitychange", poll);
-resize(); poll(); setInterval(poll, 2000); requestAnimationFrame(draw);
+resize(); poll(); pollTimer = setInterval(poll, pollMs); requestAnimationFrame(draw);
 </script>
 </body>
 </html>
