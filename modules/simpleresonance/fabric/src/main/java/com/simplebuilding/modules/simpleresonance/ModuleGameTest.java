@@ -8,6 +8,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest(structure = "simpleresonance:empty") public void commandAliases(GameTestHelper h) { com.simplelib.test.CommandAliasTests.module(h, "simpleresonance"); }
     @GameTest(structure = "simpleresonance:empty") public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleresonance", false); }
+    @GameTest(structure = "simpleresonance:empty") public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigScreenTests.moduleLabels(h, "simpleresonance"); }
     @GameTest(structure = "simpleresonance:empty") public void registered(GameTestHelper h) { ResonanceTests.ALL.get("registered").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void configCaps(GameTestHelper h) { ResonanceTests.ALL.get("config_caps").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void subModSwitch(GameTestHelper h) { ResonanceTests.ALL.get("sub_mod_switch").accept(h); }
