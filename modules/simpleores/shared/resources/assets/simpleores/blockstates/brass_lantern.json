@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "simpleores:block/brass_lantern"
+    },
+    "hanging=true": {
+      "model": "simpleores:block/brass_lantern_hanging"
+    }
+  }
+}

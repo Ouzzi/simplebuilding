@@ -152,6 +152,36 @@ for m in COSMETIC:
     assert door_loot['pools'][0]['entries'][0]['condition']['state'] == {'half': 'lower'}, 'a door drops from its lower half'
     for tex in (f'block/{m}_door_top', f'block/{m}_door_bottom', f'block/{m}_trapdoor', f'item/{m}_door'):
         assert (RES / f'assets/{NS}/textures/{tex}.png').is_file() and (RES / f'assets/{NS}/textures/{tex}.layers.json').is_file(), tex
+# N30/N35 (a-pal35a): lamp, lantern, chain, pole of every building metal, poles of the rose alloys, pressure plates of every metal: files, tags,
+# tool tier, lang, own textures with layer sources (the plates use the metal's block texture), recipes like the Vanilla ones.
+stone_tier = json.loads((mc / 'block/needs_stone_tool.json').read_text(encoding='utf-8'))['values']
+lantern_tag = json.loads((mc / 'block/lanterns.json').read_text(encoding='utf-8'))['values']
+chain_tag = json.loads((mc / 'block/chains.json').read_text(encoding='utf-8'))['values']
+plate_tag = json.loads((mc / 'block/pressure_plates.json').read_text(encoding='utf-8'))['values']
+POLE_METALS = COSMETIC + ALLOYS
+PLATE_METALS = POLE_METALS + ('enderite', 'terranite', 'infernite', 'zenithite')
+for b, tier, tags_ in ([(f'{m}_lamp', stone_tier, None) for m in COSMETIC] + [(f'{m}_lantern', None, lantern_tag) for m in COSMETIC]
+                       + [(f'{m}_chain', None, chain_tag) for m in COSMETIC] + [(f'{m}_pole', stone_tier, None) for m in POLE_METALS]
+                       + [(f'{m}_pressure_plate', None, plate_tag) for m in PLATE_METALS]):
+    for rel in (f'assets/{NS}/blockstates/{b}.json', f'assets/{NS}/items/{b}.json', f'data/{NS}/loot_table/blocks/{b}.json', f'data/{NS}/recipe/{b}.json'):
+        assert (RES / rel).is_file(), rel
+    assert f'{NS}:{b}' in pickaxe and f'{NS}:{b}' not in iron_tier and (f'{NS}:{b}' in stone_tier) == (tier is not None), b
+    assert tags_ is None or f'{NS}:{b}' in tags_, b
+    for lang in langs.values():
+        assert lang.get(f'block.{NS}.{b}'), b
+for m in COSMETIC:
+    for tex in (f'block/{m}_lamp', f'block/{m}_lamp_lit', f'block/{m}_lamp_powered', f'block/{m}_lamp_lit_powered', f'block/{m}_lantern', f'item/{m}_lantern',
+                f'block/{m}_chain', f'item/{m}_chain'):
+        assert (RES / f'assets/{NS}/textures/{tex}.png').is_file() and (RES / f'assets/{NS}/textures/{tex}.layers.json').is_file(), tex
+for m in POLE_METALS:
+    assert (RES / f'assets/{NS}/textures/block/{m}_pole.png').is_file() and (RES / f'assets/{NS}/textures/block/{m}_pole.layers.json').is_file(), m
+for m in PLATE_METALS:
+    up = json.loads((RES / f'assets/{NS}/models/block/{m}_pressure_plate.json').read_text(encoding='utf-8'))
+    assert up['parent'] == 'minecraft:block/pressure_plate_up' and up['textures']['texture'] == f'{NS}:block/{m}_block', m
+    r = json.loads((RES / f'data/{NS}/recipe/{m}_pressure_plate.json').read_text(encoding='utf-8'))
+    assert r['pattern'] == ['##'] and r['key']['#'] == f'{NS}:{m}_ingot', m
+lamp = json.loads((RES / f'data/{NS}/recipe/silver_lamp.json').read_text(encoding='utf-8'))
+assert lamp['pattern'] == [' C ', 'CBC', ' R '] and lamp['result']['count'] == 4, 'lamp like the copper bulb: 3 blocks, blaze rod, redstone -> 4'
 plate = json.loads((RES / f'data/{NS}/recipe/lead_plate.json').read_text(encoding='utf-8'))
 assert plate['pattern'] == ['###'] and plate['result'] == {'id': f'{NS}:lead_plate', 'count': 6}
 assert not (RES / f'data/{NS}/recipe/silver_arrow.json').exists(), 'the silver arrow moved to Simple Arrows (03.11.)'

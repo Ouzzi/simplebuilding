@@ -1,0 +1,18 @@
+{
+  "values": [
+    "simpleores:silver_pressure_plate",
+    "simpleores:lead_pressure_plate",
+    "simpleores:zinc_pressure_plate",
+    "simpleores:nickel_pressure_plate",
+    "simpleores:tin_pressure_plate",
+    "simpleores:brass_pressure_plate",
+    "simpleores:bronze_pressure_plate",
+    "simpleores:stainless_steel_pressure_plate",
+    "simpleores:rose_gold_pressure_plate",
+    "simpleores:rose_bronze_pressure_plate",
+    "simpleores:enderite_pressure_plate",
+    "simpleores:terranite_pressure_plate",
+    "simpleores:infernite_pressure_plate",
+    "simpleores:zenithite_pressure_plate"
+  ]
+}

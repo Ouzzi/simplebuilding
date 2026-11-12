@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "simpleores:block/zinc_lantern"
+    },
+    "hanging=true": {
+      "model": "simpleores:block/zinc_lantern_hanging"
+    }
+  }
+}

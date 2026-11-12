@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "simpleores:infernite_ingot"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "simpleores:infernite_pressure_plate"
+  }
+}

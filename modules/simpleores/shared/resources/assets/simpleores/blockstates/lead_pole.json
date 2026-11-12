@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "simpleores:block/lead_pole",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "simpleores:block/lead_pole",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "simpleores:block/lead_pole",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "simpleores:block/lead_pole",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "simpleores:block/lead_pole"
+    },
+    "facing=west": {
+      "model": "simpleores:block/lead_pole",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

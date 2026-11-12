@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "simpleores:zenithite_ingot"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "simpleores:zenithite_pressure_plate"
+  }
+}

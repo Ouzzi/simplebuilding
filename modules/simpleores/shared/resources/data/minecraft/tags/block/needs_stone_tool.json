@@ -15,6 +15,24 @@
     "simpleores:tin_grate",
     "simpleores:brass_grate",
     "simpleores:bronze_grate",
-    "simpleores:stainless_steel_grate"
+    "simpleores:stainless_steel_grate",
+    "simpleores:silver_lamp",
+    "simpleores:lead_lamp",
+    "simpleores:zinc_lamp",
+    "simpleores:nickel_lamp",
+    "simpleores:tin_lamp",
+    "simpleores:brass_lamp",
+    "simpleores:bronze_lamp",
+    "simpleores:stainless_steel_lamp",
+    "simpleores:silver_pole",
+    "simpleores:lead_pole",
+    "simpleores:zinc_pole",
+    "simpleores:nickel_pole",
+    "simpleores:tin_pole",
+    "simpleores:brass_pole",
+    "simpleores:bronze_pole",
+    "simpleores:stainless_steel_pole",
+    "simpleores:rose_gold_pole",
+    "simpleores:rose_bronze_pole"
   ]
 }

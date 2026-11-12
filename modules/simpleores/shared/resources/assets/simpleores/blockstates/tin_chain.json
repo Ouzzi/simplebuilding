@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simpleores:block/tin_chain",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "simpleores:block/tin_chain"
+    },
+    "axis=z": {
+      "model": "simpleores:block/tin_chain",
+      "x": 90
+    }
+  }
+}
