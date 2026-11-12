@@ -153,7 +153,7 @@ GEMS = {'chiseled_diamond': ('beacon', 'diamond_block'), 'chiseled_emerald': ('v
 ROUNDS = {
     # R1: METALS14 forms (round 4) on the own ramps, face at the block's brightness; chiseled with the PAL16 metal tones; gems carved
     #     with the PAL16 relief factors (deep 1.6, no calm)
-    'R1': dict(form_round=4, grain_rate=0.35, metal_grain=0.7, deep={}, calm={}, face_shift={}, patina=0.0),
+    'R1': dict(form_round=4, grain_rate=0.35, metal_grain=0.7, deep={}, calm={}, face_shift={}, patina={}),
 }
 # R2 (after R1, plan b6): copper brighter like Vanilla cut copper and with the patina of its stage (2-3 px clusters in the next stage's
 #     hue, mirror-symmetric); iron and Zenithite wider/darker spans (R1 washed out), Enderite brighter (motif lost in the dark); rose,
