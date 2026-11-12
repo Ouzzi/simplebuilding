@@ -44,8 +44,11 @@ for biome in ('desert', 'jungle', 'plains', 'savanna', 'snow', 'swamp', 'taiga')
     assert len(values(tags / f'wanderer/biome/{biome}.json')) >= 4, biome
     assert (RES / f'data/{NS}/trade_set/wanderer/biome/{biome}.json').is_file(), biome
 for name in ('buying', 'common'):
-    override = json.loads((RES / f'data/minecraft/trade_set/wandering_trader/{name}.json').read_text(encoding='utf-8'))
-    assert override['trades'] == f'#{NS}:wandering_trader/{name}', name
+    # AUDSB31E1: no override of the Vanilla sets any more (they stay whole while the module is off); the trader's
+    # reduced half is an own set that WanderingTraderSplitMixin picks only while the module is on.
+    assert not (RES / f'data/minecraft/trade_set/wandering_trader/{name}.json').exists(), ('vanilla trade set overridden', name)
+    own = json.loads((RES / f'data/{NS}/trade_set/wandering_trader/{name}.json').read_text(encoding='utf-8'))
+    assert own['trades'] == f'#{NS}:wandering_trader/{name}', name
 for tex in ('entity/village_wanderer', 'item/village_wanderer_spawn_egg', 'item/guide_book'):
     assert (RES / f'assets/{NS}/textures/{tex}.png').is_file(), tex
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()

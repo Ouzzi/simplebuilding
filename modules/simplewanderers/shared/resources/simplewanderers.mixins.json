@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.simplewanderers.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "WanderingTraderSplitMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

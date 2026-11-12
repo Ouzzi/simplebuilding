@@ -14,6 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.item.trading.TradeSet;
+import net.minecraft.world.item.trading.TradeSets;
 import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -33,6 +34,23 @@ public final class WandererTrades {
 
     public static ResourceKey<TradeSet> setKey(String path) {
         return ResourceKey.create(Registries.TRADE_SET, SimpleWanderers.id(path));
+    }
+
+    /** The Wandering Trader's half of the split Vanilla sets (concept section 5): his exotic goods, the everyday ones went to the wanderer. */
+    public static final ResourceKey<TradeSet> TRADER_COMMON = setKey("wandering_trader/common");
+    public static final ResourceKey<TradeSet> TRADER_BUYING = setKey("wandering_trader/buying");
+
+    /**
+     * The set the Vanilla Wandering Trader really draws instead of {@code vanilla} (WanderingTraderSplitMixin). AUDSB31E1 (BEW39):
+     * the split used to override {@code minecraft:wandering_trader/common|buying} as data, so with the module or the super-mod
+     * switch off the trader still missed the 47 everyday goods although no wanderer sold them; now the Vanilla sets stay whole
+     * and only an enabled module points the trader to his half.
+     */
+    public static ResourceKey<TradeSet> traderSet(ResourceKey<TradeSet> vanilla) {
+        if (!SimpleWanderers.on()) return vanilla;
+        if (TradeSets.WANDERING_TRADER_COMMON.equals(vanilla)) return TRADER_COMMON;
+        if (TradeSets.WANDERING_TRADER_BUYING.equals(vanilla)) return TRADER_BUYING;
+        return vanilla;
     }
 
     public static String biomeSet(String villagerType) {

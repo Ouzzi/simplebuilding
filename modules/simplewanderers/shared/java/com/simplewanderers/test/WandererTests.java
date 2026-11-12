@@ -362,17 +362,62 @@ public final class WandererTests {
             union.addAll(wt);
             h.assertTrue(union.equals(vanilla), "complete: " + union.size());
             h.assertTrue(dw.stream().noneMatch(wt::contains), "no good at both");
-            // The Wandering Trader really draws from his half now (the Vanilla trade set was repointed).
+            // The Wandering Trader's half is an own set (AUDSB31E1): the Vanilla sets stay whole, the mixin picks the half while on.
             for (String set : List.of("common", "buying")) {
-                TradeSet trade = level.registryAccess().lookupOrThrow(Registries.TRADE_SET).getValueOrThrow(
+                TradeSet own = level.registryAccess().lookupOrThrow(Registries.TRADE_SET).getValueOrThrow(WandererTrades.setKey("wandering_trader/" + set));
+                String key = own.trades() instanceof net.minecraft.core.HolderSet.Named<VillagerTrade> named ? named.key().location().toString() : "?";
+                h.assertTrue(key.equals("simplewanderers:wandering_trader/" + set), "the trader's half of " + set + " reads " + key);
+                TradeSet vanillaSet = level.registryAccess().lookupOrThrow(Registries.TRADE_SET).getValueOrThrow(
                         net.minecraft.resources.ResourceKey.create(Registries.TRADE_SET, Identifier.parse("minecraft:wandering_trader/" + set)));
-                String key = trade.trades() instanceof net.minecraft.core.HolderSet.Named<VillagerTrade> named ? named.key().location().toString() : "?";
-                h.assertTrue(key.equals("simplewanderers:wandering_trader/" + set), "traveling trader draws " + set + " from " + key);
+                String vkey = vanillaSet.trades() instanceof net.minecraft.core.HolderSet.Named<VillagerTrade> named ? named.key().location().toString() : "?";
+                h.assertTrue(vkey.equals("minecraft:wandering_trader/" + set), "the Vanilla set " + set + " stays untouched: " + vkey);
             }
             // Buying: buckets, potato, hay at the wanderer; bottle and spider eye stay.
             Set<String> buyDw = poolKeys(level, "simplewanderers:wanderer/buying"), buyWt = poolKeys(level, "simplewanderers:wandering_trader/buying");
             h.assertTrue(buyDw.contains("minecraft:wandering_trader/water_bucket_emerald") && buyWt.contains("minecraft:wandering_trader/water_bottle_emerald")
                     && !buyDw.contains("minecraft:wandering_trader/water_bottle_emerald") && !buyWt.contains("minecraft:wandering_trader/water_bucket_emerald"), "buying split");
+            h.succeed();
+        });
+        // AUDSB31E1 (BEW39 red): the trader only loses the everyday goods while the module is on; off (own config or the
+        // super-mod switch) he reads the whole Vanilla sets again. Without the fix the data override kept him reduced for good.
+        ALL.put("trader_split_follows_the_switch", h -> {
+            ServerLevel level = h.getLevel();
+            var common = net.minecraft.world.item.trading.TradeSets.WANDERING_TRADER_COMMON;
+            var buying = net.minecraft.world.item.trading.TradeSets.WANDERING_TRADER_BUYING;
+            var uncommon = net.minecraft.world.item.trading.TradeSets.WANDERING_TRADER_UNCOMMON;
+            boolean before = com.simplebuilding.framework.api.SubMods.enabled(SimpleWanderers.MOD_ID);
+            boolean config = WandererConfig.enabled;
+            try {
+                com.simplebuilding.framework.api.SubMods.set(SimpleWanderers.MOD_ID, true);
+                WandererConfig.enabled = true;
+                h.assertTrue(WandererTrades.traderSet(common).equals(WandererTrades.TRADER_COMMON)
+                        && WandererTrades.traderSet(buying).equals(WandererTrades.TRADER_BUYING)
+                        && WandererTrades.traderSet(uncommon).equals(uncommon), "on: the trader reads his half, uncommon stays Vanilla");
+                // A real trader while on: none of his common offers is an everyday good that moved to the wanderer (the mixin applies).
+                Set<Item> wandererOnly = new LinkedHashSet<>();
+                VillageWanderer probe = bound(h, nextVillage++, "plains", new BlockPos(7, 1, 7));
+                pool(level, probe, "wanderer/common", wandererOnly);
+                Set<Item> traderItems = new LinkedHashSet<>();
+                WandererTrades.poolOffers(level, probe, WandererTrades.TRADER_COMMON).forEach(o -> traderItems.add(o.getResult().getItem()));
+                WandererTrades.poolOffers(level, probe, uncommon).forEach(o -> traderItems.add(o.getResult().getItem()));
+                wandererOnly.removeAll(traderItems);
+                h.assertTrue(wandererOnly.size() >= 20, "everyday goods only the wanderer sells: " + wandererOnly.size());
+                for (int i = 0; i < 6; i++) {
+                    var trader = h.spawnWithNoFreeWill(net.minecraft.world.entity.EntityTypes.WANDERING_TRADER, new BlockPos(3, 1, 3));
+                    for (MerchantOffer o : trader.getOffers()) {
+                        h.assertTrue(!wandererOnly.contains(o.getResult().getItem()), "on: the trader still sells an everyday good " + o.getResult());
+                    }
+                    trader.discard();
+                }
+                WandererConfig.enabled = false;
+                h.assertTrue(WandererTrades.traderSet(common).equals(common) && WandererTrades.traderSet(buying).equals(buying), "config off: whole Vanilla sets");
+                WandererConfig.enabled = true;
+                com.simplebuilding.framework.api.SubMods.set(SimpleWanderers.MOD_ID, false);
+                h.assertTrue(WandererTrades.traderSet(common).equals(common) && WandererTrades.traderSet(buying).equals(buying), "super-mod switch off: whole Vanilla sets");
+            } finally {
+                com.simplebuilding.framework.api.SubMods.set(SimpleWanderers.MOD_ID, before);
+                WandererConfig.enabled = config;
+            }
             h.succeed();
         });
         ALL.put("no_very_rare_mod_item_and_cores_stay_at_the_trader", h -> {
