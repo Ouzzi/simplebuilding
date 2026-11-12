@@ -241,6 +241,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void configScreenLabels(GameTestHelper h) {
+        LibTests.ALL.get("config_screen_labels").accept(h);
+    }
+
+    @GameTest
     public void recipeViewerTableEntries(GameTestHelper h) {
         LibTests.ALL.get("recipe_viewer_table_entries").accept(h);
     }

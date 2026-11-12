@@ -141,6 +141,39 @@ public final class ConfigScreenTests {
         h.succeed();
     }
 
+    /**
+     * simplelib-6 (PLAN40): the screen shows a readable name for every option - the check finds missing names, SimpleLib's own
+     * config is fully named, and every other announced config with gaps is listed in the log (each mod asserts its own config in
+     * its own tests with {@link ConfigScreenModel#missingLabels(String)}).
+     */
+    static void labels(GameTestHelper h) {
+        ConfigCommands.Spec lib = ConfigCommands.spec("simplelib", false);
+        check(h, lib != null, "SimpleLib announced no server config");
+        List<String> none = ConfigScreenModel.missingLabels(lib, key -> false);
+        check(h, none.contains("<title>") && none.size() == lib.options().size() + 1, "an empty language must miss the title and every option: " + none);
+        check(h, ConfigScreenModel.missingLabels(lib, key -> true).isEmpty(), "a full language misses nothing");
+        List<String> own = ConfigScreenModel.missingLabels("simplelib");
+        check(h, own.isEmpty(), "SimpleLib options without a name: " + own);
+        for (boolean client : new boolean[] {false, true}) {
+            for (ConfigCommands.Spec spec : ConfigCommands.specs(client)) {
+                List<String> missing = ConfigScreenModel.missingLabels(spec, net.minecraft.locale.Language.getInstance()::has);
+                if (!missing.isEmpty()) {
+                    com.simplelib.SimpleLib.LOG.info("Config screen: {} ({}) shows {} raw names: {}", spec.modId(), client ? "client" : "server",
+                            missing.size(), missing);
+                }
+            }
+        }
+        h.succeed();
+    }
+
+    /** A module's own test (simplelib-6): its config screen names the title, every category and every option. */
+    public static void moduleLabels(GameTestHelper h, String modId) {
+        check(h, ConfigCommands.spec(modId, false) != null || ConfigCommands.spec(modId, true) != null, modId + " announced no config");
+        List<String> missing = ConfigScreenModel.missingLabels(modId);
+        check(h, missing.isEmpty(), modId + " config screen without a name: " + missing);
+        h.succeed();
+    }
+
     /** Every announced config (both sides) gives a model with every option, a widget and a default. */
     static void everyMod(GameTestHelper h) {
         int mods = 0, fields = 0;
