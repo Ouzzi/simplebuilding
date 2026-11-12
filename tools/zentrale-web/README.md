@@ -213,8 +213,8 @@ Einspielen (auf pve, Besitzer): `pct exec 109 -- cp /srv/wiki-dev/tools/zentrale
 ## Domain-Umzug IG31-55 (vorbereitet, NICHT deployt; Besitzer 06.11.)
 Ziel: `wiki.simplemods.de` = Wiki (`/` öffentlich; `/dev/`, `/zentrale/`, `/api/`, `/setup/`, `/downloads/` mit Login);
 `simplemods.de` = Landing Page (`/srv/landing`, Quelle `tools/landing/index.html`, solange LAND09 offen ist: Entwurf B);
-`www.simplemods.de`, `simplewiki.de`, `www.simplewiki.de`, `simplemods-wiki.azarfane.com` = 301 auf `wiki.simplemods.de` mit
-gleichem Pfad. Ausnahme: `/setup/` und `/downloads/` auf der alten azarfane-Adresse bleiben direkt (nur mit Access-Header,
+`simplewiki.de`, `www.simplewiki.de`, `simplemods-wiki.azarfane.com` = 301 auf `wiki.simplemods.de` mit
+gleichem Pfad; `www.simplemods.de` = 301 auf `simplemods.de` (Landing, Besitzer 12.11.). Ausnahme: `/setup/` und `/downloads/` auf der alten azarfane-Adresse bleiben direkt (nur mit Access-Header,
 wie bisher). Alle Hosts landen in einem nginx (`:8081`, Auswahl per `server_name`); Vorlagen `nginx/domains.conf`,
 `nginx/wiki-extra.conf`. Cookie `sb_session` hat kein Domain-Attribut (host-only): gilt automatisch für wiki.simplemods.de,
 der Origin-Check des Logins vergleicht mit dem durchgereichten Host. Alte Sitzungen von azarfane enden (neu anmelden).

@@ -84,17 +84,19 @@ class StaticTest(unittest.TestCase):
     def test_domains_template(self):
         dom = (NGX / "domains.conf").read_text()
         bs = blocks(dom)
-        self.assertEqual(len(bs), 3)
+        self.assertEqual(len(bs), 4)
         for h in ("simplemods.de", "www.simplemods.de", "simplewiki.de", "www.simplewiki.de",
                   "simplemods-wiki.azarfane.com"):
             self.assertEqual(sum(f"server_name {h};" in b or f" {h} " in b or b.count(f" {h};") for b in bs) > 0, True, h)
         self.assertIn("return 301 https://wiki.simplemods.de$request_uri;", bs[1])
+        self.assertIn("server_name www.simplemods.de;", bs[2])
+        self.assertIn("return 301 https://simplemods.de$request_uri;", bs[2])  # owner 12.11.: www -> landing
         pub = location(bs[0], "location ^~ /downloads/ ")  # W12: public release downloads, only the public/ folder
         self.assertIn("alias /srv/zentrale/downloads/public/;", pub)
         self.assertIn("autoindex off;", pub)
         self.assertNotIn("auth_request", pub)
         self.assertNotIn("return 30", pub)
-        old = bs[2]
+        old = bs[3]
         for head in ("location ^~ /setup/ ", "location ^~ /downloads/ "):
             self.assertNotIn("return 30", location(old, head))
             self.assertIn("$http_cf_access_authenticated_user_email", location(old, head))
