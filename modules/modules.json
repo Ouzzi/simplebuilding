@@ -144,7 +144,7 @@
         "forge"
       ],
       "requires": [
-        "cloth_config"
+        "simplelib"
       ],
       "optional": [
         "jei",
@@ -269,7 +269,7 @@
         "forge"
       ],
       "requires": [
-        "cloth_config"
+        "simplelib"
       ],
       "optional": [
         "simplebuilding",
@@ -462,7 +462,7 @@
         "forge"
       ],
       "requires": [
-        "cloth_config"
+        "simplelib"
       ],
       "optional": [
         "modmenu",
@@ -1113,7 +1113,9 @@
         "neoforge",
         "forge"
       ],
-      "requires": [],
+      "requires": [
+        "simplelib"
+      ],
       "optional": [
         "simplebuilding",
         "simpleend"
@@ -3162,7 +3164,9 @@
         "neoforge",
         "forge"
       ],
-      "requires": [],
+      "requires": [
+        "simplelib"
+      ],
       "optional": [
         "simplebuilding",
         "simplemoney",

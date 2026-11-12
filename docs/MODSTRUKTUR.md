@@ -6,7 +6,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials (building cores, Strong Upgrade with the Wither drop), id moves, in-world upgrades and UI building blocks.
   - optional: jei
-  - required von: Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chisels, Simple Crucibles, Simple Earth, Simple Enchanting, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, SimpleBuilding
+  - required von: Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chisels, Simple Crucibles, Simple Earth, Simple Enchanting, Simple Fun, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Money, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, Simple Wanderers, SimpleBuilding
 
 ## SimpleBuilding
 
@@ -88,7 +88,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - **Simple End Dragon Fight** `simpleenddragonfight` (optional) [neu]: Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.
       - optional: Simple Mobs
   - **Simple Fun** `simplefun` (optional) [fertig]: Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).
-    - required: cloth_config
+    - required: SimpleLib
     - optional: modmenu, jei, jade
   - **Simple Layers** `simplelayers` (optional) [neu]: World layers: the Cloud Sea sky dimension above y 700 and the Backrooms below the bedrock, with cloud blocks, wallpaper, carpet and neon lights.
     - required: SimpleLib
@@ -97,7 +97,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - required: SimpleLib
     - optional: Simple Money, Simple Ores
   - **Simple Money** `simplemoney` (optional) [fertig]: Currency production, weighted villager trades and treasure loot.
-    - required: cloth_config
+    - required: SimpleLib
     - optional: jei, modmenu, SimpleBuilding, Simple Fun, Simple Models, Simple Quality of Life, Simple Riding, Simple Sandwiches, Simple Sounds, Simple Tweaks, Simple Visuals, Simple Ores
   - **Simple Music** `simplemusic` (optional) [neu]: Sheet music with a text note code (editor with test listening, .txt/.nbs import), pressed onto blank discs in the Disc Press, and uploaded mono Ogg discs (quota, OP approval), played in the Vanilla jukebox and the Pocket Jukebox. Needs SimpleLib; SimpleBuilding optional.
     - required: SimpleLib
@@ -106,9 +106,10 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - required: SimpleLib
   - **Simple Respawn** `simplerespawn` (optional) [neu]: Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up.
   - **Simple Riding** `simpleriding` (optional) [fertig]: Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.
-    - required: cloth_config
+    - required: SimpleLib
     - optional: SimpleBuilding, modmenu, Simple Ores
   - **Simple Sandwiches** `simplesandwiches` (optional) [neu]: Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.
+    - required: SimpleLib
     - optional: SimpleBuilding, Simple End
   - **Simple Shops** `simpleshops` (optional) [neu]: Player shops: a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Protected from strangers, explosions, pistons and hoppers; no claim right needed to buy.
     - required: SimpleLib
@@ -123,6 +124,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - required: SimpleLib
     - optional: SimpleBuilding
   - **Simple Wanderers** `simplewanderers` (optional) [neu]: Village Wanderer: one Wandering Trader per village with a leashed horse, goods split from the traveling trader, a new stock every 3 days, a restock every 1.5 days and a range by village biome. Works on its own with Vanilla.
+    - required: SimpleLib
     - optional: SimpleBuilding, Simple Money, Simple Mobheads
 
 ## Simple Quality of Life
