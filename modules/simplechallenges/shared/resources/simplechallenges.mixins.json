@@ -6,6 +6,8 @@
   "mixins": [
     "EntityCollideMixin",
     "LevelSetBlockMixin",
+    "LockedDropsMixin",
+    "PistonStructureResolverMixin",
     "ServerLevelSpawnMixin"
   ],
   "client": [

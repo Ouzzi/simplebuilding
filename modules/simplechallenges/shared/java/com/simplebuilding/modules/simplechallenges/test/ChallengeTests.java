@@ -46,7 +46,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import com.simplebuilding.modules.simplechallenges.lucky.LuckyService;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.NbtOps;
@@ -56,14 +58,22 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.animal.pig.Pig;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -93,6 +103,40 @@ public final class ChallengeTests {
     private static void clear(ServerLevel level, BlockPos origin, IslandPlan plan) {
         for (IslandPlan.Block b : plan.blocks()) level.setBlock(origin.offset(b.dx(), b.dy(), b.dz()), Blocks.AIR.defaultBlockState(), 2);
         level.setBlock(origin.offset(plan.chestX, plan.chestY, plan.chestZ), Blocks.AIR.defaultBlockState(), 2);
+    }
+
+    /**
+     * Border tests (a-audsb31e2): a preset with an unlock mode (and the Lucky mode on request) that covers exactly the test level's
+     * dimension, the cells round the test area free. The first locked column is {@code edge(g, h)}. The caller switches it off again
+     * ({@link #closeBorderWorld}).
+     */
+    private static UnlockGrid openBorderWorld(GameTestHelper h, boolean lucky) {
+        MinecraftServer server = h.getLevel().getServer();
+        ChallengeService.deactivate(server);
+        String dim = Gate.dim(h.getLevel());
+        String modes = (lucky ? "{\"type\":\"lucky\",\"alpha\":1.3,\"pity\":6}," : "")
+                + "{\"type\":\"unlock\",\"cell\":16,\"start\":[[-1,-1,0,0]],\"dimensions\":[\"" + dim + "\"]}";
+        PresetRegistry.add("zz_border", "{\"schemaVersion\":1,\"name\":\"T\",\"modes\":[" + modes + "]}", "test");
+        check(h, ChallengeService.activate(server, "zz_border") == ChallengeService.Result.OK, "activated: " + PresetRegistry.problems());
+        UnlockGrid g = ChallengeRuntime.server().grid(dim);
+        BlockPos origin = h.absolutePos(BlockPos.ZERO);
+        g.addRect(g.cellOf(origin.getX()) - 2, g.cellOf(origin.getZ()) - 2, g.cellOf(origin.getX()) + 2, g.cellOf(origin.getZ()) + 2);
+        return g;
+    }
+
+    /** X of the first locked column east of the free test area (a chunk border). */
+    private static int edge(UnlockGrid g, GameTestHelper h) {
+        return (g.cellOf(h.absolutePos(BlockPos.ZERO).getX()) + 3) * 16;
+    }
+
+    private static void closeBorderWorld(GameTestHelper h, BlockPos a, BlockPos b) {
+        ServerLevel level = h.getLevel();
+        ChallengeService.deactivate(level.getServer());
+        PresetRegistry.remove("zz_border");
+        for (BlockPos p : BlockPos.betweenClosed(a, b)) {
+            if (!level.getBlockState(p).isAir()) level.getChunkAt(p).setBlockState(p, Blocks.AIR.defaultBlockState(), 0);
+        }
+        for (Entity e : level.getEntities((Entity) null, new AABB(a.getX(), a.getY(), a.getZ(), b.getX() + 1, b.getY() + 1, b.getZ() + 1), x -> !(x instanceof Player))) e.discard();
     }
 
     static {
@@ -681,6 +725,91 @@ public final class ChallengeTests {
                 ChallengeServerConfig.perPlayerCredits = false;
                 ChallengeService.deactivate(server);
                 PresetRegistry.remove("zz_lean");
+            }
+            h.succeed();
+        });
+
+        // a-audsb31e2 simplechallenges-P2-1: breaking a block across the border must not roll a Lucky drop (the block cannot go)
+        ALL.put("lucky_in_locked_cell_gives_nothing", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer creative = h.makeMockServerPlayerInLevel();
+            Gate.creativeCheck = pl -> pl == creative; // mock players always report creative: only this one does
+            BlockPos origin = h.absolutePos(BlockPos.ZERO);
+            int y = origin.getY() + 40;
+            BlockPos locked = null, free = null;
+            try {
+                UnlockGrid g = openBorderWorld(h, true);
+                locked = new BlockPos(edge(g, h) + 1, y, origin.getZ() + 3);
+                free = new BlockPos(edge(g, h) - 2, y, origin.getZ() + 3);
+                check(h, !g.isFreeAtBlock(locked.getX(), locked.getZ()) && g.isFreeAtBlock(free.getX(), free.getZ()), "border geometry");
+                level.getChunkAt(locked).setBlockState(locked, Blocks.STONE.defaultBlockState(), 0);
+                level.setBlock(free, Blocks.STONE.defaultBlockState(), 2);
+                ServerPlayer p = h.makeMockServerPlayerInLevel();
+                p.setGameMode(GameType.SURVIVAL);
+                p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
+                Active a = ChallengeRuntime.server();
+                check(h, LuckyService.beforeBreak(level, p, locked, Blocks.STONE.defaultBlockState()), "a locked block is left to Vanilla");
+                check(h, a.state.luckyBreaks == 0 && level.getEntitiesOfClass(ItemEntity.class, new AABB(locked).inflate(1.5)).isEmpty(), "nothing dropped, nothing counted");
+                check(h, !LuckyService.beforeBreak(level, p, free, Blocks.STONE.defaultBlockState()), "the same break in a free cell is handled");
+                check(h, a.state.luckyBreaks == 1 && level.getEntitiesOfClass(ItemEntity.class, new AABB(free).inflate(1.5)).size() == 1, "one drop, counted");
+            } finally {
+                Gate.creativeCheck = Player::isCreative;
+                closeBorderWorld(h, origin.offset(-20, 39, -2), origin.offset(60, 41, 8));
+            }
+            h.succeed();
+        });
+
+        // a-audsb31e2 simplechallenges-P2-2: Vanilla drops first and changes afterwards, so a refused change must not drop
+        ALL.put("locked_cells_drop_nothing", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos origin = h.absolutePos(BlockPos.ZERO);
+            int y = origin.getY() + 40;
+            try {
+                UnlockGrid g = openBorderWorld(h, false);
+                BlockPos locked = new BlockPos(edge(g, h) + 1, y, origin.getZ() + 3), free = new BlockPos(edge(g, h) - 2, y, origin.getZ() + 3);
+                check(h, !g.isFreeAtBlock(locked.getX(), locked.getZ()) && g.isFreeAtBlock(free.getX(), free.getZ()), "border geometry");
+                AABB inLocked = new AABB(locked).inflate(1.5), inFree = new AABB(free).inflate(1.5);
+                Block.popResource(level, locked, new ItemStack(Items.DIAMOND));
+                Block.popResourceFromFace(level, locked, Direction.UP, new ItemStack(Items.DIAMOND));
+                check(h, level.getEntitiesOfClass(ItemEntity.class, inLocked).isEmpty(), "nothing pops out of a locked cell");
+                Block.popResource(level, free, new ItemStack(Items.DIAMOND));
+                List<ItemEntity> dropped = level.getEntitiesOfClass(ItemEntity.class, inFree);
+                check(h, dropped.size() == 1, "a free cell still drops");
+                dropped.get(0).discard();
+                // Level.destroyBlock drops first and then fails to remove the block
+                level.getChunkAt(locked).setBlockState(locked, Blocks.DIAMOND_BLOCK.defaultBlockState(), 0);
+                check(h, !level.destroyBlock(locked, true) && level.getBlockState(locked).is(Blocks.DIAMOND_BLOCK), "the block stays");
+                check(h, level.getEntitiesOfClass(ItemEntity.class, inLocked).isEmpty(), "and drops nothing");
+            } finally {
+                closeBorderWorld(h, origin.offset(-20, 39, -2), origin.offset(60, 41, 8));
+            }
+            h.succeed();
+        });
+
+        // a-audsb31e2 simplechallenges-P2-3: a piston that would take, put or destroy a block in a locked cell does not move
+        ALL.put("pistons_leave_locked_cells_alone", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos origin = h.absolutePos(BlockPos.ZERO);
+            int y = origin.getY() + 40, z = origin.getZ();
+            try {
+                UnlockGrid g = openBorderWorld(h, false);
+                int edge = edge(g, h);
+                // four lanes (z+2, +4, +6, +8), the first locked column is x = edge
+                level.setBlock(new BlockPos(edge - 1, y, z + 2), Blocks.STONE.defaultBlockState(), 2);
+                BlockPos lockedStone = new BlockPos(edge, y, z + 6);
+                level.getChunkAt(lockedStone).setBlockState(lockedStone, Blocks.STONE.defaultBlockState(), 0);
+                level.setBlock(new BlockPos(edge - 6, y, z + 8), Blocks.STONE.defaultBlockState(), 2);
+                check(h, !g.isFreeAtBlock(edge, z + 6) && g.isFreeAtBlock(edge - 1, z + 6), "border geometry");
+                // extending: the stone at edge-1 would be pushed into the locked column
+                check(h, !new PistonStructureResolver(level, new BlockPos(edge - 2, y, z + 2), Direction.EAST, true).resolve(), "no push into a locked cell");
+                // extending: the head would stand in the locked column
+                check(h, !new PistonStructureResolver(level, new BlockPos(edge - 1, y, z + 4), Direction.EAST, true).resolve(), "no piston head in a locked cell");
+                // retracting: the stone in the locked column would be pulled out (and copied)
+                check(h, !new PistonStructureResolver(level, new BlockPos(edge - 2, y, z + 6), Direction.EAST, false).resolve(), "no pull out of a locked cell");
+                // the same push inside the free area still works
+                check(h, new PistonStructureResolver(level, new BlockPos(edge - 7, y, z + 8), Direction.EAST, true).resolve(), "a push in free cells still works");
+            } finally {
+                closeBorderWorld(h, origin.offset(-20, 39, -2), origin.offset(60, 41, 8));
             }
             h.succeed();
         });

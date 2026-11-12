@@ -126,6 +126,21 @@ public final class ModuleGameTest {
         ChallengeTests.ALL.get("easter_eggs").accept(h);
     }
 
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void luckyInLockedCellGivesNothing(GameTestHelper h) {
+        ChallengeTests.ALL.get("lucky_in_locked_cell_gives_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void lockedCellsDropNothing(GameTestHelper h) {
+        ChallengeTests.ALL.get("locked_cells_drop_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void pistonsLeaveLockedCellsAlone(GameTestHelper h) {
+        ChallengeTests.ALL.get("pistons_leave_locked_cells_alone").accept(h);
+    }
+
     @GameTest(structure = "simplechallenges:empty", maxTicks = 100)
     public void guidePages(GameTestHelper h) {
         com.simplebuilding.modules.simplechallenges.guide.ChallengesGuide.gameTest(h);
