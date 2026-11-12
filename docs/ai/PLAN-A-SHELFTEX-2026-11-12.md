@@ -48,4 +48,39 @@ Lokal: Regal aus dem Jar pixelgleich zum alten PNG (beide Hölzer), `vanilla_der
 `precheck.py --fast`, Scan danach ohne Pixel-Fund. Java unverändert → kein sbt-Lauf nötig.
 
 ## Ergebnis
-(folgt)
+### Regale
+- Build-Ausgabe aus dem Jar = altes PNG, **0 Pixel verschieden** (Esche und Dämmer); texrate unverändert orange (hart 22,1 / 20,8 %,
+  Farben 59/52; Vanilla-Eichenregal orange 27,9 %, gemeißelt rot 37,9 %) – keine neue Gestaltung, darum keine A8c-Runden (Abweichung
+  vom Auftragstext „A8c-Runden“: es wurde nichts neu gezeichnet).
+- `vanilla_derived.py --module simpleend`: 22 Texturen aus dem Jar (vorher 20).
+
+### Herkunfts-Scan Simple End (`shelftex12 --scan --module simpleend`)
+- **Vorher** (b-bundle190, 659 PNGs; erste Fassung der Regeln): Fund = die 2 Regale (je 88 px exakt = End-Brett, 25 gleiche
+  8-px-Läufe). Weitere Treffer erwiesen sich als Fehlalarm und führten zu schärferen Regeln: Dämmerholz-Schild/-Hängeschild-Item
+  (24/25 gleiche Pixel – im Code mit denselben Brett-Tönen gezeichnet; mit Zufallsabzug 12/7, ≤ 1 Lauf), 81 Gemälde (Teil-Farbtausch
+  gegen zweitönige Banner-Muster/Rahmen-Ecken).
+- **Nachher** (dieser Branch, 657 PNGs, Lauf 1224 s): **0 Funde mit Mojang-Pixeln**, 11 „Form ansehen“ (Alpha-Umriss = Vanilla):
+  - `block/{ashwood,duskwood}_sign`, `block/{ashwood,duskwood}_hanging_sign` (Entity-UV-Netz) und
+    `minecraft:gui/signs|hanging_signs/simpleend_{ashwood,duskwood}`: Umriss beim Generieren aus Vanillas Sprite gelesen
+    (`modules/simpleend/tools/gen_textures.py vanilla_mask`), alle Farben eigen (`fill_wood`). Besitzer-Frage **F1** (A = lassen,
+    Empfehlung; B = auch diese 8 zur Build-Zeit).
+  - `item/duskwood_{sign,hanging_sign}`: im Code gezeichnet (b-music03 Variante B „Vanilla-Proportionen“, `ig3114.sign_item`),
+    Umriss dadurch gleich Vanilla; keine Vanilla-Pixel.
+  - `block/ashwood_trapdoor`: im Code gezeichnet, Lochbild ähnlich Eisenfalltür (Form 0,98).
+- **Gemälde**: alle 598 PNGs pixelgleich zur Ausgabe von `modules/simpleend/tools/gen_paintings.py` (zeichnet nur aus Code, liest
+  keine Datei) → Mojang-Pixel ausgeschlossen.
+- Gegenproben (Scratch, nicht im Repo): Farbtausch Tür/Apfel, Helligkeitsrang-Endstein → Fund 1,00; halb umgefärbtes Birkenbrett →
+  „ansehen“ (Teil 1,00); altes Regal → Fund.
+
+### Prüfungen
+Grün: `precheck.py --fast`, alle `modules/*/tools/check_data.py`, `check_dup_impl`, `check_tooltip_text`, `wiki/generate.py --all
+--check` (nach `--all`: `wiki/data/textures.js` Regale als abgeleitet, `tools/landing/discover.html` Item-Zahl 3178→3176 – die
+Zählung lag seit a-nihilplanks (SB-Lang-Einträge weg) im Bündel noch alt), `check_missing_textures` (0 Fehler), `layers.py check`
+(0 Probleme), `tools/textures/tests` (67 OK). Java unverändert → kein sbt-Lauf. Nicht geprüft: Client-Sicht (Optik pixelgleich).
+Gemeinsame Läufe auf sb-agent mit `nice`, Scan ~330 MB Spitze (Stapel je Größe, Hash-Index).
+
+### Offen
+- Besitzer: SHELFTEX (Regale ok/Einwand, F1) – Vorschau /root/sb-tools-a/previews/a-shelftex-preview.html.
+- Bei F1 = B: die 8 Schild-Texturen wie hier auf Build-Zeit umstellen (Umriss aus dem Jar, eigene Farben als Rezept).
+- Andere Module ohne diesen Teil-Scan (a-mojang08 prüfte nur ganze Bilder ≥ 0,90): `shelftex12 --scan --module <m>` je Modul
+  laufen lassen (z. B. SB-Kern-Generatoren, die aus abgeleiteten Texturen zusammensetzen).
