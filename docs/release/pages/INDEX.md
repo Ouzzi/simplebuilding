@@ -56,7 +56,7 @@
 | [Simple Animals](simpleanimals.md) | `simpleanimals` | Five new animals: deer, wild boar, hedgehog, crab and zebra, with low spawn rates and no block damage. | draft |
 | [Simple Dinosaurs](simpledinos.md) | `simpledinos` | Fossils, brushable dinosaur eggs and the first dinosaur: a rideable T. rex that hatches and grows up. | draft |
 | [Simple Ores](simpleores.md) | `simpleores` | Silver, Rose Copper, Rose Gold and Enderite with tools and armor, plus Dimensional Scrap and Sage Ore. | draft |
-| [Simple Machines](simplemachines.md) | `simplemachines` | Double Piston, Signal Dampener, upgraded pistons and faster filter hoppers with hopper minecarts. | draft |
+| [Simple Machines](simplemachines.md) | `simplemachines` | Double Piston, Signal Dampener, upgraded pistons, faster filter hoppers and carts, a Smither and an Auto Crafter. | draft |
 | [Simple Arrows](simplearrows.md) | `simplearrows` | Fletching Table, Light Arrow and Silver Arrow: build arrows from tip, shaft and fletching. | draft |
 | [Simple Resonance](simpleresonance.md) | `simpleresonance` | Player value, danger zones and spawn owners: an API and gameplay layer for experience-aware spawning. | draft |
 | [Simple Foundry](simplefoundry.md) | `simplefoundry` | A multiblock foundry for Simple Ovens: melt gold, copper and iron and pour it into casting trays. | draft |

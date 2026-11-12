@@ -4,13 +4,13 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Double Piston, Signal Dampener, upgraded pistons and faster filter hoppers with hopper minecarts.
+Double Piston, Signal Dampener, upgraded pistons, faster filter hoppers and carts, a Smither and an Auto Crafter.
 
 ## Description (Markdown)
 
 # Simple Machines
 
-Simple Machines adds the Double Piston, the Signal Dampener, Reinforced and Reinforced Sticky Pistons, Netherite and Enderite Pistons that break blocks, and Reinforced, Netherite and Enderite hoppers (2x/4x/8x faster, with an item filter) and hopper minecarts.
+Simple Machines adds the Double Piston, the Signal Dampener, Reinforced and Reinforced Sticky Pistons, Netherite and Enderite Pistons that break blocks, Reinforced, Netherite and Enderite hoppers (2x/4x/8x faster, with an item filter) and hopper minecarts, the Smither (smithing by redstone) and the Auto Crafter (crafts by itself into the hopper below).
 
 ## Features
 
@@ -26,7 +26,7 @@ Simple Machines adds the Double Piston, the Signal Dampener, Reinforced and Rein
 
 ## Vanilla use
 
-Gives redstone players stronger pistons, faster hoppers, a double piston and a signal dampener; Vanilla pistons and hoppers stay as they are, and the upgrades extend the piston logic by mixin.
+Gives redstone players stronger pistons, faster hoppers, a double piston, a signal dampener, a Smither and an Auto Crafter that needs no redstone clock (the Vanilla Crafter makes one item per pulse); Vanilla pistons, hoppers and the Crafter stay as they are. The Reinforced Piston moves one unbreakable block only when paid with a Redstone Block, the breaker pistons wear out and ask claim mods first; the upgrades extend the piston logic by mixin.
 
 ## Dependencies
 

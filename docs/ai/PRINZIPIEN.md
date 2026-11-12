@@ -411,6 +411,11 @@ Wolkenmeer über y 700 und Backrooms als eigene Dimension mit zehn Ebenen (Eing�
 Doppelkolben, Signaldämpfer, verstärkte/Netherit-/Enderit-Kolben, schnellere Trichter und Trichterloren, Schmied und Auto-Crafter.
 
 - **A12:** Nutzen: größere Redstone-Maschinen und schnellerer Itemtransport. Mixins an Kolben-Logik (Verschieben, Explosion, Rendern); Vanilla-Kolben und -Trichter bleiben. Eingriff in Vanilla: mittel (Kolben-Hooks), greifen nur bei den neuen Kolben.
+- **A12 je Teil (PLAN40 simplemachines-2, 12.11.):**
+  - *Auto-Crafter* – der Vanilla-Crafter stellt je Redstone-Puls genau ein Ergebnis her und wirft es aus; der Auto-Crafter arbeitet ohne Takt-Schaltung von selbst (alle 4 Ticks, solange ein Trichter darunter steht, ein Signal hält ihn an), legt Ergebnis und Reste direkt in diesen Trichter und hält mit dem Filter-Knopf je Platz ein Rezept-Item fest (A6). Mehrwert: Dauer-Fertigung ohne Redstone-Uhr und ohne Verlust des Rezepts. Eingriff: keiner, eigener Block, der Vanilla-Crafter bleibt unverändert.
+  - *Schmied* – Vanilla hat keinen automatischen Schmiedetisch; er schmiedet auf eine steigende Flanke (frühestens nach 4 Ticks wie der Crafter). Eingriff: keiner.
+  - *Verstärkter (klebriger) Kolben* – schiebt 18 statt 12 Blöcke und genau einen unzerstörbaren Block (Grundgestein, Verstärkter Tiefenschiefer), aber nur gegen einen verbrauchten Redstone-Block direkt am Kolben, nie Blöcke mit Block-Entity oder Portale, Endportalrahmen nur per Schalter (aus). Begründung: Vanilla lässt Grundgestein schon über Kolben-Tricks brechen; hier ist es planbar, kostet etwas und bleibt begrenzt. Eingriff: mittel (Mixin an der Schiebe-Prüfung), wirkt nur bei den eigenen Kolben.
+  - *Netherit-/Enderit-Kolben* – bauen den Block vor sich je nach Signalstärke ab: Komfort für Endgame-Bauer (Tunnel, Farmen), dafür nutzen sie sich wie Werkzeuge ab (Schalter), werden mit ihrem Klumpen repariert und fragen Claim-Mods vorher über das Abbau-Ereignis (Schalter `pistons.fireBreakEvents`, an). Eingriff: mittel, nur bei diesen Kolben.
 
 ### Simple Music (`simplemusic`)
 Notenblätter (Textcode, .txt/.nbs), Plattenpresse, hochgeladene Ogg-Platten, Taschen-Jukebox.
