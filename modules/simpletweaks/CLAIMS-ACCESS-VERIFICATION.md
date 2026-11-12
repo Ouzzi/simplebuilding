@@ -1,5 +1,7 @@
 # Claims stages 5 and 6 — verification
 
+> **Historical document** (2026-09-30/10-01, AUDSB31E1 note). Since 2026-10-13 claims are on by default (`ClaimConfig.DEFAULT`) and all stages are merged. Current behavior: `wiki/manual.json`; audit: `AUDIT.md`.
+
 Branch: `codex-next-claims-access`; base: `7422a3ab`.
 Stage 5: `4ac2875a` (bounded owner trust and explicit OP4 administration).
 Stage 6 is the separate commit containing this report; its hash is reported in the handoff response.

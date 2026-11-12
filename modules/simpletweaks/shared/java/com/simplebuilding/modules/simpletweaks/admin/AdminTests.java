@@ -58,6 +58,8 @@ public final class AdminTests {
         TESTS.put("restart_countdown", AdminTests::restart);
         TESTS.put("backup_zip_and_rotation", AdminTests::backup);
         TESTS.put("backup_stop_resumes_saving", AdminTests::backupStop);
+        TESTS.put("backup_prune_keeps_other_worlds", AdminTests::backupPruneOtherWorlds);
+        TESTS.put("lag_finder_ignores_other_threads", AdminTests::lagOtherThreads);
         TESTS.put("maintenance_login_and_motd", AdminTests::maintenance);
         TESTS.put("lag_finder_samples", AdminTests::lag);
         TESTS.put("unreadable_state_file_kept", h -> unreadableStateKept(h, AdminState.fileOf(h.getLevel().getServer()), () -> AdminState.load(h.getLevel().getServer())));
@@ -871,6 +873,45 @@ public final class AdminTests {
             h.assertTrue(LagFinder.clocks(1).contains(level.dimension().identifier() + "|" + (at.getX() >> 4) + "|" + (at.getZ() >> 4)), "Redstone clock hint: " + LagFinder.clocks(1));
             h.assertTrue(LagFinder.report(server, 1).size() >= 4, "Report lines");
         });
+    }
+
+    /** AUDSB31E1: a hook call from another thread (the single player client ticks its own block entities) is not counted. */
+    static void lagOtherThreads(GameTestHelper h) {
+        var level = h.getLevel();
+        var pos = h.absolutePos(new BlockPos(1, 2, 1));
+        var other = new Thread(() -> LagFinder.blockEntity(level, pos, "simpletweaks:audsb31e1_other_thread", 1000L), "audsb31e1-lag-probe");
+        other.start();
+        try { other.join(5000); } catch (InterruptedException e) { Thread.currentThread().interrupt(); throw new AssertionError(e); }
+        LagFinder.blockEntity(level, pos, "simpletweaks:audsb31e1_server_thread", 1000L);
+        var types = LagFinder.blockEntityTypes();
+        yes(h, !types.contains("simpletweaks:audsb31e1_other_thread"), "Another thread is not counted: " + types);
+        yes(h, types.contains("simpletweaks:audsb31e1_server_thread"), "The server thread is still counted: " + types);
+        h.succeed();
+    }
+
+    /** AUDSB31E1: two worlds share the backup folder; keeping 1 archive of "w" must not delete the archive of a world "w-2". */
+    static void backupPruneOtherWorlds(GameTestHelper h) {
+        Path dir = h.getLevel().getServer().getServerDirectory().resolve("gametest-prune-" + UUID.randomUUID().toString().substring(0, 8));
+        Path other = dir.resolve("w-2-20260101-000000.zip");
+        boolean otherKept, ownPruned;
+        try {
+            Files.createDirectories(dir);
+            for (int i = 1; i <= 3; i++) Files.writeString(dir.resolve("w-2026010" + i + "-000000.zip"), "x");
+            Files.writeString(other, "x");
+            var prune = Backups.class.getDeclaredMethod("prune", Path.class, String.class, int.class); prune.setAccessible(true);
+            prune.invoke(null, dir, "w-", 1);
+            otherKept = Files.exists(other);
+            ownPruned = Files.exists(dir.resolve("w-20260103-000000.zip")) && !Files.exists(dir.resolve("w-20260101-000000.zip"))
+                    && !Files.exists(dir.resolve("w-20260102-000000.zip"));
+        } catch (ReflectiveOperationException | java.io.IOException e) {
+            throw new AssertionError(e);
+        } finally {
+            try (var walk = Files.walk(dir)) { walk.sorted(Comparator.reverseOrder()).forEach(p -> p.toFile().delete()); }
+            catch (java.io.IOException ignored) { }
+        }
+        yes(h, otherKept, "The archive of the world w-2 stays");
+        yes(h, ownPruned, "Only the newest archive of w stays");
+        h.succeed();
     }
     private AdminTests() {}
 }

@@ -47,15 +47,23 @@ public final class LagFinder {
     }
 
     // ---- hooks (server thread)
+    /**
+     * AUDSB31E1: only the server thread counts. In single player the client thread ticks its own block entities through
+     * the same {@code Level.tickBlockEntities} hook; it would write into these plain maps at the same time as the server.
+     */
+    static boolean serverThread() { var s = Admin.server(); return s != null && s.isSameThread(); }
     public static void blockEntity(Level level, BlockPos pos, String type, long nanos) {
+        if (!serverThread()) return;
         add(BLOCK_ENTITIES, type, nanos);
         chunk(level, pos.getX() >> 4, pos.getZ() >> 4)[0] += nanos;
     }
     public static void entity(Entity e, long nanos) {
+        if (!serverThread()) return;
         add(ENTITIES, net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).toString(), nanos);
         chunk(e.level(), e.getBlockX() >> 4, e.getBlockZ() >> 4)[0] += nanos;
     }
     public static void changed(Level level, BlockPos pos, BlockState state) {
+        if (!serverThread()) return;
         if (state.hasProperty(BlockStateProperties.POWERED) || state.hasProperty(BlockStateProperties.POWER) || state.hasProperty(BlockStateProperties.LIT) && state.isSignalSource())
             chunk(level, pos.getX() >> 4, pos.getZ() >> 4)[1]++;
     }

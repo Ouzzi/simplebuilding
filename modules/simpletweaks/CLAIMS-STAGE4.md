@@ -1,5 +1,7 @@
 # Claims stage 4 continuation
 
+> **Historical document** (2026-09-30/10-01, AUDSB31E1 note). Since 2026-10-13 claims are on by default (`ClaimConfig.DEFAULT`) and all stages are merged. Current behavior: `wiki/manual.json`; audit: `AUDIT.md`.
+
 ## State and scope
 Continue existing `codex-next-claims` at `7422a3ab`. Retain and review all draft
 automation hooks and tests. Stages 1–3 are committed; stages 5/6 belong to the

@@ -174,10 +174,12 @@ public final class Backups {
             });
         }
     }
+    /** Name tail of our own archives after "{@code <world>-}" (AUDSB31E1: "w-" must not match the archives of a world "w-2"). */
+    private static final java.util.regex.Pattern STAMP = java.util.regex.Pattern.compile("\\d{8}-\\d{6}\\.zip");
     static void prune(Path dir, String prefix, int keep) throws IOException {
         List<Path> archives;
         try (var list = Files.list(dir)) {
-            archives = list.filter(p -> { var n = p.getFileName().toString(); return n.startsWith(prefix) && n.endsWith(".zip"); })
+            archives = list.filter(p -> { var n = p.getFileName().toString(); return n.startsWith(prefix) && STAMP.matcher(n.substring(prefix.length())).matches(); })
                     .sorted(Comparator.comparing((Path p) -> p.getFileName().toString()).reversed()).toList();
         }
         for (int i = keep; i < archives.size(); i++) Files.deleteIfExists(archives.get(i));

@@ -1,5 +1,7 @@
 # Claims stages 5 and 6 (2026-10-01)
 
+> **Historical document** (2026-09-30/10-01, AUDSB31E1 note). Since 2026-10-13 claims are on by default (`ClaimConfig.DEFAULT`) and all stages are merged. Current behavior: `wiki/manual.json`; audit: `AUDIT.md`.
+
 Base: 7422a3ab. Worktree branch only; no push, merge, agents, clients or ports.
 Stages 1–3 are present. Stage 4 belongs to a separate unmerged worker; completion
 is not established. Claims remain disabled by default and are not enabled-ready.

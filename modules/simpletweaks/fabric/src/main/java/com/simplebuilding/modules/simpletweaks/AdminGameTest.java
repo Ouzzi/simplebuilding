@@ -29,5 +29,7 @@ public final class AdminGameTest {
  @GameTest(maxTicks=1300) public void backupStopResumesSaving(GameTestHelper h) { AdminTests.TESTS.get("backup_stop_resumes_saving").accept(h); }
  @GameTest(maxTicks=100) public void maintenanceLoginAndMotd(GameTestHelper h) { AdminTests.TESTS.get("maintenance_login_and_motd").accept(h); }
  @GameTest(maxTicks=100) public void lagFinderSamples(GameTestHelper h) { AdminTests.TESTS.get("lag_finder_samples").accept(h); }
+ @GameTest(maxTicks=100) public void lagFinderIgnoresOtherThreads(GameTestHelper h) { AdminTests.TESTS.get("lag_finder_ignores_other_threads").accept(h); }
+ @GameTest(maxTicks=100) public void backupPruneKeepsOtherWorlds(GameTestHelper h) { AdminTests.TESTS.get("backup_prune_keeps_other_worlds").accept(h); }
  @GameTest(maxTicks=100) public void unreadableStateFileKept(GameTestHelper h) { AdminTests.TESTS.get("unreadable_state_file_kept").accept(h); }
 }
