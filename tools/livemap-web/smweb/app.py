@@ -25,6 +25,7 @@ ICON = REPO / "modules/simplelivemap/shared/resources/assets/simplelivemap/icon_
 MAX_FORM = 64 * 1024
 MAX_TILES_BODY = 8 * 1024 * 1024 + 1024
 MAX_WEBHOOK = 256 * 1024
+MAX_MANIFEST_BODY = 1024 * 1024
 ACCOUNT_PATHS = {"/login", "/register", "/forgot", "/reset", "/verify", "/logout", "/resend"}
 CSP = ("default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'self'; "
        "frame-ancestors 'none'; form-action 'self' {forms}; base-uri 'none'; object-src 'none'")
@@ -441,16 +442,21 @@ class App:
             except Problem as p:
                 ctx.error = ctx.problem_text(p)
                 return self.html(ctx, p.status, pages.connect_form(ctx, svc.usage(user), svc.tier(user), f, archived))
-            return self.html(ctx, 200, pages.connect_code(ctx, sec.pretty_code(code), until, sec.sha256(code)[:16]))
+            return self.html(ctx, 200, pages.connect_code(ctx, sec.pretty_code(code), until, self.code_ref(sec.sha256(code))))
         idx, until = svc.free_slot(user)
         return self.html(ctx, 200, pages.connect_form(ctx, svc.usage(user), svc.tier(user),
                                                       {"name": archived["name"] if archived else "", "visibility": archived["visibility"] if archived else "private"},
                                                       archived, slot_until=until if idx is None else 0))
 
+    def code_ref(self, code_hash: str) -> str:
+        """Handle of a code for the status poll: keyed with the server secret, so the page tells nothing about the code."""
+        return sec.hmac_hex(self.cfg.secret, "code-ref", code_hash)[:16]
+
     def connect_state(self, user, ref: str) -> dict:
         if not re.fullmatch(r"[0-9a-f]{16}", ref or ""):
             return {"state": "unknown"}
-        row = self.svc.db.one("SELECT * FROM codes WHERE user_id = ? AND substr(code_hash, 1, 16) = ?", user["id"], ref)
+        row = next((r for r in self.svc.db.all("SELECT * FROM codes WHERE user_id = ? ORDER BY created_at DESC LIMIT 20", user["id"])
+                    if sec.same(self.code_ref(r["code_hash"]), ref)), None)
         if not row:
             return {"state": "unknown"}
         if row["used_at"] is None:
@@ -608,7 +614,7 @@ class App:
                     raise Problem(415, "bad_request")
                 return self.json(200, svc.api_tiles(m, req.body))
             if name == "live" and req.method == "PUT":
-                if len(req.body) > 16 * 1024:
+                if len(req.body) > MAX_FORM:
                     raise Problem(413, "too_large")
                 return self.json(200, svc.api_live(m, parse_json(req.body)))
             if name == "disconnect" and req.method == "POST":
@@ -657,6 +663,8 @@ def parse_json(body: bytes):
 def body_limit(path: str) -> int:
     if path == "/api/v1/tiles":
         return MAX_TILES_BODY
+    if path == "/api/v1/manifest":
+        return MAX_MANIFEST_BODY   # up to 5000 entries of path + SHA-256 (the mod sends 2000 per call)
     if path == "/api/stripe/webhook":
         return MAX_WEBHOOK
     return MAX_FORM

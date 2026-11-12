@@ -21,7 +21,7 @@ PNG_SIG = b"\x89PNG\r\n\x1a\n"
 MAX_TILE = 256 * 1024
 MAX_ENTRIES = 512
 MAX_MANIFEST = 5000
-MAX_LIVE = 16 * 1024
+MAX_LIVE = 64 * 1024
 MAX_PLAYERS = 200
 LIVE_FRESH = 300                     # player positions older than this are not shown (server gone)
 

@@ -120,7 +120,7 @@ Fehler: 401 (Schlüssel unbekannt), 410 (Karte getrennt → Mod vergisst Zugang)
 
 - Plan-Abgleich: Abschnitt 4 Punkte 1–5 umgesetzt; Admin/„sofort fertig“, Stufen, erste 2 ohne Wartezeit, Self-Host-Sperre,
   connect-Befehl, Rechtsentwürfe (≥ 2 Runden, Protokoll in `docs/legal/README.md`), Deploy-Skript (nicht ausgeführt).
-- `python3 -m unittest discover -s tools/livemap-web/tests -t tools/livemap-web/tests`: **39 grün** (Python 3.13 und 3.12;
+- `python3 -m unittest discover -s tools/livemap-web/tests -t tools/livemap-web/tests`: **40 grün** (Python 3.13 und 3.12;
   f-Strings zusätzlich auf 3.11-Verträglichkeit geprüft).
 - `javac` der Modul-Klassen gegen das 26.3-Jar: nur der bekannte SimpleLib-AW-Fehler (`LibMaterials` StairBlock), sonst sauber.
 - Lokale Checks: precheck --fast grün, alle 60 `check_data.py` grün, `check_dup_impl` 0, `check_tooltip_text` OK,

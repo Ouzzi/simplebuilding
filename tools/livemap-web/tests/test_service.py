@@ -256,6 +256,12 @@ class UploadTests(Base):
         self.data = connect(self.c)
         self.key = self.data["key"]
 
+    def test_big_manifest_chunk(self):
+        tiles = {f"minecraft_overworld/4/{i % 70}/{i // 70}": "ab" * 32 for i in range(2000)}
+        st, d, _ = self.c.api("POST", "manifest", {"tiles": tiles, "done": False}, key=self.key)
+        self.assertEqual((st, len(d["need"])), (200, 2000), "a full chunk of the mod (2000)")
+        self.assertEqual(self.c.api("POST", "manifest", {"tiles": {f"a/4/{i}/0": "ab" * 32 for i in range(5001)}}, key=self.key)[0], 400)
+
     def test_preparation_to_ready(self):
         tiles = {TILE: png(1), "minecraft_overworld/0/0/0": png(2)}
         st, d, _ = self.c.api("POST", "manifest", {"tiles": {p: "0" * 64 for p in tiles}, "done": False}, key=self.key)
@@ -532,6 +538,9 @@ class DeployTemplateTests(unittest.TestCase):
             self.assertEqual(body.count("{"), body.count("}"), name + ": braces balanced")
         conf = (d / "nginx-smweb.conf.in").read_text(encoding="utf-8")
         self.assertIn("client_max_body_size 9m", conf, "tiles bodies fit (service limit 8 MiB)")
+        self.assertIn("location = /api/v1/manifest { client_max_body_size 1m", conf, "manifest chunks of the mod fit")
+        from smweb.app import body_limit
+        self.assertGreaterEqual(body_limit("/api/v1/manifest"), 5000 * 110, "5000 manifest entries fit")
         self.assertIn("X-Client-IP $sb_client_ip", (d / "nginx-smweb-proxy.conf.in").read_text(encoding="utf-8"))
         self.assertIn("simplemods-allow.conf", conf, "only the tunnel connector and loopback")
         sh = (d / "deploy_livemap_web.sh").read_text(encoding="utf-8")
