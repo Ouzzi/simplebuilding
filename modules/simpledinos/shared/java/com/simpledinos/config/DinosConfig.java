@@ -17,8 +17,8 @@ import java.util.List;
 public final class DinosConfig {
     public static final String FILE = "simpledinos-server.json";
     /** Every key of the file (wiki and check_data read this list). */
-    public static final List<String> KEYS = List.of("enabled", "brushSeconds", "incubateSeconds", "hatchSeconds", "growMinutes",
-            "trexBiteDamage");
+    public static final List<String> KEYS = List.of("enabled", "brushSeconds", "incubateSeconds", "hatchSeconds", "hatchWaitsForOwner",
+            "growMinutes", "trexBiteDamage");
 
     public static final int BRUSH_DEFAULT = 45, BRUSH_MIN = 5, BRUSH_MAX = 600;
     public static final int INCUBATE_DEFAULT = 300, INCUBATE_MIN = 10, INCUBATE_MAX = 3600;
@@ -33,6 +33,12 @@ public final class DinosConfig {
     public static int incubateSeconds = INCUBATE_DEFAULT;
     /** Seconds from a brooded egg to the hatchling (10 minutes = half a Minecraft day). */
     public static int hatchSeconds = HATCH_DEFAULT;
+    /**
+     * A brooded egg hatches only when its owner (the longest sitter) is online, in the egg's dimension and within 16 blocks
+     * (F12=B, owner 12.11.); off: the old rule, a stranger within 16 blocks gets the hatchling when the owner is offline.
+     * Without a known owner the old rule applies either way.
+     */
+    public static boolean hatchWaitsForOwner = true;
     /** Minutes a hatchling needs to grow up (40 = two Minecraft days). */
     public static int growMinutes = GROW_DEFAULT;
     /** Bite damage of an adult T. rex (before difficulty). */
@@ -77,6 +83,7 @@ public final class DinosConfig {
         brushSeconds = (int) clamp(number(json, "brushSeconds", BRUSH_DEFAULT), BRUSH_MIN, BRUSH_MAX);
         incubateSeconds = (int) clamp(number(json, "incubateSeconds", INCUBATE_DEFAULT), INCUBATE_MIN, INCUBATE_MAX);
         hatchSeconds = (int) clamp(number(json, "hatchSeconds", HATCH_DEFAULT), HATCH_MIN, HATCH_MAX);
+        hatchWaitsForOwner = bool(json, "hatchWaitsForOwner", true);
         growMinutes = (int) clamp(number(json, "growMinutes", GROW_DEFAULT), GROW_MIN, GROW_MAX);
         trexBiteDamage = clamp(number(json, "trexBiteDamage", BITE_DEFAULT), BITE_MIN, BITE_MAX);
     }
@@ -87,6 +94,7 @@ public final class DinosConfig {
         o.addProperty("brushSeconds", brushSeconds);
         o.addProperty("incubateSeconds", incubateSeconds);
         o.addProperty("hatchSeconds", hatchSeconds);
+        o.addProperty("hatchWaitsForOwner", hatchWaitsForOwner);
         o.addProperty("growMinutes", growMinutes);
         o.addProperty("trexBiteDamage", trexBiteDamage);
         return o;

@@ -56,7 +56,7 @@
         "summary": "One egg per dinosaur: T. rex, Triceratops, Stegosaurus, Utahraptor and Parasaurolophus. Place the egg, then sit on it with an empty hand (right click): after 5 minutes of sitting it is brooded, after 10 more minutes it hatches into a hatchling that belongs to the player who sat longest.",
         "details": [
           "Twelve visible brooding stages; standing up (sneak) makes the progress run back at twice the speed. A brooded egg does not run back, cracks now and then and shows three crack stages before it hatches.",
-          "The egg hatches only while a player is within 16 blocks, so it waits for you. Times: incubateSeconds (300) and hatchSeconds (600). No spawn egg exists.",
+          "A brooded egg hatches only for its owner (the player who sat longest): while the owner is offline, in another dimension or more than 16 blocks away it stays brooded and keeps cracking, without losing anything, and hatches as soon as the owner is back within 16 blocks. With hatchWaitsForOwner off, the old rule applies: an offline owner is replaced by the nearest player within 16 blocks. Times: incubateSeconds (300) and hatchSeconds (600). No spawn egg exists.",
           "Stage 1: only the T. rex hatches. The eggs of the other four dinosaurs can be placed and brooded, but stay eggs until their dinosaur is built."
         ]
       },
@@ -65,7 +65,7 @@
         "summary": "Ein Ei je Dinosaurier: T-Rex, Triceratops, Stegosaurus, Utahraptor und Parasaurolophus. Ei platzieren, mit leerer Hand daraufsetzen (Rechtsklick): nach 5 Minuten Sitzen ist es bebrütet, nach 10 weiteren Minuten schlüpft ein Jungtier, das dem Spieler gehört, der am längsten gesessen hat.",
         "details": [
           "Zwölf sichtbare Brutstufen; Aufstehen (Schleichen) lässt den Fortschritt doppelt so schnell zurücklaufen. Ein bebrütetes Ei läuft nicht mehr zurück, knackt ab und zu und zeigt vor dem Schlüpfen drei Rissstufen.",
-          "Das Ei schlüpft nur, wenn ein Spieler in 16 Blöcken ist, es wartet also auf dich. Zeiten: incubateSeconds (300) und hatchSeconds (600). Ein Spawn-Ei gibt es nicht.",
+          "Ein bebrütetes Ei schlüpft nur für seinen Besitzer (den Spieler, der am längsten gesessen hat): solange der Besitzer offline, in einer anderen Dimension oder weiter als 16 Blöcke weg ist, bleibt es bebrütet und knackt weiter, ohne etwas zu verlieren, und schlüpft, sobald der Besitzer wieder in 16 Blöcken ist. Mit hatchWaitsForOwner aus gilt die alte Regel: ein Besitzer, der offline ist, wird durch den nächsten Spieler in 16 Blöcken ersetzt. Zeiten: incubateSeconds (300) und hatchSeconds (600). Ein Spawn-Ei gibt es nicht.",
           "Stufe 1: Nur der T-Rex schlüpft. Die Eier der anderen vier Dinosaurier lassen sich platzieren und bebrüten, bleiben aber Eier, bis ihr Dinosaurier gebaut ist."
         ]
       }
@@ -129,7 +129,7 @@
         "summary": "config/simpledinos-server.json, read at start; every number is clamped to a safe range.",
         "details": [
           "enabled (true): off hides the module's creative entries and its guide; fossil blocks, eggs and dinosaurs that exist keep working.",
-          "brushSeconds (45, 5 to 600): seconds of brushing that free a fossil. incubateSeconds (300, 10 to 3600): seconds of sitting that brood an egg. hatchSeconds (600, 10 to 7200): seconds from a brooded egg to the hatchling.",
+          "brushSeconds (45, 5 to 600): seconds of brushing that free a fossil. incubateSeconds (300, 10 to 3600): seconds of sitting that brood an egg. hatchSeconds (600, 10 to 7200): seconds from a brooded egg to the hatchling. hatchWaitsForOwner (true): the egg hatches only when its owner is online, in the same dimension and within 16 blocks; off: a nearby stranger gets the hatchling when the owner is offline.",
           "growMinutes (40, 1 to 600): minutes a hatchling needs to grow up. trexBiteDamage (10, 1 to 40): bite damage of an adult T. rex.",
           "With SimpleBuilding the switch Enable Simple Dinosaurs in its config turns the bundled module on or off."
         ]
@@ -139,7 +139,7 @@
         "summary": "config/simpledinos-server.json, beim Start gelesen; jede Zahl wird auf einen sicheren Bereich begrenzt.",
         "details": [
           "enabled (true): aus blendet die Kreativ-Einträge und das Handbuch des Moduls aus; vorhandene Fossilienblöcke, Eier und Dinosaurier funktionieren weiter.",
-          "brushSeconds (45, 5 bis 600): Sekunden Pinseln, die einen Fund freilegen. incubateSeconds (300, 10 bis 3600): Sekunden Sitzen, die ein Ei ausbrüten. hatchSeconds (600, 10 bis 7200): Sekunden vom bebrüteten Ei bis zum Jungtier.",
+          "brushSeconds (45, 5 bis 600): Sekunden Pinseln, die einen Fund freilegen. incubateSeconds (300, 10 bis 3600): Sekunden Sitzen, die ein Ei ausbrüten. hatchSeconds (600, 10 bis 7200): Sekunden vom bebrüteten Ei bis zum Jungtier. hatchWaitsForOwner (true): das Ei schlüpft nur, wenn sein Besitzer online, in derselben Dimension und in 16 Blöcken ist; aus: ein Fremder in der Nähe bekommt das Jungtier, wenn der Besitzer offline ist.",
           "growMinutes (40, 1 bis 600): Minuten, die ein Jungtier zum Erwachsenwerden braucht. trexBiteDamage (10, 1 bis 40): Bissschaden eines erwachsenen T-Rex.",
           "Mit SimpleBuilding schaltet der Schalter Simple Dinosaurs aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
@@ -1014,7 +1014,27 @@
     }
   ],
   "trades": [],
-  "config": [],
+  "config": [
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
+      "name": "hatchWaitsForOwner",
+      "shortName": "hatchWaitsForOwner",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Dinosaurs",
+      "categoryDe": "Simple Dinosaurs",
+      "group": null,
+      "groupDe": null,
+      "label": "Hatch waits for the owner",
+      "labelDe": "Schlüpfen wartet auf den Besitzer",
+      "tooltip": "A brooded egg hatches only when its owner (the\nlongest sitter) is online, in the same dimension and\nwithin 16 blocks. Off: a player nearby gets the\nhatchling if the owner is offline. Default: true.",
+      "tooltipDe": "Ein bebrütetes Ei schlüpft nur, wenn sein Besitzer\n(der längste Sitzer) online, in derselben Dimension\nund in 16 Blöcken ist. Aus: ein Spieler in der Nähe\nbekommt das Jungtier, wenn der Besitzer offline ist.\nStandard: true."
+    }
+  ],
   "quests": [],
   "recipesOtherLines": [],
   "inWorld": {
@@ -1036,7 +1056,7 @@
     "items": 5,
     "blocks": 6,
     "trades": 0,
-    "config": 0,
+    "config": 1,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

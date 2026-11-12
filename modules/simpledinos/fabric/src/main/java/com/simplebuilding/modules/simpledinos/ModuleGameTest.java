@@ -69,6 +69,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void eggWaitsForOwner(GameTestHelper h) {
+        DinosTests.ALL.get("egg_waits_for_owner").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
     public void eggWaitsWithoutPlayers(GameTestHelper h) {
         DinosTests.ALL.get("egg_waits_without_players").accept(h);
     }

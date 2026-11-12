@@ -84,6 +84,13 @@ public final class DinosTests {
         return (FossilBlockEntity) h.getLevel().getBlockEntity(h.absolutePos(rel));
     }
 
+    /** Broods the egg with {@code sitter} as the only sitter (time as game-time stamps). */
+    private static void brood(ServerLevel level, DinoEggBlockEntity be, UUID sitter) {
+        long t = 3000;
+        be.advance(level, t, null);
+        while (!be.brooded() && t < 3000 + 8000) be.advance(level, t += 40, sitter);
+    }
+
     private static DinoEggBlockEntity egg(GameTestHelper h, BlockPos rel) {
         h.setBlock(rel, DinosRegistry.EGGS.get(DinoKind.TREX));
         return (DinoEggBlockEntity) h.getLevel().getBlockEntity(h.absolutePos(rel));
@@ -317,6 +324,64 @@ public final class DinosTests {
             Vec3 c = Vec3.atCenterOf(h.absolutePos(pos));
             if (level.getNearestPlayer(c.x, c.y, c.z, 16.0, false) == null) {
                 h.assertTrue(h.getBlockState(pos).is(DinosRegistry.EGGS.get(DinoKind.TREX)), "no player near: the egg waits");
+            }
+            h.succeed();
+        });
+        // F12=B (owner 12.11.): with hatchWaitsForOwner a brooded egg hatches only for its owner (online, here, within 16 blocks)
+        ALL.put("egg_waits_for_owner", h -> {
+            ServerLevel level = h.getLevel();
+            var trexEgg = DinosRegistry.EGGS.get(DinoKind.TREX);
+            try {
+                h.assertTrue(DinosConfig.hatchWaitsForOwner, "on by default");
+                DinosConfig.hatchWaitsForOwner = true;
+                ServerPlayer owner = player(h, 18, 1);    // 17 blocks from the egg at (1, 1): out of reach
+                ServerPlayer stranger = player(h, 3, 3);  // close to every egg below
+                BlockPos waitsFar = at(1, 1), waitsOffline = at(1, 8), strangerGets = at(8, 8);
+                DinoEggBlockEntity far = egg(h, waitsFar);
+                brood(level, far, owner.getUUID());
+                DinoEggBlockEntity offline = egg(h, waitsOffline);
+                brood(level, offline, UUID.randomUUID()); // an owner who is not online
+                h.assertTrue(far.brooded() && offline.brooded(), "both eggs are brooded");
+                long hatchAt = far.hatchAt();
+                int total = DinosConfig.incubateTicks();
+                far.advance(level, hatchAt + 10, null);
+                offline.advance(level, offline.hatchAt() + 10, null);
+                h.assertTrue(h.getBlockState(waitsFar).is(trexEgg), "the owner is online but 17 blocks away: the egg waits although a stranger is near");
+                h.assertTrue(h.getBlockState(waitsOffline).is(trexEgg), "the owner is offline: the egg waits although a stranger is near");
+                h.assertTrue(far.brooded() && far.hatchAt() == hatchAt && far.progressState().value() == total
+                        && h.getBlockState(waitsFar).getValue(DinoEggBlock.PHASE) == 14, "still brooded, nothing lost, cracked as far as it gets");
+                h.assertTrue(level.getEntitiesOfClass(Trex.class, new AABB(h.absolutePos(waitsFar)).inflate(3.0)).isEmpty(), "nobody hatched");
+                // the owner comes close: now it hatches, for the owner
+                Vec3 near = h.absoluteVec(new Vec3(2.5, 1.0, 2.5));
+                owner.setPos(near.x, near.y, near.z);
+                far.advance(level, hatchAt + 20, null);
+                h.assertTrue(h.getBlockState(waitsFar).isAir(), "the owner is back within 16 blocks: it hatches");
+                var found = level.getEntitiesOfClass(Trex.class, new AABB(h.absolutePos(waitsFar)).inflate(3.0));
+                h.assertTrue(found.size() == 1 && found.get(0).getOwner() != null && found.get(0).getOwner().getUUID().equals(owner.getUUID()),
+                        "the hatchling belongs to the owner, not to the stranger");
+                found.get(0).discard();
+                h.assertTrue(h.getBlockState(waitsOffline).is(trexEgg), "the egg of the offline owner is still waiting");
+                // option off: the old rule, the stranger within 16 blocks gets the hatchling (the owner is away again: the stranger is the nearest)
+                Vec3 away = h.absoluteVec(new Vec3(18.5, 1.0, 1.5));
+                owner.setPos(away.x, away.y, away.z);
+                DinosConfig.hatchWaitsForOwner = false;
+                offline.advance(level, offline.hatchAt() + 30, null);
+                h.assertTrue(h.getBlockState(waitsOffline).isAir(), "option off: the offline owner's egg hatches for the player nearby");
+                var taken = level.getEntitiesOfClass(Trex.class, new AABB(h.absolutePos(waitsOffline)).inflate(3.0));
+                h.assertTrue(taken.size() == 1 && taken.get(0).getOwner() != null && taken.get(0).getOwner().getUUID().equals(stranger.getUUID()),
+                        "option off: the stranger gets the hatchling");
+                taken.get(0).discard();
+                // option off and the owner online but far away: the owner still gets it (as before, any distance)
+                DinoEggBlockEntity anywhere = egg(h, strangerGets);
+                ServerPlayer remote = player(h, 30, 8); // 22 blocks from the egg
+                brood(level, anywhere, remote.getUUID());
+                anywhere.advance(level, anywhere.hatchAt() + 10, null);
+                var remoteBaby = level.getEntitiesOfClass(Trex.class, new AABB(h.absolutePos(strangerGets)).inflate(3.0));
+                h.assertTrue(remoteBaby.size() == 1 && remoteBaby.get(0).getOwner() != null && remoteBaby.get(0).getOwner().getUUID().equals(remote.getUUID()),
+                        "option off: the old rule for an online owner stays");
+                remoteBaby.get(0).discard();
+            } finally {
+                DinosConfig.reset();
             }
             h.succeed();
         });
