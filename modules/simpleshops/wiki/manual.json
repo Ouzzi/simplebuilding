@@ -79,23 +79,23 @@
       ],
       "en": {
         "title": "Shop Music",
-        "summary": "Put a music disc into your Sales Block and the shop plays it as a loop while players are near. Any disc that a jukebox plays works; Simple Music adds three relaxed shop discs.",
+        "summary": "Put a music disc into your Sales Block and the shop plays it as a loop while players are near. Any disc that a jukebox plays works; Simple Music adds four relaxed shop discs, each with an A- and a B-side.",
         "details": [
           "The disc slot is the last slot of the first row in the owner menu (a disc outline when empty). Like a jukebox: a disc in the slot plays, taken out it stops. The owner can also right click the Sales Block with a disc while the slot is empty.",
           "The disc belongs to this shop only and drops when the block is removed. In the menu without a Display Case, shift click moves a disc from the inventory into the slot.",
           "Only players near the shop hear it (24 blocks by default, full at the shop, quieter with distance) on the Jukebox/Note Blocks volume slider. Nothing plays when no player is in reach; the server sends only the disc and its start time.",
-          "Several shops with the same disc within 64 blocks play in step as one piece: you hear it from the shop nearest to you, and every further shop widens the reach by 50 % (at most 2.5 times), like SimpleBuilding's amplifiers.",
+          "Several shops with the same piece within 64 blocks play in step (the two sides of a disc are two pieces): you hear it from the shop nearest to you, and every further shop widens the reach by 50 % (at most 2.5 times), like SimpleBuilding's amplifiers.",
           "Shops with different discs: your client plays only the nearest shop in reach and switches with a short fade when you walk to another one. Music notes rise above the playing shops."
         ]
       },
       "de": {
         "title": "Ladenmusik",
-        "summary": "Leg eine Schallplatte in deinen Verkaufsblock, und der Shop spielt sie als Schleife, solange Spieler in der Nähe sind. Jede Platte, die eine Jukebox spielt, geht; Simple Music bringt drei entspannte Laden-Platten mit.",
+        "summary": "Leg eine Schallplatte in deinen Verkaufsblock, und der Shop spielt sie als Schleife, solange Spieler in der Nähe sind. Jede Platte, die eine Jukebox spielt, geht; Simple Music bringt vier entspannte Laden-Platten mit, jede mit A- und B-Seite.",
         "details": [
           "Der Plattenplatz ist der letzte Platz der ersten Zeile im Besitzer-Menü (leer mit Platten-Umriss). Wie bei der Jukebox: eine Platte im Platz spielt, herausgenommen ist Ruhe. Der Besitzer kann den Verkaufsblock auch mit einer Platte in der Hand rechtsklicken, solange der Platz leer ist.",
           "Die Platte gehört nur zu diesem Shop und fällt beim Abbau des Blocks heraus. Im Menü ohne Vitrine legt Umschalt-Klick eine Platte aus dem Inventar in den Platz.",
           "Nur Spieler in der Nähe hören sie (Standard 24 Blöcke, am Shop voll, mit Abstand leiser), über den Lautstärkeregler Plattenspieler/Notenblöcke. Ohne Spieler in Reichweite spielt nichts; der Server schickt nur die Platte und ihren Startzeitpunkt.",
-          "Mehrere Shops mit derselben Platte im Umkreis von 64 Blöcken spielen im Takt als ein Stück: du hörst es vom Shop, der dir am nächsten ist, und jeder weitere Shop vergrößert die Reichweite um 50 % (höchstens das 2,5-Fache), wie die Verstärker von SimpleBuilding.",
+          "Mehrere Shops mit demselben Stück im Umkreis von 64 Blöcken spielen im Takt (die zwei Seiten einer Platte sind zwei Stücke): du hörst es vom Shop, der dir am nächsten ist, und jeder weitere Shop vergrößert die Reichweite um 50 % (höchstens das 2,5-Fache), wie die Verstärker von SimpleBuilding.",
           "Shops mit verschiedenen Platten: dein Client spielt nur den nächsten Shop in Reichweite und wechselt mit kurzem Überblenden, wenn du zu einem anderen gehst. Über spielenden Shops steigen Musiknoten auf."
         ]
       }
@@ -396,10 +396,10 @@
         "modules/simpleshops/shared/resources/data/simpleshops/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Shops\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: emerald. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Shops\" of the Simple Modpack guide (SimpleLib): 21 pages taken from this wiki, shown in your language. Unlocked by picking up: emerald. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Shops\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Smaragd. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Shops\" im Simple-Modpack-Handbuch (SimpleLib): 21 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Smaragd. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleshops:sales_storage": {

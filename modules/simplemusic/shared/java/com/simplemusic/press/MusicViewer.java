@@ -27,7 +27,10 @@ public final class MusicViewer {
         RecipeViewer.info(SimpleMusic.MOD_ID, MusicViewer::discPages);
     }
 
-    /** The music discs (six structure discs, three village shop discs): no recipe, only one structure's chests (or its brushed gravel) - an info page each. */
+    /**
+     * The music discs (six structure discs, four village shop discs): no recipe, only one structure's chests (or its brushed gravel) -
+     * an info page each; a B-side's page says it comes from turning the A-side over (a-shopmusic37b).
+     */
     public static List<RecipeViewer.Info> discPages() {
         List<RecipeViewer.Info> out = new ArrayList<>();
         var discs = com.simplemusic.disc.MusicDiscs.DISCS;
@@ -36,6 +39,8 @@ public final class MusicViewer {
             var disc = discs.get(i);
             out.add(new RecipeViewer.Info(List.of(new ItemStack(items.get(i))), List.of(Component.translatable(
                     NOTE + (disc.archaeology() ? "disc_brushed" : "disc_chest"), disc.table().identifier().toString(), disc.weight()))));
+            var b = com.simplemusic.disc.MusicDiscs.bSide(disc);
+            if (b != null) out.add(new RecipeViewer.Info(List.of(new ItemStack(b)), List.of(Component.translatable(NOTE + "disc_b_side"))));
         }
         return out;
     }
@@ -67,6 +72,15 @@ public final class MusicViewer {
                 List.of(InWorldUpgrade.Input.of(MusicRegistry.SHEET_MUSIC, 1), InWorldUpgrade.Input.of(MusicRegistry.SHEET_MUSIC, 1)),
                 List.of(Items.CARTOGRAPHY_TABLE), new ItemStack(MusicRegistry.SHEET_MUSIC),
                 List.of(Component.translatable(NOTE + "copy"), Component.translatable(NOTE + "copy_slots"))));
+        // a-shopmusic37b: turning a sided disc over (right click with it in hand), no tool
+        var discs = com.simplemusic.disc.MusicDiscs.DISCS;
+        var items = com.simplemusic.disc.MusicDiscs.ITEMS;
+        for (int i = 0; i < Math.min(discs.size(), items.size()); i++) {
+            var b = com.simplemusic.disc.MusicDiscs.bSide(discs.get(i));
+            if (b == null) continue;
+            out.add(new InWorldUpgrade("simplemusic/turn_" + discs.get(i).id(), List.of(InWorldUpgrade.Input.of(items.get(i), 1)), List.of(),
+                    new ItemStack(b), List.of(Component.translatable(NOTE + "turn"), Component.translatable(NOTE + "turn_back"))));
+        }
         return out;
     }
 }

@@ -1,0 +1,10 @@
+{
+  "comparator_output": 2,
+  "description": {
+    "translate": "jukebox_song.simplemusic.browsing_bossa_b_side"
+  },
+  "length_in_seconds": 52.8,
+  "sound_event": {
+    "sound_id": "simplemusic:music_disc.browsing_bossa_b_side"
+  }
+}

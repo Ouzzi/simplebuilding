@@ -261,6 +261,9 @@ VLABELS = {
     'wave': {(6, 6): 'l', (7, 6): 'l', (8, 6): 'm', (5, 7): 'm', (6, 7): 'm', (8, 7): 'm', (9, 7): 'd', (6, 8): 'd', (7, 8): 'd', (8, 8): 'm'},
     'coin': {(6, 6): 'l', (7, 6): 'l', (8, 6): 'm', (5, 7): 'l', (6, 7): 'm', (8, 7): 'm', (9, 7): 'm', (6, 8): 'm', (7, 8): 'm', (8, 8): 'd'},
     'awning': {(6, 6): 'm', (7, 6): 'l', (8, 6): 'm', (5, 7): 'l', (6, 7): 'm', (8, 7): 'm', (9, 7): 'l', (6, 8): 'd', (7, 8): 'l', (8, 8): 'd'},
+    # a-shopmusic37b: Bargain Bin - a price tag (light top edge, dark string tip on the left, shadow corner); 3 rounds
+    # (a diagonal 'sale' stripe was 13.3 % hard, a cream tag gave no visible B-side, red vs. lime: lime, the only green disc)
+    'tag': {(6, 6): 'l', (7, 6): 'l', (8, 6): 'm', (5, 7): 'd', (6, 7): 'm', (8, 7): 'm', (9, 7): 'm', (6, 8): 'm', (7, 8): 'm', (8, 8): 'd'},
 }
 # name -> (label shape, (main, dark, light), body tint); 'blank_disc' is the grey blank with grooves and a paper label (owner: variant C)
 VDISCS = {
@@ -273,10 +276,17 @@ VDISCS = {
     'music_disc_browsing_bossa': ('wave', ((228, 140, 66), (36, 128, 116), (250, 210, 140)), (36, 84, 78)),
     'music_disc_coin_lounge': ('coin', ((228, 180, 56), (148, 100, 30), (255, 240, 156)), (74, 38, 46)),
     'music_disc_window_shopping': ('awning', ((212, 64, 66), (148, 38, 46), (246, 236, 216)), (40, 54, 86)),
+    'music_disc_bargain_bin': ('tag', ((132, 196, 72), (60, 120, 52), (236, 246, 196)), (96, 78, 40)),
     'custom_disc': ('full', ((152, 98, 204), (102, 62, 152), (222, 194, 242)), (62, 54, 72)),
     'custom_disc_composed': ('note', ((234, 224, 198), (62, 52, 46), (252, 248, 234)), (68, 64, 60)),
     'blank_disc': ('paper', ((236, 232, 220), (206, 200, 186), (252, 250, 242)), (142, 142, 148)),
 }
+# a-shopmusic37b: the B-side of a shop disc is the same disc with the label's main and light tones swapped ("inverted" like
+# SimpleBuilding's B-sides). Round 1 also tried main <-> dark: Window Shopping stayed too close to its A-side (colour distance 43
+# against 185) and Browsing Bossa's teal label sank into the teal vinyl; main <-> light is visible on all four, texrate green.
+for _name in ('browsing_bossa', 'coin_lounge', 'window_shopping', 'bargain_bin'):
+    _shape, (_main, _dark, _light), _body = VDISCS['music_disc_' + _name]
+    VDISCS['music_disc_' + _name + '_b_side'] = (_shape, (_light, _dark, _main), _body)
 
 
 def _lum(c):

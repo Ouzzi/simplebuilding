@@ -11,6 +11,10 @@
     {
       "id": "simplemusic:wandering_trader/emerald_music_disc_window_shopping",
       "required": false
+    },
+    {
+      "id": "simplemusic:wandering_trader/emerald_music_disc_bargain_bin",
+      "required": false
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "comparator_output": 7,
+  "description": {
+    "translate": "jukebox_song.simplemusic.bargain_bin_b_side"
+  },
+  "length_in_seconds": 120.64,
+  "sound_event": {
+    "sound_id": "simplemusic:music_disc.bargain_bin_b_side"
+  }
+}

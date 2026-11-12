@@ -403,6 +403,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void shopMusicPerSide(GameTestHelper h) {
+        ShopsTests.ALL.get("shop_music_per_side").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void shopMusicDropsDisc(GameTestHelper h) {
         ShopsTests.ALL.get("shop_music_drops_disc").accept(h);
     }

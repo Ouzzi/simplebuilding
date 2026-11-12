@@ -9,7 +9,7 @@
       "title": "simpleshops.guide.chapter",
       "icon": "minecraft:emerald",
       "page_key": "simpleshops.guide.page",
-      "pages": 20,
+      "pages": 21,
       "advancement": "simpleshops:guide/chapter",
       "hint": "minecraft:emerald"
     }
