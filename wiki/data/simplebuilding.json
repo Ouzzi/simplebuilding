@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 485,
+      "count": 488,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -2932,6 +2932,8 @@
         "simplebuilding:astral_purpur_slab_from_astral_purpur_block_stonecutting",
         "simplebuilding:astral_purpur_stairs",
         "simplebuilding:astral_purpur_stairs_from_astral_purpur_block_stonecutting",
+        "simplebuilding:astral_purpur_wall",
+        "simplebuilding:astral_purpur_wall_from_astral_purpur_block_stonecutting",
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting"
       ],
       "trades": [],
@@ -2986,6 +2988,22 @@
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/astral_purpur_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_purpur_wall",
+      "name": {
+        "en_us": "Astral Purpur Wall",
+        "de_de": "Astral-Purpurmauer"
+      },
+      "texture": "assets/textures/block/astral_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:astral_purpur_wall",
+        "simplebuilding:astral_purpur_wall_from_astral_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_purpur_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -7733,6 +7751,8 @@
         "simplebuilding:ender_purpur_slab_from_ender_purpur_block_stonecutting",
         "simplebuilding:ender_purpur_stairs",
         "simplebuilding:ender_purpur_stairs_from_ender_purpur_block_stonecutting",
+        "simplebuilding:ender_purpur_wall",
+        "simplebuilding:ender_purpur_wall_from_ender_purpur_block_stonecutting",
         "simplebuilding:polished_ender_quartz_from_ender_purpur_block_stonecutting"
       ],
       "trades": [],
@@ -7787,6 +7807,22 @@
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/ender_purpur_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_wall",
+      "name": {
+        "en_us": "Ender Purpur Wall",
+        "de_de": "Ender-Purpurmauer"
+      },
+      "texture": "assets/textures/block/ender_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_wall",
+        "simplebuilding:ender_purpur_wall_from_ender_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -13806,6 +13842,8 @@
         "simplebuilding:nihil_purpur_slab_from_nihil_purpur_block_stonecutting",
         "simplebuilding:nihil_purpur_stairs",
         "simplebuilding:nihil_purpur_stairs_from_nihil_purpur_block_stonecutting",
+        "simplebuilding:nihil_purpur_wall",
+        "simplebuilding:nihil_purpur_wall_from_nihil_purpur_block_stonecutting",
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting"
       ],
       "trades": [],
@@ -13860,6 +13898,22 @@
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/nihil_purpur_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_wall",
+      "name": {
+        "en_us": "Nihil Purpur Wall",
+        "de_de": "Nihil-Purpurmauer"
+      },
+      "texture": "assets/textures/block/nihil_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:nihil_purpur_wall",
+        "simplebuilding:nihil_purpur_wall_from_nihil_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -24085,6 +24139,8 @@
         "simplebuilding:astral_purpur_slab_from_astral_purpur_block_stonecutting",
         "simplebuilding:astral_purpur_stairs",
         "simplebuilding:astral_purpur_stairs_from_astral_purpur_block_stonecutting",
+        "simplebuilding:astral_purpur_wall",
+        "simplebuilding:astral_purpur_wall_from_astral_purpur_block_stonecutting",
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting"
       ],
       "trades": [],
@@ -24154,6 +24210,26 @@
       "lootTable": "simplebuilding:blocks/astral_purpur_stairs",
       "drops": [
         "simplebuilding:astral_purpur_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_purpur_wall",
+      "name": {
+        "en_us": "Astral Purpur Wall",
+        "de_de": "Astral-Purpurmauer"
+      },
+      "texture": "assets/textures/block/astral_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:astral_purpur_wall",
+        "simplebuilding:astral_purpur_wall_from_astral_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_purpur_wall.png",
+      "lootTable": "simplebuilding:blocks/astral_purpur_wall",
+      "drops": [
+        "simplebuilding:astral_purpur_wall"
       ],
       "hasCustomBehaviour": false
     },
@@ -27472,6 +27548,8 @@
         "simplebuilding:ender_purpur_slab_from_ender_purpur_block_stonecutting",
         "simplebuilding:ender_purpur_stairs",
         "simplebuilding:ender_purpur_stairs_from_ender_purpur_block_stonecutting",
+        "simplebuilding:ender_purpur_wall",
+        "simplebuilding:ender_purpur_wall_from_ender_purpur_block_stonecutting",
         "simplebuilding:polished_ender_quartz_from_ender_purpur_block_stonecutting"
       ],
       "trades": [],
@@ -27541,6 +27619,26 @@
       "lootTable": "simplebuilding:blocks/ender_purpur_stairs",
       "drops": [
         "simplebuilding:ender_purpur_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_purpur_wall",
+      "name": {
+        "en_us": "Ender Purpur Wall",
+        "de_de": "Ender-Purpurmauer"
+      },
+      "texture": "assets/textures/block/ender_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_purpur_wall",
+        "simplebuilding:ender_purpur_wall_from_ender_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_purpur_wall.png",
+      "lootTable": "simplebuilding:blocks/ender_purpur_wall",
+      "drops": [
+        "simplebuilding:ender_purpur_wall"
       ],
       "hasCustomBehaviour": false
     },
@@ -30819,6 +30917,8 @@
         "simplebuilding:nihil_purpur_slab_from_nihil_purpur_block_stonecutting",
         "simplebuilding:nihil_purpur_stairs",
         "simplebuilding:nihil_purpur_stairs_from_nihil_purpur_block_stonecutting",
+        "simplebuilding:nihil_purpur_wall",
+        "simplebuilding:nihil_purpur_wall_from_nihil_purpur_block_stonecutting",
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting"
       ],
       "trades": [],
@@ -30888,6 +30988,26 @@
       "lootTable": "simplebuilding:blocks/nihil_purpur_stairs",
       "drops": [
         "simplebuilding:nihil_purpur_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_wall",
+      "name": {
+        "en_us": "Nihil Purpur Wall",
+        "de_de": "Nihil-Purpurmauer"
+      },
+      "texture": "assets/textures/block/nihil_purpur_block.png",
+      "craftedBy": [
+        "simplebuilding:nihil_purpur_wall",
+        "simplebuilding:nihil_purpur_wall_from_nihil_purpur_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_wall.png",
+      "lootTable": "simplebuilding:blocks/nihil_purpur_wall",
+      "drops": [
+        "simplebuilding:nihil_purpur_wall"
       ],
       "hasCustomBehaviour": false
     },
@@ -36617,6 +36737,80 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/astral_purpur_stairs_from_astral_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astral_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_purpur_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_purpur_wall",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_purpur_wall.json",
+      "ingredients": [
+        "simplebuilding:astral_purpur_block"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astral_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_purpur_wall_from_astral_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_purpur_wall",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_purpur_wall_from_astral_purpur_block_stonecutting.json",
       "ingredients": [
         "simplebuilding:astral_purpur_block"
       ],
@@ -44834,6 +45028,96 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_stairs_from_ender_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.062
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_purpur_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_wall",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_wall.json",
+      "ingredients": [
+        "simplebuilding:ender_purpur_block"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_purpur_wall_from_ender_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_purpur_wall",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_purpur_wall_from_ender_purpur_block_stonecutting.json",
       "ingredients": [
         "simplebuilding:ender_purpur_block"
       ],
@@ -54322,6 +54606,80 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_purpur_stairs_from_nihil_purpur_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihil_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_purpur_wall",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_purpur_wall.json",
+      "ingredients": [
+        "simplebuilding:nihil_purpur_block"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihil_purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_wall_from_nihil_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_purpur_wall",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_purpur_wall_from_nihil_purpur_block_stonecutting.json",
       "ingredients": [
         "simplebuilding:nihil_purpur_block"
       ],
@@ -78253,6 +78611,24 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_stairs.json"
     },
     {
+      "id": "simplebuilding:blocks/astral_purpur_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_purpur_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_wall.json"
+    },
+    {
       "id": "simplebuilding:blocks/astral_rail",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -79678,6 +80054,24 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_purpur_stairs.json"
     },
     {
+      "id": "simplebuilding:blocks/ender_purpur_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_purpur_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_purpur_wall.json"
+    },
+    {
       "id": "simplebuilding:blocks/ender_quartz_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -80976,6 +81370,24 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_stairs.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_purpur_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_purpur_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_wall.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_rail",
@@ -108025,10 +108437,10 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 485,
-    "blocks": 278,
-    "recipes": 801,
-    "lootTables": 297,
+    "items": 488,
+    "blocks": 281,
+    "recipes": 807,
+    "lootTables": 300,
     "trades": 20,
     "enchantments": 9,
     "tags": 53,

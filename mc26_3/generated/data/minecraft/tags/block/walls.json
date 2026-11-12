@@ -1,8 +1,11 @@
 {
   "values": [
     "simplebuilding:astral_end_stone_wall",
+    "simplebuilding:astral_purpur_wall",
     "simplebuilding:nihil_end_stone_wall",
+    "simplebuilding:nihil_purpur_wall",
     "simplebuilding:ender_end_stone_wall",
+    "simplebuilding:ender_purpur_wall",
     "simplebuilding:astralit_wall",
     "simplebuilding:astralit_brick_wall",
     "simplebuilding:polished_astralit_wall",

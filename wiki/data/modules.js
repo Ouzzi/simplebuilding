@@ -517,7 +517,7 @@ window.WIKI_MODULES = [
       "config": 53,
       "features": 11
     },
-    "dataHash": "164645240bd6"
+    "dataHash": "8d1112e76544"
   },
   {
     "id": "simplesandwiches",

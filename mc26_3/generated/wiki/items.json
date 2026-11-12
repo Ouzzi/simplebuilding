@@ -11,6 +11,7 @@
     "simplebuilding:astral_purpur_pillar",
     "simplebuilding:astral_purpur_slab",
     "simplebuilding:astral_purpur_stairs",
+    "simplebuilding:astral_purpur_wall",
     "simplebuilding:astral_rail",
     "simplebuilding:astral_redstone",
     "simplebuilding:astral_redstone_block",
@@ -91,6 +92,7 @@
     "simplebuilding:ender_purpur_pillar",
     "simplebuilding:ender_purpur_slab",
     "simplebuilding:ender_purpur_stairs",
+    "simplebuilding:ender_purpur_wall",
     "simplebuilding:ender_quartz_block",
     "simplebuilding:ender_quartz_brick_slab",
     "simplebuilding:ender_quartz_brick_stairs",
@@ -162,6 +164,7 @@
     "simplebuilding:nihil_purpur_pillar",
     "simplebuilding:nihil_purpur_slab",
     "simplebuilding:nihil_purpur_stairs",
+    "simplebuilding:nihil_purpur_wall",
     "simplebuilding:nihil_rail",
     "simplebuilding:nihil_redstone",
     "simplebuilding:nihil_redstone_block",
@@ -313,6 +316,9 @@
     },
     {
       "id": "simplebuilding:astral_purpur_stairs"
+    },
+    {
+      "id": "simplebuilding:astral_purpur_wall"
     },
     {
       "id": "simplebuilding:astral_rail"
@@ -685,6 +691,9 @@
     },
     {
       "id": "simplebuilding:ender_purpur_stairs"
+    },
+    {
+      "id": "simplebuilding:ender_purpur_wall"
     },
     {
       "id": "simplebuilding:ender_quartz"
@@ -1206,6 +1215,9 @@
     },
     {
       "id": "simplebuilding:nihil_purpur_stairs"
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_wall"
     },
     {
       "id": "simplebuilding:nihil_rail"
