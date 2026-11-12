@@ -29,12 +29,12 @@ Umfang: 93 Java-Dateien / 13,6k Zeilen (davon ~45 % Tests). Risikogeleitet gepru
 | ID | Schwere | Befund | Stand |
 |---|---|---|---|
 | simplepads-P1-1 | **P1 (Exploit)** | Flypads merken ihre Flieger nur zur Laufzeit. Wer fliegend auslogte - oder dessen Pad waehrend seiner Abwesenheit abgebaut, entladen oder abgeschaltet wurde, oder nach einem Neustart - kam mit Flug-Tag und Kreativflug zurueck, und kein Pad nahm ihn je wieder: **dauerhafter Flug im Ueberlebensmodus**. | **gefixt** 56ba7d09c: alle 20 Ticks verliert jeder Spieler mit Tag, den kein eingeschaltetes Flypad abdeckt, den Flug (mit Sicherheitsnetz); Gametest `stale_flypad_flight_is_swept_away`. Die 26.2-Kern-Kopie (`common/.../tweaks/block/entity/FlypadBlockEntity.java`, auf 26.3 nicht registriert) hat denselben Fehler -> beim 26.2-Port nachziehen (Drift in `tools/dup_pairs.txt` vermerkt). |
-| simplepads-P2-1 | P2 (Server-Last) | Chunk-Loader haben kein Limit je Spieler oder Server; jeder Spieler kann beliebig viele bauen (Stufe III = mehrere Chunks). Abgemildert durch `chunkLoaderRequireOwnerOnline` (Standard an) und Dimensionssperren. | **Rueckfrage** (Besitzer: Limit ja/nein, Standardwert) |
+| simplepads-P2-1 | P2 (Server-Last) | Chunk-Loader haben kein Limit je Spieler oder Server; jeder Spieler kann beliebig viele bauen (Stufe III = mehrere Chunks). Abgemildert durch `chunkLoaderRequireOwnerOnline` (Standard an) und Dimensionssperren. | **gefixt** a-chunk36 (Besitzer 12.11.: Variante A, Standard 9 je Spieler, OPs ausgenommen): `tuning.chunkLoaderMaxPerPlayer`, dazu Redstone schaltet Loader ab (Zustand `disabled`, eigene Textur); Gametests `chunk_loaders_stop_at_the_per_player_limit_except_for_operators`, `redstone_switches_a_chunk_loader_off_and_on_again`; Plan `docs/ai/PLAN-A-CHUNK36-2026-11-12.md`. 26.2-Kern-Kopie beim Port-Run nachziehen. |
 | simplepads-P3-1 | P3 | `PadsNetwork.setSenders` wird im Client-Einstieg ueberschrieben (gleiche Wirkung, beide schicken nur bei `canSend`). | Hinweis |
 | simplepads-P3-2 | P3 | 53 Kern-Dubletten (6140 Zeilen) - Flypad-Fix siehe P1-1. | Liste |
 
 ## Urteil
-**shipbar nach Fix** (1 P1 gefixt, 1 P2 Rueckfrage, 2 P3).
+**shipbar nach Fix** (1 P1 gefixt, 1 P2 gefixt (a-chunk36), 2 P3).
 
 ## Testergebnis
 Lokal: javac der geaenderten Dateien (nur bekannte Access-Widener-Meldungen), `check_data.py` gruen, `check_dup_impl` 0 Probleme. sbt siehe Plan.

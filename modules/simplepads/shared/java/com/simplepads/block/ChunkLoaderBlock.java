@@ -27,6 +27,10 @@ import org.jetbrains.annotations.Nullable;
  * Chunk-Loader (Simple Tweaks) in drei Stufen: I haelt nur den eigenen Chunk, II (Netherit) dazu die
  * vier Nachbarn im Kreuz (5 Chunks), III (Enderit) die 3x3 Chunks darum. Erzwingen und Freigeben
  * regelt {@link ChunkLoaderBlockEntity}.
+ *
+ * <p>Drei sichtbare Zustaende (a-chunk36, Besitzer 12.11.2026): <b>aktiv</b> (haelt Chunks: Spirale glimmt, Portal-Funken),
+ * <b>matt</b> (Besitzer offline, Dimension gesperrt, Pads aus) und <b>abgeschaltet</b> ({@link #DISABLED}: Redstone-Signal
+ * oder Limit je Spieler erreicht - eigene Textur mit erloschener, gerissener Spirale und wenigen kaputten Partikeln).
  */
 public class ChunkLoaderBlock extends PadBlock {
     public static final MapCodec<ChunkLoaderBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
@@ -43,39 +47,95 @@ public class ChunkLoaderBlock extends PadBlock {
      */
     public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
+    /**
+     * Abgeschaltet (a-chunk36): ein Redstone-Signal liegt an (wie beim Vanilla-Trichter: Signal = aus) oder der Besitzer
+     * hat schon {@code tuning.chunkLoaderMaxPerPlayer} laufende Loader. Haelt nichts, eigene Textur
+     * ({@code <stufe>_disabled}), Licht 1, wenige kaputte Partikel ({@link Ambient#BROKEN}). Gesetzt von
+     * {@link ChunkLoaderBlockEntity#update}.
+     */
+    public static final BooleanProperty DISABLED = BooleanProperty.create("disabled");
+
+    /** Was {@link #animateTick} zeigt: nichts (matt), Portal-Funken (aktiv) oder kaputte Partikel (abgeschaltet). */
+    public enum Ambient { IDLE, ACTIVE, BROKEN }
+
+    /** Aktiv: ein Portal-Funke in {@value #ACTIVE_SPARKS} von 3 Anzeige-Ticks (bis a-chunk36: 1 von 3). */
+    public static final int ACTIVE_SPARKS = 2;
+    /** Abgeschaltet: je ein Rauchwoelkchen, Elektro-Funke bzw. stotternder Portal-Funke in 1 von so vielen Anzeige-Ticks. */
+    public static final int BROKEN_SMOKE_ONE_IN = 16, BROKEN_SPARK_ONE_IN = 32, BROKEN_SPUTTER_ONE_IN = 40;
+
     private final int tier;
 
     public ChunkLoaderBlock(BlockBehaviour.Properties properties, int tier) {
         super(properties, Block.box(1, 0, 1, 15, 2, 15), PadOwnership.OWNER_PLATE, PadOwnership.STRANGER_PLATE);
         this.tier = Math.max(1, Math.min(MAX_TIER, tier));
-        registerDefaultState(stateDefinition.any().setValue(ACTIVE, false));
+        registerDefaultState(stateDefinition.any().setValue(ACTIVE, false).setValue(DISABLED, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVE);
+        builder.add(ACTIVE, DISABLED);
     }
 
-    /** Lichtstaerke: eingeschaltet die der Stufe, ausgeschaltet nur ein Glimmen. */
+    /** Lichtstaerke: eingeschaltet die der Stufe, matt nur ein Glimmen, abgeschaltet fast dunkel. */
     public static int lightLevel(BlockState state, int active) {
+        if (state.hasProperty(DISABLED) && state.getValue(DISABLED)) {
+            return 1;
+        }
         return state.hasProperty(ACTIVE) && !state.getValue(ACTIVE) ? 3 : active;
     }
 
+    /** Welche Partikel der Zustand zeigt (abgeschaltet geht vor aktiv). */
+    public static Ambient ambient(BlockState state) {
+        if (state.hasProperty(DISABLED) && state.getValue(DISABLED)) {
+            return Ambient.BROKEN;
+        }
+        return state.hasProperty(ACTIVE) && state.getValue(ACTIVE) ? Ambient.ACTIVE : Ambient.IDLE;
+    }
+
     /**
-     * Nur im Client, nur eingeschaltet: aufsteigende Portal-Funken ueber der Platte und selten das
-     * Summen eines Seelenankers (wie Vanillas Seelenanker: 1 in 100 Ticks).
+     * Nur im Client. Aktiv: aufsteigende Portal-Funken ueber der Platte (seit a-chunk36 doppelt so oft) und selten das
+     * Summen eines Seelenankers (wie Vanillas Seelenanker: 1 in 100 Ticks). Abgeschaltet: wenige kaputte Partikel - ein
+     * Rauchwoelkchen, ab und zu ein Elektro-Funke aus dem Riss und ein Portal-Funke, der kaum steigt und verlischt.
      */
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (!state.getValue(ACTIVE)) {
-            return;
+        switch (ambient(state)) {
+            case ACTIVE -> {
+                if (random.nextInt(3) < ACTIVE_SPARKS) {
+                    level.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + 0.2 + random.nextDouble() * 0.6, pos.getY() + 0.15,
+                            pos.getZ() + 0.2 + random.nextDouble() * 0.6, 0.0, 0.02 + random.nextDouble() * 0.03, 0.0);
+                }
+                if (random.nextInt(100) == 0) {
+                    level.playLocalSound(pos, SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 0.5f, 1.3f, false);
+                }
+            }
+            case BROKEN -> {
+                double x = pos.getX() + 0.25 + random.nextDouble() * 0.5;
+                double z = pos.getZ() + 0.25 + random.nextDouble() * 0.5;
+                if (random.nextInt(BROKEN_SMOKE_ONE_IN) == 0) {
+                    level.addParticle(ParticleTypes.SMOKE, x, pos.getY() + 0.15, z, 0.0, 0.01, 0.0);
+                }
+                if (random.nextInt(BROKEN_SPARK_ONE_IN) == 0) {
+                    level.addParticle(ParticleTypes.ELECTRIC_SPARK, x, pos.getY() + 0.14, z,
+                            (random.nextDouble() - 0.5) * 0.2, 0.05, (random.nextDouble() - 0.5) * 0.2);
+                }
+                if (random.nextInt(BROKEN_SPUTTER_ONE_IN) == 0) {
+                    level.addParticle(ParticleTypes.REVERSE_PORTAL, x, pos.getY() + 0.12, z, 0.0, 0.004, 0.0);
+                }
+            }
+            default -> {
+            }
         }
-        if (random.nextInt(3) == 0) {
-            level.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + 0.2 + random.nextDouble() * 0.6, pos.getY() + 0.15,
-                    pos.getZ() + 0.2 + random.nextDouble() * 0.6, 0.0, 0.02 + random.nextDouble() * 0.03, 0.0);
-        }
-        if (random.nextInt(100) == 0) {
-            level.playLocalSound(pos, SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 0.5f, 1.3f, false);
+    }
+
+    /** Redstone wirkt sofort (nicht erst bei der naechsten Pruefung alle 100 Ticks). */
+    @Override
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block,
+            @Nullable net.minecraft.world.level.redstone.Orientation orientation, boolean movedByPiston) {
+        super.neighborChanged(state, level, pos, block, orientation, movedByPiston);
+        if (level instanceof net.minecraft.server.level.ServerLevel serverLevel
+                && level.getBlockEntity(pos) instanceof ChunkLoaderBlockEntity loader) {
+            loader.redstoneChanged(serverLevel);
         }
     }
 

@@ -2539,6 +2539,8 @@
           "summary": "Chunk Loader I: Base coverage: 1 chunk: its own. With the default server settings, an assigned owner must be online. Chunk Loaders (from Simple Tweaks) keep chunks loaded, in three tiers: Chunk Loader I only its own chunk, Netherite Chunk Loader II also the four chunks sharing an edge with it (5 chunks in a cross), Enderite Chunk Loader III the 3x3 chunks around it.",
           "details": [
             "With the default server settings, loaders with an assigned owner run only while that owner is online; blocked dimensions and server limits also apply.",
+            "Limit (owner 2026-11-12): each player runs at most 9 chunk loaders at a time, of any tier (server option tuning.chunkLoaderMaxPerPlayer, 0 = no limit, up to 1024). Every further one stays switched off and moves up as soon as an earlier one is broken or switched off; placing one over the limit says so. Operators and loaders without an owner have no limit.",
+            "A redstone signal switches it off, like a hopper: it releases its chunks at once, shows a dark cracked plate with a few broken particles (a little smoke, an electric spark now and then) and runs again as soon as the signal is gone. Switched-off loaders do not count toward the limit. A running loader shows twice as many portal sparks as before; Jade and /simplepads chunkloaders list show why one is off.",
             "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped). Replacing it with /setblock or /fill releases its chunks as well; where two loaders overlap, breaking one leaves the shared chunks to the other - only those inside the other loader's own area (a Netherite loader takes no diagonal chunk).",
             "Recipes (smithing): I = Copper Core + Copper Pressure Plate + a Trial Chamber mob head; II = netherite upgrade + Chunk Loader I + Netherite Pressure Plate; III = enderite upgrade + Chunk Loader II + Enderite Pressure Plate.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
@@ -2549,6 +2551,8 @@
           "summary": "Chunk-Lader I: Basisbereich: 1 Chunk: der eigene. Bei Standard-Servereinstellungen muss ein zugewiesener Besitzer online sein. Chunk-Lader (aus Simple Tweaks) halten Chunks geladen, in drei Stufen: Chunk-Lader I nur den eigenen, Netherit-Chunk-Lader II dazu die vier Chunks mit gemeinsamer Kante (5 Chunks im Kreuz), Enderit-Chunk-Lader III die 3x3 Chunks darum.",
           "details": [
             "Bei Standard-Servereinstellungen laufen Loader mit zugewiesenem Besitzer nur, solange dieser online ist; gesperrte Dimensionen und Serverlimits gelten ebenfalls.",
+            "Limit (Besitzer 2026-11-12): je Spieler laufen höchstens 9 Chunk-Lader gleichzeitig, egal welcher Stufe (Server-Option tuning.chunkLoaderMaxPerPlayer, 0 = kein Limit, bis 1024). Jeder weitere bleibt abgeschaltet und rückt nach, sobald ein früherer abgebaut oder abgeschaltet wird; beim Setzen über dem Limit gibt es einen Hinweis. Operatoren und Lader ohne Besitzer haben kein Limit.",
+            "Ein Redstone-Signal schaltet ihn ab, wie einen Trichter: er gibt seine Chunks sofort frei, zeigt eine dunkle, gerissene Platte mit wenigen kaputten Partikeln (etwas Rauch, ab und zu ein Elektro-Funke) und läuft wieder, sobald das Signal weg ist. Abgeschaltete Lader zählen nicht zum Limit. Ein laufender Lader zeigt doppelt so viele Portal-Funken wie zuvor; Jade und /simplepads chunkloaders list zeigen, warum einer aus ist.",
             "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht). Auch ein Ersetzen per /setblock oder /fill gibt seine Chunks frei; überlappen sich zwei Lader, übernimmt beim Abbau des einen der andere die gemeinsamen Chunks - nur die in seinem eigenen Bereich (ein Netherit-Lader übernimmt keinen Diagonal-Chunk).",
             "Rezepte (Schmiede): I = Kupferkern + Kupfer-Druckplatte + Trial-Chamber-Mobkopf; II = Netherit-Aufwertung + Chunk-Loader I + Netherit-Druckplatte; III = Enderit-Aufwertung + Chunk-Loader II + Enderit-Druckplatte.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
@@ -2564,6 +2568,11 @@
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderRegistry.java",
+          "modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderBlockEntity.java",
+          "modules/simplepads/shared/java/com/simplepads/block/ChunkLoaderBlock.java",
+          "modules/simplepads/shared/java/com/simplepads/PadsConfig.java",
+          "modules/simplepads/shared/java/com/simplepads/test/PadTweaksTests.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
         ]
@@ -2800,6 +2809,8 @@
           "summary": "Enderite Chunk Loader III: Base coverage: 9 chunks in a 3x3 square. With the default server settings, an assigned owner must be online. Chunk Loaders (from Simple Tweaks) keep chunks loaded, in three tiers: Chunk Loader I only its own chunk, Netherite Chunk Loader II also the four chunks sharing an edge with it (5 chunks in a cross), Enderite Chunk Loader III the 3x3 chunks around it.",
           "details": [
             "With the default server settings, loaders with an assigned owner run only while that owner is online; blocked dimensions and server limits also apply.",
+            "Limit (owner 2026-11-12): each player runs at most 9 chunk loaders at a time, of any tier (server option tuning.chunkLoaderMaxPerPlayer, 0 = no limit, up to 1024). Every further one stays switched off and moves up as soon as an earlier one is broken or switched off; placing one over the limit says so. Operators and loaders without an owner have no limit.",
+            "A redstone signal switches it off, like a hopper: it releases its chunks at once, shows a dark cracked plate with a few broken particles (a little smoke, an electric spark now and then) and runs again as soon as the signal is gone. Switched-off loaders do not count toward the limit. A running loader shows twice as many portal sparks as before; Jade and /simplepads chunkloaders list show why one is off.",
             "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped). Replacing it with /setblock or /fill releases its chunks as well; where two loaders overlap, breaking one leaves the shared chunks to the other - only those inside the other loader's own area (a Netherite loader takes no diagonal chunk).",
             "Recipes (smithing): I = Copper Core + Copper Pressure Plate + a Trial Chamber mob head; II = netherite upgrade + Chunk Loader I + Netherite Pressure Plate; III = enderite upgrade + Chunk Loader II + Enderite Pressure Plate.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
@@ -2810,6 +2821,8 @@
           "summary": "Enderit-Chunk-Lader III: Basisbereich: 9 Chunks im 3x3-Quadrat. Bei Standard-Servereinstellungen muss ein zugewiesener Besitzer online sein. Chunk-Lader (aus Simple Tweaks) halten Chunks geladen, in drei Stufen: Chunk-Lader I nur den eigenen, Netherit-Chunk-Lader II dazu die vier Chunks mit gemeinsamer Kante (5 Chunks im Kreuz), Enderit-Chunk-Lader III die 3x3 Chunks darum.",
           "details": [
             "Bei Standard-Servereinstellungen laufen Loader mit zugewiesenem Besitzer nur, solange dieser online ist; gesperrte Dimensionen und Serverlimits gelten ebenfalls.",
+            "Limit (Besitzer 2026-11-12): je Spieler laufen höchstens 9 Chunk-Lader gleichzeitig, egal welcher Stufe (Server-Option tuning.chunkLoaderMaxPerPlayer, 0 = kein Limit, bis 1024). Jeder weitere bleibt abgeschaltet und rückt nach, sobald ein früherer abgebaut oder abgeschaltet wird; beim Setzen über dem Limit gibt es einen Hinweis. Operatoren und Lader ohne Besitzer haben kein Limit.",
+            "Ein Redstone-Signal schaltet ihn ab, wie einen Trichter: er gibt seine Chunks sofort frei, zeigt eine dunkle, gerissene Platte mit wenigen kaputten Partikeln (etwas Rauch, ab und zu ein Elektro-Funke) und läuft wieder, sobald das Signal weg ist. Abgeschaltete Lader zählen nicht zum Limit. Ein laufender Lader zeigt doppelt so viele Portal-Funken wie zuvor; Jade und /simplepads chunkloaders list zeigen, warum einer aus ist.",
             "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht). Auch ein Ersetzen per /setblock oder /fill gibt seine Chunks frei; überlappen sich zwei Lader, übernimmt beim Abbau des einen der andere die gemeinsamen Chunks - nur die in seinem eigenen Bereich (ein Netherit-Lader übernimmt keinen Diagonal-Chunk).",
             "Rezepte (Schmiede): I = Kupferkern + Kupfer-Druckplatte + Trial-Chamber-Mobkopf; II = Netherit-Aufwertung + Chunk-Loader I + Netherit-Druckplatte; III = Enderit-Aufwertung + Chunk-Loader II + Enderit-Druckplatte.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
@@ -2825,6 +2838,11 @@
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderRegistry.java",
+          "modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderBlockEntity.java",
+          "modules/simplepads/shared/java/com/simplepads/block/ChunkLoaderBlock.java",
+          "modules/simplepads/shared/java/com/simplepads/PadsConfig.java",
+          "modules/simplepads/shared/java/com/simplepads/test/PadTweaksTests.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
         ]
@@ -3545,6 +3563,8 @@
           "summary": "Netherite Chunk Loader II: Base coverage: 5 chunks in a cross, excluding diagonals. With the default server settings, an assigned owner must be online. Chunk Loaders (from Simple Tweaks) keep chunks loaded, in three tiers: Chunk Loader I only its own chunk, Netherite Chunk Loader II also the four chunks sharing an edge with it (5 chunks in a cross), Enderite Chunk Loader III the 3x3 chunks around it.",
           "details": [
             "With the default server settings, loaders with an assigned owner run only while that owner is online; blocked dimensions and server limits also apply.",
+            "Limit (owner 2026-11-12): each player runs at most 9 chunk loaders at a time, of any tier (server option tuning.chunkLoaderMaxPerPlayer, 0 = no limit, up to 1024). Every further one stays switched off and moves up as soon as an earlier one is broken or switched off; placing one over the limit says so. Operators and loaders without an owner have no limit.",
+            "A redstone signal switches it off, like a hopper: it releases its chunks at once, shows a dark cracked plate with a few broken particles (a little smoke, an electric spark now and then) and runs again as soon as the signal is gone. Switched-off loaders do not count toward the limit. A running loader shows twice as many portal sparks as before; Jade and /simplepads chunkloaders list show why one is off.",
             "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped). Replacing it with /setblock or /fill releases its chunks as well; where two loaders overlap, breaking one leaves the shared chunks to the other - only those inside the other loader's own area (a Netherite loader takes no diagonal chunk).",
             "Recipes (smithing): I = Copper Core + Copper Pressure Plate + a Trial Chamber mob head; II = netherite upgrade + Chunk Loader I + Netherite Pressure Plate; III = enderite upgrade + Chunk Loader II + Enderite Pressure Plate.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
@@ -3555,6 +3575,8 @@
           "summary": "Netherit-Chunk-Lader II: Basisbereich: 5 Chunks im Kreuz, ohne Diagonalen. Bei Standard-Servereinstellungen muss ein zugewiesener Besitzer online sein. Chunk-Lader (aus Simple Tweaks) halten Chunks geladen, in drei Stufen: Chunk-Lader I nur den eigenen, Netherit-Chunk-Lader II dazu die vier Chunks mit gemeinsamer Kante (5 Chunks im Kreuz), Enderit-Chunk-Lader III die 3x3 Chunks darum.",
           "details": [
             "Bei Standard-Servereinstellungen laufen Loader mit zugewiesenem Besitzer nur, solange dieser online ist; gesperrte Dimensionen und Serverlimits gelten ebenfalls.",
+            "Limit (Besitzer 2026-11-12): je Spieler laufen höchstens 9 Chunk-Lader gleichzeitig, egal welcher Stufe (Server-Option tuning.chunkLoaderMaxPerPlayer, 0 = kein Limit, bis 1024). Jeder weitere bleibt abgeschaltet und rückt nach, sobald ein früherer abgebaut oder abgeschaltet wird; beim Setzen über dem Limit gibt es einen Hinweis. Operatoren und Lader ohne Besitzer haben kein Limit.",
+            "Ein Redstone-Signal schaltet ihn ab, wie einen Trichter: er gibt seine Chunks sofort frei, zeigt eine dunkle, gerissene Platte mit wenigen kaputten Partikeln (etwas Rauch, ab und zu ein Elektro-Funke) und läuft wieder, sobald das Signal weg ist. Abgeschaltete Lader zählen nicht zum Limit. Ein laufender Lader zeigt doppelt so viele Portal-Funken wie zuvor; Jade und /simplepads chunkloaders list zeigen, warum einer aus ist.",
             "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht). Auch ein Ersetzen per /setblock oder /fill gibt seine Chunks frei; überlappen sich zwei Lader, übernimmt beim Abbau des einen der andere die gemeinsamen Chunks - nur die in seinem eigenen Bereich (ein Netherit-Lader übernimmt keinen Diagonal-Chunk).",
             "Rezepte (Schmiede): I = Kupferkern + Kupfer-Druckplatte + Trial-Chamber-Mobkopf; II = Netherit-Aufwertung + Chunk-Loader I + Netherit-Druckplatte; III = Enderit-Aufwertung + Chunk-Loader II + Enderit-Druckplatte.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
@@ -3570,6 +3592,11 @@
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderRegistry.java",
+          "modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderBlockEntity.java",
+          "modules/simplepads/shared/java/com/simplepads/block/ChunkLoaderBlock.java",
+          "modules/simplepads/shared/java/com/simplepads/PadsConfig.java",
+          "modules/simplepads/shared/java/com/simplepads/test/PadTweaksTests.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
         ]
@@ -5314,6 +5341,25 @@
       "side": null,
       "reload": null,
       "source": "modules/simplepads/shared/java/com/simplepads/PadsConfig.java",
+      "name": "tuning.chunkLoaderMaxPerPlayer",
+      "shortName": "chunkLoaderMaxPerPlayer",
+      "type": "int",
+      "default": "9",
+      "note": null,
+      "category": "Tuning",
+      "categoryDe": "Feinwerte",
+      "group": null,
+      "groupDe": null,
+      "label": "Chunk Loaders per Player",
+      "labelDe": "Chunk-Loader je Spieler",
+      "tooltip": "How many chunk loaders of one player run\nat the same time (any tier); every further\none stays switched off. Loaders switched off\nby redstone do not count. Operators and\nloaders without an owner have no limit.\n0 = no limit, up to 1024. Server-side.\nDefault: 9.",
+      "tooltipDe": "Wie viele Chunk-Loader eines Spielers\ngleichzeitig laufen (jede Stufe); jeder\nweitere bleibt abgeschaltet. Per Redstone\nabgeschaltete Loader zählen nicht.\nOperatoren und Loader ohne Besitzer haben\nkein Limit. 0 = kein Limit, bis 1024.\nServerseitig. Standard: 9."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplepads/shared/java/com/simplepads/PadsConfig.java",
       "name": "tuning.chunkLoaderRequireOwnerOnline",
       "shortName": "chunkLoaderRequireOwnerOnline",
       "type": "boolean",
@@ -5407,7 +5453,7 @@
     "items": 3,
     "blocks": 35,
     "trades": 0,
-    "config": 33,
+    "config": 34,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

@@ -2217,10 +2217,10 @@ window.WIKI_MODULES = [
       "items": 3,
       "blocks": 35,
       "recipes": 26,
-      "config": 33,
+      "config": 34,
       "features": 1
     },
-    "dataHash": "ea36f933ed5f"
+    "dataHash": "47f49dc7a39e"
   },
   {
     "id": "simplebuildingtools",

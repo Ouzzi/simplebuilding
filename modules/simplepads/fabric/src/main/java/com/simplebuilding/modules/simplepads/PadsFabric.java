@@ -57,6 +57,7 @@ public final class PadsFabric implements ModInitializer {
                 .range("spawn.firstJoinElytraPadCount", 0, 64)
                 .range("tuning.strangerPadBreakSeconds", 1, PadsConfig.MAX_BREAK_SECONDS)
                 .range("tuning.strangerPlateBreakSeconds", 1, PadsConfig.MAX_BREAK_SECONDS)
+                .range("tuning.chunkLoaderMaxPerPlayer", 0, PadsConfig.MAX_CHUNK_LOADERS_PER_PLAYER)
                 .after(() -> PadsNetwork.sendConfigToAll(server))
                 .register();
         com.simplepads.guide.PadsGuide.register();

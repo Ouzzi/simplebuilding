@@ -606,6 +606,132 @@ public final class PadTweaksTests {
         helper.succeed();
     }
 
+    /**
+     * a-chunk36 (Besitzer 12.11.2026, Audit simplepads-P2-1): je Spieler laufen hoechstens
+     * {@code tuning.chunkLoaderMaxPerPlayer} Chunk-Loader (Standard 9). Jeder weitere bleibt abgeschaltet (Zustand
+     * {@code disabled}, haelt nichts, reconcile weckt ihn nicht), rueckt nach, sobald ein frueherer abgebaut wird, und ein
+     * Operator hat kein Limit; 0 = kein Limit.
+     */
+    public static void chunkLoadersStopAtThePerPlayerLimitExceptForOperators(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        helper.assertValueEqual(new PadsConfig().validate().tuning.chunkLoaderMaxPerPlayer, 9, "default chunk loaders per player");
+        PadsConfig.Tuning tuning = SimplePads.config().tuning;
+        boolean ownerOnline = tuning.chunkLoaderRequireOwnerOnline;
+        int max = tuning.chunkLoaderMaxPerPlayer;
+        UUID owner = UUID.randomUUID();
+        net.minecraft.server.players.NameAndId ownerId = new net.minecraft.server.players.NameAndId(owner, "ChunkLimitTest");
+        var players = level.getServer().getPlayerList();
+        BlockPos[] at = {new BlockPos(1, 1, 1), new BlockPos(3, 1, 1), new BlockPos(5, 1, 1)};
+        try {
+            tuning.chunkLoaderRequireOwnerOnline = false; // the test owner is never online
+            tuning.chunkLoaderMaxPerPlayer = 2;
+            ChunkLoaderBlockEntity[] be = new ChunkLoaderBlockEntity[at.length];
+            for (int i = 0; i < at.length; i++) {
+                com.simplepads.block.entity.ChunkLoaderRegistry.remove(level, helper.absolutePos(at[i]));
+                helper.setBlock(at[i], PadsBlocks.CHUNK_LOADER);
+                be[i] = helper.getBlockEntity(at[i], ChunkLoaderBlockEntity.class);
+                be[i].setOwner(owner);
+                be[i].update(level);
+            }
+            helper.assertTrue(running(helper, at[0]) && running(helper, at[1]), "the first two loaders of a player do not run (limit 2)");
+            helper.assertTrue(switchedOff(helper, at[2]) && be[2].ownForced().isEmpty()
+                    && be[2].offReason() == ChunkLoaderBlockEntity.OFF_LIMIT, "the third loader runs past the limit of 2");
+            var third = com.simplepads.block.entity.ChunkLoaderRegistry.find(level.getServer(), level.dimension(), helper.absolutePos(at[2]));
+            helper.assertTrue(third != null && !third.active() && !com.simplepads.block.entity.ChunkLoaderRegistry.shouldRun(level, third),
+                    "reconcile would keep waking the loader over the limit");
+            tuning.chunkLoaderMaxPerPlayer = 0;
+            helper.assertTrue(com.simplepads.block.entity.ChunkLoaderRegistry.withinLimit(level, helper.absolutePos(at[2]), owner),
+                    "limit 0 still limits the loaders");
+            tuning.chunkLoaderMaxPerPlayer = 2;
+            helper.setBlock(at[0], Blocks.AIR);
+            be[2].update(level);
+            helper.assertTrue(running(helper, at[2]), "the third loader does not move up when the first one is broken");
+            tuning.chunkLoaderMaxPerPlayer = 1;
+            be[1].update(level);
+            be[2].update(level);
+            helper.assertTrue(running(helper, at[1]) && switchedOff(helper, at[2]),
+                    "a lowered limit does not keep the earlier loader and stop the later one");
+            players.op(ownerId);
+            be[2].update(level);
+            helper.assertTrue(running(helper, at[2]), "an operator's chunk loader stops at the limit");
+        } finally {
+            if (players.isOp(ownerId)) {
+                players.deop(ownerId);
+            }
+            tuning.chunkLoaderRequireOwnerOnline = ownerOnline;
+            tuning.chunkLoaderMaxPerPlayer = max;
+            for (BlockPos pos : at) {
+                helper.setBlock(pos, Blocks.AIR);
+            }
+        }
+        helper.succeed();
+    }
+
+    /**
+     * a-chunk36: ein Redstone-Signal schaltet den Chunk-Loader sofort ab (wie den Vanilla-Trichter) - er gibt seinen Chunk
+     * frei, zeigt den Zustand {@code disabled} mit wenigen kaputten Partikeln und Licht 1 - und ohne Signal laeuft er sofort
+     * wieder. Der aktive Loader zeigt doppelt so viele Portal-Funken wie bis a-chunk36 (2 statt 1 von 3 Anzeige-Ticks).
+     * Weit weg von der Teststruktur, damit keine Erzwingung der Spieltest-Umgebung den Chunk schon haelt.
+     */
+    public static void redstoneSwitchesAChunkLoaderOffAndOnAgain(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos pos = helper.absolutePos(new BlockPos(1, 1, 1)).offset(20480, 0, 20480);
+        BlockPos power = pos.east();
+        long chunk = ChunkLoaderBlockEntity.key(pos.getX() >> 4, pos.getZ() >> 4);
+        helper.assertFalse(isForced(level, chunk), "the far test chunk is already forced by someone else");
+        try {
+            level.setBlock(pos, PadsBlocks.CHUNK_LOADER.defaultBlockState(), Block.UPDATE_ALL);
+            ChunkLoaderBlockEntity be = (ChunkLoaderBlockEntity) level.getBlockEntity(pos);
+            be.update(level); // no owner: no owner rule, no limit
+            helper.assertTrue(level.getBlockState(pos).getValue(com.simplepads.block.ChunkLoaderBlock.ACTIVE) && isForced(level, chunk),
+                    "the chunk loader does not run without a signal");
+            helper.assertTrue(com.simplepads.block.ChunkLoaderBlock.ambient(level.getBlockState(pos)) == com.simplepads.block.ChunkLoaderBlock.Ambient.ACTIVE,
+                    "a running chunk loader shows no portal sparks");
+
+            level.setBlock(power, Blocks.REDSTONE_BLOCK.defaultBlockState(), Block.UPDATE_ALL);
+            BlockState off = level.getBlockState(pos);
+            helper.assertTrue(off.getValue(com.simplepads.block.ChunkLoaderBlock.DISABLED) && !off.getValue(com.simplepads.block.ChunkLoaderBlock.ACTIVE),
+                    "a redstone signal does not switch the chunk loader off at once");
+            helper.assertFalse(isForced(level, chunk), "a chunk loader switched off by redstone keeps its chunk forced");
+            helper.assertTrue(be.ownForced().isEmpty() && be.offReason() == ChunkLoaderBlockEntity.OFF_REDSTONE, "switched off: reason or chunks");
+            helper.assertTrue(com.simplepads.block.ChunkLoaderBlock.ambient(off) == com.simplepads.block.ChunkLoaderBlock.Ambient.BROKEN,
+                    "a switched-off chunk loader shows no broken particles");
+            helper.assertValueEqual(com.simplepads.block.ChunkLoaderBlock.lightLevel(off, 7), 1, "light of a switched-off chunk loader");
+            var entry = com.simplepads.block.entity.ChunkLoaderRegistry.find(level.getServer(), level.dimension(), pos);
+            helper.assertTrue(entry != null && entry.powered() && !entry.active()
+                    && !com.simplepads.block.entity.ChunkLoaderRegistry.shouldRun(level, entry), "the registry does not know the loader is switched off");
+
+            level.setBlock(power, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            BlockState on = level.getBlockState(pos);
+            helper.assertTrue(on.getValue(com.simplepads.block.ChunkLoaderBlock.ACTIVE) && !on.getValue(com.simplepads.block.ChunkLoaderBlock.DISABLED)
+                    && isForced(level, chunk), "without the signal the chunk loader does not run again at once");
+
+            // Particle profile per display tick: active twice the old 1 in 3; switched off only a few (< 1/4 of active).
+            double active = com.simplepads.block.ChunkLoaderBlock.ACTIVE_SPARKS / 3.0;
+            double broken = 1.0 / com.simplepads.block.ChunkLoaderBlock.BROKEN_SMOKE_ONE_IN + 1.0 / com.simplepads.block.ChunkLoaderBlock.BROKEN_SPARK_ONE_IN
+                    + 1.0 / com.simplepads.block.ChunkLoaderBlock.BROKEN_SPUTTER_ONE_IN;
+            helper.assertTrue(active > 1.0 / 3.0 && broken > 0 && broken < active / 4,
+                    "particles: active " + active + " per tick (old 0.33), switched off " + broken);
+            helper.assertTrue(com.simplepads.block.ChunkLoaderBlock.ambient(PadsBlocks.CHUNK_LOADER.defaultBlockState())
+                    == com.simplepads.block.ChunkLoaderBlock.Ambient.IDLE, "an idle chunk loader shows particles");
+        } finally {
+            level.setBlock(power, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        }
+        helper.assertFalse(isForced(level, chunk), "a broken chunk loader keeps its chunk forced");
+        helper.succeed();
+    }
+
+    private static boolean running(GameTestHelper helper, BlockPos rel) {
+        BlockState state = helper.getBlockState(rel);
+        return state.getValue(com.simplepads.block.ChunkLoaderBlock.ACTIVE) && !state.getValue(com.simplepads.block.ChunkLoaderBlock.DISABLED);
+    }
+
+    private static boolean switchedOff(GameTestHelper helper, BlockPos rel) {
+        BlockState state = helper.getBlockState(rel);
+        return !state.getValue(com.simplepads.block.ChunkLoaderBlock.ACTIVE) && state.getValue(com.simplepads.block.ChunkLoaderBlock.DISABLED);
+    }
+
 
     private static JsonObject langFile(GameTestHelper helper, String code) {
         try (java.io.InputStream in = PadTweaksTests.class.getResourceAsStream("/assets/simplepads/lang/" + code + ".json")) {

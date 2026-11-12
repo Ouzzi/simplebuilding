@@ -43,8 +43,11 @@ final class PadsJadeClient implements IBlockComponentProvider {
                 tooltip.add(a > 0 ? Component.translatable(KEY + "potion_pad.cooldown", (a + 19) / 20)
                         : Component.translatable(KEY + "potion_pad.ready"));
             }
-            case "chunk_loader" -> tooltip.add(a > 0 ? Component.translatable(KEY + "chunk_loader.active", a)
-                    : Component.translatable(KEY + "chunk_loader.idle"));
+            case "chunk_loader" -> {
+                int off = data.getIntOr(PadsJadeServer.B, 0);
+                tooltip.add(a > 0 ? Component.translatable(KEY + "chunk_loader.active", a)
+                        : Component.translatable(KEY + (off == 1 ? "chunk_loader.redstone" : off == 2 ? "chunk_loader.limit" : "chunk_loader.idle")));
+            }
             default -> {
             }
         }

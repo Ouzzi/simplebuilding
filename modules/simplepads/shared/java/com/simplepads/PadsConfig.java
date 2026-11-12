@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Server config {@code config/simplepads-server.json} (b-pads01, 04.11.2026): the sections {@code pads} (on/off per family),
  * {@code padTuning} (warm-up, launch strength, potion pad timing), {@code spawn} (Spawn Elytra, first-join gifts, teleporter
- * target) and {@code tuning} (stranger break time, blocked dimensions, chunk loader owner rule). Until 04.11. these were
+ * target) and {@code tuning} (stranger break time, blocked dimensions, chunk loader owner rule and per-player limit). Until 04.11. these were
  * SimpleBuilding's {@code tweaks.pads}, {@code tweaks.padTuning}, {@code tweaks.spawn} and {@code server.pads},
  * {@code server.dimensionLocks}, {@code server.chunkLoaders}; a missing file takes them over once from {@code simplebuilding.json}.
  * Missing or broken keys use the defaults, the file is rewritten complete.
@@ -28,6 +28,8 @@ public class PadsConfig {
     public static final int MAX_SPAWN_ELYTRA_RADIUS = 256;
     public static final float MAX_BOOST_STRENGTH = 1.2f;
     public static final int MAX_BREAK_SECONDS = 600;
+    /** Upper bound of {@code tuning.chunkLoaderMaxPerPlayer} (0 = no limit). */
+    public static final int MAX_CHUNK_LOADERS_PER_PLAYER = 1024;
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("pads.enableChunkLoaders", "pads.enableElytraPads", "pads.enableFlypads",
             "pads.enableSpawnTeleporters", "pads.enableLaunchpads", "pads.enableTimedCopperPlates", "pads.enableFilterPlates",
@@ -37,7 +39,8 @@ public class PadsConfig {
             "spawn.firstJoinElytraPadCount", "spawn.giveElytraOnSpawn", "spawn.spawnElytraRadius", "spawn.useWorldSpawnAsCenter",
             "spawn.customSpawnElytraX", "spawn.customSpawnElytraZ", "spawn.flightTimeSeconds", "spawn.maxBoosts", "spawn.boostStrength",
             "spawn.spawn1X", "spawn.spawn1Y", "spawn.spawn1Z", "tuning.strangerPadBreakSeconds", "tuning.strangerPlateBreakSeconds",
-            "tuning.chunkLoaderBlockedDimensions", "tuning.flypadBlockedDimensions", "tuning.chunkLoaderRequireOwnerOnline");
+            "tuning.chunkLoaderBlockedDimensions", "tuning.flypadBlockedDimensions", "tuning.chunkLoaderRequireOwnerOnline",
+            "tuning.chunkLoaderMaxPerPlayer");
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -65,6 +68,7 @@ public class PadsConfig {
         spawn.migrateLegacyFirstJoinCount();
         tuning.strangerPadBreakSeconds = (int) bounded("tuning.strangerPadBreakSeconds", tuning.strangerPadBreakSeconds, 1, MAX_BREAK_SECONDS, 60);
         tuning.strangerPlateBreakSeconds = (int) bounded("tuning.strangerPlateBreakSeconds", tuning.strangerPlateBreakSeconds, 1, MAX_BREAK_SECONDS, 10);
+        tuning.chunkLoaderMaxPerPlayer = (int) bounded("tuning.chunkLoaderMaxPerPlayer", tuning.chunkLoaderMaxPerPlayer, 0, MAX_CHUNK_LOADERS_PER_PLAYER, 9);
         if (tuning.chunkLoaderBlockedDimensions == null) tuning.chunkLoaderBlockedDimensions = "";
         if (tuning.flypadBlockedDimensions == null) tuning.flypadBlockedDimensions = "";
         return this;
@@ -302,11 +306,22 @@ public class PadsConfig {
         public String flypadBlockedDimensions = "";
         /** Chunk loaders only work while their owner is online. */
         public boolean chunkLoaderRequireOwnerOnline = true;
+        /**
+         * Running chunk loaders per owner (owner 12.11.2026, audit simplepads-P2-1): the first this many of a player's loaders
+         * that are not switched off by redstone run, every further one stays switched off. Operators and loaders without an
+         * owner have no limit; 0 = no limit.
+         */
+        public int chunkLoaderMaxPerPlayer = 9;
 
         /** Break progress per tick for strangers ({@code plate} = chunk loader, copper/filter plates). */
         public float strangerBreakProgress(boolean plate) {
             int seconds = (int) capped(plate ? strangerPlateBreakSeconds : strangerPadBreakSeconds, 1, MAX_BREAK_SECONDS, plate ? 10 : 60);
             return 1.0f / (seconds * 20.0f);
+        }
+
+        /** {@link #chunkLoaderMaxPerPlayer} clamped to 0..{@link #MAX_CHUNK_LOADERS_PER_PLAYER}; 0 = no limit. */
+        public int chunkLoaderLimit() {
+            return (int) capped(chunkLoaderMaxPerPlayer, 0, MAX_CHUNK_LOADERS_PER_PLAYER, 9);
         }
 
         public boolean chunkLoaderBlockedIn(net.minecraft.resources.Identifier dimension) {

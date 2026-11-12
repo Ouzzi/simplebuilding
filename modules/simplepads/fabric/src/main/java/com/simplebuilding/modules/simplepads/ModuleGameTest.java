@@ -393,6 +393,18 @@ public final class ModuleGameTest {
         PadsTests.ALL.get("chunk_loaders_force_their_chunks_and_release_only_their_own").accept(h);
     }
 
+    /** a-chunk36: per-player limit (default 9), operators exempt, the loader over the limit moves up. */
+    @GameTest
+    public void chunkLoadersStopAtThePerPlayerLimitExceptForOperators(GameTestHelper h) {
+        PadsTests.ALL.get("chunk_loaders_stop_at_the_per_player_limit_except_for_operators").accept(h);
+    }
+
+    /** a-chunk36: redstone switches a chunk loader off (releases, state disabled, broken particles) and on again. */
+    @GameTest
+    public void redstoneSwitchesAChunkLoaderOffAndOnAgain(GameTestHelper h) {
+        PadsTests.ALL.get("redstone_switches_a_chunk_loader_off_and_on_again").accept(h);
+    }
+
     @GameTest
     public void theFirstJoinGiftComesOnceAndHonoursSimpleTweaksPlayers(GameTestHelper h) {
         PadsTests.ALL.get("the_first_join_gift_comes_once_and_honours_simple_tweaks_players").accept(h);
